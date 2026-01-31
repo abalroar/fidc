@@ -47,24 +47,59 @@ def _collect_outputs(df: pd.DataFrame, start_row: int, label_col: int) -> List[s
     return outputs
 
 
+def _find_sheet(xls: pd.ExcelFile, candidates: List[str]) -> Optional[str]:
+    """Find a sheet name matching one of the candidates (case-insensitive)."""
+    sheet_names_lower = {s.lower(): s for s in xls.sheet_names}
+    for candidate in candidates:
+        if candidate.lower() in sheet_names_lower:
+            return sheet_names_lower[candidate.lower()]
+    return None
+
+
 def load_excel_inputs(path: str) -> ExcelInputs:
     xls = pd.ExcelFile(path)
-    fluxo_base = pd.read_excel(xls, sheet_name="Fluxo Base", header=None)
-    bmf = pd.read_excel(xls, sheet_name="BMF", header=0)
-    holidays_df = pd.read_excel(xls, sheet_name="Holidays", header=None)
-    vencimentario = pd.read_excel(xls, sheet_name="Vencimentário", header=None)
+
+    fluxo_base: Optional[pd.DataFrame] = None
+    bmf: Optional[pd.DataFrame] = None
+    holidays_df: Optional[pd.DataFrame] = None
+    vencimentario: Optional[pd.DataFrame] = None
+
+    # Try to find sheets with flexible names
+    fluxo_sheet = _find_sheet(xls, ["Fluxo Base", "FluxoBase", "Fluxo", "Base", "Principal"])
+    if fluxo_sheet:
+        fluxo_base = pd.read_excel(xls, sheet_name=fluxo_sheet, header=None)
+
+    bmf_sheet = _find_sheet(xls, ["BMF", "Curva", "DI", "Curve", "Taxas"])
+    if bmf_sheet:
+        bmf = pd.read_excel(xls, sheet_name=bmf_sheet, header=0)
+
+    holidays_sheet = _find_sheet(xls, ["Holidays", "Feriados", "Holiday", "Feriado"])
+    if holidays_sheet:
+        holidays_df = pd.read_excel(xls, sheet_name=holidays_sheet, header=None)
+
+    venc_sheet = _find_sheet(xls, ["Vencimentário", "Vencimentario", "Vencimentos", "Schedule"])
+    if venc_sheet:
+        vencimentario = pd.read_excel(xls, sheet_name=venc_sheet, header=None)
+
+    # If no main sheet found, try the first sheet
+    if fluxo_base is None and len(xls.sheet_names) > 0:
+        fluxo_base = pd.read_excel(xls, sheet_name=xls.sheet_names[0], header=None)
 
     premissas: Dict[str, Any] = {}
     outputs: List[str] = []
-    premissa_cell = _find_cell(fluxo_base, "PREMISSAS")
-    if premissa_cell:
-        premissas = _collect_premissas(fluxo_base, premissa_cell[0], premissa_cell[1])
 
-    outputs_cell = _find_cell(fluxo_base, "OUTPUTS")
-    if outputs_cell:
-        outputs = _collect_outputs(fluxo_base, outputs_cell[0], outputs_cell[1])
+    if fluxo_base is not None:
+        premissa_cell = _find_cell(fluxo_base, "PREMISSAS")
+        if premissa_cell:
+            premissas = _collect_premissas(fluxo_base, premissa_cell[0], premissa_cell[1])
 
-    holidays = _extract_holidays(holidays_df)
+        outputs_cell = _find_cell(fluxo_base, "OUTPUTS")
+        if outputs_cell:
+            outputs = _collect_outputs(fluxo_base, outputs_cell[0], outputs_cell[1])
+
+    holidays: Optional[List[pd.Timestamp]] = None
+    if holidays_df is not None:
+        holidays = _extract_holidays(holidays_df)
 
     return ExcelInputs(
         premissas=premissas,

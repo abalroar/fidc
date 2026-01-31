@@ -59,7 +59,7 @@ st.title("Modelo de Amortização FIDC")
 
 with st.sidebar:
     st.header("Premissas")
-    excel_file = st.file_uploader("Carregar planilha Excel", type=["xlsx", "xls"])
+    excel_file = st.file_uploader("Carregar planilha Excel", type=["xlsx", "xls", "xlsm"])
 
     premissas = {}
     curve = None
@@ -67,20 +67,37 @@ with st.sidebar:
     outputs = []
 
     if excel_file:
-        with st.spinner("Lendo planilha..."):
-            excel_inputs = load_excel_inputs(excel_file)
-            premissas = excel_inputs.premissas
-            outputs = excel_inputs.outputs
-            curve = infer_curve(excel_inputs.bmf)
-            holiday_calendar = excel_inputs.holidays
+        try:
+            with st.spinner("Lendo planilha..."):
+                excel_inputs = load_excel_inputs(excel_file)
+                premissas = excel_inputs.premissas
+                outputs = excel_inputs.outputs
+                curve = infer_curve(excel_inputs.bmf)
+                holiday_calendar = excel_inputs.holidays
 
-        if premissas:
-            st.caption("Premissas identificadas na planilha")
-            st.json(premissas)
+            # Show what was found
+            found_items = []
+            if excel_inputs.fluxo_base is not None:
+                found_items.append("Fluxo Base")
+            if excel_inputs.bmf is not None:
+                found_items.append("BMF/Curva")
+            if excel_inputs.holidays is not None:
+                found_items.append("Feriados")
+            if excel_inputs.vencimentario is not None:
+                found_items.append("Vencimentário")
 
-        if outputs:
-            st.caption("Outputs listados na planilha")
-            st.write(outputs)
+            if found_items:
+                st.success(f"Abas encontradas: {', '.join(found_items)}")
+
+            if premissas:
+                st.caption("Premissas identificadas na planilha")
+                st.json(premissas)
+
+            if outputs:
+                st.caption("Outputs listados na planilha")
+                st.write(outputs)
+        except Exception as e:
+            st.error(f"Erro ao ler planilha: {e}")
 
     volume = st.number_input(
         "Volume (R$)",
