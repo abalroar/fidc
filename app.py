@@ -30,11 +30,19 @@ def _extract_model_pack(file_bytes: bytes) -> Dict[str, Any]:
         "cells": {},
     }
 
-    for defined_name in workbook.defined_names.definedName:
+    defined_names = workbook.defined_names
+    if hasattr(defined_names, "definedName"):
+        defined_name_items = defined_names.definedName
+    elif hasattr(defined_names, "defined_names"):
+        defined_name_items = defined_names.defined_names
+    else:
+        defined_name_items = []
+
+    for defined_name in defined_name_items:
         output["named_ranges"].append(
             {
                 "name": defined_name.name,
-                "refers_to": defined_name.attr_text,
+                "refers_to": defined_name.attr_text or "",
             }
         )
 
