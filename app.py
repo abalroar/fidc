@@ -3,6 +3,7 @@ from __future__ import annotations
 import io
 from typing import Dict
 
+import numpy as np
 import pandas as pd
 import streamlit as st
 
@@ -24,6 +25,32 @@ DEFAULTS: Dict[str, float] = {
     "periods": 24,
     "frequency_months": 3,
 }
+
+
+def _safe_float(value: object, default: float) -> float:
+    try:
+        if value is None:
+            return default
+        if isinstance(value, float) and np.isnan(value):
+            return default
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _normalize_rate(value: object, default: float) -> float:
+    rate = _safe_float(value, default)
+    if rate > 1:
+        return rate / 100
+    return rate
+
+
+def _select_frequency_index(value: object, default: int) -> int:
+    options = [1, 3, 6]
+    frequency = int(_safe_float(value, default))
+    if frequency not in options:
+        frequency = default
+    return options.index(frequency)
 
 
 st.set_page_config(page_title="FIDC Amortização", layout="wide")
@@ -55,12 +82,16 @@ with st.sidebar:
             st.caption("Outputs listados na planilha")
             st.write(outputs)
 
-    volume = st.number_input("Volume (R$)", min_value=0.0, value=float(premissas.get("Volume", DEFAULTS["volume"])) )
+    volume = st.number_input(
+        "Volume (R$)",
+        min_value=0.0,
+        value=_safe_float(premissas.get("Volume"), DEFAULTS["volume"]),
+    )
     asset_rate_aa = st.slider(
         "Taxa da carteira (a.a.)",
         min_value=0.0,
         max_value=0.5,
-        value=float(premissas.get("Taxa de cessão", DEFAULTS["asset_rate_aa"])),
+        value=_normalize_rate(premissas.get("Taxa de cessão"), DEFAULTS["asset_rate_aa"]),
         step=0.005,
         format="%.3f",
     )
@@ -68,20 +99,20 @@ with st.sidebar:
         "Custo de administração (a.a.)",
         min_value=0.0,
         max_value=0.1,
-        value=float(premissas.get("Custo de administração", DEFAULTS["admin_rate_aa"])),
+        value=_normalize_rate(premissas.get("Custo de administração"), DEFAULTS["admin_rate_aa"]),
         step=0.001,
         format="%.3f",
     )
     admin_min_period = st.number_input(
         "Custo mínimo por período",
         min_value=0.0,
-        value=float(premissas.get("Custo mínimo", DEFAULTS["admin_min_period"])),
+        value=_safe_float(premissas.get("Custo mínimo"), DEFAULTS["admin_min_period"]),
     )
     loss_rate_aa = st.slider(
         "Perdas/Inadimplência (a.a.)",
         min_value=0.0,
         max_value=0.2,
-        value=float(premissas.get("Perdas", DEFAULTS["loss_rate_aa"])),
+        value=_normalize_rate(premissas.get("Perdas"), DEFAULTS["loss_rate_aa"]),
         step=0.001,
         format="%.3f",
     )
@@ -91,21 +122,21 @@ with st.sidebar:
         "Senior (% do PL)",
         min_value=0.0,
         max_value=1.0,
-        value=float(premissas.get("Senior %", DEFAULTS["senior_share"])),
+        value=_normalize_rate(premissas.get("Senior %"), DEFAULTS["senior_share"]),
         step=0.01,
     )
     mezz_share = st.slider(
         "Mezz (% do PL)",
         min_value=0.0,
         max_value=1.0,
-        value=float(premissas.get("Mezz %", DEFAULTS["mezz_share"])),
+        value=_normalize_rate(premissas.get("Mezz %"), DEFAULTS["mezz_share"]),
         step=0.01,
     )
     junior_share = st.slider(
         "Junior (% do PL)",
         min_value=0.0,
         max_value=1.0,
-        value=float(premissas.get("Junior %", DEFAULTS["junior_share"])),
+        value=_normalize_rate(premissas.get("Junior %"), DEFAULTS["junior_share"]),
         step=0.01,
     )
 
@@ -116,7 +147,7 @@ with st.sidebar:
         "Cupom Senior (a.a.)",
         min_value=0.0,
         max_value=0.3,
-        value=float(premissas.get("Cupom Senior", DEFAULTS["senior_rate_aa"])),
+        value=_normalize_rate(premissas.get("Cupom Senior"), DEFAULTS["senior_rate_aa"]),
         step=0.001,
         format="%.3f",
     )
@@ -124,18 +155,22 @@ with st.sidebar:
         "Cupom Mezz (a.a.)",
         min_value=0.0,
         max_value=0.3,
-        value=float(premissas.get("Cupom Mezz", DEFAULTS["mezz_rate_aa"])),
+        value=_normalize_rate(premissas.get("Cupom Mezz"), DEFAULTS["mezz_rate_aa"]),
         step=0.001,
         format="%.3f",
     )
 
     st.subheader("Linha do tempo")
     start_date = st.date_input("Data inicial", value=pd.Timestamp.today().date())
-    periods = st.number_input("Número de períodos", min_value=1, value=int(premissas.get("Prazo", DEFAULTS["periods"])))
+    periods = st.number_input(
+        "Número de períodos",
+        min_value=1,
+        value=int(_safe_float(premissas.get("Prazo"), DEFAULTS["periods"])),
+    )
     frequency_months = st.selectbox(
         "Periodicidade (meses)",
         options=[1, 3, 6],
-        index=[1, 3, 6].index(int(premissas.get("Periodicidade", DEFAULTS["frequency_months"]))),
+        index=_select_frequency_index(premissas.get("Periodicidade"), DEFAULTS["frequency_months"]),
     )
 
 inputs = ModelInputs(
