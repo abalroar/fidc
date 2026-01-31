@@ -1,7 +1,7 @@
 # Upload de Modelo Financeiro (Streamlit)
 
-Aplicação Streamlit simplificada para receber um arquivo **.xlsm** e preparar a migração
-para a plataforma.
+Aplicação Streamlit para receber um arquivo **.xlsm** e gerar um JSON com abas,
+intervalos nomeados e fórmulas, facilitando a migração do modelo para a plataforma.
 
 ## Requisitos
 
@@ -24,7 +24,8 @@ streamlit run app.py
 
 - Permite enviar um arquivo `.xlsm`.
 - Exibe nome, tamanho e hash do arquivo enviado.
-- Oferece o download do arquivo original.
+- Extrai abas, intervalos nomeados e fórmulas.
+- Oferece o download do JSON com as fórmulas.
 
 ## Próximos passos esperados
 

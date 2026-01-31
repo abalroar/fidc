@@ -1,8 +1,12 @@
 from __future__ import annotations
 
 import hashlib
+import io
+import json
+from typing import Any, Dict, List
 
 import streamlit as st
+from openpyxl import load_workbook
 
 
 st.set_page_config(page_title="Upload de Modelo FIDC", page_icon="📄", layout="wide")
@@ -10,11 +14,45 @@ st.set_page_config(page_title="Upload de Modelo FIDC", page_icon="📄", layout=
 st.title("Upload do modelo financeiro (.xlsm)")
 st.markdown(
     """
-Este site foi simplificado para você enviar o seu modelo financeiro em formato **.xlsm**.
-Assim que o arquivo estiver disponível, poderei analisar a estrutura e ajudar a migrar
-as funcionalidades para a plataforma.
+Envie o seu modelo financeiro em formato **.xlsm**. O app extrai a lista de abas,
+intervalos nomeados e todas as fórmulas encontradas, gerando um arquivo JSON para
+análise posterior.
 """
 )
+
+
+def _extract_model_pack(file_bytes: bytes) -> Dict[str, Any]:
+    workbook = load_workbook(io.BytesIO(file_bytes), keep_vba=True, data_only=False)
+
+    output: Dict[str, Any] = {
+        "sheets": workbook.sheetnames,
+        "named_ranges": [],
+        "cells": {},
+    }
+
+    for defined_name in workbook.defined_names.definedName:
+        output["named_ranges"].append(
+            {
+                "name": defined_name.name,
+                "refers_to": defined_name.attr_text,
+            }
+        )
+
+    for worksheet in workbook.worksheets:
+        sheet_cells: List[Dict[str, str]] = []
+        for row in worksheet.iter_rows():
+            for cell in row:
+                if cell.data_type == "f":
+                    sheet_cells.append(
+                        {
+                            "addr": cell.coordinate,
+                            "formula": cell.value,
+                        }
+                    )
+        output["cells"][worksheet.title] = sheet_cells
+
+    return output
+
 
 left, right = st.columns([2, 1], gap="large")
 
@@ -24,7 +62,7 @@ with left:
         "Selecione um arquivo .xlsm",
         type=["xlsm"],
         accept_multiple_files=False,
-        help="O arquivo não é processado ainda — apenas armazenado para análise posterior.",
+        help="O arquivo é processado localmente para gerar o JSON de fórmulas.",
     )
 
     if uploaded_file is None:
@@ -41,6 +79,32 @@ with left:
                 "Tamanho (MB)": f"{file_size_mb:.2f}",
                 "SHA256": file_hash,
             }
+        )
+
+        with st.spinner("Extraindo fórmulas e intervalos nomeados..."):
+            model_pack = _extract_model_pack(file_bytes)
+
+        st.subheader("Resumo do modelo")
+        st.write(
+            {
+                "Total de abas": len(model_pack["sheets"]),
+                "Total de intervalos nomeados": len(model_pack["named_ranges"]),
+                "Total de fórmulas": sum(
+                    len(cells) for cells in model_pack["cells"].values()
+                ),
+            }
+        )
+
+        st.caption("Primeiras abas detectadas")
+        st.write(model_pack["sheets"][:10])
+
+        json_payload = json.dumps(model_pack, ensure_ascii=False, indent=2)
+
+        st.download_button(
+            "Baixar JSON de fórmulas",
+            data=json_payload,
+            file_name="model_pack_formulas.json",
+            mime="application/json",
         )
 
         st.download_button(
