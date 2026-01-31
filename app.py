@@ -51,10 +51,13 @@ def _extract_model_pack(file_bytes: bytes) -> Dict[str, Any]:
         for row in worksheet.iter_rows():
             for cell in row:
                 if cell.data_type == "f":
+                    formula_value = cell.value
+                    if not isinstance(formula_value, str):
+                        formula_value = str(formula_value)
                     sheet_cells.append(
                         {
                             "addr": cell.coordinate,
-                            "formula": cell.value,
+                            "formula": formula_value,
                         }
                     )
         output["cells"][worksheet.title] = sheet_cells
