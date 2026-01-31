@@ -1,6 +1,7 @@
-# FIDC Amortização (Streamlit)
+# Upload de Modelo Financeiro (Streamlit)
 
-App Streamlit para simular cronograma de amortização e waterfall por classes de cotas.
+Aplicação Streamlit para receber um arquivo **.xlsm** e gerar um JSON com abas,
+intervalos nomeados e fórmulas, facilitando a migração do modelo para a plataforma.
 
 ## Requisitos
 
@@ -19,27 +20,14 @@ streamlit run app.py
 
 > Execute o comando na raiz do repositório (mesma pasta de `app.py`).
 
-## Uso da planilha
+## O que o app faz
 
-O upload da planilha é feito **pela interface**, na barra lateral. Não há caminho fixo em disco.
+- Permite enviar um arquivo `.xlsm`.
+- Exibe nome, tamanho e hash do arquivo enviado.
+- Extrai abas, intervalos nomeados e fórmulas.
+- Oferece o download do JSON com as fórmulas.
 
-A planilha, quando enviada, deve conter as abas:
+## Próximos passos esperados
 
-- `Fluxo Base`
-- `BMF`
-- `Holidays`
-- `Vencimentário`
-
-Se alguma aba não existir, o app exibe aviso e segue com defaults.
-
-## Estrutura do projeto
-
-- `app.py`: interface Streamlit (inputs, gráficos, exportações).
-- `fidc/excel.py`: leitura da planilha e extração de premissas/outputs/feriados.
-- `fidc/model.py`: motor de cálculo (fluxo do ativo, waterfall e KPIs).
-
-## Troubleshooting
-
-- **ModuleNotFoundError**: execute `pip install -r requirements.txt`.
-- **Erro ao importar `fidc`**: rode o `streamlit run app.py` na raiz do repo.
-- **Erro ao ler Excel**: confirme se as abas obrigatórias existem.
+- Mapear abas, cálculos e saídas do modelo financeiro.
+- Transformar a lógica em componentes da plataforma.
