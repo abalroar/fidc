@@ -1,7 +1,7 @@
-# Upload de Modelo Financeiro (Streamlit)
+# Modelo Financeiro FIDC (Streamlit)
 
-Aplicação Streamlit para receber um arquivo **.xlsm** e gerar um JSON com abas,
-intervalos nomeados e fórmulas, facilitando a migração do modelo para a plataforma.
+Aplicação Streamlit para rodar o modelo financeiro do FIDC com dados base em
+`model_data.json` (sem depender de upload do `.xlsm`).
 
 ## Requisitos
 
@@ -22,12 +22,12 @@ streamlit run app.py
 
 ## O que o app faz
 
-- Permite enviar um arquivo `.xlsm`.
-- Exibe nome, tamanho e hash do arquivo enviado.
-- Extrai abas, intervalos nomeados e fórmulas.
-- Oferece o download do JSON com as fórmulas.
+- Carrega premissas, feriados, curvas e timeline do `model_data.json`.
+- Permite ajustar premissas via inputs numéricos e sliders.
+- Exibe KPIs, gráficos e tabela da timeline.
+- Oferece exportação de resultados em CSV/Excel.
 
-## Próximos passos esperados
+## Dados
 
-- Mapear abas, cálculos e saídas do modelo financeiro.
-- Transformar a lógica em componentes da plataforma.
+O arquivo `model_data.json` contém os dados base extraídos do modelo original
+(premissas, feriados, curva CDI/DU e amostra de validação).
