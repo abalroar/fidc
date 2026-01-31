@@ -49,10 +49,10 @@ def _interpolate_curve(curve: pd.DataFrame, dates: List[pd.Timestamp]) -> List[f
 
 
 def _business_days(start: pd.Timestamp, end: pd.Timestamp, holidays: Optional[List[pd.Timestamp]]) -> int:
-    holiday_list = None
-    if holidays:
-        holiday_list = [pd.Timestamp(day).date() for day in holidays]
-    return np.busday_count(start.date(), end.date(), holidays=holiday_list)
+    if holidays and len(holidays) > 0:
+        holiday_array = np.array([pd.Timestamp(day).date() for day in holidays], dtype="datetime64[D]")
+        return int(np.busday_count(start.date(), end.date(), holidays=holiday_array))
+    return int(np.busday_count(start.date(), end.date()))
 
 
 def generate_timeline(start_date: pd.Timestamp, periods: int, frequency_months: int) -> List[pd.Timestamp]:
