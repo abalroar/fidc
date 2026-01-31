@@ -40,7 +40,11 @@ with st.sidebar:
     if total_prop > 1.0:
         st.warning("A soma das proporções Sr + Mezz excede 100%. Ajuste para continuar.")
 
-    st.divider()
+    divider = getattr(st, "divider", None)
+    if callable(divider):
+        divider()
+    else:
+        st.markdown("---")
     st.caption("Dados base")
     if st.button("Recarregar model_data.json"):
         load_inputs.clear()
