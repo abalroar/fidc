@@ -59,7 +59,17 @@ def generate_timeline(start_date: pd.Timestamp, periods: int, frequency_months: 
     return [start_date + pd.DateOffset(months=frequency_months * idx) for idx in range(periods + 1)]
 
 
+def _validate_inputs(inputs: ModelInputs) -> None:
+    if inputs.periods <= 0:
+        raise ValueError("Número de períodos deve ser positivo.")
+    total_share = inputs.senior_share + inputs.mezz_share + inputs.junior_share
+    if not np.isclose(total_share, 1.0, atol=1e-3):
+        raise ValueError("A soma das participações de cotas deve ser 100%.")
+
+
 def run_model(inputs: ModelInputs) -> ModelOutputs:
+    _validate_inputs(inputs)
+
     periods_per_year = int(round(12 / inputs.frequency_months))
     dates = generate_timeline(inputs.start_date, inputs.periods, inputs.frequency_months)
     period_dates = dates[1:]

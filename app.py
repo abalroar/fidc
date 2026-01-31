@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import io
-from typing import Dict
+from dataclasses import asdict
+from typing import Dict, Optional
 
 import numpy as np
 import pandas as pd
 import streamlit as st
 
-from fidc.excel import infer_curve, load_excel_inputs
+from fidc.excel import ExcelInputs, infer_curve, load_excel_inputs
 from fidc.model import ModelInputs, run_model
 
 
@@ -53,47 +54,15 @@ def _select_frequency_index(value: object, default: int) -> int:
     return options.index(frequency)
 
 
-st.set_page_config(page_title="FIDC Amortização", layout="wide")
-
-st.title("Modelo de Amortização FIDC")
-
 @st.cache_data(show_spinner=False)
-def _load_excel(file_bytes: bytes):
+def _load_excel(file_bytes: bytes) -> ExcelInputs:
     return load_excel_inputs(io.BytesIO(file_bytes))
 
 
-with st.sidebar:
+def _sidebar_premissas(excel_inputs: Optional[ExcelInputs]) -> Dict[str, object]:
+    premissas = excel_inputs.premissas if excel_inputs else {}
+
     st.header("Premissas")
-    excel_file = st.file_uploader("Carregar planilha Excel", type=["xlsx", "xls"])
-
-    premissas = {}
-    curve = None
-    holiday_calendar = None
-    outputs = []
-
-    if excel_file:
-        with st.spinner("Lendo planilha..."):
-            excel_inputs = _load_excel(excel_file.getvalue())
-            premissas = excel_inputs.premissas
-            outputs = excel_inputs.outputs
-            curve = infer_curve(excel_inputs.bmf)
-            holiday_calendar = excel_inputs.holidays
-
-        if excel_inputs.missing_sheets:
-            st.warning(
-                "Planilha sem abas esperadas: "
-                + ", ".join(excel_inputs.missing_sheets)
-                + ". O app vai rodar com defaults."
-            )
-
-        if premissas:
-            st.caption("Premissas identificadas na planilha")
-            st.json(premissas)
-
-        if outputs:
-            st.caption("Outputs listados na planilha")
-            st.write(outputs)
-
     volume = st.number_input(
         "Volume (R$)",
         min_value=0.0,
@@ -185,20 +154,70 @@ with st.sidebar:
         index=_select_frequency_index(premissas.get("Periodicidade"), DEFAULTS["frequency_months"]),
     )
 
+    return {
+        "volume": volume,
+        "asset_rate_aa": asset_rate_aa,
+        "admin_rate_aa": admin_rate_aa,
+        "admin_min_period": admin_min_period,
+        "loss_rate_aa": loss_rate_aa,
+        "senior_share": senior_share,
+        "mezz_share": mezz_share,
+        "junior_share": junior_share,
+        "senior_rate_aa": senior_rate_aa,
+        "mezz_rate_aa": mezz_rate_aa,
+        "start_date": start_date,
+        "periods": periods,
+        "frequency_months": frequency_months,
+    }
+
+
+st.set_page_config(page_title="FIDC Amortização", layout="wide")
+st.title("Modelo de Amortização FIDC")
+
+with st.sidebar:
+    excel_file = st.file_uploader("Carregar planilha Excel", type=["xlsx", "xls"])
+
+    excel_inputs: Optional[ExcelInputs] = None
+    curve = None
+    holiday_calendar = None
+
+    if excel_file:
+        with st.spinner("Lendo planilha..."):
+            excel_inputs = _load_excel(excel_file.getvalue())
+            curve = infer_curve(excel_inputs.bmf)
+            holiday_calendar = excel_inputs.holidays
+
+        if excel_inputs.missing_sheets:
+            st.warning(
+                "Planilha sem abas esperadas: "
+                + ", ".join(excel_inputs.missing_sheets)
+                + ". O app vai rodar com defaults."
+            )
+
+        if excel_inputs.premissas:
+            st.caption("Premissas identificadas na planilha")
+            st.json(excel_inputs.premissas)
+
+        if excel_inputs.outputs:
+            st.caption("Outputs listados na planilha")
+            st.write(excel_inputs.outputs)
+
+    premissas_ui = _sidebar_premissas(excel_inputs)
+
 inputs = ModelInputs(
-    volume=volume,
-    start_date=pd.Timestamp(start_date),
-    periods=int(periods),
-    frequency_months=int(frequency_months),
-    asset_rate_aa=float(asset_rate_aa),
-    admin_rate_aa=float(admin_rate_aa),
-    admin_min_period=float(admin_min_period),
-    loss_rate_aa=float(loss_rate_aa),
-    senior_share=float(senior_share),
-    mezz_share=float(mezz_share),
-    junior_share=float(junior_share),
-    senior_rate_aa=float(senior_rate_aa),
-    mezz_rate_aa=float(mezz_rate_aa),
+    volume=float(premissas_ui["volume"]),
+    start_date=pd.Timestamp(premissas_ui["start_date"]),
+    periods=int(premissas_ui["periods"]),
+    frequency_months=int(premissas_ui["frequency_months"]),
+    asset_rate_aa=float(premissas_ui["asset_rate_aa"]),
+    admin_rate_aa=float(premissas_ui["admin_rate_aa"]),
+    admin_min_period=float(premissas_ui["admin_min_period"]),
+    loss_rate_aa=float(premissas_ui["loss_rate_aa"]),
+    senior_share=float(premissas_ui["senior_share"]),
+    mezz_share=float(premissas_ui["mezz_share"]),
+    junior_share=float(premissas_ui["junior_share"]),
+    senior_rate_aa=float(premissas_ui["senior_rate_aa"]),
+    mezz_rate_aa=float(premissas_ui["mezz_rate_aa"]),
     holiday_calendar=holiday_calendar,
     curve=curve,
 )
@@ -224,6 +243,8 @@ st.bar_chart(flow_chart)
 st.subheader("Timeline")
 st.dataframe(results.timeline, use_container_width=True)
 
+st.subheader("Exportar resultados")
+
 csv_buffer = io.StringIO()
 results.timeline.to_csv(csv_buffer, index=False)
 
@@ -232,6 +253,8 @@ with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
     results.timeline.to_excel(writer, index=False, sheet_name="timeline")
     kpi_df = pd.DataFrame([results.kpis])
     kpi_df.to_excel(writer, index=False, sheet_name="kpis")
+    premissas_df = pd.DataFrame([asdict(inputs)])
+    premissas_df.to_excel(writer, index=False, sheet_name="premissas")
 
 st.download_button("Exportar CSV", data=csv_buffer.getvalue(), file_name="fidc_timeline.csv", mime="text/csv")
 st.download_button(

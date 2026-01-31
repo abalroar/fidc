@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 import pandas as pd
 
@@ -29,47 +29,38 @@ def _find_cell(df: pd.DataFrame, target: str) -> Optional[Tuple[int, int]]:
     return None
 
 
-def _collect_premissas(df: pd.DataFrame, start_row: int, label_col: int) -> Dict[str, Any]:
-    premissas: Dict[str, Any] = {}
+def _collect_labels(df: pd.DataFrame, start_row: int, label_col: int) -> List[str]:
+    labels: List[str] = []
     for row_idx in range(start_row + 1, df.shape[0]):
         label = df.iat[row_idx, label_col]
-        value = df.iat[row_idx, label_col + 1] if label_col + 1 < df.shape[1] else None
         if pd.isna(label) or str(label).strip() == "":
             break
+        labels.append(str(label).strip())
+    return labels
+
+
+def _collect_premissas(df: pd.DataFrame, start_row: int, label_col: int) -> Dict[str, Any]:
+    premissas: Dict[str, Any] = {}
+    for row_idx, label in enumerate(_collect_labels(df, start_row, label_col), start=start_row + 1):
+        value = df.iat[row_idx, label_col + 1] if label_col + 1 < df.shape[1] else None
         premissas[str(label).strip()] = value
     return premissas
 
 
-def _collect_outputs(df: pd.DataFrame, start_row: int, label_col: int) -> List[str]:
-    outputs: List[str] = []
-    for row_idx in range(start_row + 1, df.shape[0]):
-        label = df.iat[row_idx, label_col]
-        if pd.isna(label) or str(label).strip() == "":
-            break
-        outputs.append(str(label).strip())
-    return outputs
-
-
-def load_excel_inputs(path: str) -> ExcelInputs:
-    xls = pd.ExcelFile(path)
+def load_excel_inputs(path_or_buffer: Union[str, "pd.io.common.FilePathOrBuffer"]) -> ExcelInputs:
+    xls = pd.ExcelFile(path_or_buffer)
     missing_sheets = [sheet for sheet in REQUIRED_SHEETS if sheet not in xls.sheet_names]
 
-    fluxo_base = None
-    bmf = None
-    holidays_df = None
-    vencimentario = None
-
-    if "Fluxo Base" in xls.sheet_names:
-        fluxo_base = pd.read_excel(xls, sheet_name="Fluxo Base", header=None)
-    if "BMF" in xls.sheet_names:
-        bmf = pd.read_excel(xls, sheet_name="BMF", header=0)
-    if "Holidays" in xls.sheet_names:
-        holidays_df = pd.read_excel(xls, sheet_name="Holidays", header=None)
-    if "Vencimentário" in xls.sheet_names:
-        vencimentario = pd.read_excel(xls, sheet_name="Vencimentário", header=None)
+    fluxo_base = pd.read_excel(xls, sheet_name="Fluxo Base", header=None) if "Fluxo Base" in xls.sheet_names else None
+    bmf = pd.read_excel(xls, sheet_name="BMF", header=0) if "BMF" in xls.sheet_names else None
+    holidays_df = pd.read_excel(xls, sheet_name="Holidays", header=None) if "Holidays" in xls.sheet_names else None
+    vencimentario = (
+        pd.read_excel(xls, sheet_name="Vencimentário", header=None) if "Vencimentário" in xls.sheet_names else None
+    )
 
     premissas: Dict[str, Any] = {}
     outputs: List[str] = []
+
     if fluxo_base is not None:
         premissa_cell = _find_cell(fluxo_base, "PREMISSAS")
         if premissa_cell:
@@ -77,7 +68,7 @@ def load_excel_inputs(path: str) -> ExcelInputs:
 
         outputs_cell = _find_cell(fluxo_base, "OUTPUTS")
         if outputs_cell:
-            outputs = _collect_outputs(fluxo_base, outputs_cell[0], outputs_cell[1])
+            outputs = _collect_labels(fluxo_base, outputs_cell[0], outputs_cell[1])
 
     holidays = _extract_holidays(holidays_df) if holidays_df is not None else []
 
