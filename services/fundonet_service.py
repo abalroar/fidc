@@ -177,10 +177,24 @@ class InformeMensalService:
         if contas_df.empty:
             return pd.DataFrame(columns=base_columns)
 
+        required_source_columns = [
+            "documento_id",
+            "data_referencia",
+            "conta_codigo",
+            "conta_descricao",
+            "conta_caminho",
+            "valor",
+        ]
+        missing_columns = [col for col in required_source_columns if col not in contas_df.columns]
+        if missing_columns:
+            missing = ", ".join(missing_columns)
+            raise ValueError(f"Contrato inválido do parser: colunas ausentes em contas_df: {missing}")
+
         tidy_df = contas_df.copy()
         tidy_df["cnpj_fundo"] = cnpj_fundo
         tidy_df["fonte"] = "fundonet"
-        return tidy_df[base_columns]
+        extra_columns = [col for col in tidy_df.columns if col not in base_columns]
+        return tidy_df[base_columns + extra_columns]
 
 
 def is_informe_mensal_estruturado(doc: DocumentoFundo) -> bool:
