@@ -31,3 +31,26 @@ streamlit run app.py
 
 O arquivo `model_data.json` contém os dados base extraídos do modelo original
 (premissas, feriados, curva CDI/DU e amostra de validação).
+
+## Pipeline Fundos.NET (CVM)
+
+Para automatizar download de **Informes Mensais Estruturados (FIDC)** via endpoint público do Fundos.NET:
+
+```bash
+python fundonet_fidc_pipeline.py \
+  --cnpj-fundo 12345678000199 \
+  --periodo-inicio Jan-25 \
+  --periodo-fim Jan-26 \
+  --output-dir saida_fundonet
+```
+
+Saídas geradas:
+- `documentos_filtrados.csv`: metadados dos documentos encontrados.
+- `contas_empilhadas.csv`: contas extraídas dos XMLs no formato empilhado (tidy).
+- `fidc_informes_mensais_estruturados.xlsx`: abas `documentos` e `contas`.
+- `<id>.xml`: XML bruto de cada documento baixado.
+
+Observações:
+- O script pagina automaticamente o endpoint `pesquisarGerenciadorDocumentosDados`.
+- O download é feito por `downloadDocumento?id=...`.
+- O filtro de documentos seleciona linhas com termos equivalentes a "Informe Mensal Estruturado".
