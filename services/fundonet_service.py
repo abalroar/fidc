@@ -141,8 +141,12 @@ class InformeMensalService:
             conta_df["coluna_informe"] = doc.coluna_informe
             contas_frames.append(conta_df)
 
-        contas_df = pd.concat(contas_frames, ignore_index=True) if contas_frames else pd.DataFrame()
-        wide_df = build_wide_dataset(contas_df, docs_df)
+        contas_base_df = pd.concat(contas_frames, ignore_index=True) if contas_frames else pd.DataFrame()
+        contas_df = self._build_tidy_contract(
+            contas_df=contas_base_df,
+            cnpj_fundo=cnpj,
+        )
+        wide_df = build_wide_dataset(contas_base_df, docs_df)
         excel_bytes = build_excel_bytes(wide_df)
         add_audit("montagem_dataset", "ok", "Dataset final e excel gerados.", {"linhas_wide": len(wide_df)})
         audit_df = pd.DataFrame(audit_rows)
@@ -157,6 +161,26 @@ class InformeMensalService:
     @staticmethod
     def _to_br_date(dt: date) -> str:
         return dt.strftime("%d/%m/%Y")
+
+    @staticmethod
+    def _build_tidy_contract(contas_df: pd.DataFrame, cnpj_fundo: str) -> pd.DataFrame:
+        base_columns = [
+            "cnpj_fundo",
+            "documento_id",
+            "data_referencia",
+            "conta_codigo",
+            "conta_descricao",
+            "conta_caminho",
+            "valor",
+            "fonte",
+        ]
+        if contas_df.empty:
+            return pd.DataFrame(columns=base_columns)
+
+        tidy_df = contas_df.copy()
+        tidy_df["cnpj_fundo"] = cnpj_fundo
+        tidy_df["fonte"] = "fundonet"
+        return tidy_df[base_columns]
 
 
 def is_informe_mensal_estruturado(doc: DocumentoFundo) -> bool:
