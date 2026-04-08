@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import date
 from io import BytesIO
+import json
 
 import pandas as pd
 import streamlit as st
@@ -151,6 +152,25 @@ def render_informes_tab() -> None:
             result = run_informes_mensais(cnpj_input, data_inicial, data_final)
         except FundosNetError as exc:
             st.error(f"Integração Fundos.NET falhou: {exc}")
+            if exc.details:
+                st.warning("Detalhes técnicos da falha:")
+                st.json(exc.details)
+            if exc.trace:
+                audit_df = pd.DataFrame(exc.trace)
+                st.subheader("Trilha de auditoria da execução (falha)")
+                st.dataframe(audit_df)
+                st.download_button(
+                    "Baixar auditoria da falha (CSV)",
+                    data=audit_df.to_csv(index=False).encode("utf-8"),
+                    file_name="auditoria_falha_fundonet.csv",
+                    mime="text/csv",
+                )
+                st.download_button(
+                    "Baixar auditoria da falha (JSON)",
+                    data=json.dumps(exc.trace, ensure_ascii=False, indent=2).encode("utf-8"),
+                    file_name="auditoria_falha_fundonet.json",
+                    mime="application/json",
+                )
             return
         except ValueError as exc:
             st.error(str(exc))
@@ -165,6 +185,21 @@ def render_informes_tab() -> None:
 
     st.subheader("Prévia do dataset final (colunas por informe)")
     st.dataframe(result.wide_df)
+
+    st.subheader("Trilha de auditoria da execução")
+    st.dataframe(result.audit_df)
+    st.download_button(
+        "Baixar auditoria da execução (CSV)",
+        data=result.audit_df.to_csv(index=False).encode("utf-8"),
+        file_name="auditoria_execucao_fundonet.csv",
+        mime="text/csv",
+    )
+    st.download_button(
+        "Baixar auditoria da execução (JSON)",
+        data=json.dumps(result.audit_df.to_dict(orient="records"), ensure_ascii=False, indent=2).encode("utf-8"),
+        file_name="auditoria_execucao_fundonet.json",
+        mime="application/json",
+    )
 
     st.download_button(
         "Baixar Excel de Informes Mensais Estruturados",

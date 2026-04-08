@@ -57,7 +57,13 @@ class FundosNetClient:
         )
         if response.status_code >= 500:
             raise ProviderUnavailableError(
-                f"Fundos.NET indisponível ao abrir gerenciador (HTTP {response.status_code})."
+                f"Fundos.NET indisponível ao abrir gerenciador (HTTP {response.status_code}).",
+                details={
+                    "etapa": "resolve_fundo",
+                    "endpoint": "abrirGerenciadorDocumentosCVM",
+                    "http_status": response.status_code,
+                    "cnpj_fundo": cnpj,
+                },
             )
 
         html = response.text
@@ -113,19 +119,41 @@ class FundosNetClient:
             )
             if response.status_code in (401, 403):
                 raise AuthenticationRequiredError(
-                    f"Listagem bloqueada pelo provedor (HTTP {response.status_code})."
+                    f"Listagem bloqueada pelo provedor (HTTP {response.status_code}).",
+                    details={
+                        "etapa": "listar_documentos",
+                        "endpoint": "pesquisarGerenciadorDocumentosDados",
+                        "http_status": response.status_code,
+                        "draw": draw,
+                        "start": start,
+                    },
                 )
             if response.status_code >= 500:
                 raise ProviderUnavailableError(
                     "Listagem de documentos retornou erro interno no provedor "
-                    f"(HTTP {response.status_code})."
+                    f"(HTTP {response.status_code}).",
+                    details={
+                        "etapa": "listar_documentos",
+                        "endpoint": "pesquisarGerenciadorDocumentosDados",
+                        "http_status": response.status_code,
+                        "draw": draw,
+                        "start": start,
+                        "cnpj_fundo": only_digits(cnpj_fundo),
+                        "id_fundo": id_fundo or "",
+                    },
                 )
 
             try:
                 payload = response.json()
             except ValueError as exc:
                 raise ProviderUnavailableError(
-                    "Resposta inesperada do provedor na listagem de documentos."
+                    "Resposta inesperada do provedor na listagem de documentos.",
+                    details={
+                        "etapa": "listar_documentos",
+                        "endpoint": "pesquisarGerenciadorDocumentosDados",
+                        "http_status": response.status_code,
+                        "content_type": response.headers.get("content-type", ""),
+                    },
                 ) from exc
 
             data = payload.get("data", []) or []
@@ -166,11 +194,23 @@ class FundosNetClient:
         )
         if response.status_code in (401, 403):
             raise AuthenticationRequiredError(
-                f"Download bloqueado (HTTP {response.status_code}) para documento {doc_id}."
+                f"Download bloqueado (HTTP {response.status_code}) para documento {doc_id}.",
+                details={
+                    "etapa": "download_documento",
+                    "endpoint": "downloadDocumento",
+                    "http_status": response.status_code,
+                    "documento_id": doc_id,
+                },
             )
         if response.status_code >= 500:
             raise ProviderUnavailableError(
-                f"Provedor indisponível no download do documento {doc_id} (HTTP {response.status_code})."
+                f"Provedor indisponível no download do documento {doc_id} (HTTP {response.status_code}).",
+                details={
+                    "etapa": "download_documento",
+                    "endpoint": "downloadDocumento",
+                    "http_status": response.status_code,
+                    "documento_id": doc_id,
+                },
             )
         return response.content
 

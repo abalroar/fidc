@@ -4,6 +4,12 @@ from __future__ import annotations
 class FundosNetError(Exception):
     """Base error for Fundos.NET integration."""
 
+    def __init__(self, message: str, *, details: dict | None = None, trace: list[dict] | None = None) -> None:
+        super().__init__(message)
+        self.message = message
+        self.details = details or {}
+        self.trace = trace or []
+
 
 class InvalidCnpjError(FundosNetError):
     """Raised when CNPJ input is invalid."""
