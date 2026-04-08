@@ -1,132 +1,97 @@
-# Arquitetura proposta — Informe Mensal Estruturado (FIDC)
+# Estudo técnico — Coleta e disposição de dados CVM FIDC para Dashboard Streamlit
 
-## 1) Diagnóstico do repositório atual
+## Classificação
+- Tipo: 🟡 Planejado (feature nova com arquitetura de dados, cache e escalabilidade multi-anos).
 
-### Componentes já existentes (e úteis)
-- `services/fundonet_client.py`: já implementa bootstrap de sessão, resolução de fundo, paginação da grade (`pesquisarGerenciadorDocumentosDados`) e download por `downloadDocumento?id=...`.
-- `services/fundonet_service.py`: orquestra fluxo ponta-a-ponta (validação -> listar -> filtrar informe -> download -> parse -> dataset wide -> excel), com trilha de auditoria.
-- `services/fundonet_parser.py`: faz flatten do XML para formato tabular (`conta_codigo`, `conta_descricao`, `conta_caminho`, `valor`).
-- `services/fundonet_export.py`: pivota para formato largo e gera Excel.
-- `app.py`: já expõe aba Streamlit para execução e download do resultado consolidado.
-- `fundonet_fidc_pipeline.py`: CLI funcional, mas com lógica parcialmente duplicada em relação ao módulo `services/`.
+Fonte oficial de referência (dataset CVM):
+- https://dados.cvm.gov.br/dataset/fidc-doc-inf_mensal/resource/e44f6341-9827-4599-baf3-ac5e298e55f7
 
-### Gargalos observados
-1. Duplicação de lógica entre `fundonet_fidc_pipeline.py` e `services/*` (risco de divergência).
-2. Ausência de camada explícita de "fonte oficial CVM (dados abertos)" para fallback/primária.
-3. Fluxo de export ainda focado em um único layout (wide), sem padrão de contrato de dados para múltiplos consumidores.
-4. Não há um catálogo de metadados de execução (ex.: fonte usada, período efetivo, versão do parser) além da trilha básica.
+## Etapa 0 — Diagnóstico (sem implementação)
 
----
+### 0.1 Fontes e fatos confirmados
+1. O Portal de Dados da CVM publica informes mensais FIDC por arquivo mensal (`inf_mensal_fidc_YYYYMM.zip`).
+2. Existe dicionário de dados oficial (`meta_inf_mensal_fidc_txt.zip`).
+3. Cada pacote mensal pode conter múltiplas planilhas/tabelas, com volume descompactado significativamente maior que o ZIP.
+4. Há padrão de URL que permite ingestão automatizada e incremental por mês.
 
-## 2) Conclusão da investigação técnica (Fundos.NET)
+### 0.2 Chave de identificação do fundo (decisão de modelagem)
+Para seleção no dashboard, manter identificadores separados e estáveis:
+- `CNPJ_FUNDO` (normalizado para 14 dígitos, sem máscara) como chave canônica.
+- `DENOM_SOCIAL` (nome) apenas para exibição e busca textual.
+- `COD_CVM`/outro código oficial, quando disponível, como chave secundária para conferência.
 
-Com base no comportamento capturado:
-- O endpoint `/fnet/rb_...` é telemetria (Dynatrace/RUM), **não** API de negócio.
-- O download individual está em `GET /fnet/publico/downloadDocumento?id=<id>`.
-- O `id` do documento vem da listagem da grade (`pesquisarGerenciadorDocumentosDados`).
-- O fluxo efetivo para automação é:
+### 0.3 Fluxo de dados recomendado (origem → transformação → UI/export)
+1. **Ingestão bruta**: download mensal do ZIP CVM para armazenamento imutável (raw zone).
+2. **Staging padronizado**: leitura das abas/tabelas em formato tabular uniforme, acrescentando metadados de referência (`ano_mes_ref`, `arquivo_origem`, `dt_ingestao`).
+3. **Modelo analítico**: consolidação em tabelas por assunto (fundo, carteira, passivo, cotas, eventos) com partição mensal.
+4. **Camada de serving**: dataset pronto para Streamlit com filtros por fundo/período e métricas já validadas.
+5. **Export/monitoramento**: export bruto + formatado, e trilha de auditoria de execução.
 
-`resolver fundo -> listar documentos -> filtrar IME -> baixar XML -> parsear -> consolidar -> exportar`.
+### 0.4 Confirmações explícitas solicitadas (A–D)
+A. **Nomes exatos das colunas usadas**: dependem do layout oficial do mês e devem ser derivados do dicionário (`meta_inf_mensal_fidc_txt.zip`) na etapa de parser; não devem ser hardcoded sem validação de contrato.
 
-Isso já está aderente ao desenho da implementação em `services/`.
+B. **Estágio 2 e Estágio 3 agregados ou separados**: para esse projeto FIDC (informe mensal CVM), os campos de risco/qualidade devem ser verificados no dicionário e nos layouts reais antes de qualquer cálculo; assumir agregado/separado sem inspeção é risco.
 
----
+C. **Risco de períodos inconsistentes**: alto se misturar meses de snapshots diferentes (ex.: atualização parcial do mês corrente). Mitigação: watermark mensal fechado (`YYYYMM`) e regra de reprocessamento idempotente.
 
-## 3) Arquitetura-alvo recomendada (robusta e funcional)
+D. **Tratamento especial da métrica atual**: qualquer regra especial existente (ex.: winsorização, exclusão de nulos, filtro de ativo) deve ser registrada em função única reutilizável; sem isso, risco de divergência entre UI e export.
 
-## 3.1 Princípio de fontes
+## Etapa 1 — Causa raiz / riscos
 
-Adotar arquitetura **híbrida com prioridade em dados oficiais**:
+### 1.1 Riscos arquiteturais principais
+- **Quebra por mudança de schema**: variação de colunas/tipos entre meses.
+- **Concatenação frágil**: união por nome de coluna sem mapeamento versionado.
+- **Duplicidade/reprocessamento**: carga repetida do mesmo mês sem deduplicação por chave natural.
+- **NaN e divisão por zero**: métricas podem gerar infinito/0 indevido se não houver política explícita.
+- **Acoplamento UI↔ETL**: cálculo no Streamlit sem camada semântica central causa regressão futura.
 
-- **Fonte primária:** Dados Abertos CVM (ZIPs mensais de FIDC Informe Mensal), quando cobrir o escopo.
-- **Fonte secundária:** Fundos.NET (download por documento) para lacunas, conferência e reprocessamento pontual.
+### 1.2 Guardrails de engenharia
+1. Não implementar métrica sem confirmar origem e definição no dicionário oficial.
+2. Não hardcodar nomes de colunas sem camada de mapeamento/versionamento.
+3. Não usar fallback silencioso para colunas ausentes; falhar com erro explicativo.
+4. Não alterar fórmulas existentes sem teste de regressão comparando períodos.
+5. Inserções de novas métricas devem preservar ordenação/layout/export.
+6. Denominador zero ⇒ `NaN` (exibir `N/D` na UI; vazio no export), nunca `0`/`inf`.
+7. Todas as métricas em função única reutilizável (evitar lógica duplicada entre abas).
+8. Validar coerência mínima (ex.: relação esperada entre métricas correlatas) antes de publicar.
 
-Benefício: menor fragilidade operacional e menor exposição a bloqueios de sessão/captcha.
+## Etapa 2 — Plano técnico (proposta)
 
-## 3.2 Camadas
+### 2.1 Estrutura de armazenamento (escalável para 5+ anos)
+- **Raw (imutável)**: `data/raw/cvm/fidc_inf_mensal/ano=YYYY/mes=MM/*.zip`
+- **Bronze (normalizado por tabela)**: Parquet particionado por `ano_mes_ref` e `tabela`.
+- **Silver (modelo analítico)**: tabelas limpas e tipadas por domínio.
+- **Gold (dashboard)**: visão otimizada para consultas do Streamlit.
 
-1. **Ingestion Layer**
-   - `OpenDataCVMClient` (novo): baixa/atualiza pacotes mensais oficiais.
-   - `FundosNetClient` (existente): mantém extração por documento id.
+### 2.2 Estratégia de atualização
+- Scheduler mensal (ou sob demanda) detecta novo `YYYYMM`.
+- Pipeline idempotente por partição mensal.
+- Reprocessamento controlado de janelas (ex.: últimos 3 meses) para capturar retificações.
+- Controle de versão de schema por hash de colunas + tipos.
 
-2. **Domain Layer**
-   - `InformeMensalService` como orquestrador central.
-   - Estratégia de seleção de fonte: `source="open_data" | "fundonet" | "auto"`.
+### 2.3 Cache/API recomendados
+- **Curto prazo (MVP)**: cache local com Parquet + `st.cache_data` no Streamlit.
+- **Médio prazo**: DuckDB local/objeto para analytics sobre arquivos.
+- **Longo prazo**: Postgres/Supabase para entidades mestres + DuckDB/Parquet para séries volumosas.
+- API opcional apenas quando houver múltiplos consumidores; evitar API prematura.
 
-3. **Parsing Layer**
-   - Parser XML único e versionado (manter `flatten_xml_contas` como base).
-   - Contrato canônico de saída (tidy):
-     - `cnpj_fundo`, `documento_id`, `data_referencia`, `conta_codigo`, `conta_descricao`, `conta_caminho`, `valor`, `fonte`.
+### 2.4 Contratos para evitar quebra futura
+- Data contract por tabela: colunas obrigatórias, tipos, chaves, semântica.
+- Testes automáticos de contrato em toda carga.
+- Registro de qualidade por execução (`run_id`, linhas lidas, linhas válidas, colunas novas/faltantes).
 
-4. **Consolidação Layer**
-   - Dataset `tidy` (base analítica).
-   - Dataset `wide` (consumo humano/Excel).
+## Etapa 3 — Implementação (planejada, não executada nesta fase)
+1. Implementar módulo de ingestão mensal CVM (download + checksum + armazenamento raw).
+2. Implementar parser tabular orientado por dicionário de dados.
+3. Persistir Parquet particionado e camada de views para dashboard.
+4. Construir seletor de fundo no Streamlit por CNPJ/nome.
+5. Expor métricas com guardrails e validações de consistência.
 
-5. **Delivery Layer**
-   - Streamlit: visualização + filtros + export.
-   - Exportadores:
-     - XLSX (usuário final)
-     - CSV tidy (integração)
-     - JSON de auditoria (observabilidade)
+## Etapa 4 — Validação obrigatória (definição)
+- Conferir 2–3 fundos com histórico de 12 meses comparando totais contra fonte CVM.
+- Testar caso com coluna ausente para garantir erro explícito (sem fallback silencioso).
+- Testar denominador zero em métricas derivadas (`NaN`/`N/D`).
+- Validar paridade UI↔export (mesma ordem, mesma lógica, formatação BR na UI).
 
-## 3.3 Contrato mínimo de execução
-
-Cada execução deve gerar também `run_metadata.json` com:
-- `run_id`, `timestamp_utc`, `cnpj_fundo`, `data_inicial`, `data_final`
-- `source_selected`, `documents_found`, `documents_processed`, `documents_failed`
-- `parser_version`, `app_version`
-
----
-
-## 4) Próximos passos (ordem recomendada)
-
-### Passo 1 — Consolidar código existente
-- Tornar `fundonet_fidc_pipeline.py` um wrapper do `InformeMensalService`.
-- Remover duplicação de cliente/parser/export no script legado.
-
-### Passo 2 — Formalizar contratos de dados
-- Padronizar saída `tidy` como contrato principal.
-- Fazer export wide derivado sempre do tidy.
-
-### Passo 3 — Adicionar camada Open Data CVM
-- Implementar `OpenDataCVMClient` com ingestão mensal incremental.
-- Estratégia `auto`: tenta Open Data primeiro; cai para Fundos.NET quando necessário.
-
-### Passo 4 — Observabilidade operacional
-- Persistir trilha de auditoria + metadata de execução.
-- Expor no Streamlit contadores de sucesso/falha por documento.
-
-### Passo 5 — Hardening
-- Testes de contrato para parser XML com amostras reais.
-- Retry/backoff por tipo de falha HTTP.
-- Cache local por `documento_id` para evitar download repetido.
-
----
-
-## 5) Blueprint técnico (MVP de produção)
-
-1. Entrada: `cnpj_fundo`, `data_inicial`, `data_final`, `source=auto`.
-2. Resolução de origem:
-   - se Open Data cobre período -> ingestão por lote;
-   - senão -> fluxo Fundos.NET por listagem+download.
-3. Parse unificado para `tidy`.
-4. Consolidação para `wide`.
-5. Export:
-   - `informes_tidy.csv`
-   - `informes_wide.xlsx`
-   - `audit_log.json`
-   - `run_metadata.json`
-
----
-
-## 6) Decisões práticas para o seu caso imediato
-
-Para o fundo `33.254.370/0001-04`:
-1. Validar cobertura no dataset oficial de FIDC Informe Mensal no período-alvo.
-2. Se cobrir, usar Open Data como padrão da rotina automatizada.
-3. Manter Fundos.NET como via complementar para:
-   - conferência de documento específico;
-   - reprocessamento de IDs pontuais;
-   - troubleshooting quando houver divergência.
-
-Isso preserva robustez de produção sem perder capacidade de auditoria por documento.
+## Recomendação final (primeiro passo prático)
+Começar com um **MVP incremental por mês em Parquet + DuckDB**, com `CNPJ_FUNDO` como chave canônica e validação por dicionário oficial. Essa abordagem minimiza risco de quebra de atualização, escala bem para 5 anos e mantém o Streamlit responsivo sem exigir API complexa no início.
