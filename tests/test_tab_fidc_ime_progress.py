@@ -43,3 +43,13 @@ def test_init_progress_bar_accepts_legacy_two_arg_call(monkeypatch) -> None:
     assert isinstance(bar, _DummyProgress)
     assert bar.values == [0.0]
     assert stub.status_box.messages == ["Preparando execução..."]
+
+
+
+def test_build_failure_report_includes_context() -> None:
+    context = {"cnpj_informado": "00.000.000/0000-00"}
+    report = tab_fidc_ime._build_failure_report(ValueError("entrada inválida"), "tb", context)
+
+    assert report["categoria"] == "Erro de validação de entrada"
+    assert report["contexto_execucao"] == context
+    assert report["traceback"] == "tb"
