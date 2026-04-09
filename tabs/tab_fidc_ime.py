@@ -240,6 +240,9 @@ def _render_execution_observability(context: dict[str, Any], elapsed_seconds: fl
         st.json(payload)
 
 
+_PREVIEW_MAX_ROWS = 30
+
+
 def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None:
     contract_missing = _validate_result_contract(result)
     if contract_missing:
@@ -256,9 +259,37 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None
     col2.metric("Documentos OK", docs_ok)
     col3.metric("Documentos com falha", docs_error)
 
+    # ── Downloads primeiro ──────────────────────────────────────────────────
+    # Renderizados ANTES de qualquer tabela grande para garantir que o usuário
+    # consiga baixar o arquivo mesmo que a pré-visualização seguinte falhe.
+    st.divider()
+    col_dl1, col_dl2 = st.columns(2)
+    with col_dl1:
+        st.download_button(
+            "Baixar Excel completo",
+            data=result.excel_bytes,
+            file_name=f"fidc_ime_{context.get('request_id', 'execucao')}.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            use_container_width=True,
+            type="primary",
+        )
+    with col_dl2:
+        st.download_button(
+            "Baixar auditoria (JSON)",
+            data=_safe_json_bytes(result.audit_df.to_dict(orient="records")),
+            file_name=f"auditoria_fidc_ime_{context.get('request_id', 'execucao')}.json",
+            mime="application/json",
+            use_container_width=True,
+        )
+    st.divider()
+
+    # ── Falhas individuais ─────────────────────────────────────────────────
     if docs_error:
-        st.warning("Nem todos os documentos foram processados. O Excel foi gerado com os documentos válidos.")
-        with st.expander("Diagnóstico de documentos com falha", expanded=True):
+        st.warning(
+            f"{docs_error} documento(s) com falha. "
+            "O Excel foi gerado apenas com os documentos válidos."
+        )
+        with st.expander("Documentos com falha", expanded=True):
             failed_docs = (
                 result.docs_df[result.docs_df["processamento"] == "erro"].copy()
                 if "processamento" in result.docs_df.columns
@@ -266,34 +297,32 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None
             )
             st.dataframe(failed_docs, use_container_width=True)
             st.download_button(
-                "Baixar documentos com falha (CSV)",
+                "Baixar detalhes das falhas (CSV)",
                 data=failed_docs.to_csv(index=False).encode("utf-8"),
-                file_name=f"documentos_falha_fidc_ime_{context.get('request_id', 'execucao')}.csv",
+                file_name=f"documentos_falha_{context.get('request_id', 'execucao')}.csv",
                 mime="text/csv",
             )
 
-    st.subheader("Documentos selecionados")
-    st.dataframe(result.docs_df, use_container_width=True)
+    # ── Pré-visualizações em expanders colapsados ──────────────────────────
+    # Limitadas a _PREVIEW_MAX_ROWS linhas para não sobrecarregar o browser.
+    # Os dados completos estão no Excel.
+    with st.expander("Documentos processados", expanded=False):
+        st.dataframe(result.docs_df, use_container_width=True)
 
-    st.subheader("Prévia do wide final")
-    st.dataframe(result.wide_df, use_container_width=True)
+    total_wide = len(result.wide_df)
+    with st.expander(
+        f"Prévia dos campos (primeiras {min(_PREVIEW_MAX_ROWS, total_wide)} de {total_wide} linhas)",
+        expanded=False,
+    ):
+        st.dataframe(result.wide_df.head(_PREVIEW_MAX_ROWS), use_container_width=True)
 
     if not result.listas_df.empty:
-        st.subheader("Prévia das estruturas repetitivas")
-        st.dataframe(result.listas_df, use_container_width=True)
+        total_listas = len(result.listas_df)
+        with st.expander(
+            f"Prévia das estruturas repetitivas (primeiras {min(_PREVIEW_MAX_ROWS, total_listas)} de {total_listas} linhas)",
+            expanded=False,
+        ):
+            st.dataframe(result.listas_df.head(_PREVIEW_MAX_ROWS), use_container_width=True)
 
-    st.subheader("Auditoria")
-    st.dataframe(result.audit_df, use_container_width=True)
-
-    st.download_button(
-        "Baixar Excel",
-        data=result.excel_bytes,
-        file_name=f"fidc_ime_{context.get('request_id', 'execucao')}.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    )
-    st.download_button(
-        "Baixar auditoria (JSON)",
-        data=_safe_json_bytes(result.audit_df.to_dict(orient="records")),
-        file_name=f"auditoria_fidc_ime_{context.get('request_id', 'execucao')}.json",
-        mime="application/json",
-    )
+    with st.expander("Auditoria da execução", expanded=False):
+        st.dataframe(result.audit_df, use_container_width=True)

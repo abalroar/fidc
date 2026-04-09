@@ -94,11 +94,38 @@ class InformeMensalService:
             raise exc.__class__(str(exc), details=exc.details, trace=current_trace) from exc
 
         if not raw_documentos:
-            exc_cls = FundoNotFoundError if resolution.id_fundo is None else NoDocumentsFoundError
-            raise exc_cls(
-                "Nenhum Informe Mensal Estruturado encontrado para o CNPJ informado.",
-                trace=audit_rows,
+            # Probe for any document type to give a more actionable error.
+            outros_docs = self.client.probe_documentos_disponiveis(cnpj)
+            tipos_disponiveis = sorted({f"{d['categoria']} / {d['tipo']}" for d in outros_docs if d["tipo"]})
+            add_audit(
+                "probe_documentos_disponiveis",
+                "ok" if outros_docs else "aviso",
+                (
+                    f"Sondagem sem filtro IME: {len(outros_docs)} documento(s) de outro(s) tipo(s) encontrado(s)."
+                    if outros_docs
+                    else "Sondagem sem filtro IME: nenhum documento de nenhum tipo encontrado para este CNPJ."
+                ),
+                tipos_disponiveis=tipos_disponiveis,
             )
+            if outros_docs:
+                msg = (
+                    "O CNPJ informado possui documentos no Fundos.NET, mas nenhum é do tipo "
+                    f"'Informe Mensal Estruturado' (categoria 6 / tipo 40). "
+                    f"Tipos encontrados: {', '.join(tipos_disponiveis) or 'desconhecido'}. "
+                    "Verifique se o CNPJ corresponde ao fundo correto ou se os informes são "
+                    "arquivados sob o CNPJ do fundo-mestre."
+                )
+                exc_cls = NoDocumentsFoundError
+            else:
+                msg = (
+                    "Nenhum documento foi encontrado para este CNPJ no Fundos.NET. "
+                    "Possíveis causas: (1) CNPJ não corresponde a um FIDC registrado; "
+                    "(2) o fundo arquiva seus informes sob o CNPJ do fundo-mestre — "
+                    "tente o CNPJ do fundo principal; "
+                    "(3) o fundo ainda não entregou documentos na plataforma."
+                )
+                exc_cls = FundoNotFoundError if resolution.id_fundo is None else NoDocumentsFoundError
+            raise exc_cls(msg, trace=audit_rows)
 
         documentos_no_intervalo = [
             doc

@@ -154,6 +154,45 @@ class FundosNetClient:
 
         return documentos
 
+    def probe_documentos_disponiveis(self, cnpj_fundo: str) -> list[dict[str, str]]:
+        """Return up to one page of all document types available for a CNPJ.
+
+        Used as a diagnostic probe when no IME documents are found: the caller
+        can inspect what categories/types *are* registered for that CNPJ and
+        surface a useful error message instead of a generic 'not found'.
+
+        Returns a list of dicts with keys ``categoria``, ``tipo``,
+        ``data_referencia``, ``status``.  An empty list means no documents of
+        any kind exist for the CNPJ in the public portal.
+        """
+        cnpj = only_digits(cnpj_fundo)
+        params = [
+            ("d", "1"),
+            ("s", "0"),
+            ("l", "10"),
+            ("cnpjFundo", cnpj),
+            ("tipoFundo", FIDC_TIPO_ID),
+        ]
+        try:
+            payload = self._get_json(
+                "pesquisarGerenciadorDocumentosDados",
+                params=params,
+                accept="application/json, text/javascript, */*; q=0.01",
+                error_stage="probe_documentos",
+            )
+        except Exception:  # noqa: BLE001
+            return []
+        data = payload.get("data") or []
+        return [
+            {
+                "categoria": str(item.get("categoriaDocumento", "") or ""),
+                "tipo": str(item.get("tipoDocumento", "") or ""),
+                "data_referencia": str(item.get("dataReferencia", "") or ""),
+                "status": str(item.get("status", "") or ""),
+            }
+            for item in data
+        ]
+
     def download_documento(self, doc_id: int) -> bytes:
         raw = self._get_bytes(
             "downloadDocumento",
