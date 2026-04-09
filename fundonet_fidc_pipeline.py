@@ -39,6 +39,7 @@ def run_pipeline(cnpj_fundo: str, periodo_inicio: str, periodo_fim: str, output_
 
     result.docs_df.to_csv(output_dir / "documentos_filtrados.csv", index=False)
     result.contas_df.to_csv(output_dir / "informes_tidy.csv", index=False)
+    result.listas_df.to_csv(output_dir / "estruturas_lista.csv", index=False)
     result.audit_df.to_json(output_dir / "audit_log.json", orient="records", force_ascii=False, indent=2)
 
     xlsx_path = output_dir / "informes_wide.xlsx"
@@ -63,6 +64,7 @@ def run_pipeline(cnpj_fundo: str, periodo_inicio: str, periodo_fim: str, output_
         "outputs": {
             "docs_csv": "documentos_filtrados.csv",
             "tidy_csv": "informes_tidy.csv",
+            "list_csv": "estruturas_lista.csv",
             "wide_xlsx": "informes_wide.xlsx",
             "audit_json": "audit_log.json",
         },

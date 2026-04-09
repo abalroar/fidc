@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import date, datetime
 from typing import Any, Dict, Optional
 
 
@@ -9,6 +9,7 @@ from typing import Any, Dict, Optional
 class FundoResolution:
     cnpj: str
     id_fundo: Optional[str]
+    nome_fundo: Optional[str] = None
 
 
 @dataclass(frozen=True)
@@ -19,22 +20,43 @@ class DocumentoFundo:
     especie: str
     data_referencia: Optional[str]
     data_entrega: Optional[str]
+    nome_fundo: Optional[str]
     nome_arquivo: Optional[str]
+    versao: int
+    status: str
+    fundo_ou_classe: Optional[str]
     raw: Dict[str, Any]
 
     @property
-    def periodo_ordenacao(self) -> datetime:
-        raw = self.data_referencia or self.data_entrega
-        if raw:
-            for fmt in ("%d/%m/%Y", "%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"):
-                try:
-                    parsed = datetime.strptime(raw[:19], fmt)
-                    return datetime(parsed.year, parsed.month, 1)
-                except ValueError:
-                    continue
-        return datetime(1900, 1, 1)
+    def competencia(self) -> Optional[date]:
+        if not self.data_referencia:
+            return None
+        for fmt in ("%m/%Y", "%d/%m/%Y", "%d/%m/%Y %H:%M"):
+            try:
+                parsed = datetime.strptime(self.data_referencia, fmt)
+                return date(parsed.year, parsed.month, 1)
+            except ValueError:
+                continue
+        return None
 
     @property
-    def coluna_informe(self) -> str:
-        base = self.data_referencia or self.data_entrega or f"DOC-{self.id}"
-        return f"{base} | id={self.id}"
+    def competencia_label(self) -> Optional[str]:
+        competencia = self.competencia
+        if competencia is None:
+            return None
+        return competencia.strftime("%m/%Y")
+
+    @property
+    def data_entrega_dt(self) -> Optional[datetime]:
+        if not self.data_entrega:
+            return None
+        for fmt in ("%d/%m/%Y %H:%M", "%d/%m/%Y", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d"):
+            try:
+                return datetime.strptime(self.data_entrega[:19], fmt)
+            except ValueError:
+                continue
+        return None
+
+    @property
+    def is_active(self) -> bool:
+        return (self.status or "").upper().startswith("A")

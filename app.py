@@ -1,16 +1,13 @@
 from __future__ import annotations
 
-from datetime import date
 from io import BytesIO
-import json
 
 import pandas as pd
 import streamlit as st
 
 from data_loader import load_model_inputs
 from model import Premissas, build_flow, build_kpis
-from services.fundonet_errors import FundosNetError
-from services.fundonet_service import InformeMensalResult, InformeMensalService
+from tabs.tab_fidc_ime import render_tab_fidc_ime
 
 
 st.set_page_config(page_title="Modelo FIDC", page_icon="📊", layout="wide")
@@ -22,12 +19,6 @@ st.caption("Reimplementação do fluxo econômico sem VBA, com inputs interativo
 @st.cache_data
 def load_inputs(path: str):
     return load_model_inputs(path)
-
-
-@st.cache_data(show_spinner=False)
-def run_informes_mensais(cnpj_fundo: str, data_inicial: date, data_final: date) -> InformeMensalResult:
-    service = InformeMensalService()
-    return service.run(cnpj_fundo=cnpj_fundo, data_inicial=data_inicial, data_final=data_final)
 
 
 def render_modelo_tab() -> None:
@@ -119,100 +110,10 @@ def render_modelo_tab() -> None:
     else:
         st.info("Ajuste as premissas para gerar resultados.")
 
-
-def render_informes_tab() -> None:
-    st.subheader("Informes Mensais Estruturados (Fundos.NET)")
-    st.caption(
-        "Informe um CNPJ de fundo para buscar documentos, processar XMLs e baixar um Excel "
-        "com os informes empilhados em colunas em uma única aba."
-    )
-
-    default_end = date.today()
-    default_start = date(default_end.year - 1, default_end.month, 1)
-
-    col1, col2, col3 = st.columns([2, 1, 1])
-    with col1:
-        cnpj_input = st.text_input("CNPJ do fundo", placeholder="00.000.000/0000-00")
-    with col2:
-        data_inicial = st.date_input("Data inicial", value=default_start)
-    with col3:
-        data_final = st.date_input("Data final", value=default_end)
-
-    buscar = st.button("Buscar documentos e gerar Excel", type="primary")
-
-    if not buscar:
-        return
-
-    if data_inicial > data_final:
-        st.error("Data inicial deve ser menor ou igual à data final.")
-        return
-
-    with st.spinner("Consultando Fundos.NET e processando informes..."):
-        try:
-            result = run_informes_mensais(cnpj_input, data_inicial, data_final)
-        except FundosNetError as exc:
-            st.error(f"Integração Fundos.NET falhou: {exc}")
-            if exc.details:
-                st.warning("Detalhes técnicos da falha:")
-                st.json(exc.details)
-            if exc.trace:
-                audit_df = pd.DataFrame(exc.trace)
-                st.subheader("Trilha de auditoria da execução (falha)")
-                st.dataframe(audit_df)
-                st.download_button(
-                    "Baixar auditoria da falha (CSV)",
-                    data=audit_df.to_csv(index=False).encode("utf-8"),
-                    file_name="auditoria_falha_fundonet.csv",
-                    mime="text/csv",
-                )
-                st.download_button(
-                    "Baixar auditoria da falha (JSON)",
-                    data=json.dumps(exc.trace, ensure_ascii=False, indent=2).encode("utf-8"),
-                    file_name="auditoria_falha_fundonet.json",
-                    mime="application/json",
-                )
-            return
-        except ValueError as exc:
-            st.error(str(exc))
-            return
-        except Exception as exc:
-            st.error(f"Falha inesperada no processamento: {exc}")
-            return
-
-    st.success("Processamento concluído com sucesso.")
-    st.write(f"Documentos processados: {len(result.docs_df)}")
-    st.dataframe(result.docs_df)
-
-    st.subheader("Prévia do dataset final (colunas por informe)")
-    st.dataframe(result.wide_df)
-
-    st.subheader("Trilha de auditoria da execução")
-    st.dataframe(result.audit_df)
-    st.download_button(
-        "Baixar auditoria da execução (CSV)",
-        data=result.audit_df.to_csv(index=False).encode("utf-8"),
-        file_name="auditoria_execucao_fundonet.csv",
-        mime="text/csv",
-    )
-    st.download_button(
-        "Baixar auditoria da execução (JSON)",
-        data=json.dumps(result.audit_df.to_dict(orient="records"), ensure_ascii=False, indent=2).encode("utf-8"),
-        file_name="auditoria_execucao_fundonet.json",
-        mime="application/json",
-    )
-
-    st.download_button(
-        "Baixar Excel de Informes Mensais Estruturados",
-        data=result.excel_bytes,
-        file_name="informes_mensais_estruturados.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    )
-
-
 tab_modelo, tab_informes = st.tabs(["Modelo FIDC", "Informes Mensais Estruturados"])
 
 with tab_modelo:
     render_modelo_tab()
 
 with tab_informes:
-    render_informes_tab()
+    render_tab_fidc_ime()

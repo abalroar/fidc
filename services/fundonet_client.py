@@ -1,22 +1,49 @@
 from __future__ import annotations
 
-import re
+import base64
+from collections.abc import Iterable
+from http.cookiejar import CookieJar
+import html as html_lib
 import json
+import re
+import socket
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
+import urllib.error
+import urllib.parse
+import urllib.request
 
-import requests
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
-
-from services.fundonet_errors import (
-    AuthenticationRequiredError,
-    ProviderUnavailableError,
-)
+from services.fundonet_errors import AuthenticationRequiredError, ProviderUnavailableError
 from services.fundonet_models import DocumentoFundo, FundoResolution
 
 
 BASE_URL = "https://fnet.bmfbovespa.com.br/fnet/publico"
+DEFAULT_USER_AGENT = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+)
+MAX_PAGE_SIZE = 200
+IME_CATEGORIA_ID = "6"
+IME_TIPO_ID = "40"
+FIDC_TIPO_ID = "2"
+FUNDO_ITEM_TAG_RE = re.compile(
+    r"<(?P<tag>[a-z0-9:_-]+)\b[^>]*\bclass\s*=\s*(?P<quote>['\"])[^'\"]*\bfundoItemInicial\b[^'\"]*(?P=quote)[^>]*>",
+    re.IGNORECASE,
+)
+CSRF_PATTERNS = (
+    re.compile(
+        r"(?:window\.)?csrf_token\s*=\s*(?P<quote>['\"])(?P<token>[^'\"]+)(?P=quote)",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r'<meta[^>]+name\s*=\s*(?P<quote>["\'])_csrf(?P=quote)[^>]+content\s*=\s*(?P<quote2>["\'])(?P<token>[^"\']+)(?P=quote2)',
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r'<input[^>]+name\s*=\s*(?P<quote>["\'])_csrf(?P=quote)[^>]+value\s*=\s*(?P<quote2>["\'])(?P<token>[^"\']+)(?P=quote2)',
+        re.IGNORECASE,
+    ),
+)
 
 
 def only_digits(value: str) -> str:
@@ -24,155 +51,64 @@ def only_digits(value: str) -> str:
 
 
 class FundosNetClient:
-    def __init__(self, timeout_seconds: int = 30) -> None:
+    def __init__(
+        self,
+        timeout_seconds: int = 30,
+        max_retries: int = 2,
+        user_agent: str = DEFAULT_USER_AGENT,
+    ) -> None:
         self.timeout_seconds = timeout_seconds
-        self.session = requests.Session()
-        retry = Retry(
-            total=2,
-            backoff_factor=0.7,
-            status_forcelist=(429, 500, 502, 503, 504),
-            allowed_methods=("GET",),
-            raise_on_status=False,
-        )
-        adapter = HTTPAdapter(max_retries=retry)
-        self.session.mount("https://", adapter)
-        self.session.headers.update(
-            {
-                "User-Agent": (
-                    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-                    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-                ),
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            }
-        )
+        self.max_retries = max_retries
+        self.user_agent = user_agent
+        self.cookie_jar = CookieJar()
+        self.opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(self.cookie_jar))
         self.csrf_token: Optional[str] = None
         self.referer_url: Optional[str] = None
 
-    def _url(self, path: str) -> str:
-        return f"{BASE_URL}/{path.lstrip('/')}"
-
     def resolve_fundo(self, cnpj_fundo: str) -> FundoResolution:
         cnpj = only_digits(cnpj_fundo)
-        self._bootstrap_context(cnpj)
-        params = {
-            "term": cnpj,
-            "page": 1,
-            "idTipoFundo": 0,
-            "idAdm": 0,
-            "paraCerts": "false",
-        }
-        response = self.session.get(
-            self._url("listarFundos"),
-            params=params,
-            headers=self._headers_with_csrf(),
-            timeout=self.timeout_seconds,
+        html = self._get_text(
+            "abrirGerenciadorDocumentosCVM",
+            params={"cnpjFundo": cnpj},
+            accept="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            error_stage="abrir_gerenciador",
         )
-        if response.status_code >= 500:
-            raise ProviderUnavailableError(
-                f"Fundos.NET indisponível ao listar fundos (HTTP {response.status_code}).",
-                details={
-                    "etapa": "resolve_fundo",
-                    "endpoint": "listarFundos",
-                    "http_status": response.status_code,
-                    "cnpj_fundo": cnpj,
-                },
-            )
-        try:
-            payload = response.json()
-            results = payload.get("results", [])
-        except ValueError as exc:
-            raise ProviderUnavailableError(
-                "Resposta inesperada do provedor na resolução do fundo.",
-                details={
-                    "etapa": "resolve_fundo",
-                    "endpoint": "listarFundos",
-                    "http_status": response.status_code,
-                },
-            ) from exc
+        self.csrf_token = _extract_optional_csrf_token(html)
+        self.referer_url = self._url("abrirGerenciadorDocumentosCVM", params={"cnpjFundo": cnpj})
+        return _extract_fundo_resolution(cnpj=cnpj, html=html)
 
-        id_fundo = str(results[0]["id"]) if results else None
-        return FundoResolution(cnpj=cnpj, id_fundo=id_fundo)
-
-    def listar_documentos(
+    def listar_documentos_ime(
         self,
         cnpj_fundo: str,
-        data_inicial: str,
-        data_final: str,
-        id_fundo: Optional[str],
-        tipo_fundo: str = "0",
-        page_size: int = 200,
-    ) -> List[DocumentoFundo]:
+        *,
+        page_size: int = MAX_PAGE_SIZE,
+    ) -> list[DocumentoFundo]:
+        cnpj = only_digits(cnpj_fundo)
+        page_size = max(1, min(int(page_size), MAX_PAGE_SIZE))
         start = 0
         draw = 1
-        documentos: List[DocumentoFundo] = []
-        self._bootstrap_context(only_digits(cnpj_fundo))
+        total = None
+        documentos: list[DocumentoFundo] = []
 
-        while True:
-            params = {
-                "d": draw,
-                "s": start,
-                "l": page_size,
-                "q": "",
-                "o": json.dumps([{"dataEntrega": "desc"}]),
-                "tipoFundo": tipo_fundo,
-                "administrador": "0",
-                "idFundo": id_fundo or "",
-                "cnpj": only_digits(cnpj_fundo),
-                "cnpjFundo": only_digits(cnpj_fundo),
-                "idCategoriaDocumento": "0",
-                "idTipoDocumento": "0",
-                "idEspecieDocumento": "0",
-                "dataReferencia": "",
-                "ultimaDataReferencia": "false",
-                "dataInicial": data_inicial,
-                "dataFinal": data_final,
-                "idModalidade": "0",
-                "palavraChave": "",
-            }
-            response = self.session.get(
-                self._url("pesquisarGerenciadorDocumentosDados"),
+        while total is None or start < total:
+            params = [
+                ("d", str(draw)),
+                ("s", str(start)),
+                ("l", str(page_size)),
+                ("q", ""),
+                ("cnpjFundo", cnpj),
+                ("tipoFundo", FIDC_TIPO_ID),
+                ("idCategoriaDocumento", IME_CATEGORIA_ID),
+                ("idTipoDocumento", IME_TIPO_ID),
+                ("o[0][dataReferencia]", "asc"),
+                ("o[1][dataEntrega]", "asc"),
+            ]
+            payload = self._get_json(
+                "pesquisarGerenciadorDocumentosDados",
                 params=params,
-                headers=self._headers_with_csrf(),
-                timeout=self.timeout_seconds,
+                accept="application/json, text/javascript, */*; q=0.01",
+                error_stage="listar_documentos",
             )
-            if response.status_code in (401, 403):
-                raise AuthenticationRequiredError(
-                    f"Listagem bloqueada pelo provedor (HTTP {response.status_code}).",
-                    details={
-                        "etapa": "listar_documentos",
-                        "endpoint": "pesquisarGerenciadorDocumentosDados",
-                        "http_status": response.status_code,
-                        "draw": draw,
-                        "start": start,
-                    },
-                )
-            if response.status_code >= 500:
-                raise ProviderUnavailableError(
-                    "Listagem de documentos retornou erro interno no provedor "
-                    f"(HTTP {response.status_code}).",
-                    details={
-                        "etapa": "listar_documentos",
-                        "endpoint": "pesquisarGerenciadorDocumentosDados",
-                        "http_status": response.status_code,
-                        "draw": draw,
-                        "start": start,
-                        "cnpj_fundo": only_digits(cnpj_fundo),
-                        "id_fundo": id_fundo or "",
-                    },
-                )
-
-            try:
-                payload = response.json()
-            except ValueError as exc:
-                raise ProviderUnavailableError(
-                    "Resposta inesperada do provedor na listagem de documentos.",
-                    details={
-                        "etapa": "listar_documentos",
-                        "endpoint": "pesquisarGerenciadorDocumentosDados",
-                        "http_status": response.status_code,
-                        "content_type": response.headers.get("content-type", ""),
-                    },
-                ) from exc
             if payload.get("msg"):
                 raise ProviderUnavailableError(
                     f"Listagem rejeitada pelo provedor: {payload.get('msg')}",
@@ -185,122 +121,242 @@ class FundosNetClient:
                     },
                 )
 
-            data = payload.get("data", []) or []
+            total = int(payload.get("recordsFiltered") or payload.get("recordsTotal") or 0)
+            data = payload.get("data") or []
             if not data:
                 break
 
             for item in data:
-                try:
-                    doc_id = int(item["id"])
-                except (KeyError, ValueError, TypeError):
+                doc_id = _safe_int(item.get("id"))
+                if doc_id is None:
                     continue
                 documentos.append(
                     DocumentoFundo(
                         id=doc_id,
-                        categoria=str(item.get("categoriaDocumento", "")),
-                        tipo=str(item.get("tipoDocumento", "")),
-                        especie=str(item.get("especieDocumento", "")),
+                        categoria=str(item.get("categoriaDocumento", "") or ""),
+                        tipo=str(item.get("tipoDocumento", "") or ""),
+                        especie=str(item.get("especieDocumento", "") or ""),
                         data_referencia=_first_present(item, ["dataReferencia", "dtReferencia"]),
                         data_entrega=_first_present(item, ["dataEntrega", "dtEntrega"]),
+                        nome_fundo=_first_present(item, ["descricaoFundo", "nomeFundo"]),
                         nome_arquivo=_first_present(item, ["nomeArquivo", "nmArquivo"]),
+                        versao=_safe_int(item.get("versao"), default=0) or 0,
+                        status=str(item.get("status", "") or ""),
+                        fundo_ou_classe=_first_present(item, ["fundoOuClasse"]),
                         raw=item,
                     )
                 )
 
             start += page_size
             draw += 1
-            total = int(payload.get("recordsFiltered", len(documentos)))
             if start >= total:
                 break
 
         return documentos
 
     def download_documento(self, doc_id: int) -> bytes:
-        response = self.session.get(
-            self._url("downloadDocumento"),
-            params={"id": doc_id},
-            headers=self._headers_with_csrf(),
-            timeout=self.timeout_seconds,
+        raw = self._get_bytes(
+            "downloadDocumento",
+            params={"id": str(doc_id)},
+            accept="text/xml,application/xml,text/plain,*/*",
+            error_stage="download_documento",
         )
-        if response.status_code in (401, 403):
-            raise AuthenticationRequiredError(
-                f"Download bloqueado (HTTP {response.status_code}) para documento {doc_id}.",
-                details={
-                    "etapa": "download_documento",
-                    "endpoint": "downloadDocumento",
-                    "http_status": response.status_code,
-                    "documento_id": doc_id,
-                },
-            )
-        if response.status_code >= 500:
+        try:
+            return _decode_download_payload(raw)
+        except ValueError as exc:
             raise ProviderUnavailableError(
-                f"Provedor indisponível no download do documento {doc_id} (HTTP {response.status_code}).",
+                f"Payload inesperado no download do documento {doc_id}.",
                 details={
                     "etapa": "download_documento",
                     "endpoint": "downloadDocumento",
-                    "http_status": response.status_code,
                     "documento_id": doc_id,
                 },
-            )
-        return response.content
+            ) from exc
 
-    def _bootstrap_context(self, cnpj_fundo: str) -> None:
-        last_response = None
-        params_candidates = [{"cnpjFundo": cnpj_fundo}, {}]
-        for params in params_candidates:
-            for attempt in range(3):
-                response = self.session.get(
-                    self._url("abrirGerenciadorDocumentosCVM"),
-                    params=params,
-                    timeout=self.timeout_seconds,
-                )
-                last_response = response
-                if response.status_code >= 500:
-                    time.sleep(0.8)
+    def _get_text(
+        self,
+        path: str,
+        *,
+        params: dict[str, Any] | Iterable[tuple[str, str]] | None = None,
+        accept: str,
+        error_stage: str,
+    ) -> str:
+        return self._get_bytes(path, params=params, accept=accept, error_stage=error_stage).decode(
+            "utf-8", errors="replace"
+        )
+
+    def _get_json(
+        self,
+        path: str,
+        *,
+        params: dict[str, Any] | Iterable[tuple[str, str]] | None = None,
+        accept: str,
+        error_stage: str,
+    ) -> dict[str, Any]:
+        raw = self._get_bytes(path, params=params, accept=accept, error_stage=error_stage)
+        try:
+            return json.loads(raw.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise ProviderUnavailableError(
+                "Resposta JSON inválida do provedor.",
+                details={
+                    "etapa": error_stage,
+                    "endpoint": path,
+                },
+            ) from exc
+
+    def _get_bytes(
+        self,
+        path: str,
+        *,
+        params: dict[str, Any] | Iterable[tuple[str, str]] | None = None,
+        accept: str,
+        error_stage: str,
+    ) -> bytes:
+        url = self._url(path, params=params)
+        headers = {
+            "User-Agent": self.user_agent,
+            "Accept": accept,
+        }
+        if self.referer_url:
+            headers["Referer"] = self.referer_url
+        if self.csrf_token:
+            headers["CSRFToken"] = self.csrf_token
+
+        last_error: Exception | None = None
+        for attempt in range(self.max_retries + 1):
+            request = urllib.request.Request(url, headers=headers, method="GET")
+            try:
+                with self.opener.open(request, timeout=self.timeout_seconds) as response:
+                    return response.read()
+            except urllib.error.HTTPError as exc:
+                body = exc.read() if exc.fp else b""
+                if exc.code == 403:
+                    raise AuthenticationRequiredError(
+                        f"Requisição bloqueada pelo provedor (HTTP 403) em {path}.",
+                        details={
+                            "etapa": error_stage,
+                            "endpoint": path,
+                            "http_status": exc.code,
+                            "url": url,
+                            "body_prefix": body[:200].decode("utf-8", errors="replace"),
+                        },
+                    ) from exc
+                if exc.code in (429, 500, 502, 503, 504) and attempt < self.max_retries:
+                    time.sleep(0.7 * (attempt + 1))
                     continue
-                match = re.search(r"csrf_token\\s*=\\s*['\\\"]([^'\\\"]+)['\\\"]", response.text)
-                if not match:
-                    match = re.search(r"token\\s*=\\s*['\\\"]([^'\\\"]+)['\\\"]", response.text)
-                if match:
-                    self.csrf_token = match.group(1)
-                    self.referer_url = response.url
-                    return
-                time.sleep(0.8)
+                raise ProviderUnavailableError(
+                    f"Fundos.NET respondeu HTTP {exc.code} em {path}.",
+                    details={
+                        "etapa": error_stage,
+                        "endpoint": path,
+                        "http_status": exc.code,
+                        "url": url,
+                        "body_prefix": body[:200].decode("utf-8", errors="replace"),
+                    },
+                ) from exc
+            except (urllib.error.URLError, TimeoutError, socket.timeout) as exc:
+                last_error = exc
+                if attempt < self.max_retries:
+                    time.sleep(0.7 * (attempt + 1))
+                    continue
+                break
 
-        if last_response is not None and last_response.status_code >= 500:
-            raise ProviderUnavailableError(
-                f"Fundos.NET indisponível ao abrir gerenciador (HTTP {last_response.status_code}).",
-                details={
-                    "etapa": "bootstrap_context",
-                    "endpoint": "abrirGerenciadorDocumentosCVM",
-                    "http_status": last_response.status_code,
-                    "cnpj_fundo": cnpj_fundo,
-                },
-            )
         raise ProviderUnavailableError(
-            "Token CSRF não encontrado na página pública do gerenciador.",
+            f"Falha de rede ao acessar {path}: {last_error}",
             details={
-                "etapa": "bootstrap_context",
-                "endpoint": "abrirGerenciadorDocumentosCVM",
-                "snippet": (last_response.text[:160] if last_response is not None else ""),
+                "etapa": error_stage,
+                "endpoint": path,
+                "url": url,
             },
         )
 
-    def _headers_with_csrf(self) -> Dict[str, str]:
-        headers: Dict[str, str] = {
-            "X-Requested-With": "XMLHttpRequest",
-            "Accept": "application/json, text/javascript, */*; q=0.01",
-        }
-        if self.csrf_token:
-            headers["CSRFToken"] = self.csrf_token
-        if self.referer_url:
-            headers["Referer"] = self.referer_url
-        return headers
+    def _url(
+        self,
+        path: str,
+        params: dict[str, Any] | Iterable[tuple[str, str]] | None = None,
+    ) -> str:
+        base = f"{BASE_URL}/{path.lstrip('/')}"
+        if not params:
+            return base
+        query = urllib.parse.urlencode(list(_iter_params(params)), doseq=True)
+        return f"{base}?{query}"
 
 
-def _first_present(item: Dict[str, Any], candidates: List[str]) -> Optional[str]:
-    for key in candidates:
-        val = item.get(key)
-        if val not in (None, ""):
-            return str(val)
+def _iter_params(
+    params: dict[str, Any] | Iterable[tuple[str, str]],
+) -> Iterable[tuple[str, str]]:
+    if isinstance(params, dict):
+        for key, value in params.items():
+            if value in (None, ""):
+                continue
+            yield str(key), str(value)
+        return
+    for key, value in params:
+        if value in (None, ""):
+            continue
+        yield str(key), str(value)
+
+
+def _decode_download_payload(raw: bytes) -> bytes:
+    stripped = raw.decode("utf-8", errors="replace").strip()
+    if stripped.startswith("<?xml"):
+        return stripped.encode("utf-8")
+    if stripped.startswith('"') and stripped.endswith('"'):
+        stripped = stripped[1:-1]
+    try:
+        decoded = base64.b64decode(stripped, validate=True)
+    except Exception as exc:  # noqa: BLE001
+        raise ValueError("download payload is not valid base64") from exc
+    if not decoded.lstrip().startswith(b"<?xml"):
+        raise ValueError("decoded payload is not xml")
+    return decoded
+
+
+def _extract_fundo_resolution(cnpj: str, html: str) -> FundoResolution:
+    for match in FUNDO_ITEM_TAG_RE.finditer(html):
+        tag = match.group(0)
+        id_fundo = _extract_html_attr(tag, "data-id")
+        nome_fundo = _extract_html_attr(tag, "data-text")
+        if id_fundo:
+            return FundoResolution(
+                cnpj=cnpj,
+                id_fundo=id_fundo,
+                nome_fundo=nome_fundo,
+            )
+    return FundoResolution(cnpj=cnpj, id_fundo=None, nome_fundo=None)
+
+
+def _extract_optional_csrf_token(html: str) -> Optional[str]:
+    for pattern in CSRF_PATTERNS:
+        match = pattern.search(html)
+        if match:
+            return match.group("token")
     return None
+
+
+def _extract_html_attr(tag: str, attr_name: str) -> Optional[str]:
+    pattern = re.compile(
+        rf"""\b{re.escape(attr_name)}\s*=\s*(?:"(?P<double>[^"]*)"|'(?P<single>[^']*)')""",
+        re.IGNORECASE,
+    )
+    match = pattern.search(tag)
+    if not match:
+        return None
+    value = match.group("double") or match.group("single") or ""
+    return html_lib.unescape(value)
+
+
+def _first_present(item: dict[str, Any], candidates: list[str]) -> Optional[str]:
+    for key in candidates:
+        value = item.get(key)
+        if value not in (None, ""):
+            return str(value)
+    return None
+
+
+def _safe_int(value: Any, default: int | None = None) -> int | None:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default

@@ -46,11 +46,13 @@ python fundonet_fidc_pipeline.py \
 
 Saídas geradas:
 - `documentos_filtrados.csv`: metadados dos documentos encontrados.
-- `contas_empilhadas.csv`: contas extraídas dos XMLs no formato empilhado (tidy).
-- `fidc_informes_mensais_estruturados.xlsx`: abas `documentos` e `contas`.
-- `<id>.xml`: XML bruto de cada documento baixado.
+- `informes_tidy.csv`: campos escalares dos XMLs no formato tidy.
+- `estruturas_lista.csv`: estruturas repetitivas (cedentes, classes/séries etc.) em formato tidy.
+- `informes_wide.xlsx`: workbook com abas `informes_campos`, `estruturas_lista`, `documentos` e `auditoria`.
+- `audit_log.json`: trilha de auditoria da execução.
 
 Observações:
 - O script pagina automaticamente o endpoint `pesquisarGerenciadorDocumentosDados`.
 - O download é feito por `downloadDocumento?id=...`.
-- O filtro de documentos seleciona linhas com termos equivalentes a "Informe Mensal Estruturado".
+- O filtro funcional usa o tipo FIDC + categoria/tipo oficiais do IME no Fundos.NET.
+- O recorte temporal é por competência (`MM/AAAA`), não por data de entrega.
