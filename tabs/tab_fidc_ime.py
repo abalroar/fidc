@@ -10,6 +10,24 @@ from services.fundonet_errors import FundosNetError
 from services.fundonet_service import InformeMensalResult, InformeMensalService
 
 
+def _init_progress_bar(initial_value: float, message: str):
+    """Compatibilidade com versões antigas do Streamlit sem parâmetro text."""
+    try:
+        return st.progress(initial_value, text=message)
+    except TypeError:
+        progress = st.progress(initial_value)
+        st.caption(message)
+        return progress
+
+
+def _update_progress_bar(progress_bar, value: float, message: str) -> None:
+    """Compatibilidade com versões antigas do Streamlit sem parâmetro text."""
+    try:
+        progress_bar.progress(value, text=message)
+    except TypeError:
+        progress_bar.progress(value)
+
+
 def render_tab_fidc_ime() -> None:
     st.subheader("Informe Mensal Estruturado (Fundos.NET)")
     st.caption(
@@ -36,12 +54,12 @@ def render_tab_fidc_ime() -> None:
         st.error("A competência inicial deve ser menor ou igual à competência final.")
         return
 
-    progress = st.progress(0.0, text="Preparando execução...")
+    progress = _init_progress_bar(0.0, "Preparando execução...")
     status_box = st.empty()
 
     def report_progress(current: int, total: int, message: str) -> None:
         fraction = 0.0 if total <= 0 else min(1.0, max(0.0, current / total))
-        progress.progress(fraction, text=message)
+        _update_progress_bar(progress, fraction, message)
         status_box.caption(message)
 
     service = InformeMensalService()
@@ -81,7 +99,7 @@ def render_tab_fidc_ime() -> None:
         st.error(f"Falha inesperada no processamento: {exc}")
         return
 
-    progress.progress(1.0, text="Concluído.")
+    _update_progress_bar(progress, 1.0, "Concluído.")
     status_box.caption("Processamento concluído.")
     _render_result(result)
 
