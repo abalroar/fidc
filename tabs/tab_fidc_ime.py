@@ -62,6 +62,7 @@ def render_tab_fidc_ime() -> None:
         st.error("A competência inicial deve ser menor ou igual à competência final.")
         return
 
+    progress = _init_progress_bar(0.0, "Preparando execução...")
     status_box = st.empty()
     progress = _init_progress_bar(0.0, "Preparando execução...", status_box)
 
