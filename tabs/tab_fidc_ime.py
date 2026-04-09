@@ -10,6 +10,34 @@ from services.fundonet_errors import FundosNetError
 from services.fundonet_service import InformeMensalResult, InformeMensalService
 
 
+def _init_progress_bar(initial_value: float, message: str, status_box=None) -> object:
+    """Compatibilidade com versões antigas do Streamlit."""
+    if status_box is None:
+        status_box = st.empty()
+    normalized = max(0.0, min(1.0, float(initial_value)))
+    try:
+        return st.progress(normalized, text=message)
+    except TypeError:
+        try:
+            progress = st.progress(normalized)
+        except Exception:  # noqa: BLE001
+            progress = st.progress(int(round(normalized * 100)))
+        status_box.caption(message)
+        return progress
+
+
+def _update_progress_bar(progress_bar, value: float, message: str) -> None:
+    """Compatibilidade com versões antigas do Streamlit."""
+    normalized = max(0.0, min(1.0, float(value)))
+    try:
+        progress_bar.progress(normalized, text=message)
+    except TypeError:
+        try:
+            progress_bar.progress(normalized)
+        except Exception:  # noqa: BLE001
+            progress_bar.progress(int(round(normalized * 100)))
+
+
 def render_tab_fidc_ime() -> None:
     st.subheader("Informe Mensal Estruturado (Fundos.NET)")
     st.caption(
@@ -36,12 +64,12 @@ def render_tab_fidc_ime() -> None:
         st.error("A competência inicial deve ser menor ou igual à competência final.")
         return
 
-    progress = st.progress(0.0, text="Preparando execução...")
     status_box = st.empty()
+    progress = _init_progress_bar(0.0, "Preparando execução...", status_box)
 
     def report_progress(current: int, total: int, message: str) -> None:
         fraction = 0.0 if total <= 0 else min(1.0, max(0.0, current / total))
-        progress.progress(fraction, text=message)
+        _update_progress_bar(progress, fraction, message)
         status_box.caption(message)
 
     service = InformeMensalService()
@@ -81,7 +109,7 @@ def render_tab_fidc_ime() -> None:
         st.error(f"Falha inesperada no processamento: {exc}")
         return
 
-    progress.progress(1.0, text="Concluído.")
+    _update_progress_bar(progress, 1.0, "Concluído.")
     status_box.caption("Processamento concluído.")
     _render_result(result)
 
