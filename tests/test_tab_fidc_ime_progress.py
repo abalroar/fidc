@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime
 from tabs import tab_fidc_ime
 
 
@@ -53,3 +54,13 @@ def test_build_failure_report_includes_context() -> None:
     assert report["categoria"] == "Erro de validação de entrada"
     assert report["contexto_execucao"] == context
     assert report["traceback"] == "tb"
+
+
+
+def test_safe_json_bytes_handles_non_serializable_values() -> None:
+    payload = {"quando": datetime(2026, 4, 9, 12, 30)}
+
+    encoded = tab_fidc_ime._safe_json_bytes(payload)
+
+    assert b'"quando"' in encoded
+    assert b'2026-04-09 12:30:00' in encoded
