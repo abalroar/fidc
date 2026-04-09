@@ -10,22 +10,30 @@ from services.fundonet_errors import FundosNetError
 from services.fundonet_service import InformeMensalResult, InformeMensalService
 
 
-def _init_progress_bar(initial_value: float, message: str):
-    """Compatibilidade com versões antigas do Streamlit sem parâmetro text."""
+def _init_progress_bar(initial_value: float, message: str, status_box) -> object:
+    """Compatibilidade com versões antigas do Streamlit."""
+    normalized = max(0.0, min(1.0, float(initial_value)))
     try:
-        return st.progress(initial_value, text=message)
+        return st.progress(normalized, text=message)
     except TypeError:
-        progress = st.progress(initial_value)
-        st.caption(message)
+        try:
+            progress = st.progress(normalized)
+        except Exception:  # noqa: BLE001
+            progress = st.progress(int(round(normalized * 100)))
+        status_box.caption(message)
         return progress
 
 
 def _update_progress_bar(progress_bar, value: float, message: str) -> None:
-    """Compatibilidade com versões antigas do Streamlit sem parâmetro text."""
+    """Compatibilidade com versões antigas do Streamlit."""
+    normalized = max(0.0, min(1.0, float(value)))
     try:
-        progress_bar.progress(value, text=message)
+        progress_bar.progress(normalized, text=message)
     except TypeError:
-        progress_bar.progress(value)
+        try:
+            progress_bar.progress(normalized)
+        except Exception:  # noqa: BLE001
+            progress_bar.progress(int(round(normalized * 100)))
 
 
 def render_tab_fidc_ime() -> None:
@@ -56,6 +64,7 @@ def render_tab_fidc_ime() -> None:
 
     progress = _init_progress_bar(0.0, "Preparando execução...")
     status_box = st.empty()
+    progress = _init_progress_bar(0.0, "Preparando execução...", status_box)
 
     def report_progress(current: int, total: int, message: str) -> None:
         fraction = 0.0 if total <= 0 else min(1.0, max(0.0, current / total))
