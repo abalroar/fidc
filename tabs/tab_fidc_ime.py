@@ -10,8 +10,10 @@ from services.fundonet_errors import FundosNetError
 from services.fundonet_service import InformeMensalResult, InformeMensalService
 
 
-def _init_progress_bar(initial_value: float, message: str, status_box) -> object:
+def _init_progress_bar(initial_value: float, message: str, status_box=None) -> object:
     """Compatibilidade com versões antigas do Streamlit."""
+    if status_box is None:
+        status_box = st.empty()
     normalized = max(0.0, min(1.0, float(initial_value)))
     try:
         return st.progress(normalized, text=message)
@@ -62,7 +64,6 @@ def render_tab_fidc_ime() -> None:
         st.error("A competência inicial deve ser menor ou igual à competência final.")
         return
 
-    progress = _init_progress_bar(0.0, "Preparando execução...")
     status_box = st.empty()
     progress = _init_progress_bar(0.0, "Preparando execução...", status_box)
 

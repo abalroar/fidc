@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from io import BytesIO
+import re
 
 import pandas as pd
 
@@ -12,6 +13,8 @@ WIDE_META_COLUMNS = [
     "tag_path",
     "descricao",
 ]
+
+_ILLEGAL_EXCEL_CHARS_RE = re.compile(r"[\x00-\x08\x0B-\x0C\x0E-\x1F]")
 
 
 def build_wide_dataset(contas_df: pd.DataFrame, competencias_ordenadas: list[str]) -> pd.DataFrame:
@@ -50,10 +53,26 @@ def build_excel_bytes(
     docs_df: pd.DataFrame,
     audit_df: pd.DataFrame,
 ) -> bytes:
+    def _sanitize_for_excel(df: pd.DataFrame) -> pd.DataFrame:
+        if df.empty:
+            return df
+        safe_df = df.copy()
+        object_columns = safe_df.select_dtypes(include=["object", "string"]).columns
+        for column in object_columns:
+            safe_df[column] = safe_df[column].map(
+                lambda value: _ILLEGAL_EXCEL_CHARS_RE.sub("", value) if isinstance(value, str) else value
+            )
+        return safe_df
+
+    safe_wide_df = _sanitize_for_excel(wide_df)
+    safe_listas_df = _sanitize_for_excel(listas_df)
+    safe_docs_df = _sanitize_for_excel(docs_df)
+    safe_audit_df = _sanitize_for_excel(audit_df)
+
     output = BytesIO()
     with pd.ExcelWriter(output, engine="openpyxl") as writer:
-        wide_df.to_excel(writer, sheet_name="informes_campos", index=False)
-        listas_df.to_excel(writer, sheet_name="estruturas_lista", index=False)
-        docs_df.to_excel(writer, sheet_name="documentos", index=False)
-        audit_df.to_excel(writer, sheet_name="auditoria", index=False)
+        safe_wide_df.to_excel(writer, sheet_name="informes_campos", index=False)
+        safe_listas_df.to_excel(writer, sheet_name="estruturas_lista", index=False)
+        safe_docs_df.to_excel(writer, sheet_name="documentos", index=False)
+        safe_audit_df.to_excel(writer, sheet_name="auditoria", index=False)
     return output.getvalue()
