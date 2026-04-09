@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime
 from tabs import tab_fidc_ime
 
 
@@ -43,3 +44,23 @@ def test_init_progress_bar_accepts_legacy_two_arg_call(monkeypatch) -> None:
     assert isinstance(bar, _DummyProgress)
     assert bar.values == [0.0]
     assert stub.status_box.messages == ["Preparando execução..."]
+
+
+
+def test_build_failure_report_includes_context() -> None:
+    context = {"cnpj_informado": "00.000.000/0000-00"}
+    report = tab_fidc_ime._build_failure_report(ValueError("entrada inválida"), "tb", context)
+
+    assert report["categoria"] == "Erro de validação de entrada"
+    assert report["contexto_execucao"] == context
+    assert report["traceback"] == "tb"
+
+
+
+def test_safe_json_bytes_handles_non_serializable_values() -> None:
+    payload = {"quando": datetime(2026, 4, 9, 12, 30)}
+
+    encoded = tab_fidc_ime._safe_json_bytes(payload)
+
+    assert b'"quando"' in encoded
+    assert b'2026-04-09 12:30:00' in encoded
