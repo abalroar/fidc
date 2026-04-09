@@ -126,15 +126,32 @@ def parse_informe_mensal_xml(xml_content: bytes, doc_id: int) -> ParsedInformeXm
             return
 
         counts = Counter(_strip_ns(child.tag) for child in children)
+        # A LISTA_XXX container holds homogeneous XXX items — e.g.,
+        # LISTA_CEDENT_CRED_EXISTE contains CEDENT_CRED_EXISTE entries.
+        # When only one such item exists the sibling-count heuristic (> 1)
+        # fails to detect the list context.  We detect it by name: if the
+        # parent is LISTA_XXX and a child is named XXX it is always a list
+        # item regardless of count.
+        # NOTE: LISTA_INFORM breaks the XXX/LISTA_XXX pattern (its children
+        # are heterogeneous sections such as APLIC_ATIVO and CART_SEGMT), so
+        # the name check naturally excludes it.
+        parent_tag = normalized_path[-1] if normalized_path else ""
+        _LISTA_PREFIX = "LISTA_"
+        expected_list_child: str | None = (
+            parent_tag[len(_LISTA_PREFIX):] if parent_tag.upper().startswith(_LISTA_PREFIX) else None
+        )
         seen: Counter[str] = Counter()
         for child in children:
             tag = _strip_ns(child.tag)
             seen[tag] += 1
             child_normalized_path = normalized_path + [tag]
-            child_display_tag = f"{tag}[{seen[tag]}]" if counts[tag] > 1 else tag
+            is_list_item = counts[tag] > 1 or (
+                expected_list_child is not None and tag.upper() == expected_list_child.upper()
+            )
+            child_display_tag = f"{tag}[{seen[tag]}]" if is_list_item else tag
             child_display_path = display_path + [child_display_tag]
             next_contexts = list(repeated_contexts)
-            if counts[tag] > 1:
+            if is_list_item:
                 next_contexts.append(
                     {
                         "list_group_path": "/".join(child_normalized_path),

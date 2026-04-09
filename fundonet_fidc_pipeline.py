@@ -53,10 +53,10 @@ def run_pipeline(cnpj_fundo: str, periodo_inicio: str, periodo_fim: str, output_
         "data_final": fim.isoformat(),
         "source_selected": "fundonet",
         "documents_found": int(len(result.docs_df)),
-        "documents_processed": int(result.audit_df[result.audit_df["etapa"] == "parse_documento"].shape[0]),
+        "documents_processed": int(result.audit_df[result.audit_df["etapa"] == "processar_documento"].shape[0]),
         "documents_failed": int(
             result.audit_df[
-                (result.audit_df["etapa"] == "parse_documento") & (result.audit_df["status"] == "erro")
+                (result.audit_df["etapa"] == "processar_documento") & (result.audit_df["status"] == "erro")
             ].shape[0]
         ),
         "parser_version": "fundonet_parser.flatten_xml_contas.v1",

@@ -279,7 +279,14 @@ class FundosNetClient:
         base = f"{BASE_URL}/{path.lstrip('/')}"
         if not params:
             return base
-        query = urllib.parse.urlencode(list(_iter_params(params)), doseq=True)
+        # Use quote (not quote_plus) with safe='[]' so DataTables bracket params
+        # like o[0][campo]=asc reach the server unencoded, as the backend expects.
+        query = urllib.parse.urlencode(
+            list(_iter_params(params)),
+            doseq=True,
+            quote_via=urllib.parse.quote,
+            safe="[]",
+        )
         return f"{base}?{query}"
 
 
