@@ -8,6 +8,23 @@ import pandas as pd
 
 
 COMPETENCIA_COLUMN_RE = re.compile(r"^\d{2}/\d{4}$")
+EVENT_SIGN = {
+    "emissao": 1.0,
+    "resgate": -1.0,
+    "amortizacao": -1.0,
+}
+EVENT_LABEL = {
+    "emissao": "Emissão",
+    "resgate": "Resgate pago",
+    "resgate_solicitado": "Resgate solicitado",
+    "amortizacao": "Amortização",
+}
+EVENT_INTERPRETATION = {
+    "emissao": "Entrada de capital no fundo; sinal econômico positivo para PL/caixa.",
+    "resgate": "Saída de caixa paga a cotistas; sinal econômico negativo.",
+    "resgate_solicitado": "Resgate solicitado a pagar; acompanha pressão futura de liquidez.",
+    "amortizacao": "Devolução de capital aos cotistas; sinal econômico negativo.",
+}
 
 
 @dataclass(frozen=True)
@@ -31,6 +48,7 @@ class FundonetDashboardData:
     holder_latest_df: pd.DataFrame
     rate_negotiation_latest_df: pd.DataFrame
     tracking_latest_df: pd.DataFrame
+    event_summary_latest_df: pd.DataFrame
     methodology_notes: list[str]
 
 
@@ -66,7 +84,7 @@ def build_dashboard_data(
         return_history_df=return_history_df,
         latest_competencia=latest_competencia,
     )
-    event_history_df = _build_event_history(
+    raw_event_history_df = _build_event_history(
         wide_lookup=wide_lookup,
         listas_df=listas_df,
         competencias=competencias,
@@ -78,6 +96,10 @@ def build_dashboard_data(
     default_history_df = _build_default_history(
         wide_lookup=wide_lookup,
         competencias=competencias,
+    )
+    event_history_df = _decorate_event_history(
+        event_history_df=raw_event_history_df,
+        subordination_history_df=subordination_history_df,
     )
 
     composition_latest_df = _build_composition_latest_df(asset_history_df)
@@ -124,6 +146,11 @@ def build_dashboard_data(
         asset_history_df=asset_history_df,
         latest_competencia=latest_competencia,
     )
+    event_summary_latest_df = _build_event_summary_latest_df(
+        wide_lookup=wide_lookup,
+        latest_competencia=latest_competencia,
+        pl_total=summary.get("pl_total"),
+    )
 
     methodology_notes = [
         "Alocação e composição da carteira usam os saldos reportados no IME e podem divergir da metodologia proprietária do administrador.",
@@ -153,6 +180,7 @@ def build_dashboard_data(
         holder_latest_df=holder_latest_df,
         rate_negotiation_latest_df=rate_negotiation_latest_df,
         tracking_latest_df=tracking_latest_df,
+        event_summary_latest_df=event_summary_latest_df,
         methodology_notes=methodology_notes,
     )
 
@@ -209,6 +237,63 @@ def _numeric_series(wide_lookup: pd.DataFrame, competencias: list[str], tag_path
     numeric = pd.to_numeric(raw_series, errors="coerce")
     numeric.index = competencias
     return numeric.fillna(0.0)
+
+
+def _latest_path_value(
+    wide_lookup: pd.DataFrame,
+    competencia: str,
+    tag_path: str,
+) -> tuple[float | None, str]:
+    if tag_path not in wide_lookup.index:
+        return None, "missing_field"
+    raw = _get_wide_series(wide_lookup, [competencia], tag_path).iloc[0]
+    if _is_blank(raw):
+        return None, "not_reported"
+    value = _to_numeric(raw)
+    if value is None:
+        return None, "not_numeric"
+    if value == 0:
+        return 0.0, "reported_zero"
+    return value, "reported_value"
+
+
+def _combine_source_status(statuses: list[str], total: float | None) -> str:
+    if total is not None and total != 0:
+        return "reported_value"
+    if any(status == "reported_zero" for status in statuses):
+        return "reported_zero"
+    if any(status == "not_numeric" for status in statuses):
+        return "not_numeric"
+    if any(status == "not_reported" for status in statuses):
+        return "not_reported"
+    if statuses and all(status == "missing_field" for status in statuses):
+        return "missing_field"
+    return "not_available"
+
+
+def _sum_latest_paths_with_status(
+    wide_lookup: pd.DataFrame,
+    competencia: str,
+    tag_paths: list[str],
+) -> dict[str, object]:
+    values: list[float] = []
+    statuses: list[str] = []
+    present_paths = 0
+    for tag_path in tag_paths:
+        value, status = _latest_path_value(wide_lookup, competencia, tag_path)
+        statuses.append(status)
+        if status != "missing_field":
+            present_paths += 1
+        if value is not None:
+            values.append(value)
+    total = float(sum(values)) if values else None
+    return {
+        "valor": total if total is not None else 0.0,
+        "valor_raw": total,
+        "source_status": _combine_source_status(statuses, total),
+        "source_paths": len(tag_paths),
+        "present_source_paths": present_paths,
+    }
 
 
 def _numeric_series_first_available(
@@ -313,6 +398,108 @@ def _build_summary(
         "resgate_mes": _sum_event_metric(latest_events_df, "resgate", "valor_total"),
         "amortizacao_mes": _sum_event_metric(latest_events_df, "amortizacao", "valor_total"),
     }
+
+
+def _decorate_event_history(
+    *,
+    event_history_df: pd.DataFrame,
+    subordination_history_df: pd.DataFrame,
+) -> pd.DataFrame:
+    expected_columns = [
+        "competencia",
+        "competencia_dt",
+        "class_kind",
+        "label",
+        "event_type",
+        "qt_cotas",
+        "valor_total",
+        "valor_cota",
+        "event_label",
+        "event_sign",
+        "valor_total_assinado",
+        "pl_total",
+        "valor_total_pct_pl",
+    ]
+    if event_history_df.empty:
+        return pd.DataFrame(columns=expected_columns)
+
+    output = event_history_df.copy()
+    output["event_label"] = output["event_type"].map(EVENT_LABEL).fillna(output["event_type"])
+    output["event_sign"] = output["event_type"].map(EVENT_SIGN).fillna(1.0)
+    output["valor_total"] = pd.to_numeric(output["valor_total"], errors="coerce").fillna(0.0)
+    output["valor_total_assinado"] = output["valor_total"] * output["event_sign"]
+
+    if subordination_history_df.empty:
+        output["pl_total"] = pd.NA
+    else:
+        pl_lookup = subordination_history_df.set_index("competencia")["pl_total"].to_dict()
+        output["pl_total"] = output["competencia"].map(pl_lookup)
+    output["pl_total"] = pd.to_numeric(output["pl_total"], errors="coerce")
+    output["valor_total_pct_pl"] = (
+        output["valor_total_assinado"] / output["pl_total"]
+    ).where(output["pl_total"] > 0).mul(100.0)
+    return output
+
+
+def _build_event_summary_latest_df(
+    *,
+    wide_lookup: pd.DataFrame,
+    latest_competencia: str,
+    pl_total: float | str | None,
+) -> pd.DataFrame:
+    prefix = "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/CAPTA_RESGA_AMORTI"
+    specs = [
+        (
+            "emissao",
+            [
+                f"{prefix}/CAPT_MES/CLASSE_SENIOR/VL_TOTAL",
+                f"{prefix}/CAPT_MES/CLASSE_SUBORD/VL_TOTAL",
+            ],
+        ),
+        (
+            "resgate",
+            [
+                f"{prefix}/RESG_MES/CLASSE_SENIOR/VL_TOTAL",
+                f"{prefix}/RESG_MES/CLASSE_SUBORD/VL_TOTAL",
+            ],
+        ),
+        (
+            "resgate_solicitado",
+            [
+                f"{prefix}/RESG_SOLIC/CLASSE_SENIOR/VL_PAGO",
+                f"{prefix}/RESG_SOLIC/CLASSE_SUBORD/VL_PAGO",
+            ],
+        ),
+        (
+            "amortizacao",
+            [
+                f"{prefix}/AMORT/CLASSE_SENIOR/VL_TOTAL",
+                f"{prefix}/AMORT/CLASSE_SUBORD/VL_TOTAL",
+            ],
+        ),
+    ]
+    pl_value = _float_or_none(pl_total)
+    rows: list[dict[str, object]] = []
+    for ordem, (event_type, paths) in enumerate(specs, start=1):
+        value_info = _sum_latest_paths_with_status(wide_lookup, latest_competencia, paths)
+        valor = float(value_info["valor"])
+        sign = -1.0 if event_type in {"resgate", "resgate_solicitado", "amortizacao"} else 1.0
+        valor_assinado = 0.0 if valor == 0 else valor * sign
+        rows.append(
+            {
+                "ordem": ordem,
+                "event_type": event_type,
+                "evento": EVENT_LABEL[event_type],
+                "valor_total": valor,
+                "valor_total_assinado": valor_assinado,
+                "valor_total_pct_pl": (valor_assinado / pl_value * 100.0) if pl_value and pl_value > 0 else pd.NA,
+                "source_status": value_info["source_status"],
+                "source_paths": value_info["source_paths"],
+                "present_source_paths": value_info["present_source_paths"],
+                "interpretação": EVENT_INTERPRETATION[event_type],
+            }
+        )
+    return pd.DataFrame(rows)
 
 
 def _latest_row(df: pd.DataFrame, competencia: str) -> pd.Series:
@@ -504,103 +691,32 @@ def _build_liquidity_latest_df(*, wide_lookup: pd.DataFrame, latest_competencia:
 
 
 def _build_maturity_latest_df(*, wide_lookup: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
-    competencias = [latest_competencia]
-    rows = [
-        {
-            "faixa": "Vencidos",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_SOM_INAD_VENC",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_SOM_INAD_VENC",
-                ],
-            ),
-        },
-        {
-            "faixa": "Em 30 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_PRAZO_VENC_30",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_PRAZO_VENC_30",
-                ],
-            ),
-        },
-        {
-            "faixa": "31 a 60 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_PRAZO_VENC_31_60",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_PRAZO_VENC_31_60",
-                ],
-            ),
-        },
-        {
-            "faixa": "61 a 90 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_PRAZO_VENC_61_90",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_PRAZO_VENC_61_90",
-                ],
-            ),
-        },
-        {
-            "faixa": "91 a 120 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_PRAZO_VENC_91_120",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_PRAZO_VENC_91_120",
-                ],
-            ),
-        },
-        {
-            "faixa": "121 a 150 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_PRAZO_VENC_121_150",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_PRAZO_VENC_121_150",
-                ],
-            ),
-        },
-        {
-            "faixa": "151 a 180 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_PRAZO_VENC_151_180",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_PRAZO_VENC_151_180",
-                ],
-            ),
-        },
-        {
-            "faixa": "Acima de 180 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_PRAZO_VENC_181_360",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_PRAZO_VENC_361_720",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_PRAZO_VENC_721_1080",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_PRAZO_VENC_1080",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_PRAZO_VENC_181_360",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_PRAZO_VENC_361_720",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_PRAZO_VENC_721_1080",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_PRAZO_VENC_1080",
-                ],
-            ),
-        },
+    bucket_specs = [
+        ("Vencidos", ["VL_SOM_INAD_VENC"]),
+        ("Em 30 dias", ["VL_PRAZO_VENC_30"]),
+        ("31 a 60 dias", ["VL_PRAZO_VENC_31_60"]),
+        ("61 a 90 dias", ["VL_PRAZO_VENC_61_90"]),
+        ("91 a 120 dias", ["VL_PRAZO_VENC_91_120"]),
+        ("121 a 150 dias", ["VL_PRAZO_VENC_121_150"]),
+        ("151 a 180 dias", ["VL_PRAZO_VENC_151_180"]),
+        ("181 a 360 dias", ["VL_PRAZO_VENC_181_360"]),
+        ("361 a 720 dias", ["VL_PRAZO_VENC_361_720"]),
+        ("721 a 1080 dias", ["VL_PRAZO_VENC_721_1080"]),
+        ("Acima de 1080 dias", ["VL_PRAZO_VENC_1080"]),
     ]
+    rows = []
+    for ordem, (faixa, suffixes) in enumerate(bucket_specs, start=1):
+        paths = [
+            f"DOC_ARQ/LISTA_INFORM/{base}/{suffix}"
+            for suffix in suffixes
+            for base in ["COMPMT_DICRED_AQUIS", "COMPMT_DICRED_SEM_AQUIS"]
+        ]
+        row = {
+            "ordem": ordem,
+            "faixa": faixa,
+            **_sum_latest_paths_with_status(wide_lookup, latest_competencia, paths),
+        }
+        rows.append(row)
     return pd.DataFrame(rows)
 
 
@@ -647,92 +763,31 @@ def _build_default_history(
 
 
 def _build_default_buckets_latest_df(*, wide_lookup: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
-    competencias = [latest_competencia]
-    rows = [
-        {
-            "faixa": "Ate 30 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_INAD_VENC_30",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_INAD_VENC_30",
-                ],
-            ),
-        },
-        {
-            "faixa": "31 a 60 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_INAD_VENC_31_60",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_INAD_VENC_31_60",
-                ],
-            ),
-        },
-        {
-            "faixa": "61 a 90 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_INAD_VENC_61_90",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_INAD_VENC_61_90",
-                ],
-            ),
-        },
-        {
-            "faixa": "91 a 120 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_INAD_VENC_91_120",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_INAD_VENC_91_120",
-                ],
-            ),
-        },
-        {
-            "faixa": "121 a 150 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_INAD_VENC_121_150",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_INAD_VENC_121_150",
-                ],
-            ),
-        },
-        {
-            "faixa": "151 a 180 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_INAD_VENC_151_180",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_INAD_VENC_151_180",
-                ],
-            ),
-        },
-        {
-            "faixa": "Acima de 180 dias",
-            "valor": _sum_latest_paths(
-                wide_lookup,
-                competencias,
-                [
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_INAD_VENC_181_360",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_INAD_VENC_361_720",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_INAD_VENC_721_1080",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_INAD_VENC_1080",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_INAD_VENC_181_360",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_INAD_VENC_361_720",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_INAD_VENC_721_1080",
-                    "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_INAD_VENC_1080",
-                ],
-            ),
-        },
+    bucket_specs = [
+        ("Até 30 dias", ["VL_INAD_VENC_30"]),
+        ("31 a 60 dias", ["VL_INAD_VENC_31_60"]),
+        ("61 a 90 dias", ["VL_INAD_VENC_61_90"]),
+        ("91 a 120 dias", ["VL_INAD_VENC_91_120"]),
+        ("121 a 150 dias", ["VL_INAD_VENC_121_150"]),
+        ("151 a 180 dias", ["VL_INAD_VENC_151_180"]),
+        ("181 a 360 dias", ["VL_INAD_VENC_181_360"]),
+        ("361 a 720 dias", ["VL_INAD_VENC_361_720"]),
+        ("721 a 1080 dias", ["VL_INAD_VENC_721_1080"]),
+        ("Acima de 1080 dias", ["VL_INAD_VENC_1080"]),
     ]
+    rows = []
+    for ordem, (faixa, suffixes) in enumerate(bucket_specs, start=1):
+        paths = [
+            f"DOC_ARQ/LISTA_INFORM/{base}/{suffix}"
+            for suffix in suffixes
+            for base in ["COMPMT_DICRED_AQUIS", "COMPMT_DICRED_SEM_AQUIS"]
+        ]
+        row = {
+            "ordem": ordem,
+            "faixa": faixa,
+            **_sum_latest_paths_with_status(wide_lookup, latest_competencia, paths),
+        }
+        rows.append(row)
     return pd.DataFrame(rows)
 
 
@@ -902,6 +957,7 @@ def _build_tracking_latest_df(
             "unidade": "%",
             "fonte": "APLIC_ATIVO/DICRED",
             "interpretação": "Participação dos direitos creditórios na carteira.",
+            "estado_dado": "calculado" if summary.get("alocacao_pct") is not None else "nao_calculavel",
         },
         {
             "indicador": "Índice de subordinação",
@@ -909,6 +965,7 @@ def _build_tracking_latest_df(
             "unidade": "%",
             "fonte": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
             "interpretação": "PL subordinado dividido pelo PL total das cotas.",
+            "estado_dado": "calculado" if summary.get("subordinacao_pct") is not None else "nao_calculavel",
         },
         {
             "indicador": "Inadimplência / direitos creditórios",
@@ -916,6 +973,7 @@ def _build_tracking_latest_df(
             "unidade": "%",
             "fonte": "APLIC_ATIVO + COMPMT_DICRED",
             "interpretação": "Saldos vencidos inadimplentes sobre direitos creditórios.",
+            "estado_dado": "calculado" if summary.get("inadimplencia_pct") is not None else "nao_calculavel",
         },
         {
             "indicador": "Provisão / direitos creditórios",
@@ -923,6 +981,7 @@ def _build_tracking_latest_df(
             "unidade": "%",
             "fonte": "APLIC_ATIVO",
             "interpretação": "Provisão reportada sobre direitos creditórios.",
+            "estado_dado": "calculado" if direitos_creditorios else "nao_calculavel",
         },
         {
             "indicador": "Provisão / inadimplência",
@@ -930,6 +989,7 @@ def _build_tracking_latest_df(
             "unidade": "%",
             "fonte": "APLIC_ATIVO",
             "interpretação": "Cobertura contábil dos saldos inadimplentes.",
+            "estado_dado": "calculado" if inadimplencia_total else "nao_aplicavel_sem_inadimplencia",
         },
         {
             "indicador": "Aquisições / direitos creditórios",
@@ -937,6 +997,7 @@ def _build_tracking_latest_df(
             "unidade": "%",
             "fonte": "NEGOC_DICRED_MES",
             "interpretação": "Originação/aquisição no mês sobre a carteira de direitos creditórios.",
+            "estado_dado": "calculado" if direitos_creditorios else "nao_calculavel",
         },
         {
             "indicador": "Alienações / direitos creditórios",
@@ -944,6 +1005,7 @@ def _build_tracking_latest_df(
             "unidade": "%",
             "fonte": "NEGOC_DICRED_MES",
             "interpretação": "Alienações no mês sobre a carteira de direitos creditórios.",
+            "estado_dado": "calculado" if direitos_creditorios else "nao_calculavel",
         },
     ]
     return pd.DataFrame(rows)

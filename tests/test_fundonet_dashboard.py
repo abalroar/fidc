@@ -7,6 +7,7 @@ import unittest
 import pandas as pd
 
 from services.fundonet_dashboard import build_dashboard_data
+from services.fundonet_pdf_export import build_dashboard_pdf_bytes
 
 
 class FundonetDashboardTests(unittest.TestCase):
@@ -30,6 +31,14 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(2_000.0, dashboard.summary["emissao_mes"] or 0.0)
         self.assertAlmostEqual(500.0, dashboard.summary["amortizacao_mes"] or 0.0)
         self.assertEqual(2, len(dashboard.event_history_df))
+
+        amort_row = dashboard.event_history_df[dashboard.event_history_df["event_type"] == "amortizacao"].iloc[0]
+        self.assertAlmostEqual(-500.0, amort_row["valor_total_assinado"])
+        self.assertAlmostEqual(-2.43902439, amort_row["valor_total_pct_pl"], places=6)
+
+        event_summary = dashboard.event_summary_latest_df.set_index("event_type")
+        self.assertAlmostEqual(-500.0, event_summary.loc["amortizacao", "valor_total_assinado"])
+        self.assertEqual("missing_field", event_summary.loc["resgate_solicitado", "source_status"])
 
         senior_row = dashboard.return_summary_df[dashboard.return_summary_df["label"] == "Série 1"].iloc[0]
         self.assertAlmostEqual(2.0, senior_row["retorno_mes_pct"], places=6)
@@ -84,6 +93,48 @@ class FundonetDashboardTests(unittest.TestCase):
             dashboard.tracking_latest_df["indicador"] == "Alocação em direitos creditórios"
         ].iloc[0]
         self.assertAlmostEqual(80.0, tracking_row["valor"])
+
+        bucket_labels = dashboard.default_buckets_latest_df.sort_values("ordem")["faixa"].tolist()
+        self.assertEqual(
+            [
+                "Até 30 dias",
+                "31 a 60 dias",
+                "61 a 90 dias",
+                "91 a 120 dias",
+                "121 a 150 dias",
+                "151 a 180 dias",
+                "181 a 360 dias",
+                "361 a 720 dias",
+                "721 a 1080 dias",
+                "Acima de 1080 dias",
+            ],
+            bucket_labels,
+        )
+        default_361 = dashboard.default_buckets_latest_df[
+            dashboard.default_buckets_latest_df["faixa"] == "361 a 720 dias"
+        ].iloc[0]
+        self.assertAlmostEqual(7.0, default_361["valor"])
+        self.assertEqual("reported_value", default_361["source_status"])
+
+        maturity_361 = dashboard.maturity_latest_df[dashboard.maturity_latest_df["faixa"] == "361 a 720 dias"].iloc[0]
+        self.assertAlmostEqual(13.0, maturity_361["valor"])
+        self.assertEqual("reported_value", maturity_361["source_status"])
+
+    def test_pdf_export_generates_report_bytes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            workspace = Path(tmpdir)
+            self._write_fixture_csvs(workspace)
+
+            dashboard = build_dashboard_data(
+                wide_csv_path=workspace / "informes_wide.csv",
+                listas_csv_path=workspace / "estruturas_lista.csv",
+                docs_csv_path=workspace / "documentos_filtrados.csv",
+            )
+
+        pdf_bytes = build_dashboard_pdf_bytes(dashboard)
+
+        self.assertTrue(pdf_bytes.startswith(b"%PDF"))
+        self.assertGreater(len(pdf_bytes), 5_000)
 
     @staticmethod
     def _write_fixture_csvs(workspace: Path) -> None:
@@ -480,6 +531,34 @@ class FundonetDashboardTests(unittest.TestCase):
                 "TX_MAX",
                 "DOC_ARQ/LISTA_INFORM/TAXA_NEGOC_DICRED_MES/TAXA_NEGOC_DICRED_MES_AQUIS/TAXA_NEGOC_DICRED_MES_AQUIS_DESC_COMPRA/TX_MAX",
                 3,
+            ),
+            row(
+                "COMPMT_DICRED_AQUIS",
+                "",
+                "VL_INAD_VENC_361_720",
+                "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_INAD_VENC_361_720",
+                7,
+            ),
+            row(
+                "COMPMT_DICRED_SEM_AQUIS",
+                "",
+                "VL_INAD_VENC_361_720",
+                "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_INAD_VENC_361_720",
+                0,
+            ),
+            row(
+                "COMPMT_DICRED_AQUIS",
+                "",
+                "VL_PRAZO_VENC_361_720",
+                "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_AQUIS/VL_PRAZO_VENC_361_720",
+                13,
+            ),
+            row(
+                "COMPMT_DICRED_SEM_AQUIS",
+                "",
+                "VL_PRAZO_VENC_361_720",
+                "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_PRAZO_VENC_361_720",
+                0,
             ),
         ]
         pd.DataFrame(wide_rows).to_csv(workspace / "informes_wide.csv", index=False)

@@ -456,7 +456,7 @@ def _load_dashboard_data(
     )
 
 
-def _render_dashboard(result: InformeMensalResult) -> None:
+def _render_dashboard(result: InformeMensalResult, context: dict[str, Any]) -> None:
     dashboard = _load_dashboard_data(
         str(result.wide_csv_path),
         str(result.listas_csv_path),
@@ -465,6 +465,7 @@ def _render_dashboard(result: InformeMensalResult) -> None:
     st.markdown(_FIDC_REPORT_CSS, unsafe_allow_html=True)
 
     _render_dashboard_header(dashboard)
+    _render_pdf_export_button(dashboard, context)
     _render_overview_metrics(dashboard)
     _render_asset_section(dashboard)
     _render_quota_section(dashboard)
@@ -506,6 +507,28 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
 </div>
 """,
         unsafe_allow_html=True,
+    )
+
+
+def _render_pdf_export_button(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
+    try:
+        from services.fundonet_pdf_export import build_dashboard_pdf_bytes
+    except Exception as exc:  # noqa: BLE001
+        st.warning(f"Exportação em PDF indisponível neste ambiente: {exc}")
+        return
+
+    try:
+        pdf_bytes = build_dashboard_pdf_bytes(dashboard)
+    except Exception as exc:  # noqa: BLE001
+        st.warning(f"Não foi possível montar o PDF do dashboard: {exc}")
+        return
+
+    st.download_button(
+        "Baixar relatório em PDF",
+        data=pdf_bytes,
+        file_name=f"relatorio_fidc_ime_{context.get('request_id', 'execucao')}.pdf",
+        mime="application/pdf",
+        help="PDF paginado com tabelas controladas para evitar cortes e sobreposição de conteúdo.",
     )
 
 
@@ -580,7 +603,7 @@ def _render_asset_section(dashboard: FundonetDashboardData) -> None:
             dashboard.composition_latest_df,
             category_column="categoria",
             value_column="valor",
-            title=f"Composição da Carteira em {dashboard.composition_latest_df['competencia'].iloc[0]}",
+            title=f"Composição do Ativo em {dashboard.composition_latest_df['competencia'].iloc[0]}",
         ),
         use_container_width=True,
     )
@@ -593,10 +616,8 @@ def _render_asset_section(dashboard: FundonetDashboardData) -> None:
                 ["alocacao_pct"],
                 {"alocacao_pct": "Alocação"},
             ),
-            title="Alocação Mínima",
+            title="Alocação em Direitos Creditórios",
             y_title="%",
-            limit_value=50.0,
-            limit_label="Limite mínimo (50%)",
         ),
         use_container_width=True,
     )
@@ -638,7 +659,7 @@ def _render_asset_section(dashboard: FundonetDashboardData) -> None:
 
     table_left, table_right = st.columns(2)
     with table_left:
-        st.caption("Composição da carteira")
+        st.caption("Composição do ativo/carteira")
         st.dataframe(
             _format_value_percent_table(
                 dashboard.composition_latest_df,
@@ -685,8 +706,6 @@ def _render_quota_section(dashboard: FundonetDashboardData) -> None:
             ),
             title="Índice de Subordinação",
             y_title="%",
-            limit_value=10.0,
-            limit_label="Limite de referência (10%)",
         ),
         use_container_width=True,
     )
@@ -767,39 +786,39 @@ def _render_default_section(dashboard: FundonetDashboardData) -> None:
 def _render_events_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section(
         "Emissões, resgates e amortizações",
-        "Eventos de cotas reportados no bloco CAPTA_RESGA_AMORTI.",
+        "Eventos de cotas reportados no bloco CAPTA_RESGA_AMORTI, com sinal econômico separado do valor bruto.",
     )
-    if dashboard.event_history_df.empty:
-        st.info("O intervalo selecionado não trouxe eventos de emissão, resgate ou amortização no IME.")
+    if not dashboard.event_summary_latest_df.empty:
+        st.caption(f"Resumo dos eventos em {dashboard.latest_competencia}")
         st.dataframe(
-            pd.DataFrame(
-                [
-                    {"Evento": "Emissão", "Valor total": _format_brl_compact(dashboard.summary.get("emissao_mes"))},
-                    {"Evento": "Resgate", "Valor total": _format_brl_compact(dashboard.summary.get("resgate_mes"))},
-                    {"Evento": "Amortização", "Valor total": _format_brl_compact(dashboard.summary.get("amortizacao_mes"))},
-                ]
-            ),
+            _format_event_summary_table(dashboard.event_summary_latest_df),
             use_container_width=True,
             hide_index=True,
         )
+
+    if dashboard.event_history_df.empty:
+        st.info("O intervalo selecionado não trouxe eventos de emissão, resgate ou amortização no IME.")
         return
 
     event_chart_df = (
-        dashboard.event_history_df.groupby(["competencia", "competencia_dt", "event_type"], dropna=False)["valor_total"]
+        dashboard.event_history_df.groupby(["competencia", "competencia_dt", "event_type"], dropna=False)[
+            "valor_total_assinado"
+        ]
         .sum()
         .reset_index()
+        .rename(columns={"valor_total_assinado": "valor"})
     )
     event_chart_df["serie"] = event_chart_df["event_type"].map(
         {
             "emissao": "Emissão",
-            "resgate": "Resgate",
+            "resgate": "Resgate pago",
             "amortizacao": "Amortização",
         }
     )
     st.altair_chart(
         _grouped_bar_chart(
             event_chart_df,
-            title="Eventos de Cotas por Competência",
+            title="Eventos de Cotas por Competência (Sinal Econômico)",
             y_title="R$",
         ),
         use_container_width=True,
@@ -812,15 +831,19 @@ def _render_events_section(dashboard: FundonetDashboardData) -> None:
         latest_events_df["Evento"] = latest_events_df["event_type"].map(
             {
                 "emissao": "Emissão",
-                "resgate": "Resgate",
+                "resgate": "Resgate pago",
                 "amortizacao": "Amortização",
             }
         )
         latest_events_df["Valor total"] = latest_events_df["valor_total"].map(_format_brl_compact)
+        latest_events_df["Sinal econômico"] = latest_events_df["valor_total_assinado"].map(_format_brl_compact)
+        latest_events_df["% PL"] = latest_events_df["valor_total_pct_pl"].map(_format_percent)
         latest_events_df["Valor por cota"] = latest_events_df["valor_cota"].map(_format_brl)
         latest_events_df["Qt. cotas"] = latest_events_df["qt_cotas"].map(_format_decimal)
         latest_events_df["Classe"] = latest_events_df["label"]
-        latest_events_df = latest_events_df[["Evento", "Classe", "Qt. cotas", "Valor por cota", "Valor total"]]
+        latest_events_df = latest_events_df[
+            ["Evento", "Classe", "Qt. cotas", "Valor por cota", "Valor total", "Sinal econômico", "% PL"]
+        ]
         st.dataframe(latest_events_df, use_container_width=True, hide_index=True)
 
 
@@ -918,22 +941,81 @@ def _format_value_table(df: pd.DataFrame, *, label_column: str, label_title: str
         return pd.DataFrame(columns=[label_title, "Valor"])
     output = df.copy()
     output[label_title] = output[label_column]
-    output["Valor"] = output["valor"].map(_format_brl_compact)
-    return output[[label_title, "Valor"]]
+    output["Valor"] = output.apply(_format_value_row, axis=1)
+    columns = [label_title, "Valor"]
+    if "source_status" in output.columns:
+        output["Status da fonte"] = output["source_status"].map(_format_source_status)
+        columns.append("Status da fonte")
+    return output[columns]
+
+
+def _format_event_summary_table(event_summary_df: pd.DataFrame) -> pd.DataFrame:
+    if event_summary_df.empty:
+        return pd.DataFrame(columns=["Evento", "Valor bruto", "Sinal econômico", "% PL", "Status", "Leitura"])
+    output = event_summary_df.sort_values("ordem").copy() if "ordem" in event_summary_df.columns else event_summary_df.copy()
+    output["Evento"] = output["evento"]
+    output["Valor bruto"] = output["valor_total"].map(_format_brl_compact)
+    output["Sinal econômico"] = output["valor_total_assinado"].map(_format_brl_compact)
+    output["% PL"] = output["valor_total_pct_pl"].map(_format_percent)
+    output["Status"] = output["source_status"].map(_format_source_status)
+    output["Leitura"] = output["interpretação"]
+    return output[["Evento", "Valor bruto", "Sinal econômico", "% PL", "Status", "Leitura"]]
+
+
+def _format_value_row(row: pd.Series) -> str:
+    status = str(row.get("source_status", "reported_value"))
+    raw_value = row.get("valor_raw", row.get("valor"))
+    if status in {"missing_field", "not_reported", "not_numeric", "not_available"} and _is_missing_value(raw_value):
+        return "N/D"
+    return _format_brl_compact(row.get("valor"))
+
+
+def _format_source_status(value: object) -> str:
+    labels = {
+        "reported_value": "Valor reportado",
+        "reported_zero": "Zero reportado",
+        "missing_field": "Campo ausente",
+        "not_reported": "Não informado",
+        "not_numeric": "Valor não numérico",
+        "not_available": "Não disponível",
+    }
+    return labels.get(str(value), str(value or "N/D"))
+
+
+def _format_tracking_value(row: pd.Series) -> str:
+    if row.get("estado_dado") == "nao_aplicavel_sem_inadimplencia":
+        return "N/A (sem inadimplência)"
+    if row.get("unidade") == "%":
+        return _format_percent(row["valor"])
+    return _format_decimal(row["valor"])
+
+
+def _format_data_state(value: object) -> str:
+    labels = {
+        "calculado": "Calculado",
+        "nao_calculavel": "Não calculável",
+        "nao_aplicavel_sem_inadimplencia": "Não aplicável: sem inadimplência",
+    }
+    return labels.get(str(value), str(value or "N/D"))
 
 
 def _format_tracking_table(tracking_df: pd.DataFrame) -> pd.DataFrame:
     if tracking_df.empty:
-        return pd.DataFrame(columns=["Indicador", "Valor", "Fonte", "Interpretação"])
+        return pd.DataFrame(columns=["Indicador", "Valor", "Fonte", "Interpretação", "Estado"])
     output = tracking_df.copy()
     output["Indicador"] = output["indicador"]
     output["Valor"] = output.apply(
-        lambda row: _format_percent(row["valor"]) if row.get("unidade") == "%" else _format_decimal(row["valor"]),
+        _format_tracking_value,
         axis=1,
     )
     output["Fonte"] = output["fonte"]
     output["Interpretação"] = output["interpretação"]
-    return output[["Indicador", "Valor", "Fonte", "Interpretação"]]
+    output["Estado"] = (
+        output["estado_dado"].map(_format_data_state)
+        if "estado_dado" in output.columns
+        else "Calculado"
+    )
+    return output[["Indicador", "Valor", "Fonte", "Interpretação", "Estado"]]
 
 
 def _format_holder_table(holder_df: pd.DataFrame) -> pd.DataFrame:
@@ -1043,13 +1125,22 @@ def _bar_chart(
     y_title: str,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df)
+    x_sort = (
+        chart_df.sort_values("ordem")[x_column].tolist()
+        if "ordem" in chart_df.columns
+        else chart_df[x_column].drop_duplicates().tolist()
+    )
+    tooltip = [f"{x_column}:N", alt.Tooltip(f"{y_column}:Q", format=",.2f")]
+    if "source_status" in chart_df.columns:
+        chart_df["status_fonte"] = chart_df["source_status"].map(_format_source_status)
+        tooltip.append("status_fonte:N")
     chart = (
         alt.Chart(chart_df)
         .mark_bar(color="#1f77b4")
         .encode(
-            x=alt.X(f"{x_column}:N", title=None),
+            x=alt.X(f"{x_column}:N", title=None, sort=x_sort),
             y=alt.Y(f"{y_column}:Q", title=y_title),
-            tooltip=[f"{x_column}:N", alt.Tooltip(f"{y_column}:Q", format=",.2f")],
+            tooltip=tooltip,
         )
         .properties(title=title, height=320)
     )
@@ -1157,6 +1248,8 @@ def _format_decimal(value: object, decimals: int = 2) -> str:
         numeric = float(value)
     except (TypeError, ValueError):
         return "N/D"
+    if numeric == 0:
+        numeric = 0.0
     formatted = f"{numeric:,.{decimals}f}"
     return formatted.replace(",", "_").replace(".", ",").replace("_", ".")
 
@@ -1237,7 +1330,7 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None
                 mime="text/csv",
             )
 
-    _render_dashboard(result)
+    _render_dashboard(result, context)
 
     max_preview_rows = 300
     with st.expander("Artefatos brutos da extração", expanded=False):
