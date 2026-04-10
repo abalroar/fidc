@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import altair as alt
 from datetime import date, datetime, timezone
 import json
+from pathlib import Path
+import re
 import time
 import traceback
 from typing import Any
@@ -10,8 +13,17 @@ import uuid
 import pandas as pd
 import streamlit as st
 
+from services.fundonet_dashboard import FundonetDashboardData, build_dashboard_data
 from services.fundonet_errors import FundosNetError
 from services.fundonet_service import InformeMensalResult, InformeMensalService
+
+
+_cache_data = getattr(st, "cache_data", None)
+if callable(_cache_data):
+    _cache_data_decorator = _cache_data(show_spinner=False)
+else:
+    def _cache_data_decorator(func):  # type: ignore[misc]
+        return func
 
 
 def _init_progress_bar(initial_value: float, message: str, status_box=None) -> object:
@@ -247,6 +259,524 @@ def _read_csv_preview(csv_path, max_rows: int) -> pd.DataFrame:  # noqa: ANN001
     return pd.read_csv(csv_path, nrows=max_rows)
 
 
+@_cache_data_decorator
+def _load_dashboard_data(
+    wide_csv_path: str,
+    listas_csv_path: str,
+    docs_csv_path: str,
+) -> FundonetDashboardData:
+    return build_dashboard_data(
+        wide_csv_path=Path(wide_csv_path),
+        listas_csv_path=Path(listas_csv_path),
+        docs_csv_path=Path(docs_csv_path),
+    )
+
+
+def _render_dashboard(result: InformeMensalResult) -> None:
+    dashboard = _load_dashboard_data(
+        str(result.wide_csv_path),
+        str(result.listas_csv_path),
+        str(result.docs_csv_path),
+    )
+    st.subheader("Dashboard Analítico")
+    st.caption(
+        "Painel montado a partir dos saldos do IME carregado. As fórmulas replicam a estrutura do relatório mensal, "
+        "mas métricas contratuais específicas do administrador podem exigir fonte complementar."
+    )
+
+    _render_dashboard_header(dashboard)
+    _render_overview_metrics(dashboard)
+    _render_asset_section(dashboard)
+    _render_quota_section(dashboard)
+    _render_default_section(dashboard)
+    _render_events_section(dashboard)
+
+    with st.expander("Notas metodológicas", expanded=False):
+        for note in dashboard.methodology_notes:
+            st.markdown(f"- {note}")
+
+
+def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
+    info = dashboard.fund_info
+    st.markdown(f"**{info.get('nome_fundo') or 'FIDC selecionado'}**")
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Última competência", info.get("ultima_competencia", "N/D"))
+    col2.metric("Período analisado", info.get("periodo_analisado", "N/D"))
+    col3.metric("Condomínio", info.get("condominio", "N/D"))
+    col4.metric("Classe única", info.get("classe_unica", "N/D"))
+
+    left, right = st.columns(2)
+    left.caption(
+        " | ".join(
+            part
+            for part in [
+                f"CNPJ fundo: {_format_cnpj(info.get('cnpj_fundo', ''))}" if info.get("cnpj_fundo") else "",
+                f"CNPJ classe: {_format_cnpj(info.get('cnpj_classe', ''))}" if info.get("cnpj_classe") else "",
+                f"CNPJ administrador: {_format_cnpj(info.get('cnpj_administrador', ''))}"
+                if info.get("cnpj_administrador")
+                else "",
+            ]
+            if part
+        )
+    )
+    right.caption(
+        " | ".join(
+            part
+            for part in [
+                f"Escopo: {info.get('fundo_ou_classe', '')}" if info.get("fundo_ou_classe") else "",
+                f"Classe: {info.get('nome_classe', '')}" if info.get("nome_classe") else "",
+                f"Última entrega: {info.get('ultima_entrega', '')}" if info.get("ultima_entrega") else "",
+            ]
+            if part
+        )
+    )
+
+
+def _render_overview_metrics(dashboard: FundonetDashboardData) -> None:
+    summary = dashboard.summary
+    st.markdown("#### Visão Geral")
+    row1 = st.columns(4)
+    row1[0].metric("PL total", _format_brl_compact(summary.get("pl_total")))
+    row1[1].metric("Ativos totais", _format_brl_compact(summary.get("ativos_totais")))
+    row1[2].metric("Carteira", _format_brl_compact(summary.get("carteira")))
+    row1[3].metric("Direitos creditórios", _format_brl_compact(summary.get("direitos_creditorios")))
+
+    row2 = st.columns(4)
+    row2[0].metric("Alocação", _format_percent(summary.get("alocacao_pct")))
+    row2[1].metric("Subordinação", _format_percent(summary.get("subordinacao_pct")))
+    row2[2].metric("Inadimplência", _format_percent(summary.get("inadimplencia_pct")))
+    row2[3].metric("Provisão", _format_brl_compact(summary.get("provisao_total")))
+
+    row3 = st.columns(3)
+    row3[0].metric("Emissão no mês", _format_brl_compact(summary.get("emissao_mes")))
+    row3[1].metric("Resgate no mês", _format_brl_compact(summary.get("resgate_mes")))
+    row3[2].metric("Amortização no mês", _format_brl_compact(summary.get("amortizacao_mes")))
+
+
+def _render_asset_section(dashboard: FundonetDashboardData) -> None:
+    st.markdown("#### Ativo e Carteira")
+    top_left, top_right = st.columns([3, 2])
+    top_left.altair_chart(
+        _line_history_chart(
+            _melt_metrics(
+                dashboard.asset_history_df,
+                ["ativos_totais", "carteira", "direitos_creditorios"],
+                {
+                    "ativos_totais": "Ativos totais",
+                    "carteira": "Carteira",
+                    "direitos_creditorios": "Direitos creditórios",
+                },
+            ),
+            title="Evolução do Ativo",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+    top_right.altair_chart(
+        _horizontal_bar_chart(
+            dashboard.composition_latest_df,
+            category_column="categoria",
+            value_column="valor",
+            title=f"Composição da Carteira em {dashboard.composition_latest_df['competencia'].iloc[0]}",
+        ),
+        use_container_width=True,
+    )
+
+    mid_left, mid_right = st.columns(2)
+    mid_left.altair_chart(
+        _line_history_chart(
+            _melt_metrics(
+                dashboard.asset_history_df,
+                ["alocacao_pct"],
+                {"alocacao_pct": "Alocação"},
+            ),
+            title="Alocação Mínima",
+            y_title="%",
+            limit_value=50.0,
+            limit_label="Limite mínimo (50%)",
+        ),
+        use_container_width=True,
+    )
+    mid_right.altair_chart(
+        _line_point_chart(
+            dashboard.liquidity_latest_df,
+            x_column="horizonte",
+            y_column="valor",
+            title=f"Liquidez Reportada em {dashboard.latest_competencia}",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+
+    bottom_left, bottom_right = st.columns(2)
+    bottom_left.altair_chart(
+        _bar_chart(
+            dashboard.maturity_latest_df,
+            x_column="faixa",
+            y_column="valor",
+            title=f"Direitos Creditórios por Prazo de Vencimento em {dashboard.latest_competencia}",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+    flow_df = _melt_metrics(
+        dashboard.asset_history_df,
+        ["aquisicoes", "alienacoes"],
+        {"aquisicoes": "Aquisições", "alienacoes": "Alienações"},
+    )
+    bottom_right.altair_chart(
+        _grouped_bar_chart(
+            flow_df,
+            title="Fluxo dos Direitos Creditórios",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+
+
+def _render_quota_section(dashboard: FundonetDashboardData) -> None:
+    st.markdown("#### Cotas, PL e Remuneração")
+    top_left, top_right = st.columns(2)
+    top_left.altair_chart(
+        _stacked_area_chart(
+            dashboard.quota_pl_history_df,
+            title="Patrimônio Líquido das Cotas",
+            value_column="pl",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+    top_right.altair_chart(
+        _line_history_chart(
+            _melt_metrics(
+                dashboard.subordination_history_df,
+                ["subordinacao_pct"],
+                {"subordinacao_pct": "Subordinação"},
+            ),
+            title="Índice de Subordinação",
+            y_title="%",
+            limit_value=10.0,
+            limit_label="Limite de referência (10%)",
+        ),
+        use_container_width=True,
+    )
+
+    bottom_left, bottom_right = st.columns([3, 2])
+    bottom_left.altair_chart(
+        _line_history_chart(
+            _return_chart_frame(dashboard.return_history_df),
+            title="Rentabilidade Mensal das Cotas",
+            y_title="%",
+        ),
+        use_container_width=True,
+    )
+    bottom_right.dataframe(
+        _format_return_summary_frame(dashboard.return_summary_df),
+        use_container_width=True,
+        hide_index=True,
+    )
+
+
+def _render_default_section(dashboard: FundonetDashboardData) -> None:
+    st.markdown("#### Inadimplência")
+    top_left, top_right = st.columns(2)
+    top_left.altair_chart(
+        _line_history_chart(
+            _melt_metrics(
+                dashboard.default_history_df,
+                ["inadimplencia_total", "provisao_total", "pendencia_total"],
+                {
+                    "inadimplencia_total": "Inadimplência",
+                    "provisao_total": "Provisão",
+                    "pendencia_total": "Pendências",
+                },
+            ),
+            title="Saldos de Crédito Problemático",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+    top_right.altair_chart(
+        _line_history_chart(
+            _melt_metrics(
+                dashboard.default_history_df,
+                ["inadimplencia_pct"],
+                {"inadimplencia_pct": "Inadimplência / Direitos creditórios"},
+            ),
+            title="Inadimplência Relativa",
+            y_title="%",
+        ),
+        use_container_width=True,
+    )
+
+    st.altair_chart(
+        _bar_chart(
+            dashboard.default_buckets_latest_df,
+            x_column="faixa",
+            y_column="valor",
+            title=f"Aging da Inadimplência em {dashboard.latest_competencia}",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+
+
+def _render_events_section(dashboard: FundonetDashboardData) -> None:
+    st.markdown("#### Emissões, Resgates e Amortizações")
+    if dashboard.event_history_df.empty:
+        st.info("O intervalo selecionado não trouxe eventos de emissão, resgate ou amortização no IME.")
+        return
+
+    event_chart_df = (
+        dashboard.event_history_df.groupby(["competencia", "competencia_dt", "event_type"], dropna=False)["valor_total"]
+        .sum()
+        .reset_index()
+    )
+    event_chart_df["serie"] = event_chart_df["event_type"].map(
+        {
+            "emissao": "Emissão",
+            "resgate": "Resgate",
+            "amortizacao": "Amortização",
+        }
+    )
+    st.altair_chart(
+        _grouped_bar_chart(
+            event_chart_df,
+            title="Eventos de Cotas por Competência",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+
+    latest_events_df = dashboard.event_history_df[
+        dashboard.event_history_df["competencia"] == dashboard.latest_competencia
+    ].copy()
+    if not latest_events_df.empty:
+        latest_events_df["Evento"] = latest_events_df["event_type"].map(
+            {
+                "emissao": "Emissão",
+                "resgate": "Resgate",
+                "amortizacao": "Amortização",
+            }
+        )
+        latest_events_df["Valor total"] = latest_events_df["valor_total"].map(_format_brl_compact)
+        latest_events_df["Valor por cota"] = latest_events_df["valor_cota"].map(_format_brl)
+        latest_events_df["Qt. cotas"] = latest_events_df["qt_cotas"].map(_format_decimal)
+        latest_events_df["Classe"] = latest_events_df["label"]
+        latest_events_df = latest_events_df[["Evento", "Classe", "Qt. cotas", "Valor por cota", "Valor total"]]
+        st.dataframe(latest_events_df, use_container_width=True, hide_index=True)
+
+
+def _melt_metrics(source_df: pd.DataFrame, columns: list[str], label_map: dict[str, str]) -> pd.DataFrame:
+    chart_df = source_df[["competencia", "competencia_dt"] + columns].copy()
+    chart_df = chart_df.melt(
+        id_vars=["competencia", "competencia_dt"],
+        value_vars=columns,
+        var_name="serie_key",
+        value_name="valor",
+    )
+    chart_df["serie"] = chart_df["serie_key"].map(label_map).fillna(chart_df["serie_key"])
+    chart_df["valor"] = pd.to_numeric(chart_df["valor"], errors="coerce")
+    return chart_df.dropna(subset=["valor"])
+
+
+def _return_chart_frame(return_history_df: pd.DataFrame) -> pd.DataFrame:
+    if return_history_df.empty:
+        return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
+    chart_df = return_history_df[["competencia", "competencia_dt", "label", "retorno_mensal_pct"]].copy()
+    chart_df = chart_df.rename(columns={"label": "serie", "retorno_mensal_pct": "valor"})
+    chart_df["valor"] = pd.to_numeric(chart_df["valor"], errors="coerce")
+    return chart_df.dropna(subset=["valor"])
+
+
+def _format_return_summary_frame(return_summary_df: pd.DataFrame) -> pd.DataFrame:
+    if return_summary_df.empty:
+        return pd.DataFrame(columns=["Classe", "Mês", "Ano", "12 Meses"])
+    table_df = return_summary_df.copy()
+    table_df["Classe"] = table_df["label"]
+    table_df["Mês"] = table_df["retorno_mes_pct"].map(_format_percent)
+    table_df["Ano"] = table_df["retorno_ano_pct"].map(_format_percent)
+    table_df["12 Meses"] = table_df["retorno_12m_pct"].map(_format_percent)
+    return table_df[["Classe", "Mês", "Ano", "12 Meses"]]
+
+
+def _line_history_chart(
+    chart_df: pd.DataFrame,
+    *,
+    title: str,
+    y_title: str,
+    limit_value: float | None = None,
+    limit_label: str | None = None,
+) -> alt.Chart:
+    base = (
+        alt.Chart(chart_df)
+        .mark_line(point=True)
+        .encode(
+            x=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
+            y=alt.Y("valor:Q", title=y_title),
+            color=alt.Color("serie:N", title="Série"),
+            tooltip=["competencia:N", "serie:N", alt.Tooltip("valor:Q", format=",.2f")],
+        )
+        .properties(title=title, height=320)
+    )
+    if limit_value is None:
+        return base
+
+    limit_df = pd.DataFrame({"valor": [limit_value]})
+    rule = (
+        alt.Chart(limit_df)
+        .mark_rule(strokeDash=[6, 4], color="#6b7280")
+        .encode(y="valor:Q", tooltip=[alt.Tooltip("valor:Q", format=",.2f", title=limit_label or "Limite")])
+    )
+    return base + rule
+
+
+def _line_point_chart(
+    chart_df: pd.DataFrame,
+    *,
+    x_column: str,
+    y_column: str,
+    title: str,
+    y_title: str,
+) -> alt.Chart:
+    return (
+        alt.Chart(chart_df)
+        .mark_line(point=True)
+        .encode(
+            x=alt.X(f"{x_column}:N", title="Horizonte"),
+            y=alt.Y(f"{y_column}:Q", title=y_title),
+            tooltip=[f"{x_column}:N", alt.Tooltip(f"{y_column}:Q", format=",.2f")],
+        )
+        .properties(title=title, height=320)
+    )
+
+
+def _horizontal_bar_chart(
+    chart_df: pd.DataFrame,
+    *,
+    category_column: str,
+    value_column: str,
+    title: str,
+) -> alt.Chart:
+    return (
+        alt.Chart(chart_df)
+        .mark_bar()
+        .encode(
+            x=alt.X(f"{value_column}:Q", title="R$"),
+            y=alt.Y(f"{category_column}:N", title=None, sort="-x"),
+            color=alt.Color(f"{category_column}:N", legend=None),
+            tooltip=[f"{category_column}:N", alt.Tooltip(f"{value_column}:Q", format=",.2f")],
+        )
+        .properties(title=title, height=320)
+    )
+
+
+def _bar_chart(
+    chart_df: pd.DataFrame,
+    *,
+    x_column: str,
+    y_column: str,
+    title: str,
+    y_title: str,
+) -> alt.Chart:
+    return (
+        alt.Chart(chart_df)
+        .mark_bar()
+        .encode(
+            x=alt.X(f"{x_column}:N", title=None),
+            y=alt.Y(f"{y_column}:Q", title=y_title),
+            tooltip=[f"{x_column}:N", alt.Tooltip(f"{y_column}:Q", format=",.2f")],
+        )
+        .properties(title=title, height=320)
+    )
+
+
+def _grouped_bar_chart(chart_df: pd.DataFrame, *, title: str, y_title: str) -> alt.Chart:
+    return (
+        alt.Chart(chart_df)
+        .mark_bar()
+        .encode(
+            x=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
+            y=alt.Y("valor_total:Q" if "valor_total" in chart_df.columns else "valor:Q", title=y_title),
+            color=alt.Color("serie:N", title="Série"),
+            xOffset="serie:N",
+            tooltip=[
+                "competencia:N",
+                "serie:N",
+                alt.Tooltip("valor_total:Q" if "valor_total" in chart_df.columns else "valor:Q", format=",.2f"),
+            ],
+        )
+        .properties(title=title, height=320)
+    )
+
+
+def _stacked_area_chart(
+    chart_df: pd.DataFrame,
+    *,
+    title: str,
+    value_column: str,
+    y_title: str,
+) -> alt.Chart:
+    base_df = chart_df[["competencia", "competencia_dt", "label", value_column]].copy()
+    base_df[value_column] = pd.to_numeric(base_df[value_column], errors="coerce")
+    base_df = base_df.dropna(subset=[value_column])
+    return (
+        alt.Chart(base_df)
+        .mark_area(opacity=0.75)
+        .encode(
+            x=alt.X("competencia:N", title="Competência", sort=base_df["competencia"].drop_duplicates().tolist()),
+            y=alt.Y(f"{value_column}:Q", stack=True, title=y_title),
+            color=alt.Color("label:N", title="Classe"),
+            tooltip=["competencia:N", "label:N", alt.Tooltip(f"{value_column}:Q", format=",.2f")],
+        )
+        .properties(title=title, height=320)
+    )
+
+
+def _format_cnpj(value: str) -> str:
+    digits = re.sub(r"\D", "", value or "")
+    if len(digits) != 14:
+        return value or "N/D"
+    return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
+
+
+def _format_decimal(value: object, decimals: int = 2) -> str:
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return "N/D"
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return "N/D"
+    formatted = f"{numeric:,.{decimals}f}"
+    return formatted.replace(",", "_").replace(".", ",").replace("_", ".")
+
+
+def _format_percent(value: object) -> str:
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return "N/D"
+    return f"{_format_decimal(value, decimals=2)}%"
+
+
+def _format_brl(value: object) -> str:
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return "N/D"
+    return f"R$ {_format_decimal(value, decimals=2)}"
+
+
+def _format_brl_compact(value: object) -> str:
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return "N/D"
+    numeric = float(value)
+    magnitude = abs(numeric)
+    if magnitude >= 1_000_000_000:
+        return f"R$ {_format_decimal(numeric / 1_000_000_000, decimals=2)} bi"
+    if magnitude >= 1_000_000:
+        return f"R$ {_format_decimal(numeric / 1_000_000, decimals=1)} mi"
+    if magnitude >= 1_000:
+        return f"R$ {_format_decimal(numeric / 1_000, decimals=1)} mil"
+    return f"R$ {_format_decimal(numeric, decimals=2)}"
+
+
 def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None:
     contract_missing = _validate_result_contract(result)
     if contract_missing:
@@ -294,31 +824,34 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None
                 mime="text/csv",
             )
 
+    _render_dashboard(result)
+
     max_preview_rows = 300
-    st.caption(
-        f"Pré-visualizações limitadas a {max_preview_rows} linhas para manter a sessão estável. "
-        "Use o Excel para análise completa."
-    )
+    with st.expander("Artefatos brutos da extração", expanded=False):
+        st.caption(
+            f"Pré-visualizações limitadas a {max_preview_rows} linhas para manter a sessão estável. "
+            "Use o Excel para análise completa."
+        )
 
-    st.subheader("Documentos selecionados")
-    st.dataframe(result.docs_df.head(max_preview_rows), use_container_width=True)
-    if len(result.docs_df) > max_preview_rows:
-        st.info(f"Exibindo {max_preview_rows} de {len(result.docs_df)} documentos.")
+        st.subheader("Documentos selecionados")
+        st.dataframe(result.docs_df.head(max_preview_rows), use_container_width=True)
+        if len(result.docs_df) > max_preview_rows:
+            st.info(f"Exibindo {max_preview_rows} de {len(result.docs_df)} documentos.")
 
-    st.subheader("Prévia do wide final")
-    wide_preview_df = _read_csv_preview(result.wide_csv_path, max_preview_rows)
-    st.dataframe(wide_preview_df, use_container_width=True)
-    if result.wide_row_count > max_preview_rows:
-        st.info(f"Exibindo {max_preview_rows} de {result.wide_row_count} linhas do wide final.")
+        st.subheader("Prévia do wide final")
+        wide_preview_df = _read_csv_preview(result.wide_csv_path, max_preview_rows)
+        st.dataframe(wide_preview_df, use_container_width=True)
+        if result.wide_row_count > max_preview_rows:
+            st.info(f"Exibindo {max_preview_rows} de {result.wide_row_count} linhas do wide final.")
 
-    if result.listas_row_count > 0:
-        st.subheader("Prévia das estruturas repetitivas")
-        listas_preview_df = _read_csv_preview(result.listas_csv_path, max_preview_rows)
-        st.dataframe(listas_preview_df, use_container_width=True)
-        if result.listas_row_count > max_preview_rows:
-            st.info(f"Exibindo {max_preview_rows} de {result.listas_row_count} linhas das estruturas repetitivas.")
+        if result.listas_row_count > 0:
+            st.subheader("Prévia das estruturas repetitivas")
+            listas_preview_df = _read_csv_preview(result.listas_csv_path, max_preview_rows)
+            st.dataframe(listas_preview_df, use_container_width=True)
+            if result.listas_row_count > max_preview_rows:
+                st.info(f"Exibindo {max_preview_rows} de {result.listas_row_count} linhas das estruturas repetitivas.")
 
-    st.subheader("Auditoria")
-    st.dataframe(result.audit_df.head(max_preview_rows), use_container_width=True)
-    if len(result.audit_df) > max_preview_rows:
-        st.info(f"Exibindo {max_preview_rows} de {len(result.audit_df)} eventos de auditoria.")
+        st.subheader("Auditoria")
+        st.dataframe(result.audit_df.head(max_preview_rows), use_container_width=True)
+        if len(result.audit_df) > max_preview_rows:
+            st.info(f"Exibindo {max_preview_rows} de {len(result.audit_df)} eventos de auditoria.")
