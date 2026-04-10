@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import altair as alt
 from datetime import date, datetime, timezone
+from html import escape
 import json
 from pathlib import Path
 import re
@@ -16,6 +17,189 @@ import streamlit as st
 from services.fundonet_dashboard import FundonetDashboardData, build_dashboard_data
 from services.fundonet_errors import FundosNetError
 from services.fundonet_service import InformeMensalResult, InformeMensalService
+
+
+FIDC_CHART_COLORS = [
+    "#1f77b4",
+    "#2f8ac4",
+    "#6aaed6",
+    "#2ca02c",
+    "#ff7f0e",
+    "#d62728",
+    "#6c757d",
+]
+
+
+_FIDC_REPORT_CSS = """
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
+
+html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, textarea, button, h1, h2, h3, h4, h5, h6 {
+    font-family: 'IBM Plex Sans', sans-serif !important;
+}
+
+.stApp {
+    background: #ffffff;
+    color: #2f3a48;
+}
+
+.block-container {
+    padding-top: 1rem !important;
+}
+
+.fidc-hero {
+    background: linear-gradient(180deg, rgba(31,119,180,0.08), rgba(255,255,255,0.98));
+    border: 1px solid rgba(31,119,180,0.14);
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin: 0.5rem 0 1.0rem 0;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.04);
+}
+
+.fidc-hero__kicker {
+    color: #1f77b4;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.fidc-hero__title {
+    color: #212529;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.fidc-hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.fidc-pill {
+    display: inline-flex;
+    gap: 5px;
+    align-items: center;
+    border-radius: 999px;
+    border: 1px solid rgba(31,119,180,0.18);
+    background: #ffffff;
+    color: #5f6b7a;
+    padding: 4px 9px;
+    font-size: 0.76rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+}
+
+.fidc-pill strong {
+    color: #223247;
+    font-weight: 500;
+}
+
+.fidc-grid {
+    display: grid;
+    gap: 12px;
+    margin: 0.4rem 0 1.0rem 0;
+}
+
+.fidc-grid--hero {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.fidc-grid--supporting {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.fidc-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-left: 3px solid #1f77b4;
+    border-radius: 10px;
+    padding: 14px 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    min-height: 92px;
+}
+
+.fidc-card--risk {
+    border-left-color: #d62728;
+}
+
+.fidc-card--neutral {
+    border-left-color: #adb5bd;
+}
+
+.fidc-card__label {
+    color: #6c757d;
+    font-size: 0.68rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.fidc-card__value {
+    color: #212529;
+    font-size: 1.45rem;
+    font-weight: 400;
+    line-height: 1.05;
+}
+
+.fidc-card__source {
+    color: #8a96a3;
+    font-size: 0.72rem;
+    line-height: 1.3;
+    margin-top: 9px;
+}
+
+.fidc-section {
+    color: #1f77b4;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 1.45rem 0 0.35rem 0;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.fidc-section-caption {
+    color: #667382;
+    font-size: 0.82rem;
+    margin: -0.1rem 0 0.75rem 0;
+}
+
+div[data-testid="stMetric"] {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-left: 3px solid #1f77b4;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+div[data-testid="stMetricValue"] {
+    font-weight: 400 !important;
+    color: #212529 !important;
+}
+
+div[data-testid="stMetricLabel"] {
+    color: #6c757d !important;
+    font-weight: 500 !important;
+}
+
+@media (max-width: 900px) {
+    .fidc-grid--hero,
+    .fidc-grid--supporting {
+        grid-template-columns: 1fr;
+    }
+    .fidc-card__value {
+        font-size: 1.3rem;
+    }
+}
+</style>
+"""
 
 
 _cache_data = getattr(st, "cache_data", None)
@@ -278,11 +462,7 @@ def _render_dashboard(result: InformeMensalResult) -> None:
         str(result.listas_csv_path),
         str(result.docs_csv_path),
     )
-    st.subheader("Dashboard Analítico")
-    st.caption(
-        "Painel montado a partir dos saldos do IME carregado. As fórmulas replicam a estrutura do relatório mensal, "
-        "mas métricas contratuais específicas do administrador podem exigir fonte complementar."
-    )
+    st.markdown(_FIDC_REPORT_CSS, unsafe_allow_html=True)
 
     _render_dashboard_header(dashboard)
     _render_overview_metrics(dashboard)
@@ -290,6 +470,7 @@ def _render_dashboard(result: InformeMensalResult) -> None:
     _render_quota_section(dashboard)
     _render_default_section(dashboard)
     _render_events_section(dashboard)
+    _render_cvm_tables_section(dashboard)
 
     with st.expander("Notas metodológicas", expanded=False):
         for note in dashboard.methodology_notes:
@@ -298,63 +479,85 @@ def _render_dashboard(result: InformeMensalResult) -> None:
 
 def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
     info = dashboard.fund_info
-    st.markdown(f"**{info.get('nome_fundo') or 'FIDC selecionado'}**")
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Última competência", info.get("ultima_competencia", "N/D"))
-    col2.metric("Período analisado", info.get("periodo_analisado", "N/D"))
-    col3.metric("Condomínio", info.get("condominio", "N/D"))
-    col4.metric("Classe única", info.get("classe_unica", "N/D"))
-
-    left, right = st.columns(2)
-    left.caption(
-        " | ".join(
-            part
-            for part in [
-                f"CNPJ fundo: {_format_cnpj(info.get('cnpj_fundo', ''))}" if info.get("cnpj_fundo") else "",
-                f"CNPJ classe: {_format_cnpj(info.get('cnpj_classe', ''))}" if info.get("cnpj_classe") else "",
-                f"CNPJ administrador: {_format_cnpj(info.get('cnpj_administrador', ''))}"
-                if info.get("cnpj_administrador")
-                else "",
-            ]
-            if part
-        )
+    pills = [
+        ("Última competência", info.get("ultima_competencia", "N/D")),
+        ("Período", info.get("periodo_analisado", "N/D")),
+        ("Condomínio", info.get("condominio", "N/D")),
+        ("Classe única", info.get("classe_unica", "N/D")),
+        ("CNPJ fundo", _format_cnpj(info.get("cnpj_fundo", ""))),
+        ("CNPJ classe", _format_cnpj(info.get("cnpj_classe", ""))),
+        ("CNPJ administrador", _format_cnpj(info.get("cnpj_administrador", ""))),
+        ("Última entrega", info.get("ultima_entrega", "N/D")),
+    ]
+    pills_html = "\n".join(
+        f'<span class="fidc-pill"><strong>{escape(label)}:</strong> {escape(str(value or "N/D"))}</span>'
+        for label, value in pills
+        if value and value != "N/D"
     )
-    right.caption(
-        " | ".join(
-            part
-            for part in [
-                f"Escopo: {info.get('fundo_ou_classe', '')}" if info.get("fundo_ou_classe") else "",
-                f"Classe: {info.get('nome_classe', '')}" if info.get("nome_classe") else "",
-                f"Última entrega: {info.get('ultima_entrega', '')}" if info.get("ultima_entrega") else "",
-            ]
-            if part
-        )
+    title = info.get("nome_fundo") or info.get("nome_classe") or "FIDC selecionado"
+    subtitle = info.get("nome_classe") or info.get("fundo_ou_classe") or "Informe Mensal Estruturado"
+    st.markdown(
+        f"""
+<div class="fidc-hero">
+  <div class="fidc-hero__kicker">Informe Mensal CVM · Snapshot analítico</div>
+  <div class="fidc-hero__title">{escape(str(title))}</div>
+  <div class="fidc-section-caption">{escape(str(subtitle))}</div>
+  <div class="fidc-hero__meta">{pills_html}</div>
+</div>
+""",
+        unsafe_allow_html=True,
     )
 
 
 def _render_overview_metrics(dashboard: FundonetDashboardData) -> None:
     summary = dashboard.summary
-    st.markdown("#### Visão Geral")
-    row1 = st.columns(4)
-    row1[0].metric("PL total", _format_brl_compact(summary.get("pl_total")))
-    row1[1].metric("Ativos totais", _format_brl_compact(summary.get("ativos_totais")))
-    row1[2].metric("Carteira", _format_brl_compact(summary.get("carteira")))
-    row1[3].metric("Direitos creditórios", _format_brl_compact(summary.get("direitos_creditorios")))
+    _render_fidc_section("Visão geral", "Métricas principais extraídas do IME mais recente do intervalo.")
+    hero_cards = [
+        _render_fidc_card("PL total", _format_brl_compact(summary.get("pl_total")), "Cotas sênior + subordinadas"),
+        _render_fidc_card("Ativos totais", _format_brl_compact(summary.get("ativos_totais")), "APLIC_ATIVO/VL_SOM_APLIC_ATIVO"),
+        _render_fidc_card("Direitos creditórios", _format_brl_compact(summary.get("direitos_creditorios")), "DICRED/VL_DICRED"),
+        _render_fidc_card("Subordinação", _format_percent(summary.get("subordinacao_pct")), "PL subordinado / PL total"),
+    ]
+    st.markdown(_render_fidc_grid(hero_cards, "fidc-grid--hero"), unsafe_allow_html=True)
 
-    row2 = st.columns(4)
-    row2[0].metric("Alocação", _format_percent(summary.get("alocacao_pct")))
-    row2[1].metric("Subordinação", _format_percent(summary.get("subordinacao_pct")))
-    row2[2].metric("Inadimplência", _format_percent(summary.get("inadimplencia_pct")))
-    row2[3].metric("Provisão", _format_brl_compact(summary.get("provisao_total")))
+    supporting_cards = [
+        _render_fidc_card("Alocação", _format_percent(summary.get("alocacao_pct")), "Direitos creditórios / carteira"),
+        _render_fidc_card("Inadimplência", _format_percent(summary.get("inadimplencia_pct")), "Inadimplência / direitos creditórios", variant="risk"),
+        _render_fidc_card("Provisão", _format_brl_compact(summary.get("provisao_total")), "Provisão para redução/recuperação", variant="neutral"),
+        _render_fidc_card("Emissão no mês", _format_brl_compact(summary.get("emissao_mes")), "CAPTA_RESGA_AMORTI/CAPT_MES"),
+        _render_fidc_card("Resgate no mês", _format_brl_compact(summary.get("resgate_mes")), "CAPTA_RESGA_AMORTI/RESG_MES"),
+        _render_fidc_card("Amortização no mês", _format_brl_compact(summary.get("amortizacao_mes")), "CAPTA_RESGA_AMORTI/AMORT"),
+    ]
+    st.markdown(_render_fidc_grid(supporting_cards, "fidc-grid--supporting"), unsafe_allow_html=True)
 
-    row3 = st.columns(3)
-    row3[0].metric("Emissão no mês", _format_brl_compact(summary.get("emissao_mes")))
-    row3[1].metric("Resgate no mês", _format_brl_compact(summary.get("resgate_mes")))
-    row3[2].metric("Amortização no mês", _format_brl_compact(summary.get("amortizacao_mes")))
+
+def _render_fidc_section(title: str, caption: str | None = None) -> None:
+    st.markdown(f'<div class="fidc-section">{escape(title)}</div>', unsafe_allow_html=True)
+    if caption:
+        st.markdown(f'<div class="fidc-section-caption">{escape(caption)}</div>', unsafe_allow_html=True)
+
+
+def _render_fidc_card(label: str, value: str, source: str = "", *, variant: str = "") -> str:
+    variant_class = f" fidc-card--{variant}" if variant else ""
+    source_html = f'<div class="fidc-card__source">{escape(source)}</div>' if source else ""
+    return (
+        f'<div class="fidc-card{variant_class}">'
+        f'<div class="fidc-card__label">{escape(label)}</div>'
+        f'<div class="fidc-card__value">{escape(value)}</div>'
+        f"{source_html}"
+        "</div>"
+    )
+
+
+def _render_fidc_grid(cards_html: list[str], grid_class: str) -> str:
+    return f'<div class="fidc-grid {grid_class}">{"".join(cards_html)}</div>'
 
 
 def _render_asset_section(dashboard: FundonetDashboardData) -> None:
-    st.markdown("#### Ativo e Carteira")
+    _render_fidc_section(
+        "Ativo e carteira",
+        "Composição da carteira, liquidez e vencimentos no padrão do relatório mensal.",
+    )
     top_left, top_right = st.columns([3, 2])
     top_left.altair_chart(
         _line_history_chart(
@@ -433,9 +636,36 @@ def _render_asset_section(dashboard: FundonetDashboardData) -> None:
         use_container_width=True,
     )
 
+    table_left, table_right = st.columns(2)
+    with table_left:
+        st.caption("Composição da carteira")
+        st.dataframe(
+            _format_value_percent_table(
+                dashboard.composition_latest_df,
+                label_column="categoria",
+                label_title="Categoria",
+            ),
+            use_container_width=True,
+            hide_index=True,
+        )
+    with table_right:
+        st.caption("Carteira por segmento")
+        st.dataframe(
+            _format_value_percent_table(
+                dashboard.segment_latest_df,
+                label_column="segmento",
+                label_title="Segmento",
+            ),
+            use_container_width=True,
+            hide_index=True,
+        )
+
 
 def _render_quota_section(dashboard: FundonetDashboardData) -> None:
-    st.markdown("#### Cotas, PL e Remuneração")
+    _render_fidc_section(
+        "Cotas, PL e remuneração",
+        "PL por classe, índice de subordinação e rentabilidade mensal das cotas.",
+    )
     top_left, top_right = st.columns(2)
     top_left.altair_chart(
         _stacked_area_chart(
@@ -476,9 +706,17 @@ def _render_quota_section(dashboard: FundonetDashboardData) -> None:
         hide_index=True,
     )
 
+    latest_quota_df = _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia)
+    if not latest_quota_df.empty:
+        st.caption(f"Quadro de cotas em {dashboard.latest_competencia}")
+        st.dataframe(latest_quota_df, use_container_width=True, hide_index=True)
+
 
 def _render_default_section(dashboard: FundonetDashboardData) -> None:
-    st.markdown("#### Inadimplência")
+    _render_fidc_section(
+        "Inadimplência",
+        "Saldos vencidos, provisões e aging da inadimplência reportada.",
+    )
     top_left, top_right = st.columns(2)
     top_left.altair_chart(
         _line_history_chart(
@@ -519,12 +757,31 @@ def _render_default_section(dashboard: FundonetDashboardData) -> None:
         ),
         use_container_width=True,
     )
+    st.dataframe(
+        _format_value_table(dashboard.default_buckets_latest_df, label_column="faixa", label_title="Faixa"),
+        use_container_width=True,
+        hide_index=True,
+    )
 
 
 def _render_events_section(dashboard: FundonetDashboardData) -> None:
-    st.markdown("#### Emissões, Resgates e Amortizações")
+    _render_fidc_section(
+        "Emissões, resgates e amortizações",
+        "Eventos de cotas reportados no bloco CAPTA_RESGA_AMORTI.",
+    )
     if dashboard.event_history_df.empty:
         st.info("O intervalo selecionado não trouxe eventos de emissão, resgate ou amortização no IME.")
+        st.dataframe(
+            pd.DataFrame(
+                [
+                    {"Evento": "Emissão", "Valor total": _format_brl_compact(dashboard.summary.get("emissao_mes"))},
+                    {"Evento": "Resgate", "Valor total": _format_brl_compact(dashboard.summary.get("resgate_mes"))},
+                    {"Evento": "Amortização", "Valor total": _format_brl_compact(dashboard.summary.get("amortizacao_mes"))},
+                ]
+            ),
+            use_container_width=True,
+            hide_index=True,
+        )
         return
 
     event_chart_df = (
@@ -567,6 +824,36 @@ def _render_events_section(dashboard: FundonetDashboardData) -> None:
         st.dataframe(latest_events_df, use_container_width=True, hide_index=True)
 
 
+def _render_cvm_tables_section(dashboard: FundonetDashboardData) -> None:
+    _render_fidc_section(
+        "Tabelas CVM normalizadas",
+        "Visão tabular próxima ao layout do informe, derivada do XML parseado.",
+    )
+    left, right = st.columns(2)
+    with left:
+        st.caption("Índices de acompanhamento")
+        st.dataframe(
+            _format_tracking_table(dashboard.tracking_latest_df),
+            use_container_width=True,
+            hide_index=True,
+        )
+    with right:
+        st.caption("Cotistas")
+        st.dataframe(
+            _format_holder_table(dashboard.holder_latest_df),
+            use_container_width=True,
+            hide_index=True,
+        )
+
+    if not dashboard.rate_negotiation_latest_df.empty:
+        with st.expander("Taxas de negociação de direitos creditórios", expanded=False):
+            st.dataframe(
+                _format_rate_table(dashboard.rate_negotiation_latest_df),
+                use_container_width=True,
+                hide_index=True,
+            )
+
+
 def _melt_metrics(source_df: pd.DataFrame, columns: list[str], label_map: dict[str, str]) -> pd.DataFrame:
     chart_df = source_df[["competencia", "competencia_dt"] + columns].copy()
     chart_df = chart_df.melt(
@@ -600,6 +887,77 @@ def _format_return_summary_frame(return_summary_df: pd.DataFrame) -> pd.DataFram
     return table_df[["Classe", "Mês", "Ano", "12 Meses"]]
 
 
+def _format_latest_quota_frame(quota_pl_history_df: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
+    if quota_pl_history_df.empty:
+        return pd.DataFrame(columns=["Classe", "Tipo", "Qt. cotas", "Valor da cota", "PL"])
+    latest_df = quota_pl_history_df[quota_pl_history_df["competencia"] == latest_competencia].copy()
+    if latest_df.empty:
+        return pd.DataFrame(columns=["Classe", "Tipo", "Qt. cotas", "Valor da cota", "PL"])
+    latest_df["Classe"] = latest_df["label"]
+    latest_df["Tipo"] = latest_df["class_kind"].map({"senior": "Sênior", "subordinada": "Subordinada"}).fillna(
+        latest_df["class_kind"]
+    )
+    latest_df["Qt. cotas"] = latest_df["qt_cotas"].map(lambda value: _format_decimal(value, decimals=4))
+    latest_df["Valor da cota"] = latest_df["vl_cota"].map(_format_brl)
+    latest_df["PL"] = latest_df["pl"].map(_format_brl_compact)
+    return latest_df[["Classe", "Tipo", "Qt. cotas", "Valor da cota", "PL"]]
+
+
+def _format_value_percent_table(df: pd.DataFrame, *, label_column: str, label_title: str) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=[label_title, "Valor", "%"])
+    output = df.copy()
+    output[label_title] = output[label_column]
+    output["Valor"] = output["valor"].map(_format_brl_compact)
+    output["%"] = output["percentual"].map(_format_percent) if "percentual" in output.columns else "N/D"
+    return output[[label_title, "Valor", "%"]]
+
+
+def _format_value_table(df: pd.DataFrame, *, label_column: str, label_title: str) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=[label_title, "Valor"])
+    output = df.copy()
+    output[label_title] = output[label_column]
+    output["Valor"] = output["valor"].map(_format_brl_compact)
+    return output[[label_title, "Valor"]]
+
+
+def _format_tracking_table(tracking_df: pd.DataFrame) -> pd.DataFrame:
+    if tracking_df.empty:
+        return pd.DataFrame(columns=["Indicador", "Valor", "Fonte", "Interpretação"])
+    output = tracking_df.copy()
+    output["Indicador"] = output["indicador"]
+    output["Valor"] = output.apply(
+        lambda row: _format_percent(row["valor"]) if row.get("unidade") == "%" else _format_decimal(row["valor"]),
+        axis=1,
+    )
+    output["Fonte"] = output["fonte"]
+    output["Interpretação"] = output["interpretação"]
+    return output[["Indicador", "Valor", "Fonte", "Interpretação"]]
+
+
+def _format_holder_table(holder_df: pd.DataFrame) -> pd.DataFrame:
+    if holder_df.empty:
+        return pd.DataFrame(columns=["Grupo", "Categoria", "Quantidade"])
+    output = holder_df.copy()
+    output["Grupo"] = output["grupo"]
+    output["Categoria"] = output["categoria"]
+    output["Quantidade"] = output["quantidade"].map(lambda value: _format_decimal(value, decimals=0))
+    return output[["Grupo", "Categoria", "Quantidade"]]
+
+
+def _format_rate_table(rate_df: pd.DataFrame) -> pd.DataFrame:
+    if rate_df.empty:
+        return pd.DataFrame(columns=["Grupo", "Operação", "Mín.", "Média", "Máx."])
+    output = rate_df.copy()
+    output["Grupo"] = output["grupo"]
+    output["Operação"] = output["operacao"]
+    output["Mín."] = output["taxa_min"].map(_format_percent)
+    output["Média"] = output["taxa_media"].map(_format_percent)
+    output["Máx."] = output["taxa_max"].map(_format_percent)
+    return output[["Grupo", "Operação", "Mín.", "Média", "Máx."]]
+
+
 def _line_history_chart(
     chart_df: pd.DataFrame,
     *,
@@ -608,19 +966,20 @@ def _line_history_chart(
     limit_value: float | None = None,
     limit_label: str | None = None,
 ) -> alt.Chart:
+    chart_df = _altair_compatible_df(chart_df)
     base = (
         alt.Chart(chart_df)
         .mark_line(point=True)
         .encode(
             x=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
             y=alt.Y("valor:Q", title=y_title),
-            color=alt.Color("serie:N", title="Série"),
+            color=alt.Color("serie:N", title="Série", scale=alt.Scale(range=FIDC_CHART_COLORS)),
             tooltip=["competencia:N", "serie:N", alt.Tooltip("valor:Q", format=",.2f")],
         )
         .properties(title=title, height=320)
     )
     if limit_value is None:
-        return base
+        return _style_altair_chart(base)
 
     limit_df = pd.DataFrame({"valor": [limit_value]})
     rule = (
@@ -628,7 +987,7 @@ def _line_history_chart(
         .mark_rule(strokeDash=[6, 4], color="#6b7280")
         .encode(y="valor:Q", tooltip=[alt.Tooltip("valor:Q", format=",.2f", title=limit_label or "Limite")])
     )
-    return base + rule
+    return _style_altair_chart(base + rule)
 
 
 def _line_point_chart(
@@ -639,7 +998,8 @@ def _line_point_chart(
     title: str,
     y_title: str,
 ) -> alt.Chart:
-    return (
+    chart_df = _altair_compatible_df(chart_df)
+    chart = (
         alt.Chart(chart_df)
         .mark_line(point=True)
         .encode(
@@ -649,6 +1009,7 @@ def _line_point_chart(
         )
         .properties(title=title, height=320)
     )
+    return _style_altair_chart(chart)
 
 
 def _horizontal_bar_chart(
@@ -658,17 +1019,19 @@ def _horizontal_bar_chart(
     value_column: str,
     title: str,
 ) -> alt.Chart:
-    return (
+    chart_df = _altair_compatible_df(chart_df)
+    chart = (
         alt.Chart(chart_df)
         .mark_bar()
         .encode(
             x=alt.X(f"{value_column}:Q", title="R$"),
             y=alt.Y(f"{category_column}:N", title=None, sort="-x"),
-            color=alt.Color(f"{category_column}:N", legend=None),
+            color=alt.Color(f"{category_column}:N", legend=None, scale=alt.Scale(range=FIDC_CHART_COLORS)),
             tooltip=[f"{category_column}:N", alt.Tooltip(f"{value_column}:Q", format=",.2f")],
         )
         .properties(title=title, height=320)
     )
+    return _style_altair_chart(chart)
 
 
 def _bar_chart(
@@ -679,9 +1042,10 @@ def _bar_chart(
     title: str,
     y_title: str,
 ) -> alt.Chart:
-    return (
+    chart_df = _altair_compatible_df(chart_df)
+    chart = (
         alt.Chart(chart_df)
-        .mark_bar()
+        .mark_bar(color="#1f77b4")
         .encode(
             x=alt.X(f"{x_column}:N", title=None),
             y=alt.Y(f"{y_column}:Q", title=y_title),
@@ -689,16 +1053,18 @@ def _bar_chart(
         )
         .properties(title=title, height=320)
     )
+    return _style_altair_chart(chart)
 
 
 def _grouped_bar_chart(chart_df: pd.DataFrame, *, title: str, y_title: str) -> alt.Chart:
-    return (
+    chart_df = _altair_compatible_df(chart_df)
+    chart = (
         alt.Chart(chart_df)
         .mark_bar()
         .encode(
             x=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
             y=alt.Y("valor_total:Q" if "valor_total" in chart_df.columns else "valor:Q", title=y_title),
-            color=alt.Color("serie:N", title="Série"),
+            color=alt.Color("serie:N", title="Série", scale=alt.Scale(range=FIDC_CHART_COLORS)),
             xOffset="serie:N",
             tooltip=[
                 "competencia:N",
@@ -708,6 +1074,7 @@ def _grouped_bar_chart(chart_df: pd.DataFrame, *, title: str, y_title: str) -> a
         )
         .properties(title=title, height=320)
     )
+    return _style_altair_chart(chart)
 
 
 def _stacked_area_chart(
@@ -720,17 +1087,51 @@ def _stacked_area_chart(
     base_df = chart_df[["competencia", "competencia_dt", "label", value_column]].copy()
     base_df[value_column] = pd.to_numeric(base_df[value_column], errors="coerce")
     base_df = base_df.dropna(subset=[value_column])
-    return (
+    base_df = _altair_compatible_df(base_df)
+    chart = (
         alt.Chart(base_df)
         .mark_area(opacity=0.75)
         .encode(
             x=alt.X("competencia:N", title="Competência", sort=base_df["competencia"].drop_duplicates().tolist()),
             y=alt.Y(f"{value_column}:Q", stack=True, title=y_title),
-            color=alt.Color("label:N", title="Classe"),
+            color=alt.Color("label:N", title="Classe", scale=alt.Scale(range=FIDC_CHART_COLORS)),
             tooltip=["competencia:N", "label:N", alt.Tooltip(f"{value_column}:Q", format=",.2f")],
         )
         .properties(title=title, height=320)
     )
+    return _style_altair_chart(chart)
+
+
+def _style_altair_chart(chart: alt.Chart) -> alt.Chart:
+    return (
+        chart.configure_axis(
+            labelColor="#5f6b7a",
+            titleColor="#5f6b7a",
+            gridColor="#eef2f6",
+            domainColor="#e9ecef",
+        )
+        .configure_title(
+            color="#223247",
+            font="IBM Plex Sans",
+            fontSize=14,
+            fontWeight=500,
+            anchor="start",
+        )
+        .configure_view(stroke=None)
+        .configure_legend(labelColor="#5f6b7a", titleColor="#5f6b7a", orient="bottom")
+    )
+
+
+def _altair_compatible_df(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return df.copy()
+    output = df.copy()
+    for column in output.columns:
+        dtype_text = str(output[column].dtype)
+        dtype_repr = repr(output[column].dtype)
+        if dtype_text.startswith("string") or dtype_text == "str" or "StringDtype" in dtype_repr:
+            output[column] = output[column].astype(object)
+    return output
 
 
 def _format_cnpj(value: str) -> str:
@@ -740,8 +1141,17 @@ def _format_cnpj(value: str) -> str:
     return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
 
 
+def _is_missing_value(value: object) -> bool:
+    if value is None:
+        return True
+    try:
+        return bool(pd.isna(value))
+    except (TypeError, ValueError):
+        return False
+
+
 def _format_decimal(value: object, decimals: int = 2) -> str:
-    if value is None or (isinstance(value, float) and pd.isna(value)):
+    if _is_missing_value(value):
         return "N/D"
     try:
         numeric = float(value)
@@ -752,21 +1162,24 @@ def _format_decimal(value: object, decimals: int = 2) -> str:
 
 
 def _format_percent(value: object) -> str:
-    if value is None or (isinstance(value, float) and pd.isna(value)):
+    if _is_missing_value(value):
         return "N/D"
     return f"{_format_decimal(value, decimals=2)}%"
 
 
 def _format_brl(value: object) -> str:
-    if value is None or (isinstance(value, float) and pd.isna(value)):
+    if _is_missing_value(value):
         return "N/D"
     return f"R$ {_format_decimal(value, decimals=2)}"
 
 
 def _format_brl_compact(value: object) -> str:
-    if value is None or (isinstance(value, float) and pd.isna(value)):
+    if _is_missing_value(value):
         return "N/D"
-    numeric = float(value)
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return "N/D"
     magnitude = abs(numeric)
     if magnitude >= 1_000_000_000:
         return f"R$ {_format_decimal(numeric / 1_000_000_000, decimals=2)} bi"

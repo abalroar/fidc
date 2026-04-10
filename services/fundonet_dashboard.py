@@ -18,6 +18,7 @@ class FundonetDashboardData:
     summary: dict[str, float | str | None]
     asset_history_df: pd.DataFrame
     composition_latest_df: pd.DataFrame
+    segment_latest_df: pd.DataFrame
     liquidity_latest_df: pd.DataFrame
     maturity_latest_df: pd.DataFrame
     quota_pl_history_df: pd.DataFrame
@@ -27,6 +28,9 @@ class FundonetDashboardData:
     event_history_df: pd.DataFrame
     default_history_df: pd.DataFrame
     default_buckets_latest_df: pd.DataFrame
+    holder_latest_df: pd.DataFrame
+    rate_negotiation_latest_df: pd.DataFrame
+    tracking_latest_df: pd.DataFrame
     methodology_notes: list[str]
 
 
@@ -77,6 +81,10 @@ def build_dashboard_data(
     )
 
     composition_latest_df = _build_composition_latest_df(asset_history_df)
+    segment_latest_df = _build_segment_latest_df(
+        wide_lookup=wide_lookup,
+        latest_competencia=latest_competencia,
+    )
     liquidity_latest_df = _build_liquidity_latest_df(
         wide_lookup=wide_lookup,
         latest_competencia=latest_competencia,
@@ -86,6 +94,15 @@ def build_dashboard_data(
         latest_competencia=latest_competencia,
     )
     default_buckets_latest_df = _build_default_buckets_latest_df(
+        wide_lookup=wide_lookup,
+        latest_competencia=latest_competencia,
+    )
+    holder_latest_df = _build_holder_latest_df(
+        wide_lookup=wide_lookup,
+        listas_df=listas_df,
+        latest_competencia=latest_competencia,
+    )
+    rate_negotiation_latest_df = _build_rate_negotiation_latest_df(
         wide_lookup=wide_lookup,
         latest_competencia=latest_competencia,
     )
@@ -102,12 +119,18 @@ def build_dashboard_data(
         default_history_df=default_history_df,
         event_history_df=event_history_df,
     )
+    tracking_latest_df = _build_tracking_latest_df(
+        summary=summary,
+        asset_history_df=asset_history_df,
+        latest_competencia=latest_competencia,
+    )
 
     methodology_notes = [
-        "Alocacao e composicao da carteira usam os saldos reportados no IME e podem divergir da metodologia proprietaria do administrador.",
-        "Indice de subordinação eh calculado como PL subordinado dividido pelo PL total das cotas reportadas.",
+        "Alocação e composição da carteira usam os saldos reportados no IME e podem divergir da metodologia proprietária do administrador.",
+        "Direitos creditórios priorizam o campo CVM DICRED/VL_DICRED e usam campos legados CRED_EXISTE apenas como fallback.",
+        "Índice de subordinação é calculado como PL subordinado dividido pelo PL total das cotas reportadas.",
         "Indices de cobertura, rating, benchmark, custodiante e auditor nao sao derivados diretamente do IME e exigem fonte complementar.",
-        "Fluxo de direitos creditorios usa aquisicoes e alienacoes reportadas no IME; o PDF de referencia pode chamar esse bloco de liquidacoes.",
+        "Fluxo de direitos creditórios usa aquisições e alienações reportadas no IME; o PDF de referência pode chamar esse bloco de liquidações.",
     ]
 
     return FundonetDashboardData(
@@ -117,6 +140,7 @@ def build_dashboard_data(
         summary=summary,
         asset_history_df=asset_history_df,
         composition_latest_df=composition_latest_df,
+        segment_latest_df=segment_latest_df,
         liquidity_latest_df=liquidity_latest_df,
         maturity_latest_df=maturity_latest_df,
         quota_pl_history_df=quota_pl_history_df,
@@ -126,6 +150,9 @@ def build_dashboard_data(
         event_history_df=event_history_df,
         default_history_df=default_history_df,
         default_buckets_latest_df=default_buckets_latest_df,
+        holder_latest_df=holder_latest_df,
+        rate_negotiation_latest_df=rate_negotiation_latest_df,
+        tracking_latest_df=tracking_latest_df,
         methodology_notes=methodology_notes,
     )
 
@@ -184,6 +211,37 @@ def _numeric_series(wide_lookup: pd.DataFrame, competencias: list[str], tag_path
     return numeric.fillna(0.0)
 
 
+def _numeric_series_first_available(
+    wide_lookup: pd.DataFrame,
+    competencias: list[str],
+    tag_paths: list[str],
+) -> pd.Series:
+    output = pd.Series([0.0] * len(competencias), index=competencias, dtype="float64")
+    for tag_path in tag_paths:
+        candidate = _numeric_series(wide_lookup, competencias, tag_path)
+        output = output.where(output > 0, candidate)
+    return output.fillna(0.0)
+
+
+def _direitos_creditorios_series(wide_lookup: pd.DataFrame, competencias: list[str]) -> pd.Series:
+    primary = _numeric_series_first_available(
+        wide_lookup,
+        competencias,
+        [
+            "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED",
+            "DOC_ARQ/LISTA_INFORM/CART_SEGMT/VL_SOM_CART_SEGMT",
+        ],
+    )
+    legacy = (
+        _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_ADIMPL")
+        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_INAD")
+        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_INAD")
+        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_VENC_INAD")
+        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_INAD")
+    )
+    return primary.where(primary > 0, legacy).fillna(0.0)
+
+
 def _build_fund_info(
     *,
     wide_lookup: pd.DataFrame,
@@ -240,6 +298,8 @@ def _build_summary(
 
     return {
         "pl_total": _float_or_none(subordination_row.get("pl_total")),
+        "pl_senior": _float_or_none(subordination_row.get("pl_senior")),
+        "pl_subordinada": _float_or_none(subordination_row.get("pl_subordinada")),
         "ativos_totais": _float_or_none(asset_row.get("ativos_totais")),
         "carteira": carteira,
         "direitos_creditorios": direitos_creditorios,
@@ -302,12 +362,26 @@ def _build_asset_history(
         competencias,
         "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ",
     )
-    direitos_creditorios = (
-        _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_ADIMPL")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_INAD")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_INAD")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_VENC_INAD")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_INAD")
+    direitos_creditorios = _direitos_creditorios_series(wide_lookup, competencias)
+    disponibilidades = _numeric_series(
+        wide_lookup,
+        competencias,
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB",
+    )
+    valores_mobiliarios = _numeric_series(
+        wide_lookup,
+        competencias,
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VALORES_MOB/VL_SOM_VALORES_MOB",
+    )
+    titulos_publicos = _numeric_series(
+        wide_lookup,
+        competencias,
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_TITPUB_FED",
+    )
+    outros_ativos_reportados = _numeric_series(
+        wide_lookup,
+        competencias,
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/OUTROS_ATIVOS/VL_SOM_OUTROS_ATIVOS",
     )
     aquisicoes = _numeric_series(
         wide_lookup,
@@ -327,6 +401,10 @@ def _build_asset_history(
             "ativos_totais": ativos_totais.values,
             "carteira": carteira.values,
             "direitos_creditorios": direitos_creditorios.values,
+            "disponibilidades": disponibilidades.values,
+            "valores_mobiliarios": valores_mobiliarios.values,
+            "titulos_publicos": titulos_publicos.values,
+            "outros_ativos_reportados": outros_ativos_reportados.values,
             "liquidez_total": liquidez_total.values,
             "aquisicoes": aquisicoes.values,
             "alienacoes": alienacoes.values,
@@ -345,20 +423,66 @@ def _build_composition_latest_df(asset_history_df: pd.DataFrame) -> pd.DataFrame
         latest_row = asset_history_df.sort_values("competencia_dt").iloc[-1]
     else:
         latest_row = eligible_rows.sort_values("competencia_dt").iloc[-1]
-    return pd.DataFrame(
-        [
-            {
-                "competencia": latest_row["competencia"],
-                "categoria": "Direitos creditorios",
-                "valor": float(latest_row["direitos_creditorios"]),
-            },
+    rows = [
+        ("Direitos creditórios", latest_row.get("direitos_creditorios")),
+        ("Valores mobiliários", latest_row.get("valores_mobiliarios")),
+        ("Títulos públicos federais", latest_row.get("titulos_publicos")),
+        ("Outros ativos", latest_row.get("outros_ativos_reportados")),
+        ("Disponibilidades", latest_row.get("disponibilidades")),
+    ]
+    output_rows = [
+        {"competencia": latest_row["competencia"], "categoria": label, "valor": float(value)}
+        for label, value in rows
+        if _float_or_none(value) is not None and float(value) > 0
+    ]
+    known_other = sum(row["valor"] for row in output_rows if row["categoria"] != "Direitos creditórios")
+    residual_other = _float_or_none(latest_row.get("outros_ativos_carteira")) or 0.0
+    if residual_other > 0 and known_other <= 0:
+        output_rows.append(
             {
                 "competencia": latest_row["competencia"],
                 "categoria": "Outros ativos da carteira",
-                "valor": float(latest_row["outros_ativos_carteira"]),
-            },
-        ]
-    )
+                "valor": residual_other,
+            }
+        )
+    if not output_rows:
+        output_rows.append(
+            {
+                "competencia": latest_row["competencia"],
+                "categoria": "Carteira",
+                "valor": float(latest_row.get("carteira") or 0.0),
+            }
+        )
+    total = sum(row["valor"] for row in output_rows)
+    for row in output_rows:
+        row["percentual"] = (row["valor"] / total * 100.0) if total > 0 else pd.NA
+    return pd.DataFrame(output_rows)
+
+
+def _build_segment_latest_df(*, wide_lookup: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
+    competencias = [latest_competencia]
+    rows = [
+        ("Indústria", "DOC_ARQ/LISTA_INFORM/CART_SEGMT/VL_IND"),
+        ("Mercado imobiliário", "DOC_ARQ/LISTA_INFORM/CART_SEGMT/VL_MERC_IMOBIL"),
+        ("Comércio", "DOC_ARQ/LISTA_INFORM/CART_SEGMT/SEGMT_COMERC/VL_SOM_SEGMT_COMERC"),
+        ("Serviços", "DOC_ARQ/LISTA_INFORM/CART_SEGMT/SEGMT_SERV/VL_SOM_SEGMT_SERV"),
+        ("Agronegócio", "DOC_ARQ/LISTA_INFORM/CART_SEGMT/VL_AGRONEG"),
+        ("Financeiro", "DOC_ARQ/LISTA_INFORM/CART_SEGMT/SEGMT_FINANC/VL_SOM_SEGMT_FINANC"),
+        ("Cartão de crédito", "DOC_ARQ/LISTA_INFORM/CART_SEGMT/VL_CART_CRED"),
+        ("Factoring", "DOC_ARQ/LISTA_INFORM/CART_SEGMT/SEGMT_FACT/VL_SOM_SEGMT_FACT"),
+        ("Setor público", "DOC_ARQ/LISTA_INFORM/CART_SEGMT/SEGMT_SETOR_PUBLIC/VL_SOM_SEGMT_SETOR_PUBLIC"),
+        ("Ações judiciais", "DOC_ARQ/LISTA_INFORM/CART_SEGMT/VL_ACAO_JUDIC"),
+        ("Propriedade intelectual", "DOC_ARQ/LISTA_INFORM/CART_SEGMT/VL_PROPRD_MARCA_PATENT"),
+    ]
+    output = []
+    for segmento, tag_path in rows:
+        valor = float(_numeric_series(wide_lookup, competencias, tag_path).iloc[0])
+        output.append({"segmento": segmento, "valor": valor})
+    frame = pd.DataFrame(output)
+    total = float(frame["valor"].sum()) if not frame.empty else 0.0
+    frame["percentual"] = (frame["valor"] / total * 100.0) if total > 0 else pd.NA
+    positive = frame[frame["valor"] > 0].copy()
+    return positive.reset_index(drop=True) if not positive.empty else frame
 
 
 def _build_liquidity_latest_df(*, wide_lookup: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
@@ -492,13 +616,7 @@ def _build_default_history(
     wide_lookup: pd.DataFrame,
     competencias: list[str],
 ) -> pd.DataFrame:
-    direitos_creditorios = (
-        _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_ADIMPL")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_INAD")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_INAD")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_VENC_INAD")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_INAD")
-    )
+    direitos_creditorios = _direitos_creditorios_series(wide_lookup, competencias)
     inadimplencia_total = (
         _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_TOTAL_VENC_INAD")
         + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_TOTAL_VENC_INAD")
@@ -613,6 +731,219 @@ def _build_default_buckets_latest_df(*, wide_lookup: pd.DataFrame, latest_compet
                     "DOC_ARQ/LISTA_INFORM/COMPMT_DICRED_SEM_AQUIS/VL_INAD_VENC_1080",
                 ],
             ),
+        },
+    ]
+    return pd.DataFrame(rows)
+
+
+def _build_holder_latest_df(
+    *,
+    wide_lookup: pd.DataFrame,
+    listas_df: pd.DataFrame,
+    latest_competencia: str,
+) -> pd.DataFrame:
+    competencias = [latest_competencia]
+    rows: list[dict[str, object]] = []
+    total_fields = [
+        ("Resumo", "Total de cotistas", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/NUM_COTISTAS/QT_TOTAL_COTISTAS"),
+        ("Resumo", "Cotistas sênior", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/NUM_COTISTAS/QT_TOTAL_COTISTAS_SENIOR"),
+        ("Resumo", "Cotistas subordinada", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/NUM_COTISTAS/QT_TOTAL_COTISTAS_SUBORD"),
+    ]
+    for grupo, categoria, tag_path in total_fields:
+        rows.append(
+            {
+                "grupo": grupo,
+                "categoria": categoria,
+                "quantidade": float(_numeric_series(wide_lookup, competencias, tag_path).iloc[0]),
+            }
+        )
+
+    rows.extend(
+        _build_holder_series_rows(
+            listas_df=listas_df,
+            latest_competencia=latest_competencia,
+            list_token="NUM_COTISTAS/CLASSE_SENIOR",
+            grupo="Sênior",
+            label_fields=("SERIE",),
+        )
+    )
+    rows.extend(
+        _build_holder_series_rows(
+            listas_df=listas_df,
+            latest_competencia=latest_competencia,
+            list_token="NUM_COTISTAS/CLASSE_SUBORD",
+            grupo="Subordinada",
+            label_fields=("TIPO", "SERIE"),
+        )
+    )
+
+    holder_desc_labels = {
+        "QNT_PSS_FSC": "Pessoa física",
+        "QNT_PSS_JRD": "Pessoa jurídica",
+        "BNC_CMR": "Banco comercial",
+        "CRT_DTR": "Corretora/distribuidora",
+        "OTR_PSS_JRD": "Outras pessoas jurídicas",
+        "INV_RSD": "Investidor residente",
+        "ENT_ABR_PRD_CMP": "Entidade aberta de previdência",
+        "ENT_FCH_PRD": "Entidade fechada de previdência",
+        "RGM_PRP_PRD_SRV_PBL": "Regime próprio de previdência",
+        "SCD_SGR_RSG": "Sociedade seguradora/resseguradora",
+        "SCD_CPT_ARD_MER": "Sociedade de capitalização/arrendamento",
+        "FND_INV_CTS": "Fundo de investimento em cotas",
+        "FND_INV_IMB": "Fundo imobiliário",
+        "OTR_FND_INV": "Outros fundos de investimento",
+        "CLB_INV": "Clube de investimento",
+        "CAMOTR": "Outros",
+    }
+    for xml_group, grupo in [
+        ("CLS_SENIOR", "Perfil sênior"),
+        ("CLS_SUBORDINADA", "Perfil subordinada"),
+    ]:
+        for tag, label in holder_desc_labels.items():
+            valor = float(
+                _numeric_series(
+                    wide_lookup,
+                    competencias,
+                    f"DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/NUM_COTISTAS_DESC/{xml_group}/{tag}",
+                ).iloc[0]
+            )
+            if valor > 0:
+                rows.append({"grupo": grupo, "categoria": label, "quantidade": valor})
+
+    frame = pd.DataFrame(rows, columns=["grupo", "categoria", "quantidade"])
+    if frame.empty:
+        return frame
+    return frame[frame["quantidade"].fillna(0.0) > 0].reset_index(drop=True)
+
+
+def _build_holder_series_rows(
+    *,
+    listas_df: pd.DataFrame,
+    latest_competencia: str,
+    list_token: str,
+    grupo: str,
+    label_fields: tuple[str, ...],
+) -> list[dict[str, object]]:
+    if listas_df.empty:
+        return []
+    subset = listas_df[
+        (listas_df["competencia"] == latest_competencia)
+        & (listas_df["list_group_path"].str.contains(list_token, regex=False, na=False))
+    ].copy()
+    if subset.empty:
+        return []
+    pivot = (
+        subset.pivot_table(
+            index=["list_group_path", "list_index"],
+            columns="tag",
+            values="valor_excel",
+            aggfunc="first",
+        )
+        .reset_index()
+        .rename_axis(None, axis=1)
+    )
+    rows = []
+    for _, row in pivot.iterrows():
+        label = _resolve_class_label(
+            row=row,
+            class_kind="senior" if grupo == "Sênior" else "subordinada",
+            default_label=grupo,
+            label_fields=label_fields,
+        )
+        quantidade = _to_numeric(row.get("QT_COTISTAS")) or 0.0
+        if quantidade > 0:
+            rows.append({"grupo": grupo, "categoria": label, "quantidade": quantidade})
+    return rows
+
+
+def _build_rate_negotiation_latest_df(*, wide_lookup: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
+    if "tag_path" not in wide_lookup.columns or latest_competencia not in wide_lookup.columns:
+        return pd.DataFrame(columns=["grupo", "operacao", "taxa_min", "taxa_media", "taxa_max"])
+    subset = wide_lookup[
+        wide_lookup["tag_path"].astype(str).str.startswith("DOC_ARQ/LISTA_INFORM/TAXA_NEGOC_DICRED_MES/")
+        & wide_lookup["tag"].isin(["TX_MIN", "TX_MEDIO", "TX_MAX"])
+    ].copy()
+    if subset.empty:
+        return pd.DataFrame(columns=["grupo", "operacao", "taxa_min", "taxa_media", "taxa_max"])
+    subset["valor"] = pd.to_numeric(subset[latest_competencia], errors="coerce").fillna(0.0)
+    subset["contexto"] = subset["sub_bloco"].map(_humanize_rate_context)
+    pivot = (
+        subset.pivot_table(index="contexto", columns="tag", values="valor", aggfunc="first")
+        .reset_index()
+        .rename_axis(None, axis=1)
+    )
+    for column in ["TX_MIN", "TX_MEDIO", "TX_MAX"]:
+        if column not in pivot.columns:
+            pivot[column] = 0.0
+    pivot["grupo"] = pivot["contexto"].map(lambda value: str(value).split(" / ", 1)[0])
+    pivot["operacao"] = pivot["contexto"].map(lambda value: str(value).split(" / ", 1)[1] if " / " in str(value) else str(value))
+    output = pivot.rename(columns={"TX_MIN": "taxa_min", "TX_MEDIO": "taxa_media", "TX_MAX": "taxa_max"})
+    output = output[["grupo", "operacao", "taxa_min", "taxa_media", "taxa_max"]].copy()
+    positive = output[(output[["taxa_min", "taxa_media", "taxa_max"]].abs().sum(axis=1) > 0)].copy()
+    return positive.reset_index(drop=True) if not positive.empty else output.reset_index(drop=True)
+
+
+def _build_tracking_latest_df(
+    *,
+    summary: dict[str, float | str | None],
+    asset_history_df: pd.DataFrame,
+    latest_competencia: str,
+) -> pd.DataFrame:
+    asset_row = _latest_row(asset_history_df, latest_competencia)
+    aquisicoes = _float_or_none(asset_row.get("aquisicoes")) or 0.0
+    alienacoes = _float_or_none(asset_row.get("alienacoes")) or 0.0
+    direitos_creditorios = _float_or_none(summary.get("direitos_creditorios"))
+    provisao_total = _float_or_none(summary.get("provisao_total")) or 0.0
+    inadimplencia_total = _float_or_none(summary.get("inadimplencia_total")) or 0.0
+    rows = [
+        {
+            "indicador": "Alocação em direitos creditórios",
+            "valor": summary.get("alocacao_pct"),
+            "unidade": "%",
+            "fonte": "APLIC_ATIVO/DICRED",
+            "interpretação": "Participação dos direitos creditórios na carteira.",
+        },
+        {
+            "indicador": "Índice de subordinação",
+            "valor": summary.get("subordinacao_pct"),
+            "unidade": "%",
+            "fonte": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
+            "interpretação": "PL subordinado dividido pelo PL total das cotas.",
+        },
+        {
+            "indicador": "Inadimplência / direitos creditórios",
+            "valor": summary.get("inadimplencia_pct"),
+            "unidade": "%",
+            "fonte": "APLIC_ATIVO + COMPMT_DICRED",
+            "interpretação": "Saldos vencidos inadimplentes sobre direitos creditórios.",
+        },
+        {
+            "indicador": "Provisão / direitos creditórios",
+            "valor": (provisao_total / direitos_creditorios * 100.0) if direitos_creditorios else None,
+            "unidade": "%",
+            "fonte": "APLIC_ATIVO",
+            "interpretação": "Provisão reportada sobre direitos creditórios.",
+        },
+        {
+            "indicador": "Provisão / inadimplência",
+            "valor": (provisao_total / inadimplencia_total * 100.0) if inadimplencia_total else None,
+            "unidade": "%",
+            "fonte": "APLIC_ATIVO",
+            "interpretação": "Cobertura contábil dos saldos inadimplentes.",
+        },
+        {
+            "indicador": "Aquisições / direitos creditórios",
+            "valor": (aquisicoes / direitos_creditorios * 100.0) if direitos_creditorios else None,
+            "unidade": "%",
+            "fonte": "NEGOC_DICRED_MES",
+            "interpretação": "Originação/aquisição no mês sobre a carteira de direitos creditórios.",
+        },
+        {
+            "indicador": "Alienações / direitos creditórios",
+            "valor": (alienacoes / direitos_creditorios * 100.0) if direitos_creditorios else None,
+            "unidade": "%",
+            "fonte": "NEGOC_DICRED_MES",
+            "interpretação": "Alienações no mês sobre a carteira de direitos creditórios.",
         },
     ]
     return pd.DataFrame(rows)
@@ -1080,6 +1411,40 @@ def _resolve_class_label(
     if list_index is not None and int(list_index) > 1:
         return f"{default_label} {int(list_index)}"
     return default_label
+
+
+def _humanize_rate_context(sub_bloco: object) -> str:
+    raw = str(sub_bloco or "").strip()
+    if not raw:
+        return "Taxas / Não identificado"
+    parts = raw.split("/")
+    if len(parts) >= 2:
+        grupo = _humanize_rate_token(parts[-2])
+        operacao = _humanize_rate_token(parts[-1])
+        return f"{grupo} / {operacao}"
+    return _humanize_rate_token(parts[-1])
+
+
+def _humanize_rate_token(token: str) -> str:
+    normalized = token.upper().replace("TAXA_NEGOC_DICRED_MES_", "")
+    replacements = {
+        "AQUIS": "Com aquisição",
+        "SEM_AQUIS": "Sem aquisição",
+        "VALOR_MOBILI": "Valores mobiliários",
+        "TITPUB_FED": "Títulos públicos federais",
+        "CDB": "CDB",
+        "ATIV_RF": "Ativos de renda fixa",
+        "DESC_COMPRA": "Desconto compra",
+        "DESC_VENDA": "Desconto venda",
+        "JUROS_COMPRA": "Juros compra",
+        "JUROS_VENDA": "Juros venda",
+    }
+    if normalized in replacements:
+        return replacements[normalized]
+    for suffix in ["DESC_COMPRA", "DESC_VENDA", "JUROS_COMPRA", "JUROS_VENDA"]:
+        if normalized.endswith(suffix):
+            return replacements[suffix]
+    return normalized.replace("_", " ").title()
 
 
 def _has_any_value(series: pd.Series) -> bool:

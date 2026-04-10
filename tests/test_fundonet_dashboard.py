@@ -52,6 +52,39 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertEqual("FECHADO", dashboard.fund_info["condominio"])
         self.assertEqual("12/2025 a 01/2026", dashboard.fund_info["periodo_analisado"])
 
+    def test_build_dashboard_data_uses_dicred_total_and_exposes_cvm_tables(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            workspace = Path(tmpdir)
+            self._write_dicred_fixture_csvs(workspace)
+
+            dashboard = build_dashboard_data(
+                wide_csv_path=workspace / "informes_wide.csv",
+                listas_csv_path=workspace / "estruturas_lista.csv",
+                docs_csv_path=workspace / "documentos_filtrados.csv",
+            )
+
+        self.assertAlmostEqual(16_000.0, dashboard.summary["direitos_creditorios"] or 0.0)
+        self.assertAlmostEqual(80.0, dashboard.summary["alocacao_pct"] or 0.0)
+
+        segment_row = dashboard.segment_latest_df.iloc[0]
+        self.assertEqual("Serviços", segment_row["segmento"])
+        self.assertAlmostEqual(16_000.0, segment_row["valor"])
+
+        holder_total = dashboard.holder_latest_df[
+            dashboard.holder_latest_df["categoria"] == "Total de cotistas"
+        ].iloc[0]
+        self.assertAlmostEqual(3.0, holder_total["quantidade"])
+
+        rate_row = dashboard.rate_negotiation_latest_df.iloc[0]
+        self.assertEqual("Com aquisição", rate_row["grupo"])
+        self.assertEqual("Desconto compra", rate_row["operacao"])
+        self.assertAlmostEqual(2.0, rate_row["taxa_media"])
+
+        tracking_row = dashboard.tracking_latest_df[
+            dashboard.tracking_latest_df["indicador"] == "Alocação em direitos creditórios"
+        ].iloc[0]
+        self.assertAlmostEqual(80.0, tracking_row["valor"])
+
     @staticmethod
     def _write_fixture_csvs(workspace: Path) -> None:
         wide_rows = [
@@ -372,6 +405,112 @@ class FundonetDashboardTests(unittest.TestCase):
                 "nome_fundo": "Teste FIDC RL",
                 "processamento": "ok",
             },
+        ]
+        pd.DataFrame(docs_rows).to_csv(workspace / "documentos_filtrados.csv", index=False)
+
+    @staticmethod
+    def _write_dicred_fixture_csvs(workspace: Path) -> None:
+        competencia = "02/2026"
+
+        def row(bloco: str, sub_bloco: str, tag: str, tag_path: str, value: object) -> dict[str, object]:
+            return {
+                "bloco": bloco,
+                "sub_bloco": sub_bloco,
+                "tag": tag,
+                "tag_path": tag_path,
+                "descricao": tag,
+                competencia: value,
+            }
+
+        wide_rows = [
+            row("CAB_INFORM", "", "NR_CNPJ_FUNDO", "DOC_ARQ/CAB_INFORM/NR_CNPJ_FUNDO", "50473039000102"),
+            row("CAB_INFORM", "", "NR_CNPJ_CLASSE", "DOC_ARQ/CAB_INFORM/NR_CNPJ_CLASSE", "50473039000102"),
+            row("CAB_INFORM", "", "NR_CNPJ_ADM", "DOC_ARQ/CAB_INFORM/NR_CNPJ_ADM", "36113876000191"),
+            row("CAB_INFORM", "", "NM_CLASSE", "DOC_ARQ/CAB_INFORM/NM_CLASSE", "SELLER FIDC"),
+            row("CAB_INFORM", "", "TP_CONDOMINIO", "DOC_ARQ/CAB_INFORM/TP_CONDOMINIO", "FECHADO"),
+            row("CAB_INFORM", "", "CLASS_UNICA", "DOC_ARQ/CAB_INFORM/CLASS_UNICA", "NAO"),
+            row("APLIC_ATIVO", "", "VL_SOM_APLIC_ATIVO", "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_SOM_APLIC_ATIVO", 21000),
+            row("APLIC_ATIVO", "", "VL_CARTEIRA", "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_CARTEIRA", 20000),
+            row("APLIC_ATIVO", "DICRED", "VL_DICRED", "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED", 16000),
+            row(
+                "CART_SEGMT",
+                "SEGMT_SERV",
+                "VL_SOM_SEGMT_SERV",
+                "DOC_ARQ/LISTA_INFORM/CART_SEGMT/SEGMT_SERV/VL_SOM_SEGMT_SERV",
+                16000,
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "NUM_COTISTAS",
+                "QT_TOTAL_COTISTAS",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/NUM_COTISTAS/QT_TOTAL_COTISTAS",
+                3,
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "NUM_COTISTAS",
+                "QT_TOTAL_COTISTAS_SENIOR",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/NUM_COTISTAS/QT_TOTAL_COTISTAS_SENIOR",
+                2,
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "NUM_COTISTAS",
+                "QT_TOTAL_COTISTAS_SUBORD",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/NUM_COTISTAS/QT_TOTAL_COTISTAS_SUBORD",
+                1,
+            ),
+            row(
+                "TAXA_NEGOC_DICRED_MES",
+                "TAXA_NEGOC_DICRED_MES_AQUIS/TAXA_NEGOC_DICRED_MES_AQUIS_DESC_COMPRA",
+                "TX_MIN",
+                "DOC_ARQ/LISTA_INFORM/TAXA_NEGOC_DICRED_MES/TAXA_NEGOC_DICRED_MES_AQUIS/TAXA_NEGOC_DICRED_MES_AQUIS_DESC_COMPRA/TX_MIN",
+                1,
+            ),
+            row(
+                "TAXA_NEGOC_DICRED_MES",
+                "TAXA_NEGOC_DICRED_MES_AQUIS/TAXA_NEGOC_DICRED_MES_AQUIS_DESC_COMPRA",
+                "TX_MEDIO",
+                "DOC_ARQ/LISTA_INFORM/TAXA_NEGOC_DICRED_MES/TAXA_NEGOC_DICRED_MES_AQUIS/TAXA_NEGOC_DICRED_MES_AQUIS_DESC_COMPRA/TX_MEDIO",
+                2,
+            ),
+            row(
+                "TAXA_NEGOC_DICRED_MES",
+                "TAXA_NEGOC_DICRED_MES_AQUIS/TAXA_NEGOC_DICRED_MES_AQUIS_DESC_COMPRA",
+                "TX_MAX",
+                "DOC_ARQ/LISTA_INFORM/TAXA_NEGOC_DICRED_MES/TAXA_NEGOC_DICRED_MES_AQUIS/TAXA_NEGOC_DICRED_MES_AQUIS_DESC_COMPRA/TX_MAX",
+                3,
+            ),
+        ]
+        pd.DataFrame(wide_rows).to_csv(workspace / "informes_wide.csv", index=False)
+
+        listas_rows = [
+            {
+                "competencia": competencia,
+                "list_group_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/NUM_COTISTAS/CLASSE_SENIOR",
+                "list_index": 1,
+                "tag": "SERIE",
+                "valor_excel": "Série 1",
+            },
+            {
+                "competencia": competencia,
+                "list_group_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/NUM_COTISTAS/CLASSE_SENIOR",
+                "list_index": 1,
+                "tag": "QT_COTISTAS",
+                "valor_excel": 2,
+            },
+        ]
+        pd.DataFrame(listas_rows).to_csv(workspace / "estruturas_lista.csv", index=False)
+
+        docs_rows = [
+            {
+                "documento_id": "1136117",
+                "competencia": competencia,
+                "data_entrega": "20/03/2026 09:00",
+                "fundo_ou_classe": "Classe",
+                "nome_fundo": "Seller FIDC",
+                "processamento": "ok",
+            }
         ]
         pd.DataFrame(docs_rows).to_csv(workspace / "documentos_filtrados.csv", index=False)
 
