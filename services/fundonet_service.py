@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass
 from datetime import date, datetime
+from pathlib import Path
+import tempfile
 from typing import Callable, Iterable
 
 import pandas as pd
@@ -16,7 +19,11 @@ from services.fundonet_errors import (
     InvalidCnpjError,
     NoDocumentsFoundError,
 )
-from services.fundonet_export import build_excel_bytes, build_wide_dataset
+from services.fundonet_export import (
+    append_dataframe_to_csv,
+    build_excel_from_csvs,
+    build_wide_csv_from_period_csvs,
+)
 from services.fundonet_models import DocumentoFundo
 from services.fundonet_parser import ParsedInformeXml, parse_informe_mensal_xml
 
@@ -27,11 +34,18 @@ ProgressCallback = Callable[[int, int, str], None]
 @dataclass(frozen=True)
 class InformeMensalResult:
     docs_df: pd.DataFrame
-    contas_df: pd.DataFrame
-    listas_df: pd.DataFrame
-    wide_df: pd.DataFrame
-    excel_bytes: bytes
     audit_df: pd.DataFrame
+    competencias: list[str]
+    workspace_dir: Path
+    docs_csv_path: Path
+    contas_csv_path: Path
+    listas_csv_path: Path
+    wide_csv_path: Path
+    excel_path: Path
+    audit_json_path: Path
+    contas_row_count: int
+    listas_row_count: int
+    wide_row_count: int
 
 
 class InformeMensalService:
@@ -47,6 +61,14 @@ class InformeMensalService:
         progress_callback: ProgressCallback | None = None,
     ) -> InformeMensalResult:
         audit_rows: list[dict] = []
+        workspace_dir = Path(tempfile.mkdtemp(prefix="fundonet-ime-"))
+        docs_csv_path = workspace_dir / "documentos_filtrados.csv"
+        contas_csv_path = workspace_dir / "informes_tidy.csv"
+        listas_csv_path = workspace_dir / "estruturas_lista.csv"
+        wide_csv_path = workspace_dir / "informes_wide.csv"
+        excel_path = workspace_dir / "informes_wide.xlsx"
+        audit_csv_path = workspace_dir / "audit_log.csv"
+        audit_json_path = workspace_dir / "audit_log.json"
 
         def add_audit(etapa: str, status: str, detalhe: str, **extra: object) -> None:
             audit_rows.append({"etapa": etapa, "status": status, "detalhe": detalhe, **extra})
@@ -122,6 +144,8 @@ class InformeMensalService:
             documentos_selecionados,
             key=lambda doc: (doc.competencia or date.min, doc.data_entrega_dt or datetime.min, doc.id),
         )
+        competencias_ordenadas = [doc.competencia_label for doc in documentos_selecionados if doc.competencia_label]
+        competencias_ordenadas = _dedupe_preserve_order([c for c in competencias_ordenadas if c])
         add_audit(
             "deduplicar_retificacoes",
             "ok",
@@ -129,14 +153,21 @@ class InformeMensalService:
             qtd_competencias=len(documentos_selecionados),
         )
 
-        scalar_frames: list[pd.DataFrame] = []
-        list_frames: list[pd.DataFrame] = []
         docs_status_rows: list[dict[str, object]] = []
+        period_scalar_paths: dict[str, Path] = {}
+        contas_row_count = 0
+        listas_row_count = 0
 
         total_docs = len(documentos_selecionados)
+        total_steps = total_docs + 2
         for index, doc in enumerate(documentos_selecionados, start=1):
             competencia = doc.competencia_label or doc.data_referencia or ""
-            _report_progress(progress_callback, index - 1, total_docs, f"Processando {competencia} ({index}/{total_docs})...")
+            _report_progress(
+                progress_callback,
+                index - 1,
+                total_steps,
+                f"Processando {competencia} ({index}/{total_docs})...",
+            )
             add_audit(
                 "processar_documento",
                 "iniciado",
@@ -151,8 +182,20 @@ class InformeMensalService:
                 xml_bytes = self.client.download_documento(doc.id)
                 parsed = parse_informe_mensal_xml(xml_bytes, doc_id=doc.id)
                 scalar_df, list_df = self._decorate_parsed_frames(parsed, doc)
-                scalar_frames.append(scalar_df)
-                list_frames.append(list_df)
+                tidy_scalar_df = self._build_tidy_contract(contas_base_df=scalar_df, cnpj_fundo=cnpj)
+                period_scalar_path = workspace_dir / f"periodo_{_slugify_period_label(competencia)}_{doc.id}.csv"
+                append_dataframe_to_csv(tidy_scalar_df, period_scalar_path, columns=tidy_scalar_df.columns.tolist())
+                contas_row_count += append_dataframe_to_csv(
+                    tidy_scalar_df,
+                    contas_csv_path,
+                    columns=tidy_scalar_df.columns.tolist(),
+                )
+                listas_row_count += append_dataframe_to_csv(
+                    list_df,
+                    listas_csv_path,
+                    columns=list_df.columns.tolist(),
+                )
+                period_scalar_paths[competencia] = period_scalar_path
                 docs_status_rows.append(
                     self._build_doc_status_row(
                         doc,
@@ -177,7 +220,7 @@ class InformeMensalService:
                     "Documento processado com sucesso.",
                     documento_id=doc.id,
                     competencia=competencia,
-                    linhas_escalares=len(scalar_df),
+                    linhas_escalares=len(tidy_scalar_df),
                     linhas_lista=len(list_df),
                 )
             except Exception as exc:  # noqa: BLE001
@@ -200,37 +243,59 @@ class InformeMensalService:
                 continue
 
         docs_df = pd.DataFrame(docs_status_rows)
-        contas_base_df = pd.concat(scalar_frames, ignore_index=True) if scalar_frames else pd.DataFrame()
-        listas_df = pd.concat(list_frames, ignore_index=True) if list_frames else pd.DataFrame()
+        docs_df.to_csv(docs_csv_path, index=False)
 
-        if contas_base_df.empty:
+        if contas_row_count == 0:
             raise DocumentParseError(
                 "Todos os documentos selecionados falharam no download ou parse.",
                 trace=audit_rows,
             )
 
-        contas_df = self._build_tidy_contract(contas_base_df=contas_base_df, cnpj_fundo=cnpj)
-        competencias_ordenadas = [doc.competencia_label for doc in documentos_selecionados if doc.competencia_label]
-        competencias_ordenadas = _dedupe_preserve_order([c for c in competencias_ordenadas if c])
-        wide_df = build_wide_dataset(contas_df, competencias_ordenadas)
+        _report_progress(progress_callback, total_docs, total_steps, "Montando wide final em disco...")
+        wide_row_count = build_wide_csv_from_period_csvs(
+            period_scalar_paths=period_scalar_paths,
+            competencias_ordenadas=competencias_ordenadas,
+            output_path=wide_csv_path,
+            workspace_dir=workspace_dir,
+        )
         add_audit(
             "montagem_dataset",
             "ok",
-            "Dataframes e Excel gerados.",
-            linhas_escalares=len(contas_df),
-            linhas_lista=len(listas_df),
-            linhas_wide=len(wide_df),
+            "CSVs temporários e wide final gerados em disco.",
+            linhas_escalares=contas_row_count,
+            linhas_lista=listas_row_count,
+            linhas_wide=wide_row_count,
         )
         audit_df = pd.DataFrame(audit_rows)
-        excel_bytes = build_excel_bytes(wide_df, listas_df, docs_df, audit_df)
-        _report_progress(progress_callback, total_docs, total_docs, "Concluído.")
+        audit_df.to_csv(audit_csv_path, index=False)
+        audit_json_path.write_text(
+            json.dumps(audit_df.to_dict(orient="records"), ensure_ascii=False, indent=2, default=str),
+            encoding="utf-8",
+        )
+
+        _report_progress(progress_callback, total_docs + 1, total_steps, "Finalizando workbook Excel em disco...")
+        build_excel_from_csvs(
+            wide_csv_path=wide_csv_path,
+            listas_csv_path=listas_csv_path,
+            docs_csv_path=docs_csv_path,
+            audit_csv_path=audit_csv_path,
+            output_path=excel_path,
+        )
+        _report_progress(progress_callback, total_steps, total_steps, "Concluído.")
         return InformeMensalResult(
             docs_df=docs_df,
-            contas_df=contas_df,
-            listas_df=listas_df,
-            wide_df=wide_df,
-            excel_bytes=excel_bytes,
             audit_df=audit_df,
+            competencias=competencias_ordenadas,
+            workspace_dir=workspace_dir,
+            docs_csv_path=docs_csv_path,
+            contas_csv_path=contas_csv_path,
+            listas_csv_path=listas_csv_path,
+            wide_csv_path=wide_csv_path,
+            excel_path=excel_path,
+            audit_json_path=audit_json_path,
+            contas_row_count=contas_row_count,
+            listas_row_count=listas_row_count,
+            wide_row_count=wide_row_count,
         )
 
     @staticmethod
@@ -370,3 +435,8 @@ def _report_progress(callback: ProgressCallback | None, current: int, total: int
     if callback is None:
         return
     callback(current, total, message)
+
+
+def _slugify_period_label(value: str) -> str:
+    normalized = re.sub(r"[^A-Za-z0-9._-]+", "_", value.strip())
+    return normalized.strip("._") or "periodo"

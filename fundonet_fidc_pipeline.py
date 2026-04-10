@@ -5,6 +5,7 @@ import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
+import shutil
 
 from services.fundonet_errors import FundosNetError
 from services.fundonet_service import InformeMensalService
@@ -37,13 +38,13 @@ def run_pipeline(cnpj_fundo: str, periodo_inicio: str, periodo_fim: str, output_
     service = InformeMensalService()
     result = service.run(cnpj_fundo=cnpj_fundo, data_inicial=inicio, data_final=fim)
 
-    result.docs_df.to_csv(output_dir / "documentos_filtrados.csv", index=False)
-    result.contas_df.to_csv(output_dir / "informes_tidy.csv", index=False)
-    result.listas_df.to_csv(output_dir / "estruturas_lista.csv", index=False)
-    result.audit_df.to_json(output_dir / "audit_log.json", orient="records", force_ascii=False, indent=2)
+    shutil.copyfile(result.docs_csv_path, output_dir / "documentos_filtrados.csv")
+    shutil.copyfile(result.contas_csv_path, output_dir / "informes_tidy.csv")
+    shutil.copyfile(result.listas_csv_path, output_dir / "estruturas_lista.csv")
+    shutil.copyfile(result.audit_json_path, output_dir / "audit_log.json")
 
     xlsx_path = output_dir / "informes_wide.xlsx"
-    xlsx_path.write_bytes(result.excel_bytes)
+    shutil.copyfile(result.excel_path, xlsx_path)
 
     run_metadata = {
         "run_id": datetime.now(timezone.utc).strftime("run_%Y%m%dT%H%M%S%fZ"),
@@ -53,7 +54,11 @@ def run_pipeline(cnpj_fundo: str, periodo_inicio: str, periodo_fim: str, output_
         "data_final": fim.isoformat(),
         "source_selected": "fundonet",
         "documents_found": int(len(result.docs_df)),
-        "documents_processed": int(result.audit_df[result.audit_df["etapa"] == "processar_documento"].shape[0]),
+        "documents_processed": int(
+            result.audit_df[
+                (result.audit_df["etapa"] == "processar_documento") & (result.audit_df["status"] == "ok")
+            ].shape[0]
+        ),
         "documents_failed": int(
             result.audit_df[
                 (result.audit_df["etapa"] == "processar_documento") & (result.audit_df["status"] == "erro")
