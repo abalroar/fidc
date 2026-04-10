@@ -256,6 +256,19 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None
     col2.metric("Documentos OK", docs_ok)
     col3.metric("Documentos com falha", docs_error)
 
+    st.download_button(
+        "Baixar Excel",
+        data=result.excel_bytes,
+        file_name=f"fidc_ime_{context.get('request_id', 'execucao')}.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    )
+    st.download_button(
+        "Baixar auditoria (JSON)",
+        data=_safe_json_bytes(result.audit_df.to_dict(orient="records")),
+        file_name=f"auditoria_fidc_ime_{context.get('request_id', 'execucao')}.json",
+        mime="application/json",
+    )
+
     if docs_error:
         st.warning("Nem todos os documentos foram processados. O Excel foi gerado com os documentos válidos.")
         with st.expander("Diagnóstico de documentos com falha", expanded=True):
@@ -272,28 +285,29 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None
                 mime="text/csv",
             )
 
+    max_preview_rows = 300
+    st.caption(
+        f"Pré-visualizações limitadas a {max_preview_rows} linhas para manter a sessão estável. "
+        "Use o Excel para análise completa."
+    )
+
     st.subheader("Documentos selecionados")
-    st.dataframe(result.docs_df, use_container_width=True)
+    st.dataframe(result.docs_df.head(max_preview_rows), use_container_width=True)
+    if len(result.docs_df) > max_preview_rows:
+        st.info(f"Exibindo {max_preview_rows} de {len(result.docs_df)} documentos.")
 
     st.subheader("Prévia do wide final")
-    st.dataframe(result.wide_df, use_container_width=True)
+    st.dataframe(result.wide_df.head(max_preview_rows), use_container_width=True)
+    if len(result.wide_df) > max_preview_rows:
+        st.info(f"Exibindo {max_preview_rows} de {len(result.wide_df)} linhas do wide final.")
 
     if not result.listas_df.empty:
         st.subheader("Prévia das estruturas repetitivas")
-        st.dataframe(result.listas_df, use_container_width=True)
+        st.dataframe(result.listas_df.head(max_preview_rows), use_container_width=True)
+        if len(result.listas_df) > max_preview_rows:
+            st.info(f"Exibindo {max_preview_rows} de {len(result.listas_df)} linhas das estruturas repetitivas.")
 
     st.subheader("Auditoria")
-    st.dataframe(result.audit_df, use_container_width=True)
-
-    st.download_button(
-        "Baixar Excel",
-        data=result.excel_bytes,
-        file_name=f"fidc_ime_{context.get('request_id', 'execucao')}.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    )
-    st.download_button(
-        "Baixar auditoria (JSON)",
-        data=_safe_json_bytes(result.audit_df.to_dict(orient="records")),
-        file_name=f"auditoria_fidc_ime_{context.get('request_id', 'execucao')}.json",
-        mime="application/json",
-    )
+    st.dataframe(result.audit_df.head(max_preview_rows), use_container_width=True)
+    if len(result.audit_df) > max_preview_rows:
+        st.info(f"Exibindo {max_preview_rows} de {len(result.audit_df)} eventos de auditoria.")
