@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 import json
 import time
 import traceback
@@ -55,7 +55,7 @@ def _build_failure_report(exc: Exception, tb_text: str, context: dict[str, Any])
     details = exc.details if isinstance(exc, FundosNetError) else {}
     trace_rows = exc.trace if isinstance(exc, FundosNetError) else []
     return {
-        "timestamp_utc": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
         "categoria": _format_error_category(exc),
         "erro_tipo": exc.__class__.__name__,
         "erro_mensagem": str(exc),
@@ -209,17 +209,9 @@ def _count_docs_by_status(docs_df: pd.DataFrame, status: str) -> int:
     return int((docs_df["processamento"] == status).sum())
 
 
-def _extract_competencias(contas_df: pd.DataFrame) -> list[str]:
-    if contas_df.empty or "competencia" not in contas_df.columns:
-        return []
-    return sorted(contas_df["competencia"].dropna().astype(str).unique().tolist())
-
-
-
 def _validate_result_contract(result: InformeMensalResult) -> dict[str, list[str]]:
     contract = {
         "docs_df": ["documento_id", "competencia", "processamento", "erro_processamento"],
-        "wide_df": ["tag", "descricao"],
         "audit_df": ["etapa", "status", "detalhe"],
     }
     missing: dict[str, list[str]] = {}
@@ -228,6 +220,17 @@ def _validate_result_contract(result: InformeMensalResult) -> dict[str, list[str
         absent = [col for col in required_cols if col not in df.columns]
         if absent:
             missing[attr] = absent
+    required_paths = {
+        "docs_csv_path": result.docs_csv_path,
+        "contas_csv_path": result.contas_csv_path,
+        "listas_csv_path": result.listas_csv_path,
+        "wide_csv_path": result.wide_csv_path,
+        "excel_path": result.excel_path,
+        "audit_json_path": result.audit_json_path,
+    }
+    for attr, path in required_paths.items():
+        if not path.exists():
+            missing[attr] = ["arquivo_nao_encontrado"]
     return missing
 
 
@@ -240,6 +243,10 @@ def _render_execution_observability(context: dict[str, Any], elapsed_seconds: fl
         st.json(payload)
 
 
+def _read_csv_preview(csv_path, max_rows: int) -> pd.DataFrame:  # noqa: ANN001
+    return pd.read_csv(csv_path, nrows=max_rows)
+
+
 def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None:
     contract_missing = _validate_result_contract(result)
     if contract_missing:
@@ -249,25 +256,27 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None
 
     docs_ok = _count_docs_by_status(result.docs_df, "ok")
     docs_error = _count_docs_by_status(result.docs_df, "erro")
-    competencias = _extract_competencias(result.contas_df)
+    competencias = result.competencias
 
     col1, col2, col3 = st.columns(3)
     col1.metric("Competências", len(competencias))
     col2.metric("Documentos OK", docs_ok)
     col3.metric("Documentos com falha", docs_error)
 
-    st.download_button(
-        "Baixar Excel",
-        data=result.excel_bytes,
-        file_name=f"fidc_ime_{context.get('request_id', 'execucao')}.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    )
-    st.download_button(
-        "Baixar auditoria (JSON)",
-        data=_safe_json_bytes(result.audit_df.to_dict(orient="records")),
-        file_name=f"auditoria_fidc_ime_{context.get('request_id', 'execucao')}.json",
-        mime="application/json",
-    )
+    with result.excel_path.open("rb") as excel_fp:
+        st.download_button(
+            "Baixar Excel",
+            data=excel_fp,
+            file_name=f"fidc_ime_{context.get('request_id', 'execucao')}.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
+    with result.audit_json_path.open("rb") as audit_fp:
+        st.download_button(
+            "Baixar auditoria (JSON)",
+            data=audit_fp,
+            file_name=f"auditoria_fidc_ime_{context.get('request_id', 'execucao')}.json",
+            mime="application/json",
+        )
 
     if docs_error:
         st.warning("Nem todos os documentos foram processados. O Excel foi gerado com os documentos válidos.")
@@ -297,15 +306,17 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None
         st.info(f"Exibindo {max_preview_rows} de {len(result.docs_df)} documentos.")
 
     st.subheader("Prévia do wide final")
-    st.dataframe(result.wide_df.head(max_preview_rows), use_container_width=True)
-    if len(result.wide_df) > max_preview_rows:
-        st.info(f"Exibindo {max_preview_rows} de {len(result.wide_df)} linhas do wide final.")
+    wide_preview_df = _read_csv_preview(result.wide_csv_path, max_preview_rows)
+    st.dataframe(wide_preview_df, use_container_width=True)
+    if result.wide_row_count > max_preview_rows:
+        st.info(f"Exibindo {max_preview_rows} de {result.wide_row_count} linhas do wide final.")
 
-    if not result.listas_df.empty:
+    if result.listas_row_count > 0:
         st.subheader("Prévia das estruturas repetitivas")
-        st.dataframe(result.listas_df.head(max_preview_rows), use_container_width=True)
-        if len(result.listas_df) > max_preview_rows:
-            st.info(f"Exibindo {max_preview_rows} de {len(result.listas_df)} linhas das estruturas repetitivas.")
+        listas_preview_df = _read_csv_preview(result.listas_csv_path, max_preview_rows)
+        st.dataframe(listas_preview_df, use_container_width=True)
+        if result.listas_row_count > max_preview_rows:
+            st.info(f"Exibindo {max_preview_rows} de {result.listas_row_count} linhas das estruturas repetitivas.")
 
     st.subheader("Auditoria")
     st.dataframe(result.audit_df.head(max_preview_rows), use_container_width=True)
