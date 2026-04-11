@@ -7,6 +7,7 @@ import streamlit as st
 
 from data_loader import load_model_inputs
 from model import Premissas, build_flow, build_kpis
+from tabs.tab_fidc_book import render_tab_fidc_book
 from tabs.tab_fidc_ime import render_tab_fidc_ime
 
 
@@ -110,10 +111,15 @@ def render_modelo_tab() -> None:
     else:
         st.info("Ajuste as premissas para gerar resultados.")
 
-tab_modelo, tab_informes = st.tabs(["Modelo FIDC", "Informes Mensais Estruturados"])
+tab_modelo, tab_informes, tab_book = st.tabs(
+    ["Modelo FIDC", "Informes Mensais Estruturados", "Glossário / Book FIDC"]
+)
 
 with tab_modelo:
     render_modelo_tab()
 
 with tab_informes:
     render_tab_fidc_ime()
+
+with tab_book:
+    render_tab_fidc_book()

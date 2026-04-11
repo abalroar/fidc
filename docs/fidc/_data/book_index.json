@@ -1,0 +1,186 @@
+{
+  "sections": [
+    {
+      "section_id": "comece-aqui",
+      "title": "Comece Aqui",
+      "description": "Visão geral, método e trilha mínima de leitura.",
+      "pages": [
+        {
+          "page_id": "overview",
+          "title": "Book FIDC: escopo, método e trilha de leitura",
+          "summary": "Explica como esta base foi montada, quais fontes entram e como usar o material no app, no repositório e em futura camada de agente.",
+          "path": "overview.md",
+          "level": "base",
+          "keywords": ["metodologia", "fontes", "trilha", "visão geral"],
+          "source_ids": ["rcvm_175_page", "xml_576_page", "seller_relatorio_mensal"]
+        }
+      ]
+    },
+    {
+      "section_id": "glossario",
+      "title": "Glossário Base",
+      "description": "Conceitos centrais do veículo, dos direitos creditórios e dos participantes.",
+      "pages": [
+        {
+          "page_id": "o-que-e-fidc",
+          "title": "O que é FIDC e o que são direitos creditórios",
+          "summary": "Define o veículo, a lógica econômica do patrimônio separado e o papel dos direitos creditórios na carteira.",
+          "path": "glossario/o-que-e-fidc.md",
+          "level": "base",
+          "keywords": ["fidc", "direitos creditórios", "patrimônio separado", "cvm 175"],
+          "source_ids": ["rcvm_175_anexo_ii", "seller_regulamento", "facta_regulamento"]
+        },
+        {
+          "page_id": "participantes",
+          "title": "Participantes da estrutura e papéis operacionais",
+          "summary": "Mapa de administrador, gestor, custodiante, cedente, originador, devedor, agente de cobrança e outros prestadores recorrentes.",
+          "path": "participantes/participantes.md",
+          "level": "base",
+          "keywords": ["administrador", "gestor", "custodiante", "cedente", "originador", "devedor"],
+          "source_ids": ["rcvm_175_parte_geral", "rcvm_175_anexo_ii", "seller_regulamento", "agibank_monitoramento"]
+        },
+        {
+          "page_id": "cessao-e-resolucao",
+          "title": "Contrato de cessão, elegibilidade e resolução",
+          "summary": "Explica por que a cessão é a ponte crítica entre originação e carteira do fundo e como resolução, recompra e substituição mudam a leitura do risco.",
+          "path": "glossario/cessao-e-resolucao.md",
+          "level": "intermediario",
+          "keywords": ["cessão", "elegibilidade", "resolução", "recompra", "substituição"],
+          "source_ids": ["facta_regulamento", "seller_regulamento", "vw_regulamento"]
+        }
+      ]
+    },
+    {
+      "section_id": "estrutura",
+      "title": "Estrutura do Veículo",
+      "description": "Classes, subclasses, cotas e lógica de alocação de caixa.",
+      "pages": [
+        {
+          "page_id": "classes-cotas-waterfall",
+          "title": "Classes, subclasses, cotas e waterfall",
+          "summary": "Explica classe única versus classes segregadas, cotas sênior/mezanino/subordinada e o racional de cascata.",
+          "path": "estruturas/classes-cotas-waterfall.md",
+          "level": "intermediario",
+          "keywords": ["classes", "subclasses", "cotas", "waterfall", "subordinação"],
+          "source_ids": ["rcvm_175_parte_geral", "rcvm_175_anexo_ii", "seller_regulamento", "icred_monitoramento"]
+        }
+      ]
+    },
+    {
+      "section_id": "recebiveis",
+      "title": "Recebíveis Financeiros",
+      "description": "Tipos de lastro e como eles mudam o monitoramento.",
+      "pages": [
+        {
+          "page_id": "recebiveis-financeiros",
+          "title": "Recebíveis financeiros: principais famílias e o que muda no risco",
+          "summary": "Organiza as famílias de recebíveis financeiros mais recorrentes no acervo e destaca o que muda em elegibilidade, prazo, cobrança e concentração.",
+          "path": "recebiveis/recebiveis-financeiros.md",
+          "level": "intermediario",
+          "keywords": ["consignado", "ccb", "cartão", "meios de pagamento", "veículos", "fgts"],
+          "source_ids": ["seller_regulamento", "facta_regulamento", "geru_regulamento", "stone_regulamento", "cielo_monitoramento", "bv_monitoramento"]
+        },
+        {
+          "page_id": "fidcs-originacao-if",
+          "title": "FIDCs com cedentes IFs ou carteiras originadas por IFs: análise comparativa",
+          "summary": "Compara fundos reais do acervo com lastro financeiro originado por banco, financeira, fintech ou arranjo de pagamentos.",
+          "path": "tipos-de-fundos/fidcs-com-originacao-if.md",
+          "level": "intermediario",
+          "keywords": ["instituição financeira", "originação", "cedente", "comparativo", "agibank", "facta", "geru", "seller", "cielo", "bv", "icred"],
+          "source_ids": ["agibank_monitoramento", "icred_monitoramento", "seller_relatorio_mensal", "cielo_monitoramento", "bv_monitoramento", "geru_regulamento", "facta_regulamento"]
+        }
+      ]
+    },
+    {
+      "section_id": "monitoramento",
+      "title": "Monitoramento",
+      "description": "Métricas estruturais e sinais que fazem diferença na leitura de crédito.",
+      "pages": [
+        {
+          "page_id": "metricas-estruturais",
+          "title": "Métricas estruturais, inadimplência e guardrails",
+          "summary": "Diferencia métricas universais de métricas regulatórias e de covenants específicos de regulamento.",
+          "path": "metricas/metricas-estruturais.md",
+          "level": "intermediario",
+          "keywords": ["subordinação", "cobertura", "alocação mínima", "inadimplência", "spread", "reserva", "concentração"],
+          "source_ids": ["seller_relatorio_mensal", "supplier_regulamento", "geru_regulamento", "facta_regulamento", "vw_regulamento", "oficio_sse_08_2023"]
+        },
+        {
+          "page_id": "provisao-perdas-e-inadimplencia",
+          "title": "Provisionamento, perdas e inadimplência",
+          "summary": "Explica por que atraso, provisão e perda esperada não devem ser tratados como sinônimos em FIDC.",
+          "path": "metricas/provisao-perdas-e-inadimplencia.md",
+          "level": "intermediario",
+          "keywords": ["provisão", "perda esperada", "inadimplência", "atraso", "pdd"],
+          "source_ids": ["facta_regulamento", "geru_regulamento", "seller_relatorio_mensal"]
+        }
+      ]
+    },
+    {
+      "section_id": "eventos",
+      "title": "Eventos e Governança",
+      "description": "Eventos de avaliação, liquidação antecipada e pontos de controle.",
+      "pages": [
+        {
+          "page_id": "eventos-avaliacao-liquidacao",
+          "title": "Eventos de avaliação, liquidação antecipada e controles",
+          "summary": "Separa gatilhos regulatórios, gatilhos contratuais e práticas de mercado de monitoramento.",
+          "path": "eventos/eventos-de-avaliacao-e-liquidacao.md",
+          "level": "intermediario",
+          "keywords": ["evento de avaliação", "liquidação antecipada", "lastro", "rating", "assembleia", "gatilho"],
+          "source_ids": ["rcvm_175_anexo_ii", "seller_regulamento", "facta_regulamento", "geru_regulamento", "supplier_regulamento", "oficio_sse_08_2023"]
+        },
+        {
+          "page_id": "lastro-rating-reporting",
+          "title": "Lastro, rating, relatórios e assembleias",
+          "summary": "Organiza os mecanismos de controle e disclosure mais recorrentes, sem tratar todos como equivalentes.",
+          "path": "eventos/lastro-rating-e-reporting.md",
+          "level": "intermediario",
+          "keywords": ["lastro", "rating", "relatório mensal", "assembleia", "informe trimestral", "controle"],
+          "source_ids": ["oficio_sse_08_2023", "seller_regulamento", "seller_relatorio_mensal", "supplier_oferta_publica"]
+        }
+      ]
+    },
+    {
+      "section_id": "regulacao",
+      "title": "Regulação",
+      "description": "Hierarquia normativa e o que cada norma cobre.",
+      "pages": [
+        {
+          "page_id": "hierarquia-regulatoria",
+          "title": "Hierarquia regulatória: 175, 160, 30 e o padrão XML",
+          "summary": "Organiza o que é regra estrutural do FIDC, o que é regra de oferta e o que é categoria de investidor.",
+          "path": "regulacao/hierarquia-regulatoria.md",
+          "level": "base",
+          "keywords": ["175", "160", "30", "576", "oferta", "investidor profissional", "investidor qualificado"],
+          "source_ids": ["rcvm_175_page", "rcvm_175_parte_geral", "rcvm_175_anexo_ii", "rcvm_160", "rcvm_30", "xml_576_page"]
+        },
+        {
+          "page_id": "oferta-rating-investidores",
+          "title": "Oferta pública, rating e categorias de investidor",
+          "summary": "Separa o que pertence à estrutura do fundo, o que pertence à oferta e onde entram rating, rito automático e público-alvo.",
+          "path": "regulacao/oferta-rating-e-investidores.md",
+          "level": "intermediario",
+          "keywords": ["oferta pública", "registro automático", "rating", "investidor profissional", "investidor qualificado"],
+          "source_ids": ["rcvm_160", "rcvm_30", "rcvm_175_anexo_ii", "supplier_oferta_publica", "seller_oferta_publica"]
+        }
+      ]
+    },
+    {
+      "section_id": "fundos-referencia",
+      "title": "Fundos de Referência",
+      "description": "Mapa dos fundos reais usados como âncora analítica desta base.",
+      "pages": [
+        {
+          "page_id": "fundos-de-referencia",
+          "title": "Fundos do acervo usados como âncora",
+          "summary": "Resume por que cada fundo foi escolhido e em que tema ele é mais útil para o book e para o produto.",
+          "path": "tipos-de-fundos/fundos-de-referencia.md",
+          "level": "base",
+          "keywords": ["fundos de referência", "seller", "facta", "geru", "agibank", "icred", "cielo", "bv", "stone"],
+          "source_ids": ["seller_relatorio_mensal", "facta_regulamento", "geru_regulamento", "agibank_monitoramento", "icred_monitoramento", "cielo_monitoramento", "bv_monitoramento", "stone_regulamento"]
+        }
+      ]
+    }
+  ]
+}
