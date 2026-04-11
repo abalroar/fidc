@@ -30,6 +30,7 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertEqual("12/2025", dashboard.composition_latest_df["competencia"].iloc[0])
         self.assertAlmostEqual(2_000.0, dashboard.summary["emissao_mes"] or 0.0)
         self.assertAlmostEqual(500.0, dashboard.summary["amortizacao_mes"] or 0.0)
+        self.assertAlmostEqual(250.0, dashboard.summary["resgate_solicitado_mes"] or 0.0)
         self.assertEqual(2, len(dashboard.event_history_df))
 
         amort_row = dashboard.event_history_df[dashboard.event_history_df["event_type"] == "amortizacao"].iloc[0]
@@ -38,12 +39,20 @@ class FundonetDashboardTests(unittest.TestCase):
 
         event_summary = dashboard.event_summary_latest_df.set_index("event_type")
         self.assertAlmostEqual(-500.0, event_summary.loc["amortizacao", "valor_total_assinado"])
-        self.assertEqual("missing_field", event_summary.loc["resgate_solicitado", "source_status"])
+        self.assertAlmostEqual(250.0, event_summary.loc["resgate_solicitado", "valor_total"])
+        self.assertEqual("reported_value", event_summary.loc["resgate_solicitado", "source_status"])
 
         senior_row = dashboard.return_summary_df[dashboard.return_summary_df["label"] == "Série 1"].iloc[0]
         self.assertAlmostEqual(2.0, senior_row["retorno_mes_pct"], places=6)
         self.assertAlmostEqual(2.0, senior_row["retorno_ano_pct"], places=6)
         self.assertAlmostEqual(3.02, senior_row["retorno_12m_pct"], places=2)
+
+        benchmark_row = dashboard.performance_vs_benchmark_latest_df[
+            dashboard.performance_vs_benchmark_latest_df["label"] == "Série 1"
+        ].iloc[0]
+        self.assertAlmostEqual(1.8, benchmark_row["desempenho_esperado_pct"], places=6)
+        self.assertAlmostEqual(2.0, benchmark_row["desempenho_real_pct"], places=6)
+        self.assertAlmostEqual(20.0, benchmark_row["gap_bps"], places=6)
 
     def test_build_dashboard_data_exposes_fund_header_information(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -275,6 +284,60 @@ class FundonetDashboardTests(unittest.TestCase):
                 "01/2026": "1.00",
             },
             {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "DESEMP/CLASSE_SENIOR",
+                "tag": "SERIE",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESEMP/CLASSE_SENIOR/SERIE",
+                "descricao": "Série",
+                "12/2025": "Série 1",
+                "01/2026": "Série 1",
+            },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "DESEMP/CLASSE_SENIOR",
+                "tag": "DESEMP_ESP",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESEMP/CLASSE_SENIOR/DESEMP_ESP",
+                "descricao": "Benchmark",
+                "12/2025": "0.80",
+                "01/2026": "1.80",
+            },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "DESEMP/CLASSE_SENIOR",
+                "tag": "DESEMP_REAL",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESEMP/CLASSE_SENIOR/DESEMP_REAL",
+                "descricao": "Realizado",
+                "12/2025": "1.00",
+                "01/2026": "2.00",
+            },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "DESEMP/CLASSE_SUBORD",
+                "tag": "TIPO",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESEMP/CLASSE_SUBORD/TIPO",
+                "descricao": "Tipo",
+                "12/2025": "Subordinada 1",
+                "01/2026": "Subordinada 1",
+            },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "DESEMP/CLASSE_SUBORD",
+                "tag": "DESEMP_ESP",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESEMP/CLASSE_SUBORD/DESEMP_ESP",
+                "descricao": "Benchmark",
+                "12/2025": "0.40",
+                "01/2026": "0.90",
+            },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "DESEMP/CLASSE_SUBORD",
+                "tag": "DESEMP_REAL",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESEMP/CLASSE_SUBORD/DESEMP_REAL",
+                "descricao": "Realizado",
+                "12/2025": "0.50",
+                "01/2026": "1.00",
+            },
+            {
                 "bloco": "APLIC_ATIVO",
                 "sub_bloco": "",
                 "tag": "VL_SOM_APLIC_ATIVO",
@@ -427,6 +490,33 @@ class FundonetDashboardTests(unittest.TestCase):
                 "12/2025": "0",
                 "01/2026": "5",
             },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SENIOR",
+                "tag": "SERIE",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SENIOR/SERIE",
+                "descricao": "Série",
+                "12/2025": "Série 1",
+                "01/2026": "Série 1",
+            },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SENIOR",
+                "tag": "QT_COTAS",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SENIOR/QT_COTAS",
+                "descricao": "Qt resgate solicitado",
+                "12/2025": "0",
+                "01/2026": "10",
+            },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SENIOR",
+                "tag": "VL_PAGO",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SENIOR/VL_PAGO",
+                "descricao": "Resgate solicitado",
+                "12/2025": "0",
+                "01/2026": "250",
+            },
         ]
         pd.DataFrame(wide_rows).to_csv(workspace / "informes_wide.csv", index=False)
 
@@ -528,8 +618,8 @@ class FundonetDashboardTests(unittest.TestCase):
             row(
                 "TAXA_NEGOC_DICRED_MES",
                 "TAXA_NEGOC_DICRED_MES_AQUIS/TAXA_NEGOC_DICRED_MES_AQUIS_DESC_COMPRA",
-                "TX_MAX",
-                "DOC_ARQ/LISTA_INFORM/TAXA_NEGOC_DICRED_MES/TAXA_NEGOC_DICRED_MES_AQUIS/TAXA_NEGOC_DICRED_MES_AQUIS_DESC_COMPRA/TX_MAX",
+                "TX_MAXIMO",
+                "DOC_ARQ/LISTA_INFORM/TAXA_NEGOC_DICRED_MES/TAXA_NEGOC_DICRED_MES_AQUIS/TAXA_NEGOC_DICRED_MES_AQUIS_DESC_COMPRA/TX_MAXIMO",
                 3,
             ),
             row(

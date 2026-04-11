@@ -42,6 +42,7 @@ class FundonetDashboardData:
     subordination_history_df: pd.DataFrame
     return_history_df: pd.DataFrame
     return_summary_df: pd.DataFrame
+    performance_vs_benchmark_latest_df: pd.DataFrame
     event_history_df: pd.DataFrame
     default_history_df: pd.DataFrame
     default_buckets_latest_df: pd.DataFrame
@@ -82,6 +83,12 @@ def build_dashboard_data(
     )
     return_summary_df = _build_return_summary(
         return_history_df=return_history_df,
+        latest_competencia=latest_competencia,
+    )
+    performance_vs_benchmark_latest_df = _build_performance_vs_benchmark_latest_df(
+        wide_lookup=wide_lookup,
+        listas_df=listas_df,
+        competencias=competencias,
         latest_competencia=latest_competencia,
     )
     raw_event_history_df = _build_event_history(
@@ -136,6 +143,7 @@ def build_dashboard_data(
     )
     summary = _build_summary(
         latest_competencia=latest_competencia,
+        wide_lookup=wide_lookup,
         asset_history_df=asset_history_df,
         subordination_history_df=subordination_history_df,
         default_history_df=default_history_df,
@@ -144,6 +152,7 @@ def build_dashboard_data(
     tracking_latest_df = _build_tracking_latest_df(
         summary=summary,
         asset_history_df=asset_history_df,
+        wide_lookup=wide_lookup,
         latest_competencia=latest_competencia,
     )
     event_summary_latest_df = _build_event_summary_latest_df(
@@ -156,7 +165,9 @@ def build_dashboard_data(
         "Alocação e composição da carteira usam os saldos reportados no IME e podem divergir da metodologia proprietária do administrador.",
         "Direitos creditórios priorizam o campo CVM DICRED/VL_DICRED e usam campos legados CRED_EXISTE apenas como fallback.",
         "Índice de subordinação é calculado como PL subordinado dividido pelo PL total das cotas reportadas.",
-        "Indices de cobertura, rating, benchmark, custodiante e auditor nao sao derivados diretamente do IME e exigem fonte complementar.",
+        "Os campos de liquidez do IME são exibidos como informados. Pela descrição da CVM eles representam horizontes até cada prazo, mas alguns fundos aparentam preenchê-los como buckets.",
+        "Resgate solicitado usa os campos RESG_SOLIC do IME e aceita tanto VL_PAGO quanto VL_COTAS, pois há divergência observada entre schema e XML real.",
+        "Índices de cobertura, relação mínima, reservas, rating, benchmark, coobrigação, cedente/devedor e eventos contratuais não são derivados diretamente do IME e exigem fonte complementar.",
         "Fluxo de direitos creditórios usa aquisições e alienações reportadas no IME; o PDF de referência pode chamar esse bloco de liquidações.",
     ]
 
@@ -174,6 +185,7 @@ def build_dashboard_data(
         subordination_history_df=subordination_history_df,
         return_history_df=return_history_df,
         return_summary_df=return_summary_df,
+        performance_vs_benchmark_latest_df=performance_vs_benchmark_latest_df,
         event_history_df=event_history_df,
         default_history_df=default_history_df,
         default_buckets_latest_df=default_buckets_latest_df,
@@ -296,6 +308,68 @@ def _sum_latest_paths_with_status(
     }
 
 
+def _first_available_latest_paths_with_status(
+    wide_lookup: pd.DataFrame,
+    competencia: str,
+    tag_paths: list[str],
+) -> dict[str, object]:
+    statuses: list[str] = []
+    present_paths = 0
+    zero_reported = False
+    for tag_path in tag_paths:
+        value, status = _latest_path_value(wide_lookup, competencia, tag_path)
+        statuses.append(status)
+        if status != "missing_field":
+            present_paths += 1
+        if status == "reported_value":
+            return {
+                "valor": float(value or 0.0),
+                "valor_raw": value,
+                "source_status": status,
+                "source_paths": len(tag_paths),
+                "present_source_paths": present_paths,
+            }
+        if status == "reported_zero":
+            zero_reported = True
+    final_status = "reported_zero" if zero_reported else _combine_source_status(statuses, None)
+    return {
+        "valor": 0.0,
+        "valor_raw": 0.0 if zero_reported else None,
+        "source_status": final_status,
+        "source_paths": len(tag_paths),
+        "present_source_paths": present_paths,
+    }
+
+
+def _sum_latest_path_groups_with_status(
+    wide_lookup: pd.DataFrame,
+    competencia: str,
+    tag_path_groups: list[list[str]],
+) -> dict[str, object]:
+    group_infos = [
+        _first_available_latest_paths_with_status(wide_lookup, competencia, tag_paths)
+        for tag_paths in tag_path_groups
+    ]
+    values = [float(info["valor_raw"]) for info in group_infos if info.get("valor_raw") is not None]
+    total = float(sum(values)) if values else None
+    return {
+        "valor": total if total is not None else 0.0,
+        "valor_raw": total,
+        "source_status": _combine_source_status([str(info["source_status"]) for info in group_infos], total),
+        "source_paths": sum(int(info["source_paths"]) for info in group_infos),
+        "present_source_paths": sum(int(info["present_source_paths"]) for info in group_infos),
+    }
+
+
+def _materialize_status_value(value: object, status: object) -> float | None:
+    if str(status) not in {"reported_value", "reported_zero"}:
+        return None
+    numeric = _to_numeric(value)
+    if numeric is not None:
+        return numeric
+    return 0.0 if str(status) == "reported_zero" else None
+
+
 def _numeric_series_first_available(
     wide_lookup: pd.DataFrame,
     competencias: list[str],
@@ -354,6 +428,8 @@ def _build_fund_info(
         "nome_classe": wide_value("DOC_ARQ/CAB_INFORM/NM_CLASSE"),
         "condominio": wide_value("DOC_ARQ/CAB_INFORM/TP_CONDOMINIO"),
         "classe_unica": wide_value("DOC_ARQ/CAB_INFORM/CLASS_UNICA"),
+        "estrutura_subordinada": wide_value("DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/NUM_COTISTAS/EXISTE_ESTRU_SUBORD"),
+        "total_cotistas": wide_value("DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/NUM_COTISTAS/QT_TOTAL_COTISTAS"),
         "periodo_analisado": f"{competencias[0]} a {latest_competencia}",
         "ultima_competencia": latest_competencia,
         "ultima_entrega": _display_value(latest_doc.get("data_entrega", "")),
@@ -363,6 +439,7 @@ def _build_fund_info(
 def _build_summary(
     *,
     latest_competencia: str,
+    wide_lookup: pd.DataFrame,
     asset_history_df: pd.DataFrame,
     subordination_history_df: pd.DataFrame,
     default_history_df: pd.DataFrame,
@@ -376,6 +453,30 @@ def _build_summary(
     carteira = _float_or_none(asset_row.get("carteira"))
     outros_ativos = _float_or_none(asset_row.get("outros_ativos_carteira"))
     alocacao_pct = _float_or_none(asset_row.get("alocacao_pct"))
+    liquidez_imediata_value, liquidez_imediata_status = _latest_path_value(
+        wide_lookup,
+        latest_competencia,
+        "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ",
+    )
+    liquidez_30_value, liquidez_30_status = _latest_path_value(
+        wide_lookup,
+        latest_competencia,
+        "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_30",
+    )
+    resgate_solicitado_info = _sum_latest_path_groups_with_status(
+        wide_lookup,
+        latest_competencia,
+        [
+            [
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SENIOR/VL_PAGO",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SENIOR/VL_COTAS",
+            ],
+            [
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SUBORD/VL_PAGO",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SUBORD/VL_COTAS",
+            ],
+        ],
+    )
     if carteira and carteira > 0 and (direitos_creditorios is None or direitos_creditorios <= 0):
         direitos_creditorios = None
         outros_ativos = None
@@ -390,12 +491,18 @@ def _build_summary(
         "direitos_creditorios": direitos_creditorios,
         "outros_ativos_carteira": outros_ativos,
         "alocacao_pct": alocacao_pct,
+        "liquidez_imediata": _materialize_status_value(liquidez_imediata_value, liquidez_imediata_status),
+        "liquidez_30": _materialize_status_value(liquidez_30_value, liquidez_30_status),
         "subordinacao_pct": _float_or_none(subordination_row.get("subordinacao_pct")),
         "inadimplencia_total": _float_or_none(default_row.get("inadimplencia_total")),
         "inadimplencia_pct": _float_or_none(default_row.get("inadimplencia_pct")),
         "provisao_total": _float_or_none(default_row.get("provisao_total")),
         "emissao_mes": _sum_event_metric(latest_events_df, "emissao", "valor_total"),
         "resgate_mes": _sum_event_metric(latest_events_df, "resgate", "valor_total"),
+        "resgate_solicitado_mes": _materialize_status_value(
+            resgate_solicitado_info.get("valor_raw"),
+            resgate_solicitado_info.get("source_status"),
+        ),
         "amortizacao_mes": _sum_event_metric(latest_events_df, "amortizacao", "valor_total"),
     }
 
@@ -468,6 +575,8 @@ def _build_event_summary_latest_df(
             [
                 f"{prefix}/RESG_SOLIC/CLASSE_SENIOR/VL_PAGO",
                 f"{prefix}/RESG_SOLIC/CLASSE_SUBORD/VL_PAGO",
+                f"{prefix}/RESG_SOLIC/CLASSE_SENIOR/VL_COTAS",
+                f"{prefix}/RESG_SOLIC/CLASSE_SUBORD/VL_COTAS",
             ],
         ),
         (
@@ -481,7 +590,23 @@ def _build_event_summary_latest_df(
     pl_value = _float_or_none(pl_total)
     rows: list[dict[str, object]] = []
     for ordem, (event_type, paths) in enumerate(specs, start=1):
-        value_info = _sum_latest_paths_with_status(wide_lookup, latest_competencia, paths)
+        if event_type == "resgate_solicitado":
+            value_info = _sum_latest_path_groups_with_status(
+                wide_lookup,
+                latest_competencia,
+                [
+                    [
+                        f"{prefix}/RESG_SOLIC/CLASSE_SENIOR/VL_PAGO",
+                        f"{prefix}/RESG_SOLIC/CLASSE_SENIOR/VL_COTAS",
+                    ],
+                    [
+                        f"{prefix}/RESG_SOLIC/CLASSE_SUBORD/VL_PAGO",
+                        f"{prefix}/RESG_SOLIC/CLASSE_SUBORD/VL_COTAS",
+                    ],
+                ],
+            )
+        else:
+            value_info = _sum_latest_paths_with_status(wide_lookup, latest_competencia, paths)
         valor = float(value_info["valor"])
         sign = -1.0 if event_type in {"resgate", "resgate_solicitado", "amortizacao"} else 1.0
         valor_assinado = 0.0 if valor == 0 else valor * sign
@@ -673,20 +798,27 @@ def _build_segment_latest_df(*, wide_lookup: pd.DataFrame, latest_competencia: s
 
 
 def _build_liquidity_latest_df(*, wide_lookup: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
-    competencias = [latest_competencia]
     buckets = [
-        ("Liquidez total", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ"),
-        ("30 dias", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_30"),
-        ("60 dias", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_60"),
-        ("90 dias", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_90"),
-        ("180 dias", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_180"),
-        ("360 dias", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_360"),
-        ("Mais de 360 dias", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_MAIS_360"),
+        ("Liquidez imediata", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ"),
+        ("Até 30 dias", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_30"),
+        ("Até 60 dias", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_60"),
+        ("Até 90 dias", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_90"),
+        ("Até 180 dias", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_180"),
+        ("Até 360 dias", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_360"),
+        ("Acima de 360 dias", "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_MAIS_360"),
     ]
     rows = []
-    for horizonte, tag_path in buckets:
-        valor = float(_numeric_series(wide_lookup, competencias, tag_path).iloc[0])
-        rows.append({"horizonte": horizonte, "valor": valor})
+    for ordem, (horizonte, tag_path) in enumerate(buckets, start=1):
+        valor, status = _latest_path_value(wide_lookup, latest_competencia, tag_path)
+        rows.append(
+            {
+                "ordem": ordem,
+                "horizonte": horizonte,
+                "valor": 0.0 if valor is None else float(valor),
+                "valor_raw": valor,
+                "source_status": status,
+            }
+        )
     return pd.DataFrame(rows)
 
 
@@ -916,7 +1048,7 @@ def _build_rate_negotiation_latest_df(*, wide_lookup: pd.DataFrame, latest_compe
         return pd.DataFrame(columns=["grupo", "operacao", "taxa_min", "taxa_media", "taxa_max"])
     subset = wide_lookup[
         wide_lookup["tag_path"].astype(str).str.startswith("DOC_ARQ/LISTA_INFORM/TAXA_NEGOC_DICRED_MES/")
-        & wide_lookup["tag"].isin(["TX_MIN", "TX_MEDIO", "TX_MAX"])
+        & wide_lookup["tag"].isin(["TX_MIN", "TX_MEDIO", "TX_MAX", "TX_MAXIMO"])
     ].copy()
     if subset.empty:
         return pd.DataFrame(columns=["grupo", "operacao", "taxa_min", "taxa_media", "taxa_max"])
@@ -927,6 +1059,11 @@ def _build_rate_negotiation_latest_df(*, wide_lookup: pd.DataFrame, latest_compe
         .reset_index()
         .rename_axis(None, axis=1)
     )
+    if "TX_MAXIMO" in pivot.columns:
+        if "TX_MAX" in pivot.columns:
+            pivot["TX_MAX"] = pivot["TX_MAX"].where(pivot["TX_MAX"].abs() > 0, pivot["TX_MAXIMO"])
+        else:
+            pivot["TX_MAX"] = pivot["TX_MAXIMO"]
     for column in ["TX_MIN", "TX_MEDIO", "TX_MAX"]:
         if column not in pivot.columns:
             pivot[column] = 0.0
@@ -942,6 +1079,7 @@ def _build_tracking_latest_df(
     *,
     summary: dict[str, float | str | None],
     asset_history_df: pd.DataFrame,
+    wide_lookup: pd.DataFrame,
     latest_competencia: str,
 ) -> pd.DataFrame:
     asset_row = _latest_row(asset_history_df, latest_competencia)
@@ -950,6 +1088,35 @@ def _build_tracking_latest_df(
     direitos_creditorios = _float_or_none(summary.get("direitos_creditorios"))
     provisao_total = _float_or_none(summary.get("provisao_total")) or 0.0
     inadimplencia_total = _float_or_none(summary.get("inadimplencia_total")) or 0.0
+    pl_total = _float_or_none(summary.get("pl_total"))
+    liquidez_imediata = _materialize_status_value(*_latest_path_value(
+        wide_lookup,
+        latest_competencia,
+        "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ",
+    ))
+    liquidez_30 = _materialize_status_value(*_latest_path_value(
+        wide_lookup,
+        latest_competencia,
+        "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_30",
+    ))
+    resgate_solicitado_info = _sum_latest_path_groups_with_status(
+        wide_lookup,
+        latest_competencia,
+        [
+            [
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SENIOR/VL_PAGO",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SENIOR/VL_COTAS",
+            ],
+            [
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SUBORD/VL_PAGO",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/CAPTA_RESGA_AMORTI/RESG_SOLIC/CLASSE_SUBORD/VL_COTAS",
+            ],
+        ],
+    )
+    resgate_solicitado = _materialize_status_value(
+        resgate_solicitado_info.get("valor_raw"),
+        resgate_solicitado_info.get("source_status"),
+    )
     rows = [
         {
             "indicador": "Alocação em direitos creditórios",
@@ -1006,6 +1173,42 @@ def _build_tracking_latest_df(
             "fonte": "NEGOC_DICRED_MES",
             "interpretação": "Alienações no mês sobre a carteira de direitos creditórios.",
             "estado_dado": "calculado" if direitos_creditorios else "nao_calculavel",
+        },
+        {
+            "indicador": "Liquidez imediata / PL total",
+            "valor": (liquidez_imediata / pl_total * 100.0) if pl_total and liquidez_imediata is not None else None,
+            "unidade": "%",
+            "fonte": "OUTRAS_INFORM/LIQUIDEZ",
+            "interpretação": "Ativos com liquidez imediata sobre o PL reportado.",
+            "estado_dado": (
+                "calculado"
+                if pl_total and liquidez_imediata is not None
+                else ("nao_disponivel_na_fonte" if liquidez_imediata is None else "nao_calculavel_sem_pl")
+            ),
+        },
+        {
+            "indicador": "Liquidez até 30 dias / PL total",
+            "valor": (liquidez_30 / pl_total * 100.0) if pl_total and liquidez_30 is not None else None,
+            "unidade": "%",
+            "fonte": "OUTRAS_INFORM/LIQUIDEZ",
+            "interpretação": "Ativos com liquidez em até 30 dias sobre o PL reportado.",
+            "estado_dado": (
+                "calculado"
+                if pl_total and liquidez_30 is not None
+                else ("nao_disponivel_na_fonte" if liquidez_30 is None else "nao_calculavel_sem_pl")
+            ),
+        },
+        {
+            "indicador": "Resgate solicitado / PL total",
+            "valor": (resgate_solicitado / pl_total * 100.0) if pl_total and resgate_solicitado is not None else None,
+            "unidade": "%",
+            "fonte": "CAPTA_RESGA_AMORTI/RESG_SOLIC",
+            "interpretação": "Pedidos de resgate ainda a pagar em relação ao PL reportado.",
+            "estado_dado": (
+                "calculado"
+                if pl_total and resgate_solicitado is not None
+                else ("nao_disponivel_na_fonte" if resgate_solicitado is None else "nao_calculavel_sem_pl")
+            ),
         },
     ]
     return pd.DataFrame(rows)
@@ -1171,6 +1374,92 @@ def _build_return_summary(return_history_df: pd.DataFrame, latest_competencia: s
             }
         )
     return pd.DataFrame(rows).sort_values(["class_kind", "label"]).reset_index(drop=True)
+
+
+def _build_performance_vs_benchmark_latest_df(
+    *,
+    wide_lookup: pd.DataFrame,
+    listas_df: pd.DataFrame,
+    competencias: list[str],
+    latest_competencia: str,
+) -> pd.DataFrame:
+    frames = [
+        _build_scalar_class_frame(
+            wide_lookup=wide_lookup,
+            competencias=competencias,
+            class_kind="senior",
+            default_label="Senior",
+            base_path="DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESEMP/CLASSE_SENIOR/",
+            label_fields=("SERIE",),
+            value_fields=("DESEMP_ESP", "DESEMP_REAL"),
+        ),
+        _build_scalar_class_frame(
+            wide_lookup=wide_lookup,
+            competencias=competencias,
+            class_kind="subordinada",
+            default_label="Subordinada",
+            base_path="DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESEMP/CLASSE_SUBORD/",
+            label_fields=("TIPO", "SERIE"),
+            value_fields=("DESEMP_ESP", "DESEMP_REAL"),
+        ),
+        _build_list_class_frame(
+            listas_df=listas_df,
+            class_kind="senior",
+            default_label="Senior",
+            list_token="DESEMP/CLASSE_SENIOR",
+            label_fields=("SERIE",),
+            value_fields=("DESEMP_ESP", "DESEMP_REAL"),
+        ),
+        _build_list_class_frame(
+            listas_df=listas_df,
+            class_kind="subordinada",
+            default_label="Subordinada",
+            list_token="DESEMP/CLASSE_SUBORD",
+            label_fields=("TIPO", "SERIE"),
+            value_fields=("DESEMP_ESP", "DESEMP_REAL"),
+        ),
+    ]
+    base_df = _finalize_class_frame(
+        frames=frames,
+        competencias=competencias,
+        numeric_fields=("DESEMP_ESP", "DESEMP_REAL"),
+    )
+    if base_df.empty:
+        return pd.DataFrame(
+            columns=[
+                "competencia",
+                "competencia_dt",
+                "class_kind",
+                "label",
+                "desempenho_esperado_pct",
+                "desempenho_real_pct",
+                "gap_bps",
+            ]
+        )
+    latest_df = base_df[base_df["competencia"] == latest_competencia].copy()
+    if latest_df.empty:
+        return pd.DataFrame(
+            columns=[
+                "competencia",
+                "competencia_dt",
+                "class_kind",
+                "label",
+                "desempenho_esperado_pct",
+                "desempenho_real_pct",
+                "gap_bps",
+            ]
+        )
+    latest_df = latest_df.rename(
+        columns={
+            "DESEMP_ESP": "desempenho_esperado_pct",
+            "DESEMP_REAL": "desempenho_real_pct",
+        }
+    )
+    latest_df["gap_bps"] = (
+        (pd.to_numeric(latest_df["desempenho_real_pct"], errors="coerce") - pd.to_numeric(latest_df["desempenho_esperado_pct"], errors="coerce"))
+        * 100.0
+    )
+    return latest_df.sort_values(["class_kind", "label"]).reset_index(drop=True)
 
 
 def _compound_percent(series: pd.Series) -> float | None:

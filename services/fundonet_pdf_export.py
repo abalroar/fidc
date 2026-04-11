@@ -79,6 +79,8 @@ def _build_story(
             [
                 ("Última competência", info.get("ultima_competencia")),
                 ("Período analisado", info.get("periodo_analisado")),
+                ("Estrutura subordinada", info.get("estrutura_subordinada")),
+                ("Cotistas", info.get("total_cotistas")),
                 ("CNPJ fundo", _format_cnpj(info.get("cnpj_fundo", ""))),
                 ("CNPJ classe", _format_cnpj(info.get("cnpj_classe", ""))),
                 ("Administrador", _format_cnpj(info.get("cnpj_administrador", ""))),
@@ -92,14 +94,16 @@ def _build_story(
         _section("Visão Geral", styles),
         _metric_table(
             [
-                ("PL total", _format_brl_compact(summary.get("pl_total")), "Cotas sênior + subordinadas"),
-                ("Ativos totais", _format_brl_compact(summary.get("ativos_totais")), "APLIC_ATIVO"),
                 ("Direitos creditórios", _format_brl_compact(summary.get("direitos_creditorios")), "DICRED"),
+                ("PL total", _format_brl_compact(summary.get("pl_total")), "Cotas sênior + subordinadas"),
                 ("Subordinação", _format_percent(summary.get("subordinacao_pct")), "PL subordinado / PL total"),
-                ("Alocação", _format_percent(summary.get("alocacao_pct")), "Direitos creditórios / carteira"),
                 ("Inadimplência", _format_percent(summary.get("inadimplencia_pct")), "Inadimplência / direitos"),
+                ("Ativos totais", _format_brl_compact(summary.get("ativos_totais")), "APLIC_ATIVO"),
+                ("Alocação", _format_percent(summary.get("alocacao_pct")), "Direitos creditórios / carteira"),
                 ("Provisão", _format_brl_compact(summary.get("provisao_total")), "Redução/recuperação"),
-                ("Amortização mês", _format_brl_compact(summary.get("amortizacao_mes")), "Valor bruto reportado"),
+                ("Liquidez imediata", _format_brl_compact(summary.get("liquidez_imediata")), "OUTRAS_INFORM/LIQUIDEZ"),
+                ("Liquidez até 30 dias", _format_brl_compact(summary.get("liquidez_30")), "OUTRAS_INFORM/LIQUIDEZ"),
+                ("Resgate solicitado", _format_brl_compact(summary.get("resgate_solicitado_mes")), "CAPTA_RESGA_AMORTI/RESG_SOLIC"),
             ],
             styles,
         ),
@@ -144,6 +148,13 @@ def _build_story(
             styles,
             widths=[56 * mm, 28 * mm, 28 * mm, 28 * mm],
             empty_message="Sem rentabilidade de cotas reportada.",
+        ),
+        Spacer(1, 4 * mm),
+        _dataframe_table(
+            _format_performance_benchmark_table(dashboard.performance_vs_benchmark_latest_df),
+            styles,
+            widths=[56 * mm, 30 * mm, 30 * mm, 26 * mm],
+            empty_message="Sem benchmark x realizado reportado no bloco DESEMP.",
         ),
         Spacer(1, 4 * mm),
         _dataframe_table(
@@ -444,6 +455,17 @@ def _format_return_summary_table(df: pd.DataFrame) -> pd.DataFrame:
     return output[["Classe", "Mês", "Ano", "12 Meses"]]
 
 
+def _format_performance_benchmark_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=["Classe", "Benchmark", "Realizado", "Gap (bps)"])
+    output = df.copy()
+    output["Classe"] = output["label"]
+    output["Benchmark"] = output["desempenho_esperado_pct"].map(_format_percent)
+    output["Realizado"] = output["desempenho_real_pct"].map(_format_percent)
+    output["Gap (bps)"] = output["gap_bps"].map(lambda value: _format_decimal(value, decimals=0))
+    return output[["Classe", "Benchmark", "Realizado", "Gap (bps)"]]
+
+
 def _format_latest_quota_table(df: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
     if df.empty:
         return pd.DataFrame(columns=["Classe", "Tipo", "Qt. cotas", "Valor da cota", "PL"])
@@ -497,6 +519,8 @@ def _format_rate_table(df: pd.DataFrame) -> pd.DataFrame:
 def _format_tracking_value(row: pd.Series) -> str:
     if row.get("estado_dado") == "nao_aplicavel_sem_inadimplencia":
         return "N/A (sem inadimplência)"
+    if row.get("estado_dado") == "nao_disponivel_na_fonte":
+        return "N/D"
     if row.get("unidade") == "%":
         return _format_percent(row.get("valor"))
     return _format_decimal(row.get("valor"))
@@ -518,7 +542,9 @@ def _data_state_label(value: object) -> str:
     labels = {
         "calculado": "Calculado",
         "nao_calculavel": "Não calculável",
+        "nao_calculavel_sem_pl": "Não calculável: sem PL",
         "nao_aplicavel_sem_inadimplencia": "Não aplicável: sem inadimplência",
+        "nao_disponivel_na_fonte": "Não disponível na fonte",
     }
     return labels.get(str(value), _display(value))
 

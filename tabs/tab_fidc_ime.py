@@ -170,6 +170,30 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
     margin: -0.1rem 0 0.75rem 0;
 }
 
+.fidc-period-bar {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 0.78rem;
+    color: #6c757d;
+    margin: -0.2rem 0 0.85rem 0;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 3px solid #1f77b4;
+}
+
+.fidc-period-bar span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.fidc-period-bar strong {
+    color: #212529;
+    font-weight: 500;
+}
+
 div[data-testid="stMetric"] {
     background: #ffffff;
     border: 1px solid #e9ecef;
@@ -465,11 +489,13 @@ def _render_dashboard(result: InformeMensalResult, context: dict[str, Any]) -> N
     st.markdown(_FIDC_REPORT_CSS, unsafe_allow_html=True)
 
     _render_dashboard_header(dashboard)
+    _render_dashboard_context_bar(dashboard)
     _render_pdf_export_button(dashboard, context)
     _render_overview_metrics(dashboard)
+    _render_monitoring_section(dashboard)
     _render_asset_section(dashboard)
-    _render_quota_section(dashboard)
     _render_default_section(dashboard)
+    _render_quota_section(dashboard)
     _render_events_section(dashboard)
     _render_cvm_tables_section(dashboard)
 
@@ -480,15 +506,19 @@ def _render_dashboard(result: InformeMensalResult, context: dict[str, Any]) -> N
 
 def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
     info = dashboard.fund_info
+    dominant_segment = ""
+    if not dashboard.segment_latest_df.empty and "valor" in dashboard.segment_latest_df.columns:
+        dominant_segment = str(
+            dashboard.segment_latest_df.sort_values("valor", ascending=False).iloc[0].get("segmento") or ""
+        )
     pills = [
-        ("Última competência", info.get("ultima_competencia", "N/D")),
-        ("Período", info.get("periodo_analisado", "N/D")),
         ("Condomínio", info.get("condominio", "N/D")),
         ("Classe única", info.get("classe_unica", "N/D")),
+        ("Estrutura subordinada", info.get("estrutura_subordinada", "N/D")),
+        ("Cotistas", info.get("total_cotistas", "N/D")),
+        ("Segmento CVM", dominant_segment or "N/D"),
         ("CNPJ fundo", _format_cnpj(info.get("cnpj_fundo", ""))),
-        ("CNPJ classe", _format_cnpj(info.get("cnpj_classe", ""))),
         ("CNPJ administrador", _format_cnpj(info.get("cnpj_administrador", ""))),
-        ("Última entrega", info.get("ultima_entrega", "N/D")),
     ]
     pills_html = "\n".join(
         f'<span class="fidc-pill"><strong>{escape(label)}:</strong> {escape(str(value or "N/D"))}</span>'
@@ -504,6 +534,21 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
   <div class="fidc-hero__title">{escape(str(title))}</div>
   <div class="fidc-section-caption">{escape(str(subtitle))}</div>
   <div class="fidc-hero__meta">{pills_html}</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+
+def _render_dashboard_context_bar(dashboard: FundonetDashboardData) -> None:
+    info = dashboard.fund_info
+    st.markdown(
+        f"""
+<div class="fidc-period-bar">
+  <span><strong>Última competência:</strong> {escape(str(info.get("ultima_competencia") or "N/D"))}</span>
+  <span><strong>Janela:</strong> {escape(str(info.get("periodo_analisado") or "N/D"))}</span>
+  <span><strong>IMEs processados:</strong> {escape(str(len(dashboard.competencias)))}</span>
+  <span><strong>Última entrega:</strong> {escape(str(info.get("ultima_entrega") or "N/D"))}</span>
 </div>
 """,
         unsafe_allow_html=True,
@@ -534,24 +579,46 @@ def _render_pdf_export_button(dashboard: FundonetDashboardData, context: dict[st
 
 def _render_overview_metrics(dashboard: FundonetDashboardData) -> None:
     summary = dashboard.summary
-    _render_fidc_section("Visão geral", "Métricas principais extraídas do IME mais recente do intervalo.")
+    _render_fidc_section("Visão geral", "O que importa primeiro para se situar no IME mais recente.")
     hero_cards = [
-        _render_fidc_card("PL total", _format_brl_compact(summary.get("pl_total")), "Cotas sênior + subordinadas"),
-        _render_fidc_card("Ativos totais", _format_brl_compact(summary.get("ativos_totais")), "APLIC_ATIVO/VL_SOM_APLIC_ATIVO"),
         _render_fidc_card("Direitos creditórios", _format_brl_compact(summary.get("direitos_creditorios")), "DICRED/VL_DICRED"),
+        _render_fidc_card("PL total", _format_brl_compact(summary.get("pl_total")), "Cotas sênior + subordinadas"),
         _render_fidc_card("Subordinação", _format_percent(summary.get("subordinacao_pct")), "PL subordinado / PL total"),
+        _render_fidc_card("Inadimplência", _format_percent(summary.get("inadimplencia_pct")), "Inadimplência / direitos creditórios", variant="risk"),
     ]
     st.markdown(_render_fidc_grid(hero_cards, "fidc-grid--hero"), unsafe_allow_html=True)
 
     supporting_cards = [
+        _render_fidc_card("Ativos totais", _format_brl_compact(summary.get("ativos_totais")), "APLIC_ATIVO/VL_SOM_APLIC_ATIVO"),
         _render_fidc_card("Alocação", _format_percent(summary.get("alocacao_pct")), "Direitos creditórios / carteira"),
-        _render_fidc_card("Inadimplência", _format_percent(summary.get("inadimplencia_pct")), "Inadimplência / direitos creditórios", variant="risk"),
         _render_fidc_card("Provisão", _format_brl_compact(summary.get("provisao_total")), "Provisão para redução/recuperação", variant="neutral"),
-        _render_fidc_card("Emissão no mês", _format_brl_compact(summary.get("emissao_mes")), "CAPTA_RESGA_AMORTI/CAPT_MES"),
-        _render_fidc_card("Resgate no mês", _format_brl_compact(summary.get("resgate_mes")), "CAPTA_RESGA_AMORTI/RESG_MES"),
-        _render_fidc_card("Amortização no mês", _format_brl_compact(summary.get("amortizacao_mes")), "CAPTA_RESGA_AMORTI/AMORT"),
+        _render_fidc_card("Liquidez imediata", _format_brl_compact(summary.get("liquidez_imediata")), "OUTRAS_INFORM/LIQUIDEZ"),
+        _render_fidc_card("Liquidez até 30 dias", _format_brl_compact(summary.get("liquidez_30")), "OUTRAS_INFORM/LIQUIDEZ"),
+        _render_fidc_card("Resgate solicitado", _format_brl_compact(summary.get("resgate_solicitado_mes")), "CAPTA_RESGA_AMORTI/RESG_SOLIC", variant="risk"),
     ]
     st.markdown(_render_fidc_grid(supporting_cards, "fidc-grid--supporting"), unsafe_allow_html=True)
+
+
+def _render_monitoring_section(dashboard: FundonetDashboardData) -> None:
+    _render_fidc_section(
+        "Monitoramento estrutural",
+        "Indicadores úteis para acompanhamento recorrente que já estão no IME, sem inferir covenants documentais fora da fonte.",
+    )
+    left, right = st.columns(2)
+    with left:
+        st.caption("Indicadores calculados")
+        st.dataframe(
+            _format_tracking_table(dashboard.tracking_latest_df),
+            use_container_width=True,
+            hide_index=True,
+        )
+    with right:
+        st.caption(f"Eventos e pressões de cotas em {dashboard.latest_competencia}")
+        st.dataframe(
+            _format_event_summary_table(dashboard.event_summary_latest_df),
+            use_container_width=True,
+            hide_index=True,
+        )
 
 
 def _render_fidc_section(title: str, caption: str | None = None) -> None:
@@ -724,6 +791,13 @@ def _render_quota_section(dashboard: FundonetDashboardData) -> None:
         use_container_width=True,
         hide_index=True,
     )
+    if not dashboard.performance_vs_benchmark_latest_df.empty:
+        bottom_right.caption(f"Benchmark x realizado em {dashboard.latest_competencia}")
+        bottom_right.dataframe(
+            _format_performance_benchmark_table(dashboard.performance_vs_benchmark_latest_df),
+            use_container_width=True,
+            hide_index=True,
+        )
 
     latest_quota_df = _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia)
     if not latest_quota_df.empty:
@@ -850,13 +924,13 @@ def _render_events_section(dashboard: FundonetDashboardData) -> None:
 def _render_cvm_tables_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section(
         "Tabelas CVM normalizadas",
-        "Visão tabular próxima ao layout do informe, derivada do XML parseado.",
+        "Base tabular do XML parseado, útil para conferência e leitura de detalhe.",
     )
     left, right = st.columns(2)
     with left:
-        st.caption("Índices de acompanhamento")
+        st.caption("Liquidez reportada")
         st.dataframe(
-            _format_tracking_table(dashboard.tracking_latest_df),
+            _format_value_table(dashboard.liquidity_latest_df, label_column="horizonte", label_title="Horizonte"),
             use_container_width=True,
             hide_index=True,
         )
@@ -910,6 +984,17 @@ def _format_return_summary_frame(return_summary_df: pd.DataFrame) -> pd.DataFram
     return table_df[["Classe", "Mês", "Ano", "12 Meses"]]
 
 
+def _format_performance_benchmark_table(performance_df: pd.DataFrame) -> pd.DataFrame:
+    if performance_df.empty:
+        return pd.DataFrame(columns=["Classe", "Benchmark", "Realizado", "Gap (bps)"])
+    output = performance_df.copy()
+    output["Classe"] = output["label"]
+    output["Benchmark"] = output["desempenho_esperado_pct"].map(_format_percent)
+    output["Realizado"] = output["desempenho_real_pct"].map(_format_percent)
+    output["Gap (bps)"] = output["gap_bps"].map(lambda value: _format_decimal(value, decimals=0))
+    return output[["Classe", "Benchmark", "Realizado", "Gap (bps)"]]
+
+
 def _format_latest_quota_frame(quota_pl_history_df: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
     if quota_pl_history_df.empty:
         return pd.DataFrame(columns=["Classe", "Tipo", "Qt. cotas", "Valor da cota", "PL"])
@@ -939,7 +1024,7 @@ def _format_value_percent_table(df: pd.DataFrame, *, label_column: str, label_ti
 def _format_value_table(df: pd.DataFrame, *, label_column: str, label_title: str) -> pd.DataFrame:
     if df.empty:
         return pd.DataFrame(columns=[label_title, "Valor"])
-    output = df.copy()
+    output = df.sort_values("ordem").copy() if "ordem" in df.columns else df.copy()
     output[label_title] = output[label_column]
     output["Valor"] = output.apply(_format_value_row, axis=1)
     columns = [label_title, "Valor"]
@@ -985,6 +1070,8 @@ def _format_source_status(value: object) -> str:
 def _format_tracking_value(row: pd.Series) -> str:
     if row.get("estado_dado") == "nao_aplicavel_sem_inadimplencia":
         return "N/A (sem inadimplência)"
+    if row.get("estado_dado") == "nao_disponivel_na_fonte":
+        return "N/D"
     if row.get("unidade") == "%":
         return _format_percent(row["valor"])
     return _format_decimal(row["valor"])
@@ -994,7 +1081,9 @@ def _format_data_state(value: object) -> str:
     labels = {
         "calculado": "Calculado",
         "nao_calculavel": "Não calculável",
+        "nao_calculavel_sem_pl": "Não calculável: sem PL",
         "nao_aplicavel_sem_inadimplencia": "Não aplicável: sem inadimplência",
+        "nao_disponivel_na_fonte": "Não disponível na fonte",
     }
     return labels.get(str(value), str(value or "N/D"))
 
