@@ -11,10 +11,10 @@ from tabs.tab_fidc_book import render_tab_fidc_book
 from tabs.tab_fidc_ime import render_tab_fidc_ime
 
 
-st.set_page_config(page_title="Modelo FIDC", page_icon="📊", layout="wide")
+st.set_page_config(page_title="tomaconta FIDCs", page_icon="📊", layout="wide")
 
-st.title("Modelo FIDC (Streamlit)")
-st.caption("Reimplementação do fluxo econômico sem VBA, com inputs interativos.")
+st.title("tomaconta FIDCs")
+st.caption("Monitoramento de risco por IME, modelo econômico e base de conhecimento regulatória em uma única plataforma.")
 
 
 @st.cache_data
@@ -111,15 +111,15 @@ def render_modelo_tab() -> None:
     else:
         st.info("Ajuste as premissas para gerar resultados.")
 
-tab_modelo, tab_informes, tab_book = st.tabs(
-    ["Modelo FIDC", "Informes Mensais Estruturados", "Glossário / Book FIDC"]
+tab_informes, tab_modelo, tab_book = st.tabs(
+    ["tomaconta FIDCs", "Modelo FIDC", "Glossário / Book FIDC"]
 )
-
-with tab_modelo:
-    render_modelo_tab()
 
 with tab_informes:
     render_tab_fidc_ime()
+
+with tab_modelo:
+    render_modelo_tab()
 
 with tab_book:
     render_tab_fidc_book()

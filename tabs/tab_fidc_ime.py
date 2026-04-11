@@ -20,13 +20,13 @@ from services.fundonet_service import InformeMensalResult, InformeMensalService
 
 
 FIDC_CHART_COLORS = [
-    "#1f77b4",
-    "#2f8ac4",
-    "#6aaed6",
-    "#2ca02c",
-    "#ff7f0e",
-    "#d62728",
-    "#6c757d",
+    "#ff5a00",
+    "#111111",
+    "#6e6e6e",
+    "#c9864a",
+    "#b8b8b8",
+    "#3a3a3a",
+    "#e2a06c",
 ]
 
 
@@ -48,8 +48,8 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
 }
 
 .fidc-hero {
-    background: linear-gradient(180deg, rgba(31,119,180,0.08), rgba(255,255,255,0.98));
-    border: 1px solid rgba(31,119,180,0.14);
+    background: linear-gradient(180deg, rgba(255,90,0,0.08), rgba(255,255,255,0.98));
+    border: 1px solid rgba(255,90,0,0.16);
     border-radius: 16px;
     padding: 18px 20px;
     margin: 0.5rem 0 1.0rem 0;
@@ -57,7 +57,7 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
 }
 
 .fidc-hero__kicker {
-    color: #1f77b4;
+    color: #ff5a00;
     font-size: 0.72rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -84,16 +84,16 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
     gap: 5px;
     align-items: center;
     border-radius: 999px;
-    border: 1px solid rgba(31,119,180,0.18);
+    border: 1px solid rgba(255,90,0,0.22);
     background: #ffffff;
-    color: #5f6b7a;
+    color: #5a5a5a;
     padding: 4px 9px;
     font-size: 0.76rem;
     box-shadow: 0 3px 10px rgba(0,0,0,0.03);
 }
 
 .fidc-pill strong {
-    color: #223247;
+    color: #111111;
     font-weight: 500;
 }
 
@@ -114,7 +114,7 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
 .fidc-card {
     background: #ffffff;
     border: 1px solid #e9ecef;
-    border-left: 3px solid #1f77b4;
+    border-left: 3px solid #ff5a00;
     border-radius: 10px;
     padding: 14px 15px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04);
@@ -122,7 +122,7 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
 }
 
 .fidc-card--risk {
-    border-left-color: #d62728;
+    border-left-color: #111111;
 }
 
 .fidc-card--neutral {
@@ -130,7 +130,7 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
 }
 
 .fidc-card__label {
-    color: #6c757d;
+    color: #5a5a5a;
     font-size: 0.68rem;
     font-weight: 600;
     line-height: 1.25;
@@ -154,7 +154,7 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
 }
 
 .fidc-section {
-    color: #1f77b4;
+    color: #ff5a00;
     font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.08em;
@@ -175,12 +175,12 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
     gap: 16px;
     flex-wrap: wrap;
     font-size: 0.78rem;
-    color: #6c757d;
+    color: #5a5a5a;
     margin: -0.2rem 0 0.85rem 0;
     padding: 8px 12px;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 3px solid #1f77b4;
+    border-left: 3px solid #ff5a00;
 }
 
 .fidc-period-bar span {
@@ -197,7 +197,7 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
 div[data-testid="stMetric"] {
     background: #ffffff;
     border: 1px solid #e9ecef;
-    border-left: 3px solid #1f77b4;
+    border-left: 3px solid #ff5a00;
     border-radius: 10px;
     padding: 12px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04);
@@ -343,10 +343,10 @@ def _update_progress_bar(progress_bar, value: float, message: str) -> None:
 
 
 def render_tab_fidc_ime() -> None:
-    st.subheader("Informe Mensal Estruturado (Fundos.NET)")
+    st.subheader("tomaconta FIDCs")
     st.caption(
-        "Informe um CNPJ de fundo FIDC, escolha um intervalo de competências e gere um Excel "
-        "com uma coluna por mês. Somente o mês/ano das datas abaixo é considerado."
+        "Monitoramento de risco por IME/CVM para comprador de cotas seniores. "
+        "Informe um CNPJ, escolha a janela de competências e gere a base auditável em Excel."
     )
 
     today = date.today()
@@ -490,18 +490,293 @@ def _render_dashboard(result: InformeMensalResult, context: dict[str, Any]) -> N
 
     _render_dashboard_header(dashboard)
     _render_dashboard_context_bar(dashboard)
-    _render_pdf_export_button(dashboard, context)
-    _render_overview_metrics(dashboard)
-    _render_monitoring_section(dashboard)
-    _render_asset_section(dashboard)
-    _render_default_section(dashboard)
-    _render_quota_section(dashboard)
-    _render_events_section(dashboard)
-    _render_cvm_tables_section(dashboard)
+    _render_dashboard_controls(dashboard, context)
+    _render_risk_overview(dashboard)
+    _render_credit_risk_section(dashboard)
+    _render_structural_risk_section(dashboard)
+    _render_liquidity_risk_section(dashboard)
+    _render_operational_risk_section(dashboard)
+    _render_audit_section(dashboard)
 
     with st.expander("Notas metodológicas", expanded=False):
         for note in dashboard.methodology_notes:
             st.markdown(f"- {note}")
+
+
+def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
+    left, right = st.columns([1.25, 1])
+    with left:
+        st.toggle(
+            "Mostrar data labels nos gráficos",
+            value=False,
+            key="fidc_chart_labels",
+            help="Ativa labels visuais nos gráficos. Quando ligado, os rótulos priorizam legibilidade e evitam excesso de texto.",
+        )
+    with right:
+        _render_pdf_export_button(dashboard, context)
+
+
+def _render_risk_overview(dashboard: FundonetDashboardData) -> None:
+    _render_fidc_section(
+        "Radar de risco",
+        "Leitura rápida para comprador de cotas seniores: crédito, estrutura e liquidez no IME mais recente.",
+    )
+    metric_lookup = dashboard.risk_metrics_df.set_index("metric_id", drop=False)
+    card_ids = [
+        "subordinacao_pct",
+        "inadimplencia_pct",
+        "alocacao_pct",
+        "liquidez_30_pct_pl",
+        "liquidez_imediata_pct_pl",
+        "resgate_solicitado_pct_pl",
+    ]
+    cards: list[str] = []
+    for metric_id in card_ids:
+        if metric_id not in metric_lookup.index:
+            continue
+        row = metric_lookup.loc[metric_id]
+        cards.append(
+            _render_fidc_card(
+                str(row["label"]),
+                _format_metric_value(row.get("value"), str(row.get("unit") or "")),
+                f"{row.get('risk_block')} · {row.get('source_data')}",
+                variant="risk" if row.get("criticality") == "critico" else "",
+            )
+        )
+    cards.append(
+        _render_fidc_card(
+            "Camadas críticas fora do IME",
+            str(len(dashboard.coverage_gap_df)),
+            "Cobertura, reservas, triggers, rating, lastro e covenants exigem fonte complementar.",
+            variant="neutral",
+        )
+    )
+    st.markdown(_render_fidc_grid(cards, "fidc-grid--supporting"), unsafe_allow_html=True)
+
+
+def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
+    _render_fidc_section(
+        "Risco de crédito",
+        "Estresse da carteira, provisionamento e concentração proxy com base no IME.",
+    )
+    top_left, top_right = st.columns([1.25, 1])
+    top_left.dataframe(
+        _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco de crédito"),
+        use_container_width=True,
+        hide_index=True,
+    )
+    if dashboard.segment_latest_df.empty:
+        top_right.info("O IME mais recente não trouxe composição setorial positiva da carteira.")
+    else:
+        top_right.altair_chart(
+            _horizontal_bar_chart(
+                dashboard.segment_latest_df,
+                category_column="segmento",
+                value_column="valor",
+                title="Concentração setorial proxy",
+            ),
+            use_container_width=True,
+        )
+
+    bottom_left, bottom_right = st.columns(2)
+    bottom_left.altair_chart(
+        _line_history_chart(
+            _melt_metrics(
+                dashboard.default_history_df,
+                ["inadimplencia_total", "provisao_total", "pendencia_total"],
+                {
+                    "inadimplencia_total": "Inadimplência",
+                    "provisao_total": "Provisão",
+                    "pendencia_total": "Pendências",
+                },
+            ),
+            title="Saldos de crédito problemático",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+    bottom_right.altair_chart(
+        _bar_chart(
+            dashboard.default_buckets_latest_df,
+            x_column="faixa",
+            y_column="valor",
+            title=f"Aging da inadimplência em {dashboard.latest_competencia}",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+
+
+def _render_structural_risk_section(dashboard: FundonetDashboardData) -> None:
+    _render_fidc_section(
+        "Risco estrutural",
+        "Subordinação, alocação e leitura da arquitetura das cotas. O painel separa o que vem do IME do que depende de regulamento.",
+    )
+    top_left, top_right = st.columns([1.15, 1])
+    top_left.dataframe(
+        _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco estrutural"),
+        use_container_width=True,
+        hide_index=True,
+    )
+    top_right.altair_chart(
+        _line_history_chart(
+            _melt_metrics(
+                dashboard.subordination_history_df,
+                ["subordinacao_pct"],
+                {"subordinacao_pct": "Subordinação"},
+            ),
+            title="Índice de subordinação",
+            y_title="%",
+        ),
+        use_container_width=True,
+    )
+
+    bottom_left, bottom_right = st.columns(2)
+    bottom_left.altair_chart(
+        _stacked_area_chart(
+            dashboard.quota_pl_history_df,
+            title="Patrimônio líquido das cotas",
+            value_column="pl",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+    if not dashboard.performance_vs_benchmark_latest_df.empty:
+        bottom_right.dataframe(
+            _format_performance_benchmark_table(dashboard.performance_vs_benchmark_latest_df),
+            use_container_width=True,
+            hide_index=True,
+        )
+    else:
+        bottom_right.info("O IME não trouxe quadro de benchmark x realizado para a competência mais recente.")
+
+    latest_quota_df = _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia)
+    if not latest_quota_df.empty:
+        st.caption(f"Quadro de cotas em {dashboard.latest_competencia}")
+        st.dataframe(latest_quota_df, use_container_width=True, hide_index=True)
+
+
+def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
+    _render_fidc_section(
+        "Risco de liquidez e funding",
+        "Liquidez reportada, vencimentos e fluxos de cotas. A interpretação econômica dos eventos preserva o sinal do caixa.",
+    )
+    top_left, top_right = st.columns([1.15, 1])
+    top_left.dataframe(
+        _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco de liquidez"),
+        use_container_width=True,
+        hide_index=True,
+    )
+    top_right.dataframe(
+        _format_event_summary_table(dashboard.event_summary_latest_df),
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    mid_left, mid_right = st.columns(2)
+    mid_left.altair_chart(
+        _line_point_chart(
+            dashboard.liquidity_latest_df,
+            x_column="horizonte",
+            y_column="valor",
+            title=f"Liquidez reportada em {dashboard.latest_competencia}",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+    mid_right.altair_chart(
+        _bar_chart(
+            dashboard.maturity_latest_df,
+            x_column="faixa",
+            y_column="valor",
+            title=f"Prazo de vencimento em {dashboard.latest_competencia}",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+
+    flow_df = _melt_metrics(
+        dashboard.asset_history_df,
+        ["aquisicoes", "alienacoes"],
+        {"aquisicoes": "Aquisições", "alienacoes": "Alienações"},
+    )
+    bottom_left, bottom_right = st.columns(2)
+    bottom_left.altair_chart(
+        _grouped_bar_chart(
+            flow_df,
+            title="Fluxo dos direitos creditórios",
+            y_title="R$",
+        ),
+        use_container_width=True,
+    )
+    if dashboard.event_history_df.empty:
+        bottom_right.info("O intervalo selecionado não trouxe emissões, resgates ou amortizações no bloco CAPTA_RESGA_AMORTI.")
+    else:
+        event_chart_df = (
+            dashboard.event_history_df.groupby(["competencia", "competencia_dt", "event_type"], dropna=False)[
+                "valor_total_assinado"
+            ]
+            .sum()
+            .reset_index()
+            .rename(columns={"valor_total_assinado": "valor"})
+        )
+        event_chart_df["serie"] = event_chart_df["event_type"].map(
+            {
+                "emissao": "Emissão",
+                "resgate": "Resgate pago",
+                "amortizacao": "Amortização",
+            }
+        )
+        bottom_right.altair_chart(
+            _grouped_bar_chart(
+                event_chart_df,
+                title="Eventos de cotas por competência",
+                y_title="R$",
+            ),
+            use_container_width=True,
+        )
+
+
+def _render_operational_risk_section(dashboard: FundonetDashboardData) -> None:
+    _render_fidc_section(
+        "Risco operacional e contratual",
+        "O que um comprador de sênior ainda precisa fora do IME para fechar a análise de risco da estrutura.",
+    )
+    left, right = st.columns(2)
+    left.dataframe(
+        _format_coverage_gap_table(dashboard.coverage_gap_df),
+        use_container_width=True,
+        hide_index=True,
+    )
+    right.dataframe(
+        _format_glossary_table(dashboard.mini_glossary_df),
+        use_container_width=True,
+        hide_index=True,
+    )
+    st.caption(
+        "Leitura operacional: este painel usa o IME como camada-base. Cobertura, reservas, rating, gatilhos, cedente/devedor, coobrigação e lastro exigem regulamento, relatório mensal e documentos da oferta."
+    )
+
+
+def _render_audit_section(dashboard: FundonetDashboardData) -> None:
+    _render_fidc_section(
+        "Memória de cálculo e evidência",
+        "Reconciliação completa entre dado bruto, transformação, output e limitação analítica.",
+    )
+    with st.expander("Memória de cálculo das métricas exibidas", expanded=False):
+        st.dataframe(
+            _format_risk_metrics_memory_table(dashboard.risk_metrics_df),
+            use_container_width=True,
+            hide_index=True,
+        )
+    with st.expander("Inventário do dashboard atual", expanded=False):
+        st.dataframe(
+            dashboard.current_dashboard_inventory_df,
+            use_container_width=True,
+            hide_index=True,
+        )
+    with st.expander("Base CVM normalizada", expanded=False):
+        _render_cvm_tables_section(dashboard)
 
 
 def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
@@ -1088,6 +1363,119 @@ def _format_data_state(value: object) -> str:
     return labels.get(str(value), str(value or "N/D"))
 
 
+def _format_metric_value(value: object, unit: str) -> str:
+    if unit == "R$":
+        return _format_brl_compact(value)
+    if unit == "%":
+        return _format_percent(value)
+    return _format_decimal(value)
+
+
+def _format_metric_criticality(value: object) -> str:
+    labels = {
+        "critico": "Crítico",
+        "monitorar": "Monitorar",
+        "contexto": "Contexto",
+    }
+    return labels.get(str(value), str(value or "N/D"))
+
+
+def _format_risk_metric_state(value: object) -> str:
+    labels = {
+        "calculado": "Calculado",
+        "nao_calculavel": "Não calculável",
+        "nao_calculavel_sem_pl": "Não calculável: sem PL",
+        "nao_aplicavel_sem_inadimplencia": "Não aplicável: sem inadimplência",
+        "nao_disponivel_na_fonte": "Não disponível na fonte",
+        "nao_calculavel_sem_base": "Não calculável: sem base",
+        "exige_fonte_complementar": "Exige fonte complementar",
+    }
+    return labels.get(str(value), str(value or "N/D"))
+
+
+def _format_risk_metrics_table(metrics_df: pd.DataFrame, *, risk_block: str) -> pd.DataFrame:
+    if metrics_df.empty:
+        return pd.DataFrame(columns=["Métrica", "Valor", "Criticidade", "Fonte", "Interpretação", "Limitação", "Estado"])
+    output = metrics_df[metrics_df["risk_block"] == risk_block].copy()
+    if output.empty:
+        return pd.DataFrame(columns=["Métrica", "Valor", "Criticidade", "Fonte", "Interpretação", "Limitação", "Estado"])
+    output["Métrica"] = output["label"]
+    output["Valor"] = output.apply(
+        lambda row: _format_metric_value(row.get("value"), str(row.get("unit") or "")),
+        axis=1,
+    )
+    output["Criticidade"] = output["criticality"].map(_format_metric_criticality)
+    output["Fonte"] = output["source_data"]
+    output["Interpretação"] = output["interpretation"]
+    output["Limitação"] = output["limitation"]
+    output["Estado"] = output["state"].map(_format_risk_metric_state)
+    return output[["Métrica", "Valor", "Criticidade", "Fonte", "Interpretação", "Limitação", "Estado"]]
+
+
+def _format_risk_metrics_memory_table(metrics_df: pd.DataFrame) -> pd.DataFrame:
+    if metrics_df.empty:
+        return pd.DataFrame(
+            columns=[
+                "Bloco de risco",
+                "Métrica",
+                "Variável final",
+                "Fonte",
+                "Transformação",
+                "Fórmula",
+                "Pipeline",
+                "Interpretação",
+                "Limitação",
+                "Estado",
+            ]
+        )
+    output = metrics_df.copy()
+    output["Bloco de risco"] = output["risk_block"]
+    output["Métrica"] = output["label"]
+    output["Variável final"] = output["final_variable"]
+    output["Fonte"] = output["source_data"]
+    output["Transformação"] = output["transformation"]
+    output["Fórmula"] = output["formula"]
+    output["Pipeline"] = output["pipeline"]
+    output["Interpretação"] = output["interpretation"]
+    output["Limitação"] = output["limitation"]
+    output["Estado"] = output["state"].map(_format_risk_metric_state)
+    return output[
+        [
+            "Bloco de risco",
+            "Métrica",
+            "Variável final",
+            "Fonte",
+            "Transformação",
+            "Fórmula",
+            "Pipeline",
+            "Interpretação",
+            "Limitação",
+            "Estado",
+        ]
+    ]
+
+
+def _format_coverage_gap_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=["Tema", "Status", "Por que importa", "Fonte necessária"])
+    output = df.copy()
+    output["Tema"] = output["tema"]
+    output["Status"] = output["status"]
+    output["Por que importa"] = output["por_que_importa"]
+    output["Fonte necessária"] = output["fonte_necessaria"]
+    return output[["Tema", "Status", "Por que importa", "Fonte necessária"]]
+
+
+def _format_glossary_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=["Termo", "Definição curta", "Variação importante"])
+    output = df.copy()
+    output["Termo"] = output["termo"]
+    output["Definição curta"] = output["definicao_curta"]
+    output["Variação importante"] = output["variacao_importante"]
+    return output[["Termo", "Definição curta", "Variação importante"]]
+
+
 def _format_tracking_table(tracking_df: pd.DataFrame) -> pd.DataFrame:
     if tracking_df.empty:
         return pd.DataFrame(columns=["Indicador", "Valor", "Fonte", "Interpretação", "Estado"])
@@ -1129,6 +1517,84 @@ def _format_rate_table(rate_df: pd.DataFrame) -> pd.DataFrame:
     return output[["Grupo", "Operação", "Mín.", "Média", "Máx."]]
 
 
+def _chart_labels_enabled() -> bool:
+    session_state = getattr(st, "session_state", None)
+    if session_state is None:
+        return False
+    try:
+        return bool(session_state.get("fidc_chart_labels", False))
+    except Exception:  # noqa: BLE001
+        return False
+
+
+def _label_format(unit: str) -> str:
+    return ",.2f" if unit in {"R$", "%"} else ",.2f"
+
+
+def _line_end_label_layer(chart_df: pd.DataFrame, *, y_title: str) -> alt.Chart | None:
+    if not _chart_labels_enabled() or chart_df.empty or "serie" not in chart_df.columns:
+        return None
+    labels_df = (
+        chart_df.sort_values(["serie", "competencia_dt"])
+        .groupby("serie", as_index=False, dropna=False)
+        .tail(1)
+    )
+    if labels_df.empty:
+        return None
+    return (
+        alt.Chart(labels_df)
+        .mark_text(align="left", dx=6, dy=-6, fontSize=11, color="#111111")
+        .encode(
+            x=alt.X("competencia:N", sort=chart_df["competencia"].drop_duplicates().tolist()),
+            y=alt.Y("valor:Q", title=y_title),
+            text=alt.Text("valor:Q", format=_label_format(y_title)),
+            color=alt.Color("serie:N", legend=None, scale=alt.Scale(range=FIDC_CHART_COLORS)),
+        )
+    )
+
+
+def _point_label_layer(chart_df: pd.DataFrame, *, x_encoding: alt.X, y_encoding: alt.Y, y_field: str, color: str = "#111111") -> alt.Chart | None:
+    if not _chart_labels_enabled() or chart_df.empty:
+        return None
+    return (
+        alt.Chart(chart_df)
+        .mark_text(dy=-10, fontSize=11, color=color)
+        .encode(
+            x=x_encoding,
+            y=y_encoding,
+            text=alt.Text(f"{y_field}:Q", format=_label_format(y_encoding.title or "")),
+        )
+    )
+
+
+def _bar_label_layer(
+    chart_df: pd.DataFrame,
+    *,
+    x_encoding: alt.X | None,
+    y_encoding: alt.Y | None,
+    value_field: str,
+    orient: str = "vertical",
+    color_encoding: alt.Color | None = None,
+) -> alt.Chart | None:
+    if not _chart_labels_enabled() or chart_df.empty:
+        return None
+    mark_kwargs = {"fontSize": 11, "color": "#111111"}
+    if orient == "horizontal":
+        mark_kwargs.update({"align": "left", "dx": 4})
+    else:
+        mark_kwargs.update({"dy": -8})
+    encoding: dict[str, object] = {
+        "text": alt.Text(f"{value_field}:Q", format=_label_format(y_encoding.title if y_encoding is not None else "")),
+    }
+    if x_encoding is not None:
+        encoding["x"] = x_encoding
+    if y_encoding is not None:
+        encoding["y"] = y_encoding
+    if color_encoding is not None:
+        encoding["color"] = color_encoding
+    return alt.Chart(chart_df).mark_text(**mark_kwargs).encode(**encoding)
+
+
 def _line_history_chart(
     chart_df: pd.DataFrame,
     *,
@@ -1138,19 +1604,23 @@ def _line_history_chart(
     limit_label: str | None = None,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df)
+    x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
+    y_encoding = alt.Y("valor:Q", title=y_title)
     base = (
         alt.Chart(chart_df)
         .mark_line(point=True)
         .encode(
-            x=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
-            y=alt.Y("valor:Q", title=y_title),
+            x=x_encoding,
+            y=y_encoding,
             color=alt.Color("serie:N", title="Série", scale=alt.Scale(range=FIDC_CHART_COLORS)),
             tooltip=["competencia:N", "serie:N", alt.Tooltip("valor:Q", format=",.2f")],
         )
         .properties(title=title, height=320)
     )
+    labels = _line_end_label_layer(chart_df, y_title=y_title)
+    layered = base if labels is None else (base + labels)
     if limit_value is None:
-        return _style_altair_chart(base)
+        return _style_altair_chart(layered)
 
     limit_df = pd.DataFrame({"valor": [limit_value]})
     rule = (
@@ -1158,7 +1628,7 @@ def _line_history_chart(
         .mark_rule(strokeDash=[6, 4], color="#6b7280")
         .encode(y="valor:Q", tooltip=[alt.Tooltip("valor:Q", format=",.2f", title=limit_label or "Limite")])
     )
-    return _style_altair_chart(base + rule)
+    return _style_altair_chart(layered + rule)
 
 
 def _line_point_chart(
@@ -1170,17 +1640,20 @@ def _line_point_chart(
     y_title: str,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df)
+    x_encoding = alt.X(f"{x_column}:N", title="Horizonte")
+    y_encoding = alt.Y(f"{y_column}:Q", title=y_title)
     chart = (
         alt.Chart(chart_df)
         .mark_line(point=True)
         .encode(
-            x=alt.X(f"{x_column}:N", title="Horizonte"),
-            y=alt.Y(f"{y_column}:Q", title=y_title),
+            x=x_encoding,
+            y=y_encoding,
             tooltip=[f"{x_column}:N", alt.Tooltip(f"{y_column}:Q", format=",.2f")],
         )
         .properties(title=title, height=320)
     )
-    return _style_altair_chart(chart)
+    labels = _point_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, y_field=y_column)
+    return _style_altair_chart(chart if labels is None else (chart + labels))
 
 
 def _horizontal_bar_chart(
@@ -1191,18 +1664,28 @@ def _horizontal_bar_chart(
     title: str,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df)
+    x_encoding = alt.X(f"{value_column}:Q", title="R$")
+    y_encoding = alt.Y(f"{category_column}:N", title=None, sort="-x")
+    color_encoding = alt.Color(f"{category_column}:N", legend=None, scale=alt.Scale(range=FIDC_CHART_COLORS))
     chart = (
         alt.Chart(chart_df)
         .mark_bar()
         .encode(
-            x=alt.X(f"{value_column}:Q", title="R$"),
-            y=alt.Y(f"{category_column}:N", title=None, sort="-x"),
-            color=alt.Color(f"{category_column}:N", legend=None, scale=alt.Scale(range=FIDC_CHART_COLORS)),
+            x=x_encoding,
+            y=y_encoding,
+            color=color_encoding,
             tooltip=[f"{category_column}:N", alt.Tooltip(f"{value_column}:Q", format=",.2f")],
         )
         .properties(title=title, height=320)
     )
-    return _style_altair_chart(chart)
+    labels = _bar_label_layer(
+        chart_df,
+        x_encoding=x_encoding,
+        y_encoding=y_encoding,
+        value_field=value_column,
+        orient="horizontal",
+    )
+    return _style_altair_chart(chart if labels is None else (chart + labels))
 
 
 def _bar_chart(
@@ -1223,38 +1706,52 @@ def _bar_chart(
     if "source_status" in chart_df.columns:
         chart_df["status_fonte"] = chart_df["source_status"].map(_format_source_status)
         tooltip.append("status_fonte:N")
+    x_encoding = alt.X(f"{x_column}:N", title=None, sort=x_sort)
+    y_encoding = alt.Y(f"{y_column}:Q", title=y_title)
     chart = (
         alt.Chart(chart_df)
-        .mark_bar(color="#1f77b4")
+        .mark_bar(color="#ff5a00")
         .encode(
-            x=alt.X(f"{x_column}:N", title=None, sort=x_sort),
-            y=alt.Y(f"{y_column}:Q", title=y_title),
+            x=x_encoding,
+            y=y_encoding,
             tooltip=tooltip,
         )
         .properties(title=title, height=320)
     )
-    return _style_altair_chart(chart)
+    labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field=y_column)
+    return _style_altair_chart(chart if labels is None else (chart + labels))
 
 
 def _grouped_bar_chart(chart_df: pd.DataFrame, *, title: str, y_title: str) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df)
+    value_field = "valor_total" if "valor_total" in chart_df.columns else "valor"
+    x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
+    y_encoding = alt.Y(f"{value_field}:Q", title=y_title)
+    color_encoding = alt.Color("serie:N", title="Série", scale=alt.Scale(range=FIDC_CHART_COLORS))
     chart = (
         alt.Chart(chart_df)
         .mark_bar()
         .encode(
-            x=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
-            y=alt.Y("valor_total:Q" if "valor_total" in chart_df.columns else "valor:Q", title=y_title),
-            color=alt.Color("serie:N", title="Série", scale=alt.Scale(range=FIDC_CHART_COLORS)),
+            x=x_encoding,
+            y=y_encoding,
+            color=color_encoding,
             xOffset="serie:N",
             tooltip=[
                 "competencia:N",
                 "serie:N",
-                alt.Tooltip("valor_total:Q" if "valor_total" in chart_df.columns else "valor:Q", format=",.2f"),
+                alt.Tooltip(f"{value_field}:Q", format=",.2f"),
             ],
         )
         .properties(title=title, height=320)
     )
-    return _style_altair_chart(chart)
+    labels = _bar_label_layer(
+        chart_df,
+        x_encoding=x_encoding,
+        y_encoding=y_encoding,
+        value_field=value_field,
+        color_encoding=alt.Color("serie:N", legend=None, scale=alt.Scale(range=FIDC_CHART_COLORS)),
+    )
+    return _style_altair_chart(chart if labels is None else (chart + labels))
 
 
 def _stacked_area_chart(
@@ -1268,18 +1765,34 @@ def _stacked_area_chart(
     base_df[value_column] = pd.to_numeric(base_df[value_column], errors="coerce")
     base_df = base_df.dropna(subset=[value_column])
     base_df = _altair_compatible_df(base_df)
+    x_encoding = alt.X("competencia:N", title="Competência", sort=base_df["competencia"].drop_duplicates().tolist())
+    y_encoding = alt.Y(f"{value_column}:Q", stack=True, title=y_title)
+    color_encoding = alt.Color("label:N", title="Classe", scale=alt.Scale(range=FIDC_CHART_COLORS))
     chart = (
         alt.Chart(base_df)
         .mark_area(opacity=0.75)
         .encode(
-            x=alt.X("competencia:N", title="Competência", sort=base_df["competencia"].drop_duplicates().tolist()),
-            y=alt.Y(f"{value_column}:Q", stack=True, title=y_title),
-            color=alt.Color("label:N", title="Classe", scale=alt.Scale(range=FIDC_CHART_COLORS)),
+            x=x_encoding,
+            y=y_encoding,
+            color=color_encoding,
             tooltip=["competencia:N", "label:N", alt.Tooltip(f"{value_column}:Q", format=",.2f")],
         )
         .properties(title=title, height=320)
     )
-    return _style_altair_chart(chart)
+    if not _chart_labels_enabled():
+        return _style_altair_chart(chart)
+    labels_df = base_df.sort_values(["label", "competencia_dt"]).groupby("label", as_index=False, dropna=False).tail(1)
+    labels = (
+        alt.Chart(labels_df)
+        .mark_text(align="left", dx=6, dy=-6, fontSize=11, color="#111111")
+        .encode(
+            x=x_encoding,
+            y=alt.Y(f"{value_column}:Q", title=y_title),
+            text=alt.Text(f"{value_column}:Q", format=_label_format(y_title)),
+            color=alt.Color("label:N", legend=None, scale=alt.Scale(range=FIDC_CHART_COLORS)),
+        )
+    )
+    return _style_altair_chart(chart + labels)
 
 
 def _style_altair_chart(chart: alt.Chart) -> alt.Chart:

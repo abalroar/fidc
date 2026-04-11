@@ -6,6 +6,13 @@ import re
 
 import pandas as pd
 
+from services.fidc_monitoring import (
+    build_current_dashboard_inventory_df,
+    build_coverage_gap_df,
+    build_mini_glossary_df,
+    build_risk_metrics_df,
+)
+
 
 COMPETENCIA_COLUMN_RE = re.compile(r"^\d{2}/\d{4}$")
 EVENT_SIGN = {
@@ -50,6 +57,10 @@ class FundonetDashboardData:
     rate_negotiation_latest_df: pd.DataFrame
     tracking_latest_df: pd.DataFrame
     event_summary_latest_df: pd.DataFrame
+    risk_metrics_df: pd.DataFrame
+    coverage_gap_df: pd.DataFrame
+    mini_glossary_df: pd.DataFrame
+    current_dashboard_inventory_df: pd.DataFrame
     methodology_notes: list[str]
 
 
@@ -160,6 +171,18 @@ def build_dashboard_data(
         latest_competencia=latest_competencia,
         pl_total=summary.get("pl_total"),
     )
+    risk_metrics_df = build_risk_metrics_df(
+        latest_competencia=latest_competencia,
+        summary=summary,
+        asset_history_df=asset_history_df,
+        segment_latest_df=segment_latest_df,
+        subordination_history_df=subordination_history_df,
+        default_history_df=default_history_df,
+        event_summary_latest_df=event_summary_latest_df,
+    )
+    coverage_gap_df = build_coverage_gap_df()
+    mini_glossary_df = build_mini_glossary_df()
+    current_dashboard_inventory_df = build_current_dashboard_inventory_df()
 
     methodology_notes = [
         "Alocação e composição da carteira usam os saldos reportados no IME e podem divergir da metodologia proprietária do administrador.",
@@ -193,6 +216,10 @@ def build_dashboard_data(
         rate_negotiation_latest_df=rate_negotiation_latest_df,
         tracking_latest_df=tracking_latest_df,
         event_summary_latest_df=event_summary_latest_df,
+        risk_metrics_df=risk_metrics_df,
+        coverage_gap_df=coverage_gap_df,
+        mini_glossary_df=mini_glossary_df,
+        current_dashboard_inventory_df=current_dashboard_inventory_df,
         methodology_notes=methodology_notes,
     )
 
@@ -245,10 +272,14 @@ def _get_wide_series(wide_lookup: pd.DataFrame, competencias: list[str], tag_pat
 
 
 def _numeric_series(wide_lookup: pd.DataFrame, competencias: list[str], tag_path: str) -> pd.Series:
+    return _numeric_series_nullable(wide_lookup, competencias, tag_path).fillna(0.0)
+
+
+def _numeric_series_nullable(wide_lookup: pd.DataFrame, competencias: list[str], tag_path: str) -> pd.Series:
     raw_series = _get_wide_series(wide_lookup, competencias, tag_path)
     numeric = pd.to_numeric(raw_series, errors="coerce")
     numeric.index = competencias
-    return numeric.fillna(0.0)
+    return numeric.astype("float64")
 
 
 def _latest_path_value(
@@ -375,11 +406,11 @@ def _numeric_series_first_available(
     competencias: list[str],
     tag_paths: list[str],
 ) -> pd.Series:
-    output = pd.Series([0.0] * len(competencias), index=competencias, dtype="float64")
+    output = pd.Series([float("nan")] * len(competencias), index=competencias, dtype="float64")
     for tag_path in tag_paths:
-        candidate = _numeric_series(wide_lookup, competencias, tag_path)
-        output = output.where(output > 0, candidate)
-    return output.fillna(0.0)
+        candidate = _numeric_series_nullable(wide_lookup, competencias, tag_path)
+        output = output.combine_first(candidate)
+    return output
 
 
 def _direitos_creditorios_series(wide_lookup: pd.DataFrame, competencias: list[str]) -> pd.Series:
@@ -391,14 +422,15 @@ def _direitos_creditorios_series(wide_lookup: pd.DataFrame, competencias: list[s
             "DOC_ARQ/LISTA_INFORM/CART_SEGMT/VL_SOM_CART_SEGMT",
         ],
     )
-    legacy = (
-        _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_ADIMPL")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_INAD")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_INAD")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_VENC_INAD")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_INAD")
-    )
-    return primary.where(primary > 0, legacy).fillna(0.0)
+    legacy_parts = [
+        _numeric_series_nullable(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_ADIMPL"),
+        _numeric_series_nullable(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_INAD"),
+        _numeric_series_nullable(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_INAD"),
+        _numeric_series_nullable(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_VENC_INAD"),
+        _numeric_series_nullable(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_INAD"),
+    ]
+    legacy = pd.concat(legacy_parts, axis=1).sum(axis=1, min_count=1)
+    return primary.combine_first(legacy)
 
 
 def _build_fund_info(
@@ -659,48 +691,48 @@ def _build_asset_history(
     wide_lookup: pd.DataFrame,
     competencias: list[str],
 ) -> pd.DataFrame:
-    ativos_totais = _numeric_series(
+    ativos_totais = _numeric_series_nullable(
         wide_lookup,
         competencias,
         "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_SOM_APLIC_ATIVO",
     )
-    carteira = _numeric_series(
+    carteira = _numeric_series_nullable(
         wide_lookup,
         competencias,
         "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_CARTEIRA",
     )
-    liquidez_total = _numeric_series(
+    liquidez_total = _numeric_series_nullable(
         wide_lookup,
         competencias,
         "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ",
     )
     direitos_creditorios = _direitos_creditorios_series(wide_lookup, competencias)
-    disponibilidades = _numeric_series(
+    disponibilidades = _numeric_series_nullable(
         wide_lookup,
         competencias,
         "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB",
     )
-    valores_mobiliarios = _numeric_series(
+    valores_mobiliarios = _numeric_series_nullable(
         wide_lookup,
         competencias,
         "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VALORES_MOB/VL_SOM_VALORES_MOB",
     )
-    titulos_publicos = _numeric_series(
+    titulos_publicos = _numeric_series_nullable(
         wide_lookup,
         competencias,
         "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_TITPUB_FED",
     )
-    outros_ativos_reportados = _numeric_series(
+    outros_ativos_reportados = _numeric_series_nullable(
         wide_lookup,
         competencias,
         "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/OUTROS_ATIVOS/VL_SOM_OUTROS_ATIVOS",
     )
-    aquisicoes = _numeric_series(
+    aquisicoes = _numeric_series_nullable(
         wide_lookup,
         competencias,
         "DOC_ARQ/LISTA_INFORM/NEGOC_DICRED_MES/AQUISICOES/VL_DICRED_AQUIS",
     )
-    alienacoes = _numeric_series(
+    alienacoes = _numeric_series_nullable(
         wide_lookup,
         competencias,
         "DOC_ARQ/LISTA_INFORM/NEGOC_DICRED_MES/DICRED_MES_ALIEN/VL_DICRED_ALIEN",
@@ -865,18 +897,51 @@ def _build_default_history(
     competencias: list[str],
 ) -> pd.DataFrame:
     direitos_creditorios = _direitos_creditorios_series(wide_lookup, competencias)
-    inadimplencia_total = (
-        _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_TOTAL_VENC_INAD")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_TOTAL_VENC_INAD")
-    )
-    provisao_total = (
-        _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP")
-    )
-    pendencia_total = (
-        _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_VENC_PEND")
-        + _numeric_series(wide_lookup, competencias, "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_VENC_PEND")
-    )
+    inadimplencia_total = pd.concat(
+        [
+            _numeric_series_nullable(
+                wide_lookup,
+                competencias,
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_TOTAL_VENC_INAD",
+            ),
+            _numeric_series_nullable(
+                wide_lookup,
+                competencias,
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_TOTAL_VENC_INAD",
+            ),
+        ],
+        axis=1,
+    ).sum(axis=1, min_count=1)
+    provisao_total = pd.concat(
+        [
+            _numeric_series_nullable(
+                wide_lookup,
+                competencias,
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+            ),
+            _numeric_series_nullable(
+                wide_lookup,
+                competencias,
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP",
+            ),
+        ],
+        axis=1,
+    ).sum(axis=1, min_count=1)
+    pendencia_total = pd.concat(
+        [
+            _numeric_series_nullable(
+                wide_lookup,
+                competencias,
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_VENC_PEND",
+            ),
+            _numeric_series_nullable(
+                wide_lookup,
+                competencias,
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_VENC_PEND",
+            ),
+        ],
+        axis=1,
+    ).sum(axis=1, min_count=1)
 
     df = pd.DataFrame(
         {

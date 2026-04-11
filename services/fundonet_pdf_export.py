@@ -72,7 +72,7 @@ def _build_story(
     info = dashboard.fund_info
     summary = dashboard.summary
     story: list[object] = [
-        Paragraph("Informe Mensal CVM - Relatório FIDC", styles["title"]),
+        Paragraph("tomaconta FIDCs - Relatório CVM", styles["title"]),
         Paragraph(_fund_title(dashboard), styles["subtitle"]),
         Spacer(1, 3 * mm),
         _meta_table(
@@ -91,28 +91,27 @@ def _build_story(
             styles,
         ),
         Spacer(1, 5 * mm),
-        _section("Visão Geral", styles),
+        _section("Radar de Risco", styles),
         _metric_table(
             [
-                ("Direitos creditórios", _format_brl_compact(summary.get("direitos_creditorios")), "DICRED"),
-                ("PL total", _format_brl_compact(summary.get("pl_total")), "Cotas sênior + subordinadas"),
                 ("Subordinação", _format_percent(summary.get("subordinacao_pct")), "PL subordinado / PL total"),
                 ("Inadimplência", _format_percent(summary.get("inadimplencia_pct")), "Inadimplência / direitos"),
-                ("Ativos totais", _format_brl_compact(summary.get("ativos_totais")), "APLIC_ATIVO"),
                 ("Alocação", _format_percent(summary.get("alocacao_pct")), "Direitos creditórios / carteira"),
-                ("Provisão", _format_brl_compact(summary.get("provisao_total")), "Redução/recuperação"),
-                ("Liquidez imediata", _format_brl_compact(summary.get("liquidez_imediata")), "OUTRAS_INFORM/LIQUIDEZ"),
-                ("Liquidez até 30 dias", _format_brl_compact(summary.get("liquidez_30")), "OUTRAS_INFORM/LIQUIDEZ"),
-                ("Resgate solicitado", _format_brl_compact(summary.get("resgate_solicitado_mes")), "CAPTA_RESGA_AMORTI/RESG_SOLIC"),
+                ("Liquidez até 30 dias", _format_percent(_safe_pct(summary.get("liquidez_30"), summary.get("pl_total"))), "Liquidez até 30d / PL"),
+                ("Liquidez imediata", _format_percent(_safe_pct(summary.get("liquidez_imediata"), summary.get("pl_total"))), "Liquidez imediata / PL"),
+                ("Resgate solicitado", _format_percent(_safe_pct(summary.get("resgate_solicitado_mes"), summary.get("pl_total"))), "Resgate solicitado / PL"),
+                ("PL total", _format_brl_compact(summary.get("pl_total")), "Cotas sênior + subordinadas"),
+                ("Direitos creditórios", _format_brl_compact(summary.get("direitos_creditorios")), "DICRED"),
+                ("Camadas críticas fora do IME", _display(len(dashboard.coverage_gap_df)), "Cobertura, reservas, gatilhos, rating e lastro"),
             ],
             styles,
         ),
         Spacer(1, 5 * mm),
-        _section("Ativo e Carteira", styles),
+        _section("Risco de Crédito", styles),
         _dataframe_table(
-            _format_value_percent_table(dashboard.composition_latest_df, "categoria", "Categoria"),
+            _format_risk_metrics_table(dashboard.risk_metrics_df, "Risco de crédito"),
             styles,
-            widths=[70 * mm, 42 * mm, 24 * mm],
+            widths=[38 * mm, 22 * mm, 22 * mm, 36 * mm, 80 * mm, 34 * mm],
         ),
         Spacer(1, 4 * mm),
         _dataframe_table(
@@ -121,13 +120,6 @@ def _build_story(
             widths=[70 * mm, 42 * mm, 24 * mm],
             empty_message="Sem segmentação positiva reportada.",
         ),
-        Spacer(1, 5 * mm),
-        _section("Vencimento e Inadimplência", styles),
-        _dataframe_table(
-            _format_status_value_table(dashboard.maturity_latest_df, "faixa", "Prazo de vencimento"),
-            styles,
-            widths=[46 * mm, 42 * mm, 42 * mm],
-        ),
         Spacer(1, 4 * mm),
         _dataframe_table(
             _format_status_value_table(dashboard.default_buckets_latest_df, "faixa", "Aging inadimplência"),
@@ -135,19 +127,11 @@ def _build_story(
             widths=[46 * mm, 42 * mm, 42 * mm],
         ),
         Spacer(1, 5 * mm),
-        _section("Eventos de Cotas", styles),
+        _section("Risco Estrutural", styles),
         _dataframe_table(
-            _format_event_summary_table(dashboard.event_summary_latest_df),
+            _format_risk_metrics_table(dashboard.risk_metrics_df, "Risco estrutural"),
             styles,
-            widths=[36 * mm, 34 * mm, 34 * mm, 24 * mm, 32 * mm, 93 * mm],
-        ),
-        Spacer(1, 5 * mm),
-        _section("Cotas e Remuneração", styles),
-        _dataframe_table(
-            _format_return_summary_table(dashboard.return_summary_df),
-            styles,
-            widths=[56 * mm, 28 * mm, 28 * mm, 28 * mm],
-            empty_message="Sem rentabilidade de cotas reportada.",
+            widths=[38 * mm, 22 * mm, 22 * mm, 36 * mm, 80 * mm, 34 * mm],
         ),
         Spacer(1, 4 * mm),
         _dataframe_table(
@@ -156,12 +140,44 @@ def _build_story(
             widths=[56 * mm, 30 * mm, 30 * mm, 26 * mm],
             empty_message="Sem benchmark x realizado reportado no bloco DESEMP.",
         ),
+        Spacer(1, 5 * mm),
+        _section("Risco de Liquidez e Funding", styles),
+        _dataframe_table(
+            _format_risk_metrics_table(dashboard.risk_metrics_df, "Risco de liquidez"),
+            styles,
+            widths=[38 * mm, 22 * mm, 22 * mm, 36 * mm, 80 * mm, 34 * mm],
+        ),
+        Spacer(1, 4 * mm),
+        _dataframe_table(
+            _format_event_summary_table(dashboard.event_summary_latest_df),
+            styles,
+            widths=[36 * mm, 34 * mm, 34 * mm, 24 * mm, 32 * mm, 93 * mm],
+        ),
+        Spacer(1, 4 * mm),
+        _dataframe_table(
+            _format_status_value_table(dashboard.maturity_latest_df, "faixa", "Prazo de vencimento"),
+            styles,
+            widths=[46 * mm, 42 * mm, 42 * mm],
+        ),
         Spacer(1, 4 * mm),
         _dataframe_table(
             _format_latest_quota_table(dashboard.quota_pl_history_df, dashboard.latest_competencia),
             styles,
             widths=[58 * mm, 34 * mm, 34 * mm, 38 * mm, 42 * mm],
             empty_message="Sem quadro de cotas para a competência mais recente.",
+        ),
+        Spacer(1, 5 * mm),
+        _section("Risco Operacional e Contratual", styles),
+        _dataframe_table(
+            _format_coverage_gap_table(dashboard.coverage_gap_df),
+            styles,
+            widths=[42 * mm, 32 * mm, 90 * mm, 70 * mm],
+        ),
+        Spacer(1, 5 * mm),
+        _dataframe_table(
+            _format_glossary_table(dashboard.mini_glossary_df),
+            styles,
+            widths=[34 * mm, 88 * mm, 110 * mm],
         ),
         Spacer(1, 5 * mm),
         _section("Tabelas CVM Normalizadas", styles),
@@ -229,7 +245,7 @@ def _build_styles() -> dict[str, ParagraphStyle]:
             fontName="Helvetica-Bold",
             fontSize=10,
             leading=13,
-            textColor=colors.HexColor("#1f77b4"),
+            textColor=colors.HexColor("#ff5a00"),
             spaceBefore=3,
             spaceAfter=4,
         ),
@@ -382,7 +398,7 @@ def _dataframe_table(
     table.setStyle(
         TableStyle(
             [
-                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1f77b4")),
+                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#111111")),
                 ("BACKGROUND", (0, 1), (-1, -1), colors.white),
                 ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f8fafc")]),
                 ("BOX", (0, 0), (-1, -1), 0.35, colors.HexColor("#dfe6ee")),
@@ -526,6 +542,75 @@ def _format_tracking_value(row: pd.Series) -> str:
     return _format_decimal(row.get("valor"))
 
 
+def _format_metric_value(value: object, unit: str) -> str:
+    if unit == "R$":
+        return _format_brl_compact(value)
+    if unit == "%":
+        return _format_percent(value)
+    return _format_decimal(value)
+
+
+def _metric_criticality_label(value: object) -> str:
+    labels = {
+        "critico": "Crítico",
+        "monitorar": "Monitorar",
+        "contexto": "Contexto",
+    }
+    return labels.get(str(value), _display(value))
+
+
+def _risk_metric_state_label(value: object) -> str:
+    labels = {
+        "calculado": "Calculado",
+        "nao_calculavel": "Não calculável",
+        "nao_calculavel_sem_pl": "Não calc.: sem PL",
+        "nao_aplicavel_sem_inadimplencia": "N/A sem inadimplência",
+        "nao_disponivel_na_fonte": "Não disponível na fonte",
+        "nao_calculavel_sem_base": "Não calc.: sem base",
+        "exige_fonte_complementar": "Exige fonte complementar",
+    }
+    return labels.get(str(value), _display(value))
+
+
+def _format_risk_metrics_table(df: pd.DataFrame, risk_block: str) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=["Métrica", "Valor", "Criticidade", "Fonte", "Leitura", "Estado"])
+    output = df[df["risk_block"] == risk_block].copy()
+    if output.empty:
+        return pd.DataFrame(columns=["Métrica", "Valor", "Criticidade", "Fonte", "Leitura", "Estado"])
+    output["Métrica"] = output["label"]
+    output["Valor"] = output.apply(
+        lambda row: _format_metric_value(row.get("value"), str(row.get("unit") or "")),
+        axis=1,
+    )
+    output["Criticidade"] = output["criticality"].map(_metric_criticality_label)
+    output["Fonte"] = output["source_data"]
+    output["Leitura"] = output["interpretation"]
+    output["Estado"] = output["state"].map(_risk_metric_state_label)
+    return output[["Métrica", "Valor", "Criticidade", "Fonte", "Leitura", "Estado"]]
+
+
+def _format_coverage_gap_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=["Tema", "Status", "Por que importa", "Fonte necessária"])
+    output = df.copy()
+    output["Tema"] = output["tema"]
+    output["Status"] = output["status"]
+    output["Por que importa"] = output["por_que_importa"]
+    output["Fonte necessária"] = output["fonte_necessaria"]
+    return output[["Tema", "Status", "Por que importa", "Fonte necessária"]]
+
+
+def _format_glossary_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=["Termo", "Definição curta", "Variação importante"])
+    output = df.copy()
+    output["Termo"] = output["termo"]
+    output["Definição curta"] = output["definicao_curta"]
+    output["Variação importante"] = output["variacao_importante"]
+    return output[["Termo", "Definição curta", "Variação importante"]]
+
+
 def _status_label(value: object) -> str:
     labels = {
         "reported_value": "Valor reportado",
@@ -616,6 +701,19 @@ def _format_cnpj(value: str) -> str:
     if len(digits) != 14:
         return value or "N/D"
     return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
+
+
+def _safe_pct(numerator: object, denominator: object) -> float | None:
+    if _is_missing(numerator) or _is_missing(denominator):
+        return None
+    try:
+        num = float(numerator)
+        den = float(denominator)
+    except (TypeError, ValueError):
+        return None
+    if den <= 0:
+        return None
+    return num / den * 100.0
 
 
 def _escape(value: object) -> str:

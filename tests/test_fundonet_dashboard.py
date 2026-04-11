@@ -145,6 +145,47 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertTrue(pdf_bytes.startswith(b"%PDF"))
         self.assertGreater(len(pdf_bytes), 5_000)
 
+    def test_build_dashboard_data_exposes_risk_monitoring_artifacts(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            workspace = Path(tmpdir)
+            self._write_dicred_fixture_csvs(workspace)
+
+            dashboard = build_dashboard_data(
+                wide_csv_path=workspace / "informes_wide.csv",
+                listas_csv_path=workspace / "estruturas_lista.csv",
+                docs_csv_path=workspace / "documentos_filtrados.csv",
+            )
+
+        risk_lookup = dashboard.risk_metrics_df.set_index("metric_id")
+        self.assertEqual(
+            {"Risco de crédito", "Risco estrutural", "Risco de liquidez"},
+            set(dashboard.risk_metrics_df["risk_block"]),
+        )
+        self.assertAlmostEqual(80.0, risk_lookup.loc["alocacao_pct", "value"])
+        self.assertEqual("critico", risk_lookup.loc["subordinacao_pct", "criticality"])
+        self.assertIn("Índice de cobertura", dashboard.coverage_gap_df["tema"].tolist())
+        self.assertIn("Subordinação", dashboard.mini_glossary_df["termo"].tolist())
+        self.assertIn(
+            "summary.inadimplencia_pct",
+            dashboard.current_dashboard_inventory_df["nome_variavel"].tolist(),
+        )
+
+    def test_build_dashboard_data_preserves_missing_history_as_nan(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            workspace = Path(tmpdir)
+            self._write_missing_history_fixture_csvs(workspace)
+
+            dashboard = build_dashboard_data(
+                wide_csv_path=workspace / "informes_wide.csv",
+                listas_csv_path=workspace / "estruturas_lista.csv",
+                docs_csv_path=workspace / "documentos_filtrados.csv",
+            )
+
+        first_row = dashboard.asset_history_df.sort_values("competencia_dt").iloc[0]
+        self.assertTrue(pd.isna(first_row["ativos_totais"]))
+        self.assertTrue(pd.isna(first_row["carteira"]))
+        self.assertTrue(pd.isna(first_row["direitos_creditorios"]))
+
     @staticmethod
     def _write_fixture_csvs(workspace: Path) -> None:
         wide_rows = [
@@ -680,6 +721,172 @@ class FundonetDashboardTests(unittest.TestCase):
                 "nome_fundo": "Seller FIDC",
                 "processamento": "ok",
             }
+        ]
+        pd.DataFrame(docs_rows).to_csv(workspace / "documentos_filtrados.csv", index=False)
+
+    @staticmethod
+    def _write_missing_history_fixture_csvs(workspace: Path) -> None:
+        wide_rows = [
+            {
+                "bloco": "CAB_INFORM",
+                "sub_bloco": "",
+                "tag": "NR_CNPJ_FUNDO",
+                "tag_path": "DOC_ARQ/CAB_INFORM/NR_CNPJ_FUNDO",
+                "descricao": "CNPJ fundo",
+                "12/2025": "11111111000111",
+                "01/2026": "11111111000111",
+            },
+            {
+                "bloco": "CAB_INFORM",
+                "sub_bloco": "",
+                "tag": "NR_CNPJ_CLASSE",
+                "tag_path": "DOC_ARQ/CAB_INFORM/NR_CNPJ_CLASSE",
+                "descricao": "CNPJ classe",
+                "12/2025": "11111111000111",
+                "01/2026": "11111111000111",
+            },
+            {
+                "bloco": "CAB_INFORM",
+                "sub_bloco": "",
+                "tag": "NR_CNPJ_ADM",
+                "tag_path": "DOC_ARQ/CAB_INFORM/NR_CNPJ_ADM",
+                "descricao": "CNPJ administrador",
+                "12/2025": "22222222000122",
+                "01/2026": "22222222000122",
+            },
+            {
+                "bloco": "CAB_INFORM",
+                "sub_bloco": "",
+                "tag": "NM_CLASSE",
+                "tag_path": "DOC_ARQ/CAB_INFORM/NM_CLASSE",
+                "descricao": "Classe",
+                "12/2025": "Classe Teste",
+                "01/2026": "Classe Teste",
+            },
+            {
+                "bloco": "CAB_INFORM",
+                "sub_bloco": "",
+                "tag": "TP_CONDOMINIO",
+                "tag_path": "DOC_ARQ/CAB_INFORM/TP_CONDOMINIO",
+                "descricao": "Condomínio",
+                "12/2025": "FECHADO",
+                "01/2026": "FECHADO",
+            },
+            {
+                "bloco": "CAB_INFORM",
+                "sub_bloco": "",
+                "tag": "CLASS_UNICA",
+                "tag_path": "DOC_ARQ/CAB_INFORM/CLASS_UNICA",
+                "descricao": "Classe única",
+                "12/2025": "SIM",
+                "01/2026": "SIM",
+            },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR",
+                "tag": "SERIE",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR/SERIE",
+                "descricao": "Série",
+                "12/2025": "Série 1",
+                "01/2026": "Série 1",
+            },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR",
+                "tag": "QT_COTAS",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR/QT_COTAS",
+                "descricao": "Qt cotas",
+                "12/2025": "100",
+                "01/2026": "100",
+            },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR",
+                "tag": "VL_COTAS",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR/VL_COTAS",
+                "descricao": "Vl cotas",
+                "12/2025": "100",
+                "01/2026": "101",
+            },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD",
+                "tag": "TIPO",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD/TIPO",
+                "descricao": "Tipo",
+                "12/2025": "Subordinada",
+                "01/2026": "Subordinada",
+            },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD",
+                "tag": "QT_COTAS",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD/QT_COTAS",
+                "descricao": "Qt cotas",
+                "12/2025": "50",
+                "01/2026": "50",
+            },
+            {
+                "bloco": "OUTRAS_INFORM",
+                "sub_bloco": "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD",
+                "tag": "VL_COTAS",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD/VL_COTAS",
+                "descricao": "Vl cotas",
+                "12/2025": "20",
+                "01/2026": "20",
+            },
+            {
+                "bloco": "APLIC_ATIVO",
+                "sub_bloco": "",
+                "tag": "VL_SOM_APLIC_ATIVO",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_SOM_APLIC_ATIVO",
+                "descricao": "Ativos",
+                "12/2025": "",
+                "01/2026": "1000",
+            },
+            {
+                "bloco": "APLIC_ATIVO",
+                "sub_bloco": "",
+                "tag": "VL_CARTEIRA",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_CARTEIRA",
+                "descricao": "Carteira",
+                "12/2025": "",
+                "01/2026": "900",
+            },
+            {
+                "bloco": "APLIC_ATIVO",
+                "sub_bloco": "DICRED",
+                "tag": "VL_DICRED",
+                "tag_path": "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED",
+                "descricao": "Direitos",
+                "12/2025": "",
+                "01/2026": "800",
+            },
+        ]
+        pd.DataFrame(wide_rows).to_csv(workspace / "informes_wide.csv", index=False)
+
+        pd.DataFrame(columns=["competencia", "list_group_path", "list_index", "tag", "valor_excel"]).to_csv(
+            workspace / "estruturas_lista.csv",
+            index=False,
+        )
+
+        docs_rows = [
+            {
+                "documento_id": "10",
+                "competencia": "12/2025",
+                "data_entrega": "20/01/2026 09:00",
+                "fundo_ou_classe": "Classe",
+                "nome_fundo": "Teste Missing FIDC",
+                "processamento": "ok",
+            },
+            {
+                "documento_id": "11",
+                "competencia": "01/2026",
+                "data_entrega": "20/02/2026 09:00",
+                "fundo_ou_classe": "Classe",
+                "nome_fundo": "Teste Missing FIDC",
+                "processamento": "ok",
+            },
         ]
         pd.DataFrame(docs_rows).to_csv(workspace / "documentos_filtrados.csv", index=False)
 
