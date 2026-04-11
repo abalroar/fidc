@@ -43,6 +43,7 @@ class FundonetDashboardData:
     asset_history_df: pd.DataFrame
     composition_latest_df: pd.DataFrame
     segment_latest_df: pd.DataFrame
+    liquidity_history_df: pd.DataFrame
     liquidity_latest_df: pd.DataFrame
     maturity_latest_df: pd.DataFrame
     quota_pl_history_df: pd.DataFrame
@@ -125,6 +126,10 @@ def build_dashboard_data(
         wide_lookup=wide_lookup,
         latest_competencia=latest_competencia,
     )
+    liquidity_history_df = _build_liquidity_history_df(
+        wide_lookup=wide_lookup,
+        competencias=competencias,
+    )
     liquidity_latest_df = _build_liquidity_latest_df(
         wide_lookup=wide_lookup,
         latest_competencia=latest_competencia,
@@ -202,6 +207,7 @@ def build_dashboard_data(
         asset_history_df=asset_history_df,
         composition_latest_df=composition_latest_df,
         segment_latest_df=segment_latest_df,
+        liquidity_history_df=liquidity_history_df,
         liquidity_latest_df=liquidity_latest_df,
         maturity_latest_df=maturity_latest_df,
         quota_pl_history_df=quota_pl_history_df,
@@ -852,6 +858,29 @@ def _build_liquidity_latest_df(*, wide_lookup: pd.DataFrame, latest_competencia:
             }
         )
     return pd.DataFrame(rows)
+
+
+def _build_liquidity_history_df(
+    *,
+    wide_lookup: pd.DataFrame,
+    competencias: list[str],
+) -> pd.DataFrame:
+    rows = {
+        "liquidez_imediata": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ",
+        "liquidez_30": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_30",
+        "liquidez_60": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_60",
+        "liquidez_90": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_90",
+        "liquidez_180": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_180",
+        "liquidez_360": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_360",
+        "liquidez_mais_360": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_MAIS_360",
+    }
+    data = {
+        "competencia": competencias,
+        "competencia_dt": [_competencia_to_timestamp(competencia) for competencia in competencias],
+    }
+    for column_name, tag_path in rows.items():
+        data[column_name] = _numeric_series_nullable(wide_lookup, competencias, tag_path).values
+    return pd.DataFrame(data)
 
 
 def _build_maturity_latest_df(*, wide_lookup: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:

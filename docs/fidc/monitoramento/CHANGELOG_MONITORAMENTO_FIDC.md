@@ -16,6 +16,9 @@
 - `app.py`: a aba de monitoramento passou para a primeira posição e foi renomeada para `tomaconta FIDCs`.
 - `tabs/tab_fidc_ime.py`: a UI foi reorganizada por blocos de risco, com paleta laranja/preto/cinza e toggle de data labels.
 - `services/fundonet_dashboard.py`: a montagem do dashboard passou a alimentar a nova camada de monitoramento por risco.
+- `tabs/tab_fidc_ime.py`: a camada visual foi aproximada da linguagem do Snapshot do `tomaconta`, com cards mais ricos, callouts analíticos por bloco e liquidez histórica na leitura de funding.
+- `services/fidc_monitoring.py`: o bloco de liquidez ganhou métricas adicionais de aquisições, alienações e fluxo líquido sobre direitos creditórios.
+- `services/fundonet_dashboard.py`: foi adicionada série histórica de liquidez para suportar leitura temporal e cards analíticos com sparkline.
 
 ### Correções de causa raiz
 

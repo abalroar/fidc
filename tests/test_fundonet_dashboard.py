@@ -162,6 +162,8 @@ class FundonetDashboardTests(unittest.TestCase):
             set(dashboard.risk_metrics_df["risk_block"]),
         )
         self.assertAlmostEqual(80.0, risk_lookup.loc["alocacao_pct", "value"])
+        self.assertAlmostEqual(3.75, risk_lookup.loc["aquisicoes_pct_direitos", "value"])
+        self.assertAlmostEqual(13.3333333, risk_lookup.loc["liquidez_imediata_pct_pl", "value"], places=5)
         self.assertEqual("critico", risk_lookup.loc["subordinacao_pct", "criticality"])
         self.assertIn("Índice de cobertura", dashboard.coverage_gap_df["tema"].tolist())
         self.assertIn("Subordinação", dashboard.mini_glossary_df["termo"].tolist())
@@ -169,6 +171,7 @@ class FundonetDashboardTests(unittest.TestCase):
             "summary.inadimplencia_pct",
             dashboard.current_dashboard_inventory_df["nome_variavel"].tolist(),
         )
+        self.assertAlmostEqual(2000.0, dashboard.liquidity_history_df.iloc[0]["liquidez_imediata"])
 
     def test_build_dashboard_data_preserves_missing_history_as_nan(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -185,6 +188,7 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertTrue(pd.isna(first_row["ativos_totais"]))
         self.assertTrue(pd.isna(first_row["carteira"]))
         self.assertTrue(pd.isna(first_row["direitos_creditorios"]))
+        self.assertTrue(pd.isna(dashboard.liquidity_history_df.sort_values("competencia_dt").iloc[0]["liquidez_imediata"]))
 
     @staticmethod
     def _write_fixture_csvs(workspace: Path) -> None:
@@ -611,15 +615,85 @@ class FundonetDashboardTests(unittest.TestCase):
             row("CAB_INFORM", "", "NM_CLASSE", "DOC_ARQ/CAB_INFORM/NM_CLASSE", "SELLER FIDC"),
             row("CAB_INFORM", "", "TP_CONDOMINIO", "DOC_ARQ/CAB_INFORM/TP_CONDOMINIO", "FECHADO"),
             row("CAB_INFORM", "", "CLASS_UNICA", "DOC_ARQ/CAB_INFORM/CLASS_UNICA", "NAO"),
+            row(
+                "OUTRAS_INFORM",
+                "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR",
+                "SERIE",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR/SERIE",
+                "Série 1",
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR",
+                "QT_COTAS",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR/QT_COTAS",
+                100,
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR",
+                "VL_COTAS",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR/VL_COTAS",
+                100,
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD",
+                "TIPO",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD/TIPO",
+                "Subordinada",
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD",
+                "QT_COTAS",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD/QT_COTAS",
+                100,
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD",
+                "VL_COTAS",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD/VL_COTAS",
+                50,
+            ),
             row("APLIC_ATIVO", "", "VL_SOM_APLIC_ATIVO", "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_SOM_APLIC_ATIVO", 21000),
             row("APLIC_ATIVO", "", "VL_CARTEIRA", "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_CARTEIRA", 20000),
             row("APLIC_ATIVO", "DICRED", "VL_DICRED", "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED", 16000),
+            row(
+                "NEGOC_DICRED_MES",
+                "AQUISICOES",
+                "VL_DICRED_AQUIS",
+                "DOC_ARQ/LISTA_INFORM/NEGOC_DICRED_MES/AQUISICOES/VL_DICRED_AQUIS",
+                600,
+            ),
+            row(
+                "NEGOC_DICRED_MES",
+                "DICRED_MES_ALIEN",
+                "VL_DICRED_ALIEN",
+                "DOC_ARQ/LISTA_INFORM/NEGOC_DICRED_MES/DICRED_MES_ALIEN/VL_DICRED_ALIEN",
+                200,
+            ),
             row(
                 "CART_SEGMT",
                 "SEGMT_SERV",
                 "VL_SOM_SEGMT_SERV",
                 "DOC_ARQ/LISTA_INFORM/CART_SEGMT/SEGMT_SERV/VL_SOM_SEGMT_SERV",
                 16000,
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "LIQUIDEZ",
+                "VL_ATIV_LIQDEZ",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ",
+                2000,
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "LIQUIDEZ",
+                "VL_ATIV_LIQDEZ_30",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ_30",
+                3500,
             ),
             row(
                 "OUTRAS_INFORM",

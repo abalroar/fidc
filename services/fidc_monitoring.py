@@ -42,6 +42,13 @@ def _latest_top_segment(segment_latest_df: pd.DataFrame) -> tuple[str | None, fl
     return str(row.get("segmento") or "").strip() or None, _float_or_none(row.get("percentual"))
 
 
+def _latest_row_value(df: pd.DataFrame, column: str) -> float | None:
+    if df.empty or column not in df.columns:
+        return None
+    ordered = df.sort_values("competencia_dt")
+    return _float_or_none(ordered.iloc[-1].get(column))
+
+
 def _metric_row(
     *,
     risk_block: str,
@@ -94,6 +101,14 @@ def build_risk_metrics_df(
     amortizacao_pct_pl = _event_lookup_value(event_summary_latest_df, "amortizacao", "valor_total_pct_pl")
     resgate_pago_pct_pl = _event_lookup_value(event_summary_latest_df, "resgate", "valor_total_pct_pl")
     emissao_pct_pl = _event_lookup_value(event_summary_latest_df, "emissao", "valor_total_pct_pl")
+    aquisicoes_pct = _safe_pct(_latest_row_value(asset_history_df, "aquisicoes"), summary.get("direitos_creditorios"))
+    alienacoes_pct = _safe_pct(_latest_row_value(asset_history_df, "alienacoes"), summary.get("direitos_creditorios"))
+    fluxo_liquido_pct = None
+    latest_aquisicoes = _latest_row_value(asset_history_df, "aquisicoes")
+    latest_alienacoes = _latest_row_value(asset_history_df, "alienacoes")
+    latest_direitos = _float_or_none(summary.get("direitos_creditorios"))
+    if latest_aquisicoes is not None and latest_alienacoes is not None and latest_direitos and latest_direitos > 0:
+        fluxo_liquido_pct = (latest_aquisicoes - latest_alienacoes) / latest_direitos * 100.0
 
     rows = [
         _metric_row(
@@ -218,6 +233,57 @@ def build_risk_metrics_df(
             interpretation="Volume nominal do colchão subordinado reportado no IME.",
             limitation="Não capta sozinha reforços estruturais extras como reservas, cobertura ou spread excedente.",
             state="calculado" if summary.get("pl_subordinada") is not None else "nao_calculavel",
+        ),
+        _metric_row(
+            risk_block="Risco de liquidez",
+            risk_block_order=3,
+            metric_id="aquisicoes_pct_direitos",
+            label="Aquisições do mês / direitos creditórios",
+            value=aquisicoes_pct,
+            unit="%",
+            criticality="monitorar",
+            source_data="NEGOC_DICRED_MES/AQUISICOES",
+            transformation="Divide o volume adquirido no mês pelo estoque de direitos creditórios.",
+            final_variable="tracking_latest_df['Aquisições / direitos creditórios']",
+            formula="aquisicoes / direitos_creditorios * 100",
+            pipeline="IME -> _build_asset_history -> asset_history_df.aquisicoes -> build_risk_metrics_df",
+            interpretation="Mostra intensidade de originação/aquisição da carteira no mês.",
+            limitation="Não diferencia crescimento saudável de rolagem/recomposição operacional.",
+            state="calculado" if aquisicoes_pct is not None else "nao_calculavel",
+        ),
+        _metric_row(
+            risk_block="Risco de liquidez",
+            risk_block_order=3,
+            metric_id="alienacoes_pct_direitos",
+            label="Alienações do mês / direitos creditórios",
+            value=alienacoes_pct,
+            unit="%",
+            criticality="monitorar",
+            source_data="NEGOC_DICRED_MES/DICRED_MES_ALIEN",
+            transformation="Divide o volume alienado no mês pelo estoque de direitos creditórios.",
+            final_variable="tracking_latest_df['Alienações / direitos creditórios']",
+            formula="alienacoes / direitos_creditorios * 100",
+            pipeline="IME -> _build_asset_history -> asset_history_df.alienacoes -> build_risk_metrics_df",
+            interpretation="Mostra intensidade de alienação/runoff da carteira no mês.",
+            limitation="Não separa venda, liquidação natural, recompra ou reestruturação econômica.",
+            state="calculado" if alienacoes_pct is not None else "nao_calculavel",
+        ),
+        _metric_row(
+            risk_block="Risco de liquidez",
+            risk_block_order=3,
+            metric_id="fluxo_liquido_pct_direitos",
+            label="Fluxo líquido do mês / direitos creditórios",
+            value=fluxo_liquido_pct,
+            unit="%",
+            criticality="contexto",
+            source_data="NEGOC_DICRED_MES",
+            transformation="Diferença entre aquisições e alienações, escalada pelo estoque de direitos creditórios.",
+            final_variable="asset_history_df['aquisicoes'] - asset_history_df['alienacoes']",
+            formula="(aquisicoes - alienacoes) / direitos_creditorios * 100",
+            pipeline="IME -> _build_asset_history -> [aquisicoes, alienacoes] -> build_risk_metrics_df",
+            interpretation="Indica expansão líquida ou contração líquida da carteira no mês.",
+            limitation="É um indicador operacional; não informa sozinho a qualidade do crescimento.",
+            state="calculado" if fluxo_liquido_pct is not None else "nao_calculavel",
         ),
         _metric_row(
             risk_block="Risco de liquidez",

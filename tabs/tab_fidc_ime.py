@@ -108,42 +108,180 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
 }
 
 .fidc-grid--supporting {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .fidc-card {
     background: #ffffff;
     border: 1px solid #e9ecef;
-    border-left: 3px solid #ff5a00;
+    border-left: 3px solid #e9ecef;
     border-radius: 10px;
-    padding: 14px 15px;
+    padding: 16px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    min-height: 92px;
+    min-height: 132px;
+    position: relative;
 }
 
 .fidc-card--risk {
     border-left-color: #111111;
 }
 
+.fidc-card--monitor {
+    border-left-color: #ff5a00;
+}
+
 .fidc-card--neutral {
     border-left-color: #adb5bd;
 }
 
+.fidc-card__header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 4px;
+}
+
 .fidc-card__label {
-    color: #5a5a5a;
-    font-size: 0.68rem;
-    font-weight: 600;
-    line-height: 1.25;
-    letter-spacing: 0.06em;
+    color: #6c757d;
+    font-size: 0.7rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    margin-bottom: 8px;
+}
+
+.fidc-card__info {
+    display: inline-flex;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    font-size: 9px;
+    font-weight: 600;
+    color: #adb5bd;
+    border: 1px solid #dee2e6;
+    cursor: help;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.fidc-card__info .fidc-card__tip {
+    display: none;
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333333;
+    color: #ffffff;
+    font-size: 11px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: normal;
+    min-width: 210px;
+    max-width: 300px;
+    z-index: 1000;
+    font-weight: 300;
+    text-transform: none;
+    letter-spacing: normal;
+    line-height: 1.4;
+}
+
+.fidc-card__info:hover .fidc-card__tip,
+.fidc-card__info:focus .fidc-card__tip {
+    display: block;
+}
+
+.fidc-card__value-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 6px 0 10px 0;
 }
 
 .fidc-card__value {
     color: #212529;
-    font-size: 1.45rem;
+    font-size: 1.5rem;
     font-weight: 400;
-    line-height: 1.05;
+    line-height: 1.1;
+}
+
+.fidc-card__sparkline {
+    opacity: 0.82;
+    flex-shrink: 0;
+}
+
+.fidc-card__meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.fidc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 7px;
+    border-radius: 999px;
+    font-size: 0.67rem;
+    line-height: 1;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    color: #5a5a5a;
+}
+
+.fidc-badge--critical {
+    border-color: rgba(17,17,17,0.12);
+    color: #111111;
+    background: rgba(17,17,17,0.04);
+}
+
+.fidc-badge--monitor {
+    border-color: rgba(255,90,0,0.18);
+    color: #ff5a00;
+    background: rgba(255,90,0,0.06);
+}
+
+.fidc-badge--neutral {
+    color: #6c757d;
+}
+
+.fidc-card__note {
+    color: #667382;
+    font-size: 0.78rem;
+    line-height: 1.35;
+}
+
+.fidc-callout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 10px;
+    margin: 0.15rem 0 0.95rem 0;
+}
+
+.fidc-callout__item {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 12px 13px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+.fidc-callout__kicker {
+    color: #6c757d;
+    font-size: 0.67rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.fidc-callout__value {
+    color: #212529;
+    font-size: 0.84rem;
+    line-height: 1.38;
 }
 
 .fidc-card__source {
@@ -215,7 +353,8 @@ div[data-testid="stMetricLabel"] {
 
 @media (max-width: 900px) {
     .fidc-grid--hero,
-    .fidc-grid--supporting {
+    .fidc-grid--supporting,
+    .fidc-callout {
         grid-template-columns: 1fr;
     }
     .fidc-card__value {
@@ -521,43 +660,57 @@ def _render_risk_overview(dashboard: FundonetDashboardData) -> None:
         "Radar de risco",
         "Leitura rápida para comprador de cotas seniores: crédito, estrutura e liquidez no IME mais recente.",
     )
+    _render_section_callout(
+        question="A fotografia mais recente mostra erosão de proteção sênior, pressão de liquidez ou degradação de carteira?",
+        ime_scope="O IME cobre inadimplência, provisão, subordinação, liquidez reportada e eventos de cotas.",
+        caution="Cobertura, reservas, triggers, lastro, rating e qualidade do cedente continuam fora do IME.",
+    )
     metric_lookup = dashboard.risk_metrics_df.set_index("metric_id", drop=False)
-    card_ids = [
+    hero_card_ids = [
         "subordinacao_pct",
         "inadimplencia_pct",
-        "alocacao_pct",
         "liquidez_30_pct_pl",
-        "liquidez_imediata_pct_pl",
         "resgate_solicitado_pct_pl",
     ]
-    cards: list[str] = []
-    for metric_id in card_ids:
-        if metric_id not in metric_lookup.index:
-            continue
-        row = metric_lookup.loc[metric_id]
-        cards.append(
-            _render_fidc_card(
-                str(row["label"]),
-                _format_metric_value(row.get("value"), str(row.get("unit") or "")),
-                f"{row.get('risk_block')} · {row.get('source_data')}",
-                variant="risk" if row.get("criticality") == "critico" else "",
-            )
-        )
-    cards.append(
+    supporting_card_ids = [
+        "alocacao_pct",
+        "provisao_pct_inadimplencia",
+        "liquidez_imediata_pct_pl",
+    ]
+
+    hero_cards = [
+        _render_risk_card(dashboard, metric_lookup.loc[metric_id])
+        for metric_id in hero_card_ids
+        if metric_id in metric_lookup.index
+    ]
+    supporting_cards = [
+        _render_risk_card(dashboard, metric_lookup.loc[metric_id])
+        for metric_id in supporting_card_ids
+        if metric_id in metric_lookup.index
+    ]
+    supporting_cards.append(
         _render_fidc_card(
             "Camadas críticas fora do IME",
             str(len(dashboard.coverage_gap_df)),
-            "Cobertura, reservas, triggers, rating, lastro e covenants exigem fonte complementar.",
+            "Cobertura, reservas, gatilhos, rating, lastro e covenants exigem fonte complementar.",
             variant="neutral",
+            note="O IME é camada-base, não substitui regulamento, relatório mensal, rating e documentação operacional.",
+            badges=[("Fonte complementar", "neutral")],
         )
     )
-    st.markdown(_render_fidc_grid(cards, "fidc-grid--supporting"), unsafe_allow_html=True)
+    st.markdown(_render_fidc_grid(hero_cards, "fidc-grid--hero"), unsafe_allow_html=True)
+    st.markdown(_render_fidc_grid(supporting_cards, "fidc-grid--supporting"), unsafe_allow_html=True)
 
 
 def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section(
         "Risco de crédito",
         "Estresse da carteira, provisionamento e concentração proxy com base no IME.",
+    )
+    _render_section_callout(
+        question="A deterioração da carteira está acelerando e consumindo o colchão antes da sênior?",
+        ime_scope="Use inadimplência, provisão, aging e concentração setorial como sinais observáveis no IME.",
+        caution="Não tratar esse bloco como substituto de perda esperada, FPD, recompras, resolução de cessão ou concentração por devedor.",
     )
     top_left, top_right = st.columns([1.25, 1])
     top_left.dataframe(
@@ -612,6 +765,11 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData) -> None:
         "Risco estrutural",
         "Subordinação, alocação e leitura da arquitetura das cotas. O painel separa o que vem do IME do que depende de regulamento.",
     )
+    _render_section_callout(
+        question="O colchão estrutural reportado parece suficiente para a fotografia atual da carteira?",
+        ime_scope="O IME cobre subordinação, PL por classe e parte da remuneração/benchmark das cotas.",
+        caution="Subordinação reportada não substitui cobertura, reservas, excesso de spread, waterfall contratual nem gatilhos estruturais.",
+    )
     top_left, top_right = st.columns([1.15, 1])
     top_left.dataframe(
         _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco estrutural"),
@@ -661,6 +819,11 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
         "Risco de liquidez e funding",
         "Liquidez reportada, vencimentos e fluxos de cotas. A interpretação econômica dos eventos preserva o sinal do caixa.",
     )
+    _render_section_callout(
+        question="O caixa aparente e o perfil de vencimento sustentam a pressão corrente de amortizações, resgates e pedidos?",
+        ime_scope="O IME cobre buckets de liquidez, vencimento de direitos creditórios e eventos de cotas do mês.",
+        caution="A semântica dos buckets de liquidez pode variar entre fundos; a leitura precisa ser confrontada com relatório mensal e cronograma das emissões.",
+    )
     top_left, top_right = st.columns([1.15, 1])
     top_left.dataframe(
         _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco de liquidez"),
@@ -675,11 +838,16 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
 
     mid_left, mid_right = st.columns(2)
     mid_left.altair_chart(
-        _line_point_chart(
-            dashboard.liquidity_latest_df,
-            x_column="horizonte",
-            y_column="valor",
-            title=f"Liquidez reportada em {dashboard.latest_competencia}",
+        _line_history_chart(
+            _melt_metrics(
+                dashboard.liquidity_history_df,
+                ["liquidez_imediata", "liquidez_30"],
+                {
+                    "liquidez_imediata": "Liquidez imediata",
+                    "liquidez_30": "Liquidez até 30 dias",
+                },
+            ),
+            title="Evolução da liquidez reportada",
             y_title="R$",
         ),
         use_container_width=True,
@@ -736,11 +904,23 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
             use_container_width=True,
         )
 
+    with st.expander("Snapshot de liquidez por bucket na competência atual", expanded=False):
+        st.dataframe(
+            _format_value_table(dashboard.liquidity_latest_df, label_column="horizonte", label_title="Horizonte"),
+            use_container_width=True,
+            hide_index=True,
+        )
+
 
 def _render_operational_risk_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section(
         "Risco operacional e contratual",
         "O que um comprador de sênior ainda precisa fora do IME para fechar a análise de risco da estrutura.",
+    )
+    _render_section_callout(
+        question="O que falta para sair do 'dashboard de IME' e chegar numa decisão real de crédito estruturado?",
+        ime_scope="Aqui o painel separa explicitamente o que é observável no IME do que depende de regulamento e documentos complementares.",
+        caution="Se esses itens não forem verificados fora do IME, o risco da cota sênior fica subestimado.",
     )
     left, right = st.columns(2)
     left.dataframe(
@@ -902,20 +1082,158 @@ def _render_fidc_section(title: str, caption: str | None = None) -> None:
         st.markdown(f'<div class="fidc-section-caption">{escape(caption)}</div>', unsafe_allow_html=True)
 
 
-def _render_fidc_card(label: str, value: str, source: str = "", *, variant: str = "") -> str:
+def _render_section_callout(*, question: str, ime_scope: str, caution: str) -> None:
+    st.markdown(
+        (
+            '<div class="fidc-callout">'
+            f'<div class="fidc-callout__item"><div class="fidc-callout__kicker">Pergunta central</div><div class="fidc-callout__value">{escape(question)}</div></div>'
+            f'<div class="fidc-callout__item"><div class="fidc-callout__kicker">O que o IME cobre</div><div class="fidc-callout__value">{escape(ime_scope)}</div></div>'
+            f'<div class="fidc-callout__item"><div class="fidc-callout__kicker">Cautela analítica</div><div class="fidc-callout__value">{escape(caution)}</div></div>'
+            "</div>"
+        ),
+        unsafe_allow_html=True,
+    )
+
+
+def _render_fidc_card(
+    label: str,
+    value: str,
+    source: str = "",
+    *,
+    variant: str = "",
+    note: str = "",
+    badges: list[tuple[str, str]] | None = None,
+    sparkline_svg: str = "",
+    tooltip: str = "",
+) -> str:
     variant_class = f" fidc-card--{variant}" if variant else ""
-    source_html = f'<div class="fidc-card__source">{escape(source)}</div>' if source else ""
+    info_html = ""
+    if tooltip or source:
+        tooltip_text = tooltip or source
+        info_html = (
+            '<span class="fidc-card__info">i'
+            f'<span class="fidc-card__tip">{escape(tooltip_text).replace(chr(10), "<br/>")}</span>'
+            "</span>"
+        )
+    meta_html = ""
+    if badges:
+        badge_parts = []
+        for badge_text, badge_variant in badges:
+            badge_variant = badge_variant if badge_variant in {"critical", "monitor", "neutral"} else "neutral"
+            badge_parts.append(f'<span class="fidc-badge fidc-badge--{badge_variant}">{escape(badge_text)}</span>')
+        meta_html = f'<div class="fidc-card__meta">{"".join(badge_parts)}</div>'
+    note_html = f'<div class="fidc-card__note">{escape(note)}</div>' if note else ""
+    spark_html = f'<div class="fidc-card__sparkline">{sparkline_svg}</div>' if sparkline_svg else ""
     return (
         f'<div class="fidc-card{variant_class}">'
-        f'<div class="fidc-card__label">{escape(label)}</div>'
-        f'<div class="fidc-card__value">{escape(value)}</div>'
-        f"{source_html}"
+        f'<div class="fidc-card__header"><div class="fidc-card__label">{escape(label)}</div>{info_html}</div>'
+        f'<div class="fidc-card__value-row"><div class="fidc-card__value">{escape(value)}</div>{spark_html}</div>'
+        f"{meta_html}"
+        f"{note_html}"
         "</div>"
+    )
+
+
+def _render_risk_card(dashboard: FundonetDashboardData, row: pd.Series) -> str:
+    criticality = str(row.get("criticality") or "")
+    variant_map = {
+        "critico": "risk",
+        "monitorar": "monitor",
+        "contexto": "neutral",
+    }
+    badges = [
+        (_format_metric_criticality(criticality), "critical" if criticality == "critico" else ("monitor" if criticality == "monitorar" else "neutral")),
+        (_format_risk_metric_state(row.get("state")), "neutral"),
+    ]
+    tooltip_lines = [
+        f"Fonte: {row.get('source_data') or 'N/D'}",
+        f"Fórmula: {row.get('formula') or 'N/D'}",
+        f"Limitação: {row.get('limitation') or 'N/D'}",
+    ]
+    return _render_fidc_card(
+        str(row.get("label") or "Métrica"),
+        _format_metric_value(row.get("value"), str(row.get("unit") or "")),
+        str(row.get("source_data") or ""),
+        variant=variant_map.get(criticality, "neutral"),
+        note=str(row.get("interpretation") or ""),
+        badges=badges,
+        sparkline_svg=_sparkline_svg(_metric_history_values(dashboard, str(row.get("metric_id") or ""))),
+        tooltip="\n".join(tooltip_lines),
     )
 
 
 def _render_fidc_grid(cards_html: list[str], grid_class: str) -> str:
     return f'<div class="fidc-grid {grid_class}">{"".join(cards_html)}</div>'
+
+
+def _metric_history_values(dashboard: FundonetDashboardData, metric_id: str) -> list[float]:
+    if metric_id == "subordinacao_pct":
+        return _series_to_values(dashboard.subordination_history_df.get("subordinacao_pct"))
+    if metric_id == "inadimplencia_pct":
+        return _series_to_values(dashboard.default_history_df.get("inadimplencia_pct"))
+    if metric_id == "alocacao_pct":
+        return _series_to_values(dashboard.asset_history_df.get("alocacao_pct"))
+    if metric_id == "provisao_pct_inadimplencia":
+        if dashboard.default_history_df.empty:
+            return []
+        series = (
+            dashboard.default_history_df["provisao_total"] / dashboard.default_history_df["inadimplencia_total"]
+        ).where(pd.to_numeric(dashboard.default_history_df["inadimplencia_total"], errors="coerce") > 0).mul(100.0)
+        return _series_to_values(series)
+    if metric_id == "liquidez_imediata_pct_pl":
+        if dashboard.subordination_history_df.empty or dashboard.liquidity_history_df.empty:
+            return []
+        merged = dashboard.liquidity_history_df.merge(
+            dashboard.subordination_history_df[["competencia", "pl_total"]],
+            on="competencia",
+            how="left",
+        )
+        series = (merged["liquidez_imediata"] / merged["pl_total"]).where(pd.to_numeric(merged["pl_total"], errors="coerce") > 0).mul(100.0)
+        return _series_to_values(series)
+    if metric_id == "liquidez_30_pct_pl":
+        if dashboard.subordination_history_df.empty or dashboard.liquidity_history_df.empty:
+            return []
+        merged = dashboard.liquidity_history_df.merge(
+            dashboard.subordination_history_df[["competencia", "pl_total"]],
+            on="competencia",
+            how="left",
+        )
+        series = (merged["liquidez_30"] / merged["pl_total"]).where(pd.to_numeric(merged["pl_total"], errors="coerce") > 0).mul(100.0)
+        return _series_to_values(series)
+    return []
+
+
+def _series_to_values(series: pd.Series | None) -> list[float]:
+    if series is None:
+        return []
+    numeric = pd.to_numeric(series, errors="coerce").dropna()
+    return [float(value) for value in numeric.tolist()]
+
+
+def _sparkline_svg(values: list[float], *, width: int = 80, height: int = 24) -> str:
+    if len(values) < 2:
+        return ""
+    min_val = min(values)
+    max_val = max(values)
+    span = max_val - min_val
+    if span == 0:
+        span = max(abs(max_val), 1.0)
+        min_val -= span / 2
+        max_val += span / 2
+    points: list[str] = []
+    step = width / max(len(values) - 1, 1)
+    for index, value in enumerate(values):
+        x = index * step
+        y = height - ((value - min_val) / (max_val - min_val) * (height - 4)) - 2
+        points.append(f"{x:.2f},{y:.2f}")
+    polyline = " ".join(points)
+    last_x, last_y = points[-1].split(",")
+    return (
+        f'<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+        f'<polyline fill="none" stroke="#111111" stroke-width="1.8" points="{polyline}" />'
+        f'<circle cx="{last_x}" cy="{last_y}" r="2.2" fill="#ff5a00" />'
+        "</svg>"
+    )
 
 
 def _render_asset_section(dashboard: FundonetDashboardData) -> None:
@@ -1395,21 +1713,20 @@ def _format_risk_metric_state(value: object) -> str:
 
 def _format_risk_metrics_table(metrics_df: pd.DataFrame, *, risk_block: str) -> pd.DataFrame:
     if metrics_df.empty:
-        return pd.DataFrame(columns=["Métrica", "Valor", "Criticidade", "Fonte", "Interpretação", "Limitação", "Estado"])
+        return pd.DataFrame(columns=["Métrica", "Valor", "Criticidade", "Leitura prática", "Alerta", "Estado"])
     output = metrics_df[metrics_df["risk_block"] == risk_block].copy()
     if output.empty:
-        return pd.DataFrame(columns=["Métrica", "Valor", "Criticidade", "Fonte", "Interpretação", "Limitação", "Estado"])
+        return pd.DataFrame(columns=["Métrica", "Valor", "Criticidade", "Leitura prática", "Alerta", "Estado"])
     output["Métrica"] = output["label"]
     output["Valor"] = output.apply(
         lambda row: _format_metric_value(row.get("value"), str(row.get("unit") or "")),
         axis=1,
     )
     output["Criticidade"] = output["criticality"].map(_format_metric_criticality)
-    output["Fonte"] = output["source_data"]
-    output["Interpretação"] = output["interpretation"]
-    output["Limitação"] = output["limitation"]
+    output["Leitura prática"] = output["interpretation"]
+    output["Alerta"] = output["limitation"]
     output["Estado"] = output["state"].map(_format_risk_metric_state)
-    return output[["Métrica", "Valor", "Criticidade", "Fonte", "Interpretação", "Limitação", "Estado"]]
+    return output[["Métrica", "Valor", "Criticidade", "Leitura prática", "Alerta", "Estado"]]
 
 
 def _format_risk_metrics_memory_table(metrics_df: pd.DataFrame) -> pd.DataFrame:
