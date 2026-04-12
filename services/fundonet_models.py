@@ -26,6 +26,9 @@ class DocumentoFundo:
     status: str
     fundo_ou_classe: Optional[str]
     raw: Dict[str, Any]
+    nome_administrador: Optional[str] = None
+    nome_custodiante: Optional[str] = None
+    nome_gestor: Optional[str] = None
 
     @property
     def competencia(self) -> Optional[date]:

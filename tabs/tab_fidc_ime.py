@@ -540,7 +540,6 @@ def _update_progress_bar(progress_bar, value: float, message: str) -> None:
 
 
 def render_tab_fidc_ime() -> None:
-    st.subheader("tomaconta FIDCs")
     st.caption(
         "Painel de acompanhamento para comprador de cotas seniores a partir dos Informes Mensais da CVM. "
         "Informe o CNPJ, escolha a janela e carregue a análise."
@@ -549,14 +548,25 @@ def render_tab_fidc_ime() -> None:
     today = date.today()
     default_end = date(today.year, today.month, 1)
     default_start = date(default_end.year - 1, default_end.month, 1)
+    month_options = _build_month_options(default_end, months_back=240)
 
     col1, col2, col3 = st.columns([2, 1, 1])
     with col1:
         cnpj_input = st.text_input("CNPJ do fundo", placeholder="00.000.000/0000-00")
     with col2:
-        competencia_inicial = st.date_input("Competência inicial", value=default_start)
+        competencia_inicial = st.selectbox(
+            "Competência inicial",
+            options=month_options,
+            index=month_options.index(default_start) if default_start in month_options else max(len(month_options) - 13, 0),
+            format_func=_format_month_option_label,
+        )
     with col3:
-        competencia_final = st.date_input("Competência final", value=default_end)
+        competencia_final = st.selectbox(
+            "Competência final",
+            options=month_options,
+            index=month_options.index(default_end) if default_end in month_options else len(month_options) - 1,
+            format_func=_format_month_option_label,
+        )
 
     load_clicked = st.button("Carregar Informes Mensais", type="primary")
     stored_result = st.session_state.get("fidc_last_result")
@@ -751,7 +761,7 @@ def _render_dashboard(
 def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
     left, right = st.columns([2.2, 1])
     with left:
-        st.caption("Leitura executiva. Os gráficos mostram rótulos automaticamente apenas quando isso ajuda a leitura.")
+        st.caption("Os gráficos mostram rótulos automaticamente apenas quando isso ajuda a leitura.")
     with right:
         _render_pdf_export_button(dashboard, context)
 
@@ -971,7 +981,7 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
         "Vencimento dos direitos creditórios",
         "Distribuição do prazo da carteira na competência mais recente.",
     )
-    _render_chart_heading(st, f"Prazo de vencimento em {dashboard.latest_competencia}")
+    _render_chart_heading(st, f"Prazo de vencimento em {_format_competencia_label(dashboard.latest_competencia)}")
     st.altair_chart(
         _bar_chart(
             dashboard.maturity_latest_df,
@@ -1016,16 +1026,11 @@ def _render_audit_section(dashboard: FundonetDashboardData) -> None:
 
 def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
     info = dashboard.fund_info
-    dominant_segment = ""
-    if not dashboard.segment_latest_df.empty and "valor" in dashboard.segment_latest_df.columns:
-        dominant_segment = str(
-            dashboard.segment_latest_df.sort_values("valor", ascending=False).iloc[0].get("segmento") or ""
-        )
     pills = [
-        ("Condomínio", info.get("condominio", "N/D")),
-        ("Estrutura subordinada", info.get("estrutura_subordinada", "N/D")),
-        ("Segmento CVM", dominant_segment or "N/D"),
         ("Cotistas", info.get("total_cotistas", "N/D")),
+        ("Administrador", info.get("nome_administrador", "N/D")),
+        ("Custodiante", info.get("nome_custodiante", "N/D")),
+        ("Gestor", info.get("nome_gestor", "N/D")),
     ]
     pills_html = "\n".join(
         f'<span class="fidc-pill"><strong>{escape(label)}:</strong> {escape(str(value or "N/D"))}</span>'
@@ -1044,13 +1049,10 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
         if value
     )
     title = info.get("nome_fundo") or info.get("nome_classe") or "FIDC selecionado"
-    subtitle = info.get("nome_classe") or info.get("fundo_ou_classe") or "Informe Mensal Estruturado"
     st.markdown(
         f"""
 <div class="fidc-hero">
-  <div class="fidc-hero__kicker">Informe Mensal CVM · visão atual</div>
   <div class="fidc-hero__title">{escape(str(title))}</div>
-  <div class="fidc-section-caption">{escape(str(subtitle))}</div>
   <div class="fidc-hero__meta">{pills_html}</div>
   {f'<div class="fidc-hero__participantes">{participantes_html}</div>' if participantes_html else ""}
 </div>
@@ -1064,8 +1066,8 @@ def _render_dashboard_context_bar(dashboard: FundonetDashboardData) -> None:
     st.markdown(
         f"""
 <div class="fidc-period-bar">
-  <span><strong>Última competência:</strong> {escape(str(info.get("ultima_competencia") or "N/D"))}</span>
-  <span><strong>Janela:</strong> {escape(str(info.get("periodo_analisado") or "N/D"))}</span>
+  <span><strong>Última competência:</strong> {escape(_format_competencia_label(info.get("ultima_competencia") or "N/D"))}</span>
+  <span><strong>Janela:</strong> {escape(_format_competencia_period(info.get("periodo_analisado") or "N/D"))}</span>
   <span><strong>Informes carregados:</strong> {escape(str(len(dashboard.competencias)))}</span>
   <span><strong>Última entrega:</strong> {escape(str(info.get("ultima_entrega") or "N/D"))}</span>
 </div>
@@ -1078,6 +1080,66 @@ def _render_chart_heading(container, title: str, caption: str | None = None) -> 
     container.markdown(f'<div class="fidc-chart-title">{escape(title)}</div>', unsafe_allow_html=True)
     if caption:
         container.markdown(f'<div class="fidc-chart-caption">{escape(caption)}</div>', unsafe_allow_html=True)
+
+
+def _format_competencia_label(value: object) -> str:
+    if value is None:
+        return "N/D"
+    raw = str(value).strip()
+    if not raw:
+        return "N/D"
+    month_names = {
+        1: "jan",
+        2: "fev",
+        3: "mar",
+        4: "abr",
+        5: "mai",
+        6: "jun",
+        7: "jul",
+        8: "ago",
+        9: "set",
+        10: "out",
+        11: "nov",
+        12: "dez",
+    }
+    if re.fullmatch(r"\d{2}/\d{4}", raw):
+        month = int(raw[:2])
+        year = raw[-2:]
+        return f"{month_names.get(month, raw[:2])}-{year}"
+    try:
+        parsed = pd.Timestamp(raw)
+        return f"{month_names.get(int(parsed.month), parsed.strftime('%m'))}-{str(parsed.year)[-2:]}"
+    except Exception:  # noqa: BLE001
+        return raw
+
+
+def _format_competencia_period(value: object) -> str:
+    raw = str(value or "").strip()
+    if " a " not in raw:
+        return _format_competencia_label(raw)
+    start, end = raw.split(" a ", 1)
+    return f"{_format_competencia_label(start)} a {_format_competencia_label(end)}"
+
+
+def _shift_month(base: date, offset_months: int) -> date:
+    month_index = (base.year * 12 + (base.month - 1)) + offset_months
+    year = month_index // 12
+    month = (month_index % 12) + 1
+    return date(year, month, 1)
+
+
+def _build_month_options(end_month: date, *, months_back: int) -> list[date]:
+    start_month = _shift_month(end_month, -months_back)
+    options: list[date] = []
+    current = start_month
+    while current <= end_month:
+        options.append(current)
+        current = _shift_month(current, 1)
+    return options
+
+
+def _format_month_option_label(value: date) -> str:
+    return _format_competencia_label(value.isoformat())
 
 
 def _render_concentration_warning(container, segment_latest_df: pd.DataFrame) -> None:
@@ -1316,9 +1378,9 @@ def _render_inadimplencia_overview_card(dashboard: FundonetDashboardData) -> str
     if trailing_mean is not None and not pd.isna(trailing_mean):
         note_parts.append(f"Média 12 meses: {_format_percent(trailing_mean)}")
     tooltip_lines = [
-        "Fonte: Informe Mensal -> APLIC_ATIVO/CRED_EXISTE + APLIC_ATIVO/DICRED",
-        "Fórmula: direitos creditórios vencidos / total de direitos creditórios * 100",
-        "Limitação: depende da classificação e do reporte do administrador; não substitui perda esperada ou leitura por devedor.",
+        "Fonte: Informe Mensal -> quadro de prazo de vencimento dos direitos creditórios, com fallback para o aging de inadimplência.",
+        "Fórmula: créditos vencidos / total de direitos creditórios reportado na mesma malha de vencimento * 100",
+        "Limitação: depende do preenchimento consistente dos quadros de vencidos e vencimento; não substitui perda esperada ou leitura por devedor.",
     ]
     return _render_fidc_card(
         "Inadimplência",
@@ -2077,7 +2139,7 @@ def _point_label_layer(
         return None
     return (
         alt.Chart(chart_df)
-        .mark_text(dy=-10, fontSize=11, color=color, stroke="#ffffff", strokeWidth=2)
+        .mark_text(dy=-10, fontSize=11, color=color, stroke="#ffffff", strokeWidth=2, clip=False)
         .encode(
             x=x_encoding,
             y=y_encoding,
@@ -2330,7 +2392,7 @@ def _stacked_share_column_chart(
     labels_df = chart_df.copy()
     labels = (
         alt.Chart(labels_df)
-        .mark_text(fontSize=label_font_size, fontWeight=600)
+        .mark_text(fontSize=label_font_size, fontWeight=600, clip=False)
         .encode(
             x=x_encoding,
             y=alt.Y(f"{percent_column}:Q", stack="center", title="% do total"),

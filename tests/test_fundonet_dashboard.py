@@ -68,6 +68,9 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertEqual("12345678000190", dashboard.fund_info["cnpj_fundo"])
         self.assertEqual("Teste FIDC RL", dashboard.fund_info["nome_fundo"])
         self.assertEqual("FECHADO", dashboard.fund_info["condominio"])
+        self.assertEqual("Oliveira Trust", dashboard.fund_info["nome_administrador"])
+        self.assertEqual("Banco Daycoval", dashboard.fund_info["nome_custodiante"])
+        self.assertEqual("JGP", dashboard.fund_info["nome_gestor"])
         self.assertEqual("12/2025 a 01/2026", dashboard.fund_info["periodo_analisado"])
 
     def test_build_dashboard_data_uses_dicred_total_and_exposes_cvm_tables(self) -> None:
@@ -161,7 +164,7 @@ class FundonetDashboardTests(unittest.TestCase):
             {"Risco de crédito", "Risco estrutural"},
             set(dashboard.risk_metrics_df["risk_block"]),
         )
-        self.assertTrue(pd.isna(risk_lookup.loc["inadimplencia_pct", "value"]))
+        self.assertAlmostEqual(35.0, risk_lookup.loc["inadimplencia_pct", "value"])
         self.assertAlmostEqual(100.0, risk_lookup.loc["concentracao_segmento_proxy", "value"])
         self.assertEqual("critico", risk_lookup.loc["subordinacao_pct", "criticality"])
         self.assertIn("Índice de cobertura", dashboard.coverage_gap_df["tema"].tolist())
@@ -172,6 +175,7 @@ class FundonetDashboardTests(unittest.TestCase):
         )
         self.assertAlmostEqual(2000.0, dashboard.liquidity_history_df.iloc[0]["liquidez_imediata"])
         self.assertAlmostEqual(100.0, dashboard.default_buckets_latest_df["percentual"].sum())
+        self.assertAlmostEqual(20.0, dashboard.summary["inadimplencia_denominador"] or 0.0)
 
     def test_build_dashboard_data_preserves_missing_history_as_nan(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -581,6 +585,9 @@ class FundonetDashboardTests(unittest.TestCase):
                 "data_entrega": "20/01/2026 09:00",
                 "fundo_ou_classe": "Classe",
                 "nome_fundo": "Teste FIDC RL",
+                "nome_administrador": "Oliveira Trust",
+                "nome_custodiante": "Banco Daycoval",
+                "nome_gestor": "JGP",
                 "processamento": "ok",
             },
             {
@@ -589,6 +596,9 @@ class FundonetDashboardTests(unittest.TestCase):
                 "data_entrega": "20/02/2026 09:00",
                 "fundo_ou_classe": "Classe",
                 "nome_fundo": "Teste FIDC RL",
+                "nome_administrador": "Oliveira Trust",
+                "nome_custodiante": "Banco Daycoval",
+                "nome_gestor": "JGP",
                 "processamento": "ok",
             },
         ]
@@ -793,6 +803,9 @@ class FundonetDashboardTests(unittest.TestCase):
                 "data_entrega": "20/03/2026 09:00",
                 "fundo_ou_classe": "Classe",
                 "nome_fundo": "Seller FIDC",
+                "nome_administrador": "Oliveira Trust",
+                "nome_custodiante": "Banco Daycoval",
+                "nome_gestor": "JGP",
                 "processamento": "ok",
             }
         ]

@@ -437,6 +437,67 @@ def _direitos_creditorios_series(wide_lookup: pd.DataFrame, competencias: list[s
     return primary.combine_first(legacy)
 
 
+def _sum_paths_series_nullable(
+    wide_lookup: pd.DataFrame,
+    competencias: list[str],
+    tag_paths: list[str],
+) -> pd.Series:
+    if not tag_paths:
+        return pd.Series([float("nan")] * len(competencias), index=competencias, dtype="float64")
+    parts = [_numeric_series_nullable(wide_lookup, competencias, tag_path) for tag_path in tag_paths]
+    return pd.concat(parts, axis=1).sum(axis=1, min_count=1)
+
+
+def _maturity_future_series(wide_lookup: pd.DataFrame, competencias: list[str]) -> pd.Series:
+    future_suffixes = [
+        "VL_PRAZO_VENC_30",
+        "VL_PRAZO_VENC_31_60",
+        "VL_PRAZO_VENC_61_90",
+        "VL_PRAZO_VENC_91_120",
+        "VL_PRAZO_VENC_121_150",
+        "VL_PRAZO_VENC_151_180",
+        "VL_PRAZO_VENC_181_360",
+        "VL_PRAZO_VENC_361_720",
+        "VL_PRAZO_VENC_721_1080",
+        "VL_PRAZO_VENC_1080",
+    ]
+    paths = [
+        f"DOC_ARQ/LISTA_INFORM/{base}/{suffix}"
+        for suffix in future_suffixes
+        for base in ["COMPMT_DICRED_AQUIS", "COMPMT_DICRED_SEM_AQUIS"]
+    ]
+    return _sum_paths_series_nullable(wide_lookup, competencias, paths)
+
+
+def _maturity_overdue_series(wide_lookup: pd.DataFrame, competencias: list[str]) -> pd.Series:
+    paths = [
+        f"DOC_ARQ/LISTA_INFORM/{base}/VL_SOM_INAD_VENC"
+        for base in ["COMPMT_DICRED_AQUIS", "COMPMT_DICRED_SEM_AQUIS"]
+    ]
+    return _sum_paths_series_nullable(wide_lookup, competencias, paths)
+
+
+def _default_aging_total_series(wide_lookup: pd.DataFrame, competencias: list[str]) -> pd.Series:
+    suffixes = [
+        "VL_INAD_VENC_30",
+        "VL_INAD_VENC_31_60",
+        "VL_INAD_VENC_61_90",
+        "VL_INAD_VENC_91_120",
+        "VL_INAD_VENC_121_150",
+        "VL_INAD_VENC_151_180",
+        "VL_INAD_VENC_181_360",
+        "VL_INAD_VENC_361_720",
+        "VL_INAD_VENC_721_1080",
+        "VL_INAD_VENC_1080",
+    ]
+    paths = [
+        f"DOC_ARQ/LISTA_INFORM/{base}/{suffix}"
+        for suffix in suffixes
+        for base in ["COMPMT_DICRED_AQUIS", "COMPMT_DICRED_SEM_AQUIS"]
+    ]
+    return _sum_paths_series_nullable(wide_lookup, competencias, paths)
+
+
 def _build_fund_info(
     *,
     wide_lookup: pd.DataFrame,
@@ -457,17 +518,43 @@ def _build_fund_info(
 
     cnpj_fundo = wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_FUNDO")
     participantes = fetch_fidc_participantes(cnpj_fundo)
+    def doc_value(*columns: str) -> str:
+        for column in columns:
+            value = _display_value(latest_doc.get(column, ""))
+            if value != "N/D":
+                return value
+        return "N/D"
+
+    def wide_first_matching(patterns: list[str]) -> str:
+        if "tag_path" not in wide_lookup.columns:
+            return "N/D"
+        index_values = [str(value) for value in wide_lookup.index.tolist()]
+        for pattern in patterns:
+            regex = re.compile(pattern, re.IGNORECASE)
+            for tag_path in index_values:
+                if regex.search(tag_path):
+                    return wide_value(tag_path)
+        return "N/D"
     return {
         "nome_fundo": _display_value(latest_doc.get("nome_fundo", "")),
         "fundo_ou_classe": _display_value(latest_doc.get("fundo_ou_classe", "")),
         "cnpj_fundo": cnpj_fundo,
         "cnpj_classe": wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_CLASSE"),
         "cnpj_administrador": wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_ADM"),
-        "nm_admin": participantes["nm_admin"],
-        "nm_gestor": participantes["nm_gestor"],
-        "nm_custodiante": participantes["nm_custodiante"],
+        "nm_admin": participantes["nm_admin"] or None,
+        "nm_gestor": participantes["nm_gestor"] or None,
+        "nm_custodiante": participantes["nm_custodiante"] or None,
         "cnpj_gestor": participantes["cnpj_gestor"],
         "cnpj_custodiante": participantes["cnpj_custodiante"],
+        "nome_administrador": doc_value("nome_administrador", "administrador", "nomeAdministrador")
+        if doc_value("nome_administrador", "administrador", "nomeAdministrador") != "N/D"
+        else participantes["nm_admin"] or wide_first_matching([r"/NM_.*ADM", r"/NOME_.*ADM", r"/DENOM.*ADM", r"/RAZAO.*ADM"]),
+        "nome_custodiante": doc_value("nome_custodiante", "custodiante", "nomeCustodiante")
+        if doc_value("nome_custodiante", "custodiante", "nomeCustodiante") != "N/D"
+        else participantes["nm_custodiante"] or wide_first_matching([r"/NM_.*CUST", r"/NOME_.*CUST", r"/DENOM.*CUST", r"/RAZAO.*CUST"]),
+        "nome_gestor": doc_value("nome_gestor", "gestor", "nomeGestor")
+        if doc_value("nome_gestor", "gestor", "nomeGestor") != "N/D"
+        else participantes["nm_gestor"] or wide_first_matching([r"/NM_.*GEST", r"/NOME_.*GEST", r"/DENOM.*GEST", r"/RAZAO.*GEST"]),
         "nome_classe": wide_value("DOC_ARQ/CAB_INFORM/NM_CLASSE"),
         "condominio": wide_value("DOC_ARQ/CAB_INFORM/TP_CONDOMINIO"),
         "classe_unica": wide_value("DOC_ARQ/CAB_INFORM/CLASS_UNICA"),
@@ -538,6 +625,7 @@ def _build_summary(
         "liquidez_30": _materialize_status_value(liquidez_30_value, liquidez_30_status),
         "subordinacao_pct": _float_or_none(subordination_row.get("subordinacao_pct")),
         "inadimplencia_total": _float_or_none(default_row.get("inadimplencia_total")),
+        "inadimplencia_denominador": _float_or_none(default_row.get("direitos_creditorios")),
         "inadimplencia_pct": _float_or_none(default_row.get("inadimplencia_pct")),
         "provisao_total": _float_or_none(default_row.get("provisao_total")),
         "emissao_mes": _sum_event_metric(latest_events_df, "emissao", "valor_total"),
@@ -930,8 +1018,8 @@ def _build_default_history(
     wide_lookup: pd.DataFrame,
     competencias: list[str],
 ) -> pd.DataFrame:
-    direitos_creditorios = _direitos_creditorios_series(wide_lookup, competencias)
-    inadimplencia_total = pd.concat(
+    direitos_creditorios_ativo = _direitos_creditorios_series(wide_lookup, competencias)
+    inadimplencia_total_base = pd.concat(
         [
             _numeric_series_nullable(
                 wide_lookup,
@@ -946,6 +1034,16 @@ def _build_default_history(
         ],
         axis=1,
     ).sum(axis=1, min_count=1)
+    inadimplencia_total_prazo = _maturity_overdue_series(wide_lookup, competencias)
+    inadimplencia_total_aging = _default_aging_total_series(wide_lookup, competencias)
+    inadimplencia_total = inadimplencia_total_base.combine_first(inadimplencia_total_prazo).combine_first(inadimplencia_total_aging)
+    direitos_creditorios_futuro = _maturity_future_series(wide_lookup, competencias)
+    direitos_creditorios_vencidos = inadimplencia_total_prazo.combine_first(inadimplencia_total_aging)
+    direitos_creditorios_total = pd.concat(
+        [direitos_creditorios_vencidos, direitos_creditorios_futuro],
+        axis=1,
+    ).sum(axis=1, min_count=1)
+    direitos_creditorios = direitos_creditorios_total.combine_first(direitos_creditorios_ativo)
     provisao_total = pd.concat(
         [
             _numeric_series_nullable(
@@ -981,6 +1079,8 @@ def _build_default_history(
         {
             "competencia": competencias,
             "competencia_dt": [_competencia_to_timestamp(competencia) for competencia in competencias],
+            "direitos_creditorios_ativo": direitos_creditorios_ativo.values,
+            "direitos_creditorios_vencimento_total": direitos_creditorios_total.values,
             "direitos_creditorios": direitos_creditorios.values,
             "inadimplencia_total": inadimplencia_total.values,
             "provisao_total": provisao_total.values,
@@ -1187,7 +1287,9 @@ def _build_tracking_latest_df(
     asset_row = _latest_row(asset_history_df, latest_competencia)
     aquisicoes = _float_or_none(asset_row.get("aquisicoes")) or 0.0
     alienacoes = _float_or_none(asset_row.get("alienacoes")) or 0.0
-    direitos_creditorios = _float_or_none(summary.get("direitos_creditorios"))
+    direitos_creditorios = _float_or_none(summary.get("inadimplencia_denominador"))
+    if direitos_creditorios is None or direitos_creditorios <= 0:
+        direitos_creditorios = _float_or_none(summary.get("direitos_creditorios"))
     provisao_total = _float_or_none(summary.get("provisao_total")) or 0.0
     inadimplencia_total = _float_or_none(summary.get("inadimplencia_total")) or 0.0
     pl_total = _float_or_none(summary.get("pl_total"))

@@ -14,7 +14,7 @@ st.caption("Monitoramento de risco por IME, modelo econômico e base de conhecim
 
 
 tab_informes, tab_modelo, tab_book = st.tabs(
-    ["tomaconta FIDCs", "Modelo FIDC", "Glossário / Book FIDC"]
+    ["Informe Mensal Estruturado", "Modelo FIDC", "Glossário / Book FIDC"]
 )
 
 with tab_informes:
