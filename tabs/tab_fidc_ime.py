@@ -400,7 +400,7 @@ def _format_error_category(exc: Exception) -> str:
         if name == "FundoNotFoundError":
             return "CNPJ não localizado no contexto público"
         if name == "NoDocumentsFoundError":
-            return "Sem IMEs no intervalo solicitado"
+            return "Sem Informes Mensais no intervalo solicitado"
         if name == "DocumentParseError":
             return "XML baixado, porém inválido/incompatível"
     if isinstance(exc, ValueError):
@@ -442,7 +442,7 @@ def _render_failure_diagnostics(exc: Exception, tb_text: str, context: dict[str,
     st.subheader("Diagnóstico técnico")
     checklist = [
         "Validar se o CNPJ possui 14 dígitos e corresponde a um FIDC ativo no Fundos.NET.",
-        "Conferir se há IMEs públicos no intervalo de competência informado.",
+        "Conferir se há Informes Mensais públicos no intervalo de competência informado.",
         "Checar se houve mudança de contrato no endpoint de listagem/download.",
         "Inspecionar status HTTP e corpo de resposta prefixado em detalhes_provedor.",
         "Comparar a trilha de auditoria para identificar a etapa exata da quebra.",
@@ -484,8 +484,8 @@ def _update_progress_bar(progress_bar, value: float, message: str) -> None:
 def render_tab_fidc_ime() -> None:
     st.subheader("tomaconta FIDCs")
     st.caption(
-        "Monitoramento de risco por IME/CVM para comprador de cotas seniores. "
-        "Informe um CNPJ, escolha a janela de competências e gere a base auditável em Excel."
+        "Painel de acompanhamento para comprador de cotas seniores a partir dos Informes Mensais da CVM. "
+        "Informe o CNPJ, escolha a janela e carregue a análise."
     )
 
     today = date.today()
@@ -500,7 +500,11 @@ def render_tab_fidc_ime() -> None:
     with col3:
         competencia_final = st.date_input("Competência final", value=default_end)
 
-    if not st.button("Extrair IMEs e gerar Excel", type="primary"):
+    load_clicked = st.button("Carregar Informes Mensais", type="primary")
+    stored_result = st.session_state.get("fidc_last_result")
+    stored_context = st.session_state.get("fidc_last_context")
+
+    if not load_clicked and stored_result is None:
         return
 
     if competencia_inicial > competencia_final:
@@ -516,41 +520,54 @@ def render_tab_fidc_ime() -> None:
         "competencia_final": competencia_final.isoformat(),
     }
 
-    status_box = st.empty()
-    try:
-        progress = _init_progress_bar(0.0, "Preparando execução...", status_box=status_box)
-    except TypeError:
-        progress = _init_progress_bar(0.0, "Preparando execução...")
-        status_box.caption("Preparando execução...")
+    progress = None
+    status_box = None
+    if load_clicked:
+        status_box = st.empty()
+        try:
+            progress = _init_progress_bar(0.0, "Preparando execução...", status_box=status_box)
+        except TypeError:
+            progress = _init_progress_bar(0.0, "Preparando execução...")
+            status_box.caption("Preparando execução...")
 
-    def report_progress(current: int, total: int, message: str) -> None:
-        fraction = 0.0 if total <= 0 else min(1.0, max(0.0, current / total))
-        _update_progress_bar(progress, fraction, message)
-        status_box.caption(message)
+        def report_progress(current: int, total: int, message: str) -> None:
+            fraction = 0.0 if total <= 0 else min(1.0, max(0.0, current / total))
+            _update_progress_bar(progress, fraction, message)
+            status_box.caption(message)
 
-    service = InformeMensalService()
-    try:
-        result = service.run(
-            cnpj_fundo=cnpj_input,
-            data_inicial=competencia_inicial,
-            data_final=competencia_final,
-            progress_callback=report_progress,
-        )
-    except Exception as exc:  # noqa: BLE001
-        progress.empty()
-        status_box.empty()
-        tb_text = traceback.format_exc()
-        _render_failure_diagnostics(exc, tb_text, context)
-        return
+        service = InformeMensalService()
+        try:
+            result = service.run(
+                cnpj_fundo=cnpj_input,
+                data_inicial=competencia_inicial,
+                data_final=competencia_final,
+                progress_callback=report_progress,
+            )
+        except Exception as exc:  # noqa: BLE001
+            progress.empty()
+            status_box.empty()
+            tb_text = traceback.format_exc()
+            _render_failure_diagnostics(exc, tb_text, context)
+            return
 
-    _update_progress_bar(progress, 1.0, "Concluído.")
-    status_box.caption("Processamento concluído.")
-    _render_execution_observability(context, elapsed_seconds=time.perf_counter() - start_ts)
+        elapsed_seconds = time.perf_counter() - start_ts
+        context["elapsed_seconds"] = round(elapsed_seconds, 3)
+        st.session_state["fidc_last_result"] = result
+        st.session_state["fidc_last_context"] = context
+        _update_progress_bar(progress, 1.0, "Concluído.")
+        status_box.caption("Processamento concluído.")
+    else:
+        result = stored_result
+        context = dict(stored_context or {})
+
+    _render_execution_observability(context, elapsed_seconds=context.get("elapsed_seconds"))
     try:
         _render_result(result, context)
     except Exception as exc:  # noqa: BLE001
-        progress.empty()
-        status_box.empty()
+        if progress is not None:
+            progress.empty()
+        if status_box is not None:
+            status_box.empty()
         tb_text = traceback.format_exc()
         render_context = dict(context)
         render_context["etapa"] = "renderizacao_resultado"
@@ -594,7 +611,6 @@ def _validate_result_contract(result: InformeMensalResult) -> dict[str, list[str
 
 
 def _render_execution_observability(context: dict[str, Any], elapsed_seconds: float | None = None) -> None:
-    st.caption(f"Execução: {context.get('request_id', 'N/D')}")
     with st.expander("Observabilidade da execução", expanded=False):
         payload = dict(context)
         if elapsed_seconds is not None:
@@ -634,7 +650,7 @@ def _render_dashboard(result: InformeMensalResult, context: dict[str, Any]) -> N
     _render_credit_risk_section(dashboard)
     _render_structural_risk_section(dashboard)
     _render_liquidity_risk_section(dashboard)
-    _render_operational_risk_section(dashboard)
+    _render_glossary_section(dashboard)
     _render_audit_section(dashboard)
 
     with st.expander("Notas metodológicas", expanded=False):
@@ -646,10 +662,10 @@ def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[s
     left, right = st.columns([1.25, 1])
     with left:
         st.toggle(
-            "Mostrar data labels nos gráficos",
+            "Mostrar rótulos de valor nos gráficos",
             value=False,
             key="fidc_chart_labels",
-            help="Ativa labels visuais nos gráficos. Quando ligado, os rótulos priorizam legibilidade e evitam excesso de texto.",
+            help="Mostra os valores mais relevantes nos gráficos sem recarregar a extração.",
         )
     with right:
         _render_pdf_export_button(dashboard, context)
@@ -658,24 +674,19 @@ def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[s
 def _render_risk_overview(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section(
         "Radar de risco",
-        "Leitura rápida para comprador de cotas seniores: crédito, estrutura e liquidez no IME mais recente.",
+        "Leitura rápida para comprador de cotas seniores na competência mais recente.",
     )
     _render_section_callout(
         question="A fotografia mais recente mostra erosão de proteção sênior, pressão de liquidez ou degradação de carteira?",
-        ime_scope="O IME cobre inadimplência, provisão, subordinação, liquidez reportada e eventos de cotas.",
-        caution="Cobertura, reservas, triggers, lastro, rating e qualidade do cedente continuam fora do IME.",
+        ime_scope="O Informe Mensal cobre inadimplência, provisão, subordinação e eventos de cotas.",
+        caution="Cobertura, reservas, triggers, lastro, rating e qualidade do cedente exigem documentação complementar.",
     )
     metric_lookup = dashboard.risk_metrics_df.set_index("metric_id", drop=False)
     hero_card_ids = [
         "subordinacao_pct",
         "inadimplencia_pct",
-        "liquidez_30_pct_pl",
-        "resgate_solicitado_pct_pl",
-    ]
-    supporting_card_ids = [
-        "alocacao_pct",
         "provisao_pct_inadimplencia",
-        "liquidez_imediata_pct_pl",
+        "concentracao_segmento_proxy",
     ]
 
     hero_cards = [
@@ -683,34 +694,18 @@ def _render_risk_overview(dashboard: FundonetDashboardData) -> None:
         for metric_id in hero_card_ids
         if metric_id in metric_lookup.index
     ]
-    supporting_cards = [
-        _render_risk_card(dashboard, metric_lookup.loc[metric_id])
-        for metric_id in supporting_card_ids
-        if metric_id in metric_lookup.index
-    ]
-    supporting_cards.append(
-        _render_fidc_card(
-            "Camadas críticas fora do IME",
-            str(len(dashboard.coverage_gap_df)),
-            "Cobertura, reservas, gatilhos, rating, lastro e covenants exigem fonte complementar.",
-            variant="neutral",
-            note="O IME é camada-base, não substitui regulamento, relatório mensal, rating e documentação operacional.",
-            badges=[("Fonte complementar", "neutral")],
-        )
-    )
     st.markdown(_render_fidc_grid(hero_cards, "fidc-grid--hero"), unsafe_allow_html=True)
-    st.markdown(_render_fidc_grid(supporting_cards, "fidc-grid--supporting"), unsafe_allow_html=True)
 
 
 def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section(
         "Risco de crédito",
-        "Estresse da carteira, provisionamento e concentração proxy com base no IME.",
+        "Inadimplência, provisão e concentração setorial para leitura recorrente.",
     )
     _render_section_callout(
         question="A deterioração da carteira está acelerando e consumindo o colchão antes da sênior?",
-        ime_scope="Use inadimplência, provisão, aging e concentração setorial como sinais observáveis no IME.",
-        caution="Não tratar esse bloco como substituto de perda esperada, FPD, recompras, resolução de cessão ou concentração por devedor.",
+        ime_scope="Use inadimplência, provisão, aging e concentração setorial como sinais observáveis no Informe Mensal.",
+        caution="Não tratar esse bloco como substituto de perda esperada, recompras, resolução de cessão ou concentração por devedor.",
     )
     top_left, top_right = st.columns([1.25, 1])
     top_left.dataframe(
@@ -719,55 +714,65 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         hide_index=True,
     )
     if dashboard.segment_latest_df.empty:
-        top_right.info("O IME mais recente não trouxe composição setorial positiva da carteira.")
+        top_right.info("O Informe Mensal mais recente não trouxe composição setorial positiva da carteira.")
     else:
         top_right.altair_chart(
-            _horizontal_bar_chart(
-                dashboard.segment_latest_df,
+            _percent_bar_chart(
+                dashboard.segment_latest_df.sort_values("percentual", ascending=False),
                 category_column="segmento",
+                percent_column="percentual",
+                title="Concentração setorial",
                 value_column="valor",
-                title="Concentração setorial proxy",
             ),
             use_container_width=True,
         )
 
     bottom_left, bottom_right = st.columns(2)
+    default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
     bottom_left.altair_chart(
         _line_history_chart(
-            _melt_metrics(
-                dashboard.default_history_df,
-                ["inadimplencia_total", "provisao_total", "pendencia_total"],
-                {
-                    "inadimplencia_total": "Inadimplência",
-                    "provisao_total": "Provisão",
-                    "pendencia_total": "Pendências",
-                },
-            ),
-            title="Saldos de crédito problemático",
-            y_title="R$",
+            default_pct_chart_df,
+            title="Crédito problemático (% dos direitos creditórios)",
+            y_title="%",
         ),
         use_container_width=True,
     )
+    latest_default_row = dashboard.default_history_df.sort_values("competencia_dt").iloc[-1] if not dashboard.default_history_df.empty else None
+    if latest_default_row is not None:
+        bottom_left.caption(
+            "Última competência: "
+            f"Inadimplência {_format_brl_compact(latest_default_row.get('inadimplencia_total'))} · "
+            f"Provisão {_format_brl_compact(latest_default_row.get('provisao_total'))}"
+        )
     bottom_right.altair_chart(
-        _bar_chart(
+        _percent_bar_chart(
             dashboard.default_buckets_latest_df,
-            x_column="faixa",
-            y_column="valor",
+            category_column="faixa",
+            percent_column="percentual",
             title=f"Aging da inadimplência em {dashboard.latest_competencia}",
-            y_title="R$",
+            value_column="valor",
         ),
         use_container_width=True,
+    )
+    bottom_right.dataframe(
+        _format_value_percent_table(
+            dashboard.default_buckets_latest_df,
+            label_column="faixa",
+            label_title="Faixa",
+        ),
+        use_container_width=True,
+        hide_index=True,
     )
 
 
 def _render_structural_risk_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section(
         "Risco estrutural",
-        "Subordinação, alocação e leitura da arquitetura das cotas. O painel separa o que vem do IME do que depende de regulamento.",
+        "Subordinação e leitura da arquitetura das cotas.",
     )
     _render_section_callout(
         question="O colchão estrutural reportado parece suficiente para a fotografia atual da carteira?",
-        ime_scope="O IME cobre subordinação, PL por classe e parte da remuneração/benchmark das cotas.",
+        ime_scope="O Informe Mensal cobre subordinação, PL por classe e parte da remuneração das cotas.",
         caution="Subordinação reportada não substitui cobertura, reservas, excesso de spread, waterfall contratual nem gatilhos estruturais.",
     )
     top_left, top_right = st.columns([1.15, 1])
@@ -791,68 +796,44 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData) -> None:
 
     bottom_left, bottom_right = st.columns(2)
     bottom_left.altair_chart(
-        _stacked_area_chart(
-            dashboard.quota_pl_history_df,
+        _line_history_chart(
+            _quota_pl_chart_frame(dashboard.quota_pl_history_df),
             title="Patrimônio líquido das cotas",
-            value_column="pl",
             y_title="R$",
         ),
         use_container_width=True,
     )
-    if not dashboard.performance_vs_benchmark_latest_df.empty:
+    bottom_right.dataframe(
+        _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia),
+        use_container_width=True,
+        hide_index=True,
+    )
+    if _has_meaningful_benchmark(dashboard.performance_vs_benchmark_latest_df):
         bottom_right.dataframe(
             _format_performance_benchmark_table(dashboard.performance_vs_benchmark_latest_df),
             use_container_width=True,
             hide_index=True,
         )
-    else:
-        bottom_right.info("O IME não trouxe quadro de benchmark x realizado para a competência mais recente.")
-
-    latest_quota_df = _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia)
-    if not latest_quota_df.empty:
-        st.caption(f"Quadro de cotas em {dashboard.latest_competencia}")
-        st.dataframe(latest_quota_df, use_container_width=True, hide_index=True)
 
 
 def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section(
-        "Risco de liquidez e funding",
-        "Liquidez reportada, vencimentos e fluxos de cotas. A interpretação econômica dos eventos preserva o sinal do caixa.",
+        "Eventos de cotas e vencimento",
+        "O que entrou ou saiu de caixa nas cotas e como está distribuído o vencimento dos direitos creditórios.",
     )
     _render_section_callout(
-        question="O caixa aparente e o perfil de vencimento sustentam a pressão corrente de amortizações, resgates e pedidos?",
-        ime_scope="O IME cobre buckets de liquidez, vencimento de direitos creditórios e eventos de cotas do mês.",
-        caution="A semântica dos buckets de liquidez pode variar entre fundos; a leitura precisa ser confrontada com relatório mensal e cronograma das emissões.",
+        question="Os eventos do mês e o perfil de vencimento ajudam a contextualizar a dinâmica recente da estrutura?",
+        ime_scope="O Informe Mensal cobre vencimento dos direitos creditórios e eventos de emissão, resgate e amortização.",
+        caution="O cronograma contratual completo das cotas continua dependendo da documentação da emissão.",
     )
-    top_left, top_right = st.columns([1.15, 1])
+    top_left, top_right = st.columns([1.1, 1])
     top_left.dataframe(
-        _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco de liquidez"),
-        use_container_width=True,
-        hide_index=True,
-    )
-    top_right.dataframe(
         _format_event_summary_table(dashboard.event_summary_latest_df),
         use_container_width=True,
         hide_index=True,
     )
-
-    mid_left, mid_right = st.columns(2)
-    mid_left.altair_chart(
-        _line_history_chart(
-            _melt_metrics(
-                dashboard.liquidity_history_df,
-                ["liquidez_imediata", "liquidez_30"],
-                {
-                    "liquidez_imediata": "Liquidez imediata",
-                    "liquidez_30": "Liquidez até 30 dias",
-                },
-            ),
-            title="Evolução da liquidez reportada",
-            y_title="R$",
-        ),
-        use_container_width=True,
-    )
-    mid_right.altair_chart(
+    top_left.caption("Sinal econômico positivo indica entrada de caixa; negativo indica saída de caixa para cotistas.")
+    top_right.altair_chart(
         _bar_chart(
             dashboard.maturity_latest_df,
             x_column="faixa",
@@ -863,84 +844,19 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
         use_container_width=True,
     )
 
-    flow_df = _melt_metrics(
-        dashboard.asset_history_df,
-        ["aquisicoes", "alienacoes"],
-        {"aquisicoes": "Aquisições", "alienacoes": "Alienações"},
-    )
-    bottom_left, bottom_right = st.columns(2)
-    bottom_left.altair_chart(
-        _grouped_bar_chart(
-            flow_df,
-            title="Fluxo dos direitos creditórios",
-            y_title="R$",
-        ),
-        use_container_width=True,
-    )
-    if dashboard.event_history_df.empty:
-        bottom_right.info("O intervalo selecionado não trouxe emissões, resgates ou amortizações no bloco CAPTA_RESGA_AMORTI.")
-    else:
-        event_chart_df = (
-            dashboard.event_history_df.groupby(["competencia", "competencia_dt", "event_type"], dropna=False)[
-                "valor_total_assinado"
-            ]
-            .sum()
-            .reset_index()
-            .rename(columns={"valor_total_assinado": "valor"})
-        )
-        event_chart_df["serie"] = event_chart_df["event_type"].map(
-            {
-                "emissao": "Emissão",
-                "resgate": "Resgate pago",
-                "amortizacao": "Amortização",
-            }
-        )
-        bottom_right.altair_chart(
-            _grouped_bar_chart(
-                event_chart_df,
-                title="Eventos de cotas por competência",
-                y_title="R$",
-            ),
-            use_container_width=True,
-        )
 
-    with st.expander("Snapshot de liquidez por bucket na competência atual", expanded=False):
+def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
+    with st.expander("Glossário essencial", expanded=False):
         st.dataframe(
-            _format_value_table(dashboard.liquidity_latest_df, label_column="horizonte", label_title="Horizonte"),
+            _format_glossary_table(dashboard.mini_glossary_df),
             use_container_width=True,
             hide_index=True,
         )
 
 
-def _render_operational_risk_section(dashboard: FundonetDashboardData) -> None:
-    _render_fidc_section(
-        "Risco operacional e contratual",
-        "O que um comprador de sênior ainda precisa fora do IME para fechar a análise de risco da estrutura.",
-    )
-    _render_section_callout(
-        question="O que falta para sair do 'dashboard de IME' e chegar numa decisão real de crédito estruturado?",
-        ime_scope="Aqui o painel separa explicitamente o que é observável no IME do que depende de regulamento e documentos complementares.",
-        caution="Se esses itens não forem verificados fora do IME, o risco da cota sênior fica subestimado.",
-    )
-    left, right = st.columns(2)
-    left.dataframe(
-        _format_coverage_gap_table(dashboard.coverage_gap_df),
-        use_container_width=True,
-        hide_index=True,
-    )
-    right.dataframe(
-        _format_glossary_table(dashboard.mini_glossary_df),
-        use_container_width=True,
-        hide_index=True,
-    )
-    st.caption(
-        "Leitura operacional: este painel usa o IME como camada-base. Cobertura, reservas, rating, gatilhos, cedente/devedor, coobrigação e lastro exigem regulamento, relatório mensal e documentos da oferta."
-    )
-
-
 def _render_audit_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section(
-        "Memória de cálculo e evidência",
+        "Base auditável",
         "Reconciliação completa entre dado bruto, transformação, output e limitação analítica.",
     )
     with st.expander("Memória de cálculo das métricas exibidas", expanded=False):
@@ -949,13 +865,7 @@ def _render_audit_section(dashboard: FundonetDashboardData) -> None:
             use_container_width=True,
             hide_index=True,
         )
-    with st.expander("Inventário do dashboard atual", expanded=False):
-        st.dataframe(
-            dashboard.current_dashboard_inventory_df,
-            use_container_width=True,
-            hide_index=True,
-        )
-    with st.expander("Base CVM normalizada", expanded=False):
+    with st.expander("Base normalizada do Informe Mensal", expanded=False):
         _render_cvm_tables_section(dashboard)
 
 
@@ -972,8 +882,6 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
         ("Estrutura subordinada", info.get("estrutura_subordinada", "N/D")),
         ("Cotistas", info.get("total_cotistas", "N/D")),
         ("Segmento CVM", dominant_segment or "N/D"),
-        ("CNPJ fundo", _format_cnpj(info.get("cnpj_fundo", ""))),
-        ("CNPJ administrador", _format_cnpj(info.get("cnpj_administrador", ""))),
     ]
     pills_html = "\n".join(
         f'<span class="fidc-pill"><strong>{escape(label)}:</strong> {escape(str(value or "N/D"))}</span>'
@@ -985,7 +893,7 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
     st.markdown(
         f"""
 <div class="fidc-hero">
-  <div class="fidc-hero__kicker">Informe Mensal CVM · Snapshot analítico</div>
+  <div class="fidc-hero__kicker">Informe Mensal CVM · visão atual</div>
   <div class="fidc-hero__title">{escape(str(title))}</div>
   <div class="fidc-section-caption">{escape(str(subtitle))}</div>
   <div class="fidc-hero__meta">{pills_html}</div>
@@ -1002,7 +910,7 @@ def _render_dashboard_context_bar(dashboard: FundonetDashboardData) -> None:
 <div class="fidc-period-bar">
   <span><strong>Última competência:</strong> {escape(str(info.get("ultima_competencia") or "N/D"))}</span>
   <span><strong>Janela:</strong> {escape(str(info.get("periodo_analisado") or "N/D"))}</span>
-  <span><strong>IMEs processados:</strong> {escape(str(len(dashboard.competencias)))}</span>
+  <span><strong>Informes carregados:</strong> {escape(str(len(dashboard.competencias)))}</span>
   <span><strong>Última entrega:</strong> {escape(str(info.get("ultima_entrega") or "N/D"))}</span>
 </div>
 """,
@@ -1034,7 +942,7 @@ def _render_pdf_export_button(dashboard: FundonetDashboardData, context: dict[st
 
 def _render_overview_metrics(dashboard: FundonetDashboardData) -> None:
     summary = dashboard.summary
-    _render_fidc_section("Visão geral", "O que importa primeiro para se situar no IME mais recente.")
+    _render_fidc_section("Visão geral", "O que importa primeiro para se situar na competência mais recente.")
     hero_cards = [
         _render_fidc_card("Direitos creditórios", _format_brl_compact(summary.get("direitos_creditorios")), "DICRED/VL_DICRED"),
         _render_fidc_card("PL total", _format_brl_compact(summary.get("pl_total")), "Cotas sênior + subordinadas"),
@@ -1057,7 +965,7 @@ def _render_overview_metrics(dashboard: FundonetDashboardData) -> None:
 def _render_monitoring_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section(
         "Monitoramento estrutural",
-        "Indicadores úteis para acompanhamento recorrente que já estão no IME, sem inferir covenants documentais fora da fonte.",
+        "Indicadores úteis para acompanhamento recorrente já presentes no Informe Mensal, sem inferir covenants documentais fora da fonte.",
     )
     left, right = st.columns(2)
     with left:
@@ -1087,7 +995,7 @@ def _render_section_callout(*, question: str, ime_scope: str, caution: str) -> N
         (
             '<div class="fidc-callout">'
             f'<div class="fidc-callout__item"><div class="fidc-callout__kicker">Pergunta central</div><div class="fidc-callout__value">{escape(question)}</div></div>'
-            f'<div class="fidc-callout__item"><div class="fidc-callout__kicker">O que o IME cobre</div><div class="fidc-callout__value">{escape(ime_scope)}</div></div>'
+            f'<div class="fidc-callout__item"><div class="fidc-callout__kicker">O que o Informe Mensal cobre</div><div class="fidc-callout__value">{escape(ime_scope)}</div></div>'
             f'<div class="fidc-callout__item"><div class="fidc-callout__kicker">Cautela analítica</div><div class="fidc-callout__value">{escape(caution)}</div></div>'
             "</div>"
         ),
@@ -1464,7 +1372,7 @@ def _render_events_section(dashboard: FundonetDashboardData) -> None:
         )
 
     if dashboard.event_history_df.empty:
-        st.info("O intervalo selecionado não trouxe eventos de emissão, resgate ou amortização no IME.")
+        st.info("O intervalo selecionado não trouxe eventos de emissão, resgate ou amortização no Informe Mensal.")
         return
 
     event_chart_df = (
@@ -1607,7 +1515,7 @@ def _format_latest_quota_frame(quota_pl_history_df: pd.DataFrame, latest_compete
 def _format_value_percent_table(df: pd.DataFrame, *, label_column: str, label_title: str) -> pd.DataFrame:
     if df.empty:
         return pd.DataFrame(columns=[label_title, "Valor", "%"])
-    output = df.copy()
+    output = df.sort_values("ordem").copy() if "ordem" in df.columns else df.copy()
     output[label_title] = output[label_column]
     output["Valor"] = output["valor"].map(_format_brl_compact)
     output["%"] = output["percentual"].map(_format_percent) if "percentual" in output.columns else "N/D"
@@ -1629,15 +1537,13 @@ def _format_value_table(df: pd.DataFrame, *, label_column: str, label_title: str
 
 def _format_event_summary_table(event_summary_df: pd.DataFrame) -> pd.DataFrame:
     if event_summary_df.empty:
-        return pd.DataFrame(columns=["Evento", "Valor bruto", "Sinal econômico", "% PL", "Status", "Leitura"])
+        return pd.DataFrame(columns=["Evento", "Valor bruto", "Efeito no caixa", "% do PL"])
     output = event_summary_df.sort_values("ordem").copy() if "ordem" in event_summary_df.columns else event_summary_df.copy()
     output["Evento"] = output["evento"]
     output["Valor bruto"] = output["valor_total"].map(_format_brl_compact)
-    output["Sinal econômico"] = output["valor_total_assinado"].map(_format_brl_compact)
-    output["% PL"] = output["valor_total_pct_pl"].map(_format_percent)
-    output["Status"] = output["source_status"].map(_format_source_status)
-    output["Leitura"] = output["interpretação"]
-    return output[["Evento", "Valor bruto", "Sinal econômico", "% PL", "Status", "Leitura"]]
+    output["Efeito no caixa"] = output["valor_total_assinado"].map(_format_brl_compact)
+    output["% do PL"] = output["valor_total_pct_pl"].map(_format_percent)
+    return output[["Evento", "Valor bruto", "Efeito no caixa", "% do PL"]]
 
 
 def _format_value_row(row: pd.Series) -> str:
@@ -1713,20 +1619,22 @@ def _format_risk_metric_state(value: object) -> str:
 
 def _format_risk_metrics_table(metrics_df: pd.DataFrame, *, risk_block: str) -> pd.DataFrame:
     if metrics_df.empty:
-        return pd.DataFrame(columns=["Métrica", "Valor", "Criticidade", "Leitura prática", "Alerta", "Estado"])
+        return pd.DataFrame(columns=["Métrica", "Valor", "Leitura objetiva", "Cautela"])
     output = metrics_df[metrics_df["risk_block"] == risk_block].copy()
     if output.empty:
-        return pd.DataFrame(columns=["Métrica", "Valor", "Criticidade", "Leitura prática", "Alerta", "Estado"])
+        return pd.DataFrame(columns=["Métrica", "Valor", "Leitura objetiva", "Cautela"])
     output["Métrica"] = output["label"]
     output["Valor"] = output.apply(
         lambda row: _format_metric_value(row.get("value"), str(row.get("unit") or "")),
         axis=1,
     )
-    output["Criticidade"] = output["criticality"].map(_format_metric_criticality)
-    output["Leitura prática"] = output["interpretation"]
-    output["Alerta"] = output["limitation"]
-    output["Estado"] = output["state"].map(_format_risk_metric_state)
-    return output[["Métrica", "Valor", "Criticidade", "Leitura prática", "Alerta", "Estado"]]
+    output["Leitura objetiva"] = output["interpretation"]
+    output["Cautela"] = output["limitation"]
+    columns = ["Métrica", "Valor", "Leitura objetiva", "Cautela"]
+    if not output["state"].fillna("calculado").eq("calculado").all():
+        output["Estado"] = output["state"].map(_format_risk_metric_state)
+        columns.append("Estado")
+    return output[columns]
 
 
 def _format_risk_metrics_memory_table(metrics_df: pd.DataFrame) -> pd.DataFrame:
@@ -1858,12 +1766,23 @@ def _line_end_label_layer(chart_df: pd.DataFrame, *, y_title: str) -> alt.Chart 
     )
     if labels_df.empty:
         return None
+    labels_df = labels_df.copy()
+    labels_df["label_valor"] = labels_df["valor"]
+    if len(labels_df) > 1:
+        ordered = labels_df.sort_values("valor").reset_index(drop=True)
+        value_span = ordered["valor"].max() - ordered["valor"].min()
+        if value_span == 0:
+            value_span = max(abs(float(ordered["valor"].max() or 0.0)), 1.0)
+        step = value_span * 0.045
+        midpoint = (len(ordered) - 1) / 2.0
+        ordered["label_valor"] = ordered["valor"] + ((ordered.index - midpoint) * step)
+        labels_df = ordered
     return (
         alt.Chart(labels_df)
         .mark_text(align="left", dx=6, dy=-6, fontSize=11, color="#111111")
         .encode(
             x=alt.X("competencia:N", sort=chart_df["competencia"].drop_duplicates().tolist()),
-            y=alt.Y("valor:Q", title=y_title),
+            y=alt.Y("label_valor:Q", title=y_title),
             text=alt.Text("valor:Q", format=_label_format(y_title)),
             color=alt.Color("serie:N", legend=None, scale=alt.Scale(range=FIDC_CHART_COLORS)),
         )
@@ -2005,6 +1924,38 @@ def _horizontal_bar_chart(
     return _style_altair_chart(chart if labels is None else (chart + labels))
 
 
+def _percent_bar_chart(
+    chart_df: pd.DataFrame,
+    *,
+    category_column: str,
+    percent_column: str,
+    title: str,
+    value_column: str | None = None,
+) -> alt.Chart:
+    chart_df = _altair_compatible_df(chart_df.dropna(subset=[percent_column]).copy())
+    chart_df = chart_df.sort_values(percent_column, ascending=False)
+    x_encoding = alt.X(f"{category_column}:N", title=None, sort=chart_df[category_column].drop_duplicates().tolist())
+    y_encoding = alt.Y(f"{percent_column}:Q", title="%")
+    tooltip: list[object] = [f"{category_column}:N", alt.Tooltip(f"{percent_column}:Q", title="% do total", format=",.2f")]
+    if value_column and value_column in chart_df.columns:
+        tooltip.append(alt.Tooltip(f"{value_column}:Q", title="Valor", format=",.2f"))
+    if "source_status" in chart_df.columns:
+        chart_df["status_fonte"] = chart_df["source_status"].map(_format_source_status)
+        tooltip.append("status_fonte:N")
+    chart = (
+        alt.Chart(chart_df)
+        .mark_bar(color="#ff5a00")
+        .encode(
+            x=x_encoding,
+            y=y_encoding,
+            tooltip=tooltip,
+        )
+        .properties(title=title, height=320)
+    )
+    labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field=percent_column)
+    return _style_altair_chart(chart if labels is None else (chart + labels))
+
+
 def _bar_chart(
     chart_df: pd.DataFrame,
     *,
@@ -2132,6 +2083,47 @@ def _style_altair_chart(chart: alt.Chart) -> alt.Chart:
     )
 
 
+def _default_ratio_chart_frame(default_history_df: pd.DataFrame) -> pd.DataFrame:
+    if default_history_df.empty:
+        return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
+    chart_df = default_history_df[["competencia", "competencia_dt", "inadimplencia_pct"]].copy()
+    direitos = pd.to_numeric(default_history_df["direitos_creditorios"], errors="coerce")
+    provisao = pd.to_numeric(default_history_df["provisao_total"], errors="coerce")
+    chart_df["provisao_pct_direitos"] = (provisao / direitos).where(direitos > 0).mul(100.0)
+    chart_df = chart_df.melt(
+        id_vars=["competencia", "competencia_dt"],
+        value_vars=["inadimplencia_pct", "provisao_pct_direitos"],
+        var_name="serie_key",
+        value_name="valor",
+    )
+    chart_df["serie"] = chart_df["serie_key"].map(
+        {
+            "inadimplencia_pct": "Inadimplência",
+            "provisao_pct_direitos": "Provisão",
+        }
+    )
+    chart_df["valor"] = pd.to_numeric(chart_df["valor"], errors="coerce")
+    return chart_df.dropna(subset=["valor"])
+
+
+def _quota_pl_chart_frame(quota_pl_history_df: pd.DataFrame) -> pd.DataFrame:
+    if quota_pl_history_df.empty:
+        return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
+    chart_df = quota_pl_history_df[["competencia", "competencia_dt", "label", "pl"]].copy()
+    chart_df = chart_df.rename(columns={"label": "serie", "pl": "valor"})
+    chart_df["valor"] = pd.to_numeric(chart_df["valor"], errors="coerce")
+    return chart_df.dropna(subset=["valor"])
+
+
+def _has_meaningful_benchmark(performance_df: pd.DataFrame) -> bool:
+    if performance_df.empty or "desempenho_esperado_pct" not in performance_df.columns:
+        return False
+    expected = pd.to_numeric(performance_df["desempenho_esperado_pct"], errors="coerce").dropna()
+    if expected.empty:
+        return False
+    return bool((expected.abs() > 0.000001).any())
+
+
 def _altair_compatible_df(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return df.copy()
@@ -2213,28 +2205,13 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None
     docs_error = _count_docs_by_status(result.docs_df, "erro")
     competencias = result.competencias
 
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Competências", len(competencias))
-    col2.metric("Documentos OK", docs_ok)
-    col3.metric("Documentos com falha", docs_error)
-
-    with result.excel_path.open("rb") as excel_fp:
-        st.download_button(
-            "Baixar Excel",
-            data=excel_fp,
-            file_name=f"fidc_ime_{context.get('request_id', 'execucao')}.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        )
-    with result.audit_json_path.open("rb") as audit_fp:
-        st.download_button(
-            "Baixar auditoria (JSON)",
-            data=audit_fp,
-            file_name=f"auditoria_fidc_ime_{context.get('request_id', 'execucao')}.json",
-            mime="application/json",
-        )
+    st.caption(
+        f"{len(competencias)} competências carregadas · {docs_ok} informes válidos"
+        + (f" · {docs_error} com falha" if docs_error else "")
+    )
 
     if docs_error:
-        st.warning("Nem todos os documentos foram processados. O Excel foi gerado com os documentos válidos.")
+        st.warning("Nem todos os documentos foram processados. A análise usa apenas os informes válidos.")
         with st.expander("Diagnóstico de documentos com falha", expanded=True):
             failed_docs = (
                 result.docs_df[result.docs_df["processamento"] == "erro"].copy()
@@ -2255,7 +2232,7 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None
     with st.expander("Artefatos brutos da extração", expanded=False):
         st.caption(
             f"Pré-visualizações limitadas a {max_preview_rows} linhas para manter a sessão estável. "
-            "Use o Excel para análise completa."
+            "Abra esse bloco apenas se precisar auditar o dado bruto da extração."
         )
 
         st.subheader("Documentos selecionados")

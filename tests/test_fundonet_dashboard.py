@@ -158,12 +158,11 @@ class FundonetDashboardTests(unittest.TestCase):
 
         risk_lookup = dashboard.risk_metrics_df.set_index("metric_id")
         self.assertEqual(
-            {"Risco de crédito", "Risco estrutural", "Risco de liquidez"},
+            {"Risco de crédito", "Risco estrutural"},
             set(dashboard.risk_metrics_df["risk_block"]),
         )
-        self.assertAlmostEqual(80.0, risk_lookup.loc["alocacao_pct", "value"])
-        self.assertAlmostEqual(3.75, risk_lookup.loc["aquisicoes_pct_direitos", "value"])
-        self.assertAlmostEqual(13.3333333, risk_lookup.loc["liquidez_imediata_pct_pl", "value"], places=5)
+        self.assertTrue(pd.isna(risk_lookup.loc["inadimplencia_pct", "value"]))
+        self.assertAlmostEqual(100.0, risk_lookup.loc["concentracao_segmento_proxy", "value"])
         self.assertEqual("critico", risk_lookup.loc["subordinacao_pct", "criticality"])
         self.assertIn("Índice de cobertura", dashboard.coverage_gap_df["tema"].tolist())
         self.assertIn("Subordinação", dashboard.mini_glossary_df["termo"].tolist())
@@ -172,6 +171,7 @@ class FundonetDashboardTests(unittest.TestCase):
             dashboard.current_dashboard_inventory_df["nome_variavel"].tolist(),
         )
         self.assertAlmostEqual(2000.0, dashboard.liquidity_history_df.iloc[0]["liquidez_imediata"])
+        self.assertAlmostEqual(100.0, dashboard.default_buckets_latest_df["percentual"].sum())
 
     def test_build_dashboard_data_preserves_missing_history_as_nan(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:

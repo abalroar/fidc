@@ -190,13 +190,10 @@ def build_dashboard_data(
     current_dashboard_inventory_df = build_current_dashboard_inventory_df()
 
     methodology_notes = [
-        "Alocação e composição da carteira usam os saldos reportados no IME e podem divergir da metodologia proprietária do administrador.",
         "Direitos creditórios priorizam o campo CVM DICRED/VL_DICRED e usam campos legados CRED_EXISTE apenas como fallback.",
         "Índice de subordinação é calculado como PL subordinado dividido pelo PL total das cotas reportadas.",
-        "Os campos de liquidez do IME são exibidos como informados. Pela descrição da CVM eles representam horizontes até cada prazo, mas alguns fundos aparentam preenchê-los como buckets.",
-        "Resgate solicitado usa os campos RESG_SOLIC do IME e aceita tanto VL_PAGO quanto VL_COTAS, pois há divergência observada entre schema e XML real.",
-        "Índices de cobertura, relação mínima, reservas, rating, benchmark, coobrigação, cedente/devedor e eventos contratuais não são derivados diretamente do IME e exigem fonte complementar.",
-        "Fluxo de direitos creditórios usa aquisições e alienações reportadas no IME; o PDF de referência pode chamar esse bloco de liquidações.",
+        "Resgate solicitado usa os campos RESG_SOLIC do Informe Mensal e aceita tanto VL_PAGO quanto VL_COTAS, pois há divergência observada entre schema e XML real.",
+        "Indicadores como cobertura, relação mínima, reservas, rating, coobrigação e eventos contratuais exigem documentação complementar.",
     ]
 
     return FundonetDashboardData(
@@ -1014,7 +1011,10 @@ def _build_default_buckets_latest_df(*, wide_lookup: pd.DataFrame, latest_compet
             **_sum_latest_paths_with_status(wide_lookup, latest_competencia, paths),
         }
         rows.append(row)
-    return pd.DataFrame(rows)
+    frame = pd.DataFrame(rows)
+    total = float(frame["valor"].sum()) if not frame.empty else 0.0
+    frame["percentual"] = (frame["valor"] / total * 100.0) if total > 0 else pd.NA
+    return frame
 
 
 def _build_holder_latest_df(
