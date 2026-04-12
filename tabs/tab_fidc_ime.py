@@ -2027,6 +2027,13 @@ def _bar_label_layer(
     return alt.Chart(chart_df).mark_text(**mark_kwargs).encode(**encoding)
 
 
+def _chart_with_optional_title(chart: alt.Chart, *, height: int, title: str | None) -> alt.Chart:
+    chart = chart.properties(height=height)
+    if title is not None:
+        chart = chart.properties(title=title)
+    return chart
+
+
 def _line_history_chart(
     chart_df: pd.DataFrame,
     *,
@@ -2049,8 +2056,8 @@ def _line_history_chart(
             color=alt.Color("serie:N", title="Série", scale=alt.Scale(range=FIDC_CHART_COLORS)),
             tooltip=["competencia:N", "serie:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
-        .properties(height=320, title=title)
     )
+    base = _chart_with_optional_title(base, height=320, title=title)
     labels = _line_end_label_layer(chart_df, y_title=y_title)
     layered = base if labels is None else (base + labels)
     if limit_value is None:
@@ -2086,8 +2093,8 @@ def _line_point_chart(
             y=y_encoding,
             tooltip=[f"{x_column}:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
-        .properties(title=title, height=320)
     )
+    chart = _chart_with_optional_title(chart, height=320, title=title)
     labels = _point_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, y_field=y_column, text_field="valor_fmt")
     return _style_altair_chart(chart if labels is None else (chart + labels))
 
@@ -2152,8 +2159,8 @@ def _percent_bar_chart(
             y=y_encoding,
             tooltip=tooltip,
         )
-        .properties(title=title, height=320)
     )
+    chart = _chart_with_optional_title(chart, height=320, title=title)
     labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field=percent_column, text_field="percentual_fmt")
     return _style_altair_chart(chart if labels is None else (chart + labels))
 
@@ -2180,7 +2187,19 @@ def _stacked_share_column_chart(
             alt.Chart(empty_df)
             .mark_bar()
             .encode(x="stack_label:N", y=alt.Y(f"{percent_column}:Q", title="% do total"))
-            .properties(title=title, height=height)
+        )
+        if title is not None:
+            return _style_altair_chart(
+                alt.Chart(empty_df)
+                .mark_bar()
+                .encode(x="stack_label:N", y=alt.Y(f"{percent_column}:Q", title="% do total"))
+                .properties(height=height, title=title)
+            )
+        return _style_altair_chart(
+            alt.Chart(empty_df)
+            .mark_bar()
+            .encode(x="stack_label:N", y=alt.Y(f"{percent_column}:Q", title="% do total"))
+            .properties(height=height)
         )
     chart_df["stack_label"] = stack_label
     chart_df["label_pct"] = chart_df[percent_column].map(_format_percent)
@@ -2216,8 +2235,8 @@ def _stacked_share_column_chart(
             order=alt.Order(f"{order_column}:Q", sort="ascending") if order_column and order_column in chart_df.columns else alt.Order(f"{percent_column}:Q", sort="descending"),
             tooltip=tooltip,
         )
-        .properties(title=title, height=height)
     )
+    chart = _chart_with_optional_title(chart, height=height, title=title)
     labels_df = chart_df[chart_df[percent_column] >= 6].copy()
     if labels_df.empty:
         return _style_altair_chart(chart)
@@ -2264,8 +2283,8 @@ def _bar_chart(
             y=y_encoding,
             tooltip=tooltip,
         )
-        .properties(title=title, height=320)
     )
+    chart = _chart_with_optional_title(chart, height=320, title=title)
     labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field=y_column, text_field="valor_fmt")
     return _style_altair_chart(chart if labels is None else (chart + labels))
 
@@ -2288,8 +2307,8 @@ def _history_bar_chart(
             y=y_encoding,
             tooltip=["competencia:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
-        .properties(title=title, height=300)
     )
+    chart = _chart_with_optional_title(chart, height=300, title=title)
     labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field="valor", text_field="valor_fmt")
     return _style_altair_chart(chart if labels is None else (chart + labels))
 
@@ -2315,8 +2334,8 @@ def _stacked_history_bar_chart(
             color=color_encoding,
             tooltip=["competencia:N", "serie:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
-        .properties(title=title, height=320)
     )
+    chart = _chart_with_optional_title(chart, height=320, title=title)
     return _style_altair_chart(chart)
 
 
