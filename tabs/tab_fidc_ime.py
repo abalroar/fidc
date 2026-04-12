@@ -107,6 +107,21 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
     font-weight: 500;
 }
 
+.fidc-hero__participantes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,90,0,0.10);
+}
+
+.fidc-pill--participante {
+    border-color: rgba(0,0,0,0.12);
+    background: #f8f9fa;
+    font-size: 0.74rem;
+}
+
 .fidc-grid {
     display: grid;
     gap: 12px;
@@ -700,8 +715,8 @@ def _render_dashboard(
         if docs_error:
             st.warning(f"{docs_error} informe(s) falharam no processamento. A leitura abaixo usa apenas os informes válidos.")
         _render_risk_overview(dashboard)
-        _render_credit_risk_section(dashboard)
         _render_structural_risk_section(dashboard)
+        _render_credit_risk_section(dashboard)
         _render_liquidity_risk_section(dashboard)
         _render_glossary_section(dashboard)
 
@@ -781,36 +796,40 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     )
     default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
     _render_chart_heading(top_right, "Crédito problemático", "% dos direitos creditórios ao longo do tempo.")
-    top_right.altair_chart(
-        _line_history_chart(
-            default_pct_chart_df,
-            title=None,
-            y_title="%",
-        ),
-        use_container_width=True,
+    _credit_chart_all_zero = (
+        default_pct_chart_df.empty
+        or (pd.to_numeric(default_pct_chart_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
     )
-    latest_default_row = dashboard.default_history_df.sort_values("competencia_dt").iloc[-1] if not dashboard.default_history_df.empty else None
-    if latest_default_row is not None:
-        top_right.caption(
-            "Última competência: "
-            f"Inadimplência {_format_brl_compact(latest_default_row.get('inadimplencia_total'))} · "
-            f"Provisão {_format_brl_compact(latest_default_row.get('provisao_total'))}"
+    if _credit_chart_all_zero:
+        top_right.caption("Inadimplência e provisão não reportadas ou zeradas nos informes disponíveis.")
+    else:
+        top_right.altair_chart(
+            _line_history_chart(
+                default_pct_chart_df,
+                title=None,
+                y_title="%",
+            ),
+            use_container_width=True,
         )
+        latest_default_row = dashboard.default_history_df.sort_values("competencia_dt").iloc[-1] if not dashboard.default_history_df.empty else None
+        if latest_default_row is not None:
+            top_right.caption(
+                "Última competência: "
+                f"Inadimplência {_format_brl_compact(latest_default_row.get('inadimplencia_total'))} · "
+                f"Provisão {_format_brl_compact(latest_default_row.get('provisao_total'))}"
+            )
     bottom_left, bottom_mid, bottom_right = st.columns(3)
     if dashboard.segment_latest_df.empty:
         bottom_left.info("O Informe Mensal mais recente não trouxe composição setorial positiva da carteira.")
     else:
         _render_chart_heading(bottom_left, "Concentração setorial", "% da carteira na competência mais recente.")
         bottom_left.altair_chart(
-            _stacked_share_column_chart(
+            _percent_bar_chart(
                 dashboard.segment_latest_df.sort_values("percentual", ascending=False),
                 category_column="segmento",
                 percent_column="percentual",
                 value_column="valor",
                 title=None,
-                stack_label="Carteira",
-                height=280,
-                bar_size=48,
             ),
             use_container_width=True,
         )
@@ -840,7 +859,13 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         bottom_right.info("Sem dados de cobertura de provisão disponíveis.")
     else:
         bottom_right.altair_chart(
-            _history_bar_chart(cobertura_df, title=None, y_title="%"),
+            _history_bar_chart(
+                cobertura_df,
+                title=None,
+                y_title="%",
+                reference_value=100.0,
+                reference_label="100% (paridade)",
+            ),
             use_container_width=True,
         )
         bottom_right.caption("Acima de 100%: provisão supera a inadimplência reportada.")
@@ -856,14 +881,9 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData) -> None:
         ime_scope="O Informe Mensal cobre subordinação, PL por classe e parte da remuneração das cotas.",
         caution="Subordinação reportada não substitui cobertura, reservas, excesso de spread, waterfall contratual nem gatilhos estruturais.",
     )
-    top_left, top_right = st.columns([1.15, 1])
-    top_left.dataframe(
-        _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco estrutural"),
-        use_container_width=True,
-        hide_index=True,
-    )
-    _render_chart_heading(top_right, "Índice de subordinação", "Evolução mensal do colchão subordinado reportado.")
-    top_right.altair_chart(
+    # Subordination chart (full width) — table below it
+    _render_chart_heading(st, "Índice de subordinação", "Evolução mensal do colchão subordinado reportado.")
+    st.altair_chart(
         _history_bar_chart(
             _melt_metrics(
                 dashboard.subordination_history_df,
@@ -875,29 +895,42 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData) -> None:
         ),
         use_container_width=True,
     )
+    st.dataframe(
+        _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco estrutural"),
+        use_container_width=True,
+        hide_index=True,
+    )
 
-    bottom_left, bottom_right = st.columns(2)
-    _render_chart_heading(bottom_left, "PL por tipo de cota", "Valores absolutos em R$.")
-    bottom_left.altair_chart(
-        _stacked_history_bar_chart(
-            _quota_pl_chart_frame(dashboard.quota_pl_history_df),
-            title=None,
-            y_title="R$",
-            value_column="valor",
-            show_total_labels=True,
-        ),
-        use_container_width=True,
+    # PL por tipo de cota — single chart with radio selector
+    _render_chart_heading(st, "PL por tipo de cota", "Selecione a visão desejada.")
+    pl_view = st.radio(
+        "Visão do PL",
+        options=["% do total por competência", "Valores absolutos (R$)"],
+        horizontal=True,
+        label_visibility="collapsed",
     )
-    _render_chart_heading(bottom_right, "PL por tipo de cota", "% do total por competência.")
-    bottom_right.altair_chart(
-        _stacked_history_bar_chart(
-            _quota_pl_share_chart_frame(dashboard.quota_pl_history_df),
-            title=None,
-            y_title="% do total",
-            value_column="percentual",
-        ),
-        use_container_width=True,
-    )
+    if pl_view == "% do total por competência":
+        st.altair_chart(
+            _stacked_history_bar_chart(
+                _quota_pl_share_chart_frame(dashboard.quota_pl_history_df),
+                title=None,
+                y_title="% do total",
+                value_column="percentual",
+            ),
+            use_container_width=True,
+        )
+    else:
+        st.altair_chart(
+            _stacked_history_bar_chart(
+                _quota_pl_chart_frame(dashboard.quota_pl_history_df),
+                title=None,
+                y_title="R$",
+                value_column="valor",
+                show_total_labels=True,
+            ),
+            use_container_width=True,
+        )
+
     lower_left, lower_right = st.columns(2)
     lower_left.dataframe(
         _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia),
@@ -999,6 +1032,17 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
         for label, value in pills
         if value and value != "N/D"
     )
+    # Participantes row: Administrador / Gestor / Custodiante
+    participantes_pairs = [
+        ("Administrador", info.get("nm_admin") or _format_cnpj(info.get("cnpj_administrador", "")) or ""),
+        ("Gestor", info.get("nm_gestor", "")),
+        ("Custodiante", info.get("nm_custodiante", "")),
+    ]
+    participantes_html = "\n".join(
+        f'<span class="fidc-pill fidc-pill--participante"><strong>{escape(label)}:</strong> {escape(value)}</span>'
+        for label, value in participantes_pairs
+        if value
+    )
     title = info.get("nome_fundo") or info.get("nome_classe") or "FIDC selecionado"
     subtitle = info.get("nome_classe") or info.get("fundo_ou_classe") or "Informe Mensal Estruturado"
     st.markdown(
@@ -1008,6 +1052,7 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
   <div class="fidc-hero__title">{escape(str(title))}</div>
   <div class="fidc-section-caption">{escape(str(subtitle))}</div>
   <div class="fidc-hero__meta">{pills_html}</div>
+  {f'<div class="fidc-hero__participantes">{participantes_html}</div>' if participantes_html else ""}
 </div>
 """,
         unsafe_allow_html=True,
@@ -2093,10 +2138,11 @@ def _line_history_chart(
     chart_df = chart_df.copy()
     if "competencia" in chart_df.columns:
         chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
-    chart_df["valor_fmt"] = chart_df["valor"].map(lambda value: _format_brl(value) if y_title == "R$" else _format_percent(value) if "%" in y_title else _format_decimal(value))
+    chart_df["valor_fmt"] = chart_df["valor"].map(lambda value: _format_brl_compact(value) if y_title == "R$" else _format_percent(value) if "%" in y_title else _format_decimal(value))
     chart_df["label_fmt"] = chart_df["valor"].map(lambda value: _format_value_label(value, y_title))
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
-    y_encoding = alt.Y("valor:Q", title=y_title)
+    y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
+    y_encoding = alt.Y("valor:Q", title=y_title, axis=y_axis)
     base = (
         alt.Chart(chart_df)
         .mark_line(point=True)
@@ -2158,7 +2204,9 @@ def _horizontal_bar_chart(
     title: str,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df)
-    x_encoding = alt.X(f"{value_column}:Q", title="R$")
+    chart_df = chart_df.copy()
+    chart_df["valor_fmt"] = chart_df[value_column].map(_format_brl_compact)
+    x_encoding = alt.X(f"{value_column}:Q", title="R$", axis=alt.Axis(labelExpr=_brl_axis_label_expr()))
     y_encoding = alt.Y(f"{category_column}:N", title=None, sort="-x")
     color_encoding = alt.Color(f"{category_column}:N", legend=None, scale=alt.Scale(range=FIDC_CHART_COLORS))
     chart = (
@@ -2168,7 +2216,7 @@ def _horizontal_bar_chart(
             x=x_encoding,
             y=y_encoding,
             color=color_encoding,
-            tooltip=[f"{category_column}:N", alt.Tooltip(f"{value_column}:Q", format=",.2f")],
+            tooltip=[f"{category_column}:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
         .properties(title=title, height=320)
     )
@@ -2198,7 +2246,7 @@ def _percent_bar_chart(
     y_encoding = alt.Y(f"{percent_column}:Q", title="%")
     tooltip: list[object] = [f"{category_column}:N", alt.Tooltip("percentual_fmt:N", title="% do total")]
     if value_column and value_column in chart_df.columns:
-        chart_df["valor_fmt"] = chart_df[value_column].map(_format_brl)
+        chart_df["valor_fmt"] = chart_df[value_column].map(_format_brl_compact)
         tooltip.append(alt.Tooltip("valor_fmt:N", title="Valor"))
     if "source_status" in chart_df.columns:
         chart_df["status_fonte"] = chart_df["source_status"].map(_format_source_status)
@@ -2309,14 +2357,15 @@ def _bar_chart(
         if "ordem" in chart_df.columns
         else chart_df[x_column].drop_duplicates().tolist()
     )
-    chart_df["valor_fmt"] = chart_df[y_column].map(lambda value: _format_brl(value) if y_title == "R$" else _format_percent(value) if "%" in y_title else _format_decimal(value))
+    chart_df["valor_fmt"] = chart_df[y_column].map(lambda value: _format_brl_compact(value) if y_title == "R$" else _format_percent(value) if "%" in y_title else _format_decimal(value))
     chart_df["label_fmt"] = chart_df[y_column].map(lambda value: _format_value_label(value, y_title))
     tooltip = [f"{x_column}:N", alt.Tooltip("valor_fmt:N", title="Valor")]
     if "source_status" in chart_df.columns:
         chart_df["status_fonte"] = chart_df["source_status"].map(_format_source_status)
         tooltip.append("status_fonte:N")
     x_encoding = alt.X(f"{x_column}:N", title=None, sort=x_sort)
-    y_encoding = alt.Y(f"{y_column}:Q", title=y_title)
+    y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
+    y_encoding = alt.Y(f"{y_column}:Q", title=y_title, axis=y_axis)
     chart = (
         alt.Chart(chart_df)
         .mark_bar(color="#ff5a00")
@@ -2336,14 +2385,17 @@ def _history_bar_chart(
     *,
     title: str | None,
     y_title: str,
+    reference_value: float | None = None,
+    reference_label: str | None = None,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
     if "competencia" in chart_df.columns:
         chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
-    chart_df["valor_fmt"] = chart_df["valor"].map(_format_percent if "%" in y_title else _format_brl)
+    chart_df["valor_fmt"] = chart_df["valor"].map(_format_percent if "%" in y_title else _format_brl_compact)
     chart_df["label_fmt"] = chart_df["valor"].map(lambda value: _format_value_label(value, y_title))
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
-    y_encoding = alt.Y("valor:Q", title=y_title)
+    y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
+    y_encoding = alt.Y("valor:Q", title=y_title, axis=y_axis)
     chart = (
         alt.Chart(chart_df)
         .mark_bar(color="#ff5a00", size=28)
@@ -2355,7 +2407,28 @@ def _history_bar_chart(
     )
     chart = _chart_with_optional_title(chart, height=300, title=title)
     labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field="valor", text_field="label_fmt")
-    return _style_altair_chart(chart if labels is None else (chart + labels))
+    layered = chart if labels is None else (chart + labels)
+    if reference_value is not None:
+        ref_df = pd.DataFrame({"y": [reference_value]})
+        ref_rule = (
+            alt.Chart(ref_df)
+            .mark_rule(strokeDash=[6, 4], color="#6b7280", strokeWidth=1.5)
+            .encode(
+                y=alt.Y("y:Q"),
+                tooltip=[alt.Tooltip("y:Q", title=reference_label or "Referência", format=".0f")],
+            )
+        )
+        ref_label = (
+            alt.Chart(ref_df)
+            .mark_text(align="right", dx=-4, dy=-6, fontSize=10, color="#6b7280", clip=False)
+            .encode(
+                y=alt.Y("y:Q"),
+                x=alt.value(0),
+                text=alt.value(reference_label or f"{reference_value:.0f}%"),
+            )
+        )
+        layered = layered + ref_rule + ref_label
+    return _style_altair_chart(layered)
 
 
 def _stacked_history_bar_chart(
@@ -2379,7 +2452,8 @@ def _stacked_history_bar_chart(
     chart_df["valor_fmt"] = chart_df[value_column].map(_format_brl_compact if y_title == "R$" else _format_percent)
     chart_df["label_fmt"] = chart_df[value_column].map(lambda value: _format_value_label(value, y_title))
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
-    y_encoding = alt.Y(f"{value_column}:Q", title=y_title, stack=True)
+    y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
+    y_encoding = alt.Y(f"{value_column}:Q", title=y_title, stack=True, axis=y_axis)
     color_encoding = alt.Color("serie:N", title="Classe", scale=alt.Scale(range=FIDC_CHART_COLORS))
     series_order = chart_df["serie"].drop_duplicates().tolist()
     color_map = _category_color_map(series_order, FIDC_CHART_COLORS)
@@ -2441,8 +2515,11 @@ def _grouped_bar_chart(chart_df: pd.DataFrame, *, title: str, y_title: str) -> a
     if "competencia" in chart_df.columns:
         chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
     value_field = "valor_total" if "valor_total" in chart_df.columns else "valor"
+    chart_df = chart_df.copy()
+    chart_df["valor_fmt"] = chart_df[value_field].map(lambda v: _format_brl_compact(v) if y_title == "R$" else _format_percent(v) if "%" in y_title else _format_decimal(v))
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
-    y_encoding = alt.Y(f"{value_field}:Q", title=y_title)
+    y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
+    y_encoding = alt.Y(f"{value_field}:Q", title=y_title, axis=y_axis)
     color_encoding = alt.Color("serie:N", title="Série", scale=alt.Scale(range=FIDC_CHART_COLORS))
     chart = (
         alt.Chart(chart_df)
@@ -2452,11 +2529,7 @@ def _grouped_bar_chart(chart_df: pd.DataFrame, *, title: str, y_title: str) -> a
             y=y_encoding,
             color=color_encoding,
             xOffset="serie:N",
-            tooltip=[
-                "competencia:N",
-                "serie:N",
-                alt.Tooltip(f"{value_field}:Q", format=",.2f"),
-            ],
+            tooltip=["competencia:N", "serie:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
         .properties(title=title, height=320)
     )
@@ -2482,8 +2555,11 @@ def _stacked_area_chart(
     base_df[value_column] = pd.to_numeric(base_df[value_column], errors="coerce")
     base_df = base_df.dropna(subset=[value_column])
     base_df = _altair_compatible_df(base_df)
+    base_df = base_df.copy()
+    base_df["valor_fmt"] = base_df[value_column].map(lambda v: _format_brl_compact(v) if y_title == "R$" else _format_percent(v) if "%" in y_title else _format_decimal(v))
     x_encoding = alt.X("competencia:N", title="Competência", sort=base_df["competencia"].drop_duplicates().tolist())
-    y_encoding = alt.Y(f"{value_column}:Q", stack=True, title=y_title)
+    y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
+    y_encoding = alt.Y(f"{value_column}:Q", stack=True, title=y_title, axis=y_axis)
     color_encoding = alt.Color("label:N", title="Classe", scale=alt.Scale(range=FIDC_CHART_COLORS))
     chart = (
         alt.Chart(base_df)
@@ -2492,7 +2568,7 @@ def _stacked_area_chart(
             x=x_encoding,
             y=y_encoding,
             color=color_encoding,
-            tooltip=["competencia:N", "label:N", alt.Tooltip(f"{value_column}:Q", format=",.2f")],
+            tooltip=["competencia:N", "label:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
         .properties(title=title, height=320)
     )
@@ -2686,13 +2762,23 @@ def _format_brl_compact(value: object) -> str:
     except (TypeError, ValueError):
         return "N/D"
     magnitude = abs(numeric)
+    if magnitude >= 1_000_000_000_000:
+        return f"R$ {_format_decimal(numeric / 1_000_000_000_000, decimals=2)} tri"
     if magnitude >= 1_000_000_000:
         return f"R$ {_format_decimal(numeric / 1_000_000_000, decimals=2)} bi"
     if magnitude >= 1_000_000:
-        return f"R$ {_format_decimal(numeric / 1_000_000, decimals=1)} mi"
-    if magnitude >= 1_000:
-        return f"R$ {_format_decimal(numeric / 1_000, decimals=1)} mil"
+        return f"R$ {_format_decimal(numeric / 1_000_000, decimals=1)} mm"
     return f"R$ {_format_decimal(numeric, decimals=2)}"
+
+
+def _brl_axis_label_expr() -> str:
+    """Vega-Lite labelExpr for abbreviated R$ axis ticks (mm / bi / tri)."""
+    return (
+        "datum.value >= 1e12 ? format(datum.value / 1e12, '.1f') + ' tri' : "
+        "datum.value >= 1e9  ? format(datum.value / 1e9,  '.1f') + ' bi'  : "
+        "datum.value >= 1e6  ? format(datum.value / 1e6,  '.1f') + ' mm'  : "
+        "datum.value === 0   ? '0' : format(datum.value, ',.0f')"
+    )
 
 
 def _format_value_label(value: object, unit: str) -> str:
