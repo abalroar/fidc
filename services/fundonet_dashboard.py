@@ -6,6 +6,7 @@ import re
 
 import pandas as pd
 
+from services.cvm_cadastro import fetch_fidc_participantes
 from services.fidc_monitoring import (
     build_current_dashboard_inventory_df,
     build_coverage_gap_df,
@@ -454,12 +455,19 @@ def _build_fund_info(
     def wide_value(tag_path: str) -> str:
         return _display_value(_get_wide_series(wide_lookup, [latest_competencia], tag_path).iloc[0])
 
+    cnpj_fundo = wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_FUNDO")
+    participantes = fetch_fidc_participantes(cnpj_fundo)
     return {
         "nome_fundo": _display_value(latest_doc.get("nome_fundo", "")),
         "fundo_ou_classe": _display_value(latest_doc.get("fundo_ou_classe", "")),
-        "cnpj_fundo": wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_FUNDO"),
+        "cnpj_fundo": cnpj_fundo,
         "cnpj_classe": wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_CLASSE"),
         "cnpj_administrador": wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_ADM"),
+        "nm_admin": participantes["nm_admin"],
+        "nm_gestor": participantes["nm_gestor"],
+        "nm_custodiante": participantes["nm_custodiante"],
+        "cnpj_gestor": participantes["cnpj_gestor"],
+        "cnpj_custodiante": participantes["cnpj_custodiante"],
         "nome_classe": wide_value("DOC_ARQ/CAB_INFORM/NM_CLASSE"),
         "condominio": wide_value("DOC_ARQ/CAB_INFORM/TP_CONDOMINIO"),
         "classe_unica": wide_value("DOC_ARQ/CAB_INFORM/CLASS_UNICA"),

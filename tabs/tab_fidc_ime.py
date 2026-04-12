@@ -107,6 +107,21 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
     font-weight: 500;
 }
 
+.fidc-hero__participantes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,90,0,0.10);
+}
+
+.fidc-pill--participante {
+    border-color: rgba(0,0,0,0.12);
+    background: #f8f9fa;
+    font-size: 0.74rem;
+}
+
 .fidc-grid {
     display: grid;
     gap: 12px;
@@ -1017,6 +1032,17 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
         for label, value in pills
         if value and value != "N/D"
     )
+    # Participantes row: Administrador / Gestor / Custodiante
+    participantes_pairs = [
+        ("Administrador", info.get("nm_admin") or _format_cnpj(info.get("cnpj_administrador", "")) or ""),
+        ("Gestor", info.get("nm_gestor", "")),
+        ("Custodiante", info.get("nm_custodiante", "")),
+    ]
+    participantes_html = "\n".join(
+        f'<span class="fidc-pill fidc-pill--participante"><strong>{escape(label)}:</strong> {escape(value)}</span>'
+        for label, value in participantes_pairs
+        if value
+    )
     title = info.get("nome_fundo") or info.get("nome_classe") or "FIDC selecionado"
     subtitle = info.get("nome_classe") or info.get("fundo_ou_classe") or "Informe Mensal Estruturado"
     st.markdown(
@@ -1026,6 +1052,7 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
   <div class="fidc-hero__title">{escape(str(title))}</div>
   <div class="fidc-section-caption">{escape(str(subtitle))}</div>
   <div class="fidc-hero__meta">{pills_html}</div>
+  {f'<div class="fidc-hero__participantes">{participantes_html}</div>' if participantes_html else ""}
 </div>
 """,
         unsafe_allow_html=True,
