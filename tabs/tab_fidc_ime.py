@@ -796,7 +796,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             f"Inadimplência {_format_brl_compact(latest_default_row.get('inadimplencia_total'))} · "
             f"Provisão {_format_brl_compact(latest_default_row.get('provisao_total'))}"
         )
-    bottom_left, bottom_right = st.columns(2)
+    bottom_left, bottom_mid, bottom_right = st.columns(3)
     if dashboard.segment_latest_df.empty:
         bottom_left.info("O Informe Mensal mais recente não trouxe composição setorial positiva da carteira.")
     else:
@@ -810,14 +810,14 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 title=None,
                 stack_label="Carteira",
                 height=280,
-                bar_size=72,
+                bar_size=48,
             ),
             use_container_width=True,
         )
         _render_concentration_warning(bottom_left, dashboard.segment_latest_df)
     aging_chart_df = _build_aging_display_df(dashboard.default_buckets_latest_df)
-    _render_chart_heading(bottom_right, "Aging da inadimplência", "% do total inadimplente, até 360 dias.")
-    bottom_right.altair_chart(
+    _render_chart_heading(bottom_mid, "Aging da inadimplência", "% do total inadimplente, até 360 dias.")
+    bottom_mid.altair_chart(
         _stacked_share_column_chart(
             aging_chart_df,
             category_column="faixa",
@@ -827,13 +827,23 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             stack_label="Inadimplência",
             order_column="ordem",
             height=300,
-            bar_size=86,
-            label_font_size=15,
+            bar_size=52,
+            label_font_size=13,
             color_range=AGING_CHART_COLORS,
         ),
         use_container_width=True,
     )
-    _render_aging_omission_note(bottom_right, dashboard.default_buckets_latest_df)
+    _render_aging_omission_note(bottom_mid, dashboard.default_buckets_latest_df)
+    cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
+    _render_chart_heading(bottom_right, "Cobertura de provisão", "Provisão / inadimplência ao longo do tempo (%).")
+    if cobertura_df.empty:
+        bottom_right.info("Sem dados de cobertura de provisão disponíveis.")
+    else:
+        bottom_right.altair_chart(
+            _history_bar_chart(cobertura_df, title=None, y_title="%"),
+            use_container_width=True,
+        )
+        bottom_right.caption("Acima de 100%: provisão supera a inadimplência reportada.")
 
 
 def _render_structural_risk_section(dashboard: FundonetDashboardData) -> None:
@@ -939,6 +949,9 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
         ),
         use_container_width=True,
     )
+    vencidos_caption = _maturity_vencidos_caption(dashboard.maturity_latest_df)
+    if vencidos_caption:
+        st.caption(vencidos_caption)
 
 
 def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
@@ -1061,6 +1074,27 @@ def _render_aging_omission_note(container, default_buckets_latest_df: pd.DataFra
             notes.append(f"Faixa '{faixa}' excluída do gráfico para concentrar a leitura até 360 dias.")
     if notes:
         container.caption(" | ".join(notes))
+
+
+def _maturity_vencidos_caption(maturity_latest_df: pd.DataFrame) -> str | None:
+    """Returns 'Vencidos / DCs a vencer = X%' computed from the maturity DataFrame.
+
+    Denominator = sum of all future buckets (excluding 'Vencidos').
+    """
+    if maturity_latest_df.empty or "faixa" not in maturity_latest_df.columns or "valor" not in maturity_latest_df.columns:
+        return None
+    df = maturity_latest_df.copy()
+    df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
+    vencidos_mask = df["faixa"] == "Vencidos"
+    vencidos_val = float(df.loc[vencidos_mask, "valor"].sum())
+    dc_avencer = float(df.loc[~vencidos_mask, "valor"].sum())
+    if dc_avencer <= 0:
+        return None
+    ratio_pct = vencidos_val / dc_avencer * 100.0
+    return (
+        f"Vencidos {_format_brl_compact(vencidos_val)} / DCs a vencer {_format_brl_compact(dc_avencer)} "
+        f"= {_format_percent(ratio_pct)}"
+    )
 
 
 def _render_pdf_export_button(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
@@ -1976,7 +2010,7 @@ def _line_point_label_layer(chart_df: pd.DataFrame, *, y_title: str) -> alt.Char
     labels_df["valor_label"] = labels_df["valor"].map(lambda value: _format_value_label(value, y_title))
     return (
         alt.Chart(labels_df)
-        .mark_text(align="center", dy=-8, fontSize=11, color="#111111", stroke="#ffffff", strokeWidth=2)
+        .mark_text(align="center", dy=-8, fontSize=11, color="#111111", stroke="#ffffff", strokeWidth=2, clip=False)
         .encode(
             x=alt.X("competencia:N", sort=chart_df["competencia"].drop_duplicates().tolist()),
             y=alt.Y("label_valor:Q", title=y_title),
@@ -2019,7 +2053,7 @@ def _bar_label_layer(
 ) -> alt.Chart | None:
     if not _chart_labels_enabled() or chart_df.empty:
         return None
-    mark_kwargs = {"fontSize": 11, "color": "#111111"}
+    mark_kwargs: dict[str, object] = {"fontSize": 11, "color": "#111111", "clip": False}
     if orient == "horizontal":
         mark_kwargs.update({"align": "left", "dx": 4})
     else:
@@ -2057,6 +2091,8 @@ def _line_history_chart(
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df)
     chart_df = chart_df.copy()
+    if "competencia" in chart_df.columns:
+        chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
     chart_df["valor_fmt"] = chart_df["valor"].map(lambda value: _format_brl(value) if y_title == "R$" else _format_percent(value) if "%" in y_title else _format_decimal(value))
     chart_df["label_fmt"] = chart_df["valor"].map(lambda value: _format_value_label(value, y_title))
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
@@ -2302,6 +2338,8 @@ def _history_bar_chart(
     y_title: str,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
+    if "competencia" in chart_df.columns:
+        chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
     chart_df["valor_fmt"] = chart_df["valor"].map(_format_percent if "%" in y_title else _format_brl)
     chart_df["label_fmt"] = chart_df["valor"].map(lambda value: _format_value_label(value, y_title))
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
@@ -2329,6 +2367,8 @@ def _stacked_history_bar_chart(
     show_total_labels: bool = False,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
+    if "competencia" in chart_df.columns:
+        chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
     if chart_df.empty:
         empty_chart = (
             alt.Chart(pd.DataFrame(columns=["competencia", value_column]))
@@ -2355,18 +2395,27 @@ def _stacked_history_bar_chart(
         )
     )
     chart = _chart_with_optional_title(chart, height=320, title=title)
-    labels = (
-        alt.Chart(chart_df)
-        .mark_text(fontSize=10, fontWeight=600)
-        .encode(
-            x=x_encoding,
-            y=alt.Y(f"{value_column}:Q", title=y_title, stack="center"),
-            detail="serie:N",
-            text=alt.Text("label_fmt:N"),
-            color=alt.Color("label_color:N", scale=None, legend=None),
-        )
-    )
-    layered: alt.Chart = chart + labels
+    # For absolute value charts (R$), skip inner segment labels — too long for narrow bars.
+    # For percentage charts, only label segments that are large enough to be readable.
+    layered: alt.Chart = chart
+    if not show_total_labels:
+        pct_threshold = 8.0 if "%" in y_title else None
+        labels_df = chart_df.copy()
+        if pct_threshold is not None:
+            labels_df = labels_df[pd.to_numeric(labels_df[value_column], errors="coerce") >= pct_threshold].copy()
+        if not labels_df.empty:
+            segment_labels = (
+                alt.Chart(labels_df)
+                .mark_text(fontSize=11, fontWeight=600, clip=False)
+                .encode(
+                    x=x_encoding,
+                    y=alt.Y(f"{value_column}:Q", title=y_title, stack="center"),
+                    detail="serie:N",
+                    text=alt.Text("label_fmt:N"),
+                    color=alt.Color("label_color:N", scale=None, legend=None),
+                )
+            )
+            layered = chart + segment_labels
     if show_total_labels:
         totals_df = (
             chart_df.groupby("competencia", as_index=False, dropna=False)[value_column]
@@ -2376,7 +2425,7 @@ def _stacked_history_bar_chart(
         totals_df["total_fmt"] = totals_df["valor_total"].map(_format_brl_compact if y_title == "R$" else _format_percent)
         total_labels = (
             alt.Chart(totals_df)
-            .mark_text(dy=-10, fontSize=11, fontWeight=700, color="#111111", stroke="#ffffff", strokeWidth=2)
+            .mark_text(dy=-10, fontSize=11, fontWeight=700, color="#111111", stroke="#ffffff", strokeWidth=2, clip=False)
             .encode(
                 x=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
                 y=alt.Y("valor_total:Q", title=y_title),
@@ -2389,6 +2438,8 @@ def _stacked_history_bar_chart(
 
 def _grouped_bar_chart(chart_df: pd.DataFrame, *, title: str, y_title: str) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df)
+    if "competencia" in chart_df.columns:
+        chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
     value_field = "valor_total" if "valor_total" in chart_df.columns else "valor"
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
     y_encoding = alt.Y(f"{value_field}:Q", title=y_title)
@@ -2427,6 +2478,7 @@ def _stacked_area_chart(
     y_title: str,
 ) -> alt.Chart:
     base_df = chart_df[["competencia", "competencia_dt", "label", value_column]].copy()
+    base_df["competencia"] = base_df["competencia"].map(_format_competencia_display)
     base_df[value_column] = pd.to_numeric(base_df[value_column], errors="coerce")
     base_df = base_df.dropna(subset=[value_column])
     base_df = _altair_compatible_df(base_df)
@@ -2538,6 +2590,18 @@ def _quota_pl_share_chart_frame(quota_pl_history_df: pd.DataFrame) -> pd.DataFra
     return chart_df.dropna(subset=["percentual"])[["competencia", "competencia_dt", "serie", "percentual"]]
 
 
+def _default_cobertura_chart_frame(default_history_df: pd.DataFrame) -> pd.DataFrame:
+    """Returns history of provisao_pct_inadimplencia (provisão / inadimplência * 100)."""
+    if default_history_df.empty:
+        return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
+    df = default_history_df[["competencia", "competencia_dt", "provisao_total", "inadimplencia_total"]].copy()
+    provisao = pd.to_numeric(df["provisao_total"], errors="coerce")
+    inadimplencia = pd.to_numeric(df["inadimplencia_total"], errors="coerce")
+    df["valor"] = (provisao / inadimplencia).where(inadimplencia > 0).mul(100.0)
+    df["serie"] = "Cobertura"
+    return df[["competencia", "competencia_dt", "serie", "valor"]].dropna(subset=["valor"])
+
+
 def _has_meaningful_benchmark(performance_df: pd.DataFrame) -> bool:
     if performance_df.empty or "desempenho_esperado_pct" not in performance_df.columns:
         return False
@@ -2637,6 +2701,25 @@ def _format_value_label(value: object, unit: str) -> str:
     if "%" in unit:
         return _format_percent_label(value)
     return _format_decimal(value, decimals=1)
+
+
+_PT_MONTH_ABBR: dict[str, str] = {
+    "01": "jan", "02": "fev", "03": "mar", "04": "abr",
+    "05": "mai", "06": "jun", "07": "jul", "08": "ago",
+    "09": "set", "10": "out", "11": "nov", "12": "dez",
+}
+
+
+def _format_competencia_display(competencia: object) -> str:
+    """Converts '01/2026' → 'jan-26' for chart axis labels."""
+    text = str(competencia or "").strip()
+    parts = text.split("/")
+    if len(parts) != 2:
+        return text
+    month, year = parts
+    month_abbr = _PT_MONTH_ABBR.get(month, month)
+    year_short = year[-2:] if len(year) == 4 else year
+    return f"{month_abbr}-{year_short}"
 
 
 def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None:
