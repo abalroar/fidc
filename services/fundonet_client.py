@@ -143,6 +143,42 @@ class FundosNetClient:
                         versao=_safe_int(item.get("versao"), default=0) or 0,
                         status=str(item.get("status", "") or ""),
                         fundo_ou_classe=_first_present(item, ["fundoOuClasse"]),
+                        nome_administrador=_first_present(
+                            item,
+                            [
+                                "nomeAdministrador",
+                                "administrador",
+                                "descricaoAdministrador",
+                                "nomeAdm",
+                                "descricaoAdm",
+                                "razaoSocialAdministrador",
+                                "denominacaoAdministrador",
+                            ],
+                        ),
+                        nome_custodiante=_first_present(
+                            item,
+                            [
+                                "nomeCustodiante",
+                                "custodiante",
+                                "descricaoCustodiante",
+                                "nomeCustodia",
+                                "descricaoCustodia",
+                                "razaoSocialCustodiante",
+                                "denominacaoCustodiante",
+                            ],
+                        ),
+                        nome_gestor=_first_present(
+                            item,
+                            [
+                                "nomeGestor",
+                                "gestor",
+                                "gestora",
+                                "descricaoGestor",
+                                "descricaoGestora",
+                                "razaoSocialGestor",
+                                "denominacaoGestor",
+                            ],
+                        ),
                         raw=item,
                     )
                 )

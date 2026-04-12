@@ -995,7 +995,7 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
         "Vencimento dos direitos creditórios",
         "Distribuição do prazo da carteira na competência mais recente.",
     )
-    _render_chart_heading(st, f"Prazo de vencimento em {dashboard.latest_competencia}")
+    _render_chart_heading(st, f"Prazo de vencimento em {_format_competencia_label(dashboard.latest_competencia)}")
     st.altair_chart(
         _bar_chart(
             dashboard.maturity_latest_df,
@@ -1078,8 +1078,8 @@ def _render_dashboard_context_bar(dashboard: FundonetDashboardData) -> None:
     st.markdown(
         f"""
 <div class="fidc-period-bar">
-  <span><strong>Última competência:</strong> {escape(str(info.get("ultima_competencia") or "N/D"))}</span>
-  <span><strong>Janela:</strong> {escape(str(info.get("periodo_analisado") or "N/D"))}</span>
+  <span><strong>Última competência:</strong> {escape(_format_competencia_label(info.get("ultima_competencia") or "N/D"))}</span>
+  <span><strong>Janela:</strong> {escape(_format_competencia_period(info.get("periodo_analisado") or "N/D"))}</span>
   <span><strong>Informes carregados:</strong> {escape(str(len(dashboard.competencias)))}</span>
   <span><strong>Última entrega:</strong> {escape(str(info.get("ultima_entrega") or "N/D"))}</span>
 </div>
@@ -1092,6 +1092,66 @@ def _render_chart_heading(container, title: str, caption: str | None = None) -> 
     container.markdown(f'<div class="fidc-chart-title">{escape(title)}</div>', unsafe_allow_html=True)
     if caption:
         container.markdown(f'<div class="fidc-chart-caption">{escape(caption)}</div>', unsafe_allow_html=True)
+
+
+def _format_competencia_label(value: object) -> str:
+    if value is None:
+        return "N/D"
+    raw = str(value).strip()
+    if not raw:
+        return "N/D"
+    month_names = {
+        1: "jan",
+        2: "fev",
+        3: "mar",
+        4: "abr",
+        5: "mai",
+        6: "jun",
+        7: "jul",
+        8: "ago",
+        9: "set",
+        10: "out",
+        11: "nov",
+        12: "dez",
+    }
+    if re.fullmatch(r"\d{2}/\d{4}", raw):
+        month = int(raw[:2])
+        year = raw[-2:]
+        return f"{month_names.get(month, raw[:2])}-{year}"
+    try:
+        parsed = pd.Timestamp(raw)
+        return f"{month_names.get(int(parsed.month), parsed.strftime('%m'))}-{str(parsed.year)[-2:]}"
+    except Exception:  # noqa: BLE001
+        return raw
+
+
+def _format_competencia_period(value: object) -> str:
+    raw = str(value or "").strip()
+    if " a " not in raw:
+        return _format_competencia_label(raw)
+    start, end = raw.split(" a ", 1)
+    return f"{_format_competencia_label(start)} a {_format_competencia_label(end)}"
+
+
+def _shift_month(base: date, offset_months: int) -> date:
+    month_index = (base.year * 12 + (base.month - 1)) + offset_months
+    year = month_index // 12
+    month = (month_index % 12) + 1
+    return date(year, month, 1)
+
+
+def _build_month_options(end_month: date, *, months_back: int) -> list[date]:
+    start_month = _shift_month(end_month, -months_back)
+    options: list[date] = []
+    current = start_month
+    while current <= end_month:
+        options.append(current)
+        current = _shift_month(current, 1)
+    return options
+
+
+def _format_month_option_label(value: date) -> str:
+    return _format_competencia_label(value.isoformat())
 
 
 def _render_concentration_warning(container, segment_latest_df: pd.DataFrame) -> None:
@@ -1380,9 +1440,9 @@ def _render_inadimplencia_overview_card(dashboard: FundonetDashboardData) -> str
     if vencidos_ratio:
         note_parts.append(vencidos_ratio)
     tooltip_lines = [
-        "Fonte: Informe Mensal -> APLIC_ATIVO/CRED_EXISTE + APLIC_ATIVO/DICRED",
-        "Fórmula: direitos creditórios vencidos / total de direitos creditórios * 100",
-        "Limitação: depende da classificação e do reporte do administrador; não substitui perda esperada ou leitura por devedor.",
+        "Fonte: Informe Mensal -> quadro de prazo de vencimento dos direitos creditórios, com fallback para o aging de inadimplência.",
+        "Fórmula: créditos vencidos / total de direitos creditórios reportado na mesma malha de vencimento * 100",
+        "Limitação: depende do preenchimento consistente dos quadros de vencidos e vencimento; não substitui perda esperada ou leitura por devedor.",
     ]
     return _render_fidc_card(
         "Inadimplência",
@@ -2400,7 +2460,7 @@ def _stacked_share_column_chart(
     labels_df = chart_df.copy()
     labels = (
         alt.Chart(labels_df)
-        .mark_text(fontSize=label_font_size, fontWeight=600)
+        .mark_text(fontSize=label_font_size, fontWeight=600, clip=False)
         .encode(
             x=x_encoding,
             y=alt.Y(f"{percent_column}:Q", stack="center", title="% do total"),

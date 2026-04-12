@@ -98,6 +98,9 @@ def build_risk_metrics_df(
 ) -> pd.DataFrame:
     del latest_competencia
     top_segment_label, top_segment_pct = _latest_top_segment(segment_latest_df)
+    direitos_creditorios_monitoramento = _float_or_none(summary.get("inadimplencia_denominador"))
+    if direitos_creditorios_monitoramento is None or direitos_creditorios_monitoramento <= 0:
+        direitos_creditorios_monitoramento = _float_or_none(summary.get("direitos_creditorios"))
     del asset_history_df
     del subordination_history_df
     del default_history_df
@@ -112,13 +115,13 @@ def build_risk_metrics_df(
             value=summary.get("inadimplencia_pct"),
             unit="%",
             criticality="critico",
-            source_data="APLIC_ATIVO/CRED_EXISTE + APLIC_ATIVO/DICRED",
-            transformation="Soma dos saldos vencidos inadimplentes em _build_default_history.",
+            source_data="COMPMT_DICRED + APLIC_ATIVO",
+            transformation="Usa vencidos reportados na malha de prazo; se a linha de vencidos vier vazia, cai para o aging de inadimplência.",
             final_variable="summary['inadimplencia_pct']",
-            formula="inadimplencia_total / direitos_creditorios * 100",
-            pipeline="Informe Mensal -> _build_default_history -> default_history_df.inadimplencia_total -> _build_summary -> summary['inadimplencia_pct']",
-            interpretation="Mostra o peso dos créditos vencidos inadimplentes dentro da carteira reportada.",
-            limitation="Não substitui perda esperada, política de provisão própria nem leitura por devedor.",
+            formula="inadimplencia_total / dc_total_reportado_por_vencimento * 100",
+            pipeline="Informe Mensal -> _build_default_history -> default_history_df.[inadimplencia_total, direitos_creditorios] -> _build_summary -> summary['inadimplencia_pct']",
+            interpretation="Mostra o peso dos créditos vencidos dentro do total de direitos creditórios reportado na mesma malha de vencimento.",
+            limitation="Depende do preenchimento consistente dos quadros de vencidos e prazo pelo administrador; não substitui perda esperada nem leitura por devedor.",
             state="calculado" if summary.get("inadimplencia_pct") is not None else "nao_calculavel",
         ),
         _metric_row(
@@ -126,17 +129,17 @@ def build_risk_metrics_df(
             risk_block_order=1,
             metric_id="provisao_pct_direitos",
             label="Provisão / direitos creditórios",
-            value=_safe_pct(summary.get("provisao_total"), summary.get("direitos_creditorios")),
+            value=_safe_pct(summary.get("provisao_total"), direitos_creditorios_monitoramento),
             unit="%",
             criticality="monitorar",
-            source_data="APLIC_ATIVO/CRED_EXISTE + APLIC_ATIVO/DICRED",
+            source_data="APLIC_ATIVO + COMPMT_DICRED",
             transformation="Soma da provisão reportada em _build_default_history.",
             final_variable="tracking_latest_df['Provisão / direitos creditórios']",
-            formula="provisao_total / direitos_creditorios * 100",
+            formula="provisao_total / dc_total_reportado_por_vencimento * 100",
             pipeline="Informe Mensal -> _build_default_history -> default_history_df.provisao_total -> build_risk_metrics_df",
             interpretation="Mostra quanto da carteira está coberto por provisão contábil reportada.",
             limitation="Depende da política contábil do fundo e não equivale a perda econômica realizada.",
-            state="calculado" if _safe_pct(summary.get('provisao_total'), summary.get('direitos_creditorios')) is not None else "nao_calculavel",
+            state="calculado" if _safe_pct(summary.get('provisao_total'), direitos_creditorios_monitoramento) is not None else "nao_calculavel",
         ),
         _metric_row(
             risk_block="Risco de crédito",
@@ -328,8 +331,8 @@ def build_current_dashboard_inventory_df() -> pd.DataFrame:
             "nome_exibido": "Inadimplência",
             "aba_origem": "tomaconta FIDCs",
             "bloco_ui_atual": "Visão geral / Inadimplência",
-            "fonte_dado": "APLIC_ATIVO/CRED_EXISTE + APLIC_ATIVO/DICRED",
-            "formula": "inadimplencia_total / direitos_creditorios * 100",
+            "fonte_dado": "COMPMT_DICRED + aging de inadimplência",
+            "formula": "inadimplencia_total / dc_total_reportado_por_vencimento * 100",
             "arquivo_py": "services/fundonet_dashboard.py:_build_default_history; tabs/tab_fidc_ime.py:_render_overview_metrics",
             "tipo": "percentual",
             "unidade": "%",
