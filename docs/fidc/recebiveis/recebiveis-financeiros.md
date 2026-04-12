@@ -1,77 +1,61 @@
-# Recebíveis financeiros: principais famílias e o que muda no risco
+# Famílias de recebíveis: o que muda no risco
 
-## O ponto central
+## Por que a natureza do crédito define o risco
 
-Os fundos do acervo mostram que “FIDC financeiro” cobre famílias de risco muito diferentes. Colocar tudo em um mesmo balde destrói utilidade analítica.
+"FIDC financeiro" não é uma categoria homogênea de risco. Consignado INSS, crédito pessoal via fintech, cartão de crédito e meios de pagamento têm perfis de risco estruturalmente diferentes — devedores diferentes, mecanismos de pagamento diferentes, curvas de inadimplência diferentes e guardrails típicos diferentes.
 
-## Famílias mais recorrentes no acervo
+Antes de comparar dois FIDCs pelo índice de subordinação ou pela inadimplência, verifique se eles têm o mesmo tipo de lastro. Comparar um FIDC de consignado com um de crédito pessoal sem garantia é como comparar uma debênture com garantia real com uma debênture quirografária: o número de subordinação não fala a mesma coisa nos dois casos.
 
-| Família | Exemplos locais | O que muda no risco |
-| --- | --- | --- |
-| Consignado INSS / benefício | Facta INSS CB, Agibank I, iCred FGTS | Dependência de convênio, averbação, desconto em benefício, elegibilidade documental e comportamento de pré-pagamento. |
-| Crédito pessoal/fintech | GERU, Bemol Crédito Pessoal | Qualidade da originação digital, FPD, filtros de elegibilidade, política de renegociação e concentração por safra. |
-| Cartão / private label / bancos emissores | Stone IV, Bullla, Supplier | Risco de revolvência, refinanciamento, spread, pagamento mínimo, curva de atraso e concentração em emissor/arranjo. |
-| Meios de pagamento / adquirência | Seller, Cielo | Forte componente operacional, de arranjo e de fluxo de liquidação; menos parecido com carteiras tradicionais de crédito parcelado. |
-| Veículos | BV Crédito de Veículos | Ticket e prazo médios distintos, curva de recuperação própria e forte impacto de elegibilidade e documentação do financiamento. |
-| FGTS / híbridos de crédito ao consumo | iCred FGTS | Mistura operacional que exige cuidado para não colapsar naturezas diferentes de crédito em um único indicador. |
+## Principais famílias e o que muda em cada uma
 
-## O que olhar em cada família
+### Consignado INSS / benefício
 
-### Consignado
+O devedor efetivo é o INSS, que desconta o valor diretamente do benefício antes que o dinheiro chegue ao beneficiário. O risco de inadimplemento voluntário é estruturalmente baixo.
 
-- quem controla a relação com o benefício ou convênio;
-- como a CCB é formalizada;
-- filtros de elegibilidade;
-- atraso e FPD;
-- concentração por originador/correspondente.
+O risco principal está em outro lugar: elegibilidade documental (a CCB foi corretamente formalizada?), averbação (o desconto está corretamente registrado no convênio?), pré-pagamento (o beneficiário quitou antes do prazo?) e concentração em um único originador ou correspondente bancário.
 
-### Cartão e supplier
+**O que monitorar:** elegibilidade, atraso precoce (FPD), concentração por convênio ou originador, qualidade do processo de averbação.
 
-- spread;
-- refinanciamento;
-- indicadores de atraso por janela;
-- reservas;
-- dependência de arranjo e de fluxo operacional.
+### Crédito pessoal / fintech
 
-### Meios de pagamento
+Aqui o risco de crédito depende inteiramente da qualidade de seleção do originador. Não há desconto em folha, não há convênio — o devedor paga (ou não) com base na sua disposição e capacidade financeira.
 
-- devedor econômico real;
-- arranjo de pagamentos;
-- dependência operacional do player central;
-- cobertura, alocação e subordinação;
-- risco de interrupção de fluxo.
+A curva de inadimplência tende a ser mais volátil e mais sensível ao ciclo econômico. FPD (first payment default) é um indicador crítico: uma taxa elevada de créditos que já falham na primeira parcela indica problema na originação.
 
-### Veículos
+**O que monitorar:** FPD, aging por safra, política de renegociação, taxa de recuperação pós-inadimplência, excesso de spread.
 
-- safra;
-- prazo remanescente;
-- política de cobrança;
-- concentração;
-- comportamento de inadimplência e recuperação.
+### Cartão de crédito / private label / supplier finance
 
-## O que costuma variar conforme o regulamento
+O risco de cartão envolve revolvência — o saldo pode crescer continuamente se o devedor pagar apenas o mínimo. Indicadores como o prazo médio da carteira e a taxa de refinanciamento são relevantes aqui.
 
-- documentos exigidos para cessão;
-- exclusões de elegibilidade;
-- gatilhos de recompra ou resolução;
-- coobrigação ou inexistência de regresso;
-- métricas mínimas de manutenção da estrutura.
+Supplier finance (antecipação de recebíveis de fornecedores) tem um perfil diferente: o devedor costuma ser uma empresa âncora de melhor qualidade de crédito, mas o risco de concentração em um único sacado é alto.
 
-## Consequência para o app
+**O que monitorar:** spread, taxa de refinanciamento, prazo médio (DCV), indicadores de cobertura, reservas de liquidez.
 
-O app não deveria usar uma página única e neutra para todos os FIDCs financeiros. O correto é ter módulos condicionais por família de recebível.
+### Meios de pagamento / adquirência
 
-Exemplos:
+Estruturas como FIDCs de adquirência (ex: Cielo) são menos parecidas com uma carteira de crédito tradicional e mais com uma posição operacional em um arranjo de pagamentos. O devedor econômico real pode ser difícil de identificar — pode ser o estabelecimento credenciado, o banco emissor ou o próprio arranjo.
 
-- consignado: elegibilidade, FPD, prazo, atraso, concentração por convênio/originador;
-- meios de pagamento: cobertura, subordinação, taxa média, prazo médio, arranjo, liquidação;
-- cartão/private label: spread, refinanciamento, reservas, DCV e safras.
+O risco de concentração operacional é alto: se a adquirente ou o arranjo de pagamentos tiver problema, o fluxo de recebíveis pode ser interrompido ou contestado.
 
-## Fontes desta página
+**O que monitorar:** cobertura, subordinação, dependência operacional do player central, liquidação do arranjo.
 
-- Fonte local: `estudo/1672581-43161-20230523111704.pdf`.
-- Fonte local: `estudo/1599001-38501-20221212113215.pdf`.
-- Fonte local: `estudo/1337461-15981-20200901100422.pdf`.
-- Fonte local: `estudo/1476881-27101-20211224104441.pdf`.
-- Fonte local: `estudo/2142726-12001-20250623152914.pdf`.
-- Fonte local: `estudo/2148594-19371-20250917103827.pdf`.
+### Financiamento de veículos
+
+CCBs de financiamento de veículos têm como garantia implícita o bem financiado (alienação fiduciária). A curva de inadimplência e recuperação é influenciada pelo valor de revenda do veículo e pela eficiência do processo de retomada.
+
+**O que monitorar:** safra de originação, prazo remanescente, taxa de inadimplência por faixa de prazo, concentração regional ou por revendedor.
+
+## O que o IME captura sobre o tipo de recebível
+
+O IME não informa explicitamente a família do recebível. O campo de ativo e a denominação do fundo são o ponto de partida para identificar o tipo de carteira. Para confirmar, o regulamento e o relatório mensal do administrador são as fontes adequadas.
+
+## Sinais de atenção por família
+
+| Família | Principal sinal de atenção no IME |
+| --- | --- |
+| Consignado | Aging crescente em faixas curtas (1-30 dias) — pode indicar problema de averbação |
+| Crédito pessoal | Crescimento rápido do saldo inadimplente em todas as faixas |
+| Cartão / supplier | Queda no PL total sem resgates — pode indicar provisão crescente ou amortização acelerada |
+| Meios de pagamento | Queda abrupta no volume de direitos creditórios |
+| Veículos | Migração do aging para faixas longas (91+ dias) |

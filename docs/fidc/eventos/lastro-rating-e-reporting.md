@@ -1,71 +1,53 @@
-# Lastro, rating, relatórios e assembleias
+# Lastro, relatórios e governança
 
-## Por que esse bloco existe
+## O risco está na carteira e no controle sobre ela
 
-Em acompanhamento de FIDC, o risco não está só na carteira. Ele também está na qualidade do controle sobre a carteira.
-
-Por isso, esta base separa quatro mecanismos que muita gente trata como se fossem equivalentes:
-
-- verificação de lastro;
-- rating;
-- relatórios periódicos;
-- assembleias e governança de cotistas.
+Em FIDC, o risco de crédito tem duas dimensões: a qualidade dos créditos na carteira e a qualidade do controle exercido sobre esses créditos. Esta segunda dimensão é menos visível no IME, mas é tão relevante quanto a primeira.
 
 ## Verificação de lastro
 
-Verificação de lastro é controle documental e operacional dos créditos. Ela não se confunde com auditoria independente das demonstrações.
+Verificação de lastro é o processo pelo qual o custodiante (ou uma consultoria especializada) confirma que:
+- os documentos que comprovam os créditos cedidos existem;
+- esses documentos são válidos e foram corretamente formalizados;
+- os créditos atendem aos critérios de elegibilidade definidos no regulamento.
 
-Nos documentos do acervo:
+**Por que isso importa:** um crédito que não tem lastro documental adequado pode ser declarado inelegível, o que pode acionar obrigação de recompra pelo cedente — ou, se o cedente não tiver capacidade, resultar em perda para o fundo.
 
-- Seller traz remuneração específica para verificação de lastro dos direitos creditórios da carteira. Fonte: `estudo/1672581-43161-20230523111704.pdf`.
-- Volkswagen Tera explicita validação dos créditos em relação aos critérios de elegibilidade, inclusive com possibilidade de individualização ou amostragem consistente e verificável. Fonte: `estudo/2076171-63381-20250204121014.pdf`.
-- o Ofício-Circular CVM/SSE 8/2023 reforça a relevância operacional de lastro, registro e custódia. Fonte oficial: `oc-sse-0823.pdf`.
+Em carteiras massificadas, a verificação costuma ser por **amostragem**. Isso é prática comum e aceita pelo mercado, mas implica risco residual: créditos inelegíveis podem estar na carteira sem que isso seja detectado entre as amostras verificadas.
 
-## Rating
+Verificação de lastro não se confunde com auditoria independente. O auditor verifica as demonstrações financeiras. O custodiante verifica os documentos dos créditos.
 
-Rating é mecanismo de avaliação de risco por agência classificadora. No acervo ele aparece com frequência em:
+## Relatórios: as três camadas de informação
 
-- relatórios mensais;
-- documentos de oferta;
-- relatórios de rating.
+Você vai se deparar com pelo menos três fontes de dado sobre um FIDC:
 
-Mas rating não deve ser tratado como substituto de análise estrutural. Ele é uma camada adicional de leitura.
+| Fonte | O que cobre | Periodicidade |
+| --- | --- | --- |
+| **IME / XML da CVM** | Base padronizada de reporte: PL, cotas, inadimplência, provisão, eventos de cota | Mensal |
+| **Relatório mensal do administrador** | Narrativa operacional, indicadores específicos do fundo, performance da carteira, eventos relevantes | Mensal (nem sempre público) |
+| **Assembleias e fatos relevantes** | Deliberações, mudanças de regulamento, substituição de prestadores, reestruturações | Evento a evento |
 
-## Relatórios e informes
+Cada camada responde perguntas diferentes. O IME diz o que aconteceu em termos de dados padronizados. O relatório mensal explica o porquê e mostra indicadores do regulamento. As assembleias registram decisões formais sobre o fundo.
 
-Os fundos do acervo mostram pelo menos três camadas distintas de disclosure:
+Para uma análise completa, as três fontes precisam ser lidas em conjunto.
 
-- IME/XML da CVM;
-- relatórios mensais de monitoramento;
-- documentos de oferta, fatos relevantes e assembleias.
+## Assembleias de cotistas: quando importam para a análise
 
-Cada um responde a perguntas diferentes:
-
-- IME: base padronizada de reporte;
-- relatório mensal: narrativa operacional e métricas próprias da estrutura;
-- assembleias/fatos relevantes: mudanças, exceções e deliberações.
-
-## Assembleias
-
-Assembleias importam porque são o ponto formal em que:
-
-- eventos são reconhecidos ou discutidos;
-- regulamento é alterado;
+As assembleias são o mecanismo formal de governança dos cotistas. É nelas que:
+- eventos de avaliação são reconhecidos e discutidos;
+- o regulamento pode ser alterado;
 - prestadores de serviço podem ser substituídos;
-- caminhos de reestruturação podem ser deliberados.
+- caminhos de reestruturação são deliberados;
+- liquidação antecipada pode ser decidida.
 
-## O que isso implica para o produto
+Para o analista, uma assembleia convocada fora do rito ordinário — especialmente em contexto de deterioração de carteira ou violação de guardrail — é um sinal de atenção que exige leitura cuidadosa da ata e do contexto.
 
-O dashboard deveria deixar claro:
+## O que o IME não captura neste bloco
 
-- qual camada de informação está sendo mostrada;
-- última data disponível por camada;
-- fonte do dado;
-- se existe documento complementar relevante fora do IME.
+O IME não informa:
+- se houve verificação de lastro no período, com qual resultado;
+- se existe relatório de rating vigente e qual é o nível atual;
+- se foi convocada assembleia ou se há fato relevante pendente;
+- quais indicadores estruturais específicos do regulamento estão sendo monitorados pelo administrador.
 
-## Fontes desta página
-
-- Orientação oficial: Ofício-Circular CVM/SSE 8/2023.
-- Fonte local: `estudo/1672581-43161-20230523111704.pdf`.
-- Fonte local: `estudo/2076171-63381-20250204121014.pdf`.
-- Fonte local: `estudo/2159283-43161-20260309175427.pdf`.
+Para esses temas, os canais são o Fundos.NET (atas de assembleia, fatos relevantes) e o relatório mensal do administrador.

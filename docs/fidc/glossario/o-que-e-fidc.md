@@ -1,62 +1,58 @@
 # O que é FIDC e o que são direitos creditórios
 
-## O que é
+## O que é um FIDC
 
-Na prática econômica, um FIDC é um fundo que concentra recursos para adquirir direitos creditórios e outros ativos permitidos, organizando risco, subordinação, remuneração e governança em torno dessa carteira.
+FIDC é a sigla para Fundo de Investimento em Direitos Creditórios. Em termos práticos, é um veículo que capta recursos de investidores e usa esses recursos para comprar recebíveis — duplicatas, contratos de empréstimo, financiamentos, créditos consignados, etc.
 
-Na revisão oficial usada nesta base, a norma estrutural relevante é a [Resolução CVM 175](../regulacao/hierarquia-regulatoria.md), especialmente o Anexo Normativo II para FIDC. Já os regulamentos dos fundos do acervo mostram como essa moldura normativa é concretizada em carteiras reais.
+Se você conhece o conceito de securitização, o FIDC é a versão brasileira regulada pela CVM: uma entidade separada, com patrimônio próprio, que adquire créditos cedidos por originadores e os transforma em cotas para investidores.
+
+O FIDC é regulado principalmente pela **Resolução CVM 175** e pelo seu **Anexo Normativo II**, que trata especificamente dessa categoria de fundo.
 
 ## O que são direitos creditórios
 
-Direito creditório não é sinônimo de “qualquer recebível” em sentido solto. O ponto central é haver um crédito identificável, cedível ao fundo e enquadrado na política de investimento, nas condições de cessão e nos critérios de elegibilidade.
+Direito creditório é o crédito que o fundo adquire. Pode ser:
 
-Nos documentos do acervo, isso aparece de formas diferentes:
+- uma duplicata mercantil (crédito de fornecedor contra comprador);
+- uma CCB — Cédula de Crédito Bancário (empréstimo pessoal, consignado, financiamento de veículo);
+- recebíveis de arranjos de pagamento (como créditos da Cielo contra estabelecimentos);
+- créditos precatórios, contratos de prestação de serviço, entre outros.
 
-- no Seller, os direitos creditórios se ligam a transações de pagamento e a operações com sub-rogação no ecossistema Mercado Pago/Mercado Crédito;
-- no Facta INSS CB e no Agibank, os direitos se conectam a empréstimos consignados representados por CCBs;
-- no BV Veículos, os créditos decorrem de financiamentos de veículos automotores representados por CCBs;
-- no Cielo, a lógica passa pelo arranjo de pagamentos e pela posição da Cielo como devedor nas estruturas monitoradas.
+O ponto central é que o crédito precisa ser **identificável**, **cedível ao fundo** e **enquadrado na política de investimento** definida no regulamento. O que é elegível — e o que não é — varia muito de fundo para fundo.
 
-## Em termos práticos no acompanhamento
+## Por que a natureza do crédito importa tanto
 
-Quando um analista acompanha um FIDC, o primeiro filtro deveria ser:
+Dois FIDCs com indicadores parecidos de subordinação e inadimplência podem ter perfis de risco muito diferentes se os créditos que compõem a carteira forem distintos.
 
-1. qual é a natureza jurídica e operacional do crédito;
-2. quem origina;
-3. quem deve;
-4. se existe ou não coobrigação/regresso;
-5. como o crédito entra, performa e sai da carteira.
+Um FIDC de consignado INSS tem como devedor efetivo o INSS, que desconta o valor diretamente no benefício — o risco principal é operacional (averbação correta, elegibilidade documental). Já um FIDC de crédito pessoal via fintech depende da qualidade de seleção de risco do originador, da taxa de first payment default e da eficiência da cobrança.
 
-Sem isso, métricas como inadimplência, subordinação e amortização perdem contexto.
+Antes de interpretar qualquer métrica, vale responder:
 
-## O que costuma variar conforme o regulamento
+1. Qual é o tipo de crédito na carteira?
+2. Quem origina? Quem cede? Quem deve?
+3. Existe coobrigação — ou seja, o cedente responde se o devedor não pagar?
+4. Como o crédito entra, performa e sai da carteira?
 
-- definição exata do que conta como direito creditório elegível;
-- documentos exigidos para cessão;
-- critérios de elegibilidade;
-- hipóteses de recompra, resolução ou substituição;
-- coexistência com caixa, títulos públicos e outros ativos permitidos;
-- limites de concentração, prazo, coobrigação e revolvência.
+Sem essas respostas, inadimplência, subordinação e amortização perdem contexto analítico.
 
-## O que não é seguro assumir
+## Coobrigação: uma distinção importante
 
-- que todo FIDC financeiro tem a mesma lógica de risco;
-- que todo crédito cedido é sem coobrigação;
-- que todo atraso no IME mede a mesma coisa que atraso econômico do fundo;
-- que os buckets do XML substituem a leitura do regulamento.
+Na maioria dos FIDCs de mercado, a cessão é **sem coobrigação** — ou seja, o cedente transfere o risco de crédito integralmente ao fundo. Se o devedor não pagar, o fundo absorve a perda.
 
-## Sinal importante para o app
+Quando há coobrigação, o cedente serve como segunda camada de proteção. A existência ou ausência de coobrigação muda substancialmente o perfil de risco e deve ser identificada no regulamento ou no prospecto do fundo.
 
-O dashboard não deveria apresentar apenas “direitos creditórios” como um bloco genérico. Ele precisa identificar a família de crédito e mostrar, logo no topo:
+## O que varia conforme o regulamento
 
-- tipo de recebível;
-- cedente/originador;
-- devedor;
-- coobrigação;
-- documento-fonte da elegibilidade.
+- definição exata de quais créditos são elegíveis para cessão;
+- documentos exigidos para que a cessão seja válida;
+- critérios de verificação de elegibilidade;
+- hipóteses em que o fundo pode pedir recompra ou substituição do crédito;
+- limites de concentração por devedor, cedente, prazo ou setor.
 
-## Fontes desta página
+## O que o IME informa sobre os direitos creditórios
 
-- Norma oficial: Resolução CVM 175, Anexo Normativo II.
-- Fonte local: [Seller FIDC - regulamento](../fontes/referencias.md).
-- Fonte local: [Facta INSS CB - regulamento](../fontes/referencias.md).
+O Informe Mensal traz:
+- o saldo total de direitos creditórios (denominador de vários indicadores de risco);
+- a composição por prazo de vencimento (carteira a vencer vs. vencida);
+- o saldo de créditos vencidos inadimplentes, por faixa de atraso.
+
+O IME **não informa** concentração por devedor individual, qualidade documental da cessão, critérios de elegibilidade nem o nível de recompras e resoluções ocorridas no período.

@@ -1,89 +1,48 @@
-# Book FIDC: escopo, método e trilha de leitura
+# Guia de uso deste glossário
 
-Este acervo foi criado para ser a camada canônica de conhecimento FIDC do repositório. O desenho é deliberado:
+Este glossário foi feito para analistas de crédito que precisam acompanhar FIDCs usando o Informe Mensal Estruturado (IME) da CVM, sem pressupor conhecimento prévio de fundos de investimento.
 
-- o texto humano vive em Markdown;
-- a navegação do app lê esse mesmo Markdown;
-- o índice e as fontes ficam em `docs/fidc/_data/`;
-- a base pode ser reaproveitada por Obsidian, busca local e futuro RAG.
+O ponto de partida é prático: você já sabe o que é crédito, sabe ler demonstrações financeiras e entende o conceito de risco de inadimplência. O que muda num FIDC é a estrutura jurídica, a nomenclatura regulatória e o formato do dado disponível.
 
-## Regra editorial
+## O que você vai encontrar aqui
 
-Este book só deve afirmar algo quando a afirmação estiver ancorada em:
+| Seção | O que cobre |
+| --- | --- |
+| **Regulação** | Quais normas regem o FIDC e o que cada uma determina na prática |
+| **Glossário básico** | O que é um FIDC, o que são direitos creditórios, como funciona a cessão |
+| **Participantes** | Quem é quem na estrutura — administrador, gestor, cedente, custodiante |
+| **Estrutura** | Classes de cotas, subordinação e ordem de absorção de perdas (waterfall) |
+| **Métricas** | Quais indicadores monitorar, o que cada um mede e onde buscar |
+| **Eventos** | O que é um evento de avaliação, liquidação antecipada e controles formais |
+| **Famílias de recebíveis** | Como o risco muda conforme o tipo de crédito na carteira |
 
-1. norma oficial da CVM;
-2. orientação oficial da CVM;
-3. documento oficial do fundo presente em `estudo/`.
+## Trilha de leitura sugerida
 
-Isso significa que esta base diferencia de forma explícita:
+Se você está começando do zero com FIDCs, leia nesta ordem:
 
-- exigência regulatória;
-- prática de mercado;
-- cláusula específica de regulamento;
-- observação analítica extraída de fundo real.
+1. **O que é FIDC e o que são direitos creditórios** — o conceito central
+2. **Participantes da estrutura** — quem tem que papel
+3. **Classes, cotas e waterfall** — como as perdas são absorvidas
+4. **Métricas estruturais** — o que monitorar e por quê
+5. **Provisionamento, perdas e inadimplência** — como interpretar os números do IME
+6. **Famílias de recebíveis** — consignado, cartão, veículos: o que muda em cada um
 
-## O que esta base cobre
+## O que o IME entrega e o que ele não entrega
 
-- fundamentos do FIDC e dos direitos creditórios;
-- papéis dos participantes da estrutura;
-- classes, cotas, subordinação e waterfall;
-- métricas estruturais recorrentes;
-- eventos de avaliação e liquidação antecipada;
-- famílias de recebíveis financeiros;
-- comparação entre FIDCs com cedentes IFs ou carteiras originadas por IFs.
+O Informe Mensal Estruturado (IME) é um arquivo XML enviado mensalmente pelos administradores à CVM. É a base deste painel — e é padronizada, comparável e pública.
 
-## O que esta base não deve fazer
+Mas o IME tem limites importantes:
 
-- tratar uma cláusula de um fundo como regra universal;
-- tratar padrão XML do IME como se fosse a norma estrutural do FIDC;
-- preencher lacuna documental com suposição;
-- esconder ambiguidade de dado ou de norma.
+**O IME cobre:** patrimônio líquido por classe de cota, inadimplência por faixa de prazo (aging), provisão, emissões e resgates, amortizações, composição da carteira em grandes blocos.
 
-## Trilha mínima de leitura
+**O IME não cobre:** gatilhos contratuais específicos (covenants), excesso de spread, índice de cobertura calculado pelo regulamento, reservas de liquidez, first payment default, qualidade individual do cedente, concentração por devedor, rating das cotas.
 
-1. [Hierarquia regulatória](regulacao/hierarquia-regulatoria.md)
-2. [O que é FIDC e o que são direitos creditórios](glossario/o-que-e-fidc.md)
-3. [Participantes da estrutura](participantes/participantes.md)
-4. [Classes, subclasses, cotas e waterfall](estruturas/classes-cotas-waterfall.md)
-5. [Métricas estruturais e guardrails](metricas/metricas-estruturais.md)
-6. [Recebíveis financeiros](recebiveis/recebiveis-financeiros.md)
-7. [Análise comparativa de FIDCs com originação financeira](tipos-de-fundos/fidcs-com-originacao-if.md)
+Quando você ler um dado neste painel e quiser saber se ele é bom, ruim ou suficiente, a resposta quase sempre exige leitura do regulamento do fundo.
 
-## Como isso conversa com o dashboard
+## Como usar este glossário
 
-O dashboard atual do projeto extrai e organiza o IME da CVM. Isso é útil, mas insuficiente para cobrir toda a camada estrutural de um FIDC. O book existe justamente para:
+Cada página explica um conceito com três perguntas em mente:
 
-- explicar o que o XML entrega e o que ele não entrega;
-- mostrar quais métricas dependem de regulamento ou relatório mensal;
-- orientar a expansão da UI para além do IME básico.
-
-Exemplo prático:
-
-- `alocação em direitos creditórios`, `subordinação` e `inadimplência` podem aparecer no IME;
-- `índice de cobertura`, `relação mínima`, `excesso de spread`, `reserva de liquidez` e `first payment default` costumam depender de regulamento e relatório de monitoramento;
-- `rating`, `público-alvo`, `rito da oferta` e `classe/subclasse` exigem leitura combinada de norma, suplemento e material de distribuição.
-
-## Fontes-base desta fase
-
-- Resolução CVM 175 e Anexo Normativo II de FIDC.
-- Resolução CVM 160.
-- Resolução CVM 30.
-- Padrão XML Mensal FIDC da CVMWeb.
-- Regulamentos e relatórios mensais de fundos reais do acervo, com destaque para Seller, Facta INSS CB, GERU, Supplier, Agibank I, iCred FGTS, Cielo e BV Veículos.
-
-## Observação de método
-
-Na revisão feita aqui, o eixo normativo central foi:
-
-- `RCVM 175 + Anexo II` para estrutura e funcionamento do FIDC;
-- `RCVM 160` para oferta pública;
-- `RCVM 30` para categorias de investidor;
-- padrão XML/CVMWeb como camada de reporte.
-
-Ou seja: a antiga referência associada ao XML mensal não é a espinha regulatória principal do veículo.
-
-## Fontes desta página
-
-- Fonte oficial: Resolução CVM 175, página oficial e anexos consolidados.
-- Fonte oficial: padrão XML mensal FIDC da CVMWeb.
-- Fonte local: [Seller FIDC - relatório mensal fevereiro/2026](fontes/referencias.md).
+1. **O que é?** — definição clara, sem jargão desnecessário
+2. **Por que importa para a análise?** — contexto prático
+3. **O que observar?** — sinais de atenção na leitura do IME

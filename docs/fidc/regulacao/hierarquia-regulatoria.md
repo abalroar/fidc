@@ -1,84 +1,57 @@
-# Hierarquia regulatória: 175, 160, 30 e o padrão XML
+# O arcabouço regulatório do FIDC
 
-## Visão curta
+## As normas que regem o FIDC
 
-Na revisão oficial feita para este repositório, a arquitetura normativa principal do projeto ficou assim:
+Quatro normas formam o eixo regulatório principal que você precisa conhecer para acompanhar FIDCs:
 
-1. `Resolução CVM 175` e `Anexo Normativo II`: estrutura, funcionamento e divulgação do FIDC.
-2. `Resolução CVM 160`: oferta pública e rito de distribuição.
-3. `Resolução CVM 30`: categorias de investidores e suitability.
-4. `Padrão XML Mensal FIDC` na CVMWeb: camada operacional de reporte.
+| Norma | O que cobre |
+| --- | --- |
+| **Resolução CVM 175 + Anexo Normativo II** | Constituição, funcionamento, divulgação e governança dos fundos de investimento; o Anexo II trata especificamente do FIDC |
+| **Resolução CVM 160** | Oferta pública de valores mobiliários — regula como as cotas são distribuídas ao público |
+| **Resolução CVM 30** | Categorias de investidores (profissional e qualificado) e regras de suitability |
+| **Padrão XML Mensal CVM** | Define os campos e a estrutura do Informe Mensal Estruturado (IME) enviado pelos administradores |
 
-## O que a Resolução CVM 175 cobre
+## Resolução CVM 175 e Anexo Normativo II
 
-A página oficial da norma já descreve a Resolução CVM 175 como a regra sobre constituição, funcionamento e divulgação de informações dos fundos de investimento. A mesma página aponta expressamente o `Anexo Normativo II` como o anexo dos fundos de investimento em direitos creditórios.
+É a norma estrutural central. Quando você tem dúvida sobre como um FIDC funciona, como classes e subclasses se organizam, quais são as obrigações do administrador ou como a governança deve operar — a referência é a 175.
 
-Na prática do book, isso significa:
+O **Anexo Normativo II** é o capítulo específico para FIDCs dentro da 175. Ele detalha aspectos como:
+- estrutura de classes de cotas sênior e subordinada;
+- exigências de divulgação periódica (incluindo o IME);
+- regras de elegibilidade e cessão no contexto regulatório;
+- rating de cotas em contextos específicos.
 
-- se a pergunta é “o que é o FIDC, como ele se organiza e quais peças estruturais importam?”, o ponto de partida é a 175;
-- se a pergunta é “qual anexo eu leio para FIDC?”, a resposta é o Anexo II.
+## Resolução CVM 160: quando entra em cena
 
-## O que a Resolução CVM 160 cobre
+A 160 é relevante quando você precisa entender **como a oferta foi estruturada**: se as cotas foram distribuídas por oferta pública com rito automático ou com rito ordinário, se há prospecto, quem pode subscrever, etc.
 
-A 160 entra quando a pergunta muda para:
+Para monitoramento recorrente de carteira, a 160 tem menos relevância do que a 175. Mas ela importa para entender o perfil dos investidores do fundo e os documentos da oferta original.
 
-- como a oferta pública é estruturada;
-- qual o rito de registro;
-- quais documentos de distribuição fazem parte da operação.
+## Resolução CVM 30: categorias de investidor
 
-No acervo local, anúncios de início, encerramento e comunicados ao mercado de ofertas sob rito automático aparecem em diversos fundos, como Seller, Supplier, Fortbrasil e iCred 2.
+A CVM 30 define quem pode investir em cada tipo de produto:
 
-## O que a Resolução CVM 30 cobre
+- **Investidor profissional** (art. 11): inclui bancos, seguradoras, fundos de investimento, e pessoas físicas/jurídicas com aplicações financeiras acima de R$ 10 milhões, entre outros.
+- **Investidor qualificado** (art. 12): inclui pessoas físicas/jurídicas com aplicações acima de R$ 1 milhão, além dos profissionais.
 
-A 30 é a referência certa para categorias de investidor e suitability.
+Vários FIDCs são restritos a investidores profissionais — o que é relevante para entender o perfil de cotistas que compõem o passivo do fundo.
 
-Na versão consolidada consultada:
+## O padrão XML do IME: camada de reporte, não norma estrutural
 
-- o `art. 11` define investidores profissionais;
-- o `art. 12` define investidores qualificados.
+O Informe Mensal Estruturado é um arquivo XML enviado mensalmente pelos administradores à CVM via Fundos.NET. Ele segue um padrão de campos definido pela CVM.
 
-Isso é particularmente importante para não confundir:
+Esse padrão é a base técnica deste painel — mas é importante entender o que ele é e o que não é:
 
-- fundo para investidor profissional;
-- fundo para investidor qualificado;
-- oferta pública destinada a um ou outro público.
+- É **padronizado** — permite comparar fundos diferentes pelo mesmo conjunto de campos;
+- É **uma camada de reporte**, não o regulamento do fundo — não substitui o regulamento, o prospecto nem o relatório mensal do administrador;
+- Os campos do IME não cobrem todos os indicadores estruturais relevantes — gatilhos, covenants, excesso de spread e reservas geralmente ficam de fora.
 
-## Onde entra o padrão XML mensal
+## Leitura combinada na prática
 
-O padrão XML mensal é essencial para o app, porque o dashboard atual parte do IME. Mas ele é uma camada de reporte, não o eixo principal da estrutura do fundo.
+Para uma análise completa de um FIDC, a leitura dos dados do IME deve ser combinada com:
 
-Na prática:
+1. **Regulamento do fundo** — para entender os guardrails, gatilhos e critérios de elegibilidade específicos;
+2. **Relatório mensal do administrador** — para narrativa operacional, indicadores próprios do fundo e eventos do período;
+3. **Documentos de oferta** — para entender a estrutura original e o perfil de investidores.
 
-- o XML ajuda a entender campos, buckets e blocos reportados;
-- o XML não substitui o regulamento;
-- o XML não resolve sozinho elegibilidade, eventos, reserves, spread, FPD ou covenants específicos.
-
-## O que isso corrige na memória regulatória do projeto
-
-Na revisão oficial feita aqui, o eixo central não foi `576 + outra norma + 505`. O que apareceu com clareza foi:
-
-- `175/Anexo II` para o FIDC em si;
-- `160` para oferta;
-- `30` para investidor;
-- padrão XML como infraestrutura de reporte.
-
-Se a equipe quiser escrever páginas normativas mais profundas, a próxima etapa deve citar artigo por artigo conforme o tema, mas a hierarquia base já está suficientemente clara para orientar a arquitetura do book.
-
-## Consequência prática para a knowledge base
-
-Cada página do book deve informar explicitamente se a afirmação vem de:
-
-- norma geral da CVM;
-- norma de oferta;
-- regra de categoria de investidor;
-- orientação oficial da CVM;
-- documento específico do fundo.
-
-## Fontes desta página
-
-- Página oficial da Resolução CVM 175: https://conteudo.cvm.gov.br/legislacao/resolucoes/resol175.html
-- Resolução CVM 175, Parte Geral consolidada.
-- Resolução CVM 175, Anexo Normativo II consolidado.
-- Resolução CVM 160 consolidada.
-- Resolução CVM 30 consolidada.
-- Padrão XML Mensal FIDC da CVMWeb.
+O IME é o ponto de partida mais acessível e padronizado. A análise completa exige ir além dele.

@@ -1,53 +1,33 @@
-# Fundos do acervo usados como âncora
+# Fundos usados como referência neste glossário
 
-## Critério de seleção
+## Por que usar fundos reais como referência
 
-Os fundos abaixo foram escolhidos porque ajudam a cobrir famílias diferentes de FIDCs financeiros e estruturas correlatas que aparecem de forma recorrente no acervo.
+Conceitos abstratos de FIDC ficam muito mais claros quando ancorados em estruturas reais. Os fundos listados abaixo são usados ao longo deste glossário como exemplos de como determinadas características estruturais aparecem na prática.
 
-## Fundos âncora
+Eles não foram escolhidos como "melhores" ou "piores" — foram escolhidos por representar famílias de risco distintas e por ilustrar bem conceitos específicos.
 
-| Fundo | Família | Por que ele é importante para o book |
+## Fundos de referência
+
+| Fundo | Família de crédito | Por que é útil como referência |
 | --- | --- | --- |
-| Seller | Meios de pagamento | Mostra bem cobertura, subordinação, alocação mínima, prazo médio e taxa média em um formato de monitoramento maduro. |
-| Facta INSS CB | Consignado benefício | É forte em cessão, elegibilidade, documentação e governança de inconsistências. |
-| GERU I | Crédito pessoal/fintech | É forte para relação mínima, alocação mínima, cobertura e first payment default. |
-| Agibank I | Consignado INSS | Ajuda a mostrar o papel do endossante e da carteira de CCBs consignadas. |
-| iCred FGTS | Consignado/FGTS | Bom para entender múltiplas tranches, benchmarks e originação por fintech. |
-| Cielo | Arranjo de pagamentos | Mostra que o devedor econômico e a arquitetura operacional podem fugir do template clássico de carteira parcelada. |
-| BV Veículos | Veículos | Traz um caso claro de financiamento via CCB com leitura própria de prazo e inadimplência. |
-| Stone IV | Cartão / bancos emissores | Ajuda a representar o universo de cartão e cessão sem regresso/coobrigação. |
-| Supplier | Cartão / supplier | É a melhor âncora local para excesso de spread, reservas, DCV e refinanciamento. |
-| Volkswagen Tera | Comercial / operacional | É uma âncora importante para resolução, recompra, erros e pagamentos incorretos. |
+| **Seller** | Meios de pagamento / Mercado Pago | Estrutura madura de monitoramento com cobertura, subordinação, alocação mínima e prazo médio bem documentados |
+| **Facta INSS CB** | Consignado benefício (CCB) | Forte em critérios de cessão, elegibilidade, documentação e governança de inconsistências |
+| **GERU I** | Crédito pessoal / fintech | Referência para relação mínima, alocação mínima, cobertura e first payment default em crédito digital |
+| **Agibank I** | Consignado INSS (CCB) | Ilustra o papel do banco como endossante e a estrutura típica de consignado sem coobrigação |
+| **iCred FGTS** | Consignado INSS + FGTS | Bom para entender múltiplas séries e classes com benchmarks diferentes em fintech de consignado |
+| **Cielo** | Arranjo de pagamentos / adquirência | Mostra que o devedor econômico e a arquitetura de risco podem fugir completamente do template de crédito parcelado |
+| **BV Crédito de Veículos** | Financiamento de veículos (CCB) | Caso claro de carteira de banco com leitura própria de prazo, safra e inadimplência de veículos |
+| **Stone IV** | Cartão / bancos emissores | Representa o universo de cartão com cessão sem regresso/coobrigação |
+| **Supplier** | Cartão / supplier finance | Melhor referência para excesso de spread, reservas, DCV e refinanciamento |
+| **Volkswagen Tera** | Veículos / operacional | Referência para resolução, recompra, erros de liquidação e controles operacionais específicos |
 
-## Como usar esses fundos
+## Como usar essas referências
 
-Eles não foram escolhidos para formar “média de mercado”. Foram escolhidos para formar repertório:
+Quando este glossário menciona um desses fundos, o objetivo é mostrar como um conceito específico aparece em uma estrutura real — não fazer qualquer julgamento sobre o risco atual ou histórico desses fundos.
 
-- Seller para monitoramento estrutural;
-- Facta e GERU para cessão/elegibilidade/originação financeira;
-- Agibank e iCred para consignado com perfis diferentes de originador;
-- Cielo e Seller para meios de pagamento;
-- Stone e Supplier para cartão;
-- BV para veículos;
-- Volkswagen Tera para covenants operacionais.
+Por exemplo:
+- **Seller** ilustra bem como um fundo define e monitora índice de cobertura e subordinação para amortização;
+- **GERU** ilustra como FPD e relação mínima funcionam como guardrail em crédito pessoal;
+- **Supplier** ilustra como excesso de spread e DCV são usados como indicadores de saúde em cartões.
 
-## Consequência para o agente e para o produto
-
-Essa seleção de fundos pode servir como:
-
-- base de few-shot documental para agente especializado;
-- base de comparação para explicações do book;
-- base de desenho de módulos analíticos por família de lastro.
-
-## Fontes desta página
-
-- `estudo/2159283-43161-20260309175427.pdf`
-- `estudo/1599001-38501-20221212113215.pdf`
-- `estudo/1337461-15981-20200901100422.pdf`
-- `estudo/2156614-81031-20260126104025.pdf`
-- `estudo/2159394-59901-20260310142833.pdf`
-- `estudo/2142726-12001-20250623152914.pdf`
-- `estudo/2148594-19371-20250917103827.pdf`
-- `estudo/1476881-27101-20211224104441.pdf`
-- `estudo/1385961-759-20210301165301.pdf`
-- `estudo/2076171-63381-20250204121014.pdf`
+A escolha de exemplar específico de fundo para cada conceito busca tornar o conteúdo verificável — mas a leitura de risco atual de qualquer um desses fundos exige análise própria com os dados disponíveis.
