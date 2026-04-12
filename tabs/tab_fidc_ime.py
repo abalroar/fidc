@@ -540,33 +540,66 @@ def _update_progress_bar(progress_bar, value: float, message: str) -> None:
 
 
 def render_tab_fidc_ime() -> None:
-    st.caption(
-        "Painel de acompanhamento para comprador de cotas seniores a partir dos Informes Mensais da CVM. "
-        "Informe o CNPJ, escolha a janela e carregue a análise."
-    )
-
     today = date.today()
-    default_end = date(today.year, today.month, 1)
-    default_start = date(default_end.year - 1, default_end.month, 1)
-    month_options = _build_month_options(default_end, months_back=240)
+
+    # Generate month options from Jan/2018 to 6 months ahead, formatted "jan-22"
+    def _month_options() -> list[str]:
+        opts: list[str] = []
+        cur = date(2018, 1, 1)
+        end = date(today.year + (1 if today.month > 6 else 0), ((today.month + 6 - 1) % 12) + 1, 1)
+        while cur <= end:
+            mm = f"{cur.month:02d}"
+            yy = str(cur.year)[-2:]
+            abbr = _PT_MONTH_ABBR.get(mm, mm)
+            opts.append(f"{abbr}-{yy}")
+            # advance one month
+            if cur.month == 12:
+                cur = date(cur.year + 1, 1, 1)
+            else:
+                cur = date(cur.year, cur.month + 1, 1)
+        return opts
+
+    def _option_to_date(opt: str) -> date:
+        """Convert 'abr-25' back to date(2025, 4, 1)."""
+        abbr_to_num = {v: k for k, v in _PT_MONTH_ABBR.items()}
+        parts = opt.split("-")
+        if len(parts) != 2:
+            return today.replace(day=1)
+        abbr, yy = parts
+        mm = abbr_to_num.get(abbr, "01")
+        year = 2000 + int(yy) if int(yy) < 100 else int(yy)
+        return date(year, int(mm), 1)
+
+    month_opts = _month_options()
+    default_end_opt = _format_competencia_display(f"{today.month:02d}/{today.year}")
+    default_start_dt = date(today.year - 1, today.month, 1)
+    default_start_opt = _format_competencia_display(f"{default_start_dt.month:02d}/{default_start_dt.year}")
+
+    # Use safe defaults if generated options don't contain the default
+    if default_end_opt not in month_opts:
+        default_end_opt = month_opts[-1]
+    if default_start_opt not in month_opts:
+        default_start_opt = month_opts[0]
 
     col1, col2, col3 = st.columns([2, 1, 1])
     with col1:
-        cnpj_input = st.text_input("CNPJ do fundo", placeholder="00.000.000/0000-00")
+        cnpj_input = st.text_input("CNPJ do fundo", placeholder="00.000.000/0000-00", key="fidc_cnpj_input")
     with col2:
-        competencia_inicial = st.selectbox(
+        selected_inicial = st.selectbox(
             "Competência inicial",
-            options=month_options,
-            index=month_options.index(default_start) if default_start in month_options else max(len(month_options) - 13, 0),
-            format_func=_format_month_option_label,
+            options=month_opts,
+            index=month_opts.index(default_start_opt),
+            key="fidc_competencia_inicial",
         )
     with col3:
-        competencia_final = st.selectbox(
+        selected_final = st.selectbox(
             "Competência final",
-            options=month_options,
-            index=month_options.index(default_end) if default_end in month_options else len(month_options) - 1,
-            format_func=_format_month_option_label,
+            options=month_opts,
+            index=month_opts.index(default_end_opt),
+            key="fidc_competencia_final",
         )
+    competencia_inicial = _option_to_date(selected_inicial)
+    competencia_final = _option_to_date(selected_final)
 
     load_clicked = st.button("Carregar Informes Mensais", type="primary")
     stored_result = st.session_state.get("fidc_last_result")
@@ -759,11 +792,7 @@ def _render_dashboard(
 
 
 def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
-    left, right = st.columns([2.2, 1])
-    with left:
-        st.caption("Os gráficos mostram rótulos automaticamente apenas quando isso ajuda a leitura.")
-    with right:
-        _render_pdf_export_button(dashboard, context)
+    _render_pdf_export_button(dashboard, context)
 
 
 def _render_risk_overview(dashboard: FundonetDashboardData) -> None:
@@ -828,47 +857,32 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 f"Inadimplência {_format_brl_compact(latest_default_row.get('inadimplencia_total'))} · "
                 f"Provisão {_format_brl_compact(latest_default_row.get('provisao_total'))}"
             )
-    bottom_left, bottom_mid, bottom_right = st.columns(3)
-    if dashboard.segment_latest_df.empty:
-        bottom_left.info("O Informe Mensal mais recente não trouxe composição setorial positiva da carteira.")
+    col_aging, col_cobertura = st.columns(2)
+    aging_history_df = _build_aging_history_display_df(
+        dashboard.default_buckets_history_df,
+        dashboard.default_history_df,
+    )
+    _render_chart_heading(col_aging, "Aging da inadimplência", "% dos direitos creditórios totais, até 360 dias.")
+    if aging_history_df.empty:
+        col_aging.info("Dados de aging não disponíveis nos informes selecionados.")
     else:
-        _render_chart_heading(bottom_left, "Concentração setorial", "% da carteira na competência mais recente.")
-        bottom_left.altair_chart(
-            _percent_bar_chart(
-                dashboard.segment_latest_df.sort_values("percentual", ascending=False),
-                category_column="segmento",
-                percent_column="percentual",
-                value_column="valor",
+        col_aging.altair_chart(
+            _stacked_history_bar_chart(
+                aging_history_df.rename(columns={"faixa": "serie"}),
                 title=None,
+                y_title="% dos recebíveis",
+                value_column="percentual",
+                color_range=AGING_CHART_COLORS,
+                show_total_labels=True,
             ),
             use_container_width=True,
         )
-        _render_concentration_warning(bottom_left, dashboard.segment_latest_df)
-    aging_chart_df = _build_aging_display_df(dashboard.default_buckets_latest_df)
-    _render_chart_heading(bottom_mid, "Aging da inadimplência", "% do total inadimplente, até 360 dias.")
-    bottom_mid.altair_chart(
-        _stacked_share_column_chart(
-            aging_chart_df,
-            category_column="faixa",
-            percent_column="percentual",
-            title=None,
-            value_column="valor",
-            stack_label="Inadimplência",
-            order_column="ordem",
-            height=300,
-            bar_size=52,
-            label_font_size=13,
-            color_range=AGING_CHART_COLORS,
-        ),
-        use_container_width=True,
-    )
-    _render_aging_omission_note(bottom_mid, dashboard.default_buckets_latest_df)
     cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
-    _render_chart_heading(bottom_right, "Cobertura de provisão", "Provisão / inadimplência ao longo do tempo (%).")
+    _render_chart_heading(col_cobertura, "Cobertura de provisão", "Provisão / inadimplência ao longo do tempo (%).")
     if cobertura_df.empty:
-        bottom_right.info("Sem dados de cobertura de provisão disponíveis.")
+        col_cobertura.info("Sem dados de cobertura de provisão disponíveis.")
     else:
-        bottom_right.altair_chart(
+        col_cobertura.altair_chart(
             _history_bar_chart(
                 cobertura_df,
                 title=None,
@@ -878,7 +892,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             ),
             use_container_width=True,
         )
-        bottom_right.caption("Acima de 100%: provisão supera a inadimplência reportada.")
+        col_cobertura.caption("Acima de 100%: provisão supera a inadimplência reportada.")
 
 
 def _render_structural_risk_section(dashboard: FundonetDashboardData) -> None:
@@ -1026,20 +1040,18 @@ def _render_audit_section(dashboard: FundonetDashboardData) -> None:
 
 def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
     info = dashboard.fund_info
-    pills = [
-        ("Cotistas", info.get("total_cotistas", "N/D")),
-        ("Administrador", info.get("nome_administrador", "N/D")),
-        ("Custodiante", info.get("nome_custodiante", "N/D")),
-        ("Gestor", info.get("nome_gestor", "N/D")),
-    ]
-    pills_html = "\n".join(
-        f'<span class="fidc-pill"><strong>{escape(label)}:</strong> {escape(str(value or "N/D"))}</span>'
-        for label, value in pills
-        if value and value != "N/D"
-    )
-    # Participantes row: Administrador / Gestor / Custodiante
+    # Pills: only Condomínio and Cotistas count (no labels for extras)
+    condominio = info.get("condominio", "")
+    cotistas = info.get("total_cotistas", "")
+    pills_parts: list[str] = []
+    if condominio and condominio not in ("", "N/D"):
+        pills_parts.append(f'<span class="fidc-pill"><strong>Condomínio:</strong> {escape(str(condominio))}</span>')
+    if cotistas and cotistas not in ("", "N/D", "0"):
+        pills_parts.append(f'<span class="fidc-pill"><strong>Cotistas:</strong> {escape(str(cotistas))}</span>')
+    pills_html = "\n".join(pills_parts)
+    # Participantes row: Administrador (no CNPJ) / Gestor / Custodiante
     participantes_pairs = [
-        ("Administrador", info.get("nm_admin") or _format_cnpj(info.get("cnpj_administrador", "")) or ""),
+        ("Administrador", info.get("nm_admin", "")),
         ("Gestor", info.get("nm_gestor", "")),
         ("Custodiante", info.get("nm_custodiante", "")),
     ]
@@ -1053,7 +1065,7 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
         f"""
 <div class="fidc-hero">
   <div class="fidc-hero__title">{escape(str(title))}</div>
-  <div class="fidc-hero__meta">{pills_html}</div>
+  {f'<div class="fidc-hero__meta">{pills_html}</div>' if pills_html else ""}
   {f'<div class="fidc-hero__participantes">{participantes_html}</div>' if participantes_html else ""}
 </div>
 """,
@@ -1161,6 +1173,35 @@ def _build_aging_display_df(default_buckets_latest_df: pd.DataFrame) -> pd.DataF
     if "ordem" not in default_buckets_latest_df.columns:
         return default_buckets_latest_df.copy()
     return default_buckets_latest_df[default_buckets_latest_df["ordem"] <= 7].copy()
+
+
+def _build_aging_history_display_df(
+    default_buckets_history_df: pd.DataFrame,
+    default_history_df: pd.DataFrame,
+) -> pd.DataFrame:
+    """Historical aging as % of total recebíveis (direitos_creditorios) per period.
+
+    Falls back to inadimplencia_total as denominator when direitos_creditorios is zero/missing.
+    """
+    if default_buckets_history_df.empty or default_history_df.empty:
+        return pd.DataFrame(columns=["competencia", "competencia_dt", "ordem", "faixa", "valor", "percentual"])
+    # Filter to first 7 buckets (up to 360 days)
+    df = default_buckets_history_df[default_buckets_history_df["ordem"] <= 7].copy()
+    df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
+    # Denominador preferido: direitos_creditorios; fallback: inadimplencia_total
+    dc_df = default_history_df[["competencia", "direitos_creditorios", "inadimplencia_total"]].copy()
+    dc_df["direitos_creditorios"] = pd.to_numeric(dc_df["direitos_creditorios"], errors="coerce").fillna(0.0)
+    dc_df["inadimplencia_total"] = pd.to_numeric(dc_df["inadimplencia_total"], errors="coerce").fillna(0.0)
+    dc_df["denominador"] = dc_df["direitos_creditorios"].where(
+        dc_df["direitos_creditorios"] > 0, dc_df["inadimplencia_total"]
+    )
+    df = df.merge(dc_df[["competencia", "denominador"]], on="competencia", how="left")
+    df["percentual"] = (
+        df["valor"] / df["denominador"]
+    ).where(df["denominador"] > 0).mul(100.0)
+    df = df.dropna(subset=["percentual"])
+    df = df[df["valor"] > 0].copy()
+    return df
 
 
 def _render_aging_omission_note(container, default_buckets_latest_df: pd.DataFrame) -> None:
@@ -1359,24 +1400,45 @@ def _render_inadimplencia_overview_card(dashboard: FundonetDashboardData) -> str
     latest_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
     latest_row = latest_df.iloc[-1] if not latest_df.empty else pd.Series(dtype=object)
     previous_row = latest_df.iloc[-2] if len(latest_df.index) > 1 else pd.Series(dtype=object)
-    inadimplencia_pct = latest_row.get("inadimplencia_pct")
-    inadimplencia_total = latest_row.get("inadimplencia_total")
-    direitos_creditorios = latest_row.get("direitos_creditorios")
-    previous_pct = pd.to_numeric(previous_row.get("inadimplencia_pct"), errors="coerce")
-    current_pct = pd.to_numeric(inadimplencia_pct, errors="coerce")
-    delta_pp = current_pct - previous_pct if pd.notna(current_pct) and pd.notna(previous_pct) else None
+
+    # Prefer maturity-based numerator/denominator (more reliably populated in IME)
+    maturity_df = dashboard.maturity_latest_df
+    maturity_vencidos = 0.0
+    maturity_total = 0.0
+    if not maturity_df.empty and "valor" in maturity_df.columns and "faixa" in maturity_df.columns:
+        _m = maturity_df.copy()
+        _m["valor"] = pd.to_numeric(_m["valor"], errors="coerce").fillna(0.0)
+        maturity_vencidos = float(_m.loc[_m["faixa"] == "Vencidos", "valor"].sum())
+        maturity_total = float(_m["valor"].sum())
+
+    if maturity_total > 0:
+        inadimplencia_total = maturity_vencidos
+        direitos_creditorios = maturity_total
+        inadimplencia_pct = maturity_vencidos / maturity_total * 100.0
+    else:
+        inadimplencia_pct = latest_row.get("inadimplencia_pct")
+        inadimplencia_total = latest_row.get("inadimplencia_total")
+        direitos_creditorios = latest_row.get("direitos_creditorios")
+
+    # Delta vs previous month using historical series
+    previous_pct_raw = pd.to_numeric(previous_row.get("inadimplencia_pct"), errors="coerce")
+    current_pct_raw = pd.to_numeric(inadimplencia_pct, errors="coerce")
+    delta_pp = current_pct_raw - previous_pct_raw if pd.notna(current_pct_raw) and pd.notna(previous_pct_raw) else None
     trailing_mean = (
         pd.to_numeric(latest_df["inadimplencia_pct"], errors="coerce").dropna().tail(12).mean()
         if not latest_df.empty and "inadimplencia_pct" in latest_df.columns
         else None
     )
     note_parts = [
-        f"Vencidos {_format_brl_compact(inadimplencia_total)} / total {_format_brl_compact(direitos_creditorios)}",
+        f"Vencidos {_format_brl_compact(inadimplencia_total)} / total recebíveis {_format_brl_compact(direitos_creditorios)}",
     ]
     if delta_pp is not None:
         note_parts.append(f"{_format_pp(delta_pp)} vs. mês anterior")
     if trailing_mean is not None and not pd.isna(trailing_mean):
         note_parts.append(f"Média 12 meses: {_format_percent(trailing_mean)}")
+    vencidos_ratio = _maturity_vencidos_caption(dashboard.maturity_latest_df)
+    if vencidos_ratio:
+        note_parts.append(vencidos_ratio)
     tooltip_lines = [
         "Fonte: Informe Mensal -> quadro de prazo de vencimento dos direitos creditórios, com fallback para o aging de inadimplência.",
         "Fórmula: créditos vencidos / total de direitos creditórios reportado na mesma malha de vencimento * 100",
@@ -2117,7 +2179,7 @@ def _line_point_label_layer(chart_df: pd.DataFrame, *, y_title: str) -> alt.Char
     labels_df["valor_label"] = labels_df["valor"].map(lambda value: _format_value_label(value, y_title))
     return (
         alt.Chart(labels_df)
-        .mark_text(align="center", dy=-8, fontSize=11, color="#111111", stroke="#ffffff", strokeWidth=2, clip=False)
+        .mark_text(align="center", dy=-9, fontSize=11, fontWeight=600, color="#111111", clip=False)
         .encode(
             x=alt.X("competencia:N", sort=chart_df["competencia"].drop_duplicates().tolist()),
             y=alt.Y("label_valor:Q", title=y_title),
@@ -2139,7 +2201,7 @@ def _point_label_layer(
         return None
     return (
         alt.Chart(chart_df)
-        .mark_text(dy=-10, fontSize=11, color=color, stroke="#ffffff", strokeWidth=2, clip=False)
+        .mark_text(dy=-9, fontSize=11, fontWeight=600, color=color)
         .encode(
             x=x_encoding,
             y=y_encoding,
@@ -2160,11 +2222,18 @@ def _bar_label_layer(
 ) -> alt.Chart | None:
     if not _chart_labels_enabled() or chart_df.empty:
         return None
-    mark_kwargs: dict[str, object] = {"fontSize": 11, "color": "#111111", "clip": False}
+    # Labels above bars land on white background — use dark text, no stroke halo
+    # (white stroke with strokeWidth≥2 washes out thin characters on white bg)
+    mark_kwargs: dict[str, object] = {
+        "fontSize": 11,
+        "fontWeight": 600,
+        "color": "#111111",
+        "clip": False,
+    }
     if orient == "horizontal":
-        mark_kwargs.update({"align": "left", "dx": 4})
+        mark_kwargs.update({"align": "left", "dx": 6})
     else:
-        mark_kwargs.update({"dy": -8, "stroke": "#ffffff", "strokeWidth": 2})
+        mark_kwargs.update({"dy": -9})
     encoding: dict[str, object] = {
         "text": (
             alt.Text(f"{text_field}:N")
@@ -2176,8 +2245,7 @@ def _bar_label_layer(
         encoding["x"] = x_encoding
     if y_encoding is not None:
         encoding["y"] = y_encoding
-    if color_encoding is not None:
-        encoding["color"] = color_encoding
+    # Never inherit bar fill color for above-bar labels — always use dark text
     return alt.Chart(chart_df).mark_text(**mark_kwargs).encode(**encoding)
 
 
@@ -2500,6 +2568,7 @@ def _stacked_history_bar_chart(
     y_title: str,
     value_column: str,
     show_total_labels: bool = False,
+    color_range: list[str] | None = None,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
     if "competencia" in chart_df.columns:
@@ -2516,9 +2585,10 @@ def _stacked_history_bar_chart(
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     y_encoding = alt.Y(f"{value_column}:Q", title=y_title, stack=True, axis=y_axis)
-    color_encoding = alt.Color("serie:N", title="Classe", scale=alt.Scale(range=FIDC_CHART_COLORS))
+    _colors = color_range or FIDC_CHART_COLORS
+    color_encoding = alt.Color("serie:N", title="Classe", scale=alt.Scale(range=_colors))
     series_order = chart_df["serie"].drop_duplicates().tolist()
-    color_map = _category_color_map(series_order, FIDC_CHART_COLORS)
+    color_map = _category_color_map(series_order, _colors)
     chart_df["label_color"] = chart_df["serie"].map(lambda value: _contrast_text_color(color_map.get(str(value), "#ff5a00")))
     chart = (
         alt.Chart(chart_df)
@@ -2531,18 +2601,21 @@ def _stacked_history_bar_chart(
         )
     )
     chart = _chart_with_optional_title(chart, height=320, title=title)
-    # For absolute value charts (R$), skip inner segment labels — too long for narrow bars.
-    # For percentage charts, only label segments that are large enough to be readable.
+    # Segment labels: show for all segments large enough to be legible.
+    # Threshold: 5% for pct charts, skip for R$ (values too long for narrow bars).
     layered: alt.Chart = chart
-    if not show_total_labels:
-        pct_threshold = 8.0 if "%" in y_title else None
+    pct_threshold = 5.0 if "%" in y_title else None
+    if pct_threshold is None and not show_total_labels:
+        # R$ without total: skip inner labels, too long
+        pass
+    else:
         labels_df = chart_df.copy()
         if pct_threshold is not None:
             labels_df = labels_df[pd.to_numeric(labels_df[value_column], errors="coerce") >= pct_threshold].copy()
-        if not labels_df.empty:
+        if not labels_df.empty and pct_threshold is not None:
             segment_labels = (
                 alt.Chart(labels_df)
-                .mark_text(fontSize=11, fontWeight=600, clip=False)
+                .mark_text(fontSize=10, fontWeight=600, clip=False)
                 .encode(
                     x=x_encoding,
                     y=alt.Y(f"{value_column}:Q", title=y_title, stack="center"),
@@ -2561,7 +2634,7 @@ def _stacked_history_bar_chart(
         totals_df["total_fmt"] = totals_df["valor_total"].map(_format_brl_compact if y_title == "R$" else _format_percent)
         total_labels = (
             alt.Chart(totals_df)
-            .mark_text(dy=-10, fontSize=11, fontWeight=700, color="#111111", stroke="#ffffff", strokeWidth=2, clip=False)
+            .mark_text(dy=-9, fontSize=11, fontWeight=700, color="#111111", clip=False)
             .encode(
                 x=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
                 y=alt.Y("valor_total:Q", title=y_title),
@@ -2597,10 +2670,10 @@ def _grouped_bar_chart(chart_df: pd.DataFrame, *, title: str, y_title: str) -> a
     )
     labels = _bar_label_layer(
         chart_df,
-        x_encoding=x_encoding,
+        x_encoding=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
         y_encoding=y_encoding,
         value_field=value_field,
-        color_encoding=alt.Color("serie:N", legend=None, scale=alt.Scale(range=FIDC_CHART_COLORS)),
+        text_field="valor_fmt",
     )
     return _style_altair_chart(chart if labels is None else (chart + labels))
 

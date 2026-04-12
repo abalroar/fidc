@@ -55,6 +55,7 @@ class FundonetDashboardData:
     event_history_df: pd.DataFrame
     default_history_df: pd.DataFrame
     default_buckets_latest_df: pd.DataFrame
+    default_buckets_history_df: pd.DataFrame
     holder_latest_df: pd.DataFrame
     rate_negotiation_latest_df: pd.DataFrame
     tracking_latest_df: pd.DataFrame
@@ -143,6 +144,10 @@ def build_dashboard_data(
         wide_lookup=wide_lookup,
         latest_competencia=latest_competencia,
     )
+    default_buckets_history_df = _build_default_buckets_history_df(
+        wide_lookup=wide_lookup,
+        competencias=competencias,
+    )
     holder_latest_df = _build_holder_latest_df(
         wide_lookup=wide_lookup,
         listas_df=listas_df,
@@ -216,6 +221,7 @@ def build_dashboard_data(
         event_history_df=event_history_df,
         default_history_df=default_history_df,
         default_buckets_latest_df=default_buckets_latest_df,
+        default_buckets_history_df=default_buckets_history_df,
         holder_latest_df=holder_latest_df,
         rate_negotiation_latest_df=rate_negotiation_latest_df,
         tracking_latest_df=tracking_latest_df,
@@ -1123,6 +1129,45 @@ def _build_default_buckets_latest_df(*, wide_lookup: pd.DataFrame, latest_compet
     total = float(frame["valor"].sum()) if not frame.empty else 0.0
     frame["percentual"] = (frame["valor"] / total * 100.0) if total > 0 else pd.NA
     return frame
+
+
+def _build_default_buckets_history_df(
+    *, wide_lookup: pd.DataFrame, competencias: list[str]
+) -> pd.DataFrame:
+    """Aging breakdown (VL_INAD_VENC_*) for all competências, long format."""
+    bucket_specs = [
+        ("Até 30 dias", ["VL_INAD_VENC_30"]),
+        ("31 a 60 dias", ["VL_INAD_VENC_31_60"]),
+        ("61 a 90 dias", ["VL_INAD_VENC_61_90"]),
+        ("91 a 120 dias", ["VL_INAD_VENC_91_120"]),
+        ("121 a 150 dias", ["VL_INAD_VENC_121_150"]),
+        ("151 a 180 dias", ["VL_INAD_VENC_151_180"]),
+        ("181 a 360 dias", ["VL_INAD_VENC_181_360"]),
+        ("361 a 720 dias", ["VL_INAD_VENC_361_720"]),
+        ("721 a 1080 dias", ["VL_INAD_VENC_721_1080"]),
+        ("Acima de 1080 dias", ["VL_INAD_VENC_1080"]),
+    ]
+    rows = []
+    for ordem, (faixa, suffixes) in enumerate(bucket_specs, start=1):
+        paths = [
+            f"DOC_ARQ/LISTA_INFORM/{base}/{suffix}"
+            for suffix in suffixes
+            for base in ["COMPMT_DICRED_AQUIS", "COMPMT_DICRED_SEM_AQUIS"]
+        ]
+        series = sum(
+            _numeric_series(wide_lookup, competencias, path) for path in paths
+        )
+        for competencia, valor in zip(competencias, series):
+            rows.append({
+                "competencia": competencia,
+                "competencia_dt": _competencia_to_timestamp(competencia),
+                "ordem": ordem,
+                "faixa": faixa,
+                "valor": float(valor),
+            })
+    return pd.DataFrame(rows) if rows else pd.DataFrame(
+        columns=["competencia", "competencia_dt", "ordem", "faixa", "valor"]
+    )
 
 
 def _build_holder_latest_df(
