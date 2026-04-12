@@ -1,115 +1,68 @@
-# Métricas estruturais, inadimplência e guardrails
+# Métricas estruturais e guardrails
 
-## Regra de leitura
+## O que são métricas estruturais
 
-Nem toda métrica importante de FIDC é:
+Métricas estruturais são indicadores que monitoram se o fundo mantém os parâmetros de proteção definidos no seu regulamento. Elas vão além da inadimplência pontual — medem se a estrutura como um todo está saudável.
 
-- regulatória;
-- universal;
-- disponível no IME.
+Alguns desses indicadores aparecem no IME. Outros só existem nos relatórios mensais do administrador ou são calculáveis apenas com o regulamento em mãos.
 
-Para não induzir leitura errada, o book separa as métricas em três grupos.
+## Métricas quase universais
 
-## 1. Métricas quase universais de acompanhamento
+Estas aparecem na grande maioria dos FIDCs e fazem sentido como ponto de partida para qualquer análise:
 
-Essas aparecem com frequência alta e fazem sentido em boa parte dos fundos:
+| Métrica | O que mede | Fonte principal |
+| --- | --- | --- |
+| **Patrimônio líquido por classe** | Tamanho de cada tranche de cota | IME |
+| **Índice de subordinação** | PL subordinado / PL total — colchão contra perdas | IME |
+| **Alocação em direitos creditórios** | % do patrimônio investido em crédito (vs. caixa, títulos) | IME |
+| **Inadimplência** | Saldo vencido por faixa de prazo | IME |
+| **Provisão** | Provisão contábil constituída | IME |
+| **Emissões e resgates** | Fluxo de capital entrando e saindo do fundo | IME |
 
-- patrimônio líquido;
-- tamanho por classe/cota;
-- alocação em direitos creditórios;
-- inadimplência/atraso;
-- provisão/perdas;
-- subordinação;
-- concentração;
-- emissões, amortizações e resgates.
+## Métricas estruturais específicas do regulamento
 
-## 2. Métricas estruturais recorrentes, mas dependentes do regulamento
+Estas métricas são recorrentes no mercado, mas dependem do regulamento de cada fundo. Elas raramente aparecem no IME — estão nos relatórios mensais de monitoramento.
 
-Essas já aparecem em vários fundos reais do acervo, mas não são universais:
+| Métrica | O que mede |
+| --- | --- |
+| **Índice de cobertura** | Relação entre o valor da carteira elegível e o PL sênior — mostra se o lastro cobre adequadamente a tranche prioritária |
+| **Relação mínima** | Razão mínima entre direitos creditórios e PL sênior, definida no regulamento como gatilho |
+| **Alocação mínima** | % mínimo do patrimônio que deve estar alocado em crédito (evita que o fundo vire um fundo de caixa) |
+| **Excesso de spread** | Diferença entre a taxa média da carteira e o custo do passivo (cotas) — quanto sobra depois de remunerar os cotistas |
+| **Reserva de liquidez / caixa** | Colchão de liquidez mantido separado da carteira de crédito |
+| **First payment default (FPD)** | Taxa de créditos que já inadimplem na primeira parcela — indica qualidade da seleção de risco na originação |
 
-- alocação mínima;
-- índice de cobertura;
-- relação mínima;
-- índice mínimo de subordinação;
-- subordinação para amortização;
-- excesso de spread;
-- reserva de caixa;
-- reserva de liquidez;
-- reserva de despesas e encargos;
-- first payment default;
-- índices de refinanciamento;
-- métricas de resolução, recompra, erros ou pagamentos incorretos.
+## Como ler o índice de subordinação na prática
 
-## 3. Métricas fortemente idiossincráticas
+O índice de subordinação mais comum é calculado como:
 
-Aqui o risco de generalização é alto. Exemplos do acervo:
+> **PL subordinado / PL total**
 
-- `DCV`, `DCV 30`, `DCV 120`, `DCV 180` no Supplier;
-- índices de resolução e pagamentos incorretos em Volkswagen Tera;
-- combinação específica entre cobertura, subordinação e alocação no Seller;
-- relação mínima e FPD em GERU.
+Um índice de 15% significa que o fundo teria que perder mais de 15% do seu patrimônio para que os cotistas sênior começassem a ser afetados.
 
-## Como ler as principais métricas
+**O que observar:**
+- O índice está próximo do mínimo regulamentar? Isso pode indicar que o gatilho de reenquadramento está próximo.
+- O índice está caindo consistentemente? Pode indicar que perdas estão sendo absorvidas pela subordinação.
+- O índice oscila muito mês a mês? Pode refletir emissões/resgates de cotas subordinadas ou variações contábeis da carteira.
 
-### Subordinação
+## Como ler o excesso de spread
 
-É um colchão estrutural, não uma garantia. Sozinha, ela não resolve má originação, concentração ruim ou quebra operacional.
+O excesso de spread é uma proteção dinâmica — enquanto o fundo gera mais rendimento do que paga, esse excedente pode cobrir perdas sem consumir subordinação. Um fundo com excesso de spread positivo e elevado tem mais margem de absorção de perdas do que o índice de subordinação sozinho sugere.
 
-### Cobertura
+A ausência de excesso de spread (ou spread negativo) em carteiras com inadimplência crescente é um sinal de atenção relevante.
 
-Normalmente tenta mostrar se o fundo mantém margem estrutural suficiente para suportar determinada tranche. A fórmula precisa ser a do documento do fundo, não uma aproximação genérica do app.
+## Métricas idiossincráticas
 
-### Alocação mínima
+Alguns fundos têm métricas muito específicas que não têm equivalente nos demais. Exemplos reais de mercado:
 
-Importa especialmente em fundos com mistura entre direitos creditórios e outros ativos. Se o fundo estiver subalocado em crédito, o perfil econômico da carteira muda.
+- **DCV (Dias de Contas a Vencer):** prazo médio ponderado da carteira, usado como guardrail em alguns FIDCs de cartão e supplier finance.
+- **Índice de refinanciamento:** controla o percentual de créditos que estão sendo renovados/renegociados — relevante em cartões e crédito rotativo.
+- **Pagamentos incorretos / erros de liquidação:** em FIDCs operacionais (como estruturas de adquirência), erros de liquidação são tratados como evento de monitoramento.
 
-### Inadimplência
+Se você está analisando um fundo pela primeira vez, mapeie quais guardrails existem no regulamento antes de interpretar os indicadores do IME.
 
-Pode significar coisas diferentes a depender do documento:
+## O que o IME não resolve
 
-- atraso contratual bruto;
-- crédito vencido e não pago;
-- bucket regulatório do IME;
-- inadimplência com ou sem provisão;
-- atraso relevante apenas após janela mínima.
+O IME é uma fonte padronizada — isso é uma vantagem para comparação entre fundos, mas uma limitação para análise profunda de cada fundo individualmente.
 
-### Provisão / perda esperada
-
-Não existe uma leitura única. Em FIDC, a política pode depender:
-
-- do regulamento;
-- da política contábil;
-- do estágio da carteira;
-- da existência de recompras, resolução ou reforço estrutural.
-
-## O que os fundos reais do acervo mostram
-
-- Seller mensal: alocação mínima, cobertura sênior, subordinação e subordinação para amortização aparecem como núcleo do monitoramento. Fonte: `estudo/2159283-43161-20260309175427.pdf`.
-- GERU: relação mínima, alocação mínima, índice de cobertura e FPD aparecem como guardrails centrais. Fonte: `estudo/1337461-15981-20200901100422.pdf`.
-- Supplier: excesso de spread, reservas, DCV e refinanciamento mostram uma camada de monitoramento muito mais rica do que o IME padrão. Fonte: `estudo/1385961-759-20210301165301.pdf`.
-- Volkswagen Tera: recompra, resolução, erros e pagamentos incorretos lembram que o risco operacional e contratual pode ser decisivo. Fonte: `estudo/2076171-63381-20250204121014.pdf`.
-
-## O que isso implica para o dashboard
-
-O dashboard deveria classificar toda métrica mostrada como uma das categorias abaixo:
-
-- `reportada no IME`;
-- `derivada do IME`;
-- `reportada em relatório mensal`;
-- `exigida por regulamento`;
-- `métrica específica do fundo`.
-
-Essa rotulagem é necessária para não passar falsa sensação de comparabilidade.
-
-## Risco de interpretação simplista
-
-Esta base não encontrou `arrasto` como termo recorrente e estruturante nos documentos amostrados do acervo. Se esse tema entrar no book, ele deve entrar apenas quando houver cláusula documentada em fundo específico.
-
-## Fontes desta página
-
-- Fonte oficial: Ofício-Circular CVM/SSE 8/2023.
-- Fonte local: `estudo/2159283-43161-20260309175427.pdf`.
-- Fonte local: `estudo/1385961-759-20210301165301.pdf`.
-- Fonte local: `estudo/1337461-15981-20200901100422.pdf`.
-- Fonte local: `estudo/1599001-38501-20221212113215.pdf`.
-- Fonte local: `estudo/2076171-63381-20250204121014.pdf`.
+Quando um número do IME parece alto, baixo ou estável, a pergunta correta é: **o regulamento desse fundo define um limite para isso?** Se sim, o dado do IME só faz sentido lido contra esse limite. Se não, o dado é um sinal a ser contextualizado com o perfil da carteira.

@@ -1,74 +1,50 @@
-# Oferta pública, rating e categorias de investidor
+# Oferta, rating e perfil de investidores
 
-## Três perguntas diferentes
+## Três perguntas distintas
 
-Este é um ponto em que muitos materiais misturam temas distintos. Aqui a separação é obrigatória:
+Quando você olha para um FIDC, três questões sobre distribuição e perfil de risco são frequentemente misturadas — mas precisam ser respondidas separadamente:
 
-1. a estrutura do fundo permite o quê;
-2. a oferta pública foi feita sob qual rito;
-3. qual categoria de investidor pode acessar a classe ou a oferta.
+1. **Quem pode investir?** → público-alvo (investidor profissional ou qualificado)
+2. **Como as cotas foram distribuídas?** → rito de oferta pública (ou colocação restrita)
+3. **Qual é o risco atribuído às cotas por agência independente?** → rating
 
-## Oferta pública
+## Público-alvo dos fundos
 
-Quando o tema é distribuição pública de cotas, a referência central desta base é a Resolução CVM 160.
+A Resolução CVM 30 define as categorias de investidor que podem acessar determinados produtos.
 
-Os documentos de oferta do acervo mostram isso de forma prática:
+- **Investidor profissional:** bancos, corretoras, seguradoras, fundos de investimento, e pessoas físicas ou jurídicas com carteira de investimentos acima de R$ 10 milhões.
+- **Investidor qualificado:** investidores profissionais mais pessoas físicas ou jurídicas com carteira acima de R$ 1 milhão.
 
-- o anúncio de início do Supplier traz oferta pública sob rito de registro automático e afirma expressamente a dispensa de prospecto e lâmina. Fonte: `estudo/1723661-45441-20231002100653.pdf`.
-- o anúncio de início do Seller vincula a oferta às regras da Resolução CVM 160 e aos registros automáticos das séries ofertadas. Fonte: `estudo/1673201-43161-20230525100350.pdf`.
+A maioria dos FIDCs voltados para o mercado institucional é restrita a **investidores profissionais**. Isso importa para análise porque o perfil dos cotistas influencia a governança e a capacidade de pressionar por reestruturações quando o fundo se deteriora.
 
-## Rating
+Um fundo com passivo concentrado em um único cotista profissional — muitas vezes o próprio cedente ou seu grupo econômico — tem dinâmica de governança muito diferente de um fundo com base diversificada de investidores.
 
-Rating deve ser tratado com muito cuidado.
+## Oferta pública: o rito importa
 
-O que esta base considera seguro afirmar nesta fase:
+A Resolução CVM 160 regula as ofertas públicas de valores mobiliários — incluindo cotas de FIDC.
 
-- rating aparece com frequência alta nas ofertas e relatórios de monitoramento do acervo;
-- o Anexo Normativo II da Resolução CVM 175 contém passagens específicas sobre subclasse de cotas sênior e classificação de risco por agência registrada na CVM;
-- isso não autoriza concluir que todo FIDC, em qualquer classe, em qualquer contexto, sempre exige rating.
+Os ritos mais comuns no mercado:
+- **Rito automático:** oferta registrada automaticamente na CVM, sem análise prévia. Documentação simplificada. Bastante usado em FIDCs com histórico e estrutura conhecidos.
+- **Rito ordinário:** sujeito a análise da CVM antes do registro. Exige prospecto e lâmina.
 
-Portanto, a regra correta do book é:
+Quando não há oferta pública, as cotas são colocadas de forma restrita — o que limita o universo de investidores e reduz o volume de documentação pública disponível.
 
-- se a pergunta for estrutural, consulte a 175 e o Anexo II;
-- se a pergunta for da oferta concreta, consulte também a documentação da distribuição;
-- se houver dúvida, não generalize.
+Para fins de análise, o documento de oferta (prospecto ou anúncio de início) é uma fonte importante: traz informações sobre estrutura, benchmark, prazo de cotas e perfil do cedente que nem sempre estão no regulamento de forma sintética.
 
-## Investidor profissional e investidor qualificado
+## Rating: o que é e o que não é
 
-Na Resolução CVM 30 consolidada:
+Rating é a opinião de uma agência classificadora de risco sobre a probabilidade de inadimplemento de determinada classe de cotas. Ele é frequente em FIDCs com cotas sênior distribuídas publicamente.
 
-- o `art. 11` trata dos investidores profissionais;
-- o `art. 12` trata dos investidores qualificados.
+**O que o rating informa:**
+- a avaliação de risco da agência sobre aquela tranche específica, naquele momento;
+- os principais drivers de risco considerados na análise;
+- eventuais gatilhos de rebaixamento (covenants monitorados pela agência).
 
-Isso importa porque vários documentos do acervo identificam explicitamente o público-alvo das cotas:
+**O que o rating não substitui:**
+- análise própria da qualidade da carteira;
+- leitura dos indicadores do IME;
+- verificação do cumprimento dos guardrails do regulamento.
 
-- Seller: investidores profissionais;
-- iCred FGTS: investidores profissionais;
-- BV Veículos: investidores qualificados;
-- Cielo: investidores profissionais em determinadas cotas seniores.
+O rating é uma camada de informação adicional — útil, mas não suficiente. Agências podem ter hipóteses de estresse diferentes das suas. E o rating é retrospectivo: ele reflete o que a agência avaliou no último momento de revisão, não necessariamente o estado atual.
 
-## Oferta pública versus colocação privada
-
-O book deve explicar este ponto com sobriedade:
-
-- quando há documento de oferta pública, o enquadramento deve ser lido à luz da Resolução CVM 160;
-- quando não há oferta pública nos materiais analisados, não é seguro rotular automaticamente como “private placement” sem examinar o instrumento correto;
-- o app não deve usar esse rótulo como default silencioso.
-
-## O que isso implica para o produto
-
-O dashboard e o book deveriam mostrar, no topo do fundo:
-
-- público-alvo;
-- benchmark/remuneração-alvo por classe;
-- rating atual e agência, se houver;
-- rito de oferta, se conhecido;
-- fonte documental dessa informação.
-
-## Fontes desta página
-
-- Norma oficial: Resolução CVM 160.
-- Norma oficial: Resolução CVM 30.
-- Norma oficial: Resolução CVM 175, Anexo Normativo II.
-- Fonte local: `estudo/1723661-45441-20231002100653.pdf`.
-- Fonte local: `estudo/1673201-43161-20230525100350.pdf`.
+**Atenção:** nem todo FIDC tem rating. A obrigatoriedade depende do desenho da classe, do rito de oferta e do regulamento. Não assuma que a ausência de rating é um problema — e não assuma que a presença de rating dispensa análise de crédito independente.

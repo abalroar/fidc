@@ -86,20 +86,15 @@ def render_tab_fidc_book() -> None:
     st.markdown(
         """
         <div class="fidc-book-shell">
-          <div class="fidc-book-title">Glossário / Book FIDC</div>
+          <div class="fidc-book-title">Glossário FIDC</div>
           <div class="fidc-book-subtitle">
-            Base canônica em Markdown, ancorada em normas oficiais da CVM e em documentos oficiais do acervo local.
+            Para analistas de crédito que precisam entender FIDCs sem pressupor familiaridade com o veículo.
+            Ancorado em normas oficiais da CVM e em estruturas reais de fundos do mercado.
           </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
-
-    stats = st.columns(4)
-    stats[0].metric("Páginas", len(index.pages))
-    stats[1].metric("Conceitos", len(index.concepts))
-    stats[2].metric("Métricas", len(index.metrics))
-    stats[3].metric("Fundos Âncora", len(index.reference_funds))
 
     left_col, right_col = st.columns([1.05, 2.2], gap="large")
 
@@ -108,17 +103,21 @@ def render_tab_fidc_book() -> None:
         section_options = ["Todas as seções"] + [section.title for section in index.sections]
         selected_section = st.selectbox("Seção", section_options, index=0)
 
-        st.caption("Trilha sugerida")
+        st.caption("Trilha sugerida para quem está começando")
         for page_id in [
-            "hierarquia-regulatoria",
+            "overview",
             "o-que-e-fidc",
             "participantes",
             "classes-cotas-waterfall",
             "metricas-estruturais",
-            "fidcs-originacao-if",
+            "provisao-perdas-e-inadimplencia",
+            "recebiveis-financeiros",
         ]:
-            page = index.page_by_id(page_id)
-            st.markdown(f"- **{page.title}**")
+            try:
+                page = index.page_by_id(page_id)
+                st.markdown(f"- **{page.title}**")
+            except KeyError:
+                pass
 
         filtered_pages = index.search_pages(query)
         if selected_section != "Todas as seções":
@@ -204,18 +203,20 @@ def _render_page(index: FIDCBookIndex, page: FIDCBookPage) -> None:
 
     related_documents = index.related_documents(page)
     if related_documents:
-        with st.expander("Documentos do acervo para aprofundar", expanded=False):
+        with st.expander("Fundos e documentos de referência nesta página", expanded=False):
             for entry in related_documents:
-                st.markdown(f"**{entry.title}** · {entry.doc_type}")
-                st.caption(f"{entry.notes} | {entry.path}")
+                st.markdown(f"**{entry.title}** · _{entry.doc_type}_")
+                if entry.notes:
+                    st.caption(entry.notes)
 
-    if page.source_ids:
-        with st.expander("Fontes desta página", expanded=False):
-            for source_id in page.source_ids:
-                source = index.sources.get(source_id)
-                if source is None:
-                    continue
-                label = f"**{source.title}**"
-                location = f"`{source.location}`" if "http" not in source.location else f"[link oficial]({source.location})"
+    # Only show official sources with public URLs (skip local file paths)
+    public_sources = [
+        index.sources[sid]
+        for sid in page.source_ids
+        if sid in index.sources and "http" in index.sources[sid].location
+    ]
+    if public_sources:
+        with st.expander("Normas e referências oficiais", expanded=False):
+            for source in public_sources:
                 notes = f" — {source.notes}" if source.notes else ""
-                st.markdown(f"- {label} ({source.source_type}) · {location}{notes}")
+                st.markdown(f"- **{source.title}** · [link oficial]({source.location}){notes}")

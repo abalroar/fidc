@@ -1,76 +1,54 @@
-# Eventos de avaliação, liquidação antecipada e controles
+# Eventos de avaliação e liquidação antecipada
 
-## O que é evento de avaliação
+## O que são e por que existem
 
-Evento de avaliação é, em essência, um gatilho contratual que exige reavaliação formal da estrutura pelos cotistas ou pela governança do fundo. Ele não é automaticamente a liquidação do veículo.
+Os regulamentos de FIDC definem, em geral, dois tipos de eventos formais que podem ser acionados quando a estrutura apresenta sinais de deterioração:
 
-Nos regulamentos do acervo, isso costuma aparecer como ponte entre:
+- **Evento de avaliação:** obriga os cotistas a se reunirem em assembleia para deliberar sobre o que fazer. Não liquida automaticamente o fundo — abre um processo de decisão.
+- **Evento de liquidação antecipada:** dispara medidas mais drásticas, como interrupção da fase de aquisição, aceleração de amortizações ou liquidação do fundo antes do vencimento contratual.
 
-- deterioração de indicadores;
-- inconsistências relevantes;
-- falhas operacionais ou documentais;
-- quebra de covenants;
-- necessidade de assembleia.
+A lógica é simples: em vez de esperar que a deterioração consuma toda a subordinação e afete os cotistas sênior, o regulamento define pontos de parada formais que obrigam os responsáveis a tomar uma decisão.
 
-## O que é evento de liquidação antecipada
+## O que tipicamente aciona um evento de avaliação
 
-Já o evento de liquidação antecipada leva a estrutura para um estágio mais grave. Dependendo do regulamento, ele pode disparar:
+Os gatilhos variam por fundo, mas os mais comuns são:
 
-- interrupção da fase de aquisição;
-- aceleração de amortização;
-- realização da carteira;
-- liquidação da classe ou do fundo.
+- violação de índice mínimo de subordinação ou cobertura;
+- descumprimento de alocação mínima em direitos creditórios;
+- inadimplência do cedente em obrigações contratuais (como obrigação de recompra);
+- falha operacional relevante (como interrupção da cessão ou problema no lastro);
+- inadimplemento financeiro do cedente ou originador em obrigações fora do fundo;
+- mudança societária relevante no cedente ou gestor não aprovada pelos cotistas.
 
-## Padrões recorrentes no acervo
+## O que tipicamente aciona liquidação antecipada
 
-### Seller
+Os gatilhos de liquidação antecipada são mais graves. Exemplos frequentes:
 
-O regulamento lista eventos de avaliação e traz uma camada operacional importante ligada ao ecossistema Mercado Pago e à verificação de lastro. Fonte: `estudo/1672581-43161-20230523111704.pdf`.
+- violação persistente de guardrail após evento de avaliação sem reestruturação aprovada;
+- insolvência, falência ou recuperação judicial do cedente (em fundos sem mecanismos alternativos de originação);
+- rebaixamento de rating abaixo do mínimo definido no regulamento;
+- incapacidade de o fundo honrar amortizações programadas das cotas sênior;
+- deliberação dos próprios cotistas pela liquidação.
 
-### Facta INSS CB
+## Como ler um evento de avaliação na prática
 
-O regulamento dedica capítulos próprios a eventos de avaliação e liquidação antecipada e vincula parte da governança a inconsistências relevantes e assembleia. Fonte: `estudo/1599001-38501-20221212113215.pdf`.
+Um evento de avaliação não é necessariamente o fim do fundo. Em muitos casos, a assembleia delibera por uma reestruturação — ajuste de guardrails, aporte de nova subordinação, substituição do cedente, redução do tamanho do fundo — e o fundo continua operando.
 
-### GERU
+O que importa para a análise é:
+1. **Qual foi o gatilho?** — violação de índice estrutural é diferente de falha operacional pontual;
+2. **A assembleia aprovou reestruturação ou liquidação?** — a ata é a fonte para isso;
+3. **A estrutura pós-reestruturação é sustentável?** — novos parâmetros precisam ser analisados com o regulamento atualizado.
 
-A estrutura liga guardrails como relação mínima, alocação mínima, cobertura e FPD à governança e ao monitoramento recorrente. Fonte: `estudo/1337461-15981-20200901100422.pdf`.
+## O que o IME captura sobre esses eventos
 
-### Supplier e Volkswagen Tera
+O IME não reporta eventos de avaliação ou liquidação antecipada diretamente. O canal correto para isso é o **Fundos.NET** — onde assembleias, atas, fatos relevantes e comunicados ao mercado são publicados.
 
-Mostram que, em certos fundos, eventos operacionais de spread, reservas, resolução, recompra e erros podem ser tão importantes quanto atraso puro. Fontes: `estudo/1385961-759-20210301165301.pdf` e `estudo/2076171-63381-20250204121014.pdf`.
+Uma forma indireta de identificar problemas: quedas abruptas no PL subordinado, interrupção de emissões, resgates atípicos ou amortizações aceleradas visíveis no IME podem ser sintomas de que um evento estrutural está ocorrendo. O diagnóstico precisa ser confirmado com as fontes primárias.
 
-## Controles recorrentes
+## Controles formais complementares
 
-Além dos eventos formais, os documentos do acervo apontam controles que merecem explicação própria no book:
+Além dos eventos formais, os regulamentos costumam prever controles contínuos que merecem atenção:
 
-- verificação de lastro;
-- guarda documental;
-- rating;
-- assembleias;
-- informes mensais e outros relatórios;
-- auditoria independente;
-- gatilhos de reenquadramento.
-
-## Rating: cuidado com generalização
-
-O tema rating deve ser tratado com rigor:
-
-- não é seguro dizer, genericamente, que todo FIDC exige rating em qualquer hipótese;
-- a exigência depende do desenho da classe, da oferta e do regime aplicável;
-- o regulamento, o suplemento e a documentação de oferta precisam ser lidos em conjunto com a norma.
-
-Por isso, o book deve explicar o rating como:
-
-- mecanismo recorrente de mercado e de oferta;
-- possível exigência em contextos específicos;
-- jamais um atributo universal do FIDC.
-
-## O que isso implica para o app
-
-O dashboard deveria ter um bloco próprio de governança e eventos, separado do bloco de performance da carteira. Misturar atraso, subordinação e gatilho de liquidação na mesma área visual tende a confundir o usuário.
-
-## Fontes desta página
-
-- Norma oficial: Resolução CVM 175, Anexo Normativo II.
-- Orientação oficial: Ofício-Circular CVM/SSE 8/2023.
-- Fontes locais: `estudo/1672581-43161-20230523111704.pdf`, `estudo/1599001-38501-20221212113215.pdf`, `estudo/1337461-15981-20200901100422.pdf`, `estudo/1385961-759-20210301165301.pdf`.
+- **Reenquadramento:** prazo dado ao fundo para corrigir uma violação de guardrail antes que o evento seja formalmente declarado;
+- **Bloqueio de novas aquisições:** quando a alocação mínima é violada ou um guardrail é atingido, o regulamento pode impedir que novos créditos sejam comprados;
+- **Turbos de amortização:** mecanismo que acelera o pagamento das cotas sênior quando a carteira se deteriora, reduzindo o risco das tranches prioritárias antes que a subordinação se esgote.

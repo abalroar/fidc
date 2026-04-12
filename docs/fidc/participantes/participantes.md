@@ -1,62 +1,39 @@
-# Participantes da estrutura e papéis operacionais
+# Participantes da estrutura
 
-## Mapa mínimo de participantes
+## Quem é quem num FIDC
 
-| Participante | Função econômica e operacional | O que merece atenção |
+Um FIDC envolve vários prestadores de serviço com papéis bem definidos. Confundir quem tem qual função é um erro comum — e pode levar a leituras erradas de risco.
+
+| Participante | Função principal | O que observar |
 | --- | --- | --- |
-| Administrador | Responde pela estrutura formal do fundo, governança e diversas rotinas regulatórias e operacionais. | Não confundir com gestor nem com originador. |
-| Gestor | Toma decisões de investimento e desinvestimento dentro da política do fundo. | Precisa ser lido junto com limites do regulamento. |
-| Custodiante | Guarda, controla e verifica determinados fluxos, documentos e ativos conforme a estrutura. | Em FIDC, o desenho de lastro e documentação é crítico. |
-| Cedente | Transfere o crédito ao fundo. | Pode ou não coincidir com originador. |
-| Originador | Gera o crédito no ponto de origem. | Em carteiras de IFs e fintechs, a qualidade de originação muda o risco estrutural. |
-| Devedor/Sacado | É quem deve economicamente o crédito. | Pode ser pessoa física, empresa, ente pagador ou instituição de pagamento. |
-| Agente de cobrança | Atua na cobrança ordinária ou extraordinária. | Importante em carteiras inadimplidas ou massificadas. |
-| Consultoria especializada/servicer | Em vários regulamentos, apoia elegibilidade, monitoramento, cobrança ou fluxo de dados. | O nome muda; a função precisa ser lida no documento. |
-| Auditor | Audita demonstrações e, em alguns contextos, convive com rotinas adicionais de verificação. | Não substitui verificação de lastro. |
+| **Administrador** | Responsável formal pelo fundo: constitui, registra, reporta à CVM, convoca assembleias e supervisa os prestadores de serviço. | Não confundir com gestor nem com originador. O administrador não toma decisões de investimento. |
+| **Gestor** | Decide quais créditos comprar e vender, dentro da política definida no regulamento. | É quem dá a orientação de qual crédito entra na carteira. Precisa ser lido junto com os limites do regulamento. |
+| **Custodiante** | Guarda os documentos que comprovam os créditos, controla o fluxo de pagamentos e verifica se os créditos estão de acordo com o que foi cedido. | Em FIDC, o custodiante tem papel operacional relevante — ele é o guardião documental da carteira. |
+| **Cedente** | Transfere os créditos ao fundo por meio da cessão. | Pode ou não coincidir com o originador. Pode ter obrigação de recompra nos casos previstos no regulamento. |
+| **Originador** | Gerou o crédito — foi quem concedeu o empréstimo, vendeu a prazo ou prestou o serviço. | Em FIDCs de bancos e fintechs, a qualidade de originação é o principal determinante do risco de crédito da carteira. |
+| **Devedor / sacado** | Quem deve efetivamente o crédito e é responsável pelo pagamento. | Pode ser pessoa física (consignado, veículos), empresa (duplicata, fornecedores) ou ente público (precatórios, INSS). |
+| **Agente de cobrança** | Realiza a cobrança ordinária e, quando necessário, a cobrança extrajudicial ou judicial dos créditos inadimplentes. | Em carteiras com inadimplência relevante, a eficiência do agente de cobrança impacta a recuperação. |
+| **Auditor independente** | Audita as demonstrações financeiras do fundo. | Não substitui a verificação de lastro — são funções distintas. |
 
-## Exemplos reais do acervo
+## Por que cedente e originador podem ser pessoas diferentes
 
-- Seller: o regulamento trata o Mercado Pago como agente de pagamento e registro e mostra uma estrutura de meios de pagamento com poucos paralelos com um FIDC clássico de consignado. Fonte: `estudo/1672581-43161-20230523111704.pdf`.
-- Agibank I: o relatório mensal mostra o Banco Agibank como endossante, sem coobrigação, em uma carteira de consignado INSS via CCB. Fonte: `estudo/2156614-81031-20260126104025.pdf`.
-- iCred FGTS: o relatório mensal distingue claramente o originador, a inexistência de coobrigação e o foco em consignado INSS/FGTS via fintech. Fonte: `estudo/2159394-59901-20260310142833.pdf`.
-- BV Veículos: o relatório mensal identifica o Banco Votorantim como cedente, sem coobrigação, e os devedores como pessoas físicas em CCBs de financiamento de veículos. Fonte: `estudo/2148594-19371-20250917103827.pdf`.
+Em muitos FIDCs, quem origina o crédito é diferente de quem o cede ao fundo.
 
-## Em termos práticos no acompanhamento
+**Exemplo:** uma fintech origina empréstimos consignados, securitiza os créditos e cede ao FIDC por meio de um banco parceiro. O originador é a fintech; o cedente formal pode ser o banco. Esse tipo de estrutura é frequente em consignado INSS e crédito pessoal via correspondente bancário.
 
-O book e o dashboard deveriam sempre expor:
+Identificar quem origina e quem cede importa porque:
+- o risco de originação (seleção de devedor, critérios de elegibilidade) está com o originador;
+- a obrigação contratual de recompra pode estar com o cedente formal;
+- a concentração operacional pode estar em um único originador, mesmo que o fundo tenha diversidade de devedores.
 
-- quem origina;
-- quem cede;
-- quem deve;
-- quem cobra;
-- quem registra e custodia;
-- se existe coobrigação/regresso.
+## Verificação de lastro: papel do custodiante
 
-Sem isso, o usuário pode ler subordinação alta como conforto estrutural, quando o risco principal está na concentração operacional do originador ou do arranjo de pagamentos.
+Verificação de lastro significa confirmar que os documentos que respaldam os créditos cedidos — contratos, CCBs, duplicatas — existem, são válidos e estão de acordo com os critérios de elegibilidade.
 
-## O que costuma variar conforme o regulamento
+Essa função cabe ao custodiante (e, em alguns casos, a uma consultoria especializada). Ela não se confunde com a auditoria independente das demonstrações financeiras, que tem escopo contábil diferente.
 
-- acumulação ou separação entre cedente e originador;
-- extensão dos poderes do servicer ou da consultoria especializada;
-- guarda documental e verificação de lastro;
-- cobrança ordinária versus extraordinária;
-- hipóteses em que o cedente pode continuar atuando em nome do fundo.
+Quando o regulamento prevê verificação por amostragem — em vez de documento a documento —, o risco residual de inelegibilidade não detectada é parte do risco operacional do fundo.
 
-## Base regulatória
+## O que o IME informa sobre participantes
 
-A Parte Geral da Resolução CVM 175 trata da estrutura do fundo, prestadores de serviços e governança geral. O Anexo Normativo II detalha aspectos específicos do FIDC. Em alguns casos, as soluções operacionais efetivas aparecem com muito mais nitidez no regulamento do que na norma geral.
-
-## Risco de interpretação simplista
-
-“Cedente” não é automaticamente o melhor rótulo para a análise econômica. Em vários fundos do acervo, faz mais sentido monitorar:
-
-- o originador efetivo;
-- o responsável pelo fluxo operacional;
-- o ente pagador final;
-- o ponto de fricção documental e de cobrança.
-
-## Fontes desta página
-
-- Norma oficial: Resolução CVM 175, Parte Geral e Anexo Normativo II.
-- Fonte local: `estudo/1672581-43161-20230523111704.pdf`.
-- Fonte local: `estudo/2156614-81031-20260126104025.pdf`.
+O IME identifica administrador e gestor. Este painel complementa essa informação com os dados públicos cadastrais da CVM. O custodiante, o cedente e o agente de cobrança precisam ser identificados no regulamento ou no relatório mensal do fundo.

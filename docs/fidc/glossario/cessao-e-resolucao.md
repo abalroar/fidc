@@ -1,70 +1,43 @@
-# Contrato de cessão, elegibilidade e resolução
+# Cessão, elegibilidade e resolução
 
 ## O que é a cessão
 
-Para o FIDC, a cessão é a ponte entre a originação do crédito e a carteira do fundo. Sem uma cessão válida, elegível e operacionalmente verificável, não existe tese de carteira sustentável.
+Cessão é o ato jurídico pelo qual o originador ou cedente transfere um crédito para o fundo. É a operação básica pela qual o FIDC monta e renova sua carteira.
 
-É por isso que vários regulamentos do acervo tratam com muito mais detalhe:
+Para que a cessão seja válida, o crédito precisa atender aos **critérios de elegibilidade** definidos no regulamento — que costumam incluir prazo máximo, valor mínimo, documentação exigida, situação do devedor e limites de concentração.
 
-- condições de cessão;
-- critérios de elegibilidade;
-- documentação obrigatória;
-- hipóteses de rejeição, recompra, substituição ou resolução.
+## Por que elegibilidade é um risco real, não um detalhe operacional
 
-## O que o contrato de cessão resolve
+Um crédito cedido que não atende aos critérios de elegibilidade é um problema estrutural. Dependendo do regulamento, o fundo pode:
 
-Em termos práticos, ele tende a disciplinar:
+- rejeitar o crédito na entrada (antes da cessão ser efetivada);
+- exigir a **recompra** pelo cedente, caso a inelegibilidade seja descoberta após a cessão;
+- registrar o evento como **resolução** da cessão — o que pode afetar o PL e a subordinação do fundo.
 
-- quais créditos podem ser transferidos;
-- quando a transferência se considera perfeita;
-- quais documentos precisam acompanhar o crédito;
-- como o fundo valida elegibilidade;
-- o que acontece se o crédito cedido não cumprir os requisitos.
+Em carteiras massificadas (consignado, crédito pessoal, cartão), onde centenas ou milhares de créditos são cedidos de uma vez, a validação de elegibilidade pode ser feita por **amostragem** em vez de verificação individual. Isso é comum e aceito pelo mercado — mas cria risco residual de inelegibilidade não detectada.
 
-## Elegibilidade não é detalhe operacional
+## Resolução, recompra e substituição: conceitos distintos
 
-Nos fundos reais do acervo, elegibilidade é parte do risco central.
+Esses três termos costumam aparecer juntos nos regulamentos, mas não são sinônimos.
 
-Exemplos:
+| Termo | O que significa na prática |
+| --- | --- |
+| **Recompra** | O cedente é obrigado a readquirir o crédito — tipicamente quando há inelegibilidade comprovada ou inadimplemento do contrato de cessão |
+| **Resolução** | A cessão é desfeita por previsão contratual — pode ocorrer sem que o crédito seja necessariamente inadimplente |
+| **Substituição** | O crédito problemático é trocado por outro elegível dentro da carteira |
 
-- Facta INSS CB dedica capítulo próprio a condições de cessão e critérios de elegibilidade. Fonte: `estudo/1599001-38501-20221212113215.pdf`.
-- Seller separa capítulo de critérios de elegibilidade e ancora a estrutura em créditos ligados ao ecossistema Mercado Pago/Mercado Crédito. Fonte: `estudo/1672581-43161-20230523111704.pdf`.
-- Volkswagen Tera explicita validação de elegibilidade por amostragem ou individualização, além de indicadores de resolução e recompra. Fonte: `estudo/2076171-63381-20250204121014.pdf`.
+O efeito econômico pode ser parecido nos três casos — o crédito sai da carteira do fundo. Mas o fundamento jurídico, a governança e os gatilhos são diferentes. Leia o regulamento para saber qual mecanismo existe, em que condições se aplica e quem é responsável por acionar.
 
-## Resolução, recompra e substituição
+## Coobrigação e ausência de regresso
 
-Esses termos não devem ser tratados como sinônimos automáticos.
+Mesmo em estruturas descritas como "sem coobrigação", pode existir obrigação de recompra em casos específicos (como inelegibilidade). A ausência de coobrigação geral não elimina mecanismos de retorno do crédito ao cedente em cenários contratuais previstos.
 
-- `Resolução` costuma apontar para desfazimento ou ineficácia da cessão em hipóteses previstas contratualmente.
-- `Recompra` tende a significar reaquisição do crédito pela contraparte obrigada, nos casos previstos.
-- `Substituição` tende a ser a troca do ativo por outro elegível.
+Quando o cedente tem obrigação de recompra e tem capacidade financeira para honrá-la, isso é um mitigante de risco relevante para a análise. Quando não tem — ou quando os gatilhos de recompra são limitados — o risco recai integralmente sobre a estrutura do fundo.
 
-O efeito econômico pode até se aproximar em certos cenários, mas o fundamento jurídico e a governança não são idênticos.
+## O que observar na análise
 
-## Em termos práticos no acompanhamento
-
-O app deveria tratar esse bloco como um módulo próprio:
-
-- elegibilidade atendida ou não;
-- existência de resolução/recompra/substituição;
-- materialidade do evento;
-- impacto em caixa, PL e subordinação;
-- fonte do evento: IME, relatório mensal ou base operacional.
-
-## O que varia conforme o regulamento
-
-- regra exata de aperfeiçoamento da cessão;
-- critérios documentais;
-- prazos de cura;
-- quem recompra e em que condições;
-- se a validação é individual ou por amostragem.
-
-## Risco de interpretação simplista
-
-Não é seguro assumir que “sem coobrigação” significa ausência de mecanismos de retorno econômico do crédito problemático para a contraparte original. Resolução e recompra podem produzir efeitos relevantes mesmo em estruturas apresentadas como sem regresso no sentido amplo.
-
-## Fontes desta página
-
-- Fonte local: `estudo/1599001-38501-20221212113215.pdf`.
-- Fonte local: `estudo/1672581-43161-20230523111704.pdf`.
-- Fonte local: `estudo/2076171-63381-20250204121014.pdf`.
+- O regulamento define claramente os critérios de elegibilidade? São verificáveis?
+- A validação de elegibilidade é individual ou por amostragem?
+- Existe obrigação de recompra? Em quais condições?
+- O cedente tem capacidade financeira de honrar recompras relevantes?
+- O IME menciona eventos de resolução ou recompra? (Em geral o IME não cobre isso diretamente — o relatório mensal do administrador é a fonte mais adequada.)

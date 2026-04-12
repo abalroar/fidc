@@ -1,90 +1,56 @@
-# FIDCs com cedentes IFs ou carteiras originadas por IFs: análise comparativa
+# FIDCs com cedentes ou originadores que são instituições financeiras
 
-## Escopo
+## O que muda quando o cedente é um banco ou fintech
 
-Esta página compara fundos reais do acervo em que:
+Quando o crédito cedido ao FIDC foi originado por uma instituição financeira — banco, financeira, fintech de crédito — a análise precisa incorporar uma dimensão adicional: a qualidade do processo de originação do cedente.
 
-- a cedente é instituição financeira;
-- a originação é feita por instituição financeira ou fintech de crédito;
-- ou a carteira depende estruturalmente de um arranjo financeiro regulado.
+Diferente de uma carteira de duplicatas comerciais, onde o risco de inadimplência depende principalmente do sacado, uma carteira de empréstimos pessoais ou consignados cedidos por uma fintech depende:
+- da política de crédito do originador (quem ele seleciona como tomador);
+- da robustez do processo de elegibilidade (o que ele aceita ceder ao fundo);
+- da sua capacidade operacional de cobrança;
+- da sua saúde financeira — especialmente se tiver obrigação de recompra.
 
-O objetivo não é criar classificação legal fechada. O objetivo é ajudar o app e o analista a reconhecer padrões reais de risco.
+Ausência de coobrigação não elimina a exposição ao originador. Um originador que deteriora a qualidade de seleção de risco contamina a carteira cedida ao fundo — mesmo sem coobrigação formal.
 
-## Quadro comparativo
+## Comparativo por família de crédito
 
-| Fundo do acervo | Família de crédito | Papel do cedente/originador | Coobrigação | O que mais muda na análise |
-| --- | --- | --- | --- | --- |
-| Agibank I | Consignado INSS via CCB | Banco Agibank aparece como endossante; carteira de empréstimos consignados | Não | Qualidade de originação, averbação/consignação, elegibilidade documental e comportamento de pré-pagamento |
-| Facta INSS CB | Consignado benefício via CCB | Estrutura centrada em cessão/elegibilidade de crédito consignado | Deve ser lido no regulamento e documentos de cessão; não generalizar | Critérios de cessão, documentação, elegibilidade e governança de inconsistências |
-| GERU I | Crédito pessoal/fintech | Originação digital de crédito e forte camada de covenants | Não assumir padrão único | Relação mínima, alocação mínima, cobertura e first payment default |
-| iCred FGTS | Consignado INSS + FGTS | Fintech originadora com múltiplas séries e classes econômicas | Não | Mistura de canais/originação, séries múltiplas, benchmark e rating por tranche |
-| Seller | Meios de pagamento | Estrutura gira em torno do Mercado Pago e de transações de pagamento/sub-rogação | Não | Cobertura, subordinação, subordinação para amortização, alocação, taxa média e prazo médio |
-| Cielo | Arranjo de pagamentos / adquirência | Cedentes são estabelecimentos credenciados; Cielo aparece como devedor | Não | Forte componente operacional e de arranjo de pagamentos |
-| BV Crédito de Veículos | Financiamento de veículos via CCB | Banco Votorantim como cedente | Não | Safra, prazo, concentração e comportamento de inadimplência em veículos |
-| Stone IV | Cartão / bancos emissores | Regulamento trata cessão de recebíveis ligados a bancos emissores de cartão | Sem regresso/coobrigação, conforme regulamento | Risco de cartão, concentração e dinâmica operacional do arranjo |
+| Família | Papel típico do cedente/originador | Principal risco além da inadimplência direta |
+| --- | --- | --- |
+| **Consignado INSS via CCB** | Banco ou fintech origina e cede; às vezes sem coobrigação | Qualidade da averbação, elegibilidade documental, concentração por correspondente bancário |
+| **Crédito pessoal / fintech** | Fintech origina e cede; sem coobrigação | Critérios de seleção de risco, FPD, capacidade de cobrança pós-inadimplência |
+| **Cartão / private label** | Banco emissor cede recebíveis de cartão | Risco de concentração no emissor, dinâmica de revolvência, spread |
+| **Meios de pagamento / adquirência** | Adquirente ou arranjo cede recebíveis operacionais | Dependência operacional do player central, risco de interrupção do fluxo |
+| **Veículos via CCB** | Banco cede contratos de financiamento de veículos | Concentração regional, qualidade de cobrança, valor de revenda dos bens |
 
-## Padrões comuns encontrados
+## Padrões comuns em FIDCs com originação financeira
 
-### 1. A sigla “FIDC financeiro” esconde riscos muito diferentes
+### 1. O risco está no processo, não só no devedor
 
-Consignado INSS, veículos, cartão e meios de pagamento não deveriam compartilhar exatamente o mesmo template analítico.
+Em carteiras de consignado ou crédito pessoal, monitorar apenas a inadimplência reportada no IME é insuficiente. O risco real inclui: a fila de créditos sendo aprovados com critérios afrouxados, a deterioração silenciosa das safras mais recentes e a capacidade de cobrança do originador.
 
-### 2. Coobrigação ausente não elimina risco do originador
+### 2. Concentração operacional é frequentemente o risco dominante
 
-Mesmo quando o documento destaca inexistência de coobrigação ou regresso, a estrutura continua exposta a:
+Muitos desses fundos têm um único cedente/originador. Se esse cedente interrompe a cessão (por problemas regulatórios, financeiros ou operacionais), o fundo pode deixar de crescer ou de renovar a carteira — o que afeta o excesso de spread e a subordinação ao longo do tempo.
 
-- qualidade de originação;
-- falha de documentação;
-- concentração operacional;
-- problemas de cobrança e de fluxo.
+### 3. Fundos com IF na origem tendem a ter guardrails mais específicos
 
-### 3. Fundos com IF ou fintech na origem tendem a exigir leitura de processo, não só de balanço
+É comum encontrar, no regulamento desses fundos, métricas como:
+- **FPD (first payment default):** taxa de créditos que já inadimplem na primeira parcela — indicador direto da qualidade de seleção de risco;
+- **Índice de cobertura:** relação entre carteira elegível e PL sênior;
+- **Alocação mínima:** garante que o fundo mantenha um percentual mínimo do PL em crédito (evita que o fundo "pare de trabalhar");
+- **Excesso de spread mínimo:** evita que a operação rode sem margem de segurança dinâmica.
 
-Nesses casos, monitorar apenas PL, subordinação e atraso é pouco. O material do acervo aponta relevância adicional para:
+### 4. A ausência de coobrigação não é informação completa
 
-- critérios de elegibilidade;
-- reservas;
-- métricas de cobertura;
-- FPD;
-- resolução/recompra;
-- indicadores de refinanciamento;
-- verificação de lastro.
+Saber que o fundo é "sem coobrigação" é o começo da análise, não o fim. O que precisa ser respondido adicionalmente:
+- Existe obrigação de recompra por inelegibilidade? Em que condições?
+- O cedente tem capacidade financeira de honrar recompras relevantes?
+- Existem mecanismos alternativos de originação caso o cedente principal pare de ceder?
 
-## O que deveria mudar na UI
+## O que observar na análise de FIDCs com originação financeira
 
-### Módulos obrigatórios para fundos com originação financeira
-
-- identificação clara de cedente, originador e devedor;
-- tipo de lastro;
-- coobrigação/regresso;
-- família do crédito;
-- principais guardrails específicos do fundo.
-
-### Módulos condicionais por família
-
-- consignado: elegibilidade, atraso, FPD, prazo e convênio/ente pagador;
-- meios de pagamento: cobertura, subordinação, taxa média, prazo médio, liquidação do arranjo;
-- cartão/private label: spread, refinanciamento, atraso por janela, reservas;
-- veículos: safra, prazo remanescente, inadimplência e concentração.
-
-## Conclusão prática
-
-Para fins de conhecimento e produto, a melhor segmentação inicial não é “FIDC financeiro” versus “não financeiro”. A segmentação mais útil, à luz do acervo local, é:
-
-1. consignado/benefício;
-2. crédito pessoal/fintech;
-3. cartão/private label;
-4. meios de pagamento/adquirência;
-5. veículos;
-6. híbridos com FGTS ou outras linhas de crédito ao consumo.
-
-## Fontes desta página
-
-- `estudo/2156614-81031-20260126104025.pdf`
-- `estudo/1599001-38501-20221212113215.pdf`
-- `estudo/1337461-15981-20200901100422.pdf`
-- `estudo/2159394-59901-20260310142833.pdf`
-- `estudo/2159283-43161-20260309175427.pdf`
-- `estudo/2142726-12001-20250623152914.pdf`
-- `estudo/2148594-19371-20250917103827.pdf`
-- `estudo/1476881-27101-20211224104441.pdf`
+- **Concentração no cedente:** o fundo depende de um único originador? Existe cláusula de diversificação?
+- **Histórico de FPD e aging por safra:** a qualidade das safras recentes está se deteriorando?
+- **Guardrails do regulamento:** os indicadores estruturais (cobertura, relação mínima, alocação) estão sendo cumpridos?
+- **Saúde financeira do cedente:** o cedente tem capacidade de honrar recompras e continuar cedendo crédito de qualidade?
+- **Excesso de spread:** o fundo ainda gera margem suficiente para cobrir perdas antes de consumir subordinação?

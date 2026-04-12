@@ -1,70 +1,72 @@
-# Provisionamento, perdas e inadimplência
+# Provisão, perdas e inadimplência
 
-## O problema de linguagem
+## Três conceitos distintos que o mercado costuma confundir
 
-Em FIDC, é comum o mercado usar “inadimplência”, “provisão”, “perda” e “PDD” quase como se fossem a mesma coisa. Para análise séria, isso é inadequado.
+Em análise de crédito bancário, você provavelmente já diferencia atraso, provisão e perda realizada. Em FIDC, essa distinção é ainda mais importante — porque cada uma dessas camadas tem uma fonte de dado diferente e um significado diferente na leitura do risco.
 
-## Três camadas diferentes
+## 1. Inadimplência: a dimensão comportamental
 
-### 1. Atraso / inadimplência
+Inadimplência no IME é o saldo de créditos que **venceram e não foram pagos**, reportados pelo administrador por faixa de prazo (aging):
 
-É a dimensão comportamental do crédito:
+- 1 a 30 dias;
+- 31 a 60 dias;
+- 61 a 90 dias;
+- 91 a 120 dias;
+- 121 a 180 dias;
+- 181 a 360 dias.
 
-- venceu e não pagou;
-- atrasou quantos dias;
-- está em qual bucket de aging.
+Esse dado reflete o estoque de crédito em atraso em cada competência — não a variação no mês, não a perda acumulada desde o início do fundo.
 
-### 2. Provisão
+**Limitação importante:** o administrador preenche esse campo. A qualidade e a consistência do preenchimento variam. Um campo em branco não significa ausência de inadimplência — pode ser simplesmente um campo não preenchido.
 
-É a dimensão contábil ou de política de perdas:
+## 2. Provisão: a dimensão contábil
 
-- qual parte do valor está provisionada;
-- em qual regra ou política isso se apoia;
-- se a provisão é linear, por bucket, por evento, por amostragem ou por regra específica do fundo.
+Provisão é o valor que o fundo constituiu contabilmente para cobrir perdas esperadas. Ela aparece no IME como um número absoluto.
 
-### 3. Perda esperada ou perda realizada
+A relação entre inadimplência e provisão varia conforme:
+- a política contábil do fundo (definida no regulamento ou em manual de crédito);
+- o tipo de crédito (cartão tem curva de provisionamento diferente de consignado);
+- a existência de mecanismos de recuperação (recompra, resolução, cobrança ativa).
 
-É a dimensão econômica:
+**Cobertura de provisão** = provisão / inadimplência. 
 
-- o que o fundo espera perder com a carteira;
-- o que de fato já foi absorvido;
-- quanto foi coberto por subordinação, spread, reserva, recompra ou resolução.
+- Acima de 100%: o fundo provisionou mais do que o saldo inadimplente visível no IME — pode indicar política conservadora ou inadimplência em redução.
+- Abaixo de 100%: parte da inadimplência não está coberta por provisão — pode ser política de provisionamento parcial, expectativa de recuperação ou subnotificação da inadimplência.
 
-## O que os documentos do acervo sugerem
+## 3. Perda esperada e perda realizada: a dimensão econômica
 
-- GERU trata provisões e perdas junto da lógica de monitoramento da carteira e da governança de parâmetros estruturais. Fonte: `estudo/1337461-15981-20200901100422.pdf`.
-- Facta INSS CB organiza a carteira em torno de cessão, elegibilidade, cobrança e eventos, o que impede leitura simplista de atraso puro como perda econômica final. Fonte: `estudo/1599001-38501-20221212113215.pdf`.
-- Seller mensal privilegia métricas estruturais como cobertura e subordinação, mostrando que inadimplência isolada não esgota a análise do risco do fundo. Fonte: `estudo/2159283-43161-20260309175427.pdf`.
+Perda esperada é o que o fundo estima que vai perder com a carteira. Perda realizada é o que já foi absorvido.
 
-## O que o dashboard não deve fazer
+Essas dimensões raramente aparecem diretamente no IME. Elas aparecem nos relatórios mensais do administrador, na nota explicativa das demonstrações financeiras do fundo e, indiretamente, no comportamento do PL subordinado ao longo do tempo.
 
-- transformar campo ausente em zero;
-- assumir que bucket do IME equivale à política de provisão do fundo;
-- mostrar provisão como métrica universal se a fonte não a reporta;
-- misturar provisão contábil com perda econômica realizada.
+**Um sinal prático:** se o PL das cotas subordinadas cai de forma consistente sem que haja resgates ou amortizações dessas cotas, é provável que perdas estejam sendo absorvidas pela subordinação.
 
-## Regra prática para o produto
+## Aging: o que a distribuição por faixa de prazo indica
 
-Cada número ligado a perdas deveria carregar um rótulo explícito:
+A distribuição do saldo vencido por faixa de prazo diz muito sobre a tendência da carteira.
 
-- `atraso reportado`;
-- `provisão reportada`;
-- `perda esperada calculada`;
-- `perda realizada`;
-- `não informado`;
-- `não aplicável`.
+| Concentração no aging | Leitura |
+| --- | --- |
+| Maioria em 1 a 30 dias | Inadimplência recente — parte pode ser recuperada com cobrança ordinária |
+| Migração para 90+ dias | Deterioração consistente — créditos se tornando mais difíceis de recuperar |
+| Concentração em 181 a 360 dias | Carteira com problema antigo sem recuperação — risco maior de perda definitiva |
 
-## Risco de interpretação simplista
+O crescimento do saldo inadimplente nas faixas mais longas ao longo do tempo, mesmo que o total se mantenha estável, é um sinal de piora qualitativa da carteira que merece atenção.
 
-Dois fundos com o mesmo atraso podem ter riscos muito diferentes se:
+## O que observar na análise
 
-- um tiver forte mecanismo de recompra/resolução;
-- outro depender apenas de subordinação;
-- um tiver política agressiva de provisão;
-- outro tiver atraso alto, mas spread e liquidez ainda confortáveis.
+- **Inadimplência está crescendo em faixas longas?** Indica degradação da qualidade da carteira.
+- **Cobertura de provisão está caindo?** A provisão não acompanhou o crescimento da inadimplência.
+- **O PL subordinado está caindo mesmo sem resgates?** Perdas podem estar sendo absorvidas.
+- **Excesso de spread ainda é positivo?** Se sim, as perdas estão sendo cobertas pelo spread antes de consumir subordinação.
+- **O IME mostra inadimplência zerada?** Verifique se é de fato ausência de atraso ou campo não preenchido — leia o relatório mensal do administrador para confirmar.
 
-## Fontes desta página
+## Por que dois fundos com inadimplência igual podem ter riscos diferentes
 
-- Fonte local: `estudo/1337461-15981-20200901100422.pdf`.
-- Fonte local: `estudo/1599001-38501-20221212113215.pdf`.
-- Fonte local: `estudo/2159283-43161-20260309175427.pdf`.
+Dois FIDCs com 5% de inadimplência reportada podem ter perfis de risco muito distintos se:
+- um tem forte mecanismo de recompra e o cedente tem capacidade financeira — a inadimplência tende a sair da carteira rapidamente;
+- o outro não tem recompra e depende exclusivamente da subordinação para absorver perdas;
+- um tem provisão de 120% da inadimplência; o outro, 40%;
+- um tem spread excedente de 8% ao ano; o outro opera com spread próximo de zero.
+
+A inadimplência do IME é um ponto de partida, não uma conclusão.
