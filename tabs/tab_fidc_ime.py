@@ -874,6 +874,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData) -> None:
             title=None,
             y_title="R$",
             value_column="valor",
+            show_total_labels=True,
         ),
         use_container_width=True,
     )
@@ -1930,40 +1931,56 @@ def _label_format(unit: str) -> str:
     return ",.2f" if unit in {"R$", "%"} else ",.2f"
 
 
-def _line_end_label_layer(chart_df: pd.DataFrame, *, y_title: str) -> alt.Chart | None:
+def _hex_is_dark(color: str) -> bool:
+    value = str(color or "").strip().lstrip("#")
+    if len(value) != 6:
+        return False
+    try:
+        red = int(value[0:2], 16)
+        green = int(value[2:4], 16)
+        blue = int(value[4:6], 16)
+    except ValueError:
+        return False
+    luminance = (0.2126 * red) + (0.7152 * green) + (0.0722 * blue)
+    return luminance < 150
+
+
+def _contrast_text_color(fill_color: str) -> str:
+    return "#ffffff" if _hex_is_dark(fill_color) else "#111111"
+
+
+def _category_color_map(categories: list[str], color_range: list[str]) -> dict[str, str]:
+    if not categories:
+        return {}
+    return {category: color_range[index % len(color_range)] for index, category in enumerate(categories)}
+
+
+def _line_point_label_layer(chart_df: pd.DataFrame, *, y_title: str) -> alt.Chart | None:
     if not _chart_labels_enabled() or chart_df.empty or "serie" not in chart_df.columns:
         return None
-    labels_df = (
-        chart_df.sort_values(["serie", "competencia_dt"])
-        .groupby("serie", as_index=False, dropna=False)
-        .tail(1)
-    )
+    labels_df = chart_df.sort_values(["competencia_dt", "serie"]).copy()
     if labels_df.empty:
         return None
-    labels_df = labels_df.copy()
-    if len(labels_df.index) > 3:
-        labels_df = labels_df.reindex(labels_df["valor"].abs().sort_values(ascending=False).index).head(3).copy()
     labels_df["label_valor"] = labels_df["valor"]
-    if len(labels_df) > 1:
-        ordered = labels_df.sort_values("valor").reset_index(drop=True)
+    adjusted_groups: list[pd.DataFrame] = []
+    for _, group_df in labels_df.groupby("competencia", dropna=False):
+        ordered = group_df.sort_values("valor").reset_index(drop=True).copy()
         value_span = ordered["valor"].max() - ordered["valor"].min()
-        if value_span == 0:
+        if pd.isna(value_span) or value_span == 0:
             value_span = max(abs(float(ordered["valor"].max() or 0.0)), 1.0)
-        step = value_span * 0.045
+        step = value_span * 0.05
         midpoint = (len(ordered) - 1) / 2.0
         ordered["label_valor"] = ordered["valor"] + ((ordered.index - midpoint) * step)
-        labels_df = ordered
-    labels_df["valor_label"] = labels_df["valor"].map(
-        _format_brl if y_title == "R$" else _format_percent if "%" in y_title else _format_decimal
-    )
+        adjusted_groups.append(ordered)
+    labels_df = pd.concat(adjusted_groups, ignore_index=True) if adjusted_groups else labels_df
+    labels_df["valor_label"] = labels_df["valor"].map(lambda value: _format_value_label(value, y_title))
     return (
         alt.Chart(labels_df)
-        .mark_text(align="left", dx=6, dy=-6, fontSize=11, color="#111111")
+        .mark_text(align="center", dy=-8, fontSize=11, color="#111111", stroke="#ffffff", strokeWidth=2)
         .encode(
             x=alt.X("competencia:N", sort=chart_df["competencia"].drop_duplicates().tolist()),
             y=alt.Y("label_valor:Q", title=y_title),
             text=alt.Text("valor_label:N"),
-            color=alt.Color("serie:N", legend=None, scale=alt.Scale(range=FIDC_CHART_COLORS)),
         )
     )
 
@@ -1979,11 +1996,9 @@ def _point_label_layer(
 ) -> alt.Chart | None:
     if not _chart_labels_enabled() or chart_df.empty:
         return None
-    if len(chart_df.index) > 6:
-        return None
     return (
         alt.Chart(chart_df)
-        .mark_text(dy=-10, fontSize=11, color=color)
+        .mark_text(dy=-10, fontSize=11, color=color, stroke="#ffffff", strokeWidth=2)
         .encode(
             x=x_encoding,
             y=y_encoding,
@@ -2004,13 +2019,11 @@ def _bar_label_layer(
 ) -> alt.Chart | None:
     if not _chart_labels_enabled() or chart_df.empty:
         return None
-    if len(chart_df.index) > (8 if orient == "horizontal" else 6):
-        return None
     mark_kwargs = {"fontSize": 11, "color": "#111111"}
     if orient == "horizontal":
         mark_kwargs.update({"align": "left", "dx": 4})
     else:
-        mark_kwargs.update({"dy": -8})
+        mark_kwargs.update({"dy": -8, "stroke": "#ffffff", "strokeWidth": 2})
     encoding: dict[str, object] = {
         "text": (
             alt.Text(f"{text_field}:N")
@@ -2045,6 +2058,7 @@ def _line_history_chart(
     chart_df = _altair_compatible_df(chart_df)
     chart_df = chart_df.copy()
     chart_df["valor_fmt"] = chart_df["valor"].map(lambda value: _format_brl(value) if y_title == "R$" else _format_percent(value) if "%" in y_title else _format_decimal(value))
+    chart_df["label_fmt"] = chart_df["valor"].map(lambda value: _format_value_label(value, y_title))
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
     y_encoding = alt.Y("valor:Q", title=y_title)
     base = (
@@ -2058,7 +2072,7 @@ def _line_history_chart(
         )
     )
     base = _chart_with_optional_title(base, height=320, title=title)
-    labels = _line_end_label_layer(chart_df, y_title=y_title)
+    labels = _line_point_label_layer(chart_df.assign(valor_label=chart_df["label_fmt"]), y_title=y_title)
     layered = base if labels is None else (base + labels)
     if limit_value is None:
         return _style_altair_chart(layered)
@@ -2083,6 +2097,7 @@ def _line_point_chart(
     chart_df = _altair_compatible_df(chart_df)
     chart_df = chart_df.copy()
     chart_df["valor_fmt"] = chart_df[y_column].map(lambda value: _format_brl(value) if y_title == "R$" else _format_percent(value) if "%" in y_title else _format_decimal(value))
+    chart_df["label_fmt"] = chart_df[y_column].map(lambda value: _format_value_label(value, y_title))
     x_encoding = alt.X(f"{x_column}:N", title="Horizonte")
     y_encoding = alt.Y(f"{y_column}:Q", title=y_title)
     chart = (
@@ -2095,7 +2110,7 @@ def _line_point_chart(
         )
     )
     chart = _chart_with_optional_title(chart, height=320, title=title)
-    labels = _point_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, y_field=y_column, text_field="valor_fmt")
+    labels = _point_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, y_field=y_column, text_field="label_fmt")
     return _style_altair_chart(chart if labels is None else (chart + labels))
 
 
@@ -2142,6 +2157,7 @@ def _percent_bar_chart(
     chart_df = _altair_compatible_df(chart_df.dropna(subset=[percent_column]).copy())
     chart_df = chart_df.sort_values(percent_column, ascending=False)
     chart_df["percentual_fmt"] = chart_df[percent_column].map(_format_percent)
+    chart_df["percentual_label"] = chart_df[percent_column].map(_format_percent_label)
     x_encoding = alt.X(f"{category_column}:N", title=None, sort=chart_df[category_column].drop_duplicates().tolist())
     y_encoding = alt.Y(f"{percent_column}:Q", title="%")
     tooltip: list[object] = [f"{category_column}:N", alt.Tooltip("percentual_fmt:N", title="% do total")]
@@ -2161,7 +2177,7 @@ def _percent_bar_chart(
         )
     )
     chart = _chart_with_optional_title(chart, height=320, title=title)
-    labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field=percent_column, text_field="percentual_fmt")
+    labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field=percent_column, text_field="percentual_label")
     return _style_altair_chart(chart if labels is None else (chart + labels))
 
 
@@ -2183,26 +2199,14 @@ def _stacked_share_column_chart(
     chart_df = chart_df[chart_df[percent_column] > 0].copy()
     if chart_df.empty:
         empty_df = pd.DataFrame(columns=["stack_label", percent_column])
-        return _style_altair_chart(
+        empty_chart = (
             alt.Chart(empty_df)
             .mark_bar()
             .encode(x="stack_label:N", y=alt.Y(f"{percent_column}:Q", title="% do total"))
         )
-        if title is not None:
-            return _style_altair_chart(
-                alt.Chart(empty_df)
-                .mark_bar()
-                .encode(x="stack_label:N", y=alt.Y(f"{percent_column}:Q", title="% do total"))
-                .properties(height=height, title=title)
-            )
-        return _style_altair_chart(
-            alt.Chart(empty_df)
-            .mark_bar()
-            .encode(x="stack_label:N", y=alt.Y(f"{percent_column}:Q", title="% do total"))
-            .properties(height=height)
-        )
+        return _style_altair_chart(_chart_with_optional_title(empty_chart, height=height, title=title))
     chart_df["stack_label"] = stack_label
-    chart_df["label_pct"] = chart_df[percent_column].map(_format_percent)
+    chart_df["label_pct"] = chart_df[percent_column].map(_format_percent_label)
     chart_df["valor_fmt"] = chart_df[value_column].map(_format_brl)
     x_encoding = alt.X("stack_label:N", title=None, axis=alt.Axis(labels=False, ticks=False))
     y_encoding = alt.Y(f"{percent_column}:Q", title="% do total", stack=True)
@@ -2217,6 +2221,8 @@ def _stacked_share_column_chart(
         scale=alt.Scale(range=color_range or FIDC_CHART_COLORS),
         sort=color_sort,
     )
+    color_map = _category_color_map(color_sort, color_range or FIDC_CHART_COLORS)
+    chart_df["label_color"] = chart_df[category_column].map(lambda value: _contrast_text_color(color_map.get(str(value), "#ff5a00")))
     tooltip: list[object] = [
         alt.Tooltip(f"{category_column}:N", title="Faixa"),
         alt.Tooltip("label_pct:N", title="% do total"),
@@ -2237,17 +2243,16 @@ def _stacked_share_column_chart(
         )
     )
     chart = _chart_with_optional_title(chart, height=height, title=title)
-    labels_df = chart_df[chart_df[percent_column] >= 6].copy()
-    if labels_df.empty:
-        return _style_altair_chart(chart)
+    labels_df = chart_df.copy()
     labels = (
         alt.Chart(labels_df)
-        .mark_text(fontSize=label_font_size, color="#111111")
+        .mark_text(fontSize=label_font_size, fontWeight=600)
         .encode(
             x=x_encoding,
             y=alt.Y(f"{percent_column}:Q", stack="center", title="% do total"),
             detail=f"{category_column}:N",
             text=alt.Text("label_pct:N"),
+            color=alt.Color("label_color:N", scale=None, legend=None),
         )
     )
     return _style_altair_chart(chart + labels)
@@ -2269,6 +2274,7 @@ def _bar_chart(
         else chart_df[x_column].drop_duplicates().tolist()
     )
     chart_df["valor_fmt"] = chart_df[y_column].map(lambda value: _format_brl(value) if y_title == "R$" else _format_percent(value) if "%" in y_title else _format_decimal(value))
+    chart_df["label_fmt"] = chart_df[y_column].map(lambda value: _format_value_label(value, y_title))
     tooltip = [f"{x_column}:N", alt.Tooltip("valor_fmt:N", title="Valor")]
     if "source_status" in chart_df.columns:
         chart_df["status_fonte"] = chart_df["source_status"].map(_format_source_status)
@@ -2285,7 +2291,7 @@ def _bar_chart(
         )
     )
     chart = _chart_with_optional_title(chart, height=320, title=title)
-    labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field=y_column, text_field="valor_fmt")
+    labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field=y_column, text_field="label_fmt")
     return _style_altair_chart(chart if labels is None else (chart + labels))
 
 
@@ -2297,6 +2303,7 @@ def _history_bar_chart(
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
     chart_df["valor_fmt"] = chart_df["valor"].map(_format_percent if "%" in y_title else _format_brl)
+    chart_df["label_fmt"] = chart_df["valor"].map(lambda value: _format_value_label(value, y_title))
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
     y_encoding = alt.Y("valor:Q", title=y_title)
     chart = (
@@ -2309,7 +2316,7 @@ def _history_bar_chart(
         )
     )
     chart = _chart_with_optional_title(chart, height=300, title=title)
-    labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field="valor", text_field="valor_fmt")
+    labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field="valor", text_field="label_fmt")
     return _style_altair_chart(chart if labels is None else (chart + labels))
 
 
@@ -2319,12 +2326,24 @@ def _stacked_history_bar_chart(
     title: str | None,
     y_title: str,
     value_column: str,
+    show_total_labels: bool = False,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
-    chart_df["valor_fmt"] = chart_df[value_column].map(_format_brl if y_title == "R$" else _format_percent)
+    if chart_df.empty:
+        empty_chart = (
+            alt.Chart(pd.DataFrame(columns=["competencia", value_column]))
+            .mark_bar()
+            .encode(x="competencia:N", y=alt.Y(f"{value_column}:Q", title=y_title))
+        )
+        return _style_altair_chart(_chart_with_optional_title(empty_chart, height=320, title=title))
+    chart_df["valor_fmt"] = chart_df[value_column].map(_format_brl_compact if y_title == "R$" else _format_percent)
+    chart_df["label_fmt"] = chart_df[value_column].map(lambda value: _format_value_label(value, y_title))
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
     y_encoding = alt.Y(f"{value_column}:Q", title=y_title, stack=True)
     color_encoding = alt.Color("serie:N", title="Classe", scale=alt.Scale(range=FIDC_CHART_COLORS))
+    series_order = chart_df["serie"].drop_duplicates().tolist()
+    color_map = _category_color_map(series_order, FIDC_CHART_COLORS)
+    chart_df["label_color"] = chart_df["serie"].map(lambda value: _contrast_text_color(color_map.get(str(value), "#ff5a00")))
     chart = (
         alt.Chart(chart_df)
         .mark_bar(size=24)
@@ -2336,7 +2355,36 @@ def _stacked_history_bar_chart(
         )
     )
     chart = _chart_with_optional_title(chart, height=320, title=title)
-    return _style_altair_chart(chart)
+    labels = (
+        alt.Chart(chart_df)
+        .mark_text(fontSize=10, fontWeight=600)
+        .encode(
+            x=x_encoding,
+            y=alt.Y(f"{value_column}:Q", title=y_title, stack="center"),
+            detail="serie:N",
+            text=alt.Text("label_fmt:N"),
+            color=alt.Color("label_color:N", scale=None, legend=None),
+        )
+    )
+    layered: alt.Chart = chart + labels
+    if show_total_labels:
+        totals_df = (
+            chart_df.groupby("competencia", as_index=False, dropna=False)[value_column]
+            .sum()
+            .rename(columns={value_column: "valor_total"})
+        )
+        totals_df["total_fmt"] = totals_df["valor_total"].map(_format_brl_compact if y_title == "R$" else _format_percent)
+        total_labels = (
+            alt.Chart(totals_df)
+            .mark_text(dy=-10, fontSize=11, fontWeight=700, color="#111111", stroke="#ffffff", strokeWidth=2)
+            .encode(
+                x=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
+                y=alt.Y("valor_total:Q", title=y_title),
+                text=alt.Text("total_fmt:N"),
+            )
+        )
+        layered = layered + total_labels
+    return _style_altair_chart(layered)
 
 
 def _grouped_bar_chart(chart_df: pd.DataFrame, *, title: str, y_title: str) -> alt.Chart:
@@ -2546,6 +2594,12 @@ def _format_percent(value: object) -> str:
     return f"{_format_decimal(value, decimals=2)}%"
 
 
+def _format_percent_label(value: object) -> str:
+    if _is_missing_value(value):
+        return "N/D"
+    return f"{_format_decimal(value, decimals=1)}%"
+
+
 def _format_pp(value: object) -> str:
     if _is_missing_value(value):
         return "N/D"
@@ -2575,6 +2629,14 @@ def _format_brl_compact(value: object) -> str:
     if magnitude >= 1_000:
         return f"R$ {_format_decimal(numeric / 1_000, decimals=1)} mil"
     return f"R$ {_format_decimal(numeric, decimals=2)}"
+
+
+def _format_value_label(value: object, unit: str) -> str:
+    if unit == "R$":
+        return _format_brl_compact(value)
+    if "%" in unit:
+        return _format_percent_label(value)
+    return _format_decimal(value, decimals=1)
 
 
 def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None:
