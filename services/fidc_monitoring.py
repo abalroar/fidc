@@ -269,23 +269,56 @@ def build_mini_glossary_df() -> pd.DataFrame:
     rows = [
         {
             "termo": "Subordinação",
-            "definicao_curta": "Colchão de capital subordinado que absorve perdas antes da classe sênior.",
-            "variacao_importante": "Não substitui cobertura, reservas ou covenants contratuais.",
+            "definicao": (
+                "Percentual do PL alocado em cotas subordinadas. "
+                "Essas cotas absorvem perdas de crédito antes da classe sênior, funcionando como colchão. "
+                "Quanto maior, mais protegido o sênior — mas o nível adequado depende da carteira e do regulamento."
+            ),
         },
         {
-            "termo": "Inadimplência reportada",
-            "definicao_curta": "Saldos vencidos inadimplentes reportados no Informe Mensal da CVM.",
-            "variacao_importante": "Não equivale automaticamente a perda esperada nem a política contábil do fundo.",
+            "termo": "Inadimplência (IME)",
+            "definicao": (
+                "Saldo vencido reportado pelo administrador no campo INAD_VENC do Informe Mensal. "
+                "Reflete o estoque de crédito em atraso por faixa de prazo. "
+                "Não é necessariamente perda: parte pode ser recuperada ou estar em negociação."
+            ),
         },
         {
-            "termo": "Informe Mensal",
-            "definicao_curta": "Documento periódico da CVM usado aqui como base padronizada de acompanhamento.",
-            "variacao_importante": "Nem todo risco estrutural relevante aparece nele; regulamento e relatório mensal seguem necessários.",
+            "termo": "Cobertura de provisão",
+            "definicao": (
+                "Relação entre a provisão constituída e o saldo inadimplente reportado. "
+                "Acima de 100%: o fundo provisionou mais do que o inadimplente visível. "
+                "Abaixo de 100%: parte da inadimplência ainda não está coberta por provisão."
+            ),
+        },
+        {
+            "termo": "Aging da inadimplência",
+            "definicao": (
+                "Distribuição do saldo vencido por faixa de prazo (1–30 dias, 31–60, 61–90, 91–120, 121–180, 181–360 dias). "
+                "Faixas mais longas indicam créditos com menor probabilidade de recuperação e maior pressão sobre o colchão."
+            ),
+        },
+        {
+            "termo": "Direitos creditórios",
+            "definicao": (
+                "Recebíveis que compõem a carteira do FIDC — duplicatas, CCBs, precatórios, contratos, etc. "
+                "São o ativo principal do fundo. O total reportado no IME serve de denominador para os indicadores de crédito."
+            ),
+        },
+        {
+            "termo": "Informe Mensal Estruturado (IME)",
+            "definicao": (
+                "Documento XML entregue mensalmente pelos administradores à CVM via Fundos.NET. "
+                "É a fonte primária deste painel. Cobre PL, cotas, inadimplência, provisão, amortizações e emissões. "
+                "Não cobre qualidade do cedente, concentração por devedor, rating ou triggers contratuais."
+            ),
         },
         {
             "termo": "Resgate solicitado",
-            "definicao_curta": "Pressão de saída já pedida por cotistas, ainda não necessariamente paga.",
-            "variacao_importante": "No XML real há divergência entre `VL_PAGO` e `VL_COTAS`; por isso a leitura é operacional, não jurídica.",
+            "definicao": (
+                "Volume de resgates pedidos por cotistas no mês, ainda não necessariamente liquidados. "
+                "Sinal de pressão de saída. Comparar com a liquidez da carteira para avaliar risco de liquidez."
+            ),
         },
     ]
     return pd.DataFrame(rows)

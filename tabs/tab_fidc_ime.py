@@ -55,6 +55,50 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
 
 .block-container {
     padding-top: 1rem !important;
+    max-width: 100% !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+}
+
+/* Financial snapshot cards row */
+.fidc-snapshot-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 0.6rem 0 1.0rem 0;
+}
+
+.fidc-snapshot-card {
+    flex: 1 1 140px;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-top: 3px solid #ff5a00;
+    border-radius: 10px;
+    padding: 12px 14px 10px 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    min-width: 120px;
+}
+
+.fidc-snapshot-card__label {
+    color: #6c757d;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.fidc-snapshot-card__value {
+    color: #212529;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+.fidc-snapshot-card__unit {
+    color: #8a96a3;
+    font-size: 0.72rem;
+    margin-top: 3px;
 }
 
 .fidc-hero {
@@ -541,137 +585,133 @@ def _update_progress_bar(progress_bar, value: float, message: str) -> None:
 
 def render_tab_fidc_ime() -> None:
     today = date.today()
+    # Always last 12 months — no date selectors exposed to user
+    competencia_final = date(today.year, today.month, 1)
+    competencia_inicial = date(
+        competencia_final.year - 1 if competencia_final.month > 1 else competencia_final.year - 1,
+        competencia_final.month - 1 if competencia_final.month > 1 else 12,
+        1,
+    )
 
-    # Generate month options from Jan/2018 to 6 months ahead, formatted "jan-22"
-    def _month_options() -> list[str]:
-        opts: list[str] = []
-        cur = date(2018, 1, 1)
-        end = date(today.year + (1 if today.month > 6 else 0), ((today.month + 6 - 1) % 12) + 1, 1)
-        while cur <= end:
-            mm = f"{cur.month:02d}"
-            yy = str(cur.year)[-2:]
-            abbr = _PT_MONTH_ABBR.get(mm, mm)
-            opts.append(f"{abbr}-{yy}")
-            # advance one month
-            if cur.month == 12:
-                cur = date(cur.year + 1, 1, 1)
-            else:
-                cur = date(cur.year, cur.month + 1, 1)
-        return opts
+    MAX_SLOTS = 4
+    st.caption(
+        f"Últimos 12 meses: {_format_competencia_display(f'{competencia_inicial.month:02d}/{competencia_inicial.year}')} "
+        f"→ {_format_competencia_display(f'{competencia_final.month:02d}/{competencia_final.year}')}"
+    )
 
-    def _option_to_date(opt: str) -> date:
-        """Convert 'abr-25' back to date(2025, 4, 1)."""
-        abbr_to_num = {v: k for k, v in _PT_MONTH_ABBR.items()}
-        parts = opt.split("-")
-        if len(parts) != 2:
-            return today.replace(day=1)
-        abbr, yy = parts
-        mm = abbr_to_num.get(abbr, "01")
-        year = 2000 + int(yy) if int(yy) < 100 else int(yy)
-        return date(year, int(mm), 1)
-
-    month_opts = _month_options()
-    default_end_opt = _format_competencia_display(f"{today.month:02d}/{today.year}")
-    default_start_dt = date(today.year - 1, today.month, 1)
-    default_start_opt = _format_competencia_display(f"{default_start_dt.month:02d}/{default_start_dt.year}")
-
-    # Use safe defaults if generated options don't contain the default
-    if default_end_opt not in month_opts:
-        default_end_opt = month_opts[-1]
-    if default_start_opt not in month_opts:
-        default_start_opt = month_opts[0]
-
-    col1, col2, col3 = st.columns([2, 1, 1])
-    with col1:
-        cnpj_input = st.text_input("CNPJ do fundo", placeholder="00.000.000/0000-00", key="fidc_cnpj_input")
-    with col2:
-        selected_inicial = st.selectbox(
-            "Competência inicial",
-            options=month_opts,
-            index=month_opts.index(default_start_opt),
-            key="fidc_competencia_inicial",
+    cnpj_cols = st.columns(MAX_SLOTS)
+    cnpj_inputs: list[str] = []
+    for i, col in enumerate(cnpj_cols):
+        val = col.text_input(
+            f"CNPJ {i + 1}" if i > 0 else "CNPJ do fundo",
+            placeholder="00.000.000/0000-00",
+            key=f"fidc_cnpj_slot_{i}",
+            label_visibility="visible",
         )
-    with col3:
-        selected_final = st.selectbox(
-            "Competência final",
-            options=month_opts,
-            index=month_opts.index(default_end_opt),
-            key="fidc_competencia_final",
-        )
-    competencia_inicial = _option_to_date(selected_inicial)
-    competencia_final = _option_to_date(selected_final)
+        cnpj_inputs.append(val.strip())
 
     load_clicked = st.button("Carregar Informes Mensais", type="primary")
-    stored_result = st.session_state.get("fidc_last_result")
-    stored_context = st.session_state.get("fidc_last_context")
 
-    if not load_clicked and stored_result is None:
-        return
+    slots: dict[int, dict] = st.session_state.get("fidc_slots", {})
 
-    if competencia_inicial > competencia_final:
-        st.error("A competência inicial deve ser menor ou igual à competência final.")
-        return
-
-    request_id = uuid.uuid4().hex
-    start_ts = time.perf_counter()
-    context = {
-        "request_id": request_id,
-        "cnpj_informado": cnpj_input,
-        "competencia_inicial": competencia_inicial.isoformat(),
-        "competencia_final": competencia_final.isoformat(),
-    }
-
-    progress = None
-    status_box = None
     if load_clicked:
-        status_box = st.empty()
-        try:
-            progress = _init_progress_bar(0.0, "Preparando execução...", status_box=status_box)
-        except TypeError:
-            progress = _init_progress_bar(0.0, "Preparando execução...")
-            status_box.caption("Preparando execução...")
-
-        def report_progress(current: int, total: int, message: str) -> None:
-            fraction = 0.0 if total <= 0 else min(1.0, max(0.0, current / total))
-            _update_progress_bar(progress, fraction, message)
-            status_box.caption(message)
-
-        service = InformeMensalService()
-        try:
-            result = service.run(
-                cnpj_fundo=cnpj_input,
-                data_inicial=competencia_inicial,
-                data_final=competencia_final,
-                progress_callback=report_progress,
-            )
-        except Exception as exc:  # noqa: BLE001
-            progress.empty()
-            status_box.empty()
-            tb_text = traceback.format_exc()
-            _render_failure_diagnostics(exc, tb_text, context)
+        active_cnpjs = [(i, c) for i, c in enumerate(cnpj_inputs) if c]
+        if not active_cnpjs:
+            st.warning("Informe ao menos um CNPJ para carregar.")
             return
 
-        elapsed_seconds = time.perf_counter() - start_ts
-        context["elapsed_seconds"] = round(elapsed_seconds, 3)
-        st.session_state["fidc_last_result"] = result
-        st.session_state["fidc_last_context"] = context
-        _update_progress_bar(progress, 1.0, "Concluído.")
-        status_box.caption("Processamento concluído.")
-    else:
-        result = stored_result
-        context = dict(stored_context or {})
+        slots = {}
+        service = InformeMensalService()
+        for slot_i, cnpj in active_cnpjs:
+            request_id = uuid.uuid4().hex
+            start_ts = time.perf_counter()
+            context: dict[str, Any] = {
+                "request_id": request_id,
+                "cnpj_informado": cnpj,
+                "competencia_inicial": competencia_inicial.isoformat(),
+                "competencia_final": competencia_final.isoformat(),
+                "slot": slot_i,
+            }
+            status_box = st.empty()
+            try:
+                progress = _init_progress_bar(0.0, f"[Slot {slot_i + 1}] Preparando...", status_box=status_box)
+            except TypeError:
+                progress = _init_progress_bar(0.0, f"[Slot {slot_i + 1}] Preparando...")
+                status_box.caption(f"[Slot {slot_i + 1}] Preparando...")
 
+            def _make_reporter(prog, sbox, prefix):
+                def report_progress(current: int, total: int, message: str) -> None:
+                    fraction = 0.0 if total <= 0 else min(1.0, max(0.0, current / total))
+                    _update_progress_bar(prog, fraction, f"{prefix} {message}")
+                    sbox.caption(f"{prefix} {message}")
+                return report_progress
+
+            report_progress = _make_reporter(progress, status_box, f"[Slot {slot_i + 1}]")
+            try:
+                result = service.run(
+                    cnpj_fundo=cnpj,
+                    data_inicial=competencia_inicial,
+                    data_final=competencia_final,
+                    progress_callback=report_progress,
+                )
+            except Exception as exc:  # noqa: BLE001
+                progress.empty()
+                status_box.empty()
+                tb_text = traceback.format_exc()
+                slots[slot_i] = {"result": None, "context": context, "error": exc, "tb": tb_text}
+                continue
+
+            elapsed_seconds = time.perf_counter() - start_ts
+            context["elapsed_seconds"] = round(elapsed_seconds, 3)
+            _update_progress_bar(progress, 1.0, f"[Slot {slot_i + 1}] Concluído.")
+            status_box.caption(f"[Slot {slot_i + 1}] Processamento concluído.")
+            slots[slot_i] = {"result": result, "context": context}
+
+        st.session_state["fidc_slots"] = slots
+
+    if not slots:
+        return
+
+    # Build tab labels from fund names in loaded slots
+    def _slot_tab_label(slot_data: dict, slot_i: int) -> str:
+        result = slot_data.get("result")
+        if result is None:
+            return f"FIDC {slot_i + 1} (erro)"
+        cnpj = slot_data.get("context", {}).get("cnpj_informado", "")
+        return cnpj[:14] if cnpj else f"FIDC {slot_i + 1}"
+
+    sorted_slots = sorted(slots.items())
+    tab_labels = [_slot_tab_label(sd, si) for si, sd in sorted_slots]
+    if len(tab_labels) == 1:
+        # Single slot — no nested tabs needed
+        slot_i, slot_data = sorted_slots[0]
+        _render_slot(slot_data, slot_key=f"slot{slot_i}")
+    else:
+        fidc_tabs = st.tabs(tab_labels)
+        for tab, (slot_i, slot_data) in zip(fidc_tabs, sorted_slots):
+            with tab:
+                _render_slot(slot_data, slot_key=f"slot{slot_i}")
+
+
+def _render_slot(slot_data: dict, slot_key: str) -> None:
+    """Render one loaded FIDC slot (result + context)."""
+    result = slot_data.get("result")
+    context = dict(slot_data.get("context") or {})
+    error = slot_data.get("error")
+    tb_text = slot_data.get("tb", "")
+    if result is None:
+        if error is not None:
+            _render_failure_diagnostics(error, tb_text, context)
+        else:
+            st.warning("Sem dados carregados para este slot.")
+        return
     try:
-        _render_result(result, context)
+        _render_result(result, context, slot_key=slot_key)
     except Exception as exc:  # noqa: BLE001
-        if progress is not None:
-            progress.empty()
-        if status_box is not None:
-            status_box.empty()
-        tb_text = traceback.format_exc()
+        tb = traceback.format_exc()
         render_context = dict(context)
         render_context["etapa"] = "renderizacao_resultado"
-        _render_failure_diagnostics(exc, tb_text, render_context)
+        _render_failure_diagnostics(exc, tb, render_context)
 
 
 
@@ -742,6 +782,7 @@ def _render_dashboard(
     contract_missing: dict[str, list[str]],
     docs_ok: int,
     docs_error: int,
+    slot_key: str = "slot0",
 ) -> None:
     dashboard = _load_dashboard_data(
         str(result.wide_csv_path),
@@ -753,12 +794,13 @@ def _render_dashboard(
     executive_tab, technical_tab = st.tabs(["Visão executiva", "Auditoria técnica"])
     with executive_tab:
         _render_dashboard_header(dashboard)
+        _render_financial_snapshot_cards(dashboard)
         _render_dashboard_context_bar(dashboard)
         _render_dashboard_controls(dashboard, context)
         if docs_error:
             st.warning(f"{docs_error} informe(s) falharam no processamento. A leitura abaixo usa apenas os informes válidos.")
         _render_risk_overview(dashboard)
-        _render_structural_risk_section(dashboard)
+        _render_structural_risk_section(dashboard, slot_key=slot_key)
         _render_credit_risk_section(dashboard)
         _render_liquidity_risk_section(dashboard)
         _render_glossary_section(dashboard)
@@ -895,7 +937,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         col_cobertura.caption("Acima de 100%: provisão supera a inadimplência reportada.")
 
 
-def _render_structural_risk_section(dashboard: FundonetDashboardData) -> None:
+def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_key: str = "slot0") -> None:
     _render_fidc_section(
         "Estrutura",
         "Subordinação e evolução das cotas para leitura da proteção sênior.",
@@ -905,73 +947,76 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData) -> None:
         ime_scope="O Informe Mensal cobre subordinação, PL por classe e parte da remuneração das cotas.",
         caution="Subordinação reportada não substitui cobertura, reservas, excesso de spread, waterfall contratual nem gatilhos estruturais.",
     )
-    # Subordination chart (full width) — table below it
-    _render_chart_heading(st, "Índice de subordinação", "Evolução mensal do colchão subordinado reportado.")
-    st.altair_chart(
-        _history_bar_chart(
-            _melt_metrics(
-                dashboard.subordination_history_df,
-                ["subordinacao_pct"],
-                {"subordinacao_pct": "Subordinação"},
+    # Subordination chart + table side by side
+    col_sub_chart, col_sub_table = st.columns([3, 2])
+    with col_sub_chart:
+        _render_chart_heading(col_sub_chart, "Índice de subordinação", "Evolução mensal do colchão subordinado reportado.")
+        col_sub_chart.altair_chart(
+            _history_bar_chart(
+                _melt_metrics(
+                    dashboard.subordination_history_df,
+                    ["subordinacao_pct"],
+                    {"subordinacao_pct": "Subordinação"},
+                ),
+                title=None,
+                y_title="%",
             ),
-            title=None,
-            y_title="%",
-        ),
-        use_container_width=True,
-    )
-    st.dataframe(
-        _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco estrutural"),
-        use_container_width=True,
-        hide_index=True,
-    )
+            use_container_width=True,
+        )
+    with col_sub_table:
+        col_sub_table.markdown("<div style='height:2.2rem'></div>", unsafe_allow_html=True)
+        col_sub_table.dataframe(
+            _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco estrutural"),
+            use_container_width=True,
+            hide_index=True,
+        )
 
-    # PL por tipo de cota — single chart with radio selector
+    # PL por tipo de cota — single chart with stable-key radio selector
     _render_chart_heading(st, "PL por tipo de cota", "Selecione a visão desejada.")
     pl_view = st.radio(
         "Visão do PL",
         options=["% do total por competência", "Valores absolutos (R$)"],
         horizontal=True,
         label_visibility="collapsed",
+        key=f"pl_view_{slot_key}",
     )
-    if pl_view == "% do total por competência":
-        st.altair_chart(
-            _stacked_history_bar_chart(
-                _quota_pl_share_chart_frame(dashboard.quota_pl_history_df),
-                title=None,
-                y_title="% do total",
-                value_column="percentual",
-            ),
-            use_container_width=True,
-        )
-    else:
-        st.altair_chart(
-            _stacked_history_bar_chart(
-                _quota_pl_chart_frame(dashboard.quota_pl_history_df),
-                title=None,
-                y_title="R$",
-                value_column="valor",
-                show_total_labels=True,
-            ),
-            use_container_width=True,
-        )
-
-    lower_left, lower_right = st.columns(2)
-    lower_left.dataframe(
-        _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia),
-        use_container_width=True,
-        hide_index=True,
-    )
-    lower_right.caption(
-        "Leitura: a composição do PL mostra como o colchão subordinado evolui ao longo do tempo. "
-        "A suficiência dessa estrutura depende do regulamento e da qualidade da carteira."
-    )
-    if _has_meaningful_benchmark(dashboard.performance_vs_benchmark_latest_df):
-        with lower_right.expander("Benchmark x realizado", expanded=False):
-            st.dataframe(
-                _format_performance_benchmark_table(dashboard.performance_vs_benchmark_latest_df),
+    col_pl_chart, col_pl_table = st.columns([3, 2])
+    with col_pl_chart:
+        if pl_view == "% do total por competência":
+            col_pl_chart.altair_chart(
+                _stacked_history_bar_chart(
+                    _quota_pl_share_chart_frame(dashboard.quota_pl_history_df),
+                    title=None,
+                    y_title="% do total",
+                    value_column="percentual",
+                ),
                 use_container_width=True,
-                hide_index=True,
             )
+        else:
+            col_pl_chart.altair_chart(
+                _stacked_history_bar_chart(
+                    _quota_pl_chart_frame(dashboard.quota_pl_history_df),
+                    title=None,
+                    y_title="R$",
+                    value_column="valor",
+                    show_total_labels=True,
+                ),
+                use_container_width=True,
+            )
+    with col_pl_table:
+        col_pl_table.markdown("<div style='height:2.5rem'></div>", unsafe_allow_html=True)
+        col_pl_table.dataframe(
+            _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia),
+            use_container_width=True,
+            hide_index=True,
+        )
+        if _has_meaningful_benchmark(dashboard.performance_vs_benchmark_latest_df):
+            with col_pl_table.expander("Benchmark x realizado", expanded=False):
+                st.dataframe(
+                    _format_performance_benchmark_table(dashboard.performance_vs_benchmark_latest_df),
+                    use_container_width=True,
+                    hide_index=True,
+                )
 
 
 def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
@@ -1014,13 +1059,17 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
 def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
     with st.expander("Glossário essencial", expanded=False):
         glossary_df = dashboard.mini_glossary_df.copy()
-        for _, row in glossary_df.iterrows():
-            st.markdown(
+        rows_list = glossary_df.to_dict("records")
+        # Two-column layout for the glossary
+        col_a, col_b = st.columns(2)
+        mid = (len(rows_list) + 1) // 2
+        for i, row in enumerate(rows_list):
+            col = col_a if i < mid else col_b
+            col.markdown(
                 f"**{row.get('termo', 'Termo')}**  \n"
-                f"{row.get('definicao_curta', 'N/D')}  \n"
-                f"_Cautela:_ {row.get('variacao_importante', 'N/D')}"
+                f"{row.get('definicao', row.get('definicao_curta', 'N/D'))}"
             )
-            st.markdown("")
+            col.markdown("")
 
 
 def _render_audit_section(dashboard: FundonetDashboardData) -> None:
@@ -1036,6 +1085,47 @@ def _render_audit_section(dashboard: FundonetDashboardData) -> None:
         )
     with st.expander("Base normalizada do Informe Mensal", expanded=False):
         _render_cvm_tables_section(dashboard)
+
+
+def _render_financial_snapshot_cards(dashboard: FundonetDashboardData) -> None:
+    """Single row of HTML cards: Ativo Total, DCs, PL, PL Sênior series, Subordinada."""
+    summary = dashboard.summary
+    latest_comp = dashboard.latest_competencia
+
+    def _card(label: str, value: object) -> str:
+        val_str = _format_brl_compact(value)
+        return (
+            f'<div class="fidc-snapshot-card">'
+            f'<div class="fidc-snapshot-card__label">{escape(label)}</div>'
+            f'<div class="fidc-snapshot-card__value">{escape(val_str)}</div>'
+            f'</div>'
+        )
+
+    cards: list[str] = [
+        _card("Ativo Total", summary.get("ativos_totais")),
+        _card("Dir. Creditórios", summary.get("direitos_creditorios")),
+        _card("Patrimônio Líquido", summary.get("pl_total")),
+    ]
+
+    # Individual senior series at latest competencia
+    quota_df = dashboard.quota_pl_history_df
+    if not quota_df.empty and latest_comp:
+        latest_senior = (
+            quota_df[(quota_df["competencia"] == latest_comp) & (quota_df["class_kind"] == "senior")]
+            .sort_values("label")
+        )
+        for _, row in latest_senior.iterrows():
+            lbl = str(row.get("label") or "Sênior")
+            cards.append(_card(f"PL {lbl}", row.get("pl")))
+
+    # Subordinada (aggregate)
+    cards.append(_card("Subordinada", summary.get("pl_subordinada")))
+
+    cards_html = "\n".join(cards)
+    st.markdown(
+        f'<div class="fidc-snapshot-row">{cards_html}</div>',
+        unsafe_allow_html=True,
+    )
 
 
 def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
@@ -2943,7 +3033,7 @@ def _format_competencia_display(competencia: object) -> str:
     return f"{month_abbr}-{year_short}"
 
 
-def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None:
+def _render_result(result: InformeMensalResult, context: dict[str, Any], *, slot_key: str = "slot0") -> None:
     contract_missing = _validate_result_contract(result)
     docs_ok = _count_docs_by_status(result.docs_df, "ok")
     docs_error = _count_docs_by_status(result.docs_df, "erro")
@@ -2960,6 +3050,7 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any]) -> None
         contract_missing=contract_missing,
         docs_ok=docs_ok,
         docs_error=docs_error,
+        slot_key=slot_key,
     )
 
 
