@@ -1315,6 +1315,9 @@ def _render_inadimplencia_overview_card(dashboard: FundonetDashboardData) -> str
         note_parts.append(f"{_format_pp(delta_pp)} vs. mês anterior")
     if trailing_mean is not None and not pd.isna(trailing_mean):
         note_parts.append(f"Média 12 meses: {_format_percent(trailing_mean)}")
+    vencidos_ratio = _maturity_vencidos_caption(dashboard.maturity_latest_df)
+    if vencidos_ratio:
+        note_parts.append(vencidos_ratio)
     tooltip_lines = [
         "Fonte: Informe Mensal -> APLIC_ATIVO/CRED_EXISTE + APLIC_ATIVO/DICRED",
         "Fórmula: direitos creditórios vencidos / total de direitos creditórios * 100",
