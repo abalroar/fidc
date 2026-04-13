@@ -2579,7 +2579,13 @@ def _line_history_chart(
     y_title: str,
     limit_value: float | None = None,
     limit_label: str | None = None,
+    reference_value: float | None = None,
+    reference_label: str | None = None,
 ) -> alt.Chart:
+    if limit_value is None and reference_value is not None:
+        limit_value = reference_value
+    if limit_label is None and reference_label is not None:
+        limit_label = reference_label
     chart_df = _altair_compatible_df(chart_df)
     chart_df = chart_df.copy()
     if "competencia" in chart_df.columns:
