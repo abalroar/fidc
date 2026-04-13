@@ -981,16 +981,15 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 f"Inadimplência {_format_brl_compact(latest_default_row.get('inadimplencia_total'))} · "
                 f"Provisão {_format_brl_compact(latest_default_row.get('provisao_total'))}"
             )
-    col_aging, col_cobertura = st.columns(2)
     aging_history_df = _build_aging_history_display_df(
         dashboard.default_buckets_history_df,
         dashboard.default_history_df,
     )
-    _render_chart_heading(col_aging, "Aging da inadimplência", "% dos direitos creditórios totais, até 360 dias.")
+    _render_chart_heading(st, "Aging da inadimplência", "% dos direitos creditórios totais, até 360 dias.")
     if aging_history_df.empty:
-        col_aging.info("Dados de aging não disponíveis nos informes selecionados.")
+        st.info("Dados de aging não disponíveis nos informes selecionados.")
     else:
-        col_aging.altair_chart(
+        st.altair_chart(
             _stacked_history_bar_chart(
                 aging_history_df.rename(columns={"faixa": "serie"}),
                 title=None,
@@ -998,17 +997,24 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 value_column="percentual",
                 color_range=AGING_CHART_COLORS,
                 show_total_labels=True,
+                height=390,
+                bar_size=30,
+                label_font_size=10,
+                force_all_segment_labels=True,
             ),
             use_container_width=True,
         )
-        _render_aging_omission_note(col_aging, dashboard.default_buckets_latest_df)
+        st.caption(
+            "Fonte: Informe Mensal - CVM. Cada barra mostra o aging completo do estoque vencido em relação ao total observável de direitos creditórios."
+        )
+        _render_aging_omission_note(st, dashboard.default_buckets_latest_df)
     cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
-    _render_chart_heading(col_cobertura, "Cobertura de provisão", "Provisão / inadimplência ao longo do tempo (%).")
+    _render_chart_heading(st, "Cobertura de provisão", "Provisão / créditos vencidos ao longo do tempo (%).")
     if cobertura_df.empty:
-        col_cobertura.info("Sem dados de cobertura de provisão disponíveis.")
+        st.info("Sem dados de cobertura de provisão disponíveis.")
     else:
-        col_cobertura.altair_chart(
-            _history_bar_chart(
+        st.altair_chart(
+            _line_history_chart(
                 cobertura_df,
                 title=None,
                 y_title="%",
@@ -1017,7 +1023,9 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             ),
             use_container_width=True,
         )
-        col_cobertura.caption("Acima de 100%: provisão supera a inadimplência reportada.")
+        st.caption(
+            "Fonte: Informe Mensal - CVM. Acima de 100%: provisão supera os créditos vencidos observáveis na mesma competência."
+        )
 
 
 def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_key: str = "slot0") -> None:
@@ -2478,7 +2486,16 @@ def _line_point_label_layer(chart_df: pd.DataFrame, *, y_title: str) -> alt.Char
     labels_df["valor_label"] = labels_df["valor"].map(lambda value: _format_value_label(value, y_title))
     return (
         alt.Chart(labels_df)
-        .mark_text(align="center", dy=-9, fontSize=11, fontWeight=600, color="#111111", clip=False)
+        .mark_text(
+            align="center",
+            dy=-10,
+            fontSize=12,
+            fontWeight=600,
+            color="#111111",
+            stroke="#ffffff",
+            strokeWidth=2,
+            clip=False,
+        )
         .encode(
             x=alt.X("competencia:N", sort=chart_df["competencia"].drop_duplicates().tolist()),
             y=alt.Y("label_valor:Q", title=y_title),
@@ -2575,11 +2592,14 @@ def _line_history_chart(
         "valor:Q",
         title=y_title,
         axis=y_axis,
-        scale=_quant_scale_with_headroom(chart_df["valor"], percent_like="%" in y_title, max_cap=112.0 if "%" in y_title else None),
+        scale=_quant_scale_with_headroom(chart_df["valor"], percent_like="%" in y_title),
     )
     base = (
         alt.Chart(chart_df)
-        .mark_line(point=True)
+        .mark_line(
+            point=alt.OverlayMarkDef(filled=True, size=58),
+            strokeWidth=2.4,
+        )
         .encode(
             x=x_encoding,
             y=y_encoding,
@@ -2618,7 +2638,7 @@ def _line_point_chart(
     y_encoding = alt.Y(
         f"{y_column}:Q",
         title=y_title,
-        scale=_quant_scale_with_headroom(chart_df[y_column], percent_like="%" in y_title, max_cap=112.0 if "%" in y_title else None),
+        scale=_quant_scale_with_headroom(chart_df[y_column], percent_like="%" in y_title),
     )
     chart = (
         alt.Chart(chart_df)
@@ -2684,7 +2704,7 @@ def _percent_bar_chart(
     y_encoding = alt.Y(
         f"{percent_column}:Q",
         title="%",
-        scale=_quant_scale_with_headroom(chart_df[percent_column], percent_like=True, max_cap=112.0),
+        scale=_quant_scale_with_headroom(chart_df[percent_column], percent_like=True),
     )
     tooltip: list[object] = [f"{category_column}:N", alt.Tooltip("percentual_fmt:N", title="% do total")]
     if value_column and value_column in chart_df.columns:
@@ -2816,7 +2836,7 @@ def _bar_chart(
         f"{y_column}:Q",
         title=y_title,
         axis=y_axis,
-        scale=_quant_scale_with_headroom(chart_df[y_column], percent_like="%" in y_title, max_cap=112.0 if "%" in y_title else None),
+        scale=_quant_scale_with_headroom(chart_df[y_column], percent_like="%" in y_title),
     )
     chart = (
         alt.Chart(chart_df)
@@ -2896,6 +2916,10 @@ def _stacked_history_bar_chart(
     value_column: str,
     show_total_labels: bool = False,
     color_range: list[str] | None = None,
+    height: int = 320,
+    bar_size: int = 24,
+    label_font_size: int = 9,
+    force_all_segment_labels: bool = False,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
     if "competencia" in chart_df.columns:
@@ -2906,7 +2930,7 @@ def _stacked_history_bar_chart(
             .mark_bar()
             .encode(x="competencia:N", y=alt.Y(f"{value_column}:Q", title=y_title))
         )
-        return _style_altair_chart(_chart_with_optional_title(empty_chart, height=320, title=title))
+        return _style_altair_chart(_chart_with_optional_title(empty_chart, height=height, title=title))
     chart_df["valor_fmt"] = chart_df[value_column].map(_format_brl_compact if y_title == "R$" else _format_percent)
     chart_df["label_fmt"] = chart_df[value_column].map(lambda value: _format_value_label(value, y_title))
     if "ordem" in chart_df.columns:
@@ -2922,7 +2946,7 @@ def _stacked_history_bar_chart(
         scale=_quant_scale_with_headroom(
             totals_for_scale,
             percent_like="%" in y_title,
-            max_cap=112.0 if "%" in y_title else None,
+            max_cap=120.0 if "%" in y_title else None,
         ),
     )
     _colors = color_range or FIDC_CHART_COLORS
@@ -2941,7 +2965,7 @@ def _stacked_history_bar_chart(
     chart_df["label_color"] = chart_df["serie"].map(lambda value: _contrast_text_color(color_map.get(str(value), "#ff5a00")))
     chart = (
         alt.Chart(chart_df)
-        .mark_bar(size=24)
+        .mark_bar(size=bar_size)
         .encode(
             x=x_encoding,
             y=y_encoding,
@@ -2950,22 +2974,32 @@ def _stacked_history_bar_chart(
             tooltip=["competencia:N", "serie:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
     )
-    chart = _chart_with_optional_title(chart, height=320, title=title)
+    chart = _chart_with_optional_title(chart, height=height, title=title)
     layered: alt.Chart = chart
     labels_df = chart_df.copy()
     if not labels_df.empty:
-        labels_df["segment_rank"] = labels_df.groupby("competencia", dropna=False).cumcount()
+        labels_df["segment_rank"] = (
+            labels_df.groupby("competencia", dropna=False)
+            .cumcount(ascending=False)
+        )
         labels_df["outside_y"] = labels_df.groupby("competencia", dropna=False)[value_column].cumsum()
-        labels_df["outside_label_y"] = labels_df["outside_y"] + labels_df["segment_rank"].mul(0.8 if "%" in y_title else labels_df["outside_y"].abs().max() * 0.01 if pd.notna(labels_df["outside_y"].abs().max()) else 1.0)
+        outside_step = 1.2 if "%" in y_title else (
+            labels_df["outside_y"].abs().max() * 0.012 if pd.notna(labels_df["outside_y"].abs().max()) else 1.0
+        )
+        labels_df["outside_label_y"] = labels_df["outside_y"] + 0.9 + labels_df["segment_rank"].mul(outside_step)
+        threshold = 2.2 if "%" in y_title else (
+            labels_df[value_column].abs().max() * 0.08 if pd.notna(labels_df[value_column].abs().max()) else 0.0
+        )
         inner_labels_df = labels_df[
-            pd.to_numeric(labels_df[value_column], errors="coerce")
-            >= (3.0 if "%" in y_title else labels_df[value_column].abs().max() * 0.08 if pd.notna(labels_df[value_column].abs().max()) else 0.0)
+            pd.to_numeric(labels_df[value_column], errors="coerce") >= threshold
         ].copy()
+        if force_all_segment_labels:
+            inner_labels_df = labels_df.iloc[0:0].copy()
         outer_labels_df = labels_df.drop(inner_labels_df.index).copy()
         if not inner_labels_df.empty:
             segment_labels = (
                 alt.Chart(inner_labels_df)
-                .mark_text(fontSize=9, fontWeight=600, clip=False)
+                .mark_text(fontSize=label_font_size, fontWeight=600, clip=False)
                 .encode(
                     x=x_encoding,
                     y=alt.Y(f"{value_column}:Q", title=y_title, stack="center"),
@@ -2978,7 +3012,7 @@ def _stacked_history_bar_chart(
         if not outer_labels_df.empty:
             outside_labels = (
                 alt.Chart(outer_labels_df)
-                .mark_text(fontSize=9, fontWeight=700, dy=-4, color="#111111", clip=False)
+                .mark_text(fontSize=label_font_size, fontWeight=700, dy=-4, color="#111111", clip=False)
                 .encode(
                     x=x_encoding,
                     y=alt.Y("outside_label_y:Q", title=y_title),
@@ -2994,12 +3028,13 @@ def _stacked_history_bar_chart(
             .rename(columns={value_column: "valor_total"})
         )
         totals_df["total_fmt"] = totals_df["valor_total"].map(_format_brl_compact if y_title == "R$" else _format_percent)
+        totals_df["label_y"] = totals_df["valor_total"] + (3.8 if "%" in y_title else totals_df["valor_total"].abs().max() * 0.03 if pd.notna(totals_df["valor_total"].abs().max()) else 1.0)
         total_labels = (
             alt.Chart(totals_df)
-            .mark_text(dy=-12, fontSize=11, fontWeight=700, color="#111111", clip=False)
+            .mark_text(dy=-4, fontSize=max(11, label_font_size + 1), fontWeight=700, color="#111111", clip=False)
             .encode(
                 x=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
-                y=alt.Y("valor_total:Q", title=y_title),
+                y=alt.Y("label_y:Q", title=y_title),
                 text=alt.Text("total_fmt:N"),
             )
         )
