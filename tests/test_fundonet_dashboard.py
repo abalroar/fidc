@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import io
 import importlib.util
 from pathlib import Path
 import tempfile
@@ -215,6 +216,7 @@ class FundonetDashboardTests(unittest.TestCase):
     def test_build_dashboard_pptx_bytes(self) -> None:
         if importlib.util.find_spec("pptx") is None:
             self.skipTest("python-pptx não instalado no ambiente local")
+        from pptx import Presentation
         from services.fundonet_ppt_export import build_dashboard_pptx_bytes
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -230,6 +232,8 @@ class FundonetDashboardTests(unittest.TestCase):
         pptx_bytes = build_dashboard_pptx_bytes(dashboard)
         self.assertTrue(pptx_bytes.startswith(b"PK"))
         self.assertGreater(len(pptx_bytes), 10_000)
+        presentation = Presentation(io.BytesIO(pptx_bytes))
+        self.assertEqual(2, len(presentation.slides))
 
     @staticmethod
     def _write_fixture_csvs(workspace: Path) -> None:

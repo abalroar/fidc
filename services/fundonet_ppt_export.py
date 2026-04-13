@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import datetime
 from io import BytesIO
-from typing import Any
+from pathlib import Path
+from typing import Sequence
 
 import pandas as pd
 
@@ -11,9 +13,33 @@ from services.fundonet_dashboard import FundonetDashboardData
 
 ORANGE = "#ff5a00"
 BLACK = "#111111"
-GRAY = "#6e6e6e"
-LIGHT_GRAY = "#eef2f6"
-SERIES_COLORS = [ORANGE, BLACK, "#6e6e6e", "#c9864a", "#b8b8b8"]
+DARK_GRAY = "#353535"
+MID_GRAY = "#666666"
+GRID_GRAY = "#d7dce3"
+SOFT_GRAY = "#f5f6f8"
+WHITE = "#ffffff"
+SERIES_COLORS = [BLACK, ORANGE, DARK_GRAY, "#8a8a8a", "#b24f19"]
+
+SLIDE_WIDTH_IN = 13.333
+SLIDE_HEIGHT_IN = 7.5
+MARGIN_LEFT_IN = 0.45
+MARGIN_RIGHT_IN = 0.45
+CONTENT_WIDTH_IN = SLIDE_WIDTH_IN - MARGIN_LEFT_IN - MARGIN_RIGHT_IN
+
+TITLE_SIZE = 22
+SECTION_SIZE = 14
+BODY_SIZE = 9
+LABEL_SIZE = 8
+AXIS_SIZE = 8
+FOOTER_SIZE = 8
+CARD_VALUE_SIZE = 18
+
+
+@dataclass(frozen=True)
+class MoneyScale:
+    divisor: float
+    suffix: str
+    label: str
 
 
 def build_dashboard_pptx_bytes(
@@ -24,354 +50,530 @@ def build_dashboard_pptx_bytes(
     try:
         from pptx import Presentation
         from pptx.chart.data import CategoryChartData
-        from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION, XL_LEGEND_POSITION
+        from pptx.dml.color import RGBColor
+        from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION
         from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE
-        from pptx.enum.text import PP_ALIGN
+        from pptx.enum.text import MSO_AUTO_SIZE, PP_ALIGN
         from pptx.util import Inches, Pt
     except Exception as exc:  # noqa: BLE001
         raise RuntimeError("Dependência python-pptx não instalada.") from exc
 
+    generated_at = generated_at or datetime.now()
     prs = Presentation()
-    prs.slide_width = Inches(13.333)
-    prs.slide_height = Inches(7.5)
+    prs.slide_width = Inches(SLIDE_WIDTH_IN)
+    prs.slide_height = Inches(SLIDE_HEIGHT_IN)
     blank = prs.slide_layouts[6]
-    now = generated_at or datetime.now()
 
-    def rgb(hex_color: str):  # noqa: ANN202
-        value = hex_color.lstrip("#")
-        return tuple(int(value[index:index + 2], 16) for index in (0, 2, 4))
+    def rgb(hex_color: str) -> RGBColor:
+        value = str(hex_color or BLACK).strip().lstrip("#")
+        return RGBColor(int(value[0:2], 16), int(value[2:4], 16), int(value[4:6], 16))
 
-    def add_textbox(slide, left, top, width, height, text: str, *, size: int, bold: bool = False, color: str = BLACK, align=PP_ALIGN.LEFT):  # noqa: ANN001
-        box = slide.shapes.add_textbox(left, top, width, height)
+    def add_textbox(  # noqa: ANN202
+        slide,
+        left: float,
+        top: float,
+        width: float,
+        height: float,
+        text: str,
+        *,
+        size: int,
+        bold: bool = False,
+        color: str = BLACK,
+        align=PP_ALIGN.LEFT,
+    ):
+        box = slide.shapes.add_textbox(Inches(left), Inches(top), Inches(width), Inches(height))
         frame = box.text_frame
         frame.clear()
-        p = frame.paragraphs[0]
-        p.text = text
-        p.alignment = align
-        run = p.runs[0]
+        frame.word_wrap = True
+        frame.auto_size = MSO_AUTO_SIZE.TEXT_TO_FIT_SHAPE
+        paragraph = frame.paragraphs[0]
+        paragraph.alignment = align
+        run = paragraph.add_run()
+        run.text = text
         run.font.name = "IBM Plex Sans"
         run.font.size = Pt(size)
         run.font.bold = bold
-        r, g, b = rgb(color)
-        run.font.color.rgb = __import__("pptx.dml.color", fromlist=["RGBColor"]).RGBColor(r, g, b)
+        run.font.color.rgb = rgb(color)
         return box
 
-    def add_card(slide, left, top, width, height, label: str, value: str, note: str = ""):  # noqa: ANN001
-        shape = slide.shapes.add_shape(MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE, left, top, width, height)
-        fill = shape.fill
-        fill.solid()
-        r, g, b = rgb("#ffffff")
-        fill.fore_color.rgb = __import__("pptx.dml.color", fromlist=["RGBColor"]).RGBColor(r, g, b)
-        shape.line.color.rgb = __import__("pptx.dml.color", fromlist=["RGBColor"]).RGBColor(*rgb(LIGHT_GRAY))
-        add_textbox(slide, left + Inches(0.10), top + Inches(0.05), width - Inches(0.2), Inches(0.25), label, size=10, bold=True, color=GRAY)
-        add_textbox(slide, left + Inches(0.10), top + Inches(0.30), width - Inches(0.2), Inches(0.35), value, size=20, bold=True, color=BLACK)
-        if note:
-            add_textbox(slide, left + Inches(0.10), top + Inches(0.70), width - Inches(0.2), Inches(0.25), note, size=8, color=GRAY)
+    def style_shape_border(shape, *, line_color: str = GRID_GRAY, line_width_pt: float = 0.8) -> None:  # noqa: ANN001
+        shape.line.color.rgb = rgb(line_color)
+        shape.line.width = Pt(line_width_pt)
 
-    def add_table(slide, df: pd.DataFrame, left, top, width, height, *, title: str):  # noqa: ANN001
-        add_textbox(slide, left, top - Inches(0.22), width, Inches(0.2), title, size=14, bold=True, color=BLACK)
-        frame = df.copy()
-        rows, cols = frame.shape
-        table = slide.shapes.add_table(rows + 1, cols, left, top, width, height).table
-        for index, column in enumerate(frame.columns):
-            cell = table.cell(0, index)
-            cell.text = str(column)
-            cell.fill.solid()
-            cell.fill.fore_color.rgb = __import__("pptx.dml.color", fromlist=["RGBColor"]).RGBColor(*rgb(LIGHT_GRAY))
-        for row_index, (_, row) in enumerate(frame.iterrows(), start=1):
-            for col_index, value in enumerate(row):
-                table.cell(row_index, col_index).text = str(value)
-        for row_index in range(rows + 1):
-            for col_index in range(cols):
-                cell = table.cell(row_index, col_index)
+    def add_panel(slide, left: float, top: float, width: float, height: float):  # noqa: ANN001
+        shape = slide.shapes.add_shape(
+            MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE,
+            Inches(left),
+            Inches(top),
+            Inches(width),
+            Inches(height),
+        )
+        shape.fill.solid()
+        shape.fill.fore_color.rgb = rgb(WHITE)
+        style_shape_border(shape)
+        return shape
+
+    def add_card(slide, left: float, top: float, width: float, height: float, label: str, value: str, note: str = "") -> None:
+        panel = add_panel(slide, left, top, width, height)
+        style_shape_border(panel, line_color=GRID_GRAY, line_width_pt=0.7)
+        accent = slide.shapes.add_shape(
+            MSO_AUTO_SHAPE_TYPE.RECTANGLE,
+            Inches(left),
+            Inches(top),
+            Inches(width),
+            Inches(0.04),
+        )
+        accent.fill.solid()
+        accent.fill.fore_color.rgb = rgb(ORANGE)
+        accent.line.fill.background()
+        add_textbox(slide, left + 0.10, top + 0.08, width - 0.20, 0.20, label, size=BODY_SIZE, bold=True, color=MID_GRAY)
+        add_textbox(slide, left + 0.10, top + 0.30, width - 0.20, 0.28, value, size=CARD_VALUE_SIZE, bold=True, color=BLACK)
+        if note:
+            add_textbox(slide, left + 0.10, top + 0.67, width - 0.20, 0.18, note, size=LABEL_SIZE, color=MID_GRAY)
+
+    def add_footer(slide, timestamp_text: str) -> None:  # noqa: ANN001
+        add_textbox(
+            slide,
+            MARGIN_LEFT_IN,
+            7.08,
+            CONTENT_WIDTH_IN,
+            0.18,
+            f"Fonte: Informe Mensal - CVM    |    Gerado em: {timestamp_text}",
+            size=FOOTER_SIZE,
+            color=MID_GRAY,
+        )
+
+    def set_table_style(table, *, header_fill: str = BLACK) -> None:  # noqa: ANN001
+        for row_idx in range(len(table.rows)):
+            for col_idx in range(len(table.columns)):
+                cell = table.cell(row_idx, col_idx)
+                cell.fill.solid()
+                cell.fill.fore_color.rgb = rgb(header_fill if row_idx == 0 else WHITE)
+                cell.text_frame.word_wrap = True
                 for paragraph in cell.text_frame.paragraphs:
+                    paragraph.alignment = PP_ALIGN.LEFT
                     for run in paragraph.runs:
                         run.font.name = "IBM Plex Sans"
-                        run.font.size = Pt(8 if row_index else 9)
-                        run.font.bold = row_index == 0
+                        run.font.size = Pt(LABEL_SIZE if row_idx == 0 else BODY_SIZE)
+                        run.font.bold = row_idx == 0
+                        run.font.color.rgb = rgb(WHITE if row_idx == 0 else BLACK)
+                cell.margin_left = Inches(0.05)
+                cell.margin_right = Inches(0.05)
+                cell.margin_top = Inches(0.02)
+                cell.margin_bottom = Inches(0.02)
+
+    def add_table(  # noqa: ANN202
+        slide,
+        df: pd.DataFrame,
+        *,
+        title: str,
+        left: float,
+        top: float,
+        width: float,
+        height: float,
+        col_widths: Sequence[float] | None = None,
+    ):
+        add_textbox(slide, left, top - 0.22, width, 0.18, title, size=SECTION_SIZE, bold=True, color=BLACK)
+        frame = df.copy()
+        rows = max(len(frame.index), 1)
+        cols = max(len(frame.columns), 1)
+        table = slide.shapes.add_table(rows + 1, cols, Inches(left), Inches(top), Inches(width), Inches(height)).table
+        if col_widths and len(col_widths) == cols:
+            for idx, col_width in enumerate(col_widths):
+                table.columns[idx].width = Inches(col_width)
+        if frame.empty:
+            table.cell(0, 0).text = "Sem dados"
+            table.cell(1, 0).text = "-"
+            set_table_style(table)
+            return table
+        for col_idx, column in enumerate(frame.columns):
+            table.cell(0, col_idx).text = str(column)
+        for row_idx, (_, row) in enumerate(frame.iterrows(), start=1):
+            for col_idx, value in enumerate(row):
+                table.cell(row_idx, col_idx).text = str(value)
+        set_table_style(table)
         return table
 
-    def add_chart(  # noqa: ANN001
+    def add_manual_legend(
+        slide,
+        items: Sequence[tuple[str, str]],
+        *,
+        left: float,
+        top: float,
+        max_width: float,
+    ) -> None:
+        cursor_left = left
+        for label, color in items:
+            label_width = max(0.55, min(1.8, 0.10 + (len(label) * 0.06)))
+            if cursor_left + label_width + 0.35 > left + max_width:
+                top += 0.18
+                cursor_left = left
+            marker = slide.shapes.add_shape(
+                MSO_AUTO_SHAPE_TYPE.RECTANGLE,
+                Inches(cursor_left),
+                Inches(top + 0.02),
+                Inches(0.18),
+                Inches(0.05),
+            )
+            marker.fill.solid()
+            marker.fill.fore_color.rgb = rgb(color)
+            marker.line.fill.background()
+            add_textbox(slide, cursor_left + 0.22, top - 0.02, label_width, 0.14, label, size=LABEL_SIZE, color=DARK_GRAY)
+            cursor_left += label_width + 0.45
+
+    def _data_label_position(position_name: str):  # noqa: ANN202
+        mapping = {
+            "above": XL_DATA_LABEL_POSITION.ABOVE,
+            "outside_end": XL_DATA_LABEL_POSITION.OUTSIDE_END,
+            "center": XL_DATA_LABEL_POSITION.CENTER,
+            "inside_end": XL_DATA_LABEL_POSITION.INSIDE_END,
+        }
+        return mapping[position_name]
+
+    def add_chart(  # noqa: ANN202
         slide,
         *,
         title: str,
         chart_type,
-        categories: list[str],
-        series_map: list[tuple[str, list[float]]],
-        left,
-        top,
-        width,
-        height,
+        categories: Sequence[str],
+        series_map: Sequence[tuple[str, Sequence[float]]],
+        left: float,
+        top: float,
+        width: float,
+        height: float,
         number_format: str,
-        stacked: bool = False,
         percent_axis: bool = False,
-        label_position=None,
+        money_axis: bool = False,
+        gap_width: int | None = None,
+        overlap: int | None = None,
+        label_position: str = "above",
+        legend_items: Sequence[tuple[str, str]] | None = None,
+        title_suffix: str = "",
     ):
-        add_textbox(slide, left, top - Inches(0.22), width, Inches(0.2), title, size=14, bold=True, color=BLACK)
-        data = CategoryChartData()
-        data.categories = categories
-        for name, values in series_map:
-            data.add_series(name, tuple(values))
-        frame = slide.shapes.add_chart(chart_type, left, top, width, height, data)
-        chart = frame.chart
-        chart.has_legend = len(series_map) > 1
-        if chart.has_legend:
-            chart.legend.include_in_layout = False
-            chart.legend.position = XL_LEGEND_POSITION.BOTTOM
+        add_textbox(slide, left, top - 0.22, width, 0.18, f"{title}{title_suffix}", size=SECTION_SIZE, bold=True, color=BLACK)
+        chart_data = CategoryChartData()
+        chart_data.categories = list(categories)
+        for series_name, values in series_map:
+            chart_data.add_series(series_name, tuple(values))
+        chart_shape = slide.shapes.add_chart(chart_type, Inches(left), Inches(top), Inches(width), Inches(height), chart_data)
+        chart = chart_shape.chart
+        chart.has_legend = False
+
         plot = chart.plots[0]
+        if gap_width is not None and hasattr(plot, "gap_width"):
+            plot.gap_width = gap_width
+        if overlap is not None and hasattr(plot, "overlap"):
+            plot.overlap = overlap
         plot.has_data_labels = True
         labels = plot.data_labels
-        labels.number_format = number_format
         labels.show_value = True
+        labels.number_format = number_format
+        labels.position = _data_label_position(label_position)
         labels.font.name = "IBM Plex Sans"
-        labels.font.size = Pt(8)
-        if label_position is not None:
-            labels.position = label_position
-        if hasattr(chart, "value_axis"):
-            chart.value_axis.has_major_gridlines = True
-            chart.value_axis.format.line.color.rgb = __import__("pptx.dml.color", fromlist=["RGBColor"]).RGBColor(*rgb(LIGHT_GRAY))
-            chart.value_axis.tick_labels.font.name = "IBM Plex Sans"
-            chart.value_axis.tick_labels.font.size = Pt(9)
-            if percent_axis:
-                chart.value_axis.maximum_scale = 110.0
-                chart.value_axis.minimum_scale = 0.0
+        labels.font.size = Pt(LABEL_SIZE)
+        labels.font.bold = True
+        labels.font.color.rgb = rgb(BLACK)
+
         if hasattr(chart, "category_axis"):
             chart.category_axis.tick_labels.font.name = "IBM Plex Sans"
-            chart.category_axis.tick_labels.font.size = Pt(9)
-        for index, series in enumerate(chart.series):
+            chart.category_axis.tick_labels.font.size = Pt(AXIS_SIZE)
+            chart.category_axis.format.line.color.rgb = rgb(GRID_GRAY)
+        if hasattr(chart, "value_axis"):
+            chart.value_axis.tick_labels.font.name = "IBM Plex Sans"
+            chart.value_axis.tick_labels.font.size = Pt(AXIS_SIZE)
+            chart.value_axis.has_major_gridlines = True
+            chart.value_axis.major_gridlines.format.line.color.rgb = rgb(GRID_GRAY)
+            chart.value_axis.format.line.color.rgb = rgb(GRID_GRAY)
+            if percent_axis:
+                chart.value_axis.minimum_scale = 0.0
+                chart.value_axis.maximum_scale = 110.0
+            if money_axis:
+                chart.value_axis.minimum_scale = 0.0
+
+        for idx, series in enumerate(chart.series):
             fill = series.format.fill
             fill.solid()
-            fill.fore_color.rgb = __import__("pptx.dml.color", fromlist=["RGBColor"]).RGBColor(*rgb(SERIES_COLORS[index % len(SERIES_COLORS)]))
-            line = series.format.line
-            line.color.rgb = __import__("pptx.dml.color", fromlist=["RGBColor"]).RGBColor(*rgb(SERIES_COLORS[index % len(SERIES_COLORS)]))
+            fill.fore_color.rgb = rgb(SERIES_COLORS[idx % len(SERIES_COLORS)])
+            series.format.line.color.rgb = rgb(SERIES_COLORS[idx % len(SERIES_COLORS)])
+
+        if legend_items:
+            add_manual_legend(slide, legend_items, left=left, top=top + height + 0.02, max_width=width)
+
         return chart
 
-    def competencia_labels(df: pd.DataFrame) -> list[str]:
-        labels = []
-        for competencia in df["competencia"].tolist():
-            text = str(competencia or "")
-            if "/" in text:
-                month, year = text.split("/", 1)
-                month_map = {
-                    "01": "jan", "02": "fev", "03": "mar", "04": "abr", "05": "mai", "06": "jun",
-                    "07": "jul", "08": "ago", "09": "set", "10": "out", "11": "nov", "12": "dez",
-                }
-                labels.append(f"{month_map.get(month, month)}-{year[-2:]}")
-            else:
-                labels.append(text)
-        return labels
+    timestamp_text = generated_at.strftime("%d/%m/%Y %H:%M")
+    title_fund = _fund_title(dashboard)
 
-    def pct_series(df: pd.DataFrame, value_column: str) -> list[float]:
-        return [float(value) if pd.notna(value) else 0.0 for value in pd.to_numeric(df[value_column], errors="coerce").fillna(0.0)]
-
-    def latest_aging_table() -> pd.DataFrame:
-        frame = dashboard.default_buckets_latest_df.copy()
-        if frame.empty:
-            return pd.DataFrame({"Faixa": ["Sem dados"], "Valor": [""], "%": [""]})
-        frame = frame[frame["ordem"] <= 7].copy()
-        frame["Valor"] = frame["valor"].map(_format_brl_compact)
-        frame["%"] = frame["percentual"].map(_format_percent)
-        return frame[["faixa", "Valor", "%"]].rename(columns={"faixa": "Faixa"})
-
-    def latest_events_table() -> pd.DataFrame:
-        frame = dashboard.event_summary_latest_df.copy()
-        if frame.empty:
-            return pd.DataFrame({"Evento": ["Sem dados"], "Valor bruto": [""], "% PL": [""]})
-        frame["Evento"] = frame["evento"]
-        frame["Valor bruto"] = frame["valor_total"].map(_format_brl_compact)
-        frame["% PL"] = frame["valor_total_pct_pl"].map(_format_percent)
-        return frame[["Evento", "Valor bruto", "% PL"]]
-
-    def latest_maturity_frame() -> pd.DataFrame:
-        frame = dashboard.maturity_latest_df.copy()
-        if frame.empty:
-            return pd.DataFrame(columns=["faixa", "valor"])
-        frame["valor"] = pd.to_numeric(frame["valor"], errors="coerce").fillna(0.0)
-        return frame[frame["valor"] > 0].copy()
-
-    # Slide 1
+    # Slide 1: visão geral + crédito
     slide = prs.slides.add_slide(blank)
-    add_textbox(slide, Inches(0.55), Inches(0.40), Inches(8.8), Inches(0.5), "Informe Mensal Estruturado", size=24, bold=True)
-    add_textbox(slide, Inches(0.55), Inches(0.95), Inches(11.8), Inches(0.35), _fund_title(dashboard), size=18, bold=True, color=ORANGE)
+    add_textbox(slide, MARGIN_LEFT_IN, 0.18, 6.2, 0.28, "Informe Mensal Estruturado", size=TITLE_SIZE, bold=True, color=BLACK)
+    add_textbox(slide, MARGIN_LEFT_IN, 0.48, 9.6, 0.22, title_fund, size=13, bold=True, color=ORANGE)
     subtitle = (
         f"Última competência: {_format_competencia(dashboard.latest_competencia)}"
         f"  |  Janela: {dashboard.fund_info.get('periodo_analisado', 'N/D')}"
-        f"  |  Gerado em {now.strftime('%d/%m/%Y %H:%M')}"
+        f"  |  Cotistas: {dashboard.fund_info.get('total_cotistas') or 'N/D'}"
     )
-    add_textbox(slide, Inches(0.55), Inches(1.35), Inches(11.8), Inches(0.3), subtitle, size=10, color=GRAY)
+    add_textbox(slide, MARGIN_LEFT_IN, 0.72, 10.5, 0.16, subtitle, size=BODY_SIZE, color=MID_GRAY)
 
-    metrics = [
+    cards = [
         ("PL total", _format_brl_compact(dashboard.summary.get("pl_total")), ""),
         ("Direitos creditórios", _format_brl_compact(dashboard.summary.get("inadimplencia_denominador") or dashboard.summary.get("direitos_creditorios")), ""),
-        ("Inadimplência", _format_percent(dashboard.summary.get("inadimplencia_pct")), "créditos vencidos / base observável"),
+        ("Inadimplência", _format_percent(dashboard.summary.get("inadimplencia_pct")), "vencidos / base observável"),
         ("Cobertura de provisão", _format_percent(_safe_pct(dashboard.summary.get("provisao_total"), dashboard.summary.get("inadimplencia_total"))), "provisão / vencidos"),
         ("Subordinação", _format_percent(dashboard.summary.get("subordinacao_pct")), ""),
-        ("Cotistas", str(dashboard.fund_info.get("total_cotistas") or "N/D"), ""),
+        ("Créditos vencidos", _format_brl_compact(dashboard.summary.get("direitos_creditorios_vencidos")), ""),
     ]
-    for index, (label, value, note) in enumerate(metrics):
-        row = index // 3
-        col = index % 3
+    card_width = 2.0
+    card_gap = 0.08
+    for idx, (label, value, note) in enumerate(cards):
         add_card(
             slide,
-            Inches(0.55 + (col * 4.15)),
-            Inches(1.9 + (row * 1.35)),
-            Inches(3.75),
-            Inches(1.0),
+            MARGIN_LEFT_IN + idx * (card_width + card_gap),
+            1.02,
+            card_width,
+            0.95,
             label,
             value,
             note,
         )
-    add_textbox(
-        slide,
-        Inches(0.55),
-        Inches(5.2),
-        Inches(12.0),
-        Inches(1.0),
-        "Deck executivo gerado a partir do dashboard carregado. Métricas de crédito priorizam a malha de vencimento dos direitos creditórios; cobertura, gatilhos e covenants exigem documentação complementar.",
-        size=10,
-        color=GRAY,
-    )
 
-    # Slide 2
-    slide = prs.slides.add_slide(blank)
-    add_textbox(slide, Inches(0.55), Inches(0.35), Inches(12.0), Inches(0.35), "Crédito", size=22, bold=True)
     default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
     if not default_df.empty:
-        labels = competencia_labels(default_df)
-        direitos = pd.to_numeric(default_df["direitos_creditorios"], errors="coerce")
-        provisao = pd.to_numeric(default_df["provisao_total"], errors="coerce")
-        provisao_pct_direitos = (provisao / direitos).where(direitos > 0).mul(100.0).fillna(0.0)
+        credit_scale = _money_scale(
+            pd.concat(
+                [
+                    pd.to_numeric(default_df["direitos_creditorios_vencidos"], errors="coerce"),
+                    pd.to_numeric(default_df["inadimplencia_total"], errors="coerce"),
+                    pd.to_numeric(default_df["provisao_total"], errors="coerce"),
+                ]
+            )
+        )
+        direitos_base = _series_numeric(default_df, "direitos_creditorios_vencimento_total")
+        if direitos_base.dropna().empty:
+            direitos_base = _series_numeric(default_df, "direitos_creditorios")
+        provisao_pct = (
+            _series_numeric(default_df, "provisao_total") / direitos_base
+        ).where(direitos_base > 0).mul(100.0).fillna(0.0)
         add_chart(
             slide,
-            title="Crédito problemático (% dos direitos creditórios)",
+            title="Crédito problemático",
             chart_type=XL_CHART_TYPE.LINE_MARKERS,
-            categories=labels,
+            categories=_competencia_labels(default_df["competencia"].tolist()),
             series_map=[
-                ("Inadimplência", pct_series(default_df, "inadimplencia_pct")),
-                ("Provisão", [float(value) for value in provisao_pct_direitos.tolist()]),
+                ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
+                ("Provisão", provisao_pct.tolist()),
             ],
-            left=Inches(0.55),
-            top=Inches(0.95),
-            width=Inches(7.3),
-            height=Inches(2.55),
+            left=MARGIN_LEFT_IN,
+            top=2.35,
+            width=7.55,
+            height=3.85,
             number_format='0.0"%"',
             percent_axis=True,
-            label_position=XL_DATA_LABEL_POSITION.ABOVE,
+            label_position="above",
+            legend_items=[("Inadimplência", SERIES_COLORS[0]), ("Provisão", SERIES_COLORS[1])],
         )
+        add_textbox(
+            slide,
+            MARGIN_LEFT_IN,
+            6.25,
+            7.55,
+            0.20,
+            "Leitura: a linha preta mostra o peso dos vencidos; a laranja mostra a provisão contábil sobre a mesma base observável.",
+            size=LABEL_SIZE,
+            color=MID_GRAY,
+        )
+
+    aging_df = _latest_aging_table_frame(dashboard.default_buckets_latest_df)
     add_table(
         slide,
-        latest_aging_table().head(7),
-        Inches(8.15),
-        Inches(1.0),
-        Inches(4.55),
-        Inches(2.65),
-        title="Aging da inadimplência",
+        aging_df,
+        title="Aging da inadimplência - última competência",
+        left=8.20,
+        top=2.35,
+        width=4.70,
+        height=3.45,
+        col_widths=[2.10, 1.35, 1.05],
     )
+    add_textbox(
+        slide,
+        8.20,
+        5.98,
+        4.70,
+        0.30,
+        "Faixas curtas devem concentrar maior peso quando a carteira está só tensionada; faixas longas indicam deterioração mais séria.",
+        size=LABEL_SIZE,
+        color=MID_GRAY,
+    )
+    add_footer(slide, timestamp_text)
 
-    # Slide 3
+    # Slide 2: estrutura + eventos + vencimento
     slide = prs.slides.add_slide(blank)
-    add_textbox(slide, Inches(0.55), Inches(0.35), Inches(12.0), Inches(0.35), "Estrutura e cotas", size=22, bold=True)
+    add_textbox(slide, MARGIN_LEFT_IN, 0.18, 7.0, 0.28, "Estrutura, cotas, eventos e vencimento", size=TITLE_SIZE, bold=True, color=BLACK)
+    add_textbox(slide, MARGIN_LEFT_IN, 0.50, 8.5, 0.18, title_fund, size=12, bold=True, color=ORANGE)
+
     sub_df = dashboard.subordination_history_df.sort_values("competencia_dt").copy()
     if not sub_df.empty:
         add_chart(
             slide,
             title="Índice de subordinação",
             chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
-            categories=competencia_labels(sub_df),
-            series_map=[("Subordinação", pct_series(sub_df, "subordinacao_pct"))],
-            left=Inches(0.55),
-            top=Inches(0.95),
-            width=Inches(5.8),
-            height=Inches(2.55),
+            categories=_competencia_labels(sub_df["competencia"].tolist()),
+            series_map=[("Subordinação", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())],
+            left=MARGIN_LEFT_IN,
+            top=1.00,
+            width=6.00,
+            height=2.25,
             number_format='0.0"%"',
             percent_axis=True,
-            label_position=XL_DATA_LABEL_POSITION.OUTSIDE_END,
+            gap_width=45,
+            label_position="outside_end",
         )
-    share_df = dashboard.quota_pl_history_df.copy()
-    if not share_df.empty:
-        share_df["pl"] = pd.to_numeric(share_df["pl"], errors="coerce").fillna(0.0)
-        totals = share_df.groupby("competencia", dropna=False)["pl"].transform("sum")
-        share_df["share_pct"] = (share_df["pl"] / totals).where(totals > 0).mul(100.0).fillna(0.0)
-        pivot = share_df.pivot_table(index="competencia", columns="label", values="share_pct", aggfunc="sum").fillna(0.0)
+
+    quota_share = _quota_pl_share_pivot(dashboard.quota_pl_history_df)
+    if not quota_share.empty:
         add_chart(
             slide,
             title="PL por tipo de cota (% do total)",
             chart_type=XL_CHART_TYPE.COLUMN_STACKED_100,
-            categories=competencia_labels(pivot.reset_index()),
-            series_map=[(str(column), [float(v) for v in pivot[column].tolist()]) for column in pivot.columns],
-            left=Inches(6.65),
-            top=Inches(0.95),
-            width=Inches(6.0),
-            height=Inches(2.55),
+            categories=_competencia_labels(quota_share["competencia"].tolist()),
+            series_map=[
+                (column, quota_share[column].tolist())
+                for column in quota_share.columns
+                if column != "competencia"
+            ],
+            left=6.40,
+            top=1.00,
+            width=6.45,
+            height=2.25,
             number_format='0.0"%"',
             percent_axis=True,
-            label_position=XL_DATA_LABEL_POSITION.CENTER,
+            gap_width=38,
+            overlap=100,
+            label_position="center",
+            legend_items=[
+                (column, SERIES_COLORS[idx % len(SERIES_COLORS)])
+                for idx, column in enumerate([column for column in quota_share.columns if column != "competencia"])
+            ],
         )
-    latest_quota = dashboard.quota_pl_history_df[dashboard.quota_pl_history_df["competencia"] == dashboard.latest_competencia].copy()
-    if latest_quota.empty:
-        latest_quota_table = pd.DataFrame({"Classe": ["Sem dados"], "PL": [""]})
-    else:
-        latest_quota["Classe"] = latest_quota["label"]
-        latest_quota["PL"] = latest_quota["pl"].map(_format_brl_compact)
-        latest_quota["Qt. cotas"] = latest_quota["qt_cotas"].map(_format_decimal_0_or_2)
-        latest_quota_table = latest_quota[["Classe", "Qt. cotas", "PL"]]
+        add_textbox(
+            slide,
+            6.40,
+            3.42,
+            6.45,
+            0.18,
+            "Leitura: a composição mostra quanto do PL é proteção subordinada versus tranches mais seniores.",
+            size=LABEL_SIZE,
+            color=MID_GRAY,
+        )
+
+    latest_quota = _latest_quota_table_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia)
     add_table(
         slide,
-        latest_quota_table.head(8),
-        Inches(0.55),
-        Inches(3.9),
-        Inches(5.8),
-        Inches(2.35),
-        title="Quadro de cotas na última competência",
+        latest_quota,
+        title="Estrutura de cotas - última competência",
+        left=MARGIN_LEFT_IN,
+        top=3.95,
+        width=3.85,
+        height=2.55,
+        col_widths=[1.55, 0.95, 1.35],
     )
 
-    # Slide 4
-    slide = prs.slides.add_slide(blank)
-    add_textbox(slide, Inches(0.55), Inches(0.35), Inches(12.0), Inches(0.35), "Eventos e vencimento", size=22, bold=True)
-    maturity_df = latest_maturity_frame()
-    if not maturity_df.empty:
-        add_chart(
-            slide,
-            title=f"Vencimento dos direitos creditórios em {_format_competencia(dashboard.latest_competencia)}",
-            chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
-            categories=[str(value) for value in maturity_df["faixa"].tolist()],
-            series_map=[("Valor", [float(value) for value in maturity_df["valor"].tolist()])],
-            left=Inches(0.55),
-            top=Inches(0.95),
-            width=Inches(7.2),
-            height=Inches(2.65),
-            number_format='#,##0',
-            label_position=XL_DATA_LABEL_POSITION.OUTSIDE_END,
-        )
+    latest_events = _latest_events_table_frame(dashboard.event_summary_latest_df)
     add_table(
         slide,
-        latest_events_table().head(8),
-        Inches(8.0),
-        Inches(1.0),
-        Inches(4.7),
-        Inches(2.6),
+        latest_events,
         title="Eventos de cotas",
+        left=4.50,
+        top=3.95,
+        width=3.35,
+        height=2.55,
+        col_widths=[1.35, 1.00, 1.00],
     )
+
+    maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
+    if not maturity_df.empty:
+        maturity_scale = _money_scale(pd.to_numeric(maturity_df["valor"], errors="coerce"))
+        add_chart(
+            slide,
+            title="Vencimento dos direitos creditórios",
+            title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
+            chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
+            categories=maturity_df["faixa"].astype(str).tolist(),
+            series_map=[("Valor", _scale_values(maturity_df["valor"], maturity_scale).tolist())],
+            left=8.10,
+            top=3.95,
+            width=4.75,
+            height=2.55,
+            number_format=_money_number_format(maturity_scale),
+            money_axis=True,
+            gap_width=38,
+            label_position="outside_end",
+        )
     vencidos = _to_float(dashboard.summary.get("direitos_creditorios_vencidos"))
     base = _to_float(dashboard.summary.get("inadimplencia_denominador"))
     add_textbox(
         slide,
-        Inches(0.55),
-        Inches(4.0),
-        Inches(12.0),
-        Inches(0.6),
-        f"Vencidos observáveis: {_format_brl_compact(vencidos)}  |  Base observável: {_format_brl_compact(base)}  |  Razão: {_format_percent(_safe_pct(vencidos, base))}",
-        size=11,
-        color=GRAY,
+        8.10,
+        6.55,
+        4.75,
+        0.22,
+        f"Vencidos observáveis: {_format_brl_compact(vencidos)}  |  Base: {_format_brl_compact(base)}  |  Razão: {_format_percent(_safe_pct(vencidos, base))}",
+        size=LABEL_SIZE,
+        color=MID_GRAY,
     )
+    add_footer(slide, timestamp_text)
 
     buffer = BytesIO()
     prs.save(buffer)
     return buffer.getvalue()
 
 
+def build_dashboard_pptx_file(
+    dashboard: FundonetDashboardData,
+    output_path: Path,
+    *,
+    generated_at: datetime | None = None,
+) -> Path:
+    output_path.write_bytes(build_dashboard_pptx_bytes(dashboard, generated_at=generated_at))
+    return output_path
+
+
 def _fund_title(dashboard: FundonetDashboardData) -> str:
     return str(dashboard.fund_info.get("nome_fundo") or dashboard.fund_info.get("nome_classe") or "FIDC selecionado")
+
+
+def _to_float(value: object) -> float | None:
+    try:
+        if value is None or value == "":
+            return None
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _format_decimal(value: object, *, decimals: int = 2) -> str:
+    numeric = _to_float(value)
+    if numeric is None:
+        return "N/D"
+    return f"{numeric:,.{decimals}f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+
+def _format_percent(value: object) -> str:
+    numeric = _to_float(value)
+    if numeric is None:
+        return "N/D"
+    return f"{_format_decimal(numeric, decimals=1)}%"
+
+
+def _format_brl_compact(value: object) -> str:
+    numeric = _to_float(value)
+    if numeric is None:
+        return "N/D"
+    scale = _money_scale(pd.Series([numeric]))
+    if scale.divisor == 1.0:
+        return f"R$ {_format_decimal(numeric, decimals=2)}"
+    decimals = 2 if scale.divisor >= 1_000_000_000 else 1
+    return f"R$ {_format_decimal(numeric / scale.divisor, decimals=decimals)} {scale.suffix}"
 
 
 def _format_competencia(value: object) -> str:
@@ -386,13 +588,8 @@ def _format_competencia(value: object) -> str:
     return text or "N/D"
 
 
-def _to_float(value: object) -> float | None:
-    try:
-        if value is None or value == "":
-            return None
-        return float(value)
-    except (TypeError, ValueError):
-        return None
+def _competencia_labels(values: Sequence[object]) -> list[str]:
+    return [_format_competencia(value) for value in values]
 
 
 def _safe_pct(numerator: object, denominator: object) -> float | None:
@@ -403,11 +600,94 @@ def _safe_pct(numerator: object, denominator: object) -> float | None:
     return num / den * 100.0
 
 
-def _format_decimal(value: object, *, decimals: int = 2) -> str:
-    numeric = _to_float(value)
-    if numeric is None:
-        return "N/D"
-    return f"{numeric:,.{decimals}f}".replace(",", "X").replace(".", ",").replace("X", ".")
+def _series_numeric(frame: pd.DataFrame, column: str) -> pd.Series:
+    if column not in frame.columns:
+        return pd.Series(dtype="float64")
+    return pd.to_numeric(frame[column], errors="coerce")
+
+
+def _money_scale(values: pd.Series) -> MoneyScale:
+    numeric = pd.to_numeric(values, errors="coerce").dropna()
+    max_abs = float(numeric.abs().max()) if not numeric.empty else 0.0
+    if max_abs >= 1_000_000_000_000:
+        return MoneyScale(1_000_000_000_000.0, "tri", "R$ tri")
+    if max_abs >= 1_000_000_000:
+        return MoneyScale(1_000_000_000.0, "bi", "R$ bi")
+    if max_abs >= 1_000_000:
+        return MoneyScale(1_000_000.0, "mm", "R$ mm")
+    return MoneyScale(1.0, "", "R$")
+
+
+def _scale_values(values: Sequence[object], scale: MoneyScale) -> pd.Series:
+    numeric = pd.to_numeric(pd.Series(values), errors="coerce").fillna(0.0)
+    if scale.divisor <= 0:
+        return numeric
+    return numeric / scale.divisor
+
+
+def _money_number_format(scale: MoneyScale) -> str:
+    if scale.divisor == 1.0:
+        return '#,##0.00'
+    return '0.0'
+
+
+def _latest_aging_table_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame({"Faixa": ["Sem dados"], "Valor": ["-"], "%": ["-"]})
+    output = frame.copy()
+    output = output[output["ordem"] <= 7].copy()
+    if output.empty:
+        return pd.DataFrame({"Faixa": ["Sem dados"], "Valor": ["-"], "%": ["-"]})
+    output["Faixa"] = output["faixa"]
+    output["Valor"] = output["valor"].map(_format_brl_compact)
+    output["%"] = output["percentual"].map(_format_percent)
+    return output[["Faixa", "Valor", "%"]]
+
+
+def _latest_events_table_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame({"Evento": ["Sem dados"], "Valor": ["-"], "% PL": ["-"]})
+    output = frame.copy()
+    output["Evento"] = output["evento"]
+    output["Valor"] = output["valor_total"].map(_format_brl_compact)
+    output["% PL"] = output["valor_total_pct_pl"].map(_format_percent)
+    return output[["Evento", "Valor", "% PL"]]
+
+
+def _latest_quota_table_frame(frame: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame({"Classe": ["Sem dados"], "Qt. cotas": ["-"], "PL": ["-"]})
+    output = frame[frame["competencia"] == latest_competencia].copy()
+    if output.empty:
+        return pd.DataFrame({"Classe": ["Sem dados"], "Qt. cotas": ["-"], "PL": ["-"]})
+    output["Classe"] = output["label"]
+    output["Qt. cotas"] = output["qt_cotas"].map(_format_decimal_0_or_2)
+    output["PL"] = output["pl"].map(_format_brl_compact)
+    return output[["Classe", "Qt. cotas", "PL"]]
+
+
+def _latest_maturity_chart_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame(columns=["faixa", "valor"])
+    output = frame.copy()
+    output["valor"] = pd.to_numeric(output["valor"], errors="coerce").fillna(0.0)
+    output = output[output["valor"] > 0].copy()
+    return output[["faixa", "valor"]]
+
+
+def _quota_pl_share_pivot(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame(columns=["competencia"])
+    output = frame.copy()
+    output["pl"] = pd.to_numeric(output["pl"], errors="coerce").fillna(0.0)
+    totals = output.groupby("competencia", dropna=False)["pl"].transform("sum")
+    output["percentual"] = (output["pl"] / totals).where(totals > 0).mul(100.0).fillna(0.0)
+    pivot = (
+        output.pivot_table(index="competencia", columns="label", values="percentual", aggfunc="sum")
+        .fillna(0.0)
+        .reset_index()
+    )
+    return pivot
 
 
 def _format_decimal_0_or_2(value: object) -> str:
@@ -416,22 +696,3 @@ def _format_decimal_0_or_2(value: object) -> str:
         return "N/D"
     decimals = 0 if float(numeric).is_integer() else 2
     return _format_decimal(numeric, decimals=decimals)
-
-
-def _format_percent(value: object) -> str:
-    numeric = _to_float(value)
-    if numeric is None:
-        return "N/D"
-    return f"{_format_decimal(numeric, decimals=1)}%"
-
-
-def _format_brl_compact(value: object) -> str:
-    numeric = _to_float(value)
-    if numeric is None:
-        return "N/D"
-    magnitude = abs(numeric)
-    if magnitude >= 1_000_000_000:
-        return f"R$ {_format_decimal(numeric / 1_000_000_000, decimals=2)} bi"
-    if magnitude >= 1_000_000:
-        return f"R$ {_format_decimal(numeric / 1_000_000, decimals=1)} mm"
-    return f"R$ {_format_decimal(numeric, decimals=2)}"
