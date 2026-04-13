@@ -47,6 +47,8 @@ class FundonetDashboardData:
     liquidity_history_df: pd.DataFrame
     liquidity_latest_df: pd.DataFrame
     maturity_latest_df: pd.DataFrame
+    maturity_history_df: pd.DataFrame
+    duration_history_df: pd.DataFrame
     quota_pl_history_df: pd.DataFrame
     subordination_history_df: pd.DataFrame
     return_history_df: pd.DataFrame
@@ -140,6 +142,11 @@ def build_dashboard_data(
         wide_lookup=wide_lookup,
         latest_competencia=latest_competencia,
     )
+    maturity_history_df = _build_maturity_history_df(
+        wide_lookup=wide_lookup,
+        competencias=competencias,
+    )
+    duration_history_df = _build_duration_history_df(maturity_history_df)
     default_buckets_latest_df = _build_default_buckets_latest_df(
         wide_lookup=wide_lookup,
         latest_competencia=latest_competencia,
@@ -213,6 +220,8 @@ def build_dashboard_data(
         liquidity_history_df=liquidity_history_df,
         liquidity_latest_df=liquidity_latest_df,
         maturity_latest_df=maturity_latest_df,
+        maturity_history_df=maturity_history_df,
+        duration_history_df=duration_history_df,
         quota_pl_history_df=quota_pl_history_df,
         subordination_history_df=subordination_history_df,
         return_history_df=return_history_df,
@@ -1010,6 +1019,103 @@ def _build_maturity_latest_df(*, wide_lookup: pd.DataFrame, latest_competencia: 
         }
         rows.append(row)
     return pd.DataFrame(rows)
+
+
+# ---------------------------------------------------------------------------
+# Maturity history + Duration estimation
+# ---------------------------------------------------------------------------
+
+# Each tuple: (faixa_label, CVM_suffix_list, prazo_proxy_dias)
+# prazo_proxy rules:
+#   "Vencidos"          → 0 (overdue, no remaining term)
+#   "Em 30 dias"        → 30 (bucket upper bound used as proxy)
+#   Interval buckets    → midpoint of [lower, upper]
+#   "Acima de 1080 dias"→ 1440 (assumed = 1080 + 360; documented in tooltip)
+_MATURITY_BUCKET_SPECS: list[tuple[str, list[str], float]] = [
+    ("Vencidos",           ["VL_SOM_INAD_VENC"],        0.0),
+    ("Em 30 dias",         ["VL_PRAZO_VENC_30"],         30.0),
+    ("31 a 60 dias",       ["VL_PRAZO_VENC_31_60"],      45.5),
+    ("61 a 90 dias",       ["VL_PRAZO_VENC_61_90"],      75.5),
+    ("91 a 120 dias",      ["VL_PRAZO_VENC_91_120"],     105.5),
+    ("121 a 150 dias",     ["VL_PRAZO_VENC_121_150"],    135.5),
+    ("151 a 180 dias",     ["VL_PRAZO_VENC_151_180"],    165.5),
+    ("181 a 360 dias",     ["VL_PRAZO_VENC_181_360"],    270.5),
+    ("361 a 720 dias",     ["VL_PRAZO_VENC_361_720"],    540.5),
+    ("721 a 1080 dias",    ["VL_PRAZO_VENC_721_1080"],   900.5),
+    ("Acima de 1080 dias", ["VL_PRAZO_VENC_1080"],       1440.0),
+]
+
+
+def _build_maturity_history_df(
+    *,
+    wide_lookup: pd.DataFrame,
+    competencias: list[str],
+) -> pd.DataFrame:
+    """Long-format maturity bucket saldos for every competência (used for duration time series)."""
+    rows = []
+    for competencia in competencias:
+        for faixa, suffixes, prazo_proxy in _MATURITY_BUCKET_SPECS:
+            paths = [
+                f"DOC_ARQ/LISTA_INFORM/{base}/{suffix}"
+                for suffix in suffixes
+                for base in ["COMPMT_DICRED_AQUIS", "COMPMT_DICRED_SEM_AQUIS"]
+            ]
+            info = _sum_latest_paths_with_status(wide_lookup, competencia, paths)
+            rows.append(
+                {
+                    "competencia": competencia,
+                    "competencia_dt": _competencia_to_timestamp(competencia),
+                    "faixa": faixa,
+                    "prazo_proxy": prazo_proxy,
+                    "valor": float(info["valor"]),
+                    "source_status": info["source_status"],
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+def _build_duration_history_df(maturity_history_df: pd.DataFrame) -> pd.DataFrame:
+    """Computes weighted-average duration (days) per competência.
+
+    Formula:
+        Duration_t = Σ(saldo_bucket_i,t × prazo_proxy_i) / Σ(saldo_bucket_i,t)
+
+    Bucket proxy assumptions (documented here for traceability):
+        - "Vencidos"           → 0 d  (overdue; no remaining term)
+        - "Em 30 dias"         → 30 d
+        - Interval [A, B]      → (A + B) / 2  (midpoint of the range)
+        - "Acima de 1080 dias" → 1440 d (assumed 1080 + 360; upper bound is open)
+
+    Returns a DataFrame with columns:
+        competencia, competencia_dt, duration_days, total_saldo, data_quality
+    data_quality is "ok" when total_saldo > 0, otherwise "sem_dados".
+    """
+    if maturity_history_df.empty:
+        return pd.DataFrame(
+            columns=["competencia", "competencia_dt", "duration_days", "total_saldo", "data_quality"]
+        )
+    df = maturity_history_df.copy()
+    df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
+    df["prazo_proxy"] = pd.to_numeric(df["prazo_proxy"], errors="coerce").fillna(0.0)
+    df["weighted"] = df["valor"] * df["prazo_proxy"]
+
+    grouped = df.groupby(["competencia", "competencia_dt"], sort=False).agg(
+        total_saldo=("valor", "sum"),
+        total_weighted=("weighted", "sum"),
+    ).reset_index()
+
+    grouped["duration_days"] = grouped.apply(
+        lambda row: row["total_weighted"] / row["total_saldo"]
+        if row["total_saldo"] > 0
+        else float("nan"),
+        axis=1,
+    )
+    grouped["data_quality"] = grouped["total_saldo"].apply(
+        lambda v: "ok" if v > 0 else "sem_dados"
+    )
+    # Sort chronologically
+    grouped = grouped.sort_values("competencia_dt").reset_index(drop=True)
+    return grouped[["competencia", "competencia_dt", "duration_days", "total_saldo", "data_quality"]]
 
 
 def _sum_latest_paths(wide_lookup: pd.DataFrame, competencias: list[str], tag_paths: list[str]) -> float:

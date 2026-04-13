@@ -19,6 +19,10 @@ from services.fundonet_errors import FundosNetError
 from services.fundonet_service import InformeMensalResult, InformeMensalService
 
 
+# Feature flag: set to True when global PDF dashboard export is stable and ready.
+# While False, the dashboard-level PDF button is hidden to prevent broken UX.
+ENABLE_GLOBAL_PDF_EXPORT: bool = False
+
 FIDC_CHART_COLORS = [
     "#ff5a00",
     "#111111",
@@ -620,6 +624,12 @@ def render_tab_fidc_ime() -> None:
             st.warning("Informe ao menos um CNPJ para carregar.")
             return
 
+        # Clear any cached dashboard objects from a previous load so the new
+        # data replaces them on the next render cycle.
+        for key in list(st.session_state.keys()):
+            if key.startswith("_dashboard_slot"):
+                del st.session_state[key]
+
         slots = {}
         service = InformeMensalService()
         for slot_i, cnpj in active_cnpjs:
@@ -784,11 +794,18 @@ def _render_dashboard(
     docs_error: int,
     slot_key: str = "slot0",
 ) -> None:
-    dashboard = _load_dashboard_data(
-        str(result.wide_csv_path),
-        str(result.listas_csv_path),
-        str(result.docs_csv_path),
-    )
+    # Cache the dashboard data in session_state so that widget interactions
+    # (e.g., radio-button toggles) do not trigger a full CSV reload on every
+    # Streamlit rerun.  The cache entry is invalidated when the user clicks
+    # "Carregar Informes Mensais" (see load_clicked handler above).
+    _session_dashboard_key = f"_dashboard_{slot_key}"
+    if _session_dashboard_key not in st.session_state:
+        st.session_state[_session_dashboard_key] = _load_dashboard_data(
+            str(result.wide_csv_path),
+            str(result.listas_csv_path),
+            str(result.docs_csv_path),
+        )
+    dashboard: FundonetDashboardData = st.session_state[_session_dashboard_key]
     st.markdown(_FIDC_REPORT_CSS, unsafe_allow_html=True)
 
     executive_tab, technical_tab = st.tabs(["Visão executiva", "Auditoria técnica"])
@@ -834,7 +851,8 @@ def _render_dashboard(
 
 
 def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
-    _render_pdf_export_button(dashboard, context)
+    if ENABLE_GLOBAL_PDF_EXPORT:
+        _render_pdf_export_button(dashboard, context)
 
 
 def _render_risk_overview(dashboard: FundonetDashboardData) -> None:
@@ -1054,6 +1072,8 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
     vencidos_caption = _maturity_vencidos_caption(dashboard.maturity_latest_df)
     if vencidos_caption:
         st.caption(vencidos_caption)
+
+    _render_duration_section(dashboard)
 
 
 def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
@@ -1332,6 +1352,77 @@ def _maturity_vencidos_caption(maturity_latest_df: pd.DataFrame) -> str | None:
     return (
         f"Vencidos {_format_brl_compact(vencidos_val)} / DCs a vencer {_format_brl_compact(dc_avencer)} "
         f"= {_format_percent(ratio_pct)}"
+    )
+
+
+def _render_duration_section(dashboard: FundonetDashboardData) -> None:
+    """Renders the estimated duration KPI card + monthly evolution chart.
+
+    Duration is the weighted-average remaining term (days) of the receivables
+    portfolio, computed from the CVM maturity buckets.
+
+    Formula:
+        Duration_t = Σ(saldo_bucket_i,t × prazo_proxy_i) / Σ(saldo_bucket_i,t)
+
+    Bucket proxy assumptions (see fundonet_dashboard._MATURITY_BUCKET_SPECS):
+        Vencidos → 0 d  |  ≤30 d → 30 d  |  intervals → midpoint  |  >1080 d → 1440 d
+    """
+    duration_df = dashboard.duration_history_df
+    if duration_df.empty:
+        return
+
+    ok_df = duration_df[duration_df["data_quality"] == "ok"]
+    if ok_df.empty:
+        return
+
+    _render_fidc_section(
+        "Duration estimada dos recebíveis",
+        "Prazo médio ponderado da carteira por bucket de vencimento. Calculado mês a mês com base no Informe Mensal.",
+    )
+
+    # --- KPI destaque: valor mais recente ---
+    latest_duration = ok_df.sort_values("competencia_dt").iloc[-1]
+    duration_val = latest_duration.get("duration_days")
+    total_saldo = latest_duration.get("total_saldo")
+    duration_display = f"{float(duration_val):.0f} dias" if not pd.isna(duration_val) else "N/D"
+    saldo_display = _format_brl_compact(total_saldo)
+
+    tooltip_text = (
+        "Duration estimada = prazo médio ponderado da carteira de recebíveis.\n"
+        "Fórmula: Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket)\n"
+        "Proxies por bucket: Vencidos=0d; Em 30 dias=30d; "
+        "31-60d=45,5d; 61-90d=75,5d; 91-120d=105,5d; 121-150d=135,5d; "
+        "151-180d=165,5d; 181-360d=270,5d; 361-720d=540,5d; 721-1080d=900,5d; "
+        ">1080d=1440d (proxy assumido: 1080+360 dias).\n"
+        "Fonte: quadro de vencimento dos direitos creditórios (COMPMT_DICRED_AQUIS / SEM_AQUIS)."
+    )
+    kpi_html = (
+        f'<div class="fidc-snapshot-card" style="max-width:280px">'
+        f'<div class="fidc-snapshot-card__label">Duration estimada — {_format_competencia_label(str(latest_duration.get("competencia", "")))}</div>'
+        f'<div class="fidc-snapshot-card__value">{escape(duration_display)}</div>'
+        f'<div class="fidc-snapshot-card__unit">Base: {escape(saldo_display)} em recebíveis</div>'
+        f'</div>'
+    )
+    st.markdown(f'<div class="fidc-snapshot-row">{kpi_html}</div>', unsafe_allow_html=True)
+
+    # --- Série histórica ---
+    if len(ok_df) < 2:
+        st.caption("Dados insuficientes para série histórica de duration (mínimo 2 competências).")
+        return
+
+    _render_chart_heading(
+        st,
+        "Evolução mensal da duration estimada",
+        "Dias — prazo médio ponderado da carteira de recebíveis por competência.",
+    )
+    st.altair_chart(
+        _duration_line_chart(duration_df),
+        use_container_width=True,
+    )
+    st.caption(
+        "Duration = Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket). "
+        "Proxies: Vencidos=0 d; ≤30 d=30 d; intervalos=ponto médio; >1080 d=1440 d (assumido). "
+        "Fonte: COMPMT_DICRED_AQUIS e COMPMT_DICRED_SEM_AQUIS (CVM IME)."
     )
 
 
@@ -2810,6 +2901,57 @@ def _stacked_area_chart(
             color=alt.Color("label:N", legend=None, scale=alt.Scale(range=FIDC_CHART_COLORS)),
         )
     )
+    return _style_altair_chart(chart + labels)
+
+
+def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
+    """Altair line chart for the estimated receivables duration (days) time series.
+
+    Tooltip explains the calculation formula and bucket-proxy assumptions.
+    """
+    df = _altair_compatible_df(duration_history_df.copy())
+    df = df[df["data_quality"] == "ok"].copy()
+    if df.empty or "competencia" not in df.columns:
+        return alt.Chart(pd.DataFrame({"competencia": [], "duration_days": []})).mark_line()
+    df["competencia"] = df["competencia"].map(_format_competencia_display)
+    df["duration_fmt"] = df["duration_days"].map(
+        lambda v: f"{v:.0f} dias" if not pd.isna(v) else "N/D"
+    )
+    # Tooltip rows — formula + proxy assumptions
+    tooltip_nota = (
+        "Duration = Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket). "
+        "Proxies: Vencidos=0d; ≤30d=30d; intervalos=ponto médio; >1080d=1440d."
+    )
+    x_sort = df["competencia"].drop_duplicates().tolist()
+    chart = (
+        alt.Chart(df)
+        .mark_line(point=True, color="#ff5a00", strokeWidth=2)
+        .encode(
+            x=alt.X("competencia:N", title="Competência", sort=x_sort),
+            y=alt.Y(
+                "duration_days:Q",
+                title="Duration estimada (dias)",
+                axis=alt.Axis(labelColor="#5f6b7a", titleColor="#5f6b7a"),
+            ),
+            tooltip=[
+                alt.Tooltip("competencia:N", title="Competência"),
+                alt.Tooltip("duration_days:Q", title="Duration (dias)", format=".0f"),
+                alt.Tooltip("duration_fmt:N", title="Formatado"),
+            ],
+        )
+        .properties(height=240)
+    )
+    # Data labels on each point
+    labels = (
+        alt.Chart(df)
+        .mark_text(dy=-10, fontSize=9, fontWeight=600, color="#111111")
+        .encode(
+            x=alt.X("competencia:N", sort=x_sort),
+            y=alt.Y("duration_days:Q"),
+            text=alt.Text("duration_fmt:N"),
+        )
+    )
+    _ = tooltip_nota  # documented; surfaced in UI caption below the chart
     return _style_altair_chart(chart + labels)
 
 
