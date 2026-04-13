@@ -33,14 +33,16 @@ FIDC_CHART_COLORS = [
     "#e2a06c",
 ]
 
+# Aging color scale: green (short overdue) → yellow → orange → red (long overdue).
+# Explicitly ordered from ≤30 d (least severe) to 181-360 d (most severe).
 AGING_CHART_COLORS = [
-    "#2ecc71",
-    "#f1c40f",
-    "#e67e22",
-    "#e74c3c",
-    "#d64541",
-    "#b03a2e",
-    "#922b21",
+    "#27ae60",  # ≤30 d  — verde
+    "#82ca3f",  # 31-60 d — verde-limão
+    "#f9ca24",  # 61-90 d — amarelo
+    "#f0932b",  # 91-120 d — laranja
+    "#e55039",  # 121-150 d — vermelho claro
+    "#c0392b",  # 151-180 d — vermelho
+    "#7b241c",  # 181-360 d — vinho/bordô
 ]
 
 
@@ -814,6 +816,7 @@ def _render_dashboard(
         _render_financial_snapshot_cards(dashboard)
         _render_dashboard_context_bar(dashboard)
         _render_dashboard_controls(dashboard, context)
+        _render_modular_exports(dashboard, context)
         if docs_error:
             st.warning(f"{docs_error} informe(s) falharam no processamento. A leitura abaixo usa apenas os informes válidos.")
         _render_risk_overview(dashboard)
@@ -853,6 +856,63 @@ def _render_dashboard(
 def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
     if ENABLE_GLOBAL_PDF_EXPORT:
         _render_pdf_export_button(dashboard, context)
+
+
+def _render_modular_exports(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
+    """Exportação modular por bloco executivo — cada botão gera um PDF independente."""
+    try:
+        from services.fundonet_modular_export import (
+            build_subordination_pdf_bytes,
+            build_pl_pdf_bytes,
+            build_rentabilidade_pdf_bytes,
+            build_npl_pdf_bytes,
+            build_vencimento_pdf_bytes,
+            build_radar_pdf_bytes,
+        )
+    except Exception:  # noqa: BLE001
+        return  # silently skip if library unavailable
+
+    rid = context.get("request_id", "fidc")
+    fund_slug = (
+        str(dashboard.fund_info.get("cnpj_fundo") or rid)[:14]
+        .replace("/", "_")
+        .replace(".", "")
+        .replace("-", "")
+    )
+
+    with st.expander("Exportar blocos executivos (PDF por seção)", expanded=False):
+        st.caption(
+            "Gere PDFs individuais prontos para apresentação. "
+            "Cada bloco é independente e não depende do PDF completo do dashboard."
+        )
+        cols = st.columns(3)
+        _modular_btn(cols[0], "Radar de Risco", build_radar_pdf_bytes, dashboard, f"radar_{fund_slug}.pdf")
+        _modular_btn(cols[1], "Subordinação e Cotas", build_subordination_pdf_bytes, dashboard, f"subordinacao_{fund_slug}.pdf")
+        _modular_btn(cols[2], "Patrimônio Líquido", build_pl_pdf_bytes, dashboard, f"pl_{fund_slug}.pdf")
+        cols2 = st.columns(3)
+        _modular_btn(cols2[0], "Rentabilidade", build_rentabilidade_pdf_bytes, dashboard, f"rentabilidade_{fund_slug}.pdf")
+        _modular_btn(cols2[1], "Inadimplência / NPL", build_npl_pdf_bytes, dashboard, f"npl_{fund_slug}.pdf")
+        _modular_btn(cols2[2], "Vencimento + Duration", build_vencimento_pdf_bytes, dashboard, f"vencimento_duration_{fund_slug}.pdf")
+
+
+def _modular_btn(
+    container,  # noqa: ANN001
+    label: str,
+    builder,  # noqa: ANN001
+    dashboard: FundonetDashboardData,
+    filename: str,
+) -> None:
+    try:
+        pdf_bytes = builder(dashboard)
+        container.download_button(
+            f"PDF — {label}",
+            data=pdf_bytes,
+            file_name=filename,
+            mime="application/pdf",
+            use_container_width=True,
+        )
+    except Exception as exc:  # noqa: BLE001
+        container.caption(f"Erro ao gerar {label}: {exc}")
 
 
 def _render_risk_overview(dashboard: FundonetDashboardData) -> None:
@@ -1295,8 +1355,10 @@ def _build_aging_history_display_df(
     """
     if default_buckets_history_df.empty or default_history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "ordem", "faixa", "valor", "percentual"])
-    # Filter to first 7 buckets (up to 360 days)
+    # Filter to first 7 buckets (up to 360 days) and sort chronologically then
+    # by bucket order so series_order extracted downstream is ≤30d → 181-360d.
     df = default_buckets_history_df[default_buckets_history_df["ordem"] <= 7].copy()
+    df = df.sort_values(["competencia_dt", "ordem"])
     df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
     # Denominador preferido: direitos_creditorios; fallback: inadimplencia_total
     dc_df = default_history_df[["competencia", "direitos_creditorios", "inadimplencia_total"]].copy()
@@ -2767,8 +2829,15 @@ def _stacked_history_bar_chart(
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     y_encoding = alt.Y(f"{value_column}:Q", title=y_title, stack=True, axis=y_axis)
     _colors = color_range or FIDC_CHART_COLORS
-    color_encoding = alt.Color("serie:N", title="Classe", scale=alt.Scale(range=_colors))
     series_order = chart_df["serie"].drop_duplicates().tolist()
+    # Pin domain to the insertion order of the series so Altair does not
+    # re-sort alphabetically (which would invert the aging color scale).
+    color_encoding = alt.Color(
+        "serie:N",
+        title="Classe",
+        scale=alt.Scale(domain=series_order, range=_colors[: len(series_order)]),
+        sort=series_order,
+    )
     color_map = _category_color_map(series_order, _colors)
     chart_df["label_color"] = chart_df["serie"].map(lambda value: _contrast_text_color(color_map.get(str(value), "#ff5a00")))
     chart = (

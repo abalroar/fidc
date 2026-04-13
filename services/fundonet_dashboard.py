@@ -627,6 +627,19 @@ def _build_summary(
         outros_ativos = None
         alocacao_pct = None
 
+    # Fallback: when VL_DICRED is absent, compute total from maturity buckets
+    # (vencidos + all future buckets) — the same data shown in the maturity chart.
+    if not direitos_creditorios or direitos_creditorios <= 0:
+        maturity_future = float(
+            _maturity_future_series(wide_lookup, [latest_competencia]).iloc[0] or 0
+        )
+        maturity_overdue = float(
+            _maturity_overdue_series(wide_lookup, [latest_competencia]).iloc[0] or 0
+        )
+        maturity_total = maturity_future + maturity_overdue
+        if maturity_total > 0:
+            direitos_creditorios = maturity_total
+
     return {
         "pl_total": _float_or_none(subordination_row.get("pl_total")),
         "pl_senior": _float_or_none(subordination_row.get("pl_senior")),
@@ -1148,7 +1161,14 @@ def _build_default_history(
     ).sum(axis=1, min_count=1)
     inadimplencia_total_prazo = _maturity_overdue_series(wide_lookup, competencias)
     inadimplencia_total_aging = _default_aging_total_series(wide_lookup, competencias)
-    inadimplencia_total = inadimplencia_total_base.combine_first(inadimplencia_total_prazo).combine_first(inadimplencia_total_aging)
+    # Use the maximum across all sources so that an explicit zero in the base
+    # fields (VL_CRED_TOTAL_VENC_INAD / VL_DICRED_TOTAL_VENC_INAD) does not
+    # shadow the maturity-bucket vencidos (VL_SOM_INAD_VENC), which is the
+    # same field shown in the "Vencidos" bar of the maturity chart.
+    inadimplencia_total = pd.concat(
+        [inadimplencia_total_prazo, inadimplencia_total_base, inadimplencia_total_aging],
+        axis=1,
+    ).max(axis=1)
     direitos_creditorios_futuro = _maturity_future_series(wide_lookup, competencias)
     direitos_creditorios_vencidos = inadimplencia_total_prazo.combine_first(inadimplencia_total_aging)
     direitos_creditorios_total = pd.concat(
