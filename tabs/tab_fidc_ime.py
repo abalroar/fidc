@@ -854,8 +854,12 @@ def _render_dashboard(
 
 
 def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
-    if ENABLE_GLOBAL_PDF_EXPORT:
-        _render_pdf_export_button(dashboard, context)
+    left, right = st.columns([1, 1])
+    with left:
+        _render_pptx_export_button(dashboard, context)
+    with right:
+        if ENABLE_GLOBAL_PDF_EXPORT:
+            _render_pdf_export_button(dashboard, context)
 
 
 def _render_modular_exports(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
@@ -997,6 +1001,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             ),
             use_container_width=True,
         )
+        _render_aging_omission_note(col_aging, dashboard.default_buckets_latest_df)
     cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
     _render_chart_heading(col_cobertura, "Cobertura de provisão", "Provisão / inadimplência ao longo do tempo (%).")
     if cobertura_df.empty:
@@ -1351,7 +1356,7 @@ def _build_aging_history_display_df(
 ) -> pd.DataFrame:
     """Historical aging as % of total recebíveis (direitos_creditorios) per period.
 
-    Falls back to inadimplencia_total as denominator when direitos_creditorios is zero/missing.
+    Falls back to direitos_creditorios agregado só quando a malha de vencimento não vier preenchida.
     """
     if default_buckets_history_df.empty or default_history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "ordem", "faixa", "valor", "percentual"])
@@ -1360,12 +1365,17 @@ def _build_aging_history_display_df(
     df = default_buckets_history_df[default_buckets_history_df["ordem"] <= 7].copy()
     df = df.sort_values(["competencia_dt", "ordem"])
     df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
-    # Denominador preferido: direitos_creditorios; fallback: inadimplencia_total
-    dc_df = default_history_df[["competencia", "direitos_creditorios", "inadimplencia_total"]].copy()
+    denominator_column = (
+        "direitos_creditorios_vencimento_total"
+        if "direitos_creditorios_vencimento_total" in default_history_df.columns
+        else "direitos_creditorios"
+    )
+    dc_df = default_history_df[["competencia", denominator_column, "direitos_creditorios"]].copy()
+    dc_df[denominator_column] = pd.to_numeric(dc_df[denominator_column], errors="coerce").fillna(0.0)
     dc_df["direitos_creditorios"] = pd.to_numeric(dc_df["direitos_creditorios"], errors="coerce").fillna(0.0)
-    dc_df["inadimplencia_total"] = pd.to_numeric(dc_df["inadimplencia_total"], errors="coerce").fillna(0.0)
-    dc_df["denominador"] = dc_df["direitos_creditorios"].where(
-        dc_df["direitos_creditorios"] > 0, dc_df["inadimplencia_total"]
+    dc_df["denominador"] = dc_df[denominator_column].where(
+        dc_df[denominator_column] > 0,
+        dc_df["direitos_creditorios"],
     )
     df = df.merge(dc_df[["competencia", "denominador"]], on="competencia", how="left")
     df["percentual"] = (
@@ -1510,6 +1520,28 @@ def _render_pdf_export_button(dashboard: FundonetDashboardData, context: dict[st
     )
 
 
+def _render_pptx_export_button(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
+    try:
+        from services.fundonet_ppt_export import build_dashboard_pptx_bytes
+    except Exception as exc:  # noqa: BLE001
+        st.warning(f"Exportação em slides indisponível neste ambiente: {exc}")
+        return
+
+    try:
+        pptx_bytes = build_dashboard_pptx_bytes(dashboard)
+    except Exception as exc:  # noqa: BLE001
+        st.warning(f"Não foi possível montar os slides do dashboard: {exc}")
+        return
+
+    st.download_button(
+        "Baixar slides (.pptx)",
+        data=pptx_bytes,
+        file_name=f"relatorio_fidc_ime_{context.get('request_id', 'execucao')}.pptx",
+        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        help="Deck executivo em PowerPoint com os principais blocos do painel já carregado.",
+    )
+
+
 def _render_overview_metrics(dashboard: FundonetDashboardData) -> None:
     summary = dashboard.summary
     _render_fidc_section("Visão geral", "O que importa primeiro para se situar na competência mais recente.")
@@ -1644,24 +1676,22 @@ def _render_inadimplencia_overview_card(dashboard: FundonetDashboardData) -> str
     latest_row = latest_df.iloc[-1] if not latest_df.empty else pd.Series(dtype=object)
     previous_row = latest_df.iloc[-2] if len(latest_df.index) > 1 else pd.Series(dtype=object)
 
-    # Prefer maturity-based numerator/denominator (more reliably populated in IME)
-    maturity_df = dashboard.maturity_latest_df
-    maturity_vencidos = 0.0
-    maturity_total = 0.0
-    if not maturity_df.empty and "valor" in maturity_df.columns and "faixa" in maturity_df.columns:
-        _m = maturity_df.copy()
-        _m["valor"] = pd.to_numeric(_m["valor"], errors="coerce").fillna(0.0)
-        maturity_vencidos = float(_m.loc[_m["faixa"] == "Vencidos", "valor"].sum())
-        maturity_total = float(_m["valor"].sum())
-
-    if maturity_total > 0:
-        inadimplencia_total = maturity_vencidos
-        direitos_creditorios = maturity_total
-        inadimplencia_pct = maturity_vencidos / maturity_total * 100.0
-    else:
-        inadimplencia_pct = latest_row.get("inadimplencia_pct")
-        inadimplencia_total = latest_row.get("inadimplencia_total")
-        direitos_creditorios = latest_row.get("direitos_creditorios")
+    inadimplencia_total = latest_row.get("direitos_creditorios_vencidos")
+    direitos_creditorios = latest_row.get("direitos_creditorios_vencimento_total")
+    inadimplencia_pct = latest_row.get("inadimplencia_pct")
+    if _is_missing_value(inadimplencia_total) or _is_missing_value(direitos_creditorios) or _is_missing_value(inadimplencia_pct):
+        maturity_df = dashboard.maturity_latest_df
+        maturity_vencidos = 0.0
+        maturity_total = 0.0
+        if not maturity_df.empty and "valor" in maturity_df.columns and "faixa" in maturity_df.columns:
+            _m = maturity_df.copy()
+            _m["valor"] = pd.to_numeric(_m["valor"], errors="coerce").fillna(0.0)
+            maturity_vencidos = float(_m.loc[_m["faixa"] == "Vencidos", "valor"].sum())
+            maturity_total = float(_m["valor"].sum())
+        if maturity_total > 0:
+            inadimplencia_total = maturity_vencidos
+            direitos_creditorios = maturity_total
+            inadimplencia_pct = maturity_vencidos / maturity_total * 100.0
 
     # Delta vs previous month using historical series
     previous_pct_raw = pd.to_numeric(previous_row.get("inadimplencia_pct"), errors="coerce")
@@ -2401,6 +2431,32 @@ def _category_color_map(categories: list[str], color_range: list[str]) -> dict[s
     return {category: color_range[index % len(color_range)] for index, category in enumerate(categories)}
 
 
+def _quant_scale_with_headroom(
+    values: pd.Series,
+    *,
+    percent_like: bool = False,
+    floor_zero: bool = True,
+    max_cap: float | None = None,
+) -> alt.Scale:
+    numeric = pd.to_numeric(values, errors="coerce").dropna()
+    if numeric.empty:
+        return alt.Scale(zero=floor_zero)
+    min_value = float(numeric.min())
+    max_value = float(numeric.max())
+    if percent_like:
+        upper = max(max_value * 1.12, max_value + 4.0)
+        if max_cap is not None:
+            upper = min(upper, max_cap)
+        lower = 0.0 if floor_zero else min_value
+        return alt.Scale(domain=[lower, upper], nice=False)
+    if max_value >= 0:
+        upper = max(max_value * 1.14, max_value + max(1.0, abs(max_value) * 0.06))
+    else:
+        upper = max_value * 0.94
+    lower = 0.0 if floor_zero and min_value >= 0 else min_value * 1.08
+    return alt.Scale(domain=[lower, upper], nice=False)
+
+
 def _line_point_label_layer(chart_df: pd.DataFrame, *, y_title: str) -> alt.Chart | None:
     if not _chart_labels_enabled() or chart_df.empty or "serie" not in chart_df.columns:
         return None
@@ -2515,7 +2571,12 @@ def _line_history_chart(
     chart_df["label_fmt"] = chart_df["valor"].map(lambda value: _format_value_label(value, y_title))
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
-    y_encoding = alt.Y("valor:Q", title=y_title, axis=y_axis)
+    y_encoding = alt.Y(
+        "valor:Q",
+        title=y_title,
+        axis=y_axis,
+        scale=_quant_scale_with_headroom(chart_df["valor"], percent_like="%" in y_title, max_cap=112.0 if "%" in y_title else None),
+    )
     base = (
         alt.Chart(chart_df)
         .mark_line(point=True)
@@ -2554,7 +2615,11 @@ def _line_point_chart(
     chart_df["valor_fmt"] = chart_df[y_column].map(lambda value: _format_brl(value) if y_title == "R$" else _format_percent(value) if "%" in y_title else _format_decimal(value))
     chart_df["label_fmt"] = chart_df[y_column].map(lambda value: _format_value_label(value, y_title))
     x_encoding = alt.X(f"{x_column}:N", title="Horizonte")
-    y_encoding = alt.Y(f"{y_column}:Q", title=y_title)
+    y_encoding = alt.Y(
+        f"{y_column}:Q",
+        title=y_title,
+        scale=_quant_scale_with_headroom(chart_df[y_column], percent_like="%" in y_title, max_cap=112.0 if "%" in y_title else None),
+    )
     chart = (
         alt.Chart(chart_df)
         .mark_line(point=True)
@@ -2616,7 +2681,11 @@ def _percent_bar_chart(
     chart_df["percentual_fmt"] = chart_df[percent_column].map(_format_percent)
     chart_df["percentual_label"] = chart_df[percent_column].map(_format_percent_label)
     x_encoding = alt.X(f"{category_column}:N", title=None, sort=chart_df[category_column].drop_duplicates().tolist())
-    y_encoding = alt.Y(f"{percent_column}:Q", title="%")
+    y_encoding = alt.Y(
+        f"{percent_column}:Q",
+        title="%",
+        scale=_quant_scale_with_headroom(chart_df[percent_column], percent_like=True, max_cap=112.0),
+    )
     tooltip: list[object] = [f"{category_column}:N", alt.Tooltip("percentual_fmt:N", title="% do total")]
     if value_column and value_column in chart_df.columns:
         chart_df["valor_fmt"] = chart_df[value_column].map(_format_brl_compact)
@@ -2666,7 +2735,12 @@ def _stacked_share_column_chart(
     chart_df["label_pct"] = chart_df[percent_column].map(_format_percent_label)
     chart_df["valor_fmt"] = chart_df[value_column].map(_format_brl)
     x_encoding = alt.X("stack_label:N", title=None, axis=alt.Axis(labels=False, ticks=False))
-    y_encoding = alt.Y(f"{percent_column}:Q", title="% do total", stack=True)
+    y_encoding = alt.Y(
+        f"{percent_column}:Q",
+        title="% do total",
+        stack=True,
+        scale=alt.Scale(domain=[0, 112], nice=False),
+    )
     color_sort = (
         chart_df.sort_values(order_column)[category_column].tolist()
         if order_column and order_column in chart_df.columns
@@ -2738,7 +2812,12 @@ def _bar_chart(
         tooltip.append("status_fonte:N")
     x_encoding = alt.X(f"{x_column}:N", title=None, sort=x_sort)
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
-    y_encoding = alt.Y(f"{y_column}:Q", title=y_title, axis=y_axis)
+    y_encoding = alt.Y(
+        f"{y_column}:Q",
+        title=y_title,
+        axis=y_axis,
+        scale=_quant_scale_with_headroom(chart_df[y_column], percent_like="%" in y_title, max_cap=112.0 if "%" in y_title else None),
+    )
     chart = (
         alt.Chart(chart_df)
         .mark_bar(color="#ff5a00")
@@ -2768,7 +2847,12 @@ def _history_bar_chart(
     chart_df["label_fmt"] = chart_df["valor"].map(lambda value: _format_value_label(value, y_title))
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
-    y_encoding = alt.Y("valor:Q", title=y_title, axis=y_axis)
+    y_encoding = alt.Y(
+        "valor:Q",
+        title=y_title,
+        axis=y_axis,
+        scale=_quant_scale_with_headroom(chart_df["valor"], percent_like="%" in y_title, max_cap=140.0 if "%" in y_title else None),
+    )
     chart = (
         alt.Chart(chart_df)
         .mark_bar(color="#ff5a00", size=28)
@@ -2825,13 +2909,28 @@ def _stacked_history_bar_chart(
         return _style_altair_chart(_chart_with_optional_title(empty_chart, height=320, title=title))
     chart_df["valor_fmt"] = chart_df[value_column].map(_format_brl_compact if y_title == "R$" else _format_percent)
     chart_df["label_fmt"] = chart_df[value_column].map(lambda value: _format_value_label(value, y_title))
+    if "ordem" in chart_df.columns:
+        chart_df = chart_df.sort_values(["competencia_dt", "ordem", "serie"]).reset_index(drop=True)
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
-    y_encoding = alt.Y(f"{value_column}:Q", title=y_title, stack=True, axis=y_axis)
+    totals_for_scale = chart_df.groupby("competencia", dropna=False)[value_column].sum()
+    y_encoding = alt.Y(
+        f"{value_column}:Q",
+        title=y_title,
+        stack=True,
+        axis=y_axis,
+        scale=_quant_scale_with_headroom(
+            totals_for_scale,
+            percent_like="%" in y_title,
+            max_cap=112.0 if "%" in y_title else None,
+        ),
+    )
     _colors = color_range or FIDC_CHART_COLORS
-    series_order = chart_df["serie"].drop_duplicates().tolist()
-    # Pin domain to the insertion order of the series so Altair does not
-    # re-sort alphabetically (which would invert the aging color scale).
+    series_order = (
+        chart_df.sort_values("ordem")["serie"].drop_duplicates().tolist()
+        if "ordem" in chart_df.columns
+        else chart_df["serie"].drop_duplicates().tolist()
+    )
     color_encoding = alt.Color(
         "serie:N",
         title="Classe",
@@ -2847,25 +2946,26 @@ def _stacked_history_bar_chart(
             x=x_encoding,
             y=y_encoding,
             color=color_encoding,
+            order=alt.Order("ordem:Q", sort="ascending") if "ordem" in chart_df.columns else alt.Order("serie:N"),
             tooltip=["competencia:N", "serie:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
     )
     chart = _chart_with_optional_title(chart, height=320, title=title)
-    # Segment labels: show for all segments large enough to be legible.
-    # Threshold: 5% for pct charts, skip for R$ (values too long for narrow bars).
     layered: alt.Chart = chart
-    pct_threshold = 5.0 if "%" in y_title else None
-    if pct_threshold is None and not show_total_labels:
-        # R$ without total: skip inner labels, too long
-        pass
-    else:
-        labels_df = chart_df.copy()
-        if pct_threshold is not None:
-            labels_df = labels_df[pd.to_numeric(labels_df[value_column], errors="coerce") >= pct_threshold].copy()
-        if not labels_df.empty and pct_threshold is not None:
+    labels_df = chart_df.copy()
+    if not labels_df.empty:
+        labels_df["segment_rank"] = labels_df.groupby("competencia", dropna=False).cumcount()
+        labels_df["outside_y"] = labels_df.groupby("competencia", dropna=False)[value_column].cumsum()
+        labels_df["outside_label_y"] = labels_df["outside_y"] + labels_df["segment_rank"].mul(0.8 if "%" in y_title else labels_df["outside_y"].abs().max() * 0.01 if pd.notna(labels_df["outside_y"].abs().max()) else 1.0)
+        inner_labels_df = labels_df[
+            pd.to_numeric(labels_df[value_column], errors="coerce")
+            >= (3.0 if "%" in y_title else labels_df[value_column].abs().max() * 0.08 if pd.notna(labels_df[value_column].abs().max()) else 0.0)
+        ].copy()
+        outer_labels_df = labels_df.drop(inner_labels_df.index).copy()
+        if not inner_labels_df.empty:
             segment_labels = (
-                alt.Chart(labels_df)
-                .mark_text(fontSize=10, fontWeight=600, clip=False)
+                alt.Chart(inner_labels_df)
+                .mark_text(fontSize=9, fontWeight=600, clip=False)
                 .encode(
                     x=x_encoding,
                     y=alt.Y(f"{value_column}:Q", title=y_title, stack="center"),
@@ -2874,7 +2974,19 @@ def _stacked_history_bar_chart(
                     color=alt.Color("label_color:N", scale=None, legend=None),
                 )
             )
-            layered = chart + segment_labels
+            layered = layered + segment_labels
+        if not outer_labels_df.empty:
+            outside_labels = (
+                alt.Chart(outer_labels_df)
+                .mark_text(fontSize=9, fontWeight=700, dy=-4, color="#111111", clip=False)
+                .encode(
+                    x=x_encoding,
+                    y=alt.Y("outside_label_y:Q", title=y_title),
+                    detail="serie:N",
+                    text=alt.Text("label_fmt:N"),
+                )
+            )
+            layered = layered + outside_labels
     if show_total_labels:
         totals_df = (
             chart_df.groupby("competencia", as_index=False, dropna=False)[value_column]
@@ -2884,7 +2996,7 @@ def _stacked_history_bar_chart(
         totals_df["total_fmt"] = totals_df["valor_total"].map(_format_brl_compact if y_title == "R$" else _format_percent)
         total_labels = (
             alt.Chart(totals_df)
-            .mark_text(dy=-9, fontSize=11, fontWeight=700, color="#111111", clip=False)
+            .mark_text(dy=-12, fontSize=11, fontWeight=700, color="#111111", clip=False)
             .encode(
                 x=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
                 y=alt.Y("valor_total:Q", title=y_title),

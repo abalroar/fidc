@@ -24,8 +24,8 @@ class FIDCBookTests(unittest.TestCase):
 
         markdown = index.load_page_markdown(page)
 
-        self.assertIn("Book FIDC", markdown)
-        self.assertIn("Resolução CVM 175", markdown)
+        self.assertIn("Guia de uso deste glossário", markdown)
+        self.assertIn("Informe Mensal Estruturado", markdown)
 
     def test_search_pages_matches_keywords(self) -> None:
         index = load_fidc_book_index()

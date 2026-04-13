@@ -205,6 +205,7 @@ def build_dashboard_data(
     methodology_notes = [
         "Direitos creditórios priorizam o campo CVM DICRED/VL_DICRED e usam campos legados CRED_EXISTE apenas como fallback.",
         "Índice de subordinação é calculado como PL subordinado dividido pelo PL total das cotas reportadas.",
+        "Inadimplência e cobertura de provisão priorizam a malha de vencimento dos direitos creditórios (vencidos + a vencer); campos agregados em APLIC_ATIVO ficam como fallback.",
         "Resgate solicitado usa os campos RESG_SOLIC do Informe Mensal e aceita tanto VL_PAGO quanto VL_COTAS, pois há divergência observada entre schema e XML real.",
         "Indicadores como cobertura, relação mínima, reservas, rating, coobrigação e eventos contratuais exigem documentação complementar.",
     ]
@@ -463,6 +464,28 @@ def _sum_paths_series_nullable(
     return pd.concat(parts, axis=1).sum(axis=1, min_count=1)
 
 
+def _prefer_nonzero_series(*series_list: pd.Series) -> pd.Series:
+    if not series_list:
+        return pd.Series(dtype="float64")
+    normalized = [pd.to_numeric(series, errors="coerce") for series in series_list]
+    index = normalized[0].index
+    output = pd.Series(index=index, dtype="float64")
+    for key in index:
+        chosen = float("nan")
+        values = [series.loc[key] for series in normalized]
+        for value in values:
+            if pd.notna(value) and float(value) > 0:
+                chosen = float(value)
+                break
+        if pd.isna(chosen):
+            for value in values:
+                if pd.notna(value):
+                    chosen = float(value)
+                    break
+        output.loc[key] = chosen
+    return output
+
+
 def _maturity_future_series(wide_lookup: pd.DataFrame, competencias: list[str]) -> pd.Series:
     future_suffixes = [
         "VL_PRAZO_VENC_30",
@@ -653,9 +676,12 @@ def _build_summary(
         "liquidez_30": _materialize_status_value(liquidez_30_value, liquidez_30_status),
         "subordinacao_pct": _float_or_none(subordination_row.get("subordinacao_pct")),
         "inadimplencia_total": _float_or_none(default_row.get("inadimplencia_total")),
-        "inadimplencia_denominador": _float_or_none(default_row.get("direitos_creditorios")),
+        "inadimplencia_denominador": _float_or_none(default_row.get("direitos_creditorios_vencimento_total"))
+        or _float_or_none(default_row.get("direitos_creditorios")),
         "inadimplencia_pct": _float_or_none(default_row.get("inadimplencia_pct")),
         "provisao_total": _float_or_none(default_row.get("provisao_total")),
+        "direitos_creditorios_vencidos": _float_or_none(default_row.get("direitos_creditorios_vencidos")),
+        "direitos_creditorios_vencimento_total": _float_or_none(default_row.get("direitos_creditorios_vencimento_total")),
         "emissao_mes": _sum_event_metric(latest_events_df, "emissao", "valor_total"),
         "resgate_mes": _sum_event_metric(latest_events_df, "resgate", "valor_total"),
         "resgate_solicitado_mes": _materialize_status_value(
@@ -1161,21 +1187,25 @@ def _build_default_history(
     ).sum(axis=1, min_count=1)
     inadimplencia_total_prazo = _maturity_overdue_series(wide_lookup, competencias)
     inadimplencia_total_aging = _default_aging_total_series(wide_lookup, competencias)
-    # Use the maximum across all sources so that an explicit zero in the base
-    # fields (VL_CRED_TOTAL_VENC_INAD / VL_DICRED_TOTAL_VENC_INAD) does not
-    # shadow the maturity-bucket vencidos (VL_SOM_INAD_VENC), which is the
-    # same field shown in the "Vencidos" bar of the maturity chart.
-    inadimplencia_total = pd.concat(
-        [inadimplencia_total_prazo, inadimplencia_total_base, inadimplencia_total_aging],
-        axis=1,
-    ).max(axis=1)
+    inadimplencia_total = _prefer_nonzero_series(
+        inadimplencia_total_prazo,
+        inadimplencia_total_aging,
+        inadimplencia_total_base,
+    )
     direitos_creditorios_futuro = _maturity_future_series(wide_lookup, competencias)
-    direitos_creditorios_vencidos = inadimplencia_total_prazo.combine_first(inadimplencia_total_aging)
+    direitos_creditorios_vencidos = _prefer_nonzero_series(
+        inadimplencia_total_prazo,
+        inadimplencia_total_aging,
+        inadimplencia_total_base,
+    )
     direitos_creditorios_total = pd.concat(
         [direitos_creditorios_vencidos, direitos_creditorios_futuro],
         axis=1,
     ).sum(axis=1, min_count=1)
-    direitos_creditorios = direitos_creditorios_total.combine_first(direitos_creditorios_ativo)
+    direitos_creditorios = _prefer_nonzero_series(
+        direitos_creditorios_total,
+        direitos_creditorios_ativo,
+    )
     provisao_total = pd.concat(
         [
             _numeric_series_nullable(
@@ -1212,6 +1242,7 @@ def _build_default_history(
             "competencia": competencias,
             "competencia_dt": [_competencia_to_timestamp(competencia) for competencia in competencias],
             "direitos_creditorios_ativo": direitos_creditorios_ativo.values,
+            "direitos_creditorios_vencidos": direitos_creditorios_vencidos.values,
             "direitos_creditorios_vencimento_total": direitos_creditorios_total.values,
             "direitos_creditorios": direitos_creditorios.values,
             "inadimplencia_total": inadimplencia_total.values,

@@ -116,7 +116,7 @@ def build_risk_metrics_df(
             unit="%",
             criticality="critico",
             source_data="COMPMT_DICRED + APLIC_ATIVO",
-            transformation="Usa vencidos reportados na malha de prazo; se a linha de vencidos vier vazia, cai para o aging de inadimplência.",
+            transformation="Prioriza vencidos reportados na malha de prazo; se a linha de vencidos vier vazia, cai para o aging e só depois para agregados de APLIC_ATIVO.",
             final_variable="summary['inadimplencia_pct']",
             formula="inadimplencia_total / dc_total_reportado_por_vencimento * 100",
             pipeline="Informe Mensal -> _build_default_history -> default_history_df.[inadimplencia_total, direitos_creditorios] -> _build_summary -> summary['inadimplencia_pct']",
@@ -150,12 +150,12 @@ def build_risk_metrics_df(
             unit="%",
             criticality="monitorar",
             source_data="APLIC_ATIVO/CRED_EXISTE + APLIC_ATIVO/DICRED",
-            transformation="Relação entre provisão reportada e saldos inadimplentes.",
+            transformation="Relação entre provisão reportada e saldos vencidos observáveis; usa a malha de vencimento antes dos agregados de inadimplência.",
             final_variable="tracking_latest_df['Provisão / inadimplência']",
             formula="provisao_total / inadimplencia_total * 100",
             pipeline="Informe Mensal -> _build_default_history -> default_history_df.[provisao_total, inadimplencia_total] -> build_risk_metrics_df",
             interpretation="Mostra o quanto a inadimplência reportada está provisionada.",
-            limitation="Sem inadimplência reportada a métrica não se aplica; também não captura recompras ou resolução de cessão.",
+            limitation="Sem vencidos observáveis a métrica não se aplica; também não captura recompras ou resolução de cessão.",
             state=(
                 "calculado"
                 if _safe_pct(summary.get("provisao_total"), summary.get("inadimplencia_total")) is not None

@@ -177,7 +177,7 @@ def _build_story(
         _dataframe_table(
             _format_glossary_table(dashboard.mini_glossary_df),
             styles,
-            widths=[34 * mm, 88 * mm, 110 * mm],
+            widths=[42 * mm, 190 * mm],
         ),
         Spacer(1, 5 * mm),
         _section("Tabelas CVM Normalizadas", styles),
@@ -603,12 +603,11 @@ def _format_coverage_gap_table(df: pd.DataFrame) -> pd.DataFrame:
 
 def _format_glossary_table(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
-        return pd.DataFrame(columns=["Termo", "Definição curta", "Variação importante"])
+        return pd.DataFrame(columns=["Termo", "Definição"])
     output = df.copy()
     output["Termo"] = output["termo"]
-    output["Definição curta"] = output["definicao_curta"]
-    output["Variação importante"] = output["variacao_importante"]
-    return output[["Termo", "Definição curta", "Variação importante"]]
+    output["Definição"] = output.get("definicao_curta", output.get("definicao", "N/D"))
+    return output[["Termo", "Definição"]]
 
 
 def _status_label(value: object) -> str:
