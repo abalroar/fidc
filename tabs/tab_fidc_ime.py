@@ -814,6 +814,7 @@ def _render_dashboard(
         _render_financial_snapshot_cards(dashboard)
         _render_dashboard_context_bar(dashboard)
         _render_dashboard_controls(dashboard, context)
+        _render_modular_exports(dashboard, context)
         if docs_error:
             st.warning(f"{docs_error} informe(s) falharam no processamento. A leitura abaixo usa apenas os informes válidos.")
         _render_risk_overview(dashboard)
@@ -853,6 +854,63 @@ def _render_dashboard(
 def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
     if ENABLE_GLOBAL_PDF_EXPORT:
         _render_pdf_export_button(dashboard, context)
+
+
+def _render_modular_exports(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
+    """Exportação modular por bloco executivo — cada botão gera um PDF independente."""
+    try:
+        from services.fundonet_modular_export import (
+            build_subordination_pdf_bytes,
+            build_pl_pdf_bytes,
+            build_rentabilidade_pdf_bytes,
+            build_npl_pdf_bytes,
+            build_vencimento_pdf_bytes,
+            build_radar_pdf_bytes,
+        )
+    except Exception:  # noqa: BLE001
+        return  # silently skip if library unavailable
+
+    rid = context.get("request_id", "fidc")
+    fund_slug = (
+        str(dashboard.fund_info.get("cnpj_fundo") or rid)[:14]
+        .replace("/", "_")
+        .replace(".", "")
+        .replace("-", "")
+    )
+
+    with st.expander("Exportar blocos executivos (PDF por seção)", expanded=False):
+        st.caption(
+            "Gere PDFs individuais prontos para apresentação. "
+            "Cada bloco é independente e não depende do PDF completo do dashboard."
+        )
+        cols = st.columns(3)
+        _modular_btn(cols[0], "Radar de Risco", build_radar_pdf_bytes, dashboard, f"radar_{fund_slug}.pdf")
+        _modular_btn(cols[1], "Subordinação e Cotas", build_subordination_pdf_bytes, dashboard, f"subordinacao_{fund_slug}.pdf")
+        _modular_btn(cols[2], "Patrimônio Líquido", build_pl_pdf_bytes, dashboard, f"pl_{fund_slug}.pdf")
+        cols2 = st.columns(3)
+        _modular_btn(cols2[0], "Rentabilidade", build_rentabilidade_pdf_bytes, dashboard, f"rentabilidade_{fund_slug}.pdf")
+        _modular_btn(cols2[1], "Inadimplência / NPL", build_npl_pdf_bytes, dashboard, f"npl_{fund_slug}.pdf")
+        _modular_btn(cols2[2], "Vencimento + Duration", build_vencimento_pdf_bytes, dashboard, f"vencimento_duration_{fund_slug}.pdf")
+
+
+def _modular_btn(
+    container,  # noqa: ANN001
+    label: str,
+    builder,  # noqa: ANN001
+    dashboard: FundonetDashboardData,
+    filename: str,
+) -> None:
+    try:
+        pdf_bytes = builder(dashboard)
+        container.download_button(
+            f"PDF — {label}",
+            data=pdf_bytes,
+            file_name=filename,
+            mime="application/pdf",
+            use_container_width=True,
+        )
+    except Exception as exc:  # noqa: BLE001
+        container.caption(f"Erro ao gerar {label}: {exc}")
 
 
 def _render_risk_overview(dashboard: FundonetDashboardData) -> None:
