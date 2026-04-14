@@ -668,42 +668,29 @@ def _latest_aging_table_frame(frame: pd.DataFrame) -> pd.DataFrame:
     if frame.empty:
         return pd.DataFrame({"Faixa": ["Sem dados"], "Valor": ["-"], "%": ["-"]})
     output = frame.copy()
-    output = output[output["ordem"] <= 7].copy()
-    if output.empty:
-        return pd.DataFrame({"Faixa": ["Sem dados"], "Valor": ["-"], "%": ["-"]})
+    percent_column = "percentual_direitos_creditorios" if "percentual_direitos_creditorios" in output.columns else "percentual"
     output["Faixa"] = output["faixa"]
     output["Valor"] = output["valor"].map(_format_brl_compact)
-    output["%"] = output["percentual"].map(_format_percent)
+    output["%"] = output[percent_column].map(_format_percent)
     return output[["Faixa", "Valor", "%"]]
 
 
 def _build_over_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.DataFrame:
-    default_history_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
-    bucket_history_df = dashboard.default_buckets_history_df.copy()
-    if default_history_df.empty or bucket_history_df.empty:
+    over_history_df = dashboard.default_over_history_df.sort_values("competencia_dt").copy()
+    if over_history_df.empty:
         return pd.DataFrame(columns=["competencia"])
-    bucket_history_df["valor"] = pd.to_numeric(bucket_history_df["valor"], errors="coerce").fillna(0.0)
-    denominator = _series_numeric(default_history_df, "direitos_creditorios_vencimento_total")
-    if denominator.dropna().empty:
-        denominator = _series_numeric(default_history_df, "direitos_creditorios")
-    denominator = denominator.fillna(0.0)
-    bucket_specs = [
-        ("Até 30d", 1, 1),
-        ("Over 30", 2, None),
-        ("Over 60", 3, None),
-        ("Over 90", 4, None),
-        ("Over 180", 7, None),
-        ("Over 360", 8, None),
-    ]
-    output = pd.DataFrame({"competencia": default_history_df["competencia"].tolist()})
-    for label, ordem_min, ordem_max in bucket_specs:
-        subset = bucket_history_df[bucket_history_df["ordem"] >= ordem_min].copy()
-        if ordem_max is not None:
-            subset = subset[subset["ordem"] <= ordem_max].copy()
-        grouped = subset.groupby("competencia", dropna=False)["valor"].sum()
-        aligned = grouped.reindex(output["competencia"]).fillna(0.0).reset_index(drop=True)
-        output[label] = ((aligned / denominator.reset_index(drop=True)).where(denominator.reset_index(drop=True) > 0) * 100.0).fillna(0.0)
-    return output
+    pivot = (
+        over_history_df[over_history_df["calculo_status"] == "calculado"]
+        .pivot(index="competencia", columns="serie", values="percentual")
+        .reset_index()
+    )
+    ordered_columns = ["competencia", "Over 30", "Over 60", "Over 90", "Over 180", "Over 360"]
+    for column in ordered_columns:
+        if column not in pivot.columns:
+            pivot[column] = 0.0 if column != "competencia" else pivot.get(column)
+    pivot = pivot[ordered_columns].copy()
+    pivot = pivot.fillna(0.0)
+    return pivot
 
 
 def _latest_over_table_frame(frame: pd.DataFrame) -> pd.DataFrame:

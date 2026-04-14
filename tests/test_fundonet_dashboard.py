@@ -29,7 +29,7 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(48.7804878, dashboard.summary["subordinacao_pct"] or 0.0, places=5)
         self.assertIsNone(dashboard.summary["direitos_creditorios"])
         self.assertIsNone(dashboard.summary["alocacao_pct"])
-        self.assertEqual("12/2025", dashboard.composition_latest_df["competencia"].iloc[0])
+        self.assertEqual("01/2026", dashboard.composition_latest_df["competencia"].iloc[0])
         self.assertAlmostEqual(2_000.0, dashboard.summary["emissao_mes"] or 0.0)
         self.assertAlmostEqual(500.0, dashboard.summary["amortizacao_mes"] or 0.0)
         self.assertAlmostEqual(250.0, dashboard.summary["resgate_solicitado_mes"] or 0.0)
@@ -166,7 +166,8 @@ class FundonetDashboardTests(unittest.TestCase):
             {"Risco de crédito", "Risco estrutural"},
             set(dashboard.risk_metrics_df["risk_block"]),
         )
-        self.assertAlmostEqual(35.0, risk_lookup.loc["inadimplencia_pct", "value"])
+        self.assertTrue(pd.isna(risk_lookup.loc["inadimplencia_pct", "value"]))
+        self.assertEqual("nao_calculavel", risk_lookup.loc["inadimplencia_pct", "state"])
         self.assertAlmostEqual(100.0, risk_lookup.loc["concentracao_segmento_proxy", "value"])
         self.assertEqual("critico", risk_lookup.loc["subordinacao_pct", "criticality"])
         self.assertIn("Índice de cobertura", dashboard.coverage_gap_df["tema"].tolist())
@@ -175,9 +176,17 @@ class FundonetDashboardTests(unittest.TestCase):
             "summary.inadimplencia_pct",
             dashboard.current_dashboard_inventory_df["nome_variavel"].tolist(),
         )
+        self.assertEqual(
+            "agregado_direitos_creditorios_item3",
+            dashboard.dc_canonical_history_df.iloc[0]["dc_total_fonte_efetiva"],
+        )
+        self.assertIn(
+            "Inadimplência Over",
+            dashboard.executive_memory_df["componente"].tolist(),
+        )
         self.assertAlmostEqual(2000.0, dashboard.liquidity_history_df.iloc[0]["liquidez_imediata"])
         self.assertAlmostEqual(100.0, dashboard.default_buckets_latest_df["percentual"].sum())
-        self.assertAlmostEqual(20.0, dashboard.summary["inadimplencia_denominador"] or 0.0)
+        self.assertAlmostEqual(16_000.0, dashboard.summary["inadimplencia_denominador"] or 0.0)
 
     def test_build_dashboard_data_preserves_missing_history_as_nan(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:

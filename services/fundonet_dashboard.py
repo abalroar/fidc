@@ -34,6 +34,48 @@ EVENT_INTERPRETATION = {
     "amortizacao": "Devolução de capital aos cotistas; sinal econômico negativo.",
 }
 
+_MALHA_BASES = ["COMPMT_DICRED_AQUIS", "COMPMT_DICRED_SEM_AQUIS"]
+_MALHA_FUTURE_SUFFIXES = [
+    "VL_PRAZO_VENC_30",
+    "VL_PRAZO_VENC_31_60",
+    "VL_PRAZO_VENC_61_90",
+    "VL_PRAZO_VENC_91_120",
+    "VL_PRAZO_VENC_121_150",
+    "VL_PRAZO_VENC_151_180",
+    "VL_PRAZO_VENC_181_360",
+    "VL_PRAZO_VENC_361_720",
+    "VL_PRAZO_VENC_721_1080",
+    "VL_PRAZO_VENC_1080",
+]
+_AGING_SUFFIXES = [
+    "VL_INAD_VENC_30",
+    "VL_INAD_VENC_31_60",
+    "VL_INAD_VENC_61_90",
+    "VL_INAD_VENC_91_120",
+    "VL_INAD_VENC_121_150",
+    "VL_INAD_VENC_151_180",
+    "VL_INAD_VENC_181_360",
+    "VL_INAD_VENC_361_720",
+    "VL_INAD_VENC_721_1080",
+    "VL_INAD_VENC_1080",
+]
+_GRANULAR_DC_TOTAL_PATHS = [
+    "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_ADIMPL",
+    "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_INAD",
+    "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_INAD",
+    "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_CEDENT",
+    "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_VENC_INAD",
+    "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_INAD",
+]
+_AGGREGATE_DC_TOTAL_PATHS = [
+    "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_SOM_DICRED_AQUIS",
+    "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED",
+]
+_AGGREGATE_OVERDUE_TOTAL_PATHS = [
+    "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_TOTAL_VENC_INAD",
+    "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_TOTAL_VENC_INAD",
+]
+
 
 @dataclass(frozen=True)
 class FundonetDashboardData:
@@ -55,9 +97,12 @@ class FundonetDashboardData:
     return_summary_df: pd.DataFrame
     performance_vs_benchmark_latest_df: pd.DataFrame
     event_history_df: pd.DataFrame
+    dc_canonical_history_df: pd.DataFrame
     default_history_df: pd.DataFrame
     default_buckets_latest_df: pd.DataFrame
     default_buckets_history_df: pd.DataFrame
+    default_aging_history_df: pd.DataFrame
+    default_over_history_df: pd.DataFrame
     holder_latest_df: pd.DataFrame
     rate_negotiation_latest_df: pd.DataFrame
     tracking_latest_df: pd.DataFrame
@@ -66,6 +111,7 @@ class FundonetDashboardData:
     coverage_gap_df: pd.DataFrame
     mini_glossary_df: pd.DataFrame
     current_dashboard_inventory_df: pd.DataFrame
+    executive_memory_df: pd.DataFrame
     methodology_notes: list[str]
 
 
@@ -112,13 +158,19 @@ def build_dashboard_data(
         listas_df=listas_df,
         competencias=competencias,
     )
+    dc_canonical_history_df = _build_dc_canonical_history_df(
+        wide_lookup=wide_lookup,
+        competencias=competencias,
+    )
     asset_history_df = _build_asset_history(
         wide_lookup=wide_lookup,
         competencias=competencias,
+        dc_canonical_history_df=dc_canonical_history_df,
     )
     default_history_df = _build_default_history(
         wide_lookup=wide_lookup,
         competencias=competencias,
+        dc_canonical_history_df=dc_canonical_history_df,
     )
     event_history_df = _decorate_event_history(
         event_history_df=raw_event_history_df,
@@ -150,10 +202,19 @@ def build_dashboard_data(
     default_buckets_latest_df = _build_default_buckets_latest_df(
         wide_lookup=wide_lookup,
         latest_competencia=latest_competencia,
+        dc_canonical_history_df=dc_canonical_history_df,
     )
     default_buckets_history_df = _build_default_buckets_history_df(
         wide_lookup=wide_lookup,
         competencias=competencias,
+    )
+    default_aging_history_df = _build_default_aging_history_df(
+        default_buckets_history_df=default_buckets_history_df,
+        dc_canonical_history_df=dc_canonical_history_df,
+    )
+    default_over_history_df = _build_default_over_history_df(
+        default_buckets_history_df=default_buckets_history_df,
+        dc_canonical_history_df=dc_canonical_history_df,
     )
     holder_latest_df = _build_holder_latest_df(
         wide_lookup=wide_lookup,
@@ -177,6 +238,7 @@ def build_dashboard_data(
         subordination_history_df=subordination_history_df,
         default_history_df=default_history_df,
         event_history_df=event_history_df,
+        dc_canonical_history_df=dc_canonical_history_df,
     )
     tracking_latest_df = _build_tracking_latest_df(
         summary=summary,
@@ -201,11 +263,18 @@ def build_dashboard_data(
     coverage_gap_df = build_coverage_gap_df()
     mini_glossary_df = build_mini_glossary_df()
     current_dashboard_inventory_df = build_current_dashboard_inventory_df()
+    executive_memory_df = _build_executive_memory_df(
+        latest_competencia=latest_competencia,
+        summary=summary,
+        dc_canonical_history_df=dc_canonical_history_df,
+        default_buckets_latest_df=default_buckets_latest_df,
+        risk_metrics_df=risk_metrics_df,
+    )
 
     methodology_notes = [
-        "Direitos creditórios priorizam o campo CVM DICRED/VL_DICRED e usam campos legados CRED_EXISTE apenas como fallback.",
+        "Direitos creditórios totais usam uma base canônica única: 1) malha de vencimento (vencidos + a vencer), 2) estoque granular em APLIC_ATIVO, 3) agregados VL_SOM_DICRED_AQUIS + VL_DICRED.",
         "Índice de subordinação é calculado como PL subordinado dividido pelo PL total das cotas reportadas.",
-        "Inadimplência e cobertura de provisão priorizam a malha de vencimento dos direitos creditórios (vencidos + a vencer); campos agregados em APLIC_ATIVO ficam como fallback.",
+        "Inadimplência e cobertura de provisão usam a mesma base canônica de direitos creditórios; buckets do aging preservam status de fonte para distinguir zero reportado de ausência de campo.",
         "Resgate solicitado usa os campos RESG_SOLIC do Informe Mensal e aceita tanto VL_PAGO quanto VL_COTAS, pois há divergência observada entre schema e XML real.",
         "Indicadores como cobertura, relação mínima, reservas, rating, coobrigação e eventos contratuais exigem documentação complementar.",
     ]
@@ -229,9 +298,12 @@ def build_dashboard_data(
         return_summary_df=return_summary_df,
         performance_vs_benchmark_latest_df=performance_vs_benchmark_latest_df,
         event_history_df=event_history_df,
+        dc_canonical_history_df=dc_canonical_history_df,
         default_history_df=default_history_df,
         default_buckets_latest_df=default_buckets_latest_df,
         default_buckets_history_df=default_buckets_history_df,
+        default_aging_history_df=default_aging_history_df,
+        default_over_history_df=default_over_history_df,
         holder_latest_df=holder_latest_df,
         rate_negotiation_latest_df=rate_negotiation_latest_df,
         tracking_latest_df=tracking_latest_df,
@@ -240,6 +312,7 @@ def build_dashboard_data(
         coverage_gap_df=coverage_gap_df,
         mini_glossary_df=mini_glossary_df,
         current_dashboard_inventory_df=current_dashboard_inventory_df,
+        executive_memory_df=executive_memory_df,
         methodology_notes=methodology_notes,
     )
 
@@ -410,6 +483,97 @@ def _sum_latest_path_groups_with_status(
         "source_paths": sum(int(info["source_paths"]) for info in group_infos),
         "present_source_paths": sum(int(info["present_source_paths"]) for info in group_infos),
     }
+
+
+def _sum_paths_history_with_status(
+    wide_lookup: pd.DataFrame,
+    competencias: list[str],
+    tag_paths: list[str],
+) -> pd.DataFrame:
+    rows: list[dict[str, object]] = []
+    for competencia in competencias:
+        rows.append(
+            {
+                "competencia": competencia,
+                "competencia_dt": _competencia_to_timestamp(competencia),
+                **_sum_latest_paths_with_status(wide_lookup, competencia, tag_paths),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def _accepted_info(info: dict[str, object], *, min_present_paths: int = 1) -> bool:
+    status = str(info.get("source_status") or "")
+    present_paths = int(info.get("present_source_paths") or 0)
+    return (
+        status in {"reported_value", "reported_zero"}
+        and info.get("valor_raw") is not None
+        and present_paths >= min_present_paths
+    )
+
+
+def _compose_info(
+    parts: list[dict[str, object]],
+    *,
+    require_all_parts: bool = True,
+) -> dict[str, object]:
+    statuses = [str(info.get("source_status") or "not_available") for info in parts]
+    source_paths = sum(int(info.get("source_paths") or 0) for info in parts)
+    present_source_paths = sum(int(info.get("present_source_paths") or 0) for info in parts)
+    values: list[float] = []
+    missing_part = False
+    for info in parts:
+        raw = info.get("valor_raw")
+        if raw is None:
+            missing_part = True
+            continue
+        values.append(float(raw))
+    total = None
+    if values and (not require_all_parts or not missing_part):
+        total = float(sum(values))
+    return {
+        "valor": total if total is not None else 0.0,
+        "valor_raw": total,
+        "source_status": _combine_source_status(statuses, total),
+        "source_paths": source_paths,
+        "present_source_paths": present_source_paths,
+    }
+
+
+def _select_canonical_info(
+    candidates: list[tuple[str, dict[str, object], int]],
+) -> dict[str, object]:
+    for source_kind, info, min_present_paths in candidates:
+        if _accepted_info(info, min_present_paths=min_present_paths):
+            return {
+                **info,
+                "source_kind": source_kind,
+            }
+    return {
+        "valor": 0.0,
+        "valor_raw": None,
+        "source_status": "not_available",
+        "source_paths": 0,
+        "present_source_paths": 0,
+        "source_kind": "not_available",
+    }
+
+
+def _canonical_dc_total_path_labels() -> str:
+    return (
+        "1) COMPMT_DICRED_AQUIS + COMPMT_DICRED_SEM_AQUIS (vencidos + a vencer); "
+        "2) estoque granular em APLIC_ATIVO; "
+        "3) agregados VL_SOM_DICRED_AQUIS + VL_DICRED."
+    )
+
+
+def _reconciliation_status(base_value: float | None, compare_value: float | None) -> tuple[str, float | None]:
+    if base_value is None or compare_value is None or base_value <= 0 or compare_value <= 0:
+        return "sem_base", None
+    gap_pct = abs(base_value - compare_value) / max(abs(base_value), abs(compare_value)) * 100.0
+    if gap_pct <= 1.0:
+        return "conciliado", gap_pct
+    return "divergente", gap_pct
 
 
 def _materialize_status_value(value: object, status: object) -> float | None:
@@ -604,6 +768,177 @@ def _build_fund_info(
     }
 
 
+def _build_dc_canonical_history_df(
+    *,
+    wide_lookup: pd.DataFrame,
+    competencias: list[str],
+) -> pd.DataFrame:
+    future_paths = [
+        f"DOC_ARQ/LISTA_INFORM/{base}/{suffix}"
+        for suffix in _MALHA_FUTURE_SUFFIXES
+        for base in _MALHA_BASES
+    ]
+    overdue_maturity_paths = [
+        f"DOC_ARQ/LISTA_INFORM/{base}/VL_SOM_INAD_VENC"
+        for base in _MALHA_BASES
+    ]
+    aging_paths = [
+        f"DOC_ARQ/LISTA_INFORM/{base}/{suffix}"
+        for suffix in _AGING_SUFFIXES
+        for base in _MALHA_BASES
+    ]
+    rows: list[dict[str, object]] = []
+    for competencia in competencias:
+        future_info = _sum_latest_paths_with_status(wide_lookup, competencia, future_paths)
+        overdue_maturity_info = _sum_latest_paths_with_status(wide_lookup, competencia, overdue_maturity_paths)
+        overdue_aging_info = _sum_latest_paths_with_status(wide_lookup, competencia, aging_paths)
+        overdue_aggregate_info = _sum_latest_paths_with_status(wide_lookup, competencia, _AGGREGATE_OVERDUE_TOTAL_PATHS)
+        overdue_effective = _select_canonical_info(
+            [
+                ("malha_vencimento", overdue_maturity_info, 1),
+                ("aging_inadimplencia", overdue_aging_info, 4),
+                ("agregado_vencidos_aplic_ativo", overdue_aggregate_info, 1),
+            ]
+        )
+        maturity_total_info = _compose_info([future_info, overdue_effective], require_all_parts=True)
+        maturity_min_present_paths = 2 if overdue_effective.get("source_kind") == "malha_vencimento" else 6
+        granular_total_info = _sum_latest_paths_with_status(wide_lookup, competencia, _GRANULAR_DC_TOTAL_PATHS)
+        aggregate_total_info = _sum_latest_paths_with_status(wide_lookup, competencia, _AGGREGATE_DC_TOTAL_PATHS)
+        total_effective = _select_canonical_info(
+            [
+                ("malha_vencimento", maturity_total_info, maturity_min_present_paths),
+                ("estoque_granular_aplic_ativo", granular_total_info, 2),
+                ("agregado_direitos_creditorios_item3", aggregate_total_info, 1),
+            ]
+        )
+        recon_malha_granular_status, recon_malha_granular_gap = _reconciliation_status(
+            _to_numeric(maturity_total_info.get("valor_raw")),
+            _to_numeric(granular_total_info.get("valor_raw")),
+        )
+        recon_malha_agregado_status, recon_malha_agregado_gap = _reconciliation_status(
+            _to_numeric(maturity_total_info.get("valor_raw")),
+            _to_numeric(aggregate_total_info.get("valor_raw")),
+        )
+        rows.append(
+            {
+                "competencia": competencia,
+                "competencia_dt": _competencia_to_timestamp(competencia),
+                "dc_total_canonico": _to_numeric(total_effective.get("valor_raw")),
+                "dc_total_fonte_efetiva": total_effective.get("source_kind"),
+                "dc_total_source_status": total_effective.get("source_status"),
+                "dc_total_malha_vencimento": _to_numeric(maturity_total_info.get("valor_raw")),
+                "dc_total_estoque_granular": _to_numeric(granular_total_info.get("valor_raw")),
+                "dc_total_agregado_item3": _to_numeric(aggregate_total_info.get("valor_raw")),
+                "dc_total_present_source_paths": total_effective.get("present_source_paths"),
+                "dc_total_source_paths": total_effective.get("source_paths"),
+                "dc_vencidos_canonico": _to_numeric(overdue_effective.get("valor_raw")),
+                "dc_vencidos_fonte_efetiva": overdue_effective.get("source_kind"),
+                "dc_vencidos_source_status": overdue_effective.get("source_status"),
+                "dc_vencidos_malha_vencimento": _to_numeric(overdue_maturity_info.get("valor_raw")),
+                "dc_vencidos_aging": _to_numeric(overdue_aging_info.get("valor_raw")),
+                "dc_vencidos_agregado_aplic_ativo": _to_numeric(overdue_aggregate_info.get("valor_raw")),
+                "dc_a_vencer_canonico": _to_numeric(future_info.get("valor_raw")),
+                "dc_a_vencer_source_status": future_info.get("source_status"),
+                "reconciliacao_malha_vs_estoque_status": recon_malha_granular_status,
+                "reconciliacao_malha_vs_estoque_gap_pct": recon_malha_granular_gap,
+                "reconciliacao_malha_vs_agregado_status": recon_malha_agregado_status,
+                "reconciliacao_malha_vs_agregado_gap_pct": recon_malha_agregado_gap,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def _build_default_aging_history_df(
+    *,
+    default_buckets_history_df: pd.DataFrame,
+    dc_canonical_history_df: pd.DataFrame,
+) -> pd.DataFrame:
+    if default_buckets_history_df.empty or dc_canonical_history_df.empty:
+        return pd.DataFrame(
+            columns=[
+                "competencia",
+                "competencia_dt",
+                "ordem",
+                "faixa",
+                "valor",
+                "percentual_direitos_creditorios",
+                "source_status",
+            ]
+        )
+    df = default_buckets_history_df.copy()
+    df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
+    denominator_df = dc_canonical_history_df[["competencia", "dc_total_canonico", "dc_total_fonte_efetiva"]].copy()
+    df = df.merge(denominator_df, on="competencia", how="left")
+    df["percentual_direitos_creditorios"] = (
+        df["valor"] / pd.to_numeric(df["dc_total_canonico"], errors="coerce")
+    ).where(pd.to_numeric(df["dc_total_canonico"], errors="coerce") > 0).mul(100.0)
+    return df
+
+
+def _build_default_over_history_df(
+    *,
+    default_buckets_history_df: pd.DataFrame,
+    dc_canonical_history_df: pd.DataFrame,
+) -> pd.DataFrame:
+    if default_buckets_history_df.empty or dc_canonical_history_df.empty:
+        return pd.DataFrame(
+            columns=[
+                "competencia",
+                "competencia_dt",
+                "ordem",
+                "serie",
+                "valor",
+                "percentual",
+                "calculo_status",
+                "denominador_fonte",
+            ]
+        )
+    source_df = default_buckets_history_df.copy()
+    source_df["valor"] = pd.to_numeric(source_df["valor"], errors="coerce").fillna(0.0)
+    denominator_lookup = dc_canonical_history_df.set_index("competencia", drop=False)
+    bucket_specs = [
+        ("Over 30", 2, None),
+        ("Over 60", 3, None),
+        ("Over 90", 4, None),
+        ("Over 180", 7, None),
+        ("Over 360", 8, None),
+    ]
+    rows: list[dict[str, object]] = []
+    for ordem, (serie, ordem_min, ordem_max) in enumerate(bucket_specs, start=1):
+        subset = source_df[source_df["ordem"] >= ordem_min].copy()
+        if ordem_max is not None:
+            subset = subset[subset["ordem"] <= ordem_max].copy()
+        for competencia, group_df in subset.groupby("competencia", dropna=False):
+            if competencia not in denominator_lookup.index:
+                continue
+            denom_row = denominator_lookup.loc[competencia]
+            denominator = _to_numeric(denom_row.get("dc_total_canonico"))
+            statuses = {str(value or "") for value in group_df.get("source_status", pd.Series(dtype="object")).tolist()}
+            incomplete = bool(statuses - {"reported_value", "reported_zero"})
+            valor = float(group_df["valor"].sum())
+            percentual = None
+            calculo_status = "calculado"
+            if denominator is None or denominator <= 0:
+                calculo_status = "sem_denominador"
+            elif incomplete:
+                calculo_status = "bucket_incompleto"
+            else:
+                percentual = valor / denominator * 100.0
+            rows.append(
+                {
+                    "competencia": competencia,
+                    "competencia_dt": group_df["competencia_dt"].iloc[0],
+                    "ordem": ordem,
+                    "serie": serie,
+                    "valor": valor,
+                    "percentual": percentual,
+                    "calculo_status": calculo_status,
+                    "denominador_fonte": denom_row.get("dc_total_fonte_efetiva"),
+                }
+            )
+    return pd.DataFrame(rows).sort_values(["competencia_dt", "ordem"]).reset_index(drop=True)
+
+
 def _build_summary(
     *,
     latest_competencia: str,
@@ -612,12 +947,14 @@ def _build_summary(
     subordination_history_df: pd.DataFrame,
     default_history_df: pd.DataFrame,
     event_history_df: pd.DataFrame,
+    dc_canonical_history_df: pd.DataFrame,
 ) -> dict[str, float | str | None]:
     asset_row = _latest_row(asset_history_df, latest_competencia)
     subordination_row = _latest_row(subordination_history_df, latest_competencia)
     default_row = _latest_row(default_history_df, latest_competencia)
+    dc_row = _latest_row(dc_canonical_history_df, latest_competencia)
     latest_events_df = event_history_df[event_history_df["competencia"] == latest_competencia].copy()
-    direitos_creditorios = _float_or_none(asset_row.get("direitos_creditorios"))
+    direitos_creditorios = _float_or_none(dc_row.get("dc_total_canonico"))
     carteira = _float_or_none(asset_row.get("carteira"))
     outros_ativos = _float_or_none(asset_row.get("outros_ativos_carteira"))
     alocacao_pct = _float_or_none(asset_row.get("alocacao_pct"))
@@ -645,23 +982,12 @@ def _build_summary(
             ],
         ],
     )
+    if direitos_creditorios is not None and direitos_creditorios <= 0:
+        direitos_creditorios = None
     if carteira and carteira > 0 and (direitos_creditorios is None or direitos_creditorios <= 0):
         direitos_creditorios = None
         outros_ativos = None
         alocacao_pct = None
-
-    # Fallback: when VL_DICRED is absent, compute total from maturity buckets
-    # (vencidos + all future buckets) — the same data shown in the maturity chart.
-    if not direitos_creditorios or direitos_creditorios <= 0:
-        maturity_future = float(
-            _maturity_future_series(wide_lookup, [latest_competencia]).iloc[0] or 0
-        )
-        maturity_overdue = float(
-            _maturity_overdue_series(wide_lookup, [latest_competencia]).iloc[0] or 0
-        )
-        maturity_total = maturity_future + maturity_overdue
-        if maturity_total > 0:
-            direitos_creditorios = maturity_total
 
     return {
         "pl_total": _float_or_none(subordination_row.get("pl_total")),
@@ -670,6 +996,7 @@ def _build_summary(
         "ativos_totais": _float_or_none(asset_row.get("ativos_totais")),
         "carteira": carteira,
         "direitos_creditorios": direitos_creditorios,
+        "direitos_creditorios_fonte": dc_row.get("dc_total_fonte_efetiva"),
         "outros_ativos_carteira": outros_ativos,
         "alocacao_pct": alocacao_pct,
         "liquidez_imediata": _materialize_status_value(liquidez_imediata_value, liquidez_imediata_status),
@@ -843,6 +1170,7 @@ def _build_asset_history(
     *,
     wide_lookup: pd.DataFrame,
     competencias: list[str],
+    dc_canonical_history_df: pd.DataFrame,
 ) -> pd.DataFrame:
     ativos_totais = _numeric_series_nullable(
         wide_lookup,
@@ -859,7 +1187,11 @@ def _build_asset_history(
         competencias,
         "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/LIQUIDEZ/VL_ATIV_LIQDEZ",
     )
-    direitos_creditorios = _direitos_creditorios_series(wide_lookup, competencias)
+    direitos_creditorios = (
+        pd.to_numeric(dc_canonical_history_df["dc_total_canonico"], errors="coerce")
+        if not dc_canonical_history_df.empty and "dc_total_canonico" in dc_canonical_history_df.columns
+        else _direitos_creditorios_series(wide_lookup, competencias)
+    )
     disponibilidades = _numeric_series_nullable(
         wide_lookup,
         competencias,
@@ -898,6 +1230,11 @@ def _build_asset_history(
             "ativos_totais": ativos_totais.values,
             "carteira": carteira.values,
             "direitos_creditorios": direitos_creditorios.values,
+            "direitos_creditorios_fonte": (
+                dc_canonical_history_df["dc_total_fonte_efetiva"].tolist()
+                if not dc_canonical_history_df.empty and "dc_total_fonte_efetiva" in dc_canonical_history_df.columns
+                else [pd.NA] * len(competencias)
+            ),
             "disponibilidades": disponibilidades.values,
             "valores_mobiliarios": valores_mobiliarios.values,
             "titulos_publicos": titulos_publicos.values,
@@ -1168,8 +1505,8 @@ def _build_default_history(
     *,
     wide_lookup: pd.DataFrame,
     competencias: list[str],
+    dc_canonical_history_df: pd.DataFrame,
 ) -> pd.DataFrame:
-    direitos_creditorios_ativo = _direitos_creditorios_series(wide_lookup, competencias)
     inadimplencia_total_base = pd.concat(
         [
             _numeric_series_nullable(
@@ -1192,20 +1529,27 @@ def _build_default_history(
         inadimplencia_total_aging,
         inadimplencia_total_base,
     )
-    direitos_creditorios_futuro = _maturity_future_series(wide_lookup, competencias)
-    direitos_creditorios_vencidos = _prefer_nonzero_series(
-        inadimplencia_total_prazo,
-        inadimplencia_total_aging,
-        inadimplencia_total_base,
+    direitos_creditorios_futuro = (
+        pd.to_numeric(dc_canonical_history_df["dc_a_vencer_canonico"], errors="coerce")
+        if not dc_canonical_history_df.empty and "dc_a_vencer_canonico" in dc_canonical_history_df.columns
+        else _maturity_future_series(wide_lookup, competencias)
     )
-    direitos_creditorios_total = pd.concat(
-        [direitos_creditorios_vencidos, direitos_creditorios_futuro],
-        axis=1,
-    ).sum(axis=1, min_count=1)
-    direitos_creditorios = _prefer_nonzero_series(
-        direitos_creditorios_total,
-        direitos_creditorios_ativo,
+    direitos_creditorios_vencidos = (
+        pd.to_numeric(dc_canonical_history_df["dc_vencidos_canonico"], errors="coerce")
+        if not dc_canonical_history_df.empty and "dc_vencidos_canonico" in dc_canonical_history_df.columns
+        else _prefer_nonzero_series(
+            inadimplencia_total_prazo,
+            inadimplencia_total_aging,
+            inadimplencia_total_base,
+        )
     )
+    direitos_creditorios_total = (
+        pd.to_numeric(dc_canonical_history_df["dc_total_canonico"], errors="coerce")
+        if not dc_canonical_history_df.empty and "dc_total_canonico" in dc_canonical_history_df.columns
+        else pd.concat([direitos_creditorios_vencidos, direitos_creditorios_futuro], axis=1).sum(axis=1, min_count=1)
+    )
+    direitos_creditorios = direitos_creditorios_total.copy()
+    inadimplencia_total = direitos_creditorios_vencidos.copy()
     provisao_total = pd.concat(
         [
             _numeric_series_nullable(
@@ -1241,10 +1585,20 @@ def _build_default_history(
         {
             "competencia": competencias,
             "competencia_dt": [_competencia_to_timestamp(competencia) for competencia in competencias],
-            "direitos_creditorios_ativo": direitos_creditorios_ativo.values,
+            "direitos_creditorios_ativo": direitos_creditorios_total.values,
             "direitos_creditorios_vencidos": direitos_creditorios_vencidos.values,
             "direitos_creditorios_vencimento_total": direitos_creditorios_total.values,
             "direitos_creditorios": direitos_creditorios.values,
+            "direitos_creditorios_fonte": (
+                dc_canonical_history_df["dc_total_fonte_efetiva"].tolist()
+                if not dc_canonical_history_df.empty and "dc_total_fonte_efetiva" in dc_canonical_history_df.columns
+                else [pd.NA] * len(competencias)
+            ),
+            "inadimplencia_fonte": (
+                dc_canonical_history_df["dc_vencidos_fonte_efetiva"].tolist()
+                if not dc_canonical_history_df.empty and "dc_vencidos_fonte_efetiva" in dc_canonical_history_df.columns
+                else [pd.NA] * len(competencias)
+            ),
             "inadimplencia_total": inadimplencia_total.values,
             "provisao_total": provisao_total.values,
             "pendencia_total": pendencia_total.values,
@@ -1256,7 +1610,12 @@ def _build_default_history(
     return df
 
 
-def _build_default_buckets_latest_df(*, wide_lookup: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
+def _build_default_buckets_latest_df(
+    *,
+    wide_lookup: pd.DataFrame,
+    latest_competencia: str,
+    dc_canonical_history_df: pd.DataFrame,
+) -> pd.DataFrame:
     bucket_specs = [
         ("Até 30 dias", ["VL_INAD_VENC_30"]),
         ("31 a 60 dias", ["VL_INAD_VENC_31_60"]),
@@ -1285,6 +1644,14 @@ def _build_default_buckets_latest_df(*, wide_lookup: pd.DataFrame, latest_compet
     frame = pd.DataFrame(rows)
     total = float(frame["valor"].sum()) if not frame.empty else 0.0
     frame["percentual"] = (frame["valor"] / total * 100.0) if total > 0 else pd.NA
+    denominator = None
+    if not dc_canonical_history_df.empty:
+        latest_dc = dc_canonical_history_df[dc_canonical_history_df["competencia"] == latest_competencia].copy()
+        if not latest_dc.empty:
+            denominator = _to_numeric(latest_dc.iloc[-1].get("dc_total_canonico"))
+    frame["percentual_direitos_creditorios"] = (
+        frame["valor"] / denominator * 100.0 if denominator and denominator > 0 else pd.NA
+    )
     return frame
 
 
@@ -1309,21 +1676,33 @@ def _build_default_buckets_history_df(
         paths = [
             f"DOC_ARQ/LISTA_INFORM/{base}/{suffix}"
             for suffix in suffixes
-            for base in ["COMPMT_DICRED_AQUIS", "COMPMT_DICRED_SEM_AQUIS"]
+            for base in _MALHA_BASES
         ]
-        series = sum(
-            _numeric_series(wide_lookup, competencias, path) for path in paths
-        )
-        for competencia, valor in zip(competencias, series):
+        history_info_df = _sum_paths_history_with_status(wide_lookup, competencias, paths)
+        for _, history_row in history_info_df.iterrows():
             rows.append({
-                "competencia": competencia,
-                "competencia_dt": _competencia_to_timestamp(competencia),
+                "competencia": history_row["competencia"],
+                "competencia_dt": history_row["competencia_dt"],
                 "ordem": ordem,
                 "faixa": faixa,
-                "valor": float(valor),
+                "valor": float(history_row["valor"]),
+                "valor_raw": history_row["valor_raw"],
+                "source_status": history_row["source_status"],
+                "source_paths": history_row["source_paths"],
+                "present_source_paths": history_row["present_source_paths"],
             })
     return pd.DataFrame(rows) if rows else pd.DataFrame(
-        columns=["competencia", "competencia_dt", "ordem", "faixa", "valor"]
+        columns=[
+            "competencia",
+            "competencia_dt",
+            "ordem",
+            "faixa",
+            "valor",
+            "valor_raw",
+            "source_status",
+            "source_paths",
+            "present_source_paths",
+        ]
     )
 
 
@@ -1617,6 +1996,173 @@ def _build_tracking_latest_df(
             ),
         },
     ]
+    return pd.DataFrame(rows)
+
+
+def _build_executive_memory_df(
+    *,
+    latest_competencia: str,
+    summary: dict[str, float | str | None],
+    dc_canonical_history_df: pd.DataFrame,
+    default_buckets_latest_df: pd.DataFrame,
+    risk_metrics_df: pd.DataFrame,
+) -> pd.DataFrame:
+    latest_dc_row = _latest_row(dc_canonical_history_df, latest_competencia)
+    aging_percent_col = (
+        "percentual_direitos_creditorios"
+        if "percentual_direitos_creditorios" in default_buckets_latest_df.columns
+        else "percentual"
+    )
+    rows = [
+        {
+            "tipo_variavel": "Base canônica",
+            "bloco_executivo": "Base comum",
+            "componente": "Direitos creditórios totais",
+            "variavel_final": "summary['direitos_creditorios']",
+            "numerador": "Estoque total de direitos creditórios",
+            "denominador": "Não se aplica",
+            "fonte_cvm": _canonical_dc_total_path_labels(),
+            "fonte_efetiva": latest_dc_row.get("dc_total_fonte_efetiva"),
+            "formula": "Escolha canônica em cascata: malha de vencimento -> estoque granular -> agregado item 3",
+            "observacao": "Todas as métricas percentuais sobre DCs passam a usar esta mesma base.",
+        },
+        {
+            "tipo_variavel": "Percentual",
+            "bloco_executivo": "Radar de risco / Crédito",
+            "componente": "Inadimplência / direitos creditórios",
+            "variavel_final": "summary['inadimplencia_pct']",
+            "numerador": "dc_vencidos_canonico",
+            "denominador": "dc_total_canonico",
+            "fonte_cvm": "VL_SOM_INAD_VENC com fallback para VL_INAD_VENC_*; denominador canônico de DC total.",
+            "fonte_efetiva": f"numerador={latest_dc_row.get('dc_vencidos_fonte_efetiva')} | denominador={latest_dc_row.get('dc_total_fonte_efetiva')}",
+            "formula": "dc_vencidos_canonico / dc_total_canonico * 100",
+            "observacao": "Mesma base usada no card de inadimplência e nos gráficos relativos de crédito.",
+        },
+        {
+            "tipo_variavel": "Percentual",
+            "bloco_executivo": "Crédito",
+            "componente": "Inadimplência x Provisão (% dos DCs)",
+            "variavel_final": "default_history_df.[inadimplencia_pct, provisao_total/dc_total_canonico]",
+            "numerador": "inadimplencia_total e provisao_total",
+            "denominador": "dc_total_canonico",
+            "fonte_cvm": "Inadimplência: COMPMT_DICRED/aging. Provisão: APLIC_ATIVO. Denominador: base canônica.",
+            "fonte_efetiva": latest_dc_row.get("dc_total_fonte_efetiva"),
+            "formula": "inadimplencia_total / dc_total_canonico; provisao_total / dc_total_canonico",
+            "observacao": "Unifica o denominador entre o card, o gráfico e a memória de cálculo.",
+        },
+        {
+            "tipo_variavel": "Bucket / distribuição",
+            "bloco_executivo": "Crédito",
+            "componente": "Aging da inadimplência",
+            "variavel_final": f"default_buckets_latest_df.valor + {aging_percent_col}",
+            "numerador": "Cada bucket VL_INAD_VENC_* por faixa",
+            "denominador": "dc_total_canonico para % dos DCs; total vencido para % interno do aging",
+            "fonte_cvm": "COMPMT_DICRED_AQUIS + COMPMT_DICRED_SEM_AQUIS",
+            "fonte_efetiva": latest_dc_row.get("dc_total_fonte_efetiva"),
+            "formula": "bucket / dc_total_canonico * 100 (gráficos relativos) e bucket / total_vencido * 100 (leitura interna do aging)",
+            "observacao": "A tabela técnica expõe as duas semânticas para evitar misturar % do aging com % dos DCs.",
+        },
+        {
+            "tipo_variavel": "Bucket / distribuição",
+            "bloco_executivo": "Crédito",
+            "componente": "Inadimplência Over",
+            "variavel_final": "default_over_history_df.percentual",
+            "numerador": "Soma cumulativa dos buckets vencidos acima do threshold",
+            "denominador": "dc_total_canonico",
+            "fonte_cvm": "Buckets VL_INAD_VENC_31_60 até VL_INAD_VENC_1080",
+            "fonte_efetiva": latest_dc_row.get("dc_total_fonte_efetiva"),
+            "formula": "Over X = Σ(buckets vencidos acima de X) / dc_total_canonico * 100",
+            "observacao": "Over 30, 60, 90, 180 e 360 são cumulativos; pontos com bucket incompleto saem do gráfico.",
+        },
+        {
+            "tipo_variavel": "Percentual",
+            "bloco_executivo": "Crédito",
+            "componente": "Cobertura de provisão",
+            "variavel_final": "provisao_total / direitos_creditorios_vencidos",
+            "numerador": "provisao_total",
+            "denominador": "direitos_creditorios_vencidos",
+            "fonte_cvm": "APLIC_ATIVO + base canônica de vencidos",
+            "fonte_efetiva": latest_dc_row.get("dc_vencidos_fonte_efetiva"),
+            "formula": "provisao_total / direitos_creditorios_vencidos * 100",
+            "observacao": "A cobertura não usa DC total; usa apenas o estoque vencido observável.",
+        },
+        {
+            "tipo_variavel": "Percentual",
+            "bloco_executivo": "Estrutura",
+            "componente": "Subordinação",
+            "variavel_final": "summary['subordinacao_pct']",
+            "numerador": "pl_subordinada",
+            "denominador": "pl_total",
+            "fonte_cvm": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
+            "fonte_efetiva": "qt_cotas * valor_cota por classe",
+            "formula": "pl_subordinada / pl_total * 100",
+            "observacao": "Proteção estrutural nominal; não substitui covenants documentais.",
+        },
+        {
+            "tipo_variavel": "Classe / PL",
+            "bloco_executivo": "Estrutura",
+            "componente": "PL por tipo de cota",
+            "variavel_final": "quota_pl_history_df",
+            "numerador": "qt_cotas * valor_cota por classe/série",
+            "denominador": "pl_total quando a visualização é percentual",
+            "fonte_cvm": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
+            "fonte_efetiva": "qt_cotas * valor_cota",
+            "formula": "pl_classe; share = pl_classe / Σ pl_classe",
+            "observacao": "A visualização alterna entre valores absolutos e participação relativa.",
+        },
+        {
+            "tipo_variavel": "Fluxo / evento",
+            "bloco_executivo": "Eventos de cotas",
+            "componente": "Resumo de emissões, resgates e amortizações",
+            "variavel_final": "event_summary_latest_df",
+            "numerador": "Σ eventos por tipo",
+            "denominador": "pl_total para a coluna % do PL",
+            "fonte_cvm": "OUTRAS_INFORM/CAPTA_RESGA_AMORTI",
+            "fonte_efetiva": "VL_TOTAL; em RESG_SOLIC aceita VL_PAGO e VL_COTAS",
+            "formula": "valor_total_assinado / pl_total * 100",
+            "observacao": "Mantém o sinal econômico separado do valor bruto.",
+        },
+        {
+            "tipo_variavel": "Bucket / distribuição",
+            "bloco_executivo": "Vencimento",
+            "componente": "Prazo de vencimento dos direitos creditórios",
+            "variavel_final": "maturity_latest_df",
+            "numerador": "Buckets VL_PRAZO_VENC_* + VL_SOM_INAD_VENC",
+            "denominador": "Não se aplica",
+            "fonte_cvm": "COMPMT_DICRED_AQUIS + COMPMT_DICRED_SEM_AQUIS",
+            "fonte_efetiva": "malha_vencimento",
+            "formula": "Soma por bucket de vencimento",
+            "observacao": "É a mesma malha usada como fonte primária do DC total canônico.",
+        },
+        {
+            "tipo_variavel": "Prazo / duration",
+            "bloco_executivo": "Vencimento",
+            "componente": "Duration estimada",
+            "variavel_final": "duration_history_df.duration_days",
+            "numerador": "Σ(saldo_bucket * prazo_proxy)",
+            "denominador": "Σ(saldo_bucket)",
+            "fonte_cvm": "maturity_history_df",
+            "fonte_efetiva": "malha_vencimento",
+            "formula": "Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket)",
+            "observacao": "Proxies de prazo ficam documentados no gráfico e na tabela técnica.",
+        },
+    ]
+    if not risk_metrics_df.empty:
+        for _, metric_row in risk_metrics_df.iterrows():
+            rows.append(
+                {
+                    "tipo_variavel": "Métrica de risco",
+                    "bloco_executivo": metric_row.get("risk_block"),
+                    "componente": metric_row.get("label"),
+                    "variavel_final": metric_row.get("final_variable"),
+                    "numerador": metric_row.get("transformation"),
+                    "denominador": metric_row.get("formula"),
+                    "fonte_cvm": metric_row.get("source_data"),
+                    "fonte_efetiva": summary.get("direitos_creditorios_fonte") if "direitos creditórios" in str(metric_row.get("label") or "").lower() else metric_row.get("source_data"),
+                    "formula": metric_row.get("formula"),
+                    "observacao": metric_row.get("limitation"),
+                }
+            )
     return pd.DataFrame(rows)
 
 

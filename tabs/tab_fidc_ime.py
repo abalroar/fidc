@@ -833,6 +833,7 @@ def _render_dashboard(
         _render_credit_risk_section(dashboard)
         _render_liquidity_risk_section(dashboard)
         _render_glossary_section(dashboard)
+        _render_calculation_memory_section(dashboard)
 
     with technical_tab:
         _render_execution_observability(context, elapsed_seconds=context.get("elapsed_seconds"))
@@ -992,10 +993,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 f"Inadimplência {_format_brl_compact(latest_default_row.get('inadimplencia_total'))} · "
                 f"Provisão {_format_brl_compact(latest_default_row.get('provisao_total'))}"
             )
-    over_history_df = _build_over_aging_history_df(
-        dashboard.default_buckets_history_df,
-        dashboard.default_history_df,
-    )
+    over_history_df = dashboard.default_over_history_df.copy()
     _render_chart_heading(st, "Inadimplência Over (somatório do aging)", "Parcelas vencidas acumuladas por threshold de atraso, como % dos direitos creditórios observáveis.")
     if over_history_df.empty:
         st.info("Dados de inadimplência Over não disponíveis nos informes selecionados.")
@@ -1003,6 +1001,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         over_chart_df = over_history_df[
             ["competencia", "competencia_dt", "serie", "percentual"]
         ].rename(columns={"percentual": "valor"})
+        over_chart_df = over_chart_df.dropna(subset=["valor"])
         st.altair_chart(
             _line_history_chart(
                 over_chart_df,
@@ -1016,17 +1015,17 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         st.caption(
             "Base regulatória CVM: no padrão XML 576, o somatório da inadimplência é o valor das parcelas inadimplentes e os campos VL_INAD_VENC_* representam valores vencidos e não pagos por faixa. Este gráfico acumula parcelas vencidas; não é conceito de arrasto."
         )
-    aging_history_df = _build_aging_history_display_df(
-        dashboard.default_buckets_history_df,
-        dashboard.default_history_df,
-    )
-    _render_chart_heading(st, "Aging da inadimplência", "% dos direitos creditórios totais, até 360 dias.")
+        over_incomplete = over_history_df[over_history_df["calculo_status"] != "calculado"].copy()
+        if not over_incomplete.empty:
+            st.caption("Competências com buckets incompletos não entram nas curvas Over para evitar subcontagem silenciosa.")
+    aging_history_df = dashboard.default_aging_history_df.copy()
+    _render_chart_heading(st, "Aging da inadimplência", "% dos direitos creditórios totais por faixa de atraso.")
     if aging_history_df.empty:
         st.info("Dados de aging não disponíveis nos informes selecionados.")
     else:
         st.altair_chart(
             _stacked_history_bar_chart(
-                aging_history_df.rename(columns={"faixa": "serie"}),
+                aging_history_df.rename(columns={"faixa": "serie", "percentual_direitos_creditorios": "percentual"}),
                 title=None,
                 y_title="% dos recebíveis",
                 value_column="percentual",
@@ -1043,7 +1042,6 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         st.caption(
             "Fonte: Informe Mensal - CVM. Cada barra mostra o aging completo do estoque vencido em relação ao total observável de direitos creditórios."
         )
-        _render_aging_omission_note(st, dashboard.default_buckets_latest_df)
     cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
     _render_chart_heading(st, "Cobertura de provisão", "Provisão / créditos vencidos ao longo do tempo (%).")
     if cobertura_df.empty:
@@ -1201,11 +1199,59 @@ def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
             col.markdown("")
 
 
+def _render_calculation_memory_section(dashboard: FundonetDashboardData) -> None:
+    _render_fidc_section(
+        "Memória de cálculo da aba",
+        "Rodapé técnico da visão executiva: base canônica, variáveis finais e fórmula usada em cada bloco.",
+    )
+    with st.expander("Base canônica de direitos creditórios", expanded=False):
+        st.dataframe(
+            _format_dc_canonical_audit_table(dashboard.dc_canonical_history_df),
+            width="stretch",
+            hide_index=True,
+        )
+    memory_df = dashboard.executive_memory_df.copy()
+    if memory_df.empty:
+        st.caption("Memória de cálculo indisponível nesta execução.")
+        return
+    ordered_types = [
+        "Base canônica",
+        "Percentual",
+        "Bucket / distribuição",
+        "Classe / PL",
+        "Fluxo / evento",
+        "Prazo / duration",
+        "Métrica de risco",
+    ]
+    for tipo in ordered_types:
+        subset = memory_df[memory_df["tipo_variavel"] == tipo].copy()
+        if subset.empty:
+            continue
+        with st.expander(tipo, expanded=False):
+            st.dataframe(
+                _format_executive_memory_table(subset),
+                width="stretch",
+                hide_index=True,
+            )
+
+
 def _render_audit_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section(
         "Base auditável",
         "Reconciliação completa entre dado bruto, transformação, output e limitação analítica.",
     )
+    with st.expander("Base canônica de direitos creditórios", expanded=False):
+        st.dataframe(
+            _format_dc_canonical_audit_table(dashboard.dc_canonical_history_df),
+            width="stretch",
+            hide_index=True,
+        )
+    with st.expander("Memória de cálculo da visão executiva", expanded=False):
+        st.dataframe(
+            _format_executive_memory_table(dashboard.executive_memory_df),
+            width="stretch",
+            hide_index=True,
+        )
     with st.expander("Memória de cálculo das métricas exibidas", expanded=False):
         st.dataframe(
             _format_risk_metrics_memory_table(dashboard.risk_metrics_df),
@@ -1387,26 +1433,16 @@ def _render_concentration_warning(container, segment_latest_df: pd.DataFrame) ->
 
 
 def _build_aging_display_df(default_buckets_latest_df: pd.DataFrame) -> pd.DataFrame:
-    if default_buckets_latest_df.empty:
-        return default_buckets_latest_df.copy()
-    if "ordem" not in default_buckets_latest_df.columns:
-        return default_buckets_latest_df.copy()
-    return default_buckets_latest_df[default_buckets_latest_df["ordem"] <= 7].copy()
+    return default_buckets_latest_df.copy()
 
 
 def _build_aging_history_display_df(
     default_buckets_history_df: pd.DataFrame,
     default_history_df: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Historical aging as % of total recebíveis (direitos_creditorios) per period.
-
-    Falls back to direitos_creditorios agregado só quando a malha de vencimento não vier preenchida.
-    """
     if default_buckets_history_df.empty or default_history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "ordem", "faixa", "valor", "percentual"])
-    # Filter to first 7 buckets (up to 360 days) and sort chronologically then
-    # by bucket order so series_order extracted downstream is ≤30d → 181-360d.
-    df = default_buckets_history_df[default_buckets_history_df["ordem"] <= 7].copy()
+    df = default_buckets_history_df.copy()
     df = df.sort_values(["competencia_dt", "ordem"])
     df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
     dc_df = default_history_df[["competencia"]].copy()
@@ -1431,7 +1467,6 @@ def _build_over_aging_history_df(
     denominator_df = default_history_df[["competencia", "competencia_dt"]].copy()
     denominator_df["denominador"] = _default_denominator_series(default_history_df).values
     bucket_specs = [
-        ("Até 30d", 1, 1),
         ("Over 30", 2, None),
         ("Over 60", 3, None),
         ("Over 90", 4, None),
@@ -1467,23 +1502,8 @@ def _build_over_aging_history_df(
 
 
 def _render_aging_omission_note(container, default_buckets_latest_df: pd.DataFrame) -> None:
-    if default_buckets_latest_df.empty or "ordem" not in default_buckets_latest_df.columns:
-        return
-    omitted_df = default_buckets_latest_df[default_buckets_latest_df["ordem"] > 7].copy()
-    if omitted_df.empty:
-        return
-    notes: list[str] = []
-    for _, row in omitted_df.iterrows():
-        faixa = str(row.get("faixa") or "Faixa")
-        status = str(row.get("source_status") or "")
-        if status == "reported_zero":
-            notes.append(f"Faixa '{faixa}' disponível na CVM — sem recebíveis nesse prazo para este fundo.")
-        elif status in {"missing_field", "not_reported", "not_available", "not_numeric"}:
-            notes.append(f"Faixa '{faixa}' não disponível na fonte de dados.")
-        else:
-            notes.append(f"Faixa '{faixa}' excluída do gráfico para concentrar a leitura até 360 dias.")
-    if notes:
-        container.caption(" | ".join(notes))
+    del container
+    del default_buckets_latest_df
 
 
 def _maturity_vencidos_caption(maturity_latest_df: pd.DataFrame) -> str | None:
@@ -2413,6 +2433,104 @@ def _format_risk_metrics_memory_table(metrics_df: pd.DataFrame) -> pd.DataFrame:
             "Interpretação",
             "Limitação",
             "Estado",
+        ]
+    ]
+
+
+def _format_dc_canonical_audit_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(
+            columns=[
+                "Competência",
+                "DC total canônico",
+                "Fonte efetiva",
+                "DC vencidos",
+                "DC a vencer",
+                "Malha x estoque",
+                "Malha x agregado",
+            ]
+        )
+    output = df.sort_values("competencia_dt").copy()
+    output["Competência"] = output["competencia"].map(_format_competencia_label)
+    output["DC total canônico"] = output["dc_total_canonico"].map(_format_brl_compact)
+    output["Fonte efetiva"] = output["dc_total_fonte_efetiva"].fillna("N/D")
+    output["DC vencidos"] = output["dc_vencidos_canonico"].map(_format_brl_compact)
+    output["DC a vencer"] = output["dc_a_vencer_canonico"].map(_format_brl_compact)
+    output["Malha x estoque"] = output.apply(
+        lambda row: _format_reconciliation_cell(
+            row.get("reconciliacao_malha_vs_estoque_status"),
+            row.get("reconciliacao_malha_vs_estoque_gap_pct"),
+        ),
+        axis=1,
+    )
+    output["Malha x agregado"] = output.apply(
+        lambda row: _format_reconciliation_cell(
+            row.get("reconciliacao_malha_vs_agregado_status"),
+            row.get("reconciliacao_malha_vs_agregado_gap_pct"),
+        ),
+        axis=1,
+    )
+    return output[
+        [
+            "Competência",
+            "DC total canônico",
+            "Fonte efetiva",
+            "DC vencidos",
+            "DC a vencer",
+            "Malha x estoque",
+            "Malha x agregado",
+        ]
+    ]
+
+
+def _format_reconciliation_cell(status: object, gap_pct: object) -> str:
+    status_text = str(status or "sem_base")
+    labels = {
+        "conciliado": "Conciliado",
+        "divergente": "Divergente",
+        "sem_base": "Sem base",
+    }
+    if gap_pct is None or _is_missing_value(gap_pct):
+        return labels.get(status_text, status_text)
+    return f"{labels.get(status_text, status_text)} ({_format_decimal(gap_pct, decimals=2)}%)"
+
+
+def _format_executive_memory_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(
+            columns=[
+                "Bloco",
+                "Componente",
+                "Variável final",
+                "Numerador",
+                "Denominador",
+                "Fonte CVM",
+                "Fonte efetiva",
+                "Fórmula",
+                "Observação",
+            ]
+        )
+    output = df.copy()
+    output["Bloco"] = output["bloco_executivo"]
+    output["Componente"] = output["componente"]
+    output["Variável final"] = output["variavel_final"]
+    output["Numerador"] = output["numerador"]
+    output["Denominador"] = output["denominador"]
+    output["Fonte CVM"] = output["fonte_cvm"]
+    output["Fonte efetiva"] = output["fonte_efetiva"]
+    output["Fórmula"] = output["formula"]
+    output["Observação"] = output["observacao"]
+    return output[
+        [
+            "Bloco",
+            "Componente",
+            "Variável final",
+            "Numerador",
+            "Denominador",
+            "Fonte CVM",
+            "Fonte efetiva",
+            "Fórmula",
+            "Observação",
         ]
     ]
 
@@ -3445,17 +3563,17 @@ def _default_cobertura_chart_frame(default_history_df: pd.DataFrame) -> pd.DataF
 def _default_denominator_series(default_history_df: pd.DataFrame) -> pd.Series:
     if default_history_df.empty:
         return pd.Series(dtype="float64")
+    canonical_total = (
+        pd.to_numeric(default_history_df["direitos_creditorios"], errors="coerce")
+        if "direitos_creditorios" in default_history_df.columns
+        else pd.Series(index=default_history_df.index, dtype="float64")
+    )
     total_vencimento = (
         pd.to_numeric(default_history_df["direitos_creditorios_vencimento_total"], errors="coerce")
         if "direitos_creditorios_vencimento_total" in default_history_df.columns
         else pd.Series(index=default_history_df.index, dtype="float64")
     )
-    direitos = (
-        pd.to_numeric(default_history_df["direitos_creditorios"], errors="coerce")
-        if "direitos_creditorios" in default_history_df.columns
-        else pd.Series(index=default_history_df.index, dtype="float64")
-    )
-    return total_vencimento.where(total_vencimento > 0, direitos)
+    return canonical_total.where(canonical_total > 0, total_vencimento)
 
 
 def _has_meaningful_benchmark(performance_df: pd.DataFrame) -> bool:
