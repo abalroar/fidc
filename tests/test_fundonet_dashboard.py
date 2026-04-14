@@ -245,6 +245,12 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertGreater(len(pptx_bytes), 10_000)
         presentation = Presentation(io.BytesIO(pptx_bytes))
         self.assertEqual(6, len(presentation.slides))
+        pl_charts = [shape.chart for shape in presentation.slides[1].shapes if getattr(shape, "has_chart", False)]
+        self.assertEqual(1, len(pl_charts))
+        pl_chart_xml = pl_charts[0]._chartSpace.xml
+        self.assertTrue(
+            '<c:max val="1"' in pl_chart_xml or '<c:max val="1.0"' in pl_chart_xml
+        )
 
     @staticmethod
     def _write_fixture_csvs(workspace: Path) -> None:

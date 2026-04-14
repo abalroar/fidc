@@ -161,6 +161,21 @@ class TabFidcImeProgressTests(unittest.TestCase):
         self.assertEqual("right", spec["layer"][1]["layer"][1]["encoding"]["y"]["axis"]["orient"])
         self.assertGreaterEqual(rhs_scale[1], 500.0)
 
+    def test_build_line_series_end_labels_df_uses_value_only_labels(self) -> None:
+        chart_df = pd.DataFrame(
+            {
+                "competencia": ["03/2026", "03/2026"],
+                "competencia_dt": pd.to_datetime(["2026-03-01", "2026-03-01"]),
+                "serie": ["Over 30", "Over 60"],
+                "valor": [12.4, 8.1],
+                "label_fmt": ["12,4%", "8,1%"],
+            }
+        )
+
+        labels_df = tab_fidc_ime._build_line_series_end_labels_df(chart_df, y_title="%")
+
+        self.assertEqual(["8,1%", "12,4%"], labels_df["end_label"].tolist())
+
 
 if __name__ == "__main__":
     unittest.main()

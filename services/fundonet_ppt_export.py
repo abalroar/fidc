@@ -555,6 +555,18 @@ def build_dashboard_pptx_bytes(
             value_max=_percent_axis_max(sub_series, cap=80.0),
         )
         _style_line_series(sub_chart.series[0], color=ORANGE, width_pt=2.8, marker_size=12)
+        latest_sub = float(pd.to_numeric(sub_df["subordinacao_pct"], errors="coerce").dropna().iloc[-1])
+        add_line_end_labels(
+            slide,
+            labels=[_format_percent(latest_sub)],
+            values=[latest_sub],
+            colors=[ORANGE],
+            left=MARGIN_LEFT_IN,
+            top=2.35,
+            width=CONTENT_WIDTH_IN,
+            height=2.55,
+            axis_max=_percent_axis_max(sub_series, cap=80.0),
+        )
     structural_table = _risk_metrics_table_frame(dashboard.risk_metrics_df, "Risco estrutural")
     add_table(
         slide,
@@ -575,21 +587,21 @@ def build_dashboard_pptx_bytes(
     quota_share = _quota_pl_share_pivot(dashboard.quota_pl_history_df)
     if not quota_share.empty:
         quota_series = [
-            (column, quota_share[column].tolist())
+            (column, (pd.to_numeric(quota_share[column], errors="coerce").fillna(0.0) / 100.0).tolist())
             for column in quota_share.columns
             if column != "competencia"
         ]
         quota_chart = add_chart(
             slide,
             title=None,
-            chart_type=XL_CHART_TYPE.COLUMN_STACKED_100,
+            chart_type=XL_CHART_TYPE.COLUMN_STACKED,
             categories=_competencia_labels(quota_share["competencia"].tolist()),
             series_map=quota_series,
             left=MARGIN_LEFT_IN,
             top=0.82,
             width=CONTENT_WIDTH_IN,
             height=4.20,
-            number_format='0.0"%"',
+            number_format='0%',
             percent_axis=True,
             gap_width=34,
             overlap=100,
@@ -601,7 +613,8 @@ def build_dashboard_pptx_bytes(
                 for idx, column in enumerate([column for column in quota_share.columns if column != "competencia"])
             ],
             series_colors=SERIES_COLORS,
-            value_max=100.0,
+            value_min=0.0,
+            value_max=1.0,
         )
         for idx, series in enumerate(quota_chart.series):
             series.data_labels.font.color.rgb = rgb(WHITE if idx in {0, 2, 3} else BLACK)
@@ -707,7 +720,7 @@ def build_dashboard_pptx_bytes(
         latest_row = over_history.iloc[-1]
         add_line_end_labels(
             slide,
-            labels=[f"{column} {_format_percent(latest_row[column])}" for column in over_columns],
+            labels=[_format_percent(latest_row[column]) for column in over_columns],
             values=[float(latest_row[column]) for column in over_columns],
             colors=[OVER_PPT_COLORS[idx % len(OVER_PPT_COLORS)] for idx in range(len(over_columns))],
             left=MARGIN_LEFT_IN,
@@ -824,9 +837,21 @@ def build_dashboard_pptx_bytes(
             number_format='0',
             label_position="above",
             label_font_size=9,
-            show_data_labels=True,
+            show_data_labels=False,
         )
         _style_line_series(duration_chart.series[0], color=ORANGE, width_pt=2.4, marker_size=15)
+        latest_duration = float(pd.to_numeric(duration_df["duration_days"], errors="coerce").dropna().iloc[-1])
+        add_line_end_labels(
+            slide,
+            labels=[_format_decimal(latest_duration, decimals=0)],
+            values=[latest_duration],
+            colors=[ORANGE],
+            left=MARGIN_LEFT_IN,
+            top=4.35,
+            width=CONTENT_WIDTH_IN,
+            height=2.05,
+            axis_max=max(latest_duration * 1.16, latest_duration + 10.0),
+        )
     add_footer(slide, timestamp_text)
 
     buffer = BytesIO()

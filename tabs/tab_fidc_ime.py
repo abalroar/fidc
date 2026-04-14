@@ -1080,9 +1080,10 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 show_total_labels=True,
                 height=455,
                 bar_size=max(90, int(_single_series_bar_size(aging_history_df["competencia"].nunique()) * 2.5)),
-                label_font_size=10,
-                inner_label_threshold=0.9,
+                label_font_size=9,
+                inner_label_threshold=1.2,
                 allow_outside_labels=False,
+                round_percent_labels=True,
             ),
             width="stretch",
         )
@@ -1112,6 +1113,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
             title=None,
             y_title="%",
             show_point_labels=False,
+            show_end_labels=True,
         ),
         width="stretch",
     )
@@ -2816,6 +2818,7 @@ def _build_line_series_end_labels_df(
     *,
     y_title: str,
     min_gap_override: float | None = None,
+    label_text_column: str | None = None,
 ) -> pd.DataFrame:
     if not _chart_labels_enabled() or chart_df.empty or "serie" not in chart_df.columns:
         return pd.DataFrame()
@@ -2838,10 +2841,11 @@ def _build_line_series_end_labels_df(
             continue
         adjusted_values.append(max(current_value, adjusted_values[-1] + min_gap))
     ordered["label_valor"] = adjusted_values
-    ordered["end_label"] = ordered.apply(
-        lambda row: f"{row.get('serie', 'Série')} {_format_value_label(row.get('valor'), y_title)}",
-        axis=1,
-    )
+    resolved_label_column = label_text_column if label_text_column and label_text_column in ordered.columns else "label_fmt"
+    if resolved_label_column in ordered.columns:
+        ordered["end_label"] = ordered[resolved_label_column].astype(str)
+    else:
+        ordered["end_label"] = ordered["valor"].map(lambda value: _format_value_label(value, y_title))
     return ordered
 
 
@@ -2960,6 +2964,7 @@ def _line_history_chart(
     color_range: list[str] | None = None,
     show_point_labels: bool = True,
     show_end_labels: bool = False,
+    end_label_text_column: str | None = None,
     limit_value: float | None = None,
     limit_label: str | None = None,
     reference_value: float | None = None,
@@ -2977,7 +2982,11 @@ def _line_history_chart(
     chart_df["label_fmt"] = chart_df["valor"].map(lambda value: _format_value_label(value, y_title))
     series_order = chart_df["serie"].drop_duplicates().tolist()
     end_labels_df = (
-        _build_line_series_end_labels_df(chart_df, y_title=y_title)
+        _build_line_series_end_labels_df(
+            chart_df,
+            y_title=y_title,
+            label_text_column=end_label_text_column,
+        )
         if show_end_labels
         else pd.DataFrame()
     )
@@ -3362,6 +3371,7 @@ def _stacked_history_bar_chart(
     inner_label_threshold: float | None = None,
     outer_label_threshold: float | None = None,
     allow_outside_labels: bool = True,
+    round_percent_labels: bool = False,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
     if "competencia" in chart_df.columns:
@@ -3374,7 +3384,12 @@ def _stacked_history_bar_chart(
         )
         return _style_altair_chart(_chart_with_optional_title(empty_chart, height=height, title=title))
     chart_df["valor_fmt"] = chart_df[value_column].map(_format_brl_compact if y_title == "R$" else _format_percent)
-    chart_df["label_fmt"] = chart_df[value_column].map(lambda value: _format_value_label(value, y_title))
+    if "label_fmt" not in chart_df.columns:
+        chart_df["label_fmt"] = chart_df[value_column].map(
+            _format_percent_rounded_label
+            if round_percent_labels and "%" in y_title
+            else (lambda value: _format_value_label(value, y_title))
+        )
     if "ordem" in chart_df.columns:
         chart_df = chart_df.sort_values(["competencia_dt", "ordem", "serie"]).reset_index(drop=True)
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
@@ -3500,7 +3515,13 @@ def _stacked_history_bar_chart(
             .sum()
             .rename(columns={value_column: "valor_total"})
         )
-        totals_df["total_fmt"] = totals_df["valor_total"].map(_format_brl_compact if y_title == "R$" else _format_percent)
+        totals_df["total_fmt"] = totals_df["valor_total"].map(
+            _format_brl_compact
+            if y_title == "R$"
+            else _format_percent_rounded_label
+            if round_percent_labels and "%" in y_title
+            else _format_percent
+        )
         totals_df["label_y"] = totals_df["valor_total"] + (
             5.2
             if "%" in y_title
@@ -3770,9 +3791,9 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
     if df.empty or "competencia" not in df.columns:
         return alt.Chart(pd.DataFrame({"competencia": [], "duration_days": []})).mark_line()
     df["competencia"] = df["competencia"].map(_format_competencia_display)
-    df["duration_fmt"] = df["duration_days"].map(
-        lambda v: f"{v:.0f} dias" if not pd.isna(v) else "N/D"
-    )
+    df["serie"] = "Duration"
+    df["duration_fmt"] = df["duration_days"].map(lambda v: f"{v:.0f} dias" if not pd.isna(v) else "N/D")
+    df["end_label_text"] = df["duration_days"].map(lambda v: f"{float(v):.0f}" if not pd.isna(v) else "N/D")
     # Tooltip rows — formula + proxy assumptions
     tooltip_nota = (
         "Duration = Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket). "
@@ -3811,18 +3832,23 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
             y=alt.Y("duration_days:Q"),
         )
     )
-    # Data labels on each point
-    labels = (
-        alt.Chart(df)
-        .mark_text(dy=-10, fontSize=9, fontWeight=600, color="#111111")
-        .encode(
-            x=alt.X("competencia:N", sort=x_sort),
-            y=alt.Y("duration_days:Q"),
-            text=alt.Text("duration_fmt:N"),
-        )
+    end_labels_df = _build_line_series_end_labels_df(
+        df.rename(columns={"duration_days": "valor"}),
+        y_title="dias",
+        label_text_column="end_label_text",
+    )
+    end_labels = _line_series_end_label_layer(
+        end_labels_df,
+        x_sort=x_sort,
+        y_title="Duration estimada (dias)",
+        color_range=["#ff5a00"],
+        series_order=["Duration"],
     )
     _ = tooltip_nota  # documented; surfaced in UI caption below the chart
-    return _style_altair_chart(line_chart + points + labels)
+    layered = line_chart + points
+    if end_labels is not None:
+        layered = layered + end_labels
+    return _style_altair_chart(layered.properties(padding={"left": 8, "right": 56, "top": 8, "bottom": 8}))
 
 
 def _style_altair_chart(chart: alt.Chart) -> alt.Chart:
@@ -3994,6 +4020,12 @@ def _format_percent_label(value: object) -> str:
     if _is_missing_value(value):
         return "N/D"
     return f"{_format_decimal(value, decimals=1)}%"
+
+
+def _format_percent_rounded_label(value: object) -> str:
+    if _is_missing_value(value):
+        return "N/D"
+    return f"{int(round(float(value)))}%"
 
 
 def _format_pp(value: object) -> str:
