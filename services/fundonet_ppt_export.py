@@ -26,13 +26,13 @@ MARGIN_LEFT_IN = 0.45
 MARGIN_RIGHT_IN = 0.45
 CONTENT_WIDTH_IN = SLIDE_WIDTH_IN - MARGIN_LEFT_IN - MARGIN_RIGHT_IN
 
-TITLE_SIZE = 22
-SECTION_SIZE = 14
+TITLE_SIZE = 24
+SECTION_SIZE = 13
 BODY_SIZE = 9
-LABEL_SIZE = 8
-AXIS_SIZE = 8
+LABEL_SIZE = 9
+AXIS_SIZE = 9
 FOOTER_SIZE = 8
-CARD_VALUE_SIZE = 18
+CARD_VALUE_SIZE = 17
 
 
 @dataclass(frozen=True)
@@ -247,8 +247,12 @@ def build_dashboard_pptx_bytes(
         gap_width: int | None = None,
         overlap: int | None = None,
         label_position: str = "above",
+        label_color: str = BLACK,
+        label_font_size: int = LABEL_SIZE,
         legend_items: Sequence[tuple[str, str]] | None = None,
         title_suffix: str = "",
+        value_max: float | None = None,
+        value_min: float | None = None,
     ):
         add_textbox(slide, left, top - 0.22, width, 0.18, f"{title}{title_suffix}", size=SECTION_SIZE, bold=True, color=BLACK)
         chart_data = CategoryChartData()
@@ -270,9 +274,9 @@ def build_dashboard_pptx_bytes(
         labels.number_format = number_format
         labels.position = _data_label_position(label_position)
         labels.font.name = "IBM Plex Sans"
-        labels.font.size = Pt(LABEL_SIZE)
+        labels.font.size = Pt(label_font_size)
         labels.font.bold = True
-        labels.font.color.rgb = rgb(BLACK)
+        labels.font.color.rgb = rgb(label_color)
 
         if hasattr(chart, "category_axis"):
             chart.category_axis.tick_labels.font.name = "IBM Plex Sans"
@@ -284,11 +288,18 @@ def build_dashboard_pptx_bytes(
             chart.value_axis.has_major_gridlines = True
             chart.value_axis.major_gridlines.format.line.color.rgb = rgb(GRID_GRAY)
             chart.value_axis.format.line.color.rgb = rgb(GRID_GRAY)
+            if value_min is not None:
+                chart.value_axis.minimum_scale = value_min
+            if value_max is not None:
+                chart.value_axis.maximum_scale = value_max
             if percent_axis:
-                chart.value_axis.minimum_scale = 0.0
-                chart.value_axis.maximum_scale = 110.0
+                if value_min is None:
+                    chart.value_axis.minimum_scale = 0.0
+                if value_max is None:
+                    chart.value_axis.maximum_scale = 110.0
             if money_axis:
-                chart.value_axis.minimum_scale = 0.0
+                if value_min is None:
+                    chart.value_axis.minimum_scale = 0.0
 
         for idx, series in enumerate(chart.series):
             fill = series.format.fill
@@ -339,38 +350,33 @@ def build_dashboard_pptx_bytes(
 
     default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
     if not default_df.empty:
-        credit_scale = _money_scale(
-            pd.concat(
-                [
-                    pd.to_numeric(default_df["direitos_creditorios_vencidos"], errors="coerce"),
-                    pd.to_numeric(default_df["inadimplencia_total"], errors="coerce"),
-                    pd.to_numeric(default_df["provisao_total"], errors="coerce"),
-                ]
-            )
-        )
         direitos_base = _series_numeric(default_df, "direitos_creditorios_vencimento_total")
         if direitos_base.dropna().empty:
             direitos_base = _series_numeric(default_df, "direitos_creditorios")
         provisao_pct = (
             _series_numeric(default_df, "provisao_total") / direitos_base
         ).where(direitos_base > 0).mul(100.0).fillna(0.0)
+        credit_series = [
+            ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
+            ("Provisão", provisao_pct.tolist()),
+        ]
         add_chart(
             slide,
-            title="Crédito problemático",
-            chart_type=XL_CHART_TYPE.LINE_MARKERS,
+            title="Inad vs. Provisão (% dos DCs)",
+            chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
             categories=_competencia_labels(default_df["competencia"].tolist()),
-            series_map=[
-                ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
-                ("Provisão", provisao_pct.tolist()),
-            ],
+            series_map=credit_series,
             left=MARGIN_LEFT_IN,
             top=2.35,
             width=7.55,
             height=3.85,
             number_format='0.0"%"',
             percent_axis=True,
-            label_position="above",
+            gap_width=42,
+            label_position="outside_end",
+            label_font_size=10,
             legend_items=[("Inadimplência", SERIES_COLORS[0]), ("Provisão", SERIES_COLORS[1])],
+            value_max=_percent_axis_max(credit_series, cap=60.0),
         )
         add_textbox(
             slide,
@@ -378,7 +384,7 @@ def build_dashboard_pptx_bytes(
             6.25,
             7.55,
             0.20,
-            "Leitura: a linha preta mostra o peso dos vencidos; a laranja mostra a provisão contábil sobre a mesma base observável.",
+            "Leitura: barras justapostas para comparar vencidos e provisão sobre a mesma base observável de direitos creditórios.",
             size=LABEL_SIZE,
             color=MID_GRAY,
         )
@@ -413,20 +419,23 @@ def build_dashboard_pptx_bytes(
 
     sub_df = dashboard.subordination_history_df.sort_values("competencia_dt").copy()
     if not sub_df.empty:
+        sub_series = [("Subordinação", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
         add_chart(
             slide,
             title="Índice de subordinação",
             chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
             categories=_competencia_labels(sub_df["competencia"].tolist()),
-            series_map=[("Subordinação", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())],
+            series_map=sub_series,
             left=MARGIN_LEFT_IN,
             top=1.00,
             width=6.00,
             height=2.25,
             number_format='0.0"%"',
             percent_axis=True,
-            gap_width=45,
+            gap_width=32,
             label_position="outside_end",
+            label_font_size=10,
+            value_max=_percent_axis_max(sub_series, cap=60.0),
         )
 
     quota_share = _quota_pl_share_pivot(dashboard.quota_pl_history_df)
@@ -447,13 +456,16 @@ def build_dashboard_pptx_bytes(
             height=2.25,
             number_format='0.0"%"',
             percent_axis=True,
-            gap_width=38,
+            gap_width=32,
             overlap=100,
             label_position="center",
+            label_color=WHITE,
+            label_font_size=9,
             legend_items=[
                 (column, SERIES_COLORS[idx % len(SERIES_COLORS)])
                 for idx, column in enumerate([column for column in quota_share.columns if column != "competencia"])
             ],
+            value_max=100.0,
         )
         add_textbox(
             slide,
@@ -493,21 +505,24 @@ def build_dashboard_pptx_bytes(
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
     if not maturity_df.empty:
         maturity_scale = _money_scale(pd.to_numeric(maturity_df["valor"], errors="coerce"))
+        maturity_values = _scale_values(maturity_df["valor"], maturity_scale).tolist()
         add_chart(
             slide,
             title="Vencimento dos direitos creditórios",
             title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
             chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
             categories=maturity_df["faixa"].astype(str).tolist(),
-            series_map=[("Valor", _scale_values(maturity_df["valor"], maturity_scale).tolist())],
+            series_map=[("Valor", maturity_values)],
             left=8.10,
             top=3.95,
             width=4.75,
             height=2.55,
             number_format=_money_number_format(maturity_scale),
             money_axis=True,
-            gap_width=38,
+            gap_width=28,
             label_position="outside_end",
+            label_font_size=10,
+            value_max=_money_axis_max(maturity_values),
         )
     vencidos = _to_float(dashboard.summary.get("direitos_creditorios_vencidos"))
     base = _to_float(dashboard.summary.get("inadimplencia_denominador"))
@@ -604,6 +619,28 @@ def _series_numeric(frame: pd.DataFrame, column: str) -> pd.Series:
     if column not in frame.columns:
         return pd.Series(dtype="float64")
     return pd.to_numeric(frame[column], errors="coerce")
+
+
+def _percent_axis_max(series_map: Sequence[tuple[str, Sequence[float]]], *, cap: float = 110.0) -> float:
+    values: list[float] = []
+    for _, series_values in series_map:
+        values.extend([float(value) for value in series_values if value is not None])
+    if not values:
+        return cap
+    max_value = max(values)
+    if max_value <= 0:
+        return cap
+    return min(cap, max(max_value * 1.18, max_value + 4.0))
+
+
+def _money_axis_max(values: Sequence[object]) -> float | None:
+    numeric = pd.to_numeric(pd.Series(values), errors="coerce").dropna()
+    if numeric.empty:
+        return None
+    max_value = float(numeric.max())
+    if max_value <= 0:
+        return None
+    return max_value * 1.16
 
 
 def _money_scale(values: pd.Series) -> MoneyScale:

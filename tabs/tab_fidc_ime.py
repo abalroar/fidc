@@ -45,6 +45,15 @@ AGING_CHART_COLORS = [
     "#7b241c",  # 181-360 d — vinho/bordô
 ]
 
+OVER_AGING_CHART_COLORS = [
+    "#2f7d4a",
+    "#8abc4a",
+    "#f0c340",
+    "#ea8c2d",
+    "#c8562c",
+    "#7b241c",
+]
+
 
 _FIDC_REPORT_CSS = """
 <style>
@@ -958,7 +967,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         hide_index=True,
     )
     default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
-    _render_chart_heading(top_right, "Crédito problemático", "% dos direitos creditórios ao longo do tempo.")
+    _render_chart_heading(top_right, "Inad vs. Provisão (% dos DCs)", "Comparação direta entre vencidos e provisão sobre a mesma base observável de direitos creditórios.")
     _credit_chart_all_zero = (
         default_pct_chart_df.empty
         or (pd.to_numeric(default_pct_chart_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
@@ -967,10 +976,12 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         top_right.caption("Inadimplência e provisão não reportadas ou zeradas nos informes disponíveis.")
     else:
         top_right.altair_chart(
-            _line_history_chart(
+            _grouped_bar_chart(
                 default_pct_chart_df,
                 title=None,
                 y_title="%",
+                height=330,
+                label_font_size=10,
             ),
             use_container_width=True,
         )
@@ -981,6 +992,29 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 f"Inadimplência {_format_brl_compact(latest_default_row.get('inadimplencia_total'))} · "
                 f"Provisão {_format_brl_compact(latest_default_row.get('provisao_total'))}"
             )
+    over_history_df = _build_over_aging_history_df(
+        dashboard.default_buckets_history_df,
+        dashboard.default_history_df,
+    )
+    _render_chart_heading(st, "Inadimplência Over (somatório do aging)", "Parcelas vencidas acumuladas por threshold de atraso, como % dos direitos creditórios observáveis.")
+    if over_history_df.empty:
+        st.info("Dados de inadimplência Over não disponíveis nos informes selecionados.")
+    else:
+        st.altair_chart(
+            _grouped_bar_chart(
+                over_history_df,
+                title=None,
+                y_title="%",
+                value_field="percentual",
+                height=350,
+                label_font_size=9,
+                color_range=OVER_AGING_CHART_COLORS,
+            ),
+            use_container_width=True,
+        )
+        st.caption(
+            "Base regulatória CVM: no padrão XML 576, o somatório da inadimplência é o valor das parcelas inadimplentes e os campos VL_INAD_VENC_* representam valores vencidos e não pagos por faixa. Este gráfico acumula parcelas vencidas; não é conceito de arrasto."
+        )
     aging_history_df = _build_aging_history_display_df(
         dashboard.default_buckets_history_df,
         dashboard.default_history_df,
@@ -997,9 +1031,9 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 value_column="percentual",
                 color_range=AGING_CHART_COLORS,
                 show_total_labels=True,
-                height=390,
-                bar_size=30,
-                label_font_size=10,
+                height=430,
+                bar_size=_single_series_bar_size(aging_history_df["competencia"].nunique()),
+                label_font_size=11,
                 force_all_segment_labels=True,
             ),
             use_container_width=True,
@@ -1373,18 +1407,8 @@ def _build_aging_history_display_df(
     df = default_buckets_history_df[default_buckets_history_df["ordem"] <= 7].copy()
     df = df.sort_values(["competencia_dt", "ordem"])
     df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
-    denominator_column = (
-        "direitos_creditorios_vencimento_total"
-        if "direitos_creditorios_vencimento_total" in default_history_df.columns
-        else "direitos_creditorios"
-    )
-    dc_df = default_history_df[["competencia", denominator_column, "direitos_creditorios"]].copy()
-    dc_df[denominator_column] = pd.to_numeric(dc_df[denominator_column], errors="coerce").fillna(0.0)
-    dc_df["direitos_creditorios"] = pd.to_numeric(dc_df["direitos_creditorios"], errors="coerce").fillna(0.0)
-    dc_df["denominador"] = dc_df[denominator_column].where(
-        dc_df[denominator_column] > 0,
-        dc_df["direitos_creditorios"],
-    )
+    dc_df = default_history_df[["competencia"]].copy()
+    dc_df["denominador"] = _default_denominator_series(default_history_df).values
     df = df.merge(dc_df[["competencia", "denominador"]], on="competencia", how="left")
     df["percentual"] = (
         df["valor"] / df["denominador"]
@@ -1392,6 +1416,52 @@ def _build_aging_history_display_df(
     df = df.dropna(subset=["percentual"])
     df = df[df["valor"] > 0].copy()
     return df
+
+
+def _build_over_aging_history_df(
+    default_buckets_history_df: pd.DataFrame,
+    default_history_df: pd.DataFrame,
+) -> pd.DataFrame:
+    if default_buckets_history_df.empty or default_history_df.empty:
+        return pd.DataFrame(columns=["competencia", "competencia_dt", "ordem", "serie", "valor", "percentual"])
+    source_df = default_buckets_history_df.copy()
+    source_df["valor"] = pd.to_numeric(source_df["valor"], errors="coerce").fillna(0.0)
+    denominator_df = default_history_df[["competencia", "competencia_dt"]].copy()
+    denominator_df["denominador"] = _default_denominator_series(default_history_df).values
+    bucket_specs = [
+        ("Até 30d", 1, 1),
+        ("Over 30", 2, None),
+        ("Over 60", 3, None),
+        ("Over 90", 4, None),
+        ("Over 180", 7, None),
+        ("Over 360", 8, None),
+    ]
+    frames: list[pd.DataFrame] = []
+    for ordem, (serie, ordem_min, ordem_max) in enumerate(bucket_specs, start=1):
+        subset = source_df[source_df["ordem"] >= ordem_min].copy()
+        if ordem_max is not None:
+            subset = subset[subset["ordem"] <= ordem_max].copy()
+        grouped = (
+            subset.groupby(["competencia", "competencia_dt"], as_index=False, dropna=False)["valor"]
+            .sum()
+        )
+        grouped["serie"] = serie
+        grouped["ordem"] = ordem
+        frames.append(grouped)
+    output = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+    if output.empty:
+        return pd.DataFrame(columns=["competencia", "competencia_dt", "ordem", "serie", "valor", "percentual"])
+    output = output.merge(
+        denominator_df[["competencia", "denominador"]],
+        on="competencia",
+        how="left",
+    )
+    output["percentual"] = (
+        output["valor"] / output["denominador"]
+    ).where(output["denominador"] > 0).mul(100.0)
+    output = output.dropna(subset=["percentual"])
+    output = output[output["valor"] > 0].copy()
+    return output.sort_values(["competencia_dt", "ordem"]).reset_index(drop=True)
 
 
 def _render_aging_omission_note(container, default_buckets_latest_df: pd.DataFrame) -> None:
@@ -2415,6 +2485,38 @@ def _label_format(unit: str) -> str:
     return ",.2f" if unit in {"R$", "%"} else ",.2f"
 
 
+def _single_series_bar_size(category_count: int) -> int:
+    if category_count <= 4:
+        return 58
+    if category_count <= 6:
+        return 50
+    if category_count <= 9:
+        return 42
+    if category_count <= 12:
+        return 36
+    if category_count <= 16:
+        return 30
+    return 24
+
+
+def _grouped_series_bar_size(period_count: int, series_count: int) -> int:
+    if series_count >= 5:
+        if period_count <= 6:
+            return 18
+        if period_count <= 9:
+            return 15
+        if period_count <= 12:
+            return 12
+        return 10
+    if period_count <= 6:
+        return 24
+    if period_count <= 9:
+        return 20
+    if period_count <= 12:
+        return 16
+    return 12
+
+
 def _hex_is_dark(color: str) -> bool:
     value = str(color or "").strip().lstrip("#")
     if len(value) != 6:
@@ -2535,21 +2637,25 @@ def _bar_label_layer(
     text_field: str | None = None,
     orient: str = "vertical",
     color_encoding: alt.Color | None = None,
+    x_offset_field: str | None = None,
+    font_size: int = 11,
+    font_weight: int = 600,
+    dy: int = -9,
 ) -> alt.Chart | None:
     if not _chart_labels_enabled() or chart_df.empty:
         return None
     # Labels above bars land on white background — use dark text, no stroke halo
     # (white stroke with strokeWidth≥2 washes out thin characters on white bg)
     mark_kwargs: dict[str, object] = {
-        "fontSize": 11,
-        "fontWeight": 600,
+        "fontSize": font_size,
+        "fontWeight": font_weight,
         "color": "#111111",
         "clip": False,
     }
     if orient == "horizontal":
         mark_kwargs.update({"align": "left", "dx": 6})
     else:
-        mark_kwargs.update({"dy": -9})
+        mark_kwargs.update({"dy": dy})
     encoding: dict[str, object] = {
         "text": (
             alt.Text(f"{text_field}:N")
@@ -2561,6 +2667,8 @@ def _bar_label_layer(
         encoding["x"] = x_encoding
     if y_encoding is not None:
         encoding["y"] = y_encoding
+    if x_offset_field:
+        encoding["xOffset"] = alt.XOffset(f"{x_offset_field}:N")
     # Never inherit bar fill color for above-bar labels — always use dark text
     return alt.Chart(chart_df).mark_text(**mark_kwargs).encode(**encoding)
 
@@ -2844,9 +2952,10 @@ def _bar_chart(
         axis=y_axis,
         scale=_quant_scale_with_headroom(chart_df[y_column], percent_like="%" in y_title),
     )
+    bar_size = _single_series_bar_size(len(x_sort))
     chart = (
         alt.Chart(chart_df)
-        .mark_bar(color="#ff5a00")
+        .mark_bar(color="#ff5a00", size=bar_size)
         .encode(
             x=x_encoding,
             y=y_encoding,
@@ -2854,7 +2963,14 @@ def _bar_chart(
         )
     )
     chart = _chart_with_optional_title(chart, height=320, title=title)
-    labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field=y_column, text_field="label_fmt")
+    labels = _bar_label_layer(
+        chart_df,
+        x_encoding=x_encoding,
+        y_encoding=y_encoding,
+        value_field=y_column,
+        text_field="label_fmt",
+        font_size=12,
+    )
     return _style_altair_chart(chart if labels is None else (chart + labels))
 
 
@@ -2879,9 +2995,10 @@ def _history_bar_chart(
         axis=y_axis,
         scale=_quant_scale_with_headroom(chart_df["valor"], percent_like="%" in y_title, max_cap=140.0 if "%" in y_title else None),
     )
+    bar_size = _single_series_bar_size(chart_df["competencia"].nunique())
     chart = (
         alt.Chart(chart_df)
-        .mark_bar(color="#ff5a00", size=28)
+        .mark_bar(color="#ff5a00", size=bar_size)
         .encode(
             x=x_encoding,
             y=y_encoding,
@@ -2889,7 +3006,14 @@ def _history_bar_chart(
         )
     )
     chart = _chart_with_optional_title(chart, height=300, title=title)
-    labels = _bar_label_layer(chart_df, x_encoding=x_encoding, y_encoding=y_encoding, value_field="valor", text_field="label_fmt")
+    labels = _bar_label_layer(
+        chart_df,
+        x_encoding=x_encoding,
+        y_encoding=y_encoding,
+        value_field="valor",
+        text_field="label_fmt",
+        font_size=12,
+    )
     layered = chart if labels is None else (chart + labels)
     if reference_value is not None:
         ref_df = pd.DataFrame({"y": [reference_value]})
@@ -2923,7 +3047,7 @@ def _stacked_history_bar_chart(
     show_total_labels: bool = False,
     color_range: list[str] | None = None,
     height: int = 320,
-    bar_size: int = 24,
+    bar_size: int | None = None,
     label_font_size: int = 9,
     force_all_segment_labels: bool = False,
 ) -> alt.Chart:
@@ -2952,7 +3076,7 @@ def _stacked_history_bar_chart(
         scale=_quant_scale_with_headroom(
             totals_for_scale,
             percent_like="%" in y_title,
-            max_cap=120.0 if "%" in y_title else None,
+            max_cap=140.0 if "%" in y_title else None,
         ),
     )
     _colors = color_range or FIDC_CHART_COLORS
@@ -2971,7 +3095,7 @@ def _stacked_history_bar_chart(
     chart_df["label_color"] = chart_df["serie"].map(lambda value: _contrast_text_color(color_map.get(str(value), "#ff5a00")))
     chart = (
         alt.Chart(chart_df)
-        .mark_bar(size=bar_size)
+        .mark_bar(size=bar_size or _single_series_bar_size(chart_df["competencia"].nunique()))
         .encode(
             x=x_encoding,
             y=y_encoding,
@@ -2989,11 +3113,11 @@ def _stacked_history_bar_chart(
             .cumcount(ascending=False)
         )
         labels_df["outside_y"] = labels_df.groupby("competencia", dropna=False)[value_column].cumsum()
-        outside_step = 1.2 if "%" in y_title else (
-            labels_df["outside_y"].abs().max() * 0.012 if pd.notna(labels_df["outside_y"].abs().max()) else 1.0
+        outside_step = 1.8 if "%" in y_title else (
+            labels_df["outside_y"].abs().max() * 0.018 if pd.notna(labels_df["outside_y"].abs().max()) else 1.0
         )
-        labels_df["outside_label_y"] = labels_df["outside_y"] + 0.9 + labels_df["segment_rank"].mul(outside_step)
-        threshold = 2.2 if "%" in y_title else (
+        labels_df["outside_label_y"] = labels_df["outside_y"] + 1.2 + labels_df["segment_rank"].mul(outside_step)
+        threshold = 2.0 if "%" in y_title else (
             labels_df[value_column].abs().max() * 0.08 if pd.notna(labels_df[value_column].abs().max()) else 0.0
         )
         inner_labels_df = labels_df[
@@ -3005,7 +3129,7 @@ def _stacked_history_bar_chart(
         if not inner_labels_df.empty:
             segment_labels = (
                 alt.Chart(inner_labels_df)
-                .mark_text(fontSize=label_font_size, fontWeight=600, clip=False)
+                .mark_text(fontSize=label_font_size, fontWeight=700, clip=False)
                 .encode(
                     x=x_encoding,
                     y=alt.Y(f"{value_column}:Q", title=y_title, stack="center"),
@@ -3018,7 +3142,7 @@ def _stacked_history_bar_chart(
         if not outer_labels_df.empty:
             outside_labels = (
                 alt.Chart(outer_labels_df)
-                .mark_text(fontSize=label_font_size, fontWeight=700, dy=-4, color="#111111", clip=False)
+                .mark_text(fontSize=max(label_font_size, 11), fontWeight=700, dy=-4, color="#111111", clip=False)
                 .encode(
                     x=x_encoding,
                     y=alt.Y("outside_label_y:Q", title=y_title),
@@ -3034,10 +3158,14 @@ def _stacked_history_bar_chart(
             .rename(columns={value_column: "valor_total"})
         )
         totals_df["total_fmt"] = totals_df["valor_total"].map(_format_brl_compact if y_title == "R$" else _format_percent)
-        totals_df["label_y"] = totals_df["valor_total"] + (3.8 if "%" in y_title else totals_df["valor_total"].abs().max() * 0.03 if pd.notna(totals_df["valor_total"].abs().max()) else 1.0)
+        totals_df["label_y"] = totals_df["valor_total"] + (
+            5.2
+            if "%" in y_title
+            else totals_df["valor_total"].abs().max() * 0.045 if pd.notna(totals_df["valor_total"].abs().max()) else 1.0
+        )
         total_labels = (
             alt.Chart(totals_df)
-            .mark_text(dy=-4, fontSize=max(11, label_font_size + 1), fontWeight=700, color="#111111", clip=False)
+            .mark_text(dy=-4, fontSize=max(14, label_font_size + 4), fontWeight=800, color="#111111", clip=False)
             .encode(
                 x=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
                 y=alt.Y("label_y:Q", title=y_title),
@@ -3048,35 +3176,65 @@ def _stacked_history_bar_chart(
     return _style_altair_chart(layered)
 
 
-def _grouped_bar_chart(chart_df: pd.DataFrame, *, title: str, y_title: str) -> alt.Chart:
+def _grouped_bar_chart(
+    chart_df: pd.DataFrame,
+    *,
+    title: str | None,
+    y_title: str,
+    value_field: str | None = None,
+    height: int = 340,
+    bar_size: int | None = None,
+    label_font_size: int = 11,
+    color_range: list[str] | None = None,
+) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df)
     if "competencia" in chart_df.columns:
         chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
-    value_field = "valor_total" if "valor_total" in chart_df.columns else "valor"
+    resolved_value_field = value_field or ("valor_total" if "valor_total" in chart_df.columns else "valor")
     chart_df = chart_df.copy()
-    chart_df["valor_fmt"] = chart_df[value_field].map(lambda v: _format_brl_compact(v) if y_title == "R$" else _format_percent(v) if "%" in y_title else _format_decimal(v))
+    chart_df["valor_fmt"] = chart_df[resolved_value_field].map(lambda v: _format_brl_compact(v) if y_title == "R$" else _format_percent(v) if "%" in y_title else _format_decimal(v))
+    chart_df["label_fmt"] = chart_df[resolved_value_field].map(lambda v: _format_value_label(v, y_title))
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
-    y_encoding = alt.Y(f"{value_field}:Q", title=y_title, axis=y_axis)
-    color_encoding = alt.Color("serie:N", title="Série", scale=alt.Scale(range=FIDC_CHART_COLORS))
+    y_encoding = alt.Y(
+        f"{resolved_value_field}:Q",
+        title=y_title,
+        axis=y_axis,
+        scale=_quant_scale_with_headroom(chart_df[resolved_value_field], percent_like="%" in y_title, max_cap=140.0 if "%" in y_title else None),
+    )
+    series_order = chart_df["serie"].drop_duplicates().tolist()
+    color_encoding = alt.Color(
+        "serie:N",
+        title="Série",
+        scale=alt.Scale(domain=series_order, range=(color_range or FIDC_CHART_COLORS)[: len(series_order)]),
+        sort=series_order,
+    )
+    resolved_bar_size = bar_size or _grouped_series_bar_size(
+        chart_df["competencia"].nunique(),
+        chart_df["serie"].nunique(),
+    )
     chart = (
         alt.Chart(chart_df)
-        .mark_bar()
+        .mark_bar(size=resolved_bar_size)
         .encode(
             x=x_encoding,
             y=y_encoding,
             color=color_encoding,
-            xOffset="serie:N",
+            xOffset=alt.XOffset("serie:N", sort=series_order),
             tooltip=["competencia:N", "serie:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
-        .properties(title=title, height=320)
     )
+    chart = _chart_with_optional_title(chart, height=height, title=title)
     labels = _bar_label_layer(
         chart_df,
         x_encoding=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
         y_encoding=y_encoding,
-        value_field=value_field,
-        text_field="valor_fmt",
+        value_field=resolved_value_field,
+        text_field="label_fmt",
+        x_offset_field="serie",
+        font_size=label_font_size,
+        font_weight=700,
+        dy=-8,
     )
     return _style_altair_chart(chart if labels is None else (chart + labels))
 
@@ -3212,19 +3370,21 @@ def _style_altair_chart(chart: alt.Chart) -> alt.Chart:
 def _default_ratio_chart_frame(default_history_df: pd.DataFrame) -> pd.DataFrame:
     if default_history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
-    chart_df = default_history_df[["competencia", "competencia_dt", "inadimplencia_pct"]].copy()
-    direitos = pd.to_numeric(default_history_df["direitos_creditorios"], errors="coerce")
+    chart_df = default_history_df[["competencia", "competencia_dt"]].copy()
+    direitos = _default_denominator_series(default_history_df)
+    inadimplencia = pd.to_numeric(default_history_df["inadimplencia_total"], errors="coerce")
     provisao = pd.to_numeric(default_history_df["provisao_total"], errors="coerce")
+    chart_df["inadimplencia_pct_dcs"] = (inadimplencia / direitos).where(direitos > 0).mul(100.0)
     chart_df["provisao_pct_direitos"] = (provisao / direitos).where(direitos > 0).mul(100.0)
     chart_df = chart_df.melt(
         id_vars=["competencia", "competencia_dt"],
-        value_vars=["inadimplencia_pct", "provisao_pct_direitos"],
+        value_vars=["inadimplencia_pct_dcs", "provisao_pct_direitos"],
         var_name="serie_key",
         value_name="valor",
     )
     chart_df["serie"] = chart_df["serie_key"].map(
         {
-            "inadimplencia_pct": "Inadimplência",
+            "inadimplencia_pct_dcs": "Inadimplência",
             "provisao_pct_direitos": "Provisão",
         }
     )
@@ -3259,12 +3419,32 @@ def _default_cobertura_chart_frame(default_history_df: pd.DataFrame) -> pd.DataF
     """Returns history of provisao_pct_inadimplencia (provisão / inadimplência * 100)."""
     if default_history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
-    df = default_history_df[["competencia", "competencia_dt", "provisao_total", "inadimplencia_total"]].copy()
+    df = default_history_df[
+        ["competencia", "competencia_dt", "provisao_total", "inadimplencia_total", "direitos_creditorios_vencidos"]
+    ].copy()
     provisao = pd.to_numeric(df["provisao_total"], errors="coerce")
+    vencidos = pd.to_numeric(df["direitos_creditorios_vencidos"], errors="coerce")
     inadimplencia = pd.to_numeric(df["inadimplencia_total"], errors="coerce")
-    df["valor"] = (provisao / inadimplencia).where(inadimplencia > 0).mul(100.0)
+    base = vencidos.where(vencidos > 0, inadimplencia)
+    df["valor"] = (provisao / base).where(base > 0).mul(100.0)
     df["serie"] = "Cobertura"
     return df[["competencia", "competencia_dt", "serie", "valor"]].dropna(subset=["valor"])
+
+
+def _default_denominator_series(default_history_df: pd.DataFrame) -> pd.Series:
+    if default_history_df.empty:
+        return pd.Series(dtype="float64")
+    total_vencimento = (
+        pd.to_numeric(default_history_df["direitos_creditorios_vencimento_total"], errors="coerce")
+        if "direitos_creditorios_vencimento_total" in default_history_df.columns
+        else pd.Series(index=default_history_df.index, dtype="float64")
+    )
+    direitos = (
+        pd.to_numeric(default_history_df["direitos_creditorios"], errors="coerce")
+        if "direitos_creditorios" in default_history_df.columns
+        else pd.Series(index=default_history_df.index, dtype="float64")
+    )
+    return total_vencimento.where(total_vencimento > 0, direitos)
 
 
 def _has_meaningful_benchmark(performance_df: pd.DataFrame) -> bool:
