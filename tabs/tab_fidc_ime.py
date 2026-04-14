@@ -1086,7 +1086,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 show_total_labels=True,
                 height=455,
                 bar_size=_executive_monthly_bar_size(aging_history_df["competencia"].nunique()),
-                label_font_size=8,
+                label_font_size=12,
                 inner_label_threshold=1.4,
                 allow_outside_labels=False,
                 round_percent_labels=True,
@@ -1159,8 +1159,10 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 title=None,
                 y_title="R$",
                 value_column="valor",
-                show_total_labels=True,
                 bar_size=pl_bar_size,
+                label_font_size=9,
+                force_all_segment_labels=True,
+                allow_outside_labels=False,
             ),
             width="stretch",
         )
@@ -2787,6 +2789,17 @@ def _quant_scale_with_headroom(
     return alt.Scale(domain=[lower, upper], nice=False)
 
 
+def _nice_axis_ticks(values: pd.Series, *, steps: int = 4) -> list[float] | None:
+    numeric = pd.to_numeric(values, errors="coerce").dropna()
+    if numeric.empty:
+        return None
+    max_value = float(numeric.max())
+    if max_value <= 0:
+        return [0.0]
+    step_value = max_value / max(steps, 1)
+    return [round(step_value * idx, 2) for idx in range(steps + 1)]
+
+
 def _line_point_label_layer(chart_df: pd.DataFrame, *, y_title: str) -> alt.Chart | None:
     if not _chart_labels_enabled() or chart_df.empty or "serie" not in chart_df.columns:
         return None
@@ -3360,7 +3373,7 @@ def _maturity_waterfall_chart(maturity_latest_df: pd.DataFrame, *, title: str | 
     )
     labels = (
         alt.Chart(chart_df)
-        .mark_text(dy=-9, fontSize=11, fontWeight=700, color="#111111", clip=False)
+        .mark_text(dy=-9, fontSize=13, fontWeight=700, color="#111111", clip=False)
         .encode(
             x=alt.X("etapa:N", sort=x_sort),
             y=alt.Y("bar_end:Q", title="R$"),
@@ -3803,6 +3816,7 @@ def _grouped_bar_with_rhs_line_chart(
             grid=False,
             labelColor=COVERAGE_LINE_COLOR,
             titleColor=COVERAGE_LINE_COLOR,
+            values=_nice_axis_ticks(line_scale_input),
         ),
         scale=_quant_scale_with_headroom(
             line_scale_input,
@@ -3969,6 +3983,7 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
     df["competencia"] = df["competencia"].map(_format_competencia_display)
     df["serie"] = "Duration"
     df["duration_fmt"] = df["duration_days"].map(lambda v: f"{v:.0f} dias" if not pd.isna(v) else "N/D")
+    df["duration_label"] = df["duration_days"].map(lambda v: f"{float(v):.0f}" if not pd.isna(v) else "N/D")
     df["end_label_text"] = df["duration_days"].map(lambda v: f"{float(v):.0f}" if not pd.isna(v) else "N/D")
     # Tooltip rows — formula + proxy assumptions
     tooltip_nota = (
@@ -4008,22 +4023,23 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
             y=alt.Y("duration_days:Q"),
         )
     )
-    end_labels_df = _build_line_series_end_labels_df(
-        df.rename(columns={"duration_days": "valor"}),
-        y_title="dias",
-        label_text_column="end_label_text",
-    )
-    end_labels = _line_series_end_label_layer(
-        end_labels_df,
-        x_sort=x_sort,
-        y_title="Duration estimada (dias)",
-        color_range=["#ff5a00"],
-        series_order=["Duration"],
+    all_point_labels = (
+        alt.Chart(df)
+        .mark_text(
+            dy=-12,
+            fontSize=11,
+            fontWeight=700,
+            color="#ff5a00",
+            clip=False,
+        )
+        .encode(
+            x=alt.X("competencia:N", sort=x_sort),
+            y=alt.Y("duration_days:Q", title="Duration estimada (dias)"),
+            text=alt.Text("duration_label:N"),
+        )
     )
     _ = tooltip_nota  # documented; surfaced in UI caption below the chart
-    layered = line_chart + points
-    if end_labels is not None:
-        layered = layered + end_labels
+    layered = line_chart + points + all_point_labels
     return _style_altair_chart(layered.properties(padding={"left": 8, "right": 56, "top": 8, "bottom": 8}))
 
 
@@ -4087,6 +4103,7 @@ def _quota_pl_chart_frame(quota_pl_history_df: pd.DataFrame) -> pd.DataFrame:
     chart_df = quota_pl_history_df[["competencia", "competencia_dt", "label", "pl"]].copy()
     chart_df = chart_df.rename(columns={"label": "serie", "pl": "valor"})
     chart_df["valor"] = pd.to_numeric(chart_df["valor"], errors="coerce")
+    chart_df["label_fmt"] = chart_df["valor"].map(_format_compact_money_label)
     return chart_df.dropna(subset=["valor"])
 
 
@@ -4233,6 +4250,23 @@ def _format_brl_compact(value: object) -> str:
     if magnitude >= 1_000_000:
         return f"R$ {_format_decimal(numeric / 1_000_000, decimals=1)} mm"
     return f"R$ {_format_decimal(numeric, decimals=2)}"
+
+
+def _format_compact_money_label(value: object) -> str:
+    if _is_missing_value(value):
+        return "N/D"
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return "N/D"
+    magnitude = abs(numeric)
+    if magnitude >= 1_000_000_000_000:
+        return f"{int(round(numeric / 1_000_000_000_000))} tri"
+    if magnitude >= 1_000_000_000:
+        return f"{int(round(numeric / 1_000_000_000))} bi"
+    if magnitude >= 1_000_000:
+        return f"{int(round(numeric / 1_000_000))} mm"
+    return f"{int(round(numeric))}"
 
 
 def _brl_axis_label_expr() -> str:

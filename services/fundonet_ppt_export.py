@@ -338,6 +338,14 @@ def build_dashboard_pptx_bytes(
             fill.solid()
             fill.fore_color.rgb = rgb(applied_colors[idx % len(applied_colors)])
             series.format.line.color.rgb = rgb(applied_colors[idx % len(applied_colors)])
+            if show_data_labels and hasattr(series, "data_labels"):
+                series.data_labels.show_value = True
+                series.data_labels.number_format = number_format
+                series.data_labels.position = _data_label_position(label_position)
+                series.data_labels.font.name = "IBM Plex Sans"
+                series.data_labels.font.size = Pt(label_font_size)
+                series.data_labels.font.bold = True
+                series.data_labels.font.color.rgb = rgb(label_color)
 
         return chart
 
@@ -468,6 +476,16 @@ def build_dashboard_pptx_bytes(
         width: float,
         height: float,
     ) -> None:
+        bar_axis_max = _percent_axis_max(bar_series_map, cap=120.0)
+        line_axis_max = _percent_axis_max(
+            line_series_map,
+            cap=max(
+                650.0,
+                max([max([float(v) for v in values if v is not None], default=0.0) for _, values in line_series_map]) * 1.18
+                if line_series_map
+                else 120.0,
+            ),
+        )
         bar_chart = add_chart(
             slide,
             title=None,
@@ -484,7 +502,7 @@ def build_dashboard_pptx_bytes(
             label_position="outside_end",
             label_font_size=10,
             show_legend=True,
-            value_max=_percent_axis_max(bar_series_map, cap=120.0),
+            value_max=bar_axis_max,
         )
         line_chart = add_chart(
             slide,
@@ -500,12 +518,13 @@ def build_dashboard_pptx_bytes(
             percent_axis=True,
             label_position="above",
             label_font_size=9,
-            value_max=_percent_axis_max(line_series_map, cap=max(650.0, max([max([float(v) for v in values if v is not None], default=0.0) for _, values in line_series_map]) * 1.18 if line_series_map else 120.0)),
+            value_max=line_axis_max,
             show_data_labels=False,
             show_legend=False,
         )
         _set_axis_hidden(line_chart, "catAx", True)
         _set_value_axis_right(line_chart)
+        _set_axis_hidden(bar_chart, "valAx", False)
         if hasattr(line_chart, "value_axis"):
             line_chart.value_axis.tick_labels.font.name = "IBM Plex Sans"
             line_chart.value_axis.tick_labels.font.size = Pt(AXIS_SIZE)
@@ -539,15 +558,7 @@ def build_dashboard_pptx_bytes(
                 top=top,
                 width=width,
                 height=height,
-                axis_max=_percent_axis_max(
-                    line_series_map,
-                    cap=max(
-                        650.0,
-                        max([max([float(v) for v in values if v is not None], default=0.0) for _, values in line_series_map]) * 1.18
-                        if line_series_map
-                        else 120.0,
-                    ),
-                ),
+                axis_max=line_axis_max,
             )
 
     def add_compounding_waterfall_chart(
@@ -563,6 +574,7 @@ def build_dashboard_pptx_bytes(
         number_format: str,
         value_max: float | None,
         title_suffix: str = "",
+        label_font_size: int = 9,
     ) -> None:
         base_values: list[float] = []
         flow_values: list[float] = []
@@ -596,7 +608,7 @@ def build_dashboard_pptx_bytes(
             gap_width=36,
             overlap=100,
             label_position="outside_end",
-            label_font_size=9,
+            label_font_size=label_font_size,
             value_max=value_max,
             show_data_labels=True,
             show_legend=False,
@@ -610,7 +622,7 @@ def build_dashboard_pptx_bytes(
         for idx in range(1, len(chart.series)):
             series = chart.series[idx]
             series.data_labels.font.bold = True
-            series.data_labels.font.size = Pt(9)
+            series.data_labels.font.size = Pt(label_font_size)
             series.data_labels.font.color.rgb = rgb(BLACK if idx == 2 else DARK_GRAY)
 
     timestamp_text = f"{generated_at.strftime('%d/%m/%Y %H:%M')} GMT-3"
@@ -691,13 +703,13 @@ def build_dashboard_pptx_bytes(
             top=0.82,
             width=CONTENT_WIDTH_IN,
             height=4.20,
-            number_format=_money_number_format(quota_scale),
+            number_format=_money_label_number_format(quota_scale),
             money_axis=True,
             gap_width=36,
             overlap=100,
             label_position="center",
             label_color=WHITE,
-            label_font_size=9,
+            label_font_size=10,
             series_colors=SERIES_COLORS,
             value_min=0.0,
             value_max=_money_axis_max([value for _, values in quota_series for value in values]),
@@ -862,7 +874,7 @@ def build_dashboard_pptx_bytes(
             overlap=100,
             label_position="center",
             label_color=WHITE,
-            label_font_size=8,
+            label_font_size=12,
             series_colors=AGING_PPT_COLORS,
             value_max=_percent_axis_max(aging_series_map, cap=120.0),
             show_legend=True,
@@ -900,6 +912,7 @@ def build_dashboard_pptx_bytes(
             number_format=_money_number_format(maturity_scale),
             value_max=_money_axis_max(list(maturity_values) + [sum(maturity_values)]),
             title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
+            label_font_size=11,
         )
     duration_df = dashboard.duration_history_df.sort_values("competencia_dt").copy()
     if not duration_df.empty:
@@ -917,21 +930,9 @@ def build_dashboard_pptx_bytes(
             number_format='0',
             label_position="above",
             label_font_size=9,
-            show_data_labels=False,
+            show_data_labels=True,
         )
         _style_line_series(duration_chart.series[0], color=ORANGE, width_pt=2.4, marker_size=15)
-        latest_duration = float(pd.to_numeric(duration_df["duration_days"], errors="coerce").dropna().iloc[-1])
-        add_line_end_labels(
-            slide,
-            labels=[_format_decimal(latest_duration, decimals=0)],
-            values=[latest_duration],
-            colors=[ORANGE],
-            left=MARGIN_LEFT_IN,
-            top=4.35,
-            width=CONTENT_WIDTH_IN,
-            height=2.05,
-            axis_max=max(latest_duration * 1.16, latest_duration + 10.0),
-        )
     add_footer(slide, timestamp_text)
 
     buffer = BytesIO()
@@ -1070,6 +1071,14 @@ def _money_number_format(scale: MoneyScale) -> str:
     if scale.divisor == 1.0:
         return '#,##0.00'
     return '0.0'
+
+
+def _money_label_number_format(scale: MoneyScale) -> str:
+    if scale.divisor == 1.0:
+        return '#,##0'
+    if scale.suffix:
+        return f'0" {scale.suffix}"'
+    return '0'
 
 
 def _latest_aging_table_frame(frame: pd.DataFrame) -> pd.DataFrame:

@@ -192,6 +192,37 @@ class TabFidcImeProgressTests(unittest.TestCase):
         self.assertEqual([10.0, 30.0, 60.0, 60.0], waterfall_df["bar_end"].tolist())
         self.assertEqual("total", waterfall_df.iloc[-1]["tipo"])
 
+    def test_quota_pl_chart_frame_uses_compact_rounded_labels(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "01/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-01-01"]),
+                "label": ["Senior", "Subordinada"],
+                "pl": [2_450_000_000.0, 18_400_000.0],
+            }
+        )
+
+        chart_df = tab_fidc_ime._quota_pl_chart_frame(frame)
+
+        self.assertEqual(["2 bi", "18 mm"], chart_df["label_fmt"].tolist())
+
+    def test_duration_line_chart_renders_labels_for_all_points(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "02/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-02-01"]),
+                "duration_days": [80.0, 95.0],
+                "total_saldo": [1_000.0, 1_100.0],
+                "data_quality": ["ok", "ok"],
+            }
+        )
+
+        chart = tab_fidc_ime._duration_line_chart(frame)
+        spec = chart.to_dict()
+        mark_types = [layer["mark"]["type"] for layer in spec["layer"]]
+
+        self.assertEqual(["line", "point", "text"], mark_types)
+
 
 if __name__ == "__main__":
     unittest.main()
