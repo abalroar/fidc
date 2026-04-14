@@ -170,7 +170,7 @@ def render_tab_modelo_fidc() -> None:
                     format="%.6f",
                 ),
             )
-            submitted = st.form_submit_button("Rodar simulacao", use_container_width=True)
+            submitted = st.form_submit_button("Rodar simulacao", width="stretch")
 
     with right:
         st.info(
@@ -275,10 +275,10 @@ def render_tab_modelo_fidc() -> None:
             },
         ]
     )
-    st.dataframe(memory_df, use_container_width=True, hide_index=True)
+    st.dataframe(memory_df, width="stretch", hide_index=True)
 
     st.markdown("**Timeline detalhada**")
-    st.dataframe(export_frame, use_container_width=True)
+    st.dataframe(export_frame, width="stretch")
 
     csv = export_frame.to_csv(index=False).encode("utf-8")
     output = BytesIO()
@@ -291,12 +291,12 @@ def render_tab_modelo_fidc() -> None:
         data=csv,
         file_name="modelo_fidc_timeline.csv",
         mime="text/csv",
-        use_container_width=True,
+        width="stretch",
     )
     download_right.download_button(
         "Baixar Excel",
         data=output.getvalue(),
         file_name="modelo_fidc_resultados.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        use_container_width=True,
+        width="stretch",
     )

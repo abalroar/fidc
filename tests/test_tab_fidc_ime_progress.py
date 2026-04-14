@@ -6,6 +6,8 @@ import unittest
 from datetime import datetime
 from unittest.mock import patch
 
+import pandas as pd
+
 
 def _make_streamlit_stub():
     """Return a minimal streamlit stub that exercises the legacy-compat paths."""
@@ -79,6 +81,36 @@ class TabFidcImeProgressTests(unittest.TestCase):
 
         self.assertIn(b'"quando"', encoded)
         self.assertIn(b"2026-04-09 12:30:00", encoded)
+
+    def test_line_history_chart_accepts_over_chart_frame_without_duplicate_columns(self) -> None:
+        chart_df = pd.DataFrame(
+            {
+                "competencia": ["03/2026", "03/2026", "04/2026", "04/2026"],
+                "competencia_dt": pd.to_datetime(["2026-03-01", "2026-03-01", "2026-04-01", "2026-04-01"]),
+                "serie": ["Até 30d", "Over 30", "Até 30d", "Over 30"],
+                "valor": [4.2, 7.8, 4.5, 8.1],
+            }
+        )
+
+        chart = tab_fidc_ime._line_history_chart(
+            chart_df,
+            title=None,
+            y_title="%",
+            color_range=tab_fidc_ime.OVER_AGING_CHART_COLORS,
+            show_point_labels=False,
+        )
+
+        spec = chart.to_dict()
+        self.assertEqual("line", spec["mark"]["type"])
+        self.assertEqual("valor", spec["encoding"]["y"]["field"])
+
+    def test_altair_compatible_df_ignores_duplicate_column_slices(self) -> None:
+        duplicate_df = pd.DataFrame([["A", "B"], ["C", "D"]], columns=["valor", "valor"])
+
+        converted = tab_fidc_ime._altair_compatible_df(duplicate_df)
+
+        self.assertEqual(["valor", "valor"], list(converted.columns))
+        self.assertEqual((2, 2), converted.shape)
 
 
 if __name__ == "__main__":

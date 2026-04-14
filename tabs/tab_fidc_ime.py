@@ -573,7 +573,7 @@ def _render_failure_diagnostics(exc: Exception, tb_text: str, context: dict[str,
     if isinstance(exc, FundosNetError) and exc.trace:
         st.subheader("Auditoria da falha")
         audit_df = pd.DataFrame(exc.trace)
-        st.dataframe(audit_df, use_container_width=True)
+        st.dataframe(audit_df, width="stretch")
 
     with st.expander("Traceback completo", expanded=False):
         st.code(tb_text)
@@ -852,7 +852,7 @@ def _render_dashboard(
                     else result.docs_df.copy()
                 )
                 st.caption(f"{docs_ok} informe(s) válidos · {docs_error} com falha")
-                st.dataframe(failed_docs, use_container_width=True, hide_index=True)
+                st.dataframe(failed_docs, width="stretch", hide_index=True)
                 st.download_button(
                     "Baixar documentos com falha (CSV)",
                     data=failed_docs.to_csv(index=False).encode("utf-8"),
@@ -922,7 +922,7 @@ def _modular_btn(
             data=pdf_bytes,
             file_name=filename,
             mime="application/pdf",
-            use_container_width=True,
+            width="stretch",
         )
     except Exception as exc:  # noqa: BLE001
         container.caption(f"Erro ao gerar {label}: {exc}")
@@ -963,7 +963,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     top_left, top_right = st.columns([0.95, 1.05])
     top_left.dataframe(
         _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco de crédito"),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
     default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
@@ -983,7 +983,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 height=330,
                 label_font_size=10,
             ),
-            use_container_width=True,
+            width="stretch",
         )
         latest_default_row = dashboard.default_history_df.sort_values("competencia_dt").iloc[-1] if not dashboard.default_history_df.empty else None
         if latest_default_row is not None:
@@ -1000,15 +1000,18 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     if over_history_df.empty:
         st.info("Dados de inadimplência Over não disponíveis nos informes selecionados.")
     else:
+        over_chart_df = over_history_df[
+            ["competencia", "competencia_dt", "serie", "percentual"]
+        ].rename(columns={"percentual": "valor"})
         st.altair_chart(
             _line_history_chart(
-                over_history_df.rename(columns={"percentual": "valor"}),
+                over_chart_df,
                 title=None,
                 y_title="%",
                 color_range=OVER_AGING_CHART_COLORS,
                 show_point_labels=False,
             ),
-            use_container_width=True,
+            width="stretch",
         )
         st.caption(
             "Base regulatória CVM: no padrão XML 576, o somatório da inadimplência é o valor das parcelas inadimplentes e os campos VL_INAD_VENC_* representam valores vencidos e não pagos por faixa. Este gráfico acumula parcelas vencidas; não é conceito de arrasto."
@@ -1035,7 +1038,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 force_all_segment_labels=True,
                 inside_label_color="#ffffff",
             ),
-            use_container_width=True,
+            width="stretch",
         )
         st.caption(
             "Fonte: Informe Mensal - CVM. Cada barra mostra o aging completo do estoque vencido em relação ao total observável de direitos creditórios."
@@ -1054,7 +1057,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 reference_value=100.0,
                 reference_label="100% (paridade)",
             ),
-            use_container_width=True,
+            width="stretch",
         )
         st.caption(
             "Fonte: Informe Mensal - CVM. Acima de 100%: provisão supera os créditos vencidos observáveis na mesma competência."
@@ -1085,13 +1088,13 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 title=None,
                 y_title="%",
             ),
-            use_container_width=True,
+            width="stretch",
         )
     with col_sub_table:
         col_sub_table.markdown("<div style='height:2.2rem'></div>", unsafe_allow_html=True)
         col_sub_table.dataframe(
             _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco estrutural"),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
@@ -1114,7 +1117,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                     y_title="% do total",
                     value_column="percentual",
                 ),
-                use_container_width=True,
+                width="stretch",
             )
         else:
             col_pl_chart.altair_chart(
@@ -1125,20 +1128,20 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                     value_column="valor",
                     show_total_labels=True,
                 ),
-                use_container_width=True,
+                width="stretch",
             )
     with col_pl_table:
         col_pl_table.markdown("<div style='height:2.5rem'></div>", unsafe_allow_html=True)
         col_pl_table.dataframe(
             _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
         if _has_meaningful_benchmark(dashboard.performance_vs_benchmark_latest_df):
             with col_pl_table.expander("Benchmark x realizado", expanded=False):
                 st.dataframe(
                     _format_performance_benchmark_table(dashboard.performance_vs_benchmark_latest_df),
-                    use_container_width=True,
+                    width="stretch",
                     hide_index=True,
                 )
 
@@ -1155,7 +1158,7 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
     )
     st.dataframe(
         _format_event_summary_table(dashboard.event_summary_latest_df),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
     st.caption("Sinal econômico positivo indica entrada de caixa; negativo indica saída de caixa para cotistas.")
@@ -1173,7 +1176,7 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
             title=None,
             y_title="R$",
         ),
-        use_container_width=True,
+        width="stretch",
     )
     vencidos_caption = _maturity_vencidos_caption(dashboard.maturity_latest_df)
     if vencidos_caption:
@@ -1206,7 +1209,7 @@ def _render_audit_section(dashboard: FundonetDashboardData) -> None:
     with st.expander("Memória de cálculo das métricas exibidas", expanded=False):
         st.dataframe(
             _format_risk_metrics_memory_table(dashboard.risk_metrics_df),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
     with st.expander("Base normalizada do Informe Mensal", expanded=False):
@@ -1566,7 +1569,7 @@ def _render_duration_section(dashboard: FundonetDashboardData) -> None:
     )
     st.altair_chart(
         _duration_line_chart(duration_df),
-        use_container_width=True,
+        width="stretch",
     )
     st.caption(
         "Duration = Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket). "
@@ -1651,14 +1654,14 @@ def _render_monitoring_section(dashboard: FundonetDashboardData) -> None:
         st.caption("Indicadores calculados")
         st.dataframe(
             _format_tracking_table(dashboard.tracking_latest_df),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
     with right:
         st.caption(f"Eventos e pressões de cotas em {dashboard.latest_competencia}")
         st.dataframe(
             _format_event_summary_table(dashboard.event_summary_latest_df),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
@@ -1899,7 +1902,7 @@ def _render_asset_section(dashboard: FundonetDashboardData) -> None:
             title="Evolução do Ativo",
             y_title="R$",
         ),
-        use_container_width=True,
+        width="stretch",
     )
     top_right.altair_chart(
         _horizontal_bar_chart(
@@ -1908,7 +1911,7 @@ def _render_asset_section(dashboard: FundonetDashboardData) -> None:
             value_column="valor",
             title=f"Composição do Ativo em {dashboard.composition_latest_df['competencia'].iloc[0]}",
         ),
-        use_container_width=True,
+        width="stretch",
     )
 
     mid_left, mid_right = st.columns(2)
@@ -1922,7 +1925,7 @@ def _render_asset_section(dashboard: FundonetDashboardData) -> None:
             title="Alocação em Direitos Creditórios",
             y_title="%",
         ),
-        use_container_width=True,
+        width="stretch",
     )
     mid_right.altair_chart(
         _line_point_chart(
@@ -1932,7 +1935,7 @@ def _render_asset_section(dashboard: FundonetDashboardData) -> None:
             title=f"Liquidez Reportada em {dashboard.latest_competencia}",
             y_title="R$",
         ),
-        use_container_width=True,
+        width="stretch",
     )
 
     bottom_left, bottom_right = st.columns(2)
@@ -1944,7 +1947,7 @@ def _render_asset_section(dashboard: FundonetDashboardData) -> None:
             title=f"Direitos Creditórios por Prazo de Vencimento em {dashboard.latest_competencia}",
             y_title="R$",
         ),
-        use_container_width=True,
+        width="stretch",
     )
     flow_df = _melt_metrics(
         dashboard.asset_history_df,
@@ -1957,7 +1960,7 @@ def _render_asset_section(dashboard: FundonetDashboardData) -> None:
             title="Fluxo dos Direitos Creditórios",
             y_title="R$",
         ),
-        use_container_width=True,
+        width="stretch",
     )
 
     table_left, table_right = st.columns(2)
@@ -1969,7 +1972,7 @@ def _render_asset_section(dashboard: FundonetDashboardData) -> None:
                 label_column="categoria",
                 label_title="Categoria",
             ),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
     with table_right:
@@ -1980,7 +1983,7 @@ def _render_asset_section(dashboard: FundonetDashboardData) -> None:
                 label_column="segmento",
                 label_title="Segmento",
             ),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
@@ -1998,7 +2001,7 @@ def _render_quota_section(dashboard: FundonetDashboardData) -> None:
             value_column="pl",
             y_title="R$",
         ),
-        use_container_width=True,
+        width="stretch",
     )
     top_right.altair_chart(
         _line_history_chart(
@@ -2010,7 +2013,7 @@ def _render_quota_section(dashboard: FundonetDashboardData) -> None:
             title="Índice de Subordinação",
             y_title="%",
         ),
-        use_container_width=True,
+        width="stretch",
     )
 
     bottom_left, bottom_right = st.columns([3, 2])
@@ -2020,25 +2023,25 @@ def _render_quota_section(dashboard: FundonetDashboardData) -> None:
             title="Rentabilidade Mensal das Cotas",
             y_title="%",
         ),
-        use_container_width=True,
+        width="stretch",
     )
     bottom_right.dataframe(
         _format_return_summary_frame(dashboard.return_summary_df),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
     if not dashboard.performance_vs_benchmark_latest_df.empty:
         bottom_right.caption(f"Benchmark x realizado em {dashboard.latest_competencia}")
         bottom_right.dataframe(
             _format_performance_benchmark_table(dashboard.performance_vs_benchmark_latest_df),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
     latest_quota_df = _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia)
     if not latest_quota_df.empty:
         st.caption(f"Quadro de cotas em {dashboard.latest_competencia}")
-        st.dataframe(latest_quota_df, use_container_width=True, hide_index=True)
+        st.dataframe(latest_quota_df, width="stretch", hide_index=True)
 
 
 def _render_default_section(dashboard: FundonetDashboardData) -> None:
@@ -2061,7 +2064,7 @@ def _render_default_section(dashboard: FundonetDashboardData) -> None:
             title="Saldos de Crédito Problemático",
             y_title="R$",
         ),
-        use_container_width=True,
+        width="stretch",
     )
     top_right.altair_chart(
         _line_history_chart(
@@ -2073,7 +2076,7 @@ def _render_default_section(dashboard: FundonetDashboardData) -> None:
             title="Inadimplência Relativa",
             y_title="%",
         ),
-        use_container_width=True,
+        width="stretch",
     )
 
     st.altair_chart(
@@ -2084,11 +2087,11 @@ def _render_default_section(dashboard: FundonetDashboardData) -> None:
             title=f"Aging da Inadimplência em {dashboard.latest_competencia}",
             y_title="R$",
         ),
-        use_container_width=True,
+        width="stretch",
     )
     st.dataframe(
         _format_value_table(dashboard.default_buckets_latest_df, label_column="faixa", label_title="Faixa"),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
 
@@ -2102,7 +2105,7 @@ def _render_events_section(dashboard: FundonetDashboardData) -> None:
         st.caption(f"Resumo dos eventos em {dashboard.latest_competencia}")
         st.dataframe(
             _format_event_summary_table(dashboard.event_summary_latest_df),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
@@ -2131,7 +2134,7 @@ def _render_events_section(dashboard: FundonetDashboardData) -> None:
             title="Eventos de Cotas por Competência (Sinal Econômico)",
             y_title="R$",
         ),
-        use_container_width=True,
+        width="stretch",
     )
 
     latest_events_df = dashboard.event_history_df[
@@ -2154,7 +2157,7 @@ def _render_events_section(dashboard: FundonetDashboardData) -> None:
         latest_events_df = latest_events_df[
             ["Evento", "Classe", "Qt. cotas", "Valor por cota", "Valor total", "Sinal econômico", "% PL"]
         ]
-        st.dataframe(latest_events_df, use_container_width=True, hide_index=True)
+        st.dataframe(latest_events_df, width="stretch", hide_index=True)
 
 
 def _render_cvm_tables_section(dashboard: FundonetDashboardData) -> None:
@@ -2167,14 +2170,14 @@ def _render_cvm_tables_section(dashboard: FundonetDashboardData) -> None:
         st.caption("Liquidez reportada")
         st.dataframe(
             _format_value_table(dashboard.liquidity_latest_df, label_column="horizonte", label_title="Horizonte"),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
     with right:
         st.caption("Cotistas")
         st.dataframe(
             _format_holder_table(dashboard.holder_latest_df),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
@@ -2182,7 +2185,7 @@ def _render_cvm_tables_section(dashboard: FundonetDashboardData) -> None:
         with st.expander("Taxas de negociação de direitos creditórios", expanded=False):
             st.dataframe(
                 _format_rate_table(dashboard.rate_negotiation_latest_df),
-                use_container_width=True,
+                width="stretch",
                 hide_index=True,
             )
 
@@ -3468,11 +3471,14 @@ def _altair_compatible_df(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return df.copy()
     output = df.copy()
-    for column in output.columns:
-        dtype_text = str(output[column].dtype)
-        dtype_repr = repr(output[column].dtype)
+    for column in list(output.columns):
+        column_data = output.loc[:, column]
+        if isinstance(column_data, pd.DataFrame):
+            continue
+        dtype_text = str(column_data.dtype)
+        dtype_repr = repr(column_data.dtype)
         if dtype_text.startswith("string") or dtype_text == "str" or "StringDtype" in dtype_repr:
-            output[column] = output[column].astype(object)
+            output.loc[:, column] = column_data.astype(object)
     return output
 
 
@@ -3615,24 +3621,24 @@ def _render_raw_extraction_section(result: InformeMensalResult) -> None:
         )
 
         st.subheader("Documentos selecionados")
-        st.dataframe(result.docs_df.head(max_preview_rows), use_container_width=True)
+        st.dataframe(result.docs_df.head(max_preview_rows), width="stretch")
         if len(result.docs_df) > max_preview_rows:
             st.info(f"Exibindo {max_preview_rows} de {len(result.docs_df)} documentos.")
 
         st.subheader("Prévia do wide final")
         wide_preview_df = _read_csv_preview(result.wide_csv_path, max_preview_rows)
-        st.dataframe(wide_preview_df, use_container_width=True)
+        st.dataframe(wide_preview_df, width="stretch")
         if result.wide_row_count > max_preview_rows:
             st.info(f"Exibindo {max_preview_rows} de {result.wide_row_count} linhas do wide final.")
 
         if result.listas_row_count > 0:
             st.subheader("Prévia das estruturas repetitivas")
             listas_preview_df = _read_csv_preview(result.listas_csv_path, max_preview_rows)
-            st.dataframe(listas_preview_df, use_container_width=True)
+            st.dataframe(listas_preview_df, width="stretch")
             if result.listas_row_count > max_preview_rows:
                 st.info(f"Exibindo {max_preview_rows} de {result.listas_row_count} linhas das estruturas repetitivas.")
 
         st.subheader("Auditoria")
-        st.dataframe(result.audit_df.head(max_preview_rows), use_container_width=True)
+        st.dataframe(result.audit_df.head(max_preview_rows), width="stretch")
         if len(result.audit_df) > max_preview_rows:
             st.info(f"Exibindo {max_preview_rows} de {len(result.audit_df)} eventos de auditoria.")
