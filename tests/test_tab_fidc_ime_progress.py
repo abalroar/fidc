@@ -176,6 +176,22 @@ class TabFidcImeProgressTests(unittest.TestCase):
 
         self.assertEqual(["8,1%", "12,4%"], labels_df["end_label"].tolist())
 
+    def test_maturity_waterfall_chart_frame_builds_compounding_total(self) -> None:
+        maturity_df = pd.DataFrame(
+            {
+                "ordem": [1, 2, 3],
+                "faixa": ["Vencidos", "Em 30 dias", "31 a 60 dias"],
+                "valor": [10.0, 20.0, 30.0],
+            }
+        )
+
+        waterfall_df = tab_fidc_ime._maturity_waterfall_chart_frame(maturity_df)
+
+        self.assertEqual(["Vencidos", "Em 30 dias", "31 a 60 dias", "Total"], waterfall_df["etapa"].tolist())
+        self.assertEqual([0.0, 10.0, 30.0, 0.0], waterfall_df["bar_start"].tolist())
+        self.assertEqual([10.0, 30.0, 60.0, 60.0], waterfall_df["bar_end"].tolist())
+        self.assertEqual("total", waterfall_df.iloc[-1]["tipo"])
+
 
 if __name__ == "__main__":
     unittest.main()

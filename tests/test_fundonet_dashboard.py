@@ -5,6 +5,7 @@ import importlib.util
 from pathlib import Path
 import tempfile
 import unittest
+from datetime import datetime, timezone
 
 import pandas as pd
 
@@ -240,17 +241,29 @@ class FundonetDashboardTests(unittest.TestCase):
                 docs_csv_path=workspace / "documentos_filtrados.csv",
             )
 
-        pptx_bytes = build_dashboard_pptx_bytes(dashboard)
+        pptx_bytes = build_dashboard_pptx_bytes(
+            dashboard,
+            generated_at=datetime(2026, 4, 14, 15, 0, tzinfo=timezone.utc),
+        )
         self.assertTrue(pptx_bytes.startswith(b"PK"))
         self.assertGreater(len(pptx_bytes), 10_000)
         presentation = Presentation(io.BytesIO(pptx_bytes))
         self.assertEqual(6, len(presentation.slides))
+        slide_1_text = " ".join(
+            shape.text for shape in presentation.slides[0].shapes if hasattr(shape, "text")
+        )
+        self.assertIn("Gerado em: 14/04/2026 12:00 GMT-3", slide_1_text)
         pl_charts = [shape.chart for shape in presentation.slides[1].shapes if getattr(shape, "has_chart", False)]
         self.assertEqual(1, len(pl_charts))
-        pl_chart_xml = pl_charts[0]._chartSpace.xml
-        self.assertTrue(
-            '<c:max val="1"' in pl_chart_xml or '<c:max val="1.0"' in pl_chart_xml
-        )
+        self.assertIn("<c:legend>", pl_charts[0]._chartSpace.xml)
+        credit_charts = [shape.chart for shape in presentation.slides[2].shapes if getattr(shape, "has_chart", False)]
+        self.assertEqual(2, len(credit_charts))
+        self.assertTrue(any('<c:axPos val="r"' in chart._chartSpace.xml for chart in credit_charts))
+        self.assertTrue(any("<c:legend>" in chart._chartSpace.xml for chart in credit_charts))
+        maturity_charts = [shape.chart for shape in presentation.slides[5].shapes if getattr(shape, "has_chart", False)]
+        self.assertEqual(2, len(maturity_charts))
+        self.assertEqual(3, len(maturity_charts[0].series))
+        self.assertIn("Total", maturity_charts[0]._chartSpace.xml)
 
     @staticmethod
     def _write_fixture_csvs(workspace: Path) -> None:

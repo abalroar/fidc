@@ -1007,6 +1007,10 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     if _credit_chart_all_zero:
         st.caption("Inadimplência e provisão não reportadas ou zeradas nos informes disponíveis.")
     else:
+        credit_bar_size = _executive_grouped_bar_size(
+            default_pct_chart_df["competencia"].nunique(),
+            default_pct_chart_df["serie"].nunique(),
+        )
         st.altair_chart(
             _grouped_bar_with_rhs_line_chart(
                 default_pct_chart_df,
@@ -1017,6 +1021,8 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 height=340,
                 reference_value=100.0,
                 reference_label="100% (paridade)",
+                bar_size=credit_bar_size,
+                show_line_end_label=True,
             ),
             width="stretch",
         )
@@ -1079,11 +1085,12 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 color_range=AGING_CHART_COLORS,
                 show_total_labels=True,
                 height=455,
-                bar_size=max(90, int(_single_series_bar_size(aging_history_df["competencia"].nunique()) * 2.5)),
-                label_font_size=9,
-                inner_label_threshold=1.2,
+                bar_size=_executive_monthly_bar_size(aging_history_df["competencia"].nunique()),
+                label_font_size=8,
+                inner_label_threshold=1.4,
                 allow_outside_labels=False,
                 round_percent_labels=True,
+                inside_label_color="#ffffff",
             ),
             width="stretch",
         )
@@ -1112,8 +1119,8 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
             ),
             title=None,
             y_title="%",
-            show_point_labels=False,
-            show_end_labels=True,
+            show_point_labels=True,
+            show_end_labels=False,
         ),
         width="stretch",
     )
@@ -1128,11 +1135,12 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
     _render_chart_heading(st, "PL por tipo de cota", "Selecione a visão desejada.")
     pl_view = st.radio(
         "Visão do PL",
-        options=["% do total por competência", "Valores absolutos (R$)"],
+        options=["Valores absolutos (R$)", "% do total por competência"],
         horizontal=True,
         label_visibility="collapsed",
         key=f"pl_view_{slot_key}",
     )
+    pl_bar_size = _executive_monthly_bar_size(dashboard.quota_pl_history_df["competencia"].nunique())
     if pl_view == "% do total por competência":
         st.altair_chart(
             _stacked_history_bar_chart(
@@ -1140,6 +1148,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 title=None,
                 y_title="% do total",
                 value_column="percentual",
+                bar_size=pl_bar_size,
             ),
             width="stretch",
         )
@@ -1151,6 +1160,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 y_title="R$",
                 value_column="valor",
                 show_total_labels=True,
+                bar_size=pl_bar_size,
             ),
             width="stretch",
         )
@@ -1192,13 +1202,7 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
     )
     _render_chart_heading(st, f"Prazo de vencimento em {_format_competencia_label(dashboard.latest_competencia)}")
     st.altair_chart(
-        _bar_chart(
-            dashboard.maturity_latest_df,
-            x_column="faixa",
-            y_column="valor",
-            title=None,
-            y_title="R$",
-        ),
+        _maturity_waterfall_chart(dashboard.maturity_latest_df, title=None),
         width="stretch",
     )
     vencidos_caption = _maturity_vencidos_caption(dashboard.maturity_latest_df)
@@ -2724,6 +2728,15 @@ def _grouped_series_bar_size(period_count: int, series_count: int) -> int:
     return 12
 
 
+def _executive_monthly_bar_size(category_count: int) -> int:
+    return max(90, int(_single_series_bar_size(max(category_count, 1)) * 2.5))
+
+
+def _executive_grouped_bar_size(period_count: int, series_count: int) -> int:
+    wide_bar_size = _executive_monthly_bar_size(period_count)
+    return max(26, int(wide_bar_size / max(series_count, 1)))
+
+
 def _hex_is_dark(color: str) -> bool:
     value = str(color or "").strip().lstrip("#")
     if len(value) != 6:
@@ -3240,6 +3253,124 @@ def _stacked_share_column_chart(
     return _style_altair_chart(chart + labels)
 
 
+def _maturity_waterfall_chart_frame(maturity_latest_df: pd.DataFrame) -> pd.DataFrame:
+    if maturity_latest_df.empty:
+        return pd.DataFrame(
+            columns=[
+                "ordem",
+                "etapa",
+                "valor_etapa",
+                "bar_start",
+                "bar_end",
+                "cumulative",
+                "tipo",
+                "valor_fmt",
+                "cumulative_fmt",
+            ]
+        )
+    chart_df = _altair_compatible_df(maturity_latest_df.copy())
+    chart_df["valor"] = pd.to_numeric(chart_df["valor"], errors="coerce").fillna(0.0)
+    if "ordem" in chart_df.columns:
+        chart_df = chart_df.sort_values("ordem").reset_index(drop=True)
+    else:
+        chart_df = chart_df.reset_index(drop=True)
+    rows: list[dict[str, object]] = []
+    cumulative = 0.0
+    for idx, row in chart_df.iterrows():
+        etapa = str(row.get("faixa") or f"Faixa {idx + 1}")
+        valor_etapa = float(row.get("valor") or 0.0)
+        bar_start = cumulative
+        bar_end = cumulative + valor_etapa
+        rows.append(
+            {
+                "ordem": idx + 1,
+                "etapa": etapa,
+                "valor_etapa": valor_etapa,
+                "bar_start": bar_start,
+                "bar_end": bar_end,
+                "cumulative": bar_end,
+                "tipo": "inicio" if idx == 0 else "incremento",
+                "valor_fmt": _format_brl_compact(valor_etapa),
+                "cumulative_fmt": _format_brl_compact(bar_end),
+            }
+        )
+        cumulative = bar_end
+    rows.append(
+        {
+            "ordem": len(rows) + 1,
+            "etapa": "Total",
+            "valor_etapa": cumulative,
+            "bar_start": 0.0,
+            "bar_end": cumulative,
+            "cumulative": cumulative,
+            "tipo": "total",
+            "valor_fmt": _format_brl_compact(cumulative),
+            "cumulative_fmt": _format_brl_compact(cumulative),
+        }
+    )
+    return pd.DataFrame(rows)
+
+
+def _maturity_waterfall_chart(maturity_latest_df: pd.DataFrame, *, title: str | None) -> alt.Chart:
+    chart_df = _maturity_waterfall_chart_frame(maturity_latest_df)
+    if chart_df.empty:
+        empty_chart = (
+            alt.Chart(pd.DataFrame(columns=["etapa", "bar_end"]))
+            .mark_bar()
+            .encode(x="etapa:N", y=alt.Y("bar_end:Q", title="R$"))
+        )
+        return _style_altair_chart(_chart_with_optional_title(empty_chart, height=340, title=title))
+    x_sort = chart_df.sort_values("ordem")["etapa"].tolist()
+    color_scale = alt.Scale(
+        domain=["inicio", "incremento", "total"],
+        range=["#111111", "#ff5a00", "#111111"],
+    )
+    y_encoding = alt.Y(
+        "bar_end:Q",
+        title="R$",
+        axis=alt.Axis(labelExpr=_brl_axis_label_expr()),
+        scale=_quant_scale_with_headroom(chart_df["bar_end"], percent_like=False),
+    )
+    bars = (
+        alt.Chart(chart_df)
+        .mark_bar(size=_executive_monthly_bar_size(chart_df["etapa"].nunique()))
+        .encode(
+            x=alt.X("etapa:N", title=None, sort=x_sort),
+            y=y_encoding,
+            y2="bar_start:Q",
+            color=alt.Color("tipo:N", scale=color_scale, legend=None),
+            tooltip=[
+                alt.Tooltip("etapa:N", title="Etapa"),
+                alt.Tooltip("valor_fmt:N", title="Fluxo"),
+                alt.Tooltip("cumulative_fmt:N", title="Acumulado"),
+            ],
+        )
+    )
+    connector_df = chart_df.iloc[:-1].copy()
+    connector_df["etapa_proxima"] = chart_df["etapa"].shift(-1)
+    connector_df = connector_df[connector_df["etapa_proxima"].notna()].copy()
+    connectors = (
+        alt.Chart(connector_df)
+        .mark_rule(color="#9ca3af", strokeDash=[4, 4], strokeWidth=1.3)
+        .encode(
+            x=alt.X("etapa:N", sort=x_sort),
+            x2="etapa_proxima:N",
+            y=alt.Y("bar_end:Q", title="R$"),
+        )
+    )
+    labels = (
+        alt.Chart(chart_df)
+        .mark_text(dy=-9, fontSize=11, fontWeight=700, color="#111111", clip=False)
+        .encode(
+            x=alt.X("etapa:N", sort=x_sort),
+            y=alt.Y("bar_end:Q", title="R$"),
+            text=alt.Text("valor_fmt:N"),
+        )
+    )
+    chart = _chart_with_optional_title(bars + connectors + labels, height=340, title=title)
+    return _style_altair_chart(chart)
+
+
 def _bar_chart(
     chart_df: pd.DataFrame,
     *,
@@ -3615,6 +3746,8 @@ def _grouped_bar_with_rhs_line_chart(
     height: int = 360,
     reference_value: float | None = None,
     reference_label: str | None = None,
+    bar_size: int | None = None,
+    show_line_end_label: bool = True,
 ) -> alt.Chart:
     bar_chart_df = _altair_compatible_df(bar_df.copy())
     line_chart_df = _altair_compatible_df(line_df.copy())
@@ -3665,7 +3798,12 @@ def _grouped_bar_with_rhs_line_chart(
     line_y_encoding = alt.Y(
         f"{line_value_field}:Q",
         title=line_y_title,
-        axis=alt.Axis(orient="right"),
+        axis=alt.Axis(
+            orient="right",
+            grid=False,
+            labelColor=COVERAGE_LINE_COLOR,
+            titleColor=COVERAGE_LINE_COLOR,
+        ),
         scale=_quant_scale_with_headroom(
             line_scale_input,
             percent_like="%" in line_y_title,
@@ -3674,7 +3812,7 @@ def _grouped_bar_with_rhs_line_chart(
 
     bars = (
         alt.Chart(bar_chart_df)
-        .mark_bar(size=_grouped_series_bar_size(bar_chart_df["competencia"].nunique(), bar_chart_df["serie"].nunique()))
+        .mark_bar(size=bar_size or _grouped_series_bar_size(bar_chart_df["competencia"].nunique(), bar_chart_df["serie"].nunique()))
         .encode(
             x=x_encoding,
             y=bar_y_encoding,
@@ -3732,8 +3870,46 @@ def _grouped_bar_with_rhs_line_chart(
         coverage_layers = reference_rule + coverage_line
 
     layered = alt.layer(bar_layer, coverage_layers).resolve_scale(y="independent")
+    if show_line_end_label:
+        coverage_labels_df = _build_line_series_end_labels_df(
+            line_chart_df,
+            y_title=line_y_title,
+            min_gap_override=12.0 if "%" in line_y_title else None,
+        )
+        if not coverage_labels_df.empty:
+            coverage_labels_df = coverage_labels_df.copy()
+            coverage_labels_df["badge_offset"] = 34
+            coverage_labels_df["badge_size"] = 1750
+            badge_bg = (
+                alt.Chart(coverage_labels_df)
+                .mark_square(color=COVERAGE_LINE_COLOR, opacity=1.0, filled=True, clip=False)
+                .encode(
+                    x=alt.X("competencia:N", sort=x_sort),
+                    xOffset=alt.XOffset("badge_offset:Q"),
+                    y=alt.Y("label_valor:Q", title=line_y_title),
+                    size=alt.Size("badge_size:Q", legend=None),
+                )
+            )
+            badge_text = (
+                alt.Chart(coverage_labels_df)
+                .mark_text(
+                    align="center",
+                    baseline="middle",
+                    fontSize=11,
+                    fontWeight=700,
+                    color="#ffffff",
+                    clip=False,
+                )
+                .encode(
+                    x=alt.X("competencia:N", sort=x_sort),
+                    xOffset=alt.XOffset("badge_offset:Q"),
+                    y=alt.Y("label_valor:Q", title=line_y_title),
+                    text=alt.Text("end_label:N"),
+                )
+            )
+            layered = layered + badge_bg + badge_text
     layered = _chart_with_optional_title(layered, height=height, title=title)
-    return _style_altair_chart(layered)
+    return _style_altair_chart(layered.properties(padding={"left": 8, "right": 86, "top": 8, "bottom": 8}))
 
 
 def _stacked_area_chart(

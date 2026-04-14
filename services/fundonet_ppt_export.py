@@ -5,6 +5,7 @@ from datetime import datetime
 from io import BytesIO
 from pathlib import Path
 from typing import Sequence
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 
@@ -65,7 +66,7 @@ def build_dashboard_pptx_bytes(
         from pptx import Presentation
         from pptx.chart.data import CategoryChartData
         from pptx.dml.color import RGBColor
-        from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION, XL_MARKER_STYLE
+        from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION, XL_LEGEND_POSITION, XL_MARKER_STYLE
         from pptx.enum.dml import MSO_LINE_DASH_STYLE
         from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE
         from pptx.enum.text import MSO_AUTO_SIZE, PP_ALIGN
@@ -73,7 +74,13 @@ def build_dashboard_pptx_bytes(
     except Exception as exc:  # noqa: BLE001
         raise RuntimeError("Dependência python-pptx não instalada.") from exc
 
-    generated_at = generated_at or datetime.now()
+    sao_paulo_tz = ZoneInfo("America/Sao_Paulo")
+    if generated_at is None:
+        generated_at = datetime.now(sao_paulo_tz)
+    elif generated_at.tzinfo is None:
+        generated_at = generated_at.replace(tzinfo=sao_paulo_tz)
+    else:
+        generated_at = generated_at.astimezone(sao_paulo_tz)
     prs = Presentation()
     prs.slide_width = Inches(SLIDE_WIDTH_IN)
     prs.slide_height = Inches(SLIDE_HEIGHT_IN)
@@ -265,12 +272,12 @@ def build_dashboard_pptx_bytes(
         label_position: str = "above",
         label_color: str = BLACK,
         label_font_size: int = LABEL_SIZE,
-        legend_items: Sequence[tuple[str, str]] | None = None,
         series_colors: Sequence[str] | None = None,
         title_suffix: str = "",
         value_max: float | None = None,
         value_min: float | None = None,
         show_data_labels: bool = True,
+        show_legend: bool = False,
     ):
         if title:
             add_textbox(slide, left, top - 0.22, width, 0.18, f"{title}{title_suffix}", size=SECTION_SIZE, bold=True, color=BLACK)
@@ -280,7 +287,11 @@ def build_dashboard_pptx_bytes(
             chart_data.add_series(series_name, tuple(values))
         chart_shape = slide.shapes.add_chart(chart_type, Inches(left), Inches(top), Inches(width), Inches(height), chart_data)
         chart = chart_shape.chart
-        chart.has_legend = False
+        chart.has_legend = show_legend
+        if show_legend and chart.legend is not None:
+            chart.legend.position = XL_LEGEND_POSITION.BOTTOM
+            if hasattr(chart.legend, "include_in_layout"):
+                chart.legend.include_in_layout = True
 
         plot = chart.plots[0]
         if gap_width is not None and hasattr(plot, "gap_width"):
@@ -327,9 +338,6 @@ def build_dashboard_pptx_bytes(
             fill.solid()
             fill.fore_color.rgb = rgb(applied_colors[idx % len(applied_colors)])
             series.format.line.color.rgb = rgb(applied_colors[idx % len(applied_colors)])
-
-        if legend_items:
-            add_manual_legend(slide, legend_items, left=left, top=top + height + 0.02, max_width=width)
 
         return chart
 
@@ -408,6 +416,8 @@ def build_dashboard_pptx_bytes(
         axis_max: float,
         axis_min: float = 0.0,
         font_size: int = 11,
+        fill_colors: Sequence[str] | None = None,
+        text_colors: Sequence[str] | None = None,
     ) -> None:
         numeric_values = [float(value) for value in values]
         plot_top = top + 0.22
@@ -420,16 +430,31 @@ def build_dashboard_pptx_bytes(
         ]
         adjusted_positions = _repel_label_positions(raw_positions, min_gap=0.18)
         for idx, label in enumerate(labels):
+            label_width = max(0.72, min(1.45, 0.20 + len(str(label)) * 0.07))
+            label_top = max(top + 0.02, adjusted_positions[idx] - 0.08)
+            fill_color = fill_colors[idx % len(fill_colors)] if fill_colors else None
+            if fill_color:
+                badge = slide.shapes.add_shape(
+                    MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE,
+                    Inches(plot_right),
+                    Inches(label_top - 0.01),
+                    Inches(label_width),
+                    Inches(0.22),
+                )
+                badge.fill.solid()
+                badge.fill.fore_color.rgb = rgb(fill_color)
+                badge.line.fill.background()
             add_textbox(
                 slide,
                 plot_right,
-                max(top + 0.02, adjusted_positions[idx] - 0.07),
-                1.35,
+                label_top,
+                label_width,
                 0.18,
                 label,
                 size=font_size,
                 bold=True,
-                color=colors[idx % len(colors)],
+                color=(text_colors[idx % len(text_colors)] if text_colors else colors[idx % len(colors)]),
+                align=PP_ALIGN.CENTER,
             )
 
     def add_overlay_combo_credit_chart(
@@ -443,7 +468,7 @@ def build_dashboard_pptx_bytes(
         width: float,
         height: float,
     ) -> None:
-        add_chart(
+        bar_chart = add_chart(
             slide,
             title=None,
             chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
@@ -455,9 +480,10 @@ def build_dashboard_pptx_bytes(
             height=height,
             number_format='0.0"%"',
             percent_axis=True,
-            gap_width=48,
+            gap_width=42,
             label_position="outside_end",
             label_font_size=10,
+            show_legend=True,
             value_max=_percent_axis_max(bar_series_map, cap=120.0),
         )
         line_chart = add_chart(
@@ -476,6 +502,7 @@ def build_dashboard_pptx_bytes(
             label_font_size=9,
             value_max=_percent_axis_max(line_series_map, cap=max(650.0, max([max([float(v) for v in values if v is not None], default=0.0) for _, values in line_series_map]) * 1.18 if line_series_map else 120.0)),
             show_data_labels=False,
+            show_legend=False,
         )
         _set_axis_hidden(line_chart, "catAx", True)
         _set_value_axis_right(line_chart)
@@ -499,20 +526,94 @@ def build_dashboard_pptx_bytes(
                 dashed=True,
                 hide_marker=True,
             )
-        add_manual_legend(
+        coverage_values = [float(value) for value in line_series_map[0][1] if value is not None] if line_series_map else []
+        if coverage_values:
+            add_line_end_labels(
+                slide,
+                labels=[_format_percent(coverage_values[-1])],
+                values=[coverage_values[-1]],
+                colors=[COVERAGE_LINE_COLOR],
+                fill_colors=[COVERAGE_LINE_COLOR],
+                text_colors=[WHITE],
+                left=left,
+                top=top,
+                width=width,
+                height=height,
+                axis_max=_percent_axis_max(
+                    line_series_map,
+                    cap=max(
+                        650.0,
+                        max([max([float(v) for v in values if v is not None], default=0.0) for _, values in line_series_map]) * 1.18
+                        if line_series_map
+                        else 120.0,
+                    ),
+                ),
+            )
+
+    def add_compounding_waterfall_chart(
+        slide,
+        *,
+        categories: Sequence[str],
+        step_values: Sequence[float],
+        total_value: float,
+        left: float,
+        top: float,
+        width: float,
+        height: float,
+        number_format: str,
+        value_max: float | None,
+        title_suffix: str = "",
+    ) -> None:
+        base_values: list[float] = []
+        flow_values: list[float] = []
+        total_series_values: list[float] = []
+        cumulative = 0.0
+        for idx, step_value in enumerate(step_values):
+            numeric_value = float(step_value)
+            base_values.append(cumulative)
+            flow_values.append(numeric_value)
+            total_series_values.append(0.0)
+            cumulative += numeric_value
+        base_values.append(0.0)
+        flow_values.append(0.0)
+        total_series_values.append(float(total_value))
+        chart = add_chart(
             slide,
-            [
-                ("Inadimplência", SERIES_COLORS[0]),
-                ("Provisão", SERIES_COLORS[1]),
-                ("Cobertura", COVERAGE_LINE_COLOR),
-                ("100% (paridade)", MID_GRAY),
+            title=f"Waterfall de vencimento da carteira{title_suffix}",
+            chart_type=XL_CHART_TYPE.COLUMN_STACKED,
+            categories=list(categories) + ["Total"],
+            series_map=[
+                ("Base", base_values),
+                ("Fluxo", flow_values),
+                ("Total", total_series_values),
             ],
             left=left,
-            top=top + height + 0.02,
-            max_width=width,
+            top=top,
+            width=width,
+            height=height,
+            number_format=number_format,
+            money_axis=True,
+            gap_width=36,
+            overlap=100,
+            label_position="outside_end",
+            label_font_size=9,
+            value_max=value_max,
+            show_data_labels=True,
+            show_legend=False,
+            series_colors=[WHITE, ORANGE, BLACK],
         )
+        base_series = chart.series[0]
+        base_series.format.fill.background()
+        base_series.format.line.fill.background()
+        if hasattr(base_series, "data_labels"):
+            base_series.data_labels.show_value = False
+        for idx in range(1, len(chart.series)):
+            series = chart.series[idx]
+            series.data_labels.font.bold = True
+            series.data_labels.font.size = Pt(9)
+            series.data_labels.font.color.rgb = rgb(BLACK if idx == 2 else DARK_GRAY)
 
-    timestamp_text = generated_at.strftime("%d/%m/%Y %H:%M")
+    timestamp_text = f"{generated_at.strftime('%d/%m/%Y %H:%M')} GMT-3"
     title_fund = _fund_title(dashboard)
 
     # Slide 1 — overview + structural protection
@@ -551,22 +652,10 @@ def build_dashboard_pptx_bytes(
             number_format='0.0"%"',
             percent_axis=True,
             label_position="above",
-            show_data_labels=False,
+            show_data_labels=True,
             value_max=_percent_axis_max(sub_series, cap=80.0),
         )
         _style_line_series(sub_chart.series[0], color=ORANGE, width_pt=2.8, marker_size=12)
-        latest_sub = float(pd.to_numeric(sub_df["subordinacao_pct"], errors="coerce").dropna().iloc[-1])
-        add_line_end_labels(
-            slide,
-            labels=[_format_percent(latest_sub)],
-            values=[latest_sub],
-            colors=[ORANGE],
-            left=MARGIN_LEFT_IN,
-            top=2.35,
-            width=CONTENT_WIDTH_IN,
-            height=2.55,
-            axis_max=_percent_axis_max(sub_series, cap=80.0),
-        )
     structural_table = _risk_metrics_table_frame(dashboard.risk_metrics_df, "Risco estrutural")
     add_table(
         slide,
@@ -583,38 +672,36 @@ def build_dashboard_pptx_bytes(
     # Slide 2 — PL por classe
     slide = prs.slides.add_slide(blank)
     add_textbox(slide, 0.45, 0.18, 8.5, 0.28, "PL por tipo de cota", size=TITLE_SIZE, bold=True, color=BLACK)
-    add_textbox(slide, 0.45, 0.46, 10.0, 0.16, "Mesma série histórica usada na interface, em % do total por competência.", size=BODY_SIZE, color=MID_GRAY)
-    quota_share = _quota_pl_share_pivot(dashboard.quota_pl_history_df)
-    if not quota_share.empty:
+    add_textbox(slide, 0.45, 0.46, 10.0, 0.16, "Visão padrão da aba: valores absolutos (R$) por competência, mantendo a mesma decomposição por classe.", size=BODY_SIZE, color=MID_GRAY)
+    quota_values = _quota_pl_value_pivot(dashboard.quota_pl_history_df)
+    if not quota_values.empty:
+        quota_scale = _money_scale(quota_values.drop(columns=["competencia"]).stack())
         quota_series = [
-            (column, (pd.to_numeric(quota_share[column], errors="coerce").fillna(0.0) / 100.0).tolist())
-            for column in quota_share.columns
+            (column, _scale_values(quota_values[column], quota_scale).tolist())
+            for column in quota_values.columns
             if column != "competencia"
         ]
         quota_chart = add_chart(
             slide,
             title=None,
             chart_type=XL_CHART_TYPE.COLUMN_STACKED,
-            categories=_competencia_labels(quota_share["competencia"].tolist()),
+            categories=_competencia_labels(quota_values["competencia"].tolist()),
             series_map=quota_series,
             left=MARGIN_LEFT_IN,
             top=0.82,
             width=CONTENT_WIDTH_IN,
             height=4.20,
-            number_format='0%',
-            percent_axis=True,
-            gap_width=34,
+            number_format=_money_number_format(quota_scale),
+            money_axis=True,
+            gap_width=36,
             overlap=100,
             label_position="center",
             label_color=WHITE,
             label_font_size=9,
-            legend_items=[
-                (column, SERIES_COLORS[idx % len(SERIES_COLORS)])
-                for idx, column in enumerate([column for column in quota_share.columns if column != "competencia"])
-            ],
             series_colors=SERIES_COLORS,
             value_min=0.0,
-            value_max=1.0,
+            value_max=_money_axis_max([value for _, values in quota_series for value in values]),
+            show_legend=True,
         )
         for idx, series in enumerate(quota_chart.series):
             series.data_labels.font.color.rgb = rgb(WHITE if idx in {0, 2, 3} else BLACK)
@@ -709,6 +796,7 @@ def build_dashboard_pptx_bytes(
             series_colors=OVER_PPT_COLORS,
             value_max=over_axis_max,
             show_data_labels=False,
+            show_legend=True,
         )
         for idx, series in enumerate(over_chart.series):
             _style_line_series(
@@ -768,22 +856,19 @@ def build_dashboard_pptx_bytes(
             top=0.82,
             width=CONTENT_WIDTH_IN,
             height=5.48,
-            number_format='0.0"%"',
+            number_format='0%',
             percent_axis=True,
             gap_width=36,
             overlap=100,
             label_position="center",
             label_color=WHITE,
             label_font_size=8,
-            legend_items=[
-                (column, AGING_PPT_COLORS[idx % len(AGING_PPT_COLORS)])
-                for idx, column in enumerate(aging_columns)
-            ],
             series_colors=AGING_PPT_COLORS,
             value_max=_percent_axis_max(aging_series_map, cap=120.0),
+            show_legend=True,
         )
         for idx, series in enumerate(aging_chart.series):
-            series.data_labels.font.color.rgb = rgb(WHITE if idx >= 5 else BLACK)
+            series.data_labels.font.color.rgb = rgb(WHITE)
     add_footer(slide, timestamp_text)
 
     # Slide 6 — maturity and duration
@@ -803,22 +888,17 @@ def build_dashboard_pptx_bytes(
     if not maturity_df.empty:
         maturity_scale = _money_scale(pd.to_numeric(maturity_df["valor"], errors="coerce"))
         maturity_values = _scale_values(maturity_df["valor"], maturity_scale).tolist()
-        add_chart(
+        add_compounding_waterfall_chart(
             slide,
-            title="Prazo de vencimento da carteira",
-            chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
             categories=maturity_df["faixa"].astype(str).tolist(),
-            series_map=[("Valor", maturity_values)],
+            step_values=maturity_values,
+            total_value=float(sum(maturity_values)),
             left=MARGIN_LEFT_IN,
             top=0.86,
             width=CONTENT_WIDTH_IN,
             height=3.05,
             number_format=_money_number_format(maturity_scale),
-            money_axis=True,
-            gap_width=28,
-            label_position="outside_end",
-            label_font_size=10,
-            value_max=_money_axis_max(maturity_values),
+            value_max=_money_axis_max(list(maturity_values) + [sum(maturity_values)]),
             title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
         )
     duration_df = dashboard.duration_history_df.sort_values("competencia_dt").copy()
@@ -1096,10 +1176,12 @@ def _latest_quota_table_frame(frame: pd.DataFrame, latest_competencia: str) -> p
 
 def _latest_maturity_chart_frame(frame: pd.DataFrame) -> pd.DataFrame:
     if frame.empty:
-        return pd.DataFrame(columns=["faixa", "valor"])
+        return pd.DataFrame(columns=["faixa", "valor", "ordem"])
     output = frame.copy()
     output["valor"] = pd.to_numeric(output["valor"], errors="coerce").fillna(0.0)
-    output = output[output["valor"] > 0].copy()
+    if "ordem" in output.columns:
+        output = output.sort_values("ordem")
+        return output[["faixa", "valor", "ordem"]]
     return output[["faixa", "valor"]]
 
 
@@ -1110,6 +1192,19 @@ def _quota_pl_share_pivot(frame: pd.DataFrame) -> pd.DataFrame:
     output["percentual"] = pd.to_numeric(output["pl_share_pct"], errors="coerce").fillna(0.0)
     pivot = (
         output.pivot_table(index="competencia", columns="label", values="percentual", aggfunc="sum")
+        .fillna(0.0)
+        .reset_index()
+    )
+    return pivot
+
+
+def _quota_pl_value_pivot(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame(columns=["competencia"])
+    output = frame.copy()
+    output["valor"] = pd.to_numeric(output["pl"], errors="coerce").fillna(0.0)
+    pivot = (
+        output.pivot_table(index="competencia", columns="label", values="valor", aggfunc="sum")
         .fillna(0.0)
         .reset_index()
     )
