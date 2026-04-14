@@ -19,6 +19,7 @@ GRID_GRAY = "#d7dce3"
 SOFT_GRAY = "#f5f6f8"
 WHITE = "#ffffff"
 SERIES_COLORS = [BLACK, ORANGE, DARK_GRAY, "#8a8a8a", "#b24f19"]
+OVER_PPT_COLORS = ["#2f7d4a", "#8abc4a", "#f0c340", "#ea8c2d", "#c8562c", "#7b241c"]
 
 SLIDE_WIDTH_IN = 13.333
 SLIDE_HEIGHT_IN = 7.5
@@ -166,14 +167,15 @@ def build_dashboard_pptx_bytes(
         slide,
         df: pd.DataFrame,
         *,
-        title: str,
+        title: str | None,
         left: float,
         top: float,
         width: float,
         height: float,
         col_widths: Sequence[float] | None = None,
     ):
-        add_textbox(slide, left, top - 0.22, width, 0.18, title, size=SECTION_SIZE, bold=True, color=BLACK)
+        if title:
+            add_textbox(slide, left, top - 0.22, width, 0.18, title, size=SECTION_SIZE, bold=True, color=BLACK)
         frame = df.copy()
         rows = max(len(frame.index), 1)
         cols = max(len(frame.columns), 1)
@@ -233,7 +235,7 @@ def build_dashboard_pptx_bytes(
     def add_chart(  # noqa: ANN202
         slide,
         *,
-        title: str,
+        title: str | None,
         chart_type,
         categories: Sequence[str],
         series_map: Sequence[tuple[str, Sequence[float]]],
@@ -250,11 +252,13 @@ def build_dashboard_pptx_bytes(
         label_color: str = BLACK,
         label_font_size: int = LABEL_SIZE,
         legend_items: Sequence[tuple[str, str]] | None = None,
+        series_colors: Sequence[str] | None = None,
         title_suffix: str = "",
         value_max: float | None = None,
         value_min: float | None = None,
     ):
-        add_textbox(slide, left, top - 0.22, width, 0.18, f"{title}{title_suffix}", size=SECTION_SIZE, bold=True, color=BLACK)
+        if title:
+            add_textbox(slide, left, top - 0.22, width, 0.18, f"{title}{title_suffix}", size=SECTION_SIZE, bold=True, color=BLACK)
         chart_data = CategoryChartData()
         chart_data.categories = list(categories)
         for series_name, values in series_map:
@@ -301,11 +305,12 @@ def build_dashboard_pptx_bytes(
                 if value_min is None:
                     chart.value_axis.minimum_scale = 0.0
 
+        applied_colors = list(series_colors or SERIES_COLORS)
         for idx, series in enumerate(chart.series):
             fill = series.format.fill
             fill.solid()
-            fill.fore_color.rgb = rgb(SERIES_COLORS[idx % len(SERIES_COLORS)])
-            series.format.line.color.rgb = rgb(SERIES_COLORS[idx % len(SERIES_COLORS)])
+            fill.fore_color.rgb = rgb(applied_colors[idx % len(applied_colors)])
+            series.format.line.color.rgb = rgb(applied_colors[idx % len(applied_colors)])
 
         if legend_items:
             add_manual_legend(slide, legend_items, left=left, top=top + height + 0.02, max_width=width)
@@ -314,17 +319,15 @@ def build_dashboard_pptx_bytes(
 
     timestamp_text = generated_at.strftime("%d/%m/%Y %H:%M")
     title_fund = _fund_title(dashboard)
-
-    # Slide 1: visão geral + crédito
     slide = prs.slides.add_slide(blank)
-    add_textbox(slide, MARGIN_LEFT_IN, 0.18, 6.2, 0.28, "Informe Mensal Estruturado", size=TITLE_SIZE, bold=True, color=BLACK)
-    add_textbox(slide, MARGIN_LEFT_IN, 0.48, 9.6, 0.22, title_fund, size=13, bold=True, color=ORANGE)
+    add_textbox(slide, 0.45, 0.18, 6.2, 0.28, "Informe Mensal Estruturado", size=TITLE_SIZE, bold=True, color=BLACK)
+    add_textbox(slide, 0.45, 0.48, 9.6, 0.22, title_fund, size=13, bold=True, color=ORANGE)
     subtitle = (
         f"Última competência: {_format_competencia(dashboard.latest_competencia)}"
         f"  |  Janela: {dashboard.fund_info.get('periodo_analisado', 'N/D')}"
         f"  |  Cotistas: {dashboard.fund_info.get('total_cotistas') or 'N/D'}"
     )
-    add_textbox(slide, MARGIN_LEFT_IN, 0.72, 10.5, 0.16, subtitle, size=BODY_SIZE, color=MID_GRAY)
+    add_textbox(slide, 0.45, 0.72, 10.5, 0.16, subtitle, size=BODY_SIZE, color=MID_GRAY)
 
     cards = [
         ("PL total", _format_brl_compact(dashboard.summary.get("pl_total")), ""),
@@ -334,129 +337,29 @@ def build_dashboard_pptx_bytes(
         ("Subordinação", _format_percent(dashboard.summary.get("subordinacao_pct")), ""),
         ("Créditos vencidos", _format_brl_compact(dashboard.summary.get("direitos_creditorios_vencidos")), ""),
     ]
-    card_width = 2.0
-    card_gap = 0.08
     for idx, (label, value, note) in enumerate(cards):
-        add_card(
-            slide,
-            MARGIN_LEFT_IN + idx * (card_width + card_gap),
-            1.02,
-            card_width,
-            0.95,
-            label,
-            value,
-            note,
-        )
-
-    default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
-    if not default_df.empty:
-        direitos_base = _series_numeric(default_df, "direitos_creditorios_vencimento_total")
-        if direitos_base.dropna().empty:
-            direitos_base = _series_numeric(default_df, "direitos_creditorios")
-        provisao_pct = (
-            _series_numeric(default_df, "provisao_total") / direitos_base
-        ).where(direitos_base > 0).mul(100.0).fillna(0.0)
-        credit_series = [
-            ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
-            ("Provisão", provisao_pct.tolist()),
-        ]
-        add_chart(
-            slide,
-            title="Inad vs. Provisão (% dos DCs)",
-            chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
-            categories=_competencia_labels(default_df["competencia"].tolist()),
-            series_map=credit_series,
-            left=MARGIN_LEFT_IN,
-            top=2.35,
-            width=7.55,
-            height=3.85,
-            number_format='0.0"%"',
-            percent_axis=True,
-            gap_width=42,
-            label_position="outside_end",
-            label_font_size=10,
-            legend_items=[("Inadimplência", SERIES_COLORS[0]), ("Provisão", SERIES_COLORS[1])],
-            value_max=_percent_axis_max(credit_series, cap=60.0),
-        )
-        add_textbox(
-            slide,
-            MARGIN_LEFT_IN,
-            6.25,
-            7.55,
-            0.20,
-            "Leitura: barras justapostas para comparar vencidos e provisão sobre a mesma base observável de direitos creditórios.",
-            size=LABEL_SIZE,
-            color=MID_GRAY,
-        )
-
-    aging_df = _latest_aging_table_frame(dashboard.default_buckets_latest_df)
-    add_table(
-        slide,
-        aging_df,
-        title="Aging da inadimplência - última competência",
-        left=8.20,
-        top=2.35,
-        width=4.70,
-        height=3.45,
-        col_widths=[2.10, 1.35, 1.05],
-    )
-    add_textbox(
-        slide,
-        8.20,
-        5.98,
-        4.70,
-        0.30,
-        "Faixas curtas devem concentrar maior peso quando a carteira está só tensionada; faixas longas indicam deterioração mais séria.",
-        size=LABEL_SIZE,
-        color=MID_GRAY,
-    )
-    add_footer(slide, timestamp_text)
-
-    # Slide 2: estrutura + eventos + vencimento
-    slide = prs.slides.add_slide(blank)
-    add_textbox(slide, MARGIN_LEFT_IN, 0.18, 7.0, 0.28, "Estrutura, cotas, eventos e vencimento", size=TITLE_SIZE, bold=True, color=BLACK)
-    add_textbox(slide, MARGIN_LEFT_IN, 0.50, 8.5, 0.18, title_fund, size=12, bold=True, color=ORANGE)
-
-    sub_df = dashboard.subordination_history_df.sort_values("competencia_dt").copy()
-    if not sub_df.empty:
-        sub_series = [("Subordinação", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
-        add_chart(
-            slide,
-            title="Índice de subordinação",
-            chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
-            categories=_competencia_labels(sub_df["competencia"].tolist()),
-            series_map=sub_series,
-            left=MARGIN_LEFT_IN,
-            top=1.00,
-            width=6.00,
-            height=2.25,
-            number_format='0.0"%"',
-            percent_axis=True,
-            gap_width=32,
-            label_position="outside_end",
-            label_font_size=10,
-            value_max=_percent_axis_max(sub_series, cap=60.0),
-        )
+        add_card(slide, 0.45 + idx * 2.08, 1.02, 2.0, 0.95, label, value, note)
 
     quota_share = _quota_pl_share_pivot(dashboard.quota_pl_history_df)
     if not quota_share.empty:
+        quota_series = [
+            (column, quota_share[column].tolist())
+            for column in quota_share.columns
+            if column != "competencia"
+        ]
         add_chart(
             slide,
             title="PL por tipo de cota (% do total)",
             chart_type=XL_CHART_TYPE.COLUMN_STACKED_100,
             categories=_competencia_labels(quota_share["competencia"].tolist()),
-            series_map=[
-                (column, quota_share[column].tolist())
-                for column in quota_share.columns
-                if column != "competencia"
-            ],
-            left=6.40,
-            top=1.00,
+            series_map=quota_series,
+            left=0.43,
+            top=2.42,
             width=6.45,
             height=2.25,
             number_format='0.0"%"',
             percent_axis=True,
-            gap_width=32,
+            gap_width=35,
             overlap=100,
             label_position="center",
             label_color=WHITE,
@@ -467,39 +370,50 @@ def build_dashboard_pptx_bytes(
             ],
             value_max=100.0,
         )
-        add_textbox(
+
+    sub_df = dashboard.subordination_history_df.sort_values("competencia_dt").copy()
+    if not sub_df.empty:
+        sub_series = [("Subordinação", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
+        add_chart(
             slide,
-            6.40,
-            3.42,
-            6.45,
-            0.18,
-            "Leitura: a composição mostra quanto do PL é proteção subordinada versus tranches mais seniores.",
-            size=LABEL_SIZE,
-            color=MID_GRAY,
+            title="Subordinação (% PL)",
+            chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
+            categories=_competencia_labels(sub_df["competencia"].tolist()),
+            series_map=sub_series,
+            left=6.67,
+            top=2.42,
+            width=6.0,
+            height=2.25,
+            number_format='0.0"%"',
+            percent_axis=True,
+            gap_width=35,
+            label_position="outside_end",
+            label_font_size=10,
+            value_max=_percent_axis_max(sub_series, cap=60.0),
         )
 
+    add_textbox(slide, 0.43, 4.95, 5.98, 0.31, "Qtd, valor e Eventos de cotas", size=SECTION_SIZE, bold=True, color=BLACK)
     latest_quota = _latest_quota_table_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia)
     add_table(
         slide,
         latest_quota,
-        title="Estrutura de cotas - última competência",
-        left=MARGIN_LEFT_IN,
-        top=3.95,
-        width=3.85,
-        height=2.55,
-        col_widths=[1.55, 0.95, 1.35],
+        title=None,
+        left=0.45,
+        top=5.25,
+        width=3.55,
+        height=1.65,
+        col_widths=[1.35, 0.95, 1.25],
     )
-
     latest_events = _latest_events_table_frame(dashboard.event_summary_latest_df)
     add_table(
         slide,
         latest_events,
-        title="Eventos de cotas",
-        left=4.50,
-        top=3.95,
-        width=3.35,
-        height=2.55,
-        col_widths=[1.35, 1.00, 1.00],
+        title=None,
+        left=4.19,
+        top=5.23,
+        width=2.93,
+        height=1.63,
+        col_widths=[1.18, 0.87, 0.88],
     )
 
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
@@ -508,34 +422,116 @@ def build_dashboard_pptx_bytes(
         maturity_values = _scale_values(maturity_df["valor"], maturity_scale).tolist()
         add_chart(
             slide,
-            title="Vencimento dos direitos creditórios",
-            title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
+            title="Prazo dos Recebíveis",
             chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
             categories=maturity_df["faixa"].astype(str).tolist(),
             series_map=[("Valor", maturity_values)],
-            left=8.10,
-            top=3.95,
-            width=4.75,
-            height=2.55,
+            left=7.10,
+            top=4.95,
+            width=5.98,
+            height=2.41,
             number_format=_money_number_format(maturity_scale),
             money_axis=True,
             gap_width=28,
             label_position="outside_end",
             label_font_size=10,
             value_max=_money_axis_max(maturity_values),
+            title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
         )
-    vencidos = _to_float(dashboard.summary.get("direitos_creditorios_vencidos"))
-    base = _to_float(dashboard.summary.get("inadimplencia_denominador"))
-    add_textbox(
+    add_footer(slide, timestamp_text)
+
+    slide = prs.slides.add_slide(blank)
+    add_textbox(slide, 0.22, 0.14, 7.0, 0.28, "Inadimplência x Provisão (% dos DCs)", size=TITLE_SIZE, bold=True, color=BLACK)
+    default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
+    if not default_df.empty:
+        direitos_base = _series_numeric(default_df, "direitos_creditorios_vencimento_total")
+        if direitos_base.dropna().empty:
+            direitos_base = _series_numeric(default_df, "direitos_creditorios")
+        provisao_pct = (_series_numeric(default_df, "provisao_total") / direitos_base).where(direitos_base > 0).mul(100.0).fillna(0.0)
+        credit_series = [
+            ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
+            ("Provisão", provisao_pct.tolist()),
+        ]
+        add_chart(
+            slide,
+            title="",
+            chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
+            categories=_competencia_labels(default_df["competencia"].tolist()),
+            series_map=credit_series,
+            left=0.22,
+            top=0.42,
+            width=7.78,
+            height=3.85,
+            number_format='0.0"%"',
+            percent_axis=True,
+            gap_width=38,
+            label_position="outside_end",
+            label_font_size=10,
+            legend_items=[("Inadimplência", SERIES_COLORS[0]), ("Provisão", SERIES_COLORS[1])],
+            value_max=60.0,
+        )
+
+    aging_df = _latest_aging_table_frame(dashboard.default_buckets_latest_df)
+    add_table(
         slide,
-        8.10,
-        6.55,
-        4.75,
-        0.22,
-        f"Vencidos observáveis: {_format_brl_compact(vencidos)}  |  Base: {_format_brl_compact(base)}  |  Razão: {_format_percent(_safe_pct(vencidos, base))}",
-        size=LABEL_SIZE,
-        color=MID_GRAY,
+        aging_df,
+        title="Aging da inadimplência - última competência",
+        left=8.20,
+        top=0.49,
+        width=4.50,
+        height=3.45,
+        col_widths=[2.05, 1.35, 1.10],
     )
+
+    over_history = _build_over_aging_history_for_ppt(dashboard)
+    if not over_history.empty:
+        over_series_map = [
+            (column, over_history[column].tolist())
+            for column in over_history.columns
+            if column != "competencia"
+        ]
+        add_chart(
+            slide,
+            title="Inadimplência Over (% dos DCs)",
+            chart_type=XL_CHART_TYPE.LINE_MARKERS,
+            categories=_competencia_labels(over_history["competencia"].tolist()),
+            series_map=over_series_map,
+            left=0.22,
+            top=4.95,
+            width=8.10,
+            height=1.72,
+            number_format='0.0"%"',
+            percent_axis=True,
+            label_position="above",
+            label_font_size=8,
+            legend_items=[
+                (label, OVER_PPT_COLORS[idx % len(OVER_PPT_COLORS)])
+                for idx, label in enumerate([column for column in over_history.columns if column != "competencia"])
+            ],
+            series_colors=OVER_PPT_COLORS,
+            value_max=_percent_axis_max(over_series_map, cap=110.0),
+        )
+        latest_over_table = _latest_over_table_frame(over_history)
+        add_table(
+            slide,
+            latest_over_table,
+            title="Over - última competência",
+            left=8.55,
+            top=4.95,
+            width=4.15,
+            height=1.35,
+            col_widths=[1.55, 1.15, 1.05],
+        )
+        add_textbox(
+            slide,
+            8.55,
+            6.48,
+            4.15,
+            0.36,
+            "Definição CVM: o somatório usa parcelas vencidas por faixa de atraso. Não é métrica de arrasto.",
+            size=LABEL_SIZE,
+            color=MID_GRAY,
+        )
     add_footer(slide, timestamp_text)
 
     buffer = BytesIO()
@@ -679,6 +675,53 @@ def _latest_aging_table_frame(frame: pd.DataFrame) -> pd.DataFrame:
     output["Valor"] = output["valor"].map(_format_brl_compact)
     output["%"] = output["percentual"].map(_format_percent)
     return output[["Faixa", "Valor", "%"]]
+
+
+def _build_over_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.DataFrame:
+    default_history_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
+    bucket_history_df = dashboard.default_buckets_history_df.copy()
+    if default_history_df.empty or bucket_history_df.empty:
+        return pd.DataFrame(columns=["competencia"])
+    bucket_history_df["valor"] = pd.to_numeric(bucket_history_df["valor"], errors="coerce").fillna(0.0)
+    denominator = _series_numeric(default_history_df, "direitos_creditorios_vencimento_total")
+    if denominator.dropna().empty:
+        denominator = _series_numeric(default_history_df, "direitos_creditorios")
+    denominator = denominator.fillna(0.0)
+    bucket_specs = [
+        ("Até 30d", 1, 1),
+        ("Over 30", 2, None),
+        ("Over 60", 3, None),
+        ("Over 90", 4, None),
+        ("Over 180", 7, None),
+        ("Over 360", 8, None),
+    ]
+    output = pd.DataFrame({"competencia": default_history_df["competencia"].tolist()})
+    for label, ordem_min, ordem_max in bucket_specs:
+        subset = bucket_history_df[bucket_history_df["ordem"] >= ordem_min].copy()
+        if ordem_max is not None:
+            subset = subset[subset["ordem"] <= ordem_max].copy()
+        grouped = subset.groupby("competencia", dropna=False)["valor"].sum()
+        aligned = grouped.reindex(output["competencia"]).fillna(0.0).reset_index(drop=True)
+        output[label] = ((aligned / denominator.reset_index(drop=True)).where(denominator.reset_index(drop=True) > 0) * 100.0).fillna(0.0)
+    return output
+
+
+def _latest_over_table_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame({"Faixa": ["Sem dados"], "% DCs": ["-"], "Status": ["-"]})
+    latest_row = frame.iloc[-1]
+    rows = []
+    for column in frame.columns:
+        if column == "competencia":
+            continue
+        rows.append(
+            {
+                "Faixa": column,
+                "% DCs": _format_percent(latest_row[column]),
+                "Status": "Acumulado",
+            }
+        )
+    return pd.DataFrame(rows)
 
 
 def _latest_events_table_frame(frame: pd.DataFrame) -> pd.DataFrame:

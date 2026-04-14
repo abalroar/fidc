@@ -1001,14 +1001,12 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         st.info("Dados de inadimplência Over não disponíveis nos informes selecionados.")
     else:
         st.altair_chart(
-            _grouped_bar_chart(
-                over_history_df,
+            _line_history_chart(
+                over_history_df.rename(columns={"percentual": "valor"}),
                 title=None,
                 y_title="%",
-                value_field="percentual",
-                height=350,
-                label_font_size=9,
                 color_range=OVER_AGING_CHART_COLORS,
+                show_point_labels=False,
             ),
             use_container_width=True,
         )
@@ -1031,10 +1029,11 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 value_column="percentual",
                 color_range=AGING_CHART_COLORS,
                 show_total_labels=True,
-                height=430,
-                bar_size=_single_series_bar_size(aging_history_df["competencia"].nunique()),
-                label_font_size=11,
+                height=455,
+                bar_size=max(90, int(_single_series_bar_size(aging_history_df["competencia"].nunique()) * 2.5)),
+                label_font_size=13,
                 force_all_segment_labels=True,
+                inside_label_color="#ffffff",
             ),
             use_container_width=True,
         )
@@ -2685,6 +2684,8 @@ def _line_history_chart(
     *,
     title: str | None,
     y_title: str,
+    color_range: list[str] | None = None,
+    show_point_labels: bool = True,
     limit_value: float | None = None,
     limit_label: str | None = None,
     reference_value: float | None = None,
@@ -2717,12 +2718,16 @@ def _line_history_chart(
         .encode(
             x=x_encoding,
             y=y_encoding,
-            color=alt.Color("serie:N", title="Série", scale=alt.Scale(range=FIDC_CHART_COLORS)),
+            color=alt.Color("serie:N", title="Série", scale=alt.Scale(range=color_range or FIDC_CHART_COLORS)),
             tooltip=["competencia:N", "serie:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
     )
     base = _chart_with_optional_title(base, height=320, title=title)
-    labels = _line_point_label_layer(chart_df.assign(valor_label=chart_df["label_fmt"]), y_title=y_title)
+    labels = (
+        _line_point_label_layer(chart_df.assign(valor_label=chart_df["label_fmt"]), y_title=y_title)
+        if show_point_labels
+        else None
+    )
     layered = base if labels is None else (base + labels)
     if limit_value is None:
         return _style_altair_chart(layered)
@@ -3050,6 +3055,7 @@ def _stacked_history_bar_chart(
     bar_size: int | None = None,
     label_font_size: int = 9,
     force_all_segment_labels: bool = False,
+    inside_label_color: str | None = None,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
     if "competencia" in chart_df.columns:
@@ -3093,6 +3099,8 @@ def _stacked_history_bar_chart(
     )
     color_map = _category_color_map(series_order, _colors)
     chart_df["label_color"] = chart_df["serie"].map(lambda value: _contrast_text_color(color_map.get(str(value), "#ff5a00")))
+    if inside_label_color:
+        chart_df["label_color"] = inside_label_color
     chart = (
         alt.Chart(chart_df)
         .mark_bar(size=bar_size or _single_series_bar_size(chart_df["competencia"].nunique()))
