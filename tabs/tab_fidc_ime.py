@@ -16,7 +16,18 @@ import streamlit as st
 
 from services.fundonet_dashboard import FundonetDashboardData, build_dashboard_data
 from services.fundonet_errors import FundosNetError
-from services.fundonet_service import InformeMensalResult, InformeMensalService
+from services.fundonet_service import InformeMensalResult
+from services.ime_loader import load_or_extract_informe
+from services.ime_period import (
+    DEFAULT_PRESET_MONTHS,
+    ImePeriodSelection,
+    PERIOD_PRESET_OPTIONS,
+    build_custom_period,
+    build_preset_period,
+    current_default_end_month,
+    month_options as _period_month_options,
+    shift_month as _period_shift_month,
+)
 
 
 # Feature flag: set to True when global PDF dashboard export is stable and ready.
@@ -604,21 +615,124 @@ def _update_progress_bar(progress_bar, value: float, message: str) -> None:
             progress_bar.progress(int(round(normalized * 100)))
 
 
-def render_tab_fidc_ime() -> None:
-    today = date.today()
-    # Always last 12 months — no date selectors exposed to user
-    competencia_final = date(today.year, today.month, 1)
-    competencia_inicial = date(
-        competencia_final.year - 1 if competencia_final.month > 1 else competencia_final.year - 1,
-        competencia_final.month - 1 if competencia_final.month > 1 else 12,
-        1,
-    )
+def _render_period_selector(*, state_prefix: str, title: str = "Período da análise") -> ImePeriodSelection:
+    end_month = current_default_end_month()
+    max_options = _period_month_options(end_month, months_back=59)
+    default_period = build_preset_period(end_month=end_month, months=DEFAULT_PRESET_MONTHS)
+    selector_col, detail_col = st.columns([1.2, 1.8])
 
-    MAX_SLOTS = 4
+    with selector_col:
+        mode_label = st.radio(
+            title,
+            options=["Preset", "Customizado"],
+            horizontal=True,
+            key=f"{state_prefix}_period_mode",
+        )
+
+    with detail_col:
+        if mode_label == "Preset":
+            preset_months = st.radio(
+                "Janela móvel",
+                options=list(PERIOD_PRESET_OPTIONS),
+                index=list(PERIOD_PRESET_OPTIONS).index(DEFAULT_PRESET_MONTHS),
+                horizontal=True,
+                key=f"{state_prefix}_period_preset_months",
+                format_func=lambda value: f"{value} meses",
+            )
+            period = build_preset_period(end_month=end_month, months=int(preset_months))
+        else:
+            start_default = default_period.start_month
+            start_index = max_options.index(start_default) if start_default in max_options else 0
+            start_month = st.selectbox(
+                "Competência inicial",
+                options=max_options,
+                index=start_index,
+                key=f"{state_prefix}_period_start_month",
+                format_func=_format_month_option_label,
+            )
+            end_candidates = [value for value in max_options if value >= start_month]
+            default_end_index = len(end_candidates) - 1
+            end_month_selected = st.selectbox(
+                "Competência final",
+                options=end_candidates,
+                index=default_end_index,
+                key=f"{state_prefix}_period_end_month",
+                format_func=_format_month_option_label,
+            )
+            period = build_custom_period(start_month=start_month, end_month=end_month_selected)
+
     st.caption(
-        f"Últimos 12 meses: {_format_competencia_display(f'{competencia_inicial.month:02d}/{competencia_inicial.year}')} "
-        f"→ {_format_competencia_display(f'{competencia_final.month:02d}/{competencia_final.year}')}"
+        f"Período ativo para a próxima carga: {_format_competencia_display(period.start_month.isoformat())} "
+        f"→ {_format_competencia_display(period.end_month.isoformat())} · {period.month_count} competência(s)."
     )
+    return period
+
+
+def _build_portfolio_funds_from_cnpjs(cnpjs: list[str]):
+    from services.portfolio_store import PortfolioFund
+    from tabs.ime_portfolio_support import load_fidc_catalog_cached
+
+    catalog_df = load_fidc_catalog_cached()
+    name_lookup = {}
+    if not catalog_df.empty:
+        name_lookup = catalog_df.set_index("cnpj_fundo")["nome_fundo"].to_dict()
+    funds = []
+    for raw_cnpj in cnpjs:
+        digits = re.sub(r"\D", "", str(raw_cnpj or ""))
+        if len(digits) != 14:
+            continue
+        funds.append(
+            PortfolioFund(
+                cnpj=digits,
+                display_name=str(name_lookup.get(digits) or digits),
+            )
+        )
+    return funds
+
+
+def _render_save_selection_as_portfolio(cnpj_inputs: list[str]) -> None:
+    from services.portfolio_store import PortfolioRecord
+    from tabs.ime_portfolio_support import get_portfolio_status_caption, list_saved_portfolios, save_portfolio_record
+
+    active_cnpjs = [cnpj for cnpj in cnpj_inputs if re.sub(r"\D", "", cnpj)]
+    with st.expander("Carteiras persistentes", expanded=False):
+        st.caption(get_portfolio_status_caption())
+        saved_portfolios = list_saved_portfolios()
+        st.caption(f"{len(saved_portfolios)} carteira(s) cadastrada(s).")
+        portfolio_name = st.text_input(
+            "Salvar seleção atual como carteira",
+            key="ime_simple_save_portfolio_name",
+            placeholder="Ex.: Carteira Monitoramento High Yield",
+        ).strip()
+        save_clicked = st.button(
+            "Salvar como carteira",
+            key="ime_simple_save_portfolio_button",
+            disabled=not active_cnpjs,
+        )
+        if not save_clicked:
+            return
+        if not portfolio_name:
+            st.warning("Informe um nome para salvar a carteira.")
+            return
+        funds = _build_portfolio_funds_from_cnpjs(active_cnpjs)
+        if not funds:
+            st.warning("Informe ao menos um CNPJ válido para salvar a carteira.")
+            return
+        stored = save_portfolio_record(
+            PortfolioRecord(
+                id=uuid.uuid4().hex,
+                name=portfolio_name,
+                funds=tuple(funds),
+                created_at=datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+                updated_at=datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+            )
+        )
+        st.success(f"Carteira '{stored.name}' salva com {len(stored.funds)} fundo(s).")
+
+
+def render_tab_fidc_ime() -> None:
+    MAX_SLOTS = 4
+    period = _render_period_selector(state_prefix="ime_simple")
 
     cnpj_cols = st.columns(MAX_SLOTS)
     cnpj_inputs: list[str] = []
@@ -630,6 +744,8 @@ def render_tab_fidc_ime() -> None:
             label_visibility="visible",
         )
         cnpj_inputs.append(val.strip())
+
+    _render_save_selection_as_portfolio(cnpj_inputs)
 
     load_clicked = st.button("Carregar Informes Mensais", type="primary")
 
@@ -648,15 +764,15 @@ def render_tab_fidc_ime() -> None:
                 del st.session_state[key]
 
         slots = {}
-        service = InformeMensalService()
         for slot_i, cnpj in active_cnpjs:
             request_id = uuid.uuid4().hex
             start_ts = time.perf_counter()
             context: dict[str, Any] = {
                 "request_id": request_id,
                 "cnpj_informado": cnpj,
-                "competencia_inicial": competencia_inicial.isoformat(),
-                "competencia_final": competencia_final.isoformat(),
+                "competencia_inicial": period.start_month.isoformat(),
+                "competencia_final": period.end_month.isoformat(),
+                "periodo_analisado_label": period.label,
                 "slot": slot_i,
             }
             status_box = st.empty()
@@ -675,12 +791,16 @@ def render_tab_fidc_ime() -> None:
 
             report_progress = _make_reporter(progress, status_box, f"[Slot {slot_i + 1}]")
             try:
-                result = service.run(
+                cached_load = load_or_extract_informe(
                     cnpj_fundo=cnpj,
-                    data_inicial=competencia_inicial,
-                    data_final=competencia_final,
+                    data_inicial=period.start_month,
+                    data_final=period.end_month,
                     progress_callback=report_progress,
                 )
+                result = cached_load.result
+                context["cache_status"] = cached_load.cache_status
+                context["cache_key"] = cached_load.cache_key
+                context["cache_dir"] = str(cached_load.cache_dir)
             except Exception as exc:  # noqa: BLE001
                 progress.empty()
                 status_box.empty()
@@ -1466,20 +1586,11 @@ def _format_competencia_period(value: object) -> str:
 
 
 def _shift_month(base: date, offset_months: int) -> date:
-    month_index = (base.year * 12 + (base.month - 1)) + offset_months
-    year = month_index // 12
-    month = (month_index % 12) + 1
-    return date(year, month, 1)
+    return _period_shift_month(base, offset_months)
 
 
 def _build_month_options(end_month: date, *, months_back: int) -> list[date]:
-    start_month = _shift_month(end_month, -months_back)
-    options: list[date] = []
-    current = start_month
-    while current <= end_month:
-        options.append(current)
-        current = _shift_month(current, 1)
-    return options
+    return _period_month_options(end_month, months_back=months_back)
 
 
 def _format_month_option_label(value: date) -> str:
@@ -1673,7 +1784,10 @@ def _render_pdf_export_button(dashboard: FundonetDashboardData, context: dict[st
         return
 
     try:
-        pdf_bytes = build_dashboard_pdf_bytes(dashboard)
+        pdf_bytes = build_dashboard_pdf_bytes(
+            dashboard,
+            requested_period_label=context.get("periodo_analisado_label"),
+        )
     except Exception as exc:  # noqa: BLE001
         st.warning(f"Não foi possível montar o PDF do dashboard: {exc}")
         return
@@ -1695,7 +1809,10 @@ def _render_pptx_export_button(dashboard: FundonetDashboardData, context: dict[s
         return
 
     try:
-        pptx_bytes = build_dashboard_pptx_bytes(dashboard)
+        pptx_bytes = build_dashboard_pptx_bytes(
+            dashboard,
+            requested_period_label=context.get("periodo_analisado_label"),
+        )
     except Exception as exc:  # noqa: BLE001
         st.warning(f"Não foi possível montar os slides do dashboard: {exc}")
         return

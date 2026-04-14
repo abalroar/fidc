@@ -66,6 +66,12 @@ def _load_cad_fidc() -> pd.DataFrame | None:
         # Normalise column names: strip whitespace
         df.columns = [c.strip() for c in df.columns]
         return df
+    except urllib.error.HTTPError as exc:
+        try:
+            exc.close()
+        except Exception:  # noqa: BLE001
+            pass
+        return None
     except Exception:  # noqa: BLE001
         return None
 
@@ -135,3 +141,40 @@ def fetch_fidc_participantes(cnpj_fundo: str) -> dict[str, str]:
         "cnpj_gestor": _strip_digits(_col("CPF_CNPJ_GESTOR", "CNPJ_GESTOR")),
         "cnpj_custodiante": _strip_digits(_col("CNPJ_CUSTODIANTE")),
     }
+
+
+def list_fidc_catalog() -> pd.DataFrame:
+    """Return a lightweight searchable catalog of FIDCs from CVM registration data."""
+    df = _load_cad_fidc()
+    if df is None or df.empty:
+        return pd.DataFrame(columns=["cnpj_fundo", "nome_fundo", "situacao"])
+
+    cnpj_col = next(
+        (c for c in df.columns if re.fullmatch(r"CNPJ_FUNDO", c, re.IGNORECASE)),
+        None,
+    )
+    if cnpj_col is None:
+        return pd.DataFrame(columns=["cnpj_fundo", "nome_fundo", "situacao"])
+
+    name_candidates = [
+        "DENOM_SOCIAL",
+        "DENOM_COMERC",
+        "NM_FUNDO",
+        "NOME_FUNDO",
+    ]
+    name_col = next((column for column in name_candidates if column in df.columns), None)
+    situacao_col = next((column for column in ("SIT", "SITUACAO") if column in df.columns), None)
+
+    catalog = pd.DataFrame(
+        {
+            "cnpj_fundo": df[cnpj_col].map(_strip_digits),
+            "nome_fundo": df[name_col].map(_clean) if name_col else "",
+            "situacao": df[situacao_col].map(_clean) if situacao_col else "",
+        }
+    )
+    catalog = catalog[catalog["cnpj_fundo"].str.len() == 14].copy()
+    if name_col:
+        catalog["nome_fundo"] = catalog["nome_fundo"].replace("", pd.NA)
+    catalog["nome_fundo"] = catalog["nome_fundo"].fillna(catalog["cnpj_fundo"])
+    catalog = catalog.drop_duplicates(subset=["cnpj_fundo"], keep="last")
+    return catalog.sort_values(["nome_fundo", "cnpj_fundo"]).reset_index(drop=True)

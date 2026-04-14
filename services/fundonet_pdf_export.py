@@ -27,6 +27,7 @@ def build_dashboard_pdf_bytes(
     dashboard: FundonetDashboardData,
     *,
     generated_at: datetime | None = None,
+    requested_period_label: str | None = None,
 ) -> bytes:
     buffer = BytesIO()
     doc = SimpleDocTemplate(
@@ -39,7 +40,12 @@ def build_dashboard_pdf_bytes(
         title="Relatório FIDC IME",
     )
     styles = _build_styles()
-    story = _build_story(dashboard, styles, generated_at or datetime.now())
+    story = _build_story(
+        dashboard,
+        styles,
+        generated_at or datetime.now(),
+        requested_period_label=requested_period_label,
+    )
 
     def draw_footer(canvas, document) -> None:  # noqa: ANN001
         canvas.saveState()
@@ -68,9 +74,12 @@ def _build_story(
     dashboard: FundonetDashboardData,
     styles: dict[str, ParagraphStyle],
     generated_at: datetime,
+    *,
+    requested_period_label: str | None = None,
 ) -> list[object]:
     info = dashboard.fund_info
     summary = dashboard.summary
+    loaded_period = info.get("periodo_analisado")
     story: list[object] = [
         Paragraph("tomaconta FIDCs - Relatório CVM", styles["title"]),
         Paragraph(_fund_title(dashboard), styles["subtitle"]),
@@ -78,7 +87,11 @@ def _build_story(
         _meta_table(
             [
                 ("Última competência", info.get("ultima_competencia")),
-                ("Período analisado", info.get("periodo_analisado")),
+                ("Período carregado", loaded_period),
+                (
+                    "Período solicitado",
+                    requested_period_label if requested_period_label and requested_period_label != loaded_period else "Igual ao período carregado",
+                ),
                 ("Estrutura subordinada", info.get("estrutura_subordinada")),
                 ("Cotistas", info.get("total_cotistas")),
                 ("CNPJ fundo", _format_cnpj(info.get("cnpj_fundo", ""))),

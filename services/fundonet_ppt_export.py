@@ -61,6 +61,7 @@ def build_dashboard_pptx_bytes(
     dashboard: FundonetDashboardData,
     *,
     generated_at: datetime | None = None,
+    requested_period_label: str | None = None,
 ) -> bytes:
     try:
         from pptx import Presentation
@@ -633,9 +634,15 @@ def build_dashboard_pptx_bytes(
     slide = prs.slides.add_slide(blank)
     add_textbox(slide, 0.45, 0.18, 6.2, 0.28, "Informe Mensal Estruturado", size=TITLE_SIZE, bold=True, color=BLACK)
     add_textbox(slide, 0.45, 0.48, 10.8, 0.22, title_fund, size=13, bold=True, color=ORANGE)
+    requested_period_text = (
+        f"  |  Janela solicitada: {requested_period_label}"
+        if requested_period_label and requested_period_label != dashboard.fund_info.get("periodo_analisado")
+        else ""
+    )
     subtitle = (
         f"Última competência: {_format_competencia(dashboard.latest_competencia)}"
-        f"  |  Janela: {dashboard.fund_info.get('periodo_analisado', 'N/D')}"
+        f"  |  Janela carregada: {dashboard.fund_info.get('periodo_analisado', 'N/D')}"
+        f"{requested_period_text}"
         f"  |  Cotistas: {dashboard.fund_info.get('total_cotistas') or 'N/D'}"
     )
     add_textbox(slide, 0.45, 0.72, 10.8, 0.16, subtitle, size=BODY_SIZE, color=MID_GRAY)
