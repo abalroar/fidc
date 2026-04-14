@@ -1142,7 +1142,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
         label_visibility="collapsed",
         key=f"pl_view_{slot_key}",
     )
-    pl_bar_size = _executive_monthly_bar_size(dashboard.quota_pl_history_df["competencia"].nunique())
+    pl_bar_size = _executive_quota_bar_size(dashboard.quota_pl_history_df["competencia"].nunique())
     if pl_view == "% do total por competência":
         st.altair_chart(
             _stacked_history_bar_chart(
@@ -1207,9 +1207,12 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
 
     _render_fidc_section(
         "Vencimento dos direitos creditórios",
-        "Distribuição do prazo da carteira na competência mais recente.",
+        "Distribuição do prazo dos direitos creditórios a vencer na competência mais recente.",
     )
-    _render_chart_heading(st, f"Prazo de vencimento em {_format_competencia_label(dashboard.latest_competencia)}")
+    _render_chart_heading(
+        st,
+        f"Prazo de vencimento dos DCs a vencer em {_format_competencia_label(dashboard.latest_competencia)}",
+    )
     st.altair_chart(
         _maturity_waterfall_chart(dashboard.maturity_latest_df, title=None),
         width="stretch",
@@ -2741,6 +2744,10 @@ def _executive_monthly_bar_size(category_count: int) -> int:
     return max(90, int(_single_series_bar_size(max(category_count, 1)) * 2.5))
 
 
+def _executive_quota_bar_size(category_count: int) -> int:
+    return max(74, int(_executive_monthly_bar_size(category_count) * 0.82))
+
+
 def _executive_grouped_bar_size(period_count: int, series_count: int) -> int:
     wide_bar_size = _executive_monthly_bar_size(period_count)
     return max(26, int(wide_bar_size / max(series_count, 1)))
@@ -3307,6 +3314,21 @@ def _maturity_waterfall_chart_frame(maturity_latest_df: pd.DataFrame) -> pd.Data
         chart_df = chart_df.sort_values("ordem").reset_index(drop=True)
     else:
         chart_df = chart_df.reset_index(drop=True)
+    chart_df = chart_df[chart_df["faixa"] != "Vencidos"].copy()
+    if chart_df.empty:
+        return pd.DataFrame(
+            columns=[
+                "ordem",
+                "etapa",
+                "valor_etapa",
+                "bar_start",
+                "bar_end",
+                "cumulative",
+                "tipo",
+                "valor_fmt",
+                "cumulative_fmt",
+            ]
+        )
     rows: list[dict[str, object]] = []
     cumulative = 0.0
     for idx, row in chart_df.iterrows():

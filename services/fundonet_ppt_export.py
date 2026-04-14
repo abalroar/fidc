@@ -707,7 +707,7 @@ def build_dashboard_pptx_bytes(
             height=4.20,
             number_format=_money_label_number_format(quota_scale),
             money_axis=True,
-            gap_width=36,
+            gap_width=48,
             overlap=100,
             label_position="center",
             label_color=WHITE,
@@ -894,7 +894,7 @@ def build_dashboard_pptx_bytes(
         0.46,
         11.6,
         0.18,
-        "A duration estimada usa a mesma malha de vencimento e markers laranja maiores, com a mesma cor da linha.",
+        "O waterfall mostra apenas os direitos creditórios a vencer; os vencidos ficam fora do total do gráfico. A duration continua usando a malha completa.",
         size=BODY_SIZE,
         color=MID_GRAY,
     )
@@ -1190,6 +1190,9 @@ def _latest_maturity_chart_frame(frame: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame(columns=["faixa", "valor", "ordem"])
     output = frame.copy()
     output["valor"] = pd.to_numeric(output["valor"], errors="coerce").fillna(0.0)
+    output = output[output["faixa"] != "Vencidos"].copy()
+    if output.empty:
+        return pd.DataFrame(columns=["faixa", "valor", "ordem"])
     if "ordem" in output.columns:
         output = output.sort_values("ordem")
         return output[["faixa", "valor", "ordem"]]

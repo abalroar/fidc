@@ -265,6 +265,7 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertEqual(2, len(maturity_charts))
         self.assertEqual(3, len(maturity_charts[0].series))
         self.assertIn("Total", maturity_charts[0]._chartSpace.xml)
+        self.assertNotIn("Vencidos", maturity_charts[0]._chartSpace.xml)
         self.assertIn('<c:showVal val="1"/>', maturity_charts[1]._chartSpace.xml)
 
     @staticmethod

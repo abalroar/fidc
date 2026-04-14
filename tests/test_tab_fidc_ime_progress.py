@@ -187,9 +187,9 @@ class TabFidcImeProgressTests(unittest.TestCase):
 
         waterfall_df = tab_fidc_ime._maturity_waterfall_chart_frame(maturity_df)
 
-        self.assertEqual(["Vencidos", "Em 30 dias", "31 a 60 dias", "Total"], waterfall_df["etapa"].tolist())
-        self.assertEqual([0.0, 10.0, 30.0, 0.0], waterfall_df["bar_start"].tolist())
-        self.assertEqual([10.0, 30.0, 60.0, 60.0], waterfall_df["bar_end"].tolist())
+        self.assertEqual(["Em 30 dias", "31 a 60 dias", "Total"], waterfall_df["etapa"].tolist())
+        self.assertEqual([0.0, 20.0, 0.0], waterfall_df["bar_start"].tolist())
+        self.assertEqual([20.0, 50.0, 50.0], waterfall_df["bar_end"].tolist())
         self.assertEqual("total", waterfall_df.iloc[-1]["tipo"])
 
     def test_quota_pl_chart_frame_uses_compact_rounded_labels(self) -> None:
