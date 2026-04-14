@@ -1121,6 +1121,8 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
             y_title="%",
             show_point_labels=True,
             show_end_labels=False,
+            point_label_font_size=16,
+            point_label_font_weight=700,
         ),
         width="stretch",
     )
@@ -1149,6 +1151,10 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 y_title="% do total",
                 value_column="percentual",
                 bar_size=pl_bar_size,
+                label_font_size=15,
+                force_all_segment_labels=True,
+                allow_outside_labels=False,
+                inside_label_color="#ffffff",
             ),
             width="stretch",
         )
@@ -1160,9 +1166,10 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 y_title="R$",
                 value_column="valor",
                 bar_size=pl_bar_size,
-                label_font_size=9,
+                label_font_size=15,
                 force_all_segment_labels=True,
                 allow_outside_labels=False,
+                inside_label_color="#ffffff",
             ),
             width="stretch",
         )
@@ -2800,7 +2807,13 @@ def _nice_axis_ticks(values: pd.Series, *, steps: int = 4) -> list[float] | None
     return [round(step_value * idx, 2) for idx in range(steps + 1)]
 
 
-def _line_point_label_layer(chart_df: pd.DataFrame, *, y_title: str) -> alt.Chart | None:
+def _line_point_label_layer(
+    chart_df: pd.DataFrame,
+    *,
+    y_title: str,
+    font_size: int = 12,
+    font_weight: int = 600,
+) -> alt.Chart | None:
     if not _chart_labels_enabled() or chart_df.empty or "serie" not in chart_df.columns:
         return None
     labels_df = chart_df.sort_values(["competencia_dt", "serie"]).copy()
@@ -2824,8 +2837,8 @@ def _line_point_label_layer(chart_df: pd.DataFrame, *, y_title: str) -> alt.Char
         .mark_text(
             align="center",
             dy=-10,
-            fontSize=12,
-            fontWeight=600,
+            fontSize=font_size,
+            fontWeight=font_weight,
             color="#111111",
             stroke="#ffffff",
             strokeWidth=2,
@@ -2991,6 +3004,8 @@ def _line_history_chart(
     show_point_labels: bool = True,
     show_end_labels: bool = False,
     end_label_text_column: str | None = None,
+    point_label_font_size: int = 12,
+    point_label_font_weight: int = 600,
     limit_value: float | None = None,
     limit_label: str | None = None,
     reference_value: float | None = None,
@@ -3051,7 +3066,12 @@ def _line_history_chart(
     )
     base = _chart_with_optional_title(base, height=320, title=title)
     labels = (
-        _line_point_label_layer(chart_df.assign(valor_label=chart_df["label_fmt"]), y_title=y_title)
+        _line_point_label_layer(
+            chart_df.assign(valor_label=chart_df["label_fmt"]),
+            y_title=y_title,
+            font_size=point_label_font_size,
+            font_weight=point_label_font_weight,
+        )
         if show_point_labels
         else None
     )
@@ -3794,7 +3814,11 @@ def _grouped_bar_with_rhs_line_chart(
 
     x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort)
     bar_series_order = bar_chart_df["serie"].drop_duplicates().tolist()
-    bar_y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if bar_y_title == "R$" else alt.Axis()
+    bar_y_axis = (
+        alt.Axis(labelExpr=_brl_axis_label_expr(), labelPadding=6, titlePadding=10)
+        if bar_y_title == "R$"
+        else alt.Axis(labelPadding=6, titlePadding=10, tickCount=4, grid=True)
+    )
     bar_y_encoding = alt.Y(
         f"{resolved_bar_value_field}:Q",
         title=bar_y_title,
@@ -3816,6 +3840,8 @@ def _grouped_bar_with_rhs_line_chart(
             grid=False,
             labelColor=COVERAGE_LINE_COLOR,
             titleColor=COVERAGE_LINE_COLOR,
+            labelPadding=10,
+            titlePadding=14,
             values=_nice_axis_ticks(line_scale_input),
         ),
         scale=_quant_scale_with_headroom(
@@ -3892,8 +3918,10 @@ def _grouped_bar_with_rhs_line_chart(
         )
         if not coverage_labels_df.empty:
             coverage_labels_df = coverage_labels_df.copy()
-            coverage_labels_df["badge_offset"] = 34
-            coverage_labels_df["badge_size"] = 1750
+            coverage_labels_df["badge_offset"] = 48
+            coverage_labels_df["badge_size"] = coverage_labels_df["end_label"].map(
+                lambda label: 2600 + (len(str(label)) * 1050)
+            )
             badge_bg = (
                 alt.Chart(coverage_labels_df)
                 .mark_square(color=COVERAGE_LINE_COLOR, opacity=1.0, filled=True, clip=False)
@@ -3909,7 +3937,7 @@ def _grouped_bar_with_rhs_line_chart(
                 .mark_text(
                     align="center",
                     baseline="middle",
-                    fontSize=11,
+                    fontSize=12,
                     fontWeight=700,
                     color="#ffffff",
                     clip=False,
@@ -3923,7 +3951,7 @@ def _grouped_bar_with_rhs_line_chart(
             )
             layered = layered + badge_bg + badge_text
     layered = _chart_with_optional_title(layered, height=height, title=title)
-    return _style_altair_chart(layered.properties(padding={"left": 8, "right": 86, "top": 8, "bottom": 8}))
+    return _style_altair_chart(layered.properties(padding={"left": 16, "right": 128, "top": 10, "bottom": 8}))
 
 
 def _stacked_area_chart(
@@ -4027,7 +4055,7 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
         alt.Chart(df)
         .mark_text(
             dy=-12,
-            fontSize=11,
+            fontSize=14,
             fontWeight=700,
             color="#ff5a00",
             clip=False,

@@ -438,26 +438,27 @@ def build_dashboard_pptx_bytes(
         ]
         adjusted_positions = _repel_label_positions(raw_positions, min_gap=0.18)
         for idx, label in enumerate(labels):
-            label_width = max(0.72, min(1.45, 0.20 + len(str(label)) * 0.07))
-            label_top = max(top + 0.02, adjusted_positions[idx] - 0.08)
+            label_width = max(0.92, min(1.90, 0.34 + len(str(label)) * 0.10))
+            label_left = min(plot_right, left + width - label_width - 0.10)
+            label_top = max(top + 0.02, adjusted_positions[idx] - 0.10)
             fill_color = fill_colors[idx % len(fill_colors)] if fill_colors else None
             if fill_color:
                 badge = slide.shapes.add_shape(
                     MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE,
-                    Inches(plot_right),
-                    Inches(label_top - 0.01),
+                    Inches(label_left),
+                    Inches(label_top - 0.02),
                     Inches(label_width),
-                    Inches(0.22),
+                    Inches(0.26),
                 )
                 badge.fill.solid()
                 badge.fill.fore_color.rgb = rgb(fill_color)
                 badge.line.fill.background()
             add_textbox(
                 slide,
-                plot_right,
+                label_left,
                 label_top,
                 label_width,
-                0.18,
+                0.20,
                 label,
                 size=font_size,
                 bold=True,
@@ -665,6 +666,7 @@ def build_dashboard_pptx_bytes(
             percent_axis=True,
             label_position="above",
             show_data_labels=True,
+            label_font_size=16,
             value_max=_percent_axis_max(sub_series, cap=80.0),
         )
         _style_line_series(sub_chart.series[0], color=ORANGE, width_pt=2.8, marker_size=12)
@@ -709,14 +711,14 @@ def build_dashboard_pptx_bytes(
             overlap=100,
             label_position="center",
             label_color=WHITE,
-            label_font_size=10,
+            label_font_size=13,
             series_colors=SERIES_COLORS,
             value_min=0.0,
             value_max=_money_axis_max([value for _, values in quota_series for value in values]),
             show_legend=True,
         )
-        for idx, series in enumerate(quota_chart.series):
-            series.data_labels.font.color.rgb = rgb(WHITE if idx in {0, 2, 3} else BLACK)
+        for series in quota_chart.series:
+            series.data_labels.font.color.rgb = rgb(WHITE)
     add_table(
         slide,
         _latest_quota_table_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia),
@@ -929,7 +931,7 @@ def build_dashboard_pptx_bytes(
             height=2.05,
             number_format='0',
             label_position="above",
-            label_font_size=9,
+            label_font_size=12,
             show_data_labels=True,
         )
         _style_line_series(duration_chart.series[0], color=ORANGE, width_pt=2.4, marker_size=15)
