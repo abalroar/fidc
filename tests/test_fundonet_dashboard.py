@@ -219,6 +219,8 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(500.0, dashboard.summary["inadimplencia_total"] or 0.0)
         self.assertAlmostEqual(2_000.0, dashboard.summary["inadimplencia_denominador"] or 0.0)
         self.assertAlmostEqual(25.0, dashboard.summary["inadimplencia_pct"] or 0.0)
+        self.assertAlmostEqual(12.5, dashboard.summary["provisao_pct_direitos"] or 0.0)
+        self.assertAlmostEqual(50.0, dashboard.summary["cobertura_pct"] or 0.0)
         risk_lookup = dashboard.risk_metrics_df.set_index("metric_id")
         self.assertAlmostEqual(50.0, risk_lookup.loc["provisao_pct_inadimplencia", "value"])
 
@@ -242,7 +244,7 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertTrue(pptx_bytes.startswith(b"PK"))
         self.assertGreater(len(pptx_bytes), 10_000)
         presentation = Presentation(io.BytesIO(pptx_bytes))
-        self.assertEqual(2, len(presentation.slides))
+        self.assertEqual(6, len(presentation.slides))
 
     @staticmethod
     def _write_fixture_csvs(workspace: Path) -> None:

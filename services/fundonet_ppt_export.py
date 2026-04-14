@@ -20,6 +20,19 @@ SOFT_GRAY = "#f5f6f8"
 WHITE = "#ffffff"
 SERIES_COLORS = [BLACK, ORANGE, DARK_GRAY, "#8a8a8a", "#b24f19"]
 OVER_PPT_COLORS = ["#2f7d4a", "#8abc4a", "#f0c340", "#ea8c2d", "#c8562c", "#7b241c"]
+AGING_PPT_COLORS = [
+    "#27ae60",
+    "#82ca3f",
+    "#f9ca24",
+    "#f0932b",
+    "#ef7c1a",
+    "#e55039",
+    "#c0392b",
+    "#943126",
+    "#7b241c",
+    "#4a1310",
+]
+COVERAGE_LINE_COLOR = "#0f172a"
 
 SLIDE_WIDTH_IN = 13.333
 SLIDE_HEIGHT_IN = 7.5
@@ -52,7 +65,8 @@ def build_dashboard_pptx_bytes(
         from pptx import Presentation
         from pptx.chart.data import CategoryChartData
         from pptx.dml.color import RGBColor
-        from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION
+        from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION, XL_MARKER_STYLE
+        from pptx.enum.dml import MSO_LINE_DASH_STYLE
         from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE
         from pptx.enum.text import MSO_AUTO_SIZE, PP_ALIGN
         from pptx.util import Inches, Pt
@@ -256,6 +270,7 @@ def build_dashboard_pptx_bytes(
         title_suffix: str = "",
         value_max: float | None = None,
         value_min: float | None = None,
+        show_data_labels: bool = True,
     ):
         if title:
             add_textbox(slide, left, top - 0.22, width, 0.18, f"{title}{title_suffix}", size=SECTION_SIZE, bold=True, color=BLACK)
@@ -272,15 +287,16 @@ def build_dashboard_pptx_bytes(
             plot.gap_width = gap_width
         if overlap is not None and hasattr(plot, "overlap"):
             plot.overlap = overlap
-        plot.has_data_labels = True
-        labels = plot.data_labels
-        labels.show_value = True
-        labels.number_format = number_format
-        labels.position = _data_label_position(label_position)
-        labels.font.name = "IBM Plex Sans"
-        labels.font.size = Pt(label_font_size)
-        labels.font.bold = True
-        labels.font.color.rgb = rgb(label_color)
+        plot.has_data_labels = show_data_labels
+        if show_data_labels:
+            labels = plot.data_labels
+            labels.show_value = True
+            labels.number_format = number_format
+            labels.position = _data_label_position(label_position)
+            labels.font.name = "IBM Plex Sans"
+            labels.font.size = Pt(label_font_size)
+            labels.font.bold = True
+            labels.font.color.rgb = rgb(label_color)
 
         if hasattr(chart, "category_axis"):
             chart.category_axis.tick_labels.font.name = "IBM Plex Sans"
@@ -317,29 +333,245 @@ def build_dashboard_pptx_bytes(
 
         return chart
 
+    def _first_axis_element(chart, axis_name: str):  # noqa: ANN202
+        plot_area = chart._chartSpace.xpath("./c:chart/c:plotArea")
+        if not plot_area:
+            return None
+        matches = plot_area[0].xpath(f"./c:{axis_name}")
+        return matches[0] if matches else None
+
+    def _set_axis_hidden(chart, axis_name: str, hidden: bool) -> None:  # noqa: ANN001
+        axis = _first_axis_element(chart, axis_name)
+        if axis is None:
+            return
+        delete_nodes = axis.xpath("./c:delete")
+        if delete_nodes:
+            delete_nodes[0].set("val", "1" if hidden else "0")
+
+    def _set_value_axis_right(chart) -> None:  # noqa: ANN001
+        val_axis = _first_axis_element(chart, "valAx")
+        cat_axis = _first_axis_element(chart, "catAx")
+        if val_axis is not None:
+            ax_pos = val_axis.xpath("./c:axPos")
+            if ax_pos:
+                ax_pos[0].set("val", "r")
+        if cat_axis is not None:
+            crosses = cat_axis.xpath("./c:crosses")
+            if crosses:
+                crosses[0].set("val", "max")
+
+    def _style_line_series(
+        series,  # noqa: ANN001
+        *,
+        color: str,
+        width_pt: float = 2.5,
+        marker_size: int | None = None,
+        dashed: bool = False,
+        hide_marker: bool = False,
+    ) -> None:
+        series.format.line.color.rgb = rgb(color)
+        series.format.line.width = Pt(width_pt)
+        if dashed:
+            series.format.line.dash_style = MSO_LINE_DASH_STYLE.DASH
+        if hide_marker:
+            series.marker.style = XL_MARKER_STYLE.NONE
+        else:
+            series.marker.style = XL_MARKER_STYLE.CIRCLE
+            if marker_size is not None:
+                series.marker.size = marker_size
+            series.marker.format.fill.solid()
+            series.marker.format.fill.fore_color.rgb = rgb(color)
+            series.marker.format.line.color.rgb = rgb(color)
+
+    def _repel_label_positions(values: Sequence[float], min_gap: float) -> list[float]:
+        indexed = sorted(enumerate(values), key=lambda item: item[1])
+        if not indexed:
+            return []
+        adjusted: dict[int, float] = {}
+        previous: float | None = None
+        for idx, value in indexed:
+            candidate = value if previous is None else max(value, previous + min_gap)
+            adjusted[idx] = candidate
+            previous = candidate
+        return [adjusted[idx] for idx in range(len(values))]
+
+    def add_line_end_labels(
+        slide,
+        *,
+        labels: Sequence[str],
+        values: Sequence[float],
+        colors: Sequence[str],
+        left: float,
+        top: float,
+        width: float,
+        height: float,
+        axis_max: float,
+        axis_min: float = 0.0,
+        font_size: int = 11,
+    ) -> None:
+        numeric_values = [float(value) for value in values]
+        plot_top = top + 0.22
+        plot_height = max(height - 0.58, 0.1)
+        plot_right = left + width - 0.38
+        value_span = max(axis_max - axis_min, 1.0)
+        raw_positions = [
+            plot_top + plot_height * (1.0 - ((value - axis_min) / value_span))
+            for value in numeric_values
+        ]
+        adjusted_positions = _repel_label_positions(raw_positions, min_gap=0.18)
+        for idx, label in enumerate(labels):
+            add_textbox(
+                slide,
+                plot_right,
+                max(top + 0.02, adjusted_positions[idx] - 0.07),
+                1.35,
+                0.18,
+                label,
+                size=font_size,
+                bold=True,
+                color=colors[idx % len(colors)],
+            )
+
+    def add_overlay_combo_credit_chart(
+        slide,
+        *,
+        categories: Sequence[str],
+        bar_series_map: Sequence[tuple[str, Sequence[float]]],
+        line_series_map: Sequence[tuple[str, Sequence[float]]],
+        left: float,
+        top: float,
+        width: float,
+        height: float,
+    ) -> None:
+        add_chart(
+            slide,
+            title=None,
+            chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
+            categories=categories,
+            series_map=bar_series_map,
+            left=left,
+            top=top,
+            width=width,
+            height=height,
+            number_format='0.0"%"',
+            percent_axis=True,
+            gap_width=48,
+            label_position="outside_end",
+            label_font_size=10,
+            value_max=_percent_axis_max(bar_series_map, cap=120.0),
+        )
+        line_chart = add_chart(
+            slide,
+            title=None,
+            chart_type=XL_CHART_TYPE.LINE_MARKERS,
+            categories=categories,
+            series_map=line_series_map,
+            left=left,
+            top=top,
+            width=width,
+            height=height,
+            number_format='0.0"%"',
+            percent_axis=True,
+            label_position="above",
+            label_font_size=9,
+            value_max=_percent_axis_max(line_series_map, cap=max(650.0, max([max([float(v) for v in values if v is not None], default=0.0) for _, values in line_series_map]) * 1.18 if line_series_map else 120.0)),
+            show_data_labels=False,
+        )
+        _set_axis_hidden(line_chart, "catAx", True)
+        _set_value_axis_right(line_chart)
+        if hasattr(line_chart, "value_axis"):
+            line_chart.value_axis.tick_labels.font.name = "IBM Plex Sans"
+            line_chart.value_axis.tick_labels.font.size = Pt(AXIS_SIZE)
+            line_chart.value_axis.has_major_gridlines = False
+            line_chart.value_axis.format.line.color.rgb = rgb(GRID_GRAY)
+        if len(line_chart.series) >= 1:
+            _style_line_series(
+                line_chart.series[0],
+                color=COVERAGE_LINE_COLOR,
+                width_pt=3.0,
+                marker_size=12,
+            )
+        if len(line_chart.series) >= 2:
+            _style_line_series(
+                line_chart.series[1],
+                color=MID_GRAY,
+                width_pt=1.8,
+                dashed=True,
+                hide_marker=True,
+            )
+        add_manual_legend(
+            slide,
+            [
+                ("Inadimplência", SERIES_COLORS[0]),
+                ("Provisão", SERIES_COLORS[1]),
+                ("Cobertura", COVERAGE_LINE_COLOR),
+                ("100% (paridade)", MID_GRAY),
+            ],
+            left=left,
+            top=top + height + 0.02,
+            max_width=width,
+        )
+
     timestamp_text = generated_at.strftime("%d/%m/%Y %H:%M")
     title_fund = _fund_title(dashboard)
+
+    # Slide 1 — overview + structural protection
     slide = prs.slides.add_slide(blank)
     add_textbox(slide, 0.45, 0.18, 6.2, 0.28, "Informe Mensal Estruturado", size=TITLE_SIZE, bold=True, color=BLACK)
-    add_textbox(slide, 0.45, 0.48, 9.6, 0.22, title_fund, size=13, bold=True, color=ORANGE)
+    add_textbox(slide, 0.45, 0.48, 10.8, 0.22, title_fund, size=13, bold=True, color=ORANGE)
     subtitle = (
         f"Última competência: {_format_competencia(dashboard.latest_competencia)}"
         f"  |  Janela: {dashboard.fund_info.get('periodo_analisado', 'N/D')}"
         f"  |  Cotistas: {dashboard.fund_info.get('total_cotistas') or 'N/D'}"
     )
-    add_textbox(slide, 0.45, 0.72, 10.5, 0.16, subtitle, size=BODY_SIZE, color=MID_GRAY)
-
+    add_textbox(slide, 0.45, 0.72, 10.8, 0.16, subtitle, size=BODY_SIZE, color=MID_GRAY)
     cards = [
         ("PL total", _format_brl_compact(dashboard.summary.get("pl_total")), ""),
         ("Direitos creditórios", _format_brl_compact(dashboard.summary.get("inadimplencia_denominador") or dashboard.summary.get("direitos_creditorios")), ""),
-        ("Inadimplência", _format_percent(dashboard.summary.get("inadimplencia_pct")), "vencidos / base observável"),
-        ("Cobertura de provisão", _format_percent(_safe_pct(dashboard.summary.get("provisao_total"), dashboard.summary.get("inadimplencia_total"))), "provisão / vencidos"),
+        ("Inadimplência", _format_percent(dashboard.summary.get("inadimplencia_pct")), "vencidos / DC total"),
+        ("Cobertura de provisão", _format_percent(dashboard.summary.get("cobertura_pct")), "provisão / inadimplência"),
         ("Subordinação", _format_percent(dashboard.summary.get("subordinacao_pct")), ""),
         ("Créditos vencidos", _format_brl_compact(dashboard.summary.get("direitos_creditorios_vencidos")), ""),
     ]
     for idx, (label, value, note) in enumerate(cards):
         add_card(slide, 0.45 + idx * 2.08, 1.02, 2.0, 0.95, label, value, note)
+    sub_df = dashboard.subordination_history_df.sort_values("competencia_dt").copy()
+    if not sub_df.empty:
+        sub_series = [("Subordinação", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
+        sub_chart = add_chart(
+            slide,
+            title="Índice de subordinação",
+            chart_type=XL_CHART_TYPE.LINE_MARKERS,
+            categories=_competencia_labels(sub_df["competencia"].tolist()),
+            series_map=sub_series,
+            left=MARGIN_LEFT_IN,
+            top=2.35,
+            width=CONTENT_WIDTH_IN,
+            height=2.55,
+            number_format='0.0"%"',
+            percent_axis=True,
+            label_position="above",
+            show_data_labels=False,
+            value_max=_percent_axis_max(sub_series, cap=80.0),
+        )
+        _style_line_series(sub_chart.series[0], color=ORANGE, width_pt=2.8, marker_size=12)
+    structural_table = _risk_metrics_table_frame(dashboard.risk_metrics_df, "Risco estrutural")
+    add_table(
+        slide,
+        structural_table,
+        title="Métricas exibidas no bloco estrutural",
+        left=MARGIN_LEFT_IN,
+        top=5.28,
+        width=CONTENT_WIDTH_IN,
+        height=1.38,
+        col_widths=[3.3, 1.5, 7.1],
+    )
+    add_footer(slide, timestamp_text)
 
+    # Slide 2 — PL por classe
+    slide = prs.slides.add_slide(blank)
+    add_textbox(slide, 0.45, 0.18, 8.5, 0.28, "PL por tipo de cota", size=TITLE_SIZE, bold=True, color=BLACK)
+    add_textbox(slide, 0.45, 0.46, 10.0, 0.16, "Mesma série histórica usada na interface, em % do total por competência.", size=BODY_SIZE, color=MID_GRAY)
     quota_share = _quota_pl_share_pivot(dashboard.quota_pl_history_df)
     if not quota_share.empty:
         quota_series = [
@@ -347,19 +579,19 @@ def build_dashboard_pptx_bytes(
             for column in quota_share.columns
             if column != "competencia"
         ]
-        add_chart(
+        quota_chart = add_chart(
             slide,
-            title="PL por tipo de cota (% do total)",
+            title=None,
             chart_type=XL_CHART_TYPE.COLUMN_STACKED_100,
             categories=_competencia_labels(quota_share["competencia"].tolist()),
             series_map=quota_series,
-            left=0.43,
-            top=2.42,
-            width=6.45,
-            height=2.25,
+            left=MARGIN_LEFT_IN,
+            top=0.82,
+            width=CONTENT_WIDTH_IN,
+            height=4.20,
             number_format='0.0"%"',
             percent_axis=True,
-            gap_width=35,
+            gap_width=34,
             overlap=100,
             label_position="center",
             label_color=WHITE,
@@ -368,68 +600,206 @@ def build_dashboard_pptx_bytes(
                 (column, SERIES_COLORS[idx % len(SERIES_COLORS)])
                 for idx, column in enumerate([column for column in quota_share.columns if column != "competencia"])
             ],
+            series_colors=SERIES_COLORS,
             value_max=100.0,
         )
+        for idx, series in enumerate(quota_chart.series):
+            series.data_labels.font.color.rgb = rgb(WHITE if idx in {0, 2, 3} else BLACK)
+    add_table(
+        slide,
+        _latest_quota_table_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia),
+        title=f"Quadro de cotas em {_format_competencia(dashboard.latest_competencia)}",
+        left=MARGIN_LEFT_IN,
+        top=5.38,
+        width=CONTENT_WIDTH_IN,
+        height=1.22,
+        col_widths=[4.0, 3.4, 5.0],
+    )
+    add_footer(slide, timestamp_text)
 
-    sub_df = dashboard.subordination_history_df.sort_values("competencia_dt").copy()
-    if not sub_df.empty:
-        sub_series = [("Subordinação", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
-        add_chart(
+    # Slide 3 — default, provision and coverage
+    slide = prs.slides.add_slide(blank)
+    add_textbox(slide, 0.45, 0.18, 10.0, 0.28, "Inadimplência, Provisão e Cobertura", size=TITLE_SIZE, bold=True, color=BLACK)
+    add_textbox(
+        slide,
+        0.45,
+        0.46,
+        11.2,
+        0.20,
+        "Barras no eixo esquerdo: % dos DCs. Linha grossa no eixo direito: cobertura = provisão / inadimplência, com referência em 100%.",
+        size=BODY_SIZE,
+        color=MID_GRAY,
+    )
+    default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
+    if not default_df.empty:
+        categories = _competencia_labels(default_df["competencia"].tolist())
+        add_overlay_combo_credit_chart(
             slide,
-            title="Subordinação (% PL)",
-            chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
-            categories=_competencia_labels(sub_df["competencia"].tolist()),
-            series_map=sub_series,
-            left=6.67,
-            top=2.42,
-            width=6.0,
-            height=2.25,
+            categories=categories,
+            bar_series_map=[
+                ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
+                ("Provisão", _series_numeric(default_df, "provisao_pct_direitos").fillna(0.0).tolist()),
+            ],
+            line_series_map=[
+                ("Cobertura", _series_numeric(default_df, "cobertura_pct").fillna(0.0).tolist()),
+                ("100% (paridade)", [100.0] * len(categories)),
+            ],
+            left=MARGIN_LEFT_IN,
+            top=0.82,
+            width=CONTENT_WIDTH_IN,
+            height=4.18,
+        )
+    add_table(
+        slide,
+        _risk_metrics_table_frame(dashboard.risk_metrics_df, "Risco de crédito"),
+        title="Métricas exibidas no bloco de crédito",
+        left=MARGIN_LEFT_IN,
+        top=5.40,
+        width=CONTENT_WIDTH_IN,
+        height=1.18,
+        col_widths=[3.0, 1.6, 7.3],
+    )
+    add_footer(slide, timestamp_text)
+
+    # Slide 4 — cumulative over curves
+    slide = prs.slides.add_slide(blank)
+    add_textbox(slide, 0.45, 0.18, 10.5, 0.28, "Inadimplência Over (somatório do aging)", size=TITLE_SIZE, bold=True, color=BLACK)
+    add_textbox(
+        slide,
+        0.45,
+        0.46,
+        11.8,
+        0.18,
+        "Curvas cumulativas sobre a base canônica de direitos creditórios. Os rótulos finais usam a mesma cor da série e ficam à direita do último marker.",
+        size=BODY_SIZE,
+        color=MID_GRAY,
+    )
+    over_history = _build_over_aging_history_for_ppt(dashboard)
+    if not over_history.empty:
+        over_columns = [column for column in over_history.columns if column != "competencia"]
+        over_series_map = [(column, over_history[column].tolist()) for column in over_columns]
+        over_axis_max = _percent_axis_max(over_series_map, cap=120.0)
+        over_chart = add_chart(
+            slide,
+            title=None,
+            chart_type=XL_CHART_TYPE.LINE_MARKERS,
+            categories=_competencia_labels(over_history["competencia"].tolist()),
+            series_map=over_series_map,
+            left=MARGIN_LEFT_IN,
+            top=0.84,
+            width=11.15,
+            height=5.15,
             number_format='0.0"%"',
             percent_axis=True,
-            gap_width=35,
-            label_position="outside_end",
-            label_font_size=10,
-            value_max=_percent_axis_max(sub_series, cap=60.0),
+            label_position="above",
+            label_font_size=8,
+            series_colors=OVER_PPT_COLORS,
+            value_max=over_axis_max,
+            show_data_labels=False,
         )
-
-    add_textbox(slide, 0.43, 4.95, 5.98, 0.31, "Qtd, valor e Eventos de cotas", size=SECTION_SIZE, bold=True, color=BLACK)
-    latest_quota = _latest_quota_table_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia)
-    add_table(
+        for idx, series in enumerate(over_chart.series):
+            _style_line_series(
+                series,
+                color=OVER_PPT_COLORS[idx % len(OVER_PPT_COLORS)],
+                width_pt=2.5,
+                marker_size=11,
+            )
+        latest_row = over_history.iloc[-1]
+        add_line_end_labels(
+            slide,
+            labels=[f"{column} {_format_percent(latest_row[column])}" for column in over_columns],
+            values=[float(latest_row[column]) for column in over_columns],
+            colors=[OVER_PPT_COLORS[idx % len(OVER_PPT_COLORS)] for idx in range(len(over_columns))],
+            left=MARGIN_LEFT_IN,
+            top=0.84,
+            width=11.15,
+            height=5.15,
+            axis_max=over_axis_max,
+        )
+    add_textbox(
         slide,
-        latest_quota,
-        title=None,
-        left=0.45,
-        top=5.25,
-        width=3.55,
-        height=1.65,
-        col_widths=[1.35, 0.95, 1.25],
+        0.45,
+        6.20,
+        12.0,
+        0.30,
+        "Definição CVM: o somatório usa parcelas vencidas por faixa de atraso. Não é métrica de arrasto.",
+        size=LABEL_SIZE,
+        color=MID_GRAY,
     )
-    latest_events = _latest_events_table_frame(dashboard.event_summary_latest_df)
-    add_table(
-        slide,
-        latest_events,
-        title=None,
-        left=4.19,
-        top=5.23,
-        width=2.93,
-        height=1.63,
-        col_widths=[1.18, 0.87, 0.88],
-    )
+    add_footer(slide, timestamp_text)
 
+    # Slide 5 — default aging
+    slide = prs.slides.add_slide(blank)
+    add_textbox(slide, 0.45, 0.18, 10.0, 0.28, "Aging da inadimplência (% dos direitos creditórios totais)", size=TITLE_SIZE, bold=True, color=BLACK)
+    add_textbox(
+        slide,
+        0.45,
+        0.46,
+        11.7,
+        0.18,
+        "Distribuição não cumulativa por faixa de atraso. Os rótulos ficam centralizados em cada segmento quando há espaço útil suficiente.",
+        size=BODY_SIZE,
+        color=MID_GRAY,
+    )
+    aging_history = _build_aging_history_for_ppt(dashboard)
+    if not aging_history.empty:
+        aging_columns = [column for column in aging_history.columns if column != "competencia"]
+        aging_series_map = [(column, aging_history[column].tolist()) for column in aging_columns]
+        aging_chart = add_chart(
+            slide,
+            title=None,
+            chart_type=XL_CHART_TYPE.COLUMN_STACKED,
+            categories=_competencia_labels(aging_history["competencia"].tolist()),
+            series_map=aging_series_map,
+            left=MARGIN_LEFT_IN,
+            top=0.82,
+            width=CONTENT_WIDTH_IN,
+            height=5.48,
+            number_format='0.0"%"',
+            percent_axis=True,
+            gap_width=36,
+            overlap=100,
+            label_position="center",
+            label_color=WHITE,
+            label_font_size=8,
+            legend_items=[
+                (column, AGING_PPT_COLORS[idx % len(AGING_PPT_COLORS)])
+                for idx, column in enumerate(aging_columns)
+            ],
+            series_colors=AGING_PPT_COLORS,
+            value_max=_percent_axis_max(aging_series_map, cap=120.0),
+        )
+        for idx, series in enumerate(aging_chart.series):
+            series.data_labels.font.color.rgb = rgb(WHITE if idx >= 5 else BLACK)
+    add_footer(slide, timestamp_text)
+
+    # Slide 6 — maturity and duration
+    slide = prs.slides.add_slide(blank)
+    add_textbox(slide, 0.45, 0.18, 9.5, 0.28, "Vencimento e duration estimada dos recebíveis", size=TITLE_SIZE, bold=True, color=BLACK)
+    add_textbox(
+        slide,
+        0.45,
+        0.46,
+        11.6,
+        0.18,
+        "A duration estimada usa a mesma malha de vencimento e markers laranja maiores, com a mesma cor da linha.",
+        size=BODY_SIZE,
+        color=MID_GRAY,
+    )
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
     if not maturity_df.empty:
         maturity_scale = _money_scale(pd.to_numeric(maturity_df["valor"], errors="coerce"))
         maturity_values = _scale_values(maturity_df["valor"], maturity_scale).tolist()
         add_chart(
             slide,
-            title="Prazo dos Recebíveis",
+            title="Prazo de vencimento da carteira",
             chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
             categories=maturity_df["faixa"].astype(str).tolist(),
             series_map=[("Valor", maturity_values)],
-            left=7.10,
-            top=4.95,
-            width=5.98,
-            height=2.41,
+            left=MARGIN_LEFT_IN,
+            top=0.86,
+            width=CONTENT_WIDTH_IN,
+            height=3.05,
             number_format=_money_number_format(maturity_scale),
             money_axis=True,
             gap_width=28,
@@ -438,100 +808,25 @@ def build_dashboard_pptx_bytes(
             value_max=_money_axis_max(maturity_values),
             title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
         )
-    add_footer(slide, timestamp_text)
-
-    slide = prs.slides.add_slide(blank)
-    add_textbox(slide, 0.22, 0.14, 7.0, 0.28, "Inadimplência x Provisão (% dos DCs)", size=TITLE_SIZE, bold=True, color=BLACK)
-    default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
-    if not default_df.empty:
-        direitos_base = _series_numeric(default_df, "direitos_creditorios_vencimento_total")
-        if direitos_base.dropna().empty:
-            direitos_base = _series_numeric(default_df, "direitos_creditorios")
-        provisao_pct = (_series_numeric(default_df, "provisao_total") / direitos_base).where(direitos_base > 0).mul(100.0).fillna(0.0)
-        credit_series = [
-            ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
-            ("Provisão", provisao_pct.tolist()),
-        ]
-        add_chart(
+    duration_df = dashboard.duration_history_df.sort_values("competencia_dt").copy()
+    if not duration_df.empty:
+        duration_series = [("Duration", _series_numeric(duration_df, "duration_days").fillna(0.0).tolist())]
+        duration_chart = add_chart(
             slide,
-            title="",
-            chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
-            categories=_competencia_labels(default_df["competencia"].tolist()),
-            series_map=credit_series,
-            left=0.22,
-            top=0.42,
-            width=7.78,
-            height=3.85,
-            number_format='0.0"%"',
-            percent_axis=True,
-            gap_width=38,
-            label_position="outside_end",
-            label_font_size=10,
-            legend_items=[("Inadimplência", SERIES_COLORS[0]), ("Provisão", SERIES_COLORS[1])],
-            value_max=60.0,
-        )
-
-    aging_df = _latest_aging_table_frame(dashboard.default_buckets_latest_df)
-    add_table(
-        slide,
-        aging_df,
-        title="Aging da inadimplência - última competência",
-        left=8.20,
-        top=0.49,
-        width=4.50,
-        height=3.45,
-        col_widths=[2.05, 1.35, 1.10],
-    )
-
-    over_history = _build_over_aging_history_for_ppt(dashboard)
-    if not over_history.empty:
-        over_series_map = [
-            (column, over_history[column].tolist())
-            for column in over_history.columns
-            if column != "competencia"
-        ]
-        add_chart(
-            slide,
-            title="Inadimplência Over (% dos DCs)",
+            title="Duration estimada dos recebíveis",
             chart_type=XL_CHART_TYPE.LINE_MARKERS,
-            categories=_competencia_labels(over_history["competencia"].tolist()),
-            series_map=over_series_map,
-            left=0.22,
-            top=4.95,
-            width=8.10,
-            height=1.72,
-            number_format='0.0"%"',
-            percent_axis=True,
+            categories=_competencia_labels(duration_df["competencia"].tolist()),
+            series_map=duration_series,
+            left=MARGIN_LEFT_IN,
+            top=4.35,
+            width=CONTENT_WIDTH_IN,
+            height=2.05,
+            number_format='0',
             label_position="above",
-            label_font_size=8,
-            legend_items=[
-                (label, OVER_PPT_COLORS[idx % len(OVER_PPT_COLORS)])
-                for idx, label in enumerate([column for column in over_history.columns if column != "competencia"])
-            ],
-            series_colors=OVER_PPT_COLORS,
-            value_max=_percent_axis_max(over_series_map, cap=110.0),
+            label_font_size=9,
+            show_data_labels=True,
         )
-        latest_over_table = _latest_over_table_frame(over_history)
-        add_table(
-            slide,
-            latest_over_table,
-            title="Over - última competência",
-            left=8.55,
-            top=4.95,
-            width=4.15,
-            height=1.35,
-            col_widths=[1.55, 1.15, 1.05],
-        )
-        add_textbox(
-            slide,
-            8.55,
-            6.48,
-            4.15,
-            0.36,
-            "Definição CVM: o somatório usa parcelas vencidas por faixa de atraso. Não é métrica de arrasto.",
-            size=LABEL_SIZE,
-            color=MID_GRAY,
-        )
+        _style_line_series(duration_chart.series[0], color=ORANGE, width_pt=2.4, marker_size=15)
     add_footer(slide, timestamp_text)
 
     buffer = BytesIO()
@@ -574,6 +869,14 @@ def _format_percent(value: object) -> str:
     if numeric is None:
         return "N/D"
     return f"{_format_decimal(numeric, decimals=1)}%"
+
+
+def _format_metric_value(value: object, unit: str) -> str:
+    if unit == "R$":
+        return _format_brl_compact(value)
+    if unit == "%":
+        return _format_percent(value)
+    return _format_decimal(value)
 
 
 def _format_brl_compact(value: object) -> str:
@@ -693,6 +996,39 @@ def _build_over_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.Da
     return pivot
 
 
+def _build_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.DataFrame:
+    aging_history_df = dashboard.default_aging_history_df.sort_values("competencia_dt").copy()
+    if aging_history_df.empty:
+        return pd.DataFrame(columns=["competencia"])
+    pivot = (
+        aging_history_df.pivot_table(
+            index="competencia",
+            columns="faixa",
+            values="percentual_direitos_creditorios",
+            aggfunc="sum",
+        )
+        .fillna(0.0)
+        .reset_index()
+    )
+    ordered_columns = [
+        "competencia",
+        "Até 30 dias",
+        "31 a 60 dias",
+        "61 a 90 dias",
+        "91 a 120 dias",
+        "121 a 150 dias",
+        "151 a 180 dias",
+        "181 a 360 dias",
+        "361 a 720 dias",
+        "721 a 1080 dias",
+        "Acima de 1080 dias",
+    ]
+    for column in ordered_columns:
+        if column not in pivot.columns:
+            pivot[column] = 0.0 if column != "competencia" else pivot.get(column)
+    return pivot[ordered_columns].copy()
+
+
 def _latest_over_table_frame(frame: pd.DataFrame) -> pd.DataFrame:
     if frame.empty:
         return pd.DataFrame({"Faixa": ["Sem dados"], "% DCs": ["-"], "Status": ["-"]})
@@ -746,15 +1082,28 @@ def _quota_pl_share_pivot(frame: pd.DataFrame) -> pd.DataFrame:
     if frame.empty:
         return pd.DataFrame(columns=["competencia"])
     output = frame.copy()
-    output["pl"] = pd.to_numeric(output["pl"], errors="coerce").fillna(0.0)
-    totals = output.groupby("competencia", dropna=False)["pl"].transform("sum")
-    output["percentual"] = (output["pl"] / totals).where(totals > 0).mul(100.0).fillna(0.0)
+    output["percentual"] = pd.to_numeric(output["pl_share_pct"], errors="coerce").fillna(0.0)
     pivot = (
         output.pivot_table(index="competencia", columns="label", values="percentual", aggfunc="sum")
         .fillna(0.0)
         .reset_index()
     )
     return pivot
+
+
+def _risk_metrics_table_frame(metrics_df: pd.DataFrame, risk_block: str) -> pd.DataFrame:
+    if metrics_df.empty:
+        return pd.DataFrame(columns=["Métrica", "Valor", "Leitura"])
+    output = metrics_df[metrics_df["risk_block"] == risk_block].copy()
+    if output.empty:
+        return pd.DataFrame(columns=["Métrica", "Valor", "Leitura"])
+    output["Métrica"] = output["label"]
+    output["Valor"] = output.apply(
+        lambda row: _format_metric_value(row.get("value"), str(row.get("unit") or "")),
+        axis=1,
+    )
+    output["Leitura"] = output["interpretation"].fillna("N/D")
+    return output[["Métrica", "Valor", "Leitura"]]
 
 
 def _format_decimal_0_or_2(value: object) -> str:

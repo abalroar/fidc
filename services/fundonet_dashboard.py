@@ -1019,6 +1019,8 @@ def _build_summary(
         or _float_or_none(default_row.get("direitos_creditorios")),
         "inadimplencia_pct": _float_or_none(default_row.get("inadimplencia_pct")),
         "provisao_total": _float_or_none(default_row.get("provisao_total")),
+        "provisao_pct_direitos": _float_or_none(default_row.get("provisao_pct_direitos")),
+        "cobertura_pct": _float_or_none(default_row.get("cobertura_pct")),
         "direitos_creditorios_vencidos": _float_or_none(default_row.get("direitos_creditorios_vencidos")),
         "direitos_creditorios_vencimento_total": _float_or_none(default_row.get("direitos_creditorios_vencimento_total")),
         "emissao_mes": _sum_event_metric(latest_events_df, "emissao", "valor_total"),
@@ -1619,6 +1621,12 @@ def _build_default_history(
     df["inadimplencia_pct"] = (
         df["inadimplencia_total"] / df["direitos_creditorios"]
     ).where(df["direitos_creditorios"] > 0).mul(100.0)
+    df["provisao_pct_direitos"] = (
+        df["provisao_total"] / df["direitos_creditorios"]
+    ).where(df["direitos_creditorios"] > 0).mul(100.0)
+    df["cobertura_pct"] = (
+        df["provisao_total"] / df["inadimplencia_total"]
+    ).where(df["inadimplencia_total"] > 0).mul(100.0)
     return df
 
 
@@ -2400,6 +2408,8 @@ def _build_quota_pl_history(
         return pd.DataFrame(columns=["competencia", "competencia_dt", "class_kind", "label", "qt_cotas", "vl_cota", "pl"])
     base_df = base_df.rename(columns={"QT_COTAS": "qt_cotas", "VL_COTAS": "vl_cota"})
     base_df["pl"] = base_df["qt_cotas"].fillna(0.0) * base_df["vl_cota"].fillna(0.0)
+    totals = base_df.groupby("competencia", dropna=False)["pl"].transform("sum")
+    base_df["pl_share_pct"] = (base_df["pl"] / totals).where(totals > 0).mul(100.0)
     return base_df
 
 

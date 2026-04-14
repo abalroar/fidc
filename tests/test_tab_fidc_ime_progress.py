@@ -112,6 +112,55 @@ class TabFidcImeProgressTests(unittest.TestCase):
         self.assertEqual(["valor", "valor"], list(converted.columns))
         self.assertEqual((2, 2), converted.shape)
 
+    def test_altair_compatible_df_handles_single_row_string_columns(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "competencia": pd.Series(["01/2026"], dtype="string"),
+                "serie": pd.Series(["Cobertura"], dtype="string"),
+                "valor": [500.0],
+            }
+        )
+
+        converted = tab_fidc_ime._altair_compatible_df(frame)
+
+        self.assertEqual("object", str(converted["competencia"].dtype))
+        self.assertEqual("object", str(converted["serie"].dtype))
+        self.assertEqual("01/2026", converted.iloc[0]["competencia"])
+
+    def test_grouped_bar_with_rhs_line_chart_preserves_high_coverage_scale(self) -> None:
+        bar_df = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "01/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-01-01"]),
+                "serie": ["Inadimplência", "Provisão"],
+                "valor": [10.0, 50.0],
+            }
+        )
+        line_df = pd.DataFrame(
+            {
+                "competencia": ["01/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01"]),
+                "serie": ["Cobertura"],
+                "valor": [500.0],
+            }
+        )
+
+        chart = tab_fidc_ime._grouped_bar_with_rhs_line_chart(
+            bar_df,
+            line_df,
+            title=None,
+            bar_y_title="% dos DCs",
+            line_y_title="Cobertura (%)",
+            reference_value=100.0,
+            reference_label="100% (paridade)",
+        )
+
+        spec = chart.to_dict()
+        rhs_scale = spec["layer"][1]["layer"][1]["encoding"]["y"]["scale"]["domain"]
+
+        self.assertEqual("right", spec["layer"][1]["layer"][1]["encoding"]["y"]["axis"]["orient"])
+        self.assertGreaterEqual(rhs_scale[1], 500.0)
+
 
 if __name__ == "__main__":
     unittest.main()
