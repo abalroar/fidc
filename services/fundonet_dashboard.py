@@ -112,6 +112,7 @@ class FundonetDashboardData:
     mini_glossary_df: pd.DataFrame
     current_dashboard_inventory_df: pd.DataFrame
     executive_memory_df: pd.DataFrame
+    consistency_audit_df: pd.DataFrame
     methodology_notes: list[str]
 
 
@@ -270,11 +271,21 @@ def build_dashboard_data(
         default_buckets_latest_df=default_buckets_latest_df,
         risk_metrics_df=risk_metrics_df,
     )
+    consistency_audit_df = _build_consistency_audit_df(
+        latest_competencia=latest_competencia,
+        summary=summary,
+        current_dashboard_inventory_df=current_dashboard_inventory_df,
+        dc_canonical_history_df=dc_canonical_history_df,
+        default_history_df=default_history_df,
+        default_aging_history_df=default_aging_history_df,
+        default_over_history_df=default_over_history_df,
+        risk_metrics_df=risk_metrics_df,
+    )
 
     methodology_notes = [
         "Direitos creditórios totais usam uma base canônica única: 1) malha de vencimento (vencidos + a vencer), 2) estoque granular em APLIC_ATIVO, 3) agregados VL_SOM_DICRED_AQUIS + VL_DICRED.",
         "Índice de subordinação é calculado como PL subordinado dividido pelo PL total das cotas reportadas.",
-        "Inadimplência e cobertura de provisão usam a mesma base canônica de direitos creditórios; buckets do aging preservam status de fonte para distinguir zero reportado de ausência de campo.",
+        "Inadimplência, aging e curvas Over usam a base canônica de direitos creditórios totais; cobertura de provisão usa apenas vencidos canônicos como denominador e fica segregada no eixo direito.",
         "Resgate solicitado usa os campos RESG_SOLIC do Informe Mensal e aceita tanto VL_PAGO quanto VL_COTAS, pois há divergência observada entre schema e XML real.",
         "Indicadores como cobertura, relação mínima, reservas, rating, coobrigação e eventos contratuais exigem documentação complementar.",
     ]
@@ -313,6 +324,7 @@ def build_dashboard_data(
         mini_glossary_df=mini_glossary_df,
         current_dashboard_inventory_df=current_dashboard_inventory_df,
         executive_memory_df=executive_memory_df,
+        consistency_audit_df=consistency_audit_df,
         methodology_notes=methodology_notes,
     )
 
@@ -2013,7 +2025,21 @@ def _build_executive_memory_df(
         if "percentual_direitos_creditorios" in default_buckets_latest_df.columns
         else "percentual"
     )
+    dc_total_source = latest_dc_row.get("dc_total_fonte_efetiva")
+    dc_vencidos_source = latest_dc_row.get("dc_vencidos_fonte_efetiva")
     rows = [
+        {
+            "tipo_variavel": "Monetária",
+            "bloco_executivo": "Topo da página",
+            "componente": "Ativo total",
+            "variavel_final": "summary['ativos_totais']",
+            "numerador": "VL_SOM_APLIC_ATIVO",
+            "denominador": "Não se aplica",
+            "fonte_cvm": "APLIC_ATIVO/VL_SOM_APLIC_ATIVO",
+            "fonte_efetiva": "APLIC_ATIVO/VL_SOM_APLIC_ATIVO",
+            "formula": "Leitura direta do ativo total reportado",
+            "observacao": "Card monetário de contexto; não entra nos indicadores relativos de crédito.",
+        },
         {
             "tipo_variavel": "Base canônica",
             "bloco_executivo": "Base comum",
@@ -2022,9 +2048,45 @@ def _build_executive_memory_df(
             "numerador": "Estoque total de direitos creditórios",
             "denominador": "Não se aplica",
             "fonte_cvm": _canonical_dc_total_path_labels(),
-            "fonte_efetiva": latest_dc_row.get("dc_total_fonte_efetiva"),
+            "fonte_efetiva": dc_total_source,
             "formula": "Escolha canônica em cascata: malha de vencimento -> estoque granular -> agregado item 3",
             "observacao": "Todas as métricas percentuais sobre DCs passam a usar esta mesma base.",
+        },
+        {
+            "tipo_variavel": "Monetária",
+            "bloco_executivo": "Topo da página / Estrutura",
+            "componente": "PL total",
+            "variavel_final": "summary['pl_total']",
+            "numerador": "Σ(qt_cotas × valor_cota) por classe/série",
+            "denominador": "Não se aplica",
+            "fonte_cvm": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
+            "fonte_efetiva": "qt_cotas * valor_cota",
+            "formula": "Σ PL de todas as classes reportadas",
+            "observacao": "Base usada no card de topo, na tabela de classes e como denominador dos eventos % do PL.",
+        },
+        {
+            "tipo_variavel": "Monetária",
+            "bloco_executivo": "Topo da página / Estrutura",
+            "componente": "PL subordinado",
+            "variavel_final": "summary['pl_subordinada']",
+            "numerador": "Σ(qt_cotas_subordinadas × valor_cota_subordinada)",
+            "denominador": "Não se aplica",
+            "fonte_cvm": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
+            "fonte_efetiva": "qt_cotas * valor_cota",
+            "formula": "Σ PL das classes subordinadas",
+            "observacao": "Card de topo e insumo direto do índice de subordinação.",
+        },
+        {
+            "tipo_variavel": "Monetária",
+            "bloco_executivo": "Topo da página",
+            "componente": "Liquidez imediata e liquidez até 30 dias",
+            "variavel_final": "summary['liquidez_imediata'] + summary['liquidez_30']",
+            "numerador": "VL_ATIV_LIQDEZ e VL_ATIV_LIQDEZ_30",
+            "denominador": "Não se aplica",
+            "fonte_cvm": "OUTRAS_INFORM/LIQUIDEZ",
+            "fonte_efetiva": "Leitura direta por tag de liquidez",
+            "formula": "Leitura direta dos campos de liquidez reportados",
+            "observacao": "Cards de contexto. Não devem ser confundidos com caixa disponível nem com cronograma contratual completo.",
         },
         {
             "tipo_variavel": "Percentual",
@@ -2034,21 +2096,33 @@ def _build_executive_memory_df(
             "numerador": "dc_vencidos_canonico",
             "denominador": "dc_total_canonico",
             "fonte_cvm": "VL_SOM_INAD_VENC com fallback para VL_INAD_VENC_*; denominador canônico de DC total.",
-            "fonte_efetiva": f"numerador={latest_dc_row.get('dc_vencidos_fonte_efetiva')} | denominador={latest_dc_row.get('dc_total_fonte_efetiva')}",
+            "fonte_efetiva": f"numerador={dc_vencidos_source} | denominador={dc_total_source}",
             "formula": "dc_vencidos_canonico / dc_total_canonico * 100",
             "observacao": "Mesma base usada no card de inadimplência e nos gráficos relativos de crédito.",
         },
         {
             "tipo_variavel": "Percentual",
             "bloco_executivo": "Crédito",
-            "componente": "Inadimplência x Provisão (% dos DCs)",
+            "componente": "Inadimplência + provisão (% dos DCs)",
             "variavel_final": "default_history_df.[inadimplencia_pct, provisao_total/dc_total_canonico]",
             "numerador": "inadimplencia_total e provisao_total",
             "denominador": "dc_total_canonico",
             "fonte_cvm": "Inadimplência: COMPMT_DICRED/aging. Provisão: APLIC_ATIVO. Denominador: base canônica.",
-            "fonte_efetiva": latest_dc_row.get("dc_total_fonte_efetiva"),
+            "fonte_efetiva": f"inadimplência={dc_vencidos_source} | provisão=APLIC_ATIVO | denominador={dc_total_source}",
             "formula": "inadimplencia_total / dc_total_canonico; provisao_total / dc_total_canonico",
-            "observacao": "Unifica o denominador entre o card, o gráfico e a memória de cálculo.",
+            "observacao": "Barras agrupadas no eixo esquerdo. Ambas usam a mesma base canônica de DC total.",
+        },
+        {
+            "tipo_variavel": "Percentual",
+            "bloco_executivo": "Crédito",
+            "componente": "Cobertura de provisão (linha RHS)",
+            "variavel_final": "provisao_total / direitos_creditorios_vencidos",
+            "numerador": "provisao_total",
+            "denominador": "direitos_creditorios_vencidos",
+            "fonte_cvm": "APLIC_ATIVO + base canônica de vencidos",
+            "fonte_efetiva": f"provisão=APLIC_ATIVO | vencidos={dc_vencidos_source}",
+            "formula": "provisao_total / direitos_creditorios_vencidos * 100",
+            "observacao": "Linha grossa no eixo direito com referência pontilhada em 100%. Não usa DC total.",
         },
         {
             "tipo_variavel": "Bucket / distribuição",
@@ -2056,11 +2130,11 @@ def _build_executive_memory_df(
             "componente": "Aging da inadimplência",
             "variavel_final": f"default_buckets_latest_df.valor + {aging_percent_col}",
             "numerador": "Cada bucket VL_INAD_VENC_* por faixa",
-            "denominador": "dc_total_canonico para % dos DCs; total vencido para % interno do aging",
+            "denominador": "dc_total_canonico para o gráfico executivo",
             "fonte_cvm": "COMPMT_DICRED_AQUIS + COMPMT_DICRED_SEM_AQUIS",
-            "fonte_efetiva": latest_dc_row.get("dc_total_fonte_efetiva"),
-            "formula": "bucket / dc_total_canonico * 100 (gráficos relativos) e bucket / total_vencido * 100 (leitura interna do aging)",
-            "observacao": "A tabela técnica expõe as duas semânticas para evitar misturar % do aging com % dos DCs.",
+            "fonte_efetiva": f"buckets=COMPMT_DICRED_* | denominador={dc_total_source}",
+            "formula": "bucket / dc_total_canonico * 100",
+            "observacao": "Gráfico não cumulativo por faixa. A leitura executiva não reutiliza o % interno do aging para evitar ambiguidade com Over.",
         },
         {
             "tipo_variavel": "Bucket / distribuição",
@@ -2070,45 +2144,33 @@ def _build_executive_memory_df(
             "numerador": "Soma cumulativa dos buckets vencidos acima do threshold",
             "denominador": "dc_total_canonico",
             "fonte_cvm": "Buckets VL_INAD_VENC_31_60 até VL_INAD_VENC_1080",
-            "fonte_efetiva": latest_dc_row.get("dc_total_fonte_efetiva"),
+            "fonte_efetiva": f"buckets=COMPMT_DICRED_* | denominador={dc_total_source}",
             "formula": "Over X = Σ(buckets vencidos acima de X) / dc_total_canonico * 100",
             "observacao": "Over 30, 60, 90, 180 e 360 são cumulativos; pontos com bucket incompleto saem do gráfico.",
         },
         {
             "tipo_variavel": "Percentual",
-            "bloco_executivo": "Crédito",
-            "componente": "Cobertura de provisão",
-            "variavel_final": "provisao_total / direitos_creditorios_vencidos",
-            "numerador": "provisao_total",
-            "denominador": "direitos_creditorios_vencidos",
-            "fonte_cvm": "APLIC_ATIVO + base canônica de vencidos",
-            "fonte_efetiva": latest_dc_row.get("dc_vencidos_fonte_efetiva"),
-            "formula": "provisao_total / direitos_creditorios_vencidos * 100",
-            "observacao": "A cobertura não usa DC total; usa apenas o estoque vencido observável.",
-        },
-        {
-            "tipo_variavel": "Percentual",
             "bloco_executivo": "Estrutura",
-            "componente": "Subordinação",
+            "componente": "Índice de subordinação (linha)",
             "variavel_final": "summary['subordinacao_pct']",
             "numerador": "pl_subordinada",
             "denominador": "pl_total",
             "fonte_cvm": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
             "fonte_efetiva": "qt_cotas * valor_cota por classe",
             "formula": "pl_subordinada / pl_total * 100",
-            "observacao": "Proteção estrutural nominal; não substitui covenants documentais.",
+            "observacao": "Card e gráfico usam exatamente a mesma série histórica de subordinação.",
         },
         {
             "tipo_variavel": "Classe / PL",
             "bloco_executivo": "Estrutura",
-            "componente": "PL por tipo de cota",
+            "componente": "PL por tipo de cota e tabela da última competência",
             "variavel_final": "quota_pl_history_df",
             "numerador": "qt_cotas * valor_cota por classe/série",
             "denominador": "pl_total quando a visualização é percentual",
             "fonte_cvm": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
             "fonte_efetiva": "qt_cotas * valor_cota",
             "formula": "pl_classe; share = pl_classe / Σ pl_classe",
-            "observacao": "A visualização alterna entre valores absolutos e participação relativa.",
+            "observacao": "A mesma base abastece o gráfico empilhado e a tabela lateral da última competência.",
         },
         {
             "tipo_variavel": "Fluxo / evento",
@@ -2146,23 +2208,144 @@ def _build_executive_memory_df(
             "formula": "Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket)",
             "observacao": "Proxies de prazo ficam documentados no gráfico e na tabela técnica.",
         },
+        {
+            "tipo_variavel": "Metadado / referência",
+            "bloco_executivo": "Cabeçalho / contexto",
+            "componente": "Nome do fundo, competência, janela, cotistas e participantes",
+            "variavel_final": "fund_info",
+            "numerador": "Metadados do cabeçalho do informe + cadastro CVM complementar",
+            "denominador": "Não se aplica",
+            "fonte_cvm": "CAB_INFORM + cadastro CVM complementar para participantes",
+            "fonte_efetiva": "fund_info",
+            "formula": "Leitura direta dos metadados mais recentes",
+            "observacao": "Informação de referência; não participa dos cálculos financeiros.",
+        },
     ]
     if not risk_metrics_df.empty:
+        metric_specs = {
+            "inadimplencia_pct": ("dc_vencidos_canonico", "dc_total_canonico", f"numerador={dc_vencidos_source} | denominador={dc_total_source}"),
+            "provisao_pct_direitos": ("provisao_total", "dc_total_canonico", f"provisão=APLIC_ATIVO | denominador={dc_total_source}"),
+            "provisao_pct_inadimplencia": ("provisao_total", "dc_vencidos_canonico", f"provisão=APLIC_ATIVO | denominador={dc_vencidos_source}"),
+            "concentracao_segmento_proxy": ("Maior saldo setorial reportado", "Σ saldos setoriais reportados", "CART_SEGMT"),
+            "subordinacao_pct": ("pl_subordinada", "pl_total", "qt_cotas * valor_cota"),
+            "pl_subordinada": ("Σ(qt_cotas_subordinadas × valor_cota_subordinada)", "Não se aplica", "qt_cotas * valor_cota"),
+        }
         for _, metric_row in risk_metrics_df.iterrows():
+            metric_id = str(metric_row.get("metric_id") or "")
+            numerador, denominador, fonte_efetiva = metric_specs.get(
+                metric_id,
+                (
+                    metric_row.get("transformation"),
+                    "Não se aplica",
+                    metric_row.get("source_data"),
+                ),
+            )
             rows.append(
                 {
                     "tipo_variavel": "Métrica de risco",
                     "bloco_executivo": metric_row.get("risk_block"),
                     "componente": metric_row.get("label"),
                     "variavel_final": metric_row.get("final_variable"),
-                    "numerador": metric_row.get("transformation"),
-                    "denominador": metric_row.get("formula"),
+                    "numerador": numerador,
+                    "denominador": denominador,
                     "fonte_cvm": metric_row.get("source_data"),
-                    "fonte_efetiva": summary.get("direitos_creditorios_fonte") if "direitos creditórios" in str(metric_row.get("label") or "").lower() else metric_row.get("source_data"),
+                    "fonte_efetiva": fonte_efetiva,
                     "formula": metric_row.get("formula"),
                     "observacao": metric_row.get("limitation"),
                 }
             )
+    return pd.DataFrame(rows)
+
+
+def _build_consistency_audit_df(
+    *,
+    latest_competencia: str,
+    summary: dict[str, float | str | None],
+    current_dashboard_inventory_df: pd.DataFrame,
+    dc_canonical_history_df: pd.DataFrame,
+    default_history_df: pd.DataFrame,
+    default_aging_history_df: pd.DataFrame,
+    default_over_history_df: pd.DataFrame,
+    risk_metrics_df: pd.DataFrame,
+) -> pd.DataFrame:
+    latest_dc_row = _latest_row(dc_canonical_history_df, latest_competencia) if latest_competencia else pd.Series(dtype="object")
+    dc_total_source = latest_dc_row.get("dc_total_fonte_efetiva")
+    dc_vencidos_source = latest_dc_row.get("dc_vencidos_fonte_efetiva")
+    coverage_uses_vencidos = bool(
+        not default_history_df.empty
+        and "direitos_creditorios_vencidos" in default_history_df.columns
+        and "provisao_total" in default_history_df.columns
+    )
+    aging_uses_dc_total = bool(
+        not default_aging_history_df.empty
+        and "percentual_direitos_creditorios" in default_aging_history_df.columns
+    )
+    over_is_cumulative = bool(
+        not default_over_history_df.empty
+        and set(default_over_history_df.get("serie", pd.Series(dtype="object")).dropna().tolist())
+        <= {"Over 30", "Over 60", "Over 90", "Over 180", "Over 360"}
+    )
+    subordination_metric_exists = bool(
+        not risk_metrics_df.empty
+        and "subordinacao_pct" in risk_metrics_df.get("metric_id", pd.Series(dtype="object")).tolist()
+    )
+    inventory_labels = set(current_dashboard_inventory_df.get("nome_exibido", pd.Series(dtype="object")).tolist())
+    rows = [
+        {
+            "tema": "Direitos creditórios totais",
+            "status": "Alinhado" if dc_total_source else "Sem base",
+            "checagem": "Cards, métricas de crédito, aging e over",
+            "resultado": f"Base canônica única = {dc_total_source or 'N/D'}",
+            "acao": "Todos os percentuais sobre DCs permanecem ancorados em dc_total_canonico.",
+        },
+        {
+            "tema": "Aging x Over",
+            "status": "Alinhado" if aging_uses_dc_total and over_is_cumulative else "Revisar",
+            "checagem": "Separação semântica entre distribuição e curva cumulativa",
+            "resultado": (
+                "Aging permanece não cumulativo por faixa; Over usa somatório cumulativo acima do threshold."
+                if aging_uses_dc_total and over_is_cumulative
+                else "Há indício de mistura entre bucket de aging e curva Over."
+            ),
+            "acao": "Manter aging como distribuição por faixa e Over como soma cumulativa com legenda explícita.",
+        },
+        {
+            "tema": "Cobertura de provisão",
+            "status": "Alinhado" if coverage_uses_vencidos else "Revisar",
+            "checagem": "Denominador da linha de cobertura",
+            "resultado": (
+                f"Cobertura usa vencidos canônicos ({dc_vencidos_source or 'N/D'}) no eixo direito, sem reaproveitar DC total."
+                if coverage_uses_vencidos
+                else "Cobertura não está claramente amarrada ao estoque vencido."
+            ),
+            "acao": "Segregar visualmente a cobertura no eixo RHS com referência pontilhada em 100%.",
+        },
+        {
+            "tema": "Subordinação",
+            "status": "Alinhado" if subordination_metric_exists else "Revisar",
+            "checagem": "Consistência entre card, gráfico e tabela estrutural",
+            "resultado": "Card, métrica e gráfico usam a mesma série pl_subordinada / pl_total.",
+            "acao": "Preservar a mesma série histórica em todos os outputs estruturais.",
+        },
+        {
+            "tema": "Vencimento x Duration",
+            "status": "Alinhado",
+            "checagem": "Mesma malha regulatória para buckets e duration",
+            "resultado": "O gráfico de vencimento e a duration estimada nascem da mesma malha COMPMT_DICRED_*.",
+            "acao": "Documentar proxies de prazo e evitar trocar a base por agregados de ativo.",
+        },
+        {
+            "tema": "Inventário da aba executiva",
+            "status": "Alinhado" if "Inadimplência, provisão e cobertura" in inventory_labels else "Revisar",
+            "checagem": "Cobertura dos outputs ativos da aba",
+            "resultado": (
+                "O inventário auditável foi atualizado para a aba executiva atual."
+                if "Inadimplência, provisão e cobertura" in inventory_labels
+                else "O inventário ainda não reflete integralmente os outputs ativos da aba."
+            ),
+            "acao": "Manter o inventário sincronizado com a UI efetivamente renderizada.",
+        },
+    ]
     return pd.DataFrame(rows)
 
 

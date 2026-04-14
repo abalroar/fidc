@@ -34,15 +34,18 @@ FIDC_CHART_COLORS = [
 ]
 
 # Aging color scale: green (short overdue) → yellow → orange → red (long overdue).
-# Explicitly ordered from ≤30 d (least severe) to 181-360 d (most severe).
+# Explicitly ordered from ≤30 d (least severe) to >1080 d (most severe).
 AGING_CHART_COLORS = [
     "#27ae60",  # ≤30 d  — verde
     "#82ca3f",  # 31-60 d — verde-limão
     "#f9ca24",  # 61-90 d — amarelo
     "#f0932b",  # 91-120 d — laranja
-    "#e55039",  # 121-150 d — vermelho claro
-    "#c0392b",  # 151-180 d — vermelho
-    "#7b241c",  # 181-360 d — vinho/bordô
+    "#ef7c1a",  # 121-150 d — laranja escuro
+    "#e55039",  # 151-180 d — vermelho claro
+    "#c0392b",  # 181-360 d — vermelho
+    "#943126",  # 361-720 d — bordô
+    "#7b241c",  # 721-1080 d — vinho
+    "#4a1310",  # >1080 d — vermelho muito escuro
 ]
 
 OVER_AGING_CHART_COLORS = [
@@ -53,6 +56,8 @@ OVER_AGING_CHART_COLORS = [
     "#c8562c",
     "#7b241c",
 ]
+
+COVERAGE_LINE_COLOR = "#0f172a"
 
 
 _FIDC_REPORT_CSS = """
@@ -968,7 +973,12 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         hide_index=True,
     )
     default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
-    _render_chart_heading(top_right, "Inad vs. Provisão (% dos DCs)", "Comparação direta entre vencidos e provisão sobre a mesma base observável de direitos creditórios.")
+    cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
+    _render_chart_heading(
+        top_right,
+        "Inadimplência, provisão e cobertura",
+        "Barras no eixo esquerdo: inadimplência e provisão como % dos DCs. Linha grossa no eixo direito: cobertura de provisão sobre vencidos, com referência de 100%.",
+    )
     _credit_chart_all_zero = (
         default_pct_chart_df.empty
         or (pd.to_numeric(default_pct_chart_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
@@ -977,21 +987,30 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         top_right.caption("Inadimplência e provisão não reportadas ou zeradas nos informes disponíveis.")
     else:
         top_right.altair_chart(
-            _grouped_bar_chart(
+            _grouped_bar_with_rhs_line_chart(
                 default_pct_chart_df,
+                cobertura_df,
                 title=None,
-                y_title="%",
-                height=330,
-                label_font_size=10,
+                bar_y_title="% dos DCs",
+                line_y_title="Cobertura (%)",
+                height=340,
+                reference_value=100.0,
+                reference_label="100% (paridade)",
             ),
             width="stretch",
         )
         latest_default_row = dashboard.default_history_df.sort_values("competencia_dt").iloc[-1] if not dashboard.default_history_df.empty else None
+        latest_cobertura_row = cobertura_df.sort_values("competencia_dt").iloc[-1] if not cobertura_df.empty else None
         if latest_default_row is not None:
             top_right.caption(
                 "Última competência: "
                 f"Inadimplência {_format_brl_compact(latest_default_row.get('inadimplencia_total'))} · "
                 f"Provisão {_format_brl_compact(latest_default_row.get('provisao_total'))}"
+                + (
+                    f" · Cobertura {_format_percent(latest_cobertura_row.get('valor'))}"
+                    if latest_cobertura_row is not None
+                    else ""
+                )
             )
     over_history_df = dashboard.default_over_history_df.copy()
     _render_chart_heading(st, "Inadimplência Over (somatório do aging)", "Parcelas vencidas acumuladas por threshold de atraso, como % dos direitos creditórios observáveis.")
@@ -1033,32 +1052,12 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 show_total_labels=True,
                 height=455,
                 bar_size=max(90, int(_single_series_bar_size(aging_history_df["competencia"].nunique()) * 2.5)),
-                label_font_size=13,
-                force_all_segment_labels=True,
-                inside_label_color="#ffffff",
+                label_font_size=11,
             ),
             width="stretch",
         )
         st.caption(
             "Fonte: Informe Mensal - CVM. Cada barra mostra o aging completo do estoque vencido em relação ao total observável de direitos creditórios."
-        )
-    cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
-    _render_chart_heading(st, "Cobertura de provisão", "Provisão / créditos vencidos ao longo do tempo (%).")
-    if cobertura_df.empty:
-        st.info("Sem dados de cobertura de provisão disponíveis.")
-    else:
-        st.altair_chart(
-            _line_history_chart(
-                cobertura_df,
-                title=None,
-                y_title="%",
-                reference_value=100.0,
-                reference_label="100% (paridade)",
-            ),
-            width="stretch",
-        )
-        st.caption(
-            "Fonte: Informe Mensal - CVM. Acima de 100%: provisão supera os créditos vencidos observáveis na mesma competência."
         )
 
 
@@ -1077,7 +1076,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
     with col_sub_chart:
         _render_chart_heading(col_sub_chart, "Índice de subordinação", "Evolução mensal do colchão subordinado reportado.")
         col_sub_chart.altair_chart(
-            _history_bar_chart(
+            _line_history_chart(
                 _melt_metrics(
                     dashboard.subordination_history_df,
                     ["subordinacao_pct"],
@@ -1085,6 +1084,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 ),
                 title=None,
                 y_title="%",
+                show_point_labels=False,
             ),
             width="stretch",
         )
@@ -1204,9 +1204,21 @@ def _render_calculation_memory_section(dashboard: FundonetDashboardData) -> None
         "Memória de cálculo da aba",
         "Rodapé técnico da visão executiva: base canônica, variáveis finais e fórmula usada em cada bloco.",
     )
+    with st.expander("Diagnóstico de consistência da aba executiva", expanded=False):
+        st.dataframe(
+            _format_consistency_audit_table(dashboard.consistency_audit_df),
+            width="stretch",
+            hide_index=True,
+        )
     with st.expander("Base canônica de direitos creditórios", expanded=False):
         st.dataframe(
             _format_dc_canonical_audit_table(dashboard.dc_canonical_history_df),
+            width="stretch",
+            hide_index=True,
+        )
+    with st.expander("Inventário auditável dos outputs ativos", expanded=False):
+        st.dataframe(
+            _format_dashboard_inventory_table(dashboard.current_dashboard_inventory_df),
             width="stretch",
             hide_index=True,
         )
@@ -1215,6 +1227,7 @@ def _render_calculation_memory_section(dashboard: FundonetDashboardData) -> None
         st.caption("Memória de cálculo indisponível nesta execução.")
         return
     ordered_types = [
+        "Monetária",
         "Base canônica",
         "Percentual",
         "Bucket / distribuição",
@@ -1222,6 +1235,7 @@ def _render_calculation_memory_section(dashboard: FundonetDashboardData) -> None
         "Fluxo / evento",
         "Prazo / duration",
         "Métrica de risco",
+        "Metadado / referência",
     ]
     for tipo in ordered_types:
         subset = memory_df[memory_df["tipo_variavel"] == tipo].copy()
@@ -1240,6 +1254,18 @@ def _render_audit_section(dashboard: FundonetDashboardData) -> None:
         "Base auditável",
         "Reconciliação completa entre dado bruto, transformação, output e limitação analítica.",
     )
+    with st.expander("Diagnóstico de consistência da aba executiva", expanded=True):
+        st.dataframe(
+            _format_consistency_audit_table(dashboard.consistency_audit_df),
+            width="stretch",
+            hide_index=True,
+        )
+    with st.expander("Inventário auditável dos outputs ativos", expanded=False):
+        st.dataframe(
+            _format_dashboard_inventory_table(dashboard.current_dashboard_inventory_df),
+            width="stretch",
+            hide_index=True,
+        )
     with st.expander("Base canônica de direitos creditórios", expanded=False):
         st.dataframe(
             _format_dc_canonical_audit_table(dashboard.dc_canonical_history_df),
@@ -2535,6 +2561,42 @@ def _format_executive_memory_table(df: pd.DataFrame) -> pd.DataFrame:
     ]
 
 
+def _format_dashboard_inventory_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(
+            columns=[
+                "Output",
+                "Bloco",
+                "Variável",
+                "Fonte",
+                "Fórmula",
+                "Tipo",
+                "Unidade",
+            ]
+        )
+    output = df.copy()
+    output["Output"] = output["nome_exibido"]
+    output["Bloco"] = output["bloco_ui_atual"]
+    output["Variável"] = output["nome_variavel"]
+    output["Fonte"] = output["fonte_dado"]
+    output["Fórmula"] = output["formula"]
+    output["Tipo"] = output["tipo"]
+    output["Unidade"] = output["unidade"]
+    return output[["Output", "Bloco", "Variável", "Fonte", "Fórmula", "Tipo", "Unidade"]]
+
+
+def _format_consistency_audit_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=["Tema", "Status", "Checagem", "Resultado", "Ação"])
+    output = df.copy()
+    output["Tema"] = output["tema"]
+    output["Status"] = output["status"]
+    output["Checagem"] = output["checagem"]
+    output["Resultado"] = output["resultado"]
+    output["Ação"] = output["acao"]
+    return output[["Tema", "Status", "Checagem", "Resultado", "Ação"]]
+
+
 def _format_coverage_gap_table(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return pd.DataFrame(columns=["Tema", "Status", "Por que importa", "Fonte necessária"])
@@ -2830,6 +2892,7 @@ def _line_history_chart(
         axis=y_axis,
         scale=_quant_scale_with_headroom(chart_df["valor"], percent_like="%" in y_title),
     )
+    series_order = chart_df["serie"].drop_duplicates().tolist()
     base = (
         alt.Chart(chart_df)
         .mark_line(
@@ -2839,7 +2902,13 @@ def _line_history_chart(
         .encode(
             x=x_encoding,
             y=y_encoding,
-            color=alt.Color("serie:N", title="Série", scale=alt.Scale(range=color_range or FIDC_CHART_COLORS)),
+            color=alt.Color(
+                "serie:N",
+                title="Série",
+                scale=alt.Scale(domain=series_order, range=(color_range or FIDC_CHART_COLORS)[: len(series_order)]),
+                sort=series_order,
+                legend=None if len(series_order) <= 1 else alt.Legend(),
+            ),
             tooltip=["competencia:N", "serie:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
     )
@@ -3237,24 +3306,44 @@ def _stacked_history_bar_chart(
     layered: alt.Chart = chart
     labels_df = chart_df.copy()
     if not labels_df.empty:
-        labels_df["segment_rank"] = (
-            labels_df.groupby("competencia", dropna=False)
-            .cumcount(ascending=False)
+        max_value = pd.to_numeric(labels_df[value_column], errors="coerce").abs().max()
+        inner_threshold = 2.1 if "%" in y_title else (
+            max_value * 0.08 if pd.notna(max_value) else 0.0
         )
-        labels_df["outside_y"] = labels_df.groupby("competencia", dropna=False)[value_column].cumsum()
-        outside_step = 1.8 if "%" in y_title else (
-            labels_df["outside_y"].abs().max() * 0.018 if pd.notna(labels_df["outside_y"].abs().max()) else 1.0
-        )
-        labels_df["outside_label_y"] = labels_df["outside_y"] + 1.2 + labels_df["segment_rank"].mul(outside_step)
-        threshold = 2.0 if "%" in y_title else (
-            labels_df[value_column].abs().max() * 0.08 if pd.notna(labels_df[value_column].abs().max()) else 0.0
+        outer_threshold = 0.65 if "%" in y_title else (
+            max_value * 0.03 if pd.notna(max_value) else 0.0
         )
         inner_labels_df = labels_df[
-            pd.to_numeric(labels_df[value_column], errors="coerce") >= threshold
+            pd.to_numeric(labels_df[value_column], errors="coerce") >= inner_threshold
+        ].copy()
+        outer_labels_df = labels_df[
+            (
+                pd.to_numeric(labels_df[value_column], errors="coerce") >= outer_threshold
+            )
+            & (
+                pd.to_numeric(labels_df[value_column], errors="coerce") < inner_threshold
+            )
         ].copy()
         if force_all_segment_labels:
-            inner_labels_df = labels_df.iloc[0:0].copy()
-        outer_labels_df = labels_df.drop(inner_labels_df.index).copy()
+            inner_labels_df = labels_df.copy()
+            outer_labels_df = labels_df.iloc[0:0].copy()
+        outer_offsets = [0, -16, 16, -28, 28, -40, 40]
+        if not outer_labels_df.empty:
+            sort_columns = ["competencia_dt", "competencia", "serie"]
+            if "ordem" in outer_labels_df.columns:
+                sort_columns.insert(2, "ordem")
+            outer_labels_df = outer_labels_df.sort_values(
+                sort_columns
+            ).reset_index(drop=True)
+            outer_labels_df["segment_rank"] = outer_labels_df.groupby("competencia", dropna=False).cumcount()
+            outer_labels_df["outside_y"] = outer_labels_df.groupby("competencia", dropna=False)[value_column].cumsum()
+            outside_step = 0.9 if "%" in y_title else (
+                outer_labels_df["outside_y"].abs().max() * 0.012 if pd.notna(outer_labels_df["outside_y"].abs().max()) else 1.0
+            )
+            outer_labels_df["outside_label_y"] = outer_labels_df["outside_y"] + 0.8 + outer_labels_df["segment_rank"].mul(outside_step)
+            outer_labels_df["x_offset"] = outer_labels_df["segment_rank"].map(
+                lambda rank: outer_offsets[rank] if rank < len(outer_offsets) else outer_offsets[-1]
+            )
         if not inner_labels_df.empty:
             segment_labels = (
                 alt.Chart(inner_labels_df)
@@ -3271,10 +3360,17 @@ def _stacked_history_bar_chart(
         if not outer_labels_df.empty:
             outside_labels = (
                 alt.Chart(outer_labels_df)
-                .mark_text(fontSize=max(label_font_size, 11), fontWeight=700, dy=-4, color="#111111", clip=False)
+                .mark_text(
+                    fontSize=max(label_font_size - 1, 10),
+                    fontWeight=700,
+                    dy=-2,
+                    color="#111111",
+                    clip=False,
+                )
                 .encode(
                     x=x_encoding,
                     y=alt.Y("outside_label_y:Q", title=y_title),
+                    xOffset=alt.XOffset("x_offset:Q"),
                     detail="serie:N",
                     text=alt.Text("label_fmt:N"),
                 )
@@ -3366,6 +3462,141 @@ def _grouped_bar_chart(
         dy=-8,
     )
     return _style_altair_chart(chart if labels is None else (chart + labels))
+
+
+def _grouped_bar_with_rhs_line_chart(
+    bar_df: pd.DataFrame,
+    line_df: pd.DataFrame,
+    *,
+    title: str | None,
+    bar_y_title: str,
+    line_y_title: str,
+    bar_value_field: str | None = None,
+    line_value_field: str = "valor",
+    height: int = 360,
+    reference_value: float | None = None,
+    reference_label: str | None = None,
+) -> alt.Chart:
+    bar_chart_df = _altair_compatible_df(bar_df.copy())
+    line_chart_df = _altair_compatible_df(line_df.copy())
+    if "competencia" in bar_chart_df.columns:
+        bar_chart_df["competencia"] = bar_chart_df["competencia"].map(_format_competencia_display)
+    if "competencia" in line_chart_df.columns:
+        line_chart_df["competencia"] = line_chart_df["competencia"].map(_format_competencia_display)
+    resolved_bar_value_field = bar_value_field or ("valor_total" if "valor_total" in bar_chart_df.columns else "valor")
+    x_sort = pd.Index(
+        list(bar_chart_df.get("competencia", pd.Series(dtype="object")).drop_duplicates())
+        + list(line_chart_df.get("competencia", pd.Series(dtype="object")).drop_duplicates())
+    ).drop_duplicates().tolist()
+
+    bar_chart_df["valor_fmt"] = bar_chart_df[resolved_bar_value_field].map(
+        lambda value: _format_brl_compact(value)
+        if bar_y_title == "R$"
+        else _format_percent(value)
+        if "%" in bar_y_title
+        else _format_decimal(value)
+    )
+    bar_chart_df["label_fmt"] = bar_chart_df[resolved_bar_value_field].map(
+        lambda value: _format_value_label(value, bar_y_title)
+    )
+    line_chart_df["valor_fmt"] = line_chart_df[line_value_field].map(
+        lambda value: _format_brl_compact(value)
+        if line_y_title == "R$"
+        else _format_percent(value)
+        if "%" in line_y_title
+        else _format_decimal(value)
+    )
+
+    x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort)
+    bar_series_order = bar_chart_df["serie"].drop_duplicates().tolist()
+    bar_y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if bar_y_title == "R$" else alt.Axis()
+    bar_y_encoding = alt.Y(
+        f"{resolved_bar_value_field}:Q",
+        title=bar_y_title,
+        axis=bar_y_axis,
+        scale=_quant_scale_with_headroom(
+            bar_chart_df[resolved_bar_value_field],
+            percent_like="%" in bar_y_title,
+            max_cap=140.0 if "%" in bar_y_title else None,
+        ),
+    )
+    line_scale_input = pd.to_numeric(line_chart_df[line_value_field], errors="coerce")
+    if reference_value is not None:
+        line_scale_input = pd.concat([line_scale_input, pd.Series([reference_value])], ignore_index=True)
+    line_y_encoding = alt.Y(
+        f"{line_value_field}:Q",
+        title=line_y_title,
+        axis=alt.Axis(orient="right"),
+        scale=_quant_scale_with_headroom(
+            line_scale_input,
+            percent_like="%" in line_y_title,
+            max_cap=220.0 if "%" in line_y_title else None,
+        ),
+    )
+
+    bars = (
+        alt.Chart(bar_chart_df)
+        .mark_bar(size=_grouped_series_bar_size(bar_chart_df["competencia"].nunique(), bar_chart_df["serie"].nunique()))
+        .encode(
+            x=x_encoding,
+            y=bar_y_encoding,
+            color=alt.Color(
+                "serie:N",
+                title="Série",
+                scale=alt.Scale(domain=bar_series_order, range=FIDC_CHART_COLORS[: len(bar_series_order)]),
+                sort=bar_series_order,
+            ),
+            xOffset=alt.XOffset("serie:N", sort=bar_series_order),
+            tooltip=["competencia:N", "serie:N", alt.Tooltip("valor_fmt:N", title="Valor")],
+        )
+    )
+    bar_labels = _bar_label_layer(
+        bar_chart_df,
+        x_encoding=x_encoding,
+        y_encoding=bar_y_encoding,
+        value_field=resolved_bar_value_field,
+        text_field="label_fmt",
+        x_offset_field="serie",
+        font_size=11,
+        font_weight=700,
+        dy=-8,
+    )
+    bar_layer = bars if bar_labels is None else (bars + bar_labels)
+
+    coverage_line = (
+        alt.Chart(line_chart_df)
+        .mark_line(point=alt.OverlayMarkDef(filled=True, size=62), strokeWidth=3.2, color=COVERAGE_LINE_COLOR)
+        .encode(
+            x=x_encoding,
+            y=line_y_encoding,
+            tooltip=["competencia:N", alt.Tooltip("valor_fmt:N", title="Cobertura"), alt.Tooltip("serie:N", title="Série")],
+        )
+    )
+    coverage_layers: alt.Chart = coverage_line
+    if reference_value is not None:
+        reference_df = pd.DataFrame({"valor": [reference_value]})
+        reference_rule = (
+            alt.Chart(reference_df)
+            .mark_rule(strokeDash=[6, 4], color="#6b7280", strokeWidth=1.4)
+            .encode(
+                y=alt.Y(
+                    "valor:Q",
+                    title=line_y_title,
+                    axis=None,
+                    scale=_quant_scale_with_headroom(
+                        line_scale_input,
+                        percent_like="%" in line_y_title,
+                        max_cap=220.0 if "%" in line_y_title else None,
+                    ),
+                ),
+                tooltip=[alt.Tooltip("valor:Q", title=reference_label or "Referência", format=".0f")],
+            )
+        )
+        coverage_layers = reference_rule + coverage_line
+
+    layered = alt.layer(bar_layer, coverage_layers).resolve_scale(y="independent")
+    layered = _chart_with_optional_title(layered, height=height, title=title)
+    return _style_altair_chart(layered)
 
 
 def _stacked_area_chart(
