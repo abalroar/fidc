@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Any
 
 import pandas as pd
@@ -8,6 +9,7 @@ import streamlit as st
 
 from services import cvm_cadastro
 from services.portfolio_store import (
+    PortfolioFund,
     PortfolioRecord,
     build_portfolio_store,
     resolve_portfolio_store_config,
@@ -120,3 +122,47 @@ def get_portfolio_status_caption() -> str:
     if config.backend == "github" and config.repo:
         return f"Carteiras persistidas via GitHub: `{config.repo}` · branch `{config.branch}`."
     return "Carteiras persistidas localmente neste ambiente."
+
+
+def _catalog_name_lookup(catalog_df: pd.DataFrame) -> dict[str, str]:
+    if catalog_df is None or catalog_df.empty:
+        return {}
+    return catalog_df.set_index("cnpj_fundo")["nome_fundo"].to_dict()
+
+
+def build_portfolio_funds_from_cnpjs(
+    cnpjs: list[str],
+    catalog_df: pd.DataFrame | None = None,
+) -> list[PortfolioFund]:
+    """Parse a list of raw CNPJ strings into PortfolioFund objects, enriching names from the CVM catalog."""
+    resolved_catalog = catalog_df if catalog_df is not None else load_fidc_catalog_cached()
+    name_lookup = _catalog_name_lookup(resolved_catalog)
+    funds: list[PortfolioFund] = []
+    for raw_cnpj in cnpjs:
+        digits = re.sub(r"\D", "", str(raw_cnpj or ""))
+        if len(digits) != 14:
+            continue
+        funds.append(
+            PortfolioFund(
+                cnpj=digits,
+                display_name=str(name_lookup.get(digits) or digits),
+            )
+        )
+    return funds
+
+
+def build_catalog_option_lookup(
+    catalog_df: pd.DataFrame,
+) -> tuple[list[str], dict[str, PortfolioFund]]:
+    """Return ordered labels + {label -> PortfolioFund} for use in Streamlit multiselects."""
+    if catalog_df is None or catalog_df.empty:
+        return [], {}
+    option_lookup: dict[str, PortfolioFund] = {}
+    for row in catalog_df.itertuples(index=False):
+        cnpj = re.sub(r"\D", "", str(getattr(row, "cnpj_fundo", "") or ""))
+        if len(cnpj) != 14:
+            continue
+        name = str(getattr(row, "nome_fundo", "") or cnpj).strip() or cnpj
+        label = f"{name} · {cnpj}"
+        option_lookup[label] = PortfolioFund(cnpj=cnpj, display_name=name)
+    return list(option_lookup.keys()), option_lookup
