@@ -23,6 +23,14 @@ class CachedInformeLoad:
     cache_status: str
 
 
+@dataclass(frozen=True)
+class CachedInformeProbe:
+    cache_key: str
+    cache_dir: Path
+    manifest_path: Path
+    is_cached: bool
+
+
 def load_or_extract_informe(
     *,
     cnpj_fundo: str,
@@ -64,6 +72,25 @@ def load_or_extract_informe(
         cache_key=cached.cache_key,
         cache_dir=cached.cache_dir,
         cache_status="miss",
+    )
+
+
+def peek_cached_informe(
+    *,
+    cnpj_fundo: str,
+    data_inicial: date,
+    data_final: date,
+    cache_root: Path | None = None,
+) -> CachedInformeProbe:
+    cache_key = _build_cache_key(cnpj_fundo=cnpj_fundo, data_inicial=data_inicial, data_final=data_final)
+    cache_dir = (cache_root or Path(".cache/fundonet-ime")).resolve() / cache_key
+    manifest_path = cache_dir / "manifest.json"
+    cached = _load_cached_result(cache_dir=cache_dir, manifest_path=manifest_path, cache_key=cache_key)
+    return CachedInformeProbe(
+        cache_key=cache_key,
+        cache_dir=cache_dir,
+        manifest_path=manifest_path,
+        is_cached=cached is not None,
     )
 
 

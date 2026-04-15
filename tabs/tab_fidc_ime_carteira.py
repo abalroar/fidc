@@ -11,7 +11,7 @@ import pandas as pd
 import streamlit as st
 
 from services.fundonet_errors import FundosNetError, ProviderUnavailableError
-from services.ime_loader import load_or_extract_informe
+from services.ime_loader import load_or_extract_informe, peek_cached_informe
 from services.ime_period import ImePeriodSelection
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from tabs import tab_fidc_ime as ime_tab
@@ -40,17 +40,16 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
         with sel_col:
             selected_portfolio = _render_portfolio_selector(portfolios)
         with btn_col:
-            # Vertical spacer aligns button baseline with the selectbox control.
             st.markdown('<div style="height:1.75rem"></div>', unsafe_allow_html=True)
-            load_clicked = st.button(
-                "Carregar",
-                type="primary",
+            preload_clicked = st.button(
+                "Precarregar",
+                type="secondary",
                 key="ime_portfolio_load_button",
                 use_container_width=True,
             )
     else:
         selected_portfolio = None
-        load_clicked = False
+        preload_clicked = False
 
     with st.expander("Criar / Editar carteira", expanded=not bool(portfolios)):
         _render_portfolio_editor(
@@ -59,18 +58,16 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
             selected_portfolio=selected_portfolio,
         )
 
-    if load_clicked and selected_portfolio is not None:
+    if preload_clicked and selected_portfolio is not None:
         _execute_portfolio_load(selected_portfolio=selected_portfolio, period=period)
 
-    loaded_state = st.session_state.get("ime_portfolio_loaded")
-    if not loaded_state or selected_portfolio is None:
+    if selected_portfolio is None:
         return
-    if loaded_state.get("portfolio_id") != selected_portfolio.id or loaded_state.get("period_key") != period.cache_key:
-        return
+    runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period)
 
     _render_loaded_portfolio_analysis(
         selected_portfolio=selected_portfolio,
-        loaded_state=loaded_state,
+        runtime_state=runtime_state,
         period=period,
     )
 
@@ -176,9 +173,7 @@ def _render_portfolio_editor(
     if target is not None:
         if st.button("Excluir carteira", key="ime_portfolio_delete_button"):
             delete_portfolio_record(target.id)
-            loaded_state = st.session_state.get("ime_portfolio_loaded")
-            if loaded_state and loaded_state.get("portfolio_id") == target.id:
-                st.session_state.pop("ime_portfolio_loaded", None)
+            _clear_portfolio_runtime_states(target.id)
             st.session_state.pop("ime_portfolio_active_id", None)
             st.rerun()
 
@@ -250,25 +245,17 @@ def _execute_portfolio_load_for_funds(
 
     progress_bar.empty()
     status_box.empty()
-    st.session_state["ime_portfolio_loaded"] = {
-        "portfolio_id": selected_portfolio.id,
-        "portfolio_name": selected_portfolio.name,
-        "period_key": period.cache_key,
-        "period_label": period.label,
-        "period_mode": period.mode,
-        "period_start": period.start_month.isoformat(),
-        "period_end": period.end_month.isoformat(),
-        "period_preset_months": period.preset_months,
-        "results": results,
-        "loaded_at": _utc_now_iso(),
-        "load_strategy": {
-            "workers": worker_count,
-            "period_month_count": period.month_count,
-            "requested_funds": total,
-            "retryable_failures_detected": retried_count,
-            "complexity_score": total * max(period.month_count, 1),
-        },
+    runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period)
+    runtime_state["results"] = results
+    runtime_state["loaded_at"] = _utc_now_iso()
+    runtime_state["load_strategy"] = {
+        "workers": worker_count,
+        "period_month_count": period.month_count,
+        "requested_funds": total,
+        "retryable_failures_detected": retried_count,
+        "complexity_score": total * max(period.month_count, 1),
     }
+    _save_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period, runtime_state=runtime_state)
 
 
 def _load_portfolio_funds_batch(
@@ -333,6 +320,58 @@ def _load_single_portfolio_fund(fund: PortfolioFund, period: ImePeriodSelection)
     }
 
 
+def _portfolio_runtime_key(*, portfolio_id: str, period: ImePeriodSelection) -> str:
+    return f"{portfolio_id}::{period.cache_key}"
+
+
+def _get_portfolio_runtime_state(
+    *,
+    selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection,
+) -> dict[str, Any]:
+    store = st.session_state.setdefault("ime_portfolio_runtime_store", {})
+    runtime_key = _portfolio_runtime_key(portfolio_id=selected_portfolio.id, period=period)
+    existing = store.get(runtime_key)
+    if existing is not None:
+        return existing
+    runtime_state = {
+        "portfolio_id": selected_portfolio.id,
+        "portfolio_name": selected_portfolio.name,
+        "period_key": period.cache_key,
+        "period_label": period.label,
+        "period_mode": period.mode,
+        "period_start": period.start_month.isoformat(),
+        "period_end": period.end_month.isoformat(),
+        "period_preset_months": period.preset_months,
+        "results": {},
+        "loaded_at": None,
+        "load_strategy": None,
+    }
+    store[runtime_key] = runtime_state
+    st.session_state["ime_portfolio_runtime_store"] = store
+    return runtime_state
+
+
+def _save_portfolio_runtime_state(
+    *,
+    selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection,
+    runtime_state: dict[str, Any],
+) -> None:
+    store = st.session_state.setdefault("ime_portfolio_runtime_store", {})
+    runtime_key = _portfolio_runtime_key(portfolio_id=selected_portfolio.id, period=period)
+    store[runtime_key] = runtime_state
+    st.session_state["ime_portfolio_runtime_store"] = store
+
+
+def _clear_portfolio_runtime_states(portfolio_id: str) -> None:
+    store = st.session_state.get("ime_portfolio_runtime_store") or {}
+    runtime_keys = [key for key in store if key.startswith(f"{portfolio_id}::")]
+    for key in runtime_keys:
+        store.pop(key, None)
+    st.session_state["ime_portfolio_runtime_store"] = store
+
+
 def _build_portfolio_error_payload(
     *,
     exc: Exception,
@@ -383,19 +422,28 @@ def _is_retryable_portfolio_failure(payload: dict[str, Any]) -> bool:
 def _render_loaded_portfolio_analysis(
     *,
     selected_portfolio: PortfolioRecord,
-    loaded_state: dict[str, Any],
+    runtime_state: dict[str, Any],
     period: ImePeriodSelection,
 ) -> None:
-    results = loaded_state.get("results") or {}
+    results = runtime_state.get("results") or {}
 
     successful_cnpjs = [cnpj for cnpj, payload in results.items() if payload.get("result") is not None]
     failed_cnpjs = [cnpj for cnpj, payload in results.items() if payload.get("result") is None]
 
     _render_portfolio_compact_header(
         name=selected_portfolio.name,
-        period_label=loaded_state.get("period_label", "N/D"),
+        period_label=runtime_state.get("period_label", "N/D"),
         n_ok=len(successful_cnpjs),
-        n_total=len(results),
+        n_total=len(selected_portfolio.funds),
+    )
+
+    st.caption(
+        "A carteira abre sem extrair os XMLs. Selecione um fundo para carregar sob demanda ou use o preload em lote."
+    )
+    st.dataframe(
+        _build_portfolio_inventory_table(selected_portfolio=selected_portfolio, results=results, period=period),
+        width="stretch",
+        hide_index=True,
     )
 
     if failed_cnpjs:
@@ -416,23 +464,54 @@ def _render_loaded_portfolio_analysis(
                 )
                 st.rerun()
 
-    if not successful_cnpjs:
-        st.warning("Nenhum fundo foi carregado com sucesso.")
-        return
-
-    default_focus = st.session_state.get("ime_portfolio_focus_cnpj")
-    if default_focus not in successful_cnpjs:
-        default_focus = successful_cnpjs[0]
+    all_cnpjs = [fund.cnpj for fund in selected_portfolio.funds]
+    fund_name_lookup = {fund.cnpj: fund.display_name for fund in selected_portfolio.funds}
+    focus_key = f"ime_portfolio_focus_cnpj::{selected_portfolio.id}"
+    default_focus = st.session_state.get(focus_key)
+    if default_focus not in all_cnpjs:
+        default_focus = None
 
     focus_cnpj = st.selectbox(
         "Fundo selecionado",
-        options=successful_cnpjs,
-        index=successful_cnpjs.index(default_focus),
-        key="ime_portfolio_focus_cnpj",
-        format_func=lambda cnpj: _focus_option_label(cnpj, results),
+        options=all_cnpjs,
+        index=all_cnpjs.index(default_focus) if default_focus in all_cnpjs else None,
+        key=focus_key,
+        placeholder="Selecione um fundo da carteira",
+        format_func=lambda cnpj: _focus_option_label(cnpj, results, fund_name_lookup),
     )
+    if not focus_cnpj:
+        st.info("Selecione um fundo para carregar os informes do período ativo.")
+        return
 
-    focused_payload = results[focus_cnpj]
+    focused_payload = results.get(focus_cnpj)
+    if focused_payload is None:
+        focus_fund = next(fund for fund in selected_portfolio.funds if fund.cnpj == focus_cnpj)
+        with st.spinner(f"Carregando {focus_fund.display_name}..."):
+            _execute_portfolio_load_for_funds(
+                selected_portfolio=selected_portfolio,
+                period=period,
+                funds=(focus_fund,),
+                existing_results=results,
+            )
+        st.rerun()
+
+    if focused_payload.get("result") is None:
+        st.warning("O fundo selecionado falhou no carregamento.")
+        if st.button(
+            "Recarregar fundo selecionado",
+            key=f"ime_portfolio_retry_focus_{selected_portfolio.id}_{focus_cnpj}",
+            use_container_width=False,
+        ):
+            focus_fund = next(fund for fund in selected_portfolio.funds if fund.cnpj == focus_cnpj)
+            _execute_portfolio_load_for_funds(
+                selected_portfolio=selected_portfolio,
+                period=period,
+                funds=(focus_fund,),
+                existing_results=results,
+            )
+            st.rerun()
+        return
+
     ime_tab._render_result(
         focused_payload["result"],
         focused_payload.get("context") or {},
@@ -452,6 +531,45 @@ def _render_portfolio_compact_header(name: str, period_label: str, n_ok: int, n_
 """,
         unsafe_allow_html=True,
     )
+
+
+def _build_portfolio_inventory_table(
+    *,
+    selected_portfolio: PortfolioRecord,
+    results: dict[str, dict[str, Any]],
+    period: ImePeriodSelection,
+) -> pd.DataFrame:
+    rows: list[dict[str, str]] = []
+    for fund in selected_portfolio.funds:
+        payload = results.get(fund.cnpj) or {}
+        context = payload.get("context") or {}
+        if payload.get("result") is not None:
+            status = "Carregado"
+            cache_state = context.get("cache_status", "N/D")
+            timing = f"{context.get('elapsed_seconds', 'N/D')} s"
+        elif payload.get("error") is not None:
+            status = "Erro transitório" if _is_retryable_portfolio_failure(payload) else "Erro"
+            cache_state = "N/D"
+            timing = "-"
+        else:
+            probe = peek_cached_informe(
+                cnpj_fundo=fund.cnpj,
+                data_inicial=period.start_month,
+                data_final=period.end_month,
+            )
+            status = "Cache disponível" if probe.is_cached else "Não carregado"
+            cache_state = "pronto" if probe.is_cached else "-"
+            timing = "-"
+        rows.append(
+            {
+                "Fundo": fund.display_name,
+                "CNPJ": fund.cnpj,
+                "Status": status,
+                "Cache": cache_state,
+                "Tempo": timing,
+            }
+        )
+    return pd.DataFrame(rows)
 
 
 def _render_portfolio_error_summary(*, failed_cnpjs: list[str], results: dict[str, dict[str, Any]]) -> None:
@@ -483,10 +601,16 @@ def _render_portfolio_error_summary(*, failed_cnpjs: list[str], results: dict[st
             )
 
 
-def _focus_option_label(cnpj: str, results: dict[str, dict[str, Any]]) -> str:
+def _focus_option_label(
+    cnpj: str,
+    results: dict[str, dict[str, Any]],
+    fund_name_lookup: dict[str, str] | None = None,
+) -> str:
     payload = results.get(cnpj) or {}
     context = payload.get("context") or {}
-    name = context.get("portfolio_fund_name") or cnpj
+    name = context.get("portfolio_fund_name") or (fund_name_lookup or {}).get(cnpj) or cnpj
+    if not payload:
+        return f"{name} · não carregado"
     if payload.get("result") is None:
         return f"{name} · erro"
     return f"{name} · {cnpj}"

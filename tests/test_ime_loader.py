@@ -7,7 +7,7 @@ import unittest
 
 import pandas as pd
 
-from services.ime_loader import load_or_extract_informe
+from services.ime_loader import load_or_extract_informe, peek_cached_informe
 from services.fundonet_service import InformeMensalResult
 
 
@@ -87,6 +87,37 @@ class ImeLoaderTests(unittest.TestCase):
             self.assertEqual("hit", second.cache_status)
             self.assertTrue(second.result.wide_csv_path.exists())
             self.assertTrue(str(second.result.workspace_dir).startswith(str(cache_root.resolve())))
+
+    def test_peek_cached_informe_reports_cache_availability(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            service = _FakeInformeService(tmp_path / "workspace")
+            cache_root = tmp_path / "cache"
+
+            before = peek_cached_informe(
+                cnpj_fundo="12.345.678/0001-99",
+                data_inicial=date(2026, 1, 1),
+                data_final=date(2026, 4, 1),
+                cache_root=cache_root,
+            )
+            self.assertFalse(before.is_cached)
+
+            load_or_extract_informe(
+                cnpj_fundo="12.345.678/0001-99",
+                data_inicial=date(2026, 1, 1),
+                data_final=date(2026, 4, 1),
+                service=service,
+                cache_root=cache_root,
+            )
+
+            after = peek_cached_informe(
+                cnpj_fundo="12.345.678/0001-99",
+                data_inicial=date(2026, 1, 1),
+                data_final=date(2026, 4, 1),
+                cache_root=cache_root,
+            )
+            self.assertTrue(after.is_cached)
+            self.assertTrue(after.manifest_path.exists())
 
 
 if __name__ == "__main__":
