@@ -1521,6 +1521,60 @@ def _build_default_history(
     competencias: list[str],
     dc_canonical_history_df: pd.DataFrame,
 ) -> pd.DataFrame:
+    parcelas_inadimplentes_total = pd.concat(
+        [
+            _numeric_series_nullable(
+                wide_lookup,
+                competencias,
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_TOTAL_VENC_INAD",
+            ),
+            _numeric_series_nullable(
+                wide_lookup,
+                competencias,
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_TOTAL_VENC_INAD",
+            ),
+        ],
+        axis=1,
+    ).sum(axis=1, min_count=1)
+    creditos_existentes_inadimplentes = pd.concat(
+        [
+            _numeric_series_nullable(
+                wide_lookup,
+                competencias,
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_INAD",
+            ),
+            _numeric_series_nullable(
+                wide_lookup,
+                competencias,
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_INAD",
+            ),
+        ],
+        axis=1,
+    ).sum(axis=1, min_count=1)
+    creditos_vencidos_pendentes_cessao = pd.concat(
+        [
+            _numeric_series_nullable(
+                wide_lookup,
+                competencias,
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_VENC_PEND",
+            ),
+            _numeric_series_nullable(
+                wide_lookup,
+                competencias,
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_VENC_PEND",
+            ),
+        ],
+        axis=1,
+    ).sum(axis=1, min_count=1)
+    somatorio_inadimplentes_aux_validacao = pd.concat(
+        [
+            parcelas_inadimplentes_total,
+            creditos_existentes_inadimplentes,
+            creditos_vencidos_pendentes_cessao,
+        ],
+        axis=1,
+    ).sum(axis=1, min_count=1)
+
     inadimplencia_total_base = pd.concat(
         [
             _numeric_series_nullable(
@@ -1579,21 +1633,7 @@ def _build_default_history(
         ],
         axis=1,
     ).sum(axis=1, min_count=1)
-    pendencia_total = pd.concat(
-        [
-            _numeric_series_nullable(
-                wide_lookup,
-                competencias,
-                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_VENC_PEND",
-            ),
-            _numeric_series_nullable(
-                wide_lookup,
-                competencias,
-                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_VENC_PEND",
-            ),
-        ],
-        axis=1,
-    ).sum(axis=1, min_count=1)
+    pendencia_total = creditos_vencidos_pendentes_cessao
 
     df = pd.DataFrame(
         {
@@ -1614,6 +1654,10 @@ def _build_default_history(
                 else [pd.NA] * len(competencias)
             ),
             "inadimplencia_total": inadimplencia_total.values,
+            "parcelas_inadimplentes_total": parcelas_inadimplentes_total.values,
+            "creditos_existentes_inadimplentes": creditos_existentes_inadimplentes.values,
+            "creditos_vencidos_pendentes_cessao": creditos_vencidos_pendentes_cessao.values,
+            "somatorio_inadimplentes_aux_validacao": somatorio_inadimplentes_aux_validacao.values,
             "provisao_total": provisao_total.values,
             "pendencia_total": pendencia_total.values,
         }
@@ -1627,6 +1671,9 @@ def _build_default_history(
     df["cobertura_pct"] = (
         df["provisao_total"] / df["inadimplencia_total"]
     ).where(df["inadimplencia_total"] > 0).mul(100.0)
+    df["somatorio_inadimplentes_aux_validacao_pct_dcs"] = (
+        df["somatorio_inadimplentes_aux_validacao"] / df["direitos_creditorios"]
+    ).where(df["direitos_creditorios"] > 0).mul(100.0)
     return df
 
 

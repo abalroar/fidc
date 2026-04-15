@@ -1088,6 +1088,32 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         over_incomplete = over_history_df[over_history_df["calculo_status"] != "calculado"].copy()
         if not over_incomplete.empty:
             st.caption("Competências com buckets incompletos não entram nas curvas Over para evitar subcontagem silenciosa.")
+    aux_sum_chart_df = _default_inadimplentes_aux_sum_chart_frame(dashboard.default_history_df)
+    _render_chart_heading(
+        st,
+        "Somatório de inadimplentes (% dos DCs totais)",
+        "Série mensal do somatório regulatório de inadimplentes definido no padrão XML CVM 576.",
+    )
+    if aux_sum_chart_df.empty:
+        st.info("Dados insuficientes para o somatório de inadimplentes conforme auxílio de validação da CVM.")
+    else:
+        st.altair_chart(
+            _inadimplentes_aux_sum_line_chart(aux_sum_chart_df),
+            width="stretch",
+        )
+    with st.expander("Definição — Somatório de inadimplentes (CVM 576)", expanded=False):
+        st.markdown(
+            "- **Base regulatória (AUXÍLIO PARA VALIDAÇÃO / item Somatório de inadimplentes):**\n"
+            "  `Valor total das parcelas inadimplentes + Valor dos créditos existentes inadimplentes + "
+            "Valor dos créditos vencidos e pendentes de pagamento quando da cessão para o fundo`.\n"
+            "- **Mapeamento dos campos no dashboard (padrão 576):**\n"
+            "  - `VL_DICRED_TOTAL_VENC_INAD` = parcelas inadimplentes;\n"
+            "  - `VL_DICRED_EXISTE_INAD` = créditos existentes inadimplentes;\n"
+            "  - `VL_DICRED_VENC_PEND` = créditos vencidos e pendentes.\n"
+            "- **Percentual exibido no gráfico:**\n"
+            "  `Somatório de inadimplentes / Direitos Creditórios Totais (DCs)`.\n"
+            "- **Leitura prática:** valores maiores indicam maior fração do estoque total em atraso e/ou pendência."
+        )
     aging_history_df = dashboard.default_aging_history_df.copy()
     _render_chart_heading(st, "Aging da inadimplência", "% dos direitos creditórios totais por faixa de atraso.")
     if aging_history_df.empty:
@@ -4342,6 +4368,58 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
     return _style_altair_chart(layered.properties(padding={"left": 8, "right": 56, "top": 8, "bottom": 8}))
 
 
+def _inadimplentes_aux_sum_line_chart(chart_df: pd.DataFrame) -> alt.Chart:
+    df = _altair_compatible_df(chart_df.copy())
+    if df.empty or "competencia" not in df.columns:
+        return alt.Chart(pd.DataFrame({"competencia": [], "valor": []})).mark_line()
+    df["competencia"] = df["competencia"].map(_format_competencia_display)
+    df["valor_label"] = df["valor"].map(lambda value: _format_percent(value))
+    x_sort = df["competencia"].drop_duplicates().tolist()
+    line_chart = (
+        alt.Chart(df)
+        .mark_line(color="#ff5a00", strokeWidth=2.4)
+        .encode(
+            x=alt.X("competencia:N", title="Competência", sort=x_sort),
+            y=alt.Y(
+                "valor:Q",
+                title="Somatório de inadimplentes (% dos DCs totais)",
+                axis=alt.Axis(labelColor="#5f6b7a", titleColor="#5f6b7a"),
+                scale=_quant_scale_with_headroom(df["valor"], percent_like=True),
+            ),
+            tooltip=[
+                alt.Tooltip("competencia:N", title="Competência"),
+                alt.Tooltip("valor_label:N", title="Somatório"),
+            ],
+        )
+        .properties(height=240)
+    )
+    points = (
+        alt.Chart(df)
+        .mark_point(
+            filled=True,
+            size=130,
+            color="#ff5a00",
+            stroke="#ff5a00",
+            strokeWidth=1.2,
+        )
+        .encode(
+            x=alt.X("competencia:N", sort=x_sort),
+            y=alt.Y("valor:Q"),
+        )
+    )
+    labels = (
+        alt.Chart(df)
+        .mark_text(dy=-12, fontSize=12, fontWeight=700, color="#ff5a00", clip=False)
+        .encode(
+            x=alt.X("competencia:N", sort=x_sort),
+            y=alt.Y("valor:Q"),
+            text=alt.Text("valor_label:N"),
+        )
+    )
+    layered = line_chart + points + labels
+    return _style_altair_chart(layered.properties(padding={"left": 8, "right": 56, "top": 8, "bottom": 8}))
+
+
 def _style_altair_chart(chart: alt.Chart) -> alt.Chart:
     return (
         chart.configure_axis(
@@ -4427,6 +4505,19 @@ def _default_cobertura_chart_frame(default_history_df: pd.DataFrame) -> pd.DataF
     df["valor"] = pd.to_numeric(df["cobertura_pct"], errors="coerce")
     df["serie"] = "Cobertura"
     return df[["competencia", "competencia_dt", "serie", "valor"]].dropna(subset=["valor"])
+
+
+def _default_inadimplentes_aux_sum_chart_frame(default_history_df: pd.DataFrame) -> pd.DataFrame:
+    if default_history_df.empty:
+        return pd.DataFrame(columns=["competencia", "competencia_dt", "valor"])
+    required = ["competencia", "competencia_dt", "somatorio_inadimplentes_aux_validacao_pct_dcs"]
+    missing = [column for column in required if column not in default_history_df.columns]
+    if missing:
+        return pd.DataFrame(columns=["competencia", "competencia_dt", "valor"])
+    chart_df = default_history_df[required].copy()
+    chart_df = chart_df.rename(columns={"somatorio_inadimplentes_aux_validacao_pct_dcs": "valor"})
+    chart_df["valor"] = pd.to_numeric(chart_df["valor"], errors="coerce")
+    return chart_df.dropna(subset=["valor"])
 
 
 def _default_denominator_series(default_history_df: pd.DataFrame) -> pd.Series:

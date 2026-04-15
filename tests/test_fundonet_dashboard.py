@@ -130,6 +130,14 @@ class FundonetDashboardTests(unittest.TestCase):
         ].iloc[0]
         self.assertAlmostEqual(7.0, default_361["valor"])
         self.assertEqual("reported_value", default_361["source_status"])
+        self.assertAlmostEqual(
+            6.25,
+            dashboard.default_history_df.iloc[0]["somatorio_inadimplentes_aux_validacao_pct_dcs"],
+        )
+        self.assertAlmostEqual(
+            1_000.0,
+            dashboard.default_history_df.iloc[0]["somatorio_inadimplentes_aux_validacao"],
+        )
 
         maturity_361 = dashboard.maturity_latest_df[dashboard.maturity_latest_df["faixa"] == "361 a 720 dias"].iloc[0]
         self.assertAlmostEqual(13.0, maturity_361["valor"])
@@ -167,8 +175,8 @@ class FundonetDashboardTests(unittest.TestCase):
             {"Risco de crédito", "Risco estrutural"},
             set(dashboard.risk_metrics_df["risk_block"]),
         )
-        self.assertTrue(pd.isna(risk_lookup.loc["inadimplencia_pct", "value"]))
-        self.assertEqual("nao_calculavel", risk_lookup.loc["inadimplencia_pct", "state"])
+        self.assertAlmostEqual(4.375, risk_lookup.loc["inadimplencia_pct", "value"])
+        self.assertEqual("calculado", risk_lookup.loc["inadimplencia_pct", "state"])
         self.assertAlmostEqual(100.0, risk_lookup.loc["concentracao_segmento_proxy", "value"])
         self.assertEqual("critico", risk_lookup.loc["subordinacao_pct", "criticality"])
         self.assertIn("Índice de cobertura", dashboard.coverage_gap_df["tema"].tolist())
@@ -744,6 +752,27 @@ class FundonetDashboardTests(unittest.TestCase):
             row("APLIC_ATIVO", "", "VL_SOM_APLIC_ATIVO", "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_SOM_APLIC_ATIVO", 21000),
             row("APLIC_ATIVO", "", "VL_CARTEIRA", "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_CARTEIRA", 20000),
             row("APLIC_ATIVO", "DICRED", "VL_DICRED", "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED", 16000),
+            row(
+                "APLIC_ATIVO",
+                "DICRED",
+                "VL_DICRED_TOTAL_VENC_INAD",
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_TOTAL_VENC_INAD",
+                700,
+            ),
+            row(
+                "APLIC_ATIVO",
+                "DICRED",
+                "VL_DICRED_EXISTE_INAD",
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_INAD",
+                200,
+            ),
+            row(
+                "APLIC_ATIVO",
+                "DICRED",
+                "VL_DICRED_VENC_PEND",
+                "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_VENC_PEND",
+                100,
+            ),
             row(
                 "NEGOC_DICRED_MES",
                 "AQUISICOES",
