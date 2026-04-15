@@ -3,7 +3,6 @@ from __future__ import annotations
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from html import escape
-import re
 import traceback
 from typing import Any
 import uuid
@@ -16,22 +15,24 @@ from services.ime_period import ImePeriodSelection
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from tabs import tab_fidc_ime as ime_tab
 from tabs.ime_portfolio_support import (
+    build_catalog_option_lookup,
+    build_portfolio_funds_from_cnpjs,
     delete_portfolio_record,
-    get_portfolio_status_caption,
     list_saved_portfolios,
     load_fidc_catalog_cached,
     save_portfolio_record,
 )
 
 
-def render_tab_fidc_ime_carteira() -> None:
+def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> None:
     # Inject shared CSS so the compact header and downstream dashboard share the same tokens.
     st.markdown(ime_tab._FIDC_REPORT_CSS, unsafe_allow_html=True)
 
     portfolios = list_saved_portfolios()
     catalog_df = load_fidc_catalog_cached()
 
-    period = ime_tab._render_period_selector(state_prefix="ime_portfolio", title="Período da carteira")
+    if period is None:
+        period = ime_tab._render_period_selector(state_prefix="ime_portfolio", title="Período da carteira")
 
     if portfolios:
         sel_col, btn_col = st.columns([5, 1])
@@ -64,7 +65,6 @@ def render_tab_fidc_ime_carteira() -> None:
     if not loaded_state or selected_portfolio is None:
         return
     if loaded_state.get("portfolio_id") != selected_portfolio.id or loaded_state.get("period_key") != period.cache_key:
-        st.info("Clique em 'Carregar' para atualizar com a carteira e o período ativos.")
         return
 
     _render_loaded_portfolio_analysis(selected_portfolio=selected_portfolio, loaded_state=loaded_state)
@@ -101,20 +101,9 @@ def _render_portfolio_editor(
     catalog_df: pd.DataFrame,
     selected_portfolio: PortfolioRecord | None,
 ) -> None:
-    st.caption(get_portfolio_status_caption())
-
-    if portfolios:
-        editor_mode = st.radio(
-            "Modo",
-            options=["Nova carteira", "Editar carteira ativa"],
-            horizontal=True,
-            key="ime_portfolio_editor_mode",
-        )
-    else:
-        editor_mode = "Nova carteira"
-
-    target = selected_portfolio if editor_mode == "Editar carteira ativa" and selected_portfolio is not None else None
-    option_labels, option_lookup = _build_catalog_option_lookup(catalog_df)
+    # Infer edit-vs-create from state: a selected portfolio is implicitly the edit target.
+    target = selected_portfolio if portfolios else None
+    option_labels, option_lookup = build_catalog_option_lookup(catalog_df)
     default_labels = [
         next((label for label, fund in option_lookup.items() if fund.cnpj == portfolio_fund.cnpj), portfolio_fund.display_name)
         for portfolio_fund in (target.funds if target is not None else ())
@@ -131,13 +120,12 @@ def _render_portfolio_editor(
                 "Fundos",
                 options=option_labels,
                 default=default_labels,
-                help="Selecione até 20 FIDCs. A busca usa o cadastro público da CVM.",
+                help="Até 20 FIDCs. Busca usa o cadastro público da CVM.",
             )
         else:
             selected_labels = []
-            st.info("Catálogo CVM indisponível. Use a entrada manual de CNPJs abaixo.")
         manual_cnpjs = st.text_area(
-            "CNPJs adicionais (um por linha)",
+            "CNPJs adicionais",
             value="\n".join(
                 fund.cnpj
                 for fund in (target.funds if target is not None else ())
@@ -145,39 +133,40 @@ def _render_portfolio_editor(
             )
             if target is not None
             else "",
-            placeholder="00.000.000/0000-00",
-            height=110,
+            placeholder="00.000.000/0000-00 (um por linha)",
+            height=90,
         )
-        notes = st.text_area(
-            "Notas",
-            value=target.notes if target is not None else "",
-            placeholder="Opcional",
-            height=80,
-        ).strip()
-        save_clicked = st.form_submit_button("Salvar carteira", type="primary")
+        cols = st.columns([1, 1, 3])
+        save_label = "Atualizar carteira" if target is not None else "Salvar carteira"
+        save_clicked = cols[0].form_submit_button(save_label, type="primary")
+        new_clicked = cols[1].form_submit_button("Nova carteira") if target is not None else False
+
+    if new_clicked:
+        st.session_state.pop("ime_portfolio_active_id", None)
+        st.rerun()
 
     if save_clicked:
         if not name:
             st.warning("Informe um nome para a carteira.")
-        else:
-            funds = [option_lookup[label] for label in selected_labels]
-            funds.extend(_build_manual_portfolio_funds(manual_cnpjs, catalog_df))
-            if not funds:
-                st.warning("Selecione ao menos um fundo.")
-            else:
-                stored = save_portfolio_record(
-                    PortfolioRecord(
-                        id=target.id if target is not None else uuid.uuid4().hex,
-                        name=name,
-                        funds=tuple(funds),
-                        created_at=target.created_at if target is not None else _utc_now_iso(),
-                        updated_at=target.updated_at if target is not None else _utc_now_iso(),
-                        notes=notes,
-                    )
-                )
-                st.session_state["ime_portfolio_active_id"] = stored.id
-                st.success(f"Carteira '{stored.name}' salva com {len(stored.funds)} fundo(s).")
-                st.rerun()
+            return
+        funds = [option_lookup[label] for label in selected_labels]
+        funds.extend(build_portfolio_funds_from_cnpjs(manual_cnpjs.splitlines(), catalog_df))
+        if not funds:
+            st.warning("Selecione ao menos um fundo.")
+            return
+        stored = save_portfolio_record(
+            PortfolioRecord(
+                id=target.id if target is not None else uuid.uuid4().hex,
+                name=name,
+                funds=tuple(funds),
+                created_at=target.created_at if target is not None else _utc_now_iso(),
+                updated_at=target.updated_at if target is not None else _utc_now_iso(),
+                notes=target.notes if target is not None else "",
+            )
+        )
+        st.session_state["ime_portfolio_active_id"] = stored.id
+        st.toast(f"Carteira '{stored.name}' salva ({len(stored.funds)} fundo(s)).", icon="✓")
+        st.rerun()
 
     if target is not None:
         if st.button("Excluir carteira", key="ime_portfolio_delete_button"):
@@ -334,56 +323,12 @@ def _render_portfolio_error_summary(*, failed_cnpjs: list[str], results: dict[st
             st.caption(f"**{fund_name}** · {cnpj} — {str(error) if error else 'Erro desconhecido'}")
 
 
-def _build_catalog_option_lookup(catalog_df: pd.DataFrame) -> tuple[list[str], dict[str, PortfolioFund]]:
-    if catalog_df.empty:
-        return [], {}
-    option_lookup: dict[str, PortfolioFund] = {}
-    for row in catalog_df.itertuples(index=False):
-        cnpj = re.sub(r"\D", "", str(getattr(row, "cnpj_fundo", "") or ""))
-        if len(cnpj) != 14:
-            continue
-        name = str(getattr(row, "nome_fundo", "") or cnpj).strip() or cnpj
-        label = f"{name} · {cnpj}"
-        option_lookup[label] = PortfolioFund(cnpj=cnpj, display_name=name)
-    return list(option_lookup.keys()), option_lookup
-
-
-def _build_manual_portfolio_funds(raw_text: str, catalog_df: pd.DataFrame) -> list[PortfolioFund]:
-    name_lookup = {}
-    if not catalog_df.empty:
-        name_lookup = catalog_df.set_index("cnpj_fundo")["nome_fundo"].to_dict()
-    funds: list[PortfolioFund] = []
-    for line in str(raw_text or "").splitlines():
-        digits = re.sub(r"\D", "", line)
-        if len(digits) != 14:
-            continue
-        funds.append(
-            PortfolioFund(
-                cnpj=digits,
-                display_name=str(name_lookup.get(digits) or digits),
-            )
-        )
-    return funds
-
-
 def _focus_option_label(cnpj: str, results: dict[str, dict[str, Any]]) -> str:
     payload = results.get(cnpj) or {}
-    result = payload.get("result")
     context = payload.get("context") or {}
-    if result is None:
-        return f"{context.get('portfolio_fund_name') or cnpj} · erro"
-    dashboard = ime_tab._load_dashboard_data(
-        str(result.wide_csv_path),
-        str(result.listas_csv_path),
-        str(result.docs_csv_path),
-        ime_tab.DASHBOARD_SCHEMA_VERSION,
-    )
-    name = (
-        dashboard.fund_info.get("nome_fundo")
-        or dashboard.fund_info.get("nome_classe")
-        or context.get("portfolio_fund_name")
-        or cnpj
-    )
+    name = context.get("portfolio_fund_name") or cnpj
+    if payload.get("result") is None:
+        return f"{name} · erro"
     return f"{name} · {cnpj}"
 
 
