@@ -1185,12 +1185,12 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
             show_end_labels=False,
             point_label_font_size=16,
             point_label_font_weight=700,
+            point_size=140,
         ),
         width="stretch",
     )
-    st.caption("Métricas exibidas no bloco estrutural")
     st.dataframe(
-        _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco estrutural"),
+        _format_risk_metrics_compact_table(dashboard.risk_metrics_df, risk_block="Risco estrutural"),
         width="stretch",
         hide_index=True,
     )
@@ -1213,10 +1213,9 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 y_title="% do total",
                 value_column="percentual",
                 bar_size=pl_bar_size,
-                label_font_size=15,
-                force_all_segment_labels=True,
-                allow_outside_labels=False,
-                inside_label_color="#ffffff",
+                label_font_size=14,
+                smart_label_placement=True,
+                round_percent_labels=True,
             ),
             width="stretch",
         )
@@ -1228,10 +1227,8 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 y_title="R$",
                 value_column="valor",
                 bar_size=pl_bar_size,
-                label_font_size=15,
-                force_all_segment_labels=True,
-                allow_outside_labels=False,
-                inside_label_color="#ffffff",
+                label_font_size=14,
+                smart_label_placement=True,
             ),
             width="stretch",
         )
@@ -1243,11 +1240,23 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
     )
     if _has_meaningful_benchmark(dashboard.performance_vs_benchmark_latest_df):
         with st.expander("Benchmark x realizado", expanded=False):
-            st.dataframe(
-                _format_performance_benchmark_table(dashboard.performance_vs_benchmark_latest_df),
-                width="stretch",
-                hide_index=True,
-            )
+            perf_df = dashboard.performance_vs_benchmark_latest_df
+            if _benchmark_equals_realizado(perf_df):
+                st.caption(
+                    "Benchmark e realizado vieram idênticos na fonte. "
+                    "Realizado exibido como não disponível para evitar leitura artificial."
+                )
+                st.dataframe(
+                    _format_performance_benchmark_table(perf_df, mark_equal_as_na=True),
+                    width="stretch",
+                    hide_index=True,
+                )
+            else:
+                st.dataframe(
+                    _format_performance_benchmark_table(perf_df),
+                    width="stretch",
+                    hide_index=True,
+                )
 
 
 def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
@@ -1775,7 +1784,13 @@ def _render_overview_metrics(dashboard: FundonetDashboardData) -> None:
         _render_fidc_card("Direitos creditórios", _format_brl_compact(summary.get("direitos_creditorios")), "DICRED/VL_DICRED"),
         _render_fidc_card("PL total", _format_brl_compact(summary.get("pl_total")), "Cotas sênior + subordinadas"),
         _render_fidc_card("Subordinação", _format_percent(summary.get("subordinacao_pct")), "PL subordinado / PL total"),
-        _render_fidc_card("Inadimplência", _format_percent(summary.get("inadimplencia_pct")), "Inadimplência / direitos creditórios", variant="risk"),
+        _render_fidc_card(
+            "Inadimplência",
+            _format_percent(summary.get("inadimplencia_pct")),
+            "Inadimplência / direitos creditórios",
+            variant="risk",
+            tooltip="Refere-se a parcelas vencidas dos direitos creditórios reportadas no informe mensal.",
+        ),
     ]
     st.markdown(_render_fidc_grid(hero_cards, "fidc-grid--hero"), unsafe_allow_html=True)
 
@@ -1928,28 +1943,42 @@ def _render_inadimplencia_overview_card(dashboard: FundonetDashboardData) -> str
         if not latest_df.empty and "inadimplencia_pct" in latest_df.columns
         else None
     )
-    note_parts = [
-        f"Vencidos {_format_brl_compact(inadimplencia_total)} / total recebíveis {_format_brl_compact(direitos_creditorios)}",
-    ]
-    if delta_pp is not None:
-        note_parts.append(f"{_format_pp(delta_pp)} vs. mês anterior")
-    if trailing_mean is not None and not pd.isna(trailing_mean):
-        note_parts.append(f"Média 12 meses: {_format_percent(trailing_mean)}")
-    vencidos_ratio = _maturity_vencidos_caption(dashboard.maturity_latest_df)
-    if vencidos_ratio:
-        note_parts.append(vencidos_ratio)
+    # Quando não há vencidos, exibir valor principal em branco (sem "0,00%" ou "R$ 0,00"),
+    # mas manter a memória de cálculo na parte inferior.
+    pct_numeric = pd.to_numeric(inadimplencia_pct, errors="coerce")
+    total_numeric = pd.to_numeric(inadimplencia_total, errors="coerce")
+    is_zero_vencidos = (
+        (pd.notna(pct_numeric) and abs(float(pct_numeric)) < 1e-9)
+        or (pd.notna(total_numeric) and abs(float(total_numeric)) < 1e-9)
+    )
+    # Memória de cálculo sempre presente (mesmo quando não há vencidos)
+    vencidos_fmt = _format_brl_compact(inadimplencia_total) if not _is_missing_value(inadimplencia_total) else "R$ 0,00"
+    total_fmt = _format_brl_compact(direitos_creditorios) if not _is_missing_value(direitos_creditorios) else "N/D"
+    note_parts = [f"{vencidos_fmt} / total de recebíveis {total_fmt}"]
+    # Contexto adicional só é relevante quando existe inadimplência — caso contrário
+    # evita-se repetir "0,00%" desnecessariamente na UI.
+    if not is_zero_vencidos:
+        if delta_pp is not None:
+            note_parts.append(f"{_format_pp(delta_pp)} vs. mês anterior")
+        if trailing_mean is not None and not pd.isna(trailing_mean):
+            note_parts.append(f"Média 12 meses: {_format_percent(trailing_mean)}")
+        vencidos_ratio = _maturity_vencidos_caption(dashboard.maturity_latest_df)
+        if vencidos_ratio:
+            note_parts.append(vencidos_ratio)
     tooltip_lines = [
-        "Fonte: Informe Mensal -> quadro de prazo de vencimento dos direitos creditórios, com fallback para o aging de inadimplência.",
-        "Fórmula: créditos vencidos / total de direitos creditórios reportado na mesma malha de vencimento * 100",
-        "Limitação: depende do preenchimento consistente dos quadros de vencidos e vencimento; não substitui perda esperada ou leitura por devedor.",
+        "Total de parcelas vencidas sobre o total de direitos creditórios.",
+        "Fonte: Informe Mensal -> quadro de prazo de vencimento dos direitos creditórios, com fallback para o aging.",
+        "Fórmula: créditos vencidos / total de direitos creditórios * 100",
+        "Limitação: depende do preenchimento consistente dos quadros; não substitui perda esperada ou leitura por devedor.",
     ]
+    display_value = "" if is_zero_vencidos else _format_percent(inadimplencia_pct)
     return _render_fidc_card(
-        "Inadimplência",
-        _format_percent(inadimplencia_pct),
-        "Inadimplência / direitos creditórios",
+        "Total de Vencidos",
+        display_value,
+        "Parcelas vencidas / direitos creditórios",
         variant="risk",
         note=" · ".join(note_parts),
-        sparkline_svg=_sparkline_svg(_metric_history_values(dashboard, "inadimplencia_pct")),
+        sparkline_svg="" if is_zero_vencidos else _sparkline_svg(_metric_history_values(dashboard, "inadimplencia_pct")),
         tooltip="\n".join(tooltip_lines),
     )
 
@@ -2369,15 +2398,48 @@ def _format_return_summary_frame(return_summary_df: pd.DataFrame) -> pd.DataFram
     return table_df[["Classe", "Mês", "Ano", "12 Meses"]]
 
 
-def _format_performance_benchmark_table(performance_df: pd.DataFrame) -> pd.DataFrame:
+def _format_performance_benchmark_table(
+    performance_df: pd.DataFrame,
+    *,
+    mark_equal_as_na: bool = False,
+) -> pd.DataFrame:
     if performance_df.empty:
         return pd.DataFrame(columns=["Classe", "Benchmark", "Realizado", "Gap (bps)"])
     output = performance_df.copy()
     output["Classe"] = output["label"]
     output["Benchmark"] = output["desempenho_esperado_pct"].map(_format_percent)
-    output["Realizado"] = output["desempenho_real_pct"].map(_format_percent)
-    output["Gap (bps)"] = output["gap_bps"].map(lambda value: _format_decimal(value, decimals=0))
+    if mark_equal_as_na:
+        esperado_num = pd.to_numeric(output["desempenho_esperado_pct"], errors="coerce")
+        real_num = pd.to_numeric(output["desempenho_real_pct"], errors="coerce")
+        equal_mask = (esperado_num - real_num).abs() < 1e-9
+        output["Realizado"] = [
+            "Não disponível" if equal else _format_percent(value)
+            for equal, value in zip(equal_mask, output["desempenho_real_pct"])
+        ]
+        output["Gap (bps)"] = [
+            "N/D" if equal else _format_decimal(value, decimals=0)
+            for equal, value in zip(equal_mask, output["gap_bps"])
+        ]
+    else:
+        output["Realizado"] = output["desempenho_real_pct"].map(_format_percent)
+        output["Gap (bps)"] = output["gap_bps"].map(lambda value: _format_decimal(value, decimals=0))
     return output[["Classe", "Benchmark", "Realizado", "Gap (bps)"]]
+
+
+def _benchmark_equals_realizado(performance_df: pd.DataFrame) -> bool:
+    """Detect silent equality: when all rows have benchmark equal to realizado."""
+    if performance_df.empty:
+        return False
+    required = {"desempenho_esperado_pct", "desempenho_real_pct"}
+    if not required.issubset(performance_df.columns):
+        return False
+    esperado = pd.to_numeric(performance_df["desempenho_esperado_pct"], errors="coerce")
+    real = pd.to_numeric(performance_df["desempenho_real_pct"], errors="coerce")
+    paired = pd.concat([esperado, real], axis=1).dropna()
+    if paired.empty:
+        return False
+    diffs = (paired.iloc[:, 0] - paired.iloc[:, 1]).abs()
+    return bool((diffs < 1e-9).all())
 
 
 def _format_latest_quota_frame(quota_pl_history_df: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
@@ -2518,6 +2580,21 @@ def _format_risk_metrics_table(metrics_df: pd.DataFrame, *, risk_block: str) -> 
         output["Estado"] = output["state"].map(_format_risk_metric_state)
         columns.append("Estado")
     return output[columns]
+
+
+def _format_risk_metrics_compact_table(metrics_df: pd.DataFrame, *, risk_block: str) -> pd.DataFrame:
+    """Compact Métrica | Valor table, without descriptive 'Leitura' column."""
+    if metrics_df.empty:
+        return pd.DataFrame(columns=["Métrica", "Valor"])
+    output = metrics_df[metrics_df["risk_block"] == risk_block].copy()
+    if output.empty:
+        return pd.DataFrame(columns=["Métrica", "Valor"])
+    output["Métrica"] = output["label"]
+    output["Valor"] = output.apply(
+        lambda row: _format_metric_value(row.get("value"), str(row.get("unit") or "")),
+        axis=1,
+    )
+    return output[["Métrica", "Valor"]]
 
 
 def _format_risk_metrics_memory_table(metrics_df: pd.DataFrame) -> pd.DataFrame:
@@ -3072,6 +3149,7 @@ def _line_history_chart(
     end_label_text_column: str | None = None,
     point_label_font_size: int = 12,
     point_label_font_weight: int = 600,
+    point_size: int = 58,
     limit_value: float | None = None,
     limit_label: str | None = None,
     reference_value: float | None = None,
@@ -3114,7 +3192,7 @@ def _line_history_chart(
     base = (
         alt.Chart(chart_df)
         .mark_line(
-            point=alt.OverlayMarkDef(filled=True, size=58),
+            point=alt.OverlayMarkDef(filled=True, size=point_size),
             strokeWidth=2.4,
         )
         .encode(
@@ -3617,6 +3695,7 @@ def _stacked_history_bar_chart(
     outer_label_threshold: float | None = None,
     allow_outside_labels: bool = True,
     round_percent_labels: bool = False,
+    smart_label_placement: bool = False,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
     if "competencia" in chart_df.columns:
@@ -3665,8 +3744,11 @@ def _stacked_history_bar_chart(
     )
     color_map = _category_color_map(series_order, _colors)
     chart_df["label_color"] = chart_df["serie"].map(lambda value: _contrast_text_color(color_map.get(str(value), "#ff5a00")))
-    if inside_label_color:
+    if inside_label_color and not smart_label_placement:
         chart_df["label_color"] = inside_label_color
+    if smart_label_placement:
+        force_all_segment_labels = False
+        allow_outside_labels = True
     chart = (
         alt.Chart(chart_df)
         .mark_bar(size=bar_size or _single_series_bar_size(chart_df["competencia"].nunique()))
@@ -3714,14 +3796,23 @@ def _stacked_history_bar_chart(
                 sort_columns
             ).reset_index(drop=True)
             outer_labels_df["segment_rank"] = outer_labels_df.groupby("competencia", dropna=False).cumcount()
-            outer_labels_df["outside_y"] = outer_labels_df.groupby("competencia", dropna=False)[value_column].cumsum()
-            outside_step = 0.9 if "%" in y_title else (
-                outer_labels_df["outside_y"].abs().max() * 0.012 if pd.notna(outer_labels_df["outside_y"].abs().max()) else 1.0
-            )
-            outer_labels_df["outside_label_y"] = outer_labels_df["outside_y"] + 0.8 + outer_labels_df["segment_rank"].mul(outside_step)
-            outer_labels_df["x_offset"] = outer_labels_df["segment_rank"].map(
-                lambda rank: outer_offsets[rank] if rank < len(outer_offsets) else outer_offsets[-1]
-            )
+            if smart_label_placement:
+                # Labels pequenos: à direita da barra (xOffset > 0), no centro vertical
+                # do próprio segmento (stack="center"). Ranks adicionais deslocam mais
+                # à direita para evitar qualquer sobreposição.
+                resolved_bar_size_px = bar_size or _single_series_bar_size(chart_df["competencia"].nunique())
+                base_right_offset = int(resolved_bar_size_px / 2) + 8
+                stagger_step = 30
+                outer_labels_df["x_offset"] = outer_labels_df["segment_rank"].mul(stagger_step) + base_right_offset
+            else:
+                outer_labels_df["outside_y"] = outer_labels_df.groupby("competencia", dropna=False)[value_column].cumsum()
+                outside_step = 0.9 if "%" in y_title else (
+                    outer_labels_df["outside_y"].abs().max() * 0.012 if pd.notna(outer_labels_df["outside_y"].abs().max()) else 1.0
+                )
+                outer_labels_df["outside_label_y"] = outer_labels_df["outside_y"] + 0.8 + outer_labels_df["segment_rank"].mul(outside_step)
+                outer_labels_df["x_offset"] = outer_labels_df["segment_rank"].map(
+                    lambda rank: outer_offsets[rank] if rank < len(outer_offsets) else outer_offsets[-1]
+                )
         if not inner_labels_df.empty:
             segment_labels = (
                 alt.Chart(inner_labels_df)
@@ -3736,24 +3827,49 @@ def _stacked_history_bar_chart(
             )
             layered = layered + segment_labels
         if not outer_labels_df.empty:
-            outside_labels = (
-                alt.Chart(outer_labels_df)
-                .mark_text(
-                    fontSize=max(label_font_size - 1, 10),
-                    fontWeight=700,
-                    dy=-2,
-                    color="#111111",
-                    clip=False,
+            if smart_label_placement:
+                outside_labels = (
+                    alt.Chart(outer_labels_df)
+                    .mark_text(
+                        fontSize=max(label_font_size - 1, 10),
+                        fontWeight=700,
+                        align="left",
+                        color="#111111",
+                        stroke="#ffffff",
+                        strokeWidth=2.4,
+                        clip=False,
+                    )
+                    .encode(
+                        x=x_encoding,
+                        y=alt.Y(f"{value_column}:Q", title=y_title, stack="center"),
+                        xOffset=alt.XOffset("x_offset:Q"),
+                        detail="serie:N",
+                        text=alt.Text("label_fmt:N"),
+                    )
                 )
-                .encode(
-                    x=x_encoding,
-                    y=alt.Y("outside_label_y:Q", title=y_title),
-                    xOffset=alt.XOffset("x_offset:Q"),
-                    detail="serie:N",
-                    text=alt.Text("label_fmt:N"),
+                # Aplica deslocamento vertical variável por rank via propriedade dy
+                # em uma segunda camada para cada rank — Altair não suporta dy data-driven,
+                # então usamos a média (ajuste fino fica no mark_text.dy acima).
+                layered = layered + outside_labels
+            else:
+                outside_labels = (
+                    alt.Chart(outer_labels_df)
+                    .mark_text(
+                        fontSize=max(label_font_size - 1, 10),
+                        fontWeight=700,
+                        dy=-2,
+                        color="#111111",
+                        clip=False,
+                    )
+                    .encode(
+                        x=x_encoding,
+                        y=alt.Y("outside_label_y:Q", title=y_title),
+                        xOffset=alt.XOffset("x_offset:Q"),
+                        detail="serie:N",
+                        text=alt.Text("label_fmt:N"),
+                    )
                 )
-            )
-            layered = layered + outside_labels
+                layered = layered + outside_labels
     if show_total_labels:
         totals_df = (
             chart_df.groupby("competencia", as_index=False, dropna=False)[value_column]
