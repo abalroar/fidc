@@ -3,7 +3,7 @@ from __future__ import annotations
 import streamlit as st
 
 from tabs.tab_fidc_book import render_tab_fidc_book
-from tabs.tab_fidc_ime import render_period_selector, render_tab_fidc_ime
+from tabs import tab_fidc_ime as ime_tab
 from tabs.tab_fidc_ime_carteira import render_tab_fidc_ime_carteira
 from tabs.tab_modelo_fidc import render_tab_modelo_fidc
 
@@ -14,7 +14,8 @@ st.title("tomaconta FIDCs")
 st.caption("Monitoramento de risco por IME, modelo econômico e base de conhecimento regulatória em uma única plataforma.")
 
 # Global period selector — shared across IME tabs to keep single-fund and portfolio views in sync.
-period = render_period_selector(state_prefix="ime_global")
+_render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
+period = _render_period_selector(state_prefix="ime_global")
 
 
 tab_informes, tab_carteira, tab_modelo, tab_book = st.tabs(
@@ -27,7 +28,7 @@ tab_informes, tab_carteira, tab_modelo, tab_book = st.tabs(
 )
 
 with tab_informes:
-    render_tab_fidc_ime(period=period)
+    ime_tab.render_tab_fidc_ime(period=period)
 
 with tab_carteira:
     render_tab_fidc_ime_carteira(period=period)
