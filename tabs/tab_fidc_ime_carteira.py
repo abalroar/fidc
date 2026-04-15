@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
+from html import escape
 import re
 import traceback
 from typing import Any
@@ -24,33 +25,46 @@ from tabs.ime_portfolio_support import (
 
 
 def render_tab_fidc_ime_carteira() -> None:
-    st.subheader("Informe Mensal Estruturado — Carteira")
-    st.caption("Monte carteiras persistentes, carregue até 20 fundos e navegue no dashboard completo por fundo focal.")
+    # Inject shared CSS so the compact header and downstream dashboard share the same tokens.
+    st.markdown(ime_tab._FIDC_REPORT_CSS, unsafe_allow_html=True)
 
     portfolios = list_saved_portfolios()
     catalog_df = load_fidc_catalog_cached()
+
     period = ime_tab._render_period_selector(state_prefix="ime_portfolio", title="Período da carteira")
 
-    selected_portfolio = _render_portfolio_selector(portfolios)
-    left_col, right_col = st.columns([1.1, 1.3])
+    if portfolios:
+        sel_col, btn_col = st.columns([5, 1])
+        with sel_col:
+            selected_portfolio = _render_portfolio_selector(portfolios)
+        with btn_col:
+            # Vertical spacer aligns button baseline with the selectbox control.
+            st.markdown('<div style="height:1.75rem"></div>', unsafe_allow_html=True)
+            load_clicked = st.button(
+                "Carregar",
+                type="primary",
+                key="ime_portfolio_load_button",
+                use_container_width=True,
+            )
+    else:
+        selected_portfolio = None
+        load_clicked = False
 
-    with left_col:
+    with st.expander("Criar / Editar carteira", expanded=not bool(portfolios)):
         _render_portfolio_editor(
             portfolios=portfolios,
             catalog_df=catalog_df,
             selected_portfolio=selected_portfolio,
         )
 
-    with right_col:
-        _render_portfolio_load_panel(selected_portfolio=selected_portfolio, period=period)
+    if load_clicked and selected_portfolio is not None:
+        _execute_portfolio_load(selected_portfolio=selected_portfolio, period=period)
 
     loaded_state = st.session_state.get("ime_portfolio_loaded")
-    if not loaded_state:
-        return
-    if selected_portfolio is None:
+    if not loaded_state or selected_portfolio is None:
         return
     if loaded_state.get("portfolio_id") != selected_portfolio.id or loaded_state.get("period_key") != period.cache_key:
-        st.info("Selecione 'Carregar carteira' para atualizar a análise com a carteira e o período ativos.")
+        st.info("Clique em 'Carregar' para atualizar com a carteira e o período ativos.")
         return
 
     _render_loaded_portfolio_analysis(selected_portfolio=selected_portfolio, loaded_state=loaded_state)
@@ -58,7 +72,6 @@ def render_tab_fidc_ime_carteira() -> None:
 
 def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRecord | None:
     if not portfolios:
-        st.info("Nenhuma carteira salva ainda. Use o formulário abaixo para criar a primeira.")
         return None
     options = [portfolio.id for portfolio in portfolios]
     default_id = st.session_state.get("ime_portfolio_active_id")
@@ -88,15 +101,18 @@ def _render_portfolio_editor(
     catalog_df: pd.DataFrame,
     selected_portfolio: PortfolioRecord | None,
 ) -> None:
-    st.markdown("#### Gestão de carteiras")
     st.caption(get_portfolio_status_caption())
 
-    editor_mode = st.radio(
-        "Modo do formulário",
-        options=["Nova carteira", "Editar carteira ativa"],
-        horizontal=True,
-        key="ime_portfolio_editor_mode",
-    )
+    if portfolios:
+        editor_mode = st.radio(
+            "Modo",
+            options=["Nova carteira", "Editar carteira ativa"],
+            horizontal=True,
+            key="ime_portfolio_editor_mode",
+        )
+    else:
+        editor_mode = "Nova carteira"
+
     target = selected_portfolio if editor_mode == "Editar carteira ativa" and selected_portfolio is not None else None
     option_labels, option_lookup = _build_catalog_option_lookup(catalog_df)
     default_labels = [
@@ -108,7 +124,7 @@ def _render_portfolio_editor(
         name = st.text_input(
             "Nome da carteira",
             value=target.name if target is not None else "",
-            placeholder="Ex.: Carteira Monitoramento High Yield",
+            placeholder="Ex.: Crédito High Yield",
         ).strip()
         if option_labels:
             selected_labels = st.multiselect(
@@ -119,7 +135,7 @@ def _render_portfolio_editor(
             )
         else:
             selected_labels = []
-            st.info("Catálogo CVM indisponível no momento. Use a entrada manual de CNPJs abaixo.")
+            st.info("Catálogo CVM indisponível. Use a entrada manual de CNPJs abaixo.")
         manual_cnpjs = st.text_area(
             "CNPJs adicionais (um por linha)",
             value="\n".join(
@@ -133,10 +149,10 @@ def _render_portfolio_editor(
             height=110,
         )
         notes = st.text_area(
-            "Notas internas",
+            "Notas",
             value=target.notes if target is not None else "",
             placeholder="Opcional",
-            height=100,
+            height=80,
         ).strip()
         save_clicked = st.form_submit_button("Salvar carteira", type="primary")
 
@@ -164,45 +180,26 @@ def _render_portfolio_editor(
                 st.rerun()
 
     if target is not None:
-        if st.button("Excluir carteira ativa", key="ime_portfolio_delete_button"):
+        if st.button("Excluir carteira", key="ime_portfolio_delete_button"):
             delete_portfolio_record(target.id)
             loaded_state = st.session_state.get("ime_portfolio_loaded")
             if loaded_state and loaded_state.get("portfolio_id") == target.id:
                 st.session_state.pop("ime_portfolio_loaded", None)
             st.session_state.pop("ime_portfolio_active_id", None)
-            st.success(f"Carteira '{target.name}' excluída.")
             st.rerun()
 
-    if not portfolios:
-        st.caption("A carteira salva fica disponível após reinício do app.")
 
-
-def _render_portfolio_load_panel(*, selected_portfolio: PortfolioRecord | None, period: ImePeriodSelection) -> None:
-    st.markdown("#### Carga da carteira")
-    if selected_portfolio is None:
-        st.info("Selecione ou crie uma carteira para carregar os informes.")
-        return
-
-    st.markdown(
-        f"""
-        <div class="fidc-context-bar">
-          <span><strong>Carteira ativa:</strong> {selected_portfolio.name}</span>
-          <span><strong>Fundos:</strong> {len(selected_portfolio.funds)}</span>
-          <span><strong>Período:</strong> {period.label}</span>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-    load_clicked = st.button("Carregar carteira", type="primary", key="ime_portfolio_load_button")
-    if not load_clicked:
-        return
-
+def _execute_portfolio_load(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection) -> None:
     total = len(selected_portfolio.funds)
-    progress_bar = st.progress(0.0, text="Preparando carga da carteira...")
+    if total == 0:
+        st.warning("A carteira não tem fundos.")
+        return
+
+    progress_bar = st.progress(0.0, text="Preparando carga...")
     status_box = st.empty()
     results: dict[str, dict[str, Any]] = {}
 
-    with ThreadPoolExecutor(max_workers=min(4, total or 1)) as executor:
+    with ThreadPoolExecutor(max_workers=min(4, total)) as executor:
         futures = {
             executor.submit(_load_single_portfolio_fund, fund, period): fund
             for fund in selected_portfolio.funds
@@ -228,7 +225,7 @@ def _render_portfolio_load_panel(*, selected_portfolio: PortfolioRecord | None, 
             results[fund.cnpj] = payload
             progress_bar.progress(
                 completed / total,
-                text=f"Carteira {selected_portfolio.name}: {completed}/{total} fundo(s) carregados.",
+                text=f"{selected_portfolio.name}: {completed}/{total} fundo(s)",
             )
             status_box.caption(f"{fund.display_name} · {fund.cnpj}")
 
@@ -242,7 +239,6 @@ def _render_portfolio_load_panel(*, selected_portfolio: PortfolioRecord | None, 
         "results": results,
         "loaded_at": _utc_now_iso(),
     }
-    st.success(f"Carteira '{selected_portfolio.name}' carregada com {total} fundo(s).")
 
 
 def _load_single_portfolio_fund(fund: PortfolioFund, period: ImePeriodSelection) -> dict[str, Any]:
@@ -272,55 +268,70 @@ def _load_single_portfolio_fund(fund: PortfolioFund, period: ImePeriodSelection)
 
 
 def _render_loaded_portfolio_analysis(*, selected_portfolio: PortfolioRecord, loaded_state: dict[str, Any]) -> None:
-    st.markdown("---")
-    st.markdown("#### Carteira carregada")
-    st.caption(
-        f"Carteira: {selected_portfolio.name} · período: {loaded_state.get('period_label', 'N/D')} · "
-        f"fundos carregados: {len(loaded_state.get('results') or {})}"
+    results = loaded_state.get("results") or {}
+
+    successful_cnpjs = [cnpj for cnpj, payload in results.items() if payload.get("result") is not None]
+    failed_cnpjs = [cnpj for cnpj, payload in results.items() if payload.get("result") is None]
+
+    _render_portfolio_compact_header(
+        name=selected_portfolio.name,
+        period_label=loaded_state.get("period_label", "N/D"),
+        n_ok=len(successful_cnpjs),
+        n_total=len(results),
     )
 
-    results = loaded_state.get("results") or {}
-    summary_df = _build_portfolio_summary_df(results)
-    if not summary_df.empty:
-        st.dataframe(
-            summary_df,
-            width="stretch",
-            hide_index=True,
-            column_config={
-                "PL total": st.column_config.NumberColumn(format="R$ %.2f"),
-                "DC total": st.column_config.NumberColumn(format="R$ %.2f"),
-                "Inadimplência (%)": st.column_config.NumberColumn(format="%.2f%%"),
-                "Subordinação (%)": st.column_config.NumberColumn(format="%.2f%%"),
-            },
-        )
+    if failed_cnpjs:
+        _render_portfolio_error_summary(failed_cnpjs=failed_cnpjs, results=results)
 
-    successful_funds = [
-        (cnpj, payload)
-        for cnpj, payload in results.items()
-        if payload.get("result") is not None
-    ]
-    if not successful_funds:
-        st.warning("Nenhum fundo da carteira foi carregado com sucesso.")
+    if not successful_cnpjs:
+        st.warning("Nenhum fundo foi carregado com sucesso.")
         return
 
-    focus_options = [cnpj for cnpj, _ in successful_funds]
     default_focus = st.session_state.get("ime_portfolio_focus_cnpj")
-    if default_focus not in focus_options:
-        default_focus = focus_options[0]
-        st.session_state["ime_portfolio_focus_cnpj"] = default_focus
+    if default_focus not in successful_cnpjs:
+        default_focus = successful_cnpjs[0]
+
     focus_cnpj = st.selectbox(
-        "Fundo focal",
-        options=focus_options,
-        index=focus_options.index(default_focus),
+        "Fundo selecionado",
+        options=successful_cnpjs,
+        index=successful_cnpjs.index(default_focus),
         key="ime_portfolio_focus_cnpj",
         format_func=lambda cnpj: _focus_option_label(cnpj, results),
     )
+
     focused_payload = results[focus_cnpj]
     ime_tab._render_result(
         focused_payload["result"],
         focused_payload.get("context") or {},
         slot_key=f"portfolio_{selected_portfolio.id}_{focus_cnpj}",
     )
+
+
+def _render_portfolio_compact_header(name: str, period_label: str, n_ok: int, n_total: int) -> None:
+    count_label = f"{n_ok}/{n_total}" if n_ok < n_total else str(n_total)
+    st.markdown(
+        f"""
+<div class="fidc-period-bar">
+  <span><strong>Carteira:</strong> {escape(name)}</span>
+  <span><strong>Período:</strong> {escape(period_label)}</span>
+  <span><strong>Fundos:</strong> {escape(count_label)}</span>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+
+def _render_portfolio_error_summary(*, failed_cnpjs: list[str], results: dict[str, dict[str, Any]]) -> None:
+    n = len(failed_cnpjs)
+    plural = n > 1
+    label = f"⚠ {n} fundo{'s' if plural else ''} não {'carregados' if plural else 'carregado'}"
+    with st.expander(label, expanded=False):
+        for cnpj in failed_cnpjs:
+            payload = results.get(cnpj) or {}
+            context = payload.get("context") or {}
+            fund_name = context.get("portfolio_fund_name") or cnpj
+            error = payload.get("error")
+            st.caption(f"**{fund_name}** · {cnpj} — {str(error) if error else 'Erro desconhecido'}")
 
 
 def _build_catalog_option_lookup(catalog_df: pd.DataFrame) -> tuple[list[str], dict[str, PortfolioFund]]:
@@ -355,48 +366,6 @@ def _build_manual_portfolio_funds(raw_text: str, catalog_df: pd.DataFrame) -> li
     return funds
 
 
-def _build_portfolio_summary_df(results: dict[str, dict[str, Any]]) -> pd.DataFrame:
-    rows: list[dict[str, Any]] = []
-    for cnpj, payload in results.items():
-        result = payload.get("result")
-        context = payload.get("context") or {}
-        if result is None:
-            rows.append(
-                {
-                    "Fundo": context.get("portfolio_fund_name") or cnpj,
-                    "CNPJ": cnpj,
-                    "Status": "Erro",
-                    "Última competência": None,
-                    "PL total": None,
-                    "DC total": None,
-                    "Inadimplência (%)": None,
-                    "Subordinação (%)": None,
-                }
-            )
-            continue
-        dashboard = ime_tab._load_dashboard_data(
-            str(result.wide_csv_path),
-            str(result.listas_csv_path),
-            str(result.docs_csv_path),
-            ime_tab.DASHBOARD_SCHEMA_VERSION,
-        )
-        rows.append(
-            {
-                "Fundo": dashboard.fund_info.get("nome_fundo") or dashboard.fund_info.get("nome_classe") or context.get("portfolio_fund_name") or cnpj,
-                "CNPJ": cnpj,
-                "Status": "OK" if context.get("cache_status") == "hit" else "Atualizado",
-                "Última competência": ime_tab._format_competencia_label(dashboard.latest_competencia),
-                "PL total": dashboard.summary.get("pl_total"),
-                "DC total": dashboard.summary.get("direitos_creditorios"),
-                "Inadimplência (%)": dashboard.summary.get("inadimplencia_pct"),
-                "Subordinação (%)": dashboard.summary.get("subordinacao_pct"),
-            }
-        )
-    if not rows:
-        return pd.DataFrame()
-    return pd.DataFrame(rows)
-
-
 def _focus_option_label(cnpj: str, results: dict[str, dict[str, Any]]) -> str:
     payload = results.get(cnpj) or {}
     result = payload.get("result")
@@ -409,7 +378,12 @@ def _focus_option_label(cnpj: str, results: dict[str, dict[str, Any]]) -> str:
         str(result.docs_csv_path),
         ime_tab.DASHBOARD_SCHEMA_VERSION,
     )
-    name = dashboard.fund_info.get("nome_fundo") or dashboard.fund_info.get("nome_classe") or context.get("portfolio_fund_name") or cnpj
+    name = (
+        dashboard.fund_info.get("nome_fundo")
+        or dashboard.fund_info.get("nome_classe")
+        or context.get("portfolio_fund_name")
+        or cnpj
+    )
     return f"{name} · {cnpj}"
 
 
