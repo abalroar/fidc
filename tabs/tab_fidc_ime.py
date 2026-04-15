@@ -1148,11 +1148,12 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 show_total_labels=True,
                 height=455,
                 bar_size=_executive_monthly_bar_size(aging_history_df["competencia"].nunique()),
-                label_font_size=12,
-                inner_label_threshold=1.4,
-                allow_outside_labels=False,
+                label_font_size=11,
+                inner_label_threshold=10_000.0,
+                outer_label_threshold=0.05,
+                allow_outside_labels=True,
                 round_percent_labels=True,
-                inside_label_color="#ffffff",
+                smart_label_placement=True,
             ),
             width="stretch",
         )
@@ -2950,6 +2951,17 @@ def _nice_axis_ticks(values: pd.Series, *, steps: int = 4) -> list[float] | None
     return [round(step_value * idx, 2) for idx in range(steps + 1)]
 
 
+def _series_legend(title: str, series_count: int) -> alt.Legend:
+    return alt.Legend(
+        title=title,
+        orient="top",
+        direction="horizontal",
+        columns=max(1, min(series_count, 5)),
+        symbolType="square",
+        labelLimit=180,
+    )
+
+
 def _line_point_label_layer(
     chart_df: pd.DataFrame,
     *,
@@ -2983,8 +2995,6 @@ def _line_point_label_layer(
             fontSize=font_size,
             fontWeight=font_weight,
             color="#111111",
-            stroke="#ffffff",
-            strokeWidth=2,
             clip=False,
         )
         .encode(
@@ -3741,6 +3751,7 @@ def _stacked_history_bar_chart(
         title="Classe",
         scale=alt.Scale(domain=series_order, range=_colors[: len(series_order)]),
         sort=series_order,
+        legend=_series_legend("Faixas / séries", len(series_order)),
     )
     color_map = _category_color_map(series_order, _colors)
     chart_df["label_color"] = chart_df["serie"].map(lambda value: _contrast_text_color(color_map.get(str(value), "#ff5a00")))
@@ -3763,6 +3774,7 @@ def _stacked_history_bar_chart(
     chart = _chart_with_optional_title(chart, height=height, title=title)
     layered: alt.Chart = chart
     labels_df = chart_df.copy()
+    has_outside_labels = False
     if not labels_df.empty:
         max_value = pd.to_numeric(labels_df[value_column], errors="coerce").abs().max()
         inner_threshold = inner_label_threshold if inner_label_threshold is not None else 2.1 if "%" in y_title else (
@@ -3771,6 +3783,13 @@ def _stacked_history_bar_chart(
         outer_threshold = outer_label_threshold if outer_label_threshold is not None else 0.65 if "%" in y_title else (
             max_value * 0.03 if pd.notna(max_value) else 0.0
         )
+        if smart_label_placement:
+            if "%" in y_title:
+                inner_threshold = max(float(inner_threshold), 4.0)
+                outer_threshold = min(float(outer_threshold), 0.1)
+            else:
+                inner_threshold = max(float(inner_threshold), float(max_value or 0.0) * 0.12)
+                outer_threshold = min(float(outer_threshold), float(max_value or 0.0) * 0.02 if pd.notna(max_value) else 0.0)
         inner_labels_df = labels_df[
             pd.to_numeric(labels_df[value_column], errors="coerce") >= inner_threshold
         ].copy()
@@ -3789,6 +3808,7 @@ def _stacked_history_bar_chart(
             outer_labels_df = outer_labels_df.iloc[0:0].copy()
         outer_offsets = [0, -16, 16, -28, 28, -40, 40]
         if not outer_labels_df.empty:
+            has_outside_labels = True
             sort_columns = ["competencia_dt", "competencia", "serie"]
             if "ordem" in outer_labels_df.columns:
                 sort_columns.insert(2, "ordem")
@@ -3801,8 +3821,8 @@ def _stacked_history_bar_chart(
                 # do próprio segmento (stack="center"). Ranks adicionais deslocam mais
                 # à direita para evitar qualquer sobreposição.
                 resolved_bar_size_px = bar_size or _single_series_bar_size(chart_df["competencia"].nunique())
-                base_right_offset = int(resolved_bar_size_px / 2) + 8
-                stagger_step = 30
+                base_right_offset = int(resolved_bar_size_px / 2) + 12
+                stagger_step = 34
                 outer_labels_df["x_offset"] = outer_labels_df["segment_rank"].mul(stagger_step) + base_right_offset
             else:
                 outer_labels_df["outside_y"] = outer_labels_df.groupby("competencia", dropna=False)[value_column].cumsum()
@@ -3836,7 +3856,7 @@ def _stacked_history_bar_chart(
                         align="left",
                         color="#111111",
                         stroke="#ffffff",
-                        strokeWidth=2.4,
+                        strokeWidth=3.2,
                         clip=False,
                     )
                     .encode(
@@ -3898,7 +3918,8 @@ def _stacked_history_bar_chart(
             )
         )
         layered = layered + total_labels
-    return _style_altair_chart(layered)
+    right_padding = 180 if has_outside_labels else 18
+    return _style_altair_chart(layered.properties(padding={"left": 12, "right": right_padding, "top": 18, "bottom": 8}))
 
 
 def _grouped_bar_chart(
@@ -4012,9 +4033,9 @@ def _grouped_bar_with_rhs_line_chart(
     x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort)
     bar_series_order = bar_chart_df["serie"].drop_duplicates().tolist()
     bar_y_axis = (
-        alt.Axis(labelExpr=_brl_axis_label_expr(), labelPadding=6, titlePadding=10)
+        alt.Axis(labelExpr=_brl_axis_label_expr(), labelPadding=8, titlePadding=12, offset=2)
         if bar_y_title == "R$"
-        else alt.Axis(labelPadding=6, titlePadding=10, tickCount=4, grid=True)
+        else alt.Axis(labelPadding=8, titlePadding=12, tickCount=4, grid=True, offset=2)
     )
     bar_y_encoding = alt.Y(
         f"{resolved_bar_value_field}:Q",
@@ -4037,8 +4058,9 @@ def _grouped_bar_with_rhs_line_chart(
             grid=False,
             labelColor=COVERAGE_LINE_COLOR,
             titleColor=COVERAGE_LINE_COLOR,
-            labelPadding=10,
-            titlePadding=14,
+            labelPadding=12,
+            titlePadding=18,
+            offset=12,
             values=_nice_axis_ticks(line_scale_input),
         ),
         scale=_quant_scale_with_headroom(
@@ -4055,9 +4077,10 @@ def _grouped_bar_with_rhs_line_chart(
             y=bar_y_encoding,
             color=alt.Color(
                 "serie:N",
-                title="Série",
+                title="Eixo esquerdo",
                 scale=alt.Scale(domain=bar_series_order, range=FIDC_CHART_COLORS[: len(bar_series_order)]),
                 sort=bar_series_order,
+                legend=_series_legend("Eixo esquerdo", len(bar_series_order)),
             ),
             xOffset=alt.XOffset("serie:N", sort=bar_series_order),
             tooltip=["competencia:N", "serie:N", alt.Tooltip("valor_fmt:N", title="Valor")],
@@ -4078,10 +4101,28 @@ def _grouped_bar_with_rhs_line_chart(
 
     coverage_line = (
         alt.Chart(line_chart_df)
-        .mark_line(point=alt.OverlayMarkDef(filled=True, size=62), strokeWidth=3.2, color=COVERAGE_LINE_COLOR)
+        .mark_line(
+            point=alt.OverlayMarkDef(
+                filled=True,
+                size=76,
+                fill=COVERAGE_LINE_COLOR,
+                stroke=COVERAGE_LINE_COLOR,
+                strokeWidth=1.6,
+            ),
+            strokeWidth=3.2,
+        )
         .encode(
             x=x_encoding,
             y=line_y_encoding,
+            stroke=alt.Stroke(
+                "serie:N",
+                title="Eixo direito",
+                scale=alt.Scale(
+                    domain=line_chart_df["serie"].drop_duplicates().tolist(),
+                    range=[COVERAGE_LINE_COLOR] * max(1, line_chart_df["serie"].nunique()),
+                ),
+                legend=_series_legend("Eixo direito", line_chart_df["serie"].nunique()),
+            ),
             tooltip=["competencia:N", alt.Tooltip("valor_fmt:N", title="Cobertura"), alt.Tooltip("serie:N", title="Série")],
         )
     )
@@ -4115,9 +4156,9 @@ def _grouped_bar_with_rhs_line_chart(
         )
         if not coverage_labels_df.empty:
             coverage_labels_df = coverage_labels_df.copy()
-            coverage_labels_df["badge_offset"] = 48
+            coverage_labels_df["badge_offset"] = 60
             coverage_labels_df["badge_size"] = coverage_labels_df["end_label"].map(
-                lambda label: 2600 + (len(str(label)) * 1050)
+                lambda label: 5600 + (len(str(label)) * 2350)
             )
             badge_bg = (
                 alt.Chart(coverage_labels_df)
@@ -4134,7 +4175,7 @@ def _grouped_bar_with_rhs_line_chart(
                 .mark_text(
                     align="center",
                     baseline="middle",
-                    fontSize=12,
+                    fontSize=13,
                     fontWeight=700,
                     color="#ffffff",
                     clip=False,
@@ -4148,7 +4189,7 @@ def _grouped_bar_with_rhs_line_chart(
             )
             layered = layered + badge_bg + badge_text
     layered = _chart_with_optional_title(layered, height=height, title=title)
-    return _style_altair_chart(layered.properties(padding={"left": 16, "right": 128, "top": 10, "bottom": 8}))
+    return _style_altair_chart(layered.properties(padding={"left": 24, "right": 164, "top": 18, "bottom": 8}))
 
 
 def _stacked_area_chart(

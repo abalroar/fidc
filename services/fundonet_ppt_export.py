@@ -439,7 +439,7 @@ def build_dashboard_pptx_bytes(
         ]
         adjusted_positions = _repel_label_positions(raw_positions, min_gap=0.18)
         for idx, label in enumerate(labels):
-            label_width = max(0.92, min(1.90, 0.34 + len(str(label)) * 0.10))
+            label_width = max(1.12, min(2.35, 0.50 + len(str(label)) * 0.12))
             label_left = min(plot_right, left + width - label_width - 0.10)
             label_top = max(top + 0.02, adjusted_positions[idx] - 0.10)
             fill_color = fill_colors[idx % len(fill_colors)] if fill_colors else None
@@ -449,7 +449,7 @@ def build_dashboard_pptx_bytes(
                     Inches(label_left),
                     Inches(label_top - 0.02),
                     Inches(label_width),
-                    Inches(0.26),
+                    Inches(0.30),
                 )
                 badge.fill.solid()
                 badge.fill.fore_color.rgb = rgb(fill_color)
@@ -459,7 +459,7 @@ def build_dashboard_pptx_bytes(
                 label_left,
                 label_top,
                 label_width,
-                0.20,
+                0.22,
                 label,
                 size=font_size,
                 bold=True,

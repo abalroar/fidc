@@ -5,6 +5,7 @@ from collections.abc import Iterable
 from http.cookiejar import CookieJar
 import html as html_lib
 import json
+import random
 import re
 import socket
 import time
@@ -260,10 +261,12 @@ class FundosNetClient:
             headers["CSRFToken"] = self.csrf_token
 
         last_error: Exception | None = None
-        for attempt in range(self.max_retries + 1):
+        retry_limit = self._retry_limit_for_stage(error_stage)
+        timeout_seconds = self._timeout_for_stage(error_stage)
+        for attempt in range(retry_limit + 1):
             request = urllib.request.Request(url, headers=headers, method="GET")
             try:
-                with self.opener.open(request, timeout=self.timeout_seconds) as response:
+                with self.opener.open(request, timeout=timeout_seconds) as response:
                     return response.read()
             except urllib.error.HTTPError as exc:
                 body = exc.read() if exc.fp else b""
@@ -276,10 +279,12 @@ class FundosNetClient:
                             "http_status": exc.code,
                             "url": url,
                             "body_prefix": body[:200].decode("utf-8", errors="replace"),
+                            "tentativas": attempt + 1,
+                            "timeout_seconds": timeout_seconds,
                         },
                     ) from exc
-                if exc.code in (429, 500, 502, 503, 504) and attempt < self.max_retries:
-                    time.sleep(0.7 * (attempt + 1))
+                if exc.code in (429, 500, 502, 503, 504) and attempt < retry_limit:
+                    time.sleep(self._retry_sleep_seconds(attempt, error_stage))
                     continue
                 raise ProviderUnavailableError(
                     f"Fundos.NET respondeu HTTP {exc.code} em {path}.",
@@ -289,12 +294,14 @@ class FundosNetClient:
                         "http_status": exc.code,
                         "url": url,
                         "body_prefix": body[:200].decode("utf-8", errors="replace"),
+                        "tentativas": attempt + 1,
+                        "timeout_seconds": timeout_seconds,
                     },
                 ) from exc
             except (urllib.error.URLError, TimeoutError, socket.timeout) as exc:
                 last_error = exc
-                if attempt < self.max_retries:
-                    time.sleep(0.7 * (attempt + 1))
+                if attempt < retry_limit:
+                    time.sleep(self._retry_sleep_seconds(attempt, error_stage))
                     continue
                 break
 
@@ -304,8 +311,26 @@ class FundosNetClient:
                 "etapa": error_stage,
                 "endpoint": path,
                 "url": url,
+                "tentativas": retry_limit + 1,
+                "timeout_seconds": timeout_seconds,
             },
         )
+
+    def _timeout_for_stage(self, error_stage: str) -> int:
+        if error_stage in {"abrir_gerenciador", "listar_documentos"}:
+            return max(self.timeout_seconds, 45)
+        if error_stage == "download_documento":
+            return max(self.timeout_seconds, 40)
+        return self.timeout_seconds
+
+    def _retry_limit_for_stage(self, error_stage: str) -> int:
+        if error_stage in {"abrir_gerenciador", "listar_documentos"}:
+            return max(self.max_retries, 3)
+        return self.max_retries
+
+    def _retry_sleep_seconds(self, attempt: int, error_stage: str) -> float:
+        base = 1.1 if error_stage in {"abrir_gerenciador", "listar_documentos"} else 0.7
+        return base * (2**attempt) + random.uniform(0.0, 0.45)
 
     def _url(
         self,

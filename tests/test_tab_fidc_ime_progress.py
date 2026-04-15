@@ -160,6 +160,8 @@ class TabFidcImeProgressTests(unittest.TestCase):
 
         self.assertEqual("right", spec["layer"][1]["layer"][1]["encoding"]["y"]["axis"]["orient"])
         self.assertGreaterEqual(rhs_scale[1], 500.0)
+        self.assertEqual("Eixo direito", spec["layer"][1]["layer"][1]["encoding"]["stroke"]["legend"]["title"])
+        self.assertEqual("#0f172a", spec["layer"][1]["layer"][1]["mark"]["point"]["fill"])
 
     def test_build_line_series_end_labels_df_uses_value_only_labels(self) -> None:
         chart_df = pd.DataFrame(
@@ -222,6 +224,37 @@ class TabFidcImeProgressTests(unittest.TestCase):
         mark_types = [layer["mark"]["type"] for layer in spec["layer"]]
 
         self.assertEqual(["line", "point", "text"], mark_types)
+
+    def test_stacked_history_bar_chart_can_push_labels_outside_with_visible_legend(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "01/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-01-01"]),
+                "serie": ["Até 30", "31-60"],
+                "ordem": [1, 2],
+                "percentual": [3.2, 0.4],
+                "label_fmt": ["3%", "0%"],
+            }
+        )
+
+        chart = tab_fidc_ime._stacked_history_bar_chart(
+            frame,
+            title=None,
+            y_title="% dos recebíveis",
+            value_column="percentual",
+            allow_outside_labels=True,
+            smart_label_placement=True,
+            inner_label_threshold=10_000.0,
+            outer_label_threshold=0.05,
+        )
+
+        spec = chart.to_dict()
+
+        self.assertEqual(180, spec["padding"]["right"])
+        self.assertEqual(
+            "Faixas / séries",
+            spec["layer"][0]["encoding"]["color"]["legend"]["title"],
+        )
 
 
 if __name__ == "__main__":
