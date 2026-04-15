@@ -158,10 +158,10 @@ class TabFidcImeProgressTests(unittest.TestCase):
         spec = chart.to_dict()
         rhs_scale = spec["layer"][1]["layer"][1]["encoding"]["y"]["scale"]["domain"]
 
-        self.assertEqual("right", spec["layer"][1]["layer"][1]["encoding"]["y"]["axis"]["orient"])
+        line_encoding = spec["layer"][1]["layer"][1]["encoding"]
+        self.assertEqual("right", line_encoding["y"]["axis"]["orient"])
         self.assertGreaterEqual(rhs_scale[1], 500.0)
-        self.assertEqual("Eixo direito", spec["layer"][1]["layer"][1]["encoding"]["stroke"]["legend"]["title"])
-        self.assertEqual("#0f172a", spec["layer"][1]["layer"][1]["mark"]["point"]["fill"])
+        self.assertEqual("#000000", spec["layer"][1]["layer"][1]["mark"]["point"]["fill"])
 
     def test_build_line_series_end_labels_df_uses_value_only_labels(self) -> None:
         chart_df = pd.DataFrame(
@@ -255,6 +255,48 @@ class TabFidcImeProgressTests(unittest.TestCase):
             "Faixas / séries",
             spec["layer"][0]["encoding"]["color"]["legend"]["title"],
         )
+
+    def test_stacked_history_bar_chart_can_hide_segment_labels_and_keep_totals(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "01/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-01-01"]),
+                "serie": ["Senior", "Subordinada"],
+                "ordem": [1, 2],
+                "valor": [700.0, 100.0],
+            }
+        )
+
+        chart = tab_fidc_ime._stacked_history_bar_chart(
+            frame,
+            title=None,
+            y_title="R$",
+            value_column="valor",
+            show_total_labels=True,
+            show_segment_labels=False,
+        )
+        spec = chart.to_dict()
+
+        self.assertEqual(2, len(spec["layer"]))
+        self.assertEqual("bar", spec["layer"][0]["mark"]["type"])
+        self.assertEqual("text", spec["layer"][1]["mark"]["type"])
+
+    def test_format_aging_latest_table_exposes_value_and_percent_columns(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "ordem": [1, 2],
+                "faixa": ["Até 30 dias", "31 a 60 dias"],
+                "valor": [150.0, 50.0],
+                "percentual_direitos_creditorios": [3.5, 1.2],
+            }
+        )
+
+        formatted = tab_fidc_ime._format_aging_latest_table(frame)
+
+        self.assertEqual(["Faixa", "Valor", "% dos DCs"], formatted.columns.tolist())
+        self.assertEqual("Até 30 dias", formatted.iloc[0]["Faixa"])
+        self.assertTrue(formatted.iloc[0]["Valor"].startswith("R$"))
+        self.assertEqual("3,50%", formatted.iloc[0]["% dos DCs"])
 
 
 if __name__ == "__main__":

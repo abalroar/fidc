@@ -932,7 +932,6 @@ def _render_dashboard(
         _render_financial_snapshot_cards(dashboard)
         _render_dashboard_context_bar(dashboard)
         _render_dashboard_controls(dashboard, context)
-        _render_modular_exports(dashboard, context)
         if docs_error:
             st.warning(f"{docs_error} informe(s) falharam no processamento. A leitura abaixo usa apenas os informes válidos.")
         _render_risk_overview(dashboard)
@@ -977,63 +976,6 @@ def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[s
     with right:
         if ENABLE_GLOBAL_PDF_EXPORT:
             _render_pdf_export_button(dashboard, context)
-
-
-def _render_modular_exports(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
-    """Exportação modular por bloco executivo — cada botão gera um PDF independente."""
-    try:
-        from services.fundonet_modular_export import (
-            build_subordination_pdf_bytes,
-            build_pl_pdf_bytes,
-            build_rentabilidade_pdf_bytes,
-            build_npl_pdf_bytes,
-            build_vencimento_pdf_bytes,
-            build_radar_pdf_bytes,
-        )
-    except Exception:  # noqa: BLE001
-        return  # silently skip if library unavailable
-
-    rid = context.get("request_id", "fidc")
-    fund_slug = (
-        str(dashboard.fund_info.get("cnpj_fundo") or rid)[:14]
-        .replace("/", "_")
-        .replace(".", "")
-        .replace("-", "")
-    )
-
-    with st.expander("Exportar blocos executivos (PDF por seção)", expanded=False):
-        st.caption(
-            "Gere PDFs individuais prontos para apresentação. "
-            "Cada bloco é independente e não depende do PDF completo do dashboard."
-        )
-        cols = st.columns(3)
-        _modular_btn(cols[0], "Radar de Risco", build_radar_pdf_bytes, dashboard, f"radar_{fund_slug}.pdf")
-        _modular_btn(cols[1], "Subordinação e Cotas", build_subordination_pdf_bytes, dashboard, f"subordinacao_{fund_slug}.pdf")
-        _modular_btn(cols[2], "Patrimônio Líquido", build_pl_pdf_bytes, dashboard, f"pl_{fund_slug}.pdf")
-        cols2 = st.columns(3)
-        _modular_btn(cols2[0], "Rentabilidade", build_rentabilidade_pdf_bytes, dashboard, f"rentabilidade_{fund_slug}.pdf")
-        _modular_btn(cols2[1], "Inadimplência / NPL", build_npl_pdf_bytes, dashboard, f"npl_{fund_slug}.pdf")
-        _modular_btn(cols2[2], "Vencimento + Duration", build_vencimento_pdf_bytes, dashboard, f"vencimento_duration_{fund_slug}.pdf")
-
-
-def _modular_btn(
-    container,  # noqa: ANN001
-    label: str,
-    builder,  # noqa: ANN001
-    dashboard: FundonetDashboardData,
-    filename: str,
-) -> None:
-    try:
-        pdf_bytes = builder(dashboard)
-        container.download_button(
-            f"PDF — {label}",
-            data=pdf_bytes,
-            file_name=filename,
-            mime="application/pdf",
-            width="stretch",
-        )
-    except Exception as exc:  # noqa: BLE001
-        container.caption(f"Erro ao gerar {label}: {exc}")
 
 
 def _render_risk_overview(dashboard: FundonetDashboardData) -> None:
@@ -1162,17 +1104,20 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 height=455,
                 bar_size=_executive_monthly_bar_size(aging_history_df["competencia"].nunique()),
                 label_font_size=11,
-                inner_label_threshold=10_000.0,
-                outer_label_threshold=0.05,
-                allow_outside_labels=True,
                 round_percent_labels=True,
-                smart_label_placement=True,
                 legend_series_order=AGING_SERIES_ORDER,
+                show_segment_labels=False,
             ),
             width="stretch",
         )
         st.caption(
-            "Fonte: Informe Mensal - CVM. Cada barra mostra o aging completo do estoque vencido em relação ao total observável de direitos creditórios."
+            "Fonte: Informe Mensal - CVM. Cada barra mostra o aging completo do estoque vencido em relação ao total observável de direitos creditórios. "
+            "Os labels por faixa foram removidos da visualização executiva para preservar leitura limpa; o detalhe numérico fica na tabela abaixo."
+        )
+        st.dataframe(
+            _format_aging_latest_table(dashboard.default_buckets_latest_df),
+            width="stretch",
+            hide_index=True,
         )
 
 
@@ -1229,8 +1174,8 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 value_column="percentual",
                 bar_size=pl_bar_size,
                 label_font_size=14,
-                smart_label_placement=True,
                 round_percent_labels=True,
+                show_segment_labels=False,
             ),
             width="stretch",
         )
@@ -1243,10 +1188,15 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 value_column="valor",
                 bar_size=pl_bar_size,
                 label_font_size=14,
-                smart_label_placement=True,
+                show_total_labels=True,
+                show_segment_labels=False,
             ),
             width="stretch",
         )
+    st.caption(
+        "Os labels por classe foram removidos do gráfico executivo para evitar leitura errada em segmentos pequenos. "
+        "Use a legenda para composição e a tabela abaixo para o valor exato."
+    )
     st.caption(f"Quadro de cotas em {_format_competencia_label(dashboard.latest_competencia)}")
     st.dataframe(
         _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia),
@@ -2496,6 +2446,17 @@ def _format_value_table(df: pd.DataFrame, *, label_column: str, label_title: str
     return output[columns]
 
 
+def _format_aging_latest_table(default_buckets_latest_df: pd.DataFrame) -> pd.DataFrame:
+    if default_buckets_latest_df.empty:
+        return pd.DataFrame(columns=["Faixa", "Valor", "% dos DCs"])
+    output = default_buckets_latest_df.sort_values("ordem").copy() if "ordem" in default_buckets_latest_df.columns else default_buckets_latest_df.copy()
+    output["Faixa"] = output["faixa"]
+    output["Valor"] = output["valor"].map(_format_brl_compact)
+    percent_column = "percentual_direitos_creditorios" if "percentual_direitos_creditorios" in output.columns else "percentual"
+    output["% dos DCs"] = output[percent_column].map(_format_percent)
+    return output[["Faixa", "Valor", "% dos DCs"]]
+
+
 def _format_event_summary_table(event_summary_df: pd.DataFrame) -> pd.DataFrame:
     if event_summary_df.empty:
         return pd.DataFrame(columns=["Evento", "Valor bruto", "Efeito no caixa", "% do PL"])
@@ -3721,6 +3682,7 @@ def _stacked_history_bar_chart(
     round_percent_labels: bool = False,
     smart_label_placement: bool = False,
     legend_series_order: list[str] | None = None,
+    show_segment_labels: bool = True,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
     if "competencia" in chart_df.columns:
@@ -3794,7 +3756,7 @@ def _stacked_history_bar_chart(
     layered: alt.Chart = chart
     labels_df = chart_df.copy()
     has_outside_labels = False
-    if not labels_df.empty:
+    if show_segment_labels and not labels_df.empty:
         max_value = pd.to_numeric(labels_df[value_column], errors="coerce").abs().max()
         inner_threshold = inner_label_threshold if inner_label_threshold is not None else 2.1 if "%" in y_title else (
             max_value * 0.08 if pd.notna(max_value) else 0.0

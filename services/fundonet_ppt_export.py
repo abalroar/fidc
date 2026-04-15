@@ -693,7 +693,7 @@ def build_dashboard_pptx_bytes(
     # Slide 2 — PL por classe
     slide = prs.slides.add_slide(blank)
     add_textbox(slide, 0.45, 0.18, 8.5, 0.28, "PL por tipo de cota", size=TITLE_SIZE, bold=True, color=BLACK)
-    add_textbox(slide, 0.45, 0.46, 10.0, 0.16, "Visão padrão da aba: valores absolutos (R$) por competência, mantendo a mesma decomposição por classe.", size=BODY_SIZE, color=MID_GRAY)
+    add_textbox(slide, 0.45, 0.46, 10.6, 0.18, "Visão padrão da aba: valores absolutos (R$) por competência. Os labels internos foram removidos para evitar ambiguidade visual; o detalhe fica na tabela.", size=BODY_SIZE, color=MID_GRAY)
     quota_values = _quota_pl_value_pivot(dashboard.quota_pl_history_df)
     if not quota_values.empty:
         quota_scale = _money_scale(quota_values.drop(columns=["competencia"]).stack())
@@ -723,9 +723,8 @@ def build_dashboard_pptx_bytes(
             value_min=0.0,
             value_max=_money_axis_max([value for _, values in quota_series for value in values]),
             show_legend=True,
+            show_data_labels=False,
         )
-        for series in quota_chart.series:
-            series.data_labels.font.color.rgb = rgb(WHITE)
     add_table(
         slide,
         _latest_quota_table_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia),
@@ -857,9 +856,9 @@ def build_dashboard_pptx_bytes(
         slide,
         0.45,
         0.46,
-        11.7,
-        0.18,
-        "Distribuição não cumulativa por faixa de atraso. Os rótulos ficam centralizados em cada segmento quando há espaço útil suficiente.",
+        11.8,
+        0.20,
+        "Distribuição não cumulativa por faixa de atraso. Os labels por faixa foram removidos para evitar competição de cor e sobreposição; o detalhe numérico fica na tabela.",
         size=BODY_SIZE,
         color=MID_GRAY,
     )
@@ -876,7 +875,7 @@ def build_dashboard_pptx_bytes(
             left=MARGIN_LEFT_IN,
             top=0.82,
             width=CONTENT_WIDTH_IN,
-            height=5.48,
+            height=4.35,
             number_format='0%',
             percent_axis=True,
             gap_width=36,
@@ -887,9 +886,18 @@ def build_dashboard_pptx_bytes(
             series_colors=AGING_PPT_COLORS,
             value_max=_percent_axis_max(aging_series_map, cap=120.0),
             show_legend=True,
+            show_data_labels=False,
         )
-        for idx, series in enumerate(aging_chart.series):
-            series.data_labels.font.color.rgb = rgb(WHITE)
+    add_table(
+        slide,
+        _latest_aging_table_frame(dashboard.default_buckets_latest_df),
+        title=f"Aging detalhado em {_format_competencia(dashboard.latest_competencia)}",
+        left=MARGIN_LEFT_IN,
+        top=5.28,
+        width=CONTENT_WIDTH_IN,
+        height=1.18,
+        col_widths=[4.2, 3.3, 4.0],
+    )
     add_footer(slide, timestamp_text)
 
     # Slide 6 — maturity and duration

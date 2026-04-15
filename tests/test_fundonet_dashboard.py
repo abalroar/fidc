@@ -256,7 +256,7 @@ class FundonetDashboardTests(unittest.TestCase):
         pl_charts = [shape.chart for shape in presentation.slides[1].shapes if getattr(shape, "has_chart", False)]
         self.assertEqual(1, len(pl_charts))
         self.assertIn("<c:legend>", pl_charts[0]._chartSpace.xml)
-        self.assertIn('<c:numFmt formatCode="#,##0"', pl_charts[0]._chartSpace.xml)
+        self.assertNotIn('<c:showVal val="1"/>', pl_charts[0]._chartSpace.xml)
         credit_charts = [shape.chart for shape in presentation.slides[2].shapes if getattr(shape, "has_chart", False)]
         self.assertEqual(2, len(credit_charts))
         self.assertTrue(any('<c:axPos val="r"' in chart._chartSpace.xml for chart in credit_charts))
