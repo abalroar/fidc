@@ -2003,7 +2003,7 @@ def _build_tracking_latest_df(
             "estado_dado": "calculado" if direitos_creditorios else "nao_calculavel",
         },
         {
-            "indicador": "Provisão / inadimplência",
+            "indicador": "Provisão / vencidos totais",
             "valor": (provisao_total / inadimplencia_total * 100.0) if inadimplencia_total else None,
             "unidade": "%",
             "fonte": "APLIC_ATIVO",
@@ -2170,7 +2170,7 @@ def _build_executive_memory_df(
         {
             "tipo_variavel": "Percentual",
             "bloco_executivo": "Crédito",
-            "componente": "Cobertura de provisão (linha RHS)",
+            "componente": "Cobertura de provisão / vencidos totais (linha RHS)",
             "variavel_final": "provisao_total / direitos_creditorios_vencidos",
             "numerador": "provisao_total",
             "denominador": "direitos_creditorios_vencidos",

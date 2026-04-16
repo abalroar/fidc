@@ -1056,11 +1056,9 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                     else ""
                 )
             )
-    st.caption("Métricas exibidas no bloco de crédito")
-    st.dataframe(
+    _render_dataframe_expander(
+        "Métricas exibidas no bloco de crédito",
         _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco de crédito"),
-        width="stretch",
-        hide_index=True,
     )
     over_history_df = dashboard.default_over_history_df.copy()
     _render_chart_heading(st, "Inadimplência Over (somatório do aging)", "Parcelas vencidas acumuladas por threshold de atraso, como % dos direitos creditórios observáveis.")
@@ -1140,10 +1138,9 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             "Fonte: Informe Mensal - CVM. Cada barra mostra o aging completo do estoque vencido em relação ao total observável de direitos creditórios. "
             "Os labels por faixa foram removidos da visualização executiva para preservar leitura limpa; o detalhe numérico fica na tabela abaixo."
         )
-        st.dataframe(
+        _render_dataframe_expander(
+            "Detalhe numérico do aging",
             _format_aging_latest_table(dashboard.default_buckets_latest_df),
-            width="stretch",
-            hide_index=True,
         )
 
 
@@ -1175,10 +1172,9 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
         ),
         width="stretch",
     )
-    st.dataframe(
+    _render_dataframe_expander(
+        "Métricas estruturais",
         _format_risk_metrics_compact_table(dashboard.risk_metrics_df, risk_block="Risco estrutural"),
-        width="stretch",
-        hide_index=True,
     )
 
     # PL por tipo de cota — single chart with stable-key radio selector
@@ -1224,10 +1220,9 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
         "Use a legenda para composição e a tabela abaixo para o valor exato."
     )
     st.caption(f"Quadro de cotas em {_format_competencia_label(dashboard.latest_competencia)}")
-    st.dataframe(
+    _render_dataframe_expander(
+        f"Quadro de cotas em {_format_competencia_label(dashboard.latest_competencia)}",
         _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia),
-        width="stretch",
-        hide_index=True,
     )
     if _has_meaningful_benchmark(dashboard.performance_vs_benchmark_latest_df):
         with st.expander("Benchmark x realizado", expanded=False):
@@ -2447,6 +2442,11 @@ def _format_latest_quota_frame(quota_pl_history_df: pd.DataFrame, latest_compete
     latest_df["Valor da cota"] = latest_df["vl_cota"].map(_format_brl)
     latest_df["PL"] = latest_df["pl"].map(_format_brl_compact)
     return latest_df[["Classe", "Tipo", "Qt. cotas", "Valor da cota", "PL"]]
+
+
+def _render_dataframe_expander(title: str, df: pd.DataFrame, *, expanded: bool = False) -> None:
+    with st.expander(title, expanded=expanded):
+        st.dataframe(df, width="stretch", hide_index=True)
 
 
 def _format_value_percent_table(df: pd.DataFrame, *, label_column: str, label_title: str) -> pd.DataFrame:
@@ -4216,27 +4216,16 @@ def _grouped_bar_with_rhs_line_chart(
         if not coverage_labels_df.empty:
             coverage_labels_df = coverage_labels_df.copy()
             coverage_labels_df["badge_offset"] = 60
-            coverage_labels_df["badge_size"] = coverage_labels_df["end_label"].map(
-                lambda label: 9000 + (len(str(label)) * 3400)
-            )
-            badge_bg = (
-                alt.Chart(coverage_labels_df)
-                .mark_square(color=COVERAGE_LINE_COLOR, opacity=1.0, filled=True, clip=False)
-                .encode(
-                    x=alt.X("competencia:N", sort=x_sort),
-                    xOffset=alt.XOffset("badge_offset:Q"),
-                    y=alt.Y("label_valor:Q", title=line_y_title),
-                    size=alt.Size("badge_size:Q", legend=None),
-                )
-            )
             badge_text = (
                 alt.Chart(coverage_labels_df)
                 .mark_text(
                     align="center",
                     baseline="middle",
                     fontSize=13,
-                    fontWeight=700,
+                    fontWeight=800,
                     color="#ffffff",
+                    stroke=COVERAGE_LINE_COLOR,
+                    strokeWidth=8,
                     clip=False,
                 )
                 .encode(
@@ -4246,7 +4235,7 @@ def _grouped_bar_with_rhs_line_chart(
                     text=alt.Text("end_label:N"),
                 )
             )
-            layered = layered + badge_bg + badge_text
+            layered = layered + badge_text
     layered = _chart_with_optional_title(layered, height=height, title=title)
     return _style_altair_chart(layered.properties(padding={"left": 24, "right": 164, "top": 18, "bottom": 8}))
 

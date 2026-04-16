@@ -334,6 +334,7 @@ def _load_single_portfolio_fund(fund: PortfolioFund, period: ImePeriodSelection)
             "competencia_final": period.end_month.isoformat(),
             "periodo_analisado_label": period.label,
             "portfolio_fund_name": fund.display_name,
+            "portfolio_fund_name_resolved": _extract_loaded_fund_name(cached.result, fallback_name=fund.display_name),
             "elapsed_seconds": round(elapsed_seconds, 3),
             "cache_status": cached.cache_status,
             "cache_key": cached.cache_key,
@@ -410,6 +411,7 @@ def _build_portfolio_error_payload(
             "competencia_final": period.end_month.isoformat(),
             "periodo_analisado_label": period.label,
             "portfolio_fund_name": fund.display_name,
+            "portfolio_fund_name_resolved": fund.display_name,
             "error_kind": exc.__class__.__name__,
             "error_details": details,
         },
@@ -583,7 +585,7 @@ def _render_portfolio_error_summary(*, failed_cnpjs: list[str], results: dict[st
         for cnpj in failed_cnpjs:
             payload = results.get(cnpj) or {}
             context = payload.get("context") or {}
-            fund_name = context.get("portfolio_fund_name") or cnpj
+            fund_name = context.get("portfolio_fund_name_resolved") or context.get("portfolio_fund_name") or cnpj
             error = payload.get("error")
             if _is_retryable_portfolio_failure(payload):
                 timeout_like += 1
@@ -610,13 +612,28 @@ def _focus_option_label(
 ) -> str:
     payload = results.get(cnpj) or {}
     context = payload.get("context") or {}
-    name = context.get("portfolio_fund_name") or (fund_name_lookup or {}).get(cnpj) or cnpj
+    name = (
+        context.get("portfolio_fund_name_resolved")
+        or context.get("portfolio_fund_name")
+        or (fund_name_lookup or {}).get(cnpj)
+        or cnpj
+    )
     name = normalize_portfolio_fund_name(name, cnpj)
     if not payload:
         return format_portfolio_fund_label(display_name=name, cnpj=cnpj, status="não carregado")
     if payload.get("result") is None:
         return format_portfolio_fund_label(display_name=name, cnpj=cnpj, status="erro")
     return format_portfolio_fund_label(display_name=name, cnpj=cnpj)
+
+
+def _extract_loaded_fund_name(result: Any, *, fallback_name: str) -> str:
+    docs_df = getattr(result, "docs_df", None)
+    if docs_df is not None and not docs_df.empty and "nome_fundo" in docs_df.columns:
+        names = docs_df["nome_fundo"].astype(str).map(str.strip)
+        names = names[(names != "") & names.str.lower().ne("nan")]
+        if not names.empty:
+            return str(names.iloc[-1])
+    return fallback_name
 
 
 def _utc_now_iso() -> str:

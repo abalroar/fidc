@@ -159,7 +159,11 @@ def format_portfolio_fund_label(
     status: str | None = None,
 ) -> str:
     name = normalize_portfolio_fund_name(display_name, cnpj)
-    base = f"{name} · {format_portfolio_cnpj(cnpj)}"
+    formatted_cnpj = format_portfolio_cnpj(cnpj)
+    if not name or name == cnpj or name == formatted_cnpj:
+        base = formatted_cnpj
+    else:
+        base = f"{name} · {formatted_cnpj}"
     if status:
         return f"{base} · {status}"
     return base
