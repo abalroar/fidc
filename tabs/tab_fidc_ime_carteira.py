@@ -19,8 +19,11 @@ from tabs.ime_portfolio_support import (
     build_catalog_option_lookup,
     build_portfolio_funds_from_cnpjs,
     delete_portfolio_record,
+    enrich_portfolio_funds_with_catalog,
+    format_portfolio_fund_label,
     list_saved_portfolios,
     load_fidc_catalog_cached,
+    normalize_portfolio_fund_name,
     save_portfolio_record,
 )
 
@@ -57,6 +60,9 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
             catalog_df=catalog_df,
             selected_portfolio=selected_portfolio,
         )
+
+    if selected_portfolio is not None:
+        selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
 
     if preload_clicked and selected_portfolio is not None:
         _execute_portfolio_load(selected_portfolio=selected_portfolio, period=period)
@@ -106,6 +112,7 @@ def _render_portfolio_editor(
     # Infer edit-vs-create from state: a selected portfolio is implicitly the edit target.
     target = selected_portfolio if portfolios else None
     option_labels, option_lookup = build_catalog_option_lookup(catalog_df)
+    catalog_cnpjs = {fund.cnpj for fund in option_lookup.values()}
     default_labels = [
         next((label for label, fund in option_lookup.items() if fund.cnpj == portfolio_fund.cnpj), portfolio_fund.display_name)
         for portfolio_fund in (target.funds if target is not None else ())
@@ -131,7 +138,7 @@ def _render_portfolio_editor(
             value="\n".join(
                 fund.cnpj
                 for fund in (target.funds if target is not None else ())
-                if fund.display_name == fund.cnpj
+                if fund.cnpj not in catalog_cnpjs
             )
             if target is not None
             else "",
@@ -153,6 +160,7 @@ def _render_portfolio_editor(
             return
         funds = [option_lookup[label] for label in selected_labels]
         funds.extend(build_portfolio_funds_from_cnpjs(manual_cnpjs.splitlines(), catalog_df))
+        funds = enrich_portfolio_funds_with_catalog(funds, catalog_df)
         if not funds:
             st.warning("Selecione ao menos um fundo.")
             return
@@ -256,6 +264,21 @@ def _execute_portfolio_load_for_funds(
         "complexity_score": total * max(period.month_count, 1),
     }
     _save_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period, runtime_state=runtime_state)
+
+
+def _enrich_portfolio_record(
+    *,
+    selected_portfolio: PortfolioRecord,
+    catalog_df: pd.DataFrame,
+) -> PortfolioRecord:
+    return PortfolioRecord(
+        id=selected_portfolio.id,
+        name=selected_portfolio.name,
+        funds=tuple(enrich_portfolio_funds_with_catalog(selected_portfolio.funds, catalog_df)),
+        created_at=selected_portfolio.created_at,
+        updated_at=selected_portfolio.updated_at,
+        notes=selected_portfolio.notes,
+    )
 
 
 def _load_portfolio_funds_batch(
@@ -562,8 +585,7 @@ def _build_portfolio_inventory_table(
             timing = "-"
         rows.append(
             {
-                "Fundo": fund.display_name,
-                "CNPJ": fund.cnpj,
+                "Fundo": format_portfolio_fund_label(display_name=fund.display_name, cnpj=fund.cnpj),
                 "Status": status,
                 "Cache": cache_state,
                 "Tempo": timing,
@@ -609,11 +631,12 @@ def _focus_option_label(
     payload = results.get(cnpj) or {}
     context = payload.get("context") or {}
     name = context.get("portfolio_fund_name") or (fund_name_lookup or {}).get(cnpj) or cnpj
+    name = normalize_portfolio_fund_name(name, cnpj)
     if not payload:
-        return f"{name} · não carregado"
+        return format_portfolio_fund_label(display_name=name, cnpj=cnpj, status="não carregado")
     if payload.get("result") is None:
-        return f"{name} · erro"
-    return f"{name} · {cnpj}"
+        return format_portfolio_fund_label(display_name=name, cnpj=cnpj, status="erro")
+    return format_portfolio_fund_label(display_name=name, cnpj=cnpj)
 
 
 def _utc_now_iso() -> str:

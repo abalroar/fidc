@@ -130,6 +130,61 @@ def _catalog_name_lookup(catalog_df: pd.DataFrame) -> dict[str, str]:
     return catalog_df.set_index("cnpj_fundo")["nome_fundo"].to_dict()
 
 
+def format_portfolio_cnpj(cnpj: str) -> str:
+    digits = re.sub(r"\D", "", str(cnpj or ""))
+    if len(digits) != 14:
+        return digits or str(cnpj or "").strip()
+    return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
+
+
+def normalize_portfolio_fund_name(display_name: str, cnpj: str) -> str:
+    digits = re.sub(r"\D", "", str(cnpj or ""))
+    formatted_cnpj = format_portfolio_cnpj(digits)
+    text = re.sub(r"\s+", " ", str(display_name or "").strip())
+    if not text:
+        return formatted_cnpj if formatted_cnpj else digits
+    for suffix in (formatted_cnpj, digits):
+        if suffix and text.endswith(suffix):
+            candidate = re.sub(r"[\s·|()/:-]+$", "", text[: -len(suffix)].strip())
+            if candidate:
+                text = candidate
+                break
+    return text
+
+
+def format_portfolio_fund_label(
+    *,
+    display_name: str,
+    cnpj: str,
+    status: str | None = None,
+) -> str:
+    name = normalize_portfolio_fund_name(display_name, cnpj)
+    base = f"{name} · {format_portfolio_cnpj(cnpj)}"
+    if status:
+        return f"{base} · {status}"
+    return base
+
+
+def enrich_portfolio_funds_with_catalog(
+    funds: list[PortfolioFund] | tuple[PortfolioFund, ...],
+    catalog_df: pd.DataFrame | None = None,
+) -> list[PortfolioFund]:
+    resolved_catalog = catalog_df if catalog_df is not None else load_fidc_catalog_cached()
+    name_lookup = _catalog_name_lookup(resolved_catalog)
+    enriched: list[PortfolioFund] = []
+    for fund in funds:
+        canonical_name = str(name_lookup.get(fund.cnpj) or "").strip()
+        if not canonical_name:
+            canonical_name = normalize_portfolio_fund_name(fund.display_name, fund.cnpj)
+        enriched.append(
+            PortfolioFund(
+                cnpj=fund.cnpj,
+                display_name=canonical_name,
+            )
+        )
+    return enriched
+
+
 def build_portfolio_funds_from_cnpjs(
     cnpjs: list[str],
     catalog_df: pd.DataFrame | None = None,
@@ -145,7 +200,7 @@ def build_portfolio_funds_from_cnpjs(
         funds.append(
             PortfolioFund(
                 cnpj=digits,
-                display_name=str(name_lookup.get(digits) or digits),
+                display_name=str(name_lookup.get(digits) or format_portfolio_cnpj(digits)),
             )
         )
     return funds
@@ -162,7 +217,7 @@ def build_catalog_option_lookup(
         cnpj = re.sub(r"\D", "", str(getattr(row, "cnpj_fundo", "") or ""))
         if len(cnpj) != 14:
             continue
-        name = str(getattr(row, "nome_fundo", "") or cnpj).strip() or cnpj
-        label = f"{name} · {cnpj}"
+        name = normalize_portfolio_fund_name(str(getattr(row, "nome_fundo", "") or cnpj).strip() or cnpj, cnpj)
+        label = format_portfolio_fund_label(display_name=name, cnpj=cnpj)
         option_lookup[label] = PortfolioFund(cnpj=cnpj, display_name=name)
     return list(option_lookup.keys()), option_lookup
