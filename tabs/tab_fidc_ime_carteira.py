@@ -248,10 +248,12 @@ def _execute_portfolio_load_for_funds(
             worker_count=1,
             progress_label=f"{selected_portfolio.name} · retry",
         )
-        results.update(retry_results)
+    results.update(retry_results)
 
     progress_bar.empty()
     status_box.empty()
+    stored_portfolio = _sync_portfolio_fund_names_from_results(selected_portfolio=selected_portfolio, results=results)
+    selected_portfolio = stored_portfolio or selected_portfolio
     runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period)
     runtime_state["results"] = results
     runtime_state["loaded_at"] = _utc_now_iso()
@@ -657,6 +659,32 @@ def _extract_loaded_fund_name(result: Any, *, fallback_name: str) -> str:
         if not names.empty:
             return str(names.iloc[-1])
     return fallback_name
+
+
+def _sync_portfolio_fund_names_from_results(
+    *,
+    selected_portfolio: PortfolioRecord,
+    results: dict[str, dict[str, Any]],
+) -> PortfolioRecord | None:
+    updated_funds: list[PortfolioFund] = []
+    changed = False
+    for fund in selected_portfolio.funds:
+        resolved_name = _resolve_portfolio_fund_display_name(fund.cnpj, results, fallback_name=fund.display_name)
+        resolved_name = normalize_portfolio_fund_name(resolved_name, fund.cnpj)
+        updated_funds.append(PortfolioFund(cnpj=fund.cnpj, display_name=resolved_name))
+        if resolved_name != fund.display_name:
+            changed = True
+    if not changed:
+        return None
+    updated_portfolio = PortfolioRecord(
+        id=selected_portfolio.id,
+        name=selected_portfolio.name,
+        funds=tuple(updated_funds),
+        created_at=selected_portfolio.created_at,
+        updated_at=_utc_now_iso(),
+        notes=selected_portfolio.notes,
+    )
+    return save_portfolio_record(updated_portfolio)
 
 
 def _utc_now_iso() -> str:
