@@ -449,7 +449,11 @@ def _render_loaded_portfolio_analysis(
 ) -> None:
     results = runtime_state.get("results") or {}
 
-    successful_cnpjs = [cnpj for cnpj, payload in results.items() if payload.get("result") is not None]
+    successful_cnpjs = [
+        fund.cnpj
+        for fund in selected_portfolio.funds
+        if (results.get(fund.cnpj) or {}).get("result") is not None
+    ]
     failed_cnpjs = [cnpj for cnpj, payload in results.items() if payload.get("result") is None]
 
     _render_portfolio_compact_header(
@@ -492,6 +496,9 @@ def _render_loaded_portfolio_analysis(
     default_focus = st.session_state.get(focus_key)
     if default_focus not in all_cnpjs:
         default_focus = None
+    if default_focus is None and successful_cnpjs:
+        default_focus = successful_cnpjs[0]
+        st.session_state[focus_key] = default_focus
 
     focus_cnpj = st.selectbox(
         "Fundo selecionado",
