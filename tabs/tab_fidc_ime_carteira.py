@@ -248,7 +248,7 @@ def _execute_portfolio_load_for_funds(
             worker_count=1,
             progress_label=f"{selected_portfolio.name} · retry",
         )
-    results.update(retry_results)
+        results.update(retry_results)
 
     progress_bar.empty()
     status_box.empty()
