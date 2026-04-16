@@ -493,26 +493,41 @@ def _render_loaded_portfolio_analysis(
                 st.rerun()
 
     all_cnpjs = [fund.cnpj for fund in selected_portfolio.funds]
-    fund_name_lookup = {fund.cnpj: fund.display_name for fund in selected_portfolio.funds}
-    focus_key = f"ime_portfolio_focus_cnpj::{selected_portfolio.id}"
-    default_focus = st.session_state.get(focus_key)
-    if default_focus not in all_cnpjs:
-        default_focus = None
-    if default_focus is None and successful_cnpjs:
-        default_focus = successful_cnpjs[0]
-        st.session_state[focus_key] = default_focus
+    focus_options, focus_lookup = _build_focus_option_lookup(selected_portfolio=selected_portfolio, results=results)
+    reverse_focus_lookup = {cnpj: label for label, cnpj in focus_lookup.items()}
 
-    focus_cnpj = st.selectbox(
+    focus_cnpj_key = f"ime_portfolio_focus_cnpj::{selected_portfolio.id}"
+    focus_label_key = f"ime_portfolio_focus_label::{selected_portfolio.id}"
+    default_focus_cnpj = st.session_state.get(focus_cnpj_key)
+    if default_focus_cnpj not in all_cnpjs:
+        default_focus_cnpj = None
+    if default_focus_cnpj is None and successful_cnpjs:
+        default_focus_cnpj = successful_cnpjs[0]
+        st.session_state[focus_cnpj_key] = default_focus_cnpj
+
+    default_focus_label = reverse_focus_lookup.get(default_focus_cnpj)
+    if default_focus_label is None:
+        st.session_state.pop(focus_label_key, None)
+    else:
+        current_focus_label = st.session_state.get(focus_label_key)
+        if current_focus_label not in focus_options:
+            st.session_state[focus_label_key] = default_focus_label
+
+    focus_label = st.selectbox(
         "Fundo selecionado",
-        options=all_cnpjs,
-        index=all_cnpjs.index(default_focus) if default_focus in all_cnpjs else None,
-        key=focus_key,
+        options=focus_options,
+        index=focus_options.index(default_focus_label) if default_focus_label in focus_options else None,
+        key=focus_label_key,
         placeholder="Selecione um fundo da carteira",
-        format_func=lambda cnpj: _focus_option_label(cnpj, results, fund_name_lookup),
     )
-    if not focus_cnpj:
+    if not focus_label:
         st.info("Selecione um fundo para carregar os informes do período ativo.")
         return
+    focus_cnpj = focus_lookup.get(focus_label)
+    if not focus_cnpj:
+        st.info("Selecione um fundo válido da carteira.")
+        return
+    st.session_state[focus_cnpj_key] = focus_cnpj
 
     focused_payload = results.get(focus_cnpj)
     if focused_payload is None:
@@ -605,25 +620,33 @@ def _render_portfolio_error_summary(*, failed_cnpjs: list[str], results: dict[st
             )
 
 
-def _focus_option_label(
+def _build_focus_option_lookup(
+    *,
+    selected_portfolio: PortfolioRecord,
+    results: dict[str, dict[str, Any]],
+) -> tuple[list[str], dict[str, str]]:
+    options: list[str] = []
+    lookup: dict[str, str] = {}
+    for fund in selected_portfolio.funds:
+        label = format_portfolio_fund_label(
+            display_name=_resolve_portfolio_fund_display_name(fund.cnpj, results, fallback_name=fund.display_name),
+            cnpj=fund.cnpj,
+        )
+        options.append(label)
+        lookup[label] = fund.cnpj
+    return options, lookup
+
+
+def _resolve_portfolio_fund_display_name(
     cnpj: str,
     results: dict[str, dict[str, Any]],
-    fund_name_lookup: dict[str, str] | None = None,
+    *,
+    fallback_name: str,
 ) -> str:
     payload = results.get(cnpj) or {}
     context = payload.get("context") or {}
-    name = (
-        context.get("portfolio_fund_name_resolved")
-        or context.get("portfolio_fund_name")
-        or (fund_name_lookup or {}).get(cnpj)
-        or cnpj
-    )
-    name = normalize_portfolio_fund_name(name, cnpj)
-    if not payload:
-        return format_portfolio_fund_label(display_name=name, cnpj=cnpj, status="não carregado")
-    if payload.get("result") is None:
-        return format_portfolio_fund_label(display_name=name, cnpj=cnpj, status="erro")
-    return format_portfolio_fund_label(display_name=name, cnpj=cnpj)
+    name = context.get("portfolio_fund_name_resolved") or context.get("portfolio_fund_name") or fallback_name or cnpj
+    return normalize_portfolio_fund_name(name, cnpj)
 
 
 def _extract_loaded_fund_name(result: Any, *, fallback_name: str) -> str:
