@@ -131,10 +131,9 @@ def render_tab_fidc_book() -> None:
         for page in _reading_track(index):
             st.markdown(f"- {page.title}")
 
-        st.markdown("#### Fundos de referência")
+        st.markdown("#### Exemplos de famílias de recebíveis")
         for fund in index.reference_funds[:6]:
-            st.markdown(f"**{fund.title}**")
-            st.caption(f"{fund.receivable_family} · {fund.origin_profile}")
+            st.markdown(f"- **{fund.receivable_family}** · {fund.origin_profile}")
 
     with right_col:
         _render_page(index, selected_page)
@@ -192,16 +191,9 @@ def _render_page(index: FIDCBookIndex, page: FIDCBookPage) -> None:
 
     related_funds = index.related_reference_funds(page)
     if related_funds:
-        st.markdown("#### Fundos de referência")
+        st.markdown("#### Exemplos de perfis de recebíveis")
         for fund in related_funds:
-            st.markdown(f"- **{fund.title}**: {fund.receivable_family} · {fund.risk_focus}")
-
-    related_documents = index.related_documents(page)
-    if related_documents:
-        st.markdown("#### Documentos do acervo usados nesta página")
-        for entry in related_documents:
-            notes = f" — {entry.notes}" if entry.notes else ""
-            st.markdown(f"- **{entry.title}** ({entry.doc_type}){notes}")
+            st.markdown(f"- **{fund.receivable_family}**: foco de risco em {fund.risk_focus}")
 
     public_sources = [
         index.sources[source_id]

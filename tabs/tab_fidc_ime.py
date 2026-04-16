@@ -82,7 +82,7 @@ OVER_AGING_CHART_COLORS = [
     "#7b241c",
 ]
 
-COVERAGE_LINE_COLOR = "#0f172a"
+COVERAGE_LINE_COLOR = "#6b7280"
 
 
 _FIDC_REPORT_CSS = """
@@ -1113,15 +1113,15 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             "- **Leitura prática:** valores maiores indicam maior fração do estoque total em atraso e/ou pendência."
         )
     aging_history_df = dashboard.default_aging_history_df.copy()
-    _render_chart_heading(st, "Aging da inadimplência", "% dos direitos creditórios totais por faixa de atraso.")
+    _render_chart_heading(st, "Aging da inadimplência", "Composição da inadimplência (100% do saldo vencido) por faixa de atraso.")
     if aging_history_df.empty:
         st.info("Dados de aging não disponíveis nos informes selecionados.")
     else:
         st.altair_chart(
             _stacked_history_bar_chart(
-                aging_history_df.rename(columns={"faixa": "serie", "percentual_direitos_creditorios": "percentual"}),
+                aging_history_df.rename(columns={"faixa": "serie", "percentual_inadimplencia": "percentual"}),
                 title=None,
-                y_title="% dos recebíveis",
+                y_title="% da inadimplência",
                 value_column="percentual",
                 color_range=AGING_CHART_COLORS,
                 show_total_labels=True,
@@ -1130,13 +1130,14 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 label_font_size=11,
                 round_percent_labels=True,
                 legend_series_order=AGING_SERIES_ORDER,
-                show_segment_labels=False,
+                show_segment_labels=True,
+                smart_label_placement=True,
             ),
             width="stretch",
         )
         st.caption(
-            "Fonte: Informe Mensal - CVM. Cada barra mostra o aging completo do estoque vencido em relação ao total observável de direitos creditórios. "
-            "Os labels por faixa foram removidos da visualização executiva para preservar leitura limpa; o detalhe numérico fica na tabela abaixo."
+            "Fonte: Informe Mensal - CVM. Cada barra soma 100% da inadimplência reportada no mês e mostra a participação de cada faixa no total vencido. "
+            "Os data labels intermediários ficam ativos para leitura direta da composição."
         )
         _render_dataframe_expander(
             "Detalhe numérico do aging",
@@ -1255,11 +1256,12 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
         ime_scope="O Informe Mensal cobre eventos de emissão, resgate e amortização.",
         caution="O cronograma contratual completo das cotas continua dependendo da documentação da emissão.",
     )
-    st.dataframe(
-        _format_event_summary_table(dashboard.event_summary_latest_df),
-        width="stretch",
-        hide_index=True,
-    )
+    with st.expander("Tabela de eventos de cotas", expanded=False):
+        st.dataframe(
+            _format_event_summary_table(dashboard.event_summary_latest_df),
+            width="stretch",
+            hide_index=True,
+        )
     st.caption("Sinal econômico positivo indica entrada de caixa; negativo indica saída de caixa para cotistas.")
 
     _render_fidc_section(
@@ -4163,12 +4165,12 @@ def _grouped_bar_with_rhs_line_chart(
         .mark_line(
             point=alt.OverlayMarkDef(
                 filled=True,
-                size=76,
-                fill="#000000",
-                stroke="#000000",
-                strokeWidth=1.6,
+                size=46,
+                fill=COVERAGE_LINE_COLOR,
+                stroke=COVERAGE_LINE_COLOR,
+                strokeWidth=1.0,
             ),
-            strokeWidth=3.2,
+            strokeWidth=2.6,
         )
         .encode(
             x=x_encoding,
@@ -4224,8 +4226,8 @@ def _grouped_bar_with_rhs_line_chart(
                     fontSize=13,
                     fontWeight=800,
                     color="#ffffff",
-                    stroke=COVERAGE_LINE_COLOR,
-                    strokeWidth=8,
+                    stroke="#ffffff",
+                    strokeWidth=3,
                     clip=False,
                 )
                 .encode(
@@ -4493,7 +4495,10 @@ def _default_cobertura_chart_frame(default_history_df: pd.DataFrame) -> pd.DataF
     df = default_history_df[["competencia", "competencia_dt", "cobertura_pct"]].copy()
     df["valor"] = pd.to_numeric(df["cobertura_pct"], errors="coerce")
     df["serie"] = "Cobertura"
-    return df[["competencia", "competencia_dt", "serie", "valor"]].dropna(subset=["valor"])
+    df = df[["competencia", "competencia_dt", "serie", "valor"]].dropna(subset=["valor"])
+    if not df.empty:
+        df = df.sort_values("competencia_dt").drop_duplicates(subset=["competencia", "serie"], keep="last")
+    return df
 
 
 def _default_inadimplentes_aux_sum_chart_frame(default_history_df: pd.DataFrame) -> pd.DataFrame:
