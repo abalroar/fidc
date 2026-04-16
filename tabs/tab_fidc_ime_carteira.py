@@ -7,11 +7,10 @@ import traceback
 from typing import Any
 import uuid
 
-import pandas as pd
 import streamlit as st
 
 from services.fundonet_errors import FundosNetError, ProviderUnavailableError
-from services.ime_loader import load_or_extract_informe, peek_cached_informe
+from services.ime_loader import load_or_extract_informe
 from services.ime_period import ImePeriodSelection
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from tabs import tab_fidc_ime as ime_tab
@@ -463,10 +462,10 @@ def _render_loaded_portfolio_analysis(
     st.caption(
         "A carteira abre sem extrair os XMLs. Selecione um fundo para carregar sob demanda ou use o preload em lote."
     )
-    st.dataframe(
-        _build_portfolio_inventory_table(selected_portfolio=selected_portfolio, results=results, period=period),
-        width="stretch",
-        hide_index=True,
+    _render_portfolio_runtime_summary(
+        total_funds=len(selected_portfolio.funds),
+        loaded_count=len(successful_cnpjs),
+        failed_count=len(failed_cnpjs),
     )
 
     if failed_cnpjs:
@@ -556,42 +555,16 @@ def _render_portfolio_compact_header(name: str, period_label: str, n_ok: int, n_
     )
 
 
-def _build_portfolio_inventory_table(
-    *,
-    selected_portfolio: PortfolioRecord,
-    results: dict[str, dict[str, Any]],
-    period: ImePeriodSelection,
-) -> pd.DataFrame:
-    rows: list[dict[str, str]] = []
-    for fund in selected_portfolio.funds:
-        payload = results.get(fund.cnpj) or {}
-        context = payload.get("context") or {}
-        if payload.get("result") is not None:
-            status = "Carregado"
-            cache_state = context.get("cache_status", "N/D")
-            timing = f"{context.get('elapsed_seconds', 'N/D')} s"
-        elif payload.get("error") is not None:
-            status = "Erro transitório" if _is_retryable_portfolio_failure(payload) else "Erro"
-            cache_state = "N/D"
-            timing = "-"
-        else:
-            probe = peek_cached_informe(
-                cnpj_fundo=fund.cnpj,
-                data_inicial=period.start_month,
-                data_final=period.end_month,
-            )
-            status = "Cache disponível" if probe.is_cached else "Não carregado"
-            cache_state = "pronto" if probe.is_cached else "-"
-            timing = "-"
-        rows.append(
-            {
-                "Fundo": format_portfolio_fund_label(display_name=fund.display_name, cnpj=fund.cnpj),
-                "Status": status,
-                "Cache": cache_state,
-                "Tempo": timing,
-            }
-        )
-    return pd.DataFrame(rows)
+def _render_portfolio_runtime_summary(*, total_funds: int, loaded_count: int, failed_count: int) -> None:
+    pending_count = max(total_funds - loaded_count - failed_count, 0)
+    parts = [f"{total_funds} fundo(s) na carteira"]
+    if loaded_count:
+        parts.append(f"{loaded_count} carregado(s)")
+    if pending_count:
+        parts.append(f"{pending_count} ainda não carregado(s)")
+    if failed_count:
+        parts.append(f"{failed_count} com falha")
+    st.caption(" · ".join(parts))
 
 
 def _render_portfolio_error_summary(*, failed_cnpjs: list[str], results: dict[str, dict[str, Any]]) -> None:
