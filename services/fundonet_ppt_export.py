@@ -33,7 +33,7 @@ AGING_PPT_COLORS = [
     "#7b241c",
     "#4a1310",
 ]
-COVERAGE_LINE_COLOR = "#0f172a"
+COVERAGE_LINE_COLOR = "#6b7280"
 
 SLIDE_WIDTH_IN = 13.333
 SLIDE_HEIGHT_IN = 7.5
@@ -280,14 +280,20 @@ def build_dashboard_pptx_bytes(
         show_data_labels: bool = True,
         show_legend: bool = False,
     ):
-        if title:
-            add_textbox(slide, left, top - 0.22, width, 0.18, f"{title}{title_suffix}", size=SECTION_SIZE, bold=True, color=BLACK)
         chart_data = CategoryChartData()
         chart_data.categories = list(categories)
         for series_name, values in series_map:
             chart_data.add_series(series_name, tuple(values))
         chart_shape = slide.shapes.add_chart(chart_type, Inches(left), Inches(top), Inches(width), Inches(height), chart_data)
         chart = chart_shape.chart
+        if title:
+            chart.has_title = True
+            chart.chart_title.text_frame.text = f"{title}{title_suffix}"
+            title_paragraph = chart.chart_title.text_frame.paragraphs[0]
+            title_paragraph.font.name = "IBM Plex Sans"
+            title_paragraph.font.size = Pt(SECTION_SIZE)
+            title_paragraph.font.bold = True
+            title_paragraph.font.color.rgb = rgb(BLACK)
         chart.has_legend = show_legend
         if show_legend and chart.legend is not None:
             chart.legend.position = XL_LEGEND_POSITION.BOTTOM
@@ -537,7 +543,7 @@ def build_dashboard_pptx_bytes(
                 line_chart.series[0],
                 color=COVERAGE_LINE_COLOR,
                 width_pt=3.0,
-                marker_size=12,
+                marker_size=8,
             )
         if len(line_chart.series) >= 2:
             _style_line_series(
@@ -546,21 +552,6 @@ def build_dashboard_pptx_bytes(
                 width_pt=1.8,
                 dashed=True,
                 hide_marker=True,
-            )
-        coverage_values = [float(value) for value in line_series_map[0][1] if value is not None] if line_series_map else []
-        if coverage_values:
-            add_line_end_labels(
-                slide,
-                labels=[_format_percent(coverage_values[-1])],
-                values=[coverage_values[-1]],
-                colors=[COVERAGE_LINE_COLOR],
-                fill_colors=[COVERAGE_LINE_COLOR],
-                text_colors=[WHITE],
-                left=left,
-                top=top,
-                width=width,
-                height=height,
-                axis_max=line_axis_max,
             )
 
     def add_compounding_waterfall_chart(

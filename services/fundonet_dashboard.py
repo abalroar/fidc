@@ -873,12 +873,18 @@ def _build_default_aging_history_df(
                 "ordem",
                 "faixa",
                 "valor",
+                "percentual_inadimplencia",
                 "percentual_direitos_creditorios",
                 "source_status",
             ]
         )
     df = default_buckets_history_df.copy()
     df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
+    overdue_totals = df.groupby("competencia", dropna=False)["valor"].sum().rename("inadimplencia_total_aging")
+    df = df.merge(overdue_totals, on="competencia", how="left")
+    df["percentual_inadimplencia"] = (
+        df["valor"] / pd.to_numeric(df["inadimplencia_total_aging"], errors="coerce")
+    ).where(pd.to_numeric(df["inadimplencia_total_aging"], errors="coerce") > 0).mul(100.0)
     denominator_df = dc_canonical_history_df[["competencia", "dc_total_canonico", "dc_total_fonte_efetiva"]].copy()
     df = df.merge(denominator_df, on="competencia", how="left")
     df["percentual_direitos_creditorios"] = (
