@@ -1985,7 +1985,7 @@ def _build_tracking_latest_df(
             "estado_dado": "calculado" if summary.get("alocacao_pct") is not None else "nao_calculavel",
         },
         {
-            "indicador": "Índice de subordinação",
+            "indicador": "Subordinação reportada (IME)",
             "valor": summary.get("subordinacao_pct"),
             "unidade": "%",
             "fonte": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
@@ -1993,7 +1993,7 @@ def _build_tracking_latest_df(
             "estado_dado": "calculado" if summary.get("subordinacao_pct") is not None else "nao_calculavel",
         },
         {
-            "indicador": "Inadimplência / direitos creditórios",
+            "indicador": "Inadimplência observada (IME) / DCs",
             "valor": summary.get("inadimplencia_pct"),
             "unidade": "%",
             "fonte": "APLIC_ATIVO + COMPMT_DICRED",
@@ -2152,7 +2152,7 @@ def _build_executive_memory_df(
         {
             "tipo_variavel": "Percentual",
             "bloco_executivo": "Radar de risco / Crédito",
-            "componente": "Inadimplência / direitos creditórios",
+            "componente": "Inadimplência observada (IME) / DCs",
             "variavel_final": "summary['inadimplencia_pct']",
             "numerador": "dc_vencidos_canonico",
             "denominador": "dc_total_canonico",
@@ -2188,7 +2188,7 @@ def _build_executive_memory_df(
         {
             "tipo_variavel": "Bucket / distribuição",
             "bloco_executivo": "Crédito",
-            "componente": "Aging da inadimplência",
+            "componente": "Aging regulatório da inadimplência",
             "variavel_final": f"default_buckets_latest_df.valor + {aging_percent_col}",
             "numerador": "Cada bucket VL_INAD_VENC_* por faixa",
             "denominador": "dc_total_canonico para o gráfico executivo",
@@ -2200,7 +2200,7 @@ def _build_executive_memory_df(
         {
             "tipo_variavel": "Bucket / distribuição",
             "bloco_executivo": "Crédito",
-            "componente": "Inadimplência Over",
+            "componente": "Over regulatório da inadimplência",
             "variavel_final": "default_over_history_df.percentual",
             "numerador": "Soma cumulativa dos buckets vencidos acima do threshold",
             "denominador": "dc_total_canonico",
@@ -2212,7 +2212,7 @@ def _build_executive_memory_df(
         {
             "tipo_variavel": "Percentual",
             "bloco_executivo": "Estrutura",
-            "componente": "Índice de subordinação (linha)",
+            "componente": "Subordinação reportada (IME) — linha",
             "variavel_final": "summary['subordinacao_pct']",
             "numerador": "pl_subordinada",
             "denominador": "pl_total",

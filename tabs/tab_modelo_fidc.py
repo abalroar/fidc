@@ -48,11 +48,11 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "fra_senior": "FRA senior",
             "taxa_mezz": "Taxa mezz",
             "fra_mezz": "FRA mezz",
-            "carteira": "Carteira",
-            "fluxo_carteira": "Fluxo carteira",
-            "pl_fidc": "PL FIDC",
+            "carteira": "Carteira de recebiveis (saldo economico)",
+            "fluxo_carteira": "Fluxo economico da carteira",
+            "pl_fidc": "PL economico do veiculo",
             "custos_adm": "Custos administrativos",
-            "inadimplencia_despesa": "Despesa de inadimplencia",
+            "inadimplencia_despesa": "Perda economica por inadimplencia",
             "principal_senior": "Principal senior",
             "juros_senior": "Juros senior",
             "pmt_senior": "PMT senior",
@@ -67,10 +67,10 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "principal_sub_jr": "Principal subordinada",
             "juros_sub_jr": "Juros subordinada",
             "pmt_sub_jr": "PMT subordinada",
-            "pl_sub_jr": "PL subordinada economica",
+            "pl_sub_jr": "Saldo residual junior economico",
             "subordinacao_pct": "Subordinacao economica",
-            "pl_sub_jr_modelo": "PL subordinada exibida",
-            "subordinacao_pct_modelo": "Subordinacao exibida",
+            "pl_sub_jr_modelo": "Saldo junior exibido (workbook)",
+            "subordinacao_pct_modelo": "Subordinacao exibida (workbook)",
         }
     )
 
@@ -79,32 +79,32 @@ def _build_kpi_export_dataframe(kpis) -> pd.DataFrame:
     return pd.DataFrame(
         [
             {
-                "Indicador": "Retorno anualizado da cota senior",
+                "Indicador": "Retorno anualizado da classe senior (economico)",
                 "Valor": kpis.xirr_senior,
                 "Definicao": "Taxa interna anual de retorno dos pagamentos projetados da classe senior.",
             },
             {
-                "Indicador": "Retorno anualizado da cota mezz",
+                "Indicador": "Retorno anualizado da classe mezz (economico)",
                 "Valor": kpis.xirr_mezz,
                 "Definicao": "Taxa interna anual de retorno dos pagamentos projetados da classe mezzanino.",
             },
             {
-                "Indicador": "Retorno anualizado da cota subordinada",
+                "Indicador": "Retorno anualizado da junior residual (economico)",
                 "Valor": kpis.xirr_sub_jr,
                 "Definicao": "Nao aplicavel quando a serie de pagamentos da subordinada nao tem sinais validos para calcular retorno interno.",
             },
             {
-                "Indicador": "Duration da senior",
+                "Indicador": "Duration economica da senior",
                 "Valor": kpis.duration_senior_anos,
                 "Definicao": "Prazo medio ponderado, em anos, dos pagamentos descontados da classe senior.",
             },
             {
-                "Indicador": "Pre DI no duration",
+                "Indicador": "Pre DI equivalente na duration",
                 "Valor": kpis.pre_di_duration,
                 "Definicao": "Taxa Pre DI da curva interpolada no ponto correspondente ao duration da senior.",
             },
             {
-                "Indicador": "Retorno subordinada acima do Pre DI",
+                "Indicador": "Excesso de retorno da junior sobre o Pre DI",
                 "Valor": kpis.taxa_retorno_sub_jr_cdi,
                 "Definicao": "Excesso de retorno da subordinada sobre a taxa Pre DI no duration, quando a serie permite o calculo.",
             },
@@ -115,10 +115,10 @@ def _build_kpi_export_dataframe(kpis) -> pd.DataFrame:
 def render_tab_modelo_fidc() -> None:
     inputs = _load_inputs("model_data.json")
 
-    st.subheader("Modelo FIDC")
+    st.subheader("Modelo FIDC — Simulacao economica")
     st.caption(
-        "Replica o motor economico do arquivo Modelo_Publico (.xlsm) com calendario util, curva Pre DI e waterfall "
-        "senior/mezz/subordinada. Esta aba nao usa IME."
+        "Replica o motor economico do arquivo Modelo_Publico (.xlsm) como benchmark funcional: calendario util brasileiro, "
+        "curva Pre DI por dias uteis, waterfall senior/mezz/junior e fluxo economico da carteira. Esta aba nao usa IME."
     )
 
     left, right = st.columns([1.2, 0.8])
@@ -180,12 +180,18 @@ def render_tab_modelo_fidc() -> None:
         st.markdown(
             "\n".join(
                 [
+                    "- A verdade temporal do modelo esta nas datas, nos dias corridos e nos dias uteis; o indice do periodo e apenas auxiliar.",
+                    "- O calendario util usa base brasileira de 252 dias com lista explicita de feriados.",
                     "- Senior e mezz recebem juros pela curva Pre DI interpolada mais spread da classe.",
                     "- O retorno anualizado mostrado nos cards e a taxa interna anual dos pagamentos projetados da classe.",
-                    "- A subordinada fica como residual economico do fundo; o workbook nao gera uma serie valida de retorno interno para ela.",
+                    "- A junior fica como residual economico do veiculo; o workbook nao gera uma serie valida de retorno interno para ela.",
                     "- Duration e Pre DI no duration replicam as formulas da planilha para os PMTs senior.",
                 ]
             )
+        )
+        st.warning(
+            "Nao confundir esta aba com o IME: aqui `inadimplencia` e perda economica premissada, "
+            "`subordinacao` e economica/residual, e `PL` representa saldo economico do veiculo."
         )
 
     total_prop = premissas.proporcao_senior + premissas.proporcao_mezz
@@ -213,34 +219,35 @@ def render_tab_modelo_fidc() -> None:
     cols = st.columns(6)
     cols[0].metric("Retorno anualizado Senior", _format_percent(kpis.xirr_senior))
     cols[1].metric("Retorno anualizado Mezz", _format_percent(kpis.xirr_mezz))
-    cols[2].metric("Retorno anualizado Subordinada", _format_percent(kpis.xirr_sub_jr))
-    cols[3].metric("Duration da Senior", f"{kpis.duration_senior_anos:.2f} anos" if kpis.duration_senior_anos is not None else "N/D")
-    cols[4].metric("Pre DI no Duration", _format_percent(kpis.pre_di_duration))
-    cols[5].metric("PL Subordinada inicial", _format_brl(results[0].pl_sub_jr))
+    cols[2].metric("Retorno anualizado Junior residual", _format_percent(kpis.xirr_sub_jr))
+    cols[3].metric("Duration economica da Senior", f"{kpis.duration_senior_anos:.2f} anos" if kpis.duration_senior_anos is not None else "N/D")
+    cols[4].metric("Pre DI equivalente na duration", _format_percent(kpis.pre_di_duration))
+    cols[5].metric("Saldo junior inicial", _format_brl(results[0].pl_sub_jr))
 
     st.caption(
         "Retorno anualizado = taxa interna anual de retorno dos pagamentos projetados de cada classe. "
-        "Se a serie nao tiver fluxo valido, o app mostra `N/D` em vez de inventar um numero."
+        "Se a serie nao tiver fluxo valido, o app mostra `N/D` em vez de inventar um numero. "
+        "Esses KPIs sao economicos e nao equivalem automaticamente aos indicadores observados no IME."
     )
 
     chart_left, chart_right = st.columns(2)
     with chart_left:
-        st.markdown("**Evolucao das cotas**")
+        st.markdown("**Saldos economicos das classes**")
         balance_df = frame[["data", "pl_senior", "pl_mezz", "pl_sub_jr_modelo"]].set_index("data")
         st.line_chart(
             balance_df.rename(
-                columns={"pl_senior": "Senior", "pl_mezz": "Mezz", "pl_sub_jr_modelo": "Subordinada"}
+                columns={"pl_senior": "Senior", "pl_mezz": "Mezz", "pl_sub_jr_modelo": "Junior (exibicao workbook)"}
             )
         )
     with chart_right:
-        st.markdown("**Curva e subordinação**")
+        st.markdown("**Curva Pre DI e subordinacao economica**")
         curve_df = frame[["data", "pre_di", "taxa_senior", "subordinacao_pct_modelo"]].set_index("data")
         st.line_chart(
             curve_df.rename(
                 columns={
                     "pre_di": "Pre DI",
                     "taxa_senior": "Taxa Senior",
-                    "subordinacao_pct_modelo": "Subordinacao",
+                    "subordinacao_pct_modelo": "Subordinacao economica",
                 }
             )
         )
@@ -249,19 +256,19 @@ def render_tab_modelo_fidc() -> None:
     memory_df = pd.DataFrame(
         [
             {
-                "Indicador": "Fluxo da carteira",
+                "Indicador": "Fluxo economico da carteira",
                 "Formula": "carteira * ((1 + tx_cessao_am) ^ (delta_du / 21) - 1)",
-                "Observacao": "Replica Qx no Fluxo Base.",
+                "Observacao": "Replica Qx no Fluxo Base. A taxa de cessao mensal e o driver efetivo da remuneracao da carteira.",
             },
             {
                 "Indicador": "Custo adm/gestao",
                 "Formula": "max(carteira * custo_adm_aa / 12, custo_min)",
-                "Observacao": "Replica Tx adm mínima da planilha.",
+                "Observacao": "Maior entre percentual anualizado sobre o saldo e o piso mensal.",
             },
             {
-                "Indicador": "Inadimplencia",
+                "Indicador": "Perda economica por inadimplencia",
                 "Formula": "carteira * (inadimplencia * delta_dc / 100)",
-                "Observacao": "Despesa simplificada; nao e motor de perda esperada.",
+                "Observacao": "Despesa deterministica por passagem do tempo; nao equivale ao aging regulatorio do IME.",
             },
             {
                 "Indicador": "Juros Senior/Mezz",
@@ -269,13 +276,26 @@ def render_tab_modelo_fidc() -> None:
                 "Observacao": "FRA derivado da curva Pre DI interpolada.",
             },
             {
-                "Indicador": "Subordinada",
-                "Formula": "Residual economico = PL FIDC - PL Senior - PL Mezz; serie exibida replica o deslocamento da planilha",
-                "Observacao": "O grafico usa a serie exibida do workbook; a tabela exporta as duas visoes.",
+                "Indicador": "Junior residual / subordinacao economica",
+                "Formula": "Residual economico = PL economico do veiculo - PL Senior - PL Mezz; serie exibida replica o deslocamento da planilha",
+                "Observacao": "O grafico usa a serie exibida do workbook; a tabela exporta a visao economica e a visao exibida.",
             },
         ]
     )
     st.dataframe(memory_df, width="stretch", hide_index=True)
+
+    with st.expander("O que este modelo e o que ele nao e", expanded=False):
+        st.markdown(
+            "\n".join(
+                [
+                    "- Esta aba e uma **simulacao economica** de estrutura, waterfall e curva; nao e leitura contabil/regulatoria do IME.",
+                    "- `PL economico do veiculo` nao equivale automaticamente ao PL contabil reportado no Informe Mensal da CVM.",
+                    "- `Inadimplencia` aqui e perda economica premissada; nao e `aging`, `over 30` ou saldo vencido observado do IME.",
+                    "- `Subordinacao economica` aqui e residual da junior sobre o PL economico; nao substitui a subordinação reportada no IME nem covenants contratuais.",
+                    "- `Duration economica da senior` aqui e cash flow duration por VP em DU/252; nao e o prazo medio proxy da carteira usado no painel IME.",
+                ]
+            )
+        )
 
     st.markdown("**Timeline detalhada**")
     st.dataframe(export_frame, width="stretch")

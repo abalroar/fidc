@@ -107,8 +107,8 @@ def _build_story(
         _section("Radar de Risco", styles),
         _metric_table(
             [
-                ("Subordinação", _format_percent(summary.get("subordinacao_pct")), "PL subordinado / PL total"),
-                ("Inadimplência", _format_percent(summary.get("inadimplencia_pct")), "Inadimplência / direitos"),
+                ("Subordinação reportada", _format_percent(summary.get("subordinacao_pct")), "PL subordinado reportado / PL total reportado"),
+                ("Inadimplência observada", _format_percent(summary.get("inadimplencia_pct")), "Inadimplência observada (IME) / DCs"),
                 ("Alocação", _format_percent(summary.get("alocacao_pct")), "Direitos creditórios / carteira"),
                 ("Liquidez até 30 dias", _format_percent(_safe_pct(summary.get("liquidez_30"), summary.get("pl_total"))), "Liquidez até 30d / PL"),
                 ("Liquidez imediata", _format_percent(_safe_pct(summary.get("liquidez_imediata"), summary.get("pl_total"))), "Liquidez imediata / PL"),

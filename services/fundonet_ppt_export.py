@@ -640,19 +640,19 @@ def build_dashboard_pptx_bytes(
     cards = [
         ("PL total", _format_brl_compact(dashboard.summary.get("pl_total")), ""),
         ("Direitos creditórios", _format_brl_compact(dashboard.summary.get("inadimplencia_denominador") or dashboard.summary.get("direitos_creditorios")), ""),
-        ("Inadimplência", _format_percent(dashboard.summary.get("inadimplencia_pct")), "vencidos / DC total"),
+        ("Inadimplência observada", _format_percent(dashboard.summary.get("inadimplencia_pct")), "vencidos / DC total"),
         ("Cobertura de provisão", _format_percent(dashboard.summary.get("cobertura_pct")), "provisão / inadimplência"),
-        ("Subordinação", _format_percent(dashboard.summary.get("subordinacao_pct")), ""),
+        ("Subordinação reportada", _format_percent(dashboard.summary.get("subordinacao_pct")), ""),
         ("Créditos vencidos", _format_brl_compact(dashboard.summary.get("direitos_creditorios_vencidos")), ""),
     ]
     for idx, (label, value, note) in enumerate(cards):
         add_card(slide, 0.45 + idx * 2.08, 1.02, 2.0, 0.95, label, value, note)
     sub_df = dashboard.subordination_history_df.sort_values("competencia_dt").copy()
     if not sub_df.empty:
-        sub_series = [("Subordinação", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
+        sub_series = [("Subordinação reportada", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
         sub_chart = add_chart(
             slide,
-            title="Índice de subordinação",
+            title="Subordinação reportada (IME)",
             chart_type=XL_CHART_TYPE.LINE_MARKERS,
             categories=_competencia_labels(sub_df["competencia"].tolist()),
             series_map=sub_series,
@@ -774,7 +774,7 @@ def build_dashboard_pptx_bytes(
 
     # Slide 4 — cumulative over curves
     slide = prs.slides.add_slide(blank)
-    add_textbox(slide, 0.45, 0.18, 10.5, 0.28, "Inadimplência Over (somatório do aging)", size=TITLE_SIZE, bold=True, color=BLACK)
+    add_textbox(slide, 0.45, 0.18, 10.5, 0.28, "Over regulatório da inadimplência", size=TITLE_SIZE, bold=True, color=BLACK)
     add_textbox(
         slide,
         0.45,
@@ -842,7 +842,7 @@ def build_dashboard_pptx_bytes(
 
     # Slide 5 — default aging
     slide = prs.slides.add_slide(blank)
-    add_textbox(slide, 0.45, 0.18, 10.0, 0.28, "Aging da inadimplência (% dos direitos creditórios totais)", size=TITLE_SIZE, bold=True, color=BLACK)
+    add_textbox(slide, 0.45, 0.18, 10.0, 0.28, "Aging regulatório da inadimplência (% dos direitos creditórios totais)", size=TITLE_SIZE, bold=True, color=BLACK)
     add_textbox(
         slide,
         0.45,
@@ -893,7 +893,7 @@ def build_dashboard_pptx_bytes(
 
     # Slide 6 — maturity and duration
     slide = prs.slides.add_slide(blank)
-    add_textbox(slide, 0.45, 0.18, 9.5, 0.28, "Vencimento e duration estimada dos recebíveis", size=TITLE_SIZE, bold=True, color=BLACK)
+    add_textbox(slide, 0.45, 0.18, 9.8, 0.28, "Vencimento e prazo médio proxy dos recebíveis", size=TITLE_SIZE, bold=True, color=BLACK)
     add_textbox(
         slide,
         0.45,
@@ -924,10 +924,10 @@ def build_dashboard_pptx_bytes(
         )
     duration_df = dashboard.duration_history_df.sort_values("competencia_dt").copy()
     if not duration_df.empty:
-        duration_series = [("Duration", _series_numeric(duration_df, "duration_days").fillna(0.0).tolist())]
+        duration_series = [("Prazo médio proxy", _series_numeric(duration_df, "duration_days").fillna(0.0).tolist())]
         duration_chart = add_chart(
             slide,
-            title="Duration estimada dos recebíveis",
+            title="Prazo médio proxy dos recebíveis (IME)",
             chart_type=XL_CHART_TYPE.LINE_MARKERS,
             categories=_competencia_labels(duration_df["competencia"].tolist()),
             series_map=duration_series,

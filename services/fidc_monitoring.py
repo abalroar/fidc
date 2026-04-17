@@ -111,7 +111,7 @@ def build_risk_metrics_df(
             risk_block="Risco de crédito",
             risk_block_order=1,
             metric_id="inadimplencia_pct",
-            label="Inadimplência / direitos creditórios",
+            label="Inadimplência observada (IME) / DCs",
             value=summary.get("inadimplencia_pct"),
             unit="%",
             criticality="critico",
@@ -183,7 +183,7 @@ def build_risk_metrics_df(
             risk_block="Risco estrutural",
             risk_block_order=2,
             metric_id="subordinacao_pct",
-            label="Índice de subordinação",
+            label="Subordinação reportada (IME)",
             value=summary.get("subordinacao_pct"),
             unit="%",
             criticality="critico",
@@ -200,7 +200,7 @@ def build_risk_metrics_df(
             risk_block="Risco estrutural",
             risk_block_order=2,
             metric_id="pl_subordinada",
-            label="PL subordinado",
+            label="PL subordinado reportado",
             value=summary.get("pl_subordinada"),
             unit="R$",
             criticality="monitorar",
@@ -268,7 +268,7 @@ def build_coverage_gap_df() -> pd.DataFrame:
 def build_mini_glossary_df() -> pd.DataFrame:
     rows = [
         {
-            "termo": "Subordinação",
+            "termo": "Subordinação reportada (IME)",
             "definicao": (
                 "Percentual do PL alocado em cotas subordinadas. "
                 "Essas cotas absorvem perdas de crédito antes da classe sênior, funcionando como colchão. "
@@ -293,7 +293,7 @@ def build_mini_glossary_df() -> pd.DataFrame:
             ),
         },
         {
-            "termo": "Aging da inadimplência",
+            "termo": "Aging regulatório da inadimplência",
             "definicao": (
                 "Distribuição não cumulativa do saldo vencido por faixa de prazo "
                 "(até 30, 31–60, 61–90, 91–120, 121–150, 151–180, 181–360, 361–720, 721–1080 e acima de 1080 dias). "
@@ -376,7 +376,7 @@ def build_current_dashboard_inventory_df() -> pd.DataFrame:
         },
         {
             "nome_variavel": "summary.subordinacao_pct",
-            "nome_exibido": "Índice de subordinação",
+            "nome_exibido": "Subordinação reportada (IME)",
             "aba_origem": "Visão executiva",
             "bloco_ui_atual": "Radar de risco / Estrutura",
             "fonte_dado": "DESC_SERIE_CLASSE",
@@ -387,7 +387,7 @@ def build_current_dashboard_inventory_df() -> pd.DataFrame:
         },
         {
             "nome_variavel": "summary.inadimplencia_pct",
-            "nome_exibido": "Inadimplência / direitos creditórios",
+            "nome_exibido": "Inadimplência observada (IME) / DCs",
             "aba_origem": "Visão executiva",
             "bloco_ui_atual": "Radar de risco / Crédito",
             "fonte_dado": "Vencidos canônicos + base canônica de direitos creditórios",
@@ -420,7 +420,7 @@ def build_current_dashboard_inventory_df() -> pd.DataFrame:
         },
         {
             "nome_variavel": "default_over_history_df.percentual",
-            "nome_exibido": "Inadimplência Over",
+            "nome_exibido": "Over regulatório da inadimplência",
             "aba_origem": "Visão executiva",
             "bloco_ui_atual": "Crédito",
             "fonte_dado": "Buckets VL_INAD_VENC_* + base canônica de direitos creditórios",
@@ -431,7 +431,7 @@ def build_current_dashboard_inventory_df() -> pd.DataFrame:
         },
         {
             "nome_variavel": "default_aging_history_df.percentual_direitos_creditorios",
-            "nome_exibido": "Aging da inadimplência",
+            "nome_exibido": "Aging regulatório da inadimplência",
             "aba_origem": "Visão executiva",
             "bloco_ui_atual": "Crédito",
             "fonte_dado": "COMPMT_DICRED_AQUIS + COMPMT_DICRED_SEM_AQUIS + base canônica de direitos creditórios",
@@ -475,9 +475,9 @@ def build_current_dashboard_inventory_df() -> pd.DataFrame:
         },
         {
             "nome_variavel": "duration_history_df.duration_days",
-            "nome_exibido": "Duration estimada",
+            "nome_exibido": "Prazo médio proxy dos recebíveis (IME)",
             "aba_origem": "Visão executiva",
-            "bloco_ui_atual": "Duration estimada dos recebíveis",
+            "bloco_ui_atual": "Prazo médio proxy dos recebíveis (IME)",
             "fonte_dado": "maturity_history_df",
             "formula": "_build_duration_history_df",
             "arquivo_py": "services/fundonet_dashboard.py:_build_duration_history_df; tabs/tab_fidc_ime.py:_render_duration_section",

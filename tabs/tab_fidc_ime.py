@@ -1015,7 +1015,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     _render_chart_heading(
         st,
         "Inadimplência, provisão e cobertura",
-        "Barras no eixo esquerdo: inadimplência e provisão como % dos DCs. Linha grossa no eixo direito: cobertura de provisão sobre vencidos, com referência de 100%.",
+        "Barras no eixo esquerdo: inadimplência observada e provisão como % dos DCs. Linha grossa no eixo direito: cobertura de provisão sobre vencidos, com referência de 100%.",
     )
     _credit_chart_all_zero = (
         default_pct_chart_df.empty
@@ -1061,7 +1061,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco de crédito"),
     )
     over_history_df = dashboard.default_over_history_df.copy()
-    _render_chart_heading(st, "Inadimplência Over (somatório do aging)", "Parcelas vencidas acumuladas por threshold de atraso, como % dos direitos creditórios observáveis.")
+    _render_chart_heading(st, "Over regulatório da inadimplência", "Parcelas vencidas acumuladas por threshold de atraso, como % dos direitos creditórios observáveis.")
     if over_history_df.empty:
         st.info("Dados de inadimplência Over não disponíveis nos informes selecionados.")
     else:
@@ -1113,7 +1113,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             "- **Leitura prática:** valores maiores indicam maior fração do estoque total em atraso e/ou pendência."
         )
     aging_history_df = dashboard.default_aging_history_df.copy()
-    _render_chart_heading(st, "Aging da inadimplência", "Composição da inadimplência (100% do saldo vencido) por faixa de atraso.")
+    _render_chart_heading(st, "Aging regulatório da inadimplência", "Composição da inadimplência observada (100% do saldo vencido) por faixa de atraso.")
     if aging_history_df.empty:
         st.info("Dados de aging não disponíveis nos informes selecionados.")
     else:
@@ -1137,7 +1137,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         )
         st.caption(
             "Fonte: Informe Mensal - CVM. Cada barra soma 100% da inadimplência reportada no mês e mostra a participação de cada faixa no total vencido. "
-            "Os data labels intermediários ficam ativos para leitura direta da composição."
+            "Este gráfico é regulatório e não equivale à perda econômica premissada do modelo de estruturação."
         )
         _render_dataframe_expander(
             "Detalhe numérico do aging",
@@ -1155,13 +1155,13 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
         ime_scope="O Informe Mensal cobre subordinação, PL por classe e parte da remuneração das cotas.",
         caution="Subordinação reportada não substitui cobertura, reservas, excesso de spread, waterfall contratual nem gatilhos estruturais.",
     )
-    _render_chart_heading(st, "Índice de subordinação", "Evolução mensal do colchão subordinado reportado.")
+    _render_chart_heading(st, "Subordinação reportada (IME)", "Evolução mensal do colchão subordinado reportado.")
     st.altair_chart(
         _line_history_chart(
             _melt_metrics(
                 dashboard.subordination_history_df,
                 ["subordinacao_pct"],
-                {"subordinacao_pct": "Subordinação"},
+                {"subordinacao_pct": "Subordinação reportada"},
             ),
             title=None,
             y_title="%",
@@ -1179,7 +1179,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
     )
 
     # PL por tipo de cota — single chart with stable-key radio selector
-    _render_chart_heading(st, "PL por tipo de cota", "Selecione a visão desejada.")
+    _render_chart_heading(st, "PL por tipo de cota", "PL reportado das classes/séries do IME. Selecione a visão desejada.")
     pl_view = st.radio(
         "Visão do PL",
         options=["Valores absolutos (R$)", "% do total por competência"],
@@ -1665,8 +1665,8 @@ def _render_duration_section(dashboard: FundonetDashboardData) -> None:
         return
 
     _render_fidc_section(
-        "Duration estimada dos recebíveis",
-        "Prazo médio ponderado da carteira por bucket de vencimento. Calculado mês a mês com base no Informe Mensal.",
+        "Prazo médio proxy dos recebíveis (IME)",
+        "Prazo médio ponderado proxy da carteira por bucket de vencimento. Calculado mês a mês com base no Informe Mensal.",
     )
 
     # --- KPI destaque: valor mais recente ---
@@ -1687,7 +1687,7 @@ def _render_duration_section(dashboard: FundonetDashboardData) -> None:
     )
     kpi_html = (
         f'<div class="fidc-snapshot-card" style="max-width:280px">'
-        f'<div class="fidc-snapshot-card__label">Duration estimada — {_format_competencia_label(str(latest_duration.get("competencia", "")))}</div>'
+        f'<div class="fidc-snapshot-card__label">Prazo médio proxy — {_format_competencia_label(str(latest_duration.get("competencia", "")))}</div>'
         f'<div class="fidc-snapshot-card__value">{escape(duration_display)}</div>'
         f'<div class="fidc-snapshot-card__unit">Base: {escape(saldo_display)} em recebíveis</div>'
         f'</div>'
@@ -1701,17 +1701,17 @@ def _render_duration_section(dashboard: FundonetDashboardData) -> None:
 
     _render_chart_heading(
         st,
-        "Evolução mensal da duration estimada",
-        "Dias — prazo médio ponderado da carteira de recebíveis por competência.",
+        "Evolução mensal do prazo médio proxy",
+        "Dias — prazo médio ponderado proxy da carteira de recebíveis por competência.",
     )
     st.altair_chart(
         _duration_line_chart(duration_df),
         width="stretch",
     )
     st.caption(
-        "Duration = Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket). "
+        "Prazo médio proxy = Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket). "
         "Proxies: Vencidos=0 d; ≤30 d=30 d; intervalos=ponto médio; >1080 d=1440 d (assumido). "
-        "Fonte: COMPMT_DICRED_AQUIS e COMPMT_DICRED_SEM_AQUIS (CVM IME)."
+        "Fonte: COMPMT_DICRED_AQUIS e COMPMT_DICRED_SEM_AQUIS (CVM IME). Não equivale à cash flow duration da aba de simulação econômica."
     )
 
 
@@ -1771,11 +1771,11 @@ def _render_overview_metrics(dashboard: FundonetDashboardData) -> None:
     hero_cards = [
         _render_fidc_card("Direitos creditórios", _format_brl_compact(summary.get("direitos_creditorios")), "DICRED/VL_DICRED"),
         _render_fidc_card("PL total", _format_brl_compact(summary.get("pl_total")), "Cotas sênior + subordinadas"),
-        _render_fidc_card("Subordinação", _format_percent(summary.get("subordinacao_pct")), "PL subordinado / PL total"),
+        _render_fidc_card("Subordinação reportada", _format_percent(summary.get("subordinacao_pct")), "PL subordinado reportado / PL total reportado"),
         _render_fidc_card(
-            "Inadimplência",
+            "Inadimplência observada",
             _format_percent(summary.get("inadimplencia_pct")),
-            "Inadimplência / direitos creditórios",
+            "Inadimplência observada (IME) / DCs",
             variant="risk",
             tooltip="Refere-se a parcelas vencidas dos direitos creditórios reportadas no informe mensal.",
         ),
@@ -2171,9 +2171,9 @@ def _render_quota_section(dashboard: FundonetDashboardData) -> None:
             _melt_metrics(
                 dashboard.subordination_history_df,
                 ["subordinacao_pct"],
-                {"subordinacao_pct": "Subordinação"},
+                {"subordinacao_pct": "Subordinação reportada"},
             ),
-            title="Índice de Subordinação",
+            title="Subordinação reportada (IME)",
             y_title="%",
         ),
         width="stretch",

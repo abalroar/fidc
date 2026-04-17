@@ -180,7 +180,7 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(100.0, risk_lookup.loc["concentracao_segmento_proxy", "value"])
         self.assertEqual("critico", risk_lookup.loc["subordinacao_pct", "criticality"])
         self.assertIn("Índice de cobertura", dashboard.coverage_gap_df["tema"].tolist())
-        self.assertIn("Subordinação", dashboard.mini_glossary_df["termo"].tolist())
+        self.assertIn("Subordinação reportada (IME)", dashboard.mini_glossary_df["termo"].tolist())
         self.assertIn(
             "summary.inadimplencia_pct",
             dashboard.current_dashboard_inventory_df["nome_variavel"].tolist(),
@@ -190,7 +190,7 @@ class FundonetDashboardTests(unittest.TestCase):
             dashboard.dc_canonical_history_df.iloc[0]["dc_total_fonte_efetiva"],
         )
         self.assertIn(
-            "Inadimplência Over",
+            "Over regulatório da inadimplência",
             dashboard.executive_memory_df["componente"].tolist(),
         )
         self.assertAlmostEqual(2000.0, dashboard.liquidity_history_df.iloc[0]["liquidez_imediata"])
