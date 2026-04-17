@@ -457,21 +457,21 @@ html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, tex
 
 .fidc-period-bar {
     display: flex;
-    gap: 16px;
+    gap: 8px;
     flex-wrap: wrap;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     color: #5a5a5a;
-    margin: -0.2rem 0 0.85rem 0;
-    padding: 8px 12px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border-left: 3px solid #ff5a00;
+    margin: -0.05rem 0 0.75rem 0;
 }
 
 .fidc-period-bar span {
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    padding: 4px 9px;
+    background: #f8f9fa;
+    border: 1px solid #eceff3;
+    border-radius: 999px;
 }
 
 .fidc-period-bar strong {
@@ -1033,19 +1033,6 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             ),
             width="stretch",
         )
-        latest_default_row = dashboard.default_history_df.sort_values("competencia_dt").iloc[-1] if not dashboard.default_history_df.empty else None
-        latest_cobertura_row = cobertura_df.sort_values("competencia_dt").iloc[-1] if not cobertura_df.empty else None
-        if latest_default_row is not None:
-            st.caption(
-                "Última competência: "
-                f"Inadimplência {_format_brl_compact(latest_default_row.get('inadimplencia_total'))} · "
-                f"Provisão {_format_brl_compact(latest_default_row.get('provisao_total'))}"
-                + (
-                    f" · Cobertura {_format_percent(latest_cobertura_row.get('valor'))}"
-                    if latest_cobertura_row is not None
-                    else ""
-                )
-            )
     _render_dataframe_expander(
         "Métricas exibidas no bloco de crédito",
         _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco de crédito"),
@@ -1070,9 +1057,6 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             ),
             width="stretch",
         )
-        over_incomplete = over_history_df[over_history_df["calculo_status"] != "calculado"].copy()
-        if not over_incomplete.empty:
-            st.caption("Competências com buckets incompletos não entram nas curvas Over para evitar subcontagem silenciosa.")
     aux_sum_chart_df = _default_inadimplentes_aux_sum_chart_frame(dashboard.default_history_df)
     _render_chart_heading(
         st,
@@ -1220,7 +1204,6 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
             width="stretch",
             hide_index=True,
         )
-    st.caption("Sinal econômico positivo indica entrada de caixa; negativo indica saída de caixa para cotistas.")
 
     _render_fidc_section(
         "Vencimento dos direitos creditórios",
@@ -1234,9 +1217,6 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
         _maturity_waterfall_chart(dashboard.maturity_latest_df, title=None),
         width="stretch",
     )
-    vencidos_caption = _maturity_vencidos_caption(dashboard.maturity_latest_df)
-    if vencidos_caption:
-        st.caption(vencidos_caption)
 
     _render_duration_section(dashboard)
 
@@ -1307,24 +1287,16 @@ def _render_calculation_memory_section(dashboard: FundonetDashboardData, *, slot
     )
     if not selected_types:
         return
-    if len(selected_types) == 1:
-        subset = memory_df[memory_df["tipo_variavel"] == selected_types[0]].copy()
-        st.dataframe(
-            _format_executive_memory_table(subset),
-            width="stretch",
-            hide_index=True,
-        )
-    else:
-        for tipo in selected_types:
-            subset = memory_df[memory_df["tipo_variavel"] == tipo].copy()
-            if subset.empty:
-                continue
-            with st.expander(tipo, expanded=True):
-                st.dataframe(
-                    _format_executive_memory_table(subset),
-                    width="stretch",
-                    hide_index=True,
-                )
+    subset = memory_df[memory_df["tipo_variavel"].isin(selected_types)].copy()
+    subset = subset.sort_values(["tipo_variavel", "bloco", "nome_variavel"], na_position="last")
+    formatted = _format_executive_memory_table(subset)
+    if "Tipo de variável" not in formatted.columns:
+        formatted.insert(0, "Tipo de variável", subset["tipo_variavel"].tolist())
+    st.dataframe(
+        formatted,
+        width="stretch",
+        hide_index=True,
+    )
 
 
 def _render_audit_section(dashboard: FundonetDashboardData) -> None:
@@ -1444,23 +1416,27 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
 
 def _render_dashboard_context_bar(dashboard: FundonetDashboardData) -> None:
     info = dashboard.fund_info
+    context_items = [
+        ("Últ. competência", _format_competencia_label(info.get("ultima_competencia") or "N/D")),
+        ("Janela", _format_competencia_period(info.get("periodo_analisado") or "N/D")),
+        ("IMEs", str(len(dashboard.competencias))),
+    ]
+    latest_delivery = str(info.get("ultima_entrega") or "").strip()
+    if latest_delivery and latest_delivery != "N/D":
+        context_items.append(("Entrega", latest_delivery))
+    context_html = "".join(
+        f"<span><strong>{escape(label)}:</strong> {escape(value)}</span>"
+        for label, value in context_items
+    )
     st.markdown(
-        f"""
-<div class="fidc-period-bar">
-  <span><strong>Última competência:</strong> {escape(_format_competencia_label(info.get("ultima_competencia") or "N/D"))}</span>
-  <span><strong>Janela:</strong> {escape(_format_competencia_period(info.get("periodo_analisado") or "N/D"))}</span>
-  <span><strong>Informes carregados:</strong> {escape(str(len(dashboard.competencias)))}</span>
-  <span><strong>Última entrega:</strong> {escape(str(info.get("ultima_entrega") or "N/D"))}</span>
-</div>
-""",
+        f'<div class="fidc-period-bar">{context_html}</div>',
         unsafe_allow_html=True,
     )
 
 
 def _render_chart_heading(container, title: str, caption: str | None = None) -> None:
     container.markdown(f'<div class="fidc-chart-title">{escape(title)}</div>', unsafe_allow_html=True)
-    if caption:
-        container.markdown(f'<div class="fidc-chart-caption">{escape(caption)}</div>', unsafe_allow_html=True)
+    del caption
 
 
 def _format_competencia_label(value: object) -> str:
@@ -1686,11 +1662,6 @@ def _render_duration_section(dashboard: FundonetDashboardData) -> None:
         _duration_line_chart(duration_df),
         width="stretch",
     )
-    st.caption(
-        "Prazo médio proxy = Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket). "
-        "Proxies: Vencidos=0 d; ≤30 d=30 d; intervalos=ponto médio; >1080 d=1440 d (assumido). "
-        "Fonte: COMPMT_DICRED_AQUIS e COMPMT_DICRED_SEM_AQUIS (CVM IME). Não equivale à cash flow duration da aba de simulação econômica."
-    )
 
 
 def _render_pdf_export_button(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
@@ -1795,8 +1766,7 @@ def _render_monitoring_section(dashboard: FundonetDashboardData) -> None:
 
 def _render_fidc_section(title: str, caption: str | None = None) -> None:
     st.markdown(f'<div class="fidc-section">{escape(title)}</div>', unsafe_allow_html=True)
-    if caption:
-        st.markdown(f'<div class="fidc-section-caption">{escape(caption)}</div>', unsafe_allow_html=True)
+    del caption
 
 
 def _render_section_callout(*, question: str, ime_scope: str, caution: str) -> None:
@@ -1871,7 +1841,6 @@ def _render_risk_card(dashboard: FundonetDashboardData, row: pd.Series) -> str:
         _format_metric_value(row.get("value"), str(row.get("unit") or "")),
         str(row.get("source_data") or ""),
         variant=variant_map.get(criticality, "neutral"),
-        note=str(row.get("interpretation") or ""),
         badges=badges,
         sparkline_svg=_sparkline_svg(_metric_history_values(dashboard, str(row.get("metric_id") or ""))),
         tooltip="\n".join(tooltip_lines),
@@ -1920,7 +1889,7 @@ def _render_inadimplencia_overview_card(dashboard: FundonetDashboardData) -> str
     # Memória de cálculo sempre presente (mesmo quando não há vencidos)
     vencidos_fmt = _format_brl_compact(inadimplencia_total) if not _is_missing_value(inadimplencia_total) else "R$ 0,00"
     total_fmt = _format_brl_compact(direitos_creditorios) if not _is_missing_value(direitos_creditorios) else "N/D"
-    note_parts = [f"{vencidos_fmt} / total de recebíveis {total_fmt}"]
+    note_parts = [f"{vencidos_fmt} / {total_fmt}"]
     # Contexto adicional só é relevante quando existe inadimplência — caso contrário
     # evita-se repetir "0,00%" desnecessariamente na UI.
     if not is_zero_vencidos:

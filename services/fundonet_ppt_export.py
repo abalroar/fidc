@@ -167,7 +167,13 @@ def build_dashboard_pptx_bytes(
             color=MID_GRAY,
         )
 
-    def set_table_style(table, *, header_fill: str = BLACK) -> None:  # noqa: ANN001
+    def set_table_style(
+        table,
+        *,
+        header_fill: str = BLACK,
+        header_font_size: int = LABEL_SIZE,
+        body_font_size: int = BODY_SIZE,
+    ) -> None:  # noqa: ANN001
         for row_idx in range(len(table.rows)):
             for col_idx in range(len(table.columns)):
                 cell = table.cell(row_idx, col_idx)
@@ -178,7 +184,7 @@ def build_dashboard_pptx_bytes(
                     paragraph.alignment = PP_ALIGN.LEFT
                     for run in paragraph.runs:
                         run.font.name = "IBM Plex Sans"
-                        run.font.size = Pt(LABEL_SIZE if row_idx == 0 else BODY_SIZE)
+                        run.font.size = Pt(header_font_size if row_idx == 0 else body_font_size)
                         run.font.bold = row_idx == 0
                         run.font.color.rgb = rgb(WHITE if row_idx == 0 else BLACK)
                 cell.margin_left = Inches(0.05)
@@ -201,11 +207,26 @@ def build_dashboard_pptx_bytes(
         if title:
             add_textbox(slide, left, top - 0.22, width, 0.18, title, size=SECTION_SIZE, bold=True, color=BLACK)
         frame = df.copy()
-        if max_rows and len(frame) > max_rows:
-            frame = frame.iloc[:max_rows]
+        row_height_floor = 0.24
+        max_rows_fit = max(1, int(max((height - 0.30), row_height_floor) / row_height_floor) - 1)
+        effective_max_rows = min(max_rows, max_rows_fit) if max_rows else max_rows_fit
+        if effective_max_rows and len(frame) > effective_max_rows:
+            frame = frame.iloc[:effective_max_rows]
         rows = max(len(frame.index), 1)
         cols = max(len(frame.columns), 1)
         table = slide.shapes.add_table(rows + 1, cols, Inches(left), Inches(top), Inches(width), Inches(height)).table
+        total_rows = rows + 1
+        row_height = height / total_rows if total_rows > 0 else height
+        for row in table.rows:
+            row.height = Inches(row_height)
+        body_font_size = BODY_SIZE
+        header_font_size = LABEL_SIZE
+        if rows >= 8:
+            body_font_size = 8
+            header_font_size = 8
+        if rows >= 12:
+            body_font_size = 7
+            header_font_size = 7
         # Always scale col_widths so they sum exactly to `width`, preventing horizontal overflow
         if col_widths and len(col_widths) == cols:
             total_cw = sum(col_widths)
@@ -220,7 +241,7 @@ def build_dashboard_pptx_bytes(
         if frame.empty:
             table.cell(0, 0).text = "Sem dados"
             table.cell(1, 0).text = "-"
-            set_table_style(table)
+            set_table_style(table, header_font_size=header_font_size, body_font_size=body_font_size)
             return table
         for col_idx, column in enumerate(frame.columns):
             table.cell(0, col_idx).text = str(column)
@@ -230,7 +251,7 @@ def build_dashboard_pptx_bytes(
                 if len(cell_text) > _MAX_CELL:
                     cell_text = cell_text[:_MAX_CELL] + "…"
                 table.cell(row_idx, col_idx).text = cell_text
-        set_table_style(table)
+        set_table_style(table, header_font_size=header_font_size, body_font_size=body_font_size)
         return table
 
     def add_manual_legend(
@@ -524,7 +545,7 @@ def build_dashboard_pptx_bytes(
             gap_width=42,
             label_position="outside_end",
             label_font_size=10,
-            show_legend=False,
+            show_legend=True,
             value_max=bar_axis_max,
         )
         line_chart = add_chart(
@@ -568,16 +589,25 @@ def build_dashboard_pptx_bytes(
                 dashed=True,
                 hide_marker=True,
             )
-        # Unified legend below chart: bar series (solid squares) + line series (line indicators)
-        _bar_colors = list(SERIES_COLORS)
-        legend_items: list[tuple[str, str]] = []
-        for idx, (name, _) in enumerate(bar_series_map):
-            legend_items.append((name, _bar_colors[idx % len(_bar_colors)]))
-        _line_colors_list = [COVERAGE_LINE_COLOR, MID_GRAY]
-        for idx, (name, _) in enumerate(line_series_map):
-            legend_items.append((name, _line_colors_list[idx % len(_line_colors_list)]))
-        if legend_items:
-            add_manual_legend(slide, legend_items, left=left, top=top + height + 0.04, max_width=width)
+        if line_series_map:
+            latest_line_values = [float(values[-1]) if values else 0.0 for _, values in line_series_map]
+            latest_line_labels = [
+                f"{name} {_format_percent(value)}" if idx == 0 else str(name).replace(" (paridade)", "")
+                for idx, ((name, _), value) in enumerate(zip(line_series_map, latest_line_values))
+            ]
+            add_line_end_labels(
+                slide,
+                labels=latest_line_labels,
+                values=latest_line_values,
+                colors=[COVERAGE_LINE_COLOR, MID_GRAY],
+                fill_colors=[BLACK, None],
+                text_colors=[WHITE, MID_GRAY],
+                left=left,
+                top=top,
+                width=width,
+                height=height,
+                axis_max=line_axis_max,
+            )
 
     def add_compounding_waterfall_chart(
         slide,
@@ -656,10 +686,11 @@ def build_dashboard_pptx_bytes(
         else ""
     )
     subtitle = (
-        f"Última competência: {_format_competencia(dashboard.latest_competencia)}"
-        f"  |  Janela carregada: {dashboard.fund_info.get('periodo_analisado', 'N/D')}"
+        f"{_format_competencia(dashboard.latest_competencia)}"
+        f"  ·  {dashboard.fund_info.get('periodo_analisado', 'N/D')}"
+        f"  ·  {len(dashboard.competencias)} IMEs"
         f"{requested_period_text}"
-        f"  |  Cotistas: {dashboard.fund_info.get('total_cotistas') or 'N/D'}"
+        f"  ·  {dashboard.fund_info.get('total_cotistas') or 'N/D'} cotistas"
     )
     add_textbox(slide, 0.45, 0.72, 10.8, 0.18, subtitle, size=SUBTITLE_SIZE, color=MID_GRAY)
     cards = [
@@ -709,7 +740,6 @@ def build_dashboard_pptx_bytes(
     # Slide 2 — PL por classe
     slide = prs.slides.add_slide(blank)
     add_textbox(slide, 0.45, 0.18, 8.5, 0.28, "PL por tipo de cota", size=TITLE_SIZE, bold=True, color=BLACK)
-    add_textbox(slide, 0.45, 0.46, 10.6, 0.20, "Valores absolutos (R$) por competência. Detalhe por classe na tabela abaixo.", size=SUBTITLE_SIZE, color=MID_GRAY)
     quota_values = _quota_pl_value_pivot(dashboard.quota_pl_history_df)
     if not quota_values.empty:
         quota_scale = _money_scale(quota_values.drop(columns=["competencia"]).stack())
@@ -725,9 +755,9 @@ def build_dashboard_pptx_bytes(
             categories=_competencia_labels(quota_values["competencia"].tolist()),
             series_map=quota_series,
             left=MARGIN_LEFT_IN,
-            top=0.82,
+            top=0.72,
             width=CONTENT_WIDTH_IN,
-            height=4.20,
+            height=4.35,
             number_format=_money_label_number_format(quota_scale),
             money_axis=True,
             gap_width=48,
@@ -744,11 +774,11 @@ def build_dashboard_pptx_bytes(
     add_table(
         slide,
         _latest_quota_table_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia),
-        title=f"Quadro de cotas em {_format_competencia(dashboard.latest_competencia)}",
+        title=f"Cotas em {_format_competencia(dashboard.latest_competencia)}",
         left=MARGIN_LEFT_IN,
-        top=5.38,
+        top=5.22,
         width=CONTENT_WIDTH_IN,
-        height=1.22,
+        height=1.38,
         col_widths=[4.0, 3.4, 5.0],
     )
     add_footer(slide, timestamp_text)
@@ -756,16 +786,6 @@ def build_dashboard_pptx_bytes(
     # Slide 3 — default, provision and coverage
     slide = prs.slides.add_slide(blank)
     add_textbox(slide, 0.45, 0.18, 10.0, 0.28, "Inadimplência, Provisão e Cobertura", size=TITLE_SIZE, bold=True, color=BLACK)
-    add_textbox(
-        slide,
-        0.45,
-        0.46,
-        11.2,
-        0.22,
-        "Barras no eixo esquerdo: % dos DCs. Linha grossa no eixo direito: cobertura = provisão / vencidos totais, com referência em 100%.",
-        size=SUBTITLE_SIZE,
-        color=MID_GRAY,
-    )
     default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
     if not default_df.empty:
         categories = _competencia_labels(default_df["competencia"].tolist())
@@ -781,18 +801,18 @@ def build_dashboard_pptx_bytes(
                 ("100% (paridade)", [100.0] * len(categories)),
             ],
             left=MARGIN_LEFT_IN,
-            top=0.82,
+            top=0.72,
             width=CONTENT_WIDTH_IN,
-            height=4.18,
+            height=4.32,
         )
     add_table(
         slide,
         _risk_metrics_table_frame(dashboard.risk_metrics_df, "Risco de crédito"),
-        title="Métricas exibidas no bloco de crédito",
+        title="Métricas de crédito",
         left=MARGIN_LEFT_IN,
-        top=5.40,
+        top=5.18,
         width=CONTENT_WIDTH_IN,
-        height=1.18,
+        height=1.42,
         col_widths=[3.0, 1.6, 7.3],
     )
     add_footer(slide, timestamp_text)
@@ -800,16 +820,6 @@ def build_dashboard_pptx_bytes(
     # Slide 4 — cumulative over curves
     slide = prs.slides.add_slide(blank)
     add_textbox(slide, 0.45, 0.18, 10.5, 0.28, "Over regulatório da inadimplência", size=TITLE_SIZE, bold=True, color=BLACK)
-    add_textbox(
-        slide,
-        0.45,
-        0.46,
-        11.8,
-        0.20,
-        "Curvas cumulativas de parcelas vencidas por threshold de atraso, como % dos direitos creditórios.",
-        size=SUBTITLE_SIZE,
-        color=MID_GRAY,
-    )
     over_history = _build_over_aging_history_for_ppt(dashboard)
     if not over_history.empty:
         over_columns = [column for column in over_history.columns if column != "competencia"]
@@ -822,9 +832,9 @@ def build_dashboard_pptx_bytes(
             categories=_competencia_labels(over_history["competencia"].tolist()),
             series_map=over_series_map,
             left=MARGIN_LEFT_IN,
-            top=0.84,
+            top=0.72,
             width=11.15,
-            height=5.15,
+            height=5.45,
             number_format='0.0"%"',
             percent_axis=True,
             label_position="above",
@@ -848,36 +858,16 @@ def build_dashboard_pptx_bytes(
             values=[float(latest_row[column]) for column in over_columns],
             colors=[OVER_PPT_COLORS[idx % len(OVER_PPT_COLORS)] for idx in range(len(over_columns))],
             left=MARGIN_LEFT_IN,
-            top=0.84,
+            top=0.72,
             width=11.15,
-            height=5.15,
+            height=5.45,
             axis_max=over_axis_max,
         )
-    add_textbox(
-        slide,
-        0.45,
-        6.20,
-        12.0,
-        0.30,
-        "Definição CVM: o somatório usa parcelas vencidas por faixa de atraso. Não é métrica de arrasto.",
-        size=LABEL_SIZE,
-        color=MID_GRAY,
-    )
     add_footer(slide, timestamp_text)
 
     # Slide 5 — default aging
     slide = prs.slides.add_slide(blank)
     add_textbox(slide, 0.45, 0.18, 10.0, 0.28, "Aging regulatório da inadimplência (% dos direitos creditórios totais)", size=TITLE_SIZE, bold=True, color=BLACK)
-    add_textbox(
-        slide,
-        0.45,
-        0.46,
-        11.8,
-        0.22,
-        "Distribuição não cumulativa por faixa de atraso. Detalhe numérico na tabela abaixo.",
-        size=SUBTITLE_SIZE,
-        color=MID_GRAY,
-    )
     aging_history = _build_aging_history_for_ppt(dashboard)
     if not aging_history.empty:
         aging_columns = [column for column in aging_history.columns if column != "competencia"]
@@ -889,9 +879,9 @@ def build_dashboard_pptx_bytes(
             categories=_competencia_labels(aging_history["competencia"].tolist()),
             series_map=aging_series_map,
             left=MARGIN_LEFT_IN,
-            top=0.82,
+            top=0.72,
             width=CONTENT_WIDTH_IN,
-            height=4.35,
+            height=4.45,
             number_format='0%',
             percent_axis=True,
             gap_width=36,
@@ -907,11 +897,11 @@ def build_dashboard_pptx_bytes(
     add_table(
         slide,
         _latest_aging_table_frame(dashboard.default_buckets_latest_df),
-        title=f"Aging detalhado em {_format_competencia(dashboard.latest_competencia)}",
+        title=f"Aging em {_format_competencia(dashboard.latest_competencia)}",
         left=MARGIN_LEFT_IN,
-        top=5.28,
+        top=5.18,
         width=CONTENT_WIDTH_IN,
-        height=1.18,
+        height=1.32,
         col_widths=[4.2, 3.3, 4.0],
     )
     add_footer(slide, timestamp_text)
@@ -919,16 +909,6 @@ def build_dashboard_pptx_bytes(
     # Slide 6 — maturity and duration
     slide = prs.slides.add_slide(blank)
     add_textbox(slide, 0.45, 0.18, 9.8, 0.28, "Vencimento e prazo médio proxy dos recebíveis", size=TITLE_SIZE, bold=True, color=BLACK)
-    add_textbox(
-        slide,
-        0.45,
-        0.46,
-        11.6,
-        0.20,
-        "O waterfall mostra apenas os direitos creditórios a vencer; os vencidos ficam fora do total do gráfico. A duration usa a malha completa.",
-        size=SUBTITLE_SIZE,
-        color=MID_GRAY,
-    )
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
     if not maturity_df.empty:
         maturity_scale = _money_scale(pd.to_numeric(maturity_df["valor"], errors="coerce"))
@@ -939,9 +919,9 @@ def build_dashboard_pptx_bytes(
             step_values=maturity_values,
             total_value=float(sum(maturity_values)),
             left=MARGIN_LEFT_IN,
-            top=0.86,
+            top=0.72,
             width=CONTENT_WIDTH_IN,
-            height=3.05,
+            height=3.15,
             number_format=_money_number_format(maturity_scale),
             value_max=_money_axis_max(list(maturity_values) + [sum(maturity_values)]),
             title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
@@ -957,9 +937,9 @@ def build_dashboard_pptx_bytes(
             categories=_competencia_labels(duration_df["competencia"].tolist()),
             series_map=duration_series,
             left=MARGIN_LEFT_IN,
-            top=4.35,
+            top=4.22,
             width=CONTENT_WIDTH_IN,
-            height=2.05,
+            height=2.18,
             number_format='0',
             label_position="above",
             label_font_size=12,
