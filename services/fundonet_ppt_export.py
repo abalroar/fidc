@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from io import BytesIO
+import math
 from pathlib import Path
 from typing import Sequence
 from zoneinfo import ZoneInfo
@@ -320,7 +321,7 @@ def build_dashboard_pptx_bytes(
         chart_data = CategoryChartData()
         chart_data.categories = list(categories)
         for series_name, values in series_map:
-            chart_data.add_series(series_name, tuple(values))
+            chart_data.add_series(series_name, _sanitize_chart_series(values))
         chart_shape = slide.shapes.add_chart(chart_type, Inches(left), Inches(top), Inches(width), Inches(height), chart_data)
         chart = chart_shape.chart
         if title:
@@ -1029,13 +1030,19 @@ def _safe_pct(numerator: object, denominator: object) -> float | None:
 def _series_numeric(frame: pd.DataFrame, column: str) -> pd.Series:
     if column not in frame.columns:
         return pd.Series(dtype="float64")
-    return pd.to_numeric(frame[column], errors="coerce")
+    numeric = pd.to_numeric(frame[column], errors="coerce")
+    finite_mask = numeric.map(lambda value: math.isfinite(value) if pd.notna(value) else False)
+    return numeric.where(finite_mask, pd.NA)
 
 
 def _percent_axis_max(series_map: Sequence[tuple[str, Sequence[float]]], *, cap: float = 110.0) -> float:
     values: list[float] = []
     for _, series_values in series_map:
-        values.extend([float(value) for value in series_values if value is not None])
+        for value in series_values:
+            numeric = _to_float(value)
+            if numeric is None or not math.isfinite(numeric):
+                continue
+            values.append(float(numeric))
     if not values:
         return cap
     max_value = max(values)
@@ -1045,7 +1052,8 @@ def _percent_axis_max(series_map: Sequence[tuple[str, Sequence[float]]], *, cap:
 
 
 def _money_axis_max(values: Sequence[object]) -> float | None:
-    numeric = pd.to_numeric(pd.Series(values), errors="coerce").dropna()
+    numeric = pd.to_numeric(pd.Series(values), errors="coerce")
+    numeric = numeric[numeric.map(lambda value: math.isfinite(value) if pd.notna(value) else False)]
     if numeric.empty:
         return None
     max_value = float(numeric.max())
@@ -1055,7 +1063,8 @@ def _money_axis_max(values: Sequence[object]) -> float | None:
 
 
 def _money_scale(values: pd.Series) -> MoneyScale:
-    numeric = pd.to_numeric(values, errors="coerce").dropna()
+    numeric = pd.to_numeric(values, errors="coerce")
+    numeric = numeric[numeric.map(lambda value: math.isfinite(value) if pd.notna(value) else False)]
     max_abs = float(numeric.abs().max()) if not numeric.empty else 0.0
     if max_abs >= 1_000_000_000_000:
         return MoneyScale(1_000_000_000_000.0, "tri", "R$ tri")
@@ -1067,10 +1076,22 @@ def _money_scale(values: pd.Series) -> MoneyScale:
 
 
 def _scale_values(values: Sequence[object], scale: MoneyScale) -> pd.Series:
-    numeric = pd.to_numeric(pd.Series(values), errors="coerce").fillna(0.0)
+    numeric = pd.to_numeric(pd.Series(values), errors="coerce")
+    numeric = numeric.where(numeric.map(lambda value: math.isfinite(value) if pd.notna(value) else False), pd.NA).fillna(0.0)
     if scale.divisor <= 0:
         return numeric
     return numeric / scale.divisor
+
+
+def _sanitize_chart_value(value: object) -> float | None:
+    numeric = _to_float(value)
+    if numeric is None or not math.isfinite(numeric):
+        return None
+    return float(numeric)
+
+
+def _sanitize_chart_series(values: Sequence[object]) -> tuple[float | None, ...]:
+    return tuple(_sanitize_chart_value(value) for value in values)
 
 
 def _money_number_format(scale: MoneyScale) -> str:

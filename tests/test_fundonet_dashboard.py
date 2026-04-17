@@ -349,6 +349,33 @@ class FundonetDashboardTests(unittest.TestCase):
         deterioration_charts = [shape.chart for shape in presentation.slides[3].shapes if getattr(shape, "has_chart", False)]
         self.assertGreaterEqual(len(deterioration_charts), 1)
 
+    def test_build_dashboard_pptx_bytes_sanitizes_nan_and_inf_series(self) -> None:
+        if importlib.util.find_spec("pptx") is None:
+            self.skipTest("python-pptx não instalado no ambiente local")
+        from services.fundonet_ppt_export import build_dashboard_pptx_bytes
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            workspace = Path(tmpdir)
+            self._write_dicred_fixture_csvs(workspace)
+
+            dashboard = build_dashboard_data(
+                wide_csv_path=workspace / "informes_wide.csv",
+                listas_csv_path=workspace / "estruturas_lista.csv",
+                docs_csv_path=workspace / "documentos_filtrados.csv",
+            )
+
+        if not dashboard.return_history_df.empty:
+            dashboard.return_history_df.loc[dashboard.return_history_df.index[0], "retorno_mensal_pct"] = float("nan")
+        if not dashboard.default_history_df.empty:
+            dashboard.default_history_df.loc[dashboard.default_history_df.index[0], "cobertura_pct"] = float("inf")
+
+        pptx_bytes = build_dashboard_pptx_bytes(
+            dashboard,
+            generated_at=datetime(2026, 4, 14, 15, 0, tzinfo=timezone.utc),
+        )
+        self.assertTrue(pptx_bytes.startswith(b"PK"))
+        self.assertGreater(len(pptx_bytes), 10_000)
+
     @staticmethod
     def _write_fixture_csvs(workspace: Path) -> None:
         wide_rows = [
