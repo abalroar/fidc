@@ -766,7 +766,7 @@ def render_tab_fidc_ime(period: ImePeriodSelection | None = None) -> None:
             elapsed_seconds = time.perf_counter() - start_ts
             context["elapsed_seconds"] = round(elapsed_seconds, 3)
             _update_progress_bar(progress, 1.0, f"[Slot {slot_i + 1}] Concluído.")
-            status_box.caption(f"[Slot {slot_i + 1}] Processamento concluído.")
+            status_box.empty()
             slots[slot_i] = {"result": result, "context": context}
 
         st.session_state["fidc_slots"] = slots
@@ -939,7 +939,7 @@ def _render_dashboard(
         _render_credit_risk_section(dashboard)
         _render_liquidity_risk_section(dashboard)
         _render_glossary_section(dashboard)
-        _render_calculation_memory_section(dashboard)
+        _render_calculation_memory_section(dashboard, slot_key=slot_key)
 
     with technical_tab:
         _render_execution_observability(context, elapsed_seconds=context.get("elapsed_seconds"))
@@ -983,11 +983,6 @@ def _render_risk_overview(dashboard: FundonetDashboardData) -> None:
         "Radar de risco",
         "Quatro sinais para entender rápido a situação mais recente do fundo.",
     )
-    _render_section_callout(
-        question="A fotografia mais recente mostra erosão de proteção sênior, pressão de liquidez ou degradação de carteira?",
-        ime_scope="O Informe Mensal cobre inadimplência, provisão, subordinação e eventos de cotas.",
-        caution="Cobertura, reservas, triggers, lastro, rating e qualidade do cedente exigem documentação complementar.",
-    )
     metric_lookup = dashboard.risk_metrics_df.set_index("metric_id", drop=False)
     hero_cards: list[str] = []
     if "subordinacao_pct" in metric_lookup.index:
@@ -1004,11 +999,6 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section(
         "Crédito",
         "Inadimplência, provisão e composição do problema de crédito.",
-    )
-    _render_section_callout(
-        question="A deterioração da carteira está acelerando e consumindo o colchão antes da sênior?",
-        ime_scope="Use inadimplência, provisão, aging e concentração setorial como sinais observáveis no Informe Mensal.",
-        caution="Não tratar esse bloco como substituto de perda esperada, recompras, resolução de cessão ou concentração por devedor.",
     )
     default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
     cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
@@ -1080,9 +1070,6 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             ),
             width="stretch",
         )
-        st.caption(
-            "Base regulatória CVM: no padrão XML 576, o somatório da inadimplência é o valor das parcelas inadimplentes e os campos VL_INAD_VENC_* representam valores vencidos e não pagos por faixa. Este gráfico acumula parcelas vencidas; não é conceito de arrasto."
-        )
         over_incomplete = over_history_df[over_history_df["calculo_status"] != "calculado"].copy()
         if not over_incomplete.empty:
             st.caption("Competências com buckets incompletos não entram nas curvas Over para evitar subcontagem silenciosa.")
@@ -1098,19 +1085,6 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         st.altair_chart(
             _inadimplentes_aux_sum_line_chart(aux_sum_chart_df),
             width="stretch",
-        )
-    with st.expander("Definição — Somatório de inadimplentes (CVM 576)", expanded=False):
-        st.markdown(
-            "- **Base regulatória (AUXÍLIO PARA VALIDAÇÃO / item Somatório de inadimplentes):**\n"
-            "  `Valor total das parcelas inadimplentes + Valor dos créditos existentes inadimplentes + "
-            "Valor dos créditos vencidos e pendentes de pagamento quando da cessão para o fundo`.\n"
-            "- **Mapeamento dos campos no dashboard (padrão 576):**\n"
-            "  - `VL_DICRED_TOTAL_VENC_INAD` = parcelas inadimplentes;\n"
-            "  - `VL_DICRED_EXISTE_INAD` = créditos existentes inadimplentes;\n"
-            "  - `VL_DICRED_VENC_PEND` = créditos vencidos e pendentes.\n"
-            "- **Percentual exibido no gráfico:**\n"
-            "  `Somatório de inadimplentes / Direitos Creditórios Totais (DCs)`.\n"
-            "- **Leitura prática:** valores maiores indicam maior fração do estoque total em atraso e/ou pendência."
         )
     aging_history_df = dashboard.default_aging_history_df.copy()
     _render_chart_heading(st, "Aging regulatório da inadimplência", "Composição da inadimplência observada (100% do saldo vencido) por faixa de atraso.")
@@ -1136,10 +1110,6 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             ),
             width="stretch",
         )
-        st.caption(
-            "Fonte: Informe Mensal - CVM. Cada barra soma 100% da inadimplência reportada no mês e mostra a participação de cada faixa no total vencido. "
-            "Este gráfico é regulatório e não equivale à perda econômica premissada do modelo de estruturação."
-        )
         _render_dataframe_expander(
             "Detalhe numérico do aging",
             _format_aging_latest_table(dashboard.default_buckets_latest_df),
@@ -1150,11 +1120,6 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
     _render_fidc_section(
         "Estrutura",
         "Subordinação e evolução das cotas para leitura da proteção sênior.",
-    )
-    _render_section_callout(
-        question="O colchão estrutural reportado parece suficiente para a fotografia atual da carteira?",
-        ime_scope="O Informe Mensal cobre subordinação, PL por classe e parte da remuneração das cotas.",
-        caution="Subordinação reportada não substitui cobertura, reservas, excesso de spread, waterfall contratual nem gatilhos estruturais.",
     )
     _render_chart_heading(st, "Subordinação reportada (IME)", "Evolução mensal do colchão subordinado reportado.")
     st.altair_chart(
@@ -1199,7 +1164,8 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 bar_size=pl_bar_size,
                 label_font_size=14,
                 round_percent_labels=True,
-                show_segment_labels=False,
+                show_segment_labels=True,
+                smart_label_placement=True,
             ),
             width="stretch",
         )
@@ -1213,15 +1179,11 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 bar_size=pl_bar_size,
                 label_font_size=14,
                 show_total_labels=True,
-                show_segment_labels=False,
+                show_segment_labels=True,
+                smart_label_placement=True,
             ),
             width="stretch",
         )
-    st.caption(
-        "Os labels por classe foram removidos do gráfico executivo para evitar leitura errada em segmentos pequenos. "
-        "Use a legenda para composição e a tabela abaixo para o valor exato."
-    )
-    st.caption(f"Quadro de cotas em {_format_competencia_label(dashboard.latest_competencia)}")
     _render_dataframe_expander(
         f"Quadro de cotas em {_format_competencia_label(dashboard.latest_competencia)}",
         _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia),
@@ -1251,11 +1213,6 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section(
         "Eventos de cotas",
         "Amortizações, resgates e emissões na competência mais recente.",
-    )
-    _render_section_callout(
-        question="Os eventos recentes indicam entrada ou saída de caixa relevante para a estrutura?",
-        ime_scope="O Informe Mensal cobre eventos de emissão, resgate e amortização.",
-        caution="O cronograma contratual completo das cotas continua dependendo da documentação da emissão.",
     )
     with st.expander("Tabela de eventos de cotas", expanded=False):
         st.dataframe(
@@ -1300,12 +1257,12 @@ def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
             col.markdown("")
 
 
-def _render_calculation_memory_section(dashboard: FundonetDashboardData) -> None:
+def _render_calculation_memory_section(dashboard: FundonetDashboardData, *, slot_key: str = "slot0") -> None:
     _render_fidc_section(
         "Memória de cálculo da aba",
         "Rodapé técnico da visão executiva: base canônica, variáveis finais e fórmula usada em cada bloco.",
     )
-    with st.expander("Diagnóstico de consistência da aba executiva", expanded=False):
+    with st.expander("Diagnóstico de consistência", expanded=False):
         st.dataframe(
             _format_consistency_audit_table(dashboard.consistency_audit_df),
             width="stretch",
@@ -1317,7 +1274,7 @@ def _render_calculation_memory_section(dashboard: FundonetDashboardData) -> None
             width="stretch",
             hide_index=True,
         )
-    with st.expander("Inventário auditável dos outputs ativos", expanded=False):
+    with st.expander("Inventário de outputs ativos", expanded=False):
         st.dataframe(
             _format_dashboard_inventory_table(dashboard.current_dashboard_inventory_df),
             width="stretch",
@@ -1338,16 +1295,36 @@ def _render_calculation_memory_section(dashboard: FundonetDashboardData) -> None
         "Métrica de risco",
         "Metadado / referência",
     ]
-    for tipo in ordered_types:
-        subset = memory_df[memory_df["tipo_variavel"] == tipo].copy()
-        if subset.empty:
-            continue
-        with st.expander(tipo, expanded=False):
-            st.dataframe(
-                _format_executive_memory_table(subset),
-                width="stretch",
-                hide_index=True,
-            )
+    available_types = [t for t in ordered_types if not memory_df[memory_df["tipo_variavel"] == t].empty]
+    if not available_types:
+        return
+    selected_types = st.multiselect(
+        "Categorias de variáveis",
+        options=available_types,
+        default=[],
+        key=f"memory_types_{slot_key}",
+        placeholder="Selecione categorias para exibir a memória de cálculo...",
+    )
+    if not selected_types:
+        return
+    if len(selected_types) == 1:
+        subset = memory_df[memory_df["tipo_variavel"] == selected_types[0]].copy()
+        st.dataframe(
+            _format_executive_memory_table(subset),
+            width="stretch",
+            hide_index=True,
+        )
+    else:
+        for tipo in selected_types:
+            subset = memory_df[memory_df["tipo_variavel"] == tipo].copy()
+            if subset.empty:
+                continue
+            with st.expander(tipo, expanded=True):
+                st.dataframe(
+                    _format_executive_memory_table(subset),
+                    width="stretch",
+                    hide_index=True,
+                )
 
 
 def _render_audit_section(dashboard: FundonetDashboardData) -> None:
@@ -4738,11 +4715,6 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any], *, slot
     docs_ok = _count_docs_by_status(result.docs_df, "ok")
     docs_error = _count_docs_by_status(result.docs_df, "erro")
     competencias = result.competencias
-
-    st.caption(
-        f"{len(competencias)} competências carregadas · {docs_ok} informes válidos"
-        + (f" · {docs_error} com falha" if docs_error else "")
-    )
 
     _render_dashboard(
         result,

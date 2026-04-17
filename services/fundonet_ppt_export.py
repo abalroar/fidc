@@ -43,6 +43,7 @@ CONTENT_WIDTH_IN = SLIDE_WIDTH_IN - MARGIN_LEFT_IN - MARGIN_RIGHT_IN
 
 TITLE_SIZE = 24
 SECTION_SIZE = 13
+SUBTITLE_SIZE = 11
 BODY_SIZE = 9
 LABEL_SIZE = 9
 AXIS_SIZE = 9
@@ -195,16 +196,27 @@ def build_dashboard_pptx_bytes(
         width: float,
         height: float,
         col_widths: Sequence[float] | None = None,
+        max_rows: int = 30,
     ):
         if title:
             add_textbox(slide, left, top - 0.22, width, 0.18, title, size=SECTION_SIZE, bold=True, color=BLACK)
         frame = df.copy()
+        if max_rows and len(frame) > max_rows:
+            frame = frame.iloc[:max_rows]
         rows = max(len(frame.index), 1)
         cols = max(len(frame.columns), 1)
         table = slide.shapes.add_table(rows + 1, cols, Inches(left), Inches(top), Inches(width), Inches(height)).table
+        # Always scale col_widths so they sum exactly to `width`, preventing horizontal overflow
         if col_widths and len(col_widths) == cols:
+            total_cw = sum(col_widths)
+            scale = width / total_cw if total_cw > 0 else 1.0
             for idx, col_width in enumerate(col_widths):
-                table.columns[idx].width = Inches(col_width)
+                table.columns[idx].width = Inches(col_width * scale)
+        else:
+            even = width / cols
+            for col in table.columns:
+                col.width = Inches(even)
+        _MAX_CELL = 100
         if frame.empty:
             table.cell(0, 0).text = "Sem dados"
             table.cell(1, 0).text = "-"
@@ -214,7 +226,10 @@ def build_dashboard_pptx_bytes(
             table.cell(0, col_idx).text = str(column)
         for row_idx, (_, row) in enumerate(frame.iterrows(), start=1):
             for col_idx, value in enumerate(row):
-                table.cell(row_idx, col_idx).text = str(value)
+                cell_text = str(value)
+                if len(cell_text) > _MAX_CELL:
+                    cell_text = cell_text[:_MAX_CELL] + "…"
+                table.cell(row_idx, col_idx).text = cell_text
         set_table_style(table)
         return table
 
@@ -509,7 +524,7 @@ def build_dashboard_pptx_bytes(
             gap_width=42,
             label_position="outside_end",
             label_font_size=10,
-            show_legend=True,
+            show_legend=False,
             value_max=bar_axis_max,
         )
         line_chart = add_chart(
@@ -553,6 +568,16 @@ def build_dashboard_pptx_bytes(
                 dashed=True,
                 hide_marker=True,
             )
+        # Unified legend below chart: bar series (solid squares) + line series (line indicators)
+        _bar_colors = list(SERIES_COLORS)
+        legend_items: list[tuple[str, str]] = []
+        for idx, (name, _) in enumerate(bar_series_map):
+            legend_items.append((name, _bar_colors[idx % len(_bar_colors)]))
+        _line_colors_list = [COVERAGE_LINE_COLOR, MID_GRAY]
+        for idx, (name, _) in enumerate(line_series_map):
+            legend_items.append((name, _line_colors_list[idx % len(_line_colors_list)]))
+        if legend_items:
+            add_manual_legend(slide, legend_items, left=left, top=top + height + 0.04, max_width=width)
 
     def add_compounding_waterfall_chart(
         slide,
@@ -636,7 +661,7 @@ def build_dashboard_pptx_bytes(
         f"{requested_period_text}"
         f"  |  Cotistas: {dashboard.fund_info.get('total_cotistas') or 'N/D'}"
     )
-    add_textbox(slide, 0.45, 0.72, 10.8, 0.16, subtitle, size=BODY_SIZE, color=MID_GRAY)
+    add_textbox(slide, 0.45, 0.72, 10.8, 0.18, subtitle, size=SUBTITLE_SIZE, color=MID_GRAY)
     cards = [
         ("PL total", _format_brl_compact(dashboard.summary.get("pl_total")), ""),
         ("Direitos creditórios", _format_brl_compact(dashboard.summary.get("inadimplencia_denominador") or dashboard.summary.get("direitos_creditorios")), ""),
@@ -684,7 +709,7 @@ def build_dashboard_pptx_bytes(
     # Slide 2 — PL por classe
     slide = prs.slides.add_slide(blank)
     add_textbox(slide, 0.45, 0.18, 8.5, 0.28, "PL por tipo de cota", size=TITLE_SIZE, bold=True, color=BLACK)
-    add_textbox(slide, 0.45, 0.46, 10.6, 0.18, "Visão padrão da aba: valores absolutos (R$) por competência. Os labels internos foram removidos para evitar ambiguidade visual; o detalhe fica na tabela.", size=BODY_SIZE, color=MID_GRAY)
+    add_textbox(slide, 0.45, 0.46, 10.6, 0.20, "Valores absolutos (R$) por competência. Detalhe por classe na tabela abaixo.", size=SUBTITLE_SIZE, color=MID_GRAY)
     quota_values = _quota_pl_value_pivot(dashboard.quota_pl_history_df)
     if not quota_values.empty:
         quota_scale = _money_scale(quota_values.drop(columns=["competencia"]).stack())
@@ -736,9 +761,9 @@ def build_dashboard_pptx_bytes(
         0.45,
         0.46,
         11.2,
-        0.20,
+        0.22,
         "Barras no eixo esquerdo: % dos DCs. Linha grossa no eixo direito: cobertura = provisão / vencidos totais, com referência em 100%.",
-        size=BODY_SIZE,
+        size=SUBTITLE_SIZE,
         color=MID_GRAY,
     )
     default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
@@ -780,9 +805,9 @@ def build_dashboard_pptx_bytes(
         0.45,
         0.46,
         11.8,
-        0.18,
-        "Curvas cumulativas sobre a base canônica de direitos creditórios. Os rótulos finais usam a mesma cor da série e ficam à direita do último marker.",
-        size=BODY_SIZE,
+        0.20,
+        "Curvas cumulativas de parcelas vencidas por threshold de atraso, como % dos direitos creditórios.",
+        size=SUBTITLE_SIZE,
         color=MID_GRAY,
     )
     over_history = _build_over_aging_history_for_ppt(dashboard)
@@ -848,9 +873,9 @@ def build_dashboard_pptx_bytes(
         0.45,
         0.46,
         11.8,
-        0.20,
-        "Distribuição não cumulativa por faixa de atraso. Os labels por faixa foram removidos para evitar competição de cor e sobreposição; o detalhe numérico fica na tabela.",
-        size=BODY_SIZE,
+        0.22,
+        "Distribuição não cumulativa por faixa de atraso. Detalhe numérico na tabela abaixo.",
+        size=SUBTITLE_SIZE,
         color=MID_GRAY,
     )
     aging_history = _build_aging_history_for_ppt(dashboard)
@@ -899,9 +924,9 @@ def build_dashboard_pptx_bytes(
         0.45,
         0.46,
         11.6,
-        0.18,
-        "O waterfall mostra apenas os direitos creditórios a vencer; os vencidos ficam fora do total do gráfico. A duration continua usando a malha completa.",
-        size=BODY_SIZE,
+        0.20,
+        "O waterfall mostra apenas os direitos creditórios a vencer; os vencidos ficam fora do total do gráfico. A duration usa a malha completa.",
+        size=SUBTITLE_SIZE,
         color=MID_GRAY,
     )
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
