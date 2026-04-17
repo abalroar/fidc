@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 
 import pandas as pd
 
-from services.fundonet_dashboard import build_dashboard_data
+from services.fundonet_dashboard import _build_return_history, build_dashboard_data
 from services.fundonet_pdf_export import build_dashboard_pdf_bytes
 
 
@@ -45,17 +45,80 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(250.0, event_summary.loc["resgate_solicitado", "valor_total"])
         self.assertEqual("reported_value", event_summary.loc["resgate_solicitado", "source_status"])
 
-        senior_row = dashboard.return_summary_df[dashboard.return_summary_df["label"] == "Série 1"].iloc[0]
+        senior_row = dashboard.return_summary_df[dashboard.return_summary_df["label"] == "Sênior · Série 1"].iloc[0]
         self.assertAlmostEqual(2.0, senior_row["retorno_mes_pct"], places=6)
         self.assertAlmostEqual(2.0, senior_row["retorno_ano_pct"], places=6)
         self.assertAlmostEqual(3.02, senior_row["retorno_12m_pct"], places=2)
 
         benchmark_row = dashboard.performance_vs_benchmark_latest_df[
-            dashboard.performance_vs_benchmark_latest_df["label"] == "Série 1"
+            dashboard.performance_vs_benchmark_latest_df["label"] == "Sênior · Série 1"
         ].iloc[0]
         self.assertAlmostEqual(1.8, benchmark_row["desempenho_esperado_pct"], places=6)
         self.assertAlmostEqual(2.0, benchmark_row["desempenho_real_pct"], places=6)
         self.assertAlmostEqual(20.0, benchmark_row["gap_bps"], places=6)
+
+    def test_build_return_history_preserves_multiple_classes_with_same_tipo(self) -> None:
+        wide_lookup = pd.DataFrame(columns=["tag_path"]).set_index("tag_path", drop=False)
+        listas_df = pd.DataFrame(
+            [
+                {
+                    "competencia": "01/2026",
+                    "list_group_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/RENT_MES/RENT_CLASSE_SUBORD",
+                    "list_index": 1,
+                    "tag": "TIPO",
+                    "valor_excel": "Mezz",
+                },
+                {
+                    "competencia": "01/2026",
+                    "list_group_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/RENT_MES/RENT_CLASSE_SUBORD",
+                    "list_index": 1,
+                    "tag": "SERIE",
+                    "valor_excel": "Série A",
+                },
+                {
+                    "competencia": "01/2026",
+                    "list_group_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/RENT_MES/RENT_CLASSE_SUBORD",
+                    "list_index": 1,
+                    "tag": "PR_APURADA",
+                    "valor_excel": 1.0,
+                },
+                {
+                    "competencia": "01/2026",
+                    "list_group_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/RENT_MES/RENT_CLASSE_SUBORD",
+                    "list_index": 2,
+                    "tag": "TIPO",
+                    "valor_excel": "Mezz",
+                },
+                {
+                    "competencia": "01/2026",
+                    "list_group_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/RENT_MES/RENT_CLASSE_SUBORD",
+                    "list_index": 2,
+                    "tag": "SERIE",
+                    "valor_excel": "Série B",
+                },
+                {
+                    "competencia": "01/2026",
+                    "list_group_path": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/RENT_MES/RENT_CLASSE_SUBORD",
+                    "list_index": 2,
+                    "tag": "PR_APURADA",
+                    "valor_excel": 2.0,
+                },
+            ]
+        )
+
+        history = _build_return_history(
+            wide_lookup=wide_lookup,
+            listas_df=listas_df,
+            competencias=["01/2026"],
+        )
+
+        self.assertEqual(2, len(history))
+        self.assertEqual(
+            {"Mezz · Série A", "Mezz · Série B"},
+            set(history["class_label"].tolist()),
+        )
+        self.assertEqual(2, history["class_key"].nunique())
+        self.assertEqual("RENT_MES.PR_APURADA", history["return_source"].iloc[0])
 
     def test_build_dashboard_data_exposes_fund_header_information(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:

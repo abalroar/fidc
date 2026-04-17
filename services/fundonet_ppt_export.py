@@ -1179,13 +1179,19 @@ def _latest_events_table_frame(frame: pd.DataFrame) -> pd.DataFrame:
     return output[["Evento", "Valor", "% PL"]]
 
 
+def _class_display_column(df: pd.DataFrame) -> str:
+    if "class_label" in df.columns:
+        return "class_label"
+    return "label"
+
+
 def _latest_quota_table_frame(frame: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
     if frame.empty:
         return pd.DataFrame({"Classe": ["Sem dados"], "Qt. cotas": ["-"], "PL": ["-"]})
     output = frame[frame["competencia"] == latest_competencia].copy()
     if output.empty:
         return pd.DataFrame({"Classe": ["Sem dados"], "Qt. cotas": ["-"], "PL": ["-"]})
-    output["Classe"] = output["label"]
+    output["Classe"] = output[_class_display_column(output)]
     output["Qt. cotas"] = output["qt_cotas"].map(_format_decimal_0_or_2)
     output["PL"] = output["pl"].map(_format_brl_compact)
     return output[["Classe", "Qt. cotas", "PL"]]
@@ -1210,8 +1216,9 @@ def _quota_pl_share_pivot(frame: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame(columns=["competencia"])
     output = frame.copy()
     output["percentual"] = pd.to_numeric(output["pl_share_pct"], errors="coerce").fillna(0.0)
+    label_column = _class_display_column(output)
     pivot = (
-        output.pivot_table(index="competencia", columns="label", values="percentual", aggfunc="sum")
+        output.pivot_table(index="competencia", columns=label_column, values="percentual", aggfunc="sum")
         .fillna(0.0)
         .reset_index()
     )
@@ -1223,8 +1230,9 @@ def _quota_pl_value_pivot(frame: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame(columns=["competencia"])
     output = frame.copy()
     output["valor"] = pd.to_numeric(output["pl"], errors="coerce").fillna(0.0)
+    label_column = _class_display_column(output)
     pivot = (
-        output.pivot_table(index="competencia", columns="label", values="valor", aggfunc="sum")
+        output.pivot_table(index="competencia", columns=label_column, values="valor", aggfunc="sum")
         .fillna(0.0)
         .reset_index()
     )

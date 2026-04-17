@@ -2458,7 +2458,19 @@ def _build_quota_pl_history(
         numeric_fields=("QT_COTAS", "VL_COTAS"),
     )
     if base_df.empty:
-        return pd.DataFrame(columns=["competencia", "competencia_dt", "class_kind", "label", "qt_cotas", "vl_cota", "pl"])
+        return pd.DataFrame(
+            columns=[
+                "competencia",
+                "competencia_dt",
+                "class_kind",
+                "class_key",
+                "class_label",
+                "label",
+                "qt_cotas",
+                "vl_cota",
+                "pl",
+            ]
+        )
     base_df = base_df.rename(columns={"QT_COTAS": "qt_cotas", "VL_COTAS": "vl_cota"})
     base_df["pl"] = base_df["qt_cotas"].fillna(0.0) * base_df["vl_cota"].fillna(0.0)
     totals = base_df.groupby("competencia", dropna=False)["pl"].transform("sum")
@@ -2544,18 +2556,43 @@ def _build_return_history(
         numeric_fields=("PR_APURADA",),
     )
     if base_df.empty:
-        return pd.DataFrame(columns=["competencia", "competencia_dt", "class_kind", "label", "retorno_mensal_pct"])
+        return pd.DataFrame(
+            columns=[
+                "competencia",
+                "competencia_dt",
+                "class_kind",
+                "class_key",
+                "class_label",
+                "label",
+                "retorno_mensal_pct",
+                "return_source",
+            ]
+        )
     base_df = base_df.rename(columns={"PR_APURADA": "retorno_mensal_pct"})
+    base_df["return_source"] = "RENT_MES.PR_APURADA"
     return base_df
 
 
 def _build_return_summary(return_history_df: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
     if return_history_df.empty:
-        return pd.DataFrame(columns=["class_kind", "label", "retorno_mes_pct", "retorno_ano_pct", "retorno_12m_pct"])
+        return pd.DataFrame(
+            columns=[
+                "class_kind",
+                "class_key",
+                "class_label",
+                "label",
+                "retorno_mes_pct",
+                "retorno_ano_pct",
+                "retorno_12m_pct",
+            ]
+        )
 
     latest_year = _competencia_sort_key(latest_competencia)[0]
     rows: list[dict[str, object]] = []
-    for (class_kind, label), group in return_history_df.groupby(["class_kind", "label"], dropna=False):
+    for (class_kind, class_key, class_label), group in return_history_df.groupby(
+        ["class_kind", "class_key", "class_label"],
+        dropna=False,
+    ):
         ordered = group.sort_values("competencia_dt").copy()
         monthly = pd.to_numeric(ordered["retorno_mensal_pct"], errors="coerce")
         if monthly.dropna().empty:
@@ -2565,13 +2602,15 @@ def _build_return_summary(return_history_df: pd.DataFrame, latest_competencia: s
         rows.append(
             {
                 "class_kind": class_kind,
-                "label": label,
+                "class_key": class_key,
+                "class_label": class_label,
+                "label": class_label,
                 "retorno_mes_pct": latest_return,
                 "retorno_ano_pct": _compound_percent(monthly[year_mask]),
                 "retorno_12m_pct": _compound_percent(monthly.tail(12)),
             }
         )
-    return pd.DataFrame(rows).sort_values(["class_kind", "label"]).reset_index(drop=True)
+    return pd.DataFrame(rows).sort_values(["class_kind", "class_label"]).reset_index(drop=True)
 
 
 def _build_performance_vs_benchmark_latest_df(
@@ -2628,6 +2667,8 @@ def _build_performance_vs_benchmark_latest_df(
                 "competencia",
                 "competencia_dt",
                 "class_kind",
+                "class_key",
+                "class_label",
                 "label",
                 "desempenho_esperado_pct",
                 "desempenho_real_pct",
@@ -2641,6 +2682,8 @@ def _build_performance_vs_benchmark_latest_df(
                 "competencia",
                 "competencia_dt",
                 "class_kind",
+                "class_key",
+                "class_label",
                 "label",
                 "desempenho_esperado_pct",
                 "desempenho_real_pct",
@@ -2657,7 +2700,7 @@ def _build_performance_vs_benchmark_latest_df(
         (pd.to_numeric(latest_df["desempenho_real_pct"], errors="coerce") - pd.to_numeric(latest_df["desempenho_esperado_pct"], errors="coerce"))
         * 100.0
     )
-    return latest_df.sort_values(["class_kind", "label"]).reset_index(drop=True)
+    return latest_df.sort_values(["class_kind", "class_label"]).reset_index(drop=True)
 
 
 def _compound_percent(series: pd.Series) -> float | None:
@@ -2851,7 +2894,11 @@ def _build_scalar_class_frame(
         ),
         axis=1,
     )
-    return frame
+    return _attach_class_identity(
+        frame=frame,
+        class_kind=class_kind,
+        default_label=default_label,
+    )
 
 
 def _build_list_class_frame(
@@ -2890,7 +2937,11 @@ def _build_list_class_frame(
         ),
         axis=1,
     )
-    return pivot
+    return _attach_class_identity(
+        frame=pivot,
+        class_kind=class_kind,
+        default_label=default_label,
+    )
 
 
 def _build_scalar_event_frame(
@@ -2962,6 +3013,98 @@ def _resolve_class_label(
     return default_label
 
 
+def _attach_class_identity(
+    *,
+    frame: pd.DataFrame,
+    class_kind: str,
+    default_label: str,
+) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    output = frame.copy()
+    output["legacy_label"] = output.get("label", default_label)
+    identity_df = output.apply(
+        lambda row: pd.Series(
+            _build_class_identity(
+                row=row,
+                class_kind=class_kind,
+                default_label=default_label,
+            )
+        ),
+        axis=1,
+    )
+    output = pd.concat([output, identity_df], axis=1)
+    output["label"] = output["class_label"]
+    return output
+
+
+def _build_class_identity(
+    *,
+    row: pd.Series,
+    class_kind: str,
+    default_label: str,
+) -> dict[str, object]:
+    tipo_raw = _display_value(row.get("TIPO"))
+    serie_raw = _display_value(row.get("SERIE"))
+    tipo_norm = _normalize_class_token(tipo_raw)
+    serie_norm = _normalize_class_token(serie_raw)
+    list_index = _safe_int(row.get("list_index"))
+
+    if class_kind == "senior":
+        if serie_raw:
+            class_label = f"Sênior · {serie_raw}"
+        elif list_index is not None:
+            class_label = f"Sênior · item {list_index}"
+        else:
+            class_label = "Sênior"
+        identity_confidence = "high" if serie_norm else "low"
+    else:
+        if tipo_raw and serie_raw and tipo_norm != serie_norm:
+            class_label = f"{tipo_raw} · {serie_raw}"
+            identity_confidence = "high"
+        elif tipo_raw:
+            class_label = f"{tipo_raw} · item {list_index}" if list_index is not None and not serie_raw else tipo_raw
+            identity_confidence = "medium" if list_index is not None else "high"
+        elif serie_raw:
+            class_label = f"Subordinada · {serie_raw}"
+            identity_confidence = "medium"
+        else:
+            suffix = f" · item {list_index}" if list_index is not None else ""
+            class_label = f"{default_label}{suffix}"
+            identity_confidence = "low"
+
+    key_parts = [
+        class_kind.strip().lower() or "classe",
+        tipo_norm or "_",
+        serie_norm or "_",
+        str(list_index) if list_index is not None and not (tipo_norm or serie_norm) else "_",
+    ]
+    class_key = "|".join(key_parts)
+    return {
+        "tipo_raw": tipo_raw or pd.NA,
+        "serie_raw": serie_raw or pd.NA,
+        "tipo_norm": tipo_norm or pd.NA,
+        "serie_norm": serie_norm or pd.NA,
+        "class_key": class_key,
+        "class_label": class_label,
+        "identity_confidence": identity_confidence,
+    }
+
+
+def _normalize_class_token(value: object) -> str:
+    text = _display_value(value)
+    if not text:
+        return ""
+    return re.sub(r"\s+", " ", text).strip().casefold()
+
+
+def _safe_int(value: object) -> int | None:
+    numeric = _to_numeric(value)
+    if numeric is None:
+        return None
+    return int(numeric)
+
+
 def _humanize_rate_context(sub_bloco: object) -> str:
     raw = str(sub_bloco or "").strip()
     if not raw:
@@ -3017,12 +3160,17 @@ def _finalize_class_frame(
         if field in combined.columns:
             combined[field] = pd.to_numeric(combined[field], errors="coerce")
 
-    dedupe_columns = [column for column in ["competencia", "class_kind", "label", "event_type"] if column in combined.columns]
-    combined = combined.sort_values(["competencia_dt", "class_kind", "label"], kind="stable")
-    combined = combined.drop_duplicates(subset=dedupe_columns, keep="last")
-
     existing_numeric = [field for field in numeric_fields if field in combined.columns]
     if existing_numeric:
         combined = combined.dropna(subset=existing_numeric, how="all")
+
+    sort_columns = [column for column in ["competencia_dt", "class_kind", "class_label", "label"] if column in combined.columns]
+    dedupe_columns = [
+        column
+        for column in ["competencia", "class_kind", "class_key", "label", "event_type"]
+        if column in combined.columns
+    ]
+    combined = combined.sort_values(sort_columns, kind="stable")
+    combined = combined.drop_duplicates(subset=dedupe_columns, keep="last")
 
     return combined.reset_index(drop=True)

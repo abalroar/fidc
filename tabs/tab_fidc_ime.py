@@ -2369,8 +2369,9 @@ def _melt_metrics(source_df: pd.DataFrame, columns: list[str], label_map: dict[s
 def _return_chart_frame(return_history_df: pd.DataFrame) -> pd.DataFrame:
     if return_history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
-    chart_df = return_history_df[["competencia", "competencia_dt", "label", "retorno_mensal_pct"]].copy()
-    chart_df = chart_df.rename(columns={"label": "serie", "retorno_mensal_pct": "valor"})
+    label_column = _class_display_column(return_history_df)
+    chart_df = return_history_df[["competencia", "competencia_dt", label_column, "retorno_mensal_pct"]].copy()
+    chart_df = chart_df.rename(columns={label_column: "serie", "retorno_mensal_pct": "valor"})
     chart_df["valor"] = pd.to_numeric(chart_df["valor"], errors="coerce")
     return chart_df.dropna(subset=["valor"])
 
@@ -2379,7 +2380,7 @@ def _format_return_summary_frame(return_summary_df: pd.DataFrame) -> pd.DataFram
     if return_summary_df.empty:
         return pd.DataFrame(columns=["Classe", "Mês", "Ano", "12 Meses"])
     table_df = return_summary_df.copy()
-    table_df["Classe"] = table_df["label"]
+    table_df["Classe"] = table_df[_class_display_column(table_df)]
     table_df["Mês"] = table_df["retorno_mes_pct"].map(_format_percent)
     table_df["Ano"] = table_df["retorno_ano_pct"].map(_format_percent)
     table_df["12 Meses"] = table_df["retorno_12m_pct"].map(_format_percent)
@@ -2394,7 +2395,7 @@ def _format_performance_benchmark_table(
     if performance_df.empty:
         return pd.DataFrame(columns=["Classe", "Benchmark", "Realizado", "Gap (bps)"])
     output = performance_df.copy()
-    output["Classe"] = output["label"]
+    output["Classe"] = output[_class_display_column(output)]
     output["Benchmark"] = output["desempenho_esperado_pct"].map(_format_percent)
     if mark_equal_as_na:
         esperado_num = pd.to_numeric(output["desempenho_esperado_pct"], errors="coerce")
@@ -2430,13 +2431,19 @@ def _benchmark_equals_realizado(performance_df: pd.DataFrame) -> bool:
     return bool((diffs < 1e-9).all())
 
 
+def _class_display_column(frame: pd.DataFrame) -> str:
+    if "class_label" in frame.columns:
+        return "class_label"
+    return "label"
+
+
 def _format_latest_quota_frame(quota_pl_history_df: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
     if quota_pl_history_df.empty:
         return pd.DataFrame(columns=["Classe", "Tipo", "Qt. cotas", "Valor da cota", "PL"])
     latest_df = quota_pl_history_df[quota_pl_history_df["competencia"] == latest_competencia].copy()
     if latest_df.empty:
         return pd.DataFrame(columns=["Classe", "Tipo", "Qt. cotas", "Valor da cota", "PL"])
-    latest_df["Classe"] = latest_df["label"]
+    latest_df["Classe"] = latest_df[_class_display_column(latest_df)]
     latest_df["Tipo"] = latest_df["class_kind"].map({"senior": "Sênior", "subordinada": "Subordinada"}).fillna(
         latest_df["class_kind"]
     )
@@ -4249,7 +4256,9 @@ def _stacked_area_chart(
     value_column: str,
     y_title: str,
 ) -> alt.Chart:
-    base_df = chart_df[["competencia", "competencia_dt", "label", value_column]].copy()
+    label_column = _class_display_column(chart_df)
+    base_df = chart_df[["competencia", "competencia_dt", label_column, value_column]].copy()
+    base_df = base_df.rename(columns={label_column: "label"})
     base_df["competencia"] = base_df["competencia"].map(_format_competencia_display)
     base_df[value_column] = pd.to_numeric(base_df[value_column], errors="coerce")
     base_df = base_df.dropna(subset=[value_column])
@@ -4468,8 +4477,9 @@ def _default_ratio_chart_frame(default_history_df: pd.DataFrame) -> pd.DataFrame
 def _quota_pl_chart_frame(quota_pl_history_df: pd.DataFrame) -> pd.DataFrame:
     if quota_pl_history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
-    chart_df = quota_pl_history_df[["competencia", "competencia_dt", "label", "pl"]].copy()
-    chart_df = chart_df.rename(columns={"label": "serie", "pl": "valor"})
+    label_column = _class_display_column(quota_pl_history_df)
+    chart_df = quota_pl_history_df[["competencia", "competencia_dt", label_column, "pl"]].copy()
+    chart_df = chart_df.rename(columns={label_column: "serie", "pl": "valor"})
     chart_df["valor"] = pd.to_numeric(chart_df["valor"], errors="coerce")
     chart_df["label_fmt"] = chart_df["valor"].map(_format_compact_money_label)
     return chart_df.dropna(subset=["valor"])
@@ -4478,13 +4488,14 @@ def _quota_pl_chart_frame(quota_pl_history_df: pd.DataFrame) -> pd.DataFrame:
 def _quota_pl_share_chart_frame(quota_pl_history_df: pd.DataFrame) -> pd.DataFrame:
     if quota_pl_history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "percentual"])
-    chart_df = quota_pl_history_df[["competencia", "competencia_dt", "label", "pl_share_pct"]].copy()
+    label_column = _class_display_column(quota_pl_history_df)
+    chart_df = quota_pl_history_df[["competencia", "competencia_dt", label_column, "pl_share_pct"]].copy()
     chart_df["pl_share_pct"] = pd.to_numeric(chart_df["pl_share_pct"], errors="coerce")
     chart_df = chart_df.dropna(subset=["pl_share_pct"])
     if chart_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "percentual"])
     chart_df["percentual"] = chart_df["pl_share_pct"]
-    chart_df = chart_df.rename(columns={"label": "serie"})
+    chart_df = chart_df.rename(columns={label_column: "serie"})
     return chart_df.dropna(subset=["percentual"])[["competencia", "competencia_dt", "serie", "percentual"]]
 
 

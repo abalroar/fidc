@@ -69,7 +69,7 @@ def build_rentabilidade_pdf_bytes(dashboard: "FundonetDashboardData") -> bytes:
     if not dashboard.performance_vs_benchmark_latest_df.empty:
         story += _section_header("Benchmark × Realizado — Última Competência")
         story += [_benchmark_table(dashboard.performance_vs_benchmark_latest_df)]
-    story += _fonte_nota("Fonte: Informe Mensal CVM — DESEMP / VL_COTA; retorno mensal calculado.")
+    story += _fonte_nota("Fonte: Informe Mensal CVM — RENT_MES/PR_APURADA; DESEMP usado como validação e benchmark.")
     return _build_pdf(story, dashboard)
 
 
@@ -229,7 +229,7 @@ def _quota_table(quota_df: pd.DataFrame, latest_competencia: str) -> Table:
     df = quota_df[quota_df["competencia"] == latest_competencia].copy()
     if df.empty:
         return _df_table(pd.DataFrame(), styles)
-    df["Classe"] = df["label"]
+    df["Classe"] = df[_class_display_column(df)]
     df["Tipo"] = df["class_kind"].map({"senior": "Sênior", "subordinada": "Subordinada"}).fillna(df["class_kind"])
     df["PL"] = df["pl"].map(_fmt_brl_compact)
     df["% PL"] = pd.to_numeric(df.get("pl_pct", pd.Series(dtype=float)), errors="coerce").map(
@@ -237,6 +237,12 @@ def _quota_table(quota_df: pd.DataFrame, latest_competencia: str) -> Table:
     )
     out = df[["Classe", "Tipo", "PL"]].copy()
     return _df_table(out, styles, col_widths=[90 * mm, 50 * mm, 50 * mm])
+
+
+def _class_display_column(df: pd.DataFrame) -> str:
+    if "class_label" in df.columns:
+        return "class_label"
+    return "label"
 
 
 def _asset_history_table(df: pd.DataFrame) -> Table:
@@ -258,9 +264,10 @@ def _return_table(df: pd.DataFrame) -> Table:
     styles = _styles()
     if df.empty:
         return _df_table(pd.DataFrame(), styles)
-    cols = [c for c in ["competencia", "label", "retorno_mes_pct"] if c in df.columns]
+    label_column = _class_display_column(df)
+    cols = [c for c in ["competencia", label_column, "retorno_mes_pct"] if c in df.columns]
     out = df[cols].copy()
-    out = out.rename(columns={"competencia": "Competência", "label": "Classe", "retorno_mes_pct": "Retorno Mês (%)"})
+    out = out.rename(columns={"competencia": "Competência", label_column: "Classe", "retorno_mes_pct": "Retorno Mês (%)"})
     if "Retorno Mês (%)" in out.columns:
         out["Retorno Mês (%)"] = pd.to_numeric(out["Retorno Mês (%)"], errors="coerce").map(
             lambda v: f"{v:.2f}%".replace(".", ",") if pd.notna(v) else "N/D"
@@ -273,7 +280,7 @@ def _benchmark_table(df: pd.DataFrame) -> Table:
     if df.empty:
         return _df_table(pd.DataFrame(), styles)
     out = df.copy()
-    out["Classe"] = out.get("label", "")
+    out["Classe"] = out.get(_class_display_column(out), "")
     out["Benchmark"] = pd.to_numeric(out.get("desempenho_esperado_pct"), errors="coerce").map(
         lambda v: f"{v:.2f}%".replace(".", ",") if pd.notna(v) else "N/D"
     )

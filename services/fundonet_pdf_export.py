@@ -473,11 +473,17 @@ def _format_event_summary_table(df: pd.DataFrame) -> pd.DataFrame:
     return output[["Evento", "Valor bruto", "Sinal econômico", "% PL", "Status", "Leitura"]]
 
 
+def _class_display_column(df: pd.DataFrame) -> str:
+    if "class_label" in df.columns:
+        return "class_label"
+    return "label"
+
+
 def _format_return_summary_table(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return pd.DataFrame(columns=["Classe", "Mês", "Ano", "12 Meses"])
     output = df.copy()
-    output["Classe"] = output["label"]
+    output["Classe"] = output[_class_display_column(output)]
     output["Mês"] = output["retorno_mes_pct"].map(_format_percent)
     output["Ano"] = output["retorno_ano_pct"].map(_format_percent)
     output["12 Meses"] = output["retorno_12m_pct"].map(_format_percent)
@@ -488,7 +494,7 @@ def _format_performance_benchmark_table(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return pd.DataFrame(columns=["Classe", "Benchmark", "Realizado", "Gap (bps)"])
     output = df.copy()
-    output["Classe"] = output["label"]
+    output["Classe"] = output[_class_display_column(output)]
     output["Benchmark"] = output["desempenho_esperado_pct"].map(_format_percent)
     output["Realizado"] = output["desempenho_real_pct"].map(_format_percent)
     output["Gap (bps)"] = output["gap_bps"].map(lambda value: _format_decimal(value, decimals=0))
@@ -501,7 +507,7 @@ def _format_latest_quota_table(df: pd.DataFrame, latest_competencia: str) -> pd.
     latest_df = df[df["competencia"] == latest_competencia].copy()
     if latest_df.empty:
         return pd.DataFrame(columns=["Classe", "Tipo", "Qt. cotas", "Valor da cota", "PL"])
-    latest_df["Classe"] = latest_df["label"]
+    latest_df["Classe"] = latest_df[_class_display_column(latest_df)]
     latest_df["Tipo"] = latest_df["class_kind"].map({"senior": "Sênior", "subordinada": "Subordinada"}).fillna(
         latest_df["class_kind"]
     )
