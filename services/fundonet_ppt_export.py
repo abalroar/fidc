@@ -33,7 +33,7 @@ AGING_PPT_COLORS = [
     "#7b241c",
     "#4a1310",
 ]
-COVERAGE_LINE_COLOR = "#6b7280"
+COVERAGE_LINE_COLOR = "#111111"
 
 SLIDE_WIDTH_IN = 13.333
 SLIDE_HEIGHT_IN = 7.5
@@ -683,17 +683,18 @@ def build_dashboard_pptx_bytes(
         add_textbox(slide, 0.45, 0.48, 10.8, 0.20, title_fund, size=13, bold=True, color=ORANGE)
         add_textbox(slide, 0.45, 0.72, 11.6, 0.16, subtitle, size=SUBTITLE_SIZE, color=MID_GRAY)
 
-    wide_width = 7.35
-    narrow_width = CONTENT_WIDTH_IN - wide_width - 0.30
-    right_col_left = MARGIN_LEFT_IN + wide_width + 0.30
+    full_width = CONTENT_WIDTH_IN
+    split_gap = 0.30
+    left_wide_width = 7.45
+    right_narrow_width = CONTENT_WIDTH_IN - left_wide_width - split_gap
+    right_col_left = MARGIN_LEFT_IN + left_wide_width + split_gap
     top_row_top = 1.02
-    bottom_row_top = 4.03
-    top_row_height = 2.35
-    bottom_row_height = 2.45
+    mid_row_top = 3.48
+    bottom_row_top = 4.25
 
-    # Slide 1 — structure, capital and term
+    # Slide 1 — structure and capital
     slide = prs.slides.add_slide(blank)
-    add_slide_header(slide, "Estrutura, capital e prazo")
+    add_slide_header(slide, "Estrutura e capital")
 
     sub_df = dashboard.subordination_history_df.sort_values("competencia_dt").copy()
     if not sub_df.empty:
@@ -706,13 +707,13 @@ def build_dashboard_pptx_bytes(
             series_map=sub_series,
             left=MARGIN_LEFT_IN,
             top=top_row_top,
-            width=narrow_width,
-            height=top_row_height,
+            width=full_width,
+            height=2.05,
             number_format='0.0"%"',
             percent_axis=True,
             label_position="above",
             show_data_labels=True,
-            label_font_size=12,
+            label_font_size=10,
             value_max=_percent_axis_max(sub_series, cap=80.0),
         )
         _style_line_series(sub_chart.series[0], color=ORANGE, width_pt=2.8, marker_size=11)
@@ -731,17 +732,17 @@ def build_dashboard_pptx_bytes(
             chart_type=XL_CHART_TYPE.COLUMN_STACKED,
             categories=_competencia_labels(quota_values["competencia"].tolist()),
             series_map=quota_series,
-            left=MARGIN_LEFT_IN + narrow_width + 0.30,
-            top=top_row_top,
-            width=wide_width,
-            height=top_row_height,
+            left=MARGIN_LEFT_IN,
+            top=3.30,
+            width=full_width,
+            height=3.40,
             number_format=_money_label_number_format(quota_scale),
             money_axis=True,
-            gap_width=54,
+            gap_width=78,
             overlap=100,
             label_position="center",
             label_color=WHITE,
-            label_font_size=12,
+            label_font_size=10,
             series_colors=SERIES_COLORS,
             value_min=0.0,
             value_max=_money_axis_max([value for _, values in quota_series for value in values]),
@@ -749,6 +750,43 @@ def build_dashboard_pptx_bytes(
             legend_position="bottom",
             show_data_labels=False,
         )
+    add_footer(slide, timestamp_text)
+
+    # Slide 2 — returns and term
+    slide = prs.slides.add_slide(blank)
+    add_slide_header(slide, "Rentabilidade e prazo")
+
+    return_pivot = _return_history_pivot(dashboard, selected_labels=_top_return_labels_for_ppt(dashboard))
+    if not return_pivot.empty:
+        return_columns = [column for column in return_pivot.columns if column != "competencia"]
+        return_series = [(column, return_pivot[column].tolist()) for column in return_columns]
+        return_chart = add_chart(
+            slide,
+            title="Rentabilidade mensal por tipo de cota (IME)",
+            chart_type=XL_CHART_TYPE.LINE_MARKERS,
+            categories=_competencia_labels(return_pivot["competencia"].tolist()),
+            series_map=return_series,
+            left=MARGIN_LEFT_IN,
+            top=top_row_top,
+            width=full_width,
+            height=2.20,
+            number_format='0.0"%"',
+            percent_axis=True,
+            label_position="above",
+            label_font_size=8,
+            show_data_labels=False,
+            show_legend=True,
+            legend_position="bottom",
+            value_max=_percent_axis_max(return_series, cap=120.0),
+            series_colors=SERIES_COLORS,
+        )
+        for idx, series in enumerate(return_chart.series):
+            _style_line_series(
+                series,
+                color=SERIES_COLORS[idx % len(SERIES_COLORS)],
+                width_pt=2.2,
+                marker_size=8,
+            )
 
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
     if not maturity_df.empty:
@@ -760,9 +798,9 @@ def build_dashboard_pptx_bytes(
             step_values=maturity_values,
             total_value=float(sum(maturity_values)),
             left=MARGIN_LEFT_IN,
-            top=bottom_row_top,
-            width=wide_width,
-            height=bottom_row_height,
+            top=4.05,
+            width=left_wide_width,
+            height=2.55,
             number_format=_money_number_format(maturity_scale),
             value_max=_money_axis_max(list(maturity_values) + [sum(maturity_values)]),
             title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
@@ -779,9 +817,9 @@ def build_dashboard_pptx_bytes(
             categories=_competencia_labels(duration_df["competencia"].tolist()),
             series_map=duration_series,
             left=right_col_left,
-            top=bottom_row_top,
-            width=narrow_width,
-            height=bottom_row_height,
+            top=4.05,
+            width=right_narrow_width,
+            height=2.55,
             number_format='0',
             label_position="above",
             label_font_size=10,
@@ -790,9 +828,9 @@ def build_dashboard_pptx_bytes(
         _style_line_series(duration_chart.series[0], color=ORANGE, width_pt=2.4, marker_size=13)
     add_footer(slide, timestamp_text)
 
-    # Slide 2 — credit deterioration
+    # Slide 3 — credit and coverage
     slide = prs.slides.add_slide(blank)
-    add_slide_header(slide, "Crédito e deterioração")
+    add_slide_header(slide, "Crédito e cobertura")
 
     default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
     if not default_df.empty:
@@ -810,9 +848,42 @@ def build_dashboard_pptx_bytes(
             ],
             left=MARGIN_LEFT_IN,
             top=top_row_top,
-            width=wide_width,
-            height=top_row_height,
+            width=full_width,
+            height=2.30,
         )
+
+    aging_history = _build_aging_history_for_ppt(dashboard)
+    if not aging_history.empty:
+        aging_columns = [column for column in aging_history.columns if column != "competencia"]
+        aging_series_map = [(column, aging_history[column].tolist()) for column in aging_columns]
+        add_chart(
+            slide,
+            title="Aging regulatório da inadimplência",
+            chart_type=XL_CHART_TYPE.COLUMN_STACKED,
+            categories=_competencia_labels(aging_history["competencia"].tolist()),
+            series_map=aging_series_map,
+            left=MARGIN_LEFT_IN,
+            top=3.85,
+            width=full_width,
+            height=2.75,
+            number_format='0%',
+            percent_axis=True,
+            gap_width=44,
+            overlap=100,
+            label_position="center",
+            label_color=WHITE,
+            label_font_size=10,
+            series_colors=AGING_PPT_COLORS,
+            value_max=_percent_axis_max(aging_series_map, cap=120.0),
+            show_legend=True,
+            legend_position="bottom",
+            show_data_labels=False,
+        )
+    add_footer(slide, timestamp_text)
+
+    # Slide 4 — deterioration accumulation
+    slide = prs.slides.add_slide(blank)
+    add_slide_header(slide, "Deterioração acumulada")
 
     over_history = _build_over_aging_history_for_ppt(dashboard)
     if not over_history.empty:
@@ -825,10 +896,10 @@ def build_dashboard_pptx_bytes(
             chart_type=XL_CHART_TYPE.LINE_MARKERS,
             categories=_competencia_labels(over_history["competencia"].tolist()),
             series_map=over_series_map,
-            left=right_col_left,
+            left=MARGIN_LEFT_IN,
             top=top_row_top,
-            width=narrow_width,
-            height=top_row_height,
+            width=7.55,
+            height=5.55,
             number_format='0.0"%"',
             percent_axis=True,
             label_position="above",
@@ -847,34 +918,6 @@ def build_dashboard_pptx_bytes(
                 marker_size=9,
             )
 
-    aging_history = _build_aging_history_for_ppt(dashboard)
-    if not aging_history.empty:
-        aging_columns = [column for column in aging_history.columns if column != "competencia"]
-        aging_series_map = [(column, aging_history[column].tolist()) for column in aging_columns]
-        add_chart(
-            slide,
-            title="Aging regulatório da inadimplência",
-            chart_type=XL_CHART_TYPE.COLUMN_STACKED,
-            categories=_competencia_labels(aging_history["competencia"].tolist()),
-            series_map=aging_series_map,
-            left=MARGIN_LEFT_IN,
-            top=bottom_row_top,
-            width=wide_width,
-            height=bottom_row_height,
-            number_format='0%',
-            percent_axis=True,
-            gap_width=44,
-            overlap=100,
-            label_position="center",
-            label_color=WHITE,
-            label_font_size=10,
-            series_colors=AGING_PPT_COLORS,
-            value_max=_percent_axis_max(aging_series_map, cap=120.0),
-            show_legend=True,
-            legend_position="bottom",
-            show_data_labels=False,
-        )
-
     if not default_df.empty:
         aux_series = [("Somatório de inadimplentes", _series_numeric(default_df, "somatorio_inadimplentes_aux_validacao_pct_dcs").fillna(0.0).tolist())]
         aux_chart = add_chart(
@@ -884,14 +927,14 @@ def build_dashboard_pptx_bytes(
             categories=_competencia_labels(default_df["competencia"].tolist()),
             series_map=aux_series,
             left=right_col_left,
-            top=bottom_row_top,
-            width=narrow_width,
-            height=bottom_row_height,
+            top=top_row_top,
+            width=4.58,
+            height=5.55,
             number_format='0.0"%"',
             percent_axis=True,
             label_position="above",
             label_font_size=9,
-            show_data_labels=False,
+            show_data_labels=True,
             show_legend=False,
             value_max=_percent_axis_max(aux_series, cap=120.0),
         )
@@ -1192,6 +1235,55 @@ def _quota_pl_value_pivot(frame: pd.DataFrame) -> pd.DataFrame:
         .reset_index()
     )
     return pivot
+
+
+def _top_return_labels_for_ppt(dashboard: FundonetDashboardData, *, limit: int = 4) -> list[str]:
+    return_history_df = dashboard.return_history_df.copy()
+    if return_history_df.empty:
+        return []
+    label_column = _class_display_column(return_history_df)
+    labels = return_history_df[label_column].dropna().astype(str).drop_duplicates().tolist()
+    if len(labels) <= limit:
+        return labels
+    quota_df = dashboard.quota_pl_history_df.copy()
+    if quota_df.empty or dashboard.latest_competencia not in quota_df["competencia"].astype(str).tolist():
+        return labels[:limit]
+    quota_df = quota_df[quota_df["competencia"] == dashboard.latest_competencia].copy()
+    quota_df["pl"] = pd.to_numeric(quota_df["pl"], errors="coerce")
+    ordered = (
+        quota_df.sort_values("pl", ascending=False)[_class_display_column(quota_df)]
+        .dropna()
+        .astype(str)
+        .drop_duplicates()
+        .tolist()
+    )
+    selected = [label for label in ordered if label in set(labels)]
+    remaining = [label for label in labels if label not in set(selected)]
+    return (selected + remaining)[:limit]
+
+
+def _return_history_pivot(dashboard: FundonetDashboardData, *, selected_labels: Sequence[str] | None = None) -> pd.DataFrame:
+    return_history_df = dashboard.return_history_df.sort_values("competencia_dt").copy()
+    if return_history_df.empty:
+        return pd.DataFrame(columns=["competencia"])
+    label_column = _class_display_column(return_history_df)
+    if selected_labels:
+        return_history_df = return_history_df[return_history_df[label_column].isin(list(selected_labels))].copy()
+    if return_history_df.empty:
+        return pd.DataFrame(columns=["competencia"])
+    return_history_df["retorno_mensal_pct"] = pd.to_numeric(return_history_df["retorno_mensal_pct"], errors="coerce")
+    pivot = (
+        return_history_df.pivot_table(
+            index="competencia",
+            columns=label_column,
+            values="retorno_mensal_pct",
+            aggfunc="last",
+        )
+        .reset_index()
+    )
+    ordered_columns = ["competencia"] + [label for label in (selected_labels or []) if label in pivot.columns]
+    remaining_columns = [column for column in pivot.columns if column not in ordered_columns]
+    return pivot[ordered_columns + remaining_columns].copy()
 
 
 def _risk_metrics_table_frame(metrics_df: pd.DataFrame, risk_block: str) -> pd.DataFrame:

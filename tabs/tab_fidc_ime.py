@@ -82,7 +82,7 @@ OVER_AGING_CHART_COLORS = [
     "#7b241c",
 ]
 
-COVERAGE_LINE_COLOR = "#6b7280"
+COVERAGE_LINE_COLOR = "#111111"
 
 
 _FIDC_REPORT_CSS = """
@@ -1028,11 +1028,12 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 title=None,
                 bar_y_title="% dos DCs",
                 line_y_title="Cobertura (%)",
-                height=340,
+                height=360,
                 reference_value=100.0,
                 reference_label="100% (paridade)",
                 bar_size=credit_bar_size,
-                show_line_end_label=False,
+                show_line_end_label=True,
+                show_bar_labels=False,
             ),
             width="stretch",
         )
@@ -1055,7 +1056,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                     y_title="%",
                     color_range=OVER_AGING_CHART_COLORS,
                     show_point_labels=False,
-                    show_end_labels=False,
+                    show_end_labels=True,
                 ),
                 width="stretch",
             )
@@ -1087,8 +1088,10 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 label_font_size=11,
                 round_percent_labels=True,
                 legend_series_order=AGING_SERIES_ORDER,
-                show_segment_labels=False,
-                smart_label_placement=False,
+                show_segment_labels=True,
+                smart_label_placement=True,
+                inner_label_threshold=7.5,
+                outer_label_threshold=3.5,
             ),
             width="stretch",
         )
@@ -1103,63 +1106,92 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
 
 def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_key: str = "slot0") -> None:
     _render_fidc_section("Estrutura")
-    left_col, right_col = st.columns([0.92, 1.38], gap="large")
+    _render_chart_heading(st, "Subordinação reportada (IME)")
+    st.altair_chart(
+        _line_history_chart(
+            _melt_metrics(
+                dashboard.subordination_history_df,
+                ["subordinacao_pct"],
+                {"subordinacao_pct": "Subordinação reportada"},
+            ),
+            title=None,
+            y_title="%",
+            show_point_labels=True,
+            show_end_labels=False,
+            point_label_font_size=11,
+            point_label_font_weight=700,
+            point_size=90,
+        ),
+        width="stretch",
+    )
 
-    with left_col:
-        _render_chart_heading(st, "Subordinação reportada (IME)")
+    chart_col, control_col = st.columns([1.0, 0.32], gap="medium")
+    with chart_col:
+        _render_chart_heading(st, "PL por tipo de cota")
+    with control_col:
+        pl_view = st.radio(
+            "Visão do PL",
+            options=["Valores absolutos (R$)", "% do total por competência"],
+            horizontal=False,
+            label_visibility="collapsed",
+            key=f"pl_view_{slot_key}",
+        )
+    pl_bar_size = _executive_quota_bar_size(dashboard.quota_pl_history_df["competencia"].nunique())
+    if pl_view == "% do total por competência":
         st.altair_chart(
-            _line_history_chart(
-                _melt_metrics(
-                    dashboard.subordination_history_df,
-                    ["subordinacao_pct"],
-                    {"subordinacao_pct": "Subordinação reportada"},
-                ),
+            _stacked_history_bar_chart(
+                _quota_pl_share_chart_frame(dashboard.quota_pl_history_df),
                 title=None,
-                y_title="%",
-                show_point_labels=False,
-                show_end_labels=True,
-                point_size=120,
+                y_title="% do total",
+                value_column="percentual",
+                bar_size=pl_bar_size,
+                label_font_size=10,
+                round_percent_labels=True,
+                show_segment_labels=False,
+                smart_label_placement=False,
+            ),
+            width="stretch",
+        )
+    else:
+        st.altair_chart(
+            _stacked_history_bar_chart(
+                _quota_pl_chart_frame(dashboard.quota_pl_history_df),
+                title=None,
+                y_title="R$",
+                value_column="valor",
+                bar_size=pl_bar_size,
+                label_font_size=10,
+                show_total_labels=True,
+                show_segment_labels=False,
+                smart_label_placement=False,
             ),
             width="stretch",
         )
 
-    with right_col:
-        _render_chart_heading(st, "PL por tipo de cota")
-        pl_view = st.radio(
-            "Visão do PL",
-            options=["Valores absolutos (R$)", "% do total por competência"],
-            horizontal=True,
-            label_visibility="collapsed",
-            key=f"pl_view_{slot_key}",
+    selected_set: set[str] | None = None
+    return_chart_df = _return_chart_frame(dashboard.return_history_df)
+    if not return_chart_df.empty:
+        ordered_labels = _return_ordered_labels(dashboard)
+        default_labels = ordered_labels if len(ordered_labels) <= 4 else ordered_labels[:4]
+        selected_labels = st.multiselect(
+            "Classes na rentabilidade",
+            options=ordered_labels,
+            default=default_labels,
+            key=f"return_labels_{slot_key}",
+            placeholder="Selecione classes para exibir a rentabilidade...",
         )
-        pl_bar_size = _executive_quota_bar_size(dashboard.quota_pl_history_df["competencia"].nunique())
-        if pl_view == "% do total por competência":
+        selected_set = set(selected_labels) if selected_labels else set(default_labels)
+        filtered_return_chart_df = return_chart_df[return_chart_df["serie"].isin(selected_set)].copy()
+        if not filtered_return_chart_df.empty:
+            _render_chart_heading(st, "Rentabilidade mensal por tipo de cota (IME)")
             st.altair_chart(
-                _stacked_history_bar_chart(
-                    _quota_pl_share_chart_frame(dashboard.quota_pl_history_df),
+                _line_history_chart(
+                    filtered_return_chart_df,
                     title=None,
-                    y_title="% do total",
-                    value_column="percentual",
-                    bar_size=pl_bar_size,
-                    label_font_size=12,
-                    round_percent_labels=True,
-                    show_segment_labels=False,
-                    smart_label_placement=False,
-                ),
-                width="stretch",
-            )
-        else:
-            st.altair_chart(
-                _stacked_history_bar_chart(
-                    _quota_pl_chart_frame(dashboard.quota_pl_history_df),
-                    title=None,
-                    y_title="R$",
-                    value_column="valor",
-                    bar_size=pl_bar_size,
-                    label_font_size=12,
-                    show_total_labels=True,
-                    show_segment_labels=False,
-                    smart_label_placement=False,
+                    y_title="%",
+                    show_point_labels=False,
+                    show_end_labels=True,
+                    point_size=76,
                 ),
                 width="stretch",
             )
@@ -1168,8 +1200,15 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
         ("Métricas estruturais", _format_risk_metrics_compact_table(dashboard.risk_metrics_df, risk_block="Risco estrutural")),
         (f"Quadro de cotas em {_format_competencia_label(dashboard.latest_competencia)}", _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia)),
     ]
+    if not dashboard.return_summary_df.empty:
+        return_summary_df = dashboard.return_summary_df.copy()
+        if selected_set:
+            return_summary_df = return_summary_df[return_summary_df[_class_display_column(return_summary_df)].isin(selected_set)].copy()
+        structural_tables.append(("Resumo de rentabilidade", _format_return_summary_frame(return_summary_df)))
     if _has_meaningful_benchmark(dashboard.performance_vs_benchmark_latest_df):
         perf_df = dashboard.performance_vs_benchmark_latest_df
+        if selected_set:
+            perf_df = perf_df[perf_df[_class_display_column(perf_df)].isin(selected_set)].copy()
         structural_tables.append(
             (
                 "Benchmark x realizado",
@@ -2284,6 +2323,31 @@ def _return_chart_frame(return_history_df: pd.DataFrame) -> pd.DataFrame:
     return chart_df.dropna(subset=["valor"])
 
 
+def _return_ordered_labels(dashboard: FundonetDashboardData) -> list[str]:
+    return_history_df = dashboard.return_history_df.copy()
+    if return_history_df.empty:
+        return []
+    label_column = _class_display_column(return_history_df)
+    labels = return_history_df[label_column].dropna().astype(str).drop_duplicates().tolist()
+    latest_quota_df = dashboard.quota_pl_history_df.copy()
+    if latest_quota_df.empty:
+        return labels
+    latest_quota_df = latest_quota_df[latest_quota_df["competencia"] == dashboard.latest_competencia].copy()
+    if latest_quota_df.empty:
+        return labels
+    latest_quota_df["pl"] = pd.to_numeric(latest_quota_df["pl"], errors="coerce")
+    ordered_from_pl = (
+        latest_quota_df.sort_values("pl", ascending=False)[_class_display_column(latest_quota_df)]
+        .dropna()
+        .astype(str)
+        .drop_duplicates()
+        .tolist()
+    )
+    present = [label for label in ordered_from_pl if label in set(labels)]
+    remaining = [label for label in labels if label not in set(present)]
+    return present + remaining
+
+
 def _format_return_summary_frame(return_summary_df: pd.DataFrame) -> pd.DataFrame:
     if return_summary_df.empty:
         return pd.DataFrame(columns=["Classe", "Mês", "Ano", "12 Meses"])
@@ -2817,7 +2881,12 @@ def _executive_monthly_bar_size(category_count: int) -> int:
 
 
 def _executive_quota_bar_size(category_count: int) -> int:
-    return max(74, int(_executive_monthly_bar_size(category_count) * 0.82))
+    base = _single_series_bar_size(max(category_count, 1))
+    if category_count <= 6:
+        return max(34, int(base * 0.72))
+    if category_count <= 12:
+        return max(28, int(base * 0.78))
+    return max(22, int(base * 0.82))
 
 
 def _executive_grouped_bar_size(period_count: int, series_count: int) -> int:
@@ -4022,6 +4091,7 @@ def _grouped_bar_with_rhs_line_chart(
     reference_label: str | None = None,
     bar_size: int | None = None,
     show_line_end_label: bool = True,
+    show_bar_labels: bool = False,
 ) -> alt.Chart:
     bar_chart_df = _altair_compatible_df(bar_df.copy())
     line_chart_df = _altair_compatible_df(line_df.copy())
@@ -4109,17 +4179,19 @@ def _grouped_bar_with_rhs_line_chart(
             tooltip=["competencia:N", "serie:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
     )
-    bar_labels = _bar_label_layer(
-        bar_chart_df,
-        x_encoding=x_encoding,
-        y_encoding=bar_y_encoding,
-        value_field=resolved_bar_value_field,
-        text_field="label_fmt",
-        x_offset_field="serie",
-        font_size=11,
-        font_weight=700,
-        dy=-8,
-    )
+    bar_labels = None
+    if show_bar_labels:
+        bar_labels = _bar_label_layer(
+            bar_chart_df,
+            x_encoding=x_encoding,
+            y_encoding=bar_y_encoding,
+            value_field=resolved_bar_value_field,
+            text_field="label_fmt",
+            x_offset_field="serie",
+            font_size=11,
+            font_weight=700,
+            dy=-8,
+        )
     bar_layer = bars if bar_labels is None else (bars + bar_labels)
 
     line_series_order = line_chart_df["serie"].drop_duplicates().tolist()
@@ -4128,12 +4200,12 @@ def _grouped_bar_with_rhs_line_chart(
         .mark_line(
             point=alt.OverlayMarkDef(
                 filled=True,
-                size=46,
+                size=52,
                 fill=COVERAGE_LINE_COLOR,
                 stroke=COVERAGE_LINE_COLOR,
                 strokeWidth=1.0,
             ),
-            strokeWidth=2.6,
+            strokeWidth=2.9,
         )
         .encode(
             x=x_encoding,
@@ -4174,35 +4246,26 @@ def _grouped_bar_with_rhs_line_chart(
     layered = alt.layer(bar_layer, coverage_layers).resolve_scale(y="independent")
     if show_line_end_label:
         coverage_labels_df = _build_line_series_end_labels_df(
-            line_chart_df,
+            line_chart_df[line_chart_df["serie"] != (reference_label or "")].copy()
+            if "serie" in line_chart_df.columns and reference_label
+            else line_chart_df,
             y_title=line_y_title,
-            min_gap_override=12.0 if "%" in line_y_title else None,
+            min_gap_override=18.0 if "%" in line_y_title else None,
         )
         if not coverage_labels_df.empty:
             coverage_labels_df = coverage_labels_df.copy()
-            coverage_labels_df["badge_offset"] = 60
-            badge_text = (
-                alt.Chart(coverage_labels_df)
-                .mark_text(
-                    align="center",
-                    baseline="middle",
-                    fontSize=13,
-                    fontWeight=800,
-                    color="#ffffff",
-                    stroke="#ffffff",
-                    strokeWidth=3,
-                    clip=False,
-                )
-                .encode(
-                    x=alt.X("competencia:N", sort=x_sort),
-                    xOffset=alt.XOffset("badge_offset:Q"),
-                    y=alt.Y("label_valor:Q", title=line_y_title),
-                    text=alt.Text("end_label:N"),
-                )
+            coverage_labels_df["serie"] = coverage_labels_df["serie"].fillna("Cobertura")
+            end_labels = _line_series_end_label_layer(
+                coverage_labels_df,
+                x_sort=x_sort,
+                y_title=line_y_title,
+                color_range=[COVERAGE_LINE_COLOR],
+                series_order=coverage_labels_df["serie"].drop_duplicates().tolist(),
             )
-            layered = layered + badge_text
+            if end_labels is not None:
+                layered = layered + end_labels
     layered = _chart_with_optional_title(layered, height=height, title=title)
-    return _style_altair_chart(layered.properties(padding={"left": 24, "right": 164, "top": 18, "bottom": 8}))
+    return _style_altair_chart(layered.properties(padding={"left": 24, "right": 196, "top": 18, "bottom": 8}))
 
 
 def _stacked_area_chart(

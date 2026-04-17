@@ -161,7 +161,7 @@ class TabFidcImeProgressTests(unittest.TestCase):
         line_encoding = spec["layer"][1]["layer"][1]["encoding"]
         self.assertEqual("right", line_encoding["y"]["axis"]["orient"])
         self.assertGreaterEqual(rhs_scale[1], 500.0)
-        self.assertEqual("#6b7280", spec["layer"][1]["layer"][1]["mark"]["point"]["fill"])
+        self.assertEqual("#111111", spec["layer"][1]["layer"][1]["mark"]["point"]["fill"])
 
     def test_build_line_series_end_labels_df_uses_value_only_labels(self) -> None:
         chart_df = pd.DataFrame(

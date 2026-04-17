@@ -319,20 +319,35 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertTrue(pptx_bytes.startswith(b"PK"))
         self.assertGreater(len(pptx_bytes), 10_000)
         presentation = Presentation(io.BytesIO(pptx_bytes))
-        self.assertEqual(2, len(presentation.slides))
+        self.assertEqual(4, len(presentation.slides))
         slide_1_text = " ".join(
             shape.text for shape in presentation.slides[0].shapes if hasattr(shape, "text")
         )
         self.assertIn("Gerado em: 14/04/2026 12:00 GMT-3", slide_1_text)
         structure_charts = [shape.chart for shape in presentation.slides[0].shapes if getattr(shape, "has_chart", False)]
-        self.assertEqual(4, len(structure_charts))
+        self.assertEqual(2, len(structure_charts))
         self.assertTrue(any("<c:legend>" in chart._chartSpace.xml for chart in structure_charts))
-        self.assertTrue(any("Total" in chart._chartSpace.xml for chart in structure_charts))
-        self.assertTrue(all("Vencidos" not in chart._chartSpace.xml for chart in structure_charts if len(chart.series) == 3))
-        credit_charts = [shape.chart for shape in presentation.slides[1].shapes if getattr(shape, "has_chart", False)]
-        self.assertGreaterEqual(len(credit_charts), 4)
+
+        term_slide_text = " ".join(
+            shape.text for shape in presentation.slides[1].shapes if hasattr(shape, "text")
+        )
+        self.assertIn("Rentabilidade e prazo", term_slide_text)
+        term_charts = [shape.chart for shape in presentation.slides[1].shapes if getattr(shape, "has_chart", False)]
+        self.assertGreaterEqual(len(term_charts), 2)
+        self.assertTrue(any("Total" in chart._chartSpace.xml for chart in term_charts))
+        self.assertTrue(all("Vencidos" not in chart._chartSpace.xml for chart in term_charts if len(chart.series) == 3))
+
+        credit_charts = [shape.chart for shape in presentation.slides[2].shapes if getattr(shape, "has_chart", False)]
+        self.assertGreaterEqual(len(credit_charts), 2)
         self.assertTrue(any('<c:axPos val="r"' in chart._chartSpace.xml for chart in credit_charts))
         self.assertGreaterEqual(sum("<c:legend>" in chart._chartSpace.xml for chart in credit_charts), 2)
+
+        deterioration_text = " ".join(
+            shape.text for shape in presentation.slides[3].shapes if hasattr(shape, "text")
+        )
+        self.assertIn("Deterioração acumulada", deterioration_text)
+        deterioration_charts = [shape.chart for shape in presentation.slides[3].shapes if getattr(shape, "has_chart", False)]
+        self.assertGreaterEqual(len(deterioration_charts), 1)
 
     @staticmethod
     def _write_fixture_csvs(workspace: Path) -> None:
