@@ -319,25 +319,20 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertTrue(pptx_bytes.startswith(b"PK"))
         self.assertGreater(len(pptx_bytes), 10_000)
         presentation = Presentation(io.BytesIO(pptx_bytes))
-        self.assertEqual(6, len(presentation.slides))
+        self.assertEqual(2, len(presentation.slides))
         slide_1_text = " ".join(
             shape.text for shape in presentation.slides[0].shapes if hasattr(shape, "text")
         )
         self.assertIn("Gerado em: 14/04/2026 12:00 GMT-3", slide_1_text)
-        pl_charts = [shape.chart for shape in presentation.slides[1].shapes if getattr(shape, "has_chart", False)]
-        self.assertEqual(1, len(pl_charts))
-        self.assertIn("<c:legend>", pl_charts[0]._chartSpace.xml)
-        self.assertNotIn('<c:showVal val="1"/>', pl_charts[0]._chartSpace.xml)
-        credit_charts = [shape.chart for shape in presentation.slides[2].shapes if getattr(shape, "has_chart", False)]
-        self.assertEqual(2, len(credit_charts))
+        structure_charts = [shape.chart for shape in presentation.slides[0].shapes if getattr(shape, "has_chart", False)]
+        self.assertEqual(4, len(structure_charts))
+        self.assertTrue(any("<c:legend>" in chart._chartSpace.xml for chart in structure_charts))
+        self.assertTrue(any("Total" in chart._chartSpace.xml for chart in structure_charts))
+        self.assertTrue(all("Vencidos" not in chart._chartSpace.xml for chart in structure_charts if len(chart.series) == 3))
+        credit_charts = [shape.chart for shape in presentation.slides[1].shapes if getattr(shape, "has_chart", False)]
+        self.assertGreaterEqual(len(credit_charts), 4)
         self.assertTrue(any('<c:axPos val="r"' in chart._chartSpace.xml for chart in credit_charts))
-        self.assertTrue(any("<c:legend>" in chart._chartSpace.xml for chart in credit_charts))
-        maturity_charts = [shape.chart for shape in presentation.slides[5].shapes if getattr(shape, "has_chart", False)]
-        self.assertEqual(2, len(maturity_charts))
-        self.assertEqual(3, len(maturity_charts[0].series))
-        self.assertIn("Total", maturity_charts[0]._chartSpace.xml)
-        self.assertNotIn("Vencidos", maturity_charts[0]._chartSpace.xml)
-        self.assertIn('<c:showVal val="1"/>', maturity_charts[1]._chartSpace.xml)
+        self.assertGreaterEqual(sum("<c:legend>" in chart._chartSpace.xml for chart in credit_charts), 2)
 
     @staticmethod
     def _write_fixture_csvs(workspace: Path) -> None:
