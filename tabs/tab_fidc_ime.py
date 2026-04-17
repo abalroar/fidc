@@ -33,7 +33,7 @@ from services.ime_period import (
 # Feature flag: set to True when global PDF dashboard export is stable and ready.
 # While False, the dashboard-level PDF button is hidden to prevent broken UX.
 ENABLE_GLOBAL_PDF_EXPORT: bool = False
-DASHBOARD_SCHEMA_VERSION: int = 3
+DASHBOARD_SCHEMA_VERSION: int = 4
 
 FIDC_CHART_COLORS = [
     "#ff5a00",
@@ -1117,9 +1117,10 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     if aging_history_df.empty:
         st.info("Dados de aging não disponíveis nos informes selecionados.")
     else:
+        aging_chart_df = _prepare_aging_history_chart_frame(aging_history_df)
         st.altair_chart(
             _stacked_history_bar_chart(
-                aging_history_df.rename(columns={"faixa": "serie", "percentual_inadimplencia": "percentual"}),
+                aging_chart_df,
                 title=None,
                 y_title="% da inadimplência",
                 value_column="percentual",
@@ -3729,9 +3730,12 @@ def _stacked_history_bar_chart(
             .encode(x="competencia:N", y=alt.Y(f"{value_column}:Q", title=y_title))
         )
         return _style_altair_chart(_chart_with_optional_title(empty_chart, height=height, title=title))
-    chart_df["valor_fmt"] = chart_df[value_column].map(_format_brl_compact if y_title == "R$" else _format_percent)
+    resolved_value_column = _resolve_stacked_chart_value_column(chart_df, value_column)
+    chart_df["valor_fmt"] = chart_df[resolved_value_column].map(
+        _format_brl_compact if y_title == "R$" else _format_percent
+    )
     if "label_fmt" not in chart_df.columns:
-        chart_df["label_fmt"] = chart_df[value_column].map(
+        chart_df["label_fmt"] = chart_df[resolved_value_column].map(
             _format_percent_rounded_label
             if round_percent_labels and "%" in y_title
             else (lambda value: _format_value_label(value, y_title))
@@ -3740,9 +3744,9 @@ def _stacked_history_bar_chart(
         chart_df = chart_df.sort_values(["competencia_dt", "ordem", "serie"]).reset_index(drop=True)
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
-    totals_for_scale = chart_df.groupby("competencia", dropna=False)[value_column].sum()
+    totals_for_scale = chart_df.groupby("competencia", dropna=False)[resolved_value_column].sum()
     y_encoding = alt.Y(
-        f"{value_column}:Q",
+        f"{resolved_value_column}:Q",
         title=y_title,
         stack=True,
         axis=y_axis,
@@ -3792,7 +3796,7 @@ def _stacked_history_bar_chart(
     labels_df = chart_df.copy()
     has_outside_labels = False
     if show_segment_labels and not labels_df.empty:
-        max_value = pd.to_numeric(labels_df[value_column], errors="coerce").abs().max()
+        max_value = pd.to_numeric(labels_df[resolved_value_column], errors="coerce").abs().max()
         inner_threshold = inner_label_threshold if inner_label_threshold is not None else 2.1 if "%" in y_title else (
             max_value * 0.08 if pd.notna(max_value) else 0.0
         )
@@ -3804,13 +3808,13 @@ def _stacked_history_bar_chart(
                 inner_threshold = max(float(inner_threshold), 4.0)
                 outer_threshold = min(float(outer_threshold), 0.1)
             else:
-                competency_totals = pd.to_numeric(labels_df[value_column], errors="coerce").groupby(
+                competency_totals = pd.to_numeric(labels_df[resolved_value_column], errors="coerce").groupby(
                     labels_df["competencia"], dropna=False
                 ).sum()
                 totals_map = competency_totals.to_dict()
                 labels_df["competencia_total"] = labels_df["competencia"].map(totals_map)
                 labels_df["segment_share"] = (
-                    pd.to_numeric(labels_df[value_column], errors="coerce")
+                    pd.to_numeric(labels_df[resolved_value_column], errors="coerce")
                     / pd.to_numeric(labels_df["competencia_total"], errors="coerce")
                 ).fillna(0.0)
                 # Valores muito pequenos em R$ ficam fora para preservar contraste/legibilidade.
@@ -3823,16 +3827,16 @@ def _stacked_history_bar_chart(
             labels_df["prefer_outside"] = False
         inner_labels_df = labels_df[
             (
-                pd.to_numeric(labels_df[value_column], errors="coerce") >= inner_threshold
+                pd.to_numeric(labels_df[resolved_value_column], errors="coerce") >= inner_threshold
             )
             & (~labels_df["prefer_outside"])
         ].copy()
         outer_labels_df = labels_df[
             (
-                pd.to_numeric(labels_df[value_column], errors="coerce") >= outer_threshold
+                pd.to_numeric(labels_df[resolved_value_column], errors="coerce") >= outer_threshold
             )
             & (
-                (pd.to_numeric(labels_df[value_column], errors="coerce") < inner_threshold)
+                (pd.to_numeric(labels_df[resolved_value_column], errors="coerce") < inner_threshold)
                 | (labels_df["prefer_outside"])
             )
         ].copy()
@@ -3868,7 +3872,7 @@ def _stacked_history_bar_chart(
                     lambda rank: -16 + ((int(rank) % 3) * 16)
                 )
             else:
-                outer_labels_df["outside_y"] = outer_labels_df.groupby("competencia", dropna=False)[value_column].cumsum()
+                outer_labels_df["outside_y"] = outer_labels_df.groupby("competencia", dropna=False)[resolved_value_column].cumsum()
                 outside_step = 0.9 if "%" in y_title else (
                     outer_labels_df["outside_y"].abs().max() * 0.012 if pd.notna(outer_labels_df["outside_y"].abs().max()) else 1.0
                 )
@@ -3882,7 +3886,7 @@ def _stacked_history_bar_chart(
                 .mark_text(fontSize=label_font_size, fontWeight=700, clip=False)
                 .encode(
                     x=x_encoding,
-                    y=alt.Y(f"{value_column}:Q", title=y_title, stack="center"),
+                    y=alt.Y(f"{resolved_value_column}:Q", title=y_title, stack="center"),
                     detail="serie:N",
                     text=alt.Text("label_fmt:N"),
                     color=alt.Color("label_color:N", scale=None, legend=None),
@@ -3909,7 +3913,7 @@ def _stacked_history_bar_chart(
                             )
                             .encode(
                                 x=x_encoding,
-                                y=alt.Y(f"{value_column}:Q", title=y_title, stack="center"),
+                                y=alt.Y(f"{resolved_value_column}:Q", title=y_title, stack="center"),
                                 xOffset=alt.XOffset("x_offset:Q"),
                                 detail="serie:N",
                                 text=alt.Text("label_fmt:N"),
@@ -3931,7 +3935,7 @@ def _stacked_history_bar_chart(
                         )
                         .encode(
                             x=x_encoding,
-                            y=alt.Y(f"{value_column}:Q", title=y_title, stack="center"),
+                            y=alt.Y(f"{resolved_value_column}:Q", title=y_title, stack="center"),
                             xOffset=alt.XOffset("x_offset:Q"),
                             detail="serie:N",
                             text=alt.Text("label_fmt:N"),
@@ -3939,6 +3943,7 @@ def _stacked_history_bar_chart(
                     )
                     layered = layered + outside_labels
             else:
+                outer_labels_df["outside_y"] = outer_labels_df.groupby("competencia", dropna=False)[resolved_value_column].cumsum()
                 outside_labels = (
                     alt.Chart(outer_labels_df)
                     .mark_text(
@@ -3959,9 +3964,9 @@ def _stacked_history_bar_chart(
                 layered = layered + outside_labels
     if show_total_labels:
         totals_df = (
-            chart_df.groupby("competencia", as_index=False, dropna=False)[value_column]
+            chart_df.groupby("competencia", as_index=False, dropna=False)[resolved_value_column]
             .sum()
-            .rename(columns={value_column: "valor_total"})
+            .rename(columns={resolved_value_column: "valor_total"})
         )
         totals_df["total_fmt"] = totals_df["valor_total"].map(
             _format_brl_compact
@@ -3987,6 +3992,33 @@ def _stacked_history_bar_chart(
         layered = layered + total_labels
     right_padding = 180 if has_outside_labels else 18
     return _style_altair_chart(layered.properties(padding={"left": 12, "right": right_padding, "top": 18, "bottom": 8}))
+
+
+def _prepare_aging_history_chart_frame(chart_df: pd.DataFrame) -> pd.DataFrame:
+    output = chart_df.copy()
+    if "faixa" in output.columns and "serie" not in output.columns:
+        output = output.rename(columns={"faixa": "serie"})
+    if "percentual" not in output.columns:
+        for alias in ("percentual_inadimplencia", "percentual_direitos_creditorios"):
+            if alias in output.columns:
+                output = output.rename(columns={alias: "percentual"})
+                break
+    return output
+
+
+def _resolve_stacked_chart_value_column(chart_df: pd.DataFrame, requested_column: str) -> str:
+    if requested_column in chart_df.columns:
+        return requested_column
+    alias_map = {
+        "percentual": ("percentual_inadimplencia", "percentual_direitos_creditorios"),
+    }
+    for alias in alias_map.get(requested_column, ()):
+        if alias in chart_df.columns:
+            return alias
+    raise ValueError(
+        f"Coluna '{requested_column}' não encontrada no gráfico empilhado. "
+        f"Colunas disponíveis: {', '.join(chart_df.columns.astype(str).tolist())}"
+    )
 
 
 def _grouped_bar_chart(

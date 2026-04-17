@@ -256,6 +256,31 @@ class TabFidcImeProgressTests(unittest.TestCase):
             spec["layer"][0]["encoding"]["color"]["legend"]["title"],
         )
 
+    def test_prepare_aging_history_chart_frame_accepts_legacy_percent_column(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "01/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-01-01"]),
+                "faixa": ["Até 30 dias", "31 a 60 dias"],
+                "ordem": [1, 2],
+                "percentual_inadimplencia": [70.0, 30.0],
+            }
+        )
+
+        prepared = tab_fidc_ime._prepare_aging_history_chart_frame(frame)
+        chart = tab_fidc_ime._stacked_history_bar_chart(
+            prepared,
+            title=None,
+            y_title="% da inadimplência",
+            value_column="percentual",
+            show_segment_labels=False,
+        )
+
+        self.assertIn("serie", prepared.columns)
+        self.assertIn("percentual", prepared.columns)
+        spec = chart.to_dict()
+        self.assertEqual("percentual", spec["encoding"]["y"]["field"])
+
     def test_stacked_history_bar_chart_can_hide_segment_labels_and_keep_totals(self) -> None:
         frame = pd.DataFrame(
             {
