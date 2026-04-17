@@ -42,9 +42,9 @@ _BORDER = "#dfe6ee"
 # ---------------------------------------------------------------------------
 
 def build_subordination_pdf_bytes(dashboard: "FundonetDashboardData") -> bytes:
-    """Bloco: Subordinação + PL por tipo de cota."""
-    story = _base_story(dashboard, "Subordinação e Estrutura de Cotas")
-    story += _section_header("Índice de Subordinação — Histórico (últimas competências)")
+    """Bloco: Subordinação reportada + PL por tipo de cota."""
+    story = _base_story(dashboard, "Subordinação Reportada e Estrutura de Cotas")
+    story += _section_header("Subordinação Reportada (IME) — Histórico")
     story += [_kv_table(dashboard.subordination_history_df, value_col="subordinacao_pct", pct=True)]
     story += _section_header("PL por Tipo de Cota — Última Competência")
     story += [_quota_table(dashboard.quota_pl_history_df, dashboard.latest_competencia)]

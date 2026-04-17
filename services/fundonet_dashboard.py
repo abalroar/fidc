@@ -284,7 +284,7 @@ def build_dashboard_data(
 
     methodology_notes = [
         "Direitos creditórios totais usam uma base canônica única: 1) malha de vencimento (vencidos + a vencer), 2) estoque granular em APLIC_ATIVO, 3) agregados VL_SOM_DICRED_AQUIS + VL_DICRED.",
-        "Índice de subordinação é calculado como PL subordinado dividido pelo PL total das cotas reportadas.",
+        "Subordinação reportada (IME) é calculada como PL subordinado dividido pelo PL total das cotas reportadas.",
         "Inadimplência, aging e curvas Over usam a base canônica de direitos creditórios totais; cobertura de provisão usa apenas vencidos canônicos como denominador e fica segregada no eixo direito.",
         "Resgate solicitado usa os campos RESG_SOLIC do Informe Mensal e aceita tanto VL_PAGO quanto VL_COTAS, pois há divergência observada entre schema e XML real.",
         "Indicadores como cobertura, relação mínima, reservas, rating, coobrigação e eventos contratuais exigem documentação complementar.",
@@ -2260,7 +2260,7 @@ def _build_executive_memory_df(
         {
             "tipo_variavel": "Prazo / duration",
             "bloco_executivo": "Vencimento",
-            "componente": "Duration estimada",
+            "componente": "Prazo médio proxy dos recebíveis (IME)",
             "variavel_final": "duration_history_df.duration_days",
             "numerador": "Σ(saldo_bucket * prazo_proxy)",
             "denominador": "Σ(saldo_bucket)",

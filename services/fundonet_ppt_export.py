@@ -641,7 +641,7 @@ def build_dashboard_pptx_bytes(
         ("PL total", _format_brl_compact(dashboard.summary.get("pl_total")), ""),
         ("Direitos creditórios", _format_brl_compact(dashboard.summary.get("inadimplencia_denominador") or dashboard.summary.get("direitos_creditorios")), ""),
         ("Inadimplência observada", _format_percent(dashboard.summary.get("inadimplencia_pct")), "vencidos / DC total"),
-        ("Cobertura de provisão", _format_percent(dashboard.summary.get("cobertura_pct")), "provisão / inadimplência"),
+        ("Cobertura de provisão", _format_percent(dashboard.summary.get("cobertura_pct")), "provisão / vencidos totais"),
         ("Subordinação reportada", _format_percent(dashboard.summary.get("subordinacao_pct")), ""),
         ("Créditos vencidos", _format_brl_compact(dashboard.summary.get("direitos_creditorios_vencidos")), ""),
     ]
@@ -737,7 +737,7 @@ def build_dashboard_pptx_bytes(
         0.46,
         11.2,
         0.20,
-        "Barras no eixo esquerdo: % dos DCs. Linha grossa no eixo direito: cobertura = provisão / inadimplência, com referência em 100%.",
+        "Barras no eixo esquerdo: % dos DCs. Linha grossa no eixo direito: cobertura = provisão / vencidos totais, com referência em 100%.",
         size=BODY_SIZE,
         color=MID_GRAY,
     )

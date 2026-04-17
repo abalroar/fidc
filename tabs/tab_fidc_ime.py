@@ -1677,7 +1677,7 @@ def _render_duration_section(dashboard: FundonetDashboardData) -> None:
     saldo_display = _format_brl_compact(total_saldo)
 
     tooltip_text = (
-        "Duration estimada = prazo médio ponderado da carteira de recebíveis.\n"
+        "Prazo médio proxy = prazo médio ponderado da carteira de recebíveis.\n"
         "Fórmula: Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket)\n"
         "Proxies por bucket: Vencidos=0d; Em 30 dias=30d; "
         "31-60d=45,5d; 61-90d=75,5d; 91-120d=105,5d; 121-150d=135,5d; "
@@ -4314,12 +4314,12 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
             x=alt.X("competencia:N", title="Competência", sort=x_sort),
             y=alt.Y(
                 "duration_days:Q",
-                title="Duration estimada (dias)",
+                title="Prazo médio proxy (dias)",
                 axis=alt.Axis(labelColor="#5f6b7a", titleColor="#5f6b7a"),
             ),
             tooltip=[
                 alt.Tooltip("competencia:N", title="Competência"),
-                alt.Tooltip("duration_days:Q", title="Duration (dias)", format=".0f"),
+                alt.Tooltip("duration_days:Q", title="Prazo médio proxy (dias)", format=".0f"),
                 alt.Tooltip("duration_fmt:N", title="Formatado"),
             ],
         )
@@ -4350,7 +4350,7 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
         )
         .encode(
             x=alt.X("competencia:N", sort=x_sort),
-            y=alt.Y("duration_days:Q", title="Duration estimada (dias)"),
+            y=alt.Y("duration_days:Q", title="Prazo médio proxy (dias)"),
             text=alt.Text("duration_label:N"),
         )
     )
@@ -4489,7 +4489,7 @@ def _quota_pl_share_chart_frame(quota_pl_history_df: pd.DataFrame) -> pd.DataFra
 
 
 def _default_cobertura_chart_frame(default_history_df: pd.DataFrame) -> pd.DataFrame:
-    """Returns history of cobertura_pct (provisão / inadimplência * 100)."""
+    """Returns history of cobertura_pct (provisão / vencidos totais * 100)."""
     if default_history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
     df = default_history_df[["competencia", "competencia_dt", "cobertura_pct"]].copy()
