@@ -323,6 +323,49 @@ class TabFidcImeProgressTests(unittest.TestCase):
         self.assertTrue(formatted.iloc[0]["Valor"].startswith("R$"))
         self.assertEqual("3,50%", formatted.iloc[0]["% dos DCs"])
 
+    def test_return_base100_chart_frame_starts_first_month_at_100(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "02/2026", "03/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-02-01", "2026-03-01"]),
+                "class_label": ["Sênior", "Sênior", "Sênior"],
+                "retorno_mensal_pct": [5.0, 10.0, -5.0],
+            }
+        )
+
+        chart_df = tab_fidc_ime._return_base100_chart_frame(frame, selected_labels=["Sênior"], months=12)
+
+        self.assertEqual([100.0, 110.0, 104.5], [round(value, 1) for value in chart_df["valor"].tolist()])
+
+    def test_stacked_history_bar_chart_can_limit_labels_per_competencia(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "01/2026", "01/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-01-01", "2026-01-01"]),
+                "serie": ["A", "B", "C"],
+                "ordem": [1, 2, 3],
+                "percentual": [10.0, 7.0, 1.0],
+                "label_fmt": ["10%", "7%", "1%"],
+            }
+        )
+
+        chart = tab_fidc_ime._stacked_history_bar_chart(
+            frame,
+            title=None,
+            y_title="% da inadimplência",
+            value_column="percentual",
+            show_segment_labels=True,
+            smart_label_placement=True,
+            max_segment_labels_per_competencia=2,
+        )
+
+        spec = chart.to_dict()
+        label_dataset_name = spec["layer"][1]["data"]["name"]
+        label_rows = spec["datasets"][label_dataset_name]
+        label_values = [row["label_fmt"] for row in label_rows]
+
+        self.assertEqual(["10%", "7%"], label_values)
+
 
 if __name__ == "__main__":
     unittest.main()

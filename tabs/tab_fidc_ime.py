@@ -1092,6 +1092,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 smart_label_placement=True,
                 inner_label_threshold=7.5,
                 outer_label_threshold=3.5,
+                max_segment_labels_per_competencia=2,
             ),
             width="stretch",
         )
@@ -1106,6 +1107,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
 
 def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_key: str = "slot0") -> None:
     _render_fidc_section("Estrutura")
+    subordination_periods = dashboard.subordination_history_df["competencia"].nunique()
     _render_chart_heading(st, "Subordinação reportada (IME)")
     st.altair_chart(
         _line_history_chart(
@@ -1116,9 +1118,9 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
             ),
             title=None,
             y_title="%",
-            show_point_labels=True,
-            show_end_labels=False,
-            point_label_font_size=11,
+            show_point_labels=subordination_periods <= 12,
+            show_end_labels=subordination_periods > 12,
+            point_label_font_size=10,
             point_label_font_weight=700,
             point_size=90,
         ),
@@ -1145,7 +1147,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 y_title="% do total",
                 value_column="percentual",
                 bar_size=pl_bar_size,
-                label_font_size=10,
+                label_font_size=8,
                 round_percent_labels=True,
                 show_segment_labels=False,
                 smart_label_placement=False,
@@ -1160,7 +1162,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 y_title="R$",
                 value_column="valor",
                 bar_size=pl_bar_size,
-                label_font_size=10,
+                label_font_size=8,
                 show_total_labels=True,
                 show_segment_labels=False,
                 smart_label_placement=False,
@@ -1172,7 +1174,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
     return_chart_df = _return_chart_frame(dashboard.return_history_df)
     if not return_chart_df.empty:
         ordered_labels = _return_ordered_labels(dashboard)
-        default_labels = ordered_labels if len(ordered_labels) <= 4 else ordered_labels[:4]
+        default_labels = ordered_labels if len(ordered_labels) <= 3 else ordered_labels[:3]
         selected_labels = st.multiselect(
             "Classes na rentabilidade",
             options=ordered_labels,
@@ -1182,42 +1184,76 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
         )
         selected_set = set(selected_labels) if selected_labels else set(default_labels)
         filtered_return_chart_df = return_chart_df[return_chart_df["serie"].isin(selected_set)].copy()
-        if not filtered_return_chart_df.empty:
-            _render_chart_heading(st, "Rentabilidade mensal por tipo de cota (IME)")
+        return_summary_df = dashboard.return_summary_df.copy()
+        if selected_set:
+            return_summary_df = return_summary_df[return_summary_df[_class_display_column(return_summary_df)].isin(selected_set)].copy()
+        if not return_summary_df.empty:
+            _render_chart_heading(st, "Rentabilidade por tipo de cota (IME)")
+            st.dataframe(
+                _format_return_summary_frame(return_summary_df),
+                width="stretch",
+                hide_index=True,
+            )
+        base100_chart_df = _return_base100_chart_frame(
+            dashboard.return_history_df,
+            selected_labels=list(selected_set) if selected_set else None,
+            months=12,
+        )
+        if not base100_chart_df.empty:
             st.altair_chart(
                 _line_history_chart(
-                    filtered_return_chart_df,
+                    base100_chart_df,
                     title=None,
-                    y_title="%",
+                    y_title="Índice base 100",
                     show_point_labels=False,
                     show_end_labels=True,
                     point_size=76,
                 ),
                 width="stretch",
             )
+        _render_detail_tables_expander(
+            "Abrir histórico de rentabilidade",
+            [
+                (
+                    "Retorno mensal por competência (últimos 12 meses)",
+                    _format_return_monthly_matrix_frame(
+                        dashboard.return_history_df,
+                        selected_labels=list(selected_set) if selected_set else None,
+                        months=12,
+                    ),
+                ),
+                (
+                    "Índice acumulado base 100 (últimos 12 meses)",
+                    _format_return_base100_matrix_frame(
+                        dashboard.return_history_df,
+                        selected_labels=list(selected_set) if selected_set else None,
+                        months=12,
+                    ),
+                ),
+                (
+                    "Benchmark x realizado",
+                    _format_performance_benchmark_table(
+                        dashboard.performance_vs_benchmark_latest_df[
+                            dashboard.performance_vs_benchmark_latest_df[_class_display_column(dashboard.performance_vs_benchmark_latest_df)].isin(selected_set)
+                        ].copy()
+                        if selected_set and not dashboard.performance_vs_benchmark_latest_df.empty
+                        else dashboard.performance_vs_benchmark_latest_df.copy(),
+                        mark_equal_as_na=_benchmark_equals_realizado(
+                            dashboard.performance_vs_benchmark_latest_df[
+                                dashboard.performance_vs_benchmark_latest_df[_class_display_column(dashboard.performance_vs_benchmark_latest_df)].isin(selected_set)
+                            ].copy()
+                            if selected_set and not dashboard.performance_vs_benchmark_latest_df.empty
+                            else dashboard.performance_vs_benchmark_latest_df.copy()
+                        ),
+                    ),
+                ),
+            ],
+        )
 
     structural_tables: list[tuple[str, pd.DataFrame]] = [
         ("Métricas estruturais", _format_risk_metrics_compact_table(dashboard.risk_metrics_df, risk_block="Risco estrutural")),
         (f"Quadro de cotas em {_format_competencia_label(dashboard.latest_competencia)}", _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia)),
     ]
-    if not dashboard.return_summary_df.empty:
-        return_summary_df = dashboard.return_summary_df.copy()
-        if selected_set:
-            return_summary_df = return_summary_df[return_summary_df[_class_display_column(return_summary_df)].isin(selected_set)].copy()
-        structural_tables.append(("Resumo de rentabilidade", _format_return_summary_frame(return_summary_df)))
-    if _has_meaningful_benchmark(dashboard.performance_vs_benchmark_latest_df):
-        perf_df = dashboard.performance_vs_benchmark_latest_df
-        if selected_set:
-            perf_df = perf_df[perf_df[_class_display_column(perf_df)].isin(selected_set)].copy()
-        structural_tables.append(
-            (
-                "Benchmark x realizado",
-                _format_performance_benchmark_table(
-                    perf_df,
-                    mark_equal_as_na=_benchmark_equals_realizado(perf_df),
-                ),
-            )
-        )
     _render_detail_tables_expander("Abrir detalhe estrutural", structural_tables)
 
 
@@ -2350,13 +2386,140 @@ def _return_ordered_labels(dashboard: FundonetDashboardData) -> list[str]:
 
 def _format_return_summary_frame(return_summary_df: pd.DataFrame) -> pd.DataFrame:
     if return_summary_df.empty:
-        return pd.DataFrame(columns=["Classe", "Mês", "Ano", "12 Meses"])
+        return pd.DataFrame(columns=["Classe", "Mês", "YTD", "12 Meses"])
     table_df = return_summary_df.copy()
     table_df["Classe"] = table_df[_class_display_column(table_df)]
     table_df["Mês"] = table_df["retorno_mes_pct"].map(_format_percent)
-    table_df["Ano"] = table_df["retorno_ano_pct"].map(_format_percent)
+    table_df["YTD"] = table_df["retorno_ano_pct"].map(_format_percent)
     table_df["12 Meses"] = table_df["retorno_12m_pct"].map(_format_percent)
-    return table_df[["Classe", "Mês", "Ano", "12 Meses"]]
+    return table_df[["Classe", "Mês", "YTD", "12 Meses"]]
+
+
+def _return_history_last_months(return_history_df: pd.DataFrame, *, months: int = 12) -> pd.DataFrame:
+    if return_history_df.empty:
+        return return_history_df.copy()
+    ordered = return_history_df.sort_values("competencia_dt").copy()
+    latest_competencias = ordered["competencia"].drop_duplicates().tail(months).tolist()
+    return ordered[ordered["competencia"].isin(latest_competencias)].copy()
+
+
+def _return_base100_chart_frame(
+    return_history_df: pd.DataFrame,
+    *,
+    selected_labels: list[str] | None = None,
+    months: int = 12,
+) -> pd.DataFrame:
+    history_df = _return_history_last_months(return_history_df, months=months)
+    if history_df.empty:
+        return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
+    label_column = _class_display_column(history_df)
+    if selected_labels:
+        history_df = history_df[history_df[label_column].isin(selected_labels)].copy()
+    if history_df.empty:
+        return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
+    rows: list[dict[str, object]] = []
+    for label, group in history_df.groupby(label_column, dropna=False):
+        ordered = group.sort_values("competencia_dt").copy()
+        current_index = 100.0
+        first_valid = True
+        for _, row in ordered.iterrows():
+            monthly_return = pd.to_numeric(pd.Series([row.get("retorno_mensal_pct")]), errors="coerce").iloc[0]
+            if first_valid:
+                current_index = 100.0
+                first_valid = False
+            elif pd.notna(monthly_return):
+                current_index = current_index * (1.0 + float(monthly_return) / 100.0)
+            rows.append(
+                {
+                    "competencia": row.get("competencia"),
+                    "competencia_dt": row.get("competencia_dt"),
+                    "serie": str(label),
+                    "valor": current_index,
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+def _return_monthly_matrix_frame(
+    return_history_df: pd.DataFrame,
+    *,
+    selected_labels: list[str] | None = None,
+    months: int = 12,
+) -> pd.DataFrame:
+    history_df = _return_history_last_months(return_history_df, months=months)
+    if history_df.empty:
+        return pd.DataFrame(columns=["Competência"])
+    label_column = _class_display_column(history_df)
+    if selected_labels:
+        history_df = history_df[history_df[label_column].isin(selected_labels)].copy()
+    if history_df.empty:
+        return pd.DataFrame(columns=["Competência"])
+    pivot = (
+        history_df.pivot_table(
+            index=["competencia", "competencia_dt"],
+            columns=label_column,
+            values="retorno_mensal_pct",
+            aggfunc="last",
+        )
+        .reset_index()
+        .sort_values("competencia_dt")
+    )
+    display_columns = ["competencia", "competencia_dt"] + [label for label in (selected_labels or []) if label in pivot.columns]
+    display_columns += [column for column in pivot.columns if column not in display_columns]
+    pivot = pivot[display_columns].copy()
+    output = pd.DataFrame({"Competência": pivot["competencia"].map(_format_competencia_label)})
+    for column in pivot.columns:
+        if column in {"competencia", "competencia_dt"}:
+            continue
+        output[str(column)] = pivot[column].map(_format_percent)
+    return output
+
+
+def _format_return_monthly_matrix_frame(
+    return_history_df: pd.DataFrame,
+    *,
+    selected_labels: list[str] | None = None,
+    months: int = 12,
+) -> pd.DataFrame:
+    return _return_monthly_matrix_frame(
+        return_history_df,
+        selected_labels=selected_labels,
+        months=months,
+    )
+
+
+def _format_return_base100_matrix_frame(
+    return_history_df: pd.DataFrame,
+    *,
+    selected_labels: list[str] | None = None,
+    months: int = 12,
+) -> pd.DataFrame:
+    base100_df = _return_base100_chart_frame(
+        return_history_df,
+        selected_labels=selected_labels,
+        months=months,
+    )
+    if base100_df.empty:
+        return pd.DataFrame(columns=["Competência"])
+    pivot = (
+        base100_df.pivot_table(
+            index=["competencia", "competencia_dt"],
+            columns="serie",
+            values="valor",
+            aggfunc="last",
+        )
+        .reset_index()
+        .sort_values("competencia_dt")
+    )
+    ordered_columns = ["competencia", "competencia_dt"] + [label for label in (selected_labels or []) if label in pivot.columns]
+    ordered_columns += [column for column in pivot.columns if column not in ordered_columns]
+    pivot = pivot[ordered_columns].copy()
+    output = pd.DataFrame({"Competência": pivot["competencia"].map(_format_competencia_label)})
+    for column in pivot.columns:
+        if column in {"competencia", "competencia_dt"}:
+            continue
+        output[str(column)] = pivot[column].map(lambda value: _format_decimal(value, decimals=1))
+    return output
 
 
 def _format_performance_benchmark_table(
@@ -2883,10 +3046,10 @@ def _executive_monthly_bar_size(category_count: int) -> int:
 def _executive_quota_bar_size(category_count: int) -> int:
     base = _single_series_bar_size(max(category_count, 1))
     if category_count <= 6:
-        return max(34, int(base * 0.72))
+        return max(28, int(base * 0.60))
     if category_count <= 12:
-        return max(28, int(base * 0.78))
-    return max(22, int(base * 0.82))
+        return max(24, int(base * 0.68))
+    return max(20, int(base * 0.76))
 
 
 def _executive_grouped_bar_size(period_count: int, series_count: int) -> int:
@@ -3195,6 +3358,22 @@ def _line_history_chart(
             [scale_values, pd.to_numeric(end_labels_df["label_valor"], errors="coerce")],
             ignore_index=True,
         )
+    if show_point_labels:
+        point_values = pd.to_numeric(chart_df["valor"], errors="coerce").dropna()
+        if not point_values.empty:
+            point_max = float(point_values.max())
+            point_min = float(point_values.min())
+            point_padding = (
+                max(abs(point_max) * 0.08, 2.0)
+                if "%" in y_title
+                else max(abs(point_max) * 0.08, 1.0)
+            )
+            scale_values = pd.concat([scale_values, pd.Series([point_max + point_padding])], ignore_index=True)
+            if point_min < 0:
+                scale_values = pd.concat(
+                    [scale_values, pd.Series([point_min - (point_padding * 0.35)])],
+                    ignore_index=True,
+                )
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     y_encoding = alt.Y(
@@ -3712,6 +3891,7 @@ def _stacked_history_bar_chart(
     smart_label_placement: bool = False,
     legend_series_order: list[str] | None = None,
     show_segment_labels: bool = True,
+    max_segment_labels_per_competencia: int | None = None,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
     if "competencia" in chart_df.columns:
@@ -3789,6 +3969,13 @@ def _stacked_history_bar_chart(
     labels_df = chart_df.copy()
     has_outside_labels = False
     if show_segment_labels and not labels_df.empty:
+        if max_segment_labels_per_competencia is not None and "competencia" in labels_df.columns:
+            labels_df["_abs_val"] = pd.to_numeric(labels_df[resolved_value_column], errors="coerce").abs()
+            labels_df["_segment_rank"] = (
+                labels_df.groupby("competencia", dropna=False)["_abs_val"]
+                .rank(method="first", ascending=False)
+            )
+            labels_df = labels_df[labels_df["_segment_rank"] <= float(max_segment_labels_per_competencia)].copy()
         max_value = pd.to_numeric(labels_df[resolved_value_column], errors="coerce").abs().max()
         inner_threshold = inner_label_threshold if inner_label_threshold is not None else 2.1 if "%" in y_title else (
             max_value * 0.08 if pd.notna(max_value) else 0.0
@@ -4371,7 +4558,7 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
         alt.Chart(df)
         .mark_text(
             dy=-12,
-            fontSize=14,
+            fontSize=11,
             fontWeight=700,
             color="#ff5a00",
             clip=False,
