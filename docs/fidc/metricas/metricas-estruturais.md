@@ -4,7 +4,7 @@
 
 Métricas estruturais são indicadores que monitoram se o fundo mantém os parâmetros de proteção definidos no seu regulamento. Elas vão além da inadimplência pontual — medem se a estrutura como um todo está saudável.
 
-Alguns desses indicadores aparecem no IME. Outros só existem nos relatórios mensais do administrador ou são calculáveis apenas com o regulamento em mãos.
+Alguns desses indicadores aparecem no Informe Mensal. Outros só existem nos relatórios mensais do administrador ou são calculáveis apenas com o regulamento em mãos.
 
 ## Métricas quase universais
 
@@ -12,16 +12,16 @@ Estas aparecem na grande maioria dos FIDCs e fazem sentido como ponto de partida
 
 | Métrica | O que mede | Fonte principal |
 | --- | --- | --- |
-| **Patrimônio líquido por classe** | Tamanho de cada tranche de cota | IME |
-| **Índice de subordinação** | PL subordinado / PL total — colchão contra perdas | IME |
-| **Alocação em direitos creditórios** | % do patrimônio investido em crédito (vs. caixa, títulos) | IME |
-| **Inadimplência** | Saldo vencido por faixa de prazo | IME |
-| **Provisão** | Provisão contábil constituída | IME |
-| **Emissões e resgates** | Fluxo de capital entrando e saindo do fundo | IME |
+| **Patrimônio líquido por classe** | Tamanho de cada tranche de cota | Informe Mensal |
+| **Índice de subordinação** | PL subordinado / PL total — colchão contra perdas | Informe Mensal |
+| **Alocação em direitos creditórios** | % do patrimônio investido em crédito (vs. caixa, títulos) | Informe Mensal |
+| **Inadimplência** | Saldo vencido por faixa de prazo | Informe Mensal |
+| **Provisão** | Provisão contábil constituída | Informe Mensal |
+| **Emissões e resgates** | Fluxo de capital entrando e saindo do fundo | Informe Mensal |
 
 ## Métricas estruturais específicas do regulamento
 
-Estas métricas são recorrentes no mercado, mas dependem do regulamento de cada fundo. Elas raramente aparecem no IME — estão nos relatórios mensais de monitoramento.
+Estas métricas são recorrentes no mercado, mas dependem do regulamento de cada fundo. Elas raramente aparecem no Informe Mensal — estão nos relatórios mensais de monitoramento.
 
 | Métrica | O que mede |
 | --- | --- |
@@ -59,10 +59,10 @@ Alguns fundos têm métricas muito específicas que não têm equivalente nos de
 - **Índice de refinanciamento:** controla o percentual de créditos que estão sendo renovados/renegociados — relevante em cartões e crédito rotativo.
 - **Pagamentos incorretos / erros de liquidação:** em FIDCs operacionais (como estruturas de adquirência), erros de liquidação são tratados como evento de monitoramento.
 
-Se você está analisando um fundo pela primeira vez, mapeie quais guardrails existem no regulamento antes de interpretar os indicadores do IME.
+Se você está analisando um fundo pela primeira vez, mapeie quais guardrails existem no regulamento antes de interpretar os indicadores do Informe Mensal.
 
-## O que o IME não resolve
+## O que o Informe Mensal não resolve
 
-O IME é uma fonte padronizada — isso é uma vantagem para comparação entre fundos, mas uma limitação para análise profunda de cada fundo individualmente.
+O Informe Mensal é uma fonte padronizada — isso é uma vantagem para comparação entre fundos, mas uma limitação para análise profunda de cada fundo individualmente.
 
-Quando um número do IME parece alto, baixo ou estável, a pergunta correta é: **o regulamento desse fundo define um limite para isso?** Se sim, o dado do IME só faz sentido lido contra esse limite. Se não, o dado é um sinal a ser contextualizado com o perfil da carteira.
+Quando um número do Informe Mensal parece alto, baixo ou estável, a pergunta correta é: **o regulamento desse fundo define um limite para isso?** Se sim, o dado do Informe Mensal só faz sentido lido contra esse limite. Se não, o dado é um sinal a ser contextualizado com o perfil da carteira.

@@ -48,11 +48,11 @@ Quando há coobrigação, o cedente serve como segunda camada de proteção. A e
 - hipóteses em que o fundo pode pedir recompra ou substituição do crédito;
 - limites de concentração por devedor, cedente, prazo ou setor.
 
-## O que o IME informa sobre os direitos creditórios
+## O que o Informe Mensal informa sobre os direitos creditórios
 
 O Informe Mensal traz:
 - o saldo total de direitos creditórios (denominador de vários indicadores de risco);
 - a composição por prazo de vencimento (carteira a vencer vs. vencida);
 - o saldo de créditos vencidos inadimplentes, por faixa de atraso.
 
-O IME **não informa** concentração por devedor individual, qualidade documental da cessão, critérios de elegibilidade nem o nível de recompras e resoluções ocorridas no período.
+O Informe Mensal **não informa** concentração por devedor individual, qualidade documental da cessão, critérios de elegibilidade nem o nível de recompras e resoluções ocorridas no período.

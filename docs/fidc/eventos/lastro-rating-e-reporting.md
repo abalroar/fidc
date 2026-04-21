@@ -2,7 +2,7 @@
 
 ## O risco está na carteira e no controle sobre ela
 
-Em FIDC, o risco de crédito tem duas dimensões: a qualidade dos créditos na carteira e a qualidade do controle exercido sobre esses créditos. Esta segunda dimensão é menos visível no IME, mas é tão relevante quanto a primeira.
+Em FIDC, o risco de crédito tem duas dimensões: a qualidade dos créditos na carteira e a qualidade do controle exercido sobre esses créditos. Esta segunda dimensão é menos visível no Informe Mensal, mas é tão relevante quanto a primeira.
 
 ## Verificação de lastro
 
@@ -23,11 +23,11 @@ Você vai se deparar com pelo menos três fontes de dado sobre um FIDC:
 
 | Fonte | O que cobre | Periodicidade |
 | --- | --- | --- |
-| **IME / XML da CVM** | Base padronizada de reporte: PL, cotas, inadimplência, provisão, eventos de cota | Mensal |
+| **Informe Mensal / XML da CVM** | Base padronizada de reporte: PL, cotas, inadimplência, provisão, eventos de cota | Mensal |
 | **Relatório mensal do administrador** | Narrativa operacional, indicadores específicos do fundo, performance da carteira, eventos relevantes | Mensal (nem sempre público) |
 | **Assembleias e fatos relevantes** | Deliberações, mudanças de regulamento, substituição de prestadores, reestruturações | Evento a evento |
 
-Cada camada responde perguntas diferentes. O IME diz o que aconteceu em termos de dados padronizados. O relatório mensal explica o porquê e mostra indicadores do regulamento. As assembleias registram decisões formais sobre o fundo.
+Cada camada responde perguntas diferentes. O Informe Mensal diz o que aconteceu em termos de dados padronizados. O relatório mensal explica o porquê e mostra indicadores do regulamento. As assembleias registram decisões formais sobre o fundo.
 
 Para uma análise completa, as três fontes precisam ser lidas em conjunto.
 
@@ -42,9 +42,9 @@ As assembleias são o mecanismo formal de governança dos cotistas. É nelas que
 
 Para o analista, uma assembleia convocada fora do rito ordinário — especialmente em contexto de deterioração de carteira ou violação de guardrail — é um sinal de atenção que exige leitura cuidadosa da ata e do contexto.
 
-## O que o IME não captura neste bloco
+## O que o Informe Mensal não captura neste bloco
 
-O IME não informa:
+O Informe Mensal não informa:
 - se houve verificação de lastro no período, com qual resultado;
 - se existe relatório de rating vigente e qual é o nível atual;
 - se foi convocada assembleia ou se há fato relevante pendente;

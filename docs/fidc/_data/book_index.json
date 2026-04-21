@@ -3,12 +3,12 @@
     {
       "section_id": "comece-aqui",
       "title": "Comece Aqui",
-      "description": "Trilha de leitura e o que o IME cobre e não cobre.",
+      "description": "Trilha de leitura e o que o Informe Mensal cobre e não cobre.",
       "pages": [
         {
           "page_id": "overview",
           "title": "Guia de uso deste glossário",
-          "summary": "Trilha de leitura sugerida para analistas de crédito que estão começando com FIDCs. Explica o que o IME entrega e onde ele tem limites.",
+          "summary": "Trilha de leitura sugerida para analistas de crédito que estão começando com FIDCs. Explica o que o Informe Mensal entrega e onde ele tem limites.",
           "path": "overview.md",
           "level": "base",
           "keywords": ["metodologia", "fontes", "trilha", "visão geral"],
@@ -58,7 +58,7 @@
         {
           "page_id": "hierarquia-regulatoria",
           "title": "Hierarquia regulatória: 175, 160, 30 e o padrão XML",
-          "summary": "CVM 175, CVM 160, CVM 30 e padrão XML do IME: o que cada norma regula e quando cada uma é relevante para a análise.",
+          "summary": "CVM 175, CVM 160, CVM 30 e padrão XML do Informe Mensal: o que cada norma regula e quando cada uma é relevante para a análise.",
           "path": "regulacao/hierarquia-regulatoria.md",
           "level": "base",
           "keywords": ["175", "160", "30", "576", "oferta", "investidor profissional", "investidor qualificado"],
@@ -99,7 +99,7 @@
         {
           "page_id": "recebiveis-financeiros",
           "title": "Recebíveis financeiros: principais famílias e o que muda no risco",
-          "summary": "Consignado, crédito pessoal, cartão, meios de pagamento e veículos: por que cada família tem risco diferente e o que observar em cada uma no IME.",
+          "summary": "Consignado, crédito pessoal, cartão, meios de pagamento e veículos: por que cada família tem risco diferente e o que observar em cada uma no Informe Mensal.",
           "path": "recebiveis/recebiveis-financeiros.md",
           "level": "intermediario",
           "keywords": ["consignado", "ccb", "cartão", "meios de pagamento", "veículos", "fgts"],
@@ -119,7 +119,7 @@
     {
       "section_id": "monitoramento",
       "title": "Como ler os indicadores",
-      "description": "Quais indicadores monitorar, como interpretar inadimplência, provisão e perda, e o que o IME cobre ou não cobre.",
+      "description": "Quais indicadores monitorar, como interpretar inadimplência, provisão e perda, e o que o Informe Mensal cobre ou não cobre.",
       "pages": [
         {
           "page_id": "metricas-estruturais",
@@ -133,7 +133,7 @@
         {
           "page_id": "provisao-perdas-e-inadimplencia",
           "title": "Provisionamento, perdas e inadimplência",
-          "summary": "As três camadas que o mercado costuma confundir: atraso (comportamento do crédito), provisão (decisão contábil) e perda realizada (absorção econômica). Como ler o aging do IME.",
+          "summary": "As três camadas que o mercado costuma confundir: atraso (comportamento do crédito), provisão (decisão contábil) e perda realizada (absorção econômica). Como ler o aging do Informe Mensal.",
           "path": "metricas/provisao-perdas-e-inadimplencia.md",
           "level": "intermediario",
           "keywords": ["provisão", "perda esperada", "inadimplência", "atraso", "pdd"],
@@ -149,7 +149,7 @@
         {
           "page_id": "eventos-avaliacao-liquidacao",
           "title": "Eventos de avaliação, liquidação antecipada e controles",
-          "summary": "O que aciona um evento de avaliação, o que aciona liquidação antecipada e como o IME ajuda (e não ajuda) a identificar esses sinais.",
+          "summary": "O que aciona um evento de avaliação, o que aciona liquidação antecipada e como o Informe Mensal ajuda (e não ajuda) a identificar esses sinais.",
           "path": "eventos/eventos-de-avaliacao-e-liquidacao.md",
           "level": "intermediario",
           "keywords": ["evento de avaliação", "liquidação antecipada", "lastro", "rating", "assembleia", "gatilho"],

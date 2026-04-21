@@ -11,9 +11,9 @@ from tabs.tab_modelo_fidc import render_tab_modelo_fidc
 st.set_page_config(page_title="tomaconta FIDCs", page_icon="📊", layout="wide")
 
 st.title("tomaconta FIDCs")
-st.caption("Monitoramento de risco por IME, modelo econômico e base de conhecimento regulatória em uma única plataforma.")
+st.caption("Monitoramento de risco por Informe Mensal, modelo econômico e base de conhecimento regulatória em uma única plataforma.")
 
-# Global period selector — shared across IME tabs to keep single-fund and portfolio views in sync.
+# Global period selector — shared across Informe Mensal tabs to keep single-fund and portfolio views in sync.
 _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
 period = _render_period_selector(state_prefix="ime_global")
 
@@ -23,7 +23,7 @@ tab_informes, tab_carteira, tab_modelo, tab_book = st.tabs(
         "Informe Mensal Estruturado",
         "Visão Carteira",
         "Modelo FIDC",
-        "Glossário / Book FIDC",
+        "Glossário FIDC",
     ]
 )
 

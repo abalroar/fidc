@@ -34,6 +34,6 @@ Essa função cabe ao custodiante (e, em alguns casos, a uma consultoria especia
 
 Quando o regulamento prevê verificação por amostragem — em vez de documento a documento —, o risco residual de inelegibilidade não detectada é parte do risco operacional do fundo.
 
-## O que o IME informa sobre participantes
+## O que o Informe Mensal informa sobre participantes
 
-O IME identifica administrador e gestor. Este painel complementa essa informação com os dados públicos cadastrais da CVM. O custodiante, o cedente e o agente de cobrança precisam ser identificados no regulamento ou no relatório mensal do fundo.
+O Informe Mensal identifica administrador e gestor. Este painel complementa essa informação com os dados públicos cadastrais da CVM. O custodiante, o cedente e o agente de cobrança precisam ser identificados no regulamento ou no relatório mensal do fundo.

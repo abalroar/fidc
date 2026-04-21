@@ -9,7 +9,7 @@ Quatro normas formam o eixo regulatório principal que você precisa conhecer pa
 | **Resolução CVM 175 + Anexo Normativo II** | Constituição, funcionamento, divulgação e governança dos fundos de investimento; o Anexo II trata especificamente do FIDC |
 | **Resolução CVM 160** | Oferta pública de valores mobiliários — regula como as cotas são distribuídas ao público |
 | **Resolução CVM 30** | Categorias de investidores (profissional e qualificado) e regras de suitability |
-| **Padrão XML Mensal CVM** | Define os campos e a estrutura do Informe Mensal Estruturado (IME) enviado pelos administradores |
+| **Padrão XML Mensal CVM** | Define os campos e a estrutura do Informe Mensal enviado pelos administradores |
 
 ## Resolução CVM 175 e Anexo Normativo II
 
@@ -17,7 +17,7 @@ Quatro normas formam o eixo regulatório principal que você precisa conhecer pa
 
 O **Anexo Normativo II** é o capítulo específico para FIDCs dentro da 175. Ele detalha aspectos como:
 - estrutura de classes de cotas sênior e subordinada;
-- exigências de divulgação periódica (incluindo o IME);
+- exigências de divulgação periódica (incluindo o Informe Mensal);
 - regras de elegibilidade e cessão no contexto regulatório;
 - rating de cotas em contextos específicos.
 
@@ -36,22 +36,22 @@ A CVM 30 define quem pode investir em cada tipo de produto:
 
 Vários FIDCs são restritos a investidores profissionais — o que é relevante para entender o perfil de cotistas que compõem o passivo do fundo.
 
-## O padrão XML do IME: camada de reporte, não norma estrutural
+## O padrão XML do Informe Mensal: camada de reporte, não norma estrutural
 
-O Informe Mensal Estruturado é um arquivo XML enviado mensalmente pelos administradores à CVM via Fundos.NET. Ele segue um padrão de campos definido pela CVM.
+O Informe Mensal é um arquivo XML enviado mensalmente pelos administradores à CVM via Fundos.NET. Ele segue um padrão de campos definido pela CVM.
 
 Esse padrão é a base técnica deste painel — mas é importante entender o que ele é e o que não é:
 
 - É **padronizado** — permite comparar fundos diferentes pelo mesmo conjunto de campos;
 - É **uma camada de reporte**, não o regulamento do fundo — não substitui o regulamento, o prospecto nem o relatório mensal do administrador;
-- Os campos do IME não cobrem todos os indicadores estruturais relevantes — gatilhos, covenants, excesso de spread e reservas geralmente ficam de fora.
+- Os campos do Informe Mensal não cobrem todos os indicadores estruturais relevantes — gatilhos, covenants, excesso de spread e reservas geralmente ficam de fora.
 
 ## Leitura combinada na prática
 
-Para uma análise completa de um FIDC, a leitura dos dados do IME deve ser combinada com:
+Para uma análise completa de um FIDC, a leitura dos dados do Informe Mensal deve ser combinada com:
 
 1. **Regulamento do fundo** — para entender os guardrails, gatilhos e critérios de elegibilidade específicos;
 2. **Relatório mensal do administrador** — para narrativa operacional, indicadores próprios do fundo e eventos do período;
 3. **Documentos de oferta** — para entender a estrutura original e o perfil de investidores.
 
-O IME é o ponto de partida mais acessível e padronizado. A análise completa exige ir além dele.
+O Informe Mensal é o ponto de partida mais acessível e padronizado. A análise completa exige ir além dele.

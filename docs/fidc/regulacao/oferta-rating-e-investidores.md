@@ -42,7 +42,7 @@ Rating é a opinião de uma agência classificadora de risco sobre a probabilida
 
 **O que o rating não substitui:**
 - análise própria da qualidade da carteira;
-- leitura dos indicadores do IME;
+- leitura dos indicadores do Informe Mensal;
 - verificação do cumprimento dos guardrails do regulamento.
 
 O rating é uma camada de informação adicional — útil, mas não suficiente. Agências podem ter hipóteses de estresse diferentes das suas. E o rating é retrospectivo: ele reflete o que a agência avaliou no último momento de revisão, não necessariamente o estado atual.

@@ -16,7 +16,7 @@ Sob a **Resolução CVM 175** (e especificamente seu Anexo Normativo II para FID
 | **Cota mezanino** | Camada intermediária — subordinada à sênior, mas com preferência sobre a júnior |
 | **Cota subordinada júnior** | Absorve as perdas antes de qualquer outra classe; costuma ser retida pelo cedente ou cotista estratégico |
 
-Um fundo pode ter várias séries de cotas sênior com benchmarks e prazos diferentes — por isso o IME lista cada série separadamente.
+Um fundo pode ter várias séries de cotas sênior com benchmarks e prazos diferentes — por isso o Informe Mensal lista cada série separadamente.
 
 ## O que é o waterfall
 
@@ -52,7 +52,7 @@ Vários regulamentos definem **gatilhos** — índices mínimos de subordinaçã
 - convocação de assembleia de cotistas;
 - início do processo de liquidação antecipada.
 
-Esses gatilhos são o elemento mais importante para entender quando a proteção estrutural começa a funcionar ativamente — e quando ela pode estar próxima do limite. O IME não os reporta diretamente: eles estão no regulamento.
+Esses gatilhos são o elemento mais importante para entender quando a proteção estrutural começa a funcionar ativamente — e quando ela pode estar próxima do limite. O Informe Mensal não os reporta diretamente: eles estão no regulamento.
 
 ## O que observar na análise
 

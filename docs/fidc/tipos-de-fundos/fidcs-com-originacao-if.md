@@ -26,7 +26,7 @@ Ausência de coobrigação não elimina a exposição ao originador. Um originad
 
 ### 1. O risco está no processo, não só no devedor
 
-Em carteiras de consignado ou crédito pessoal, monitorar apenas a inadimplência reportada no IME é insuficiente. O risco real inclui: a fila de créditos sendo aprovados com critérios afrouxados, a deterioração silenciosa das safras mais recentes e a capacidade de cobrança do originador.
+Em carteiras de consignado ou crédito pessoal, monitorar apenas a inadimplência reportada no Informe Mensal é insuficiente. O risco real inclui: a fila de créditos sendo aprovados com critérios afrouxados, a deterioração silenciosa das safras mais recentes e a capacidade de cobrança do originador.
 
 ### 2. Concentração operacional é frequentemente o risco dominante
 

@@ -46,13 +46,13 @@ CCBs de financiamento de veículos têm como garantia implícita o bem financiad
 
 **O que monitorar:** safra de originação, prazo remanescente, taxa de inadimplência por faixa de prazo, concentração regional ou por revendedor.
 
-## O que o IME captura sobre o tipo de recebível
+## O que o Informe Mensal captura sobre o tipo de recebível
 
-O IME não informa explicitamente a família do recebível. O campo de ativo e a denominação do fundo são o ponto de partida para identificar o tipo de carteira. Para confirmar, o regulamento e o relatório mensal do administrador são as fontes adequadas.
+O Informe Mensal não informa explicitamente a família do recebível. O campo de ativo e a denominação do fundo são o ponto de partida para identificar o tipo de carteira. Para confirmar, o regulamento e o relatório mensal do administrador são as fontes adequadas.
 
 ## Sinais de atenção por família
 
-| Família | Principal sinal de atenção no IME |
+| Família | Principal sinal de atenção no Informe Mensal |
 | --- | --- |
 | Consignado | Aging crescente em faixas curtas (1-30 dias) — pode indicar problema de averbação |
 | Crédito pessoal | Crescimento rápido do saldo inadimplente em todas as faixas |

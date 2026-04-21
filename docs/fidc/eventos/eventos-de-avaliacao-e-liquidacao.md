@@ -39,11 +39,11 @@ O que importa para a análise é:
 2. **A assembleia aprovou reestruturação ou liquidação?** — a ata é a fonte para isso;
 3. **A estrutura pós-reestruturação é sustentável?** — novos parâmetros precisam ser analisados com o regulamento atualizado.
 
-## O que o IME captura sobre esses eventos
+## O que o Informe Mensal captura sobre esses eventos
 
-O IME não reporta eventos de avaliação ou liquidação antecipada diretamente. O canal correto para isso é o **Fundos.NET** — onde assembleias, atas, fatos relevantes e comunicados ao mercado são publicados.
+O Informe Mensal não reporta eventos de avaliação ou liquidação antecipada diretamente. O canal correto para isso é o **Fundos.NET** — onde assembleias, atas, fatos relevantes e comunicados ao mercado são publicados.
 
-Uma forma indireta de identificar problemas: quedas abruptas no PL subordinado, interrupção de emissões, resgates atípicos ou amortizações aceleradas visíveis no IME podem ser sintomas de que um evento estrutural está ocorrendo. O diagnóstico precisa ser confirmado com as fontes primárias.
+Uma forma indireta de identificar problemas: quedas abruptas no PL subordinado, interrupção de emissões, resgates atípicos ou amortizações aceleradas visíveis no Informe Mensal podem ser sintomas de que um evento estrutural está ocorrendo. O diagnóstico precisa ser confirmado com as fontes primárias.
 
 ## Controles formais complementares
 

@@ -40,4 +40,4 @@ Quando o cedente tem obrigação de recompra e tem capacidade financeira para ho
 - A validação de elegibilidade é individual ou por amostragem?
 - Existe obrigação de recompra? Em quais condições?
 - O cedente tem capacidade financeira de honrar recompras relevantes?
-- O IME menciona eventos de resolução ou recompra? (Em geral o IME não cobre isso diretamente — o relatório mensal do administrador é a fonte mais adequada.)
+- O Informe Mensal menciona eventos de resolução ou recompra? (Em geral o Informe Mensal não cobre isso diretamente — o relatório mensal do administrador é a fonte mais adequada.)

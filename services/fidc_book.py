@@ -4,6 +4,7 @@ from dataclasses import dataclass
 import json
 import re
 from pathlib import Path
+import re
 
 
 _LEADING_H1 = re.compile(r"\A\s*#[ \t]+[^\n]*\n+")
@@ -115,13 +116,18 @@ class FIDCBookIndex:
         return target
 
     def load_page_markdown(self, page: FIDCBookPage) -> str:
-        return self.resolve_page_path(page).read_text(encoding="utf-8")
+        markdown = self.resolve_page_path(page).read_text(encoding="utf-8")
+        markdown = _normalize_book_text(markdown)
+        markdown = _strip_leading_title(markdown)
+        markdown = _strip_optional_sections(markdown)
+        return re.sub(r"\n{3,}", "\n\n", markdown).strip()
 
     def load_page_body(self, page: FIDCBookPage) -> str:
         raw = self.load_page_markdown(page)
         return _LEADING_H1.sub("", raw, count=1)
 
     def search_pages(self, query: str) -> tuple[FIDCBookPage, ...]:
+        query = _normalize_book_text(query)
         terms = [term.strip().lower() for term in query.split() if term.strip()]
         if not terms:
             return self.pages
@@ -179,6 +185,62 @@ def _book_root() -> Path:
     return _repo_root() / "docs" / "fidc"
 
 
+_BOOK_TEXT_REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(r"Informe Mensal Estruturado\s*\(IME\)", flags=re.IGNORECASE), "Informe Mensal"),
+    (re.compile(r"Informe Mensal\s*\(IME\)", flags=re.IGNORECASE), "Informe Mensal"),
+    (re.compile(r"\bInforme Mensal Estruturado\b", flags=re.IGNORECASE), "Informe Mensal"),
+    (re.compile(r"\bIMEs\b"), "Informes Mensais"),
+    (re.compile(r"\bIME\b"), "Informe Mensal"),
+)
+
+_OPTIONAL_SECTION_HEADINGS = {
+    "para consultar depois",
+    "para fixar nesta leitura",
+}
+
+
+def _normalize_book_text(value: str) -> str:
+    normalized = value
+    for pattern, replacement in _BOOK_TEXT_REPLACEMENTS:
+        normalized = pattern.sub(replacement, normalized)
+    return normalized
+
+
+def _strip_leading_title(markdown: str) -> str:
+    lines = markdown.splitlines()
+    for index, line in enumerate(lines):
+        if not line.strip():
+            continue
+        if line.startswith("# "):
+            remaining = lines[index + 1 :]
+            if remaining and not remaining[0].strip():
+                remaining = remaining[1:]
+            return "\n".join(remaining)
+        break
+    return markdown
+
+
+def _strip_optional_sections(markdown: str) -> str:
+    output: list[str] = []
+    skip_level: int | None = None
+
+    for line in markdown.splitlines():
+        heading_match = re.match(r"^(#{2,6})\s+(.*?)\s*$", line)
+        if heading_match:
+            level = len(heading_match.group(1))
+            title = heading_match.group(2).strip().lower()
+            if skip_level is not None and level <= skip_level:
+                skip_level = None
+            if skip_level is None and title in _OPTIONAL_SECTION_HEADINGS:
+                skip_level = level
+                continue
+        if skip_level is not None:
+            continue
+        output.append(line)
+
+    return "\n".join(output)
+
+
 def load_fidc_book_index() -> FIDCBookIndex:
     root = _book_root()
     index_payload = json.loads((root / "_data" / "book_index.json").read_text(encoding="utf-8"))
@@ -191,10 +253,10 @@ def load_fidc_book_index() -> FIDCBookIndex:
     sources = {
         item["source_id"]: FIDCBookSource(
             source_id=item["source_id"],
-            title=item["title"],
+            title=_normalize_book_text(item["title"]),
             source_type=item["source_type"],
             location=item["location"],
-            notes=item.get("notes", ""),
+            notes=_normalize_book_text(item.get("notes", "")),
         )
         for item in sources_payload["sources"]
     }
@@ -205,14 +267,14 @@ def load_fidc_book_index() -> FIDCBookIndex:
         for page_payload in section_payload["pages"]:
             page = FIDCBookPage(
                 page_id=page_payload["page_id"],
-                title=page_payload["title"],
-                summary=page_payload["summary"],
+                title=_normalize_book_text(page_payload["title"]),
+                summary=_normalize_book_text(page_payload["summary"]),
                 relative_path=page_payload["path"],
                 level=page_payload.get("level", "base"),
-                keywords=tuple(page_payload.get("keywords", [])),
+                keywords=tuple(_normalize_book_text(keyword) for keyword in page_payload.get("keywords", [])),
                 source_ids=tuple(page_payload.get("source_ids", [])),
                 section_id=section_payload["section_id"],
-                section_title=section_payload["title"],
+                section_title=_normalize_book_text(section_payload["title"]),
             )
             if not loadable_markdown_path(root, page.relative_path).exists():
                 raise FileNotFoundError(f"FIDC book page not found: {page.relative_path}")
@@ -220,8 +282,8 @@ def load_fidc_book_index() -> FIDCBookIndex:
         sections.append(
             FIDCBookSection(
                 section_id=section_payload["section_id"],
-                title=section_payload["title"],
-                description=section_payload["description"],
+                title=_normalize_book_text(section_payload["title"]),
+                description=_normalize_book_text(section_payload["description"]),
                 pages=tuple(pages),
             )
         )
@@ -229,9 +291,9 @@ def load_fidc_book_index() -> FIDCBookIndex:
     concepts = tuple(
         FIDCBookConcept(
             concept_id=item["concept_id"],
-            title=item["title"],
-            summary=item["summary"],
-            aliases=tuple(item.get("aliases", [])),
+            title=_normalize_book_text(item["title"]),
+            summary=_normalize_book_text(item["summary"]),
+            aliases=tuple(_normalize_book_text(alias) for alias in item.get("aliases", [])),
             page_ids=tuple(item.get("page_ids", [])),
             source_ids=tuple(item.get("source_ids", [])),
         )
@@ -240,11 +302,11 @@ def load_fidc_book_index() -> FIDCBookIndex:
     metrics = tuple(
         FIDCBookMetric(
             metric_id=item["metric_id"],
-            title=item["title"],
-            summary=item["summary"],
+            title=_normalize_book_text(item["title"]),
+            summary=_normalize_book_text(item["summary"]),
             metric_type=item["metric_type"],
-            classification=item["classification"],
-            aliases=tuple(item.get("aliases", [])),
+            classification=_normalize_book_text(item["classification"]),
+            aliases=tuple(_normalize_book_text(alias) for alias in item.get("aliases", [])),
             page_ids=tuple(item.get("page_ids", [])),
             source_ids=tuple(item.get("source_ids", [])),
         )
@@ -253,10 +315,10 @@ def load_fidc_book_index() -> FIDCBookIndex:
     reference_funds = tuple(
         FIDCReferenceFund(
             fund_id=item["fund_id"],
-            title=item["title"],
-            receivable_family=item["receivable_family"],
-            origin_profile=item["origin_profile"],
-            risk_focus=item["risk_focus"],
+            title=_normalize_book_text(item["title"]),
+            receivable_family=_normalize_book_text(item["receivable_family"]),
+            origin_profile=_normalize_book_text(item["origin_profile"]),
+            risk_focus=_normalize_book_text(item["risk_focus"]),
             source_ids=tuple(item.get("source_ids", [])),
             page_ids=tuple(item.get("page_ids", [])),
         )
@@ -265,12 +327,12 @@ def load_fidc_book_index() -> FIDCBookIndex:
     document_entries = tuple(
         FIDCDocumentEntry(
             document_id=item["document_id"],
-            title=item["title"],
-            doc_type=item["doc_type"],
+            title=_normalize_book_text(item["title"]),
+            doc_type=_normalize_book_text(item["doc_type"]),
             path=item["path"],
-            themes=tuple(item.get("themes", [])),
+            themes=tuple(_normalize_book_text(theme) for theme in item.get("themes", [])),
             page_ids=tuple(item.get("page_ids", [])),
-            notes=item.get("notes", ""),
+            notes=_normalize_book_text(item.get("notes", "")),
         )
         for item in document_index_payload["documents"]
     )
