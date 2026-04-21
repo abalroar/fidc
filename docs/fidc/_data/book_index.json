@@ -18,7 +18,7 @@
     },
     {
       "section_id": "glossario",
-      "title": "Glossário Base",
+      "title": "Fundamentos",
       "description": "O que é um FIDC, como os créditos entram na carteira e quem tem qual papel na estrutura.",
       "pages": [
         {
@@ -51,8 +51,33 @@
       ]
     },
     {
+      "section_id": "regulacao",
+      "title": "Marco regulatório",
+      "description": "CVM 175, 160 e 30: o que cada norma regula e quando cada uma é relevante para quem analisa FIDCs.",
+      "pages": [
+        {
+          "page_id": "hierarquia-regulatoria",
+          "title": "Hierarquia regulatória: 175, 160, 30 e o padrão XML",
+          "summary": "CVM 175, CVM 160, CVM 30 e padrão XML do IME: o que cada norma regula e quando cada uma é relevante para a análise.",
+          "path": "regulacao/hierarquia-regulatoria.md",
+          "level": "base",
+          "keywords": ["175", "160", "30", "576", "oferta", "investidor profissional", "investidor qualificado"],
+          "source_ids": ["rcvm_175_page", "rcvm_175_parte_geral", "rcvm_175_anexo_ii", "rcvm_160", "rcvm_30", "xml_576_page"]
+        },
+        {
+          "page_id": "oferta-rating-investidores",
+          "title": "Oferta pública, rating e categorias de investidor",
+          "summary": "Quem pode investir, como as cotas foram distribuídas e o que o rating significa (e não significa) para a análise de risco.",
+          "path": "regulacao/oferta-rating-e-investidores.md",
+          "level": "intermediario",
+          "keywords": ["oferta pública", "registro automático", "rating", "investidor profissional", "investidor qualificado"],
+          "source_ids": ["rcvm_160", "rcvm_30", "rcvm_175_anexo_ii", "supplier_oferta_publica", "seller_oferta_publica"]
+        }
+      ]
+    },
+    {
       "section_id": "estrutura",
-      "title": "Estrutura do Veículo",
+      "title": "Como o fundo divide risco",
       "description": "Como o fundo divide o risco entre cotistas sênior e subordinado, e como o caixa flui em cada cenário.",
       "pages": [
         {
@@ -68,7 +93,7 @@
     },
     {
       "section_id": "recebiveis",
-      "title": "Recebíveis Financeiros",
+      "title": "Famílias de recebíveis",
       "description": "Consignado, crédito pessoal, cartão, meios de pagamento e veículos: o que muda no risco de cada família.",
       "pages": [
         {
@@ -93,7 +118,7 @@
     },
     {
       "section_id": "monitoramento",
-      "title": "Monitoramento",
+      "title": "Como ler os indicadores",
       "description": "Quais indicadores monitorar, como interpretar inadimplência, provisão e perda, e o que o IME cobre ou não cobre.",
       "pages": [
         {
@@ -118,7 +143,7 @@
     },
     {
       "section_id": "eventos",
-      "title": "Eventos e Governança",
+      "title": "O que aciona uma intervenção",
       "description": "Quando uma estrutura aciona evento de avaliação ou liquidação, e como verificação de lastro, relatórios e assembleias funcionam.",
       "pages": [
         {
@@ -142,33 +167,8 @@
       ]
     },
     {
-      "section_id": "regulacao",
-      "title": "Regulação",
-      "description": "CVM 175, 160 e 30: o que cada norma regula e quando cada uma é relevante para quem analisa FIDCs.",
-      "pages": [
-        {
-          "page_id": "hierarquia-regulatoria",
-          "title": "Hierarquia regulatória: 175, 160, 30 e o padrão XML",
-          "summary": "CVM 175, CVM 160, CVM 30 e padrão XML do IME: o que cada norma regula e quando cada uma é relevante para a análise.",
-          "path": "regulacao/hierarquia-regulatoria.md",
-          "level": "base",
-          "keywords": ["175", "160", "30", "576", "oferta", "investidor profissional", "investidor qualificado"],
-          "source_ids": ["rcvm_175_page", "rcvm_175_parte_geral", "rcvm_175_anexo_ii", "rcvm_160", "rcvm_30", "xml_576_page"]
-        },
-        {
-          "page_id": "oferta-rating-investidores",
-          "title": "Oferta pública, rating e categorias de investidor",
-          "summary": "Quem pode investir, como as cotas foram distribuídas e o que o rating significa (e não significa) para a análise de risco.",
-          "path": "regulacao/oferta-rating-e-investidores.md",
-          "level": "intermediario",
-          "keywords": ["oferta pública", "registro automático", "rating", "investidor profissional", "investidor qualificado"],
-          "source_ids": ["rcvm_160", "rcvm_30", "rcvm_175_anexo_ii", "supplier_oferta_publica", "seller_oferta_publica"]
-        }
-      ]
-    },
-    {
       "section_id": "fundos-referencia",
-      "title": "Fundos de Referência",
+      "title": "Casos usados no glossário",
       "description": "Fundos reais usados como exemplos ao longo do glossário, por família de crédito.",
       "pages": [
         {

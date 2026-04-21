@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import json
+import re
 from pathlib import Path
+
+
+_LEADING_H1 = re.compile(r"\A\s*#[ \t]+[^\n]*\n+")
 
 
 @dataclass(frozen=True)
@@ -112,6 +116,10 @@ class FIDCBookIndex:
 
     def load_page_markdown(self, page: FIDCBookPage) -> str:
         return self.resolve_page_path(page).read_text(encoding="utf-8")
+
+    def load_page_body(self, page: FIDCBookPage) -> str:
+        raw = self.load_page_markdown(page)
+        return _LEADING_H1.sub("", raw, count=1)
 
     def search_pages(self, query: str) -> tuple[FIDCBookPage, ...]:
         terms = [term.strip().lower() for term in query.split() if term.strip()]
