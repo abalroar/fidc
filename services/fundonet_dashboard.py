@@ -13,6 +13,7 @@ from services.fidc_monitoring import (
     build_mini_glossary_df,
     build_risk_metrics_df,
 )
+from services.identifier_utils import normalize_cnpj_digits
 
 
 COMPETENCIA_COLUMN_RE = re.compile(r"^\d{2}/\d{4}$")
@@ -740,8 +741,8 @@ def _build_fund_info(
     def wide_value(tag_path: str) -> str:
         return _display_value(_get_wide_series(wide_lookup, [latest_competencia], tag_path).iloc[0])
 
-    cnpj_fundo = wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_FUNDO")
-    cnpj_classe = wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_CLASSE")
+    cnpj_fundo = normalize_cnpj_digits(wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_FUNDO"))
+    cnpj_classe = normalize_cnpj_digits(wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_CLASSE"))
     participantes = fetch_fidc_participantes(cnpj_fundo, cnpj_classe=cnpj_classe)
     def doc_value(*columns: str) -> str:
         for column in columns:
@@ -765,13 +766,14 @@ def _build_fund_info(
         "fundo_ou_classe": _display_value(latest_doc.get("fundo_ou_classe", "")),
         "cnpj_fundo": cnpj_fundo,
         "cnpj_classe": cnpj_classe,
-        "cnpj_administrador": wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_ADM") or participantes["cnpj_admin"],
+        "cnpj_administrador": normalize_cnpj_digits(wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_ADM"))
+        or normalize_cnpj_digits(participantes["cnpj_admin"]),
         "nm_admin": participantes["nm_admin"] or None,
         "nm_gestor": participantes["nm_gestor"] or None,
         "nm_custodiante": participantes["nm_custodiante"] or None,
-        "cnpj_admin_cadastro": participantes["cnpj_admin"],
-        "cnpj_gestor": participantes["cnpj_gestor"],
-        "cnpj_custodiante": participantes["cnpj_custodiante"],
+        "cnpj_admin_cadastro": normalize_cnpj_digits(participantes["cnpj_admin"]),
+        "cnpj_gestor": normalize_cnpj_digits(participantes["cnpj_gestor"]),
+        "cnpj_custodiante": normalize_cnpj_digits(participantes["cnpj_custodiante"]),
         "fonte_nome_administrador": participantes["fonte_admin"],
         "fonte_nome_gestor": participantes["fonte_gestor"],
         "fonte_nome_custodiante": participantes["fonte_custodiante"],

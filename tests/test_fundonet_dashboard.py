@@ -5,6 +5,7 @@ import importlib.util
 from pathlib import Path
 import tempfile
 import unittest
+import zipfile
 from datetime import datetime, timezone
 
 import pandas as pd
@@ -138,6 +139,23 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertEqual("Banco Daycoval", dashboard.fund_info["nome_custodiante"])
         self.assertEqual("JGP", dashboard.fund_info["nome_gestor"])
         self.assertEqual("12/2025 a 01/2026", dashboard.fund_info["periodo_analisado"])
+
+    def test_build_dashboard_data_normalizes_decimalized_admin_cnpj_as_text_identifier(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            workspace = Path(tmpdir)
+            self._write_fixture_csvs(workspace)
+            wide_df = pd.read_csv(workspace / "informes_wide.csv", dtype=str)
+            admin_mask = wide_df["tag_path"] == "DOC_ARQ/CAB_INFORM/NR_CNPJ_ADM"
+            wide_df.loc[admin_mask, "01/2026"] = "36113876000191.0"
+            wide_df.to_csv(workspace / "informes_wide.csv", index=False)
+
+            dashboard = build_dashboard_data(
+                wide_csv_path=workspace / "informes_wide.csv",
+                listas_csv_path=workspace / "estruturas_lista.csv",
+                docs_csv_path=workspace / "documentos_filtrados.csv",
+            )
+
+        self.assertEqual("36113876000191", dashboard.fund_info["cnpj_administrador"])
 
     def test_build_dashboard_data_uses_dicred_total_and_exposes_cvm_tables(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -306,7 +324,7 @@ class FundonetDashboardTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmpdir:
             workspace = Path(tmpdir)
-            self._write_dicred_fixture_csvs(workspace)
+            self._write_fixture_csvs(workspace)
 
             dashboard = build_dashboard_data(
                 wide_csv_path=workspace / "informes_wide.csv",
@@ -322,38 +340,36 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertGreater(len(pptx_bytes), 10_000)
         presentation = Presentation(io.BytesIO(pptx_bytes))
         self.assertEqual(4, len(presentation.slides))
+        with zipfile.ZipFile(io.BytesIO(pptx_bytes)) as archive:
+            archive_names = archive.namelist()
+        self.assertFalse(any(name.startswith("ppt/charts/") for name in archive_names))
+        self.assertTrue(any(name.startswith("ppt/media/") and name.endswith(".png") for name in archive_names))
         slide_1_text = " ".join(
             shape.text for shape in presentation.slides[0].shapes if hasattr(shape, "text")
         )
         self.assertIn("Gerado em: 14/04/2026 12:00 GMT-3", slide_1_text)
-        structure_charts = [shape.chart for shape in presentation.slides[0].shapes if getattr(shape, "has_chart", False)]
-        self.assertEqual(2, len(structure_charts))
-        self.assertTrue(any("<c:legend>" in chart._chartSpace.xml for chart in structure_charts))
+        self.assertNotIn("IMEs", slide_1_text)
+        self.assertFalse(any(getattr(shape, "has_chart", False) for shape in presentation.slides[0].shapes))
 
         term_slide_text = " ".join(
             shape.text for shape in presentation.slides[1].shapes if hasattr(shape, "text")
         )
         self.assertIn("Rentabilidade e prazo", term_slide_text)
-        term_charts = [shape.chart for shape in presentation.slides[1].shapes if getattr(shape, "has_chart", False)]
-        self.assertGreaterEqual(len(term_charts), 2)
-        self.assertTrue(any("Total" in chart._chartSpace.xml for chart in term_charts))
-        self.assertTrue(all("Vencidos" not in chart._chartSpace.xml for chart in term_charts if len(chart.series) == 3))
+        self.assertIn("Rentabilidade por tipo de cota (últimos 12 meses)", term_slide_text)
+        self.assertNotIn("Benchmark x realizado", term_slide_text)
+        self.assertFalse(any(getattr(shape, "has_chart", False) for shape in presentation.slides[1].shapes))
 
-        credit_charts = [shape.chart for shape in presentation.slides[2].shapes if getattr(shape, "has_chart", False)]
-        self.assertGreaterEqual(len(credit_charts), 2)
-        self.assertTrue(any('<c:axPos val="r"' in chart._chartSpace.xml for chart in credit_charts))
-        self.assertGreaterEqual(sum("<c:legend>" in chart._chartSpace.xml for chart in credit_charts), 2)
+        credit_slide_text = " ".join(
+            shape.text for shape in presentation.slides[2].shapes if hasattr(shape, "text")
+        )
+        self.assertIn("Crédito e cobertura", credit_slide_text)
+        self.assertFalse(any(getattr(shape, "has_chart", False) for shape in presentation.slides[2].shapes))
 
         deterioration_text = " ".join(
             shape.text for shape in presentation.slides[3].shapes if hasattr(shape, "text")
         )
         self.assertIn("Deterioração acumulada", deterioration_text)
-        deterioration_charts = [shape.chart for shape in presentation.slides[3].shapes if getattr(shape, "has_chart", False)]
-        self.assertLessEqual(len(deterioration_charts), 1)
-        if deterioration_charts:
-            xml = deterioration_charts[0]._chartSpace.xml
-            self.assertIn("Over 1", xml)
-            self.assertNotIn("Somatório de inadimplentes", xml)
+        self.assertFalse(any(getattr(shape, "has_chart", False) for shape in presentation.slides[3].shapes))
 
     def test_build_dashboard_pptx_bytes_sanitizes_nan_and_inf_series(self) -> None:
         if importlib.util.find_spec("pptx") is None:

@@ -14,6 +14,7 @@ from reportlab.lib.units import mm
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 from services.fundonet_dashboard import FundonetDashboardData
+from services.identifier_utils import format_cnpj
 
 
 PAGE_SIZE = landscape(A4)
@@ -735,10 +736,7 @@ def _format_brl_compact(value: object) -> str:
 
 
 def _format_cnpj(value: str) -> str:
-    digits = "".join(ch for ch in str(value or "") if ch.isdigit())
-    if len(digits) != 14:
-        return value or "N/D"
-    return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
+    return format_cnpj(value)
 
 
 def _format_participant(name: object, cnpj: object) -> str:

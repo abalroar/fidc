@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 import time
 import traceback
-from typing import Any
+from typing import Any, Callable
 import uuid
 
 import pandas as pd
@@ -16,6 +16,7 @@ import streamlit as st
 
 from services.fundonet_dashboard import FundonetDashboardData, build_dashboard_data
 from services.fundonet_errors import FundosNetError
+from services.identifier_utils import format_cnpj
 from services.fundonet_service import InformeMensalResult
 from services.ime_loader import load_or_extract_informe
 from services.ime_period import (
@@ -1034,8 +1035,11 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 reference_value=100.0,
                 reference_label="100% (paridade)",
                 bar_size=credit_bar_size,
-                show_line_end_label=True,
-                show_bar_labels=False,
+                show_line_end_label=False,
+                show_bar_labels=True,
+                show_all_line_labels=True,
+                bar_label_formatter=_format_percent,
+                line_label_formatter=_format_percent,
             ),
             width="stretch",
         )
@@ -1162,14 +1166,19 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
             placeholder="Selecione classes para exibir a rentabilidade...",
         )
         selected_set = set(selected_labels) if selected_labels else set(default_labels)
-        filtered_return_chart_df = return_chart_df[return_chart_df["serie"].isin(selected_set)].copy()
         return_summary_df = dashboard.return_summary_df.copy()
         if selected_set:
             return_summary_df = return_summary_df[return_summary_df[_class_display_column(return_summary_df)].isin(selected_set)].copy()
-        if not return_summary_df.empty:
+        return_matrix_df = _format_return_inline_matrix_frame(
+            dashboard.return_history_df,
+            return_summary_df,
+            selected_labels=list(selected_set) if selected_set else None,
+            months=12,
+        )
+        if not return_matrix_df.empty:
             _render_chart_heading(st, "Rentabilidade por tipo de cota (IME)")
             st.dataframe(
-                _format_return_summary_frame(return_summary_df),
+                return_matrix_df,
                 width="stretch",
                 hide_index=True,
             )
@@ -1179,55 +1188,18 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
             months=12,
         )
         if not base100_chart_df.empty:
-            st.altair_chart(
-                _line_history_chart(
-                    base100_chart_df,
-                    title=None,
-                    y_title="Índice base 100",
-                    show_point_labels=False,
-                    show_end_labels=True,
-                    point_size=76,
-                ),
-                width="stretch",
-            )
-        _render_detail_tables_expander(
-            "Abrir histórico de rentabilidade",
-            [
-                (
-                    "Retorno mensal por competência (últimos 12 meses)",
-                    _format_return_monthly_matrix_frame(
-                        dashboard.return_history_df,
-                        selected_labels=list(selected_set) if selected_set else None,
-                        months=12,
+            with st.expander("Abrir histórico acumulado base 100", expanded=False):
+                st.altair_chart(
+                    _line_history_chart(
+                        base100_chart_df,
+                        title=None,
+                        y_title="Índice base 100",
+                        show_point_labels=False,
+                        show_end_labels=True,
+                        point_size=76,
                     ),
-                ),
-                (
-                    "Índice acumulado base 100 (últimos 12 meses)",
-                    _format_return_base100_matrix_frame(
-                        dashboard.return_history_df,
-                        selected_labels=list(selected_set) if selected_set else None,
-                        months=12,
-                    ),
-                ),
-                (
-                    "Benchmark x realizado",
-                    _format_performance_benchmark_table(
-                        dashboard.performance_vs_benchmark_latest_df[
-                            dashboard.performance_vs_benchmark_latest_df[_class_display_column(dashboard.performance_vs_benchmark_latest_df)].isin(selected_set)
-                        ].copy()
-                        if selected_set and not dashboard.performance_vs_benchmark_latest_df.empty
-                        else dashboard.performance_vs_benchmark_latest_df.copy(),
-                        mark_equal_as_na=_benchmark_equals_realizado(
-                            dashboard.performance_vs_benchmark_latest_df[
-                                dashboard.performance_vs_benchmark_latest_df[_class_display_column(dashboard.performance_vs_benchmark_latest_df)].isin(selected_set)
-                            ].copy()
-                            if selected_set and not dashboard.performance_vs_benchmark_latest_df.empty
-                            else dashboard.performance_vs_benchmark_latest_df.copy()
-                        ),
-                    ),
-                ),
-            ],
-        )
+                    width="stretch",
+                )
 
     structural_tables: list[tuple[str, pd.DataFrame]] = [
         ("Métricas estruturais", _format_risk_metrics_compact_table(dashboard.risk_metrics_df, risk_block="Risco estrutural")),
@@ -1451,15 +1423,7 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
 
 
 def _render_dashboard_context_bar(dashboard: FundonetDashboardData) -> None:
-    info = dashboard.fund_info
-    context_items = [
-        ("Últ. competência", _format_competencia_label(info.get("ultima_competencia") or "N/D")),
-        ("Janela", _format_competencia_period(info.get("periodo_analisado") or "N/D")),
-        ("IMEs", str(len(dashboard.competencias))),
-    ]
-    latest_delivery = str(info.get("ultima_entrega") or "").strip()
-    if latest_delivery and latest_delivery != "N/D":
-        context_items.append(("Entrega", latest_delivery))
+    context_items = _build_dashboard_context_items(dashboard)
     context_html = "".join(
         f"<span><strong>{escape(label)}:</strong> {escape(value)}</span>"
         for label, value in context_items
@@ -1473,6 +1437,14 @@ def _render_dashboard_context_bar(dashboard: FundonetDashboardData) -> None:
 def _render_chart_heading(container, title: str, caption: str | None = None) -> None:
     container.markdown(f'<div class="fidc-chart-title">{escape(title)}</div>', unsafe_allow_html=True)
     del caption
+
+
+def _build_dashboard_context_items(dashboard: FundonetDashboardData) -> list[tuple[str, str]]:
+    info = dashboard.fund_info
+    return [
+        ("Últ. competência", _format_competencia_label(info.get("ultima_competencia") or "N/D")),
+        ("Janela", _format_competencia_period(info.get("periodo_analisado") or "N/D")),
+    ]
 
 
 def _format_participant_display(name: object, cnpj: object) -> str:
@@ -2391,6 +2363,52 @@ def _return_ordered_labels(dashboard: FundonetDashboardData) -> list[str]:
     present = [label for label in ordered_from_pl if label in set(labels)]
     remaining = [label for label in labels if label not in set(present)]
     return present + remaining
+
+
+def _format_return_inline_matrix_frame(
+    return_history_df: pd.DataFrame,
+    return_summary_df: pd.DataFrame,
+    *,
+    selected_labels: list[str] | None = None,
+    months: int = 12,
+) -> pd.DataFrame:
+    history_df = _return_history_last_months(return_history_df, months=months)
+    if history_df.empty or return_summary_df.empty:
+        return pd.DataFrame(columns=["Classe", "YTD", "12 meses"])
+    label_column = _class_display_column(history_df)
+    summary_label_column = _class_display_column(return_summary_df)
+    if selected_labels:
+        history_df = history_df[history_df[label_column].isin(selected_labels)].copy()
+        return_summary_df = return_summary_df[return_summary_df[summary_label_column].isin(selected_labels)].copy()
+    if history_df.empty or return_summary_df.empty:
+        return pd.DataFrame(columns=["Classe", "YTD", "12 meses"])
+    ordered_history = history_df.sort_values("competencia_dt").copy()
+    competencias = ordered_history["competencia"].drop_duplicates().tolist()
+    pivot = (
+        ordered_history.pivot_table(
+            index=label_column,
+            columns="competencia",
+            values="retorno_mensal_pct",
+            aggfunc="last",
+        )
+        .reindex(columns=competencias)
+    )
+    ordered_labels = [label for label in (selected_labels or []) if label in pivot.index]
+    ordered_labels += [label for label in pivot.index.tolist() if label not in set(ordered_labels)]
+    pivot = pivot.reindex(ordered_labels)
+    pivot = pivot.reset_index(drop=True)
+    labels_series = pd.Series(ordered_labels, dtype="object")
+    month_columns = {competencia: _format_competencia_label(competencia) for competencia in competencias}
+    output = pd.DataFrame({"Classe": labels_series})
+    for competencia in competencias:
+        output[month_columns[competencia]] = pivot[competencia].tolist()
+        output[month_columns[competencia]] = output[month_columns[competencia]].map(_format_percent)
+    summary_lookup = return_summary_df.set_index(summary_label_column)
+    retorno_ano = summary_lookup.get("retorno_ano_pct", pd.Series(dtype="float64"))
+    retorno_12m = summary_lookup.get("retorno_12m_pct", pd.Series(dtype="float64"))
+    output["YTD"] = output["Classe"].map(lambda label: _format_percent(retorno_ano.get(label)))
+    output["12 meses"] = output["Classe"].map(lambda label: _format_percent(retorno_12m.get(label)))
+    return output
 
 
 def _format_return_summary_frame(return_summary_df: pd.DataFrame) -> pd.DataFrame:
@@ -4254,7 +4272,7 @@ def _aging_history_callout_chart(
     latest_df["segment_top"] = latest_df["valor_num"].cumsum()
     latest_df["segment_center"] = latest_df["segment_top"] - (latest_df["valor_num"] / 2.0)
     ordered_labels = latest_df.sort_values("segment_center").reset_index(drop=True).copy()
-    min_gap = 2.8
+    min_gap = 4.2
     adjusted_centers: list[float] = []
     for _, row in ordered_labels.iterrows():
         current = float(row["segment_center"])
@@ -4356,7 +4374,7 @@ def _aging_history_callout_chart(
     )
     label_points = (
         alt.Chart(latest_df)
-        .mark_point(filled=True, size=44, strokeWidth=0, clip=False)
+        .mark_point(filled=True, size=58, strokeWidth=0, clip=False)
         .encode(
             x=alt.X(
                 "label_slot:N",
@@ -4370,7 +4388,7 @@ def _aging_history_callout_chart(
     )
     labels = (
         alt.Chart(latest_df)
-        .mark_text(align="left", dx=10, fontSize=11, fontWeight=700, clip=False)
+        .mark_text(align="left", dx=12, fontSize=14, fontWeight=700, clip=False)
         .encode(
             x=alt.X(
                 "label_slot:N",
@@ -4384,7 +4402,7 @@ def _aging_history_callout_chart(
         )
     )
     chart = _chart_with_optional_title(bars + connectors + label_points + labels, height=height, title=title)
-    return _style_altair_chart(chart.properties(padding={"left": 12, "right": 220, "top": 18, "bottom": 8}))
+    return _style_altair_chart(chart.properties(padding={"left": 12, "right": 248, "top": 18, "bottom": 8}))
 
 
 def _resolve_stacked_chart_value_column(chart_df: pd.DataFrame, requested_column: str) -> str:
@@ -4480,6 +4498,9 @@ def _grouped_bar_with_rhs_line_chart(
     bar_size: int | None = None,
     show_line_end_label: bool = True,
     show_bar_labels: bool = False,
+    show_all_line_labels: bool = False,
+    bar_label_formatter: Callable[[object], str] | None = None,
+    line_label_formatter: Callable[[object], str] | None = None,
 ) -> alt.Chart:
     bar_chart_df = _altair_compatible_df(bar_df.copy())
     line_chart_df = _altair_compatible_df(line_df.copy())
@@ -4501,7 +4522,7 @@ def _grouped_bar_with_rhs_line_chart(
         else _format_decimal(value)
     )
     bar_chart_df["label_fmt"] = bar_chart_df[resolved_bar_value_field].map(
-        lambda value: _format_value_label(value, bar_y_title)
+        lambda value: bar_label_formatter(value) if bar_label_formatter else _format_value_label(value, bar_y_title)
     )
     line_chart_df["valor_fmt"] = line_chart_df[line_value_field].map(
         lambda value: _format_brl_compact(value)
@@ -4509,6 +4530,9 @@ def _grouped_bar_with_rhs_line_chart(
         else _format_percent(value)
         if "%" in line_y_title
         else _format_decimal(value)
+    )
+    line_chart_df["label_fmt"] = line_chart_df[line_value_field].map(
+        lambda value: line_label_formatter(value) if line_label_formatter else _format_value_label(value, line_y_title)
     )
 
     x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort)
@@ -4630,6 +4654,25 @@ def _grouped_bar_with_rhs_line_chart(
             )
         )
         coverage_layers = reference_rule + coverage_line
+
+    if show_all_line_labels and not line_chart_df.empty:
+        label_df = line_chart_df.copy()
+        point_labels = (
+            alt.Chart(label_df)
+            .mark_text(
+                fontSize=10,
+                fontWeight=700,
+                color=COVERAGE_LINE_COLOR,
+                dy=-14,
+                clip=False,
+            )
+            .encode(
+                x=x_encoding,
+                y=line_y_encoding,
+                text=alt.Text("label_fmt:N"),
+            )
+        )
+        coverage_layers = coverage_layers + point_labels
 
     layered = alt.layer(bar_layer, coverage_layers).resolve_scale(y="independent")
     if show_line_end_label:
@@ -4988,10 +5031,7 @@ def _altair_compatible_df(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def _format_cnpj(value: str) -> str:
-    digits = re.sub(r"\D", "", value or "")
-    if len(digits) != 14:
-        return value or "N/D"
-    return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
+    return format_cnpj(value)
 
 
 def _is_missing_value(value: object) -> bool:

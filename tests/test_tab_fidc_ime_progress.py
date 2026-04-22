@@ -4,6 +4,7 @@ import sys
 import types
 import unittest
 from datetime import datetime
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import pandas as pd
@@ -163,6 +164,44 @@ class TabFidcImeProgressTests(unittest.TestCase):
         self.assertGreaterEqual(rhs_scale[1], 500.0)
         self.assertEqual("#6b2c3e", spec["layer"][1]["layer"][1]["mark"]["point"]["fill"])
 
+    def test_grouped_bar_with_rhs_line_chart_supports_full_bar_and_line_labels(self) -> None:
+        bar_df = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "01/2026", "02/2026", "02/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-01-01", "2026-02-01", "2026-02-01"]),
+                "serie": ["Inadimplência", "Provisão", "Inadimplência", "Provisão"],
+                "valor": [10.0, 50.0, 12.0, 48.0],
+            }
+        )
+        line_df = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "02/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-02-01"]),
+                "serie": ["Cobertura", "Cobertura"],
+                "valor": [500.0, 420.0],
+            }
+        )
+
+        chart = tab_fidc_ime._grouped_bar_with_rhs_line_chart(
+            bar_df,
+            line_df,
+            title=None,
+            bar_y_title="% dos DCs",
+            line_y_title="Cobertura (%)",
+            reference_value=100.0,
+            reference_label="100% (paridade)",
+            show_line_end_label=False,
+            show_bar_labels=True,
+            show_all_line_labels=True,
+            bar_label_formatter=tab_fidc_ime._format_percent,
+            line_label_formatter=tab_fidc_ime._format_percent,
+        )
+
+        spec = chart.to_dict()
+        self.assertEqual("text", spec["layer"][0]["layer"][1]["mark"]["type"])
+        self.assertEqual("text", spec["layer"][1]["layer"][2]["mark"]["type"])
+        self.assertEqual("#6b2c3e", spec["layer"][1]["layer"][2]["mark"]["color"])
+
     def test_build_line_series_end_labels_df_uses_value_only_labels(self) -> None:
         chart_df = pd.DataFrame(
             {
@@ -303,6 +342,8 @@ class TabFidcImeProgressTests(unittest.TestCase):
         self.assertEqual("line", spec["layer"][1]["mark"]["type"])
         self.assertEqual("text", spec["layer"][3]["mark"]["type"])
         self.assertEqual("label_slot", spec["layer"][3]["encoding"]["x"]["field"])
+        self.assertEqual(14, spec["layer"][3]["mark"]["fontSize"])
+        self.assertEqual(248, spec["padding"]["right"])
 
     def test_stacked_history_bar_chart_can_hide_segment_labels_and_keep_totals(self) -> None:
         frame = pd.DataFrame(
@@ -361,6 +402,53 @@ class TabFidcImeProgressTests(unittest.TestCase):
         chart_df = tab_fidc_ime._return_base100_chart_frame(frame, selected_labels=["Sênior"], months=12)
 
         self.assertEqual([100.0, 110.0, 104.5], [round(value, 1) for value in chart_df["valor"].tolist()])
+
+    def test_format_return_inline_matrix_frame_compacts_last_12_months_ytd_and_12m(self) -> None:
+        history = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "02/2026", "01/2026", "02/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-02-01", "2026-01-01", "2026-02-01"]),
+                "class_label": ["Sênior", "Sênior", "Subordinada", "Subordinada"],
+                "retorno_mensal_pct": [1.25, 1.50, 2.0, 2.5],
+            }
+        )
+        summary = pd.DataFrame(
+            {
+                "class_label": ["Sênior", "Subordinada"],
+                "retorno_mes_pct": [1.50, 2.5],
+                "retorno_ano_pct": [2.75, 4.5],
+                "retorno_12m_pct": [14.0, 21.0],
+            }
+        )
+
+        formatted = tab_fidc_ime._format_return_inline_matrix_frame(history, summary, months=12)
+
+        self.assertEqual(["Classe", "jan-26", "fev-26", "YTD", "12 meses"], formatted.columns.tolist())
+        senior_row = formatted[formatted["Classe"] == "Sênior"].iloc[0]
+        subordinada_row = formatted[formatted["Classe"] == "Subordinada"].iloc[0]
+        self.assertEqual("1,25%", senior_row["jan-26"])
+        self.assertEqual("2,75%", senior_row["YTD"])
+        self.assertEqual("21,00%", subordinada_row["12 meses"])
+
+    def test_build_dashboard_context_items_keeps_only_competencia_and_janela(self) -> None:
+        dashboard = SimpleNamespace(
+            fund_info={
+                "ultima_competencia": "02/2026",
+                "periodo_analisado": "01/2026 a 02/2026",
+                "ultima_entrega": "2026-03-14",
+            },
+            competencias=["01/2026", "02/2026"],
+        )
+
+        items = tab_fidc_ime._build_dashboard_context_items(dashboard)
+
+        self.assertEqual(
+            [("Últ. competência", "fev-26"), ("Janela", "jan-26 a fev-26")],
+            items,
+        )
+
+    def test_format_cnpj_recovers_decimalized_identifier(self) -> None:
+        self.assertEqual("36.113.876/0001-91", tab_fidc_ime._format_cnpj("36113876000191.0"))
 
     def test_stacked_history_bar_chart_can_limit_labels_per_competencia(self) -> None:
         frame = pd.DataFrame(

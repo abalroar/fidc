@@ -9,6 +9,7 @@ from typing import Sequence
 from zoneinfo import ZoneInfo
 
 import pandas as pd
+from PIL import Image, ImageDraw, ImageFont
 
 from services.fundonet_dashboard import FundonetDashboardData
 
@@ -665,6 +666,9 @@ def build_dashboard_pptx_bytes(
             series.data_labels.font.size = Pt(label_font_size)
             series.data_labels.font.color.rgb = rgb(BLACK if idx == 2 else DARK_GRAY)
 
+    def add_picture_bytes(slide, image_bytes: bytes, *, left: float, top: float, width: float, height: float) -> None:  # noqa: ANN001
+        slide.shapes.add_picture(BytesIO(image_bytes), Inches(left), Inches(top), Inches(width), Inches(height))
+
     timestamp_text = f"{generated_at.strftime('%d/%m/%Y %H:%M')} GMT-3"
     title_fund = _fund_title(dashboard)
     requested_period_text = (
@@ -675,7 +679,6 @@ def build_dashboard_pptx_bytes(
     subtitle = (
         f"{_format_competencia(dashboard.latest_competencia)}"
         f"  ·  {dashboard.fund_info.get('periodo_analisado', 'N/D')}"
-        f"  ·  {len(dashboard.competencias)} IMEs"
         f"{requested_period_text}"
     )
 
@@ -690,8 +693,7 @@ def build_dashboard_pptx_bytes(
     right_narrow_width = CONTENT_WIDTH_IN - left_wide_width - split_gap
     right_col_left = MARGIN_LEFT_IN + left_wide_width + split_gap
     top_row_top = 1.02
-    mid_row_top = 3.48
-    bottom_row_top = 4.25
+    image_scale = 170
 
     # Slide 1 — structure and capital
     slide = prs.slides.add_slide(blank)
@@ -700,24 +702,26 @@ def build_dashboard_pptx_bytes(
     sub_df = dashboard.subordination_history_df.sort_values("competencia_dt").copy()
     if not sub_df.empty:
         sub_series = [("Subordinação reportada", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
-        sub_chart = add_chart(
+        add_picture_bytes(
             slide,
-            title="Subordinação reportada (IME)",
-            chart_type=XL_CHART_TYPE.LINE_MARKERS,
-            categories=_competencia_labels(sub_df["competencia"].tolist()),
-            series_map=sub_series,
+            _line_chart_png(
+                title="Subordinação reportada (IME)",
+                categories=_competencia_labels(sub_df["competencia"].tolist()),
+                series_map=sub_series,
+                colors=[ORANGE],
+                width_px=int(full_width * image_scale),
+                height_px=int(2.05 * image_scale),
+                axis_min=0.0,
+                axis_max=_percent_axis_max(sub_series, cap=80.0),
+                tick_formatter=_percent_tick_formatter,
+                show_point_labels=len(sub_df["competencia"].drop_duplicates()) <= 12,
+                show_end_labels=len(sub_df["competencia"].drop_duplicates()) > 12,
+            ),
             left=MARGIN_LEFT_IN,
             top=top_row_top,
             width=full_width,
             height=2.05,
-            number_format='0.0"%"',
-            percent_axis=True,
-            label_position="above",
-            show_data_labels=True,
-            label_font_size=10,
-            value_max=_percent_axis_max(sub_series, cap=80.0),
         )
-        _style_line_series(sub_chart.series[0], color=ORANGE, width_pt=2.8, marker_size=11)
         add_textbox(
             slide,
             MARGIN_LEFT_IN,
@@ -737,29 +741,23 @@ def build_dashboard_pptx_bytes(
             for column in quota_values.columns
             if column != "competencia"
         ]
-        add_chart(
+        add_picture_bytes(
             slide,
-            title="PL por tipo de cota",
-            chart_type=XL_CHART_TYPE.COLUMN_STACKED,
-            categories=_competencia_labels(quota_values["competencia"].tolist()),
-            series_map=quota_series,
+            _stacked_bar_chart_png(
+                title="PL por tipo de cota",
+                categories=_competencia_labels(quota_values["competencia"].tolist()),
+                series_map=quota_series,
+                colors=SERIES_COLORS,
+                width_px=int(full_width * image_scale),
+                height_px=int(3.35 * image_scale),
+                percent_axis=False,
+                money_scale=quota_scale,
+                show_latest_callouts=False,
+            ),
             left=MARGIN_LEFT_IN,
-            top=3.30,
+            top=3.32,
             width=full_width,
-            height=3.40,
-            number_format=_money_label_number_format(quota_scale),
-            money_axis=True,
-            gap_width=78,
-            overlap=100,
-            label_position="center",
-            label_color=WHITE,
-            label_font_size=10,
-            series_colors=SERIES_COLORS,
-            value_min=0.0,
-            value_max=_money_axis_max([value for _, values in quota_series for value in values]),
-            show_legend=True,
-            legend_position="bottom",
-            show_data_labels=False,
+            height=3.35,
         )
     add_footer(slide, timestamp_text)
 
@@ -767,76 +765,96 @@ def build_dashboard_pptx_bytes(
     slide = prs.slides.add_slide(blank)
     add_slide_header(slide, "Rentabilidade e prazo")
 
-    return_pivot = _return_history_pivot(dashboard, selected_labels=_top_return_labels_for_ppt(dashboard))
-    if not return_pivot.empty:
-        return_columns = [column for column in return_pivot.columns if column != "competencia"]
-        return_series = [(column, return_pivot[column].tolist()) for column in return_columns]
-        return_chart = add_chart(
+    selected_labels = _top_return_labels_for_ppt(dashboard)
+    return_table_df = _build_return_inline_table_for_ppt(dashboard, selected_labels=selected_labels, months=12)
+    if not return_table_df.empty:
+        month_count = max(len(return_table_df.columns) - 3, 0)
+        add_table(
             slide,
-            title="Rentabilidade mensal por tipo de cota (IME)",
-            chart_type=XL_CHART_TYPE.LINE_MARKERS,
-            categories=_competencia_labels(return_pivot["competencia"].tolist()),
-            series_map=return_series,
+            return_table_df,
+            title="Rentabilidade por tipo de cota (últimos 12 meses)",
             left=MARGIN_LEFT_IN,
-            top=top_row_top,
+            top=1.18,
             width=full_width,
-            height=2.20,
-            number_format='0.0"%"',
-            percent_axis=True,
-            label_position="above",
-            label_font_size=8,
-            show_data_labels=False,
-            show_legend=True,
-            legend_position="bottom",
-            value_max=_percent_axis_max(return_series, cap=120.0),
-            series_colors=SERIES_COLORS,
+            height=1.38,
+            col_widths=[2.15] + ([0.58] * month_count) + [0.86, 1.02],
+            max_rows=8,
         )
-        for idx, series in enumerate(return_chart.series):
-            _style_line_series(
-                series,
-                color=SERIES_COLORS[idx % len(SERIES_COLORS)],
-                width_pt=2.2,
-                marker_size=8,
-            )
+
+    base100_df = _build_return_base100_for_ppt(dashboard, selected_labels=selected_labels, months=12)
+    if not base100_df.empty:
+        base100_series = []
+        ordered_base100 = base100_df.sort_values("competencia_dt").copy()
+        for series_name, group in ordered_base100.groupby("serie", dropna=False):
+            base100_series.append((str(series_name), pd.to_numeric(group["valor"], errors="coerce").fillna(0.0).tolist()))
+        base100_numeric = pd.to_numeric(base100_df["valor"], errors="coerce")
+        base100_min = float(base100_numeric.min()) if not base100_numeric.dropna().empty else 100.0
+        base100_max = float(base100_numeric.max()) if not base100_numeric.dropna().empty else 100.0
+        add_picture_bytes(
+            slide,
+            _line_chart_png(
+                title="Índice acumulado base 100",
+                categories=_competencia_labels(ordered_base100["competencia"].drop_duplicates().tolist()),
+                series_map=base100_series,
+                colors=SERIES_COLORS,
+                width_px=int(full_width * image_scale),
+                height_px=int(1.45 * image_scale),
+                axis_min=min(95.0, base100_min * 0.98),
+                axis_max=max(base100_max * 1.06, 105.0),
+                tick_formatter=_number_tick_formatter,
+                show_point_labels=False,
+                show_end_labels=True,
+            ),
+            left=MARGIN_LEFT_IN,
+            top=2.80,
+            width=full_width,
+            height=1.45,
+        )
 
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
     if not maturity_df.empty:
         maturity_scale = _money_scale(pd.to_numeric(maturity_df["valor"], errors="coerce"))
         maturity_values = _scale_values(maturity_df["valor"], maturity_scale).tolist()
-        add_compounding_waterfall_chart(
+        add_picture_bytes(
             slide,
-            categories=maturity_df["faixa"].astype(str).tolist(),
-            step_values=maturity_values,
-            total_value=float(sum(maturity_values)),
+            _waterfall_chart_png(
+                title=f"Prazo de vencimento dos DCs a vencer ({maturity_scale.label})" if maturity_scale.label else "Prazo de vencimento dos DCs a vencer",
+                categories=maturity_df["faixa"].astype(str).tolist(),
+                step_values=maturity_values,
+                total_value=float(sum(maturity_values)),
+                width_px=int(left_wide_width * image_scale),
+                height_px=int(2.35 * image_scale),
+                money_scale=maturity_scale,
+            ),
             left=MARGIN_LEFT_IN,
-            top=4.05,
+            top=4.30,
             width=left_wide_width,
-            height=2.55,
-            number_format=_money_number_format(maturity_scale),
-            value_max=_money_axis_max(list(maturity_values) + [sum(maturity_values)]),
-            title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
-            label_font_size=10,
+            height=2.35,
         )
 
     duration_df = dashboard.duration_history_df.sort_values("competencia_dt").copy()
     if not duration_df.empty:
         duration_series = [("Prazo médio proxy", _series_numeric(duration_df, "duration_days").fillna(0.0).tolist())]
-        duration_chart = add_chart(
+        add_picture_bytes(
             slide,
-            title="Prazo médio proxy dos recebíveis (IME)",
-            chart_type=XL_CHART_TYPE.LINE_MARKERS,
-            categories=_competencia_labels(duration_df["competencia"].tolist()),
-            series_map=duration_series,
+            _line_chart_png(
+                title="Prazo médio proxy dos recebíveis (IME)",
+                categories=_competencia_labels(duration_df["competencia"].tolist()),
+                series_map=duration_series,
+                colors=[ORANGE],
+                width_px=int(right_narrow_width * image_scale),
+                height_px=int(2.35 * image_scale),
+                axis_min=0.0,
+                axis_max=max(float(_series_numeric(duration_df, "duration_days").max() or 0.0) * 1.12, 30.0),
+                tick_formatter=_number_tick_formatter,
+                show_point_labels=True,
+                show_end_labels=False,
+            ),
             left=right_col_left,
-            top=4.05,
+            top=4.30,
             width=right_narrow_width,
-            height=2.55,
-            number_format='0',
-            label_position="above",
-            label_font_size=10,
-            show_data_labels=True,
+            height=2.35,
         )
-        _style_line_series(duration_chart.series[0], color=ORANGE, width_pt=2.4, marker_size=13)
     add_footer(slide, timestamp_text)
 
     # Slide 3 — credit and coverage
@@ -846,17 +864,22 @@ def build_dashboard_pptx_bytes(
     default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
     if not default_df.empty:
         categories = _competencia_labels(default_df["competencia"].tolist())
-        add_overlay_combo_credit_chart(
+        add_picture_bytes(
             slide,
-            categories=categories,
-            bar_series_map=[
-                ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
-                ("Provisão", _series_numeric(default_df, "provisao_pct_direitos").fillna(0.0).tolist()),
-            ],
-            line_series_map=[
-                ("Cobertura", _series_numeric(default_df, "cobertura_pct").fillna(0.0).tolist()),
-                ("100% (paridade)", [100.0] * len(categories)),
-            ],
+            _grouped_bar_line_chart_png(
+                title="Inadimplência, provisão e cobertura",
+                categories=categories,
+                bar_series_map=[
+                    ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
+                    ("Provisão", _series_numeric(default_df, "provisao_pct_direitos").fillna(0.0).tolist()),
+                ],
+                line_series_map=[
+                    ("Cobertura", _series_numeric(default_df, "cobertura_pct").fillna(0.0).tolist()),
+                    ("100% (paridade)", [100.0] * len(categories)),
+                ],
+                width_px=int(full_width * image_scale),
+                height_px=int(2.30 * image_scale),
+            ),
             left=MARGIN_LEFT_IN,
             top=top_row_top,
             width=full_width,
@@ -867,28 +890,22 @@ def build_dashboard_pptx_bytes(
     if not aging_history.empty:
         aging_columns = [column for column in aging_history.columns if column != "competencia"]
         aging_series_map = [(column, aging_history[column].tolist()) for column in aging_columns]
-        add_chart(
+        add_picture_bytes(
             slide,
-            title="Aging da inadimplência",
-            chart_type=XL_CHART_TYPE.COLUMN_STACKED,
-            categories=_competencia_labels(aging_history["competencia"].tolist()),
-            series_map=aging_series_map,
+            _stacked_bar_chart_png(
+                title="Aging da inadimplência",
+                categories=_competencia_labels(aging_history["competencia"].tolist()),
+                series_map=aging_series_map,
+                colors=AGING_PPT_COLORS,
+                width_px=int(full_width * image_scale),
+                height_px=int(2.75 * image_scale),
+                percent_axis=True,
+                show_latest_callouts=True,
+            ),
             left=MARGIN_LEFT_IN,
             top=3.85,
             width=full_width,
             height=2.75,
-            number_format='0%',
-            percent_axis=True,
-            gap_width=44,
-            overlap=100,
-            label_position="center",
-            label_color=WHITE,
-            label_font_size=10,
-            series_colors=AGING_PPT_COLORS,
-            value_max=_percent_axis_max(aging_series_map, cap=120.0),
-            show_legend=True,
-            legend_position="bottom",
-            show_data_labels=False,
         )
     add_footer(slide, timestamp_text)
 
@@ -901,33 +918,26 @@ def build_dashboard_pptx_bytes(
         over_columns = [column for column in over_history.columns if column != "competencia"]
         over_series_map = [(column, over_history[column].tolist()) for column in over_columns]
         over_axis_max = _percent_axis_max(over_series_map, cap=120.0)
-        over_chart = add_chart(
+        add_picture_bytes(
             slide,
-            title="Inadimplência Over",
-            chart_type=XL_CHART_TYPE.LINE_MARKERS,
-            categories=_competencia_labels(over_history["competencia"].tolist()),
-            series_map=over_series_map,
+            _line_chart_png(
+                title="Inadimplência Over",
+                categories=_competencia_labels(over_history["competencia"].tolist()),
+                series_map=over_series_map,
+                colors=OVER_PPT_COLORS,
+                width_px=int(full_width * image_scale),
+                height_px=int(5.55 * image_scale),
+                axis_min=0.0,
+                axis_max=over_axis_max,
+                tick_formatter=_percent_tick_formatter,
+                show_point_labels=False,
+                show_end_labels=True,
+            ),
             left=MARGIN_LEFT_IN,
             top=top_row_top,
             width=full_width,
             height=5.55,
-            number_format='0.0"%"',
-            percent_axis=True,
-            label_position="above",
-            label_font_size=8,
-            series_colors=OVER_PPT_COLORS,
-            value_max=over_axis_max,
-            show_data_labels=False,
-            show_legend=True,
-            legend_position="bottom",
         )
-        for idx, series in enumerate(over_chart.series):
-            _style_line_series(
-                series,
-                color=OVER_PPT_COLORS[idx % len(OVER_PPT_COLORS)],
-                width_pt=2.3,
-                marker_size=9,
-            )
     add_footer(slide, timestamp_text)
 
     buffer = BytesIO()
@@ -1323,3 +1333,653 @@ def _format_decimal_0_or_2(value: object) -> str:
         return "N/D"
     decimals = 0 if float(numeric).is_integer() else 2
     return _format_decimal(numeric, decimals=decimals)
+
+
+def _hex_to_rgb(value: str) -> tuple[int, int, int]:
+    color = str(value or BLACK).strip().lstrip("#")
+    return (int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16))
+
+
+def _load_pil_font(size: int, *, bold: bool = False) -> ImageFont.ImageFont:
+    font_paths = [
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf",
+        "/System/Library/Fonts/Supplemental/Arial Bold.ttf" if bold else "/System/Library/Fonts/Supplemental/Arial.ttf",
+    ]
+    for path in font_paths:
+        font_path = Path(path)
+        if font_path.exists():
+            return ImageFont.truetype(str(font_path), size=size)
+    return ImageFont.load_default()
+
+
+def _text_size(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.ImageFont) -> tuple[int, int]:
+    left, top, right, bottom = draw.textbbox((0, 0), text, font=font)
+    return right - left, bottom - top
+
+
+def _chart_canvas(
+    *,
+    width_px: int,
+    height_px: int,
+    title: str | None,
+    legend_items: Sequence[tuple[str, str]],
+) -> tuple[Image.Image, ImageDraw.ImageDraw, dict[str, int], ImageFont.ImageFont, ImageFont.ImageFont, ImageFont.ImageFont]:
+    image = Image.new("RGB", (width_px, height_px), _hex_to_rgb(WHITE))
+    draw = ImageDraw.Draw(image)
+    title_font = _load_pil_font(30, bold=True)
+    label_font = _load_pil_font(17, bold=False)
+    small_font = _load_pil_font(15, bold=False)
+    top_pad = 18
+    if title:
+        draw.text((26, 18), title, fill=_hex_to_rgb(BLACK), font=title_font)
+        top_pad = 60
+    legend_rows = 0
+    if legend_items:
+        max_per_row = max(1, int((width_px - 120) / 210))
+        legend_rows = math.ceil(len(legend_items) / max_per_row)
+    legend_height = 16 + (legend_rows * 24) if legend_rows else 0
+    plot_box = {
+        "left": 86,
+        "top": top_pad,
+        "right": width_px - 34,
+        "bottom": height_px - (48 + legend_height),
+        "legend_top": height_px - (legend_height if legend_height else 0) - 20,
+        "width": width_px,
+        "height": height_px,
+    }
+    if legend_items:
+        _draw_image_legend(
+            draw,
+            legend_items=legend_items,
+            left=plot_box["left"],
+            top=plot_box["legend_top"],
+            max_width=plot_box["right"] - plot_box["left"],
+            font=label_font,
+        )
+    return image, draw, plot_box, title_font, label_font, small_font
+
+
+def _draw_image_legend(
+    draw: ImageDraw.ImageDraw,
+    *,
+    legend_items: Sequence[tuple[str, str]],
+    left: int,
+    top: int,
+    max_width: int,
+    font: ImageFont.ImageFont,
+) -> None:
+    cursor_x = left
+    cursor_y = top
+    row_height = 22
+    for label, color in legend_items:
+        marker_w = 18
+        marker_h = 6
+        label_w, label_h = _text_size(draw, label, font)
+        total_w = marker_w + 8 + label_w + 18
+        if cursor_x + total_w > left + max_width:
+            cursor_x = left
+            cursor_y += row_height
+        draw.rounded_rectangle(
+            (cursor_x, cursor_y + 5, cursor_x + marker_w, cursor_y + 5 + marker_h),
+            radius=2,
+            fill=_hex_to_rgb(color),
+            outline=_hex_to_rgb(color),
+        )
+        draw.text((cursor_x + marker_w + 8, cursor_y), label, fill=_hex_to_rgb(DARK_GRAY), font=font)
+        cursor_x += total_w
+
+
+def _draw_dashed_line(
+    draw: ImageDraw.ImageDraw,
+    *,
+    start: tuple[float, float],
+    end: tuple[float, float],
+    color: str,
+    width: int = 2,
+    dash: int = 8,
+    gap: int = 6,
+) -> None:
+    x1, y1 = start
+    x2, y2 = end
+    total_len = math.hypot(x2 - x1, y2 - y1)
+    if total_len <= 0:
+        return
+    dx = (x2 - x1) / total_len
+    dy = (y2 - y1) / total_len
+    cursor = 0.0
+    while cursor < total_len:
+        seg_start = cursor
+        seg_end = min(cursor + dash, total_len)
+        sx = x1 + dx * seg_start
+        sy = y1 + dy * seg_start
+        ex = x1 + dx * seg_end
+        ey = y1 + dy * seg_end
+        draw.line((sx, sy, ex, ey), fill=_hex_to_rgb(color), width=width)
+        cursor += dash + gap
+
+
+def _repel_positions(values: Sequence[float], *, min_gap: float, lower: float, upper: float) -> list[float]:
+    if not values:
+        return []
+    indexed = sorted(enumerate(values), key=lambda item: item[1])
+    adjusted: dict[int, float] = {}
+    previous: float | None = None
+    for idx, value in indexed:
+        candidate = value if previous is None else max(value, previous + min_gap)
+        adjusted[idx] = min(candidate, upper)
+        previous = adjusted[idx]
+    ordered = [adjusted[idx] for idx in range(len(values))]
+    if ordered and ordered[-1] > upper:
+        shift = ordered[-1] - upper
+        ordered = [max(lower, value - shift) for value in ordered]
+    return ordered
+
+
+def _value_to_y(value: float, *, axis_min: float, axis_max: float, top: int, bottom: int) -> float:
+    span = max(axis_max - axis_min, 1e-9)
+    return bottom - ((value - axis_min) / span) * (bottom - top)
+
+
+def _draw_vertical_axis(
+    draw: ImageDraw.ImageDraw,
+    *,
+    left: int,
+    top: int,
+    bottom: int,
+    ticks: Sequence[float],
+    axis_min: float,
+    axis_max: float,
+    formatter,
+    label_font: ImageFont.ImageFont,
+    label_color: str = MID_GRAY,
+    grid_color: str = GRID_GRAY,
+    right: int | None = None,
+    align_right: bool = False,
+) -> None:
+    axis_x = right if align_right and right is not None else left
+    draw.line((axis_x, top, axis_x, bottom), fill=_hex_to_rgb(GRID_GRAY), width=1)
+    grid_left = left if right is None else left
+    grid_right = right if right is not None else axis_x
+    for tick in ticks:
+        y = _value_to_y(float(tick), axis_min=axis_min, axis_max=axis_max, top=top, bottom=bottom)
+        draw.line((grid_left, y, grid_right, y), fill=_hex_to_rgb(grid_color), width=1)
+        label = formatter(float(tick))
+        label_w, label_h = _text_size(draw, label, label_font)
+        if align_right and right is not None:
+            draw.text((right + 10, y - (label_h / 2)), label, fill=_hex_to_rgb(label_color), font=label_font)
+        else:
+            draw.text((left - 12 - label_w, y - (label_h / 2)), label, fill=_hex_to_rgb(label_color), font=label_font)
+
+
+def _draw_x_axis(
+    draw: ImageDraw.ImageDraw,
+    *,
+    categories: Sequence[str],
+    x_positions: Sequence[float],
+    bottom: int,
+    font: ImageFont.ImageFont,
+) -> None:
+    for category, x in zip(categories, x_positions, strict=False):
+        label_w, label_h = _text_size(draw, category, font)
+        draw.text((x - (label_w / 2), bottom + 10), category, fill=_hex_to_rgb(DARK_GRAY), font=font)
+
+
+def _nice_ticks(axis_min: float, axis_max: float, *, steps: int = 4) -> list[float]:
+    if axis_max <= axis_min:
+        return [axis_min]
+    return [axis_min + ((axis_max - axis_min) * idx / steps) for idx in range(steps + 1)]
+
+
+def _finite_float(value: object) -> float | None:
+    numeric = _to_float(value)
+    if numeric is None or not math.isfinite(numeric):
+        return None
+    return float(numeric)
+
+
+def _finite_or_default(value: object, default: float = 0.0) -> float:
+    numeric = _finite_float(value)
+    return default if numeric is None else numeric
+
+
+def _percent_tick_formatter(value: float) -> str:
+    return f"{value:.0f}%".replace(".", ",")
+
+
+def _number_tick_formatter(value: float) -> str:
+    return f"{value:.0f}".replace(".", ",")
+
+
+def _money_tick_formatter(scale: MoneyScale):
+    def _formatter(value: float) -> str:
+        return _format_decimal(value, decimals=0 if scale.divisor != 1 else 2)
+
+    return _formatter
+
+
+def _line_chart_png(
+    *,
+    title: str,
+    categories: Sequence[str],
+    series_map: Sequence[tuple[str, Sequence[float]]],
+    colors: Sequence[str],
+    width_px: int,
+    height_px: int,
+    axis_min: float = 0.0,
+    axis_max: float | None = None,
+    tick_formatter=None,
+    legend: bool = True,
+    show_point_labels: bool = False,
+    show_end_labels: bool = True,
+    reference_lines: Sequence[tuple[float, str, str]] | None = None,
+) -> bytes:
+    legend_items = list(zip([name for name, _ in series_map], colors[: len(series_map)], strict=False)) if legend else []
+    image, draw, box, _, label_font, small_font = _chart_canvas(
+        width_px=width_px,
+        height_px=height_px,
+        title=title,
+        legend_items=legend_items,
+    )
+    values = [numeric for _, series in series_map for value in series if (numeric := _finite_float(value)) is not None]
+    if reference_lines:
+        values.extend([float(value) for value, _, _ in reference_lines])
+    axis_max = axis_max if axis_max is not None else (max(values) * 1.14 if values else 100.0)
+    axis_max = max(axis_max, axis_min + 1.0)
+    formatter = tick_formatter or _number_tick_formatter
+    ticks = _nice_ticks(axis_min, axis_max, steps=4)
+    _draw_vertical_axis(
+        draw,
+        left=box["left"],
+        top=box["top"],
+        bottom=box["bottom"],
+        ticks=ticks,
+        axis_min=axis_min,
+        axis_max=axis_max,
+        formatter=formatter,
+        label_font=small_font,
+    )
+    plot_width = box["right"] - box["left"]
+    step = plot_width / max(len(categories) - 1, 1)
+    x_positions = [box["left"] + (idx * step) for idx in range(len(categories))]
+    draw.line((box["left"], box["bottom"], box["right"], box["bottom"]), fill=_hex_to_rgb(GRID_GRAY), width=1)
+    _draw_x_axis(draw, categories=categories, x_positions=x_positions, bottom=box["bottom"], font=small_font)
+    if reference_lines:
+        for value, label, color in reference_lines:
+            y = _value_to_y(float(value), axis_min=axis_min, axis_max=axis_max, top=box["top"], bottom=box["bottom"])
+            _draw_dashed_line(
+                draw,
+                start=(box["left"], y),
+                end=(box["right"], y),
+                color=color,
+                width=2,
+                dash=10,
+                gap=6,
+            )
+            label_w, _ = _text_size(draw, label, small_font)
+            draw.text((box["left"], y - 18), label, fill=_hex_to_rgb(color), font=small_font)
+    last_points: list[tuple[str, float, float, str, str]] = []
+    for series_idx, (series_name, series_values) in enumerate(series_map):
+        color = colors[series_idx % len(colors)]
+        points: list[tuple[float, float, float]] = []
+        for x, value in zip(x_positions, series_values, strict=False):
+            numeric = _finite_float(value)
+            if numeric is None:
+                continue
+            y = _value_to_y(numeric, axis_min=axis_min, axis_max=axis_max, top=box["top"], bottom=box["bottom"])
+            points.append((x, y, numeric))
+        if len(points) >= 2:
+            draw.line([(x, y) for x, y, _ in points], fill=_hex_to_rgb(color), width=4)
+        for point_idx, (x, y, numeric) in enumerate(points):
+            draw.ellipse((x - 5, y - 5, x + 5, y + 5), fill=_hex_to_rgb(color), outline=_hex_to_rgb(color))
+            if show_point_labels:
+                label = formatter(numeric)
+                label_w, label_h = _text_size(draw, label, small_font)
+                offset = 18 + ((point_idx + series_idx) % 2) * 12
+                draw.text((x - (label_w / 2), max(box["top"], y - offset - label_h)), label, fill=_hex_to_rgb(color), font=small_font)
+        if points:
+            x, y, numeric = points[-1]
+            last_points.append((series_name, x, y, color, formatter(numeric)))
+    if show_end_labels and last_points:
+        y_values = [item[2] for item in last_points]
+        adjusted = _repel_positions(y_values, min_gap=20.0, lower=box["top"] + 6, upper=box["bottom"] - 6)
+        label_x = box["right"] + 18
+        for (series_name, x, y, color, label), label_y in zip(last_points, adjusted, strict=False):
+            _draw_dashed_line(
+                draw,
+                start=(x, y),
+                end=(label_x - 8, label_y + 8),
+                color=color,
+                width=2,
+                dash=8,
+                gap=5,
+            )
+            draw.text((label_x, label_y), label, fill=_hex_to_rgb(color), font=label_font)
+    buffer = BytesIO()
+    image.save(buffer, format="PNG")
+    return buffer.getvalue()
+
+
+def _stacked_bar_chart_png(
+    *,
+    title: str,
+    categories: Sequence[str],
+    series_map: Sequence[tuple[str, Sequence[float]]],
+    colors: Sequence[str],
+    width_px: int,
+    height_px: int,
+    percent_axis: bool = False,
+    money_scale: MoneyScale | None = None,
+    show_latest_callouts: bool = False,
+) -> bytes:
+    legend_items = list(zip([name for name, _ in series_map], colors[: len(series_map)], strict=False))
+    image, draw, box, _, label_font, small_font = _chart_canvas(
+        width_px=width_px,
+        height_px=height_px,
+        title=title,
+        legend_items=legend_items,
+    )
+    totals = []
+    for idx in range(len(categories)):
+        totals.append(sum(_finite_or_default(values[idx]) for _, values in series_map))
+    axis_min = 0.0
+    axis_max = max(totals) * 1.15 if totals else 100.0
+    axis_max = max(axis_max, 100.0 if percent_axis else 1.0)
+    formatter = _percent_tick_formatter if percent_axis else _money_tick_formatter(money_scale or MoneyScale(1.0, "", "R$"))
+    ticks = _nice_ticks(axis_min, axis_max, steps=4)
+    _draw_vertical_axis(
+        draw,
+        left=box["left"],
+        top=box["top"],
+        bottom=box["bottom"],
+        ticks=ticks,
+        axis_min=axis_min,
+        axis_max=axis_max,
+        formatter=formatter,
+        label_font=small_font,
+    )
+    draw.line((box["left"], box["bottom"], box["right"], box["bottom"]), fill=_hex_to_rgb(GRID_GRAY), width=1)
+    plot_width = box["right"] - box["left"]
+    group_width = plot_width / max(len(categories), 1)
+    bar_width = min(58, max(26, int(group_width * 0.52)))
+    x_positions = [box["left"] + ((idx + 0.5) * group_width) for idx in range(len(categories))]
+    _draw_x_axis(draw, categories=categories, x_positions=x_positions, bottom=box["bottom"], font=small_font)
+    latest_segments: list[tuple[str, float, float, str, str]] = []
+    for cat_idx, x in enumerate(x_positions):
+        current_top_value = 0.0
+        for series_idx, (series_name, series_values) in enumerate(series_map):
+            color = colors[series_idx % len(colors)]
+            value = _finite_or_default(series_values[cat_idx])
+            next_top_value = current_top_value + value
+            y_bottom = _value_to_y(current_top_value, axis_min=axis_min, axis_max=axis_max, top=box["top"], bottom=box["bottom"])
+            y_top = _value_to_y(next_top_value, axis_min=axis_min, axis_max=axis_max, top=box["top"], bottom=box["bottom"])
+            draw.rectangle((x - (bar_width / 2), y_top, x + (bar_width / 2), y_bottom), fill=_hex_to_rgb(color), outline=_hex_to_rgb(WHITE))
+            if show_latest_callouts and cat_idx == len(x_positions) - 1 and value > 0:
+                label = _format_percent(value) if percent_axis else _format_brl_compact((money_scale.divisor if money_scale else 1.0) * value)
+                latest_segments.append((series_name, x + (bar_width / 2), (y_top + y_bottom) / 2, color, label))
+            current_top_value = next_top_value
+    if show_latest_callouts and latest_segments:
+        segment_y = [item[2] for item in latest_segments]
+        adjusted = _repel_positions(segment_y, min_gap=18.0, lower=box["top"] + 4, upper=box["bottom"] - 4)
+        label_x = box["right"] + 24
+        for (series_name, x, y, color, label), label_y in zip(latest_segments, adjusted, strict=False):
+            _draw_dashed_line(
+                draw,
+                start=(x, y),
+                end=(label_x - 10, label_y + 8),
+                color=color,
+                width=2,
+                dash=8,
+                gap=5,
+            )
+            draw.text((label_x, label_y), label, fill=_hex_to_rgb(color), font=label_font)
+    buffer = BytesIO()
+    image.save(buffer, format="PNG")
+    return buffer.getvalue()
+
+
+def _grouped_bar_line_chart_png(
+    *,
+    title: str,
+    categories: Sequence[str],
+    bar_series_map: Sequence[tuple[str, Sequence[float]]],
+    line_series_map: Sequence[tuple[str, Sequence[float]]],
+    width_px: int,
+    height_px: int,
+) -> bytes:
+    legend_items = [
+        *[(name, SERIES_COLORS[idx % len(SERIES_COLORS)]) for idx, (name, _) in enumerate(bar_series_map)],
+        *[(name, COVERAGE_LINE_COLOR if idx == 0 else MID_GRAY) for idx, (name, _) in enumerate(line_series_map)],
+    ]
+    image, draw, box, _, label_font, small_font = _chart_canvas(
+        width_px=width_px,
+        height_px=height_px,
+        title=title,
+        legend_items=legend_items,
+    )
+    bar_values = [_finite_or_default(value) for _, values in bar_series_map for value in values]
+    line_values = [_finite_or_default(value) for _, values in line_series_map for value in values]
+    bar_axis_max = _percent_axis_max([(name, list(values)) for name, values in bar_series_map], cap=120.0)
+    line_axis_max = _percent_axis_max([(name, list(values)) for name, values in line_series_map], cap=max(max(line_values, default=100.0) * 1.18, 650.0))
+    bar_ticks = _nice_ticks(0.0, bar_axis_max, steps=4)
+    line_ticks = _nice_ticks(0.0, line_axis_max, steps=4)
+    _draw_vertical_axis(
+        draw,
+        left=box["left"],
+        top=box["top"],
+        bottom=box["bottom"],
+        ticks=bar_ticks,
+        axis_min=0.0,
+        axis_max=bar_axis_max,
+        formatter=_percent_tick_formatter,
+        label_font=small_font,
+    )
+    _draw_vertical_axis(
+        draw,
+        left=box["left"],
+        right=box["right"],
+        top=box["top"],
+        bottom=box["bottom"],
+        ticks=line_ticks,
+        axis_min=0.0,
+        axis_max=line_axis_max,
+        formatter=_percent_tick_formatter,
+        label_font=small_font,
+        label_color=COVERAGE_LINE_COLOR,
+        grid_color=WHITE,
+        align_right=True,
+    )
+    draw.text((box["left"], box["top"] - 24), "% dos DCs", fill=_hex_to_rgb(MID_GRAY), font=small_font)
+    draw.text((box["right"] - 88, box["top"] - 24), "Cobertura (%)", fill=_hex_to_rgb(COVERAGE_LINE_COLOR), font=small_font)
+    draw.line((box["left"], box["bottom"], box["right"], box["bottom"]), fill=_hex_to_rgb(GRID_GRAY), width=1)
+    plot_width = box["right"] - box["left"]
+    group_width = plot_width / max(len(categories), 1)
+    inner_width = group_width * 0.62
+    bar_width = inner_width / max(len(bar_series_map), 1)
+    x_positions = [box["left"] + ((idx + 0.5) * group_width) for idx in range(len(categories))]
+    _draw_x_axis(draw, categories=categories, x_positions=x_positions, bottom=box["bottom"], font=small_font)
+    for cat_idx, x in enumerate(x_positions):
+        left_edge = x - (inner_width / 2)
+        for series_idx, (series_name, series_values) in enumerate(bar_series_map):
+            value = _finite_or_default(series_values[cat_idx])
+            x0 = left_edge + (series_idx * bar_width)
+            x1 = x0 + (bar_width * 0.82)
+            y = _value_to_y(value, axis_min=0.0, axis_max=bar_axis_max, top=box["top"], bottom=box["bottom"])
+            color = SERIES_COLORS[series_idx % len(SERIES_COLORS)]
+            draw.rectangle((x0, y, x1, box["bottom"]), fill=_hex_to_rgb(color), outline=_hex_to_rgb(color))
+            label = _format_percent(value)
+            label_w, label_h = _text_size(draw, label, small_font)
+            draw.text((x0 + ((x1 - x0 - label_w) / 2), max(box["top"], y - 18 - label_h)), label, fill=_hex_to_rgb(BLACK), font=small_font)
+    reference_series = {name: values for name, values in line_series_map}
+    if "100% (paridade)" in reference_series:
+        y = _value_to_y(100.0, axis_min=0.0, axis_max=line_axis_max, top=box["top"], bottom=box["bottom"])
+        _draw_dashed_line(
+            draw,
+            start=(box["left"], y),
+            end=(box["right"], y),
+            color=MID_GRAY,
+            width=2,
+            dash=10,
+            gap=6,
+        )
+    coverage_values = None
+    for series_name, values in line_series_map:
+        if series_name == "Cobertura":
+            coverage_values = values
+            break
+    if coverage_values:
+        points: list[tuple[float, float, float]] = []
+        for x, raw_value in zip(x_positions, coverage_values, strict=False):
+            numeric = _finite_or_default(raw_value)
+            y = _value_to_y(numeric, axis_min=0.0, axis_max=line_axis_max, top=box["top"], bottom=box["bottom"])
+            points.append((x, y, numeric))
+        if len(points) >= 2:
+            draw.line([(x, y) for x, y, _ in points], fill=_hex_to_rgb(COVERAGE_LINE_COLOR), width=4)
+        for idx, (x, y, numeric) in enumerate(points):
+            draw.ellipse((x - 5, y - 5, x + 5, y + 5), fill=_hex_to_rgb(COVERAGE_LINE_COLOR), outline=_hex_to_rgb(COVERAGE_LINE_COLOR))
+            label = _format_percent(numeric)
+            label_w, label_h = _text_size(draw, label, small_font)
+            offset = 22 + (idx % 2) * 12
+            draw.text((x - (label_w / 2), max(box["top"], y - offset - label_h)), label, fill=_hex_to_rgb(COVERAGE_LINE_COLOR), font=small_font)
+    buffer = BytesIO()
+    image.save(buffer, format="PNG")
+    return buffer.getvalue()
+
+
+def _waterfall_chart_png(
+    *,
+    title: str,
+    categories: Sequence[str],
+    step_values: Sequence[float],
+    total_value: float,
+    width_px: int,
+    height_px: int,
+    money_scale: MoneyScale,
+) -> bytes:
+    image, draw, box, _, _, small_font = _chart_canvas(
+        width_px=width_px,
+        height_px=height_px,
+        title=title,
+        legend_items=[("Fluxo", ORANGE), ("Total", BLACK)],
+    )
+    axis_max = _money_axis_max(list(step_values) + [total_value]) or max(total_value, 1.0)
+    ticks = _nice_ticks(0.0, axis_max, steps=4)
+    _draw_vertical_axis(
+        draw,
+        left=box["left"],
+        top=box["top"],
+        bottom=box["bottom"],
+        ticks=ticks,
+        axis_min=0.0,
+        axis_max=axis_max,
+        formatter=_money_tick_formatter(money_scale),
+        label_font=small_font,
+    )
+    draw.line((box["left"], box["bottom"], box["right"], box["bottom"]), fill=_hex_to_rgb(GRID_GRAY), width=1)
+    all_categories = list(categories) + ["Total"]
+    plot_width = box["right"] - box["left"]
+    group_width = plot_width / max(len(all_categories), 1)
+    bar_width = min(54, max(24, int(group_width * 0.52)))
+    x_positions = [box["left"] + ((idx + 0.5) * group_width) for idx in range(len(all_categories))]
+    _draw_x_axis(draw, categories=all_categories, x_positions=x_positions, bottom=box["bottom"], font=small_font)
+    cumulative = 0.0
+    for idx, (category, value) in enumerate(zip(categories, step_values, strict=False)):
+        next_cumulative = cumulative + float(value)
+        y0 = _value_to_y(cumulative, axis_min=0.0, axis_max=axis_max, top=box["top"], bottom=box["bottom"])
+        y1 = _value_to_y(next_cumulative, axis_min=0.0, axis_max=axis_max, top=box["top"], bottom=box["bottom"])
+        x = x_positions[idx]
+        draw.rectangle((x - (bar_width / 2), min(y0, y1), x + (bar_width / 2), max(y0, y1)), fill=_hex_to_rgb(ORANGE), outline=_hex_to_rgb(ORANGE))
+        label = _format_decimal((float(value)), decimals=1)
+        label_w, label_h = _text_size(draw, label, small_font)
+        draw.text((x - (label_w / 2), min(y0, y1) - label_h - 10), label, fill=_hex_to_rgb(DARK_GRAY), font=small_font)
+        cumulative = next_cumulative
+    total_x = x_positions[-1]
+    total_y = _value_to_y(total_value, axis_min=0.0, axis_max=axis_max, top=box["top"], bottom=box["bottom"])
+    draw.rectangle((total_x - (bar_width / 2), total_y, total_x + (bar_width / 2), box["bottom"]), fill=_hex_to_rgb(BLACK), outline=_hex_to_rgb(BLACK))
+    total_label = _format_decimal(total_value, decimals=1)
+    total_w, total_h = _text_size(draw, total_label, small_font)
+    draw.text((total_x - (total_w / 2), total_y - total_h - 10), total_label, fill=_hex_to_rgb(BLACK), font=small_font)
+    buffer = BytesIO()
+    image.save(buffer, format="PNG")
+    return buffer.getvalue()
+
+
+def _build_return_inline_table_for_ppt(
+    dashboard: FundonetDashboardData,
+    *,
+    selected_labels: Sequence[str] | None = None,
+    months: int = 12,
+) -> pd.DataFrame:
+    history_df = dashboard.return_history_df.sort_values("competencia_dt").copy()
+    summary_df = dashboard.return_summary_df.copy()
+    if history_df.empty or summary_df.empty:
+        return pd.DataFrame(columns=["Classe", "YTD", "12 meses"])
+    label_column = _class_display_column(history_df)
+    summary_label_column = _class_display_column(summary_df)
+    if selected_labels:
+        history_df = history_df[history_df[label_column].isin(list(selected_labels))].copy()
+        summary_df = summary_df[summary_df[summary_label_column].isin(list(selected_labels))].copy()
+    competencias = history_df["competencia"].drop_duplicates().tail(months).tolist()
+    history_df = history_df[history_df["competencia"].isin(competencias)].copy()
+    if history_df.empty:
+        return pd.DataFrame(columns=["Classe", "YTD", "12 meses"])
+    pivot = (
+        history_df.pivot_table(
+            index=label_column,
+            columns="competencia",
+            values="retorno_mensal_pct",
+            aggfunc="last",
+        )
+        .reindex(columns=competencias)
+    )
+    ordered_labels = [label for label in (selected_labels or []) if label in pivot.index]
+    ordered_labels += [label for label in pivot.index.tolist() if label not in set(ordered_labels)]
+    pivot = pivot.reindex(ordered_labels).reset_index(drop=True)
+    output = pd.DataFrame({"Classe": pd.Series(ordered_labels, dtype="object")})
+    for competencia in competencias:
+        output[_format_competencia(competencia)] = pd.Series(pivot[competencia].tolist(), dtype="object").map(_format_percent)
+    summary_lookup = summary_df.set_index(summary_label_column)
+    retorno_ano = summary_lookup["retorno_ano_pct"] if "retorno_ano_pct" in summary_lookup.columns else pd.Series(dtype="float64")
+    retorno_12m = summary_lookup["retorno_12m_pct"] if "retorno_12m_pct" in summary_lookup.columns else pd.Series(dtype="float64")
+    output["YTD"] = output["Classe"].map(lambda label: _format_percent(retorno_ano.get(label)))
+    output["12 meses"] = output["Classe"].map(lambda label: _format_percent(retorno_12m.get(label)))
+    return output
+
+
+def _build_return_base100_for_ppt(
+    dashboard: FundonetDashboardData,
+    *,
+    selected_labels: Sequence[str] | None = None,
+    months: int = 12,
+) -> pd.DataFrame:
+    history_df = dashboard.return_history_df.sort_values("competencia_dt").copy()
+    if history_df.empty:
+        return pd.DataFrame(columns=["competencia", "serie", "valor"])
+    label_column = _class_display_column(history_df)
+    if selected_labels:
+        history_df = history_df[history_df[label_column].isin(list(selected_labels))].copy()
+    competencias = history_df["competencia"].drop_duplicates().tail(months).tolist()
+    history_df = history_df[history_df["competencia"].isin(competencias)].copy()
+    if history_df.empty:
+        return pd.DataFrame(columns=["competencia", "serie", "valor"])
+    rows: list[dict[str, object]] = []
+    for label, group in history_df.groupby(label_column, dropna=False):
+        ordered = group.sort_values("competencia_dt").copy()
+        current_index = 100.0
+        first_value = True
+        for _, row in ordered.iterrows():
+            monthly_return = pd.to_numeric(pd.Series([row.get("retorno_mensal_pct")]), errors="coerce").iloc[0]
+            if first_value:
+                current_index = 100.0
+                first_value = False
+            elif pd.notna(monthly_return):
+                current_index *= 1.0 + (float(monthly_return) / 100.0)
+            rows.append(
+                {
+                    "competencia": row.get("competencia"),
+                    "competencia_dt": row.get("competencia_dt"),
+                    "serie": str(label),
+                    "valor": current_index,
+                }
+            )
+    return pd.DataFrame(rows)
