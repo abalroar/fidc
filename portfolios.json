@@ -2,6 +2,27 @@
   "schema_version": 1,
   "portfolios": [
     {
+      "id": "57f3418c1e9341e79edeef6086b8c25d",
+      "name": "Mercado Credito Soma",
+      "funds": [
+        {
+          "cnpj": "33254370000104",
+          "display_name": "33.254.370/0001-04"
+        },
+        {
+          "cnpj": "37511828000114",
+          "display_name": "37.511.828/0001-14"
+        },
+        {
+          "cnpj": "41970012000126",
+          "display_name": "41.970.012/0001-26"
+        }
+      ],
+      "created_at": "2026-04-22T16:49:23Z",
+      "updated_at": "2026-04-22T16:49:23Z",
+      "notes": ""
+    },
+    {
       "id": "eef455671b8e4f7faa0cd247992e3bf7",
       "name": "Mercado Livre",
       "funds": [
