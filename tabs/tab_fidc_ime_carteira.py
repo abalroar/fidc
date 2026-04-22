@@ -7,9 +7,11 @@ import traceback
 from typing import Any
 import uuid
 
+import pandas as pd
 import streamlit as st
 
 from services.fundonet_errors import FundosNetError, ProviderUnavailableError
+from services.fundonet_portfolio_dashboard import PortfolioDashboardBundle, build_portfolio_dashboard_bundle
 from services.ime_loader import load_or_extract_informe
 from services.ime_period import ImePeriodSelection
 from services.portfolio_store import PortfolioFund, PortfolioRecord
@@ -466,10 +468,6 @@ def _render_loaded_portfolio_analysis(
         n_ok=len(successful_cnpjs),
         n_total=len(selected_portfolio.funds),
     )
-
-    st.caption(
-        "A carteira abre sem extrair os XMLs. Selecione um fundo para carregar sob demanda ou use o preload em lote."
-    )
     _render_portfolio_runtime_summary(
         total_funds=len(selected_portfolio.funds),
         loaded_count=len(successful_cnpjs),
@@ -493,6 +491,38 @@ def _render_loaded_portfolio_analysis(
                     existing_results=results,
                 )
                 st.rerun()
+
+    view_options = ["Fundo individual"]
+    if len(successful_cnpjs) >= 2:
+        view_options.insert(0, "Carteira agregada")
+    view_mode = st.radio(
+        "Visão",
+        options=view_options,
+        horizontal=True,
+        key=f"ime_portfolio_view::{selected_portfolio.id}",
+        label_visibility="collapsed",
+    )
+
+    if view_mode == "Carteira agregada":
+        dashboards_by_cnpj = _build_loaded_dashboards_by_cnpj(
+            selected_portfolio=selected_portfolio,
+            results=results,
+        )
+        if len(dashboards_by_cnpj) < 2:
+            st.info("Carregue ao menos dois fundos com sucesso para habilitar a visão agregada da carteira.")
+            return
+        _render_portfolio_aggregate_analysis(
+            selected_portfolio=selected_portfolio,
+            dashboards_by_cnpj=dashboards_by_cnpj,
+            results=results,
+            total_selected=len(selected_portfolio.funds),
+        )
+        return
+
+    if successful_cnpjs:
+        st.caption("Escolha um fundo para o drill-down individual da carteira.")
+    else:
+        st.caption("Selecione um fundo para carregar sob demanda ou use o preload em lote.")
 
     all_cnpjs = [fund.cnpj for fund in selected_portfolio.funds]
     focus_options, focus_lookup = _build_focus_option_lookup(selected_portfolio=selected_portfolio, results=results)
@@ -565,6 +595,197 @@ def _render_loaded_portfolio_analysis(
         focused_payload.get("context") or {},
         slot_key=f"portfolio_{selected_portfolio.id}_{focus_cnpj}",
     )
+
+
+def _build_loaded_dashboards_by_cnpj(
+    *,
+    selected_portfolio: PortfolioRecord,
+    results: dict[str, dict[str, Any]],
+) -> dict[str, tuple[str, Any]]:
+    dashboards_by_cnpj: dict[str, tuple[str, Any]] = {}
+    for fund in selected_portfolio.funds:
+        payload = results.get(fund.cnpj) or {}
+        result = payload.get("result")
+        if result is None:
+            continue
+        dashboard = ime_tab._load_dashboard_data(
+            str(result.wide_csv_path),
+            str(result.listas_csv_path),
+            str(result.docs_csv_path),
+            ime_tab.DASHBOARD_SCHEMA_VERSION,
+        )
+        dashboards_by_cnpj[fund.cnpj] = (
+            _resolve_portfolio_fund_display_name(fund.cnpj, results, fallback_name=fund.display_name),
+            dashboard,
+        )
+    return dashboards_by_cnpj
+
+
+def _render_portfolio_aggregate_analysis(
+    *,
+    selected_portfolio: PortfolioRecord,
+    dashboards_by_cnpj: dict[str, tuple[str, Any]],
+    results: dict[str, dict[str, Any]],
+    total_selected: int,
+) -> None:
+    try:
+        bundle = build_portfolio_dashboard_bundle(
+            portfolio_name=selected_portfolio.name,
+            dashboards_by_cnpj=dashboards_by_cnpj,
+        )
+    except ValueError as exc:
+        st.warning(str(exc))
+        return
+
+    loaded_count = len(dashboards_by_cnpj)
+    excluded_funds = [
+        _resolve_portfolio_fund_display_name(fund.cnpj, results, fallback_name=fund.display_name)
+        for fund in selected_portfolio.funds
+        if fund.cnpj not in dashboards_by_cnpj
+    ]
+
+    executive_tab, technical_tab = st.tabs(["Visão executiva", "Auditoria técnica"])
+    with executive_tab:
+        _render_portfolio_aggregate_header(
+            selected_portfolio=selected_portfolio,
+            bundle=bundle,
+            loaded_count=loaded_count,
+            total_selected=total_selected,
+        )
+        if excluded_funds:
+            st.warning(
+                f"Leitura agregada usando {loaded_count} de {total_selected} fundo(s) da carteira. "
+                f"Fora do agregado atual: {', '.join(excluded_funds)}."
+            )
+        ime_tab._render_financial_snapshot_cards(bundle.dashboard)
+        ime_tab._render_structural_risk_section(
+            bundle.dashboard,
+            slot_key=f"portfolio_agg_{selected_portfolio.id}",
+        )
+        ime_tab._render_credit_risk_section(bundle.dashboard)
+        ime_tab._render_liquidity_risk_section(bundle.dashboard)
+        ime_tab._render_calculation_memory_section(
+            bundle.dashboard,
+            slot_key=f"portfolio_agg_{selected_portfolio.id}",
+        )
+
+    with technical_tab:
+        _render_portfolio_aggregate_audit(
+            bundle=bundle,
+            selected_portfolio=selected_portfolio,
+            loaded_count=loaded_count,
+            total_selected=total_selected,
+            excluded_funds=excluded_funds,
+        )
+
+
+def _render_portfolio_aggregate_header(
+    *,
+    selected_portfolio: PortfolioRecord,
+    bundle: PortfolioDashboardBundle,
+    loaded_count: int,
+    total_selected: int,
+) -> None:
+    latest = ime_tab._format_competencia_label(bundle.dashboard.latest_competencia)
+    period_label = ime_tab._format_competencia_period(bundle.dashboard.fund_info.get("periodo_analisado") or "N/D")
+    st.markdown(
+        f"""
+<div class="fidc-hero">
+  <div class="fidc-hero__title">{escape(selected_portfolio.name)}</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        (
+            '<div class="fidc-period-bar">'
+            f"<span><strong>Escopo:</strong> Carteira agregada</span>"
+            f"<span><strong>Últ. competência comum:</strong> {escape(latest)}</span>"
+            f"<span><strong>Janela comum:</strong> {escape(period_label)}</span>"
+            f"<span><strong>Fundos incluídos:</strong> {loaded_count}/{total_selected}</span>"
+            "</div>"
+        ),
+        unsafe_allow_html=True,
+    )
+
+
+def _render_portfolio_aggregate_audit(
+    *,
+    bundle: PortfolioDashboardBundle,
+    selected_portfolio: PortfolioRecord,
+    loaded_count: int,
+    total_selected: int,
+    excluded_funds: list[str],
+) -> None:
+    st.markdown(
+        f"""
+<div class="fidc-period-bar">
+  <span><strong>Regra temporal:</strong> interseção estrita</span>
+  <span><strong>Últ. competência comum:</strong> {escape(ime_tab._format_competencia_label(bundle.dashboard.latest_competencia))}</span>
+  <span><strong>Fundos incluídos:</strong> {loaded_count}/{total_selected}</span>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+    with st.expander("Escopo e cobertura da carteira", expanded=True):
+        st.markdown('<div class="fidc-detail-title">Fundos incluídos no agregado</div>', unsafe_allow_html=True)
+        st.dataframe(
+            _format_portfolio_scope_table(bundle.fund_scope_df),
+            width="stretch",
+            hide_index=True,
+        )
+        if excluded_funds:
+            st.markdown('<div class="fidc-detail-title">Fundos fora do agregado atual</div>', unsafe_allow_html=True)
+            st.dataframe(
+                pd.DataFrame({"Fundo": excluded_funds}),
+                width="stretch",
+                hide_index=True,
+            )
+        st.markdown('<div class="fidc-detail-title">Cobertura por bloco e competência</div>', unsafe_allow_html=True)
+        st.dataframe(
+            _format_portfolio_coverage_table(bundle.coverage_df),
+            width="stretch",
+            hide_index=True,
+        )
+    ime_tab._render_audit_section(bundle.dashboard)
+    with st.expander("Notas metodológicas da carteira", expanded=False):
+        for note in bundle.dashboard.methodology_notes:
+            st.markdown(f"- {note}")
+
+
+def _format_portfolio_scope_table(scope_df: pd.DataFrame) -> pd.DataFrame:
+    if scope_df.empty:
+        return pd.DataFrame(columns=["CNPJ", "Fundo", "Competência inicial", "Competência final", "Competências carregadas"])
+    output = scope_df.copy()
+    return output.rename(
+        columns={
+            "cnpj": "CNPJ",
+            "fundo": "Fundo",
+            "competencia_inicial": "Competência inicial",
+            "competencia_final": "Competência final",
+            "competencias_carregadas": "Competências carregadas",
+        }
+    )
+
+
+def _format_portfolio_coverage_table(coverage_df: pd.DataFrame) -> pd.DataFrame:
+    if coverage_df.empty:
+        return pd.DataFrame(columns=["Competência", "Bloco", "Fundos esperados", "Fundos prontos", "Status", "Fundos faltantes", "Observação"])
+    output = coverage_df.copy()
+    output["competencia"] = output["competencia"].map(ime_tab._format_competencia_label)
+    return output.rename(
+        columns={
+            "competencia": "Competência",
+            "block": "Bloco",
+            "funds_expected": "Fundos esperados",
+            "funds_ready": "Fundos prontos",
+            "status": "Status",
+            "missing_funds": "Fundos faltantes",
+            "observacao": "Observação",
+        }
+    )[
+        ["Competência", "Bloco", "Fundos esperados", "Fundos prontos", "Status", "Fundos faltantes", "Observação"]
+    ]
 
 
 def _render_portfolio_compact_header(name: str, period_label: str, n_ok: int, n_total: int) -> None:

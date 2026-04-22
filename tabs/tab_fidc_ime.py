@@ -33,7 +33,7 @@ from services.ime_period import (
 # Feature flag: set to True when global PDF dashboard export is stable and ready.
 # While False, the dashboard-level PDF button is hidden to prevent broken UX.
 ENABLE_GLOBAL_PDF_EXPORT: bool = False
-DASHBOARD_SCHEMA_VERSION: int = 4
+DASHBOARD_SCHEMA_VERSION: int = 5
 
 FIDC_CHART_COLORS = [
     "#ff5a00",
@@ -1270,10 +1270,11 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
 
     _render_duration_section(dashboard)
 
-    _render_detail_tables_expander(
-        "Abrir eventos de cotas",
-        [("Eventos de cotas na competência mais recente", _format_event_summary_table(dashboard.event_summary_latest_df))],
-    )
+    if not dashboard.event_summary_latest_df.empty:
+        _render_detail_tables_expander(
+            "Abrir eventos de cotas",
+            [("Eventos de cotas na competência mais recente", _format_event_summary_table(dashboard.event_summary_latest_df))],
+        )
 
 
 def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
@@ -1755,8 +1756,8 @@ def _render_overview_metrics(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section("Visão geral", "O que importa primeiro para se situar na competência mais recente.")
     hero_cards = [
         _render_fidc_card("Direitos creditórios", _format_brl_compact(summary.get("direitos_creditorios")), "DICRED/VL_DICRED"),
-        _render_fidc_card("PL total", _format_brl_compact(summary.get("pl_total")), "Cotas sênior + subordinadas"),
-        _render_fidc_card("Subordinação reportada", _format_percent(summary.get("subordinacao_pct")), "PL subordinado reportado / PL total reportado"),
+        _render_fidc_card("PL total", _format_brl_compact(summary.get("pl_total")), "Sênior + mezzanino + subordinada"),
+        _render_fidc_card("Subordinação reportada", _format_percent(summary.get("subordinacao_pct")), "PL mezzanino + subordinada residual / PL total"),
         _render_fidc_card(
             "Inadimplência observada",
             _format_percent(summary.get("inadimplencia_pct")),
@@ -2572,16 +2573,26 @@ def _class_display_column(frame: pd.DataFrame) -> str:
     return "label"
 
 
+def _quota_macro_label_column(frame: pd.DataFrame) -> str:
+    if "class_macro_label" in frame.columns:
+        return "class_macro_label"
+    return _class_display_column(frame)
+
+
 def _format_latest_quota_frame(quota_pl_history_df: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
     if quota_pl_history_df.empty:
         return pd.DataFrame(columns=["Classe", "Tipo", "Qt. cotas", "Valor da cota", "PL"])
     latest_df = quota_pl_history_df[quota_pl_history_df["competencia"] == latest_competencia].copy()
     if latest_df.empty:
         return pd.DataFrame(columns=["Classe", "Tipo", "Qt. cotas", "Valor da cota", "PL"])
+    if "aggregation_scope" in latest_df.columns and latest_df["aggregation_scope"].eq("portfolio").all():
+        share_series = pd.to_numeric(latest_df.get("pl_share_pct"), errors="coerce")
+        latest_df["Classe"] = latest_df[_quota_macro_label_column(latest_df)]
+        latest_df["PL"] = latest_df["pl"].map(_format_brl_compact)
+        latest_df["% do PL"] = share_series.map(_format_percent)
+        return latest_df[["Classe", "PL", "% do PL"]]
     latest_df["Classe"] = latest_df[_class_display_column(latest_df)]
-    latest_df["Tipo"] = latest_df["class_kind"].map({"senior": "Sênior", "subordinada": "Subordinada"}).fillna(
-        latest_df["class_kind"]
-    )
+    latest_df["Tipo"] = latest_df[_quota_macro_label_column(latest_df)]
     latest_df["Qt. cotas"] = latest_df["qt_cotas"].map(lambda value: _format_decimal(value, decimals=4))
     latest_df["Valor da cota"] = latest_df["vl_cota"].map(_format_brl)
     latest_df["PL"] = latest_df["pl"].map(_format_brl_compact)
@@ -4693,10 +4704,14 @@ def _default_ratio_chart_frame(default_history_df: pd.DataFrame) -> pd.DataFrame
 def _quota_pl_chart_frame(quota_pl_history_df: pd.DataFrame) -> pd.DataFrame:
     if quota_pl_history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
-    label_column = _class_display_column(quota_pl_history_df)
+    label_column = _quota_macro_label_column(quota_pl_history_df)
     chart_df = quota_pl_history_df[["competencia", "competencia_dt", label_column, "pl"]].copy()
     chart_df = chart_df.rename(columns={label_column: "serie", "pl": "valor"})
     chart_df["valor"] = pd.to_numeric(chart_df["valor"], errors="coerce")
+    chart_df = (
+        chart_df.groupby(["competencia", "competencia_dt", "serie"], as_index=False, dropna=False)["valor"]
+        .sum()
+    )
     chart_df["label_fmt"] = chart_df["valor"].map(_format_compact_money_label)
     return chart_df.dropna(subset=["valor"])
 
@@ -4704,15 +4719,12 @@ def _quota_pl_chart_frame(quota_pl_history_df: pd.DataFrame) -> pd.DataFrame:
 def _quota_pl_share_chart_frame(quota_pl_history_df: pd.DataFrame) -> pd.DataFrame:
     if quota_pl_history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "percentual"])
-    label_column = _class_display_column(quota_pl_history_df)
-    chart_df = quota_pl_history_df[["competencia", "competencia_dt", label_column, "pl_share_pct"]].copy()
-    chart_df["pl_share_pct"] = pd.to_numeric(chart_df["pl_share_pct"], errors="coerce")
-    chart_df = chart_df.dropna(subset=["pl_share_pct"])
-    if chart_df.empty:
+    base_df = _quota_pl_chart_frame(quota_pl_history_df)
+    if base_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "percentual"])
-    chart_df["percentual"] = chart_df["pl_share_pct"]
-    chart_df = chart_df.rename(columns={label_column: "serie"})
-    return chart_df.dropna(subset=["percentual"])[["competencia", "competencia_dt", "serie", "percentual"]]
+    totals = base_df.groupby(["competencia", "competencia_dt"], dropna=False)["valor"].transform("sum")
+    base_df["percentual"] = (base_df["valor"] / totals).where(totals > 0).mul(100.0)
+    return base_df.dropna(subset=["percentual"])[["competencia", "competencia_dt", "serie", "percentual"]]
 
 
 def _default_cobertura_chart_frame(default_history_df: pd.DataFrame) -> pd.DataFrame:

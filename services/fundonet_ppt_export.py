@@ -1210,6 +1210,11 @@ def _latest_quota_table_frame(frame: pd.DataFrame, latest_competencia: str) -> p
     output = frame[frame["competencia"] == latest_competencia].copy()
     if output.empty:
         return pd.DataFrame({"Classe": ["Sem dados"], "Qt. cotas": ["-"], "PL": ["-"]})
+    if "aggregation_scope" in output.columns and output["aggregation_scope"].eq("portfolio").all():
+        output["Classe"] = output.get("class_macro_label", output[_class_display_column(output)])
+        output["PL"] = output["pl"].map(_format_brl_compact)
+        output["% do PL"] = output["pl_share_pct"].map(_format_percent)
+        return output[["Classe", "PL", "% do PL"]]
     output["Classe"] = output[_class_display_column(output)]
     output["Qt. cotas"] = output["qt_cotas"].map(_format_decimal_0_or_2)
     output["PL"] = output["pl"].map(_format_brl_compact)
@@ -1235,7 +1240,7 @@ def _quota_pl_share_pivot(frame: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame(columns=["competencia"])
     output = frame.copy()
     output["percentual"] = pd.to_numeric(output["pl_share_pct"], errors="coerce").fillna(0.0)
-    label_column = _class_display_column(output)
+    label_column = "class_macro_label" if "class_macro_label" in output.columns else _class_display_column(output)
     pivot = (
         output.pivot_table(index="competencia", columns=label_column, values="percentual", aggfunc="sum")
         .fillna(0.0)
@@ -1249,7 +1254,7 @@ def _quota_pl_value_pivot(frame: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame(columns=["competencia"])
     output = frame.copy()
     output["valor"] = pd.to_numeric(output["pl"], errors="coerce").fillna(0.0)
-    label_column = _class_display_column(output)
+    label_column = "class_macro_label" if "class_macro_label" in output.columns else _class_display_column(output)
     pivot = (
         output.pivot_table(index="competencia", columns=label_column, values="valor", aggfunc="sum")
         .fillna(0.0)

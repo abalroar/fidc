@@ -75,6 +75,7 @@ _AGGREGATE_OVERDUE_TOTAL_PATHS = [
     "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_TOTAL_VENC_INAD",
     "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_TOTAL_VENC_INAD",
 ]
+_MEZZANINE_TOKEN_RE = re.compile(r"(mezz|mezan|mezanino|mezzanine)", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -1010,6 +1011,8 @@ def _build_summary(
     return {
         "pl_total": _float_or_none(subordination_row.get("pl_total")),
         "pl_senior": _float_or_none(subordination_row.get("pl_senior")),
+        "pl_mezzanino": _float_or_none(subordination_row.get("pl_mezzanino")),
+        "pl_subordinada_strict": _float_or_none(subordination_row.get("pl_subordinada_strict")),
         "pl_subordinada": _float_or_none(subordination_row.get("pl_subordinada")),
         "ativos_totais": _float_or_none(asset_row.get("ativos_totais")),
         "carteira": carteira,
@@ -1989,7 +1992,7 @@ def _build_tracking_latest_df(
             "valor": summary.get("subordinacao_pct"),
             "unidade": "%",
             "fonte": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
-            "interpretação": "PL subordinado dividido pelo PL total das cotas.",
+            "interpretação": "PL mezzanino + PL subordinado residual divididos pelo PL total das cotas.",
             "estado_dado": "calculado" if summary.get("subordinacao_pct") is not None else "nao_calculavel",
         },
         {
@@ -2130,12 +2133,24 @@ def _build_executive_memory_df(
             "bloco_executivo": "Topo da página / Estrutura",
             "componente": "PL subordinado",
             "variavel_final": "summary['pl_subordinada']",
-            "numerador": "Σ(qt_cotas_subordinadas × valor_cota_subordinada)",
+            "numerador": "Σ(PL mezzanino + PL subordinado residual)",
+            "denominador": "Não se aplica",
+            "fonte_cvm": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
+            "fonte_efetiva": "qt_cotas * valor_cota por macroclasse",
+            "formula": "pl_mezzanino + pl_subordinada_strict",
+            "observacao": "Insumo direto do índice de subordinação; mezanino fica segregado nas tabelas e gráficos de PL.",
+        },
+        {
+            "tipo_variavel": "Monetária",
+            "bloco_executivo": "Topo da página / Estrutura",
+            "componente": "PL mezzanino",
+            "variavel_final": "summary['pl_mezzanino']",
+            "numerador": "Σ(qt_cotas_mezzanino × valor_cota_mezzanino)",
             "denominador": "Não se aplica",
             "fonte_cvm": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
             "fonte_efetiva": "qt_cotas * valor_cota",
-            "formula": "Σ PL das classes subordinadas",
-            "observacao": "Card de topo e insumo direto do índice de subordinação.",
+            "formula": "Σ PL das classes identificadas como mezzanino",
+            "observacao": "Macroclasse econômica exibida separadamente em qualquer visão do painel.",
         },
         {
             "tipo_variavel": "Monetária",
@@ -2214,12 +2229,12 @@ def _build_executive_memory_df(
             "bloco_executivo": "Estrutura",
             "componente": "Subordinação reportada (IME) — linha",
             "variavel_final": "summary['subordinacao_pct']",
-            "numerador": "pl_subordinada",
+            "numerador": "pl_mezzanino + pl_subordinada_strict",
             "denominador": "pl_total",
             "fonte_cvm": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
-            "fonte_efetiva": "qt_cotas * valor_cota por classe",
-            "formula": "pl_subordinada / pl_total * 100",
-            "observacao": "Card e gráfico usam exatamente a mesma série histórica de subordinação.",
+            "fonte_efetiva": "qt_cotas * valor_cota por macroclasse",
+            "formula": "(pl_mezzanino + pl_subordinada_strict) / pl_total * 100",
+            "observacao": "Card e gráfico usam exatamente a mesma série histórica; mezzanino permanece visível separadamente no PL.",
         },
         {
             "tipo_variavel": "Classe / PL",
@@ -2229,9 +2244,9 @@ def _build_executive_memory_df(
             "numerador": "qt_cotas * valor_cota por classe/série",
             "denominador": "pl_total quando a visualização é percentual",
             "fonte_cvm": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
-            "fonte_efetiva": "qt_cotas * valor_cota",
-            "formula": "pl_classe; share = pl_classe / Σ pl_classe",
-            "observacao": "A mesma base abastece o gráfico empilhado e a tabela lateral da última competência.",
+            "fonte_efetiva": "qt_cotas * valor_cota com macroclasse derivada",
+            "formula": "pl_macroclasse; share = pl_macroclasse / Σ pl_macroclasse",
+            "observacao": "O gráfico principal usa macroclasses econômicas (Sênior, Mezzanino, Subordinada) e a tabela preserva o detalhe da classe.",
         },
         {
             "tipo_variavel": "Fluxo / evento",
@@ -2288,8 +2303,8 @@ def _build_executive_memory_df(
             "provisao_pct_direitos": ("provisao_total", "dc_total_canonico", f"provisão=APLIC_ATIVO | denominador={dc_total_source}"),
             "provisao_pct_inadimplencia": ("provisao_total", "dc_vencidos_canonico", f"provisão=APLIC_ATIVO | denominador={dc_vencidos_source}"),
             "concentracao_segmento_proxy": ("Maior saldo setorial reportado", "Σ saldos setoriais reportados", "CART_SEGMT"),
-            "subordinacao_pct": ("pl_subordinada", "pl_total", "qt_cotas * valor_cota"),
-            "pl_subordinada": ("Σ(qt_cotas_subordinadas × valor_cota_subordinada)", "Não se aplica", "qt_cotas * valor_cota"),
+            "subordinacao_pct": ("pl_mezzanino + pl_subordinada_strict", "pl_total", "qt_cotas * valor_cota"),
+            "pl_subordinada": ("Σ(PL mezzanino + PL subordinado residual)", "Não se aplica", "qt_cotas * valor_cota"),
         }
         for _, metric_row in risk_metrics_df.iterrows():
             metric_id = str(metric_row.get("metric_id") or "")
@@ -2486,25 +2501,40 @@ def _build_subordination_history(quota_pl_history_df: pd.DataFrame) -> pd.DataFr
                 "competencia_dt",
                 "pl_total",
                 "pl_senior",
+                "pl_mezzanino",
+                "pl_subordinada_strict",
                 "pl_subordinada",
                 "subordinacao_pct",
             ]
         )
 
     grouped = (
-        quota_pl_history_df.groupby(["competencia", "competencia_dt", "class_kind"], dropna=False)["pl"]
+        quota_pl_history_df.groupby(["competencia", "competencia_dt", "class_macro"], dropna=False)["pl"]
         .sum()
         .unstack(fill_value=0.0)
         .reset_index()
     )
     grouped["pl_senior"] = grouped.get("senior", 0.0)
-    grouped["pl_subordinada"] = grouped.get("subordinada", 0.0)
+    grouped["pl_mezzanino"] = grouped.get("mezzanino", 0.0)
+    grouped["pl_subordinada_strict"] = grouped.get("subordinada", 0.0)
+    # A métrica canônica de subordinação preserva a lógica econômica de
+    # proteção abaixo do sênior: mezzanino + subordinadas residuais.
+    grouped["pl_subordinada"] = grouped["pl_mezzanino"] + grouped["pl_subordinada_strict"]
     grouped["pl_total"] = grouped["pl_senior"] + grouped["pl_subordinada"]
     grouped["subordinacao_pct"] = (
         grouped["pl_subordinada"] / grouped["pl_total"]
     ).where(grouped["pl_total"] > 0).mul(100.0)
     return grouped[
-        ["competencia", "competencia_dt", "pl_total", "pl_senior", "pl_subordinada", "subordinacao_pct"]
+        [
+            "competencia",
+            "competencia_dt",
+            "pl_total",
+            "pl_senior",
+            "pl_mezzanino",
+            "pl_subordinada_strict",
+            "pl_subordinada",
+            "subordinacao_pct",
+        ]
     ]
 
 
@@ -3013,6 +3043,23 @@ def _resolve_class_label(
     return default_label
 
 
+def _resolve_class_macro(*, row: pd.Series, class_kind: str) -> tuple[str, str]:
+    if class_kind == "senior":
+        return "senior", "Sênior"
+    tokens = " ".join(
+        value
+        for value in [
+            _display_value(row.get("TIPO")),
+            _display_value(row.get("SERIE")),
+            _display_value(row.get("label")),
+        ]
+        if value
+    )
+    if _MEZZANINE_TOKEN_RE.search(tokens):
+        return "mezzanino", "Mezzanino"
+    return "subordinada", "Subordinada"
+
+
 def _attach_class_identity(
     *,
     frame: pd.DataFrame,
@@ -3080,6 +3127,7 @@ def _build_class_identity(
         str(list_index) if list_index is not None and not (tipo_norm or serie_norm) else "_",
     ]
     class_key = "|".join(key_parts)
+    class_macro, class_macro_label = _resolve_class_macro(row=row, class_kind=class_kind)
     return {
         "tipo_raw": tipo_raw or pd.NA,
         "serie_raw": serie_raw or pd.NA,
@@ -3087,6 +3135,8 @@ def _build_class_identity(
         "serie_norm": serie_norm or pd.NA,
         "class_key": class_key,
         "class_label": class_label,
+        "class_macro": class_macro,
+        "class_macro_label": class_macro_label,
         "identity_confidence": identity_confidence,
     }
 

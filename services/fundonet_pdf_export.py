@@ -107,13 +107,13 @@ def _build_story(
         _section("Radar de Risco", styles),
         _metric_table(
             [
-                ("Subordinação reportada", _format_percent(summary.get("subordinacao_pct")), "PL subordinado reportado / PL total reportado"),
+                ("Subordinação reportada", _format_percent(summary.get("subordinacao_pct")), "PL mezzanino + subordinada residual / PL total"),
                 ("Inadimplência observada", _format_percent(summary.get("inadimplencia_pct")), "Inadimplência observada (IME) / DCs"),
                 ("Alocação", _format_percent(summary.get("alocacao_pct")), "Direitos creditórios / carteira"),
                 ("Liquidez até 30 dias", _format_percent(_safe_pct(summary.get("liquidez_30"), summary.get("pl_total"))), "Liquidez até 30d / PL"),
                 ("Liquidez imediata", _format_percent(_safe_pct(summary.get("liquidez_imediata"), summary.get("pl_total"))), "Liquidez imediata / PL"),
                 ("Resgate solicitado", _format_percent(_safe_pct(summary.get("resgate_solicitado_mes"), summary.get("pl_total"))), "Resgate solicitado / PL"),
-                ("PL total", _format_brl_compact(summary.get("pl_total")), "Cotas sênior + subordinadas"),
+                ("PL total", _format_brl_compact(summary.get("pl_total")), "Sênior + mezzanino + subordinada"),
                 ("Direitos creditórios", _format_brl_compact(summary.get("direitos_creditorios")), "DICRED"),
                 ("Camadas críticas fora do IME", _display(len(dashboard.coverage_gap_df)), "Cobertura, reservas, gatilhos, rating e lastro"),
             ],
@@ -507,10 +507,13 @@ def _format_latest_quota_table(df: pd.DataFrame, latest_competencia: str) -> pd.
     latest_df = df[df["competencia"] == latest_competencia].copy()
     if latest_df.empty:
         return pd.DataFrame(columns=["Classe", "Tipo", "Qt. cotas", "Valor da cota", "PL"])
+    if "aggregation_scope" in latest_df.columns and latest_df["aggregation_scope"].eq("portfolio").all():
+        latest_df["Classe"] = latest_df["class_macro_label"].fillna(latest_df[_class_display_column(latest_df)])
+        latest_df["PL"] = latest_df["pl"].map(_format_brl_compact)
+        latest_df["% do PL"] = latest_df["pl_share_pct"].map(_format_percent)
+        return latest_df[["Classe", "PL", "% do PL"]]
     latest_df["Classe"] = latest_df[_class_display_column(latest_df)]
-    latest_df["Tipo"] = latest_df["class_kind"].map({"senior": "Sênior", "subordinada": "Subordinada"}).fillna(
-        latest_df["class_kind"]
-    )
+    latest_df["Tipo"] = latest_df.get("class_macro_label", latest_df["class_kind"])
     latest_df["Qt. cotas"] = latest_df["qt_cotas"].map(lambda value: _format_decimal(value, decimals=4))
     latest_df["Valor da cota"] = latest_df["vl_cota"].map(_format_brl)
     latest_df["PL"] = latest_df["pl"].map(_format_brl_compact)

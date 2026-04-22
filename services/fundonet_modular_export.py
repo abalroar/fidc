@@ -229,8 +229,13 @@ def _quota_table(quota_df: pd.DataFrame, latest_competencia: str) -> Table:
     df = quota_df[quota_df["competencia"] == latest_competencia].copy()
     if df.empty:
         return _df_table(pd.DataFrame(), styles)
+    if "aggregation_scope" in df.columns and df["aggregation_scope"].eq("portfolio").all():
+        df["Classe"] = df.get("class_macro_label", df[_class_display_column(df)])
+        df["PL"] = df["pl"].map(_fmt_brl_compact)
+        out = df[["Classe", "PL"]].copy()
+        return _df_table(out, styles, col_widths=[90 * mm, 50 * mm])
     df["Classe"] = df[_class_display_column(df)]
-    df["Tipo"] = df["class_kind"].map({"senior": "Sênior", "subordinada": "Subordinada"}).fillna(df["class_kind"])
+    df["Tipo"] = df.get("class_macro_label", df["class_kind"])
     df["PL"] = df["pl"].map(_fmt_brl_compact)
     df["% PL"] = pd.to_numeric(df.get("pl_pct", pd.Series(dtype=float)), errors="coerce").map(
         lambda v: f"{v:.1f}%".replace(".", ",") if pd.notna(v) else "N/D"
