@@ -7,9 +7,11 @@ from unittest.mock import patch
 
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from tabs.tab_fidc_ime_carteira import (
+    _apply_pending_portfolio_selection,
     _build_loaded_dashboards_by_cnpj,
     _execute_portfolio_load_for_funds,
     _normalize_portfolio_editor_mode,
+    _queue_portfolio_selection,
     _sync_portfolio_fund_names_from_results,
 )
 
@@ -31,6 +33,29 @@ class _DummyStatus:
 
 
 class TabFidcImeCarteiraTests(unittest.TestCase):
+    def test_queue_and_apply_pending_portfolio_selection(self) -> None:
+        with patch.dict("tabs.tab_fidc_ime_carteira.st.session_state", {}, clear=True):
+            _queue_portfolio_selection("portfolio-2")
+            _apply_pending_portfolio_selection()
+
+            from tabs.tab_fidc_ime_carteira import st  # local import to read patched state
+
+            self.assertEqual("portfolio-2", st.session_state.get("ime_portfolio_active_id"))
+            self.assertNotIn("_ime_portfolio_active_id_pending", st.session_state)
+
+    def test_apply_pending_portfolio_selection_can_clear_active_value(self) -> None:
+        with patch.dict(
+            "tabs.tab_fidc_ime_carteira.st.session_state",
+            {"ime_portfolio_active_id": "portfolio-1"},
+            clear=True,
+        ):
+            _queue_portfolio_selection(None, clear=True)
+            _apply_pending_portfolio_selection()
+
+            from tabs.tab_fidc_ime_carteira import st  # local import to read patched state
+
+            self.assertNotIn("ime_portfolio_active_id", st.session_state)
+
     def test_normalize_portfolio_editor_mode_distinguishes_create_and_edit(self) -> None:
         self.assertEqual("create", _normalize_portfolio_editor_mode(None, has_portfolios=False))
         self.assertEqual("edit", _normalize_portfolio_editor_mode(None, has_portfolios=True))

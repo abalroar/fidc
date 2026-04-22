@@ -33,6 +33,7 @@ from tabs.ime_portfolio_support import (
 def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> None:
     # Inject shared CSS so the compact header and downstream dashboard share the same tokens.
     st.markdown(ime_tab._FIDC_REPORT_CSS, unsafe_allow_html=True)
+    _apply_pending_portfolio_selection()
 
     portfolios = list_saved_portfolios()
     catalog_df = load_fidc_catalog_cached()
@@ -206,7 +207,7 @@ def _render_portfolio_editor(
                 notes=target.notes if target is not None else "",
             )
         )
-        st.session_state["ime_portfolio_active_id"] = stored.id
+        _queue_portfolio_selection(stored.id)
         st.session_state["ime_portfolio_editor_mode"] = "edit"
         _reset_new_portfolio_form_state()
         st.toast(f"Carteira '{stored.name}' salva ({len(stored.funds)} fundo(s)).", icon="✓")
@@ -216,7 +217,7 @@ def _render_portfolio_editor(
         if st.button("Excluir carteira", key="ime_portfolio_delete_button"):
             delete_portfolio_record(target.id)
             _clear_portfolio_runtime_states(target.id)
-            st.session_state.pop("ime_portfolio_active_id", None)
+            _queue_portfolio_selection(None, clear=True)
             st.session_state["ime_portfolio_editor_mode"] = "edit" if len(portfolios) > 1 else "create"
             st.rerun()
 
@@ -868,6 +869,25 @@ def _normalize_portfolio_editor_mode(value: object, *, has_portfolios: bool) -> 
     if not has_portfolios:
         return "create"
     return "create" if str(value or "").strip().lower() == "create" else "edit"
+
+
+def _apply_pending_portfolio_selection() -> None:
+    pending_key = "_ime_portfolio_active_id_pending"
+    clear_key = "_ime_portfolio_active_id_clear"
+    should_clear = bool(st.session_state.pop(clear_key, False))
+    pending_value = st.session_state.pop(pending_key, None)
+    if should_clear:
+        st.session_state.pop("ime_portfolio_active_id", None)
+    if pending_value:
+        st.session_state["ime_portfolio_active_id"] = pending_value
+
+
+def _queue_portfolio_selection(portfolio_id: str | None, *, clear: bool = False) -> None:
+    st.session_state["_ime_portfolio_active_id_clear"] = bool(clear)
+    if portfolio_id:
+        st.session_state["_ime_portfolio_active_id_pending"] = portfolio_id
+    else:
+        st.session_state.pop("_ime_portfolio_active_id_pending", None)
 
 
 def _reset_new_portfolio_form_state() -> None:
