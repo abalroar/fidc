@@ -50,6 +50,18 @@ class DocumentoFundo:
         return competencia.strftime("%m/%Y")
 
     @property
+    def data_referencia_dt(self) -> Optional[date]:
+        if not self.data_referencia:
+            return None
+        for fmt in ("%d/%m/%Y", "%m/%Y", "%d/%m/%Y %H:%M", "%Y-%m-%d"):
+            try:
+                parsed = datetime.strptime(self.data_referencia[:19], fmt)
+                return date(parsed.year, parsed.month, 1 if fmt == "%m/%Y" else parsed.day)
+            except ValueError:
+                continue
+        return None
+
+    @property
     def data_entrega_dt(self) -> Optional[datetime]:
         if not self.data_entrega:
             return None

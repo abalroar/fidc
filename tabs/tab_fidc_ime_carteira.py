@@ -22,7 +22,6 @@ from tabs.ime_portfolio_support import (
     delete_portfolio_record,
     enrich_portfolio_funds_with_catalog,
     format_portfolio_fund_label,
-    get_portfolio_status_caption,
     list_saved_portfolios,
     load_fidc_catalog_cached,
     normalize_portfolio_fund_name,
@@ -46,25 +45,39 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
         has_portfolios=bool(portfolios),
     )
     st.session_state["ime_portfolio_editor_mode"] = editor_mode
+    editor_open_key = "ime_portfolio_editor_open"
+    if not portfolios:
+        st.session_state[editor_open_key] = True
 
     if portfolios:
-        sel_col, new_col, btn_col = st.columns([4.2, 1.2, 1.2])
+        sel_col, new_col, edit_col, btn_col = st.columns([4.0, 1.45, 1.45, 1.35])
         with sel_col:
             selected_portfolio = _render_portfolio_selector(portfolios)
         with new_col:
             st.markdown('<div style="height:1.75rem"></div>', unsafe_allow_html=True)
             if st.button(
-                "Nova carteira",
+                "Criar nova seleção",
                 key="ime_portfolio_new_button",
                 use_container_width=True,
             ):
                 _reset_new_portfolio_form_state()
                 st.session_state["ime_portfolio_editor_mode"] = "create"
+                st.session_state[editor_open_key] = True
+                st.rerun()
+        with edit_col:
+            st.markdown('<div style="height:1.75rem"></div>', unsafe_allow_html=True)
+            if st.button(
+                "Editar seleção atual",
+                key="ime_portfolio_edit_button",
+                use_container_width=True,
+            ):
+                st.session_state["ime_portfolio_editor_mode"] = "edit"
+                st.session_state[editor_open_key] = True
                 st.rerun()
         with btn_col:
             st.markdown('<div style="height:1.75rem"></div>', unsafe_allow_html=True)
             preload_clicked = st.button(
-                "Precarregar",
+                "Carregar seleção",
                 type="secondary",
                 key="ime_portfolio_load_button",
                 use_container_width=True,
@@ -73,12 +86,8 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
         selected_portfolio = None
         preload_clicked = False
 
-    st.caption(get_portfolio_status_caption())
-
-    with st.expander(
-        "Cadastrar carteira" if editor_mode == "create" else "Editar carteira ativa",
-        expanded=(editor_mode == "create") or (not bool(portfolios)),
-    ):
+    if st.session_state.get(editor_open_key, False):
+        st.markdown('<div style="height:0.35rem"></div>', unsafe_allow_html=True)
         _render_portfolio_editor(
             portfolios=portfolios,
             catalog_df=catalog_df,
@@ -112,13 +121,14 @@ def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRe
         default_id = options[0]
         st.session_state["ime_portfolio_active_id"] = default_id
     selected_id = st.selectbox(
-        "Carteira ativa",
+        "Seleção ativa",
         options=options,
         index=options.index(default_id),
         key="ime_portfolio_active_id",
+        label_visibility="collapsed",
         format_func=lambda value: next(
             (
-                f"{portfolio.name} · {len(portfolio.funds)} fundo(s)"
+                portfolio.name
                 for portfolio in portfolios
                 if portfolio.id == value
             ),
@@ -144,12 +154,12 @@ def _render_portfolio_editor(
         for portfolio_fund in (target.funds if target is not None else ())
     ]
     st.markdown(
-        f"**{'Nova carteira' if target is None else 'Editar carteira ativa'}**",
+        f"**{'Criar nova seleção' if target is None else 'Editar seleção atual'}**",
     )
 
     with st.form(f"ime_portfolio_editor_form::{mode_suffix}", clear_on_submit=False):
         name = st.text_input(
-            "Nome da carteira",
+            "Nome da seleção",
             value=target.name if target is not None else "",
             placeholder="Ex.: Crédito High Yield",
             key=f"ime_portfolio_name::{mode_suffix}",
@@ -178,18 +188,19 @@ def _render_portfolio_editor(
             key=f"ime_portfolio_cnpjs::{mode_suffix}",
         )
         cols = st.columns([1.2, 1.2, 3])
-        save_label = "Atualizar carteira" if target is not None else "Salvar nova carteira"
+        save_label = "Atualizar seleção" if target is not None else "Salvar nova seleção"
         save_clicked = cols[0].form_submit_button(save_label, type="primary")
-        cancel_clicked = cols[1].form_submit_button("Cancelar") if target is None and portfolios else False
+        cancel_clicked = cols[1].form_submit_button("Cancelar")
 
     if cancel_clicked:
-        st.session_state["ime_portfolio_editor_mode"] = "edit"
+        st.session_state["ime_portfolio_editor_mode"] = "edit" if portfolios else "create"
+        st.session_state["ime_portfolio_editor_open"] = False if portfolios else True
         _reset_new_portfolio_form_state()
         st.rerun()
 
     if save_clicked:
         if not name:
-            st.warning("Informe um nome para a carteira.")
+            st.warning("Informe um nome para a seleção.")
             return
         funds = [option_lookup[label] for label in selected_labels]
         funds.extend(build_portfolio_funds_from_cnpjs(manual_cnpjs.splitlines(), catalog_df))
@@ -209,16 +220,18 @@ def _render_portfolio_editor(
         )
         _queue_portfolio_selection(stored.id)
         st.session_state["ime_portfolio_editor_mode"] = "edit"
+        st.session_state["ime_portfolio_editor_open"] = False
         _reset_new_portfolio_form_state()
-        st.toast(f"Carteira '{stored.name}' salva ({len(stored.funds)} fundo(s)).")
+        st.toast(f"Seleção '{stored.name}' salva ({len(stored.funds)} fundo(s)).")
         st.rerun()
 
     if target is not None:
-        if st.button("Excluir carteira", key="ime_portfolio_delete_button"):
+        if st.button("Excluir seleção", key="ime_portfolio_delete_button"):
             delete_portfolio_record(target.id)
             _clear_portfolio_runtime_states(target.id)
             _queue_portfolio_selection(None, clear=True)
             st.session_state["ime_portfolio_editor_mode"] = "edit" if len(portfolios) > 1 else "create"
+            st.session_state["ime_portfolio_editor_open"] = False if len(portfolios) > 1 else True
             st.rerun()
 
 
@@ -503,11 +516,6 @@ def _render_loaded_portfolio_analysis(
         n_ok=len(successful_cnpjs),
         n_total=len(selected_portfolio.funds),
     )
-    _render_portfolio_runtime_summary(
-        total_funds=len(selected_portfolio.funds),
-        loaded_count=len(successful_cnpjs),
-        failed_count=len(failed_cnpjs),
-    )
 
     if failed_cnpjs:
         _render_portfolio_error_summary(failed_cnpjs=failed_cnpjs, results=results)
@@ -555,11 +563,6 @@ def _render_loaded_portfolio_analysis(
         )
         return
 
-    if successful_cnpjs:
-        st.caption("Escolha um fundo para o drill-down individual da carteira.")
-    else:
-        st.caption("Selecione um fundo para carregar sob demanda ou use o preload em lote.")
-
     all_cnpjs = [fund.cnpj for fund in selected_portfolio.funds]
     focus_options, focus_lookup = _build_focus_option_lookup(selected_portfolio=selected_portfolio, results=results)
     reverse_focus_lookup = {cnpj: label for label, cnpj in focus_lookup.items()}
@@ -586,6 +589,7 @@ def _render_loaded_portfolio_analysis(
         options=focus_options,
         index=focus_options.index(default_focus_label) if default_focus_label in focus_options else None,
         key=focus_label_key,
+        label_visibility="collapsed",
         placeholder="Selecione um fundo da carteira",
     )
     if not focus_label:
@@ -844,25 +848,13 @@ def _render_portfolio_compact_header(name: str, period_label: str, n_ok: int, n_
     st.markdown(
         f"""
 <div class="fidc-period-bar">
-  <span><strong>Carteira:</strong> {escape(name)}</span>
+  <span><strong>Seleção:</strong> {escape(name)}</span>
   <span><strong>Período:</strong> {escape(period_label)}</span>
   <span><strong>Fundos:</strong> {escape(count_label)}</span>
 </div>
 """,
         unsafe_allow_html=True,
     )
-
-
-def _render_portfolio_runtime_summary(*, total_funds: int, loaded_count: int, failed_count: int) -> None:
-    pending_count = max(total_funds - loaded_count - failed_count, 0)
-    parts = [f"{total_funds} fundo(s) na carteira"]
-    if loaded_count:
-        parts.append(f"{loaded_count} carregado(s)")
-    if pending_count:
-        parts.append(f"{pending_count} ainda não carregado(s)")
-    if failed_count:
-        parts.append(f"{failed_count} com falha")
-    st.caption(" · ".join(parts))
 
 
 def _normalize_portfolio_editor_mode(value: object, *, has_portfolios: bool) -> str:

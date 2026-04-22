@@ -73,7 +73,7 @@ def build_dashboard_pptx_bytes(
         from pptx.dml.color import RGBColor
         from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION, XL_LEGEND_POSITION, XL_MARKER_STYLE
         from pptx.enum.dml import MSO_LINE_DASH_STYLE
-        from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE
+        from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE, MSO_CONNECTOR
         from pptx.enum.text import MSO_AUTO_SIZE, PP_ALIGN
         from pptx.util import Inches, Pt
     except Exception as exc:  # noqa: BLE001
@@ -522,6 +522,7 @@ def build_dashboard_pptx_bytes(
     def add_overlay_combo_credit_chart(
         slide,
         *,
+        title: str,
         categories: Sequence[str],
         bar_series_map: Sequence[tuple[str, Sequence[float]]],
         line_series_map: Sequence[tuple[str, Sequence[float]]],
@@ -530,78 +531,161 @@ def build_dashboard_pptx_bytes(
         width: float,
         height: float,
     ) -> None:
-        bar_axis_max = _percent_axis_max(bar_series_map, cap=120.0)
-        line_axis_max = _percent_axis_max(
-            line_series_map,
-            cap=max(
-                650.0,
-                max([max([float(v) for v in values if v is not None], default=0.0) for _, values in line_series_map]) * 1.18
-                if line_series_map
-                else 120.0,
-            ),
+        title_height = 0.22
+        legend_top = top + height - 0.18
+        chart_top = top + title_height
+        chart_height = max(height - title_height - 0.24, 0.8)
+        bar_values = [value for _, values in bar_series_map for value in values]
+        line_values = [value for _, values in line_series_map for value in values]
+        bar_axis_max = _dashboard_percent_axis_upper(bar_values, max_cap=140.0)
+        max_line_value = max(
+            [float(value) for value in line_values if _to_float(value) is not None],
+            default=100.0,
         )
-        bar_chart = add_chart(
+        line_axis_max = max(max_line_value * 1.12, max_line_value + 20.0, 120.0)
+
+        add_textbox(slide, left, top - 0.02, width, 0.18, title, size=SECTION_SIZE, bold=True, color=BLACK)
+        add_manual_legend(
+            slide,
+            [
+                ("Inadimplência", ORANGE),
+                ("Provisão", BLACK),
+                ("Cobertura", COVERAGE_LINE_COLOR),
+            ],
+            left=left,
+            top=legend_top,
+            max_width=width,
+        )
+
+        add_chart(
             slide,
             title=None,
             chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
             categories=categories,
             series_map=bar_series_map,
             left=left,
-            top=top,
+            top=chart_top,
             width=width,
-            height=height,
-            number_format='0.0"%"',
+            height=chart_height,
+            number_format='0.00"%"',
             percent_axis=True,
             gap_width=42,
             label_position="outside_end",
-            label_font_size=10,
-            show_legend=True,
-            legend_position="bottom",
+            label_font_size=8,
+            show_legend=False,
             value_max=bar_axis_max,
-            show_data_labels=False,
+            show_data_labels=True,
+            series_colors=[ORANGE, BLACK],
         )
-        line_chart = add_chart(
-            slide,
-            title=None,
-            chart_type=XL_CHART_TYPE.LINE_MARKERS,
-            categories=categories,
-            series_map=line_series_map,
-            left=left,
-            top=top,
-            width=width,
-            height=height,
-            number_format='0.0"%"',
-            percent_axis=True,
-            label_position="above",
-            label_font_size=9,
-            value_max=line_axis_max,
-            show_data_labels=False,
-            show_legend=True,
-            legend_position="right",
-        )
-        _set_axis_hidden(line_chart, "catAx", True)
-        _set_value_axis_right(line_chart)
-        _set_axis_hidden(bar_chart, "valAx", False)
-        if hasattr(line_chart, "value_axis"):
-            line_chart.value_axis.tick_labels.font.name = "IBM Plex Sans"
-            line_chart.value_axis.tick_labels.font.size = Pt(AXIS_SIZE)
-            line_chart.value_axis.has_major_gridlines = False
-            line_chart.value_axis.format.line.color.rgb = rgb(GRID_GRAY)
-        if len(line_chart.series) >= 1:
-            _style_line_series(
-                line_chart.series[0],
+
+        plot_left = left + 0.78
+        plot_right = left + width - 0.82
+        plot_top = chart_top + 0.34
+        plot_bottom = chart_top + chart_height - 0.56
+        plot_height = max(plot_bottom - plot_top, 0.1)
+        plot_width = max(plot_right - plot_left, 0.1)
+        x_positions = [
+            plot_left + (plot_width * ((idx + 0.5) / max(len(categories), 1)))
+            for idx in range(len(categories))
+        ]
+
+        for tick_idx in range(5):
+            tick_value = line_axis_max * (tick_idx / 4)
+            y_pos = plot_bottom - (plot_height * (tick_value / line_axis_max))
+            add_textbox(
+                slide,
+                plot_right + 0.06,
+                y_pos - 0.06,
+                0.55,
+                0.12,
+                _format_percent(tick_value),
+                size=AXIS_SIZE,
                 color=COVERAGE_LINE_COLOR,
-                width_pt=3.0,
-                marker_size=8,
+                align=PP_ALIGN.LEFT,
             )
-        if len(line_chart.series) >= 2:
-            _style_line_series(
-                line_chart.series[1],
-                color=MID_GRAY,
-                width_pt=1.8,
-                dashed=True,
-                hide_marker=True,
+        add_textbox(
+            slide,
+            plot_right + 0.02,
+            plot_top - 0.18,
+            0.82,
+            0.16,
+            "Cobertura (%)",
+            size=LABEL_SIZE,
+            bold=True,
+            color=COVERAGE_LINE_COLOR,
+            align=PP_ALIGN.LEFT,
+        )
+
+        coverage_values = []
+        parity_values = []
+        for series_name, values in line_series_map:
+            if series_name == "Cobertura":
+                coverage_values = [float(_to_float(value) or 0.0) for value in values]
+            elif series_name.startswith("100%"):
+                parity_values = [float(_to_float(value) or 0.0) for value in values]
+
+        if parity_values:
+            parity_y = plot_bottom - (plot_height * (min(parity_values[0], line_axis_max) / line_axis_max))
+            parity_shape = slide.shapes.add_connector(
+                MSO_CONNECTOR.STRAIGHT,
+                Inches(plot_left),
+                Inches(parity_y),
+                Inches(plot_right),
+                Inches(parity_y),
             )
+            parity_shape.line.color.rgb = rgb(MID_GRAY)
+            parity_shape.line.width = Pt(1.1)
+            parity_shape.line.dash_style = MSO_LINE_DASH_STYLE.DASH
+
+        if coverage_values:
+            raw_label_positions = []
+            marker_centers: list[tuple[float, float]] = []
+            for x_pos, raw_value in zip(x_positions, coverage_values, strict=False):
+                clamped_value = max(min(raw_value, line_axis_max), 0.0)
+                y_pos = plot_bottom - (plot_height * (clamped_value / line_axis_max))
+                marker_centers.append((x_pos, y_pos))
+                raw_label_positions.append(y_pos - 0.16)
+
+            adjusted_label_positions = _repel_label_positions(raw_label_positions, min_gap=0.18)
+            for idx in range(len(marker_centers) - 1):
+                x1, y1 = marker_centers[idx]
+                x2, y2 = marker_centers[idx + 1]
+                segment = slide.shapes.add_connector(
+                    MSO_CONNECTOR.STRAIGHT,
+                    Inches(x1),
+                    Inches(y1),
+                    Inches(x2),
+                    Inches(y2),
+                )
+                segment.line.color.rgb = rgb(COVERAGE_LINE_COLOR)
+                segment.line.width = Pt(2.4)
+
+            marker_w = 0.10
+            marker_h = 0.10
+            for idx, ((x_pos, y_pos), raw_value) in enumerate(zip(marker_centers, coverage_values, strict=False)):
+                marker = slide.shapes.add_shape(
+                    MSO_AUTO_SHAPE_TYPE.OVAL,
+                    Inches(x_pos - (marker_w / 2)),
+                    Inches(y_pos - (marker_h / 2)),
+                    Inches(marker_w),
+                    Inches(marker_h),
+                )
+                marker.fill.solid()
+                marker.fill.fore_color.rgb = rgb(COVERAGE_LINE_COLOR)
+                marker.line.color.rgb = rgb(COVERAGE_LINE_COLOR)
+                label_top = max(plot_top - 0.02, adjusted_label_positions[idx])
+                add_textbox(
+                    slide,
+                    x_pos - 0.24,
+                    label_top,
+                    0.48,
+                    0.14,
+                    _format_percent(raw_value),
+                    size=8,
+                    bold=True,
+                    color=COVERAGE_LINE_COLOR,
+                    align=PP_ALIGN.CENTER,
+                )
 
     def add_compounding_waterfall_chart(
         slide,
@@ -683,40 +767,289 @@ def build_dashboard_pptx_bytes(
         f"{requested_period_text}"
     )
 
-    slide_renderers = [
-        _render_structure_slide_png(
-            dashboard=dashboard,
-            section_title="Estrutura e capital",
-            title_fund=title_fund,
-            subtitle=subtitle,
-            timestamp_text=timestamp_text,
-        ),
-        _render_returns_slide_png(
-            dashboard=dashboard,
-            section_title="Rentabilidade e prazo",
-            title_fund=title_fund,
-            subtitle=subtitle,
-            timestamp_text=timestamp_text,
-        ),
-        _render_credit_slide_png(
-            dashboard=dashboard,
-            section_title="Crédito e cobertura",
-            title_fund=title_fund,
-            subtitle=subtitle,
-            timestamp_text=timestamp_text,
-        ),
-        _render_over_slide_png(
-            dashboard=dashboard,
-            section_title="Deterioração acumulada",
-            title_fund=title_fund,
-            subtitle=subtitle,
-            timestamp_text=timestamp_text,
-        ),
-    ]
+    def add_slide_header(slide, section_title: str) -> None:  # noqa: ANN001
+        add_textbox(slide, 0.45, 0.18, 8.4, 0.28, section_title, size=TITLE_SIZE, bold=True, color=BLACK)
+        add_textbox(slide, 0.45, 0.48, 10.8, 0.20, title_fund, size=13, bold=True, color=ORANGE)
+        add_textbox(slide, 0.45, 0.72, 11.6, 0.16, subtitle, size=SUBTITLE_SIZE, color=MID_GRAY)
 
-    for slide_png in slide_renderers:
-        slide = prs.slides.add_slide(blank)
-        add_picture_bytes(slide, slide_png, left=0.0, top=0.0, width=SLIDE_WIDTH_IN, height=SLIDE_HEIGHT_IN)
+    full_width = CONTENT_WIDTH_IN
+    split_gap = 0.30
+    left_wide_width = 7.45
+    right_narrow_width = CONTENT_WIDTH_IN - left_wide_width - split_gap
+    right_col_left = MARGIN_LEFT_IN + left_wide_width + split_gap
+    top_row_top = 1.02
+
+    # Slide 1 — structure and capital
+    slide = prs.slides.add_slide(blank)
+    add_slide_header(slide, "Estrutura e capital")
+
+    sub_df = dashboard.subordination_history_df.sort_values("competencia_dt").copy()
+    if not sub_df.empty:
+        sub_series = [("Subordinação reportada", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
+        sub_chart = add_chart(
+            slide,
+            title="Subordinação reportada (IME)",
+            chart_type=XL_CHART_TYPE.LINE_MARKERS,
+            categories=_competencia_labels(sub_df["competencia"].tolist()),
+            series_map=sub_series,
+            left=MARGIN_LEFT_IN,
+            top=top_row_top,
+            width=full_width,
+            height=2.05,
+            number_format='0.0"%"',
+            percent_axis=True,
+            label_position="above",
+            show_data_labels=len(sub_df["competencia"].drop_duplicates()) <= 12,
+            label_font_size=9,
+            value_max=_dashboard_percent_axis_upper(sub_series[0][1], max_cap=80.0),
+        )
+        _style_line_series(sub_chart.series[0], color=ORANGE, width_pt=2.8, marker_size=10)
+        if len(sub_df["competencia"].drop_duplicates()) > 12:
+            sub_values = [float(value or 0.0) for value in sub_series[0][1]]
+            add_line_end_labels(
+                slide,
+                labels=[_format_percent(sub_values[-1])],
+                values=[sub_values[-1]],
+                colors=[ORANGE],
+                left=MARGIN_LEFT_IN,
+                top=top_row_top,
+                width=full_width,
+                height=2.05,
+                axis_max=_dashboard_percent_axis_upper(sub_series[0][1], max_cap=80.0),
+                fill_colors=[WHITE],
+                text_colors=[ORANGE],
+            )
+        add_textbox(
+            slide,
+            MARGIN_LEFT_IN,
+            top_row_top + 2.06,
+            full_width,
+            0.16,
+            "Subordinação reportada = (PL mezzanino + PL subordinada residual) / PL total.",
+            size=FOOTER_SIZE,
+            color=MID_GRAY,
+        )
+
+    quota_values = _quota_pl_value_pivot(dashboard.quota_pl_history_df)
+    if not quota_values.empty:
+        quota_scale = _money_scale(quota_values.drop(columns=["competencia"]).stack())
+        quota_series = [
+            (column, _scale_values(quota_values[column], quota_scale).tolist())
+            for column in quota_values.columns
+            if column != "competencia"
+        ]
+        add_chart(
+            slide,
+            title="PL por tipo de cota",
+            chart_type=XL_CHART_TYPE.COLUMN_STACKED,
+            categories=_competencia_labels(quota_values["competencia"].tolist()),
+            series_map=quota_series,
+            left=MARGIN_LEFT_IN,
+            top=3.30,
+            width=full_width,
+            height=3.40,
+            number_format=_money_label_number_format(quota_scale),
+            money_axis=True,
+            gap_width=78,
+            overlap=100,
+            label_position="center",
+            label_color=WHITE,
+            label_font_size=8,
+            series_colors=SERIES_COLORS,
+            value_min=0.0,
+            value_max=_money_axis_max([value for _, values in quota_series for value in values]),
+            show_legend=True,
+            legend_position="bottom",
+            show_data_labels=True,
+        )
+    add_footer(slide, timestamp_text)
+
+    # Slide 2 — returns and term
+    slide = prs.slides.add_slide(blank)
+    add_slide_header(slide, "Rentabilidade e prazo")
+
+    selected_labels = _top_return_labels_for_ppt(dashboard)
+    return_table_df = _build_return_inline_table_for_ppt(dashboard, selected_labels=selected_labels, months=12)
+    if not return_table_df.empty:
+        month_count = max(len(return_table_df.columns) - 3, 0)
+        add_table(
+            slide,
+            return_table_df,
+            title="Rentabilidade por tipo de cota (últimos 12 meses)",
+            left=MARGIN_LEFT_IN,
+            top=1.15,
+            width=full_width,
+            height=1.40,
+            col_widths=[2.15] + ([0.58] * month_count) + [0.86, 1.02],
+            max_rows=8,
+        )
+
+    base100_df = _build_return_base100_for_ppt(dashboard, selected_labels=selected_labels, months=12)
+    if not base100_df.empty:
+        ordered_base100 = base100_df.sort_values("competencia_dt").copy()
+        base100_series = [
+            (str(series_name), pd.to_numeric(group["valor"], errors="coerce").fillna(0.0).tolist())
+            for series_name, group in ordered_base100.groupby("serie", dropna=False)
+        ]
+        base100_numeric = pd.to_numeric(base100_df["valor"], errors="coerce")
+        base100_min = float(base100_numeric.min()) if not base100_numeric.dropna().empty else 100.0
+        base100_max = float(base100_numeric.max()) if not base100_numeric.dropna().empty else 100.0
+        base100_chart = add_chart(
+            slide,
+            title="Índice acumulado base 100",
+            chart_type=XL_CHART_TYPE.LINE_MARKERS,
+            categories=_competencia_labels(ordered_base100["competencia"].drop_duplicates().tolist()),
+            series_map=base100_series,
+            left=MARGIN_LEFT_IN,
+            top=2.82,
+            width=full_width,
+            height=1.40,
+            number_format="0.0",
+            label_position="above",
+            label_font_size=8,
+            show_data_labels=False,
+            series_colors=SERIES_COLORS,
+            value_min=min(95.0, base100_min * 0.98),
+            value_max=max(base100_max * 1.06, 105.0),
+            show_legend=True,
+            legend_position="bottom",
+        )
+        for idx, series in enumerate(base100_chart.series):
+            _style_line_series(series, color=SERIES_COLORS[idx % len(SERIES_COLORS)], width_pt=2.0, marker_size=7)
+
+    maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
+    if not maturity_df.empty:
+        maturity_scale = _money_scale(pd.to_numeric(maturity_df["valor"], errors="coerce"))
+        maturity_values = _scale_values(maturity_df["valor"], maturity_scale).tolist()
+        add_compounding_waterfall_chart(
+            slide,
+            categories=maturity_df["faixa"].astype(str).tolist(),
+            step_values=maturity_values,
+            total_value=float(sum(maturity_values)),
+            left=MARGIN_LEFT_IN,
+            top=4.20,
+            width=left_wide_width,
+            height=2.40,
+            number_format=_money_number_format(maturity_scale),
+            value_max=_money_axis_max(list(maturity_values) + [sum(maturity_values)]),
+            title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
+            label_font_size=8,
+        )
+
+    duration_df = dashboard.duration_history_df.sort_values("competencia_dt").copy()
+    if not duration_df.empty:
+        duration_series = [("Prazo médio proxy", _series_numeric(duration_df, "duration_days").fillna(0.0).tolist())]
+        duration_chart = add_chart(
+            slide,
+            title="Prazo médio proxy dos recebíveis (IME)",
+            chart_type=XL_CHART_TYPE.LINE_MARKERS,
+            categories=_competencia_labels(duration_df["competencia"].tolist()),
+            series_map=duration_series,
+            left=right_col_left,
+            top=4.20,
+            width=right_narrow_width,
+            height=2.40,
+            number_format='0',
+            label_position="above",
+            label_font_size=8,
+            show_data_labels=True,
+            value_max=max(max(duration_series[0][1], default=30.0) * 1.12, max(duration_series[0][1], default=30.0) + 4.0, 30.0),
+            value_min=0.0,
+        )
+        _style_line_series(duration_chart.series[0], color=ORANGE, width_pt=2.2, marker_size=9)
+    add_footer(slide, timestamp_text)
+
+    # Slide 3 — credit and coverage
+    slide = prs.slides.add_slide(blank)
+    add_slide_header(slide, "Crédito e cobertura")
+
+    default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
+    if not default_df.empty:
+        categories = _competencia_labels(default_df["competencia"].tolist())
+        add_overlay_combo_credit_chart(
+            slide,
+            title="Inadimplência, provisão e cobertura",
+            categories=categories,
+            bar_series_map=[
+                ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
+                ("Provisão", _series_numeric(default_df, "provisao_pct_direitos").fillna(0.0).tolist()),
+            ],
+            line_series_map=[
+                ("Cobertura", _series_numeric(default_df, "cobertura_pct").fillna(0.0).tolist()),
+                ("100% (paridade)", [100.0] * len(categories)),
+            ],
+            left=MARGIN_LEFT_IN,
+            top=top_row_top,
+            width=full_width,
+            height=2.42,
+        )
+
+    aging_history = _build_aging_history_for_ppt(dashboard)
+    if not aging_history.empty:
+        aging_columns = [column for column in aging_history.columns if column != "competencia"]
+        aging_series_map = [(column, aging_history[column].tolist()) for column in aging_columns]
+        add_chart(
+            slide,
+            title="Aging da inadimplência",
+            chart_type=XL_CHART_TYPE.COLUMN_STACKED,
+            categories=_competencia_labels(aging_history["competencia"].tolist()),
+            series_map=aging_series_map,
+            left=MARGIN_LEFT_IN,
+            top=3.90,
+            width=full_width,
+            height=2.70,
+            number_format='0"%"',
+            percent_axis=True,
+            gap_width=44,
+            overlap=100,
+            label_position="center",
+            label_color=WHITE,
+            label_font_size=8,
+            series_colors=AGING_PPT_COLORS,
+            value_max=_dashboard_percent_axis_upper([value for _, values in aging_series_map for value in values], max_cap=120.0),
+            show_legend=True,
+            legend_position="bottom",
+            show_data_labels=False,
+        )
+    add_footer(slide, timestamp_text)
+
+    # Slide 4 — deterioration accumulation
+    slide = prs.slides.add_slide(blank)
+    add_slide_header(slide, "Deterioração acumulada")
+
+    over_history = _build_over_aging_history_for_ppt(dashboard)
+    if not over_history.empty:
+        over_columns = [column for column in over_history.columns if column != "competencia"]
+        over_series_map = [(column, over_history[column].tolist()) for column in over_columns]
+        over_axis_max = _dashboard_percent_axis_upper([value for _, values in over_series_map for value in values], max_cap=120.0)
+        over_chart = add_chart(
+            slide,
+            title="Inadimplência Over",
+            chart_type=XL_CHART_TYPE.LINE_MARKERS,
+            categories=_competencia_labels(over_history["competencia"].tolist()),
+            series_map=over_series_map,
+            left=MARGIN_LEFT_IN,
+            top=top_row_top,
+            width=full_width,
+            height=5.55,
+            number_format='0.0"%"',
+            percent_axis=True,
+            label_position="above",
+            label_font_size=8,
+            series_colors=OVER_PPT_COLORS,
+            value_max=over_axis_max,
+            show_data_labels=False,
+            show_legend=True,
+            legend_position="bottom",
+        )
+        for idx, series in enumerate(over_chart.series):
+            _style_line_series(
+                series,
+                color=OVER_PPT_COLORS[idx % len(OVER_PPT_COLORS)],
+                width_pt=2.2,
+                marker_size=8,
+            )
+    add_footer(slide, timestamp_text)
 
     buffer = BytesIO()
     prs.save(buffer)

@@ -347,12 +347,15 @@ class FundonetDashboardTests(unittest.TestCase):
                 for name in archive_names
                 if name.startswith("ppt/slides/slide") and name.endswith(".xml")
             }
-        self.assertFalse(any(name.startswith("ppt/charts/") for name in archive_names))
-        media_pngs = [name for name in archive_names if name.startswith("ppt/media/") and name.endswith(".png")]
-        self.assertEqual(4, len(media_pngs))
-        self.assertTrue(all(xml.count("<p:pic>") == 1 for xml in slide_xml.values()))
-        self.assertTrue(all("<p:graphicFrame" not in xml for xml in slide_xml.values()))
-        self.assertTrue(all(not any(getattr(shape, "has_chart", False) for shape in slide.shapes) for slide in presentation.slides))
+        self.assertTrue(any(name.startswith("ppt/charts/") for name in archive_names))
+        self.assertTrue(any("<p:graphicFrame" in xml for xml in slide_xml.values()))
+        chart_count = sum(
+            1
+            for slide in presentation.slides
+            for shape in slide.shapes
+            if getattr(shape, "has_chart", False)
+        )
+        self.assertGreaterEqual(chart_count, 6)
 
     def test_build_dashboard_pptx_bytes_sanitizes_nan_and_inf_series(self) -> None:
         if importlib.util.find_spec("pptx") is None:

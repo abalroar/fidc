@@ -986,6 +986,7 @@ def _render_dashboard(
 
 
 def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
+    _render_regulamento_export_button(dashboard)
     _render_pptx_export_button(dashboard, context)
     if ENABLE_GLOBAL_PDF_EXPORT:
         _render_pdf_export_button(dashboard, context)
@@ -1121,7 +1122,9 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
             label_visibility="collapsed",
             key=f"pl_view_{slot_key}",
         )
-    pl_bar_size = _executive_quota_bar_size(dashboard.quota_pl_history_df["competencia"].nunique())
+    pl_periods = dashboard.quota_pl_history_df["competencia"].nunique()
+    pl_bar_size = _executive_quota_bar_size(pl_periods)
+    show_pl_segment_labels = pl_periods <= 12
     if pl_view == "% do total por competência":
         st.altair_chart(
             _stacked_history_bar_chart(
@@ -1132,8 +1135,8 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 bar_size=pl_bar_size,
                 label_font_size=8,
                 round_percent_labels=True,
-                show_segment_labels=False,
-                smart_label_placement=False,
+                show_segment_labels=show_pl_segment_labels,
+                smart_label_placement=show_pl_segment_labels,
             ),
             width="stretch",
         )
@@ -1147,8 +1150,8 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 bar_size=pl_bar_size,
                 label_font_size=8,
                 show_total_labels=True,
-                show_segment_labels=False,
-                smart_label_placement=False,
+                show_segment_labels=show_pl_segment_labels,
+                smart_label_placement=show_pl_segment_labels,
             ),
             width="stretch",
         )
@@ -1703,6 +1706,45 @@ def _render_pdf_export_button(dashboard: FundonetDashboardData, context: dict[st
         file_name=f"relatorio_fidc_ime_{context.get('request_id', 'execucao')}.pdf",
         mime="application/pdf",
         help="PDF paginado com tabelas controladas para evitar cortes e sobreposição de conteúdo.",
+    )
+
+
+@st.cache_data(show_spinner=False)
+def _load_latest_regulamento_payload(cnpj_fundo: str) -> dict[str, Any] | None:
+    from services.fundonet_documents import fetch_latest_regulamento_document
+
+    payload = fetch_latest_regulamento_document(cnpj_fundo)
+    if payload is None:
+        return None
+    document = payload.document
+    return {
+        "bytes": payload.content,
+        "file_name": payload.file_name,
+        "document_id": document.id,
+        "data_referencia": document.data_referencia or "",
+        "data_entrega": document.data_entrega or "",
+    }
+
+
+def _render_regulamento_export_button(dashboard: FundonetDashboardData) -> None:
+    cnpj_fundo = re.sub(r"\D", "", str(dashboard.fund_info.get("cnpj_fundo") or ""))
+    if len(cnpj_fundo) != 14:
+        return
+    try:
+        payload = _load_latest_regulamento_payload(cnpj_fundo)
+    except Exception:
+        return
+    if not payload:
+        return
+    st.download_button(
+        "Baixar regulamento mais recente",
+        data=payload["bytes"],
+        file_name=str(payload["file_name"]),
+        mime="application/pdf",
+        help=(
+            "Documento mais recente da categoria Regulamento disponível no Fundos.NET, "
+            f"referência {payload['data_referencia'] or 'N/D'}."
+        ),
     )
 
 

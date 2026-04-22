@@ -26,6 +26,7 @@ DEFAULT_USER_AGENT = (
 MAX_PAGE_SIZE = 200
 IME_CATEGORIA_ID = "6"
 IME_TIPO_ID = "40"
+REGULAMENTO_CATEGORIA_ID = "5"
 FIDC_TIPO_ID = "2"
 FUNDO_ITEM_TAG_RE = re.compile(
     r"<(?P<tag>[a-z0-9:_-]+)\b[^>]*\bclass\s*=\s*(?P<quote>['\"])[^'\"]*\bfundoItemInicial\b[^'\"]*(?P=quote)[^>]*>",
@@ -78,10 +79,15 @@ class FundosNetClient:
         self.referer_url = self._url("abrirGerenciadorDocumentosCVM", params={"cnpjFundo": cnpj})
         return _extract_fundo_resolution(cnpj=cnpj, html=html)
 
-    def listar_documentos_ime(
+    def listar_documentos(
         self,
         cnpj_fundo: str,
         *,
+        tipo_fundo: str = FIDC_TIPO_ID,
+        categoria_id: str | None = None,
+        tipo_id: str | None = None,
+        especie_id: str | None = None,
+        search_text: str = "",
         page_size: int = MAX_PAGE_SIZE,
     ) -> list[DocumentoFundo]:
         cnpj = only_digits(cnpj_fundo)
@@ -96,11 +102,12 @@ class FundosNetClient:
                 ("d", str(draw)),
                 ("s", str(start)),
                 ("l", str(page_size)),
-                ("q", ""),
+                ("q", search_text or ""),
                 ("cnpjFundo", cnpj),
-                ("tipoFundo", FIDC_TIPO_ID),
-                ("idCategoriaDocumento", IME_CATEGORIA_ID),
-                ("idTipoDocumento", IME_TIPO_ID),
+                ("tipoFundo", tipo_fundo),
+                ("idCategoriaDocumento", categoria_id),
+                ("idTipoDocumento", tipo_id),
+                ("idEspecieDocumento", especie_id),
                 ("o[0][dataReferencia]", "asc"),
                 ("o[1][dataEntrega]", "asc"),
             ]
@@ -190,6 +197,19 @@ class FundosNetClient:
                 break
 
         return documentos
+
+    def listar_documentos_ime(
+        self,
+        cnpj_fundo: str,
+        *,
+        page_size: int = MAX_PAGE_SIZE,
+    ) -> list[DocumentoFundo]:
+        return self.listar_documentos(
+            cnpj_fundo,
+            categoria_id=IME_CATEGORIA_ID,
+            tipo_id=IME_TIPO_ID,
+            page_size=page_size,
+        )
 
     def download_documento(self, doc_id: int) -> bytes:
         raw = self._get_bytes(
@@ -367,6 +387,8 @@ def _iter_params(
 
 
 def _decode_download_payload(raw: bytes) -> bytes:
+    if raw.lstrip().startswith((b"<?xml", b"%PDF", b"PK\x03\x04")):
+        return raw
     stripped = raw.decode("utf-8", errors="replace").strip()
     if stripped.startswith("<?xml"):
         return stripped.encode("utf-8")
@@ -376,8 +398,8 @@ def _decode_download_payload(raw: bytes) -> bytes:
         decoded = base64.b64decode(stripped, validate=True)
     except Exception as exc:  # noqa: BLE001
         raise ValueError("download payload is not valid base64") from exc
-    if not decoded.lstrip().startswith(b"<?xml"):
-        raise ValueError("decoded payload is not xml")
+    if not decoded:
+        raise ValueError("decoded payload is empty")
     return decoded
 
 
