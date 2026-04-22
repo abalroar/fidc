@@ -161,7 +161,7 @@ class TabFidcImeProgressTests(unittest.TestCase):
         line_encoding = spec["layer"][1]["layer"][1]["encoding"]
         self.assertEqual("right", line_encoding["y"]["axis"]["orient"])
         self.assertGreaterEqual(rhs_scale[1], 500.0)
-        self.assertEqual("#111111", spec["layer"][1]["layer"][1]["mark"]["point"]["fill"])
+        self.assertEqual("#6b2c3e", spec["layer"][1]["layer"][1]["mark"]["point"]["fill"])
 
     def test_build_line_series_end_labels_df_uses_value_only_labels(self) -> None:
         chart_df = pd.DataFrame(
@@ -281,6 +281,29 @@ class TabFidcImeProgressTests(unittest.TestCase):
         spec = chart.to_dict()
         self.assertEqual("percentual", spec["encoding"]["y"]["field"])
 
+    def test_aging_history_callout_chart_adds_connectors_and_external_latest_labels(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "01/2026", "02/2026", "02/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-01-01", "2026-02-01", "2026-02-01"]),
+                "faixa": ["Até 30 dias", "31 a 60 dias", "Até 30 dias", "31 a 60 dias"],
+                "ordem": [1, 2, 1, 2],
+                "valor": [70.0, 30.0, 65.0, 35.0],
+                "percentual_inadimplencia": [70.0, 30.0, 65.0, 35.0],
+                "percentual_direitos_creditorios": [7.0, 3.0, 6.5, 3.5],
+            }
+        )
+
+        prepared = tab_fidc_ime._prepare_aging_history_chart_frame(frame)
+        chart = tab_fidc_ime._aging_history_callout_chart(prepared, title=None, height=420, bar_size=80)
+        spec = chart.to_dict()
+
+        self.assertEqual(4, len(spec["layer"]))
+        self.assertEqual("bar", spec["layer"][0]["mark"]["type"])
+        self.assertEqual("line", spec["layer"][1]["mark"]["type"])
+        self.assertEqual("text", spec["layer"][3]["mark"]["type"])
+        self.assertEqual("label_slot", spec["layer"][3]["encoding"]["x"]["field"])
+
     def test_stacked_history_bar_chart_can_hide_segment_labels_and_keep_totals(self) -> None:
         frame = pd.DataFrame(
             {
@@ -312,15 +335,17 @@ class TabFidcImeProgressTests(unittest.TestCase):
                 "ordem": [1, 2],
                 "faixa": ["Até 30 dias", "31 a 60 dias"],
                 "valor": [150.0, 50.0],
+                "percentual_inadimplencia": [75.0, 25.0],
                 "percentual_direitos_creditorios": [3.5, 1.2],
             }
         )
 
         formatted = tab_fidc_ime._format_aging_latest_table(frame)
 
-        self.assertEqual(["Faixa", "Valor", "% dos DCs"], formatted.columns.tolist())
+        self.assertEqual(["Faixa", "Valor", "% da inadimplência", "% dos DCs"], formatted.columns.tolist())
         self.assertEqual("Até 30 dias", formatted.iloc[0]["Faixa"])
         self.assertTrue(formatted.iloc[0]["Valor"].startswith("R$"))
+        self.assertEqual("75,00%", formatted.iloc[0]["% da inadimplência"])
         self.assertEqual("3,50%", formatted.iloc[0]["% dos DCs"])
 
     def test_return_base100_chart_frame_starts_first_month_at_100(self) -> None:

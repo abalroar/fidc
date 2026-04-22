@@ -74,15 +74,17 @@ AGING_SERIES_ORDER = [
 ]
 
 OVER_AGING_CHART_COLORS = [
-    "#2f7d4a",
+    "#1f6f46",
+    "#4f9a63",
     "#8abc4a",
     "#f0c340",
-    "#ea8c2d",
-    "#c8562c",
-    "#7b241c",
+    "#d97a28",
+    "#8a3b22",
 ]
 
-COVERAGE_LINE_COLOR = "#111111"
+OVER_SERIES_ORDER = ["Over 1", "Over 30", "Over 60", "Over 90", "Over 180", "Over 360"]
+
+COVERAGE_LINE_COLOR = "#6b2c3e"
 
 
 _FIDC_REPORT_CSS = """
@@ -1038,61 +1040,37 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             width="stretch",
         )
     over_history_df = dashboard.default_over_history_df.copy()
-    aux_sum_chart_df = _default_inadimplentes_aux_sum_chart_frame(dashboard.default_history_df)
-    over_col, aux_col = st.columns(2, gap="large")
-    with over_col:
-        _render_chart_heading(st, "Over regulatório da inadimplência")
-        if over_history_df.empty:
-            st.info("Dados de inadimplência Over não disponíveis nos informes selecionados.")
-        else:
-            over_chart_df = over_history_df[
-                ["competencia", "competencia_dt", "serie", "percentual"]
-            ].rename(columns={"percentual": "valor"})
-            over_chart_df = over_chart_df.dropna(subset=["valor"])
-            st.altair_chart(
-                _line_history_chart(
-                    over_chart_df,
-                    title=None,
-                    y_title="%",
-                    color_range=OVER_AGING_CHART_COLORS,
-                    show_point_labels=False,
-                    show_end_labels=True,
-                ),
-                width="stretch",
-            )
-    with aux_col:
-        _render_chart_heading(st, "Somatório de inadimplentes (% dos DCs totais)")
-        if aux_sum_chart_df.empty:
-            st.info("Dados insuficientes para o somatório de inadimplentes conforme auxílio de validação da CVM.")
-        else:
-            st.altair_chart(
-                _inadimplentes_aux_sum_line_chart(aux_sum_chart_df),
-                width="stretch",
-            )
+    _render_chart_heading(st, "Inadimplência Over")
+    if over_history_df.empty:
+        st.info("Dados de inadimplência Over não disponíveis nos informes selecionados.")
+    else:
+        over_chart_df = over_history_df[
+            ["competencia", "competencia_dt", "ordem", "serie", "percentual"]
+        ].rename(columns={"percentual": "valor"})
+        over_chart_df = over_chart_df.dropna(subset=["valor"]).sort_values(["ordem", "competencia_dt"])
+        st.altair_chart(
+            _line_history_chart(
+                over_chart_df,
+                title=None,
+                y_title="%",
+                color_range=OVER_AGING_CHART_COLORS,
+                show_point_labels=False,
+                show_end_labels=True,
+            ),
+            width="stretch",
+        )
     aging_history_df = dashboard.default_aging_history_df.copy()
-    _render_chart_heading(st, "Aging regulatório da inadimplência")
+    _render_chart_heading(st, "Aging da inadimplência")
     if aging_history_df.empty:
         st.info("Dados de aging não disponíveis nos informes selecionados.")
     else:
         aging_chart_df = _prepare_aging_history_chart_frame(aging_history_df)
         st.altair_chart(
-            _stacked_history_bar_chart(
+            _aging_history_callout_chart(
                 aging_chart_df,
                 title=None,
-                y_title="% da inadimplência",
-                value_column="percentual",
-                color_range=AGING_CHART_COLORS,
-                show_total_labels=False,
                 height=455,
                 bar_size=_executive_monthly_bar_size(aging_history_df["competencia"].nunique()),
-                label_font_size=11,
-                round_percent_labels=True,
-                legend_series_order=AGING_SERIES_ORDER,
-                show_segment_labels=True,
-                smart_label_placement=True,
-                inner_label_threshold=7.5,
-                outer_label_threshold=3.5,
-                max_segment_labels_per_competencia=2,
             ),
             width="stretch",
         )
@@ -1126,6 +1104,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
         ),
         width="stretch",
     )
+    st.caption("Subordinação reportada = (PL mezzanino + PL subordinada residual) / PL total.")
 
     chart_col, control_col = st.columns([1.0, 0.32], gap="medium")
     with chart_col:
@@ -1433,11 +1412,25 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
     if cotistas and cotistas not in ("", "N/D", "0"):
         pills_parts.append(f'<span class="fidc-pill"><strong>Cotistas:</strong> {escape(str(cotistas))}</span>')
     pills_html = "\n".join(pills_parts)
-    # Participantes row: Administrador (no CNPJ) / Gestor / Custodiante
     participantes_pairs = [
-        ("Administrador", info.get("nm_admin", "")),
-        ("Gestor", info.get("nm_gestor", "")),
-        ("Custodiante", info.get("nm_custodiante", "")),
+        (
+            "Administrador",
+            _format_participant_display(
+                info.get("nome_administrador") or info.get("nm_admin"),
+                info.get("cnpj_administrador") or info.get("cnpj_admin_cadastro"),
+            ),
+        ),
+        (
+            "Gestor",
+            _format_participant_display(info.get("nome_gestor") or info.get("nm_gestor"), info.get("cnpj_gestor")),
+        ),
+        (
+            "Custodiante",
+            _format_participant_display(
+                info.get("nome_custodiante") or info.get("nm_custodiante"),
+                info.get("cnpj_custodiante"),
+            ),
+        ),
     ]
     participantes_html = "\n".join(
         f'<span class="fidc-pill fidc-pill--participante"><strong>{escape(label)}:</strong> {escape(value)}</span>'
@@ -1480,6 +1473,18 @@ def _render_dashboard_context_bar(dashboard: FundonetDashboardData) -> None:
 def _render_chart_heading(container, title: str, caption: str | None = None) -> None:
     container.markdown(f'<div class="fidc-chart-title">{escape(title)}</div>', unsafe_allow_html=True)
     del caption
+
+
+def _format_participant_display(name: object, cnpj: object) -> str:
+    name_text = str(name or "").strip()
+    cnpj_text = _format_cnpj(cnpj)
+    if name_text and cnpj_text and cnpj_text != "N/D":
+        return f"{name_text} · {cnpj_text}"
+    if name_text:
+        return name_text
+    if cnpj_text != "N/D":
+        return cnpj_text
+    return ""
 
 
 def _format_competencia_label(value: object) -> str:
@@ -1559,14 +1564,16 @@ def _build_aging_history_display_df(
     df = default_buckets_history_df.copy()
     df = df.sort_values(["competencia_dt", "ordem"])
     df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
-    dc_df = default_history_df[["competencia"]].copy()
-    dc_df["denominador"] = _default_denominator_series(default_history_df).values
-    df = df.merge(dc_df[["competencia", "denominador"]], on="competencia", how="left")
+    overdue_df = (
+        df.groupby("competencia", as_index=False, dropna=False)["valor"]
+        .sum()
+        .rename(columns={"valor": "denominador"})
+    )
+    df = df.merge(overdue_df, on="competencia", how="left")
     df["percentual"] = (
         df["valor"] / df["denominador"]
     ).where(df["denominador"] > 0).mul(100.0)
-    df = df.dropna(subset=["percentual"])
-    df = df[df["valor"] > 0].copy()
+    df = df.dropna(subset=["percentual"]).copy()
     return df
 
 
@@ -1581,6 +1588,7 @@ def _build_over_aging_history_df(
     denominator_df = default_history_df[["competencia", "competencia_dt"]].copy()
     denominator_df["denominador"] = _default_denominator_series(default_history_df).values
     bucket_specs = [
+        ("Over 1", 1, None),
         ("Over 30", 2, None),
         ("Over 60", 3, None),
         ("Over 90", 4, None),
@@ -2646,17 +2654,21 @@ def _format_value_table(df: pd.DataFrame, *, label_column: str, label_title: str
 
 def _format_aging_latest_table(default_buckets_latest_df: pd.DataFrame) -> pd.DataFrame:
     if default_buckets_latest_df.empty:
-        return pd.DataFrame(columns=["Faixa", "Valor", "% dos DCs"])
+        return pd.DataFrame(columns=["Faixa", "Valor", "% da inadimplência", "% dos DCs"])
     output = default_buckets_latest_df.sort_values("ordem").copy() if "ordem" in default_buckets_latest_df.columns else default_buckets_latest_df.copy()
     output["Faixa"] = output["faixa"]
     output["Valor"] = output["valor"].map(_format_brl_compact)
-    percent_column = None
-    for candidate in ("percentual_direitos_creditorios", "percentual"):
+    aging_percent_column = None
+    dc_percent_column = None
+    for candidate in ("percentual_inadimplencia", "percentual"):
         if candidate in output.columns:
-            percent_column = candidate
+            aging_percent_column = candidate
             break
-    output["% dos DCs"] = output[percent_column].map(_format_percent) if percent_column else "N/D"
-    return output[["Faixa", "Valor", "% dos DCs"]]
+    if "percentual_direitos_creditorios" in output.columns:
+        dc_percent_column = "percentual_direitos_creditorios"
+    output["% da inadimplência"] = output[aging_percent_column].map(_format_percent) if aging_percent_column else "N/D"
+    output["% dos DCs"] = output[dc_percent_column].map(_format_percent) if dc_percent_column else "N/D"
+    return output[["Faixa", "Valor", "% da inadimplência", "% dos DCs"]]
 
 
 def _format_event_summary_table(event_summary_df: pd.DataFrame) -> pd.DataFrame:
@@ -4201,6 +4213,180 @@ def _prepare_aging_history_chart_frame(chart_df: pd.DataFrame) -> pd.DataFrame:
     return output
 
 
+def _aging_history_callout_chart(
+    chart_df: pd.DataFrame,
+    *,
+    title: str | None,
+    height: int = 455,
+    bar_size: int | None = None,
+) -> alt.Chart:
+    df = _altair_compatible_df(chart_df.copy())
+    if "competencia" in df.columns:
+        df["competencia"] = df["competencia"].map(_format_competencia_display)
+    if df.empty:
+        empty_chart = (
+            alt.Chart(pd.DataFrame(columns=["competencia", "percentual"]))
+            .mark_bar()
+            .encode(x="competencia:N", y=alt.Y("percentual:Q", title="% da inadimplência"))
+        )
+        return _style_altair_chart(_chart_with_optional_title(empty_chart, height=height, title=title))
+    resolved_value_column = _resolve_stacked_chart_value_column(df, "percentual")
+    if "ordem" in df.columns:
+        df = df.sort_values(["competencia_dt", "ordem", "serie"]).reset_index(drop=True)
+    x_sort = df["competencia"].drop_duplicates().tolist()
+    label_slot = ""
+    x_domain = x_sort + [label_slot]
+    series_order = [serie for serie in AGING_SERIES_ORDER if serie in set(df["serie"].dropna().tolist())]
+    remaining = [serie for serie in df["serie"].drop_duplicates().tolist() if serie not in set(series_order)]
+    series_order = series_order + remaining
+    color_map = _category_color_map(series_order, AGING_CHART_COLORS)
+    df["valor_fmt"] = df[resolved_value_column].map(_format_percent)
+    df["tooltip_pct_inad"] = df.get("percentual_inadimplencia", df[resolved_value_column]).map(_format_percent)
+    if "percentual_direitos_creditorios" in df.columns:
+        df["tooltip_pct_dcs"] = df["percentual_direitos_creditorios"].map(_format_percent)
+    else:
+        df["tooltip_pct_dcs"] = "N/D"
+    latest_competencia = x_sort[-1]
+    latest_df = df[df["competencia"] == latest_competencia].copy()
+    latest_df["valor_num"] = pd.to_numeric(latest_df[resolved_value_column], errors="coerce").fillna(0.0)
+    if "ordem" in latest_df.columns:
+        latest_df = latest_df.sort_values("ordem").reset_index(drop=True)
+    latest_df["segment_top"] = latest_df["valor_num"].cumsum()
+    latest_df["segment_center"] = latest_df["segment_top"] - (latest_df["valor_num"] / 2.0)
+    ordered_labels = latest_df.sort_values("segment_center").reset_index(drop=True).copy()
+    min_gap = 2.8
+    adjusted_centers: list[float] = []
+    for _, row in ordered_labels.iterrows():
+        current = float(row["segment_center"])
+        if not adjusted_centers:
+            adjusted_centers.append(current)
+            continue
+        adjusted_centers.append(max(current, adjusted_centers[-1] + min_gap))
+    ordered_labels["label_y"] = adjusted_centers
+    latest_df = latest_df.merge(
+        ordered_labels[["serie", "label_y"]],
+        on="serie",
+        how="left",
+    )
+    latest_df["label_text"] = latest_df[resolved_value_column].map(_format_percent_rounded_label)
+    latest_df["label_slot"] = label_slot
+    latest_df["label_color"] = latest_df["serie"].map(lambda value: color_map.get(str(value), "#111111"))
+
+    connector_rows: list[dict[str, object]] = []
+    for _, row in latest_df.iterrows():
+        connector_rows.append(
+            {
+                "serie": row["serie"],
+                "competencia_plot": latest_competencia,
+                "valor_plot": row["segment_center"],
+                "point_order": 0,
+            }
+        )
+        connector_rows.append(
+            {
+                "serie": row["serie"],
+                "competencia_plot": label_slot,
+                "valor_plot": row["label_y"],
+                "point_order": 1,
+            }
+        )
+    connectors_df = pd.DataFrame(connector_rows)
+    scale_values = pd.concat(
+        [
+            pd.to_numeric(df[resolved_value_column], errors="coerce"),
+            pd.to_numeric(latest_df["label_y"], errors="coerce"),
+        ],
+        ignore_index=True,
+    )
+    x_encoding = alt.X(
+        "competencia:N",
+        title="Competência",
+        sort=x_domain,
+        scale=alt.Scale(domain=x_domain),
+        axis=alt.Axis(labelExpr="datum.label == '' ? '' : datum.label"),
+    )
+    color_encoding = alt.Color(
+        "serie:N",
+        title="Faixas / séries",
+        scale=alt.Scale(domain=series_order, range=AGING_CHART_COLORS[: len(series_order)]),
+        sort=series_order,
+        legend=_series_legend("Faixas / séries", len(series_order)),
+    )
+    bars = (
+        alt.Chart(df)
+        .mark_bar(size=bar_size or _executive_monthly_bar_size(df["competencia"].nunique()))
+        .encode(
+            x=x_encoding,
+            y=alt.Y(
+                f"{resolved_value_column}:Q",
+                title="% da inadimplência",
+                stack=True,
+                scale=_quant_scale_with_headroom(scale_values, percent_like=True, max_cap=140.0),
+            ),
+            color=color_encoding,
+            order=alt.Order("ordem:Q", sort="ascending") if "ordem" in df.columns else alt.Order("serie:N"),
+            tooltip=[
+                alt.Tooltip("competencia:N", title="Competência"),
+                alt.Tooltip("serie:N", title="Faixa"),
+                alt.Tooltip("valor_fmt:N", title="% da inadimplência"),
+                alt.Tooltip("tooltip_pct_dcs:N", title="% dos DCs"),
+            ],
+        )
+    )
+    connectors = (
+        alt.Chart(connectors_df)
+        .mark_line(strokeWidth=1.35, strokeDash=[4, 3], clip=False)
+        .encode(
+            x=alt.X(
+                "competencia_plot:N",
+                sort=x_domain,
+                scale=alt.Scale(domain=x_domain),
+                axis=alt.Axis(labelExpr="datum.label == '' ? '' : datum.label"),
+            ),
+            y=alt.Y("valor_plot:Q", title="% da inadimplência"),
+            detail="serie:N",
+            order=alt.Order("point_order:Q", sort="ascending"),
+            color=alt.Color(
+                "serie:N",
+                scale=alt.Scale(domain=series_order, range=AGING_CHART_COLORS[: len(series_order)]),
+                sort=series_order,
+                legend=None,
+            ),
+        )
+    )
+    label_points = (
+        alt.Chart(latest_df)
+        .mark_point(filled=True, size=44, strokeWidth=0, clip=False)
+        .encode(
+            x=alt.X(
+                "label_slot:N",
+                sort=x_domain,
+                scale=alt.Scale(domain=x_domain),
+                axis=alt.Axis(labelExpr="datum.label == '' ? '' : datum.label"),
+            ),
+            y=alt.Y("label_y:Q", title="% da inadimplência"),
+            color=alt.Color("serie:N", scale=alt.Scale(domain=series_order, range=AGING_CHART_COLORS[: len(series_order)]), sort=series_order, legend=None),
+        )
+    )
+    labels = (
+        alt.Chart(latest_df)
+        .mark_text(align="left", dx=10, fontSize=11, fontWeight=700, clip=False)
+        .encode(
+            x=alt.X(
+                "label_slot:N",
+                sort=x_domain,
+                scale=alt.Scale(domain=x_domain),
+                axis=alt.Axis(labelExpr="datum.label == '' ? '' : datum.label"),
+            ),
+            y=alt.Y("label_y:Q", title="% da inadimplência"),
+            text=alt.Text("label_text:N"),
+            color=alt.Color("serie:N", scale=alt.Scale(domain=series_order, range=AGING_CHART_COLORS[: len(series_order)]), sort=series_order, legend=None),
+        )
+    )
+    chart = _chart_with_optional_title(bars + connectors + label_points + labels, height=height, title=title)
+    return _style_altair_chart(chart.properties(padding={"left": 12, "right": 220, "top": 18, "bottom": 8}))
+
+
 def _resolve_stacked_chart_value_column(chart_df: pd.DataFrame, requested_column: str) -> str:
     if requested_column in chart_df.columns:
         return requested_column
@@ -4603,7 +4789,7 @@ def _inadimplentes_aux_sum_line_chart(chart_df: pd.DataFrame) -> alt.Chart:
             x=alt.X("competencia:N", title="Competência", sort=x_sort),
             y=alt.Y(
                 "valor:Q",
-                title="Somatório de inadimplentes (% dos DCs totais)",
+                title="Auxílio de validação de inadimplentes / DCs",
                 axis=alt.Axis(labelColor="#5f6b7a", titleColor="#5f6b7a"),
                 scale=_quant_scale_with_headroom(df["valor"], percent_like=True),
             ),

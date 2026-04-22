@@ -142,6 +142,7 @@ class FundonetPortfolioDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(226_000.0 / 6_500.0, latest_duration["duration_days"], places=6)
 
         over_lookup = bundle.dashboard.default_over_history_df.set_index("serie")
+        self.assertAlmostEqual(1_300.0 / 26_000.0 * 100.0, over_lookup.loc["Over 1", "percentual"], places=6)
         self.assertAlmostEqual(900.0 / 26_000.0 * 100.0, over_lookup.loc["Over 60", "percentual"], places=6)
         self.assertAlmostEqual(500.0 / 26_000.0 * 100.0, over_lookup.loc["Over 360", "percentual"], places=6)
 

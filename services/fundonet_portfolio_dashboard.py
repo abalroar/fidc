@@ -114,7 +114,7 @@ def build_portfolio_dashboard_bundle(
         dashboards_by_cnpj=dashboards_by_cnpj,
         competencias=common_competencias,
         attr_name="maturity_history_df",
-        key_columns=["ordem", "faixa", "prazo_proxy"],
+        key_columns=["faixa", "prazo_proxy"],
         coverage_rows=coverage_rows,
         block_id="vencimento",
         block_label="Malha de vencimento dos direitos creditórios",
@@ -134,7 +134,7 @@ def build_portfolio_dashboard_bundle(
         dashboards_by_cnpj=dashboards_by_cnpj,
         competencias=common_competencias,
         attr_name="default_buckets_history_df",
-        key_columns=["ordem", "faixa"],
+        key_columns=["faixa"],
         coverage_rows=coverage_rows,
         block_id="aging_buckets",
         block_label="Buckets monetários da inadimplência",
@@ -202,6 +202,8 @@ def build_portfolio_dashboard_bundle(
         coverage_df=coverage_df,
         common_competencias=common_competencias,
         total_funds=len(dashboards_by_cnpj),
+        maturity_history_df=maturity_history_df,
+        dc_canonical_history_df=dc_canonical_history_df,
     )
     methodology_notes = [
         "Visão carteira usa interseção estrita das competências comuns entre todos os fundos incluídos.",
@@ -602,6 +604,7 @@ def _aggregate_status_long_history(
                 "competencia": competencia,
                 "competencia_dt": single._competencia_to_timestamp(competencia),
                 **spec,
+                "ordem": order_lookup.get(str(spec.get("faixa") or ""), pd.NA),
                 "valor": float(sum(values)) if complete and len(values) == funds_total else pd.NA,
                 "valor_raw": float(sum(values)) if complete and len(values) == funds_total else pd.NA,
                 "source_status": "reported_value" if complete and len(values) == funds_total else "not_available",
@@ -710,16 +713,9 @@ def _build_portfolio_default_over_history(
 ) -> pd.DataFrame:
     if default_buckets_history_df.empty or dc_canonical_history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "ordem", "serie", "valor", "percentual", "calculo_status", "denominador_fonte"])
-    bucket_specs = [
-        ("Over 30", 2, None),
-        ("Over 60", 3, None),
-        ("Over 90", 4, None),
-        ("Over 180", 7, None),
-        ("Over 360", 8, None),
-    ]
     denominator_lookup = dc_canonical_history_df.set_index("competencia", drop=False)
     rows: list[dict[str, object]] = []
-    for ordem, (serie, ordem_min, ordem_max) in enumerate(bucket_specs, start=1):
+    for ordem, (serie, ordem_min, ordem_max) in enumerate(single._OVER_BUCKET_SPECS, start=1):
         subset = default_buckets_history_df[default_buckets_history_df["ordem"] >= ordem_min].copy()
         if ordem_max is not None:
             subset = subset[subset["ordem"] <= ordem_max].copy()
@@ -991,7 +987,7 @@ def _build_portfolio_inventory_df() -> pd.DataFrame:
         },
         {
             "nome_variavel": "default_over_history_df.percentual",
-            "nome_exibido": "Over regulatório agregado",
+            "nome_exibido": "Inadimplência Over agregada",
             "aba_origem": "Modo carteira",
             "bloco_ui_atual": "Crédito",
             "fonte_dado": "Buckets monetários agregados de inadimplência",
@@ -1056,14 +1052,14 @@ def _build_portfolio_memory_df() -> pd.DataFrame:
         {
             "tipo_variavel": "Bucket / distribuição",
             "bloco_executivo": "Crédito",
-            "componente": "Over regulatório agregado",
+            "componente": "Inadimplência Over agregada",
             "variavel_final": "default_over_history_df.percentual",
             "numerador": "Σ buckets vencidos agregados acima do threshold",
             "denominador": "Σ dc_total_canonico",
             "fonte_cvm": "Buckets monetários de inadimplência por fundo",
             "fonte_efetiva": "Soma bucket a bucket antes da razão",
             "formula": "Over X = Σ(buckets >= X) / Σ dc_total_canonico * 100",
-            "observacao": "Nunca soma percentuais individuais de Over.",
+            "observacao": "Inclui Over 1 e nunca soma percentuais individuais.",
         },
         {
             "tipo_variavel": "Prazo / duration",
@@ -1086,10 +1082,24 @@ def _build_portfolio_consistency_df(
     coverage_df: pd.DataFrame,
     common_competencias: list[str],
     total_funds: int,
+    maturity_history_df: pd.DataFrame,
+    dc_canonical_history_df: pd.DataFrame,
 ) -> pd.DataFrame:
     latest = common_competencias[-1] if common_competencias else "N/D"
     incomplete_blocks = coverage_df[coverage_df["status"] != "Completo"].copy() if not coverage_df.empty else pd.DataFrame()
     incomplete_count = len(incomplete_blocks)
+    latest_maturity = maturity_history_df[maturity_history_df["competencia"] == latest].copy() if latest != "N/D" else pd.DataFrame()
+    latest_maturity_future = pd.to_numeric(
+        latest_maturity[latest_maturity["faixa"] != "Vencidos"]["valor"],
+        errors="coerce",
+    ).sum(min_count=1) if not latest_maturity.empty else pd.NA
+    latest_dc_row = _exact_latest_row(dc_canonical_history_df, latest)
+    latest_dc_avencer = _float_or_none(latest_dc_row.get("dc_a_vencer_canonico"))
+    maturity_gap_pct: float | None
+    if pd.isna(latest_maturity_future) or latest_dc_avencer is None or latest_dc_avencer <= 0:
+        maturity_gap_pct = None
+    else:
+        maturity_gap_pct = abs(float(latest_maturity_future) - latest_dc_avencer) / max(float(latest_maturity_future), latest_dc_avencer) * 100.0
     rows = [
         {
             "tema": "Regra temporal da carteira",
@@ -1104,6 +1114,23 @@ def _build_portfolio_consistency_df(
             "checagem": "Blocos completos na competência comum",
             "resultado": f"{incomplete_count} bloco(s) com cobertura incompleta na tabela de auditoria." if incomplete_count else "Todos os blocos ativos da carteira têm cobertura homogênea.",
             "acao": "Qualquer bloco incompleto fica como N/D ou é omitido da visão executiva.",
+        },
+        {
+            "tema": "Malha de vencimento agregada",
+            "status": (
+                "Alinhado"
+                if maturity_gap_pct is not None and maturity_gap_pct <= 1.0
+                else "Revisar"
+                if maturity_gap_pct is not None
+                else "Sem base"
+            ),
+            "checagem": "Reconciliação entre buckets a vencer e dc_a_vencer_canonico",
+            "resultado": (
+                f"Soma dos buckets a vencer = {float(latest_maturity_future):,.2f}; dc_a_vencer_canonico = {latest_dc_avencer:,.2f}; gap = {maturity_gap_pct:.2f}%."
+                if maturity_gap_pct is not None and latest_dc_avencer is not None and not pd.isna(latest_maturity_future)
+                else "Sem base suficiente para reconciliar buckets a vencer com dc_a_vencer_canonico."
+            ),
+            "acao": "Manter a mesma malha agregada como base do gráfico de vencimento e do prazo médio da carteira.",
         },
         {
             "tema": "Subordinação reportada",

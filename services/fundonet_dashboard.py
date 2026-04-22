@@ -59,6 +59,14 @@ _AGING_SUFFIXES = [
     "VL_INAD_VENC_721_1080",
     "VL_INAD_VENC_1080",
 ]
+_OVER_BUCKET_SPECS: list[tuple[str, int, int | None]] = [
+    ("Over 1", 1, None),
+    ("Over 30", 2, None),
+    ("Over 60", 3, None),
+    ("Over 90", 4, None),
+    ("Over 180", 7, None),
+    ("Over 360", 8, None),
+]
 _GRANULAR_DC_TOTAL_PATHS = [
     "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_ADIMPL",
     "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_INAD",
@@ -285,8 +293,9 @@ def build_dashboard_data(
 
     methodology_notes = [
         "Direitos creditórios totais usam uma base canônica única: 1) malha de vencimento (vencidos + a vencer), 2) estoque granular em APLIC_ATIVO, 3) agregados VL_SOM_DICRED_AQUIS + VL_DICRED.",
-        "Subordinação reportada (IME) é calculada como PL subordinado dividido pelo PL total das cotas reportadas.",
-        "Inadimplência, aging e curvas Over usam a base canônica de direitos creditórios totais; cobertura de provisão usa apenas vencidos canônicos como denominador e fica segregada no eixo direito.",
+        "Subordinação reportada (IME) usa a mesma regra das memórias de cálculo: (PL mezzanino + PL subordinada residual) / PL total.",
+        "Aging da inadimplência mostra a distribuição do estoque vencido por faixa (% da inadimplência); Inadimplência Over mostra cortes cumulativos sobre os direitos creditórios totais.",
+        "Cobertura de provisão usa apenas vencidos canônicos como denominador e fica segregada no eixo direito.",
         "Resgate solicitado usa os campos RESG_SOLIC do Informe Mensal e aceita tanto VL_PAGO quanto VL_COTAS, pois há divergência observada entre schema e XML real.",
         "Indicadores como cobertura, relação mínima, reservas, rating, coobrigação e eventos contratuais exigem documentação complementar.",
     ]
@@ -732,7 +741,8 @@ def _build_fund_info(
         return _display_value(_get_wide_series(wide_lookup, [latest_competencia], tag_path).iloc[0])
 
     cnpj_fundo = wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_FUNDO")
-    participantes = fetch_fidc_participantes(cnpj_fundo)
+    cnpj_classe = wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_CLASSE")
+    participantes = fetch_fidc_participantes(cnpj_fundo, cnpj_classe=cnpj_classe)
     def doc_value(*columns: str) -> str:
         for column in columns:
             value = _display_value(latest_doc.get(column, ""))
@@ -754,13 +764,17 @@ def _build_fund_info(
         "nome_fundo": _display_value(latest_doc.get("nome_fundo", "")),
         "fundo_ou_classe": _display_value(latest_doc.get("fundo_ou_classe", "")),
         "cnpj_fundo": cnpj_fundo,
-        "cnpj_classe": wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_CLASSE"),
-        "cnpj_administrador": wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_ADM"),
+        "cnpj_classe": cnpj_classe,
+        "cnpj_administrador": wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_ADM") or participantes["cnpj_admin"],
         "nm_admin": participantes["nm_admin"] or None,
         "nm_gestor": participantes["nm_gestor"] or None,
         "nm_custodiante": participantes["nm_custodiante"] or None,
+        "cnpj_admin_cadastro": participantes["cnpj_admin"],
         "cnpj_gestor": participantes["cnpj_gestor"],
         "cnpj_custodiante": participantes["cnpj_custodiante"],
+        "fonte_nome_administrador": participantes["fonte_admin"],
+        "fonte_nome_gestor": participantes["fonte_gestor"],
+        "fonte_nome_custodiante": participantes["fonte_custodiante"],
         "nome_administrador": doc_value("nome_administrador", "administrador", "nomeAdministrador")
         if doc_value("nome_administrador", "administrador", "nomeAdministrador") != "N/D"
         else participantes["nm_admin"] or wide_first_matching([r"/NM_.*ADM", r"/NOME_.*ADM", r"/DENOM.*ADM", r"/RAZAO.*ADM"]),
@@ -915,15 +929,8 @@ def _build_default_over_history_df(
     source_df = default_buckets_history_df.copy()
     source_df["valor"] = pd.to_numeric(source_df["valor"], errors="coerce").fillna(0.0)
     denominator_lookup = dc_canonical_history_df.set_index("competencia", drop=False)
-    bucket_specs = [
-        ("Over 30", 2, None),
-        ("Over 60", 3, None),
-        ("Over 90", 4, None),
-        ("Over 180", 7, None),
-        ("Over 360", 8, None),
-    ]
     rows: list[dict[str, object]] = []
-    for ordem, (serie, ordem_min, ordem_max) in enumerate(bucket_specs, start=1):
+    for ordem, (serie, ordem_min, ordem_max) in enumerate(_OVER_BUCKET_SPECS, start=1):
         subset = source_df[source_df["ordem"] >= ordem_min].copy()
         if ordem_max is not None:
             subset = subset[subset["ordem"] <= ordem_max].copy()
@@ -1453,7 +1460,7 @@ def _build_maturity_history_df(
     """Long-format maturity bucket saldos for every competência (used for duration time series)."""
     rows = []
     for competencia in competencias:
-        for faixa, suffixes, prazo_proxy in _MATURITY_BUCKET_SPECS:
+        for ordem, (faixa, suffixes, prazo_proxy) in enumerate(_MATURITY_BUCKET_SPECS, start=1):
             paths = [
                 f"DOC_ARQ/LISTA_INFORM/{base}/{suffix}"
                 for suffix in suffixes
@@ -1464,6 +1471,7 @@ def _build_maturity_history_df(
                 {
                     "competencia": competencia,
                     "competencia_dt": _competencia_to_timestamp(competencia),
+                    "ordem": ordem,
                     "faixa": faixa,
                     "prazo_proxy": prazo_proxy,
                     "valor": float(info["valor"]),
@@ -2085,8 +2093,8 @@ def _build_executive_memory_df(
 ) -> pd.DataFrame:
     latest_dc_row = _latest_row(dc_canonical_history_df, latest_competencia)
     aging_percent_col = (
-        "percentual_direitos_creditorios"
-        if "percentual_direitos_creditorios" in default_buckets_latest_df.columns
+        "percentual_inadimplencia"
+        if "percentual_inadimplencia" in default_buckets_latest_df.columns
         else "percentual"
     )
     dc_total_source = latest_dc_row.get("dc_total_fonte_efetiva")
@@ -2203,26 +2211,26 @@ def _build_executive_memory_df(
         {
             "tipo_variavel": "Bucket / distribuição",
             "bloco_executivo": "Crédito",
-            "componente": "Aging regulatório da inadimplência",
+            "componente": "Aging da inadimplência",
             "variavel_final": f"default_buckets_latest_df.valor + {aging_percent_col}",
             "numerador": "Cada bucket VL_INAD_VENC_* por faixa",
-            "denominador": "dc_total_canonico para o gráfico executivo",
+            "denominador": "inadimplencia_total_aging",
             "fonte_cvm": "COMPMT_DICRED_AQUIS + COMPMT_DICRED_SEM_AQUIS",
-            "fonte_efetiva": f"buckets=COMPMT_DICRED_* | denominador={dc_total_source}",
-            "formula": "bucket / dc_total_canonico * 100",
-            "observacao": "Gráfico não cumulativo por faixa. A leitura executiva não reutiliza o % interno do aging para evitar ambiguidade com Over.",
+            "fonte_efetiva": "buckets=COMPMT_DICRED_* | denominador=Σ buckets vencidos por competência",
+            "formula": "bucket / inadimplencia_total_aging * 100",
+            "observacao": "Gráfico não cumulativo por faixa do estoque vencido. O % dos DCs permanece disponível na base auditável.",
         },
         {
             "tipo_variavel": "Bucket / distribuição",
             "bloco_executivo": "Crédito",
-            "componente": "Over regulatório da inadimplência",
+            "componente": "Inadimplência Over",
             "variavel_final": "default_over_history_df.percentual",
             "numerador": "Soma cumulativa dos buckets vencidos acima do threshold",
             "denominador": "dc_total_canonico",
-            "fonte_cvm": "Buckets VL_INAD_VENC_31_60 até VL_INAD_VENC_1080",
+            "fonte_cvm": "Buckets VL_INAD_VENC_30 até VL_INAD_VENC_1080",
             "fonte_efetiva": f"buckets=COMPMT_DICRED_* | denominador={dc_total_source}",
             "formula": "Over X = Σ(buckets vencidos acima de X) / dc_total_canonico * 100",
-            "observacao": "Over 30, 60, 90, 180 e 360 são cumulativos; pontos com bucket incompleto saem do gráfico.",
+            "observacao": "Inclui Over 1 como soma de todos os atrasos a partir de 1 dia; os demais cortes permanecem cumulativos.",
         },
         {
             "tipo_variavel": "Percentual",
@@ -2352,14 +2360,14 @@ def _build_consistency_audit_df(
         and "direitos_creditorios_vencidos" in default_history_df.columns
         and "provisao_total" in default_history_df.columns
     )
-    aging_uses_dc_total = bool(
+    aging_uses_inad_total = bool(
         not default_aging_history_df.empty
-        and "percentual_direitos_creditorios" in default_aging_history_df.columns
+        and "percentual_inadimplencia" in default_aging_history_df.columns
     )
     over_is_cumulative = bool(
         not default_over_history_df.empty
         and set(default_over_history_df.get("serie", pd.Series(dtype="object")).dropna().tolist())
-        <= {"Over 30", "Over 60", "Over 90", "Over 180", "Over 360"}
+        <= {"Over 1", "Over 30", "Over 60", "Over 90", "Over 180", "Over 360"}
     )
     subordination_metric_exists = bool(
         not risk_metrics_df.empty
@@ -2376,11 +2384,11 @@ def _build_consistency_audit_df(
         },
         {
             "tema": "Aging x Over",
-            "status": "Alinhado" if aging_uses_dc_total and over_is_cumulative else "Revisar",
+            "status": "Alinhado" if aging_uses_inad_total and over_is_cumulative else "Revisar",
             "checagem": "Separação semântica entre distribuição e curva cumulativa",
             "resultado": (
-                "Aging permanece não cumulativo por faixa; Over usa somatório cumulativo acima do threshold."
-                if aging_uses_dc_total and over_is_cumulative
+                "Aging permanece não cumulativo por faixa do estoque vencido; Inadimplência Over usa somatório cumulativo sobre DC total."
+                if aging_uses_inad_total and over_is_cumulative
                 else "Há indício de mistura entre bucket de aging e curva Over."
             ),
             "acao": "Manter aging como distribuição por faixa e Over como soma cumulativa com legenda explícita.",

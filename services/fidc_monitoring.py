@@ -287,7 +287,8 @@ def build_mini_glossary_df() -> pd.DataFrame:
         {
             "termo": "Subordinação reportada (IME)",
             "definicao": (
-                "Percentual do PL alocado em cotas subordinadas. "
+                "Percentual do PL alocado no colchão subordinado reportado, calculado como "
+                "(PL mezzanino + PL subordinada residual) / PL total. "
                 "Essas cotas absorvem perdas de crédito antes da classe sênior, funcionando como colchão. "
                 "Quanto maior, mais protegido o sênior — mas o nível adequado depende da carteira e do regulamento."
             ),
@@ -310,12 +311,22 @@ def build_mini_glossary_df() -> pd.DataFrame:
             ),
         },
         {
-            "termo": "Aging regulatório da inadimplência",
+            "termo": "Aging da inadimplência",
             "definicao": (
                 "Distribuição não cumulativa do saldo vencido por faixa de prazo "
                 "(até 30, 31–60, 61–90, 91–120, 121–150, 151–180, 181–360, 361–720, 721–1080 e acima de 1080 dias). "
                 "Faixas mais longas indicam créditos com menor probabilidade de recuperação e maior pressão sobre o colchão. "
-                "Esse conceito é diferente das curvas Over, que são cumulativas."
+                "No painel executivo, o eixo percentual do aging usa o próprio estoque inadimplente como denominador. "
+                "Esse conceito é diferente das curvas Over, que são cumulativas e usam os direitos creditórios totais."
+            ),
+        },
+        {
+            "termo": "Inadimplência Over",
+            "definicao": (
+                "Curvas cumulativas de atraso em relação aos direitos creditórios totais. "
+                "Over 1 inclui todos os atrasos a partir de 1 dia; Over 30, Over 60, Over 90 e demais cortes "
+                "somam apenas os buckets vencidos acima do respectivo threshold. "
+                "É diferente do aging, que reparte o estoque vencido por faixa sem acumular."
             ),
         },
         {
@@ -437,7 +448,7 @@ def build_current_dashboard_inventory_df() -> pd.DataFrame:
         },
         {
             "nome_variavel": "default_over_history_df.percentual",
-            "nome_exibido": "Over regulatório da inadimplência",
+            "nome_exibido": "Inadimplência Over",
             "aba_origem": "Visão executiva",
             "bloco_ui_atual": "Crédito",
             "fonte_dado": "Buckets VL_INAD_VENC_* + base canônica de direitos creditórios",
@@ -447,15 +458,15 @@ def build_current_dashboard_inventory_df() -> pd.DataFrame:
             "unidade": "%",
         },
         {
-            "nome_variavel": "default_aging_history_df.percentual_direitos_creditorios",
-            "nome_exibido": "Aging regulatório da inadimplência",
+            "nome_variavel": "default_aging_history_df.percentual_inadimplencia",
+            "nome_exibido": "Aging da inadimplência",
             "aba_origem": "Visão executiva",
             "bloco_ui_atual": "Crédito",
-            "fonte_dado": "COMPMT_DICRED_AQUIS + COMPMT_DICRED_SEM_AQUIS + base canônica de direitos creditórios",
+            "fonte_dado": "COMPMT_DICRED_AQUIS + COMPMT_DICRED_SEM_AQUIS",
             "formula": "_build_default_aging_history_df",
             "arquivo_py": "services/fundonet_dashboard.py:_build_default_aging_history_df; tabs/tab_fidc_ime.py:_render_credit_risk_section",
             "tipo": "bucket_percentual",
-            "unidade": "% dos DCs",
+            "unidade": "% da inadimplência",
         },
         {
             "nome_variavel": "quota_pl_history_df.*",

@@ -21,7 +21,7 @@ GRID_GRAY = "#d7dce3"
 SOFT_GRAY = "#f5f6f8"
 WHITE = "#ffffff"
 SERIES_COLORS = [BLACK, ORANGE, DARK_GRAY, "#8a8a8a", "#b24f19"]
-OVER_PPT_COLORS = ["#2f7d4a", "#8abc4a", "#f0c340", "#ea8c2d", "#c8562c", "#7b241c"]
+OVER_PPT_COLORS = ["#1f6f46", "#4f9a63", "#8abc4a", "#f0c340", "#d97a28", "#8a3b22"]
 AGING_PPT_COLORS = [
     "#27ae60",
     "#82ca3f",
@@ -34,7 +34,7 @@ AGING_PPT_COLORS = [
     "#7b241c",
     "#4a1310",
 ]
-COVERAGE_LINE_COLOR = "#111111"
+COVERAGE_LINE_COLOR = "#6b2c3e"
 
 SLIDE_WIDTH_IN = 13.333
 SLIDE_HEIGHT_IN = 7.5
@@ -718,6 +718,16 @@ def build_dashboard_pptx_bytes(
             value_max=_percent_axis_max(sub_series, cap=80.0),
         )
         _style_line_series(sub_chart.series[0], color=ORANGE, width_pt=2.8, marker_size=11)
+        add_textbox(
+            slide,
+            MARGIN_LEFT_IN,
+            top_row_top + 2.06,
+            full_width,
+            0.16,
+            "Subordinação reportada = (PL mezzanino + PL subordinada residual) / PL total.",
+            size=FOOTER_SIZE,
+            color=MID_GRAY,
+        )
 
     quota_values = _quota_pl_value_pivot(dashboard.quota_pl_history_df)
     if not quota_values.empty:
@@ -859,7 +869,7 @@ def build_dashboard_pptx_bytes(
         aging_series_map = [(column, aging_history[column].tolist()) for column in aging_columns]
         add_chart(
             slide,
-            title="Aging regulatório da inadimplência",
+            title="Aging da inadimplência",
             chart_type=XL_CHART_TYPE.COLUMN_STACKED,
             categories=_competencia_labels(aging_history["competencia"].tolist()),
             series_map=aging_series_map,
@@ -893,13 +903,13 @@ def build_dashboard_pptx_bytes(
         over_axis_max = _percent_axis_max(over_series_map, cap=120.0)
         over_chart = add_chart(
             slide,
-            title="Over regulatório da inadimplência",
+            title="Inadimplência Over",
             chart_type=XL_CHART_TYPE.LINE_MARKERS,
             categories=_competencia_labels(over_history["competencia"].tolist()),
             series_map=over_series_map,
             left=MARGIN_LEFT_IN,
             top=top_row_top,
-            width=7.55,
+            width=full_width,
             height=5.55,
             number_format='0.0"%"',
             percent_axis=True,
@@ -918,28 +928,6 @@ def build_dashboard_pptx_bytes(
                 width_pt=2.3,
                 marker_size=9,
             )
-
-    if not default_df.empty:
-        aux_series = [("Somatório de inadimplentes", _series_numeric(default_df, "somatorio_inadimplentes_aux_validacao_pct_dcs").fillna(0.0).tolist())]
-        aux_chart = add_chart(
-            slide,
-            title="Somatório de inadimplentes (% dos DCs totais)",
-            chart_type=XL_CHART_TYPE.LINE_MARKERS,
-            categories=_competencia_labels(default_df["competencia"].tolist()),
-            series_map=aux_series,
-            left=right_col_left,
-            top=top_row_top,
-            width=4.58,
-            height=5.55,
-            number_format='0.0"%"',
-            percent_axis=True,
-            label_position="above",
-            label_font_size=9,
-            show_data_labels=True,
-            show_legend=False,
-            value_max=_percent_axis_max(aux_series, cap=120.0),
-        )
-        _style_line_series(aux_chart.series[0], color=ORANGE, width_pt=2.4, marker_size=11)
     add_footer(slide, timestamp_text)
 
     buffer = BytesIO()
@@ -1110,13 +1098,15 @@ def _money_label_number_format(scale: MoneyScale) -> str:
 
 def _latest_aging_table_frame(frame: pd.DataFrame) -> pd.DataFrame:
     if frame.empty:
-        return pd.DataFrame({"Faixa": ["Sem dados"], "Valor": ["-"], "%": ["-"]})
+        return pd.DataFrame({"Faixa": ["Sem dados"], "Valor": ["-"], "% inadimplência": ["-"], "% DCs": ["-"]})
     output = frame.copy()
-    percent_column = "percentual_direitos_creditorios" if "percentual_direitos_creditorios" in output.columns else "percentual"
     output["Faixa"] = output["faixa"]
     output["Valor"] = output["valor"].map(_format_brl_compact)
-    output["%"] = output[percent_column].map(_format_percent)
-    return output[["Faixa", "Valor", "%"]]
+    aging_column = "percentual_inadimplencia" if "percentual_inadimplencia" in output.columns else "percentual"
+    dc_column = "percentual_direitos_creditorios" if "percentual_direitos_creditorios" in output.columns else None
+    output["% inadimplência"] = output[aging_column].map(_format_percent) if aging_column in output.columns else "N/D"
+    output["% DCs"] = output[dc_column].map(_format_percent) if dc_column else "N/D"
+    return output[["Faixa", "Valor", "% inadimplência", "% DCs"]]
 
 
 def _build_over_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.DataFrame:
@@ -1128,7 +1118,7 @@ def _build_over_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.Da
         .pivot(index="competencia", columns="serie", values="percentual")
         .reset_index()
     )
-    ordered_columns = ["competencia", "Over 30", "Over 60", "Over 90", "Over 180", "Over 360"]
+    ordered_columns = ["competencia", "Over 1", "Over 30", "Over 60", "Over 90", "Over 180", "Over 360"]
     for column in ordered_columns:
         if column not in pivot.columns:
             pivot[column] = 0.0 if column != "competencia" else pivot.get(column)
@@ -1145,7 +1135,7 @@ def _build_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.DataFra
         aging_history_df.pivot_table(
             index="competencia",
             columns="faixa",
-            values="percentual_direitos_creditorios",
+            values="percentual_inadimplencia",
             aggfunc="sum",
         )
         .fillna(0.0)

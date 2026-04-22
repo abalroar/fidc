@@ -96,7 +96,24 @@ def _build_story(
                 ("Cotistas", info.get("total_cotistas")),
                 ("CNPJ fundo", _format_cnpj(info.get("cnpj_fundo", ""))),
                 ("CNPJ classe", _format_cnpj(info.get("cnpj_classe", ""))),
-                ("Administrador", _format_cnpj(info.get("cnpj_administrador", ""))),
+                (
+                    "Administrador",
+                    _format_participant(
+                        info.get("nome_administrador") or info.get("nm_admin"),
+                        info.get("cnpj_administrador") or info.get("cnpj_admin_cadastro"),
+                    ),
+                ),
+                (
+                    "Gestor",
+                    _format_participant(info.get("nome_gestor") or info.get("nm_gestor"), info.get("cnpj_gestor")),
+                ),
+                (
+                    "Custodiante",
+                    _format_participant(
+                        info.get("nome_custodiante") or info.get("nm_custodiante"),
+                        info.get("cnpj_custodiante"),
+                    ),
+                ),
                 ("Condomínio", info.get("condominio")),
                 ("Classe única", info.get("classe_unica")),
                 ("Gerado em", generated_at.strftime("%d/%m/%Y %H:%M")),
@@ -722,6 +739,16 @@ def _format_cnpj(value: str) -> str:
     if len(digits) != 14:
         return value or "N/D"
     return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
+
+
+def _format_participant(name: object, cnpj: object) -> str:
+    name_text = str(name or "").strip()
+    cnpj_text = _format_cnpj(str(cnpj or ""))
+    if name_text and cnpj_text != "N/D":
+        return f"{name_text} · {cnpj_text}"
+    if name_text:
+        return name_text
+    return cnpj_text
 
 
 def _safe_pct(numerator: object, denominator: object) -> float | None:

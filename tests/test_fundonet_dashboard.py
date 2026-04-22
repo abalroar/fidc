@@ -205,6 +205,8 @@ class FundonetDashboardTests(unittest.TestCase):
         maturity_361 = dashboard.maturity_latest_df[dashboard.maturity_latest_df["faixa"] == "361 a 720 dias"].iloc[0]
         self.assertAlmostEqual(13.0, maturity_361["valor"])
         self.assertEqual("reported_value", maturity_361["source_status"])
+        self.assertIn("ordem", dashboard.maturity_history_df.columns)
+        self.assertIn("Over 1", set(dashboard.default_over_history_df["serie"].tolist()))
 
     def test_pdf_export_generates_report_bytes(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -253,7 +255,7 @@ class FundonetDashboardTests(unittest.TestCase):
             dashboard.dc_canonical_history_df.iloc[0]["dc_total_fonte_efetiva"],
         )
         self.assertIn(
-            "Over regulatório da inadimplência",
+            "Inadimplência Over",
             dashboard.executive_memory_df["componente"].tolist(),
         )
         self.assertAlmostEqual(2000.0, dashboard.liquidity_history_df.iloc[0]["liquidez_imediata"])
@@ -347,7 +349,11 @@ class FundonetDashboardTests(unittest.TestCase):
         )
         self.assertIn("Deterioração acumulada", deterioration_text)
         deterioration_charts = [shape.chart for shape in presentation.slides[3].shapes if getattr(shape, "has_chart", False)]
-        self.assertGreaterEqual(len(deterioration_charts), 1)
+        self.assertLessEqual(len(deterioration_charts), 1)
+        if deterioration_charts:
+            xml = deterioration_charts[0]._chartSpace.xml
+            self.assertIn("Over 1", xml)
+            self.assertNotIn("Somatório de inadimplentes", xml)
 
     def test_build_dashboard_pptx_bytes_sanitizes_nan_and_inf_series(self) -> None:
         if importlib.util.find_spec("pptx") is None:
