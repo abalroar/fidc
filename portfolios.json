@@ -2,6 +2,27 @@
   "schema_version": 1,
   "portfolios": [
     {
+      "id": "47b0eb1b7bea42ef85233f9b1186129c",
+      "name": "FIDC Sellers (Soma)",
+      "funds": [
+        {
+          "cnpj": "50473039000102",
+          "display_name": "50.473.039/0001-02"
+        },
+        {
+          "cnpj": "55471753000177",
+          "display_name": "55.471.753/0001-77"
+        },
+        {
+          "cnpj": "63572282000111",
+          "display_name": "63.572.282/0001-11"
+        }
+      ],
+      "created_at": "2026-04-22T18:32:37Z",
+      "updated_at": "2026-04-22T18:32:37Z",
+      "notes": ""
+    },
+    {
       "id": "57f3418c1e9341e79edeef6086b8c25d",
       "name": "Mercado Credito Soma",
       "funds": [
