@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import unittest
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from tabs.tab_fidc_ime_carteira import (
+    _build_loaded_dashboards_by_cnpj,
     _execute_portfolio_load_for_funds,
+    _normalize_portfolio_editor_mode,
     _sync_portfolio_fund_names_from_results,
 )
 
@@ -28,6 +31,11 @@ class _DummyStatus:
 
 
 class TabFidcImeCarteiraTests(unittest.TestCase):
+    def test_normalize_portfolio_editor_mode_distinguishes_create_and_edit(self) -> None:
+        self.assertEqual("create", _normalize_portfolio_editor_mode(None, has_portfolios=False))
+        self.assertEqual("edit", _normalize_portfolio_editor_mode(None, has_portfolios=True))
+        self.assertEqual("create", _normalize_portfolio_editor_mode("create", has_portfolios=True))
+
     def test_sync_portfolio_fund_names_from_results_persists_resolved_name(self) -> None:
         portfolio = PortfolioRecord(
             id="portfolio-1",
@@ -94,6 +102,40 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
                 funds=portfolio.funds,
                 existing_results=None,
             )
+
+    def test_build_loaded_dashboards_by_cnpj_skips_funds_with_dashboard_error(self) -> None:
+        portfolio = PortfolioRecord(
+            id="portfolio-1",
+            name="Carteira Teste",
+            funds=(
+                PortfolioFund(cnpj="12345678000199", display_name="FIDC A"),
+                PortfolioFund(cnpj="22345678000199", display_name="FIDC B"),
+            ),
+            created_at="2026-04-15T00:00:00Z",
+            updated_at="2026-04-15T00:00:00Z",
+        )
+        fake_result = SimpleNamespace(
+            wide_csv_path=Path("wide.csv"),
+            listas_csv_path=Path("listas.csv"),
+            docs_csv_path=Path("docs.csv"),
+        )
+        results = {
+            "12345678000199": {"result": fake_result, "context": {}},
+            "22345678000199": {"result": fake_result, "context": {}},
+        }
+
+        with patch(
+            "tabs.tab_fidc_ime_carteira.ime_tab._load_dashboard_data",
+            side_effect=[object(), RuntimeError("quebra de teste")],
+        ):
+            dashboards, errors = _build_loaded_dashboards_by_cnpj(
+                selected_portfolio=portfolio,
+                results=results,
+            )
+
+        self.assertEqual(1, len(dashboards))
+        self.assertEqual(1, len(errors))
+        self.assertIn("22345678000199", errors)
 
 
 if __name__ == "__main__":

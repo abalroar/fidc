@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from pathlib import Path
 import tempfile
 import unittest
@@ -156,6 +157,58 @@ class FundonetPortfolioDashboardTests(unittest.TestCase):
             "ultima_competencia_comum_diferente_da_ultima_individual",
             coverage_event["observacao"],
         )
+
+    def test_build_portfolio_dashboard_bundle_handles_missing_long_frame_columns(self) -> None:
+        dashboard_a = self._make_manual_dashboard(
+            fund_name="Fundo A",
+            competencias=["01/2026"],
+            latest_competencia="01/2026",
+            pl_series={"01/2026": {"senior": 10_000.0, "mezzanino": 0.0, "subordinada": 2_000.0}},
+            dc_total={"01/2026": 12_000.0},
+            dc_vencidos={"01/2026": 300.0},
+            provisao={"01/2026": 50.0},
+            ativos_totais={"01/2026": 13_000.0},
+            carteira={"01/2026": 12_500.0},
+            liquidity={"01/2026": {"liquidez_imediata": 500.0, "liquidez_30": 700.0}},
+            maturity_buckets={"01/2026": {"Vencidos": 100.0, "Em 30 dias": 2_000.0, "31 a 60 dias": 1_000.0}},
+            aging_buckets={"01/2026": {"Até 30 dias": 100.0, "31 a 60 dias": 100.0, "61 a 90 dias": 100.0, "361 a 720 dias": 0.0}},
+            event_summary_latest_df=pd.DataFrame(),
+        )
+        dashboard_b_base = self._make_manual_dashboard(
+            fund_name="Fundo B",
+            competencias=["01/2026"],
+            latest_competencia="01/2026",
+            pl_series={"01/2026": {"senior": 8_000.0, "mezzanino": 500.0, "subordinada": 1_000.0}},
+            dc_total={"01/2026": 10_000.0},
+            dc_vencidos={"01/2026": 200.0},
+            provisao={"01/2026": 30.0},
+            ativos_totais={"01/2026": 11_000.0},
+            carteira={"01/2026": 10_500.0},
+            liquidity={"01/2026": {"liquidez_imediata": 400.0, "liquidez_30": 600.0}},
+            maturity_buckets={"01/2026": {"Vencidos": 50.0, "Em 30 dias": 1_500.0, "31 a 60 dias": 500.0}},
+            aging_buckets={"01/2026": {"Até 30 dias": 50.0, "31 a 60 dias": 50.0, "61 a 90 dias": 100.0, "361 a 720 dias": 0.0}},
+            event_summary_latest_df=pd.DataFrame(),
+        )
+        dashboard_b = replace(
+            dashboard_b_base,
+            maturity_history_df=pd.DataFrame(columns=["competencia", "competencia_dt", "faixa", "valor", "source_status"]),
+            default_buckets_history_df=pd.DataFrame(columns=["competencia", "competencia_dt", "faixa", "valor", "source_status"]),
+            maturity_latest_df=pd.DataFrame(columns=["competencia", "competencia_dt", "faixa", "valor", "source_status"]),
+            default_buckets_latest_df=pd.DataFrame(columns=["competencia", "competencia_dt", "faixa", "valor", "source_status"]),
+        )
+
+        bundle = build_portfolio_dashboard_bundle(
+            portfolio_name="Carteira Robusta",
+            dashboards_by_cnpj={
+                "11111111000111": ("Fundo A", dashboard_a),
+                "22222222000122": ("Fundo B", dashboard_b),
+            },
+        )
+
+        self.assertFalse(bundle.coverage_df.empty)
+        vencimento_rows = bundle.coverage_df[bundle.coverage_df["block_id"] == "vencimento"].copy()
+        self.assertFalse(vencimento_rows.empty)
+        self.assertIn("Incompleto", set(vencimento_rows["status"]))
 
     @staticmethod
     def _write_single_fund_mezz_fixture(workspace: Path) -> None:

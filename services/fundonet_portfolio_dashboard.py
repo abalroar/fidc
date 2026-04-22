@@ -315,8 +315,11 @@ def _aggregate_scalar_history(
             values: list[float] = []
             for fund_name, dashboard in dashboards_by_cnpj.values():
                 frame = getattr(dashboard, attr_name)
+                if not isinstance(frame, pd.DataFrame) or frame.empty or "competencia" not in frame.columns or column not in frame.columns:
+                    missing_funds.add(fund_name)
+                    continue
                 match = frame[frame["competencia"] == competencia]
-                value = pd.to_numeric(match[column], errors="coerce").iloc[-1] if not match.empty and column in match.columns else pd.NA
+                value = pd.to_numeric(match[column], errors="coerce").iloc[-1] if not match.empty else pd.NA
                 if pd.isna(value):
                     missing_funds.add(fund_name)
                     continue
@@ -570,8 +573,17 @@ def _aggregate_status_long_history(
             complete = True
             for fund_name, dashboard in dashboards_by_cnpj.values():
                 frame = getattr(dashboard, attr_name)
+                if not isinstance(frame, pd.DataFrame) or frame.empty or "competencia" not in frame.columns:
+                    complete = False
+                    missing_funds.add(fund_name)
+                    continue
                 subset = frame[frame["competencia"] == competencia].copy()
                 for key, value in spec.items():
+                    if key not in subset.columns:
+                        complete = False
+                        missing_funds.add(fund_name)
+                        subset = subset.iloc[0:0]
+                        break
                     subset = subset[subset[key] == value]
                 if subset.empty:
                     complete = False
@@ -619,7 +631,9 @@ def _build_long_specs(
     seen: set[tuple[object, ...]] = set()
     for _, dashboard in dashboards_by_cnpj.values():
         frame = getattr(dashboard, attr_name)
-        if frame.empty:
+        if not isinstance(frame, pd.DataFrame) or frame.empty or "competencia" not in frame.columns:
+            continue
+        if any(column not in frame.columns for column in key_columns):
             continue
         for _, row in frame.iterrows():
             spec = {column: row.get(column) for column in key_columns}
@@ -783,7 +797,12 @@ def _aggregate_event_summary_latest(
         complete = True
         for fund_name, dashboard in dashboards_by_cnpj.values():
             frame = dashboard.event_summary_latest_df
-            if frame.empty:
+            if not isinstance(frame, pd.DataFrame) or frame.empty:
+                complete = False
+                missing_funds.add(fund_name)
+                continue
+            required_columns = {"event_type", "source_status", "valor_total", "valor_total_assinado"}
+            if any(column not in frame.columns for column in required_columns):
                 complete = False
                 missing_funds.add(fund_name)
                 continue
@@ -858,6 +877,8 @@ def _build_liquidity_latest_df(
 
 
 def _latest_complete_long_frame(*, history_df: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
+    if history_df.empty or "competencia" not in history_df.columns or "valor" not in history_df.columns:
+        return pd.DataFrame(columns=getattr(history_df, "columns", []))
     latest_df = history_df[history_df["competencia"] == latest_competencia].copy()
     if latest_df.empty:
         return latest_df

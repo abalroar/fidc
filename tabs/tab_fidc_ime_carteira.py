@@ -22,6 +22,7 @@ from tabs.ime_portfolio_support import (
     delete_portfolio_record,
     enrich_portfolio_funds_with_catalog,
     format_portfolio_fund_label,
+    get_portfolio_status_caption,
     list_saved_portfolios,
     load_fidc_catalog_cached,
     normalize_portfolio_fund_name,
@@ -39,10 +40,26 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
     if period is None:
         period = ime_tab._render_period_selector(state_prefix="ime_portfolio", title="Período da carteira")
 
+    editor_mode = _normalize_portfolio_editor_mode(
+        st.session_state.get("ime_portfolio_editor_mode"),
+        has_portfolios=bool(portfolios),
+    )
+    st.session_state["ime_portfolio_editor_mode"] = editor_mode
+
     if portfolios:
-        sel_col, btn_col = st.columns([5, 1])
+        sel_col, new_col, btn_col = st.columns([4.2, 1.2, 1.2])
         with sel_col:
             selected_portfolio = _render_portfolio_selector(portfolios)
+        with new_col:
+            st.markdown('<div style="height:1.75rem"></div>', unsafe_allow_html=True)
+            if st.button(
+                "Nova carteira",
+                key="ime_portfolio_new_button",
+                use_container_width=True,
+            ):
+                _reset_new_portfolio_form_state()
+                st.session_state["ime_portfolio_editor_mode"] = "create"
+                st.rerun()
         with btn_col:
             st.markdown('<div style="height:1.75rem"></div>', unsafe_allow_html=True)
             preload_clicked = st.button(
@@ -55,11 +72,17 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
         selected_portfolio = None
         preload_clicked = False
 
-    with st.expander("Criar / Editar carteira", expanded=not bool(portfolios)):
+    st.caption(get_portfolio_status_caption())
+
+    with st.expander(
+        "Cadastrar carteira" if editor_mode == "create" else "Editar carteira ativa",
+        expanded=(editor_mode == "create") or (not bool(portfolios)),
+    ):
         _render_portfolio_editor(
             portfolios=portfolios,
             catalog_df=catalog_df,
             selected_portfolio=selected_portfolio,
+            editor_mode=editor_mode,
         )
 
     if selected_portfolio is not None:
@@ -109,21 +132,26 @@ def _render_portfolio_editor(
     portfolios: list[PortfolioRecord],
     catalog_df: pd.DataFrame,
     selected_portfolio: PortfolioRecord | None,
+    editor_mode: str,
 ) -> None:
-    # Infer edit-vs-create from state: a selected portfolio is implicitly the edit target.
-    target = selected_portfolio if portfolios else None
+    target = selected_portfolio if editor_mode == "edit" and selected_portfolio is not None else None
+    mode_suffix = target.id if target is not None else "new"
     option_labels, option_lookup = build_catalog_option_lookup(catalog_df)
     catalog_cnpjs = {fund.cnpj for fund in option_lookup.values()}
     default_labels = [
         next((label for label, fund in option_lookup.items() if fund.cnpj == portfolio_fund.cnpj), portfolio_fund.display_name)
         for portfolio_fund in (target.funds if target is not None else ())
     ]
+    st.markdown(
+        f"**{'Nova carteira' if target is None else 'Editar carteira ativa'}**",
+    )
 
-    with st.form("ime_portfolio_editor_form", clear_on_submit=False):
+    with st.form(f"ime_portfolio_editor_form::{mode_suffix}", clear_on_submit=False):
         name = st.text_input(
             "Nome da carteira",
             value=target.name if target is not None else "",
             placeholder="Ex.: Crédito High Yield",
+            key=f"ime_portfolio_name::{mode_suffix}",
         ).strip()
         if option_labels:
             selected_labels = st.multiselect(
@@ -131,6 +159,7 @@ def _render_portfolio_editor(
                 options=option_labels,
                 default=default_labels,
                 help="Até 20 FIDCs. Busca usa o cadastro público da CVM.",
+                key=f"ime_portfolio_funds::{mode_suffix}",
             )
         else:
             selected_labels = []
@@ -145,14 +174,16 @@ def _render_portfolio_editor(
             else "",
             placeholder="00.000.000/0000-00 (um por linha)",
             height=90,
+            key=f"ime_portfolio_cnpjs::{mode_suffix}",
         )
-        cols = st.columns([1, 1, 3])
-        save_label = "Atualizar carteira" if target is not None else "Salvar carteira"
+        cols = st.columns([1.2, 1.2, 3])
+        save_label = "Atualizar carteira" if target is not None else "Salvar nova carteira"
         save_clicked = cols[0].form_submit_button(save_label, type="primary")
-        new_clicked = cols[1].form_submit_button("Nova carteira") if target is not None else False
+        cancel_clicked = cols[1].form_submit_button("Cancelar") if target is None and portfolios else False
 
-    if new_clicked:
-        st.session_state.pop("ime_portfolio_active_id", None)
+    if cancel_clicked:
+        st.session_state["ime_portfolio_editor_mode"] = "edit"
+        _reset_new_portfolio_form_state()
         st.rerun()
 
     if save_clicked:
@@ -176,6 +207,8 @@ def _render_portfolio_editor(
             )
         )
         st.session_state["ime_portfolio_active_id"] = stored.id
+        st.session_state["ime_portfolio_editor_mode"] = "edit"
+        _reset_new_portfolio_form_state()
         st.toast(f"Carteira '{stored.name}' salva ({len(stored.funds)} fundo(s)).", icon="✓")
         st.rerun()
 
@@ -184,6 +217,7 @@ def _render_portfolio_editor(
             delete_portfolio_record(target.id)
             _clear_portfolio_runtime_states(target.id)
             st.session_state.pop("ime_portfolio_active_id", None)
+            st.session_state["ime_portfolio_editor_mode"] = "edit" if len(portfolios) > 1 else "create"
             st.rerun()
 
 
@@ -504,7 +538,7 @@ def _render_loaded_portfolio_analysis(
     )
 
     if view_mode == "Carteira agregada":
-        dashboards_by_cnpj = _build_loaded_dashboards_by_cnpj(
+        dashboards_by_cnpj, dashboard_errors = _build_loaded_dashboards_by_cnpj(
             selected_portfolio=selected_portfolio,
             results=results,
         )
@@ -514,6 +548,7 @@ def _render_loaded_portfolio_analysis(
         _render_portfolio_aggregate_analysis(
             selected_portfolio=selected_portfolio,
             dashboards_by_cnpj=dashboards_by_cnpj,
+            dashboard_errors=dashboard_errors,
             results=results,
             total_selected=len(selected_portfolio.funds),
         )
@@ -601,30 +636,36 @@ def _build_loaded_dashboards_by_cnpj(
     *,
     selected_portfolio: PortfolioRecord,
     results: dict[str, dict[str, Any]],
-) -> dict[str, tuple[str, Any]]:
+) -> tuple[dict[str, tuple[str, Any]], dict[str, str]]:
     dashboards_by_cnpj: dict[str, tuple[str, Any]] = {}
+    dashboard_errors: dict[str, str] = {}
     for fund in selected_portfolio.funds:
         payload = results.get(fund.cnpj) or {}
         result = payload.get("result")
         if result is None:
             continue
-        dashboard = ime_tab._load_dashboard_data(
-            str(result.wide_csv_path),
-            str(result.listas_csv_path),
-            str(result.docs_csv_path),
-            ime_tab.DASHBOARD_SCHEMA_VERSION,
-        )
+        try:
+            dashboard = ime_tab._load_dashboard_data(
+                str(result.wide_csv_path),
+                str(result.listas_csv_path),
+                str(result.docs_csv_path),
+                ime_tab.DASHBOARD_SCHEMA_VERSION,
+            )
+        except Exception as exc:  # noqa: BLE001
+            dashboard_errors[fund.cnpj] = f"{exc.__class__.__name__}: {exc}"
+            continue
         dashboards_by_cnpj[fund.cnpj] = (
             _resolve_portfolio_fund_display_name(fund.cnpj, results, fallback_name=fund.display_name),
             dashboard,
         )
-    return dashboards_by_cnpj
+    return dashboards_by_cnpj, dashboard_errors
 
 
 def _render_portfolio_aggregate_analysis(
     *,
     selected_portfolio: PortfolioRecord,
     dashboards_by_cnpj: dict[str, tuple[str, Any]],
+    dashboard_errors: dict[str, str],
     results: dict[str, dict[str, Any]],
     total_selected: int,
 ) -> None:
@@ -635,6 +676,11 @@ def _render_portfolio_aggregate_analysis(
         )
     except ValueError as exc:
         st.warning(str(exc))
+        return
+    except Exception as exc:  # noqa: BLE001
+        st.error("A visão agregada da carteira falhou nesta combinação de fundos.")
+        with st.expander("Detalhe técnico da falha", expanded=False):
+            st.exception(exc)
         return
 
     loaded_count = len(dashboards_by_cnpj)
@@ -657,6 +703,10 @@ def _render_portfolio_aggregate_analysis(
                 f"Leitura agregada usando {loaded_count} de {total_selected} fundo(s) da carteira. "
                 f"Fora do agregado atual: {', '.join(excluded_funds)}."
             )
+        if dashboard_errors:
+            with st.expander("Fundos excluídos por falha no dashboard base", expanded=False):
+                for cnpj, message in dashboard_errors.items():
+                    st.caption(f"**{cnpj}** — {message}")
         ime_tab._render_financial_snapshot_cards(bundle.dashboard)
         ime_tab._render_structural_risk_section(
             bundle.dashboard,
@@ -812,6 +862,21 @@ def _render_portfolio_runtime_summary(*, total_funds: int, loaded_count: int, fa
     if failed_count:
         parts.append(f"{failed_count} com falha")
     st.caption(" · ".join(parts))
+
+
+def _normalize_portfolio_editor_mode(value: object, *, has_portfolios: bool) -> str:
+    if not has_portfolios:
+        return "create"
+    return "create" if str(value or "").strip().lower() == "create" else "edit"
+
+
+def _reset_new_portfolio_form_state() -> None:
+    for key in (
+        "ime_portfolio_name::new",
+        "ime_portfolio_funds::new",
+        "ime_portfolio_cnpjs::new",
+    ):
+        st.session_state.pop(key, None)
 
 
 def _render_portfolio_error_summary(*, failed_cnpjs: list[str], results: dict[str, dict[str, Any]]) -> None:
