@@ -51,6 +51,7 @@ LABEL_SIZE = 9
 AXIS_SIZE = 9
 FOOTER_SIZE = 8
 CARD_VALUE_SIZE = 17
+SLIDE_RENDER_DPI = 170
 
 
 @dataclass(frozen=True)
@@ -682,263 +683,40 @@ def build_dashboard_pptx_bytes(
         f"{requested_period_text}"
     )
 
-    def add_slide_header(slide, section_title: str) -> None:  # noqa: ANN001
-        add_textbox(slide, 0.45, 0.18, 8.4, 0.28, section_title, size=TITLE_SIZE, bold=True, color=BLACK)
-        add_textbox(slide, 0.45, 0.48, 10.8, 0.20, title_fund, size=13, bold=True, color=ORANGE)
-        add_textbox(slide, 0.45, 0.72, 11.6, 0.16, subtitle, size=SUBTITLE_SIZE, color=MID_GRAY)
+    slide_renderers = [
+        _render_structure_slide_png(
+            dashboard=dashboard,
+            section_title="Estrutura e capital",
+            title_fund=title_fund,
+            subtitle=subtitle,
+            timestamp_text=timestamp_text,
+        ),
+        _render_returns_slide_png(
+            dashboard=dashboard,
+            section_title="Rentabilidade e prazo",
+            title_fund=title_fund,
+            subtitle=subtitle,
+            timestamp_text=timestamp_text,
+        ),
+        _render_credit_slide_png(
+            dashboard=dashboard,
+            section_title="Crédito e cobertura",
+            title_fund=title_fund,
+            subtitle=subtitle,
+            timestamp_text=timestamp_text,
+        ),
+        _render_over_slide_png(
+            dashboard=dashboard,
+            section_title="Deterioração acumulada",
+            title_fund=title_fund,
+            subtitle=subtitle,
+            timestamp_text=timestamp_text,
+        ),
+    ]
 
-    full_width = CONTENT_WIDTH_IN
-    split_gap = 0.30
-    left_wide_width = 7.45
-    right_narrow_width = CONTENT_WIDTH_IN - left_wide_width - split_gap
-    right_col_left = MARGIN_LEFT_IN + left_wide_width + split_gap
-    top_row_top = 1.02
-    image_scale = 170
-
-    # Slide 1 — structure and capital
-    slide = prs.slides.add_slide(blank)
-    add_slide_header(slide, "Estrutura e capital")
-
-    sub_df = dashboard.subordination_history_df.sort_values("competencia_dt").copy()
-    if not sub_df.empty:
-        sub_series = [("Subordinação reportada", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
-        add_picture_bytes(
-            slide,
-            _line_chart_png(
-                title="Subordinação reportada (IME)",
-                categories=_competencia_labels(sub_df["competencia"].tolist()),
-                series_map=sub_series,
-                colors=[ORANGE],
-                width_px=int(full_width * image_scale),
-                height_px=int(2.05 * image_scale),
-                axis_min=0.0,
-                axis_max=_percent_axis_max(sub_series, cap=80.0),
-                tick_formatter=_percent_tick_formatter,
-                show_point_labels=len(sub_df["competencia"].drop_duplicates()) <= 12,
-                show_end_labels=len(sub_df["competencia"].drop_duplicates()) > 12,
-            ),
-            left=MARGIN_LEFT_IN,
-            top=top_row_top,
-            width=full_width,
-            height=2.05,
-        )
-        add_textbox(
-            slide,
-            MARGIN_LEFT_IN,
-            top_row_top + 2.06,
-            full_width,
-            0.16,
-            "Subordinação reportada = (PL mezzanino + PL subordinada residual) / PL total.",
-            size=FOOTER_SIZE,
-            color=MID_GRAY,
-        )
-
-    quota_values = _quota_pl_value_pivot(dashboard.quota_pl_history_df)
-    if not quota_values.empty:
-        quota_scale = _money_scale(quota_values.drop(columns=["competencia"]).stack())
-        quota_series = [
-            (column, _scale_values(quota_values[column], quota_scale).tolist())
-            for column in quota_values.columns
-            if column != "competencia"
-        ]
-        add_picture_bytes(
-            slide,
-            _stacked_bar_chart_png(
-                title="PL por tipo de cota",
-                categories=_competencia_labels(quota_values["competencia"].tolist()),
-                series_map=quota_series,
-                colors=SERIES_COLORS,
-                width_px=int(full_width * image_scale),
-                height_px=int(3.35 * image_scale),
-                percent_axis=False,
-                money_scale=quota_scale,
-                show_latest_callouts=False,
-            ),
-            left=MARGIN_LEFT_IN,
-            top=3.32,
-            width=full_width,
-            height=3.35,
-        )
-    add_footer(slide, timestamp_text)
-
-    # Slide 2 — returns and term
-    slide = prs.slides.add_slide(blank)
-    add_slide_header(slide, "Rentabilidade e prazo")
-
-    selected_labels = _top_return_labels_for_ppt(dashboard)
-    return_table_df = _build_return_inline_table_for_ppt(dashboard, selected_labels=selected_labels, months=12)
-    if not return_table_df.empty:
-        month_count = max(len(return_table_df.columns) - 3, 0)
-        add_table(
-            slide,
-            return_table_df,
-            title="Rentabilidade por tipo de cota (últimos 12 meses)",
-            left=MARGIN_LEFT_IN,
-            top=1.18,
-            width=full_width,
-            height=1.38,
-            col_widths=[2.15] + ([0.58] * month_count) + [0.86, 1.02],
-            max_rows=8,
-        )
-
-    base100_df = _build_return_base100_for_ppt(dashboard, selected_labels=selected_labels, months=12)
-    if not base100_df.empty:
-        base100_series = []
-        ordered_base100 = base100_df.sort_values("competencia_dt").copy()
-        for series_name, group in ordered_base100.groupby("serie", dropna=False):
-            base100_series.append((str(series_name), pd.to_numeric(group["valor"], errors="coerce").fillna(0.0).tolist()))
-        base100_numeric = pd.to_numeric(base100_df["valor"], errors="coerce")
-        base100_min = float(base100_numeric.min()) if not base100_numeric.dropna().empty else 100.0
-        base100_max = float(base100_numeric.max()) if not base100_numeric.dropna().empty else 100.0
-        add_picture_bytes(
-            slide,
-            _line_chart_png(
-                title="Índice acumulado base 100",
-                categories=_competencia_labels(ordered_base100["competencia"].drop_duplicates().tolist()),
-                series_map=base100_series,
-                colors=SERIES_COLORS,
-                width_px=int(full_width * image_scale),
-                height_px=int(1.45 * image_scale),
-                axis_min=min(95.0, base100_min * 0.98),
-                axis_max=max(base100_max * 1.06, 105.0),
-                tick_formatter=_number_tick_formatter,
-                show_point_labels=False,
-                show_end_labels=True,
-            ),
-            left=MARGIN_LEFT_IN,
-            top=2.80,
-            width=full_width,
-            height=1.45,
-        )
-
-    maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
-    if not maturity_df.empty:
-        maturity_scale = _money_scale(pd.to_numeric(maturity_df["valor"], errors="coerce"))
-        maturity_values = _scale_values(maturity_df["valor"], maturity_scale).tolist()
-        add_picture_bytes(
-            slide,
-            _waterfall_chart_png(
-                title=f"Prazo de vencimento dos DCs a vencer ({maturity_scale.label})" if maturity_scale.label else "Prazo de vencimento dos DCs a vencer",
-                categories=maturity_df["faixa"].astype(str).tolist(),
-                step_values=maturity_values,
-                total_value=float(sum(maturity_values)),
-                width_px=int(left_wide_width * image_scale),
-                height_px=int(2.35 * image_scale),
-                money_scale=maturity_scale,
-            ),
-            left=MARGIN_LEFT_IN,
-            top=4.30,
-            width=left_wide_width,
-            height=2.35,
-        )
-
-    duration_df = dashboard.duration_history_df.sort_values("competencia_dt").copy()
-    if not duration_df.empty:
-        duration_series = [("Prazo médio proxy", _series_numeric(duration_df, "duration_days").fillna(0.0).tolist())]
-        add_picture_bytes(
-            slide,
-            _line_chart_png(
-                title="Prazo médio proxy dos recebíveis (IME)",
-                categories=_competencia_labels(duration_df["competencia"].tolist()),
-                series_map=duration_series,
-                colors=[ORANGE],
-                width_px=int(right_narrow_width * image_scale),
-                height_px=int(2.35 * image_scale),
-                axis_min=0.0,
-                axis_max=max(float(_series_numeric(duration_df, "duration_days").max() or 0.0) * 1.12, 30.0),
-                tick_formatter=_number_tick_formatter,
-                show_point_labels=True,
-                show_end_labels=False,
-            ),
-            left=right_col_left,
-            top=4.30,
-            width=right_narrow_width,
-            height=2.35,
-        )
-    add_footer(slide, timestamp_text)
-
-    # Slide 3 — credit and coverage
-    slide = prs.slides.add_slide(blank)
-    add_slide_header(slide, "Crédito e cobertura")
-
-    default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
-    if not default_df.empty:
-        categories = _competencia_labels(default_df["competencia"].tolist())
-        add_picture_bytes(
-            slide,
-            _grouped_bar_line_chart_png(
-                title="Inadimplência, provisão e cobertura",
-                categories=categories,
-                bar_series_map=[
-                    ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
-                    ("Provisão", _series_numeric(default_df, "provisao_pct_direitos").fillna(0.0).tolist()),
-                ],
-                line_series_map=[
-                    ("Cobertura", _series_numeric(default_df, "cobertura_pct").fillna(0.0).tolist()),
-                    ("100% (paridade)", [100.0] * len(categories)),
-                ],
-                width_px=int(full_width * image_scale),
-                height_px=int(2.30 * image_scale),
-            ),
-            left=MARGIN_LEFT_IN,
-            top=top_row_top,
-            width=full_width,
-            height=2.30,
-        )
-
-    aging_history = _build_aging_history_for_ppt(dashboard)
-    if not aging_history.empty:
-        aging_columns = [column for column in aging_history.columns if column != "competencia"]
-        aging_series_map = [(column, aging_history[column].tolist()) for column in aging_columns]
-        add_picture_bytes(
-            slide,
-            _stacked_bar_chart_png(
-                title="Aging da inadimplência",
-                categories=_competencia_labels(aging_history["competencia"].tolist()),
-                series_map=aging_series_map,
-                colors=AGING_PPT_COLORS,
-                width_px=int(full_width * image_scale),
-                height_px=int(2.75 * image_scale),
-                percent_axis=True,
-                show_latest_callouts=True,
-            ),
-            left=MARGIN_LEFT_IN,
-            top=3.85,
-            width=full_width,
-            height=2.75,
-        )
-    add_footer(slide, timestamp_text)
-
-    # Slide 4 — deterioration accumulation
-    slide = prs.slides.add_slide(blank)
-    add_slide_header(slide, "Deterioração acumulada")
-
-    over_history = _build_over_aging_history_for_ppt(dashboard)
-    if not over_history.empty:
-        over_columns = [column for column in over_history.columns if column != "competencia"]
-        over_series_map = [(column, over_history[column].tolist()) for column in over_columns]
-        over_axis_max = _percent_axis_max(over_series_map, cap=120.0)
-        add_picture_bytes(
-            slide,
-            _line_chart_png(
-                title="Inadimplência Over",
-                categories=_competencia_labels(over_history["competencia"].tolist()),
-                series_map=over_series_map,
-                colors=OVER_PPT_COLORS,
-                width_px=int(full_width * image_scale),
-                height_px=int(5.55 * image_scale),
-                axis_min=0.0,
-                axis_max=over_axis_max,
-                tick_formatter=_percent_tick_formatter,
-                show_point_labels=False,
-                show_end_labels=True,
-            ),
-            left=MARGIN_LEFT_IN,
-            top=top_row_top,
-            width=full_width,
-            height=5.55,
-        )
-    add_footer(slide, timestamp_text)
+    for slide_png in slide_renderers:
+        slide = prs.slides.add_slide(blank)
+        add_picture_bytes(slide, slide_png, left=0.0, top=0.0, width=SLIDE_WIDTH_IN, height=SLIDE_HEIGHT_IN)
 
     buffer = BytesIO()
     prs.save(buffer)
@@ -1584,7 +1362,7 @@ def _line_chart_png(
     values = [numeric for _, series in series_map for value in series if (numeric := _finite_float(value)) is not None]
     if reference_lines:
         values.extend([float(value) for value, _, _ in reference_lines])
-    axis_max = axis_max if axis_max is not None else (max(values) * 1.14 if values else 100.0)
+    axis_max = axis_max if axis_max is not None else _dashboard_percent_axis_upper(values) if tick_formatter == _percent_tick_formatter else (max(values) * 1.14 if values else 100.0)
     axis_max = max(axis_max, axis_min + 1.0)
     formatter = tick_formatter or _number_tick_formatter
     ticks = _nice_ticks(axis_min, axis_max, steps=4)
@@ -1683,7 +1461,7 @@ def _stacked_bar_chart_png(
     for idx in range(len(categories)):
         totals.append(sum(_finite_or_default(values[idx]) for _, values in series_map))
     axis_min = 0.0
-    axis_max = max(totals) * 1.15 if totals else 100.0
+    axis_max = _dashboard_percent_axis_upper(totals, max_cap=140.0) if percent_axis else (max(totals) * 1.15 if totals else 1.0)
     axis_max = max(axis_max, 100.0 if percent_axis else 1.0)
     formatter = _percent_tick_formatter if percent_axis else _money_tick_formatter(money_scale or MoneyScale(1.0, "", "R$"))
     ticks = _nice_ticks(axis_min, axis_max, steps=4)
@@ -1700,9 +1478,13 @@ def _stacked_bar_chart_png(
     )
     draw.line((box["left"], box["bottom"], box["right"], box["bottom"]), fill=_hex_to_rgb(GRID_GRAY), width=1)
     plot_width = box["right"] - box["left"]
-    group_width = plot_width / max(len(categories), 1)
+    if len(categories) == 1:
+        group_width = min(plot_width * 0.34, 240)
+        x_positions = [box["left"] + (plot_width / 2)]
+    else:
+        group_width = plot_width / max(len(categories), 1)
+        x_positions = [box["left"] + ((idx + 0.5) * group_width) for idx in range(len(categories))]
     bar_width = min(58, max(26, int(group_width * 0.52)))
-    x_positions = [box["left"] + ((idx + 0.5) * group_width) for idx in range(len(categories))]
     _draw_x_axis(draw, categories=categories, x_positions=x_positions, bottom=box["bottom"], font=small_font)
     latest_segments: list[tuple[str, float, float, str, str]] = []
     for cat_idx, x in enumerate(x_positions):
@@ -1759,8 +1541,8 @@ def _grouped_bar_line_chart_png(
     )
     bar_values = [_finite_or_default(value) for _, values in bar_series_map for value in values]
     line_values = [_finite_or_default(value) for _, values in line_series_map for value in values]
-    bar_axis_max = _percent_axis_max([(name, list(values)) for name, values in bar_series_map], cap=120.0)
-    line_axis_max = _percent_axis_max([(name, list(values)) for name, values in line_series_map], cap=max(max(line_values, default=100.0) * 1.18, 650.0))
+    bar_axis_max = _dashboard_percent_axis_upper(bar_values, max_cap=140.0)
+    line_axis_max = _dashboard_percent_axis_upper(line_values, max_cap=max(max(line_values, default=100.0) * 1.4, 650.0))
     bar_ticks = _nice_ticks(0.0, bar_axis_max, steps=4)
     line_ticks = _nice_ticks(0.0, line_axis_max, steps=4)
     _draw_vertical_axis(
@@ -1793,10 +1575,14 @@ def _grouped_bar_line_chart_png(
     draw.text((box["right"] - 88, box["top"] - 24), "Cobertura (%)", fill=_hex_to_rgb(COVERAGE_LINE_COLOR), font=small_font)
     draw.line((box["left"], box["bottom"], box["right"], box["bottom"]), fill=_hex_to_rgb(GRID_GRAY), width=1)
     plot_width = box["right"] - box["left"]
-    group_width = plot_width / max(len(categories), 1)
+    if len(categories) == 1:
+        group_width = min(plot_width * 0.36, 260)
+        x_positions = [box["left"] + (plot_width / 2)]
+    else:
+        group_width = plot_width / max(len(categories), 1)
+        x_positions = [box["left"] + ((idx + 0.5) * group_width) for idx in range(len(categories))]
     inner_width = group_width * 0.62
     bar_width = inner_width / max(len(bar_series_map), 1)
-    x_positions = [box["left"] + ((idx + 0.5) * group_width) for idx in range(len(categories))]
     _draw_x_axis(draw, categories=categories, x_positions=x_positions, bottom=box["bottom"], font=small_font)
     for cat_idx, x in enumerate(x_positions):
         left_edge = x - (inner_width / 2)
@@ -1983,3 +1769,395 @@ def _build_return_base100_for_ppt(
                 }
             )
     return pd.DataFrame(rows)
+
+
+def _slide_px_size() -> tuple[int, int]:
+    return int(round(SLIDE_WIDTH_IN * SLIDE_RENDER_DPI)), int(round(SLIDE_HEIGHT_IN * SLIDE_RENDER_DPI))
+
+
+def _in_to_px(value_in: float) -> int:
+    return int(round(value_in * SLIDE_RENDER_DPI))
+
+
+def _new_slide_canvas(
+    *,
+    section_title: str,
+    title_fund: str,
+    subtitle: str,
+    timestamp_text: str,
+) -> tuple[Image.Image, ImageDraw.ImageDraw]:
+    width_px, height_px = _slide_px_size()
+    image = Image.new("RGB", (width_px, height_px), _hex_to_rgb(WHITE))
+    draw = ImageDraw.Draw(image)
+    title_font = _load_pil_font(34, bold=True)
+    subtitle_font = _load_pil_font(19, bold=True)
+    meta_font = _load_pil_font(16, bold=False)
+    footer_font = _load_pil_font(12, bold=False)
+    draw.text((_in_to_px(0.45), _in_to_px(0.18)), section_title, fill=_hex_to_rgb(BLACK), font=title_font)
+    draw.text((_in_to_px(0.45), _in_to_px(0.48)), title_fund, fill=_hex_to_rgb(ORANGE), font=subtitle_font)
+    draw.text((_in_to_px(0.45), _in_to_px(0.72)), subtitle, fill=_hex_to_rgb(MID_GRAY), font=meta_font)
+    footer = f"Fonte: Informe Mensal - CVM    |    Gerado em: {timestamp_text}"
+    footer_w, footer_h = _text_size(draw, footer, footer_font)
+    draw.text((_in_to_px(MARGIN_LEFT_IN), _in_to_px(7.08)), footer, fill=_hex_to_rgb(MID_GRAY), font=footer_font)
+    return image, draw
+
+
+def _paste_png(image: Image.Image, png_bytes: bytes, *, left: float, top: float, width: float, height: float) -> None:
+    chart = Image.open(BytesIO(png_bytes)).convert("RGB")
+    chart = chart.resize((_in_to_px(width), _in_to_px(height)))
+    image.paste(chart, (_in_to_px(left), _in_to_px(top)))
+
+
+def _draw_text(
+    draw: ImageDraw.ImageDraw,
+    *,
+    left: float,
+    top: float,
+    text: str,
+    size: int,
+    color: str = BLACK,
+    bold: bool = False,
+) -> None:
+    draw.text((_in_to_px(left), _in_to_px(top)), text, fill=_hex_to_rgb(color), font=_load_pil_font(size, bold=bold))
+
+
+def _draw_table_on_slide(
+    image: Image.Image,
+    draw: ImageDraw.ImageDraw,
+    df: pd.DataFrame,
+    *,
+    title: str,
+    left: float,
+    top: float,
+    width: float,
+    height: float,
+    col_widths: Sequence[float] | None = None,
+) -> None:
+    _draw_text(draw, left=left, top=top - 0.18, text=title, size=15, bold=True)
+    if df.empty:
+        return
+    left_px = _in_to_px(left)
+    top_px = _in_to_px(top)
+    width_px = _in_to_px(width)
+    height_px = _in_to_px(height)
+    rows = len(df.index) + 1
+    cols = len(df.columns)
+    row_h = max(28, int(height_px / max(rows, 1)))
+    if col_widths and len(col_widths) == cols:
+        total = sum(col_widths)
+        widths = [int(round(width_px * (col_w / total))) for col_w in col_widths]
+        widths[-1] += width_px - sum(widths)
+    else:
+        base = int(width_px / cols)
+        widths = [base] * cols
+        widths[-1] += width_px - sum(widths)
+    header_font = _load_pil_font(11, bold=True)
+    body_font = _load_pil_font(10, bold=False)
+    x = left_px
+    for col_idx, column in enumerate(df.columns):
+        cell_w = widths[col_idx]
+        draw.rectangle((x, top_px, x + cell_w, top_px + row_h), fill=_hex_to_rgb(BLACK), outline=_hex_to_rgb(GRID_GRAY))
+        draw.text((x + 6, top_px + 6), str(column), fill=_hex_to_rgb(WHITE), font=header_font)
+        x += cell_w
+    for row_idx, (_, row) in enumerate(df.iterrows(), start=1):
+        x = left_px
+        y = top_px + row_idx * row_h
+        for col_idx, value in enumerate(row):
+            cell_w = widths[col_idx]
+            draw.rectangle((x, y, x + cell_w, y + row_h), fill=_hex_to_rgb(WHITE), outline=_hex_to_rgb(GRID_GRAY))
+            text = str(value)
+            while text and _text_size(draw, text, body_font)[0] > cell_w - 12:
+                text = text[:-2] + "…"
+            draw.text((x + 6, y + 6), text, fill=_hex_to_rgb(BLACK), font=body_font)
+            x += cell_w
+
+
+def _dashboard_percent_axis_upper(values: Sequence[object], *, max_cap: float | None = None) -> float:
+    numeric = pd.to_numeric(pd.Series(values), errors="coerce").dropna()
+    if numeric.empty:
+        upper = 4.0
+    else:
+        max_value = float(numeric.max())
+        upper = max(max_value * 1.12, max_value + 4.0)
+    if max_cap is not None:
+        upper = min(upper, max_cap)
+    return max(upper, 1.0)
+
+
+def _render_structure_slide_png(
+    *,
+    dashboard: FundonetDashboardData,
+    section_title: str,
+    title_fund: str,
+    subtitle: str,
+    timestamp_text: str,
+) -> bytes:
+    image, draw = _new_slide_canvas(section_title=section_title, title_fund=title_fund, subtitle=subtitle, timestamp_text=timestamp_text)
+    full_width = CONTENT_WIDTH_IN
+    top_row_top = 1.02
+    sub_df = dashboard.subordination_history_df.sort_values("competencia_dt").copy()
+    if not sub_df.empty:
+        sub_series = [("Subordinação reportada", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
+        _paste_png(
+            image,
+            _line_chart_png(
+                title="Subordinação reportada (IME)",
+                categories=_competencia_labels(sub_df["competencia"].tolist()),
+                series_map=sub_series,
+                colors=[ORANGE],
+                width_px=int(full_width * SLIDE_RENDER_DPI),
+                height_px=int(2.05 * SLIDE_RENDER_DPI),
+                axis_min=0.0,
+                axis_max=_dashboard_percent_axis_upper(sub_series[0][1], max_cap=80.0),
+                tick_formatter=_percent_tick_formatter,
+                show_point_labels=len(sub_df["competencia"].drop_duplicates()) <= 12,
+                show_end_labels=len(sub_df["competencia"].drop_duplicates()) > 12,
+            ),
+            left=MARGIN_LEFT_IN,
+            top=top_row_top,
+            width=full_width,
+            height=2.05,
+        )
+        _draw_text(
+            draw,
+            left=MARGIN_LEFT_IN,
+            top=top_row_top + 2.06,
+            text="Subordinação reportada = (PL mezzanino + PL subordinada residual) / PL total.",
+            size=12,
+            color=MID_GRAY,
+        )
+    quota_values = _quota_pl_value_pivot(dashboard.quota_pl_history_df)
+    if not quota_values.empty:
+        quota_scale = _money_scale(quota_values.drop(columns=["competencia"]).stack())
+        quota_series = [(column, _scale_values(quota_values[column], quota_scale).tolist()) for column in quota_values.columns if column != "competencia"]
+        _paste_png(
+            image,
+            _stacked_bar_chart_png(
+                title="PL por tipo de cota",
+                categories=_competencia_labels(quota_values["competencia"].tolist()),
+                series_map=quota_series,
+                colors=SERIES_COLORS,
+                width_px=int(full_width * SLIDE_RENDER_DPI),
+                height_px=int(3.35 * SLIDE_RENDER_DPI),
+                percent_axis=False,
+                money_scale=quota_scale,
+                show_latest_callouts=False,
+            ),
+            left=MARGIN_LEFT_IN,
+            top=3.32,
+            width=full_width,
+            height=3.35,
+        )
+    buffer = BytesIO()
+    image.save(buffer, format="PNG")
+    return buffer.getvalue()
+
+
+def _render_returns_slide_png(
+    *,
+    dashboard: FundonetDashboardData,
+    section_title: str,
+    title_fund: str,
+    subtitle: str,
+    timestamp_text: str,
+) -> bytes:
+    image, draw = _new_slide_canvas(section_title=section_title, title_fund=title_fund, subtitle=subtitle, timestamp_text=timestamp_text)
+    full_width = CONTENT_WIDTH_IN
+    left_wide_width = 7.45
+    split_gap = 0.30
+    right_narrow_width = CONTENT_WIDTH_IN - left_wide_width - split_gap
+    right_col_left = MARGIN_LEFT_IN + left_wide_width + split_gap
+    selected_labels = _top_return_labels_for_ppt(dashboard)
+    return_table_df = _build_return_inline_table_for_ppt(dashboard, selected_labels=selected_labels, months=12)
+    if not return_table_df.empty:
+        month_count = max(len(return_table_df.columns) - 3, 0)
+        _draw_table_on_slide(
+            image,
+            draw,
+            return_table_df,
+            title="Rentabilidade por tipo de cota (últimos 12 meses)",
+            left=MARGIN_LEFT_IN,
+            top=1.18,
+            width=full_width,
+            height=1.38,
+            col_widths=[2.15] + ([0.58] * month_count) + [0.86, 1.02],
+        )
+    base100_df = _build_return_base100_for_ppt(dashboard, selected_labels=selected_labels, months=12)
+    if not base100_df.empty:
+        ordered_base100 = base100_df.sort_values("competencia_dt").copy()
+        base100_series = [
+            (str(series_name), pd.to_numeric(group["valor"], errors="coerce").fillna(0.0).tolist())
+            for series_name, group in ordered_base100.groupby("serie", dropna=False)
+        ]
+        base100_numeric = pd.to_numeric(base100_df["valor"], errors="coerce")
+        base100_min = float(base100_numeric.min()) if not base100_numeric.dropna().empty else 100.0
+        base100_max = float(base100_numeric.max()) if not base100_numeric.dropna().empty else 100.0
+        _paste_png(
+            image,
+            _line_chart_png(
+                title="Índice acumulado base 100",
+                categories=_competencia_labels(ordered_base100["competencia"].drop_duplicates().tolist()),
+                series_map=base100_series,
+                colors=SERIES_COLORS,
+                width_px=int(full_width * SLIDE_RENDER_DPI),
+                height_px=int(1.45 * SLIDE_RENDER_DPI),
+                axis_min=min(95.0, base100_min * 0.98),
+                axis_max=max(base100_max * 1.06, 105.0),
+                tick_formatter=_number_tick_formatter,
+                show_point_labels=False,
+                show_end_labels=True,
+            ),
+            left=MARGIN_LEFT_IN,
+            top=2.80,
+            width=full_width,
+            height=1.45,
+        )
+    maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
+    if not maturity_df.empty:
+        maturity_scale = _money_scale(pd.to_numeric(maturity_df["valor"], errors="coerce"))
+        maturity_values = _scale_values(maturity_df["valor"], maturity_scale).tolist()
+        _paste_png(
+            image,
+            _waterfall_chart_png(
+                title=f"Prazo de vencimento dos DCs a vencer ({maturity_scale.label})" if maturity_scale.label else "Prazo de vencimento dos DCs a vencer",
+                categories=maturity_df["faixa"].astype(str).tolist(),
+                step_values=maturity_values,
+                total_value=float(sum(maturity_values)),
+                width_px=int(left_wide_width * SLIDE_RENDER_DPI),
+                height_px=int(2.35 * SLIDE_RENDER_DPI),
+                money_scale=maturity_scale,
+            ),
+            left=MARGIN_LEFT_IN,
+            top=4.30,
+            width=left_wide_width,
+            height=2.35,
+        )
+    duration_df = dashboard.duration_history_df.sort_values("competencia_dt").copy()
+    if not duration_df.empty:
+        duration_values = _series_numeric(duration_df, "duration_days").fillna(0.0).tolist()
+        duration_upper = max(max(duration_values or [0.0]) * 1.12, max(duration_values or [0.0]) + 4.0, 30.0)
+        _paste_png(
+            image,
+            _line_chart_png(
+                title="Prazo médio proxy dos recebíveis (IME)",
+                categories=_competencia_labels(duration_df["competencia"].tolist()),
+                series_map=[("Prazo médio proxy", duration_values)],
+                colors=[ORANGE],
+                width_px=int(right_narrow_width * SLIDE_RENDER_DPI),
+                height_px=int(2.35 * SLIDE_RENDER_DPI),
+                axis_min=0.0,
+                axis_max=duration_upper,
+                tick_formatter=_number_tick_formatter,
+                show_point_labels=True,
+                show_end_labels=False,
+            ),
+            left=right_col_left,
+            top=4.30,
+            width=right_narrow_width,
+            height=2.35,
+        )
+    buffer = BytesIO()
+    image.save(buffer, format="PNG")
+    return buffer.getvalue()
+
+
+def _render_credit_slide_png(
+    *,
+    dashboard: FundonetDashboardData,
+    section_title: str,
+    title_fund: str,
+    subtitle: str,
+    timestamp_text: str,
+) -> bytes:
+    image, _ = _new_slide_canvas(section_title=section_title, title_fund=title_fund, subtitle=subtitle, timestamp_text=timestamp_text)
+    full_width = CONTENT_WIDTH_IN
+    top_row_top = 1.02
+    default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
+    if not default_df.empty:
+        categories = _competencia_labels(default_df["competencia"].tolist())
+        _paste_png(
+            image,
+            _grouped_bar_line_chart_png(
+                title="Inadimplência, provisão e cobertura",
+                categories=categories,
+                bar_series_map=[
+                    ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
+                    ("Provisão", _series_numeric(default_df, "provisao_pct_direitos").fillna(0.0).tolist()),
+                ],
+                line_series_map=[
+                    ("Cobertura", _series_numeric(default_df, "cobertura_pct").fillna(0.0).tolist()),
+                    ("100% (paridade)", [100.0] * len(categories)),
+                ],
+                width_px=int(full_width * SLIDE_RENDER_DPI),
+                height_px=int(2.30 * SLIDE_RENDER_DPI),
+            ),
+            left=MARGIN_LEFT_IN,
+            top=top_row_top,
+            width=full_width,
+            height=2.30,
+        )
+    aging_history = _build_aging_history_for_ppt(dashboard)
+    if not aging_history.empty:
+        aging_columns = [column for column in aging_history.columns if column != "competencia"]
+        aging_series_map = [(column, aging_history[column].tolist()) for column in aging_columns]
+        _paste_png(
+            image,
+            _stacked_bar_chart_png(
+                title="Aging da inadimplência",
+                categories=_competencia_labels(aging_history["competencia"].tolist()),
+                series_map=aging_series_map,
+                colors=AGING_PPT_COLORS,
+                width_px=int(full_width * SLIDE_RENDER_DPI),
+                height_px=int(2.75 * SLIDE_RENDER_DPI),
+                percent_axis=True,
+                show_latest_callouts=True,
+            ),
+            left=MARGIN_LEFT_IN,
+            top=3.85,
+            width=full_width,
+            height=2.75,
+        )
+    buffer = BytesIO()
+    image.save(buffer, format="PNG")
+    return buffer.getvalue()
+
+
+def _render_over_slide_png(
+    *,
+    dashboard: FundonetDashboardData,
+    section_title: str,
+    title_fund: str,
+    subtitle: str,
+    timestamp_text: str,
+) -> bytes:
+    image, _ = _new_slide_canvas(section_title=section_title, title_fund=title_fund, subtitle=subtitle, timestamp_text=timestamp_text)
+    full_width = CONTENT_WIDTH_IN
+    top_row_top = 1.02
+    over_history = _build_over_aging_history_for_ppt(dashboard)
+    if not over_history.empty:
+        over_columns = [column for column in over_history.columns if column != "competencia"]
+        over_series_map = [(column, over_history[column].tolist()) for column in over_columns]
+        over_axis_max = _dashboard_percent_axis_upper([value for _, values in over_series_map for value in values], max_cap=120.0)
+        _paste_png(
+            image,
+            _line_chart_png(
+                title="Inadimplência Over",
+                categories=_competencia_labels(over_history["competencia"].tolist()),
+                series_map=over_series_map,
+                colors=OVER_PPT_COLORS,
+                width_px=int(full_width * SLIDE_RENDER_DPI),
+                height_px=int(5.55 * SLIDE_RENDER_DPI),
+                axis_min=0.0,
+                axis_max=over_axis_max,
+                tick_formatter=_percent_tick_formatter,
+                show_point_labels=False,
+                show_end_labels=True,
+            ),
+            left=MARGIN_LEFT_IN,
+            top=top_row_top,
+            width=full_width,
+            height=5.55,
+        )
+    buffer = BytesIO()
+    image.save(buffer, format="PNG")
+    return buffer.getvalue()

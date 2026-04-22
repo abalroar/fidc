@@ -342,34 +342,17 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertEqual(4, len(presentation.slides))
         with zipfile.ZipFile(io.BytesIO(pptx_bytes)) as archive:
             archive_names = archive.namelist()
+            slide_xml = {
+                name: archive.read(name).decode("utf-8")
+                for name in archive_names
+                if name.startswith("ppt/slides/slide") and name.endswith(".xml")
+            }
         self.assertFalse(any(name.startswith("ppt/charts/") for name in archive_names))
-        self.assertTrue(any(name.startswith("ppt/media/") and name.endswith(".png") for name in archive_names))
-        slide_1_text = " ".join(
-            shape.text for shape in presentation.slides[0].shapes if hasattr(shape, "text")
-        )
-        self.assertIn("Gerado em: 14/04/2026 12:00 GMT-3", slide_1_text)
-        self.assertNotIn("IMEs", slide_1_text)
-        self.assertFalse(any(getattr(shape, "has_chart", False) for shape in presentation.slides[0].shapes))
-
-        term_slide_text = " ".join(
-            shape.text for shape in presentation.slides[1].shapes if hasattr(shape, "text")
-        )
-        self.assertIn("Rentabilidade e prazo", term_slide_text)
-        self.assertIn("Rentabilidade por tipo de cota (últimos 12 meses)", term_slide_text)
-        self.assertNotIn("Benchmark x realizado", term_slide_text)
-        self.assertFalse(any(getattr(shape, "has_chart", False) for shape in presentation.slides[1].shapes))
-
-        credit_slide_text = " ".join(
-            shape.text for shape in presentation.slides[2].shapes if hasattr(shape, "text")
-        )
-        self.assertIn("Crédito e cobertura", credit_slide_text)
-        self.assertFalse(any(getattr(shape, "has_chart", False) for shape in presentation.slides[2].shapes))
-
-        deterioration_text = " ".join(
-            shape.text for shape in presentation.slides[3].shapes if hasattr(shape, "text")
-        )
-        self.assertIn("Deterioração acumulada", deterioration_text)
-        self.assertFalse(any(getattr(shape, "has_chart", False) for shape in presentation.slides[3].shapes))
+        media_pngs = [name for name in archive_names if name.startswith("ppt/media/") and name.endswith(".png")]
+        self.assertEqual(4, len(media_pngs))
+        self.assertTrue(all(xml.count("<p:pic>") == 1 for xml in slide_xml.values()))
+        self.assertTrue(all("<p:graphicFrame" not in xml for xml in slide_xml.values()))
+        self.assertTrue(all(not any(getattr(shape, "has_chart", False) for shape in slide.shapes) for slide in presentation.slides))
 
     def test_build_dashboard_pptx_bytes_sanitizes_nan_and_inf_series(self) -> None:
         if importlib.util.find_spec("pptx") is None:

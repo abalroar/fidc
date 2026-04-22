@@ -52,6 +52,7 @@ if "streamlit" not in sys.modules:
     _stub_module.progress = lambda *a, **kw: None  # type: ignore[attr-defined]
     _stub_module.empty = lambda: None  # type: ignore[attr-defined]
     _stub_module.caption = lambda *a, **kw: None  # type: ignore[attr-defined]
+    _stub_module.session_state = {}  # type: ignore[attr-defined]
     sys.modules["streamlit"] = _stub_module
 
 from tabs import tab_fidc_ime  # noqa: E402  (import after stub injection)
