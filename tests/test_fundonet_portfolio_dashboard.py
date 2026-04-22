@@ -149,6 +149,11 @@ class FundonetPortfolioDashboardTests(unittest.TestCase):
             bundle.dashboard.quota_pl_history_df["competencia"] == "01/2026"
         ].copy()
         self.assertEqual({"Sênior", "Mezzanino", "Subordinada"}, set(quota_latest["class_macro_label"]))
+        self.assertIn("percentual_direitos_creditorios", bundle.dashboard.default_buckets_latest_df.columns)
+        latest_aging_bucket = bundle.dashboard.default_buckets_latest_df[
+            bundle.dashboard.default_buckets_latest_df["faixa"] == "361 a 720 dias"
+        ].iloc[0]
+        self.assertAlmostEqual(500.0 / 26_000.0 * 100.0, latest_aging_bucket["percentual_direitos_creditorios"], places=6)
 
         self.assertTrue(bundle.dashboard.event_summary_latest_df.empty)
         coverage_event = bundle.coverage_df[bundle.coverage_df["block_id"] == "eventos_cotas"].iloc[-1]

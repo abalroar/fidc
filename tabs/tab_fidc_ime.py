@@ -2650,8 +2650,12 @@ def _format_aging_latest_table(default_buckets_latest_df: pd.DataFrame) -> pd.Da
     output = default_buckets_latest_df.sort_values("ordem").copy() if "ordem" in default_buckets_latest_df.columns else default_buckets_latest_df.copy()
     output["Faixa"] = output["faixa"]
     output["Valor"] = output["valor"].map(_format_brl_compact)
-    percent_column = "percentual_direitos_creditorios" if "percentual_direitos_creditorios" in output.columns else "percentual"
-    output["% dos DCs"] = output[percent_column].map(_format_percent)
+    percent_column = None
+    for candidate in ("percentual_direitos_creditorios", "percentual"):
+        if candidate in output.columns:
+            percent_column = candidate
+            break
+    output["% dos DCs"] = output[percent_column].map(_format_percent) if percent_column else "N/D"
     return output[["Faixa", "Valor", "% dos DCs"]]
 
 

@@ -210,7 +210,7 @@ def _render_portfolio_editor(
         _queue_portfolio_selection(stored.id)
         st.session_state["ime_portfolio_editor_mode"] = "edit"
         _reset_new_portfolio_form_state()
-        st.toast(f"Carteira '{stored.name}' salva ({len(stored.funds)} fundo(s)).", icon="✓")
+        st.toast(f"Carteira '{stored.name}' salva ({len(stored.funds)} fundo(s)).")
         st.rerun()
 
     if target is not None:

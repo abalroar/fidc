@@ -167,8 +167,9 @@ def build_portfolio_dashboard_bundle(
         history_df=maturity_history_df,
         latest_competencia=latest_competencia,
     )
-    default_buckets_latest_df = _latest_complete_long_frame(
-        history_df=default_buckets_history_df,
+    default_buckets_latest_df = _build_portfolio_default_buckets_latest_df(
+        default_buckets_history_df=default_buckets_history_df,
+        default_aging_history_df=default_aging_history_df,
         latest_competencia=latest_competencia,
     )
     composition_latest_df = single._build_composition_latest_df(asset_history_df)
@@ -668,6 +669,38 @@ def _build_portfolio_default_aging_history(
         pd.to_numeric(df["valor"], errors="coerce") / pd.to_numeric(df["dc_total_canonico"], errors="coerce")
     ).where(pd.to_numeric(df["dc_total_canonico"], errors="coerce") > 0).mul(100.0)
     return df
+
+
+def _build_portfolio_default_buckets_latest_df(
+    *,
+    default_buckets_history_df: pd.DataFrame,
+    default_aging_history_df: pd.DataFrame,
+    latest_competencia: str,
+) -> pd.DataFrame:
+    latest_df = _latest_complete_long_frame(
+        history_df=default_buckets_history_df,
+        latest_competencia=latest_competencia,
+    )
+    if latest_df.empty:
+        return latest_df
+    if default_aging_history_df.empty or "competencia" not in default_aging_history_df.columns:
+        return latest_df
+    aging_latest_df = default_aging_history_df[
+        default_aging_history_df["competencia"] == latest_competencia
+    ].copy()
+    if aging_latest_df.empty:
+        return latest_df
+    merge_columns = [column for column in ["ordem", "faixa", "percentual_inadimplencia", "percentual_direitos_creditorios"] if column in aging_latest_df.columns]
+    if not {"ordem", "faixa"}.issubset(merge_columns):
+        return latest_df
+    output = latest_df.merge(
+        aging_latest_df[merge_columns],
+        on=["ordem", "faixa"],
+        how="left",
+    )
+    if "percentual_inadimplencia" in output.columns and "percentual" not in output.columns:
+        output["percentual"] = output["percentual_inadimplencia"]
+    return output
 
 
 def _build_portfolio_default_over_history(
