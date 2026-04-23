@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 from urllib import error, request
 import uuid
 
@@ -20,6 +20,15 @@ def _utc_now_iso() -> str:
 
 def _normalize_cnpj(value: str) -> str:
     return "".join(ch for ch in str(value or "") if ch.isdigit())
+
+
+def portfolio_name_key(value: str) -> str:
+    return " ".join(str(value or "").strip().lower().split())
+
+
+def portfolio_basket_signature(funds: Iterable["PortfolioFund"]) -> str:
+    unique_cnpjs = sorted({_normalize_cnpj(getattr(fund, "cnpj", "")) for fund in funds if _normalize_cnpj(getattr(fund, "cnpj", ""))})
+    return "|".join(unique_cnpjs)
 
 
 @dataclass(frozen=True)
@@ -284,6 +293,20 @@ def _upsert_collection(
     portfolio: PortfolioRecord,
 ) -> tuple[PortfolioCollection, PortfolioRecord]:
     now = _utc_now_iso()
+    duplicate = next(
+        (
+            item
+            for item in collection.portfolios
+            if item.id != portfolio.id
+            and portfolio_name_key(item.name) == portfolio_name_key(portfolio.name)
+            and portfolio_basket_signature(item.funds) == portfolio_basket_signature(portfolio.funds)
+        ),
+        None,
+    )
+    if duplicate is not None:
+        raise ValueError(
+            f"Já existe uma seleção idêntica salva com este nome e a mesma cesta de fundos ({duplicate.id[:8]})."
+        )
     existing = next((item for item in collection.portfolios if item.id == portfolio.id), None)
     stored = PortfolioRecord(
         id=portfolio.id or uuid.uuid4().hex,

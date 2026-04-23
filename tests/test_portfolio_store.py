@@ -12,6 +12,7 @@ from services.portfolio_store import (
     PortfolioFund,
     PortfolioRecord,
     build_portfolio_store,
+    portfolio_basket_signature,
     resolve_portfolio_store_config,
 )
 
@@ -31,6 +32,21 @@ class _FakeResponse:
 
 
 class PortfolioStoreTests(unittest.TestCase):
+    def test_portfolio_basket_signature_is_order_insensitive(self) -> None:
+        funds_a = (
+            PortfolioFund(cnpj="12345678000199", display_name="FIDC A"),
+            PortfolioFund(cnpj="22345678000199", display_name="FIDC B"),
+        )
+        funds_b = (
+            PortfolioFund(cnpj="22345678000199", display_name="FIDC B"),
+            PortfolioFund(cnpj="12345678000199", display_name="FIDC A"),
+        )
+
+        self.assertEqual(
+            portfolio_basket_signature(funds_a),
+            portfolio_basket_signature(funds_b),
+        )
+
     def test_local_store_roundtrip(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             store = build_portfolio_store(
@@ -89,6 +105,42 @@ class PortfolioStoreTests(unittest.TestCase):
 
         self.assertEqual(2, len(portfolios))
         self.assertEqual({"Carteira A", "Carteira B"}, {portfolio.name for portfolio in portfolios})
+
+    def test_local_store_rejects_duplicate_name_and_same_basket(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            store = build_portfolio_store(
+                resolve_portfolio_store_config(
+                    secrets_mapping={"local_portfolios_path": str(Path(tmp_dir) / "portfolios.json")}
+                )
+            )
+            store.save_portfolio(
+                PortfolioRecord(
+                    id="portfolio-1",
+                    name="Mercado Credito Soma",
+                    funds=(
+                        PortfolioFund(cnpj="33254370000104", display_name="FIDC A"),
+                        PortfolioFund(cnpj="37511828000114", display_name="FIDC B"),
+                        PortfolioFund(cnpj="41970012000126", display_name="FIDC C"),
+                    ),
+                    created_at="2026-04-14T12:00:00Z",
+                    updated_at="2026-04-14T12:00:00Z",
+                )
+            )
+
+            with self.assertRaisesRegex(ValueError, "seleção idêntica"):
+                store.save_portfolio(
+                    PortfolioRecord(
+                        id="portfolio-2",
+                        name="Mercado Credito Soma",
+                        funds=(
+                            PortfolioFund(cnpj="41970012000126", display_name="FIDC C"),
+                            PortfolioFund(cnpj="37511828000114", display_name="FIDC B"),
+                            PortfolioFund(cnpj="33254370000104", display_name="FIDC A"),
+                        ),
+                        created_at="2026-04-14T12:05:00Z",
+                        updated_at="2026-04-14T12:05:00Z",
+                    )
+                )
 
     def test_resolve_config_prefers_github_when_repo_and_token_exist(self) -> None:
         config = resolve_portfolio_store_config(

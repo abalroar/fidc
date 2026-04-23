@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from html import escape
@@ -14,7 +15,7 @@ from services.fundonet_errors import FundosNetError, ProviderUnavailableError
 from services.fundonet_portfolio_dashboard import PortfolioDashboardBundle, build_portfolio_dashboard_bundle
 from services.ime_loader import load_or_extract_informe
 from services.ime_period import ImePeriodSelection
-from services.portfolio_store import PortfolioFund, PortfolioRecord
+from services.portfolio_store import PortfolioFund, PortfolioRecord, portfolio_basket_signature, portfolio_name_key
 from tabs import tab_fidc_ime as ime_tab
 from tabs.ime_portfolio_support import (
     build_catalog_option_lookup,
@@ -116,6 +117,7 @@ def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRe
     if not portfolios:
         return None
     options = [portfolio.id for portfolio in portfolios]
+    label_lookup = _build_portfolio_selector_label_lookup(portfolios)
     default_id = st.session_state.get("ime_portfolio_active_id")
     if default_id not in options:
         default_id = options[0]
@@ -126,16 +128,29 @@ def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRe
         index=options.index(default_id),
         key="ime_portfolio_active_id",
         label_visibility="collapsed",
-        format_func=lambda value: next(
-            (
-                portfolio.name
-                for portfolio in portfolios
-                if portfolio.id == value
-            ),
-            value,
-        ),
+        format_func=lambda value: label_lookup.get(value, value),
     )
     return next((portfolio for portfolio in portfolios if portfolio.id == selected_id), None)
+
+
+def _build_portfolio_selector_label_lookup(portfolios: list[PortfolioRecord]) -> dict[str, str]:
+    name_counts = Counter(portfolio_name_key(portfolio.name) for portfolio in portfolios)
+    exact_counts = Counter(
+        (portfolio_name_key(portfolio.name), portfolio_basket_signature(portfolio.funds))
+        for portfolio in portfolios
+    )
+    labels: dict[str, str] = {}
+    for portfolio in portfolios:
+        base_label = portfolio.name
+        name_key = portfolio_name_key(portfolio.name)
+        exact_key = (name_key, portfolio_basket_signature(portfolio.funds))
+        if exact_counts[exact_key] > 1:
+            labels[portfolio.id] = f"{base_label} · {len(portfolio.funds)} fundos · {portfolio.id[:8]}"
+        elif name_counts[name_key] > 1:
+            labels[portfolio.id] = f"{base_label} · {len(portfolio.funds)} fundos"
+        else:
+            labels[portfolio.id] = base_label
+    return labels
 
 
 def _render_portfolio_editor(
@@ -208,16 +223,20 @@ def _render_portfolio_editor(
         if not funds:
             st.warning("Selecione ao menos um fundo.")
             return
-        stored = save_portfolio_record(
-            PortfolioRecord(
-                id=target.id if target is not None else uuid.uuid4().hex,
-                name=name,
-                funds=tuple(funds),
-                created_at=target.created_at if target is not None else _utc_now_iso(),
-                updated_at=target.updated_at if target is not None else _utc_now_iso(),
-                notes=target.notes if target is not None else "",
+        try:
+            stored = save_portfolio_record(
+                PortfolioRecord(
+                    id=target.id if target is not None else uuid.uuid4().hex,
+                    name=name,
+                    funds=tuple(funds),
+                    created_at=target.created_at if target is not None else _utc_now_iso(),
+                    updated_at=target.updated_at if target is not None else _utc_now_iso(),
+                    notes=target.notes if target is not None else "",
+                )
             )
-        )
+        except ValueError as exc:
+            st.warning(str(exc))
+            return
         _queue_portfolio_selection(stored.id)
         st.session_state["ime_portfolio_editor_mode"] = "edit"
         st.session_state["ime_portfolio_editor_open"] = False
@@ -802,6 +821,12 @@ def _render_portfolio_aggregate_audit(
             width="stretch",
             hide_index=True,
         )
+    with st.expander("Reconciliação do consolidado", expanded=True):
+        st.dataframe(
+            _format_portfolio_reconciliation_table(bundle.reconciliation_df),
+            width="stretch",
+            hide_index=True,
+        )
     ime_tab._render_audit_section(bundle.dashboard)
     with st.expander("Notas metodológicas da carteira", expanded=False):
         for note in bundle.dashboard.methodology_notes:
@@ -841,6 +866,43 @@ def _format_portfolio_coverage_table(coverage_df: pd.DataFrame) -> pd.DataFrame:
     )[
         ["Competência", "Bloco", "Fundos esperados", "Fundos prontos", "Status", "Fundos faltantes", "Observação"]
     ]
+
+
+def _format_portfolio_reconciliation_table(reconciliation_df: pd.DataFrame) -> pd.DataFrame:
+    if reconciliation_df.empty:
+        return pd.DataFrame(
+            columns=["Componente", "Unidade", "Esperado", "Renderizado", "Delta", "Status", "Origem", "Fórmula"]
+        )
+
+    def _format_value(value: object, unit: str) -> str:
+        if unit == "R$":
+            return ime_tab._format_brl_compact(value)
+        if unit == "%":
+            return ime_tab._format_percent(value)
+        return "N/D" if pd.isna(value) else f"{float(value):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+    output = reconciliation_df.copy()
+    output["Esperado"] = [
+        _format_value(value, unit)
+        for value, unit in zip(output["esperado"], output["unidade"], strict=False)
+    ]
+    output["Renderizado"] = [
+        _format_value(value, unit)
+        for value, unit in zip(output["renderizado"], output["unidade"], strict=False)
+    ]
+    output["Delta"] = [
+        _format_value(value, unit)
+        for value, unit in zip(output["delta_abs"], output["unidade"], strict=False)
+    ]
+    return output.rename(
+        columns={
+            "componente": "Componente",
+            "unidade": "Unidade",
+            "status": "Status",
+            "origem": "Origem",
+            "formula": "Fórmula",
+        }
+    )[["Componente", "Unidade", "Esperado", "Renderizado", "Delta", "Status", "Origem", "Fórmula"]]
 
 
 def _render_portfolio_compact_header(name: str, period_label: str, n_ok: int, n_total: int) -> None:

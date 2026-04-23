@@ -1285,25 +1285,6 @@ def _render_calculation_memory_section(dashboard: FundonetDashboardData, *, slot
             width="stretch",
             hide_index=True,
         )
-    with st.expander("Auditoria complementar da aba", expanded=False):
-        st.markdown('<div class="fidc-detail-title">Diagnóstico de consistência</div>', unsafe_allow_html=True)
-        st.dataframe(
-            _format_consistency_audit_table(dashboard.consistency_audit_df),
-            width="stretch",
-            hide_index=True,
-        )
-        st.markdown('<div class="fidc-detail-title">Base canônica de direitos creditórios</div>', unsafe_allow_html=True)
-        st.dataframe(
-            _format_dc_canonical_audit_table(dashboard.dc_canonical_history_df),
-            width="stretch",
-            hide_index=True,
-        )
-        st.markdown('<div class="fidc-detail-title">Inventário de outputs ativos</div>', unsafe_allow_html=True)
-        st.dataframe(
-            _format_dashboard_inventory_table(dashboard.current_dashboard_inventory_df),
-            width="stretch",
-            hide_index=True,
-        )
 
 
 def _render_audit_section(dashboard: FundonetDashboardData) -> None:

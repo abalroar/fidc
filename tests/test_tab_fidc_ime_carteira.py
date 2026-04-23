@@ -8,6 +8,7 @@ from unittest.mock import patch
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from tabs.tab_fidc_ime_carteira import (
     _apply_pending_portfolio_selection,
+    _build_portfolio_selector_label_lookup,
     _build_loaded_dashboards_by_cnpj,
     _execute_portfolio_load_for_funds,
     _normalize_portfolio_editor_mode,
@@ -33,6 +34,41 @@ class _DummyStatus:
 
 
 class TabFidcImeCarteiraTests(unittest.TestCase):
+    def test_build_portfolio_selector_label_lookup_disambiguates_duplicate_name_and_basket(self) -> None:
+        portfolio_a = PortfolioRecord(
+            id="57f3418c1e9341e79edeef6086b8c25d",
+            name="Mercado Credito Soma",
+            funds=(
+                PortfolioFund(cnpj="33254370000104", display_name="FIDC A"),
+                PortfolioFund(cnpj="37511828000114", display_name="FIDC B"),
+                PortfolioFund(cnpj="41970012000126", display_name="FIDC C"),
+            ),
+            created_at="2026-04-15T00:00:00Z",
+            updated_at="2026-04-15T00:00:00Z",
+        )
+        portfolio_b = PortfolioRecord(
+            id="4220dda141ea442abd86a6ee11ed249f",
+            name="Mercado Credito Soma",
+            funds=(
+                PortfolioFund(cnpj="41970012000126", display_name="FIDC C"),
+                PortfolioFund(cnpj="37511828000114", display_name="FIDC B"),
+                PortfolioFund(cnpj="33254370000104", display_name="FIDC A"),
+            ),
+            created_at="2026-04-16T00:00:00Z",
+            updated_at="2026-04-16T00:00:00Z",
+        )
+
+        labels = _build_portfolio_selector_label_lookup([portfolio_a, portfolio_b])
+
+        self.assertEqual(
+            "Mercado Credito Soma · 3 fundos · 57f3418c",
+            labels[portfolio_a.id],
+        )
+        self.assertEqual(
+            "Mercado Credito Soma · 3 fundos · 4220dda1",
+            labels[portfolio_b.id],
+        )
+
     def test_queue_and_apply_pending_portfolio_selection(self) -> None:
         with patch.dict("tabs.tab_fidc_ime_carteira.st.session_state", {}, clear=True):
             _queue_portfolio_selection("portfolio-2")

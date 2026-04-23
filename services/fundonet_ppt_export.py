@@ -382,6 +382,12 @@ def build_dashboard_pptx_bytes(
             chart.legend.position = legend_positions.get(legend_position, XL_LEGEND_POSITION.BOTTOM)
             if hasattr(chart.legend, "include_in_layout"):
                 chart.legend.include_in_layout = True
+            try:
+                chart.legend.font.name = "IBM Plex Sans"
+                chart.legend.font.size = Pt(LABEL_SIZE)
+                chart.legend.font.color.rgb = rgb(DARK_GRAY)
+            except Exception:  # noqa: BLE001
+                pass
 
         plot = chart.plots[0]
         if gap_width is not None and hasattr(plot, "gap_width"):
@@ -875,28 +881,16 @@ def build_dashboard_pptx_bytes(
             for column in quota_values.columns
             if column != "competencia"
         ]
-        quota_legend = [
-            (series_name, SERIES_COLORS[idx % len(SERIES_COLORS)])
-            for idx, (series_name, _) in enumerate(quota_series)
-        ]
-        add_textbox(slide, MARGIN_LEFT_IN, 3.18, full_width, 0.18, "PL por tipo de cota", size=SECTION_SIZE, bold=True, color=BLACK)
-        add_manual_legend(
-            slide,
-            quota_legend,
-            left=MARGIN_LEFT_IN,
-            top=3.38,
-            max_width=full_width,
-        )
         add_chart(
             slide,
-            title=None,
+            title="PL por tipo de cota",
             chart_type=XL_CHART_TYPE.COLUMN_STACKED,
             categories=_competencia_labels(quota_values["competencia"].tolist()),
             series_map=quota_series,
             left=MARGIN_LEFT_IN,
-            top=3.62,
+            top=3.32,
             width=full_width,
-            height=3.05,
+            height=3.35,
             number_format=_money_label_number_format(quota_scale),
             money_axis=True,
             gap_width=78,
@@ -907,7 +901,8 @@ def build_dashboard_pptx_bytes(
             series_colors=SERIES_COLORS,
             value_min=0.0,
             value_max=_money_axis_max([value for _, values in quota_series for value in values]),
-            show_legend=False,
+            show_legend=True,
+            legend_position="bottom",
             show_data_labels=True,
         )
     add_footer(slide, timestamp_text)
@@ -942,28 +937,16 @@ def build_dashboard_pptx_bytes(
         base100_numeric = pd.to_numeric(base100_df["valor"], errors="coerce")
         base100_min = float(base100_numeric.min()) if not base100_numeric.dropna().empty else 100.0
         base100_max = float(base100_numeric.max()) if not base100_numeric.dropna().empty else 100.0
-        add_textbox(slide, MARGIN_LEFT_IN, 2.58, full_width, 0.18, "Índice acumulado base 100", size=SECTION_SIZE, bold=True, color=BLACK)
-        add_manual_legend(
-            slide,
-            [
-                (series_name, SERIES_COLORS[idx % len(SERIES_COLORS)])
-                for idx, (series_name, _) in enumerate(base100_series)
-            ],
-            left=MARGIN_LEFT_IN,
-            top=2.80,
-            max_width=full_width,
-            font_size=8,
-        )
         base100_chart = add_chart(
             slide,
-            title=None,
+            title="Índice acumulado base 100",
             chart_type=XL_CHART_TYPE.LINE_MARKERS,
             categories=_competencia_labels(ordered_base100["competencia"].drop_duplicates().tolist()),
             series_map=base100_series,
             left=MARGIN_LEFT_IN,
-            top=3.04,
+            top=2.82,
             width=full_width,
-            height=1.18,
+            height=1.40,
             number_format="0.0",
             label_position="above",
             label_font_size=8,
@@ -971,7 +954,8 @@ def build_dashboard_pptx_bytes(
             series_colors=SERIES_COLORS,
             value_min=min(95.0, base100_min * 0.98),
             value_max=max(base100_max * 1.06, 105.0),
-            show_legend=False,
+            show_legend=True,
+            legend_position="bottom",
         )
         for idx, series in enumerate(base100_chart.series):
             _style_line_series(series, color=SERIES_COLORS[idx % len(SERIES_COLORS)], width_pt=2.0, marker_size=7)
@@ -1173,28 +1157,16 @@ def build_dashboard_pptx_bytes(
             slide = prs.slides.add_slide(blank)
             add_slide_header(slide, "Deterioração acumulada")
             over_axis_max = _dashboard_percent_axis_upper(_series_values(over_series_map), max_cap=120.0)
-            add_textbox(slide, MARGIN_LEFT_IN, top_row_top - 0.02, full_width, 0.18, "Inadimplência Over", size=SECTION_SIZE, bold=True, color=BLACK)
-            add_manual_legend(
-                slide,
-                [
-                    (series_name, OVER_PPT_COLORS[idx % len(OVER_PPT_COLORS)])
-                    for idx, (series_name, _) in enumerate(over_series_map)
-                ],
-                left=MARGIN_LEFT_IN,
-                top=top_row_top + 0.18,
-                max_width=full_width,
-                font_size=8,
-            )
             over_chart = add_chart(
                 slide,
-                title=None,
+                title="Inadimplência Over",
                 chart_type=XL_CHART_TYPE.LINE_MARKERS,
                 categories=_competencia_labels(over_history["competencia"].tolist()),
                 series_map=over_series_map,
                 left=MARGIN_LEFT_IN,
-                top=top_row_top + 0.44,
+                top=top_row_top,
                 width=full_width,
-                height=5.05,
+                height=5.55,
                 number_format='0.0"%"',
                 percent_axis=True,
                 label_position="above",
@@ -1202,7 +1174,8 @@ def build_dashboard_pptx_bytes(
                 series_colors=OVER_PPT_COLORS,
                 value_max=over_axis_max,
                 show_data_labels=False,
-                show_legend=False,
+                show_legend=True,
+                legend_position="bottom",
             )
             for idx, series in enumerate(over_chart.series):
                 _style_line_series(

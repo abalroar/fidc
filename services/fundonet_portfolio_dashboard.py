@@ -57,6 +57,7 @@ class PortfolioDashboardBundle:
     dashboard: FundonetDashboardData
     fund_scope_df: pd.DataFrame
     coverage_df: pd.DataFrame
+    reconciliation_df: pd.DataFrame
     temporal_rule: str
 
 
@@ -196,6 +197,17 @@ def build_portfolio_dashboard_bundle(
     ].reset_index(drop=True)
 
     coverage_df = _finalize_coverage_df(coverage_rows)
+    reconciliation_df = _build_portfolio_reconciliation_df(
+        latest_competencia=latest_competencia,
+        summary=summary,
+        asset_history_df=asset_history_df,
+        subordination_history_df=subordination_history_df,
+        default_history_df=default_history_df,
+        liquidity_history_df=liquidity_history_df,
+        maturity_history_df=maturity_history_df,
+        default_buckets_history_df=default_buckets_history_df,
+        dc_canonical_history_df=dc_canonical_history_df,
+    )
     current_dashboard_inventory_df = _build_portfolio_inventory_df()
     executive_memory_df = _build_portfolio_memory_df()
     consistency_audit_df = _build_portfolio_consistency_df(
@@ -203,6 +215,8 @@ def build_portfolio_dashboard_bundle(
         common_competencias=common_competencias,
         total_funds=len(dashboards_by_cnpj),
         maturity_history_df=maturity_history_df,
+        default_buckets_history_df=default_buckets_history_df,
+        default_history_df=default_history_df,
         dc_canonical_history_df=dc_canonical_history_df,
     )
     methodology_notes = [
@@ -270,6 +284,7 @@ def build_portfolio_dashboard_bundle(
         dashboard=dashboard,
         fund_scope_df=fund_scope_df,
         coverage_df=coverage_df,
+        reconciliation_df=reconciliation_df,
         temporal_rule="intersecao_estrita_ultima_competencia_comum",
     )
 
@@ -961,6 +976,254 @@ def _build_portfolio_summary(
     }
 
 
+def _build_portfolio_reconciliation_df(
+    *,
+    latest_competencia: str,
+    summary: dict[str, float | str | None],
+    asset_history_df: pd.DataFrame,
+    subordination_history_df: pd.DataFrame,
+    default_history_df: pd.DataFrame,
+    liquidity_history_df: pd.DataFrame,
+    maturity_history_df: pd.DataFrame,
+    default_buckets_history_df: pd.DataFrame,
+    dc_canonical_history_df: pd.DataFrame,
+) -> pd.DataFrame:
+    rows: list[dict[str, object]] = []
+
+    asset_row = _exact_latest_row(asset_history_df, latest_competencia)
+    sub_row = _exact_latest_row(subordination_history_df, latest_competencia)
+    default_row = _exact_latest_row(default_history_df, latest_competencia)
+    liquidity_row = _exact_latest_row(liquidity_history_df, latest_competencia)
+    dc_row = _exact_latest_row(dc_canonical_history_df, latest_competencia)
+    latest_maturity = maturity_history_df[maturity_history_df["competencia"] == latest_competencia].copy()
+    latest_aging = default_buckets_history_df[default_buckets_history_df["competencia"] == latest_competencia].copy()
+
+    def _append(
+        *,
+        metric_id: str,
+        componente: str,
+        unidade: str,
+        formula: str,
+        origem: str,
+        expected: object,
+        rendered: object,
+        tolerance: float = 1e-9,
+    ) -> None:
+        expected_numeric = _float_or_none(expected)
+        rendered_numeric = _float_or_none(rendered)
+        if expected_numeric is None and rendered_numeric is None:
+            rows.append(
+                {
+                    "metric_id": metric_id,
+                    "componente": componente,
+                    "unidade": unidade,
+                    "origem": origem,
+                    "formula": formula,
+                    "esperado": pd.NA,
+                    "renderizado": pd.NA,
+                    "delta_abs": pd.NA,
+                    "status": "Sem base",
+                }
+            )
+            return
+        if expected_numeric is None or rendered_numeric is None:
+            rows.append(
+                {
+                    "metric_id": metric_id,
+                    "componente": componente,
+                    "unidade": unidade,
+                    "origem": origem,
+                    "formula": formula,
+                    "esperado": expected_numeric if expected_numeric is not None else pd.NA,
+                    "renderizado": rendered_numeric if rendered_numeric is not None else pd.NA,
+                    "delta_abs": pd.NA,
+                    "status": "Sem base",
+                }
+            )
+            return
+        delta_abs = abs(expected_numeric - rendered_numeric)
+        rows.append(
+            {
+                "metric_id": metric_id,
+                "componente": componente,
+                "unidade": unidade,
+                "origem": origem,
+                "formula": formula,
+                "esperado": expected_numeric,
+                "renderizado": rendered_numeric,
+                "delta_abs": delta_abs,
+                "status": "Alinhado" if delta_abs <= tolerance else "Divergente",
+            }
+        )
+
+    _append(
+        metric_id="ativos_totais",
+        componente="Ativo total agregado",
+        unidade="R$",
+        formula="Σ ativo_total_f,t",
+        origem="asset_history_df -> summary",
+        expected=asset_row.get("ativos_totais"),
+        rendered=summary.get("ativos_totais"),
+    )
+    _append(
+        metric_id="carteira",
+        componente="Carteira agregada",
+        unidade="R$",
+        formula="Σ carteira_f,t",
+        origem="asset_history_df -> summary",
+        expected=asset_row.get("carteira"),
+        rendered=summary.get("carteira"),
+    )
+    _append(
+        metric_id="direitos_creditorios",
+        componente="Direitos creditórios agregados",
+        unidade="R$",
+        formula="Σ dc_total_canonico_f,t",
+        origem="dc_canonical_history_df -> summary",
+        expected=dc_row.get("dc_total_canonico"),
+        rendered=summary.get("direitos_creditorios"),
+    )
+    _append(
+        metric_id="pl_total",
+        componente="PL total agregado",
+        unidade="R$",
+        formula="Σ pl_total_f,t",
+        origem="subordination_history_df -> summary",
+        expected=sub_row.get("pl_total"),
+        rendered=summary.get("pl_total"),
+    )
+    _append(
+        metric_id="pl_mezzanino",
+        componente="PL mezzanino agregado",
+        unidade="R$",
+        formula="Σ pl_mezzanino_f,t",
+        origem="subordination_history_df -> summary",
+        expected=sub_row.get("pl_mezzanino"),
+        rendered=summary.get("pl_mezzanino"),
+    )
+    _append(
+        metric_id="pl_subordinada",
+        componente="PL subordinado reportado agregado",
+        unidade="R$",
+        formula="Σ(pl_mezzanino + pl_subordinada_strict)_f,t",
+        origem="subordination_history_df -> summary",
+        expected=sub_row.get("pl_subordinada"),
+        rendered=summary.get("pl_subordinada"),
+    )
+    _append(
+        metric_id="subordinacao_pct",
+        componente="Subordinação reportada agregada",
+        unidade="%",
+        formula="(Σ pl_mezzanino + Σ pl_subordinada_strict) / Σ pl_total * 100",
+        origem="subordination_history_df -> summary",
+        expected=(
+            _float_or_none(sub_row.get("pl_subordinada")) / _float_or_none(sub_row.get("pl_total")) * 100.0
+            if _float_or_none(sub_row.get("pl_subordinada")) is not None
+            and _float_or_none(sub_row.get("pl_total")) not in (None, 0.0)
+            else pd.NA
+        ),
+        rendered=summary.get("subordinacao_pct"),
+        tolerance=1e-6,
+    )
+    _append(
+        metric_id="inadimplencia_total",
+        componente="Inadimplência total agregada",
+        unidade="R$",
+        formula="Σ dc_vencidos_canonico_f,t",
+        origem="default_history_df -> summary",
+        expected=default_row.get("inadimplencia_total"),
+        rendered=summary.get("inadimplencia_total"),
+    )
+    _append(
+        metric_id="provisao_total",
+        componente="Provisão total agregada",
+        unidade="R$",
+        formula="Σ provisao_total_f,t",
+        origem="default_history_df -> summary",
+        expected=default_row.get("provisao_total"),
+        rendered=summary.get("provisao_total"),
+    )
+    _append(
+        metric_id="inadimplencia_pct",
+        componente="Inadimplência % agregada",
+        unidade="%",
+        formula="Σ inadimplencia_total / Σ direitos_creditorios * 100",
+        origem="default_history_df -> summary",
+        expected=default_row.get("inadimplencia_pct"),
+        rendered=summary.get("inadimplencia_pct"),
+        tolerance=1e-6,
+    )
+    _append(
+        metric_id="provisao_pct_direitos",
+        componente="Provisão / DC agregada",
+        unidade="%",
+        formula="Σ provisao_total / Σ direitos_creditorios * 100",
+        origem="default_history_df -> summary",
+        expected=default_row.get("provisao_pct_direitos"),
+        rendered=summary.get("provisao_pct_direitos"),
+        tolerance=1e-6,
+    )
+    _append(
+        metric_id="cobertura_pct",
+        componente="Cobertura de provisão agregada",
+        unidade="%",
+        formula="Σ provisao_total / Σ inadimplencia_total * 100",
+        origem="default_history_df -> summary",
+        expected=default_row.get("cobertura_pct"),
+        rendered=summary.get("cobertura_pct"),
+        tolerance=1e-6,
+    )
+    _append(
+        metric_id="liquidez_imediata",
+        componente="Liquidez imediata agregada",
+        unidade="R$",
+        formula="Σ liquidez_imediata_f,t",
+        origem="liquidity_history_df -> summary",
+        expected=liquidity_row.get("liquidez_imediata"),
+        rendered=summary.get("liquidez_imediata"),
+    )
+    _append(
+        metric_id="liquidez_30",
+        componente="Liquidez até 30 dias agregada",
+        unidade="R$",
+        formula="Σ liquidez_30_f,t",
+        origem="liquidity_history_df -> summary",
+        expected=liquidity_row.get("liquidez_30"),
+        rendered=summary.get("liquidez_30"),
+    )
+
+    latest_future_buckets = pd.to_numeric(
+        latest_maturity[latest_maturity["faixa"] != "Vencidos"]["valor"],
+        errors="coerce",
+    ).sum(min_count=1) if not latest_maturity.empty else pd.NA
+    _append(
+        metric_id="maturity_vs_dc_a_vencer",
+        componente="Buckets a vencer vs base canônica",
+        unidade="R$",
+        formula="Σ buckets_a_vencer = dc_a_vencer_canonico",
+        origem="maturity_history_df -> dc_canonical_history_df",
+        expected=latest_future_buckets,
+        rendered=dc_row.get("dc_a_vencer_canonico"),
+        tolerance=0.01,
+    )
+
+    latest_aging_total = pd.to_numeric(latest_aging["valor"], errors="coerce").sum(min_count=1) if not latest_aging.empty else pd.NA
+    _append(
+        metric_id="aging_vs_inadimplencia",
+        componente="Buckets de aging vs inadimplência total",
+        unidade="R$",
+        formula="Σ buckets_inadimplencia = inadimplencia_total",
+        origem="default_buckets_history_df -> default_history_df",
+        expected=latest_aging_total,
+        rendered=default_row.get("inadimplencia_total"),
+        tolerance=0.01,
+    )
+
+    if not rows:
+        return pd.DataFrame(columns=["metric_id", "componente", "unidade", "origem", "formula", "esperado", "renderizado", "delta_abs", "status"])
+    return pd.DataFrame(rows)
+
+
 def _build_portfolio_inventory_df() -> pd.DataFrame:
     rows = [
         {
@@ -1083,6 +1346,8 @@ def _build_portfolio_consistency_df(
     common_competencias: list[str],
     total_funds: int,
     maturity_history_df: pd.DataFrame,
+    default_buckets_history_df: pd.DataFrame,
+    default_history_df: pd.DataFrame,
     dc_canonical_history_df: pd.DataFrame,
 ) -> pd.DataFrame:
     latest = common_competencias[-1] if common_competencias else "N/D"
@@ -1093,6 +1358,10 @@ def _build_portfolio_consistency_df(
         latest_maturity[latest_maturity["faixa"] != "Vencidos"]["valor"],
         errors="coerce",
     ).sum(min_count=1) if not latest_maturity.empty else pd.NA
+    latest_aging = default_buckets_history_df[default_buckets_history_df["competencia"] == latest].copy() if latest != "N/D" else pd.DataFrame()
+    latest_aging_total = pd.to_numeric(latest_aging["valor"], errors="coerce").sum(min_count=1) if not latest_aging.empty else pd.NA
+    latest_default_row = _exact_latest_row(default_history_df, latest)
+    latest_inadimplencia = _float_or_none(latest_default_row.get("inadimplencia_total"))
     latest_dc_row = _exact_latest_row(dc_canonical_history_df, latest)
     latest_dc_avencer = _float_or_none(latest_dc_row.get("dc_a_vencer_canonico"))
     maturity_gap_pct: float | None
@@ -1131,6 +1400,23 @@ def _build_portfolio_consistency_df(
                 else "Sem base suficiente para reconciliar buckets a vencer com dc_a_vencer_canonico."
             ),
             "acao": "Manter a mesma malha agregada como base do gráfico de vencimento e do prazo médio da carteira.",
+        },
+        {
+            "tema": "Malha de aging agregada",
+            "status": (
+                "Alinhado"
+                if latest_inadimplencia is not None and not pd.isna(latest_aging_total) and abs(float(latest_aging_total) - latest_inadimplencia) <= 0.01
+                else "Revisar"
+                if latest_inadimplencia is not None and not pd.isna(latest_aging_total)
+                else "Sem base"
+            ),
+            "checagem": "Reconciliação entre buckets monetários de aging e inadimplência total",
+            "resultado": (
+                f"Soma dos buckets de aging = {float(latest_aging_total):,.2f}; inadimplência total = {latest_inadimplencia:,.2f}."
+                if latest_inadimplencia is not None and not pd.isna(latest_aging_total)
+                else "Sem base suficiente para reconciliar buckets de aging com a inadimplência total."
+            ),
+            "acao": "Usar a mesma malha de aging como base do gráfico empilhado e das curvas Over."
         },
         {
             "tema": "Subordinação reportada",

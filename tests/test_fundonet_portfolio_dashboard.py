@@ -164,6 +164,12 @@ class FundonetPortfolioDashboardTests(unittest.TestCase):
             coverage_event["observacao"],
         )
 
+        reconciliation_lookup = bundle.reconciliation_df.set_index("metric_id")
+        self.assertEqual("Alinhado", reconciliation_lookup.loc["pl_total", "status"])
+        self.assertEqual("Alinhado", reconciliation_lookup.loc["subordinacao_pct", "status"])
+        self.assertEqual("Divergente", reconciliation_lookup.loc["maturity_vs_dc_a_vencer", "status"])
+        self.assertEqual("Alinhado", reconciliation_lookup.loc["aging_vs_inadimplencia", "status"])
+
     def test_build_portfolio_dashboard_bundle_handles_missing_long_frame_columns(self) -> None:
         dashboard_a = self._make_manual_dashboard(
             fund_name="Fundo A",
@@ -215,6 +221,10 @@ class FundonetPortfolioDashboardTests(unittest.TestCase):
         vencimento_rows = bundle.coverage_df[bundle.coverage_df["block_id"] == "vencimento"].copy()
         self.assertFalse(vencimento_rows.empty)
         self.assertIn("Incompleto", set(vencimento_rows["status"]))
+        self.assertIn(
+            "Sem base",
+            set(bundle.reconciliation_df["status"]),
+        )
 
     @staticmethod
     def _write_single_fund_mezz_fixture(workspace: Path) -> None:
