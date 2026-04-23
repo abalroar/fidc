@@ -7,6 +7,7 @@ import tempfile
 import unittest
 import zipfile
 from datetime import datetime, timezone
+from types import SimpleNamespace
 
 import pandas as pd
 
@@ -320,6 +321,7 @@ class FundonetDashboardTests(unittest.TestCase):
         if importlib.util.find_spec("pptx") is None:
             self.skipTest("python-pptx não instalado no ambiente local")
         from pptx import Presentation
+        from pptx.enum.chart import XL_CHART_TYPE
         from services.fundonet_ppt_export import build_dashboard_pptx_bytes
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -356,6 +358,63 @@ class FundonetDashboardTests(unittest.TestCase):
             if getattr(shape, "has_chart", False)
         )
         self.assertGreaterEqual(chart_count, 6)
+        slide_two_chart_types = [
+            shape.chart.chart_type
+            for shape in presentation.slides[1].shapes
+            if getattr(shape, "has_chart", False)
+        ]
+        self.assertIn(XL_CHART_TYPE.BAR_CLUSTERED, slide_two_chart_types)
+
+    def test_ppt_helpers_preserve_competencia_order(self) -> None:
+        from services.fundonet_ppt_export import (
+            _build_aging_history_for_ppt,
+            _build_over_aging_history_for_ppt,
+            _quota_pl_value_pivot,
+            _return_history_pivot,
+        )
+
+        quota_df = pd.DataFrame(
+            [
+                {"competencia": "03/2026", "competencia_dt": pd.Timestamp("2026-03-31"), "class_macro_label": "Sênior", "pl": 30.0, "pl_share_pct": 60.0},
+                {"competencia": "01/2026", "competencia_dt": pd.Timestamp("2026-01-31"), "class_macro_label": "Sênior", "pl": 10.0, "pl_share_pct": 50.0},
+                {"competencia": "02/2026", "competencia_dt": pd.Timestamp("2026-02-28"), "class_macro_label": "Sênior", "pl": 20.0, "pl_share_pct": 55.0},
+            ]
+        )
+        quota_pivot = _quota_pl_value_pivot(quota_df)
+        self.assertEqual(["01/2026", "02/2026", "03/2026"], quota_pivot["competencia"].tolist())
+
+        return_history_df = pd.DataFrame(
+            [
+                {"competencia": "03/2026", "competencia_dt": pd.Timestamp("2026-03-31"), "label": "Sênior · Série 1", "retorno_mensal_pct": 3.0},
+                {"competencia": "01/2026", "competencia_dt": pd.Timestamp("2026-01-31"), "label": "Sênior · Série 1", "retorno_mensal_pct": 1.0},
+                {"competencia": "02/2026", "competencia_dt": pd.Timestamp("2026-02-28"), "label": "Sênior · Série 1", "retorno_mensal_pct": 2.0},
+            ]
+        )
+        dashboard = SimpleNamespace(return_history_df=return_history_df)
+        return_pivot = _return_history_pivot(dashboard)
+        self.assertEqual(["01/2026", "02/2026", "03/2026"], return_pivot["competencia"].tolist())
+
+        aging_df = pd.DataFrame(
+            [
+                {"competencia": "03/2026", "competencia_dt": pd.Timestamp("2026-03-31"), "faixa": "Até 30 dias", "percentual_inadimplencia": 3.0},
+                {"competencia": "01/2026", "competencia_dt": pd.Timestamp("2026-01-31"), "faixa": "Até 30 dias", "percentual_inadimplencia": 1.0},
+                {"competencia": "02/2026", "competencia_dt": pd.Timestamp("2026-02-28"), "faixa": "Até 30 dias", "percentual_inadimplencia": 2.0},
+            ]
+        )
+        aging_dashboard = SimpleNamespace(default_aging_history_df=aging_df)
+        aging_pivot = _build_aging_history_for_ppt(aging_dashboard)
+        self.assertEqual(["01/2026", "02/2026", "03/2026"], aging_pivot["competencia"].tolist())
+
+        over_df = pd.DataFrame(
+            [
+                {"competencia": "03/2026", "competencia_dt": pd.Timestamp("2026-03-31"), "serie": "Over 30", "percentual": 3.0, "calculo_status": "calculado"},
+                {"competencia": "01/2026", "competencia_dt": pd.Timestamp("2026-01-31"), "serie": "Over 30", "percentual": 1.0, "calculo_status": "calculado"},
+                {"competencia": "02/2026", "competencia_dt": pd.Timestamp("2026-02-28"), "serie": "Over 30", "percentual": 2.0, "calculo_status": "calculado"},
+            ]
+        )
+        over_dashboard = SimpleNamespace(default_over_history_df=over_df)
+        over_pivot = _build_over_aging_history_for_ppt(over_dashboard)
+        self.assertEqual(["01/2026", "02/2026", "03/2026"], over_pivot["competencia"].tolist())
 
     def test_build_dashboard_pptx_bytes_sanitizes_nan_and_inf_series(self) -> None:
         if importlib.util.find_spec("pptx") is None:
