@@ -107,11 +107,12 @@ def build_dashboard_pptx_bytes(
         bold: bool = False,
         color: str = BLACK,
         align=PP_ALIGN.LEFT,
+        word_wrap: bool = True,
     ):
         box = slide.shapes.add_textbox(Inches(left), Inches(top), Inches(width), Inches(height))
         frame = box.text_frame
         frame.clear()
-        frame.word_wrap = True
+        frame.word_wrap = word_wrap
         frame.auto_size = MSO_AUTO_SIZE.TEXT_TO_FIT_SHAPE
         paragraph = frame.paragraphs[0]
         paragraph.alignment = align
@@ -289,10 +290,11 @@ def build_dashboard_pptx_bytes(
         left: float,
         top: float,
         max_width: float,
+        font_size: int = LABEL_SIZE,
     ) -> None:
         cursor_left = left
         for label, color in items:
-            label_width = max(0.55, min(1.8, 0.10 + (len(label) * 0.06)))
+            label_width = max(0.75, min(2.6, 0.18 + (len(label) * 0.075)))
             if cursor_left + label_width + 0.35 > left + max_width:
                 top += 0.18
                 cursor_left = left
@@ -306,7 +308,17 @@ def build_dashboard_pptx_bytes(
             marker.fill.solid()
             marker.fill.fore_color.rgb = rgb(color)
             marker.line.fill.background()
-            add_textbox(slide, cursor_left + 0.22, top - 0.02, label_width, 0.14, label, size=LABEL_SIZE, color=DARK_GRAY)
+            add_textbox(
+                slide,
+                cursor_left + 0.22,
+                top - 0.02,
+                label_width,
+                0.14,
+                label,
+                size=font_size,
+                color=DARK_GRAY,
+                word_wrap=False,
+            )
             cursor_left += label_width + 0.45
 
     def _data_label_position(position_name: str):  # noqa: ANN202
@@ -904,7 +916,7 @@ def build_dashboard_pptx_bytes(
     slide = prs.slides.add_slide(blank)
     add_slide_header(slide, "Rentabilidade e prazo")
 
-    selected_labels = _top_return_labels_for_ppt(dashboard)
+    selected_labels = _top_return_labels_for_ppt(dashboard, limit=3)
     return_table_df = _build_return_inline_table_for_ppt(dashboard, selected_labels=selected_labels, months=12)
     if not return_table_df.empty:
         month_count = max(len(return_table_df.columns) - 3, 0)
@@ -930,16 +942,28 @@ def build_dashboard_pptx_bytes(
         base100_numeric = pd.to_numeric(base100_df["valor"], errors="coerce")
         base100_min = float(base100_numeric.min()) if not base100_numeric.dropna().empty else 100.0
         base100_max = float(base100_numeric.max()) if not base100_numeric.dropna().empty else 100.0
+        add_textbox(slide, MARGIN_LEFT_IN, 2.58, full_width, 0.18, "Índice acumulado base 100", size=SECTION_SIZE, bold=True, color=BLACK)
+        add_manual_legend(
+            slide,
+            [
+                (series_name, SERIES_COLORS[idx % len(SERIES_COLORS)])
+                for idx, (series_name, _) in enumerate(base100_series)
+            ],
+            left=MARGIN_LEFT_IN,
+            top=2.80,
+            max_width=full_width,
+            font_size=8,
+        )
         base100_chart = add_chart(
             slide,
-            title="Índice acumulado base 100",
+            title=None,
             chart_type=XL_CHART_TYPE.LINE_MARKERS,
             categories=_competencia_labels(ordered_base100["competencia"].drop_duplicates().tolist()),
             series_map=base100_series,
             left=MARGIN_LEFT_IN,
-            top=2.82,
+            top=3.04,
             width=full_width,
-            height=1.40,
+            height=1.18,
             number_format="0.0",
             label_position="above",
             label_font_size=8,
@@ -947,13 +971,14 @@ def build_dashboard_pptx_bytes(
             series_colors=SERIES_COLORS,
             value_min=min(95.0, base100_min * 0.98),
             value_max=max(base100_max * 1.06, 105.0),
-            show_legend=True,
-            legend_position="bottom",
+            show_legend=False,
         )
         for idx, series in enumerate(base100_chart.series):
             _style_line_series(series, color=SERIES_COLORS[idx % len(SERIES_COLORS)], width_pt=2.0, marker_size=7)
 
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
+    if not maturity_df.empty:
+        maturity_df = maturity_df[pd.to_numeric(maturity_df["valor"], errors="coerce").fillna(0.0) > 0].copy()
     if not maturity_df.empty:
         maturity_scale = _money_scale(pd.to_numeric(maturity_df["valor"], errors="coerce"))
         maturity_values = _scale_values(maturity_df["valor"], maturity_scale).tolist()
@@ -988,6 +1013,21 @@ def build_dashboard_pptx_bytes(
     duration_df = dashboard.duration_history_df.sort_values("competencia_dt").copy()
     if not duration_df.empty:
         duration_series = [("Prazo médio proxy", _series_numeric(duration_df, "duration_days").fillna(0.0).tolist())]
+        duration_values = [float(value or 0.0) for value in duration_series[0][1]]
+        sorted_duration_values = sorted(duration_values)
+        second_highest = sorted_duration_values[-2] if len(sorted_duration_values) >= 2 else (sorted_duration_values[-1] if sorted_duration_values else 0.0)
+        max_duration = sorted_duration_values[-1] if sorted_duration_values else 0.0
+        duration_axis_max = max(max(duration_series[0][1], default=30.0) * 1.12, max(duration_series[0][1], default=30.0) + 4.0, 30.0)
+        duration_outlier_competencia = None
+        duration_axis_note = None
+        if max_duration > 0 and second_highest > 0 and max_duration >= second_highest * 3:
+            duration_axis_max = max(second_highest * 1.35, second_highest + 8.0, 30.0)
+            max_idx = duration_values.index(max_duration)
+            duration_outlier_competencia = _format_competencia(str(duration_df.iloc[max_idx]["competencia"]))
+            duration_axis_note = (
+                f"Escala visual limitada a {int(round(duration_axis_max))} dias; "
+                f"pico de {int(round(max_duration))} dias em {duration_outlier_competencia}."
+            )
         duration_chart = add_chart(
             slide,
             title="Prazo médio proxy dos recebíveis (IME)",
@@ -1001,43 +1041,60 @@ def build_dashboard_pptx_bytes(
             number_format='0',
             label_position="above",
             label_font_size=8,
-            show_data_labels=True,
-            value_max=max(max(duration_series[0][1], default=30.0) * 1.12, max(duration_series[0][1], default=30.0) + 4.0, 30.0),
+            show_data_labels=False,
+            value_max=duration_axis_max,
             value_min=0.0,
         )
         _style_line_series(duration_chart.series[0], color=ORANGE, width_pt=2.2, marker_size=9)
+        if duration_axis_note is not None:
+            add_textbox(
+                slide,
+                right_col_left,
+                6.48,
+                right_narrow_width,
+                0.18,
+                duration_axis_note,
+                size=FOOTER_SIZE,
+                color=MID_GRAY,
+            )
     add_footer(slide, timestamp_text)
 
-    # Slide 3 — credit and coverage
-    slide = prs.slides.add_slide(blank)
-    add_slide_header(slide, "Crédito e cobertura")
-
     default_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
+    credit_categories = _competencia_labels(default_df["competencia"].tolist()) if not default_df.empty else []
+    credit_bar_series: list[tuple[str, Sequence[float]]] = []
+    credit_line_series: list[tuple[str, Sequence[float]]] = []
     if not default_df.empty:
-        categories = _competencia_labels(default_df["competencia"].tolist())
-        add_overlay_combo_credit_chart(
-            slide,
-            title="Inadimplência, provisão e cobertura",
-            categories=categories,
-            bar_series_map=[
-                ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
-                ("Provisão", _series_numeric(default_df, "provisao_pct_direitos").fillna(0.0).tolist()),
-            ],
-            line_series_map=[
-                ("Cobertura", _series_numeric(default_df, "cobertura_pct").fillna(0.0).tolist()),
-                ("100% (paridade)", [100.0] * len(categories)),
-            ],
-            left=MARGIN_LEFT_IN,
-            top=top_row_top,
-            width=full_width,
-            height=2.42,
-        )
-
+        credit_bar_series = [
+            ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
+            ("Provisão", _series_numeric(default_df, "provisao_pct_direitos").fillna(0.0).tolist()),
+        ]
+        credit_line_series = [
+            ("Cobertura", _series_numeric(default_df, "cobertura_pct").fillna(0.0).tolist()),
+            ("100% (paridade)", [100.0] * len(credit_categories)),
+        ]
+    credit_has_values = _series_map_has_nonzero_values(credit_bar_series) or (
+        _series_map_has_nonzero_values([credit_line_series[0]]) if credit_line_series else False
+    )
     aging_history = _build_aging_history_for_ppt(dashboard)
-    if not aging_history.empty:
-        aging_columns = [column for column in aging_history.columns if column != "competencia"]
-        aging_series_map = [(column, aging_history[column].tolist()) for column in aging_columns]
-        if _series_map_has_nonzero_values(aging_series_map):
+    aging_columns = [column for column in aging_history.columns if column != "competencia"] if not aging_history.empty else []
+    aging_series_map = [(column, aging_history[column].tolist()) for column in aging_columns]
+    aging_has_values = _series_map_has_nonzero_values(aging_series_map)
+
+    if credit_has_values or aging_has_values:
+        slide = prs.slides.add_slide(blank)
+        add_slide_header(slide, "Crédito e cobertura")
+        if credit_has_values and aging_has_values:
+            add_overlay_combo_credit_chart(
+                slide,
+                title="Inadimplência, provisão e cobertura",
+                categories=credit_categories,
+                bar_series_map=credit_bar_series,
+                line_series_map=credit_line_series,
+                left=MARGIN_LEFT_IN,
+                top=top_row_top,
+                width=full_width,
+                height=2.42,
+            )
             add_chart(
                 slide,
                 title="Aging da inadimplência",
@@ -1061,28 +1118,61 @@ def build_dashboard_pptx_bytes(
                 legend_position="bottom",
                 show_data_labels=False,
             )
-        else:
+        elif credit_has_values:
+            add_overlay_combo_credit_chart(
+                slide,
+                title="Inadimplência, provisão e cobertura",
+                categories=credit_categories,
+                bar_series_map=credit_bar_series,
+                line_series_map=credit_line_series,
+                left=MARGIN_LEFT_IN,
+                top=top_row_top,
+                width=full_width,
+                height=3.90,
+            )
             add_empty_state_panel(
                 slide,
                 title="Aging da inadimplência",
                 message="Sem saldos vencidos distribuídos por faixa de atraso na janela exibida.",
                 left=MARGIN_LEFT_IN,
-                top=3.90,
+                top=5.10,
                 width=full_width,
-                height=2.40,
+                height=1.25,
             )
-    add_footer(slide, timestamp_text)
-
-    # Slide 4 — deterioration accumulation
-    slide = prs.slides.add_slide(blank)
-    add_slide_header(slide, "Deterioração acumulada")
+        elif aging_has_values:
+            add_chart(
+                slide,
+                title="Aging da inadimplência",
+                chart_type=XL_CHART_TYPE.COLUMN_STACKED,
+                categories=_competencia_labels(aging_history["competencia"].tolist()),
+                series_map=aging_series_map,
+                left=MARGIN_LEFT_IN,
+                top=top_row_top,
+                width=full_width,
+                height=5.55,
+                number_format='0"%"',
+                percent_axis=True,
+                gap_width=44,
+                overlap=100,
+                label_position="center",
+                label_color=WHITE,
+                label_font_size=8,
+                series_colors=AGING_PPT_COLORS,
+                value_max=_dashboard_percent_axis_upper(_series_values(aging_series_map), max_cap=120.0),
+                show_legend=True,
+                legend_position="bottom",
+                show_data_labels=False,
+            )
+        add_footer(slide, timestamp_text)
 
     over_history = _build_over_aging_history_for_ppt(dashboard)
     if not over_history.empty:
         over_columns = [column for column in over_history.columns if column != "competencia"]
         over_series_map = [(column, over_history[column].tolist()) for column in over_columns]
         if _series_map_has_nonzero_values(over_series_map):
-            over_axis_max = _dashboard_percent_axis_upper([value for _, values in over_series_map for value in values], max_cap=120.0)
+            slide = prs.slides.add_slide(blank)
+            add_slide_header(slide, "Deterioração acumulada")
+            over_axis_max = _dashboard_percent_axis_upper(_series_values(over_series_map), max_cap=120.0)
             add_textbox(slide, MARGIN_LEFT_IN, top_row_top - 0.02, full_width, 0.18, "Inadimplência Over", size=SECTION_SIZE, bold=True, color=BLACK)
             add_manual_legend(
                 slide,
@@ -1093,6 +1183,7 @@ def build_dashboard_pptx_bytes(
                 left=MARGIN_LEFT_IN,
                 top=top_row_top + 0.18,
                 max_width=full_width,
+                font_size=8,
             )
             over_chart = add_chart(
                 slide,
@@ -1120,17 +1211,7 @@ def build_dashboard_pptx_bytes(
                     width_pt=2.2,
                     marker_size=8,
                 )
-        else:
-            add_empty_state_panel(
-                slide,
-                title="Inadimplência Over",
-                message="Sem saldos vencidos suficientes para formar curvas acumuladas na janela exibida.",
-                left=MARGIN_LEFT_IN,
-                top=top_row_top,
-                width=full_width,
-                height=5.25,
-            )
-    add_footer(slide, timestamp_text)
+            add_footer(slide, timestamp_text)
 
     buffer = BytesIO()
     prs.save(buffer)
@@ -1457,6 +1538,14 @@ def _series_map_has_nonzero_values(series_map: Sequence[tuple[str, Sequence[floa
         if numeric.abs().gt(tolerance).any():
             return True
     return False
+
+
+def _series_values(series_map: Sequence[tuple[str, Sequence[float]]]) -> list[float]:
+    values: list[float] = []
+    for _, series in series_map:
+        numeric = pd.to_numeric(pd.Series(list(series)), errors="coerce").fillna(0.0)
+        values.extend([float(value) for value in numeric.tolist()])
+    return values
 
 
 def _quota_pl_share_pivot(frame: pd.DataFrame) -> pd.DataFrame:
