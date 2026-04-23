@@ -4,7 +4,6 @@ from dataclasses import dataclass
 import json
 import re
 from pathlib import Path
-import re
 
 
 _LEADING_H1 = re.compile(r"\A\s*#[ \t]+[^\n]*\n+")
@@ -117,13 +116,11 @@ class FIDCBookIndex:
 
     def load_page_markdown(self, page: FIDCBookPage) -> str:
         markdown = self.resolve_page_path(page).read_text(encoding="utf-8")
-        markdown = _normalize_book_text(markdown)
-        markdown = _strip_leading_title(markdown)
         markdown = _strip_optional_sections(markdown)
         return re.sub(r"\n{3,}", "\n\n", markdown).strip()
 
     def load_page_body(self, page: FIDCBookPage) -> str:
-        raw = self.load_page_markdown(page)
+        raw = _normalize_book_text(self.load_page_markdown(page))
         return _LEADING_H1.sub("", raw, count=1)
 
     def search_pages(self, query: str) -> tuple[FIDCBookPage, ...]:
@@ -204,20 +201,6 @@ def _normalize_book_text(value: str) -> str:
     for pattern, replacement in _BOOK_TEXT_REPLACEMENTS:
         normalized = pattern.sub(replacement, normalized)
     return normalized
-
-
-def _strip_leading_title(markdown: str) -> str:
-    lines = markdown.splitlines()
-    for index, line in enumerate(lines):
-        if not line.strip():
-            continue
-        if line.startswith("# "):
-            remaining = lines[index + 1 :]
-            if remaining and not remaining[0].strip():
-                remaining = remaining[1:]
-            return "\n".join(remaining)
-        break
-    return markdown
 
 
 def _strip_optional_sections(markdown: str) -> str:

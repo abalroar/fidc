@@ -1,6 +1,6 @@
 # Guia de uso deste glossário
 
-Este glossário foi feito para analistas de crédito que precisam acompanhar FIDCs usando o Informe Mensal da CVM, sem pressupor conhecimento prévio de fundos de investimento.
+Este glossário foi feito para analistas de crédito que precisam acompanhar FIDCs usando o Informe Mensal Estruturado da CVM, sem pressupor conhecimento prévio de fundos de investimento.
 
 O ponto de partida é prático: você já sabe o que é crédito, sabe ler demonstrações financeiras e entende o conceito de risco de inadimplência. O que muda num FIDC é a estrutura jurídica, a nomenclatura regulatória e o formato do dado disponível.
 
