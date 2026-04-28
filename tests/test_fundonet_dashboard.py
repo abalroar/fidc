@@ -349,8 +349,29 @@ class FundonetDashboardTests(unittest.TestCase):
                 for name in archive_names
                 if name.startswith("ppt/slides/slide") and name.endswith(".xml")
             }
+            chart_xml = "\n".join(
+                archive.read(name).decode("utf-8")
+                for name in archive_names
+                if name.startswith("ppt/charts/chart") and name.endswith(".xml")
+            )
         self.assertTrue(any(name.startswith("ppt/charts/") for name in archive_names))
         self.assertTrue(any("<p:graphicFrame" in xml for xml in slide_xml.values()))
+        slide_texts = [
+            "\n".join(
+                shape.text
+                for shape in slide.shapes
+                if getattr(shape, "has_text_frame", False)
+            )
+            for slide in presentation.slides
+        ]
+        deck_text = "\n".join(slide_texts)
+        self.assertIn("Resumo do FIDC", deck_text)
+        for card_label in ["Ativo total", "DCs totais", "PL total", "Vencidos", "Cobertura de provisão", "Subordinação reportada"]:
+            self.assertIn(card_label, deck_text)
+        self.assertIn("Rentabilidade por tipo de cota (% a.m.)", deck_text)
+        self.assertIn("102,0", deck_text)
+        self.assertIn("101,0", deck_text)
+        self.assertIn("Prazo médio proxy dos recebíveis (dias)", chart_xml)
         chart_count = sum(
             1
             for slide in presentation.slides
@@ -358,9 +379,12 @@ class FundonetDashboardTests(unittest.TestCase):
             if getattr(shape, "has_chart", False)
         )
         self.assertGreaterEqual(chart_count, 5)
+        returns_slide = presentation.slides[
+            next(idx for idx, text in enumerate(slide_texts) if "Rentabilidade e prazo" in text)
+        ]
         slide_two_chart_types = [
             shape.chart.chart_type
-            for shape in presentation.slides[1].shapes
+            for shape in returns_slide.shapes
             if getattr(shape, "has_chart", False)
         ]
         self.assertNotIn(XL_CHART_TYPE.COLUMN_STACKED, slide_two_chart_types)
@@ -381,7 +405,7 @@ class FundonetDashboardTests(unittest.TestCase):
             ]
         )
         quota_pivot = _quota_pl_value_pivot(quota_df)
-        self.assertEqual(["01/2026", "02/2026", "03/2026"], quota_pivot["competencia"].tolist())
+        self.assertEqual(["03/2026", "02/2026", "01/2026"], quota_pivot["competencia"].tolist())
 
         return_history_df = pd.DataFrame(
             [
@@ -403,7 +427,7 @@ class FundonetDashboardTests(unittest.TestCase):
         )
         aging_dashboard = SimpleNamespace(default_aging_history_df=aging_df)
         aging_pivot = _build_aging_history_for_ppt(aging_dashboard)
-        self.assertEqual(["01/2026", "02/2026", "03/2026"], aging_pivot["competencia"].tolist())
+        self.assertEqual(["03/2026", "02/2026", "01/2026"], aging_pivot["competencia"].tolist())
 
         over_df = pd.DataFrame(
             [
@@ -414,7 +438,7 @@ class FundonetDashboardTests(unittest.TestCase):
         )
         over_dashboard = SimpleNamespace(default_over_history_df=over_df)
         over_pivot = _build_over_aging_history_for_ppt(over_dashboard)
-        self.assertEqual(["01/2026", "02/2026", "03/2026"], over_pivot["competencia"].tolist())
+        self.assertEqual(["03/2026", "02/2026", "01/2026"], over_pivot["competencia"].tolist())
 
     def test_build_dashboard_pptx_bytes_sanitizes_nan_and_inf_series(self) -> None:
         if importlib.util.find_spec("pptx") is None:

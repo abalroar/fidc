@@ -399,6 +399,7 @@ def _load_single_portfolio_fund(fund: PortfolioFund, period: ImePeriodSelection)
             "cnpj_informado": fund.cnpj,
             "competencia_inicial": period.start_month.isoformat(),
             "competencia_final": period.end_month.isoformat(),
+            "period_month_count": period.month_count,
             "periodo_analisado_label": period.label,
             "portfolio_fund_name": fund.display_name,
             "portfolio_fund_name_resolved": _extract_loaded_fund_name(cached.result, fallback_name=fund.display_name),
@@ -476,6 +477,7 @@ def _build_portfolio_error_payload(
             "cnpj_informado": fund.cnpj,
             "competencia_inicial": period.start_month.isoformat(),
             "competencia_final": period.end_month.isoformat(),
+            "period_month_count": period.month_count,
             "periodo_analisado_label": period.label,
             "portfolio_fund_name": fund.display_name,
             "portfolio_fund_name_resolved": fund.display_name,
@@ -574,6 +576,7 @@ def _render_loaded_portfolio_analysis(
             dashboards_by_cnpj=dashboards_by_cnpj,
             dashboard_errors=dashboard_errors,
             results=results,
+            period=period,
             total_selected=len(selected_portfolio.funds),
         )
         return
@@ -687,6 +690,7 @@ def _render_portfolio_aggregate_analysis(
     dashboards_by_cnpj: dict[str, tuple[str, Any]],
     dashboard_errors: dict[str, str],
     results: dict[str, dict[str, Any]],
+    period: ImePeriodSelection,
     total_selected: int,
 ) -> None:
     try:
@@ -718,6 +722,7 @@ def _render_portfolio_aggregate_analysis(
             loaded_count=loaded_count,
             total_selected=total_selected,
         )
+        _render_portfolio_period_coverage_warning(bundle=bundle, period=period)
         if excluded_funds:
             st.warning(
                 f"Leitura agregada usando {loaded_count} de {total_selected} fundo(s) da carteira. "
@@ -776,6 +781,25 @@ def _render_portfolio_aggregate_header(
             "</div>"
         ),
         unsafe_allow_html=True,
+    )
+
+
+def _render_portfolio_period_coverage_warning(
+    *,
+    bundle: PortfolioDashboardBundle,
+    period: ImePeriodSelection,
+) -> None:
+    expected_competencias = ime_tab._competencia_labels_between(period.start_month, period.end_month)
+    common_competencias = set(str(value) for value in bundle.dashboard.competencias)
+    missing_competencias = [competencia for competencia in expected_competencias if competencia not in common_competencias]
+    if not missing_competencias:
+        return
+    st.warning(
+        "A carteira agregada usa interseção estrita: entram nos gráficos apenas as competências comuns "
+        "a todos os fundos incluídos no agregado. "
+        f"A janela solicitada tinha {len(expected_competencias)} competência(s), e a janela comum possui "
+        f"{len(common_competencias)}. Competência(s) fora do agregado: "
+        f"{', '.join(ime_tab._format_competencia_label(value) for value in missing_competencias)}."
     )
 
 

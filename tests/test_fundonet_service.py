@@ -326,7 +326,7 @@ class ChunkedInformeMensalRunTests(unittest.TestCase):
                 progress_callback=lambda current, total, message: progress_events.append((current, total, message)),
             )
 
-        self.assertEqual(["01/2026", "02/2026"], result.competencias)
+        self.assertEqual(["02/2026", "01/2026"], result.competencias)
         self.assertTrue(result.docs_csv_path.exists())
         self.assertTrue(result.contas_csv_path.exists())
         self.assertTrue(result.listas_csv_path.exists())
@@ -338,7 +338,7 @@ class ChunkedInformeMensalRunTests(unittest.TestCase):
         self.assertEqual(3, result.wide_row_count)
 
         wide_df = pd.read_csv(result.wide_csv_path)
-        self.assertEqual(["bloco", "sub_bloco", "tag", "tag_path", "descricao", "01/2026", "02/2026"], wide_df.columns.tolist())
+        self.assertEqual(["bloco", "sub_bloco", "tag", "tag_path", "descricao", "02/2026", "01/2026"], wide_df.columns.tolist())
         self.assertEqual(3, len(wide_df))
         carteira_row = wide_df[wide_df["tag"] == "VL_CARTEIRA"].iloc[0]
         self.assertEqual("100.0", carteira_row["01/2026"])

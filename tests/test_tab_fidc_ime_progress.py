@@ -49,9 +49,16 @@ def _make_streamlit_stub():
 # in test environments where Streamlit is not installed.
 if "streamlit" not in sys.modules:
     _stub_module = types.ModuleType("streamlit")
+    def _cache_data(*_args, **_kwargs):  # noqa: ANN001
+        def _decorator(func):  # noqa: ANN001
+            return func
+
+        return _decorator
+
     _stub_module.progress = lambda *a, **kw: None  # type: ignore[attr-defined]
     _stub_module.empty = lambda: None  # type: ignore[attr-defined]
     _stub_module.caption = lambda *a, **kw: None  # type: ignore[attr-defined]
+    _stub_module.cache_data = _cache_data  # type: ignore[attr-defined]
     _stub_module.session_state = {}  # type: ignore[attr-defined]
     sys.modules["streamlit"] = _stub_module
 
@@ -105,6 +112,49 @@ class TabFidcImeProgressTests(unittest.TestCase):
         spec = chart.to_dict()
         self.assertEqual("line", spec["mark"]["type"])
         self.assertEqual("valor", spec["encoding"]["y"]["field"])
+
+    def test_competencia_axis_sort_uses_real_dates_recent_first(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "competencia": ["jan-26", "fev-26", "mar-26", "nov-25", "dez-25"],
+                "competencia_dt": pd.to_datetime(
+                    ["2026-01-01", "2026-02-01", "2026-03-01", "2025-11-01", "2025-12-01"]
+                ),
+            }
+        )
+
+        ordered = tab_fidc_ime._competencia_axis_sort(frame)
+
+        self.assertEqual(["mar-26", "fev-26", "jan-26", "dez-25", "nov-25"], ordered)
+
+    def test_competencia_axis_sort_parses_raw_labels_without_date_column(self) -> None:
+        frame = pd.DataFrame({"competencia": ["01/2026", "02/2026", "03/2026", "11/2025", "12/2025"]})
+
+        ordered = tab_fidc_ime._competencia_axis_sort(frame)
+
+        self.assertEqual(["03/2026", "02/2026", "01/2026", "12/2025", "11/2025"], ordered)
+
+    def test_line_history_chart_uses_recent_first_axis_order(self) -> None:
+        chart_df = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "02/2026", "03/2026", "11/2025", "12/2025"],
+                "competencia_dt": pd.to_datetime(
+                    ["2026-01-01", "2026-02-01", "2026-03-01", "2025-11-01", "2025-12-01"]
+                ),
+                "serie": ["Série"] * 5,
+                "valor": [1.0, 2.0, 3.0, 4.0, 5.0],
+            }
+        )
+
+        chart = tab_fidc_ime._line_history_chart(
+            chart_df,
+            title=None,
+            y_title="%",
+            show_point_labels=False,
+        )
+
+        spec = chart.to_dict()
+        self.assertEqual(["mar-26", "fev-26", "jan-26", "dez-25", "nov-25"], spec["encoding"]["x"]["sort"])
 
     def test_altair_compatible_df_ignores_duplicate_column_slices(self) -> None:
         duplicate_df = pd.DataFrame([["A", "B"], ["C", "D"]], columns=["valor", "valor"])
@@ -424,10 +474,11 @@ class TabFidcImeProgressTests(unittest.TestCase):
 
         formatted = tab_fidc_ime._format_return_inline_matrix_frame(history, summary, months=12)
 
-        self.assertEqual(["Classe", "jan-26", "fev-26", "YTD", "12 meses"], formatted.columns.tolist())
+        self.assertEqual(["Classe", "fev-26", "jan-26", "YTD", "12 meses"], formatted.columns.tolist())
         senior_row = formatted[formatted["Classe"] == "Sênior"].iloc[0]
         subordinada_row = formatted[formatted["Classe"] == "Subordinada"].iloc[0]
         self.assertEqual("1,25%", senior_row["jan-26"])
+        self.assertEqual("1,50%", senior_row["fev-26"])
         self.assertEqual("2,75%", senior_row["YTD"])
         self.assertEqual("21,00%", subordinada_row["12 meses"])
 

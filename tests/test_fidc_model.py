@@ -5,7 +5,14 @@ import unittest
 from pathlib import Path
 
 from data_loader import load_model_inputs
-from services.fidc_model import Premissas, build_flow, build_kpis
+from services.fidc_model import (
+    RATE_MODE_PRE,
+    Premissas,
+    annual_252_to_monthly_rate,
+    build_flow,
+    build_kpis,
+    monthly_to_annual_252_rate,
+)
 
 
 FIXTURE_PATH = Path(__file__).resolve().parent / "fixtures" / "modelo_publico_fixture.json"
@@ -96,6 +103,56 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertIsNone(self.kpis.taxa_retorno_sub_jr_cdi)
         self.assertAlmostOptional(self.kpis.duration_senior_anos, self.fixture["kpis"]["duration_senior_anos"])
         self.assertAlmostOptional(self.kpis.pre_di_duration, self.fixture["kpis"]["pre_di_duration"])
+
+    def test_annual_252_monthly_conversion_roundtrip(self):
+        monthly_rate = 0.02
+        annual_rate = monthly_to_annual_252_rate(monthly_rate)
+
+        self.assertAlmostEqual(monthly_rate, annual_252_to_monthly_rate(annual_rate), delta=1e-12)
+
+    def test_prefixed_quota_rate_uses_informed_annual_rate(self):
+        premissas = _build_default_premissas()
+        premissas = Premissas(
+            **{
+                **premissas.__dict__,
+                "tipo_taxa_senior": RATE_MODE_PRE,
+                "taxa_senior": 0.12,
+                "tipo_taxa_mezz": RATE_MODE_PRE,
+                "taxa_mezz": 0.15,
+            }
+        )
+
+        periods = build_flow(
+            self.inputs.datas,
+            self.inputs.feriados,
+            self.inputs.curva_du,
+            self.inputs.curva_cdi,
+            premissas,
+        )
+
+        self.assertAlmostEqual(0.12, periods[1].taxa_senior)
+        self.assertAlmostEqual(0.15, periods[1].taxa_mezz)
+
+    def test_explicit_subordinated_pl_proportion_is_used(self):
+        premissas = _build_default_premissas()
+        premissas = Premissas(
+            **{
+                **premissas.__dict__,
+                "proporcao_senior": 0.7,
+                "proporcao_mezz": 0.2,
+                "proporcao_subordinada": 0.1,
+            }
+        )
+
+        periods = build_flow(
+            self.inputs.datas,
+            self.inputs.feriados,
+            self.inputs.curva_du,
+            self.inputs.curva_cdi,
+            premissas,
+        )
+
+        self.assertAlmostEqual(100000.0, periods[0].pl_sub_jr)
 
 
 if __name__ == "__main__":

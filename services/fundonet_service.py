@@ -144,8 +144,12 @@ class InformeMensalService:
             documentos_selecionados,
             key=lambda doc: (doc.competencia or date.min, doc.data_entrega_dt or datetime.min, doc.id),
         )
-        competencias_ordenadas = [doc.competencia_label for doc in documentos_selecionados if doc.competencia_label]
-        competencias_ordenadas = _dedupe_preserve_order([c for c in competencias_ordenadas if c])
+        competencias_processadas = [doc.competencia_label for doc in documentos_selecionados if doc.competencia_label]
+        competencias_ordenadas = sorted(
+            _dedupe_preserve_order([c for c in competencias_processadas if c]),
+            key=_competencia_label_sort_key,
+            reverse=True,
+        )
         add_audit(
             "deduplicar_retificacoes",
             "ok",
@@ -432,6 +436,11 @@ def _dedupe_preserve_order(values: list[str]) -> list[str]:
         seen.add(value)
         ordered.append(value)
     return ordered
+
+
+def _competencia_label_sort_key(value: str) -> tuple[int, int]:
+    month, year = str(value).split("/", 1)
+    return int(year), int(month)
 
 
 def _report_progress(callback: ProgressCallback | None, current: int, total: int, message: str) -> None:
