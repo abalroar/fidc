@@ -831,7 +831,7 @@ def build_dashboard_pptx_bytes(
         sub_series = [("Subordinação reportada", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
         sub_chart = add_chart(
             slide,
-            title="Subordinação reportada (IME)",
+            title="Subordinação reportada",
             chart_type=XL_CHART_TYPE.LINE_MARKERS,
             categories=_competencia_labels(sub_df["competencia"].tolist()),
             series_map=sub_series,
@@ -918,7 +918,7 @@ def build_dashboard_pptx_bytes(
         add_table(
             slide,
             return_table_df,
-            title="Rentabilidade por tipo de cota (últimos 12 meses)",
+            title="Rentabilidade por tipo de cota — últimos 12 meses",
             left=MARGIN_LEFT_IN,
             top=1.15,
             width=full_width,
@@ -1014,7 +1014,7 @@ def build_dashboard_pptx_bytes(
             )
         duration_chart = add_chart(
             slide,
-            title="Prazo médio proxy dos recebíveis (IME)",
+            title="Prazo médio proxy dos recebíveis",
             chart_type=XL_CHART_TYPE.LINE_MARKERS,
             categories=_competencia_labels(duration_df["competencia"].tolist()),
             series_map=duration_series,
@@ -1070,7 +1070,7 @@ def build_dashboard_pptx_bytes(
         if credit_has_values and aging_has_values:
             add_overlay_combo_credit_chart(
                 slide,
-                title="Inadimplência, provisão e cobertura",
+                title="Inadimplência e provisão",
                 categories=credit_categories,
                 bar_series_map=credit_bar_series,
                 line_series_map=credit_line_series,
@@ -1081,7 +1081,7 @@ def build_dashboard_pptx_bytes(
             )
             add_chart(
                 slide,
-                title="Aging da inadimplência",
+                title="Aging",
                 chart_type=XL_CHART_TYPE.COLUMN_STACKED,
                 categories=_competencia_labels(aging_history["competencia"].tolist()),
                 series_map=aging_series_map,
@@ -1105,7 +1105,7 @@ def build_dashboard_pptx_bytes(
         elif credit_has_values:
             add_overlay_combo_credit_chart(
                 slide,
-                title="Inadimplência, provisão e cobertura",
+                title="Inadimplência e provisão",
                 categories=credit_categories,
                 bar_series_map=credit_bar_series,
                 line_series_map=credit_line_series,
@@ -1116,7 +1116,7 @@ def build_dashboard_pptx_bytes(
             )
             add_empty_state_panel(
                 slide,
-                title="Aging da inadimplência",
+                title="Aging",
                 message="Sem saldos vencidos distribuídos por faixa de atraso na janela exibida.",
                 left=MARGIN_LEFT_IN,
                 top=5.10,
@@ -1126,7 +1126,7 @@ def build_dashboard_pptx_bytes(
         elif aging_has_values:
             add_chart(
                 slide,
-                title="Aging da inadimplência",
+                title="Aging",
                 chart_type=XL_CHART_TYPE.COLUMN_STACKED,
                 categories=_competencia_labels(aging_history["competencia"].tolist()),
                 series_map=aging_series_map,
@@ -2413,7 +2413,7 @@ def _render_structure_slide_png(
         _paste_png(
             image,
             _line_chart_png(
-                title="Subordinação reportada (IME)",
+                title="Subordinação reportada",
                 categories=_competencia_labels(sub_df["competencia"].tolist()),
                 series_map=sub_series,
                 colors=[ORANGE],
@@ -2487,7 +2487,7 @@ def _render_returns_slide_png(
             image,
             draw,
             return_table_df,
-            title="Rentabilidade por tipo de cota (últimos 12 meses)",
+            title="Rentabilidade por tipo de cota — últimos 12 meses",
             left=MARGIN_LEFT_IN,
             top=1.18,
             width=full_width,
@@ -2551,7 +2551,7 @@ def _render_returns_slide_png(
         _paste_png(
             image,
             _line_chart_png(
-                title="Prazo médio proxy dos recebíveis (IME)",
+                title="Prazo médio proxy dos recebíveis",
                 categories=_competencia_labels(duration_df["competencia"].tolist()),
                 series_map=[("Prazo médio proxy", duration_values)],
                 colors=[ORANGE],
@@ -2590,7 +2590,7 @@ def _render_credit_slide_png(
         _paste_png(
             image,
             _grouped_bar_line_chart_png(
-                title="Inadimplência, provisão e cobertura",
+                title="Inadimplência e provisão",
                 categories=categories,
                 bar_series_map=[
                     ("Inadimplência", _series_numeric(default_df, "inadimplencia_pct").fillna(0.0).tolist()),
@@ -2615,7 +2615,7 @@ def _render_credit_slide_png(
         _paste_png(
             image,
             _stacked_bar_chart_png(
-                title="Aging da inadimplência",
+                title="Aging",
                 categories=_competencia_labels(aging_history["competencia"].tolist()),
                 series_map=aging_series_map,
                 colors=AGING_PPT_COLORS,
