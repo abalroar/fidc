@@ -312,6 +312,10 @@ def _format_brl_input_value(value: float, decimals: int = 2) -> str:
     return f"R$ {_format_input_value(value, decimals)}"
 
 
+def _format_percent_input_value(value: float, decimals: int = 2) -> str:
+    return f"{_format_input_value(value, decimals)}%"
+
+
 def _parse_br_number(value: str, *, field_name: str) -> float:
     text = str(value or "").strip()
     if not text:
@@ -345,6 +349,17 @@ def _text_brl_input(
     help_text: str | None = None,
 ) -> str:
     return st.text_input(label, value=_format_brl_input_value(default, decimals), key=key, help=help_text)
+
+
+def _text_percent_input(
+    label: str,
+    *,
+    default: float,
+    key: str,
+    decimals: int = 2,
+    help_text: str | None = None,
+) -> str:
+    return st.text_input(label, value=_format_percent_input_value(default, decimals), key=key, help=help_text)
 
 
 def _build_dataframe(results) -> pd.DataFrame:
@@ -865,30 +880,30 @@ def render_tab_modelo_fidc() -> None:
                 help="A base anual usa 252 dias úteis por ano e 21 dias úteis por mês.",
             )
             if taxa_cessao_base == "% a.m.":
-                tx_cessao_text = _text_number_input(
+                tx_cessao_text = _text_percent_input(
                     "Taxa de cessão (% a.m.)",
                     default=default_tx_cessao_am * 100.0,
                     key="modelo_tx_cessao_am",
-                    decimals=4,
+                    decimals=2,
                 )
                 tx_cessao_aa_text = ""
             else:
-                tx_cessao_aa_text = _text_number_input(
+                tx_cessao_aa_text = _text_percent_input(
                     "Taxa de cessão (% a.a., base 252 dias úteis)",
                     default=default_tx_cessao_aa * 100.0,
                     key="modelo_tx_cessao_aa",
-                    decimals=4,
+                    decimals=2,
                     help_text="O app converte esta taxa para uma taxa mensal equivalente antes de rodar o motor.",
                 )
                 tx_cessao_text = ""
 
             costs_a, costs_b = st.columns(2)
             with costs_a:
-                custo_adm_text = _text_number_input(
+                custo_adm_text = _text_percent_input(
                     "Custo de administração e gestão (% a.a.)",
                     default=inputs.premissas.get("Custo Adm/Gestão (a.a.)", 0.0035) * 100.0,
                     key="modelo_custo_adm_pct",
-                    decimals=4,
+                    decimals=2,
                     help_text="Digite 0,35 para representar 0,35% ao ano. O motor converte internamente para 0,0035.",
                 )
             with costs_b:
@@ -899,36 +914,36 @@ def render_tab_modelo_fidc() -> None:
                     decimals=2,
                     help_text="Piso mensal aplicado pela fórmula max(carteira * custo % a.a. / 12, custo mínimo).",
                 )
-            inadimplencia_text = _text_number_input(
+            inadimplencia_text = _text_percent_input(
                 "Inadimplência (% da carteira total)",
                 default=inputs.premissas.get("Inadimplência", 0.1) * 100.0,
                 key="modelo_inadimplencia_pct",
-                decimals=4,
+                decimals=2,
                 help_text="Na planilha de referência, a perda é proporcional aos dias corridos do período.",
             )
 
             st.markdown("##### Estrutura de PL")
             prop_a, prop_b, prop_c = st.columns(3)
             with prop_a:
-                senior_pct_text = _text_number_input(
+                senior_pct_text = _text_percent_input(
                     "PL sênior/SEN (%)",
                     default=default_senior_pct,
                     key="modelo_prop_senior",
-                    decimals=2,
+                    decimals=1,
                 )
             with prop_b:
-                mezz_pct_text = _text_number_input(
+                mezz_pct_text = _text_percent_input(
                     "PL mezzanino/MES (%)",
                     default=default_mezz_pct,
                     key="modelo_prop_mezz",
-                    decimals=2,
+                    decimals=1,
                 )
             with prop_c:
-                sub_pct_text = _text_number_input(
+                sub_pct_text = _text_percent_input(
                     "PL subordinado/SUB (%)",
                     default=default_sub_pct,
                     key="modelo_prop_sub",
-                    decimals=2,
+                    decimals=1,
                 )
             st.caption("As proporções SEN, MES e SUB devem somar 100,00%.")
 
@@ -943,7 +958,7 @@ def render_tab_modelo_fidc() -> None:
                 if _rate_mode_from_label(senior_mode_label) == RATE_MODE_POST_CDI
                 else "Taxa pré-fixada cota SEN (% a.a.)"
             )
-            senior_rate_text = _text_number_input(
+            senior_rate_text = _text_percent_input(
                 senior_rate_label,
                 default=inputs.premissas.get("Taxa Sênior", 0.02) * 100.0,
                 key="modelo_taxa_senior",
@@ -960,7 +975,7 @@ def render_tab_modelo_fidc() -> None:
                 if _rate_mode_from_label(mezz_mode_label) == RATE_MODE_POST_CDI
                 else "Taxa pré-fixada cota MES (% a.a.)"
             )
-            mezz_rate_text = _text_number_input(
+            mezz_rate_text = _text_percent_input(
                 mezz_rate_label,
                 default=inputs.premissas.get("Taxa Mezz", 0.05) * 100.0,
                 key="modelo_taxa_mezz",
@@ -978,7 +993,7 @@ def render_tab_modelo_fidc() -> None:
             )
             sub_rate_text = "0,00"
             if not sub_mode_label.startswith("Residual"):
-                sub_rate_text = _text_number_input(
+                sub_rate_text = _text_percent_input(
                     (
                         "Spread-alvo cota SUB sobre CDI (% a.a.)"
                         if sub_mode_label.startswith("Pós")

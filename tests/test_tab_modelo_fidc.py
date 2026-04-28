@@ -12,6 +12,10 @@ class TabModeloFidcTests(unittest.TestCase):
     def test_brl_input_value_uses_brazilian_currency_format(self) -> None:
         self.assertEqual("R$ 125.000.000,00", tab_modelo_fidc._format_brl_input_value(125_000_000.0))
 
+    def test_percent_input_value_uses_visible_percent_suffix(self) -> None:
+        self.assertEqual("70,0%", tab_modelo_fidc._format_percent_input_value(70.0, decimals=1))
+        self.assertEqual("15,22%", tab_modelo_fidc._format_percent_input_value(15.22, decimals=2))
+
     def test_parse_br_number_accepts_currency_and_percent_suffixes(self) -> None:
         self.assertEqual(1_234_567.89, tab_modelo_fidc._parse_br_number("R$ 1.234.567,89", field_name="x"))
         self.assertEqual(15.22, tab_modelo_fidc._parse_br_number("15,22%", field_name="x"))
