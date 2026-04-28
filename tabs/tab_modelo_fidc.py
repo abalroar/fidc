@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
+from datetime import date, timedelta
 from html import escape
 from io import BytesIO
 
@@ -17,6 +19,19 @@ from services.fidc_model import (
     build_kpis,
     monthly_to_annual_252_rate,
 )
+from services.fidc_model.b3_curves import (
+    B3CurveError,
+    B3CurveSnapshot,
+    DEFAULT_TAXASWAP_CURVE_CODE,
+    fetch_latest_taxaswap_curve,
+    fetch_taxaswap_curve,
+)
+
+
+SNAPSHOT_CURVE_DATE = date(2025, 2, 25)
+CURVE_SOURCE_B3_LATEST = "B3 - último pregão disponível"
+CURVE_SOURCE_B3_DATE = "B3 - data escolhida"
+CURVE_SOURCE_SNAPSHOT = "Snapshot local da planilha"
 
 
 _MODEL_CSS = """
@@ -117,6 +132,75 @@ _MODEL_CSS = """
 @st.cache_data
 def _load_inputs(path: str):
     return load_model_inputs(path)
+
+
+@dataclass(frozen=True)
+class _SelectedCurve:
+    source_label: str
+    curve_code: str
+    base_date: date
+    curva_du: tuple[float, ...]
+    curva_taxa_aa: tuple[float, ...]
+    source_url: str
+    retrieved_label: str
+    content_sha256: str
+    point_count: int
+    first_du: int | None
+    last_du: int | None
+    raw_line_count: int | None = None
+
+    @property
+    def cache_key(self) -> tuple[str, str, str, str]:
+        return (
+            self.source_label,
+            self.curve_code,
+            self.base_date.isoformat(),
+            self.content_sha256[:16],
+        )
+
+
+@st.cache_data(show_spinner=False, ttl=6 * 60 * 60)
+def _load_b3_curve_for_date(date_iso: str, curve_code: str) -> B3CurveSnapshot:
+    return fetch_taxaswap_curve(date.fromisoformat(date_iso), curve_code=curve_code)
+
+
+@st.cache_data(show_spinner=False, ttl=6 * 60 * 60)
+def _load_latest_b3_curve(start_date_iso: str, curve_code: str) -> B3CurveSnapshot:
+    return fetch_latest_taxaswap_curve(start_date=date.fromisoformat(start_date_iso), curve_code=curve_code)
+
+
+def _selected_curve_from_snapshot(inputs) -> _SelectedCurve:
+    return _SelectedCurve(
+        source_label=CURVE_SOURCE_SNAPSHOT,
+        curve_code="PRE",
+        base_date=SNAPSHOT_CURVE_DATE,
+        curva_du=tuple(float(value) for value in inputs.curva_du),
+        curva_taxa_aa=tuple(float(value) for value in inputs.curva_cdi),
+        source_url="Modelo_Publico.xlsm / model_data.json",
+        retrieved_label="snapshot local sem consulta externa",
+        content_sha256="local-snapshot",
+        point_count=len(inputs.curva_du),
+        first_du=int(inputs.curva_du[0]) if inputs.curva_du else None,
+        last_du=int(inputs.curva_du[-1]) if inputs.curva_du else None,
+        raw_line_count=None,
+    )
+
+
+def _selected_curve_from_b3(snapshot: B3CurveSnapshot, source_label: str) -> _SelectedCurve:
+    return _SelectedCurve(
+        source_label=source_label,
+        curve_code=snapshot.curve_code,
+        base_date=snapshot.generated_at,
+        curva_du=tuple(snapshot.curva_du),
+        curva_taxa_aa=tuple(snapshot.curva_taxa_aa),
+        source_url=snapshot.source_url,
+        retrieved_label=snapshot.retrieved_at.strftime("%d/%m/%Y %H:%M:%S UTC"),
+        content_sha256=snapshot.content_sha256,
+        point_count=len(snapshot.points),
+        first_du=snapshot.first_du,
+        last_du=snapshot.last_du,
+        raw_line_count=snapshot.raw_line_count,
+    )
 
 
 def _format_number_br(value: float | None, decimals: int = 2) -> str:
@@ -276,17 +360,96 @@ def _build_kpi_export_dataframe(kpis) -> pd.DataFrame:
     )
 
 
+def _build_curve_source_dataframe(selected_curve: _SelectedCurve) -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            {"Campo": "Fonte", "Valor": selected_curve.source_label},
+            {"Campo": "Curva", "Valor": selected_curve.curve_code},
+            {"Campo": "Data-base", "Valor": selected_curve.base_date.strftime("%d/%m/%Y")},
+            {"Campo": "Pontos", "Valor": _format_number_br(selected_curve.point_count, 0)},
+            {"Campo": "DU inicial", "Valor": selected_curve.first_du if selected_curve.first_du is not None else "N/D"},
+            {"Campo": "DU final", "Valor": selected_curve.last_du if selected_curve.last_du is not None else "N/D"},
+            {"Campo": "URL/Origem", "Valor": selected_curve.source_url},
+            {"Campo": "Baixado em", "Valor": selected_curve.retrieved_label},
+            {"Campo": "SHA-256", "Valor": selected_curve.content_sha256},
+        ]
+    )
+
+
 def _validate_model_inputs(inputs) -> list[str]:
     errors: list[str] = []
     if not inputs.datas:
         errors.append("datas do fluxo ausentes em model_data.json")
+    if not inputs.feriados:
+        errors.append("lista de feriados vazia em model_data.json")
+    return errors
+
+
+def _validate_snapshot_curve(inputs) -> list[str]:
+    errors: list[str] = []
     if not inputs.curva_du or not inputs.curva_cdi:
         errors.append("curva DI/Pre ausente em model_data.json")
     if len(inputs.curva_du) != len(inputs.curva_cdi):
         errors.append("curva_du e curva_cdi têm tamanhos diferentes")
-    if not inputs.feriados:
-        errors.append("lista de feriados vazia em model_data.json")
     return errors
+
+
+def _curve_comparison_metrics(inputs, selected_curve: _SelectedCurve) -> dict[str, float] | None:
+    if selected_curve.source_label == CURVE_SOURCE_SNAPSHOT:
+        return None
+    if selected_curve.base_date != SNAPSHOT_CURVE_DATE:
+        return None
+
+    snapshot_by_du = {int(du): float(rate) for du, rate in zip(inputs.curva_du, inputs.curva_cdi)}
+    b3_by_du = {int(du): float(rate) for du, rate in zip(selected_curve.curva_du, selected_curve.curva_taxa_aa)}
+    common_du = sorted(set(snapshot_by_du) & set(b3_by_du))
+    if not common_du:
+        return None
+
+    diffs = [b3_by_du[du] - snapshot_by_du[du] for du in common_du]
+    abs_diffs = [abs(value) for value in diffs]
+    return {
+        "pontos_comuns": float(len(common_du)),
+        "diferenca_media_bps": sum(abs_diffs) / len(abs_diffs) * 10_000.0,
+        "diferenca_max_bps": max(abs_diffs) * 10_000.0,
+    }
+
+
+def _render_curve_source_info(inputs, selected_curve: _SelectedCurve) -> None:
+    st.info(
+        "\n".join(
+            [
+                f"Fonte da curva: {selected_curve.source_label}.",
+                f"Curva {selected_curve.curve_code} em % a.a., base 252 dias úteis.",
+                f"Data-base: {selected_curve.base_date:%d/%m/%Y}; pontos: {_format_number_br(selected_curve.point_count, 0)}; "
+                f"DU inicial/final: {selected_curve.first_du or 'N/D'} / {selected_curve.last_du or 'N/D'}.",
+            ]
+        )
+    )
+    if selected_curve.source_label != CURVE_SOURCE_SNAPSHOT:
+        st.caption(
+            f"Arquivo B3: `{selected_curve.source_url}` | baixado em {selected_curve.retrieved_label} | "
+            f"SHA-256: `{selected_curve.content_sha256[:12]}`"
+        )
+    else:
+        st.caption(
+            "Snapshot usado apenas como referência/auditoria: dados extraídos da aba `BMF` do `Modelo_Publico.xlsm` "
+            f"com data-base {SNAPSHOT_CURVE_DATE:%d/%m/%Y}."
+        )
+
+    metrics = _curve_comparison_metrics(inputs, selected_curve)
+    if metrics is not None:
+        st.caption(
+            "Comparação B3 x snapshot local na mesma data: "
+            f"{_format_number_br(metrics['pontos_comuns'], 0)} DUs comuns; "
+            f"diferença média absoluta {_format_number_br(metrics['diferenca_media_bps'], 2)} bps; "
+            f"diferença máxima absoluta {_format_number_br(metrics['diferenca_max_bps'], 2)} bps."
+        )
+    elif selected_curve.source_label != CURVE_SOURCE_SNAPSHOT:
+        st.caption(
+            f"O snapshot local é de {SNAPSHOT_CURVE_DATE:%d/%m/%Y}; por isso a comparação ponto a ponto só é exibida "
+            "quando a data B3 selecionada é a mesma."
+        )
 
 
 def _rate_mode_from_label(label: str) -> str:
@@ -646,15 +809,53 @@ def render_tab_modelo_fidc() -> None:
     )
 
     with right:
-        st.info(
-            "Fonte da curva: snapshot local da aba `BMF` do `Modelo_Publico.xlsm`, com curva DI/Pré da B3/BM&F. "
-            "O app não consulta B3/CDI em tempo de execução; se `model_data.json` estiver incompleto, a aba falha explicitamente."
+        st.markdown("##### Fonte da curva DI/Pré")
+        curve_source_label = st.selectbox(
+            "Origem da curva de juros",
+            [CURVE_SOURCE_B3_LATEST, CURVE_SOURCE_B3_DATE, CURVE_SOURCE_SNAPSHOT],
+            help=(
+                "A fonte B3 usa o arquivo público TaxaSwap da Pesquisa por pregão. "
+                "O snapshot local fica disponível apenas para auditoria e comparação com a planilha."
+            ),
         )
+        selected_b3_date = date.today() - timedelta(days=1)
+        if curve_source_label == CURVE_SOURCE_B3_DATE:
+            selected_b3_date = st.date_input(
+                "Data-base B3",
+                value=selected_b3_date,
+                min_value=date(2000, 1, 1),
+                max_value=date.today(),
+                help="A data escolhida é exata. Se a B3 não tiver arquivo para essa data, o app mostra erro em vez de usar fallback.",
+            )
+
+        try:
+            if curve_source_label == CURVE_SOURCE_SNAPSHOT:
+                snapshot_errors = _validate_snapshot_curve(inputs)
+                if snapshot_errors:
+                    st.error("Snapshot local da curva incompleto: " + "; ".join(snapshot_errors) + ".")
+                    return
+                selected_curve = _selected_curve_from_snapshot(inputs)
+            elif curve_source_label == CURVE_SOURCE_B3_DATE:
+                with st.spinner("Consultando curva TaxaSwap na B3..."):
+                    b3_snapshot = _load_b3_curve_for_date(selected_b3_date.isoformat(), DEFAULT_TAXASWAP_CURVE_CODE)
+                selected_curve = _selected_curve_from_b3(b3_snapshot, curve_source_label)
+            else:
+                with st.spinner("Localizando último pregão TaxaSwap disponível na B3..."):
+                    b3_snapshot = _load_latest_b3_curve(date.today().isoformat(), DEFAULT_TAXASWAP_CURVE_CODE)
+                selected_curve = _selected_curve_from_b3(b3_snapshot, curve_source_label)
+        except B3CurveError as exc:
+            st.error(f"Não foi possível carregar a curva B3: {exc}")
+            st.warning("Selecione o snapshot local da planilha apenas se quiser rodar uma simulação de auditoria sem fonte externa.")
+            return
+
+        _render_curve_source_info(inputs, selected_curve)
         st.markdown(
             "\n".join(
                 [
                     f"- Taxa de cessão usada no motor: {_format_percent(tx_cessao_am, 4)} a.m.; equivalente anual 252 DU: {_format_percent(tx_cessao_aa_equivalente, 4)} a.a.",
                     "- O calendário útil usa base brasileira de 252 dias com feriados explícitos da planilha.",
+                    "- A curva DI/Pré vem do arquivo TaxaSwap da B3 quando uma fonte B3 está selecionada.",
+                    "- Falhas de B3, arquivo ausente ou formato inesperado interrompem a simulação; não há fallback silencioso para curva estática.",
                     "- Sênior e mezz podem ser pós-fixadas sobre CDI/DI ou pré-fixadas em taxa anual.",
                     "- A SUB é residual na planilha: ela absorve o excedente ou a perda após sênior e mezz.",
                     "- Inadimplência segue a fórmula histórica do arquivo: perda proporcional ao delta de dias corridos dividido por 100.",
@@ -672,12 +873,27 @@ def render_tab_modelo_fidc() -> None:
             "`subordinação` é econômica/residual, e `PL` representa saldo econômico do veículo."
         )
 
-    if not submitted and "modelo_fidc_periods" in st.session_state:
+    simulation_signature = (
+        selected_curve.cache_key,
+        premissas,
+    )
+    if (
+        not submitted
+        and st.session_state.get("modelo_fidc_signature") == simulation_signature
+        and "modelo_fidc_periods" in st.session_state
+    ):
         results = st.session_state["modelo_fidc_periods"]
         kpis = st.session_state["modelo_fidc_kpis"]
     else:
-        results = build_flow(inputs.datas, inputs.feriados, inputs.curva_du, inputs.curva_cdi, premissas)
+        results = build_flow(
+            inputs.datas,
+            inputs.feriados,
+            selected_curve.curva_du,
+            selected_curve.curva_taxa_aa,
+            premissas,
+        )
         kpis = build_kpis(results)
+        st.session_state["modelo_fidc_signature"] = simulation_signature
         st.session_state["modelo_fidc_periods"] = results
         st.session_state["modelo_fidc_kpis"] = kpis
 
@@ -732,7 +948,7 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Juros sênior/mezz",
                 "Fórmula": "pós: (1 + curva DI/Pré) * (1 + spread) - 1; pré: taxa anual informada",
-                "Observação": "O FRA de cada período usa base 252 DU para acumular juros da classe.",
+                "Observação": f"O FRA de cada período usa base 252 DU. Fonte selecionada: {selected_curve.source_label} ({selected_curve.base_date:%d/%m/%Y}).",
             },
             {
                 "Indicador": "Proporções de PL",
@@ -775,6 +991,7 @@ def render_tab_modelo_fidc() -> None:
     with pd.ExcelWriter(output, engine="openpyxl") as writer:
         export_frame.to_excel(writer, index=False, sheet_name="timeline")
         _build_kpi_export_dataframe(kpis).to_excel(writer, index=False, sheet_name="kpis")
+        _build_curve_source_dataframe(selected_curve).to_excel(writer, index=False, sheet_name="fonte_curva")
     download_left, download_right = st.columns(2)
     download_left.download_button(
         "Baixar CSV",

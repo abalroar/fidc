@@ -53,7 +53,7 @@ def build_flow(
     if not datas:
         return []
     if not curva_du or not curva_cdi:
-        raise ValueError("Curva DI/Pre vazia: o modelo exige curva local extraída da planilha de referência.")
+        raise ValueError("Curva DI/Pre vazia: o modelo exige uma curva válida da fonte selecionada.")
 
     period_indexes = build_period_indexes(len(datas))
     dc, du = build_day_counts(datas, feriados)
