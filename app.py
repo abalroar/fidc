@@ -71,9 +71,58 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 
 [data-testid="stTabs"] [role="tablist"] {
     border-bottom: 1px solid #dde3ea;
-    gap: 0.35rem;
+    gap: 2rem;
     overflow-x: auto;
     scrollbar-width: thin;
+}
+
+/* Radio buttons → compact chips (period selector & portfolio view toggle) */
+[data-testid="stRadio"] [role="radiogroup"],
+[data-testid="stRadio"] [data-baseweb="radio-group"] {
+    display: flex !important;
+    gap: 0.45rem !important;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+[data-testid="stRadio"] [role="radiogroup"] > label,
+[data-testid="stRadio"] [data-baseweb="radio-group"] > label {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 0.2rem 0.9rem !important;
+    border-radius: 999px !important;
+    border: 1.5px solid #dde3ea !important;
+    background: #f7f8fa !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    color: #5a6478 !important;
+    cursor: pointer !important;
+    transition: background 0.12s, border-color 0.12s, color 0.12s !important;
+    margin: 0 !important;
+    line-height: 1.6 !important;
+    white-space: nowrap !important;
+}
+
+/* Hide the radio circle SVG — show only the text */
+[data-testid="stRadio"] [role="radiogroup"] > label > div:first-child,
+[data-testid="stRadio"] [data-baseweb="radio-group"] > label > div:first-child {
+    display: none !important;
+}
+
+[data-testid="stRadio"] [role="radiogroup"] > label:hover,
+[data-testid="stRadio"] [data-baseweb="radio-group"] > label:hover {
+    border-color: #1f77b4 !important;
+    color: #1f77b4 !important;
+    background: #f0f4f8 !important;
+}
+
+/* Selected chip */
+[data-testid="stRadio"] [role="radiogroup"] > label:has(input:checked),
+[data-testid="stRadio"] [data-baseweb="radio-group"] > label:has(input:checked) {
+    background: #1f77b4 !important;
+    border-color: #1f77b4 !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
 }
 
 [data-testid="stTabs"] [role="tab"] {
@@ -130,11 +179,7 @@ st.markdown(_APP_CSS, unsafe_allow_html=True)
 st.markdown(
     """
     <div class="fidc-app-header">
-      <div class="fidc-app-kicker">Plataforma de análise FIDC</div>
       <h1 class="fidc-app-title">tomaconta FIDCs</h1>
-      <div class="fidc-app-subtitle">
-        Monitoramento de risco por Informe Mensal, modelo econômico e base de conhecimento regulatória em uma única plataforma.
-      </div>
     </div>
     """,
     unsafe_allow_html=True,
@@ -142,7 +187,6 @@ st.markdown(
 
 # Global period selector — shared across Informe Mensal tabs to keep single-fund and portfolio views in sync.
 _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
-st.markdown('<div class="fidc-control-kicker">Período dos Informes Mensais</div>', unsafe_allow_html=True)
 period = _render_period_selector(state_prefix="ime_global")
 
 
