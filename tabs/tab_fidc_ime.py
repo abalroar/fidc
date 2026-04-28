@@ -651,30 +651,42 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
     end_month = current_default_end_month()
     max_options = _period_month_options(end_month, months_back=59)
     default_period = build_preset_period(end_month=end_month, months=DEFAULT_PRESET_MONTHS)
-    selector_col, detail_col = st.columns([1.2, 1.8])
 
-    with selector_col:
-        mode_label = st.radio(
-            title,
-            options=["Preset", "Customizado"],
-            horizontal=True,
-            key=f"{state_prefix}_period_mode",
-        )
+    custom_key = f"{state_prefix}_show_custom"
+    if custom_key not in st.session_state:
+        st.session_state[custom_key] = False
 
-    with detail_col:
-        if mode_label == "Preset":
+    show_custom = st.session_state.get(custom_key, False)
+
+    if not show_custom:
+        chip_col, link_col = st.columns([5, 1])
+        with chip_col:
             preset_months = st.radio(
                 "Janela móvel",
                 options=list(PERIOD_PRESET_OPTIONS),
                 index=list(PERIOD_PRESET_OPTIONS).index(DEFAULT_PRESET_MONTHS),
                 horizontal=True,
                 key=f"{state_prefix}_period_preset_months",
-                format_func=lambda value: f"{value} meses",
+                format_func=lambda v: f"{v}M",
+                label_visibility="collapsed",
             )
-            period = build_preset_period(end_month=end_month, months=int(preset_months))
-        else:
-            start_default = default_period.start_month
-            start_index = max_options.index(start_default) if start_default in max_options else 0
+        period = build_preset_period(end_month=end_month, months=int(preset_months))
+        period_str = (
+            f"{_format_competencia_display(period.start_month.isoformat())} "
+            f"→ {_format_competencia_display(period.end_month.isoformat())}"
+        )
+        cap_col, toggle_col = st.columns([5, 1])
+        with cap_col:
+            st.caption(period_str)
+        with toggle_col:
+            if st.button("Personalizar →", key=f"{state_prefix}_btn_custom"):
+                st.session_state[custom_key] = True
+                st.rerun()
+    else:
+        start_default = default_period.start_month
+        start_index = max_options.index(start_default) if start_default in max_options else 0
+        sel_col1, sel_col2, back_col = st.columns([2, 2, 1])
+        with sel_col1:
             start_month = st.selectbox(
                 "Competência inicial",
                 options=max_options,
@@ -682,8 +694,9 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
                 key=f"{state_prefix}_period_start_month",
                 format_func=_format_month_option_label,
             )
-            end_candidates = [value for value in max_options if value >= start_month]
-            default_end_index = len(end_candidates) - 1
+        end_candidates = [v for v in max_options if v >= start_month]
+        default_end_index = len(end_candidates) - 1
+        with sel_col2:
             end_month_selected = st.selectbox(
                 "Competência final",
                 options=end_candidates,
@@ -691,12 +704,17 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
                 key=f"{state_prefix}_period_end_month",
                 format_func=_format_month_option_label,
             )
-            period = build_custom_period(start_month=start_month, end_month=end_month_selected)
+        with back_col:
+            st.write("")
+            if st.button("← Janela móvel", key=f"{state_prefix}_btn_preset"):
+                st.session_state[custom_key] = False
+                st.rerun()
+        period = build_custom_period(start_month=start_month, end_month=end_month_selected)
+        st.caption(
+            f"{_format_competencia_display(period.start_month.isoformat())} "
+            f"→ {_format_competencia_display(period.end_month.isoformat())} · {period.month_count} competências"
+        )
 
-    st.caption(
-        f"{_format_competencia_display(period.start_month.isoformat())} "
-        f"→ {_format_competencia_display(period.end_month.isoformat())} · {period.month_count} competências"
-    )
     return period
 
 
@@ -705,23 +723,64 @@ def render_tab_fidc_ime(period: ImePeriodSelection | None = None) -> None:
     if period is None:
         period = _render_period_selector(state_prefix="ime_simple")
 
-    cnpj_cols = st.columns(MAX_SLOTS)
-    cnpj_inputs: list[str] = []
-    for i, col in enumerate(cnpj_cols):
-        val = col.text_input(
-            f"CNPJ {i + 1}" if i > 0 else "CNPJ do fundo",
-            placeholder="00.000.000/0000-00",
-            key=f"fidc_cnpj_slot_{i}",
-            label_visibility="visible",
-        )
-        cnpj_inputs.append(val.strip())
+    _slots_key = "fidc_active_slots"
+    _next_id_key = "fidc_next_slot_id"
+    if _slots_key not in st.session_state:
+        st.session_state[_slots_key] = [0]
+        st.session_state[_next_id_key] = 1
 
-    load_clicked = st.button("Carregar Informes Mensais", type="primary")
+    active_slots: list[int] = st.session_state[_slots_key]
+
+    _, center_col, _ = st.columns([1, 2, 1])
+    with center_col:
+        cnpj_values: dict[int, str] = {}
+        for slot_id in list(active_slots):
+            if len(active_slots) == 1:
+                val = st.text_input(
+                    "CNPJ",
+                    placeholder="00.000.000/0000-00",
+                    key=f"fidc_cnpj_{slot_id}",
+                    label_visibility="collapsed",
+                )
+                cnpj_values[slot_id] = val.strip()
+            else:
+                inp_col, rem_col = st.columns([10, 1])
+                with inp_col:
+                    val = st.text_input(
+                        "CNPJ",
+                        placeholder="00.000.000/0000-00",
+                        key=f"fidc_cnpj_{slot_id}",
+                        label_visibility="collapsed",
+                    )
+                    cnpj_values[slot_id] = val.strip()
+                with rem_col:
+                    st.write("")
+                    if st.button("×", key=f"fidc_rm_{slot_id}"):
+                        st.session_state[_slots_key] = [s for s in active_slots if s != slot_id]
+                        st.rerun()
+
+        if len(active_slots) < MAX_SLOTS:
+            if st.button("＋  Adicionar fundo", key="fidc_add_cnpj"):
+                new_id = st.session_state[_next_id_key]
+                st.session_state[_slots_key] = active_slots + [new_id]
+                st.session_state[_next_id_key] = new_id + 1
+                st.rerun()
+
+        st.markdown("<div style='height:0.4rem'></div>", unsafe_allow_html=True)
+
+        any_cnpj = any(v for v in cnpj_values.values())
+        load_clicked = st.button(
+            "Carregar Informes Mensais",
+            type="primary",
+            key="fidc_load_btn",
+            use_container_width=True,
+            disabled=not any_cnpj,
+        )
 
     slots: dict[int, dict] = st.session_state.get("fidc_slots", {})
 
     if load_clicked:
-        active_cnpjs = [(i, c) for i, c in enumerate(cnpj_inputs) if c]
+        active_cnpjs = [(i, cnpj_values[sid]) for i, sid in enumerate(active_slots) if cnpj_values.get(sid)]
         if not active_cnpjs:
             st.warning("Informe ao menos um CNPJ para carregar.")
             return
