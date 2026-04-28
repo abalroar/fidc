@@ -18,9 +18,16 @@ class Premissas:
     taxa_senior: float
     proporcao_mezz: float
     taxa_mezz: float
+    proporcao_subordinada: Optional[float] = None
+    taxa_sub_jr: float = 0.0
+    tipo_taxa_senior: str = "pos_cdi"
+    tipo_taxa_mezz: str = "pos_cdi"
+    tipo_taxa_sub_jr: str = "residual"
 
     @property
     def proporcao_sub_jr(self) -> float:
+        if self.proporcao_subordinada is not None:
+            return self.proporcao_subordinada
         return 1.0 - self.proporcao_senior - self.proporcao_mezz
 
 

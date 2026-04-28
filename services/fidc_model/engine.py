@@ -10,6 +10,30 @@ from .curves import cubic_spline
 from .metrics import calculate_duration_years, lookup_pre_di_duration, xirr
 
 
+RATE_MODE_POST_CDI = "pos_cdi"
+RATE_MODE_PRE = "pre"
+
+
+def annual_252_to_monthly_rate(rate_aa: float) -> float:
+    """Convert an annual effective rate on a 252-business-day basis to 21 DU/month."""
+
+    return (1.0 + rate_aa) ** (21.0 / 252.0) - 1.0
+
+
+def monthly_to_annual_252_rate(rate_am: float) -> float:
+    """Convert an effective monthly rate, using 21 DU/month, to annual 252 DU."""
+
+    return (1.0 + rate_am) ** (252.0 / 21.0) - 1.0
+
+
+def _class_annual_rate(base_rate: float, class_rate: float, mode: str) -> float:
+    if mode == RATE_MODE_PRE:
+        return class_rate
+    if mode == RATE_MODE_POST_CDI:
+        return (1.0 + base_rate) * (1.0 + class_rate) - 1.0
+    raise ValueError(f"Tipo de taxa de cota inválido: {mode}")
+
+
 def _principal_schedule(period_count: int, initial_pl: float) -> list[float]:
     schedule = [0.0] * period_count
     if period_count:
@@ -28,6 +52,8 @@ def build_flow(
 ) -> list[PeriodResult]:
     if not datas:
         return []
+    if not curva_du or not curva_cdi:
+        raise ValueError("Curva DI/Pre vazia: o modelo exige curva local extraída da planilha de referência.")
 
     period_indexes = build_period_indexes(len(datas))
     dc, du = build_day_counts(datas, feriados)
@@ -41,8 +67,8 @@ def build_flow(
     for index in range(1, len(datas)):
         base_rate = zero_pre_di[index]
         assert base_rate is not None
-        taxa_senior.append((1.0 + base_rate) * (1.0 + premissas.taxa_senior) - 1.0)
-        taxa_mezz.append((1.0 + base_rate) * (1.0 + premissas.taxa_mezz) - 1.0)
+        taxa_senior.append(_class_annual_rate(base_rate, premissas.taxa_senior, premissas.tipo_taxa_senior))
+        taxa_mezz.append(_class_annual_rate(base_rate, premissas.taxa_mezz, premissas.tipo_taxa_mezz))
 
     fra_senior: list[float | None] = [None]
     fra_mezz: list[float | None] = [None]
@@ -76,7 +102,10 @@ def build_flow(
 
     pl_senior_initial = premissas.volume * premissas.proporcao_senior
     pl_mezz_initial = premissas.volume * premissas.proporcao_mezz
-    pl_sub_initial = premissas.volume - pl_senior_initial - pl_mezz_initial
+    if premissas.proporcao_subordinada is None:
+        pl_sub_initial = premissas.volume - pl_senior_initial - pl_mezz_initial
+    else:
+        pl_sub_initial = premissas.volume * premissas.proporcao_subordinada
 
     principal_senior = _principal_schedule(len(datas), pl_senior_initial)
     principal_mezz = _principal_schedule(len(datas), pl_mezz_initial)
