@@ -57,6 +57,42 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn("Curva de juros", temas)
         self.assertIn("Paridade preservada na tabela; visualização corrigida", audit_df["Status"].tolist())
 
+    def test_workbook_mechanics_expander_explains_cash_lock_and_sheet_formulas(self) -> None:
+        selected_curve = tab_modelo_fidc._SelectedCurve(
+            source_label=tab_modelo_fidc.CURVE_SOURCE_B3_LATEST,
+            curve_code="PRE",
+            base_date=date(2026, 4, 27),
+            curva_du=(1.0, 21.0),
+            curva_taxa_aa=(0.13, 0.14),
+            source_url="https://example.test/TS260427.ex_",
+            retrieved_label="28/04/2026 19:00:00 UTC",
+            content_sha256="abc123",
+            point_count=2,
+            first_du=1,
+            last_du=21,
+        )
+        selected_calendar = tab_modelo_fidc._SelectedCalendar(
+            source_label=tab_modelo_fidc.CALENDAR_SOURCE_B3_OFFICIAL,
+            feriados=(date(2026, 1, 1),),
+            holiday_count=1,
+            first_holiday=date(2026, 1, 1),
+            last_holiday=date(2026, 1, 1),
+            official_years=(2026,),
+            projected_years=(2027,),
+        )
+
+        markdown = tab_modelo_fidc._build_workbook_mechanics_markdown(
+            selected_curve=selected_curve,
+            selected_calendar=selected_calendar,
+            interpolation_label=tab_modelo_fidc.INTERPOLATION_LABEL_B3,
+            taxa_cessao_base="% a.m.",
+        )
+
+        self.assertIn("trava de caixa está desligada", markdown)
+        self.assertIn("inadimplencia_periodo = carteira * (inadimplencia * delta_DC / 100)", markdown)
+        self.assertIn("PMT SEN = juros SEN + principal SEN programado", markdown)
+        self.assertIn("SUB residual = PL FIDC - PL SEN - PL MES", markdown)
+
     def test_model_charts_are_filled_area_charts(self) -> None:
         chart_df = pd.DataFrame(
             {
