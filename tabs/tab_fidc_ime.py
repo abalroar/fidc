@@ -87,6 +87,22 @@ OVER_SERIES_ORDER = ["Over 1", "Over 30", "Over 60", "Over 90", "Over 180", "Ove
 
 COVERAGE_LINE_COLOR = "#6b2c3e"
 
+_PT_MONTH_ABBR: dict[str, str] = {
+    "01": "jan",
+    "02": "fev",
+    "03": "mar",
+    "04": "abr",
+    "05": "mai",
+    "06": "jun",
+    "07": "jul",
+    "08": "ago",
+    "09": "set",
+    "10": "out",
+    "11": "nov",
+    "12": "dez",
+}
+_PT_MONTH_NUMBER_BY_ABBR: dict[str, int] = {abbr: int(month) for month, abbr in _PT_MONTH_ABBR.items()}
+
 
 _FIDC_REPORT_CSS = """
 <style>
@@ -741,6 +757,7 @@ def render_tab_fidc_ime(period: ImePeriodSelection | None = None) -> None:
                 "cnpj_informado": cnpj,
                 "competencia_inicial": period.start_month.isoformat(),
                 "competencia_final": period.end_month.isoformat(),
+                "period_month_count": period.month_count,
                 "periodo_analisado_label": period.label,
                 "slot": slot_i,
             }
@@ -946,6 +963,7 @@ def _render_dashboard(
         _render_financial_snapshot_cards(dashboard)
         _render_dashboard_controls(dashboard, context)
         _render_dashboard_context_bar(dashboard)
+        _render_requested_period_coverage_warning(dashboard, context)
         if docs_error:
             st.warning(f"{docs_error} informe(s) falharam no processamento. A leitura abaixo usa apenas os informes válidos.")
         _render_structural_risk_section(dashboard, slot_key=slot_key)
@@ -1419,6 +1437,47 @@ def _render_dashboard_context_bar(dashboard: FundonetDashboardData) -> None:
     )
 
 
+def _competencia_labels_between(start_month: date, end_month: date) -> list[str]:
+    current = date(start_month.year, start_month.month, 1)
+    end = date(end_month.year, end_month.month, 1)
+    labels: list[str] = []
+    while current <= end:
+        labels.append(current.strftime("%m/%Y"))
+        current = _period_shift_month(current, 1)
+    return labels
+
+
+def _expected_competencias_from_context(context: dict[str, Any]) -> list[str]:
+    try:
+        start_ts = pd.Timestamp(context.get("competencia_inicial"))
+        end_ts = pd.Timestamp(context.get("competencia_final"))
+    except Exception:  # noqa: BLE001
+        return []
+    if pd.isna(start_ts) or pd.isna(end_ts):
+        return []
+    return _competencia_labels_between(start_ts.date(), end_ts.date())
+
+
+def _render_requested_period_coverage_warning(
+    dashboard: FundonetDashboardData,
+    context: dict[str, Any],
+) -> None:
+    expected_competencias = _expected_competencias_from_context(context)
+    if not expected_competencias:
+        return
+    loaded_competencias = set(str(value) for value in dashboard.competencias)
+    missing_competencias = [competencia for competencia in expected_competencias if competencia not in loaded_competencias]
+    if not missing_competencias:
+        return
+    st.warning(
+        "A janela solicitada tinha "
+        f"{len(expected_competencias)} competência(s), mas o dashboard recebeu "
+        f"{len(loaded_competencias)} competência(s) processada(s). "
+        f"Competência(s) ausente(s): {', '.join(_format_competencia_label(value) for value in missing_competencias)}. "
+        "Os gráficos usam somente competências válidas e são ordenados da mais recente para a mais antiga."
+    )
+
+
 def _render_chart_heading(container, title: str, caption: str | None = None) -> None:
     container.markdown(f'<div class="fidc-chart-title">{escape(title)}</div>', unsafe_allow_html=True)
     del caption
@@ -1450,27 +1509,13 @@ def _format_competencia_label(value: object) -> str:
     raw = str(value).strip()
     if not raw:
         return "N/D"
-    month_names = {
-        1: "jan",
-        2: "fev",
-        3: "mar",
-        4: "abr",
-        5: "mai",
-        6: "jun",
-        7: "jul",
-        8: "ago",
-        9: "set",
-        10: "out",
-        11: "nov",
-        12: "dez",
-    }
     if re.fullmatch(r"\d{2}/\d{4}", raw):
         month = int(raw[:2])
         year = raw[-2:]
-        return f"{month_names.get(month, raw[:2])}-{year}"
+        return f"{_PT_MONTH_ABBR.get(f'{month:02d}', raw[:2])}-{year}"
     try:
         parsed = pd.Timestamp(raw)
-        return f"{month_names.get(int(parsed.month), parsed.strftime('%m'))}-{str(parsed.year)[-2:]}"
+        return f"{_PT_MONTH_ABBR.get(f'{int(parsed.month):02d}', parsed.strftime('%m'))}-{str(parsed.year)[-2:]}"
     except Exception:  # noqa: BLE001
         return raw
 
@@ -1481,6 +1526,66 @@ def _format_competencia_period(value: object) -> str:
         return _format_competencia_label(raw)
     start, end = raw.split(" a ", 1)
     return f"{_format_competencia_label(start)} a {_format_competencia_label(end)}"
+
+
+def _competencia_sort_timestamp(value: object) -> pd.Timestamp:
+    raw = str(value or "").strip()
+    if not raw:
+        return pd.NaT
+    if re.fullmatch(r"\d{1,2}/\d{4}", raw):
+        month, year = raw.split("/", 1)
+        try:
+            return pd.Timestamp(year=int(year), month=int(month), day=1)
+        except ValueError:
+            return pd.NaT
+    display_match = re.fullmatch(r"([A-Za-z]{3})-(\d{2}|\d{4})", raw.lower())
+    if display_match:
+        month = _PT_MONTH_NUMBER_BY_ABBR.get(display_match.group(1))
+        if month is not None:
+            year_text = display_match.group(2)
+            year = int(year_text) + 2000 if len(year_text) == 2 else int(year_text)
+            try:
+                return pd.Timestamp(year=year, month=month, day=1)
+            except ValueError:
+                return pd.NaT
+    try:
+        parsed = pd.Timestamp(raw)
+    except Exception:  # noqa: BLE001
+        return pd.NaT
+    if pd.isna(parsed):
+        return pd.NaT
+    return pd.Timestamp(year=int(parsed.year), month=int(parsed.month), day=1)
+
+
+def _competencia_axis_sort(
+    frame: pd.DataFrame,
+    *,
+    competencia_column: str = "competencia",
+    descending: bool = True,
+) -> list[str]:
+    if frame.empty or competencia_column not in frame.columns:
+        return []
+    working = pd.DataFrame({"_label": frame[competencia_column].astype(str)})
+    if "competencia_dt" in frame.columns:
+        working["_dt"] = pd.to_datetime(frame["competencia_dt"], errors="coerce")
+        missing_dt = working["_dt"].isna()
+        if missing_dt.any():
+            working.loc[missing_dt, "_dt"] = working.loc[missing_dt, "_label"].map(_competencia_sort_timestamp)
+    else:
+        working["_dt"] = working["_label"].map(_competencia_sort_timestamp)
+    working["_fallback_order"] = range(len(working))
+    ordered = (
+        working.groupby("_label", sort=False, dropna=False)
+        .agg(_dt=("_dt", "max"), _fallback_order=("_fallback_order", "min"))
+        .reset_index()
+        .sort_values(
+            ["_dt", "_fallback_order"],
+            ascending=[not descending, True],
+            na_position="last",
+            kind="stable",
+        )
+    )
+    return ordered["_label"].tolist()
 
 
 def _sort_competencia_display_frame(
@@ -3253,6 +3358,7 @@ def _line_point_label_layer(
         adjusted_groups.append(ordered)
     labels_df = pd.concat(adjusted_groups, ignore_index=True) if adjusted_groups else labels_df
     labels_df["valor_label"] = labels_df["valor"].map(lambda value: _format_value_label(value, y_title))
+    x_sort = _competencia_axis_sort(chart_df)
     return (
         alt.Chart(labels_df)
         .mark_text(
@@ -3264,7 +3370,7 @@ def _line_point_label_layer(
             clip=False,
         )
         .encode(
-            x=alt.X("competencia:N", sort=chart_df["competencia"].drop_duplicates().tolist()),
+            x=alt.X("competencia:N", sort=x_sort),
             y=alt.Y("label_valor:Q", title=y_title),
             text=alt.Text("valor_label:N"),
         )
@@ -3439,6 +3545,7 @@ def _line_history_chart(
     chart_df = _sort_competencia_display_frame(chart_df)
     if "competencia" in chart_df.columns:
         chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
+    x_sort = _competencia_axis_sort(chart_df)
     chart_df["valor_fmt"] = chart_df["valor"].map(lambda value: _format_brl_compact(value) if y_title == "R$" else _format_percent(value) if "%" in y_title else _format_decimal(value))
     chart_df["label_fmt"] = chart_df["valor"].map(lambda value: _format_value_label(value, y_title))
     series_order = chart_df["serie"].drop_duplicates().tolist()
@@ -3473,7 +3580,7 @@ def _line_history_chart(
                     [scale_values, pd.Series([point_min - (point_padding * 0.35)])],
                     ignore_index=True,
                 )
-    x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
+    x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort)
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     y_encoding = alt.Y(
         "valor:Q",
@@ -3515,7 +3622,7 @@ def _line_history_chart(
     if show_end_labels:
         end_labels = _line_series_end_label_layer(
             end_labels_df,
-            x_sort=chart_df["competencia"].drop_duplicates().tolist(),
+            x_sort=x_sort,
             y_title=y_title,
             color_range=(color_range or FIDC_CHART_COLORS)[: len(series_order)],
             series_order=series_order,
@@ -3918,9 +4025,10 @@ def _history_bar_chart(
     chart_df = _sort_competencia_display_frame(chart_df)
     if "competencia" in chart_df.columns:
         chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
+    x_sort = _competencia_axis_sort(chart_df)
     chart_df["valor_fmt"] = chart_df["valor"].map(_format_percent if "%" in y_title else _format_brl_compact)
     chart_df["label_fmt"] = chart_df["valor"].map(lambda value: _format_value_label(value, y_title))
-    x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
+    x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort)
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     y_encoding = alt.Y(
         "valor:Q",
@@ -4004,6 +4112,7 @@ def _stacked_history_bar_chart(
             .encode(x="competencia:N", y=alt.Y(f"{value_column}:Q", title=y_title))
         )
         return _style_altair_chart(_chart_with_optional_title(empty_chart, height=height, title=title))
+    x_sort = _competencia_axis_sort(chart_df)
     resolved_value_column = _resolve_stacked_chart_value_column(chart_df, value_column)
     chart_df["valor_fmt"] = chart_df[resolved_value_column].map(
         _format_brl_compact if y_title == "R$" else _format_percent
@@ -4014,7 +4123,7 @@ def _stacked_history_bar_chart(
             if round_percent_labels and "%" in y_title
             else (lambda value: _format_value_label(value, y_title))
         )
-    x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
+    x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort)
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     totals_for_scale = chart_df.groupby("competencia", dropna=False)[resolved_value_column].sum()
     y_encoding = alt.Y(
@@ -4263,7 +4372,7 @@ def _stacked_history_bar_chart(
             alt.Chart(totals_df)
             .mark_text(dy=-4, fontSize=max(14, label_font_size + 4), fontWeight=800, color="#111111", clip=False)
             .encode(
-                x=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
+                x=alt.X("competencia:N", title="Competência", sort=x_sort),
                 y=alt.Y("label_y:Q", title=y_title),
                 text=alt.Text("total_fmt:N"),
             )
@@ -4304,7 +4413,7 @@ def _aging_history_callout_chart(
         )
         return _style_altair_chart(_chart_with_optional_title(empty_chart, height=height, title=title))
     resolved_value_column = _resolve_stacked_chart_value_column(df, "percentual")
-    x_sort = df["competencia"].drop_duplicates().tolist()
+    x_sort = _competencia_axis_sort(df)
     label_slot = ""
     x_domain = ([x_sort[0], label_slot] + x_sort[1:]) if x_sort else [label_slot]
     series_order = [serie for serie in AGING_SERIES_ORDER if serie in set(df["serie"].dropna().tolist())]
@@ -4490,9 +4599,10 @@ def _grouped_bar_chart(
         chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
     resolved_value_field = value_field or ("valor_total" if "valor_total" in chart_df.columns else "valor")
     chart_df = chart_df.copy()
+    x_sort = _competencia_axis_sort(chart_df)
     chart_df["valor_fmt"] = chart_df[resolved_value_field].map(lambda v: _format_brl_compact(v) if y_title == "R$" else _format_percent(v) if "%" in y_title else _format_decimal(v))
     chart_df["label_fmt"] = chart_df[resolved_value_field].map(lambda v: _format_value_label(v, y_title))
-    x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
+    x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort)
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     y_encoding = alt.Y(
         f"{resolved_value_field}:Q",
@@ -4525,7 +4635,7 @@ def _grouped_bar_chart(
     chart = _chart_with_optional_title(chart, height=height, title=title)
     labels = _bar_label_layer(
         chart_df,
-        x_encoding=alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist()),
+        x_encoding=alt.X("competencia:N", title="Competência", sort=x_sort),
         y_encoding=y_encoding,
         value_field=resolved_value_field,
         text_field="label_fmt",
@@ -4565,10 +4675,7 @@ def _grouped_bar_with_rhs_line_chart(
     if "competencia" in line_chart_df.columns:
         line_chart_df["competencia"] = line_chart_df["competencia"].map(_format_competencia_display)
     resolved_bar_value_field = bar_value_field or ("valor_total" if "valor_total" in bar_chart_df.columns else "valor")
-    x_sort = pd.Index(
-        list(bar_chart_df.get("competencia", pd.Series(dtype="object")).drop_duplicates())
-        + list(line_chart_df.get("competencia", pd.Series(dtype="object")).drop_duplicates())
-    ).drop_duplicates().tolist()
+    x_sort = _competencia_axis_sort(pd.concat([bar_chart_df, line_chart_df], ignore_index=True, sort=False))
 
     bar_chart_df["valor_fmt"] = bar_chart_df[resolved_bar_value_field].map(
         lambda value: _format_brl_compact(value)
@@ -4772,7 +4879,8 @@ def _stacked_area_chart(
     base_df = _altair_compatible_df(base_df)
     base_df = base_df.copy()
     base_df["valor_fmt"] = base_df[value_column].map(lambda v: _format_brl_compact(v) if y_title == "R$" else _format_percent(v) if "%" in y_title else _format_decimal(v))
-    x_encoding = alt.X("competencia:N", title="Competência", sort=base_df["competencia"].drop_duplicates().tolist())
+    x_sort = _competencia_axis_sort(base_df)
+    x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort)
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     y_encoding = alt.Y(f"{value_column}:Q", stack=True, title=y_title, axis=y_axis)
     color_encoding = alt.Color("label:N", title="Classe", scale=alt.Scale(range=FIDC_CHART_COLORS))
@@ -4823,7 +4931,7 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
         "Duration = Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket). "
         "Proxies: Vencidos=0d; ≤30d=30d; intervalos=ponto médio; >1080d=1440d."
     )
-    x_sort = df["competencia"].drop_duplicates().tolist()
+    x_sort = _competencia_axis_sort(df)
     line_chart = (
         alt.Chart(df)
         .mark_line(color="#ff5a00", strokeWidth=2.4)
@@ -4883,7 +4991,7 @@ def _inadimplentes_aux_sum_line_chart(chart_df: pd.DataFrame) -> alt.Chart:
         return alt.Chart(pd.DataFrame({"competencia": [], "valor": []})).mark_line()
     df["competencia"] = df["competencia"].map(_format_competencia_display)
     df["valor_label"] = df["valor"].map(lambda value: _format_percent(value))
-    x_sort = df["competencia"].drop_duplicates().tolist()
+    x_sort = _competencia_axis_sort(df)
     line_chart = (
         alt.Chart(df)
         .mark_line(color="#ff5a00", strokeWidth=2.4)
@@ -5197,13 +5305,6 @@ def _format_value_label(value: object, unit: str) -> str:
     if "%" in unit:
         return _format_percent_label(value)
     return _format_decimal(value, decimals=1)
-
-
-_PT_MONTH_ABBR: dict[str, str] = {
-    "01": "jan", "02": "fev", "03": "mar", "04": "abr",
-    "05": "mai", "06": "jun", "07": "jul", "08": "ago",
-    "09": "set", "10": "out", "11": "nov", "12": "dez",
-}
 
 
 def _format_competencia_display(competencia: object) -> str:

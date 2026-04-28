@@ -113,6 +113,49 @@ class TabFidcImeProgressTests(unittest.TestCase):
         self.assertEqual("line", spec["mark"]["type"])
         self.assertEqual("valor", spec["encoding"]["y"]["field"])
 
+    def test_competencia_axis_sort_uses_real_dates_recent_first(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "competencia": ["jan-26", "fev-26", "mar-26", "nov-25", "dez-25"],
+                "competencia_dt": pd.to_datetime(
+                    ["2026-01-01", "2026-02-01", "2026-03-01", "2025-11-01", "2025-12-01"]
+                ),
+            }
+        )
+
+        ordered = tab_fidc_ime._competencia_axis_sort(frame)
+
+        self.assertEqual(["mar-26", "fev-26", "jan-26", "dez-25", "nov-25"], ordered)
+
+    def test_competencia_axis_sort_parses_raw_labels_without_date_column(self) -> None:
+        frame = pd.DataFrame({"competencia": ["01/2026", "02/2026", "03/2026", "11/2025", "12/2025"]})
+
+        ordered = tab_fidc_ime._competencia_axis_sort(frame)
+
+        self.assertEqual(["03/2026", "02/2026", "01/2026", "12/2025", "11/2025"], ordered)
+
+    def test_line_history_chart_uses_recent_first_axis_order(self) -> None:
+        chart_df = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "02/2026", "03/2026", "11/2025", "12/2025"],
+                "competencia_dt": pd.to_datetime(
+                    ["2026-01-01", "2026-02-01", "2026-03-01", "2025-11-01", "2025-12-01"]
+                ),
+                "serie": ["Série"] * 5,
+                "valor": [1.0, 2.0, 3.0, 4.0, 5.0],
+            }
+        )
+
+        chart = tab_fidc_ime._line_history_chart(
+            chart_df,
+            title=None,
+            y_title="%",
+            show_point_labels=False,
+        )
+
+        spec = chart.to_dict()
+        self.assertEqual(["mar-26", "fev-26", "jan-26", "dez-25", "nov-25"], spec["encoding"]["x"]["sort"])
+
     def test_altair_compatible_df_ignores_duplicate_column_slices(self) -> None:
         duplicate_df = pd.DataFrame([["A", "B"], ["C", "D"]], columns=["valor", "valor"])
 
