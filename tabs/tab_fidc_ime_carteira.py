@@ -51,11 +51,13 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
         st.session_state[editor_open_key] = True
 
     if portfolios:
-        sel_col, new_col, edit_col, btn_col = st.columns([4.0, 1.45, 1.45, 1.35])
+        try:
+            sel_col, new_col, edit_col, btn_col = st.columns([4.0, 1.45, 1.45, 1.35], vertical_alignment="bottom")
+        except TypeError:
+            sel_col, new_col, edit_col, btn_col = st.columns([4.0, 1.45, 1.45, 1.35])
         with sel_col:
             selected_portfolio = _render_portfolio_selector(portfolios)
         with new_col:
-            st.markdown('<div style="height:1.75rem"></div>', unsafe_allow_html=True)
             if st.button(
                 "Criar nova seleção",
                 key="ime_portfolio_new_button",
@@ -66,7 +68,6 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
                 st.session_state[editor_open_key] = True
                 st.rerun()
         with edit_col:
-            st.markdown('<div style="height:1.75rem"></div>', unsafe_allow_html=True)
             if st.button(
                 "Editar seleção atual",
                 key="ime_portfolio_edit_button",
@@ -76,7 +77,6 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
                 st.session_state[editor_open_key] = True
                 st.rerun()
         with btn_col:
-            st.markdown('<div style="height:1.75rem"></div>', unsafe_allow_html=True)
             preload_clicked = st.button(
                 "Carregar seleção",
                 type="secondary",
@@ -279,9 +279,7 @@ def _execute_portfolio_load_for_funds(
     status_box = st.empty()
     results: dict[str, dict[str, Any]] = dict(existing_results or {})
     worker_count = _portfolio_worker_count(total=total, period=period)
-    status_box.caption(
-        f"{selected_portfolio.name} · {total} fundo(s) · {period.month_count} competência(s) · {worker_count} worker(s)"
-    )
+    status_box.caption(f"{selected_portfolio.name} · {total} fundo(s)")
 
     initial_results = _load_portfolio_funds_batch(
         funds=funds,
@@ -303,10 +301,8 @@ def _execute_portfolio_load_for_funds(
     retried_count = 0
     if retryable_failures and worker_count > 1:
         retried_count = len(retryable_failures)
-        progress_bar.progress(0.0, text=f"{selected_portfolio.name}: retry conservador")
-        status_box.caption(
-            f"{selected_portfolio.name} · reprocessando {retried_count} fundo(s) com falha transitória em modo conservador"
-        )
+        progress_bar.progress(0.0, text=f"{selected_portfolio.name}: reprocessando {retried_count} fundo(s)...")
+        status_box.caption(f"{selected_portfolio.name} · reprocessando falhas")
         retry_results = _load_portfolio_funds_batch(
             funds=tuple(retryable_failures),
             period=period,
@@ -612,11 +608,11 @@ def _render_loaded_portfolio_analysis(
         placeholder="Selecione um fundo da carteira",
     )
     if not focus_label:
-        st.info("Selecione um fundo para carregar os informes do período ativo.")
+        st.caption("Selecione um fundo da lista acima.")
         return
     focus_cnpj = focus_lookup.get(focus_label)
     if not focus_cnpj:
-        st.info("Selecione um fundo válido da carteira.")
+        st.caption("Selecione um fundo válido.")
         return
     st.session_state[focus_cnpj_key] = focus_cnpj
 

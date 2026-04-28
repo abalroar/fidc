@@ -694,8 +694,8 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
             period = build_custom_period(start_month=start_month, end_month=end_month_selected)
 
     st.caption(
-        f"Período ativo para a próxima carga: {_format_competencia_display(period.start_month.isoformat())} "
-        f"→ {_format_competencia_display(period.end_month.isoformat())} · {period.month_count} competência(s)."
+        f"{_format_competencia_display(period.start_month.isoformat())} "
+        f"→ {_format_competencia_display(period.end_month.isoformat())} · {period.month_count} competências"
     )
     return period
 
@@ -1013,13 +1013,13 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section("Crédito")
     default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
     cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
-    _render_chart_heading(st, "Inadimplência, provisão e cobertura")
+    _render_chart_heading(st, "Inadimplência e provisão")
     _credit_chart_all_zero = (
         default_pct_chart_df.empty
         or (pd.to_numeric(default_pct_chart_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
     )
     if _credit_chart_all_zero:
-        st.caption("Inadimplência e provisão não reportadas ou zeradas nos informes disponíveis.")
+        st.caption("Sem dados de inadimplência ou provisão nos informes do período.")
     else:
         credit_bar_size = _executive_grouped_bar_size(
             default_pct_chart_df["competencia"].nunique(),
@@ -1065,9 +1065,9 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             width="stretch",
         )
     aging_history_df = dashboard.default_aging_history_df.copy()
-    _render_chart_heading(st, "Aging da inadimplência")
+    _render_chart_heading(st, "Aging")
     if aging_history_df.empty:
-        st.info("Dados de aging não disponíveis nos informes selecionados.")
+        st.caption("Sem dados de aging para o período selecionado.")
     else:
         aging_chart_df = _prepare_aging_history_chart_frame(aging_history_df)
         st.altair_chart(
@@ -1079,19 +1079,18 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             ),
             width="stretch",
         )
-    _render_detail_tables_expander(
-        "Abrir detalhe do bloco de crédito",
-        [
-            ("Métricas do bloco de crédito", _format_risk_metrics_table(dashboard.risk_metrics_df, risk_block="Risco de crédito")),
-            ("Detalhe numérico do aging", _format_aging_latest_table(dashboard.default_buckets_latest_df)),
-        ],
-    )
+    with st.expander("Detalhe numérico do aging", expanded=False):
+        _aging_detail_df = _format_aging_latest_table(dashboard.default_buckets_latest_df)
+        if _aging_detail_df.empty:
+            st.caption("Sem dados de aging disponíveis para o período selecionado.")
+        else:
+            st.dataframe(_aging_detail_df, width="stretch", hide_index=True)
 
 
 def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_key: str = "slot0") -> None:
     _render_fidc_section("Estrutura")
     subordination_periods = dashboard.subordination_history_df["competencia"].nunique()
-    _render_chart_heading(st, "Subordinação reportada (IME)")
+    _render_chart_heading(st, "Subordinação reportada")
     st.altair_chart(
         _line_history_chart(
             _melt_metrics(
@@ -1124,7 +1123,8 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
         )
     pl_periods = dashboard.quota_pl_history_df["competencia"].nunique()
     pl_bar_size = _executive_quota_bar_size(pl_periods)
-    show_pl_segment_labels = pl_periods <= 12
+    # Segment labels only when bars are wide enough (few periods) to avoid overlap
+    show_pl_segment_labels = pl_periods <= 6
     if pl_view == "% do total por competência":
         st.altair_chart(
             _stacked_history_bar_chart(
@@ -1133,14 +1133,15 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 y_title="% do total",
                 value_column="percentual",
                 bar_size=pl_bar_size,
-                label_font_size=8,
+                label_font_size=9,
                 round_percent_labels=True,
                 show_segment_labels=show_pl_segment_labels,
-                smart_label_placement=show_pl_segment_labels,
+                smart_label_placement=False,
             ),
             width="stretch",
         )
     else:
+        # For R$ view: total labels convey the key info; segment labels only when bars are wide
         st.altair_chart(
             _stacked_history_bar_chart(
                 _quota_pl_chart_frame(dashboard.quota_pl_history_df),
@@ -1148,10 +1149,10 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 y_title="R$",
                 value_column="valor",
                 bar_size=pl_bar_size,
-                label_font_size=8,
+                label_font_size=9,
                 show_total_labels=True,
                 show_segment_labels=show_pl_segment_labels,
-                smart_label_placement=show_pl_segment_labels,
+                smart_label_placement=False,
             ),
             width="stretch",
         )
@@ -1179,7 +1180,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
             months=12,
         )
         if not return_matrix_df.empty:
-            _render_chart_heading(st, "Rentabilidade por tipo de cota (IME)")
+            _render_chart_heading(st, "Rentabilidade por tipo de cota")
             st.dataframe(
                 return_matrix_df,
                 width="stretch",
@@ -1208,7 +1209,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
         ("Métricas estruturais", _format_risk_metrics_compact_table(dashboard.risk_metrics_df, risk_block="Risco estrutural")),
         (f"Quadro de cotas em {_format_competencia_label(dashboard.latest_competencia)}", _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia)),
     ]
-    _render_detail_tables_expander("Abrir detalhe estrutural", structural_tables)
+    _render_detail_tables_expander("Resumo Qtd e Volume Cotas", structural_tables)
 
 
 def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
@@ -1641,14 +1642,14 @@ def _render_duration_section(dashboard: FundonetDashboardData) -> None:
         ">1080d=1440d (proxy assumido: 1080+360 dias).\n"
         "Fonte: quadro de vencimento dos direitos creditórios (COMPMT_DICRED_AQUIS / SEM_AQUIS)."
     )
-    kpi_html = (
-        f'<div class="fidc-snapshot-card" style="max-width:280px">'
-        f'<div class="fidc-snapshot-card__label">Prazo médio proxy — {_format_competencia_label(str(latest_duration.get("competencia", "")))}</div>'
-        f'<div class="fidc-snapshot-card__value">{escape(duration_display)}</div>'
-        f'<div class="fidc-snapshot-card__unit">Base: {escape(saldo_display)} em recebíveis</div>'
-        f'</div>'
+    st.markdown(
+        f'<div class="fidc-chart-caption">'
+        f'Prazo médio proxy dos recebíveis: <strong>{escape(duration_display)}</strong>'
+        f' em {escape(_format_competencia_label(str(latest_duration.get("competencia", ""))))}'
+        f', base de {escape(saldo_display)} em recebíveis.'
+        f'</div>',
+        unsafe_allow_html=True,
     )
-    st.markdown(f'<div class="fidc-snapshot-row">{kpi_html}</div>', unsafe_allow_html=True)
 
     # --- Série histórica ---
     if len(ok_df) < 2:
@@ -1657,7 +1658,7 @@ def _render_duration_section(dashboard: FundonetDashboardData) -> None:
 
     _render_chart_heading(
         st,
-        "Prazo médio proxy dos recebíveis (IME)",
+        "Prazo médio proxy dos recebíveis",
     )
     st.altair_chart(
         _duration_line_chart(duration_df),
@@ -2160,7 +2161,7 @@ def _render_quota_section(dashboard: FundonetDashboardData) -> None:
                 ["subordinacao_pct"],
                 {"subordinacao_pct": "Subordinação reportada"},
             ),
-            title="Subordinação reportada (IME)",
+            title="Subordinação reportada",
             y_title="%",
         ),
         width="stretch",
