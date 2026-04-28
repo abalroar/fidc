@@ -11,6 +11,8 @@ import streamlit as st
 
 from data_loader import load_model_inputs
 from services.fidc_model import (
+    INTERPOLATION_METHOD_FLAT_FORWARD_252,
+    INTERPOLATION_METHOD_SPLINE,
     RATE_MODE_POST_CDI,
     RATE_MODE_PRE,
     Premissas,
@@ -26,12 +28,17 @@ from services.fidc_model.b3_curves import (
     fetch_latest_taxaswap_curve,
     fetch_taxaswap_curve,
 )
+from services.fidc_model.calendar import merge_with_b3_market_holidays
 
 
 SNAPSHOT_CURVE_DATE = date(2025, 2, 25)
 CURVE_SOURCE_B3_LATEST = "B3 - último pregão disponível"
 CURVE_SOURCE_B3_DATE = "B3 - data escolhida"
 CURVE_SOURCE_SNAPSHOT = "Snapshot local da planilha"
+INTERPOLATION_LABEL_B3 = "Flat Forward 252 (metodologia B3)"
+INTERPOLATION_LABEL_SPLINE = "Spline (compatibilidade com a planilha)"
+CALENDAR_SOURCE_B3_PROJECTED = "Calendário B3 projetado"
+CALENDAR_SOURCE_SNAPSHOT = "Feriados do snapshot da planilha"
 
 
 _MODEL_CSS = """
@@ -159,6 +166,24 @@ class _SelectedCurve:
         )
 
 
+@dataclass(frozen=True)
+class _SelectedCalendar:
+    source_label: str
+    feriados: tuple[date, ...]
+    holiday_count: int
+    first_holiday: date | None
+    last_holiday: date | None
+
+    @property
+    def cache_key(self) -> tuple[str, int, str, str]:
+        return (
+            self.source_label,
+            self.holiday_count,
+            self.first_holiday.isoformat() if self.first_holiday else "",
+            self.last_holiday.isoformat() if self.last_holiday else "",
+        )
+
+
 @st.cache_data(show_spinner=False, ttl=6 * 60 * 60)
 def _load_b3_curve_for_date(date_iso: str, curve_code: str) -> B3CurveSnapshot:
     return fetch_taxaswap_curve(date.fromisoformat(date_iso), curve_code=curve_code)
@@ -201,6 +226,24 @@ def _selected_curve_from_b3(snapshot: B3CurveSnapshot, source_label: str) -> _Se
         last_du=snapshot.last_du,
         raw_line_count=snapshot.raw_line_count,
     )
+
+
+def _selected_calendar(inputs, source_label: str) -> _SelectedCalendar:
+    if source_label == CALENDAR_SOURCE_B3_PROJECTED:
+        holidays = tuple(merge_with_b3_market_holidays(inputs.feriados, inputs.datas))
+    else:
+        holidays = tuple(holiday.date() for holiday in inputs.feriados)
+    return _SelectedCalendar(
+        source_label=source_label,
+        feriados=holidays,
+        holiday_count=len(holidays),
+        first_holiday=holidays[0] if holidays else None,
+        last_holiday=holidays[-1] if holidays else None,
+    )
+
+
+def _interpolation_method_from_label(label: str) -> str:
+    return INTERPOLATION_METHOD_FLAT_FORWARD_252 if label == INTERPOLATION_LABEL_B3 else INTERPOLATION_METHOD_SPLINE
 
 
 def _format_number_br(value: float | None, decimals: int = 2) -> str:
@@ -360,15 +403,30 @@ def _build_kpi_export_dataframe(kpis) -> pd.DataFrame:
     )
 
 
-def _build_curve_source_dataframe(selected_curve: _SelectedCurve) -> pd.DataFrame:
+def _build_curve_source_dataframe(
+    selected_curve: _SelectedCurve,
+    selected_calendar: _SelectedCalendar,
+    interpolation_label: str,
+) -> pd.DataFrame:
     return pd.DataFrame(
         [
             {"Campo": "Fonte", "Valor": selected_curve.source_label},
             {"Campo": "Curva", "Valor": selected_curve.curve_code},
+            {"Campo": "Interpolação", "Valor": interpolation_label},
             {"Campo": "Data-base", "Valor": selected_curve.base_date.strftime("%d/%m/%Y")},
             {"Campo": "Pontos", "Valor": _format_number_br(selected_curve.point_count, 0)},
             {"Campo": "DU inicial", "Valor": selected_curve.first_du if selected_curve.first_du is not None else "N/D"},
             {"Campo": "DU final", "Valor": selected_curve.last_du if selected_curve.last_du is not None else "N/D"},
+            {"Campo": "Calendário de dias úteis", "Valor": selected_calendar.source_label},
+            {"Campo": "Feriados considerados", "Valor": _format_number_br(selected_calendar.holiday_count, 0)},
+            {
+                "Campo": "Primeiro feriado",
+                "Valor": selected_calendar.first_holiday.strftime("%d/%m/%Y") if selected_calendar.first_holiday else "N/D",
+            },
+            {
+                "Campo": "Último feriado",
+                "Valor": selected_calendar.last_holiday.strftime("%d/%m/%Y") if selected_calendar.last_holiday else "N/D",
+            },
             {"Campo": "URL/Origem", "Valor": selected_curve.source_url},
             {"Campo": "Baixado em", "Valor": selected_curve.retrieved_label},
             {"Campo": "SHA-256", "Valor": selected_curve.content_sha256},
@@ -449,6 +507,30 @@ def _render_curve_source_info(inputs, selected_curve: _SelectedCurve) -> None:
         st.caption(
             f"O snapshot local é de {SNAPSHOT_CURVE_DATE:%d/%m/%Y}; por isso a comparação ponto a ponto só é exibida "
             "quando a data B3 selecionada é a mesma."
+        )
+
+
+def _render_calendar_source_info(selected_calendar: _SelectedCalendar) -> None:
+    st.info(
+        "\n".join(
+            [
+                f"Calendário de dias úteis: {selected_calendar.source_label}.",
+                f"Feriados considerados: {_format_number_br(selected_calendar.holiday_count, 0)}.",
+                "Os DUs dos fluxos mensais são recalculados com esse calendário antes da interpolação da curva.",
+            ]
+        )
+    )
+    if selected_calendar.source_label == CALENDAR_SOURCE_B3_PROJECTED:
+        st.caption(
+            "O calendário projetado combina os feriados originais da planilha com regras de mercado para anos futuros "
+            "do fluxo, incluindo feriados nacionais, Carnaval, Sexta-feira Santa, Corpus Christi e datas sem pregão "
+            "como 24/12 e 31/12."
+        )
+    else:
+        last_holiday = selected_calendar.last_holiday.strftime("%d/%m/%Y") if selected_calendar.last_holiday else "N/D"
+        st.warning(
+            "O snapshot da planilha é útil para auditoria, mas a lista local termina em "
+            f"{last_holiday}."
         )
 
 
@@ -849,11 +931,32 @@ def render_tab_modelo_fidc() -> None:
             return
 
         _render_curve_source_info(inputs, selected_curve)
+        interpolation_label = st.selectbox(
+            "Metodologia de interpolação",
+            [INTERPOLATION_LABEL_B3, INTERPOLATION_LABEL_SPLINE],
+            help=(
+                "Flat Forward 252 preserva a composição financeira em dias úteis entre vértices. "
+                "Spline fica disponível para comparar com a planilha original."
+            ),
+        )
+        interpolation_method = _interpolation_method_from_label(interpolation_label)
+
+        calendar_source_label = st.selectbox(
+            "Calendário de dias úteis",
+            [CALENDAR_SOURCE_B3_PROJECTED, CALENDAR_SOURCE_SNAPSHOT],
+            help=(
+                "O calendário projetado evita depender da lista antiga da planilha. "
+                "O snapshot fica disponível para auditoria da paridade histórica."
+            ),
+        )
+        selected_calendar = _selected_calendar(inputs, calendar_source_label)
+        _render_calendar_source_info(selected_calendar)
         st.markdown(
             "\n".join(
                 [
                     f"- Taxa de cessão usada no motor: {_format_percent(tx_cessao_am, 4)} a.m.; equivalente anual 252 DU: {_format_percent(tx_cessao_aa_equivalente, 4)} a.a.",
-                    "- O calendário útil usa base brasileira de 252 dias com feriados explícitos da planilha.",
+                    f"- Interpolação usada: {interpolation_label}.",
+                    f"- O calendário útil usa base brasileira de 252 dias com `{calendar_source_label}`.",
                     "- A curva DI/Pré vem do arquivo TaxaSwap da B3 quando uma fonte B3 está selecionada.",
                     "- Falhas de B3, arquivo ausente ou formato inesperado interrompem a simulação; não há fallback silencioso para curva estática.",
                     "- Sênior e mezz podem ser pós-fixadas sobre CDI/DI ou pré-fixadas em taxa anual.",
@@ -875,6 +978,8 @@ def render_tab_modelo_fidc() -> None:
 
     simulation_signature = (
         selected_curve.cache_key,
+        selected_calendar.cache_key,
+        interpolation_method,
         premissas,
     )
     if (
@@ -887,10 +992,11 @@ def render_tab_modelo_fidc() -> None:
     else:
         results = build_flow(
             inputs.datas,
-            inputs.feriados,
+            selected_calendar.feriados,
             selected_curve.curva_du,
             selected_curve.curva_taxa_aa,
             premissas,
+            interpolation_method=interpolation_method,
         )
         kpis = build_kpis(results)
         st.session_state["modelo_fidc_signature"] = simulation_signature
@@ -948,7 +1054,15 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Juros sênior/mezz",
                 "Fórmula": "pós: (1 + curva DI/Pré) * (1 + spread) - 1; pré: taxa anual informada",
-                "Observação": f"O FRA de cada período usa base 252 DU. Fonte selecionada: {selected_curve.source_label} ({selected_curve.base_date:%d/%m/%Y}).",
+                "Observação": (
+                    f"O FRA de cada período usa base 252 DU. Fonte selecionada: {selected_curve.source_label} "
+                    f"({selected_curve.base_date:%d/%m/%Y}); interpolação: {interpolation_label}."
+                ),
+            },
+            {
+                "Indicador": "Dias úteis do fluxo",
+                "Fórmula": "DU = dias úteis entre a data inicial e a data do fluxo, descontando fins de semana e feriados",
+                "Observação": f"Calendário selecionado: {selected_calendar.source_label}.",
             },
             {
                 "Indicador": "Proporções de PL",
@@ -991,7 +1105,11 @@ def render_tab_modelo_fidc() -> None:
     with pd.ExcelWriter(output, engine="openpyxl") as writer:
         export_frame.to_excel(writer, index=False, sheet_name="timeline")
         _build_kpi_export_dataframe(kpis).to_excel(writer, index=False, sheet_name="kpis")
-        _build_curve_source_dataframe(selected_curve).to_excel(writer, index=False, sheet_name="fonte_curva")
+        _build_curve_source_dataframe(selected_curve, selected_calendar, interpolation_label).to_excel(
+            writer,
+            index=False,
+            sheet_name="fonte_curva",
+        )
     download_left, download_right = st.columns(2)
     download_left.download_button(
         "Baixar CSV",

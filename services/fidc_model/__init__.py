@@ -1,4 +1,5 @@
 from .contracts import ModelKpis, PeriodResult, Premissas
+from .curves import INTERPOLATION_METHOD_FLAT_FORWARD_252, INTERPOLATION_METHOD_SPLINE
 from .engine import (
     RATE_MODE_POST_CDI,
     RATE_MODE_PRE,
@@ -9,6 +10,8 @@ from .engine import (
 )
 
 __all__ = [
+    "INTERPOLATION_METHOD_FLAT_FORWARD_252",
+    "INTERPOLATION_METHOD_SPLINE",
     "RATE_MODE_POST_CDI",
     "RATE_MODE_PRE",
     "ModelKpis",

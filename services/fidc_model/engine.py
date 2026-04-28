@@ -6,7 +6,7 @@ from typing import Iterable, Sequence
 
 from .calendar import build_day_counts, build_period_indexes
 from .contracts import ModelKpis, PeriodResult, Premissas
-from .curves import cubic_spline
+from .curves import INTERPOLATION_METHOD_SPLINE, interpolate_curve
 from .metrics import calculate_duration_years, lookup_pre_di_duration, xirr
 
 
@@ -49,6 +49,7 @@ def build_flow(
     curva_du: Sequence[float],
     curva_cdi: Sequence[float],
     premissas: Premissas,
+    interpolation_method: str = INTERPOLATION_METHOD_SPLINE,
 ) -> list[PeriodResult]:
     if not datas:
         return []
@@ -60,7 +61,7 @@ def build_flow(
 
     zero_pre_di: list[float | None] = [None]
     for du_value in du[1:]:
-        zero_pre_di.append(cubic_spline(float(du_value), curva_du, curva_cdi))
+        zero_pre_di.append(interpolate_curve(float(du_value), curva_du, curva_cdi, method=interpolation_method))
 
     taxa_senior: list[float | None] = [None]
     taxa_mezz: list[float | None] = [None]
