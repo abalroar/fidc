@@ -55,7 +55,7 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn("Taxa de cessão", temas)
         self.assertIn("Cota SUB", temas)
         self.assertIn("Curva de juros", temas)
-        self.assertIn("Diferença intencional documentada", audit_df["Status"].tolist())
+        self.assertIn("Paridade preservada na tabela; visualização corrigida", audit_df["Status"].tolist())
 
     def test_model_charts_are_filled_area_charts(self) -> None:
         chart_df = pd.DataFrame(
@@ -73,6 +73,43 @@ class TabModeloFidcTests(unittest.TestCase):
 
         self.assertEqual("area", spec["layer"][0]["mark"]["type"])
         self.assertEqual("line", spec["layer"][1]["mark"]["type"])
+
+    def test_balance_chart_uses_current_sub_residual_and_separates_deficit(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "data": pd.to_datetime(["2026-01-01"]),
+                "pl_senior": [75.0],
+                "pl_mezz": [15.0],
+                "pl_sub_jr": [-12.0],
+                "pl_sub_jr_modelo": [-80.0],
+            }
+        )
+
+        chart_df = tab_modelo_fidc._build_balance_area_frame(frame)
+        values = dict(zip(chart_df["classe"], chart_df["valor"]))
+
+        self.assertEqual(0.0, values["Subordinada/SUB disponível"])
+        self.assertEqual(-12.0, values["Déficit econômico"])
+        self.assertNotIn(-80.0, values.values())
+
+    def test_loss_chart_uses_available_subordination_not_shifted_workbook_ratio(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "data": pd.to_datetime(["2026-01-01", "2026-02-01"]),
+                "carteira": [100.0, 100.0],
+                "pl_fidc": [100.0, 1.0],
+                "pl_sub_jr": [10.0, -80.0],
+                "inadimplencia_despesa": [0.0, 10.0],
+                "subordinacao_pct": [0.1, -80.0],
+                "subordinacao_pct_modelo": [0.1, -8000.0],
+            }
+        )
+
+        chart_df = tab_modelo_fidc._build_loss_area_frame(frame, volume=100.0)
+        sub_series = chart_df[chart_df["serie"] == "Subordinação econômica disponível (SUB positiva/PL)"]
+
+        self.assertEqual([10.0, 0.0], sub_series["valor_pct"].tolist())
+        self.assertGreaterEqual(sub_series["valor_pct"].min(), 0.0)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,141 @@
+# Auditoria da aba Modelo FIDC
+
+Data da auditoria: 28/04/2026.
+
+## Escopo
+
+Esta auditoria compara a mecânica atual da aba `Modelo FIDC` do Streamlit com a planilha de referência `Modelo_Publico.xlsm`, com foco em cálculo, memória, KPIs e gráficos. A prioridade não foi redesenhar a interface.
+
+Observação importante: no momento da auditoria, o arquivo local `Modelo_Publico.xlsm` estava modificado em relação ao Git e havia um lock `~$Modelo_Publico.xlsm`. Os valores cacheados da planilha local não estavam com o cenário informado pelo usuário: `C6 = 4,00% a.m.`, `C9 = R$ 750.000.000,00` e `C13 = 0,00%`. Por isso, a comparação linha a linha foi feita de duas formas:
+
+- validação de paridade contra os valores cacheados atuais da planilha, usando as premissas atuais dela;
+- reprodução do cenário informado pelo usuário no motor Python, usando a mesma lógica de fórmulas do Excel e também a configuração padrão do app com B3.
+
+## Onde fica a lógica
+
+| Tema | Local no repo |
+|---|---|
+| Inputs, labels, parsing pt-BR, montagem de gráficos e exportação | `tabs/tab_modelo_fidc.py` |
+| Contratos de premissas, resultados por período e KPIs | `services/fidc_model/contracts.py` |
+| Motor de fluxo, juros, custos, inadimplência, amortização, residual SUB e KPIs-base | `services/fidc_model/engine.py` |
+| XIRR, duration e lookup de Pre DI na duration | `services/fidc_model/metrics.py` |
+| Interpolação spline e Flat Forward 252 | `services/fidc_model/curves.py` |
+| Dias úteis, feriados B3 e calendário projetado | `services/fidc_model/calendar.py` |
+| Consulta e parsing da curva TaxaSwap B3 | `services/fidc_model/b3_curves.py` |
+| Snapshot local de datas, feriados, curva e premissas históricas | `model_data.json` |
+| Testes de paridade e UI da aba | `tests/test_fidc_model.py`, `tests/test_tab_modelo_fidc.py` |
+
+## Mecânica da planilha
+
+Abas relevantes:
+
+- `Fluxo Base`: premissas, fluxo econômico, amortização, juros, saldos, XIRR, duration e subordinação.
+- `BMF`: curva DI x Pré, com fórmulas históricas para URL `TxRef1.asp`.
+- `Holidays`: feriados usados por `NETWORKDAYS`.
+- `Vencimentário`: cronograma mensal auxiliar de vencimentos.
+
+Fórmulas centrais observadas:
+
+| Item | Fórmula da planilha |
+|---|---|
+| Taxa de cessão | `Q = carteira * ((1 + C6) ^ (delta_DU / 21) - 1)` |
+| Custo adm/gestão | `T = max(carteira * C11 / 12, C12)` |
+| Inadimplência | `U = carteira * (C13 * delta_DC / 100)` |
+| Taxa SEN pós | `J = (1 + PreDI) * (1 + C16) - 1` |
+| Taxa MES pós | `L = (1 + PreDI) * (1 + C20) - 1` |
+| FRA SEN/MES | composição entre taxas anuais em base 252 DU |
+| Saldo FIDC | `R = carteira + fluxo - custos - inadimplência - PMT SEN - PMT MES` |
+| SUB residual corrente | `R - PL SEN - PL MES` |
+| SUB no workbook | a partir da segunda linha calculada, `AO` passa a referenciar o residual da linha seguinte |
+| XIRR SEN/MES | `XIRR(PMT, datas)` |
+| XIRR SUB | `XIRR(AN, datas)`, mas `AN = 0`; usualmente resulta `#NUM!` |
+| Duration SEN | média ponderada dos PMTs SEN descontados por DU/252 |
+| Pre DI na duration | `VLOOKUP(ROUNDDOWN(duration * 12, 0), E:I, 5, FALSE)` |
+
+## Paridade com a planilha local
+
+Usando as premissas atualmente salvas na planilha local (`C6 = 4,00% a.m.`, volume `R$ 750MM`, inadimplência `0,00%`), o motor Python bateu com os valores cacheados do Excel com erro apenas numérico de ponto flutuante.
+
+| Campo comparado | Maior diferença absoluta |
+|---|---:|
+| PL FIDC | `0,000001` |
+| Fluxo carteira | `0,00000004` |
+| Inadimplência | `0,000000` |
+| PMT SEN | `0,00000013` |
+| PMT MES | `0,00000001` |
+| PL SEN/MES | `0,000000` |
+| SUB deslocada do workbook | `0,000001` |
+| Subordinação deslocada do workbook | `0,000000` |
+
+Conclusão: a divergência observada no cenário informado não vem de uma falha genérica do motor em replicar a planilha. Ela vem principalmente de diferenças de fonte/metodologia, da interpretação econômica de algumas fórmulas e da forma como o gráfico estava usando a coluna deslocada de SUB.
+
+## Cenário informado pelo usuário
+
+Premissas: volume `R$ 1.000.000.000,00`, taxa de cessão `1,00% a.m.`, custo `0,35% a.a.`, custo mínimo `R$ 20.000,00/mês`, inadimplência `10,00%`, SEN `75,0%`, MES `15,0%`, SUB `10,0%`, spread SEN `1,35% a.a.`, spread MES `5,00% a.a.`, SUB residual.
+
+| Configuração | Retorno SEN | Retorno MES | Duration SEN | Pre DI duration |
+|---|---:|---:|---:|---:|
+| Fórmula Excel-equivalente com curva local/model_data, spline e feriados do snapshot | `15,81%` | `19,96%` | `2,56 anos` | `14,35%` |
+| Configuração padrão do app em 28/04/2026: B3 latest, Flat Forward 252 e calendário B3 oficial/projetado | `14,90%` | `18,97%` | `2,56 anos` | `13,60%` |
+
+Esses números reproduzem os KPIs observados no Streamlit. A diferença de retorno SEN/MES e Pre DI vem da curva/metodologia/calendário selecionados, não da taxa de cessão ou inadimplência. No modelo atual, os pagamentos SEN/MES são programados e não são limitados por caixa disponível.
+
+## Divergências e causas
+
+| Campo/fórmula | Streamlit observado | Excel-equivalente | Provável causa | Recomendação |
+|---|---:|---:|---|---|
+| Fonte da curva | B3 TaxaSwap latest em 28/04/2026 | Curva local/model_data equivalente ao workbook salvo em 27/04/2026 | Fontes e datas diferentes | Manter seleção explícita e, para auditoria, usar snapshot/spline/calendário snapshot |
+| Interpolação | Flat Forward 252 | Spline da planilha | Metodologia diferente por decisão de modelo | Correto manter Flat Forward 252 para B3, mas identificar claramente quando a comparação é com Excel |
+| Calendário de DU | B3 oficial 2025-2026 + projeção 2027-2028 | `Holidays` da planilha, terminando em 2018 | Feriados futuros não existem no snapshot da planilha | Manter calendário B3/projeção explícita; usar snapshot só para auditoria |
+| Inadimplência | Perda de `18,40%` no primeiro semestre para input `10,00%` | Mesma fórmula | A fórmula é `inadimplência * delta_DC / 100`, não uma perda total de vida | Renomear/explicar melhor ou criar novo modo de inadimplência total do período de vida |
+| PMT SEN/MES | Pago mesmo com PL/carteira negativa | Mesma fórmula | Não há trava de caixa nem waterfall de insuficiência | Implementar waterfall real em etapa estrutural posterior |
+| XIRR SEN/MES | Independe da inadimplência enquanto PMTs programados existem | Mesma fórmula | PMTs não são afetados por default/cash shortfall | Só mudará com waterfall de caixa |
+| XIRR SUB | `N/D` | `#NUM!` | A SUB tem `PMT = 0` na planilha; não há série com sinais válidos | Correto mostrar `N/D`, mas explicar que SUB residual não tem fluxo programado |
+| SUB no gráfico de saldos | Área negativa próxima de `-R$ 700MM` | Residual pode ficar negativo | O residual está representando déficit econômico, não saldo de investidor | Separar SUB disponível de déficit econômico |
+| Subordinação | Chega a cerca de `-8.000%` | A coluna deslocada do workbook também explode quando dividida por PL próximo de zero | Denominador próximo de zero e uso de residual deslocado `pl_sub_jr_modelo` | Gráfico deve usar SUB corrente positiva sobre PL positivo; manter coluna deslocada só na timeline |
+| Título “Perda máxima” | Plota inadimplência acumulada e subordinação | Não há cálculo robusto de perda máxima por waterfall | O título é mais forte que a memória atual | Criar métrica de perda máxima quando waterfall for modelado |
+
+## Bug corrigido nesta auditoria
+
+O gráfico usava `pl_sub_jr_modelo`, que preserva a lógica deslocada da coluna `AO` do Excel. Essa coluna é útil para paridade da tabela, mas é ruim para visualização econômica porque mistura residual da próxima linha com PL da linha corrente.
+
+Correção aplicada:
+
+- o gráfico de saldos usa o residual corrente `pl_sub_jr`;
+- SUB disponível é exibida como `max(pl_sub_jr, 0)`;
+- quando o residual fica negativo, o valor aparece como `Déficit econômico`;
+- o gráfico de subordinação usa `max(pl_sub_jr, 0) / pl_fidc` apenas quando `pl_fidc > 0`;
+- a timeline detalhada continua preservando as colunas brutas e a coluna deslocada do workbook para auditoria.
+
+## Simplificações que permanecem
+
+- O modelo ainda não implementa waterfall real com insuficiência de caixa.
+- A amortização SEN/MES segue o cronograma já existente em `model_data.json`/planilha; não há input avançado para frequência, carência e amortização customizada.
+- A SUB continua residual e sem fluxo programado; por isso não há retorno anualizado SUB.
+- A inadimplência continua usando a fórmula histórica da planilha, que não equivale necessariamente a “10% da carteira total ao longo da vida”.
+- A métrica de “perda máxima” ainda precisa de uma definição estrutural mais precisa quando houver waterfall.
+
+## Estrutura recomendada para próxima etapa
+
+Adicionar uma seção avançada com:
+
+- frequência de amortização SEN/MES;
+- início de amortização SEN/MES;
+- tipo de amortização: linear, bullet ou customizada;
+- carência de juros SEN/MES;
+- início do pagamento de juros SEN/MES;
+- trava de caixa disponível;
+- prioridade de waterfall;
+- regra de residual da SUB;
+- modo de inadimplência: taxa distribuída pela fórmula da planilha ou perda total de vida.
+
+## Validação manual
+
+Para reproduzir a auditoria no app:
+
+1. Abra a aba `Modelo FIDC`.
+2. Informe as premissas do cenário do usuário.
+3. Para reproduzir os KPIs observados, use `B3 - último pregão disponível`, `Flat Forward 252` e calendário `B3 oficial + projeção explícita`.
+4. Para aproximar a planilha, use `Snapshot local da planilha`, `Spline` e `Feriados do snapshot da planilha`.
+5. Verifique se a timeline detalhada mostra `pl_sub_jr`, `pl_sub_jr_modelo`, `subordinacao_pct` e `subordinacao_pct_modelo`.
+6. Confirme que o gráfico não usa mais a coluna deslocada como saldo da SUB e que o déficit econômico aparece separado quando o residual fica negativo.

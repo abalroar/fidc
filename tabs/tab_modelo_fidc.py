@@ -565,9 +565,9 @@ def _build_reference_audit_dataframe(
             },
             {
                 "Tema": "Cota SUB",
-                "Planilha Modelo_Publico.xlsm": "AN = 0; AO é residual econômico depois de SEN e MES",
-                "Modelo Streamlit": "SUB tem proporção explícita e taxa-alvo informativa; waterfall segue residual para preservar paridade.",
-                "Status": "Diferença intencional documentada",
+                "Planilha Modelo_Publico.xlsm": "AN = 0; AO é residual econômico; a partir da linha seguinte, AO referencia o residual da próxima linha",
+                "Modelo Streamlit": "SUB tem proporção explícita e taxa-alvo informativa; timeline preserva AO deslocado, gráficos usam residual corrente e déficit separado.",
+                "Status": "Paridade preservada na tabela; visualização corrigida",
             },
             {
                 "Tema": "Curva de juros",
@@ -706,18 +706,20 @@ def _rate_mode_from_label(label: str) -> str:
 
 
 def _build_balance_area_frame(frame: pd.DataFrame) -> pd.DataFrame:
-    chart_frame = frame[["data", "pl_senior", "pl_mezz", "pl_sub_jr", "pl_sub_jr_modelo"]].copy()
-    chart_frame["pl_sub_display"] = chart_frame["pl_sub_jr_modelo"].fillna(chart_frame["pl_sub_jr"])
+    chart_frame = frame[["data", "pl_senior", "pl_mezz", "pl_sub_jr"]].copy()
+    chart_frame["pl_sub_available"] = chart_frame["pl_sub_jr"].clip(lower=0.0)
+    chart_frame["deficit_economico"] = chart_frame["pl_sub_jr"].where(chart_frame["pl_sub_jr"] < 0.0, 0.0)
     long_df = chart_frame.melt(
         id_vars=["data"],
-        value_vars=["pl_senior", "pl_mezz", "pl_sub_display"],
+        value_vars=["pl_senior", "pl_mezz", "pl_sub_available", "deficit_economico"],
         var_name="classe",
         value_name="valor",
     )
     label_map = {
         "pl_senior": "Sênior",
         "pl_mezz": "Mezzanino",
-        "pl_sub_display": "Subordinada/SUB",
+        "pl_sub_available": "Subordinada/SUB disponível",
+        "deficit_economico": "Déficit econômico",
     }
     long_df["classe"] = long_df["classe"].map(label_map)
     long_df["valor_milhoes"] = long_df["valor"] / 1_000_000.0
@@ -726,9 +728,17 @@ def _build_balance_area_frame(frame: pd.DataFrame) -> pd.DataFrame:
     return long_df
 
 
+def _available_subordination_pct(row: pd.Series) -> float | None:
+    pl_fidc = row.get("pl_fidc")
+    pl_sub_jr = row.get("pl_sub_jr")
+    if pd.isna(pl_fidc) or pd.isna(pl_sub_jr) or pl_fidc <= 0:
+        return None
+    return max(float(pl_sub_jr), 0.0) / float(pl_fidc)
+
+
 def _build_loss_area_frame(frame: pd.DataFrame, volume: float) -> pd.DataFrame:
-    chart_frame = frame[["data", "carteira", "inadimplencia_despesa", "subordinacao_pct_modelo", "subordinacao_pct"]].copy()
-    chart_frame["subordinacao_display"] = chart_frame["subordinacao_pct_modelo"].fillna(chart_frame["subordinacao_pct"])
+    chart_frame = frame[["data", "carteira", "pl_fidc", "pl_sub_jr", "inadimplencia_despesa"]].copy()
+    chart_frame["subordinacao_display"] = chart_frame.apply(_available_subordination_pct, axis=1)
     chart_frame["inadimplencia_acumulada"] = chart_frame["inadimplencia_despesa"].fillna(0.0).cumsum()
     chart_frame["perda_periodo_pct"] = chart_frame.apply(
         lambda row: row["inadimplencia_despesa"] / row["carteira"] if row["carteira"] else None,
@@ -743,7 +753,7 @@ def _build_loss_area_frame(frame: pd.DataFrame, volume: float) -> pd.DataFrame:
         value_name="valor",
     ).dropna(subset=["valor"])
     label_map = {
-        "subordinacao_display": "Subordinação econômica (SUB/PL)",
+        "subordinacao_display": "Subordinação econômica disponível (SUB positiva/PL)",
         "perda_acumulada_pct": "Inadimplência acumulada (% do volume)",
         "perda_periodo_pct": "Inadimplência do período (% da carteira)",
     }
@@ -766,7 +776,7 @@ def _area_money_chart(chart_df: pd.DataFrame) -> alt.Chart:
         color=alt.Color(
             "classe:N",
             title="Classe",
-            scale=alt.Scale(range=["#2f6f9f", "#f28e2b", "#59a14f"]),
+            scale=alt.Scale(range=["#2f6f9f", "#f28e2b", "#59a14f", "#b23b3b"]),
         ),
         order=alt.Order("classe:N", sort="ascending"),
         tooltip=[
@@ -1209,6 +1219,11 @@ def render_tab_modelo_fidc() -> None:
     with chart_right:
         st.markdown('<div class="fidc-model-section-title">Perda máxima e subordinação</div>', unsafe_allow_html=True)
         st.altair_chart(_area_percent_chart(_build_loss_area_frame(frame, premissas.volume)), width="stretch")
+    st.caption(
+        "Quando o residual da SUB fica negativo, o gráfico separa esse valor como déficit econômico. "
+        "A subordinação percentual exibida usa apenas SUB positiva sobre PL positivo; a timeline detalhada mantém "
+        "também as colunas brutas e a coluna deslocada compatível com o workbook."
+    )
 
     st.markdown('<div class="fidc-model-section-title">Memória de cálculo</div>', unsafe_allow_html=True)
     memory_df = pd.DataFrame(
@@ -1253,8 +1268,11 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Júnior residual / subordinação econômica",
-                "Fórmula": "Residual econômico = PL econômico do veículo - PL sênior - PL mezz; série exibida replica o deslocamento da planilha",
-                "Observação": "A planilha não remunera a SUB programaticamente; taxas da SUB ficam como premissa-alvo informativa até decisão de modelagem.",
+                "Fórmula": "Residual econômico = PL econômico do veículo - PL sênior - PL mezz; subordinação disponível = max(residual, 0) / PL positivo",
+                "Observação": (
+                    "A planilha não remunera a SUB programaticamente; taxas da SUB ficam como premissa-alvo informativa. "
+                    "A timeline preserva a coluna deslocada do workbook para auditoria, mas os gráficos usam o residual corrente."
+                ),
             },
         ]
     )
