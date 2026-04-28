@@ -43,13 +43,13 @@ MARGIN_LEFT_IN = 0.45
 MARGIN_RIGHT_IN = 0.45
 CONTENT_WIDTH_IN = SLIDE_WIDTH_IN - MARGIN_LEFT_IN - MARGIN_RIGHT_IN
 
-TITLE_SIZE = 24
+TITLE_SIZE = 13
 SECTION_SIZE = 13
-SUBTITLE_SIZE = 11
+SUBTITLE_SIZE = 10
 BODY_SIZE = 9
 LABEL_SIZE = 9
 AXIS_SIZE = 9
-FOOTER_SIZE = 8
+FOOTER_SIZE = 10
 CARD_VALUE_SIZE = 17
 SLIDE_RENDER_DPI = 170
 
@@ -190,7 +190,7 @@ def build_dashboard_pptx_bytes(
             MARGIN_LEFT_IN,
             7.08,
             CONTENT_WIDTH_IN,
-            0.18,
+            0.22,
             f"Fonte: Informe Mensal - CVM    |    Gerado em: {timestamp_text}",
             size=FOOTER_SIZE,
             color=MID_GRAY,
@@ -812,8 +812,45 @@ def build_dashboard_pptx_bytes(
 
     def add_slide_header(slide, section_title: str) -> None:  # noqa: ANN001
         add_textbox(slide, 0.45, 0.18, 8.4, 0.28, section_title, size=TITLE_SIZE, bold=True, color=BLACK)
-        add_textbox(slide, 0.45, 0.48, 10.8, 0.20, title_fund, size=13, bold=True, color=ORANGE)
-        add_textbox(slide, 0.45, 0.72, 11.6, 0.16, subtitle, size=SUBTITLE_SIZE, color=MID_GRAY)
+        add_textbox(slide, 0.45, 0.48, 10.8, 0.20, title_fund, size=SUBTITLE_SIZE, bold=True, color=ORANGE)
+        add_textbox(slide, 0.45, 0.72, 11.6, 0.18, subtitle, size=SUBTITLE_SIZE, color=MID_GRAY)
+
+    def add_summary_cards(slide) -> None:  # noqa: ANN001
+        summary = dashboard.summary
+        specs = [
+            ("Ativo total", _format_brl_compact(summary.get("ativos_totais")), "APLIC_ATIVO/VL_SOM_APLIC_ATIVO"),
+            (
+                "DCs totais",
+                _format_brl_compact(summary.get("direitos_creditorios") or summary.get("inadimplencia_denominador")),
+                "Direitos creditórios reportados",
+            ),
+            ("PL total", _format_brl_compact(summary.get("pl_total")), "Sênior + mezzanino + subordinada"),
+            ("Vencidos", _format_brl_compact(summary.get("inadimplencia_total")), "Créditos vencidos/inadimplentes"),
+            ("Cobertura de provisão", _format_percent(summary.get("cobertura_pct")), "Provisão / créditos vencidos"),
+            (
+                "Subordinação reportada",
+                _format_percent(summary.get("subordinacao_pct")),
+                "Mezzanino + subordinada residual / PL",
+            ),
+        ]
+        gap = 0.26
+        card_width = (CONTENT_WIDTH_IN - (2 * gap)) / 3
+        card_height = 1.05
+        start_top = 1.18
+        row_gap = 0.34
+        for idx, (label, value, note) in enumerate(specs):
+            row = idx // 3
+            col = idx % 3
+            add_card(
+                slide,
+                MARGIN_LEFT_IN + col * (card_width + gap),
+                start_top + row * (card_height + row_gap),
+                card_width,
+                card_height,
+                label,
+                value,
+                note,
+            )
 
     full_width = CONTENT_WIDTH_IN
     split_gap = 0.30
@@ -822,7 +859,13 @@ def build_dashboard_pptx_bytes(
     right_col_left = MARGIN_LEFT_IN + left_wide_width + split_gap
     top_row_top = 1.02
 
-    # Slide 1 — structure and capital
+    # Slide 1 — FIDC summary
+    slide = prs.slides.add_slide(blank)
+    add_slide_header(slide, "Resumo do FIDC")
+    add_summary_cards(slide)
+    add_footer(slide, timestamp_text)
+
+    # Slide 2 — structure and capital
     slide = prs.slides.add_slide(blank)
     add_slide_header(slide, "Estrutura e capital")
 
@@ -907,7 +950,7 @@ def build_dashboard_pptx_bytes(
         )
     add_footer(slide, timestamp_text)
 
-    # Slide 2 — returns and term
+    # Slide 3 — returns and term
     slide = prs.slides.add_slide(blank)
     add_slide_header(slide, "Rentabilidade e prazo")
 
@@ -918,7 +961,7 @@ def build_dashboard_pptx_bytes(
         add_table(
             slide,
             return_table_df,
-            title="Rentabilidade por tipo de cota — últimos 12 meses",
+            title="Rentabilidade por tipo de cota (% a.m.) — últimos 12 meses",
             left=MARGIN_LEFT_IN,
             top=1.15,
             width=full_width,
@@ -937,6 +980,8 @@ def build_dashboard_pptx_bytes(
         base100_numeric = pd.to_numeric(base100_df["valor"], errors="coerce")
         base100_min = float(base100_numeric.min()) if not base100_numeric.dropna().empty else 100.0
         base100_max = float(base100_numeric.max()) if not base100_numeric.dropna().empty else 100.0
+        base100_axis_min = min(95.0, base100_min * 0.98)
+        base100_axis_max = max(base100_max * 1.06, 105.0)
         base100_chart = add_chart(
             slide,
             title="Índice acumulado base 100",
@@ -952,13 +997,31 @@ def build_dashboard_pptx_bytes(
             label_font_size=8,
             show_data_labels=False,
             series_colors=SERIES_COLORS,
-            value_min=min(95.0, base100_min * 0.98),
-            value_max=max(base100_max * 1.06, 105.0),
+            value_min=base100_axis_min,
+            value_max=base100_axis_max,
             show_legend=True,
             legend_position="bottom",
         )
         for idx, series in enumerate(base100_chart.series):
             _style_line_series(series, color=SERIES_COLORS[idx % len(SERIES_COLORS)], width_pt=2.0, marker_size=7)
+        base100_last_values = [values[-1] for _, values in base100_series if values]
+        if base100_last_values:
+            base100_label_colors = [SERIES_COLORS[idx % len(SERIES_COLORS)] for idx in range(len(base100_last_values))]
+            add_line_end_labels(
+                slide,
+                labels=[_format_decimal(value, decimals=1) for value in base100_last_values],
+                values=base100_last_values,
+                colors=base100_label_colors,
+                left=MARGIN_LEFT_IN,
+                top=2.82,
+                width=full_width,
+                height=1.40,
+                axis_min=base100_axis_min,
+                axis_max=base100_axis_max,
+                font_size=11,
+                fill_colors=[WHITE] * len(base100_last_values),
+                text_colors=base100_label_colors,
+            )
 
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
     if not maturity_df.empty:
@@ -996,7 +1059,7 @@ def build_dashboard_pptx_bytes(
 
     duration_df = dashboard.duration_history_df.sort_values("competencia_dt").copy()
     if not duration_df.empty:
-        duration_series = [("Prazo médio proxy", _series_numeric(duration_df, "duration_days").fillna(0.0).tolist())]
+        duration_series = [("Prazo médio proxy (dias)", _series_numeric(duration_df, "duration_days").fillna(0.0).tolist())]
         duration_values = [float(value or 0.0) for value in duration_series[0][1]]
         sorted_duration_values = sorted(duration_values)
         second_highest = sorted_duration_values[-2] if len(sorted_duration_values) >= 2 else (sorted_duration_values[-1] if sorted_duration_values else 0.0)
@@ -1014,7 +1077,7 @@ def build_dashboard_pptx_bytes(
             )
         duration_chart = add_chart(
             slide,
-            title="Prazo médio proxy dos recebíveis",
+            title="Prazo médio proxy dos recebíveis (dias)",
             chart_type=XL_CHART_TYPE.LINE_MARKERS,
             categories=_competencia_labels(duration_df["competencia"].tolist()),
             series_map=duration_series,
@@ -1022,7 +1085,7 @@ def build_dashboard_pptx_bytes(
             top=4.20,
             width=right_narrow_width,
             height=2.40,
-            number_format='0',
+            number_format='0.0',
             label_position="above",
             label_font_size=8,
             show_data_labels=False,
@@ -1030,6 +1093,22 @@ def build_dashboard_pptx_bytes(
             value_min=0.0,
         )
         _style_line_series(duration_chart.series[0], color=ORANGE, width_pt=2.2, marker_size=9)
+        if duration_values:
+            add_line_end_labels(
+                slide,
+                labels=[f"{_format_decimal(duration_values[-1], decimals=1)} dias"],
+                values=[duration_values[-1]],
+                colors=[ORANGE],
+                left=right_col_left,
+                top=4.20,
+                width=right_narrow_width,
+                height=2.40,
+                axis_max=duration_axis_max,
+                axis_min=0.0,
+                font_size=11,
+                fill_colors=[WHITE],
+                text_colors=[ORANGE],
+            )
         if duration_axis_note is not None:
             add_textbox(
                 slide,
@@ -2479,7 +2558,7 @@ def _render_returns_slide_png(
     split_gap = 0.30
     right_narrow_width = CONTENT_WIDTH_IN - left_wide_width - split_gap
     right_col_left = MARGIN_LEFT_IN + left_wide_width + split_gap
-    selected_labels = _top_return_labels_for_ppt(dashboard)
+    selected_labels = _top_return_labels_for_ppt(dashboard, limit=3)
     return_table_df = _build_return_inline_table_for_ppt(dashboard, selected_labels=selected_labels, months=12)
     if not return_table_df.empty:
         month_count = max(len(return_table_df.columns) - 3, 0)
@@ -2487,7 +2566,7 @@ def _render_returns_slide_png(
             image,
             draw,
             return_table_df,
-            title="Rentabilidade por tipo de cota — últimos 12 meses",
+            title="Rentabilidade por tipo de cota (% a.m.) — últimos 12 meses",
             left=MARGIN_LEFT_IN,
             top=1.18,
             width=full_width,
@@ -2551,17 +2630,17 @@ def _render_returns_slide_png(
         _paste_png(
             image,
             _line_chart_png(
-                title="Prazo médio proxy dos recebíveis",
+                title="Prazo médio proxy dos recebíveis (dias)",
                 categories=_competencia_labels(duration_df["competencia"].tolist()),
-                series_map=[("Prazo médio proxy", duration_values)],
+                series_map=[("Prazo médio proxy (dias)", duration_values)],
                 colors=[ORANGE],
                 width_px=int(right_narrow_width * SLIDE_RENDER_DPI),
                 height_px=int(2.35 * SLIDE_RENDER_DPI),
                 axis_min=0.0,
                 axis_max=duration_upper,
                 tick_formatter=_number_tick_formatter,
-                show_point_labels=True,
-                show_end_labels=False,
+                show_point_labels=False,
+                show_end_labels=True,
             ),
             left=right_col_left,
             top=4.30,

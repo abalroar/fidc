@@ -49,9 +49,16 @@ def _make_streamlit_stub():
 # in test environments where Streamlit is not installed.
 if "streamlit" not in sys.modules:
     _stub_module = types.ModuleType("streamlit")
+    def _cache_data(*_args, **_kwargs):  # noqa: ANN001
+        def _decorator(func):  # noqa: ANN001
+            return func
+
+        return _decorator
+
     _stub_module.progress = lambda *a, **kw: None  # type: ignore[attr-defined]
     _stub_module.empty = lambda: None  # type: ignore[attr-defined]
     _stub_module.caption = lambda *a, **kw: None  # type: ignore[attr-defined]
+    _stub_module.cache_data = _cache_data  # type: ignore[attr-defined]
     _stub_module.session_state = {}  # type: ignore[attr-defined]
     sys.modules["streamlit"] = _stub_module
 

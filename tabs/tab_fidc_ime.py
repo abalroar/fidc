@@ -944,11 +944,8 @@ def _render_dashboard(
     with executive_tab:
         _render_dashboard_header(dashboard)
         _render_financial_snapshot_cards(dashboard)
-        context_col, control_col = st.columns([4.6, 1.4], gap="small")
-        with context_col:
-            _render_dashboard_context_bar(dashboard)
-        with control_col:
-            _render_dashboard_controls(dashboard, context)
+        _render_dashboard_controls(dashboard, context)
+        _render_dashboard_context_bar(dashboard)
         if docs_error:
             st.warning(f"{docs_error} informe(s) falharam no processamento. A leitura abaixo usa apenas os informes válidos.")
         _render_structural_risk_section(dashboard, slot_key=slot_key)
@@ -986,8 +983,11 @@ def _render_dashboard(
 
 
 def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
-    _render_regulamento_export_button(dashboard)
-    _render_pptx_export_button(dashboard, context)
+    download_cols = st.columns(2, gap="small")
+    with download_cols[0]:
+        _render_regulamento_export_button(dashboard)
+    with download_cols[1]:
+        _render_pptx_export_button(dashboard, context)
     if ENABLE_GLOBAL_PDF_EXPORT:
         _render_pdf_export_button(dashboard, context)
 
@@ -1719,7 +1719,7 @@ def _render_regulamento_export_button(dashboard: FundonetDashboardData) -> None:
     if not payload:
         return
     st.download_button(
-        "Baixar regulamento mais recente",
+        "Download regulamento",
         data=payload["bytes"],
         file_name=str(payload["file_name"]),
         mime="application/pdf",
@@ -1747,7 +1747,7 @@ def _render_pptx_export_button(dashboard: FundonetDashboardData, context: dict[s
         return
 
     st.download_button(
-        "Baixar slides (.pptx)",
+        "Download slides (PPTX)",
         data=pptx_bytes,
         file_name=f"relatorio_fidc_ime_{context.get('request_id', 'execucao')}.pptx",
         mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
@@ -3115,10 +3115,10 @@ def _executive_monthly_bar_size(category_count: int) -> int:
 def _executive_quota_bar_size(category_count: int) -> int:
     base = _single_series_bar_size(max(category_count, 1))
     if category_count <= 6:
-        return max(28, int(base * 0.60))
+        return max(56, int(base * 1.20))
     if category_count <= 12:
-        return max(24, int(base * 0.68))
-    return max(20, int(base * 0.76))
+        return max(48, int(base * 1.36))
+    return max(40, int(base * 1.52))
 
 
 def _executive_grouped_bar_size(period_count: int, series_count: int) -> int:
