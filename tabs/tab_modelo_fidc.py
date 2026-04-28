@@ -308,6 +308,10 @@ def _format_input_value(value: float, decimals: int = 2) -> str:
     return _format_number_br(value, decimals)
 
 
+def _format_brl_input_value(value: float, decimals: int = 2) -> str:
+    return f"R$ {_format_input_value(value, decimals)}"
+
+
 def _parse_br_number(value: str, *, field_name: str) -> float:
     text = str(value or "").strip()
     if not text:
@@ -330,6 +334,17 @@ def _text_number_input(
     help_text: str | None = None,
 ) -> str:
     return st.text_input(label, value=_format_input_value(default, decimals), key=key, help=help_text)
+
+
+def _text_brl_input(
+    label: str,
+    *,
+    default: float,
+    key: str,
+    decimals: int = 2,
+    help_text: str | None = None,
+) -> str:
+    return st.text_input(label, value=_format_brl_input_value(default, decimals), key=key, help=help_text)
 
 
 def _build_dataframe(results) -> pd.DataFrame:
@@ -481,6 +496,83 @@ def _build_curve_source_dataframe(
             {"Campo": "URL/Origem", "Valor": selected_curve.source_url},
             {"Campo": "Baixado em", "Valor": selected_curve.retrieved_label},
             {"Campo": "SHA-256", "Valor": selected_curve.content_sha256},
+        ]
+    )
+
+
+def _build_reference_audit_dataframe(
+    *,
+    selected_curve: _SelectedCurve,
+    selected_calendar: _SelectedCalendar,
+    interpolation_label: str,
+    taxa_cessao_base: str,
+) -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            {
+                "Tema": "Arquivo de referência",
+                "Planilha Modelo_Publico.xlsm": "`Fluxo Base` e `BMF`",
+                "Modelo Streamlit": "services/fidc_model + tabs/tab_modelo_fidc.py",
+                "Status": "Mapeado",
+            },
+            {
+                "Tema": "Taxa de cessão",
+                "Planilha Modelo_Publico.xlsm": "Qx = O anterior * ((1 + C6) ^ (delta_DU / 21) - 1)",
+                "Modelo Streamlit": (
+                    "Mantém % a.m.; se o usuário escolhe % a.a. base 252, converte para taxa mensal efetiva "
+                    "por (1 + taxa_aa) ^ (21 / 252) - 1 antes do fluxo."
+                ),
+                "Status": f"Alinhado; entrada atual: {taxa_cessao_base}",
+            },
+            {
+                "Tema": "Custo adm/gestão",
+                "Planilha Modelo_Publico.xlsm": "Tx = C11; mínimo = C12; T = max(carteira * C11 / 12, C12)",
+                "Modelo Streamlit": "Input em base 100 para o percentual e mínimo explícito em R$/mês.",
+                "Status": "Alinhado",
+            },
+            {
+                "Tema": "Inadimplência",
+                "Planilha Modelo_Publico.xlsm": "U = carteira * (C13 * delta_DC / 100)",
+                "Modelo Streamlit": "Input rotulado como % da carteira total; fórmula histórica preservada.",
+                "Status": "Alinhado",
+            },
+            {
+                "Tema": "Estrutura de PL",
+                "Planilha Modelo_Publico.xlsm": "SEN = C15; MES = C19; SUB = 1 - C15 - C19",
+                "Modelo Streamlit": "SEN, MES e SUB são inputs em % e precisam somar 100,00%.",
+                "Status": "Aprimorado na UI",
+            },
+            {
+                "Tema": "Taxas das cotas SEN/MES",
+                "Planilha Modelo_Publico.xlsm": "Pós-fixado: (1 + curva DI/Pré) * (1 + spread) - 1; FRA em 252 DU",
+                "Modelo Streamlit": "Mantém pós-fixado e adiciona opção pré-fixada % a.a. por cota.",
+                "Status": "Aprimorado na UI",
+            },
+            {
+                "Tema": "Cota SUB",
+                "Planilha Modelo_Publico.xlsm": "AN = 0; AO é residual econômico depois de SEN e MES",
+                "Modelo Streamlit": "SUB tem proporção explícita e taxa-alvo informativa; waterfall segue residual para preservar paridade.",
+                "Status": "Diferença intencional documentada",
+            },
+            {
+                "Tema": "Curva de juros",
+                "Planilha Modelo_Publico.xlsm": "Aba BMF usa URLs históricas TxRef1 e interpolação SPLINE",
+                "Modelo Streamlit": (
+                    f"Fonte selecionada: {selected_curve.source_label}; curva {selected_curve.curve_code}; "
+                    f"interpolação: {interpolation_label}; sem fallback silencioso."
+                ),
+                "Status": "Atualizado para B3 TaxaSwap",
+            },
+            {
+                "Tema": "Calendário de DU",
+                "Planilha Modelo_Publico.xlsm": "NETWORKDAYS(Data inicial, Data fluxo, Feriados)",
+                "Modelo Streamlit": (
+                    f"Fonte selecionada: {selected_calendar.source_label}; anos oficiais "
+                    f"{', '.join(str(year) for year in selected_calendar.official_years) or 'N/D'}; "
+                    f"anos projetados {', '.join(str(year) for year in selected_calendar.projected_years) or 'N/D'}."
+                ),
+                "Status": "Atualizado para B3 oficial/projeção explícita",
+            },
         ]
     )
 
@@ -759,7 +851,7 @@ def render_tab_modelo_fidc() -> None:
     with left:
         with st.form("modelo-fidc-premissas"):
             st.markdown("##### Premissas da carteira")
-            volume_text = _text_number_input(
+            volume_text = _text_brl_input(
                 "Volume da carteira (R$)",
                 default=inputs.premissas.get("Volume", 1_000_000.0),
                 key="modelo_volume",
@@ -800,7 +892,7 @@ def render_tab_modelo_fidc() -> None:
                     help_text="Digite 0,35 para representar 0,35% ao ano. O motor converte internamente para 0,0035.",
                 )
             with costs_b:
-                custo_min_text = _text_number_input(
+                custo_min_text = _text_brl_input(
                     "Custo mínimo de administração e gestão (R$/mês)",
                     default=inputs.premissas.get("Custo Adm/Gestão (mín)", 20000.0),
                     key="modelo_custo_min",
@@ -819,7 +911,7 @@ def render_tab_modelo_fidc() -> None:
             prop_a, prop_b, prop_c = st.columns(3)
             with prop_a:
                 senior_pct_text = _text_number_input(
-                    "PL sênior (%)",
+                    "PL sênior/SEN (%)",
                     default=default_senior_pct,
                     key="modelo_prop_senior",
                     decimals=2,
@@ -838,17 +930,18 @@ def render_tab_modelo_fidc() -> None:
                     key="modelo_prop_sub",
                     decimals=2,
                 )
+            st.caption("As proporções SEN, MES e SUB devem somar 100,00%.")
 
             st.markdown("##### Remuneração das cotas")
             senior_mode_label = st.selectbox(
-                "Remuneração cota sênior",
+                "Remuneração cota sênior/SEN",
                 ["Pós-fixada: spread sobre CDI", "Pré-fixada: taxa % a.a."],
                 help="Pós-fixada replica a planilha: (1 + curva DI/Pré) * (1 + spread) - 1. Pré-fixada usa diretamente a taxa anual informada.",
             )
             senior_rate_label = (
-                "Spread cota sênior sobre CDI (% a.a.)"
+                "Spread cota SEN sobre CDI (% a.a.)"
                 if _rate_mode_from_label(senior_mode_label) == RATE_MODE_POST_CDI
-                else "Taxa pré-fixada cota sênior (% a.a.)"
+                else "Taxa pré-fixada cota SEN (% a.a.)"
             )
             senior_rate_text = _text_number_input(
                 senior_rate_label,
@@ -863,9 +956,9 @@ def render_tab_modelo_fidc() -> None:
                 help="Pós-fixada replica a planilha para a cota mezzanino; pré-fixada usa taxa anual efetiva.",
             )
             mezz_rate_label = (
-                "Spread cota mezzanino sobre CDI (% a.a.)"
+                "Spread cota MES sobre CDI (% a.a.)"
                 if _rate_mode_from_label(mezz_mode_label) == RATE_MODE_POST_CDI
-                else "Taxa pré-fixada cota mezzanino (% a.a.)"
+                else "Taxa pré-fixada cota MES (% a.a.)"
             )
             mezz_rate_text = _text_number_input(
                 mezz_rate_label,
@@ -886,7 +979,11 @@ def render_tab_modelo_fidc() -> None:
             sub_rate_text = "0,00"
             if not sub_mode_label.startswith("Residual"):
                 sub_rate_text = _text_number_input(
-                    "Taxa-alvo cota subordinada/SUB (% a.a.)",
+                    (
+                        "Spread-alvo cota SUB sobre CDI (% a.a.)"
+                        if sub_mode_label.startswith("Pós")
+                        else "Taxa-alvo pré-fixada cota SUB (% a.a.)"
+                    ),
                     default=0.0,
                     key="modelo_taxa_sub",
                     decimals=2,
@@ -907,12 +1004,12 @@ def render_tab_modelo_fidc() -> None:
         custo_adm_aa = _parse_br_number(custo_adm_text, field_name="Custo de administração e gestão (% a.a.)") / 100.0
         custo_min = _parse_br_number(custo_min_text, field_name="Custo mínimo de administração e gestão (R$/mês)")
         inadimplencia = _parse_br_number(inadimplencia_text, field_name="Inadimplência (% da carteira total)") / 100.0
-        proporcao_senior = _parse_br_number(senior_pct_text, field_name="PL sênior (%)") / 100.0
+        proporcao_senior = _parse_br_number(senior_pct_text, field_name="PL sênior/SEN (%)") / 100.0
         proporcao_mezz = _parse_br_number(mezz_pct_text, field_name="PL mezzanino/MES (%)") / 100.0
         proporcao_sub = _parse_br_number(sub_pct_text, field_name="PL subordinado/SUB (%)") / 100.0
         taxa_senior = _parse_br_number(senior_rate_text, field_name=senior_rate_label) / 100.0
         taxa_mezz = _parse_br_number(mezz_rate_text, field_name=mezz_rate_label) / 100.0
-        taxa_sub = _parse_br_number(sub_rate_text, field_name="Taxa-alvo cota subordinada/SUB (% a.a.)") / 100.0
+        taxa_sub = _parse_br_number(sub_rate_text, field_name="Taxa-alvo cota SUB (% a.a.)") / 100.0
     except ValueError as exc:
         st.error(str(exc))
         return
@@ -1147,6 +1244,18 @@ def render_tab_modelo_fidc() -> None:
         ]
     )
     st.dataframe(memory_df, width="stretch", hide_index=True)
+
+    with st.expander("Auditoria: app x Modelo_Publico.xlsm", expanded=False):
+        st.dataframe(
+            _build_reference_audit_dataframe(
+                selected_curve=selected_curve,
+                selected_calendar=selected_calendar,
+                interpolation_label=interpolation_label,
+                taxa_cessao_base=taxa_cessao_base,
+            ),
+            width="stretch",
+            hide_index=True,
+        )
 
     with st.expander("Passo a Passo", expanded=False):
         st.markdown(
