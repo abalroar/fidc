@@ -21,7 +21,9 @@ def shift_month(base: date, offset_months: int) -> date:
 
 def current_default_end_month(today: date | None = None) -> date:
     reference = today or date.today()
-    return month_start(reference)
+    # Informes mensais do mês corrente normalmente ainda não estão disponíveis.
+    # Use o último mês fechado como fim padrão da janela móvel.
+    return shift_month(month_start(reference), -1)
 
 
 def month_options(end_month: date, *, months_back: int) -> list[date]:

@@ -41,7 +41,7 @@ class ImePeriodTests(unittest.TestCase):
         )
 
     def test_current_default_end_month_normalizes_to_first_day(self) -> None:
-        self.assertEqual(date(2026, 4, 1), current_default_end_month(date(2026, 4, 14)))
+        self.assertEqual(date(2026, 3, 1), current_default_end_month(date(2026, 4, 14)))
 
 
 if __name__ == "__main__":

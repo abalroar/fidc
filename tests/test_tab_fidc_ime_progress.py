@@ -431,10 +431,11 @@ class TabFidcImeProgressTests(unittest.TestCase):
 
         formatted = tab_fidc_ime._format_return_inline_matrix_frame(history, summary, months=12)
 
-        self.assertEqual(["Classe", "jan-26", "fev-26", "YTD", "12 meses"], formatted.columns.tolist())
+        self.assertEqual(["Classe", "fev-26", "jan-26", "YTD", "12 meses"], formatted.columns.tolist())
         senior_row = formatted[formatted["Classe"] == "Sênior"].iloc[0]
         subordinada_row = formatted[formatted["Classe"] == "Subordinada"].iloc[0]
         self.assertEqual("1,25%", senior_row["jan-26"])
+        self.assertEqual("1,50%", senior_row["fev-26"])
         self.assertEqual("2,75%", senior_row["YTD"])
         self.assertEqual("21,00%", subordinada_row["12 meses"])
 

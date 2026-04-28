@@ -405,7 +405,7 @@ class FundonetDashboardTests(unittest.TestCase):
             ]
         )
         quota_pivot = _quota_pl_value_pivot(quota_df)
-        self.assertEqual(["01/2026", "02/2026", "03/2026"], quota_pivot["competencia"].tolist())
+        self.assertEqual(["03/2026", "02/2026", "01/2026"], quota_pivot["competencia"].tolist())
 
         return_history_df = pd.DataFrame(
             [
@@ -427,7 +427,7 @@ class FundonetDashboardTests(unittest.TestCase):
         )
         aging_dashboard = SimpleNamespace(default_aging_history_df=aging_df)
         aging_pivot = _build_aging_history_for_ppt(aging_dashboard)
-        self.assertEqual(["01/2026", "02/2026", "03/2026"], aging_pivot["competencia"].tolist())
+        self.assertEqual(["03/2026", "02/2026", "01/2026"], aging_pivot["competencia"].tolist())
 
         over_df = pd.DataFrame(
             [
@@ -438,7 +438,7 @@ class FundonetDashboardTests(unittest.TestCase):
         )
         over_dashboard = SimpleNamespace(default_over_history_df=over_df)
         over_pivot = _build_over_aging_history_for_ppt(over_dashboard)
-        self.assertEqual(["01/2026", "02/2026", "03/2026"], over_pivot["competencia"].tolist())
+        self.assertEqual(["03/2026", "02/2026", "01/2026"], over_pivot["competencia"].tolist())
 
     def test_build_dashboard_pptx_bytes_sanitizes_nan_and_inf_series(self) -> None:
         if importlib.util.find_spec("pptx") is None:

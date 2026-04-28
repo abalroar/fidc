@@ -1483,6 +1483,35 @@ def _format_competencia_period(value: object) -> str:
     return f"{_format_competencia_label(start)} a {_format_competencia_label(end)}"
 
 
+def _sort_competencia_display_frame(
+    frame: pd.DataFrame,
+    *,
+    extra_columns: list[str] | None = None,
+) -> pd.DataFrame:
+    if frame.empty:
+        return frame.copy()
+    output = frame.copy()
+    sort_columns: list[str] = []
+    ascending: list[bool] = []
+    helper_column = "__competencia_sort_dt"
+    if "competencia_dt" in output.columns:
+        sort_columns.append("competencia_dt")
+        ascending.append(False)
+    elif "competencia" in output.columns:
+        output[helper_column] = pd.to_datetime("01/" + output["competencia"].astype(str), format="%d/%m/%Y", errors="coerce")
+        sort_columns.append(helper_column)
+        ascending.append(False)
+    for column in extra_columns or []:
+        if column in output.columns:
+            sort_columns.append(column)
+            ascending.append(True)
+    if sort_columns:
+        output = output.sort_values(sort_columns, ascending=ascending, kind="stable").reset_index(drop=True)
+    if helper_column in output.columns:
+        output = output.drop(columns=[helper_column])
+    return output
+
+
 def _shift_month(base: date, offset_months: int) -> date:
     return _period_shift_month(base, offset_months)
 
@@ -2408,6 +2437,7 @@ def _format_return_inline_matrix_frame(
         return pd.DataFrame(columns=["Classe", "YTD", "12 meses"])
     ordered_history = history_df.sort_values("competencia_dt").copy()
     competencias = ordered_history["competencia"].drop_duplicates().tolist()
+    display_competencias = list(reversed(competencias))
     pivot = (
         ordered_history.pivot_table(
             index=label_column,
@@ -2415,16 +2445,16 @@ def _format_return_inline_matrix_frame(
             values="retorno_mensal_pct",
             aggfunc="last",
         )
-        .reindex(columns=competencias)
+        .reindex(columns=display_competencias)
     )
     ordered_labels = [label for label in (selected_labels or []) if label in pivot.index]
     ordered_labels += [label for label in pivot.index.tolist() if label not in set(ordered_labels)]
     pivot = pivot.reindex(ordered_labels)
     pivot = pivot.reset_index(drop=True)
     labels_series = pd.Series(ordered_labels, dtype="object")
-    month_columns = {competencia: _format_competencia_label(competencia) for competencia in competencias}
+    month_columns = {competencia: _format_competencia_label(competencia) for competencia in display_competencias}
     output = pd.DataFrame({"Classe": labels_series})
-    for competencia in competencias:
+    for competencia in display_competencias:
         output[month_columns[competencia]] = pivot[competencia].tolist()
         output[month_columns[competencia]] = output[month_columns[competencia]].map(_format_percent)
     summary_lookup = return_summary_df.set_index(summary_label_column)
@@ -2513,7 +2543,7 @@ def _return_monthly_matrix_frame(
             aggfunc="last",
         )
         .reset_index()
-        .sort_values("competencia_dt")
+        .sort_values("competencia_dt", ascending=False)
     )
     display_columns = ["competencia", "competencia_dt"] + [label for label in (selected_labels or []) if label in pivot.columns]
     display_columns += [column for column in pivot.columns if column not in display_columns]
@@ -2560,7 +2590,7 @@ def _format_return_base100_matrix_frame(
             aggfunc="last",
         )
         .reset_index()
-        .sort_values("competencia_dt")
+        .sort_values("competencia_dt", ascending=False)
     )
     ordered_columns = ["competencia", "competencia_dt"] + [label for label in (selected_labels or []) if label in pivot.columns]
     ordered_columns += [column for column in pivot.columns if column not in ordered_columns]
@@ -3406,7 +3436,7 @@ def _line_history_chart(
     if limit_label is None and reference_label is not None:
         limit_label = reference_label
     chart_df = _altair_compatible_df(chart_df)
-    chart_df = chart_df.copy()
+    chart_df = _sort_competencia_display_frame(chart_df)
     if "competencia" in chart_df.columns:
         chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
     chart_df["valor_fmt"] = chart_df["valor"].map(lambda value: _format_brl_compact(value) if y_title == "R$" else _format_percent(value) if "%" in y_title else _format_decimal(value))
@@ -3885,6 +3915,7 @@ def _history_bar_chart(
     reference_label: str | None = None,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
+    chart_df = _sort_competencia_display_frame(chart_df)
     if "competencia" in chart_df.columns:
         chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
     chart_df["valor_fmt"] = chart_df["valor"].map(_format_percent if "%" in y_title else _format_brl_compact)
@@ -3963,6 +3994,7 @@ def _stacked_history_bar_chart(
     max_segment_labels_per_competencia: int | None = None,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
+    chart_df = _sort_competencia_display_frame(chart_df, extra_columns=["ordem", "serie"])
     if "competencia" in chart_df.columns:
         chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
     if chart_df.empty:
@@ -3982,8 +4014,6 @@ def _stacked_history_bar_chart(
             if round_percent_labels and "%" in y_title
             else (lambda value: _format_value_label(value, y_title))
         )
-    if "ordem" in chart_df.columns:
-        chart_df = chart_df.sort_values(["competencia_dt", "ordem", "serie"]).reset_index(drop=True)
     x_encoding = alt.X("competencia:N", title="Competência", sort=chart_df["competencia"].drop_duplicates().tolist())
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     totals_for_scale = chart_df.groupby("competencia", dropna=False)[resolved_value_column].sum()
@@ -4263,6 +4293,7 @@ def _aging_history_callout_chart(
     bar_size: int | None = None,
 ) -> alt.Chart:
     df = _altair_compatible_df(chart_df.copy())
+    df = _sort_competencia_display_frame(df, extra_columns=["ordem", "serie"])
     if "competencia" in df.columns:
         df["competencia"] = df["competencia"].map(_format_competencia_display)
     if df.empty:
@@ -4273,11 +4304,9 @@ def _aging_history_callout_chart(
         )
         return _style_altair_chart(_chart_with_optional_title(empty_chart, height=height, title=title))
     resolved_value_column = _resolve_stacked_chart_value_column(df, "percentual")
-    if "ordem" in df.columns:
-        df = df.sort_values(["competencia_dt", "ordem", "serie"]).reset_index(drop=True)
     x_sort = df["competencia"].drop_duplicates().tolist()
     label_slot = ""
-    x_domain = x_sort + [label_slot]
+    x_domain = ([x_sort[0], label_slot] + x_sort[1:]) if x_sort else [label_slot]
     series_order = [serie for serie in AGING_SERIES_ORDER if serie in set(df["serie"].dropna().tolist())]
     remaining = [serie for serie in df["serie"].drop_duplicates().tolist() if serie not in set(series_order)]
     series_order = series_order + remaining
@@ -4288,7 +4317,7 @@ def _aging_history_callout_chart(
         df["tooltip_pct_dcs"] = df["percentual_direitos_creditorios"].map(_format_percent)
     else:
         df["tooltip_pct_dcs"] = "N/D"
-    latest_competencia = x_sort[-1]
+    latest_competencia = x_sort[0]
     latest_df = df[df["competencia"] == latest_competencia].copy()
     latest_df["valor_num"] = pd.to_numeric(latest_df[resolved_value_column], errors="coerce").fillna(0.0)
     if "ordem" in latest_df.columns:
@@ -4456,6 +4485,7 @@ def _grouped_bar_chart(
     color_range: list[str] | None = None,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df)
+    chart_df = _sort_competencia_display_frame(chart_df, extra_columns=["serie"])
     if "competencia" in chart_df.columns:
         chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
     resolved_value_field = value_field or ("valor_total" if "valor_total" in chart_df.columns else "valor")
@@ -4528,6 +4558,8 @@ def _grouped_bar_with_rhs_line_chart(
 ) -> alt.Chart:
     bar_chart_df = _altair_compatible_df(bar_df.copy())
     line_chart_df = _altair_compatible_df(line_df.copy())
+    bar_chart_df = _sort_competencia_display_frame(bar_chart_df, extra_columns=["serie"])
+    line_chart_df = _sort_competencia_display_frame(line_chart_df, extra_columns=["serie"])
     if "competencia" in bar_chart_df.columns:
         bar_chart_df["competencia"] = bar_chart_df["competencia"].map(_format_competencia_display)
     if "competencia" in line_chart_df.columns:
@@ -4733,6 +4765,7 @@ def _stacked_area_chart(
     label_column = _class_display_column(chart_df)
     base_df = chart_df[["competencia", "competencia_dt", label_column, value_column]].copy()
     base_df = base_df.rename(columns={label_column: "label"})
+    base_df = _sort_competencia_display_frame(base_df, extra_columns=["label"])
     base_df["competencia"] = base_df["competencia"].map(_format_competencia_display)
     base_df[value_column] = pd.to_numeric(base_df[value_column], errors="coerce")
     base_df = base_df.dropna(subset=[value_column])
@@ -4777,6 +4810,7 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
     """
     df = _altair_compatible_df(duration_history_df.copy())
     df = df[df["data_quality"] == "ok"].copy()
+    df = _sort_competencia_display_frame(df)
     if df.empty or "competencia" not in df.columns:
         return alt.Chart(pd.DataFrame({"competencia": [], "duration_days": []})).mark_line()
     df["competencia"] = df["competencia"].map(_format_competencia_display)
@@ -4844,6 +4878,7 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
 
 def _inadimplentes_aux_sum_line_chart(chart_df: pd.DataFrame) -> alt.Chart:
     df = _altair_compatible_df(chart_df.copy())
+    df = _sort_competencia_display_frame(df)
     if df.empty or "competencia" not in df.columns:
         return alt.Chart(pd.DataFrame({"competencia": [], "valor": []})).mark_line()
     df["competencia"] = df["competencia"].map(_format_competencia_display)
