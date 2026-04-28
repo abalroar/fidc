@@ -28,7 +28,13 @@ from services.fidc_model.b3_curves import (
     fetch_latest_taxaswap_curve,
     fetch_taxaswap_curve,
 )
-from services.fidc_model.calendar import merge_with_b3_market_holidays
+from services.fidc_model.calendar import (
+    B3CalendarError,
+    B3CalendarSnapshot,
+    build_b3_calendar_snapshot,
+    fetch_b3_trading_calendar_html,
+    merge_with_b3_market_holidays,
+)
 
 
 SNAPSHOT_CURVE_DATE = date(2025, 2, 25)
@@ -37,6 +43,7 @@ CURVE_SOURCE_B3_DATE = "B3 - data escolhida"
 CURVE_SOURCE_SNAPSHOT = "Snapshot local da planilha"
 INTERPOLATION_LABEL_B3 = "Flat Forward 252 (metodologia B3)"
 INTERPOLATION_LABEL_SPLINE = "Spline (compatibilidade com a planilha)"
+CALENDAR_SOURCE_B3_OFFICIAL = "B3 oficial + projeção explícita"
 CALENDAR_SOURCE_B3_PROJECTED = "Calendário B3 projetado"
 CALENDAR_SOURCE_SNAPSHOT = "Feriados do snapshot da planilha"
 
@@ -173,14 +180,21 @@ class _SelectedCalendar:
     holiday_count: int
     first_holiday: date | None
     last_holiday: date | None
+    official_years: tuple[int, ...] = ()
+    projected_years: tuple[int, ...] = ()
+    source_url: str = ""
+    retrieved_label: str = ""
+    content_sha256: str = ""
 
     @property
-    def cache_key(self) -> tuple[str, int, str, str]:
+    def cache_key(self) -> tuple[str, int, str, str, str, str]:
         return (
             self.source_label,
             self.holiday_count,
             self.first_holiday.isoformat() if self.first_holiday else "",
             self.last_holiday.isoformat() if self.last_holiday else "",
+            ",".join(str(year) for year in self.official_years),
+            ",".join(str(year) for year in self.projected_years),
         )
 
 
@@ -192,6 +206,13 @@ def _load_b3_curve_for_date(date_iso: str, curve_code: str) -> B3CurveSnapshot:
 @st.cache_data(show_spinner=False, ttl=6 * 60 * 60)
 def _load_latest_b3_curve(start_date_iso: str, curve_code: str) -> B3CurveSnapshot:
     return fetch_latest_taxaswap_curve(start_date=date.fromisoformat(start_date_iso), curve_code=curve_code)
+
+
+@st.cache_data(show_spinner=False, ttl=24 * 60 * 60)
+def _load_b3_calendar_snapshot(start_year: int, end_year: int) -> B3CalendarSnapshot:
+    html_text, content_hash = fetch_b3_trading_calendar_html()
+    datas = [date(start_year, 1, 1), date(end_year, 12, 31)]
+    return build_b3_calendar_snapshot(datas, html_text, content_hash=content_hash)
 
 
 def _selected_curve_from_snapshot(inputs) -> _SelectedCurve:
@@ -228,17 +249,36 @@ def _selected_curve_from_b3(snapshot: B3CurveSnapshot, source_label: str) -> _Se
     )
 
 
-def _selected_calendar(inputs, source_label: str) -> _SelectedCalendar:
+def _selected_calendar(inputs, source_label: str, b3_snapshot: B3CalendarSnapshot | None = None) -> _SelectedCalendar:
+    if source_label == CALENDAR_SOURCE_B3_OFFICIAL:
+        if b3_snapshot is None:
+            raise B3CalendarError("Snapshot de calendário B3 não foi carregado.")
+        holidays = tuple(b3_snapshot.holidays)
+        return _SelectedCalendar(
+            source_label=source_label,
+            feriados=holidays,
+            holiday_count=len(holidays),
+            first_holiday=holidays[0] if holidays else None,
+            last_holiday=holidays[-1] if holidays else None,
+            official_years=b3_snapshot.official_years,
+            projected_years=b3_snapshot.projected_years,
+            source_url=b3_snapshot.source_url,
+            retrieved_label=b3_snapshot.retrieved_at.strftime("%d/%m/%Y %H:%M:%S UTC"),
+            content_sha256=b3_snapshot.content_sha256,
+        )
     if source_label == CALENDAR_SOURCE_B3_PROJECTED:
         holidays = tuple(merge_with_b3_market_holidays(inputs.feriados, inputs.datas))
+        projected_years = tuple(range(inputs.datas[0].year, inputs.datas[-1].year + 1)) if inputs.datas else ()
     else:
         holidays = tuple(holiday.date() for holiday in inputs.feriados)
+        projected_years = ()
     return _SelectedCalendar(
         source_label=source_label,
         feriados=holidays,
         holiday_count=len(holidays),
         first_holiday=holidays[0] if holidays else None,
         last_holiday=holidays[-1] if holidays else None,
+        projected_years=projected_years,
     )
 
 
@@ -420,6 +460,14 @@ def _build_curve_source_dataframe(
             {"Campo": "Calendário de dias úteis", "Valor": selected_calendar.source_label},
             {"Campo": "Feriados considerados", "Valor": _format_number_br(selected_calendar.holiday_count, 0)},
             {
+                "Campo": "Anos oficiais B3",
+                "Valor": ", ".join(str(year) for year in selected_calendar.official_years) or "N/D",
+            },
+            {
+                "Campo": "Anos projetados",
+                "Valor": ", ".join(str(year) for year in selected_calendar.projected_years) or "N/D",
+            },
+            {
                 "Campo": "Primeiro feriado",
                 "Valor": selected_calendar.first_holiday.strftime("%d/%m/%Y") if selected_calendar.first_holiday else "N/D",
             },
@@ -427,6 +475,9 @@ def _build_curve_source_dataframe(
                 "Campo": "Último feriado",
                 "Valor": selected_calendar.last_holiday.strftime("%d/%m/%Y") if selected_calendar.last_holiday else "N/D",
             },
+            {"Campo": "URL calendário", "Valor": selected_calendar.source_url or "N/D"},
+            {"Campo": "Calendário baixado em", "Valor": selected_calendar.retrieved_label or "N/D"},
+            {"Campo": "SHA-256 calendário", "Valor": selected_calendar.content_sha256 or "N/D"},
             {"Campo": "URL/Origem", "Valor": selected_curve.source_url},
             {"Campo": "Baixado em", "Valor": selected_curve.retrieved_label},
             {"Campo": "SHA-256", "Valor": selected_curve.content_sha256},
@@ -511,16 +562,25 @@ def _render_curve_source_info(inputs, selected_curve: _SelectedCurve) -> None:
 
 
 def _render_calendar_source_info(selected_calendar: _SelectedCalendar) -> None:
+    official_years = ", ".join(str(year) for year in selected_calendar.official_years) or "N/D"
+    projected_years = ", ".join(str(year) for year in selected_calendar.projected_years) or "N/D"
     st.info(
         "\n".join(
             [
                 f"Calendário de dias úteis: {selected_calendar.source_label}.",
                 f"Feriados considerados: {_format_number_br(selected_calendar.holiday_count, 0)}.",
+                f"Anos oficiais B3: {official_years}; anos projetados: {projected_years}.",
                 "Os DUs dos fluxos mensais são recalculados com esse calendário antes da interpolação da curva.",
             ]
         )
     )
-    if selected_calendar.source_label == CALENDAR_SOURCE_B3_PROJECTED:
+    if selected_calendar.source_label == CALENDAR_SOURCE_B3_OFFICIAL:
+        st.caption(
+            f"Calendário B3 consultado em {selected_calendar.retrieved_label}; "
+            f"SHA-256 `{selected_calendar.content_sha256[:12]}`. "
+            "Anos ainda não publicados pela B3 são preenchidos por projeção explícita."
+        )
+    elif selected_calendar.source_label == CALENDAR_SOURCE_B3_PROJECTED:
         st.caption(
             "O calendário projetado combina os feriados originais da planilha com regras de mercado para anos futuros "
             "do fluxo, incluindo feriados nacionais, Carnaval, Sexta-feira Santa, Corpus Christi e datas sem pregão "
@@ -943,13 +1003,23 @@ def render_tab_modelo_fidc() -> None:
 
         calendar_source_label = st.selectbox(
             "Calendário de dias úteis",
-            [CALENDAR_SOURCE_B3_PROJECTED, CALENDAR_SOURCE_SNAPSHOT],
+            [CALENDAR_SOURCE_B3_OFFICIAL, CALENDAR_SOURCE_B3_PROJECTED, CALENDAR_SOURCE_SNAPSHOT],
             help=(
-                "O calendário projetado evita depender da lista antiga da planilha. "
+                "O calendário oficial usa a página pública da B3 para anos publicados e projeção explícita para anos futuros. "
                 "O snapshot fica disponível para auditoria da paridade histórica."
             ),
         )
-        selected_calendar = _selected_calendar(inputs, calendar_source_label)
+        try:
+            if calendar_source_label == CALENDAR_SOURCE_B3_OFFICIAL:
+                with st.spinner("Consultando calendário de negociação da B3..."):
+                    b3_calendar_snapshot = _load_b3_calendar_snapshot(inputs.datas[0].year, inputs.datas[-1].year)
+                selected_calendar = _selected_calendar(inputs, calendar_source_label, b3_calendar_snapshot)
+            else:
+                selected_calendar = _selected_calendar(inputs, calendar_source_label)
+        except B3CalendarError as exc:
+            st.error(f"Não foi possível carregar o calendário B3: {exc}")
+            st.warning("Selecione o calendário projetado se quiser rodar a simulação sem consultar a página pública da B3.")
+            return
         _render_calendar_source_info(selected_calendar)
         st.markdown(
             "\n".join(
