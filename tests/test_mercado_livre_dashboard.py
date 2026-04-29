@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from io import BytesIO
+import json
 from pathlib import Path
 import tempfile
 from types import SimpleNamespace
@@ -20,6 +21,7 @@ from services.mercado_livre_dashboard import (
     save_outputs_to_cache,
 )
 from services.portfolio_store import PortfolioFund, PortfolioRecord
+from services.mercado_livre_visuals import pl_subordination_chart
 from tabs.tab_mercado_livre import _resolve_existing_portfolio_for_save
 
 
@@ -88,6 +90,25 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(95.0, row["pl_total_ex360"])
         self.assertAlmostEqual(20.0, row["pl_subordinada_mezz_ex360"])
         self.assertIn("PDD menor que Over 360", row["warnings"])
+
+    def test_pl_chart_uses_ex360_subordination_series(self) -> None:
+        dashboard = _dashboard(
+            fund_name="FIDC A",
+            cnpj="11111111000111",
+            pl_total=100.0,
+            pl_senior=75.0,
+            pl_mezz=15.0,
+            pl_sub=10.0,
+            carteira=1_000.0,
+            pdd=5.0,
+            buckets={8: 10.0},
+        )
+        monthly = build_fund_monthly_base(cnpj="11111111000111", fund_name="FIDC A", dashboard=dashboard)
+
+        chart_payload = json.dumps(pl_subordination_chart(monthly).to_dict(), ensure_ascii=False)
+
+        self.assertIn("Subordinada + Mez ex-360", chart_payload)
+        self.assertIn("% Subordinação Total ex-360", chart_payload)
 
     def test_official_pl_overrides_class_sum_and_keeps_reconciliation(self) -> None:
         dashboard = _dashboard(

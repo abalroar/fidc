@@ -20,7 +20,7 @@ def pl_subordination_chart(monthly_df: pd.DataFrame, *, title: str = "Evolução
         pd.concat(
             [
                 pd.to_numeric(df.get("pl_senior"), errors="coerce"),
-                pd.to_numeric(df.get("pl_subordinada_mezz"), errors="coerce"),
+                pd.to_numeric(df.get("pl_subordinada_mezz_ex360"), errors="coerce"),
             ],
             ignore_index=True,
         )
@@ -41,18 +41,18 @@ def pl_subordination_chart(monthly_df: pd.DataFrame, *, title: str = "Evolução
             {
                 "competencia": _format_competencia(row.get("competencia_dt"), row.get("competencia")),
                 "ordem": 2,
-                "serie": "Subordinada + Mez",
-                "valor": _num(row.get("pl_subordinada_mezz")),
-                "valor_scaled": _divide(row.get("pl_subordinada_mezz"), scale_divisor),
-                "valor_fmt": _format_money(row.get("pl_subordinada_mezz"), scale_divisor=scale_divisor, scale_label=scale_label),
+                "serie": "Subordinada + Mez ex-360",
+                "valor": _num(row.get("pl_subordinada_mezz_ex360")),
+                "valor_scaled": _divide(row.get("pl_subordinada_mezz_ex360"), scale_divisor),
+                "valor_fmt": _format_money(row.get("pl_subordinada_mezz_ex360"), scale_divisor=scale_divisor, scale_label=scale_label),
             }
         )
     bar_df = pd.DataFrame(bar_rows)
     line_df = pd.DataFrame(
         {
             "competencia": [_format_competencia(row.get("competencia_dt"), row.get("competencia")) for _, row in df.iterrows()],
-            "serie": "% Subordinação Total (Sub+Mez)",
-            "valor": pd.to_numeric(df.get("subordinacao_total_pct"), errors="coerce"),
+            "serie": "% Subordinação Total ex-360",
+            "valor": pd.to_numeric(df.get("subordinacao_total_ex360_pct"), errors="coerce"),
         }
     )
     line_df["valor_fmt"] = line_df["valor"].map(_format_percent)
@@ -72,7 +72,7 @@ def pl_subordination_chart(monthly_df: pd.DataFrame, *, title: str = "Evolução
             color=alt.Color(
                 "serie:N",
                 title="PL",
-                scale=alt.Scale(domain=["Sênior", "Subordinada + Mez"], range=[SENIOR_COLOR, SUB_MEZZ_COLOR]),
+                scale=alt.Scale(domain=["Sênior", "Subordinada + Mez ex-360"], range=[SENIOR_COLOR, SUB_MEZZ_COLOR]),
             ),
             order=alt.Order("ordem:Q"),
             tooltip=[
@@ -89,12 +89,12 @@ def pl_subordination_chart(monthly_df: pd.DataFrame, *, title: str = "Evolução
             x=x,
             y=alt.Y(
                 "valor:Q",
-                title="% Subordinação Total (Sub+Mez)",
+                title="% Subordinação Total ex-360",
                 axis=alt.Axis(orient="right", grid=False, labelColor=COVERAGE_COLOR, titleColor=COVERAGE_COLOR),
             ),
             tooltip=[
                 alt.Tooltip("competencia:N", title="Competência"),
-                alt.Tooltip("valor_fmt:N", title="% Subordinação Total"),
+                alt.Tooltip("valor_fmt:N", title="% Subordinação Total ex-360"),
             ],
         )
     )

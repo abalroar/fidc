@@ -411,8 +411,8 @@ def _render_outputs(
 
 def _render_graph_definitions() -> None:
     st.caption(
-        "**Evolução de PL e Subordinação:** barras empilhadas mostram PL Sênior e Subordinada + Mez em R$; "
-        "a linha mostra (Subordinada + Mez) / PL total. "
+        "**Evolução de PL e Subordinação:** barras empilhadas mostram PL Sênior e Subordinada + Mez ex-360 em R$; "
+        "a linha mostra a subordinação ex-360, após eventual baixa residual de Over 360 não coberta por PDD. "
         "**NPL e Cobertura Ex-Vencidos > 360d:** a linha de NPL usa NPL Over 90d sem vencidos acima de 360 dias; "
         "a cobertura usa PDD Ex Over 360d / NPL Over 90d Ex 360, em que PDD Ex Over 360d = PDD total menos a baixa Over 360d na PDD."
     )
