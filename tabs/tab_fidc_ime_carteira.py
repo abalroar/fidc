@@ -1064,7 +1064,12 @@ def _sync_portfolio_fund_names_from_results(
         updated_at=_utc_now_iso(),
         notes=selected_portfolio.notes,
     )
-    return save_portfolio_record(updated_portfolio)
+    try:
+        return save_portfolio_record(updated_portfolio)
+    except ValueError as exc:
+        if "seleção idêntica" in str(exc).lower() or "selecao identica" in str(exc).lower():
+            return None
+        raise
 
 
 def _utc_now_iso() -> str:

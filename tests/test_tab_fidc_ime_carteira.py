@@ -124,6 +124,33 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
         self.assertEqual("FIDC Resolvido", updated.funds[0].display_name)
         mocked_save.assert_called_once()
 
+    def test_sync_portfolio_fund_names_ignores_predictable_duplicate_selection(self) -> None:
+        portfolio = PortfolioRecord(
+            id="portfolio-1",
+            name="Carteira Teste",
+            funds=(PortfolioFund(cnpj="12345678000199", display_name="12345678000199"),),
+            created_at="2026-04-15T00:00:00Z",
+            updated_at="2026-04-15T00:00:00Z",
+        )
+        results = {
+            "12345678000199": {
+                "context": {
+                    "portfolio_fund_name_resolved": "FIDC Resolvido",
+                }
+            }
+        }
+
+        with patch(
+            "tabs.tab_fidc_ime_carteira.save_portfolio_record",
+            side_effect=ValueError("Já existe uma seleção idêntica salva com este nome e a mesma cesta de fundos (57f3418c)."),
+        ):
+            updated = _sync_portfolio_fund_names_from_results(
+                selected_portfolio=portfolio,
+                results=results,
+            )
+
+        self.assertIsNone(updated)
+
     def test_execute_portfolio_load_for_funds_does_not_require_retry_results_when_no_retry(self) -> None:
         portfolio = PortfolioRecord(
             id="portfolio-1",

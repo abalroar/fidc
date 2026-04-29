@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from io import BytesIO
+from pathlib import Path
+import tempfile
 from types import SimpleNamespace
 import unittest
 
@@ -13,7 +15,12 @@ from services.mercado_livre_dashboard import (
     build_fund_monthly_base,
     build_mercado_livre_outputs,
     build_wide_table,
+    load_outputs_from_cache,
+    portfolio_identity_key,
+    save_outputs_to_cache,
 )
+from services.portfolio_store import PortfolioFund, PortfolioRecord
+from tabs.tab_mercado_livre import _resolve_existing_portfolio_for_save
 
 
 class MercadoLivreDashboardTests(unittest.TestCase):
@@ -50,8 +57,67 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(50.0, row["npl_over90_ex360"])
         self.assertAlmostEqual(990.0, row["carteira_ex360"])
         self.assertAlmostEqual(50.0 / 990.0 * 100.0, row["npl_over90_ex360_pct"], places=6)
-        self.assertFalse(bool(row["pdd_ex360_calculavel"]))
-        self.assertIn("PDD ex-360 não calculável", row["warnings"])
+        self.assertTrue(bool(row["pdd_ex360_calculavel"]))
+        self.assertAlmostEqual(10.0, row["baixa_over360_carteira"])
+        self.assertAlmostEqual(10.0, row["baixa_over360_pdd"])
+        self.assertAlmostEqual(0.0, row["baixa_over360_pl"])
+        self.assertAlmostEqual(90.0, row["pdd_ex360"])
+        self.assertAlmostEqual(900.0, row["carteira_liquida_ex360"])
+        self.assertNotIn("PDD ex-360 não calculável", row["warnings"])
+
+    def test_ex360_writeoff_reduces_pl_when_pdd_is_insufficient(self) -> None:
+        dashboard = _dashboard(
+            fund_name="FIDC A",
+            cnpj="11111111000111",
+            pl_total=100.0,
+            pl_senior=75.0,
+            pl_mezz=15.0,
+            pl_sub=10.0,
+            carteira=1_000.0,
+            pdd=5.0,
+            buckets={8: 10.0},
+        )
+
+        monthly = build_fund_monthly_base(cnpj="11111111000111", fund_name="FIDC A", dashboard=dashboard)
+        row = monthly.iloc[0]
+
+        self.assertAlmostEqual(10.0, row["baixa_over360_carteira"])
+        self.assertAlmostEqual(5.0, row["baixa_over360_pdd"])
+        self.assertAlmostEqual(5.0, row["baixa_over360_pl"])
+        self.assertAlmostEqual(0.0, row["pdd_ex360"])
+        self.assertAlmostEqual(95.0, row["pl_total_ex360"])
+        self.assertAlmostEqual(20.0, row["pl_subordinada_mezz_ex360"])
+        self.assertIn("PDD menor que Over 360", row["warnings"])
+
+    def test_official_pl_overrides_class_sum_and_keeps_reconciliation(self) -> None:
+        dashboard = _dashboard(
+            fund_name="FIDC A",
+            cnpj="11111111000111",
+            pl_total=100.0,
+            pl_senior=75.0,
+            pl_mezz=15.0,
+            pl_sub=10.0,
+            carteira=1_000.0,
+            pdd=100.0,
+            buckets={4: 40.0, 7: 10.0, 8: 10.0},
+        )
+        official_pl = pd.DataFrame(
+            [{"competencia": "01/2026", "pl_total_oficial": 110.0, "pl_total_oficial_source_status": "reported_value"}]
+        )
+
+        monthly = build_fund_monthly_base(
+            cnpj="11111111000111",
+            fund_name="FIDC A",
+            dashboard=dashboard,
+            official_pl_history_df=official_pl,
+        )
+        row = monthly.iloc[0]
+
+        self.assertAlmostEqual(110.0, row["pl_total"])
+        self.assertAlmostEqual(100.0, row["pl_total_classes"])
+        self.assertAlmostEqual(10.0, row["pl_reconciliacao_delta"])
+        self.assertEqual("PATRLIQ/VL_PATRIM_LIQ", row["pl_total_usado_fonte"])
+        self.assertIn("PL oficial diverge", row["warnings"])
 
     def test_consolidated_base_sums_absolute_values_and_recalculates_ratios(self) -> None:
         dashboard_a = _dashboard(
@@ -119,6 +185,79 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         workbook = load_workbook(BytesIO(excel_bytes), data_only=True)
         self.assertIn("Consolidado", workbook.sheetnames)
         self.assertIn("Auditoria", workbook.sheetnames)
+
+    def test_outputs_cache_roundtrip_uses_deterministic_identity(self) -> None:
+        dashboard = _dashboard(
+            fund_name="FIDC A",
+            cnpj="11111111000111",
+            pl_total=100.0,
+            pl_senior=75.0,
+            pl_mezz=15.0,
+            pl_sub=10.0,
+            carteira=1_000.0,
+            pdd=100.0,
+            buckets={4: 40.0, 7: 10.0, 8: 10.0},
+        )
+        outputs = build_mercado_livre_outputs(
+            portfolio_id="portfolio-1",
+            portfolio_name="Carteira",
+            dashboards_by_cnpj={"11111111000111": ("FIDC A", dashboard)},
+            period_label="01/2026 a 01/2026",
+        )
+        funds = (PortfolioFund(cnpj="11111111000111", display_name="FIDC A"),)
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = save_outputs_to_cache(
+                outputs,
+                portfolio_id="portfolio-1",
+                period_key="2026-01-01::2026-01-01",
+                portfolio_funds=funds,
+                base_dir=Path(tmp_dir),
+            )
+            loaded = load_outputs_from_cache(
+                portfolio_id="outro-id-visual",
+                period_key="2026-01-01::2026-01-01",
+                portfolio_funds=funds,
+                base_dir=Path(tmp_dir),
+            )
+            self.assertTrue((root / "metadata.json").exists())
+
+        self.assertIsNotNone(loaded)
+        assert loaded is not None
+        self.assertIn("11111111000111", loaded.fund_monthly)
+        self.assertEqual(outputs.metadata["loaded_period_label"], loaded.metadata["loaded_period_label"])
+
+    def test_portfolio_identity_key_is_deterministic_and_duplicate_save_reuses_same_basket(self) -> None:
+        funds_a = (
+            PortfolioFund(cnpj="11111111000111", display_name="A"),
+            PortfolioFund(cnpj="22222222000122", display_name="B"),
+        )
+        funds_b = (
+            PortfolioFund(cnpj="22222222000122", display_name="B"),
+            PortfolioFund(cnpj="11111111000111", display_name="A"),
+        )
+
+        self.assertEqual(
+            portfolio_identity_key(funds_a, fallback="p1"),
+            portfolio_identity_key(funds_b, fallback="p2"),
+        )
+
+        existing = PortfolioRecord(
+            id="portfolio-1",
+            name="Mercado Livre",
+            funds=funds_a,
+            created_at="2026-04-29T00:00:00Z",
+            updated_at="2026-04-29T00:00:00Z",
+        )
+        action = _resolve_existing_portfolio_for_save(
+            portfolios=[existing],
+            target=None,
+            name="Outro Nome",
+            funds=list(funds_b),
+        )
+
+        self.assertEqual("reuse", action["action"])
+        self.assertEqual(existing.id, action["portfolio"].id)
 
 
 def _dashboard(

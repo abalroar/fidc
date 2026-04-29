@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
+import hashlib
 from io import BytesIO
 import json
 from pathlib import Path
@@ -30,6 +31,9 @@ PT_MONTH_ABBR = {
 
 MONEY_COLUMNS = [
     "pl_total",
+    "pl_total_oficial",
+    "pl_total_classes",
+    "pl_reconciliacao_delta",
     "pl_senior",
     "pl_subordinada_strict",
     "pl_mezzanino",
@@ -50,9 +54,14 @@ MONEY_COLUMNS = [
     "npl_over90",
     "npl_over180",
     "npl_over360",
+    "baixa_over360_carteira",
+    "baixa_over360_pdd",
+    "baixa_over360_pl",
     "carteira_ex360",
     "pdd_ex360",
     "carteira_liquida_ex360",
+    "pl_total_ex360",
+    "pl_subordinada_mezz_ex360",
     "npl_over1_ex360",
     "npl_over30_ex360",
     "npl_over60_ex360",
@@ -81,6 +90,8 @@ PRIMITIVE_SUM_COLUMNS = [
 ]
 
 WIDE_TABLE_COLUMNS = ["Bloco", "Métrica", "Memória / fórmula"]
+CALCULATION_SCHEMA_VERSION = 3
+OFFICIAL_PL_PATH = "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
 
 
 @dataclass(frozen=True)
@@ -99,12 +110,19 @@ def build_mercado_livre_outputs(
     portfolio_name: str,
     dashboards_by_cnpj: dict[str, tuple[str, Any]],
     period_label: str,
+    official_pl_by_cnpj: dict[str, pd.DataFrame] | None = None,
 ) -> MercadoLivreOutputs:
     fund_monthly: dict[str, pd.DataFrame] = {}
     fund_wide: dict[str, pd.DataFrame] = {}
     warnings: list[dict[str, object]] = []
+    official_pl_by_cnpj = official_pl_by_cnpj or {}
     for cnpj, (fund_name, dashboard) in dashboards_by_cnpj.items():
-        monthly = build_fund_monthly_base(cnpj=cnpj, fund_name=fund_name, dashboard=dashboard)
+        monthly = build_fund_monthly_base(
+            cnpj=cnpj,
+            fund_name=fund_name,
+            dashboard=dashboard,
+            official_pl_history_df=official_pl_by_cnpj.get(cnpj),
+        )
         fund_monthly[cnpj] = monthly
         fund_wide[cnpj] = build_wide_table(monthly, scope_name=fund_name)
         warnings.extend(_warning_rows(monthly, scope_name=fund_name, cnpj=cnpj))
@@ -116,11 +134,13 @@ def build_mercado_livre_outputs(
     consolidated_wide = build_wide_table(consolidated, scope_name=portfolio_name)
     warnings.extend(_warning_rows(consolidated, scope_name=portfolio_name, cnpj="CONSOLIDADO"))
     metadata = {
-        "schema_version": 1,
+        "schema_version": CALCULATION_SCHEMA_VERSION,
         "generated_at": _utc_now_iso(),
         "portfolio_id": portfolio_id,
         "portfolio_name": portfolio_name,
         "period_label": period_label,
+        "loaded_period_label": _loaded_period_label_from_frame(consolidated),
+        "competencias_disponiveis_consolidado": _competencia_list(consolidated),
         "funds": [
             {
                 "cnpj": cnpj,
@@ -132,9 +152,10 @@ def build_mercado_livre_outputs(
         ],
         "formulas": _formula_catalog(),
         "known_limitations": [
-            "O XML padrao analisado possui buckets de atraso acima de 360 dias, mas nao possui PDD segmentado por faixa de atraso.",
-            "A visao Ex Over 360 usa PDD total contra NPL ex-360 quando solicitado; PDD Ex Over 360 fica nao calculavel sem alocacao aprovada.",
-            "PL FIDC total usa a soma das classes de cotas calculadas por quantidade de cotas vezes valor da cota, preservando a logica atual do dashboard.",
+            "A visao Ex Over 360 simula baixa integral dos vencidos acima de 360 dias para fins comparaveis a instituicoes financeiras.",
+            "PDD Ex Over 360 e calculada como PDD total menos a baixa dos vencidos acima de 360 dias, limitada ao saldo de PDD disponivel.",
+            "Quando o saldo Over 360 excede a PDD disponivel, a diferenca e tratada como baixa residual contra PL.",
+            "PL FIDC total usa PATRLIQ/VL_PATRIM_LIQ quando disponivel; a soma das classes fica como reconciliacao.",
             "Carteira Bruta usa a base canonica de direitos crediticios do dashboard, nao o campo amplo APLIC_ATIVO/VL_CARTEIRA.",
         ],
     }
@@ -148,7 +169,13 @@ def build_mercado_livre_outputs(
     )
 
 
-def build_fund_monthly_base(*, cnpj: str, fund_name: str, dashboard: Any) -> pd.DataFrame:
+def build_fund_monthly_base(
+    *,
+    cnpj: str,
+    fund_name: str,
+    dashboard: Any,
+    official_pl_history_df: pd.DataFrame | None = None,
+) -> pd.DataFrame:
     competencias = list(getattr(dashboard, "competencias", []) or [])
     rows: list[dict[str, object]] = []
     info = getattr(dashboard, "fund_info", {}) or {}
@@ -162,6 +189,7 @@ def build_fund_monthly_base(*, cnpj: str, fund_name: str, dashboard: Any) -> pd.
             "competencia_dt": _competencia_to_timestamp(competencia),
         }
         row.update(_subordination_values(getattr(dashboard, "subordination_history_df", pd.DataFrame()), competencia))
+        row.update(_official_pl_values(official_pl_history_df, competencia))
         row.update(_credit_values(dashboard, competencia))
         row.update(_bucket_values(getattr(dashboard, "default_buckets_history_df", pd.DataFrame()), competencia))
         rows.append(row)
@@ -200,6 +228,8 @@ def build_consolidated_monthly_base(
         }
         for column in PRIMITIVE_SUM_COLUMNS:
             row[column] = _sum_numeric(group.get(column))
+        row["pl_total_classes"] = _sum_numeric(group.get("pl_total_classes"))
+        row["pl_total_oficial"] = _sum_numeric(group.get("pl_total_oficial"))
         rows.append(row)
     frame = pd.DataFrame(rows).sort_values("competencia_dt").reset_index(drop=True)
     return _decorate_monthly_base(frame, expected_funds=expected_funds)
@@ -243,6 +273,9 @@ def build_validation_table(outputs: MercadoLivreOutputs) -> pd.DataFrame:
         "cnpj",
         "competencia",
         "pl_total",
+        "pl_total_oficial",
+        "pl_total_classes",
+        "pl_reconciliacao_delta",
         "pl_senior",
         "pl_subordinada_mezz",
         "subordinacao_total_pct",
@@ -250,8 +283,15 @@ def build_validation_table(outputs: MercadoLivreOutputs) -> pd.DataFrame:
         "pdd_total",
         "npl_over90",
         "npl_over360",
+        "baixa_over360_carteira",
+        "baixa_over360_pdd",
+        "baixa_over360_pl",
         "npl_over90_ex360",
         "carteira_ex360",
+        "pdd_ex360",
+        "pl_total_ex360",
+        "pl_subordinada_mezz_ex360",
+        "subordinacao_total_ex360_pct",
         "pdd_npl_over90_pct",
         "pdd_npl_over90_ex360_pct",
         "warnings",
@@ -266,9 +306,11 @@ def save_outputs_to_cache(
     *,
     portfolio_id: str,
     period_key: str,
+    portfolio_funds: list[dict[str, str]] | tuple[Any, ...] | None = None,
     base_dir: Path | str = ".cache/mercado-livre",
 ) -> Path:
-    root = Path(base_dir) / _safe_path_token(portfolio_id) / _safe_path_token(period_key)
+    identity_key = portfolio_identity_key(portfolio_funds, fallback=portfolio_id)
+    root = Path(base_dir) / identity_key / _safe_path_token(period_key)
     root.mkdir(parents=True, exist_ok=True)
     for cnpj, frame in outputs.fund_monthly.items():
         frame.to_csv(root / f"monthly_{_safe_path_token(cnpj)}.csv", index=False)
@@ -277,8 +319,133 @@ def save_outputs_to_cache(
     outputs.consolidated_monthly.to_csv(root / "monthly_consolidado.csv", index=False)
     outputs.consolidated_wide.to_csv(root / "wide_consolidado.csv", index=False)
     outputs.warnings_df.to_csv(root / "warnings.csv", index=False)
-    (root / "metadata.json").write_text(json.dumps(outputs.metadata, ensure_ascii=False, indent=2), encoding="utf-8")
+    metadata = dict(outputs.metadata)
+    metadata.update(
+        {
+            "storage_identity_key": identity_key,
+            "period_key": period_key,
+            "cache_dir": str(root),
+        }
+    )
+    (root / "metadata.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2), encoding="utf-8")
     return root
+
+
+def portfolio_identity_key(portfolio_funds: list[dict[str, str]] | tuple[Any, ...] | None, *, fallback: str) -> str:
+    cnpjs: list[str] = []
+    for fund in portfolio_funds or []:
+        if isinstance(fund, dict):
+            cnpj = fund.get("cnpj")
+        else:
+            cnpj = getattr(fund, "cnpj", None)
+        digits = _digits(cnpj)
+        if digits:
+            cnpjs.append(digits)
+    if not cnpjs:
+        return _safe_path_token(fallback)
+    payload = {
+        "schema_version": CALCULATION_SCHEMA_VERSION,
+        "view": "mercado_livre",
+        "cnpjs": sorted(set(cnpjs)),
+    }
+    digest = hashlib.sha256(json.dumps(payload, sort_keys=True).encode("utf-8")).hexdigest()[:20]
+    return f"ml_{digest}"
+
+
+def cache_dir_for_outputs(
+    *,
+    portfolio_id: str,
+    period_key: str,
+    portfolio_funds: list[dict[str, str]] | tuple[Any, ...] | None = None,
+    base_dir: Path | str = ".cache/mercado-livre",
+) -> Path:
+    identity_key = portfolio_identity_key(portfolio_funds, fallback=portfolio_id)
+    return Path(base_dir) / identity_key / _safe_path_token(period_key)
+
+
+def load_outputs_from_cache(
+    *,
+    portfolio_id: str,
+    period_key: str,
+    portfolio_funds: list[dict[str, str]] | tuple[Any, ...] | None = None,
+    base_dir: Path | str = ".cache/mercado-livre",
+) -> MercadoLivreOutputs | None:
+    root = cache_dir_for_outputs(
+        portfolio_id=portfolio_id,
+        period_key=period_key,
+        portfolio_funds=portfolio_funds,
+        base_dir=base_dir,
+    )
+    metadata_path = root / "metadata.json"
+    if not metadata_path.exists():
+        return None
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    if int(metadata.get("schema_version") or 0) != CALCULATION_SCHEMA_VERSION:
+        return None
+    fund_monthly: dict[str, pd.DataFrame] = {}
+    fund_wide: dict[str, pd.DataFrame] = {}
+    for fund in metadata.get("funds") or []:
+        cnpj = _digits(fund.get("cnpj"))
+        if not cnpj:
+            continue
+        monthly_path = root / f"monthly_{_safe_path_token(cnpj)}.csv"
+        wide_path = root / f"wide_{_safe_path_token(cnpj)}.csv"
+        if monthly_path.exists():
+            fund_monthly[cnpj] = pd.read_csv(monthly_path)
+        if wide_path.exists():
+            fund_wide[cnpj] = pd.read_csv(wide_path)
+    consolidated_monthly_path = root / "monthly_consolidado.csv"
+    consolidated_wide_path = root / "wide_consolidado.csv"
+    warnings_path = root / "warnings.csv"
+    if not consolidated_monthly_path.exists() or not consolidated_wide_path.exists():
+        return None
+    metadata["cache_dir"] = str(root)
+    return MercadoLivreOutputs(
+        fund_monthly=fund_monthly,
+        fund_wide=fund_wide,
+        consolidated_monthly=pd.read_csv(consolidated_monthly_path),
+        consolidated_wide=pd.read_csv(consolidated_wide_path),
+        warnings_df=pd.read_csv(warnings_path) if warnings_path.exists() else pd.DataFrame(),
+        metadata=metadata,
+    )
+
+
+def extract_official_pl_history_from_wide_csv(wide_csv_path: str | Path) -> pd.DataFrame:
+    path = Path(wide_csv_path)
+    if not path.exists():
+        return pd.DataFrame(columns=["competencia", "pl_total_oficial", "pl_total_oficial_source_status"])
+    wide_df = pd.read_csv(path, dtype=str, keep_default_na=False)
+    competencias = [column for column in wide_df.columns if re.fullmatch(r"\d{2}/\d{4}", str(column))]
+    if "tag_path" not in wide_df.columns or not competencias:
+        return pd.DataFrame(columns=["competencia", "pl_total_oficial", "pl_total_oficial_source_status"])
+    match = wide_df[wide_df["tag_path"].astype(str) == OFFICIAL_PL_PATH]
+    if match.empty:
+        return pd.DataFrame(
+            {
+                "competencia": competencias,
+                "pl_total_oficial": [pd.NA] * len(competencias),
+                "pl_total_oficial_source_status": ["missing_field"] * len(competencias),
+            }
+        )
+    row = match.iloc[0]
+    rows = []
+    for competencia in competencias:
+        raw = row.get(competencia)
+        value = _num(raw)
+        if value is None:
+            status = "not_reported" if str(raw or "").strip() == "" else "not_numeric"
+        elif value == 0:
+            status = "reported_zero"
+        else:
+            status = "reported_value"
+        rows.append(
+            {
+                "competencia": competencia,
+                "pl_total_oficial": value,
+                "pl_total_oficial_source_status": status,
+            }
+        )
+    return pd.DataFrame(rows)
 
 
 def build_excel_export_bytes(outputs: MercadoLivreOutputs) -> bytes:
@@ -306,11 +473,19 @@ def build_excel_export_bytes(outputs: MercadoLivreOutputs) -> bytes:
 def _subordination_values(frame: pd.DataFrame, competencia: str) -> dict[str, object]:
     row = _latest_match(frame, competencia)
     return {
-        "pl_total": _num(row.get("pl_total")),
+        "pl_total_classes": _num(row.get("pl_total")),
         "pl_senior": _num(row.get("pl_senior")),
         "pl_mezzanino": _num(row.get("pl_mezzanino")),
         "pl_subordinada_strict": _num(row.get("pl_subordinada_strict")),
         "pl_subordinada_mezz": _num(row.get("pl_subordinada")),
+    }
+
+
+def _official_pl_values(frame: pd.DataFrame | None, competencia: str) -> dict[str, object]:
+    row = _latest_match(frame if frame is not None else pd.DataFrame(), competencia)
+    return {
+        "pl_total_oficial": _num(row.get("pl_total_oficial")),
+        "pl_total_oficial_source_status": _first_non_empty(row.get("pl_total_oficial_source_status")),
     }
 
 
@@ -343,10 +518,23 @@ def _bucket_values(frame: pd.DataFrame, competencia: str) -> dict[str, object]:
 
 def _decorate_monthly_base(frame: pd.DataFrame, *, expected_funds: int) -> pd.DataFrame:
     df = frame.copy()
+    if "pl_total_classes" not in df.columns and "pl_total" in df.columns:
+        df["pl_total_classes"] = df["pl_total"]
     for column in PRIMITIVE_SUM_COLUMNS:
         if column not in df.columns:
             df[column] = pd.NA
         df[column] = pd.to_numeric(df[column], errors="coerce")
+    if "pl_total_classes" not in df.columns:
+        df["pl_total_classes"] = pd.NA
+    if "pl_total_oficial" not in df.columns:
+        df["pl_total_oficial"] = pd.NA
+    df["pl_total_classes"] = pd.to_numeric(df["pl_total_classes"], errors="coerce")
+    df["pl_total_oficial"] = pd.to_numeric(df["pl_total_oficial"], errors="coerce")
+    df["pl_total"] = df["pl_total_oficial"].where(df["pl_total_oficial"].notna(), df["pl_total_classes"])
+    df["pl_total_usado_fonte"] = df["pl_total_oficial"].map(lambda value: "PATRLIQ/VL_PATRIM_LIQ" if pd.notna(value) else "soma_classes_cotas")
+    df["pl_reconciliacao_delta"] = df["pl_total"] - df["pl_total_classes"]
+    df["pl_reconciliacao_delta_pct"] = _safe_div_pct(df["pl_reconciliacao_delta"].abs(), df["pl_total"])
+    df["pl_reconciliacao_warning"] = df["pl_reconciliacao_delta_pct"].gt(0.5).fillna(False)
     if "funds_expected_count" not in df.columns:
         df["funds_expected_count"] = expected_funds
     if "funds_present_count" not in df.columns:
@@ -364,11 +552,24 @@ def _decorate_monthly_base(frame: pd.DataFrame, *, expected_funds: int) -> pd.Da
     df["npl_over180"] = df[["atraso_181_360", "atraso_361_720", "atraso_721_1080", "atraso_1080"]].sum(axis=1, min_count=1)
     df["npl_over360"] = df["vencidos_360"]
     df["carteira_em_dia"] = df["carteira_bruta"] - df["npl_over1"]
-    df["carteira_ex360"] = df["carteira_bruta"] - df["npl_over360"]
-    df["pdd_ex360"] = pd.NA
-    df["pdd_ex360_calculavel"] = False
-    df["pdd_ex360_carteira_ex360_pct"] = pd.NA
-    df["carteira_liquida_ex360"] = pd.NA
+    df["baixa_over360_carteira"] = df["npl_over360"]
+    df["carteira_ex360"] = df["carteira_bruta"] - df["baixa_over360_carteira"]
+    df["pdd_ex360_calculavel"] = df["pdd_total"].notna() & df["baixa_over360_carteira"].notna()
+    df["baixa_over360_pdd"] = _row_min(df["pdd_total"], df["baixa_over360_carteira"])
+    df["pdd_ex360"] = (df["pdd_total"] - df["baixa_over360_pdd"]).where(df["pdd_ex360_calculavel"])
+    df["pdd_over360_insuficiente"] = (
+        pd.to_numeric(df["pdd_total"], errors="coerce")
+        < pd.to_numeric(df["baixa_over360_carteira"], errors="coerce")
+    ).fillna(False)
+    df["baixa_over360_pl"] = (
+        pd.to_numeric(df["baixa_over360_carteira"], errors="coerce")
+        - pd.to_numeric(df["baixa_over360_pdd"], errors="coerce")
+    ).clip(lower=0.0)
+    df["pl_total_ex360"] = df["pl_total"] - df["baixa_over360_pl"]
+    df["pl_subordinada_mezz_ex360"] = (df["pl_subordinada_mezz"] - df["baixa_over360_pl"]).clip(lower=0.0)
+    df["subordinacao_total_ex360_pct"] = _safe_div_pct(df["pl_subordinada_mezz_ex360"], df["pl_total_ex360"])
+    df["pdd_ex360_carteira_ex360_pct"] = _safe_div_pct(df["pdd_ex360"], df["carteira_ex360"])
+    df["carteira_liquida_ex360"] = df["carteira_ex360"] - df["pdd_ex360"]
     df["npl_over1_ex360"] = (df["npl_over1"] - df["npl_over360"]).clip(lower=0.0)
     df["npl_over30_ex360"] = (df["npl_over30"] - df["npl_over360"]).clip(lower=0.0)
     df["npl_over60_ex360"] = (df["npl_over60"] - df["npl_over360"]).clip(lower=0.0)
@@ -391,7 +592,7 @@ def _decorate_monthly_base(frame: pd.DataFrame, *, expected_funds: int) -> pd.Da
     df["pdd_npl_over90_pct"] = _safe_div_pct(df["pdd_total"], df["npl_over90"])
     df["pdd_npl_over180_pct"] = _safe_div_pct(df["pdd_total"], df["npl_over180"])
     df["pdd_npl_over360_pct"] = _safe_div_pct(df["pdd_total"], df["npl_over360"])
-    df["pdd_npl_over90_ex360_pct"] = _safe_div_pct(df["pdd_total"], df["npl_over90_ex360"])
+    df["pdd_npl_over90_ex360_pct"] = _safe_div_pct(df["pdd_ex360"], df["npl_over90_ex360"])
     df["carteira_em_dia_mais_ate30"] = df["carteira_em_dia"] + df["atraso_ate30"]
     df["roll_rate_31_60_pct"] = _safe_div_pct(df["atraso_31_60"], df["carteira_em_dia_mais_ate30"])
     df["missing_data_flag"] = df[["pl_total", "pl_senior", "pl_subordinada_mezz", "carteira_bruta", "pdd_total", "npl_over90"]].isna().any(axis=1)
@@ -419,7 +620,12 @@ def _wide_metric_specs() -> list[dict[str, str]]:
         {"block": "1. Identificação do FIDC", "metric": "Período final", "column": "periodo_final", "unit": "text", "formula": "Última competência carregada."},
         {"block": "1. Identificação do FIDC", "metric": "Quantidade de competências disponíveis", "column": "competencias_disponiveis", "unit": "count", "formula": "Contagem de competências na base mensal."},
         {"block": "1. Identificação do FIDC", "metric": "Warnings de dados faltantes", "column": "warnings", "unit": "text", "formula": "Alertas gerados pela base canônica."},
-        {"block": "2. PL FIDC", "metric": "PL FIDC total", "column": "pl_total", "unit": "money", "formula": "Soma do PL das classes por quantidade de cotas × valor da cota."},
+        {"block": "2. PL FIDC", "metric": "PL FIDC total", "column": "pl_total", "unit": "money", "formula": "PATRLIQ/VL_PATRIM_LIQ quando disponível; caso contrário soma das classes."},
+        {"block": "2. PL FIDC", "metric": "PL FIDC oficial", "column": "pl_total_oficial", "unit": "money", "formula": "PATRLIQ/VL_PATRIM_LIQ da base oficial."},
+        {"block": "2. PL FIDC", "metric": "PL soma das classes", "column": "pl_total_classes", "unit": "money", "formula": "Soma do PL das classes por quantidade de cotas × valor da cota."},
+        {"block": "2. PL FIDC", "metric": "Reconciliação PL oficial vs classes", "column": "pl_reconciliacao_delta", "unit": "money", "formula": "PL FIDC total usado - PL soma das classes."},
+        {"block": "2. PL FIDC", "metric": "Reconciliação PL oficial vs classes (%)", "column": "pl_reconciliacao_delta_pct", "unit": "percent", "formula": "|PL FIDC total usado - PL soma das classes| / PL FIDC total usado."},
+        {"block": "2. PL FIDC", "metric": "Fonte do PL FIDC total", "column": "pl_total_usado_fonte", "unit": "text", "formula": "Indica se foi usado PL oficial ou soma das classes."},
         {"block": "2. PL FIDC", "metric": "PL Sênior", "column": "pl_senior", "unit": "money", "formula": "PL da classe sênior."},
         {"block": "2. PL FIDC", "metric": "PL Subordinada", "column": "pl_subordinada_strict", "unit": "money", "formula": "PL subordinado estrito, sem mezanino."},
         {"block": "2. PL FIDC", "metric": "PL Mezanino", "column": "pl_mezzanino", "unit": "money", "formula": "PL classificado como mezanino quando aplicável."},
@@ -455,9 +661,15 @@ def _wide_metric_specs() -> list[dict[str, str]]:
         {"block": "6. Cobertura", "metric": "PDD / NPL Over 180d", "column": "pdd_npl_over180_pct", "unit": "percent", "formula": "PDD total / NPL Over 180d."},
         {"block": "6. Cobertura", "metric": "PDD / NPL Over 360d", "column": "pdd_npl_over360_pct", "unit": "percent", "formula": "PDD total / NPL Over 360d, quando denominador > 0."},
         {"block": "7. Visão Ex-Vencidos > 360d", "metric": "Carteira Ex Over 360d", "column": "carteira_ex360", "unit": "money", "formula": "Carteira Bruta - NPL Over 360d."},
-        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "PDD Ex Over 360d", "column": "pdd_ex360", "unit": "money", "formula": "Não calculável sem PDD segmentado por faixa."},
-        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "PDD Ex Over 360d / Carteira Ex Over 360d", "column": "pdd_ex360_carteira_ex360_pct", "unit": "percent", "formula": "Não calculável sem PDD segmentado por faixa."},
-        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "Carteira Líquida Ex Over 360d", "column": "carteira_liquida_ex360", "unit": "money", "formula": "Não calculável sem PDD segmentado por faixa."},
+        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "Baixa Over 360d na carteira", "column": "baixa_over360_carteira", "unit": "money", "formula": "Saldo vencido acima de 360 dias baixado da carteira."},
+        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "Baixa Over 360d na PDD", "column": "baixa_over360_pdd", "unit": "money", "formula": "Menor valor entre PDD total e saldo Over 360d baixado."},
+        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "Baixa Over 360d no PL", "column": "baixa_over360_pl", "unit": "money", "formula": "Parcela da baixa Over 360d não coberta por PDD."},
+        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "PL Ex Over 360d", "column": "pl_total_ex360", "unit": "money", "formula": "PL FIDC total - baixa Over 360d no PL."},
+        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "Subordinada + Mezanino Ex Over 360d", "column": "pl_subordinada_mezz_ex360", "unit": "money", "formula": "Subordinada + Mezanino após baixa Over 360d no PL."},
+        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "% Subordinação Total Ex Over 360d", "column": "subordinacao_total_ex360_pct", "unit": "percent", "formula": "(Subordinada + Mezanino Ex Over 360d) / PL Ex Over 360d."},
+        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "PDD Ex Over 360d", "column": "pdd_ex360", "unit": "money", "formula": "PDD total - baixa Over 360d na PDD."},
+        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "PDD Ex Over 360d / Carteira Ex Over 360d", "column": "pdd_ex360_carteira_ex360_pct", "unit": "percent", "formula": "PDD Ex Over 360d / Carteira Ex Over 360d."},
+        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "Carteira Líquida Ex Over 360d", "column": "carteira_liquida_ex360", "unit": "money", "formula": "Carteira Ex Over 360d - PDD Ex Over 360d."},
         {"block": "7. Visão Ex-Vencidos > 360d", "metric": "NPL Over 1d Ex 360", "column": "npl_over1_ex360", "unit": "money", "formula": "NPL Over 1d - NPL Over 360d."},
         {"block": "7. Visão Ex-Vencidos > 360d", "metric": "NPL Over 1d Ex 360 / Carteira Ex 360", "column": "npl_over1_ex360_pct", "unit": "percent", "formula": "NPL Over 1d Ex 360 / Carteira Ex 360."},
         {"block": "7. Visão Ex-Vencidos > 360d", "metric": "NPL Over 30d Ex 360", "column": "npl_over30_ex360", "unit": "money", "formula": "NPL Over 30d - NPL Over 360d."},
@@ -468,7 +680,7 @@ def _wide_metric_specs() -> list[dict[str, str]]:
         {"block": "7. Visão Ex-Vencidos > 360d", "metric": "NPL Over 90d Ex 360 / Carteira Ex 360", "column": "npl_over90_ex360_pct", "unit": "percent", "formula": "NPL Over 90d Ex 360 / Carteira Ex 360."},
         {"block": "7. Visão Ex-Vencidos > 360d", "metric": "NPL Over 180d Ex 360", "column": "npl_over180_ex360", "unit": "money", "formula": "NPL Over 180d - NPL Over 360d."},
         {"block": "7. Visão Ex-Vencidos > 360d", "metric": "NPL Over 180d Ex 360 / Carteira Ex 360", "column": "npl_over180_ex360_pct", "unit": "percent", "formula": "NPL Over 180d Ex 360 / Carteira Ex 360."},
-        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "PDD / NPL Over 90d Ex 360", "column": "pdd_npl_over90_ex360_pct", "unit": "percent", "formula": "PDD total / NPL Over 90d Ex 360; sem alocação de PDD por faixa."},
+        {"block": "7. Visão Ex-Vencidos > 360d", "metric": "PDD / NPL Over 90d Ex 360", "column": "pdd_npl_over90_ex360_pct", "unit": "percent", "formula": "PDD Ex Over 360d / NPL Over 90d Ex 360."},
         {"block": "8. Roll Rate / fluxo de deterioração", "metric": "Carteira em dia + atrasada até 30d", "column": "carteira_em_dia_mais_ate30", "unit": "money", "formula": "Carteira em dia + atrasada até 30 dias."},
         {"block": "8. Roll Rate / fluxo de deterioração", "metric": "Atrasos 31-60d", "column": "atraso_31_60", "unit": "money", "formula": "Bucket 31-60 dias."},
         {"block": "8. Roll Rate / fluxo de deterioração", "metric": "Roll Rate", "column": "roll_rate_31_60_pct", "unit": "percent", "formula": "Atrasos 31-60d / (Carteira em dia + atrasada até 30d)."},
@@ -481,7 +693,7 @@ def _wide_metric_specs() -> list[dict[str, str]]:
         {"block": "9. Campos auxiliares de auditoria", "metric": "Flag de dado ausente", "column": "missing_data_flag", "unit": "bool", "formula": "Verdadeiro quando campo crítico está ausente."},
         {"block": "9. Campos auxiliares de auditoria", "metric": "Flag de divisão por zero", "column": "division_by_zero_flag", "unit": "bool", "formula": "Verdadeiro quando denominador crítico é zero/ausente."},
         {"block": "9. Campos auxiliares de auditoria", "metric": "Flag de valor negativo", "column": "negative_value_flag", "unit": "bool", "formula": "Verdadeiro quando valor monetário crítico é negativo."},
-        {"block": "9. Campos auxiliares de auditoria", "metric": "Flag de métrica não calculável", "column": "not_calculable_flag", "unit": "bool", "formula": "Verdadeiro para métricas sem base tecnicamente calculável, como PDD ex-360."},
+        {"block": "9. Campos auxiliares de auditoria", "metric": "Flag de métrica não calculável", "column": "not_calculable_flag", "unit": "bool", "formula": "Verdadeiro quando faltam dados para calcular a baixa/PDD ex-360."},
         {"block": "9. Campos auxiliares de auditoria", "metric": "Observação técnica", "column": "warnings", "unit": "text", "formula": "Resumo dos warnings da competência."},
     ]
 
@@ -544,6 +756,12 @@ def _safe_div_pct(numerator: pd.Series, denominator: pd.Series) -> pd.Series:
     num = pd.to_numeric(numerator, errors="coerce")
     den = pd.to_numeric(denominator, errors="coerce")
     return (num / den).where(den > 0).mul(100.0)
+
+
+def _row_min(left: pd.Series, right: pd.Series) -> pd.Series:
+    left_num = pd.to_numeric(left, errors="coerce")
+    right_num = pd.to_numeric(right, errors="coerce")
+    return pd.concat([left_num, right_num], axis=1).min(axis=1, skipna=False)
 
 
 def _coalesce_numeric(primary: pd.Series, fallback: pd.Series) -> pd.Series:
@@ -614,6 +832,13 @@ def _competencia_list(frame: pd.DataFrame) -> list[str]:
     return frame["competencia"].astype(str).tolist()
 
 
+def _loaded_period_label_from_frame(frame: pd.DataFrame) -> str:
+    competencias = _competencia_list(frame)
+    if not competencias:
+        return "N/D"
+    return f"{_format_competencia_short(competencias[0])} a {_format_competencia_short(competencias[-1])}"
+
+
 def _row_warnings(row: pd.Series) -> str:
     warnings: list[str] = []
     if bool(row.get("missing_data_flag")):
@@ -622,8 +847,14 @@ def _row_warnings(row: pd.Series) -> str:
         warnings.append("denominador zero/ausente")
     if bool(row.get("negative_value_flag")):
         warnings.append("valor monetário negativo")
+    if str(row.get("pl_total_usado_fonte") or "") == "soma_classes_cotas":
+        warnings.append("PL oficial indisponível; usando soma das classes")
+    if bool(row.get("pl_reconciliacao_warning")):
+        warnings.append("PL oficial diverge da soma das classes acima de 0,5%")
+    if bool(row.get("pdd_over360_insuficiente")):
+        warnings.append("PDD menor que Over 360; baixa residual afetou PL")
     if not bool(row.get("pdd_ex360_calculavel")):
-        warnings.append("PDD ex-360 não calculável sem PDD por faixa")
+        warnings.append("PDD ex-360 não calculável por ausência de PDD total ou Over 360")
     if int(row.get("funds_present_count") or 0) < int(row.get("funds_expected_count") or 0):
         warnings.append("consolidado parcial na competência")
     return "; ".join(warnings)

@@ -13,21 +13,23 @@ from services.mercado_livre_dashboard import (
     build_excel_export_bytes,
     build_mercado_livre_outputs,
     build_validation_table,
+    cache_dir_for_outputs,
+    extract_official_pl_history_from_wide_csv,
+    load_outputs_from_cache,
+    portfolio_identity_key,
     save_outputs_to_cache,
 )
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
-from services.portfolio_store import PortfolioFund, PortfolioRecord
+from services.portfolio_store import PortfolioFund, PortfolioRecord, portfolio_basket_signature, portfolio_name_key
 from tabs import tab_fidc_ime as ime_tab
 from tabs.ime_portfolio_support import (
     build_catalog_option_lookup,
     build_portfolio_funds_from_cnpjs,
     delete_portfolio_record,
     enrich_portfolio_funds_with_catalog,
-    format_portfolio_fund_label,
     get_portfolio_status_caption,
     list_saved_portfolios,
     load_fidc_catalog_cached,
-    normalize_portfolio_fund_name,
     save_portfolio_record,
 )
 from tabs.tab_fidc_ime_carteira import (
@@ -62,8 +64,19 @@ def render_tab_mercado_livre(period: ImePeriodSelection | None = None) -> None:
     selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
     runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period)
     results = runtime_state.get("results") or {}
+    cache_session_key = _outputs_session_key(selected_portfolio=selected_portfolio, period=period)
 
     if st.session_state.pop("_ml_load_requested", False):
+        cached_outputs = load_outputs_from_cache(
+            portfolio_id=selected_portfolio.id,
+            period_key=period.cache_key,
+            portfolio_funds=selected_portfolio.funds,
+        )
+        if cached_outputs is not None:
+            st.session_state[cache_session_key] = cached_outputs
+            st.session_state[f"{cache_session_key}::source"] = "cache"
+            st.toast("Base Mercado Livre reutilizada do storage calculado.")
+            st.rerun()
         _execute_portfolio_load_for_funds(
             selected_portfolio=selected_portfolio,
             period=period,
@@ -73,6 +86,20 @@ def render_tab_mercado_livre(period: ImePeriodSelection | None = None) -> None:
         st.rerun()
 
     _render_status_bar(selected_portfolio=selected_portfolio, period=period, results=results)
+    cached_session_outputs = st.session_state.get(cache_session_key)
+    if cached_session_outputs is not None:
+        cache_dir = cache_dir_for_outputs(
+            portfolio_id=selected_portfolio.id,
+            period_key=period.cache_key,
+            portfolio_funds=selected_portfolio.funds,
+        )
+        _render_outputs(
+            outputs=cached_session_outputs,
+            selected_portfolio=selected_portfolio,
+            cache_dir=cache_dir,
+            storage_source=str(st.session_state.get(f"{cache_session_key}::source") or "cache"),
+        )
+        return
     if not results:
         st.info("Clique em **Carregar carteira** para montar a base auditável e os gráficos.")
         return
@@ -88,18 +115,28 @@ def render_tab_mercado_livre(period: ImePeriodSelection | None = None) -> None:
     if not dashboards_by_cnpj:
         st.warning("Nenhum fundo carregado com sucesso para montar a aba Mercado Livre.")
         return
+    official_pl_by_cnpj = _build_official_pl_by_cnpj(results=results, cnpjs=list(dashboards_by_cnpj))
 
     outputs = build_mercado_livre_outputs(
         portfolio_id=selected_portfolio.id,
         portfolio_name=selected_portfolio.name,
         dashboards_by_cnpj=dashboards_by_cnpj,
         period_label=period.label,
+        official_pl_by_cnpj=official_pl_by_cnpj,
     )
-    cache_dir = save_outputs_to_cache(outputs, portfolio_id=selected_portfolio.id, period_key=period.cache_key)
+    cache_dir = save_outputs_to_cache(
+        outputs,
+        portfolio_id=selected_portfolio.id,
+        period_key=period.cache_key,
+        portfolio_funds=selected_portfolio.funds,
+    )
+    st.session_state[cache_session_key] = outputs
+    st.session_state[f"{cache_session_key}::source"] = "recalculado"
     _render_outputs(
         outputs=outputs,
         selected_portfolio=selected_portfolio,
         cache_dir=cache_dir,
+        storage_source="recalculado",
     )
 
 
@@ -229,16 +266,41 @@ def _render_portfolio_editor(
         if not funds:
             st.warning("Selecione ao menos um fundo.")
             return
-        stored = save_portfolio_record(
-            PortfolioRecord(
-                id=target.id if target is not None else uuid.uuid4().hex,
-                name=name,
-                funds=tuple(funds),
-                created_at=target.created_at if target is not None else _utc_now_iso(),
-                updated_at=target.updated_at if target is not None else _utc_now_iso(),
-                notes=target.notes if target is not None else "",
-            )
+        existing = _resolve_existing_portfolio_for_save(
+            portfolios=portfolios,
+            target=target,
+            name=name,
+            funds=funds,
         )
+        if existing.get("action") == "reuse":
+            reused = existing["portfolio"]
+            _queue_selection(reused.id)
+            st.session_state["ml_editor_open"] = False
+            _reset_editor_state()
+            st.toast(f"A seleção '{reused.name}' já estava salva com a mesma composição. Reaproveitei a carteira existente.")
+            st.rerun()
+            return
+        if existing.get("action") == "rename":
+            conflict = existing["portfolio"]
+            st.warning(
+                f"Já existe uma seleção chamada '{conflict.name}', mas com outra composição. "
+                "Use outro nome antes de salvar."
+            )
+            return
+        try:
+            stored = save_portfolio_record(
+                PortfolioRecord(
+                    id=target.id if target is not None else uuid.uuid4().hex,
+                    name=name,
+                    funds=tuple(funds),
+                    created_at=target.created_at if target is not None else _utc_now_iso(),
+                    updated_at=target.updated_at if target is not None else _utc_now_iso(),
+                    notes=target.notes if target is not None else "",
+                )
+            )
+        except ValueError as exc:
+            st.warning(str(exc))
+            return
         _queue_selection(stored.id)
         st.session_state["ml_editor_open"] = False
         _reset_editor_state()
@@ -266,7 +328,7 @@ def _render_status_bar(
         f"""
 <div class="fidc-period-bar">
   <span><strong>Carteira:</strong> {escape(selected_portfolio.name)}</span>
-  <span><strong>Período:</strong> {escape(period.label)}</span>
+  <span><strong>Período solicitado:</strong> {escape(period.label)}</span>
   <span><strong>Fundos carregados:</strong> {ok}/{total}</span>
 </div>
 """,
@@ -279,10 +341,21 @@ def _render_outputs(
     outputs,
     selected_portfolio: PortfolioRecord,
     cache_dir,
+    storage_source: str,
 ) -> None:
     validation_df = build_validation_table(outputs)
     st.markdown("### Tabela de auditoria")
     st.caption("Valores absolutos são calculados primeiro. Percentuais e coberturas são derivados depois; no consolidado, nunca há média simples de percentuais.")
+    st.markdown(
+        f"""
+<div class="fidc-period-bar">
+  <span><strong>Período carregado:</strong> {escape(_loaded_period_label(outputs))}</span>
+  <span><strong>Storage:</strong> {escape(storage_source)}</span>
+  <span><strong>Identidade da carteira:</strong> {escape(str(outputs.metadata.get("storage_identity_key") or portfolio_identity_key(selected_portfolio.funds, fallback=selected_portfolio.id)))}</span>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
     st.dataframe(_format_validation_for_display(validation_df), width="stretch", hide_index=True)
     st.caption(f"Base calculada persistida em `{cache_dir}`.")
 
@@ -300,28 +373,40 @@ def _render_outputs(
         with st.expander("Warnings da base", expanded=False):
             st.dataframe(outputs.warnings_df, width="stretch", hide_index=True)
 
-    st.markdown("### Fundos individuais")
+    st.markdown("### Tabelas wide individuais")
     for cnpj, monthly_df in outputs.fund_monthly.items():
         fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
         with st.expander(f"{fund_name} · {cnpj}", expanded=False):
-            _render_graph_definitions()
-            left, right = st.columns(2)
-            with left:
-                st.altair_chart(pl_subordination_chart(monthly_df), width="stretch")
-            with right:
-                st.altair_chart(npl_coverage_chart(monthly_df), width="stretch")
             st.markdown("**Tabela wide**")
             st.dataframe(outputs.fund_wide[cnpj], width="stretch", hide_index=True)
 
-    st.markdown("### Carteira consolidada")
-    _render_graph_definitions()
-    left, right = st.columns(2)
-    with left:
-        st.altair_chart(pl_subordination_chart(outputs.consolidated_monthly), width="stretch")
-    with right:
-        st.altair_chart(npl_coverage_chart(outputs.consolidated_monthly), width="stretch")
+    st.markdown("### Tabela wide consolidada")
     with st.expander("Tabela wide consolidada", expanded=True):
         st.dataframe(outputs.consolidated_wide, width="stretch", hide_index=True)
+
+    show_charts = st.checkbox(
+        "Mostrar gráficos de prévia",
+        value=False,
+        help="A validação principal desta etapa é a tabela wide. Gráficos ficam desligados por padrão até a base estabilizar.",
+        key=f"ml_show_charts::{selected_portfolio.id}",
+    )
+    if show_charts:
+        st.markdown("### Gráficos de prévia")
+        _render_graph_definitions()
+        for cnpj, monthly_df in outputs.fund_monthly.items():
+            fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
+            with st.expander(f"Gráficos · {fund_name} · {cnpj}", expanded=False):
+                left, right = st.columns(2)
+                with left:
+                    st.altair_chart(pl_subordination_chart(monthly_df), width="stretch")
+                with right:
+                    st.altair_chart(npl_coverage_chart(monthly_df), width="stretch")
+        st.markdown("**Carteira consolidada**")
+        left, right = st.columns(2)
+        with left:
+            st.altair_chart(pl_subordination_chart(outputs.consolidated_monthly), width="stretch")
+        with right:
+            st.altair_chart(npl_coverage_chart(outputs.consolidated_monthly), width="stretch")
 
 
 def _render_graph_definitions() -> None:
@@ -329,8 +414,70 @@ def _render_graph_definitions() -> None:
         "**Evolução de PL e Subordinação:** barras empilhadas mostram PL Sênior e Subordinada + Mez em R$; "
         "a linha mostra (Subordinada + Mez) / PL total. "
         "**NPL e Cobertura Ex-Vencidos > 360d:** a linha de NPL usa NPL Over 90d sem vencidos acima de 360 dias; "
-        "a cobertura usa PDD total / NPL Over 90d ex-360 porque o XML não traz PDD por faixa de atraso."
+        "a cobertura usa PDD Ex Over 360d / NPL Over 90d Ex 360, em que PDD Ex Over 360d = PDD total menos a baixa Over 360d na PDD."
     )
+
+
+def _resolve_existing_portfolio_for_save(
+    *,
+    portfolios: list[PortfolioRecord],
+    target: PortfolioRecord | None,
+    name: str,
+    funds: list[PortfolioFund],
+) -> dict[str, Any]:
+    target_id = target.id if target is not None else None
+    requested_name_key = portfolio_name_key(name)
+    requested_basket = portfolio_basket_signature(funds)
+    same_basket = next(
+        (
+            portfolio
+            for portfolio in portfolios
+            if portfolio.id != target_id and portfolio_basket_signature(portfolio.funds) == requested_basket
+        ),
+        None,
+    )
+    if same_basket is not None:
+        return {"action": "reuse", "portfolio": same_basket}
+    same_name = next(
+        (
+            portfolio
+            for portfolio in portfolios
+            if portfolio.id != target_id and portfolio_name_key(portfolio.name) == requested_name_key
+        ),
+        None,
+    )
+    if same_name is not None:
+        return {"action": "rename", "portfolio": same_name}
+    return {"action": "save"}
+
+
+def _outputs_session_key(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection) -> str:
+    identity = portfolio_identity_key(selected_portfolio.funds, fallback=selected_portfolio.id)
+    return f"ml_outputs::{identity}::{period.cache_key}"
+
+
+def _build_official_pl_by_cnpj(
+    *,
+    results: dict[str, dict[str, Any]],
+    cnpjs: list[str],
+) -> dict[str, pd.DataFrame]:
+    frames: dict[str, pd.DataFrame] = {}
+    for cnpj in cnpjs:
+        payload = results.get(cnpj) or {}
+        result = payload.get("result")
+        wide_csv_path = getattr(result, "wide_csv_path", None)
+        if wide_csv_path is None:
+            continue
+        frames[cnpj] = extract_official_pl_history_from_wide_csv(wide_csv_path)
+    return frames
+
+
+def _loaded_period_label(outputs) -> str:
+    frame = outputs.consolidated_monthly
+    if frame is None or frame.empty or "competencia" not in frame.columns:
+        return "N/D"
+    competencias = frame["competencia"].astype(str).tolist()
+    return f"{ime_tab._format_competencia_label(competencias[0])} a {ime_tab._format_competencia_label(competencias[-1])}"
 
 
 def _format_validation_for_display(df: pd.DataFrame) -> pd.DataFrame:
@@ -342,6 +489,9 @@ def _format_validation_for_display(df: pd.DataFrame) -> pd.DataFrame:
         "cnpj": "CNPJ",
         "competencia": "Competência",
         "pl_total": "PL total",
+        "pl_total_oficial": "PL oficial",
+        "pl_total_classes": "PL soma classes",
+        "pl_reconciliacao_delta": "Delta PL",
         "pl_senior": "PL sênior",
         "pl_subordinada_mezz": "Subordinada + Mez",
         "subordinacao_total_pct": "% Subordinação",
@@ -349,16 +499,47 @@ def _format_validation_for_display(df: pd.DataFrame) -> pd.DataFrame:
         "pdd_total": "PDD",
         "npl_over90": "NPL Over 90d",
         "npl_over360": "Over 360d",
+        "baixa_over360_carteira": "Baixa carteira >360",
+        "baixa_over360_pdd": "Baixa PDD >360",
+        "baixa_over360_pl": "Baixa PL >360",
         "npl_over90_ex360": "NPL 90 ex-360",
         "carteira_ex360": "Carteira ex-360",
+        "pdd_ex360": "PDD ex-360",
+        "pl_total_ex360": "PL ex-360",
+        "pl_subordinada_mezz_ex360": "Sub+Mez ex-360",
+        "subordinacao_total_ex360_pct": "% Subordinação ex-360",
         "pdd_npl_over90_pct": "PDD/NPL90",
         "pdd_npl_over90_ex360_pct": "PDD/NPL90 ex-360",
         "warnings": "Warnings",
     }
-    for column in ["pl_total", "pl_senior", "pl_subordinada_mezz", "carteira_bruta", "pdd_total", "npl_over90", "npl_over360", "npl_over90_ex360", "carteira_ex360"]:
+    for column in [
+        "pl_total",
+        "pl_total_oficial",
+        "pl_total_classes",
+        "pl_reconciliacao_delta",
+        "pl_senior",
+        "pl_subordinada_mezz",
+        "carteira_bruta",
+        "pdd_total",
+        "npl_over90",
+        "npl_over360",
+        "baixa_over360_carteira",
+        "baixa_over360_pdd",
+        "baixa_over360_pl",
+        "npl_over90_ex360",
+        "carteira_ex360",
+        "pdd_ex360",
+        "pl_total_ex360",
+        "pl_subordinada_mezz_ex360",
+    ]:
         if column in output.columns:
             output[column] = output[column].map(_format_brl_compact)
-    for column in ["subordinacao_total_pct", "pdd_npl_over90_pct", "pdd_npl_over90_ex360_pct"]:
+    for column in [
+        "subordinacao_total_pct",
+        "subordinacao_total_ex360_pct",
+        "pdd_npl_over90_pct",
+        "pdd_npl_over90_ex360_pct",
+    ]:
         if column in output.columns:
             output[column] = output[column].map(_format_percent)
     return output.rename(columns=rename)
