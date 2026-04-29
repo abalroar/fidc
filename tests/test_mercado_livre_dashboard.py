@@ -12,6 +12,7 @@ import pandas as pd
 
 from services.mercado_livre_dashboard import (
     build_consolidated_monthly_base,
+    build_consolidated_snapshot_excel_bytes,
     build_excel_export_bytes,
     build_fund_monthly_base,
     build_mercado_livre_outputs,
@@ -131,6 +132,9 @@ class MercadoLivreDashboardTests(unittest.TestCase):
 
         self.assertIn("#000000", chart_payload)
         self.assertIn("#E47811", chart_payload)
+        self.assertIn("Séries", chart_payload)
+        self.assertIn("NPL Over 90d ex-360 / Carteira", chart_payload)
+        self.assertIn("PDD Ex / NPL Over 90d ex-360", chart_payload)
         self.assertIn("4,0%", chart_payload)
         self.assertIn("225,0%", chart_payload)
         for legacy_color in ("#1f77b4", "#8ecae6", "#d1495b", "#1b998b"):
@@ -233,6 +237,13 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("Consolidado", workbook.sheetnames)
         self.assertIn("Auditoria", workbook.sheetnames)
 
+        snapshot_bytes = build_consolidated_snapshot_excel_bytes(outputs)
+        snapshot_workbook = load_workbook(BytesIO(snapshot_bytes), data_only=True)
+        self.assertIn("Resumo 6m", snapshot_workbook.sheetnames)
+        self.assertIn("Dados gráficos", snapshot_workbook.sheetnames)
+        self.assertIn("Gráficos", snapshot_workbook.sheetnames)
+        self.assertGreaterEqual(len(snapshot_workbook["Gráficos"]._charts), 2)
+
     def test_consolidated_wide_html_has_section_rows_and_dense_formatting(self) -> None:
         wide = pd.DataFrame(
             [
@@ -256,7 +267,8 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         html = _render_wide_table_html(wide)
 
         self.assertIn("wide-table-wrapper", html)
-        self.assertIn("class='secao'", html)
+        self.assertIn("<details class='wide-section' open>", html)
+        self.assertIn("<summary>PL FIDC</summary>", html)
         self.assertIn("PL FIDC", html)
         self.assertIn("1.500,0 MM", html)
         self.assertIn("27,2%", html)

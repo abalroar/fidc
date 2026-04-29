@@ -10,6 +10,8 @@ import re
 from typing import Any
 
 import pandas as pd
+from openpyxl import Workbook
+from openpyxl.chart import BarChart, LineChart, Reference
 from openpyxl.styles import Alignment, Font, PatternFill, Side, Border
 from openpyxl.utils import get_column_letter
 
@@ -468,6 +470,159 @@ def build_excel_export_bytes(outputs: MercadoLivreOutputs) -> bytes:
         metadata_df.to_excel(writer, sheet_name="Metadados", index=False)
         _style_plain_sheet(writer.book["Metadados"])
     return buffer.getvalue()
+
+
+def build_consolidated_snapshot_excel_bytes(outputs: MercadoLivreOutputs) -> bytes:
+    workbook = Workbook()
+    summary_ws = workbook.active
+    summary_ws.title = "Resumo 6m"
+    data_ws = workbook.create_sheet("Dados gráficos")
+    charts_ws = workbook.create_sheet("Gráficos")
+
+    monthly = outputs.consolidated_monthly.copy()
+    if monthly.empty:
+        summary_ws.append(["Sem dados consolidados"])
+        buffer = BytesIO()
+        workbook.save(buffer)
+        return buffer.getvalue()
+    monthly = monthly.sort_values("competencia_dt").tail(6).reset_index(drop=True)
+    period_labels = [_format_competencia_short(value) for value in monthly["competencia"].astype(str).tolist()]
+
+    _write_snapshot_summary(summary_ws, monthly, period_labels)
+    _write_snapshot_chart_data(data_ws, monthly, period_labels)
+    _write_snapshot_charts(charts_ws, data_ws, len(monthly))
+    _style_plain_sheet(summary_ws)
+    _style_plain_sheet(data_ws)
+    charts_ws.sheet_view.showGridLines = False
+    charts_ws.column_dimensions["A"].width = 2
+
+    buffer = BytesIO()
+    workbook.save(buffer)
+    return buffer.getvalue()
+
+
+def _write_snapshot_summary(ws, monthly: pd.DataFrame, period_labels: list[str]) -> None:
+    ws.append(["Métrica", *period_labels])
+    metrics = [
+        ("PL FIDC total", "pl_total", "money"),
+        ("PL Sênior", "pl_senior", "money"),
+        ("Subordinada + Mezanino ex-360", "pl_subordinada_mezz_ex360", "money"),
+        ("% Subordinação Total ex-360", "subordinacao_total_ex360_pct", "percent"),
+        ("Carteira Bruta total", "carteira_bruta", "money"),
+        ("Carteira Ex Over 360d", "carteira_ex360", "money"),
+        ("PDD Ex Over 360d", "pdd_ex360", "money"),
+        ("NPL Over 90d Ex 360", "npl_over90_ex360", "money"),
+        ("NPL Over 90d Ex 360 / Carteira Ex 360", "npl_over90_ex360_pct", "percent"),
+        ("PDD Ex / NPL Over 90d Ex 360", "pdd_npl_over90_ex360_pct", "percent"),
+        ("Roll Rate 31-60d", "roll_rate_31_60_pct", "percent"),
+    ]
+    for label, column, unit in metrics:
+        values = [_excel_snapshot_value(row.get(column), unit=unit) for _, row in monthly.iterrows()]
+        ws.append([label, *values])
+    for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=2):
+        for cell in row:
+            cell.number_format = '#,##0.0%' if isinstance(cell.value, float) and abs(cell.value) <= 20 and ws.cell(row=cell.row, column=1).value and "%" in str(ws.cell(row=cell.row, column=1).value) else '#,##0'
+    ws.freeze_panes = "B2"
+
+
+def _write_snapshot_chart_data(ws, monthly: pd.DataFrame, period_labels: list[str]) -> None:
+    ws.append(
+        [
+            "Competência",
+            "PL Sênior",
+            "Subordinada + Mezanino ex-360",
+            "% Subordinação Total ex-360",
+            "NPL Over 90d Ex 360 / Carteira Ex 360",
+            "PDD Ex / NPL Over 90d Ex 360",
+        ]
+    )
+    for label, (_, row) in zip(period_labels, monthly.iterrows(), strict=False):
+        ws.append(
+            [
+                label,
+                _excel_snapshot_value(row.get("pl_senior"), unit="money"),
+                _excel_snapshot_value(row.get("pl_subordinada_mezz_ex360"), unit="money"),
+                _excel_snapshot_value(row.get("subordinacao_total_ex360_pct"), unit="percent"),
+                _excel_snapshot_value(row.get("npl_over90_ex360_pct"), unit="percent"),
+                _excel_snapshot_value(row.get("pdd_npl_over90_ex360_pct"), unit="percent"),
+            ]
+        )
+    for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=4, max_col=6):
+        for cell in row:
+            cell.number_format = '#,##0.0%'
+    for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=2, max_col=3):
+        for cell in row:
+            cell.number_format = '#,##0'
+    ws.freeze_panes = "B2"
+
+
+def _write_snapshot_charts(ws, data_ws, month_count: int) -> None:
+    if month_count <= 0:
+        return
+    max_row = month_count + 1
+    categories = Reference(data_ws, min_col=1, min_row=2, max_row=max_row)
+
+    pl_chart = BarChart()
+    pl_chart.type = "col"
+    pl_chart.style = 10
+    pl_chart.title = "Evolução de PL e Subordinação"
+    pl_chart.y_axis.title = "R$"
+    pl_chart.x_axis.title = "Competência"
+    pl_chart.add_data(Reference(data_ws, min_col=2, max_col=3, min_row=1, max_row=max_row), titles_from_data=True)
+    pl_chart.set_categories(categories)
+    pl_chart.width = 33.0
+    pl_chart.height = 15.0
+    for series, color in zip(pl_chart.series, ["000000", "E47811"], strict=False):
+        series.graphicalProperties.solidFill = color
+        series.graphicalProperties.line.solidFill = color
+
+    sub_line = LineChart()
+    sub_line.add_data(Reference(data_ws, min_col=4, min_row=1, max_row=max_row), titles_from_data=True)
+    sub_line.set_categories(categories)
+    sub_line.y_axis.axId = 200
+    sub_line.y_axis.title = "% Subordinação"
+    sub_line.y_axis.crosses = "max"
+    if sub_line.series:
+        sub_line.series[0].graphicalProperties.line.solidFill = "3F3F3F"
+        sub_line.series[0].graphicalProperties.line.width = 25000
+        sub_line.series[0].marker.symbol = "circle"
+    pl_chart += sub_line
+    ws.add_chart(pl_chart, "B2")
+
+    npl_chart = LineChart()
+    npl_chart.title = "NPL e Cobertura Ex-Vencidos > 360d"
+    npl_chart.y_axis.title = "NPL Over 90d Ex 360 / Carteira Ex 360"
+    npl_chart.x_axis.title = "Competência"
+    npl_chart.add_data(Reference(data_ws, min_col=5, min_row=1, max_row=max_row), titles_from_data=True)
+    npl_chart.set_categories(categories)
+    npl_chart.width = 33.0
+    npl_chart.height = 15.0
+    if npl_chart.series:
+        npl_chart.series[0].graphicalProperties.line.solidFill = "000000"
+        npl_chart.series[0].graphicalProperties.line.width = 25000
+        npl_chart.series[0].marker.symbol = "circle"
+
+    coverage_line = LineChart()
+    coverage_line.add_data(Reference(data_ws, min_col=6, min_row=1, max_row=max_row), titles_from_data=True)
+    coverage_line.set_categories(categories)
+    coverage_line.y_axis.axId = 300
+    coverage_line.y_axis.title = "PDD Ex / NPL Over 90d Ex 360"
+    coverage_line.y_axis.crosses = "max"
+    if coverage_line.series:
+        coverage_line.series[0].graphicalProperties.line.solidFill = "E47811"
+        coverage_line.series[0].graphicalProperties.line.width = 25000
+        coverage_line.series[0].marker.symbol = "circle"
+    npl_chart += coverage_line
+    ws.add_chart(npl_chart, "B32")
+
+
+def _excel_snapshot_value(value: object, *, unit: str) -> float | None:
+    numeric = _num(value)
+    if numeric is None:
+        return None
+    if unit == "percent":
+        return numeric / 100.0
+    return numeric
 
 
 def _subordination_values(frame: pd.DataFrame, competencia: str) -> dict[str, object]:

@@ -130,16 +130,26 @@ def npl_coverage_chart(monthly_df: pd.DataFrame, *, title: str = "NPL e Cobertur
     )
     chart_df["npl_fmt"] = chart_df["npl_pct"].map(_format_percent)
     chart_df["coverage_fmt"] = chart_df["coverage_pct"].map(_format_percent)
+    npl_df = chart_df.assign(serie="NPL Over 90d ex-360 / Carteira")
+    coverage_df = chart_df.assign(serie="PDD Ex / NPL Over 90d ex-360")
     npl_label_df = _last_point_label_df(chart_df[["competencia", "npl_pct", "npl_fmt"]], value_column="npl_pct")
     coverage_label_df = _last_point_label_df(chart_df[["competencia", "coverage_pct", "coverage_fmt"]], value_column="coverage_pct")
     x_sort = chart_df["competencia"].drop_duplicates().tolist()
     x = alt.X("competencia:N", title="Competência", sort=x_sort)
+    color = alt.Color(
+        "serie:N",
+        title="Séries",
+        scale=alt.Scale(
+            domain=["NPL Over 90d ex-360 / Carteira", "PDD Ex / NPL Over 90d ex-360"],
+            range=[NPL_COLOR, COVERAGE_COLOR],
+        ),
+        legend=alt.Legend(orient="bottom"),
+    )
     npl_line = (
-        alt.Chart(chart_df)
+        alt.Chart(npl_df)
         .mark_line(
-            point=alt.OverlayMarkDef(filled=True, fill=NPL_COLOR, color=NPL_COLOR, size=42),
+            point=alt.OverlayMarkDef(filled=True, size=42),
             strokeWidth=2,
-            color=NPL_COLOR,
         )
         .encode(
             x=x,
@@ -148,15 +158,15 @@ def npl_coverage_chart(monthly_df: pd.DataFrame, *, title: str = "NPL e Cobertur
                 title="NPL Over 90d Ex 360 / Carteira Ex 360",
                 axis=alt.Axis(labelColor=NPL_COLOR, titleColor=NPL_COLOR),
             ),
+            color=color,
             tooltip=[alt.Tooltip("competencia:N", title="Competência"), alt.Tooltip("npl_fmt:N", title="NPL Over 90d Ex 360")],
         )
     )
     coverage_line = (
-        alt.Chart(chart_df)
+        alt.Chart(coverage_df)
         .mark_line(
-            point=alt.OverlayMarkDef(filled=True, fill=COVERAGE_COLOR, color=COVERAGE_COLOR, size=42),
+            point=alt.OverlayMarkDef(filled=True, size=42),
             strokeWidth=2,
-            color=COVERAGE_COLOR,
         )
         .encode(
             x=x,
@@ -165,6 +175,7 @@ def npl_coverage_chart(monthly_df: pd.DataFrame, *, title: str = "NPL e Cobertur
                 title="PDD / NPL Over 90d Ex 360",
                 axis=alt.Axis(orient="right", grid=False, labelColor=COVERAGE_COLOR, titleColor=COVERAGE_COLOR),
             ),
+            color=color,
             tooltip=[alt.Tooltip("competencia:N", title="Competência"), alt.Tooltip("coverage_fmt:N", title="PDD / NPL Over 90d Ex 360")],
         )
     )

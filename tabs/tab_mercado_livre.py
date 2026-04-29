@@ -10,6 +10,7 @@ import streamlit as st
 
 from services.ime_period import ImePeriodSelection
 from services.mercado_livre_dashboard import (
+    build_consolidated_snapshot_excel_bytes,
     build_excel_export_bytes,
     build_mercado_livre_outputs,
     build_validation_table,
@@ -59,6 +60,22 @@ _MERCADO_LIVRE_UI_CSS = """
     overflow-y: visible;
     max-width: 100%;
     padding-bottom: 4px;
+    margin-bottom: 10px;
+}
+.wide-section {
+    margin: 0 0 8px 0;
+}
+.wide-section summary {
+    background: #000000;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    list-style-position: inside;
+    padding: 7px 9px;
+}
+.wide-section summary::marker {
+    color: #FFFFFF;
 }
 .wide-table {
     width: 100%;
@@ -73,6 +90,9 @@ _MERCADO_LIVRE_UI_CSS = """
     font-weight: 600;
     color: #000000;
     background: #FFFFFF;
+    position: sticky;
+    top: 0;
+    z-index: 2;
     white-space: nowrap;
 }
 .wide-table th.label-col {
@@ -105,14 +125,6 @@ _MERCADO_LIVRE_UI_CSS = """
     white-space: normal;
     min-width: 260px;
 }
-.wide-table tr.secao td {
-    background: #000000;
-    color: #FFFFFF;
-    font-weight: 700;
-    padding: 6px 8px;
-    font-size: 13px;
-    text-align: left;
-}
 .wide-table tr.destaque td {
     font-weight: 700;
     color: #000000;
@@ -133,15 +145,6 @@ def render_tab_mercado_livre(period: ImePeriodSelection | None = None) -> None:
     st.markdown(ime_tab._FIDC_REPORT_CSS, unsafe_allow_html=True)
     st.markdown(_MERCADO_LIVRE_UI_CSS, unsafe_allow_html=True)
     _apply_pending_selection()
-    st.markdown(
-        """
-<div class="fidc-period-bar">
-  <span><strong>Fluxo:</strong> carteira salva → base auditável → gráficos individuais → consolidado</span>
-  <span><strong>Regra:</strong> soma absolutos e recalcula percentuais</span>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
 
     portfolios = list_saved_portfolios()
     catalog_df = load_fidc_catalog_cached()
@@ -435,8 +438,6 @@ def _render_outputs(
     storage_source: str,
 ) -> None:
     validation_df = build_validation_table(outputs)
-    st.markdown("### Tabela de auditoria")
-    st.caption("Valores absolutos são calculados primeiro. Percentuais e coberturas são derivados depois; no consolidado, nunca há média simples de percentuais.")
     st.markdown(
         f"""
 <div class="fidc-period-bar">
@@ -447,66 +448,82 @@ def _render_outputs(
 """,
         unsafe_allow_html=True,
     )
-    st.dataframe(_format_validation_for_display(validation_df), width="stretch", hide_index=True)
-    st.caption(f"Base calculada persistida em `{cache_dir}`.")
 
     excel_bytes = build_excel_export_bytes(outputs)
-    st.download_button(
-        "Baixar tabelas wide em Excel",
-        data=excel_bytes,
-        file_name=f"mercado_livre_{_safe_file_token(selected_portfolio.name)}.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        key=f"ml_excel_download::{selected_portfolio.id}",
-        use_container_width=False,
-    )
+    snapshot_bytes = build_consolidated_snapshot_excel_bytes(outputs)
+    main_tab, audit_tab = st.tabs(["Tabelas wide e gráficos", "Tabela de auditoria"])
 
-    if not outputs.warnings_df.empty:
-        with st.expander("Warnings da base", expanded=False):
-            st.dataframe(outputs.warnings_df, width="stretch", hide_index=True)
+    with main_tab:
+        btn_left, btn_right = st.columns([1.25, 2.2])
+        with btn_left:
+            st.download_button(
+                "Baixar wide completo",
+                data=excel_bytes,
+                file_name=f"mercado_livre_{_safe_file_token(selected_portfolio.name)}.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                key=f"ml_excel_download::{selected_portfolio.id}",
+                use_container_width=True,
+            )
+        with btn_right:
+            st.download_button(
+                "Baixar resumo 6m + gráficos consolidados",
+                data=snapshot_bytes,
+                file_name=f"mercado_livre_resumo_6m_{_safe_file_token(selected_portfolio.name)}.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                key=f"ml_snapshot_excel_download::{selected_portfolio.id}",
+                use_container_width=True,
+            )
 
-    st.markdown("### Tabelas wide individuais")
-    for cnpj, monthly_df in outputs.fund_monthly.items():
-        fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
-        with st.expander(f"{fund_name} · {cnpj}", expanded=False):
-            st.markdown("**Tabela wide**")
-            st.dataframe(outputs.fund_wide[cnpj], width="stretch", hide_index=True)
-
-    st.markdown("### Tabela wide consolidada")
-    with st.expander("Tabela wide consolidada", expanded=True):
+        st.markdown("### Wide consolidada")
         st.markdown(_render_wide_table_html(outputs.consolidated_wide), unsafe_allow_html=True)
 
-    st.markdown("### Gráficos")
-    _render_graph_definitions()
-    for cnpj, monthly_df in outputs.fund_monthly.items():
-        fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
-        with st.expander(f"Gráficos · {fund_name} · {cnpj}", expanded=False):
-            left, right = st.columns(2)
-            with left:
-                _render_chart(
-                    "Evolução de PL e Subordinação",
-                    "PL em escala dinâmica; subordinação ex-360 no eixo direito.",
-                    pl_subordination_chart(monthly_df),
-                )
-            with right:
-                _render_chart(
-                    "NPL e Cobertura Ex-Vencidos > 360d",
-                    "NPL Over 90d ex-360 e cobertura PDD ex-360 / NPL Over 90d ex-360.",
-                    npl_coverage_chart(monthly_df),
-                )
-    st.markdown("**Carteira consolidada**")
-    left, right = st.columns(2)
-    with left:
-        _render_chart(
-            "Evolução de PL e Subordinação",
-            "PL consolidado em escala dinâmica; subordinação ex-360 no eixo direito.",
-            pl_subordination_chart(outputs.consolidated_monthly),
-        )
-    with right:
-        _render_chart(
-            "NPL e Cobertura Ex-Vencidos > 360d",
-            "Índices consolidados recalculados a partir das somas absolutas.",
-            npl_coverage_chart(outputs.consolidated_monthly),
-        )
+        st.markdown("### Wide individuais")
+        for cnpj, monthly_df in outputs.fund_monthly.items():
+            fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
+            with st.expander(f"{fund_name} · {cnpj}", expanded=False):
+                st.markdown(_render_wide_table_html(outputs.fund_wide[cnpj]), unsafe_allow_html=True)
+
+        st.markdown("### Gráficos consolidados")
+        _render_graph_definitions()
+        left, right = st.columns(2)
+        with left:
+            _render_chart(
+                "Evolução de PL e Subordinação",
+                "PL consolidado em escala dinâmica; subordinação ex-360 no eixo direito.",
+                pl_subordination_chart(outputs.consolidated_monthly),
+            )
+        with right:
+            _render_chart(
+                "NPL e Cobertura Ex-Vencidos > 360d",
+                "Índices consolidados recalculados a partir das somas absolutas.",
+                npl_coverage_chart(outputs.consolidated_monthly),
+            )
+
+        st.markdown("### Gráficos individuais")
+        for cnpj, monthly_df in outputs.fund_monthly.items():
+            fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
+            with st.expander(f"{fund_name} · {cnpj}", expanded=False):
+                left, right = st.columns(2)
+                with left:
+                    _render_chart(
+                        "Evolução de PL e Subordinação",
+                        "PL em escala dinâmica; subordinação ex-360 no eixo direito.",
+                        pl_subordination_chart(monthly_df),
+                    )
+                with right:
+                    _render_chart(
+                        "NPL e Cobertura Ex-Vencidos > 360d",
+                        "NPL Over 90d ex-360 e cobertura PDD ex-360 / NPL Over 90d ex-360.",
+                        npl_coverage_chart(monthly_df),
+                    )
+
+    with audit_tab:
+        st.caption("Base auxiliar para conferência: valores absolutos são calculados primeiro; percentuais são derivados depois.")
+        st.dataframe(_format_validation_for_display(validation_df), width="stretch", hide_index=True)
+        st.caption(f"Base calculada persistida em `{cache_dir}`.")
+        if not outputs.warnings_df.empty:
+            with st.expander("Warnings da base", expanded=False):
+                st.dataframe(outputs.warnings_df, width="stretch", hide_index=True)
 
 
 def _render_chart(title: str, subtitle: str, chart) -> None:
@@ -524,31 +541,41 @@ def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
         for column in df_wide.columns
         if str(column) not in {"Bloco", "Métrica", "Memória / fórmula"}
     ]
-    column_count = 2 + len(period_columns)
-    html: list[str] = ["<div class='wide-table-wrapper'>", "<table class='wide-table'>"]
-    html.append("<thead><tr>")
-    html.append("<th class='label-col'>Métrica</th>")
-    html.append("<th class='formula-col'>Memória / fórmula</th>")
-    for column in period_columns:
-        html.append(f"<th>{escape(column)}</th>")
-    html.append("</tr></thead><tbody>")
-
+    html: list[str] = []
     current_block = ""
+    section_rows: list[pd.Series] = []
+
+    def flush_section() -> None:
+        if not current_block:
+            return
+        html.append(f"<details class='wide-section' open><summary>{escape(_section_label(current_block))}</summary>")
+        html.append("<div class='wide-table-wrapper'><table class='wide-table'>")
+        html.append("<thead><tr>")
+        html.append("<th class='label-col'>Métrica</th>")
+        html.append("<th class='formula-col'>Memória / fórmula</th>")
+        for column in period_columns:
+            html.append(f"<th>{escape(column)}</th>")
+        html.append("</tr></thead><tbody>")
+        for item in section_rows:
+            metric = str(item.get("Métrica") or "").strip()
+            formula = str(item.get("Memória / fórmula") or "").strip()
+            row_class = _wide_table_metric_class(metric)
+            html.append(f"<tr class='{row_class}'>")
+            html.append(f"<td class='label'>{escape(metric)}</td>")
+            html.append(f"<td class='formula'>{escape(_dense_wide_value(formula))}</td>")
+            for column in period_columns:
+                html.append(f"<td>{escape(_dense_wide_value(item.get(column)))}</td>")
+            html.append("</tr>")
+        html.append("</tbody></table></div></details>")
+
     for _, row in df_wide.iterrows():
         block = str(row.get("Bloco") or "").strip()
         if block and block != current_block:
+            flush_section()
             current_block = block
-            html.append(f"<tr class='secao'><td colspan='{column_count}'>{escape(_section_label(block))}</td></tr>")
-        metric = str(row.get("Métrica") or "").strip()
-        formula = str(row.get("Memória / fórmula") or "").strip()
-        row_class = _wide_table_metric_class(metric)
-        html.append(f"<tr class='{row_class}'>")
-        html.append(f"<td class='label'>{escape(metric)}</td>")
-        html.append(f"<td class='formula'>{escape(_dense_wide_value(formula))}</td>")
-        for column in period_columns:
-            html.append(f"<td>{escape(_dense_wide_value(row.get(column)))}</td>")
-        html.append("</tr>")
-    html.append("</tbody></table></div>")
+            section_rows = []
+        section_rows.append(row)
+    flush_section()
     return "\n".join(html)
 
 
