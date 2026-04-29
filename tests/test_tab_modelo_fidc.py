@@ -115,7 +115,59 @@ class TabModeloFidcTests(unittest.TestCase):
 
         self.assertEqual(6.0, metrics.giro_estimado)
         self.assertEqual(4_500_000_000.0, metrics.carteira_total_originada)
-        self.assertAlmostEqual(2_400_000_000.0 / 4_500_000_000.0, metrics.perda_maxima_sobre_originacao)
+        self.assertAlmostEqual(2_400_000_000.0 / 4_500_000_000.0, metrics.colchao_sem_perdas_sobre_originacao)
+        self.assertEqual(750_000_000.0, metrics.ead_maximo)
+        self.assertEqual(750_000_000.0, metrics.ead_medio_ponderado)
+
+    def test_calibrated_loss_cycle_solver_finds_loss_that_exhausts_sub(self) -> None:
+        dates = [pd.Timestamp(2026, 1, 1) + pd.DateOffset(months=month) for month in range(13)]
+        datas = [date.to_pydatetime() for date in dates]
+        premissas = tab_modelo_fidc.Premissas(
+            volume=1_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.0,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=1.0,
+            tipo_taxa_senior=tab_modelo_fidc.RATE_MODE_PRE,
+            tipo_taxa_mezz=tab_modelo_fidc.RATE_MODE_PRE,
+            prazo_fidc_anos=1.0,
+            prazo_medio_recebiveis_meses=6.0,
+            carteira_revolvente=True,
+            modelo_credito=tab_modelo_fidc.CREDIT_MODEL_NPL90,
+            npl90_lag_meses=0,
+            cobertura_minima_npl90=1.0,
+            lgd=1.0,
+        )
+
+        perda_ciclo, exceeded = tab_modelo_fidc._solve_calibrated_loss_cycle(
+            datas=datas,
+            feriados=[],
+            curva_du=[1.0, 2000.0],
+            curva_taxa_aa=[0.0, 0.0],
+            premissas=premissas,
+            interpolation_method=tab_modelo_fidc.INTERPOLATION_METHOD_FLAT_FORWARD_252,
+        )
+
+        self.assertFalse(exceeded)
+        self.assertIsNotNone(perda_ciclo)
+        self.assertGreater(perda_ciclo, 0.0)
+        self.assertLess(perda_ciclo, 1.0)
+        final_sub = tab_modelo_fidc._final_sub_for_loss_cycle(
+            datas=datas,
+            feriados=[],
+            curva_du=[1.0, 2000.0],
+            curva_taxa_aa=[0.0, 0.0],
+            premissas=premissas,
+            interpolation_method=tab_modelo_fidc.INTERPOLATION_METHOD_FLAT_FORWARD_252,
+            perda_ciclo=perda_ciclo,
+        )
+        self.assertAlmostEqual(0.0, final_sub, delta=1.0)
 
     def test_time_protection_uses_monthly_revolving_origination(self) -> None:
         premissas = tab_modelo_fidc.Premissas(
@@ -344,7 +396,7 @@ class TabModeloFidcTests(unittest.TestCase):
 
         chart_df = tab_modelo_fidc._build_loss_area_frame(frame, volume=100.0, protection_frame=protection)
 
-        self.assertIn("Perda máxima suportada (% carteira originada)", chart_df["serie"].tolist())
+        self.assertIn("Proteção disponível (% carteira originada)", chart_df["serie"].tolist())
         self.assertIn("Proteção / subordinação", chart_df["eixo"].tolist())
 
     def test_loss_chart_uses_right_axis_for_protection_series(self) -> None:

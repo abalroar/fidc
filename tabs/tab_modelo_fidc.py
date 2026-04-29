@@ -339,8 +339,12 @@ class _RevolvencyMetrics:
     prazo_medio_recebiveis_meses: float
     giro_estimado: float
     carteira_total_originada: float
+    ead_maximo: float
+    ead_medio_ponderado: float
     sub_final_sem_inadimplencia: float
-    perda_maxima_sobre_originacao: float | None
+    colchao_sem_perdas_sobre_originacao: float | None
+    perda_ciclo_calibrada: float | None
+    perda_ciclo_calibrada_excede_limite: bool
 
 
 @st.cache_data(show_spinner=False, ttl=6 * 60 * 60)
@@ -618,6 +622,8 @@ def _build_revolvency_metrics(
     premissas: Premissas,
     zero_default_results,
     portfolio_mode: str,
+    calibrated_loss_cycle: float | None = None,
+    calibrated_loss_exceeds_limit: bool = False,
 ) -> _RevolvencyMetrics:
     prazo_total_anos = float(premissas.prazo_fidc_anos or 0.0)
     prazo_medio_meses = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
@@ -628,16 +634,140 @@ def _build_revolvency_metrics(
         eligible_months = max(prazo_total_anos * 12.0 - prazo_medio_meses, 0.0)
         carteira_total_originada = premissas.volume + premissas.volume * (eligible_months / prazo_medio_meses)
     sub_final = max(float(zero_default_results[-1].pl_sub_jr), 0.0) if zero_default_results else 0.0
-    perda_maxima = sub_final / carteira_total_originada if carteira_total_originada > 0 else None
+    colchao_sem_perdas = sub_final / carteira_total_originada if carteira_total_originada > 0 else None
+    ead_values = [float(getattr(period, "carteira", premissas.volume)) for period in zero_default_results]
+    ead_maximo = max(ead_values, default=float(premissas.volume))
+    weighted_days = sum(max(float(getattr(period, "delta_dc", 0.0)), 0.0) for period in zero_default_results[1:])
+    if weighted_days > 0.0:
+        ead_medio = (
+            sum(
+                float(getattr(period, "carteira", premissas.volume)) * max(float(getattr(period, "delta_dc", 0.0)), 0.0)
+                for period in zero_default_results[1:]
+            )
+            / weighted_days
+        )
+    else:
+        ead_medio = float(premissas.volume)
     return _RevolvencyMetrics(
         portfolio_mode=portfolio_mode,
         prazo_total_anos=prazo_total_anos,
         prazo_medio_recebiveis_meses=prazo_medio_meses,
         giro_estimado=giro_estimado,
         carteira_total_originada=carteira_total_originada,
+        ead_maximo=ead_maximo,
+        ead_medio_ponderado=ead_medio,
         sub_final_sem_inadimplencia=sub_final,
-        perda_maxima_sobre_originacao=perda_maxima,
+        colchao_sem_perdas_sobre_originacao=colchao_sem_perdas,
+        perda_ciclo_calibrada=calibrated_loss_cycle,
+        perda_ciclo_calibrada_excede_limite=calibrated_loss_exceeds_limit,
     )
+
+
+def _premissas_sem_perdas(premissas: Premissas) -> Premissas:
+    return replace(
+        premissas,
+        inadimplencia=0.0,
+        perda_esperada_am=0.0,
+        perda_inesperada_am=0.0,
+        perda_ciclo=0.0,
+        rolagem_adimplente_1_30=0.0,
+        rolagem_1_30_31_60=0.0,
+        rolagem_31_60_61_90=0.0,
+        rolagem_61_90_90_plus=0.0,
+        recuperacao_90_plus=0.0,
+        writeoff_90_plus=0.0,
+    )
+
+
+def _premissas_perda_ciclo_calibrada(premissas: Premissas, perda_ciclo: float) -> Premissas:
+    return replace(
+        _premissas_sem_perdas(premissas),
+        modelo_credito=CREDIT_MODEL_NPL90,
+        perda_ciclo=max(float(perda_ciclo), 0.0),
+        recuperacao_90_plus=0.0,
+        writeoff_90_plus=0.0,
+    )
+
+
+def _final_sub_for_loss_cycle(
+    *,
+    datas: list[datetime],
+    feriados,
+    curva_du,
+    curva_taxa_aa,
+    premissas: Premissas,
+    interpolation_method: str,
+    perda_ciclo: float,
+) -> float:
+    periods = build_flow(
+        datas,
+        feriados,
+        curva_du,
+        curva_taxa_aa,
+        _premissas_perda_ciclo_calibrada(premissas, perda_ciclo),
+        interpolation_method=interpolation_method,
+    )
+    return float(periods[-1].pl_sub_jr) if periods else 0.0
+
+
+def _solve_calibrated_loss_cycle(
+    *,
+    datas: list[datetime],
+    feriados,
+    curva_du,
+    curva_taxa_aa,
+    premissas: Premissas,
+    interpolation_method: str,
+    max_loss_cycle: float = 1.0,
+    tolerance: float = 1e-5,
+    iterations: int = 36,
+) -> tuple[float | None, bool]:
+    if not datas:
+        return None, False
+    base_sub = _final_sub_for_loss_cycle(
+        datas=datas,
+        feriados=feriados,
+        curva_du=curva_du,
+        curva_taxa_aa=curva_taxa_aa,
+        premissas=premissas,
+        interpolation_method=interpolation_method,
+        perda_ciclo=0.0,
+    )
+    if base_sub <= 0.0:
+        return 0.0, False
+
+    high_sub = _final_sub_for_loss_cycle(
+        datas=datas,
+        feriados=feriados,
+        curva_du=curva_du,
+        curva_taxa_aa=curva_taxa_aa,
+        premissas=premissas,
+        interpolation_method=interpolation_method,
+        perda_ciclo=max_loss_cycle,
+    )
+    if high_sub > 0.0:
+        return None, True
+
+    low = 0.0
+    high = max_loss_cycle
+    for _ in range(iterations):
+        mid = (low + high) / 2.0
+        mid_sub = _final_sub_for_loss_cycle(
+            datas=datas,
+            feriados=feriados,
+            curva_du=curva_du,
+            curva_taxa_aa=curva_taxa_aa,
+            premissas=premissas,
+            interpolation_method=interpolation_method,
+            perda_ciclo=mid,
+        )
+        if abs(mid_sub) <= max(abs(base_sub) * tolerance, 1.0):
+            return mid, False
+        if mid_sub > 0.0:
+            low = mid
+        else:
+            high = mid
+    return high, False
 
 
 def _scheduled_origination_components(
@@ -958,9 +1088,19 @@ def _build_revolvency_export_dataframe(metrics: _RevolvencyMetrics) -> pd.DataFr
             {"Indicador": "Prazo total do FIDC (anos)", "Valor": metrics.prazo_total_anos},
             {"Indicador": "Prazo médio dos recebíveis (meses)", "Valor": metrics.prazo_medio_recebiveis_meses},
             {"Indicador": "Giro estimado da carteira", "Valor": metrics.giro_estimado},
-            {"Indicador": "Carteira total originada estimada", "Valor": metrics.carteira_total_originada},
+            {"Indicador": "Carteira originada nominal estimada", "Valor": metrics.carteira_total_originada},
+            {"Indicador": "EAD máximo", "Valor": metrics.ead_maximo},
+            {"Indicador": "EAD médio ponderado", "Valor": metrics.ead_medio_ponderado},
             {"Indicador": "SUB final sem perdas", "Valor": metrics.sub_final_sem_inadimplencia},
-            {"Indicador": "Perda máxima sobre carteira originada", "Valor": metrics.perda_maxima_sobre_originacao},
+            {"Indicador": "Colchão sem perdas sobre carteira originada", "Valor": metrics.colchao_sem_perdas_sobre_originacao},
+            {
+                "Indicador": "Perda calibrada de ciclo NPL 90+",
+                "Valor": metrics.perda_ciclo_calibrada,
+            },
+            {
+                "Indicador": "Perda calibrada excede 100%",
+                "Valor": metrics.perda_ciclo_calibrada_excede_limite,
+            },
         ]
     )
 
@@ -981,7 +1121,7 @@ def _build_time_protection_export_dataframe(protection_frame: pd.DataFrame) -> p
             "carteira_originada_acumulada": "Carteira originada acumulada",
             "residual_economico_fluxo": "Residual econômico do fluxo",
             "sub_disponivel": "SUB disponível",
-            "perda_maxima_suportada": "Perda máxima suportada",
+            "perda_maxima_suportada": "Proteção disponível sobre carteira originada",
             "serie": "Cenário",
         }
     )[
@@ -998,7 +1138,7 @@ def _build_time_protection_export_dataframe(protection_frame: pd.DataFrame) -> p
             "SUB residual",
             "SUB disponível",
             "Residual econômico do fluxo",
-            "Perda máxima suportada",
+            "Proteção disponível sobre carteira originada",
         ]
     ]
 
@@ -1160,7 +1300,7 @@ def _build_workbook_mechanics_markdown(
             "- Se fica negativa, ela não é um saldo de cota para receber; é déficit econômico depois de consumir toda a SUB.",
             "- A timeline detalhada preserva também a coluna residual histórica para conferência, mas os gráficos usam o residual corrente para evitar distorções como percentuais extremos.",
             "",
-            "### 9. Revolvência e perda máxima sobre carteira originada",
+            "### 9. Revolvência, denominadores e capacidade de perda",
             "",
             "- Quando a carteira é revolvente, o modelo recicla principal recebido e excesso de caixa enquanto o prazo médio dos recebíveis ainda cabe no prazo restante do FIDC:",
             "",
@@ -1173,7 +1313,7 @@ def _build_workbook_mechanics_markdown(
             "",
             "- Se o mês do FIDC fica depois do mês limite de reinvestimento, a nova originação econômica vira `0` e a carteira começa a amortizar por runoff.",
             "- A partir desse ponto, o principal dos recebíveis que vence deixa de comprar nova carteira e passa a compor caixa aplicado à SELIC.",
-            "- Para o denominador da perda máxima, a carteira inicial já é o primeiro ciclo de originação. Portanto, o total programático é:",
+            "- Para o denominador de carteira originada nominal, a carteira inicial já é o primeiro ciclo de originação. Portanto, o total programático é:",
             "",
             "```text",
             "nova_originacao_denominador = volume_inicial * max(prazo_total_meses - prazo_medio_recebiveis_meses, 0) / prazo_medio_recebiveis_meses",
@@ -1188,10 +1328,10 @@ def _build_workbook_mechanics_markdown(
             "carteira_originada = volume_inicial",
             "```",
             "",
-            "- A perda máxima suportada roda uma simulação paralela com Perda Esperada e Perda Inesperada iguais a `0%` e compara o colchão final positivo da SUB com a carteira total originada:",
+            "- O colchão econômico sem perdas roda uma simulação paralela com crédito zerado e compara o colchão final positivo da SUB com a carteira total originada:",
             "",
             "```text",
-            "perda_maxima = max(SUB_final_sem_perdas, 0) / carteira_originada",
+            "colchao_sem_perdas = max(SUB_final_sem_perdas, 0) / carteira_originada",
             "```",
             "",
             "- Ao longo do tempo, a carteira originada acumulada é calculada mês a mês:",
@@ -1199,7 +1339,13 @@ def _build_workbook_mechanics_markdown(
             "```text",
             "nova_originacao_acumulada = volume_inicial * min(mes_fidc, mes_limite_reinvestimento) / prazo_medio_recebiveis_meses",
             "denominador_mes = volume_inicial + nova_originacao_acumulada",
-            "perda_maxima_no_mes = SUB_disponivel_no_mes / denominador_mes",
+            "protecao_disponivel_no_mes = SUB_disponivel_no_mes / denominador_mes",
+            "```",
+            "",
+            "- A perda calibrada de ciclo é diferente: o motor faz uma busca binária para encontrar o percentual de NPL 90+ sobre os recebíveis que vencem que leva a SUB final para aproximadamente zero.",
+            "",
+            "```text",
+            "perda_ciclo_calibrada = menor perda_ciclo em que SUB_final <= 0",
             "```",
             "",
             "- Exemplo: com prazo médio de recebíveis de `6 meses`, o mês 1 considera a carteira inicial mais o principal reciclado de cerca de `1/6` do volume inicial.",
@@ -1235,8 +1381,8 @@ def _build_workbook_mechanics_markdown(
             "### 12. Como interpretar os gráficos",
             "",
             "- `Evolução de Saldo das Cotas`: mostra SEN, MEZZ, SUB disponível e, quando existir, déficit econômico separado.",
-            "- `Evolução Subordinação x Perda da Carteira`: compara perda acumulada, perda do período, subordinação disponível e perda máxima suportada.",
-            "- `Perda Máxima Suportada ao Longo do Tempo`: mostra SUB disponível dividida pela carteira originada acumulada em cada mês.",
+            "- `Evolução Subordinação x Perda da Carteira`: compara perda acumulada, perda do período, subordinação disponível e proteção disponível.",
+            "- `Proteção Econômica ao Longo do Tempo`: mostra SUB disponível dividida pela carteira originada acumulada em cada mês.",
             "- Se a perda acumulada sobe enquanto a subordinação disponível cai para zero, a estrutura está consumindo o colchão subordinado.",
             "- Se aparece déficit econômico, o cenário já ultrapassou a proteção da SUB dentro da mecânica atual.",
             "",
@@ -1266,7 +1412,8 @@ def _build_step_by_step_markdown() -> str:
             "- Na metodologia intermediária, o modelo usa o principal que vence em cada período, aplica uma perda esperada de ciclo e cria provisão antes do NPL 90+ aparecer.",
             "- Na metodologia avançada, o modelo migra saldos entre buckets de atraso até NPL 90+, com recuperação em caixa e write-off contra provisão.",
             "- Subordinação é o tamanho do colchão de SUB disponível em relação ao PL econômico do fundo.",
-            "- Perda máxima sobre carteira originada compara a SUB final sem perdas com o total estimado de recebíveis originados no período.",
+            "- Colchão sem perdas sobre carteira originada compara a SUB final sem perdas com o total estimado de recebíveis originados no período.",
+            "- Perda calibrada de ciclo estima, por busca binária, qual percentual de NPL 90+ sobre os recebíveis que vencem levaria a SUB final para perto de zero.",
             "- A proteção ao longo do tempo compara a SUB disponível de cada mês com a carteira inicial somada à nova originação acumulada até aquele mês.",
             "- Enquanto a revolvência é elegível, o modelo reinveste principal recebido e excesso de caixa em nova carteira.",
             "- Depois da janela elegível, o principal que vence vira caixa e rende pela SELIC média anual informada pelo usuário.",
@@ -1531,11 +1678,11 @@ def _build_loss_area_frame(
             ["indice", "data", "perda_maxima_suportada", "valor_pct", "valor_formatado", "periodo", "mes_fidc"]
         ].copy()
         protection_series = protection_series.rename(columns={"perda_maxima_suportada": "valor"})
-        protection_series["serie"] = "Perda máxima suportada (% carteira originada)"
+        protection_series["serie"] = "Proteção disponível (% carteira originada)"
         long_df = pd.concat([long_df, protection_series[long_df.columns]], ignore_index=True)
     protection_names = {
         "Subordinação econômica disponível (SUB positiva/PL)",
-        "Perda máxima suportada (% carteira originada)",
+        "Proteção disponível (% carteira originada)",
     }
     long_df["eixo"] = long_df["serie"].map(
         lambda serie: "Proteção / subordinação" if serie in protection_names else "Perda da carteira"
@@ -1567,7 +1714,7 @@ def _protection_ratio_chart(chart_df: pd.DataFrame) -> alt.Chart:
             alt.Tooltip("residual_fluxo_formatado:N", title="Residual do fluxo"),
             alt.Tooltip("sub_formatada:N", title="SUB disponível"),
             alt.Tooltip("originada_formatada:N", title="Denominador"),
-            alt.Tooltip("valor_formatado:N", title="Perda máxima suportada"),
+            alt.Tooltip("valor_formatado:N", title="Proteção disponível"),
         ],
     )
     return (base.mark_line(size=2.4, interpolate="monotone") + base.mark_point(size=42)).properties(height=320)
@@ -1621,7 +1768,7 @@ def _area_percent_chart(chart_df: pd.DataFrame) -> alt.Chart:
         "Perda acumulada da carteira (% do volume)",
         "Perda do período (% da carteira)",
         "Subordinação econômica disponível (SUB positiva/PL)",
-        "Perda máxima suportada (% carteira originada)",
+        "Proteção disponível (% carteira originada)",
     ]
     color_range = ["#d62728", "#f28e2b", "#2f6f9f", "#59a14f"]
     loss_df = chart_df[chart_df["eixo"] == "Perda da carteira"].copy()
@@ -1777,10 +1924,22 @@ def _render_revolvency_cards(metrics: _RevolvencyMetrics) -> None:
             "Número de ciclos de carteira dentro do prazo do FIDC, contando a carteira inicial como o primeiro ciclo.",
         ),
         (
-            "Carteira originada",
+            "Carteira originada nominal",
             _format_brl(metrics.carteira_total_originada),
             "Base de comparação",
             "Volume total estimado comprado no prazo do FIDC, somando a carteira inicial e as novas originações.",
+        ),
+        (
+            "EAD máximo",
+            _format_brl(metrics.ead_maximo),
+            "Maior carteira em aberto",
+            "Maior saldo de recebíveis em aberto observado na simulação sem perdas.",
+        ),
+        (
+            "EAD médio ponderado",
+            _format_brl(metrics.ead_medio_ponderado),
+            "Exposição no tempo",
+            "Média da carteira em aberto ponderada pelos dias corridos de cada período.",
         ),
         (
             "SUB final sem perdas",
@@ -1789,10 +1948,16 @@ def _render_revolvency_cards(metrics: _RevolvencyMetrics) -> None:
             "Valor econômico residual da SUB no fim do prazo em cenário sem perdas de crédito.",
         ),
         (
-            "Perda máxima suportada",
-            _format_percent(metrics.perda_maxima_sobre_originacao),
-            "SUB final / carteira originada",
-            "SUB final sem perdas dividida pela carteira total originada, aproximando a perda que a estrutura suportaria.",
+            "Colchão sem perdas / originado",
+            _format_percent(metrics.colchao_sem_perdas_sobre_originacao),
+            "SUB final sem perdas / carteira originada",
+            "Mede excess spread acumulado sem perdas dividido pela carteira originada nominal; não é perda calibrada.",
+        ),
+        (
+            "Perda calibrada de ciclo",
+            "> 100,00%" if metrics.perda_ciclo_calibrada_excede_limite else _format_percent(metrics.perda_ciclo_calibrada),
+            "NPL 90+ por ciclo",
+            "Perda de ciclo que zera a SUB final na busca binária, usando NPL 90+ esperado sobre recebíveis que vencem.",
         ),
     ]
     cards_html = "".join(
@@ -2533,25 +2698,23 @@ def render_tab_modelo_fidc() -> None:
         selected_calendar.feriados,
         selected_curve.curva_du,
         selected_curve.curva_taxa_aa,
-        replace(
-            premissas,
-            inadimplencia=0.0,
-            perda_esperada_am=0.0,
-            perda_inesperada_am=0.0,
-            perda_ciclo=0.0,
-            rolagem_adimplente_1_30=0.0,
-            rolagem_1_30_31_60=0.0,
-            rolagem_31_60_61_90=0.0,
-            rolagem_61_90_90_plus=0.0,
-            recuperacao_90_plus=0.0,
-            writeoff_90_plus=0.0,
-        ),
+        _premissas_sem_perdas(premissas),
+        interpolation_method=interpolation_method,
+    )
+    calibrated_loss_cycle, calibrated_loss_exceeds_limit = _solve_calibrated_loss_cycle(
+        datas=simulation_dates,
+        feriados=selected_calendar.feriados,
+        curva_du=selected_curve.curva_du,
+        curva_taxa_aa=selected_curve.curva_taxa_aa,
+        premissas=premissas,
         interpolation_method=interpolation_method,
     )
     revolvency_metrics = _build_revolvency_metrics(
         premissas=premissas,
         zero_default_results=zero_default_results,
         portfolio_mode=portfolio_mode_label,
+        calibrated_loss_cycle=calibrated_loss_cycle,
+        calibrated_loss_exceeds_limit=calibrated_loss_exceeds_limit,
     )
 
     frame = _build_dataframe(results)
@@ -2575,7 +2738,7 @@ def render_tab_modelo_fidc() -> None:
     st.markdown('<div class="fidc-model-section-title">Resumo econômico</div>', unsafe_allow_html=True)
     _render_model_kpi_cards(kpis, results, has_mezz=proporcao_mezz > 0.000001)
 
-    st.markdown('<div class="fidc-model-section-title">Perda máxima sobre carteira originada</div>', unsafe_allow_html=True)
+    st.markdown('<div class="fidc-model-section-title">Capacidade de perda e denominadores</div>', unsafe_allow_html=True)
     _render_revolvency_cards(revolvency_metrics)
 
     chart_left, chart_right = st.columns(2)
@@ -2590,7 +2753,7 @@ def render_tab_modelo_fidc() -> None:
         st.altair_chart(_area_percent_chart(_build_loss_area_frame(frame, premissas.volume, protection_frame)), width="stretch")
 
     st.markdown(
-        '<div class="fidc-model-section-title">Perda Máxima Suportada ao Longo do Tempo</div>',
+        '<div class="fidc-model-section-title">Proteção Econômica ao Longo do Tempo</div>',
         unsafe_allow_html=True,
     )
     st.altair_chart(_protection_ratio_chart(protection_chart_frame), width="stretch")
@@ -2703,17 +2866,22 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Carteira originada acumulada",
                 "Fórmula": "volume + volume * min(mês_fidc, prazo_total_meses - prazo_medio_meses) / prazo_medio_meses",
-                "Observação": "Esse é o denominador programático da perda máxima; a originação econômica com excesso de caixa aparece separada na timeline.",
+                "Observação": "Esse é o denominador programático de carteira originada nominal; a originação econômica com excesso de caixa aparece separada na timeline.",
             },
             {
-                "Indicador": "Perda máxima suportada no tempo",
+                "Indicador": "Proteção disponível no tempo",
                 "Fórmula": "SUB disponível no mês / (carteira inicial + nova originação acumulada)",
-                "Observação": "A tabela de perda máxima detalha carteira inicial, nova originação, prazo médio, denominador, SUB e residual do fluxo por mês.",
+                "Observação": "A tabela de proteção detalha carteira inicial, nova originação, prazo médio, denominador, SUB e residual do fluxo por mês.",
             },
             {
-                "Indicador": "Perda máxima suportada",
+                "Indicador": "Colchão sem perdas sobre originado",
                 "Fórmula": "max(SUB final com perdas 0%, 0) / carteira total originada estimada",
-                "Observação": "Esta é uma simulação paralela sem Perda Esperada nem Perda Inesperada para medir o colchão econômico antes das perdas.",
+                "Observação": "Esta é uma simulação paralela sem perda de crédito para medir excess spread e colchão econômico antes das perdas.",
+            },
+            {
+                "Indicador": "Perda calibrada de ciclo",
+                "Fórmula": "busca binária em perda_ciclo até SUB_final ~= 0",
+                "Observação": "Esta é a perda de NPL 90+ sobre os recebíveis que vencem que esgota a SUB final dentro das premissas atuais de prazo, LGD, cobertura e waterfall sem trava.",
             },
             {
                 "Indicador": "Júnior residual / subordinação econômica",
@@ -2744,7 +2912,7 @@ def render_tab_modelo_fidc() -> None:
         _build_revolvency_export_dataframe(revolvency_metrics).to_excel(
             writer,
             index=False,
-            sheet_name="perda_maxima",
+            sheet_name="capacidade_perda",
         )
         _build_time_protection_export_dataframe(protection_chart_frame).to_excel(
             writer,
