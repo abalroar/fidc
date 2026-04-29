@@ -261,6 +261,43 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertGreater(periods[25].principal_recebido_carteira, 0.0)
         self.assertLess(periods[25].carteira_fim, periods[25].carteira)
 
+    def test_runoff_cash_earns_projected_selic_after_reinvestment_window(self):
+        monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(7)]
+        premissas = Premissas(
+            volume=1_000_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.0,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=1.0,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            carteira_revolvente=True,
+            prazo_fidc_anos=0.5,
+            prazo_medio_recebiveis_meses=3.0,
+            selic_aa_por_ano=((2025, 0.12),),
+        )
+
+        periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
+        runoff_period = periods[4]
+        expected_monthly_selic = annual_252_to_monthly_rate(0.12)
+        expected_principal_to_cash = 1_000_000.0 / 3.0
+
+        self.assertFalse(runoff_period.reinvestimento_elegivel)
+        self.assertAlmostEqual(expected_principal_to_cash, runoff_period.principal_para_caixa_selic)
+        self.assertAlmostEqual(expected_monthly_selic, runoff_period.taxa_selic_periodo)
+        self.assertAlmostEqual(
+            expected_principal_to_cash * expected_monthly_selic,
+            runoff_period.rendimento_caixa_selic,
+        )
+        self.assertAlmostEqual(runoff_period.fluxo_carteira + runoff_period.rendimento_caixa_selic, runoff_period.fluxo_ativos_total)
+        self.assertGreater(runoff_period.saldo_caixa_selic_fim, runoff_period.principal_para_caixa_selic)
+
     def test_acquisition_premium_reduces_initial_subordination(self):
         premissas = Premissas(
             volume=1_000_000.0,

@@ -514,6 +514,13 @@ def _normalize_model_input_values() -> None:
             st.session_state[key] = _format_raw_input_text(st.session_state[key], decimals=decimals, kind=kind)
         except ValueError:
             continue
+    for key in list(st.session_state):
+        if not str(key).startswith("modelo_selic_aa_"):
+            continue
+        try:
+            st.session_state[key] = _format_raw_input_text(st.session_state[key], decimals=2, kind="percent")
+        except ValueError:
+            continue
 
 
 def _add_months(dt: datetime, months: int) -> datetime:
@@ -538,6 +545,19 @@ def _build_simulation_dates(inputs, schedule_label: str, prazo_total_anos: float
     if schedule_label == DATE_SCHEDULE_MONTHLY:
         return _build_monthly_dates(inputs.datas[0], prazo_total_anos)
     return list(inputs.datas)
+
+
+def _projection_years_for_term(start: datetime, prazo_total_anos: float) -> list[int]:
+    dates = _build_monthly_dates(start, max(prazo_total_anos, 0.1))
+    return list(range(dates[0].year, dates[-1].year + 1))
+
+
+def _safe_term_years_from_text(value: str, fallback: float = DEFAULT_PRAZO_ANOS) -> float:
+    try:
+        parsed = _parse_br_number(value, field_name="Prazo total do FIDC (anos)")
+    except ValueError:
+        return fallback
+    return parsed if parsed > 0 else fallback
 
 
 def _label_for_value(mapping: dict[str, str], value: str) -> str:
@@ -726,6 +746,12 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "fra_mezz": "FRA MEZZ",
             "carteira": "Carteira de recebíveis (início do período)",
             "fluxo_carteira": "Fluxo econômico da carteira",
+            "taxa_selic_aa": "Taxa SELIC projetada (% a.a.)",
+            "taxa_selic_periodo": "Taxa SELIC do período",
+            "saldo_caixa_selic_inicio": "Saldo de caixa aplicado SELIC (início)",
+            "principal_para_caixa_selic": "Principal direcionado para caixa SELIC",
+            "rendimento_caixa_selic": "Rendimento do caixa SELIC",
+            "fluxo_ativos_total": "Fluxo econômico total dos ativos",
             "pl_fidc": "PL econômico do veículo",
             "custos_adm": "Custos administrativos",
             "perda_esperada_despesa": "Perda esperada/provisionada",
@@ -740,6 +766,7 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "nova_originacao": "Nova originação",
             "carteira_fim": "Carteira ao fim do período",
             "caixa_nao_reinvestido": "Caixa não reinvestido",
+            "saldo_caixa_selic_fim": "Saldo de caixa aplicado SELIC (fim)",
             "agio_aquisicao_despesa": "Ágio de aquisição",
             "tx_cessao_am_input": "Taxa mensal informada",
             "tx_cessao_am_piso": "Piso mensal SEN + excesso",
@@ -783,6 +810,7 @@ def _build_display_dataframe(export_frame: pd.DataFrame) -> pd.DataFrame:
         "Reinvestimento",
         "Originação",
         "Caixa",
+        "Rendimento",
     )
     percent_tokens = ("Pre DI", "Taxa", "FRA", "Subordinação")
     for column in display.columns:
@@ -1051,10 +1079,11 @@ def _build_workbook_mechanics_markdown(
             "",
             "### 8. PL econômico e SUB residual",
             "",
-            "- Depois de retorno da carteira, custos, perdas e PMTs, o PL econômico do veículo é:",
+            "- Depois de retorno da carteira, rendimento do caixa SELIC, custos, perdas e PMTs, o PL econômico do veículo é:",
             "",
             "```text",
-            "PL FIDC_t = PL FIDC_t-1 + fluxo_carteira - custos - perda_carteira - PMT SEN - PMT MEZZ",
+            "fluxo_ativos_total = fluxo_carteira + rendimento_caixa_selic",
+            "PL FIDC_t = PL FIDC_t-1 + fluxo_ativos_total - custos - perda_carteira - PMT SEN - PMT MEZZ",
             "```",
             "",
             "- O saldo econômico de SEN e MEZZ cai conforme o principal programado é amortizado.",
@@ -1080,6 +1109,7 @@ def _build_workbook_mechanics_markdown(
             "```",
             "",
             "- Se o mês do FIDC fica depois do mês limite de reinvestimento, a nova originação econômica vira `0` e a carteira começa a amortizar por runoff.",
+            "- A partir desse ponto, o principal dos recebíveis que vence deixa de comprar nova carteira e passa a compor caixa aplicado à SELIC.",
             "- Para o denominador da perda máxima, a carteira inicial já é o primeiro ciclo de originação. Portanto, o total programático é:",
             "",
             "```text",
@@ -1112,15 +1142,23 @@ def _build_workbook_mechanics_markdown(
             "- Exemplo: com prazo médio de recebíveis de `6 meses`, o mês 1 considera a carteira inicial mais o principal reciclado de cerca de `1/6` do volume inicial.",
             "- Exemplo: em FIDC de `36 meses` com recebíveis de `12 meses`, a originação nova para quando o fluxo chega perto do mês `24`, porque novos recebíveis de 12 meses já não caberiam no prazo da estrutura.",
             "",
-            "### 10. Premissa de reinvestimento integral",
+            "### 10. Caixa pós-revolvência e SELIC projetada",
             "",
-            "- O modelo presume que não há excesso de caixa aplicado à SELIC.",
-            "- Enquanto a revolvência é elegível, todo caixa disponível é reinvestido na compra de nova carteira revolvente.",
-            "- Depois que o prazo médio dos recebíveis não cabe no prazo restante do FIDC, o caixa deixa de ser reinvestido e também não recebe remuneração de SELIC no modelo.",
-            "- Isso tende a superestimar a rentabilidade econômica quando há reinvestimento integral em novos direitos creditórios.",
-            "- Em uma carteira ruim, a mesma premissa também pode ampliar o potencial de perda, pois o caixa elegível é reinvestido em nova carteira em vez de ficar aplicado em SELIC.",
-            "- O modelo não pondera a rentabilidade das cotas por eventual caixa parado ou aplicado em SELIC.",
-            "- Na prática, muitos FIDCs não carregam caixa relevante em excesso por muito tempo, então essa simplificação tende a não mudar drasticamente o resultado, mas precisa estar clara.",
+            "- Enquanto a revolvência é elegível, o modelo reinveste principal recebido e excesso de caixa em novos recebíveis.",
+            "- Quando o prazo médio dos recebíveis já não cabe no prazo restante do FIDC, o principal recebido deixa de ser reinvestido e entra no saldo de caixa SELIC.",
+            "- A taxa SELIC é uma projeção digitada pelo usuário por ano calendário; nesta etapa ela não vem de fonte externa.",
+            "- O motor transforma a taxa anual em taxa do período com matemática financeira exponencial e 21 dias úteis médios por mês:",
+            "",
+            "```text",
+            "taxa_selic_periodo = (1 + selic_aa_do_ano) ^ (21 * meses_periodo / 252) - 1",
+            "rendimento_caixa_selic = (caixa_selic_inicio + principal_para_caixa_selic) * taxa_selic_periodo",
+            "saldo_caixa_selic_fim = caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_apos_MEZZ - reinvestimento_excesso",
+            "```",
+            "",
+            "- Exemplo: se o prazo médio é `6 meses`, cerca de `1/6` da carteira em aberto vence a cada mês.",
+            "- Antes do mês limite de reinvestimento, esse `1/6` recompra recebíveis; depois do mês limite, esse `1/6` vai para caixa SELIC.",
+            "- O rendimento do caixa SELIC entra no fluxo econômico total dos ativos antes de custos, perdas e pagamentos das cotas.",
+            "- O modelo ainda não usa SELIC observada nem curva de mercado para essa projeção; a premissa é manual para manter rastreabilidade.",
             "",
             "### 11. Indicadores do resumo econômico",
             "",
@@ -1165,7 +1203,9 @@ def _build_step_by_step_markdown() -> str:
             "- Subordinação é o tamanho do colchão de SUB disponível em relação ao PL econômico do fundo.",
             "- Perda máxima sobre carteira originada compara a SUB final sem perdas com o total estimado de recebíveis originados no período.",
             "- A proteção ao longo do tempo compara a SUB disponível de cada mês com a carteira inicial somada à nova originação acumulada até aquele mês.",
-            "- Enquanto a revolvência é elegível, o modelo reinveste principal recebido e excesso de caixa em nova carteira; depois da janela elegível, o caixa não é reinvestido nem remunerado por SELIC.",
+            "- Enquanto a revolvência é elegível, o modelo reinveste principal recebido e excesso de caixa em nova carteira.",
+            "- Depois da janela elegível, o principal que vence vira caixa e rende pela SELIC média anual informada pelo usuário.",
+            "- A SELIC anual é convertida para o mês por composição exponencial em base 252, usando 21 dias úteis médios por mês.",
             "- No gráfico de saldos, o eixo X mostra o mês desde o início do FIDC; isso deixa claro quando terminam carências e começam amortizações.",
             "- No gráfico de perda e subordinação, maior perda acumulada com menor subordinação indica cenário mais pressionado.",
         ]
@@ -1939,6 +1979,31 @@ def render_tab_modelo_fidc() -> None:
                         ),
                     )
 
+                st.markdown("##### Caixa pós-revolvência")
+                st.caption(
+                    "Quando a carteira deixa de comprar novos recebíveis, o principal recebido entra em caixa "
+                    "e passa a render pela SELIC média anual informada abaixo."
+                )
+                selic_years = _projection_years_for_term(
+                    inputs.datas[0],
+                    _safe_term_years_from_text(prazo_fidc_text),
+                )
+                selic_text_by_year: dict[int, str] = {}
+                for row_start in range(0, len(selic_years), 3):
+                    selic_columns = st.columns(min(3, len(selic_years) - row_start))
+                    for column, year in zip(selic_columns, selic_years[row_start : row_start + 3]):
+                        with column:
+                            selic_text_by_year[year] = _text_percent_input(
+                                f"SELIC média {year} (% a.a.)",
+                                default=0.0,
+                                key=f"modelo_selic_aa_{year}",
+                                decimals=2,
+                                help_text=(
+                                    "Informe a taxa SELIC média anual projetada; o motor converte para taxa mensal "
+                                    "com 21 dias úteis."
+                                ),
+                            )
+
                 st.markdown("##### Cotas SEN e MEZZ")
                 st.caption(
                     "O cronograma padrão preserva a regra semestral original do motor. "
@@ -2073,6 +2138,10 @@ def render_tab_modelo_fidc() -> None:
             prazo_recebiveis_text,
             field_name="Prazo médio dos recebíveis (meses)",
         )
+        selic_aa_por_ano = tuple(
+            (year, _parse_br_number(text, field_name=f"SELIC média {year} (% a.a.)") / 100.0)
+            for year, text in sorted(selic_text_by_year.items())
+        )
         prazo_senior_anos = _parse_br_number(prazo_senior_text, field_name="Prazo cota SEN (anos)")
         prazo_mezz_anos = _parse_br_number(prazo_mezz_text, field_name="Prazo cota MEZZ (anos)")
         prazo_sub_anos = _parse_br_number(prazo_sub_text, field_name="Prazo cota SUB (anos)")
@@ -2103,6 +2172,9 @@ def render_tab_modelo_fidc() -> None:
         return
     if agio_aquisicao < 0 or excesso_spread_senior_am < 0:
         st.error("Ágio de aquisição e excesso de spread não podem ser negativos.")
+        return
+    if any(rate < 0 for _, rate in selic_aa_por_ano):
+        st.error("As taxas SELIC projetadas não podem ser negativas.")
         return
 
     prop_total = proporcao_senior + proporcao_mezz + proporcao_sub
@@ -2150,6 +2222,7 @@ def render_tab_modelo_fidc() -> None:
         perda_inesperada_am=perda_inesperada_am,
         agio_aquisicao=agio_aquisicao,
         excesso_spread_senior_am=excesso_spread_senior_am,
+        selic_aa_por_ano=selic_aa_por_ano,
     )
 
     st.caption(
@@ -2170,6 +2243,11 @@ def render_tab_modelo_fidc() -> None:
         f"excesso de spread SEN {_format_percent(excesso_spread_senior_am)} a.m. "
         f"({_format_percent(excesso_spread_senior_aa)} a.a. base 252). "
         "Por ser um piso, a taxa aplicada usa o maior valor entre a taxa informada e SEN + excesso."
+    )
+    st.caption(
+        "Caixa pós-revolvência: "
+        + "; ".join(f"{year}: {_format_percent(rate)} a.a." for year, rate in selic_aa_por_ano)
+        + ". O motor converte cada taxa anual para o período com 21 dias úteis por mês."
     )
 
     curve_source_label = _ensure_session_option("modelo_curve_source", CURVE_SOURCE_OPTIONS)
@@ -2319,6 +2397,16 @@ def render_tab_modelo_fidc() -> None:
                 "Observação": "Em carteira revolvente, a base de carteira evolui com principal reciclado e excesso de caixa reinvestido enquanto houver prazo para nova originação.",
             },
             {
+                "Indicador": "Rendimento do caixa SELIC",
+                "Fórmula": "rendimento_selic = (caixa_selic_inicio + principal_para_caixa_selic) * ((1 + selic_aa) ^ (21 * meses_periodo / 252) - 1)",
+                "Observação": "Quando a carteira não pode mais comprar recebíveis, o principal que vence passa a render pela SELIC média anual informada pelo usuário.",
+            },
+            {
+                "Indicador": "Fluxo econômico total dos ativos",
+                "Fórmula": "fluxo_ativos_total = fluxo_carteira + rendimento_caixa_selic",
+                "Observação": "Este é o fluxo usado antes de custos, perdas e pagamentos das cotas; a SELIC só entra sobre caixa fora da janela de reinvestimento.",
+            },
+            {
                 "Indicador": "De-para da Taxa de Cessão",
                 "Fórmula": "tx_cessao_am = 1 / (1 - taxa_cessao) - 1",
                 "Observação": "Ex.: comprar R$ 100 de valor futuro por R$ 95 implica taxa de cessão de 5,00% e taxa mensal de 5,26%.",
@@ -2371,7 +2459,7 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Nova originação",
                 "Fórmula": "se elegível: principal_recebido + max(fluxo_remanescente_apos_MEZZ, 0); se não elegível: 0",
-                "Observação": "Captura reinvestimento do principal reciclado e do excesso de caixa; caixa fora da janela elegível não recebe SELIC no modelo.",
+                "Observação": "Captura reinvestimento do principal reciclado e do excesso de caixa; fora da janela elegível, o principal recebido vai para caixa SELIC.",
             },
             {
                 "Indicador": "Juros sênior/MEZZ",

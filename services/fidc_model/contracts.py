@@ -39,6 +39,7 @@ class Premissas:
     perda_inesperada_am: Optional[float] = None
     agio_aquisicao: float = 0.0
     excesso_spread_senior_am: float = 0.0
+    selic_aa_por_ano: tuple[tuple[int, float], ...] = ()
 
     @property
     def proporcao_sub_jr(self) -> float:
@@ -62,6 +63,12 @@ class PeriodResult:
     fra_mezz: Optional[float]
     carteira: float
     fluxo_carteira: float
+    taxa_selic_aa: Optional[float]
+    taxa_selic_periodo: float
+    saldo_caixa_selic_inicio: float
+    principal_para_caixa_selic: float
+    rendimento_caixa_selic: float
+    fluxo_ativos_total: float
     pl_fidc: float
     custos_adm: float
     inadimplencia_despesa: float
@@ -77,6 +84,7 @@ class PeriodResult:
     nova_originacao: float
     carteira_fim: float
     caixa_nao_reinvestido: float
+    saldo_caixa_selic_fim: float
     agio_aquisicao_despesa: float
     tx_cessao_am_input: float
     tx_cessao_am_piso: float

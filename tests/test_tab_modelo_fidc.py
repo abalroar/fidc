@@ -82,6 +82,8 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn("perda_carteira = perda_esperada + perda_inesperada", markdown)
         self.assertIn("PMT SEN = juros SEN + principal SEN programado", markdown)
         self.assertIn("SUB residual = PL FIDC - PL SEN - PL MEZZ", markdown)
+        self.assertIn("taxa_selic_periodo = (1 + selic_aa_do_ano)", markdown)
+        self.assertIn("rendimento_caixa_selic", markdown)
 
     def test_revolvency_metrics_compare_sub_final_to_originated_portfolio(self) -> None:
         class Result:

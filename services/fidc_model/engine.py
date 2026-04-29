@@ -27,6 +27,12 @@ def annual_252_to_monthly_rate(rate_aa: float) -> float:
     return (1.0 + rate_aa) ** (21.0 / 252.0) - 1.0
 
 
+def _annual_252_to_period_rate(rate_aa: float, month_fraction: float) -> float:
+    """Convert an annual effective rate to a period using 21 business days per month."""
+
+    return (1.0 + rate_aa) ** ((21.0 * max(month_fraction, 0.0)) / 252.0) - 1.0
+
+
 def monthly_to_annual_252_rate(rate_am: float) -> float:
     """Convert an effective monthly rate, using 21 DU/month, to annual 252 DU."""
 
@@ -168,6 +174,11 @@ def _credit_loss_expenses(carteira: float, premissas: Premissas, delta_dc: int) 
     return expected_loss, unexpected_loss, expected_loss + unexpected_loss
 
 
+def _selic_annual_rate_for_year(premissas: Premissas, year: int) -> float:
+    projection = dict(premissas.selic_aa_por_ano)
+    return max(float(projection.get(year, 0.0)), -0.999999)
+
+
 def _period_month_fraction(month_deltas: Sequence[int], index: int, delta_dc: int) -> float:
     if index > 0:
         delta_months = month_deltas[index] - month_deltas[index - 1]
@@ -287,6 +298,7 @@ def build_flow(
     pl_fidc_atual = premissas.volume - agio_aquisicao_despesa
     pl_sub_jr_initial = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
     carteira_atual = premissas.volume
+    caixa_selic_atual = 0.0
     accrued_interest_senior = 0.0
     accrued_interest_mezz = 0.0
 
@@ -307,6 +319,12 @@ def build_flow(
                     fra_mezz=None,
                     carteira=premissas.volume,
                     fluxo_carteira=0.0,
+                    taxa_selic_aa=None,
+                    taxa_selic_periodo=0.0,
+                    saldo_caixa_selic_inicio=0.0,
+                    principal_para_caixa_selic=0.0,
+                    rendimento_caixa_selic=0.0,
+                    fluxo_ativos_total=0.0,
                     pl_fidc=pl_fidc_atual,
                     custos_adm=0.0,
                     inadimplencia_despesa=0.0,
@@ -322,6 +340,7 @@ def build_flow(
                     nova_originacao=0.0,
                     carteira_fim=carteira_atual,
                     caixa_nao_reinvestido=0.0,
+                    saldo_caixa_selic_fim=0.0,
                     agio_aquisicao_despesa=agio_aquisicao_despesa,
                     tx_cessao_am_input=premissas.tx_cessao_am,
                     tx_cessao_am_piso=0.0,
@@ -357,7 +376,22 @@ def build_flow(
             premissas.excesso_spread_senior_am,
         )
         tx_cessao_am_aplicada = max(premissas.tx_cessao_am, tx_cessao_am_piso)
+        period_months = _period_month_fraction(month_deltas, index, delta_dc)
+        prazo_medio_recebiveis = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
+        principal_recebido_carteira = min(carteira, max(carteira * period_months / prazo_medio_recebiveis, 0.0))
+        prazo_restante_reinvestimento = max(
+            float(_term_months(premissas.prazo_fidc_anos, fallback_term_months) - month_deltas[index]),
+            0.0,
+        )
+        reinvestimento_elegivel = _is_reinvestment_eligible(premissas, month_deltas[index], fallback_term_months)
+        reinvestimento_principal = principal_recebido_carteira if reinvestimento_elegivel else 0.0
+        principal_para_caixa_selic = max(principal_recebido_carteira - reinvestimento_principal, 0.0)
+        taxa_selic_aa = _selic_annual_rate_for_year(premissas, dt.year)
+        taxa_selic_periodo = _annual_252_to_period_rate(taxa_selic_aa, period_months)
+        saldo_caixa_selic_inicio = caixa_selic_atual
+        rendimento_caixa_selic = (saldo_caixa_selic_inicio + principal_para_caixa_selic) * taxa_selic_periodo
         fluxo_carteira = carteira * ((1.0 + tx_cessao_am_aplicada) ** (delta_du / 21.0) - 1.0)
+        fluxo_ativos_total = fluxo_carteira + rendimento_caixa_selic
         custos_adm = max(carteira * premissas.custo_adm_aa / 12.0, premissas.custo_min)
         perda_esperada_despesa, perda_inesperada_despesa, perda_carteira_despesa = _credit_loss_expenses(
             carteira,
@@ -397,24 +431,23 @@ def build_flow(
         pl_senior_atual -= principal_senior_period
         pl_mezz_atual -= principal_mezz_period
 
-        fluxo_remanescente = fluxo_carteira - custos_adm - inadimplencia_despesa - pmt_senior
+        fluxo_remanescente = fluxo_ativos_total - custos_adm - inadimplencia_despesa - pmt_senior
         fluxo_remanescente_mezz = fluxo_remanescente - pmt_mezz
-        pl_fidc_atual = pl_fidc_atual + fluxo_carteira - custos_adm - inadimplencia_despesa - pmt_senior - pmt_mezz
+        pl_fidc_atual = pl_fidc_atual + fluxo_ativos_total - custos_adm - inadimplencia_despesa - pmt_senior - pmt_mezz
         pl_sub_jr = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
-        period_months = _period_month_fraction(month_deltas, index, delta_dc)
-        prazo_medio_recebiveis = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
-        principal_recebido_carteira = min(carteira, max(carteira * period_months / prazo_medio_recebiveis, 0.0))
-        prazo_restante_reinvestimento = max(float(_term_months(premissas.prazo_fidc_anos, fallback_term_months) - month_deltas[index]), 0.0)
-        reinvestimento_elegivel = _is_reinvestment_eligible(premissas, month_deltas[index], fallback_term_months)
-        reinvestimento_principal = principal_recebido_carteira if reinvestimento_elegivel else 0.0
         reinvestimento_excesso = max(fluxo_remanescente_mezz, 0.0) if reinvestimento_elegivel else 0.0
         nova_originacao = reinvestimento_principal + reinvestimento_excesso
         carteira_fim = max(carteira - principal_recebido_carteira - perda_carteira_despesa + nova_originacao, 0.0)
         caixa_nao_reinvestido = (
-            max(principal_recebido_carteira - reinvestimento_principal, 0.0)
+            principal_para_caixa_selic
             + max(max(fluxo_remanescente_mezz, 0.0) - reinvestimento_excesso, 0.0)
         )
+        saldo_caixa_selic_fim = max(
+            saldo_caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_mezz - reinvestimento_excesso,
+            0.0,
+        )
         carteira_atual = carteira_fim
+        caixa_selic_atual = saldo_caixa_selic_fim
 
         taxa_senior_period = taxa_senior[index]
         vp_pmt_senior = 0.0
@@ -436,6 +469,12 @@ def build_flow(
                 fra_mezz=fra_mezz[index],
                 carteira=carteira,
                 fluxo_carteira=fluxo_carteira,
+                taxa_selic_aa=taxa_selic_aa,
+                taxa_selic_periodo=taxa_selic_periodo,
+                saldo_caixa_selic_inicio=saldo_caixa_selic_inicio,
+                principal_para_caixa_selic=principal_para_caixa_selic,
+                rendimento_caixa_selic=rendimento_caixa_selic,
+                fluxo_ativos_total=fluxo_ativos_total,
                 pl_fidc=pl_fidc_atual,
                 custos_adm=custos_adm,
                 inadimplencia_despesa=inadimplencia_despesa,
@@ -451,6 +490,7 @@ def build_flow(
                 nova_originacao=nova_originacao,
                 carteira_fim=carteira_fim,
                 caixa_nao_reinvestido=caixa_nao_reinvestido,
+                saldo_caixa_selic_fim=saldo_caixa_selic_fim,
                 agio_aquisicao_despesa=0.0,
                 tx_cessao_am_input=premissas.tx_cessao_am,
                 tx_cessao_am_piso=tx_cessao_am_piso,
