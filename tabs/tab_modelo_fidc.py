@@ -1403,6 +1403,13 @@ def _build_loss_area_frame(
         protection_series = protection_series.rename(columns={"perda_maxima_suportada": "valor"})
         protection_series["serie"] = "Perda máxima suportada (% carteira originada)"
         long_df = pd.concat([long_df, protection_series[long_df.columns]], ignore_index=True)
+    protection_names = {
+        "Subordinação econômica disponível (SUB positiva/PL)",
+        "Perda máxima suportada (% carteira originada)",
+    }
+    long_df["eixo"] = long_df["serie"].map(
+        lambda serie: "Proteção / subordinação" if serie in protection_names else "Perda da carteira"
+    )
     return long_df
 
 
@@ -1462,26 +1469,60 @@ def _area_money_chart(chart_df: pd.DataFrame) -> alt.Chart:
 
 
 def _area_percent_chart(chart_df: pd.DataFrame) -> alt.Chart:
-    base = alt.Chart(chart_df).encode(
-        x=alt.X("indice:Q", title="Mês do FIDC", axis=alt.Axis(tickMinStep=1)),
+    color_domain = [
+        "Perda acumulada da carteira (% do volume)",
+        "Perda do período (% da carteira)",
+        "Subordinação econômica disponível (SUB positiva/PL)",
+        "Perda máxima suportada (% carteira originada)",
+    ]
+    color_range = ["#d62728", "#f28e2b", "#2f6f9f", "#59a14f"]
+    loss_df = chart_df[chart_df["eixo"] == "Perda da carteira"].copy()
+    protection_df = chart_df[chart_df["eixo"] == "Proteção / subordinação"].copy()
+    x_encoding = alt.X("indice:Q", title="Mês do FIDC", axis=alt.Axis(tickMinStep=1))
+    tooltip = [
+        alt.Tooltip("mes_fidc:N", title="Mês"),
+        alt.Tooltip("periodo:N", title="Período"),
+        alt.Tooltip("serie:N", title="Série"),
+        alt.Tooltip("valor_formatado:N", title="Valor"),
+    ]
+
+    loss_base = alt.Chart(loss_df).encode(
+        x=x_encoding,
         y=alt.Y(
             "valor_pct:Q",
-            title="%",
+            title="Perda da carteira (%)",
             axis=alt.Axis(labelExpr="replace(format(datum.value, '.1f'), '.', ',') + '%'"),
         ),
         color=alt.Color(
             "serie:N",
             title="Série",
-            scale=alt.Scale(range=["#2f6f9f", "#d62728", "#f28e2b", "#59a14f"]),
+            scale=alt.Scale(domain=color_domain, range=color_range),
         ),
-        tooltip=[
-            alt.Tooltip("mes_fidc:N", title="Mês"),
-            alt.Tooltip("periodo:N", title="Período"),
-            alt.Tooltip("serie:N", title="Série"),
-            alt.Tooltip("valor_formatado:N", title="Valor"),
-        ],
+        tooltip=tooltip,
     )
-    return (base.mark_area(opacity=0.28, interpolate="monotone") + base.mark_line(size=2, interpolate="monotone")).properties(height=320)
+    protection_base = alt.Chart(protection_df).encode(
+        x=alt.X("indice:Q", title="Mês do FIDC", axis=alt.Axis(tickMinStep=1)),
+        y=alt.Y(
+            "valor_pct:Q",
+            title="Proteção / subordinação (%)",
+            axis=alt.Axis(orient="right", labelExpr="replace(format(datum.value, '.1f'), '.', ',') + '%'"),
+        ),
+        color=alt.Color(
+            "serie:N",
+            title="Série",
+            scale=alt.Scale(domain=color_domain, range=color_range),
+        ),
+        tooltip=tooltip,
+    )
+    loss_layer = loss_base.mark_area(opacity=0.20, interpolate="monotone") + loss_base.mark_line(
+        size=2,
+        interpolate="monotone",
+    )
+    protection_layer = protection_base.mark_area(opacity=0.12, interpolate="monotone") + protection_base.mark_line(
+        size=2.4,
+        interpolate="monotone",
+    )
+    return alt.layer(loss_layer, protection_layer).resolve_scale(y="independent").properties(height=320)
 
 
 def _render_model_header() -> None:

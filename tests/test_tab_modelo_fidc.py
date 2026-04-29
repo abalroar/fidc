@@ -319,6 +319,35 @@ class TabModeloFidcTests(unittest.TestCase):
         chart_df = tab_modelo_fidc._build_loss_area_frame(frame, volume=100.0, protection_frame=protection)
 
         self.assertIn("Perda máxima suportada (% carteira originada)", chart_df["serie"].tolist())
+        self.assertIn("Proteção / subordinação", chart_df["eixo"].tolist())
+
+    def test_loss_chart_uses_right_axis_for_protection_series(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "indice": [0, 1],
+                "data": pd.to_datetime(["2026-01-01", "2026-02-01"]),
+                "carteira": [100.0, 100.0],
+                "pl_fidc": [100.0, 100.0],
+                "pl_sub_jr": [20.0, 18.0],
+                "perda_carteira_despesa": [0.0, 2.0],
+            }
+        )
+        chart_df = tab_modelo_fidc._build_loss_area_frame(frame, volume=100.0)
+
+        spec = tab_modelo_fidc._area_percent_chart(chart_df).to_dict()
+
+        def has_right_axis(node) -> bool:
+            if isinstance(node, dict):
+                axis = node.get("axis")
+                if isinstance(axis, dict) and axis.get("orient") == "right":
+                    return True
+                return any(has_right_axis(value) for value in node.values())
+            if isinstance(node, list):
+                return any(has_right_axis(value) for value in node)
+            return False
+
+        self.assertEqual("independent", spec["resolve"]["scale"]["y"])
+        self.assertTrue(has_right_axis(spec))
 
     def test_time_protection_chart_is_line_chart(self) -> None:
         chart_df = pd.DataFrame(
