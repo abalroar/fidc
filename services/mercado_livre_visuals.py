@@ -6,10 +6,19 @@ import altair as alt
 from services.mercado_livre_dashboard import PT_MONTH_ABBR
 
 
-SENIOR_COLOR = "#1f77b4"
-SUB_MEZZ_COLOR = "#8ecae6"
-NPL_COLOR = "#d1495b"
-COVERAGE_COLOR = "#1b998b"
+CORES_MELI = {
+    "primaria": "#000000",
+    "secundaria": "#E47811",
+    "auxiliar": "#3F3F3F",
+    "cinza_medio": "#8C8C8C",
+    "cinza_claro": "#E5E5E5",
+}
+
+SENIOR_COLOR = CORES_MELI["primaria"]
+SUB_MEZZ_COLOR = CORES_MELI["secundaria"]
+SUBORDINATION_COLOR = CORES_MELI["auxiliar"]
+NPL_COLOR = CORES_MELI["primaria"]
+COVERAGE_COLOR = CORES_MELI["secundaria"]
 
 
 def pl_subordination_chart(monthly_df: pd.DataFrame, *, title: str = "Evolução de PL e Subordinação") -> alt.Chart:
@@ -56,6 +65,7 @@ def pl_subordination_chart(monthly_df: pd.DataFrame, *, title: str = "Evolução
         }
     )
     line_df["valor_fmt"] = line_df["valor"].map(_format_percent)
+    line_label_df = _last_point_label_df(line_df, value_column="valor")
     x_sort = bar_df["competencia"].drop_duplicates().tolist()
     x = alt.X("competencia:N", title="Competência", sort=x_sort)
     bars = (
@@ -67,7 +77,7 @@ def pl_subordination_chart(monthly_df: pd.DataFrame, *, title: str = "Evolução
                 "valor_scaled:Q",
                 title=scale_label,
                 stack="zero",
-                axis=alt.Axis(labelPadding=8, titlePadding=12),
+                axis=alt.Axis(labelPadding=8, titlePadding=12, labelColor=CORES_MELI["auxiliar"], titleColor=CORES_MELI["auxiliar"]),
             ),
             color=alt.Color(
                 "serie:N",
@@ -84,13 +94,17 @@ def pl_subordination_chart(monthly_df: pd.DataFrame, *, title: str = "Evolução
     )
     line = (
         alt.Chart(line_df)
-        .mark_line(point=alt.OverlayMarkDef(filled=True, size=52), strokeWidth=2.8, color=COVERAGE_COLOR)
+        .mark_line(
+            point=alt.OverlayMarkDef(filled=True, fill=SUBORDINATION_COLOR, color=SUBORDINATION_COLOR, size=42),
+            strokeWidth=2,
+            color=SUBORDINATION_COLOR,
+        )
         .encode(
             x=x,
             y=alt.Y(
                 "valor:Q",
                 title="% Subordinação Total ex-360",
-                axis=alt.Axis(orient="right", grid=False, labelColor=COVERAGE_COLOR, titleColor=COVERAGE_COLOR),
+                axis=alt.Axis(orient="right", grid=False, labelColor=SUBORDINATION_COLOR, titleColor=SUBORDINATION_COLOR),
             ),
             tooltip=[
                 alt.Tooltip("competencia:N", title="Competência"),
@@ -98,7 +112,8 @@ def pl_subordination_chart(monthly_df: pd.DataFrame, *, title: str = "Evolução
             ],
         )
     )
-    return _style_chart(alt.layer(bars, line).resolve_scale(y="independent").properties(title=title, height=360))
+    line_label = _line_end_label(line_label_df, x=x, y_field="valor", text_field="valor_fmt", color=SUBORDINATION_COLOR, dy=-10)
+    return _style_chart(alt.layer(bars, line + line_label).resolve_scale(y="independent").properties(height=360))
 
 
 def npl_coverage_chart(monthly_df: pd.DataFrame, *, title: str = "NPL e Cobertura Ex-Vencidos > 360d") -> alt.Chart:
@@ -115,11 +130,17 @@ def npl_coverage_chart(monthly_df: pd.DataFrame, *, title: str = "NPL e Cobertur
     )
     chart_df["npl_fmt"] = chart_df["npl_pct"].map(_format_percent)
     chart_df["coverage_fmt"] = chart_df["coverage_pct"].map(_format_percent)
+    npl_label_df = _last_point_label_df(chart_df[["competencia", "npl_pct", "npl_fmt"]], value_column="npl_pct")
+    coverage_label_df = _last_point_label_df(chart_df[["competencia", "coverage_pct", "coverage_fmt"]], value_column="coverage_pct")
     x_sort = chart_df["competencia"].drop_duplicates().tolist()
     x = alt.X("competencia:N", title="Competência", sort=x_sort)
     npl_line = (
         alt.Chart(chart_df)
-        .mark_line(point=alt.OverlayMarkDef(filled=True, size=52), strokeWidth=2.8, color=NPL_COLOR)
+        .mark_line(
+            point=alt.OverlayMarkDef(filled=True, fill=NPL_COLOR, color=NPL_COLOR, size=42),
+            strokeWidth=2,
+            color=NPL_COLOR,
+        )
         .encode(
             x=x,
             y=alt.Y(
@@ -132,7 +153,11 @@ def npl_coverage_chart(monthly_df: pd.DataFrame, *, title: str = "NPL e Cobertur
     )
     coverage_line = (
         alt.Chart(chart_df)
-        .mark_line(point=alt.OverlayMarkDef(filled=True, size=52), strokeWidth=2.8, color=COVERAGE_COLOR)
+        .mark_line(
+            point=alt.OverlayMarkDef(filled=True, fill=COVERAGE_COLOR, color=COVERAGE_COLOR, size=42),
+            strokeWidth=2,
+            color=COVERAGE_COLOR,
+        )
         .encode(
             x=x,
             y=alt.Y(
@@ -143,7 +168,9 @@ def npl_coverage_chart(monthly_df: pd.DataFrame, *, title: str = "NPL e Cobertur
             tooltip=[alt.Tooltip("competencia:N", title="Competência"), alt.Tooltip("coverage_fmt:N", title="PDD / NPL Over 90d Ex 360")],
         )
     )
-    return _style_chart(alt.layer(npl_line, coverage_line).resolve_scale(y="independent").properties(title=title, height=340))
+    npl_label = _line_end_label(npl_label_df, x=x, y_field="npl_pct", text_field="npl_fmt", color=NPL_COLOR, dy=-10)
+    coverage_label = _line_end_label(coverage_label_df, x=x, y_field="coverage_pct", text_field="coverage_fmt", color=COVERAGE_COLOR, dy=14)
+    return _style_chart(alt.layer(npl_line + npl_label, coverage_line + coverage_label).resolve_scale(y="independent").properties(height=340))
 
 
 def _empty_chart(*, title: str) -> alt.Chart:
@@ -151,27 +178,50 @@ def _empty_chart(*, title: str) -> alt.Chart:
         alt.Chart(pd.DataFrame({"x": [0], "text": ["Sem dados"]}))
         .mark_text(color="#6f7a87", fontSize=13)
         .encode(text="text:N")
-        .properties(title=title, height=260)
+        .properties(height=260)
     )
 
 
 def _style_chart(chart: alt.Chart) -> alt.Chart:
     return (
         chart.configure_axis(
-            labelColor="#5f6b7a",
-            titleColor="#5f6b7a",
-            gridColor="#eef2f6",
-            domainColor="#e9ecef",
-        )
-        .configure_title(
-            color="#223247",
-            font="IBM Plex Sans",
-            fontSize=14,
-            fontWeight=500,
-            anchor="start",
+            labelColor=CORES_MELI["auxiliar"],
+            titleColor=CORES_MELI["auxiliar"],
+            gridColor=CORES_MELI["cinza_claro"],
+            domainColor=CORES_MELI["cinza_claro"],
         )
         .configure_view(stroke=None)
-        .configure_legend(labelColor="#5f6b7a", titleColor="#5f6b7a", orient="bottom")
+        .configure_legend(labelColor=CORES_MELI["auxiliar"], titleColor=CORES_MELI["auxiliar"], orient="bottom")
+    )
+
+
+def _last_point_label_df(df: pd.DataFrame, *, value_column: str) -> pd.DataFrame:
+    if df.empty or value_column not in df.columns:
+        return df.iloc[0:0].copy()
+    last = df.tail(1).copy()
+    value = pd.to_numeric(last[value_column], errors="coerce").iloc[0]
+    if pd.isna(value):
+        return df.iloc[0:0].copy()
+    return last
+
+
+def _line_end_label(
+    label_df: pd.DataFrame,
+    *,
+    x: alt.X,
+    y_field: str,
+    text_field: str,
+    color: str,
+    dy: int,
+) -> alt.Chart:
+    return (
+        alt.Chart(label_df)
+        .mark_text(align="left", baseline="middle", dx=8, dy=dy, color=color, fontSize=11, fontWeight=600)
+        .encode(
+            x=x,
+            y=alt.Y(f"{y_field}:Q", axis=None),
+            text=alt.Text(f"{text_field}:N"),
+        )
     )
 
 
@@ -218,7 +268,7 @@ def _format_decimal(value: object, decimals: int = 2) -> str:
 
 
 def _format_percent(value: object) -> str:
-    return f"{_format_decimal(value, 2)}%"
+    return f"{_format_decimal(value, 1)}%"
 
 
 def _format_money(value: object, *, scale_divisor: float, scale_label: str) -> str:

@@ -21,8 +21,8 @@ from services.mercado_livre_dashboard import (
     save_outputs_to_cache,
 )
 from services.portfolio_store import PortfolioFund, PortfolioRecord
-from services.mercado_livre_visuals import pl_subordination_chart
-from tabs.tab_mercado_livre import _resolve_existing_portfolio_for_save
+from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
+from tabs.tab_mercado_livre import _dense_wide_value, _render_wide_table_html, _resolve_existing_portfolio_for_save
 
 
 class MercadoLivreDashboardTests(unittest.TestCase):
@@ -109,6 +109,32 @@ class MercadoLivreDashboardTests(unittest.TestCase):
 
         self.assertIn("Subordinada + Mez ex-360", chart_payload)
         self.assertIn("% Subordinação Total ex-360", chart_payload)
+        self.assertIn("21,1%", chart_payload)
+        for legacy_color in ("#1f77b4", "#8ecae6", "#d1495b", "#1b998b"):
+            self.assertNotIn(legacy_color, chart_payload)
+
+    def test_npl_chart_uses_meli_palette_and_last_point_labels(self) -> None:
+        dashboard = _dashboard(
+            fund_name="FIDC A",
+            cnpj="11111111000111",
+            pl_total=100.0,
+            pl_senior=75.0,
+            pl_mezz=15.0,
+            pl_sub=10.0,
+            carteira=1_000.0,
+            pdd=100.0,
+            buckets={4: 40.0, 8: 10.0},
+        )
+        monthly = build_fund_monthly_base(cnpj="11111111000111", fund_name="FIDC A", dashboard=dashboard)
+
+        chart_payload = json.dumps(npl_coverage_chart(monthly).to_dict(), ensure_ascii=False)
+
+        self.assertIn("#000000", chart_payload)
+        self.assertIn("#E47811", chart_payload)
+        self.assertIn("4,0%", chart_payload)
+        self.assertIn("225,0%", chart_payload)
+        for legacy_color in ("#1f77b4", "#8ecae6", "#d1495b", "#1b998b"):
+            self.assertNotIn(legacy_color, chart_payload)
 
     def test_official_pl_overrides_class_sum_and_keeps_reconciliation(self) -> None:
         dashboard = _dashboard(
@@ -206,6 +232,40 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         workbook = load_workbook(BytesIO(excel_bytes), data_only=True)
         self.assertIn("Consolidado", workbook.sheetnames)
         self.assertIn("Auditoria", workbook.sheetnames)
+
+    def test_consolidated_wide_html_has_section_rows_and_dense_formatting(self) -> None:
+        wide = pd.DataFrame(
+            [
+                {
+                    "Bloco": "2. PL FIDC",
+                    "Métrica": "PL FIDC total",
+                    "Memória / fórmula": "PATRLIQ/VL_PATRIM_LIQ",
+                    "jan/26": "R$ mm 1.500,00",
+                    "fev/26": "N/D",
+                },
+                {
+                    "Bloco": "2. PL FIDC",
+                    "Métrica": "% Subordinação Total",
+                    "Memória / fórmula": "(Subordinada + Mezanino) / PL FIDC total.",
+                    "jan/26": "27,25%",
+                    "fev/26": "28,75%",
+                },
+            ]
+        )
+
+        html = _render_wide_table_html(wide)
+
+        self.assertIn("wide-table-wrapper", html)
+        self.assertIn("class='secao'", html)
+        self.assertIn("PL FIDC", html)
+        self.assertIn("1.500,0 MM", html)
+        self.assertIn("27,2%", html)
+        self.assertNotIn(">N/D<", html)
+
+    def test_dense_wide_value_uses_empty_for_missing_cells_and_br_format(self) -> None:
+        self.assertEqual("", _dense_wide_value("N/D"))
+        self.assertEqual("178,0%", _dense_wide_value("178,04%"))
+        self.assertEqual("5.380,0 MM", _dense_wide_value("R$ mm 5.380,00"))
 
     def test_outputs_cache_roundtrip_uses_deterministic_identity(self) -> None:
         dashboard = _dashboard(

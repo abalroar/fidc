@@ -39,8 +39,99 @@ from tabs.tab_fidc_ime_carteira import (
 )
 
 
+_MERCADO_LIVRE_UI_CSS = """
+<style>
+.chart-title {
+    color: #000000;
+    font-size: clamp(16px, 1.45vw, 18px);
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 8px 0 4px 0;
+}
+.chart-subtitle {
+    color: #8C8C8C;
+    font-size: 12px;
+    line-height: 1.25;
+    margin: 0 0 8px 0;
+}
+.wide-table-wrapper {
+    overflow-x: auto;
+    overflow-y: visible;
+    max-width: 100%;
+    padding-bottom: 4px;
+}
+.wide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    font-family: inherit;
+}
+.wide-table th {
+    text-align: right;
+    padding: 6px 8px;
+    border-bottom: 1px solid #3F3F3F;
+    font-weight: 600;
+    color: #000000;
+    background: #FFFFFF;
+    white-space: nowrap;
+}
+.wide-table th.label-col {
+    text-align: left;
+    min-width: 280px;
+}
+.wide-table th.formula-col {
+    text-align: left;
+    min-width: 260px;
+    color: #8C8C8C;
+}
+.wide-table td {
+    padding: 4px 8px;
+    text-align: right;
+    border-bottom: 1px solid #E5E5E5;
+    color: #3F3F3F;
+    white-space: nowrap;
+}
+.wide-table td.label,
+.wide-table td.formula {
+    text-align: left;
+}
+.wide-table td.label {
+    color: #000000;
+    padding-left: 18px;
+}
+.wide-table td.formula {
+    color: #8C8C8C;
+    font-size: 11px;
+    white-space: normal;
+    min-width: 260px;
+}
+.wide-table tr.secao td {
+    background: #000000;
+    color: #FFFFFF;
+    font-weight: 700;
+    padding: 6px 8px;
+    font-size: 13px;
+    text-align: left;
+}
+.wide-table tr.destaque td {
+    font-weight: 700;
+    color: #000000;
+}
+.wide-table tr.variacao td {
+    font-style: italic;
+    color: #8C8C8C;
+    font-size: 11px;
+}
+.wide-table tr:hover td {
+    background: #F4F1EA;
+}
+</style>
+"""
+
+
 def render_tab_mercado_livre(period: ImePeriodSelection | None = None) -> None:
     st.markdown(ime_tab._FIDC_REPORT_CSS, unsafe_allow_html=True)
+    st.markdown(_MERCADO_LIVRE_UI_CSS, unsafe_allow_html=True)
     _apply_pending_selection()
     st.markdown(
         """
@@ -382,31 +473,149 @@ def _render_outputs(
 
     st.markdown("### Tabela wide consolidada")
     with st.expander("Tabela wide consolidada", expanded=True):
-        st.dataframe(outputs.consolidated_wide, width="stretch", hide_index=True)
+        st.markdown(_render_wide_table_html(outputs.consolidated_wide), unsafe_allow_html=True)
 
-    show_charts = st.checkbox(
-        "Mostrar gráficos de prévia",
-        value=False,
-        help="A validação principal desta etapa é a tabela wide. Gráficos ficam desligados por padrão até a base estabilizar.",
-        key=f"ml_show_charts::{selected_portfolio.id}",
+    st.markdown("### Gráficos")
+    _render_graph_definitions()
+    for cnpj, monthly_df in outputs.fund_monthly.items():
+        fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
+        with st.expander(f"Gráficos · {fund_name} · {cnpj}", expanded=False):
+            left, right = st.columns(2)
+            with left:
+                _render_chart(
+                    "Evolução de PL e Subordinação",
+                    "PL em escala dinâmica; subordinação ex-360 no eixo direito.",
+                    pl_subordination_chart(monthly_df),
+                )
+            with right:
+                _render_chart(
+                    "NPL e Cobertura Ex-Vencidos > 360d",
+                    "NPL Over 90d ex-360 e cobertura PDD ex-360 / NPL Over 90d ex-360.",
+                    npl_coverage_chart(monthly_df),
+                )
+    st.markdown("**Carteira consolidada**")
+    left, right = st.columns(2)
+    with left:
+        _render_chart(
+            "Evolução de PL e Subordinação",
+            "PL consolidado em escala dinâmica; subordinação ex-360 no eixo direito.",
+            pl_subordination_chart(outputs.consolidated_monthly),
+        )
+    with right:
+        _render_chart(
+            "NPL e Cobertura Ex-Vencidos > 360d",
+            "Índices consolidados recalculados a partir das somas absolutas.",
+            npl_coverage_chart(outputs.consolidated_monthly),
+        )
+
+
+def _render_chart(title: str, subtitle: str, chart) -> None:
+    st.markdown(f"<h4 class='chart-title'>{escape(title)}</h4>", unsafe_allow_html=True)
+    if subtitle:
+        st.markdown(f"<p class='chart-subtitle'>{escape(subtitle)}</p>", unsafe_allow_html=True)
+    st.altair_chart(chart, width="stretch")
+
+
+def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
+    if df_wide.empty:
+        return "<p class='chart-subtitle'>Sem dados para a tabela wide consolidada.</p>"
+    period_columns = [
+        str(column)
+        for column in df_wide.columns
+        if str(column) not in {"Bloco", "Métrica", "Memória / fórmula"}
+    ]
+    column_count = 2 + len(period_columns)
+    html: list[str] = ["<div class='wide-table-wrapper'>", "<table class='wide-table'>"]
+    html.append("<thead><tr>")
+    html.append("<th class='label-col'>Métrica</th>")
+    html.append("<th class='formula-col'>Memória / fórmula</th>")
+    for column in period_columns:
+        html.append(f"<th>{escape(column)}</th>")
+    html.append("</tr></thead><tbody>")
+
+    current_block = ""
+    for _, row in df_wide.iterrows():
+        block = str(row.get("Bloco") or "").strip()
+        if block and block != current_block:
+            current_block = block
+            html.append(f"<tr class='secao'><td colspan='{column_count}'>{escape(_section_label(block))}</td></tr>")
+        metric = str(row.get("Métrica") or "").strip()
+        formula = str(row.get("Memória / fórmula") or "").strip()
+        row_class = _wide_table_metric_class(metric)
+        html.append(f"<tr class='{row_class}'>")
+        html.append(f"<td class='label'>{escape(metric)}</td>")
+        html.append(f"<td class='formula'>{escape(_dense_wide_value(formula))}</td>")
+        for column in period_columns:
+            html.append(f"<td>{escape(_dense_wide_value(row.get(column)))}</td>")
+        html.append("</tr>")
+    html.append("</tbody></table></div>")
+    return "\n".join(html)
+
+
+def _section_label(block: str) -> str:
+    parts = block.split(".", 1)
+    if len(parts) == 2 and parts[0].strip().isdigit():
+        return parts[1].strip()
+    return block
+
+
+def _wide_table_metric_class(metric: str) -> str:
+    normalized = metric.lower()
+    destaque_terms = (
+        "pl fidc total",
+        "carteira bruta total",
+        "carteira líquida",
+        "npl over 90d / carteira",
+        "pdd / npl over 90d",
+        "% subordinação total",
+        "carteira ex over 360d",
+        "pl ex over 360d",
+        "pdd ex over 360d",
     )
-    if show_charts:
-        st.markdown("### Gráficos de prévia")
-        _render_graph_definitions()
-        for cnpj, monthly_df in outputs.fund_monthly.items():
-            fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
-            with st.expander(f"Gráficos · {fund_name} · {cnpj}", expanded=False):
-                left, right = st.columns(2)
-                with left:
-                    st.altair_chart(pl_subordination_chart(monthly_df), width="stretch")
-                with right:
-                    st.altair_chart(npl_coverage_chart(monthly_df), width="stretch")
-        st.markdown("**Carteira consolidada**")
-        left, right = st.columns(2)
-        with left:
-            st.altair_chart(pl_subordination_chart(outputs.consolidated_monthly), width="stretch")
-        with right:
-            st.altair_chart(npl_coverage_chart(outputs.consolidated_monthly), width="stretch")
+    if any(term in normalized for term in destaque_terms):
+        return "destaque"
+    if "(%)" in metric or " / " in metric or metric.startswith("%") or "reconciliação" in normalized:
+        return "variacao"
+    return "normal"
+
+
+def _dense_wide_value(value: object) -> str:
+    if value is None or pd.isna(value):
+        return ""
+    text = str(value).strip()
+    if not text or text.upper() == "N/D":
+        return ""
+    for prefix, suffix, decimals in (
+        ("R$ bi ", " bi", 1),
+        ("R$ mm ", " MM", 1),
+        ("R$ mil ", " mil", 1),
+    ):
+        if text.startswith(prefix):
+            parsed = _parse_br_number(text.removeprefix(prefix))
+            return _format_br_number(parsed, decimals=decimals) + suffix if parsed is not None else text
+    if text.startswith("R$ "):
+        parsed = _parse_br_number(text.removeprefix("R$ "))
+        if parsed is None:
+            return text
+        decimals = 0 if float(parsed).is_integer() else 1
+        return _format_br_number(parsed, decimals=decimals)
+    if text.endswith("%"):
+        parsed = _parse_br_number(text[:-1])
+        return f"{_format_br_number(parsed, decimals=1)}%" if parsed is not None else text
+    return text
+
+
+def _parse_br_number(value: str) -> float | None:
+    try:
+        normalized = value.strip().replace(".", "").replace(",", ".")
+        return float(normalized)
+    except (TypeError, ValueError):
+        return None
+
+
+def _format_br_number(value: float, *, decimals: int) -> str:
+    formatted = f"{float(value):,.{decimals}f}"
+    return formatted.replace(",", "_").replace(".", ",").replace("_", ".")
 
 
 def _render_graph_definitions() -> None:
