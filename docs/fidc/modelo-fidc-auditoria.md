@@ -155,7 +155,7 @@ A principal métrica adicionada é a perda máxima suportada sobre a carteira or
 
 ```text
 giro_estimado = prazo_total_fidc_anos * 12 / prazo_medio_recebiveis_meses
-carteira_originada_revolvente = volume_inicial * giro_estimado
+carteira_originada_revolvente = volume_inicial + volume_inicial * giro_estimado
 carteira_originada_estatica = volume_inicial
 perda_maxima = max(SUB_final_sem_perdas, 0) / carteira_originada
 ```
@@ -165,11 +165,14 @@ Essa métrica usa uma simulação paralela com Perda Esperada e Perda Inesperada
 A aba também calcula a proteção ao longo do tempo:
 
 ```text
-carteira_originada_acumulada = volume_inicial * mes_fidc / prazo_medio_recebiveis_meses
-perda_maxima_no_mes = SUB_disponivel_no_mes / carteira_originada_acumulada
+nova_originacao_acumulada = volume_inicial * mes_fidc / prazo_medio_recebiveis_meses
+denominador_no_mes = volume_inicial + nova_originacao_acumulada
+perda_maxima_no_mes = SUB_disponivel_no_mes / denominador_no_mes
 ```
 
-Com prazo médio de recebíveis de `6 meses`, a carteira revolvente origina `1/6` do volume inicial por mês. Esse cálculo alimenta a série de perda máxima suportada no gráfico de perda/subordinação e o gráfico dedicado de proteção ao longo do tempo.
+Com prazo médio de recebíveis de `6 meses`, a carteira revolvente origina `1/6` do volume inicial por mês, mas o denominador sempre inclui a carteira inicial. Em uma estrutura de `R$ 1 bi`, o mês 1 usa `R$ 1 bi + R$ 166,7MM = R$ 1,1667 bi`. Esse cálculo alimenta a série de perda máxima suportada no gráfico de perda/subordinação e o gráfico dedicado de proteção ao longo do tempo.
+
+Premissa de caixa: o modelo presume que não há excesso de caixa aplicado à SELIC. Todo caixa disponível é reinvestido na compra de nova carteira revolvente; logo, eventual caixa excedente gerado pelo vencimento da carteira não é considerado como saldo financeiro aplicado. Essa simplificação pode superestimar rentabilidade quando a carteira é boa e ampliar perda quando a carteira é ruim, mas muitos FIDCs não carregam caixa relevante em excesso por longos períodos.
 
 ## Validação manual
 
