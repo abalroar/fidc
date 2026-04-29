@@ -269,10 +269,62 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         from pptx import Presentation
 
         presentation = Presentation(BytesIO(pptx_bytes))
-        self.assertGreaterEqual(len(presentation.slides), 2)
+        self.assertEqual(len(outputs.fund_monthly) + 1, len(presentation.slides))
+        for slide in presentation.slides:
+            chart_shapes = [shape for shape in slide.shapes if getattr(shape, "has_chart", False)]
+            self.assertEqual(4, len(chart_shapes))
+            self.assertTrue(all(shape.chart.has_title for shape in chart_shapes))
         with zipfile.ZipFile(BytesIO(pptx_bytes)) as archive:
             names = archive.namelist()
+            chart_xml = "\n".join(
+                archive.read(name).decode("utf-8")
+                for name in names
+                if name.startswith("ppt/charts/chart") and name.endswith(".xml")
+            )
         self.assertTrue(any(name.startswith("ppt/charts/chart") for name in names))
+        self.assertIn("<c:dLbls>", chart_xml)
+        self.assertIn("<c:dLblPos", chart_xml)
+        self.assertIn("<c:title>", chart_xml)
+
+    def test_pptx_export_uses_one_2x2_slide_per_fund_plus_consolidated(self) -> None:
+        dashboard_a = _dashboard(
+            fund_name="FIDC A",
+            cnpj="11111111000111",
+            pl_total=100.0,
+            pl_senior=75.0,
+            pl_mezz=15.0,
+            pl_sub=10.0,
+            carteira=1_000.0,
+            pdd=100.0,
+            buckets={4: 40.0, 7: 10.0, 8: 10.0},
+        )
+        dashboard_b = _dashboard(
+            fund_name="FIDC B",
+            cnpj="22222222000122",
+            pl_total=200.0,
+            pl_senior=160.0,
+            pl_mezz=20.0,
+            pl_sub=20.0,
+            carteira=2_000.0,
+            pdd=200.0,
+            buckets={4: 80.0, 7: 20.0, 8: 20.0},
+        )
+        outputs = build_mercado_livre_outputs(
+            portfolio_id="portfolio-2",
+            portfolio_name="Carteira",
+            dashboards_by_cnpj={
+                "11111111000111": ("FIDC A", dashboard_a),
+                "22222222000122": ("FIDC B", dashboard_b),
+            },
+            period_label="01/2026 a 01/2026",
+        )
+        from pptx import Presentation
+
+        presentation = Presentation(BytesIO(build_pptx_export_bytes(outputs)))
+
+        self.assertEqual(3, len(presentation.slides))
+        for slide in presentation.slides:
+            self.assertEqual(4, sum(1 for shape in slide.shapes if getattr(shape, "has_chart", False)))
 
     def test_wide_table_orders_periods_newest_to_oldest(self) -> None:
         monthly = pd.DataFrame(
