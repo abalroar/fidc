@@ -151,6 +151,15 @@ perda_maxima = max(SUB_final_sem_perdas, 0) / carteira_originada
 
 Essa métrica usa uma simulação paralela com Perda Esperada e Perda Inesperada iguais a `0%`, preservando as demais premissas selecionadas. Assim, ela mede quanto colchão subordinado econômico seria acumulado antes de perdas e compara esse colchão ao total estimado de recebíveis originados ao longo do prazo do FIDC.
 
+A aba também calcula a proteção ao longo do tempo:
+
+```text
+carteira_originada_acumulada = volume_inicial * mes_fidc / prazo_medio_recebiveis_meses
+perda_maxima_no_mes = SUB_disponivel_no_mes / carteira_originada_acumulada
+```
+
+Com prazo médio de recebíveis de `6 meses`, a carteira revolvente origina `1/6` do volume inicial por mês. Esse cálculo alimenta a série de perda máxima suportada no gráfico de perda/subordinação e o gráfico dedicado de proteção ao longo do tempo.
+
 ## Validação manual
 
 Para reproduzir a auditoria no app:

@@ -509,6 +509,47 @@ def _build_revolvency_metrics(
     )
 
 
+def _originated_portfolio_to_date(month_index: float, premissas: Premissas, portfolio_mode: str) -> float:
+    if portfolio_mode == PORTFOLIO_MODE_STATIC:
+        return premissas.volume
+
+    prazo_medio_meses = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
+    prazo_total_anos = float(premissas.prazo_fidc_anos or 0.0)
+    max_originated = premissas.volume * max(prazo_total_anos * 12.0 / prazo_medio_meses, 0.0)
+    originated = premissas.volume * max(float(month_index), 0.0) / prazo_medio_meses
+    return min(originated, max_originated) if max_originated > 0.0 else originated
+
+
+def _build_time_protection_frame(
+    frame: pd.DataFrame,
+    *,
+    premissas: Premissas,
+    portfolio_mode: str,
+    scenario_label: str,
+) -> pd.DataFrame:
+    protection = frame[["indice", "data", "pl_sub_jr"]].copy()
+    protection["carteira_originada_acumulada"] = protection["indice"].map(
+        lambda month_index: _originated_portfolio_to_date(month_index, premissas, portfolio_mode)
+    )
+    protection["sub_disponivel"] = protection["pl_sub_jr"].clip(lower=0.0)
+    protection["perda_maxima_suportada"] = protection.apply(
+        lambda row: (
+            row["sub_disponivel"] / row["carteira_originada_acumulada"]
+            if row["carteira_originada_acumulada"] > 0.0
+            else None
+        ),
+        axis=1,
+    )
+    protection["serie"] = scenario_label
+    protection["valor_pct"] = protection["perda_maxima_suportada"] * 100.0
+    protection["valor_formatado"] = protection["perda_maxima_suportada"].map(_format_percent)
+    protection["sub_formatada"] = protection["sub_disponivel"].map(_format_brl)
+    protection["originada_formatada"] = protection["carteira_originada_acumulada"].map(_format_brl)
+    protection["periodo"] = protection["data"].dt.strftime("%d/%m/%Y")
+    protection["mes_fidc"] = protection["indice"].map(lambda value: f"Mês {int(value)}")
+    return protection.dropna(subset=["perda_maxima_suportada"])
+
+
 def _text_number_input(
     label: str,
     *,
@@ -713,6 +754,32 @@ def _build_revolvency_export_dataframe(metrics: _RevolvencyMetrics) -> pd.DataFr
     )
 
 
+def _build_time_protection_export_dataframe(protection_frame: pd.DataFrame) -> pd.DataFrame:
+    export = protection_frame.copy()
+    export["data"] = export["data"].dt.strftime("%d/%m/%Y")
+    return export.rename(
+        columns={
+            "indice": "Mês do FIDC",
+            "data": "Data",
+            "pl_sub_jr": "SUB residual",
+            "carteira_originada_acumulada": "Carteira originada acumulada",
+            "sub_disponivel": "SUB disponível",
+            "perda_maxima_suportada": "Perda máxima suportada",
+            "serie": "Cenário",
+        }
+    )[
+        [
+            "Mês do FIDC",
+            "Data",
+            "Cenário",
+            "SUB residual",
+            "SUB disponível",
+            "Carteira originada acumulada",
+            "Perda máxima suportada",
+        ]
+    ]
+
+
 def _build_workbook_mechanics_markdown(
     *,
     selected_curve: _SelectedCurve,
@@ -866,6 +933,14 @@ def _build_workbook_mechanics_markdown(
             "perda_maxima = max(SUB_final_sem_perdas, 0) / carteira_originada",
             "```",
             "",
+            "- Ao longo do tempo, a carteira originada acumulada é calculada mês a mês:",
+            "",
+            "```text",
+            "carteira_originada_acumulada = volume_inicial * mes_fidc / prazo_medio_recebiveis_meses",
+            "perda_maxima_no_mes = SUB_disponivel_no_mes / carteira_originada_acumulada",
+            "```",
+            "",
+            "- Exemplo: com prazo médio de recebíveis de `6 meses`, o modelo considera originação mensal de `1/6` do volume inicial.",
             "- Exemplo: prazo total de `3 anos`, prazo médio de recebíveis de `6 meses` e volume inicial de `R$ 750MM` geram giro de `6x` e carteira originada estimada de `R$ 4,5 bi`.",
             "",
             "### 10. Indicadores do resumo econômico",
@@ -880,7 +955,8 @@ def _build_workbook_mechanics_markdown(
             "### 11. Como interpretar os gráficos",
             "",
             "- `Evolução de Saldo das Cotas`: mostra SEN, MEZZ, SUB disponível e, quando existir, déficit econômico separado.",
-            "- `Evolução Subordinação x Perda da Carteira`: compara perda acumulada, perda do período e subordinação disponível.",
+            "- `Evolução Subordinação x Perda da Carteira`: compara perda acumulada, perda do período, subordinação disponível e perda máxima suportada.",
+            "- `Perda Máxima Suportada ao Longo do Tempo`: mostra SUB disponível dividida pela carteira originada acumulada em cada mês.",
             "- Se a perda acumulada sobe enquanto a subordinação disponível cai para zero, a estrutura está consumindo o colchão subordinado.",
             "- Se aparece déficit econômico, o cenário já ultrapassou a proteção da SUB dentro da mecânica atual.",
             "",
@@ -909,6 +985,7 @@ def _build_step_by_step_markdown() -> str:
             "- As regras de juros indicam se os juros são pagos em cada período, após carência ou apenas no vencimento.",
             "- Subordinação é o tamanho do colchão de SUB disponível em relação ao PL econômico do fundo.",
             "- Perda máxima sobre carteira originada compara a SUB final sem perdas com o total estimado de recebíveis originados no período.",
+            "- A proteção ao longo do tempo compara a SUB disponível de cada mês com a carteira originada acumulada até aquele mês.",
             "- No gráfico de saldos, o eixo X mostra o mês desde o início do FIDC; isso deixa claro quando terminam carências e começam amortizações.",
             "- No gráfico de perda e subordinação, maior perda acumulada com menor subordinação indica cenário mais pressionado.",
         ]
@@ -1107,7 +1184,11 @@ def _available_subordination_pct(row: pd.Series) -> float | None:
     return max(float(pl_sub_jr), 0.0) / float(pl_fidc)
 
 
-def _build_loss_area_frame(frame: pd.DataFrame, volume: float) -> pd.DataFrame:
+def _build_loss_area_frame(
+    frame: pd.DataFrame,
+    volume: float,
+    protection_frame: pd.DataFrame | None = None,
+) -> pd.DataFrame:
     loss_column = "perda_carteira_despesa" if "perda_carteira_despesa" in frame.columns else "inadimplencia_despesa"
     chart_frame = frame[["indice", "data", "carteira", "pl_fidc", "pl_sub_jr", loss_column]].copy()
     chart_frame = chart_frame.rename(columns={loss_column: "perda_carteira_despesa"})
@@ -1135,7 +1216,39 @@ def _build_loss_area_frame(frame: pd.DataFrame, volume: float) -> pd.DataFrame:
     long_df["valor_formatado"] = long_df["valor"].map(_format_percent)
     long_df["periodo"] = long_df["data"].dt.strftime("%d/%m/%Y")
     long_df["mes_fidc"] = long_df["indice"].map(lambda value: f"Mês {int(value)}")
+    if protection_frame is not None and not protection_frame.empty:
+        protection_series = protection_frame[
+            ["indice", "data", "perda_maxima_suportada", "valor_pct", "valor_formatado", "periodo", "mes_fidc"]
+        ].copy()
+        protection_series = protection_series.rename(columns={"perda_maxima_suportada": "valor"})
+        protection_series["serie"] = "Perda máxima suportada (% carteira originada)"
+        long_df = pd.concat([long_df, protection_series[long_df.columns]], ignore_index=True)
     return long_df
+
+
+def _protection_ratio_chart(chart_df: pd.DataFrame) -> alt.Chart:
+    base = alt.Chart(chart_df).encode(
+        x=alt.X("indice:Q", title="Mês do FIDC", axis=alt.Axis(tickMinStep=1)),
+        y=alt.Y(
+            "valor_pct:Q",
+            title="% da carteira originada",
+            axis=alt.Axis(labelExpr="replace(format(datum.value, '.1f'), '.', ',') + '%'"),
+        ),
+        color=alt.Color(
+            "serie:N",
+            title="Cenário",
+            scale=alt.Scale(range=["#2f6f9f", "#59a14f"]),
+        ),
+        tooltip=[
+            alt.Tooltip("mes_fidc:N", title="Mês"),
+            alt.Tooltip("periodo:N", title="Período"),
+            alt.Tooltip("serie:N", title="Cenário"),
+            alt.Tooltip("sub_formatada:N", title="SUB disponível"),
+            alt.Tooltip("originada_formatada:N", title="Carteira originada"),
+            alt.Tooltip("valor_formatado:N", title="Perda máxima suportada"),
+        ],
+    )
+    return (base.mark_line(size=2.4, interpolate="monotone") + base.mark_point(size=42)).properties(height=320)
 
 
 def _area_money_chart(chart_df: pd.DataFrame) -> alt.Chart:
@@ -1174,7 +1287,7 @@ def _area_percent_chart(chart_df: pd.DataFrame) -> alt.Chart:
         color=alt.Color(
             "serie:N",
             title="Série",
-            scale=alt.Scale(range=["#2f6f9f", "#d62728", "#f28e2b"]),
+            scale=alt.Scale(range=["#2f6f9f", "#d62728", "#f28e2b", "#59a14f"]),
         ),
         tooltip=[
             alt.Tooltip("mes_fidc:N", title="Mês"),
@@ -1746,6 +1859,20 @@ def render_tab_modelo_fidc() -> None:
     )
 
     frame = _build_dataframe(results)
+    zero_default_frame = _build_dataframe(zero_default_results)
+    protection_frame = _build_time_protection_frame(
+        frame,
+        premissas=premissas,
+        portfolio_mode=portfolio_mode_label,
+        scenario_label="Cenário com perdas",
+    )
+    zero_protection_frame = _build_time_protection_frame(
+        zero_default_frame,
+        premissas=premissas,
+        portfolio_mode=portfolio_mode_label,
+        scenario_label="Cenário sem perdas",
+    )
+    protection_chart_frame = pd.concat([protection_frame, zero_protection_frame], ignore_index=True)
     export_frame = _build_export_dataframe(frame)
     display_frame = _build_display_dataframe(export_frame)
 
@@ -1764,7 +1891,13 @@ def render_tab_modelo_fidc() -> None:
             '<div class="fidc-model-section-title">Evolução Subordinação x Perda da Carteira</div>',
             unsafe_allow_html=True,
         )
-        st.altair_chart(_area_percent_chart(_build_loss_area_frame(frame, premissas.volume)), width="stretch")
+        st.altair_chart(_area_percent_chart(_build_loss_area_frame(frame, premissas.volume, protection_frame)), width="stretch")
+
+    st.markdown(
+        '<div class="fidc-model-section-title">Perda Máxima Suportada ao Longo do Tempo</div>',
+        unsafe_allow_html=True,
+    )
+    st.altair_chart(_protection_ratio_chart(protection_chart_frame), width="stretch")
 
     memory_df = pd.DataFrame(
         [
@@ -1827,6 +1960,16 @@ def render_tab_modelo_fidc() -> None:
                 "Observação": "Usada para comparar o colchão final da SUB contra o total de recebíveis originados no período do FIDC.",
             },
             {
+                "Indicador": "Carteira originada acumulada",
+                "Fórmula": "revolvente: volume * mês_fidc / prazo_medio_recebiveis_meses; estática: volume",
+                "Observação": "No caso revolvente, um prazo médio de 6 meses equivale a originar 1/6 do volume inicial por mês.",
+            },
+            {
+                "Indicador": "Perda máxima suportada no tempo",
+                "Fórmula": "SUB disponível no mês / carteira originada acumulada até o mês",
+                "Observação": "Mostra em quais meses a estrutura está mais ou menos protegida contra perdas acumuladas na originação.",
+            },
+            {
                 "Indicador": "Perda máxima suportada",
                 "Fórmula": "max(SUB final com perdas 0%, 0) / carteira total originada estimada",
                 "Observação": "Esta é uma simulação paralela sem Perda Esperada nem Perda Inesperada para medir o colchão econômico antes das perdas.",
@@ -1861,6 +2004,11 @@ def render_tab_modelo_fidc() -> None:
             writer,
             index=False,
             sheet_name="perda_maxima",
+        )
+        _build_time_protection_export_dataframe(protection_chart_frame).to_excel(
+            writer,
+            index=False,
+            sheet_name="protecao_tempo",
         )
     download_left, download_right = st.columns(2)
     download_left.download_button(
