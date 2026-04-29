@@ -1166,6 +1166,22 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
 
 def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_key: str = "slot0") -> None:
     _render_fidc_section("Estrutura")
+    latest_subordination_match = (
+        dashboard.subordination_history_df[
+            dashboard.subordination_history_df["competencia"].astype(str) == str(dashboard.latest_competencia)
+        ]
+        if not dashboard.subordination_history_df.empty and "competencia" in dashboard.subordination_history_df.columns
+        else pd.DataFrame()
+    )
+    latest_subordination_row = latest_subordination_match.iloc[-1] if not latest_subordination_match.empty else None
+    if latest_subordination_row is not None and bool(latest_subordination_row.get("pl_reconciliacao_warning")):
+        delta = _format_brl_compact(latest_subordination_row.get("pl_reconciliacao_delta"))
+        delta_pct = _format_percent(latest_subordination_row.get("pl_reconciliacao_delta_pct"))
+        st.warning(
+            "PL oficial diverge da soma das classes reportadas. "
+            f"PL não reconciliado: {delta} ({delta_pct}). "
+            "A subordinação não é exibida como métrica confiável para esta competência."
+        )
     subordination_periods = dashboard.subordination_history_df["competencia"].nunique()
     _render_chart_heading(st, "Subordinação reportada")
     st.altair_chart(

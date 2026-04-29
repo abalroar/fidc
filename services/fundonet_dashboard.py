@@ -85,6 +85,8 @@ _AGGREGATE_OVERDUE_TOTAL_PATHS = [
     "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_TOTAL_VENC_INAD",
 ]
 _MEZZANINE_TOKEN_RE = re.compile(r"(mezz|mezan|mezanino|mezzanine)", re.IGNORECASE)
+OFFICIAL_PL_PATH = "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+PL_RECONCILIATION_WARNING_PCT = 0.5
 
 
 @dataclass(frozen=True)
@@ -148,7 +150,11 @@ def build_dashboard_data(
         listas_df=listas_df,
         competencias=competencias,
     )
-    subordination_history_df = _build_subordination_history(quota_pl_history_df)
+    subordination_history_df = _build_subordination_history(
+        quota_pl_history_df,
+        wide_lookup=wide_lookup,
+        competencias=competencias,
+    )
     return_history_df = _build_return_history(
         wide_lookup=wide_lookup,
         listas_df=listas_df,
@@ -1019,6 +1025,15 @@ def _build_summary(
 
     return {
         "pl_total": _float_or_none(subordination_row.get("pl_total")),
+        "pl_total_oficial": _float_or_none(subordination_row.get("pl_total_oficial")),
+        "pl_total_classes": _float_or_none(subordination_row.get("pl_total_classes")),
+        "pl_nao_reconciliado": _float_or_none(subordination_row.get("pl_nao_reconciliado")),
+        "pl_reconciliacao_delta": _float_or_none(subordination_row.get("pl_reconciliacao_delta")),
+        "pl_reconciliacao_delta_pct": _float_or_none(subordination_row.get("pl_reconciliacao_delta_pct")),
+        "pl_reconciliacao_warning": bool(subordination_row.get("pl_reconciliacao_warning"))
+        if "pl_reconciliacao_warning" in subordination_row.index
+        else False,
+        "subordinacao_status": subordination_row.get("subordinacao_status"),
         "pl_senior": _float_or_none(subordination_row.get("pl_senior")),
         "pl_mezzanino": _float_or_none(subordination_row.get("pl_mezzanino")),
         "pl_subordinada_strict": _float_or_none(subordination_row.get("pl_subordinada_strict")),
@@ -2131,12 +2146,12 @@ def _build_executive_memory_df(
             "bloco_executivo": "Topo da página / Estrutura",
             "componente": "PL total",
             "variavel_final": "summary['pl_total']",
-            "numerador": "Σ(qt_cotas × valor_cota) por classe/série",
+            "numerador": "PATRLIQ/VL_PATRIM_LIQ quando disponível; classes ficam reconciliadas à parte",
             "denominador": "Não se aplica",
-            "fonte_cvm": "OUTRAS_INFORM/DESC_SERIE_CLASSE",
-            "fonte_efetiva": "qt_cotas * valor_cota",
-            "formula": "Σ PL de todas as classes reportadas",
-            "observacao": "Base usada no card de topo, na tabela de classes e como denominador dos eventos % do PL.",
+            "fonte_cvm": "PATRLIQ/VL_PATRIM_LIQ + OUTRAS_INFORM/DESC_SERIE_CLASSE",
+            "fonte_efetiva": "PL oficial; qt_cotas * valor_cota apenas para decomposição por classe",
+            "formula": "PL oficial; se ausente, Σ PL das classes reportadas com warning implícito",
+            "observacao": "Quando PL oficial diverge da soma das classes, a subordinação fica não calculável e o PL não reconciliado aparece separado.",
         },
         {
             "tipo_variavel": "Monetária",
@@ -2498,18 +2513,36 @@ def _build_quota_pl_history(
         )
     base_df = base_df.rename(columns={"QT_COTAS": "qt_cotas", "VL_COTAS": "vl_cota"})
     base_df["pl"] = base_df["qt_cotas"].fillna(0.0) * base_df["vl_cota"].fillna(0.0)
+    base_df["pl_reconciliacao_role"] = "classe_reportada"
+    base_df = _append_unreconciled_pl_rows(
+        quota_pl_history_df=base_df,
+        wide_lookup=wide_lookup,
+        competencias=competencias,
+    )
     totals = base_df.groupby("competencia", dropna=False)["pl"].transform("sum")
     base_df["pl_share_pct"] = (base_df["pl"] / totals).where(totals > 0).mul(100.0)
     return base_df
 
 
-def _build_subordination_history(quota_pl_history_df: pd.DataFrame) -> pd.DataFrame:
+def _build_subordination_history(
+    quota_pl_history_df: pd.DataFrame,
+    *,
+    wide_lookup: pd.DataFrame,
+    competencias: list[str],
+) -> pd.DataFrame:
     if quota_pl_history_df.empty:
         return pd.DataFrame(
             columns=[
                 "competencia",
                 "competencia_dt",
                 "pl_total",
+                "pl_total_oficial",
+                "pl_total_classes",
+                "pl_nao_reconciliado",
+                "pl_reconciliacao_delta",
+                "pl_reconciliacao_delta_pct",
+                "pl_reconciliacao_warning",
+                "subordinacao_status",
                 "pl_senior",
                 "pl_mezzanino",
                 "pl_subordinada_strict",
@@ -2518,8 +2551,12 @@ def _build_subordination_history(quota_pl_history_df: pd.DataFrame) -> pd.DataFr
             ]
         )
 
+    reported_df = quota_pl_history_df[
+        quota_pl_history_df.get("pl_reconciliacao_role", pd.Series("classe_reportada", index=quota_pl_history_df.index))
+        != "pl_nao_reconciliado"
+    ].copy()
     grouped = (
-        quota_pl_history_df.groupby(["competencia", "competencia_dt", "class_macro"], dropna=False)["pl"]
+        reported_df.groupby(["competencia", "competencia_dt", "class_macro"], dropna=False)["pl"]
         .sum()
         .unstack(fill_value=0.0)
         .reset_index()
@@ -2530,15 +2567,48 @@ def _build_subordination_history(quota_pl_history_df: pd.DataFrame) -> pd.DataFr
     # A métrica canônica de subordinação preserva a lógica econômica de
     # proteção abaixo do sênior: mezzanino + subordinadas residuais.
     grouped["pl_subordinada"] = grouped["pl_mezzanino"] + grouped["pl_subordinada_strict"]
-    grouped["pl_total"] = grouped["pl_senior"] + grouped["pl_subordinada"]
+    grouped["pl_total_classes"] = grouped["pl_senior"] + grouped["pl_subordinada"]
+    official_pl = _official_pl_series(wide_lookup=wide_lookup, competencias=competencias)
+    grouped["pl_total_oficial"] = grouped["competencia"].map(official_pl)
+    grouped["pl_total"] = grouped["pl_total_oficial"].where(
+        pd.to_numeric(grouped["pl_total_oficial"], errors="coerce").gt(0),
+        grouped["pl_total_classes"],
+    )
+    grouped["pl_reconciliacao_delta"] = grouped["pl_total"] - grouped["pl_total_classes"]
+    grouped["pl_nao_reconciliado"] = grouped["pl_reconciliacao_delta"].where(
+        pd.to_numeric(grouped["pl_reconciliacao_delta"], errors="coerce").gt(0),
+        0.0,
+    )
+    grouped["pl_reconciliacao_delta_pct"] = (
+        grouped["pl_reconciliacao_delta"].abs() / grouped["pl_total"]
+    ).where(grouped["pl_total"] > 0).mul(100.0)
+    grouped["pl_reconciliacao_warning"] = (
+        pd.to_numeric(grouped["pl_reconciliacao_delta_pct"], errors="coerce")
+        > PL_RECONCILIATION_WARNING_PCT
+    ).fillna(False)
     grouped["subordinacao_pct"] = (
         grouped["pl_subordinada"] / grouped["pl_total"]
     ).where(grouped["pl_total"] > 0).mul(100.0)
+    grouped.loc[grouped["pl_reconciliacao_warning"], "subordinacao_pct"] = pd.NA
+    grouped["subordinacao_status"] = grouped["pl_reconciliacao_warning"].map(
+        lambda warning: (
+            "nao_calculavel_pl_oficial_diverge_classes"
+            if warning
+            else "calculado_com_classes_reportadas"
+        )
+    )
     return grouped[
         [
             "competencia",
             "competencia_dt",
             "pl_total",
+            "pl_total_oficial",
+            "pl_total_classes",
+            "pl_nao_reconciliado",
+            "pl_reconciliacao_delta",
+            "pl_reconciliacao_delta_pct",
+            "pl_reconciliacao_warning",
+            "subordinacao_status",
             "pl_senior",
             "pl_mezzanino",
             "pl_subordinada_strict",
@@ -2546,6 +2616,58 @@ def _build_subordination_history(quota_pl_history_df: pd.DataFrame) -> pd.DataFr
             "subordinacao_pct",
         ]
     ]
+
+
+def _official_pl_series(*, wide_lookup: pd.DataFrame, competencias: list[str]) -> dict[str, float | None]:
+    if OFFICIAL_PL_PATH not in wide_lookup.index:
+        return {competencia: None for competencia in competencias}
+    row = wide_lookup.loc[OFFICIAL_PL_PATH]
+    if isinstance(row, pd.DataFrame):
+        row = row.iloc[0]
+    return {competencia: _float_or_none(row.get(competencia)) for competencia in competencias}
+
+
+def _append_unreconciled_pl_rows(
+    *,
+    quota_pl_history_df: pd.DataFrame,
+    wide_lookup: pd.DataFrame,
+    competencias: list[str],
+) -> pd.DataFrame:
+    if quota_pl_history_df.empty:
+        return quota_pl_history_df
+    official_pl = _official_pl_series(wide_lookup=wide_lookup, competencias=competencias)
+    class_totals = quota_pl_history_df.groupby("competencia", dropna=False)["pl"].sum().to_dict()
+    rows: list[dict[str, object]] = []
+    for competencia in competencias:
+        official_value = _float_or_none(official_pl.get(competencia))
+        class_total = _float_or_none(class_totals.get(competencia)) or 0.0
+        if official_value is None or official_value <= 0:
+            continue
+        delta = official_value - class_total
+        delta_pct = abs(delta) / official_value * 100.0
+        if delta <= 0 or delta_pct <= PL_RECONCILIATION_WARNING_PCT:
+            continue
+        rows.append(
+            {
+                "competencia": competencia,
+                "competencia_dt": _competencia_to_timestamp(competencia),
+                "class_kind": "nao_reconciliado",
+                "class_key": "nao_reconciliado",
+                "class_label": "PL não reconciliado",
+                "label": "PL não reconciliado",
+                "legacy_label": "PL não reconciliado",
+                "identity_confidence": "high",
+                "class_macro": "nao_reconciliado",
+                "class_macro_label": "PL não reconciliado",
+                "qt_cotas": pd.NA,
+                "vl_cota": pd.NA,
+                "pl": delta,
+                "pl_reconciliacao_role": "pl_nao_reconciliado",
+            }
+        )
+    if not rows:
+        return quota_pl_history_df
+    return pd.concat([quota_pl_history_df, pd.DataFrame(rows)], ignore_index=True, sort=False)
 
 
 def _build_return_history(

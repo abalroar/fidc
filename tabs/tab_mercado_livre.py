@@ -84,6 +84,7 @@ _MERCADO_LIVRE_UI_CSS = """
     border-collapse: collapse;
     font-size: 12px;
     font-family: inherit;
+    table-layout: fixed;
 }
 .wide-table th {
     text-align: right;
@@ -99,11 +100,9 @@ _MERCADO_LIVRE_UI_CSS = """
 }
 .wide-table th.label-col {
     text-align: left;
-    min-width: 280px;
 }
 .wide-table th.formula-col {
     text-align: left;
-    min-width: 260px;
     color: #8C8C8C;
 }
 .wide-table td {
@@ -125,7 +124,6 @@ _MERCADO_LIVRE_UI_CSS = """
     color: #8C8C8C;
     font-size: 11px;
     white-space: normal;
-    min-width: 260px;
 }
 .wide-table tr.destaque td {
     font-weight: 700;
@@ -549,15 +547,20 @@ def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
     if df_wide.empty:
         return "<p class='chart-subtitle'>Sem dados para a tabela wide consolidada.</p>"
     period_columns = order_period_columns_desc(df_wide.columns)
+    table_min_width = max(620 + 96 * len(period_columns), 920)
+    colgroup = _wide_table_colgroup(period_columns)
     html: list[str] = []
+    html.append(f"<div class='wide-table-wrapper' style='min-width: 100%; --wide-table-min-width: {table_min_width}px;'>")
     current_block = ""
     section_rows: list[pd.Series] = []
 
     def flush_section() -> None:
         if not current_block:
             return
-        html.append(f"<details class='wide-section' open><summary>{escape(_section_label(current_block))}</summary>")
-        html.append("<div class='wide-table-wrapper'><table class='wide-table'>")
+        html.append(f"<details class='wide-section' open style='min-width: {table_min_width}px;'>")
+        html.append(f"<summary>{escape(_section_label(current_block))}</summary>")
+        html.append(f"<table class='wide-table' style='min-width: {table_min_width}px;'>")
+        html.append(colgroup)
         html.append("<thead><tr>")
         html.append("<th class='label-col'>Métrica</th>")
         for column in period_columns:
@@ -574,7 +577,7 @@ def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
                 html.append(f"<td>{escape(_dense_wide_value(item.get(column)))}</td>")
             html.append(f"<td class='formula'>{escape(_dense_wide_value(formula))}</td>")
             html.append("</tr>")
-        html.append("</tbody></table></div></details>")
+        html.append("</tbody></table></details>")
 
     for _, row in df_wide.iterrows():
         block = str(row.get("Bloco") or "").strip()
@@ -584,7 +587,16 @@ def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
             section_rows = []
         section_rows.append(row)
     flush_section()
+    html.append("</div>")
     return "\n".join(html)
+
+
+def _wide_table_colgroup(period_columns: list[str]) -> str:
+    columns = ["<colgroup>", "<col class='label-col-width' style='width: 280px;'>"]
+    columns.extend("<col class='period-col-width' style='width: 96px;'>" for _ in period_columns)
+    columns.append("<col class='formula-col-width' style='width: 340px;'>")
+    columns.append("</colgroup>")
+    return "".join(columns)
 
 
 def _section_label(block: str) -> str:

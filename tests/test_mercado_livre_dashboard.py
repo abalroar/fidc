@@ -337,7 +337,10 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         html = _render_wide_table_html(wide)
 
         self.assertIn("wide-table-wrapper", html)
-        self.assertIn("<details class='wide-section' open>", html)
+        self.assertIn("<details class='wide-section' open", html)
+        self.assertIn("<col class='label-col-width' style='width: 280px;'>", html)
+        self.assertEqual(2, html.count("<col class='period-col-width' style='width: 96px;'>"))
+        self.assertIn("<col class='formula-col-width' style='width: 340px;'>", html)
         self.assertIn("<summary>PL FIDC</summary>", html)
         self.assertIn("PL FIDC", html)
         self.assertIn("1.500,0 MM", html)

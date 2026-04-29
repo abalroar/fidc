@@ -158,6 +158,38 @@ class FundonetDashboardTests(unittest.TestCase):
 
         self.assertEqual("36113876000191", dashboard.fund_info["cnpj_administrador"])
 
+    def test_build_dashboard_data_flags_unreconciled_official_pl_without_silent_fallback(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            workspace = Path(tmpdir)
+            self._write_unreconciled_pl_fixture_csvs(workspace)
+
+            dashboard = build_dashboard_data(
+                wide_csv_path=workspace / "informes_wide.csv",
+                listas_csv_path=workspace / "estruturas_lista.csv",
+                docs_csv_path=workspace / "documentos_filtrados.csv",
+            )
+
+        official_pl = 1_515_309_636.05
+        senior_pl = 102_500 * 1_013.21336504
+        unreconciled_pl = official_pl - senior_pl
+
+        self.assertAlmostEqual(official_pl, dashboard.summary["pl_total"] or 0.0, places=2)
+        self.assertAlmostEqual(official_pl, dashboard.summary["pl_total_oficial"] or 0.0, places=2)
+        self.assertAlmostEqual(senior_pl, dashboard.summary["pl_total_classes"] or 0.0, places=2)
+        self.assertAlmostEqual(unreconciled_pl, dashboard.summary["pl_nao_reconciliado"] or 0.0, places=2)
+        self.assertTrue(dashboard.summary["pl_reconciliacao_warning"])
+        self.assertEqual(
+            "nao_calculavel_pl_oficial_diverge_classes",
+            dashboard.summary["subordinacao_status"],
+        )
+        self.assertIsNone(dashboard.summary["subordinacao_pct"])
+
+        unreconciled_row = dashboard.quota_pl_history_df[
+            dashboard.quota_pl_history_df["class_label"] == "PL não reconciliado"
+        ].iloc[0]
+        self.assertAlmostEqual(unreconciled_pl, unreconciled_row["pl"], places=2)
+        self.assertEqual("pl_nao_reconciliado", unreconciled_row["pl_reconciliacao_role"])
+
     def test_build_dashboard_data_uses_dicred_total_and_exposes_cvm_tables(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             workspace = Path(tmpdir)
@@ -876,6 +908,89 @@ class FundonetDashboardTests(unittest.TestCase):
             },
         ]
         pd.DataFrame(docs_rows).to_csv(workspace / "documentos_filtrados.csv", index=False)
+
+    @staticmethod
+    def _write_unreconciled_pl_fixture_csvs(workspace: Path) -> None:
+        competencia = "05/2025"
+
+        def row(bloco: str, sub_bloco: str, tag: str, tag_path: str, value: object) -> dict[str, object]:
+            return {
+                "bloco": bloco,
+                "sub_bloco": sub_bloco,
+                "tag": tag,
+                "tag_path": tag_path,
+                "descricao": tag,
+                competencia: value,
+            }
+
+        wide_rows = [
+            row("CAB_INFORM", "", "NR_CNPJ_FUNDO", "DOC_ARQ/CAB_INFORM/NR_CNPJ_FUNDO", "33254370000104"),
+            row("CAB_INFORM", "", "NM_CLASSE", "DOC_ARQ/CAB_INFORM/NM_CLASSE", "Subordinada"),
+            row("CAB_INFORM", "", "CLASS_UNICA", "DOC_ARQ/CAB_INFORM/CLASS_UNICA", "NAO"),
+            row("PATRLIQ", "", "VL_PATRIM_LIQ", "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ", "1515309636.05"),
+            row(
+                "OUTRAS_INFORM",
+                "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR",
+                "SERIE",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR/SERIE",
+                "Série 1",
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR",
+                "QT_COTAS",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR/QT_COTAS",
+                "102500.00000000",
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR",
+                "VL_COTAS",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR/VL_COTAS",
+                "1013.21336504",
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD",
+                "TIPO",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD/TIPO",
+                "Subordinada 1",
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD",
+                "QT_COTAS",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD/QT_COTAS",
+                "0.00000000",
+            ),
+            row(
+                "OUTRAS_INFORM",
+                "DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD",
+                "VL_COTAS",
+                "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD/VL_COTAS",
+                "91.91852877",
+            ),
+        ]
+        pd.DataFrame(wide_rows).to_csv(workspace / "informes_wide.csv", index=False)
+        pd.DataFrame(columns=["competencia", "list_group_path", "list_index", "tag", "valor_excel"]).to_csv(
+            workspace / "estruturas_lista.csv",
+            index=False,
+        )
+        pd.DataFrame(
+            [
+                {
+                    "documento_id": "928281",
+                    "competencia": competencia,
+                    "data_entrega": "20/06/2025 09:00",
+                    "fundo_ou_classe": "Classe",
+                    "nome_fundo": "FIDC Teste",
+                    "nome_administrador": "",
+                    "nome_custodiante": "",
+                    "nome_gestor": "",
+                    "processamento": "ok",
+                }
+            ]
+        ).to_csv(workspace / "documentos_filtrados.csv", index=False)
 
     @staticmethod
     def _write_dicred_fixture_csvs(workspace: Path) -> None:
