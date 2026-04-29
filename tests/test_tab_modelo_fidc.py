@@ -5,6 +5,7 @@ import unittest
 
 import pandas as pd
 
+from data_loader import load_model_inputs
 from tabs import tab_modelo_fidc
 
 
@@ -175,6 +176,73 @@ class TabModeloFidcTests(unittest.TestCase):
             perda_ciclo=perda_ciclo,
         )
         self.assertAlmostEqual(0.0, final_sub, delta=1.0)
+
+    def test_reference_monthly_scenario_uses_additive_cdi_spread_outputs(self) -> None:
+        inputs = load_model_inputs("model_data.json")
+        datas = tab_modelo_fidc._build_monthly_dates(inputs.datas[0], 3.0)
+        selected_calendar = tab_modelo_fidc._selected_calendar(
+            inputs,
+            tab_modelo_fidc.CALENDAR_SOURCE_B3_PROJECTED,
+            datas=datas,
+        )
+        selected_curve = tab_modelo_fidc._selected_curve_from_snapshot(inputs)
+        premissas = tab_modelo_fidc.Premissas(
+            volume=750_000_000.0,
+            tx_cessao_am=0.04,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0035,
+            custo_min=20_000.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.75,
+            taxa_senior=0.0135,
+            proporcao_mezz=0.15,
+            taxa_mezz=0.05,
+            proporcao_subordinada=0.10,
+            tipo_taxa_senior=tab_modelo_fidc.RATE_MODE_POST_CDI,
+            tipo_taxa_mezz=tab_modelo_fidc.RATE_MODE_POST_CDI,
+            carteira_revolvente=True,
+            prazo_fidc_anos=3.0,
+            prazo_medio_recebiveis_meses=6.0,
+            prazo_senior_anos=3.0,
+            prazo_mezz_anos=3.0,
+            amortizacao_senior=tab_modelo_fidc.AMORTIZATION_MODE_LINEAR,
+            amortizacao_mezz=tab_modelo_fidc.AMORTIZATION_MODE_LINEAR,
+            juros_senior=tab_modelo_fidc.INTEREST_PAYMENT_MODE_PERIODIC,
+            juros_mezz=tab_modelo_fidc.INTEREST_PAYMENT_MODE_PERIODIC,
+            inicio_amortizacao_senior_meses=30,
+            inicio_amortizacao_mezz_meses=30,
+            modelo_credito=tab_modelo_fidc.CREDIT_MODEL_NPL90,
+            perda_ciclo=0.0,
+            npl90_lag_meses=3,
+            cobertura_minima_npl90=1.0,
+            lgd=1.0,
+        )
+
+        periods = tab_modelo_fidc.build_flow(
+            datas,
+            selected_calendar.feriados,
+            selected_curve.curva_du,
+            selected_curve.curva_taxa_aa,
+            premissas,
+            interpolation_method=tab_modelo_fidc.INTERPOLATION_METHOD_FLAT_FORWARD_252,
+        )
+        kpis = tab_modelo_fidc.build_kpis(periods)
+        loss_cycle, exceeded = tab_modelo_fidc._solve_calibrated_loss_cycle(
+            datas=datas,
+            feriados=selected_calendar.feriados,
+            curva_du=selected_curve.curva_du,
+            curva_taxa_aa=selected_curve.curva_taxa_aa,
+            premissas=premissas,
+            interpolation_method=tab_modelo_fidc.INTERPOLATION_METHOD_FLAT_FORWARD_252,
+        )
+
+        self.assertAlmostEqual(0.1481403471878306, periods[1].taxa_senior)
+        self.assertAlmostEqual(0.18464034718783057, periods[1].taxa_mezz)
+        self.assertAlmostEqual(0.15463403302424067, kpis.xirr_senior)
+        self.assertAlmostEqual(0.19047218455885997, kpis.xirr_mezz)
+        self.assertAlmostEqual(1_496_273_586.821506, periods[-1].pl_sub_jr, delta=1.0)
+        self.assertFalse(exceeded)
+        self.assertAlmostEqual(0.18585968017578125, loss_cycle)
 
     def test_time_protection_uses_monthly_revolving_origination(self) -> None:
         premissas = tab_modelo_fidc.Premissas(

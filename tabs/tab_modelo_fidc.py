@@ -1264,10 +1264,10 @@ def _build_workbook_mechanics_markdown(
             "",
             "### 5. Taxas SEN e MEZZ",
             "",
-            "- Para cotas pós-fixadas, o motor soma economicamente a curva DI/Pré ao spread da classe:",
+            "- Para cotas pós-fixadas, o motor usa a convenção aditiva de mercado `CDI + spread`:",
             "",
             "```text",
-            "taxa_classe_aa = (1 + pre_di_interpolado) * (1 + spread_classe_aa) - 1",
+            "taxa_classe_aa = pre_di_interpolado + spread_classe_aa",
             "```",
             "",
             "- Para cotas pré-fixadas, o app usa diretamente a taxa anual informada.",
@@ -2240,10 +2240,10 @@ def render_tab_modelo_fidc() -> None:
             senior_mode_label = st.selectbox(
                 "Remuneração cota sênior/SEN",
                 ["Pós-fixada: spread sobre CDI", "Pré-fixada: taxa % a.a."],
-                help="Pós-fixada soma economicamente curva DI/Pré e spread; pré-fixada usa a taxa anual informada.",
+                help="Pós-fixada usa CDI + spread aditivo; pré-fixada usa a taxa anual informada.",
             )
             senior_rate_label = (
-                "Spread cota SEN sobre CDI (% a.a.)"
+                "Spread aditivo cota SEN sobre CDI (% a.a.)"
                 if _rate_mode_from_label(senior_mode_label) == RATE_MODE_POST_CDI
                 else "Taxa pré-fixada cota SEN (% a.a.)"
             )
@@ -2252,16 +2252,21 @@ def render_tab_modelo_fidc() -> None:
                 default=DEFAULT_TAXA_SENIOR * 100.0,
                 key="modelo_taxa_senior",
                 decimals=2,
+                help_text=(
+                    "Spread sobre CDI em convenção aditiva; 1,35% significa CDI + 1,35% a.a."
+                    if _rate_mode_from_label(senior_mode_label) == RATE_MODE_POST_CDI
+                    else "Informe a taxa anual pré-fixada da cota SEN."
+                ),
             )
 
             if has_mezz:
                 mezz_mode_label = st.selectbox(
                     "Remuneração cota mezanino/MEZZ",
                     ["Pós-fixada: spread sobre CDI", "Pré-fixada: taxa % a.a."],
-                    help="Pós-fixada soma economicamente curva DI/Pré e spread; pré-fixada usa taxa anual efetiva.",
+                    help="Pós-fixada usa CDI + spread aditivo; pré-fixada usa taxa anual efetiva.",
                 )
                 mezz_rate_label = (
-                    "Spread cota MEZZ sobre CDI (% a.a.)"
+                    "Spread aditivo cota MEZZ sobre CDI (% a.a.)"
                     if _rate_mode_from_label(mezz_mode_label) == RATE_MODE_POST_CDI
                     else "Taxa pré-fixada cota MEZZ (% a.a.)"
                 )
@@ -2270,6 +2275,11 @@ def render_tab_modelo_fidc() -> None:
                     default=DEFAULT_TAXA_MEZZ * 100.0,
                     key="modelo_taxa_mezz",
                     decimals=2,
+                    help_text=(
+                        "Spread sobre CDI em convenção aditiva; 5,00% significa CDI + 5,00% a.a."
+                        if _rate_mode_from_label(mezz_mode_label) == RATE_MODE_POST_CDI
+                        else "Informe a taxa anual pré-fixada da cota MEZZ."
+                    ),
                 )
             else:
                 st.caption("Sem cota MEZZ: remuneração, prazo, amortização e juros da MEZZ serão ignorados.")
@@ -2281,7 +2291,7 @@ def render_tab_modelo_fidc() -> None:
                 "Remuneração cota subordinada/SUB",
                 [
                     "Residual",
-                    "Pós-fixada: spread sobre CDI (taxa-alvo)",
+                    "Pós-fixada: spread aditivo sobre CDI (taxa-alvo)",
                     "Pré-fixada: taxa % a.a. (taxa-alvo)",
                 ],
                 help="A SUB absorve o residual econômico; taxas-alvo ficam explícitas sem criar pagamento programado.",
@@ -2290,13 +2300,18 @@ def render_tab_modelo_fidc() -> None:
             if not sub_mode_label.startswith("Residual"):
                 sub_rate_text = _text_percent_input(
                     (
-                        "Spread-alvo cota SUB sobre CDI (% a.a.)"
+                        "Spread aditivo alvo cota SUB sobre CDI (% a.a.)"
                         if sub_mode_label.startswith("Pós")
                         else "Taxa-alvo pré-fixada cota SUB (% a.a.)"
                     ),
                     default=0.0,
                     key="modelo_taxa_sub",
                     decimals=2,
+                    help_text=(
+                        "Spread-alvo em convenção aditiva; 1,35% significa CDI + 1,35% a.a."
+                        if sub_mode_label.startswith("Pós")
+                        else "Informe a taxa-alvo anual pré-fixada da SUB."
+                    ),
                 )
 
             with st.expander("Premissas avançadas de prazo, revolvência e waterfall", expanded=False):
@@ -2897,7 +2912,7 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Juros sênior/MEZZ",
-                "Fórmula": "pós: (1 + curva DI/Pré) * (1 + spread) - 1; pré: taxa anual informada",
+                "Fórmula": "pós: curva DI/Pré + spread aditivo; pré: taxa anual informada",
                 "Observação": (
                     f"O FRA de cada período usa base 252 DU. Fonte selecionada: {selected_curve.source_label} "
                     f"({selected_curve.base_date:%d/%m/%Y}); interpolação: {interpolation_label}."

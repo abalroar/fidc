@@ -14,6 +14,7 @@ from services.fidc_model import (
     CREDIT_MODEL_NPL90,
     INTEREST_PAYMENT_MODE_AFTER_GRACE,
     INTEREST_PAYMENT_MODE_PERIODIC,
+    RATE_MODE_POST_CDI,
     RATE_MODE_PRE,
     Premissas,
     annual_252_to_monthly_rate,
@@ -23,6 +24,7 @@ from services.fidc_model import (
     monthly_to_annual_252_rate,
     monthly_rate_to_cession_discount,
 )
+from services.fidc_model.engine import _class_annual_rate
 
 
 FIXTURE_PATH = Path(__file__).resolve().parent / "fixtures" / "modelo_publico_fixture.json"
@@ -127,6 +129,12 @@ class FidcModelParityTest(unittest.TestCase):
 
         self.assertAlmostEqual((100.0 / 95.0) - 1.0, monthly_rate, delta=1e-12)
         self.assertAlmostEqual(discount_rate, monthly_rate_to_cession_discount(monthly_rate), delta=1e-12)
+
+    def test_post_fixed_quota_rate_uses_additive_cdi_spread_convention(self):
+        self.assertAlmostEqual(0.1625, _class_annual_rate(0.1490, 0.0135, RATE_MODE_POST_CDI), delta=1e-12)
+
+    def test_prefixed_quota_rate_helper_uses_informed_annual_rate(self):
+        self.assertAlmostEqual(0.12, _class_annual_rate(0.1490, 0.12, RATE_MODE_PRE), delta=1e-12)
 
     def test_prefixed_quota_rate_uses_informed_annual_rate(self):
         premissas = _build_default_premissas()

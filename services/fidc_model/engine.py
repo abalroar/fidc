@@ -68,7 +68,7 @@ def _class_annual_rate(base_rate: float, class_rate: float, mode: str) -> float:
     if mode == RATE_MODE_PRE:
         return class_rate
     if mode == RATE_MODE_POST_CDI:
-        return (1.0 + base_rate) * (1.0 + class_rate) - 1.0
+        return base_rate + class_rate
     raise ValueError(f"Tipo de taxa de cota inválido: {mode}")
 
 
