@@ -112,16 +112,15 @@ _MERCADO_LIVRE_UI_CSS = """
     text-align: right;
     border-bottom: 1px solid #E5E5E5;
     color: #3F3F3F;
-    white-space: nowrap;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
     vertical-align: top;
+    white-space: normal;
+    word-break: normal;
 }
 .wide-table td.label,
 .wide-table td.formula {
     text-align: left;
-    line-height: 1.25;
-    overflow-wrap: anywhere;
-    white-space: normal;
-    word-break: normal;
 }
 .wide-table td.label {
     color: #000000;

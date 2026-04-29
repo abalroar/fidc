@@ -414,6 +414,11 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("vertical-align: top;", _MERCADO_LIVRE_UI_CSS)
         self.assertIn("overflow-wrap: anywhere;", _MERCADO_LIVRE_UI_CSS)
         self.assertIn("white-space: normal;", _MERCADO_LIVRE_UI_CSS)
+        td_block = _MERCADO_LIVRE_UI_CSS.split(".wide-table td {", 1)[1].split("}", 1)[0]
+        self.assertNotIn("white-space: nowrap;", td_block)
+        self.assertIn("white-space: normal;", td_block)
+        self.assertIn("overflow-wrap: anywhere;", td_block)
+        self.assertIn("line-height: 1.25;", td_block)
 
     def test_outputs_cache_roundtrip_uses_deterministic_identity(self) -> None:
         dashboard = _dashboard(
