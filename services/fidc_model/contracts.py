@@ -23,6 +23,18 @@ class Premissas:
     tipo_taxa_senior: str = "pos_cdi"
     tipo_taxa_mezz: str = "pos_cdi"
     tipo_taxa_sub_jr: str = "residual"
+    prazo_fidc_anos: Optional[float] = None
+    prazo_medio_recebiveis_meses: float = 6.0
+    carteira_revolvente: bool = True
+    prazo_senior_anos: Optional[float] = None
+    prazo_mezz_anos: Optional[float] = None
+    prazo_sub_jr_anos: Optional[float] = None
+    amortizacao_senior: str = "workbook"
+    amortizacao_mezz: str = "workbook"
+    juros_senior: str = "periodic"
+    juros_mezz: str = "periodic"
+    inicio_amortizacao_senior_meses: int = 25
+    inicio_amortizacao_mezz_meses: int = 25
 
     @property
     def proporcao_sub_jr(self) -> float:

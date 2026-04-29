@@ -129,6 +129,28 @@ Adicionar uma seção avançada com:
 - regra de residual da SUB;
 - modo de inadimplência: taxa distribuída pela fórmula da planilha ou perda total de vida.
 
+## Atualização implementada: prazo, revolvência e perda máxima
+
+A aba passou a incluir premissas avançadas para:
+
+- prazo total do FIDC;
+- prazo médio dos recebíveis;
+- modo de originação: carteira revolvente ou carteira estática;
+- prazo das cotas SEN, MES e SUB;
+- amortização de principal SEN/MES: compatível com a planilha, linear após carência, bullet ou sem amortização programada;
+- pagamento de juros SEN/MES: em todo período, após carência ou bullet no vencimento.
+
+A principal métrica adicionada é a perda máxima suportada sobre a carteira originada:
+
+```text
+giro_estimado = prazo_total_fidc_anos * 12 / prazo_medio_recebiveis_meses
+carteira_originada_revolvente = volume_inicial * giro_estimado
+carteira_originada_estatica = volume_inicial
+perda_maxima = max(SUB_final_sem_inadimplencia, 0) / carteira_originada
+```
+
+Essa métrica usa uma simulação paralela com inadimplência igual a `0%`, preservando as demais premissas selecionadas. Assim, ela mede quanto colchão subordinado econômico seria acumulado antes de perdas e compara esse colchão ao total estimado de recebíveis originados ao longo do prazo do FIDC.
+
 ## Validação manual
 
 Para reproduzir a auditoria no app:

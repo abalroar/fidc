@@ -2,10 +2,16 @@ from __future__ import annotations
 
 import json
 import unittest
+from datetime import datetime
 from pathlib import Path
 
 from data_loader import load_model_inputs
 from services.fidc_model import (
+    AMORTIZATION_MODE_BULLET,
+    AMORTIZATION_MODE_LINEAR,
+    AMORTIZATION_MODE_WORKBOOK,
+    INTEREST_PAYMENT_MODE_AFTER_GRACE,
+    INTEREST_PAYMENT_MODE_PERIODIC,
     RATE_MODE_PRE,
     Premissas,
     annual_252_to_monthly_rate,
@@ -153,6 +159,103 @@ class FidcModelParityTest(unittest.TestCase):
         )
 
         self.assertAlmostEqual(100000.0, periods[0].pl_sub_jr)
+
+    def test_workbook_principal_schedule_is_capped_for_longer_terms(self):
+        monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(61)]
+        premissas = Premissas(
+            volume=1_000_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.75,
+            taxa_senior=0.0,
+            proporcao_mezz=0.15,
+            taxa_mezz=0.0,
+            proporcao_subordinada=0.10,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            amortizacao_senior=AMORTIZATION_MODE_WORKBOOK,
+            amortizacao_mezz=AMORTIZATION_MODE_WORKBOOK,
+        )
+
+        periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
+
+        self.assertAlmostEqual(0.0, periods[-1].pl_senior)
+        self.assertAlmostEqual(0.0, periods[-1].pl_mezz)
+        self.assertGreaterEqual(min(period.pl_senior for period in periods), 0.0)
+        self.assertGreaterEqual(min(period.pl_mezz for period in periods), 0.0)
+
+    def test_custom_linear_and_bullet_amortization_modes_change_principal_schedule(self):
+        monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(13)]
+        premissas = Premissas(
+            volume=1_000_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.60,
+            taxa_senior=0.0,
+            proporcao_mezz=0.20,
+            taxa_mezz=0.0,
+            proporcao_subordinada=0.20,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            prazo_senior_anos=1.0,
+            prazo_mezz_anos=1.0,
+            amortizacao_senior=AMORTIZATION_MODE_LINEAR,
+            amortizacao_mezz=AMORTIZATION_MODE_BULLET,
+            inicio_amortizacao_senior_meses=7,
+        )
+
+        periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
+
+        self.assertEqual(0.0, periods[6].principal_senior)
+        self.assertAlmostEqual(600_000.0 / 6.0, periods[7].principal_senior)
+        self.assertAlmostEqual(200_000.0, periods[12].principal_mezz)
+        self.assertAlmostEqual(0.0, periods[-1].pl_senior)
+        self.assertAlmostEqual(0.0, periods[-1].pl_mezz)
+
+    def test_interest_after_grace_defers_payment_until_amortization_start(self):
+        monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(8)]
+        base_kwargs = dict(
+            volume=1_000_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=1.0,
+            taxa_senior=0.12,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=0.0,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            amortizacao_senior=AMORTIZATION_MODE_LINEAR,
+            amortizacao_mezz=AMORTIZATION_MODE_LINEAR,
+            inicio_amortizacao_senior_meses=7,
+        )
+        periodic = build_flow(
+            monthly_dates,
+            [],
+            [1.0, 2000.0],
+            [0.0, 0.0],
+            Premissas(**base_kwargs, juros_senior=INTEREST_PAYMENT_MODE_PERIODIC),
+        )
+        deferred = build_flow(
+            monthly_dates,
+            [],
+            [1.0, 2000.0],
+            [0.0, 0.0],
+            Premissas(**base_kwargs, juros_senior=INTEREST_PAYMENT_MODE_AFTER_GRACE),
+        )
+
+        self.assertGreater(periodic[1].juros_senior, 0.0)
+        self.assertEqual(0.0, deferred[1].juros_senior)
+        self.assertGreater(deferred[7].juros_senior, periodic[7].juros_senior)
 
 
 if __name__ == "__main__":

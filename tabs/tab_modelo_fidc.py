@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-from datetime import date, timedelta
+from dataclasses import dataclass, replace
+from datetime import date, datetime, timedelta
 from html import escape
 from io import BytesIO
 
@@ -11,6 +11,13 @@ import streamlit as st
 
 from data_loader import load_model_inputs
 from services.fidc_model import (
+    AMORTIZATION_MODE_BULLET,
+    AMORTIZATION_MODE_LINEAR,
+    AMORTIZATION_MODE_NONE,
+    AMORTIZATION_MODE_WORKBOOK,
+    INTEREST_PAYMENT_MODE_AFTER_GRACE,
+    INTEREST_PAYMENT_MODE_BULLET,
+    INTEREST_PAYMENT_MODE_PERIODIC,
     INTERPOLATION_METHOD_FLAT_FORWARD_252,
     INTERPOLATION_METHOD_SPLINE,
     RATE_MODE_POST_CDI,
@@ -46,6 +53,21 @@ INTERPOLATION_LABEL_SPLINE = "Spline (compatibilidade com a planilha)"
 CALENDAR_SOURCE_B3_OFFICIAL = "B3 oficial + projeção explícita"
 CALENDAR_SOURCE_B3_PROJECTED = "Calendário B3 projetado"
 CALENDAR_SOURCE_SNAPSHOT = "Feriados do snapshot da planilha"
+DATE_SCHEDULE_WORKBOOK = "Compatível com a planilha"
+DATE_SCHEDULE_MONTHLY = "Mensal pelo prazo informado"
+PORTFOLIO_MODE_REVOLVING = "Revolvente"
+PORTFOLIO_MODE_STATIC = "Carteira estática"
+AMORTIZATION_LABELS = {
+    "Compatível com a planilha": AMORTIZATION_MODE_WORKBOOK,
+    "Linear após carência": AMORTIZATION_MODE_LINEAR,
+    "Bullet no vencimento": AMORTIZATION_MODE_BULLET,
+    "Sem amortização programada": AMORTIZATION_MODE_NONE,
+}
+INTEREST_LABELS = {
+    "Pago em todo período": INTEREST_PAYMENT_MODE_PERIODIC,
+    "Pago após carência": INTEREST_PAYMENT_MODE_AFTER_GRACE,
+    "Bullet no vencimento": INTEREST_PAYMENT_MODE_BULLET,
+}
 
 
 _MODEL_CSS = """
@@ -198,6 +220,17 @@ class _SelectedCalendar:
         )
 
 
+@dataclass(frozen=True)
+class _RevolvencyMetrics:
+    portfolio_mode: str
+    prazo_total_anos: float
+    prazo_medio_recebiveis_meses: float
+    giro_estimado: float
+    carteira_total_originada: float
+    sub_final_sem_inadimplencia: float
+    perda_maxima_sobre_originacao: float | None
+
+
 @st.cache_data(show_spinner=False, ttl=6 * 60 * 60)
 def _load_b3_curve_for_date(date_iso: str, curve_code: str) -> B3CurveSnapshot:
     return fetch_taxaswap_curve(date.fromisoformat(date_iso), curve_code=curve_code)
@@ -249,7 +282,13 @@ def _selected_curve_from_b3(snapshot: B3CurveSnapshot, source_label: str) -> _Se
     )
 
 
-def _selected_calendar(inputs, source_label: str, b3_snapshot: B3CalendarSnapshot | None = None) -> _SelectedCalendar:
+def _selected_calendar(
+    inputs,
+    source_label: str,
+    b3_snapshot: B3CalendarSnapshot | None = None,
+    datas: list[datetime] | None = None,
+) -> _SelectedCalendar:
+    flow_dates = datas or inputs.datas
     if source_label == CALENDAR_SOURCE_B3_OFFICIAL:
         if b3_snapshot is None:
             raise B3CalendarError("Snapshot de calendário B3 não foi carregado.")
@@ -267,8 +306,8 @@ def _selected_calendar(inputs, source_label: str, b3_snapshot: B3CalendarSnapsho
             content_sha256=b3_snapshot.content_sha256,
         )
     if source_label == CALENDAR_SOURCE_B3_PROJECTED:
-        holidays = tuple(merge_with_b3_market_holidays(inputs.feriados, inputs.datas))
-        projected_years = tuple(range(inputs.datas[0].year, inputs.datas[-1].year + 1)) if inputs.datas else ()
+        holidays = tuple(merge_with_b3_market_holidays(inputs.feriados, flow_dates))
+        projected_years = tuple(range(flow_dates[0].year, flow_dates[-1].year + 1)) if flow_dates else ()
     else:
         holidays = tuple(holiday.date() for holiday in inputs.feriados)
         projected_years = ()
@@ -327,6 +366,64 @@ def _parse_br_number(value: str, *, field_name: str) -> float:
         return float(normalized)
     except ValueError as exc:
         raise ValueError(f"Valor inválido em {field_name}: {value}") from exc
+
+
+def _add_months(dt: datetime, months: int) -> datetime:
+    month_index = dt.month - 1 + months
+    year = dt.year + month_index // 12
+    month = month_index % 12 + 1
+    month_lengths = (31, 29 if _is_leap_year(year) else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+    day = min(dt.day, month_lengths[month - 1])
+    return dt.replace(year=year, month=month, day=day)
+
+
+def _is_leap_year(year: int) -> bool:
+    return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+
+
+def _build_monthly_dates(start: datetime, prazo_total_anos: float) -> list[datetime]:
+    total_months = max(1, round(prazo_total_anos * 12.0))
+    return [_add_months(start, month) for month in range(total_months + 1)]
+
+
+def _build_simulation_dates(inputs, schedule_label: str, prazo_total_anos: float) -> list[datetime]:
+    if schedule_label == DATE_SCHEDULE_MONTHLY:
+        return _build_monthly_dates(inputs.datas[0], prazo_total_anos)
+    return list(inputs.datas)
+
+
+def _label_for_value(mapping: dict[str, str], value: str) -> str:
+    for label, mapped_value in mapping.items():
+        if mapped_value == value:
+            return label
+    return next(iter(mapping))
+
+
+def _build_revolvency_metrics(
+    *,
+    premissas: Premissas,
+    zero_default_results,
+    portfolio_mode: str,
+) -> _RevolvencyMetrics:
+    prazo_total_anos = float(premissas.prazo_fidc_anos or 0.0)
+    prazo_medio_meses = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
+    giro_estimado = prazo_total_anos * 12.0 / prazo_medio_meses
+    if portfolio_mode == PORTFOLIO_MODE_STATIC:
+        giro_para_originacao = 1.0
+    else:
+        giro_para_originacao = giro_estimado
+    carteira_total_originada = premissas.volume * max(giro_para_originacao, 0.0)
+    sub_final = max(float(zero_default_results[-1].pl_sub_jr), 0.0) if zero_default_results else 0.0
+    perda_maxima = sub_final / carteira_total_originada if carteira_total_originada > 0 else None
+    return _RevolvencyMetrics(
+        portfolio_mode=portfolio_mode,
+        prazo_total_anos=prazo_total_anos,
+        prazo_medio_recebiveis_meses=prazo_medio_meses,
+        giro_estimado=giro_estimado,
+        carteira_total_originada=carteira_total_originada,
+        sub_final_sem_inadimplencia=sub_final,
+        perda_maxima_sobre_originacao=perda_maxima,
+    )
 
 
 def _text_number_input(
@@ -511,6 +608,20 @@ def _build_curve_source_dataframe(
             {"Campo": "URL/Origem", "Valor": selected_curve.source_url},
             {"Campo": "Baixado em", "Valor": selected_curve.retrieved_label},
             {"Campo": "SHA-256", "Valor": selected_curve.content_sha256},
+        ]
+    )
+
+
+def _build_revolvency_export_dataframe(metrics: _RevolvencyMetrics) -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            {"Indicador": "Modo da carteira", "Valor": metrics.portfolio_mode},
+            {"Indicador": "Prazo total do FIDC (anos)", "Valor": metrics.prazo_total_anos},
+            {"Indicador": "Prazo médio dos recebíveis (meses)", "Valor": metrics.prazo_medio_recebiveis_meses},
+            {"Indicador": "Giro estimado da carteira", "Valor": metrics.giro_estimado},
+            {"Indicador": "Carteira total originada estimada", "Valor": metrics.carteira_total_originada},
+            {"Indicador": "SUB final sem inadimplência", "Valor": metrics.sub_final_sem_inadimplencia},
+            {"Indicador": "Perda máxima sobre carteira originada", "Valor": metrics.perda_maxima_sobre_originacao},
         ]
     )
 
@@ -712,7 +823,30 @@ def _build_workbook_mechanics_markdown(
             "- Se fica negativa, ela não é um saldo de cota para receber; é déficit econômico depois de consumir toda a SUB.",
             "- A timeline detalhada preserva também a coluna deslocada do workbook, porque a planilha passa a referenciar o residual da linha seguinte em `AO`. Os gráficos usam o residual corrente para evitar distorções como percentuais extremos.",
             "",
-            "### 9. KPIs de saída",
+            "### 9. Revolvência e perda máxima sobre carteira originada",
+            "",
+            "- Quando a carteira é revolvente, o modelo estima quantas vezes o volume inicial gira dentro do prazo do FIDC:",
+            "",
+            "```text",
+            "giro_estimado = prazo_total_fidc_anos * 12 / prazo_medio_recebiveis_meses",
+            "carteira_originada = volume_inicial * giro_estimado",
+            "```",
+            "",
+            "- Quando a carteira é estática, a carteira originada é apenas a compra inicial:",
+            "",
+            "```text",
+            "carteira_originada = volume_inicial",
+            "```",
+            "",
+            "- A perda máxima suportada roda uma simulação paralela com inadimplência igual a `0%` e compara o colchão final positivo da SUB com a carteira total originada:",
+            "",
+            "```text",
+            "perda_maxima = max(SUB_final_sem_inadimplencia, 0) / carteira_originada",
+            "```",
+            "",
+            "- Exemplo: prazo total de `3 anos`, prazo médio de recebíveis de `6 meses` e volume inicial de `R$ 750MM` geram giro de `6x` e carteira originada estimada de `R$ 4,5 bi`.",
+            "",
+            "### 10. KPIs de saída",
             "",
             "- Retorno anualizado SEN: XIRR dos PMTs SEN contra a data de cada fluxo.",
             "- Retorno anualizado MES: XIRR dos PMTs MES contra a data de cada fluxo.",
@@ -721,14 +855,14 @@ def _build_workbook_mechanics_markdown(
             "- Pre DI na duration: taxa da curva no ponto correspondente ao duration arredondado para baixo em meses, como a planilha faz com `VLOOKUP`.",
             "- SUB inicial: volume inicial multiplicado pela proporção subordinada.",
             "",
-            "### 10. Como interpretar os gráficos",
+            "### 11. Como interpretar os gráficos",
             "",
             "- `Saldos econômicos das cotas`: mostra SEN, MES, SUB disponível e, quando existir, déficit econômico separado.",
             "- `Perda máxima e subordinação`: compara inadimplência acumulada, inadimplência do período e subordinação disponível.",
             "- Se a inadimplência acumulada sobe enquanto a subordinação disponível cai para zero, a estrutura está consumindo o colchão subordinado.",
             "- Se aparece déficit econômico, o cenário já ultrapassou a proteção da SUB dentro da mecânica atual.",
             "",
-            "### 11. Limitações atuais",
+            "### 12. Limitações atuais",
             "",
             "- Ainda não há trava de caixa ligada no waterfall.",
             "- Ainda não há atraso acumulado, capitalização de juros em atraso ou gatilhos de liquidação.",
@@ -1001,6 +1135,28 @@ def _render_model_kpi_cards(kpis, results) -> None:
     st.markdown(f'<div class="fidc-model-kpi-grid">{cards_html}</div>', unsafe_allow_html=True)
 
 
+def _render_revolvency_cards(metrics: _RevolvencyMetrics) -> None:
+    cards = [
+        ("Modo da carteira", metrics.portfolio_mode, "Originação"),
+        ("Prazo médio recebíveis", f"{_format_number_br(metrics.prazo_medio_recebiveis_meses, 1)} meses", "Prazo de giro"),
+        ("Giro estimado", f"{_format_number_br(metrics.giro_estimado, 2)}x", "Prazo FIDC / prazo médio"),
+        ("Carteira originada", _format_brl(metrics.carteira_total_originada), "Base de comparação"),
+        ("SUB final sem inadimplência", _format_brl(metrics.sub_final_sem_inadimplencia), "Colchão acumulado"),
+        ("Perda máxima suportada", _format_percent(metrics.perda_maxima_sobre_originacao), "SUB final / carteira originada"),
+    ]
+    cards_html = "".join(
+        (
+            '<div class="fidc-model-kpi-card">'
+            f'<div class="fidc-model-kpi-label">{escape(label)}</div>'
+            f'<div class="fidc-model-kpi-value">{escape(value)}</div>'
+            f'<div class="fidc-model-kpi-context">{escape(context)}</div>'
+            "</div>"
+        )
+        for label, value, context in cards
+    )
+    st.markdown(f'<div class="fidc-model-kpi-grid">{cards_html}</div>', unsafe_allow_html=True)
+
+
 def render_tab_modelo_fidc() -> None:
     inputs = _load_inputs("model_data.json")
 
@@ -1160,6 +1316,106 @@ def render_tab_modelo_fidc() -> None:
                     key="modelo_taxa_sub",
                     decimals=2,
                 )
+
+            with st.expander("Premissas avançadas de prazo, revolvência e waterfall", expanded=False):
+                st.markdown("##### Prazo e originação")
+                date_schedule_label = st.selectbox(
+                    "Cronograma do fluxo",
+                    [DATE_SCHEDULE_WORKBOOK, DATE_SCHEDULE_MONTHLY],
+                    help=(
+                        "O modo compatível mantém a grade de datas extraída da planilha. "
+                        "O modo mensal gera novas competências até o prazo total informado."
+                    ),
+                )
+                term_a, term_b, term_c = st.columns(3)
+                with term_a:
+                    prazo_fidc_text = _text_number_input(
+                        "Prazo total do FIDC (anos)",
+                        default=3.0,
+                        key="modelo_prazo_fidc_anos",
+                        decimals=1,
+                    )
+                with term_b:
+                    prazo_recebiveis_text = _text_number_input(
+                        "Prazo médio dos recebíveis (meses)",
+                        default=6.0,
+                        key="modelo_prazo_recebiveis_meses",
+                        decimals=1,
+                    )
+                with term_c:
+                    portfolio_mode_label = st.selectbox(
+                        "Originação da carteira",
+                        [PORTFOLIO_MODE_REVOLVING, PORTFOLIO_MODE_STATIC],
+                        help=(
+                            "No modo revolvente, o caixa reciclado recompra recebíveis e a carteira total originada "
+                            "é estimada pelo giro do prazo médio."
+                        ),
+                    )
+
+                st.markdown("##### Cotas SEN e MES")
+                st.caption(
+                    "O modo compatível com a planilha preserva o cronograma original. "
+                    "Os demais modos alteram os pagamentos programados no motor."
+                )
+                senior_cfg_a, senior_cfg_b = st.columns(2)
+                with senior_cfg_a:
+                    prazo_senior_text = _text_number_input(
+                        "Prazo cota SEN (anos)",
+                        default=3.0,
+                        key="modelo_prazo_senior_anos",
+                        decimals=1,
+                    )
+                    senior_amort_label = st.selectbox(
+                        "Amortização principal SEN",
+                        list(AMORTIZATION_LABELS),
+                        key="modelo_amort_senior",
+                    )
+                    senior_start_text = _text_number_input(
+                        "Início amortização SEN (mês)",
+                        default=25.0,
+                        key="modelo_inicio_amort_senior",
+                        decimals=0,
+                    )
+                with senior_cfg_b:
+                    prazo_mezz_text = _text_number_input(
+                        "Prazo cota MES (anos)",
+                        default=3.0,
+                        key="modelo_prazo_mezz_anos",
+                        decimals=1,
+                    )
+                    mezz_amort_label = st.selectbox(
+                        "Amortização principal MES",
+                        list(AMORTIZATION_LABELS),
+                        key="modelo_amort_mezz",
+                    )
+                    mezz_start_text = _text_number_input(
+                        "Início amortização MES (mês)",
+                        default=25.0,
+                        key="modelo_inicio_amort_mezz",
+                        decimals=0,
+                    )
+
+                interest_a, interest_b, interest_c = st.columns(3)
+                with interest_a:
+                    senior_interest_label = st.selectbox(
+                        "Pagamento de juros SEN",
+                        list(INTEREST_LABELS),
+                        key="modelo_juros_senior",
+                    )
+                with interest_b:
+                    mezz_interest_label = st.selectbox(
+                        "Pagamento de juros MES",
+                        list(INTEREST_LABELS),
+                        key="modelo_juros_mezz",
+                    )
+                with interest_c:
+                    prazo_sub_text = _text_number_input(
+                        "Prazo cota SUB (anos)",
+                        default=3.0,
+                        key="modelo_prazo_sub_anos",
+                        decimals=1,
+                    )
+                st.caption("A SUB segue residual nesta etapa; o prazo da SUB entra na documentação e na análise econômica.")
             submitted = st.form_submit_button("Rodar simulação", width="stretch")
 
     try:
@@ -1182,6 +1438,20 @@ def render_tab_modelo_fidc() -> None:
         taxa_senior = _parse_br_number(senior_rate_text, field_name=senior_rate_label) / 100.0
         taxa_mezz = _parse_br_number(mezz_rate_text, field_name=mezz_rate_label) / 100.0
         taxa_sub = _parse_br_number(sub_rate_text, field_name="Taxa-alvo cota SUB (% a.a.)") / 100.0
+        prazo_fidc_anos = _parse_br_number(prazo_fidc_text, field_name="Prazo total do FIDC (anos)")
+        prazo_medio_recebiveis_meses = _parse_br_number(
+            prazo_recebiveis_text,
+            field_name="Prazo médio dos recebíveis (meses)",
+        )
+        prazo_senior_anos = _parse_br_number(prazo_senior_text, field_name="Prazo cota SEN (anos)")
+        prazo_mezz_anos = _parse_br_number(prazo_mezz_text, field_name="Prazo cota MES (anos)")
+        prazo_sub_anos = _parse_br_number(prazo_sub_text, field_name="Prazo cota SUB (anos)")
+        inicio_amortizacao_senior_meses = int(
+            round(_parse_br_number(senior_start_text, field_name="Início amortização SEN (mês)"))
+        )
+        inicio_amortizacao_mezz_meses = int(
+            round(_parse_br_number(mezz_start_text, field_name="Início amortização MES (mês)"))
+        )
     except ValueError as exc:
         st.error(str(exc))
         return
@@ -1189,11 +1459,22 @@ def render_tab_modelo_fidc() -> None:
     if volume <= 0:
         st.error("O volume da carteira deve ser maior que zero.")
         return
+    if prazo_fidc_anos <= 0 or prazo_medio_recebiveis_meses <= 0:
+        st.error("O prazo total do FIDC e o prazo médio dos recebíveis devem ser maiores que zero.")
+        return
+    if min(prazo_senior_anos, prazo_mezz_anos, prazo_sub_anos) <= 0:
+        st.error("Os prazos das cotas devem ser maiores que zero.")
+        return
+    if min(inicio_amortizacao_senior_meses, inicio_amortizacao_mezz_meses) < 0:
+        st.error("O início de amortização não pode ser negativo.")
+        return
 
     prop_total = proporcao_senior + proporcao_mezz + proporcao_sub
     if abs(prop_total - 1.0) > 0.0001:
         st.error(f"As proporções de PL precisam somar 100,00%. Soma atual: {_format_percent(prop_total)}.")
         return
+
+    simulation_dates = _build_simulation_dates(inputs, date_schedule_label, prazo_fidc_anos)
 
     premissas = Premissas(
         volume=volume,
@@ -1217,6 +1498,18 @@ def render_tab_modelo_fidc() -> None:
             if sub_mode_label.startswith("Pré")
             else RATE_MODE_POST_CDI
         ),
+        prazo_fidc_anos=prazo_fidc_anos,
+        prazo_medio_recebiveis_meses=prazo_medio_recebiveis_meses,
+        carteira_revolvente=portfolio_mode_label == PORTFOLIO_MODE_REVOLVING,
+        prazo_senior_anos=prazo_senior_anos,
+        prazo_mezz_anos=prazo_mezz_anos,
+        prazo_sub_jr_anos=prazo_sub_anos,
+        amortizacao_senior=AMORTIZATION_LABELS[senior_amort_label],
+        amortizacao_mezz=AMORTIZATION_LABELS[mezz_amort_label],
+        juros_senior=INTEREST_LABELS[senior_interest_label],
+        juros_mezz=INTEREST_LABELS[mezz_interest_label],
+        inicio_amortizacao_senior_meses=inicio_amortizacao_senior_meses,
+        inicio_amortizacao_mezz_meses=inicio_amortizacao_mezz_meses,
     )
 
     with right:
@@ -1281,10 +1574,15 @@ def render_tab_modelo_fidc() -> None:
         try:
             if calendar_source_label == CALENDAR_SOURCE_B3_OFFICIAL:
                 with st.spinner("Consultando calendário de negociação da B3..."):
-                    b3_calendar_snapshot = _load_b3_calendar_snapshot(inputs.datas[0].year, inputs.datas[-1].year)
-                selected_calendar = _selected_calendar(inputs, calendar_source_label, b3_calendar_snapshot)
+                    b3_calendar_snapshot = _load_b3_calendar_snapshot(simulation_dates[0].year, simulation_dates[-1].year)
+                selected_calendar = _selected_calendar(
+                    inputs,
+                    calendar_source_label,
+                    b3_calendar_snapshot,
+                    datas=simulation_dates,
+                )
             else:
-                selected_calendar = _selected_calendar(inputs, calendar_source_label)
+                selected_calendar = _selected_calendar(inputs, calendar_source_label, datas=simulation_dates)
         except B3CalendarError as exc:
             st.error(f"Não foi possível carregar o calendário B3: {exc}")
             st.warning("Selecione o calendário projetado se quiser rodar a simulação sem consultar a página pública da B3.")
@@ -1296,6 +1594,8 @@ def render_tab_modelo_fidc() -> None:
                     f"- Taxa de cessão usada no motor: {_format_percent(tx_cessao_am, 4)} a.m.; equivalente anual 252 DU: {_format_percent(tx_cessao_aa_equivalente, 4)} a.a.",
                     f"- Interpolação usada: {interpolation_label}.",
                     f"- O calendário útil usa base brasileira de 252 dias com `{calendar_source_label}`.",
+                    f"- Cronograma do fluxo: `{date_schedule_label}`; prazo total do FIDC: {_format_number_br(prazo_fidc_anos, 1)} anos.",
+                    f"- Originação: `{portfolio_mode_label}`; prazo médio dos recebíveis: {_format_number_br(prazo_medio_recebiveis_meses, 1)} meses.",
                     "- A curva DI/Pré vem do arquivo TaxaSwap da B3 quando uma fonte B3 está selecionada.",
                     "- Falhas de B3, arquivo ausente ou formato inesperado interrompem a simulação; não há fallback silencioso para curva estática.",
                     "- Sênior e mezz podem ser pós-fixadas sobre CDI/DI ou pré-fixadas em taxa anual.",
@@ -1319,6 +1619,7 @@ def render_tab_modelo_fidc() -> None:
         selected_curve.cache_key,
         selected_calendar.cache_key,
         interpolation_method,
+        tuple(dt.isoformat() for dt in simulation_dates),
         premissas,
     )
     if (
@@ -1330,7 +1631,7 @@ def render_tab_modelo_fidc() -> None:
         kpis = st.session_state["modelo_fidc_kpis"]
     else:
         results = build_flow(
-            inputs.datas,
+            simulation_dates,
             selected_calendar.feriados,
             selected_curve.curva_du,
             selected_curve.curva_taxa_aa,
@@ -1346,6 +1647,20 @@ def render_tab_modelo_fidc() -> None:
         st.info("Sem datas suficientes para montar o fluxo.")
         return
 
+    zero_default_results = build_flow(
+        simulation_dates,
+        selected_calendar.feriados,
+        selected_curve.curva_du,
+        selected_curve.curva_taxa_aa,
+        replace(premissas, inadimplencia=0.0),
+        interpolation_method=interpolation_method,
+    )
+    revolvency_metrics = _build_revolvency_metrics(
+        premissas=premissas,
+        zero_default_results=zero_default_results,
+        portfolio_mode=portfolio_mode_label,
+    )
+
     frame = _build_dataframe(results)
     export_frame = _build_export_dataframe(frame)
     display_frame = _build_display_dataframe(export_frame)
@@ -1357,6 +1672,15 @@ def render_tab_modelo_fidc() -> None:
         "Retorno anualizado = taxa interna anual de retorno dos pagamentos projetados de cada classe. "
         "Se a série não tiver fluxo válido, o app mostra `N/D` em vez de inventar um número. "
         "Esses KPIs são econômicos e não equivalem automaticamente aos indicadores observados no IME."
+    )
+
+    st.markdown('<div class="fidc-model-section-title">Perda máxima sobre carteira originada</div>', unsafe_allow_html=True)
+    _render_revolvency_cards(revolvency_metrics)
+    st.caption(
+        "A perda máxima suportada usa uma simulação paralela com inadimplência igual a 0%: "
+        "SUB final positiva dividida pela carteira total originada estimada. "
+        "No modo revolvente, a carteira originada é volume inicial vezes prazo total do FIDC dividido pelo prazo médio dos recebíveis; "
+        "no modo estático, é apenas a compra inicial."
     )
 
     chart_left, chart_right = st.columns(2)
@@ -1414,6 +1738,16 @@ def render_tab_modelo_fidc() -> None:
                 "Observação": "A SUB agora é uma premissa explícita na interface; o motor bloqueia soma diferente de 100%.",
             },
             {
+                "Indicador": "Carteira originada estimada",
+                "Fórmula": "revolvente: volume * (prazo_total_anos * 12 / prazo_medio_recebiveis_meses); estática: volume",
+                "Observação": "Usada para comparar o colchão final da SUB contra o total de recebíveis originados no período do FIDC.",
+            },
+            {
+                "Indicador": "Perda máxima suportada",
+                "Fórmula": "max(SUB final com inadimplência 0%, 0) / carteira total originada estimada",
+                "Observação": "Esta é uma simulação paralela sem inadimplência para medir quanto colchão econômico seria acumulado antes das perdas.",
+            },
+            {
                 "Indicador": "Júnior residual / subordinação econômica",
                 "Fórmula": "Residual econômico = PL econômico do veículo - PL sênior - PL mezz; subordinação disponível = max(residual, 0) / PL positivo",
                 "Observação": (
@@ -1468,6 +1802,11 @@ def render_tab_modelo_fidc() -> None:
             writer,
             index=False,
             sheet_name="fonte_curva",
+        )
+        _build_revolvency_export_dataframe(revolvency_metrics).to_excel(
+            writer,
+            index=False,
+            sheet_name="perda_maxima",
         )
     download_left, download_right = st.columns(2)
     download_left.download_button(

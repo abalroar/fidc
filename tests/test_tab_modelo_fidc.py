@@ -93,6 +93,36 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn("PMT SEN = juros SEN + principal SEN programado", markdown)
         self.assertIn("SUB residual = PL FIDC - PL SEN - PL MES", markdown)
 
+    def test_revolvency_metrics_compare_sub_final_to_originated_portfolio(self) -> None:
+        class Result:
+            pl_sub_jr = 2_400_000_000.0
+
+        premissas = tab_modelo_fidc.Premissas(
+            volume=750_000_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.75,
+            taxa_senior=0.0,
+            proporcao_mezz=0.15,
+            taxa_mezz=0.0,
+            proporcao_subordinada=0.10,
+            prazo_fidc_anos=3.0,
+            prazo_medio_recebiveis_meses=6.0,
+        )
+
+        metrics = tab_modelo_fidc._build_revolvency_metrics(
+            premissas=premissas,
+            zero_default_results=[Result()],
+            portfolio_mode=tab_modelo_fidc.PORTFOLIO_MODE_REVOLVING,
+        )
+
+        self.assertEqual(6.0, metrics.giro_estimado)
+        self.assertEqual(4_500_000_000.0, metrics.carteira_total_originada)
+        self.assertAlmostEqual(2_400_000_000.0 / 4_500_000_000.0, metrics.perda_maxima_sobre_originacao)
+
     def test_model_charts_are_filled_area_charts(self) -> None:
         chart_df = pd.DataFrame(
             {
