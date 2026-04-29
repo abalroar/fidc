@@ -344,6 +344,8 @@ class _RevolvencyMetrics:
     sub_final_sem_inadimplencia: float
     colchao_sem_perdas_sobre_originacao: float | None
     perda_ciclo_calibrada: float | None
+    perda_ciclo_calibrada_anual_equivalente: float | None
+    perda_ciclo_calibrada_pos_lgd: float | None
     perda_ciclo_calibrada_excede_limite: bool
 
 
@@ -648,6 +650,16 @@ def _build_revolvency_metrics(
         )
     else:
         ead_medio = float(premissas.volume)
+    calibrated_loss_annual = (
+        (1.0 + calibrated_loss_cycle) ** (12.0 / prazo_medio_meses) - 1.0
+        if calibrated_loss_cycle is not None and prazo_medio_meses > 0.0
+        else None
+    )
+    calibrated_loss_post_lgd = (
+        calibrated_loss_cycle * max(float(getattr(premissas, "lgd", 1.0)), 0.0)
+        if calibrated_loss_cycle is not None
+        else None
+    )
     return _RevolvencyMetrics(
         portfolio_mode=portfolio_mode,
         prazo_total_anos=prazo_total_anos,
@@ -659,6 +671,8 @@ def _build_revolvency_metrics(
         sub_final_sem_inadimplencia=sub_final,
         colchao_sem_perdas_sobre_originacao=colchao_sem_perdas,
         perda_ciclo_calibrada=calibrated_loss_cycle,
+        perda_ciclo_calibrada_anual_equivalente=calibrated_loss_annual,
+        perda_ciclo_calibrada_pos_lgd=calibrated_loss_post_lgd,
         perda_ciclo_calibrada_excede_limite=calibrated_loss_exceeds_limit,
     )
 
@@ -1098,6 +1112,14 @@ def _build_revolvency_export_dataframe(metrics: _RevolvencyMetrics) -> pd.DataFr
                 "Valor": metrics.perda_ciclo_calibrada,
             },
             {
+                "Indicador": "Perda calibrada anual equivalente",
+                "Valor": metrics.perda_ciclo_calibrada_anual_equivalente,
+            },
+            {
+                "Indicador": "Perda efetiva por ciclo pós-LGD",
+                "Valor": metrics.perda_ciclo_calibrada_pos_lgd,
+            },
+            {
                 "Indicador": "Perda calibrada excede 100%",
                 "Valor": metrics.perda_ciclo_calibrada_excede_limite,
             },
@@ -1162,6 +1184,8 @@ def _build_workbook_mechanics_markdown(
             "- `DU` é a quantidade de dias úteis desde a data inicial, descontando fins de semana e feriados.",
             f"- Calendário usado nesta simulação: `{selected_calendar.source_label}`.",
             f"- Curva usada nesta simulação: `{selected_curve.source_label}`, data-base `{selected_curve.base_date:%d/%m/%Y}`, interpolação `{interpolation_label}`.",
+            "- Bases temporais atuais por componente: carteira em `delta_DU / 21`, cotas em `delta_DU / 252`, custos em mensalização simples, crédito pelo período mensal da simulação e SELIC projetada em `21 DU` médios por mês.",
+            "- A uniformização dessas bases temporais está no backlog de Fase 2; a aba mantém a regra atual para preservar rastreabilidade dos resultados já observados.",
             "",
             "### 2. Taxa da carteira",
             "",
@@ -1217,11 +1241,15 @@ def _build_workbook_mechanics_markdown(
             "entrada_npl90_t = npl90_futuro_de_periodos_anteriores_apos_lag",
             "estoque_npl90_t = estoque_npl90_t-1 + entrada_npl90_t",
             "provisao_minima = estoque_npl90_t * cobertura_minima * LGD",
-            "despesa_provisao = max(provisao_anterior + npl90_futuro * LGD, provisao_minima) - provisao_anterior",
+            "provisao_prospectiva = npl90_futuro * LGD",
+            "provisao_requerida = max(provisao_anterior + provisao_prospectiva, provisao_minima)",
+            "despesa_provisao = max(provisao_requerida - provisao_anterior, 0)",
             "```",
             "",
-            "- Essa metodologia é intermediária: ela provisiona prospectivamente a perda esperada de ciclo e nunca deixa a provisão abaixo da cobertura mínima do NPL 90+ observado.",
+            "- Essa metodologia é intermediária e segue uma filosofia prospectiva do tipo `ECL forward-looking`: ela provisiona a perda esperada de ciclo antes do write-off e nunca deixa a provisão abaixo da cobertura mínima do NPL 90+ observado.",
+            "- A provisão modelada aqui é uma aproximação econômica para simulação; ela não deve ser lida como regra contábil ou regulatória estrita de perda incorrida.",
             "- Nos primeiros meses, o NPL 90+ ainda pode ser zero por causa do lag, mas a provisão já começa a ser constituída para cobrir a perda esperada que vai maturar.",
+            "- A implementação atual não reconhece reversão negativa de provisão quando o estoque NPL 90+ cai. Isso é conservador e pode reduzir a SUB final e a perda calibrada; a revisão com reversão explícita depende de decisão metodológica posterior.",
             "- Na metodologia `Migração por faixas de atraso`, o usuário informa taxas mensais de rolagem entre buckets:",
             "",
             "```text",
@@ -1290,6 +1318,7 @@ def _build_workbook_mechanics_markdown(
             "```",
             "",
             "- O saldo econômico de SEN e MEZZ cai conforme o principal programado é amortizado.",
+            "- Write-off reduz o saldo de carteira; ele não é debitado uma segunda vez no PL fora da rubrica de provisão/perda. Na metodologia de migração, apenas write-off descoberto por provisão vira despesa adicional.",
             "- A SUB residual corrente é:",
             "",
             "```text",
@@ -1320,7 +1349,8 @@ def _build_workbook_mechanics_markdown(
             "carteira_originada_denominador = volume_inicial + nova_originacao_denominador",
             "```",
             "",
-            "- Exemplo: prazo total de `36 meses`, prazo médio de `6 meses` e volume inicial de `R$ 750MM` geram `6x` de giro e denominador de `R$ 4,5 bi`, não `R$ 5,25 bi`.",
+            "- Exemplo: prazo total de `36 meses`, prazo médio de `6 meses` e volume inicial de `R$ 750MM` geram `6x` de giro e denominador de `R$ 4,5 bi`.",
+            "- O resumo também mostra `EAD máximo` e `EAD médio ponderado`. O EAD máximo é a maior carteira em aberto observada; o EAD médio ponderado é a média da carteira em aberto ponderada pelos dias de cada período.",
             "",
             "- Quando a carteira é estática, a carteira originada é apenas a compra inicial:",
             "",
@@ -1345,9 +1375,14 @@ def _build_workbook_mechanics_markdown(
             "- A perda calibrada de ciclo é diferente: o motor faz uma busca binária para encontrar o percentual de NPL 90+ sobre os recebíveis que vencem que leva a SUB final para aproximadamente zero.",
             "",
             "```text",
-            "perda_ciclo_calibrada = menor perda_ciclo em que SUB_final <= 0",
+            "perda_ciclo_calibrada_bruta = menor perda_ciclo em que SUB_final <= 0",
+            "perda_calibrada_anual_equivalente = (1 + perda_ciclo_calibrada_bruta) ^ (12 / prazo_medio_recebiveis_meses) - 1",
+            "perda_efetiva_por_ciclo_pos_LGD = perda_ciclo_calibrada_bruta * LGD",
             "```",
             "",
+            "- A perda calibrada bruta é `% dos recebíveis que vencem`, não `% a.a.` e não `% da carteira total originada`.",
+            "- A taxa anual equivalente existe para comparar estruturas com prazos médios diferentes.",
+            "- A perda efetiva pós-LGD mostra a parcela econômica líquida de recuperação esperada dentro do ciclo.",
             "- Exemplo: com prazo médio de recebíveis de `6 meses`, o mês 1 considera a carteira inicial mais o principal reciclado de cerca de `1/6` do volume inicial.",
             "- Exemplo: em FIDC de `36 meses` com recebíveis de `12 meses`, a originação nova para quando o fluxo chega perto do mês `24`, porque novos recebíveis de 12 meses já não caberiam no prazo da estrutura.",
             "",
@@ -1383,6 +1418,7 @@ def _build_workbook_mechanics_markdown(
             "- `Evolução de Saldo das Cotas`: mostra SEN, MEZZ, SUB disponível e, quando existir, déficit econômico separado.",
             "- `Evolução Subordinação x Perda da Carteira`: compara perda acumulada, perda do período, subordinação disponível e proteção disponível.",
             "- `Proteção Econômica ao Longo do Tempo`: mostra SUB disponível dividida pela carteira originada acumulada em cada mês.",
+            "- `Proteção disponível` é `SUB disponível / carteira originada acumulada`; ela é uma métrica de colchão econômico naquele mês, não o resultado do solver de perda calibrada.",
             "- Se a perda acumulada sobe enquanto a subordinação disponível cai para zero, a estrutura está consumindo o colchão subordinado.",
             "- Se aparece déficit econômico, o cenário já ultrapassou a proteção da SUB dentro da mecânica atual.",
             "",
@@ -1392,6 +1428,11 @@ def _build_workbook_mechanics_markdown(
             "- A migração de crédito é agregada por buckets; ainda não há upload de MOB por safra nem capitalização de juros em atraso.",
             "- Ainda não há amortização customizada por classe via interface avançada.",
             "- Ainda não há fluxo programado para SUB; ela permanece residual nesta versão.",
+            "- Backlog Fase 2: custo de administração deve migrar para `PL início * ((1 + custo_aa) ^ (1/12) - 1)`, mantendo o piso mínimo mensal. Esse ajuste tende a aumentar custo, reduzir SUB final e reduzir perda calibrada.",
+            "- Backlog Fase 2: Taxa de Cessão deve considerar o prazo médio do recebível na equivalência para taxa mensal.",
+            "- Backlog Fase 2: bases temporais de carteira, perda, custo, SELIC e cotas devem ser uniformizadas com dias úteis efetivos quando aplicável.",
+            "- Backlog Fase 2: Pre DI na duration deve usar interpolação mais precisa em vez de ponto arredondado para baixo.",
+            "- Backlog Fase 3: SELIC projetada deve sair de input manual para fonte/curva de mercado auditável.",
         ]
     )
 
@@ -1411,9 +1452,11 @@ def _build_step_by_step_markdown() -> str:
             "- A metodologia de crédito define como atrasos viram NPL 90+, como a provisão é formada e quando write-offs reduzem o saldo da carteira.",
             "- Na metodologia intermediária, o modelo usa o principal que vence em cada período, aplica uma perda esperada de ciclo e cria provisão antes do NPL 90+ aparecer.",
             "- Na metodologia avançada, o modelo migra saldos entre buckets de atraso até NPL 90+, com recuperação em caixa e write-off contra provisão.",
+            "- A provisão é prospectiva: ela tenta antecipar a perda esperada do ciclo, e não apenas reconhecer perda depois que o atraso já virou baixa.",
             "- Subordinação é o tamanho do colchão de SUB disponível em relação ao PL econômico do fundo.",
             "- Colchão sem perdas sobre carteira originada compara a SUB final sem perdas com o total estimado de recebíveis originados no período.",
             "- Perda calibrada de ciclo estima, por busca binária, qual percentual de NPL 90+ sobre os recebíveis que vencem levaria a SUB final para perto de zero.",
+            "- A aba também anualiza essa perda pelo prazo médio dos recebíveis e mostra a perda efetiva pós-LGD, para evitar comparar ciclos de prazos diferentes como se fossem iguais.",
             "- A proteção ao longo do tempo compara a SUB disponível de cada mês com a carteira inicial somada à nova originação acumulada até aquele mês.",
             "- Enquanto a revolvência é elegível, o modelo reinveste principal recebido e excesso de caixa em nova carteira.",
             "- Depois da janela elegível, o principal que vence vira caixa e rende pela SELIC média anual informada pelo usuário.",
@@ -1956,8 +1999,20 @@ def _render_revolvency_cards(metrics: _RevolvencyMetrics) -> None:
         (
             "Perda calibrada de ciclo",
             "> 100,00%" if metrics.perda_ciclo_calibrada_excede_limite else _format_percent(metrics.perda_ciclo_calibrada),
-            "NPL 90+ por ciclo",
-            "Perda de ciclo que zera a SUB final na busca binária, usando NPL 90+ esperado sobre recebíveis que vencem.",
+            "% dos recebíveis que vencem",
+            "Saída direta do solver: percentual de NPL 90+ sobre os recebíveis que vencem no ciclo que zera a SUB final.",
+        ),
+        (
+            "Perda calibrada anual eq.",
+            _format_percent(metrics.perda_ciclo_calibrada_anual_equivalente),
+            "Frequência pelo prazo médio",
+            "Anualiza a perda calibrada de ciclo pela frequência de giro dos recebíveis para comparar estruturas com prazos médios diferentes.",
+        ),
+        (
+            "Perda efetiva pós-LGD",
+            _format_percent(metrics.perda_ciclo_calibrada_pos_lgd),
+            "Por ciclo, líquida de recuperação",
+            "Multiplica a perda calibrada de ciclo pela LGD informada, mostrando a perda econômica efetiva por ciclo.",
         ),
     ]
     cards_html = "".join(
@@ -2803,7 +2858,7 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Metodologia de crédito",
                 "Fórmula": credit_model_label,
-                "Observação": "A aba separa despesa de provisão, estoque NPL 90+, recuperação e write-off para não misturar fluxo com estoque.",
+                "Observação": "A provisão é ECL-style/prospectiva: a aba separa despesa de provisão, estoque NPL 90+, recuperação e write-off para não misturar fluxo com estoque.",
             },
             {
                 "Indicador": "Carteira vencendo no período",
@@ -2818,7 +2873,7 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Provisão requerida",
                 "Fórmula": "max(provisao_anterior + provisao_prospectiva, estoque_npl90 * cobertura_minima * LGD)",
-                "Observação": "Garante que a provisão nunca fique abaixo do estoque NPL 90+ coberto pelo percentual mínimo informado.",
+                "Observação": "Garante que a provisão nunca fique abaixo do estoque NPL 90+ coberto pelo percentual mínimo informado; a versão atual não reconhece reversão negativa de provisão.",
             },
             {
                 "Indicador": "Despesa de provisão/perda",
@@ -2881,7 +2936,17 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Perda calibrada de ciclo",
                 "Fórmula": "busca binária em perda_ciclo até SUB_final ~= 0",
-                "Observação": "Esta é a perda de NPL 90+ sobre os recebíveis que vencem que esgota a SUB final dentro das premissas atuais de prazo, LGD, cobertura e waterfall sem trava.",
+                "Observação": "Saída direta do solver: % de NPL 90+ sobre recebíveis que vencem no ciclo, não taxa anual nem % da carteira originada.",
+            },
+            {
+                "Indicador": "Perda calibrada anual equivalente",
+                "Fórmula": "(1 + perda_ciclo_calibrada) ^ (12 / prazo_medio_recebiveis_meses) - 1",
+                "Observação": "Converte a perda de ciclo em taxa anual comparável entre estruturas com prazos médios diferentes.",
+            },
+            {
+                "Indicador": "Perda efetiva por ciclo pós-LGD",
+                "Fórmula": "perda_ciclo_calibrada * LGD",
+                "Observação": "Mostra a perda econômica líquida de recuperação esperada para cada ciclo calibrado.",
             },
             {
                 "Indicador": "Júnior residual / subordinação econômica",

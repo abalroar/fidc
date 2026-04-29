@@ -82,6 +82,9 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn("Metodologias de crédito, NPL e provisão", markdown)
         self.assertIn("provisao_minima = estoque_npl90_t", markdown)
         self.assertIn("Migração por faixas de atraso", markdown)
+        self.assertIn("ECL forward-looking", markdown)
+        self.assertIn("perda_calibrada_anual_equivalente", markdown)
+        self.assertIn("Backlog Fase 2", markdown)
         self.assertIn("PMT SEN = juros SEN + principal SEN programado", markdown)
         self.assertIn("SUB residual = PL FIDC - PL SEN - PL MEZZ", markdown)
         self.assertIn("taxa_selic_periodo = (1 + selic_aa_do_ano)", markdown)
@@ -105,12 +108,14 @@ class TabModeloFidcTests(unittest.TestCase):
             proporcao_subordinada=0.10,
             prazo_fidc_anos=3.0,
             prazo_medio_recebiveis_meses=6.0,
+            lgd=0.8,
         )
 
         metrics = tab_modelo_fidc._build_revolvency_metrics(
             premissas=premissas,
             zero_default_results=[Result()],
             portfolio_mode=tab_modelo_fidc.PORTFOLIO_MODE_REVOLVING,
+            calibrated_loss_cycle=0.05,
         )
 
         self.assertEqual(6.0, metrics.giro_estimado)
@@ -118,6 +123,8 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertAlmostEqual(2_400_000_000.0 / 4_500_000_000.0, metrics.colchao_sem_perdas_sobre_originacao)
         self.assertEqual(750_000_000.0, metrics.ead_maximo)
         self.assertEqual(750_000_000.0, metrics.ead_medio_ponderado)
+        self.assertAlmostEqual((1.05**2) - 1.0, metrics.perda_ciclo_calibrada_anual_equivalente)
+        self.assertAlmostEqual(0.04, metrics.perda_ciclo_calibrada_pos_lgd)
 
     def test_calibrated_loss_cycle_solver_finds_loss_that_exhausts_sub(self) -> None:
         dates = [pd.Timestamp(2026, 1, 1) + pd.DateOffset(months=month) for month in range(13)]
