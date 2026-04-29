@@ -73,8 +73,10 @@ _MERCADO_LIVRE_UI_CSS = """
     cursor: pointer;
     font-size: 13px;
     font-weight: 700;
+    line-height: 1.25;
     list-style-position: inside;
     padding: 7px 9px;
+    white-space: normal;
 }
 .wide-section summary::marker {
     color: #FFFFFF;
@@ -111,10 +113,15 @@ _MERCADO_LIVRE_UI_CSS = """
     border-bottom: 1px solid #E5E5E5;
     color: #3F3F3F;
     white-space: nowrap;
+    vertical-align: top;
 }
 .wide-table td.label,
 .wide-table td.formula {
     text-align: left;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    word-break: normal;
 }
 .wide-table td.label {
     color: #000000;
@@ -123,7 +130,6 @@ _MERCADO_LIVRE_UI_CSS = """
 .wide-table td.formula {
     color: #8C8C8C;
     font-size: 11px;
-    white-space: normal;
 }
 .wide-table tr.destaque td {
     font-weight: 700;

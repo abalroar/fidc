@@ -26,7 +26,12 @@ from services.mercado_livre_dashboard import (
 from services.mercado_livre_ppt_export import build_pptx_export_bytes
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
-from tabs.tab_mercado_livre import _dense_wide_value, _render_wide_table_html, _resolve_existing_portfolio_for_save
+from tabs.tab_mercado_livre import (
+    _MERCADO_LIVRE_UI_CSS,
+    _dense_wide_value,
+    _render_wide_table_html,
+    _resolve_existing_portfolio_for_save,
+)
 
 
 class MercadoLivreDashboardTests(unittest.TestCase):
@@ -351,6 +356,12 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertEqual("", _dense_wide_value("N/D"))
         self.assertEqual("178,0%", _dense_wide_value("178,04%"))
         self.assertEqual("5.380,0 MM", _dense_wide_value("R$ mm 5.380,00"))
+
+    def test_wide_table_text_columns_wrap_in_fixed_grid(self) -> None:
+        self.assertIn("table-layout: fixed;", _MERCADO_LIVRE_UI_CSS)
+        self.assertIn("vertical-align: top;", _MERCADO_LIVRE_UI_CSS)
+        self.assertIn("overflow-wrap: anywhere;", _MERCADO_LIVRE_UI_CSS)
+        self.assertIn("white-space: normal;", _MERCADO_LIVRE_UI_CSS)
 
     def test_outputs_cache_roundtrip_uses_deterministic_identity(self) -> None:
         dashboard = _dashboard(
