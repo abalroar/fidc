@@ -151,6 +151,17 @@ def _interest_payment(
     raise ValueError(f"Modo de pagamento de juros inválido: {mode}")
 
 
+def _credit_loss_expenses(carteira: float, premissas: Premissas, delta_dc: int) -> tuple[float, float, float]:
+    if premissas.perda_esperada_am is None and premissas.perda_inesperada_am is None:
+        total = carteira * (premissas.inadimplencia * (delta_dc / 100.0))
+        return total, 0.0, total
+
+    month_fraction = delta_dc / 30.0
+    expected_loss = carteira * float(premissas.perda_esperada_am or 0.0) * month_fraction
+    unexpected_loss = carteira * float(premissas.perda_inesperada_am or 0.0) * month_fraction
+    return expected_loss, unexpected_loss, expected_loss + unexpected_loss
+
+
 def _period_indexes_for_dates(datas: Sequence[datetime]) -> list[int]:
     month_deltas = [_months_between(datas[0], dt) for dt in datas]
     workbook_prefix = [0, 6, 12, 18, 24]
@@ -270,6 +281,9 @@ def build_flow(
                     pl_fidc=premissas.volume,
                     custos_adm=0.0,
                     inadimplencia_despesa=0.0,
+                    perda_esperada_despesa=0.0,
+                    perda_inesperada_despesa=0.0,
+                    perda_carteira_despesa=0.0,
                     principal_senior=principal_senior[index],
                     juros_senior=0.0,
                     pmt_senior=principal_senior[index],
@@ -297,7 +311,12 @@ def build_flow(
         carteira = pl_fidc_atual
         fluxo_carteira = carteira * ((1.0 + premissas.tx_cessao_am) ** (delta_du / 21.0) - 1.0)
         custos_adm = max(carteira * premissas.custo_adm_aa / 12.0, premissas.custo_min)
-        inadimplencia_despesa = carteira * (premissas.inadimplencia * (delta_dc / 100.0))
+        perda_esperada_despesa, perda_inesperada_despesa, perda_carteira_despesa = _credit_loss_expenses(
+            carteira,
+            premissas,
+            delta_dc,
+        )
+        inadimplencia_despesa = perda_carteira_despesa
 
         fra_senior_period = fra_senior[index] or 0.0
         fra_mezz_period = fra_mezz[index] or 0.0
@@ -358,6 +377,9 @@ def build_flow(
                 pl_fidc=pl_fidc_atual,
                 custos_adm=custos_adm,
                 inadimplencia_despesa=inadimplencia_despesa,
+                perda_esperada_despesa=perda_esperada_despesa,
+                perda_inesperada_despesa=perda_inesperada_despesa,
+                perda_carteira_despesa=perda_carteira_despesa,
                 principal_senior=principal_senior_period,
                 juros_senior=juros_senior,
                 pmt_senior=pmt_senior,

@@ -28,7 +28,8 @@ class TabModeloFidcTests(unittest.TestCase):
     def test_requested_page_defaults_are_encoded(self) -> None:
         self.assertEqual(750_000_000.0, tab_modelo_fidc.DEFAULT_VOLUME_CARTEIRA)
         self.assertEqual(0.04, tab_modelo_fidc.DEFAULT_TX_CESSAO_AM)
-        self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_INADIMPLENCIA)
+        self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_PERDA_ESPERADA_AM)
+        self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_PERDA_INESPERADA_AM)
         self.assertEqual(0.75, tab_modelo_fidc.DEFAULT_PROP_SENIOR)
         self.assertEqual(0.15, tab_modelo_fidc.DEFAULT_PROP_MEZZ)
         self.assertEqual(0.10, tab_modelo_fidc.DEFAULT_PROP_SUB)
@@ -68,7 +69,7 @@ class TabModeloFidcTests(unittest.TestCase):
         )
 
         self.assertIn("trava de caixa está desligada", markdown)
-        self.assertIn("inadimplencia_periodo = carteira * (inadimplencia * delta_DC / 100)", markdown)
+        self.assertIn("perda_carteira = perda_esperada + perda_inesperada", markdown)
         self.assertIn("PMT SEN = juros SEN + principal SEN programado", markdown)
         self.assertIn("SUB residual = PL FIDC - PL SEN - PL MEZZ", markdown)
 
@@ -149,7 +150,7 @@ class TabModeloFidcTests(unittest.TestCase):
                 "carteira": [100.0, 100.0],
                 "pl_fidc": [100.0, 1.0],
                 "pl_sub_jr": [10.0, -80.0],
-                "inadimplencia_despesa": [0.0, 10.0],
+                "perda_carteira_despesa": [0.0, 10.0],
                 "subordinacao_pct": [0.1, -80.0],
                 "subordinacao_pct_modelo": [0.1, -8000.0],
             }

@@ -17,7 +17,7 @@ Observação importante: no momento da auditoria, o arquivo local `Modelo_Public
 |---|---|
 | Inputs, labels, parsing pt-BR, montagem de gráficos e exportação | `tabs/tab_modelo_fidc.py` |
 | Contratos de premissas, resultados por período e KPIs | `services/fidc_model/contracts.py` |
-| Motor de fluxo, juros, custos, inadimplência, amortização, residual SUB e KPIs-base | `services/fidc_model/engine.py` |
+| Motor de fluxo, juros, custos, perdas de crédito, amortização, residual SUB e KPIs-base | `services/fidc_model/engine.py` |
 | XIRR, duration e lookup de Pre DI na duration | `services/fidc_model/metrics.py` |
 | Interpolação spline e Flat Forward 252 | `services/fidc_model/curves.py` |
 | Dias úteis, feriados B3 e calendário projetado | `services/fidc_model/calendar.py` |
@@ -40,11 +40,11 @@ Fórmulas centrais observadas:
 |---|---|
 | Taxa de cessão | `Q = carteira * ((1 + C6) ^ (delta_DU / 21) - 1)` |
 | Custo adm/gestão | `T = max(carteira * C11 / 12, C12)` |
-| Inadimplência | `U = carteira * (C13 * delta_DC / 100)` |
+| Inadimplência histórica | `U = carteira * (C13 * delta_DC / 100)` |
 | Taxa SEN pós | `J = (1 + PreDI) * (1 + C16) - 1` |
 | Taxa MEZZ pós | `L = (1 + PreDI) * (1 + C20) - 1` |
 | FRA SEN/MEZZ | composição entre taxas anuais em base 252 DU |
-| Saldo FIDC | `R = carteira + fluxo - custos - inadimplência - PMT SEN - PMT MEZZ` |
+| Saldo FIDC | `R = carteira + fluxo - custos - perda da carteira - PMT SEN - PMT MEZZ` |
 | SUB residual corrente | `R - PL SEN - PL MEZZ` |
 | SUB no workbook | a partir da segunda linha calculada, `AO` passa a referenciar o residual da linha seguinte |
 | XIRR SEN/MEZZ | `XIRR(PMT, datas)` |
@@ -60,7 +60,7 @@ Usando as premissas atualmente salvas na planilha local (`C6 = 4,00% a.m.`, volu
 |---|---:|
 | PL FIDC | `0,000001` |
 | Fluxo carteira | `0,00000004` |
-| Inadimplência | `0,000000` |
+| Perda de crédito | `0,000000` |
 | PMT SEN | `0,00000013` |
 | PMT MEZZ | `0,00000001` |
 | PL SEN/MEZZ | `0,000000` |
@@ -87,7 +87,7 @@ Esses números reproduzem os KPIs observados no Streamlit. A diferença de retor
 | Fonte da curva | B3 TaxaSwap latest em 28/04/2026 | Curva local/model_data equivalente ao workbook salvo em 27/04/2026 | Fontes e datas diferentes | Manter seleção explícita e, para auditoria, usar snapshot/spline/calendário snapshot |
 | Interpolação | Flat Forward 252 | Spline da planilha | Metodologia diferente por decisão de modelo | Correto manter Flat Forward 252 para B3, mas identificar claramente quando a comparação é com Excel |
 | Calendário de DU | B3 oficial 2025-2026 + projeção 2027-2028 | `Holidays` da planilha, terminando em 2018 | Feriados futuros não existem no snapshot da planilha | Manter calendário B3/projeção explícita; usar snapshot só para auditoria |
-| Inadimplência | Perda de `18,40%` no primeiro semestre para input `10,00%` | Mesma fórmula | A fórmula é `inadimplência * delta_DC / 100`, não uma perda total de vida | Renomear/explicar melhor ou criar novo modo de inadimplência total do período de vida |
+| Perda de crédito | Antes: perda de `18,40%` no primeiro semestre para input `10,00%`; agora: Perda Esperada + Perda Inesperada mensal | Fórmula nova no Streamlit; fórmula histórica preservada quando não há campos novos | O modelo online ficou mais explícito que a coluna histórica de inadimplência da planilha | Usar PE/PI para simulação econômica e manter a planilha histórica como referência |
 | PMT SEN/MEZZ | Pago mesmo com PL/carteira negativa | Mesma fórmula | Não há trava de caixa nem waterfall de insuficiência | Implementar waterfall real em etapa estrutural posterior |
 | XIRR SEN/MEZZ | Independe da inadimplência enquanto PMTs programados existem | Mesma fórmula | PMTs não são afetados por default/cash shortfall | Só mudará com waterfall de caixa |
 | XIRR SUB | `N/D` | `#NUM!` | A SUB tem `PMT = 0` na planilha; não há série com sinais válidos | Correto mostrar `N/D`, mas explicar que SUB residual não tem fluxo programado |
@@ -112,7 +112,7 @@ Correção aplicada:
 - O modelo ainda não implementa waterfall real com insuficiência de caixa.
 - A amortização SEN/MEZZ segue o cronograma já existente em `model_data.json`/planilha; não há input avançado para frequência, carência e amortização customizada.
 - A SUB continua residual e sem fluxo programado; por isso não há retorno anualizado SUB.
-- A inadimplência continua usando a fórmula histórica da planilha, que não equivale necessariamente a “10% da carteira total ao longo da vida”.
+- A aba agora separa Perda Esperada e Perda Inesperada como taxas mensais sobre a carteira; a fórmula histórica de inadimplência fica apenas como compatibilidade do motor.
 - A métrica de “perda máxima” ainda precisa de uma definição estrutural mais precisa quando houver waterfall.
 
 ## Estrutura recomendada para próxima etapa
@@ -127,7 +127,7 @@ Adicionar uma seção avançada com:
 - trava de caixa disponível;
 - prioridade de waterfall;
 - regra de residual da SUB;
-- modo de inadimplência: taxa distribuída pela fórmula da planilha ou perda total de vida.
+- modo avançado de NPL over 90, LGD, recuperação e write-off.
 
 ## Atualização implementada: prazo, revolvência e perda máxima
 
@@ -146,10 +146,10 @@ A principal métrica adicionada é a perda máxima suportada sobre a carteira or
 giro_estimado = prazo_total_fidc_anos * 12 / prazo_medio_recebiveis_meses
 carteira_originada_revolvente = volume_inicial * giro_estimado
 carteira_originada_estatica = volume_inicial
-perda_maxima = max(SUB_final_sem_inadimplencia, 0) / carteira_originada
+perda_maxima = max(SUB_final_sem_perdas, 0) / carteira_originada
 ```
 
-Essa métrica usa uma simulação paralela com inadimplência igual a `0%`, preservando as demais premissas selecionadas. Assim, ela mede quanto colchão subordinado econômico seria acumulado antes de perdas e compara esse colchão ao total estimado de recebíveis originados ao longo do prazo do FIDC.
+Essa métrica usa uma simulação paralela com Perda Esperada e Perda Inesperada iguais a `0%`, preservando as demais premissas selecionadas. Assim, ela mede quanto colchão subordinado econômico seria acumulado antes de perdas e compara esse colchão ao total estimado de recebíveis originados ao longo do prazo do FIDC.
 
 ## Validação manual
 

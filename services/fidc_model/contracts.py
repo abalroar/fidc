@@ -35,6 +35,8 @@ class Premissas:
     juros_mezz: str = "periodic"
     inicio_amortizacao_senior_meses: int = 25
     inicio_amortizacao_mezz_meses: int = 25
+    perda_esperada_am: Optional[float] = None
+    perda_inesperada_am: Optional[float] = None
 
     @property
     def proporcao_sub_jr(self) -> float:
@@ -61,6 +63,9 @@ class PeriodResult:
     pl_fidc: float
     custos_adm: float
     inadimplencia_despesa: float
+    perda_esperada_despesa: float
+    perda_inesperada_despesa: float
+    perda_carteira_despesa: float
     principal_senior: float
     juros_senior: float
     pmt_senior: float

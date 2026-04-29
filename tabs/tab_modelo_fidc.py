@@ -67,7 +67,8 @@ DEFAULT_VOLUME_CARTEIRA = 750_000_000.0
 DEFAULT_TX_CESSAO_AM = 0.04
 DEFAULT_CUSTO_ADM_AA = 0.0035
 DEFAULT_CUSTO_MIN_MENSAL = 20_000.0
-DEFAULT_INADIMPLENCIA = 0.0
+DEFAULT_PERDA_ESPERADA_AM = 0.0
+DEFAULT_PERDA_INESPERADA_AM = 0.0
 DEFAULT_PROP_SENIOR = 0.75
 DEFAULT_PROP_MEZZ = 0.15
 DEFAULT_PROP_SUB = 0.10
@@ -404,7 +405,8 @@ _INPUT_NORMALIZATION_SPECS = {
     "modelo_tx_cessao_mensal": (2, "percent"),
     "modelo_custo_adm_pct": (2, "percent"),
     "modelo_custo_min": (2, "brl"),
-    "modelo_inadimplencia_pct": (2, "percent"),
+    "modelo_perda_esperada_pct": (2, "percent"),
+    "modelo_perda_inesperada_pct": (2, "percent"),
     "modelo_prop_senior": (1, "percent"),
     "modelo_prop_mezz": (1, "percent"),
     "modelo_prop_sub": (1, "percent"),
@@ -549,6 +551,8 @@ def _build_dataframe(results) -> pd.DataFrame:
 def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
     export = frame.copy()
     export["data"] = export["data"].dt.strftime("%d/%m/%Y")
+    if "perda_carteira_despesa" in export.columns and "inadimplencia_despesa" in export.columns:
+        export = export.drop(columns=["inadimplencia_despesa"])
     return export.rename(
         columns={
             "indice": "Índice",
@@ -566,7 +570,9 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "fluxo_carteira": "Fluxo econômico da carteira",
             "pl_fidc": "PL econômico do veículo",
             "custos_adm": "Custos administrativos",
-            "inadimplencia_despesa": "Perda econômica por inadimplência",
+            "perda_esperada_despesa": "Perda esperada/provisionada",
+            "perda_inesperada_despesa": "Perda inesperada/stress",
+            "perda_carteira_despesa": "Perda total da carteira",
             "principal_senior": "Principal sênior",
             "juros_senior": "Juros sênior",
             "pmt_senior": "PMT sênior",
@@ -701,7 +707,7 @@ def _build_revolvency_export_dataframe(metrics: _RevolvencyMetrics) -> pd.DataFr
             {"Indicador": "Prazo médio dos recebíveis (meses)", "Valor": metrics.prazo_medio_recebiveis_meses},
             {"Indicador": "Giro estimado da carteira", "Valor": metrics.giro_estimado},
             {"Indicador": "Carteira total originada estimada", "Valor": metrics.carteira_total_originada},
-            {"Indicador": "SUB final sem inadimplência", "Valor": metrics.sub_final_sem_inadimplencia},
+            {"Indicador": "SUB final sem perdas", "Valor": metrics.sub_final_sem_inadimplencia},
             {"Indicador": "Perda máxima sobre carteira originada", "Valor": metrics.perda_maxima_sobre_originacao},
         ]
     )
@@ -760,16 +766,19 @@ def _build_workbook_mechanics_markdown(
             "",
             "- Exemplo: `0,35` na interface significa `0,35% a.a.`; internamente vira `0,0035`.",
             "",
-            "### 4. Inadimplência",
+            "### 4. Perda esperada, perda inesperada e perda da carteira",
             "",
-            "- A fórmula histórica da planilha não trata a inadimplência como perda total da vida do fundo. Ela aplica a perda proporcionalmente aos dias corridos do período:",
+            "- A Perda Esperada representa a provisão recorrente mensal da carteira.",
+            "- A Perda Inesperada representa um choque adicional mensal de stress.",
+            "- A Perda da Carteira é a soma das duas e reduz o PL econômico do FIDC:",
             "",
             "```text",
-            "inadimplencia_periodo = carteira * (inadimplencia * delta_DC / 100)",
+            "perda_esperada = carteira * perda_esperada_am * delta_DC / 30",
+            "perda_inesperada = carteira * perda_inesperada_am * delta_DC / 30",
+            "perda_carteira = perda_esperada + perda_inesperada",
             "```",
             "",
-            "- Consequência prática: se a inadimplência informada for `10,00%` e o período tiver `184` dias corridos, a perda do período será `18,40%` da carteira inicial daquele período.",
-            "- Isso é compatível com a planilha, mas é uma premissa forte. Um modo alternativo de perda total da vida ainda precisaria ser implementado.",
+            "- Esse campo não é NPL over 90; NPL over 90 é estoque vencido e exigiria premissas de LGD, recuperação e timing.",
             "",
             "### 5. Taxas SEN e MEZZ",
             "",
@@ -822,7 +831,7 @@ def _build_workbook_mechanics_markdown(
             "- Depois de retorno da carteira, custos, perdas e PMTs, o PL econômico do veículo é:",
             "",
             "```text",
-            "PL FIDC = carteira + fluxo_carteira - custos - inadimplencia - PMT SEN - PMT MEZZ",
+            "PL FIDC = carteira + fluxo_carteira - custos - perda_carteira - PMT SEN - PMT MEZZ",
             "```",
             "",
             "- O saldo econômico de SEN e MEZZ cai conforme o principal programado é amortizado.",
@@ -851,10 +860,10 @@ def _build_workbook_mechanics_markdown(
             "carteira_originada = volume_inicial",
             "```",
             "",
-            "- A perda máxima suportada roda uma simulação paralela com inadimplência igual a `0%` e compara o colchão final positivo da SUB com a carteira total originada:",
+            "- A perda máxima suportada roda uma simulação paralela com Perda Esperada e Perda Inesperada iguais a `0%` e compara o colchão final positivo da SUB com a carteira total originada:",
             "",
             "```text",
-            "perda_maxima = max(SUB_final_sem_inadimplencia, 0) / carteira_originada",
+            "perda_maxima = max(SUB_final_sem_perdas, 0) / carteira_originada",
             "```",
             "",
             "- Exemplo: prazo total de `3 anos`, prazo médio de recebíveis de `6 meses` e volume inicial de `R$ 750MM` geram giro de `6x` e carteira originada estimada de `R$ 4,5 bi`.",
@@ -871,8 +880,8 @@ def _build_workbook_mechanics_markdown(
             "### 11. Como interpretar os gráficos",
             "",
             "- `Evolução de Saldo das Cotas`: mostra SEN, MEZZ, SUB disponível e, quando existir, déficit econômico separado.",
-            "- `Evolução Subordinação x Inadimplência Acumulada`: compara inadimplência acumulada, inadimplência do período e subordinação disponível.",
-            "- Se a inadimplência acumulada sobe enquanto a subordinação disponível cai para zero, a estrutura está consumindo o colchão subordinado.",
+            "- `Evolução Subordinação x Perda da Carteira`: compara perda acumulada, perda do período e subordinação disponível.",
+            "- Se a perda acumulada sobe enquanto a subordinação disponível cai para zero, a estrutura está consumindo o colchão subordinado.",
             "- Se aparece déficit econômico, o cenário já ultrapassou a proteção da SUB dentro da mecânica atual.",
             "",
             "### 12. Limitações atuais",
@@ -880,7 +889,7 @@ def _build_workbook_mechanics_markdown(
             "- Ainda não há trava de caixa ligada no waterfall.",
             "- Ainda não há atraso acumulado, capitalização de juros em atraso ou gatilhos de liquidação.",
             "- Ainda não há amortização customizada por classe via interface avançada.",
-            "- Ainda não há modo alternativo para inadimplência como perda total da vida da carteira.",
+            "- Ainda não há modo específico para NPL over 90, LGD, recuperação ou write-off.",
             "- Ainda não há fluxo programado para SUB; ela permanece residual para manter compatibilidade com a planilha.",
         ]
     )
@@ -889,7 +898,7 @@ def _build_workbook_mechanics_markdown(
 def _build_step_by_step_markdown() -> str:
     return "\n".join(
         [
-            "Este modelo simula uma carteira de FIDC e mostra como juros, custos, inadimplência, estrutura de cotas e revolvência afetam o colchão de proteção.",
+            "Este modelo simula uma carteira de FIDC e mostra como juros, custos, perdas de crédito, estrutura de cotas e revolvência afetam o colchão de proteção.",
             "",
             "- Volume da carteira é o valor em reais dos recebíveis comprados pelo fundo no início da simulação.",
             "- Taxa de Cessão é o deságio sobre o valor futuro do recebível; Taxa Mensal é a taxa efetiva usada pelo motor. A aba mostra a equivalência mensal e anual em base 252.",
@@ -899,9 +908,9 @@ def _build_step_by_step_markdown() -> str:
             "- As regras de amortização indicam quando o principal de SEN/MEZZ começa a ser repago e se o pagamento é linear, bullet, inexistente ou compatível com a planilha.",
             "- As regras de juros indicam se os juros são pagos em cada período, após carência ou apenas no vencimento.",
             "- Subordinação é o tamanho do colchão de SUB disponível em relação ao PL econômico do fundo.",
-            "- Perda máxima sobre carteira originada compara a SUB final sem inadimplência com o total estimado de recebíveis originados no período.",
+            "- Perda máxima sobre carteira originada compara a SUB final sem perdas com o total estimado de recebíveis originados no período.",
             "- No gráfico de saldos, o eixo X mostra o mês desde o início do FIDC; isso deixa claro quando terminam carências e começam amortizações.",
-            "- No gráfico de perda e subordinação, maior inadimplência acumulada com menor subordinação indica cenário mais pressionado.",
+            "- No gráfico de perda e subordinação, maior perda acumulada com menor subordinação indica cenário mais pressionado.",
         ]
     )
 
@@ -1099,15 +1108,17 @@ def _available_subordination_pct(row: pd.Series) -> float | None:
 
 
 def _build_loss_area_frame(frame: pd.DataFrame, volume: float) -> pd.DataFrame:
-    chart_frame = frame[["indice", "data", "carteira", "pl_fidc", "pl_sub_jr", "inadimplencia_despesa"]].copy()
+    loss_column = "perda_carteira_despesa" if "perda_carteira_despesa" in frame.columns else "inadimplencia_despesa"
+    chart_frame = frame[["indice", "data", "carteira", "pl_fidc", "pl_sub_jr", loss_column]].copy()
+    chart_frame = chart_frame.rename(columns={loss_column: "perda_carteira_despesa"})
     chart_frame["subordinacao_display"] = chart_frame.apply(_available_subordination_pct, axis=1)
-    chart_frame["inadimplencia_acumulada"] = chart_frame["inadimplencia_despesa"].fillna(0.0).cumsum()
+    chart_frame["perda_carteira_acumulada"] = chart_frame["perda_carteira_despesa"].fillna(0.0).cumsum()
     chart_frame["perda_periodo_pct"] = chart_frame.apply(
-        lambda row: row["inadimplencia_despesa"] / row["carteira"] if row["carteira"] else None,
+        lambda row: row["perda_carteira_despesa"] / row["carteira"] if row["carteira"] else None,
         axis=1,
     )
     denominator = volume if volume else 1.0
-    chart_frame["perda_acumulada_pct"] = chart_frame["inadimplencia_acumulada"] / denominator
+    chart_frame["perda_acumulada_pct"] = chart_frame["perda_carteira_acumulada"] / denominator
     long_df = chart_frame.melt(
         id_vars=["indice", "data"],
         value_vars=["subordinacao_display", "perda_acumulada_pct", "perda_periodo_pct"],
@@ -1116,8 +1127,8 @@ def _build_loss_area_frame(frame: pd.DataFrame, volume: float) -> pd.DataFrame:
     ).dropna(subset=["valor"])
     label_map = {
         "subordinacao_display": "Subordinação econômica disponível (SUB positiva/PL)",
-        "perda_acumulada_pct": "Inadimplência acumulada (% do volume)",
-        "perda_periodo_pct": "Inadimplência do período (% da carteira)",
+        "perda_acumulada_pct": "Perda acumulada da carteira (% do volume)",
+        "perda_periodo_pct": "Perda do período (% da carteira)",
     }
     long_df["serie"] = long_df["serie"].map(label_map)
     long_df["valor_pct"] = long_df["valor"] * 100.0
@@ -1185,7 +1196,7 @@ def _render_model_header() -> None:
           <div class="fidc-model-copy">
             Este é um modelo econômico-financeiro para simular cenários de perda máxima em uma
             carteira de FIDC, considerando diferentes níveis de rentabilidade, subordinação e
-            inadimplência.
+            perdas de crédito.
           </div>
         </div>
         """,
@@ -1225,7 +1236,7 @@ def _render_revolvency_cards(metrics: _RevolvencyMetrics) -> None:
         ("Prazo médio recebíveis", f"{_format_number_br(metrics.prazo_medio_recebiveis_meses, 1)} meses", "Prazo de giro"),
         ("Giro estimado", f"{_format_number_br(metrics.giro_estimado, 2)}x", "Prazo FIDC / prazo médio"),
         ("Carteira originada", _format_brl(metrics.carteira_total_originada), "Base de comparação"),
-        ("SUB final sem inadimplência", _format_brl(metrics.sub_final_sem_inadimplencia), "Colchão acumulado"),
+        ("SUB final sem perdas", _format_brl(metrics.sub_final_sem_inadimplencia), "Colchão acumulado"),
         ("Perda máxima suportada", _format_percent(metrics.perda_maxima_sobre_originacao), "SUB final / carteira originada"),
     ]
     cards_html = "".join(
@@ -1272,10 +1283,7 @@ def render_tab_modelo_fidc() -> None:
                 [CESSION_INPUT_DISCOUNT, CESSION_INPUT_MONTHLY],
                 index=1,
                 horizontal=True,
-                help=(
-                    "Taxa de Cessão é o deságio sobre o valor futuro do recebível. "
-                    "Taxa Mensal é a taxa efetiva cobrada ao mês, como no motor da planilha."
-                ),
+                help="Escolha se quer informar o deságio sobre o valor futuro ou a taxa mensal efetiva usada no motor.",
             )
             if taxa_cessao_input_mode == CESSION_INPUT_DISCOUNT:
                 tx_cessao_desagio_text = _text_percent_input(
@@ -1283,10 +1291,7 @@ def render_tab_modelo_fidc() -> None:
                     default=default_tx_cessao_desagio * 100.0,
                     key="modelo_tx_cessao_desagio",
                     decimals=2,
-                    help_text=(
-                        "Deságio sobre o valor futuro. Ex.: comprar R$ 100 por R$ 95 equivale a 5,00% "
-                        "de taxa de cessão e 5,26% de taxa mensal."
-                    ),
+                    help_text="Informe o deságio sobre o valor futuro; comprar R$ 100 por R$ 95 equivale a 5,00%.",
                 )
                 tx_cessao_mensal_text = ""
             else:
@@ -1306,7 +1311,7 @@ def render_tab_modelo_fidc() -> None:
                     default=DEFAULT_CUSTO_ADM_AA * 100.0,
                     key="modelo_custo_adm_pct",
                     decimals=2,
-                    help_text="Digite 0,35 para representar 0,35% ao ano. O motor converte internamente para 0,0035.",
+                    help_text="Informe o custo anual em percentual base 100; 0,35 significa 0,35% a.a.",
                 )
             with costs_b:
                 custo_min_text = _text_brl_input(
@@ -1316,13 +1321,23 @@ def render_tab_modelo_fidc() -> None:
                     decimals=2,
                     help_text="Piso mensal aplicado pela fórmula max(carteira * custo % a.a. / 12, custo mínimo).",
                 )
-            inadimplencia_text = _text_percent_input(
-                "Inadimplência (% da carteira total)",
-                default=DEFAULT_INADIMPLENCIA * 100.0,
-                key="modelo_inadimplencia_pct",
-                decimals=2,
-                help_text="Na planilha de referência, a perda é proporcional aos dias corridos do período.",
-            )
+            loss_a, loss_b = st.columns(2)
+            with loss_a:
+                perda_esperada_text = _text_percent_input(
+                    "Perda esperada (% a.m. da carteira)",
+                    default=DEFAULT_PERDA_ESPERADA_AM * 100.0,
+                    key="modelo_perda_esperada_pct",
+                    decimals=2,
+                    help_text="Informe a provisão mensal recorrente esperada sobre a carteira; este campo não é NPL over 90.",
+                )
+            with loss_b:
+                perda_inesperada_text = _text_percent_input(
+                    "Perda inesperada (% a.m. da carteira)",
+                    default=DEFAULT_PERDA_INESPERADA_AM * 100.0,
+                    key="modelo_perda_inesperada_pct",
+                    decimals=2,
+                    help_text="Informe o choque mensal adicional de stress que deve ser absorvido pela estrutura.",
+                )
 
             st.markdown("##### Estrutura de PL")
             prop_a, prop_b, prop_c = st.columns(3)
@@ -1525,7 +1540,15 @@ def render_tab_modelo_fidc() -> None:
         tx_cessao_aa_equivalente = monthly_to_annual_252_rate(tx_cessao_am)
         custo_adm_aa = _parse_br_number(custo_adm_text, field_name="Custo de administração e gestão (% a.a.)") / 100.0
         custo_min = _parse_br_number(custo_min_text, field_name="Custo mínimo de administração e gestão (R$/mês)")
-        inadimplencia = _parse_br_number(inadimplencia_text, field_name="Inadimplência (% da carteira total)") / 100.0
+        perda_esperada_am = _parse_br_number(
+            perda_esperada_text,
+            field_name="Perda esperada (% a.m. da carteira)",
+        ) / 100.0
+        perda_inesperada_am = _parse_br_number(
+            perda_inesperada_text,
+            field_name="Perda inesperada (% a.m. da carteira)",
+        ) / 100.0
+        perda_total_am = perda_esperada_am + perda_inesperada_am
         proporcao_senior = _parse_br_number(senior_pct_text, field_name="PL sênior/SEN (%)") / 100.0
         proporcao_mezz = _parse_br_number(mezz_pct_text, field_name="PL mezanino/MEZZ (%)") / 100.0
         proporcao_sub = _parse_br_number(sub_pct_text, field_name="PL subordinado/SUB (%)") / 100.0
@@ -1562,6 +1585,9 @@ def render_tab_modelo_fidc() -> None:
     if min(inicio_amortizacao_senior_meses, inicio_amortizacao_mezz_meses) < 0:
         st.error("A carência de principal não pode ser negativa.")
         return
+    if min(perda_esperada_am, perda_inesperada_am) < 0:
+        st.error("Perda esperada e perda inesperada não podem ser negativas.")
+        return
 
     prop_total = proporcao_senior + proporcao_mezz + proporcao_sub
     if abs(prop_total - 1.0) > 0.0001:
@@ -1576,7 +1602,7 @@ def render_tab_modelo_fidc() -> None:
         tx_cessao_cdi_aa=inputs.premissas.get("Tx Cessão (CDI+ %aa)"),
         custo_adm_aa=custo_adm_aa,
         custo_min=custo_min,
-        inadimplencia=inadimplencia,
+        inadimplencia=perda_total_am,
         proporcao_senior=proporcao_senior,
         taxa_senior=taxa_senior,
         proporcao_mezz=proporcao_mezz,
@@ -1604,6 +1630,8 @@ def render_tab_modelo_fidc() -> None:
         juros_mezz=INTEREST_LABELS[mezz_interest_label],
         inicio_amortizacao_senior_meses=inicio_amortizacao_senior_meses,
         inicio_amortizacao_mezz_meses=inicio_amortizacao_mezz_meses,
+        perda_esperada_am=perda_esperada_am,
+        perda_inesperada_am=perda_inesperada_am,
     )
 
     st.caption(
@@ -1611,6 +1639,12 @@ def render_tab_modelo_fidc() -> None:
         f"Taxa de Cessão {_format_percent(tx_cessao_desagio)} | "
         f"Taxa Mensal {_format_percent(tx_cessao_am)} | "
         f"Taxa anual base 252 {_format_percent(tx_cessao_aa_equivalente)}."
+    )
+    st.caption(
+        "Perda da carteira no motor: "
+        f"Perda Esperada {_format_percent(perda_esperada_am)} a.m. + "
+        f"Perda Inesperada {_format_percent(perda_inesperada_am)} a.m. = "
+        f"{_format_percent(perda_total_am)} a.m."
     )
 
     curve_source_label = _ensure_session_option("modelo_curve_source", CURVE_SOURCE_OPTIONS)
@@ -1702,7 +1736,7 @@ def render_tab_modelo_fidc() -> None:
         selected_calendar.feriados,
         selected_curve.curva_du,
         selected_curve.curva_taxa_aa,
-        replace(premissas, inadimplencia=0.0),
+        replace(premissas, inadimplencia=0.0, perda_esperada_am=0.0, perda_inesperada_am=0.0),
         interpolation_method=interpolation_method,
     )
     revolvency_metrics = _build_revolvency_metrics(
@@ -1727,7 +1761,7 @@ def render_tab_modelo_fidc() -> None:
         st.altair_chart(_area_money_chart(_build_balance_area_frame(frame)), width="stretch")
     with chart_right:
         st.markdown(
-            '<div class="fidc-model-section-title">Evolução Subordinação x Inadimplência Acumulada</div>',
+            '<div class="fidc-model-section-title">Evolução Subordinação x Perda da Carteira</div>',
             unsafe_allow_html=True,
         )
         st.altair_chart(_area_percent_chart(_build_loss_area_frame(frame, premissas.volume)), width="stretch")
@@ -1755,9 +1789,19 @@ def render_tab_modelo_fidc() -> None:
                 "Observação": "O usuário informa percentual em base 100. Ex.: 0,35 significa 0,35% a.a.; custo mínimo é R$/mês.",
             },
             {
-                "Indicador": "Perda econômica por inadimplência",
-                "Fórmula": "carteira * (inadimplencia * delta_dc / 100)",
-                "Observação": "Inadimplência é informada como % da carteira total, mas a planilha distribui a perda pelo delta de dias corridos.",
+                "Indicador": "Perda esperada/provisionada",
+                "Fórmula": "carteira * perda_esperada_am * delta_dc / 30",
+                "Observação": "Representa a provisão recorrente mensal esperada sobre a carteira; não é NPL over 90.",
+            },
+            {
+                "Indicador": "Perda inesperada/stress",
+                "Fórmula": "carteira * perda_inesperada_am * delta_dc / 30",
+                "Observação": "Representa o choque adicional mensal que a estrutura deve absorver além da perda esperada.",
+            },
+            {
+                "Indicador": "Perda da carteira",
+                "Fórmula": "perda_esperada + perda_inesperada",
+                "Observação": "A perda total reduz o PL econômico do FIDC e testa a subordinação disponível.",
             },
             {
                 "Indicador": "Juros sênior/MEZZ",
@@ -1784,8 +1828,8 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Perda máxima suportada",
-                "Fórmula": "max(SUB final com inadimplência 0%, 0) / carteira total originada estimada",
-                "Observação": "Esta é uma simulação paralela sem inadimplência para medir quanto colchão econômico seria acumulado antes das perdas.",
+                "Fórmula": "max(SUB final com perdas 0%, 0) / carteira total originada estimada",
+                "Observação": "Esta é uma simulação paralela sem Perda Esperada nem Perda Inesperada para medir o colchão econômico antes das perdas.",
             },
             {
                 "Indicador": "Júnior residual / subordinação econômica",

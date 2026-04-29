@@ -169,6 +169,33 @@ class FidcModelParityTest(unittest.TestCase):
 
         self.assertAlmostEqual(100000.0, periods[0].pl_sub_jr)
 
+    def test_expected_and_unexpected_losses_drive_portfolio_loss(self):
+        monthly_dates = [datetime(2025, 1, 1), datetime(2025, 1, 31)]
+        premissas = Premissas(
+            volume=1_000_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.0,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=1.0,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            perda_esperada_am=0.01,
+            perda_inesperada_am=0.02,
+        )
+
+        periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
+
+        self.assertAlmostEqual(10_000.0, periods[1].perda_esperada_despesa)
+        self.assertAlmostEqual(20_000.0, periods[1].perda_inesperada_despesa)
+        self.assertAlmostEqual(30_000.0, periods[1].perda_carteira_despesa)
+        self.assertAlmostEqual(periods[1].perda_carteira_despesa, periods[1].inadimplencia_despesa)
+
     def test_workbook_principal_schedule_is_capped_for_longer_terms(self):
         monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(61)]
         premissas = Premissas(
