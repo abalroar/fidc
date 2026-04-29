@@ -42,20 +42,22 @@ def monthly_to_annual_252_rate(rate_am: float) -> float:
     return (1.0 + rate_am) ** (252.0 / 21.0) - 1.0
 
 
-def cession_discount_to_monthly_rate(discount_rate: float) -> float:
+def cession_discount_to_monthly_rate(discount_rate: float, term_months: float = 1.0) -> float:
     """Convert a cession discount over face value into the monthly yield used by the model."""
 
     if discount_rate >= 1.0:
         raise ValueError("Taxa de cessão deve ser menor que 100%.")
-    return (1.0 / (1.0 - discount_rate)) - 1.0
+    term = max(float(term_months), 0.01)
+    return (1.0 / (1.0 - discount_rate)) ** (1.0 / term) - 1.0
 
 
-def monthly_rate_to_cession_discount(rate_am: float) -> float:
+def monthly_rate_to_cession_discount(rate_am: float, term_months: float = 1.0) -> float:
     """Convert a monthly yield into the equivalent cession discount over face value."""
 
     if rate_am <= -1.0:
         raise ValueError("Taxa mensal deve ser maior que -100%.")
-    return rate_am / (1.0 + rate_am)
+    term = max(float(term_months), 0.01)
+    return 1.0 - (1.0 / (1.0 + rate_am) ** term)
 
 
 def _cession_floor_monthly_rate(senior_annual_rate: float, excess_spread_am: float) -> float:
@@ -70,6 +72,11 @@ def _class_annual_rate(base_rate: float, class_rate: float, mode: str) -> float:
     if mode == RATE_MODE_POST_CDI:
         return base_rate + class_rate
     raise ValueError(f"Tipo de taxa de cota inválido: {mode}")
+
+
+def _admin_cost_period_amount(pl_start: float, cost_aa: float, cost_min_monthly: float) -> float:
+    monthly_cost_rate = (1.0 + max(float(cost_aa), -0.999999)) ** (1.0 / 12.0) - 1.0
+    return max(max(float(pl_start), 0.0) * monthly_cost_rate, float(cost_min_monthly))
 
 
 def _months_between(start: datetime, current: datetime) -> int:
@@ -666,7 +673,7 @@ def build_flow(
         saldo_caixa_selic_inicio = caixa_selic_atual
         rendimento_caixa_selic = (saldo_caixa_selic_inicio + principal_para_caixa_selic) * taxa_selic_periodo
         fluxo_carteira = carteira * ((1.0 + tx_cessao_am_aplicada) ** (delta_du / 21.0) - 1.0)
-        custos_adm = max(carteira * premissas.custo_adm_aa / 12.0, premissas.custo_min)
+        custos_adm = _admin_cost_period_amount(pl_fidc_atual, premissas.custo_adm_aa, premissas.custo_min)
         credit = _credit_period(
             carteira=carteira,
             carteira_vencendo=principal_recebido_carteira,

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from math import floor, isfinite
+from math import isfinite
 from typing import Optional, Sequence
 
 from .contracts import PeriodResult
@@ -66,8 +66,25 @@ def lookup_pre_di_duration(periods: Sequence[PeriodResult], duration_years: Opti
     if duration_years is None:
         return None
 
-    target_month = floor(duration_years * 12.0)
-    for period in periods:
-        if period.indice == target_month:
-            return period.pre_di
+    target_du = duration_years * 252.0
+    curve_points = [
+        (float(period.du), float(period.pre_di))
+        for period in periods
+        if period.pre_di is not None
+    ]
+    if not curve_points:
+        return None
+    curve_points.sort(key=lambda item: item[0])
+    first_du, first_rate = curve_points[0]
+    if target_du <= first_du:
+        return first_rate
+    last_du, last_rate = curve_points[-1]
+    if target_du >= last_du:
+        return last_rate
+    for (left_du, left_rate), (right_du, right_rate) in zip(curve_points, curve_points[1:]):
+        if left_du <= target_du <= right_du:
+            if right_du == left_du:
+                return right_rate
+            weight = (target_du - left_du) / (right_du - left_du)
+            return left_rate + (right_rate - left_rate) * weight
     return None

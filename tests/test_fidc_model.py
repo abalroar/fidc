@@ -4,6 +4,7 @@ import json
 import unittest
 from datetime import datetime
 from pathlib import Path
+from types import SimpleNamespace
 
 from data_loader import load_model_inputs
 from services.fidc_model import (
@@ -24,7 +25,8 @@ from services.fidc_model import (
     monthly_to_annual_252_rate,
     monthly_rate_to_cession_discount,
 )
-from services.fidc_model.engine import _class_annual_rate
+from services.fidc_model.engine import _admin_cost_period_amount, _class_annual_rate
+from services.fidc_model.metrics import lookup_pre_di_duration
 
 
 FIXTURE_PATH = Path(__file__).resolve().parent / "fixtures" / "modelo_publico_fixture.json"
@@ -130,11 +132,32 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertAlmostEqual((100.0 / 95.0) - 1.0, monthly_rate, delta=1e-12)
         self.assertAlmostEqual(discount_rate, monthly_rate_to_cession_discount(monthly_rate), delta=1e-12)
 
+    def test_cession_discount_uses_receivable_average_term_when_provided(self):
+        discount_rate = 0.05
+        monthly_rate = cession_discount_to_monthly_rate(discount_rate, term_months=6.0)
+
+        self.assertAlmostEqual(((100.0 / 95.0) ** (1.0 / 6.0)) - 1.0, monthly_rate, delta=1e-12)
+        self.assertAlmostEqual(discount_rate, monthly_rate_to_cession_discount(monthly_rate, term_months=6.0), delta=1e-12)
+
+    def test_admin_cost_uses_compounded_monthly_rate_over_starting_pl(self):
+        expected = 100_000_000.0 * ((1.0 + 0.0035) ** (1.0 / 12.0) - 1.0)
+
+        self.assertAlmostEqual(expected, _admin_cost_period_amount(100_000_000.0, 0.0035, 20_000.0))
+        self.assertEqual(20_000.0, _admin_cost_period_amount(1_000_000.0, 0.0035, 20_000.0))
+
     def test_post_fixed_quota_rate_uses_additive_cdi_spread_convention(self):
         self.assertAlmostEqual(0.1625, _class_annual_rate(0.1490, 0.0135, RATE_MODE_POST_CDI), delta=1e-12)
 
     def test_prefixed_quota_rate_helper_uses_informed_annual_rate(self):
         self.assertAlmostEqual(0.12, _class_annual_rate(0.1490, 0.12, RATE_MODE_PRE), delta=1e-12)
+
+    def test_pre_di_duration_is_interpolated_by_target_du(self):
+        periods = [
+            SimpleNamespace(du=126, pre_di=0.12),
+            SimpleNamespace(du=252, pre_di=0.14),
+        ]
+
+        self.assertAlmostEqual(0.13, lookup_pre_di_duration(periods, 0.75))
 
     def test_prefixed_quota_rate_uses_informed_annual_rate(self):
         premissas = _build_default_premissas()

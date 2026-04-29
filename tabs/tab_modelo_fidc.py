@@ -1184,18 +1184,18 @@ def _build_workbook_mechanics_markdown(
             "- `DU` é a quantidade de dias úteis desde a data inicial, descontando fins de semana e feriados.",
             f"- Calendário usado nesta simulação: `{selected_calendar.source_label}`.",
             f"- Curva usada nesta simulação: `{selected_curve.source_label}`, data-base `{selected_curve.base_date:%d/%m/%Y}`, interpolação `{interpolation_label}`.",
-            "- Bases temporais atuais por componente: carteira em `delta_DU / 21`, cotas em `delta_DU / 252`, custos em mensalização simples, crédito pelo período mensal da simulação e SELIC projetada em `21 DU` médios por mês.",
-            "- A uniformização dessas bases temporais está no backlog de Fase 2; a aba mantém a regra atual para preservar rastreabilidade dos resultados já observados.",
+            "- Bases temporais atuais por componente: carteira em `delta_DU / 21`, cotas em `delta_DU / 252`, custos em taxa mensal composta, crédito pelo período mensal da simulação e SELIC projetada em `21 DU` médios por mês.",
+            "- A carteira ainda usa 21 dias úteis médios como mês financeiro; cotas e curva DI usam DU efetivos em base 252.",
             "",
             "### 2. Taxa da carteira",
             "",
             "- O usuário pode informar a taxa de duas formas:",
-            "- `Taxa de Cessão`: deságio sobre o valor futuro. Ex.: comprar R$ 100 por R$ 95 significa taxa de cessão de `5,00%`.",
+            "- `Taxa de Cessão`: deságio sobre o valor futuro no prazo médio dos recebíveis. Ex.: comprar R$ 100 por R$ 95 significa taxa de cessão de `5,00%` no prazo do recebível.",
             "- `Taxa Mensal (%)`: taxa efetiva cobrada ao mês, que é a base usada diretamente pelo motor.",
             "",
             "```text",
-            "taxa_mensal = 1 / (1 - taxa_cessao) - 1",
-            "taxa_cessao = taxa_mensal / (1 + taxa_mensal)",
+            "taxa_mensal = (1 / (1 - taxa_cessao)) ^ (1 / prazo_medio_recebiveis_meses) - 1",
+            "taxa_cessao = 1 - 1 / ((1 + taxa_mensal) ^ prazo_medio_recebiveis_meses)",
             "```",
             "",
             "- A carteira gera retorno econômico por composição da taxa mensal aplicada no período:",
@@ -1221,10 +1221,10 @@ def _build_workbook_mechanics_markdown(
             "",
             "### 3. Custos de administração e gestão",
             "",
-            "- O custo percentual é anual, mas o motor calcula uma parcela mensal com piso mínimo:",
+            "- O custo percentual é anual, mas o motor calcula uma parcela mensal composta sobre o PL econômico do início do período, com piso mínimo:",
             "",
             "```text",
-            "custos_adm = max(carteira * custo_adm_aa / 12, custo_minimo_mensal)",
+            "custos_adm = max(PL_inicio * ((1 + custo_adm_aa) ^ (1/12) - 1), custo_minimo_mensal)",
             "```",
             "",
             "- Exemplo: `0,35` na interface significa `0,35% a.a.`; internamente vira `0,0035`.",
@@ -1410,7 +1410,7 @@ def _build_workbook_mechanics_markdown(
             "- Retorno anualizado MEZZ: XIRR dos PMTs MEZZ contra a data de cada fluxo.",
             "- Retorno anualizado SUB: fica `N/D` quando a SUB não tem série de caixa válida.",
             "- Duration SEN: média ponderada dos pagamentos SEN descontados, usando `DU / 252`.",
-            "- Pre DI na duration: taxa da curva no ponto correspondente ao duration arredondado para baixo em meses.",
+            "- Pre DI na duration: taxa interpolada entre os pontos simulados da curva no DU equivalente à duration da SEN.",
             "- SUB inicial: volume inicial multiplicado pela proporção subordinada.",
             "",
             "### 12. Como interpretar os gráficos",
@@ -1428,10 +1428,8 @@ def _build_workbook_mechanics_markdown(
             "- A migração de crédito é agregada por buckets; ainda não há upload de MOB por safra nem capitalização de juros em atraso.",
             "- Ainda não há amortização customizada por classe via interface avançada.",
             "- Ainda não há fluxo programado para SUB; ela permanece residual nesta versão.",
-            "- Backlog Fase 2: custo de administração deve migrar para `PL início * ((1 + custo_aa) ^ (1/12) - 1)`, mantendo o piso mínimo mensal. Esse ajuste tende a aumentar custo, reduzir SUB final e reduzir perda calibrada.",
-            "- Backlog Fase 2: Taxa de Cessão deve considerar o prazo médio do recebível na equivalência para taxa mensal.",
-            "- Backlog Fase 2: bases temporais de carteira, perda, custo, SELIC e cotas devem ser uniformizadas com dias úteis efetivos quando aplicável.",
-            "- Backlog Fase 2: Pre DI na duration deve usar interpolação mais precisa em vez de ponto arredondado para baixo.",
+            "- Backlog Fase 2 remanescente: a carteira ainda usa `delta_DU / 21`; uma versão futura pode converter a taxa mensal para taxa anual equivalente e aplicar `delta_DU / 252` explicitamente, sem mudar a interpretação econômica.",
+            "- Backlog Fase 2 remanescente: perda e provisão continuam em lógica mensal agregada; uma versão futura pode desdobrar por DU efetivo ou por safra.",
             "- Backlog Fase 3: SELIC projetada deve sair de input manual para fonte/curva de mercado auditável.",
         ]
     )
@@ -1443,7 +1441,7 @@ def _build_step_by_step_markdown() -> str:
             "Este modelo simula uma carteira de FIDC e mostra como juros, custos, perdas de crédito, estrutura de cotas e revolvência afetam o colchão de proteção.",
             "",
             "- Volume da carteira é o valor em reais dos recebíveis comprados pelo fundo no início da simulação.",
-            "- Taxa de Cessão é o deságio sobre o valor futuro do recebível; Taxa Mensal é a taxa efetiva usada pelo motor. A aba mostra a equivalência mensal e anual em base 252.",
+            "- Taxa de Cessão é o deságio até o valor futuro no prazo médio do recebível; Taxa Mensal é a taxa efetiva usada pelo motor. A aba mostra a equivalência mensal e anual em base 252.",
             "- Prazo total do FIDC define até qual mês a simulação vai quando o cronograma mensal está selecionado.",
             "- Prazo médio dos recebíveis define o giro e o ponto de parada da revolvência: se o novo recebível não cabe no prazo restante do FIDC, o modelo para de originar.",
             "- Cotas sênior têm prioridade de pagamento; MEZZ fica no meio; subordinada/SUB absorve perdas primeiro e recebe o residual econômico.",
@@ -2039,7 +2037,10 @@ def render_tab_modelo_fidc() -> None:
         return
 
     default_tx_cessao_am = DEFAULT_TX_CESSAO_AM
-    default_tx_cessao_desagio = monthly_rate_to_cession_discount(default_tx_cessao_am)
+    default_tx_cessao_desagio = monthly_rate_to_cession_discount(
+        default_tx_cessao_am,
+        DEFAULT_PRAZO_RECEBIVEIS_MESES,
+    )
     default_senior_pct = DEFAULT_PROP_SENIOR * 100.0
     default_mezz_pct = DEFAULT_PROP_MEZZ * 100.0
     default_sub_pct = DEFAULT_PROP_SUB * 100.0
@@ -2060,7 +2061,7 @@ def render_tab_modelo_fidc() -> None:
                 [CESSION_INPUT_DISCOUNT, CESSION_INPUT_MONTHLY],
                 index=1,
                 horizontal=True,
-                help="Escolha se quer informar o deságio sobre o valor futuro ou a taxa mensal efetiva usada no motor.",
+                help="Escolha se quer informar o deságio até o valor futuro ou a taxa mensal efetiva usada no motor.",
             )
             if taxa_cessao_input_mode == CESSION_INPUT_DISCOUNT:
                 tx_cessao_desagio_text = _text_percent_input(
@@ -2068,7 +2069,7 @@ def render_tab_modelo_fidc() -> None:
                     default=default_tx_cessao_desagio * 100.0,
                     key="modelo_tx_cessao_desagio",
                     decimals=2,
-                    help_text="Informe o deságio sobre o valor futuro; comprar R$ 100 por R$ 95 equivale a 5,00%.",
+                    help_text="Informe o deságio até o valor futuro; a taxa mensal equivalente usa o prazo médio dos recebíveis.",
                 )
                 tx_cessao_mensal_text = ""
             else:
@@ -2096,7 +2097,7 @@ def render_tab_modelo_fidc() -> None:
                     default=DEFAULT_CUSTO_MIN_MENSAL,
                     key="modelo_custo_min",
                     decimals=2,
-                    help_text="Piso mensal aplicado pela fórmula max(carteira * custo % a.a. / 12, custo mínimo).",
+                    help_text="Piso mensal aplicado após calcular o custo composto sobre o PL econômico do início do período.",
                 )
             st.markdown("##### Crédito e provisão")
             credit_model_label = st.selectbox(
@@ -2464,12 +2465,17 @@ def render_tab_modelo_fidc() -> None:
 
     try:
         volume = _parse_br_number(volume_text, field_name="Volume da carteira (R$)")
+        prazo_fidc_anos = _parse_br_number(prazo_fidc_text, field_name="Prazo total do FIDC (anos)")
+        prazo_medio_recebiveis_meses = _parse_br_number(
+            prazo_recebiveis_text,
+            field_name="Prazo médio dos recebíveis (meses)",
+        )
         if taxa_cessao_input_mode == CESSION_INPUT_DISCOUNT:
             tx_cessao_desagio = _parse_br_number(tx_cessao_desagio_text, field_name="Taxa de Cessão (%)") / 100.0
-            tx_cessao_am = cession_discount_to_monthly_rate(tx_cessao_desagio)
+            tx_cessao_am = cession_discount_to_monthly_rate(tx_cessao_desagio, prazo_medio_recebiveis_meses)
         else:
             tx_cessao_am = _parse_br_number(tx_cessao_mensal_text, field_name="Taxa Mensal (%)") / 100.0
-            tx_cessao_desagio = monthly_rate_to_cession_discount(tx_cessao_am)
+            tx_cessao_desagio = monthly_rate_to_cession_discount(tx_cessao_am, prazo_medio_recebiveis_meses)
         tx_cessao_aa_equivalente = monthly_to_annual_252_rate(tx_cessao_am)
         custo_adm_aa = _parse_br_number(custo_adm_text, field_name="Custo de administração e gestão (% a.a.)") / 100.0
         custo_min = _parse_br_number(custo_min_text, field_name="Custo mínimo de administração e gestão (R$/mês)")
@@ -2530,11 +2536,6 @@ def render_tab_modelo_fidc() -> None:
         taxa_senior = _parse_br_number(senior_rate_text, field_name=senior_rate_label) / 100.0
         taxa_mezz = _parse_br_number(mezz_rate_text, field_name=mezz_rate_label) / 100.0
         taxa_sub = _parse_br_number(sub_rate_text, field_name="Taxa-alvo cota SUB (% a.a.)") / 100.0
-        prazo_fidc_anos = _parse_br_number(prazo_fidc_text, field_name="Prazo total do FIDC (anos)")
-        prazo_medio_recebiveis_meses = _parse_br_number(
-            prazo_recebiveis_text,
-            field_name="Prazo médio dos recebíveis (meses)",
-        )
         selic_aa_por_ano = tuple(
             (year, _parse_br_number(text, field_name=f"SELIC média {year} (% a.a.)") / 100.0)
             for year, text in sorted(selic_text_by_year.items())
@@ -2649,7 +2650,8 @@ def render_tab_modelo_fidc() -> None:
 
     st.caption(
         "Equivalência da taxa da carteira: "
-        f"Taxa de Cessão {_format_percent(tx_cessao_desagio)} | "
+        f"Taxa de Cessão {_format_percent(tx_cessao_desagio)} no prazo médio de "
+        f"{_format_number_br(prazo_medio_recebiveis_meses, 1)} meses | "
         f"Taxa Mensal {_format_percent(tx_cessao_am)} | "
         f"Taxa anual base 252 {_format_percent(tx_cessao_aa_equivalente)}."
     )
@@ -2847,8 +2849,8 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "De-para da Taxa de Cessão",
-                "Fórmula": "tx_cessao_am = 1 / (1 - taxa_cessao) - 1",
-                "Observação": "Ex.: comprar R$ 100 de valor futuro por R$ 95 implica taxa de cessão de 5,00% e taxa mensal de 5,26%.",
+                "Fórmula": "tx_cessao_am = (1 / (1 - taxa_cessao)) ^ (1 / prazo_medio_recebiveis_meses) - 1",
+                "Observação": "Ex.: comprar R$ 100 de valor futuro por R$ 95 implica taxa de cessão de 5,00% no prazo médio, não necessariamente em um mês.",
             },
             {
                 "Indicador": "Conversão anual base 252",
@@ -2867,7 +2869,7 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Custo adm/gestão",
-                "Fórmula": "max(carteira * custo_adm_aa / 12, custo_min)",
+                "Fórmula": "max(PL_inicio * ((1 + custo_adm_aa) ^ (1/12) - 1), custo_min)",
                 "Observação": "O usuário informa percentual em base 100. Ex.: 0,35 significa 0,35% a.a.; custo mínimo é R$/mês.",
             },
             {
