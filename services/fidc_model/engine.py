@@ -33,6 +33,22 @@ def monthly_to_annual_252_rate(rate_am: float) -> float:
     return (1.0 + rate_am) ** (252.0 / 21.0) - 1.0
 
 
+def cession_discount_to_monthly_rate(discount_rate: float) -> float:
+    """Convert a cession discount over face value into the monthly yield used by the model."""
+
+    if discount_rate >= 1.0:
+        raise ValueError("Taxa de cessão deve ser menor que 100%.")
+    return (1.0 / (1.0 - discount_rate)) - 1.0
+
+
+def monthly_rate_to_cession_discount(rate_am: float) -> float:
+    """Convert a monthly yield into the equivalent cession discount over face value."""
+
+    if rate_am <= -1.0:
+        raise ValueError("Taxa mensal deve ser maior que -100%.")
+    return rate_am / (1.0 + rate_am)
+
+
 def _class_annual_rate(base_rate: float, class_rate: float, mode: str) -> float:
     if mode == RATE_MODE_PRE:
         return class_rate

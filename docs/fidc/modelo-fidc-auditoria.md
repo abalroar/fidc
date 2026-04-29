@@ -42,12 +42,12 @@ Fórmulas centrais observadas:
 | Custo adm/gestão | `T = max(carteira * C11 / 12, C12)` |
 | Inadimplência | `U = carteira * (C13 * delta_DC / 100)` |
 | Taxa SEN pós | `J = (1 + PreDI) * (1 + C16) - 1` |
-| Taxa MES pós | `L = (1 + PreDI) * (1 + C20) - 1` |
-| FRA SEN/MES | composição entre taxas anuais em base 252 DU |
-| Saldo FIDC | `R = carteira + fluxo - custos - inadimplência - PMT SEN - PMT MES` |
-| SUB residual corrente | `R - PL SEN - PL MES` |
+| Taxa MEZZ pós | `L = (1 + PreDI) * (1 + C20) - 1` |
+| FRA SEN/MEZZ | composição entre taxas anuais em base 252 DU |
+| Saldo FIDC | `R = carteira + fluxo - custos - inadimplência - PMT SEN - PMT MEZZ` |
+| SUB residual corrente | `R - PL SEN - PL MEZZ` |
 | SUB no workbook | a partir da segunda linha calculada, `AO` passa a referenciar o residual da linha seguinte |
-| XIRR SEN/MES | `XIRR(PMT, datas)` |
+| XIRR SEN/MEZZ | `XIRR(PMT, datas)` |
 | XIRR SUB | `XIRR(AN, datas)`, mas `AN = 0`; usualmente resulta `#NUM!` |
 | Duration SEN | média ponderada dos PMTs SEN descontados por DU/252 |
 | Pre DI na duration | `VLOOKUP(ROUNDDOWN(duration * 12, 0), E:I, 5, FALSE)` |
@@ -62,8 +62,8 @@ Usando as premissas atualmente salvas na planilha local (`C6 = 4,00% a.m.`, volu
 | Fluxo carteira | `0,00000004` |
 | Inadimplência | `0,000000` |
 | PMT SEN | `0,00000013` |
-| PMT MES | `0,00000001` |
-| PL SEN/MES | `0,000000` |
+| PMT MEZZ | `0,00000001` |
+| PL SEN/MEZZ | `0,000000` |
 | SUB deslocada do workbook | `0,000001` |
 | Subordinação deslocada do workbook | `0,000000` |
 
@@ -71,14 +71,14 @@ Conclusão: a divergência observada no cenário informado não vem de uma falha
 
 ## Cenário informado pelo usuário
 
-Premissas: volume `R$ 1.000.000.000,00`, taxa de cessão `1,00% a.m.`, custo `0,35% a.a.`, custo mínimo `R$ 20.000,00/mês`, inadimplência `10,00%`, SEN `75,0%`, MES `15,0%`, SUB `10,0%`, spread SEN `1,35% a.a.`, spread MES `5,00% a.a.`, SUB residual.
+Premissas: volume `R$ 1.000.000.000,00`, taxa de cessão `1,00% a.m.`, custo `0,35% a.a.`, custo mínimo `R$ 20.000,00/mês`, inadimplência `10,00%`, SEN `75,0%`, MEZZ `15,0%`, SUB `10,0%`, spread SEN `1,35% a.a.`, spread MEZZ `5,00% a.a.`, SUB residual.
 
-| Configuração | Retorno SEN | Retorno MES | Duration SEN | Pre DI duration |
+| Configuração | Retorno SEN | Retorno MEZZ | Duration SEN | Pre DI duration |
 |---|---:|---:|---:|---:|
 | Fórmula Excel-equivalente com curva local/model_data, spline e feriados do snapshot | `15,81%` | `19,96%` | `2,56 anos` | `14,35%` |
 | Configuração padrão do app em 28/04/2026: B3 latest, Flat Forward 252 e calendário B3 oficial/projetado | `14,90%` | `18,97%` | `2,56 anos` | `13,60%` |
 
-Esses números reproduzem os KPIs observados no Streamlit. A diferença de retorno SEN/MES e Pre DI vem da curva/metodologia/calendário selecionados, não da taxa de cessão ou inadimplência. No modelo atual, os pagamentos SEN/MES são programados e não são limitados por caixa disponível.
+Esses números reproduzem os KPIs observados no Streamlit. A diferença de retorno SEN/MEZZ e Pre DI vem da curva/metodologia/calendário selecionados, não da taxa de cessão ou inadimplência. No modelo atual, os pagamentos SEN/MEZZ são programados e não são limitados por caixa disponível.
 
 ## Divergências e causas
 
@@ -88,8 +88,8 @@ Esses números reproduzem os KPIs observados no Streamlit. A diferença de retor
 | Interpolação | Flat Forward 252 | Spline da planilha | Metodologia diferente por decisão de modelo | Correto manter Flat Forward 252 para B3, mas identificar claramente quando a comparação é com Excel |
 | Calendário de DU | B3 oficial 2025-2026 + projeção 2027-2028 | `Holidays` da planilha, terminando em 2018 | Feriados futuros não existem no snapshot da planilha | Manter calendário B3/projeção explícita; usar snapshot só para auditoria |
 | Inadimplência | Perda de `18,40%` no primeiro semestre para input `10,00%` | Mesma fórmula | A fórmula é `inadimplência * delta_DC / 100`, não uma perda total de vida | Renomear/explicar melhor ou criar novo modo de inadimplência total do período de vida |
-| PMT SEN/MES | Pago mesmo com PL/carteira negativa | Mesma fórmula | Não há trava de caixa nem waterfall de insuficiência | Implementar waterfall real em etapa estrutural posterior |
-| XIRR SEN/MES | Independe da inadimplência enquanto PMTs programados existem | Mesma fórmula | PMTs não são afetados por default/cash shortfall | Só mudará com waterfall de caixa |
+| PMT SEN/MEZZ | Pago mesmo com PL/carteira negativa | Mesma fórmula | Não há trava de caixa nem waterfall de insuficiência | Implementar waterfall real em etapa estrutural posterior |
+| XIRR SEN/MEZZ | Independe da inadimplência enquanto PMTs programados existem | Mesma fórmula | PMTs não são afetados por default/cash shortfall | Só mudará com waterfall de caixa |
 | XIRR SUB | `N/D` | `#NUM!` | A SUB tem `PMT = 0` na planilha; não há série com sinais válidos | Correto mostrar `N/D`, mas explicar que SUB residual não tem fluxo programado |
 | SUB no gráfico de saldos | Área negativa próxima de `-R$ 700MM` | Residual pode ficar negativo | O residual está representando déficit econômico, não saldo de investidor | Separar SUB disponível de déficit econômico |
 | Subordinação | Chega a cerca de `-8.000%` | A coluna deslocada do workbook também explode quando dividida por PL próximo de zero | Denominador próximo de zero e uso de residual deslocado `pl_sub_jr_modelo` | Gráfico deve usar SUB corrente positiva sobre PL positivo; manter coluna deslocada só na timeline |
@@ -110,7 +110,7 @@ Correção aplicada:
 ## Simplificações que permanecem
 
 - O modelo ainda não implementa waterfall real com insuficiência de caixa.
-- A amortização SEN/MES segue o cronograma já existente em `model_data.json`/planilha; não há input avançado para frequência, carência e amortização customizada.
+- A amortização SEN/MEZZ segue o cronograma já existente em `model_data.json`/planilha; não há input avançado para frequência, carência e amortização customizada.
 - A SUB continua residual e sem fluxo programado; por isso não há retorno anualizado SUB.
 - A inadimplência continua usando a fórmula histórica da planilha, que não equivale necessariamente a “10% da carteira total ao longo da vida”.
 - A métrica de “perda máxima” ainda precisa de uma definição estrutural mais precisa quando houver waterfall.
@@ -119,11 +119,11 @@ Correção aplicada:
 
 Adicionar uma seção avançada com:
 
-- frequência de amortização SEN/MES;
-- início de amortização SEN/MES;
+- frequência de amortização SEN/MEZZ;
+- início de amortização SEN/MEZZ;
 - tipo de amortização: linear, bullet ou customizada;
-- carência de juros SEN/MES;
-- início do pagamento de juros SEN/MES;
+- carência de juros SEN/MEZZ;
+- início do pagamento de juros SEN/MEZZ;
 - trava de caixa disponível;
 - prioridade de waterfall;
 - regra de residual da SUB;
@@ -136,9 +136,9 @@ A aba passou a incluir premissas avançadas para:
 - prazo total do FIDC;
 - prazo médio dos recebíveis;
 - modo de originação: carteira revolvente ou carteira estática;
-- prazo das cotas SEN, MES e SUB;
-- amortização de principal SEN/MES: compatível com a planilha, linear após carência, bullet ou sem amortização programada;
-- pagamento de juros SEN/MES: em todo período, após carência ou bullet no vencimento.
+- prazo das cotas SEN, MEZZ e SUB;
+- amortização de principal SEN/MEZZ: compatível com a planilha, linear após carência, bullet ou sem amortização programada;
+- pagamento de juros SEN/MEZZ: em todo período, após carência ou bullet no vencimento.
 
 A principal métrica adicionada é a perda máxima suportada sobre a carteira originada:
 

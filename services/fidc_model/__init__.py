@@ -13,7 +13,9 @@ from .engine import (
     annual_252_to_monthly_rate,
     build_flow,
     build_kpis,
+    cession_discount_to_monthly_rate,
     monthly_to_annual_252_rate,
+    monthly_rate_to_cession_discount,
 )
 
 __all__ = [
@@ -34,5 +36,7 @@ __all__ = [
     "annual_252_to_monthly_rate",
     "build_flow",
     "build_kpis",
+    "cession_discount_to_monthly_rate",
     "monthly_to_annual_252_rate",
+    "monthly_rate_to_cession_discount",
 ]

@@ -20,6 +20,11 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertEqual(1_234_567.89, tab_modelo_fidc._parse_br_number("R$ 1.234.567,89", field_name="x"))
         self.assertEqual(15.22, tab_modelo_fidc._parse_br_number("15,22%", field_name="x"))
 
+    def test_raw_inputs_are_formatted_after_submit_callback(self) -> None:
+        self.assertEqual("4,00%", tab_modelo_fidc._format_raw_input_text("4", decimals=2, kind="percent"))
+        self.assertEqual("R$ 4,00", tab_modelo_fidc._format_raw_input_text("4", decimals=2, kind="brl"))
+        self.assertEqual("30", tab_modelo_fidc._format_raw_input_text("30", decimals=0, kind="number"))
+
     def test_workbook_mechanics_expander_explains_cash_lock_and_sheet_formulas(self) -> None:
         selected_curve = tab_modelo_fidc._SelectedCurve(
             source_label=tab_modelo_fidc.CURVE_SOURCE_B3_LATEST,
@@ -48,13 +53,13 @@ class TabModeloFidcTests(unittest.TestCase):
             selected_curve=selected_curve,
             selected_calendar=selected_calendar,
             interpolation_label=tab_modelo_fidc.INTERPOLATION_LABEL_B3,
-            taxa_cessao_base="% a.m.",
+            taxa_cessao_input_mode=tab_modelo_fidc.CESSION_INPUT_MONTHLY,
         )
 
         self.assertIn("trava de caixa está desligada", markdown)
         self.assertIn("inadimplencia_periodo = carteira * (inadimplencia * delta_DC / 100)", markdown)
         self.assertIn("PMT SEN = juros SEN + principal SEN programado", markdown)
-        self.assertIn("SUB residual = PL FIDC - PL SEN - PL MES", markdown)
+        self.assertIn("SUB residual = PL FIDC - PL SEN - PL MEZZ", markdown)
 
     def test_revolvency_metrics_compare_sub_final_to_originated_portfolio(self) -> None:
         class Result:

@@ -23,10 +23,11 @@ from services.fidc_model import (
     RATE_MODE_POST_CDI,
     RATE_MODE_PRE,
     Premissas,
-    annual_252_to_monthly_rate,
     build_flow,
     build_kpis,
+    cession_discount_to_monthly_rate,
     monthly_to_annual_252_rate,
+    monthly_rate_to_cession_discount,
 )
 from services.fidc_model.b3_curves import (
     B3CurveError,
@@ -48,15 +49,20 @@ SNAPSHOT_CURVE_DATE = date(2025, 2, 25)
 CURVE_SOURCE_B3_LATEST = "B3 - último pregão disponível"
 CURVE_SOURCE_B3_DATE = "B3 - data escolhida"
 CURVE_SOURCE_SNAPSHOT = "Snapshot local da planilha"
+CURVE_SOURCE_OPTIONS = [CURVE_SOURCE_B3_LATEST, CURVE_SOURCE_B3_DATE, CURVE_SOURCE_SNAPSHOT]
 INTERPOLATION_LABEL_B3 = "Flat Forward 252 (metodologia B3)"
 INTERPOLATION_LABEL_SPLINE = "Spline (compatibilidade com a planilha)"
+INTERPOLATION_OPTIONS = [INTERPOLATION_LABEL_B3, INTERPOLATION_LABEL_SPLINE]
 CALENDAR_SOURCE_B3_OFFICIAL = "B3 oficial + projeção explícita"
 CALENDAR_SOURCE_B3_PROJECTED = "Calendário B3 projetado"
 CALENDAR_SOURCE_SNAPSHOT = "Feriados do snapshot da planilha"
+CALENDAR_SOURCE_OPTIONS = [CALENDAR_SOURCE_B3_OFFICIAL, CALENDAR_SOURCE_B3_PROJECTED, CALENDAR_SOURCE_SNAPSHOT]
 DATE_SCHEDULE_WORKBOOK = "Compatível com a planilha"
 DATE_SCHEDULE_MONTHLY = "Mensal pelo prazo informado"
 PORTFOLIO_MODE_REVOLVING = "Revolvente"
 PORTFOLIO_MODE_STATIC = "Carteira estática"
+CESSION_INPUT_DISCOUNT = "Taxa de Cessão"
+CESSION_INPUT_MONTHLY = "Taxa Mensal (%)"
 AMORTIZATION_LABELS = {
     "Compatível com a planilha": AMORTIZATION_MODE_WORKBOOK,
     "Linear após carência": AMORTIZATION_MODE_LINEAR,
@@ -368,6 +374,50 @@ def _parse_br_number(value: str, *, field_name: str) -> float:
         raise ValueError(f"Valor inválido em {field_name}: {value}") from exc
 
 
+def _format_raw_input_text(value: str, *, decimals: int, kind: str) -> str:
+    parsed = _parse_br_number(value, field_name="valor")
+    if kind == "brl":
+        return _format_brl_input_value(parsed, decimals)
+    if kind == "percent":
+        return _format_percent_input_value(parsed, decimals)
+    if kind == "number":
+        return _format_input_value(parsed, decimals)
+    raise ValueError(f"Tipo de input inválido: {kind}")
+
+
+_INPUT_NORMALIZATION_SPECS = {
+    "modelo_volume": (2, "brl"),
+    "modelo_tx_cessao_desagio": (2, "percent"),
+    "modelo_tx_cessao_mensal": (2, "percent"),
+    "modelo_custo_adm_pct": (2, "percent"),
+    "modelo_custo_min": (2, "brl"),
+    "modelo_inadimplencia_pct": (2, "percent"),
+    "modelo_prop_senior": (1, "percent"),
+    "modelo_prop_mezz": (1, "percent"),
+    "modelo_prop_sub": (1, "percent"),
+    "modelo_taxa_senior": (2, "percent"),
+    "modelo_taxa_mezz": (2, "percent"),
+    "modelo_taxa_sub": (2, "percent"),
+    "modelo_prazo_fidc_anos": (1, "number"),
+    "modelo_prazo_recebiveis_meses": (1, "number"),
+    "modelo_prazo_senior_anos": (1, "number"),
+    "modelo_prazo_mezz_anos": (1, "number"),
+    "modelo_prazo_sub_anos": (1, "number"),
+    "modelo_inicio_amort_senior": (0, "number"),
+    "modelo_inicio_amort_mezz": (0, "number"),
+}
+
+
+def _normalize_model_input_values() -> None:
+    for key, (decimals, kind) in _INPUT_NORMALIZATION_SPECS.items():
+        if key not in st.session_state:
+            continue
+        try:
+            st.session_state[key] = _format_raw_input_text(st.session_state[key], decimals=decimals, kind=kind)
+        except ValueError:
+            continue
+
+
 def _add_months(dt: datetime, months: int) -> datetime:
     month_index = dt.month - 1 + months
     year = dt.year + month_index // 12
@@ -397,6 +447,24 @@ def _label_for_value(mapping: dict[str, str], value: str) -> str:
         if mapped_value == value:
             return label
     return next(iter(mapping))
+
+
+def _ensure_session_option(key: str, options: list[str], default_index: int = 0) -> str:
+    value = st.session_state.get(key)
+    if value not in options:
+        value = options[default_index]
+        st.session_state[key] = value
+    return value
+
+
+def _ensure_session_date(key: str, default_value: date) -> date:
+    value = st.session_state.get(key)
+    if isinstance(value, datetime):
+        value = value.date()
+    if not isinstance(value, date):
+        value = default_value
+        st.session_state[key] = value
+    return value
 
 
 def _build_revolvency_metrics(
@@ -479,8 +547,8 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "pre_di": "Pre DI",
             "taxa_senior": "Taxa sênior",
             "fra_senior": "FRA sênior",
-            "taxa_mezz": "Taxa mezz",
-            "fra_mezz": "FRA mezz",
+            "taxa_mezz": "Taxa MEZZ",
+            "fra_mezz": "FRA MEZZ",
             "carteira": "Carteira de recebíveis (saldo econômico)",
             "fluxo_carteira": "Fluxo econômico da carteira",
             "pl_fidc": "PL econômico do veículo",
@@ -492,11 +560,11 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "vp_pmt_senior": "VP PMT sênior",
             "pl_senior": "PL sênior",
             "fluxo_remanescente": "Fluxo remanescente após sênior",
-            "principal_mezz": "Principal mezz",
-            "juros_mezz": "Juros mezz",
-            "pmt_mezz": "PMT mezz",
-            "pl_mezz": "PL mezz",
-            "fluxo_remanescente_mezz": "Fluxo remanescente após mezz",
+            "principal_mezz": "Principal MEZZ",
+            "juros_mezz": "Juros MEZZ",
+            "pmt_mezz": "PMT MEZZ",
+            "pl_mezz": "PL MEZZ",
+            "fluxo_remanescente_mezz": "Fluxo remanescente após MEZZ",
             "principal_sub_jr": "Principal subordinada",
             "juros_sub_jr": "Juros subordinada",
             "pmt_sub_jr": "PMT subordinada",
@@ -542,9 +610,9 @@ def _build_kpi_export_dataframe(kpis) -> pd.DataFrame:
                 "Definicao": "Taxa interna anual de retorno dos pagamentos projetados da classe sênior.",
             },
             {
-                "Indicador": "Retorno anualizado da classe mezz (econômico)",
+                "Indicador": "Retorno anualizado da classe MEZZ (econômico)",
                 "Valor": kpis.xirr_mezz,
-                "Definicao": "Taxa interna anual de retorno dos pagamentos projetados da classe mezzanino.",
+                "Definicao": "Taxa interna anual de retorno dos pagamentos projetados da classe MEZZ.",
             },
             {
                 "Indicador": "Retorno anualizado da júnior residual (econômico)",
@@ -631,7 +699,7 @@ def _build_workbook_mechanics_markdown(
     selected_curve: _SelectedCurve,
     selected_calendar: _SelectedCalendar,
     interpolation_label: str,
-    taxa_cessao_base: str,
+    taxa_cessao_input_mode: str,
 ) -> str:
     return "\n".join(
         [
@@ -645,7 +713,16 @@ def _build_workbook_mechanics_markdown(
             f"- Calendário usado nesta simulação: `{selected_calendar.source_label}`.",
             f"- Curva usada nesta simulação: `{selected_curve.source_label}`, data-base `{selected_curve.base_date:%d/%m/%Y}`, interpolação `{interpolation_label}`.",
             "",
-            "### 2. Taxa de cessão da carteira",
+            "### 2. Taxa da carteira",
+            "",
+            "- O usuário pode informar a taxa de duas formas:",
+            "- `Taxa de Cessão`: deságio sobre o valor futuro. Ex.: comprar R$ 100 por R$ 95 significa taxa de cessão de `5,00%`.",
+            "- `Taxa Mensal (%)`: taxa efetiva cobrada ao mês, que é a base usada diretamente pelo motor.",
+            "",
+            "```text",
+            "taxa_mensal = 1 / (1 - taxa_cessao) - 1",
+            "taxa_cessao = taxa_mensal / (1 + taxa_mensal)",
+            "```",
             "",
             "- A carteira gera retorno econômico pela fórmula da planilha:",
             "",
@@ -653,11 +730,11 @@ def _build_workbook_mechanics_markdown(
             "fluxo_carteira = carteira * ((1 + taxa_cessao_am) ^ (delta_DU / 21) - 1)",
             "```",
             "",
-            f"- Base informada pelo usuário nesta simulação: `{taxa_cessao_base}`.",
-            "- Se a taxa for informada ao ano em base 252 dias úteis, o app converte antes para taxa mensal equivalente:",
+            f"- Entrada informada pelo usuário nesta simulação: `{taxa_cessao_input_mode}`.",
+            "- Em ambos os casos, a aba também calcula o de-para anual em base 252 dias úteis:",
             "",
             "```text",
-            "taxa_cessao_am = (1 + taxa_cessao_aa_252) ^ (21 / 252) - 1",
+            "taxa_cessao_aa_252 = (1 + taxa_cessao_am) ^ (252 / 21) - 1",
             "```",
             "",
             "### 3. Custos de administração e gestão",
@@ -681,7 +758,7 @@ def _build_workbook_mechanics_markdown(
             "- Consequência prática: se a inadimplência informada for `10,00%` e o período tiver `184` dias corridos, a perda do período será `18,40%` da carteira inicial daquele período.",
             "- Isso é compatível com a planilha, mas é uma premissa forte. Um modo alternativo de perda total da vida ainda precisaria ser implementado.",
             "",
-            "### 5. Taxas SEN e MES",
+            "### 5. Taxas SEN e MEZZ",
             "",
             "- Para cotas pós-fixadas, a planilha soma economicamente a curva DI/Pré ao spread da classe:",
             "",
@@ -699,15 +776,15 @@ def _build_workbook_mechanics_markdown(
             "",
             "### 6. Principal, PMT e waterfall atual",
             "",
-            "- A planilha tem pagamentos programados de SEN e MES. No motor atual, o pagamento de cada classe é:",
+            "- A planilha tem pagamentos programados de SEN e MEZZ. No motor atual, o pagamento de cada classe é:",
             "",
             "```text",
             "PMT SEN = juros SEN + principal SEN programado",
-            "PMT MES = juros MES + principal MES programado",
+            "PMT MEZZ = juros MEZZ + principal MEZZ programado",
             "```",
             "",
             "- A SUB é residual: não há principal nem juros programados para SUB na planilha.",
-            "- A lógica atual é compatível com a planilha: os PMTs programados de SEN/MES são calculados mesmo quando o fluxo líquido da carteira fica insuficiente.",
+            "- A lógica atual é compatível com a planilha: os PMTs programados de SEN/MEZZ são calculados mesmo quando o fluxo líquido da carteira fica insuficiente.",
             "- Portanto, a trava de caixa está desligada por compatibilidade com o Excel.",
             "",
             "### 7. O que seria a trava de caixa",
@@ -719,12 +796,12 @@ def _build_workbook_mechanics_markdown(
             "1. custos e despesas",
             "2. juros SEN",
             "3. principal SEN",
-            "4. juros MES",
-            "5. principal MES",
+            "4. juros MEZZ",
+            "5. principal MEZZ",
             "6. residual SUB",
             "```",
             "",
-            "- Se o caixa acabasse no item 3, por exemplo, MES e SUB não receberiam naquele período.",
+            "- Se o caixa acabasse no item 3, por exemplo, MEZZ e SUB não receberiam naquele período.",
             "- Essa trava ainda não está implementada; quando for implementada, deve ficar em premissas avançadas e desligada por padrão para preservar a comparação com `Modelo_Publico.xlsm`.",
             "",
             "### 8. PL econômico e SUB residual",
@@ -732,14 +809,14 @@ def _build_workbook_mechanics_markdown(
             "- Depois de retorno da carteira, custos, perdas e PMTs, o PL econômico do veículo é:",
             "",
             "```text",
-            "PL FIDC = carteira + fluxo_carteira - custos - inadimplencia - PMT SEN - PMT MES",
+            "PL FIDC = carteira + fluxo_carteira - custos - inadimplencia - PMT SEN - PMT MEZZ",
             "```",
             "",
-            "- O saldo econômico de SEN e MES cai conforme o principal programado é amortizado.",
+            "- O saldo econômico de SEN e MEZZ cai conforme o principal programado é amortizado.",
             "- A SUB residual corrente é:",
             "",
             "```text",
-            "SUB residual = PL FIDC - PL SEN - PL MES",
+            "SUB residual = PL FIDC - PL SEN - PL MEZZ",
             "```",
             "",
             "- Se a SUB residual fica positiva, ela representa colchão subordinado disponível.",
@@ -772,7 +849,7 @@ def _build_workbook_mechanics_markdown(
             "### 10. Indicadores do resumo econômico",
             "",
             "- Retorno anualizado SEN: XIRR dos PMTs SEN contra a data de cada fluxo.",
-            "- Retorno anualizado MES: XIRR dos PMTs MES contra a data de cada fluxo.",
+            "- Retorno anualizado MEZZ: XIRR dos PMTs MEZZ contra a data de cada fluxo.",
             "- Retorno anualizado SUB: fica `N/D` quando a SUB não tem série de caixa válida; na planilha isso aparece como `#NUM!`.",
             "- Duration SEN: média ponderada dos pagamentos SEN descontados, usando `DU / 252`.",
             "- Pre DI na duration: taxa da curva no ponto correspondente ao duration arredondado para baixo em meses, como a planilha faz com `VLOOKUP`.",
@@ -780,8 +857,8 @@ def _build_workbook_mechanics_markdown(
             "",
             "### 11. Como interpretar os gráficos",
             "",
-            "- `Saldos econômicos das cotas`: mostra SEN, MES, SUB disponível e, quando existir, déficit econômico separado.",
-            "- `Perda máxima e subordinação`: compara inadimplência acumulada, inadimplência do período e subordinação disponível.",
+            "- `Evolução de Saldo das Cotas`: mostra SEN, MEZZ, SUB disponível e, quando existir, déficit econômico separado.",
+            "- `Evolução Subordinação x Inadimplência Acumulada`: compara inadimplência acumulada, inadimplência do período e subordinação disponível.",
             "- Se a inadimplência acumulada sobe enquanto a subordinação disponível cai para zero, a estrutura está consumindo o colchão subordinado.",
             "- Se aparece déficit econômico, o cenário já ultrapassou a proteção da SUB dentro da mecânica atual.",
             "",
@@ -802,11 +879,11 @@ def _build_step_by_step_markdown() -> str:
             "Este modelo simula uma carteira de FIDC e mostra como juros, custos, inadimplência, estrutura de cotas e revolvência afetam o colchão de proteção.",
             "",
             "- Volume da carteira é o valor em reais dos recebíveis comprados pelo fundo no início da simulação.",
-            "- Taxa de cessão é a rentabilidade esperada desses recebíveis. Ela pode ser informada ao mês ou ao ano, com conversão por 252 dias úteis.",
+            "- Taxa de Cessão é o deságio sobre o valor futuro do recebível; Taxa Mensal é a taxa efetiva usada pelo motor. A aba mostra a equivalência mensal e anual em base 252.",
             "- Prazo total do FIDC define até qual mês a simulação vai quando o cronograma mensal está selecionado.",
             "- Prazo médio dos recebíveis define o giro estimado da carteira. Com carteira revolvente, um FIDC de 36 meses e recebíveis de 6 meses gera giro estimado de 6x.",
-            "- Cotas sênior têm prioridade de pagamento; mezzanino fica no meio; subordinada/SUB absorve perdas primeiro e recebe o residual econômico.",
-            "- As regras de amortização indicam quando o principal de SEN/MES começa a ser repago e se o pagamento é linear, bullet, inexistente ou compatível com a planilha.",
+            "- Cotas sênior têm prioridade de pagamento; MEZZ fica no meio; subordinada/SUB absorve perdas primeiro e recebe o residual econômico.",
+            "- As regras de amortização indicam quando o principal de SEN/MEZZ começa a ser repago e se o pagamento é linear, bullet, inexistente ou compatível com a planilha.",
             "- As regras de juros indicam se os juros são pagos em cada período, após carência ou apenas no vencimento.",
             "- Subordinação é o tamanho do colchão de SUB disponível em relação ao PL econômico do fundo.",
             "- Perda máxima sobre carteira originada compara a SUB final sem inadimplência com o total estimado de recebíveis originados no período.",
@@ -925,6 +1002,53 @@ def _render_calendar_source_info(selected_calendar: _SelectedCalendar) -> None:
         )
 
 
+def _render_curve_source_controls(
+    inputs,
+    selected_curve: _SelectedCurve | None = None,
+    selected_calendar: _SelectedCalendar | None = None,
+) -> None:
+    with st.expander("Fonte da curva DI/Pré", expanded=False):
+        st.selectbox(
+            "Origem da curva de juros",
+            CURVE_SOURCE_OPTIONS,
+            key="modelo_curve_source",
+            help=(
+                "A fonte B3 usa o arquivo público TaxaSwap da Pesquisa por pregão. "
+                "O snapshot local fica disponível apenas para comparação histórica com a planilha."
+            ),
+        )
+        if st.session_state.get("modelo_curve_source") == CURVE_SOURCE_B3_DATE:
+            st.date_input(
+                "Data-base B3",
+                key="modelo_b3_date",
+                min_value=date(2000, 1, 1),
+                max_value=date.today(),
+                help="A data escolhida é exata. Se a B3 não tiver arquivo para essa data, o app mostra erro em vez de usar fallback.",
+            )
+        st.selectbox(
+            "Metodologia de interpolação",
+            INTERPOLATION_OPTIONS,
+            key="modelo_interpolation_label",
+            help=(
+                "Flat Forward 252 preserva a composição financeira em dias úteis entre vértices. "
+                "Spline fica disponível para comparar com a planilha original."
+            ),
+        )
+        st.selectbox(
+            "Calendário de dias úteis",
+            CALENDAR_SOURCE_OPTIONS,
+            key="modelo_calendar_source",
+            help=(
+                "O calendário oficial usa a página pública da B3 para anos publicados e projeção explícita para anos futuros. "
+                "O snapshot fica disponível para comparação histórica."
+            ),
+        )
+        if selected_curve is not None and selected_calendar is not None:
+            st.markdown("##### Detalhes da fonte selecionada")
+            _render_curve_source_info(inputs, selected_curve)
+            _render_calendar_source_info(selected_calendar)
+
+
 def _rate_mode_from_label(label: str) -> str:
     return RATE_MODE_PRE if label.startswith("Pré") else RATE_MODE_POST_CDI
 
@@ -941,7 +1065,7 @@ def _build_balance_area_frame(frame: pd.DataFrame) -> pd.DataFrame:
     )
     label_map = {
         "pl_senior": "Sênior",
-        "pl_mezz": "Mezzanino",
+        "pl_mezz": "MEZZ",
         "pl_sub_available": "Subordinada/SUB disponível",
         "deficit_economico": "Déficit econômico",
     }
@@ -1059,7 +1183,7 @@ def _render_model_header() -> None:
 def _render_model_kpi_cards(kpis, results) -> None:
     cards = [
         ("Retorno anualizado", _format_percent(kpis.xirr_senior), "Classe sênior"),
-        ("Retorno anualizado", _format_percent(kpis.xirr_mezz), "Classe mezzanino"),
+        ("Retorno anualizado", _format_percent(kpis.xirr_mezz), "Classe MEZZ"),
         ("Retorno anualizado", _format_percent(kpis.xirr_sub_jr), "Júnior residual"),
         (
             "Duration econômica",
@@ -1114,7 +1238,7 @@ def render_tab_modelo_fidc() -> None:
         return
 
     default_tx_cessao_am = inputs.premissas.get("Tx Cessão (%am)", 0.1)
-    default_tx_cessao_aa = monthly_to_annual_252_rate(default_tx_cessao_am)
+    default_tx_cessao_desagio = monthly_rate_to_cession_discount(default_tx_cessao_am)
     default_senior_pct = inputs.premissas.get("Proporção PL Sr.", 0.9) * 100.0
     default_mezz_pct = inputs.premissas.get("Proporção PL Mezz", 0.05) * 100.0
     default_sub_pct = inputs.premissas.get(
@@ -1122,7 +1246,7 @@ def render_tab_modelo_fidc() -> None:
         1.0 - default_senior_pct / 100.0 - default_mezz_pct / 100.0,
     ) * 100.0
 
-    left, right = st.columns([1.2, 0.8])
+    left = st.container()
     with left:
         with st.form("modelo-fidc-premissas"):
             st.markdown("##### Premissas da carteira")
@@ -1133,29 +1257,36 @@ def render_tab_modelo_fidc() -> None:
                 decimals=2,
                 help_text="Valor total da carteira em reais. Não há escala implícita em milhões ou bilhões.",
             )
-            taxa_cessao_base = st.radio(
-                "Base da taxa de cessão",
-                ["% a.m.", "% a.a. base 252 dias úteis"],
+            taxa_cessao_input_mode = st.radio(
+                "Entrada da taxa da carteira",
+                [CESSION_INPUT_DISCOUNT, CESSION_INPUT_MONTHLY],
                 horizontal=True,
-                help="A base anual usa 252 dias úteis por ano e 21 dias úteis por mês.",
+                help=(
+                    "Taxa de Cessão é o deságio sobre o valor futuro do recebível. "
+                    "Taxa Mensal é a taxa efetiva cobrada ao mês, como no motor da planilha."
+                ),
             )
-            if taxa_cessao_base == "% a.m.":
-                tx_cessao_text = _text_percent_input(
-                    "Taxa de cessão (% a.m.)",
-                    default=default_tx_cessao_am * 100.0,
-                    key="modelo_tx_cessao_am",
+            if taxa_cessao_input_mode == CESSION_INPUT_DISCOUNT:
+                tx_cessao_desagio_text = _text_percent_input(
+                    "Taxa de Cessão (%)",
+                    default=default_tx_cessao_desagio * 100.0,
+                    key="modelo_tx_cessao_desagio",
                     decimals=2,
+                    help_text=(
+                        "Deságio sobre o valor futuro. Ex.: comprar R$ 100 por R$ 95 equivale a 5,00% "
+                        "de taxa de cessão e 5,26% de taxa mensal."
+                    ),
                 )
-                tx_cessao_aa_text = ""
+                tx_cessao_mensal_text = ""
             else:
-                tx_cessao_aa_text = _text_percent_input(
-                    "Taxa de cessão (% a.a., base 252 dias úteis)",
-                    default=default_tx_cessao_aa * 100.0,
-                    key="modelo_tx_cessao_aa",
+                tx_cessao_mensal_text = _text_percent_input(
+                    "Taxa Mensal (%)",
+                    default=default_tx_cessao_am * 100.0,
+                    key="modelo_tx_cessao_mensal",
                     decimals=2,
-                    help_text="O app converte esta taxa para uma taxa mensal equivalente antes de rodar o motor.",
+                    help_text="Taxa efetiva cobrada ao mês, exatamente a base usada pelo motor da planilha.",
                 )
-                tx_cessao_text = ""
+                tx_cessao_desagio_text = ""
 
             costs_a, costs_b = st.columns(2)
             with costs_a:
@@ -1193,7 +1324,7 @@ def render_tab_modelo_fidc() -> None:
                 )
             with prop_b:
                 mezz_pct_text = _text_percent_input(
-                    "PL mezzanino/MES (%)",
+                    "PL mezanino/MEZZ (%)",
                     default=default_mezz_pct,
                     key="modelo_prop_mezz",
                     decimals=1,
@@ -1205,7 +1336,7 @@ def render_tab_modelo_fidc() -> None:
                     key="modelo_prop_sub",
                     decimals=1,
                 )
-            st.caption("As proporções SEN, MES e SUB devem somar 100,00%.")
+            st.caption("As proporções SEN, MEZZ e SUB devem somar 100,00%.")
 
             st.markdown("##### Remuneração das cotas")
             senior_mode_label = st.selectbox(
@@ -1226,14 +1357,14 @@ def render_tab_modelo_fidc() -> None:
             )
 
             mezz_mode_label = st.selectbox(
-                "Remuneração cota mezzanino/MES",
+                "Remuneração cota mezanino/MEZZ",
                 ["Pós-fixada: spread sobre CDI", "Pré-fixada: taxa % a.a."],
-                help="Pós-fixada replica a planilha para a cota mezzanino; pré-fixada usa taxa anual efetiva.",
+                help="Pós-fixada replica a planilha para a cota mezanino; pré-fixada usa taxa anual efetiva.",
             )
             mezz_rate_label = (
-                "Spread cota MES sobre CDI (% a.a.)"
+                "Spread cota MEZZ sobre CDI (% a.a.)"
                 if _rate_mode_from_label(mezz_mode_label) == RATE_MODE_POST_CDI
-                else "Taxa pré-fixada cota MES (% a.a.)"
+                else "Taxa pré-fixada cota MEZZ (% a.a.)"
             )
             mezz_rate_text = _text_percent_input(
                 mezz_rate_label,
@@ -1299,7 +1430,7 @@ def render_tab_modelo_fidc() -> None:
                         ),
                     )
 
-                st.markdown("##### Cotas SEN e MES")
+                st.markdown("##### Cotas SEN e MEZZ")
                 st.caption(
                     "O modo compatível com a planilha preserva o cronograma original. "
                     "Os demais modos alteram os pagamentos programados no motor."
@@ -1325,18 +1456,18 @@ def render_tab_modelo_fidc() -> None:
                     )
                 with senior_cfg_b:
                     prazo_mezz_text = _text_number_input(
-                        "Prazo cota MES (anos)",
+                        "Prazo cota MEZZ (anos)",
                         default=3.0,
                         key="modelo_prazo_mezz_anos",
                         decimals=1,
                     )
                     mezz_amort_label = st.selectbox(
-                        "Amortização principal MES",
+                        "Amortização principal MEZZ",
                         list(AMORTIZATION_LABELS),
                         key="modelo_amort_mezz",
                     )
                     mezz_start_text = _text_number_input(
-                        "Carência principal MES (meses)",
+                        "Carência principal MEZZ (meses)",
                         default=25.0,
                         key="modelo_inicio_amort_mezz",
                         decimals=0,
@@ -1351,7 +1482,7 @@ def render_tab_modelo_fidc() -> None:
                     )
                 with interest_b:
                     mezz_interest_label = st.selectbox(
-                        "Pagamento de juros MES",
+                        "Pagamento de juros MEZZ",
                         list(INTEREST_LABELS),
                         key="modelo_juros_mezz",
                     )
@@ -1363,24 +1494,26 @@ def render_tab_modelo_fidc() -> None:
                         decimals=1,
                     )
                 st.caption("A SUB segue residual nesta etapa; o prazo da SUB entra na documentação e na análise econômica.")
-            submitted = st.form_submit_button("Rodar simulação", width="stretch")
+            submitted = st.form_submit_button(
+                "Rodar simulação",
+                width="stretch",
+                on_click=_normalize_model_input_values,
+            )
 
     try:
         volume = _parse_br_number(volume_text, field_name="Volume da carteira (R$)")
-        if taxa_cessao_base == "% a.m.":
-            tx_cessao_am = _parse_br_number(tx_cessao_text, field_name="Taxa de cessão (% a.m.)") / 100.0
-            tx_cessao_aa_equivalente = monthly_to_annual_252_rate(tx_cessao_am)
+        if taxa_cessao_input_mode == CESSION_INPUT_DISCOUNT:
+            tx_cessao_desagio = _parse_br_number(tx_cessao_desagio_text, field_name="Taxa de Cessão (%)") / 100.0
+            tx_cessao_am = cession_discount_to_monthly_rate(tx_cessao_desagio)
         else:
-            tx_cessao_aa_equivalente = _parse_br_number(
-                tx_cessao_aa_text,
-                field_name="Taxa de cessão (% a.a., base 252 dias úteis)",
-            ) / 100.0
-            tx_cessao_am = annual_252_to_monthly_rate(tx_cessao_aa_equivalente)
+            tx_cessao_am = _parse_br_number(tx_cessao_mensal_text, field_name="Taxa Mensal (%)") / 100.0
+            tx_cessao_desagio = monthly_rate_to_cession_discount(tx_cessao_am)
+        tx_cessao_aa_equivalente = monthly_to_annual_252_rate(tx_cessao_am)
         custo_adm_aa = _parse_br_number(custo_adm_text, field_name="Custo de administração e gestão (% a.a.)") / 100.0
         custo_min = _parse_br_number(custo_min_text, field_name="Custo mínimo de administração e gestão (R$/mês)")
         inadimplencia = _parse_br_number(inadimplencia_text, field_name="Inadimplência (% da carteira total)") / 100.0
         proporcao_senior = _parse_br_number(senior_pct_text, field_name="PL sênior/SEN (%)") / 100.0
-        proporcao_mezz = _parse_br_number(mezz_pct_text, field_name="PL mezzanino/MES (%)") / 100.0
+        proporcao_mezz = _parse_br_number(mezz_pct_text, field_name="PL mezanino/MEZZ (%)") / 100.0
         proporcao_sub = _parse_br_number(sub_pct_text, field_name="PL subordinado/SUB (%)") / 100.0
         taxa_senior = _parse_br_number(senior_rate_text, field_name=senior_rate_label) / 100.0
         taxa_mezz = _parse_br_number(mezz_rate_text, field_name=mezz_rate_label) / 100.0
@@ -1391,13 +1524,13 @@ def render_tab_modelo_fidc() -> None:
             field_name="Prazo médio dos recebíveis (meses)",
         )
         prazo_senior_anos = _parse_br_number(prazo_senior_text, field_name="Prazo cota SEN (anos)")
-        prazo_mezz_anos = _parse_br_number(prazo_mezz_text, field_name="Prazo cota MES (anos)")
+        prazo_mezz_anos = _parse_br_number(prazo_mezz_text, field_name="Prazo cota MEZZ (anos)")
         prazo_sub_anos = _parse_br_number(prazo_sub_text, field_name="Prazo cota SUB (anos)")
         inicio_amortizacao_senior_meses = int(
             round(_parse_br_number(senior_start_text, field_name="Carência principal SEN (meses)"))
         )
         inicio_amortizacao_mezz_meses = int(
-            round(_parse_br_number(mezz_start_text, field_name="Carência principal MES (meses)"))
+            round(_parse_br_number(mezz_start_text, field_name="Carência principal MEZZ (meses)"))
         )
     except ValueError as exc:
         st.error(str(exc))
@@ -1459,88 +1592,64 @@ def render_tab_modelo_fidc() -> None:
         inicio_amortizacao_mezz_meses=inicio_amortizacao_mezz_meses,
     )
 
-    with right:
-        st.markdown("##### Fonte da curva DI/Pré")
-        curve_source_label = st.selectbox(
-            "Origem da curva de juros",
-            [CURVE_SOURCE_B3_LATEST, CURVE_SOURCE_B3_DATE, CURVE_SOURCE_SNAPSHOT],
-            help=(
-                "A fonte B3 usa o arquivo público TaxaSwap da Pesquisa por pregão. "
-                "O snapshot local fica disponível apenas para comparação histórica com a planilha."
-            ),
-        )
-        selected_b3_date = date.today() - timedelta(days=1)
-        if curve_source_label == CURVE_SOURCE_B3_DATE:
-            selected_b3_date = st.date_input(
-                "Data-base B3",
-                value=selected_b3_date,
-                min_value=date(2000, 1, 1),
-                max_value=date.today(),
-                help="A data escolhida é exata. Se a B3 não tiver arquivo para essa data, o app mostra erro em vez de usar fallback.",
+    st.caption(
+        "Equivalência da taxa da carteira: "
+        f"Taxa de Cessão {_format_percent(tx_cessao_desagio)} | "
+        f"Taxa Mensal {_format_percent(tx_cessao_am)} | "
+        f"Taxa anual base 252 {_format_percent(tx_cessao_aa_equivalente)}."
+    )
+
+    curve_source_label = _ensure_session_option("modelo_curve_source", CURVE_SOURCE_OPTIONS)
+    selected_b3_date = _ensure_session_date("modelo_b3_date", date.today() - timedelta(days=1))
+    interpolation_label = _ensure_session_option("modelo_interpolation_label", INTERPOLATION_OPTIONS)
+    interpolation_method = _interpolation_method_from_label(interpolation_label)
+    calendar_source_label = _ensure_session_option("modelo_calendar_source", CALENDAR_SOURCE_OPTIONS)
+
+    try:
+        if curve_source_label == CURVE_SOURCE_SNAPSHOT:
+            snapshot_errors = _validate_snapshot_curve(inputs)
+            if snapshot_errors:
+                st.error("Snapshot local da curva incompleto: " + "; ".join(snapshot_errors) + ".")
+                _render_curve_source_controls(inputs)
+                return
+            selected_curve = _selected_curve_from_snapshot(inputs)
+        elif curve_source_label == CURVE_SOURCE_B3_DATE:
+            with st.spinner("Consultando curva TaxaSwap na B3..."):
+                b3_snapshot = _load_b3_curve_for_date(selected_b3_date.isoformat(), DEFAULT_TAXASWAP_CURVE_CODE)
+            selected_curve = _selected_curve_from_b3(b3_snapshot, curve_source_label)
+        else:
+            with st.spinner("Localizando último pregão TaxaSwap disponível na B3..."):
+                b3_snapshot = _load_latest_b3_curve(date.today().isoformat(), DEFAULT_TAXASWAP_CURVE_CODE)
+            selected_curve = _selected_curve_from_b3(b3_snapshot, curve_source_label)
+    except B3CurveError as exc:
+        st.error(f"Não foi possível carregar a curva B3: {exc}")
+        st.warning("Selecione o snapshot local da planilha apenas se quiser rodar uma comparação histórica sem fonte externa.")
+        _render_curve_source_controls(inputs)
+        return
+
+    try:
+        if calendar_source_label == CALENDAR_SOURCE_B3_OFFICIAL:
+            with st.spinner("Consultando calendário de negociação da B3..."):
+                b3_calendar_snapshot = _load_b3_calendar_snapshot(simulation_dates[0].year, simulation_dates[-1].year)
+            selected_calendar = _selected_calendar(
+                inputs,
+                calendar_source_label,
+                b3_calendar_snapshot,
+                datas=simulation_dates,
             )
+        else:
+            selected_calendar = _selected_calendar(inputs, calendar_source_label, datas=simulation_dates)
+    except B3CalendarError as exc:
+        st.error(f"Não foi possível carregar o calendário B3: {exc}")
+        st.warning("Selecione o calendário projetado se quiser rodar a simulação sem consultar a página pública da B3.")
+        _render_curve_source_controls(inputs, selected_curve)
+        return
 
-        try:
-            if curve_source_label == CURVE_SOURCE_SNAPSHOT:
-                snapshot_errors = _validate_snapshot_curve(inputs)
-                if snapshot_errors:
-                    st.error("Snapshot local da curva incompleto: " + "; ".join(snapshot_errors) + ".")
-                    return
-                selected_curve = _selected_curve_from_snapshot(inputs)
-            elif curve_source_label == CURVE_SOURCE_B3_DATE:
-                with st.spinner("Consultando curva TaxaSwap na B3..."):
-                    b3_snapshot = _load_b3_curve_for_date(selected_b3_date.isoformat(), DEFAULT_TAXASWAP_CURVE_CODE)
-                selected_curve = _selected_curve_from_b3(b3_snapshot, curve_source_label)
-            else:
-                with st.spinner("Localizando último pregão TaxaSwap disponível na B3..."):
-                    b3_snapshot = _load_latest_b3_curve(date.today().isoformat(), DEFAULT_TAXASWAP_CURVE_CODE)
-                selected_curve = _selected_curve_from_b3(b3_snapshot, curve_source_label)
-        except B3CurveError as exc:
-            st.error(f"Não foi possível carregar a curva B3: {exc}")
-            st.warning("Selecione o snapshot local da planilha apenas se quiser rodar uma comparação histórica sem fonte externa.")
-            return
-
-        interpolation_label = st.selectbox(
-            "Metodologia de interpolação",
-            [INTERPOLATION_LABEL_B3, INTERPOLATION_LABEL_SPLINE],
-            help=(
-                "Flat Forward 252 preserva a composição financeira em dias úteis entre vértices. "
-                "Spline fica disponível para comparar com a planilha original."
-            ),
+    if not sub_mode_label.startswith("Residual"):
+        st.warning(
+            "A taxa da SUB está registrada como taxa-alvo informativa. O workbook de referência não possui pagamento "
+            "programado da SUB; por isso, a paridade do waterfall mantém a SUB como residual."
         )
-        interpolation_method = _interpolation_method_from_label(interpolation_label)
-
-        calendar_source_label = st.selectbox(
-            "Calendário de dias úteis",
-            [CALENDAR_SOURCE_B3_OFFICIAL, CALENDAR_SOURCE_B3_PROJECTED, CALENDAR_SOURCE_SNAPSHOT],
-            help=(
-                "O calendário oficial usa a página pública da B3 para anos publicados e projeção explícita para anos futuros. "
-                "O snapshot fica disponível para comparação histórica."
-            ),
-        )
-        try:
-            if calendar_source_label == CALENDAR_SOURCE_B3_OFFICIAL:
-                with st.spinner("Consultando calendário de negociação da B3..."):
-                    b3_calendar_snapshot = _load_b3_calendar_snapshot(simulation_dates[0].year, simulation_dates[-1].year)
-                selected_calendar = _selected_calendar(
-                    inputs,
-                    calendar_source_label,
-                    b3_calendar_snapshot,
-                    datas=simulation_dates,
-                )
-            else:
-                selected_calendar = _selected_calendar(inputs, calendar_source_label, datas=simulation_dates)
-        except B3CalendarError as exc:
-            st.error(f"Não foi possível carregar o calendário B3: {exc}")
-            st.warning("Selecione o calendário projetado se quiser rodar a simulação sem consultar a página pública da B3.")
-            return
-        with st.expander("Detalhes da fonte selecionada", expanded=False):
-            _render_curve_source_info(inputs, selected_curve)
-            _render_calendar_source_info(selected_calendar)
-        if not sub_mode_label.startswith("Residual"):
-            st.warning(
-                "A taxa da SUB está registrada como taxa-alvo informativa. O workbook de referência não possui pagamento "
-                "programado da SUB; por isso, a paridade do waterfall mantém a SUB como residual."
-            )
 
     simulation_signature = (
         selected_curve.cache_key,
@@ -1600,10 +1709,13 @@ def render_tab_modelo_fidc() -> None:
 
     chart_left, chart_right = st.columns(2)
     with chart_left:
-        st.markdown('<div class="fidc-model-section-title">Saldos econômicos das cotas</div>', unsafe_allow_html=True)
+        st.markdown('<div class="fidc-model-section-title">Evolução de Saldo das Cotas</div>', unsafe_allow_html=True)
         st.altair_chart(_area_money_chart(_build_balance_area_frame(frame)), width="stretch")
     with chart_right:
-        st.markdown('<div class="fidc-model-section-title">Perda máxima e subordinação</div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="fidc-model-section-title">Evolução Subordinação x Inadimplência Acumulada</div>',
+            unsafe_allow_html=True,
+        )
         st.altair_chart(_area_percent_chart(_build_loss_area_frame(frame, premissas.volume)), width="stretch")
 
     memory_df = pd.DataFrame(
@@ -1611,11 +1723,16 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Fluxo econômico da carteira",
                 "Fórmula": "carteira * ((1 + tx_cessao_am) ^ (delta_du / 21) - 1)",
-                "Observação": "Replica Qx no Fluxo Base. Se o usuário informar taxa a.a. base 252, o app converte antes para taxa mensal equivalente.",
+                "Observação": "Replica Qx no Fluxo Base. A Taxa de Cessão é convertida para Taxa Mensal antes do cálculo.",
             },
             {
-                "Indicador": "Conversão de taxa de cessão anual",
-                "Fórmula": "tx_cessao_am = (1 + tx_cessao_aa_252) ^ (21 / 252) - 1",
+                "Indicador": "De-para da Taxa de Cessão",
+                "Fórmula": "tx_cessao_am = 1 / (1 - taxa_cessao) - 1",
+                "Observação": "Ex.: comprar R$ 100 de valor futuro por R$ 95 implica taxa de cessão de 5,00% e taxa mensal de 5,26%.",
+            },
+            {
+                "Indicador": "Conversão anual base 252",
+                "Fórmula": "tx_cessao_aa_252 = (1 + tx_cessao_am) ^ (252 / 21) - 1",
                 "Observação": "Conversão financeira efetiva, com 21 dias úteis médios por mês e 252 dias úteis por ano.",
             },
             {
@@ -1629,7 +1746,7 @@ def render_tab_modelo_fidc() -> None:
                 "Observação": "Inadimplência é informada como % da carteira total, mas a planilha distribui a perda pelo delta de dias corridos.",
             },
             {
-                "Indicador": "Juros sênior/mezz",
+                "Indicador": "Juros sênior/MEZZ",
                 "Fórmula": "pós: (1 + curva DI/Pré) * (1 + spread) - 1; pré: taxa anual informada",
                 "Observação": (
                     f"O FRA de cada período usa base 252 DU. Fonte selecionada: {selected_curve.source_label} "
@@ -1643,7 +1760,7 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Proporções de PL",
-                "Fórmula": "PL sênior + PL mezzanino + PL SUB = 100%",
+                "Fórmula": "PL sênior + PL MEZZ + PL SUB = 100%",
                 "Observação": "A SUB agora é uma premissa explícita na interface; o motor bloqueia soma diferente de 100%.",
             },
             {
@@ -1658,7 +1775,7 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Júnior residual / subordinação econômica",
-                "Fórmula": "Residual econômico = PL econômico do veículo - PL sênior - PL mezz; subordinação disponível = max(residual, 0) / PL positivo",
+                "Fórmula": "Residual econômico = PL econômico do veículo - PL sênior - PL MEZZ; subordinação disponível = max(residual, 0) / PL positivo",
                 "Observação": (
                     "A planilha não remunera a SUB programaticamente; taxas da SUB ficam como premissa-alvo informativa. "
                     "A timeline preserva a coluna deslocada do workbook para conferência, mas os gráficos usam o residual corrente."
@@ -1703,6 +1820,9 @@ def render_tab_modelo_fidc() -> None:
         width="stretch",
     )
 
+    st.markdown('<div class="fidc-model-section-title">Fonte da curva DI/Pré</div>', unsafe_allow_html=True)
+    _render_curve_source_controls(inputs, selected_curve, selected_calendar)
+
     guide_left, guide_right = st.columns(2)
     with guide_left:
         with st.expander("Passo a passo", expanded=False):
@@ -1714,6 +1834,6 @@ def render_tab_modelo_fidc() -> None:
                     selected_curve=selected_curve,
                     selected_calendar=selected_calendar,
                     interpolation_label=interpolation_label,
-                    taxa_cessao_base=taxa_cessao_base,
+                    taxa_cessao_input_mode=taxa_cessao_input_mode,
                 )
             )

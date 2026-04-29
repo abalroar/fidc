@@ -17,7 +17,9 @@ from services.fidc_model import (
     annual_252_to_monthly_rate,
     build_flow,
     build_kpis,
+    cession_discount_to_monthly_rate,
     monthly_to_annual_252_rate,
+    monthly_rate_to_cession_discount,
 )
 
 
@@ -115,6 +117,13 @@ class FidcModelParityTest(unittest.TestCase):
         annual_rate = monthly_to_annual_252_rate(monthly_rate)
 
         self.assertAlmostEqual(monthly_rate, annual_252_to_monthly_rate(annual_rate), delta=1e-12)
+
+    def test_cession_discount_converts_to_monthly_rate(self):
+        discount_rate = 0.05
+        monthly_rate = cession_discount_to_monthly_rate(discount_rate)
+
+        self.assertAlmostEqual((100.0 / 95.0) - 1.0, monthly_rate, delta=1e-12)
+        self.assertAlmostEqual(discount_rate, monthly_rate_to_cession_discount(monthly_rate), delta=1e-12)
 
     def test_prefixed_quota_rate_uses_informed_annual_rate(self):
         premissas = _build_default_premissas()
