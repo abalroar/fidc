@@ -441,7 +441,14 @@ def _credit_period(
 
 def _selic_annual_rate_for_year(premissas: Premissas, year: int) -> float:
     projection = dict(premissas.selic_aa_por_ano)
-    return max(float(projection.get(year, 0.0)), -0.999999)
+    if not projection:
+        return 0.0
+    first_year = min(projection)
+    if year < first_year:
+        return max(float(projection[first_year]), -0.999999)
+    if year not in projection:
+        raise ValueError(f"Curva de SELIC média para caixa sem taxa para {year}.")
+    return max(float(projection[year]), -0.999999)
 
 
 def _period_month_fraction(month_deltas: Sequence[int], index: int, delta_dc: int) -> float:

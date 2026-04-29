@@ -98,6 +98,9 @@ DEFAULT_TAXA_MEZZ = 0.05
 DEFAULT_PRAZO_ANOS = 3.0
 DEFAULT_PRAZO_RECEBIVEIS_MESES = 6.0
 DEFAULT_CARENCIA_PRINCIPAL_MESES = 30.0
+DEFAULT_CURVE_START_YEAR = 2026
+DEFAULT_SELIC_AA_2026 = 0.13
+DEFAULT_SELIC_AA_2027_ONWARD = 0.12
 AMORTIZATION_LABELS = {
     "Cronograma padrão": AMORTIZATION_MODE_WORKBOOK,
     "Linear após carência": AMORTIZATION_MODE_LINEAR,
@@ -349,6 +352,13 @@ class _RevolvencyMetrics:
     perda_ciclo_calibrada_excede_limite: bool
 
 
+@st.cache_data(show_spinner=False, ttl=24 * 60 * 60)
+def _load_b3_calendar_snapshot(start_year: int, end_year: int) -> B3CalendarSnapshot:
+    html_text, content_hash = fetch_b3_trading_calendar_html()
+    datas = [date(start_year, 1, 1), date(end_year, 12, 31)]
+    return build_b3_calendar_snapshot(datas, html_text, content_hash=content_hash)
+
+
 @st.cache_data(show_spinner=False, ttl=6 * 60 * 60)
 def _load_b3_curve_for_date(date_iso: str, curve_code: str) -> B3CurveSnapshot:
     return fetch_taxaswap_curve(date.fromisoformat(date_iso), curve_code=curve_code)
@@ -357,13 +367,6 @@ def _load_b3_curve_for_date(date_iso: str, curve_code: str) -> B3CurveSnapshot:
 @st.cache_data(show_spinner=False, ttl=6 * 60 * 60)
 def _load_latest_b3_curve(start_date_iso: str, curve_code: str) -> B3CurveSnapshot:
     return fetch_latest_taxaswap_curve(start_date=date.fromisoformat(start_date_iso), curve_code=curve_code)
-
-
-@st.cache_data(show_spinner=False, ttl=24 * 60 * 60)
-def _load_b3_calendar_snapshot(start_year: int, end_year: int) -> B3CalendarSnapshot:
-    html_text, content_hash = fetch_b3_trading_calendar_html()
-    datas = [date(start_year, 1, 1), date(end_year, 12, 31)]
-    return build_b3_calendar_snapshot(datas, html_text, content_hash=content_hash)
 
 
 def _selected_curve_from_snapshot(inputs) -> _SelectedCurve:
@@ -398,6 +401,27 @@ def _selected_curve_from_b3(snapshot: B3CurveSnapshot, source_label: str) -> _Se
         last_du=snapshot.last_du,
         raw_line_count=snapshot.raw_line_count,
     )
+
+
+def _default_selic_rate_for_year(year: int) -> float:
+    return DEFAULT_SELIC_AA_2026 if int(year) == DEFAULT_CURVE_START_YEAR else DEFAULT_SELIC_AA_2027_ONWARD
+
+
+def _effective_selic_projection_for_dates(
+    user_projection: tuple[tuple[int, float], ...],
+    simulation_dates: list[datetime],
+) -> tuple[tuple[int, float], ...]:
+    projection = dict(user_projection)
+    if not projection:
+        raise ValueError("A curva de SELIC média para caixa precisa ter pelo menos um ano informado.")
+    required_years = sorted({dt.year for dt in simulation_dates[1:]})
+    effective = dict(projection)
+    for year in required_years:
+        if year < min(projection):
+            effective[year] = projection[min(projection)]
+        elif year not in projection:
+            raise ValueError(f"Curva de SELIC média para caixa sem taxa para {year}.")
+    return tuple(sorted(effective.items()))
 
 
 def _selected_calendar(
@@ -583,7 +607,8 @@ def _build_simulation_dates(inputs, schedule_label: str, prazo_total_anos: float
 
 def _projection_years_for_term(start: datetime, prazo_total_anos: float) -> list[int]:
     dates = _build_monthly_dates(start, max(prazo_total_anos, 0.1))
-    return list(range(dates[0].year, dates[-1].year + 1))
+    end_year = max(DEFAULT_CURVE_START_YEAR, dates[-1].year)
+    return list(range(DEFAULT_CURVE_START_YEAR, end_year + 1))
 
 
 def _safe_term_years_from_text(value: str, fallback: float = DEFAULT_PRAZO_ANOS) -> float:
@@ -1098,31 +1123,11 @@ def _build_curve_source_dataframe(
 def _build_revolvency_export_dataframe(metrics: _RevolvencyMetrics) -> pd.DataFrame:
     return pd.DataFrame(
         [
-            {"Indicador": "Modo da carteira", "Valor": metrics.portfolio_mode},
             {"Indicador": "Prazo total do FIDC (anos)", "Valor": metrics.prazo_total_anos},
             {"Indicador": "Prazo médio dos recebíveis (meses)", "Valor": metrics.prazo_medio_recebiveis_meses},
-            {"Indicador": "Giro estimado da carteira", "Valor": metrics.giro_estimado},
             {"Indicador": "Carteira originada nominal estimada", "Valor": metrics.carteira_total_originada},
-            {"Indicador": "EAD máximo", "Valor": metrics.ead_maximo},
-            {"Indicador": "EAD médio ponderado", "Valor": metrics.ead_medio_ponderado},
             {"Indicador": "SUB final sem perdas", "Valor": metrics.sub_final_sem_inadimplencia},
-            {"Indicador": "Colchão sem perdas sobre carteira originada", "Valor": metrics.colchao_sem_perdas_sobre_originacao},
-            {
-                "Indicador": "Perda calibrada de ciclo NPL 90+",
-                "Valor": metrics.perda_ciclo_calibrada,
-            },
-            {
-                "Indicador": "Perda calibrada anual equivalente",
-                "Valor": metrics.perda_ciclo_calibrada_anual_equivalente,
-            },
-            {
-                "Indicador": "Perda efetiva por ciclo pós-LGD",
-                "Valor": metrics.perda_ciclo_calibrada_pos_lgd,
-            },
-            {
-                "Indicador": "Perda calibrada excede 100%",
-                "Valor": metrics.perda_ciclo_calibrada_excede_limite,
-            },
+            {"Indicador": "Colchão sobre carteira originada", "Valor": metrics.colchao_sem_perdas_sobre_originacao},
         ]
     )
 
@@ -1143,7 +1148,7 @@ def _build_time_protection_export_dataframe(protection_frame: pd.DataFrame) -> p
             "carteira_originada_acumulada": "Carteira originada acumulada",
             "residual_economico_fluxo": "Residual econômico do fluxo",
             "sub_disponivel": "SUB disponível",
-            "perda_maxima_suportada": "Proteção disponível sobre carteira originada",
+            "perda_maxima_suportada": "Colchão de proteção sobre carteira originada",
             "serie": "Cenário",
         }
     )[
@@ -1160,7 +1165,7 @@ def _build_time_protection_export_dataframe(protection_frame: pd.DataFrame) -> p
             "SUB residual",
             "SUB disponível",
             "Residual econômico do fluxo",
-            "Proteção disponível sobre carteira originada",
+            "Colchão de proteção sobre carteira originada",
         ]
     ]
 
@@ -1249,7 +1254,7 @@ def _build_workbook_mechanics_markdown(
             "- Essa metodologia é intermediária e segue uma filosofia prospectiva do tipo `ECL forward-looking`: ela provisiona a perda esperada de ciclo antes do write-off e nunca deixa a provisão abaixo da cobertura mínima do NPL 90+ observado.",
             "- A provisão modelada aqui é uma aproximação econômica para simulação; ela não deve ser lida como regra contábil ou regulatória estrita de perda incorrida.",
             "- Nos primeiros meses, o NPL 90+ ainda pode ser zero por causa do lag, mas a provisão já começa a ser constituída para cobrir a perda esperada que vai maturar.",
-            "- A implementação atual não reconhece reversão negativa de provisão quando o estoque NPL 90+ cai. Isso é conservador e pode reduzir a SUB final e a perda calibrada; a revisão com reversão explícita depende de decisão metodológica posterior.",
+            "- A implementação atual não reconhece reversão negativa de provisão quando o estoque NPL 90+ cai. Isso é conservador e pode reduzir a SUB final; a revisão com reversão explícita depende de decisão metodológica posterior.",
             "- Na metodologia `Migração por faixas de atraso`, o usuário informa taxas mensais de rolagem entre buckets:",
             "",
             "```text",
@@ -1350,8 +1355,6 @@ def _build_workbook_mechanics_markdown(
             "```",
             "",
             "- Exemplo: prazo total de `36 meses`, prazo médio de `6 meses` e volume inicial de `R$ 750MM` geram `6x` de giro e denominador de `R$ 4,5 bi`.",
-            "- O resumo também mostra `EAD máximo` e `EAD médio ponderado`. O EAD máximo é a maior carteira em aberto observada; o EAD médio ponderado é a média da carteira em aberto ponderada pelos dias de cada período.",
-            "",
             "- Quando a carteira é estática, a carteira originada é apenas a compra inicial:",
             "",
             "```text",
@@ -1372,17 +1375,6 @@ def _build_workbook_mechanics_markdown(
             "protecao_disponivel_no_mes = SUB_disponivel_no_mes / denominador_mes",
             "```",
             "",
-            "- A perda calibrada de ciclo é diferente: o motor faz uma busca binária para encontrar o percentual de NPL 90+ sobre os recebíveis que vencem que leva a SUB final para aproximadamente zero.",
-            "",
-            "```text",
-            "perda_ciclo_calibrada_bruta = menor perda_ciclo em que SUB_final <= 0",
-            "perda_calibrada_anual_equivalente = (1 + perda_ciclo_calibrada_bruta) ^ (12 / prazo_medio_recebiveis_meses) - 1",
-            "perda_efetiva_por_ciclo_pos_LGD = perda_ciclo_calibrada_bruta * LGD",
-            "```",
-            "",
-            "- A perda calibrada bruta é `% dos recebíveis que vencem`, não `% a.a.` e não `% da carteira total originada`.",
-            "- A taxa anual equivalente existe para comparar estruturas com prazos médios diferentes.",
-            "- A perda efetiva pós-LGD mostra a parcela econômica líquida de recuperação esperada dentro do ciclo.",
             "- Exemplo: com prazo médio de recebíveis de `6 meses`, o mês 1 considera a carteira inicial mais o principal reciclado de cerca de `1/6` do volume inicial.",
             "- Exemplo: em FIDC de `36 meses` com recebíveis de `12 meses`, a originação nova para quando o fluxo chega perto do mês `24`, porque novos recebíveis de 12 meses já não caberiam no prazo da estrutura.",
             "",
@@ -1390,7 +1382,10 @@ def _build_workbook_mechanics_markdown(
             "",
             "- Enquanto a revolvência é elegível, o modelo reinveste principal recebido e excesso de caixa em novos recebíveis.",
             "- Quando o prazo médio dos recebíveis já não cabe no prazo restante do FIDC, o principal recebido deixa de ser reinvestido e entra no saldo de caixa SELIC.",
-            "- A taxa SELIC é uma projeção digitada pelo usuário por ano calendário; nesta etapa ela não vem de fonte externa.",
+            "- A taxa SELIC média é uma projeção digitada pelo usuário por ano calendário; nesta etapa ela não vem de fonte externa.",
+            "- Esta curva manual remunera apenas o caixa excedente depois que a carteira entra em runoff.",
+            "- O CDI implícito das cotas pós-fixadas e o Pre DI na duration continuam usando a curva DI/Pré selecionada na fonte B3/local.",
+            "- O default é `13,00% a.a.` para 2026 e `12,00% a.a.` de 2027 em diante; o usuário pode sobrescrever os anos exibidos.",
             "- O motor transforma a taxa anual em taxa do período com matemática financeira exponencial e 21 dias úteis médios por mês:",
             "",
             "```text",
@@ -1408,17 +1403,17 @@ def _build_workbook_mechanics_markdown(
             "",
             "- Retorno anualizado SEN: XIRR dos PMTs SEN contra a data de cada fluxo.",
             "- Retorno anualizado MEZZ: XIRR dos PMTs MEZZ contra a data de cada fluxo.",
-            "- Retorno anualizado SUB: fica `N/D` quando a SUB não tem série de caixa válida.",
+            "- Retorno anualizado SUB: só aparece nos cards quando a SUB tem série de caixa válida.",
             "- Duration SEN: média ponderada dos pagamentos SEN descontados, usando `DU / 252`.",
             "- Pre DI na duration: taxa interpolada entre os pontos simulados da curva no DU equivalente à duration da SEN.",
             "- SUB inicial: volume inicial multiplicado pela proporção subordinada.",
             "",
             "### 12. Como interpretar os gráficos",
             "",
-            "- `Evolução de Saldo das Cotas`: mostra SEN, MEZZ, SUB disponível e, quando existir, déficit econômico separado.",
-            "- `Evolução Subordinação x Perda da Carteira`: compara perda acumulada, perda do período, subordinação disponível e proteção disponível.",
-            "- `Proteção Econômica ao Longo do Tempo`: mostra SUB disponível dividida pela carteira originada acumulada em cada mês.",
-            "- `Proteção disponível` é `SUB disponível / carteira originada acumulada`; ela é uma métrica de colchão econômico naquele mês, não o resultado do solver de perda calibrada.",
+            "- `Evolução do saldo das cotas`: mostra SEN, MEZZ, SUB disponível e, quando existir, déficit econômico separado.",
+            "- `Perda da carteira`: mostra somente perda do período e perda acumulada.",
+            "- `Proteção da estrutura`: mostra subordinação econômica e colchão de proteção.",
+            "- `Colchão de proteção` é `SUB disponível / carteira originada acumulada`; ele mede o colchão econômico naquele mês.",
             "- Se a perda acumulada sobe enquanto a subordinação disponível cai para zero, a estrutura está consumindo o colchão subordinado.",
             "- Se aparece déficit econômico, o cenário já ultrapassou a proteção da SUB dentro da mecânica atual.",
             "",
@@ -1430,7 +1425,7 @@ def _build_workbook_mechanics_markdown(
             "- Ainda não há fluxo programado para SUB; ela permanece residual nesta versão.",
             "- Backlog Fase 2 remanescente: a carteira ainda usa `delta_DU / 21`; uma versão futura pode converter a taxa mensal para taxa anual equivalente e aplicar `delta_DU / 252` explicitamente, sem mudar a interpretação econômica.",
             "- Backlog Fase 2 remanescente: perda e provisão continuam em lógica mensal agregada; uma versão futura pode desdobrar por DU efetivo ou por safra.",
-            "- Backlog Fase 3: SELIC projetada deve sair de input manual para fonte/curva de mercado auditável.",
+            "- Refinamento futuro: a SELIC de caixa pode sair de input manual para fonte/curva de mercado auditável.",
         ]
     )
 
@@ -1452,15 +1447,13 @@ def _build_step_by_step_markdown() -> str:
             "- Na metodologia avançada, o modelo migra saldos entre buckets de atraso até NPL 90+, com recuperação em caixa e write-off contra provisão.",
             "- A provisão é prospectiva: ela tenta antecipar a perda esperada do ciclo, e não apenas reconhecer perda depois que o atraso já virou baixa.",
             "- Subordinação é o tamanho do colchão de SUB disponível em relação ao PL econômico do fundo.",
-            "- Colchão sem perdas sobre carteira originada compara a SUB final sem perdas com o total estimado de recebíveis originados no período.",
-            "- Perda calibrada de ciclo estima, por busca binária, qual percentual de NPL 90+ sobre os recebíveis que vencem levaria a SUB final para perto de zero.",
-            "- A aba também anualiza essa perda pelo prazo médio dos recebíveis e mostra a perda efetiva pós-LGD, para evitar comparar ciclos de prazos diferentes como se fossem iguais.",
+            "- Colchão sobre carteira originada compara a SUB final sem perdas com o total estimado de recebíveis originados no período.",
             "- A proteção ao longo do tempo compara a SUB disponível de cada mês com a carteira inicial somada à nova originação acumulada até aquele mês.",
             "- Enquanto a revolvência é elegível, o modelo reinveste principal recebido e excesso de caixa em nova carteira.",
             "- Depois da janela elegível, o principal que vence vira caixa e rende pela SELIC média anual informada pelo usuário.",
             "- A SELIC anual é convertida para o mês por composição exponencial em base 252, usando 21 dias úteis médios por mês.",
             "- No gráfico de saldos, o eixo X mostra o mês desde o início do FIDC; isso deixa claro quando terminam carências e começam amortizações.",
-            "- No gráfico de perda e subordinação, maior perda acumulada com menor subordinação indica cenário mais pressionado.",
+            "- No gráfico de proteção, maior perda acumulada com menor subordinação indica cenário mais pressionado.",
         ]
     )
 
@@ -1484,7 +1477,7 @@ def _validate_snapshot_curve(inputs) -> list[str]:
 
 
 def _curve_comparison_metrics(inputs, selected_curve: _SelectedCurve) -> dict[str, float] | None:
-    if selected_curve.source_label == CURVE_SOURCE_SNAPSHOT:
+    if inputs is None or selected_curve.source_label == CURVE_SOURCE_SNAPSHOT:
         return None
     if selected_curve.base_date != SNAPSHOT_CURVE_DATE:
         return None
@@ -1585,8 +1578,8 @@ def _render_curve_source_controls(
             CURVE_SOURCE_OPTIONS,
             key="modelo_curve_source",
             help=(
-                "A fonte B3 usa o arquivo público TaxaSwap da Pesquisa por pregão. "
-                "A curva local salva fica disponível apenas para comparação histórica."
+                "A curva DI/Pré remunera cotas pós-fixadas e calcula o Pre DI na duration. "
+                "Use B3 para dados de mercado ou curva local apenas para comparação histórica."
             ),
         )
         if st.session_state.get("modelo_curve_source") == CURVE_SOURCE_B3_DATE:
@@ -1619,6 +1612,24 @@ def _render_curve_source_controls(
             st.markdown("##### Detalhes da fonte selecionada")
             _render_curve_source_info(inputs, selected_curve)
             _render_calendar_source_info(selected_calendar)
+
+
+def _render_selic_projection_info(
+    *,
+    selic_aa_por_ano: tuple[tuple[int, float], ...],
+) -> None:
+    with st.expander("SELIC média para caixa em runoff", expanded=False):
+        st.caption(
+            "Esta premissa remunera apenas o caixa excedente depois que a carteira entra em runoff. "
+            "Cotas pós-fixadas e Pre DI na duration continuam usando a curva DI/Pré da B3 ou a fonte selecionada."
+        )
+        curve_df = pd.DataFrame(
+            [
+                {"Ano": year, "SELIC média para caixa (% a.a.)": _format_percent(rate)}
+                for year, rate in selic_aa_por_ano
+            ]
+        )
+        st.dataframe(curve_df, width="stretch", hide_index=True)
 
 
 def _rate_mode_from_label(label: str) -> str:
@@ -1685,12 +1696,10 @@ def _available_subordination_pct(row: pd.Series) -> float | None:
 def _build_loss_area_frame(
     frame: pd.DataFrame,
     volume: float,
-    protection_frame: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     loss_column = "perda_carteira_despesa" if "perda_carteira_despesa" in frame.columns else "inadimplencia_despesa"
-    chart_frame = frame[["indice", "data", "carteira", "pl_fidc", "pl_sub_jr", loss_column]].copy()
+    chart_frame = frame[["indice", "data", "carteira", loss_column]].copy()
     chart_frame = chart_frame.rename(columns={loss_column: "perda_carteira_despesa"})
-    chart_frame["subordinacao_display"] = chart_frame.apply(_available_subordination_pct, axis=1)
     chart_frame["perda_carteira_acumulada"] = chart_frame["perda_carteira_despesa"].fillna(0.0).cumsum()
     chart_frame["perda_periodo_pct"] = chart_frame.apply(
         lambda row: row["perda_carteira_despesa"] / row["carteira"] if row["carteira"] else None,
@@ -1700,16 +1709,35 @@ def _build_loss_area_frame(
     chart_frame["perda_acumulada_pct"] = chart_frame["perda_carteira_acumulada"] / denominator
     long_df = chart_frame.melt(
         id_vars=["indice", "data"],
-        value_vars=["subordinacao_display", "perda_acumulada_pct", "perda_periodo_pct"],
+        value_vars=["perda_acumulada_pct", "perda_periodo_pct"],
         var_name="serie",
         value_name="valor",
     ).dropna(subset=["valor"])
     label_map = {
-        "subordinacao_display": "Subordinação econômica disponível (SUB positiva/PL)",
-        "perda_acumulada_pct": "Perda acumulada da carteira (% do volume)",
-        "perda_periodo_pct": "Perda do período (% da carteira)",
+        "perda_acumulada_pct": "Perda acumulada",
+        "perda_periodo_pct": "Perda do período",
     }
     long_df["serie"] = long_df["serie"].map(label_map)
+    long_df["valor_pct"] = long_df["valor"] * 100.0
+    long_df["valor_formatado"] = long_df["valor"].map(_format_percent)
+    long_df["periodo"] = long_df["data"].dt.strftime("%d/%m/%Y")
+    long_df["mes_fidc"] = long_df["indice"].map(lambda value: f"Mês {int(value)}")
+    return long_df
+
+
+def _build_protection_area_frame(
+    frame: pd.DataFrame,
+    protection_frame: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    chart_frame = frame[["indice", "data", "pl_fidc", "pl_sub_jr"]].copy()
+    chart_frame["subordinacao_display"] = chart_frame.apply(_available_subordination_pct, axis=1)
+    long_df = chart_frame.melt(
+        id_vars=["indice", "data"],
+        value_vars=["subordinacao_display"],
+        var_name="serie",
+        value_name="valor",
+    ).dropna(subset=["valor"])
+    long_df["serie"] = "Subordinação econômica"
     long_df["valor_pct"] = long_df["valor"] * 100.0
     long_df["valor_formatado"] = long_df["valor"].map(_format_percent)
     long_df["periodo"] = long_df["data"].dt.strftime("%d/%m/%Y")
@@ -1719,15 +1747,8 @@ def _build_loss_area_frame(
             ["indice", "data", "perda_maxima_suportada", "valor_pct", "valor_formatado", "periodo", "mes_fidc"]
         ].copy()
         protection_series = protection_series.rename(columns={"perda_maxima_suportada": "valor"})
-        protection_series["serie"] = "Proteção disponível (% carteira originada)"
+        protection_series["serie"] = "Colchão de proteção"
         long_df = pd.concat([long_df, protection_series[long_df.columns]], ignore_index=True)
-    protection_names = {
-        "Subordinação econômica disponível (SUB positiva/PL)",
-        "Proteção disponível (% carteira originada)",
-    }
-    long_df["eixo"] = long_df["serie"].map(
-        lambda serie: "Proteção / subordinação" if serie in protection_names else "Perda da carteira"
-    )
     return long_df
 
 
@@ -1755,7 +1776,7 @@ def _protection_ratio_chart(chart_df: pd.DataFrame) -> alt.Chart:
             alt.Tooltip("residual_fluxo_formatado:N", title="Residual do fluxo"),
             alt.Tooltip("sub_formatada:N", title="SUB disponível"),
             alt.Tooltip("originada_formatada:N", title="Denominador"),
-            alt.Tooltip("valor_formatado:N", title="Proteção disponível"),
+            alt.Tooltip("valor_formatado:N", title="Colchão de proteção"),
         ],
     )
     return (base.mark_line(size=2.4, interpolate="monotone") + base.mark_point(size=42)).properties(height=320)
@@ -1804,16 +1825,13 @@ def _area_money_chart(chart_df: pd.DataFrame) -> alt.Chart:
     return (area + boundary).properties(height=320)
 
 
-def _area_percent_chart(chart_df: pd.DataFrame) -> alt.Chart:
-    color_domain = [
-        "Perda acumulada da carteira (% do volume)",
-        "Perda do período (% da carteira)",
-        "Subordinação econômica disponível (SUB positiva/PL)",
-        "Proteção disponível (% carteira originada)",
-    ]
-    color_range = ["#d62728", "#f28e2b", "#2f6f9f", "#59a14f"]
-    loss_df = chart_df[chart_df["eixo"] == "Perda da carteira"].copy()
-    protection_df = chart_df[chart_df["eixo"] == "Proteção / subordinação"].copy()
+def _area_percent_chart(
+    chart_df: pd.DataFrame,
+    *,
+    y_title: str,
+    color_domain: list[str],
+    color_range: list[str],
+) -> alt.Chart:
     x_encoding = alt.X("indice:Q", title="Mês do FIDC", axis=alt.Axis(tickMinStep=1))
     tooltip = [
         alt.Tooltip("mes_fidc:N", title="Mês"),
@@ -1822,11 +1840,11 @@ def _area_percent_chart(chart_df: pd.DataFrame) -> alt.Chart:
         alt.Tooltip("valor_formatado:N", title="Valor"),
     ]
 
-    loss_base = alt.Chart(loss_df).encode(
+    base = alt.Chart(chart_df).encode(
         x=x_encoding,
         y=alt.Y(
             "valor_pct:Q",
-            title="Perda da carteira (%)",
+            title=y_title,
             axis=alt.Axis(labelExpr="replace(format(datum.value, '.1f'), '.', ',') + '%'"),
         ),
         color=alt.Color(
@@ -1836,29 +1854,10 @@ def _area_percent_chart(chart_df: pd.DataFrame) -> alt.Chart:
         ),
         tooltip=tooltip,
     )
-    protection_base = alt.Chart(protection_df).encode(
-        x=alt.X("indice:Q", title="Mês do FIDC", axis=alt.Axis(tickMinStep=1)),
-        y=alt.Y(
-            "valor_pct:Q",
-            title="Proteção / subordinação (%)",
-            axis=alt.Axis(orient="right", labelExpr="replace(format(datum.value, '.1f'), '.', ',') + '%'"),
-        ),
-        color=alt.Color(
-            "serie:N",
-            title="Série",
-            scale=alt.Scale(domain=color_domain, range=color_range),
-        ),
-        tooltip=tooltip,
-    )
-    loss_layer = loss_base.mark_area(opacity=0.20, interpolate="monotone") + loss_base.mark_line(
-        size=2,
-        interpolate="monotone",
-    )
-    protection_layer = protection_base.mark_area(opacity=0.12, interpolate="monotone") + protection_base.mark_line(
-        size=2.4,
-        interpolate="monotone",
-    )
-    return alt.layer(loss_layer, protection_layer).resolve_scale(y="independent").properties(height=320)
+    return (
+        base.mark_area(opacity=0.18, interpolate="monotone")
+        + base.mark_line(size=2.2, interpolate="monotone")
+    ).properties(height=320)
 
 
 def _render_model_header() -> None:
@@ -1930,6 +1929,16 @@ def _render_model_kpi_cards(kpis, results, *, has_mezz: bool) -> None:
                 "Taxa interna de retorno anual dos fluxos da MEZZ, considerando sua posição no waterfall.",
             ),
         )
+    if kpis.xirr_sub_jr is not None:
+        cards.insert(
+            1 + int(has_mezz),
+            (
+                "Retorno anualizado",
+                _format_percent(kpis.xirr_sub_jr),
+                "Júnior residual",
+                "TIR anual do residual da SUB quando os fluxos permitem uma TIR válida.",
+            ),
+        )
     cards_html = "".join(
         (
             '<div class="fidc-model-kpi-card">'
@@ -1947,22 +1956,10 @@ def _render_model_kpi_cards(kpis, results, *, has_mezz: bool) -> None:
 def _render_revolvency_cards(metrics: _RevolvencyMetrics) -> None:
     cards = [
         (
-            "Modo da carteira",
-            metrics.portfolio_mode,
-            "Originação",
-            "Mostra se o fundo reinveste caixa em novos recebíveis ou apenas consome a carteira inicial.",
-        ),
-        (
             "Prazo médio recebíveis",
             f"{_format_number_br(metrics.prazo_medio_recebiveis_meses, 1)} meses",
             "Prazo de giro",
             "Indica em quantos meses, em média, os recebíveis viram caixa para giro da carteira.",
-        ),
-        (
-            "Giro estimado",
-            f"{_format_number_br(metrics.giro_estimado, 2)}x",
-            "Prazo FIDC / prazo médio",
-            "Número de ciclos de carteira dentro do prazo do FIDC, contando a carteira inicial como o primeiro ciclo.",
         ),
         (
             "Carteira originada nominal",
@@ -1971,46 +1968,16 @@ def _render_revolvency_cards(metrics: _RevolvencyMetrics) -> None:
             "Volume total estimado comprado no prazo do FIDC, somando a carteira inicial e as novas originações.",
         ),
         (
-            "EAD máximo",
-            _format_brl(metrics.ead_maximo),
-            "Maior carteira em aberto",
-            "Maior saldo de recebíveis em aberto observado na simulação sem perdas.",
-        ),
-        (
-            "EAD médio ponderado",
-            _format_brl(metrics.ead_medio_ponderado),
-            "Exposição no tempo",
-            "Média da carteira em aberto ponderada pelos dias corridos de cada período.",
-        ),
-        (
             "SUB final sem perdas",
             _format_brl(metrics.sub_final_sem_inadimplencia),
             "Colchão acumulado",
             "Valor econômico residual da SUB no fim do prazo em cenário sem perdas de crédito.",
         ),
         (
-            "Colchão sem perdas / originado",
+            "Colchão sobre carteira originada",
             _format_percent(metrics.colchao_sem_perdas_sobre_originacao),
             "SUB final sem perdas / carteira originada",
-            "Mede excess spread acumulado sem perdas dividido pela carteira originada nominal; não é perda calibrada.",
-        ),
-        (
-            "Perda calibrada de ciclo",
-            "> 100,00%" if metrics.perda_ciclo_calibrada_excede_limite else _format_percent(metrics.perda_ciclo_calibrada),
-            "% dos recebíveis que vencem",
-            "Saída direta do solver: percentual de NPL 90+ sobre os recebíveis que vencem no ciclo que zera a SUB final.",
-        ),
-        (
-            "Perda calibrada anual eq.",
-            _format_percent(metrics.perda_ciclo_calibrada_anual_equivalente),
-            "Frequência pelo prazo médio",
-            "Anualiza a perda calibrada de ciclo pela frequência de giro dos recebíveis para comparar estruturas com prazos médios diferentes.",
-        ),
-        (
-            "Perda efetiva pós-LGD",
-            _format_percent(metrics.perda_ciclo_calibrada_pos_lgd),
-            "Por ciclo, líquida de recuperação",
-            "Multiplica a perda calibrada de ciclo pela LGD informada, mostrando a perda econômica efetiva por ciclo.",
+            "Mede excess spread acumulado sem perdas dividido pela carteira originada nominal.",
         ),
     ]
     cards_html = "".join(
@@ -2367,12 +2334,11 @@ def render_tab_modelo_fidc() -> None:
                         with column:
                             selic_text_by_year[year] = _text_percent_input(
                                 f"SELIC média {year} (% a.a.)",
-                                default=0.0,
+                                default=_default_selic_rate_for_year(year),
                                 key=f"modelo_selic_aa_{year}",
                                 decimals=2,
                                 help_text=(
-                                    "Informe a taxa SELIC média anual projetada; o motor converte para taxa mensal "
-                                    "com 21 dias úteis."
+                                    "Informe a SELIC média anual usada apenas para remunerar caixa em runoff."
                                 ),
                             )
 
@@ -2536,7 +2502,7 @@ def render_tab_modelo_fidc() -> None:
         taxa_senior = _parse_br_number(senior_rate_text, field_name=senior_rate_label) / 100.0
         taxa_mezz = _parse_br_number(mezz_rate_text, field_name=mezz_rate_label) / 100.0
         taxa_sub = _parse_br_number(sub_rate_text, field_name="Taxa-alvo cota SUB (% a.a.)") / 100.0
-        selic_aa_por_ano = tuple(
+        user_selic_aa_por_ano = tuple(
             (year, _parse_br_number(text, field_name=f"SELIC média {year} (% a.a.)") / 100.0)
             for year, text in sorted(selic_text_by_year.items())
         )
@@ -2585,7 +2551,7 @@ def render_tab_modelo_fidc() -> None:
     if agio_aquisicao < 0 or excesso_spread_senior_am < 0:
         st.error("Ágio de aquisição e excesso de spread não podem ser negativos.")
         return
-    if any(rate < 0 for _, rate in selic_aa_por_ano):
+    if any(rate < 0 for _, rate in user_selic_aa_por_ano):
         st.error("As taxas SELIC projetadas não podem ser negativas.")
         return
 
@@ -2595,6 +2561,11 @@ def render_tab_modelo_fidc() -> None:
         return
 
     simulation_dates = _build_simulation_dates(inputs, date_schedule_label, prazo_fidc_anos)
+    try:
+        effective_selic_aa_por_ano = _effective_selic_projection_for_dates(user_selic_aa_por_ano, simulation_dates)
+    except ValueError as exc:
+        st.error(str(exc))
+        return
 
     premissas = Premissas(
         volume=volume,
@@ -2645,7 +2616,7 @@ def render_tab_modelo_fidc() -> None:
         writeoff_90_plus=writeoff_90_plus,
         agio_aquisicao=agio_aquisicao,
         excesso_spread_senior_am=excesso_spread_senior_am,
-        selic_aa_por_ano=selic_aa_por_ano,
+        selic_aa_por_ano=effective_selic_aa_por_ano,
     )
 
     st.caption(
@@ -2677,15 +2648,15 @@ def render_tab_modelo_fidc() -> None:
     )
     st.caption(
         "Caixa pós-revolvência: "
-        + "; ".join(f"{year}: {_format_percent(rate)} a.a." for year, rate in selic_aa_por_ano)
-        + ". O motor converte cada taxa anual para o período com 21 dias úteis por mês."
+        + "; ".join(f"{year}: {_format_percent(rate)} a.a." for year, rate in user_selic_aa_por_ano)
+        + ". Esta curva remunera apenas o caixa excedente quando a carteira entra em runoff."
     )
 
     curve_source_label = _ensure_session_option("modelo_curve_source", CURVE_SOURCE_OPTIONS)
     selected_b3_date = _ensure_session_date("modelo_b3_date", date.today() - timedelta(days=1))
+    calendar_source_label = _ensure_session_option("modelo_calendar_source", CALENDAR_SOURCE_OPTIONS, default_index=1)
     interpolation_label = _ensure_session_option("modelo_interpolation_label", INTERPOLATION_OPTIONS)
     interpolation_method = _interpolation_method_from_label(interpolation_label)
-    calendar_source_label = _ensure_session_option("modelo_calendar_source", CALENDAR_SOURCE_OPTIONS)
 
     try:
         if curve_source_label == CURVE_SOURCE_SNAPSHOT:
@@ -2773,20 +2744,10 @@ def render_tab_modelo_fidc() -> None:
         _premissas_sem_perdas(premissas),
         interpolation_method=interpolation_method,
     )
-    calibrated_loss_cycle, calibrated_loss_exceeds_limit = _solve_calibrated_loss_cycle(
-        datas=simulation_dates,
-        feriados=selected_calendar.feriados,
-        curva_du=selected_curve.curva_du,
-        curva_taxa_aa=selected_curve.curva_taxa_aa,
-        premissas=premissas,
-        interpolation_method=interpolation_method,
-    )
     revolvency_metrics = _build_revolvency_metrics(
         premissas=premissas,
         zero_default_results=zero_default_results,
         portfolio_mode=portfolio_mode_label,
-        calibrated_loss_cycle=calibrated_loss_cycle,
-        calibrated_loss_exceeds_limit=calibrated_loss_exceeds_limit,
     )
 
     frame = _build_dataframe(results)
@@ -2813,22 +2774,32 @@ def render_tab_modelo_fidc() -> None:
     st.markdown('<div class="fidc-model-section-title">Capacidade de perda e denominadores</div>', unsafe_allow_html=True)
     _render_revolvency_cards(revolvency_metrics)
 
+    st.markdown('<div class="fidc-model-section-title">Evolução do saldo das cotas</div>', unsafe_allow_html=True)
+    st.altair_chart(_area_money_chart(_build_balance_area_frame(frame)), width="stretch")
+
     chart_left, chart_right = st.columns(2)
     with chart_left:
-        st.markdown('<div class="fidc-model-section-title">Evolução de Saldo das Cotas</div>', unsafe_allow_html=True)
-        st.altair_chart(_area_money_chart(_build_balance_area_frame(frame)), width="stretch")
-    with chart_right:
-        st.markdown(
-            '<div class="fidc-model-section-title">Evolução Subordinação x Perda da Carteira</div>',
-            unsafe_allow_html=True,
+        st.markdown('<div class="fidc-model-section-title">Perda da carteira</div>', unsafe_allow_html=True)
+        st.altair_chart(
+            _area_percent_chart(
+                _build_loss_area_frame(frame, premissas.volume),
+                y_title="Perda da carteira (%)",
+                color_domain=["Perda acumulada", "Perda do período"],
+                color_range=["#d62728", "#f28e2b"],
+            ),
+            width="stretch",
         )
-        st.altair_chart(_area_percent_chart(_build_loss_area_frame(frame, premissas.volume, protection_frame)), width="stretch")
-
-    st.markdown(
-        '<div class="fidc-model-section-title">Proteção Econômica ao Longo do Tempo</div>',
-        unsafe_allow_html=True,
-    )
-    st.altair_chart(_protection_ratio_chart(protection_chart_frame), width="stretch")
+    with chart_right:
+        st.markdown('<div class="fidc-model-section-title">Proteção da estrutura</div>', unsafe_allow_html=True)
+        st.altair_chart(
+            _area_percent_chart(
+                _build_protection_area_frame(frame, protection_frame),
+                y_title="Proteção da estrutura (%)",
+                color_domain=["Subordinação econômica", "Colchão de proteção"],
+                color_range=["#2f6f9f", "#59a14f"],
+            ),
+            width="stretch",
+        )
 
     memory_df = pd.DataFrame(
         [
@@ -2941,7 +2912,7 @@ def render_tab_modelo_fidc() -> None:
                 "Observação": "Esse é o denominador programático de carteira originada nominal; a originação econômica com excesso de caixa aparece separada na timeline.",
             },
             {
-                "Indicador": "Proteção disponível no tempo",
+                "Indicador": "Colchão de proteção no tempo",
                 "Fórmula": "SUB disponível no mês / (carteira inicial + nova originação acumulada)",
                 "Observação": "A tabela de proteção detalha carteira inicial, nova originação, prazo médio, denominador, SUB e residual do fluxo por mês.",
             },
@@ -2949,21 +2920,6 @@ def render_tab_modelo_fidc() -> None:
                 "Indicador": "Colchão sem perdas sobre originado",
                 "Fórmula": "max(SUB final com perdas 0%, 0) / carteira total originada estimada",
                 "Observação": "Esta é uma simulação paralela sem perda de crédito para medir excess spread e colchão econômico antes das perdas.",
-            },
-            {
-                "Indicador": "Perda calibrada de ciclo",
-                "Fórmula": "busca binária em perda_ciclo até SUB_final ~= 0",
-                "Observação": "Saída direta do solver: % de NPL 90+ sobre recebíveis que vencem no ciclo, não taxa anual nem % da carteira originada.",
-            },
-            {
-                "Indicador": "Perda calibrada anual equivalente",
-                "Fórmula": "(1 + perda_ciclo_calibrada) ^ (12 / prazo_medio_recebiveis_meses) - 1",
-                "Observação": "Converte a perda de ciclo em taxa anual comparável entre estruturas com prazos médios diferentes.",
-            },
-            {
-                "Indicador": "Perda efetiva por ciclo pós-LGD",
-                "Fórmula": "perda_ciclo_calibrada * LGD",
-                "Observação": "Mostra a perda econômica líquida de recuperação esperada para cada ciclo calibrado.",
             },
             {
                 "Indicador": "Júnior residual / subordinação econômica",
@@ -3017,8 +2973,9 @@ def render_tab_modelo_fidc() -> None:
         width="stretch",
     )
 
-    st.markdown('<div class="fidc-model-section-title">Fonte da curva DI/Pré</div>', unsafe_allow_html=True)
+    st.markdown('<div class="fidc-model-section-title">Fontes de juros</div>', unsafe_allow_html=True)
     _render_curve_source_controls(inputs, selected_curve, selected_calendar)
+    _render_selic_projection_info(selic_aa_por_ano=user_selic_aa_por_ano)
 
     guide_left, guide_right = st.columns(2)
     with guide_left:

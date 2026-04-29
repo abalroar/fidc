@@ -451,6 +451,28 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertAlmostEqual(runoff_period.fluxo_carteira + runoff_period.rendimento_caixa_selic, runoff_period.fluxo_ativos_total)
         self.assertGreater(runoff_period.saldo_caixa_selic_fim, runoff_period.principal_para_caixa_selic)
 
+    def test_missing_projected_selic_year_raises_explicit_error(self):
+        monthly_dates = [datetime(2026, 12, 1), datetime(2027, 1, 1)]
+        premissas = Premissas(
+            volume=1_000_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.0,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=1.0,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            selic_aa_por_ano=((2026, 0.13),),
+        )
+
+        with self.assertRaisesRegex(ValueError, "Curva de SELIC média para caixa sem taxa para 2027"):
+            build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
+
     def test_acquisition_premium_reduces_initial_subordination(self):
         premissas = Premissas(
             volume=1_000_000.0,

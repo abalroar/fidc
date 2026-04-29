@@ -47,6 +47,14 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertEqual(0.0135, tab_modelo_fidc.DEFAULT_TAXA_SENIOR)
         self.assertEqual(0.05, tab_modelo_fidc.DEFAULT_TAXA_MEZZ)
         self.assertEqual(30.0, tab_modelo_fidc.DEFAULT_CARENCIA_PRINCIPAL_MESES)
+        self.assertEqual(0.13, tab_modelo_fidc.DEFAULT_SELIC_AA_2026)
+        self.assertEqual(0.12, tab_modelo_fidc.DEFAULT_SELIC_AA_2027_ONWARD)
+
+    def test_projection_years_start_at_2026_and_exclude_2025(self) -> None:
+        years = tab_modelo_fidc._projection_years_for_term(pd.Timestamp("2025-03-01").to_pydatetime(), 3.0)
+
+        self.assertNotIn(2025, years)
+        self.assertEqual([2026, 2027, 2028], years)
 
     def test_workbook_mechanics_expander_explains_cash_lock_and_sheet_formulas(self) -> None:
         selected_curve = tab_modelo_fidc._SelectedCurve(
@@ -84,7 +92,8 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn("provisao_minima = estoque_npl90_t", markdown)
         self.assertIn("Migração por faixas de atraso", markdown)
         self.assertIn("ECL forward-looking", markdown)
-        self.assertIn("perda_calibrada_anual_equivalente", markdown)
+        self.assertIn("13,00% a.a.", markdown)
+        self.assertIn("12,00% a.a.", markdown)
         self.assertIn("Backlog Fase 2", markdown)
         self.assertIn("PMT SEN = juros SEN + principal SEN programado", markdown)
         self.assertIn("SUB residual = PL FIDC - PL SEN - PL MEZZ", markdown)
@@ -426,7 +435,7 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertEqual((75.0, 90.0), stacks["MEZZ"])
         self.assertEqual((90.0, 100.0), stacks["Subordinada/SUB disponível"])
 
-    def test_loss_chart_uses_available_subordination_not_shifted_workbook_ratio(self) -> None:
+    def test_protection_chart_uses_available_subordination_not_shifted_workbook_ratio(self) -> None:
         frame = pd.DataFrame(
             {
                 "indice": [0, 1],
@@ -440,13 +449,13 @@ class TabModeloFidcTests(unittest.TestCase):
             }
         )
 
-        chart_df = tab_modelo_fidc._build_loss_area_frame(frame, volume=100.0)
-        sub_series = chart_df[chart_df["serie"] == "Subordinação econômica disponível (SUB positiva/PL)"]
+        chart_df = tab_modelo_fidc._build_protection_area_frame(frame)
+        sub_series = chart_df[chart_df["serie"] == "Subordinação econômica"]
 
         self.assertEqual([10.0, 0.0], sub_series["valor_pct"].tolist())
         self.assertGreaterEqual(sub_series["valor_pct"].min(), 0.0)
 
-    def test_loss_chart_can_include_time_protection_series(self) -> None:
+    def test_protection_chart_can_include_time_protection_series(self) -> None:
         frame = pd.DataFrame(
             {
                 "indice": [0, 1],
@@ -469,12 +478,12 @@ class TabModeloFidcTests(unittest.TestCase):
             }
         )
 
-        chart_df = tab_modelo_fidc._build_loss_area_frame(frame, volume=100.0, protection_frame=protection)
+        chart_df = tab_modelo_fidc._build_protection_area_frame(frame, protection)
 
-        self.assertIn("Proteção disponível (% carteira originada)", chart_df["serie"].tolist())
-        self.assertIn("Proteção / subordinação", chart_df["eixo"].tolist())
+        self.assertIn("Colchão de proteção", chart_df["serie"].tolist())
+        self.assertIn("Subordinação econômica", chart_df["serie"].tolist())
 
-    def test_loss_chart_uses_right_axis_for_protection_series(self) -> None:
+    def test_loss_and_protection_charts_are_split_without_independent_axes(self) -> None:
         frame = pd.DataFrame(
             {
                 "indice": [0, 1],
@@ -485,22 +494,18 @@ class TabModeloFidcTests(unittest.TestCase):
                 "perda_carteira_despesa": [0.0, 2.0],
             }
         )
-        chart_df = tab_modelo_fidc._build_loss_area_frame(frame, volume=100.0)
+        loss_df = tab_modelo_fidc._build_loss_area_frame(frame, volume=100.0)
+        protection_df = tab_modelo_fidc._build_protection_area_frame(frame)
 
-        spec = tab_modelo_fidc._area_percent_chart(chart_df).to_dict()
-
-        def has_right_axis(node) -> bool:
-            if isinstance(node, dict):
-                axis = node.get("axis")
-                if isinstance(axis, dict) and axis.get("orient") == "right":
-                    return True
-                return any(has_right_axis(value) for value in node.values())
-            if isinstance(node, list):
-                return any(has_right_axis(value) for value in node)
-            return False
-
-        self.assertEqual("independent", spec["resolve"]["scale"]["y"])
-        self.assertTrue(has_right_axis(spec))
+        self.assertEqual({"Perda acumulada", "Perda do período"}, set(loss_df["serie"]))
+        self.assertEqual({"Subordinação econômica"}, set(protection_df["serie"]))
+        spec = tab_modelo_fidc._area_percent_chart(
+            loss_df,
+            y_title="Perda da carteira (%)",
+            color_domain=["Perda acumulada", "Perda do período"],
+            color_range=["#d62728", "#f28e2b"],
+        ).to_dict()
+        self.assertNotIn("resolve", spec)
 
     def test_time_protection_chart_is_line_chart(self) -> None:
         chart_df = pd.DataFrame(
