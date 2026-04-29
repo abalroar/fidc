@@ -168,6 +168,12 @@ def _credit_loss_expenses(carteira: float, premissas: Premissas, delta_dc: int) 
     return expected_loss, unexpected_loss, expected_loss + unexpected_loss
 
 
+def _receivables_balance_for_period(premissas: Premissas, pl_fidc_atual: float) -> float:
+    if premissas.carteira_revolvente:
+        return premissas.volume
+    return max(pl_fidc_atual, 0.0)
+
+
 def _period_indexes_for_dates(datas: Sequence[datetime]) -> list[int]:
     month_deltas = [_months_between(datas[0], dt) for dt in datas]
     workbook_prefix = [0, 6, 12, 18, 24]
@@ -292,6 +298,7 @@ def build_flow(
                     perda_esperada_despesa=0.0,
                     perda_inesperada_despesa=0.0,
                     perda_carteira_despesa=0.0,
+                    resultado_carteira_liquido=0.0,
                     agio_aquisicao_despesa=agio_aquisicao_despesa,
                     tx_cessao_am_input=premissas.tx_cessao_am,
                     tx_cessao_am_piso=0.0,
@@ -320,7 +327,7 @@ def build_flow(
 
         delta_du = du[index] - du[index - 1]
         delta_dc = dc[index] - dc[index - 1]
-        carteira = pl_fidc_atual
+        carteira = _receivables_balance_for_period(premissas, pl_fidc_atual)
         fra_senior_period = fra_senior[index] or 0.0
         tx_cessao_am_piso = _cession_floor_monthly_rate(
             fra_senior_period,
@@ -335,6 +342,7 @@ def build_flow(
             delta_dc,
         )
         inadimplencia_despesa = perda_carteira_despesa
+        resultado_carteira_liquido = fluxo_carteira - perda_carteira_despesa
 
         fra_mezz_period = fra_mezz[index] or 0.0
         juros_senior_bruto = pl_senior_atual * ((1.0 + fra_senior_period) ** (delta_du / 252.0) - 1.0)
@@ -368,7 +376,7 @@ def build_flow(
 
         fluxo_remanescente = fluxo_carteira - custos_adm - inadimplencia_despesa - pmt_senior
         fluxo_remanescente_mezz = fluxo_remanescente - pmt_mezz
-        pl_fidc_atual = carteira + fluxo_carteira - custos_adm - inadimplencia_despesa - pmt_senior - pmt_mezz
+        pl_fidc_atual = pl_fidc_atual + fluxo_carteira - custos_adm - inadimplencia_despesa - pmt_senior - pmt_mezz
         pl_sub_jr = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
 
         taxa_senior_period = taxa_senior[index]
@@ -397,6 +405,7 @@ def build_flow(
                 perda_esperada_despesa=perda_esperada_despesa,
                 perda_inesperada_despesa=perda_inesperada_despesa,
                 perda_carteira_despesa=perda_carteira_despesa,
+                resultado_carteira_liquido=resultado_carteira_liquido,
                 agio_aquisicao_despesa=0.0,
                 tx_cessao_am_input=premissas.tx_cessao_am,
                 tx_cessao_am_piso=tx_cessao_am_piso,

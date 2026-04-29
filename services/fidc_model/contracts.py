@@ -68,6 +68,7 @@ class PeriodResult:
     perda_esperada_despesa: float
     perda_inesperada_despesa: float
     perda_carteira_despesa: float
+    resultado_carteira_liquido: float
     agio_aquisicao_despesa: float
     tx_cessao_am_input: float
     tx_cessao_am_piso: float

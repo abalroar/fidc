@@ -39,6 +39,7 @@ def _build_default_premissas() -> Premissas:
         taxa_senior=inputs.premissas["Taxa Sênior"],
         proporcao_mezz=inputs.premissas["Proporção PL Mezz"],
         taxa_mezz=inputs.premissas["Taxa Mezz"],
+        carteira_revolvente=False,
     )
 
 
@@ -195,6 +196,32 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertAlmostEqual(20_000.0, periods[1].perda_inesperada_despesa)
         self.assertAlmostEqual(30_000.0, periods[1].perda_carteira_despesa)
         self.assertAlmostEqual(periods[1].perda_carteira_despesa, periods[1].inadimplencia_despesa)
+        self.assertAlmostEqual(periods[1].fluxo_carteira - 30_000.0, periods[1].resultado_carteira_liquido)
+
+    def test_revolving_portfolio_keeps_open_receivables_base_at_initial_volume(self):
+        monthly_dates = [datetime(2025, 1, 1), datetime(2025, 2, 1), datetime(2025, 3, 1)]
+        premissas = Premissas(
+            volume=1_000_000.0,
+            tx_cessao_am=0.10,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.0,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=1.0,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            carteira_revolvente=True,
+        )
+
+        periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
+
+        self.assertAlmostEqual(1_000_000.0, periods[1].carteira)
+        self.assertAlmostEqual(1_000_000.0, periods[2].carteira)
+        self.assertGreater(periods[2].pl_fidc, periods[1].pl_fidc)
 
     def test_acquisition_premium_reduces_initial_subordination(self):
         premissas = Premissas(

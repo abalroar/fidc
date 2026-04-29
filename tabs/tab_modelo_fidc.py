@@ -428,6 +428,13 @@ def _parse_br_number(value: str, *, field_name: str) -> float:
         raise ValueError(f"Valor inválido em {field_name}: {value}") from exc
 
 
+def _parse_percent_for_visibility(value: str, *, default: float) -> float:
+    try:
+        return _parse_br_number(value, field_name="percentual") / 100.0
+    except ValueError:
+        return default
+
+
 def _format_raw_input_text(value: str, *, decimals: int, kind: str) -> str:
     parsed = _parse_br_number(value, field_name="valor")
     if kind == "brl":
@@ -656,6 +663,7 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "perda_esperada_despesa": "Perda esperada/provisionada",
             "perda_inesperada_despesa": "Perda inesperada/stress",
             "perda_carteira_despesa": "Perda total da carteira",
+            "resultado_carteira_liquido": "Resultado líquido da carteira",
             "agio_aquisicao_despesa": "Ágio de aquisição",
             "tx_cessao_am_input": "Taxa mensal informada",
             "tx_cessao_am_piso": "Piso mensal SEN + excesso",
@@ -695,6 +703,7 @@ def _build_display_dataframe(export_frame: pd.DataFrame) -> pd.DataFrame:
         "PMT",
         "VP",
         "Saldo",
+        "Resultado",
     )
     percent_tokens = ("Pre DI", "Taxa", "FRA", "Subordinação")
     for column in display.columns:
@@ -862,6 +871,8 @@ def _build_workbook_mechanics_markdown(
             "fluxo_carteira = carteira * ((1 + taxa_cessao_am_aplicada) ^ (delta_DU / 21) - 1)",
             "```",
             "",
+            "- Em carteira revolvente, `carteira` é o saldo em aberto usado para juros e perda; o resultado excedente acumula no residual/SUB, mas não aumenta automaticamente a base de recebíveis.",
+            "",
             f"- Entrada informada pelo usuário nesta simulação: `{taxa_cessao_input_mode}`.",
             "- Em ambos os casos, a aba também calcula o de-para anual em base 252 dias úteis:",
             "",
@@ -895,9 +906,11 @@ def _build_workbook_mechanics_markdown(
             "perda_esperada = carteira * perda_esperada_am * delta_DC / 30",
             "perda_inesperada = carteira * perda_inesperada_am * delta_DC / 30",
             "perda_carteira = perda_esperada + perda_inesperada",
+            "resultado_liquido_carteira = fluxo_carteira - perda_carteira",
             "```",
             "",
             "- Esse campo não é NPL over 90; NPL over 90 é estoque vencido e exigiria premissas de LGD, recuperação e timing.",
+            "- Se a taxa mensal é `11,00%` e a perda mensal é `1,00%`, a perda consome cerca de `1 / 11` da receita bruta do mês, mas representa `1,00%` do principal em aberto.",
             "",
             "### 5. Taxas SEN e MEZZ",
             "",
@@ -1369,19 +1382,13 @@ def _render_model_header() -> None:
     )
 
 
-def _render_model_kpi_cards(kpis, results) -> None:
+def _render_model_kpi_cards(kpis, results, *, has_mezz: bool) -> None:
     cards = [
         (
             "Retorno anualizado",
             _format_percent(kpis.xirr_senior),
             "Classe sênior",
             "TIR anual dos fluxos projetados para a cota sênior.",
-        ),
-        (
-            "Retorno anualizado",
-            _format_percent(kpis.xirr_mezz),
-            "Classe MEZZ",
-            "TIR anual dos fluxos projetados para a cota mezanino.",
         ),
         (
             "Retorno anualizado",
@@ -1408,6 +1415,16 @@ def _render_model_kpi_cards(kpis, results) -> None:
             "Valor econômico inicial da SUB depois de efeitos de estrutura, como eventual ágio de aquisição.",
         ),
     ]
+    if has_mezz:
+        cards.insert(
+            1,
+            (
+                "Retorno anualizado",
+                _format_percent(kpis.xirr_mezz),
+                "Classe MEZZ",
+                "TIR anual dos fluxos projetados para a cota mezanino.",
+            ),
+        )
     cards_html = "".join(
         (
             '<div class="fidc-model-kpi-card">'
@@ -1603,6 +1620,7 @@ def render_tab_modelo_fidc() -> None:
                     key="modelo_prop_sub",
                     decimals=1,
                 )
+            has_mezz = _parse_percent_for_visibility(mezz_pct_text, default=DEFAULT_PROP_MEZZ) > 0.000001
             st.caption("As proporções SEN, MEZZ e SUB devem somar 100,00%.")
 
             st.markdown("##### Remuneração das cotas")
@@ -1623,22 +1641,28 @@ def render_tab_modelo_fidc() -> None:
                 decimals=2,
             )
 
-            mezz_mode_label = st.selectbox(
-                "Remuneração cota mezanino/MEZZ",
-                ["Pós-fixada: spread sobre CDI", "Pré-fixada: taxa % a.a."],
-                help="Pós-fixada soma economicamente curva DI/Pré e spread; pré-fixada usa taxa anual efetiva.",
-            )
-            mezz_rate_label = (
-                "Spread cota MEZZ sobre CDI (% a.a.)"
-                if _rate_mode_from_label(mezz_mode_label) == RATE_MODE_POST_CDI
-                else "Taxa pré-fixada cota MEZZ (% a.a.)"
-            )
-            mezz_rate_text = _text_percent_input(
-                mezz_rate_label,
-                default=DEFAULT_TAXA_MEZZ * 100.0,
-                key="modelo_taxa_mezz",
-                decimals=2,
-            )
+            if has_mezz:
+                mezz_mode_label = st.selectbox(
+                    "Remuneração cota mezanino/MEZZ",
+                    ["Pós-fixada: spread sobre CDI", "Pré-fixada: taxa % a.a."],
+                    help="Pós-fixada soma economicamente curva DI/Pré e spread; pré-fixada usa taxa anual efetiva.",
+                )
+                mezz_rate_label = (
+                    "Spread cota MEZZ sobre CDI (% a.a.)"
+                    if _rate_mode_from_label(mezz_mode_label) == RATE_MODE_POST_CDI
+                    else "Taxa pré-fixada cota MEZZ (% a.a.)"
+                )
+                mezz_rate_text = _text_percent_input(
+                    mezz_rate_label,
+                    default=DEFAULT_TAXA_MEZZ * 100.0,
+                    key="modelo_taxa_mezz",
+                    decimals=2,
+                )
+            else:
+                st.caption("Sem cota MEZZ: remuneração, prazo, amortização e juros da MEZZ serão ignorados.")
+                mezz_mode_label = "Pré-fixada: taxa % a.a."
+                mezz_rate_label = "Taxa pré-fixada cota MEZZ (% a.a.)"
+                mezz_rate_text = "0,00"
 
             sub_mode_label = st.selectbox(
                 "Remuneração cota subordinada/SUB",
@@ -1703,7 +1727,11 @@ def render_tab_modelo_fidc() -> None:
                     "O cronograma padrão preserva a regra semestral original do motor. "
                     "Os demais modos alteram os pagamentos programados no motor."
                 )
-                senior_cfg_a, senior_cfg_b = st.columns(2)
+                if has_mezz:
+                    senior_cfg_a, senior_cfg_b = st.columns(2)
+                else:
+                    senior_cfg_a = st.container()
+                    senior_cfg_b = None
                 with senior_cfg_a:
                     prazo_senior_text = _text_number_input(
                         "Prazo cota SEN (anos)",
@@ -1723,39 +1751,50 @@ def render_tab_modelo_fidc() -> None:
                         key="modelo_inicio_amort_senior",
                         decimals=0,
                     )
-                with senior_cfg_b:
-                    prazo_mezz_text = _text_number_input(
-                        "Prazo cota MEZZ (anos)",
-                        default=DEFAULT_PRAZO_ANOS,
-                        key="modelo_prazo_mezz_anos",
-                        decimals=1,
-                    )
-                    mezz_amort_label = st.selectbox(
-                        "Amortização principal MEZZ",
-                        list(AMORTIZATION_LABELS),
-                        index=1,
-                        key="modelo_amort_mezz",
-                    )
-                    mezz_start_text = _text_number_input(
-                        "Carência principal MEZZ (meses)",
-                        default=DEFAULT_CARENCIA_PRINCIPAL_MESES,
-                        key="modelo_inicio_amort_mezz",
-                        decimals=0,
-                    )
+                if has_mezz and senior_cfg_b is not None:
+                    with senior_cfg_b:
+                        prazo_mezz_text = _text_number_input(
+                            "Prazo cota MEZZ (anos)",
+                            default=DEFAULT_PRAZO_ANOS,
+                            key="modelo_prazo_mezz_anos",
+                            decimals=1,
+                        )
+                        mezz_amort_label = st.selectbox(
+                            "Amortização principal MEZZ",
+                            list(AMORTIZATION_LABELS),
+                            index=1,
+                            key="modelo_amort_mezz",
+                        )
+                        mezz_start_text = _text_number_input(
+                            "Carência principal MEZZ (meses)",
+                            default=DEFAULT_CARENCIA_PRINCIPAL_MESES,
+                            key="modelo_inicio_amort_mezz",
+                            decimals=0,
+                        )
+                else:
+                    prazo_mezz_text = prazo_fidc_text
+                    mezz_amort_label = "Sem amortização programada"
+                    mezz_start_text = "0"
 
-                interest_a, interest_b, interest_c = st.columns(3)
+                interest_columns = st.columns(3 if has_mezz else 2)
+                interest_a = interest_columns[0]
+                interest_b = interest_columns[1] if has_mezz else None
+                interest_c = interest_columns[2] if has_mezz else interest_columns[1]
                 with interest_a:
                     senior_interest_label = st.selectbox(
                         "Pagamento de juros SEN",
                         list(INTEREST_LABELS),
                         key="modelo_juros_senior",
                     )
-                with interest_b:
-                    mezz_interest_label = st.selectbox(
-                        "Pagamento de juros MEZZ",
-                        list(INTEREST_LABELS),
-                        key="modelo_juros_mezz",
-                    )
+                if has_mezz and interest_b is not None:
+                    with interest_b:
+                        mezz_interest_label = st.selectbox(
+                            "Pagamento de juros MEZZ",
+                            list(INTEREST_LABELS),
+                            key="modelo_juros_mezz",
+                        )
+                else:
+                    mezz_interest_label = "Pago em todo período"
                 with interest_c:
                     prazo_sub_text = _text_number_input(
                         "Prazo cota SUB (anos)",
@@ -1906,7 +1945,7 @@ def render_tab_modelo_fidc() -> None:
         "Perda da carteira no motor: "
         f"Perda Esperada {_format_percent(perda_esperada_am)} a.m. + "
         f"Perda Inesperada {_format_percent(perda_inesperada_am)} a.m. = "
-        f"{_format_percent(perda_total_am)} a.m."
+        f"{_format_percent(perda_total_am)} a.m. sobre a carteira em aberto."
     )
     st.caption(
         "Sofisticações da carteira: "
@@ -2033,7 +2072,7 @@ def render_tab_modelo_fidc() -> None:
     display_frame = _build_display_dataframe(export_frame)
 
     st.markdown('<div class="fidc-model-section-title">Resumo econômico</div>', unsafe_allow_html=True)
-    _render_model_kpi_cards(kpis, results)
+    _render_model_kpi_cards(kpis, results, has_mezz=proporcao_mezz > 0.000001)
 
     st.markdown('<div class="fidc-model-section-title">Perda máxima sobre carteira originada</div>', unsafe_allow_html=True)
     _render_revolvency_cards(revolvency_metrics)
@@ -2060,7 +2099,7 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Fluxo econômico da carteira",
                 "Fórmula": "carteira * ((1 + tx_cessao_am_aplicada) ^ (delta_du / 21) - 1)",
-                "Observação": "A Taxa de Cessão é convertida para Taxa Mensal e pode ser elevada pelo piso SEN + excesso.",
+                "Observação": "Em carteira revolvente, a base de carteira fica no volume em aberto informado; o excedente acumula no residual/SUB.",
             },
             {
                 "Indicador": "De-para da Taxa de Cessão",
@@ -2100,7 +2139,12 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Perda da carteira",
                 "Fórmula": "perda_esperada + perda_inesperada",
-                "Observação": "A perda total reduz o PL econômico do FIDC e testa a subordinação disponível.",
+                "Observação": "A perda total reduz o PL econômico do FIDC; não é NPL over 90 nem aging contábil.",
+            },
+            {
+                "Indicador": "Resultado líquido da carteira",
+                "Fórmula": "fluxo_carteira - perda_esperada - perda_inesperada",
+                "Observação": "Com taxa de 11,00% a.m. e perda de 1,00% a.m., o spread líquido simples é próximo de 10,00% da carteira por mês, ajustado por dias úteis/corridos.",
             },
             {
                 "Indicador": "Juros sênior/MEZZ",

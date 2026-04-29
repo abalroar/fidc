@@ -149,6 +149,8 @@ tx_cessao_am_aplicada = max(tx_cessao_am_informada, remuneracao_SEN + excesso_sp
 
 O ágio reduz a SUB econômica inicial, pois representa prêmio pago na aquisição dos recebíveis. O piso de spread garante que a carteira remunere, no mínimo, a SEN mais o excesso informado.
 
+Para carteira revolvente, o saldo em aberto usado para juros e perdas fica no volume inicial informado. O excedente econômico acumula na SUB residual, mas não aumenta automaticamente a base da carteira de recebíveis. Isso evita que a simulação vire uma capitalização exponencial do próprio residual.
+
 A principal métrica adicionada é a perda máxima suportada sobre a carteira originada:
 
 ```text
