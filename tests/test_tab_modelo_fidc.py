@@ -102,8 +102,8 @@ class TabModeloFidcTests(unittest.TestCase):
         )
 
         self.assertEqual(6.0, metrics.giro_estimado)
-        self.assertEqual(5_250_000_000.0, metrics.carteira_total_originada)
-        self.assertAlmostEqual(2_400_000_000.0 / 5_250_000_000.0, metrics.perda_maxima_sobre_originacao)
+        self.assertEqual(4_500_000_000.0, metrics.carteira_total_originada)
+        self.assertAlmostEqual(2_400_000_000.0 / 4_500_000_000.0, metrics.perda_maxima_sobre_originacao)
 
     def test_time_protection_uses_monthly_revolving_origination(self) -> None:
         premissas = tab_modelo_fidc.Premissas(
@@ -142,7 +142,7 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertAlmostEqual(125_000_000.0, protection.iloc[0]["nova_originacao_estimada"])
         self.assertAlmostEqual(875_000_000.0, protection.iloc[0]["carteira_originada_acumulada"])
         self.assertAlmostEqual(1_500_000_000.0, protection.iloc[1]["carteira_originada_acumulada"])
-        self.assertAlmostEqual(5_250_000_000.0, protection.iloc[2]["carteira_originada_acumulada"])
+        self.assertAlmostEqual(4_500_000_000.0, protection.iloc[2]["carteira_originada_acumulada"])
         self.assertAlmostEqual(10_000_000.0, protection.iloc[0]["residual_economico_fluxo"])
         self.assertAlmostEqual(75_000_000.0 / 875_000_000.0, protection.iloc[0]["perda_maxima_suportada"])
         self.assertAlmostEqual(0.05, protection.iloc[1]["perda_maxima_suportada"])
@@ -183,6 +183,46 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertAlmostEqual(166_666_666.66666666, protection.iloc[0]["nova_originacao_estimada"])
         self.assertAlmostEqual(1_166_666_666.6666667, protection.iloc[0]["carteira_originada_acumulada"])
         self.assertAlmostEqual(100_000_000.0 / 1_166_666_666.6666667, protection.iloc[0]["perda_maxima_suportada"])
+
+    def test_time_protection_uses_actual_reinvested_origination_when_available(self) -> None:
+        premissas = tab_modelo_fidc.Premissas(
+            volume=1_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.90,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=0.10,
+            prazo_fidc_anos=3.0,
+            prazo_medio_recebiveis_meses=6.0,
+        )
+        frame = pd.DataFrame(
+            {
+                "indice": [0, 1, 2],
+                "data": pd.to_datetime(["2026-01-01", "2026-02-01", "2026-03-01"]),
+                "pl_sub_jr": [100.0, 120.0, 150.0],
+                "nova_originacao": [0.0, 220.0, 330.0],
+                "fluxo_remanescente_mezz": [0.0, 20.0, 30.0],
+            }
+        )
+
+        protection = tab_modelo_fidc._build_time_protection_frame(
+            frame,
+            premissas=premissas,
+            portfolio_mode=tab_modelo_fidc.PORTFOLIO_MODE_REVOLVING,
+            scenario_label="Cenário",
+        )
+
+        self.assertEqual([1, 2], protection["indice"].tolist())
+        self.assertAlmostEqual(220.0, protection.iloc[0]["nova_originacao_estimada"])
+        self.assertAlmostEqual(220.0, protection.iloc[0]["nova_originacao_acumulada"])
+        self.assertAlmostEqual(1_220.0, protection.iloc[0]["carteira_originada_acumulada"])
+        self.assertAlmostEqual(550.0, protection.iloc[1]["nova_originacao_acumulada"])
+        self.assertAlmostEqual(1_550.0, protection.iloc[1]["carteira_originada_acumulada"])
 
     def test_model_charts_are_filled_area_charts(self) -> None:
         chart_df = pd.DataFrame(
@@ -280,6 +320,7 @@ class TabModeloFidcTests(unittest.TestCase):
                 "valor_formatado": ["20,00%"],
                 "carteira_inicial_formatada": ["R$ 40,00"],
                 "nova_originacao_formatada": ["R$ 10,00"],
+                "nova_originacao_acumulada_formatada": ["R$ 10,00"],
                 "sub_formatada": ["R$ 10,00"],
                 "originada_formatada": ["R$ 50,00"],
                 "residual_fluxo_formatado": ["R$ 1,00"],

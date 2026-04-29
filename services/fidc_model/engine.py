@@ -168,10 +168,24 @@ def _credit_loss_expenses(carteira: float, premissas: Premissas, delta_dc: int) 
     return expected_loss, unexpected_loss, expected_loss + unexpected_loss
 
 
-def _receivables_balance_for_period(premissas: Premissas, pl_fidc_atual: float) -> float:
-    if premissas.carteira_revolvente:
-        return premissas.volume
-    return max(pl_fidc_atual, 0.0)
+def _period_month_fraction(month_deltas: Sequence[int], index: int, delta_dc: int) -> float:
+    if index > 0:
+        delta_months = month_deltas[index] - month_deltas[index - 1]
+        if delta_months > 0:
+            return float(delta_months)
+    return max(float(delta_dc) / 30.0, 0.0)
+
+
+def _reinvestment_cutoff_month(premissas: Premissas, fallback_term_months: int) -> float:
+    term_months = _term_months(premissas.prazo_fidc_anos, fallback_term_months)
+    prazo_medio = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
+    return max(float(term_months) - prazo_medio, 0.0)
+
+
+def _is_reinvestment_eligible(premissas: Premissas, month_delta: int, fallback_term_months: int) -> bool:
+    if not premissas.carteira_revolvente:
+        return False
+    return float(month_delta) <= _reinvestment_cutoff_month(premissas, fallback_term_months)
 
 
 def _period_indexes_for_dates(datas: Sequence[datetime]) -> list[int]:
@@ -272,6 +286,7 @@ def build_flow(
     pl_mezz_atual = pl_mezz_initial
     pl_fidc_atual = premissas.volume - agio_aquisicao_despesa
     pl_sub_jr_initial = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
+    carteira_atual = premissas.volume
     accrued_interest_senior = 0.0
     accrued_interest_mezz = 0.0
 
@@ -299,6 +314,14 @@ def build_flow(
                     perda_inesperada_despesa=0.0,
                     perda_carteira_despesa=0.0,
                     resultado_carteira_liquido=0.0,
+                    prazo_restante_reinvestimento_meses=float(_term_months(premissas.prazo_fidc_anos, fallback_term_months)),
+                    reinvestimento_elegivel=premissas.carteira_revolvente,
+                    principal_recebido_carteira=0.0,
+                    reinvestimento_principal=0.0,
+                    reinvestimento_excesso=0.0,
+                    nova_originacao=0.0,
+                    carteira_fim=carteira_atual,
+                    caixa_nao_reinvestido=0.0,
                     agio_aquisicao_despesa=agio_aquisicao_despesa,
                     tx_cessao_am_input=premissas.tx_cessao_am,
                     tx_cessao_am_piso=0.0,
@@ -327,7 +350,7 @@ def build_flow(
 
         delta_du = du[index] - du[index - 1]
         delta_dc = dc[index] - dc[index - 1]
-        carteira = _receivables_balance_for_period(premissas, pl_fidc_atual)
+        carteira = max(carteira_atual if premissas.carteira_revolvente else pl_fidc_atual, 0.0)
         fra_senior_period = fra_senior[index] or 0.0
         tx_cessao_am_piso = _cession_floor_monthly_rate(
             fra_senior_period,
@@ -378,6 +401,20 @@ def build_flow(
         fluxo_remanescente_mezz = fluxo_remanescente - pmt_mezz
         pl_fidc_atual = pl_fidc_atual + fluxo_carteira - custos_adm - inadimplencia_despesa - pmt_senior - pmt_mezz
         pl_sub_jr = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
+        period_months = _period_month_fraction(month_deltas, index, delta_dc)
+        prazo_medio_recebiveis = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
+        principal_recebido_carteira = min(carteira, max(carteira * period_months / prazo_medio_recebiveis, 0.0))
+        prazo_restante_reinvestimento = max(float(_term_months(premissas.prazo_fidc_anos, fallback_term_months) - month_deltas[index]), 0.0)
+        reinvestimento_elegivel = _is_reinvestment_eligible(premissas, month_deltas[index], fallback_term_months)
+        reinvestimento_principal = principal_recebido_carteira if reinvestimento_elegivel else 0.0
+        reinvestimento_excesso = max(fluxo_remanescente_mezz, 0.0) if reinvestimento_elegivel else 0.0
+        nova_originacao = reinvestimento_principal + reinvestimento_excesso
+        carteira_fim = max(carteira - principal_recebido_carteira - perda_carteira_despesa + nova_originacao, 0.0)
+        caixa_nao_reinvestido = (
+            max(principal_recebido_carteira - reinvestimento_principal, 0.0)
+            + max(max(fluxo_remanescente_mezz, 0.0) - reinvestimento_excesso, 0.0)
+        )
+        carteira_atual = carteira_fim
 
         taxa_senior_period = taxa_senior[index]
         vp_pmt_senior = 0.0
@@ -406,6 +443,14 @@ def build_flow(
                 perda_inesperada_despesa=perda_inesperada_despesa,
                 perda_carteira_despesa=perda_carteira_despesa,
                 resultado_carteira_liquido=resultado_carteira_liquido,
+                prazo_restante_reinvestimento_meses=prazo_restante_reinvestimento,
+                reinvestimento_elegivel=reinvestimento_elegivel,
+                principal_recebido_carteira=principal_recebido_carteira,
+                reinvestimento_principal=reinvestimento_principal,
+                reinvestimento_excesso=reinvestimento_excesso,
+                nova_originacao=nova_originacao,
+                carteira_fim=carteira_fim,
+                caixa_nao_reinvestido=caixa_nao_reinvestido,
                 agio_aquisicao_despesa=0.0,
                 tx_cessao_am_input=premissas.tx_cessao_am,
                 tx_cessao_am_piso=tx_cessao_am_piso,

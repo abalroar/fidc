@@ -69,6 +69,14 @@ class PeriodResult:
     perda_inesperada_despesa: float
     perda_carteira_despesa: float
     resultado_carteira_liquido: float
+    prazo_restante_reinvestimento_meses: float
+    reinvestimento_elegivel: bool
+    principal_recebido_carteira: float
+    reinvestimento_principal: float
+    reinvestimento_excesso: float
+    nova_originacao: float
+    carteira_fim: float
+    caixa_nao_reinvestido: float
     agio_aquisicao_despesa: float
     tx_cessao_am_input: float
     tx_cessao_am_piso: float

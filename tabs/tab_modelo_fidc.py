@@ -542,8 +542,14 @@ def _build_revolvency_metrics(
     giro_estimado = prazo_total_anos * 12.0 / prazo_medio_meses
     if portfolio_mode == PORTFOLIO_MODE_STATIC:
         carteira_total_originada = premissas.volume
+    elif zero_default_results and hasattr(zero_default_results[0], "nova_originacao"):
+        carteira_total_originada = premissas.volume + sum(
+            max(float(getattr(period, "nova_originacao", 0.0)), 0.0)
+            for period in zero_default_results[1:]
+        )
     else:
-        carteira_total_originada = premissas.volume + premissas.volume * max(giro_estimado, 0.0)
+        eligible_months = max(prazo_total_anos * 12.0 - prazo_medio_meses, 0.0)
+        carteira_total_originada = premissas.volume + premissas.volume * (eligible_months / prazo_medio_meses)
     sub_final = max(float(zero_default_results[-1].pl_sub_jr), 0.0) if zero_default_results else 0.0
     perda_maxima = sub_final / carteira_total_originada if carteira_total_originada > 0 else None
     return _RevolvencyMetrics(
@@ -557,18 +563,24 @@ def _build_revolvency_metrics(
     )
 
 
-def _portfolio_denominator_components(month_index: float, premissas: Premissas, portfolio_mode: str) -> tuple[float, float, float]:
+def _scheduled_origination_components(
+    month_index: float,
+    previous_month_index: float,
+    premissas: Premissas,
+    portfolio_mode: str,
+) -> tuple[float, float, float, float]:
     initial_portfolio = max(float(premissas.volume), 0.0)
     if portfolio_mode == PORTFOLIO_MODE_STATIC:
-        return initial_portfolio, 0.0, initial_portfolio
+        return initial_portfolio, 0.0, 0.0, initial_portfolio
 
     prazo_medio_meses = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
     prazo_total_anos = float(premissas.prazo_fidc_anos or 0.0)
-    max_new_origination = premissas.volume * max(prazo_total_anos * 12.0 / prazo_medio_meses, 0.0)
-    new_origination = premissas.volume * max(float(month_index), 0.0) / prazo_medio_meses
-    if max_new_origination > 0.0:
-        new_origination = min(new_origination, max_new_origination)
-    return initial_portfolio, new_origination, initial_portfolio + new_origination
+    cutoff_month = max(prazo_total_anos * 12.0 - prazo_medio_meses, 0.0)
+    current_capped_month = min(max(float(month_index), 0.0), cutoff_month)
+    previous_capped_month = min(max(float(previous_month_index), 0.0), cutoff_month)
+    new_origination_period = premissas.volume * max(current_capped_month - previous_capped_month, 0.0) / prazo_medio_meses
+    new_origination_cumulative = premissas.volume * current_capped_month / prazo_medio_meses
+    return initial_portfolio, new_origination_period, new_origination_cumulative, initial_portfolio + new_origination_cumulative
 
 
 def _build_time_protection_frame(
@@ -581,11 +593,25 @@ def _build_time_protection_frame(
     columns = ["indice", "data", "pl_sub_jr"]
     if "fluxo_remanescente_mezz" in frame.columns:
         columns.append("fluxo_remanescente_mezz")
+    if "nova_originacao" in frame.columns:
+        columns.append("nova_originacao")
     protection = frame[columns].copy()
-    components = protection["indice"].map(lambda month_index: _portfolio_denominator_components(month_index, premissas, portfolio_mode))
-    protection["carteira_inicial_considerada"] = components.map(lambda values: values[0])
-    protection["nova_originacao_estimada"] = components.map(lambda values: values[1])
-    protection["carteira_originada_acumulada"] = components.map(lambda values: values[2])
+    protection["carteira_inicial_considerada"] = max(float(premissas.volume), 0.0)
+    if "nova_originacao" in protection.columns:
+        protection["nova_originacao_estimada"] = protection["nova_originacao"].clip(lower=0.0)
+        protection["nova_originacao_acumulada"] = protection["nova_originacao_estimada"].cumsum()
+        protection["carteira_originada_acumulada"] = (
+            protection["carteira_inicial_considerada"] + protection["nova_originacao_acumulada"]
+        )
+    else:
+        previous_indices = protection["indice"].shift(1).fillna(0.0)
+        components = [
+            _scheduled_origination_components(month_index, previous_month_index, premissas, portfolio_mode)
+            for month_index, previous_month_index in zip(protection["indice"], previous_indices)
+        ]
+        protection["nova_originacao_estimada"] = [values[1] for values in components]
+        protection["nova_originacao_acumulada"] = [values[2] for values in components]
+        protection["carteira_originada_acumulada"] = [values[3] for values in components]
     protection["prazo_medio_recebiveis_meses"] = float(premissas.prazo_medio_recebiveis_meses)
     if "fluxo_remanescente_mezz" in protection.columns:
         protection["residual_economico_fluxo"] = protection["fluxo_remanescente_mezz"]
@@ -607,6 +633,7 @@ def _build_time_protection_frame(
     protection["originada_formatada"] = protection["carteira_originada_acumulada"].map(_format_brl)
     protection["carteira_inicial_formatada"] = protection["carteira_inicial_considerada"].map(_format_brl)
     protection["nova_originacao_formatada"] = protection["nova_originacao_estimada"].map(_format_brl)
+    protection["nova_originacao_acumulada_formatada"] = protection["nova_originacao_acumulada"].map(_format_brl)
     protection["residual_fluxo_formatado"] = protection["residual_economico_fluxo"].map(_format_brl)
     protection["periodo"] = protection["data"].dt.strftime("%d/%m/%Y")
     protection["mes_fidc"] = protection["indice"].map(lambda value: f"Mês {int(value)}")
@@ -670,7 +697,7 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "fra_senior": "FRA sênior",
             "taxa_mezz": "Taxa MEZZ",
             "fra_mezz": "FRA MEZZ",
-            "carteira": "Carteira de recebíveis (saldo econômico)",
+            "carteira": "Carteira de recebíveis (início do período)",
             "fluxo_carteira": "Fluxo econômico da carteira",
             "pl_fidc": "PL econômico do veículo",
             "custos_adm": "Custos administrativos",
@@ -678,6 +705,14 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "perda_inesperada_despesa": "Perda inesperada/stress",
             "perda_carteira_despesa": "Perda total da carteira",
             "resultado_carteira_liquido": "Resultado líquido da carteira",
+            "prazo_restante_reinvestimento_meses": "Prazo restante para reinvestimento (meses)",
+            "reinvestimento_elegivel": "Reinvestimento elegível",
+            "principal_recebido_carteira": "Principal recebido da carteira",
+            "reinvestimento_principal": "Reinvestimento de principal",
+            "reinvestimento_excesso": "Reinvestimento de excesso de caixa",
+            "nova_originacao": "Nova originação",
+            "carteira_fim": "Carteira ao fim do período",
+            "caixa_nao_reinvestido": "Caixa não reinvestido",
             "agio_aquisicao_despesa": "Ágio de aquisição",
             "tx_cessao_am_input": "Taxa mensal informada",
             "tx_cessao_am_piso": "Piso mensal SEN + excesso",
@@ -718,6 +753,9 @@ def _build_display_dataframe(export_frame: pd.DataFrame) -> pd.DataFrame:
         "VP",
         "Saldo",
         "Resultado",
+        "Reinvestimento",
+        "Originação",
+        "Caixa",
     )
     percent_tokens = ("Pre DI", "Taxa", "FRA", "Subordinação")
     for column in display.columns:
@@ -833,6 +871,7 @@ def _build_time_protection_export_dataframe(protection_frame: pd.DataFrame) -> p
             "pl_sub_jr": "SUB residual",
             "carteira_inicial_considerada": "Carteira inicial considerada",
             "nova_originacao_estimada": "Nova originação estimada",
+            "nova_originacao_acumulada": "Nova originação acumulada",
             "prazo_medio_recebiveis_meses": "Prazo médio usado (meses)",
             "carteira_originada_acumulada": "Carteira originada acumulada",
             "residual_economico_fluxo": "Residual econômico do fluxo",
@@ -847,6 +886,7 @@ def _build_time_protection_export_dataframe(protection_frame: pd.DataFrame) -> p
             "Cenário",
             "Carteira inicial considerada",
             "Nova originação estimada",
+            "Nova originação acumulada",
             "Prazo médio usado (meses)",
             "Carteira originada acumulada",
             "SUB residual",
@@ -893,7 +933,7 @@ def _build_workbook_mechanics_markdown(
             "fluxo_carteira = carteira * ((1 + taxa_cessao_am_aplicada) ^ (delta_DU / 21) - 1)",
             "```",
             "",
-            "- Em carteira revolvente, `carteira` é o saldo em aberto usado para juros e perda; o resultado excedente acumula no residual/SUB, mas não aumenta automaticamente a base de recebíveis.",
+            "- Em carteira revolvente, `carteira` é o saldo em aberto usado para juros e perda; ele cresce com principal reciclado e excesso de caixa reinvestido enquanto a nova carteira couber no prazo do FIDC.",
             "",
             f"- Entrada informada pelo usuário nesta simulação: `{taxa_cessao_input_mode}`.",
             "- Em ambos os casos, a aba também calcula o de-para anual em base 252 dias úteis:",
@@ -985,7 +1025,7 @@ def _build_workbook_mechanics_markdown(
             "- Depois de retorno da carteira, custos, perdas e PMTs, o PL econômico do veículo é:",
             "",
             "```text",
-            "PL FIDC = carteira + fluxo_carteira - custos - perda_carteira - PMT SEN - PMT MEZZ",
+            "PL FIDC_t = PL FIDC_t-1 + fluxo_carteira - custos - perda_carteira - PMT SEN - PMT MEZZ",
             "```",
             "",
             "- O saldo econômico de SEN e MEZZ cai conforme o principal programado é amortizado.",
@@ -1001,13 +1041,18 @@ def _build_workbook_mechanics_markdown(
             "",
             "### 9. Revolvência e perda máxima sobre carteira originada",
             "",
-            "- Quando a carteira é revolvente, o modelo estima quantas vezes o volume inicial gira dentro do prazo do FIDC:",
+            "- Quando a carteira é revolvente, o modelo recicla principal recebido e excesso de caixa enquanto o prazo médio dos recebíveis ainda cabe no prazo restante do FIDC:",
             "",
             "```text",
             "giro_estimado = prazo_total_fidc_anos * 12 / prazo_medio_recebiveis_meses",
-            "nova_originacao_total = volume_inicial * giro_estimado",
+            "mes_limite_reinvestimento = prazo_total_fidc_meses - prazo_medio_recebiveis_meses",
+            "principal_recebido = carteira_inicio * meses_periodo / prazo_medio_recebiveis_meses",
+            "nova_originacao = principal_recebido + max(fluxo_remanescente_apos_MEZZ, 0)",
+            "nova_originacao_total = soma(nova_originacao_elegivel)",
             "carteira_originada = volume_inicial + nova_originacao_total",
             "```",
+            "",
+            "- Se o mês do FIDC fica depois do mês limite de reinvestimento, a nova originação vira `0` e a carteira começa a amortizar por runoff.",
             "",
             "- Quando a carteira é estática, a carteira originada é apenas a compra inicial:",
             "",
@@ -1024,21 +1069,21 @@ def _build_workbook_mechanics_markdown(
             "- Ao longo do tempo, a carteira originada acumulada é calculada mês a mês:",
             "",
             "```text",
-            "nova_originacao_mes = volume_inicial * mes_fidc / prazo_medio_recebiveis_meses",
-            "denominador_mes = volume_inicial + nova_originacao_mes",
+            "nova_originacao_acumulada = soma(nova_originacao_ate_o_mes)",
+            "denominador_mes = volume_inicial + nova_originacao_acumulada",
             "perda_maxima_no_mes = SUB_disponivel_no_mes / denominador_mes",
             "```",
             "",
-            "- Exemplo: com prazo médio de recebíveis de `6 meses`, o mês 1 considera a carteira inicial mais `1/6` do volume inicial como nova originação.",
-            "- Exemplo: prazo total de `3 anos`, prazo médio de recebíveis de `6 meses` e volume inicial de `R$ 750MM` geram giro de `6x`, nova originação de `R$ 4,5 bi` e denominador total de `R$ 5,25 bi`.",
+            "- Exemplo: com prazo médio de recebíveis de `6 meses`, o mês 1 considera a carteira inicial mais o principal reciclado de cerca de `1/6` do saldo em aberto, além de eventual excesso de caixa reinvestido.",
+            "- Exemplo: em FIDC de `36 meses` com recebíveis de `12 meses`, a originação nova para quando o fluxo chega perto do mês `24`, porque novos recebíveis de 12 meses já não caberiam no prazo da estrutura.",
             "",
             "### 10. Premissa de reinvestimento integral",
             "",
             "- O modelo presume que não há excesso de caixa aplicado à SELIC.",
-            "- Todo caixa disponível é reinvestido na compra de nova carteira revolvente.",
-            "- Portanto, eventual caixa excedente gerado pelo vencimento da carteira não é considerado como saldo financeiro aplicado.",
-            "- Isso tende a superestimar a rentabilidade econômica quando o reinvestimento integral em novos direitos creditórios é presumido.",
-            "- Em uma carteira ruim, a mesma premissa também pode ampliar o potencial de perda, pois o caixa é reinvestido em nova carteira em vez de ficar aplicado em SELIC.",
+            "- Enquanto a revolvência é elegível, todo caixa disponível é reinvestido na compra de nova carteira revolvente.",
+            "- Depois que o prazo médio dos recebíveis não cabe no prazo restante do FIDC, o caixa deixa de ser reinvestido e também não recebe remuneração de SELIC no modelo.",
+            "- Isso tende a superestimar a rentabilidade econômica quando há reinvestimento integral em novos direitos creditórios.",
+            "- Em uma carteira ruim, a mesma premissa também pode ampliar o potencial de perda, pois o caixa elegível é reinvestido em nova carteira em vez de ficar aplicado em SELIC.",
             "- O modelo não pondera a rentabilidade das cotas por eventual caixa parado ou aplicado em SELIC.",
             "- Na prática, muitos FIDCs não carregam caixa relevante em excesso por muito tempo, então essa simplificação tende a não mudar drasticamente o resultado, mas precisa estar clara.",
             "",
@@ -1078,14 +1123,14 @@ def _build_step_by_step_markdown() -> str:
             "- Volume da carteira é o valor em reais dos recebíveis comprados pelo fundo no início da simulação.",
             "- Taxa de Cessão é o deságio sobre o valor futuro do recebível; Taxa Mensal é a taxa efetiva usada pelo motor. A aba mostra a equivalência mensal e anual em base 252.",
             "- Prazo total do FIDC define até qual mês a simulação vai quando o cronograma mensal está selecionado.",
-            "- Prazo médio dos recebíveis define o giro estimado da carteira. Com carteira revolvente, o denominador inclui a carteira inicial mais novas originações proporcionais ao prazo médio.",
+            "- Prazo médio dos recebíveis define o giro e o ponto de parada da revolvência: se o novo recebível não cabe no prazo restante do FIDC, o modelo para de originar.",
             "- Cotas sênior têm prioridade de pagamento; MEZZ fica no meio; subordinada/SUB absorve perdas primeiro e recebe o residual econômico.",
             "- As regras de amortização indicam quando o principal de SEN/MEZZ começa a ser repago e se o pagamento é linear, bullet, inexistente ou padrão.",
             "- As regras de juros indicam se os juros são pagos em cada período, após carência ou apenas no vencimento.",
             "- Subordinação é o tamanho do colchão de SUB disponível em relação ao PL econômico do fundo.",
             "- Perda máxima sobre carteira originada compara a SUB final sem perdas com o total estimado de recebíveis originados no período.",
             "- A proteção ao longo do tempo compara a SUB disponível de cada mês com a carteira inicial somada à nova originação acumulada até aquele mês.",
-            "- O modelo presume que não há caixa excedente aplicado à SELIC: todo caixa disponível é reinvestido em nova carteira revolvente.",
+            "- Enquanto a revolvência é elegível, o modelo reinveste principal recebido e excesso de caixa em nova carteira; depois da janela elegível, o caixa não é reinvestido nem remunerado por SELIC.",
             "- No gráfico de saldos, o eixo X mostra o mês desde o início do FIDC; isso deixa claro quando terminam carências e começam amortizações.",
             "- No gráfico de perda e subordinação, maior perda acumulada com menor subordinação indica cenário mais pressionado.",
         ]
@@ -1345,6 +1390,7 @@ def _protection_ratio_chart(chart_df: pd.DataFrame) -> alt.Chart:
             alt.Tooltip("serie:N", title="Cenário"),
             alt.Tooltip("carteira_inicial_formatada:N", title="Carteira inicial"),
             alt.Tooltip("nova_originacao_formatada:N", title="Nova originação"),
+            alt.Tooltip("nova_originacao_acumulada_formatada:N", title="Nova originação acumulada"),
             alt.Tooltip("residual_fluxo_formatado:N", title="Residual do fluxo"),
             alt.Tooltip("sub_formatada:N", title="SUB disponível"),
             alt.Tooltip("originada_formatada:N", title="Denominador"),
@@ -1755,8 +1801,8 @@ def render_tab_modelo_fidc() -> None:
                         "Originação da carteira",
                         [PORTFOLIO_MODE_REVOLVING, PORTFOLIO_MODE_STATIC],
                         help=(
-                            "No modo revolvente, o caixa reciclado recompra recebíveis e a carteira total originada "
-                            "é estimada pelo giro do prazo médio."
+                            "No modo revolvente, o principal recebido e o excesso de caixa recompram recebíveis "
+                            "enquanto o prazo médio couber no prazo restante do FIDC."
                         ),
                     )
 
@@ -2137,7 +2183,7 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Fluxo econômico da carteira",
                 "Fórmula": "carteira * ((1 + tx_cessao_am_aplicada) ^ (delta_du / 21) - 1)",
-                "Observação": "Em carteira revolvente, a base de carteira fica no volume em aberto informado; o excedente acumula no residual/SUB.",
+                "Observação": "Em carteira revolvente, a base de carteira evolui com principal reciclado e excesso de caixa reinvestido enquanto houver prazo para nova originação.",
             },
             {
                 "Indicador": "De-para da Taxa de Cessão",
@@ -2185,6 +2231,16 @@ def render_tab_modelo_fidc() -> None:
                 "Observação": "Com taxa de 11,00% a.m. e perda de 1,00% a.m., o spread líquido simples é próximo de 10,00% da carteira por mês, ajustado por dias úteis/corridos.",
             },
             {
+                "Indicador": "Elegibilidade de reinvestimento",
+                "Fórmula": "mês_fidc <= prazo_total_fidc_meses - prazo_medio_recebiveis_meses",
+                "Observação": "Quando o prazo médio já não cabe no prazo restante do FIDC, nova originação fica zerada e a carteira entra em runoff.",
+            },
+            {
+                "Indicador": "Nova originação",
+                "Fórmula": "se elegível: principal_recebido + max(fluxo_remanescente_apos_MEZZ, 0); se não elegível: 0",
+                "Observação": "Captura reinvestimento do principal reciclado e do excesso de caixa; caixa fora da janela elegível não recebe SELIC no modelo.",
+            },
+            {
                 "Indicador": "Juros sênior/MEZZ",
                 "Fórmula": "pós: (1 + curva DI/Pré) * (1 + spread) - 1; pré: taxa anual informada",
                 "Observação": (
@@ -2204,13 +2260,13 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Carteira originada estimada",
-                "Fórmula": "revolvente: volume + volume * (prazo_total_anos * 12 / prazo_medio_recebiveis_meses); estática: volume",
-                "Observação": "Inclui a carteira inicial e as novas originações estimadas para comparar o colchão final da SUB.",
+                "Fórmula": "revolvente: volume + soma(nova_originacao); estática: volume",
+                "Observação": "Inclui a carteira inicial, principal reciclado e excesso de caixa reinvestido dentro da janela elegível.",
             },
             {
                 "Indicador": "Carteira originada acumulada",
-                "Fórmula": "revolvente: volume + volume * mês_fidc / prazo_medio_recebiveis_meses; estática: volume",
-                "Observação": "No mês 1, um prazo médio de 6 meses gera denominador igual a volume inicial + 1/6 do volume inicial.",
+                "Fórmula": "volume + soma(nova_originacao_ate_o_mes)",
+                "Observação": "No mês 1, um prazo médio de 6 meses parte de volume inicial + principal reciclado de cerca de 1/6 do saldo, além de eventual excesso reinvestido.",
             },
             {
                 "Indicador": "Perda máxima suportada no tempo",
