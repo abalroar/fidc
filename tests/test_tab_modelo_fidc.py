@@ -25,6 +25,14 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertEqual("R$ 4,00", tab_modelo_fidc._format_raw_input_text("4", decimals=2, kind="brl"))
         self.assertEqual("30", tab_modelo_fidc._format_raw_input_text("30", decimals=0, kind="number"))
 
+    def test_model_tooltip_html_exposes_explanation_for_css_and_accessibility(self) -> None:
+        html = tab_modelo_fidc._model_tooltip_html('Duration "econômica" da SEN')
+
+        self.assertIn('data-tooltip="Duration &quot;econômica&quot; da SEN"', html)
+        self.assertIn('title="Duration &quot;econômica&quot; da SEN"', html)
+        self.assertIn('aria-label="Duration &quot;econômica&quot; da SEN"', html)
+        self.assertIn('tabindex="0"', html)
+
     def test_requested_page_defaults_are_encoded(self) -> None:
         self.assertEqual(750_000_000.0, tab_modelo_fidc.DEFAULT_VOLUME_CARTEIRA)
         self.assertEqual(0.04, tab_modelo_fidc.DEFAULT_TX_CESSAO_AM)

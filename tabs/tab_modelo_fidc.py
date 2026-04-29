@@ -184,8 +184,42 @@ _MODEL_CSS = """
     justify-content: center;
     letter-spacing: 0;
     line-height: 1;
+    position: relative;
     text-transform: none;
     width: 1rem;
+}
+
+.fidc-model-tooltip::after {
+    background: #202a36;
+    border-radius: 6px;
+    box-shadow: 0 8px 22px rgba(32, 42, 54, 0.18);
+    color: #ffffff;
+    content: attr(data-tooltip);
+    font-size: 0.75rem;
+    font-weight: 500;
+    left: 50%;
+    line-height: 1.35;
+    max-width: 17rem;
+    min-width: 13rem;
+    opacity: 0;
+    padding: 0.55rem 0.65rem;
+    pointer-events: none;
+    position: absolute;
+    text-align: left;
+    text-transform: none;
+    top: calc(100% + 0.45rem);
+    transform: translate(-50%, -0.15rem);
+    transition: opacity 0.12s ease, transform 0.12s ease, visibility 0.12s ease;
+    visibility: hidden;
+    white-space: normal;
+    z-index: 1000;
+}
+
+.fidc-model-tooltip:hover::after,
+.fidc-model-tooltip:focus::after {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    visibility: visible;
 }
 
 .fidc-model-kpi-value {
@@ -1468,37 +1502,45 @@ def _render_model_header() -> None:
     )
 
 
+def _model_tooltip_html(tooltip: str) -> str:
+    safe_tooltip = escape(tooltip, quote=True)
+    return (
+        f'<span class="fidc-model-tooltip" title="{safe_tooltip}" '
+        f'data-tooltip="{safe_tooltip}" aria-label="{safe_tooltip}" tabindex="0">?</span>'
+    )
+
+
 def _render_model_kpi_cards(kpis, results, *, has_mezz: bool) -> None:
     cards = [
         (
             "Retorno anualizado",
             _format_percent(kpis.xirr_senior),
             "Classe sênior",
-            "TIR anual dos fluxos projetados para a cota sênior.",
+            "Taxa interna de retorno anual dos fluxos da SEN, considerando juros, amortizações e datas do fluxo.",
         ),
         (
             "Retorno anualizado",
             _format_percent(kpis.xirr_sub_jr),
             "Júnior residual",
-            "TIR anual da SUB quando houver fluxo residual calculável.",
+            "TIR anual do residual da SUB; fica N/D quando os fluxos não permitem uma TIR válida.",
         ),
         (
             "Duration econômica",
             f"{_format_number_br(kpis.duration_senior_anos, 2)} anos" if kpis.duration_senior_anos is not None else "N/D",
             "Classe sênior",
-            "Prazo médio ponderado dos pagamentos da SEN; pode ser menor que o prazo final por amortizações e juros antes do vencimento.",
+            "Prazo médio ponderado dos pagamentos da SEN; fica menor que o prazo final quando há juros ou amortização antes do vencimento.",
         ),
         (
             "Pre DI na duration",
             _format_percent(kpis.pre_di_duration),
             "Curva interpolada",
-            "Taxa da curva DI/Pré no ponto de prazo equivalente à duration econômica da SEN.",
+            "Taxa DI/Pré interpolada no prazo da duration da SEN, usada como referência de mercado.",
         ),
         (
             "SUB inicial",
             _format_brl(results[0].pl_sub_jr),
             "Colchão subordinado",
-            "Valor econômico inicial da SUB depois de efeitos de estrutura, como eventual ágio de aquisição.",
+            "Valor inicial do colchão subordinado que absorve perdas antes de MEZZ e SEN.",
         ),
     ]
     if has_mezz:
@@ -1508,14 +1550,14 @@ def _render_model_kpi_cards(kpis, results, *, has_mezz: bool) -> None:
                 "Retorno anualizado",
                 _format_percent(kpis.xirr_mezz),
                 "Classe MEZZ",
-                "TIR anual dos fluxos projetados para a cota mezanino.",
+                "Taxa interna de retorno anual dos fluxos da MEZZ, considerando sua posição no waterfall.",
             ),
         )
     cards_html = "".join(
         (
             '<div class="fidc-model-kpi-card">'
             f'<div class="fidc-model-kpi-label"><span>{escape(label)}</span>'
-            f'<span class="fidc-model-tooltip" title="{escape(tooltip, quote=True)}">?</span></div>'
+            f'{_model_tooltip_html(tooltip)}</div>'
             f'<div class="fidc-model-kpi-value">{escape(value)}</div>'
             f'<div class="fidc-model-kpi-context">{escape(context)}</div>'
             "</div>"
@@ -1527,43 +1569,48 @@ def _render_model_kpi_cards(kpis, results, *, has_mezz: bool) -> None:
 
 def _render_revolvency_cards(metrics: _RevolvencyMetrics) -> None:
     cards = [
-        ("Modo da carteira", metrics.portfolio_mode, "Originação", "Indica se a carteira recompra recebíveis ou fica estática após a compra inicial."),
+        (
+            "Modo da carteira",
+            metrics.portfolio_mode,
+            "Originação",
+            "Mostra se o fundo reinveste caixa em novos recebíveis ou apenas consome a carteira inicial.",
+        ),
         (
             "Prazo médio recebíveis",
             f"{_format_number_br(metrics.prazo_medio_recebiveis_meses, 1)} meses",
             "Prazo de giro",
-            "Prazo médio estimado para os recebíveis virarem caixa e permitirem nova originação.",
+            "Indica em quantos meses, em média, os recebíveis viram caixa para giro da carteira.",
         ),
         (
             "Giro estimado",
             f"{_format_number_br(metrics.giro_estimado, 2)}x",
             "Prazo FIDC / prazo médio",
-            "Quantidade aproximada de novas recompras da carteira inicial no prazo do FIDC.",
+            "Número de ciclos de carteira dentro do prazo do FIDC, contando a carteira inicial como o primeiro ciclo.",
         ),
         (
             "Carteira originada",
             _format_brl(metrics.carteira_total_originada),
             "Base de comparação",
-            "Volume inicial mais as novas originações estimadas ao longo do prazo do FIDC.",
+            "Volume total estimado comprado no prazo do FIDC, somando a carteira inicial e as novas originações.",
         ),
         (
             "SUB final sem perdas",
             _format_brl(metrics.sub_final_sem_inadimplencia),
             "Colchão acumulado",
-            "Valor final da SUB em simulação sem Perda Esperada e sem Perda Inesperada.",
+            "Valor econômico residual da SUB no fim do prazo em cenário sem perdas de crédito.",
         ),
         (
             "Perda máxima suportada",
             _format_percent(metrics.perda_maxima_sobre_originacao),
             "SUB final / carteira originada",
-            "Percentual da carteira originada que poderia ser absorvido pela SUB final sem perdas.",
+            "SUB final sem perdas dividida pela carteira total originada, aproximando a perda que a estrutura suportaria.",
         ),
     ]
     cards_html = "".join(
         (
             '<div class="fidc-model-kpi-card">'
             f'<div class="fidc-model-kpi-label"><span>{escape(label)}</span>'
-            f'<span class="fidc-model-tooltip" title="{escape(tooltip, quote=True)}">?</span></div>'
+            f'{_model_tooltip_html(tooltip)}</div>'
             f'<div class="fidc-model-kpi-value">{escape(value)}</div>'
             f'<div class="fidc-model-kpi-context">{escape(context)}</div>'
             "</div>"
