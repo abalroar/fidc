@@ -73,6 +73,7 @@ class PeriodResult:
     taxa_mezz: Optional[float]
     fra_mezz: Optional[float]
     carteira: float
+    ead_carteira: float
     fluxo_carteira: float
     taxa_selic_aa: Optional[float]
     taxa_selic_periodo: float
@@ -87,6 +88,7 @@ class PeriodResult:
     perda_inesperada_despesa: float
     perda_carteira_despesa: float
     carteira_vencendo: float
+    ead_vencendo: float
     entrada_npl90: float
     npl90_estoque_inicio: float
     npl90_estoque_fim: float
@@ -113,6 +115,7 @@ class PeriodResult:
     caixa_nao_reinvestido: float
     saldo_caixa_selic_fim: float
     agio_aquisicao_despesa: float
+    preco_pago_fator: float
     tx_cessao_am_input: float
     tx_cessao_am_piso: float
     tx_cessao_am_aplicada: float

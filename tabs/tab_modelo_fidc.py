@@ -101,6 +101,16 @@ DEFAULT_CARENCIA_PRINCIPAL_MESES = 30.0
 DEFAULT_CURVE_START_YEAR = 2026
 DEFAULT_SELIC_AA_2026 = 0.13
 DEFAULT_SELIC_AA_2027_ONWARD = 0.12
+LABELS_COTAS = {
+    "sen": "Cota sênior",
+    "mezz": "Cota mezzanino",
+    "sub": "Cota subordinada",
+}
+LABELS_COTAS_ABBR = {
+    "sen": "SEN",
+    "mezz": "MEZZ",
+    "sub": "SUB",
+}
 HELP_CUSTO_ADM_GESTAO = (
     "Custo anual sobre o PL econômico do fundo no início do período; aplica-se o maior entre "
     "o valor mensal composto e o custo mínimo mensal."
@@ -431,6 +441,16 @@ def _effective_selic_projection_for_dates(
     return tuple(sorted(effective.items()))
 
 
+def _build_workbook_dates_from_start(template_dates: list[datetime], start: datetime) -> list[datetime]:
+    if not template_dates:
+        return [start]
+    template_start = template_dates[0]
+    return [
+        _add_months(start, (dt.year - template_start.year) * 12 + (dt.month - template_start.month))
+        for dt in template_dates
+    ]
+
+
 def _selected_calendar(
     inputs,
     source_label: str,
@@ -606,10 +626,20 @@ def _build_monthly_dates(start: datetime, prazo_total_anos: float) -> list[datet
     return [_add_months(start, month) for month in range(total_months + 1)]
 
 
-def _build_simulation_dates(inputs, schedule_label: str, prazo_total_anos: float) -> list[datetime]:
+def _build_simulation_dates(
+    inputs,
+    schedule_label: str,
+    prazo_total_anos: float,
+    data_inicial: datetime | None = None,
+) -> list[datetime]:
+    start = data_inicial or inputs.datas[0]
     if schedule_label == DATE_SCHEDULE_MONTHLY:
-        return _build_monthly_dates(inputs.datas[0], prazo_total_anos)
-    return list(inputs.datas)
+        return _build_monthly_dates(start, prazo_total_anos)
+    return _build_workbook_dates_from_start(list(inputs.datas), start)
+
+
+def _effective_cession_discount_after_premium(nominal_discount: float, acquisition_premium: float) -> float:
+    return float(nominal_discount) - max(float(acquisition_premium), 0.0)
 
 
 def _projection_years_for_term(start: datetime, prazo_total_anos: float) -> list[int]:
@@ -949,6 +979,7 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "taxa_mezz": "Taxa MEZZ",
             "fra_mezz": "FRA MEZZ",
             "carteira": "Carteira de recebíveis (início do período)",
+            "ead_carteira": "EAD / saldo em risco (preço pago)",
             "fluxo_carteira": "Fluxo econômico da carteira",
             "taxa_selic_aa": "Taxa SELIC projetada (% a.a.)",
             "taxa_selic_periodo": "Taxa SELIC do período",
@@ -962,6 +993,7 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "perda_inesperada_despesa": "Reforço de cobertura ou write-off descoberto",
             "perda_carteira_despesa": "Despesa de provisão/perda",
             "carteira_vencendo": "Carteira vencendo no período",
+            "ead_vencendo": "EAD vencendo no período",
             "entrada_npl90": "Entrada em NPL 90+",
             "npl90_estoque_inicio": "Estoque NPL 90+ (início)",
             "npl90_estoque_fim": "Estoque NPL 90+ (fim)",
@@ -987,7 +1019,8 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "carteira_fim": "Carteira ao fim do período",
             "caixa_nao_reinvestido": "Caixa não reinvestido",
             "saldo_caixa_selic_fim": "Saldo de caixa aplicado SELIC (fim)",
-            "agio_aquisicao_despesa": "Ágio de aquisição",
+            "agio_aquisicao_despesa": "Ágio sobre face informado",
+            "preco_pago_fator": "Preço pago / face",
             "tx_cessao_am_input": "Taxa mensal informada",
             "tx_cessao_am_piso": "Piso mensal SEN + excesso",
             "tx_cessao_am_aplicada": "Taxa mensal aplicada",
@@ -1036,8 +1069,10 @@ def _build_display_dataframe(export_frame: pd.DataFrame) -> pd.DataFrame:
         "Originação",
         "Caixa",
         "Rendimento",
+        "EAD",
+        "Ágio",
     )
-    percent_tokens = ("Pre DI", "Taxa", "FRA", "Subordinação", "Cobertura")
+    percent_tokens = ("Pre DI", "Taxa", "FRA", "Subordinação", "Cobertura", "Preço pago / face")
     for column in display.columns:
         if column in {"Índice", "Dias corridos", "Dias úteis", "Delta dias corridos", "Delta dias úteis"}:
             display[column] = display[column].map(lambda value: _format_number_br(float(value), 0) if pd.notna(value) else "N/D")
@@ -1183,15 +1218,20 @@ def _build_workbook_mechanics_markdown(
     selected_calendar: _SelectedCalendar,
     interpolation_label: str,
     taxa_cessao_input_mode: str,
+    data_inicial: date | None = None,
     credit_model_label: str = CREDIT_LABEL_NPL90,
 ) -> str:
+    start_label = data_inicial.strftime("%d/%m/%Y") if data_inicial else "data inicial selecionada"
     return "\n".join(
         [
             "Esta seção descreve a mecânica completa da aba e a base de cálculo usada na simulação.",
             "",
             "### 1. Datas, dias corridos e dias úteis",
             "",
-            "- A simulação roda em uma grade de competências carregada dos dados locais do modelo.",
+            f"- A data inicial padrão é a data-base da curva carregada. Nesta simulação, a data inicial é `{start_label}`.",
+            "- O usuário pode sobrescrever a data inicial; nesse caso, a timeline é deslocada, mas a curva DI/Pré selecionada continua sendo a fonte dos juros.",
+            "- Se a data sobrescrita estiver distante da data-base da curva, os resultados devem ser lidos como simulação prospectiva com a estrutura de curva selecionada.",
+            "- A simulação roda em grade mensal pelo prazo informado ou na grade padrão deslocada a partir da data inicial.",
             "- `DC` é a quantidade de dias corridos desde a data inicial do fluxo.",
             "- `DU` é a quantidade de dias úteis desde a data inicial, descontando fins de semana e feriados.",
             f"- Calendário usado nesta simulação: `{selected_calendar.source_label}`.",
@@ -1201,15 +1241,20 @@ def _build_workbook_mechanics_markdown(
             "",
             "### 2. Taxa da carteira",
             "",
-            "- O usuário pode informar a taxa de duas formas:",
-            "- `Taxa de Cessão`: deságio sobre o valor futuro no prazo médio dos recebíveis. Ex.: comprar R$ 100 por R$ 95 significa taxa de cessão de `5,00%` no prazo do recebível.",
-            "- `Taxa Mensal (%)`: taxa efetiva cobrada ao mês, que é a base usada diretamente pelo motor.",
+            "- O usuário pode informar a taxa bruta de duas formas:",
+            "- `Taxa de Cessão`: deságio nominal sobre o valor futuro no prazo médio dos recebíveis. Ex.: comprar R$ 100 por R$ 95 significa taxa de cessão nominal de `5,00%` no prazo do recebível.",
+            "- `Taxa Mensal (%)`: taxa efetiva bruta cobrada ao mês; o motor converte para o deságio nominal equivalente no prazo médio.",
+            "- Se houver ágio sobre face, o FIDC paga mais pelo recebível. O ágio reduz a taxa de cessão efetiva e aumenta o EAD econômico.",
             "",
             "```text",
-            "taxa_mensal = (1 / (1 - taxa_cessao)) ^ (1 / prazo_medio_recebiveis_meses) - 1",
-            "taxa_cessao = 1 - 1 / ((1 + taxa_mensal) ^ prazo_medio_recebiveis_meses)",
+            "taxa_cessao_efetiva = taxa_cessao_nominal - agio_sobre_face",
+            "preco_pago = face * (1 - taxa_cessao_efetiva)",
+            "taxa_mensal_efetiva = (1 / (1 - taxa_cessao_efetiva)) ^ (1 / prazo_medio_recebiveis_meses) - 1",
+            "taxa_cessao_nominal = 1 - 1 / ((1 + taxa_mensal_bruta) ^ prazo_medio_recebiveis_meses)",
             "```",
             "",
+            "- Exemplo: face de `R$ 100`, taxa de cessão nominal de `5,00%`, ágio de `1,00%` e prazo de `1 mês` geram preço pago de `R$ 96`, taxa efetiva de cessão de `4,00%` e taxa mensal efetiva de `4,17% a.m.`.",
+            "- Sem ágio, o mesmo recebível comprado por `R$ 95` teria taxa mensal efetiva de `5,26% a.m.`.",
             "- A carteira gera retorno econômico por composição da taxa mensal aplicada no período:",
             "",
             "```text",
@@ -1217,6 +1262,7 @@ def _build_workbook_mechanics_markdown(
             "```",
             "",
             "- Em carteira revolvente, `carteira` é o saldo em aberto usado para juros e perda; ele cresce com principal reciclado e excesso de caixa reinvestido enquanto a nova carteira couber no prazo do FIDC.",
+            "- A timeline preserva carteira pelo valor de face e mostra EAD/saldo em risco pelo preço pago. A provisão e o NPL usam EAD ajustado quando há ágio sobre face.",
             "",
             f"- Entrada informada pelo usuário nesta simulação: `{taxa_cessao_input_mode}`.",
             "- Em ambos os casos, a aba também calcula o de-para anual em base 252 dias úteis:",
@@ -1430,9 +1476,16 @@ def _build_workbook_mechanics_markdown(
             "- A migração de crédito é agregada por buckets; ainda não há upload de MOB por safra nem capitalização de juros em atraso.",
             "- Ainda não há amortização customizada por classe via interface avançada.",
             "- Ainda não há fluxo programado para SUB; ela permanece residual nesta versão.",
-            "- Backlog Fase 2 remanescente: a carteira ainda usa `delta_DU / 21`; uma versão futura pode converter a taxa mensal para taxa anual equivalente e aplicar `delta_DU / 252` explicitamente, sem mudar a interpretação econômica.",
-            "- Backlog Fase 2 remanescente: perda e provisão continuam em lógica mensal agregada; uma versão futura pode desdobrar por DU efetivo ou por safra.",
-            "- Refinamento futuro: a SELIC de caixa pode sair de input manual para fonte/curva de mercado auditável.",
+            "",
+            "### 14. Limitações conhecidas em backlog",
+            "",
+            "- Backlog Fase 2 e Fase 3: itens abaixo estão declarados como fila priorizada, não como comportamento escondido.",
+            "- Fase 2: a carteira ainda usa `delta_DU / 21`; uma versão futura pode converter a taxa mensal para taxa anual equivalente e aplicar `delta_DU / 252` explicitamente.",
+            "- Fase 2: perda e provisão continuam em lógica mensal agregada; uma versão futura pode desdobrar por DU efetivo ou por safra.",
+            "- Fase 2: o Pre DI na duration ainda é interpolado a partir dos pontos simulados; pode evoluir para interpolação direta na curva completa.",
+            "- Fase 3: a trava de caixa e gatilhos de avaliação/liquidação ainda não limitam PMTs programados.",
+            "- Fase 3: a SELIC de caixa pode sair de input manual para fonte/curva de mercado auditável.",
+            "- Direção de viés: sem trava de caixa, cenários de stress podem superestimar pagamentos às cotas; sem safra/MOB, a perda é mais simples e menos granular que um motor de crédito completo.",
         ]
     )
 
@@ -1443,7 +1496,9 @@ def _build_step_by_step_markdown() -> str:
             "Este modelo simula uma carteira de FIDC e mostra como juros, custos, perdas de crédito, estrutura de cotas e revolvência afetam o colchão de proteção.",
             "",
             "- Volume da carteira é o valor em reais dos recebíveis comprados pelo fundo no início da simulação.",
+            "- Data inicial do FIDC usa por padrão a data-base da curva carregada, mas pode ser sobrescrita para deslocar a timeline.",
             "- Taxa de Cessão é o deságio até o valor futuro no prazo médio do recebível; Taxa Mensal é a taxa efetiva usada pelo motor. A aba mostra a equivalência mensal e anual em base 252.",
+            "- Ágio sobre face reduz a taxa efetiva da carteira: se o fundo paga mais pelo recebível, o retorno econômico cai e o EAD de perda reflete o preço pago.",
             "- Prazo total do FIDC define até qual mês a simulação vai quando o cronograma mensal está selecionado.",
             "- Prazo médio dos recebíveis define o giro e o ponto de parada da revolvência: se o novo recebível não cabe no prazo restante do FIDC, o modelo para de originar.",
             "- Cotas sênior têm prioridade de pagamento; MEZZ fica no meio; subordinada/SUB absorve perdas primeiro e recebe o residual econômico.",
@@ -1648,9 +1703,9 @@ def _build_balance_area_frame(frame: pd.DataFrame) -> pd.DataFrame:
     chart_frame["pl_sub_available"] = chart_frame["pl_sub_jr"].clip(lower=0.0)
     chart_frame["deficit_economico"] = chart_frame["pl_sub_jr"].where(chart_frame["pl_sub_jr"] < 0.0, 0.0)
     stack_items = [
-        ("pl_senior", "Sênior", 1),
-        ("pl_mezz", "MEZZ", 2),
-        ("pl_sub_available", "Subordinada/SUB disponível", 3),
+        ("pl_senior", LABELS_COTAS["sen"], 1),
+        ("pl_mezz", LABELS_COTAS["mezz"], 2),
+        ("pl_sub_available", LABELS_COTAS["sub"], 3),
     ]
     rows: list[dict[str, object]] = []
     for row in chart_frame.itertuples(index=False):
@@ -1725,6 +1780,11 @@ def _build_loss_area_frame(
         "perda_periodo_pct": "Perda do período",
     }
     long_df["serie"] = long_df["serie"].map(label_map)
+    formula_map = {
+        "Perda acumulada": "Soma das despesas de provisão desde o mês 1",
+        "Perda do período": "Despesa de provisão reconhecida no mês",
+    }
+    long_df["formula_tooltip"] = long_df["serie"].map(formula_map)
     long_df["valor_pct"] = long_df["valor"] * 100.0
     long_df["valor_formatado"] = long_df["valor"].map(_format_percent)
     long_df["periodo"] = long_df["data"].dt.strftime("%d/%m/%Y")
@@ -1745,6 +1805,7 @@ def _build_protection_area_frame(
         value_name="valor",
     ).dropna(subset=["valor"])
     long_df["serie"] = "Subordinação econômica"
+    long_df["formula_tooltip"] = "max(PL FIDC - PL SEN - PL MEZZ, 0) / PL FIDC"
     long_df["valor_pct"] = long_df["valor"] * 100.0
     long_df["valor_formatado"] = long_df["valor"].map(_format_percent)
     long_df["periodo"] = long_df["data"].dt.strftime("%d/%m/%Y")
@@ -1755,6 +1816,7 @@ def _build_protection_area_frame(
         ].copy()
         protection_series = protection_series.rename(columns={"perda_maxima_suportada": "valor"})
         protection_series["serie"] = "Colchão de proteção"
+        protection_series["formula_tooltip"] = "SUB disponível / carteira originada acumulada"
         long_df = pd.concat([long_df, protection_series[long_df.columns]], ignore_index=True)
     return long_df
 
@@ -1790,7 +1852,7 @@ def _protection_ratio_chart(chart_df: pd.DataFrame) -> alt.Chart:
 
 
 def _area_money_chart(chart_df: pd.DataFrame) -> alt.Chart:
-    color_domain = ["Sênior", "MEZZ", "Subordinada/SUB disponível", "Déficit econômico"]
+    color_domain = [LABELS_COTAS["sen"], LABELS_COTAS["mezz"], LABELS_COTAS["sub"], "Déficit econômico"]
     color_range = ["#2f6f9f", "#f28e2b", "#59a14f", "#b23b3b"]
     x_encoding = alt.X("indice:Q", title="Mês do FIDC", axis=alt.Axis(tickMinStep=1))
     color_encoding = alt.Color(
@@ -1846,6 +1908,8 @@ def _area_percent_chart(
         alt.Tooltip("serie:N", title="Série"),
         alt.Tooltip("valor_formatado:N", title="Valor"),
     ]
+    if "formula_tooltip" in chart_df.columns:
+        tooltip.append(alt.Tooltip("formula_tooltip:N", title="Cálculo"))
 
     base = alt.Chart(chart_df).encode(
         x=x_encoding,
@@ -1865,6 +1929,21 @@ def _area_percent_chart(
         base.mark_area(opacity=0.18, interpolate="monotone")
         + base.mark_line(size=2.2, interpolate="monotone")
     ).properties(height=320)
+
+
+def _chart_definition_caption(kind: str) -> str:
+    if kind == "loss":
+        return (
+            "Perda do período = despesa de provisão reconhecida no mês. "
+            "Perda acumulada = soma das despesas de provisão desde o início; não é write-off acumulado nem NPL 90+ acumulado. "
+            "A SUB econômica já reflete o efeito líquido de perda, fluxo da carteira, custos e PMTs."
+        )
+    if kind == "protection":
+        return (
+            "Subordinação econômica = SUB disponível no mês, isto é, max(PL FIDC - PL SEN - PL MEZZ, 0), exibida como % do PL econômico. "
+            "Colchão de proteção = SUB disponível dividida pela carteira originada acumulada até o mês."
+        )
+    raise ValueError(f"Tipo de legenda de gráfico inválido: {kind}")
 
 
 def _render_model_header() -> None:
@@ -1898,7 +1977,7 @@ def _render_model_kpi_cards(kpis, results, *, has_mezz: bool) -> None:
         (
             "Retorno anualizado",
             _format_percent(kpis.xirr_senior),
-            "Classe sênior",
+            LABELS_COTAS["sen"],
             "Taxa interna de retorno anual dos fluxos da SEN, considerando juros, amortizações e datas do fluxo.",
         ),
         (
@@ -1910,7 +1989,7 @@ def _render_model_kpi_cards(kpis, results, *, has_mezz: bool) -> None:
         (
             "Duration econômica",
             f"{_format_number_br(kpis.duration_senior_anos, 2)} anos" if kpis.duration_senior_anos is not None else "N/D",
-            "Classe sênior",
+            LABELS_COTAS["sen"],
             "Prazo médio ponderado dos pagamentos da SEN; fica menor que o prazo final quando há juros ou amortização antes do vencimento.",
         ),
         (
@@ -1932,7 +2011,7 @@ def _render_model_kpi_cards(kpis, results, *, has_mezz: bool) -> None:
             (
                 "Retorno anualizado",
                 _format_percent(kpis.xirr_mezz),
-                "Classe MEZZ",
+                LABELS_COTAS["mezz"],
                 "Taxa interna de retorno anual dos fluxos da MEZZ, considerando sua posição no waterfall.",
             ),
         )
@@ -2008,6 +2087,34 @@ def render_tab_modelo_fidc() -> None:
     source_errors = _validate_model_inputs(inputs)
     if source_errors:
         st.error("Fonte local do modelo incompleta: " + "; ".join(source_errors) + ".")
+        return
+
+    curve_source_label = _ensure_session_option("modelo_curve_source", CURVE_SOURCE_OPTIONS)
+    selected_b3_date = _ensure_session_date("modelo_b3_date", date.today() - timedelta(days=1))
+    calendar_source_label = _ensure_session_option("modelo_calendar_source", CALENDAR_SOURCE_OPTIONS, default_index=1)
+    interpolation_label = _ensure_session_option("modelo_interpolation_label", INTERPOLATION_OPTIONS)
+    interpolation_method = _interpolation_method_from_label(interpolation_label)
+
+    try:
+        if curve_source_label == CURVE_SOURCE_SNAPSHOT:
+            snapshot_errors = _validate_snapshot_curve(inputs)
+            if snapshot_errors:
+                st.error("Curva local salva incompleta: " + "; ".join(snapshot_errors) + ".")
+                _render_curve_source_controls(inputs)
+                return
+            selected_curve = _selected_curve_from_snapshot(inputs)
+        elif curve_source_label == CURVE_SOURCE_B3_DATE:
+            with st.spinner("Consultando curva TaxaSwap na B3..."):
+                b3_snapshot = _load_b3_curve_for_date(selected_b3_date.isoformat(), DEFAULT_TAXASWAP_CURVE_CODE)
+            selected_curve = _selected_curve_from_b3(b3_snapshot, curve_source_label)
+        else:
+            with st.spinner("Localizando último pregão TaxaSwap disponível na B3..."):
+                b3_snapshot = _load_latest_b3_curve(date.today().isoformat(), DEFAULT_TAXASWAP_CURVE_CODE)
+            selected_curve = _selected_curve_from_b3(b3_snapshot, curve_source_label)
+    except B3CurveError as exc:
+        st.error(f"Não foi possível carregar a curva B3: {exc}")
+        st.warning("Selecione a curva local salva apenas se quiser rodar uma comparação histórica sem fonte externa.")
+        _render_curve_source_controls(inputs)
         return
 
     default_tx_cessao_am = DEFAULT_TX_CESSAO_AM
@@ -2164,11 +2271,11 @@ def render_tab_modelo_fidc() -> None:
             enhancement_a, enhancement_b = st.columns(2)
             with enhancement_a:
                 agio_aquisicao_text = _text_percent_input(
-                    "Ágio de aquisição (% da carteira)",
+                    "Ágio (% sobre face)",
                     default=DEFAULT_AGIO_AQUISICAO * 100.0,
                     key="modelo_agio_aquisicao_pct",
                     decimals=2,
-                    help_text="Prêmio pago sobre o volume da carteira; reduz o PL econômico inicial da SUB.",
+                    help_text="Prêmio pago sobre o valor de face; reduz a taxa de cessão efetiva e aumenta o EAD.",
                 )
             with enhancement_b:
                 excesso_spread_base = st.radio(
@@ -2294,6 +2401,15 @@ def render_tab_modelo_fidc() -> None:
 
             with st.expander("Premissas avançadas de prazo, revolvência e waterfall", expanded=False):
                 st.markdown("##### Prazo e originação")
+                data_inicial_fidc = st.date_input(
+                    "Data inicial do FIDC",
+                    value=selected_curve.base_date,
+                    key="modelo_data_inicial",
+                    help=(
+                        "Por padrão usa o último pregão da curva carregada; sobrescrever mantém a curva selecionada "
+                        "e desloca a timeline do fluxo."
+                    ),
+                )
                 date_schedule_label = st.selectbox(
                     "Cronograma do fluxo",
                     [DATE_SCHEDULE_WORKBOOK, DATE_SCHEDULE_MONTHLY],
@@ -2336,7 +2452,7 @@ def render_tab_modelo_fidc() -> None:
                     "e passa a render pela SELIC média anual informada abaixo."
                 )
                 selic_years = _projection_years_for_term(
-                    inputs.datas[0],
+                    datetime.combine(data_inicial_fidc, datetime.min.time()),
                     _safe_term_years_from_text(prazo_fidc_text),
                 )
                 selic_text_by_year: dict[int, str] = {}
@@ -2457,12 +2573,20 @@ def render_tab_modelo_fidc() -> None:
             prazo_recebiveis_text,
             field_name="Prazo médio dos recebíveis (meses)",
         )
+        agio_aquisicao = _parse_br_number(
+            agio_aquisicao_text,
+            field_name="Ágio (% sobre face)",
+        ) / 100.0
         if taxa_cessao_input_mode == CESSION_INPUT_DISCOUNT:
-            tx_cessao_desagio = _parse_br_number(tx_cessao_desagio_text, field_name="Taxa de Cessão (%)") / 100.0
-            tx_cessao_am = cession_discount_to_monthly_rate(tx_cessao_desagio, prazo_medio_recebiveis_meses)
+            tx_cessao_desagio_nominal = _parse_br_number(tx_cessao_desagio_text, field_name="Taxa de Cessão (%)") / 100.0
         else:
-            tx_cessao_am = _parse_br_number(tx_cessao_mensal_text, field_name="Taxa Mensal (%)") / 100.0
-            tx_cessao_desagio = monthly_rate_to_cession_discount(tx_cessao_am, prazo_medio_recebiveis_meses)
+            tx_cessao_am_nominal = _parse_br_number(tx_cessao_mensal_text, field_name="Taxa Mensal (%)") / 100.0
+            tx_cessao_desagio_nominal = monthly_rate_to_cession_discount(
+                tx_cessao_am_nominal,
+                prazo_medio_recebiveis_meses,
+            )
+        tx_cessao_desagio = _effective_cession_discount_after_premium(tx_cessao_desagio_nominal, agio_aquisicao)
+        tx_cessao_am = cession_discount_to_monthly_rate(tx_cessao_desagio, prazo_medio_recebiveis_meses)
         tx_cessao_aa_equivalente = monthly_to_annual_252_rate(tx_cessao_am)
         custo_adm_aa = _parse_br_number(custo_adm_text, field_name="Custo de administração e gestão (% a.a. sobre PL)") / 100.0
         custo_min = _parse_br_number(custo_min_text, field_name="Custo mínimo de administração e gestão (R$/mês)")
@@ -2500,10 +2624,6 @@ def render_tab_modelo_fidc() -> None:
         writeoff_90_plus = _parse_br_number(
             writeoff_90_text,
             field_name="Write-off 90+ (% a.m.)",
-        ) / 100.0
-        agio_aquisicao = _parse_br_number(
-            agio_aquisicao_text,
-            field_name="Ágio de aquisição (% da carteira)",
         ) / 100.0
         if excesso_spread_base == "% a.m.":
             excesso_spread_senior_am = _parse_br_number(
@@ -2570,7 +2690,7 @@ def render_tab_modelo_fidc() -> None:
         st.error("Percentuais de perda, LGD, rolagem, recuperação e write-off devem ficar entre 0,00% e 100,00%.")
         return
     if agio_aquisicao < 0 or excesso_spread_senior_am < 0:
-        st.error("Ágio de aquisição e excesso de spread não podem ser negativos.")
+        st.error("Ágio sobre face e excesso de spread não podem ser negativos.")
         return
     if any(rate < 0 for _, rate in user_selic_aa_por_ano):
         st.error("As taxas SELIC projetadas não podem ser negativas.")
@@ -2581,7 +2701,18 @@ def render_tab_modelo_fidc() -> None:
         st.error(f"As proporções de PL precisam somar 100,00%. Soma atual: {_format_percent(prop_total)}.")
         return
 
-    simulation_dates = _build_simulation_dates(inputs, date_schedule_label, prazo_fidc_anos)
+    if isinstance(data_inicial_fidc, datetime):
+        data_inicial_date = data_inicial_fidc.date()
+    else:
+        data_inicial_date = data_inicial_fidc
+    data_inicial_dt = datetime.combine(data_inicial_date, datetime.min.time())
+    simulation_dates = _build_simulation_dates(inputs, date_schedule_label, prazo_fidc_anos, data_inicial_dt)
+    if data_inicial_date != selected_curve.base_date:
+        st.warning(
+            "A data inicial do FIDC foi sobrescrita para "
+            f"{data_inicial_date:%d/%m/%Y}, mas a curva DI/Pré carregada tem data-base "
+            f"{selected_curve.base_date:%d/%m/%Y}. A simulação segue com essa curva e desloca a timeline."
+        )
     try:
         effective_selic_aa_por_ano = _effective_selic_projection_for_dates(user_selic_aa_por_ano, simulation_dates)
     except ValueError as exc:
@@ -2640,13 +2771,23 @@ def render_tab_modelo_fidc() -> None:
         selic_aa_por_ano=effective_selic_aa_por_ano,
     )
 
-    st.caption(
-        "Equivalência da taxa da carteira: "
-        f"Taxa de Cessão {_format_percent(tx_cessao_desagio)} no prazo médio de "
-        f"{_format_number_br(prazo_medio_recebiveis_meses, 1)} meses | "
-        f"Taxa Mensal {_format_percent(tx_cessao_am)} | "
-        f"Taxa anual base 252 {_format_percent(tx_cessao_aa_equivalente)}."
-    )
+    if agio_aquisicao > 0.0:
+        st.caption(
+            "Equivalência da taxa da carteira: "
+            f"Taxa de Cessão nominal {_format_percent(tx_cessao_desagio_nominal)} menos ágio "
+            f"{_format_percent(agio_aquisicao)} = taxa efetiva {_format_percent(tx_cessao_desagio)} "
+            f"no prazo médio de {_format_number_br(prazo_medio_recebiveis_meses, 1)} meses | "
+            f"Taxa Mensal efetiva {_format_percent(tx_cessao_am)} | "
+            f"Taxa anual base 252 {_format_percent(tx_cessao_aa_equivalente)}."
+        )
+    else:
+        st.caption(
+            "Equivalência da taxa da carteira: "
+            f"Taxa de Cessão {_format_percent(tx_cessao_desagio)} no prazo médio de "
+            f"{_format_number_br(prazo_medio_recebiveis_meses, 1)} meses | "
+            f"Taxa Mensal {_format_percent(tx_cessao_am)} | "
+            f"Taxa anual base 252 {_format_percent(tx_cessao_aa_equivalente)}."
+        )
     if modelo_credito == CREDIT_MODEL_NPL90:
         st.caption(
             "Crédito e provisão: "
@@ -2662,7 +2803,7 @@ def render_tab_modelo_fidc() -> None:
         )
     st.caption(
         "Sofisticações da carteira: "
-        f"ágio de aquisição {_format_percent(agio_aquisicao)}; "
+        f"ágio sobre face {_format_percent(agio_aquisicao)}; "
         f"excesso de spread SEN {_format_percent(excesso_spread_senior_am)} a.m. "
         f"({_format_percent(excesso_spread_senior_aa)} a.a. base 252). "
         "Por ser um piso, a taxa aplicada usa o maior valor entre a taxa informada e SEN + excesso."
@@ -2672,34 +2813,6 @@ def render_tab_modelo_fidc() -> None:
         + "; ".join(f"{year}: {_format_percent(rate)} a.a." for year, rate in user_selic_aa_por_ano)
         + ". Esta curva remunera apenas o caixa excedente quando a carteira entra em runoff."
     )
-
-    curve_source_label = _ensure_session_option("modelo_curve_source", CURVE_SOURCE_OPTIONS)
-    selected_b3_date = _ensure_session_date("modelo_b3_date", date.today() - timedelta(days=1))
-    calendar_source_label = _ensure_session_option("modelo_calendar_source", CALENDAR_SOURCE_OPTIONS, default_index=1)
-    interpolation_label = _ensure_session_option("modelo_interpolation_label", INTERPOLATION_OPTIONS)
-    interpolation_method = _interpolation_method_from_label(interpolation_label)
-
-    try:
-        if curve_source_label == CURVE_SOURCE_SNAPSHOT:
-            snapshot_errors = _validate_snapshot_curve(inputs)
-            if snapshot_errors:
-                st.error("Curva local salva incompleta: " + "; ".join(snapshot_errors) + ".")
-                _render_curve_source_controls(inputs)
-                return
-            selected_curve = _selected_curve_from_snapshot(inputs)
-        elif curve_source_label == CURVE_SOURCE_B3_DATE:
-            with st.spinner("Consultando curva TaxaSwap na B3..."):
-                b3_snapshot = _load_b3_curve_for_date(selected_b3_date.isoformat(), DEFAULT_TAXASWAP_CURVE_CODE)
-            selected_curve = _selected_curve_from_b3(b3_snapshot, curve_source_label)
-        else:
-            with st.spinner("Localizando último pregão TaxaSwap disponível na B3..."):
-                b3_snapshot = _load_latest_b3_curve(date.today().isoformat(), DEFAULT_TAXASWAP_CURVE_CODE)
-            selected_curve = _selected_curve_from_b3(b3_snapshot, curve_source_label)
-    except B3CurveError as exc:
-        st.error(f"Não foi possível carregar a curva B3: {exc}")
-        st.warning("Selecione a curva local salva apenas se quiser rodar uma comparação histórica sem fonte externa.")
-        _render_curve_source_controls(inputs)
-        return
 
     try:
         if calendar_source_label == CALENDAR_SOURCE_B3_OFFICIAL:
@@ -2801,6 +2914,7 @@ def render_tab_modelo_fidc() -> None:
     chart_left, chart_right = st.columns(2)
     with chart_left:
         st.markdown('<div class="fidc-model-section-title">Perda da carteira</div>', unsafe_allow_html=True)
+        st.caption(_chart_definition_caption("loss"))
         st.altair_chart(
             _area_percent_chart(
                 _build_loss_area_frame(frame, premissas.volume),
@@ -2812,6 +2926,7 @@ def render_tab_modelo_fidc() -> None:
         )
     with chart_right:
         st.markdown('<div class="fidc-model-section-title">Proteção da estrutura</div>', unsafe_allow_html=True)
+        st.caption(_chart_definition_caption("protection"))
         st.altair_chart(
             _area_percent_chart(
                 _build_protection_area_frame(frame, protection_frame),
@@ -2824,6 +2939,11 @@ def render_tab_modelo_fidc() -> None:
 
     memory_df = pd.DataFrame(
         [
+            {
+                "Indicador": "Data inicial do FIDC",
+                "Fórmula": "default = data-base da curva carregada; usuário pode sobrescrever",
+                "Observação": f"Data inicial selecionada: {data_inicial_date:%d/%m/%Y}; curva DI/Pré data-base: {selected_curve.base_date:%d/%m/%Y}.",
+            },
             {
                 "Indicador": "Fluxo econômico da carteira",
                 "Fórmula": "carteira * ((1 + tx_cessao_am_aplicada) ^ (delta_du / 21) - 1)",
@@ -2841,8 +2961,8 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "De-para da Taxa de Cessão",
-                "Fórmula": "tx_cessao_am = (1 / (1 - taxa_cessao)) ^ (1 / prazo_medio_recebiveis_meses) - 1",
-                "Observação": "Ex.: comprar R$ 100 de valor futuro por R$ 95 implica taxa de cessão de 5,00% no prazo médio, não necessariamente em um mês.",
+                "Fórmula": "tx_cessao_efetiva = tx_cessao_nominal - agio; tx_am = (1 / (1 - tx_cessao_efetiva)) ^ (1 / prazo_medio_recebiveis_meses) - 1",
+                "Observação": "Ex.: face R$ 100, deságio 5,00% e ágio 1,00% implicam preço pago R$ 96, taxa efetiva de cessão 4,00% e taxa mensal menor.",
             },
             {
                 "Indicador": "Conversão anual base 252",
@@ -2850,9 +2970,9 @@ def render_tab_modelo_fidc() -> None:
                 "Observação": "Conversão financeira efetiva, com 21 dias úteis médios por mês e 252 dias úteis por ano.",
             },
             {
-                "Indicador": "Ágio de aquisição",
-                "Fórmula": "agio = volume * agio_aquisicao",
-                "Observação": "O ágio representa prêmio pago pelos recebíveis e reduz a SUB econômica inicial.",
+                "Indicador": "Ágio sobre face",
+                "Fórmula": "preço pago / face = 1 - taxa_cessao_efetiva; EAD = carteira_face * preço_pago_face",
+                "Observação": "O ágio não é debitado como despesa inicial; ele reduz a taxa efetiva da carteira e aumenta a base de exposição em caso de perda.",
             },
             {
                 "Indicador": "Piso de taxa da carteira",
@@ -3010,6 +3130,7 @@ def render_tab_modelo_fidc() -> None:
                     selected_calendar=selected_calendar,
                     interpolation_label=interpolation_label,
                     taxa_cessao_input_mode=taxa_cessao_input_mode,
+                    data_inicial=data_inicial_date,
                     credit_model_label=credit_model_label,
                 )
             )

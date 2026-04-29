@@ -63,6 +63,26 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertNotIn(2025, years)
         self.assertEqual([2026, 2027, 2028], years)
 
+    def test_workbook_schedule_shifts_to_dynamic_start_date(self) -> None:
+        inputs = load_model_inputs("model_data.json")
+        shifted = tab_modelo_fidc._build_simulation_dates(
+            inputs,
+            tab_modelo_fidc.DATE_SCHEDULE_WORKBOOK,
+            3.0,
+            pd.Timestamp("2026-04-28").to_pydatetime(),
+        )
+
+        self.assertEqual(pd.Timestamp("2026-04-28").to_pydatetime(), shifted[0])
+        self.assertEqual(pd.Timestamp("2026-10-28").to_pydatetime(), shifted[1])
+        self.assertEqual(pd.Timestamp("2029-12-28").to_pydatetime(), shifted[-1])
+
+    def test_acquisition_premium_reduces_effective_cession_discount(self) -> None:
+        effective = tab_modelo_fidc._effective_cession_discount_after_premium(0.05, 0.01)
+        monthly = tab_modelo_fidc.cession_discount_to_monthly_rate(effective, 1.0)
+
+        self.assertAlmostEqual(0.04, effective)
+        self.assertAlmostEqual((1.0 / 0.96) - 1.0, monthly)
+
     def test_workbook_mechanics_expander_explains_cash_lock_and_sheet_formulas(self) -> None:
         selected_curve = tab_modelo_fidc._SelectedCurve(
             source_label=tab_modelo_fidc.CURVE_SOURCE_B3_LATEST,
@@ -417,7 +437,7 @@ class TabModeloFidcTests(unittest.TestCase):
         chart_df = tab_modelo_fidc._build_balance_area_frame(frame)
         values = dict(zip(chart_df["classe"], chart_df["valor"]))
 
-        self.assertEqual(0.0, values["Subordinada/SUB disponível"])
+        self.assertEqual(0.0, values[tab_modelo_fidc.LABELS_COTAS["sub"]])
         self.assertEqual(-12.0, values["Déficit econômico"])
         self.assertNotIn(-80.0, values.values())
 
@@ -438,9 +458,9 @@ class TabModeloFidcTests(unittest.TestCase):
             for _, row in chart_df.iterrows()
         }
 
-        self.assertEqual((0.0, 75.0), stacks["Sênior"])
-        self.assertEqual((75.0, 90.0), stacks["MEZZ"])
-        self.assertEqual((90.0, 100.0), stacks["Subordinada/SUB disponível"])
+        self.assertEqual((0.0, 75.0), stacks[tab_modelo_fidc.LABELS_COTAS["sen"]])
+        self.assertEqual((75.0, 90.0), stacks[tab_modelo_fidc.LABELS_COTAS["mezz"]])
+        self.assertEqual((90.0, 100.0), stacks[tab_modelo_fidc.LABELS_COTAS["sub"]])
 
     def test_protection_chart_uses_available_subordination_not_shifted_workbook_ratio(self) -> None:
         frame = pd.DataFrame(
@@ -513,6 +533,8 @@ class TabModeloFidcTests(unittest.TestCase):
             color_range=["#d62728", "#f28e2b"],
         ).to_dict()
         self.assertNotIn("resolve", spec)
+        self.assertIn("despesa de provisão", tab_modelo_fidc._chart_definition_caption("loss"))
+        self.assertIn("SUB disponível", tab_modelo_fidc._chart_definition_caption("protection"))
 
     def test_time_protection_chart_is_line_chart(self) -> None:
         chart_df = pd.DataFrame(

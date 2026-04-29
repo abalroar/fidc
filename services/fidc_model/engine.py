@@ -60,9 +60,22 @@ def monthly_rate_to_cession_discount(rate_am: float, term_months: float = 1.0) -
     return 1.0 - (1.0 / (1.0 + rate_am) ** term)
 
 
+def _price_paid_factor_from_monthly_rate(rate_am: float, term_months: float) -> float:
+    """Return paid price / face implied by the effective monthly portfolio yield."""
+
+    effective_discount = monthly_rate_to_cession_discount(rate_am, term_months)
+    return max(1.0 - effective_discount, 0.0)
+
+
+def _ead_factor_for_premissas(premissas: Premissas, rate_am: float, term_months: float) -> float:
+    if premissas.agio_aquisicao <= 0.0:
+        return 1.0
+    return _price_paid_factor_from_monthly_rate(rate_am, term_months)
+
+
 def _cession_floor_monthly_rate(senior_annual_rate: float, excess_spread_am: float) -> float:
     excess_annual_rate = monthly_to_annual_252_rate(max(excess_spread_am, 0.0))
-    floor_annual_rate = (1.0 + max(senior_annual_rate, -0.999999)) * (1.0 + excess_annual_rate) - 1.0
+    floor_annual_rate = max(senior_annual_rate, -0.999999) + excess_annual_rate
     return annual_252_to_monthly_rate(floor_annual_rate)
 
 
@@ -567,7 +580,7 @@ def build_flow(
     periods: list[PeriodResult] = []
     pl_senior_atual = pl_senior_initial
     pl_mezz_atual = pl_mezz_initial
-    pl_fidc_atual = premissas.volume - agio_aquisicao_despesa
+    pl_fidc_atual = premissas.volume
     pl_sub_jr_initial = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
     carteira_atual = premissas.volume
     caixa_selic_atual = 0.0
@@ -591,6 +604,12 @@ def build_flow(
                     taxa_mezz=None,
                     fra_mezz=None,
                     carteira=premissas.volume,
+                    ead_carteira=premissas.volume
+                    * _ead_factor_for_premissas(
+                        premissas,
+                        premissas.tx_cessao_am,
+                        max(float(premissas.prazo_medio_recebiveis_meses), 0.01),
+                    ),
                     fluxo_carteira=0.0,
                     taxa_selic_aa=None,
                     taxa_selic_periodo=0.0,
@@ -605,6 +624,7 @@ def build_flow(
                     perda_inesperada_despesa=0.0,
                     perda_carteira_despesa=0.0,
                     carteira_vencendo=0.0,
+                    ead_vencendo=0.0,
                     entrada_npl90=0.0,
                     npl90_estoque_inicio=0.0,
                     npl90_estoque_fim=0.0,
@@ -631,6 +651,11 @@ def build_flow(
                     caixa_nao_reinvestido=0.0,
                     saldo_caixa_selic_fim=0.0,
                     agio_aquisicao_despesa=agio_aquisicao_despesa,
+                    preco_pago_fator=_ead_factor_for_premissas(
+                        premissas,
+                        premissas.tx_cessao_am,
+                        max(float(premissas.prazo_medio_recebiveis_meses), 0.01),
+                    ),
                     tx_cessao_am_input=premissas.tx_cessao_am,
                     tx_cessao_am_piso=0.0,
                     tx_cessao_am_aplicada=premissas.tx_cessao_am,
@@ -667,7 +692,10 @@ def build_flow(
         tx_cessao_am_aplicada = max(premissas.tx_cessao_am, tx_cessao_am_piso)
         period_months = _period_month_fraction(month_deltas, index, delta_dc)
         prazo_medio_recebiveis = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
+        preco_pago_fator = _ead_factor_for_premissas(premissas, tx_cessao_am_aplicada, prazo_medio_recebiveis)
+        ead_carteira = carteira * preco_pago_fator
         principal_recebido_carteira = min(carteira, max(carteira * period_months / prazo_medio_recebiveis, 0.0))
+        ead_vencendo = principal_recebido_carteira * preco_pago_fator
         prazo_restante_reinvestimento = max(
             float(_term_months(premissas.prazo_fidc_anos, fallback_term_months) - month_deltas[index]),
             0.0,
@@ -682,8 +710,8 @@ def build_flow(
         fluxo_carteira = carteira * ((1.0 + tx_cessao_am_aplicada) ** (delta_du / 21.0) - 1.0)
         custos_adm = _admin_cost_period_amount(pl_fidc_atual, premissas.custo_adm_aa, premissas.custo_min)
         credit = _credit_period(
-            carteira=carteira,
-            carteira_vencendo=principal_recebido_carteira,
+            carteira=ead_carteira,
+            carteira_vencendo=ead_vencendo,
             premissas=premissas,
             delta_dc=delta_dc,
             period_months=period_months,
@@ -732,7 +760,8 @@ def build_flow(
         pl_sub_jr = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
         reinvestimento_excesso = max(fluxo_remanescente_mezz, 0.0) if reinvestimento_elegivel else 0.0
         nova_originacao = reinvestimento_principal + reinvestimento_excesso
-        carteira_fim = max(carteira - principal_recebido_carteira - credit.baixa_credito + nova_originacao, 0.0)
+        baixa_credito_face = credit.baixa_credito / preco_pago_fator if preco_pago_fator > 1e-12 else credit.baixa_credito
+        carteira_fim = max(carteira - principal_recebido_carteira - baixa_credito_face + nova_originacao, 0.0)
         caixa_nao_reinvestido = (
             principal_para_caixa_selic
             + max(max(fluxo_remanescente_mezz, 0.0) - reinvestimento_excesso, 0.0)
@@ -763,6 +792,7 @@ def build_flow(
                 taxa_mezz=taxa_mezz[index],
                 fra_mezz=fra_mezz[index],
                 carteira=carteira,
+                ead_carteira=ead_carteira,
                 fluxo_carteira=fluxo_carteira,
                 taxa_selic_aa=taxa_selic_aa,
                 taxa_selic_periodo=taxa_selic_periodo,
@@ -777,6 +807,7 @@ def build_flow(
                 perda_inesperada_despesa=perda_inesperada_despesa,
                 perda_carteira_despesa=perda_carteira_despesa,
                 carteira_vencendo=credit.carteira_vencendo,
+                ead_vencendo=ead_vencendo,
                 entrada_npl90=credit.entrada_npl90,
                 npl90_estoque_inicio=credit.npl90_estoque_inicio,
                 npl90_estoque_fim=credit.npl90_estoque_fim,
@@ -803,6 +834,7 @@ def build_flow(
                 caixa_nao_reinvestido=caixa_nao_reinvestido,
                 saldo_caixa_selic_fim=saldo_caixa_selic_fim,
                 agio_aquisicao_despesa=0.0,
+                preco_pago_fator=preco_pago_fator,
                 tx_cessao_am_input=premissas.tx_cessao_am,
                 tx_cessao_am_piso=tx_cessao_am_piso,
                 tx_cessao_am_aplicada=tx_cessao_am_aplicada,

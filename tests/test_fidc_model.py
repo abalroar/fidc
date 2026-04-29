@@ -473,10 +473,10 @@ class FidcModelParityTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Curva de SELIC média para caixa sem taxa para 2027"):
             build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
 
-    def test_acquisition_premium_reduces_initial_subordination(self):
+    def test_acquisition_premium_is_informational_not_initial_expense(self):
         premissas = Premissas(
             volume=1_000_000.0,
-            tx_cessao_am=0.0,
+            tx_cessao_am=0.01,
             tx_cessao_cdi_aa=None,
             custo_adm_aa=0.0,
             custo_min=0.0,
@@ -494,8 +494,10 @@ class FidcModelParityTest(unittest.TestCase):
         periods = build_flow([datetime(2025, 1, 1), datetime(2025, 2, 1)], [], [1.0, 2000.0], [0.0, 0.0], premissas)
 
         self.assertAlmostEqual(20_000.0, periods[0].agio_aquisicao_despesa)
-        self.assertAlmostEqual(980_000.0, periods[0].pl_fidc)
-        self.assertAlmostEqual(80_000.0, periods[0].pl_sub_jr)
+        self.assertAlmostEqual(1_000_000.0, periods[0].pl_fidc)
+        self.assertAlmostEqual(100_000.0, periods[0].pl_sub_jr)
+        self.assertLess(periods[1].preco_pago_fator, 1.0)
+        self.assertAlmostEqual(periods[1].ead_carteira, periods[1].carteira * periods[1].preco_pago_fator)
 
     def test_cession_rate_floor_uses_senior_remuneration_plus_excess_spread(self):
         premissas = Premissas(
@@ -515,7 +517,7 @@ class FidcModelParityTest(unittest.TestCase):
             excesso_spread_senior_am=0.01,
         )
         expected_floor = annual_252_to_monthly_rate(
-            (1.0 + 0.12) * (1.0 + monthly_to_annual_252_rate(0.01)) - 1.0
+            0.12 + monthly_to_annual_252_rate(0.01)
         )
 
         periods = build_flow([datetime(2025, 1, 1), datetime(2025, 2, 1)], [], [1.0, 2000.0], [0.0, 0.0], premissas)
