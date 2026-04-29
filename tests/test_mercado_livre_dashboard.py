@@ -6,6 +6,7 @@ from pathlib import Path
 import tempfile
 from types import SimpleNamespace
 import unittest
+import zipfile
 
 from openpyxl import load_workbook
 import pandas as pd
@@ -17,10 +18,12 @@ from services.mercado_livre_dashboard import (
     build_fund_monthly_base,
     build_mercado_livre_outputs,
     build_wide_table,
+    order_period_columns_desc,
     load_outputs_from_cache,
     portfolio_identity_key,
     save_outputs_to_cache,
 )
+from services.mercado_livre_ppt_export import build_pptx_export_bytes
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
 from tabs.tab_mercado_livre import _dense_wide_value, _render_wide_table_html, _resolve_existing_portfolio_for_save
@@ -236,6 +239,17 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         workbook = load_workbook(BytesIO(excel_bytes), data_only=True)
         self.assertIn("Consolidado", workbook.sheetnames)
         self.assertIn("Auditoria", workbook.sheetnames)
+        self.assertTrue(zipfile.is_zipfile(BytesIO(excel_bytes)))
+        ws = workbook["Consolidado"]
+        header = [cell.value for cell in ws[1]]
+        self.assertEqual("Métrica", header[0])
+        self.assertEqual("Memória / fórmula", header[-1])
+        pl_row = next(row for row in ws.iter_rows(min_row=2, values_only=False) if row[0].value == "PL FIDC total")
+        self.assertIsInstance(pl_row[1].value, (int, float))
+        self.assertNotIsInstance(pl_row[1].value, str)
+        sub_row = next(row for row in ws.iter_rows(min_row=2, values_only=False) if row[0].value == "% Subordinação Total")
+        self.assertAlmostEqual(0.25, sub_row[1].value, places=8)
+        self.assertIn("%", sub_row[1].number_format)
 
         snapshot_bytes = build_consolidated_snapshot_excel_bytes(outputs)
         snapshot_workbook = load_workbook(BytesIO(snapshot_bytes), data_only=True)
@@ -243,6 +257,62 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("Dados gráficos", snapshot_workbook.sheetnames)
         self.assertIn("Gráficos", snapshot_workbook.sheetnames)
         self.assertGreaterEqual(len(snapshot_workbook["Gráficos"]._charts), 2)
+
+        pptx_bytes = build_pptx_export_bytes(outputs)
+        self.assertTrue(pptx_bytes.startswith(b"PK"))
+        self.assertTrue(zipfile.is_zipfile(BytesIO(pptx_bytes)))
+        from pptx import Presentation
+
+        presentation = Presentation(BytesIO(pptx_bytes))
+        self.assertGreaterEqual(len(presentation.slides), 2)
+        with zipfile.ZipFile(BytesIO(pptx_bytes)) as archive:
+            names = archive.namelist()
+        self.assertTrue(any(name.startswith("ppt/charts/chart") for name in names))
+
+    def test_wide_table_orders_periods_newest_to_oldest(self) -> None:
+        monthly = pd.DataFrame(
+            [
+                {
+                    "fund_name": "FIDC A",
+                    "cnpj": "11111111000111",
+                    "tipo_classe": "Classe",
+                    "competencia": "11/2025",
+                    "competencia_dt": pd.Timestamp("2025-11-01"),
+                    "pl_total": 100.0,
+                    "pl_senior": 75.0,
+                    "pl_subordinada_mezz": 25.0,
+                    "subordinacao_total_pct": 25.0,
+                },
+                {
+                    "fund_name": "FIDC A",
+                    "cnpj": "11111111000111",
+                    "tipo_classe": "Classe",
+                    "competencia": "03/2026",
+                    "competencia_dt": pd.Timestamp("2026-03-01"),
+                    "pl_total": 110.0,
+                    "pl_senior": 80.0,
+                    "pl_subordinada_mezz": 30.0,
+                    "subordinacao_total_pct": 27.2727,
+                },
+                {
+                    "fund_name": "FIDC A",
+                    "cnpj": "11111111000111",
+                    "tipo_classe": "Classe",
+                    "competencia": "01/2026",
+                    "competencia_dt": pd.Timestamp("2026-01-01"),
+                    "pl_total": 105.0,
+                    "pl_senior": 78.0,
+                    "pl_subordinada_mezz": 27.0,
+                    "subordinacao_total_pct": 25.7143,
+                },
+            ]
+        )
+        wide = build_wide_table(monthly, scope_name="FIDC A")
+        period_columns = order_period_columns_desc(wide.columns)
+
+        self.assertEqual(["mar/26", "jan/26", "nov/25"], period_columns)
+        self.assertLess(wide.columns.get_loc("mar/26"), wide.columns.get_loc("jan/26"))
+        self.assertEqual("Memória / fórmula", wide.columns[-1])
 
     def test_consolidated_wide_html_has_section_rows_and_dense_formatting(self) -> None:
         wide = pd.DataFrame(

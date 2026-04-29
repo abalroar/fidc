@@ -17,9 +17,11 @@ from services.mercado_livre_dashboard import (
     cache_dir_for_outputs,
     extract_official_pl_history_from_wide_csv,
     load_outputs_from_cache,
+    order_period_columns_desc,
     portfolio_identity_key,
     save_outputs_to_cache,
 )
+from services.mercado_livre_ppt_export import build_pptx_export_bytes
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
 from services.portfolio_store import PortfolioFund, PortfolioRecord, portfolio_basket_signature, portfolio_name_key
 from tabs import tab_fidc_ime as ime_tab
@@ -451,10 +453,11 @@ def _render_outputs(
 
     excel_bytes = build_excel_export_bytes(outputs)
     snapshot_bytes = build_consolidated_snapshot_excel_bytes(outputs)
+    pptx_bytes = build_pptx_export_bytes(outputs)
     main_tab, audit_tab = st.tabs(["Tabelas wide e gráficos", "Tabela de auditoria"])
 
     with main_tab:
-        btn_left, btn_right = st.columns([1.25, 2.2])
+        btn_left, btn_mid, btn_right = st.columns([1.15, 1.65, 1.45])
         with btn_left:
             st.download_button(
                 "Baixar wide completo",
@@ -464,13 +467,22 @@ def _render_outputs(
                 key=f"ml_excel_download::{selected_portfolio.id}",
                 use_container_width=True,
             )
-        with btn_right:
+        with btn_mid:
             st.download_button(
                 "Baixar resumo 6m + gráficos consolidados",
                 data=snapshot_bytes,
                 file_name=f"mercado_livre_resumo_6m_{_safe_file_token(selected_portfolio.name)}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 key=f"ml_snapshot_excel_download::{selected_portfolio.id}",
+                use_container_width=True,
+            )
+        with btn_right:
+            st.download_button(
+                "Baixar slides PPTX",
+                data=pptx_bytes,
+                file_name=f"mercado_livre_graficos_{_safe_file_token(selected_portfolio.name)}.pptx",
+                mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                key=f"ml_pptx_download::{selected_portfolio.id}",
                 use_container_width=True,
             )
 
@@ -536,11 +548,7 @@ def _render_chart(title: str, subtitle: str, chart) -> None:
 def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
     if df_wide.empty:
         return "<p class='chart-subtitle'>Sem dados para a tabela wide consolidada.</p>"
-    period_columns = [
-        str(column)
-        for column in df_wide.columns
-        if str(column) not in {"Bloco", "Métrica", "Memória / fórmula"}
-    ]
+    period_columns = order_period_columns_desc(df_wide.columns)
     html: list[str] = []
     current_block = ""
     section_rows: list[pd.Series] = []
@@ -552,9 +560,9 @@ def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
         html.append("<div class='wide-table-wrapper'><table class='wide-table'>")
         html.append("<thead><tr>")
         html.append("<th class='label-col'>Métrica</th>")
-        html.append("<th class='formula-col'>Memória / fórmula</th>")
         for column in period_columns:
             html.append(f"<th>{escape(column)}</th>")
+        html.append("<th class='formula-col'>Memória / fórmula</th>")
         html.append("</tr></thead><tbody>")
         for item in section_rows:
             metric = str(item.get("Métrica") or "").strip()
@@ -562,9 +570,9 @@ def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
             row_class = _wide_table_metric_class(metric)
             html.append(f"<tr class='{row_class}'>")
             html.append(f"<td class='label'>{escape(metric)}</td>")
-            html.append(f"<td class='formula'>{escape(_dense_wide_value(formula))}</td>")
             for column in period_columns:
                 html.append(f"<td>{escape(_dense_wide_value(item.get(column)))}</td>")
+            html.append(f"<td class='formula'>{escape(_dense_wide_value(formula))}</td>")
             html.append("</tr>")
         html.append("</tbody></table></div></details>")
 

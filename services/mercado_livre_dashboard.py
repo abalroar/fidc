@@ -10,6 +10,7 @@ import re
 from typing import Any
 
 import pandas as pd
+from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 from openpyxl import Workbook
 from openpyxl.chart import BarChart, LineChart, Reference
 from openpyxl.styles import Alignment, Font, PatternFill, Side, Border
@@ -92,7 +93,7 @@ PRIMITIVE_SUM_COLUMNS = [
 ]
 
 WIDE_TABLE_COLUMNS = ["Bloco", "Métrica", "Memória / fórmula"]
-CALCULATION_SCHEMA_VERSION = 3
+CALCULATION_SCHEMA_VERSION = 4
 OFFICIAL_PL_PATH = "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
 
 
@@ -240,7 +241,7 @@ def build_consolidated_monthly_base(
 def build_wide_table(monthly_df: pd.DataFrame, *, scope_name: str) -> pd.DataFrame:
     if monthly_df.empty:
         return pd.DataFrame(columns=WIDE_TABLE_COLUMNS)
-    sorted_df = monthly_df.sort_values("competencia_dt").reset_index(drop=True)
+    sorted_df = _sort_monthly_by_competencia(monthly_df, descending=True)
     competencias = sorted_df["competencia"].astype(str).tolist()
     display_competencias = [_format_competencia_short(value) for value in competencias]
     block_scales = _money_scales_by_block(sorted_df)
@@ -250,12 +251,13 @@ def build_wide_table(monthly_df: pd.DataFrame, *, scope_name: str) -> pd.DataFra
         values = []
         for _, item in sorted_df.iterrows():
             values.append(_format_wide_value(item.get(spec["column"]), unit=str(spec["unit"]), scale=block_scales.get(str(spec["block"]))))
+        period_values = dict(zip(display_competencias, values, strict=False))
         rows.append(
             {
                 "Bloco": spec["block"],
                 "Métrica": spec["metric"],
+                **period_values,
                 "Memória / fórmula": spec["formula"],
-                **dict(zip(display_competencias, values, strict=False)),
             }
         )
     output = pd.DataFrame(rows)
@@ -301,6 +303,12 @@ def build_validation_table(outputs: MercadoLivreOutputs) -> pd.DataFrame:
     combined = pd.concat(frames, ignore_index=True, sort=False)
     available = [column for column in columns if column in combined.columns]
     return combined[available].sort_values(["fund_name", "competencia"]).reset_index(drop=True)
+
+
+def order_period_columns_desc(columns: list[object] | pd.Index) -> list[str]:
+    """Return only period-like columns ordered from newest to oldest."""
+    period_columns = [str(column) for column in columns if _period_label_to_timestamp(column) is not None]
+    return sorted(period_columns, key=lambda column: _period_label_to_timestamp(column) or pd.Timestamp.min, reverse=True)
 
 
 def save_outputs_to_cache(
@@ -452,23 +460,38 @@ def extract_official_pl_history_from_wide_csv(wide_csv_path: str | Path) -> pd.D
 
 def build_excel_export_bytes(outputs: MercadoLivreOutputs) -> bytes:
     buffer = BytesIO()
-    with pd.ExcelWriter(buffer, engine="openpyxl") as writer:
-        for cnpj, table in outputs.fund_wide.items():
-            sheet_name = _excel_sheet_name(_sheet_name_from_table(table, fallback=cnpj))
-            table.to_excel(writer, sheet_name=sheet_name, index=False)
-            _style_wide_sheet(writer.book[sheet_name], table)
-        outputs.consolidated_wide.to_excel(writer, sheet_name="Consolidado", index=False)
-        _style_wide_sheet(writer.book["Consolidado"], outputs.consolidated_wide)
-        validation = build_validation_table(outputs)
-        validation.to_excel(writer, sheet_name="Auditoria", index=False)
-        _style_plain_sheet(writer.book["Auditoria"])
-        outputs.warnings_df.to_excel(writer, sheet_name="Warnings", index=False)
-        _style_plain_sheet(writer.book["Warnings"])
-        metadata_df = pd.DataFrame(
-            [{"chave": key, "valor": json.dumps(value, ensure_ascii=False) if isinstance(value, (dict, list)) else value} for key, value in outputs.metadata.items()]
-        )
-        metadata_df.to_excel(writer, sheet_name="Metadados", index=False)
-        _style_plain_sheet(writer.book["Metadados"])
+    workbook = Workbook()
+    used_sheet_names: set[str] = set()
+
+    consolidated_ws = workbook.active
+    consolidated_ws.title = "Consolidado"
+    used_sheet_names.add(consolidated_ws.title)
+    _write_numeric_wide_sheet(
+        consolidated_ws,
+        outputs.consolidated_monthly,
+        scope_name=str(outputs.metadata.get("portfolio_name") or "Consolidado"),
+    )
+
+    for cnpj, monthly_df in outputs.fund_monthly.items():
+        fallback_name = _fund_sheet_name(monthly_df, fallback=cnpj)
+        sheet_name = _unique_excel_sheet_name(fallback_name, used_sheet_names)
+        used_sheet_names.add(sheet_name)
+        ws = workbook.create_sheet(sheet_name)
+        _write_numeric_wide_sheet(ws, monthly_df, scope_name=fallback_name)
+
+    _write_dataframe_sheet(workbook.create_sheet("Auditoria"), build_validation_table(outputs))
+    _write_dataframe_sheet(workbook.create_sheet("Warnings"), outputs.warnings_df)
+    metadata_df = pd.DataFrame(
+        [
+            {
+                "chave": key,
+                "valor": json.dumps(value, ensure_ascii=False) if isinstance(value, (dict, list)) else value,
+            }
+            for key, value in outputs.metadata.items()
+        ]
+    )
+    _write_dataframe_sheet(workbook.create_sheet("Metadados"), metadata_df)
+    workbook.save(buffer)
     return buffer.getvalue()
 
 
@@ -485,12 +508,14 @@ def build_consolidated_snapshot_excel_bytes(outputs: MercadoLivreOutputs) -> byt
         buffer = BytesIO()
         workbook.save(buffer)
         return buffer.getvalue()
-    monthly = monthly.sort_values("competencia_dt").tail(6).reset_index(drop=True)
-    period_labels = [_format_competencia_short(value) for value in monthly["competencia"].astype(str).tolist()]
+    chart_monthly = monthly.sort_values("competencia_dt").tail(6).reset_index(drop=True)
+    summary_monthly = _sort_monthly_by_competencia(chart_monthly, descending=True)
+    summary_period_labels = [_format_competencia_short(value) for value in summary_monthly["competencia"].astype(str).tolist()]
+    chart_period_labels = [_format_competencia_short(value) for value in chart_monthly["competencia"].astype(str).tolist()]
 
-    _write_snapshot_summary(summary_ws, monthly, period_labels)
-    _write_snapshot_chart_data(data_ws, monthly, period_labels)
-    _write_snapshot_charts(charts_ws, data_ws, len(monthly))
+    _write_snapshot_summary(summary_ws, summary_monthly, summary_period_labels)
+    _write_snapshot_chart_data(data_ws, chart_monthly, chart_period_labels)
+    _write_snapshot_charts(charts_ws, data_ws, len(chart_monthly))
     _style_plain_sheet(summary_ws)
     _style_plain_sheet(data_ws)
     charts_ws.sheet_view.showGridLines = False
@@ -974,6 +999,35 @@ def _competencia_to_timestamp(value: object) -> pd.Timestamp:
     return parsed if pd.notna(parsed) else pd.NaT
 
 
+def _period_label_to_timestamp(value: object) -> pd.Timestamp | None:
+    raw = str(value or "").strip().lower()
+    if not raw:
+        return None
+    match = re.fullmatch(r"([a-zç]{3})/(\d{2}|\d{4})", raw)
+    if match:
+        month_label, year_text = match.groups()
+        month_lookup = {label: month for month, label in PT_MONTH_ABBR.items()}
+        month = month_lookup.get(month_label)
+        if month is not None:
+            year = int(year_text)
+            if year < 100:
+                year += 2000
+            return pd.Timestamp(year=year, month=month, day=1)
+    ts = _competencia_to_timestamp(raw)
+    return ts if pd.notna(ts) else None
+
+
+def _sort_monthly_by_competencia(monthly_df: pd.DataFrame, *, descending: bool) -> pd.DataFrame:
+    if monthly_df.empty:
+        return monthly_df.copy()
+    df = monthly_df.copy()
+    if "competencia_dt" not in df.columns:
+        df["competencia_dt"] = df.get("competencia", pd.Series(index=df.index, dtype="object")).map(_competencia_to_timestamp)
+    else:
+        df["competencia_dt"] = pd.to_datetime(df["competencia_dt"], errors="coerce")
+    return df.sort_values("competencia_dt", ascending=not descending).reset_index(drop=True)
+
+
 def _format_competencia_short(value: object) -> str:
     ts = _competencia_to_timestamp(value)
     if pd.isna(ts):
@@ -1066,6 +1120,215 @@ def _sheet_name_from_table(table: pd.DataFrame, *, fallback: str) -> str:
 def _excel_sheet_name(value: str) -> str:
     cleaned = re.sub(r"[\[\]:*?/\\]", " ", value).strip() or "Sheet"
     return cleaned[:31]
+
+
+def _unique_excel_sheet_name(value: str, used_names: set[str]) -> str:
+    base = _excel_sheet_name(value)
+    if base not in used_names:
+        return base
+    for suffix in range(2, 100):
+        tail = f" {suffix}"
+        candidate = _excel_sheet_name(f"{base[:31 - len(tail)]}{tail}")
+        if candidate not in used_names:
+            return candidate
+    digest = hashlib.sha1(base.encode("utf-8")).hexdigest()[:6]
+    return _excel_sheet_name(f"{base[:24]} {digest}")
+
+
+def _fund_sheet_name(monthly_df: pd.DataFrame, *, fallback: str) -> str:
+    if isinstance(monthly_df, pd.DataFrame) and not monthly_df.empty and "fund_name" in monthly_df.columns:
+        for value in monthly_df["fund_name"].dropna().tolist():
+            name = str(value).strip()
+            if name and name.lower() not in {"nan", "none", "n/d", "<na>"}:
+                return name
+    return fallback
+
+
+def _write_numeric_wide_sheet(worksheet, monthly_df: pd.DataFrame, *, scope_name: str) -> None:  # noqa: ANN001
+    worksheet.sheet_view.showGridLines = False
+    if monthly_df.empty:
+        worksheet.append(["Métrica", "Memória / fórmula"])
+        worksheet.append(["Sem dados", ""])
+        _style_plain_sheet(worksheet)
+        return
+
+    sorted_df = _sort_monthly_by_competencia(monthly_df, descending=True)
+    competencias = sorted_df["competencia"].astype(str).tolist()
+    period_labels = [_format_competencia_short(value) for value in competencias]
+    block_scales = _money_scales_by_block(sorted_df)
+    columns = ["Métrica", *period_labels, "Memória / fórmula"]
+    worksheet.append(columns)
+
+    current_block = None
+    metric_specs = _wide_metric_specs()
+    for spec in metric_specs:
+        block = str(spec["block"])
+        if block != current_block:
+            current_block = block
+            worksheet.append([_section_label(block), *([""] * (len(columns) - 1))])
+            _style_excel_section_row(worksheet, worksheet.max_row)
+
+        row_values: list[object] = [_excel_text(spec["metric"])]
+        for _, item in sorted_df.iterrows():
+            row_values.append(_excel_metric_value(item.get(spec["column"]), unit=str(spec["unit"])))
+        row_values.append(_excel_text(spec["formula"]))
+        worksheet.append(row_values)
+        _style_excel_metric_row(
+            worksheet,
+            worksheet.max_row,
+            unit=str(spec["unit"]),
+            scale=block_scales.get(block),
+            period_start_col=2,
+            period_end_col=1 + len(period_labels),
+        )
+
+    worksheet.freeze_panes = "B2"
+    worksheet.auto_filter.ref = worksheet.dimensions
+    _style_numeric_wide_sheet(worksheet, title=scope_name)
+
+
+def _write_dataframe_sheet(worksheet, df: pd.DataFrame) -> None:  # noqa: ANN001
+    if df is None or df.empty:
+        worksheet.append(["Sem dados"])
+        _style_plain_sheet(worksheet)
+        return
+    columns = [str(column) for column in df.columns]
+    worksheet.append(columns)
+    for _, row in df.iterrows():
+        values = []
+        for column in columns:
+            value = row.get(column)
+            if column.endswith("_pct") and _num(value) is not None:
+                values.append(float(_num(value) or 0.0) / 100.0)
+            elif isinstance(value, (dict, list, tuple)):
+                values.append(_excel_text(json.dumps(value, ensure_ascii=False)))
+            elif pd.isna(value):
+                values.append(None)
+            elif isinstance(value, str):
+                values.append(_excel_text(value))
+            else:
+                values.append(value)
+        worksheet.append(values)
+    for col_idx, column in enumerate(columns, start=1):
+        if column.endswith("_pct"):
+            for cell in worksheet.iter_cols(min_col=col_idx, max_col=col_idx, min_row=2, max_row=worksheet.max_row):
+                for item in cell:
+                    item.number_format = "0.00%"
+        elif column in MONEY_COLUMNS or column.startswith(("pl_", "carteira_", "pdd_", "npl_", "atraso_", "baixa_")):
+            for cell in worksheet.iter_cols(min_col=col_idx, max_col=col_idx, min_row=2, max_row=worksheet.max_row):
+                for item in cell:
+                    if isinstance(item.value, (int, float)):
+                        item.number_format = '#,##0.00'
+    _style_plain_sheet(worksheet)
+
+
+def _excel_metric_value(value: object, *, unit: str) -> object:
+    if unit in {"money", "count"}:
+        return _num(value)
+    if unit == "percent":
+        numeric = _num(value)
+        return None if numeric is None else numeric / 100.0
+    if unit == "bool":
+        if pd.isna(value):
+            return None
+        return "Sim" if bool(value) else "Não"
+    if pd.isna(value):
+        return None
+    text = str(value)
+    return None if text.strip().upper() in {"", "N/D", "NAN", "NONE", "<NA>"} else _excel_text(text)
+
+
+def _excel_text(value: object) -> str:
+    text = str(value or "")
+    return ILLEGAL_CHARACTERS_RE.sub("", text)
+
+
+def _excel_number_format_for_unit(unit: str, scale: tuple[float, str] | None) -> str:
+    if unit == "percent":
+        return "0.00%"
+    if unit == "count":
+        return "#,##0"
+    if unit == "money":
+        _divisor, label = scale or (1.0, "R$")
+        if label == "R$ bi":
+            return '"R$" #,##0.00,,, "bi"'
+        if label == "R$ mm":
+            return '"R$" #,##0.00,, "mm"'
+        if label == "R$ mil":
+            return '"R$" #,##0.00, "mil"'
+        return '"R$" #,##0.00'
+    return "General"
+
+
+def _excel_metric_is_highlight(metric: str) -> bool:
+    normalized = metric.lower()
+    destaque_terms = (
+        "pl fidc total",
+        "carteira bruta total",
+        "carteira líquida",
+        "npl over 90d / carteira",
+        "pdd / npl over 90d",
+        "% subordinação total",
+        "carteira ex over 360d",
+        "pl ex over 360d",
+        "pdd ex over 360d",
+    )
+    return any(term in normalized for term in destaque_terms)
+
+
+def _style_excel_metric_row(
+    worksheet,
+    row_idx: int,
+    *,
+    unit: str,
+    scale: tuple[float, str] | None,
+    period_start_col: int,
+    period_end_col: int,
+) -> None:  # noqa: ANN001
+    if _excel_metric_is_highlight(str(worksheet.cell(row=row_idx, column=1).value or "")):
+        for col_idx in range(1, worksheet.max_column + 1):
+            worksheet.cell(row=row_idx, column=col_idx).font = Font(bold=True)
+    number_format = _excel_number_format_for_unit(unit, scale)
+    for col_idx in range(period_start_col, period_end_col + 1):
+        cell = worksheet.cell(row=row_idx, column=col_idx)
+        if isinstance(cell.value, (int, float)):
+            cell.number_format = number_format
+            cell.alignment = Alignment(horizontal="right")
+    worksheet.cell(row=row_idx, column=1).alignment = Alignment(indent=1)
+    worksheet.cell(row=row_idx, column=worksheet.max_column).alignment = Alignment(wrap_text=True, vertical="top")
+
+
+def _style_excel_section_row(worksheet, row_idx: int) -> None:  # noqa: ANN001
+    fill = PatternFill("solid", fgColor="000000")
+    for col_idx in range(1, worksheet.max_column + 1):
+        cell = worksheet.cell(row=row_idx, column=col_idx)
+        cell.font = Font(bold=True, color="FFFFFF")
+        cell.fill = fill
+        cell.alignment = Alignment(horizontal="left")
+
+
+def _style_numeric_wide_sheet(worksheet, *, title: str) -> None:  # noqa: ANN001
+    header_fill = PatternFill("solid", fgColor="000000")
+    thin = Side(style="thin", color="E5E5E5")
+    for cell in worksheet[1]:
+        cell.font = Font(bold=True, color="FFFFFF")
+        cell.fill = header_fill
+        cell.alignment = Alignment(horizontal="center")
+    for row in worksheet.iter_rows(min_row=2, max_row=worksheet.max_row):
+        for cell in row:
+            cell.border = Border(bottom=thin)
+    worksheet.column_dimensions["A"].width = 34
+    worksheet.column_dimensions[get_column_letter(worksheet.max_column)].width = 58
+    for col_idx in range(2, worksheet.max_column):
+        worksheet.column_dimensions[get_column_letter(col_idx)].width = 14
+    worksheet.auto_filter.ref = worksheet.dimensions
+
+
+def _section_label(block: str) -> str:
+    parts = str(block).split(".", 1)
+    if len(parts) == 2 and parts[0].strip().isdigit():
+        return parts[1].strip()
+    return str(block)
 
 
 def _style_wide_sheet(worksheet, table: pd.DataFrame) -> None:  # noqa: ANN001
