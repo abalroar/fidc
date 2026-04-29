@@ -75,7 +75,8 @@ def _principal_schedule(
 
     if mode == AMORTIZATION_MODE_WORKBOOK:
         remaining = initial_pl
-        for index in range(5, period_count):
+        workbook_indexes = [index for index, month_delta in enumerate(month_deltas) if index > 0 and month_delta > 24]
+        for index in workbook_indexes[:12]:
             amount = min(initial_pl / 12.0, remaining)
             schedule[index] = amount
             remaining -= amount
@@ -92,7 +93,7 @@ def _principal_schedule(
         eligible_indexes = [
             index
             for index, month_delta in enumerate(month_deltas)
-            if index > 0 and month_delta >= start_month and month_delta <= final_month
+            if index > 0 and month_delta > start_month and month_delta <= final_month
         ]
         if not eligible_indexes:
             eligible_indexes = [_first_index_at_or_after(month_deltas, min(start_month, final_month))]

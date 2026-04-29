@@ -207,7 +207,7 @@ class FidcModelParityTest(unittest.TestCase):
             prazo_mezz_anos=1.0,
             amortizacao_senior=AMORTIZATION_MODE_LINEAR,
             amortizacao_mezz=AMORTIZATION_MODE_BULLET,
-            inicio_amortizacao_senior_meses=7,
+            inicio_amortizacao_senior_meses=6,
         )
 
         periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
