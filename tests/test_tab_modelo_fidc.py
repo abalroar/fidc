@@ -49,6 +49,7 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertEqual(30.0, tab_modelo_fidc.DEFAULT_CARENCIA_PRINCIPAL_MESES)
         self.assertEqual(0.13, tab_modelo_fidc.DEFAULT_SELIC_AA_2026)
         self.assertEqual(0.12, tab_modelo_fidc.DEFAULT_SELIC_AA_2027_ONWARD)
+        self.assertEqual(2028, tab_modelo_fidc.DEFAULT_SELIC_PERPETUAL_YEAR)
 
     def test_admin_cost_help_text_matches_backend_basis(self) -> None:
         self.assertIn("PL econômico", tab_modelo_fidc.HELP_CUSTO_ADM_GESTAO)
@@ -58,10 +59,24 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn("maior valor", tab_modelo_fidc.HELP_CUSTO_MINIMO)
 
     def test_projection_years_start_at_2026_and_exclude_2025(self) -> None:
-        years = tab_modelo_fidc._projection_years_for_term(pd.Timestamp("2025-03-01").to_pydatetime(), 3.0)
+        years = tab_modelo_fidc._projection_years_for_term(pd.Timestamp("2025-03-01").to_pydatetime(), 10.0)
 
         self.assertNotIn(2025, years)
         self.assertEqual([2026, 2027, 2028], years)
+        self.assertEqual("2028 em diante", tab_modelo_fidc._selic_year_label(2028, years))
+
+    def test_effective_selic_projection_perpetuates_last_year_after_2028(self) -> None:
+        projection = ((2026, 0.13), (2027, 0.12), (2028, 0.12))
+        simulation_dates = [
+            pd.Timestamp("2026-04-28").to_pydatetime(),
+            pd.Timestamp("2029-04-28").to_pydatetime(),
+            pd.Timestamp("2031-04-28").to_pydatetime(),
+        ]
+
+        effective = dict(tab_modelo_fidc._effective_selic_projection_for_dates(projection, simulation_dates))
+
+        self.assertEqual(0.12, effective[2029])
+        self.assertEqual(0.12, effective[2031])
 
     def test_workbook_schedule_shifts_to_dynamic_start_date(self) -> None:
         inputs = load_model_inputs("model_data.json")

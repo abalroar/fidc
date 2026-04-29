@@ -99,6 +99,7 @@ DEFAULT_PRAZO_ANOS = 3.0
 DEFAULT_PRAZO_RECEBIVEIS_MESES = 6.0
 DEFAULT_CARENCIA_PRINCIPAL_MESES = 30.0
 DEFAULT_CURVE_START_YEAR = 2026
+DEFAULT_SELIC_PERPETUAL_YEAR = 2028
 DEFAULT_SELIC_AA_2026 = 0.13
 DEFAULT_SELIC_AA_2027_ONWARD = 0.12
 LABELS_COTAS = {
@@ -437,8 +438,17 @@ def _effective_selic_projection_for_dates(
         if year < min(projection):
             effective[year] = projection[min(projection)]
         elif year not in projection:
-            raise ValueError(f"Curva de SELIC média para caixa sem taxa para {year}.")
+            previous_years = [projection_year for projection_year in projection if projection_year <= year]
+            if not previous_years:
+                raise ValueError(f"Curva de SELIC média para caixa sem taxa para {year}.")
+            effective[year] = projection[max(previous_years)]
     return tuple(sorted(effective.items()))
+
+
+def _selic_year_label(year: int, projection_years: list[int] | tuple[int, ...]) -> str:
+    if int(year) == max(projection_years):
+        return f"{year} em diante"
+    return str(year)
 
 
 def _build_workbook_dates_from_start(template_dates: list[datetime], start: datetime) -> list[datetime]:
@@ -643,9 +653,7 @@ def _effective_cession_discount_after_premium(nominal_discount: float, acquisiti
 
 
 def _projection_years_for_term(start: datetime, prazo_total_anos: float) -> list[int]:
-    dates = _build_monthly_dates(start, max(prazo_total_anos, 0.1))
-    end_year = max(DEFAULT_CURVE_START_YEAR, dates[-1].year)
-    return list(range(DEFAULT_CURVE_START_YEAR, end_year + 1))
+    return list(range(DEFAULT_CURVE_START_YEAR, DEFAULT_SELIC_PERPETUAL_YEAR + 1))
 
 
 def _safe_term_years_from_text(value: str, fallback: float = DEFAULT_PRAZO_ANOS) -> float:
@@ -1022,7 +1030,7 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "agio_aquisicao_despesa": "Ágio sobre face informado",
             "preco_pago_fator": "Preço pago / face",
             "tx_cessao_am_input": "Taxa mensal informada",
-            "tx_cessao_am_piso": "Piso mensal SEN + excesso",
+            "tx_cessao_am_piso": "Piso mensal CDI + spread SEN + excesso",
             "tx_cessao_am_aplicada": "Taxa mensal aplicada",
             "principal_senior": "Principal sênior",
             "juros_senior": "Juros sênior",
@@ -1274,7 +1282,7 @@ def _build_workbook_mechanics_markdown(
             "- Se houver excesso de spread sobre a SEN, a taxa mensal aplicada usa um piso:",
             "",
             "```text",
-            "taxa_cessao_am_aplicada = max(taxa_informada, remuneracao_SEN + excesso_spread)",
+            "taxa_cessao_am_aplicada = max(taxa_informada, CDI + spread_SEN + excesso_spread)",
             "```",
             "",
             "### 3. Custos de administração e gestão",
@@ -1322,10 +1330,10 @@ def _build_workbook_mechanics_markdown(
             "",
             "### 5. Taxas SEN e MEZZ",
             "",
-            "- Para cotas pós-fixadas, o motor usa a convenção aditiva de mercado `CDI + spread`:",
+            "- Para cotas pós-fixadas, o motor usa `CDI + spread` em convenção aditiva: o spread informado é somado ao CDI, não multiplicado por ele.",
             "",
             "```text",
-            "taxa_classe_aa = pre_di_interpolado + spread_classe_aa",
+            "taxa_classe_aa = CDI/PreDI_interpolado + spread_classe_aa",
             "```",
             "",
             "- Para cotas pré-fixadas, o app usa diretamente a taxa anual informada.",
@@ -1438,7 +1446,7 @@ def _build_workbook_mechanics_markdown(
             "- A taxa SELIC média é uma projeção digitada pelo usuário por ano calendário; nesta etapa ela não vem de fonte externa.",
             "- Esta curva manual remunera apenas o caixa excedente depois que a carteira entra em runoff.",
             "- O CDI implícito das cotas pós-fixadas e o Pre DI na duration continuam usando a curva DI/Pré selecionada na fonte B3/local.",
-            "- O default é `13,00% a.a.` para 2026 e `12,00% a.a.` de 2027 em diante; o usuário pode sobrescrever os anos exibidos.",
+            "- O default é `13,00% a.a.` para 2026, `12,00% a.a.` para 2027 e `12,00% a.a.` para 2028 em diante; o usuário pode sobrescrever os campos exibidos.",
             "- O motor transforma a taxa anual em taxa do período com matemática financeira exponencial e 21 dias úteis médios por mês:",
             "",
             "```text",
@@ -1687,7 +1695,10 @@ def _render_selic_projection_info(
         )
         curve_df = pd.DataFrame(
             [
-                {"Ano": year, "SELIC média para caixa (% a.a.)": _format_percent(rate)}
+                {
+                    "Ano": _selic_year_label(year, [projection_year for projection_year, _ in selic_aa_por_ano]),
+                    "SELIC média para caixa (% a.a.)": _format_percent(rate),
+                }
                 for year, rate in selic_aa_por_ano
             ]
         )
@@ -2289,7 +2300,7 @@ def render_tab_modelo_fidc() -> None:
                     default=DEFAULT_EXCESSO_SPREAD_SENIOR_AM * 100.0,
                     key="modelo_excesso_spread_senior",
                     decimals=2,
-                    help_text="Piso adicional sobre a SEN; a taxa da carteira não fica abaixo de SEN + excesso.",
+                    help_text="Piso adicional ao CDI + spread da SEN; a taxa da carteira não fica abaixo desse CDI+.",
                 )
 
             st.markdown("##### Estrutura de PL")
@@ -2324,11 +2335,14 @@ def render_tab_modelo_fidc() -> None:
             st.markdown("##### Remuneração das cotas")
             senior_mode_label = st.selectbox(
                 "Remuneração cota sênior/SEN",
-                ["Pós-fixada: spread sobre CDI", "Pré-fixada: taxa % a.a."],
-                help="Pós-fixada usa CDI + spread aditivo; pré-fixada usa a taxa anual informada.",
+                ["Pós-fixada: CDI + spread aditivo", "Pré-fixada: taxa % a.a."],
+                help=(
+                    "Pós-fixada soma o spread ao CDI; por exemplo, 1,35% significa CDI + 1,35% a.a., "
+                    "não 101,35% do CDI."
+                ),
             )
             senior_rate_label = (
-                "Spread aditivo cota SEN sobre CDI (% a.a.)"
+                "Spread aditivo CDI+ da cota SEN (% a.a.)"
                 if _rate_mode_from_label(senior_mode_label) == RATE_MODE_POST_CDI
                 else "Taxa pré-fixada cota SEN (% a.a.)"
             )
@@ -2338,7 +2352,7 @@ def render_tab_modelo_fidc() -> None:
                 key="modelo_taxa_senior",
                 decimals=2,
                 help_text=(
-                    "Spread sobre CDI em convenção aditiva; 1,35% significa CDI + 1,35% a.a."
+                    "Spread somado ao CDI: 1,35% significa CDI + 1,35% a.a., não 101,35% do CDI."
                     if _rate_mode_from_label(senior_mode_label) == RATE_MODE_POST_CDI
                     else "Informe a taxa anual pré-fixada da cota SEN."
                 ),
@@ -2347,11 +2361,14 @@ def render_tab_modelo_fidc() -> None:
             if has_mezz:
                 mezz_mode_label = st.selectbox(
                     "Remuneração cota mezanino/MEZZ",
-                    ["Pós-fixada: spread sobre CDI", "Pré-fixada: taxa % a.a."],
-                    help="Pós-fixada usa CDI + spread aditivo; pré-fixada usa taxa anual efetiva.",
+                    ["Pós-fixada: CDI + spread aditivo", "Pré-fixada: taxa % a.a."],
+                    help=(
+                        "Pós-fixada soma o spread ao CDI; por exemplo, 5,00% significa CDI + 5,00% a.a., "
+                        "não 105,00% do CDI."
+                    ),
                 )
                 mezz_rate_label = (
-                    "Spread aditivo cota MEZZ sobre CDI (% a.a.)"
+                    "Spread aditivo CDI+ da cota MEZZ (% a.a.)"
                     if _rate_mode_from_label(mezz_mode_label) == RATE_MODE_POST_CDI
                     else "Taxa pré-fixada cota MEZZ (% a.a.)"
                 )
@@ -2361,7 +2378,7 @@ def render_tab_modelo_fidc() -> None:
                     key="modelo_taxa_mezz",
                     decimals=2,
                     help_text=(
-                        "Spread sobre CDI em convenção aditiva; 5,00% significa CDI + 5,00% a.a."
+                        "Spread somado ao CDI: 5,00% significa CDI + 5,00% a.a., não 105,00% do CDI."
                         if _rate_mode_from_label(mezz_mode_label) == RATE_MODE_POST_CDI
                         else "Informe a taxa anual pré-fixada da cota MEZZ."
                     ),
@@ -2376,7 +2393,7 @@ def render_tab_modelo_fidc() -> None:
                 "Remuneração cota subordinada/SUB",
                 [
                     "Residual",
-                    "Pós-fixada: spread aditivo sobre CDI (taxa-alvo)",
+                    "Pós-fixada: CDI + spread aditivo (taxa-alvo)",
                     "Pré-fixada: taxa % a.a. (taxa-alvo)",
                 ],
                 help="A SUB absorve o residual econômico; taxas-alvo ficam explícitas sem criar pagamento programado.",
@@ -2384,16 +2401,16 @@ def render_tab_modelo_fidc() -> None:
             sub_rate_text = "0,00"
             if not sub_mode_label.startswith("Residual"):
                 sub_rate_text = _text_percent_input(
-                    (
-                        "Spread aditivo alvo cota SUB sobre CDI (% a.a.)"
-                        if sub_mode_label.startswith("Pós")
-                        else "Taxa-alvo pré-fixada cota SUB (% a.a.)"
-                    ),
+                        (
+                            "Spread aditivo CDI+ alvo da cota SUB (% a.a.)"
+                            if sub_mode_label.startswith("Pós")
+                            else "Taxa-alvo pré-fixada cota SUB (% a.a.)"
+                        ),
                     default=0.0,
                     key="modelo_taxa_sub",
                     decimals=2,
                     help_text=(
-                        "Spread-alvo em convenção aditiva; 1,35% significa CDI + 1,35% a.a."
+                        "Spread-alvo somado ao CDI: 1,35% significa CDI + 1,35% a.a., não 101,35% do CDI."
                         if sub_mode_label.startswith("Pós")
                         else "Informe a taxa-alvo anual pré-fixada da SUB."
                     ),
@@ -2461,12 +2478,13 @@ def render_tab_modelo_fidc() -> None:
                     for column, year in zip(selic_columns, selic_years[row_start : row_start + 3]):
                         with column:
                             selic_text_by_year[year] = _text_percent_input(
-                                f"SELIC média {year} (% a.a.)",
-                                default=_default_selic_rate_for_year(year),
+                                f"SELIC média {_selic_year_label(year, selic_years)} (% a.a.)",
+                                default=_default_selic_rate_for_year(year) * 100.0,
                                 key=f"modelo_selic_aa_{year}",
                                 decimals=2,
                                 help_text=(
-                                    "Informe a SELIC média anual usada apenas para remunerar caixa em runoff."
+                                    "Informe a SELIC média anual usada apenas para remunerar caixa em runoff; "
+                                    "a última taxa é perpetuada para anos posteriores."
                                 ),
                             )
 
@@ -2644,7 +2662,14 @@ def render_tab_modelo_fidc() -> None:
         taxa_mezz = _parse_br_number(mezz_rate_text, field_name=mezz_rate_label) / 100.0
         taxa_sub = _parse_br_number(sub_rate_text, field_name="Taxa-alvo cota SUB (% a.a.)") / 100.0
         user_selic_aa_por_ano = tuple(
-            (year, _parse_br_number(text, field_name=f"SELIC média {year} (% a.a.)") / 100.0)
+            (
+                year,
+                _parse_br_number(
+                    text,
+                    field_name=f"SELIC média {_selic_year_label(year, list(selic_text_by_year))} (% a.a.)",
+                )
+                / 100.0,
+            )
             for year, text in sorted(selic_text_by_year.items())
         )
         prazo_senior_anos = _parse_br_number(prazo_senior_text, field_name="Prazo cota SEN (anos)")
@@ -2806,11 +2831,14 @@ def render_tab_modelo_fidc() -> None:
         f"ágio sobre face {_format_percent(agio_aquisicao)}; "
         f"excesso de spread SEN {_format_percent(excesso_spread_senior_am)} a.m. "
         f"({_format_percent(excesso_spread_senior_aa)} a.a. base 252). "
-        "Por ser um piso, a taxa aplicada usa o maior valor entre a taxa informada e SEN + excesso."
+        "Por ser um piso, a taxa aplicada usa o maior valor entre a taxa informada e CDI + spread da SEN + excesso."
     )
     st.caption(
         "Caixa pós-revolvência: "
-        + "; ".join(f"{year}: {_format_percent(rate)} a.a." for year, rate in user_selic_aa_por_ano)
+        + "; ".join(
+            f"{_selic_year_label(year, [projection_year for projection_year, _ in user_selic_aa_por_ano])}: {_format_percent(rate)} a.a."
+            for year, rate in user_selic_aa_por_ano
+        )
         + ". Esta curva remunera apenas o caixa excedente quando a carteira entra em runoff."
     )
 
@@ -2976,8 +3004,8 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Piso de taxa da carteira",
-                "Fórmula": "tx_cessao_am_aplicada = max(tx_informada, remuneracao_SEN + excesso_spread)",
-                "Observação": "Por ser remuneração mínima, o motor usa o maior valor entre a taxa informada e o piso SEN + excesso.",
+                "Fórmula": "tx_cessao_am_aplicada = max(tx_informada, CDI + spread_SEN + excesso_spread)",
+                "Observação": "O spread da SEN é aditivo: ele é somado ao CDI antes de comparar o piso com a taxa informada.",
             },
             {
                 "Indicador": "Custo adm/gestão",
@@ -3026,8 +3054,9 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Juros sênior/MEZZ",
-                "Fórmula": "pós: curva DI/Pré + spread aditivo; pré: taxa anual informada",
+                "Fórmula": "pós: CDI/PreDI + spread aditivo; pré: taxa anual informada",
                 "Observação": (
+                    "Spread aditivo significa CDI + spread, não percentual do CDI. "
                     f"O FRA de cada período usa base 252 DU. Fonte selecionada: {selected_curve.source_label} "
                     f"({selected_curve.base_date:%d/%m/%Y}); interpolação: {interpolation_label}."
                 ),

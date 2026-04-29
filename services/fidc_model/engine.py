@@ -460,7 +460,10 @@ def _selic_annual_rate_for_year(premissas: Premissas, year: int) -> float:
     if year < first_year:
         return max(float(projection[first_year]), -0.999999)
     if year not in projection:
-        raise ValueError(f"Curva de SELIC média para caixa sem taxa para {year}.")
+        previous_years = [projection_year for projection_year in projection if projection_year <= year]
+        if not previous_years:
+            return max(float(projection[first_year]), -0.999999)
+        return max(float(projection[max(previous_years)]), -0.999999)
     return max(float(projection[year]), -0.999999)
 
 
