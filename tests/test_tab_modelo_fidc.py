@@ -235,17 +235,16 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertAlmostEqual(330.0, protection.iloc[1]["nova_originacao_motor"])
 
     def test_model_charts_are_filled_area_charts(self) -> None:
-        chart_df = pd.DataFrame(
+        frame = pd.DataFrame(
             {
                 "indice": [0, 1],
                 "data": pd.to_datetime(["2026-01-01", "2026-02-01"]),
-                "classe": ["Sênior", "Sênior"],
-                "valor_milhoes": [1.0, 0.9],
-                "valor_formatado": ["R$ 1.000.000,00", "R$ 900.000,00"],
-                "periodo": ["01/01/2026", "01/02/2026"],
-                "mes_fidc": ["Mês 0", "Mês 1"],
+                "pl_senior": [75.0, 65.0],
+                "pl_mezz": [15.0, 10.0],
+                "pl_sub_jr": [10.0, 25.0],
             }
         )
+        chart_df = tab_modelo_fidc._build_balance_area_frame(frame)
 
         chart = tab_modelo_fidc._area_money_chart(chart_df)
         spec = chart.to_dict()
@@ -253,6 +252,8 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertEqual("area", spec["layer"][0]["mark"]["type"])
         self.assertEqual("line", spec["layer"][1]["mark"]["type"])
         self.assertEqual("Mês do FIDC", spec["layer"][0]["encoding"]["x"]["title"])
+        self.assertEqual("stack_top_milhoes", spec["layer"][0]["encoding"]["y"]["field"])
+        self.assertEqual("stack_base_milhoes", spec["layer"][0]["encoding"]["y2"]["field"])
 
     def test_balance_chart_uses_current_sub_residual_and_separates_deficit(self) -> None:
         frame = pd.DataFrame(
@@ -272,6 +273,27 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertEqual(0.0, values["Subordinada/SUB disponível"])
         self.assertEqual(-12.0, values["Déficit econômico"])
         self.assertNotIn(-80.0, values.values())
+
+    def test_balance_chart_uses_explicit_stacked_area_coordinates(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "indice": [0],
+                "data": pd.to_datetime(["2026-01-01"]),
+                "pl_senior": [75.0],
+                "pl_mezz": [15.0],
+                "pl_sub_jr": [10.0],
+            }
+        )
+
+        chart_df = tab_modelo_fidc._build_balance_area_frame(frame)
+        stacks = {
+            row["classe"]: (row["stack_base"], row["stack_top"])
+            for _, row in chart_df.iterrows()
+        }
+
+        self.assertEqual((0.0, 75.0), stacks["Sênior"])
+        self.assertEqual((75.0, 90.0), stacks["MEZZ"])
+        self.assertEqual((90.0, 100.0), stacks["Subordinada/SUB disponível"])
 
     def test_loss_chart_uses_available_subordination_not_shifted_workbook_ratio(self) -> None:
         frame = pd.DataFrame(

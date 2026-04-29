@@ -1336,20 +1336,45 @@ def _build_balance_area_frame(frame: pd.DataFrame) -> pd.DataFrame:
     chart_frame = frame[["indice", "data", "pl_senior", "pl_mezz", "pl_sub_jr"]].copy()
     chart_frame["pl_sub_available"] = chart_frame["pl_sub_jr"].clip(lower=0.0)
     chart_frame["deficit_economico"] = chart_frame["pl_sub_jr"].where(chart_frame["pl_sub_jr"] < 0.0, 0.0)
-    long_df = chart_frame.melt(
-        id_vars=["indice", "data"],
-        value_vars=["pl_senior", "pl_mezz", "pl_sub_available", "deficit_economico"],
-        var_name="classe",
-        value_name="valor",
-    )
-    label_map = {
-        "pl_senior": "Sênior",
-        "pl_mezz": "MEZZ",
-        "pl_sub_available": "Subordinada/SUB disponível",
-        "deficit_economico": "Déficit econômico",
-    }
-    long_df["classe"] = long_df["classe"].map(label_map)
+    stack_items = [
+        ("pl_senior", "Sênior", 1),
+        ("pl_mezz", "MEZZ", 2),
+        ("pl_sub_available", "Subordinada/SUB disponível", 3),
+    ]
+    rows: list[dict[str, object]] = []
+    for row in chart_frame.itertuples(index=False):
+        base = 0.0
+        for column, label, order in stack_items:
+            value = max(float(getattr(row, column)), 0.0)
+            top = base + value
+            rows.append(
+                {
+                    "indice": row.indice,
+                    "data": row.data,
+                    "classe": label,
+                    "ordem": order,
+                    "valor": value,
+                    "stack_base": base,
+                    "stack_top": top,
+                }
+            )
+            base = top
+        deficit = min(float(row.deficit_economico), 0.0)
+        rows.append(
+            {
+                "indice": row.indice,
+                "data": row.data,
+                "classe": "Déficit econômico",
+                "ordem": 4,
+                "valor": deficit,
+                "stack_base": 0.0,
+                "stack_top": deficit,
+            }
+        )
+    long_df = pd.DataFrame(rows)
     long_df["valor_milhoes"] = long_df["valor"] / 1_000_000.0
+    long_df["stack_base_milhoes"] = long_df["stack_base"] / 1_000_000.0
+    long_df["stack_top_milhoes"] = long_df["stack_top"] / 1_000_000.0
     long_df["valor_formatado"] = long_df["valor"].map(_format_brl)
     long_df["periodo"] = long_df["data"].dt.strftime("%d/%m/%Y")
     long_df["mes_fidc"] = long_df["indice"].map(lambda value: f"Mês {int(value)}")
@@ -1444,28 +1469,46 @@ def _protection_ratio_chart(chart_df: pd.DataFrame) -> alt.Chart:
 
 
 def _area_money_chart(chart_df: pd.DataFrame) -> alt.Chart:
-    base = alt.Chart(chart_df).encode(
-        x=alt.X("indice:Q", title="Mês do FIDC", axis=alt.Axis(tickMinStep=1)),
+    color_domain = ["Sênior", "MEZZ", "Subordinada/SUB disponível", "Déficit econômico"]
+    color_range = ["#2f6f9f", "#f28e2b", "#59a14f", "#b23b3b"]
+    x_encoding = alt.X("indice:Q", title="Mês do FIDC", axis=alt.Axis(tickMinStep=1))
+    color_encoding = alt.Color(
+        "classe:N",
+        title="Classe",
+        scale=alt.Scale(domain=color_domain, range=color_range),
+    )
+    tooltip = [
+        alt.Tooltip("mes_fidc:N", title="Mês"),
+        alt.Tooltip("periodo:N", title="Período"),
+        alt.Tooltip("classe:N", title="Classe"),
+        alt.Tooltip("valor_formatado:N", title="Valor"),
+    ]
+    area_base = alt.Chart(chart_df).encode(
+        x=x_encoding,
         y=alt.Y(
-            "valor_milhoes:Q",
+            "stack_top_milhoes:Q",
             title="R$ milhões",
-            stack="zero",
             axis=alt.Axis(labelExpr="replace(format(datum.value, '.1f'), '.', ',')"),
         ),
-        color=alt.Color(
-            "classe:N",
-            title="Classe",
-            scale=alt.Scale(range=["#2f6f9f", "#f28e2b", "#59a14f", "#b23b3b"]),
-        ),
-        order=alt.Order("classe:N", sort="ascending"),
-        tooltip=[
-            alt.Tooltip("mes_fidc:N", title="Mês"),
-            alt.Tooltip("periodo:N", title="Período"),
-            alt.Tooltip("classe:N", title="Classe"),
-            alt.Tooltip("valor_formatado:N", title="Valor"),
-        ],
+        y2=alt.Y2("stack_base_milhoes:Q"),
+        color=color_encoding,
+        order=alt.Order("ordem:Q", sort="ascending"),
+        tooltip=tooltip,
     )
-    return (base.mark_area(opacity=0.72, interpolate="monotone") + base.mark_line(size=1.1, interpolate="monotone")).properties(height=320)
+    boundary_base = alt.Chart(chart_df).encode(
+        x=x_encoding,
+        y=alt.Y(
+            "stack_top_milhoes:Q",
+            title="R$ milhões",
+            axis=alt.Axis(labelExpr="replace(format(datum.value, '.1f'), '.', ',')"),
+        ),
+        color=color_encoding,
+        order=alt.Order("ordem:Q", sort="ascending"),
+        tooltip=tooltip,
+    )
+    area = area_base.mark_area(opacity=0.86, interpolate="monotone")
+    boundary = boundary_base.mark_line(size=0.9, opacity=0.72, interpolate="monotone")
+    return (area + boundary).properties(height=320)
 
 
 def _area_percent_chart(chart_df: pd.DataFrame) -> alt.Chart:
