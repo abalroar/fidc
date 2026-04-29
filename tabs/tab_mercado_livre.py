@@ -489,14 +489,8 @@ def _render_outputs(
                 use_container_width=True,
             )
 
-        st.markdown("### Wide consolidada")
+        st.markdown("### Dados Consolidados (Somatorio)")
         st.markdown(_render_wide_table_html(outputs.consolidated_wide), unsafe_allow_html=True)
-
-        st.markdown("### Wide individuais")
-        for cnpj, monthly_df in outputs.fund_monthly.items():
-            fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
-            with st.expander(f"{fund_name} · {cnpj}", expanded=False):
-                st.markdown(_render_wide_table_html(outputs.fund_wide[cnpj]), unsafe_allow_html=True)
 
         st.markdown("### Gráficos consolidados")
         _render_graph_definitions()
@@ -513,6 +507,12 @@ def _render_outputs(
                 "Índices consolidados recalculados a partir das somas absolutas.",
                 npl_coverage_chart(outputs.consolidated_monthly),
             )
+
+        st.markdown("### Dados Fundos Individuais")
+        for cnpj, monthly_df in outputs.fund_monthly.items():
+            fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
+            with st.expander(f"{fund_name} · {cnpj}", expanded=False):
+                st.markdown(_render_wide_table_html(outputs.fund_wide[cnpj]), unsafe_allow_html=True)
 
         st.markdown("### Gráficos individuais")
         for cnpj, monthly_df in outputs.fund_monthly.items():
@@ -531,6 +531,7 @@ def _render_outputs(
                         "NPL Over 90d ex-360 e cobertura PDD ex-360 / NPL Over 90d ex-360.",
                         npl_coverage_chart(monthly_df),
                     )
+        _render_mercado_livre_guide()
 
     with audit_tab:
         st.caption("Base auxiliar para conferência: valores absolutos são calculados primeiro; percentuais são derivados depois.")
@@ -546,6 +547,43 @@ def _render_chart(title: str, subtitle: str, chart) -> None:
     if subtitle:
         st.markdown(f"<p class='chart-subtitle'>{escape(subtitle)}</p>", unsafe_allow_html=True)
     st.altair_chart(chart, width="stretch")
+
+
+def _render_mercado_livre_guide() -> None:
+    with st.expander("Passo a passo de utilização e mecânica da aba", expanded=False):
+        st.markdown(_build_mercado_livre_guide_markdown())
+
+
+def _build_mercado_livre_guide_markdown() -> str:
+    return """
+### Passo a passo de utilização
+
+1. Selecione uma carteira salva ou crie uma nova carteira com os FIDCs desejados.
+2. Escolha o período da análise; se nada for especificado, a aba usa os últimos meses disponíveis na base carregada.
+3. Clique em carregar para montar as bases individuais, a base consolidada, os gráficos e os arquivos exportáveis.
+4. Comece pela tabela **Dados Consolidados (Somatorio)** para validar a carteira como um todo.
+5. Use **Dados Fundos Individuais** para auditar cada FIDC antes de interpretar os gráficos.
+6. Consulte a subaba **Tabela de auditoria** quando precisar conferir campos auxiliares, warnings e rastreabilidade.
+
+### Mecânica da aba
+
+- A carteira é identificada por uma chave determinística baseada na composição dos fundos e nos parâmetros relevantes; o nome é apenas um rótulo amigável.
+- Quando a mesma carteira e o mesmo período já existem no storage, a aba reutiliza a base calculada; quando falta competência nova, a atualização é incremental.
+- Cada FIDC é normalizado em uma base mensal canônica com PL, classes, carteira, PDD, aging, NPL acumulado, ex-360 e flags de qualidade.
+- O PL total usa `PATRLIQ/VL_PATRIM_LIQ` quando disponível; a soma das classes fica como reconciliação e divergências materiais geram warning.
+- A visão **Ex-Vencidos > 360d** simula a baixa dos vencidos acima de 360 dias da carteira, da PDD disponível e, se necessário, do PL.
+- `PDD Ex Over 360d` é a PDD total menos a baixa dos vencidos acima de 360 dias, limitada ao saldo de PDD disponível; não é PDD específica por faixa.
+- NPL Over é acumulado: por exemplo, Over 90d soma 91-180, 181-360 e acima de 360 dias.
+- No consolidado, valores absolutos são somados por competência e os percentuais são recalculados a partir dos numeradores e denominadores agregados; a aba nunca faz média simples de percentuais.
+- Os gráficos usam a mesma base das tabelas wide; se a tabela e o gráfico divergirem, a tabela é a memória de cálculo primária.
+- O Excel exporta valores numéricos puros com formatação de célula, e o PPTX gera um slide para o consolidado e um slide por FIDC em grade 2x2.
+
+### Como interpretar
+
+- **Evolução de PL e Subordinação** mostra a composição entre cota sênior e subordinada + mezanino, além do índice de subordinação ex-360.
+- **NPL e Cobertura Ex-Vencidos > 360d** compara inadimplência Over 90d ex-360 com a cobertura de PDD sobre esse estoque.
+- Warnings indicam pontos que não devem ser lidos automaticamente, como PL oficial não reconciliado com classes ou denominadores zerados.
+"""
 
 
 def _render_wide_table_html(df_wide: pd.DataFrame) -> str:

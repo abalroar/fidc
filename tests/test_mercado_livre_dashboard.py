@@ -28,6 +28,7 @@ from services.portfolio_store import PortfolioFund, PortfolioRecord
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
 from tabs.tab_mercado_livre import (
     _MERCADO_LIVRE_UI_CSS,
+    _build_mercado_livre_guide_markdown,
     _dense_wide_value,
     _render_wide_table_html,
     _resolve_existing_portfolio_for_save,
@@ -419,6 +420,17 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("white-space: normal;", td_block)
         self.assertIn("overflow-wrap: anywhere;", td_block)
         self.assertIn("line-height: 1.25;", td_block)
+
+    def test_mercado_livre_guide_documents_usage_and_mechanics(self) -> None:
+        guide = _build_mercado_livre_guide_markdown()
+
+        self.assertIn("Passo a passo de utilização", guide)
+        self.assertIn("Dados Consolidados (Somatorio)", guide)
+        self.assertIn("Dados Fundos Individuais", guide)
+        self.assertIn("PATRLIQ/VL_PATRIM_LIQ", guide)
+        self.assertIn("Ex-Vencidos > 360d", guide)
+        self.assertIn("nunca faz média simples de percentuais", guide)
+        self.assertIn("um slide por FIDC", guide)
 
     def test_outputs_cache_roundtrip_uses_deterministic_identity(self) -> None:
         dashboard = _dashboard(
