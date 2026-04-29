@@ -125,6 +125,11 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
     font-weight: 600 !important;
 }
 
+[data-testid="stRadio"] [role="radiogroup"] > label:has(input:checked) *,
+[data-testid="stRadio"] [data-baseweb="radio-group"] > label:has(input:checked) * {
+    color: #ffffff !important;
+}
+
 [data-testid="stTabs"] [role="tab"] {
     min-height: 2.55rem;
     white-space: nowrap;
