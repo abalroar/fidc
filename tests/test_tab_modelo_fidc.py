@@ -184,7 +184,7 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertAlmostEqual(1_166_666_666.6666667, protection.iloc[0]["carteira_originada_acumulada"])
         self.assertAlmostEqual(100_000_000.0 / 1_166_666_666.6666667, protection.iloc[0]["perda_maxima_suportada"])
 
-    def test_time_protection_uses_actual_reinvested_origination_when_available(self) -> None:
+    def test_time_protection_keeps_programmatic_denominator_when_actual_reinvestment_exists(self) -> None:
         premissas = tab_modelo_fidc.Premissas(
             volume=1_000.0,
             tx_cessao_am=0.0,
@@ -218,11 +218,13 @@ class TabModeloFidcTests(unittest.TestCase):
         )
 
         self.assertEqual([1, 2], protection["indice"].tolist())
-        self.assertAlmostEqual(220.0, protection.iloc[0]["nova_originacao_estimada"])
-        self.assertAlmostEqual(220.0, protection.iloc[0]["nova_originacao_acumulada"])
-        self.assertAlmostEqual(1_220.0, protection.iloc[0]["carteira_originada_acumulada"])
-        self.assertAlmostEqual(550.0, protection.iloc[1]["nova_originacao_acumulada"])
-        self.assertAlmostEqual(1_550.0, protection.iloc[1]["carteira_originada_acumulada"])
+        self.assertAlmostEqual(166.66666666666666, protection.iloc[0]["nova_originacao_estimada"])
+        self.assertAlmostEqual(166.66666666666666, protection.iloc[0]["nova_originacao_acumulada"])
+        self.assertAlmostEqual(1_166.6666666666667, protection.iloc[0]["carteira_originada_acumulada"])
+        self.assertAlmostEqual(220.0, protection.iloc[0]["nova_originacao_motor"])
+        self.assertAlmostEqual(333.3333333333333, protection.iloc[1]["nova_originacao_acumulada"])
+        self.assertAlmostEqual(1_333.3333333333333, protection.iloc[1]["carteira_originada_acumulada"])
+        self.assertAlmostEqual(330.0, protection.iloc[1]["nova_originacao_motor"])
 
     def test_model_charts_are_filled_area_charts(self) -> None:
         chart_df = pd.DataFrame(
@@ -321,6 +323,7 @@ class TabModeloFidcTests(unittest.TestCase):
                 "carteira_inicial_formatada": ["R$ 40,00"],
                 "nova_originacao_formatada": ["R$ 10,00"],
                 "nova_originacao_acumulada_formatada": ["R$ 10,00"],
+                "nova_originacao_motor_formatada": ["R$ 11,00"],
                 "sub_formatada": ["R$ 10,00"],
                 "originada_formatada": ["R$ 50,00"],
                 "residual_fluxo_formatado": ["R$ 1,00"],

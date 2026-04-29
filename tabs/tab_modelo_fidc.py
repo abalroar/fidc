@@ -542,11 +542,6 @@ def _build_revolvency_metrics(
     giro_estimado = prazo_total_anos * 12.0 / prazo_medio_meses
     if portfolio_mode == PORTFOLIO_MODE_STATIC:
         carteira_total_originada = premissas.volume
-    elif zero_default_results and hasattr(zero_default_results[0], "nova_originacao"):
-        carteira_total_originada = premissas.volume + sum(
-            max(float(getattr(period, "nova_originacao", 0.0)), 0.0)
-            for period in zero_default_results[1:]
-        )
     else:
         eligible_months = max(prazo_total_anos * 12.0 - prazo_medio_meses, 0.0)
         carteira_total_originada = premissas.volume + premissas.volume * (eligible_months / prazo_medio_meses)
@@ -597,21 +592,18 @@ def _build_time_protection_frame(
         columns.append("nova_originacao")
     protection = frame[columns].copy()
     protection["carteira_inicial_considerada"] = max(float(premissas.volume), 0.0)
+    previous_indices = protection["indice"].shift(1).fillna(0.0)
+    components = [
+        _scheduled_origination_components(month_index, previous_month_index, premissas, portfolio_mode)
+        for month_index, previous_month_index in zip(protection["indice"], previous_indices)
+    ]
+    protection["nova_originacao_estimada"] = [values[1] for values in components]
+    protection["nova_originacao_acumulada"] = [values[2] for values in components]
+    protection["carteira_originada_acumulada"] = [values[3] for values in components]
     if "nova_originacao" in protection.columns:
-        protection["nova_originacao_estimada"] = protection["nova_originacao"].clip(lower=0.0)
-        protection["nova_originacao_acumulada"] = protection["nova_originacao_estimada"].cumsum()
-        protection["carteira_originada_acumulada"] = (
-            protection["carteira_inicial_considerada"] + protection["nova_originacao_acumulada"]
-        )
+        protection["nova_originacao_motor"] = protection["nova_originacao"].clip(lower=0.0)
     else:
-        previous_indices = protection["indice"].shift(1).fillna(0.0)
-        components = [
-            _scheduled_origination_components(month_index, previous_month_index, premissas, portfolio_mode)
-            for month_index, previous_month_index in zip(protection["indice"], previous_indices)
-        ]
-        protection["nova_originacao_estimada"] = [values[1] for values in components]
-        protection["nova_originacao_acumulada"] = [values[2] for values in components]
-        protection["carteira_originada_acumulada"] = [values[3] for values in components]
+        protection["nova_originacao_motor"] = None
     protection["prazo_medio_recebiveis_meses"] = float(premissas.prazo_medio_recebiveis_meses)
     if "fluxo_remanescente_mezz" in protection.columns:
         protection["residual_economico_fluxo"] = protection["fluxo_remanescente_mezz"]
@@ -634,6 +626,7 @@ def _build_time_protection_frame(
     protection["carteira_inicial_formatada"] = protection["carteira_inicial_considerada"].map(_format_brl)
     protection["nova_originacao_formatada"] = protection["nova_originacao_estimada"].map(_format_brl)
     protection["nova_originacao_acumulada_formatada"] = protection["nova_originacao_acumulada"].map(_format_brl)
+    protection["nova_originacao_motor_formatada"] = protection["nova_originacao_motor"].map(_format_brl)
     protection["residual_fluxo_formatado"] = protection["residual_economico_fluxo"].map(_format_brl)
     protection["periodo"] = protection["data"].dt.strftime("%d/%m/%Y")
     protection["mes_fidc"] = protection["indice"].map(lambda value: f"Mês {int(value)}")
@@ -872,6 +865,7 @@ def _build_time_protection_export_dataframe(protection_frame: pd.DataFrame) -> p
             "carteira_inicial_considerada": "Carteira inicial considerada",
             "nova_originacao_estimada": "Nova originação estimada",
             "nova_originacao_acumulada": "Nova originação acumulada",
+            "nova_originacao_motor": "Nova originação econômica do motor",
             "prazo_medio_recebiveis_meses": "Prazo médio usado (meses)",
             "carteira_originada_acumulada": "Carteira originada acumulada",
             "residual_economico_fluxo": "Residual econômico do fluxo",
@@ -887,6 +881,7 @@ def _build_time_protection_export_dataframe(protection_frame: pd.DataFrame) -> p
             "Carteira inicial considerada",
             "Nova originação estimada",
             "Nova originação acumulada",
+            "Nova originação econômica do motor",
             "Prazo médio usado (meses)",
             "Carteira originada acumulada",
             "SUB residual",
@@ -1047,12 +1042,18 @@ def _build_workbook_mechanics_markdown(
             "giro_estimado = prazo_total_fidc_anos * 12 / prazo_medio_recebiveis_meses",
             "mes_limite_reinvestimento = prazo_total_fidc_meses - prazo_medio_recebiveis_meses",
             "principal_recebido = carteira_inicio * meses_periodo / prazo_medio_recebiveis_meses",
-            "nova_originacao = principal_recebido + max(fluxo_remanescente_apos_MEZZ, 0)",
-            "nova_originacao_total = soma(nova_originacao_elegivel)",
-            "carteira_originada = volume_inicial + nova_originacao_total",
+            "nova_originacao_economica = principal_recebido + max(fluxo_remanescente_apos_MEZZ, 0)",
             "```",
             "",
-            "- Se o mês do FIDC fica depois do mês limite de reinvestimento, a nova originação vira `0` e a carteira começa a amortizar por runoff.",
+            "- Se o mês do FIDC fica depois do mês limite de reinvestimento, a nova originação econômica vira `0` e a carteira começa a amortizar por runoff.",
+            "- Para o denominador da perda máxima, a carteira inicial já é o primeiro ciclo de originação. Portanto, o total programático é:",
+            "",
+            "```text",
+            "nova_originacao_denominador = volume_inicial * max(prazo_total_meses - prazo_medio_recebiveis_meses, 0) / prazo_medio_recebiveis_meses",
+            "carteira_originada_denominador = volume_inicial + nova_originacao_denominador",
+            "```",
+            "",
+            "- Exemplo: prazo total de `36 meses`, prazo médio de `6 meses` e volume inicial de `R$ 750MM` geram `6x` de giro e denominador de `R$ 4,5 bi`, não `R$ 5,25 bi`.",
             "",
             "- Quando a carteira é estática, a carteira originada é apenas a compra inicial:",
             "",
@@ -1069,12 +1070,12 @@ def _build_workbook_mechanics_markdown(
             "- Ao longo do tempo, a carteira originada acumulada é calculada mês a mês:",
             "",
             "```text",
-            "nova_originacao_acumulada = soma(nova_originacao_ate_o_mes)",
+            "nova_originacao_acumulada = volume_inicial * min(mes_fidc, mes_limite_reinvestimento) / prazo_medio_recebiveis_meses",
             "denominador_mes = volume_inicial + nova_originacao_acumulada",
             "perda_maxima_no_mes = SUB_disponivel_no_mes / denominador_mes",
             "```",
             "",
-            "- Exemplo: com prazo médio de recebíveis de `6 meses`, o mês 1 considera a carteira inicial mais o principal reciclado de cerca de `1/6` do saldo em aberto, além de eventual excesso de caixa reinvestido.",
+            "- Exemplo: com prazo médio de recebíveis de `6 meses`, o mês 1 considera a carteira inicial mais o principal reciclado de cerca de `1/6` do volume inicial.",
             "- Exemplo: em FIDC de `36 meses` com recebíveis de `12 meses`, a originação nova para quando o fluxo chega perto do mês `24`, porque novos recebíveis de 12 meses já não caberiam no prazo da estrutura.",
             "",
             "### 10. Premissa de reinvestimento integral",
@@ -1391,6 +1392,7 @@ def _protection_ratio_chart(chart_df: pd.DataFrame) -> alt.Chart:
             alt.Tooltip("carteira_inicial_formatada:N", title="Carteira inicial"),
             alt.Tooltip("nova_originacao_formatada:N", title="Nova originação"),
             alt.Tooltip("nova_originacao_acumulada_formatada:N", title="Nova originação acumulada"),
+            alt.Tooltip("nova_originacao_motor_formatada:N", title="Originação econômica do motor"),
             alt.Tooltip("residual_fluxo_formatado:N", title="Residual do fluxo"),
             alt.Tooltip("sub_formatada:N", title="SUB disponível"),
             alt.Tooltip("originada_formatada:N", title="Denominador"),
@@ -2260,13 +2262,13 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Carteira originada estimada",
-                "Fórmula": "revolvente: volume + soma(nova_originacao); estática: volume",
-                "Observação": "Inclui a carteira inicial, principal reciclado e excesso de caixa reinvestido dentro da janela elegível.",
+                "Fórmula": "revolvente: volume + volume * max(prazo_total_meses - prazo_medio_meses, 0) / prazo_medio_meses; estática: volume",
+                "Observação": "A carteira inicial é o primeiro ciclo; por isso, 36 meses / 6 meses = 6x o volume inicial, não 7x.",
             },
             {
                 "Indicador": "Carteira originada acumulada",
-                "Fórmula": "volume + soma(nova_originacao_ate_o_mes)",
-                "Observação": "No mês 1, um prazo médio de 6 meses parte de volume inicial + principal reciclado de cerca de 1/6 do saldo, além de eventual excesso reinvestido.",
+                "Fórmula": "volume + volume * min(mês_fidc, prazo_total_meses - prazo_medio_meses) / prazo_medio_meses",
+                "Observação": "Esse é o denominador programático da perda máxima; a originação econômica com excesso de caixa aparece separada na timeline.",
             },
             {
                 "Indicador": "Perda máxima suportada no tempo",

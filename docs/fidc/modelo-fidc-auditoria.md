@@ -157,8 +157,9 @@ A principal métrica adicionada é a perda máxima suportada sobre a carteira or
 giro_estimado = prazo_total_fidc_anos * 12 / prazo_medio_recebiveis_meses
 mes_limite_reinvestimento = prazo_total_fidc_meses - prazo_medio_recebiveis_meses
 principal_recebido = carteira_inicio * meses_periodo / prazo_medio_recebiveis_meses
-nova_originacao = principal_recebido + max(fluxo_remanescente_apos_MEZZ, 0)
-carteira_originada_revolvente = volume_inicial + soma(nova_originacao_elegivel)
+nova_originacao_economica = principal_recebido + max(fluxo_remanescente_apos_MEZZ, 0)
+nova_originacao_denominador = volume_inicial * max(prazo_total_meses - prazo_medio_recebiveis_meses, 0) / prazo_medio_recebiveis_meses
+carteira_originada_revolvente = volume_inicial + nova_originacao_denominador
 carteira_originada_estatica = volume_inicial
 perda_maxima = max(SUB_final_sem_perdas, 0) / carteira_originada
 ```
@@ -168,12 +169,12 @@ Essa métrica usa uma simulação paralela com Perda Esperada e Perda Inesperada
 A aba também calcula a proteção ao longo do tempo:
 
 ```text
-nova_originacao_acumulada = soma(nova_originacao_ate_o_mes)
+nova_originacao_acumulada = volume_inicial * min(mes_fidc, mes_limite_reinvestimento) / prazo_medio_recebiveis_meses
 denominador_no_mes = volume_inicial + nova_originacao_acumulada
 perda_maxima_no_mes = SUB_disponivel_no_mes / denominador_no_mes
 ```
 
-Com prazo médio de recebíveis de `6 meses`, a carteira revolvente recicla aproximadamente `1/6` do saldo em aberto por mês, mas o denominador sempre inclui a carteira inicial e também eventual excesso de caixa reinvestido. Em uma estrutura de `R$ 1 bi`, o mês 1 parte de `R$ 1 bi + R$ 166,7MM`, antes de considerar eventual excesso reinvestido. Esse cálculo alimenta a série de perda máxima suportada no gráfico de perda/subordinação e o gráfico dedicado de proteção ao longo do tempo.
+Com prazo médio de recebíveis de `6 meses`, a carteira revolvente recicla aproximadamente `1/6` do volume inicial por mês para o denominador, e a carteira inicial já conta como primeiro ciclo. Em uma estrutura de `R$ 750MM`, prazo de `36 meses` e PM de `6 meses`, a carteira total originada do denominador é `6 x R$ 750MM = R$ 4,5 bi`, não `R$ 5,25 bi`. Eventual excesso de caixa reinvestido afeta a simulação econômica e a SUB, mas não cria um ciclo adicional no denominador padrão da perda máxima.
 
 Premissa de caixa: o modelo presume que não há excesso de caixa aplicado à SELIC. Enquanto a revolvência é elegível, todo caixa disponível é reinvestido na compra de nova carteira revolvente. Depois que o prazo médio dos recebíveis já não cabe no prazo restante, o caixa deixa de ser reinvestido e também não é remunerado por SELIC. Essa simplificação pode superestimar rentabilidade quando a carteira é boa e ampliar perda quando a carteira é ruim, mas muitos FIDCs não carregam caixa relevante em excesso por longos períodos.
 
