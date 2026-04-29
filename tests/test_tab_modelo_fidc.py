@@ -25,6 +25,17 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertEqual("R$ 4,00", tab_modelo_fidc._format_raw_input_text("4", decimals=2, kind="brl"))
         self.assertEqual("30", tab_modelo_fidc._format_raw_input_text("30", decimals=0, kind="number"))
 
+    def test_requested_page_defaults_are_encoded(self) -> None:
+        self.assertEqual(750_000_000.0, tab_modelo_fidc.DEFAULT_VOLUME_CARTEIRA)
+        self.assertEqual(0.04, tab_modelo_fidc.DEFAULT_TX_CESSAO_AM)
+        self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_INADIMPLENCIA)
+        self.assertEqual(0.75, tab_modelo_fidc.DEFAULT_PROP_SENIOR)
+        self.assertEqual(0.15, tab_modelo_fidc.DEFAULT_PROP_MEZZ)
+        self.assertEqual(0.10, tab_modelo_fidc.DEFAULT_PROP_SUB)
+        self.assertEqual(0.0135, tab_modelo_fidc.DEFAULT_TAXA_SENIOR)
+        self.assertEqual(0.05, tab_modelo_fidc.DEFAULT_TAXA_MEZZ)
+        self.assertEqual(30.0, tab_modelo_fidc.DEFAULT_CARENCIA_PRINCIPAL_MESES)
+
     def test_workbook_mechanics_expander_explains_cash_lock_and_sheet_formulas(self) -> None:
         selected_curve = tab_modelo_fidc._SelectedCurve(
             source_label=tab_modelo_fidc.CURVE_SOURCE_B3_LATEST,

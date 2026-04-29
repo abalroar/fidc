@@ -63,6 +63,19 @@ PORTFOLIO_MODE_REVOLVING = "Revolvente"
 PORTFOLIO_MODE_STATIC = "Carteira estática"
 CESSION_INPUT_DISCOUNT = "Taxa de Cessão"
 CESSION_INPUT_MONTHLY = "Taxa Mensal (%)"
+DEFAULT_VOLUME_CARTEIRA = 750_000_000.0
+DEFAULT_TX_CESSAO_AM = 0.04
+DEFAULT_CUSTO_ADM_AA = 0.0035
+DEFAULT_CUSTO_MIN_MENSAL = 20_000.0
+DEFAULT_INADIMPLENCIA = 0.0
+DEFAULT_PROP_SENIOR = 0.75
+DEFAULT_PROP_MEZZ = 0.15
+DEFAULT_PROP_SUB = 0.10
+DEFAULT_TAXA_SENIOR = 0.0135
+DEFAULT_TAXA_MEZZ = 0.05
+DEFAULT_PRAZO_ANOS = 3.0
+DEFAULT_PRAZO_RECEBIVEIS_MESES = 6.0
+DEFAULT_CARENCIA_PRINCIPAL_MESES = 30.0
 AMORTIZATION_LABELS = {
     "Compatível com a planilha": AMORTIZATION_MODE_WORKBOOK,
     "Linear após carência": AMORTIZATION_MODE_LINEAR,
@@ -1237,14 +1250,11 @@ def render_tab_modelo_fidc() -> None:
         st.error("Fonte local do modelo incompleta: " + "; ".join(source_errors) + ".")
         return
 
-    default_tx_cessao_am = inputs.premissas.get("Tx Cessão (%am)", 0.1)
+    default_tx_cessao_am = DEFAULT_TX_CESSAO_AM
     default_tx_cessao_desagio = monthly_rate_to_cession_discount(default_tx_cessao_am)
-    default_senior_pct = inputs.premissas.get("Proporção PL Sr.", 0.9) * 100.0
-    default_mezz_pct = inputs.premissas.get("Proporção PL Mezz", 0.05) * 100.0
-    default_sub_pct = inputs.premissas.get(
-        "Proporção PL Jr.",
-        1.0 - default_senior_pct / 100.0 - default_mezz_pct / 100.0,
-    ) * 100.0
+    default_senior_pct = DEFAULT_PROP_SENIOR * 100.0
+    default_mezz_pct = DEFAULT_PROP_MEZZ * 100.0
+    default_sub_pct = DEFAULT_PROP_SUB * 100.0
 
     left = st.container()
     with left:
@@ -1252,7 +1262,7 @@ def render_tab_modelo_fidc() -> None:
             st.markdown("##### Premissas da carteira")
             volume_text = _text_brl_input(
                 "Volume da carteira (R$)",
-                default=inputs.premissas.get("Volume", 1_000_000.0),
+                default=DEFAULT_VOLUME_CARTEIRA,
                 key="modelo_volume",
                 decimals=2,
                 help_text="Valor total da carteira em reais. Não há escala implícita em milhões ou bilhões.",
@@ -1260,6 +1270,7 @@ def render_tab_modelo_fidc() -> None:
             taxa_cessao_input_mode = st.radio(
                 "Entrada da taxa da carteira",
                 [CESSION_INPUT_DISCOUNT, CESSION_INPUT_MONTHLY],
+                index=1,
                 horizontal=True,
                 help=(
                     "Taxa de Cessão é o deságio sobre o valor futuro do recebível. "
@@ -1292,7 +1303,7 @@ def render_tab_modelo_fidc() -> None:
             with costs_a:
                 custo_adm_text = _text_percent_input(
                     "Custo de administração e gestão (% a.a.)",
-                    default=inputs.premissas.get("Custo Adm/Gestão (a.a.)", 0.0035) * 100.0,
+                    default=DEFAULT_CUSTO_ADM_AA * 100.0,
                     key="modelo_custo_adm_pct",
                     decimals=2,
                     help_text="Digite 0,35 para representar 0,35% ao ano. O motor converte internamente para 0,0035.",
@@ -1300,14 +1311,14 @@ def render_tab_modelo_fidc() -> None:
             with costs_b:
                 custo_min_text = _text_brl_input(
                     "Custo mínimo de administração e gestão (R$/mês)",
-                    default=inputs.premissas.get("Custo Adm/Gestão (mín)", 20000.0),
+                    default=DEFAULT_CUSTO_MIN_MENSAL,
                     key="modelo_custo_min",
                     decimals=2,
                     help_text="Piso mensal aplicado pela fórmula max(carteira * custo % a.a. / 12, custo mínimo).",
                 )
             inadimplencia_text = _text_percent_input(
                 "Inadimplência (% da carteira total)",
-                default=inputs.premissas.get("Inadimplência", 0.1) * 100.0,
+                default=DEFAULT_INADIMPLENCIA * 100.0,
                 key="modelo_inadimplencia_pct",
                 decimals=2,
                 help_text="Na planilha de referência, a perda é proporcional aos dias corridos do período.",
@@ -1351,7 +1362,7 @@ def render_tab_modelo_fidc() -> None:
             )
             senior_rate_text = _text_percent_input(
                 senior_rate_label,
-                default=inputs.premissas.get("Taxa Sênior", 0.02) * 100.0,
+                default=DEFAULT_TAXA_SENIOR * 100.0,
                 key="modelo_taxa_senior",
                 decimals=2,
             )
@@ -1368,7 +1379,7 @@ def render_tab_modelo_fidc() -> None:
             )
             mezz_rate_text = _text_percent_input(
                 mezz_rate_label,
-                default=inputs.premissas.get("Taxa Mezz", 0.05) * 100.0,
+                default=DEFAULT_TAXA_MEZZ * 100.0,
                 key="modelo_taxa_mezz",
                 decimals=2,
             )
@@ -1400,6 +1411,7 @@ def render_tab_modelo_fidc() -> None:
                 date_schedule_label = st.selectbox(
                     "Cronograma do fluxo",
                     [DATE_SCHEDULE_WORKBOOK, DATE_SCHEDULE_MONTHLY],
+                    index=1,
                     help=(
                         "O modo compatível mantém a grade de datas extraída da planilha. "
                         "O modo mensal gera novas competências até o prazo total informado."
@@ -1409,14 +1421,14 @@ def render_tab_modelo_fidc() -> None:
                 with term_a:
                     prazo_fidc_text = _text_number_input(
                         "Prazo total do FIDC (anos)",
-                        default=3.0,
+                        default=DEFAULT_PRAZO_ANOS,
                         key="modelo_prazo_fidc_anos",
                         decimals=1,
                     )
                 with term_b:
                     prazo_recebiveis_text = _text_number_input(
                         "Prazo médio dos recebíveis (meses)",
-                        default=6.0,
+                        default=DEFAULT_PRAZO_RECEBIVEIS_MESES,
                         key="modelo_prazo_recebiveis_meses",
                         decimals=1,
                     )
@@ -1439,36 +1451,38 @@ def render_tab_modelo_fidc() -> None:
                 with senior_cfg_a:
                     prazo_senior_text = _text_number_input(
                         "Prazo cota SEN (anos)",
-                        default=3.0,
+                        default=DEFAULT_PRAZO_ANOS,
                         key="modelo_prazo_senior_anos",
                         decimals=1,
                     )
                     senior_amort_label = st.selectbox(
                         "Amortização principal SEN",
                         list(AMORTIZATION_LABELS),
+                        index=1,
                         key="modelo_amort_senior",
                     )
                     senior_start_text = _text_number_input(
                         "Carência principal SEN (meses)",
-                        default=25.0,
+                        default=DEFAULT_CARENCIA_PRINCIPAL_MESES,
                         key="modelo_inicio_amort_senior",
                         decimals=0,
                     )
                 with senior_cfg_b:
                     prazo_mezz_text = _text_number_input(
                         "Prazo cota MEZZ (anos)",
-                        default=3.0,
+                        default=DEFAULT_PRAZO_ANOS,
                         key="modelo_prazo_mezz_anos",
                         decimals=1,
                     )
                     mezz_amort_label = st.selectbox(
                         "Amortização principal MEZZ",
                         list(AMORTIZATION_LABELS),
+                        index=1,
                         key="modelo_amort_mezz",
                     )
                     mezz_start_text = _text_number_input(
                         "Carência principal MEZZ (meses)",
-                        default=25.0,
+                        default=DEFAULT_CARENCIA_PRINCIPAL_MESES,
                         key="modelo_inicio_amort_mezz",
                         decimals=0,
                     )
@@ -1489,7 +1503,7 @@ def render_tab_modelo_fidc() -> None:
                 with interest_c:
                     prazo_sub_text = _text_number_input(
                         "Prazo cota SUB (anos)",
-                        default=3.0,
+                        default=DEFAULT_PRAZO_ANOS,
                         key="modelo_prazo_sub_anos",
                         decimals=1,
                     )
