@@ -37,6 +37,17 @@ class Premissas:
     inicio_amortizacao_mezz_meses: int = 25
     perda_esperada_am: Optional[float] = None
     perda_inesperada_am: Optional[float] = None
+    modelo_credito: str = "legacy_percent"
+    perda_ciclo: float = 0.0
+    npl90_lag_meses: int = 3
+    cobertura_minima_npl90: float = 1.0
+    lgd: float = 1.0
+    rolagem_adimplente_1_30: float = 0.0
+    rolagem_1_30_31_60: float = 0.0
+    rolagem_31_60_61_90: float = 0.0
+    rolagem_61_90_90_plus: float = 0.0
+    recuperacao_90_plus: float = 0.0
+    writeoff_90_plus: float = 0.0
     agio_aquisicao: float = 0.0
     excesso_spread_senior_am: float = 0.0
     selic_aa_por_ano: tuple[tuple[int, float], ...] = ()
@@ -75,6 +86,22 @@ class PeriodResult:
     perda_esperada_despesa: float
     perda_inesperada_despesa: float
     perda_carteira_despesa: float
+    carteira_vencendo: float
+    entrada_npl90: float
+    npl90_estoque_inicio: float
+    npl90_estoque_fim: float
+    provisao_saldo_inicio: float
+    provisao_requerida: float
+    despesa_provisao: float
+    provisao_saldo_fim: float
+    cobertura_npl90: Optional[float]
+    baixa_credito: float
+    recuperacao_credito: float
+    bucket_adimplente: float
+    bucket_1_30: float
+    bucket_31_60: float
+    bucket_61_90: float
+    bucket_90_plus: float
     resultado_carteira_liquido: float
     prazo_restante_reinvestimento_meses: float
     reinvestimento_elegivel: bool

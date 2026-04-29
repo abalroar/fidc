@@ -15,6 +15,8 @@ from services.fidc_model import (
     AMORTIZATION_MODE_LINEAR,
     AMORTIZATION_MODE_NONE,
     AMORTIZATION_MODE_WORKBOOK,
+    CREDIT_MODEL_MIGRATION,
+    CREDIT_MODEL_NPL90,
     INTEREST_PAYMENT_MODE_AFTER_GRACE,
     INTEREST_PAYMENT_MODE_BULLET,
     INTEREST_PAYMENT_MODE_PERIODIC,
@@ -64,12 +66,28 @@ PORTFOLIO_MODE_REVOLVING = "Revolvente"
 PORTFOLIO_MODE_STATIC = "Carteira estática"
 CESSION_INPUT_DISCOUNT = "Taxa de Cessão"
 CESSION_INPUT_MONTHLY = "Taxa Mensal (%)"
+CREDIT_LABEL_NPL90 = "NPL 90 + cobertura de provisão"
+CREDIT_LABEL_MIGRATION = "Migração por faixas de atraso"
+CREDIT_MODEL_LABELS = {
+    CREDIT_LABEL_NPL90: CREDIT_MODEL_NPL90,
+    CREDIT_LABEL_MIGRATION: CREDIT_MODEL_MIGRATION,
+}
 DEFAULT_VOLUME_CARTEIRA = 750_000_000.0
 DEFAULT_TX_CESSAO_AM = 0.04
 DEFAULT_CUSTO_ADM_AA = 0.0035
 DEFAULT_CUSTO_MIN_MENSAL = 20_000.0
 DEFAULT_PERDA_ESPERADA_AM = 0.0
 DEFAULT_PERDA_INESPERADA_AM = 0.0
+DEFAULT_PERDA_CICLO = 0.0
+DEFAULT_NPL90_LAG_MESES = 3
+DEFAULT_COBERTURA_NPL90 = 1.0
+DEFAULT_LGD = 1.0
+DEFAULT_ROLAGEM_ADIMPLENTE_1_30 = 0.0
+DEFAULT_ROLAGEM_1_30_31_60 = 0.0
+DEFAULT_ROLAGEM_31_60_61_90 = 0.0
+DEFAULT_ROLAGEM_61_90_90_PLUS = 0.0
+DEFAULT_RECUPERACAO_90_PLUS = 0.0
+DEFAULT_WRITEOFF_90_PLUS = 0.0
 DEFAULT_AGIO_AQUISICAO = 0.0
 DEFAULT_EXCESSO_SPREAD_SENIOR_AM = 0.0
 DEFAULT_PROP_SENIOR = 0.75
@@ -488,6 +506,16 @@ _INPUT_NORMALIZATION_SPECS = {
     "modelo_custo_min": (2, "brl"),
     "modelo_perda_esperada_pct": (2, "percent"),
     "modelo_perda_inesperada_pct": (2, "percent"),
+    "modelo_perda_ciclo_pct": (2, "percent"),
+    "modelo_npl90_lag_meses": (0, "number"),
+    "modelo_cobertura_npl90_pct": (1, "percent"),
+    "modelo_lgd_pct": (1, "percent"),
+    "modelo_roll_adimplente_1_30_pct": (2, "percent"),
+    "modelo_roll_1_30_31_60_pct": (2, "percent"),
+    "modelo_roll_31_60_61_90_pct": (2, "percent"),
+    "modelo_roll_61_90_90_plus_pct": (2, "percent"),
+    "modelo_recuperacao_90_plus_pct": (2, "percent"),
+    "modelo_writeoff_90_plus_pct": (2, "percent"),
     "modelo_agio_aquisicao_pct": (2, "percent"),
     "modelo_excesso_spread_senior": (2, "percent"),
     "modelo_prop_senior": (1, "percent"),
@@ -754,9 +782,25 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "fluxo_ativos_total": "Fluxo econômico total dos ativos",
             "pl_fidc": "PL econômico do veículo",
             "custos_adm": "Custos administrativos",
-            "perda_esperada_despesa": "Perda esperada/provisionada",
-            "perda_inesperada_despesa": "Perda inesperada/stress",
-            "perda_carteira_despesa": "Perda total da carteira",
+            "perda_esperada_despesa": "Provisão prospectiva do ciclo",
+            "perda_inesperada_despesa": "Reforço de cobertura ou write-off descoberto",
+            "perda_carteira_despesa": "Despesa de provisão/perda",
+            "carteira_vencendo": "Carteira vencendo no período",
+            "entrada_npl90": "Entrada em NPL 90+",
+            "npl90_estoque_inicio": "Estoque NPL 90+ (início)",
+            "npl90_estoque_fim": "Estoque NPL 90+ (fim)",
+            "provisao_saldo_inicio": "Saldo de provisão (início)",
+            "provisao_requerida": "Provisão requerida",
+            "despesa_provisao": "Despesa de provisão",
+            "provisao_saldo_fim": "Saldo de provisão (fim)",
+            "cobertura_npl90": "Cobertura NPL 90+",
+            "baixa_credito": "Baixa de crédito/write-off",
+            "recuperacao_credito": "Recuperação de crédito",
+            "bucket_adimplente": "Bucket adimplente",
+            "bucket_1_30": "Bucket 1-30",
+            "bucket_31_60": "Bucket 31-60",
+            "bucket_61_90": "Bucket 61-90",
+            "bucket_90_plus": "Bucket NPL 90+",
             "resultado_carteira_liquido": "Resultado líquido da carteira",
             "prazo_restante_reinvestimento_meses": "Prazo restante para reinvestimento (meses)",
             "reinvestimento_elegivel": "Reinvestimento elegível",
@@ -801,6 +845,11 @@ def _build_display_dataframe(export_frame: pd.DataFrame) -> pd.DataFrame:
         "PL",
         "Custos",
         "Perda",
+        "Provisão",
+        "NPL",
+        "Bucket",
+        "Baixa",
+        "Recuperação",
         "Principal",
         "Juros",
         "PMT",
@@ -812,7 +861,7 @@ def _build_display_dataframe(export_frame: pd.DataFrame) -> pd.DataFrame:
         "Caixa",
         "Rendimento",
     )
-    percent_tokens = ("Pre DI", "Taxa", "FRA", "Subordinação")
+    percent_tokens = ("Pre DI", "Taxa", "FRA", "Subordinação", "Cobertura")
     for column in display.columns:
         if column in {"Índice", "Dias corridos", "Dias úteis", "Delta dias corridos", "Delta dias úteis"}:
             display[column] = display[column].map(lambda value: _format_number_br(float(value), 0) if pd.notna(value) else "N/D")
@@ -960,6 +1009,7 @@ def _build_workbook_mechanics_markdown(
     selected_calendar: _SelectedCalendar,
     interpolation_label: str,
     taxa_cessao_input_mode: str,
+    credit_model_label: str = CREDIT_LABEL_NPL90,
 ) -> str:
     return "\n".join(
         [
@@ -1015,21 +1065,34 @@ def _build_workbook_mechanics_markdown(
             "",
             "- Exemplo: `0,35` na interface significa `0,35% a.a.`; internamente vira `0,0035`.",
             "",
-            "### 4. Perda esperada, perda inesperada e perda da carteira",
+            "### 4. Metodologias de crédito, NPL e provisão",
             "",
-            "- A Perda Esperada representa a provisão recorrente mensal da carteira.",
-            "- A Perda Inesperada representa um choque adicional mensal de stress.",
-            "- A Perda da Carteira é a soma das duas e reduz o PL econômico do FIDC:",
+            f"- Metodologia selecionada nesta simulação: `{credit_model_label}`.",
+            "- O modelo separa fluxo de provisão e estoque de atraso: provisão reduz o PL econômico; baixa/write-off reduz o saldo da carteira.",
+            "- Na metodologia `NPL 90 + cobertura de provisão`, o motor estima quanto do principal que vence no período vai formar NPL 90+ depois do lag informado.",
             "",
             "```text",
-            "perda_esperada = carteira * perda_esperada_am * delta_DC / 30",
-            "perda_inesperada = carteira * perda_inesperada_am * delta_DC / 30",
-            "perda_carteira = perda_esperada + perda_inesperada",
-            "resultado_liquido_carteira = fluxo_carteira - perda_carteira",
+            "carteira_vencendo = carteira_inicio * meses_periodo / prazo_medio_recebiveis",
+            "npl90_futuro = carteira_vencendo * npl90_esperado_por_ciclo",
+            "entrada_npl90_t = npl90_futuro_de_periodos_anteriores_apos_lag",
+            "estoque_npl90_t = estoque_npl90_t-1 + entrada_npl90_t",
+            "provisao_minima = estoque_npl90_t * cobertura_minima * LGD",
+            "despesa_provisao = max(provisao_anterior + npl90_futuro * LGD, provisao_minima) - provisao_anterior",
             "```",
             "",
-            "- Esse campo não é NPL over 90; NPL over 90 é estoque vencido e exigiria premissas de LGD, recuperação e timing.",
-            "- Se a taxa mensal é `11,00%` e a perda mensal é `1,00%`, a perda consome cerca de `1 / 11` da receita bruta do mês, mas representa `1,00%` do principal em aberto.",
+            "- Essa metodologia é intermediária: ela provisiona prospectivamente a perda esperada de ciclo e nunca deixa a provisão abaixo da cobertura mínima do NPL 90+ observado.",
+            "- Nos primeiros meses, o NPL 90+ ainda pode ser zero por causa do lag, mas a provisão já começa a ser constituída para cobrir a perda esperada que vai maturar.",
+            "- Na metodologia `Migração por faixas de atraso`, o usuário informa taxas mensais de rolagem entre buckets:",
+            "",
+            "```text",
+            "adimplente -> 1-30 -> 31-60 -> 61-90 -> NPL 90+",
+            "recuperacao_90+ entra como caixa",
+            "writeoff_90+ baixa a carteira contra provisao",
+            "```",
+            "",
+            "- A provisão requerida continua sendo função de `estoque NPL 90+ * cobertura mínima * LGD`.",
+            "- Esta versão avançada usa rolagens agregadas simples. Curvas MOB por safra podem ser adicionadas depois como refinamento, sem mudar a lógica de cobertura.",
+            "- Se a taxa mensal da carteira é `11,00%` e a despesa de provisão do mês é `1,00%` da carteira, a despesa consome cerca de `1 / 11` da receita bruta do mês, mas representa `1,00%` do principal em aberto.",
             "",
             "### 5. Taxas SEN e MEZZ",
             "",
@@ -1082,8 +1145,8 @@ def _build_workbook_mechanics_markdown(
             "- Depois de retorno da carteira, rendimento do caixa SELIC, custos, perdas e PMTs, o PL econômico do veículo é:",
             "",
             "```text",
-            "fluxo_ativos_total = fluxo_carteira + rendimento_caixa_selic",
-            "PL FIDC_t = PL FIDC_t-1 + fluxo_ativos_total - custos - perda_carteira - PMT SEN - PMT MEZZ",
+            "fluxo_ativos_total = fluxo_carteira + rendimento_caixa_selic + recuperacao_credito",
+            "PL FIDC_t = PL FIDC_t-1 + fluxo_ativos_total - custos - despesa_provisao/perda - PMT SEN - PMT MEZZ",
             "```",
             "",
             "- O saldo econômico de SEN e MEZZ cai conforme o principal programado é amortizado.",
@@ -1180,9 +1243,8 @@ def _build_workbook_mechanics_markdown(
             "### 13. Limitações atuais",
             "",
             "- Ainda não há trava de caixa ligada no waterfall.",
-            "- Ainda não há atraso acumulado, capitalização de juros em atraso ou gatilhos de liquidação.",
+            "- A migração de crédito é agregada por buckets; ainda não há upload de MOB por safra nem capitalização de juros em atraso.",
             "- Ainda não há amortização customizada por classe via interface avançada.",
-            "- Ainda não há modo específico para NPL over 90, LGD, recuperação ou write-off.",
             "- Ainda não há fluxo programado para SUB; ela permanece residual nesta versão.",
         ]
     )
@@ -1200,6 +1262,9 @@ def _build_step_by_step_markdown() -> str:
             "- Cotas sênior têm prioridade de pagamento; MEZZ fica no meio; subordinada/SUB absorve perdas primeiro e recebe o residual econômico.",
             "- As regras de amortização indicam quando o principal de SEN/MEZZ começa a ser repago e se o pagamento é linear, bullet, inexistente ou padrão.",
             "- As regras de juros indicam se os juros são pagos em cada período, após carência ou apenas no vencimento.",
+            "- A metodologia de crédito define como atrasos viram NPL 90+, como a provisão é formada e quando write-offs reduzem o saldo da carteira.",
+            "- Na metodologia intermediária, o modelo usa o principal que vence em cada período, aplica uma perda esperada de ciclo e cria provisão antes do NPL 90+ aparecer.",
+            "- Na metodologia avançada, o modelo migra saldos entre buckets de atraso até NPL 90+, com recuperação em caixa e write-off contra provisão.",
             "- Subordinação é o tamanho do colchão de SUB disponível em relação ao PL econômico do fundo.",
             "- Perda máxima sobre carteira originada compara a SUB final sem perdas com o total estimado de recebíveis originados no período.",
             "- A proteção ao longo do tempo compara a SUB disponível de cada mês com a carteira inicial somada à nova originação acumulada até aquele mês.",
@@ -1813,23 +1878,94 @@ def render_tab_modelo_fidc() -> None:
                     decimals=2,
                     help_text="Piso mensal aplicado pela fórmula max(carteira * custo % a.a. / 12, custo mínimo).",
                 )
-            loss_a, loss_b = st.columns(2)
-            with loss_a:
-                perda_esperada_text = _text_percent_input(
-                    "Perda esperada (% a.m. da carteira)",
-                    default=DEFAULT_PERDA_ESPERADA_AM * 100.0,
-                    key="modelo_perda_esperada_pct",
-                    decimals=2,
-                    help_text="Informe a provisão mensal recorrente esperada sobre a carteira; este campo não é NPL over 90.",
+            st.markdown("##### Crédito e provisão")
+            credit_model_label = st.selectbox(
+                "Metodologia de crédito",
+                list(CREDIT_MODEL_LABELS),
+                help="Escolha entre provisão por NPL 90+ ou migração simples por faixas de atraso.",
+            )
+            common_credit_a, common_credit_b, common_credit_c = st.columns(3)
+            with common_credit_a:
+                npl90_lag_text = _text_number_input(
+                    "Lag até NPL 90+ (meses)",
+                    default=DEFAULT_NPL90_LAG_MESES,
+                    key="modelo_npl90_lag_meses",
+                    decimals=0,
+                    help_text="Número de meses entre a deterioração econômica e a entrada no estoque NPL 90+.",
                 )
-            with loss_b:
-                perda_inesperada_text = _text_percent_input(
-                    "Perda inesperada (% a.m. da carteira)",
-                    default=DEFAULT_PERDA_INESPERADA_AM * 100.0,
-                    key="modelo_perda_inesperada_pct",
-                    decimals=2,
-                    help_text="Informe o choque mensal adicional de stress que deve ser absorvido pela estrutura.",
+            with common_credit_b:
+                cobertura_npl90_text = _text_percent_input(
+                    "Cobertura mínima NPL 90+ (%)",
+                    default=DEFAULT_COBERTURA_NPL90 * 100.0,
+                    key="modelo_cobertura_npl90_pct",
+                    decimals=1,
+                    help_text="Percentual mínimo do estoque NPL 90+ que precisa estar coberto por provisão.",
                 )
+            with common_credit_c:
+                lgd_text = _text_percent_input(
+                    "LGD econômica (%)",
+                    default=DEFAULT_LGD * 100.0,
+                    key="modelo_lgd_pct",
+                    decimals=1,
+                    help_text="Percentual do NPL 90+ que vira perda econômica após recuperação.",
+                )
+            if credit_model_label == CREDIT_LABEL_NPL90:
+                perda_ciclo_text = _text_percent_input(
+                    "NPL 90+ esperado por ciclo (% dos recebíveis que vencem)",
+                    default=DEFAULT_PERDA_CICLO * 100.0,
+                    key="modelo_perda_ciclo_pct",
+                    decimals=2,
+                    help_text="Percentual do principal que vence no período e deve migrar para NPL 90+ após o lag.",
+                )
+                roll_adimplente_text = roll_1_30_text = roll_31_60_text = roll_61_90_text = "0,00%"
+                recuperacao_90_text = writeoff_90_text = "0,00%"
+            else:
+                perda_ciclo_text = "0,00%"
+                roll_a, roll_b = st.columns(2)
+                with roll_a:
+                    roll_adimplente_text = _text_percent_input(
+                        "Rolagem atual → 1-30 (% a.m.)",
+                        default=DEFAULT_ROLAGEM_ADIMPLENTE_1_30 * 100.0,
+                        key="modelo_roll_adimplente_1_30_pct",
+                        decimals=2,
+                        help_text="Percentual mensal da carteira adimplente que entra em atraso de 1 a 30 dias.",
+                    )
+                    roll_31_60_text = _text_percent_input(
+                        "Rolagem 31-60 → 61-90 (% a.m.)",
+                        default=DEFAULT_ROLAGEM_31_60_61_90 * 100.0,
+                        key="modelo_roll_31_60_61_90_pct",
+                        decimals=2,
+                        help_text="Percentual mensal do bucket 31-60 que migra para atraso de 61 a 90 dias.",
+                    )
+                    recuperacao_90_text = _text_percent_input(
+                        "Recuperação 90+ (% a.m.)",
+                        default=DEFAULT_RECUPERACAO_90_PLUS * 100.0,
+                        key="modelo_recuperacao_90_plus_pct",
+                        decimals=2,
+                        help_text="Percentual mensal do estoque 90+ que é recuperado em caixa.",
+                    )
+                with roll_b:
+                    roll_1_30_text = _text_percent_input(
+                        "Rolagem 1-30 → 31-60 (% a.m.)",
+                        default=DEFAULT_ROLAGEM_1_30_31_60 * 100.0,
+                        key="modelo_roll_1_30_31_60_pct",
+                        decimals=2,
+                        help_text="Percentual mensal do bucket 1-30 que migra para atraso de 31 a 60 dias.",
+                    )
+                    roll_61_90_text = _text_percent_input(
+                        "Rolagem 61-90 → 90+ (% a.m.)",
+                        default=DEFAULT_ROLAGEM_61_90_90_PLUS * 100.0,
+                        key="modelo_roll_61_90_90_plus_pct",
+                        decimals=2,
+                        help_text="Percentual mensal do bucket 61-90 que migra para NPL 90+.",
+                    )
+                    writeoff_90_text = _text_percent_input(
+                        "Write-off 90+ (% a.m.)",
+                        default=DEFAULT_WRITEOFF_90_PLUS * 100.0,
+                        key="modelo_writeoff_90_plus_pct",
+                        decimals=2,
+                        help_text="Percentual mensal do estoque 90+ baixado contra provisão.",
+                    )
             enhancement_a, enhancement_b = st.columns(2)
             with enhancement_a:
                 agio_aquisicao_text = _text_percent_input(
@@ -2102,15 +2238,41 @@ def render_tab_modelo_fidc() -> None:
         tx_cessao_aa_equivalente = monthly_to_annual_252_rate(tx_cessao_am)
         custo_adm_aa = _parse_br_number(custo_adm_text, field_name="Custo de administração e gestão (% a.a.)") / 100.0
         custo_min = _parse_br_number(custo_min_text, field_name="Custo mínimo de administração e gestão (R$/mês)")
-        perda_esperada_am = _parse_br_number(
-            perda_esperada_text,
-            field_name="Perda esperada (% a.m. da carteira)",
+        modelo_credito = CREDIT_MODEL_LABELS[credit_model_label]
+        perda_ciclo = _parse_br_number(
+            perda_ciclo_text,
+            field_name="NPL 90+ esperado por ciclo (% dos recebíveis que vencem)",
         ) / 100.0
-        perda_inesperada_am = _parse_br_number(
-            perda_inesperada_text,
-            field_name="Perda inesperada (% a.m. da carteira)",
+        npl90_lag_meses = int(round(_parse_br_number(npl90_lag_text, field_name="Lag até NPL 90+ (meses)")))
+        cobertura_minima_npl90 = _parse_br_number(
+            cobertura_npl90_text,
+            field_name="Cobertura mínima NPL 90+ (%)",
         ) / 100.0
-        perda_total_am = perda_esperada_am + perda_inesperada_am
+        lgd = _parse_br_number(lgd_text, field_name="LGD econômica (%)") / 100.0
+        rolagem_adimplente_1_30 = _parse_br_number(
+            roll_adimplente_text,
+            field_name="Rolagem atual → 1-30 (% a.m.)",
+        ) / 100.0
+        rolagem_1_30_31_60 = _parse_br_number(
+            roll_1_30_text,
+            field_name="Rolagem 1-30 → 31-60 (% a.m.)",
+        ) / 100.0
+        rolagem_31_60_61_90 = _parse_br_number(
+            roll_31_60_text,
+            field_name="Rolagem 31-60 → 61-90 (% a.m.)",
+        ) / 100.0
+        rolagem_61_90_90_plus = _parse_br_number(
+            roll_61_90_text,
+            field_name="Rolagem 61-90 → 90+ (% a.m.)",
+        ) / 100.0
+        recuperacao_90_plus = _parse_br_number(
+            recuperacao_90_text,
+            field_name="Recuperação 90+ (% a.m.)",
+        ) / 100.0
+        writeoff_90_plus = _parse_br_number(
+            writeoff_90_text,
+            field_name="Write-off 90+ (% a.m.)",
+        ) / 100.0
         agio_aquisicao = _parse_br_number(
             agio_aquisicao_text,
             field_name="Ágio de aquisição (% da carteira)",
@@ -2167,8 +2329,22 @@ def render_tab_modelo_fidc() -> None:
     if min(inicio_amortizacao_senior_meses, inicio_amortizacao_mezz_meses) < 0:
         st.error("A carência de principal não pode ser negativa.")
         return
-    if min(perda_esperada_am, perda_inesperada_am) < 0:
-        st.error("Perda esperada e perda inesperada não podem ser negativas.")
+    credit_percent_values = [
+        perda_ciclo,
+        cobertura_minima_npl90,
+        lgd,
+        rolagem_adimplente_1_30,
+        rolagem_1_30_31_60,
+        rolagem_31_60_61_90,
+        rolagem_61_90_90_plus,
+        recuperacao_90_plus,
+        writeoff_90_plus,
+    ]
+    if min(credit_percent_values) < 0 or npl90_lag_meses < 0:
+        st.error("Premissas de crédito, provisão, LGD e rolagem não podem ser negativas.")
+        return
+    if max(perda_ciclo, lgd, rolagem_adimplente_1_30, rolagem_1_30_31_60, rolagem_31_60_61_90, rolagem_61_90_90_plus, recuperacao_90_plus, writeoff_90_plus) > 1.0:
+        st.error("Percentuais de perda, LGD, rolagem, recuperação e write-off devem ficar entre 0,00% e 100,00%.")
         return
     if agio_aquisicao < 0 or excesso_spread_senior_am < 0:
         st.error("Ágio de aquisição e excesso de spread não podem ser negativos.")
@@ -2190,7 +2366,7 @@ def render_tab_modelo_fidc() -> None:
         tx_cessao_cdi_aa=inputs.premissas.get("Tx Cessão (CDI+ %aa)"),
         custo_adm_aa=custo_adm_aa,
         custo_min=custo_min,
-        inadimplencia=perda_total_am,
+        inadimplencia=0.0,
         proporcao_senior=proporcao_senior,
         taxa_senior=taxa_senior,
         proporcao_mezz=proporcao_mezz,
@@ -2218,8 +2394,19 @@ def render_tab_modelo_fidc() -> None:
         juros_mezz=INTEREST_LABELS[mezz_interest_label],
         inicio_amortizacao_senior_meses=inicio_amortizacao_senior_meses,
         inicio_amortizacao_mezz_meses=inicio_amortizacao_mezz_meses,
-        perda_esperada_am=perda_esperada_am,
-        perda_inesperada_am=perda_inesperada_am,
+        perda_esperada_am=0.0,
+        perda_inesperada_am=0.0,
+        modelo_credito=modelo_credito,
+        perda_ciclo=perda_ciclo,
+        npl90_lag_meses=npl90_lag_meses,
+        cobertura_minima_npl90=cobertura_minima_npl90,
+        lgd=lgd,
+        rolagem_adimplente_1_30=rolagem_adimplente_1_30,
+        rolagem_1_30_31_60=rolagem_1_30_31_60,
+        rolagem_31_60_61_90=rolagem_31_60_61_90,
+        rolagem_61_90_90_plus=rolagem_61_90_90_plus,
+        recuperacao_90_plus=recuperacao_90_plus,
+        writeoff_90_plus=writeoff_90_plus,
         agio_aquisicao=agio_aquisicao,
         excesso_spread_senior_am=excesso_spread_senior_am,
         selic_aa_por_ano=selic_aa_por_ano,
@@ -2231,12 +2418,19 @@ def render_tab_modelo_fidc() -> None:
         f"Taxa Mensal {_format_percent(tx_cessao_am)} | "
         f"Taxa anual base 252 {_format_percent(tx_cessao_aa_equivalente)}."
     )
-    st.caption(
-        "Perda da carteira no motor: "
-        f"Perda Esperada {_format_percent(perda_esperada_am)} a.m. + "
-        f"Perda Inesperada {_format_percent(perda_inesperada_am)} a.m. = "
-        f"{_format_percent(perda_total_am)} a.m. sobre a carteira em aberto."
-    )
+    if modelo_credito == CREDIT_MODEL_NPL90:
+        st.caption(
+            "Crédito e provisão: "
+            f"NPL 90+ esperado {_format_percent(perda_ciclo)} dos recebíveis que vencem; "
+            f"lag {npl90_lag_meses} meses; cobertura mínima {_format_percent(cobertura_minima_npl90)} "
+            f"do NPL 90+ com LGD {_format_percent(lgd)}."
+        )
+    else:
+        st.caption(
+            "Crédito e provisão: migração mensal por faixas de atraso até NPL 90+, "
+            f"cobertura mínima {_format_percent(cobertura_minima_npl90)} e LGD {_format_percent(lgd)}. "
+            "Recuperações entram como caixa; write-offs baixam a carteira contra provisão."
+        )
     st.caption(
         "Sofisticações da carteira: "
         f"ágio de aquisição {_format_percent(agio_aquisicao)}; "
@@ -2339,7 +2533,19 @@ def render_tab_modelo_fidc() -> None:
         selected_calendar.feriados,
         selected_curve.curva_du,
         selected_curve.curva_taxa_aa,
-        replace(premissas, inadimplencia=0.0, perda_esperada_am=0.0, perda_inesperada_am=0.0),
+        replace(
+            premissas,
+            inadimplencia=0.0,
+            perda_esperada_am=0.0,
+            perda_inesperada_am=0.0,
+            perda_ciclo=0.0,
+            rolagem_adimplente_1_30=0.0,
+            rolagem_1_30_31_60=0.0,
+            rolagem_31_60_61_90=0.0,
+            rolagem_61_90_90_plus=0.0,
+            recuperacao_90_plus=0.0,
+            writeoff_90_plus=0.0,
+        ),
         interpolation_method=interpolation_method,
     )
     revolvency_metrics = _build_revolvency_metrics(
@@ -2403,8 +2609,8 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Fluxo econômico total dos ativos",
-                "Fórmula": "fluxo_ativos_total = fluxo_carteira + rendimento_caixa_selic",
-                "Observação": "Este é o fluxo usado antes de custos, perdas e pagamentos das cotas; a SELIC só entra sobre caixa fora da janela de reinvestimento.",
+                "Fórmula": "fluxo_ativos_total = fluxo_carteira + rendimento_caixa_selic + recuperacao_credito",
+                "Observação": "Este é o fluxo usado antes de custos, provisão/perda e pagamentos das cotas; a SELIC só entra sobre caixa fora da janela de reinvestimento.",
             },
             {
                 "Indicador": "De-para da Taxa de Cessão",
@@ -2432,24 +2638,34 @@ def render_tab_modelo_fidc() -> None:
                 "Observação": "O usuário informa percentual em base 100. Ex.: 0,35 significa 0,35% a.a.; custo mínimo é R$/mês.",
             },
             {
-                "Indicador": "Perda esperada/provisionada",
-                "Fórmula": "carteira * perda_esperada_am * delta_dc / 30",
-                "Observação": "Representa a provisão recorrente mensal esperada sobre a carteira; não é NPL over 90.",
+                "Indicador": "Metodologia de crédito",
+                "Fórmula": credit_model_label,
+                "Observação": "A aba separa despesa de provisão, estoque NPL 90+, recuperação e write-off para não misturar fluxo com estoque.",
             },
             {
-                "Indicador": "Perda inesperada/stress",
-                "Fórmula": "carteira * perda_inesperada_am * delta_dc / 30",
-                "Observação": "Representa o choque adicional mensal que a estrutura deve absorver além da perda esperada.",
+                "Indicador": "Carteira vencendo no período",
+                "Fórmula": "carteira_inicio * meses_periodo / prazo_medio_recebiveis",
+                "Observação": "É a parcela do principal que vira caixa no período; na metodologia intermediária, a perda de ciclo incide sobre essa base.",
             },
             {
-                "Indicador": "Perda da carteira",
-                "Fórmula": "perda_esperada + perda_inesperada",
-                "Observação": "A perda total reduz o PL econômico do FIDC; não é NPL over 90 nem aging contábil.",
+                "Indicador": "Entrada e estoque NPL 90+",
+                "Fórmula": "estoque_npl90_t = estoque_npl90_t-1 + entrada_npl90_t - recuperacao_90_t - writeoff_90_t",
+                "Observação": "Na metodologia intermediária, a entrada usa a perda de ciclo depois do lag; na avançada, a entrada vem da rolagem 61-90 -> 90+.",
+            },
+            {
+                "Indicador": "Provisão requerida",
+                "Fórmula": "max(provisao_anterior + provisao_prospectiva, estoque_npl90 * cobertura_minima * LGD)",
+                "Observação": "Garante que a provisão nunca fique abaixo do estoque NPL 90+ coberto pelo percentual mínimo informado.",
+            },
+            {
+                "Indicador": "Despesa de provisão/perda",
+                "Fórmula": "max(provisao_requerida - provisao_anterior, 0) + writeoff_descoberto",
+                "Observação": "Essa despesa reduz o PL econômico; o saldo de carteira só é reduzido quando existe write-off.",
             },
             {
                 "Indicador": "Resultado líquido da carteira",
-                "Fórmula": "fluxo_carteira - perda_esperada - perda_inesperada",
-                "Observação": "Com taxa de 11,00% a.m. e perda de 1,00% a.m., o spread líquido simples é próximo de 10,00% da carteira por mês, ajustado por dias úteis/corridos.",
+                "Fórmula": "fluxo_carteira + recuperacao_credito - despesa_provisao",
+                "Observação": "Com taxa de 11,00% a.m. e despesa de provisão de 1,00% da carteira, a despesa consome cerca de 1/11 da receita bruta do mês.",
             },
             {
                 "Indicador": "Elegibilidade de reinvestimento",
@@ -2566,5 +2782,6 @@ def render_tab_modelo_fidc() -> None:
                     selected_calendar=selected_calendar,
                     interpolation_label=interpolation_label,
                     taxa_cessao_input_mode=taxa_cessao_input_mode,
+                    credit_model_label=credit_model_label,
                 )
             )

@@ -10,6 +10,8 @@ from services.fidc_model import (
     AMORTIZATION_MODE_BULLET,
     AMORTIZATION_MODE_LINEAR,
     AMORTIZATION_MODE_WORKBOOK,
+    CREDIT_MODEL_MIGRATION,
+    CREDIT_MODEL_NPL90,
     INTEREST_PAYMENT_MODE_AFTER_GRACE,
     INTEREST_PAYMENT_MODE_PERIODIC,
     RATE_MODE_PRE,
@@ -197,6 +199,126 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertAlmostEqual(30_000.0, periods[1].perda_carteira_despesa)
         self.assertAlmostEqual(periods[1].perda_carteira_despesa, periods[1].inadimplencia_despesa)
         self.assertAlmostEqual(periods[1].fluxo_carteira - 30_000.0, periods[1].resultado_carteira_liquido)
+
+    def test_npl90_model_provisions_before_delayed_npl_stock_appears(self):
+        monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(5)]
+        premissas = Premissas(
+            volume=600.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.0,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=1.0,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            carteira_revolvente=True,
+            prazo_fidc_anos=1.0,
+            prazo_medio_recebiveis_meses=6.0,
+            modelo_credito=CREDIT_MODEL_NPL90,
+            perda_ciclo=0.06,
+            npl90_lag_meses=3,
+            cobertura_minima_npl90=1.0,
+            lgd=1.0,
+        )
+
+        periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
+
+        self.assertAlmostEqual(100.0, periods[1].carteira_vencendo)
+        self.assertAlmostEqual(6.0, periods[1].perda_esperada_despesa)
+        self.assertAlmostEqual(6.0, periods[1].despesa_provisao)
+        self.assertAlmostEqual(0.0, periods[1].entrada_npl90)
+        self.assertAlmostEqual(0.0, periods[1].npl90_estoque_fim)
+        self.assertAlmostEqual(600.0, periods[1].carteira_fim)
+        self.assertAlmostEqual(6.0, periods[4].entrada_npl90)
+        self.assertAlmostEqual(6.0, periods[4].npl90_estoque_fim)
+        self.assertGreaterEqual(periods[4].provisao_saldo_fim, periods[4].npl90_estoque_fim)
+
+    def test_migration_model_moves_buckets_to_npl_and_requires_provision(self):
+        monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(5)]
+        premissas = Premissas(
+            volume=1_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.0,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=1.0,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            carteira_revolvente=False,
+            modelo_credito=CREDIT_MODEL_MIGRATION,
+            lgd=1.0,
+            cobertura_minima_npl90=1.0,
+            rolagem_adimplente_1_30=1.0,
+            rolagem_1_30_31_60=1.0,
+            rolagem_31_60_61_90=1.0,
+            rolagem_61_90_90_plus=1.0,
+        )
+
+        periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
+
+        self.assertAlmostEqual(1_000.0, periods[1].bucket_1_30)
+        self.assertAlmostEqual(1_000.0, periods[2].bucket_31_60)
+        self.assertAlmostEqual(1_000.0, periods[3].bucket_61_90)
+        self.assertAlmostEqual(1_000.0, periods[4].entrada_npl90)
+        self.assertAlmostEqual(1_000.0, periods[4].bucket_90_plus)
+        self.assertAlmostEqual(1_000.0, periods[4].despesa_provisao)
+        self.assertAlmostEqual(1.0, periods[4].cobertura_npl90)
+
+    def test_writeoff_reduces_portfolio_but_provision_without_writeoff_does_not(self):
+        monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(6)]
+        no_writeoff = Premissas(
+            volume=600.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.0,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=1.0,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            carteira_revolvente=True,
+            prazo_fidc_anos=1.0,
+            prazo_medio_recebiveis_meses=6.0,
+            modelo_credito=CREDIT_MODEL_NPL90,
+            perda_ciclo=0.06,
+            npl90_lag_meses=0,
+            cobertura_minima_npl90=1.0,
+            lgd=1.0,
+        )
+        writeoff = Premissas(
+            **{
+                **no_writeoff.__dict__,
+                "modelo_credito": CREDIT_MODEL_MIGRATION,
+                "perda_ciclo": 0.0,
+                "rolagem_adimplente_1_30": 1.0,
+                "rolagem_1_30_31_60": 1.0,
+                "rolagem_31_60_61_90": 1.0,
+                "rolagem_61_90_90_plus": 1.0,
+                "writeoff_90_plus": 1.0,
+            }
+        )
+
+        no_writeoff_periods = build_flow(monthly_dates[:2], [], [1.0, 2000.0], [0.0, 0.0], no_writeoff)
+        writeoff_periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], writeoff)
+
+        self.assertAlmostEqual(600.0, no_writeoff_periods[1].carteira_fim)
+        self.assertGreater(no_writeoff_periods[1].despesa_provisao, 0.0)
+        self.assertGreater(writeoff_periods[5].baixa_credito, 0.0)
+        self.assertLess(writeoff_periods[5].carteira_fim, writeoff_periods[5].carteira)
 
     def test_revolving_portfolio_reinvests_principal_and_excess_cash_while_eligible(self):
         monthly_dates = [datetime(2025, 1, 1), datetime(2025, 2, 1), datetime(2025, 3, 1)]

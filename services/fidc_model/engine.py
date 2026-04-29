@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import replace
+from dataclasses import dataclass, replace
 from datetime import datetime
 from typing import Iterable, Sequence
 
@@ -19,6 +19,9 @@ AMORTIZATION_MODE_NONE = "none"
 INTEREST_PAYMENT_MODE_PERIODIC = "periodic"
 INTEREST_PAYMENT_MODE_AFTER_GRACE = "after_grace"
 INTEREST_PAYMENT_MODE_BULLET = "bullet"
+CREDIT_MODEL_LEGACY_PERCENT = "legacy_percent"
+CREDIT_MODEL_NPL90 = "npl90_provision"
+CREDIT_MODEL_MIGRATION = "migration_matrix"
 
 
 def annual_252_to_monthly_rate(rate_aa: float) -> float:
@@ -174,6 +177,261 @@ def _credit_loss_expenses(carteira: float, premissas: Premissas, delta_dc: int) 
     return expected_loss, unexpected_loss, expected_loss + unexpected_loss
 
 
+@dataclass
+class _CreditState:
+    provisao_saldo: float = 0.0
+    npl90_estoque: float = 0.0
+    npl90_pipeline: list[tuple[float, float]] | None = None
+    bucket_1_30: float = 0.0
+    bucket_31_60: float = 0.0
+    bucket_61_90: float = 0.0
+    bucket_90_plus: float = 0.0
+
+    def __post_init__(self) -> None:
+        if self.npl90_pipeline is None:
+            self.npl90_pipeline = []
+
+
+@dataclass(frozen=True)
+class _CreditPeriod:
+    perda_esperada_despesa: float
+    perda_inesperada_despesa: float
+    perda_carteira_despesa: float
+    carteira_vencendo: float
+    entrada_npl90: float
+    npl90_estoque_inicio: float
+    npl90_estoque_fim: float
+    provisao_saldo_inicio: float
+    provisao_requerida: float
+    despesa_provisao: float
+    provisao_saldo_fim: float
+    cobertura_npl90: float | None
+    baixa_credito: float
+    recuperacao_credito: float
+    bucket_adimplente: float
+    bucket_1_30: float
+    bucket_31_60: float
+    bucket_61_90: float
+    bucket_90_plus: float
+
+
+def _scale_period_probability(monthly_probability: float, period_months: float) -> float:
+    probability = min(max(monthly_probability, 0.0), 1.0)
+    if period_months <= 0.0:
+        return 0.0
+    return min(1.0 - (1.0 - probability) ** period_months, 1.0)
+
+
+def _age_npl90_pipeline(state: _CreditState, period_months: float) -> float:
+    matured = 0.0
+    remaining_pipeline: list[tuple[float, float]] = []
+    for remaining_months, amount in state.npl90_pipeline or []:
+        remaining_after_period = remaining_months - period_months
+        if remaining_after_period <= 1e-9:
+            matured += amount
+        else:
+            remaining_pipeline.append((remaining_after_period, amount))
+    state.npl90_pipeline = remaining_pipeline
+    return matured
+
+
+def _legacy_credit_period(carteira: float, premissas: Premissas, delta_dc: int) -> _CreditPeriod:
+    expected_loss, unexpected_loss, total_loss = _credit_loss_expenses(carteira, premissas, delta_dc)
+    return _CreditPeriod(
+        perda_esperada_despesa=expected_loss,
+        perda_inesperada_despesa=unexpected_loss,
+        perda_carteira_despesa=total_loss,
+        carteira_vencendo=0.0,
+        entrada_npl90=0.0,
+        npl90_estoque_inicio=0.0,
+        npl90_estoque_fim=0.0,
+        provisao_saldo_inicio=0.0,
+        provisao_requerida=0.0,
+        despesa_provisao=0.0,
+        provisao_saldo_fim=0.0,
+        cobertura_npl90=None,
+        baixa_credito=total_loss,
+        recuperacao_credito=0.0,
+        bucket_adimplente=max(carteira, 0.0),
+        bucket_1_30=0.0,
+        bucket_31_60=0.0,
+        bucket_61_90=0.0,
+        bucket_90_plus=0.0,
+    )
+
+
+def _npl90_credit_period(
+    *,
+    carteira: float,
+    carteira_vencendo: float,
+    premissas: Premissas,
+    period_months: float,
+    state: _CreditState,
+) -> _CreditPeriod:
+    npl90_start = state.npl90_estoque
+    provisao_start = state.provisao_saldo
+    entrada_npl90 = _age_npl90_pipeline(state, period_months)
+    perda_ciclo = max(float(premissas.perda_ciclo), 0.0)
+    lgd = min(max(float(premissas.lgd), 0.0), 1.0)
+    cobertura_minima = max(float(premissas.cobertura_minima_npl90), 0.0)
+    npl90_futuro = max(carteira_vencendo, 0.0) * perda_ciclo
+    lag = max(float(premissas.npl90_lag_meses), 0.0)
+    if npl90_futuro > 0.0:
+        if lag <= 1e-9:
+            entrada_npl90 += npl90_futuro
+        else:
+            assert state.npl90_pipeline is not None
+            state.npl90_pipeline.append((lag, npl90_futuro))
+
+    npl90_end = npl90_start + entrada_npl90
+    provisao_base = npl90_futuro * lgd
+    provisao_minima = npl90_end * cobertura_minima * lgd
+    provisao_requerida = max(provisao_start + provisao_base, provisao_minima)
+    despesa_provisao = max(provisao_requerida - provisao_start, 0.0)
+    reforco_cobertura = max(despesa_provisao - provisao_base, 0.0)
+    cobertura_npl90 = provisao_requerida / (npl90_end * lgd) if npl90_end > 0.0 and lgd > 0.0 else None
+
+    state.provisao_saldo = provisao_requerida
+    state.npl90_estoque = npl90_end
+
+    return _CreditPeriod(
+        perda_esperada_despesa=provisao_base,
+        perda_inesperada_despesa=reforco_cobertura,
+        perda_carteira_despesa=despesa_provisao,
+        carteira_vencendo=carteira_vencendo,
+        entrada_npl90=entrada_npl90,
+        npl90_estoque_inicio=npl90_start,
+        npl90_estoque_fim=npl90_end,
+        provisao_saldo_inicio=provisao_start,
+        provisao_requerida=provisao_requerida,
+        despesa_provisao=despesa_provisao,
+        provisao_saldo_fim=provisao_requerida,
+        cobertura_npl90=cobertura_npl90,
+        baixa_credito=0.0,
+        recuperacao_credito=0.0,
+        bucket_adimplente=max(carteira - npl90_end, 0.0),
+        bucket_1_30=0.0,
+        bucket_31_60=0.0,
+        bucket_61_90=0.0,
+        bucket_90_plus=npl90_end,
+    )
+
+
+def _migration_credit_period(
+    *,
+    carteira: float,
+    carteira_vencendo: float,
+    premissas: Premissas,
+    period_months: float,
+    state: _CreditState,
+) -> _CreditPeriod:
+    total_buckets = state.bucket_1_30 + state.bucket_31_60 + state.bucket_61_90 + state.bucket_90_plus
+    if total_buckets > carteira and total_buckets > 0.0:
+        scale = carteira / total_buckets
+        state.bucket_1_30 *= scale
+        state.bucket_31_60 *= scale
+        state.bucket_61_90 *= scale
+        state.bucket_90_plus *= scale
+
+    current_start = max(carteira - state.bucket_1_30 - state.bucket_31_60 - state.bucket_61_90 - state.bucket_90_plus, 0.0)
+    bucket_1_30_start = state.bucket_1_30
+    bucket_31_60_start = state.bucket_31_60
+    bucket_61_90_start = state.bucket_61_90
+    bucket_90_start = state.bucket_90_plus
+    provisao_start = state.provisao_saldo
+
+    roll_current = _scale_period_probability(premissas.rolagem_adimplente_1_30, period_months)
+    roll_1_30 = _scale_period_probability(premissas.rolagem_1_30_31_60, period_months)
+    roll_31_60 = _scale_period_probability(premissas.rolagem_31_60_61_90, period_months)
+    roll_61_90 = _scale_period_probability(premissas.rolagem_61_90_90_plus, period_months)
+    recovery_rate = _scale_period_probability(premissas.recuperacao_90_plus, period_months)
+    writeoff_rate = _scale_period_probability(premissas.writeoff_90_plus, period_months)
+
+    to_1_30 = current_start * roll_current
+    to_31_60 = bucket_1_30_start * roll_1_30
+    to_61_90 = bucket_31_60_start * roll_31_60
+    to_90_plus = bucket_61_90_start * roll_61_90
+    recovered = bucket_90_start * recovery_rate
+    writeoff = max(bucket_90_start - recovered, 0.0) * writeoff_rate
+
+    bucket_1_30_end = max(bucket_1_30_start + to_1_30 - to_31_60, 0.0)
+    bucket_31_60_end = max(bucket_31_60_start + to_31_60 - to_61_90, 0.0)
+    bucket_61_90_end = max(bucket_61_90_start + to_61_90 - to_90_plus, 0.0)
+    bucket_90_end = max(bucket_90_start + to_90_plus - recovered - writeoff, 0.0)
+    current_end = max(carteira - bucket_1_30_end - bucket_31_60_end - bucket_61_90_end - bucket_90_end, 0.0)
+
+    lgd = min(max(float(premissas.lgd), 0.0), 1.0)
+    cobertura_minima = max(float(premissas.cobertura_minima_npl90), 0.0)
+    writeoff_loss = writeoff * lgd
+    provisao_after_writeoff = max(provisao_start - writeoff_loss, 0.0)
+    uncovered_writeoff = max(writeoff_loss - provisao_start, 0.0)
+    provisao_base = to_90_plus * lgd
+    provisao_minima = bucket_90_end * cobertura_minima * lgd
+    provisao_requerida = max(provisao_after_writeoff + provisao_base, provisao_minima)
+    despesa_provisao = uncovered_writeoff + max(provisao_requerida - provisao_after_writeoff, 0.0)
+    reforco_cobertura = max(despesa_provisao - provisao_base - uncovered_writeoff, 0.0)
+    cobertura_npl90 = provisao_requerida / (bucket_90_end * lgd) if bucket_90_end > 0.0 and lgd > 0.0 else None
+
+    state.provisao_saldo = provisao_requerida
+    state.npl90_estoque = bucket_90_end
+    state.bucket_1_30 = bucket_1_30_end
+    state.bucket_31_60 = bucket_31_60_end
+    state.bucket_61_90 = bucket_61_90_end
+    state.bucket_90_plus = bucket_90_end
+
+    return _CreditPeriod(
+        perda_esperada_despesa=provisao_base,
+        perda_inesperada_despesa=reforco_cobertura + uncovered_writeoff,
+        perda_carteira_despesa=despesa_provisao,
+        carteira_vencendo=carteira_vencendo,
+        entrada_npl90=to_90_plus,
+        npl90_estoque_inicio=bucket_90_start,
+        npl90_estoque_fim=bucket_90_end,
+        provisao_saldo_inicio=provisao_start,
+        provisao_requerida=provisao_requerida,
+        despesa_provisao=despesa_provisao,
+        provisao_saldo_fim=provisao_requerida,
+        cobertura_npl90=cobertura_npl90,
+        baixa_credito=writeoff,
+        recuperacao_credito=recovered,
+        bucket_adimplente=current_end,
+        bucket_1_30=bucket_1_30_end,
+        bucket_31_60=bucket_31_60_end,
+        bucket_61_90=bucket_61_90_end,
+        bucket_90_plus=bucket_90_end,
+    )
+
+
+def _credit_period(
+    *,
+    carteira: float,
+    carteira_vencendo: float,
+    premissas: Premissas,
+    delta_dc: int,
+    period_months: float,
+    state: _CreditState,
+) -> _CreditPeriod:
+    if premissas.modelo_credito == CREDIT_MODEL_LEGACY_PERCENT:
+        return _legacy_credit_period(carteira, premissas, delta_dc)
+    if premissas.modelo_credito == CREDIT_MODEL_NPL90:
+        return _npl90_credit_period(
+            carteira=carteira,
+            carteira_vencendo=carteira_vencendo,
+            premissas=premissas,
+            period_months=period_months,
+            state=state,
+        )
+    if premissas.modelo_credito == CREDIT_MODEL_MIGRATION:
+        return _migration_credit_period(
+            carteira=carteira,
+            carteira_vencendo=carteira_vencendo,
+            premissas=premissas,
+            period_months=period_months,
+            state=state,
+        )
+    raise ValueError(f"Modelo de crédito inválido: {premissas.modelo_credito}")
+
+
 def _selic_annual_rate_for_year(premissas: Premissas, year: int) -> float:
     projection = dict(premissas.selic_aa_por_ano)
     return max(float(projection.get(year, 0.0)), -0.999999)
@@ -301,6 +559,7 @@ def build_flow(
     caixa_selic_atual = 0.0
     accrued_interest_senior = 0.0
     accrued_interest_mezz = 0.0
+    credit_state = _CreditState()
 
     for index, dt in enumerate(datas):
         if index == 0:
@@ -331,6 +590,22 @@ def build_flow(
                     perda_esperada_despesa=0.0,
                     perda_inesperada_despesa=0.0,
                     perda_carteira_despesa=0.0,
+                    carteira_vencendo=0.0,
+                    entrada_npl90=0.0,
+                    npl90_estoque_inicio=0.0,
+                    npl90_estoque_fim=0.0,
+                    provisao_saldo_inicio=0.0,
+                    provisao_requerida=0.0,
+                    despesa_provisao=0.0,
+                    provisao_saldo_fim=0.0,
+                    cobertura_npl90=None,
+                    baixa_credito=0.0,
+                    recuperacao_credito=0.0,
+                    bucket_adimplente=premissas.volume,
+                    bucket_1_30=0.0,
+                    bucket_31_60=0.0,
+                    bucket_61_90=0.0,
+                    bucket_90_plus=0.0,
                     resultado_carteira_liquido=0.0,
                     prazo_restante_reinvestimento_meses=float(_term_months(premissas.prazo_fidc_anos, fallback_term_months)),
                     reinvestimento_elegivel=premissas.carteira_revolvente,
@@ -391,15 +666,21 @@ def build_flow(
         saldo_caixa_selic_inicio = caixa_selic_atual
         rendimento_caixa_selic = (saldo_caixa_selic_inicio + principal_para_caixa_selic) * taxa_selic_periodo
         fluxo_carteira = carteira * ((1.0 + tx_cessao_am_aplicada) ** (delta_du / 21.0) - 1.0)
-        fluxo_ativos_total = fluxo_carteira + rendimento_caixa_selic
         custos_adm = max(carteira * premissas.custo_adm_aa / 12.0, premissas.custo_min)
-        perda_esperada_despesa, perda_inesperada_despesa, perda_carteira_despesa = _credit_loss_expenses(
-            carteira,
-            premissas,
-            delta_dc,
+        credit = _credit_period(
+            carteira=carteira,
+            carteira_vencendo=principal_recebido_carteira,
+            premissas=premissas,
+            delta_dc=delta_dc,
+            period_months=period_months,
+            state=credit_state,
         )
+        fluxo_ativos_total = fluxo_carteira + rendimento_caixa_selic + credit.recuperacao_credito
+        perda_esperada_despesa = credit.perda_esperada_despesa
+        perda_inesperada_despesa = credit.perda_inesperada_despesa
+        perda_carteira_despesa = credit.perda_carteira_despesa
         inadimplencia_despesa = perda_carteira_despesa
-        resultado_carteira_liquido = fluxo_carteira - perda_carteira_despesa
+        resultado_carteira_liquido = fluxo_carteira + credit.recuperacao_credito - perda_carteira_despesa
 
         fra_mezz_period = fra_mezz[index] or 0.0
         juros_senior_bruto = pl_senior_atual * ((1.0 + fra_senior_period) ** (delta_du / 252.0) - 1.0)
@@ -437,7 +718,7 @@ def build_flow(
         pl_sub_jr = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
         reinvestimento_excesso = max(fluxo_remanescente_mezz, 0.0) if reinvestimento_elegivel else 0.0
         nova_originacao = reinvestimento_principal + reinvestimento_excesso
-        carteira_fim = max(carteira - principal_recebido_carteira - perda_carteira_despesa + nova_originacao, 0.0)
+        carteira_fim = max(carteira - principal_recebido_carteira - credit.baixa_credito + nova_originacao, 0.0)
         caixa_nao_reinvestido = (
             principal_para_caixa_selic
             + max(max(fluxo_remanescente_mezz, 0.0) - reinvestimento_excesso, 0.0)
@@ -481,6 +762,22 @@ def build_flow(
                 perda_esperada_despesa=perda_esperada_despesa,
                 perda_inesperada_despesa=perda_inesperada_despesa,
                 perda_carteira_despesa=perda_carteira_despesa,
+                carteira_vencendo=credit.carteira_vencendo,
+                entrada_npl90=credit.entrada_npl90,
+                npl90_estoque_inicio=credit.npl90_estoque_inicio,
+                npl90_estoque_fim=credit.npl90_estoque_fim,
+                provisao_saldo_inicio=credit.provisao_saldo_inicio,
+                provisao_requerida=credit.provisao_requerida,
+                despesa_provisao=credit.despesa_provisao,
+                provisao_saldo_fim=credit.provisao_saldo_fim,
+                cobertura_npl90=credit.cobertura_npl90,
+                baixa_credito=credit.baixa_credito,
+                recuperacao_credito=credit.recuperacao_credito,
+                bucket_adimplente=credit.bucket_adimplente,
+                bucket_1_30=credit.bucket_1_30,
+                bucket_31_60=credit.bucket_31_60,
+                bucket_61_90=credit.bucket_61_90,
+                bucket_90_plus=credit.bucket_90_plus,
                 resultado_carteira_liquido=resultado_carteira_liquido,
                 prazo_restante_reinvestimento_meses=prazo_restante_reinvestimento,
                 reinvestimento_elegivel=reinvestimento_elegivel,

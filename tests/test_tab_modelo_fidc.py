@@ -79,7 +79,9 @@ class TabModeloFidcTests(unittest.TestCase):
         )
 
         self.assertIn("trava de caixa está desligada", markdown)
-        self.assertIn("perda_carteira = perda_esperada + perda_inesperada", markdown)
+        self.assertIn("Metodologias de crédito, NPL e provisão", markdown)
+        self.assertIn("provisao_minima = estoque_npl90_t", markdown)
+        self.assertIn("Migração por faixas de atraso", markdown)
         self.assertIn("PMT SEN = juros SEN + principal SEN programado", markdown)
         self.assertIn("SUB residual = PL FIDC - PL SEN - PL MEZZ", markdown)
         self.assertIn("taxa_selic_periodo = (1 + selic_aa_do_ano)", markdown)
