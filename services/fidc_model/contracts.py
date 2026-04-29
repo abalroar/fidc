@@ -37,6 +37,8 @@ class Premissas:
     inicio_amortizacao_mezz_meses: int = 25
     perda_esperada_am: Optional[float] = None
     perda_inesperada_am: Optional[float] = None
+    agio_aquisicao: float = 0.0
+    excesso_spread_senior_am: float = 0.0
 
     @property
     def proporcao_sub_jr(self) -> float:
@@ -66,6 +68,10 @@ class PeriodResult:
     perda_esperada_despesa: float
     perda_inesperada_despesa: float
     perda_carteira_despesa: float
+    agio_aquisicao_despesa: float
+    tx_cessao_am_input: float
+    tx_cessao_am_piso: float
+    tx_cessao_am_aplicada: float
     principal_senior: float
     juros_senior: float
     pmt_senior: float

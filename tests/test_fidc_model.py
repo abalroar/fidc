@@ -196,6 +196,56 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertAlmostEqual(30_000.0, periods[1].perda_carteira_despesa)
         self.assertAlmostEqual(periods[1].perda_carteira_despesa, periods[1].inadimplencia_despesa)
 
+    def test_acquisition_premium_reduces_initial_subordination(self):
+        premissas = Premissas(
+            volume=1_000_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.75,
+            taxa_senior=0.0,
+            proporcao_mezz=0.15,
+            taxa_mezz=0.0,
+            proporcao_subordinada=0.10,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            agio_aquisicao=0.02,
+        )
+
+        periods = build_flow([datetime(2025, 1, 1), datetime(2025, 2, 1)], [], [1.0, 2000.0], [0.0, 0.0], premissas)
+
+        self.assertAlmostEqual(20_000.0, periods[0].agio_aquisicao_despesa)
+        self.assertAlmostEqual(980_000.0, periods[0].pl_fidc)
+        self.assertAlmostEqual(80_000.0, periods[0].pl_sub_jr)
+
+    def test_cession_rate_floor_uses_senior_remuneration_plus_excess_spread(self):
+        premissas = Premissas(
+            volume=1_000_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=1.0,
+            taxa_senior=0.12,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=0.0,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            excesso_spread_senior_am=0.01,
+        )
+        expected_floor = annual_252_to_monthly_rate(
+            (1.0 + 0.12) * (1.0 + monthly_to_annual_252_rate(0.01)) - 1.0
+        )
+
+        periods = build_flow([datetime(2025, 1, 1), datetime(2025, 2, 1)], [], [1.0, 2000.0], [0.0, 0.0], premissas)
+
+        self.assertAlmostEqual(expected_floor, periods[1].tx_cessao_am_piso)
+        self.assertAlmostEqual(expected_floor, periods[1].tx_cessao_am_aplicada)
+
     def test_workbook_principal_schedule_is_capped_for_longer_terms(self):
         monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(61)]
         premissas = Premissas(

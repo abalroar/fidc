@@ -30,6 +30,8 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertEqual(0.04, tab_modelo_fidc.DEFAULT_TX_CESSAO_AM)
         self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_PERDA_ESPERADA_AM)
         self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_PERDA_INESPERADA_AM)
+        self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_AGIO_AQUISICAO)
+        self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_EXCESSO_SPREAD_SENIOR_AM)
         self.assertEqual(0.75, tab_modelo_fidc.DEFAULT_PROP_SENIOR)
         self.assertEqual(0.15, tab_modelo_fidc.DEFAULT_PROP_MEZZ)
         self.assertEqual(0.10, tab_modelo_fidc.DEFAULT_PROP_SUB)

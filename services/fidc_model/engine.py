@@ -49,6 +49,12 @@ def monthly_rate_to_cession_discount(rate_am: float) -> float:
     return rate_am / (1.0 + rate_am)
 
 
+def _cession_floor_monthly_rate(senior_annual_rate: float, excess_spread_am: float) -> float:
+    excess_annual_rate = monthly_to_annual_252_rate(max(excess_spread_am, 0.0))
+    floor_annual_rate = (1.0 + max(senior_annual_rate, -0.999999)) * (1.0 + excess_annual_rate) - 1.0
+    return annual_252_to_monthly_rate(floor_annual_rate)
+
+
 def _class_annual_rate(base_rate: float, class_rate: float, mode: str) -> float:
     if mode == RATE_MODE_PRE:
         return class_rate
@@ -229,6 +235,7 @@ def build_flow(
             - 1.0
         )
 
+    agio_aquisicao_despesa = max(premissas.volume * max(premissas.agio_aquisicao, 0.0), 0.0)
     pl_senior_initial = premissas.volume * premissas.proporcao_senior
     pl_mezz_initial = premissas.volume * premissas.proporcao_mezz
     if premissas.proporcao_subordinada is None:
@@ -257,7 +264,8 @@ def build_flow(
     periods: list[PeriodResult] = []
     pl_senior_atual = pl_senior_initial
     pl_mezz_atual = pl_mezz_initial
-    pl_fidc_atual = premissas.volume
+    pl_fidc_atual = premissas.volume - agio_aquisicao_despesa
+    pl_sub_jr_initial = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
     accrued_interest_senior = 0.0
     accrued_interest_mezz = 0.0
 
@@ -278,12 +286,16 @@ def build_flow(
                     fra_mezz=None,
                     carteira=premissas.volume,
                     fluxo_carteira=0.0,
-                    pl_fidc=premissas.volume,
+                    pl_fidc=pl_fidc_atual,
                     custos_adm=0.0,
                     inadimplencia_despesa=0.0,
                     perda_esperada_despesa=0.0,
                     perda_inesperada_despesa=0.0,
                     perda_carteira_despesa=0.0,
+                    agio_aquisicao_despesa=agio_aquisicao_despesa,
+                    tx_cessao_am_input=premissas.tx_cessao_am,
+                    tx_cessao_am_piso=0.0,
+                    tx_cessao_am_aplicada=premissas.tx_cessao_am,
                     principal_senior=principal_senior[index],
                     juros_senior=0.0,
                     pmt_senior=principal_senior[index],
@@ -298,8 +310,8 @@ def build_flow(
                     principal_sub_jr=0.0,
                     juros_sub_jr=0.0,
                     pmt_sub_jr=0.0,
-                    pl_sub_jr=pl_sub_initial,
-                    subordinacao_pct=pl_sub_initial / premissas.volume if premissas.volume else None,
+                    pl_sub_jr=pl_sub_jr_initial,
+                    subordinacao_pct=pl_sub_jr_initial / pl_fidc_atual if pl_fidc_atual else None,
                     pl_sub_jr_modelo=None,
                     subordinacao_pct_modelo=None,
                 )
@@ -309,7 +321,13 @@ def build_flow(
         delta_du = du[index] - du[index - 1]
         delta_dc = dc[index] - dc[index - 1]
         carteira = pl_fidc_atual
-        fluxo_carteira = carteira * ((1.0 + premissas.tx_cessao_am) ** (delta_du / 21.0) - 1.0)
+        fra_senior_period = fra_senior[index] or 0.0
+        tx_cessao_am_piso = _cession_floor_monthly_rate(
+            fra_senior_period,
+            premissas.excesso_spread_senior_am,
+        )
+        tx_cessao_am_aplicada = max(premissas.tx_cessao_am, tx_cessao_am_piso)
+        fluxo_carteira = carteira * ((1.0 + tx_cessao_am_aplicada) ** (delta_du / 21.0) - 1.0)
         custos_adm = max(carteira * premissas.custo_adm_aa / 12.0, premissas.custo_min)
         perda_esperada_despesa, perda_inesperada_despesa, perda_carteira_despesa = _credit_loss_expenses(
             carteira,
@@ -318,7 +336,6 @@ def build_flow(
         )
         inadimplencia_despesa = perda_carteira_despesa
 
-        fra_senior_period = fra_senior[index] or 0.0
         fra_mezz_period = fra_mezz[index] or 0.0
         juros_senior_bruto = pl_senior_atual * ((1.0 + fra_senior_period) ** (delta_du / 252.0) - 1.0)
         juros_mezz_bruto = pl_mezz_atual * ((1.0 + fra_mezz_period) ** (delta_du / 252.0) - 1.0)
@@ -380,6 +397,10 @@ def build_flow(
                 perda_esperada_despesa=perda_esperada_despesa,
                 perda_inesperada_despesa=perda_inesperada_despesa,
                 perda_carteira_despesa=perda_carteira_despesa,
+                agio_aquisicao_despesa=0.0,
+                tx_cessao_am_input=premissas.tx_cessao_am,
+                tx_cessao_am_piso=tx_cessao_am_piso,
+                tx_cessao_am_aplicada=tx_cessao_am_aplicada,
                 principal_senior=principal_senior_period,
                 juros_senior=juros_senior,
                 pmt_senior=pmt_senior,

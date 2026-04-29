@@ -137,8 +137,17 @@ A aba passou a incluir premissas avançadas para:
 - prazo médio dos recebíveis;
 - modo de originação: carteira revolvente ou carteira estática;
 - prazo das cotas SEN, MEZZ e SUB;
-- amortização de principal SEN/MEZZ: compatível com a planilha, linear após carência, bullet ou sem amortização programada;
+- amortização de principal SEN/MEZZ: cronograma padrão, linear após carência, bullet ou sem amortização programada;
 - pagamento de juros SEN/MEZZ: em todo período, após carência ou bullet no vencimento.
+
+A taxa econômica da carteira também pode ser ajustada por ágio e por piso de spread:
+
+```text
+agio_aquisicao = volume_inicial * agio_aquisicao_pct
+tx_cessao_am_aplicada = max(tx_cessao_am_informada, remuneracao_SEN + excesso_spread)
+```
+
+O ágio reduz a SUB econômica inicial, pois representa prêmio pago na aquisição dos recebíveis. O piso de spread garante que a carteira remunere, no mínimo, a SEN mais o excesso informado.
 
 A principal métrica adicionada é a perda máxima suportada sobre a carteira originada:
 
@@ -167,6 +176,6 @@ Para reproduzir a auditoria no app:
 1. Abra a aba `Modelo FIDC`.
 2. Informe as premissas do cenário do usuário.
 3. Para reproduzir os KPIs observados, use `B3 - último pregão disponível`, `Flat Forward 252` e calendário `B3 oficial + projeção explícita`.
-4. Para aproximar a planilha, use `Snapshot local da planilha`, `Spline` e `Feriados do snapshot da planilha`.
+4. Para uma comparação histórica local, use `Curva local salva`, `Spline` e `Feriados locais salvos`.
 5. Verifique se a timeline detalhada mostra `pl_sub_jr`, `pl_sub_jr_modelo`, `subordinacao_pct` e `subordinacao_pct_modelo`.
 6. Confirme que o gráfico não usa mais a coluna deslocada como saldo da SUB e que o déficit econômico aparece separado quando o residual fica negativo.
