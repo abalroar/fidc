@@ -10,6 +10,7 @@ import re
 from typing import Any
 
 import pandas as pd
+from pandas.errors import EmptyDataError
 from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 from openpyxl import Workbook
 from openpyxl.chart import BarChart, LineChart, Reference
@@ -401,23 +402,49 @@ def load_outputs_from_cache(
         monthly_path = root / f"monthly_{_safe_path_token(cnpj)}.csv"
         wide_path = root / f"wide_{_safe_path_token(cnpj)}.csv"
         if monthly_path.exists():
-            fund_monthly[cnpj] = pd.read_csv(monthly_path)
+            monthly_df = _read_cache_csv(monthly_path)
+            if monthly_df is None:
+                return None
+            fund_monthly[cnpj] = monthly_df
         if wide_path.exists():
-            fund_wide[cnpj] = pd.read_csv(wide_path)
+            wide_df = _read_cache_csv(wide_path)
+            if wide_df is None:
+                return None
+            fund_wide[cnpj] = wide_df
     consolidated_monthly_path = root / "monthly_consolidado.csv"
     consolidated_wide_path = root / "wide_consolidado.csv"
     warnings_path = root / "warnings.csv"
     if not consolidated_monthly_path.exists() or not consolidated_wide_path.exists():
         return None
+    consolidated_monthly = _read_cache_csv(consolidated_monthly_path)
+    consolidated_wide = _read_cache_csv(consolidated_wide_path)
+    if consolidated_monthly is None or consolidated_wide is None:
+        return None
     metadata["cache_dir"] = str(root)
     return MercadoLivreOutputs(
         fund_monthly=fund_monthly,
         fund_wide=fund_wide,
-        consolidated_monthly=pd.read_csv(consolidated_monthly_path),
-        consolidated_wide=pd.read_csv(consolidated_wide_path),
-        warnings_df=pd.read_csv(warnings_path) if warnings_path.exists() else pd.DataFrame(),
+        consolidated_monthly=consolidated_monthly,
+        consolidated_wide=consolidated_wide,
+        warnings_df=_read_optional_cache_csv(warnings_path),
         metadata=metadata,
     )
+
+
+def _read_cache_csv(path: Path) -> pd.DataFrame | None:
+    try:
+        return pd.read_csv(path)
+    except EmptyDataError:
+        return None
+
+
+def _read_optional_cache_csv(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        return pd.DataFrame()
+    try:
+        return pd.read_csv(path)
+    except EmptyDataError:
+        return pd.DataFrame()
 
 
 def extract_official_pl_history_from_wide_csv(wide_csv_path: str | Path) -> pd.DataFrame:

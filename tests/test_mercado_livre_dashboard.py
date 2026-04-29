@@ -473,6 +473,86 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("11111111000111", loaded.fund_monthly)
         self.assertEqual(outputs.metadata["loaded_period_label"], loaded.metadata["loaded_period_label"])
 
+    def test_outputs_cache_treats_empty_optional_warnings_as_empty_dataframe(self) -> None:
+        dashboard = _dashboard(
+            fund_name="FIDC A",
+            cnpj="11111111000111",
+            pl_total=100.0,
+            pl_senior=75.0,
+            pl_mezz=15.0,
+            pl_sub=10.0,
+            carteira=1_000.0,
+            pdd=100.0,
+            buckets={4: 40.0, 7: 10.0, 8: 10.0},
+        )
+        outputs = build_mercado_livre_outputs(
+            portfolio_id="portfolio-1",
+            portfolio_name="Carteira",
+            dashboards_by_cnpj={"11111111000111": ("FIDC A", dashboard)},
+            period_label="01/2026 a 01/2026",
+        )
+        funds = (PortfolioFund(cnpj="11111111000111", display_name="FIDC A"),)
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = save_outputs_to_cache(
+                outputs,
+                portfolio_id="portfolio-1",
+                period_key="2026-01-01::2026-01-01",
+                portfolio_funds=funds,
+                base_dir=Path(tmp_dir),
+            )
+            (root / "warnings.csv").write_text("", encoding="utf-8")
+
+            loaded = load_outputs_from_cache(
+                portfolio_id="portfolio-1",
+                period_key="2026-01-01::2026-01-01",
+                portfolio_funds=funds,
+                base_dir=Path(tmp_dir),
+            )
+
+        self.assertIsNotNone(loaded)
+        assert loaded is not None
+        self.assertTrue(loaded.warnings_df.empty)
+
+    def test_outputs_cache_invalidates_empty_required_csvs(self) -> None:
+        dashboard = _dashboard(
+            fund_name="FIDC A",
+            cnpj="11111111000111",
+            pl_total=100.0,
+            pl_senior=75.0,
+            pl_mezz=15.0,
+            pl_sub=10.0,
+            carteira=1_000.0,
+            pdd=100.0,
+            buckets={4: 40.0, 7: 10.0, 8: 10.0},
+        )
+        outputs = build_mercado_livre_outputs(
+            portfolio_id="portfolio-1",
+            portfolio_name="Carteira",
+            dashboards_by_cnpj={"11111111000111": ("FIDC A", dashboard)},
+            period_label="01/2026 a 01/2026",
+        )
+        funds = (PortfolioFund(cnpj="11111111000111", display_name="FIDC A"),)
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = save_outputs_to_cache(
+                outputs,
+                portfolio_id="portfolio-1",
+                period_key="2026-01-01::2026-01-01",
+                portfolio_funds=funds,
+                base_dir=Path(tmp_dir),
+            )
+            (root / "monthly_consolidado.csv").write_text("", encoding="utf-8")
+
+            loaded = load_outputs_from_cache(
+                portfolio_id="portfolio-1",
+                period_key="2026-01-01::2026-01-01",
+                portfolio_funds=funds,
+                base_dir=Path(tmp_dir),
+            )
+
+        self.assertIsNone(loaded)
+
     def test_portfolio_identity_key_is_deterministic_and_duplicate_save_reuses_same_basket(self) -> None:
         funds_a = (
             PortfolioFund(cnpj="11111111000111", display_name="A"),
