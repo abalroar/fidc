@@ -101,6 +101,13 @@ DEFAULT_CARENCIA_PRINCIPAL_MESES = 30.0
 DEFAULT_CURVE_START_YEAR = 2026
 DEFAULT_SELIC_AA_2026 = 0.13
 DEFAULT_SELIC_AA_2027_ONWARD = 0.12
+HELP_CUSTO_ADM_GESTAO = (
+    "Custo anual sobre o PL econômico do fundo no início do período; aplica-se o maior entre "
+    "o valor mensal composto e o custo mínimo mensal."
+)
+HELP_CUSTO_MINIMO = (
+    "Piso em R$/mês comparado ao custo percentual sobre o PL econômico; o motor usa o maior valor a cada período."
+)
 AMORTIZATION_LABELS = {
     "Cronograma padrão": AMORTIZATION_MODE_WORKBOOK,
     "Linear após carência": AMORTIZATION_MODE_LINEAR,
@@ -2021,14 +2028,14 @@ def render_tab_modelo_fidc() -> None:
                 default=DEFAULT_VOLUME_CARTEIRA,
                 key="modelo_volume",
                 decimals=2,
-                help_text="Valor total da carteira em reais. Não há escala implícita em milhões ou bilhões.",
+                help_text="Valor nominal inicial da carteira em reais, sem escala implícita em milhões ou bilhões.",
             )
             taxa_cessao_input_mode = st.radio(
                 "Entrada da taxa da carteira",
                 [CESSION_INPUT_DISCOUNT, CESSION_INPUT_MONTHLY],
                 index=1,
                 horizontal=True,
-                help="Escolha se quer informar o deságio até o valor futuro ou a taxa mensal efetiva usada no motor.",
+                help="Escolha entre informar deságio no prazo médio ou taxa efetiva mensal da carteira.",
             )
             if taxa_cessao_input_mode == CESSION_INPUT_DISCOUNT:
                 tx_cessao_desagio_text = _text_percent_input(
@@ -2036,7 +2043,7 @@ def render_tab_modelo_fidc() -> None:
                     default=default_tx_cessao_desagio * 100.0,
                     key="modelo_tx_cessao_desagio",
                     decimals=2,
-                    help_text="Informe o deságio até o valor futuro; a taxa mensal equivalente usa o prazo médio dos recebíveis.",
+                    help_text="Deságio sobre o valor futuro no prazo médio dos recebíveis; o motor converte para taxa mensal equivalente.",
                 )
                 tx_cessao_mensal_text = ""
             else:
@@ -2045,18 +2052,18 @@ def render_tab_modelo_fidc() -> None:
                     default=default_tx_cessao_am * 100.0,
                     key="modelo_tx_cessao_mensal",
                     decimals=2,
-                    help_text="Informe a taxa efetiva mensal bruta esperada da carteira de recebíveis.",
+                    help_text="Taxa efetiva mensal bruta aplicada ao saldo da carteira de recebíveis.",
                 )
                 tx_cessao_desagio_text = ""
 
             costs_a, costs_b = st.columns(2)
             with costs_a:
                 custo_adm_text = _text_percent_input(
-                    "Custo de administração e gestão (% a.a.)",
+                    "Custo de administração e gestão (% a.a. sobre PL)",
                     default=DEFAULT_CUSTO_ADM_AA * 100.0,
                     key="modelo_custo_adm_pct",
                     decimals=2,
-                    help_text="Informe o custo anual em percentual base 100; 0,35 significa 0,35% a.a.",
+                    help_text=HELP_CUSTO_ADM_GESTAO,
                 )
             with costs_b:
                 custo_min_text = _text_brl_input(
@@ -2064,13 +2071,13 @@ def render_tab_modelo_fidc() -> None:
                     default=DEFAULT_CUSTO_MIN_MENSAL,
                     key="modelo_custo_min",
                     decimals=2,
-                    help_text="Piso mensal aplicado após calcular o custo composto sobre o PL econômico do início do período.",
+                    help_text=HELP_CUSTO_MINIMO,
                 )
             st.markdown("##### Crédito e provisão")
             credit_model_label = st.selectbox(
                 "Metodologia de crédito",
                 list(CREDIT_MODEL_LABELS),
-                help="Escolha entre provisão por NPL 90+ ou migração simples por faixas de atraso.",
+                help="Define se a perda vem de NPL 90+ por ciclo ou de migração mensal entre faixas de atraso.",
             )
             common_credit_a, common_credit_b, common_credit_c = st.columns(3)
             with common_credit_a:
@@ -2079,7 +2086,7 @@ def render_tab_modelo_fidc() -> None:
                     default=DEFAULT_NPL90_LAG_MESES,
                     key="modelo_npl90_lag_meses",
                     decimals=0,
-                    help_text="Número de meses entre a deterioração econômica e a entrada no estoque NPL 90+.",
+                    help_text="Meses entre a perda esperada do ciclo e sua entrada no estoque NPL 90+.",
                 )
             with common_credit_b:
                 cobertura_npl90_text = _text_percent_input(
@@ -2087,7 +2094,7 @@ def render_tab_modelo_fidc() -> None:
                     default=DEFAULT_COBERTURA_NPL90 * 100.0,
                     key="modelo_cobertura_npl90_pct",
                     decimals=1,
-                    help_text="Percentual mínimo do estoque NPL 90+ que precisa estar coberto por provisão.",
+                    help_text="Percentual mínimo do estoque NPL 90+ coberto por provisão, multiplicado pela LGD no cálculo.",
                 )
             with common_credit_c:
                 lgd_text = _text_percent_input(
@@ -2095,7 +2102,7 @@ def render_tab_modelo_fidc() -> None:
                     default=DEFAULT_LGD * 100.0,
                     key="modelo_lgd_pct",
                     decimals=1,
-                    help_text="Percentual do NPL 90+ que vira perda econômica após recuperação.",
+                    help_text="Percentual do NPL 90+ não recuperado e tratado como perda econômica.",
                 )
             if credit_model_label == CREDIT_LABEL_NPL90:
                 perda_ciclo_text = _text_percent_input(
@@ -2103,7 +2110,7 @@ def render_tab_modelo_fidc() -> None:
                     default=DEFAULT_PERDA_CICLO * 100.0,
                     key="modelo_perda_ciclo_pct",
                     decimals=2,
-                    help_text="Percentual do principal que vence no período e deve migrar para NPL 90+ após o lag.",
+                    help_text="Percentual do principal que vence no período e migra para NPL 90+ após o lag.",
                 )
                 roll_adimplente_text = roll_1_30_text = roll_31_60_text = roll_61_90_text = "0,00%"
                 recuperacao_90_text = writeoff_90_text = "0,00%"
@@ -2161,21 +2168,21 @@ def render_tab_modelo_fidc() -> None:
                     default=DEFAULT_AGIO_AQUISICAO * 100.0,
                     key="modelo_agio_aquisicao_pct",
                     decimals=2,
-                    help_text="Informe o prêmio pago na compra dos recebíveis; ele reduz a SUB econômica inicial.",
+                    help_text="Prêmio pago sobre o volume da carteira; reduz o PL econômico inicial da SUB.",
                 )
             with enhancement_b:
                 excesso_spread_base = st.radio(
                     "Base do excesso de spread",
                     ["% a.m.", "% a.a. base 252 dias úteis"],
                     horizontal=True,
-                    help="Escolha a base do excesso mínimo exigido sobre a remuneração da SEN.",
+                    help="Escolha a periodicidade do piso adicional exigido sobre a remuneração da SEN.",
                 )
                 excesso_spread_text = _text_percent_input(
                     "Excesso de spread sobre SEN",
                     default=DEFAULT_EXCESSO_SPREAD_SENIOR_AM * 100.0,
                     key="modelo_excesso_spread_senior",
                     decimals=2,
-                    help_text="Informe o spread adicional mínimo acima da remuneração da SEN para a carteira.",
+                    help_text="Piso adicional sobre a SEN; a taxa da carteira não fica abaixo de SEN + excesso.",
                 )
 
             st.markdown("##### Estrutura de PL")
@@ -2186,6 +2193,7 @@ def render_tab_modelo_fidc() -> None:
                     default=default_senior_pct,
                     key="modelo_prop_senior",
                     decimals=1,
+                    help_text="Percentual do PL total alocado à cota SEN; SEN, MEZZ e SUB devem somar 100%.",
                 )
             with prop_b:
                 mezz_pct_text = _text_percent_input(
@@ -2193,6 +2201,7 @@ def render_tab_modelo_fidc() -> None:
                     default=default_mezz_pct,
                     key="modelo_prop_mezz",
                     decimals=1,
+                    help_text="Percentual do PL total alocado à cota MEZZ; use 0,0% se não houver mezanino.",
                 )
             with prop_c:
                 sub_pct_text = _text_percent_input(
@@ -2200,6 +2209,7 @@ def render_tab_modelo_fidc() -> None:
                     default=default_sub_pct,
                     key="modelo_prop_sub",
                     decimals=1,
+                    help_text="Percentual do PL total alocado à SUB, que absorve perdas antes das demais cotas.",
                 )
             has_mezz = _parse_percent_for_visibility(mezz_pct_text, default=DEFAULT_PROP_MEZZ) > 0.000001
             st.caption("As proporções SEN, MEZZ e SUB devem somar 100,00%.")
@@ -2300,6 +2310,7 @@ def render_tab_modelo_fidc() -> None:
                         default=DEFAULT_PRAZO_ANOS,
                         key="modelo_prazo_fidc_anos",
                         decimals=1,
+                        help_text="Prazo total da simulação em anos, usado para definir o último mês do fluxo.",
                     )
                 with term_b:
                     prazo_recebiveis_text = _text_number_input(
@@ -2307,6 +2318,7 @@ def render_tab_modelo_fidc() -> None:
                         default=DEFAULT_PRAZO_RECEBIVEIS_MESES,
                         key="modelo_prazo_recebiveis_meses",
                         decimals=1,
+                        help_text="Prazo médio de vencimento da carteira, em meses, usado no giro e no runoff.",
                     )
                 with term_c:
                     portfolio_mode_label = st.selectbox(
@@ -2358,18 +2370,21 @@ def render_tab_modelo_fidc() -> None:
                         default=DEFAULT_PRAZO_ANOS,
                         key="modelo_prazo_senior_anos",
                         decimals=1,
+                        help_text="Prazo legal/econômico da cota SEN, em anos, usado no cronograma de principal.",
                     )
                     senior_amort_label = st.selectbox(
                         "Amortização principal SEN",
                         list(AMORTIZATION_LABELS),
                         index=1,
                         key="modelo_amort_senior",
+                        help="Define quando e como o principal da SEN é amortizado no waterfall.",
                     )
                     senior_start_text = _text_number_input(
                         "Carência principal SEN (meses)",
                         default=DEFAULT_CARENCIA_PRINCIPAL_MESES,
                         key="modelo_inicio_amort_senior",
                         decimals=0,
+                        help_text="Número de meses antes do início da amortização de principal da SEN.",
                     )
                 if has_mezz and senior_cfg_b is not None:
                     with senior_cfg_b:
@@ -2378,18 +2393,21 @@ def render_tab_modelo_fidc() -> None:
                             default=DEFAULT_PRAZO_ANOS,
                             key="modelo_prazo_mezz_anos",
                             decimals=1,
+                            help_text="Prazo legal/econômico da cota MEZZ, em anos, usado no cronograma de principal.",
                         )
                         mezz_amort_label = st.selectbox(
                             "Amortização principal MEZZ",
                             list(AMORTIZATION_LABELS),
                             index=1,
                             key="modelo_amort_mezz",
+                            help="Define quando e como o principal da MEZZ é amortizado no waterfall.",
                         )
                         mezz_start_text = _text_number_input(
                             "Carência principal MEZZ (meses)",
                             default=DEFAULT_CARENCIA_PRINCIPAL_MESES,
                             key="modelo_inicio_amort_mezz",
                             decimals=0,
+                            help_text="Número de meses antes do início da amortização de principal da MEZZ.",
                         )
                 else:
                     prazo_mezz_text = prazo_fidc_text
@@ -2405,6 +2423,7 @@ def render_tab_modelo_fidc() -> None:
                         "Pagamento de juros SEN",
                         list(INTEREST_LABELS),
                         key="modelo_juros_senior",
+                        help="Define se os juros da SEN são pagos periodicamente, após carência ou no vencimento.",
                     )
                 if has_mezz and interest_b is not None:
                     with interest_b:
@@ -2412,6 +2431,7 @@ def render_tab_modelo_fidc() -> None:
                             "Pagamento de juros MEZZ",
                             list(INTEREST_LABELS),
                             key="modelo_juros_mezz",
+                            help="Define se os juros da MEZZ são pagos periodicamente, após carência ou no vencimento.",
                         )
                 else:
                     mezz_interest_label = "Pago em todo período"
@@ -2421,6 +2441,7 @@ def render_tab_modelo_fidc() -> None:
                         default=DEFAULT_PRAZO_ANOS,
                         key="modelo_prazo_sub_anos",
                         decimals=1,
+                        help_text="Prazo informativo da SUB; nesta versão a SUB segue como residual econômico.",
                     )
                 st.caption("A SUB segue residual nesta etapa; o prazo da SUB entra na documentação e na análise econômica.")
             submitted = st.form_submit_button(
@@ -2443,7 +2464,7 @@ def render_tab_modelo_fidc() -> None:
             tx_cessao_am = _parse_br_number(tx_cessao_mensal_text, field_name="Taxa Mensal (%)") / 100.0
             tx_cessao_desagio = monthly_rate_to_cession_discount(tx_cessao_am, prazo_medio_recebiveis_meses)
         tx_cessao_aa_equivalente = monthly_to_annual_252_rate(tx_cessao_am)
-        custo_adm_aa = _parse_br_number(custo_adm_text, field_name="Custo de administração e gestão (% a.a.)") / 100.0
+        custo_adm_aa = _parse_br_number(custo_adm_text, field_name="Custo de administração e gestão (% a.a. sobre PL)") / 100.0
         custo_min = _parse_br_number(custo_min_text, field_name="Custo mínimo de administração e gestão (R$/mês)")
         modelo_credito = CREDIT_MODEL_LABELS[credit_model_label]
         perda_ciclo = _parse_br_number(

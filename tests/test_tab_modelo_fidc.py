@@ -50,6 +50,13 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertEqual(0.13, tab_modelo_fidc.DEFAULT_SELIC_AA_2026)
         self.assertEqual(0.12, tab_modelo_fidc.DEFAULT_SELIC_AA_2027_ONWARD)
 
+    def test_admin_cost_help_text_matches_backend_basis(self) -> None:
+        self.assertIn("PL econômico", tab_modelo_fidc.HELP_CUSTO_ADM_GESTAO)
+        self.assertIn("início do período", tab_modelo_fidc.HELP_CUSTO_ADM_GESTAO)
+        self.assertIn("custo mínimo mensal", tab_modelo_fidc.HELP_CUSTO_ADM_GESTAO)
+        self.assertIn("R$/mês", tab_modelo_fidc.HELP_CUSTO_MINIMO)
+        self.assertIn("maior valor", tab_modelo_fidc.HELP_CUSTO_MINIMO)
+
     def test_projection_years_start_at_2026_and_exclude_2025(self) -> None:
         years = tab_modelo_fidc._projection_years_for_term(pd.Timestamp("2025-03-01").to_pydatetime(), 3.0)
 
