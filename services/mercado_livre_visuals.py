@@ -104,7 +104,8 @@ def pl_subordination_chart(monthly_df: pd.DataFrame, *, title: str = "Evolução
             y=alt.Y(
                 "valor:Q",
                 title="% Subordinação Total ex-360",
-                axis=alt.Axis(orient="right", grid=False, labelColor=SUBORDINATION_COLOR, titleColor=SUBORDINATION_COLOR),
+                scale=alt.Scale(zero=True, nice=True),
+                axis=_percent_axis(orient="right", grid=False, color=SUBORDINATION_COLOR),
             ),
             tooltip=[
                 alt.Tooltip("competencia:N", title="Competência"),
@@ -156,7 +157,8 @@ def npl_coverage_chart(monthly_df: pd.DataFrame, *, title: str = "NPL e Cobertur
             y=alt.Y(
                 "npl_pct:Q",
                 title="NPL Over 90d Ex 360 / Carteira Ex 360",
-                axis=alt.Axis(labelColor=NPL_COLOR, titleColor=NPL_COLOR),
+                scale=alt.Scale(zero=True, nice=True),
+                axis=_percent_axis(color=NPL_COLOR),
             ),
             color=color,
             tooltip=[alt.Tooltip("competencia:N", title="Competência"), alt.Tooltip("npl_fmt:N", title="NPL Over 90d Ex 360")],
@@ -173,7 +175,8 @@ def npl_coverage_chart(monthly_df: pd.DataFrame, *, title: str = "NPL e Cobertur
             y=alt.Y(
                 "coverage_pct:Q",
                 title="PDD / NPL Over 90d Ex 360",
-                axis=alt.Axis(orient="right", grid=False, labelColor=COVERAGE_COLOR, titleColor=COVERAGE_COLOR),
+                scale=alt.Scale(zero=True, nice=True),
+                axis=_percent_axis(orient="right", grid=False, color=COVERAGE_COLOR),
             ),
             color=color,
             tooltip=[alt.Tooltip("competencia:N", title="Competência"), alt.Tooltip("coverage_fmt:N", title="PDD / NPL Over 90d Ex 360")],
@@ -204,6 +207,21 @@ def _style_chart(chart: alt.Chart) -> alt.Chart:
         .configure_view(stroke=None)
         .configure_legend(labelColor=CORES_MELI["auxiliar"], titleColor=CORES_MELI["auxiliar"], orient="bottom")
     )
+
+
+def _percent_axis(*, color: str, orient: str | None = None, grid: bool = True) -> alt.Axis:
+    kwargs: dict[str, object] = {
+        "grid": grid,
+        "tickCount": 6,
+        "labelExpr": "replace(format(datum.value, '.1f'), '.', ',') + '%'",
+        "labelColor": color,
+        "titleColor": color,
+        "labelPadding": 8,
+        "titlePadding": 12,
+    }
+    if orient is not None:
+        kwargs["orient"] = orient
+    return alt.Axis(**kwargs)
 
 
 def _last_point_label_df(df: pd.DataFrame, *, value_column: str) -> pd.DataFrame:

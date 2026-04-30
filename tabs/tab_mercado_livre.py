@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from dataclasses import replace
+from datetime import date, datetime, timezone
 from html import escape
 import uuid
 from typing import Any
@@ -8,12 +9,12 @@ from typing import Any
 import pandas as pd
 import streamlit as st
 
-from services.ime_period import ImePeriodSelection
+from services.ime_period import ImePeriodSelection, build_custom_period, current_default_end_month, month_options, shift_month
 from services.mercado_livre_dashboard import (
     build_consolidated_snapshot_excel_bytes,
-    build_excel_export_bytes,
     build_mercado_livre_outputs,
     build_validation_table,
+    build_wide_table,
     cache_dir_for_outputs,
     extract_official_pl_history_from_wide_csv,
     load_outputs_from_cache,
@@ -42,7 +43,9 @@ from tabs.tab_fidc_ime_carteira import (
 )
 
 
-_MERCADO_LIVRE_UI_CSS = """
+SOMATORIO_FIDCS_TITLE = "Somatório FIDCs"
+
+_SOMATORIO_FIDCS_UI_CSS = """
 <style>
 .chart-title {
     color: #000000;
@@ -56,6 +59,43 @@ _MERCADO_LIVRE_UI_CSS = """
     font-size: 12px;
     line-height: 1.25;
     margin: 0 0 8px 0;
+}
+.chart-note-list {
+    color: #6f7a87;
+    font-size: 12px;
+    line-height: 1.35;
+    margin: 0.1rem 0 0.7rem 0;
+    padding-left: 1.05rem;
+}
+.chart-note-list li {
+    margin: 0.08rem 0;
+}
+.somatorio-fidcs-period-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    margin: 0 0 0.45rem 0;
+    scrollbar-width: thin;
+}
+.somatorio-fidcs-period-bar span {
+    align-items: center;
+    background: #f8f9fa;
+    border: 1px solid #eceff3;
+    border-radius: 999px;
+    color: #5a5a5a;
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: 0.76rem;
+    gap: 4px;
+    line-height: 1.2;
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+.somatorio-fidcs-period-bar strong {
+    color: #212529;
+    font-weight: 500;
 }
 .wide-table-wrapper {
     overflow-x: auto;
@@ -146,19 +186,21 @@ _MERCADO_LIVRE_UI_CSS = """
 """
 
 
-def render_tab_mercado_livre(period: ImePeriodSelection | None = None) -> None:
+_MERCADO_LIVRE_UI_CSS = _SOMATORIO_FIDCS_UI_CSS
+
+
+def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None:
     st.markdown(ime_tab._FIDC_REPORT_CSS, unsafe_allow_html=True)
-    st.markdown(_MERCADO_LIVRE_UI_CSS, unsafe_allow_html=True)
+    st.markdown(_SOMATORIO_FIDCS_UI_CSS, unsafe_allow_html=True)
     _apply_pending_selection()
 
     portfolios = list_saved_portfolios()
     catalog_df = load_fidc_catalog_cached()
-    if period is None:
-        period = ime_tab._render_period_selector(state_prefix="mercado_livre", title="Período")
+    period = _render_somatorio_period_panel(period)
 
     selected_portfolio = _render_selection_controls(portfolios=portfolios, catalog_df=catalog_df)
     if selected_portfolio is None:
-        st.info("Crie ou selecione uma carteira para iniciar a auditoria Mercado Livre.")
+        st.info(f"Crie ou selecione uma carteira para iniciar a auditoria {SOMATORIO_FIDCS_TITLE}.")
         return
     selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
     runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period)
@@ -174,7 +216,7 @@ def render_tab_mercado_livre(period: ImePeriodSelection | None = None) -> None:
         if cached_outputs is not None:
             st.session_state[cache_session_key] = cached_outputs
             st.session_state[f"{cache_session_key}::source"] = "cache"
-            st.toast("Base Mercado Livre reutilizada do storage calculado.")
+            st.toast(f"Base {SOMATORIO_FIDCS_TITLE} reutilizada do storage calculado.")
             st.rerun()
         _execute_portfolio_load_for_funds(
             selected_portfolio=selected_portfolio,
@@ -212,7 +254,7 @@ def render_tab_mercado_livre(period: ImePeriodSelection | None = None) -> None:
             for cnpj, message in dashboard_errors.items():
                 st.caption(f"**{cnpj}** — {message}")
     if not dashboards_by_cnpj:
-        st.warning("Nenhum fundo carregado com sucesso para montar a aba Mercado Livre.")
+        st.warning(f"Nenhum fundo carregado com sucesso para montar a aba {SOMATORIO_FIDCS_TITLE}.")
         return
     official_pl_by_cnpj = _build_official_pl_by_cnpj(results=results, cnpjs=list(dashboards_by_cnpj))
 
@@ -237,6 +279,60 @@ def render_tab_mercado_livre(period: ImePeriodSelection | None = None) -> None:
         cache_dir=cache_dir,
         storage_source="recalculado",
     )
+
+
+render_tab_mercado_livre = render_tab_somatorio_fidcs
+
+
+def _render_somatorio_period_panel(global_period: ImePeriodSelection | None = None) -> ImePeriodSelection:
+    end_month = current_default_end_month()
+    options = ("6M", "12M", "24M", "YTD", "Customizado")
+    selected = st.radio(
+        "Janela do Somatório FIDCs",
+        options=options,
+        index=options.index("12M"),
+        horizontal=True,
+        key="somatorio_fidcs_load_window",
+        help="Define o período carregado para a carteira. Trocas de visualização dentro do período carregado não recalculam a base.",
+    )
+    if selected == "Customizado":
+        max_options = month_options(end_month, months_back=119)
+        default_start = global_period.start_month if global_period is not None else shift_month(end_month, -11)
+        default_end = global_period.end_month if global_period is not None else end_month
+        if default_start not in max_options:
+            default_start = shift_month(end_month, -11)
+        if default_end not in max_options:
+            default_end = end_month
+        start_index = max_options.index(default_start)
+        end_candidates = [value for value in max_options if value >= default_start]
+        if default_end not in end_candidates:
+            default_end = end_candidates[-1]
+        left, right = st.columns(2)
+        with left:
+            start_month = st.selectbox(
+                "Competência inicial",
+                options=max_options,
+                index=start_index,
+                key="somatorio_fidcs_period_start",
+                format_func=_format_month_option_label,
+            )
+        end_candidates = [value for value in max_options if value >= start_month]
+        with right:
+            end_month_selected = st.selectbox(
+                "Competência final",
+                options=end_candidates,
+                index=end_candidates.index(default_end) if default_end in end_candidates else len(end_candidates) - 1,
+                key="somatorio_fidcs_period_end",
+                format_func=_format_month_option_label,
+            )
+        period = build_custom_period(start_month=start_month, end_month=end_month_selected)
+    elif selected == "YTD":
+        period = build_custom_period(start_month=date(end_month.year, 1, 1), end_month=end_month)
+    else:
+        months = int(selected.removesuffix("M"))
+        period = build_custom_period(start_month=shift_month(end_month, -(months - 1)), end_month=end_month)
+    st.caption(f"Período de carga: {_format_month_option_label(period.start_month)} → {_format_month_option_label(period.end_month)} · {period.month_count} competências")
+    return period
 
 
 def _render_selection_controls(
@@ -323,7 +419,7 @@ def _render_portfolio_editor(
         name = st.text_input(
             "Nome da seleção",
             value=target.name if target is not None else "",
-            placeholder="Ex.: Mercado Livre",
+            placeholder="Ex.: Somatório FIDCs",
             key=f"ml_portfolio_name::{suffix}",
         ).strip()
         selected_labels = st.multiselect(
@@ -425,7 +521,7 @@ def _render_status_bar(
     total = len(selected_portfolio.funds)
     st.markdown(
         f"""
-<div class="fidc-period-bar">
+<div class="somatorio-fidcs-period-bar">
   <span><strong>Carteira:</strong> {escape(selected_portfolio.name)}</span>
   <span><strong>Período solicitado:</strong> {escape(period.label)}</span>
   <span><strong>Fundos carregados:</strong> {ok}/{total}</span>
@@ -442,10 +538,9 @@ def _render_outputs(
     cache_dir,
     storage_source: str,
 ) -> None:
-    validation_df = build_validation_table(outputs)
     st.markdown(
         f"""
-<div class="fidc-period-bar">
+<div class="somatorio-fidcs-period-bar">
   <span><strong>Período carregado:</strong> {escape(_loaded_period_label(outputs))}</span>
   <span><strong>Storage:</strong> {escape(storage_source)}</span>
   <span><strong>Identidade da carteira:</strong> {escape(str(outputs.metadata.get("storage_identity_key") or portfolio_identity_key(selected_portfolio.funds, fallback=selected_portfolio.id)))}</span>
@@ -454,27 +549,20 @@ def _render_outputs(
         unsafe_allow_html=True,
     )
 
-    excel_bytes = build_excel_export_bytes(outputs)
-    snapshot_bytes = build_consolidated_snapshot_excel_bytes(outputs)
-    pptx_bytes = build_pptx_export_bytes(outputs)
+    display_outputs = outputs
     main_tab, audit_tab = st.tabs(["Tabelas wide e gráficos", "Tabela de auditoria"])
 
     with main_tab:
-        btn_left, btn_mid, btn_right = st.columns([1.15, 1.65, 1.45])
+        _render_somatorio_fidcs_guide()
+        display_outputs = _render_loaded_period_window(outputs)
+        snapshot_bytes = build_consolidated_snapshot_excel_bytes(display_outputs)
+        pptx_bytes = build_pptx_export_bytes(display_outputs)
+        btn_left, btn_right = st.columns([1.65, 1.45])
         with btn_left:
-            st.download_button(
-                "Baixar wide completo",
-                data=excel_bytes,
-                file_name=f"mercado_livre_{_safe_file_token(selected_portfolio.name)}.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                key=f"ml_excel_download::{selected_portfolio.id}",
-                use_container_width=True,
-            )
-        with btn_mid:
             st.download_button(
                 "Baixar resumo 6m + gráficos consolidados",
                 data=snapshot_bytes,
-                file_name=f"mercado_livre_resumo_6m_{_safe_file_token(selected_portfolio.name)}.xlsx",
+                file_name=f"somatorio_fidcs_resumo_6m_{_safe_file_token(selected_portfolio.name)}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 key=f"ml_snapshot_excel_download::{selected_portfolio.id}",
                 use_container_width=True,
@@ -483,14 +571,14 @@ def _render_outputs(
             st.download_button(
                 "Baixar slides PPTX",
                 data=pptx_bytes,
-                file_name=f"mercado_livre_graficos_{_safe_file_token(selected_portfolio.name)}.pptx",
+                file_name=f"somatorio_fidcs_graficos_{_safe_file_token(selected_portfolio.name)}.pptx",
                 mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
                 key=f"ml_pptx_download::{selected_portfolio.id}",
                 use_container_width=True,
             )
 
         st.markdown("### Dados Consolidados (Somatorio)")
-        st.markdown(_render_wide_table_html(outputs.consolidated_wide), unsafe_allow_html=True)
+        st.markdown(_render_wide_table_html(display_outputs.consolidated_wide), unsafe_allow_html=True)
 
         st.markdown("### Gráficos consolidados")
         _render_graph_definitions()
@@ -499,23 +587,23 @@ def _render_outputs(
             _render_chart(
                 "Evolução de PL e Subordinação",
                 "PL consolidado em escala dinâmica; subordinação ex-360 no eixo direito.",
-                pl_subordination_chart(outputs.consolidated_monthly),
+                pl_subordination_chart(display_outputs.consolidated_monthly),
             )
         with right:
             _render_chart(
                 "NPL e Cobertura Ex-Vencidos > 360d",
                 "Índices consolidados recalculados a partir das somas absolutas.",
-                npl_coverage_chart(outputs.consolidated_monthly),
+                npl_coverage_chart(display_outputs.consolidated_monthly),
             )
 
         st.markdown("### Dados Fundos Individuais")
-        for cnpj, monthly_df in outputs.fund_monthly.items():
+        for cnpj, monthly_df in display_outputs.fund_monthly.items():
             fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
             with st.expander(f"{fund_name} · {cnpj}", expanded=False):
-                st.markdown(_render_wide_table_html(outputs.fund_wide[cnpj]), unsafe_allow_html=True)
+                st.markdown(_render_wide_table_html(display_outputs.fund_wide[cnpj]), unsafe_allow_html=True)
 
         st.markdown("### Gráficos individuais")
-        for cnpj, monthly_df in outputs.fund_monthly.items():
+        for cnpj, monthly_df in display_outputs.fund_monthly.items():
             fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
             with st.expander(f"{fund_name} · {cnpj}", expanded=False):
                 left, right = st.columns(2)
@@ -531,15 +619,15 @@ def _render_outputs(
                         "NPL Over 90d ex-360 e cobertura PDD ex-360 / NPL Over 90d ex-360.",
                         npl_coverage_chart(monthly_df),
                     )
-        _render_mercado_livre_guide()
 
     with audit_tab:
+        validation_df = build_validation_table(display_outputs)
         st.caption("Base auxiliar para conferência: valores absolutos são calculados primeiro; percentuais são derivados depois.")
         st.dataframe(_format_validation_for_display(validation_df), width="stretch", hide_index=True)
         st.caption(f"Base calculada persistida em `{cache_dir}`.")
-        if not outputs.warnings_df.empty:
+        if not display_outputs.warnings_df.empty:
             with st.expander("Warnings da base", expanded=False):
-                st.dataframe(outputs.warnings_df, width="stretch", hide_index=True)
+                st.dataframe(display_outputs.warnings_df, width="stretch", hide_index=True)
 
 
 def _render_chart(title: str, subtitle: str, chart) -> None:
@@ -549,26 +637,167 @@ def _render_chart(title: str, subtitle: str, chart) -> None:
     st.altair_chart(chart, width="stretch")
 
 
-def _render_mercado_livre_guide() -> None:
+def _render_loaded_period_window(outputs):
+    available = _available_competencia_months(outputs.consolidated_monthly)
+    if not available:
+        st.caption("Janela visual: sem competências disponíveis na base carregada.")
+        return outputs
+
+    loaded_start = available[0]
+    loaded_end = available[-1]
+    options = ("6M", "12M", "24M", "YTD", "Customizado", "Todo período carregado")
+    selected = st.radio(
+        "Janela exibida",
+        options=options,
+        index=options.index("12M"),
+        horizontal=True,
+        key="somatorio_fidcs_display_window",
+        help="Filtra tabelas e gráficos usando apenas as competências já carregadas no storage/cache.",
+    )
+
+    if selected == "Customizado":
+        default_start = _clamp_month(shift_month(loaded_end, -11), loaded_start, loaded_end)
+        left, right = st.columns(2)
+        with left:
+            start_month = st.selectbox(
+                "Competência inicial exibida",
+                options=available,
+                index=available.index(default_start),
+                key="somatorio_fidcs_display_start",
+                format_func=_format_month_option_label,
+            )
+        end_candidates = [value for value in available if value >= start_month]
+        with right:
+            end_month = st.selectbox(
+                "Competência final exibida",
+                options=end_candidates,
+                index=len(end_candidates) - 1,
+                key="somatorio_fidcs_display_end",
+                format_func=_format_month_option_label,
+            )
+    elif selected == "Todo período carregado":
+        start_month = loaded_start
+        end_month = loaded_end
+    elif selected == "YTD":
+        start_month = _clamp_month(date(loaded_end.year, 1, 1), loaded_start, loaded_end)
+        end_month = loaded_end
+    else:
+        months = int(selected.removesuffix("M"))
+        start_month = _clamp_month(shift_month(loaded_end, -(months - 1)), loaded_start, loaded_end)
+        end_month = loaded_end
+
+    st.caption(
+        "Janela exibida: "
+        f"{_format_month_option_label(start_month)} → {_format_month_option_label(end_month)} · "
+        f"{_month_count(start_month, end_month)} competência(s). "
+        "A troca desta janela usa a base já carregada e não recalcula o storage."
+    )
+    return _filter_outputs_by_competencia(outputs, start_month=start_month, end_month=end_month)
+
+
+def _available_competencia_months(monthly_df: pd.DataFrame) -> list[date]:
+    if monthly_df is None or monthly_df.empty:
+        return []
+    source = monthly_df.get("competencia_dt")
+    if source is None:
+        source = monthly_df.get("competencia")
+    if source is None:
+        return []
+    parsed = pd.to_datetime(source, errors="coerce")
+    values = sorted(
+        {
+            date(int(item.year), int(item.month), 1)
+            for item in parsed.dropna()
+        }
+    )
+    return values
+
+
+def _filter_outputs_by_competencia(outputs, *, start_month: date, end_month: date):
+    filtered_fund_monthly: dict[str, pd.DataFrame] = {}
+    filtered_fund_wide: dict[str, pd.DataFrame] = {}
+    for cnpj, frame in outputs.fund_monthly.items():
+        filtered = _filter_monthly_frame(frame, start_month=start_month, end_month=end_month)
+        filtered_fund_monthly[cnpj] = filtered
+        filtered_fund_wide[cnpj] = build_wide_table(filtered, scope_name=_fund_name_from_frame(filtered, fallback=cnpj))
+
+    consolidated = _filter_monthly_frame(outputs.consolidated_monthly, start_month=start_month, end_month=end_month)
+    metadata = dict(outputs.metadata)
+    metadata.update(
+        {
+            "display_period_label": f"{_format_month_option_label(start_month)} a {_format_month_option_label(end_month)}",
+            "display_period_start": start_month.isoformat(),
+            "display_period_end": end_month.isoformat(),
+        }
+    )
+    return replace(
+        outputs,
+        fund_monthly=filtered_fund_monthly,
+        fund_wide=filtered_fund_wide,
+        consolidated_monthly=consolidated,
+        consolidated_wide=build_wide_table(consolidated, scope_name=str(metadata.get("portfolio_name") or "Consolidado")),
+        metadata=metadata,
+    )
+
+
+def _filter_monthly_frame(monthly_df: pd.DataFrame, *, start_month: date, end_month: date) -> pd.DataFrame:
+    if monthly_df is None or monthly_df.empty:
+        return pd.DataFrame() if monthly_df is None else monthly_df.copy()
+    output = monthly_df.copy()
+    source = output.get("competencia_dt")
+    if source is None:
+        source = output.get("competencia")
+    if source is None:
+        return output
+    parsed = pd.to_datetime(source, errors="coerce").dt.to_period("M").dt.to_timestamp()
+    mask = (parsed >= pd.Timestamp(start_month)) & (parsed <= pd.Timestamp(end_month))
+    return output.loc[mask].reset_index(drop=True)
+
+
+def _fund_name_from_frame(monthly_df: pd.DataFrame, *, fallback: str) -> str:
+    if monthly_df is not None and not monthly_df.empty and "fund_name" in monthly_df.columns:
+        value = str(monthly_df["fund_name"].iloc[0] or "").strip()
+        if value:
+            return value
+    return fallback
+
+
+def _clamp_month(value: date, minimum: date, maximum: date) -> date:
+    if value < minimum:
+        return minimum
+    if value > maximum:
+        return maximum
+    return value
+
+
+def _month_count(start_month: date, end_month: date) -> int:
+    return ((end_month.year - start_month.year) * 12) + (end_month.month - start_month.month) + 1
+
+
+def _format_month_option_label(value: date) -> str:
+    return ime_tab._format_month_option_label(value)
+
+
+def _render_somatorio_fidcs_guide() -> None:
     with st.expander("Passo a passo de utilização e mecânica da aba", expanded=False):
-        st.markdown(_build_mercado_livre_guide_markdown())
+        st.markdown(_build_somatorio_fidcs_guide_markdown())
 
 
-def _build_mercado_livre_guide_markdown() -> str:
+def _build_somatorio_fidcs_guide_markdown() -> str:
     return """
 ### Passo a passo de utilização
 
 1. Selecione uma carteira salva ou crie uma nova carteira com os FIDCs desejados.
-2. Escolha o período da análise; se nada for especificado, a aba usa os últimos meses disponíveis na base carregada.
-3. Clique em carregar para montar as bases individuais, a base consolidada, os gráficos e os arquivos exportáveis.
-4. Comece pela tabela **Dados Consolidados (Somatorio)** para validar a carteira como um todo.
-5. Use **Dados Fundos Individuais** para auditar cada FIDC antes de interpretar os gráficos.
-6. Consulte a subaba **Tabela de auditoria** quando precisar conferir campos auxiliares, warnings e rastreabilidade.
+2. Escolha o período de carga; o padrão é 12 meses, mas a aba permite carregar 6M, 12M, 24M, YTD ou intervalo customizado.
+3. Clique em **Carregar carteira** para montar ou reutilizar a base individual, a base consolidada, os gráficos e os arquivos exportáveis.
+4. Depois da carga, ajuste a **Janela exibida** para navegar por 6M, 12M, 24M, YTD, customizado ou todo o histórico carregado sem recalcular o storage.
+5. Comece por **Dados Consolidados (Somatorio)**; ela é a memória principal para validar a carteira.
+6. Use **Dados Fundos Individuais** e a subaba **Tabela de auditoria** para rastrear divergências, warnings e campos auxiliares.
 
 ### Mecânica da aba
 
 - A carteira é identificada por uma chave determinística baseada na composição dos fundos e nos parâmetros relevantes; o nome é apenas um rótulo amigável.
-- Quando a mesma carteira e o mesmo período já existem no storage, a aba reutiliza a base calculada; quando falta competência nova, a atualização é incremental.
+- Quando a mesma carteira e o mesmo período já existem no storage, a aba reutiliza a base calculada; para ampliar a janela, carregue um período maior e depois filtre a visualização.
 - Cada FIDC é normalizado em uma base mensal canônica com PL, classes, carteira, PDD, aging, NPL acumulado, ex-360 e flags de qualidade.
 - O PL total usa `PATRLIQ/VL_PATRIM_LIQ` quando disponível; a soma das classes fica como reconciliação e divergências materiais geram warning.
 - A visão **Ex-Vencidos > 360d** simula a baixa dos vencidos acima de 360 dias da carteira, da PDD disponível e, se necessário, do PL.
@@ -576,7 +805,7 @@ def _build_mercado_livre_guide_markdown() -> str:
 - NPL Over é acumulado: por exemplo, Over 90d soma 91-180, 181-360 e acima de 360 dias.
 - No consolidado, valores absolutos são somados por competência e os percentuais são recalculados a partir dos numeradores e denominadores agregados; a aba nunca faz média simples de percentuais.
 - Os gráficos usam a mesma base das tabelas wide; se a tabela e o gráfico divergirem, a tabela é a memória de cálculo primária.
-- O Excel exporta valores numéricos puros com formatação de célula, e o PPTX gera um slide para o consolidado e um slide por FIDC em grade 2x2.
+- O Excel de resumo exporta os últimos seis meses exibidos com valores numéricos editáveis, e o PPTX gera um slide para o consolidado e um slide por FIDC em grade 2x2.
 
 ### Como interpretar
 
@@ -584,6 +813,14 @@ def _build_mercado_livre_guide_markdown() -> str:
 - **NPL e Cobertura Ex-Vencidos > 360d** compara inadimplência Over 90d ex-360 com a cobertura de PDD sobre esse estoque.
 - Warnings indicam pontos que não devem ser lidos automaticamente, como PL oficial não reconciliado com classes ou denominadores zerados.
 """
+
+
+def _render_mercado_livre_guide() -> None:
+    _render_somatorio_fidcs_guide()
+
+
+def _build_mercado_livre_guide_markdown() -> str:
+    return _build_somatorio_fidcs_guide_markdown()
 
 
 def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
@@ -709,11 +946,15 @@ def _format_br_number(value: float, *, decimals: int) -> str:
 
 
 def _render_graph_definitions() -> None:
-    st.caption(
-        "**Evolução de PL e Subordinação:** barras empilhadas mostram PL Sênior e Subordinada + Mez ex-360 em R$; "
-        "a linha mostra a subordinação ex-360, após eventual baixa residual de Over 360 não coberta por PDD. "
-        "**NPL e Cobertura Ex-Vencidos > 360d:** a linha de NPL usa NPL Over 90d sem vencidos acima de 360 dias; "
-        "a cobertura usa PDD Ex Over 360d / NPL Over 90d Ex 360, em que PDD Ex Over 360d = PDD total menos a baixa Over 360d na PDD."
+    st.markdown(
+        """
+<ul class="chart-note-list">
+  <li><strong>Evolução de PL e Subordinação:</strong> barras empilhadas mostram PL Sênior e Subordinada + Mez ex-360 em R$; a linha mostra subordinação ex-360.</li>
+  <li><strong>Base ex-360:</strong> considera eventual baixa residual de Over 360 não coberta por PDD.</li>
+  <li><strong>NPL e Cobertura:</strong> NPL usa Over 90d sem vencidos acima de 360 dias; cobertura usa PDD Ex Over 360d / NPL Over 90d Ex 360.</li>
+</ul>
+""",
+        unsafe_allow_html=True,
     )
 
 

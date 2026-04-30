@@ -5,7 +5,7 @@ from datetime import date
 
 
 DEFAULT_PRESET_MONTHS = 12
-PERIOD_PRESET_OPTIONS = (3, 6, 9, 12)
+PERIOD_PRESET_OPTIONS = (3, 6, 9, 12, 24)
 
 
 def month_start(value: date) -> date:
