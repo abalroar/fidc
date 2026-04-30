@@ -73,7 +73,7 @@ _SOMATORIO_FIDCS_UI_CSS = """
 .somatorio-fidcs-period-bar {
     display: flex;
     flex-wrap: nowrap;
-    gap: 8px;
+    gap: 6px;
     overflow-x: auto;
     padding-bottom: 4px;
     margin: 0 0 0.45rem 0;
@@ -87,10 +87,10 @@ _SOMATORIO_FIDCS_UI_CSS = """
     color: #5a5a5a;
     display: inline-flex;
     flex: 0 0 auto;
-    font-size: 0.76rem;
+    font-size: 0.72rem;
     gap: 4px;
     line-height: 1.2;
-    padding: 4px 8px;
+    padding: 4px 7px;
     white-space: nowrap;
 }
 .somatorio-fidcs-period-bar strong {
@@ -226,7 +226,6 @@ def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None
         )
         st.rerun()
 
-    _render_status_bar(selected_portfolio=selected_portfolio, period=period, results=results)
     cached_session_outputs = st.session_state.get(cache_session_key)
     if cached_session_outputs is not None:
         cache_dir = cache_dir_for_outputs(
@@ -242,6 +241,7 @@ def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None
         )
         return
     if not results:
+        _render_status_bar(selected_portfolio=selected_portfolio, period=period, results=results)
         st.info("Clique em **Carregar carteira** para montar a base auditável e os gráficos.")
         return
 
@@ -254,6 +254,7 @@ def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None
             for cnpj, message in dashboard_errors.items():
                 st.caption(f"**{cnpj}** — {message}")
     if not dashboards_by_cnpj:
+        _render_status_bar(selected_portfolio=selected_portfolio, period=period, results=results)
         st.warning(f"Nenhum fundo carregado com sucesso para montar a aba {SOMATORIO_FIDCS_TITLE}.")
         return
     official_pl_by_cnpj = _build_official_pl_by_cnpj(results=results, cnpjs=list(dashboards_by_cnpj))
@@ -538,9 +539,15 @@ def _render_outputs(
     cache_dir,
     storage_source: str,
 ) -> None:
+    ok = len(outputs.fund_monthly)
+    total = len(selected_portfolio.funds)
+    requested_period = str(outputs.metadata.get("period_label") or _loaded_period_label(outputs))
     st.markdown(
         f"""
 <div class="somatorio-fidcs-period-bar">
+  <span><strong>Carteira:</strong> {escape(selected_portfolio.name)}</span>
+  <span><strong>Período solicitado:</strong> {escape(requested_period)}</span>
+  <span><strong>Fundos carregados:</strong> {ok}/{total}</span>
   <span><strong>Período carregado:</strong> {escape(_loaded_period_label(outputs))}</span>
   <span><strong>Storage:</strong> {escape(storage_source)}</span>
   <span><strong>Identidade da carteira:</strong> {escape(str(outputs.metadata.get("storage_identity_key") or portfolio_identity_key(selected_portfolio.funds, fallback=selected_portfolio.id)))}</span>
@@ -550,7 +557,7 @@ def _render_outputs(
     )
 
     display_outputs = outputs
-    main_tab, audit_tab = st.tabs(["Tabelas wide e gráficos", "Tabela de auditoria"])
+    main_tab, audit_tab = st.tabs(["Tabela Completa e gráficos", "Tabela de auditoria"])
 
     with main_tab:
         _render_somatorio_fidcs_guide()
@@ -577,7 +584,7 @@ def _render_outputs(
                 use_container_width=True,
             )
 
-        st.markdown("### Dados Consolidados (Somatorio)")
+        st.markdown("### Dados Consolidados – Somatório FIDCs")
         st.markdown(_render_wide_table_html(display_outputs.consolidated_wide), unsafe_allow_html=True)
 
         st.markdown("### Gráficos consolidados")
@@ -791,7 +798,7 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 2. Escolha o período de carga; o padrão é 12 meses, mas a aba permite carregar 6M, 12M, 24M, YTD ou intervalo customizado.
 3. Clique em **Carregar carteira** para montar ou reutilizar a base individual, a base consolidada, os gráficos e os arquivos exportáveis.
 4. Depois da carga, ajuste a **Janela exibida** para navegar por 6M, 12M, 24M, YTD, customizado ou todo o histórico carregado sem recalcular o storage.
-5. Comece por **Dados Consolidados (Somatorio)**; ela é a memória principal para validar a carteira.
+5. Comece por **Dados Consolidados – Somatório FIDCs**; ela é a memória principal para validar a carteira.
 6. Use **Dados Fundos Individuais** e a subaba **Tabela de auditoria** para rastrear divergências, warnings e campos auxiliares.
 
 ### Mecânica da aba
@@ -804,7 +811,7 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 - `PDD Ex Over 360d` é a PDD total menos a baixa dos vencidos acima de 360 dias, limitada ao saldo de PDD disponível; não é PDD específica por faixa.
 - NPL Over é acumulado: por exemplo, Over 90d soma 91-180, 181-360 e acima de 360 dias.
 - No consolidado, valores absolutos são somados por competência e os percentuais são recalculados a partir dos numeradores e denominadores agregados; a aba nunca faz média simples de percentuais.
-- Os gráficos usam a mesma base das tabelas wide; se a tabela e o gráfico divergirem, a tabela é a memória de cálculo primária.
+- Os gráficos usam a mesma base da **Tabela Completa**; se a tabela e o gráfico divergirem, a tabela é a memória de cálculo primária.
 - O Excel de resumo exporta os últimos seis meses exibidos com valores numéricos editáveis, e o PPTX gera um slide para o consolidado e um slide por FIDC em grade 2x2.
 
 ### Como interpretar
@@ -825,7 +832,7 @@ def _build_mercado_livre_guide_markdown() -> str:
 
 def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
     if df_wide.empty:
-        return "<p class='chart-subtitle'>Sem dados para a tabela wide consolidada.</p>"
+        return "<p class='chart-subtitle'>Sem dados para a Tabela Completa consolidada.</p>"
     period_columns = order_period_columns_desc(df_wide.columns)
     table_min_width = max(620 + 96 * len(period_columns), 920)
     colgroup = _wide_table_colgroup(period_columns)

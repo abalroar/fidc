@@ -5423,11 +5423,11 @@ def _render_raw_extraction_section(result: InformeMensalResult) -> None:
         if len(result.docs_df) > max_preview_rows:
             st.info(f"Exibindo {max_preview_rows} de {len(result.docs_df)} documentos.")
 
-        st.subheader("Prévia do wide final")
+        st.subheader("Prévia da Tabela Completa final")
         wide_preview_df = _read_csv_preview(result.wide_csv_path, max_preview_rows)
         st.dataframe(wide_preview_df, width="stretch")
         if result.wide_row_count > max_preview_rows:
-            st.info(f"Exibindo {max_preview_rows} de {result.wide_row_count} linhas do wide final.")
+            st.info(f"Exibindo {max_preview_rows} de {result.wide_row_count} linhas da Tabela Completa final.")
 
         if result.listas_row_count > 0:
             st.subheader("Prévia das estruturas repetitivas")

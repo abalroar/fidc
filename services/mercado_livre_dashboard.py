@@ -245,13 +245,13 @@ def build_wide_table(monthly_df: pd.DataFrame, *, scope_name: str) -> pd.DataFra
     sorted_df = _sort_monthly_by_competencia(monthly_df, descending=True)
     competencias = sorted_df["competencia"].astype(str).tolist()
     display_competencias = [_format_competencia_short(value) for value in competencias]
-    block_scales = _money_scales_by_block(sorted_df)
+    metric_scales = _money_scales_by_metric(sorted_df)
     metric_specs = _wide_metric_specs()
     rows: list[dict[str, object]] = []
     for spec in metric_specs:
         values = []
         for _, item in sorted_df.iterrows():
-            values.append(_format_wide_value(item.get(spec["column"]), unit=str(spec["unit"]), scale=block_scales.get(str(spec["block"]))))
+            values.append(_format_wide_value(item.get(spec["column"]), unit=str(spec["unit"]), scale=metric_scales.get(str(spec["column"]))))
         period_values = dict(zip(display_competencias, values, strict=False))
         rows.append(
             {
@@ -918,6 +918,20 @@ def _money_scales_by_block(df: pd.DataFrame) -> dict[str, tuple[float, str]]:
     return result
 
 
+def _money_scales_by_metric(df: pd.DataFrame) -> dict[str, tuple[float, str]]:
+    specs = _wide_metric_specs()
+    result: dict[str, tuple[float, str]] = {}
+    for spec in specs:
+        if spec["unit"] != "money":
+            continue
+        column = str(spec["column"])
+        if column not in df.columns:
+            continue
+        values = pd.to_numeric(df[column], errors="coerce").dropna().abs().tolist()
+        result[column] = _money_scale(values)
+    return result
+
+
 def _money_scale(values: list[float]) -> tuple[float, str]:
     max_value = max(values) if values else 0.0
     if max_value >= 1_000_000_000:
@@ -937,7 +951,7 @@ def _format_wide_value(value: object, *, unit: str, scale: tuple[float, str] | N
             return "N/D"
         if label == "R$":
             return f"R$ {_format_decimal(numeric, 2)}"
-        return f"{label} {_format_decimal(numeric / divisor, 2)}"
+        return f"{label} {_format_decimal(numeric / divisor, 1)}"
     if unit == "percent":
         numeric = _num(value)
         return "N/D" if numeric is None else f"{_format_decimal(numeric, 2)}%"
@@ -1182,7 +1196,7 @@ def _write_numeric_wide_sheet(worksheet, monthly_df: pd.DataFrame, *, scope_name
     sorted_df = _sort_monthly_by_competencia(monthly_df, descending=True)
     competencias = sorted_df["competencia"].astype(str).tolist()
     period_labels = [_format_competencia_short(value) for value in competencias]
-    block_scales = _money_scales_by_block(sorted_df)
+    metric_scales = _money_scales_by_metric(sorted_df)
     columns = ["Métrica", *period_labels, "Memória / fórmula"]
     worksheet.append(columns)
 
@@ -1204,7 +1218,7 @@ def _write_numeric_wide_sheet(worksheet, monthly_df: pd.DataFrame, *, scope_name
             worksheet,
             worksheet.max_row,
             unit=str(spec["unit"]),
-            scale=block_scales.get(block),
+            scale=metric_scales.get(str(spec["column"])),
             period_start_col=2,
             period_end_col=1 + len(period_labels),
         )

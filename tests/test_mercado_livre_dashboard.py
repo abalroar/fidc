@@ -410,6 +410,28 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertEqual("178,0%", _dense_wide_value("178,04%"))
         self.assertEqual("5.380,0 MM", _dense_wide_value("R$ mm 5.380,00"))
 
+    def test_wide_table_uses_money_scale_by_metric_for_readability(self) -> None:
+        monthly = pd.DataFrame(
+            [
+                {
+                    "scope": "consolidado",
+                    "fund_name": "Carteira",
+                    "cnpj": "CONSOLIDADO",
+                    "competencia": "01/2026",
+                    "competencia_dt": pd.Timestamp("2026-01-01"),
+                    "carteira_bruta": 6_200_000_000.0,
+                    "pdd_total": 320_000_000.0,
+                }
+            ]
+        )
+
+        wide = build_wide_table(monthly, scope_name="Carteira")
+        carteira = wide.loc[wide["Métrica"] == "Carteira Bruta total", "jan/26"].iloc[0]
+        pdd = wide.loc[wide["Métrica"] == "PDD total", "jan/26"].iloc[0]
+
+        self.assertEqual("R$ bi 6,2", carteira)
+        self.assertEqual("R$ mm 320,0", pdd)
+
     def test_wide_table_text_columns_wrap_in_fixed_grid(self) -> None:
         self.assertIn("table-layout: fixed;", _MERCADO_LIVRE_UI_CSS)
         self.assertIn("vertical-align: top;", _MERCADO_LIVRE_UI_CSS)
@@ -425,12 +447,13 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         guide = _build_mercado_livre_guide_markdown()
 
         self.assertIn("Passo a passo de utilização", guide)
-        self.assertIn("Dados Consolidados (Somatorio)", guide)
+        self.assertIn("Dados Consolidados – Somatório FIDCs", guide)
         self.assertIn("Dados Fundos Individuais", guide)
         self.assertIn("PATRLIQ/VL_PATRIM_LIQ", guide)
         self.assertIn("Ex-Vencidos > 360d", guide)
         self.assertIn("nunca faz média simples de percentuais", guide)
         self.assertIn("um slide por FIDC", guide)
+        self.assertNotIn("tabelas wide", guide.lower())
 
     def test_outputs_cache_roundtrip_uses_deterministic_identity(self) -> None:
         dashboard = _dashboard(

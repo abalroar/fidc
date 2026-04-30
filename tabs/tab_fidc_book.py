@@ -9,6 +9,15 @@ from services.fidc_book import FIDCBookIndex, FIDCBookPage, load_fidc_book_index
 
 _BOOK_CSS = """
 <style>
+.fidc-book-header,
+.fidc-book-header *,
+.fidc-book-page-shell,
+.fidc-book-page-shell *,
+div.element-container:has(.fidc-book-page-shell) + div.element-container [data-testid="stMarkdownContainer"],
+div.element-container:has(.fidc-book-page-shell) + div.element-container [data-testid="stMarkdownContainer"] * {
+    font-family: 'IBM Plex Sans', sans-serif !important;
+}
+
 .fidc-book-header {
     margin: 0.15rem 0 1.1rem 0;
     padding-bottom: 0.9rem;
@@ -29,15 +38,6 @@ _BOOK_CSS = """
     color: #68727d;
     font-size: 0.92rem;
     line-height: 1.4;
-}
-
-.fidc-book-nav {
-    padding-top: 0.1rem;
-}
-
-.fidc-book-nav-divider {
-    margin: 0.8rem 0 0.7rem 0;
-    border-top: 1px solid #ece5de;
 }
 
 .fidc-book-page-shell {
@@ -182,65 +182,55 @@ def render_tab_fidc_book() -> None:
     if not available_sections:
         available_sections = index.sections
 
-    left_col, right_col = st.columns([0.84, 2.36], gap="large")
+    query = st.text_input(
+        "Buscar",
+        key="fidc_book_query",
+        placeholder="Buscar no glossário",
+        label_visibility="collapsed",
+    )
 
-    with left_col:
-        st.markdown('<div class="fidc-book-nav">', unsafe_allow_html=True)
-        query = st.text_input(
-            "Buscar",
-            key="fidc_book_query",
-            placeholder="Buscar",
-            label_visibility="collapsed",
-        )
+    filtered_pages = index.search_pages(query)
+    filtered_page_ids = {page.page_id for page in filtered_pages}
+    available_sections = tuple(
+        section
+        for section in index.sections
+        if any(page.page_id in filtered_page_ids for page in section.pages)
+    )
+    if not available_sections:
+        st.info("Nenhuma página encontrada.")
+        return
 
-        filtered_pages = index.search_pages(query)
-        filtered_page_ids = {page.page_id for page in filtered_pages}
-        available_sections = tuple(
-            section
-            for section in index.sections
-            if any(page.page_id in filtered_page_ids for page in section.pages)
-        )
-        if not available_sections:
-            st.info("Nenhuma página encontrada.")
-            st.markdown("</div>", unsafe_allow_html=True)
-            return
+    section_tabs = st.tabs([_section_tab_label(section) for section in available_sections])
+    current_page = _current_page(index, filtered_page_ids)
+    for section, tab in zip(available_sections, section_tabs, strict=False):
+        with tab:
+            section_pages = tuple(page for page in section.pages if page.page_id in filtered_page_ids)
+            if not section_pages:
+                st.info("Nenhuma página encontrada nesta seção.")
+                continue
+            page_lookup = {page.page_id: page for page in section_pages}
+            default_page_id = current_page.page_id if current_page and current_page.page_id in page_lookup else section_pages[0].page_id
+            if st.session_state.get(f"fidc_book_page_id::{section.section_id}") not in page_lookup:
+                st.session_state[f"fidc_book_page_id::{section.section_id}"] = default_page_id
+            left_col, right_col = st.columns([0.82, 2.38], gap="large")
+            with left_col:
+                page_id = st.radio(
+                    "Páginas",
+                    options=[page.page_id for page in section_pages],
+                    index=[page.page_id for page in section_pages].index(default_page_id),
+                    format_func=lambda value: page_lookup[value].title,
+                    key=f"fidc_book_page_id::{section.section_id}",
+                    label_visibility="collapsed",
+                )
+            with right_col:
+                selected_page = page_lookup[page_id]
+                _render_page(index, selected_page)
 
-        section_lookup = {section.section_id: section for section in available_sections}
-        current_page = _current_page(index, filtered_page_ids)
-        default_section_id = current_page.section_id if current_page else available_sections[0].section_id
-        if st.session_state.get("fidc_book_section_id") not in section_lookup:
-            st.session_state["fidc_book_section_id"] = default_section_id
 
-        section_id = st.selectbox(
-            "Seção",
-            options=[section.section_id for section in available_sections],
-            index=[section.section_id for section in available_sections].index(default_section_id),
-            format_func=lambda value: section_lookup[value].title,
-            key="fidc_book_section_id",
-            label_visibility="collapsed",
-        )
-        section = section_lookup[section_id]
-
-        section_pages = tuple(page for page in section.pages if page.page_id in filtered_page_ids)
-        page_lookup = {page.page_id: page for page in section_pages}
-        default_page_id = current_page.page_id if current_page and current_page.page_id in page_lookup else section_pages[0].page_id
-        if st.session_state.get("fidc_book_page_id") not in page_lookup:
-            st.session_state["fidc_book_page_id"] = default_page_id
-
-        st.markdown('<div class="fidc-book-nav-divider"></div>', unsafe_allow_html=True)
-        page_id = st.radio(
-            "Páginas",
-            options=[page.page_id for page in section_pages],
-            index=[page.page_id for page in section_pages].index(default_page_id),
-            format_func=lambda value: page_lookup[value].title,
-            key="fidc_book_page_id",
-            label_visibility="collapsed",
-        )
-        st.markdown("</div>", unsafe_allow_html=True)
-        selected_page = page_lookup[page_id]
-
-    with right_col:
-        _render_page(index, selected_page)
+def _section_tab_label(section) -> str:
+    if section.section_id == "comece-aqui":
+        return "Guia de uso do glossário"
+    return section.title
 
 
 def _current_page(index: FIDCBookIndex, filtered_page_ids: set[str]) -> FIDCBookPage | None:

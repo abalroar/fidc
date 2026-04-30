@@ -255,7 +255,7 @@ class InformeMensalService:
                 trace=audit_rows,
             )
 
-        _report_progress(progress_callback, total_docs, total_steps, "Montando wide final em disco...")
+        _report_progress(progress_callback, total_docs, total_steps, "Montando Tabela Completa final em disco...")
         wide_row_count = build_wide_csv_from_period_csvs(
             period_scalar_paths=period_scalar_paths,
             competencias_ordenadas=competencias_ordenadas,
@@ -265,7 +265,7 @@ class InformeMensalService:
         add_audit(
             "montagem_dataset",
             "ok",
-            "CSVs temporários e wide final gerados em disco.",
+            "CSVs temporários e Tabela Completa final gerados em disco.",
             linhas_escalares=contas_row_count,
             linhas_lista=listas_row_count,
             linhas_wide=wide_row_count,

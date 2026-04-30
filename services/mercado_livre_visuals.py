@@ -304,6 +304,7 @@ def _format_money(value: object, *, scale_divisor: float, scale_label: str) -> s
     numeric = _num(value)
     if numeric is None:
         return "N/D"
-    if scale_label == "R$":
+    value_divisor, value_label = _money_scale(pd.Series([numeric]))
+    if value_label == "R$":
         return f"R$ {_format_decimal(numeric, 2)}"
-    return f"{scale_label} {_format_decimal(numeric / scale_divisor, 2)}"
+    return f"{value_label} {_format_decimal(numeric / value_divisor, 1)}"

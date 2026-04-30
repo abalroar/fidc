@@ -348,7 +348,7 @@ class ChunkedInformeMensalRunTests(unittest.TestCase):
         self.assertEqual("20.0", passivo_row["02/2026"])
 
         self.assertEqual((4, 4, "Concluído."), progress_events[-1])
-        self.assertIn("Montando wide final em disco...", [event[2] for event in progress_events])
+        self.assertIn("Montando Tabela Completa final em disco...", [event[2] for event in progress_events])
         self.assertIn("Finalizando workbook Excel em disco...", [event[2] for event in progress_events])
 
 
