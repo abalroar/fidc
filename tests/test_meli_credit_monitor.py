@@ -125,7 +125,7 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertIn("Carteira ex-360", growth_payload)
         self.assertIn("text", growth_payload)
 
-    def test_dashboard_meli_cohort_chart_uses_chronological_labels_and_gray_dashes(self) -> None:
+    def test_dashboard_meli_cohort_chart_uses_chronological_labels_and_gray_scale(self) -> None:
         monitor = build_monitor_base(_sample_monthly(month_count=9))
         cohorts = build_cohort_matrix(monitor)
 
@@ -133,8 +133,10 @@ class MeliCreditMonitorTest(unittest.TestCase):
 
         self.assertIn("Jan-26", payload)
         self.assertNotIn("01/2026", payload)
-        self.assertIn("strokeDash", payload)
+        self.assertNotIn("strokeDash", payload)
         self.assertIn("#000000", payload)
+        self.assertIn("#D9D9D9", payload)
+        self.assertIn("\"domain\"", payload)
 
     def test_dashboard_meli_pptx_export_is_valid_zip(self) -> None:
         monitor = build_monitor_base(_sample_monthly(month_count=7))

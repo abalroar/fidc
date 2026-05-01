@@ -9,6 +9,8 @@ import streamlit as st
 
 from services.ime_period import ImePeriodSelection, build_custom_period, current_default_end_month, month_options, shift_month
 from services.meli_credit_monitor import (
+    build_meli_chart_axis_table,
+    build_meli_methodology_table,
     build_meli_monitor_outputs,
     latest_row,
 )
@@ -318,23 +320,27 @@ def _render_consolidated_dashboard(monitor_outputs) -> None:  # noqa: ANN001
         "Roll rates",
         "Eixo esquerdo: roll rate em %. Sem eixo direito. 61-90 usa carteira a vencer de três meses antes; 151-180 usa seis meses antes.",
     )
+    _chart_note("Roll rate mede quanto do saldo exposto em mês anterior aparece em uma faixa de atraso futura.")
     st.altair_chart(roll_rates_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     col_left, col_right = st.columns(2)
     with col_left:
         _chart_title("NPL por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
+        _chart_note("NPL separa atraso inicial e atraso maduro, sempre dividido pela carteira após baixa conceitual do Over 360d.")
         st.altair_chart(npl_severity_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
     with col_right:
-        _chart_title("Carteira ex-360 e crescimento", "Eixo esquerdo: carteira ex-360 em R$. Eixo direito: crescimento a/a em %.")
+        _chart_title("Carteira ex-360 e crescimento YoY", "Eixo esquerdo: carteira ex-360 em R$. Eixo direito: crescimento YoY em %.")
+        _chart_note("YoY compara a carteira ex-360 do mês atual contra a mesma competência do ano anterior.")
         st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     col_left, col_right = st.columns(2)
     with col_left:
         _chart_title("Duration por FIDC", "Eixo esquerdo: duration em meses. Sem eixo direito; consolidado ponderado por saldo.")
+        _chart_note("Duration é prazo médio ponderado pela malha de vencimentos; não é mediana dos prazos.")
         st.altair_chart(duration_chart(monitor_outputs.consolidated_monitor, monitor_outputs.fund_monitor), use_container_width=True)
     with col_right:
         _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
-        _cohort_explanation()
+        _chart_note(_cohort_explanation_text())
         st.altair_chart(cohort_chart(monitor_outputs.consolidated_cohorts), use_container_width=True)
 
 
@@ -348,12 +354,23 @@ def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
             col_left, col_right = st.columns(2)
             with col_left:
                 _chart_title("Roll rates", "Eixo esquerdo: roll rate em %. Sem eixo direito; denominador é carteira a vencer defasada.")
+                _chart_note("Roll rate mede quanto do saldo exposto em mês anterior aparece em uma faixa de atraso futura.")
                 st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
             with col_right:
                 _chart_title("NPL por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
+                _chart_note("NPL separa atraso inicial e atraso maduro, sempre dividido pela carteira após baixa conceitual do Over 360d.")
                 st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
+            col_left, col_right = st.columns(2)
+            with col_left:
+                _chart_title("Carteira ex-360 e crescimento YoY", "Eixo esquerdo: carteira ex-360 em R$. Eixo direito: crescimento YoY em %.")
+                _chart_note("YoY compara a carteira ex-360 do mês atual contra a mesma competência do ano anterior.")
+                st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
+            with col_right:
+                _chart_title("Duration", "Eixo esquerdo: duration em meses. Sem eixo direito.")
+                _chart_note("Duration é prazo médio ponderado pela malha de vencimentos; não é mediana dos prazos.")
+                st.altair_chart(duration_chart(pd.DataFrame(), {cnpj: monitor}), use_container_width=True)
             _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
-            _cohort_explanation()
+            _chart_note(_cohort_explanation_text())
             st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
 
 
@@ -397,20 +414,18 @@ def _render_audit(monitor_outputs) -> None:  # noqa: ANN001
 
 
 def _render_methodology() -> None:
-    with st.expander("Metodologia e leitura dos cohorts", expanded=False):
+    with st.expander("Metodologia, fórmulas e fontes dos indicadores", expanded=False):
         st.markdown(
             """
-**Cohort ou safra:** conjunto de créditos originados em um mesmo mês.
+O painel usa dados mensais já compilados no Somatório FIDCs. No consolidado, valores absolutos são somados primeiro e percentuais são recalculados depois.
 
-**Eixo X:** mês de maturação da safra, de M1 a M6.
-
-**Eixo Y:** percentual do saldo que venceria em 30 dias na origem da safra e que aparece nos buckets de atraso acompanhados nos meses seguintes.
-
-**Como ler:** compare linhas de safras diferentes no mesmo mês de maturação. Linhas mais altas indicam mais deterioração relativa daquela safra.
-
-**Por que é útil:** ajuda a identificar se as safras recentes estão melhorando ou piorando em relação às safras anteriores.
+**Leitura dos gráficos:** cada gráfico informa explicitamente o eixo usado, a unidade e se há eixo direito. Os rótulos finais mostram o último ponto calculável de cada série.
             """
         )
+        st.markdown("**Eixos dos gráficos**")
+        st.dataframe(build_meli_chart_axis_table(), use_container_width=True, hide_index=True)
+        st.markdown("**Fórmulas e fontes das métricas**")
+        st.dataframe(build_meli_methodology_table(), use_container_width=True, hide_index=True)
 
 
 def _render_status_bar(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection, outputs, storage_source: str) -> None:  # noqa: ANN001
@@ -457,9 +472,14 @@ def _chart_title(title: str, subtitle: str) -> None:
     st.markdown(f"<div class='meli-chart-subtitle'>{escape(subtitle)}</div>", unsafe_allow_html=True)
 
 
-def _cohort_explanation() -> None:
-    st.caption(
-        "Cohort é a safra de créditos originados em um mês. O gráfico conecta essa originação mensal ao atraso observado nos meses seguintes, permitindo comparar qualidade e deterioração de risco entre safras."
+def _chart_note(text: str) -> None:
+    st.markdown(f"<div class='meli-chart-subtitle'>{escape(text)}</div>", unsafe_allow_html=True)
+
+
+def _cohort_explanation_text() -> str:
+    return (
+        "Cohort é a safra de créditos originados em um mês. O gráfico conecta essa originação mensal ao atraso observado nos meses seguintes, "
+        "permitindo comparar qualidade e deterioração de risco entre safras."
     )
 
 

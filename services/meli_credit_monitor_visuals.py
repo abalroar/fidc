@@ -11,8 +11,7 @@ PRIMARY = CORES_MELI["primaria"]
 SECONDARY = CORES_MELI["secundaria"]
 AUX = CORES_MELI["auxiliar"]
 GRID = CORES_MELI["cinza_claro"]
-COHORT_COLORS = ["#C8C8C8", "#B0B0B0", "#989898", "#808080", "#686868", "#505050", "#303030", "#000000"]
-COHORT_DASHES = [[2, 4], [5, 4], [1, 3], [8, 4], [3, 3], [10, 3], [6, 2], []]
+COHORT_COLORS = ["#D9D9D9", "#BDBDBD", "#A0A0A0", "#838383", "#666666", "#4A4A4A", "#242424", "#000000"]
 
 
 def roll_rates_chart(monitor_df: pd.DataFrame) -> alt.Chart:
@@ -61,7 +60,7 @@ def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
         alt.Chart(chart_df)
         .mark_bar()
         .encode(
-            x=alt.X("competencia:N", title="Competência", sort=x_sort),
+            x=alt.X("competencia:N", title="Competência", sort=x_sort, axis=_category_axis()),
             y=alt.Y("valor:Q", title="% da carteira ex-360", stack="zero", axis=_percent_axis()),
             color=alt.Color(
                 "serie:N",
@@ -76,8 +75,11 @@ def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
             ],
         )
     )
-    label_layers = _bar_label_layers(_stacked_bar_last_labels(chart_df, x_sort=x_sort), x=alt.X("competencia:N", sort=x_sort))
-    return _style_chart(alt.layer(bars, *label_layers).properties(height=320))
+    label_layers = _bar_label_layers(
+        _stacked_bar_last_labels(chart_df, x_sort=x_sort),
+        x=alt.X("competencia:N", sort=x_sort, axis=_category_axis()),
+    )
+    return _style_chart(alt.layer(bars, *label_layers).properties(height=320, padding={"right": 96}))
 
 
 def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
@@ -89,13 +91,13 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
     df["carteira_fmt"] = df["carteira_ex360"].map(lambda value: _format_money(value, divisor=divisor, label=label))
     df["yoy_fmt"] = df["carteira_ex360_yoy_pct"].map(_format_percent)
     x_sort = df["competencia_label"].tolist()
-    x = alt.X("competencia_label:N", title="Competência", sort=x_sort)
+    x = alt.X("competencia_label:N", title="Competência", sort=x_sort, axis=_category_axis())
     bars = (
         alt.Chart(df)
         .mark_bar(color=PRIMARY)
         .encode(
             x=x,
-            y=alt.Y("carteira_scaled:Q", title=label, axis=alt.Axis(grid=True)),
+            y=alt.Y("carteira_scaled:Q", title=label, axis=_decimal_axis()),
             tooltip=[
                 alt.Tooltip("competencia_label:N", title="Competência"),
                 alt.Tooltip("carteira_fmt:N", title="Carteira ex-360"),
@@ -108,7 +110,7 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
         .mark_text(align="left", baseline="middle", dx=8, dy=-8, color=PRIMARY, fontSize=11, fontWeight=600)
         .encode(
             x=alt.X("competencia_label:N", title="Competência", sort=x_sort),
-            y=alt.Y("carteira_scaled:Q", axis=None),
+            y=alt.Y("carteira_scaled:Q", title=label, axis=_decimal_axis()),
             text=alt.Text("carteira_fmt:N"),
         )
     )
@@ -117,10 +119,10 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
         .mark_line(point=alt.OverlayMarkDef(filled=True, fill=SECONDARY, color=SECONDARY, size=42), color=SECONDARY, strokeWidth=2)
         .encode(
             x=x,
-            y=alt.Y("carteira_ex360_yoy_pct:Q", title="Crescimento a/a", axis=_percent_axis(orient="right", grid=False)),
+            y=alt.Y("carteira_ex360_yoy_pct:Q", title="Crescimento YoY", axis=_percent_axis(orient="right", grid=False)),
             tooltip=[
                 alt.Tooltip("competencia_label:N", title="Competência"),
-                alt.Tooltip("yoy_fmt:N", title="Crescimento a/a"),
+                alt.Tooltip("yoy_fmt:N", title="Crescimento YoY"),
             ],
         )
     )
@@ -133,7 +135,7 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
         .mark_text(align="left", baseline="middle", dx=8, dy=14, color=SECONDARY, fontSize=11, fontWeight=600)
         .encode(
             x=alt.X("competencia_label:N", title="Competência", sort=x_sort),
-            y=alt.Y("carteira_ex360_yoy_pct:Q", axis=None),
+            y=alt.Y("carteira_ex360_yoy_pct:Q", title="Crescimento YoY", axis=_percent_axis(orient="right", grid=False)),
             text=alt.Text("yoy_fmt:N"),
         )
     )
@@ -155,13 +157,13 @@ def duration_chart(consolidated_monitor: pd.DataFrame, fund_monitor: dict[str, p
     x_sort = chart_df.drop_duplicates("competencia")["competencia"].tolist()
     color_domain = chart_df["serie"].drop_duplicates().tolist()
     color_range = _palette_for_domain(color_domain)
-    x = alt.X("competencia:N", title="Competência", sort=x_sort)
+    x = alt.X("competencia:N", title="Competência", sort=x_sort, axis=_category_axis())
     line = (
         alt.Chart(chart_df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, size=36), strokeWidth=2)
         .encode(
             x=x,
-            y=alt.Y("duration_months:Q", title="Duration (meses)", scale=alt.Scale(zero=False, nice=True)),
+            y=alt.Y("duration_months:Q", title="Duration (meses)", scale=alt.Scale(zero=False, nice=True), axis=_decimal_axis()),
             color=alt.Color("serie:N", title="FIDC", scale=alt.Scale(domain=color_domain, range=color_range), legend=alt.Legend(orient="bottom")),
             tooltip=[
                 alt.Tooltip("competencia:N", title="Competência"),
@@ -190,16 +192,16 @@ def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8) -> alt.Chart:
     df = df[df["cohort"].isin(recent)].copy()
     df["valor_fmt"] = df["valor_pct"].map(_format_percent)
     color_domain = recent
-    color_range, dash_range = _cohort_style_ranges(color_domain)
-    x = alt.X("mes_ciclo:N", title="Mês de maturação", sort=["M1", "M2", "M3", "M4", "M5", "M6"])
+    color_range = _cohort_color_range(color_domain)
+    x = alt.X("mes_ciclo:N", title="Mês de maturação", sort=["M1", "M2", "M3", "M4", "M5", "M6"], axis=_category_axis())
+    y_scale = _tight_percent_scale(df["valor_pct"])
     line = (
         alt.Chart(df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, size=42), strokeWidth=2)
         .encode(
             x=x,
-            y=alt.Y("valor_pct:Q", title="% do saldo a vencer em 30d", axis=_percent_axis()),
+            y=alt.Y("valor_pct:Q", title="% do saldo a vencer em 30d", axis=_percent_axis(), scale=y_scale),
             color=alt.Color("cohort:N", title="Safra", scale=alt.Scale(domain=color_domain, range=color_range), legend=alt.Legend(orient="bottom")),
-            strokeDash=alt.StrokeDash("cohort:N", title="Estilo", scale=alt.Scale(domain=color_domain, range=dash_range), legend=None),
             tooltip=[
                 alt.Tooltip("cohort:N", title="Safra"),
                 alt.Tooltip("mes_ciclo:N", title="Mês"),
@@ -225,7 +227,7 @@ def _line_chart(chart_df: pd.DataFrame, *, y_title: str, color_domain: list[str]
         return _empty_chart()
     x_sort = chart_df.drop_duplicates("competencia")["competencia"].tolist()
     color_range = _palette_for_domain(color_domain)
-    x = alt.X("competencia:N", title="Competência", sort=x_sort)
+    x = alt.X("competencia:N", title="Competência", sort=x_sort, axis=_category_axis())
     line = (
         alt.Chart(chart_df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, size=42), strokeWidth=2)
@@ -381,7 +383,7 @@ def _stacked_bar_last_labels(chart_df: pd.DataFrame, *, x_sort: list[str]) -> pd
                 "serie": serie,
                 "label_y": cumulative + value / 2.0,
                 "valor_fmt": row.iloc[0].get("valor_fmt"),
-                "label_color": "#FFFFFF" if serie == "NPL 1-90d" else "#000000",
+                "label_color": PRIMARY if serie == "NPL 1-90d" else SECONDARY,
             }
         )
         cumulative += value
@@ -396,9 +398,11 @@ def _bar_label_layers(label_df: pd.DataFrame, *, x: alt.X) -> list[alt.Chart]:
         layers.append(
             alt.Chart(pd.DataFrame([row]))
             .mark_text(
-                align="center",
+                align="left",
                 baseline="middle",
                 color=str(row.get("label_color") or "#000000"),
+                clip=False,
+                dx=12,
                 fontSize=10,
                 fontWeight=700,
             )
@@ -416,15 +420,11 @@ def _palette_for_domain(domain: list[str]) -> list[str]:
     return [base[idx % len(base)] for idx, _ in enumerate(domain or base)]
 
 
-def _cohort_style_ranges(domain: list[str]) -> tuple[list[str], list[list[int]]]:
+def _cohort_color_range(domain: list[str]) -> list[str]:
     if not domain:
-        return COHORT_COLORS, COHORT_DASHES
+        return COHORT_COLORS
     count = len(domain)
-    colors = COHORT_COLORS[-count:]
-    dashes = COHORT_DASHES[-count:]
-    if dashes:
-        dashes[-1] = []
-    return colors, dashes
+    return COHORT_COLORS[-count:]
 
 
 def _chart_base(df: pd.DataFrame) -> pd.DataFrame:
@@ -444,7 +444,11 @@ def _style_chart(chart: alt.Chart) -> alt.Chart:
             labelColor=AUX,
             titleColor=AUX,
             gridColor=GRID,
-            domainColor=GRID,
+            domain=True,
+            ticks=True,
+            labels=True,
+            domainColor=AUX,
+            tickColor=AUX,
             labelFontSize=11,
             titleFontSize=12,
         )
@@ -456,6 +460,11 @@ def _style_chart(chart: alt.Chart) -> alt.Chart:
 def _percent_axis(*, orient: str | None = None, grid: bool = True) -> alt.Axis:
     kwargs: dict[str, object] = {
         "grid": grid,
+        "domain": True,
+        "ticks": True,
+        "labels": True,
+        "domainColor": AUX,
+        "tickColor": AUX,
         "tickCount": 6,
         "labelExpr": "replace(format(datum.value, '.1f'), '.', ',') + '%'",
         "labelPadding": 8,
@@ -464,6 +473,55 @@ def _percent_axis(*, orient: str | None = None, grid: bool = True) -> alt.Axis:
     if orient is not None:
         kwargs["orient"] = orient
     return alt.Axis(**kwargs)
+
+
+def _category_axis() -> alt.Axis:
+    return alt.Axis(
+        domain=True,
+        ticks=True,
+        labels=True,
+        domainColor=AUX,
+        tickColor=AUX,
+        labelPadding=8,
+        titlePadding=12,
+        labelAngle=0,
+    )
+
+
+def _decimal_axis(*, grid: bool = True, orient: str | None = None) -> alt.Axis:
+    kwargs: dict[str, object] = {
+        "grid": grid,
+        "domain": True,
+        "ticks": True,
+        "labels": True,
+        "domainColor": AUX,
+        "tickColor": AUX,
+        "tickCount": 6,
+        "labelExpr": "replace(format(datum.value, ',.1f'), '.', ',')",
+        "labelPadding": 8,
+        "titlePadding": 12,
+    }
+    if orient is not None:
+        kwargs["orient"] = orient
+    return alt.Axis(**kwargs)
+
+
+def _tight_percent_scale(values: pd.Series) -> alt.Scale:
+    numeric = pd.to_numeric(values, errors="coerce").dropna()
+    if numeric.empty:
+        return alt.Scale(zero=False, nice=False)
+    min_value = float(numeric.min())
+    max_value = float(numeric.max())
+    value_range = max_value - min_value
+    if value_range <= 0:
+        pad = max(abs(min_value) * 0.03, 0.25)
+    else:
+        pad = max(value_range * 0.08, 0.10)
+    lower = min_value - pad
+    upper = max_value + pad
+    if min_value >= 0:
+        lower = max(0.0, lower)
+    return alt.Scale(domain=[lower, upper], zero=False, nice=False)
 
 
 def _empty_chart() -> alt.Chart:

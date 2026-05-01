@@ -20,7 +20,6 @@ def build_dashboard_meli_pptx_bytes(monitor_outputs: Any) -> bytes:
         from pptx.chart.data import CategoryChartData
         from pptx.dml.color import RGBColor
         from pptx.enum.chart import XL_CHART_TYPE, XL_LEGEND_POSITION, XL_MARKER_STYLE
-        from pptx.enum.dml import MSO_LINE_DASH_STYLE
         from pptx.util import Inches, Pt
     except ImportError as exc:  # pragma: no cover - environment guard
         raise RuntimeError("Dependência python-pptx não instalada.") from exc
@@ -51,7 +50,6 @@ def build_dashboard_meli_pptx_bytes(monitor_outputs: Any) -> bytes:
         XL_CHART_TYPE=XL_CHART_TYPE,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
-        MSO_LINE_DASH_STYLE=MSO_LINE_DASH_STYLE,
         Inches=Inches,
         Pt=Pt,
     )
@@ -68,7 +66,6 @@ def build_dashboard_meli_pptx_bytes(monitor_outputs: Any) -> bytes:
             XL_CHART_TYPE=XL_CHART_TYPE,
             XL_LEGEND_POSITION=XL_LEGEND_POSITION,
             XL_MARKER_STYLE=XL_MARKER_STYLE,
-            MSO_LINE_DASH_STYLE=MSO_LINE_DASH_STYLE,
             Inches=Inches,
             Pt=Pt,
         )
@@ -145,10 +142,10 @@ def _add_consolidated_slide(
     _add_multi_line_chart(
         slide=slide,
         slot=slots[3],
-        title="Crescimento a/a carteira ex-360",
+        title="Crescimento YoY carteira ex-360",
         df=df,
         categories=categories,
-        series_specs=[("Crescimento a/a", "carteira_ex360_yoy_pct", MELI_ORANGE)],
+        series_specs=[("Crescimento YoY", "carteira_ex360_yoy_pct", MELI_ORANGE)],
         y_axis_title="%",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
@@ -172,7 +169,6 @@ def _add_fund_slide(
     XL_CHART_TYPE,
     XL_LEGEND_POSITION,
     XL_MARKER_STYLE,
-    MSO_LINE_DASH_STYLE,
     Inches,
     Pt,
 ) -> None:
@@ -237,7 +233,6 @@ def _add_fund_slide(
         XL_CHART_TYPE=XL_CHART_TYPE,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
-        MSO_LINE_DASH_STYLE=MSO_LINE_DASH_STYLE,
         Inches=Inches,
         Pt=Pt,
     )
@@ -253,7 +248,6 @@ def _add_consolidated_detail_slide(
     XL_CHART_TYPE,
     XL_LEGEND_POSITION,
     XL_MARKER_STYLE,
-    MSO_LINE_DASH_STYLE,
     Inches,
     Pt,
 ) -> None:
@@ -290,7 +284,6 @@ def _add_consolidated_detail_slide(
         XL_CHART_TYPE=XL_CHART_TYPE,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
-        MSO_LINE_DASH_STYLE=MSO_LINE_DASH_STYLE,
         Inches=Inches,
         Pt=Pt,
     )
@@ -430,7 +423,6 @@ def _add_cohort_chart(
     XL_CHART_TYPE,
     XL_LEGEND_POSITION,
     XL_MARKER_STYLE,
-    MSO_LINE_DASH_STYLE,
     Inches,
     Pt,
 ) -> None:
@@ -441,7 +433,7 @@ def _add_cohort_chart(
     recent = df[["cohort", "cohort_dt"]].drop_duplicates().sort_values("cohort_dt").tail(6)["cohort"].tolist()
     df = df[df["cohort"].isin(recent)].copy()
     categories = ["M1", "M2", "M3", "M4", "M5", "M6"]
-    colors, dash_styles = _cohort_ppt_styles(len(recent), MSO_LINE_DASH_STYLE)
+    colors = _cohort_ppt_colors(len(recent))
     chart_data = CategoryChartData()
     chart_data.categories = categories
     final_labels: list[tuple[str, object, str]] = []
@@ -455,8 +447,8 @@ def _add_cohort_chart(
     chart.has_legend = True
     chart.legend.position = XL_LEGEND_POSITION.BOTTOM
     chart.legend.include_in_layout = False
-    for series, color, dash_style in zip(chart.series, colors, dash_styles, strict=False):
-        _set_series_line(series, _rgb(color, RGBColor), XL_MARKER_STYLE.CIRCLE, dash_style=dash_style)
+    for series, color in zip(chart.series, colors, strict=False):
+        _set_series_line(series, _rgb(color, RGBColor), XL_MARKER_STYLE.CIRCLE)
     _add_final_label_stack(slide, slot, final_labels, value_is_percent=True, RGBColor=RGBColor, Inches=Inches, Pt=Pt)
 
 
@@ -548,11 +540,9 @@ def _set_series_fill(series, color) -> None:  # noqa: ANN001
     series.format.line.color.rgb = color
 
 
-def _set_series_line(series, color, marker_style, *, dash_style=None) -> None:  # noqa: ANN001
+def _set_series_line(series, color, marker_style) -> None:  # noqa: ANN001
     series.format.line.color.rgb = color
     series.format.line.width = 19050
-    if dash_style is not None:
-        series.format.line.dash_style = dash_style
     series.marker.style = marker_style
     series.marker.size = 5
     series.marker.format.fill.solid()
@@ -598,23 +588,9 @@ def _series_colors(series: pd.Series | list[str] | None) -> list[tuple[str, str]
     return [(name, colors[idx % len(colors)]) for idx, name in enumerate(names)]
 
 
-def _cohort_ppt_styles(count: int, MSO_LINE_DASH_STYLE) -> tuple[list[str], list[object]]:  # noqa: ANN001
-    colors = ["C8C8C8", "B0B0B0", "989898", "808080", "686868", "505050", "303030", MELI_BLACK]
-    dash_styles = [
-        MSO_LINE_DASH_STYLE.SQUARE_DOT,
-        MSO_LINE_DASH_STYLE.DASH,
-        MSO_LINE_DASH_STYLE.ROUND_DOT,
-        MSO_LINE_DASH_STYLE.LONG_DASH,
-        MSO_LINE_DASH_STYLE.DASH_DOT,
-        MSO_LINE_DASH_STYLE.LONG_DASH_DOT,
-        MSO_LINE_DASH_STYLE.DASH_DOT_DOT,
-        None,
-    ]
-    selected_colors = colors[-count:] if count > 0 else colors
-    selected_dashes = dash_styles[-count:] if count > 0 else dash_styles
-    if selected_dashes:
-        selected_dashes[-1] = None
-    return selected_colors, selected_dashes
+def _cohort_ppt_colors(count: int) -> list[str]:
+    colors = ["D9D9D9", "BDBDBD", "A0A0A0", "838383", "666666", "4A4A4A", "242424", MELI_BLACK]
+    return colors[-count:] if count > 0 else colors
 
 
 def _chart_monthly(monthly_df: pd.DataFrame) -> pd.DataFrame:

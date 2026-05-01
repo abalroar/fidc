@@ -72,7 +72,7 @@ MELI_PDF_TARGETS: tuple[dict[str, object], ...] = (
         "diagnostic": "Variação mensal arredondada no Chart 8/Tabela 1.",
     },
     {
-        "metric": "Crescimento a/a carteira ex-360",
+        "metric": "Crescimento YoY carteira ex-360",
         "column": "carteira_ex360_yoy_pct",
         "target": 0.0,
         "unit": "%",
@@ -253,7 +253,7 @@ MELI_CHART_AXIS_ROWS: tuple[dict[str, str], ...] = (
     {
         "Gráfico": "Carteira ex-360 e crescimento",
         "Eixo esquerdo": "Carteira ex-360 em R$ com escala dinâmica",
-        "Eixo direito": "Crescimento a/a em %",
+        "Eixo direito": "Crescimento YoY em %",
         "Observação": "Valores monetários e percentuais ficam em eixos independentes.",
     },
     {
