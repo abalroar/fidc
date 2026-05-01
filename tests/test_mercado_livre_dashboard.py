@@ -504,8 +504,27 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         carteira = wide.loc[wide["Métrica"] == "Carteira Bruta total", "jan/26"].iloc[0]
         pdd = wide.loc[wide["Métrica"] == "PDD total", "jan/26"].iloc[0]
 
-        self.assertEqual("R$ bi 6,2", carteira)
+        self.assertEqual("R$ mm 6.200,0", carteira)
         self.assertEqual("R$ mm 320,0", pdd)
+
+    def test_wide_table_uses_billion_scale_only_above_one_trillion(self) -> None:
+        monthly = pd.DataFrame(
+            [
+                {
+                    "scope": "consolidado",
+                    "fund_name": "Carteira",
+                    "cnpj": "CONSOLIDADO",
+                    "competencia": "01/2026",
+                    "competencia_dt": pd.Timestamp("2026-01-01"),
+                    "carteira_bruta": 1_200_000_000_000.0,
+                }
+            ]
+        )
+
+        wide = build_wide_table(monthly, scope_name="Carteira")
+        carteira = wide.loc[wide["Métrica"] == "Carteira Bruta total", "jan/26"].iloc[0]
+
+        self.assertEqual("R$ bi 1.200,0", carteira)
 
     def test_wide_table_text_columns_wrap_in_fixed_grid(self) -> None:
         self.assertIn("table-layout: fixed;", _MERCADO_LIVRE_UI_CSS)

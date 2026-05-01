@@ -429,7 +429,7 @@ def _money_scale(values: pd.Series) -> tuple[float, str]:
     max_value = pd.to_numeric(values, errors="coerce").abs().max()
     if pd.isna(max_value):
         max_value = 0.0
-    if max_value >= 1_000_000_000:
+    if max_value >= 1_000_000_000_000:
         return 1_000_000_000.0, "R$ bi"
     if max_value >= 1_000_000:
         return 1_000_000.0, "R$ mm"

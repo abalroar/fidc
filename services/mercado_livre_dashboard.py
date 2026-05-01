@@ -936,7 +936,7 @@ def _money_scales_by_metric(df: pd.DataFrame) -> dict[str, tuple[float, str]]:
 
 def _money_scale(values: list[float]) -> tuple[float, str]:
     max_value = max(values) if values else 0.0
-    if max_value >= 1_000_000_000:
+    if max_value >= 1_000_000_000_000:
         return 1_000_000_000.0, "R$ bi"
     if max_value >= 1_000_000:
         return 1_000_000.0, "R$ mm"

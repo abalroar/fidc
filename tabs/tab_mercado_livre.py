@@ -1100,7 +1100,7 @@ def _format_brl_compact(value: object) -> str:
     numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
     if pd.isna(numeric):
         return "N/D"
-    if abs(float(numeric)) >= 1_000_000_000:
+    if abs(float(numeric)) >= 1_000_000_000_000:
         return f"R$ {_format_decimal(float(numeric) / 1_000_000_000, 2)} bi"
     if abs(float(numeric)) >= 1_000_000:
         return f"R$ {_format_decimal(float(numeric) / 1_000_000, 1)} mm"
