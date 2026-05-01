@@ -15,7 +15,7 @@ from services.meli_credit_monitor import (
     build_pdf_reconciliation_table,
 )
 from services.meli_credit_monitor_ppt_export import build_dashboard_meli_pptx_bytes
-from services.meli_credit_monitor_visuals import portfolio_growth_chart, roll_rates_chart
+from services.meli_credit_monitor_visuals import cohort_chart, portfolio_growth_chart, roll_rates_chart
 from services.mercado_livre_dashboard import build_consolidated_monthly_base
 
 
@@ -39,12 +39,15 @@ class MeliCreditMonitorTest(unittest.TestCase):
     def test_cohort_matrix_uses_due_30_base_and_future_buckets(self) -> None:
         monthly = _sample_monthly(month_count=7)
         cohort = build_cohort_matrix(build_monitor_base(monthly))
-        jan = cohort[cohort["cohort"] == "01/2026"].set_index("mes_ciclo")
+        jan = cohort[cohort["cohort"] == "Jan-26"].set_index("mes_ciclo")
 
         self.assertAlmostEqual(1.0, jan.loc["M1", "valor_pct"])
         self.assertAlmostEqual(2.0, jan.loc["M2", "valor_pct"])
         self.assertAlmostEqual(5.0, jan.loc["M3", "valor_pct"])
         self.assertAlmostEqual(6.0, jan.loc["M6", "valor_pct"])
+        self.assertNotIn("01/2026", set(cohort["cohort"]))
+        jul_cohort = build_cohort_matrix(build_monitor_base(_sample_monthly(month_count=2, start="2025-07-01")))
+        self.assertIn("Jul-25", set(jul_cohort["cohort"]))
 
     def test_consolidated_duration_is_weighted_by_maturity_balance(self) -> None:
         frame_a = pd.DataFrame(
@@ -121,6 +124,17 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertIn("3,0%", roll_payload)
         self.assertIn("Carteira ex-360", growth_payload)
         self.assertIn("text", growth_payload)
+
+    def test_dashboard_meli_cohort_chart_uses_chronological_labels_and_gray_dashes(self) -> None:
+        monitor = build_monitor_base(_sample_monthly(month_count=9))
+        cohorts = build_cohort_matrix(monitor)
+
+        payload = json.dumps(cohort_chart(cohorts).to_dict(), ensure_ascii=False)
+
+        self.assertIn("Jan-26", payload)
+        self.assertNotIn("01/2026", payload)
+        self.assertIn("strokeDash", payload)
+        self.assertIn("#000000", payload)
 
     def test_dashboard_meli_pptx_export_is_valid_zip(self) -> None:
         monitor = build_monitor_base(_sample_monthly(month_count=7))

@@ -5,6 +5,21 @@ from dataclasses import dataclass
 import pandas as pd
 
 
+PT_MONTH_ABBR_TITLE = {
+    1: "Jan",
+    2: "Fev",
+    3: "Mar",
+    4: "Abr",
+    5: "Mai",
+    6: "Jun",
+    7: "Jul",
+    8: "Ago",
+    9: "Set",
+    10: "Out",
+    11: "Nov",
+    12: "Dez",
+}
+
 MELI_PDF_TARGET_COMPETENCIA = "11/2025"
 MELI_PDF_TARGETS: tuple[dict[str, object], ...] = (
     {
@@ -128,7 +143,7 @@ MELI_MONITOR_METHODOLOGY_ROWS: tuple[dict[str, str], ...] = (
         "Fórmula": "carteira_ex360 = carteira_bruta - vencidos_360",
         "Unidade": "R$",
         "Fonte / coluna": "carteira_bruta; atraso_361_720; atraso_721_1080; atraso_1080",
-        "Observação": "Replica a visão do research que exclui Over 360 para comparar com baixa usada no consolidado MELI.",
+        "Observação": "Remove o estoque acima de 360 dias para acompanhar a carteira limpa desse acúmulo.",
     },
     {
         "Indicador": "NPL 1-90d",
@@ -138,7 +153,7 @@ MELI_MONITOR_METHODOLOGY_ROWS: tuple[dict[str, str], ...] = (
         "Fórmula": "npl_1_90 = atraso_ate30 + atraso_31_60 + atraso_61_90",
         "Unidade": "R$",
         "Fonte / coluna": "Faixas de atraso do Informe Mensal Estruturado",
-        "Observação": "Corresponde às faixas NPL 1-30, 30-60 e 60-90 do PDF.",
+        "Observação": "Acompanha atrasos iniciais antes de migrarem para buckets mais severos.",
     },
     {
         "Indicador": "NPL 91-360d",
@@ -148,7 +163,7 @@ MELI_MONITOR_METHODOLOGY_ROWS: tuple[dict[str, str], ...] = (
         "Fórmula": "npl_91_360 = atraso_91_120 + atraso_121_150 + atraso_151_180 + atraso_181_360",
         "Unidade": "R$",
         "Fonte / coluna": "Faixas de atraso do Informe Mensal Estruturado",
-        "Observação": "Corresponde às faixas NPL 90-180 e 180-360 do PDF.",
+        "Observação": "Acompanha atrasos maduros sem incluir vencidos acima de 360 dias.",
     },
     {
         "Indicador": "NPL 1-90d / carteira",
@@ -178,7 +193,7 @@ MELI_MONITOR_METHODOLOGY_ROWS: tuple[dict[str, str], ...] = (
         "Fórmula": "roll_61_90_m3_pct = atraso_61_90_t / carteira_a_vencer_t-3",
         "Unidade": "%",
         "Fonte / coluna": "atraso_61_90; carteira_a_vencer",
-        "Observação": "Alinha o denominador ao PDF: not-yet-due portfolio from 3 months ago.",
+        "Observação": "Usa a carteira a vencer de três meses antes como aproximação da safra exposta ao atraso 61-90.",
     },
     {
         "Indicador": "Roll 151-180 / carteira a vencer M-6",
@@ -188,7 +203,7 @@ MELI_MONITOR_METHODOLOGY_ROWS: tuple[dict[str, str], ...] = (
         "Fórmula": "roll_151_180_m6_pct = atraso_151_180_t / carteira_a_vencer_t-6",
         "Unidade": "%",
         "Fonte / coluna": "atraso_151_180; carteira_a_vencer",
-        "Observação": "Alinha o denominador ao PDF: not-yet-due portfolio from 6 months ago.",
+        "Observação": "Usa a carteira a vencer de seis meses antes como aproximação da safra exposta ao atraso 151-180.",
     },
     {
         "Indicador": "Cohorts M1-M6",
@@ -198,7 +213,7 @@ MELI_MONITOR_METHODOLOGY_ROWS: tuple[dict[str, str], ...] = (
         "Fórmula": "cohort_m = atraso_bucket_t+m / prazo_venc_30_t",
         "Unidade": "%",
         "Fonte / coluna": "prazo_venc_30; buckets de atraso",
-        "Observação": "Segue a nota do PDF: denominator is the portion due in 30 days.",
+        "Observação": "Compara a evolução de safras usando a carteira que venceria em 30 dias como base comum.",
     },
     {
         "Indicador": "Duration",
@@ -385,7 +400,7 @@ def build_cohort_matrix(monitor_df: pd.DataFrame) -> pd.DataFrame:
         denominator = _num(row.get("prazo_venc_30"))
         if denominator is None or denominator <= 0:
             continue
-        cohort = _format_competencia(row.get("competencia_dt"), row.get("competencia"))
+        cohort = _format_cohort_label(row.get("competencia_dt"), row.get("competencia"))
         for order, (label, bucket_col, lag_months) in enumerate(COHORT_STEPS, start=1):
             future_idx = idx + lag_months
             if future_idx >= len(df):
@@ -547,7 +562,7 @@ def _universe_warnings(fund_monitor: dict[str, pd.DataFrame]) -> list[str]:
     if missing:
         warnings.append("Universo MELI: fundos de crédito esperados ausentes ou sem nome reconhecido: " + ", ".join(missing) + ".")
     if unexpected:
-        warnings.append("Universo MELI: a carteira contém fundos com perfil possivelmente fora do PDF de crédito: " + ", ".join(unexpected) + ".")
+        warnings.append("Universo MELI: a carteira contém fundos com perfil possivelmente fora do universo de crédito acompanhado: " + ", ".join(unexpected) + ".")
     return warnings
 
 
@@ -596,6 +611,16 @@ def _format_competencia(competencia_dt: object, fallback: object) -> str:
     if pd.isna(ts):
         return str(fallback or "N/D")
     return f"{int(ts.month):02d}/{int(ts.year)}"
+
+
+def _format_cohort_label(competencia_dt: object, fallback: object) -> str:
+    ts = pd.to_datetime(competencia_dt, errors="coerce")
+    if pd.isna(ts):
+        ts = pd.to_datetime(fallback, errors="coerce")
+    if pd.isna(ts):
+        return str(fallback or "N/D")
+    month = PT_MONTH_ABBR_TITLE.get(int(ts.month), f"{int(ts.month):02d}")
+    return f"{month}-{str(int(ts.year))[-2:]}"
 
 
 def _normalize_text(value: object) -> str:

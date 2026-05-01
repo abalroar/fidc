@@ -9,8 +9,6 @@ import streamlit as st
 
 from services.ime_period import ImePeriodSelection, build_custom_period, current_default_end_month, month_options, shift_month
 from services.meli_credit_monitor import (
-    build_meli_chart_axis_table,
-    build_meli_methodology_table,
     build_meli_monitor_outputs,
     latest_row,
 )
@@ -335,7 +333,8 @@ def _render_consolidated_dashboard(monitor_outputs) -> None:  # noqa: ANN001
         _chart_title("Duration por FIDC", "Eixo esquerdo: duration em meses. Sem eixo direito; consolidado ponderado por saldo.")
         st.altair_chart(duration_chart(monitor_outputs.consolidated_monitor, monitor_outputs.fund_monitor), use_container_width=True)
     with col_right:
-        _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito; cada linha é uma safra.")
+        _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
+        _cohort_explanation()
         st.altair_chart(cohort_chart(monitor_outputs.consolidated_cohorts), use_container_width=True)
 
 
@@ -354,6 +353,7 @@ def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
                 _chart_title("NPL por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
                 st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
             _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
+            _cohort_explanation()
             st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
 
 
@@ -381,24 +381,6 @@ def _render_audit(monitor_outputs) -> None:  # noqa: ANN001
         with st.expander("Warnings do monitor", expanded=False):
             for warning in monitor_outputs.warnings:
                 st.caption(warning)
-    reconciliation = monitor_outputs.pdf_reconciliation.copy()
-    if not reconciliation.empty:
-        with st.expander("Reconciliação contra MELI_.pdf", expanded=True):
-            st.caption(
-                "Alvos extraídos do PDF para nov/25. Diferenças podem indicar universo de fundos diferente, competência fora da janela ou divergência na origem CVM."
-            )
-            display_reconciliation = reconciliation.copy()
-            for column in ["Valor app", "Valor PDF", "Diferença"]:
-                if column in display_reconciliation.columns:
-                    display_reconciliation[column] = [
-                        _format_reconciliation_value(value, unit)
-                        for value, unit in zip(
-                            display_reconciliation[column],
-                            display_reconciliation.get("Unidade", pd.Series([""] * len(display_reconciliation))),
-                            strict=False,
-                        )
-                    ]
-            st.dataframe(display_reconciliation, use_container_width=True, hide_index=True)
     audit = monitor_outputs.audit_table.copy()
     if audit.empty:
         st.info("Sem tabela de auditoria.")
@@ -415,18 +397,20 @@ def _render_audit(monitor_outputs) -> None:  # noqa: ANN001
 
 
 def _render_methodology() -> None:
-    with st.expander("Metodologia, conceitos e eixos dos gráficos", expanded=False):
+    with st.expander("Metodologia e leitura dos cohorts", expanded=False):
         st.markdown(
             """
-Esta seção documenta a mecânica do Dashboard MELI. A base permanece numérica; a formatação é aplicada apenas na apresentação e na exportação.
+**Cohort ou safra:** conjunto de créditos originados em um mesmo mês.
 
-**Reconciliação Itaú BBA nov/25:** a aba compara os campos disponíveis no PDF contra a base consolidada carregada. Quando o PDF não publica uma métrica, o app mostra o valor do app e marca o alvo como ausente em vez de inferir dado não observado.
+**Eixo X:** mês de maturação da safra, de M1 a M6.
+
+**Eixo Y:** percentual do saldo que venceria em 30 dias na origem da safra e que aparece nos buckets de atraso acompanhados nos meses seguintes.
+
+**Como ler:** compare linhas de safras diferentes no mesmo mês de maturação. Linhas mais altas indicam mais deterioração relativa daquela safra.
+
+**Por que é útil:** ajuda a identificar se as safras recentes estão melhorando ou piorando em relação às safras anteriores.
             """
         )
-        st.markdown("**Eixos dos gráficos**")
-        st.dataframe(build_meli_chart_axis_table(), use_container_width=True, hide_index=True)
-        st.markdown("**Fórmulas e fontes das métricas**")
-        st.dataframe(build_meli_methodology_table(), use_container_width=True, hide_index=True)
 
 
 def _render_status_bar(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection, outputs, storage_source: str) -> None:  # noqa: ANN001
@@ -463,7 +447,7 @@ def _render_guide() -> None:
 4. Confira carteira ex-360 e crescimento para saber se melhora de NPL vem de qualidade ou de efeito denominador.
 5. Use cohorts para comparar safras recentes contra a própria curva de maturação M1-M6.
 
-O painel usa os dados do Informe Mensal Estruturado já compilados no Somatório FIDCs. Percentuais consolidados são sempre recalculados a partir da soma dos numeradores e denominadores.
+O painel usa os dados já compilados no Somatório FIDCs. Percentuais consolidados são sempre recalculados a partir da soma dos numeradores e denominadores.
             """
         )
 
@@ -471,6 +455,12 @@ O painel usa os dados do Informe Mensal Estruturado já compilados no Somatório
 def _chart_title(title: str, subtitle: str) -> None:
     st.markdown(f"<div class='meli-chart-title'>{escape(title)}</div>", unsafe_allow_html=True)
     st.markdown(f"<div class='meli-chart-subtitle'>{escape(subtitle)}</div>", unsafe_allow_html=True)
+
+
+def _cohort_explanation() -> None:
+    st.caption(
+        "Cohort é a safra de créditos originados em um mês. O gráfico conecta essa originação mensal ao atraso observado nos meses seguintes, permitindo comparar qualidade e deterioração de risco entre safras."
+    )
 
 
 def _outputs_session_key(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection) -> str:
@@ -532,16 +522,6 @@ def _format_percent(value: object) -> str:
     if pd.isna(numeric):
         return "N/D"
     return f"{_format_decimal(float(numeric), 1)}%"
-
-
-def _format_reconciliation_value(value: object, unit: object) -> str:
-    if str(unit) == "R$":
-        return _format_brl_compact(value)
-    if str(unit) == "%":
-        return _format_percent(value)
-    if str(unit) == "meses":
-        return f"{_format_decimal(value, 1)} meses"
-    return _format_decimal(value, 1)
 
 
 def _safe_file_token(value: object) -> str:

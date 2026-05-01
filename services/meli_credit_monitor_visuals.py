@@ -11,6 +11,8 @@ PRIMARY = CORES_MELI["primaria"]
 SECONDARY = CORES_MELI["secundaria"]
 AUX = CORES_MELI["auxiliar"]
 GRID = CORES_MELI["cinza_claro"]
+COHORT_COLORS = ["#C8C8C8", "#B0B0B0", "#989898", "#808080", "#686868", "#505050", "#303030", "#000000"]
+COHORT_DASHES = [[2, 4], [5, 4], [1, 3], [8, 4], [3, 3], [10, 3], [6, 2], []]
 
 
 def roll_rates_chart(monitor_df: pd.DataFrame) -> alt.Chart:
@@ -188,7 +190,7 @@ def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8) -> alt.Chart:
     df = df[df["cohort"].isin(recent)].copy()
     df["valor_fmt"] = df["valor_pct"].map(_format_percent)
     color_domain = recent
-    color_range = _palette_for_domain(color_domain)
+    color_range, dash_range = _cohort_style_ranges(color_domain)
     x = alt.X("mes_ciclo:N", title="Mês de maturação", sort=["M1", "M2", "M3", "M4", "M5", "M6"])
     line = (
         alt.Chart(df)
@@ -197,6 +199,7 @@ def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8) -> alt.Chart:
             x=x,
             y=alt.Y("valor_pct:Q", title="% do saldo a vencer em 30d", axis=_percent_axis()),
             color=alt.Color("cohort:N", title="Safra", scale=alt.Scale(domain=color_domain, range=color_range), legend=alt.Legend(orient="bottom")),
+            strokeDash=alt.StrokeDash("cohort:N", title="Estilo", scale=alt.Scale(domain=color_domain, range=dash_range), legend=None),
             tooltip=[
                 alt.Tooltip("cohort:N", title="Safra"),
                 alt.Tooltip("mes_ciclo:N", title="Mês"),
@@ -411,6 +414,17 @@ def _bar_label_layers(label_df: pd.DataFrame, *, x: alt.X) -> list[alt.Chart]:
 def _palette_for_domain(domain: list[str]) -> list[str]:
     base = [PRIMARY, SECONDARY, AUX, "#8C8C8C"]
     return [base[idx % len(base)] for idx, _ in enumerate(domain or base)]
+
+
+def _cohort_style_ranges(domain: list[str]) -> tuple[list[str], list[list[int]]]:
+    if not domain:
+        return COHORT_COLORS, COHORT_DASHES
+    count = len(domain)
+    colors = COHORT_COLORS[-count:]
+    dashes = COHORT_DASHES[-count:]
+    if dashes:
+        dashes[-1] = []
+    return colors, dashes
 
 
 def _chart_base(df: pd.DataFrame) -> pd.DataFrame:
