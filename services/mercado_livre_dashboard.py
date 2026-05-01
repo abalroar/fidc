@@ -84,6 +84,7 @@ MONEY_COLUMNS = [
     "prazo_venc_361_720",
     "prazo_venc_721_1080",
     "prazo_venc_1080",
+    "carteira_a_vencer",
     "duration_total_saldo",
     "duration_weighted_days",
 ]
@@ -116,12 +117,13 @@ PRIMITIVE_SUM_COLUMNS = [
     "prazo_venc_361_720",
     "prazo_venc_721_1080",
     "prazo_venc_1080",
+    "carteira_a_vencer",
     "duration_total_saldo",
     "duration_weighted_days",
 ]
 
 WIDE_TABLE_COLUMNS = ["Bloco", "Métrica", "Memória / fórmula"]
-CALCULATION_SCHEMA_VERSION = 5
+CALCULATION_SCHEMA_VERSION = 6
 OFFICIAL_PL_PATH = "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
 
 
@@ -860,6 +862,20 @@ def _decorate_monthly_base(frame: pd.DataFrame, *, expected_funds: int) -> pd.Da
     df["pdd_npl_over180_pct"] = _safe_div_pct(df["pdd_total"], df["npl_over180"])
     df["pdd_npl_over360_pct"] = _safe_div_pct(df["pdd_total"], df["npl_over360"])
     df["pdd_npl_over90_ex360_pct"] = _safe_div_pct(df["pdd_ex360"], df["npl_over90_ex360"])
+    df["carteira_a_vencer"] = df[
+        [
+            "prazo_venc_30",
+            "prazo_venc_31_60",
+            "prazo_venc_61_90",
+            "prazo_venc_91_120",
+            "prazo_venc_121_150",
+            "prazo_venc_151_180",
+            "prazo_venc_181_360",
+            "prazo_venc_361_720",
+            "prazo_venc_721_1080",
+            "prazo_venc_1080",
+        ]
+    ].sum(axis=1, min_count=1)
     df["carteira_em_dia_mais_ate30"] = df["carteira_em_dia"] + df["atraso_ate30"]
     df["roll_rate_base_t_minus_1"] = pd.to_numeric(df["carteira_em_dia_mais_ate30"], errors="coerce").shift(1)
     df["roll_rate_31_60_pct"] = _safe_div_pct(df["atraso_31_60"], df["roll_rate_base_t_minus_1"])

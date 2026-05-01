@@ -4,17 +4,26 @@ import unittest
 
 import pandas as pd
 
-from services.meli_credit_monitor import build_cohort_matrix, build_monitor_base
+from services.meli_credit_monitor import build_cohort_matrix, build_monitor_base, build_pdf_reconciliation_table
 from services.mercado_livre_dashboard import build_consolidated_monthly_base
 
 
 class MeliCreditMonitorTest(unittest.TestCase):
-    def test_roll_rates_use_lagged_current_portfolio_denominators(self) -> None:
+    def test_roll_rates_use_lagged_current_maturity_denominators(self) -> None:
         monthly = _sample_monthly(month_count=7)
         monitor = build_monitor_base(monthly)
 
-        self.assertAlmostEqual(5.0, monitor.loc[3, "roll_61_90_m3_pct"])
-        self.assertAlmostEqual(6.0, monitor.loc[6, "roll_151_180_m6_pct"])
+        self.assertAlmostEqual(2.5, monitor.loc[3, "roll_61_90_m3_pct"])
+        self.assertAlmostEqual(3.0, monitor.loc[6, "roll_151_180_m6_pct"])
+        self.assertAlmostEqual(200.0, monitor.loc[3, "roll_61_90_m3_den"])
+        self.assertAlmostEqual(200.0, monitor.loc[6, "roll_151_180_m6_den"])
+
+    def test_roll_rates_derive_current_maturity_when_missing(self) -> None:
+        monthly = _sample_monthly(month_count=7).drop(columns=["carteira_a_vencer"])
+        monitor = build_monitor_base(monthly)
+
+        self.assertAlmostEqual(200.0, monitor.loc[0, "carteira_a_vencer"])
+        self.assertAlmostEqual(2.5, monitor.loc[3, "roll_61_90_m3_pct"])
 
     def test_cohort_matrix_uses_due_30_base_and_future_buckets(self) -> None:
         monthly = _sample_monthly(month_count=7)
@@ -60,20 +69,42 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertAlmostEqual(10.5, consolidated.loc[0, "duration_days"])
         self.assertAlmostEqual(10.5 / 30.4375, consolidated.loc[0, "duration_months"])
 
+    def test_pdf_reconciliation_uses_november_2025_targets(self) -> None:
+        monthly = _sample_monthly(month_count=1, start="2025-11-01")
+        monthly.loc[0, "carteira_ex360"] = 7_141_000_000.0
+        monthly.loc[0, "atraso_ate30"] = 266_000_000.0
+        monthly.loc[0, "atraso_31_60"] = 184_000_000.0
+        monthly.loc[0, "atraso_61_90"] = 150_000_000.0
+        monthly.loc[0, "atraso_91_120"] = 370_000_000.0
+        monthly.loc[0, "atraso_121_150"] = 0.0
+        monthly.loc[0, "atraso_151_180"] = 0.0
+        monthly.loc[0, "atraso_181_360"] = 642_000_000.0
+        monthly.loc[0, "duration_months"] = 7.9
+        monitor = build_monitor_base(monthly)
 
-def _sample_monthly(*, month_count: int) -> pd.DataFrame:
+        reconciliation = build_pdf_reconciliation_table(monitor)
+        npl_1_90 = reconciliation[reconciliation["Métrica"].eq("NPL 1-90d")].iloc[0]
+        npl_1_360_pct = reconciliation[reconciliation["Métrica"].eq("NPL 1-360d / carteira ex-360")].iloc[0]
+
+        self.assertAlmostEqual(600_000_000.0, npl_1_90["Valor app"])
+        self.assertAlmostEqual(22.6, npl_1_360_pct["Valor PDF"])
+
+
+def _sample_monthly(*, month_count: int, start: str = "2026-01-01") -> pd.DataFrame:
     rows = []
+    start_ts = pd.Timestamp(start)
     for idx in range(month_count):
-        ts = pd.Timestamp(year=2026, month=idx + 1, day=1)
+        ts = start_ts + pd.DateOffset(months=idx)
         rows.append(
             {
                 "fund_name": "Mercado Crédito",
                 "cnpj": "00000000000000",
-                "competencia": f"{idx + 1:02d}/2026",
+                "competencia": f"{int(ts.month):02d}/{int(ts.year)}",
                 "competencia_dt": ts,
                 "carteira_ex360": 1_000.0,
                 "carteira_bruta": 1_000.0,
                 "carteira_em_dia": 100.0,
+                "carteira_a_vencer": 200.0,
                 "atraso_ate30": 1.0,
                 "atraso_31_60": 2.0,
                 "atraso_61_90": 5.0 if idx == 3 else 3.0,
@@ -82,6 +113,15 @@ def _sample_monthly(*, month_count: int) -> pd.DataFrame:
                 "atraso_151_180": 6.0,
                 "atraso_181_360": 7.0,
                 "prazo_venc_30": 100.0,
+                "prazo_venc_31_60": 100.0,
+                "prazo_venc_61_90": 0.0,
+                "prazo_venc_91_120": 0.0,
+                "prazo_venc_121_150": 0.0,
+                "prazo_venc_151_180": 0.0,
+                "prazo_venc_181_360": 0.0,
+                "prazo_venc_361_720": 0.0,
+                "prazo_venc_721_1080": 0.0,
+                "prazo_venc_1080": 0.0,
                 "pdd_ex360": 50.0,
                 "npl_over90_ex360": 25.0,
                 "duration_months": 6.0,

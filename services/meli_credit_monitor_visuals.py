@@ -19,12 +19,12 @@ def roll_rates_chart(monitor_df: pd.DataFrame) -> alt.Chart:
     df = _chart_base(monitor_df)
     chart_df = pd.concat(
         [
-            _line_series(df, "roll_61_90_m3_pct", "Roll 61-90 / carteira em dia M-3"),
-            _line_series(df, "roll_151_180_m6_pct", "Roll 151-180 / carteira em dia M-6"),
+            _line_series(df, "roll_61_90_m3_pct", "Roll 61-90 / carteira a vencer M-3"),
+            _line_series(df, "roll_151_180_m6_pct", "Roll 151-180 / carteira a vencer M-6"),
         ],
         ignore_index=True,
     )
-    return _line_chart(chart_df, y_title="Roll rate", color_domain=["Roll 61-90 / carteira em dia M-3", "Roll 151-180 / carteira em dia M-6"])
+    return _line_chart(chart_df, y_title="Roll rate", color_domain=["Roll 61-90 / carteira a vencer M-3", "Roll 151-180 / carteira a vencer M-6"])
 
 
 def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:

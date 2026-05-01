@@ -302,7 +302,7 @@ def _render_outputs(*, outputs, selected_portfolio: PortfolioRecord, period: Ime
 def _render_consolidated_dashboard(monitor_outputs) -> None:  # noqa: ANN001
     _chart_title(
         "Roll rates",
-        "61-90 usa carteira em dia de três meses antes; 151-180 usa carteira em dia de seis meses antes.",
+        "61-90 usa carteira a vencer de três meses antes; 151-180 usa carteira a vencer de seis meses antes.",
     )
     st.altair_chart(roll_rates_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
@@ -332,7 +332,7 @@ def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
         with st.expander(name, expanded=False):
             col_left, col_right = st.columns(2)
             with col_left:
-                _chart_title("Roll rates", "Deterioração por defasagem mensal.")
+                _chart_title("Roll rates", "Deterioração sobre carteira a vencer defasada.")
                 st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
             with col_right:
                 _chart_title("NPL por severidade", "NPL 1-90d e 91-360d como percentual da carteira ex-360.")
@@ -365,6 +365,24 @@ def _render_audit(monitor_outputs) -> None:  # noqa: ANN001
         with st.expander("Warnings do monitor", expanded=False):
             for warning in monitor_outputs.warnings:
                 st.caption(warning)
+    reconciliation = monitor_outputs.pdf_reconciliation.copy()
+    if not reconciliation.empty:
+        with st.expander("Reconciliação contra MELI_.pdf", expanded=True):
+            st.caption(
+                "Alvos extraídos do PDF para nov/25. Diferenças podem indicar universo de fundos diferente, competência fora da janela ou divergência na origem CVM."
+            )
+            display_reconciliation = reconciliation.copy()
+            for column in ["Valor app", "Valor PDF", "Diferença"]:
+                if column in display_reconciliation.columns:
+                    display_reconciliation[column] = [
+                        _format_reconciliation_value(value, unit)
+                        for value, unit in zip(
+                            display_reconciliation[column],
+                            display_reconciliation.get("Unidade", pd.Series([""] * len(display_reconciliation))),
+                            strict=False,
+                        )
+                    ]
+            st.dataframe(display_reconciliation, use_container_width=True, hide_index=True)
     audit = monitor_outputs.audit_table.copy()
     if audit.empty:
         st.info("Sem tabela de auditoria.")
@@ -372,7 +390,7 @@ def _render_audit(monitor_outputs) -> None:  # noqa: ANN001
     display = audit.copy()
     for column in [col for col in display.columns if col.endswith("_pct")]:
         display[column] = display[column].map(_format_percent)
-    for column in ["carteira_ex360", "npl_1_90", "npl_91_360", "roll_61_90_m3_den", "roll_151_180_m6_den"]:
+    for column in ["carteira_ex360", "carteira_a_vencer", "npl_1_90", "npl_91_360", "roll_61_90_m3_den", "roll_151_180_m6_den"]:
         if column in display.columns:
             display[column] = display[column].map(_format_brl_compact)
     if "duration_months" in display.columns:
@@ -409,7 +427,7 @@ def _render_guide() -> None:
         st.markdown(
             """
 1. Selecione a carteira salva de FIDCs de crédito do Mercado Livre e carregue uma janela longa, preferencialmente 24M ou 36M.
-2. Comece pelos roll rates: eles mostram a velocidade de deterioração, não apenas o estoque vencido.
+2. Comece pelos roll rates: eles mostram a velocidade de deterioração sobre a carteira a vencer defasada, não apenas o estoque vencido.
 3. Use NPL por severidade para separar atraso inicial (1-90d) de atraso mais maduro (91-360d), sempre ex-vencidos acima de 360 dias.
 4. Confira carteira ex-360 e crescimento para saber se melhora de NPL vem de qualidade ou de efeito denominador.
 5. Use cohorts para comparar safras recentes contra a própria curva de maturação M1-M6.
@@ -483,6 +501,16 @@ def _format_percent(value: object) -> str:
     if pd.isna(numeric):
         return "N/D"
     return f"{_format_decimal(float(numeric), 1)}%"
+
+
+def _format_reconciliation_value(value: object, unit: object) -> str:
+    if str(unit) == "R$":
+        return _format_brl_compact(value)
+    if str(unit) == "%":
+        return _format_percent(value)
+    if str(unit) == "meses":
+        return f"{_format_decimal(value, 1)} meses"
+    return _format_decimal(value, 1)
 
 
 def _format_decimal(value: object, decimals: int) -> str:
