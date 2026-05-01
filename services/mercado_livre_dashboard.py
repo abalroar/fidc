@@ -73,6 +73,19 @@ MONEY_COLUMNS = [
     "npl_over180_ex360",
     "carteira_em_dia_mais_ate30",
     "roll_rate_base_t_minus_1",
+    "prazo_vencidos",
+    "prazo_venc_30",
+    "prazo_venc_31_60",
+    "prazo_venc_61_90",
+    "prazo_venc_91_120",
+    "prazo_venc_121_150",
+    "prazo_venc_151_180",
+    "prazo_venc_181_360",
+    "prazo_venc_361_720",
+    "prazo_venc_721_1080",
+    "prazo_venc_1080",
+    "duration_total_saldo",
+    "duration_weighted_days",
 ]
 
 PRIMITIVE_SUM_COLUMNS = [
@@ -92,6 +105,19 @@ PRIMITIVE_SUM_COLUMNS = [
     "atraso_361_720",
     "atraso_721_1080",
     "atraso_1080",
+    "prazo_vencidos",
+    "prazo_venc_30",
+    "prazo_venc_31_60",
+    "prazo_venc_61_90",
+    "prazo_venc_91_120",
+    "prazo_venc_121_150",
+    "prazo_venc_151_180",
+    "prazo_venc_181_360",
+    "prazo_venc_361_720",
+    "prazo_venc_721_1080",
+    "prazo_venc_1080",
+    "duration_total_saldo",
+    "duration_weighted_days",
 ]
 
 WIDE_TABLE_COLUMNS = ["Bloco", "Métrica", "Memória / fórmula"]
@@ -197,6 +223,8 @@ def build_fund_monthly_base(
         row.update(_official_pl_values(official_pl_history_df, competencia))
         row.update(_credit_values(dashboard, competencia))
         row.update(_bucket_values(getattr(dashboard, "default_buckets_history_df", pd.DataFrame()), competencia))
+        row.update(_maturity_values(getattr(dashboard, "maturity_history_df", pd.DataFrame()), competencia))
+        row.update(_duration_values(getattr(dashboard, "duration_history_df", pd.DataFrame()), competencia))
         rows.append(row)
     frame = pd.DataFrame(rows)
     if frame.empty:
@@ -724,6 +752,37 @@ def _bucket_values(frame: pd.DataFrame, competencia: str) -> dict[str, object]:
     }
 
 
+def _maturity_values(frame: pd.DataFrame, competencia: str) -> dict[str, object]:
+    subset = frame[frame["competencia"].astype(str) == str(competencia)].copy() if isinstance(frame, pd.DataFrame) and not frame.empty and "competencia" in frame.columns else pd.DataFrame()
+    values = {int(row.get("ordem")): _num(row.get("valor")) for _, row in subset.iterrows() if pd.notna(row.get("ordem"))}
+    return {
+        "prazo_vencidos": values.get(1),
+        "prazo_venc_30": values.get(2),
+        "prazo_venc_31_60": values.get(3),
+        "prazo_venc_61_90": values.get(4),
+        "prazo_venc_91_120": values.get(5),
+        "prazo_venc_121_150": values.get(6),
+        "prazo_venc_151_180": values.get(7),
+        "prazo_venc_181_360": values.get(8),
+        "prazo_venc_361_720": values.get(9),
+        "prazo_venc_721_1080": values.get(10),
+        "prazo_venc_1080": values.get(11),
+    }
+
+
+def _duration_values(frame: pd.DataFrame, competencia: str) -> dict[str, object]:
+    row = _latest_match(frame, competencia)
+    duration_days = _num(row.get("duration_days"))
+    total_saldo = _num(row.get("total_saldo"))
+    weighted_days = duration_days * total_saldo if duration_days is not None and total_saldo is not None else None
+    return {
+        "duration_days": duration_days,
+        "duration_total_saldo": total_saldo,
+        "duration_weighted_days": weighted_days,
+        "duration_source_status": _first_non_empty(row.get("data_quality")),
+    }
+
+
 def _decorate_monthly_base(frame: pd.DataFrame, *, expected_funds: int) -> pd.DataFrame:
     df = frame.copy()
     if "pl_total_classes" not in df.columns and "pl_total" in df.columns:
@@ -804,6 +863,12 @@ def _decorate_monthly_base(frame: pd.DataFrame, *, expected_funds: int) -> pd.Da
     df["carteira_em_dia_mais_ate30"] = df["carteira_em_dia"] + df["atraso_ate30"]
     df["roll_rate_base_t_minus_1"] = pd.to_numeric(df["carteira_em_dia_mais_ate30"], errors="coerce").shift(1)
     df["roll_rate_31_60_pct"] = _safe_div_pct(df["atraso_31_60"], df["roll_rate_base_t_minus_1"])
+    if "duration_days" not in df.columns:
+        df["duration_days"] = pd.NA
+    df["duration_days"] = pd.to_numeric(df["duration_days"], errors="coerce")
+    duration_from_weights = _safe_div(df["duration_weighted_days"], df["duration_total_saldo"])
+    df["duration_days"] = df["duration_days"].where(df["duration_days"].notna(), duration_from_weights)
+    df["duration_months"] = df["duration_days"] / 30.4375
     df["missing_data_flag"] = df[["pl_total", "pl_senior", "pl_subordinada_mezz", "carteira_bruta", "pdd_total", "npl_over90"]].isna().any(axis=1)
     df["division_by_zero_flag"] = (
         (pd.to_numeric(df["pl_total"], errors="coerce").fillna(0) <= 0)
@@ -979,6 +1044,12 @@ def _safe_div_pct(numerator: pd.Series, denominator: pd.Series) -> pd.Series:
     num = pd.to_numeric(numerator, errors="coerce")
     den = pd.to_numeric(denominator, errors="coerce")
     return (num / den).where(den > 0).mul(100.0)
+
+
+def _safe_div(numerator: pd.Series, denominator: pd.Series) -> pd.Series:
+    num = pd.to_numeric(numerator, errors="coerce")
+    den = pd.to_numeric(denominator, errors="coerce")
+    return (num / den).where(den > 0)
 
 
 def _row_min(left: pd.Series, right: pd.Series) -> pd.Series:

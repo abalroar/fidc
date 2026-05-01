@@ -1,0 +1,313 @@
+from __future__ import annotations
+
+import pandas as pd
+import altair as alt
+
+from services.mercado_livre_dashboard import PT_MONTH_ABBR
+from services.mercado_livre_visuals import CORES_MELI
+
+
+PRIMARY = CORES_MELI["primaria"]
+SECONDARY = CORES_MELI["secundaria"]
+AUX = CORES_MELI["auxiliar"]
+GRID = CORES_MELI["cinza_claro"]
+
+
+def roll_rates_chart(monitor_df: pd.DataFrame) -> alt.Chart:
+    if monitor_df is None or monitor_df.empty:
+        return _empty_chart()
+    df = _chart_base(monitor_df)
+    chart_df = pd.concat(
+        [
+            _line_series(df, "roll_61_90_m3_pct", "Roll 61-90 / carteira em dia M-3"),
+            _line_series(df, "roll_151_180_m6_pct", "Roll 151-180 / carteira em dia M-6"),
+        ],
+        ignore_index=True,
+    )
+    return _line_chart(chart_df, y_title="Roll rate", color_domain=["Roll 61-90 / carteira em dia M-3", "Roll 151-180 / carteira em dia M-6"])
+
+
+def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
+    if monitor_df is None or monitor_df.empty:
+        return _empty_chart()
+    df = _chart_base(monitor_df)
+    rows: list[dict[str, object]] = []
+    for _, row in df.iterrows():
+        rows.append(
+            {
+                "competencia": row["competencia_label"],
+                "serie": "NPL 1-90d",
+                "valor": _num(row.get("npl_1_90_pct")),
+                "valor_fmt": _format_percent(row.get("npl_1_90_pct")),
+            }
+        )
+        rows.append(
+            {
+                "competencia": row["competencia_label"],
+                "serie": "NPL 91-360d",
+                "valor": _num(row.get("npl_91_360_pct")),
+                "valor_fmt": _format_percent(row.get("npl_91_360_pct")),
+            }
+        )
+    chart_df = pd.DataFrame(rows)
+    x_sort = df["competencia_label"].tolist()
+    return _style_chart(
+        alt.Chart(chart_df)
+        .mark_bar()
+        .encode(
+            x=alt.X("competencia:N", title="Competência", sort=x_sort),
+            y=alt.Y("valor:Q", title="% da carteira ex-360", stack="zero", axis=_percent_axis()),
+            color=alt.Color(
+                "serie:N",
+                title="NPL",
+                scale=alt.Scale(domain=["NPL 1-90d", "NPL 91-360d"], range=[PRIMARY, SECONDARY]),
+                legend=alt.Legend(orient="bottom"),
+            ),
+            tooltip=[
+                alt.Tooltip("competencia:N", title="Competência"),
+                alt.Tooltip("serie:N", title="Série"),
+                alt.Tooltip("valor_fmt:N", title="Valor"),
+            ],
+        )
+        .properties(height=320)
+    )
+
+
+def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
+    if monitor_df is None or monitor_df.empty:
+        return _empty_chart()
+    df = _chart_base(monitor_df)
+    divisor, label = _money_scale(df["carteira_ex360"])
+    df["carteira_scaled"] = pd.to_numeric(df["carteira_ex360"], errors="coerce") / divisor
+    df["carteira_fmt"] = df["carteira_ex360"].map(lambda value: _format_money(value, divisor=divisor, label=label))
+    df["yoy_fmt"] = df["carteira_ex360_yoy_pct"].map(_format_percent)
+    x_sort = df["competencia_label"].tolist()
+    x = alt.X("competencia_label:N", title="Competência", sort=x_sort)
+    bars = (
+        alt.Chart(df)
+        .mark_bar(color=PRIMARY)
+        .encode(
+            x=x,
+            y=alt.Y("carteira_scaled:Q", title=label, axis=alt.Axis(grid=True)),
+            tooltip=[
+                alt.Tooltip("competencia_label:N", title="Competência"),
+                alt.Tooltip("carteira_fmt:N", title="Carteira ex-360"),
+            ],
+        )
+    )
+    line = (
+        alt.Chart(df)
+        .mark_line(point=alt.OverlayMarkDef(filled=True, fill=SECONDARY, color=SECONDARY, size=42), color=SECONDARY, strokeWidth=2)
+        .encode(
+            x=x,
+            y=alt.Y("carteira_ex360_yoy_pct:Q", title="Crescimento a/a", axis=_percent_axis(orient="right", grid=False)),
+            tooltip=[
+                alt.Tooltip("competencia_label:N", title="Competência"),
+                alt.Tooltip("yoy_fmt:N", title="Crescimento a/a"),
+            ],
+        )
+    )
+    return _style_chart(alt.layer(bars, line).resolve_scale(y="independent").properties(height=320))
+
+
+def duration_chart(consolidated_monitor: pd.DataFrame, fund_monitor: dict[str, pd.DataFrame]) -> alt.Chart:
+    frames: list[pd.DataFrame] = []
+    if consolidated_monitor is not None and not consolidated_monitor.empty:
+        frames.append(_duration_series(consolidated_monitor, "Consolidado"))
+    for _, frame in fund_monitor.items():
+        if frame is None or frame.empty:
+            continue
+        name = str(frame["fund_name"].dropna().iloc[0]) if "fund_name" in frame.columns and frame["fund_name"].notna().any() else "FIDC"
+        frames.append(_duration_series(frame, name))
+    chart_df = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+    if chart_df.empty:
+        return _empty_chart()
+    x_sort = chart_df.drop_duplicates("competencia")["competencia"].tolist()
+    return _style_chart(
+        alt.Chart(chart_df)
+        .mark_line(point=alt.OverlayMarkDef(filled=True, size=36), strokeWidth=2)
+        .encode(
+            x=alt.X("competencia:N", title="Competência", sort=x_sort),
+            y=alt.Y("duration_months:Q", title="Duration (meses)", scale=alt.Scale(zero=False, nice=True)),
+            color=alt.Color("serie:N", title="FIDC", legend=alt.Legend(orient="bottom")),
+            tooltip=[
+                alt.Tooltip("competencia:N", title="Competência"),
+                alt.Tooltip("serie:N", title="FIDC"),
+                alt.Tooltip("duration_fmt:N", title="Duration"),
+            ],
+        )
+        .properties(height=320)
+    )
+
+
+def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8) -> alt.Chart:
+    if cohort_df is None or cohort_df.empty:
+        return _empty_chart()
+    df = cohort_df.copy()
+    df["cohort_dt"] = pd.to_datetime(df["cohort_dt"], errors="coerce")
+    recent = df[["cohort", "cohort_dt"]].drop_duplicates().sort_values("cohort_dt").tail(max_cohorts)["cohort"].tolist()
+    df = df[df["cohort"].isin(recent)].copy()
+    df["valor_fmt"] = df["valor_pct"].map(_format_percent)
+    return _style_chart(
+        alt.Chart(df)
+        .mark_line(point=alt.OverlayMarkDef(filled=True, size=42), strokeWidth=2)
+        .encode(
+            x=alt.X("mes_ciclo:N", title="Mês de maturação", sort=["M1", "M2", "M3", "M4", "M5", "M6"]),
+            y=alt.Y("valor_pct:Q", title="% do saldo a vencer em 30d", axis=_percent_axis()),
+            color=alt.Color("cohort:N", title="Safra", legend=alt.Legend(orient="bottom")),
+            tooltip=[
+                alt.Tooltip("cohort:N", title="Safra"),
+                alt.Tooltip("mes_ciclo:N", title="Mês"),
+                alt.Tooltip("valor_fmt:N", title="Valor"),
+            ],
+        )
+        .properties(height=340)
+    )
+
+
+def _line_chart(chart_df: pd.DataFrame, *, y_title: str, color_domain: list[str]) -> alt.Chart:
+    if chart_df.empty:
+        return _empty_chart()
+    x_sort = chart_df.drop_duplicates("competencia")["competencia"].tolist()
+    return _style_chart(
+        alt.Chart(chart_df)
+        .mark_line(point=alt.OverlayMarkDef(filled=True, size=42), strokeWidth=2)
+        .encode(
+            x=alt.X("competencia:N", title="Competência", sort=x_sort),
+            y=alt.Y("valor:Q", title=y_title, axis=_percent_axis()),
+            color=alt.Color(
+                "serie:N",
+                title="Séries",
+                scale=alt.Scale(domain=color_domain, range=[PRIMARY, SECONDARY, AUX]),
+                legend=alt.Legend(orient="bottom"),
+            ),
+            tooltip=[
+                alt.Tooltip("competencia:N", title="Competência"),
+                alt.Tooltip("serie:N", title="Série"),
+                alt.Tooltip("valor_fmt:N", title="Valor"),
+            ],
+        )
+        .properties(height=320)
+    )
+
+
+def _line_series(df: pd.DataFrame, column: str, label: str) -> pd.DataFrame:
+    if column not in df.columns:
+        return pd.DataFrame(columns=["competencia", "serie", "valor", "valor_fmt"])
+    out = pd.DataFrame(
+        {
+            "competencia": df["competencia_label"],
+            "serie": label,
+            "valor": pd.to_numeric(df[column], errors="coerce"),
+        }
+    )
+    out["valor_fmt"] = out["valor"].map(_format_percent)
+    return out
+
+
+def _duration_series(df: pd.DataFrame, label: str) -> pd.DataFrame:
+    base = _chart_base(df)
+    out = pd.DataFrame(
+        {
+            "competencia": base["competencia_label"],
+            "serie": label,
+            "duration_months": pd.to_numeric(base.get("duration_months"), errors="coerce"),
+        }
+    )
+    out["duration_fmt"] = out["duration_months"].map(lambda value: f"{_format_decimal(value, 1)} meses")
+    return out
+
+
+def _chart_base(df: pd.DataFrame) -> pd.DataFrame:
+    out = df.copy()
+    out["competencia_dt"] = pd.to_datetime(out["competencia_dt"], errors="coerce")
+    out = out.sort_values("competencia_dt").reset_index(drop=True)
+    out["competencia_label"] = [
+        _format_competencia(row.get("competencia_dt"), row.get("competencia"))
+        for _, row in out.iterrows()
+    ]
+    return out
+
+
+def _style_chart(chart: alt.Chart) -> alt.Chart:
+    return (
+        chart.configure_axis(
+            labelColor=AUX,
+            titleColor=AUX,
+            gridColor=GRID,
+            domainColor=GRID,
+            labelFontSize=11,
+            titleFontSize=12,
+        )
+        .configure_view(stroke=None)
+        .configure_legend(labelColor=AUX, titleColor=AUX, orient="bottom", labelFontSize=11, titleFontSize=11)
+    )
+
+
+def _percent_axis(*, orient: str | None = None, grid: bool = True) -> alt.Axis:
+    kwargs: dict[str, object] = {
+        "grid": grid,
+        "tickCount": 6,
+        "labelExpr": "replace(format(datum.value, '.1f'), '.', ',') + '%'",
+        "labelPadding": 8,
+        "titlePadding": 12,
+    }
+    if orient is not None:
+        kwargs["orient"] = orient
+    return alt.Axis(**kwargs)
+
+
+def _empty_chart() -> alt.Chart:
+    return _style_chart(
+        alt.Chart(pd.DataFrame({"x": [0], "text": ["Sem dados"]}))
+        .mark_text(color="#6f7a87", fontSize=13)
+        .encode(text="text:N")
+        .properties(height=260)
+    )
+
+
+def _money_scale(values: pd.Series) -> tuple[float, str]:
+    max_value = pd.to_numeric(values, errors="coerce").abs().max()
+    if pd.isna(max_value):
+        max_value = 0.0
+    if max_value >= 1_000_000_000_000:
+        return 1_000_000_000.0, "R$ bi"
+    if max_value >= 1_000_000:
+        return 1_000_000.0, "R$ mm"
+    if max_value >= 1_000:
+        return 1_000.0, "R$ mil"
+    return 1.0, "R$"
+
+
+def _format_competencia(competencia_dt: object, fallback: object) -> str:
+    ts = pd.to_datetime(competencia_dt, errors="coerce")
+    if pd.notna(ts):
+        return f"{PT_MONTH_ABBR[int(ts.month)]}/{str(int(ts.year))[-2:]}"
+    return str(fallback or "")
+
+
+def _num(value: object) -> float | None:
+    parsed = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(parsed):
+        return None
+    return float(parsed)
+
+
+def _format_decimal(value: object, decimals: int = 1) -> str:
+    numeric = _num(value)
+    if numeric is None:
+        return "N/D"
+    return f"{numeric:,.{decimals}f}".replace(",", "_").replace(".", ",").replace("_", ".")
+
+
+def _format_percent(value: object) -> str:
+    return f"{_format_decimal(value, 1)}%"
+
+
+def _format_money(value: object, *, divisor: float, label: str) -> str:
+    numeric = _num(value)
+    if numeric is None:
+        return "N/D"
+    if label == "R$":
+        return f"R$ {_format_decimal(numeric, 2)}"
+    return f"{label} {_format_decimal(numeric / divisor, 1)}"
