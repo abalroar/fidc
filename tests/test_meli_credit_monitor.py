@@ -1,10 +1,21 @@
 from __future__ import annotations
 
+from io import BytesIO
+import json
 import unittest
+import zipfile
 
 import pandas as pd
 
-from services.meli_credit_monitor import build_cohort_matrix, build_monitor_base, build_pdf_reconciliation_table
+from services.meli_credit_monitor import (
+    MeliMonitorOutputs,
+    build_cohort_matrix,
+    build_meli_methodology_table,
+    build_monitor_base,
+    build_pdf_reconciliation_table,
+)
+from services.meli_credit_monitor_ppt_export import build_dashboard_meli_pptx_bytes
+from services.meli_credit_monitor_visuals import portfolio_growth_chart, roll_rates_chart
 from services.mercado_livre_dashboard import build_consolidated_monthly_base
 
 
@@ -85,9 +96,52 @@ class MeliCreditMonitorTest(unittest.TestCase):
         reconciliation = build_pdf_reconciliation_table(monitor)
         npl_1_90 = reconciliation[reconciliation["Métrica"].eq("NPL 1-90d")].iloc[0]
         npl_1_360_pct = reconciliation[reconciliation["Métrica"].eq("NPL 1-360d / carteira ex-360")].iloc[0]
+        no_pdf_target = reconciliation[reconciliation["Métrica"].eq("PL total")].iloc[0]
 
         self.assertAlmostEqual(600_000_000.0, npl_1_90["Valor app"])
         self.assertAlmostEqual(22.6, npl_1_360_pct["Valor PDF"])
+        self.assertEqual("Sem alvo no PDF.", no_pdf_target["Status"])
+
+    def test_methodology_table_documents_formula_sources(self) -> None:
+        methodology = build_meli_methodology_table()
+
+        roll = methodology[methodology["Indicador"].eq("Roll 61-90 / carteira a vencer M-3")].iloc[0]
+
+        self.assertIn("carteira_a_vencer_t-3", roll["Fórmula"])
+        self.assertIn("Fonte / coluna", methodology.columns)
+
+    def test_dashboard_meli_charts_include_final_labels(self) -> None:
+        monitor = build_monitor_base(_sample_monthly(month_count=7))
+
+        roll_payload = json.dumps(roll_rates_chart(monitor).to_dict(), ensure_ascii=False)
+        growth_payload = json.dumps(portfolio_growth_chart(monitor).to_dict(), ensure_ascii=False)
+
+        self.assertIn("mark", roll_payload)
+        self.assertIn("text", roll_payload)
+        self.assertIn("3,0%", roll_payload)
+        self.assertIn("Carteira ex-360", growth_payload)
+        self.assertIn("text", growth_payload)
+
+    def test_dashboard_meli_pptx_export_is_valid_zip(self) -> None:
+        monitor = build_monitor_base(_sample_monthly(month_count=7))
+        cohorts = build_cohort_matrix(monitor)
+        outputs = MeliMonitorOutputs(
+            consolidated_monitor=monitor,
+            fund_monitor={"00000000000000": monitor},
+            consolidated_cohorts=cohorts,
+            fund_cohorts={"00000000000000": cohorts},
+            audit_table=pd.DataFrame(),
+            pdf_reconciliation=pd.DataFrame(),
+            warnings=[],
+        )
+
+        pptx_bytes = build_dashboard_meli_pptx_bytes(outputs)
+
+        self.assertTrue(pptx_bytes.startswith(b"PK"))
+        self.assertTrue(zipfile.is_zipfile(BytesIO(pptx_bytes)))
+        with zipfile.ZipFile(BytesIO(pptx_bytes)) as archive:
+            names = archive.namelist()
+        self.assertTrue(any(name.startswith("ppt/charts/chart") for name in names))
 
 
 def _sample_monthly(*, month_count: int, start: str = "2026-01-01") -> pd.DataFrame:

@@ -12,66 +12,246 @@ MELI_PDF_TARGETS: tuple[dict[str, object], ...] = (
         "column": "carteira_ex360",
         "target": 7_141_000_000.0,
         "unit": "R$",
+        "diagnostic": "Tabela 1 do Itaú BBA: Total Credit Portfolio (<360), em BRL mn.",
     },
     {
         "metric": "NPL 1-90d",
         "column": "npl_1_90",
         "target": 600_000_000.0,
         "unit": "R$",
+        "diagnostic": "Soma das faixas NPL 1-30, 30-60 e 60-90 do PDF.",
     },
     {
         "metric": "NPL 91-360d",
         "column": "npl_91_360",
         "target": 1_012_000_000.0,
         "unit": "R$",
+        "diagnostic": "Soma das faixas NPL 90-180 e 180-360 do PDF.",
     },
     {
         "metric": "NPL 1-90d / carteira ex-360",
         "column": "npl_1_90_pct",
         "target": 8.4,
         "unit": "%",
+        "diagnostic": "NPL 1-90 dividido pela carteira ex-360.",
     },
     {
         "metric": "NPL 91-360d / carteira ex-360",
         "column": "npl_91_360_pct",
         "target": 14.2,
         "unit": "%",
+        "diagnostic": "NPL 91-360 dividido pela carteira ex-360.",
     },
     {
         "metric": "NPL 1-360d / carteira ex-360",
         "column": "npl_1_360_pct",
         "target": 22.6,
         "unit": "%",
+        "diagnostic": "NPL total de 1 a 360 dias dividido pela carteira ex-360.",
     },
     {
         "metric": "Crescimento m/m carteira ex-360",
         "column": "carteira_ex360_mom_pct",
         "target": 1.0,
         "unit": "%",
+        "diagnostic": "Variação mensal arredondada no Chart 8/Tabela 1.",
     },
     {
         "metric": "Crescimento a/a carteira ex-360",
         "column": "carteira_ex360_yoy_pct",
         "target": 0.0,
         "unit": "%",
+        "diagnostic": "Variação anual arredondada no Chart 7/Tabela 1.",
     },
     {
         "metric": "Roll 61-90 / carteira a vencer M-3",
         "column": "roll_61_90_m3_pct",
         "target": 3.0,
         "unit": "%",
+        "diagnostic": "Chart 1: 61-90 sobre carteira a vencer de três meses antes.",
     },
     {
         "metric": "Roll 151-180 / carteira a vencer M-6",
         "column": "roll_151_180_m6_pct",
         "target": 2.7,
         "unit": "%",
+        "diagnostic": "Chart 2: 151-180 sobre carteira a vencer de seis meses antes.",
     },
     {
         "metric": "Duration",
         "column": "duration_months",
         "target": 7.9,
         "unit": "meses",
+        "diagnostic": "Chart 9: duration consolidada em meses.",
+    },
+)
+
+MELI_PDF_UNAVAILABLE_TARGETS: tuple[dict[str, object], ...] = (
+    {
+        "metric": "PL total",
+        "column": "pl_total",
+        "unit": "R$",
+        "diagnostic": "O PDF de research não traz PL por competência; app mantém valor para auditoria interna.",
+    },
+    {
+        "metric": "% Subordinação",
+        "column": "subordinacao_total_pct",
+        "unit": "%",
+        "diagnostic": "O PDF não publica subordinação; validar contra Informe Mensal/B3, não contra o PDF.",
+    },
+    {
+        "metric": "PDD Ex Over 360d",
+        "column": "pdd_ex360",
+        "unit": "R$",
+        "diagnostic": "O PDF não traz PDD; app calcula PDD ex-360 como PDD total menos baixa Over 360 limitada à PDD.",
+    },
+    {
+        "metric": "PDD Ex / NPL Over 90d Ex 360",
+        "column": "pdd_npl90_ex360_pct",
+        "unit": "%",
+        "diagnostic": "O PDF não traz cobertura; app mantém como métrica própria de acompanhamento.",
+    },
+    {
+        "metric": "NPL Over 360d",
+        "column": "npl_over360",
+        "unit": "R$",
+        "diagnostic": "O PDF exclui Over 360 da carteira de comparação; app mostra o estoque original antes da baixa ex-360.",
+    },
+)
+
+MELI_MONITOR_METHODOLOGY_ROWS: tuple[dict[str, str], ...] = (
+    {
+        "Indicador": "Carteira ex-360",
+        "Definição": "Carteira de crédito após baixa conceitual dos vencidos acima de 360 dias.",
+        "Numerador": "carteira_bruta - npl_over360",
+        "Denominador": "Não aplicável",
+        "Fórmula": "carteira_ex360 = carteira_bruta - vencidos_360",
+        "Unidade": "R$",
+        "Fonte / coluna": "carteira_bruta; atraso_361_720; atraso_721_1080; atraso_1080",
+        "Observação": "Replica a visão do research que exclui Over 360 para comparar com baixa usada no consolidado MELI.",
+    },
+    {
+        "Indicador": "NPL 1-90d",
+        "Definição": "Estoque vencido entre 1 e 90 dias.",
+        "Numerador": "atraso_ate30 + atraso_31_60 + atraso_61_90",
+        "Denominador": "Não aplicável",
+        "Fórmula": "npl_1_90 = atraso_ate30 + atraso_31_60 + atraso_61_90",
+        "Unidade": "R$",
+        "Fonte / coluna": "Faixas de atraso do Informe Mensal Estruturado",
+        "Observação": "Corresponde às faixas NPL 1-30, 30-60 e 60-90 do PDF.",
+    },
+    {
+        "Indicador": "NPL 91-360d",
+        "Definição": "Estoque vencido acima de 90 e até 360 dias.",
+        "Numerador": "atraso_91_120 + atraso_121_150 + atraso_151_180 + atraso_181_360",
+        "Denominador": "Não aplicável",
+        "Fórmula": "npl_91_360 = atraso_91_120 + atraso_121_150 + atraso_151_180 + atraso_181_360",
+        "Unidade": "R$",
+        "Fonte / coluna": "Faixas de atraso do Informe Mensal Estruturado",
+        "Observação": "Corresponde às faixas NPL 90-180 e 180-360 do PDF.",
+    },
+    {
+        "Indicador": "NPL 1-90d / carteira",
+        "Definição": "Atraso inicial como percentual da carteira ex-360.",
+        "Numerador": "npl_1_90",
+        "Denominador": "carteira_ex360",
+        "Fórmula": "npl_1_90_pct = npl_1_90 / carteira_ex360",
+        "Unidade": "%",
+        "Fonte / coluna": "npl_1_90; carteira_ex360",
+        "Observação": "No consolidado, soma numeradores e denominadores antes de dividir.",
+    },
+    {
+        "Indicador": "NPL 91-360d / carteira",
+        "Definição": "Atraso maduro como percentual da carteira ex-360.",
+        "Numerador": "npl_91_360",
+        "Denominador": "carteira_ex360",
+        "Fórmula": "npl_91_360_pct = npl_91_360 / carteira_ex360",
+        "Unidade": "%",
+        "Fonte / coluna": "npl_91_360; carteira_ex360",
+        "Observação": "Não inclui vencidos acima de 360 dias.",
+    },
+    {
+        "Indicador": "Roll 61-90 / carteira a vencer M-3",
+        "Definição": "Parcela que migra para 61-90 dias vencidos contra a carteira a vencer três meses antes.",
+        "Numerador": "atraso_61_90_t",
+        "Denominador": "carteira_a_vencer_t-3",
+        "Fórmula": "roll_61_90_m3_pct = atraso_61_90_t / carteira_a_vencer_t-3",
+        "Unidade": "%",
+        "Fonte / coluna": "atraso_61_90; carteira_a_vencer",
+        "Observação": "Alinha o denominador ao PDF: not-yet-due portfolio from 3 months ago.",
+    },
+    {
+        "Indicador": "Roll 151-180 / carteira a vencer M-6",
+        "Definição": "Parcela que migra para 151-180 dias vencidos contra a carteira a vencer seis meses antes.",
+        "Numerador": "atraso_151_180_t",
+        "Denominador": "carteira_a_vencer_t-6",
+        "Fórmula": "roll_151_180_m6_pct = atraso_151_180_t / carteira_a_vencer_t-6",
+        "Unidade": "%",
+        "Fonte / coluna": "atraso_151_180; carteira_a_vencer",
+        "Observação": "Alinha o denominador ao PDF: not-yet-due portfolio from 6 months ago.",
+    },
+    {
+        "Indicador": "Cohorts M1-M6",
+        "Definição": "Maturação de atraso por safra mensal.",
+        "Numerador": "bucket futuro de atraso M1 a M6",
+        "Denominador": "prazo_venc_30 da competência-base",
+        "Fórmula": "cohort_m = atraso_bucket_t+m / prazo_venc_30_t",
+        "Unidade": "%",
+        "Fonte / coluna": "prazo_venc_30; buckets de atraso",
+        "Observação": "Segue a nota do PDF: denominator is the portion due in 30 days.",
+    },
+    {
+        "Indicador": "Duration",
+        "Definição": "Prazo médio ponderado da carteira pela malha de vencimentos.",
+        "Numerador": "duration_weighted_days",
+        "Denominador": "duration_total_saldo",
+        "Fórmula": "duration_months = (duration_weighted_days / duration_total_saldo) / 30,4375",
+        "Unidade": "meses",
+        "Fonte / coluna": "Malha de vencimentos do Informe Mensal Estruturado",
+        "Observação": "No consolidado, a ponderação é por saldo, não média simples entre fundos.",
+    },
+    {
+        "Indicador": "PDD Ex / NPL Over 90d Ex 360",
+        "Definição": "Cobertura de PDD remanescente sobre NPL Over 90d após baixa ex-360.",
+        "Numerador": "pdd_ex360",
+        "Denominador": "npl_over90_ex360",
+        "Fórmula": "pdd_npl90_ex360_pct = pdd_ex360 / npl_over90_ex360",
+        "Unidade": "%",
+        "Fonte / coluna": "pdd_total; npl_over90; npl_over360",
+        "Observação": "PDD ex-360 não é PDD segmentada por faixa; é PDD total deduzida da baixa Over 360.",
+    },
+)
+
+MELI_CHART_AXIS_ROWS: tuple[dict[str, str], ...] = (
+    {
+        "Gráfico": "Roll rates",
+        "Eixo esquerdo": "Roll 61-90 M-3 e Roll 151-180 M-6 em %",
+        "Eixo direito": "Não usado",
+        "Observação": "Séries têm mesma unidade e ordem de grandeza.",
+    },
+    {
+        "Gráfico": "NPL por severidade",
+        "Eixo esquerdo": "NPL 1-90d e NPL 91-360d como % da carteira ex-360",
+        "Eixo direito": "Não usado",
+        "Observação": "Barras empilhadas para decompor NPL 1-360d.",
+    },
+    {
+        "Gráfico": "Carteira ex-360 e crescimento",
+        "Eixo esquerdo": "Carteira ex-360 em R$ com escala dinâmica",
+        "Eixo direito": "Crescimento a/a em %",
+        "Observação": "Valores monetários e percentuais ficam em eixos independentes.",
+    },
+    {
+        "Gráfico": "Duration por FIDC",
+        "Eixo esquerdo": "Duration em meses",
+        "Eixo direito": "Não usado",
+        "Observação": "Consolidado é ponderado por saldo.",
+    },
+    {
+        "Gráfico": "Cohorts recentes",
+        "Eixo esquerdo": "% do saldo a vencer em 30 dias",
+        "Eixo direito": "Não usado",
+        "Observação": "Cada linha representa uma safra.",
     },
 )
 
@@ -113,6 +293,14 @@ class MeliMonitorOutputs:
     audit_table: pd.DataFrame
     pdf_reconciliation: pd.DataFrame
     warnings: list[str]
+
+
+def build_meli_methodology_table() -> pd.DataFrame:
+    return pd.DataFrame(MELI_MONITOR_METHODOLOGY_ROWS)
+
+
+def build_meli_chart_axis_table() -> pd.DataFrame:
+    return pd.DataFrame(MELI_CHART_AXIS_ROWS)
 
 
 def build_meli_monitor_outputs(outputs) -> MeliMonitorOutputs:  # noqa: ANN001
@@ -251,7 +439,7 @@ def build_monitor_audit_table(*, consolidated_monitor: pd.DataFrame, fund_monito
 
 
 def build_pdf_reconciliation_table(monitor_df: pd.DataFrame) -> pd.DataFrame:
-    columns = ["Métrica", "Competência", "Valor app", "Valor PDF", "Diferença", "Unidade", "Status"]
+    columns = ["Métrica", "Competência", "Valor app", "Valor PDF", "Diferença", "Unidade", "Status", "Diagnóstico"]
     if monitor_df is None or monitor_df.empty:
         return pd.DataFrame(
             [
@@ -263,6 +451,7 @@ def build_pdf_reconciliation_table(monitor_df: pd.DataFrame) -> pd.DataFrame:
                     "Diferença": pd.NA,
                     "Unidade": "",
                     "Status": "Base consolidada vazia.",
+                    "Diagnóstico": "Carregue uma carteira com dados para comparar contra o PDF.",
                 }
             ],
             columns=columns,
@@ -281,6 +470,7 @@ def build_pdf_reconciliation_table(monitor_df: pd.DataFrame) -> pd.DataFrame:
                     "Diferença": pd.NA,
                     "Unidade": "",
                     "Status": "Competência 11/2025 ausente na janela carregada.",
+                    "Diagnóstico": "Carregue uma janela que contenha nov/25 para rodar a comparação.",
                 }
             ],
             columns=columns,
@@ -300,6 +490,21 @@ def build_pdf_reconciliation_table(monitor_df: pd.DataFrame) -> pd.DataFrame:
                 "Diferença": diff,
                 "Unidade": target["unit"],
                 "Status": _reconciliation_status(diff, unit=str(target["unit"])),
+                "Diagnóstico": target["diagnostic"],
+            }
+        )
+    for target in MELI_PDF_UNAVAILABLE_TARGETS:
+        app_value = _num(row.get(str(target["column"])))
+        rows.append(
+            {
+                "Métrica": target["metric"],
+                "Competência": MELI_PDF_TARGET_COMPETENCIA,
+                "Valor app": app_value,
+                "Valor PDF": pd.NA,
+                "Diferença": pd.NA,
+                "Unidade": target["unit"],
+                "Status": "Sem alvo no PDF.",
+                "Diagnóstico": target["diagnostic"],
             }
         )
     return pd.DataFrame(rows, columns=columns)

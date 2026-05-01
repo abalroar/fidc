@@ -8,7 +8,13 @@ import pandas as pd
 import streamlit as st
 
 from services.ime_period import ImePeriodSelection, build_custom_period, current_default_end_month, month_options, shift_month
-from services.meli_credit_monitor import build_meli_monitor_outputs, latest_row
+from services.meli_credit_monitor import (
+    build_meli_chart_axis_table,
+    build_meli_methodology_table,
+    build_meli_monitor_outputs,
+    latest_row,
+)
+from services.meli_credit_monitor_ppt_export import build_dashboard_meli_pptx_bytes
 from services.meli_credit_monitor_visuals import (
     cohort_chart,
     duration_chart,
@@ -289,6 +295,15 @@ def _render_outputs(*, outputs, selected_portfolio: PortfolioRecord, period: Ime
     _render_status_bar(selected_portfolio=selected_portfolio, period=period, outputs=outputs, storage_source=storage_source)
     monitor_outputs = build_meli_monitor_outputs(outputs)
     _render_guide()
+    pptx_bytes = build_dashboard_meli_pptx_bytes(monitor_outputs)
+    st.download_button(
+        "Baixar gráficos PPTX",
+        data=pptx_bytes,
+        file_name=f"dashboard_meli_graficos_{_safe_file_token(selected_portfolio.name)}.pptx",
+        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        key=f"dashboard_meli_pptx_download::{selected_portfolio.id}",
+        use_container_width=True,
+    )
     _render_kpis(monitor_outputs.consolidated_monitor)
     main_tab, funds_tab, audit_tab = st.tabs(["Consolidado", "Fundos individuais", "Auditoria"])
     with main_tab:
@@ -297,29 +312,30 @@ def _render_outputs(*, outputs, selected_portfolio: PortfolioRecord, period: Ime
         _render_fund_dashboards(monitor_outputs)
     with audit_tab:
         _render_audit(monitor_outputs)
+    _render_methodology()
 
 
 def _render_consolidated_dashboard(monitor_outputs) -> None:  # noqa: ANN001
     _chart_title(
         "Roll rates",
-        "61-90 usa carteira a vencer de três meses antes; 151-180 usa carteira a vencer de seis meses antes.",
+        "Eixo esquerdo: roll rate em %. Sem eixo direito. 61-90 usa carteira a vencer de três meses antes; 151-180 usa seis meses antes.",
     )
     st.altair_chart(roll_rates_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     col_left, col_right = st.columns(2)
     with col_left:
-        _chart_title("NPL por severidade", "NPL 1-90d e 91-360d como percentual da carteira ex-360.")
+        _chart_title("NPL por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
         st.altair_chart(npl_severity_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
     with col_right:
-        _chart_title("Carteira ex-360 e crescimento", "Carteira ex-360 em barras; crescimento anual como linha.")
+        _chart_title("Carteira ex-360 e crescimento", "Eixo esquerdo: carteira ex-360 em R$. Eixo direito: crescimento a/a em %.")
         st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     col_left, col_right = st.columns(2)
     with col_left:
-        _chart_title("Duration por FIDC", "Duration calculada pela malha de vencimentos; consolidado ponderado por saldo.")
+        _chart_title("Duration por FIDC", "Eixo esquerdo: duration em meses. Sem eixo direito; consolidado ponderado por saldo.")
         st.altair_chart(duration_chart(monitor_outputs.consolidated_monitor, monitor_outputs.fund_monitor), use_container_width=True)
     with col_right:
-        _chart_title("Cohorts recentes", "Cada safra usa como denominador a carteira a vencer em 30 dias da competência-base.")
+        _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito; cada linha é uma safra.")
         st.altair_chart(cohort_chart(monitor_outputs.consolidated_cohorts), use_container_width=True)
 
 
@@ -332,12 +348,12 @@ def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
         with st.expander(name, expanded=False):
             col_left, col_right = st.columns(2)
             with col_left:
-                _chart_title("Roll rates", "Deterioração sobre carteira a vencer defasada.")
+                _chart_title("Roll rates", "Eixo esquerdo: roll rate em %. Sem eixo direito; denominador é carteira a vencer defasada.")
                 st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
             with col_right:
-                _chart_title("NPL por severidade", "NPL 1-90d e 91-360d como percentual da carteira ex-360.")
+                _chart_title("NPL por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
                 st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
-            _chart_title("Cohorts recentes", "Maturação M1-M6 da carteira a vencer em 30 dias.")
+            _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
             st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
 
 
@@ -396,6 +412,21 @@ def _render_audit(monitor_outputs) -> None:  # noqa: ANN001
     if "duration_months" in display.columns:
         display["duration_months"] = display["duration_months"].map(lambda value: f"{_format_decimal(value, 1)} meses")
     st.dataframe(display, use_container_width=True)
+
+
+def _render_methodology() -> None:
+    with st.expander("Metodologia, conceitos e eixos dos gráficos", expanded=False):
+        st.markdown(
+            """
+Esta seção documenta a mecânica do Dashboard MELI. A base permanece numérica; a formatação é aplicada apenas na apresentação e na exportação.
+
+**Reconciliação Itaú BBA nov/25:** a aba compara os campos disponíveis no PDF contra a base consolidada carregada. Quando o PDF não publica uma métrica, o app mostra o valor do app e marca o alvo como ausente em vez de inferir dado não observado.
+            """
+        )
+        st.markdown("**Eixos dos gráficos**")
+        st.dataframe(build_meli_chart_axis_table(), use_container_width=True, hide_index=True)
+        st.markdown("**Fórmulas e fontes das métricas**")
+        st.dataframe(build_meli_methodology_table(), use_container_width=True, hide_index=True)
 
 
 def _render_status_bar(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection, outputs, storage_source: str) -> None:  # noqa: ANN001
@@ -511,6 +542,13 @@ def _format_reconciliation_value(value: object, unit: object) -> str:
     if str(unit) == "meses":
         return f"{_format_decimal(value, 1)} meses"
     return _format_decimal(value, 1)
+
+
+def _safe_file_token(value: object) -> str:
+    text = str(value or "dashboard_meli").strip().lower()
+    token = "".join(char if char.isalnum() else "_" for char in text)
+    token = "_".join(part for part in token.split("_") if part)
+    return token or "dashboard_meli"
 
 
 def _format_decimal(value: object, decimals: int) -> str:

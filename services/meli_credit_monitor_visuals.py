@@ -24,7 +24,11 @@ def roll_rates_chart(monitor_df: pd.DataFrame) -> alt.Chart:
         ],
         ignore_index=True,
     )
-    return _line_chart(chart_df, y_title="Roll rate", color_domain=["Roll 61-90 / carteira a vencer M-3", "Roll 151-180 / carteira a vencer M-6"])
+    return _line_chart(
+        chart_df,
+        y_title="Roll rate",
+        color_domain=["Roll 61-90 / carteira a vencer M-3", "Roll 151-180 / carteira a vencer M-6"],
+    )
 
 
 def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
@@ -51,7 +55,7 @@ def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
         )
     chart_df = pd.DataFrame(rows)
     x_sort = df["competencia_label"].tolist()
-    return _style_chart(
+    bars = (
         alt.Chart(chart_df)
         .mark_bar()
         .encode(
@@ -69,8 +73,9 @@ def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
                 alt.Tooltip("valor_fmt:N", title="Valor"),
             ],
         )
-        .properties(height=320)
     )
+    label_layers = _bar_label_layers(_stacked_bar_last_labels(chart_df, x_sort=x_sort), x=alt.X("competencia:N", sort=x_sort))
+    return _style_chart(alt.layer(bars, *label_layers).properties(height=320))
 
 
 def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
@@ -95,6 +100,16 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
             ],
         )
     )
+    bar_label_df = _last_point_label_df(df[["competencia_label", "carteira_scaled", "carteira_fmt"]], value_column="carteira_scaled")
+    bar_label = (
+        alt.Chart(bar_label_df)
+        .mark_text(align="left", baseline="middle", dx=8, dy=-8, color=PRIMARY, fontSize=11, fontWeight=600)
+        .encode(
+            x=alt.X("competencia_label:N", title="Competência", sort=x_sort),
+            y=alt.Y("carteira_scaled:Q", axis=None),
+            text=alt.Text("carteira_fmt:N"),
+        )
+    )
     line = (
         alt.Chart(df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, fill=SECONDARY, color=SECONDARY, size=42), color=SECONDARY, strokeWidth=2)
@@ -107,7 +122,20 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
             ],
         )
     )
-    return _style_chart(alt.layer(bars, line).resolve_scale(y="independent").properties(height=320))
+    line_label_df = _last_point_label_df(
+        df[["competencia_label", "carteira_ex360_yoy_pct", "yoy_fmt"]],
+        value_column="carteira_ex360_yoy_pct",
+    )
+    line_label = (
+        alt.Chart(line_label_df)
+        .mark_text(align="left", baseline="middle", dx=8, dy=14, color=SECONDARY, fontSize=11, fontWeight=600)
+        .encode(
+            x=alt.X("competencia_label:N", title="Competência", sort=x_sort),
+            y=alt.Y("carteira_ex360_yoy_pct:Q", axis=None),
+            text=alt.Text("yoy_fmt:N"),
+        )
+    )
+    return _style_chart(alt.layer(bars + bar_label, line + line_label).resolve_scale(y="independent").properties(height=320))
 
 
 def duration_chart(consolidated_monitor: pd.DataFrame, fund_monitor: dict[str, pd.DataFrame]) -> alt.Chart:
@@ -123,21 +151,32 @@ def duration_chart(consolidated_monitor: pd.DataFrame, fund_monitor: dict[str, p
     if chart_df.empty:
         return _empty_chart()
     x_sort = chart_df.drop_duplicates("competencia")["competencia"].tolist()
-    return _style_chart(
+    color_domain = chart_df["serie"].drop_duplicates().tolist()
+    color_range = _palette_for_domain(color_domain)
+    x = alt.X("competencia:N", title="Competência", sort=x_sort)
+    line = (
         alt.Chart(chart_df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, size=36), strokeWidth=2)
         .encode(
-            x=alt.X("competencia:N", title="Competência", sort=x_sort),
+            x=x,
             y=alt.Y("duration_months:Q", title="Duration (meses)", scale=alt.Scale(zero=False, nice=True)),
-            color=alt.Color("serie:N", title="FIDC", legend=alt.Legend(orient="bottom")),
+            color=alt.Color("serie:N", title="FIDC", scale=alt.Scale(domain=color_domain, range=color_range), legend=alt.Legend(orient="bottom")),
             tooltip=[
                 alt.Tooltip("competencia:N", title="Competência"),
                 alt.Tooltip("serie:N", title="FIDC"),
                 alt.Tooltip("duration_fmt:N", title="Duration"),
             ],
         )
-        .properties(height=320)
     )
+    label_df = _assign_label_offsets(_last_point_labels(chart_df, value_column="duration_months"), value_column="duration_months")
+    label_layers = _line_label_layers(
+        label_df,
+        x=x,
+        y_field="duration_months",
+        text_field="duration_fmt",
+        color_map=dict(zip(color_domain, color_range, strict=False)),
+    )
+    return _style_chart(alt.layer(line, *label_layers).properties(height=320))
 
 
 def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8) -> alt.Chart:
@@ -148,37 +187,52 @@ def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8) -> alt.Chart:
     recent = df[["cohort", "cohort_dt"]].drop_duplicates().sort_values("cohort_dt").tail(max_cohorts)["cohort"].tolist()
     df = df[df["cohort"].isin(recent)].copy()
     df["valor_fmt"] = df["valor_pct"].map(_format_percent)
-    return _style_chart(
+    color_domain = recent
+    color_range = _palette_for_domain(color_domain)
+    x = alt.X("mes_ciclo:N", title="Mês de maturação", sort=["M1", "M2", "M3", "M4", "M5", "M6"])
+    line = (
         alt.Chart(df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, size=42), strokeWidth=2)
         .encode(
-            x=alt.X("mes_ciclo:N", title="Mês de maturação", sort=["M1", "M2", "M3", "M4", "M5", "M6"]),
+            x=x,
             y=alt.Y("valor_pct:Q", title="% do saldo a vencer em 30d", axis=_percent_axis()),
-            color=alt.Color("cohort:N", title="Safra", legend=alt.Legend(orient="bottom")),
+            color=alt.Color("cohort:N", title="Safra", scale=alt.Scale(domain=color_domain, range=color_range), legend=alt.Legend(orient="bottom")),
             tooltip=[
                 alt.Tooltip("cohort:N", title="Safra"),
                 alt.Tooltip("mes_ciclo:N", title="Mês"),
                 alt.Tooltip("valor_fmt:N", title="Valor"),
             ],
         )
-        .properties(height=340)
     )
+    label_base = _last_point_labels(df.rename(columns={"cohort": "serie"}), value_column="valor_pct")
+    label_df = _assign_label_offsets(label_base, value_column="valor_pct").rename(columns={"serie": "cohort"})
+    label_layers = _line_label_layers(
+        label_df,
+        x=x,
+        y_field="valor_pct",
+        text_field="valor_fmt",
+        color_map=dict(zip(color_domain, color_range, strict=False)),
+        series_column="cohort",
+    )
+    return _style_chart(alt.layer(line, *label_layers).properties(height=340))
 
 
 def _line_chart(chart_df: pd.DataFrame, *, y_title: str, color_domain: list[str]) -> alt.Chart:
     if chart_df.empty:
         return _empty_chart()
     x_sort = chart_df.drop_duplicates("competencia")["competencia"].tolist()
-    return _style_chart(
+    color_range = _palette_for_domain(color_domain)
+    x = alt.X("competencia:N", title="Competência", sort=x_sort)
+    line = (
         alt.Chart(chart_df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, size=42), strokeWidth=2)
         .encode(
-            x=alt.X("competencia:N", title="Competência", sort=x_sort),
+            x=x,
             y=alt.Y("valor:Q", title=y_title, axis=_percent_axis()),
             color=alt.Color(
                 "serie:N",
                 title="Séries",
-                scale=alt.Scale(domain=color_domain, range=[PRIMARY, SECONDARY, AUX]),
+                scale=alt.Scale(domain=color_domain, range=color_range),
                 legend=alt.Legend(orient="bottom"),
             ),
             tooltip=[
@@ -187,8 +241,16 @@ def _line_chart(chart_df: pd.DataFrame, *, y_title: str, color_domain: list[str]
                 alt.Tooltip("valor_fmt:N", title="Valor"),
             ],
         )
-        .properties(height=320)
     )
+    label_df = _assign_label_offsets(_last_point_labels(chart_df, value_column="valor"), value_column="valor")
+    label_layers = _line_label_layers(
+        label_df,
+        x=x,
+        y_field="valor",
+        text_field="valor_fmt",
+        color_map=dict(zip(color_domain, color_range, strict=False)),
+    )
+    return _style_chart(alt.layer(line, *label_layers).properties(height=320))
 
 
 def _line_series(df: pd.DataFrame, column: str, label: str) -> pd.DataFrame:
@@ -216,6 +278,139 @@ def _duration_series(df: pd.DataFrame, label: str) -> pd.DataFrame:
     )
     out["duration_fmt"] = out["duration_months"].map(lambda value: f"{_format_decimal(value, 1)} meses")
     return out
+
+
+def _last_point_label_df(df: pd.DataFrame, *, value_column: str) -> pd.DataFrame:
+    if df.empty or value_column not in df.columns:
+        return df.iloc[0:0].copy()
+    valid = df[pd.to_numeric(df[value_column], errors="coerce").notna()]
+    return valid.tail(1).copy() if not valid.empty else df.iloc[0:0].copy()
+
+
+def _last_point_labels(df: pd.DataFrame, *, value_column: str, series_column: str = "serie") -> pd.DataFrame:
+    if df.empty or value_column not in df.columns or series_column not in df.columns:
+        return df.iloc[0:0].copy()
+    rows = []
+    for _, group in df.groupby(series_column, sort=False):
+        valid = group[pd.to_numeric(group[value_column], errors="coerce").notna()]
+        if not valid.empty:
+            rows.append(valid.tail(1))
+    return pd.concat(rows, ignore_index=True, sort=False) if rows else df.iloc[0:0].copy()
+
+
+def _assign_label_offsets(df: pd.DataFrame, *, value_column: str) -> pd.DataFrame:
+    output = df.copy()
+    if output.empty:
+        output["label_dy"] = pd.Series(dtype="int")
+        return output
+    values = pd.to_numeric(output[value_column], errors="coerce")
+    if values.notna().sum() <= 1:
+        output["label_dy"] = -12
+        return output
+    value_range = float(values.max() - values.min())
+    threshold = max(value_range * 0.08, 0.5)
+    offsets = [-12, 14, -26, 28, -40, 42, -54, 56]
+    output["label_dy"] = -12
+    used: list[float] = []
+    for idx, value in values.sort_values(ascending=False).items():
+        if pd.isna(value):
+            continue
+        close_count = sum(abs(float(value) - prior) <= threshold for prior in used)
+        output.loc[idx, "label_dy"] = offsets[min(close_count, len(offsets) - 1)]
+        used.append(float(value))
+    return output
+
+
+def _line_label_layers(
+    label_df: pd.DataFrame,
+    *,
+    x: alt.X,
+    y_field: str,
+    text_field: str,
+    color_map: dict[str, str],
+    series_column: str = "serie",
+) -> list[alt.Chart]:
+    layers: list[alt.Chart] = []
+    if label_df.empty or series_column not in label_df.columns:
+        return layers
+    for _, row in label_df.iterrows():
+        series = str(row.get(series_column) or "")
+        dy = int(row.get("label_dy") or -12)
+        layers.append(
+            alt.Chart(pd.DataFrame([row]))
+            .mark_text(
+                align="left",
+                baseline="middle",
+                dx=8,
+                dy=dy,
+                color=color_map.get(series, AUX),
+                fontSize=11,
+                fontWeight=600,
+            )
+            .encode(
+                x=x,
+                y=alt.Y(f"{y_field}:Q", axis=None),
+                text=alt.Text(f"{text_field}:N"),
+            )
+        )
+    return layers
+
+
+def _stacked_bar_last_labels(chart_df: pd.DataFrame, *, x_sort: list[str]) -> pd.DataFrame:
+    if chart_df.empty or not x_sort:
+        return pd.DataFrame(columns=["competencia", "serie", "label_y", "valor_fmt", "label_color"])
+    last_competencia = x_sort[-1]
+    final = chart_df[chart_df["competencia"].eq(last_competencia)].copy()
+    if final.empty:
+        return pd.DataFrame(columns=["competencia", "serie", "label_y", "valor_fmt", "label_color"])
+    rows: list[dict[str, object]] = []
+    cumulative = 0.0
+    for serie in ["NPL 1-90d", "NPL 91-360d"]:
+        row = final[final["serie"].eq(serie)]
+        if row.empty:
+            continue
+        value = _num(row.iloc[0].get("valor"))
+        if value is None or value <= 0:
+            continue
+        rows.append(
+            {
+                "competencia": last_competencia,
+                "serie": serie,
+                "label_y": cumulative + value / 2.0,
+                "valor_fmt": row.iloc[0].get("valor_fmt"),
+                "label_color": "#FFFFFF" if serie == "NPL 1-90d" else "#000000",
+            }
+        )
+        cumulative += value
+    return pd.DataFrame(rows)
+
+
+def _bar_label_layers(label_df: pd.DataFrame, *, x: alt.X) -> list[alt.Chart]:
+    layers: list[alt.Chart] = []
+    if label_df.empty:
+        return layers
+    for _, row in label_df.iterrows():
+        layers.append(
+            alt.Chart(pd.DataFrame([row]))
+            .mark_text(
+                align="center",
+                baseline="middle",
+                color=str(row.get("label_color") or "#000000"),
+                fontSize=10,
+                fontWeight=700,
+            )
+            .encode(
+                x=x,
+                y=alt.Y("label_y:Q", axis=None),
+                text=alt.Text("valor_fmt:N"),
+            )
+        )
+    return layers
+
+
+def _palette_for_domain(domain: list[str]) -> list[str]:
+    base = [PRIMARY, SECONDARY, AUX, "#8C8C8C"]
+    return [base[idx % len(base)] for idx, _ in enumerate(domain or base)]
 
 
 def _chart_base(df: pd.DataFrame) -> pd.DataFrame:
