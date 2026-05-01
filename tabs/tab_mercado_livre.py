@@ -900,9 +900,13 @@ def _wide_table_metric_class(metric: str) -> str:
         "carteira bruta total",
         "carteira líquida",
         "npl over 90d / carteira",
+        "npl over 90d ex 360 / carteira ex 360",
         "pdd / npl over 90d",
+        "pdd / npl over 90d ex 360",
         "% subordinação total",
+        "% subordinação total ex over 360d",
         "carteira ex over 360d",
+        "carteira líquida ex over 360d",
         "pl ex over 360d",
         "pdd ex over 360d",
     )

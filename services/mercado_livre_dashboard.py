@@ -72,6 +72,7 @@ MONEY_COLUMNS = [
     "npl_over90_ex360",
     "npl_over180_ex360",
     "carteira_em_dia_mais_ate30",
+    "roll_rate_base_t_minus_1",
 ]
 
 PRIMITIVE_SUM_COLUMNS = [
@@ -94,7 +95,7 @@ PRIMITIVE_SUM_COLUMNS = [
 ]
 
 WIDE_TABLE_COLUMNS = ["Bloco", "Métrica", "Memória / fórmula"]
-CALCULATION_SCHEMA_VERSION = 4
+CALCULATION_SCHEMA_VERSION = 5
 OFFICIAL_PL_PATH = "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
 
 
@@ -801,7 +802,8 @@ def _decorate_monthly_base(frame: pd.DataFrame, *, expected_funds: int) -> pd.Da
     df["pdd_npl_over360_pct"] = _safe_div_pct(df["pdd_total"], df["npl_over360"])
     df["pdd_npl_over90_ex360_pct"] = _safe_div_pct(df["pdd_ex360"], df["npl_over90_ex360"])
     df["carteira_em_dia_mais_ate30"] = df["carteira_em_dia"] + df["atraso_ate30"]
-    df["roll_rate_31_60_pct"] = _safe_div_pct(df["atraso_31_60"], df["carteira_em_dia_mais_ate30"])
+    df["roll_rate_base_t_minus_1"] = pd.to_numeric(df["carteira_em_dia_mais_ate30"], errors="coerce").shift(1)
+    df["roll_rate_31_60_pct"] = _safe_div_pct(df["atraso_31_60"], df["roll_rate_base_t_minus_1"])
     df["missing_data_flag"] = df[["pl_total", "pl_senior", "pl_subordinada_mezz", "carteira_bruta", "pdd_total", "npl_over90"]].isna().any(axis=1)
     df["division_by_zero_flag"] = (
         (pd.to_numeric(df["pl_total"], errors="coerce").fillna(0) <= 0)
@@ -888,9 +890,9 @@ def _wide_metric_specs() -> list[dict[str, str]]:
         {"block": "7. Visão Ex-Vencidos > 360d", "metric": "NPL Over 180d Ex 360", "column": "npl_over180_ex360", "unit": "money", "formula": "NPL Over 180d - NPL Over 360d."},
         {"block": "7. Visão Ex-Vencidos > 360d", "metric": "NPL Over 180d Ex 360 / Carteira Ex 360", "column": "npl_over180_ex360_pct", "unit": "percent", "formula": "NPL Over 180d Ex 360 / Carteira Ex 360."},
         {"block": "7. Visão Ex-Vencidos > 360d", "metric": "PDD / NPL Over 90d Ex 360", "column": "pdd_npl_over90_ex360_pct", "unit": "percent", "formula": "PDD Ex Over 360d / NPL Over 90d Ex 360."},
-        {"block": "8. Roll Rate / fluxo de deterioração", "metric": "Carteira em dia + atrasada até 30d", "column": "carteira_em_dia_mais_ate30", "unit": "money", "formula": "Carteira em dia + atrasada até 30 dias."},
-        {"block": "8. Roll Rate / fluxo de deterioração", "metric": "Atrasos 31-60d", "column": "atraso_31_60", "unit": "money", "formula": "Bucket 31-60 dias."},
-        {"block": "8. Roll Rate / fluxo de deterioração", "metric": "Roll Rate", "column": "roll_rate_31_60_pct", "unit": "percent", "formula": "Atrasos 31-60d / (Carteira em dia + atrasada até 30d)."},
+        {"block": "8. Roll Rate / fluxo de deterioração", "metric": "Carteira em dia + atrasada até 30d (t-1)", "column": "roll_rate_base_t_minus_1", "unit": "money", "formula": "Base do mês anterior alinhada à coluna do mês t."},
+        {"block": "8. Roll Rate / fluxo de deterioração", "metric": "Atrasos 31-60d (t)", "column": "atraso_31_60", "unit": "money", "formula": "Bucket 31-60 dias do mês t."},
+        {"block": "8. Roll Rate / fluxo de deterioração", "metric": "Roll Rate", "column": "roll_rate_31_60_pct", "unit": "percent", "formula": "Atrasos 31-60d_t / (Carteira em dia + atrasada até 30d)_{t-1}."},
         {"block": "9. Campos auxiliares de auditoria", "metric": "Numerador % Subordinação Total", "column": "pl_subordinada_mezz", "unit": "money", "formula": "Subordinada + Mezanino."},
         {"block": "9. Campos auxiliares de auditoria", "metric": "Denominador % Subordinação Total", "column": "pl_total", "unit": "money", "formula": "PL FIDC total."},
         {"block": "9. Campos auxiliares de auditoria", "metric": "Numerador NPL Over 90d / Carteira", "column": "npl_over90", "unit": "money", "formula": "NPL Over 90d."},
@@ -1308,9 +1310,13 @@ def _excel_metric_is_highlight(metric: str) -> bool:
         "carteira bruta total",
         "carteira líquida",
         "npl over 90d / carteira",
+        "npl over 90d ex 360 / carteira ex 360",
         "pdd / npl over 90d",
+        "pdd / npl over 90d ex 360",
         "% subordinação total",
+        "% subordinação total ex over 360d",
         "carteira ex over 360d",
+        "carteira líquida ex over 360d",
         "pl ex over 360d",
         "pdd ex over 360d",
     )

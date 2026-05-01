@@ -217,6 +217,64 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(160.0, row["npl_over90"])
         self.assertAlmostEqual(300.0 / 160.0 * 100.0, row["pdd_npl_over90_pct"], places=6)
 
+    def test_roll_rate_uses_current_bucket_over_previous_month_base(self) -> None:
+        competencias = ["01/2026", "02/2026"]
+        dashboard = SimpleNamespace(
+            competencias=competencias,
+            fund_info={"nome_fundo": "FIDC A", "cnpj_fundo": "11111111000111", "nome_classe": "Classe única"},
+            subordination_history_df=pd.DataFrame(
+                [
+                    {
+                        "competencia": competencia,
+                        "competencia_dt": pd.Timestamp(f"2026-{month:02d}-01"),
+                        "pl_total": 100.0,
+                        "pl_senior": 75.0,
+                        "pl_mezzanino": 15.0,
+                        "pl_subordinada_strict": 10.0,
+                        "pl_subordinada": 25.0,
+                    }
+                    for month, competencia in enumerate(competencias, start=1)
+                ]
+            ),
+            default_history_df=pd.DataFrame(
+                [
+                    {
+                        "competencia": competencia,
+                        "competencia_dt": pd.Timestamp(f"2026-{month:02d}-01"),
+                        "direitos_creditorios": 1_000.0,
+                        "direitos_creditorios_fonte": "teste",
+                        "provisao_total": 100.0,
+                    }
+                    for month, competencia in enumerate(competencias, start=1)
+                ]
+            ),
+            dc_canonical_history_df=pd.DataFrame(),
+            default_buckets_history_df=pd.DataFrame(
+                [
+                    {"competencia": "01/2026", "competencia_dt": pd.Timestamp("2026-01-01"), "ordem": 1, "faixa": "Até 30 dias", "valor": 100.0},
+                    {"competencia": "01/2026", "competencia_dt": pd.Timestamp("2026-01-01"), "ordem": 2, "faixa": "31 a 60 dias", "valor": 20.0},
+                    {"competencia": "02/2026", "competencia_dt": pd.Timestamp("2026-02-01"), "ordem": 1, "faixa": "Até 30 dias", "valor": 80.0},
+                    {"competencia": "02/2026", "competencia_dt": pd.Timestamp("2026-02-01"), "ordem": 2, "faixa": "31 a 60 dias", "valor": 49.0},
+                ]
+            ),
+        )
+
+        monthly = build_fund_monthly_base(cnpj="11111111000111", fund_name="FIDC A", dashboard=dashboard)
+        jan = monthly.loc[monthly["competencia"] == "01/2026"].iloc[0]
+        feb = monthly.loc[monthly["competencia"] == "02/2026"].iloc[0]
+
+        self.assertAlmostEqual(980.0, jan["carteira_em_dia_mais_ate30"])
+        self.assertTrue(pd.isna(jan["roll_rate_base_t_minus_1"]))
+        self.assertAlmostEqual(980.0, feb["roll_rate_base_t_minus_1"])
+        self.assertAlmostEqual(5.0, feb["roll_rate_31_60_pct"])
+
+        wide = build_wide_table(monthly, scope_name="FIDC A")
+        base_row = wide.loc[wide["Métrica"] == "Carteira em dia + atrasada até 30d (t-1)"].iloc[0]
+        roll_row = wide.loc[wide["Métrica"] == "Roll Rate"].iloc[0]
+        self.assertEqual("R$ 980,00", base_row["fev/26"])
+        self.assertEqual("N/D", base_row["jan/26"])
+        self.assertEqual("5,00%", roll_row["fev/26"])
+
     def test_wide_table_and_excel_export_include_required_blocks(self) -> None:
         dashboard = _dashboard(
             fund_name="FIDC A",
@@ -389,6 +447,20 @@ class MercadoLivreDashboardTests(unittest.TestCase):
                     "jan/26": "27,25%",
                     "fev/26": "28,75%",
                 },
+                {
+                    "Bloco": "7. Visão Ex-Vencidos > 360d",
+                    "Métrica": "NPL Over 90d Ex 360 / Carteira Ex 360",
+                    "Memória / fórmula": "NPL Over 90d Ex 360 / Carteira Ex 360.",
+                    "jan/26": "12,50%",
+                    "fev/26": "13,75%",
+                },
+                {
+                    "Bloco": "7. Visão Ex-Vencidos > 360d",
+                    "Métrica": "PDD / NPL Over 90d Ex 360",
+                    "Memória / fórmula": "PDD Ex Over 360d / NPL Over 90d Ex 360.",
+                    "jan/26": "100,00%",
+                    "fev/26": "110,00%",
+                },
             ]
         )
 
@@ -397,12 +469,15 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("wide-table-wrapper", html)
         self.assertIn("<details class='wide-section' open", html)
         self.assertIn("<col class='label-col-width' style='width: 280px;'>", html)
-        self.assertEqual(2, html.count("<col class='period-col-width' style='width: 96px;'>"))
+        self.assertEqual(4, html.count("<col class='period-col-width' style='width: 96px;'>"))
         self.assertIn("<col class='formula-col-width' style='width: 340px;'>", html)
         self.assertIn("<summary>PL FIDC</summary>", html)
         self.assertIn("PL FIDC", html)
         self.assertIn("1.500,0 MM", html)
         self.assertIn("27,2%", html)
+        self.assertIn("<summary>Visão Ex-Vencidos &gt; 360d</summary>", html)
+        self.assertIn("<tr class='destaque'>\n<td class='label'>NPL Over 90d Ex 360 / Carteira Ex 360</td>", html)
+        self.assertIn("<tr class='destaque'>\n<td class='label'>PDD / NPL Over 90d Ex 360</td>", html)
         self.assertNotIn(">N/D<", html)
 
     def test_dense_wide_value_uses_empty_for_missing_cells_and_br_format(self) -> None:

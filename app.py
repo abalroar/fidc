@@ -199,7 +199,7 @@ period = _render_period_selector(state_prefix="ime_global")
 tab_informes, tab_carteira, tab_somatorio_fidcs, tab_modelo, tab_book = st.tabs(
     [
         "Informe Mensal Estruturado",
-        "Visão Carteira",
+        "Acompanhamento Carteira",
         "Somatório FIDCs",
         "Modelo FIDC",
         "Glossário FIDC",
