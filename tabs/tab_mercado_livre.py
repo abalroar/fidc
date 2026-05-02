@@ -22,10 +22,14 @@ from services.mercado_livre_dashboard import (
     portfolio_identity_key,
     save_outputs_to_cache,
 )
-from services.mercado_livre_ppt_export import build_pptx_export_bytes
+from services.meli_credit_monitor import MeliMonitorOutputs, build_meli_monitor_outputs
+from services.meli_credit_research import build_meli_research_outputs
+from services.meli_credit_research_verification import verify_meli_research_outputs
+from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
 from services.portfolio_store import PortfolioFund, PortfolioRecord, portfolio_basket_signature, portfolio_name_key
 from tabs import tab_fidc_ime as ime_tab
+from tabs.tab_dashboard_meli import render_dashboard_meli_analysis
 from tabs.ime_portfolio_support import (
     build_catalog_option_lookup,
     build_portfolio_funds_from_cnpjs,
@@ -287,14 +291,14 @@ render_tab_mercado_livre = render_tab_somatorio_fidcs
 
 def _render_somatorio_period_panel(global_period: ImePeriodSelection | None = None) -> ImePeriodSelection:
     end_month = current_default_end_month()
-    options = ("6M", "12M", "24M", "YTD", "Customizado")
+    options = ("6M", "12M", "24M", "36M", "YTD", "Customizado")
     selected = st.radio(
         "Janela do Somatório FIDCs",
         options=options,
         index=options.index("12M"),
         horizontal=True,
         key="somatorio_fidcs_load_window",
-        help="Define o período carregado para a carteira. Trocas de visualização dentro do período carregado não recalculam a base.",
+        help="Define o período carregado para a carteira. Use 24M ou 36M para YoY, roll rates e cohorts com mais contexto.",
     )
     if selected == "Customizado":
         max_options = month_options(end_month, months_back=119)
@@ -556,14 +560,22 @@ def _render_outputs(
         unsafe_allow_html=True,
     )
 
-    display_outputs = outputs
-    main_tab, audit_tab = st.tabs(["Tabela Completa e gráficos", "Tabela de auditoria"])
+    _render_somatorio_fidcs_guide()
+    display_outputs = _render_loaded_period_window(outputs)
+    monitor_outputs = _build_credit_monitor_for_display(outputs=outputs, display_outputs=display_outputs)
+    research_outputs = build_meli_research_outputs(monitor_outputs)
+    verification_report = verify_meli_research_outputs(monitor_outputs, research_outputs)
+    file_token = _safe_file_token(selected_portfolio.name)
 
-    with main_tab:
-        _render_somatorio_fidcs_guide()
-        display_outputs = _render_loaded_period_window(outputs)
+    base_tab, credit_tab = st.tabs(["Tabela Completa", "Análise Crédito"])
+
+    with base_tab:
         snapshot_bytes = build_consolidated_snapshot_excel_bytes(display_outputs)
-        pptx_bytes = build_pptx_export_bytes(display_outputs)
+        pptx_bytes = build_somatorio_fidcs_pptx_bytes(
+            outputs=display_outputs,
+            monitor_outputs=monitor_outputs,
+            research_outputs=research_outputs,
+        )
         btn_left, btn_right = st.columns([1.65, 1.45])
         with btn_left:
             st.download_button(
@@ -576,11 +588,11 @@ def _render_outputs(
             )
         with btn_right:
             st.download_button(
-                "Baixar slides PPTX",
+                "Baixar PPT completo",
                 data=pptx_bytes,
-                file_name=f"somatorio_fidcs_graficos_{_safe_file_token(selected_portfolio.name)}.pptx",
+                file_name=f"somatorio_fidcs_completo_{file_token}.pptx",
                 mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-                key=f"ml_pptx_download::{selected_portfolio.id}",
+                key=f"ml_pptx_completo_download::{selected_portfolio.id}",
                 use_container_width=True,
             )
 
@@ -627,14 +639,33 @@ def _render_outputs(
                         npl_coverage_chart(monthly_df),
                     )
 
-    with audit_tab:
+        _render_base_audit(display_outputs=display_outputs, cache_dir=cache_dir)
+
+    with credit_tab:
+        render_dashboard_meli_analysis(
+            outputs=display_outputs,
+            selected_portfolio=selected_portfolio,
+            monitor_outputs=monitor_outputs,
+            research_outputs=research_outputs,
+            verification_report=verification_report,
+            pptx_bytes=pptx_bytes,
+            pptx_label="Baixar PPT completo",
+            pptx_file_name=f"somatorio_fidcs_completo_{file_token}.pptx",
+            excel_file_name=f"analise_credito_research_{file_token}.xlsx",
+            download_key_prefix="somatorio_fidcs_credito",
+            pptx_file_token=file_token,
+        )
+
+
+def _render_base_audit(*, display_outputs, cache_dir) -> None:  # noqa: ANN001
+    with st.expander("Auditoria da base do Somatório", expanded=False):
         validation_df = build_validation_table(display_outputs)
         st.caption("Base auxiliar para conferência: valores absolutos são calculados primeiro; percentuais são derivados depois.")
         st.dataframe(_format_validation_for_display(validation_df), width="stretch", hide_index=True)
         st.caption(f"Base calculada persistida em `{cache_dir}`.")
         if not display_outputs.warnings_df.empty:
-            with st.expander("Warnings da base", expanded=False):
-                st.dataframe(display_outputs.warnings_df, width="stretch", hide_index=True)
+            st.markdown("**Warnings da base**")
+            st.dataframe(display_outputs.warnings_df, width="stretch", hide_index=True)
 
 
 def _render_chart(title: str, subtitle: str, chart) -> None:
@@ -652,7 +683,7 @@ def _render_loaded_period_window(outputs):
 
     loaded_start = available[0]
     loaded_end = available[-1]
-    options = ("6M", "12M", "24M", "YTD", "Customizado", "Todo período carregado")
+    options = ("6M", "12M", "24M", "36M", "YTD", "Customizado", "Todo período carregado")
     selected = st.radio(
         "Janela exibida",
         options=options,
@@ -747,6 +778,59 @@ def _filter_outputs_by_competencia(outputs, *, start_month: date, end_month: dat
     )
 
 
+def _build_credit_monitor_for_display(*, outputs, display_outputs) -> MeliMonitorOutputs:  # noqa: ANN001
+    full_monitor = build_meli_monitor_outputs(outputs)
+    start_month = _metadata_month(display_outputs, "display_period_start")
+    end_month = _metadata_month(display_outputs, "display_period_end")
+    if start_month is None or end_month is None:
+        return full_monitor
+    return MeliMonitorOutputs(
+        consolidated_monitor=_filter_monthly_frame(
+            full_monitor.consolidated_monitor,
+            start_month=start_month,
+            end_month=end_month,
+        ),
+        fund_monitor={
+            cnpj: _filter_monthly_frame(frame, start_month=start_month, end_month=end_month)
+            for cnpj, frame in full_monitor.fund_monitor.items()
+        },
+        consolidated_cohorts=_filter_cohort_frame(
+            full_monitor.consolidated_cohorts,
+            start_month=start_month,
+            end_month=end_month,
+        ),
+        fund_cohorts={
+            cnpj: _filter_cohort_frame(frame, start_month=start_month, end_month=end_month)
+            for cnpj, frame in full_monitor.fund_cohorts.items()
+        },
+        audit_table=_filter_monthly_frame(full_monitor.audit_table, start_month=start_month, end_month=end_month),
+        pdf_reconciliation=full_monitor.pdf_reconciliation,
+        warnings=full_monitor.warnings,
+    )
+
+
+def _metadata_month(outputs, key: str) -> date | None:  # noqa: ANN001
+    try:
+        value = outputs.metadata.get(key)
+    except AttributeError:
+        return None
+    if not value:
+        return None
+    parsed = pd.to_datetime(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(parsed):
+        return None
+    return date(int(parsed.year), int(parsed.month), 1)
+
+
+def _filter_cohort_frame(frame: pd.DataFrame, *, start_month: date, end_month: date) -> pd.DataFrame:
+    if frame is None or frame.empty or "cohort_dt" not in frame.columns:
+        return pd.DataFrame() if frame is None else frame.copy()
+    output = frame.copy()
+    parsed = pd.to_datetime(output["cohort_dt"], errors="coerce").dt.to_period("M").dt.to_timestamp()
+    mask = (parsed >= pd.Timestamp(start_month)) & (parsed <= pd.Timestamp(end_month))
+    return output.loc[mask].reset_index(drop=True)
+
+
 def _filter_monthly_frame(monthly_df: pd.DataFrame, *, start_month: date, end_month: date) -> pd.DataFrame:
     if monthly_df is None or monthly_df.empty:
         return pd.DataFrame() if monthly_df is None else monthly_df.copy()
@@ -795,11 +879,11 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 ### Passo a passo de utilização
 
 1. Selecione uma carteira salva ou crie uma nova carteira com os FIDCs desejados.
-2. Escolha o período de carga; o padrão é 12 meses, mas a aba permite carregar 6M, 12M, 24M, YTD ou intervalo customizado.
+2. Escolha o período de carga; o padrão é 12 meses, mas a aba permite carregar 6M, 12M, 24M, 36M, YTD ou intervalo customizado.
 3. Clique em **Carregar carteira** para montar ou reutilizar a base individual, a base consolidada, os gráficos e os arquivos exportáveis.
-4. Depois da carga, ajuste a **Janela exibida** para navegar por 6M, 12M, 24M, YTD, customizado ou todo o histórico carregado sem recalcular o storage.
-5. Comece por **Dados Consolidados – Somatório FIDCs**; ela é a memória principal para validar a carteira.
-6. Use **Dados Fundos Individuais** e a subaba **Tabela de auditoria** para rastrear divergências, warnings e campos auxiliares.
+4. Depois da carga, ajuste a **Janela exibida** para navegar por 6M, 12M, 24M, 36M, YTD, customizado ou todo o histórico carregado sem recalcular o storage.
+5. Use **Tabela Completa** para validar **Dados Consolidados – Somatório FIDCs**, **Dados Fundos Individuais** e gráficos principais.
+6. Use **Análise Crédito** para acompanhar carteira ex-360, YoY, roll rates, cohorts, duration, auditoria derivada e exportação analítica.
 
 ### Mecânica da aba
 
@@ -811,8 +895,8 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 - `PDD Ex Over 360d` é a PDD total menos a baixa dos vencidos acima de 360 dias, limitada ao saldo de PDD disponível; não é PDD específica por faixa.
 - NPL Over é acumulado: por exemplo, Over 90d soma 91-180, 181-360 e acima de 360 dias.
 - No consolidado, valores absolutos são somados por competência e os percentuais são recalculados a partir dos numeradores e denominadores agregados; a aba nunca faz média simples de percentuais.
-- Os gráficos usam a mesma base da **Tabela Completa**; se a tabela e o gráfico divergirem, a tabela é a memória de cálculo primária.
-- O Excel de resumo exporta os últimos seis meses exibidos com valores numéricos editáveis, e o PPTX gera um slide para o consolidado e um slide por FIDC em grade 2x2.
+- Os gráficos das duas sub-abas usam a mesma base da **Tabela Completa**; se a tabela e o gráfico divergirem, a tabela é a memória de cálculo primária.
+- O Excel de resumo exporta os últimos seis meses exibidos com valores numéricos editáveis, e o PPTX completo combina os slides-base do Somatório com os slides da análise de crédito, mantendo pelo menos um slide por FIDC.
 
 ### Como interpretar
 

@@ -4,7 +4,6 @@ import streamlit as st
 
 from tabs.tab_fidc_book import render_tab_fidc_book
 from tabs import tab_fidc_ime as ime_tab
-from tabs.tab_dashboard_meli import render_tab_dashboard_meli
 from tabs.tab_mercado_livre import render_tab_somatorio_fidcs
 from tabs.tab_fidc_ime_carteira import render_tab_fidc_ime_carteira
 from tabs.tab_modelo_fidc import render_tab_modelo_fidc
@@ -197,12 +196,11 @@ _render_period_selector = getattr(ime_tab, "render_period_selector", None) or ge
 period = _render_period_selector(state_prefix="ime_global")
 
 
-tab_informes, tab_carteira, tab_somatorio_fidcs, tab_dashboard_meli, tab_modelo, tab_book = st.tabs(
+tab_informes, tab_carteira, tab_somatorio_fidcs, tab_modelo, tab_book = st.tabs(
     [
         "Informe Mensal Estruturado",
         "Acompanhamento Carteira",
         "Somatório FIDCs",
-        "Dashboard MELI",
         "Modelo FIDC",
         "Glossário FIDC",
     ]
@@ -216,9 +214,6 @@ with tab_carteira:
 
 with tab_somatorio_fidcs:
     render_tab_somatorio_fidcs(period=period)
-
-with tab_dashboard_meli:
-    render_tab_dashboard_meli(period=period)
 
 with tab_modelo:
     render_tab_modelo_fidc()

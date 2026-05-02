@@ -248,6 +248,53 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertNotIn("Cohorts com médias", xml_payload)
         self.assertNotIn("Dashboard MELI - Visão research", xml_payload)
 
+    def test_combined_somatorio_pptx_export_contains_base_and_credit_slides(self) -> None:
+        from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
+
+        monitor = build_monitor_base(_sample_monthly(month_count=7))
+        cohorts = build_cohort_matrix(monitor)
+        monitor_outputs = MeliMonitorOutputs(
+            consolidated_monitor=monitor,
+            fund_monitor={"00000000000000": monitor},
+            consolidated_cohorts=cohorts,
+            fund_cohorts={"00000000000000": cohorts},
+            audit_table=pd.DataFrame(),
+            pdf_reconciliation=pd.DataFrame(),
+            warnings=[],
+        )
+        research = build_meli_research_outputs(monitor_outputs)
+        base_monthly = monitor.copy()
+        base_monthly["pl_senior"] = 700.0
+        base_monthly["pl_subordinada_mezz_ex360"] = 300.0
+        base_monthly["subordinacao_total_ex360_pct"] = 30.0
+        base_monthly["npl_over90_ex360_pct"] = 2.5
+        base_monthly["pdd_npl_over90_ex360_pct"] = 200.0
+        base_outputs = type(
+            "BaseOutputs",
+            (),
+            {
+                "consolidated_monthly": base_monthly,
+                "fund_monthly": {"00000000000000": base_monthly},
+            },
+        )()
+
+        pptx_bytes = build_somatorio_fidcs_pptx_bytes(
+            outputs=base_outputs,
+            monitor_outputs=monitor_outputs,
+            research_outputs=research,
+        )
+
+        self.assertTrue(pptx_bytes.startswith(b"PK"))
+        self.assertTrue(zipfile.is_zipfile(BytesIO(pptx_bytes)))
+        with zipfile.ZipFile(BytesIO(pptx_bytes)) as archive:
+            xml_payload = "\n".join(
+                archive.read(name).decode("utf-8", errors="ignore")
+                for name in archive.namelist()
+                if name.endswith(".xml")
+            )
+        self.assertIn("Somatório FIDCs - Base consolidada", xml_payload)
+        self.assertIn("Análise Crédito - Consolidado", xml_payload)
+
     def test_research_layer_builds_auditable_metrics_and_verification(self) -> None:
         monitor = build_monitor_base(_sample_monthly(month_count=14))
         cohorts = build_cohort_matrix(monitor)

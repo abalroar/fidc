@@ -96,7 +96,7 @@ def _add_consolidated_slide(
 ) -> None:
     slide = prs.slides.add_slide(layout)
     _style_slide(slide, RGBColor)
-    _add_header(slide, "Dashboard MELI - Consolidado", RGBColor, Inches, Pt)
+    _add_header(slide, "Análise Crédito - Consolidado", RGBColor, Inches, Pt)
     slots = _grid_2x2_slots()
     df = _chart_monthly(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame()))
     categories = _category_labels(df)
@@ -270,7 +270,7 @@ def _add_consolidated_detail_slide(
 ) -> None:
     slide = prs.slides.add_slide(layout)
     _style_slide(slide, RGBColor)
-    _add_header(slide, "Dashboard MELI - Consolidado (continuação)", RGBColor, Inches, Pt)
+    _add_header(slide, "Análise Crédito - Consolidado (continuação)", RGBColor, Inches, Pt)
     slots = _grid_2x2_slots()
     duration_df = _duration_frame(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame()), getattr(monitor_outputs, "fund_monitor", {}))
     duration_series = [column for column in duration_df.columns if column not in {"competencia_dt", "competencia"}]

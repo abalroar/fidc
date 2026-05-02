@@ -138,7 +138,7 @@ def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
     selected_period = _render_period_panel(period)
     selected_portfolio = _render_portfolio_controls(portfolios)
     if selected_portfolio is None:
-        st.info("Salve uma carteira no Somatório FIDCs para usar o Dashboard MELI.")
+        st.info("Salve uma carteira no Somatório FIDCs para usar a Análise Crédito.")
         return
     selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
     runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=selected_period)
@@ -154,7 +154,7 @@ def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
         if cached_outputs is not None:
             st.session_state[session_key] = cached_outputs
             st.session_state[f"{session_key}::source"] = "cache"
-            st.toast("Base do Dashboard MELI reutilizada do storage.")
+            st.toast("Base da Análise Crédito reutilizada do storage.")
             st.rerun()
         _execute_portfolio_load_for_funds(
             selected_portfolio=selected_portfolio,
@@ -176,7 +176,7 @@ def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
 
     if not results:
         _render_status_bar(selected_portfolio=selected_portfolio, period=selected_period, outputs=None, storage_source="não carregado")
-        st.info("Clique em **Carregar dashboard** para montar as visões MELI.")
+        st.info("Clique em **Carregar análise** para montar as visões de crédito.")
         return
 
     dashboards_by_cnpj, dashboard_errors = _build_loaded_dashboards_by_cnpj(
@@ -189,7 +189,7 @@ def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
                 st.caption(f"**{cnpj}** - {message}")
     if not dashboards_by_cnpj:
         _render_status_bar(selected_portfolio=selected_portfolio, period=selected_period, outputs=None, storage_source="não carregado")
-        st.warning("Nenhum fundo carregado com sucesso para montar o Dashboard MELI.")
+        st.warning("Nenhum fundo carregado com sucesso para montar a Análise Crédito.")
         return
 
     outputs = build_mercado_livre_outputs(
@@ -214,7 +214,7 @@ def _render_period_panel(global_period: ImePeriodSelection | None = None) -> Ime
     end_month = current_default_end_month()
     options = ("12M", "24M", "36M", "YTD", "Customizado")
     selected = st.radio(
-        "Janela do Dashboard MELI",
+        "Janela da Análise Crédito",
         options=options,
         index=options.index("24M"),
         horizontal=True,
@@ -289,7 +289,7 @@ def _render_portfolio_controls(portfolios: list[PortfolioRecord]) -> PortfolioRe
             format_func=lambda value: labels.get(value, value),
         )
     with right:
-        if st.button("Carregar dashboard", key="dashboard_meli_load_button", type="secondary", use_container_width=True):
+        if st.button("Carregar análise", key="dashboard_meli_load_button", type="secondary", use_container_width=True):
             st.session_state["_dashboard_meli_load_requested"] = True
             st.rerun()
     st.caption(get_portfolio_status_caption())
@@ -298,29 +298,58 @@ def _render_portfolio_controls(portfolios: list[PortfolioRecord]) -> PortfolioRe
 
 def _render_outputs(*, outputs, selected_portfolio: PortfolioRecord, period: ImePeriodSelection, storage_source: str) -> None:  # noqa: ANN001
     _render_status_bar(selected_portfolio=selected_portfolio, period=period, outputs=outputs, storage_source=storage_source)
-    monitor_outputs = build_meli_monitor_outputs(outputs)
-    research_outputs = build_meli_research_outputs(monitor_outputs)
-    verification_report = verify_meli_research_outputs(monitor_outputs, research_outputs)
+    render_dashboard_meli_analysis(
+        outputs=outputs,
+        selected_portfolio=selected_portfolio,
+        download_key_prefix="dashboard_meli",
+        pptx_file_token=_safe_file_token(selected_portfolio.name),
+    )
+
+
+def render_dashboard_meli_analysis(
+    *,
+    outputs,
+    selected_portfolio: PortfolioRecord,
+    monitor_outputs=None,
+    research_outputs=None,
+    verification_report: pd.DataFrame | None = None,
+    pptx_bytes: bytes | None = None,
+    pptx_label: str = "Baixar gráficos PPTX",
+    pptx_file_name: str | None = None,
+    excel_label: str = "Baixar base research Excel",
+    excel_file_name: str | None = None,
+    download_key_prefix: str = "dashboard_meli",
+    pptx_file_token: str | None = None,
+) -> None:  # noqa: ANN001
+    """Renderiza a visão de crédito MELI a partir da base canônica já carregada."""
+    if monitor_outputs is None:
+        monitor_outputs = build_meli_monitor_outputs(outputs)
+    if research_outputs is None:
+        research_outputs = build_meli_research_outputs(monitor_outputs)
+    if verification_report is None:
+        verification_report = verify_meli_research_outputs(monitor_outputs, research_outputs)
     _render_guide()
-    pptx_bytes = build_dashboard_meli_pptx_bytes(monitor_outputs, research_outputs)
+    file_token = pptx_file_token or _safe_file_token(selected_portfolio.name)
+    if pptx_bytes is None:
+        pptx_bytes = build_dashboard_meli_pptx_bytes(monitor_outputs, research_outputs)
     excel_bytes = build_research_excel_bytes(research_outputs, verification_report)
     ppt_col, excel_col = st.columns(2)
     with ppt_col:
         st.download_button(
-            "Baixar gráficos PPTX",
+            pptx_label,
             data=pptx_bytes,
-            file_name=f"dashboard_meli_graficos_{_safe_file_token(selected_portfolio.name)}.pptx",
+            file_name=pptx_file_name or f"analise_credito_graficos_{file_token}.pptx",
             mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-            key=f"dashboard_meli_pptx_download::{selected_portfolio.id}",
+            key=f"{download_key_prefix}_pptx_download::{selected_portfolio.id}",
             use_container_width=True,
         )
     with excel_col:
         st.download_button(
-            "Baixar base research Excel",
+            excel_label,
             data=excel_bytes,
-            file_name=f"dashboard_meli_research_{_safe_file_token(selected_portfolio.name)}.xlsx",
+            file_name=excel_file_name or f"analise_credito_research_{file_token}.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            key=f"dashboard_meli_research_xlsx_download::{selected_portfolio.id}",
+            key=f"{download_key_prefix}_research_xlsx_download::{selected_portfolio.id}",
             use_container_width=True,
         )
     _render_kpis(monitor_outputs.consolidated_monitor)
@@ -519,8 +548,8 @@ def _render_audit(outputs, monitor_outputs, research_outputs=None, verification_
         st.dataframe(_format_verification_table(verification_report), use_container_width=True, hide_index=True)
     comparison = build_somatorio_dashboard_comparison(outputs, monitor_outputs)
     if not comparison.empty:
-        st.markdown("**Conciliação Somatório FIDCs x Dashboard MELI**")
-        st.caption("Compara as métricas que deveriam bater entre as duas abas. `NPL ex-360 total / carteira ex-360` reconcilia `npl_over1_ex360_pct` do Somatório com `npl_1_360_pct` do Dashboard.")
+        st.markdown("**Conciliação base x análise de crédito**")
+        st.caption("Compara as métricas que deveriam bater entre a base do Somatório e as métricas derivadas da análise de crédito. `NPL ex-360 total / carteira ex-360` reconcilia `npl_over1_ex360_pct` da base com `npl_1_360_pct` da análise.")
         st.dataframe(_format_somatorio_dashboard_comparison(comparison), use_container_width=True, hide_index=True)
     ex360_memory = build_ex360_memory_table(outputs)
     if not ex360_memory.empty:
@@ -642,7 +671,7 @@ def _format_somatorio_dashboard_comparison(frame: pd.DataFrame) -> pd.DataFrame:
             "competencia": "Competência",
             "metrica": "Métrica",
             "somatorio": "Somatório FIDCs",
-            "dashboard_meli": "Dashboard MELI",
+            "dashboard_meli": "Análise Crédito",
             "diferenca_abs": "Diferença abs.",
             "diferenca_rel_pct": "Diferença rel.",
             "unidade": "Unidade",
@@ -781,16 +810,16 @@ def _render_status_bar(*, selected_portfolio: PortfolioRecord, period: ImePeriod
 
 
 def _render_guide() -> None:
-    with st.expander("Como usar e interpretar o Dashboard MELI", expanded=False):
+    with st.expander("Como usar e interpretar a Análise Crédito", expanded=False):
         st.markdown(
             """
-1. Selecione a carteira salva de FIDCs de crédito do Mercado Livre e carregue uma janela longa, preferencialmente 24M ou 36M.
+1. Selecione a carteira salva no Somatório FIDCs e carregue uma janela longa, preferencialmente 24M ou 36M.
 2. Comece pelos roll rates: eles mostram a velocidade de deterioração sobre a carteira a vencer defasada, não apenas o estoque vencido.
 3. Use NPL ex-360 por severidade para separar atraso inicial (1-90d) de atraso mais maduro (91-360d), sempre depois da baixa conceitual dos vencidos acima de 360 dias.
 4. Confira carteira ex-360 e crescimento para saber se melhora de NPL vem de qualidade ou de efeito denominador.
 5. Use cohorts para comparar safras recentes contra a própria curva de maturação M1-M6.
 
-O painel usa os dados já compilados no Somatório FIDCs. Percentuais consolidados são sempre recalculados a partir da soma dos numeradores e denominadores.
+A análise usa os dados já compilados no Somatório FIDCs. Percentuais consolidados são sempre recalculados a partir da soma dos numeradores e denominadores.
             """
         )
 
@@ -890,10 +919,10 @@ def _format_percent(value: object) -> str:
 
 
 def _safe_file_token(value: object) -> str:
-    text = str(value or "dashboard_meli").strip().lower()
+    text = str(value or "analise_credito").strip().lower()
     token = "".join(char if char.isalnum() else "_" for char in text)
     token = "_".join(part for part in token.split("_") if part)
-    return token or "dashboard_meli"
+    return token or "analise_credito"
 
 
 def _format_decimal(value: object, decimals: int) -> str:
