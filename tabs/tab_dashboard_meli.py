@@ -429,7 +429,7 @@ O painel usa dados mensais já compilados no Somatório FIDCs. No consolidado, v
 
 **Cohorts recentes:** cada linha acompanha uma safra proxy. Como o Informe Mensal não traz originação contrato a contrato, a safra é definida pelo saldo que estava a vencer em até 30 dias no mês-base. Esse saldo vira o denominador fixo da linha.
 
-**Exemplo de cohort:** se em jul/25 havia R$ 100 milhões a vencer em até 30 dias, a linha `Jul-25` usa R$ 100 milhões como base em todos os pontos. Se em ago/25 aparecem R$ 4 milhões em atraso até 30 dias, `M1 = 4 / 100 = 4,0%`. Se em set/25 aparecem R$ 6 milhões em atraso 31-60 dias, `M2 = 6 / 100 = 6,0%`. Se em out/25 aparecem R$ 5 milhões em atraso 61-90 dias, `M3 = 5 / 100 = 5,0%`.
+**Exemplo de cohort:** se em jul/25 havia R$ 100 milhões a vencer em até 30 dias, a linha `Jul-25` usa R$ 100 milhões como base em todos os pontos. Para essa linha, `M1` é ago/25, `M2` é set/25, `M3` é out/25, e assim por diante. Se em ago/25 aparecem R$ 4 milhões em atraso até 30 dias, `M1 = 4 / 100 = 4,0%`. Se em set/25 aparecem R$ 6 milhões em atraso 31-60 dias, `M2 = 6 / 100 = 6,0%`. Se em out/25 aparecem R$ 5 milhões em atraso 61-90 dias, `M3 = 5 / 100 = 5,0%`.
 
 **Como ler cohorts:** M1, M2, M3... são meses de maturação depois da safra, não competências calendário. Compare `M3` de uma safra com `M3` de outra safra. Linha mais alta no mesmo M indica que uma parcela maior daquela safra migrou para atraso.
             """
@@ -492,6 +492,7 @@ def _cohort_notes() -> None:
     notes = [
         "Cada linha acompanha uma safra proxy: o saldo que estava a vencer em até 30 dias no mês-base.",
         "Exemplo: se a safra Jul-25 tinha R$ 100 milhões a vencer em até 30 dias, esse R$ 100 milhões vira a base fixa da linha.",
+        "Para essa linha Jul-25, M1 é Ago-25, M2 é Set-25, M3 é Out-25, e assim por diante.",
         "Se em Ago-25 surgem R$ 4 milhões em atraso até 30d, M1 = 4 / 100 = 4,0%; se em Set-25 surgem R$ 6 milhões em atraso 31-60d, M2 = 6 / 100 = 6,0%.",
         "M1, M2, M3... são meses de maturação depois da safra, não competências calendário; compare sempre o mesmo M entre safras.",
         "Linha mais alta no mesmo M indica pior deterioração relativa daquela safra.",

@@ -213,7 +213,7 @@ MELI_MONITOR_METHODOLOGY_ROWS: tuple[dict[str, str], ...] = (
         "Fórmula": "cohort_m = atraso_bucket_t+m / prazo_venc_30_t",
         "Unidade": "%",
         "Fonte / coluna": "prazo_venc_30; buckets de atraso",
-        "Observação": "Exemplo: se Jul-25 tinha R$ 100 milhões a vencer em até 30 dias e Ago-25 tem R$ 4 milhões em atraso até 30d, M1 = 4,0%. M1-M6 são meses de maturação, não competências calendário.",
+        "Observação": "Exemplo: se Jul-25 tinha R$ 100 milhões a vencer em até 30 dias, M1 é Ago-25 e M2 é Set-25. Se Ago-25 tem R$ 4 milhões em atraso até 30d, M1 = 4,0%.",
     },
     {
         "Indicador": "Duration",
