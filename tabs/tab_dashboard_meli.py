@@ -320,27 +320,27 @@ def _render_consolidated_dashboard(monitor_outputs) -> None:  # noqa: ANN001
         "Roll rates",
         "Eixo esquerdo: roll rate em %. Sem eixo direito. 61-90 usa carteira a vencer de três meses antes; 151-180 usa seis meses antes.",
     )
-    _chart_note("Roll rate mede quanto do saldo exposto em mês anterior aparece em uma faixa de atraso futura.")
+    _chart_note("O gráfico responde: de cada R$ 100 expostos no passado, quanto apareceu em atraso mais severo depois?")
     st.altair_chart(roll_rates_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     col_left, col_right = st.columns(2)
     with col_left:
         _chart_title("NPL por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
-        _chart_note("NPL separa atraso inicial e atraso maduro, sempre dividido pela carteira após baixa conceitual do Over 360d.")
+        _chart_note("O gráfico separa atraso inicial de atraso maduro para mostrar se a inadimplência está só entrando ou já ficando antiga.")
         st.altair_chart(npl_severity_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
     with col_right:
-        _chart_title("Carteira ex-360 e crescimento YoY", "Eixo esquerdo: carteira ex-360 em R$. Eixo direito: crescimento YoY em %.")
-        _chart_note("YoY compara a carteira ex-360 do mês atual contra a mesma competência do ano anterior.")
+        _chart_title("Carteira ex-360 e crescimento YoY", "Dois painéis: carteira ex-360 em R$ acima; crescimento YoY em % abaixo.")
+        _chart_note("Carteira ex-360 exclui créditos vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
         st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     col_left, col_right = st.columns(2)
     with col_left:
         _chart_title("Duration por FIDC", "Eixo esquerdo: duration em meses. Sem eixo direito; consolidado ponderado por saldo.")
-        _chart_note("Duration é prazo médio ponderado pela malha de vencimentos; não é mediana dos prazos.")
+        _chart_note("Duration é prazo médio ponderado por saldo na malha de vencimentos; não é mediana nem prazo contratual simples.")
         st.altair_chart(duration_chart(monitor_outputs.consolidated_monitor, monitor_outputs.fund_monitor), use_container_width=True)
     with col_right:
         _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
-        _chart_note(_cohort_explanation_text())
+        _cohort_notes()
         st.altair_chart(cohort_chart(monitor_outputs.consolidated_cohorts), use_container_width=True)
 
 
@@ -354,23 +354,23 @@ def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
             col_left, col_right = st.columns(2)
             with col_left:
                 _chart_title("Roll rates", "Eixo esquerdo: roll rate em %. Sem eixo direito; denominador é carteira a vencer defasada.")
-                _chart_note("Roll rate mede quanto do saldo exposto em mês anterior aparece em uma faixa de atraso futura.")
+                _chart_note("O gráfico responde: de cada R$ 100 expostos no passado, quanto apareceu em atraso mais severo depois?")
                 st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
             with col_right:
                 _chart_title("NPL por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
-                _chart_note("NPL separa atraso inicial e atraso maduro, sempre dividido pela carteira após baixa conceitual do Over 360d.")
+                _chart_note("O gráfico separa atraso inicial de atraso maduro para mostrar se a inadimplência está só entrando ou já ficando antiga.")
                 st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
             col_left, col_right = st.columns(2)
             with col_left:
-                _chart_title("Carteira ex-360 e crescimento YoY", "Eixo esquerdo: carteira ex-360 em R$. Eixo direito: crescimento YoY em %.")
-                _chart_note("YoY compara a carteira ex-360 do mês atual contra a mesma competência do ano anterior.")
+                _chart_title("Carteira ex-360 e crescimento YoY", "Dois painéis: carteira ex-360 em R$ acima; crescimento YoY em % abaixo.")
+                _chart_note("Carteira ex-360 exclui créditos vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
                 st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
             with col_right:
                 _chart_title("Duration", "Eixo esquerdo: duration em meses. Sem eixo direito.")
-                _chart_note("Duration é prazo médio ponderado pela malha de vencimentos; não é mediana dos prazos.")
+                _chart_note("Duration é prazo médio ponderado por saldo na malha de vencimentos; não é mediana nem prazo contratual simples.")
                 st.altair_chart(duration_chart(pd.DataFrame(), {cnpj: monitor}), use_container_width=True)
             _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
-            _chart_note(_cohort_explanation_text())
+            _cohort_notes()
             st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
 
 
@@ -420,6 +420,18 @@ def _render_methodology() -> None:
 O painel usa dados mensais já compilados no Somatório FIDCs. No consolidado, valores absolutos são somados primeiro e percentuais são recalculados depois.
 
 **Leitura dos gráficos:** cada gráfico informa explicitamente o eixo usado, a unidade e se há eixo direito. Os rótulos finais mostram o último ponto calculável de cada série.
+
+**Roll rates:** mostram migração de risco. A pergunta é: quanto de uma base que estava exposta em um mês anterior apareceu em um bucket de atraso específico depois? Exemplo: `Roll 61-90 M-3 = atraso 61-90 no mês t / carteira a vencer no mês t-3`.
+
+**NPL por severidade:** mostra a composição da inadimplência. `NPL 1-90d` é atraso inicial; `NPL 91-360d` é atraso maduro. Ambos são divididos pela carteira ex-360 para não deixar créditos muito antigos distorcerem a leitura.
+
+**Carteira ex-360 e YoY:** a carteira ex-360 remove vencidos acima de 360 dias. O YoY mostra crescimento contra a mesma competência do ano anterior, não contra o mês imediatamente anterior.
+
+**Duration:** é prazo médio ponderado por saldo na malha de vencimentos. Não é mediana. Se muito saldo vence em prazos curtos, a duration cai mesmo que existam parcelas longas na carteira.
+
+**Cohorts recentes:** aqui, cohort é uma safra proxy. O Informe Mensal não traz originação contrato a contrato; por isso o modelo usa o saldo que estava a vencer em 30 dias no mês da safra como denominador fixo e acompanha quanto aparece nos buckets de atraso dos meses seguintes. Linha mais alta significa pior qualidade relativa daquela safra. A comparação correta é entre linhas no mesmo ponto de maturação, por exemplo M3 contra M3.
+
+**Exemplo de cohort:** para a safra `Jul-25`, o denominador é o saldo que em jul/25 estava a vencer em 30 dias. Em `M1`, o numerador é o atraso até 30 dias em ago/25. Em `M2`, o numerador é o atraso 31-60 dias em set/25. Em `M3`, o numerador é o atraso 61-90 dias em out/25. Em `M6`, o numerador é o atraso 151-180 dias em jan/26. Assim a curva mostra como aquela safra deteriorou ao longo do tempo.
             """
         )
         st.markdown("**Eixos dos gráficos**")
@@ -476,11 +488,16 @@ def _chart_note(text: str) -> None:
     st.markdown(f"<div class='meli-chart-subtitle'>{escape(text)}</div>", unsafe_allow_html=True)
 
 
-def _cohort_explanation_text() -> str:
-    return (
-        "Cohort é a safra de créditos originados em um mês. O gráfico conecta essa originação mensal ao atraso observado nos meses seguintes, "
-        "permitindo comparar qualidade e deterioração de risco entre safras."
-    )
+def _cohort_notes() -> None:
+    notes = [
+        "Cada linha é uma safra proxy: o saldo que estava a vencer em 30 dias no mês da safra.",
+        "O percentual é sempre sobre esse saldo inicial da própria safra, não sobre a carteira total do mês exibido.",
+        "M1 = atraso até 30d no mês seguinte ÷ saldo inicial; M2 = atraso 31-60d dois meses depois ÷ saldo inicial; M3 = atraso 61-90d três meses depois ÷ saldo inicial.",
+        "M4 = atraso 91-120d quatro meses depois; M5 = atraso 121-150d cinco meses depois; M6 = atraso 151-180d seis meses depois.",
+        "Compare safras no mesmo M. Linha mais alta no mesmo M indica pior deterioração relativa daquela safra.",
+    ]
+    for note in notes:
+        _chart_note(note)
 
 
 def _outputs_session_key(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection) -> str:

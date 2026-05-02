@@ -207,13 +207,13 @@ MELI_MONITOR_METHODOLOGY_ROWS: tuple[dict[str, str], ...] = (
     },
     {
         "Indicador": "Cohorts M1-M6",
-        "Definição": "Maturação de atraso por safra mensal.",
-        "Numerador": "bucket futuro de atraso M1 a M6",
+        "Definição": "Safra proxy mensal baseada no saldo que estava a vencer em 30 dias e sua migração para atraso nos meses seguintes.",
+        "Numerador": "bucket futuro de atraso alinhado ao mês de maturação: M1=até 30d, M2=31-60d, M3=61-90d, M4=91-120d, M5=121-150d, M6=151-180d",
         "Denominador": "prazo_venc_30 da competência-base",
         "Fórmula": "cohort_m = atraso_bucket_t+m / prazo_venc_30_t",
         "Unidade": "%",
         "Fonte / coluna": "prazo_venc_30; buckets de atraso",
-        "Observação": "Compara a evolução de safras usando a carteira que venceria em 30 dias como base comum.",
+        "Observação": "Não é originação contrato a contrato; é uma aproximação com a malha de vencimentos do Informe Mensal. Compare safras no mesmo M.",
     },
     {
         "Indicador": "Duration",
@@ -266,7 +266,7 @@ MELI_CHART_AXIS_ROWS: tuple[dict[str, str], ...] = (
         "Gráfico": "Cohorts recentes",
         "Eixo esquerdo": "% do saldo a vencer em 30 dias",
         "Eixo direito": "Não usado",
-        "Observação": "Cada linha representa uma safra.",
+        "Observação": "Cada linha representa uma safra proxy; M1-M6 mostram maturação de atraso contra a mesma base inicial.",
     },
 )
 

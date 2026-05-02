@@ -44,6 +44,7 @@ def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
                 "serie": "NPL 1-90d",
                 "valor": _num(row.get("npl_1_90_pct")),
                 "valor_fmt": _format_percent(row.get("npl_1_90_pct")),
+                "stack_order": 1,
             }
         )
         rows.append(
@@ -52,6 +53,7 @@ def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
                 "serie": "NPL 91-360d",
                 "valor": _num(row.get("npl_91_360_pct")),
                 "valor_fmt": _format_percent(row.get("npl_91_360_pct")),
+                "stack_order": 2,
             }
         )
     chart_df = pd.DataFrame(rows)
@@ -68,6 +70,7 @@ def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
                 scale=alt.Scale(domain=["NPL 1-90d", "NPL 91-360d"], range=[PRIMARY, SECONDARY]),
                 legend=alt.Legend(orient="bottom"),
             ),
+            order=alt.Order("stack_order:Q", sort="ascending"),
             tooltip=[
                 alt.Tooltip("competencia:N", title="Competência"),
                 alt.Tooltip("serie:N", title="Série"),
@@ -76,10 +79,10 @@ def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
         )
     )
     label_layers = _bar_label_layers(
-        _stacked_bar_last_labels(chart_df, x_sort=x_sort),
+        _stacked_bar_edge_labels(chart_df, x_sort=x_sort),
         x=alt.X("competencia:N", sort=x_sort, axis=_category_axis()),
     )
-    return _style_chart(alt.layer(bars, *label_layers).properties(height=320, padding={"right": 96}))
+    return _style_chart(alt.layer(bars, *label_layers).properties(height=320, padding={"left": 96, "right": 112}))
 
 
 def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
@@ -114,12 +117,13 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
             text=alt.Text("carteira_fmt:N"),
         )
     )
+    bar_chart = alt.layer(bars, bar_label).properties(height=148)
     line = (
         alt.Chart(df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, fill=SECONDARY, color=SECONDARY, size=42), color=SECONDARY, strokeWidth=2)
         .encode(
             x=x,
-            y=alt.Y("carteira_ex360_yoy_pct:Q", title="Crescimento YoY", axis=_percent_axis(orient="right", grid=False)),
+            y=alt.Y("carteira_ex360_yoy_pct:Q", title="Crescimento YoY", axis=_percent_axis(grid=True)),
             tooltip=[
                 alt.Tooltip("competencia_label:N", title="Competência"),
                 alt.Tooltip("yoy_fmt:N", title="Crescimento YoY"),
@@ -132,14 +136,15 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
     )
     line_label = (
         alt.Chart(line_label_df)
-        .mark_text(align="left", baseline="middle", dx=8, dy=14, color=SECONDARY, fontSize=11, fontWeight=600)
+        .mark_text(align="left", baseline="middle", dx=8, dy=-12, color=SECONDARY, fontSize=11, fontWeight=600)
         .encode(
             x=alt.X("competencia_label:N", title="Competência", sort=x_sort),
-            y=alt.Y("carteira_ex360_yoy_pct:Q", title="Crescimento YoY", axis=_percent_axis(orient="right", grid=False)),
+            y=alt.Y("carteira_ex360_yoy_pct:Q", title="Crescimento YoY", axis=_percent_axis()),
             text=alt.Text("yoy_fmt:N"),
         )
     )
-    return _style_chart(alt.layer(bars + bar_label, line + line_label).resolve_scale(y="independent").properties(height=320))
+    yoy_chart = alt.layer(line, line_label).properties(height=148)
+    return _style_chart(alt.vconcat(bar_chart, yoy_chart, spacing=8).resolve_scale(x="shared"))
 
 
 def duration_chart(consolidated_monitor: pd.DataFrame, fund_monitor: dict[str, pd.DataFrame]) -> alt.Chart:
@@ -361,32 +366,56 @@ def _line_label_layers(
     return layers
 
 
-def _stacked_bar_last_labels(chart_df: pd.DataFrame, *, x_sort: list[str]) -> pd.DataFrame:
+def _stacked_bar_edge_labels(chart_df: pd.DataFrame, *, x_sort: list[str]) -> pd.DataFrame:
     if chart_df.empty or not x_sort:
-        return pd.DataFrame(columns=["competencia", "serie", "label_y", "valor_fmt", "label_color"])
-    last_competencia = x_sort[-1]
-    final = chart_df[chart_df["competencia"].eq(last_competencia)].copy()
-    if final.empty:
-        return pd.DataFrame(columns=["competencia", "serie", "label_y", "valor_fmt", "label_color"])
+        return pd.DataFrame(columns=["competencia", "serie", "label_y", "label_text", "label_color", "label_dx", "label_dy", "label_align"])
     rows: list[dict[str, object]] = []
-    cumulative = 0.0
-    for serie in ["NPL 1-90d", "NPL 91-360d"]:
-        row = final[final["serie"].eq(serie)]
-        if row.empty:
+    edge_competencias = [x_sort[0]]
+    if x_sort[-1] != x_sort[0]:
+        edge_competencias.append(x_sort[-1])
+    series_order = [("NPL 1-90d", PRIMARY), ("NPL 91-360d", SECONDARY)]
+    for edge_index, competencia in enumerate(edge_competencias):
+        align = "right" if edge_index == 0 else "left"
+        dx = -12 if edge_index == 0 else 12
+        final = chart_df[chart_df["competencia"].eq(competencia)].copy()
+        if final.empty:
             continue
-        value = _num(row.iloc[0].get("valor"))
-        if value is None or value <= 0:
-            continue
-        rows.append(
-            {
-                "competencia": last_competencia,
-                "serie": serie,
-                "label_y": cumulative + value / 2.0,
-                "valor_fmt": row.iloc[0].get("valor_fmt"),
-                "label_color": PRIMARY if serie == "NPL 1-90d" else SECONDARY,
-            }
-        )
-        cumulative += value
+        cumulative = 0.0
+        total = 0.0
+        for serie, color in series_order:
+            row = final[final["serie"].eq(serie)]
+            if row.empty:
+                continue
+            value = _num(row.iloc[0].get("valor"))
+            if value is None or value <= 0:
+                continue
+            rows.append(
+                {
+                    "competencia": competencia,
+                    "serie": serie,
+                    "label_y": cumulative + value / 2.0,
+                    "label_text": row.iloc[0].get("valor_fmt"),
+                    "label_color": color,
+                    "label_dx": dx,
+                    "label_dy": 0,
+                    "label_align": align,
+                }
+            )
+            cumulative += value
+            total += value
+        if total > 0:
+            rows.append(
+                {
+                    "competencia": competencia,
+                    "serie": "Total",
+                    "label_y": total,
+                    "label_text": f"Total {_format_percent(total)}",
+                    "label_color": AUX,
+                    "label_dx": 0,
+                    "label_dy": -12,
+                    "label_align": "center",
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -398,18 +427,19 @@ def _bar_label_layers(label_df: pd.DataFrame, *, x: alt.X) -> list[alt.Chart]:
         layers.append(
             alt.Chart(pd.DataFrame([row]))
             .mark_text(
-                align="left",
+                align=str(row.get("label_align") or "left"),
                 baseline="middle",
                 color=str(row.get("label_color") or "#000000"),
                 clip=False,
-                dx=12,
+                dx=int(row.get("label_dx") or 0),
+                dy=int(row.get("label_dy") or 0),
                 fontSize=10,
                 fontWeight=700,
             )
             .encode(
                 x=x,
                 y=alt.Y("label_y:Q", axis=None),
-                text=alt.Text("valor_fmt:N"),
+                text=alt.Text("label_text:N"),
             )
         )
     return layers
