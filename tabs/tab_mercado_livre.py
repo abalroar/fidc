@@ -29,7 +29,7 @@ from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
 from services.portfolio_store import PortfolioFund, PortfolioRecord, portfolio_basket_signature, portfolio_name_key
 from tabs import tab_fidc_ime as ime_tab
-from tabs.tab_dashboard_meli import render_dashboard_meli_analysis
+from tabs.tab_dashboard_meli import _DASHBOARD_MELI_CSS, render_dashboard_meli_analysis
 from tabs.ime_portfolio_support import (
     build_catalog_option_lookup,
     build_portfolio_funds_from_cnpjs,
@@ -190,12 +190,13 @@ _SOMATORIO_FIDCS_UI_CSS = """
 """
 
 
-_MERCADO_LIVRE_UI_CSS = _SOMATORIO_FIDCS_UI_CSS
+_MERCADO_LIVRE_UI_CSS = _SOMATORIO_FIDCS_UI_CSS + _DASHBOARD_MELI_CSS
 
 
 def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None:
     st.markdown(ime_tab._FIDC_REPORT_CSS, unsafe_allow_html=True)
     st.markdown(_SOMATORIO_FIDCS_UI_CSS, unsafe_allow_html=True)
+    st.markdown(_DASHBOARD_MELI_CSS, unsafe_allow_html=True)
     _apply_pending_selection()
 
     portfolios = list_saved_portfolios()
