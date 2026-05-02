@@ -12,6 +12,7 @@ MELI_BLACK = "000000"
 MELI_ORANGE = "E47811"
 MELI_DARK_GRAY = "3F3F3F"
 MELI_MEDIUM_GRAY = "8C8C8C"
+MELI_WHITE = "FFFFFF"
 
 
 def build_dashboard_meli_pptx_bytes(monitor_outputs: Any, research_outputs: Any | None = None) -> bytes:
@@ -19,7 +20,7 @@ def build_dashboard_meli_pptx_bytes(monitor_outputs: Any, research_outputs: Any 
         from pptx import Presentation
         from pptx.chart.data import CategoryChartData
         from pptx.dml.color import RGBColor
-        from pptx.enum.chart import XL_CHART_TYPE, XL_LEGEND_POSITION, XL_MARKER_STYLE
+        from pptx.enum.chart import XL_CHART_TYPE, XL_LABEL_POSITION, XL_LEGEND_POSITION, XL_MARKER_STYLE
         from pptx.util import Inches, Pt
     except ImportError as exc:  # pragma: no cover - environment guard
         raise RuntimeError("Dependência python-pptx não instalada.") from exc
@@ -36,6 +37,7 @@ def build_dashboard_meli_pptx_bytes(monitor_outputs: Any, research_outputs: Any 
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
         Inches=Inches,
@@ -45,27 +47,16 @@ def build_dashboard_meli_pptx_bytes(monitor_outputs: Any, research_outputs: Any 
         prs=prs,
         layout=layout,
         monitor_outputs=monitor_outputs,
+        research_outputs=research_outputs,
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
         Inches=Inches,
         Pt=Pt,
     )
-    if research_outputs is not None:
-        _add_research_slide(
-            prs=prs,
-            layout=layout,
-            research_outputs=research_outputs,
-            CategoryChartData=CategoryChartData,
-            RGBColor=RGBColor,
-            XL_CHART_TYPE=XL_CHART_TYPE,
-            XL_LEGEND_POSITION=XL_LEGEND_POSITION,
-            XL_MARKER_STYLE=XL_MARKER_STYLE,
-            Inches=Inches,
-            Pt=Pt,
-        )
     for cnpj, monitor in getattr(monitor_outputs, "fund_monitor", {}).items():
         fund_name = _fund_name(monitor, fallback=str(cnpj))
         _add_fund_slide(
@@ -77,6 +68,7 @@ def build_dashboard_meli_pptx_bytes(monitor_outputs: Any, research_outputs: Any 
             CategoryChartData=CategoryChartData,
             RGBColor=RGBColor,
             XL_CHART_TYPE=XL_CHART_TYPE,
+            XL_LABEL_POSITION=XL_LABEL_POSITION,
             XL_LEGEND_POSITION=XL_LEGEND_POSITION,
             XL_MARKER_STYLE=XL_MARKER_STYLE,
             Inches=Inches,
@@ -96,6 +88,7 @@ def _add_consolidated_slide(
     CategoryChartData,
     RGBColor,
     XL_CHART_TYPE,
+    XL_LABEL_POSITION,
     XL_LEGEND_POSITION,
     XL_MARKER_STYLE,
     Inches,
@@ -121,6 +114,7 @@ def _add_consolidated_slide(
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
         Inches=Inches,
@@ -134,6 +128,7 @@ def _add_consolidated_slide(
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         Inches=Inches,
         Pt=Pt,
@@ -149,6 +144,7 @@ def _add_consolidated_slide(
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         Inches=Inches,
         Pt=Pt,
     )
@@ -163,6 +159,7 @@ def _add_consolidated_slide(
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
         Inches=Inches,
@@ -180,6 +177,7 @@ def _add_fund_slide(
     CategoryChartData,
     RGBColor,
     XL_CHART_TYPE,
+    XL_LABEL_POSITION,
     XL_LEGEND_POSITION,
     XL_MARKER_STYLE,
     Inches,
@@ -205,6 +203,7 @@ def _add_fund_slide(
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
         Inches=Inches,
@@ -218,6 +217,7 @@ def _add_fund_slide(
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         Inches=Inches,
         Pt=Pt,
@@ -233,6 +233,7 @@ def _add_fund_slide(
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         Inches=Inches,
         Pt=Pt,
     )
@@ -244,6 +245,7 @@ def _add_fund_slide(
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
         Inches=Inches,
@@ -256,9 +258,11 @@ def _add_consolidated_detail_slide(
     prs,
     layout,
     monitor_outputs: Any,
+    research_outputs: Any | None,
     CategoryChartData,
     RGBColor,
     XL_CHART_TYPE,
+    XL_LABEL_POSITION,
     XL_LEGEND_POSITION,
     XL_MARKER_STYLE,
     Inches,
@@ -266,7 +270,7 @@ def _add_consolidated_detail_slide(
 ) -> None:
     slide = prs.slides.add_slide(layout)
     _style_slide(slide, RGBColor)
-    _add_header(slide, "Dashboard MELI - Duration e cohorts consolidadas", RGBColor, Inches, Pt)
+    _add_header(slide, "Dashboard MELI - Consolidado (continuação)", RGBColor, Inches, Pt)
     slots = _grid_2x2_slots()
     duration_df = _duration_frame(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame()), getattr(monitor_outputs, "fund_monitor", {}))
     duration_series = [column for column in duration_df.columns if column not in {"competencia_dt", "competencia"}]
@@ -282,6 +286,7 @@ def _add_consolidated_detail_slide(
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
         Inches=Inches,
@@ -295,41 +300,18 @@ def _add_consolidated_detail_slide(
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
         Inches=Inches,
         Pt=Pt,
     )
-
-
-def _add_research_slide(
-    *,
-    prs,
-    layout,
-    research_outputs: Any,
-    CategoryChartData,
-    RGBColor,
-    XL_CHART_TYPE,
-    XL_LEGEND_POSITION,
-    XL_MARKER_STYLE,
-    Inches,
-    Pt,
-) -> None:
-    slide = prs.slides.add_slide(layout)
-    _style_slide(slide, RGBColor)
-    _add_header(slide, "Dashboard MELI - Visão research", RGBColor, Inches, Pt)
-    slots = _grid_2x2_slots()
-    roll_df = getattr(research_outputs, "roll_seasonality", pd.DataFrame())
-    npl_table = getattr(research_outputs, "npl_research_table", pd.DataFrame())
-    cohort_df = getattr(research_outputs, "cohort_research", pd.DataFrame())
-
+    roll_df = getattr(research_outputs, "roll_seasonality", pd.DataFrame()) if research_outputs is not None else pd.DataFrame()
     roll_61 = _research_roll_wide(roll_df, metric_id="roll_61_90_m3")
     roll_151 = _research_roll_wide(roll_df, metric_id="roll_151_180_m6")
-    npl = _research_table_metric_wide(npl_table, metric_id="npl_1_360_pct")
-    cohorts = _research_cohort_wide(cohort_df)
     _add_multi_line_chart(
         slide=slide,
-        slot=slots[0],
+        slot=slots[2],
         title="Roll 61-90 por mês do ano",
         df=roll_61,
         categories=_wide_categories(roll_61),
@@ -338,38 +320,7 @@ def _add_research_slide(
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
-        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
-        XL_MARKER_STYLE=XL_MARKER_STYLE,
-        Inches=Inches,
-        Pt=Pt,
-    )
-    _add_multi_line_chart(
-        slide=slide,
-        slot=slots[1],
-        title="Roll 151-180 por mês do ano",
-        df=roll_151,
-        categories=_wide_categories(roll_151),
-        series_specs=[(serie, serie, color) for serie, color in _series_colors(_wide_series(roll_151))],
-        y_axis_title="%",
-        CategoryChartData=CategoryChartData,
-        RGBColor=RGBColor,
-        XL_CHART_TYPE=XL_CHART_TYPE,
-        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
-        XL_MARKER_STYLE=XL_MARKER_STYLE,
-        Inches=Inches,
-        Pt=Pt,
-    )
-    _add_multi_line_chart(
-        slide=slide,
-        slot=slots[2],
-        title="NPL 1-360 / carteira ex-360",
-        df=npl,
-        categories=_wide_categories(npl),
-        series_specs=[("NPL 1-360", "NPL 1-360", MELI_BLACK)],
-        y_axis_title="%",
-        CategoryChartData=CategoryChartData,
-        RGBColor=RGBColor,
-        XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
         Inches=Inches,
@@ -378,14 +329,15 @@ def _add_research_slide(
     _add_multi_line_chart(
         slide=slide,
         slot=slots[3],
-        title="Cohorts com médias",
-        df=cohorts,
-        categories=_wide_categories(cohorts),
-        series_specs=[(serie, serie, color) for serie, color in _series_colors(_wide_series(cohorts))],
+        title="Roll 151-180 por mês do ano",
+        df=roll_151,
+        categories=_wide_categories(roll_151),
+        series_specs=[(serie, serie, color) for serie, color in _series_colors(_wide_series(roll_151))],
         y_axis_title="%",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
         Inches=Inches,
@@ -405,6 +357,7 @@ def _add_multi_line_chart(
     CategoryChartData,
     RGBColor,
     XL_CHART_TYPE,
+    XL_LABEL_POSITION,
     XL_LEGEND_POSITION,
     XL_MARKER_STYLE,
     Inches,
@@ -417,7 +370,7 @@ def _add_multi_line_chart(
         return
     chart_data = CategoryChartData()
     chart_data.categories = categories
-    final_labels: list[tuple[str, object, str]] = []
+    series_values: list[list[float | None]] = []
     for name, column, color in valid_specs:
         if column in df.columns:
             values = [_chart_value(value, percent=value_is_percent) for value in df[column]]
@@ -425,15 +378,23 @@ def _add_multi_line_chart(
             series_df = df[df["serie"].eq(name)].copy()
             values = [_chart_value(value, percent=value_is_percent) for value in series_df.get("valor", pd.Series(dtype="float"))]
         chart_data.add_series(name, values)
-        final_labels.append((name, _last_non_null(values), color))
+        series_values.append(values)
     chart = _add_chart(slide, slot, XL_CHART_TYPE.LINE_MARKERS, chart_data, Inches)
     _style_common_chart(chart, title, "Competência", y_axis_title, "0.0%" if value_is_percent else "#,##0.0", RGBColor, Pt)
     chart.has_legend = True
-    chart.legend.position = XL_LEGEND_POSITION.BOTTOM
-    chart.legend.include_in_layout = False
+    _style_legend(chart, XL_LEGEND_POSITION, RGBColor, Pt)
     for series, (_, _, color) in zip(chart.series, valid_specs, strict=False):
         _set_series_line(series, _rgb(color, RGBColor), XL_MARKER_STYLE.CIRCLE)
-    _add_final_label_stack(slide, slot, final_labels, value_is_percent=value_is_percent, RGBColor=RGBColor, Inches=Inches, Pt=Pt)
+    _apply_last_point_labels(
+        chart,
+        series_values,
+        [color for _, _, color in valid_specs],
+        percent=value_is_percent,
+        decimals=1,
+        RGBColor=RGBColor,
+        Pt=Pt,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
+    )
 
 
 def _add_stacked_npl_chart(
@@ -445,6 +406,7 @@ def _add_stacked_npl_chart(
     CategoryChartData,
     RGBColor,
     XL_CHART_TYPE,
+    XL_LABEL_POSITION,
     XL_LEGEND_POSITION,
     Inches,
     Pt,
@@ -454,26 +416,28 @@ def _add_stacked_npl_chart(
         return
     chart_data = CategoryChartData()
     chart_data.categories = categories
-    chart_data.add_series("NPL 1-90d", [_chart_value(value, percent=True) for value in df.get("npl_1_90_pct", pd.Series(dtype="float"))])
-    chart_data.add_series("NPL 91-360d", [_chart_value(value, percent=True) for value in df.get("npl_91_360_pct", pd.Series(dtype="float"))])
+    series_values = [
+        [_chart_value(value, percent=True) for value in df.get("npl_1_90_pct", pd.Series(dtype="float"))],
+        [_chart_value(value, percent=True) for value in df.get("npl_91_360_pct", pd.Series(dtype="float"))],
+    ]
+    chart_data.add_series("NPL 1-90d", series_values[0])
+    chart_data.add_series("NPL 91-360d", series_values[1])
     chart = _add_chart(slide, slot, XL_CHART_TYPE.COLUMN_STACKED, chart_data, Inches)
     _style_common_chart(chart, "NPL ex-360 por severidade", "Competência", "% da carteira ex-360", "0.0%", RGBColor, Pt)
     chart.has_legend = True
-    chart.legend.position = XL_LEGEND_POSITION.BOTTOM
-    chart.legend.include_in_layout = False
+    _style_legend(chart, XL_LEGEND_POSITION, RGBColor, Pt)
     for series, color in zip(chart.series, [MELI_BLACK, MELI_ORANGE], strict=False):
         _set_series_fill(series, _rgb(color, RGBColor))
-    _add_final_label_stack(
-        slide,
-        slot,
-        [
-            ("NPL 1-90d", _last_non_null([_chart_value(value, percent=True) for value in df.get("npl_1_90_pct", pd.Series(dtype="float"))]), MELI_BLACK),
-            ("NPL 91-360d", _last_non_null([_chart_value(value, percent=True) for value in df.get("npl_91_360_pct", pd.Series(dtype="float"))]), MELI_ORANGE),
-        ],
-        value_is_percent=True,
+    _apply_last_point_labels(
+        chart,
+        series_values,
+        [MELI_WHITE, MELI_BLACK],
+        percent=True,
+        decimals=1,
         RGBColor=RGBColor,
-        Inches=Inches,
         Pt=Pt,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
+        positions=[XL_LABEL_POSITION.CENTER, XL_LABEL_POSITION.CENTER],
     )
 
 
@@ -489,6 +453,7 @@ def _add_money_bar_chart(
     CategoryChartData,
     RGBColor,
     XL_CHART_TYPE,
+    XL_LABEL_POSITION,
     Inches,
     Pt,
 ) -> None:
@@ -505,14 +470,16 @@ def _add_money_bar_chart(
     chart.has_legend = False
     if chart.series:
         _set_series_fill(chart.series[0], _rgb(MELI_BLACK, RGBColor))
-    _add_final_label_stack(
-        slide,
-        slot,
-        [(series_name, _last_non_null(values), MELI_BLACK)],
-        value_is_percent=False,
+    _apply_last_point_labels(
+        chart,
+        [values],
+        [MELI_BLACK],
+        percent=False,
+        decimals=0,
         RGBColor=RGBColor,
-        Inches=Inches,
         Pt=Pt,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
+        positions=[XL_LABEL_POSITION.OUTSIDE_END],
     )
 
 
@@ -525,6 +492,7 @@ def _add_cohort_chart(
     CategoryChartData,
     RGBColor,
     XL_CHART_TYPE,
+    XL_LABEL_POSITION,
     XL_LEGEND_POSITION,
     XL_MARKER_STYLE,
     Inches,
@@ -540,20 +508,28 @@ def _add_cohort_chart(
     colors = _cohort_ppt_colors(len(recent))
     chart_data = CategoryChartData()
     chart_data.categories = categories
-    final_labels: list[tuple[str, object, str]] = []
+    series_values: list[list[float | None]] = []
     for idx, cohort in enumerate(recent):
         group = df[df["cohort"].eq(cohort)].set_index("mes_ciclo")
         values = [_chart_value(group.loc[label, "valor_pct"], percent=True) if label in group.index else None for label in categories]
         chart_data.add_series(cohort, values)
-        final_labels.append((cohort, _last_non_null(values), colors[idx % len(colors)]))
+        series_values.append(values)
     chart = _add_chart(slide, slot, XL_CHART_TYPE.LINE_MARKERS, chart_data, Inches)
     _style_common_chart(chart, title, "Mês de maturação", "% do saldo a vencer em 30d", "0.0%", RGBColor, Pt)
     chart.has_legend = True
-    chart.legend.position = XL_LEGEND_POSITION.BOTTOM
-    chart.legend.include_in_layout = False
+    _style_legend(chart, XL_LEGEND_POSITION, RGBColor, Pt)
     for series, color in zip(chart.series, colors, strict=False):
         _set_series_line(series, _rgb(color, RGBColor), XL_MARKER_STYLE.CIRCLE)
-    _add_final_label_stack(slide, slot, final_labels, value_is_percent=True, RGBColor=RGBColor, Inches=Inches, Pt=Pt)
+    _apply_last_point_labels(
+        chart,
+        series_values,
+        colors,
+        percent=True,
+        decimals=1,
+        RGBColor=RGBColor,
+        Pt=Pt,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
+    )
 
 
 def _research_roll_wide(roll_df: pd.DataFrame, *, metric_id: str) -> pd.DataFrame:
@@ -633,13 +609,15 @@ def _grid_2x2_slots() -> list[tuple[float, float, float, float]]:
 
 def _style_common_chart(chart, title: str, x_title: str, y_title: str, number_format: str, RGBColor, Pt) -> None:  # noqa: ANN001
     chart.has_title = True
-    _set_text(chart.chart_title.text_frame, title, Pt(10.5), True, MELI_BLACK, RGBColor)
+    _set_text(chart.chart_title.text_frame, title, Pt(11), True, MELI_BLACK, RGBColor)
     chart.category_axis.has_title = True
     _set_text(chart.category_axis.axis_title.text_frame, x_title, Pt(9), False, MELI_DARK_GRAY, RGBColor)
     chart.value_axis.has_title = True
     _set_text(chart.value_axis.axis_title.text_frame, y_title, Pt(9), False, MELI_DARK_GRAY, RGBColor)
+    chart.category_axis.tick_labels.font.name = "Calibri"
     chart.category_axis.tick_labels.font.size = Pt(8)
     chart.category_axis.tick_labels.font.color.rgb = _rgb(MELI_DARK_GRAY, RGBColor)
+    chart.value_axis.tick_labels.font.name = "Calibri"
     chart.value_axis.tick_labels.font.size = Pt(8)
     chart.value_axis.tick_labels.font.color.rgb = _rgb(MELI_DARK_GRAY, RGBColor)
     chart.value_axis.tick_labels.number_format = number_format
@@ -651,6 +629,7 @@ def _set_text(text_frame, text: str, font_size, bold: bool, color: str, RGBColor
     paragraph = text_frame.paragraphs[0]
     run = paragraph.add_run()
     run.text = text
+    run.font.name = "Calibri"
     run.font.size = font_size
     run.font.bold = bold
     run.font.color.rgb = _rgb(color, RGBColor)
@@ -669,22 +648,60 @@ def _add_empty(slide, slot, title: str, message: str, RGBColor, Inches, Pt) -> N
     _set_text(msg_box.text_frame, message, Pt(10), False, MELI_MEDIUM_GRAY, RGBColor)
 
 
-def _add_final_label_stack(
-    slide,
-    slot: tuple[float, float, float, float],
-    labels: list[tuple[str, object, str]],
+def _style_legend(chart, XL_LEGEND_POSITION, RGBColor, Pt) -> None:  # noqa: ANN001
+    chart.legend.position = XL_LEGEND_POSITION.BOTTOM
+    chart.legend.include_in_layout = True
+    chart.legend.font.name = "Calibri"
+    chart.legend.font.size = Pt(10)
+    chart.legend.font.color.rgb = _rgb(MELI_DARK_GRAY, RGBColor)
+
+
+def _apply_last_point_labels(
+    chart,
+    series_values: list[list[float | None]],
+    colors: list[str],
     *,
-    value_is_percent: bool,
+    percent: bool,
+    decimals: int,
     RGBColor,
-    Inches,
     Pt,
+    XL_LABEL_POSITION,
+    positions: list | None = None,
 ) -> None:
-    left, top, width, _height = slot
-    clean = [(name, value, color) for name, value, color in labels if value is not None]
-    for idx, (name, value, color) in enumerate(clean[:6]):
-        text = f"{name}: {_format_ppt_value(value, percent=value_is_percent)}"
-        box = slide.shapes.add_textbox(Inches(left + width - 2.15), Inches(top + 0.32 + 0.19 * idx), Inches(2.1), Inches(0.18))
-        _set_text(box.text_frame, text, Pt(7.2), True, color, RGBColor)
+    default_positions = [XL_LABEL_POSITION.RIGHT, XL_LABEL_POSITION.ABOVE, XL_LABEL_POSITION.BELOW, XL_LABEL_POSITION.LEFT]
+    label_positions = positions or default_positions
+    for series_idx, values in enumerate(series_values):
+        point_idx = _last_non_null_index(values)
+        if point_idx is None or series_idx >= len(chart.series):
+            continue
+        try:
+            point = chart.series[series_idx].points[point_idx]
+        except (IndexError, TypeError):
+            continue
+        label = _format_ppt_value(values[point_idx], percent=percent, decimals=decimals)
+        _set_point_label(
+            point,
+            label,
+            colors[series_idx % len(colors)],
+            label_positions[series_idx % len(label_positions)],
+            RGBColor,
+            Pt,
+        )
+
+
+def _set_point_label(point, text: str, color: str, position, RGBColor, Pt) -> None:  # noqa: ANN001
+    label = point.data_label
+    label.position = position
+    label.has_text_frame = True
+    text_frame = label.text_frame
+    text_frame.clear()
+    paragraph = text_frame.paragraphs[0]
+    run = paragraph.add_run()
+    run.text = text
+    run.font.name = "Calibri"
+    run.font.size = Pt(8)
+    run.font.bold = True
+    run.font.color.rgb = _rgb(color, RGBColor)
 
 
 def _style_slide(slide, RGBColor) -> None:  # noqa: ANN001
@@ -798,20 +815,21 @@ def _scaled_value(value: object, divisor: float) -> float | None:
     return None if numeric is None else numeric / divisor
 
 
-def _last_non_null(values: list[object]) -> object:
-    for value in reversed(values):
+def _last_non_null_index(values: list[object]) -> int | None:
+    for idx in range(len(values) - 1, -1, -1):
+        value = values[idx]
         if value is not None and not pd.isna(value):
-            return value
+            return idx
     return None
 
 
-def _format_ppt_value(value: object, *, percent: bool) -> str:
+def _format_ppt_value(value: object, *, percent: bool, decimals: int = 1) -> str:
     numeric = _num(value)
     if numeric is None:
         return "N/D"
     if percent:
-        return f"{numeric * 100.0:.1f}%".replace(".", ",")
-    return f"{numeric:,.1f}".replace(",", "_").replace(".", ",").replace("_", ".")
+        return f"{numeric * 100.0:.{decimals}f}%".replace(".", ",")
+    return f"{numeric:,.{decimals}f}".replace(",", "_").replace(".", ",").replace("_", ".")
 
 
 def _num(value: object) -> float | None:

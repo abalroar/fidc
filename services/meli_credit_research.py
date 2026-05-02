@@ -453,8 +453,8 @@ def build_research_methodology_table() -> pd.DataFrame:
             "Observação": "A defasagem de seis meses aproxima o tempo necessário para a safra migrar para 151-180 dias.",
         },
         {
-            "Gráfico / indicador": "Cohorts com médias",
-            "Definição": "Compara safras recentes contra médias históricas e LTM usando a mesma base inicial da safra.",
+            "Gráfico / indicador": "Cohorts - base de auditoria",
+            "Definição": "Mantém a memória de safras recentes e médias históricas usando a mesma base inicial da safra.",
             "Numerador": "M1=até 30d no mês seguinte; M2=31-60d dois meses depois; M3=61-90d três meses depois; M4=91-120d quatro meses depois; M5=121-150d cinco meses depois; M6=151-180d seis meses depois.",
             "Denominador": "prazo_venc_30 da competência-base da safra.",
             "Fórmula": "cohort_m = atraso_bucket_t+m / prazo_venc_30_t",

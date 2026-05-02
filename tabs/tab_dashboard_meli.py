@@ -24,7 +24,6 @@ from services.meli_credit_monitor_visuals import (
     duration_chart,
     npl_severity_chart,
     portfolio_growth_chart,
-    research_cohort_chart,
     research_roll_seasonality_chart,
     roll_rates_chart,
 )
@@ -325,11 +324,9 @@ def _render_outputs(*, outputs, selected_portfolio: PortfolioRecord, period: Ime
             use_container_width=True,
         )
     _render_kpis(monitor_outputs.consolidated_monitor)
-    main_tab, research_tab, funds_tab, audit_tab = st.tabs(["Consolidado", "Visão Research", "Fundos individuais", "Auditoria"])
+    main_tab, funds_tab, audit_tab = st.tabs(["Consolidado", "Fundos individuais", "Auditoria"])
     with main_tab:
-        _render_consolidated_dashboard(monitor_outputs)
-    with research_tab:
-        _render_research_dashboard(research_outputs, verification_report)
+        _render_consolidated_dashboard(monitor_outputs, research_outputs)
     with funds_tab:
         _render_fund_dashboards(monitor_outputs)
     with audit_tab:
@@ -337,13 +334,15 @@ def _render_outputs(*, outputs, selected_portfolio: PortfolioRecord, period: Ime
     _render_methodology(research_outputs)
 
 
-def _render_consolidated_dashboard(monitor_outputs) -> None:  # noqa: ANN001
+def _render_consolidated_dashboard(monitor_outputs, research_outputs=None) -> None:  # noqa: ANN001
     _chart_title(
         "Roll rates",
         "Eixo esquerdo: roll rate em %. Sem eixo direito. 61-90 usa carteira a vencer de três meses antes; 151-180 usa seis meses antes.",
     )
     _chart_note("O gráfico responde: de cada R$ 100 expostos no passado, quanto apareceu em atraso mais severo depois?")
     st.altair_chart(roll_rates_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
+
+    _render_consolidated_research_charts(research_outputs)
 
     _chart_title("NPL ex-360 por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
     _chart_note(
@@ -362,6 +361,27 @@ def _render_consolidated_dashboard(monitor_outputs) -> None:  # noqa: ANN001
     _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
     _cohort_notes()
     st.altair_chart(cohort_chart(monitor_outputs.consolidated_cohorts), use_container_width=True)
+
+
+def _render_consolidated_research_charts(research_outputs) -> None:  # noqa: ANN001
+    if research_outputs is None:
+        return
+    roll_df = _filter_research_scope(getattr(research_outputs, "roll_seasonality", pd.DataFrame()), "consolidado::")
+    if roll_df.empty:
+        return
+    _chart_title(
+        "Roll 61-90 por mês do ano",
+        "Eixo esquerdo: Roll 61-90 M-3 em %. Sem eixo direito; cada linha representa um ano-calendário.",
+    )
+    _chart_note("Fórmula: atraso 61-90 no mês t ÷ carteira a vencer três meses antes. O gráfico mostra sazonalidade e compara anos na mesma janela mensal.")
+    st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id="roll_61_90_m3"), use_container_width=True)
+
+    _chart_title(
+        "Roll 151-180 por mês do ano",
+        "Eixo esquerdo: Roll 151-180 M-6 em %. Sem eixo direito; cada linha representa um ano-calendário.",
+    )
+    _chart_note("Fórmula: atraso 151-180 no mês t ÷ carteira a vencer seis meses antes. A defasagem acompanha a maturação até atraso severo.")
+    st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id="roll_151_180_m6"), use_container_width=True)
 
 
 def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
@@ -406,7 +426,6 @@ def _render_research_dashboard(research_outputs, verification_report: pd.DataFra
         key="dashboard_meli_research_scope",
     )
     roll_df = _filter_research_scope(research_outputs.roll_seasonality, selected_scope)
-    cohort_df = _filter_research_scope(research_outputs.cohort_research, selected_scope)
     npl_table = _filter_research_scope(research_outputs.npl_research_table, selected_scope)
     portfolio_table = _filter_research_scope(research_outputs.portfolio_duration_table, selected_scope)
     verification = _filter_research_scope(verification_report, selected_scope)
@@ -424,11 +443,6 @@ def _render_research_dashboard(research_outputs, verification_report: pd.DataFra
     )
     _chart_note("Fórmula: atraso 151-180 no mês t ÷ carteira a vencer seis meses antes. A defasagem acompanha a maturação até atraso severo.")
     st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id="roll_151_180_m6"), use_container_width=True)
-
-    _chart_title("Cohorts com médias", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
-    _chart_note("Linhas de safra recente usam o mês de originação proxy; linhas de média anual/LTM somam numeradores e denominadores antes de dividir.")
-    _cohort_notes()
-    st.altair_chart(research_cohort_chart(cohort_df), use_container_width=True)
 
     st.markdown("**Tabela NPL e carteira ex-360**")
     st.dataframe(_format_research_table(npl_table), use_container_width=True, hide_index=True)
@@ -738,7 +752,7 @@ O painel usa dados mensais já compilados no Somatório FIDCs. No consolidado, v
         st.markdown("**Fórmulas e fontes das métricas**")
         st.dataframe(build_meli_methodology_table(), use_container_width=True, hide_index=True)
         if research_outputs is not None and getattr(research_outputs, "methodology", pd.DataFrame()).empty is False:
-            st.markdown("**Visão Research: fórmulas e fontes**")
+            st.markdown("**Métricas complementares do consolidado: fórmulas e fontes**")
             st.dataframe(research_outputs.methodology, use_container_width=True, hide_index=True)
 
 

@@ -235,7 +235,18 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertTrue(zipfile.is_zipfile(BytesIO(pptx_bytes)))
         with zipfile.ZipFile(BytesIO(pptx_bytes)) as archive:
             names = archive.namelist()
+            xml_payload = "\n".join(
+                archive.read(name).decode("utf-8", errors="ignore")
+                for name in names
+                if name.endswith(".xml")
+            )
         self.assertTrue(any(name.startswith("ppt/charts/chart") for name in names))
+        self.assertIn("Roll 61-90 por mês do ano", xml_payload)
+        self.assertIn("Roll 151-180 por mês do ano", xml_payload)
+        self.assertIn("Calibri", xml_payload)
+        self.assertTrue("<c:dLbl" in xml_payload or "<c:dLbls" in xml_payload)
+        self.assertNotIn("Cohorts com médias", xml_payload)
+        self.assertNotIn("Dashboard MELI - Visão research", xml_payload)
 
     def test_research_layer_builds_auditable_metrics_and_verification(self) -> None:
         monitor = build_monitor_base(_sample_monthly(month_count=14))
