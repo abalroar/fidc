@@ -346,14 +346,14 @@ def _add_stacked_npl_chart(
     Pt,
 ) -> None:
     if df.empty or not categories:
-        _add_empty(slide, slot, "NPL por severidade", "Sem dados calculáveis.", RGBColor, Inches, Pt)
+        _add_empty(slide, slot, "NPL ex-360 por severidade", "Sem dados calculáveis.", RGBColor, Inches, Pt)
         return
     chart_data = CategoryChartData()
     chart_data.categories = categories
     chart_data.add_series("NPL 1-90d", [_chart_value(value, percent=True) for value in df.get("npl_1_90_pct", pd.Series(dtype="float"))])
     chart_data.add_series("NPL 91-360d", [_chart_value(value, percent=True) for value in df.get("npl_91_360_pct", pd.Series(dtype="float"))])
     chart = _add_chart(slide, slot, XL_CHART_TYPE.COLUMN_STACKED, chart_data, Inches)
-    _style_common_chart(chart, "NPL por severidade", "Competência", "% da carteira ex-360", "0.0%", RGBColor, Pt)
+    _style_common_chart(chart, "NPL ex-360 por severidade", "Competência", "% da carteira ex-360", "0.0%", RGBColor, Pt)
     chart.has_legend = True
     chart.legend.position = XL_LEGEND_POSITION.BOTTOM
     chart.legend.include_in_layout = False

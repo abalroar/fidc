@@ -245,10 +245,10 @@ MELI_CHART_AXIS_ROWS: tuple[dict[str, str], ...] = (
         "Observação": "Séries têm mesma unidade e ordem de grandeza.",
     },
     {
-        "Gráfico": "NPL por severidade",
+        "Gráfico": "NPL ex-360 por severidade",
         "Eixo esquerdo": "NPL 1-90d e NPL 91-360d como % da carteira ex-360",
         "Eixo direito": "Não usado",
-        "Observação": "Barras empilhadas para decompor NPL 1-360d.",
+        "Observação": "Barras empilhadas para decompor o NPL remanescente após baixa conceitual de vencidos acima de 360 dias.",
     },
     {
         "Gráfico": "Carteira ex-360 e crescimento",

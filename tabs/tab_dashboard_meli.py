@@ -323,25 +323,23 @@ def _render_consolidated_dashboard(monitor_outputs) -> None:  # noqa: ANN001
     _chart_note("O gráfico responde: de cada R$ 100 expostos no passado, quanto apareceu em atraso mais severo depois?")
     st.altair_chart(roll_rates_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
-    col_left, col_right = st.columns(2)
-    with col_left:
-        _chart_title("NPL por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
-        _chart_note("O gráfico separa atraso inicial de atraso maduro para mostrar se a inadimplência está só entrando ou já ficando antiga.")
-        st.altair_chart(npl_severity_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
-    with col_right:
-        _chart_title("Carteira ex-360 e crescimento YoY", "Dois painéis: carteira ex-360 em R$ acima; crescimento YoY em % abaixo.")
-        _chart_note("Carteira ex-360 exclui créditos vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
-        st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
+    _chart_title("NPL ex-360 por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
+    _chart_note(
+        "A carteira ex-360 remove vencidos acima de 360 dias do denominador; as barras separam o NPL remanescente entre atraso inicial (1-90d) e atraso maduro (91-360d)."
+    )
+    st.altair_chart(npl_severity_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
-    col_left, col_right = st.columns(2)
-    with col_left:
-        _chart_title("Duration por FIDC", "Eixo esquerdo: duration em meses. Sem eixo direito; consolidado ponderado por saldo.")
-        _chart_note("Duration é prazo médio ponderado por saldo na malha de vencimentos; não é mediana nem prazo contratual simples.")
-        st.altair_chart(duration_chart(monitor_outputs.consolidated_monitor, monitor_outputs.fund_monitor), use_container_width=True)
-    with col_right:
-        _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
-        _cohort_notes()
-        st.altair_chart(cohort_chart(monitor_outputs.consolidated_cohorts), use_container_width=True)
+    _chart_title("Carteira ex-360 e crescimento YoY", "Dois painéis: carteira ex-360 em R$ acima; crescimento YoY em % abaixo.")
+    _chart_note("Carteira ex-360 exclui créditos vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
+    st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
+
+    _chart_title("Duration por FIDC", "Eixo esquerdo: duration em meses. Sem eixo direito; consolidado ponderado por saldo.")
+    _chart_note("Duration é prazo médio ponderado por saldo na malha de vencimentos; não é mediana nem prazo contratual simples.")
+    st.altair_chart(duration_chart(monitor_outputs.consolidated_monitor, monitor_outputs.fund_monitor), use_container_width=True)
+
+    _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
+    _cohort_notes()
+    st.altair_chart(cohort_chart(monitor_outputs.consolidated_cohorts), use_container_width=True)
 
 
 def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
@@ -351,24 +349,24 @@ def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
     for cnpj, monitor in monitor_outputs.fund_monitor.items():
         name = str(monitor["fund_name"].dropna().iloc[0]) if not monitor.empty and "fund_name" in monitor.columns and monitor["fund_name"].notna().any() else cnpj
         with st.expander(name, expanded=False):
-            col_left, col_right = st.columns(2)
-            with col_left:
-                _chart_title("Roll rates", "Eixo esquerdo: roll rate em %. Sem eixo direito; denominador é carteira a vencer defasada.")
-                _chart_note("O gráfico responde: de cada R$ 100 expostos no passado, quanto apareceu em atraso mais severo depois?")
-                st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
-            with col_right:
-                _chart_title("NPL por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
-                _chart_note("O gráfico separa atraso inicial de atraso maduro para mostrar se a inadimplência está só entrando ou já ficando antiga.")
-                st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
-            col_left, col_right = st.columns(2)
-            with col_left:
-                _chart_title("Carteira ex-360 e crescimento YoY", "Dois painéis: carteira ex-360 em R$ acima; crescimento YoY em % abaixo.")
-                _chart_note("Carteira ex-360 exclui créditos vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
-                st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
-            with col_right:
-                _chart_title("Duration", "Eixo esquerdo: duration em meses. Sem eixo direito.")
-                _chart_note("Duration é prazo médio ponderado por saldo na malha de vencimentos; não é mediana nem prazo contratual simples.")
-                st.altair_chart(duration_chart(pd.DataFrame(), {cnpj: monitor}), use_container_width=True)
+            _chart_title("Roll rates", "Eixo esquerdo: roll rate em %. Sem eixo direito; denominador é carteira a vencer defasada.")
+            _chart_note("O gráfico responde: de cada R$ 100 expostos no passado, quanto apareceu em atraso mais severo depois?")
+            st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
+
+            _chart_title("NPL ex-360 por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
+            _chart_note(
+                "A carteira ex-360 remove vencidos acima de 360 dias do denominador; as barras separam o NPL remanescente entre atraso inicial (1-90d) e atraso maduro (91-360d)."
+            )
+            st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
+
+            _chart_title("Carteira ex-360 e crescimento YoY", "Dois painéis: carteira ex-360 em R$ acima; crescimento YoY em % abaixo.")
+            _chart_note("Carteira ex-360 exclui créditos vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
+            st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
+
+            _chart_title("Duration", "Eixo esquerdo: duration em meses. Sem eixo direito.")
+            _chart_note("Duration é prazo médio ponderado por saldo na malha de vencimentos; não é mediana nem prazo contratual simples.")
+            st.altair_chart(duration_chart(pd.DataFrame(), {cnpj: monitor}), use_container_width=True)
+
             _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
             _cohort_notes()
             st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
@@ -423,7 +421,7 @@ O painel usa dados mensais já compilados no Somatório FIDCs. No consolidado, v
 
 **Roll rates:** mostram migração de risco. A pergunta é: quanto de uma base que estava exposta em um mês anterior apareceu em um bucket de atraso específico depois? Exemplo: `Roll 61-90 M-3 = atraso 61-90 no mês t / carteira a vencer no mês t-3`.
 
-**NPL por severidade:** mostra a composição da inadimplência. `NPL 1-90d` é atraso inicial; `NPL 91-360d` é atraso maduro. Ambos são divididos pela carteira ex-360 para não deixar créditos muito antigos distorcerem a leitura.
+**NPL ex-360 por severidade:** primeiro o modelo baixa conceitualmente da carteira os vencidos acima de 360 dias. Depois, sobre a carteira remanescente, separa o NPL em `1-90d` (atraso inicial) e `91-360d` (atraso maduro). Fórmulas: `NPL 1-90d / carteira ex-360` e `NPL 91-360d / carteira ex-360`.
 
 **Carteira ex-360 e YoY:** a carteira ex-360 remove vencidos acima de 360 dias. O YoY mostra crescimento contra a mesma competência do ano anterior, não contra o mês imediatamente anterior.
 
@@ -470,7 +468,7 @@ def _render_guide() -> None:
             """
 1. Selecione a carteira salva de FIDCs de crédito do Mercado Livre e carregue uma janela longa, preferencialmente 24M ou 36M.
 2. Comece pelos roll rates: eles mostram a velocidade de deterioração sobre a carteira a vencer defasada, não apenas o estoque vencido.
-3. Use NPL por severidade para separar atraso inicial (1-90d) de atraso mais maduro (91-360d), sempre ex-vencidos acima de 360 dias.
+3. Use NPL ex-360 por severidade para separar atraso inicial (1-90d) de atraso mais maduro (91-360d), sempre depois da baixa conceitual dos vencidos acima de 360 dias.
 4. Confira carteira ex-360 e crescimento para saber se melhora de NPL vem de qualidade ou de efeito denominador.
 5. Use cohorts para comparar safras recentes contra a própria curva de maturação M1-M6.
 
