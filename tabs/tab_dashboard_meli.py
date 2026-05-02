@@ -334,7 +334,7 @@ def _render_consolidated_dashboard(monitor_outputs) -> None:  # noqa: ANN001
     st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     _chart_title("Duration por FIDC", "Eixo esquerdo: duration em meses. Sem eixo direito; consolidado ponderado por saldo.")
-    _chart_note("Duration é prazo médio ponderado por saldo na malha de vencimentos; não é mediana nem prazo contratual simples.")
+    _duration_notes()
     st.altair_chart(duration_chart(monitor_outputs.consolidated_monitor, monitor_outputs.fund_monitor), use_container_width=True)
 
     _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
@@ -364,7 +364,7 @@ def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
             st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
 
             _chart_title("Duration", "Eixo esquerdo: duration em meses. Sem eixo direito.")
-            _chart_note("Duration é prazo médio ponderado por saldo na malha de vencimentos; não é mediana nem prazo contratual simples.")
+            _duration_notes()
             st.altair_chart(duration_chart(pd.DataFrame(), {cnpj: monitor}), use_container_width=True)
 
             _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
@@ -425,11 +425,13 @@ O painel usa dados mensais já compilados no Somatório FIDCs. No consolidado, v
 
 **Carteira ex-360 e YoY:** a carteira ex-360 remove vencidos acima de 360 dias. O YoY mostra crescimento contra a mesma competência do ano anterior, não contra o mês imediatamente anterior.
 
-**Duration:** é prazo médio ponderado por saldo na malha de vencimentos. Não é mediana. Se muito saldo vence em prazos curtos, a duration cai mesmo que existam parcelas longas na carteira.
+**Duration:** é prazo médio ponderado por saldo na malha de vencimentos. Fórmula: `duration_dias = Σ(saldo_bucket × prazo_proxy_bucket) / Σ(saldo_bucket)`. O gráfico exibe `duration_meses = duration_dias / 30,4375`. Exemplo: saldo a vencer entre 61 e 90 dias usa `75,5 dias`, o ponto médio da faixa.
 
-**Cohorts recentes:** aqui, cohort é uma safra proxy. O Informe Mensal não traz originação contrato a contrato; por isso o modelo usa o saldo que estava a vencer em 30 dias no mês da safra como denominador fixo e acompanha quanto aparece nos buckets de atraso dos meses seguintes. Linha mais alta significa pior qualidade relativa daquela safra. A comparação correta é entre linhas no mesmo ponto de maturação, por exemplo M3 contra M3.
+**Cohorts recentes:** cada linha acompanha uma safra proxy. Como o Informe Mensal não traz originação contrato a contrato, a safra é definida pelo saldo que estava a vencer em até 30 dias no mês-base. Esse saldo vira o denominador fixo da linha.
 
-**Exemplo de cohort:** para a safra `Jul-25`, o denominador é o saldo que em jul/25 estava a vencer em 30 dias. Em `M1`, o numerador é o atraso até 30 dias em ago/25. Em `M2`, o numerador é o atraso 31-60 dias em set/25. Em `M3`, o numerador é o atraso 61-90 dias em out/25. Em `M6`, o numerador é o atraso 151-180 dias em jan/26. Assim a curva mostra como aquela safra deteriorou ao longo do tempo.
+**Exemplo de cohort:** se em jul/25 havia R$ 100 milhões a vencer em até 30 dias, a linha `Jul-25` usa R$ 100 milhões como base em todos os pontos. Se em ago/25 aparecem R$ 4 milhões em atraso até 30 dias, `M1 = 4 / 100 = 4,0%`. Se em set/25 aparecem R$ 6 milhões em atraso 31-60 dias, `M2 = 6 / 100 = 6,0%`. Se em out/25 aparecem R$ 5 milhões em atraso 61-90 dias, `M3 = 5 / 100 = 5,0%`.
+
+**Como ler cohorts:** M1, M2, M3... são meses de maturação depois da safra, não competências calendário. Compare `M3` de uma safra com `M3` de outra safra. Linha mais alta no mesmo M indica que uma parcela maior daquela safra migrou para atraso.
             """
         )
         st.markdown("**Eixos dos gráficos**")
@@ -488,11 +490,21 @@ def _chart_note(text: str) -> None:
 
 def _cohort_notes() -> None:
     notes = [
-        "Cada linha é uma safra proxy: o saldo que estava a vencer em 30 dias no mês da safra.",
-        "O percentual é sempre sobre esse saldo inicial da própria safra, não sobre a carteira total do mês exibido.",
-        "M1 = atraso até 30d no mês seguinte ÷ saldo inicial; M2 = atraso 31-60d dois meses depois ÷ saldo inicial; M3 = atraso 61-90d três meses depois ÷ saldo inicial.",
-        "M4 = atraso 91-120d quatro meses depois; M5 = atraso 121-150d cinco meses depois; M6 = atraso 151-180d seis meses depois.",
-        "Compare safras no mesmo M. Linha mais alta no mesmo M indica pior deterioração relativa daquela safra.",
+        "Cada linha acompanha uma safra proxy: o saldo que estava a vencer em até 30 dias no mês-base.",
+        "Exemplo: se a safra Jul-25 tinha R$ 100 milhões a vencer em até 30 dias, esse R$ 100 milhões vira a base fixa da linha.",
+        "Se em Ago-25 surgem R$ 4 milhões em atraso até 30d, M1 = 4 / 100 = 4,0%; se em Set-25 surgem R$ 6 milhões em atraso 31-60d, M2 = 6 / 100 = 6,0%.",
+        "M1, M2, M3... são meses de maturação depois da safra, não competências calendário; compare sempre o mesmo M entre safras.",
+        "Linha mais alta no mesmo M indica pior deterioração relativa daquela safra.",
+    ]
+    for note in notes:
+        _chart_note(note)
+
+
+def _duration_notes() -> None:
+    notes = [
+        "Fórmula: duration_dias = Σ(saldo de cada faixa de vencimento × prazo proxy da faixa) ÷ Σ(saldos das faixas).",
+        "O gráfico mostra duration_meses = duration_dias ÷ 30,4375; não é mediana nem prazo contratual simples.",
+        "Exemplo: um crédito a vencer entre 61 e 90 dias usa 75,5 dias como prazo proxy, que é o ponto médio (61 + 90) ÷ 2.",
     ]
     for note in notes:
         _chart_note(note)
