@@ -96,6 +96,7 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
     divisor, label = _money_scale(df["carteira_ex360"])
     df["carteira_scaled"] = pd.to_numeric(df["carteira_ex360"], errors="coerce") / divisor
     df["carteira_fmt"] = df["carteira_ex360"].map(lambda value: _format_money(value, divisor=divisor, label=label))
+    df["carteira_label"] = df["carteira_ex360"].map(lambda value: _format_money_label(value, divisor=divisor, label=label))
     df["yoy_fmt"] = df["carteira_ex360_yoy_pct"].map(_format_percent)
     x_sort = df["competencia_label"].tolist()
     x = alt.X("competencia_label:N", title="Competência", sort=x_sort, axis=_category_axis())
@@ -111,14 +112,15 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
             ],
         )
     )
-    bar_label_df = _last_point_label_df(df[["competencia_label", "carteira_scaled", "carteira_fmt"]], value_column="carteira_scaled")
+    bar_label_df = df[["competencia_label", "carteira_scaled", "carteira_label"]].copy()
+    bar_label_df = bar_label_df[pd.to_numeric(bar_label_df["carteira_scaled"], errors="coerce").notna()]
     bar_label = (
         alt.Chart(bar_label_df)
         .mark_text(align="right", baseline="middle", dx=-8, dy=-8, color=PRIMARY, fontSize=11, fontWeight=600)
         .encode(
             x=alt.X("competencia_label:N", title="Competência", sort=x_sort),
             y=alt.Y("carteira_scaled:Q", title=label, axis=_decimal_axis()),
-            text=alt.Text("carteira_fmt:N"),
+            text=alt.Text("carteira_label:N"),
         )
     )
     bar_chart = alt.layer(bars, bar_label).properties(
@@ -768,4 +770,14 @@ def _format_money(value: object, *, divisor: float, label: str) -> str:
         return "N/D"
     if label == "R$":
         return f"R$ {_format_decimal(numeric, 2)}"
-    return f"{label} {_format_decimal(numeric / divisor, 1)}"
+    suffix = label.removeprefix("R$ ").strip()
+    return f"R${_format_decimal(numeric / divisor, 0)}{suffix}"
+
+
+def _format_money_label(value: object, *, divisor: float, label: str) -> str:
+    numeric = _num(value)
+    if numeric is None:
+        return ""
+    if label == "R$":
+        return _format_decimal(numeric, 0)
+    return _format_decimal(numeric / divisor, 0)

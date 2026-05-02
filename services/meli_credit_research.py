@@ -455,7 +455,7 @@ def build_research_methodology_table() -> pd.DataFrame:
         {
             "Gráfico / indicador": "Cohorts com médias",
             "Definição": "Compara safras recentes contra médias históricas e LTM usando a mesma base inicial da safra.",
-            "Numerador": "Bucket de atraso futuro no mês de maturação M1-M6.",
+            "Numerador": "M1=até 30d no mês seguinte; M2=31-60d dois meses depois; M3=61-90d três meses depois; M4=91-120d quatro meses depois; M5=121-150d cinco meses depois; M6=151-180d seis meses depois.",
             "Denominador": "prazo_venc_30 da competência-base da safra.",
             "Fórmula": "cohort_m = atraso_bucket_t+m / prazo_venc_30_t",
             "Unidade": "%",
@@ -480,7 +480,7 @@ def build_research_methodology_table() -> pd.DataFrame:
             "Fórmula": "duration_meses = (Σ saldo_bucket × prazo_proxy_bucket / Σ saldo_bucket) / 30,4375",
             "Unidade": "R$ e meses",
             "Fonte / coluna": "carteira_bruta; npl_over360; malha de vencimentos.",
-            "Observação": "No consolidado, duration vem da base consolidada ponderada por saldo, não de média simples entre fundos.",
+            "Observação": "30,4375 = 365,25 / 12. No consolidado, duration vem da base consolidada ponderada por saldo, não de média simples entre fundos.",
         },
     ]
     return pd.DataFrame(rows)

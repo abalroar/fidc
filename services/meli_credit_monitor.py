@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Any
 
 import pandas as pd
 
@@ -208,12 +209,12 @@ MELI_MONITOR_METHODOLOGY_ROWS: tuple[dict[str, str], ...] = (
     {
         "Indicador": "Cohorts M1-M6",
         "Definição": "Safra proxy mensal baseada no saldo que estava a vencer em até 30 dias no mês-base e sua migração para atraso nos meses seguintes.",
-        "Numerador": "bucket futuro de atraso alinhado ao mês de maturação: M1=até 30d, M2=31-60d, M3=61-90d, M4=91-120d, M5=121-150d, M6=151-180d",
+        "Numerador": "bucket futuro de atraso alinhado ao mês de maturação: M1=até 30d no mês seguinte; M2=31-60d dois meses depois; M3=61-90d três meses depois; M4=91-120d quatro meses depois; M5=121-150d cinco meses depois; M6=151-180d seis meses depois",
         "Denominador": "prazo_venc_30 da competência-base",
         "Fórmula": "cohort_m = atraso_bucket_t+m / prazo_venc_30_t",
         "Unidade": "%",
         "Fonte / coluna": "prazo_venc_30; buckets de atraso",
-        "Observação": "Exemplo: se Jul-25 tinha R$ 100 milhões a vencer em até 30 dias, M1 é Ago-25 e M2 é Set-25. Se Ago-25 tem R$ 4 milhões em atraso até 30d, M1 = 4,0%.",
+        "Observação": "Exemplo: se Fev-26 tinha R$ 100 milhões a vencer em até 30 dias e Mar-26 tem R$ 39,6 milhões em atraso até 30d, M1 = 39,6%.",
     },
     {
         "Indicador": "Duration",
@@ -223,7 +224,7 @@ MELI_MONITOR_METHODOLOGY_ROWS: tuple[dict[str, str], ...] = (
         "Fórmula": "duration_months = (Σ saldo_bucket × prazo_proxy_bucket / Σ saldo_bucket) / 30,4375",
         "Unidade": "meses",
         "Fonte / coluna": "Malha de vencimentos do Informe Mensal Estruturado",
-        "Observação": "Exemplo de proxy: a faixa 61-90 dias usa 75,5 dias, ponto médio entre 61 e 90. No consolidado, a ponderação é por saldo.",
+        "Observação": "30,4375 = 365,25 / 12. Exemplo de proxy: a faixa 61-90 dias usa 75,5 dias, ponto médio entre 61 e 90. No consolidado, a ponderação é por saldo.",
     },
     {
         "Indicador": "PDD Ex / NPL Over 90d Ex 360",
@@ -316,6 +317,29 @@ def build_meli_methodology_table() -> pd.DataFrame:
 
 def build_meli_chart_axis_table() -> pd.DataFrame:
     return pd.DataFrame(MELI_CHART_AXIS_ROWS)
+
+
+def build_somatorio_dashboard_comparison(outputs: Any, monitor_outputs: MeliMonitorOutputs) -> pd.DataFrame:
+    rows: list[dict[str, object]] = []
+    scopes = [("Consolidado", "", getattr(outputs, "consolidated_monthly", pd.DataFrame()), monitor_outputs.consolidated_monitor)]
+    for cnpj, somatorio_frame in getattr(outputs, "fund_monthly", {}).items():
+        dashboard_frame = monitor_outputs.fund_monitor.get(cnpj, pd.DataFrame())
+        fund_name = _frame_fund_name(dashboard_frame, fallback=str(cnpj))
+        scopes.append((fund_name, str(cnpj), somatorio_frame, dashboard_frame))
+    for scope_name, cnpj, somatorio_frame, dashboard_frame in scopes:
+        rows.extend(_compare_somatorio_dashboard_scope(scope_name, cnpj, somatorio_frame, dashboard_frame))
+    return pd.DataFrame(rows)
+
+
+def build_ex360_memory_table(outputs: Any) -> pd.DataFrame:
+    frames: list[pd.DataFrame] = []
+    consolidated = getattr(outputs, "consolidated_monthly", pd.DataFrame())
+    if consolidated is not None and not consolidated.empty:
+        frames.append(_ex360_memory_scope("Consolidado", "", consolidated))
+    for cnpj, frame in getattr(outputs, "fund_monthly", {}).items():
+        name = _frame_fund_name(frame, fallback=str(cnpj))
+        frames.append(_ex360_memory_scope(name, str(cnpj), frame))
+    return pd.concat([frame for frame in frames if not frame.empty], ignore_index=True, sort=False) if frames else pd.DataFrame()
 
 
 def build_meli_monitor_outputs(outputs) -> MeliMonitorOutputs:  # noqa: ANN001
@@ -431,7 +455,17 @@ def build_monitor_audit_table(*, consolidated_monitor: pd.DataFrame, fund_monito
             "fund_name",
             "cnpj",
             "competencia",
+            "carteira_bruta",
+            "vencidos_360",
+            "npl_over360",
+            "baixa_over360_carteira",
             "carteira_ex360",
+            "pdd_total",
+            "baixa_over360_pdd",
+            "pdd_ex360",
+            "baixa_over360_pl",
+            "pl_total",
+            "pl_total_ex360",
             "carteira_a_vencer",
             "npl_1_90",
             "npl_91_360",
@@ -451,6 +485,198 @@ def build_monitor_audit_table(*, consolidated_monitor: pd.DataFrame, fund_monito
     if not frames:
         return pd.DataFrame()
     return pd.concat(frames, ignore_index=True, sort=False)
+
+
+def _compare_somatorio_dashboard_scope(
+    scope_name: str,
+    cnpj: str,
+    somatorio_frame: pd.DataFrame,
+    dashboard_frame: pd.DataFrame,
+) -> list[dict[str, object]]:
+    if somatorio_frame is None or dashboard_frame is None or somatorio_frame.empty or dashboard_frame.empty:
+        return []
+    somatorio = _comparison_base(somatorio_frame)
+    dashboard = _comparison_base(dashboard_frame)
+    merged = somatorio.merge(dashboard, on="competencia", suffixes=("_somatorio", "_dashboard"), how="inner")
+    rows: list[dict[str, object]] = []
+    for _, row in merged.iterrows():
+        rows.extend(
+            [
+                _comparison_row(
+                    scope_name,
+                    cnpj,
+                    row,
+                    metric="Carteira ex-360",
+                    somatorio_value=row.get("carteira_ex360_somatorio"),
+                    dashboard_value=row.get("carteira_ex360_dashboard"),
+                    unit="R$",
+                    formula_somatorio="carteira_bruta - npl_over360",
+                    formula_dashboard="carteira_ex360 herdada do Somatório FIDCs",
+                ),
+                _comparison_row(
+                    scope_name,
+                    cnpj,
+                    row,
+                    metric="NPL ex-360 total",
+                    somatorio_value=row.get("npl_over1_ex360_somatorio"),
+                    dashboard_value=_sum_values(row.get("npl_1_90_dashboard"), row.get("npl_91_360_dashboard")),
+                    unit="R$",
+                    formula_somatorio="npl_over1 - npl_over360",
+                    formula_dashboard="npl_1_90 + npl_91_360",
+                ),
+                _comparison_row(
+                    scope_name,
+                    cnpj,
+                    row,
+                    metric="NPL ex-360 total / carteira ex-360",
+                    somatorio_value=row.get("npl_over1_ex360_pct_somatorio"),
+                    dashboard_value=row.get("npl_1_360_pct_dashboard"),
+                    unit="%",
+                    formula_somatorio="npl_over1_ex360 / carteira_ex360",
+                    formula_dashboard="(npl_1_90 + npl_91_360) / carteira_ex360",
+                ),
+                _comparison_row(
+                    scope_name,
+                    cnpj,
+                    row,
+                    metric="NPL 1-90d / carteira ex-360",
+                    somatorio_value=_safe_div_scalar(_subtract_values(row.get("npl_over1_ex360_somatorio"), row.get("npl_over90_ex360_somatorio")), row.get("carteira_ex360_somatorio")),
+                    dashboard_value=row.get("npl_1_90_pct_dashboard"),
+                    unit="%",
+                    formula_somatorio="(npl_over1_ex360 - npl_over90_ex360) / carteira_ex360",
+                    formula_dashboard="npl_1_90 / carteira_ex360",
+                ),
+                _comparison_row(
+                    scope_name,
+                    cnpj,
+                    row,
+                    metric="NPL 91-360d / carteira ex-360",
+                    somatorio_value=row.get("npl_over90_ex360_pct_somatorio"),
+                    dashboard_value=row.get("npl_91_360_pct_dashboard"),
+                    unit="%",
+                    formula_somatorio="npl_over90_ex360 / carteira_ex360",
+                    formula_dashboard="npl_91_360 / carteira_ex360",
+                ),
+                _comparison_row(
+                    scope_name,
+                    cnpj,
+                    row,
+                    metric="Duration (dias)",
+                    somatorio_value=row.get("duration_days_somatorio"),
+                    dashboard_value=row.get("duration_days_dashboard"),
+                    unit="dias",
+                    formula_somatorio="Σ saldo_bucket × prazo_proxy_bucket / Σ saldo_bucket",
+                    formula_dashboard="mesma coluna duration_days herdada do Somatório",
+                ),
+                _comparison_row(
+                    scope_name,
+                    cnpj,
+                    row,
+                    metric="Duration (meses)",
+                    somatorio_value=row.get("duration_months_somatorio"),
+                    dashboard_value=row.get("duration_months_dashboard"),
+                    unit="meses",
+                    formula_somatorio="duration_days / 30,4375",
+                    formula_dashboard="duration_days / 30,4375",
+                ),
+            ]
+        )
+    return rows
+
+
+def _comparison_base(frame: pd.DataFrame) -> pd.DataFrame:
+    df = frame.copy()
+    keep = [
+        "competencia",
+        "competencia_dt",
+        "carteira_bruta",
+        "vencidos_360",
+        "npl_over360",
+        "carteira_ex360",
+        "npl_over1_ex360",
+        "npl_over1_ex360_pct",
+        "npl_over90_ex360",
+        "npl_over90_ex360_pct",
+        "npl_1_90",
+        "npl_91_360",
+        "npl_1_90_pct",
+        "npl_91_360_pct",
+        "npl_1_360_pct",
+        "duration_days",
+        "duration_months",
+    ]
+    for column in keep:
+        if column not in df.columns:
+            df[column] = pd.NA
+    return df[keep].copy()
+
+
+def _comparison_row(
+    scope_name: str,
+    cnpj: str,
+    row: pd.Series,
+    *,
+    metric: str,
+    somatorio_value: object,
+    dashboard_value: object,
+    unit: str,
+    formula_somatorio: str,
+    formula_dashboard: str,
+) -> dict[str, object]:
+    somatorio = _num(somatorio_value)
+    dashboard = _num(dashboard_value)
+    diff = None if somatorio is None or dashboard is None else dashboard - somatorio
+    rel = None if diff is None or somatorio in (None, 0) else abs(diff / somatorio) * 100.0
+    tolerance = 0.000001 if unit in {"%", "meses", "dias"} else 0.01
+    if somatorio is None and dashboard is None:
+        status = "OK"
+    elif somatorio is None or dashboard is None:
+        status = "ALERTA"
+    elif abs(diff or 0.0) <= tolerance or (rel is not None and rel <= 0.1):
+        status = "OK"
+    else:
+        status = "DIVERGENTE"
+    return {
+        "escopo": scope_name,
+        "cnpj": cnpj,
+        "competencia": row.get("competencia"),
+        "metrica": metric,
+        "somatorio": somatorio,
+        "dashboard_meli": dashboard,
+        "diferenca_abs": diff,
+        "diferenca_rel_pct": rel,
+        "unidade": unit,
+        "status": status,
+        "formula_somatorio": formula_somatorio,
+        "formula_dashboard": formula_dashboard,
+    }
+
+
+def _ex360_memory_scope(scope_name: str, cnpj: str, frame: pd.DataFrame) -> pd.DataFrame:
+    df = frame.copy()
+    columns = [
+        "competencia",
+        "carteira_bruta",
+        "vencidos_360",
+        "npl_over360",
+        "baixa_over360_carteira",
+        "carteira_ex360",
+        "pdd_total",
+        "baixa_over360_pdd",
+        "pdd_ex360",
+        "pl_total",
+        "baixa_over360_pl",
+        "pl_total_ex360",
+    ]
+    for column in columns:
+        if column not in df.columns:
+            df[column] = pd.NA
+    out = df[columns].copy()
+    out.insert(0, "escopo", scope_name)
+    out.insert(1, "cnpj", cnpj)
+    out["formula_carteira_ex360"] = "carteira_bruta - npl_over360"
+    out["formula_pl_ex360"] = "pl_total - max(npl_over360 - baixa_over360_pdd, 0)"
+    return out
 
 
 def build_pdf_reconciliation_table(monitor_df: pd.DataFrame) -> pd.DataFrame:
@@ -597,6 +823,36 @@ def _reconciliation_status(diff: object, *, unit: str) -> str:
     if abs(numeric) <= tolerance:
         return "OK dentro da tolerância."
     return "Divergente."
+
+
+def _sum_values(*values: object) -> float | None:
+    parsed = [_num(value) for value in values]
+    valid = [value for value in parsed if value is not None]
+    if not valid:
+        return None
+    return float(sum(valid))
+
+
+def _subtract_values(left: object, right: object) -> float | None:
+    left_num = _num(left)
+    right_num = _num(right)
+    if left_num is None or right_num is None:
+        return None
+    return float(left_num - right_num)
+
+
+def _safe_div_scalar(numerator: object, denominator: object) -> float | None:
+    num = _num(numerator)
+    den = _num(denominator)
+    if num is None or den is None or den <= 0:
+        return None
+    return float(num / den * 100.0)
+
+
+def _frame_fund_name(frame: pd.DataFrame, *, fallback: str) -> str:
+    if frame is not None and not frame.empty and "fund_name" in frame.columns and frame["fund_name"].notna().any():
+        return str(frame["fund_name"].dropna().iloc[0])
+    return fallback
 
 
 def _num(value: object) -> float | None:

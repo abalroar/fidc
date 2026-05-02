@@ -9,10 +9,13 @@ import pandas as pd
 
 from services.meli_credit_monitor import (
     MeliMonitorOutputs,
+    build_ex360_memory_table,
     build_cohort_matrix,
     build_meli_methodology_table,
+    build_meli_monitor_outputs,
     build_monitor_base,
     build_pdf_reconciliation_table,
+    build_somatorio_dashboard_comparison,
 )
 from services.meli_credit_monitor_ppt_export import build_dashboard_meli_pptx_bytes
 from services.meli_credit_research import build_meli_research_outputs, build_research_excel_bytes
@@ -145,6 +148,59 @@ class MeliCreditMonitorTest(unittest.TestCase):
             self.assertNotIn('"axis": null', payload)
             self.assertIn('"labels": true', payload)
             self.assertIn('"ticks": true', payload)
+
+    def test_portfolio_growth_chart_labels_all_periods_in_millions_without_prefix_order_bug(self) -> None:
+        monthly = _sample_monthly(month_count=3)
+        monthly["carteira_ex360"] = [4_669_000_000.0, 7_674_900_000.0, 7_675_100_000.0]
+        monitor = build_monitor_base(monthly)
+
+        payload = json.dumps(portfolio_growth_chart(monitor).to_dict(), ensure_ascii=False)
+
+        self.assertIn("4.669", payload)
+        self.assertIn("7.675", payload)
+        self.assertNotIn("R$ mm 7.674,9", payload)
+
+    def test_monitor_audit_table_exposes_ex360_memory_components(self) -> None:
+        monitor = build_monitor_base(_sample_monthly(month_count=3))
+        monitor["vencidos_360"] = 10.0
+        monitor["npl_over360"] = 10.0
+        monitor["baixa_over360_carteira"] = 10.0
+        rebuilt = build_meli_monitor_outputs(type("Outputs", (), {"fund_monthly": {"00000000000000": monitor}, "consolidated_monthly": monitor})())
+
+        self.assertIn("carteira_bruta", rebuilt.audit_table.columns)
+        self.assertIn("npl_over360", rebuilt.audit_table.columns)
+        self.assertIn("baixa_over360_carteira", rebuilt.audit_table.columns)
+        self.assertIn("carteira_ex360", rebuilt.audit_table.columns)
+
+    def test_somatorio_dashboard_comparison_reconciles_equal_metrics(self) -> None:
+        somatorio = _sample_monthly(month_count=3)
+        somatorio["vencidos_360"] = 20.0
+        somatorio["npl_over360"] = 20.0
+        somatorio["baixa_over360_carteira"] = 20.0
+        somatorio["carteira_ex360"] = somatorio["carteira_bruta"] - somatorio["npl_over360"]
+        somatorio["npl_over1_ex360"] = somatorio["atraso_ate30"] + somatorio["atraso_31_60"] + somatorio["atraso_61_90"] + somatorio["atraso_91_120"] + somatorio["atraso_121_150"] + somatorio["atraso_151_180"] + somatorio["atraso_181_360"]
+        somatorio["npl_over90_ex360"] = somatorio["atraso_91_120"] + somatorio["atraso_121_150"] + somatorio["atraso_151_180"] + somatorio["atraso_181_360"]
+        somatorio["npl_over1_ex360_pct"] = somatorio["npl_over1_ex360"] / somatorio["carteira_ex360"] * 100.0
+        somatorio["npl_over90_ex360_pct"] = somatorio["npl_over90_ex360"] / somatorio["carteira_ex360"] * 100.0
+        dashboard = build_monitor_base(somatorio)
+        outputs = type("Outputs", (), {"fund_monthly": {"00000000000000": somatorio}, "consolidated_monthly": somatorio})()
+        monitor_outputs = MeliMonitorOutputs(
+            consolidated_monitor=dashboard,
+            fund_monitor={"00000000000000": dashboard},
+            consolidated_cohorts=build_cohort_matrix(dashboard),
+            fund_cohorts={"00000000000000": build_cohort_matrix(dashboard)},
+            audit_table=pd.DataFrame(),
+            pdf_reconciliation=pd.DataFrame(),
+            warnings=[],
+        )
+
+        comparison = build_somatorio_dashboard_comparison(outputs, monitor_outputs)
+        memory = build_ex360_memory_table(outputs)
+
+        total_npl = comparison[comparison["metrica"].eq("NPL ex-360 total / carteira ex-360")]
+        self.assertFalse(total_npl.empty)
+        self.assertEqual({"OK"}, set(total_npl["status"]))
+        self.assertIn("carteira_ex360", memory.columns)
 
     def test_dashboard_meli_cohort_chart_uses_chronological_labels_and_gray_scale(self) -> None:
         monitor = build_monitor_base(_sample_monthly(month_count=9))

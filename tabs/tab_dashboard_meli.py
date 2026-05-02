@@ -9,9 +9,11 @@ import streamlit as st
 
 from services.ime_period import ImePeriodSelection, build_custom_period, current_default_end_month, month_options, shift_month
 from services.meli_credit_monitor import (
+    build_ex360_memory_table,
     build_meli_chart_axis_table,
     build_meli_methodology_table,
     build_meli_monitor_outputs,
+    build_somatorio_dashboard_comparison,
     latest_row,
 )
 from services.meli_credit_monitor_ppt_export import build_dashboard_meli_pptx_bytes
@@ -331,7 +333,7 @@ def _render_outputs(*, outputs, selected_portfolio: PortfolioRecord, period: Ime
     with funds_tab:
         _render_fund_dashboards(monitor_outputs)
     with audit_tab:
-        _render_audit(monitor_outputs, research_outputs, verification_report)
+        _render_audit(outputs, monitor_outputs, research_outputs, verification_report)
     _render_methodology(research_outputs)
 
 
@@ -350,7 +352,7 @@ def _render_consolidated_dashboard(monitor_outputs) -> None:  # noqa: ANN001
     st.altair_chart(npl_severity_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios, ambos ajustados à largura da página.")
-    _chart_note("Carteira ex-360 exclui créditos vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
+    _chart_note("Carteira ex-360 = carteira bruta - vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
     st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     _chart_title("Duration por FIDC", "Eixo esquerdo: duration em meses. Sem eixo direito; consolidado ponderado por saldo.")
@@ -380,7 +382,7 @@ def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
             st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
 
             _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios, ambos ajustados à largura da página.")
-            _chart_note("Carteira ex-360 exclui créditos vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
+            _chart_note("Carteira ex-360 = carteira bruta - vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
             st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
 
             _chart_title("Duration", "Eixo esquerdo: duration em meses. Sem eixo direito.")
@@ -454,7 +456,7 @@ def _render_kpis(monitor_df: pd.DataFrame) -> None:
     st.markdown("".join(html), unsafe_allow_html=True)
 
 
-def _render_audit(monitor_outputs, research_outputs=None, verification_report: pd.DataFrame | None = None) -> None:  # noqa: ANN001
+def _render_audit(outputs, monitor_outputs, research_outputs=None, verification_report: pd.DataFrame | None = None) -> None:  # noqa: ANN001
     if monitor_outputs.warnings:
         with st.expander("Warnings do monitor", expanded=False):
             for warning in monitor_outputs.warnings:
@@ -470,7 +472,24 @@ def _render_audit(monitor_outputs, research_outputs=None, verification_report: p
     display = audit.copy()
     for column in [col for col in display.columns if col.endswith("_pct")]:
         display[column] = display[column].map(_format_percent)
-    for column in ["carteira_ex360", "carteira_a_vencer", "npl_1_90", "npl_91_360", "roll_61_90_m3_den", "roll_151_180_m6_den"]:
+    for column in [
+        "carteira_bruta",
+        "vencidos_360",
+        "npl_over360",
+        "baixa_over360_carteira",
+        "carteira_ex360",
+        "pdd_total",
+        "baixa_over360_pdd",
+        "pdd_ex360",
+        "baixa_over360_pl",
+        "pl_total",
+        "pl_total_ex360",
+        "carteira_a_vencer",
+        "npl_1_90",
+        "npl_91_360",
+        "roll_61_90_m3_den",
+        "roll_151_180_m6_den",
+    ]:
         if column in display.columns:
             display[column] = display[column].map(_format_brl_compact)
     if "duration_months" in display.columns:
@@ -479,6 +498,16 @@ def _render_audit(monitor_outputs, research_outputs=None, verification_report: p
     if verification_report is not None and not verification_report.empty:
         st.markdown("**Verificação independente**")
         st.dataframe(_format_verification_table(verification_report), use_container_width=True, hide_index=True)
+    comparison = build_somatorio_dashboard_comparison(outputs, monitor_outputs)
+    if not comparison.empty:
+        st.markdown("**Conciliação Somatório FIDCs x Dashboard MELI**")
+        st.caption("Compara as métricas que deveriam bater entre as duas abas. `NPL ex-360 total / carteira ex-360` reconcilia `npl_over1_ex360_pct` do Somatório com `npl_1_360_pct` do Dashboard.")
+        st.dataframe(_format_somatorio_dashboard_comparison(comparison), use_container_width=True, hide_index=True)
+    ex360_memory = build_ex360_memory_table(outputs)
+    if not ex360_memory.empty:
+        st.markdown("**Memória de cálculo da carteira ex-360**")
+        st.caption("Use esta tabela para auditar valores como jan/25: `carteira_ex360 = carteira_bruta - npl_over360`.")
+        st.dataframe(_format_ex360_memory_table(ex360_memory), use_container_width=True, hide_index=True)
 
 
 def _research_scope_options(research_outputs) -> dict[str, str]:  # noqa: ANN001
@@ -575,6 +604,77 @@ def _format_verification_table(frame: pd.DataFrame) -> pd.DataFrame:
     return display
 
 
+def _format_somatorio_dashboard_comparison(frame: pd.DataFrame) -> pd.DataFrame:
+    display = frame.copy()
+    for column in ["somatorio", "dashboard_meli", "diferenca_abs", "diferenca_rel_pct"]:
+        if column in display.columns:
+            display[column] = display[column].astype("object")
+    for idx, row in display.iterrows():
+        unit = str(row.get("unidade") or "")
+        for column in ["somatorio", "dashboard_meli", "diferenca_abs"]:
+            if column in display.columns:
+                display.loc[idx, column] = _format_research_value(row.get(column), unit=unit)
+        if "diferenca_rel_pct" in display.columns:
+            display.loc[idx, "diferenca_rel_pct"] = _format_research_value(row.get("diferenca_rel_pct"), unit="%")
+    return display.rename(
+        columns={
+            "escopo": "Escopo",
+            "cnpj": "CNPJ",
+            "competencia": "Competência",
+            "metrica": "Métrica",
+            "somatorio": "Somatório FIDCs",
+            "dashboard_meli": "Dashboard MELI",
+            "diferenca_abs": "Diferença abs.",
+            "diferenca_rel_pct": "Diferença rel.",
+            "unidade": "Unidade",
+            "status": "Status",
+            "formula_somatorio": "Fórmula Somatório",
+            "formula_dashboard": "Fórmula Dashboard",
+        }
+    )
+
+
+def _format_ex360_memory_table(frame: pd.DataFrame) -> pd.DataFrame:
+    display = frame.copy()
+    money_columns = [
+        "carteira_bruta",
+        "vencidos_360",
+        "npl_over360",
+        "baixa_over360_carteira",
+        "carteira_ex360",
+        "pdd_total",
+        "baixa_over360_pdd",
+        "pdd_ex360",
+        "pl_total",
+        "baixa_over360_pl",
+        "pl_total_ex360",
+    ]
+    for column in money_columns:
+        if column in display.columns:
+            display[column] = display[column].astype("object")
+            display[column] = display[column].map(_format_brl_compact)
+    return display.rename(
+        columns={
+            "escopo": "Escopo",
+            "cnpj": "CNPJ",
+            "competencia": "Competência",
+            "carteira_bruta": "Carteira bruta",
+            "vencidos_360": "Vencidos > 360d",
+            "npl_over360": "NPL Over 360d",
+            "baixa_over360_carteira": "Baixa carteira > 360d",
+            "carteira_ex360": "Carteira ex-360",
+            "pdd_total": "PDD total",
+            "baixa_over360_pdd": "Baixa PDD > 360d",
+            "pdd_ex360": "PDD ex-360",
+            "pl_total": "PL total",
+            "baixa_over360_pl": "Baixa PL > 360d",
+            "pl_total_ex360": "PL ex-360",
+            "formula_carteira_ex360": "Fórmula carteira ex-360",
+            "formula_pl_ex360": "Fórmula PL ex-360",
+        }
+    )
+
+
 def _render_verification_summary(verification: pd.DataFrame) -> None:
     if verification is None or verification.empty:
         st.info("Sem relatório de verificação independente para este escopo.")
@@ -617,13 +717,15 @@ O painel usa dados mensais já compilados no Somatório FIDCs. No consolidado, v
 
 **Carteira ex-360 e YoY:** a carteira ex-360 remove vencidos acima de 360 dias. O YoY mostra crescimento contra a mesma competência do ano anterior, não contra o mês imediatamente anterior.
 
-**Duration:** é prazo médio ponderado por saldo na malha de vencimentos. Fórmula: `duration_dias = Σ(saldo_bucket × prazo_proxy_bucket) / Σ(saldo_bucket)`. O gráfico exibe `duration_meses = duration_dias / 30,4375`. Exemplo: saldo a vencer entre 61 e 90 dias usa `75,5 dias`, o ponto médio da faixa.
+**Duration:** é prazo médio ponderado por saldo na malha de vencimentos. Fórmula: `duration_dias = Σ(saldo_bucket × prazo_proxy_bucket) / Σ(saldo_bucket)`. O gráfico exibe `duration_meses = duration_dias / 30,4375`, porque `30,4375 = 365,25 / 12`, a média de dias por mês em um ano com ajuste bissexto. Exemplo: saldo a vencer entre 61 e 90 dias usa `75,5 dias`, o ponto médio da faixa.
 
 **Cohorts recentes:** cada linha acompanha uma safra proxy. Como o Informe Mensal não traz originação contrato a contrato, a safra é definida pelo saldo que estava a vencer em até 30 dias no mês-base. Esse saldo vira o denominador fixo da linha.
 
-**Exemplo de cohort:** se em jul/25 havia R$ 100 milhões a vencer em até 30 dias, a linha `Jul-25` usa R$ 100 milhões como base em todos os pontos. Para essa linha, `M1` é ago/25, `M2` é set/25, `M3` é out/25, e assim por diante. Se em ago/25 aparecem R$ 4 milhões em atraso até 30 dias, `M1 = 4 / 100 = 4,0%`. Se em set/25 aparecem R$ 6 milhões em atraso 31-60 dias, `M2 = 6 / 100 = 6,0%`. Se em out/25 aparecem R$ 5 milhões em atraso 61-90 dias, `M3 = 5 / 100 = 5,0%`.
+**Exemplo de cohort:** se em fev/26 havia R$ 100 milhões a vencer em até 30 dias, a linha `Fev-26` usa R$ 100 milhões como base em todos os pontos. Para essa linha, `M1` é mar/26, `M2` é abr/26, `M3` é mai/26, e assim por diante. Se em mar/26 aparecem R$ 39,6 milhões em atraso até 30 dias, `M1 = 39,6 / 100 = 39,6%`.
 
-**Como ler cohorts:** M1, M2, M3... são meses de maturação depois da safra, não competências calendário. Compare `M3` de uma safra com `M3` de outra safra. Linha mais alta no mesmo M indica que uma parcela maior daquela safra migrou para atraso.
+**Como ler M1-M6:** `M1 = atraso até 30d no mês seguinte / base da safra`; `M2 = atraso 31-60d dois meses depois / base da safra`; `M3 = atraso 61-90d três meses depois / base da safra`; `M4 = atraso 91-120d quatro meses depois / base da safra`; `M5 = atraso 121-150d cinco meses depois / base da safra`; `M6 = atraso 151-180d seis meses depois / base da safra`.
+
+**Como comparar cohorts:** M1, M2, M3... são meses de maturação depois da safra, não competências calendário fixas. Compare `M3` de uma safra com `M3` de outra safra. Linha mais alta no mesmo M indica que uma parcela maior daquela safra migrou para atraso.
             """
         )
         st.markdown("**Eixos dos gráficos**")
@@ -685,11 +787,12 @@ def _chart_note(text: str) -> None:
 
 def _cohort_notes() -> None:
     notes = [
-        "Cada linha acompanha uma safra proxy: o saldo que estava a vencer em até 30 dias no mês-base.",
-        "Exemplo: se a safra Jul-25 tinha R$ 100 milhões a vencer em até 30 dias, esse R$ 100 milhões vira a base fixa da linha.",
-        "Para essa linha Jul-25, M1 é Ago-25, M2 é Set-25, M3 é Out-25, e assim por diante.",
-        "Se em Ago-25 surgem R$ 4 milhões em atraso até 30d, M1 = 4 / 100 = 4,0%; se em Set-25 surgem R$ 6 milhões em atraso 31-60d, M2 = 6 / 100 = 6,0%.",
-        "M1, M2, M3... são meses de maturação depois da safra, não competências calendário; compare sempre o mesmo M entre safras.",
+        "Cada linha é uma safra proxy: a base fixa é o saldo que estava a vencer em até 30 dias no mês-base da safra.",
+        "Se a linha Fev-26 mostra 39,6% em M1, leia assim: M1 é Mar-26 e o valor é atraso até 30d em Mar-26 dividido pelo saldo que estava a vencer em até 30d em Fev-26.",
+        "M1 = mês seguinte à safra, usando atraso até 30d; M2 = dois meses depois, usando atraso 31-60d; M3 = três meses depois, usando atraso 61-90d.",
+        "M4 = quatro meses depois, usando atraso 91-120d; M5 = cinco meses depois, usando atraso 121-150d; M6 = seis meses depois, usando atraso 151-180d.",
+        "Exemplo: se Fev-26 tinha R$ 100 milhões a vencer em até 30 dias e Mar-26 tem R$ 39,6 milhões em atraso até 30d, M1 = 39,6 / 100 = 39,6%.",
+        "M1, M2, M3... são meses de maturação depois da safra, não meses fixos do calendário; compare sempre o mesmo M entre safras.",
         "Linha mais alta no mesmo M indica pior deterioração relativa daquela safra.",
     ]
     for note in notes:
@@ -699,7 +802,7 @@ def _cohort_notes() -> None:
 def _duration_notes() -> None:
     notes = [
         "Fórmula: duration_dias = Σ(saldo de cada faixa de vencimento × prazo proxy da faixa) ÷ Σ(saldos das faixas).",
-        "O gráfico mostra duration_meses = duration_dias ÷ 30,4375; não é mediana nem prazo contratual simples.",
+        "O gráfico mostra duration_meses = duration_dias ÷ 30,4375; 30,4375 = 365,25 ÷ 12, a média de dias por mês em um ano com ajuste bissexto.",
         "Exemplo: um crédito a vencer entre 61 e 90 dias usa 75,5 dias como prazo proxy, que é o ponto médio (61 + 90) ÷ 2.",
     ]
     for note in notes:
