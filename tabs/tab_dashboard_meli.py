@@ -533,6 +533,9 @@ def _format_research_table(frame: pd.DataFrame) -> pd.DataFrame:
         "formula",
     ]
     display = frame[[col for col in cols if col in frame.columns]].copy()
+    for column in ["value", "mom_value", "yoy_value", "numerator", "denominator"]:
+        if column in display.columns:
+            display[column] = display[column].astype("object")
     for idx, row in display.iterrows():
         unit = str(row.get("unit") or "")
         variation_unit = str(row.get("variation_unit") or "")

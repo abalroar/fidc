@@ -266,6 +266,27 @@ class MeliCreditMonitorTest(unittest.TestCase):
         value_col = header.index("value") + 1
         self.assertIsInstance(ws.cell(row=2, column=value_col).value, (int, float))
 
+    def test_research_display_table_formats_without_numeric_dtype_upcast_error(self) -> None:
+        from tabs.tab_dashboard_meli import _format_research_table
+
+        monitor = build_monitor_base(_sample_monthly(month_count=14))
+        cohorts = build_cohort_matrix(monitor)
+        outputs = MeliMonitorOutputs(
+            consolidated_monitor=monitor,
+            fund_monitor={},
+            consolidated_cohorts=cohorts,
+            fund_cohorts={},
+            audit_table=pd.DataFrame(),
+            pdf_reconciliation=pd.DataFrame(),
+            warnings=[],
+        )
+        research = build_meli_research_outputs(outputs)
+
+        display = _format_research_table(research.npl_research_table)
+
+        self.assertIn("Valor", display.columns)
+        self.assertIsInstance(display.iloc[0]["Valor"], str)
+
 
 def _sample_monthly(*, month_count: int, start: str = "2026-01-01") -> pd.DataFrame:
     rows = []
