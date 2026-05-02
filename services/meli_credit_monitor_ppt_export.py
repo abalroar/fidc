@@ -14,7 +14,7 @@ MELI_DARK_GRAY = "3F3F3F"
 MELI_MEDIUM_GRAY = "8C8C8C"
 
 
-def build_dashboard_meli_pptx_bytes(monitor_outputs: Any) -> bytes:
+def build_dashboard_meli_pptx_bytes(monitor_outputs: Any, research_outputs: Any | None = None) -> bytes:
     try:
         from pptx import Presentation
         from pptx.chart.data import CategoryChartData
@@ -53,6 +53,19 @@ def build_dashboard_meli_pptx_bytes(monitor_outputs: Any) -> bytes:
         Inches=Inches,
         Pt=Pt,
     )
+    if research_outputs is not None:
+        _add_research_slide(
+            prs=prs,
+            layout=layout,
+            research_outputs=research_outputs,
+            CategoryChartData=CategoryChartData,
+            RGBColor=RGBColor,
+            XL_CHART_TYPE=XL_CHART_TYPE,
+            XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+            XL_MARKER_STYLE=XL_MARKER_STYLE,
+            Inches=Inches,
+            Pt=Pt,
+        )
     for cnpj, monitor in getattr(monitor_outputs, "fund_monitor", {}).items():
         fund_name = _fund_name(monitor, fallback=str(cnpj))
         _add_fund_slide(
@@ -289,6 +302,97 @@ def _add_consolidated_detail_slide(
     )
 
 
+def _add_research_slide(
+    *,
+    prs,
+    layout,
+    research_outputs: Any,
+    CategoryChartData,
+    RGBColor,
+    XL_CHART_TYPE,
+    XL_LEGEND_POSITION,
+    XL_MARKER_STYLE,
+    Inches,
+    Pt,
+) -> None:
+    slide = prs.slides.add_slide(layout)
+    _style_slide(slide, RGBColor)
+    _add_header(slide, "Dashboard MELI - Visão research", RGBColor, Inches, Pt)
+    slots = _grid_2x2_slots()
+    roll_df = getattr(research_outputs, "roll_seasonality", pd.DataFrame())
+    npl_table = getattr(research_outputs, "npl_research_table", pd.DataFrame())
+    cohort_df = getattr(research_outputs, "cohort_research", pd.DataFrame())
+
+    roll_61 = _research_roll_wide(roll_df, metric_id="roll_61_90_m3")
+    roll_151 = _research_roll_wide(roll_df, metric_id="roll_151_180_m6")
+    npl = _research_table_metric_wide(npl_table, metric_id="npl_1_360_pct")
+    cohorts = _research_cohort_wide(cohort_df)
+    _add_multi_line_chart(
+        slide=slide,
+        slot=slots[0],
+        title="Roll 61-90 por mês do ano",
+        df=roll_61,
+        categories=_wide_categories(roll_61),
+        series_specs=[(serie, serie, color) for serie, color in _series_colors(_wide_series(roll_61))],
+        y_axis_title="%",
+        CategoryChartData=CategoryChartData,
+        RGBColor=RGBColor,
+        XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+        XL_MARKER_STYLE=XL_MARKER_STYLE,
+        Inches=Inches,
+        Pt=Pt,
+    )
+    _add_multi_line_chart(
+        slide=slide,
+        slot=slots[1],
+        title="Roll 151-180 por mês do ano",
+        df=roll_151,
+        categories=_wide_categories(roll_151),
+        series_specs=[(serie, serie, color) for serie, color in _series_colors(_wide_series(roll_151))],
+        y_axis_title="%",
+        CategoryChartData=CategoryChartData,
+        RGBColor=RGBColor,
+        XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+        XL_MARKER_STYLE=XL_MARKER_STYLE,
+        Inches=Inches,
+        Pt=Pt,
+    )
+    _add_multi_line_chart(
+        slide=slide,
+        slot=slots[2],
+        title="NPL 1-360 / carteira ex-360",
+        df=npl,
+        categories=_wide_categories(npl),
+        series_specs=[("NPL 1-360", "NPL 1-360", MELI_BLACK)],
+        y_axis_title="%",
+        CategoryChartData=CategoryChartData,
+        RGBColor=RGBColor,
+        XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+        XL_MARKER_STYLE=XL_MARKER_STYLE,
+        Inches=Inches,
+        Pt=Pt,
+    )
+    _add_multi_line_chart(
+        slide=slide,
+        slot=slots[3],
+        title="Cohorts com médias",
+        df=cohorts,
+        categories=_wide_categories(cohorts),
+        series_specs=[(serie, serie, color) for serie, color in _series_colors(_wide_series(cohorts))],
+        y_axis_title="%",
+        CategoryChartData=CategoryChartData,
+        RGBColor=RGBColor,
+        XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+        XL_MARKER_STYLE=XL_MARKER_STYLE,
+        Inches=Inches,
+        Pt=Pt,
+    )
+
+
 def _add_multi_line_chart(
     *,
     slide,
@@ -452,6 +556,61 @@ def _add_cohort_chart(
     _add_final_label_stack(slide, slot, final_labels, value_is_percent=True, RGBColor=RGBColor, Inches=Inches, Pt=Pt)
 
 
+def _research_roll_wide(roll_df: pd.DataFrame, *, metric_id: str) -> pd.DataFrame:
+    if roll_df is None or roll_df.empty:
+        return pd.DataFrame()
+    df = roll_df[roll_df.get("scope", pd.Series(dtype="object")).astype(str).eq("consolidado") & roll_df["metric_id"].eq(metric_id)].copy()
+    if df.empty:
+        return pd.DataFrame()
+    df["month"] = pd.to_numeric(df.get("month"), errors="coerce")
+    df = df.sort_values("month")
+    wide = df.pivot_table(index=["month", "month_label"], columns="series_name", values="value_pct", aggfunc="last").reset_index()
+    wide.columns.name = None
+    return wide.sort_values("month").rename(columns={"month_label": "competencia"}).reset_index(drop=True)
+
+
+def _research_table_metric_wide(table_df: pd.DataFrame, *, metric_id: str) -> pd.DataFrame:
+    if table_df is None or table_df.empty:
+        return pd.DataFrame()
+    df = table_df[table_df.get("scope", pd.Series(dtype="object")).astype(str).eq("consolidado") & table_df["metric_id"].eq(metric_id)].copy()
+    if df.empty:
+        return pd.DataFrame()
+    df["competencia_dt"] = pd.to_datetime(df.get("competencia_dt"), errors="coerce")
+    df = df.sort_values("competencia_dt")
+    out = pd.DataFrame(
+        {
+            "competencia_dt": df["competencia_dt"],
+            "competencia": [_format_month_label(ts) for ts in df["competencia_dt"]],
+            "NPL 1-360": pd.to_numeric(df["value"], errors="coerce"),
+        }
+    )
+    return out.reset_index(drop=True)
+
+
+def _research_cohort_wide(cohort_df: pd.DataFrame) -> pd.DataFrame:
+    if cohort_df is None or cohort_df.empty:
+        return pd.DataFrame()
+    df = cohort_df[cohort_df.get("scope", pd.Series(dtype="object")).astype(str).eq("consolidado")].copy()
+    if df.empty:
+        return pd.DataFrame()
+    df["ordem"] = pd.to_numeric(df.get("ordem"), errors="coerce")
+    wide = df.pivot_table(index=["ordem", "mes_ciclo"], columns="series_name", values="value_pct", aggfunc="last").reset_index()
+    wide.columns.name = None
+    return wide.sort_values("ordem").rename(columns={"mes_ciclo": "competencia"}).reset_index(drop=True)
+
+
+def _wide_categories(df: pd.DataFrame) -> list[str]:
+    if df is None or df.empty or "competencia" not in df.columns:
+        return []
+    return df["competencia"].astype(str).tolist()
+
+
+def _wide_series(df: pd.DataFrame) -> list[str]:
+    if df is None or df.empty:
+        return []
+    return [column for column in df.columns if column not in {"competencia_dt", "competencia", "month", "ordem"}]
+
+
 def _add_chart(slide, slot, chart_type, chart_data, Inches):  # noqa: ANN001
     left, top, width, height = slot
     return slide.shapes.add_chart(chart_type, Inches(left), Inches(top), Inches(width), Inches(height), chart_data).chart
@@ -607,6 +766,11 @@ def _category_labels(df: pd.DataFrame) -> list[str]:
         ts = pd.to_datetime(row.get("competencia_dt"), errors="coerce")
         labels.append(f"{PT_MONTH_ABBR[int(ts.month)]}/{str(int(ts.year))[-2:]}" if pd.notna(ts) else str(row.get("competencia") or ""))
     return labels
+
+
+def _format_month_label(value: object) -> str:
+    ts = pd.to_datetime(value, errors="coerce")
+    return f"{PT_MONTH_ABBR[int(ts.month)]}/{str(int(ts.year))[-2:]}" if pd.notna(ts) else str(value or "")
 
 
 def _money_scale(values: pd.Series) -> tuple[float, str]:

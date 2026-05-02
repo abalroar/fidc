@@ -15,7 +15,17 @@ from services.meli_credit_monitor import (
     build_pdf_reconciliation_table,
 )
 from services.meli_credit_monitor_ppt_export import build_dashboard_meli_pptx_bytes
-from services.meli_credit_monitor_visuals import cohort_chart, duration_chart, npl_severity_chart, portfolio_growth_chart, roll_rates_chart
+from services.meli_credit_research import build_meli_research_outputs, build_research_excel_bytes
+from services.meli_credit_research_verification import verify_meli_research_outputs
+from services.meli_credit_monitor_visuals import (
+    cohort_chart,
+    duration_chart,
+    npl_severity_chart,
+    portfolio_growth_chart,
+    research_cohort_chart,
+    research_roll_seasonality_chart,
+    roll_rates_chart,
+)
 from services.mercado_livre_dashboard import build_consolidated_monthly_base
 
 
@@ -161,14 +171,100 @@ class MeliCreditMonitorTest(unittest.TestCase):
             pdf_reconciliation=pd.DataFrame(),
             warnings=[],
         )
+        research = build_meli_research_outputs(outputs)
 
-        pptx_bytes = build_dashboard_meli_pptx_bytes(outputs)
+        pptx_bytes = build_dashboard_meli_pptx_bytes(outputs, research)
 
         self.assertTrue(pptx_bytes.startswith(b"PK"))
         self.assertTrue(zipfile.is_zipfile(BytesIO(pptx_bytes)))
         with zipfile.ZipFile(BytesIO(pptx_bytes)) as archive:
             names = archive.namelist()
         self.assertTrue(any(name.startswith("ppt/charts/chart") for name in names))
+
+    def test_research_layer_builds_auditable_metrics_and_verification(self) -> None:
+        monitor = build_monitor_base(_sample_monthly(month_count=14))
+        cohorts = build_cohort_matrix(monitor)
+        outputs = MeliMonitorOutputs(
+            consolidated_monitor=monitor,
+            fund_monitor={"00000000000000": monitor},
+            consolidated_cohorts=cohorts,
+            fund_cohorts={"00000000000000": cohorts},
+            audit_table=pd.DataFrame(),
+            pdf_reconciliation=pd.DataFrame(),
+            warnings=[],
+        )
+
+        research = build_meli_research_outputs(outputs)
+        verification = verify_meli_research_outputs(outputs, research)
+        roll = research.roll_seasonality[
+            research.roll_seasonality["metric_id"].eq("roll_61_90_m3")
+            & research.roll_seasonality["competencia"].eq("04/2026")
+            & research.roll_seasonality["scope"].eq("consolidado")
+        ].iloc[0]
+        npl = research.npl_research_table[
+            research.npl_research_table["metric_id"].eq("npl_1_360_pct")
+            & research.npl_research_table["competencia"].eq("01/2026")
+            & research.npl_research_table["scope"].eq("consolidado")
+        ].iloc[0]
+
+        self.assertAlmostEqual(2.5, roll["value_pct"])
+        self.assertAlmostEqual(2.8, npl["value"])
+        self.assertIn("numerator", research.cohort_research.columns)
+        self.assertIn("Fórmula", research.methodology.columns)
+        self.assertFalse(verification.empty)
+        self.assertNotIn("ERRO", set(verification["status"]))
+
+    def test_research_charts_keep_axes_visible_and_labels(self) -> None:
+        monitor = build_monitor_base(_sample_monthly(month_count=14))
+        cohorts = build_cohort_matrix(monitor)
+        outputs = MeliMonitorOutputs(
+            consolidated_monitor=monitor,
+            fund_monitor={},
+            consolidated_cohorts=cohorts,
+            fund_cohorts={},
+            audit_table=pd.DataFrame(),
+            pdf_reconciliation=pd.DataFrame(),
+            warnings=[],
+        )
+        research = build_meli_research_outputs(outputs)
+
+        roll_payload = json.dumps(research_roll_seasonality_chart(research.roll_seasonality, metric_id="roll_61_90_m3").to_dict(), ensure_ascii=False)
+        cohort_payload = json.dumps(research_cohort_chart(research.cohort_research).to_dict(), ensure_ascii=False)
+
+        self.assertIn("Roll rate", roll_payload)
+        self.assertIn("text", roll_payload)
+        self.assertIn("strokeDash", cohort_payload)
+        for payload in (roll_payload, cohort_payload):
+            self.assertNotIn('"axis": null', payload)
+            self.assertIn('"labels": true', payload)
+            self.assertIn('"ticks": true', payload)
+
+    def test_research_excel_export_opens_without_repair_and_keeps_numeric_cells(self) -> None:
+        from openpyxl import load_workbook
+
+        monitor = build_monitor_base(_sample_monthly(month_count=14))
+        cohorts = build_cohort_matrix(monitor)
+        outputs = MeliMonitorOutputs(
+            consolidated_monitor=monitor,
+            fund_monitor={},
+            consolidated_cohorts=cohorts,
+            fund_cohorts={},
+            audit_table=pd.DataFrame(),
+            pdf_reconciliation=pd.DataFrame(),
+            warnings=[],
+        )
+        research = build_meli_research_outputs(outputs)
+        verification = verify_meli_research_outputs(outputs, research)
+
+        workbook_bytes = build_research_excel_bytes(research, verification)
+
+        self.assertTrue(workbook_bytes.startswith(b"PK"))
+        wb = load_workbook(BytesIO(workbook_bytes), data_only=False)
+        self.assertIn("NPL research", wb.sheetnames)
+        ws = wb["NPL research"]
+        header = [cell.value for cell in ws[1]]
+        value_col = header.index("value") + 1
+        self.assertIsInstance(ws.cell(row=2, column=value_col).value, (int, float))
 
 
 def _sample_monthly(*, month_count: int, start: str = "2026-01-01") -> pd.DataFrame:

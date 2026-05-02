@@ -15,11 +15,15 @@ from services.meli_credit_monitor import (
     latest_row,
 )
 from services.meli_credit_monitor_ppt_export import build_dashboard_meli_pptx_bytes
+from services.meli_credit_research import build_meli_research_outputs, build_research_excel_bytes
+from services.meli_credit_research_verification import verify_meli_research_outputs
 from services.meli_credit_monitor_visuals import (
     cohort_chart,
     duration_chart,
     npl_severity_chart,
     portfolio_growth_chart,
+    research_cohort_chart,
+    research_roll_seasonality_chart,
     roll_rates_chart,
 )
 from services.mercado_livre_dashboard import (
@@ -294,25 +298,41 @@ def _render_portfolio_controls(portfolios: list[PortfolioRecord]) -> PortfolioRe
 def _render_outputs(*, outputs, selected_portfolio: PortfolioRecord, period: ImePeriodSelection, storage_source: str) -> None:  # noqa: ANN001
     _render_status_bar(selected_portfolio=selected_portfolio, period=period, outputs=outputs, storage_source=storage_source)
     monitor_outputs = build_meli_monitor_outputs(outputs)
+    research_outputs = build_meli_research_outputs(monitor_outputs)
+    verification_report = verify_meli_research_outputs(monitor_outputs, research_outputs)
     _render_guide()
-    pptx_bytes = build_dashboard_meli_pptx_bytes(monitor_outputs)
-    st.download_button(
-        "Baixar gráficos PPTX",
-        data=pptx_bytes,
-        file_name=f"dashboard_meli_graficos_{_safe_file_token(selected_portfolio.name)}.pptx",
-        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        key=f"dashboard_meli_pptx_download::{selected_portfolio.id}",
-        use_container_width=True,
-    )
+    pptx_bytes = build_dashboard_meli_pptx_bytes(monitor_outputs, research_outputs)
+    excel_bytes = build_research_excel_bytes(research_outputs, verification_report)
+    ppt_col, excel_col = st.columns(2)
+    with ppt_col:
+        st.download_button(
+            "Baixar gráficos PPTX",
+            data=pptx_bytes,
+            file_name=f"dashboard_meli_graficos_{_safe_file_token(selected_portfolio.name)}.pptx",
+            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            key=f"dashboard_meli_pptx_download::{selected_portfolio.id}",
+            use_container_width=True,
+        )
+    with excel_col:
+        st.download_button(
+            "Baixar base research Excel",
+            data=excel_bytes,
+            file_name=f"dashboard_meli_research_{_safe_file_token(selected_portfolio.name)}.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            key=f"dashboard_meli_research_xlsx_download::{selected_portfolio.id}",
+            use_container_width=True,
+        )
     _render_kpis(monitor_outputs.consolidated_monitor)
-    main_tab, funds_tab, audit_tab = st.tabs(["Consolidado", "Fundos individuais", "Auditoria"])
+    main_tab, research_tab, funds_tab, audit_tab = st.tabs(["Consolidado", "Visão Research", "Fundos individuais", "Auditoria"])
     with main_tab:
         _render_consolidated_dashboard(monitor_outputs)
+    with research_tab:
+        _render_research_dashboard(research_outputs, verification_report)
     with funds_tab:
         _render_fund_dashboards(monitor_outputs)
     with audit_tab:
-        _render_audit(monitor_outputs)
-    _render_methodology()
+        _render_audit(monitor_outputs, research_outputs, verification_report)
+    _render_methodology(research_outputs)
 
 
 def _render_consolidated_dashboard(monitor_outputs) -> None:  # noqa: ANN001
@@ -372,6 +392,49 @@ def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
             st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
 
 
+def _render_research_dashboard(research_outputs, verification_report: pd.DataFrame) -> None:  # noqa: ANN001
+    scopes = _research_scope_options(research_outputs)
+    if not scopes:
+        st.info("Sem dados suficientes para montar a visão research.")
+        return
+    selected_scope = st.selectbox(
+        "Escopo da visão research",
+        options=list(scopes),
+        format_func=lambda key: scopes.get(key, key),
+        key="dashboard_meli_research_scope",
+    )
+    roll_df = _filter_research_scope(research_outputs.roll_seasonality, selected_scope)
+    cohort_df = _filter_research_scope(research_outputs.cohort_research, selected_scope)
+    npl_table = _filter_research_scope(research_outputs.npl_research_table, selected_scope)
+    portfolio_table = _filter_research_scope(research_outputs.portfolio_duration_table, selected_scope)
+    verification = _filter_research_scope(verification_report, selected_scope)
+
+    _chart_title(
+        "Roll 61-90 por mês do ano",
+        "Eixo esquerdo: Roll 61-90 M-3 em %. Sem eixo direito; cada linha representa um ano-calendário.",
+    )
+    _chart_note("Fórmula: atraso 61-90 no mês t ÷ carteira a vencer três meses antes. O gráfico mostra sazonalidade e compara anos com a mesma janela mensal.")
+    st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id="roll_61_90_m3"), use_container_width=True)
+
+    _chart_title(
+        "Roll 151-180 por mês do ano",
+        "Eixo esquerdo: Roll 151-180 M-6 em %. Sem eixo direito; cada linha representa um ano-calendário.",
+    )
+    _chart_note("Fórmula: atraso 151-180 no mês t ÷ carteira a vencer seis meses antes. A defasagem acompanha a maturação até atraso severo.")
+    st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id="roll_151_180_m6"), use_container_width=True)
+
+    _chart_title("Cohorts com médias", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
+    _chart_note("Linhas de safra recente usam o mês de originação proxy; linhas de média anual/LTM somam numeradores e denominadores antes de dividir.")
+    _cohort_notes()
+    st.altair_chart(research_cohort_chart(cohort_df), use_container_width=True)
+
+    st.markdown("**Tabela NPL e carteira ex-360**")
+    st.dataframe(_format_research_table(npl_table), use_container_width=True, hide_index=True)
+    st.markdown("**Tabela carteira e duration**")
+    st.dataframe(_format_research_table(portfolio_table), use_container_width=True, hide_index=True)
+    _render_verification_summary(verification)
+
+
 def _render_kpis(monitor_df: pd.DataFrame) -> None:
     row = latest_row(monitor_df)
     cards = [
@@ -391,10 +454,14 @@ def _render_kpis(monitor_df: pd.DataFrame) -> None:
     st.markdown("".join(html), unsafe_allow_html=True)
 
 
-def _render_audit(monitor_outputs) -> None:  # noqa: ANN001
+def _render_audit(monitor_outputs, research_outputs=None, verification_report: pd.DataFrame | None = None) -> None:  # noqa: ANN001
     if monitor_outputs.warnings:
         with st.expander("Warnings do monitor", expanded=False):
             for warning in monitor_outputs.warnings:
+                st.caption(warning)
+    if research_outputs is not None and getattr(research_outputs, "warnings", None):
+        with st.expander("Warnings da visão research", expanded=False):
+            for warning in research_outputs.warnings:
                 st.caption(warning)
     audit = monitor_outputs.audit_table.copy()
     if audit.empty:
@@ -409,9 +476,131 @@ def _render_audit(monitor_outputs) -> None:  # noqa: ANN001
     if "duration_months" in display.columns:
         display["duration_months"] = display["duration_months"].map(lambda value: f"{_format_decimal(value, 1)} meses")
     st.dataframe(display, use_container_width=True)
+    if verification_report is not None and not verification_report.empty:
+        st.markdown("**Verificação independente**")
+        st.dataframe(_format_verification_table(verification_report), use_container_width=True, hide_index=True)
 
 
-def _render_methodology() -> None:
+def _research_scope_options(research_outputs) -> dict[str, str]:  # noqa: ANN001
+    frames = [
+        getattr(research_outputs, "roll_seasonality", pd.DataFrame()),
+        getattr(research_outputs, "cohort_research", pd.DataFrame()),
+        getattr(research_outputs, "npl_research_table", pd.DataFrame()),
+        getattr(research_outputs, "portfolio_duration_table", pd.DataFrame()),
+    ]
+    options: dict[str, str] = {}
+    for frame in frames:
+        if frame is None or frame.empty or "scope" not in frame.columns:
+            continue
+        for _, row in frame[["scope", "cnpj", "fund_name"]].drop_duplicates().iterrows():
+            key = _research_scope_key(row.get("scope"), row.get("cnpj"))
+            options[key] = str(row.get("fund_name") or key)
+    if "consolidado::" in options:
+        options = {"consolidado::": options["consolidado::"], **{key: value for key, value in options.items() if key != "consolidado::"}}
+    return options
+
+
+def _filter_research_scope(frame: pd.DataFrame, selected_scope: str) -> pd.DataFrame:
+    if frame is None or frame.empty or "scope" not in frame.columns:
+        return pd.DataFrame()
+    scope, cnpj = selected_scope.split("::", 1) if "::" in selected_scope else (selected_scope, "")
+    out = frame[frame["scope"].astype(str).eq(scope)].copy()
+    if cnpj:
+        out = out[out.get("cnpj", pd.Series(dtype="object")).astype(str).eq(cnpj)].copy()
+    return out
+
+
+def _research_scope_key(scope: object, cnpj: object) -> str:
+    scope_text = str(scope or "")
+    cnpj_text = "" if pd.isna(cnpj) else str(cnpj or "")
+    return f"{scope_text}::{cnpj_text}"
+
+
+def _format_research_table(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame is None or frame.empty:
+        return pd.DataFrame()
+    cols = [
+        "block",
+        "metric_name",
+        "competencia",
+        "value",
+        "unit",
+        "mom_value",
+        "yoy_value",
+        "variation_unit",
+        "numerator",
+        "denominator",
+        "formula",
+    ]
+    display = frame[[col for col in cols if col in frame.columns]].copy()
+    for idx, row in display.iterrows():
+        unit = str(row.get("unit") or "")
+        variation_unit = str(row.get("variation_unit") or "")
+        display.loc[idx, "value"] = _format_research_value(row.get("value"), unit=unit)
+        if "mom_value" in display.columns:
+            display.loc[idx, "mom_value"] = _format_research_value(row.get("mom_value"), unit=variation_unit)
+        if "yoy_value" in display.columns:
+            display.loc[idx, "yoy_value"] = _format_research_value(row.get("yoy_value"), unit=variation_unit)
+        if "numerator" in display.columns:
+            display.loc[idx, "numerator"] = _format_research_value(row.get("numerator"), unit="R$" if unit == "R$" else "")
+        if "denominator" in display.columns:
+            display.loc[idx, "denominator"] = _format_research_value(row.get("denominator"), unit="R$" if unit == "%" else "")
+    return display.rename(
+        columns={
+            "block": "Bloco",
+            "metric_name": "Métrica",
+            "competencia": "Competência",
+            "value": "Valor",
+            "unit": "Unidade",
+            "mom_value": "m/m",
+            "yoy_value": "YoY",
+            "variation_unit": "Unidade var.",
+            "numerator": "Numerador",
+            "denominator": "Denominador",
+            "formula": "Fórmula",
+        }
+    )
+
+
+def _format_verification_table(frame: pd.DataFrame) -> pd.DataFrame:
+    display = frame.copy()
+    for column in ["calculated_value", "verified_value", "abs_diff"]:
+        if column in display.columns:
+            display[column] = display[column].map(lambda value: _format_decimal(value, 6) if pd.notna(pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]) else "N/D")
+    if "rel_diff_pct" in display.columns:
+        display["rel_diff_pct"] = display["rel_diff_pct"].map(_format_percent)
+    return display
+
+
+def _render_verification_summary(verification: pd.DataFrame) -> None:
+    if verification is None or verification.empty:
+        st.info("Sem relatório de verificação independente para este escopo.")
+        return
+    counts = verification["status"].value_counts(dropna=False).to_dict() if "status" in verification.columns else {}
+    status_text = " · ".join(f"{key}: {value}" for key, value in counts.items()) or "Sem status"
+    if counts.get("ERRO", 0):
+        st.error(f"Verificação independente: {status_text}")
+    elif counts.get("ALERTA", 0):
+        st.warning(f"Verificação independente: {status_text}")
+    else:
+        st.success(f"Verificação independente: {status_text}")
+
+
+def _format_research_value(value: object, *, unit: str) -> str:
+    numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(numeric):
+        return "N/D"
+    if unit == "R$":
+        return _format_brl_compact(float(numeric))
+    if unit in {"%", "p.p."}:
+        suffix = "p.p." if unit == "p.p." else "%"
+        return f"{_format_decimal(float(numeric), 1)}{suffix}"
+    if unit == "meses":
+        return f"{_format_decimal(float(numeric), 1)} meses"
+    return _format_decimal(float(numeric), 1)
+
+
+def _render_methodology(research_outputs=None) -> None:  # noqa: ANN001
     with st.expander("Metodologia, fórmulas e fontes dos indicadores", expanded=False):
         st.markdown(
             """
@@ -438,6 +627,9 @@ O painel usa dados mensais já compilados no Somatório FIDCs. No consolidado, v
         st.dataframe(build_meli_chart_axis_table(), use_container_width=True, hide_index=True)
         st.markdown("**Fórmulas e fontes das métricas**")
         st.dataframe(build_meli_methodology_table(), use_container_width=True, hide_index=True)
+        if research_outputs is not None and getattr(research_outputs, "methodology", pd.DataFrame()).empty is False:
+            st.markdown("**Visão Research: fórmulas e fontes**")
+            st.dataframe(research_outputs.methodology, use_container_width=True, hide_index=True)
 
 
 def _render_status_bar(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection, outputs, storage_source: str) -> None:  # noqa: ANN001

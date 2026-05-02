@@ -247,6 +247,91 @@ def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8) -> alt.Chart:
     return _style_chart(alt.layer(line, *label_layers).properties(height=STANDARD_CHART_HEIGHT))
 
 
+def research_roll_seasonality_chart(roll_df: pd.DataFrame, *, metric_id: str) -> alt.Chart:
+    if roll_df is None or roll_df.empty:
+        return _empty_chart()
+    df = roll_df[roll_df["metric_id"].eq(metric_id)].copy()
+    if df.empty:
+        return _empty_chart()
+    df["month"] = pd.to_numeric(df.get("month"), errors="coerce")
+    df["value_pct"] = pd.to_numeric(df.get("value_pct"), errors="coerce")
+    df["series_name"] = df.get("series_name", pd.Series(dtype="object")).astype(str)
+    df["valor_fmt"] = df["value_pct"].map(_format_percent)
+    df = df.sort_values(["year", "month"]).reset_index(drop=True)
+    month_domain = [PT_MONTH_ABBR[month].title() for month in range(1, 13)]
+    series_domain = sorted(df["series_name"].dropna().unique().tolist())
+    colors = _seasonality_colors(series_domain)
+    x = alt.X("month_label:N", title="Mês do ano", sort=month_domain, axis=_category_axis())
+    line = (
+        alt.Chart(df)
+        .mark_line(point=alt.OverlayMarkDef(filled=True, size=42), strokeWidth=2)
+        .encode(
+            x=x,
+            y=alt.Y("value_pct:Q", title="Roll rate", axis=_percent_axis(), scale=alt.Scale(zero=False, nice=True)),
+            color=alt.Color("series_name:N", title="Ano", scale=alt.Scale(domain=series_domain, range=colors), legend=alt.Legend(orient="bottom")),
+            tooltip=[
+                alt.Tooltip("series_name:N", title="Ano"),
+                alt.Tooltip("month_label:N", title="Mês"),
+                alt.Tooltip("valor_fmt:N", title="Valor"),
+                alt.Tooltip("formula:N", title="Fórmula"),
+            ],
+        )
+    )
+    label_base = _last_point_labels(df.rename(columns={"series_name": "serie"}), value_column="value_pct")
+    label_df = _assign_label_offsets(label_base, value_column="value_pct")
+    label_layers = _line_label_layers(
+        label_df,
+        x=x,
+        y_field="value_pct",
+        text_field="valor_fmt",
+        color_map=dict(zip(series_domain, colors, strict=False)),
+    )
+    return _style_chart(alt.layer(line, *label_layers).properties(height=STANDARD_CHART_HEIGHT))
+
+
+def research_cohort_chart(cohort_df: pd.DataFrame) -> alt.Chart:
+    if cohort_df is None or cohort_df.empty:
+        return _empty_chart()
+    df = cohort_df.copy()
+    df["value_pct"] = pd.to_numeric(df.get("value_pct"), errors="coerce")
+    df["valor_fmt"] = df["value_pct"].map(_format_percent)
+    df["series_name"] = df.get("series_name", pd.Series(dtype="object")).astype(str)
+    df["ordem"] = pd.to_numeric(df.get("ordem"), errors="coerce")
+    df = df.sort_values(["series_type", "line_rank", "ordem"]).reset_index(drop=True)
+    series_domain = _cohort_research_domain(df)
+    color_range = _research_cohort_colors(series_domain)
+    dash_domain = series_domain
+    dash_range = _research_cohort_dashes(df, series_domain)
+    x = alt.X("mes_ciclo:N", title="Mês de maturação", sort=["M1", "M2", "M3", "M4", "M5", "M6"], axis=_category_axis())
+    line = (
+        alt.Chart(df)
+        .mark_line(point=alt.OverlayMarkDef(filled=True, size=38), strokeWidth=2)
+        .encode(
+            x=x,
+            y=alt.Y("value_pct:Q", title="% do saldo a vencer em 30d", axis=_percent_axis(), scale=_tight_percent_scale(df["value_pct"])),
+            color=alt.Color("series_name:N", title="Safra/média", scale=alt.Scale(domain=series_domain, range=color_range), legend=alt.Legend(orient="bottom")),
+            strokeDash=alt.StrokeDash("series_name:N", title="Tipo", scale=alt.Scale(domain=dash_domain, range=dash_range), legend=None),
+            tooltip=[
+                alt.Tooltip("series_name:N", title="Linha"),
+                alt.Tooltip("series_type:N", title="Tipo"),
+                alt.Tooltip("mes_ciclo:N", title="Mês"),
+                alt.Tooltip("valor_fmt:N", title="Valor"),
+                alt.Tooltip("formula:N", title="Fórmula"),
+            ],
+        )
+    )
+    label_base = _last_point_labels(df.rename(columns={"series_name": "serie"}), value_column="value_pct")
+    label_df = _assign_label_offsets(label_base, value_column="value_pct")
+    label_layers = _line_label_layers(
+        label_df,
+        x=x,
+        y_field="value_pct",
+        text_field="valor_fmt",
+        color_map=dict(zip(series_domain, color_range, strict=False)),
+    )
+    return _style_chart(alt.layer(line, *label_layers).properties(height=STANDARD_CHART_HEIGHT))
+
+
 def _line_chart(chart_df: pd.DataFrame, *, y_title: str, color_domain: list[str]) -> alt.Chart:
     if chart_df.empty:
         return _empty_chart()
@@ -470,11 +555,56 @@ def _palette_for_domain(domain: list[str]) -> list[str]:
     return [base[idx % len(base)] for idx, _ in enumerate(domain or base)]
 
 
+def _seasonality_colors(domain: list[str]) -> list[str]:
+    if not domain:
+        return [PRIMARY]
+    base = ["#BDBDBD", AUX, SECONDARY, PRIMARY]
+    if len(domain) <= len(base):
+        return base[-len(domain):]
+    extra = ["#D9D9D9"] * (len(domain) - len(base))
+    return extra + base
+
+
 def _cohort_color_range(domain: list[str]) -> list[str]:
     if not domain:
         return COHORT_COLORS
     count = len(domain)
     return COHORT_COLORS[-count:]
+
+
+def _cohort_research_domain(df: pd.DataFrame) -> list[str]:
+    if df.empty:
+        return []
+    benchmarks = df[df["series_type"].astype(str).str.contains("Média", na=False)]["series_name"].drop_duplicates().tolist()
+    recent = df[~df["series_name"].isin(benchmarks)][["series_name", "line_rank"]].drop_duplicates()
+    recent = recent.sort_values("line_rank")["series_name"].tolist()
+    return benchmarks + recent
+
+
+def _research_cohort_colors(domain: list[str]) -> list[str]:
+    if not domain:
+        return [PRIMARY]
+    grays = ["#D9D9D9", "#C6C6C6", "#AFAFAF", "#989898", "#818181", "#696969", "#4F4F4F", "#303030", "#000000"]
+    if len(domain) <= len(grays):
+        return grays[-len(domain):]
+    return ["#E5E5E5"] * (len(domain) - len(grays)) + grays
+
+
+def _research_cohort_dashes(df: pd.DataFrame, domain: list[str]) -> list[list[int]]:
+    if not domain:
+        return [[]]
+    latest_recent = None
+    recent = df[~df["series_type"].astype(str).str.contains("Média", na=False)][["series_name", "line_rank"]].drop_duplicates()
+    if not recent.empty:
+        latest_recent = str(recent.sort_values("line_rank")["series_name"].iloc[-1])
+    patterns = [[6, 4], [3, 3], [1, 3], [8, 3], [2, 2], [4, 2]]
+    out: list[list[int]] = []
+    for idx, series in enumerate(domain):
+        if series == latest_recent:
+            out.append([])
+        else:
+            out.append(patterns[idx % len(patterns)])
+    return out
 
 
 def _chart_base(df: pd.DataFrame) -> pd.DataFrame:
