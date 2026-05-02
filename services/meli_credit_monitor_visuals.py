@@ -11,6 +11,10 @@ PRIMARY = CORES_MELI["primaria"]
 SECONDARY = CORES_MELI["secundaria"]
 AUX = CORES_MELI["auxiliar"]
 GRID = CORES_MELI["cinza_claro"]
+AXIS = "#000000"
+STANDARD_CHART_HEIGHT = 360
+SPLIT_PANEL_HEIGHT = 150
+SPLIT_PANEL_SPACING = 8
 COHORT_COLORS = ["#D9D9D9", "#BDBDBD", "#A0A0A0", "#838383", "#666666", "#4A4A4A", "#242424", "#000000"]
 
 
@@ -82,7 +86,7 @@ def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
         _stacked_bar_edge_labels(chart_df, x_sort=x_sort),
         x=alt.X("competencia:N", sort=x_sort, axis=_category_axis()),
     )
-    return _style_chart(alt.layer(bars, *label_layers).properties(height=320, padding={"left": 96, "right": 112}))
+    return _style_chart(alt.layer(bars, *label_layers).properties(height=STANDARD_CHART_HEIGHT, padding={"left": 96, "right": 112}))
 
 
 def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
@@ -117,7 +121,7 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
             text=alt.Text("carteira_fmt:N"),
         )
     )
-    bar_chart = alt.layer(bars, bar_label).properties(height=148)
+    bar_chart = alt.layer(bars, bar_label).properties(height=SPLIT_PANEL_HEIGHT)
     line = (
         alt.Chart(df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, fill=SECONDARY, color=SECONDARY, size=42), color=SECONDARY, strokeWidth=2)
@@ -143,8 +147,8 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
             text=alt.Text("yoy_fmt:N"),
         )
     )
-    yoy_chart = alt.layer(line, line_label).properties(height=148)
-    return _style_chart(alt.vconcat(bar_chart, yoy_chart, spacing=8).resolve_scale(x="shared"))
+    yoy_chart = alt.layer(line, line_label).properties(height=SPLIT_PANEL_HEIGHT)
+    return _style_chart(alt.vconcat(bar_chart, yoy_chart, spacing=SPLIT_PANEL_SPACING).resolve_scale(x="shared"))
 
 
 def duration_chart(consolidated_monitor: pd.DataFrame, fund_monitor: dict[str, pd.DataFrame]) -> alt.Chart:
@@ -185,7 +189,7 @@ def duration_chart(consolidated_monitor: pd.DataFrame, fund_monitor: dict[str, p
         text_field="duration_fmt",
         color_map=dict(zip(color_domain, color_range, strict=False)),
     )
-    return _style_chart(alt.layer(line, *label_layers).properties(height=320))
+    return _style_chart(alt.layer(line, *label_layers).properties(height=STANDARD_CHART_HEIGHT))
 
 
 def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8) -> alt.Chart:
@@ -224,7 +228,7 @@ def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8) -> alt.Chart:
         color_map=dict(zip(color_domain, color_range, strict=False)),
         series_column="cohort",
     )
-    return _style_chart(alt.layer(line, *label_layers).properties(height=340))
+    return _style_chart(alt.layer(line, *label_layers).properties(height=STANDARD_CHART_HEIGHT))
 
 
 def _line_chart(chart_df: pd.DataFrame, *, y_title: str, color_domain: list[str]) -> alt.Chart:
@@ -260,7 +264,7 @@ def _line_chart(chart_df: pd.DataFrame, *, y_title: str, color_domain: list[str]
         text_field="valor_fmt",
         color_map=dict(zip(color_domain, color_range, strict=False)),
     )
-    return _style_chart(alt.layer(line, *label_layers).properties(height=320))
+    return _style_chart(alt.layer(line, *label_layers).properties(height=STANDARD_CHART_HEIGHT))
 
 
 def _line_series(df: pd.DataFrame, column: str, label: str) -> pd.DataFrame:
@@ -359,7 +363,7 @@ def _line_label_layers(
             )
             .encode(
                 x=x,
-                y=alt.Y(f"{y_field}:Q", axis=None),
+                y=alt.Y(f"{y_field}:Q"),
                 text=alt.Text(f"{text_field}:N"),
             )
         )
@@ -438,7 +442,7 @@ def _bar_label_layers(label_df: pd.DataFrame, *, x: alt.X) -> list[alt.Chart]:
             )
             .encode(
                 x=x,
-                y=alt.Y("label_y:Q", axis=None),
+                y=alt.Y("label_y:Q", title="% da carteira ex-360", axis=_percent_axis()),
                 text=alt.Text("label_text:N"),
             )
         )
@@ -477,8 +481,8 @@ def _style_chart(chart: alt.Chart) -> alt.Chart:
             domain=True,
             ticks=True,
             labels=True,
-            domainColor=AUX,
-            tickColor=AUX,
+            domainColor=AXIS,
+            tickColor=AXIS,
             labelFontSize=11,
             titleFontSize=12,
         )
@@ -493,8 +497,8 @@ def _percent_axis(*, orient: str | None = None, grid: bool = True) -> alt.Axis:
         "domain": True,
         "ticks": True,
         "labels": True,
-        "domainColor": AUX,
-        "tickColor": AUX,
+        "domainColor": AXIS,
+        "tickColor": AXIS,
         "tickCount": 6,
         "labelExpr": "replace(format(datum.value, '.1f'), '.', ',') + '%'",
         "labelPadding": 8,
@@ -510,8 +514,8 @@ def _category_axis() -> alt.Axis:
         domain=True,
         ticks=True,
         labels=True,
-        domainColor=AUX,
-        tickColor=AUX,
+        domainColor=AXIS,
+        tickColor=AXIS,
         labelPadding=8,
         titlePadding=12,
         labelAngle=0,
@@ -524,8 +528,8 @@ def _decimal_axis(*, grid: bool = True, orient: str | None = None) -> alt.Axis:
         "domain": True,
         "ticks": True,
         "labels": True,
-        "domainColor": AUX,
-        "tickColor": AUX,
+        "domainColor": AXIS,
+        "tickColor": AXIS,
         "tickCount": 6,
         "labelExpr": "replace(format(datum.value, ',.1f'), '.', ',')",
         "labelPadding": 8,
@@ -559,7 +563,7 @@ def _empty_chart() -> alt.Chart:
         alt.Chart(pd.DataFrame({"x": [0], "text": ["Sem dados"]}))
         .mark_text(color="#6f7a87", fontSize=13)
         .encode(text="text:N")
-        .properties(height=260)
+        .properties(height=STANDARD_CHART_HEIGHT)
     )
 
 

@@ -15,7 +15,7 @@ from services.meli_credit_monitor import (
     build_pdf_reconciliation_table,
 )
 from services.meli_credit_monitor_ppt_export import build_dashboard_meli_pptx_bytes
-from services.meli_credit_monitor_visuals import cohort_chart, npl_severity_chart, portfolio_growth_chart, roll_rates_chart
+from services.meli_credit_monitor_visuals import cohort_chart, duration_chart, npl_severity_chart, portfolio_growth_chart, roll_rates_chart
 from services.mercado_livre_dashboard import build_consolidated_monthly_base
 
 
@@ -119,6 +119,8 @@ class MeliCreditMonitorTest(unittest.TestCase):
         roll_payload = json.dumps(roll_rates_chart(monitor).to_dict(), ensure_ascii=False)
         growth_payload = json.dumps(portfolio_growth_chart(monitor).to_dict(), ensure_ascii=False)
         npl_payload = json.dumps(npl_severity_chart(monitor).to_dict(), ensure_ascii=False)
+        duration_payload = json.dumps(duration_chart(monitor, {"00000000000000": monitor}).to_dict(), ensure_ascii=False)
+        cohort_payload = json.dumps(cohort_chart(build_cohort_matrix(monitor)).to_dict(), ensure_ascii=False)
 
         self.assertIn("mark", roll_payload)
         self.assertIn("text", roll_payload)
@@ -127,6 +129,10 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertIn("text", growth_payload)
         self.assertIn("vconcat", growth_payload)
         self.assertIn("Total", npl_payload)
+        for payload in (roll_payload, growth_payload, npl_payload, duration_payload, cohort_payload):
+            self.assertNotIn('"axis": null', payload)
+            self.assertIn('"labels": true', payload)
+            self.assertIn('"ticks": true', payload)
 
     def test_dashboard_meli_cohort_chart_uses_chronological_labels_and_gray_scale(self) -> None:
         monitor = build_monitor_base(_sample_monthly(month_count=9))
