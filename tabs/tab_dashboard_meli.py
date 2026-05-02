@@ -439,14 +439,7 @@ def _render_research_dashboard(research_outputs, verification_report: pd.DataFra
 
 def _render_kpis(monitor_df: pd.DataFrame) -> None:
     row = latest_row(monitor_df)
-    cards = [
-        ("Carteira ex-360", _format_brl_compact(row.get("carteira_ex360"))),
-        ("NPL 1-90 / carteira", _format_percent(row.get("npl_1_90_pct"))),
-        ("NPL 91-360 / carteira", _format_percent(row.get("npl_91_360_pct"))),
-        ("Roll 61-90 M-3", _format_percent(row.get("roll_61_90_m3_pct"))),
-        ("Roll 151-180 M-6", _format_percent(row.get("roll_151_180_m6_pct"))),
-        ("Duration", f"{_format_decimal(row.get('duration_months'), 1)} meses"),
-    ]
+    cards = _dashboard_kpi_cards(row)
     html = ["<div class='meli-kpi-grid'>"]
     for label, value in cards:
         html.append(
@@ -454,6 +447,18 @@ def _render_kpis(monitor_df: pd.DataFrame) -> None:
         )
     html.append("</div>")
     st.markdown("".join(html), unsafe_allow_html=True)
+
+
+def _dashboard_kpi_cards(row: pd.Series) -> list[tuple[str, str]]:
+    cards = [
+        ("Carteira ex-360", _format_brl_compact(row.get("carteira_ex360"))),
+        ("NPL Over 1d ex-360", _format_percent(row.get("npl_over1_ex360_pct"))),
+        ("NPL Over 30d ex-360", _format_percent(row.get("npl_over30_ex360_pct"))),
+        ("NPL Over 60d ex-360", _format_percent(row.get("npl_over60_ex360_pct"))),
+        ("NPL Over 90d ex-360", _format_percent(row.get("npl_over90_ex360_pct"))),
+        ("Duration", f"{_format_decimal(row.get('duration_months'), 1)} meses"),
+    ]
+    return cards
 
 
 def _render_audit(outputs, monitor_outputs, research_outputs=None, verification_report: pd.DataFrame | None = None) -> None:  # noqa: ANN001

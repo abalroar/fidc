@@ -343,6 +343,32 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertIn("Valor", display.columns)
         self.assertIsInstance(display.iloc[0]["Valor"], str)
 
+    def test_dashboard_meli_kpi_cards_use_npl_over_metrics_instead_of_roll_rates(self) -> None:
+        from tabs.tab_dashboard_meli import _dashboard_kpi_cards
+
+        cards = _dashboard_kpi_cards(
+            pd.Series(
+                {
+                    "carteira_ex360": 7_674_900_000.0,
+                    "npl_over1_ex360_pct": 19.2,
+                    "npl_over30_ex360_pct": 15.1,
+                    "npl_over60_ex360_pct": 12.8,
+                    "npl_over90_ex360_pct": 11.8,
+                    "roll_61_90_m3_pct": 2.4,
+                    "roll_151_180_m6_pct": 2.1,
+                    "duration_months": 12.5,
+                }
+            )
+        )
+        labels = [label for label, _ in cards]
+
+        self.assertIn("NPL Over 1d ex-360", labels)
+        self.assertIn("NPL Over 30d ex-360", labels)
+        self.assertIn("NPL Over 60d ex-360", labels)
+        self.assertIn("NPL Over 90d ex-360", labels)
+        self.assertNotIn("Roll 61-90 M-3", labels)
+        self.assertNotIn("NPL 1-90 / carteira", labels)
+
 
 def _sample_monthly(*, month_count: int, start: str = "2026-01-01") -> pd.DataFrame:
     rows = []
