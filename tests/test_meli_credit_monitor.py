@@ -126,6 +126,8 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertIn("text", roll_payload)
         self.assertIn("3,0%", roll_payload)
         self.assertIn("Carteira ex-360", growth_payload)
+        self.assertIn("Crescimento YoY", growth_payload)
+        self.assertIn('"width": "container"', growth_payload)
         self.assertIn("text", growth_payload)
         self.assertIn("vconcat", growth_payload)
         self.assertIn("Total", npl_payload)

@@ -114,14 +114,18 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
     bar_label_df = _last_point_label_df(df[["competencia_label", "carteira_scaled", "carteira_fmt"]], value_column="carteira_scaled")
     bar_label = (
         alt.Chart(bar_label_df)
-        .mark_text(align="left", baseline="middle", dx=8, dy=-8, color=PRIMARY, fontSize=11, fontWeight=600)
+        .mark_text(align="right", baseline="middle", dx=-8, dy=-8, color=PRIMARY, fontSize=11, fontWeight=600)
         .encode(
             x=alt.X("competencia_label:N", title="Competência", sort=x_sort),
             y=alt.Y("carteira_scaled:Q", title=label, axis=_decimal_axis()),
             text=alt.Text("carteira_fmt:N"),
         )
     )
-    bar_chart = alt.layer(bars, bar_label).properties(height=SPLIT_PANEL_HEIGHT)
+    bar_chart = alt.layer(bars, bar_label).properties(
+        width="container",
+        height=SPLIT_PANEL_HEIGHT,
+        title=_panel_title("Carteira ex-360"),
+    )
     line = (
         alt.Chart(df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, fill=SECONDARY, color=SECONDARY, size=42), color=SECONDARY, strokeWidth=2)
@@ -140,15 +144,27 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
     )
     line_label = (
         alt.Chart(line_label_df)
-        .mark_text(align="left", baseline="middle", dx=8, dy=-12, color=SECONDARY, fontSize=11, fontWeight=600)
+        .mark_text(align="right", baseline="middle", dx=-8, dy=-12, color=SECONDARY, fontSize=11, fontWeight=600)
         .encode(
             x=alt.X("competencia_label:N", title="Competência", sort=x_sort),
             y=alt.Y("carteira_ex360_yoy_pct:Q", title="Crescimento YoY", axis=_percent_axis()),
             text=alt.Text("yoy_fmt:N"),
         )
     )
-    yoy_chart = alt.layer(line, line_label).properties(height=SPLIT_PANEL_HEIGHT)
-    return _style_chart(alt.vconcat(bar_chart, yoy_chart, spacing=SPLIT_PANEL_SPACING).resolve_scale(x="shared"))
+    yoy_chart = alt.layer(line, line_label).properties(
+        width="container",
+        height=SPLIT_PANEL_HEIGHT,
+        title=_panel_title("Crescimento YoY"),
+    )
+    return _style_chart(
+        alt.vconcat(
+            bar_chart,
+            yoy_chart,
+            spacing=SPLIT_PANEL_SPACING,
+            autosize=alt.AutoSizeParams(type="fit-x", contains="padding"),
+        )
+        .resolve_scale(x="shared")
+    )
 
 
 def duration_chart(consolidated_monitor: pd.DataFrame, fund_monitor: dict[str, pd.DataFrame]) -> alt.Chart:
@@ -488,6 +504,17 @@ def _style_chart(chart: alt.Chart) -> alt.Chart:
         )
         .configure_view(stroke=None)
         .configure_legend(labelColor=AUX, titleColor=AUX, orient="bottom", labelFontSize=11, titleFontSize=11)
+    )
+
+
+def _panel_title(text: str) -> alt.TitleParams:
+    return alt.TitleParams(
+        text=text,
+        anchor="start",
+        color=AXIS,
+        fontSize=13,
+        fontWeight=600,
+        offset=6,
     )
 
 

@@ -329,7 +329,7 @@ def _render_consolidated_dashboard(monitor_outputs) -> None:  # noqa: ANN001
     )
     st.altair_chart(npl_severity_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
-    _chart_title("Carteira ex-360 e crescimento YoY", "Dois painéis: carteira ex-360 em R$ acima; crescimento YoY em % abaixo.")
+    _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios, ambos ajustados à largura da página.")
     _chart_note("Carteira ex-360 exclui créditos vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
     st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
@@ -359,7 +359,7 @@ def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
             )
             st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
 
-            _chart_title("Carteira ex-360 e crescimento YoY", "Dois painéis: carteira ex-360 em R$ acima; crescimento YoY em % abaixo.")
+            _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios, ambos ajustados à largura da página.")
             _chart_note("Carteira ex-360 exclui créditos vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
             st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
 
