@@ -556,7 +556,7 @@ def build_excel_export_bytes(outputs: MercadoLivreOutputs) -> bytes:
 def build_consolidated_snapshot_excel_bytes(outputs: MercadoLivreOutputs) -> bytes:
     workbook = Workbook()
     summary_ws = workbook.active
-    summary_ws.title = "Resumo 6m"
+    summary_ws.title = "Resumo exibido"
     data_ws = workbook.create_sheet("Dados gráficos")
     charts_ws = workbook.create_sheet("Gráficos")
 
@@ -566,7 +566,7 @@ def build_consolidated_snapshot_excel_bytes(outputs: MercadoLivreOutputs) -> byt
         buffer = BytesIO()
         workbook.save(buffer)
         return buffer.getvalue()
-    chart_monthly = monthly.sort_values("competencia_dt").tail(6).reset_index(drop=True)
+    chart_monthly = monthly.sort_values("competencia_dt").reset_index(drop=True)
     summary_monthly = _sort_monthly_by_competencia(chart_monthly, descending=True)
     summary_period_labels = [_format_competencia_short(value) for value in summary_monthly["competencia"].astype(str).tolist()]
     chart_period_labels = [_format_competencia_short(value) for value in chart_monthly["competencia"].astype(str).tolist()]

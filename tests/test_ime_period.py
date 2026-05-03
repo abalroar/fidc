@@ -9,6 +9,7 @@ from services.ime_period import (
     build_preset_period,
     current_default_end_month,
     month_options,
+    select_decembers_plus_current_year_months,
 )
 
 
@@ -50,6 +51,37 @@ class ImePeriodTests(unittest.TestCase):
 
     def test_current_default_end_month_normalizes_to_first_day(self) -> None:
         self.assertEqual(date(2026, 3, 1), current_default_end_month(date(2026, 4, 14)))
+
+    def test_select_decembers_plus_current_year_months(self) -> None:
+        available = month_options(date(2026, 4, 1), months_back=40)
+
+        selected = select_decembers_plus_current_year_months(available)
+
+        self.assertEqual(
+            [
+                date(2022, 12, 1),
+                date(2023, 12, 1),
+                date(2024, 12, 1),
+                date(2025, 12, 1),
+                date(2026, 1, 1),
+                date(2026, 2, 1),
+                date(2026, 3, 1),
+                date(2026, 4, 1),
+            ],
+            selected,
+        )
+
+    def test_select_decembers_plus_current_year_skips_missing_december(self) -> None:
+        available = [
+            date(2024, 11, 1),
+            date(2025, 12, 1),
+            date(2026, 1, 1),
+            date(2026, 2, 1),
+        ]
+
+        selected = select_decembers_plus_current_year_months(available)
+
+        self.assertEqual([date(2025, 12, 1), date(2026, 1, 1), date(2026, 2, 1)], selected)
 
 
 if __name__ == "__main__":

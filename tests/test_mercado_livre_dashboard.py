@@ -19,8 +19,9 @@ from services.mercado_livre_dashboard import (
     build_fund_monthly_base,
     build_mercado_livre_outputs,
     build_wide_table,
-    order_period_columns_desc,
     load_outputs_from_cache,
+    MercadoLivreOutputs,
+    order_period_columns_desc,
     portfolio_identity_key,
     save_outputs_to_cache,
 )
@@ -32,6 +33,8 @@ from tabs.tab_mercado_livre import (
     _build_mercado_livre_guide_markdown,
     _dense_wide_value,
     _display_window_bounds,
+    _display_window_months,
+    _filter_outputs_by_competencia_months,
     _render_wide_table_html,
     _resolve_existing_portfolio_for_save,
 )
@@ -319,7 +322,7 @@ class MercadoLivreDashboardTests(unittest.TestCase):
 
         snapshot_bytes = build_consolidated_snapshot_excel_bytes(outputs)
         snapshot_workbook = load_workbook(BytesIO(snapshot_bytes), data_only=True)
-        self.assertIn("Resumo 6m", snapshot_workbook.sheetnames)
+        self.assertIn("Resumo exibido", snapshot_workbook.sheetnames)
         self.assertIn("Dados gráficos", snapshot_workbook.sheetnames)
         self.assertIn("Gráficos", snapshot_workbook.sheetnames)
         self.assertGreaterEqual(len(snapshot_workbook["Gráficos"]._charts), 2)
@@ -582,6 +585,95 @@ class MercadoLivreDashboardTests(unittest.TestCase):
 
         self.assertEqual(date(2025, 4, 1), start)
         self.assertEqual(available[-1], end)
+
+    def test_display_window_decembers_plus_current_year_uses_non_contiguous_months(self) -> None:
+        available = [
+            date(2023, 11, 1),
+            date(2023, 12, 1),
+            date(2024, 11, 1),
+            date(2025, 12, 1),
+            date(2026, 1, 1),
+            date(2026, 2, 1),
+            date(2026, 3, 1),
+            date(2026, 4, 1),
+        ]
+
+        months = _display_window_months(selected="Dezembros + Ano Atual", available=available)
+
+        self.assertEqual(
+            [
+                date(2023, 12, 1),
+                date(2025, 12, 1),
+                date(2026, 1, 1),
+                date(2026, 2, 1),
+                date(2026, 3, 1),
+                date(2026, 4, 1),
+            ],
+            months,
+        )
+
+    def test_filter_outputs_by_explicit_months_keeps_same_months_in_wide_and_metadata(self) -> None:
+        monthly = pd.DataFrame(
+            [
+                {"competencia": "11/2023", "competencia_dt": pd.Timestamp("2023-11-01"), "fund_name": "FIDC A", "pl_total": 1.0},
+                {"competencia": "12/2023", "competencia_dt": pd.Timestamp("2023-12-01"), "fund_name": "FIDC A", "pl_total": 2.0},
+                {"competencia": "01/2026", "competencia_dt": pd.Timestamp("2026-01-01"), "fund_name": "FIDC A", "pl_total": 3.0},
+                {"competencia": "04/2026", "competencia_dt": pd.Timestamp("2026-04-01"), "fund_name": "FIDC A", "pl_total": 4.0},
+            ]
+        )
+        outputs = MercadoLivreOutputs(
+            fund_monthly={"1": monthly},
+            fund_wide={"1": pd.DataFrame()},
+            consolidated_monthly=monthly,
+            consolidated_wide=pd.DataFrame(),
+            warnings_df=pd.DataFrame(),
+            metadata={"portfolio_name": "Carteira"},
+        )
+
+        filtered = _filter_outputs_by_competencia_months(
+            outputs,
+            months=[date(2023, 12, 1), date(2026, 1, 1), date(2026, 4, 1)],
+            label="dez/23 + jan/26 → abr/26",
+            mode="Dezembros + Ano Atual",
+        )
+
+        self.assertEqual(["12/2023", "01/2026", "04/2026"], filtered.consolidated_monthly["competencia"].tolist())
+        self.assertEqual(
+            ["2023-12-01", "2026-01-01", "2026-04-01"],
+            filtered.metadata["display_period_months"],
+        )
+        self.assertIn("abr/26", filtered.consolidated_wide.columns)
+        self.assertIn("dez/23", filtered.consolidated_wide.columns)
+
+    def test_snapshot_export_uses_all_displayed_months_instead_of_tail_six(self) -> None:
+        months = pd.date_range("2023-12-01", "2026-04-01", freq="MS")
+        monthly = pd.DataFrame(
+            {
+                "competencia": [f"{item.month:02d}/{item.year}" for item in months],
+                "competencia_dt": months,
+                "pl_total": range(len(months)),
+                "pl_senior": range(len(months)),
+                "pl_subordinada_mezz_ex360": range(len(months)),
+                "subordinacao_total_ex360_pct": 10.0,
+                "carteira_bruta": range(len(months)),
+                "carteira_ex360": range(len(months)),
+                "pdd_ex360": range(len(months)),
+                "npl_over90_ex360": range(len(months)),
+                "npl_over90_ex360_pct": 1.0,
+                "pdd_npl_over90_ex360_pct": 100.0,
+                "roll_rate_31_60_pct": 2.0,
+            }
+        )
+        outputs = SimpleNamespace(consolidated_monthly=monthly)
+
+        snapshot_bytes = build_consolidated_snapshot_excel_bytes(outputs)
+        workbook = load_workbook(BytesIO(snapshot_bytes), data_only=True)
+        summary_header = [cell.value for cell in workbook["Resumo exibido"][1]]
+        chart_rows = list(workbook["Dados gráficos"].iter_rows(min_row=2, values_only=True))
+
+        self.assertIn("dez/23", summary_header)
+        self.assertIn("abr/26", summary_header)
+        self.assertEqual(len(months), len(chart_rows))
 
     def test_outputs_cache_roundtrip_uses_deterministic_identity(self) -> None:
         dashboard = _dashboard(

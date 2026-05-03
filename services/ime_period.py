@@ -36,6 +36,22 @@ def month_options(end_month: date, *, months_back: int) -> list[date]:
     return values
 
 
+def select_decembers_plus_current_year_months(available_months: list[date]) -> list[date]:
+    """Return previous Decembers plus all months from the latest available year."""
+    normalized = sorted({month_start(value) for value in available_months})
+    if not normalized:
+        return []
+    available = set(normalized)
+    reference_year = normalized[-1].year
+    previous_decembers = [
+        date(year, 12, 1)
+        for year in sorted({value.year for value in normalized if value.year < reference_year})
+        if date(year, 12, 1) in available
+    ]
+    current_year_months = [value for value in normalized if value.year == reference_year]
+    return previous_decembers + current_year_months
+
+
 def parse_competencia_label(value: str) -> date:
     month, year = str(value).strip().split("/", 1)
     return date(int(year), int(month), 1)

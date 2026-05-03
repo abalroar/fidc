@@ -9,7 +9,14 @@ from typing import Any
 import pandas as pd
 import streamlit as st
 
-from services.ime_period import ImePeriodSelection, build_custom_period, current_default_end_month, month_options, shift_month
+from services.ime_period import (
+    ImePeriodSelection,
+    build_custom_period,
+    current_default_end_month,
+    month_options,
+    select_decembers_plus_current_year_months,
+    shift_month,
+)
 from services.mercado_livre_dashboard import (
     build_consolidated_snapshot_excel_bytes,
     build_mercado_livre_outputs,
@@ -49,7 +56,8 @@ from tabs.tab_fidc_ime_carteira import (
 
 SOMATORIO_FIDCS_TITLE = "Somatório FIDCs"
 DISPLAY_WINDOW_FULL_OPTION = "Todo período carregado"
-DISPLAY_WINDOW_OPTIONS = (DISPLAY_WINDOW_FULL_OPTION, "6M", "12M", "24M", "36M", "YTD", "Customizado")
+DISPLAY_WINDOW_DECEMBERS_OPTION = "Dezembros + Ano Atual"
+DISPLAY_WINDOW_OPTIONS = (DISPLAY_WINDOW_FULL_OPTION, "6M", "12M", "24M", "36M", "YTD", DISPLAY_WINDOW_DECEMBERS_OPTION, "Customizado")
 
 _SOMATORIO_FIDCS_UI_CSS = """
 <style>
@@ -582,9 +590,9 @@ def _render_outputs(
         btn_left, btn_right = st.columns([1.65, 1.45])
         with btn_left:
             st.download_button(
-                "Baixar resumo 6m + gráficos consolidados",
+                "Baixar resumo exibido + gráficos consolidados",
                 data=snapshot_bytes,
-                file_name=f"somatorio_fidcs_resumo_6m_{_safe_file_token(selected_portfolio.name)}.xlsx",
+                file_name=f"somatorio_fidcs_resumo_exibido_{_safe_file_token(selected_portfolio.name)}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 key=f"ml_snapshot_excel_download::{selected_portfolio.id}",
                 use_container_width=True,
@@ -727,10 +735,9 @@ def _render_loaded_period_window(outputs):
         help="Filtra tabelas e gráficos usando somente a base já carregada; para ampliar a base, altere a Janela do Somatório FIDCs e carregue novamente.",
     )
 
-    start_month, end_month = _display_window_bounds(
+    display_months = _display_window_months(
         selected=str(selected),
-        loaded_start=loaded_start,
-        loaded_end=loaded_end,
+        available=available,
     )
 
     if selected == "Customizado":
@@ -753,14 +760,22 @@ def _render_loaded_period_window(outputs):
                 key="somatorio_fidcs_display_end",
                 format_func=_format_month_option_label,
             )
+        display_months = _continuous_months(start_month, end_month)
 
+    if selected == DISPLAY_WINDOW_DECEMBERS_OPTION:
+        missing_years = _missing_previous_decembers(available)
+        if missing_years:
+            missing = ", ".join(f"dez/{str(year)[-2:]}" for year in missing_years)
+            st.caption(f"Aviso: {missing} não está disponível na base carregada; nenhum mês substituto foi usado.")
+
+    label = _display_months_label(display_months) if selected == DISPLAY_WINDOW_DECEMBERS_OPTION else _display_month_range_label(display_months)
     st.caption(
         "Filtro visual aplicado: "
-        f"{_format_month_option_label(start_month)} → {_format_month_option_label(end_month)} · "
-        f"{_month_count(start_month, end_month)} competência(s). "
+        f"{label} · "
+        f"{len(display_months)} competência(s). "
         "A troca deste filtro usa a base já carregada e não recalcula o storage."
     )
-    return _filter_outputs_by_competencia(outputs, start_month=start_month, end_month=end_month)
+    return _filter_outputs_by_competencia_months(outputs, months=display_months, label=label, mode=str(selected))
 
 
 def _reset_display_window_if_loaded_range_changed(*, loaded_start: date, loaded_end: date) -> None:
@@ -787,6 +802,60 @@ def _display_window_bounds(
     return start_month, loaded_end
 
 
+def _display_window_months(*, selected: str, available: list[date]) -> list[date]:
+    if not available:
+        return []
+    loaded_start = available[0]
+    loaded_end = available[-1]
+    if selected == DISPLAY_WINDOW_DECEMBERS_OPTION:
+        return select_decembers_plus_current_year_months(available)
+    start_month, end_month = _display_window_bounds(
+        selected=selected,
+        loaded_start=loaded_start,
+        loaded_end=loaded_end,
+    )
+    return _continuous_months(start_month, end_month)
+
+
+def _continuous_months(start_month: date, end_month: date) -> list[date]:
+    values: list[date] = []
+    current = start_month
+    while current <= end_month:
+        values.append(current)
+        current = shift_month(current, 1)
+    return values
+
+
+def _display_months_label(months: list[date]) -> str:
+    if not months:
+        return "sem competências"
+    if len(months) <= 4:
+        return ", ".join(_format_month_option_label(value) for value in months)
+    first_current_year_idx = next((idx for idx, value in enumerate(months) if value.year == months[-1].year), len(months))
+    previous = ", ".join(_format_month_option_label(value) for value in months[:first_current_year_idx])
+    current = f"{_format_month_option_label(months[first_current_year_idx])} → {_format_month_option_label(months[-1])}" if first_current_year_idx < len(months) else ""
+    return " + ".join(part for part in [previous, current] if part)
+
+
+def _display_month_range_label(months: list[date]) -> str:
+    if not months:
+        return "sem competências"
+    return f"{_format_month_option_label(months[0])} → {_format_month_option_label(months[-1])}"
+
+
+def _missing_previous_decembers(available: list[date]) -> list[int]:
+    if not available:
+        return []
+    available_set = set(available)
+    reference_year = available[-1].year
+    return [
+        year
+        for year in range(available[0].year, reference_year)
+        if any(value.year == year for value in available)
+        and date(year, 12, 1) not in available_set
+    ]
+
+
 def _available_competencia_months(monthly_df: pd.DataFrame) -> list[date]:
     if monthly_df is None or monthly_df.empty:
         return []
@@ -806,20 +875,35 @@ def _available_competencia_months(monthly_df: pd.DataFrame) -> list[date]:
 
 
 def _filter_outputs_by_competencia(outputs, *, start_month: date, end_month: date):
+    months = _continuous_months(start_month, end_month)
+    return _filter_outputs_by_competencia_months(
+        outputs,
+        months=months,
+        label=f"{_format_month_option_label(start_month)} a {_format_month_option_label(end_month)}",
+        mode="intervalo",
+    )
+
+
+def _filter_outputs_by_competencia_months(outputs, *, months: list[date], label: str, mode: str):
+    normalized_months = sorted({date(value.year, value.month, 1) for value in months})
     filtered_fund_monthly: dict[str, pd.DataFrame] = {}
     filtered_fund_wide: dict[str, pd.DataFrame] = {}
     for cnpj, frame in outputs.fund_monthly.items():
-        filtered = _filter_monthly_frame(frame, start_month=start_month, end_month=end_month)
+        filtered = _filter_monthly_frame_by_months(frame, months=normalized_months)
         filtered_fund_monthly[cnpj] = filtered
         filtered_fund_wide[cnpj] = build_wide_table(filtered, scope_name=_fund_name_from_frame(filtered, fallback=cnpj))
 
-    consolidated = _filter_monthly_frame(outputs.consolidated_monthly, start_month=start_month, end_month=end_month)
+    consolidated = _filter_monthly_frame_by_months(outputs.consolidated_monthly, months=normalized_months)
     metadata = dict(outputs.metadata)
+    start_month = normalized_months[0] if normalized_months else None
+    end_month = normalized_months[-1] if normalized_months else None
     metadata.update(
         {
-            "display_period_label": f"{_format_month_option_label(start_month)} a {_format_month_option_label(end_month)}",
-            "display_period_start": start_month.isoformat(),
-            "display_period_end": end_month.isoformat(),
+            "display_period_label": label,
+            "display_period_mode": mode,
+            "display_period_months": [value.isoformat() for value in normalized_months],
+            "display_period_start": start_month.isoformat() if start_month else "",
+            "display_period_end": end_month.isoformat() if end_month else "",
         }
     )
     return replace(
@@ -834,6 +918,29 @@ def _filter_outputs_by_competencia(outputs, *, start_month: date, end_month: dat
 
 def _build_credit_monitor_for_display(*, outputs, display_outputs) -> MeliMonitorOutputs:  # noqa: ANN001
     full_monitor = build_meli_monitor_outputs(outputs)
+    display_months = _metadata_months(display_outputs, "display_period_months")
+    if display_months:
+        return MeliMonitorOutputs(
+            consolidated_monitor=_filter_monthly_frame_by_months(
+                full_monitor.consolidated_monitor,
+                months=display_months,
+            ),
+            fund_monitor={
+                cnpj: _filter_monthly_frame_by_months(frame, months=display_months)
+                for cnpj, frame in full_monitor.fund_monitor.items()
+            },
+            consolidated_cohorts=_filter_cohort_frame_by_months(
+                full_monitor.consolidated_cohorts,
+                months=display_months,
+            ),
+            fund_cohorts={
+                cnpj: _filter_cohort_frame_by_months(frame, months=display_months)
+                for cnpj, frame in full_monitor.fund_cohorts.items()
+            },
+            audit_table=_filter_monthly_frame_by_months(full_monitor.audit_table, months=display_months),
+            pdf_reconciliation=full_monitor.pdf_reconciliation,
+            warnings=full_monitor.warnings,
+        )
     start_month = _metadata_month(display_outputs, "display_period_start")
     end_month = _metadata_month(display_outputs, "display_period_end")
     if start_month is None or end_month is None:
@@ -876,18 +983,46 @@ def _metadata_month(outputs, key: str) -> date | None:  # noqa: ANN001
     return date(int(parsed.year), int(parsed.month), 1)
 
 
+def _metadata_months(outputs, key: str) -> list[date]:  # noqa: ANN001
+    try:
+        values = outputs.metadata.get(key) or []
+    except AttributeError:
+        return []
+    if not isinstance(values, list):
+        return []
+    months: list[date] = []
+    for value in values:
+        parsed = pd.to_datetime(pd.Series([value]), errors="coerce").iloc[0]
+        if pd.notna(parsed):
+            months.append(date(int(parsed.year), int(parsed.month), 1))
+    return sorted(set(months))
+
+
 def _filter_cohort_frame(frame: pd.DataFrame, *, start_month: date, end_month: date) -> pd.DataFrame:
+    return _filter_cohort_frame_by_months(frame, months=_continuous_months(start_month, end_month))
+
+
+def _filter_cohort_frame_by_months(frame: pd.DataFrame, *, months: list[date]) -> pd.DataFrame:
     if frame is None or frame.empty or "cohort_dt" not in frame.columns:
         return pd.DataFrame() if frame is None else frame.copy()
+    if not months:
+        return frame.iloc[0:0].copy().reset_index(drop=True)
     output = frame.copy()
     parsed = pd.to_datetime(output["cohort_dt"], errors="coerce").dt.to_period("M").dt.to_timestamp()
-    mask = (parsed >= pd.Timestamp(start_month)) & (parsed <= pd.Timestamp(end_month))
+    allowed = {pd.Timestamp(value) for value in months}
+    mask = parsed.isin(allowed)
     return output.loc[mask].reset_index(drop=True)
 
 
 def _filter_monthly_frame(monthly_df: pd.DataFrame, *, start_month: date, end_month: date) -> pd.DataFrame:
+    return _filter_monthly_frame_by_months(monthly_df, months=_continuous_months(start_month, end_month))
+
+
+def _filter_monthly_frame_by_months(monthly_df: pd.DataFrame, *, months: list[date]) -> pd.DataFrame:
     if monthly_df is None or monthly_df.empty:
         return pd.DataFrame() if monthly_df is None else monthly_df.copy()
+    if not months:
+        return monthly_df.iloc[0:0].copy().reset_index(drop=True)
     output = monthly_df.copy()
     source = output.get("competencia_dt")
     if source is None:
@@ -895,7 +1030,8 @@ def _filter_monthly_frame(monthly_df: pd.DataFrame, *, start_month: date, end_mo
     if source is None:
         return output
     parsed = pd.to_datetime(source, errors="coerce").dt.to_period("M").dt.to_timestamp()
-    mask = (parsed >= pd.Timestamp(start_month)) & (parsed <= pd.Timestamp(end_month))
+    allowed = {pd.Timestamp(value) for value in months}
+    mask = parsed.isin(allowed)
     return output.loc[mask].reset_index(drop=True)
 
 
@@ -935,7 +1071,7 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 1. Selecione uma carteira salva ou crie uma nova carteira com os FIDCs desejados.
 2. Escolha o período de carga; o padrão é 12 meses, mas a aba permite carregar 6M, 12M, 24M, 36M, YTD ou intervalo customizado.
 3. Clique em **Carregar carteira** para montar ou reutilizar a base individual, a base consolidada, os gráficos e os arquivos exportáveis.
-4. Depois da carga, use o **Filtro visual (sem recarregar)** apenas para reduzir temporariamente a visualização. Por padrão, a aba mostra todo o período carregado.
+4. Depois da carga, use o **Filtro visual (sem recarregar)** apenas para reduzir temporariamente a visualização. Por padrão, a aba mostra todo o período carregado; o preset **Dezembros + Ano Atual** mostra os fechamentos de dezembro dos anos anteriores e todos os meses do último ano disponível.
 5. Use **Tabela Completa** para validar **Dados Consolidados – Somatório FIDCs**; selecione um fundo individual por vez quando quiser ver tabela e gráficos por fundo.
 6. Use **Análise Crédito** para acompanhar primeiro carteira ex-360, crescimento e NPL; depois roll rates, cohorts, duration, auditoria derivada e exportação analítica.
 
@@ -951,7 +1087,7 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 - No consolidado, valores absolutos são somados por competência e os percentuais são recalculados a partir dos numeradores e denominadores agregados; a aba nunca faz média simples de percentuais.
 - Os gráficos das duas sub-abas usam a mesma base da **Tabela Completa**; se a tabela e o gráfico divergirem, a tabela é a memória de cálculo primária.
 - Os fundos individuais são exibidos um por vez para evitar páginas longas com vários blocos repetidos; o consolidado fica sempre visível.
-- O Excel de resumo exporta os últimos seis meses exibidos com valores numéricos editáveis, e o PPTX completo combina os slides-base do Somatório com os slides da análise de crédito, mantendo pelo menos um slide por FIDC.
+- O Excel de resumo e o PPTX respeitam exatamente o recorte exibido no filtro visual, com valores numéricos editáveis no Excel e pelo menos um slide por FIDC no PPTX.
 
 ### Como interpretar
 
