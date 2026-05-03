@@ -344,6 +344,11 @@ class MercadoLivreDashboardTests(unittest.TestCase):
             self.assertTrue(all(shape.chart.has_title for shape in chart_shapes))
         with zipfile.ZipFile(BytesIO(pptx_bytes)) as archive:
             names = archive.namelist()
+            xml_payload = "\n".join(
+                archive.read(name).decode("utf-8", errors="ignore")
+                for name in names
+                if name.endswith(".xml")
+            )
             chart_xml = "\n".join(
                 archive.read(name).decode("utf-8")
                 for name in names
@@ -353,6 +358,8 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("<c:dLbls>", chart_xml)
         self.assertIn("<c:dLblPos", chart_xml)
         self.assertIn("<c:title>", chart_xml)
+        self.assertIn("PL total:", xml_payload)
+        self.assertIn('sz="1000"', xml_payload)
 
     def test_pptx_export_uses_one_2x2_slide_per_fund_plus_consolidated(self) -> None:
         dashboard_a = _dashboard(

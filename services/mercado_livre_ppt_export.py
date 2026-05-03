@@ -229,6 +229,7 @@ def _add_pl_stack_chart(
     chart.has_legend = True
     chart.legend.position = XL_LEGEND_POSITION.BOTTOM
     chart.legend.include_in_layout = False
+    _style_legend(chart, RGBColor=RGBColor, Pt=Pt)
     if chart.series:
         _set_series_fill(chart.series[0], _rgb(MELI_BLACK, RGBColor))
         _style_data_labels(
@@ -239,6 +240,7 @@ def _add_pl_stack_chart(
             fill_color=_rgb(MELI_BLACK, RGBColor),
             RGBColor=RGBColor,
             Pt=Pt,
+            font_size=Pt(10),
         )
     if len(chart.series) > 1:
         _set_series_fill(chart.series[1], _rgb(MELI_ORANGE, RGBColor))
@@ -250,7 +252,9 @@ def _add_pl_stack_chart(
             fill_color=_rgb(MELI_ORANGE, RGBColor),
             RGBColor=RGBColor,
             Pt=Pt,
+            font_size=Pt(10),
         )
+    _add_latest_pl_total_badge(slide, slot, df, scale_divisor, scale_label, RGBColor, Inches, Pt)
 
 
 def _add_percent_line_chart(
@@ -398,6 +402,61 @@ def _add_textbox(slide, text: str, left: float, top: float, width: float, height
     run.font.color.rgb = _rgb(color, RGBColor)
 
 
+def _style_legend(chart, *, RGBColor, Pt) -> None:  # noqa: ANN001
+    if chart.legend is None:
+        return
+    chart.legend.font.name = "Calibri"
+    chart.legend.font.size = Pt(10)
+    chart.legend.font.color.rgb = _rgb(MELI_DARK_GRAY, RGBColor)
+
+
+def _add_latest_pl_total_badge(
+    slide,
+    slot: tuple[float, float, float, float],
+    df: pd.DataFrame,
+    scale_divisor: float,
+    scale_label: str,
+    RGBColor,
+    Inches,
+    Pt,
+) -> None:
+    if df.empty:
+        return
+    latest = df.iloc[-1]
+    total = (_num(latest.get("pl_senior")) or 0.0) + (_num(latest.get("pl_subordinada_mezz_ex360")) or 0.0)
+    if total <= 0:
+        return
+    left, top, width, _ = slot
+    text = f"PL total: {_format_money_scaled(total, scale_divisor, scale_label)}"
+    box = slide.shapes.add_textbox(Inches(left + width - 2.38), Inches(top + 0.28), Inches(2.30), Inches(0.24))
+    frame = box.text_frame
+    frame.clear()
+    frame.margin_left = Inches(0.03)
+    frame.margin_right = Inches(0.03)
+    frame.margin_top = Inches(0.01)
+    frame.margin_bottom = Inches(0.01)
+    paragraph = frame.paragraphs[0]
+    run = paragraph.add_run()
+    run.text = text
+    run.font.name = "Calibri"
+    run.font.size = Pt(10)
+    run.font.bold = True
+    run.font.color.rgb = _rgb(MELI_BLACK, RGBColor)
+
+
+def _format_money_scaled(value: float, divisor: float, scale_label: str) -> str:
+    scaled = value / divisor if divisor else value
+    decimals = 0 if abs(scaled) >= 10 else 1
+    number = _format_number_br(scaled, decimals)
+    if scale_label == "R$":
+        return f"R$ {number}"
+    return f"R$ {number} {scale_label.replace('R$ ', '')}"
+
+
+def _format_number_br(value: float, decimals: int) -> str:
+    return f"{value:,.{decimals}f}".replace(",", "_").replace(".", ",").replace("_", ".")
+
+
 def _rgb(hex_color: str, RGBColor):  # noqa: ANN001
     clean = str(hex_color).strip().lstrip("#")
     return RGBColor(int(clean[0:2], 16), int(clean[2:4], 16), int(clean[4:6], 16))
@@ -480,13 +539,14 @@ def _style_data_labels(
     fill_color,
     RGBColor,
     Pt,
+    font_size=None,
 ) -> None:  # noqa: ANN001
     labels = series.data_labels
     labels.show_value = True
     labels.number_format = number_format
     labels.number_format_is_linked = False
     labels.position = position
-    labels.font.size = Pt(8)
+    labels.font.size = font_size or Pt(8)
     labels.font.bold = True
     labels.font.color.rgb = font_color
     if fill_color is not None:

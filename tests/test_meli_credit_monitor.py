@@ -305,11 +305,15 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertTrue(pptx_bytes.startswith(b"PK"))
         self.assertTrue(zipfile.is_zipfile(BytesIO(pptx_bytes)))
         with zipfile.ZipFile(BytesIO(pptx_bytes)) as archive:
+            slide1_xml = archive.read("ppt/slides/slide1.xml").decode("utf-8", errors="ignore")
+            slide2_xml = archive.read("ppt/slides/slide2.xml").decode("utf-8", errors="ignore")
             xml_payload = "\n".join(
                 archive.read(name).decode("utf-8", errors="ignore")
                 for name in archive.namelist()
                 if name.endswith(".xml")
             )
+        self.assertIn("Somatório FIDCs - Base consolidada", slide1_xml)
+        self.assertIn("Análise Crédito - Consolidado: carteira e risco", slide2_xml)
         self.assertIn("Somatório FIDCs - Base consolidada", xml_payload)
         self.assertIn("Análise Crédito - Consolidado: carteira e risco", xml_payload)
         self.assertIn("NPL Over 1d ex-360", xml_payload)

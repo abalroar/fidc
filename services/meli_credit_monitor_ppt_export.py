@@ -769,10 +769,10 @@ def _add_kpi_strip(slide, monitor_df: pd.DataFrame, RGBColor, Inches, Pt) -> Non
     if not cards:
         return
     left = 0.48
-    top = 0.505
+    top = 0.485
     total_width = 12.35
     gap = 0.055
-    height = 0.175
+    height = 0.215
     card_width = (total_width - gap * (len(cards) - 1)) / len(cards)
     for idx, (label, value) in enumerate(cards):
         box = slide.shapes.add_textbox(Inches(left + idx * (card_width + gap)), Inches(top), Inches(card_width), Inches(height))
@@ -790,14 +790,14 @@ def _add_kpi_strip(slide, monitor_df: pd.DataFrame, RGBColor, Inches, Pt) -> Non
         label_run = label_paragraph.add_run()
         label_run.text = label
         label_run.font.name = "Calibri"
-        label_run.font.size = Pt(4.9)
+        label_run.font.size = Pt(7.2)
         label_run.font.bold = False
         label_run.font.color.rgb = _rgb(MELI_MEDIUM_GRAY, RGBColor)
         value_paragraph = frame.add_paragraph()
         value_run = value_paragraph.add_run()
         value_run.text = value
         value_run.font.name = "Calibri"
-        value_run.font.size = Pt(7.1)
+        value_run.font.size = Pt(10)
         value_run.font.bold = True
         value_run.font.color.rgb = _rgb(MELI_BLACK, RGBColor)
 

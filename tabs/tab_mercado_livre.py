@@ -680,28 +680,22 @@ def _render_outputs(
                 npl_coverage_chart(display_outputs.consolidated_monthly),
             )
 
-        st.markdown("### Fundos individuais")
+        st.markdown("### Fundo individual")
         selected_fund_cnpj = _render_fund_selectbox(
             display_outputs,
             key=f"somatorio_fidcs_base_fund::{selected_portfolio.id}",
-            label="Fundo exibido na Tabela Completa",
+            label="Selecionar fundo",
         )
         selected_fund_cnpjs = [selected_fund_cnpj] if selected_fund_cnpj else []
         if not selected_fund_cnpjs:
             st.caption("Selecione um fundo para exibir tabela e gráficos individuais.")
 
-        st.markdown("#### Dados Fundos Individuais")
         for cnpj in selected_fund_cnpjs:
-            monthly_df = display_outputs.fund_monthly[cnpj]
-            fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
-            st.markdown(f"##### {escape(fund_name)} · {escape(str(cnpj))}")
             st.markdown(_render_wide_table_html(display_outputs.fund_wide[cnpj]), unsafe_allow_html=True)
 
-        st.markdown("#### Gráficos individuais")
+        st.markdown("#### Gráficos do fundo selecionado")
         for cnpj in selected_fund_cnpjs:
             monthly_df = display_outputs.fund_monthly[cnpj]
-            fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
-            st.markdown(f"##### {escape(fund_name)} · {escape(str(cnpj))}")
             left, right = st.columns(2)
             with left:
                 _render_chart(

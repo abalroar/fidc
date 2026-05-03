@@ -30,29 +30,18 @@ def build_somatorio_fidcs_pptx_bytes(
     prs.slide_height = Inches(7.5)
     layout = prs.slide_layouts[6]
 
-    _add_base_slides(
+    _add_interleaved_slides(
         prs=prs,
         layout=layout,
         outputs=outputs,
-        base_ppt=base_ppt,
-        CategoryChartData=CategoryChartData,
-        RGBColor=RGBColor,
-        XL_CHART_TYPE=XL_CHART_TYPE,
-        XL_DATA_LABEL_POSITION=XL_DATA_LABEL_POSITION,
-        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
-        XL_MARKER_STYLE=XL_MARKER_STYLE,
-        Inches=Inches,
-        Pt=Pt,
-    )
-    _add_credit_slides(
-        prs=prs,
-        layout=layout,
         monitor_outputs=monitor_outputs,
         research_outputs=research_outputs,
+        base_ppt=base_ppt,
         credit_ppt=credit_ppt,
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_DATA_LABEL_POSITION=XL_DATA_LABEL_POSITION,
         XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
         XL_MARKER_STYLE=XL_MARKER_STYLE,
@@ -65,63 +54,40 @@ def build_somatorio_fidcs_pptx_bytes(
     return buffer.getvalue()
 
 
-def _add_base_slides(
+def _add_interleaved_slides(
     *,
     prs,
     layout,
     outputs: Any,
-    base_ppt,
-    CategoryChartData,
-    RGBColor,
-    XL_CHART_TYPE,
-    XL_DATA_LABEL_POSITION,
-    XL_LEGEND_POSITION,
-    XL_MARKER_STYLE,
-    Inches,
-    Pt,
-) -> None:
-    scopes: list[tuple[str, pd.DataFrame]] = [("Somatório FIDCs - Base consolidada", outputs.consolidated_monthly)]
-    for cnpj, frame in getattr(outputs, "fund_monthly", {}).items():
-        fund_name = (
-            str(frame["fund_name"].iloc[0])
-            if isinstance(frame, pd.DataFrame) and not frame.empty and "fund_name" in frame.columns
-            else str(cnpj)
-        )
-        scopes.append((fund_name, frame))
-
-    for scope_name, monthly_df in scopes:
-        base_ppt._add_scope_grid_slide(  # noqa: SLF001 - reuso deliberado do layout existente.
-            prs=prs,
-            layout=layout,
-            scope_name=scope_name,
-            monthly_df=monthly_df,
-            CategoryChartData=CategoryChartData,
-            RGBColor=RGBColor,
-            XL_CHART_TYPE=XL_CHART_TYPE,
-            XL_DATA_LABEL_POSITION=XL_DATA_LABEL_POSITION,
-            XL_LEGEND_POSITION=XL_LEGEND_POSITION,
-            XL_MARKER_STYLE=XL_MARKER_STYLE,
-            Inches=Inches,
-            Pt=Pt,
-        )
-
-
-def _add_credit_slides(
-    *,
-    prs,
-    layout,
     monitor_outputs: Any,
     research_outputs: Any | None,
+    base_ppt,
     credit_ppt,
     CategoryChartData,
     RGBColor,
     XL_CHART_TYPE,
+    XL_DATA_LABEL_POSITION,
     XL_LABEL_POSITION,
     XL_LEGEND_POSITION,
     XL_MARKER_STYLE,
     Inches,
     Pt,
 ) -> None:
+    _add_base_scope_slide(
+        prs=prs,
+        layout=layout,
+        scope_name="Somatório FIDCs - Base consolidada",
+        monthly_df=outputs.consolidated_monthly,
+        base_ppt=base_ppt,
+        CategoryChartData=CategoryChartData,
+        RGBColor=RGBColor,
+        XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_DATA_LABEL_POSITION=XL_DATA_LABEL_POSITION,
+        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+        XL_MARKER_STYLE=XL_MARKER_STYLE,
+        Inches=Inches,
+        Pt=Pt,
+    )
     credit_ppt._add_consolidated_slide(  # noqa: SLF001 - reuso deliberado do layout existente.
         prs=prs,
         layout=layout,
@@ -164,8 +130,29 @@ def _add_credit_slides(
             Inches=Inches,
             Pt=Pt,
         )
-    for cnpj, monitor in getattr(monitor_outputs, "fund_monitor", {}).items():
-        title = credit_ppt._fund_name(monitor, fallback=str(cnpj))  # noqa: SLF001
+    for cnpj, monthly_df in getattr(outputs, "fund_monthly", {}).items():
+        fund_name = (
+            str(monthly_df["fund_name"].iloc[0])
+            if isinstance(monthly_df, pd.DataFrame) and not monthly_df.empty and "fund_name" in monthly_df.columns
+            else str(cnpj)
+        )
+        _add_base_scope_slide(
+            prs=prs,
+            layout=layout,
+            scope_name=fund_name,
+            monthly_df=monthly_df,
+            base_ppt=base_ppt,
+            CategoryChartData=CategoryChartData,
+            RGBColor=RGBColor,
+            XL_CHART_TYPE=XL_CHART_TYPE,
+            XL_DATA_LABEL_POSITION=XL_DATA_LABEL_POSITION,
+            XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+            XL_MARKER_STYLE=XL_MARKER_STYLE,
+            Inches=Inches,
+            Pt=Pt,
+        )
+        monitor = getattr(monitor_outputs, "fund_monitor", {}).get(cnpj, pd.DataFrame())
+        title = credit_ppt._fund_name(monitor, fallback=fund_name)  # noqa: SLF001
         credit_ppt._add_fund_slide(  # noqa: SLF001 - reuso deliberado do layout existente.
             prs=prs,
             layout=layout,
@@ -196,3 +183,35 @@ def _add_credit_slides(
             Inches=Inches,
             Pt=Pt,
         )
+
+
+def _add_base_scope_slide(
+    *,
+    prs,
+    layout,
+    scope_name: str,
+    monthly_df: pd.DataFrame,
+    base_ppt,
+    CategoryChartData,
+    RGBColor,
+    XL_CHART_TYPE,
+    XL_DATA_LABEL_POSITION,
+    XL_LEGEND_POSITION,
+    XL_MARKER_STYLE,
+    Inches,
+    Pt,
+) -> None:
+    base_ppt._add_scope_grid_slide(  # noqa: SLF001 - reuso deliberado do layout existente.
+        prs=prs,
+        layout=layout,
+        scope_name=scope_name,
+        monthly_df=monthly_df,
+        CategoryChartData=CategoryChartData,
+        RGBColor=RGBColor,
+        XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_DATA_LABEL_POSITION=XL_DATA_LABEL_POSITION,
+        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+        XL_MARKER_STYLE=XL_MARKER_STYLE,
+        Inches=Inches,
+        Pt=Pt,
+    )
