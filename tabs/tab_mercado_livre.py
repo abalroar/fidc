@@ -58,6 +58,7 @@ SOMATORIO_FIDCS_TITLE = "Somatório FIDCs"
 DISPLAY_WINDOW_FULL_OPTION = "Todo período carregado"
 DISPLAY_WINDOW_DECEMBERS_OPTION = "Dezembros + Ano Atual"
 DISPLAY_WINDOW_OPTIONS = (DISPLAY_WINDOW_FULL_OPTION, "6M", "12M", "24M", "36M", "YTD", DISPLAY_WINDOW_DECEMBERS_OPTION, "Customizado")
+YOY_LOOKBACK_MONTHS = 12
 
 _SOMATORIO_FIDCS_UI_CSS = """
 <style>
@@ -212,30 +213,36 @@ def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None
     portfolios = list_saved_portfolios()
     catalog_df = load_fidc_catalog_cached()
     period = _render_somatorio_period_panel(period)
+    calculation_period = _period_with_yoy_lookback(period)
 
     selected_portfolio = _render_selection_controls(portfolios=portfolios, catalog_df=catalog_df)
     if selected_portfolio is None:
         st.info(f"Crie ou selecione uma carteira para iniciar a auditoria {SOMATORIO_FIDCS_TITLE}.")
         return
     selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
-    runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period)
+    runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=calculation_period)
     results = runtime_state.get("results") or {}
-    cache_session_key = _outputs_session_key(selected_portfolio=selected_portfolio, period=period)
+    cache_session_key = _outputs_session_key(selected_portfolio=selected_portfolio, period=calculation_period)
 
     if st.session_state.pop("_ml_load_requested", False):
         cached_outputs = load_outputs_from_cache(
             portfolio_id=selected_portfolio.id,
-            period_key=period.cache_key,
+            period_key=calculation_period.cache_key,
             portfolio_funds=selected_portfolio.funds,
         )
         if cached_outputs is not None:
+            cached_outputs = _tag_outputs_requested_period(
+                cached_outputs,
+                requested_period=period,
+                calculation_period=calculation_period,
+            )
             st.session_state[cache_session_key] = cached_outputs
             st.session_state[f"{cache_session_key}::source"] = "cache"
             st.toast(f"Base {SOMATORIO_FIDCS_TITLE} reutilizada do storage calculado.")
             st.rerun()
         _execute_portfolio_load_for_funds(
             selected_portfolio=selected_portfolio,
-            period=period,
+            period=calculation_period,
             funds=tuple(selected_portfolio.funds),
             existing_results=None,
         )
@@ -243,9 +250,14 @@ def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None
 
     cached_session_outputs = st.session_state.get(cache_session_key)
     if cached_session_outputs is not None:
+        cached_session_outputs = _tag_outputs_requested_period(
+            cached_session_outputs,
+            requested_period=period,
+            calculation_period=calculation_period,
+        )
         cache_dir = cache_dir_for_outputs(
             portfolio_id=selected_portfolio.id,
-            period_key=period.cache_key,
+            period_key=calculation_period.cache_key,
             portfolio_funds=selected_portfolio.funds,
         )
         _render_outputs(
@@ -281,10 +293,15 @@ def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None
         period_label=period.label,
         official_pl_by_cnpj=official_pl_by_cnpj,
     )
+    outputs = _tag_outputs_requested_period(
+        outputs,
+        requested_period=period,
+        calculation_period=calculation_period,
+    )
     cache_dir = save_outputs_to_cache(
         outputs,
         portfolio_id=selected_portfolio.id,
-        period_key=period.cache_key,
+        period_key=calculation_period.cache_key,
         portfolio_funds=selected_portfolio.funds,
     )
     st.session_state[cache_session_key] = outputs
@@ -349,6 +366,43 @@ def _render_somatorio_period_panel(global_period: ImePeriodSelection | None = No
         period = build_custom_period(start_month=shift_month(end_month, -(months - 1)), end_month=end_month)
     st.caption(f"Período de carga: {_format_month_option_label(period.start_month)} → {_format_month_option_label(period.end_month)} · {period.month_count} competências")
     return period
+
+
+def _period_with_yoy_lookback(period: ImePeriodSelection) -> ImePeriodSelection:
+    return build_custom_period(
+        start_month=shift_month(period.start_month, -YOY_LOOKBACK_MONTHS),
+        end_month=period.end_month,
+    )
+
+
+def _tag_outputs_requested_period(outputs, *, requested_period: ImePeriodSelection, calculation_period: ImePeriodSelection):  # noqa: ANN001
+    metadata = dict(getattr(outputs, "metadata", {}) or {})
+    metadata.update(
+        {
+            "period_label": requested_period.label,
+            "requested_period_label": requested_period.label,
+            "requested_period_start": requested_period.start_month.isoformat(),
+            "requested_period_end": requested_period.end_month.isoformat(),
+            "requested_period_months": [
+                value.isoformat()
+                for value in _continuous_months(requested_period.start_month, requested_period.end_month)
+            ],
+            "requested_window_option": _window_option_for_period(requested_period),
+            "calculation_period_label": calculation_period.label,
+            "calculation_period_start": calculation_period.start_month.isoformat(),
+            "calculation_period_end": calculation_period.end_month.isoformat(),
+            "calculation_lookback_months": YOY_LOOKBACK_MONTHS,
+        }
+    )
+    return replace(outputs, metadata=metadata)
+
+
+def _window_option_for_period(period: ImePeriodSelection) -> str:
+    if period.start_month == date(period.end_month.year, 1, 1):
+        return "YTD"
+    month_count = _month_count(period.start_month, period.end_month)
+    option = f"{month_count}M"
+    return option if option in DISPLAY_WINDOW_OPTIONS else "Customizado"
 
 
 def _render_selection_controls(
@@ -725,7 +779,11 @@ def _render_loaded_period_window(outputs):
 
     loaded_start = available[0]
     loaded_end = available[-1]
-    _reset_display_window_if_loaded_range_changed(loaded_start=loaded_start, loaded_end=loaded_end)
+    _reset_display_window_if_loaded_range_changed(
+        outputs,
+        loaded_start=loaded_start,
+        loaded_end=loaded_end,
+    )
     selected = st.radio(
         "Filtro visual (sem recarregar)",
         options=DISPLAY_WINDOW_OPTIONS,
@@ -778,13 +836,28 @@ def _render_loaded_period_window(outputs):
     return _filter_outputs_by_competencia_months(outputs, months=display_months, label=label, mode=str(selected))
 
 
-def _reset_display_window_if_loaded_range_changed(*, loaded_start: date, loaded_end: date) -> None:
+def _reset_display_window_if_loaded_range_changed(outputs, *, loaded_start: date, loaded_end: date) -> None:  # noqa: ANN001
     range_key = f"{loaded_start.isoformat()}::{loaded_end.isoformat()}"
     state_key = "somatorio_fidcs_display_loaded_range"
     if st.session_state.get(state_key) == range_key:
         return
     st.session_state[state_key] = range_key
-    st.session_state["somatorio_fidcs_display_window"] = DISPLAY_WINDOW_FULL_OPTION
+    default_window = _default_display_window_for_outputs(outputs)
+    st.session_state["somatorio_fidcs_display_window"] = default_window
+    if default_window == "Customizado":
+        requested_start = _metadata_month(outputs, "requested_period_start")
+        requested_end = _metadata_month(outputs, "requested_period_end")
+        if requested_start is not None and requested_end is not None:
+            st.session_state["somatorio_fidcs_display_start"] = requested_start
+            st.session_state["somatorio_fidcs_display_end"] = requested_end
+
+
+def _default_display_window_for_outputs(outputs) -> str:  # noqa: ANN001
+    try:
+        option = str(outputs.metadata.get("requested_window_option") or "")
+    except AttributeError:
+        return DISPLAY_WINDOW_FULL_OPTION
+    return option if option in DISPLAY_WINDOW_OPTIONS else DISPLAY_WINDOW_FULL_OPTION
 
 
 def _display_window_bounds(
@@ -864,7 +937,7 @@ def _available_competencia_months(monthly_df: pd.DataFrame) -> list[date]:
         source = monthly_df.get("competencia")
     if source is None:
         return []
-    parsed = pd.to_datetime(source, errors="coerce")
+    parsed = _parse_month_series(source)
     values = sorted(
         {
             date(int(item.year), int(item.month), 1)
@@ -1008,7 +1081,7 @@ def _filter_cohort_frame_by_months(frame: pd.DataFrame, *, months: list[date]) -
     if not months:
         return frame.iloc[0:0].copy().reset_index(drop=True)
     output = frame.copy()
-    parsed = pd.to_datetime(output["cohort_dt"], errors="coerce").dt.to_period("M").dt.to_timestamp()
+    parsed = _parse_month_series(output["cohort_dt"]).dt.to_period("M").dt.to_timestamp()
     allowed = {pd.Timestamp(value) for value in months}
     mask = parsed.isin(allowed)
     return output.loc[mask].reset_index(drop=True)
@@ -1029,10 +1102,21 @@ def _filter_monthly_frame_by_months(monthly_df: pd.DataFrame, *, months: list[da
         source = output.get("competencia")
     if source is None:
         return output
-    parsed = pd.to_datetime(source, errors="coerce").dt.to_period("M").dt.to_timestamp()
+    parsed = _parse_month_series(source).dt.to_period("M").dt.to_timestamp()
     allowed = {pd.Timestamp(value) for value in months}
     mask = parsed.isin(allowed)
     return output.loc[mask].reset_index(drop=True)
+
+
+def _parse_month_series(source) -> pd.Series:  # noqa: ANN001
+    series = pd.Series(source)
+    if pd.api.types.is_datetime64_any_dtype(series):
+        return pd.to_datetime(series, errors="coerce")
+    parsed = pd.to_datetime(series.astype(str), format="%m/%Y", errors="coerce")
+    missing = parsed.isna()
+    if missing.any():
+        parsed.loc[missing] = pd.to_datetime(series.loc[missing], errors="coerce")
+    return parsed
 
 
 def _fund_name_from_frame(monthly_df: pd.DataFrame, *, fallback: str) -> str:
@@ -1079,6 +1163,7 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 
 - A carteira é identificada por uma chave determinística baseada na composição dos fundos e nos parâmetros relevantes; o nome é apenas um rótulo amigável.
 - Quando a mesma carteira e o mesmo período já existem no storage, a aba reutiliza a base calculada; para ampliar a janela, carregue um período maior e depois filtre a visualização.
+- Para calcular crescimento YoY, a aba carrega 12 meses anteriores à janela solicitada como base de cálculo; esses meses só aparecem se forem selecionados no filtro visual.
 - Cada FIDC é normalizado em uma base mensal canônica com PL, classes, carteira, PDD, aging, NPL acumulado, ex-360 e flags de qualidade.
 - O PL total usa `PATRLIQ/VL_PATRIM_LIQ` quando disponível; a soma das classes fica como reconciliação e divergências materiais geram warning.
 - A visão **Ex-Vencidos > 360d** simula a baixa dos vencidos acima de 360 dias da carteira, da PDD disponível e, se necessário, do PL.

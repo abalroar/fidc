@@ -34,10 +34,14 @@ from tabs.tab_mercado_livre import (
     _dense_wide_value,
     _display_window_bounds,
     _display_window_months,
+    _build_credit_monitor_for_display,
+    _period_with_yoy_lookback,
+    _tag_outputs_requested_period,
     _filter_outputs_by_competencia_months,
     _render_wide_table_html,
     _resolve_existing_portfolio_for_save,
 )
+from services.ime_period import build_custom_period
 
 
 class MercadoLivreDashboardTests(unittest.TestCase):
@@ -585,6 +589,54 @@ class MercadoLivreDashboardTests(unittest.TestCase):
 
         self.assertEqual(date(2025, 4, 1), start)
         self.assertEqual(available[-1], end)
+
+    def test_requested_period_is_loaded_with_yoy_lookback_metadata(self) -> None:
+        requested = build_custom_period(start_month=date(2025, 5, 1), end_month=date(2026, 4, 1))
+        calculation = _period_with_yoy_lookback(requested)
+        outputs = MercadoLivreOutputs(
+            fund_monthly={},
+            fund_wide={},
+            consolidated_monthly=pd.DataFrame(),
+            consolidated_wide=pd.DataFrame(),
+            warnings_df=pd.DataFrame(),
+            metadata={},
+        )
+
+        tagged = _tag_outputs_requested_period(outputs, requested_period=requested, calculation_period=calculation)
+
+        self.assertEqual(date(2024, 5, 1), calculation.start_month)
+        self.assertEqual("12M", tagged.metadata["requested_window_option"])
+        self.assertEqual("2025-05-01", tagged.metadata["requested_period_start"])
+        self.assertEqual("2024-05-01", tagged.metadata["calculation_period_start"])
+
+    def test_credit_monitor_keeps_yoy_values_after_display_filter(self) -> None:
+        months = pd.date_range("2025-01-01", "2026-12-01", freq="MS")
+        monthly = pd.DataFrame(
+            {
+                "competencia": [f"{item.month:02d}/{item.year}" for item in months],
+                "competencia_dt": months,
+                "fund_name": "FIDC A",
+                "carteira_ex360": [100.0 + idx for idx in range(len(months))],
+            }
+        )
+        outputs = MercadoLivreOutputs(
+            fund_monthly={"1": monthly},
+            fund_wide={"1": pd.DataFrame()},
+            consolidated_monthly=monthly,
+            consolidated_wide=pd.DataFrame(),
+            warnings_df=pd.DataFrame(),
+            metadata={
+                "display_period_months": [value.date().isoformat() for value in months[-12:]],
+                "display_period_start": months[-12].date().isoformat(),
+                "display_period_end": months[-1].date().isoformat(),
+            },
+        )
+
+        monitor = _build_credit_monitor_for_display(outputs=outputs, display_outputs=outputs)
+
+        self.assertEqual(12, len(monitor.consolidated_monitor))
+        self.assertFalse(monitor.consolidated_monitor["carteira_ex360_yoy_pct"].isna().any())
+        self.assertAlmostEqual((112.0 / 100.0 - 1.0) * 100.0, monitor.consolidated_monitor.iloc[0]["carteira_ex360_yoy_pct"])
 
     def test_display_window_decembers_plus_current_year_uses_non_contiguous_months(self) -> None:
         available = [
