@@ -618,29 +618,40 @@ def _render_outputs(
                 npl_coverage_chart(display_outputs.consolidated_monthly),
             )
 
-        st.markdown("### Dados Fundos Individuais")
-        for cnpj, monthly_df in display_outputs.fund_monthly.items():
-            fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
-            with st.expander(f"{fund_name} · {cnpj}", expanded=False):
-                st.markdown(_render_wide_table_html(display_outputs.fund_wide[cnpj]), unsafe_allow_html=True)
+        st.markdown("### Fundos individuais")
+        selected_fund_cnpjs = _render_fund_multiselect(
+            display_outputs,
+            key=f"somatorio_fidcs_base_funds::{selected_portfolio.id}",
+            label="Fundos exibidos na Tabela Completa",
+        )
+        if not selected_fund_cnpjs:
+            st.caption("Selecione um ou mais fundos para exibir tabelas e gráficos individuais.")
 
-        st.markdown("### Gráficos individuais")
-        for cnpj, monthly_df in display_outputs.fund_monthly.items():
+        st.markdown("#### Dados Fundos Individuais")
+        for cnpj in selected_fund_cnpjs:
+            monthly_df = display_outputs.fund_monthly[cnpj]
             fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
-            with st.expander(f"{fund_name} · {cnpj}", expanded=False):
-                left, right = st.columns(2)
-                with left:
-                    _render_chart(
-                        "Evolução de PL e Subordinação",
-                        "PL em escala dinâmica; subordinação ex-360 no eixo direito.",
-                        pl_subordination_chart(monthly_df),
-                    )
-                with right:
-                    _render_chart(
-                        "NPL e Cobertura Ex-Vencidos > 360d",
-                        "NPL Over 90d ex-360 e cobertura PDD ex-360 / NPL Over 90d ex-360.",
-                        npl_coverage_chart(monthly_df),
-                    )
+            st.markdown(f"##### {escape(fund_name)} · {escape(str(cnpj))}")
+            st.markdown(_render_wide_table_html(display_outputs.fund_wide[cnpj]), unsafe_allow_html=True)
+
+        st.markdown("#### Gráficos individuais")
+        for cnpj in selected_fund_cnpjs:
+            monthly_df = display_outputs.fund_monthly[cnpj]
+            fund_name = str(monthly_df["fund_name"].iloc[0]) if not monthly_df.empty and "fund_name" in monthly_df.columns else cnpj
+            st.markdown(f"##### {escape(fund_name)} · {escape(str(cnpj))}")
+            left, right = st.columns(2)
+            with left:
+                _render_chart(
+                    "Evolução de PL e Subordinação",
+                    "PL em escala dinâmica; subordinação ex-360 no eixo direito.",
+                    pl_subordination_chart(monthly_df),
+                )
+            with right:
+                _render_chart(
+                    "NPL e Cobertura Ex-Vencidos > 360d",
+                    "NPL Over 90d ex-360 e cobertura PDD ex-360 / NPL Over 90d ex-360.",
+                    npl_coverage_chart(monthly_df),
+                )
 
         _render_base_audit(display_outputs=display_outputs, cache_dir=cache_dir)
 
@@ -676,6 +687,25 @@ def _render_chart(title: str, subtitle: str, chart) -> None:
     if subtitle:
         st.markdown(f"<p class='chart-subtitle'>{escape(subtitle)}</p>", unsafe_allow_html=True)
     st.altair_chart(chart, width="stretch")
+
+
+def _render_fund_multiselect(outputs, *, key: str, label: str) -> list[str]:  # noqa: ANN001
+    options = list(getattr(outputs, "fund_monthly", {}).keys())
+    if not options:
+        return []
+    labels = {
+        cnpj: f"{_fund_name_from_frame(frame, fallback=cnpj)} · {cnpj}"
+        for cnpj, frame in outputs.fund_monthly.items()
+    }
+    selected = st.multiselect(
+        label,
+        options=options,
+        default=options[:1],
+        key=key,
+        format_func=lambda value: labels.get(value, str(value)),
+        help="Selecione os fundos individuais que devem aparecer abaixo. O consolidado permanece sempre visível.",
+    )
+    return [cnpj for cnpj in selected if cnpj in outputs.fund_monthly]
 
 
 def _render_loaded_period_window(outputs):
@@ -905,8 +935,8 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 2. Escolha o período de carga; o padrão é 12 meses, mas a aba permite carregar 6M, 12M, 24M, 36M, YTD ou intervalo customizado.
 3. Clique em **Carregar carteira** para montar ou reutilizar a base individual, a base consolidada, os gráficos e os arquivos exportáveis.
 4. Depois da carga, use o **Filtro visual (sem recarregar)** apenas para reduzir temporariamente a visualização. Por padrão, a aba mostra todo o período carregado.
-5. Use **Tabela Completa** para validar **Dados Consolidados – Somatório FIDCs**, **Dados Fundos Individuais** e gráficos principais.
-6. Use **Análise Crédito** para acompanhar carteira ex-360, YoY, roll rates, cohorts, duration, auditoria derivada e exportação analítica.
+5. Use **Tabela Completa** para validar **Dados Consolidados – Somatório FIDCs**; selecione fundos individuais no multiselect quando quiser ver tabelas e gráficos por fundo.
+6. Use **Análise Crédito** para acompanhar primeiro carteira ex-360, crescimento e NPL; depois roll rates, cohorts, duration, auditoria derivada e exportação analítica.
 
 ### Mecânica da aba
 
@@ -919,6 +949,7 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 - NPL Over é acumulado: por exemplo, Over 90d soma 91-180, 181-360 e acima de 360 dias.
 - No consolidado, valores absolutos são somados por competência e os percentuais são recalculados a partir dos numeradores e denominadores agregados; a aba nunca faz média simples de percentuais.
 - Os gráficos das duas sub-abas usam a mesma base da **Tabela Completa**; se a tabela e o gráfico divergirem, a tabela é a memória de cálculo primária.
+- Os fundos individuais são exibidos por seleção explícita para evitar páginas longas com vários blocos repetidos; o consolidado fica sempre visível.
 - O Excel de resumo exporta os últimos seis meses exibidos com valores numéricos editáveis, e o PPTX completo combina os slides-base do Somatório com os slides da análise de crédito, mantendo pelo menos um slide por FIDC.
 
 ### Como interpretar

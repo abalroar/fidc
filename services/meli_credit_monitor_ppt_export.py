@@ -102,6 +102,21 @@ def build_dashboard_meli_pptx_bytes(monitor_outputs: Any, research_outputs: Any 
             Inches=Inches,
             Pt=Pt,
         )
+        _add_fund_detail_slide(
+            prs=prs,
+            layout=layout,
+            title=fund_name,
+            monitor_df=monitor,
+            cohort_df=getattr(monitor_outputs, "fund_cohorts", {}).get(cnpj, pd.DataFrame()),
+            CategoryChartData=CategoryChartData,
+            RGBColor=RGBColor,
+            XL_CHART_TYPE=XL_CHART_TYPE,
+            XL_LABEL_POSITION=XL_LABEL_POSITION,
+            XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+            XL_MARKER_STYLE=XL_MARKER_STYLE,
+            Inches=Inches,
+            Pt=Pt,
+        )
 
     buffer = BytesIO()
     prs.save(buffer)
@@ -124,43 +139,13 @@ def _add_consolidated_slide(
 ) -> None:
     slide = prs.slides.add_slide(layout)
     _style_slide(slide, RGBColor)
-    _add_header(slide, "Análise Crédito - Consolidado", RGBColor, Inches, Pt)
+    _add_header(slide, "Análise Crédito - Consolidado: carteira e risco", RGBColor, Inches, Pt)
     slots = _grid_2x2_slots()
     df = _chart_monthly(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame()))
     categories = _category_labels(df)
-    _add_multi_line_chart(
-        slide=slide,
-        slot=slots[0],
-        title="Roll rates",
-        df=df,
-        categories=categories,
-        series_specs=list(ROLL_RATE_PPT_SERIES),
-        y_axis_title="%",
-        CategoryChartData=CategoryChartData,
-        RGBColor=RGBColor,
-        XL_CHART_TYPE=XL_CHART_TYPE,
-        XL_LABEL_POSITION=XL_LABEL_POSITION,
-        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
-        XL_MARKER_STYLE=XL_MARKER_STYLE,
-        Inches=Inches,
-        Pt=Pt,
-    )
-    _add_stacked_npl_chart(
-        slide=slide,
-        slot=slots[1],
-        df=df,
-        categories=categories,
-        CategoryChartData=CategoryChartData,
-        RGBColor=RGBColor,
-        XL_CHART_TYPE=XL_CHART_TYPE,
-        XL_LABEL_POSITION=XL_LABEL_POSITION,
-        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
-        Inches=Inches,
-        Pt=Pt,
-    )
     _add_money_bar_chart(
         slide=slide,
-        slot=slots[2],
+        slot=slots[0],
         title="Carteira ex-360",
         df=df,
         categories=categories,
@@ -175,11 +160,41 @@ def _add_consolidated_slide(
     )
     _add_multi_line_chart(
         slide=slide,
-        slot=slots[3],
+        slot=slots[1],
         title="Crescimento YoY carteira ex-360",
         df=df,
         categories=categories,
         series_specs=[("Crescimento YoY", "carteira_ex360_yoy_pct", MELI_ORANGE)],
+        y_axis_title="%",
+        CategoryChartData=CategoryChartData,
+        RGBColor=RGBColor,
+        XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
+        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+        XL_MARKER_STYLE=XL_MARKER_STYLE,
+        Inches=Inches,
+        Pt=Pt,
+    )
+    _add_stacked_npl_chart(
+        slide=slide,
+        slot=slots[2],
+        df=df,
+        categories=categories,
+        CategoryChartData=CategoryChartData,
+        RGBColor=RGBColor,
+        XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
+        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+        Inches=Inches,
+        Pt=Pt,
+    )
+    _add_multi_line_chart(
+        slide=slide,
+        slot=slots[3],
+        title="Roll rates",
+        df=df,
+        categories=categories,
+        series_specs=list(ROLL_RATE_PPT_SERIES),
         y_axis_title="%",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
@@ -210,13 +225,58 @@ def _add_fund_slide(
 ) -> None:
     slide = prs.slides.add_slide(layout)
     _style_slide(slide, RGBColor)
-    _add_header(slide, title, RGBColor, Inches, Pt)
+    _add_header(slide, f"{title}: carteira e risco", RGBColor, Inches, Pt)
     slots = _grid_2x2_slots()
     df = _chart_monthly(monitor_df)
     categories = _category_labels(df)
-    _add_multi_line_chart(
+    _add_money_bar_chart(
         slide=slide,
         slot=slots[0],
+        title="Carteira ex-360",
+        df=df,
+        categories=categories,
+        column="carteira_ex360",
+        series_name="Carteira ex-360",
+        CategoryChartData=CategoryChartData,
+        RGBColor=RGBColor,
+        XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
+        Inches=Inches,
+        Pt=Pt,
+    )
+    _add_multi_line_chart(
+        slide=slide,
+        slot=slots[1],
+        title="Crescimento YoY carteira ex-360",
+        df=df,
+        categories=categories,
+        series_specs=[("Crescimento YoY", "carteira_ex360_yoy_pct", MELI_ORANGE)],
+        y_axis_title="%",
+        CategoryChartData=CategoryChartData,
+        RGBColor=RGBColor,
+        XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
+        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+        XL_MARKER_STYLE=XL_MARKER_STYLE,
+        Inches=Inches,
+        Pt=Pt,
+    )
+    _add_stacked_npl_chart(
+        slide=slide,
+        slot=slots[2],
+        df=df,
+        categories=categories,
+        CategoryChartData=CategoryChartData,
+        RGBColor=RGBColor,
+        XL_CHART_TYPE=XL_CHART_TYPE,
+        XL_LABEL_POSITION=XL_LABEL_POSITION,
+        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+        Inches=Inches,
+        Pt=Pt,
+    )
+    _add_multi_line_chart(
+        slide=slide,
+        slot=slots[3],
         title="Roll rates",
         df=df,
         categories=categories,
@@ -231,37 +291,51 @@ def _add_fund_slide(
         Inches=Inches,
         Pt=Pt,
     )
-    _add_stacked_npl_chart(
+
+
+def _add_fund_detail_slide(
+    *,
+    prs,
+    layout,
+    title: str,
+    monitor_df: pd.DataFrame,
+    cohort_df: pd.DataFrame,
+    CategoryChartData,
+    RGBColor,
+    XL_CHART_TYPE,
+    XL_LABEL_POSITION,
+    XL_LEGEND_POSITION,
+    XL_MARKER_STYLE,
+    Inches,
+    Pt,
+) -> None:
+    slide = prs.slides.add_slide(layout)
+    _style_slide(slide, RGBColor)
+    _add_header(slide, f"{title}: duration e cohorts", RGBColor, Inches, Pt)
+    slots = _grid_1x2_slots()
+    duration_df = _duration_frame(pd.DataFrame(), {"fundo": monitor_df})
+    duration_series = [column for column in duration_df.columns if column not in {"competencia_dt", "competencia"}]
+    _add_multi_line_chart(
         slide=slide,
-        slot=slots[1],
-        df=df,
-        categories=categories,
+        slot=slots[0],
+        title="Duration",
+        df=duration_df,
+        categories=_category_labels(duration_df),
+        series_specs=[(serie, serie, color) for serie, color in _series_colors(duration_series)],
+        y_axis_title="meses",
+        value_is_percent=False,
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
         XL_LABEL_POSITION=XL_LABEL_POSITION,
         XL_LEGEND_POSITION=XL_LEGEND_POSITION,
-        Inches=Inches,
-        Pt=Pt,
-    )
-    _add_money_bar_chart(
-        slide=slide,
-        slot=slots[2],
-        title="Carteira ex-360",
-        df=df,
-        categories=categories,
-        column="carteira_ex360",
-        series_name="Carteira ex-360",
-        CategoryChartData=CategoryChartData,
-        RGBColor=RGBColor,
-        XL_CHART_TYPE=XL_CHART_TYPE,
-        XL_LABEL_POSITION=XL_LABEL_POSITION,
+        XL_MARKER_STYLE=XL_MARKER_STYLE,
         Inches=Inches,
         Pt=Pt,
     )
     _add_cohort_chart(
         slide=slide,
-        slot=slots[3],
+        slot=slots[1],
         title="Cohorts recentes",
         cohort_df=cohort_df,
         CategoryChartData=CategoryChartData,
@@ -292,8 +366,8 @@ def _add_consolidated_detail_slide(
 ) -> None:
     slide = prs.slides.add_slide(layout)
     _style_slide(slide, RGBColor)
-    _add_header(slide, "Análise Crédito - Consolidado (continuação)", RGBColor, Inches, Pt)
-    slots = _grid_2x2_slots()
+    _add_header(slide, "Análise Crédito - Consolidado: duration e cohorts", RGBColor, Inches, Pt)
+    slots = _grid_1x2_slots()
     duration_df = _duration_frame(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame()), getattr(monitor_outputs, "fund_monitor", {}))
     duration_series = [column for column in duration_df.columns if column not in {"competencia_dt", "competencia"}]
     _add_multi_line_chart(
@@ -319,43 +393,6 @@ def _add_consolidated_detail_slide(
         slot=slots[1],
         title="Cohorts recentes",
         cohort_df=getattr(monitor_outputs, "consolidated_cohorts", pd.DataFrame()),
-        CategoryChartData=CategoryChartData,
-        RGBColor=RGBColor,
-        XL_CHART_TYPE=XL_CHART_TYPE,
-        XL_LABEL_POSITION=XL_LABEL_POSITION,
-        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
-        XL_MARKER_STYLE=XL_MARKER_STYLE,
-        Inches=Inches,
-        Pt=Pt,
-    )
-    roll_df = getattr(research_outputs, "roll_seasonality", pd.DataFrame()) if research_outputs is not None else pd.DataFrame()
-    roll_61 = _research_roll_wide(roll_df, metric_id="roll_61_90_m3")
-    roll_151 = _research_roll_wide(roll_df, metric_id="roll_151_180_m6")
-    _add_multi_line_chart(
-        slide=slide,
-        slot=slots[2],
-        title="Roll 61-90 por mês do ano",
-        df=roll_61,
-        categories=_wide_categories(roll_61),
-        series_specs=[(serie, serie, color) for serie, color in _series_colors(_wide_series(roll_61))],
-        y_axis_title="%",
-        CategoryChartData=CategoryChartData,
-        RGBColor=RGBColor,
-        XL_CHART_TYPE=XL_CHART_TYPE,
-        XL_LABEL_POSITION=XL_LABEL_POSITION,
-        XL_LEGEND_POSITION=XL_LEGEND_POSITION,
-        XL_MARKER_STYLE=XL_MARKER_STYLE,
-        Inches=Inches,
-        Pt=Pt,
-    )
-    _add_multi_line_chart(
-        slide=slide,
-        slot=slots[3],
-        title="Roll 151-180 por mês do ano",
-        df=roll_151,
-        categories=_wide_categories(roll_151),
-        series_specs=[(serie, serie, color) for serie, color in _series_colors(_wide_series(roll_151))],
-        y_axis_title="%",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
@@ -666,6 +703,21 @@ def _grid_2x2_slots() -> list[tuple[float, float, float, float]]:
         (margin_x + width + gap_x, top, width, height),
         (margin_x, top + height + gap_y, width, height),
         (margin_x + width + gap_x, top + height + gap_y, width, height),
+    ]
+
+
+def _grid_1x2_slots() -> list[tuple[float, float, float, float]]:
+    margin_x = 0.48
+    top = 0.72
+    gap_x = 0.26
+    slide_width = 13.333
+    slide_height = 7.5
+    bottom = 0.24
+    width = (slide_width - margin_x * 2 - gap_x) / 2
+    height = slide_height - top - bottom
+    return [
+        (margin_x, top, width, height),
+        (margin_x + width + gap_x, top, width, height),
     ]
 
 

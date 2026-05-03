@@ -384,13 +384,23 @@ def render_dashboard_meli_analysis(
     with main_tab:
         _render_consolidated_dashboard(monitor_outputs, research_outputs)
     with funds_tab:
-        _render_fund_dashboards(monitor_outputs)
+        _render_fund_dashboards(monitor_outputs, selected_portfolio=selected_portfolio)
     with audit_tab:
         _render_audit(outputs, monitor_outputs, research_outputs, verification_report)
     _render_methodology(research_outputs)
 
 
 def _render_consolidated_dashboard(monitor_outputs, research_outputs=None) -> None:  # noqa: ANN001
+    _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios.")
+    _chart_note("Carteira ex-360 = carteira bruta - vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
+    st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
+
+    _chart_title("NPL ex-360 por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
+    _chart_note(
+        "A carteira ex-360 remove vencidos acima de 360 dias do denominador; as barras separam o NPL remanescente entre atraso inicial (1-90d) e atraso maduro (91-360d)."
+    )
+    st.altair_chart(npl_severity_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
+
     _chart_title(
         "Roll rates",
         "Eixo esquerdo: roll rate em %. Sem eixo direito. A defasagem segue o bucket: 61-90 M-3, 91-120 M-4, 121-150 M-5 e 151-180 M-6.",
@@ -399,16 +409,6 @@ def _render_consolidated_dashboard(monitor_outputs, research_outputs=None) -> No
     st.altair_chart(roll_rates_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     _render_consolidated_research_charts(research_outputs)
-
-    _chart_title("NPL ex-360 por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
-    _chart_note(
-        "A carteira ex-360 remove vencidos acima de 360 dias do denominador; as barras separam o NPL remanescente entre atraso inicial (1-90d) e atraso maduro (91-360d)."
-    )
-    st.altair_chart(npl_severity_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
-
-    _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios.")
-    _chart_note("Carteira ex-360 = carteira bruta - vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
-    st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     _chart_title("Duration por FIDC", "Eixo esquerdo: duration em meses. Sem eixo direito; consolidado ponderado por saldo.")
     _duration_notes()
@@ -437,34 +437,59 @@ def _render_research_roll_charts(roll_df: pd.DataFrame) -> None:
         st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id=spec["metric_id"]), use_container_width=True)
 
 
-def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
+def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRecord) -> None:  # noqa: ANN001
     if not monitor_outputs.fund_monitor:
         st.info("Sem fundos individuais carregados.")
         return
-    for cnpj, monitor in monitor_outputs.fund_monitor.items():
+    selected_cnpjs = _render_monitor_fund_multiselect(
+        monitor_outputs,
+        key=f"dashboard_meli_funds::{selected_portfolio.id}",
+    )
+    if not selected_cnpjs:
+        st.caption("Selecione um ou mais fundos para exibir a análise individual.")
+        return
+    for cnpj in selected_cnpjs:
+        monitor = monitor_outputs.fund_monitor[cnpj]
         name = str(monitor["fund_name"].dropna().iloc[0]) if not monitor.empty and "fund_name" in monitor.columns and monitor["fund_name"].notna().any() else cnpj
-        with st.expander(name, expanded=False):
-            _chart_title("Roll rates", "Eixo esquerdo: roll rate em %. Sem eixo direito; denominador é carteira a vencer defasada conforme o bucket.")
-            _chart_note("O gráfico responde: de cada R$ 100 expostos no passado, quanto apareceu em atraso mais severo depois?")
-            st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
+        st.markdown(f"#### {escape(name)} · {escape(str(cnpj))}")
+        _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios.")
+        _chart_note("Carteira ex-360 = carteira bruta - vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
+        st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
 
-            _chart_title("NPL ex-360 por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
-            _chart_note(
-                "A carteira ex-360 remove vencidos acima de 360 dias do denominador; as barras separam o NPL remanescente entre atraso inicial (1-90d) e atraso maduro (91-360d)."
-            )
-            st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
+        _chart_title("NPL ex-360 por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
+        _chart_note(
+            "A carteira ex-360 remove vencidos acima de 360 dias do denominador; as barras separam o NPL remanescente entre atraso inicial (1-90d) e atraso maduro (91-360d)."
+        )
+        st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
 
-            _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios.")
-            _chart_note("Carteira ex-360 = carteira bruta - vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
-            st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
+        _chart_title("Roll rates", "Eixo esquerdo: roll rate em %. Sem eixo direito; denominador é carteira a vencer defasada conforme o bucket.")
+        _chart_note("O gráfico responde: de cada R$ 100 expostos no passado, quanto apareceu em atraso mais severo depois?")
+        st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
 
-            _chart_title("Duration", "Eixo esquerdo: duration em meses. Sem eixo direito.")
-            _duration_notes()
-            st.altair_chart(duration_chart(pd.DataFrame(), {cnpj: monitor}), use_container_width=True)
+        _chart_title("Duration", "Eixo esquerdo: duration em meses. Sem eixo direito.")
+        _duration_notes()
+        st.altair_chart(duration_chart(pd.DataFrame(), {cnpj: monitor}), use_container_width=True)
 
-            _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
-            _cohort_notes()
-            st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
+        _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
+        _cohort_notes()
+        st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
+
+
+def _render_monitor_fund_multiselect(monitor_outputs, *, key: str) -> list[str]:  # noqa: ANN001
+    options = list(getattr(monitor_outputs, "fund_monitor", {}).keys())
+    labels: dict[str, str] = {}
+    for cnpj, frame in getattr(monitor_outputs, "fund_monitor", {}).items():
+        name = str(frame["fund_name"].dropna().iloc[0]) if not frame.empty and "fund_name" in frame.columns and frame["fund_name"].notna().any() else str(cnpj)
+        labels[cnpj] = f"{name} · {cnpj}"
+    selected = st.multiselect(
+        "Fundos exibidos na Análise Crédito",
+        options=options,
+        default=options[:1],
+        key=key,
+        format_func=lambda value: labels.get(value, str(value)),
+        help="Selecione os fundos individuais que devem aparecer abaixo. O consolidado fica na subaba própria.",
+    )
+    return [cnpj for cnpj in selected if cnpj in monitor_outputs.fund_monitor]
 
 
 def _render_research_dashboard(research_outputs, verification_report: pd.DataFrame) -> None:  # noqa: ANN001

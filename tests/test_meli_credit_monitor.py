@@ -253,6 +253,8 @@ class MeliCreditMonitorTest(unittest.TestCase):
                 if name.endswith(".xml")
             )
         self.assertTrue(any(name.startswith("ppt/charts/chart") for name in names))
+        self.assertIn("Análise Crédito - Consolidado: carteira e risco", xml_payload)
+        self.assertIn("Análise Crédito - Consolidado: duration e cohorts", xml_payload)
         self.assertIn("Roll 61-90 por mês do ano", xml_payload)
         self.assertIn("Roll 91-120 por mês do ano", xml_payload)
         self.assertIn("Roll 121-150 por mês do ano", xml_payload)
@@ -307,7 +309,7 @@ class MeliCreditMonitorTest(unittest.TestCase):
                 if name.endswith(".xml")
             )
         self.assertIn("Somatório FIDCs - Base consolidada", xml_payload)
-        self.assertIn("Análise Crédito - Consolidado", xml_payload)
+        self.assertIn("Análise Crédito - Consolidado: carteira e risco", xml_payload)
         self.assertIn("Roll 91-120 por mês do ano", xml_payload)
         self.assertIn("Roll 121-150 por mês do ano", xml_payload)
 

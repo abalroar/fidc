@@ -164,10 +164,26 @@ def _add_credit_slides(
             Pt=Pt,
         )
     for cnpj, monitor in getattr(monitor_outputs, "fund_monitor", {}).items():
+        title = credit_ppt._fund_name(monitor, fallback=str(cnpj))  # noqa: SLF001
         credit_ppt._add_fund_slide(  # noqa: SLF001 - reuso deliberado do layout existente.
             prs=prs,
             layout=layout,
-            title=credit_ppt._fund_name(monitor, fallback=str(cnpj)),  # noqa: SLF001
+            title=title,
+            monitor_df=monitor,
+            cohort_df=getattr(monitor_outputs, "fund_cohorts", {}).get(cnpj, pd.DataFrame()),
+            CategoryChartData=CategoryChartData,
+            RGBColor=RGBColor,
+            XL_CHART_TYPE=XL_CHART_TYPE,
+            XL_LABEL_POSITION=XL_LABEL_POSITION,
+            XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+            XL_MARKER_STYLE=XL_MARKER_STYLE,
+            Inches=Inches,
+            Pt=Pt,
+        )
+        credit_ppt._add_fund_detail_slide(  # noqa: SLF001 - reuso deliberado do layout existente.
+            prs=prs,
+            layout=layout,
+            title=title,
             monitor_df=monitor,
             cohort_df=getattr(monitor_outputs, "fund_cohorts", {}).get(cnpj, pd.DataFrame()),
             CategoryChartData=CategoryChartData,
