@@ -25,14 +25,22 @@ def roll_rates_chart(monitor_df: pd.DataFrame) -> alt.Chart:
     chart_df = pd.concat(
         [
             _line_series(df, "roll_61_90_m3_pct", "Roll 61-90 / carteira a vencer M-3"),
+            _line_series(df, "roll_91_120_m4_pct", "Roll 91-120 / carteira a vencer M-4"),
+            _line_series(df, "roll_121_150_m5_pct", "Roll 121-150 / carteira a vencer M-5"),
             _line_series(df, "roll_151_180_m6_pct", "Roll 151-180 / carteira a vencer M-6"),
         ],
         ignore_index=True,
     )
+    color_domain = [
+        "Roll 61-90 / carteira a vencer M-3",
+        "Roll 91-120 / carteira a vencer M-4",
+        "Roll 121-150 / carteira a vencer M-5",
+        "Roll 151-180 / carteira a vencer M-6",
+    ]
     return _line_chart(
         chart_df,
         y_title="Roll rate",
-        color_domain=["Roll 61-90 / carteira a vencer M-3", "Roll 151-180 / carteira a vencer M-6"],
+        color_domain=color_domain,
     )
 
 

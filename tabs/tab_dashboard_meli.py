@@ -128,6 +128,33 @@ _DASHBOARD_MELI_CSS = """
 </style>
 """
 
+ROLL_SEASONALITY_CHARTS: tuple[dict[str, str], ...] = (
+    {
+        "metric_id": "roll_61_90_m3",
+        "title": "Roll 61-90 por mês do ano",
+        "axis": "Eixo esquerdo: Roll 61-90 M-3 em %. Sem eixo direito; cada linha representa um ano-calendário.",
+        "note": "Fórmula: atraso 61-90 no mês t ÷ carteira a vencer três meses antes. O gráfico mostra sazonalidade e compara anos na mesma janela mensal.",
+    },
+    {
+        "metric_id": "roll_91_120_m4",
+        "title": "Roll 91-120 por mês do ano",
+        "axis": "Eixo esquerdo: Roll 91-120 M-4 em %. Sem eixo direito; cada linha representa um ano-calendário.",
+        "note": "Fórmula: atraso 91-120 no mês t ÷ carteira a vencer quatro meses antes. A defasagem acompanha a maturação para atraso acima de 90 dias.",
+    },
+    {
+        "metric_id": "roll_121_150_m5",
+        "title": "Roll 121-150 por mês do ano",
+        "axis": "Eixo esquerdo: Roll 121-150 M-5 em %. Sem eixo direito; cada linha representa um ano-calendário.",
+        "note": "Fórmula: atraso 121-150 no mês t ÷ carteira a vencer cinco meses antes. A série mostra a migração intermediária antes do bucket 151-180.",
+    },
+    {
+        "metric_id": "roll_151_180_m6",
+        "title": "Roll 151-180 por mês do ano",
+        "axis": "Eixo esquerdo: Roll 151-180 M-6 em %. Sem eixo direito; cada linha representa um ano-calendário.",
+        "note": "Fórmula: atraso 151-180 no mês t ÷ carteira a vencer seis meses antes. A defasagem acompanha a maturação até atraso severo.",
+    },
+)
+
 
 def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
     st.markdown(ime_tab._FIDC_REPORT_CSS, unsafe_allow_html=True)
@@ -366,7 +393,7 @@ def render_dashboard_meli_analysis(
 def _render_consolidated_dashboard(monitor_outputs, research_outputs=None) -> None:  # noqa: ANN001
     _chart_title(
         "Roll rates",
-        "Eixo esquerdo: roll rate em %. Sem eixo direito. 61-90 usa carteira a vencer de três meses antes; 151-180 usa seis meses antes.",
+        "Eixo esquerdo: roll rate em %. Sem eixo direito. A defasagem segue o bucket: 61-90 M-3, 91-120 M-4, 121-150 M-5 e 151-180 M-6.",
     )
     _chart_note("O gráfico responde: de cada R$ 100 expostos no passado, quanto apareceu em atraso mais severo depois?")
     st.altair_chart(roll_rates_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
@@ -379,7 +406,7 @@ def _render_consolidated_dashboard(monitor_outputs, research_outputs=None) -> No
     )
     st.altair_chart(npl_severity_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
-    _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios, ambos ajustados à largura da página.")
+    _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios.")
     _chart_note("Carteira ex-360 = carteira bruta - vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
     st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
@@ -398,19 +425,16 @@ def _render_consolidated_research_charts(research_outputs) -> None:  # noqa: ANN
     roll_df = _filter_research_scope(getattr(research_outputs, "roll_seasonality", pd.DataFrame()), "consolidado::")
     if roll_df.empty:
         return
-    _chart_title(
-        "Roll 61-90 por mês do ano",
-        "Eixo esquerdo: Roll 61-90 M-3 em %. Sem eixo direito; cada linha representa um ano-calendário.",
-    )
-    _chart_note("Fórmula: atraso 61-90 no mês t ÷ carteira a vencer três meses antes. O gráfico mostra sazonalidade e compara anos na mesma janela mensal.")
-    st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id="roll_61_90_m3"), use_container_width=True)
+    _render_research_roll_charts(roll_df)
 
-    _chart_title(
-        "Roll 151-180 por mês do ano",
-        "Eixo esquerdo: Roll 151-180 M-6 em %. Sem eixo direito; cada linha representa um ano-calendário.",
-    )
-    _chart_note("Fórmula: atraso 151-180 no mês t ÷ carteira a vencer seis meses antes. A defasagem acompanha a maturação até atraso severo.")
-    st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id="roll_151_180_m6"), use_container_width=True)
+
+def _render_research_roll_charts(roll_df: pd.DataFrame) -> None:
+    for spec in ROLL_SEASONALITY_CHARTS:
+        if roll_df[roll_df["metric_id"].eq(spec["metric_id"])].empty:
+            continue
+        _chart_title(spec["title"], spec["axis"])
+        _chart_note(spec["note"])
+        st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id=spec["metric_id"]), use_container_width=True)
 
 
 def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
@@ -420,7 +444,7 @@ def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
     for cnpj, monitor in monitor_outputs.fund_monitor.items():
         name = str(monitor["fund_name"].dropna().iloc[0]) if not monitor.empty and "fund_name" in monitor.columns and monitor["fund_name"].notna().any() else cnpj
         with st.expander(name, expanded=False):
-            _chart_title("Roll rates", "Eixo esquerdo: roll rate em %. Sem eixo direito; denominador é carteira a vencer defasada.")
+            _chart_title("Roll rates", "Eixo esquerdo: roll rate em %. Sem eixo direito; denominador é carteira a vencer defasada conforme o bucket.")
             _chart_note("O gráfico responde: de cada R$ 100 expostos no passado, quanto apareceu em atraso mais severo depois?")
             st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
 
@@ -430,7 +454,7 @@ def _render_fund_dashboards(monitor_outputs) -> None:  # noqa: ANN001
             )
             st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
 
-            _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios, ambos ajustados à largura da página.")
+            _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios.")
             _chart_note("Carteira ex-360 = carteira bruta - vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
             st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
 
@@ -459,19 +483,7 @@ def _render_research_dashboard(research_outputs, verification_report: pd.DataFra
     portfolio_table = _filter_research_scope(research_outputs.portfolio_duration_table, selected_scope)
     verification = _filter_research_scope(verification_report, selected_scope)
 
-    _chart_title(
-        "Roll 61-90 por mês do ano",
-        "Eixo esquerdo: Roll 61-90 M-3 em %. Sem eixo direito; cada linha representa um ano-calendário.",
-    )
-    _chart_note("Fórmula: atraso 61-90 no mês t ÷ carteira a vencer três meses antes. O gráfico mostra sazonalidade e compara anos com a mesma janela mensal.")
-    st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id="roll_61_90_m3"), use_container_width=True)
-
-    _chart_title(
-        "Roll 151-180 por mês do ano",
-        "Eixo esquerdo: Roll 151-180 M-6 em %. Sem eixo direito; cada linha representa um ano-calendário.",
-    )
-    _chart_note("Fórmula: atraso 151-180 no mês t ÷ carteira a vencer seis meses antes. A defasagem acompanha a maturação até atraso severo.")
-    st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id="roll_151_180_m6"), use_container_width=True)
+    _render_research_roll_charts(roll_df)
 
     st.markdown("**Tabela NPL e carteira ex-360**")
     st.dataframe(_format_research_table(npl_table), use_container_width=True, hide_index=True)
@@ -536,6 +548,8 @@ def _render_audit(outputs, monitor_outputs, research_outputs=None, verification_
         "npl_1_90",
         "npl_91_360",
         "roll_61_90_m3_den",
+        "roll_91_120_m4_den",
+        "roll_121_150_m5_den",
         "roll_151_180_m6_den",
     ]:
         if column in display.columns:
@@ -759,7 +773,7 @@ O painel usa dados mensais já compilados no Somatório FIDCs. No consolidado, v
 
 **Leitura dos gráficos:** cada gráfico informa explicitamente o eixo usado, a unidade e se há eixo direito. Os rótulos finais mostram o último ponto calculável de cada série.
 
-**Roll rates:** mostram migração de risco. A pergunta é: quanto de uma base que estava exposta em um mês anterior apareceu em um bucket de atraso específico depois? Exemplo: `Roll 61-90 M-3 = atraso 61-90 no mês t / carteira a vencer no mês t-3`.
+**Roll rates:** mostram migração de risco. A pergunta é: quanto de uma base que estava exposta em um mês anterior apareceu em um bucket de atraso específico depois? A defasagem acompanha o bucket: `Roll 61-90 M-3`, `Roll 91-120 M-4`, `Roll 121-150 M-5` e `Roll 151-180 M-6`.
 
 **NPL ex-360 por severidade:** primeiro o modelo baixa conceitualmente da carteira os vencidos acima de 360 dias. Depois, sobre a carteira remanescente, separa o NPL em `1-90d` (atraso inicial) e `91-360d` (atraso maduro). Fórmulas: `NPL 1-90d / carteira ex-360` e `NPL 91-360d / carteira ex-360`.
 

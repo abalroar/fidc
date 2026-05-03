@@ -197,6 +197,26 @@ MELI_MONITOR_METHODOLOGY_ROWS: tuple[dict[str, str], ...] = (
         "Observação": "Usa a carteira a vencer de três meses antes como aproximação da safra exposta ao atraso 61-90.",
     },
     {
+        "Indicador": "Roll 91-120 / carteira a vencer M-4",
+        "Definição": "Parcela que migra para 91-120 dias vencidos contra a carteira a vencer quatro meses antes.",
+        "Numerador": "atraso_91_120_t",
+        "Denominador": "carteira_a_vencer_t-4",
+        "Fórmula": "roll_91_120_m4_pct = atraso_91_120_t / carteira_a_vencer_t-4",
+        "Unidade": "%",
+        "Fonte / coluna": "atraso_91_120; carteira_a_vencer",
+        "Observação": "Usa a carteira a vencer de quatro meses antes como aproximação da safra exposta ao atraso 91-120.",
+    },
+    {
+        "Indicador": "Roll 121-150 / carteira a vencer M-5",
+        "Definição": "Parcela que migra para 121-150 dias vencidos contra a carteira a vencer cinco meses antes.",
+        "Numerador": "atraso_121_150_t",
+        "Denominador": "carteira_a_vencer_t-5",
+        "Fórmula": "roll_121_150_m5_pct = atraso_121_150_t / carteira_a_vencer_t-5",
+        "Unidade": "%",
+        "Fonte / coluna": "atraso_121_150; carteira_a_vencer",
+        "Observação": "Usa a carteira a vencer de cinco meses antes como aproximação da safra exposta ao atraso 121-150.",
+    },
+    {
         "Indicador": "Roll 151-180 / carteira a vencer M-6",
         "Definição": "Parcela que migra para 151-180 dias vencidos contra a carteira a vencer seis meses antes.",
         "Numerador": "atraso_151_180_t",
@@ -241,7 +261,7 @@ MELI_MONITOR_METHODOLOGY_ROWS: tuple[dict[str, str], ...] = (
 MELI_CHART_AXIS_ROWS: tuple[dict[str, str], ...] = (
     {
         "Gráfico": "Roll rates",
-        "Eixo esquerdo": "Roll 61-90 M-3 e Roll 151-180 M-6 em %",
+        "Eixo esquerdo": "Roll 61-90 M-3, 91-120 M-4, 121-150 M-5 e 151-180 M-6 em %",
         "Eixo direito": "Não usado",
         "Observação": "Séries têm mesma unidade e ordem de grandeza.",
     },
@@ -406,8 +426,12 @@ def build_monitor_base(monthly_df: pd.DataFrame) -> pd.DataFrame:
     df["npl_91_360_pct"] = _safe_div_pct(df["npl_91_360"], df["carteira_ex360"])
     df["npl_1_360_pct"] = _safe_div_pct(df["npl_1_90"] + df["npl_91_360"], df["carteira_ex360"])
     df["roll_61_90_m3_den"] = df["carteira_a_vencer"].shift(3)
+    df["roll_91_120_m4_den"] = df["carteira_a_vencer"].shift(4)
+    df["roll_121_150_m5_den"] = df["carteira_a_vencer"].shift(5)
     df["roll_151_180_m6_den"] = df["carteira_a_vencer"].shift(6)
     df["roll_61_90_m3_pct"] = _safe_div_pct(df["atraso_61_90"], df["roll_61_90_m3_den"])
+    df["roll_91_120_m4_pct"] = _safe_div_pct(df["atraso_91_120"], df["roll_91_120_m4_den"])
+    df["roll_121_150_m5_pct"] = _safe_div_pct(df["atraso_121_150"], df["roll_121_150_m5_den"])
     df["roll_151_180_m6_pct"] = _safe_div_pct(df["atraso_151_180"], df["roll_151_180_m6_den"])
     df["carteira_ex360_mom_pct"] = df["carteira_ex360"].pct_change(fill_method=None) * 100.0
     df["carteira_ex360_yoy_pct"] = (df["carteira_ex360"] / df["carteira_ex360"].shift(12) - 1.0) * 100.0
@@ -473,6 +497,10 @@ def build_monitor_audit_table(*, consolidated_monitor: pd.DataFrame, fund_monito
             "npl_91_360_pct",
             "roll_61_90_m3_pct",
             "roll_61_90_m3_den",
+            "roll_91_120_m4_pct",
+            "roll_91_120_m4_den",
+            "roll_121_150_m5_pct",
+            "roll_121_150_m5_den",
             "roll_151_180_m6_pct",
             "roll_151_180_m6_den",
             "duration_months",

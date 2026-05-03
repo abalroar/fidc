@@ -149,6 +149,20 @@ def _add_credit_slides(
         Inches=Inches,
         Pt=Pt,
     )
+    if research_outputs is not None and not getattr(research_outputs, "roll_seasonality", pd.DataFrame()).empty:
+        credit_ppt._add_consolidated_roll_seasonality_slide(  # noqa: SLF001 - reuso deliberado do layout existente.
+            prs=prs,
+            layout=layout,
+            research_outputs=research_outputs,
+            CategoryChartData=CategoryChartData,
+            RGBColor=RGBColor,
+            XL_CHART_TYPE=XL_CHART_TYPE,
+            XL_LABEL_POSITION=XL_LABEL_POSITION,
+            XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+            XL_MARKER_STYLE=XL_MARKER_STYLE,
+            Inches=Inches,
+            Pt=Pt,
+        )
     for cnpj, monitor in getattr(monitor_outputs, "fund_monitor", {}).items():
         credit_ppt._add_fund_slide(  # noqa: SLF001 - reuso deliberado do layout existente.
             prs=prs,

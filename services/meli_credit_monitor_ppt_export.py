@@ -14,6 +14,20 @@ MELI_DARK_GRAY = "3F3F3F"
 MELI_MEDIUM_GRAY = "8C8C8C"
 MELI_WHITE = "FFFFFF"
 
+ROLL_RATE_PPT_SERIES: tuple[tuple[str, str, str], ...] = (
+    ("Roll 61-90 M-3", "roll_61_90_m3_pct", MELI_BLACK),
+    ("Roll 91-120 M-4", "roll_91_120_m4_pct", MELI_DARK_GRAY),
+    ("Roll 121-150 M-5", "roll_121_150_m5_pct", MELI_MEDIUM_GRAY),
+    ("Roll 151-180 M-6", "roll_151_180_m6_pct", MELI_ORANGE),
+)
+
+ROLL_SEASONALITY_PPT_CHARTS: tuple[tuple[str, str], ...] = (
+    ("Roll 61-90 por mês do ano", "roll_61_90_m3"),
+    ("Roll 91-120 por mês do ano", "roll_91_120_m4"),
+    ("Roll 121-150 por mês do ano", "roll_121_150_m5"),
+    ("Roll 151-180 por mês do ano", "roll_151_180_m6"),
+)
+
 
 def build_dashboard_meli_pptx_bytes(monitor_outputs: Any, research_outputs: Any | None = None) -> bytes:
     try:
@@ -57,6 +71,20 @@ def build_dashboard_meli_pptx_bytes(monitor_outputs: Any, research_outputs: Any 
         Inches=Inches,
         Pt=Pt,
     )
+    if research_outputs is not None and not getattr(research_outputs, "roll_seasonality", pd.DataFrame()).empty:
+        _add_consolidated_roll_seasonality_slide(
+            prs=prs,
+            layout=layout,
+            research_outputs=research_outputs,
+            CategoryChartData=CategoryChartData,
+            RGBColor=RGBColor,
+            XL_CHART_TYPE=XL_CHART_TYPE,
+            XL_LABEL_POSITION=XL_LABEL_POSITION,
+            XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+            XL_MARKER_STYLE=XL_MARKER_STYLE,
+            Inches=Inches,
+            Pt=Pt,
+        )
     for cnpj, monitor in getattr(monitor_outputs, "fund_monitor", {}).items():
         fund_name = _fund_name(monitor, fallback=str(cnpj))
         _add_fund_slide(
@@ -106,10 +134,7 @@ def _add_consolidated_slide(
         title="Roll rates",
         df=df,
         categories=categories,
-        series_specs=[
-            ("Roll 61-90 M-3", "roll_61_90_m3_pct", MELI_BLACK),
-            ("Roll 151-180 M-6", "roll_151_180_m6_pct", MELI_ORANGE),
-        ],
+        series_specs=list(ROLL_RATE_PPT_SERIES),
         y_axis_title="%",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
@@ -195,10 +220,7 @@ def _add_fund_slide(
         title="Roll rates",
         df=df,
         categories=categories,
-        series_specs=[
-            ("Roll 61-90 M-3", "roll_61_90_m3_pct", MELI_BLACK),
-            ("Roll 151-180 M-6", "roll_151_180_m6_pct", MELI_ORANGE),
-        ],
+        series_specs=list(ROLL_RATE_PPT_SERIES),
         y_axis_title="%",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
@@ -343,6 +365,46 @@ def _add_consolidated_detail_slide(
         Inches=Inches,
         Pt=Pt,
     )
+
+
+def _add_consolidated_roll_seasonality_slide(
+    *,
+    prs,
+    layout,
+    research_outputs: Any,
+    CategoryChartData,
+    RGBColor,
+    XL_CHART_TYPE,
+    XL_LABEL_POSITION,
+    XL_LEGEND_POSITION,
+    XL_MARKER_STYLE,
+    Inches,
+    Pt,
+) -> None:
+    slide = prs.slides.add_slide(layout)
+    _style_slide(slide, RGBColor)
+    _add_header(slide, "Análise Crédito - Roll rates por mês do ano", RGBColor, Inches, Pt)
+    slots = _grid_2x2_slots()
+    roll_df = getattr(research_outputs, "roll_seasonality", pd.DataFrame())
+    for slot, (title, metric_id) in zip(slots, ROLL_SEASONALITY_PPT_CHARTS, strict=False):
+        chart_df = _research_roll_wide(roll_df, metric_id=metric_id)
+        _add_multi_line_chart(
+            slide=slide,
+            slot=slot,
+            title=title,
+            df=chart_df,
+            categories=_wide_categories(chart_df),
+            series_specs=[(serie, serie, color) for serie, color in _series_colors(_wide_series(chart_df))],
+            y_axis_title="%",
+            CategoryChartData=CategoryChartData,
+            RGBColor=RGBColor,
+            XL_CHART_TYPE=XL_CHART_TYPE,
+            XL_LABEL_POSITION=XL_LABEL_POSITION,
+            XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+            XL_MARKER_STYLE=XL_MARKER_STYLE,
+            Inches=Inches,
+            Pt=Pt,
+        )
 
 
 def _add_multi_line_chart(

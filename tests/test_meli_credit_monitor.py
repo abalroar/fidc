@@ -38,8 +38,12 @@ class MeliCreditMonitorTest(unittest.TestCase):
         monitor = build_monitor_base(monthly)
 
         self.assertAlmostEqual(2.5, monitor.loc[3, "roll_61_90_m3_pct"])
+        self.assertAlmostEqual(2.0, monitor.loc[4, "roll_91_120_m4_pct"])
+        self.assertAlmostEqual(2.5, monitor.loc[5, "roll_121_150_m5_pct"])
         self.assertAlmostEqual(3.0, monitor.loc[6, "roll_151_180_m6_pct"])
         self.assertAlmostEqual(200.0, monitor.loc[3, "roll_61_90_m3_den"])
+        self.assertAlmostEqual(200.0, monitor.loc[4, "roll_91_120_m4_den"])
+        self.assertAlmostEqual(200.0, monitor.loc[5, "roll_121_150_m5_den"])
         self.assertAlmostEqual(200.0, monitor.loc[6, "roll_151_180_m6_den"])
 
     def test_roll_rates_derive_current_maturity_when_missing(self) -> None:
@@ -48,6 +52,8 @@ class MeliCreditMonitorTest(unittest.TestCase):
 
         self.assertAlmostEqual(200.0, monitor.loc[0, "carteira_a_vencer"])
         self.assertAlmostEqual(2.5, monitor.loc[3, "roll_61_90_m3_pct"])
+        self.assertAlmostEqual(2.0, monitor.loc[4, "roll_91_120_m4_pct"])
+        self.assertAlmostEqual(2.5, monitor.loc[5, "roll_121_150_m5_pct"])
 
     def test_cohort_matrix_uses_due_30_base_and_future_buckets(self) -> None:
         monthly = _sample_monthly(month_count=7)
@@ -122,8 +128,12 @@ class MeliCreditMonitorTest(unittest.TestCase):
         methodology = build_meli_methodology_table()
 
         roll = methodology[methodology["Indicador"].eq("Roll 61-90 / carteira a vencer M-3")].iloc[0]
+        roll_91 = methodology[methodology["Indicador"].eq("Roll 91-120 / carteira a vencer M-4")].iloc[0]
+        roll_121 = methodology[methodology["Indicador"].eq("Roll 121-150 / carteira a vencer M-5")].iloc[0]
 
         self.assertIn("carteira_a_vencer_t-3", roll["Fórmula"])
+        self.assertIn("carteira_a_vencer_t-4", roll_91["Fórmula"])
+        self.assertIn("carteira_a_vencer_t-5", roll_121["Fórmula"])
         self.assertIn("Fonte / coluna", methodology.columns)
 
     def test_dashboard_meli_charts_include_final_labels(self) -> None:
@@ -138,6 +148,8 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertIn("mark", roll_payload)
         self.assertIn("text", roll_payload)
         self.assertIn("3,0%", roll_payload)
+        self.assertIn("Roll 91-120", roll_payload)
+        self.assertIn("Roll 121-150", roll_payload)
         self.assertIn("Carteira ex-360", growth_payload)
         self.assertIn("Crescimento YoY", growth_payload)
         self.assertIn('"width": "container"', growth_payload)
@@ -242,6 +254,8 @@ class MeliCreditMonitorTest(unittest.TestCase):
             )
         self.assertTrue(any(name.startswith("ppt/charts/chart") for name in names))
         self.assertIn("Roll 61-90 por mês do ano", xml_payload)
+        self.assertIn("Roll 91-120 por mês do ano", xml_payload)
+        self.assertIn("Roll 121-150 por mês do ano", xml_payload)
         self.assertIn("Roll 151-180 por mês do ano", xml_payload)
         self.assertIn("Calibri", xml_payload)
         self.assertTrue("<c:dLbl" in xml_payload or "<c:dLbls" in xml_payload)
@@ -294,6 +308,8 @@ class MeliCreditMonitorTest(unittest.TestCase):
             )
         self.assertIn("Somatório FIDCs - Base consolidada", xml_payload)
         self.assertIn("Análise Crédito - Consolidado", xml_payload)
+        self.assertIn("Roll 91-120 por mês do ano", xml_payload)
+        self.assertIn("Roll 121-150 por mês do ano", xml_payload)
 
     def test_research_layer_builds_auditable_metrics_and_verification(self) -> None:
         monitor = build_monitor_base(_sample_monthly(month_count=14))
@@ -315,6 +331,16 @@ class MeliCreditMonitorTest(unittest.TestCase):
             & research.roll_seasonality["competencia"].eq("04/2026")
             & research.roll_seasonality["scope"].eq("consolidado")
         ].iloc[0]
+        roll_91 = research.roll_seasonality[
+            research.roll_seasonality["metric_id"].eq("roll_91_120_m4")
+            & research.roll_seasonality["competencia"].eq("05/2026")
+            & research.roll_seasonality["scope"].eq("consolidado")
+        ].iloc[0]
+        roll_121 = research.roll_seasonality[
+            research.roll_seasonality["metric_id"].eq("roll_121_150_m5")
+            & research.roll_seasonality["competencia"].eq("06/2026")
+            & research.roll_seasonality["scope"].eq("consolidado")
+        ].iloc[0]
         npl = research.npl_research_table[
             research.npl_research_table["metric_id"].eq("npl_1_360_pct")
             & research.npl_research_table["competencia"].eq("01/2026")
@@ -322,6 +348,8 @@ class MeliCreditMonitorTest(unittest.TestCase):
         ].iloc[0]
 
         self.assertAlmostEqual(2.5, roll["value_pct"])
+        self.assertAlmostEqual(2.0, roll_91["value_pct"])
+        self.assertAlmostEqual(2.5, roll_121["value_pct"])
         self.assertAlmostEqual(2.8, npl["value"])
         self.assertIn("numerator", research.cohort_research.columns)
         self.assertIn("Fórmula", research.methodology.columns)
