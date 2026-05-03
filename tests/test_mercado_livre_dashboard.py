@@ -546,7 +546,7 @@ class MercadoLivreDashboardTests(unittest.TestCase):
 
         self.assertIn("Passo a passo de utilização", guide)
         self.assertIn("Dados Consolidados – Somatório FIDCs", guide)
-        self.assertIn("multiselect", guide)
+        self.assertIn("selecione um fundo individual por vez", guide)
         self.assertIn("PATRLIQ/VL_PATRIM_LIQ", guide)
         self.assertIn("Ex-Vencidos > 360d", guide)
         self.assertIn("nunca faz média simples de percentuais", guide)

@@ -619,13 +619,14 @@ def _render_outputs(
             )
 
         st.markdown("### Fundos individuais")
-        selected_fund_cnpjs = _render_fund_multiselect(
+        selected_fund_cnpj = _render_fund_selectbox(
             display_outputs,
-            key=f"somatorio_fidcs_base_funds::{selected_portfolio.id}",
-            label="Fundos exibidos na Tabela Completa",
+            key=f"somatorio_fidcs_base_fund::{selected_portfolio.id}",
+            label="Fundo exibido na Tabela Completa",
         )
+        selected_fund_cnpjs = [selected_fund_cnpj] if selected_fund_cnpj else []
         if not selected_fund_cnpjs:
-            st.caption("Selecione um ou mais fundos para exibir tabelas e gráficos individuais.")
+            st.caption("Selecione um fundo para exibir tabela e gráficos individuais.")
 
         st.markdown("#### Dados Fundos Individuais")
         for cnpj in selected_fund_cnpjs:
@@ -689,23 +690,23 @@ def _render_chart(title: str, subtitle: str, chart) -> None:
     st.altair_chart(chart, width="stretch")
 
 
-def _render_fund_multiselect(outputs, *, key: str, label: str) -> list[str]:  # noqa: ANN001
+def _render_fund_selectbox(outputs, *, key: str, label: str) -> str | None:  # noqa: ANN001
     options = list(getattr(outputs, "fund_monthly", {}).keys())
     if not options:
-        return []
+        return None
     labels = {
         cnpj: f"{_fund_name_from_frame(frame, fallback=cnpj)} · {cnpj}"
         for cnpj, frame in outputs.fund_monthly.items()
     }
-    selected = st.multiselect(
+    selected = st.selectbox(
         label,
         options=options,
-        default=options[:1],
+        index=0,
         key=key,
         format_func=lambda value: labels.get(value, str(value)),
-        help="Selecione os fundos individuais que devem aparecer abaixo. O consolidado permanece sempre visível.",
+        help="Selecione um fundo individual por vez. O consolidado permanece sempre visível.",
     )
-    return [cnpj for cnpj in selected if cnpj in outputs.fund_monthly]
+    return selected if selected in outputs.fund_monthly else None
 
 
 def _render_loaded_period_window(outputs):
@@ -935,7 +936,7 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 2. Escolha o período de carga; o padrão é 12 meses, mas a aba permite carregar 6M, 12M, 24M, 36M, YTD ou intervalo customizado.
 3. Clique em **Carregar carteira** para montar ou reutilizar a base individual, a base consolidada, os gráficos e os arquivos exportáveis.
 4. Depois da carga, use o **Filtro visual (sem recarregar)** apenas para reduzir temporariamente a visualização. Por padrão, a aba mostra todo o período carregado.
-5. Use **Tabela Completa** para validar **Dados Consolidados – Somatório FIDCs**; selecione fundos individuais no multiselect quando quiser ver tabelas e gráficos por fundo.
+5. Use **Tabela Completa** para validar **Dados Consolidados – Somatório FIDCs**; selecione um fundo individual por vez quando quiser ver tabela e gráficos por fundo.
 6. Use **Análise Crédito** para acompanhar primeiro carteira ex-360, crescimento e NPL; depois roll rates, cohorts, duration, auditoria derivada e exportação analítica.
 
 ### Mecânica da aba
@@ -949,7 +950,7 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 - NPL Over é acumulado: por exemplo, Over 90d soma 91-180, 181-360 e acima de 360 dias.
 - No consolidado, valores absolutos são somados por competência e os percentuais são recalculados a partir dos numeradores e denominadores agregados; a aba nunca faz média simples de percentuais.
 - Os gráficos das duas sub-abas usam a mesma base da **Tabela Completa**; se a tabela e o gráfico divergirem, a tabela é a memória de cálculo primária.
-- Os fundos individuais são exibidos por seleção explícita para evitar páginas longas com vários blocos repetidos; o consolidado fica sempre visível.
+- Os fundos individuais são exibidos um por vez para evitar páginas longas com vários blocos repetidos; o consolidado fica sempre visível.
 - O Excel de resumo exporta os últimos seis meses exibidos com valores numéricos editáveis, e o PPTX completo combina os slides-base do Somatório com os slides da análise de crédito, mantendo pelo menos um slide por FIDC.
 
 ### Como interpretar

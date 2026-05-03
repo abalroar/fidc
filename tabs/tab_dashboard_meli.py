@@ -441,12 +441,13 @@ def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRec
     if not monitor_outputs.fund_monitor:
         st.info("Sem fundos individuais carregados.")
         return
-    selected_cnpjs = _render_monitor_fund_multiselect(
+    selected_cnpj = _render_monitor_fund_selectbox(
         monitor_outputs,
-        key=f"dashboard_meli_funds::{selected_portfolio.id}",
+        key=f"dashboard_meli_fund::{selected_portfolio.id}",
     )
+    selected_cnpjs = [selected_cnpj] if selected_cnpj else []
     if not selected_cnpjs:
-        st.caption("Selecione um ou mais fundos para exibir a análise individual.")
+        st.caption("Selecione um fundo para exibir a análise individual.")
         return
     for cnpj in selected_cnpjs:
         monitor = monitor_outputs.fund_monitor[cnpj]
@@ -475,21 +476,23 @@ def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRec
         st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
 
 
-def _render_monitor_fund_multiselect(monitor_outputs, *, key: str) -> list[str]:  # noqa: ANN001
+def _render_monitor_fund_selectbox(monitor_outputs, *, key: str) -> str | None:  # noqa: ANN001
     options = list(getattr(monitor_outputs, "fund_monitor", {}).keys())
+    if not options:
+        return None
     labels: dict[str, str] = {}
     for cnpj, frame in getattr(monitor_outputs, "fund_monitor", {}).items():
         name = str(frame["fund_name"].dropna().iloc[0]) if not frame.empty and "fund_name" in frame.columns and frame["fund_name"].notna().any() else str(cnpj)
         labels[cnpj] = f"{name} · {cnpj}"
-    selected = st.multiselect(
-        "Fundos exibidos na Análise Crédito",
+    selected = st.selectbox(
+        "Fundo exibido na Análise Crédito",
         options=options,
-        default=options[:1],
+        index=0,
         key=key,
         format_func=lambda value: labels.get(value, str(value)),
-        help="Selecione os fundos individuais que devem aparecer abaixo. O consolidado fica na subaba própria.",
+        help="Selecione um fundo individual por vez. O consolidado fica na subaba própria.",
     )
-    return [cnpj for cnpj in selected if cnpj in monitor_outputs.fund_monitor]
+    return selected if selected in monitor_outputs.fund_monitor else None
 
 
 def _render_research_dashboard(research_outputs, verification_report: pd.DataFrame) -> None:  # noqa: ANN001
