@@ -75,6 +75,7 @@ def build_dashboard_meli_pptx_bytes(monitor_outputs: Any, research_outputs: Any 
         _add_consolidated_roll_seasonality_slide(
             prs=prs,
             layout=layout,
+            monitor_outputs=monitor_outputs,
             research_outputs=research_outputs,
             CategoryChartData=CategoryChartData,
             RGBColor=RGBColor,
@@ -142,6 +143,7 @@ def _add_consolidated_slide(
     _add_header(slide, "Análise Crédito - Consolidado: carteira e risco", RGBColor, Inches, Pt)
     slots = _grid_2x2_slots()
     df = _chart_monthly(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame()))
+    _add_kpi_strip(slide, df, RGBColor, Inches, Pt)
     categories = _category_labels(df)
     _add_money_bar_chart(
         slide=slide,
@@ -228,6 +230,7 @@ def _add_fund_slide(
     _add_header(slide, f"{title}: carteira e risco", RGBColor, Inches, Pt)
     slots = _grid_2x2_slots()
     df = _chart_monthly(monitor_df)
+    _add_kpi_strip(slide, df, RGBColor, Inches, Pt)
     categories = _category_labels(df)
     _add_money_bar_chart(
         slide=slide,
@@ -312,6 +315,7 @@ def _add_fund_detail_slide(
     slide = prs.slides.add_slide(layout)
     _style_slide(slide, RGBColor)
     _add_header(slide, f"{title}: duration e cohorts", RGBColor, Inches, Pt)
+    _add_kpi_strip(slide, _chart_monthly(monitor_df), RGBColor, Inches, Pt)
     slots = _grid_1x2_slots()
     duration_df = _duration_frame(pd.DataFrame(), {"fundo": monitor_df})
     duration_series = [column for column in duration_df.columns if column not in {"competencia_dt", "competencia"}]
@@ -367,6 +371,7 @@ def _add_consolidated_detail_slide(
     slide = prs.slides.add_slide(layout)
     _style_slide(slide, RGBColor)
     _add_header(slide, "Análise Crédito - Consolidado: duration e cohorts", RGBColor, Inches, Pt)
+    _add_kpi_strip(slide, _chart_monthly(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame())), RGBColor, Inches, Pt)
     slots = _grid_1x2_slots()
     duration_df = _duration_frame(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame()), getattr(monitor_outputs, "fund_monitor", {}))
     duration_series = [column for column in duration_df.columns if column not in {"competencia_dt", "competencia"}]
@@ -408,6 +413,7 @@ def _add_consolidated_roll_seasonality_slide(
     *,
     prs,
     layout,
+    monitor_outputs: Any,
     research_outputs: Any,
     CategoryChartData,
     RGBColor,
@@ -421,6 +427,7 @@ def _add_consolidated_roll_seasonality_slide(
     slide = prs.slides.add_slide(layout)
     _style_slide(slide, RGBColor)
     _add_header(slide, "Análise Crédito - Roll rates por mês do ano", RGBColor, Inches, Pt)
+    _add_kpi_strip(slide, _chart_monthly(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame())), RGBColor, Inches, Pt)
     slots = _grid_2x2_slots()
     roll_df = getattr(research_outputs, "roll_seasonality", pd.DataFrame())
     for slot, (title, metric_id) in zip(slots, ROLL_SEASONALITY_PPT_CHARTS, strict=False):
@@ -754,6 +761,72 @@ def _add_header(slide, title: str, RGBColor, Inches, Pt) -> None:  # noqa: ANN00
     _set_text(box.text_frame, title, Pt(16), True, MELI_BLACK, RGBColor)
 
 
+def _add_kpi_strip(slide, monitor_df: pd.DataFrame, RGBColor, Inches, Pt) -> None:  # noqa: ANN001
+    row = _latest_monitor_row(monitor_df)
+    if row is None:
+        return
+    cards = _ppt_kpi_cards(row)
+    if not cards:
+        return
+    left = 0.48
+    top = 0.505
+    total_width = 12.35
+    gap = 0.055
+    height = 0.175
+    card_width = (total_width - gap * (len(cards) - 1)) / len(cards)
+    for idx, (label, value) in enumerate(cards):
+        box = slide.shapes.add_textbox(Inches(left + idx * (card_width + gap)), Inches(top), Inches(card_width), Inches(height))
+        box.fill.solid()
+        box.fill.fore_color.rgb = _rgb(MELI_WHITE, RGBColor)
+        box.line.color.rgb = _rgb("D9D9D9", RGBColor)
+        box.line.width = 6350
+        frame = box.text_frame
+        frame.clear()
+        frame.margin_left = Inches(0.025)
+        frame.margin_right = Inches(0.025)
+        frame.margin_top = Inches(0.004)
+        frame.margin_bottom = Inches(0.004)
+        label_paragraph = frame.paragraphs[0]
+        label_run = label_paragraph.add_run()
+        label_run.text = label
+        label_run.font.name = "Calibri"
+        label_run.font.size = Pt(4.9)
+        label_run.font.bold = False
+        label_run.font.color.rgb = _rgb(MELI_MEDIUM_GRAY, RGBColor)
+        value_paragraph = frame.add_paragraph()
+        value_run = value_paragraph.add_run()
+        value_run.text = value
+        value_run.font.name = "Calibri"
+        value_run.font.size = Pt(7.1)
+        value_run.font.bold = True
+        value_run.font.color.rgb = _rgb(MELI_BLACK, RGBColor)
+
+
+def _ppt_kpi_cards(row: pd.Series) -> list[tuple[str, str]]:
+    competencia_value = row.get("competencia_dt")
+    if pd.isna(competencia_value):
+        competencia_value = row.get("competencia")
+    competencia = _format_month_label(competencia_value)
+    carteira_label = "Carteira ex-360" if not competencia else f"Carteira ex-360 · {competencia}"
+    return [
+        (carteira_label, _format_money_kpi(row.get("carteira_ex360"))),
+        ("NPL Over 1d ex-360", _format_percent_kpi(row.get("npl_over1_ex360_pct"))),
+        ("NPL Over 30d ex-360", _format_percent_kpi(row.get("npl_over30_ex360_pct"))),
+        ("NPL Over 60d ex-360", _format_percent_kpi(row.get("npl_over60_ex360_pct"))),
+        ("NPL Over 90d ex-360", _format_percent_kpi(row.get("npl_over90_ex360_pct"))),
+        ("Duration", f"{_format_decimal_kpi(row.get('duration_months'), 1)} meses"),
+    ]
+
+
+def _latest_monitor_row(monitor_df: pd.DataFrame) -> pd.Series | None:
+    if not isinstance(monitor_df, pd.DataFrame) or monitor_df.empty:
+        return None
+    df = _chart_monthly(monitor_df)
+    if df.empty:
+        return None
+    return df.iloc[-1]
+
+
 def _add_empty(slide, slot, title: str, message: str, RGBColor, Inches, Pt) -> None:  # noqa: ANN001
     left, top, width, height = slot
     title_box = slide.shapes.add_textbox(Inches(left), Inches(top + 0.04), Inches(width), Inches(0.24))
@@ -944,6 +1017,34 @@ def _format_ppt_value(value: object, *, percent: bool, decimals: int = 1) -> str
     if percent:
         return f"{numeric * 100.0:.{decimals}f}%".replace(".", ",")
     return f"{numeric:,.{decimals}f}".replace(",", "_").replace(".", ",").replace("_", ".")
+
+
+def _format_money_kpi(value: object) -> str:
+    numeric = _num(value)
+    if numeric is None:
+        return "N/D"
+    scale, scale_label = _money_scale(pd.Series([numeric]))
+    if scale_label == "R$":
+        return f"R$ {_format_number_br(numeric, 0)}"
+    scaled = numeric / scale
+    decimals = 0 if abs(scaled) >= 10 else 1
+    unit = scale_label.replace("R$ ", "")
+    return f"R$ {_format_number_br(scaled, decimals)} {unit}".strip()
+
+
+def _format_percent_kpi(value: object) -> str:
+    return f"{_format_decimal_kpi(value, 1)}%"
+
+
+def _format_decimal_kpi(value: object, decimals: int) -> str:
+    numeric = _num(value)
+    if numeric is None:
+        return "N/D"
+    return _format_number_br(numeric, decimals)
+
+
+def _format_number_br(value: float, decimals: int) -> str:
+    return f"{value:,.{decimals}f}".replace(",", "_").replace(".", ",").replace("_", ".")
 
 
 def _num(value: object) -> float | None:

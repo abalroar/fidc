@@ -153,6 +153,7 @@ def _add_credit_slides(
         credit_ppt._add_consolidated_roll_seasonality_slide(  # noqa: SLF001 - reuso deliberado do layout existente.
             prs=prs,
             layout=layout,
+            monitor_outputs=monitor_outputs,
             research_outputs=research_outputs,
             CategoryChartData=CategoryChartData,
             RGBColor=RGBColor,
