@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import date
 from io import BytesIO
 import json
 from pathlib import Path
@@ -30,6 +31,7 @@ from tabs.tab_mercado_livre import (
     _MERCADO_LIVRE_UI_CSS,
     _build_mercado_livre_guide_markdown,
     _dense_wide_value,
+    _display_window_bounds,
     _render_wide_table_html,
     _resolve_existing_portfolio_for_save,
 )
@@ -549,7 +551,37 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("Ex-Vencidos > 360d", guide)
         self.assertIn("nunca faz média simples de percentuais", guide)
         self.assertIn("um slide por FIDC", guide)
+        self.assertIn("Filtro visual (sem recarregar)", guide)
+        self.assertIn("todo o período carregado", guide)
         self.assertNotIn("tabelas wide", guide.lower())
+
+    def test_display_window_full_option_keeps_loaded_36_months_by_default(self) -> None:
+        available = [
+            date(2023 + (idx + 3) // 12, ((idx + 3) % 12) + 1, 1)
+            for idx in range(36)
+        ]
+        start, end = _display_window_bounds(
+            selected="Todo período carregado",
+            loaded_start=available[0],
+            loaded_end=available[-1],
+        )
+
+        self.assertEqual(available[0], start)
+        self.assertEqual(available[-1], end)
+
+    def test_display_window_12m_filters_only_when_explicitly_selected(self) -> None:
+        available = [
+            date(2023 + (idx + 3) // 12, ((idx + 3) % 12) + 1, 1)
+            for idx in range(36)
+        ]
+        start, end = _display_window_bounds(
+            selected="12M",
+            loaded_start=available[0],
+            loaded_end=available[-1],
+        )
+
+        self.assertEqual(date(2025, 4, 1), start)
+        self.assertEqual(available[-1], end)
 
     def test_outputs_cache_roundtrip_uses_deterministic_identity(self) -> None:
         dashboard = _dashboard(

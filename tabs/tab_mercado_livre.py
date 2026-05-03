@@ -48,6 +48,8 @@ from tabs.tab_fidc_ime_carteira import (
 
 
 SOMATORIO_FIDCS_TITLE = "Somatório FIDCs"
+DISPLAY_WINDOW_FULL_OPTION = "Todo período carregado"
+DISPLAY_WINDOW_OPTIONS = (DISPLAY_WINDOW_FULL_OPTION, "6M", "12M", "24M", "36M", "YTD", "Customizado")
 
 _SOMATORIO_FIDCS_UI_CSS = """
 <style>
@@ -679,19 +681,25 @@ def _render_chart(title: str, subtitle: str, chart) -> None:
 def _render_loaded_period_window(outputs):
     available = _available_competencia_months(outputs.consolidated_monthly)
     if not available:
-        st.caption("Janela visual: sem competências disponíveis na base carregada.")
+        st.caption("Filtro visual: sem competências disponíveis na base carregada.")
         return outputs
 
     loaded_start = available[0]
     loaded_end = available[-1]
-    options = ("6M", "12M", "24M", "36M", "YTD", "Customizado", "Todo período carregado")
+    _reset_display_window_if_loaded_range_changed(loaded_start=loaded_start, loaded_end=loaded_end)
     selected = st.radio(
-        "Janela exibida",
-        options=options,
-        index=options.index("12M"),
+        "Filtro visual (sem recarregar)",
+        options=DISPLAY_WINDOW_OPTIONS,
+        index=DISPLAY_WINDOW_OPTIONS.index(DISPLAY_WINDOW_FULL_OPTION),
         horizontal=True,
         key="somatorio_fidcs_display_window",
-        help="Filtra tabelas e gráficos usando apenas as competências já carregadas no storage/cache.",
+        help="Filtra tabelas e gráficos usando somente a base já carregada; para ampliar a base, altere a Janela do Somatório FIDCs e carregue novamente.",
+    )
+
+    start_month, end_month = _display_window_bounds(
+        selected=str(selected),
+        loaded_start=loaded_start,
+        loaded_end=loaded_end,
     )
 
     if selected == "Customizado":
@@ -714,24 +722,38 @@ def _render_loaded_period_window(outputs):
                 key="somatorio_fidcs_display_end",
                 format_func=_format_month_option_label,
             )
-    elif selected == "Todo período carregado":
-        start_month = loaded_start
-        end_month = loaded_end
-    elif selected == "YTD":
-        start_month = _clamp_month(date(loaded_end.year, 1, 1), loaded_start, loaded_end)
-        end_month = loaded_end
-    else:
-        months = int(selected.removesuffix("M"))
-        start_month = _clamp_month(shift_month(loaded_end, -(months - 1)), loaded_start, loaded_end)
-        end_month = loaded_end
 
     st.caption(
-        "Janela exibida: "
+        "Filtro visual aplicado: "
         f"{_format_month_option_label(start_month)} → {_format_month_option_label(end_month)} · "
         f"{_month_count(start_month, end_month)} competência(s). "
-        "A troca desta janela usa a base já carregada e não recalcula o storage."
+        "A troca deste filtro usa a base já carregada e não recalcula o storage."
     )
     return _filter_outputs_by_competencia(outputs, start_month=start_month, end_month=end_month)
+
+
+def _reset_display_window_if_loaded_range_changed(*, loaded_start: date, loaded_end: date) -> None:
+    range_key = f"{loaded_start.isoformat()}::{loaded_end.isoformat()}"
+    state_key = "somatorio_fidcs_display_loaded_range"
+    if st.session_state.get(state_key) == range_key:
+        return
+    st.session_state[state_key] = range_key
+    st.session_state["somatorio_fidcs_display_window"] = DISPLAY_WINDOW_FULL_OPTION
+
+
+def _display_window_bounds(
+    *,
+    selected: str,
+    loaded_start: date,
+    loaded_end: date,
+) -> tuple[date, date]:
+    if selected == "YTD":
+        return _clamp_month(date(loaded_end.year, 1, 1), loaded_start, loaded_end), loaded_end
+    if selected in {DISPLAY_WINDOW_FULL_OPTION, "Customizado"}:
+        return loaded_start, loaded_end
+    months = int(selected.removesuffix("M"))
+    start_month = _clamp_month(shift_month(loaded_end, -(months - 1)), loaded_start, loaded_end)
+    return start_month, loaded_end
 
 
 def _available_competencia_months(monthly_df: pd.DataFrame) -> list[date]:
@@ -882,7 +904,7 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 1. Selecione uma carteira salva ou crie uma nova carteira com os FIDCs desejados.
 2. Escolha o período de carga; o padrão é 12 meses, mas a aba permite carregar 6M, 12M, 24M, 36M, YTD ou intervalo customizado.
 3. Clique em **Carregar carteira** para montar ou reutilizar a base individual, a base consolidada, os gráficos e os arquivos exportáveis.
-4. Depois da carga, ajuste a **Janela exibida** para navegar por 6M, 12M, 24M, 36M, YTD, customizado ou todo o histórico carregado sem recalcular o storage.
+4. Depois da carga, use o **Filtro visual (sem recarregar)** apenas para reduzir temporariamente a visualização. Por padrão, a aba mostra todo o período carregado.
 5. Use **Tabela Completa** para validar **Dados Consolidados – Somatório FIDCs**, **Dados Fundos Individuais** e gráficos principais.
 6. Use **Análise Crédito** para acompanhar carteira ex-360, YoY, roll rates, cohorts, duration, auditoria derivada e exportação analítica.
 
