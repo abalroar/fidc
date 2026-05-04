@@ -230,3 +230,6 @@ with tab_about:
     except ModuleNotFoundError as exc:
         st.error("A tela Sobre ainda não foi carregada corretamente neste deploy.")
         st.caption(f"Módulo ausente: {exc.name}. As demais abas continuam disponíveis.")
+    except Exception as exc:  # noqa: BLE001
+        st.error("A tela Sobre encontrou um erro, mas as demais abas continuam disponíveis.")
+        st.caption(f"Detalhe técnico: {type(exc).__name__}: {exc}")
