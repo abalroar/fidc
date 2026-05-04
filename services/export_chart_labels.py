@@ -173,7 +173,7 @@ def _last_index_tuple(series: Sequence[float | None]) -> tuple[int, ...]:
 
 
 def _selected_bar_indices(series: Sequence[float | None]) -> tuple[int, ...]:
-    valid = [(idx, value) for idx, value in enumerate(series) if _is_finite(value)]
+    valid = [(idx, value) for idx, value in enumerate(series) if _is_finite(value) and abs(value) > 1e-9]
     if not valid:
         return tuple()
     selected = {valid[0][0], valid[-1][0]}

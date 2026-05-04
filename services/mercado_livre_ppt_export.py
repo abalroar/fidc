@@ -232,7 +232,7 @@ def _add_pl_stack_chart(
     _style_chart_common(
         chart,
         title="PL por classe",
-        x_axis_title="Competência",
+        x_axis_title="",  # legenda na base já ocupa o espaço; evitar sobreposição
         y_axis_title=scale_label,
         number_format="#,##0.0",
         RGBColor=RGBColor,
@@ -253,7 +253,7 @@ def _add_pl_stack_chart(
         chart_kind="stacked_bar",
         metric_kind="money",
         percent=False,
-        positions=[XL_DATA_LABEL_POSITION.INSIDE_END, XL_DATA_LABEL_POSITION.INSIDE_END],
+        positions=[XL_DATA_LABEL_POSITION.CENTER, XL_DATA_LABEL_POSITION.INSIDE_END],
         RGBColor=RGBColor,
         Pt=Pt,
     )
@@ -380,6 +380,9 @@ def _set_chart_title(chart, title: str, RGBColor, Pt) -> None:  # noqa: ANN001
 
 
 def _set_axis_title(axis, title: str, RGBColor, Pt) -> None:  # noqa: ANN001
+    if not title:
+        axis.has_title = False
+        return
     axis.has_title = True
     _set_text_frame(axis.axis_title.text_frame, title, font_size=Pt(10), bold=False, color=MELI_DARK_GRAY, RGBColor=RGBColor)
 

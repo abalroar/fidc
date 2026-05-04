@@ -641,6 +641,7 @@ def _chart_pl_stacked(
 
     chart = _place_chart(slide, slot, XL_CHART_TYPE.COLUMN_STACKED, cdata, Inches)
     _style_chart(chart, "PL por classe", "Competência", scale_lbl, "#,##0.0", RGBColor, Pt)
+    chart.category_axis.has_title = False  # legenda na base já ocupa o espaço; evitar sobreposição
     chart.has_legend = True
     _style_legend(chart, XL_LEGEND_POSITION.BOTTOM, RGBColor, Pt)
     if chart.series:
@@ -658,7 +659,7 @@ def _chart_pl_stacked(
         RGBColor=RGBColor,
         Pt=Pt,
         positions=[
-            XL_DATA_LABEL_POSITION.INSIDE_END,
+            XL_DATA_LABEL_POSITION.CENTER,    # segmento interno: CENTER evita clipping horizontal
             XL_DATA_LABEL_POSITION.INSIDE_END,
         ],
     )
@@ -843,6 +844,7 @@ def _chart_stacked_npl(
     chart = _place_chart(slide, slot, XL_CHART_TYPE.COLUMN_STACKED, cdata, Inches)
     _style_chart(chart, "NPL ex-360 por severidade", "Competência",
                  "% carteira ex-360", "0.0%", RGBColor, Pt)
+    chart.category_axis.has_title = False  # legenda na base já ocupa o espaço; evitar sobreposição
     chart.has_legend = True
     _style_legend(chart, XL_LEGEND_POSITION.BOTTOM, RGBColor, Pt)
     if chart.series:
