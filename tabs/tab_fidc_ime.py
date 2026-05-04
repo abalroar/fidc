@@ -5007,6 +5007,24 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
         "Proxies: Vencidos=0d; ≤30d=30d; intervalos=ponto médio; >1080d=1440d."
     )
     x_sort = _competencia_axis_sort(df)
+
+    # Compute a smart Y-axis domain so tight time-series (e.g. 602–612 days)
+    # are rendered with enough vertical resolution to make deltas visible,
+    # while wide-range series (e.g. 0–800 days) still start at zero.
+    _ZOOM_THRESHOLD = 0.25  # zoom in when range < 25 % of the max value
+    _vals = df["duration_days"].dropna()
+    if len(_vals) >= 1:
+        _data_min = float(_vals.min())
+        _data_max = float(_vals.max())
+        _data_range = (_data_max - _data_min) if len(_vals) >= 2 else _data_max * 0.1
+        if _data_max > 0 and _data_range < _data_max * _ZOOM_THRESHOLD and _data_min > 0:
+            _pad = max(_data_range, _data_max * 0.05)
+            y_scale = alt.Scale(domain=[max(0.0, _data_min - _pad), _data_max + _pad * 0.5], zero=False)
+        else:
+            y_scale = alt.Scale(zero=True)
+    else:
+        y_scale = alt.Scale(zero=True)
+
     line_chart = (
         alt.Chart(df)
         .mark_line(color="#ff5a00", strokeWidth=2.4)
@@ -5015,6 +5033,7 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
             y=alt.Y(
                 "duration_days:Q",
                 title="Prazo médio proxy (dias)",
+                scale=y_scale,
                 axis=alt.Axis(labelColor="#5f6b7a", titleColor="#5f6b7a"),
             ),
             tooltip=[
@@ -5036,7 +5055,7 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
         )
         .encode(
             x=alt.X("competencia:N", sort=x_sort),
-            y=alt.Y("duration_days:Q"),
+            y=alt.Y("duration_days:Q", scale=y_scale),
         )
     )
     all_point_labels = (
@@ -5050,7 +5069,7 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
         )
         .encode(
             x=alt.X("competencia:N", sort=x_sort),
-            y=alt.Y("duration_days:Q", title="Prazo médio proxy (dias)"),
+            y=alt.Y("duration_days:Q", title="Prazo médio proxy (dias)", scale=y_scale),
             text=alt.Text("duration_label:N"),
         )
     )
