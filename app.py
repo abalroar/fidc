@@ -131,6 +131,55 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
     color: #ffffff !important;
 }
 
+.fidc-main-nav-marker {
+    display: none;
+}
+
+div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [role="radiogroup"],
+div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [data-baseweb="radio-group"] {
+    border-bottom: 1px solid #dde3ea;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 0 !important;
+    overflow-x: auto !important;
+    padding-bottom: 0 !important;
+    scrollbar-width: thin;
+}
+
+div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [role="radiogroup"] > label,
+div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [data-baseweb="radio-group"] > label {
+    background: #ffffff !important;
+    border: 0 !important;
+    border-bottom: 2px solid transparent !important;
+    border-radius: 0 !important;
+    color: #2f3a48 !important;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    line-height: 2.4rem !important;
+    padding: 0 1.05rem !important;
+    white-space: nowrap !important;
+}
+
+div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [role="radiogroup"] > label:hover,
+div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [data-baseweb="radio-group"] > label:hover {
+    background: #ffffff !important;
+    border-bottom-color: #8db7dc !important;
+    color: #1f77b4 !important;
+}
+
+div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [role="radiogroup"] > label:has(input:checked),
+div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [data-baseweb="radio-group"] > label:has(input:checked) {
+    background: #ffffff !important;
+    border-bottom-color: #1f77b4 !important;
+    color: #1f77b4 !important;
+    font-weight: 600 !important;
+}
+
+div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [role="radiogroup"] > label:has(input:checked) *,
+div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [data-baseweb="radio-group"] > label:has(input:checked) * {
+    color: #1f77b4 !important;
+}
+
 [data-testid="stTabs"] [role="tab"] {
     min-height: 2.55rem;
     white-space: nowrap;
@@ -205,10 +254,12 @@ _MAIN_SECTIONS = [
     "Sobre",
 ]
 
+st.markdown("<div class='fidc-main-nav-marker'></div>", unsafe_allow_html=True)
 selected_section = st.radio(
     "Seção",
     options=_MAIN_SECTIONS,
     key="fidc_main_section",
+    horizontal=True,
     label_visibility="collapsed",
 )
 
