@@ -85,7 +85,7 @@ OVER_AGING_CHART_COLORS = [
 
 OVER_SERIES_ORDER = ["Over 1", "Over 30", "Over 60", "Over 90", "Over 180", "Over 360"]
 
-COVERAGE_LINE_COLOR = "#6b2c3e"
+COVERAGE_LINE_COLOR = "#ff5a00"
 
 _PT_MONTH_ABBR: dict[str, str] = {
     "01": "jan",
@@ -1086,6 +1086,45 @@ def _render_risk_overview(dashboard: FundonetDashboardData) -> None:
     st.markdown(_render_fidc_grid(hero_cards, "fidc-grid--hero"), unsafe_allow_html=True)
 
 
+def _render_over_transparency_notes(st_ctx: object, over_history_df: pd.DataFrame) -> None:
+    if over_history_df.empty or "calculo_status" not in over_history_df.columns:
+        return
+    incomplete_competencias = (
+        over_history_df[over_history_df["calculo_status"] == "bucket_incompleto"]["competencia"]
+        .drop_duplicates()
+        .tolist()
+    )
+    partial_competencias = (
+        over_history_df[over_history_df["calculo_status"] == "calculado_parcial"]["competencia"]
+        .drop_duplicates()
+        .tolist()
+    )
+    sem_denom = (
+        over_history_df[over_history_df["calculo_status"] == "sem_denominador"]["competencia"]
+        .drop_duplicates()
+        .tolist()
+    )
+    if incomplete_competencias:
+        st_ctx.caption(
+            f"Atenção: {len(incomplete_competencias)} competência(s) com buckets de aging sem dado confirmado "
+            f"({', '.join(incomplete_competencias[:4])}{'…' if len(incomplete_competencias) > 4 else ''}) "
+            "— pontos omitidos. Possível causa: informe não reporta todas as faixas de atraso."
+        )
+    if partial_competencias:
+        st_ctx.caption(
+            f"Nota: {len(partial_competencias)} competência(s) com faixas de atraso ausentes no informe "
+            "(tratadas como zero no cálculo). Verifique a memória de cálculo para detalhes."
+        )
+    if sem_denom:
+        st_ctx.caption(
+            f"Denominador de DCs não disponível em {len(sem_denom)} competência(s) — percentual não calculado."
+        )
+    denominadores = over_history_df["denominador_fonte"].dropna().unique().tolist() if "denominador_fonte" in over_history_df.columns else []
+    if denominadores:
+        denom_label = ", ".join(str(d) for d in denominadores)
+        st_ctx.caption(f"Denominador Over: {denom_label} (total canônico de DCs).")
+
+
 def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section("Crédito")
     default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
@@ -1141,6 +1180,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             ),
             width="stretch",
         )
+        _render_over_transparency_notes(st, over_history_df)
     aging_history_df = dashboard.default_aging_history_df.copy()
     _render_chart_heading(st, "Aging")
     if aging_history_df.empty:
@@ -1254,7 +1294,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
     return_chart_df = _return_chart_frame(dashboard.return_history_df)
     if not return_chart_df.empty:
         ordered_labels = _return_ordered_labels(dashboard)
-        default_labels = ordered_labels if len(ordered_labels) <= 3 else ordered_labels[:3]
+        default_labels = ordered_labels
         selected_labels = st.multiselect(
             "Classes na rentabilidade",
             options=ordered_labels,
@@ -1636,7 +1676,7 @@ def _competencia_axis_sort(
     frame: pd.DataFrame,
     *,
     competencia_column: str = "competencia",
-    descending: bool = True,
+    descending: bool = False,
 ) -> list[str]:
     if frame.empty or competencia_column not in frame.columns:
         return []
@@ -1676,11 +1716,11 @@ def _sort_competencia_display_frame(
     helper_column = "__competencia_sort_dt"
     if "competencia_dt" in output.columns:
         sort_columns.append("competencia_dt")
-        ascending.append(False)
+        ascending.append(True)
     elif "competencia" in output.columns:
         output[helper_column] = pd.to_datetime("01/" + output["competencia"].astype(str), format="%d/%m/%Y", errors="coerce")
         sort_columns.append(helper_column)
-        ascending.append(False)
+        ascending.append(True)
     for column in extra_columns or []:
         if column in output.columns:
             sort_columns.append(column)
@@ -2617,7 +2657,7 @@ def _format_return_inline_matrix_frame(
         return pd.DataFrame(columns=["Classe", "YTD", "12 meses"])
     ordered_history = history_df.sort_values("competencia_dt").copy()
     competencias = ordered_history["competencia"].drop_duplicates().tolist()
-    display_competencias = list(reversed(competencias))
+    display_competencias = competencias
     pivot = (
         ordered_history.pivot_table(
             index=label_column,
@@ -3373,7 +3413,10 @@ def _quant_scale_with_headroom(
     min_value = float(numeric.min())
     max_value = float(numeric.max())
     if percent_like:
-        upper = max(max_value * 1.12, max_value + 4.0)
+        # Proportional headroom: ~25% of max, capped at 4 pp for large values.
+        # Avoids the previous flat +4 pp that crushed small-range charts (e.g. NPL 0–1%).
+        headroom = max(max_value * 0.25, min(max_value * 0.60, 2.0))
+        upper = max_value + headroom
         if max_cap is not None:
             upper = min(upper, max_cap)
         lower = 0.0 if floor_zero else min_value
