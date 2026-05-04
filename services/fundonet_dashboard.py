@@ -948,16 +948,22 @@ def _build_default_over_history_df(
             denom_row = denominator_lookup.loc[competencia]
             denominator = _to_numeric(denom_row.get("dc_total_canonico"))
             statuses = {str(value or "") for value in group_df.get("source_status", pd.Series(dtype="object")).tolist()}
-            incomplete = bool(statuses - {"reported_value", "reported_zero"})
+            # "missing_field" means the XML path is absent from the informe — treat as zero
+            # (the valor sum already fills these as 0.0 via fillna). Only truly uncertain
+            # statuses (not_reported, not_numeric) should suppress the calculation.
+            uncertain = statuses - {"reported_value", "reported_zero", "missing_field"}
+            has_missing_fields = bool(statuses & {"missing_field"})
             valor = float(group_df["valor"].sum())
             percentual = None
             calculo_status = "calculado"
             if denominator is None or denominator <= 0:
                 calculo_status = "sem_denominador"
-            elif incomplete:
+            elif uncertain:
                 calculo_status = "bucket_incompleto"
             else:
                 percentual = valor / denominator * 100.0
+                if has_missing_fields:
+                    calculo_status = "calculado_parcial"
             rows.append(
                 {
                     "competencia": competencia,
