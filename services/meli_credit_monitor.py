@@ -28,7 +28,7 @@ MELI_PDF_TARGETS: tuple[dict[str, object], ...] = (
         "column": "carteira_ex360",
         "target": 7_141_000_000.0,
         "unit": "R$",
-        "diagnostic": "Tabela 1 do Itaú BBA: Total Credit Portfolio (<360), em BRL mn.",
+        "diagnostic": "Total Credit Portfolio (<360), em BRL mn.",
     },
     {
         "metric": "NPL 1-90d",

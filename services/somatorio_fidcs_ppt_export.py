@@ -31,7 +31,7 @@ import pandas as pd
 from services.export_chart_labels import choose_export_label_policy, format_export_label
 
 # ---------------------------------------------------------------------------
-# Paleta de cores — Itaú BBA
+# Paleta de cores
 # ---------------------------------------------------------------------------
 _BLACK = "1F1F1F"
 _ORANGE = "EC7000"
@@ -247,7 +247,7 @@ def _add_cover(prs, layout, data_base: str, *, Inches, Pt, RGBColor, **_kw) -> N
              size=18, bold=False, color=_SUBTITLE_FG, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
 
     # Rodapé canto inferior direito
-    _textbox(slide, "Itaú BBA | Análise Setorial de Crédito",
+    _textbox(slide, "Análise Setorial de Crédito",
              left=_SW - 5.5, top=_SH - 0.50, width=5.0, height=0.35,
              size=10, bold=False, color=_SUBTITLE_FG,
              align_right=True, Inches=Inches, Pt=Pt, RGBColor=RGBColor)

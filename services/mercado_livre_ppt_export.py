@@ -5,7 +5,11 @@ from typing import Any
 
 import pandas as pd
 
-from services.export_chart_labels import choose_export_label_policy, format_export_label
+from services.export_chart_labels import (
+    DEFAULT_LABEL_FONT_SIZE_PT,
+    choose_export_label_policy,
+    format_export_label,
+)
 from services.mercado_livre_dashboard import PT_MONTH_ABBR
 
 
@@ -590,7 +594,7 @@ def _style_data_labels(
     labels.number_format = number_format
     labels.number_format_is_linked = False
     labels.position = position
-    labels.font.size = font_size or Pt(8)
+    labels.font.size = font_size or Pt(DEFAULT_LABEL_FONT_SIZE_PT)
     labels.font.bold = True
     labels.font.color.rgb = font_color
     if fill_color is not None:
