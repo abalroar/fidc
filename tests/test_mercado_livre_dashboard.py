@@ -483,7 +483,8 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         html = _render_wide_table_html(wide)
 
         self.assertIn("wide-table-wrapper", html)
-        self.assertIn("<details class='wide-section' open", html)
+        self.assertIn("<details class='wide-section' style=", html)
+        self.assertNotIn("<details class='wide-section' open", html)
         self.assertIn("<col class='label-col-width' style='width: 280px;'>", html)
         self.assertEqual(4, html.count("<col class='period-col-width' style='width: 96px;'>"))
         self.assertIn("<col class='formula-col-width' style='width: 340px;'>", html)

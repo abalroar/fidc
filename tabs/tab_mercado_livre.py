@@ -1198,7 +1198,7 @@ def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
     def flush_section() -> None:
         if not current_block:
             return
-        html.append(f"<details class='wide-section' open style='min-width: {table_min_width}px;'>")
+        html.append(f"<details class='wide-section' style='min-width: {table_min_width}px;'>")
         html.append(f"<summary>{escape(_section_label(current_block))}</summary>")
         html.append(f"<table class='wide-table' style='min-width: {table_min_width}px;'>")
         html.append(colgroup)
