@@ -777,7 +777,7 @@ def build_dashboard_pptx_bytes(
                     0.48,
                     0.14,
                     _format_percent(raw_value),
-                    size=8,
+                    size=DEFAULT_LABEL_FONT_SIZE_PT,
                     bold=True,
                     color=COVERAGE_LINE_COLOR,
                     align=PP_ALIGN.CENTER,
@@ -844,7 +844,7 @@ def build_dashboard_pptx_bytes(
         for idx in range(1, len(chart.series)):
             series = chart.series[idx]
             series.data_labels.font.bold = True
-            series.data_labels.font.size = Pt(label_font_size)
+            series.data_labels.font.size = Pt(max(label_font_size, DEFAULT_LABEL_FONT_SIZE_PT))
             series.data_labels.font.color.rgb = rgb(BLACK if idx == 2 else DARK_GRAY)
 
     def add_picture_bytes(slide, image_bytes: bytes, *, left: float, top: float, width: float, height: float) -> None:  # noqa: ANN001

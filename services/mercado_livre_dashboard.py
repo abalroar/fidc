@@ -15,6 +15,8 @@ from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 from openpyxl import Workbook
 from openpyxl.chart import BarChart, LineChart, Reference
 from openpyxl.chart.label import DataLabelList
+
+from services.export_chart_labels import choose_export_label_policy, should_enable_excel_data_labels
 from openpyxl.styles import Alignment, Font, PatternFill, Side, Border
 from openpyxl.utils import get_column_letter
 
@@ -646,6 +648,17 @@ def _write_snapshot_charts(ws, data_ws, month_count: int) -> None:
     max_row = month_count + 1
     categories = Reference(data_ws, min_col=1, min_row=2, max_row=max_row)
 
+    # Decide se habilita labels usando a mesma engine dos gráficos PPT.
+    # openpyxl suporta apenas labels em nível de chart (não ponto a ponto),
+    # por isso só habilitamos quando a policy retorna mode="all" (≤8 pontos).
+    _dummy = [[1.0] * month_count]
+    _bar_labels = should_enable_excel_data_labels(
+        choose_export_label_policy(_dummy, chart_kind="bar", metric_kind="money")
+    )
+    _line_labels = should_enable_excel_data_labels(
+        choose_export_label_policy(_dummy, chart_kind="line", metric_kind="npl_pct")
+    )
+
     pl_chart = BarChart()
     pl_chart.type = "col"
     pl_chart.style = 10
@@ -659,7 +672,7 @@ def _write_snapshot_charts(ws, data_ws, month_count: int) -> None:
     for series, color in zip(pl_chart.series, ["000000", "E47811"], strict=False):
         series.graphicalProperties.solidFill = color
         series.graphicalProperties.line.solidFill = color
-    _apply_excel_data_labels(pl_chart, number_format="#,##0", enable=month_count <= 12)
+    _apply_excel_data_labels(pl_chart, number_format="#,##0", enable=_bar_labels)
 
     sub_line = LineChart()
     sub_line.add_data(Reference(data_ws, min_col=4, min_row=1, max_row=max_row), titles_from_data=True)
@@ -671,7 +684,7 @@ def _write_snapshot_charts(ws, data_ws, month_count: int) -> None:
         sub_line.series[0].graphicalProperties.line.solidFill = "3F3F3F"
         sub_line.series[0].graphicalProperties.line.width = 25000
         sub_line.series[0].marker.symbol = "circle"
-    _apply_excel_data_labels(sub_line, number_format="0.0%", enable=month_count <= 8)
+    _apply_excel_data_labels(sub_line, number_format="0.0%", enable=_line_labels)
     pl_chart += sub_line
     ws.add_chart(pl_chart, "B2")
 
@@ -687,7 +700,7 @@ def _write_snapshot_charts(ws, data_ws, month_count: int) -> None:
         npl_chart.series[0].graphicalProperties.line.solidFill = "000000"
         npl_chart.series[0].graphicalProperties.line.width = 25000
         npl_chart.series[0].marker.symbol = "circle"
-    _apply_excel_data_labels(npl_chart, number_format="0.0%", enable=month_count <= 8)
+    _apply_excel_data_labels(npl_chart, number_format="0.0%", enable=_line_labels)
 
     coverage_line = LineChart()
     coverage_line.add_data(Reference(data_ws, min_col=6, min_row=1, max_row=max_row), titles_from_data=True)
@@ -699,7 +712,7 @@ def _write_snapshot_charts(ws, data_ws, month_count: int) -> None:
         coverage_line.series[0].graphicalProperties.line.solidFill = "E47811"
         coverage_line.series[0].graphicalProperties.line.width = 25000
         coverage_line.series[0].marker.symbol = "circle"
-    _apply_excel_data_labels(coverage_line, number_format="0.0%", enable=month_count <= 8)
+    _apply_excel_data_labels(coverage_line, number_format="0.0%", enable=_line_labels)
     npl_chart += coverage_line
     ws.add_chart(npl_chart, "B32")
 
