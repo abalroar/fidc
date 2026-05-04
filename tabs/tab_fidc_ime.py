@@ -1169,17 +1169,20 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             ["competencia", "competencia_dt", "ordem", "serie", "percentual"]
         ].rename(columns={"percentual": "valor"})
         over_chart_df = over_chart_df.dropna(subset=["valor"]).sort_values(["ordem", "competencia_dt"])
-        st.altair_chart(
-            _line_history_chart(
-                over_chart_df,
-                title=None,
-                y_title="%",
-                color_range=OVER_AGING_CHART_COLORS,
-                show_point_labels=False,
-                show_end_labels=True,
-            ),
-            width="stretch",
-        )
+        if not over_chart_df.empty:
+            st.altair_chart(
+                _line_history_chart(
+                    over_chart_df,
+                    title=None,
+                    y_title="%",
+                    color_range=OVER_AGING_CHART_COLORS,
+                    show_point_labels=False,
+                    show_end_labels=True,
+                ),
+                width="stretch",
+            )
+        else:
+            st.caption("Curva Over não disponível — dados de aging incompletos para todos os períodos.")
         _render_over_transparency_notes(st, over_history_df)
     aging_history_df = dashboard.default_aging_history_df.copy()
     _render_chart_heading(st, "Aging")
@@ -3413,13 +3416,19 @@ def _quant_scale_with_headroom(
     min_value = float(numeric.min())
     max_value = float(numeric.max())
     if percent_like:
-        # Proportional headroom: ~25% of max, capped at 4 pp for large values.
-        # Avoids the previous flat +4 pp that crushed small-range charts (e.g. NPL 0–1%).
-        headroom = max(max_value * 0.25, min(max_value * 0.60, 2.0))
-        upper = max_value + headroom
+        # Proportional headroom: ~25–60% of max, avoiding the previous flat +4 pp
+        # that crushed small-range charts (e.g. NPL 0–1%). Guard against zero/negative
+        # max_value to prevent invalid Altair domains.
+        if max_value <= 0:
+            upper = 5.0
+        else:
+            headroom = max(max_value * 0.25, min(max_value * 0.60, 2.0))
+            upper = max_value + headroom
         if max_cap is not None:
             upper = min(upper, max_cap)
         lower = 0.0 if floor_zero else min_value
+        if upper <= lower:
+            upper = lower + 5.0
         return alt.Scale(domain=[lower, upper], nice=False)
     if max_value >= 0:
         upper = max(max_value * 1.14, max_value + max(1.0, abs(max_value) * 0.06))
