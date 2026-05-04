@@ -1361,11 +1361,6 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
 
     _render_duration_section(dashboard)
 
-    if not dashboard.event_summary_latest_df.empty:
-        _render_detail_tables_expander(
-            "Abrir eventos de cotas",
-            [("Eventos de cotas na competência mais recente", _format_event_summary_table(dashboard.event_summary_latest_df))],
-        )
 
 
 def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
