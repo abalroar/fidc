@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import streamlit as st
 
-from tabs.tab_about import render_tab_about
 from tabs.tab_fidc_book import render_tab_fidc_book
 from tabs import tab_fidc_ime as ime_tab
 from tabs.tab_mercado_livre import render_tab_somatorio_fidcs
@@ -224,4 +223,10 @@ with tab_book:
     render_tab_fidc_book()
 
 with tab_about:
-    render_tab_about()
+    try:
+        from tabs.tab_about import render_tab_about
+
+        render_tab_about()
+    except ModuleNotFoundError as exc:
+        st.error("A tela Sobre ainda não foi carregada corretamente neste deploy.")
+        st.caption(f"Módulo ausente: {exc.name}. As demais abas continuam disponíveis.")
