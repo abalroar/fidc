@@ -196,33 +196,33 @@ _render_period_selector = getattr(ime_tab, "render_period_selector", None) or ge
 period = _render_period_selector(state_prefix="ime_global")
 
 
-tab_informes, tab_carteira, tab_somatorio_fidcs, tab_modelo, tab_book, tab_about = st.tabs(
-    [
-        "Informe Mensal Estruturado",
-        "Acompanhamento Carteira",
-        "Somatório FIDCs",
-        "Modelo FIDC",
-        "Glossário FIDC",
-        "Sobre",
-    ]
+_MAIN_SECTIONS = [
+    "Informe Mensal Estruturado",
+    "Acompanhamento Carteira",
+    "Somatório FIDCs",
+    "Modelo FIDC",
+    "Glossário FIDC",
+    "Sobre",
+]
+
+selected_section = st.radio(
+    "Seção",
+    options=_MAIN_SECTIONS,
+    key="fidc_main_section",
+    label_visibility="collapsed",
 )
 
-with tab_informes:
+if selected_section == "Informe Mensal Estruturado":
     ime_tab.render_tab_fidc_ime(period=period)
-
-with tab_carteira:
+elif selected_section == "Acompanhamento Carteira":
     render_tab_fidc_ime_carteira(period=period)
-
-with tab_somatorio_fidcs:
+elif selected_section == "Somatório FIDCs":
     render_tab_somatorio_fidcs(period=period)
-
-with tab_modelo:
+elif selected_section == "Modelo FIDC":
     render_tab_modelo_fidc()
-
-with tab_book:
+elif selected_section == "Glossário FIDC":
     render_tab_fidc_book()
-
-with tab_about:
+elif selected_section == "Sobre":
     try:
         from tabs.tab_about import render_tab_about
 
