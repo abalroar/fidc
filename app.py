@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 
+from tabs.tab_about import render_tab_about
 from tabs.tab_fidc_book import render_tab_fidc_book
 from tabs import tab_fidc_ime as ime_tab
 from tabs.tab_mercado_livre import render_tab_somatorio_fidcs
@@ -196,13 +197,14 @@ _render_period_selector = getattr(ime_tab, "render_period_selector", None) or ge
 period = _render_period_selector(state_prefix="ime_global")
 
 
-tab_informes, tab_carteira, tab_somatorio_fidcs, tab_modelo, tab_book = st.tabs(
+tab_informes, tab_carteira, tab_somatorio_fidcs, tab_modelo, tab_book, tab_about = st.tabs(
     [
         "Informe Mensal Estruturado",
         "Acompanhamento Carteira",
         "Somatório FIDCs",
         "Modelo FIDC",
         "Glossário FIDC",
+        "Sobre",
     ]
 )
 
@@ -220,3 +222,6 @@ with tab_modelo:
 
 with tab_book:
     render_tab_fidc_book()
+
+with tab_about:
+    render_tab_about()

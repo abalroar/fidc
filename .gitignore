@@ -36,6 +36,9 @@ env/
 !.streamlit/
 !.streamlit/config.toml
 
+# Local runtime cache
+data/dev_hours_cache.json
+
 # OS
 .DS_Store
 Thumbs.db
