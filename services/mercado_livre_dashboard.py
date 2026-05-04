@@ -14,6 +14,7 @@ from pandas.errors import EmptyDataError
 from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 from openpyxl import Workbook
 from openpyxl.chart import BarChart, LineChart, Reference
+from openpyxl.chart.label import DataLabelList
 from openpyxl.styles import Alignment, Font, PatternFill, Side, Border
 from openpyxl.utils import get_column_letter
 
@@ -658,6 +659,7 @@ def _write_snapshot_charts(ws, data_ws, month_count: int) -> None:
     for series, color in zip(pl_chart.series, ["000000", "E47811"], strict=False):
         series.graphicalProperties.solidFill = color
         series.graphicalProperties.line.solidFill = color
+    _apply_excel_data_labels(pl_chart, number_format="#,##0", enable=month_count <= 12)
 
     sub_line = LineChart()
     sub_line.add_data(Reference(data_ws, min_col=4, min_row=1, max_row=max_row), titles_from_data=True)
@@ -669,6 +671,7 @@ def _write_snapshot_charts(ws, data_ws, month_count: int) -> None:
         sub_line.series[0].graphicalProperties.line.solidFill = "3F3F3F"
         sub_line.series[0].graphicalProperties.line.width = 25000
         sub_line.series[0].marker.symbol = "circle"
+    _apply_excel_data_labels(sub_line, number_format="0.0%", enable=month_count <= 8)
     pl_chart += sub_line
     ws.add_chart(pl_chart, "B2")
 
@@ -684,6 +687,7 @@ def _write_snapshot_charts(ws, data_ws, month_count: int) -> None:
         npl_chart.series[0].graphicalProperties.line.solidFill = "000000"
         npl_chart.series[0].graphicalProperties.line.width = 25000
         npl_chart.series[0].marker.symbol = "circle"
+    _apply_excel_data_labels(npl_chart, number_format="0.0%", enable=month_count <= 8)
 
     coverage_line = LineChart()
     coverage_line.add_data(Reference(data_ws, min_col=6, min_row=1, max_row=max_row), titles_from_data=True)
@@ -695,8 +699,18 @@ def _write_snapshot_charts(ws, data_ws, month_count: int) -> None:
         coverage_line.series[0].graphicalProperties.line.solidFill = "E47811"
         coverage_line.series[0].graphicalProperties.line.width = 25000
         coverage_line.series[0].marker.symbol = "circle"
+    _apply_excel_data_labels(coverage_line, number_format="0.0%", enable=month_count <= 8)
     npl_chart += coverage_line
     ws.add_chart(npl_chart, "B32")
+
+
+def _apply_excel_data_labels(chart, *, number_format: str, enable: bool) -> None:
+    if not enable:
+        return
+    labels = DataLabelList()
+    labels.showVal = True
+    labels.numFmt = number_format
+    chart.dLbls = labels
 
 
 def _excel_snapshot_value(value: object, *, unit: str) -> float | None:

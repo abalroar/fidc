@@ -5,6 +5,7 @@ from typing import Any
 
 import pandas as pd
 
+from services.export_chart_labels import choose_export_label_policy, format_export_label
 from services.mercado_livre_dashboard import PT_MONTH_ABBR
 
 
@@ -129,6 +130,7 @@ def _add_scope_grid_slide(
         df=df,
         categories=categories,
         color=MELI_BLACK,
+        metric_kind="npl_pct",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
@@ -146,6 +148,7 @@ def _add_scope_grid_slide(
         df=df,
         categories=categories,
         color=MELI_ORANGE,
+        metric_kind="coverage_pct",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
@@ -203,10 +206,15 @@ def _add_pl_stack_chart(
     )
     chart_data = CategoryChartData()
     chart_data.categories = categories
-    chart_data.add_series("Sênior", [_scaled_value(value, scale_divisor) for value in df.get("pl_senior", pd.Series(dtype="float"))])
+    senior_values = [_scaled_value(value, scale_divisor) for value in df.get("pl_senior", pd.Series(dtype="float"))]
+    subord_values = [
+        _scaled_value(value, scale_divisor)
+        for value in df.get("pl_subordinada_mezz_ex360", pd.Series(dtype="float"))
+    ]
+    chart_data.add_series("Sênior", senior_values)
     chart_data.add_series(
         "Subordinada + Mezanino ex-360",
-        [_scaled_value(value, scale_divisor) for value in df.get("pl_subordinada_mezz_ex360", pd.Series(dtype="float"))],
+        subord_values,
     )
     left, top, width, height = slot
     chart = slide.shapes.add_chart(
@@ -232,28 +240,19 @@ def _add_pl_stack_chart(
     _style_legend(chart, RGBColor=RGBColor, Pt=Pt)
     if chart.series:
         _set_series_fill(chart.series[0], _rgb(MELI_BLACK, RGBColor))
-        _style_data_labels(
-            chart.series[0],
-            position=XL_DATA_LABEL_POSITION.INSIDE_END,
-            number_format="#,##0.0",
-            font_color=_rgb("FFFFFF", RGBColor),
-            fill_color=_rgb(MELI_BLACK, RGBColor),
-            RGBColor=RGBColor,
-            Pt=Pt,
-            font_size=Pt(10),
-        )
     if len(chart.series) > 1:
         _set_series_fill(chart.series[1], _rgb(MELI_ORANGE, RGBColor))
-        _style_data_labels(
-            chart.series[1],
-            position=XL_DATA_LABEL_POSITION.INSIDE_END,
-            number_format="#,##0.0",
-            font_color=_rgb(MELI_BLACK, RGBColor),
-            fill_color=_rgb(MELI_ORANGE, RGBColor),
-            RGBColor=RGBColor,
-            Pt=Pt,
-            font_size=Pt(10),
-        )
+    _apply_ppt_export_labels(
+        chart,
+        [senior_values, subord_values],
+        ["FFFFFF", MELI_BLACK],
+        chart_kind="stacked_bar",
+        metric_kind="money",
+        percent=False,
+        positions=[XL_DATA_LABEL_POSITION.INSIDE_END, XL_DATA_LABEL_POSITION.INSIDE_END],
+        RGBColor=RGBColor,
+        Pt=Pt,
+    )
     _add_latest_pl_total_badge(slide, slot, df, scale_divisor, scale_label, RGBColor, Inches, Pt)
 
 
@@ -274,6 +273,7 @@ def _add_percent_line_chart(
     XL_MARKER_STYLE,
     Inches,
     Pt,
+    metric_kind: str = "general_pct",
 ) -> None:
     values = [_percent_value(value) for value in df.get(column, pd.Series(dtype="float"))]
     if not any(value is not None for value in values):
@@ -304,12 +304,14 @@ def _add_percent_line_chart(
     chart.has_legend = False
     if chart.series:
         _set_series_line(chart.series[0], _rgb(color, RGBColor), XL_MARKER_STYLE.CIRCLE)
-        _style_data_labels(
-            chart.series[0],
-            position=XL_DATA_LABEL_POSITION.ABOVE,
-            number_format="0.0%",
-            font_color=_rgb(color, RGBColor),
-            fill_color=None,
+        _apply_ppt_export_labels(
+            chart,
+            [values],
+            [color],
+            chart_kind="line",
+            metric_kind=metric_kind,
+            percent=True,
+            positions=[XL_DATA_LABEL_POSITION.ABOVE],
             RGBColor=RGBColor,
             Pt=Pt,
         )
@@ -528,6 +530,48 @@ def _set_series_line(series, color, marker_style) -> None:  # noqa: ANN001
     series.marker.format.fill.solid()
     series.marker.format.fill.fore_color.rgb = color
     series.marker.format.line.color.rgb = color
+
+
+def _apply_ppt_export_labels(
+    chart,
+    series_values: list[list[float | None]],
+    colors: list[str],
+    *,
+    chart_kind: str,
+    metric_kind: str,
+    percent: bool,
+    positions: list,
+    RGBColor,
+    Pt,
+) -> None:
+    policy = choose_export_label_policy(
+        series_values,
+        chart_kind=chart_kind,
+        metric_kind=metric_kind,
+    )
+    if policy.mode == "none":
+        return
+    for series_idx, point_indices in enumerate(policy.indices_by_series):
+        if series_idx >= len(chart.series):
+            continue
+        values = series_values[series_idx]
+        for point_idx in point_indices:
+            if point_idx >= len(values):
+                continue
+            try:
+                label = chart.series[series_idx].points[point_idx].data_label
+                label.position = positions[series_idx % len(positions)]
+                label.has_text_frame = True
+                text_frame = label.text_frame
+                text_frame.clear()
+                run = text_frame.paragraphs[0].add_run()
+                run.text = format_export_label(values[point_idx], metric_kind=metric_kind, percent_value=percent)
+                run.font.name = "Calibri"
+                run.font.size = Pt(policy.font_size_pt)
+                run.font.bold = True
+                run.font.color.rgb = _rgb(colors[series_idx % len(colors)], RGBColor)
+            except Exception:
+                continue
 
 
 def _style_data_labels(

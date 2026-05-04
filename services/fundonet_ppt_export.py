@@ -11,6 +11,11 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 from PIL import Image, ImageDraw, ImageFont
 
+from services.export_chart_labels import (
+    DEFAULT_LABEL_FONT_SIZE_PT,
+    choose_export_label_policy,
+    format_export_label,
+)
 from services.fundonet_dashboard import FundonetDashboardData
 
 
@@ -394,14 +399,29 @@ def build_dashboard_pptx_bytes(
             plot.gap_width = gap_width
         if overlap is not None and hasattr(plot, "overlap"):
             plot.overlap = overlap
-        plot.has_data_labels = show_data_labels
-        if show_data_labels:
+
+        if chart_type == XL_CHART_TYPE.LINE_MARKERS:
+            export_chart_kind = "line" if len(series_map) <= 2 else "multi_line"
+        elif chart_type == XL_CHART_TYPE.COLUMN_STACKED:
+            export_chart_kind = "stacked_bar"
+        else:
+            export_chart_kind = "bar"
+        export_metric_kind = "money" if money_axis else "general_pct" if percent_axis else "number"
+        export_policy = choose_export_label_policy(
+            [values for _, values in series_map],
+            chart_kind=export_chart_kind,
+            metric_kind=export_metric_kind,
+        )
+        use_chart_level_labels = show_data_labels and export_policy.shows_all_points
+
+        plot.has_data_labels = use_chart_level_labels
+        if use_chart_level_labels:
             labels = plot.data_labels
             labels.show_value = True
             labels.number_format = number_format
             labels.position = _data_label_position(label_position)
             labels.font.name = "IBM Plex Sans"
-            labels.font.size = Pt(label_font_size)
+            labels.font.size = Pt(max(label_font_size, DEFAULT_LABEL_FONT_SIZE_PT))
             labels.font.bold = True
             labels.font.color.rgb = rgb(label_color)
 
@@ -434,14 +454,45 @@ def build_dashboard_pptx_bytes(
             fill.solid()
             fill.fore_color.rgb = rgb(applied_colors[idx % len(applied_colors)])
             series.format.line.color.rgb = rgb(applied_colors[idx % len(applied_colors)])
-            if show_data_labels and hasattr(series, "data_labels"):
+            if use_chart_level_labels and hasattr(series, "data_labels"):
                 series.data_labels.show_value = True
                 series.data_labels.number_format = number_format
                 series.data_labels.position = _data_label_position(label_position)
                 series.data_labels.font.name = "IBM Plex Sans"
-                series.data_labels.font.size = Pt(label_font_size)
+                series.data_labels.font.size = Pt(max(label_font_size, DEFAULT_LABEL_FONT_SIZE_PT))
                 series.data_labels.font.bold = True
                 series.data_labels.font.color.rgb = rgb(label_color)
+
+        if show_data_labels and not use_chart_level_labels:
+            for series_idx, point_indices in enumerate(export_policy.indices_by_series):
+                if series_idx >= len(chart.series):
+                    continue
+                _, values = series_map[series_idx]
+                for point_idx in point_indices:
+                    if point_idx >= len(values):
+                        continue
+                    try:
+                        point = chart.series[series_idx].points[point_idx]
+                        label = point.data_label
+                        label.position = _data_label_position(label_position)
+                        label.has_text_frame = True
+                        text_frame = label.text_frame
+                        text_frame.clear()
+                        run = text_frame.paragraphs[0].add_run()
+                        run.text = format_export_label(
+                            values[point_idx],
+                            metric_kind=export_metric_kind,
+                            percent_value=False,
+                        )
+                        run.font.name = "IBM Plex Sans"
+                        run.font.size = Pt(export_policy.font_size_pt)
+                        run.font.bold = True
+                        if export_chart_kind in {"line", "multi_line"}:
+                            run.font.color.rgb = rgb(applied_colors[series_idx % len(applied_colors)])
+                        else:
+                            run.font.color.rgb = rgb(label_color)
+                    except Exception:  # noqa: BLE001
+                        continue
 
         return chart
 

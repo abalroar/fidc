@@ -5,6 +5,7 @@ from typing import Any
 
 import pandas as pd
 
+from services.export_chart_labels import choose_export_label_policy, format_export_label
 from services.mercado_livre_dashboard import PT_MONTH_ABBR
 
 
@@ -198,6 +199,7 @@ def _add_consolidated_slide(
         categories=categories,
         series_specs=list(ROLL_RATE_PPT_SERIES),
         y_axis_title="%",
+        metric_kind="roll_pct",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
@@ -285,6 +287,7 @@ def _add_fund_slide(
         categories=categories,
         series_specs=list(ROLL_RATE_PPT_SERIES),
         y_axis_title="%",
+        metric_kind="roll_pct",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
@@ -328,6 +331,7 @@ def _add_fund_detail_slide(
         series_specs=[(serie, serie, color) for serie, color in _series_colors(duration_series)],
         y_axis_title="meses",
         value_is_percent=False,
+        metric_kind="duration",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
@@ -384,6 +388,7 @@ def _add_consolidated_detail_slide(
         series_specs=[(serie, serie, color) for serie, color in _series_colors(duration_series)],
         y_axis_title="meses",
         value_is_percent=False,
+        metric_kind="duration",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
@@ -440,6 +445,7 @@ def _add_consolidated_roll_seasonality_slide(
             categories=_wide_categories(chart_df),
             series_specs=[(serie, serie, color) for serie, color in _series_colors(_wide_series(chart_df))],
             y_axis_title="%",
+            metric_kind="roll_pct",
             CategoryChartData=CategoryChartData,
             RGBColor=RGBColor,
             XL_CHART_TYPE=XL_CHART_TYPE,
@@ -469,6 +475,7 @@ def _add_multi_line_chart(
     Inches,
     Pt,
     value_is_percent: bool = True,
+    metric_kind: str = "general_pct",
 ) -> None:
     valid_specs = [(name, column, color) for name, column, color in series_specs if column in df.columns or name in set(df.get("serie", pd.Series(dtype="object")))]
     if df.empty or not categories or not valid_specs:
@@ -491,12 +498,13 @@ def _add_multi_line_chart(
     _style_legend(chart, XL_LEGEND_POSITION, RGBColor, Pt)
     for series, (_, _, color) in zip(chart.series, valid_specs, strict=False):
         _set_series_line(series, _rgb(color, RGBColor), XL_MARKER_STYLE.CIRCLE)
-    _apply_last_point_labels(
+    _apply_smart_data_labels(
         chart,
         series_values,
         [color for _, _, color in valid_specs],
+        chart_kind="multi_line" if len(valid_specs) > 1 else "line",
+        metric_kind=metric_kind,
         percent=value_is_percent,
-        decimals=1,
         RGBColor=RGBColor,
         Pt=Pt,
         XL_LABEL_POSITION=XL_LABEL_POSITION,
@@ -534,12 +542,13 @@ def _add_stacked_npl_chart(
     _style_legend(chart, XL_LEGEND_POSITION, RGBColor, Pt)
     for series, color in zip(chart.series, [MELI_BLACK, MELI_ORANGE], strict=False):
         _set_series_fill(series, _rgb(color, RGBColor))
-    _apply_last_point_labels(
+    _apply_smart_data_labels(
         chart,
         series_values,
         [MELI_WHITE, MELI_BLACK],
+        chart_kind="stacked_bar",
+        metric_kind="npl_pct",
         percent=True,
-        decimals=1,
         RGBColor=RGBColor,
         Pt=Pt,
         XL_LABEL_POSITION=XL_LABEL_POSITION,
@@ -576,12 +585,13 @@ def _add_money_bar_chart(
     chart.has_legend = False
     if chart.series:
         _set_series_fill(chart.series[0], _rgb(MELI_BLACK, RGBColor))
-    _apply_last_point_labels(
+    _apply_smart_data_labels(
         chart,
         [values],
         [MELI_BLACK],
+        chart_kind="bar",
+        metric_kind="money",
         percent=False,
-        decimals=0,
         RGBColor=RGBColor,
         Pt=Pt,
         XL_LABEL_POSITION=XL_LABEL_POSITION,
@@ -626,12 +636,13 @@ def _add_cohort_chart(
     _style_legend(chart, XL_LEGEND_POSITION, RGBColor, Pt)
     for series, color in zip(chart.series, colors, strict=False):
         _set_series_line(series, _rgb(color, RGBColor), XL_MARKER_STYLE.CIRCLE)
-    _apply_last_point_labels(
+    _apply_smart_data_labels(
         chart,
         series_values,
         colors,
+        chart_kind="cohort",
+        metric_kind="cohort_pct",
         percent=True,
-        decimals=1,
         RGBColor=RGBColor,
         Pt=Pt,
         XL_LABEL_POSITION=XL_LABEL_POSITION,
@@ -843,40 +854,52 @@ def _style_legend(chart, XL_LEGEND_POSITION, RGBColor, Pt) -> None:  # noqa: ANN
     chart.legend.font.color.rgb = _rgb(MELI_DARK_GRAY, RGBColor)
 
 
-def _apply_last_point_labels(
+def _apply_smart_data_labels(
     chart,
     series_values: list[list[float | None]],
     colors: list[str],
     *,
+    chart_kind: str,
+    metric_kind: str,
     percent: bool,
-    decimals: int,
     RGBColor,
     Pt,
     XL_LABEL_POSITION,
     positions: list | None = None,
 ) -> None:
+    policy = choose_export_label_policy(
+        series_values,
+        chart_kind=chart_kind,
+        metric_kind=metric_kind,
+    )
+    if policy.mode == "none":
+        return
     default_positions = [XL_LABEL_POSITION.RIGHT, XL_LABEL_POSITION.ABOVE, XL_LABEL_POSITION.BELOW, XL_LABEL_POSITION.LEFT]
     label_positions = positions or default_positions
-    for series_idx, values in enumerate(series_values):
-        point_idx = _last_non_null_index(values)
-        if point_idx is None or series_idx >= len(chart.series):
+    for series_idx, point_indices in enumerate(policy.indices_by_series):
+        if series_idx >= len(chart.series):
             continue
-        try:
-            point = chart.series[series_idx].points[point_idx]
-        except (IndexError, TypeError):
-            continue
-        label = _format_ppt_value(values[point_idx], percent=percent, decimals=decimals)
-        _set_point_label(
-            point,
-            label,
-            colors[series_idx % len(colors)],
-            label_positions[series_idx % len(label_positions)],
-            RGBColor,
-            Pt,
-        )
+        values = series_values[series_idx]
+        for point_idx in point_indices:
+            if point_idx >= len(values):
+                continue
+            try:
+                point = chart.series[series_idx].points[point_idx]
+            except (IndexError, TypeError):
+                continue
+            label = format_export_label(values[point_idx], metric_kind=metric_kind, percent_value=percent)
+            _set_point_label(
+                point,
+                label,
+                colors[series_idx % len(colors)],
+                label_positions[series_idx % len(label_positions)],
+                RGBColor,
+                Pt,
+                font_size=policy.font_size_pt,
+            )
 
 
-def _set_point_label(point, text: str, color: str, position, RGBColor, Pt) -> None:  # noqa: ANN001
+def _set_point_label(point, text: str, color: str, position, RGBColor, Pt, *, font_size: int) -> None:  # noqa: ANN001
     label = point.data_label
     label.position = position
     label.has_text_frame = True
@@ -886,7 +909,7 @@ def _set_point_label(point, text: str, color: str, position, RGBColor, Pt) -> No
     run = paragraph.add_run()
     run.text = text
     run.font.name = "Calibri"
-    run.font.size = Pt(8)
+    run.font.size = Pt(font_size)
     run.font.bold = True
     run.font.color.rgb = _rgb(color, RGBColor)
 

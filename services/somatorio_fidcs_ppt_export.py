@@ -28,6 +28,8 @@ from typing import Any
 
 import pandas as pd
 
+from services.export_chart_labels import choose_export_label_policy, format_export_label
+
 # ---------------------------------------------------------------------------
 # Paleta de cores — Itaú BBA
 # ---------------------------------------------------------------------------
@@ -359,13 +361,13 @@ def _add_base_slide(
     _chart_percent_line(slide, slots[2],
                         title="NPL Over 90d ex-360 / Carteira",
                         column="npl_over90_ex360_pct",
-                        df=df, cats=cats, color=_BLACK,
+                        df=df, cats=cats, color=_BLACK, metric_kind="npl_pct",
                         CategoryChartData=CategoryChartData, RGBColor=RGBColor,
                         XL_CHART_TYPE=XL_CHART_TYPE, Inches=Inches, Pt=Pt)
     _chart_percent_line(slide, slots[3],
                         title="Cobertura PDD / NPL Over 90d ex-360",
                         column="pdd_npl_over90_ex360_pct",
-                        df=df, cats=cats, color=_ORANGE,
+                        df=df, cats=cats, color=_ORANGE, metric_kind="coverage_pct",
                         CategoryChartData=CategoryChartData, RGBColor=RGBColor,
                         XL_CHART_TYPE=XL_CHART_TYPE, Inches=Inches, Pt=Pt)
 
@@ -420,7 +422,7 @@ def _add_credit_slide(
                           ("Roll 121-150 M-5", "roll_121_150_m5_pct", _GRAY_MID),
                           ("Roll 151-180 M-6", "roll_151_180_m6_pct", _ORANGE),
                       ],
-                      y_title="%", value_is_percent=True,
+                      y_title="%", value_is_percent=True, metric_kind="roll_pct",
                       CategoryChartData=CategoryChartData, RGBColor=RGBColor,
                       XL_CHART_TYPE=XL_CHART_TYPE, XL_LABEL_POSITION=XL_LABEL_POSITION,
                       XL_LEGEND_POSITION=XL_LEGEND_POSITION, XL_MARKER_STYLE=XL_MARKER_STYLE,
@@ -457,7 +459,7 @@ def _add_detail_slide(
                       title="Duration por FIDC",
                       df=dur_df, cats=_category_labels(dur_df),
                       series_specs=dur_specs,
-                      y_title="meses", value_is_percent=False,
+                      y_title="meses", value_is_percent=False, metric_kind="duration",
                       legend_below=True,
                       CategoryChartData=CategoryChartData, RGBColor=RGBColor,
                       XL_CHART_TYPE=XL_CHART_TYPE, XL_LABEL_POSITION=XL_LABEL_POSITION,
@@ -510,7 +512,7 @@ def _add_roll_slide(
                           df=chart_df,
                           cats=chart_df.get("competencia", pd.Series(dtype="str")).astype(str).tolist(),
                           series_specs=[(s, s, colors[i % len(colors)]) for i, s in enumerate(series)],
-                          y_title="%", value_is_percent=True,
+                          y_title="%", value_is_percent=True, metric_kind="roll_pct",
                           CategoryChartData=CategoryChartData, RGBColor=RGBColor,
                           XL_CHART_TYPE=XL_CHART_TYPE, XL_LABEL_POSITION=XL_LABEL_POSITION,
                           XL_LEGEND_POSITION=XL_LEGEND_POSITION, XL_MARKER_STYLE=XL_MARKER_STYLE,
@@ -643,14 +645,23 @@ def _chart_pl_stacked(
     _style_legend(chart, XL_LEGEND_POSITION.BOTTOM, RGBColor, Pt)
     if chart.series:
         _series_fill(chart.series[0], _rgb(_BLACK, RGBColor))
-        _selective_bar_labels(chart.series[0], senior_vals,
-                               XL_DATA_LABEL_POSITION.INSIDE_END, "#,##0.0",
-                               _rgb(_WHITE, RGBColor), RGBColor, Pt)
     if len(chart.series) > 1:
         _series_fill(chart.series[1], _rgb(_ORANGE, RGBColor))
-        _selective_bar_labels(chart.series[1], subord_vals,
-                               XL_DATA_LABEL_POSITION.INSIDE_END, "#,##0.0",
-                               _rgb(_BLACK, RGBColor), RGBColor, Pt)
+    _apply_export_labels(
+        chart,
+        [senior_vals, subord_vals],
+        [_WHITE, _BLACK],
+        chart_kind="stacked_bar",
+        metric_kind="money",
+        percent=False,
+        decimals=0,
+        RGBColor=RGBColor,
+        Pt=Pt,
+        positions=[
+            XL_DATA_LABEL_POSITION.INSIDE_END,
+            XL_DATA_LABEL_POSITION.INSIDE_END,
+        ],
+    )
 
     # Badge "PL total: R$ x mm"
     if not df.empty:
@@ -668,8 +679,8 @@ def _chart_pl_stacked(
 def _chart_percent_line(
     slide, slot, title: str, column: str,
     df: pd.DataFrame, cats: list[str], color: str,
-    *, clip_outlier: bool = False,
-    CategoryChartData, RGBColor, XL_CHART_TYPE, Inches, Pt,
+    *, CategoryChartData, RGBColor, XL_CHART_TYPE, Inches, Pt,
+    clip_outlier: bool = False, metric_kind: str = "general_pct",
 ) -> None:
     if df.empty or not cats or column not in df.columns:
         _empty_placeholder(slide, slot, title, "Sem dados.", Inches=Inches, Pt=Pt, RGBColor=RGBColor)
@@ -706,7 +717,16 @@ def _chart_percent_line(
                      size=9, bold=False, color=_GRAY, italic=True,
                      Inches=Inches, Pt=Pt, RGBColor=RGBColor)
 
-    _point_label_last(chart, values, color, percent=True, RGBColor=RGBColor, Pt=Pt)
+    _apply_export_labels(
+        chart,
+        [values],
+        [color],
+        chart_kind="line",
+        metric_kind=metric_kind,
+        percent=True,
+        RGBColor=RGBColor,
+        Pt=Pt,
+    )
 
 
 def _chart_bar_money(
@@ -731,7 +751,18 @@ def _chart_bar_money(
     chart.has_legend = False
     if chart.series:
         _series_fill(chart.series[0], _rgb(_BLACK, RGBColor))
-    _point_label_last(chart, values, _BLACK, percent=False, decimals=0, RGBColor=RGBColor, Pt=Pt)
+    _apply_export_labels(
+        chart,
+        [values],
+        [_BLACK],
+        chart_kind="bar",
+        metric_kind="money",
+        percent=False,
+        decimals=0,
+        RGBColor=RGBColor,
+        Pt=Pt,
+        positions=[XL_LABEL_POSITION.OUTSIDE_END],
+    )
 
 
 def _chart_multi_line(
@@ -740,10 +771,11 @@ def _chart_multi_line(
     series_specs: list[tuple[str, str, str]],
     y_title: str,
     *,
-    value_is_percent: bool = True,
-    legend_below: bool = False,
     CategoryChartData, RGBColor, XL_CHART_TYPE,
     XL_LABEL_POSITION, XL_LEGEND_POSITION, XL_MARKER_STYLE, Inches, Pt,
+    value_is_percent: bool = True,
+    metric_kind: str = "general_pct",
+    legend_below: bool = False,
 ) -> None:
     valid = [(nm, col, clr) for nm, col, clr in series_specs
              if col in df.columns or not df.empty]
@@ -773,8 +805,22 @@ def _chart_multi_line(
     for series, (_, _, clr) in zip(chart.series, valid):
         _series_line(series, _rgb(clr, RGBColor))
 
-    for vals, (_, _, clr) in zip(all_vals, valid):
-        _point_label_last(chart, vals, clr, percent=value_is_percent, RGBColor=RGBColor, Pt=Pt)
+    _apply_export_labels(
+        chart,
+        all_vals,
+        [clr for _, _, clr in valid],
+        chart_kind="multi_line" if len(valid) > 1 else "line",
+        metric_kind=metric_kind,
+        percent=value_is_percent,
+        RGBColor=RGBColor,
+        Pt=Pt,
+        positions=[
+            XL_LABEL_POSITION.RIGHT,
+            XL_LABEL_POSITION.ABOVE,
+            XL_LABEL_POSITION.BELOW,
+            XL_LABEL_POSITION.LEFT,
+        ],
+    )
 
 
 def _chart_stacked_npl(
@@ -803,6 +849,17 @@ def _chart_stacked_npl(
         _series_fill(chart.series[0], _rgb(_BLACK, RGBColor))
     if len(chart.series) > 1:
         _series_fill(chart.series[1], _rgb(_ORANGE, RGBColor))
+    _apply_export_labels(
+        chart,
+        [v1, v2],
+        [_WHITE, _BLACK],
+        chart_kind="stacked_bar",
+        metric_kind="npl_pct",
+        percent=True,
+        RGBColor=RGBColor,
+        Pt=Pt,
+        positions=[XL_LABEL_POSITION.CENTER, XL_LABEL_POSITION.CENTER],
+    )
 
 
 def _chart_cohorts(
@@ -837,6 +894,22 @@ def _chart_cohorts(
     _style_legend(chart, XL_LEGEND_POSITION.BOTTOM, RGBColor, Pt)
     for series, clr in zip(chart.series, gray_series):
         _series_line(series, _rgb(clr, RGBColor))
+    _apply_export_labels(
+        chart,
+        all_vals,
+        gray_series,
+        chart_kind="cohort",
+        metric_kind="cohort_pct",
+        percent=True,
+        RGBColor=RGBColor,
+        Pt=Pt,
+        positions=[
+            XL_LABEL_POSITION.RIGHT,
+            XL_LABEL_POSITION.ABOVE,
+            XL_LABEL_POSITION.BELOW,
+            XL_LABEL_POSITION.LEFT,
+        ],
+    )
 
 
 # ===========================================================================
@@ -938,56 +1011,58 @@ def _series_line(series, color) -> None:
         pass
 
 
-def _selective_bar_labels(series, values, position, num_fmt, font_color, RGBColor, Pt) -> None:
-    """Mostra data labels apenas no primeiro, último e ponto de máximo."""
-    non_null = [(i, v) for i, v in enumerate(values) if v is not None]
-    if not non_null:
-        return
-    show = {non_null[0][0], non_null[-1][0],
-            max(non_null, key=lambda x: x[1])[0]}
-    for idx in show:
-        try:
-            pt = series.points[idx]
-            lbl = pt.data_label
-            lbl.position = position
-            lbl.has_text_frame = True
-            lbl.number_format = num_fmt
-            lbl.number_format_is_linked = False
-            tf = lbl.text_frame
-            tf.clear()
-            run = tf.paragraphs[0].add_run()
-            run.text = _fmt_val(values[idx], percent=False, decimals=0)
-            run.font.name = "Calibri"
-            run.font.size = Pt(8)
-            run.font.bold = True
-            run.font.color.rgb = font_color
-        except Exception:
-            pass
-
-
-def _point_label_last(
-    chart, values, color, *, percent: bool, decimals: int = 1,
-    RGBColor, Pt,
+def _apply_export_labels(
+    chart,
+    series_values: list[list],
+    colors: list[str],
+    *,
+    chart_kind: str,
+    metric_kind: str,
+    percent: bool,
+    RGBColor,
+    Pt,
+    decimals: int | None = None,
+    positions: list | None = None,
 ) -> None:
-    """Label only at the last non-null point."""
-    idx = _last_non_null(values)
-    if idx is None or not chart.series:
+    """Apply shared label policy to a python-pptx chart."""
+
+    policy = choose_export_label_policy(
+        series_values,
+        chart_kind=chart_kind,
+        metric_kind=metric_kind,
+    )
+    if policy.mode == "none":
         return
-    try:
-        series = chart.series[0]
-        pt = series.points[idx]
-        lbl = pt.data_label
-        lbl.has_text_frame = True
-        tf = lbl.text_frame
-        tf.clear()
-        run = tf.paragraphs[0].add_run()
-        run.text = _fmt_val(values[idx], percent=percent, decimals=decimals)
-        run.font.name = "Calibri"
-        run.font.size = Pt(8)
-        run.font.bold = True
-        run.font.color.rgb = _rgb(color, RGBColor)
-    except Exception:
-        pass
+
+    for series_idx, point_indices in enumerate(policy.indices_by_series):
+        if series_idx >= len(chart.series):
+            continue
+        series = chart.series[series_idx]
+        values = series_values[series_idx]
+        for point_idx in point_indices:
+            if point_idx >= len(values):
+                continue
+            try:
+                point = series.points[point_idx]
+                label = point.data_label
+                if positions:
+                    label.position = positions[series_idx % len(positions)]
+                label.has_text_frame = True
+                text_frame = label.text_frame
+                text_frame.clear()
+                run = text_frame.paragraphs[0].add_run()
+                run.text = format_export_label(
+                    values[point_idx],
+                    metric_kind=metric_kind,
+                    percent_value=percent,
+                    decimals=decimals,
+                )
+                run.font.name = "Calibri"
+                run.font.size = Pt(policy.font_size_pt)
+                run.font.bold = True
+                run.font.color.rgb = _rgb(colors[series_idx % len(colors)], RGBColor)
+            except Exception:
+                continue
 
 
 def _empty_placeholder(slide, slot, title, msg, *, Inches, Pt, RGBColor) -> None:
