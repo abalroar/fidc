@@ -133,6 +133,9 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn("trava de caixa está desligada", markdown)
         self.assertIn("Metodologias de crédito, NPL e provisão", markdown)
         self.assertIn("provisao_minima = estoque_npl90_t", markdown)
+        self.assertIn("principal inadimplente projetado", markdown)
+        self.assertIn("writeoff_descoberto", markdown)
+        self.assertIn("carteira_originada_efetiva = volume_inicial", markdown)
         self.assertIn("Migração por faixas de atraso", markdown)
         self.assertIn("ECL forward-looking", markdown)
         self.assertIn("13,00% a.a.", markdown)
@@ -142,6 +145,15 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn("SUB residual = PL FIDC - PL SEN - PL MEZZ", markdown)
         self.assertIn("taxa_selic_periodo = (1 + selic_aa_do_ano)", markdown)
         self.assertIn("rendimento_caixa_selic", markdown)
+
+    def test_step_by_step_explains_projected_cash_accounting(self) -> None:
+        markdown = tab_modelo_fidc._build_step_by_step_markdown()
+
+        self.assertIn("livro-caixa econômico simplificado", markdown)
+        self.assertIn("principal inadimplente projetado", markdown)
+        self.assertIn("não** é reinvestida", markdown)
+        self.assertIn("Carteira originada efetiva", markdown)
+        self.assertIn("timeline detalhada é a memória de cálculo", markdown)
 
     def test_revolvency_metrics_compare_sub_final_to_originated_portfolio(self) -> None:
         class Result:
