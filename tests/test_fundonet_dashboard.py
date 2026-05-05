@@ -470,6 +470,45 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertIn("VISÃO EXECUTIVA — CARTEIRA AGREGADA", deck_text)
         self.assertIn("Resumo da carteira", deck_text)
 
+    def test_build_dashboard_pptx_cover_handles_long_fund_name_without_overlap(self) -> None:
+        if importlib.util.find_spec("pptx") is None:
+            self.skipTest("python-pptx não instalado no ambiente local")
+        from pptx import Presentation
+        from services.fundonet_ppt_export import build_dashboard_pptx_bytes
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            workspace = Path(tmpdir)
+            self._write_fixture_csvs(workspace)
+
+            dashboard = build_dashboard_data(
+                wide_csv_path=workspace / "informes_wide.csv",
+                listas_csv_path=workspace / "estruturas_lista.csv",
+                docs_csv_path=workspace / "documentos_filtrados.csv",
+            )
+
+        long_name = (
+            "MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS "
+            "RESPONSABILIDADE LIMITADA"
+        )
+        dashboard.fund_info["nome_fundo"] = long_name
+        pptx_bytes = build_dashboard_pptx_bytes(
+            dashboard,
+            generated_at=datetime(2026, 4, 14, 15, 0, tzinfo=timezone.utc),
+        )
+        presentation = Presentation(io.BytesIO(pptx_bytes))
+        cover_slide = presentation.slides[0]
+        title_shape = next(
+            shape
+            for shape in cover_slide.shapes
+            if getattr(shape, "has_text_frame", False) and shape.text.strip() == long_name
+        )
+        scope_shape = next(
+            shape
+            for shape in cover_slide.shapes
+            if getattr(shape, "has_text_frame", False) and "VISÃO EXECUTIVA — FIDC" in shape.text
+        )
+        self.assertLess(title_shape.top + title_shape.height, scope_shape.top)
+
     def test_ppt_helpers_preserve_competencia_order(self) -> None:
         from services.fundonet_ppt_export import (
             _build_aging_history_for_ppt,
@@ -478,6 +517,7 @@ class FundonetDashboardTests(unittest.TestCase):
             _latest_competencia_index,
             _quota_pl_value_pivot,
             _return_history_pivot,
+            _rightmost_category_index,
             _stacked_series_totals,
         )
 
@@ -515,6 +555,7 @@ class FundonetDashboardTests(unittest.TestCase):
         aging_chart_frame = _chart_aging_history_for_ppt(aging_pivot)
         self.assertEqual(["01/2026", "02/2026", "03/2026"], aging_chart_frame["competencia"].tolist())
         self.assertEqual(2, _latest_competencia_index(aging_chart_frame["competencia"].tolist()))
+        self.assertEqual(2, _rightmost_category_index(aging_chart_frame["competencia"].tolist()))
         self.assertEqual([11.0, 22.0], _stacked_series_totals([("A", [10.0, 20.0]), ("B", [1.0, 2.0])]))
 
         over_df = pd.DataFrame(

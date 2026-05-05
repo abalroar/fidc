@@ -69,6 +69,24 @@ class MoneyScale:
     label: str
 
 
+def _cover_title_layout(title: str) -> tuple[int, float]:
+    """Return title font size and text box height for the PPTX cover.
+
+    Fund names often come from legal names and can wrap to multiple lines.
+    The cover keeps metadata below the full title block instead of relying on
+    PowerPoint autofit, which can overlap or silently shrink text.
+    """
+
+    title_length = len(str(title or "").strip())
+    if title_length <= 42:
+        return 36, 0.72
+    if title_length <= 78:
+        return 32, 1.05
+    if title_length <= 120:
+        return 30, 1.42
+    return 28, 1.76
+
+
 def build_dashboard_pptx_bytes(
     dashboard: FundonetDashboardData,
     *,
@@ -284,10 +302,13 @@ def build_dashboard_pptx_bytes(
         accent.fill.solid()
         accent.fill.fore_color.rgb = rgb(ORANGE)
         accent.line.fill.background()
-        add_textbox(slide, 0.95, 2.20, 10.60, 0.66, title, size=36, bold=True, color=WHITE)
-        add_textbox(slide, 0.97, 2.94, 10.90, 0.20, scope_text.upper(), size=11, bold=True, color=WHITE)
-        add_textbox(slide, 0.97, 3.26, 10.90, 0.20, subtitle_text, size=11, color=WHITE)
-        add_textbox(slide, 0.97, 3.56, 10.90, 0.18, "Fonte: Informe Mensal CVM", size=9, color=GRID_GRAY)
+        title_size, title_height = _cover_title_layout(title)
+        title_top = 2.08
+        metadata_top = title_top + title_height + 0.16
+        add_textbox(slide, 0.95, title_top, 10.75, title_height, title, size=title_size, bold=True, color=WHITE)
+        add_textbox(slide, 0.97, metadata_top, 10.90, 0.20, scope_text.upper(), size=11, bold=True, color=WHITE)
+        add_textbox(slide, 0.97, metadata_top + 0.30, 10.90, 0.20, subtitle_text, size=11, color=WHITE)
+        add_textbox(slide, 0.97, metadata_top + 0.58, 10.90, 0.18, "Fonte: Informe Mensal CVM", size=9, color=GRID_GRAY)
         add_textbox(
             slide,
             9.15,
@@ -783,7 +804,7 @@ def build_dashboard_pptx_bytes(
     ) -> None:
         if not categories or not series_map:
             return
-        latest_idx = _latest_competencia_index(categories)
+        latest_idx = _rightmost_category_index(categories)
         if latest_idx is None:
             return
 
@@ -1022,7 +1043,8 @@ def build_dashboard_pptx_bytes(
                     Inches(x2),
                     Inches(y2),
                 )
-                segment.line.color.rgb = rgb(COVERAGE_LINE_COLOR)
+                segment.line.fill.solid()
+                segment.line.fill.fore_color.rgb = rgb(COVERAGE_LINE_COLOR)
                 segment.line.width = Pt(2.4)
 
             marker_w = 0.10
@@ -1037,7 +1059,8 @@ def build_dashboard_pptx_bytes(
                 )
                 marker.fill.solid()
                 marker.fill.fore_color.rgb = rgb(COVERAGE_LINE_COLOR)
-                marker.line.color.rgb = rgb(COVERAGE_LINE_COLOR)
+                marker.line.fill.solid()
+                marker.line.fill.fore_color.rgb = rgb(COVERAGE_LINE_COLOR)
                 label_top = max(plot_top - 0.02, adjusted_label_positions[idx])
                 add_textbox(
                     slide,
@@ -1548,7 +1571,7 @@ def build_dashboard_pptx_bytes(
                 height=2.70,
                 number_format='0"%"',
                 percent_axis=True,
-                gap_width=82,
+                gap_width=135,
                 overlap=100,
                 label_position="center",
                 label_color=WHITE,
@@ -1605,7 +1628,7 @@ def build_dashboard_pptx_bytes(
                 height=5.55,
                 number_format='0"%"',
                 percent_axis=True,
-                gap_width=82,
+                gap_width=135,
                 overlap=100,
                 label_position="center",
                 label_color=WHITE,
@@ -1947,6 +1970,12 @@ def _latest_competencia_index(competencias: Sequence[object]) -> int | None:
     if parsed.notna().any():
         return int(parsed.idxmax())
     return len(competencias) - 1
+
+
+def _rightmost_category_index(categories: Sequence[object]) -> int | None:
+    """Return the index of the visually rightmost category in a chart."""
+
+    return len(categories) - 1 if categories else None
 
 
 def _latest_over_table_frame(frame: pd.DataFrame) -> pd.DataFrame:
@@ -2545,7 +2574,7 @@ def _stacked_bar_chart_png(
     bar_width = min(58, max(26, int(group_width * 0.52)))
     _draw_x_axis(draw, categories=categories, x_positions=x_positions, bottom=box["bottom"], font=small_font)
     latest_segments: list[tuple[str, float, float, str, str]] = []
-    latest_idx = _latest_competencia_index(categories) if show_latest_callouts else None
+    latest_idx = _rightmost_category_index(categories) if show_latest_callouts else None
     for cat_idx, x in enumerate(x_positions):
         current_top_value = 0.0
         for series_idx, (series_name, series_values) in enumerate(series_map):
