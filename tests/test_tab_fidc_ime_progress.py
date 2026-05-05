@@ -113,7 +113,7 @@ class TabFidcImeProgressTests(unittest.TestCase):
         self.assertEqual("line", spec["mark"]["type"])
         self.assertEqual("valor", spec["encoding"]["y"]["field"])
 
-    def test_competencia_axis_sort_uses_real_dates_recent_first(self) -> None:
+    def test_competencia_axis_sort_uses_real_dates_oldest_first(self) -> None:
         frame = pd.DataFrame(
             {
                 "competencia": ["jan-26", "fev-26", "mar-26", "nov-25", "dez-25"],
@@ -125,16 +125,16 @@ class TabFidcImeProgressTests(unittest.TestCase):
 
         ordered = tab_fidc_ime._competencia_axis_sort(frame)
 
-        self.assertEqual(["mar-26", "fev-26", "jan-26", "dez-25", "nov-25"], ordered)
+        self.assertEqual(["nov-25", "dez-25", "jan-26", "fev-26", "mar-26"], ordered)
 
     def test_competencia_axis_sort_parses_raw_labels_without_date_column(self) -> None:
         frame = pd.DataFrame({"competencia": ["01/2026", "02/2026", "03/2026", "11/2025", "12/2025"]})
 
         ordered = tab_fidc_ime._competencia_axis_sort(frame)
 
-        self.assertEqual(["03/2026", "02/2026", "01/2026", "12/2025", "11/2025"], ordered)
+        self.assertEqual(["11/2025", "12/2025", "01/2026", "02/2026", "03/2026"], ordered)
 
-    def test_line_history_chart_uses_recent_first_axis_order(self) -> None:
+    def test_line_history_chart_uses_oldest_first_axis_order(self) -> None:
         chart_df = pd.DataFrame(
             {
                 "competencia": ["01/2026", "02/2026", "03/2026", "11/2025", "12/2025"],
@@ -154,7 +154,7 @@ class TabFidcImeProgressTests(unittest.TestCase):
         )
 
         spec = chart.to_dict()
-        self.assertEqual(["mar-26", "fev-26", "jan-26", "dez-25", "nov-25"], spec["encoding"]["x"]["sort"])
+        self.assertEqual(["nov-25", "dez-25", "jan-26", "fev-26", "mar-26"], spec["encoding"]["x"]["sort"])
 
     def test_altair_compatible_df_ignores_duplicate_column_slices(self) -> None:
         duplicate_df = pd.DataFrame([["A", "B"], ["C", "D"]], columns=["valor", "valor"])
@@ -395,6 +395,12 @@ class TabFidcImeProgressTests(unittest.TestCase):
         self.assertEqual("label_slot", spec["layer"][3]["encoding"]["x"]["field"])
         self.assertEqual(14, spec["layer"][3]["mark"]["fontSize"])
         self.assertEqual(248, spec["padding"]["right"])
+        x_domain = spec["layer"][0]["encoding"]["x"]["scale"]["domain"]
+        self.assertEqual(["jan-26", "fev-26", ""], x_domain)
+        datasets = spec.get("datasets", {})
+        connector_dataset = spec["layer"][1]["data"]["name"]
+        connector_points = datasets[connector_dataset]
+        self.assertEqual({"fev-26", ""}, {row["competencia_plot"] for row in connector_points})
 
     def test_stacked_history_bar_chart_can_hide_segment_labels_and_keep_totals(self) -> None:
         frame = pd.DataFrame(

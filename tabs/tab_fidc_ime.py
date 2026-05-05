@@ -1587,7 +1587,7 @@ def _render_requested_period_coverage_warning(
         f"{len(expected_competencias)} competência(s), mas o dashboard recebeu "
         f"{len(loaded_competencias)} competência(s) processada(s). "
         f"Competência(s) ausente(s): {', '.join(_format_competencia_label(value) for value in missing_competencias)}. "
-        "Os gráficos usam somente competências válidas e são ordenados da mais recente para a mais antiga."
+        "Os gráficos usam somente competências válidas e são ordenados da mais antiga para a mais recente."
     )
 
 
@@ -1674,7 +1674,7 @@ def _competencia_axis_sort(
     frame: pd.DataFrame,
     *,
     competencia_column: str = "competencia",
-    descending: bool = True,
+    descending: bool = False,
 ) -> list[str]:
     if frame.empty or competencia_column not in frame.columns:
         return []
@@ -4537,7 +4537,7 @@ def _aging_history_callout_chart(
     resolved_value_column = _resolve_stacked_chart_value_column(df, "percentual")
     x_sort = _competencia_axis_sort(df)
     label_slot = ""
-    x_domain = ([x_sort[0], label_slot] + x_sort[1:]) if x_sort else [label_slot]
+    x_domain = (x_sort + [label_slot]) if x_sort else [label_slot]
     series_order = [serie for serie in AGING_SERIES_ORDER if serie in set(df["serie"].dropna().tolist())]
     remaining = [serie for serie in df["serie"].drop_duplicates().tolist() if serie not in set(series_order)]
     series_order = series_order + remaining
@@ -4548,7 +4548,7 @@ def _aging_history_callout_chart(
         df["tooltip_pct_dcs"] = df["percentual_direitos_creditorios"].map(_format_percent)
     else:
         df["tooltip_pct_dcs"] = "N/D"
-    latest_competencia = x_sort[0]
+    latest_competencia = x_sort[-1]
     latest_df = df[df["competencia"] == latest_competencia].copy()
     latest_df["valor_num"] = pd.to_numeric(latest_df[resolved_value_column], errors="coerce").fillna(0.0)
     if "ordem" in latest_df.columns:
