@@ -47,8 +47,8 @@ FONT_FAMILY = "Calibri"
 
 SLIDE_WIDTH_IN = 13.333
 SLIDE_HEIGHT_IN = 7.5
-MARGIN_LEFT_IN = 0.45
-MARGIN_RIGHT_IN = 0.45
+MARGIN_LEFT_IN = 0.50
+MARGIN_RIGHT_IN = 0.50
 CONTENT_WIDTH_IN = SLIDE_WIDTH_IN - MARGIN_LEFT_IN - MARGIN_RIGHT_IN
 
 TITLE_SIZE = 24
@@ -58,7 +58,7 @@ BODY_SIZE = 9
 LABEL_SIZE = 8
 AXIS_SIZE = 9
 FOOTER_SIZE = 8
-CARD_VALUE_SIZE = 24
+CARD_VALUE_SIZE = 22
 SLIDE_RENDER_DPI = 170
 
 
@@ -123,6 +123,10 @@ def build_dashboard_pptx_bytes(
         frame.clear()
         frame.word_wrap = word_wrap
         frame.auto_size = MSO_AUTO_SIZE.NONE
+        frame.margin_left = Inches(0.02)
+        frame.margin_right = Inches(0.02)
+        frame.margin_top = Inches(0.01)
+        frame.margin_bottom = Inches(0.01)
         paragraph = frame.paragraphs[0]
         paragraph.alignment = align
         run = paragraph.add_run()
@@ -168,9 +172,9 @@ def build_dashboard_pptx_bytes(
         add_textbox(
             slide,
             left + 0.16,
-            top + 0.16,
+            top + 0.13,
             width - 0.32,
-            0.20,
+            0.18,
             label.upper(),
             size=LABEL_SIZE,
             bold=False,
@@ -179,9 +183,9 @@ def build_dashboard_pptx_bytes(
         add_textbox(
             slide,
             left + 0.16,
-            top + 0.41,
+            top + 0.34,
             width - 0.32,
-            0.34,
+            0.32,
             value,
             size=CARD_VALUE_SIZE,
             bold=True,
@@ -191,13 +195,14 @@ def build_dashboard_pptx_bytes(
             add_textbox(
                 slide,
                 left + 0.16,
-                top + 0.82,
+                top + height - 0.24,
                 width - 0.32,
-                0.18,
+                0.15,
                 note,
                 size=FOOTER_SIZE,
                 italic=True,
                 color=MID_GRAY,
+                word_wrap=False,
             )
 
     def add_empty_state_panel(
@@ -744,6 +749,141 @@ def build_dashboard_pptx_bytes(
                 align=PP_ALIGN.CENTER,
             )
 
+    def _short_aging_label(label: str) -> str:
+        replacements = {
+            "Até 30 dias": "Até 30d",
+            "31 a 60 dias": "31-60d",
+            "61 a 90 dias": "61-90d",
+            "91 a 120 dias": "91-120d",
+            "121 a 150 dias": "121-150d",
+            "151 a 180 dias": "151-180d",
+            "181 a 360 dias": "181-360d",
+            "361 a 720 dias": "361-720d",
+            "721 a 1080 dias": "721-1080d",
+            "Acima de 1080 dias": ">1080d",
+        }
+        return replacements.get(str(label), str(label))
+
+    def _chart_text_color_for_fill(hex_color: str) -> str:
+        red, green, blue = _hex_to_rgb(hex_color)
+        luminance = (0.299 * red) + (0.587 * green) + (0.114 * blue)
+        return BLACK if luminance > 160 else WHITE
+
+    def add_aging_latest_breakdown(
+        slide,
+        *,
+        categories: Sequence[str],
+        series_map: Sequence[tuple[str, Sequence[float]]],
+        colors: Sequence[str],
+        left: float,
+        top: float,
+        width: float,
+        height: float,
+        axis_max: float,
+    ) -> None:
+        if not categories or not series_map:
+            return
+        latest_idx = _latest_competencia_index(categories)
+        if latest_idx is None:
+            return
+
+        values_for_latest: list[dict[str, object]] = []
+        cumulative = 0.0
+        for series_idx, (series_name, values) in enumerate(series_map):
+            if latest_idx >= len(values):
+                continue
+            value = _finite_float(values[latest_idx])
+            if value is None or value <= 0:
+                continue
+            next_cumulative = cumulative + value
+            values_for_latest.append(
+                {
+                    "name": str(series_name),
+                    "value": float(value),
+                    "mid_value": cumulative + (float(value) / 2.0),
+                    "top_value": next_cumulative,
+                    "bottom_value": cumulative,
+                    "color": colors[series_idx % len(colors)],
+                }
+            )
+            cumulative = next_cumulative
+        if not values_for_latest:
+            return
+
+        plot_left = left + 0.82
+        plot_right = left + width - 1.26
+        plot_top = top + 0.52
+        plot_bottom = top + height - 0.62
+        plot_width = max(plot_right - plot_left, 0.1)
+        plot_height = max(plot_bottom - plot_top, 0.1)
+        group_width = plot_width / max(len(categories), 1)
+        bar_width = min(0.42, max(0.20, group_width * 0.48))
+        latest_x = plot_left + ((latest_idx + 0.5) * group_width)
+        label_x = left + width - 1.12
+
+        add_textbox(
+            slide,
+            label_x,
+            plot_top - 0.22,
+            1.08,
+            0.16,
+            f"Breakdown {_format_competencia(categories[latest_idx])}",
+            size=LABEL_SIZE,
+            bold=True,
+            color=DARK_GRAY,
+            align=PP_ALIGN.LEFT,
+            word_wrap=False,
+        )
+
+        def _y(value: float) -> float:
+            return plot_bottom - (plot_height * (value / max(axis_max, 1.0)))
+
+        raw_positions = [_y(float(item["mid_value"])) for item in values_for_latest]
+        adjusted_positions = _repel_label_positions(raw_positions, min_gap=0.18)
+        for item, label_y in zip(values_for_latest, adjusted_positions, strict=False):
+            segment_top = _y(float(item["top_value"]))
+            segment_bottom = _y(float(item["bottom_value"]))
+            segment_height = abs(segment_bottom - segment_top)
+            color = str(item["color"])
+            value = float(item["value"])
+            if value >= 4.0 and segment_height >= 0.18:
+                add_textbox(
+                    slide,
+                    latest_x - (bar_width / 2.0),
+                    min(segment_top, segment_bottom) + (segment_height / 2.0) - 0.07,
+                    bar_width,
+                    0.14,
+                    _format_percent(value),
+                    size=LABEL_SIZE,
+                    bold=True,
+                    color=_chart_text_color_for_fill(color),
+                    align=PP_ALIGN.CENTER,
+                    word_wrap=False,
+                )
+            guide = slide.shapes.add_connector(
+                MSO_CONNECTOR.STRAIGHT,
+                Inches(latest_x + (bar_width / 2.0) + 0.02),
+                Inches(_y(float(item["mid_value"]))),
+                Inches(label_x - 0.04),
+                Inches(label_y + 0.08),
+            )
+            guide.line.color.rgb = rgb(color)
+            guide.line.width = Pt(1.0)
+            guide.line.dash_style = MSO_LINE_DASH_STYLE.DASH
+            add_textbox(
+                slide,
+                label_x,
+                label_y,
+                1.10,
+                0.16,
+                f"{_short_aging_label(str(item['name']))} {_format_percent(value)}",
+                size=LABEL_SIZE,
+                bold=True,
+                color=color,
+                align=PP_ALIGN.LEFT,
+                word_wrap=False,
+            )
+
     def add_overlay_combo_credit_chart(
         slide,
         *,
@@ -1039,11 +1179,11 @@ def build_dashboard_pptx_bytes(
                 "Mezzanino + subordinada residual / PL",
             ),
         ]
-        gap = 0.26
+        gap = 0.24
         card_width = (CONTENT_WIDTH_IN - (2 * gap)) / 3
-        card_height = 1.05
-        start_top = 1.18
-        row_gap = 0.34
+        card_height = 0.92
+        start_top = 1.15
+        row_gap = 0.24
         for idx, (label, value, note) in enumerate(specs):
             row = idx // 3
             col = idx % 3
@@ -1176,7 +1316,7 @@ def build_dashboard_pptx_bytes(
             label_font_size=8,
             series_colors=SERIES_COLORS,
             value_min=0.0,
-            value_max=_money_axis_max([value for _, values in quota_series for value in values]),
+            value_max=_money_axis_max(_stacked_series_totals(quota_series)),
             show_legend=True,
             legend_position="bottom",
             show_data_labels=True,
@@ -1374,7 +1514,7 @@ def build_dashboard_pptx_bytes(
     credit_has_values = _series_map_has_nonzero_values(credit_bar_series) or (
         _series_map_has_nonzero_values([credit_line_series[0]]) if credit_line_series else False
     )
-    aging_history = _build_aging_history_for_ppt(dashboard)
+    aging_history = _chart_aging_history_for_ppt(_build_aging_history_for_ppt(dashboard))
     aging_columns = [column for column in aging_history.columns if column != "competencia"] if not aging_history.empty else []
     aging_series_map = [(column, aging_history[column].tolist()) for column in aging_columns]
     aging_has_values = _series_map_has_nonzero_values(aging_series_map)
@@ -1395,6 +1535,7 @@ def build_dashboard_pptx_bytes(
                 width=full_width,
                 height=2.42,
             )
+            aging_axis_max = _dashboard_percent_axis_upper(_stacked_series_totals(aging_series_map), max_cap=120.0)
             add_chart(
                 slide,
                 title="Aging",
@@ -1407,16 +1548,27 @@ def build_dashboard_pptx_bytes(
                 height=2.70,
                 number_format='0"%"',
                 percent_axis=True,
-                gap_width=44,
+                gap_width=82,
                 overlap=100,
                 label_position="center",
                 label_color=WHITE,
                 label_font_size=8,
                 series_colors=AGING_PPT_COLORS,
-                value_max=_dashboard_percent_axis_upper([value for _, values in aging_series_map for value in values], max_cap=120.0),
+                value_max=aging_axis_max,
                 show_legend=True,
                 legend_position="bottom",
                 show_data_labels=False,
+            )
+            add_aging_latest_breakdown(
+                slide,
+                categories=aging_history["competencia"].astype(str).tolist(),
+                series_map=aging_series_map,
+                colors=AGING_PPT_COLORS,
+                left=MARGIN_LEFT_IN,
+                top=3.90,
+                width=full_width,
+                height=2.70,
+                axis_max=aging_axis_max,
             )
         elif credit_has_values:
             add_overlay_combo_credit_chart(
@@ -1440,6 +1592,7 @@ def build_dashboard_pptx_bytes(
                 height=1.25,
             )
         elif aging_has_values:
+            aging_axis_max = _dashboard_percent_axis_upper(_stacked_series_totals(aging_series_map), max_cap=120.0)
             add_chart(
                 slide,
                 title="Aging",
@@ -1452,16 +1605,27 @@ def build_dashboard_pptx_bytes(
                 height=5.55,
                 number_format='0"%"',
                 percent_axis=True,
-                gap_width=44,
+                gap_width=82,
                 overlap=100,
                 label_position="center",
                 label_color=WHITE,
                 label_font_size=8,
                 series_colors=AGING_PPT_COLORS,
-                value_max=_dashboard_percent_axis_upper(_series_values(aging_series_map), max_cap=120.0),
+                value_max=aging_axis_max,
                 show_legend=True,
                 legend_position="bottom",
                 show_data_labels=False,
+            )
+            add_aging_latest_breakdown(
+                slide,
+                categories=aging_history["competencia"].astype(str).tolist(),
+                series_map=aging_series_map,
+                colors=AGING_PPT_COLORS,
+                left=MARGIN_LEFT_IN,
+                top=top_row_top,
+                width=full_width,
+                height=5.55,
+                axis_max=aging_axis_max,
             )
         add_footer(slide, timestamp_text, current_page)
 
@@ -1761,6 +1925,30 @@ def _build_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.DataFra
     return _reorder_competencia_pivot(pivot, ordered_competencias)
 
 
+def _chart_aging_history_for_ppt(frame: pd.DataFrame) -> pd.DataFrame:
+    """Return Aging chart data in chronological order for chart readability.
+
+    The canonical helper keeps the wide/export convention with the newest
+    period first. Charts read better left-to-right, so the presentation layer
+    uses this view and leaves the underlying data untouched.
+    """
+
+    return _sort_competencia_frame(frame, ascending=True)
+
+
+def _latest_competencia_index(competencias: Sequence[object]) -> int | None:
+    if not competencias:
+        return None
+    parsed = pd.to_datetime(
+        pd.Series([f"01/{str(value)}" for value in competencias]),
+        format="%d/%m/%Y",
+        errors="coerce",
+    )
+    if parsed.notna().any():
+        return int(parsed.idxmax())
+    return len(competencias) - 1
+
+
 def _latest_over_table_frame(frame: pd.DataFrame) -> pd.DataFrame:
     if frame.empty:
         return pd.DataFrame({"Faixa": ["Sem dados"], "% DCs": ["-"], "Status": ["-"]})
@@ -1859,6 +2047,22 @@ def _series_values(series_map: Sequence[tuple[str, Sequence[float]]]) -> list[fl
         numeric = pd.to_numeric(pd.Series(list(series)), errors="coerce").fillna(0.0)
         values.extend([float(value) for value in numeric.tolist()])
     return values
+
+
+def _stacked_series_totals(series_map: Sequence[tuple[str, Sequence[object]]]) -> list[float]:
+    if not series_map:
+        return []
+    max_len = max((len(values) for _, values in series_map), default=0)
+    totals: list[float] = []
+    for idx in range(max_len):
+        total = 0.0
+        for _, values in series_map:
+            if idx >= len(values):
+                continue
+            numeric = _finite_float(values[idx])
+            total += numeric if numeric is not None else 0.0
+        totals.append(total)
+    return totals
 
 
 def _quota_pl_share_pivot(frame: pd.DataFrame) -> pd.DataFrame:
@@ -2309,6 +2513,8 @@ def _stacked_bar_chart_png(
         title=title,
         legend_items=legend_items,
     )
+    if show_latest_callouts:
+        box["right"] = max(box["left"] + 220, box["right"] - 190)
     totals = []
     for idx in range(len(categories)):
         totals.append(sum(_finite_or_default(values[idx]) for _, values in series_map))
@@ -2339,6 +2545,7 @@ def _stacked_bar_chart_png(
     bar_width = min(58, max(26, int(group_width * 0.52)))
     _draw_x_axis(draw, categories=categories, x_positions=x_positions, bottom=box["bottom"], font=small_font)
     latest_segments: list[tuple[str, float, float, str, str]] = []
+    latest_idx = _latest_competencia_index(categories) if show_latest_callouts else None
     for cat_idx, x in enumerate(x_positions):
         current_top_value = 0.0
         for series_idx, (series_name, series_values) in enumerate(series_map):
@@ -2348,9 +2555,18 @@ def _stacked_bar_chart_png(
             y_bottom = _value_to_y(current_top_value, axis_min=axis_min, axis_max=axis_max, top=box["top"], bottom=box["bottom"])
             y_top = _value_to_y(next_top_value, axis_min=axis_min, axis_max=axis_max, top=box["top"], bottom=box["bottom"])
             draw.rectangle((x - (bar_width / 2), y_top, x + (bar_width / 2), y_bottom), fill=_hex_to_rgb(color), outline=_hex_to_rgb(WHITE))
-            if show_latest_callouts and cat_idx == len(x_positions) - 1 and value > 0:
+            if show_latest_callouts and cat_idx == latest_idx and value > 0:
                 label = _format_percent(value) if percent_axis else _format_brl_compact((money_scale.divisor if money_scale else 1.0) * value)
                 latest_segments.append((series_name, x + (bar_width / 2), (y_top + y_bottom) / 2, color, label))
+                if percent_axis and value >= 4.0 and abs(y_bottom - y_top) >= 18:
+                    label_w, label_h = _text_size(draw, label, small_font)
+                    text_color = WHITE if _hex_to_rgb(color)[0] + _hex_to_rgb(color)[1] + _hex_to_rgb(color)[2] < 440 else BLACK
+                    draw.text(
+                        (x - (label_w / 2), ((y_top + y_bottom) / 2) - (label_h / 2)),
+                        label,
+                        fill=_hex_to_rgb(text_color),
+                        font=small_font,
+                    )
             current_top_value = next_top_value
     if show_latest_callouts and latest_segments:
         segment_y = [item[2] for item in latest_segments]
@@ -2961,7 +3177,7 @@ def _render_credit_slide_png(
             width=full_width,
             height=2.30,
         )
-    aging_history = _build_aging_history_for_ppt(dashboard)
+    aging_history = _chart_aging_history_for_ppt(_build_aging_history_for_ppt(dashboard))
     if not aging_history.empty:
         aging_columns = [column for column in aging_history.columns if column != "competencia"]
         aging_series_map = [(column, aging_history[column].tolist()) for column in aging_columns]

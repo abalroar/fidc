@@ -474,8 +474,11 @@ class FundonetDashboardTests(unittest.TestCase):
         from services.fundonet_ppt_export import (
             _build_aging_history_for_ppt,
             _build_over_aging_history_for_ppt,
+            _chart_aging_history_for_ppt,
+            _latest_competencia_index,
             _quota_pl_value_pivot,
             _return_history_pivot,
+            _stacked_series_totals,
         )
 
         quota_df = pd.DataFrame(
@@ -509,6 +512,10 @@ class FundonetDashboardTests(unittest.TestCase):
         aging_dashboard = SimpleNamespace(default_aging_history_df=aging_df)
         aging_pivot = _build_aging_history_for_ppt(aging_dashboard)
         self.assertEqual(["03/2026", "02/2026", "01/2026"], aging_pivot["competencia"].tolist())
+        aging_chart_frame = _chart_aging_history_for_ppt(aging_pivot)
+        self.assertEqual(["01/2026", "02/2026", "03/2026"], aging_chart_frame["competencia"].tolist())
+        self.assertEqual(2, _latest_competencia_index(aging_chart_frame["competencia"].tolist()))
+        self.assertEqual([11.0, 22.0], _stacked_series_totals([("A", [10.0, 20.0]), ("B", [1.0, 2.0])]))
 
         over_df = pd.DataFrame(
             [
