@@ -921,6 +921,15 @@ def _build_default_over_history_df(
     default_buckets_history_df: pd.DataFrame,
     dc_canonical_history_df: pd.DataFrame,
 ) -> pd.DataFrame:
+    # DIVERGÊNCIA CONHECIDA com a lâmina (guardrail — não alterar sem evidência):
+    # Este cálculo usa `dc_total_canonico` como denominador (campo granular agregado
+    # a partir dos XMLs de informe). A lâmina do FIDC exibe `inadimplencia_pct`
+    # calculada em `_build_default_history` com denominador `direitos_creditorios`
+    # (campo APLIC_ATIVO/CRED_EXISTE ou equivalente). As duas séries podem divergir
+    # quando o FIDC reporta os campos de forma incompleta ou quando a carteira inclui
+    # recebíveis sem detalhamento de aging (e.g. créditos com `source_status !=
+    # "reported_value"`). Para reconciliar: comparar `dc_total_canonico` vs
+    # `direitos_creditorios` em `dc_canonical_history_df` para o período divergente.
     if default_buckets_history_df.empty or dc_canonical_history_df.empty:
         return pd.DataFrame(
             columns=[

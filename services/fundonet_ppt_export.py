@@ -40,7 +40,7 @@ AGING_PPT_COLORS = [
     "#7b241c",
     "#4a1310",
 ]
-COVERAGE_LINE_COLOR = "#6b2c3e"
+COVERAGE_LINE_COLOR = ORANGE
 
 SLIDE_WIDTH_IN = 13.333
 SLIDE_HEIGHT_IN = 7.5
@@ -922,7 +922,7 @@ def build_dashboard_pptx_bytes(
     slide = prs.slides.add_slide(blank)
     add_slide_header(slide, "Estrutura e capital")
 
-    sub_df = _sort_competencia_frame(dashboard.subordination_history_df, ascending=False)
+    sub_df = _sort_competencia_frame(dashboard.subordination_history_df, ascending=True)
     if not sub_df.empty:
         sub_series = [("Subordinação reportada", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
         sub_chart = add_chart(
@@ -947,8 +947,8 @@ def build_dashboard_pptx_bytes(
             sub_values = [float(value or 0.0) for value in sub_series[0][1]]
             add_line_end_labels(
                 slide,
-                labels=[_format_percent(sub_values[0])],
-                values=[sub_values[0]],
+                labels=[_format_percent(sub_values[-1])],
+                values=[sub_values[-1]],
                 colors=[ORANGE],
                 left=MARGIN_LEFT_IN,
                 top=top_row_top,
@@ -957,7 +957,7 @@ def build_dashboard_pptx_bytes(
                 axis_max=_dashboard_percent_axis_upper(sub_series[0][1], max_cap=80.0),
                 fill_colors=[WHITE],
                 text_colors=[ORANGE],
-                side="left",
+                side="right",
             )
         add_textbox(
             slide,
@@ -1008,7 +1008,7 @@ def build_dashboard_pptx_bytes(
     slide = prs.slides.add_slide(blank)
     add_slide_header(slide, "Rentabilidade e prazo")
 
-    selected_labels = _top_return_labels_for_ppt(dashboard, limit=3)
+    selected_labels = _top_return_labels_for_ppt(dashboard)
     return_table_df = _build_return_inline_table_for_ppt(dashboard, selected_labels=selected_labels, months=12)
     if not return_table_df.empty:
         month_count = max(len(return_table_df.columns) - 3, 0)
@@ -1026,7 +1026,7 @@ def build_dashboard_pptx_bytes(
 
     base100_df = _build_return_base100_for_ppt(dashboard, selected_labels=selected_labels, months=12)
     if not base100_df.empty:
-        ordered_base100 = _sort_competencia_frame(base100_df, ascending=False)
+        ordered_base100 = _sort_competencia_frame(base100_df, ascending=True)
         base100_series = [
             (str(series_name), pd.to_numeric(group["valor"], errors="coerce").fillna(0.0).tolist())
             for series_name, group in ordered_base100.groupby("serie", dropna=False)
@@ -1058,7 +1058,7 @@ def build_dashboard_pptx_bytes(
         )
         for idx, series in enumerate(base100_chart.series):
             _style_line_series(series, color=SERIES_COLORS[idx % len(SERIES_COLORS)], width_pt=2.0, marker_size=7)
-        base100_last_values = [values[0] for _, values in base100_series if values]
+        base100_last_values = [values[-1] for _, values in base100_series if values]
         if base100_last_values:
             base100_label_colors = [SERIES_COLORS[idx % len(SERIES_COLORS)] for idx in range(len(base100_last_values))]
             add_line_end_labels(
@@ -1075,7 +1075,7 @@ def build_dashboard_pptx_bytes(
                 font_size=11,
                 fill_colors=[WHITE] * len(base100_last_values),
                 text_colors=base100_label_colors,
-                side="left",
+                side="right",
             )
 
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
@@ -1112,7 +1112,7 @@ def build_dashboard_pptx_bytes(
         except Exception:  # noqa: BLE001
             pass
 
-    duration_df = _sort_competencia_frame(dashboard.duration_history_df, ascending=False)
+    duration_df = _sort_competencia_frame(dashboard.duration_history_df, ascending=True)
     if not duration_df.empty:
         duration_series = [("Prazo médio proxy (dias)", _series_numeric(duration_df, "duration_days").fillna(0.0).tolist())]
         duration_values = [float(value or 0.0) for value in duration_series[0][1]]
@@ -1151,8 +1151,8 @@ def build_dashboard_pptx_bytes(
         if duration_values:
             add_line_end_labels(
                 slide,
-                labels=[f"{_format_decimal(duration_values[0], decimals=1)} dias"],
-                values=[duration_values[0]],
+                labels=[f"{_format_decimal(duration_values[-1], decimals=1)} dias"],
+                values=[duration_values[-1]],
                 colors=[ORANGE],
                 left=right_col_left,
                 top=4.20,
@@ -1163,7 +1163,7 @@ def build_dashboard_pptx_bytes(
                 font_size=11,
                 fill_colors=[WHITE],
                 text_colors=[ORANGE],
-                side="left",
+                side="right",
             )
         if duration_axis_note is not None:
             add_textbox(
@@ -1178,7 +1178,7 @@ def build_dashboard_pptx_bytes(
             )
     add_footer(slide, timestamp_text)
 
-    default_df = _sort_competencia_frame(dashboard.default_history_df, ascending=False)
+    default_df = _sort_competencia_frame(dashboard.default_history_df, ascending=True)
     credit_categories = _competencia_labels(default_df["competencia"].tolist()) if not default_df.empty else []
     credit_bar_series: list[tuple[str, Sequence[float]]] = []
     credit_line_series: list[tuple[str, Sequence[float]]] = []
@@ -1515,10 +1515,10 @@ def _latest_aging_table_frame(frame: pd.DataFrame) -> pd.DataFrame:
 
 
 def _build_over_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.DataFrame:
-    over_history_df = _sort_competencia_frame(dashboard.default_over_history_df, ascending=False)
+    over_history_df = _sort_competencia_frame(dashboard.default_over_history_df, ascending=True)
     if over_history_df.empty:
         return pd.DataFrame(columns=["competencia"])
-    ordered_competencias = _ordered_competencias(over_history_df, ascending=False)
+    ordered_competencias = _ordered_competencias(over_history_df, ascending=True)
     pivot = (
         over_history_df[over_history_df["calculo_status"] == "calculado"]
         .pivot(index="competencia", columns="serie", values="percentual")
@@ -1534,10 +1534,10 @@ def _build_over_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.Da
 
 
 def _build_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.DataFrame:
-    aging_history_df = _sort_competencia_frame(dashboard.default_aging_history_df, ascending=False)
+    aging_history_df = _sort_competencia_frame(dashboard.default_aging_history_df, ascending=True)
     if aging_history_df.empty:
         return pd.DataFrame(columns=["competencia"])
-    ordered_competencias = _ordered_competencias(aging_history_df, ascending=False)
+    ordered_competencias = _ordered_competencias(aging_history_df, ascending=True)
     pivot = (
         aging_history_df.pivot_table(
             index="competencia",
@@ -1672,7 +1672,7 @@ def _quota_pl_share_pivot(frame: pd.DataFrame) -> pd.DataFrame:
     if frame.empty:
         return pd.DataFrame(columns=["competencia"])
     output = frame.copy()
-    ordered_competencias = _ordered_competencias(output, ascending=False)
+    ordered_competencias = _ordered_competencias(output, ascending=True)
     output["percentual"] = pd.to_numeric(output["pl_share_pct"], errors="coerce").fillna(0.0)
     label_column = "class_macro_label" if "class_macro_label" in output.columns else _class_display_column(output)
     pivot = (
@@ -1687,7 +1687,7 @@ def _quota_pl_value_pivot(frame: pd.DataFrame) -> pd.DataFrame:
     if frame.empty:
         return pd.DataFrame(columns=["competencia"])
     output = frame.copy()
-    ordered_competencias = _ordered_competencias(output, ascending=False)
+    ordered_competencias = _ordered_competencias(output, ascending=True)
     output["valor"] = pd.to_numeric(output["pl"], errors="coerce").fillna(0.0)
     label_column = "class_macro_label" if "class_macro_label" in output.columns else _class_display_column(output)
     pivot = (
@@ -1698,13 +1698,13 @@ def _quota_pl_value_pivot(frame: pd.DataFrame) -> pd.DataFrame:
     return _reorder_competencia_pivot(pivot, ordered_competencias)
 
 
-def _top_return_labels_for_ppt(dashboard: FundonetDashboardData, *, limit: int = 4) -> list[str]:
+def _top_return_labels_for_ppt(dashboard: FundonetDashboardData, *, limit: int | None = None) -> list[str]:
     return_history_df = dashboard.return_history_df.copy()
     if return_history_df.empty:
         return []
     label_column = _class_display_column(return_history_df)
     labels = return_history_df[label_column].dropna().astype(str).drop_duplicates().tolist()
-    if len(labels) <= limit:
+    if limit is None or len(labels) <= limit:
         return labels
     quota_df = dashboard.quota_pl_history_df.copy()
     if quota_df.empty or dashboard.latest_competencia not in quota_df["competencia"].astype(str).tolist():
@@ -2533,15 +2533,27 @@ def _draw_table_on_slide(
 
 
 def _dashboard_percent_axis_upper(values: Sequence[object], *, max_cap: float | None = None) -> float:
+    """Round the axis ceiling up to the next clean step above the data maximum.
+
+    Step table (matches spec section 6.4):
+      max < 1%   → next 0.5 p.p.   e.g. 0.8 → 1.0
+      max < 10%  → next 1 p.p.     e.g. 3.2 → 4.0
+      max < 100% → next 5 p.p.     e.g. 42  → 45
+      max ≥ 100% → next 10         e.g. 134 → 140
+    """
     numeric = pd.to_numeric(pd.Series(values), errors="coerce").dropna()
     if numeric.empty:
-        upper = 4.0
+        return 4.0
+    max_value = float(numeric.max())
+    if max_value <= 0:
+        upper = 1.0
     else:
-        max_value = float(numeric.max())
-        upper = max(max_value * 1.12, max_value + 4.0)
+        step = 0.5 if max_value < 1.0 else 1.0 if max_value < 10.0 else 5.0 if max_value < 100.0 else 10.0
+        upper = (math.floor(max_value / step) + 1) * step
     if max_cap is not None:
         upper = min(upper, max_cap)
-    return max(upper, 1.0)
+    # Minimum axis ceiling: one step above zero so the chart isn't collapsed
+    return max(upper, 0.5)
 
 
 def _render_structure_slide_png(
@@ -2555,7 +2567,7 @@ def _render_structure_slide_png(
     image, draw = _new_slide_canvas(section_title=section_title, title_fund=title_fund, subtitle=subtitle, timestamp_text=timestamp_text)
     full_width = CONTENT_WIDTH_IN
     top_row_top = 1.02
-    sub_df = _sort_competencia_frame(dashboard.subordination_history_df, ascending=False)
+    sub_df = _sort_competencia_frame(dashboard.subordination_history_df, ascending=True)
     if not sub_df.empty:
         sub_series = [("Subordinação reportada", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
         _paste_png(
@@ -2627,7 +2639,7 @@ def _render_returns_slide_png(
     split_gap = 0.30
     right_narrow_width = CONTENT_WIDTH_IN - left_wide_width - split_gap
     right_col_left = MARGIN_LEFT_IN + left_wide_width + split_gap
-    selected_labels = _top_return_labels_for_ppt(dashboard, limit=3)
+    selected_labels = _top_return_labels_for_ppt(dashboard)
     return_table_df = _build_return_inline_table_for_ppt(dashboard, selected_labels=selected_labels, months=12)
     if not return_table_df.empty:
         month_count = max(len(return_table_df.columns) - 3, 0)
@@ -2644,7 +2656,7 @@ def _render_returns_slide_png(
         )
     base100_df = _build_return_base100_for_ppt(dashboard, selected_labels=selected_labels, months=12)
     if not base100_df.empty:
-        ordered_base100 = _sort_competencia_frame(base100_df, ascending=False)
+        ordered_base100 = _sort_competencia_frame(base100_df, ascending=True)
         base100_series = [
             (str(series_name), pd.to_numeric(group["valor"], errors="coerce").fillna(0.0).tolist())
             for series_name, group in ordered_base100.groupby("serie", dropna=False)
@@ -2692,7 +2704,7 @@ def _render_returns_slide_png(
             width=left_wide_width,
             height=2.35,
         )
-    duration_df = _sort_competencia_frame(dashboard.duration_history_df, ascending=False)
+    duration_df = _sort_competencia_frame(dashboard.duration_history_df, ascending=True)
     if not duration_df.empty:
         duration_values = _series_numeric(duration_df, "duration_days").fillna(0.0).tolist()
         duration_upper = max(max(duration_values or [0.0]) * 1.12, max(duration_values or [0.0]) + 4.0, 30.0)
@@ -2732,7 +2744,7 @@ def _render_credit_slide_png(
     image, _ = _new_slide_canvas(section_title=section_title, title_fund=title_fund, subtitle=subtitle, timestamp_text=timestamp_text)
     full_width = CONTENT_WIDTH_IN
     top_row_top = 1.02
-    default_df = _sort_competencia_frame(dashboard.default_history_df, ascending=False)
+    default_df = _sort_competencia_frame(dashboard.default_history_df, ascending=True)
     if not default_df.empty:
         categories = _competencia_labels(default_df["competencia"].tolist())
         _paste_png(
