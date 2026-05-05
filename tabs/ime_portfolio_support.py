@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Counter
 import json
 import re
 from typing import Any
@@ -12,6 +13,8 @@ from services.portfolio_store import (
     PortfolioFund,
     PortfolioRecord,
     build_portfolio_store,
+    portfolio_basket_signature,
+    portfolio_name_key,
     resolve_portfolio_store_config,
 )
 
@@ -73,6 +76,96 @@ def delete_portfolio_record(portfolio_id: str) -> None:
     store = build_portfolio_store(get_portfolio_store_config())
     store.delete_portfolio(portfolio_id)
     list_saved_portfolios_cached.clear()
+
+
+def build_portfolio_record_label_lookup(portfolios: list[PortfolioRecord]) -> dict[str, str]:
+    name_counts = Counter(portfolio_name_key(portfolio.name) for portfolio in portfolios)
+    exact_counts = Counter(
+        (portfolio_name_key(portfolio.name), portfolio_basket_signature(portfolio.funds))
+        for portfolio in portfolios
+    )
+    labels: dict[str, str] = {}
+    for portfolio in portfolios:
+        name_key = portfolio_name_key(portfolio.name)
+        exact_key = (name_key, portfolio_basket_signature(portfolio.funds))
+        base = f"{portfolio.name} · {len(portfolio.funds)} fundo(s)"
+        if exact_counts[exact_key] > 1 or name_counts[name_key] > 1:
+            base = f"{base} · ID {portfolio.id[:8]}"
+        labels[portfolio.id] = base
+    return labels
+
+
+def build_portfolio_funds_display_df(portfolio: PortfolioRecord) -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            {
+                "Fundo": normalize_portfolio_fund_name(fund.display_name, fund.cnpj),
+                "CNPJ": format_portfolio_cnpj(fund.cnpj),
+            }
+            for fund in portfolio.funds
+        ],
+        columns=["Fundo", "CNPJ"],
+    )
+
+
+def render_saved_portfolio_delete_manager(
+    *,
+    portfolios: list[PortfolioRecord],
+    key_prefix: str,
+    selected_portfolio_id: str | None = None,
+    on_delete=None,  # noqa: ANN001
+) -> None:
+    if not portfolios:
+        return
+
+    options = [portfolio.id for portfolio in portfolios]
+    state_key = f"{key_prefix}_delete_portfolio_id"
+    current_id = str(st.session_state.get(state_key) or "")
+    if current_id not in options:
+        st.session_state[state_key] = selected_portfolio_id if selected_portfolio_id in options else options[0]
+    labels = build_portfolio_record_label_lookup(portfolios)
+
+    with st.expander("Gerenciar carteiras salvas", expanded=False):
+        st.caption("Revise a composição antes de apagar. A exclusão remove o preset salvo; não apaga dados já baixados da CVM.")
+        selected_id = st.selectbox(
+            "Carteira para revisar ou apagar",
+            options=options,
+            key=state_key,
+            format_func=lambda value: labels.get(value, value),
+        )
+        selected = next((portfolio for portfolio in portfolios if portfolio.id == selected_id), None)
+        if selected is None:
+            return
+        st.caption(
+            f"ID `{selected.id[:8]}` · {len(selected.funds)} fundo(s) · "
+            f"atualizada em {selected.updated_at or 'N/D'}"
+        )
+        st.dataframe(
+            build_portfolio_funds_display_df(selected),
+            hide_index=True,
+            use_container_width=True,
+        )
+        confirm_key = f"{key_prefix}_delete_portfolio_confirm::{selected.id}"
+        confirmed = st.checkbox(
+            f"Confirmo que quero apagar a carteira salva '{selected.name}'.",
+            key=confirm_key,
+        )
+        if st.button(
+            "Apagar carteira salva",
+            key=f"{key_prefix}_delete_portfolio_button::{selected.id}",
+            type="secondary",
+            use_container_width=False,
+        ):
+            if not confirmed:
+                st.warning("Marque a confirmação antes de apagar a carteira.")
+                return
+            delete_portfolio_record(selected.id)
+            st.session_state.pop(state_key, None)
+            st.session_state.pop(confirm_key, None)
+            if callable(on_delete):
+                on_delete(selected.id)
+            st.toast(f"Carteira salva '{selected.name}' apagada.")
+            st.rerun()
 
 
 @_cache_data_decorator

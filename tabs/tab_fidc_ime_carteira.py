@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from html import escape
@@ -15,10 +14,11 @@ from services.fundonet_errors import FundosNetError, ProviderUnavailableError
 from services.fundonet_portfolio_dashboard import PortfolioDashboardBundle, build_portfolio_dashboard_bundle
 from services.ime_loader import load_or_extract_informe
 from services.ime_period import ImePeriodSelection
-from services.portfolio_store import PortfolioFund, PortfolioRecord, portfolio_basket_signature, portfolio_name_key
+from services.portfolio_store import PortfolioFund, PortfolioRecord
 from tabs import tab_fidc_ime as ime_tab
 from tabs.ime_portfolio_support import (
     build_catalog_option_lookup,
+    build_portfolio_record_label_lookup,
     build_portfolio_funds_from_cnpjs,
     delete_portfolio_record,
     enrich_portfolio_funds_with_catalog,
@@ -26,6 +26,7 @@ from tabs.ime_portfolio_support import (
     list_saved_portfolios,
     load_fidc_catalog_cached,
     normalize_portfolio_fund_name,
+    render_saved_portfolio_delete_manager,
     save_portfolio_record,
 )
 
@@ -95,6 +96,13 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
             selected_portfolio=selected_portfolio,
             editor_mode=editor_mode,
         )
+    if portfolios:
+        render_saved_portfolio_delete_manager(
+            portfolios=portfolios,
+            key_prefix="ime_portfolio",
+            selected_portfolio_id=selected_portfolio.id if selected_portfolio is not None else None,
+            on_delete=_handle_deleted_portfolio,
+        )
 
     if selected_portfolio is not None:
         selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
@@ -134,23 +142,7 @@ def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRe
 
 
 def _build_portfolio_selector_label_lookup(portfolios: list[PortfolioRecord]) -> dict[str, str]:
-    name_counts = Counter(portfolio_name_key(portfolio.name) for portfolio in portfolios)
-    exact_counts = Counter(
-        (portfolio_name_key(portfolio.name), portfolio_basket_signature(portfolio.funds))
-        for portfolio in portfolios
-    )
-    labels: dict[str, str] = {}
-    for portfolio in portfolios:
-        base_label = portfolio.name
-        name_key = portfolio_name_key(portfolio.name)
-        exact_key = (name_key, portfolio_basket_signature(portfolio.funds))
-        if exact_counts[exact_key] > 1:
-            labels[portfolio.id] = f"{base_label} · {len(portfolio.funds)} fundos · {portfolio.id[:8]}"
-        elif name_counts[name_key] > 1:
-            labels[portfolio.id] = f"{base_label} · {len(portfolio.funds)} fundos"
-        else:
-            labels[portfolio.id] = base_label
-    return labels
+    return build_portfolio_record_label_lookup(portfolios)
 
 
 def _render_portfolio_editor(
@@ -1008,6 +1000,14 @@ def _reset_new_portfolio_form_state() -> None:
         "ime_portfolio_cnpjs::new",
     ):
         st.session_state.pop(key, None)
+
+
+def _handle_deleted_portfolio(portfolio_id: str) -> None:
+    _clear_portfolio_runtime_states(portfolio_id)
+    if st.session_state.get("ime_portfolio_active_id") == portfolio_id:
+        _queue_portfolio_selection(None, clear=True)
+    st.session_state["ime_portfolio_editor_open"] = False
+    st.session_state["ime_portfolio_editor_mode"] = "edit"
 
 
 def _render_portfolio_error_summary(*, failed_cnpjs: list[str], results: dict[str, dict[str, Any]]) -> None:

@@ -39,16 +39,19 @@ from tabs import tab_fidc_ime as ime_tab
 from tabs.tab_dashboard_meli import _DASHBOARD_MELI_CSS, render_dashboard_meli_analysis
 from tabs.ime_portfolio_support import (
     build_catalog_option_lookup,
+    build_portfolio_record_label_lookup,
     build_portfolio_funds_from_cnpjs,
     delete_portfolio_record,
     enrich_portfolio_funds_with_catalog,
     get_portfolio_status_caption,
     list_saved_portfolios,
     load_fidc_catalog_cached,
+    render_saved_portfolio_delete_manager,
     save_portfolio_record,
 )
 from tabs.tab_fidc_ime_carteira import (
     _build_loaded_dashboards_by_cnpj,
+    _clear_portfolio_runtime_states,
     _execute_portfolio_load_for_funds,
     _get_portfolio_runtime_state,
 )
@@ -438,6 +441,12 @@ def _render_selection_controls(
                 st.rerun()
 
     st.caption(get_portfolio_status_caption())
+    render_saved_portfolio_delete_manager(
+        portfolios=portfolios,
+        key_prefix="ml",
+        selected_portfolio_id=selected_portfolio.id if selected_portfolio is not None else None,
+        on_delete=_handle_deleted_portfolio,
+    )
     if st.session_state.get("ml_editor_open", False):
         _render_portfolio_editor(
             portfolios=portfolios,
@@ -452,7 +461,7 @@ def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRe
     if not portfolios:
         return None
     options = [portfolio.id for portfolio in portfolios]
-    labels = {portfolio.id: f"{portfolio.name} · {len(portfolio.funds)} fundo(s)" for portfolio in portfolios}
+    labels = build_portfolio_record_label_lookup(portfolios)
     default_id = st.session_state.get("ml_portfolio_active_id")
     if default_id not in options:
         mercado = next((portfolio.id for portfolio in portfolios if portfolio.name.strip().lower() == "mercado livre"), None)
@@ -1498,6 +1507,15 @@ def _queue_selection(portfolio_id: str) -> None:
 def _reset_editor_state() -> None:
     for key in ("ml_portfolio_name::new", "ml_portfolio_funds::new", "ml_portfolio_cnpjs::new"):
         st.session_state.pop(key, None)
+
+
+def _handle_deleted_portfolio(portfolio_id: str) -> None:
+    if st.session_state.get("ml_portfolio_active_id") == portfolio_id:
+        st.session_state.pop("ml_portfolio_active_id", None)
+    if st.session_state.get("_ml_portfolio_active_id_pending") == portfolio_id:
+        st.session_state.pop("_ml_portfolio_active_id_pending", None)
+    st.session_state["ml_editor_open"] = False
+    _clear_portfolio_runtime_states(portfolio_id)
 
 
 def _utc_now_iso() -> str:

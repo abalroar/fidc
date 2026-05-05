@@ -242,7 +242,18 @@ class GitHubPortfolioStore(PortfolioStore):
             schema_version=collection.schema_version,
             portfolios=tuple(portfolio for portfolio in collection.portfolios if portfolio.id != portfolio_id),
         )
-        self._write_file(updated_collection.to_dict(), sha=sha, message=f"Delete portfolio {portfolio_id}")
+        try:
+            self._write_file(updated_collection.to_dict(), sha=sha, message=f"Delete portfolio {portfolio_id}")
+        except error.HTTPError as exc:
+            if exc.code != 409:
+                raise
+            payload, sha = self._fetch_file()
+            collection = PortfolioCollection.from_dict(payload)
+            updated_collection = PortfolioCollection(
+                schema_version=collection.schema_version,
+                portfolios=tuple(portfolio for portfolio in collection.portfolios if portfolio.id != portfolio_id),
+            )
+            self._write_file(updated_collection.to_dict(), sha=sha, message=f"Delete portfolio {portfolio_id}")
 
     def _headers(self) -> dict[str, str]:
         return {

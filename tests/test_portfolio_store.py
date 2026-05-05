@@ -6,6 +6,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
+from urllib import error
 
 from services.portfolio_store import (
     GitHubPortfolioStore,
@@ -190,6 +191,50 @@ class PortfolioStoreTests(unittest.TestCase):
         self.assertEqual(2, len(requests_seen))
         self.assertEqual("GET", requests_seen[0].get_method())
         self.assertEqual("PUT", requests_seen[1].get_method())
+
+    def test_github_delete_retries_write_conflict(self) -> None:
+        payload = {
+            "schema_version": 1,
+            "portfolios": [
+                {
+                    "id": "portfolio-1",
+                    "name": "Carteira GitHub",
+                    "funds": [{"cnpj": "32345678000199", "display_name": "FIDC GH"}],
+                    "created_at": "2026-04-14T12:00:00Z",
+                    "updated_at": "2026-04-14T12:00:00Z",
+                    "notes": "",
+                }
+            ],
+        }
+        encoded = base64.b64encode(json.dumps(payload).encode("utf-8")).decode("utf-8")
+        requests_seen = []
+        put_attempts = 0
+
+        def fake_urlopen(req, timeout=20):  # noqa: ANN001
+            nonlocal put_attempts
+            requests_seen.append(req)
+            if req.get_method() == "GET":
+                return _FakeResponse({"content": encoded, "sha": "sha-123"})
+            put_attempts += 1
+            if put_attempts == 1:
+                raise error.HTTPError(req.full_url, 409, "Conflict", hdrs=None, fp=None)
+            written = json.loads(req.data.decode("utf-8"))
+            decoded = json.loads(base64.b64decode(written["content"]).decode("utf-8"))
+            self.assertEqual([], decoded["portfolios"])
+            return _FakeResponse({})
+
+        store = GitHubPortfolioStore(
+            repo="abalroar/fidc",
+            branch="main",
+            path="portfolios.json",
+            token="token",
+        )
+
+        with patch("services.portfolio_store.request.urlopen", side_effect=fake_urlopen):
+            store.delete_portfolio("portfolio-1")
+
+        self.assertEqual(4, len(requests_seen))
+        self.assertEqual(["GET", "PUT", "GET", "PUT"], [request.get_method() for request in requests_seen])
 
 
 if __name__ == "__main__":

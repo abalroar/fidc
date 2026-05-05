@@ -61,11 +61,11 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
         labels = _build_portfolio_selector_label_lookup([portfolio_a, portfolio_b])
 
         self.assertEqual(
-            "Mercado Credito Soma · 3 fundos · 57f3418c",
+            "Mercado Credito Soma · 3 fundo(s) · ID 57f3418c",
             labels[portfolio_a.id],
         )
         self.assertEqual(
-            "Mercado Credito Soma · 3 fundos · 4220dda1",
+            "Mercado Credito Soma · 3 fundo(s) · ID 4220dda1",
             labels[portfolio_b.id],
         )
 
