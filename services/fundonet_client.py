@@ -89,6 +89,7 @@ class FundosNetClient:
         especie_id: str | None = None,
         search_text: str = "",
         page_size: int = MAX_PAGE_SIZE,
+        error_stage: str = "listar_documentos",
     ) -> list[DocumentoFundo]:
         cnpj = only_digits(cnpj_fundo)
         page_size = max(1, min(int(page_size), MAX_PAGE_SIZE))
@@ -115,7 +116,7 @@ class FundosNetClient:
                 "pesquisarGerenciadorDocumentosDados",
                 params=params,
                 accept="application/json, text/javascript, */*; q=0.01",
-                error_stage="listar_documentos",
+                error_stage=error_stage,
             )
             if payload.get("msg"):
                 raise ProviderUnavailableError(
@@ -203,12 +204,14 @@ class FundosNetClient:
         cnpj_fundo: str,
         *,
         page_size: int = MAX_PAGE_SIZE,
+        fast_fail: bool = False,
     ) -> list[DocumentoFundo]:
         return self.listar_documentos(
             cnpj_fundo,
             categoria_id=IME_CATEGORIA_ID,
             tipo_id=IME_TIPO_ID,
             page_size=page_size,
+            error_stage="listar_documentos_fast" if fast_fail else "listar_documentos",
         )
 
     def download_documento(self, doc_id: int) -> bytes:
@@ -337,6 +340,8 @@ class FundosNetClient:
         )
 
     def _timeout_for_stage(self, error_stage: str) -> int:
+        if error_stage == "listar_documentos_fast":
+            return min(max(self.timeout_seconds, 12), 20)
         if error_stage in {"abrir_gerenciador", "listar_documentos"}:
             return max(self.timeout_seconds, 45)
         if error_stage == "download_documento":
@@ -344,12 +349,14 @@ class FundosNetClient:
         return self.timeout_seconds
 
     def _retry_limit_for_stage(self, error_stage: str) -> int:
+        if error_stage == "listar_documentos_fast":
+            return 1
         if error_stage in {"abrir_gerenciador", "listar_documentos"}:
             return max(self.max_retries, 3)
         return self.max_retries
 
     def _retry_sleep_seconds(self, attempt: int, error_stage: str) -> float:
-        base = 1.1 if error_stage in {"abrir_gerenciador", "listar_documentos"} else 0.7
+        base = 1.1 if error_stage in {"abrir_gerenciador", "listar_documentos", "listar_documentos_fast"} else 0.7
         return base * (2**attempt) + random.uniform(0.0, 0.45)
 
     def _url(

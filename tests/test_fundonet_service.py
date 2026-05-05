@@ -14,11 +14,15 @@ from services.fundonet_service import InformeMensalService, select_latest_docume
 class _FakeClient:
     def __init__(self, docs: list[DocumentoFundo]) -> None:
         self._docs = docs
+        self.resolve_calls = 0
+        self.fast_fail_values: list[bool] = []
 
     def resolve_fundo(self, cnpj_fundo: str):  # noqa: ANN001
+        self.resolve_calls += 1
         return type("Resolution", (), {"id_fundo": "18252", "nome_fundo": "Teste"})()
 
-    def listar_documentos_ime(self, cnpj_fundo: str) -> list[DocumentoFundo]:
+    def listar_documentos_ime(self, cnpj_fundo: str, *, fast_fail: bool = False) -> list[DocumentoFundo]:
+        self.fast_fail_values.append(fast_fail)
         return list(self._docs)
 
     def download_documento(self, doc_id: int) -> bytes:
@@ -317,7 +321,8 @@ class ChunkedInformeMensalRunTests(unittest.TestCase):
         def _fake_parse(_: bytes, doc_id: int) -> ParsedInformeXml:
             return parsed_by_doc[doc_id]
 
-        service = InformeMensalService(client=_FakeClient(docs))
+        fake_client = _FakeClient(docs)
+        service = InformeMensalService(client=fake_client)
         with patch("services.fundonet_service.parse_informe_mensal_xml", side_effect=_fake_parse):
             result = service.run(
                 cnpj_fundo="33.254.370/0001-04",
@@ -326,6 +331,8 @@ class ChunkedInformeMensalRunTests(unittest.TestCase):
                 progress_callback=lambda current, total, message: progress_events.append((current, total, message)),
             )
 
+        self.assertEqual(0, fake_client.resolve_calls)
+        self.assertEqual([True], fake_client.fast_fail_values)
         self.assertEqual(["02/2026", "01/2026"], result.competencias)
         self.assertTrue(result.docs_csv_path.exists())
         self.assertTrue(result.contas_csv_path.exists())
@@ -348,6 +355,8 @@ class ChunkedInformeMensalRunTests(unittest.TestCase):
         self.assertEqual("20.0", passivo_row["02/2026"])
 
         self.assertEqual((4, 4, "Concluído."), progress_events[-1])
+        self.assertIn("Listando Informes Mensais Estruturados no Fundos.NET...", [event[2] for event in progress_events])
+        self.assertNotIn("Abrindo contexto público do fundo...", [event[2] for event in progress_events])
         self.assertIn("Montando Tabela Completa final em disco...", [event[2] for event in progress_events])
         self.assertIn("Finalizando workbook Excel em disco...", [event[2] for event in progress_events])
 

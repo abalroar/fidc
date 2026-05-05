@@ -25,6 +25,12 @@ class FundosNetClientTests(unittest.TestCase):
         self.assertEqual(30, client._timeout_for_stage("qualquer_outra_etapa"))
         self.assertEqual(2, client._retry_limit_for_stage("download_documento"))
 
+    def test_fast_listing_policy_caps_timeout_and_retries(self) -> None:
+        client = FundosNetClient(timeout_seconds=30, max_retries=2)
+
+        self.assertEqual(20, client._timeout_for_stage("listar_documentos_fast"))
+        self.assertEqual(1, client._retry_limit_for_stage("listar_documentos_fast"))
+
     def test_decode_download_payload_accepts_quoted_base64_pdf(self) -> None:
         pdf_bytes = b"%PDF-1.7\n%mock-pdf\n"
         quoted = f'"{base64.b64encode(pdf_bytes).decode("ascii")}"'.encode("utf-8")

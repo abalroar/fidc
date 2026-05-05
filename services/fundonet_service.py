@@ -15,7 +15,6 @@ from services.fundonet_errors import (
     DocumentDownloadError,
     DocumentParseError,
     FundosNetError,
-    FundoNotFoundError,
     InvalidCnpjError,
     NoDocumentsFoundError,
 )
@@ -90,23 +89,23 @@ class InformeMensalService:
             competencia_inicial=competencia_inicial.strftime("%m/%Y"),
             competencia_final=competencia_final.strftime("%m/%Y"),
         )
-        _report_progress(progress_callback, 0, 1, "Abrindo contexto público do fundo...")
+        _report_progress(progress_callback, 0, 1, "Listando Informes Mensais Estruturados no Fundos.NET...")
 
         try:
-            resolution = self.client.resolve_fundo(cnpj)
-            add_audit(
-                "resolve_fundo",
-                "ok",
-                "Contexto público do fundo carregado.",
-                id_fundo=resolution.id_fundo or "",
-                nome_fundo=resolution.nome_fundo or "",
-            )
-            raw_documentos = self.client.listar_documentos_ime(cnpj)
+            raw_documentos = self.client.listar_documentos_ime(cnpj, fast_fail=True)
+            nome_fundo_resolvido = next((doc.nome_fundo for doc in raw_documentos if doc.nome_fundo), "")
             add_audit(
                 "listar_documentos",
                 "ok",
-                "Listagem pública de IMEs concluída.",
+                "Listagem pública direta de IMEs concluída por CNPJ.",
                 qtd_documentos_brutos=len(raw_documentos),
+            )
+            add_audit(
+                "resolve_fundo",
+                "ignorado",
+                "Contexto público do fundo não foi aberto porque a listagem direta por CNPJ é suficiente e evita travamentos no endpoint abrirGerenciadorDocumentosCVM.",
+                id_fundo="",
+                nome_fundo=nome_fundo_resolvido or "",
             )
         except (InvalidCnpjError, ValueError):
             raise
@@ -116,8 +115,7 @@ class InformeMensalService:
             raise exc.__class__(str(exc), details=exc.details, trace=current_trace) from exc
 
         if not raw_documentos:
-            exc_cls = FundoNotFoundError if resolution.id_fundo is None else NoDocumentsFoundError
-            raise exc_cls(
+            raise NoDocumentsFoundError(
                 "Nenhum Informe Mensal Estruturado encontrado para o CNPJ informado.",
                 trace=audit_rows,
             )
