@@ -122,7 +122,7 @@ def build_dashboard_pptx_bytes(
         frame = box.text_frame
         frame.clear()
         frame.word_wrap = word_wrap
-        frame.auto_size = MSO_AUTO_SIZE.TEXT_TO_FIT_SHAPE
+        frame.auto_size = MSO_AUTO_SIZE.NONE
         paragraph = frame.paragraphs[0]
         paragraph.alignment = align
         run = paragraph.add_run()
@@ -488,6 +488,16 @@ def build_dashboard_pptx_bytes(
             chart.chart_area.format.line.fill.background()
         except Exception:  # noqa: BLE001
             pass
+        try:
+            chart.chart_area.format.fill.solid()
+            chart.chart_area.format.fill.fore_color.rgb = rgb(WHITE)
+        except Exception:  # noqa: BLE001
+            pass
+        try:
+            chart.plot_area.format.fill.solid()
+            chart.plot_area.format.fill.fore_color.rgb = rgb(WHITE)
+        except Exception:  # noqa: BLE001
+            pass
         chart.has_legend = show_legend
         if show_legend and chart.legend is not None:
             legend_positions = {
@@ -501,7 +511,7 @@ def build_dashboard_pptx_bytes(
                 chart.legend.include_in_layout = True
             try:
                 chart.legend.font.name = FONT_FAMILY
-                chart.legend.font.size = Pt(LABEL_SIZE)
+                chart.legend.font.size = Pt(9)
                 chart.legend.font.color.rgb = rgb(MID_GRAY)
             except Exception:  # noqa: BLE001
                 pass
@@ -548,6 +558,7 @@ def build_dashboard_pptx_bytes(
             chart.value_axis.tick_labels.font.color.rgb = rgb(MID_GRAY)
             chart.value_axis.has_major_gridlines = True
             chart.value_axis.major_gridlines.format.line.color.rgb = rgb(CHART_GRID_GRAY)
+            chart.value_axis.has_minor_gridlines = False
             chart.value_axis.format.line.color.rgb = rgb(MID_GRAY)
             if value_min is not None:
                 chart.value_axis.minimum_scale = value_min
@@ -576,6 +587,10 @@ def build_dashboard_pptx_bytes(
                 series.data_labels.font.size = Pt(max(label_font_size, DEFAULT_LABEL_FONT_SIZE_PT))
                 series.data_labels.font.bold = True
                 series.data_labels.font.color.rgb = rgb(label_color)
+
+        if chart_type == XL_CHART_TYPE.LINE_MARKERS:
+            for idx, series in enumerate(chart.series):
+                _style_line_series(series, color=applied_colors[idx % len(applied_colors)], width_pt=2.2, marker_size=8)
 
         if show_data_labels and not use_chart_level_labels:
             for series_idx, point_indices in enumerate(export_policy.indices_by_series):
@@ -981,15 +996,15 @@ def build_dashboard_pptx_bytes(
     )
 
     def add_slide_header(slide, section_title: str) -> None:  # noqa: ANN001
-        add_textbox(slide, 0.50, 0.18, 8.35, 0.34, section_title, size=TITLE_SIZE, bold=True, color=BLACK)
-        add_textbox(slide, 0.50, 0.56, 10.8, 0.18, title_fund, size=SUBTITLE_SIZE, bold=True, color=ORANGE)
-        add_textbox(slide, 0.50, 0.78, 11.1, 0.16, subtitle, size=FOOTER_SIZE, color=MID_GRAY)
+        add_textbox(slide, 0.50, 0.15, 9.80, 0.42, section_title, size=TITLE_SIZE, bold=True, color=BLACK)
+        add_textbox(slide, 0.50, 0.60, 10.8, 0.20, title_fund, size=SUBTITLE_SIZE, bold=True, color=ORANGE)
+        add_textbox(slide, 0.50, 0.82, 11.1, 0.18, subtitle, size=FOOTER_SIZE, color=MID_GRAY)
         chip = slide.shapes.add_shape(
             MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE,
             Inches(10.65),
-            Inches(0.18),
+            Inches(0.16),
             Inches(2.20),
-            Inches(0.28),
+            Inches(0.30),
         )
         chip.fill.solid()
         chip.fill.fore_color.rgb = rgb(BLACK)
@@ -997,9 +1012,9 @@ def build_dashboard_pptx_bytes(
         add_textbox(
             slide,
             10.78,
-            0.235,
+            0.22,
             1.92,
-            0.14,
+            0.20,
             f"Data-base: {data_base_label}",
             size=10,
             color=WHITE,
