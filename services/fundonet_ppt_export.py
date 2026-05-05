@@ -1625,10 +1625,10 @@ def _latest_aging_table_frame(frame: pd.DataFrame) -> pd.DataFrame:
 
 
 def _build_over_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.DataFrame:
-    over_history_df = _sort_competencia_frame(dashboard.default_over_history_df, ascending=True)
+    over_history_df = _sort_competencia_frame(dashboard.default_over_history_df, ascending=False)
     if over_history_df.empty:
         return pd.DataFrame(columns=["competencia"])
-    ordered_competencias = _ordered_competencias(over_history_df, ascending=True)
+    ordered_competencias = _ordered_competencias(over_history_df, ascending=False)
     pivot = (
         over_history_df[over_history_df["calculo_status"] == "calculado"]
         .pivot(index="competencia", columns="serie", values="percentual")
@@ -1644,10 +1644,10 @@ def _build_over_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.Da
 
 
 def _build_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.DataFrame:
-    aging_history_df = _sort_competencia_frame(dashboard.default_aging_history_df, ascending=True)
+    aging_history_df = _sort_competencia_frame(dashboard.default_aging_history_df, ascending=False)
     if aging_history_df.empty:
         return pd.DataFrame(columns=["competencia"])
-    ordered_competencias = _ordered_competencias(aging_history_df, ascending=True)
+    ordered_competencias = _ordered_competencias(aging_history_df, ascending=False)
     pivot = (
         aging_history_df.pivot_table(
             index="competencia",
@@ -1782,7 +1782,7 @@ def _quota_pl_share_pivot(frame: pd.DataFrame) -> pd.DataFrame:
     if frame.empty:
         return pd.DataFrame(columns=["competencia"])
     output = frame.copy()
-    ordered_competencias = _ordered_competencias(output, ascending=True)
+    ordered_competencias = _ordered_competencias(output, ascending=False)
     output["percentual"] = pd.to_numeric(output["pl_share_pct"], errors="coerce").fillna(0.0)
     label_column = "class_macro_label" if "class_macro_label" in output.columns else _class_display_column(output)
     pivot = (
@@ -1797,7 +1797,7 @@ def _quota_pl_value_pivot(frame: pd.DataFrame) -> pd.DataFrame:
     if frame.empty:
         return pd.DataFrame(columns=["competencia"])
     output = frame.copy()
-    ordered_competencias = _ordered_competencias(output, ascending=True)
+    ordered_competencias = _ordered_competencias(output, ascending=False)
     output["valor"] = pd.to_numeric(output["pl"], errors="coerce").fillna(0.0)
     label_column = "class_macro_label" if "class_macro_label" in output.columns else _class_display_column(output)
     pivot = (

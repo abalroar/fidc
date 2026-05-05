@@ -359,6 +359,10 @@ class _RevolvencyMetrics:
     prazo_total_anos: float
     prazo_medio_recebiveis_meses: float
     giro_estimado: float
+    carteira_originada_programatica: float
+    reinvestimento_principal_total: float
+    reinvestimento_excesso_total: float
+    nova_originacao_total: float
     carteira_total_originada: float
     ead_maximo: float
     ead_medio_ponderado: float
@@ -701,10 +705,24 @@ def _build_revolvency_metrics(
     prazo_medio_meses = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
     giro_estimado = prazo_total_anos * 12.0 / prazo_medio_meses
     if portfolio_mode == PORTFOLIO_MODE_STATIC:
-        carteira_total_originada = premissas.volume
+        carteira_originada_programatica = premissas.volume
     else:
         eligible_months = max(prazo_total_anos * 12.0 - prazo_medio_meses, 0.0)
-        carteira_total_originada = premissas.volume + premissas.volume * (eligible_months / prazo_medio_meses)
+        carteira_originada_programatica = premissas.volume + premissas.volume * (eligible_months / prazo_medio_meses)
+    reinvestimento_principal_total = sum(
+        max(float(getattr(period, "reinvestimento_principal", 0.0)), 0.0) for period in zero_default_results[1:]
+    )
+    reinvestimento_excesso_total = sum(
+        max(float(getattr(period, "reinvestimento_excesso", 0.0)), 0.0) for period in zero_default_results[1:]
+    )
+    nova_originacao_total = sum(
+        max(float(getattr(period, "nova_originacao", 0.0)), 0.0) for period in zero_default_results[1:]
+    )
+    has_motor_origination = any(hasattr(period, "nova_originacao") for period in zero_default_results[1:])
+    if zero_default_results and has_motor_origination:
+        carteira_total_originada = max(float(premissas.volume), 0.0) + nova_originacao_total
+    else:
+        carteira_total_originada = carteira_originada_programatica
     sub_final = max(float(zero_default_results[-1].pl_sub_jr), 0.0) if zero_default_results else 0.0
     colchao_sem_perdas = sub_final / carteira_total_originada if carteira_total_originada > 0 else None
     ead_values = [float(getattr(period, "carteira", premissas.volume)) for period in zero_default_results]
@@ -735,6 +753,10 @@ def _build_revolvency_metrics(
         prazo_total_anos=prazo_total_anos,
         prazo_medio_recebiveis_meses=prazo_medio_meses,
         giro_estimado=giro_estimado,
+        carteira_originada_programatica=carteira_originada_programatica,
+        reinvestimento_principal_total=reinvestimento_principal_total,
+        reinvestimento_excesso_total=reinvestimento_excesso_total,
+        nova_originacao_total=nova_originacao_total,
         carteira_total_originada=carteira_total_originada,
         ead_maximo=ead_maximo,
         ead_medio_ponderado=ead_medio,
@@ -893,13 +915,20 @@ def _build_time_protection_frame(
         _scheduled_origination_components(month_index, previous_month_index, premissas, portfolio_mode)
         for month_index, previous_month_index in zip(protection["indice"], previous_indices)
     ]
-    protection["nova_originacao_estimada"] = [values[1] for values in components]
-    protection["nova_originacao_acumulada"] = [values[2] for values in components]
-    protection["carteira_originada_acumulada"] = [values[3] for values in components]
+    protection["nova_originacao_programatica"] = [values[1] for values in components]
+    protection["nova_originacao_programatica_acumulada"] = [values[2] for values in components]
     if "nova_originacao" in protection.columns:
         protection["nova_originacao_motor"] = protection["nova_originacao"].clip(lower=0.0)
+        protection["nova_originacao_estimada"] = protection["nova_originacao_motor"]
+        protection["nova_originacao_acumulada"] = protection["nova_originacao_motor"].cumsum()
+        protection["carteira_originada_acumulada"] = protection["carteira_inicial_considerada"] + protection[
+            "nova_originacao_acumulada"
+        ]
     else:
         protection["nova_originacao_motor"] = None
+        protection["nova_originacao_estimada"] = protection["nova_originacao_programatica"]
+        protection["nova_originacao_acumulada"] = protection["nova_originacao_programatica_acumulada"]
+        protection["carteira_originada_acumulada"] = [values[3] for values in components]
     protection["prazo_medio_recebiveis_meses"] = float(premissas.prazo_medio_recebiveis_meses)
     if "fluxo_remanescente_mezz" in protection.columns:
         protection["residual_economico_fluxo"] = protection["fluxo_remanescente_mezz"]
@@ -1002,6 +1031,7 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "perda_carteira_despesa": "Despesa de provisão/perda",
             "carteira_vencendo": "Carteira vencendo no período",
             "ead_vencendo": "EAD vencendo no período",
+            "principal_inadimplente": "Principal inadimplente não recebido",
             "entrada_npl90": "Entrada em NPL 90+",
             "npl90_estoque_inicio": "Estoque NPL 90+ (início)",
             "npl90_estoque_fim": "Estoque NPL 90+ (fim)",
@@ -1011,6 +1041,7 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "provisao_saldo_fim": "Saldo de provisão (fim)",
             "cobertura_npl90": "Cobertura NPL 90+",
             "baixa_credito": "Baixa de crédito/write-off",
+            "writeoff_descoberto": "Write-off descoberto pela provisão",
             "recuperacao_credito": "Recuperação de crédito",
             "bucket_adimplente": "Bucket adimplente",
             "bucket_1_30": "Bucket 1-30",
@@ -1175,7 +1206,11 @@ def _build_revolvency_export_dataframe(metrics: _RevolvencyMetrics) -> pd.DataFr
         [
             {"Indicador": "Prazo total do FIDC (anos)", "Valor": metrics.prazo_total_anos},
             {"Indicador": "Prazo médio dos recebíveis (meses)", "Valor": metrics.prazo_medio_recebiveis_meses},
-            {"Indicador": "Carteira originada nominal estimada", "Valor": metrics.carteira_total_originada},
+            {"Indicador": "Carteira originada programática", "Valor": metrics.carteira_originada_programatica},
+            {"Indicador": "Reinvestimento de principal", "Valor": metrics.reinvestimento_principal_total},
+            {"Indicador": "Reinvestimento de excesso de spread", "Valor": metrics.reinvestimento_excesso_total},
+            {"Indicador": "Nova originação efetiva do motor", "Valor": metrics.nova_originacao_total},
+            {"Indicador": "Carteira originada efetiva", "Valor": metrics.carteira_total_originada},
             {"Indicador": "SUB final sem perdas", "Valor": metrics.sub_final_sem_inadimplencia},
             {"Indicador": "Colchão sobre carteira originada", "Valor": metrics.colchao_sem_perdas_sobre_originacao},
         ]
@@ -1304,15 +1339,20 @@ def _build_workbook_mechanics_markdown(
             "```text",
             "carteira_vencendo = carteira_inicio * meses_periodo / prazo_medio_recebiveis",
             "npl90_futuro = carteira_vencendo * npl90_esperado_por_ciclo",
+            "principal_recebido_liquido = max(carteira_vencendo - npl90_futuro, 0)",
             "entrada_npl90_t = npl90_futuro_de_periodos_anteriores_apos_lag",
-            "estoque_npl90_t = estoque_npl90_t-1 + entrada_npl90_t",
+            "baixa_credito_t = entrada_npl90_t * LGD",
+            "estoque_npl90_t = max(estoque_npl90_t-1 + entrada_npl90_t - baixa_credito_t, 0)",
             "provisao_minima = estoque_npl90_t * cobertura_minima * LGD",
             "provisao_prospectiva = npl90_futuro * LGD",
-            "provisao_requerida = max(provisao_anterior + provisao_prospectiva, provisao_minima)",
-            "despesa_provisao = max(provisao_requerida - provisao_anterior, 0)",
+            "provisao_pos_writeoff = max(provisao_anterior - baixa_credito_t, 0)",
+            "provisao_requerida = max(provisao_pos_writeoff + provisao_prospectiva, provisao_minima)",
+            "despesa_provisao = writeoff_descoberto + max(provisao_requerida - provisao_pos_writeoff, 0)",
             "```",
             "",
             "- Essa metodologia é intermediária e segue uma filosofia prospectiva do tipo `ECL forward-looking`: ela provisiona a perda esperada de ciclo antes do write-off e nunca deixa a provisão abaixo da cobertura mínima do NPL 90+ observado.",
+            "- A baixa é imediata no mês em que o crédito entra em NPL 90+. Assim, com `LGD = 100%`, a entrada em NPL 90+ é baixada integralmente, consome provisão já constituída e deixa de compor carteira performing.",
+            "- O principal que deve virar NPL 90+ não é tratado como principal recebido nem como base de reinvestimento automático.",
             "- A provisão modelada aqui é uma aproximação econômica para simulação; ela não deve ser lida como regra contábil ou regulatória estrita de perda incorrida.",
             "- Nos primeiros meses, o NPL 90+ ainda pode ser zero por causa do lag, mas a provisão já começa a ser constituída para cobrir a perda esperada que vai maturar.",
             "- A implementação atual não reconhece reversão negativa de provisão quando o estoque NPL 90+ cai. Isso é conservador e pode reduzir a SUB final; a revisão com reversão explícita depende de decisão metodológica posterior.",
@@ -1402,20 +1442,21 @@ def _build_workbook_mechanics_markdown(
             "```text",
             "giro_estimado = prazo_total_fidc_anos * 12 / prazo_medio_recebiveis_meses",
             "mes_limite_reinvestimento = prazo_total_fidc_meses - prazo_medio_recebiveis_meses",
-            "principal_recebido = carteira_inicio * meses_periodo / prazo_medio_recebiveis_meses",
-            "nova_originacao_economica = principal_recebido + max(fluxo_remanescente_apos_MEZZ, 0)",
+            "principal_programado = carteira_inicio * meses_periodo / prazo_medio_recebiveis_meses",
+            "principal_recebido_liquido = max(principal_programado - principal_inadimplente, 0)",
+            "nova_originacao_economica = principal_recebido_liquido + max(fluxo_remanescente_apos_MEZZ, 0)",
             "```",
             "",
             "- Se o mês do FIDC fica depois do mês limite de reinvestimento, a nova originação econômica vira `0` e a carteira começa a amortizar por runoff.",
             "- A partir desse ponto, o principal dos recebíveis que vence deixa de comprar nova carteira e passa a compor caixa aplicado à SELIC.",
-            "- Para o denominador de carteira originada nominal, a carteira inicial já é o primeiro ciclo de originação. Portanto, o total programático é:",
+            "- O denominador principal de carteira originada usa a originação efetiva do motor. Portanto, se o modelo reinveste excesso de spread durante a revolvência, esse excesso entra no denominador e na memória de cálculo.",
             "",
             "```text",
-            "nova_originacao_denominador = volume_inicial * max(prazo_total_meses - prazo_medio_recebiveis_meses, 0) / prazo_medio_recebiveis_meses",
-            "carteira_originada_denominador = volume_inicial + nova_originacao_denominador",
+            "carteira_originada_efetiva = volume_inicial + soma(nova_originacao_economica_t)",
+            "nova_originacao_economica_t = reinvestimento_principal_t + reinvestimento_excesso_t",
             "```",
             "",
-            "- Exemplo: prazo total de `36 meses`, prazo médio de `6 meses` e volume inicial de `R$ 750MM` geram `6x` de giro e denominador de `R$ 4,5 bi`.",
+            "- O giro programático continua sendo exibido como referência operacional, mas não substitui o denominador econômico quando a carteira efetivamente cresce por reinvestimento de spread.",
             "- Quando a carteira é estática, a carteira originada é apenas a compra inicial:",
             "",
             "```text",
@@ -2059,10 +2100,10 @@ def _render_revolvency_cards(metrics: _RevolvencyMetrics) -> None:
             "Indica em quantos meses, em média, os recebíveis viram caixa para giro da carteira.",
         ),
         (
-            "Carteira originada nominal",
+            "Carteira originada efetiva",
             _format_brl(metrics.carteira_total_originada),
             "Base de comparação",
-            "Volume total estimado comprado no prazo do FIDC, somando a carteira inicial e as novas originações.",
+            "Volume comprado no motor, somando carteira inicial, reinvestimento de principal e reinvestimento de excesso de spread.",
         ),
         (
             "SUB final sem perdas",
@@ -2074,7 +2115,7 @@ def _render_revolvency_cards(metrics: _RevolvencyMetrics) -> None:
             "Colchão sobre carteira originada",
             _format_percent(metrics.colchao_sem_perdas_sobre_originacao),
             "SUB final sem perdas / carteira originada",
-            "Mede excess spread acumulado sem perdas dividido pela carteira originada nominal.",
+            "Mede excess spread acumulado sem perdas dividido pela carteira originada efetiva pelo motor.",
         ),
     ]
     cards_html = "".join(
@@ -3020,22 +3061,22 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Carteira vencendo no período",
                 "Fórmula": "carteira_inicio * meses_periodo / prazo_medio_recebiveis",
-                "Observação": "É a parcela do principal que vira caixa no período; na metodologia intermediária, a perda de ciclo incide sobre essa base.",
+                "Observação": "É a parcela programada para vencer; o principal inadimplente projetado é deduzido do caixa recebido e do reinvestimento.",
             },
             {
                 "Indicador": "Entrada e estoque NPL 90+",
-                "Fórmula": "estoque_npl90_t = estoque_npl90_t-1 + entrada_npl90_t - recuperacao_90_t - writeoff_90_t",
-                "Observação": "Na metodologia intermediária, a entrada usa a perda de ciclo depois do lag; na avançada, a entrada vem da rolagem 61-90 -> 90+.",
+                "Fórmula": "npl90_futuro = carteira_vencendo * perda_ciclo; estoque_npl90_t = max(estoque_t-1 + entrada_npl90_t - baixa_credito_t, 0)",
+                "Observação": "Na metodologia NPL 90 + cobertura, a entrada usa a perda de ciclo depois do lag e é baixada imediatamente pelo LGD informado.",
             },
             {
                 "Indicador": "Provisão requerida",
-                "Fórmula": "max(provisao_anterior + provisao_prospectiva, estoque_npl90 * cobertura_minima * LGD)",
-                "Observação": "Garante que a provisão nunca fique abaixo do estoque NPL 90+ coberto pelo percentual mínimo informado; a versão atual não reconhece reversão negativa de provisão.",
+                "Fórmula": "max(max(provisao_anterior - baixa_credito, 0) + provisao_prospectiva, estoque_npl90 * cobertura_minima * LGD)",
+                "Observação": "A baixa consome provisão já constituída; reforços adicionais só entram quando a provisão prospectiva ou mínima exige.",
             },
             {
                 "Indicador": "Despesa de provisão/perda",
-                "Fórmula": "max(provisao_requerida - provisao_anterior, 0) + writeoff_descoberto",
-                "Observação": "Essa despesa reduz o PL econômico; o saldo de carteira só é reduzido quando existe write-off.",
+                "Fórmula": "writeoff_descoberto + max(provisao_requerida - max(provisao_anterior - baixa_credito, 0), 0)",
+                "Observação": "A despesa reduz o PL econômico; a baixa reduz carteira e impede que principal inadimplente seja tratado como principal recebido.",
             },
             {
                 "Indicador": "Resultado líquido da carteira",
@@ -3049,7 +3090,7 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Nova originação",
-                "Fórmula": "se elegível: principal_recebido + max(fluxo_remanescente_apos_MEZZ, 0); se não elegível: 0",
+                "Fórmula": "se elegível: principal_recebido_líquido + max(fluxo_remanescente_apos_MEZZ, 0); se não elegível: 0",
                 "Observação": "Captura reinvestimento do principal reciclado e do excesso de caixa; fora da janela elegível, o principal recebido vai para caixa SELIC.",
             },
             {
@@ -3072,14 +3113,14 @@ def render_tab_modelo_fidc() -> None:
                 "Observação": "A SUB agora é uma premissa explícita na interface; o motor bloqueia soma diferente de 100%.",
             },
             {
-                "Indicador": "Carteira originada estimada",
+                "Indicador": "Carteira originada programática",
                 "Fórmula": "revolvente: volume + volume * max(prazo_total_meses - prazo_medio_meses, 0) / prazo_medio_meses; estática: volume",
-                "Observação": "A carteira inicial é o primeiro ciclo; por isso, 36 meses / 6 meses = 6x o volume inicial, não 7x.",
+                "Observação": "Referência de giro teórico do volume inicial; não é usada como denominador principal quando o motor reinveste excesso de spread.",
             },
             {
-                "Indicador": "Carteira originada acumulada",
-                "Fórmula": "volume + volume * min(mês_fidc, prazo_total_meses - prazo_medio_meses) / prazo_medio_meses",
-                "Observação": "Esse é o denominador programático de carteira originada nominal; a originação econômica com excesso de caixa aparece separada na timeline.",
+                "Indicador": "Carteira originada efetiva",
+                "Fórmula": "volume_inicial + soma(nova_originacao_economica_t)",
+                "Observação": "Denominador reconciliado com o motor; inclui reinvestimento de principal e de excesso de spread enquanto a revolvência é elegível.",
             },
             {
                 "Indicador": "Colchão de proteção no tempo",
@@ -3088,8 +3129,8 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Colchão sem perdas sobre originado",
-                "Fórmula": "max(SUB final com perdas 0%, 0) / carteira total originada estimada",
-                "Observação": "Esta é uma simulação paralela sem perda de crédito para medir excess spread e colchão econômico antes das perdas.",
+                "Fórmula": "max(SUB final com perdas 0%, 0) / carteira originada efetiva",
+                "Observação": "Esta é uma simulação paralela sem perda de crédito para medir excess spread e colchão econômico antes das perdas, reconciliada com as originações do motor.",
             },
             {
                 "Indicador": "Júnior residual / subordinação econômica",

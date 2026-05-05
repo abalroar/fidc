@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import date
+from types import SimpleNamespace
 import unittest
 
 import pandas as pd
@@ -178,6 +179,61 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertAlmostEqual((1.05**2) - 1.0, metrics.perda_ciclo_calibrada_anual_equivalente)
         self.assertAlmostEqual(0.04, metrics.perda_ciclo_calibrada_pos_lgd)
 
+    def test_revolvency_metrics_reconcile_with_effective_motor_origination(self) -> None:
+        premissas = tab_modelo_fidc.Premissas(
+            volume=1_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.75,
+            taxa_senior=0.0,
+            proporcao_mezz=0.15,
+            taxa_mezz=0.0,
+            proporcao_subordinada=0.10,
+            prazo_fidc_anos=3.0,
+            prazo_medio_recebiveis_meses=6.0,
+            lgd=1.0,
+        )
+        periods = [
+            SimpleNamespace(pl_sub_jr=100.0, carteira=1_000.0, delta_dc=0.0),
+            SimpleNamespace(
+                pl_sub_jr=120.0,
+                carteira=1_000.0,
+                delta_dc=30.0,
+                reinvestimento_principal=100.0,
+                reinvestimento_excesso=50.0,
+                nova_originacao=150.0,
+            ),
+            SimpleNamespace(
+                pl_sub_jr=140.0,
+                carteira=1_150.0,
+                delta_dc=30.0,
+                reinvestimento_principal=110.0,
+                reinvestimento_excesso=60.0,
+                nova_originacao=170.0,
+            ),
+        ]
+
+        metrics = tab_modelo_fidc._build_revolvency_metrics(
+            premissas=premissas,
+            zero_default_results=periods,
+            portfolio_mode=tab_modelo_fidc.PORTFOLIO_MODE_REVOLVING,
+        )
+
+        self.assertAlmostEqual(6_000.0, metrics.carteira_originada_programatica)
+        self.assertAlmostEqual(210.0, metrics.reinvestimento_principal_total)
+        self.assertAlmostEqual(110.0, metrics.reinvestimento_excesso_total)
+        self.assertAlmostEqual(320.0, metrics.nova_originacao_total)
+        self.assertAlmostEqual(1_320.0, metrics.carteira_total_originada)
+        self.assertAlmostEqual(140.0 / 1_320.0, metrics.colchao_sem_perdas_sobre_originacao)
+
+        export = tab_modelo_fidc._build_revolvency_export_dataframe(metrics)
+        exported_values = dict(zip(export["Indicador"], export["Valor"]))
+        self.assertAlmostEqual(metrics.carteira_total_originada, exported_values["Carteira originada efetiva"])
+        self.assertAlmostEqual(metrics.reinvestimento_excesso_total, exported_values["Reinvestimento de excesso de spread"])
+
     def test_calibrated_loss_cycle_solver_finds_loss_that_exhausts_sub(self) -> None:
         dates = [pd.Timestamp(2026, 1, 1) + pd.DateOffset(months=month) for month in range(13)]
         datas = [date.to_pydatetime() for date in dates]
@@ -293,7 +349,7 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertAlmostEqual(0.19047218455885997, kpis.xirr_mezz)
         self.assertAlmostEqual(1_495_454_499.5443125, periods[-1].pl_sub_jr, delta=1.0)
         self.assertFalse(exceeded)
-        self.assertAlmostEqual(0.18598175048828125, loss_cycle)
+        self.assertAlmostEqual(0.16382598876953125, loss_cycle)
 
     def test_time_protection_uses_monthly_revolving_origination(self) -> None:
         premissas = tab_modelo_fidc.Premissas(
@@ -374,7 +430,7 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertAlmostEqual(1_166_666_666.6666667, protection.iloc[0]["carteira_originada_acumulada"])
         self.assertAlmostEqual(100_000_000.0 / 1_166_666_666.6666667, protection.iloc[0]["perda_maxima_suportada"])
 
-    def test_time_protection_keeps_programmatic_denominator_when_actual_reinvestment_exists(self) -> None:
+    def test_time_protection_uses_actual_motor_origination_when_available(self) -> None:
         premissas = tab_modelo_fidc.Premissas(
             volume=1_000.0,
             tx_cessao_am=0.0,
@@ -408,12 +464,12 @@ class TabModeloFidcTests(unittest.TestCase):
         )
 
         self.assertEqual([1, 2], protection["indice"].tolist())
-        self.assertAlmostEqual(166.66666666666666, protection.iloc[0]["nova_originacao_estimada"])
-        self.assertAlmostEqual(166.66666666666666, protection.iloc[0]["nova_originacao_acumulada"])
-        self.assertAlmostEqual(1_166.6666666666667, protection.iloc[0]["carteira_originada_acumulada"])
+        self.assertAlmostEqual(220.0, protection.iloc[0]["nova_originacao_estimada"])
+        self.assertAlmostEqual(220.0, protection.iloc[0]["nova_originacao_acumulada"])
+        self.assertAlmostEqual(1_220.0, protection.iloc[0]["carteira_originada_acumulada"])
         self.assertAlmostEqual(220.0, protection.iloc[0]["nova_originacao_motor"])
-        self.assertAlmostEqual(333.3333333333333, protection.iloc[1]["nova_originacao_acumulada"])
-        self.assertAlmostEqual(1_333.3333333333333, protection.iloc[1]["carteira_originada_acumulada"])
+        self.assertAlmostEqual(550.0, protection.iloc[1]["nova_originacao_acumulada"])
+        self.assertAlmostEqual(1_550.0, protection.iloc[1]["carteira_originada_acumulada"])
         self.assertAlmostEqual(330.0, protection.iloc[1]["nova_originacao_motor"])
 
     def test_model_charts_are_filled_area_charts(self) -> None:

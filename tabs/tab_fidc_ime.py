@@ -85,7 +85,7 @@ OVER_AGING_CHART_COLORS = [
 
 OVER_SERIES_ORDER = ["Over 1", "Over 30", "Over 60", "Over 90", "Over 180", "Over 360"]
 
-COVERAGE_LINE_COLOR = "#ff5a00"
+COVERAGE_LINE_COLOR = "#6b2c3e"
 
 _PT_MONTH_ABBR: dict[str, str] = {
     "01": "jan",
@@ -1674,7 +1674,7 @@ def _competencia_axis_sort(
     frame: pd.DataFrame,
     *,
     competencia_column: str = "competencia",
-    descending: bool = False,
+    descending: bool = True,
 ) -> list[str]:
     if frame.empty or competencia_column not in frame.columns:
         return []
@@ -2653,7 +2653,7 @@ def _format_return_inline_matrix_frame(
         return_summary_df = return_summary_df[return_summary_df[summary_label_column].isin(selected_labels)].copy()
     if history_df.empty or return_summary_df.empty:
         return pd.DataFrame(columns=["Classe", "YTD", "12 meses"])
-    ordered_history = history_df.sort_values("competencia_dt").copy()
+    ordered_history = history_df.sort_values("competencia_dt", ascending=False).copy()
     competencias = ordered_history["competencia"].drop_duplicates().tolist()
     display_competencias = competencias
     pivot = (

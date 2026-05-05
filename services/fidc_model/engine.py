@@ -218,6 +218,7 @@ class _CreditPeriod:
     perda_inesperada_despesa: float
     perda_carteira_despesa: float
     carteira_vencendo: float
+    principal_inadimplente: float
     entrada_npl90: float
     npl90_estoque_inicio: float
     npl90_estoque_fim: float
@@ -227,6 +228,7 @@ class _CreditPeriod:
     provisao_saldo_fim: float
     cobertura_npl90: float | None
     baixa_credito: float
+    writeoff_descoberto: float
     recuperacao_credito: float
     bucket_adimplente: float
     bucket_1_30: float
@@ -262,6 +264,7 @@ def _legacy_credit_period(carteira: float, premissas: Premissas, delta_dc: int) 
         perda_inesperada_despesa=unexpected_loss,
         perda_carteira_despesa=total_loss,
         carteira_vencendo=0.0,
+        principal_inadimplente=0.0,
         entrada_npl90=0.0,
         npl90_estoque_inicio=0.0,
         npl90_estoque_fim=0.0,
@@ -271,6 +274,7 @@ def _legacy_credit_period(carteira: float, premissas: Premissas, delta_dc: int) 
         provisao_saldo_fim=0.0,
         cobertura_npl90=None,
         baixa_credito=total_loss,
+        writeoff_descoberto=total_loss,
         recuperacao_credito=0.0,
         bucket_adimplente=max(carteira, 0.0),
         bucket_1_30=0.0,
@@ -304,11 +308,15 @@ def _npl90_credit_period(
             state.npl90_pipeline.append((lag, npl90_futuro))
 
     npl90_end = npl90_start + entrada_npl90
+    writeoff_loss = entrada_npl90 * lgd
+    provisao_after_writeoff = max(provisao_start - writeoff_loss, 0.0)
+    uncovered_writeoff = max(writeoff_loss - provisao_start, 0.0)
+    npl90_end = max(npl90_end - writeoff_loss, 0.0)
     provisao_base = npl90_futuro * lgd
     provisao_minima = npl90_end * cobertura_minima * lgd
-    provisao_requerida = max(provisao_start + provisao_base, provisao_minima)
-    despesa_provisao = max(provisao_requerida - provisao_start, 0.0)
-    reforco_cobertura = max(despesa_provisao - provisao_base, 0.0)
+    provisao_requerida = max(provisao_after_writeoff + provisao_base, provisao_minima)
+    despesa_provisao = uncovered_writeoff + max(provisao_requerida - provisao_after_writeoff, 0.0)
+    reforco_cobertura = max(despesa_provisao - provisao_base - uncovered_writeoff, 0.0)
     cobertura_npl90 = provisao_requerida / (npl90_end * lgd) if npl90_end > 0.0 and lgd > 0.0 else None
 
     state.provisao_saldo = provisao_requerida
@@ -319,6 +327,7 @@ def _npl90_credit_period(
         perda_inesperada_despesa=reforco_cobertura,
         perda_carteira_despesa=despesa_provisao,
         carteira_vencendo=carteira_vencendo,
+        principal_inadimplente=npl90_futuro,
         entrada_npl90=entrada_npl90,
         npl90_estoque_inicio=npl90_start,
         npl90_estoque_fim=npl90_end,
@@ -327,9 +336,10 @@ def _npl90_credit_period(
         despesa_provisao=despesa_provisao,
         provisao_saldo_fim=provisao_requerida,
         cobertura_npl90=cobertura_npl90,
-        baixa_credito=0.0,
+        baixa_credito=writeoff_loss,
+        writeoff_descoberto=uncovered_writeoff,
         recuperacao_credito=0.0,
-        bucket_adimplente=max(carteira - npl90_end, 0.0),
+        bucket_adimplente=max(carteira - npl90_end - writeoff_loss, 0.0),
         bucket_1_30=0.0,
         bucket_31_60=0.0,
         bucket_61_90=0.0,
@@ -404,6 +414,7 @@ def _migration_credit_period(
         perda_inesperada_despesa=reforco_cobertura + uncovered_writeoff,
         perda_carteira_despesa=despesa_provisao,
         carteira_vencendo=carteira_vencendo,
+        principal_inadimplente=0.0,
         entrada_npl90=to_90_plus,
         npl90_estoque_inicio=bucket_90_start,
         npl90_estoque_fim=bucket_90_end,
@@ -413,6 +424,7 @@ def _migration_credit_period(
         provisao_saldo_fim=provisao_requerida,
         cobertura_npl90=cobertura_npl90,
         baixa_credito=writeoff,
+        writeoff_descoberto=uncovered_writeoff,
         recuperacao_credito=recovered,
         bucket_adimplente=current_end,
         bucket_1_30=bucket_1_30_end,
@@ -628,6 +640,7 @@ def build_flow(
                     perda_carteira_despesa=0.0,
                     carteira_vencendo=0.0,
                     ead_vencendo=0.0,
+                    principal_inadimplente=0.0,
                     entrada_npl90=0.0,
                     npl90_estoque_inicio=0.0,
                     npl90_estoque_fim=0.0,
@@ -637,6 +650,7 @@ def build_flow(
                     provisao_saldo_fim=0.0,
                     cobertura_npl90=None,
                     baixa_credito=0.0,
+                    writeoff_descoberto=0.0,
                     recuperacao_credito=0.0,
                     bucket_adimplente=premissas.volume,
                     bucket_1_30=0.0,
@@ -697,19 +711,13 @@ def build_flow(
         prazo_medio_recebiveis = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
         preco_pago_fator = _ead_factor_for_premissas(premissas, tx_cessao_am_aplicada, prazo_medio_recebiveis)
         ead_carteira = carteira * preco_pago_fator
-        principal_recebido_carteira = min(carteira, max(carteira * period_months / prazo_medio_recebiveis, 0.0))
-        ead_vencendo = principal_recebido_carteira * preco_pago_fator
+        principal_programado_carteira = min(carteira, max(carteira * period_months / prazo_medio_recebiveis, 0.0))
+        ead_vencendo = principal_programado_carteira * preco_pago_fator
         prazo_restante_reinvestimento = max(
             float(_term_months(premissas.prazo_fidc_anos, fallback_term_months) - month_deltas[index]),
             0.0,
         )
         reinvestimento_elegivel = _is_reinvestment_eligible(premissas, month_deltas[index], fallback_term_months)
-        reinvestimento_principal = principal_recebido_carteira if reinvestimento_elegivel else 0.0
-        principal_para_caixa_selic = max(principal_recebido_carteira - reinvestimento_principal, 0.0)
-        taxa_selic_aa = _selic_annual_rate_for_year(premissas, dt.year)
-        taxa_selic_periodo = _annual_252_to_period_rate(taxa_selic_aa, period_months)
-        saldo_caixa_selic_inicio = caixa_selic_atual
-        rendimento_caixa_selic = (saldo_caixa_selic_inicio + principal_para_caixa_selic) * taxa_selic_periodo
         fluxo_carteira = carteira * ((1.0 + tx_cessao_am_aplicada) ** (delta_du / 21.0) - 1.0)
         custos_adm = _admin_cost_period_amount(pl_fidc_atual, premissas.custo_adm_aa, premissas.custo_min)
         credit = _credit_period(
@@ -720,6 +728,16 @@ def build_flow(
             period_months=period_months,
             state=credit_state,
         )
+        principal_inadimplente_face = (
+            credit.principal_inadimplente / preco_pago_fator if preco_pago_fator > 1e-12 else credit.principal_inadimplente
+        )
+        principal_recebido_carteira = max(principal_programado_carteira - principal_inadimplente_face, 0.0)
+        reinvestimento_principal = principal_recebido_carteira if reinvestimento_elegivel else 0.0
+        principal_para_caixa_selic = max(principal_recebido_carteira - reinvestimento_principal, 0.0)
+        taxa_selic_aa = _selic_annual_rate_for_year(premissas, dt.year)
+        taxa_selic_periodo = _annual_252_to_period_rate(taxa_selic_aa, period_months)
+        saldo_caixa_selic_inicio = caixa_selic_atual
+        rendimento_caixa_selic = (saldo_caixa_selic_inicio + principal_para_caixa_selic) * taxa_selic_periodo
         fluxo_ativos_total = fluxo_carteira + rendimento_caixa_selic + credit.recuperacao_credito
         perda_esperada_despesa = credit.perda_esperada_despesa
         perda_inesperada_despesa = credit.perda_inesperada_despesa
@@ -811,6 +829,7 @@ def build_flow(
                 perda_carteira_despesa=perda_carteira_despesa,
                 carteira_vencendo=credit.carteira_vencendo,
                 ead_vencendo=ead_vencendo,
+                principal_inadimplente=credit.principal_inadimplente,
                 entrada_npl90=credit.entrada_npl90,
                 npl90_estoque_inicio=credit.npl90_estoque_inicio,
                 npl90_estoque_fim=credit.npl90_estoque_fim,
@@ -820,6 +839,7 @@ def build_flow(
                 provisao_saldo_fim=credit.provisao_saldo_fim,
                 cobertura_npl90=credit.cobertura_npl90,
                 baixa_credito=credit.baixa_credito,
+                writeoff_descoberto=credit.writeoff_descoberto,
                 recuperacao_credito=credit.recuperacao_credito,
                 bucket_adimplente=credit.bucket_adimplente,
                 bucket_1_30=credit.bucket_1_30,

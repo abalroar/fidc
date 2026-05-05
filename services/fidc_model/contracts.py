@@ -89,6 +89,7 @@ class PeriodResult:
     perda_carteira_despesa: float
     carteira_vencendo: float
     ead_vencendo: float
+    principal_inadimplente: float
     entrada_npl90: float
     npl90_estoque_inicio: float
     npl90_estoque_fim: float
@@ -98,6 +99,7 @@ class PeriodResult:
     provisao_saldo_fim: float
     cobertura_npl90: Optional[float]
     baixa_credito: float
+    writeoff_descoberto: float
     recuperacao_credito: float
     bucket_adimplente: float
     bucket_1_30: float
