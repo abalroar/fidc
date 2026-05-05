@@ -722,6 +722,11 @@ def _render_portfolio_aggregate_analysis(
             loaded_count=loaded_count,
             total_selected=total_selected,
         )
+        _render_portfolio_aggregate_pptx_export_button(
+            selected_portfolio=selected_portfolio,
+            bundle=bundle,
+            period=period,
+        )
         _render_portfolio_period_coverage_warning(bundle=bundle, period=period)
         if excluded_funds:
             st.warning(
@@ -781,6 +786,38 @@ def _render_portfolio_aggregate_header(
             "</div>"
         ),
         unsafe_allow_html=True,
+    )
+
+
+def _render_portfolio_aggregate_pptx_export_button(
+    *,
+    selected_portfolio: PortfolioRecord,
+    bundle: PortfolioDashboardBundle,
+    period: ImePeriodSelection,
+) -> None:
+    try:
+        from services.fundonet_ppt_export import build_dashboard_pptx_bytes
+    except Exception as exc:  # noqa: BLE001
+        st.warning(f"Exportação em slides indisponível neste ambiente: {exc}")
+        return
+
+    try:
+        pptx_bytes = build_dashboard_pptx_bytes(
+            bundle.dashboard,
+            requested_period_label=getattr(period, "label", None),
+        )
+    except Exception as exc:  # noqa: BLE001
+        st.warning(f"Não foi possível montar os slides da carteira agregada: {exc}")
+        return
+
+    file_token = selected_portfolio.id[:8] or "carteira"
+    st.download_button(
+        "Download Carteira Agregada (PPTX)",
+        data=pptx_bytes,
+        file_name=f"relatorio_carteira_agregada_{file_token}.pptx",
+        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        help="Deck executivo em PowerPoint com a visão agregada da carteira carregada.",
+        key=f"ime_portfolio_aggregate_pptx::{selected_portfolio.id}",
     )
 
 

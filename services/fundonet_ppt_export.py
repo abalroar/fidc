@@ -41,6 +41,7 @@ AGING_PPT_COLORS = [
     "#4a1310",
 ]
 COVERAGE_LINE_COLOR = ORANGE
+FONT_FAMILY = "Calibri"
 
 SLIDE_WIDTH_IN = 13.333
 SLIDE_HEIGHT_IN = 7.5
@@ -123,7 +124,7 @@ def build_dashboard_pptx_bytes(
         paragraph.alignment = align
         run = paragraph.add_run()
         run.text = text
-        run.font.name = "IBM Plex Sans"
+        run.font.name = FONT_FAMILY
         run.font.size = Pt(size)
         run.font.bold = bold
         run.font.color.rgb = rgb(color)
@@ -189,17 +190,73 @@ def build_dashboard_pptx_bytes(
             align=PP_ALIGN.CENTER,
         )
 
-    def add_footer(slide, timestamp_text: str) -> None:  # noqa: ANN001
+    def add_footer(slide, timestamp_text: str, page_number: int | None = None) -> None:  # noqa: ANN001
         add_textbox(
             slide,
             MARGIN_LEFT_IN,
             7.08,
-            CONTENT_WIDTH_IN,
+            8.8,
             0.22,
-            f"Fonte: Informe Mensal - CVM    |    Gerado em: {timestamp_text}",
+            f"Fonte: Informe Mensal - CVM | Elaboração: Toma Conta | Gerado em: {timestamp_text}",
             size=FOOTER_SIZE,
             color=MID_GRAY,
         )
+        if page_number is not None:
+            add_textbox(
+                slide,
+                11.05,
+                7.08,
+                1.80,
+                0.22,
+                f"Página {page_number}",
+                size=FOOTER_SIZE,
+                color=MID_GRAY,
+                align=PP_ALIGN.RIGHT,
+            )
+
+    def add_cover_slide(
+        *,
+        title: str,
+        subtitle_text: str,
+        scope_text: str,
+    ) -> None:
+        slide = prs.slides.add_slide(blank)
+        fill = slide.background.fill
+        fill.solid()
+        fill.fore_color.rgb = rgb(BLACK)
+        accent = slide.shapes.add_shape(
+            MSO_AUTO_SHAPE_TYPE.RECTANGLE,
+            Inches(0.70),
+            Inches(2.35),
+            Inches(0.05),
+            Inches(1.55),
+        )
+        accent.fill.solid()
+        accent.fill.fore_color.rgb = rgb(ORANGE)
+        accent.line.fill.background()
+        add_textbox(slide, 0.95, 2.24, 10.60, 0.62, title, size=34, bold=True, color=WHITE)
+        add_textbox(slide, 0.97, 2.94, 10.90, 0.32, scope_text, size=16, color=GRID_GRAY)
+        add_textbox(slide, 0.97, 3.38, 10.90, 0.24, subtitle_text, size=12, color=GRID_GRAY)
+        add_textbox(
+            slide,
+            9.15,
+            6.82,
+            3.45,
+            0.22,
+            "Toma Conta | Visão executiva",
+            size=FOOTER_SIZE,
+            color=GRID_GRAY,
+            align=PP_ALIGN.RIGHT,
+        )
+
+    def add_divider_slide(*, number: str, title: str, subtitle_text: str) -> None:
+        slide = prs.slides.add_slide(blank)
+        fill = slide.background.fill
+        fill.solid()
+        fill.fore_color.rgb = rgb(BLACK)
+        add_textbox(slide, 1.02, 2.66, 1.05, 0.34, f"{number} —", size=20, bold=True, color=ORANGE)
+        add_textbox(slide, 2.05, 2.54, 8.95, 0.55, title, size=30, bold=True, color=WHITE)
+        add_textbox(slide, 2.08, 3.18, 9.10, 0.28, subtitle_text, size=14, color=GRID_GRAY)
 
     def set_table_style(
         table,
@@ -217,7 +274,7 @@ def build_dashboard_pptx_bytes(
                 for paragraph in cell.text_frame.paragraphs:
                     paragraph.alignment = PP_ALIGN.LEFT
                     for run in paragraph.runs:
-                        run.font.name = "IBM Plex Sans"
+                        run.font.name = FONT_FAMILY
                         run.font.size = Pt(header_font_size if row_idx == 0 else body_font_size)
                         run.font.bold = row_idx == 0
                         run.font.color.rgb = rgb(WHITE if row_idx == 0 else BLACK)
@@ -372,7 +429,7 @@ def build_dashboard_pptx_bytes(
             chart.has_title = True
             chart.chart_title.text_frame.text = f"{title}{title_suffix}"
             title_paragraph = chart.chart_title.text_frame.paragraphs[0]
-            title_paragraph.font.name = "IBM Plex Sans"
+            title_paragraph.font.name = FONT_FAMILY
             title_paragraph.font.size = Pt(SECTION_SIZE)
             title_paragraph.font.bold = True
             title_paragraph.font.color.rgb = rgb(BLACK)
@@ -388,7 +445,7 @@ def build_dashboard_pptx_bytes(
             if hasattr(chart.legend, "include_in_layout"):
                 chart.legend.include_in_layout = True
             try:
-                chart.legend.font.name = "IBM Plex Sans"
+                chart.legend.font.name = FONT_FAMILY
                 chart.legend.font.size = Pt(LABEL_SIZE)
                 chart.legend.font.color.rgb = rgb(DARK_GRAY)
             except Exception:  # noqa: BLE001
@@ -420,17 +477,17 @@ def build_dashboard_pptx_bytes(
             labels.show_value = True
             labels.number_format = number_format
             labels.position = _data_label_position(label_position)
-            labels.font.name = "IBM Plex Sans"
+            labels.font.name = FONT_FAMILY
             labels.font.size = Pt(max(label_font_size, DEFAULT_LABEL_FONT_SIZE_PT))
             labels.font.bold = True
             labels.font.color.rgb = rgb(label_color)
 
         if hasattr(chart, "category_axis"):
-            chart.category_axis.tick_labels.font.name = "IBM Plex Sans"
+            chart.category_axis.tick_labels.font.name = FONT_FAMILY
             chart.category_axis.tick_labels.font.size = Pt(AXIS_SIZE)
             chart.category_axis.format.line.color.rgb = rgb(GRID_GRAY)
         if hasattr(chart, "value_axis"):
-            chart.value_axis.tick_labels.font.name = "IBM Plex Sans"
+            chart.value_axis.tick_labels.font.name = FONT_FAMILY
             chart.value_axis.tick_labels.font.size = Pt(AXIS_SIZE)
             chart.value_axis.has_major_gridlines = True
             chart.value_axis.major_gridlines.format.line.color.rgb = rgb(GRID_GRAY)
@@ -458,7 +515,7 @@ def build_dashboard_pptx_bytes(
                 series.data_labels.show_value = True
                 series.data_labels.number_format = number_format
                 series.data_labels.position = _data_label_position(label_position)
-                series.data_labels.font.name = "IBM Plex Sans"
+                series.data_labels.font.name = FONT_FAMILY
                 series.data_labels.font.size = Pt(max(label_font_size, DEFAULT_LABEL_FONT_SIZE_PT))
                 series.data_labels.font.bold = True
                 series.data_labels.font.color.rgb = rgb(label_color)
@@ -484,7 +541,7 @@ def build_dashboard_pptx_bytes(
                             metric_kind=export_metric_kind,
                             percent_value=False,
                         )
-                        run.font.name = "IBM Plex Sans"
+                        run.font.name = FONT_FAMILY
                         run.font.size = Pt(export_policy.font_size_pt)
                         run.font.bold = True
                         if export_chart_kind in {"line", "multi_line"}:
@@ -852,13 +909,16 @@ def build_dashboard_pptx_bytes(
 
     timestamp_text = f"{generated_at.strftime('%d/%m/%Y %H:%M')} GMT-3"
     title_fund = _fund_title(dashboard)
+    is_portfolio_scope = str(dashboard.fund_info.get("aggregation_scope") or "").strip().lower() == "portfolio"
+    scope_label = "Carteira agregada" if is_portfolio_scope else "FIDC"
+    data_base_label = _format_competencia(dashboard.latest_competencia)
     requested_period_text = (
         f"  |  Janela solicitada: {requested_period_label}"
         if requested_period_label and requested_period_label != dashboard.fund_info.get("periodo_analisado")
         else ""
     )
     subtitle = (
-        f"{_format_competencia(dashboard.latest_competencia)}"
+        f"{data_base_label}"
         f"  ·  {dashboard.fund_info.get('periodo_analisado', 'N/D')}"
         f"{requested_period_text}"
     )
@@ -867,6 +927,27 @@ def build_dashboard_pptx_bytes(
         add_textbox(slide, 0.45, 0.18, 8.4, 0.28, section_title, size=TITLE_SIZE, bold=True, color=BLACK)
         add_textbox(slide, 0.45, 0.48, 10.8, 0.20, title_fund, size=SUBTITLE_SIZE, bold=True, color=ORANGE)
         add_textbox(slide, 0.45, 0.72, 11.6, 0.18, subtitle, size=SUBTITLE_SIZE, color=MID_GRAY)
+        chip = slide.shapes.add_shape(
+            MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE,
+            Inches(10.65),
+            Inches(0.18),
+            Inches(2.20),
+            Inches(0.28),
+        )
+        chip.fill.solid()
+        chip.fill.fore_color.rgb = rgb(SOFT_GRAY)
+        chip.line.fill.background()
+        add_textbox(
+            slide,
+            10.78,
+            0.235,
+            1.92,
+            0.14,
+            f"Data-base: {data_base_label}",
+            size=FOOTER_SIZE,
+            color=MID_GRAY,
+            align=PP_ALIGN.CENTER,
+        )
 
     def add_summary_cards(slide) -> None:  # noqa: ANN001
         summary = dashboard.summary
@@ -912,14 +993,40 @@ def build_dashboard_pptx_bytes(
     right_col_left = MARGIN_LEFT_IN + left_wide_width + split_gap
     top_row_top = 1.02
 
+    page_number = 0
+
+    def next_page() -> int:
+        nonlocal page_number
+        page_number += 1
+        return page_number
+
+    add_cover_slide(
+        title=title_fund,
+        subtitle_text=f"Data-base {data_base_label} · Fonte: Informe Mensal CVM",
+        scope_text=f"Visão executiva — {scope_label}",
+    )
+    next_page()
+    add_divider_slide(
+        number="01",
+        title="Visão executiva",
+        subtitle_text=(
+            "PL, estrutura, crédito, liquidez e prazo agregados"
+            if is_portfolio_scope
+            else "PL, estrutura, crédito, liquidez e prazo do fundo"
+        ),
+    )
+    next_page()
+
     # Slide 1 — FIDC summary
     slide = prs.slides.add_slide(blank)
-    add_slide_header(slide, "Resumo do FIDC")
+    current_page = next_page()
+    add_slide_header(slide, "Resumo da carteira" if is_portfolio_scope else "Resumo do FIDC")
     add_summary_cards(slide)
-    add_footer(slide, timestamp_text)
+    add_footer(slide, timestamp_text, current_page)
 
     # Slide 2 — structure and capital
     slide = prs.slides.add_slide(blank)
+    current_page = next_page()
     add_slide_header(slide, "Estrutura e capital")
 
     sub_df = _sort_competencia_frame(dashboard.subordination_history_df, ascending=True)
@@ -1002,10 +1109,11 @@ def build_dashboard_pptx_bytes(
             legend_position="bottom",
             show_data_labels=True,
         )
-    add_footer(slide, timestamp_text)
+    add_footer(slide, timestamp_text, current_page)
 
     # Slide 3 — returns and term
     slide = prs.slides.add_slide(blank)
+    current_page = next_page()
     add_slide_header(slide, "Rentabilidade e prazo")
 
     selected_labels = _top_return_labels_for_ppt(dashboard)
@@ -1176,7 +1284,7 @@ def build_dashboard_pptx_bytes(
                 size=FOOTER_SIZE,
                 color=MID_GRAY,
             )
-    add_footer(slide, timestamp_text)
+    add_footer(slide, timestamp_text, current_page)
 
     default_df = _sort_competencia_frame(dashboard.default_history_df, ascending=True)
     credit_categories = _competencia_labels(default_df["competencia"].tolist()) if not default_df.empty else []
@@ -1201,6 +1309,7 @@ def build_dashboard_pptx_bytes(
 
     if credit_has_values or aging_has_values:
         slide = prs.slides.add_slide(blank)
+        current_page = next_page()
         add_slide_header(slide, "Crédito e cobertura")
         if credit_has_values and aging_has_values:
             add_overlay_combo_credit_chart(
@@ -1282,7 +1391,7 @@ def build_dashboard_pptx_bytes(
                 legend_position="bottom",
                 show_data_labels=False,
             )
-        add_footer(slide, timestamp_text)
+        add_footer(slide, timestamp_text, current_page)
 
     over_history = _build_over_aging_history_for_ppt(dashboard)
     if not over_history.empty:
@@ -1290,6 +1399,7 @@ def build_dashboard_pptx_bytes(
         over_series_map = [(column, over_history[column].tolist()) for column in over_columns]
         if _series_map_has_nonzero_values(over_series_map):
             slide = prs.slides.add_slide(blank)
+            current_page = next_page()
             add_slide_header(slide, "Deterioração acumulada")
             over_axis_max = _dashboard_percent_axis_upper(_series_values(over_series_map), max_cap=120.0)
             over_chart = add_chart(
@@ -1319,7 +1429,7 @@ def build_dashboard_pptx_bytes(
                     width_pt=2.2,
                     marker_size=8,
                 )
-            add_footer(slide, timestamp_text)
+            add_footer(slide, timestamp_text, current_page)
 
     buffer = BytesIO()
     prs.save(buffer)

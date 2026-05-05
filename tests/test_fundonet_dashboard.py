@@ -397,6 +397,10 @@ class FundonetDashboardTests(unittest.TestCase):
             for slide in presentation.slides
         ]
         deck_text = "\n".join(slide_texts)
+        self.assertIn("Toma Conta | Visão executiva", deck_text)
+        self.assertIn("Visão executiva — FIDC", deck_text)
+        self.assertIn("Data-base:", deck_text)
+        self.assertIn("Fonte: Informe Mensal - CVM | Elaboração: Toma Conta", deck_text)
         self.assertIn("Resumo do FIDC", deck_text)
         for card_label in ["Ativo total", "DCs totais", "PL total", "Vencidos", "Cobertura de provisão", "Subordinação reportada"]:
             self.assertIn(card_label, deck_text)
@@ -420,6 +424,51 @@ class FundonetDashboardTests(unittest.TestCase):
             if getattr(shape, "has_chart", False)
         ]
         self.assertNotIn(XL_CHART_TYPE.COLUMN_STACKED, slide_two_chart_types)
+
+    def test_build_dashboard_pptx_bytes_supports_portfolio_aggregate_scope(self) -> None:
+        if importlib.util.find_spec("pptx") is None:
+            self.skipTest("python-pptx não instalado no ambiente local")
+        from pptx import Presentation
+        from services.fundonet_portfolio_dashboard import build_portfolio_dashboard_bundle
+        from services.fundonet_ppt_export import build_dashboard_pptx_bytes
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            workspace = Path(tmpdir)
+            self._write_fixture_csvs(workspace)
+
+            dashboard = build_dashboard_data(
+                wide_csv_path=workspace / "informes_wide.csv",
+                listas_csv_path=workspace / "estruturas_lista.csv",
+                docs_csv_path=workspace / "documentos_filtrados.csv",
+            )
+
+        bundle = build_portfolio_dashboard_bundle(
+            portfolio_name="Carteira Agregada Teste",
+            dashboards_by_cnpj={
+                "11111111000111": ("Fundo A", dashboard),
+                "22222222000122": ("Fundo B", dashboard),
+            },
+        )
+        pptx_bytes = build_dashboard_pptx_bytes(
+            bundle.dashboard,
+            generated_at=datetime(2026, 4, 14, 15, 0, tzinfo=timezone.utc),
+            requested_period_label="12 meses",
+        )
+
+        self.assertTrue(pptx_bytes.startswith(b"PK"))
+        self.assertTrue(zipfile.is_zipfile(io.BytesIO(pptx_bytes)))
+        presentation = Presentation(io.BytesIO(pptx_bytes))
+        deck_text = "\n".join(
+            "\n".join(
+                shape.text
+                for shape in slide.shapes
+                if getattr(shape, "has_text_frame", False)
+            )
+            for slide in presentation.slides
+        )
+        self.assertIn("Carteira Agregada Teste", deck_text)
+        self.assertIn("Visão executiva — Carteira agregada", deck_text)
+        self.assertIn("Resumo da carteira", deck_text)
 
     def test_ppt_helpers_preserve_competencia_order(self) -> None:
         from services.fundonet_ppt_export import (
