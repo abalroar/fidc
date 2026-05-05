@@ -397,12 +397,12 @@ class FundonetDashboardTests(unittest.TestCase):
             for slide in presentation.slides
         ]
         deck_text = "\n".join(slide_texts)
-        self.assertIn("Toma Conta | Visão executiva", deck_text)
-        self.assertIn("Visão executiva — FIDC", deck_text)
+        self.assertIn("Toma Conta | Análise Institucional", deck_text)
+        self.assertIn("VISÃO EXECUTIVA — FIDC", deck_text)
         self.assertIn("Data-base:", deck_text)
-        self.assertIn("Fonte: Informe Mensal - CVM | Elaboração: Toma Conta", deck_text)
+        self.assertIn("Fonte: Informe Mensal CVM", deck_text)
         self.assertIn("Resumo do FIDC", deck_text)
-        for card_label in ["Ativo total", "DCs totais", "PL total", "Vencidos", "Cobertura de provisão", "Subordinação reportada"]:
+        for card_label in ["ATIVO TOTAL", "DCS TOTAIS", "PL TOTAL", "VENCIDOS", "COBERTURA DE PROVISÃO", "SUBORDINAÇÃO REPORTADA"]:
             self.assertIn(card_label, deck_text)
         self.assertIn("Rentabilidade por tipo de cota (% a.m.)", deck_text)
         self.assertIn("102,0", deck_text)
@@ -467,7 +467,7 @@ class FundonetDashboardTests(unittest.TestCase):
             for slide in presentation.slides
         )
         self.assertIn("Carteira Agregada Teste", deck_text)
-        self.assertIn("Visão executiva — Carteira agregada", deck_text)
+        self.assertIn("VISÃO EXECUTIVA — CARTEIRA AGREGADA", deck_text)
         self.assertIn("Resumo da carteira", deck_text)
 
     def test_ppt_helpers_preserve_competencia_order(self) -> None:

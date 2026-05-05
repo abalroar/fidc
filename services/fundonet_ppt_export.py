@@ -19,26 +19,28 @@ from services.export_chart_labels import (
 from services.fundonet_dashboard import FundonetDashboardData
 
 
-ORANGE = "#ff5a00"
-BLACK = "#111111"
-DARK_GRAY = "#353535"
-MID_GRAY = "#666666"
-GRID_GRAY = "#d7dce3"
-SOFT_GRAY = "#f5f6f8"
+ORANGE = "#EC7000"
+BLACK = "#1F1F1F"
+DARK_GRAY = "#4D4D4D"
+MID_GRAY = "#757575"
+GRID_GRAY = "#E0E0E0"
+CHART_GRID_GRAY = "#E8E8E8"
+SOFT_GRAY = "#F7F7F7"
+NEGATIVE_RED = "#CC0000"
 WHITE = "#ffffff"
-SERIES_COLORS = [BLACK, ORANGE, DARK_GRAY, "#8a8a8a", "#b24f19"]
-OVER_PPT_COLORS = ["#1f6f46", "#4f9a63", "#8abc4a", "#f0c340", "#d97a28", "#8a3b22"]
+SERIES_COLORS = [ORANGE, BLACK, "#757575", "#BDBDBD", "#4D4D4D"]
+OVER_PPT_COLORS = [ORANGE, BLACK, "#757575", "#BDBDBD", "#4D4D4D", "#E0E0E0"]
 AGING_PPT_COLORS = [
-    "#27ae60",
-    "#82ca3f",
-    "#f9ca24",
-    "#f0932b",
-    "#ef7c1a",
-    "#e55039",
-    "#c0392b",
-    "#943126",
-    "#7b241c",
-    "#4a1310",
+    ORANGE,
+    BLACK,
+    "#757575",
+    "#BDBDBD",
+    "#4D4D4D",
+    "#E0E0E0",
+    "#8C8C8C",
+    "#2F2F2F",
+    "#A6A6A6",
+    "#D0D0D0",
 ]
 COVERAGE_LINE_COLOR = ORANGE
 FONT_FAMILY = "Calibri"
@@ -49,14 +51,14 @@ MARGIN_LEFT_IN = 0.45
 MARGIN_RIGHT_IN = 0.45
 CONTENT_WIDTH_IN = SLIDE_WIDTH_IN - MARGIN_LEFT_IN - MARGIN_RIGHT_IN
 
-TITLE_SIZE = 13
-SECTION_SIZE = 13
+TITLE_SIZE = 24
+SECTION_SIZE = 11
 SUBTITLE_SIZE = 10
 BODY_SIZE = 9
-LABEL_SIZE = 9
+LABEL_SIZE = 8
 AXIS_SIZE = 9
-FOOTER_SIZE = 10
-CARD_VALUE_SIZE = 17
+FOOTER_SIZE = 8
+CARD_VALUE_SIZE = 24
 SLIDE_RENDER_DPI = 170
 
 
@@ -111,6 +113,7 @@ def build_dashboard_pptx_bytes(
         *,
         size: int,
         bold: bool = False,
+        italic: bool = False,
         color: str = BLACK,
         align=PP_ALIGN.LEFT,
         word_wrap: bool = True,
@@ -127,6 +130,7 @@ def build_dashboard_pptx_bytes(
         run.font.name = FONT_FAMILY
         run.font.size = Pt(size)
         run.font.bold = bold
+        run.font.italic = italic
         run.font.color.rgb = rgb(color)
         return box
 
@@ -149,21 +153,52 @@ def build_dashboard_pptx_bytes(
 
     def add_card(slide, left: float, top: float, width: float, height: float, label: str, value: str, note: str = "") -> None:
         panel = add_panel(slide, left, top, width, height)
-        style_shape_border(panel, line_color=GRID_GRAY, line_width_pt=0.7)
+        style_shape_border(panel, line_color=GRID_GRAY, line_width_pt=1.0)
         accent = slide.shapes.add_shape(
             MSO_AUTO_SHAPE_TYPE.RECTANGLE,
             Inches(left),
             Inches(top),
             Inches(width),
-            Inches(0.04),
+            Inches(0.055),
         )
         accent.fill.solid()
         accent.fill.fore_color.rgb = rgb(ORANGE)
         accent.line.fill.background()
-        add_textbox(slide, left + 0.10, top + 0.08, width - 0.20, 0.20, label, size=BODY_SIZE, bold=True, color=MID_GRAY)
-        add_textbox(slide, left + 0.10, top + 0.30, width - 0.20, 0.28, value, size=CARD_VALUE_SIZE, bold=True, color=BLACK)
+        value_color = NEGATIVE_RED if str(value).strip().startswith("-") else BLACK
+        add_textbox(
+            slide,
+            left + 0.16,
+            top + 0.16,
+            width - 0.32,
+            0.20,
+            label.upper(),
+            size=LABEL_SIZE,
+            bold=False,
+            color=MID_GRAY,
+        )
+        add_textbox(
+            slide,
+            left + 0.16,
+            top + 0.41,
+            width - 0.32,
+            0.34,
+            value,
+            size=CARD_VALUE_SIZE,
+            bold=True,
+            color=value_color,
+        )
         if note:
-            add_textbox(slide, left + 0.10, top + 0.67, width - 0.20, 0.18, note, size=LABEL_SIZE, color=MID_GRAY)
+            add_textbox(
+                slide,
+                left + 0.16,
+                top + 0.82,
+                width - 0.32,
+                0.18,
+                note,
+                size=FOOTER_SIZE,
+                italic=True,
+                color=MID_GRAY,
+            )
 
     def add_empty_state_panel(
         slide,
@@ -191,13 +226,23 @@ def build_dashboard_pptx_bytes(
         )
 
     def add_footer(slide, timestamp_text: str, page_number: int | None = None) -> None:  # noqa: ANN001
+        separator = slide.shapes.add_shape(
+            MSO_AUTO_SHAPE_TYPE.RECTANGLE,
+            Inches(MARGIN_LEFT_IN),
+            Inches(6.98),
+            Inches(CONTENT_WIDTH_IN),
+            Inches(0.004),
+        )
+        separator.fill.solid()
+        separator.fill.fore_color.rgb = rgb(GRID_GRAY)
+        separator.line.fill.background()
         add_textbox(
             slide,
             MARGIN_LEFT_IN,
-            7.08,
-            8.8,
+            7.10,
+            8.4,
             0.22,
-            f"Fonte: Informe Mensal - CVM | Elaboração: Toma Conta | Gerado em: {timestamp_text}",
+            f"Fonte: Informe Mensal CVM    |    Gerado em: {timestamp_text}",
             size=FOOTER_SIZE,
             color=MID_GRAY,
         )
@@ -205,7 +250,7 @@ def build_dashboard_pptx_bytes(
             add_textbox(
                 slide,
                 11.05,
-                7.08,
+                7.10,
                 1.80,
                 0.22,
                 f"Página {page_number}",
@@ -228,24 +273,25 @@ def build_dashboard_pptx_bytes(
             MSO_AUTO_SHAPE_TYPE.RECTANGLE,
             Inches(0.70),
             Inches(2.35),
-            Inches(0.05),
+            Inches(0.07),
             Inches(1.55),
         )
         accent.fill.solid()
         accent.fill.fore_color.rgb = rgb(ORANGE)
         accent.line.fill.background()
-        add_textbox(slide, 0.95, 2.24, 10.60, 0.62, title, size=34, bold=True, color=WHITE)
-        add_textbox(slide, 0.97, 2.94, 10.90, 0.32, scope_text, size=16, color=GRID_GRAY)
-        add_textbox(slide, 0.97, 3.38, 10.90, 0.24, subtitle_text, size=12, color=GRID_GRAY)
+        add_textbox(slide, 0.95, 2.20, 10.60, 0.66, title, size=36, bold=True, color=WHITE)
+        add_textbox(slide, 0.97, 2.94, 10.90, 0.20, scope_text.upper(), size=11, bold=True, color=WHITE)
+        add_textbox(slide, 0.97, 3.26, 10.90, 0.20, subtitle_text, size=11, color=WHITE)
+        add_textbox(slide, 0.97, 3.56, 10.90, 0.18, "Fonte: Informe Mensal CVM", size=9, color=GRID_GRAY)
         add_textbox(
             slide,
             9.15,
             6.82,
             3.45,
             0.22,
-            "Toma Conta | Visão executiva",
-            size=FOOTER_SIZE,
-            color=GRID_GRAY,
+            "Toma Conta | Análise Institucional",
+            size=9,
+            color=WHITE,
             align=PP_ALIGN.RIGHT,
         )
 
@@ -269,15 +315,20 @@ def build_dashboard_pptx_bytes(
             for col_idx in range(len(table.columns)):
                 cell = table.cell(row_idx, col_idx)
                 cell.fill.solid()
-                cell.fill.fore_color.rgb = rgb(header_fill if row_idx == 0 else WHITE)
-                cell.text_frame.word_wrap = True
+                if row_idx == 0:
+                    cell.fill.fore_color.rgb = rgb(header_fill)
+                else:
+                    cell.fill.fore_color.rgb = rgb(WHITE if row_idx % 2 else SOFT_GRAY)
+                cell.text_frame.word_wrap = False
                 for paragraph in cell.text_frame.paragraphs:
-                    paragraph.alignment = PP_ALIGN.LEFT
+                    paragraph.alignment = PP_ALIGN.LEFT if col_idx == 0 else PP_ALIGN.RIGHT
                     for run in paragraph.runs:
+                        raw_text = str(run.text or "").strip()
+                        is_negative = raw_text.startswith("-") or raw_text.startswith("−")
                         run.font.name = FONT_FAMILY
                         run.font.size = Pt(header_font_size if row_idx == 0 else body_font_size)
                         run.font.bold = row_idx == 0
-                        run.font.color.rgb = rgb(WHITE if row_idx == 0 else BLACK)
+                        run.font.color.rgb = rgb(WHITE if row_idx == 0 else NEGATIVE_RED if is_negative else BLACK)
                 cell.margin_left = Inches(0.05)
                 cell.margin_right = Inches(0.05)
                 cell.margin_top = Inches(0.02)
@@ -433,6 +484,10 @@ def build_dashboard_pptx_bytes(
             title_paragraph.font.size = Pt(SECTION_SIZE)
             title_paragraph.font.bold = True
             title_paragraph.font.color.rgb = rgb(BLACK)
+        try:
+            chart.chart_area.format.line.fill.background()
+        except Exception:  # noqa: BLE001
+            pass
         chart.has_legend = show_legend
         if show_legend and chart.legend is not None:
             legend_positions = {
@@ -447,7 +502,7 @@ def build_dashboard_pptx_bytes(
             try:
                 chart.legend.font.name = FONT_FAMILY
                 chart.legend.font.size = Pt(LABEL_SIZE)
-                chart.legend.font.color.rgb = rgb(DARK_GRAY)
+                chart.legend.font.color.rgb = rgb(MID_GRAY)
             except Exception:  # noqa: BLE001
                 pass
 
@@ -485,13 +540,15 @@ def build_dashboard_pptx_bytes(
         if hasattr(chart, "category_axis"):
             chart.category_axis.tick_labels.font.name = FONT_FAMILY
             chart.category_axis.tick_labels.font.size = Pt(AXIS_SIZE)
-            chart.category_axis.format.line.color.rgb = rgb(GRID_GRAY)
+            chart.category_axis.tick_labels.font.color.rgb = rgb(MID_GRAY)
+            chart.category_axis.format.line.color.rgb = rgb(MID_GRAY)
         if hasattr(chart, "value_axis"):
             chart.value_axis.tick_labels.font.name = FONT_FAMILY
             chart.value_axis.tick_labels.font.size = Pt(AXIS_SIZE)
+            chart.value_axis.tick_labels.font.color.rgb = rgb(MID_GRAY)
             chart.value_axis.has_major_gridlines = True
-            chart.value_axis.major_gridlines.format.line.color.rgb = rgb(GRID_GRAY)
-            chart.value_axis.format.line.color.rgb = rgb(GRID_GRAY)
+            chart.value_axis.major_gridlines.format.line.color.rgb = rgb(CHART_GRID_GRAY)
+            chart.value_axis.format.line.color.rgb = rgb(MID_GRAY)
             if value_min is not None:
                 chart.value_axis.minimum_scale = value_min
             if value_max is not None:
@@ -924,9 +981,9 @@ def build_dashboard_pptx_bytes(
     )
 
     def add_slide_header(slide, section_title: str) -> None:  # noqa: ANN001
-        add_textbox(slide, 0.45, 0.18, 8.4, 0.28, section_title, size=TITLE_SIZE, bold=True, color=BLACK)
-        add_textbox(slide, 0.45, 0.48, 10.8, 0.20, title_fund, size=SUBTITLE_SIZE, bold=True, color=ORANGE)
-        add_textbox(slide, 0.45, 0.72, 11.6, 0.18, subtitle, size=SUBTITLE_SIZE, color=MID_GRAY)
+        add_textbox(slide, 0.50, 0.18, 8.35, 0.34, section_title, size=TITLE_SIZE, bold=True, color=BLACK)
+        add_textbox(slide, 0.50, 0.56, 10.8, 0.18, title_fund, size=SUBTITLE_SIZE, bold=True, color=ORANGE)
+        add_textbox(slide, 0.50, 0.78, 11.1, 0.16, subtitle, size=FOOTER_SIZE, color=MID_GRAY)
         chip = slide.shapes.add_shape(
             MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE,
             Inches(10.65),
@@ -935,7 +992,7 @@ def build_dashboard_pptx_bytes(
             Inches(0.28),
         )
         chip.fill.solid()
-        chip.fill.fore_color.rgb = rgb(SOFT_GRAY)
+        chip.fill.fore_color.rgb = rgb(BLACK)
         chip.line.fill.background()
         add_textbox(
             slide,
@@ -944,8 +1001,8 @@ def build_dashboard_pptx_bytes(
             1.92,
             0.14,
             f"Data-base: {data_base_label}",
-            size=FOOTER_SIZE,
-            color=MID_GRAY,
+            size=10,
+            color=WHITE,
             align=PP_ALIGN.CENTER,
         )
 
@@ -1002,7 +1059,7 @@ def build_dashboard_pptx_bytes(
 
     add_cover_slide(
         title=title_fund,
-        subtitle_text=f"Data-base {data_base_label} · Fonte: Informe Mensal CVM",
+        subtitle_text=f"Data-base {data_base_label} | {dashboard.fund_info.get('periodo_analisado', 'N/D')}",
         scope_text=f"Visão executiva — {scope_label}",
     )
     next_page()
@@ -1430,6 +1487,17 @@ def build_dashboard_pptx_bytes(
                     marker_size=8,
                 )
             add_footer(slide, timestamp_text, current_page)
+
+    total_pages = len(prs.slides)
+    for slide in prs.slides:
+        for shape in slide.shapes:
+            if not getattr(shape, "has_text_frame", False):
+                continue
+            for paragraph in shape.text_frame.paragraphs:
+                for run in paragraph.runs:
+                    text = run.text or ""
+                    if text.startswith("Página ") and " de " not in text:
+                        run.text = f"{text} de {total_pages}"
 
     buffer = BytesIO()
     prs.save(buffer)
