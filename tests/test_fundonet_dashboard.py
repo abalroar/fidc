@@ -399,31 +399,23 @@ class FundonetDashboardTests(unittest.TestCase):
         deck_text = "\n".join(slide_texts)
         self.assertIn("Toma Conta | Análise Institucional", deck_text)
         self.assertIn("VISÃO EXECUTIVA — FIDC", deck_text)
-        self.assertIn("Data-base:", deck_text)
+        self.assertIn("Data-base", deck_text)
         self.assertIn("Fonte: Informe Mensal CVM", deck_text)
         self.assertNotIn("Resumo do FIDC", deck_text)
         self.assertIn("Estrutura e capital", deck_text)
         for card_label in ["ATIVO TOTAL", "DCS TOTAIS", "PL TOTAL", "VENCIDOS", "COBERTURA DE PROVISÃO", "SUBORDINAÇÃO REPORTADA"]:
             self.assertIn(card_label, deck_text)
-        self.assertIn("Rentabilidade por tipo de cota (% a.m.)", deck_text)
+        self.assertNotIn("Rentabilidade e prazo", deck_text)
+        self.assertNotIn("Rentabilidade por tipo de cota (% a.m.)", deck_text)
         self.assertNotIn("Índice acumulado base 100", deck_text)
-        self.assertIn("Prazo médio proxy dos recebíveis (dias)", chart_xml)
+        self.assertNotIn("Prazo médio proxy dos recebíveis (dias)", chart_xml)
         chart_count = sum(
             1
             for slide in presentation.slides
             for shape in slide.shapes
             if getattr(shape, "has_chart", False)
         )
-        self.assertGreaterEqual(chart_count, 5)
-        returns_slide = presentation.slides[
-            next(idx for idx, text in enumerate(slide_texts) if "Rentabilidade e prazo" in text)
-        ]
-        slide_two_chart_types = [
-            shape.chart.chart_type
-            for shape in returns_slide.shapes
-            if getattr(shape, "has_chart", False)
-        ]
-        self.assertGreaterEqual(len(slide_two_chart_types), 1)
+        self.assertGreaterEqual(chart_count, 4)
 
     def test_build_dashboard_pptx_bytes_supports_portfolio_aggregate_scope(self) -> None:
         if importlib.util.find_spec("pptx") is None:
