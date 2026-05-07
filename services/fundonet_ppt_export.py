@@ -1861,7 +1861,7 @@ def _inject_secondary_line_into_chart(
         f'<c:symbol val="circle"/><c:size val="8"/>'
         f'<c:spPr>'
         f'<a:solidFill xmlns:a="{A}"><a:srgbClr val="{hex_color}"/></a:solidFill>'
-        f'<a:ln xmlns:a="{A}"><a:solidFill><a:srgbClr val="{hex_color}"/></a:solidFill></a:ln>'
+        f'<a:ln xmlns:a="{A}"><a:noFill/></a:ln>'
         f'</c:spPr>'
         f'</c:marker>'
         f'<c:dLbls>'
