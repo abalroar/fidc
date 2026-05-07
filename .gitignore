@@ -37,6 +37,7 @@ env/
 !.streamlit/config.toml
 
 # Local runtime cache
+.cache/
 data/dev_hours_cache.json
 
 # OS

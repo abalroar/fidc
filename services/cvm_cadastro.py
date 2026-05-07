@@ -19,6 +19,9 @@ proveniencia de cada campo para permitir uso auditavel na camada do dashboard.
 from __future__ import annotations
 
 import io
+import hashlib
+import time
+from pathlib import Path
 import re
 import urllib.error
 import urllib.request
@@ -32,6 +35,8 @@ import pandas as pd
 _CAD_FI_URL = "https://dados.cvm.gov.br/dados/FI/CAD/DADOS/cad_fi.csv"
 _REGISTRO_FUNDO_CLASSE_URL = "https://dados.cvm.gov.br/dados/FI/CAD/DADOS/registro_fundo_classe.zip"
 _REQUEST_TIMEOUT = 20
+_DISK_CACHE_DIR = Path(".cache/cvm-cadastro")
+_DISK_CACHE_TTL_SECONDS = 7 * 24 * 60 * 60
 _ACTIVE_STATUSES = {"EM FUNCIONAMENTO NORMAL", "Em Funcionamento Normal"}
 
 
@@ -46,27 +51,62 @@ def _clean(value: Any) -> str:
     return text
 
 
-def _download_bytes(url: str) -> bytes | None:
+def _download_bytes(url: str, *, allow_network: bool = True) -> bytes | None:
+    cached = _read_cached_bytes(url, max_age_seconds=_DISK_CACHE_TTL_SECONDS)
+    if cached is not None:
+        return cached
+    stale_cached = _read_cached_bytes(url, max_age_seconds=None)
+    if not allow_network:
+        return stale_cached
     try:
         req = urllib.request.Request(
             url,
             headers={"User-Agent": "fidc-dashboard/1.0 (dados.cvm.gov.br open data)"},
         )
         with urllib.request.urlopen(req, timeout=_REQUEST_TIMEOUT) as resp:
-            return resp.read()
+            payload = resp.read()
+            _write_cached_bytes(url, payload)
+            return payload
     except urllib.error.HTTPError as exc:
         try:
             exc.close()
         except Exception:  # noqa: BLE001
             pass
-        return None
+        return stale_cached
     except Exception:  # noqa: BLE001
+        return stale_cached
+
+
+def _cache_path_for_url(url: str) -> Path:
+    digest = hashlib.sha256(str(url).encode("utf-8")).hexdigest()
+    return _DISK_CACHE_DIR / f"{digest}.bin"
+
+
+def _read_cached_bytes(url: str, *, max_age_seconds: int | None) -> bytes | None:
+    path = _cache_path_for_url(url)
+    try:
+        if not path.exists() or not path.is_file():
+            return None
+        if max_age_seconds is not None:
+            age_seconds = time.time() - path.stat().st_mtime
+            if age_seconds > max_age_seconds:
+                return None
+        return path.read_bytes()
+    except OSError:
         return None
+
+
+def _write_cached_bytes(url: str, payload: bytes) -> None:
+    try:
+        _DISK_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        _cache_path_for_url(url).write_bytes(payload)
+    except OSError:
+        return
 
 
 @lru_cache(maxsize=1)
-def _load_fi_cad_legacy() -> pd.DataFrame | None:
-    raw = _download_bytes(_CAD_FI_URL)
+def _load_fi_cad_legacy(allow_network: bool = True) -> pd.DataFrame | None:
+    raw = _download_bytes(_CAD_FI_URL, allow_network=allow_network)
     if raw is None:
         return None
     try:
@@ -84,8 +124,8 @@ def _load_fi_cad_legacy() -> pd.DataFrame | None:
 
 
 @lru_cache(maxsize=1)
-def _load_registro_fundo_classe() -> tuple[pd.DataFrame | None, pd.DataFrame | None]:
-    raw = _download_bytes(_REGISTRO_FUNDO_CLASSE_URL)
+def _load_registro_fundo_classe(allow_network: bool = True) -> tuple[pd.DataFrame | None, pd.DataFrame | None]:
+    raw = _download_bytes(_REGISTRO_FUNDO_CLASSE_URL, allow_network=allow_network)
     if raw is None:
         return None, None
     try:
@@ -152,11 +192,11 @@ def _prefer_best_row(
     return working.iloc[0]
 
 
-def _match_fi_cad_legacy(cnpj_fundo: str) -> pd.Series | None:
+def _match_fi_cad_legacy(cnpj_fundo: str, *, allow_network: bool = True) -> pd.Series | None:
     cnpj_digits = _strip_digits(cnpj_fundo)
     if len(cnpj_digits) != 14:
         return None
-    df = _load_fi_cad_legacy()
+    df = _load_fi_cad_legacy(allow_network)
     if df is None or df.empty or "CNPJ_FUNDO" not in df.columns:
         return None
     df = _ensure_norm_column(df, "CNPJ_FUNDO", "_cnpj_fundo_norm")
@@ -177,11 +217,11 @@ def _match_fi_cad_legacy(cnpj_fundo: str) -> pd.Series | None:
     )
 
 
-def _match_registro_fundo(cnpj_fundo: str) -> pd.Series | None:
+def _match_registro_fundo(cnpj_fundo: str, *, allow_network: bool = True) -> pd.Series | None:
     cnpj_digits = _strip_digits(cnpj_fundo)
     if len(cnpj_digits) != 14:
         return None
-    fundo_df, _ = _load_registro_fundo_classe()
+    fundo_df, _ = _load_registro_fundo_classe(allow_network)
     if fundo_df is None or fundo_df.empty or "CNPJ_Fundo" not in fundo_df.columns:
         return None
     fundo_df = _ensure_norm_column(fundo_df, "CNPJ_Fundo", "_cnpj_fundo_norm")
@@ -200,11 +240,11 @@ def _match_registro_fundo(cnpj_fundo: str) -> pd.Series | None:
     )
 
 
-def _match_registro_classe(cnpj_classe: str) -> pd.Series | None:
+def _match_registro_classe(cnpj_classe: str, *, allow_network: bool = True) -> pd.Series | None:
     cnpj_digits = _strip_digits(cnpj_classe)
     if len(cnpj_digits) != 14:
         return None
-    _, classe_df = _load_registro_fundo_classe()
+    _, classe_df = _load_registro_fundo_classe(allow_network)
     if classe_df is None or classe_df.empty or "CNPJ_Classe" not in classe_df.columns:
         return None
     classe_df = _ensure_norm_column(classe_df, "CNPJ_Classe", "_cnpj_classe_norm")
@@ -244,7 +284,12 @@ def _pick_value(
     return "", "", ""
 
 
-def fetch_fidc_participantes(cnpj_fundo: str, cnpj_classe: str | None = None) -> dict[str, str]:
+def fetch_fidc_participantes(
+    cnpj_fundo: str,
+    cnpj_classe: str | None = None,
+    *,
+    allow_network: bool = True,
+) -> dict[str, str]:
     """Look up administrador, gestor and custodiante from the official CVM cadastro.
 
     Returns empty strings when the relevant source is unavailable or the field is
@@ -266,9 +311,9 @@ def fetch_fidc_participantes(cnpj_fundo: str, cnpj_classe: str | None = None) ->
     if len(_strip_digits(cnpj_fundo)) != 14:
         return empty
 
-    registro_fundo = _match_registro_fundo(cnpj_fundo)
-    legacy_fundo = _match_fi_cad_legacy(cnpj_fundo)
-    registro_classe = _match_registro_classe(cnpj_classe or "")
+    registro_fundo = _match_registro_fundo(cnpj_fundo, allow_network=allow_network)
+    legacy_fundo = _match_fi_cad_legacy(cnpj_fundo, allow_network=allow_network)
+    registro_classe = _match_registro_classe(cnpj_classe or "", allow_network=allow_network)
 
     nm_admin, cnpj_admin, fonte_admin = _pick_value(
         registro_fundo,

@@ -503,6 +503,31 @@ _FIDC_REPORT_CSS = """
     font-weight: 500;
 }
 
+.fidc-timing-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0.2rem 0 0.8rem 0;
+}
+
+.fidc-timing-chip {
+    align-items: center;
+    background: #f8f9fa;
+    border: 1px solid #eceff3;
+    border-radius: 999px;
+    color: #5a5a5a;
+    display: inline-flex;
+    font-size: 0.76rem;
+    gap: 5px;
+    line-height: 1.2;
+    padding: 5px 9px;
+}
+
+.fidc-timing-chip strong {
+    color: #212529;
+    font-weight: 500;
+}
+
 div[data-testid="stMetric"] {
     background: #ffffff;
     border: 1px solid #e9ecef;
@@ -848,6 +873,9 @@ def render_tab_fidc_ime(period: ImePeriodSelection | None = None) -> None:
 
             elapsed_seconds = time.perf_counter() - start_ts
             context["elapsed_seconds"] = round(elapsed_seconds, 3)
+            context["timings"] = {
+                "extracao_cache_segundos": round(elapsed_seconds, 3),
+            }
             _update_progress_bar(progress, 1.0, f"[Slot {slot_i + 1}] Concluído.")
             status_box.empty()
             slots[slot_i] = {"result": result, "context": context}
@@ -943,6 +971,41 @@ def _render_execution_observability(context: dict[str, Any], elapsed_seconds: fl
         st.json(payload)
 
 
+def _format_elapsed_seconds(value: object) -> str:
+    numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(numeric):
+        return "N/D"
+    seconds = float(numeric)
+    if seconds < 60:
+        return f"{seconds:.1f}s".replace(".", ",")
+    minutes = int(seconds // 60)
+    remaining = seconds - (minutes * 60)
+    return f"{minutes}m {remaining:.0f}s"
+
+
+def _render_load_timing_bar(context: dict[str, Any]) -> None:
+    timings = dict(context.get("timings") or {})
+    if not timings and context.get("elapsed_seconds") is not None:
+        timings["extracao_cache_segundos"] = context.get("elapsed_seconds")
+    if not timings:
+        return
+    extraction = _format_elapsed_seconds(timings.get("extracao_cache_segundos"))
+    dashboard_data = _format_elapsed_seconds(timings.get("dashboard_data_segundos"))
+    total = _format_elapsed_seconds(timings.get("total_ate_dashboard_segundos"))
+    chips = [
+        ("Extração/cache", extraction),
+        ("Montagem dashboard", dashboard_data),
+        ("Total até dashboard", total),
+    ]
+    html = "".join(
+        f'<span class="fidc-timing-chip"><strong>{escape(label)}:</strong> {escape(value)}</span>'
+        for label, value in chips
+        if value != "N/D"
+    )
+    if html:
+        st.markdown(f'<div class="fidc-timing-bar">{html}</div>', unsafe_allow_html=True)
+
+
 def _read_csv_preview(csv_path, max_rows: int) -> pd.DataFrame:  # noqa: ANN001
     return pd.read_csv(csv_path, nrows=max_rows)
 
@@ -992,6 +1055,8 @@ def _render_dashboard(
     # "Carregar Informes Mensais" (see load_clicked handler above).
     _session_dashboard_key = f"_dashboard_{slot_key}"
     _session_dashboard_version_key = f"{_session_dashboard_key}_version"
+    _session_timing_key = f"{_session_dashboard_key}_timings"
+    timings = dict(st.session_state.get(_session_timing_key) or context.get("timings") or {})
     cached_dashboard = st.session_state.get(_session_dashboard_key)
     cached_version = st.session_state.get(_session_dashboard_version_key)
     if (
@@ -999,19 +1064,37 @@ def _render_dashboard(
         or cached_version != DASHBOARD_SCHEMA_VERSION
         or not _dashboard_contract_is_current(cached_dashboard)
     ):
-        st.session_state[_session_dashboard_key] = _load_dashboard_data(
-            str(result.wide_csv_path),
-            str(result.listas_csv_path),
-            str(result.docs_csv_path),
-            DASHBOARD_SCHEMA_VERSION,
-        )
+        dashboard_start = time.perf_counter()
+        with st.spinner("Montando dados da Visão Executiva..."):
+            st.session_state[_session_dashboard_key] = _load_dashboard_data(
+                str(result.wide_csv_path),
+                str(result.listas_csv_path),
+                str(result.docs_csv_path),
+                DASHBOARD_SCHEMA_VERSION,
+            )
         st.session_state[_session_dashboard_version_key] = DASHBOARD_SCHEMA_VERSION
+        timings["dashboard_data_segundos"] = round(time.perf_counter() - dashboard_start, 3)
+    else:
+        timings.setdefault("dashboard_data_segundos", 0.0)
+    extraction_seconds = pd.to_numeric(pd.Series([timings.get("extracao_cache_segundos", context.get("elapsed_seconds"))]), errors="coerce").iloc[0]
+    dashboard_seconds = pd.to_numeric(pd.Series([timings.get("dashboard_data_segundos")]), errors="coerce").iloc[0]
+    if pd.notna(extraction_seconds) and pd.notna(dashboard_seconds):
+        timings["total_ate_dashboard_segundos"] = round(float(extraction_seconds) + float(dashboard_seconds), 3)
+    st.session_state[_session_timing_key] = timings
+    context["timings"] = timings
     dashboard: FundonetDashboardData = st.session_state[_session_dashboard_key]
     st.markdown(_FIDC_REPORT_CSS, unsafe_allow_html=True)
 
-    executive_tab, technical_tab = st.tabs(["Visão executiva", "Auditoria técnica"])
-    with executive_tab:
+    selected_view = st.radio(
+        "Visão do informe",
+        options=["Visão executiva", "Auditoria técnica"],
+        horizontal=True,
+        key=f"fidc_result_view_{slot_key}",
+        label_visibility="collapsed",
+    )
+    if selected_view == "Visão executiva":
         _render_dashboard_header(dashboard)
+        _render_load_timing_bar(context)
         _render_financial_snapshot_cards(dashboard)
         _render_dashboard_controls(dashboard, context)
         _render_dashboard_context_bar(dashboard)
@@ -1022,8 +1105,7 @@ def _render_dashboard(
         _render_credit_risk_section(dashboard)
         _render_liquidity_risk_section(dashboard)
         _render_calculation_memory_section(dashboard, slot_key=slot_key)
-
-    with technical_tab:
+    else:
         _render_execution_observability(context, elapsed_seconds=context.get("elapsed_seconds"))
         if contract_missing:
             st.warning("Contrato de dados parcial detectado. Alguns blocos podem ficar incompletos.")
@@ -1055,7 +1137,7 @@ def _render_dashboard(
 def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
     download_cols = st.columns(2, gap="small")
     with download_cols[0]:
-        _render_regulamento_export_button(dashboard)
+        _render_regulamento_export_button(dashboard, context)
     with download_cols[1]:
         _render_pptx_export_button(dashboard, context)
     if ENABLE_GLOBAL_PDF_EXPORT:
@@ -1950,15 +2032,32 @@ def _load_latest_regulamento_payload(cnpj_fundo: str) -> dict[str, Any] | None:
     }
 
 
-def _render_regulamento_export_button(dashboard: FundonetDashboardData) -> None:
+def _render_regulamento_export_button(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
     cnpj_fundo = re.sub(r"\D", "", str(dashboard.fund_info.get("cnpj_fundo") or ""))
     if len(cnpj_fundo) != 14:
         return
-    try:
-        payload = _load_latest_regulamento_payload(cnpj_fundo)
-    except Exception:
-        return
-    if not payload:
+    payload_key = f"fidc_regulamento_payload::{cnpj_fundo}"
+    payload = st.session_state.get(payload_key)
+    if payload is None:
+        if st.button(
+            "Preparar regulamento",
+            key=f"fidc_prepare_regulamento::{cnpj_fundo}",
+            use_container_width=True,
+            help="Busca o regulamento somente sob demanda para não atrasar o carregamento dos gráficos.",
+        ):
+            start = time.perf_counter()
+            with st.spinner("Buscando regulamento no Fundos.NET..."):
+                try:
+                    payload = _load_latest_regulamento_payload(cnpj_fundo)
+                except Exception:
+                    payload = None
+            timings = dict(context.get("timings") or {})
+            timings["regulamento_segundos"] = round(time.perf_counter() - start, 3)
+            context["timings"] = timings
+            if payload:
+                st.session_state[payload_key] = payload
+            else:
+                st.warning("Regulamento indisponível para download neste momento.")
         return
     st.download_button(
         "Download regulamento",
@@ -1973,19 +2072,39 @@ def _render_regulamento_export_button(dashboard: FundonetDashboardData) -> None:
 
 
 def _render_pptx_export_button(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
-    try:
-        from services.fundonet_ppt_export import build_dashboard_pptx_bytes
-    except Exception as exc:  # noqa: BLE001
-        st.warning(f"Exportação em slides indisponível neste ambiente: {exc}")
+    payload_key = (
+        f"fidc_pptx_payload::{context.get('cache_key') or context.get('request_id') or 'execucao'}::"
+        f"{DASHBOARD_SCHEMA_VERSION}"
+    )
+    pptx_bytes = st.session_state.get(payload_key)
+    if pptx_bytes is None:
+        if st.button(
+            "Preparar slides (PPTX)",
+            key=f"fidc_prepare_pptx::{payload_key}",
+            use_container_width=True,
+            help="Monta o PowerPoint somente sob demanda para priorizar a abertura dos gráficos.",
+        ):
+            try:
+                from services.fundonet_ppt_export import build_dashboard_pptx_bytes
+            except Exception as exc:  # noqa: BLE001
+                st.warning(f"Exportação em slides indisponível neste ambiente: {exc}")
+                return
+            start = time.perf_counter()
+            with st.spinner("Montando slides em PowerPoint..."):
+                try:
+                    pptx_bytes = build_dashboard_pptx_bytes(
+                        dashboard,
+                        requested_period_label=context.get("periodo_analisado_label"),
+                    )
+                except Exception as exc:  # noqa: BLE001
+                    st.warning(f"Não foi possível montar os slides do dashboard: {exc}")
+                    return
+            timings = dict(context.get("timings") or {})
+            timings["pptx_segundos"] = round(time.perf_counter() - start, 3)
+            context["timings"] = timings
+            st.session_state[payload_key] = pptx_bytes
         return
-
-    try:
-        pptx_bytes = build_dashboard_pptx_bytes(
-            dashboard,
-            requested_period_label=context.get("periodo_analisado_label"),
-        )
-    except Exception as exc:  # noqa: BLE001
-        st.warning(f"Não foi possível montar os slides do dashboard: {exc}")
+    if not pptx_bytes:
         return
 
     st.download_button(

@@ -139,6 +139,22 @@ class CvmCadastroTests(unittest.TestCase):
         self.assertEqual("Custodiante Legado", participantes["nm_custodiante"])
         self.assertEqual("fi_cad_legado_fundo", participantes["fonte_custodiante"])
 
+    def test_fetch_fidc_participantes_can_skip_network_on_first_dashboard_render(self) -> None:
+        with (
+            patch.object(cvm_cadastro, "_read_cached_bytes", return_value=None),
+            patch.object(cvm_cadastro.urllib.request, "urlopen") as urlopen_mock,
+        ):
+            participantes = cvm_cadastro.fetch_fidc_participantes(
+                "12.345.678/0001-90",
+                cnpj_classe="98.765.432/0001-09",
+                allow_network=False,
+            )
+
+        urlopen_mock.assert_not_called()
+        self.assertEqual("", participantes["nm_admin"])
+        self.assertEqual("", participantes["nm_gestor"])
+        self.assertEqual("", participantes["nm_custodiante"])
+
     def test_list_fidc_catalog_prefers_active_and_longer_name(self) -> None:
         fundo_df = pd.DataFrame(
             [

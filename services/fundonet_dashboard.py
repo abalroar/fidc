@@ -754,9 +754,6 @@ def _build_fund_info(
     def wide_value(tag_path: str) -> str:
         return _display_value(_get_wide_series(wide_lookup, [latest_competencia], tag_path).iloc[0])
 
-    cnpj_fundo = normalize_cnpj_digits(wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_FUNDO"))
-    cnpj_classe = normalize_cnpj_digits(wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_CLASSE"))
-    participantes = fetch_fidc_participantes(cnpj_fundo, cnpj_classe=cnpj_classe)
     def doc_value(*columns: str) -> str:
         for column in columns:
             value = _display_value(latest_doc.get(column, ""))
@@ -774,6 +771,21 @@ def _build_fund_info(
                 if regex.search(tag_path):
                     return wide_value(tag_path)
         return "N/D"
+
+    cnpj_fundo = normalize_cnpj_digits(wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_FUNDO"))
+    cnpj_classe = normalize_cnpj_digits(wide_value("DOC_ARQ/CAB_INFORM/NR_CNPJ_CLASSE"))
+    participantes = fetch_fidc_participantes(
+        cnpj_fundo,
+        cnpj_classe=cnpj_classe,
+        allow_network=False,
+    )
+    doc_admin = doc_value("nome_administrador", "administrador", "nomeAdministrador")
+    doc_custodiante = doc_value("nome_custodiante", "custodiante", "nomeCustodiante")
+    doc_gestor = doc_value("nome_gestor", "gestor", "nomeGestor")
+    wide_admin = wide_first_matching([r"/NM_.*ADM", r"/NOME_.*ADM", r"/DENOM.*ADM", r"/RAZAO.*ADM"])
+    wide_custodiante = wide_first_matching([r"/NM_.*CUST", r"/NOME_.*CUST", r"/DENOM.*CUST", r"/RAZAO.*CUST"])
+    wide_gestor = wide_first_matching([r"/NM_.*GEST", r"/NOME_.*GEST", r"/DENOM.*GEST", r"/RAZAO.*GEST"])
+
     return {
         "nome_fundo": _display_value(latest_doc.get("nome_fundo", "")),
         "fundo_ou_classe": _display_value(latest_doc.get("fundo_ou_classe", "")),
@@ -790,15 +802,9 @@ def _build_fund_info(
         "fonte_nome_administrador": participantes["fonte_admin"],
         "fonte_nome_gestor": participantes["fonte_gestor"],
         "fonte_nome_custodiante": participantes["fonte_custodiante"],
-        "nome_administrador": doc_value("nome_administrador", "administrador", "nomeAdministrador")
-        if doc_value("nome_administrador", "administrador", "nomeAdministrador") != "N/D"
-        else participantes["nm_admin"] or wide_first_matching([r"/NM_.*ADM", r"/NOME_.*ADM", r"/DENOM.*ADM", r"/RAZAO.*ADM"]),
-        "nome_custodiante": doc_value("nome_custodiante", "custodiante", "nomeCustodiante")
-        if doc_value("nome_custodiante", "custodiante", "nomeCustodiante") != "N/D"
-        else participantes["nm_custodiante"] or wide_first_matching([r"/NM_.*CUST", r"/NOME_.*CUST", r"/DENOM.*CUST", r"/RAZAO.*CUST"]),
-        "nome_gestor": doc_value("nome_gestor", "gestor", "nomeGestor")
-        if doc_value("nome_gestor", "gestor", "nomeGestor") != "N/D"
-        else participantes["nm_gestor"] or wide_first_matching([r"/NM_.*GEST", r"/NOME_.*GEST", r"/DENOM.*GEST", r"/RAZAO.*GEST"]),
+        "nome_administrador": doc_admin if doc_admin != "N/D" else participantes["nm_admin"] or wide_admin,
+        "nome_custodiante": doc_custodiante if doc_custodiante != "N/D" else participantes["nm_custodiante"] or wide_custodiante,
+        "nome_gestor": doc_gestor if doc_gestor != "N/D" else participantes["nm_gestor"] or wide_gestor,
         "nome_classe": wide_value("DOC_ARQ/CAB_INFORM/NM_CLASSE"),
         "condominio": wide_value("DOC_ARQ/CAB_INFORM/TP_CONDOMINIO"),
         "classe_unica": wide_value("DOC_ARQ/CAB_INFORM/CLASS_UNICA"),
