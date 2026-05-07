@@ -2046,7 +2046,7 @@ def _render_model_header() -> None:
         """
         <div class="fidc-model-header">
           <div class="fidc-model-kicker">Simulação econômica</div>
-          <h2 class="fidc-model-title">Modelo FIDC</h2>
+          <h2 class="fidc-model-title">Modelagem</h2>
           <div class="fidc-model-copy">
             Este é um modelo econômico-financeiro para simular cenários de perda máxima em uma
             carteira de FIDC, considerando diferentes níveis de rentabilidade, subordinação e

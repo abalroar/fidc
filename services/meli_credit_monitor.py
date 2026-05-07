@@ -539,7 +539,7 @@ def _compare_somatorio_dashboard_scope(
                     dashboard_value=row.get("carteira_ex360_dashboard"),
                     unit="R$",
                     formula_somatorio="carteira_bruta - npl_over360",
-                    formula_dashboard="carteira_ex360 herdada do Somatório FIDCs",
+                    formula_dashboard="carteira_ex360 herdada da Soma de FIDCs",
                 ),
                 _comparison_row(
                     scope_name,

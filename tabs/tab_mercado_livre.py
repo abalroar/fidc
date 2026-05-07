@@ -57,7 +57,7 @@ from tabs.tab_fidc_ime_carteira import (
 )
 
 
-SOMATORIO_FIDCS_TITLE = "Somatório FIDCs"
+SOMATORIO_FIDCS_TITLE = "Soma de FIDCs"
 DISPLAY_WINDOW_FULL_OPTION = "Todo período carregado"
 DISPLAY_WINDOW_DECEMBERS_OPTION = "Dezembros + Ano Atual"
 DISPLAY_WINDOW_OPTIONS = (DISPLAY_WINDOW_FULL_OPTION, "6M", "12M", "24M", "36M", "YTD", DISPLAY_WINDOW_DECEMBERS_OPTION, "Customizado")
@@ -324,7 +324,7 @@ def _render_somatorio_period_panel(global_period: ImePeriodSelection | None = No
     end_month = current_default_end_month()
     options = ("6M", "12M", "24M", "36M", "YTD", "Customizado")
     selected = st.radio(
-        "Janela do Somatório FIDCs",
+        "Janela da Soma de FIDCs",
         options=options,
         index=options.index("12M"),
         horizontal=True,
@@ -498,7 +498,7 @@ def _render_portfolio_editor(
         name = st.text_input(
             "Nome da seleção",
             value=target.name if target is not None else "",
-            placeholder="Ex.: Somatório FIDCs",
+            placeholder="Ex.: Soma de FIDCs",
             key=f"ml_portfolio_name::{suffix}",
         ).strip()
         selected_labels = st.multiselect(
@@ -670,7 +670,7 @@ def _render_outputs(
                 use_container_width=True,
             )
 
-        st.markdown("### Dados Consolidados – Somatório FIDCs")
+        st.markdown("### Dados Consolidados – Soma de FIDCs")
         st.markdown(_render_wide_table_html(display_outputs.consolidated_wide), unsafe_allow_html=True)
 
         st.markdown("### Gráficos consolidados")
@@ -793,7 +793,7 @@ def _render_loaded_period_window(outputs):
         index=DISPLAY_WINDOW_OPTIONS.index(DISPLAY_WINDOW_FULL_OPTION),
         horizontal=True,
         key="somatorio_fidcs_display_window",
-        help="Filtra tabelas e gráficos usando somente a base já carregada; para ampliar a base, altere a Janela do Somatório FIDCs e carregue novamente.",
+        help="Filtra tabelas e gráficos usando somente a base já carregada; para ampliar a base, altere a Janela da Soma de FIDCs e carregue novamente.",
     )
 
     display_months = _display_window_months(
@@ -1159,7 +1159,7 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 2. Escolha o período de carga; o padrão é 12 meses, mas a aba permite carregar 6M, 12M, 24M, 36M, YTD ou intervalo customizado.
 3. Clique em **Carregar carteira** para montar ou reutilizar a base individual, a base consolidada, os gráficos e os arquivos exportáveis.
 4. Depois da carga, use o **Filtro visual (sem recarregar)** apenas para reduzir temporariamente a visualização. Por padrão, a aba mostra todo o período carregado; o preset **Dezembros + Ano Atual** mostra os fechamentos de dezembro dos anos anteriores e todos os meses do último ano disponível.
-5. Use **Tabela Completa** para validar **Dados Consolidados – Somatório FIDCs**; selecione um fundo individual por vez quando quiser ver tabela e gráficos por fundo.
+5. Use **Tabela Completa** para validar **Dados Consolidados – Soma de FIDCs**; selecione um fundo individual por vez quando quiser ver tabela e gráficos por fundo.
 6. Use **Análise Crédito** para acompanhar primeiro carteira ex-360, crescimento e NPL; depois roll rates, cohorts, duration, auditoria derivada e exportação analítica.
 
 ### Mecânica da aba

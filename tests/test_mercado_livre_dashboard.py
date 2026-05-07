@@ -560,7 +560,7 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         guide = _build_mercado_livre_guide_markdown()
 
         self.assertIn("Passo a passo de utilização", guide)
-        self.assertIn("Dados Consolidados – Somatório FIDCs", guide)
+        self.assertIn("Dados Consolidados – Soma de FIDCs", guide)
         self.assertIn("selecione um fundo individual por vez", guide)
         self.assertIn("PATRLIQ/VL_PATRIM_LIQ", guide)
         self.assertIn("Ex-Vencidos > 360d", guide)

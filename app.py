@@ -246,12 +246,12 @@ period = _render_period_selector(state_prefix="ime_global")
 
 
 _MAIN_SECTIONS = [
+    "Sobre",
+    "Glossário FIDCs",
     "Informe Mensal Estruturado",
     "Acompanhamento Carteira",
-    "Somatório FIDCs",
-    "Modelo FIDC",
-    "Glossário FIDC",
-    "Sobre",
+    "Soma de FIDCs",
+    "Modelagem",
 ]
 
 st.markdown("<div class='fidc-main-nav-marker'></div>", unsafe_allow_html=True)
@@ -267,11 +267,11 @@ if selected_section == "Informe Mensal Estruturado":
     ime_tab.render_tab_fidc_ime(period=period)
 elif selected_section == "Acompanhamento Carteira":
     render_tab_fidc_ime_carteira(period=period)
-elif selected_section == "Somatório FIDCs":
+elif selected_section == "Soma de FIDCs":
     render_tab_somatorio_fidcs(period=period)
-elif selected_section == "Modelo FIDC":
+elif selected_section == "Modelagem":
     render_tab_modelo_fidc()
-elif selected_section == "Glossário FIDC":
+elif selected_section == "Glossário FIDCs":
     render_tab_fidc_book()
 elif selected_section == "Sobre":
     try:

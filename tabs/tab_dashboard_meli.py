@@ -165,7 +165,7 @@ def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
     selected_period = _render_period_panel(period)
     selected_portfolio = _render_portfolio_controls(portfolios)
     if selected_portfolio is None:
-        st.info("Salve uma carteira no Somatório FIDCs para usar a Análise Crédito.")
+        st.info("Salve uma carteira na Soma de FIDCs para usar a Análise Crédito.")
         return
     selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
     runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=selected_period)
@@ -712,7 +712,7 @@ def _format_somatorio_dashboard_comparison(frame: pd.DataFrame) -> pd.DataFrame:
             "cnpj": "CNPJ",
             "competencia": "Competência",
             "metrica": "Métrica",
-            "somatorio": "Somatório FIDCs",
+            "somatorio": "Soma de FIDCs",
             "dashboard_meli": "Análise Crédito",
             "diferenca_abs": "Diferença abs.",
             "diferenca_rel_pct": "Diferença rel.",
@@ -797,7 +797,7 @@ def _render_methodology(research_outputs=None) -> None:  # noqa: ANN001
     with st.expander("Metodologia, fórmulas e fontes dos indicadores", expanded=False):
         st.markdown(
             """
-O painel usa dados mensais já compilados no Somatório FIDCs. No consolidado, valores absolutos são somados primeiro e percentuais são recalculados depois.
+O painel usa dados mensais já compilados na Soma de FIDCs. No consolidado, valores absolutos são somados primeiro e percentuais são recalculados depois.
 
 **Leitura dos gráficos:** cada gráfico informa explicitamente o eixo usado, a unidade e se há eixo direito. Os rótulos finais mostram o último ponto calculável de cada série.
 
@@ -855,13 +855,13 @@ def _render_guide() -> None:
     with st.expander("Como usar e interpretar a Análise Crédito", expanded=False):
         st.markdown(
             """
-1. Selecione a carteira salva no Somatório FIDCs e carregue uma janela longa, preferencialmente 24M ou 36M.
+1. Selecione a carteira salva na Soma de FIDCs e carregue uma janela longa, preferencialmente 24M ou 36M.
 2. Comece pelos roll rates: eles mostram a velocidade de deterioração sobre a carteira a vencer defasada, não apenas o estoque vencido.
 3. Use NPL ex-360 por severidade para separar atraso inicial (1-90d) de atraso mais maduro (91-360d), sempre depois da baixa conceitual dos vencidos acima de 360 dias.
 4. Confira carteira ex-360 e crescimento para saber se melhora de NPL vem de qualidade ou de efeito denominador.
 5. Use cohorts para comparar safras recentes contra a própria curva de maturação M1-M6.
 
-A análise usa os dados já compilados no Somatório FIDCs. Percentuais consolidados são sempre recalculados a partir da soma dos numeradores e denominadores.
+A análise usa os dados já compilados na Soma de FIDCs. Percentuais consolidados são sempre recalculados a partir da soma dos numeradores e denominadores.
             """
         )
 

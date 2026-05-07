@@ -1,4 +1,4 @@
-"""Somatório FIDCs — deck v3 para comitê de crédito.
+"""Soma de FIDCs — deck v3 para comitê de crédito.
 
 Estrutura: 19 slides
   1  Capa
@@ -172,14 +172,14 @@ def build_somatorio_fidcs_pptx_bytes(
     next_page()
 
     # ---- Slides 3–6: Consolidado ----
-    _add_base_slide(prs, layout, con_monthly, con_monitor, "Somatório FIDCs — Consolidado",
+    _add_base_slide(prs, layout, con_monthly, con_monitor, "Soma de FIDCs — Consolidado",
                     next_page(), _TOTAL_SLIDES, data_base, is_subordination_fund=False, **deps)
-    _add_credit_slide(prs, layout, con_monitor, "Somatório FIDCs — Consolidado",
+    _add_credit_slide(prs, layout, con_monitor, "Soma de FIDCs — Consolidado",
                       next_page(), _TOTAL_SLIDES, data_base, **deps)
     _add_detail_slide(prs, layout, con_monitor, fund_monitor_map, con_cohorts,
-                      "Somatório FIDCs — Consolidado",
+                      "Soma de FIDCs — Consolidado",
                       next_page(), _TOTAL_SLIDES, data_base, **deps)
-    _add_roll_slide(prs, layout, con_monitor, roll_df, "Somatório FIDCs — Consolidado",
+    _add_roll_slide(prs, layout, con_monitor, roll_df, "Soma de FIDCs — Consolidado",
                     next_page(), _TOTAL_SLIDES, data_base, **deps)
 
     # ---- Per-fund blocks ----

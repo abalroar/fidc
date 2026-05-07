@@ -165,7 +165,7 @@ def render_tab_fidc_book() -> None:
     st.markdown(
         """
         <div class="fidc-book-header">
-          <div class="fidc-book-title">Glossário FIDC</div>
+          <div class="fidc-book-title">Glossário FIDCs</div>
           <div class="fidc-book-subtitle">Estrutura, risco e regulação</div>
         </div>
         """,
