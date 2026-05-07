@@ -85,7 +85,7 @@ OVER_AGING_CHART_COLORS = [
 
 OVER_SERIES_ORDER = ["Over 1", "Over 30", "Over 60", "Over 90", "Over 180", "Over 360"]
 
-COVERAGE_LINE_COLOR = "#6b2c3e"
+COVERAGE_LINE_COLOR = "#EC7000"
 
 _PT_MONTH_ABBR: dict[str, str] = {
     "01": "jan",
@@ -1100,63 +1100,63 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section("Crédito")
     default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
     cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
-    _render_chart_heading(st, "Inadimplência e provisão")
+    _render_chart_heading(st, "Inadimplência, PDD e cobertura")
+    st.caption(
+        "Barras: inadimplência e provisão como % dos direitos creditórios. "
+        "Linha: cobertura PDD / vencidos, em gráfico separado para evitar mistura de escalas."
+    )
     _credit_chart_all_zero = (
         default_pct_chart_df.empty
         or (pd.to_numeric(default_pct_chart_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
     )
-    if _credit_chart_all_zero:
-        st.caption("Sem dados de inadimplência ou provisão nos informes do período.")
-    else:
-        credit_bar_size = _executive_grouped_bar_size(
-            default_pct_chart_df["competencia"].nunique(),
-            default_pct_chart_df["serie"].nunique(),
-        )
-        st.altair_chart(
-            _grouped_bar_with_rhs_line_chart(
-                default_pct_chart_df,
-                cobertura_df,
-                title=None,
-                bar_y_title="% dos DCs",
-                line_y_title="Cobertura (%)",
-                height=360,
-                reference_value=100.0,
-                reference_label="100% (paridade)",
-                bar_size=credit_bar_size,
-                show_line_end_label=True,
-                show_bar_labels=True,
-                show_all_line_labels=False,
-                bar_label_formatter=_format_percent,
-                line_label_formatter=_format_percent,
-            ),
-            width="stretch",
-        )
-    over_history_df = dashboard.default_over_history_df.copy()
-    _render_chart_heading(st, "Inadimplência Over")
-    if over_history_df.empty:
-        st.info("Dados de inadimplência Over não disponíveis nos informes selecionados.")
-    else:
-        over_chart_df = over_history_df[
-            ["competencia", "competencia_dt", "ordem", "serie", "percentual"]
-        ].rename(columns={"percentual": "valor"})
-        over_chart_df = over_chart_df.dropna(subset=["valor"]).sort_values(["ordem", "competencia_dt"])
-        if not over_chart_df.empty:
+    credit_col, coverage_col = st.columns([0.62, 0.38])
+    with credit_col:
+        st.caption("Eixo esquerdo: % dos direitos creditórios. Sem eixo direito.")
+        if _credit_chart_all_zero:
+            st.caption("Sem dados de inadimplência ou provisão nos informes do período.")
+        else:
+            credit_bar_size = _executive_grouped_bar_size(
+                default_pct_chart_df["competencia"].nunique(),
+                default_pct_chart_df["serie"].nunique(),
+            )
             st.altair_chart(
-                _line_history_chart(
-                    over_chart_df,
+                _grouped_bar_chart(
+                    default_pct_chart_df,
                     title=None,
-                    y_title="%",
-                    color_range=OVER_AGING_CHART_COLORS,
-                    show_point_labels=False,
-                    show_end_labels=True,
+                    y_title="% dos DCs",
+                    height=320,
+                    bar_size=credit_bar_size,
+                    label_font_size=10,
+                    color_range=[FIDC_CHART_COLORS[0], FIDC_CHART_COLORS[1]],
                 ),
                 width="stretch",
             )
+    with coverage_col:
+        st.caption("Eixo esquerdo: PDD / vencidos. Linha tracejada: 100%.")
+        coverage_all_zero = (
+            cobertura_df.empty
+            or (pd.to_numeric(cobertura_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
+        )
+        if coverage_all_zero:
+            st.caption("Cobertura não disponível para o período selecionado.")
         else:
-            st.caption("Curva Over não disponível — dados de aging incompletos para todos os períodos.")
-        _render_over_transparency_notes(st, over_history_df)
+            st.altair_chart(
+                _line_history_chart(
+                    cobertura_df,
+                    title=None,
+                    y_title="%",
+                    color_range=[COVERAGE_LINE_COLOR],
+                    show_point_labels=False,
+                    show_end_labels=True,
+                    point_size=64,
+                    reference_value=100.0,
+                    reference_label="100% (paridade)",
+                ),
+                width="stretch",
+            )
     aging_history_df = dashboard.default_aging_history_df.copy()
     _render_chart_heading(st, "Aging")
+    st.caption("Barras empilhadas: composição da carteira vencida por faixa de atraso; callouts na competência mais recente.")
     if aging_history_df.empty:
         st.caption("Sem dados de aging para o período selecionado.")
     else:
@@ -1170,6 +1170,28 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             ),
             width="stretch",
         )
+    over_history_df = dashboard.default_over_history_df.copy()
+    _render_chart_heading(st, "Inadimplência Over")
+    st.caption("Over 30 e Over 90 são as séries principais; demais curvas ficam como contexto de severidade.")
+    if over_history_df.empty:
+        st.info("Dados de inadimplência Over não disponíveis nos informes selecionados.")
+    else:
+        over_chart_df = over_history_df[
+            ["competencia", "competencia_dt", "ordem", "serie", "percentual"]
+        ].rename(columns={"percentual": "valor"})
+        over_chart_df = over_chart_df.dropna(subset=["valor"]).sort_values(["ordem", "competencia_dt"])
+        if not over_chart_df.empty:
+            st.altair_chart(
+                _over_focus_line_chart(
+                    over_chart_df,
+                    title=None,
+                    y_title="%",
+                ),
+                width="stretch",
+            )
+        else:
+            st.caption("Curva Over não disponível — dados de aging incompletos para todos os períodos.")
+        _render_over_transparency_notes(st, over_history_df)
     with st.expander("Detalhe numérico do aging", expanded=False):
         _aging_detail_df = _format_aging_latest_table(dashboard.default_buckets_latest_df)
         if _aging_detail_df.empty:
@@ -3389,6 +3411,97 @@ def _line_history_chart(
         .encode(y="valor:Q", tooltip=[alt.Tooltip("valor:Q", format=",.2f", title=limit_label or "Limite")])
     )
     return _style_altair_chart(layered + rule)
+
+
+def _over_focus_line_chart(
+    chart_df: pd.DataFrame,
+    *,
+    title: str | None,
+    y_title: str,
+    headline_series: tuple[str, ...] = ("Over 30", "Over 90"),
+) -> alt.Chart:
+    chart_df = _altair_compatible_df(chart_df)
+    chart_df = _sort_competencia_display_frame(chart_df, extra_columns=["serie"])
+    if "competencia" in chart_df.columns:
+        chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
+    chart_df = chart_df.dropna(subset=["valor"]).copy()
+    if chart_df.empty:
+        empty_chart = (
+            alt.Chart(pd.DataFrame(columns=["competencia", "valor"]))
+            .mark_line()
+            .encode(x="competencia:N", y=alt.Y("valor:Q", title=y_title))
+        )
+        return _style_altair_chart(_chart_with_optional_title(empty_chart, height=320, title=title))
+
+    x_sort = _competencia_axis_sort(chart_df)
+    observed_series = chart_df["serie"].dropna().astype(str).drop_duplicates().tolist()
+    series_order = [serie for serie in OVER_SERIES_ORDER if serie in set(observed_series)]
+    series_order.extend([serie for serie in observed_series if serie not in set(series_order)])
+    color_by_series = {
+        "Over 1": "#BDBDBD",
+        "Over 30": "#EC7000",
+        "Over 60": "#757575",
+        "Over 90": "#1F1F1F",
+        "Over 180": "#4D4D4D",
+        "Over 360": "#E0E0E0",
+    }
+    color_range = [color_by_series.get(serie, "#6E6E6E") for serie in series_order]
+    headline_set = set(headline_series)
+    chart_df["stroke_width"] = chart_df["serie"].map(lambda serie: 3.1 if str(serie) in headline_set else 1.45)
+    chart_df["series_opacity"] = chart_df["serie"].map(lambda serie: 1.0 if str(serie) in headline_set else 0.48)
+    chart_df["point_size"] = chart_df["serie"].map(lambda serie: 80 if str(serie) in headline_set else 34)
+    chart_df["valor_fmt"] = chart_df["valor"].map(_format_percent)
+    chart_df["label_fmt"] = chart_df["valor"].map(lambda value: _format_value_label(value, y_title))
+
+    end_labels_df = _build_line_series_end_labels_df(chart_df, y_title=y_title, min_gap_override=1.4)
+    scale_values = pd.to_numeric(chart_df["valor"], errors="coerce")
+    if not end_labels_df.empty:
+        scale_values = pd.concat(
+            [scale_values, pd.to_numeric(end_labels_df["label_valor"], errors="coerce")],
+            ignore_index=True,
+        )
+
+    x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort)
+    y_encoding = alt.Y(
+        "valor:Q",
+        title=y_title,
+        axis=alt.Axis(),
+        scale=_quant_scale_with_headroom(scale_values, percent_like=True),
+    )
+    color_encoding = alt.Color(
+        "serie:N",
+        title="Série",
+        scale=alt.Scale(domain=series_order, range=color_range),
+        sort=series_order,
+        legend=_series_legend("Série", len(series_order)),
+    )
+    base = alt.Chart(chart_df).encode(
+        x=x_encoding,
+        y=y_encoding,
+        color=color_encoding,
+        detail="serie:N",
+        tooltip=["competencia:N", "serie:N", alt.Tooltip("valor_fmt:N", title="Valor")],
+    )
+    lines = base.mark_line().encode(
+        strokeWidth=alt.StrokeWidth("stroke_width:Q", legend=None),
+        opacity=alt.Opacity("series_opacity:Q", legend=None),
+    )
+    points = base.mark_point(filled=True).encode(
+        size=alt.Size("point_size:Q", legend=None),
+        opacity=alt.Opacity("series_opacity:Q", legend=None),
+    )
+    layered: alt.Chart = _chart_with_optional_title(lines + points, height=320, title=title)
+    end_labels = _line_series_end_label_layer(
+        end_labels_df,
+        x_sort=x_sort,
+        y_title=y_title,
+        color_range=color_range,
+        series_order=series_order,
+    )
+    if end_labels is not None:
+        layered = layered + end_labels
+        layered = layered.properties(padding={"left": 8, "right": 118, "top": 8, "bottom": 8})
+    return _style_altair_chart(layered)
 
 
 def _line_point_chart(

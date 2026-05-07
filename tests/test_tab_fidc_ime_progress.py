@@ -213,7 +213,7 @@ class TabFidcImeProgressTests(unittest.TestCase):
         line_encoding = spec["layer"][1]["layer"][1]["encoding"]
         self.assertEqual("right", line_encoding["y"]["axis"]["orient"])
         self.assertGreaterEqual(rhs_scale[1], 500.0)
-        self.assertEqual("#6b2c3e", spec["layer"][1]["layer"][1]["mark"]["point"]["fill"])
+        self.assertEqual("#EC7000", spec["layer"][1]["layer"][1]["mark"]["point"]["fill"])
 
     def test_grouped_bar_with_rhs_line_chart_supports_full_bar_and_line_labels(self) -> None:
         bar_df = pd.DataFrame(
@@ -251,7 +251,7 @@ class TabFidcImeProgressTests(unittest.TestCase):
         spec = chart.to_dict()
         self.assertEqual("text", spec["layer"][0]["layer"][1]["mark"]["type"])
         self.assertEqual("text", spec["layer"][1]["layer"][2]["mark"]["type"])
-        self.assertEqual("#6b2c3e", spec["layer"][1]["layer"][2]["mark"]["color"])
+        self.assertEqual("#EC7000", spec["layer"][1]["layer"][2]["mark"]["color"])
 
     def test_build_line_series_end_labels_df_uses_value_only_labels(self) -> None:
         chart_df = pd.DataFrame(
