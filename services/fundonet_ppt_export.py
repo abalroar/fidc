@@ -187,16 +187,6 @@ def build_dashboard_pptx_bytes(
     ) -> None:
         panel = add_panel(slide, left, top, width, height)
         style_shape_border(panel, line_color=GRID_GRAY, line_width_pt=1.0)
-        accent = slide.shapes.add_shape(
-            MSO_AUTO_SHAPE_TYPE.RECTANGLE,
-            Inches(left),
-            Inches(top),
-            Inches(width),
-            Inches(0.055),
-        )
-        accent.fill.solid()
-        accent.fill.fore_color.rgb = rgb(ORANGE)
-        accent.line.fill.background()
         value_color = NEGATIVE_RED if str(value).strip().startswith("-") else BLACK
         label_size = 7 if compact else LABEL_SIZE
         value_size = 13 if compact else CARD_VALUE_SIZE
@@ -555,6 +545,13 @@ def build_dashboard_pptx_bytes(
                 "left": XL_LEGEND_POSITION.LEFT,
             }
             chart.legend.position = legend_positions.get(legend_position, XL_LEGEND_POSITION.BOTTOM)
+            legend_xml_values = {"bottom": "b", "right": "r", "top": "t", "left": "l"}
+            try:
+                legend_nodes = chart._chartSpace.xpath("./c:chart/c:legend/c:legendPos")
+                if legend_nodes:
+                    legend_nodes[0].set("val", legend_xml_values.get(legend_position, "b"))
+            except Exception:  # noqa: BLE001
+                pass
             if hasattr(chart.legend, "include_in_layout"):
                 chart.legend.include_in_layout = True
             try:
@@ -683,8 +680,10 @@ def build_dashboard_pptx_bytes(
         font_size: int = 10,
         position: str = "above",
         label_color: str | None = None,
+        label_colors: Sequence[str] | None = None,
         series_filter=None,  # noqa: ANN001
         alternate_positions: bool = False,
+        skip_nonpositive: bool = False,
     ) -> None:
         """Apply chart-native labels only to the visually latest category.
 
@@ -705,6 +704,8 @@ def build_dashboard_pptx_bytes(
             value = _to_float(values[latest_idx])
             if value is None:
                 continue
+            if skip_nonpositive and value <= 0:
+                continue
             try:
                 point = chart.series[series_idx].points[latest_idx]
                 label = point.data_label
@@ -723,7 +724,10 @@ def build_dashboard_pptx_bytes(
                 run.font.name = FONT_FAMILY
                 run.font.size = Pt(max(font_size, 7))
                 run.font.bold = True
-                run.font.color.rgb = rgb(label_color or applied_colors[series_idx % len(applied_colors)])
+                resolved_label_color = label_color
+                if resolved_label_color is None and label_colors:
+                    resolved_label_color = label_colors[series_idx % len(label_colors)]
+                run.font.color.rgb = rgb(resolved_label_color or applied_colors[series_idx % len(applied_colors)])
             except Exception:  # noqa: BLE001
                 continue
 
@@ -1060,7 +1064,7 @@ def build_dashboard_pptx_bytes(
     ) -> None:
         summary = dashboard.summary
         specs = [
-            ("Ativo total", _format_brl_compact(summary.get("ativos_totais")), "APLIC_ATIVO/VL_SOM_APLIC_ATIVO"),
+            ("Ativo total", _format_brl_compact(summary.get("ativos_totais")), "Ativos totais reportados"),
             (
                 "DCs totais",
                 _format_brl_compact(summary.get("direitos_creditorios") or summary.get("inadimplencia_denominador")),
@@ -1212,111 +1216,113 @@ def build_dashboard_pptx_bytes(
         )
     add_footer(slide, timestamp_text, current_page)
 
-    # Slide 2 — returns and term
-    slide = prs.slides.add_slide(blank)
-    current_page = next_page()
-    add_slide_header(slide, "Rentabilidade e prazo")
-
+    # Slide 2 — returns and term. Avoid creating an empty slide when the
+    # source package has no return, maturity or duration data.
     selected_labels = _top_return_labels_for_ppt(dashboard)
     return_table_df = _build_return_inline_table_for_ppt(dashboard, selected_labels=selected_labels, months=12)
-    if not return_table_df.empty:
-        month_count = max(len(return_table_df.columns) - 3, 0)
-        add_table(
-            slide,
-            return_table_df,
-            title="Rentabilidade por tipo de cota (% a.m.) — últimos 12 meses",
-            left=MARGIN_LEFT_IN,
-            top=1.15,
-            width=full_width,
-            height=1.40,
-            col_widths=[2.15] + ([0.58] * month_count) + [0.86, 1.02],
-            max_rows=8,
-        )
-
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
     if not maturity_df.empty:
         maturity_df = maturity_df[pd.to_numeric(maturity_df["valor"], errors="coerce").fillna(0.0) > 0].copy()
-    if not maturity_df.empty:
-        maturity_scale = _money_scale(pd.to_numeric(maturity_df["valor"], errors="coerce"))
-        maturity_values = _scale_values(maturity_df["valor"], maturity_scale).tolist()
-        maturity_title = (
-            f"Prazo de vencimento dos DCs a vencer em {_format_competencia(dashboard.latest_competencia)}"
-        )
-        add_compounding_waterfall_chart(
-            slide,
-            categories=maturity_df["faixa"].astype(str).tolist(),
-            step_values=maturity_values,
-            total_value=float(sum(maturity_values)),
-            left=MARGIN_LEFT_IN,
-            top=3.00,
-            width=left_wide_width,
-            height=3.52,
-            number_format=_money_number_format(maturity_scale),
-            value_max=_money_axis_max(list(maturity_values) + [sum(maturity_values)]),
-            title=maturity_title,
-            title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
-            label_font_size=9,
-        )
-
     duration_df = _sort_competencia_frame(dashboard.duration_history_df, ascending=True)
-    if not duration_df.empty:
-        duration_series = [("Prazo médio proxy (dias)", _series_numeric(duration_df, "duration_days").fillna(0.0).tolist())]
-        duration_values = [float(value or 0.0) for value in duration_series[0][1]]
-        sorted_duration_values = sorted(duration_values)
-        second_highest = sorted_duration_values[-2] if len(sorted_duration_values) >= 2 else (sorted_duration_values[-1] if sorted_duration_values else 0.0)
-        max_duration = sorted_duration_values[-1] if sorted_duration_values else 0.0
-        duration_axis_max = _nice_axis_max(max(max(duration_series[0][1], default=30.0) * 1.12, max(duration_series[0][1], default=30.0) + 4.0, 30.0))
-        duration_outlier_competencia = None
-        duration_axis_note = None
-        if max_duration > 0 and second_highest > 0 and max_duration >= second_highest * 3:
-            duration_axis_max = _nice_axis_max(max(second_highest * 1.35, second_highest + 8.0, 30.0))
-            max_idx = duration_values.index(max_duration)
-            duration_outlier_competencia = _format_competencia(str(duration_df.iloc[max_idx]["competencia"]))
-            duration_axis_note = (
-                f"Escala visual limitada a {int(round(duration_axis_max))} dias; "
-                f"pico de {int(round(max_duration))} dias em {duration_outlier_competencia}."
+
+    if not return_table_df.empty or not maturity_df.empty or not duration_df.empty:
+        slide = prs.slides.add_slide(blank)
+        current_page = next_page()
+        add_slide_header(slide, "Rentabilidade e prazo")
+
+        if not return_table_df.empty:
+            month_count = max(len(return_table_df.columns) - 3, 0)
+            add_table(
+                slide,
+                return_table_df,
+                title="Rentabilidade por tipo de cota (% a.m.) — últimos 12 meses",
+                left=MARGIN_LEFT_IN,
+                top=1.15,
+                width=full_width,
+                height=1.40,
+                col_widths=[2.15] + ([0.58] * month_count) + [0.86, 1.02],
+                max_rows=8,
             )
-        duration_chart = add_chart(
-            slide,
-            title="Prazo médio proxy dos recebíveis (dias)",
-            chart_type=XL_CHART_TYPE.LINE_MARKERS,
-            categories=_competencia_labels(duration_df["competencia"].tolist()),
-            series_map=duration_series,
-            left=right_col_left,
-            top=3.00,
-            width=right_narrow_width,
-            height=3.52,
-            number_format='0.0',
-            label_position="above",
-            label_font_size=8,
-            show_data_labels=False,
-            value_max=duration_axis_max,
-            value_min=0.0,
-        )
-        _style_line_series(duration_chart.series[0], color=ORANGE, width_pt=2.2, marker_size=9)
-        if duration_values:
-            apply_last_point_labels(
-                duration_chart,
+
+        if not maturity_df.empty:
+            maturity_scale = _money_scale(pd.to_numeric(maturity_df["valor"], errors="coerce"))
+            maturity_values = _scale_values(maturity_df["valor"], maturity_scale).tolist()
+            maturity_title = (
+                f"Prazo de vencimento dos DCs a vencer em {_format_competencia(dashboard.latest_competencia)}"
+            )
+            add_compounding_waterfall_chart(
+                slide,
+                categories=maturity_df["faixa"].astype(str).tolist(),
+                step_values=maturity_values,
+                total_value=float(sum(maturity_values)),
+                left=MARGIN_LEFT_IN,
+                top=3.00,
+                width=left_wide_width,
+                height=3.52,
+                number_format=_money_number_format(maturity_scale),
+                value_max=_money_axis_max(list(maturity_values) + [sum(maturity_values)]),
+                title=maturity_title,
+                title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
+                label_font_size=9,
+            )
+
+        if not duration_df.empty:
+            duration_series = [("Prazo médio proxy (dias)", _series_numeric(duration_df, "duration_days").fillna(0.0).tolist())]
+            duration_values = [float(value or 0.0) for value in duration_series[0][1]]
+            sorted_duration_values = sorted(duration_values)
+            second_highest = sorted_duration_values[-2] if len(sorted_duration_values) >= 2 else (sorted_duration_values[-1] if sorted_duration_values else 0.0)
+            max_duration = sorted_duration_values[-1] if sorted_duration_values else 0.0
+            duration_axis_max = _nice_axis_max(max(max(duration_series[0][1], default=30.0) * 1.12, max(duration_series[0][1], default=30.0) + 4.0, 30.0))
+            duration_axis_note = None
+            if max_duration > 0 and second_highest > 0 and max_duration >= second_highest * 3:
+                duration_axis_max = _nice_axis_max(max(second_highest * 1.35, second_highest + 8.0, 30.0))
+                max_idx = duration_values.index(max_duration)
+                duration_outlier_competencia = _format_competencia(str(duration_df.iloc[max_idx]["competencia"]))
+                duration_axis_note = (
+                    f"Escala visual limitada a {int(round(duration_axis_max))} dias; "
+                    f"pico de {int(round(max_duration))} dias em {duration_outlier_competencia}."
+                )
+            duration_chart = add_chart(
+                slide,
+                title="Prazo médio proxy dos recebíveis (dias)",
+                chart_type=XL_CHART_TYPE.LINE_MARKERS,
                 categories=_competencia_labels(duration_df["competencia"].tolist()),
                 series_map=duration_series,
-                formatter=lambda value, _series_name: f"{_format_decimal(value, decimals=1)} dias",
-                colors=[ORANGE],
-                font_size=10,
-                position="above",
-                label_color=ORANGE,
+                left=right_col_left,
+                top=3.00,
+                width=right_narrow_width,
+                height=3.52,
+                number_format='0.0',
+                label_position="above",
+                label_font_size=8,
+                show_data_labels=False,
+                value_max=duration_axis_max,
+                value_min=0.0,
             )
-        if duration_axis_note is not None:
-            add_textbox(
-                slide,
-                right_col_left,
-                6.55,
-                right_narrow_width,
-                0.18,
-                duration_axis_note,
-                size=FOOTER_SIZE,
-                color=MID_GRAY,
-            )
-    add_footer(slide, timestamp_text, current_page)
+            _style_line_series(duration_chart.series[0], color=ORANGE, width_pt=2.2, marker_size=9)
+            if duration_values:
+                apply_last_point_labels(
+                    duration_chart,
+                    categories=_competencia_labels(duration_df["competencia"].tolist()),
+                    series_map=duration_series,
+                    formatter=lambda value, _series_name: f"{_format_decimal(value, decimals=1)} dias",
+                    colors=[ORANGE],
+                    font_size=10,
+                    position="above",
+                    label_color=ORANGE,
+                )
+            if duration_axis_note is not None:
+                add_textbox(
+                    slide,
+                    right_col_left,
+                    6.55,
+                    right_narrow_width,
+                    0.18,
+                    duration_axis_note,
+                    size=FOOTER_SIZE,
+                    color=MID_GRAY,
+                )
+        add_footer(slide, timestamp_text, current_page)
 
     default_df = _sort_competencia_frame(dashboard.default_history_df, ascending=True)
     credit_categories = _competencia_labels(default_df["competencia"].tolist()) if not default_df.empty else []
@@ -1351,7 +1357,7 @@ def build_dashboard_pptx_bytes(
         if credit_has_values and aging_has_values:
             if credit_bar_has_values:
                 bar_axis_max = _dashboard_percent_axis_upper(_series_values(credit_bar_series), max_cap=140.0)
-                add_chart(
+                credit_bar_chart = add_chart(
                     slide,
                     title="Inadimplência vs PDD",
                     chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
@@ -1369,8 +1375,18 @@ def build_dashboard_pptx_bytes(
                     show_legend=True,
                     legend_position="bottom",
                     value_max=bar_axis_max,
-                    show_data_labels=True,
+                    show_data_labels=False,
                     series_colors=[ORANGE, BLACK],
+                )
+                apply_last_point_labels(
+                    credit_bar_chart,
+                    categories=credit_categories,
+                    series_map=credit_bar_series,
+                    formatter=lambda value, _series_name: _format_percent(value),
+                    colors=[ORANGE, BLACK],
+                    font_size=10,
+                    position="outside_end",
+                    skip_nonpositive=True,
                 )
             else:
                 add_empty_state_panel(
@@ -1404,7 +1420,7 @@ def build_dashboard_pptx_bytes(
                     height=top_split_height,
                 )
             aging_axis_max = _dashboard_percent_axis_upper(_stacked_series_totals(aging_series_map), max_cap=120.0)
-            add_chart(
+            aging_chart = add_chart(
                 slide,
                 title="Aging",
                 chart_type=XL_CHART_TYPE.COLUMN_STACKED,
@@ -1424,14 +1440,25 @@ def build_dashboard_pptx_bytes(
                 series_colors=AGING_PPT_COLORS,
                 value_max=aging_axis_max,
                 show_legend=True,
-                legend_position="bottom",
+                legend_position="right",
                 show_data_labels=False,
+            )
+            apply_last_point_labels(
+                aging_chart,
+                categories=_competencia_labels(aging_history["competencia"].tolist()),
+                series_map=aging_series_map,
+                formatter=lambda value, _series_name: _format_percent(value),
+                colors=AGING_PPT_COLORS,
+                label_colors=[_contrast_text_color(color) for color in AGING_PPT_COLORS],
+                font_size=8,
+                position="center",
+                skip_nonpositive=True,
             )
         elif credit_has_values:
             credit_only_height = 3.72
             if credit_bar_has_values:
                 bar_axis_max = _dashboard_percent_axis_upper(_series_values(credit_bar_series), max_cap=140.0)
-                add_chart(
+                credit_bar_chart = add_chart(
                     slide,
                     title="Inadimplência vs PDD",
                     chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
@@ -1449,8 +1476,18 @@ def build_dashboard_pptx_bytes(
                     show_legend=True,
                     legend_position="bottom",
                     value_max=bar_axis_max,
-                    show_data_labels=True,
+                    show_data_labels=False,
                     series_colors=[ORANGE, BLACK],
+                )
+                apply_last_point_labels(
+                    credit_bar_chart,
+                    categories=credit_categories,
+                    series_map=credit_bar_series,
+                    formatter=lambda value, _series_name: _format_percent(value),
+                    colors=[ORANGE, BLACK],
+                    font_size=10,
+                    position="outside_end",
+                    skip_nonpositive=True,
                 )
             else:
                 add_empty_state_panel(
@@ -1494,7 +1531,7 @@ def build_dashboard_pptx_bytes(
             )
         elif aging_has_values:
             aging_axis_max = _dashboard_percent_axis_upper(_stacked_series_totals(aging_series_map), max_cap=120.0)
-            add_chart(
+            aging_chart = add_chart(
                 slide,
                 title="Aging",
                 chart_type=XL_CHART_TYPE.COLUMN_STACKED,
@@ -1514,8 +1551,19 @@ def build_dashboard_pptx_bytes(
                 series_colors=AGING_PPT_COLORS,
                 value_max=aging_axis_max,
                 show_legend=True,
-                legend_position="bottom",
+                legend_position="right",
                 show_data_labels=False,
+            )
+            apply_last_point_labels(
+                aging_chart,
+                categories=_competencia_labels(aging_history["competencia"].tolist()),
+                series_map=aging_series_map,
+                formatter=lambda value, _series_name: _format_percent(value),
+                colors=AGING_PPT_COLORS,
+                label_colors=[_contrast_text_color(color) for color in AGING_PPT_COLORS],
+                font_size=8,
+                position="center",
+                skip_nonpositive=True,
             )
         add_footer(slide, timestamp_text, current_page)
 
@@ -2210,6 +2258,12 @@ def _format_decimal_0_or_2(value: object) -> str:
 def _hex_to_rgb(value: str) -> tuple[int, int, int]:
     color = str(value or BLACK).strip().lstrip("#")
     return (int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16))
+
+
+def _contrast_text_color(hex_color: str) -> str:
+    red, green, blue = _hex_to_rgb(hex_color)
+    luminance = (0.299 * red) + (0.587 * green) + (0.114 * blue)
+    return BLACK if luminance > 160 else WHITE
 
 
 def _load_pil_font(size: int, *, bold: bool = False) -> ImageFont.ImageFont:
