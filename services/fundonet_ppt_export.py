@@ -99,7 +99,7 @@ def build_dashboard_pptx_bytes(
         from pptx.dml.color import RGBColor
         from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION, XL_LEGEND_POSITION, XL_MARKER_STYLE
         from pptx.enum.dml import MSO_LINE_DASH_STYLE
-        from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE, MSO_CONNECTOR
+        from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE
         from pptx.enum.text import MSO_AUTO_SIZE, PP_ALIGN
         from pptx.util import Inches, Pt
     except Exception as exc:  # noqa: BLE001
@@ -173,7 +173,18 @@ def build_dashboard_pptx_bytes(
         style_shape_border(shape)
         return shape
 
-    def add_card(slide, left: float, top: float, width: float, height: float, label: str, value: str, note: str = "") -> None:
+    def add_card(
+        slide,
+        left: float,
+        top: float,
+        width: float,
+        height: float,
+        label: str,
+        value: str,
+        note: str = "",
+        *,
+        compact: bool = False,
+    ) -> None:
         panel = add_panel(slide, left, top, width, height)
         style_shape_border(panel, line_color=GRID_GRAY, line_width_pt=1.0)
         accent = slide.shapes.add_shape(
@@ -187,37 +198,47 @@ def build_dashboard_pptx_bytes(
         accent.fill.fore_color.rgb = rgb(ORANGE)
         accent.line.fill.background()
         value_color = NEGATIVE_RED if str(value).strip().startswith("-") else BLACK
+        label_size = 7 if compact else LABEL_SIZE
+        value_size = 13 if compact else CARD_VALUE_SIZE
+        note_size = 7 if compact else FOOTER_SIZE
+        label_top = top + (0.08 if compact else 0.13)
+        value_top = top + (0.24 if compact else 0.34)
+        value_height = 0.20 if compact else 0.32
+        note_top = top + height - (0.17 if compact else 0.24)
+        note_height = 0.13 if compact else 0.15
         add_textbox(
             slide,
             left + 0.16,
-            top + 0.13,
+            label_top,
             width - 0.32,
-            0.18,
+            0.14 if compact else 0.18,
             label.upper(),
-            size=LABEL_SIZE,
+            size=label_size,
             bold=False,
             color=MID_GRAY,
+            word_wrap=False,
         )
         add_textbox(
             slide,
             left + 0.16,
-            top + 0.34,
+            value_top,
             width - 0.32,
-            0.32,
+            value_height,
             value,
-            size=CARD_VALUE_SIZE,
+            size=value_size,
             bold=True,
             color=value_color,
+            word_wrap=False,
         )
         if note:
             add_textbox(
                 slide,
                 left + 0.16,
-                top + height - 0.24,
+                note_top,
                 width - 0.32,
-                0.15,
+                note_height,
                 note,
-                size=FOOTER_SIZE,
+                size=note_size,
                 italic=True,
                 color=MID_GRAY,
                 word_wrap=False,
@@ -463,6 +484,7 @@ def build_dashboard_pptx_bytes(
     def _data_label_position(position_name: str):  # noqa: ANN202
         mapping = {
             "above": XL_DATA_LABEL_POSITION.ABOVE,
+            "below": XL_DATA_LABEL_POSITION.BELOW,
             "outside_end": XL_DATA_LABEL_POSITION.OUTSIDE_END,
             "center": XL_DATA_LABEL_POSITION.CENTER,
             "inside_end": XL_DATA_LABEL_POSITION.INSIDE_END,
@@ -651,6 +673,60 @@ def build_dashboard_pptx_bytes(
 
         return chart
 
+    def apply_last_point_labels(
+        chart,  # noqa: ANN001
+        *,
+        categories: Sequence[str],
+        series_map: Sequence[tuple[str, Sequence[float]]],
+        formatter,
+        colors: Sequence[str] | None = None,
+        font_size: int = 10,
+        position: str = "above",
+        label_color: str | None = None,
+        series_filter=None,  # noqa: ANN001
+        alternate_positions: bool = False,
+    ) -> None:
+        """Apply chart-native labels only to the visually latest category.
+
+        This keeps the chart editable in PowerPoint and avoids manual textbox
+        overlays. The underlying series values remain numeric in the chart data.
+        """
+
+        latest_idx = _rightmost_category_index(categories)
+        if latest_idx is None:
+            return
+        applied_colors = list(colors or SERIES_COLORS)
+        label_positions = ["above", "below"]
+        for series_idx, (series_name, values) in enumerate(series_map):
+            if series_filter is not None and not series_filter(str(series_name)):
+                continue
+            if series_idx >= len(chart.series) or latest_idx >= len(values):
+                continue
+            value = _to_float(values[latest_idx])
+            if value is None:
+                continue
+            try:
+                point = chart.series[series_idx].points[latest_idx]
+                label = point.data_label
+                resolved_position = (
+                    label_positions[series_idx % len(label_positions)]
+                    if alternate_positions and value > 0
+                    else position
+                )
+                label.position = _data_label_position(resolved_position)
+                label.has_text_frame = True
+                text_frame = label.text_frame
+                text_frame.clear()
+                paragraph = text_frame.paragraphs[0]
+                run = paragraph.add_run()
+                run.text = str(formatter(value, series_name))
+                run.font.name = FONT_FAMILY
+                run.font.size = Pt(max(font_size, 7))
+                run.font.bold = True
+                run.font.color.rgb = rgb(label_color or applied_colors[series_idx % len(applied_colors)])
+            except Exception:  # noqa: BLE001
+                continue
+
     def _first_axis_element(chart, axis_name: str):  # noqa: ANN202
         plot_area = chart._chartSpace.xpath("./c:chart/c:plotArea")
         if not plot_area:
@@ -700,210 +776,6 @@ def build_dashboard_pptx_bytes(
             series.marker.format.fill.solid()
             series.marker.format.fill.fore_color.rgb = rgb(color)
             series.marker.format.line.color.rgb = rgb(color)
-
-    def _repel_label_positions(values: Sequence[float], min_gap: float) -> list[float]:
-        indexed = sorted(enumerate(values), key=lambda item: item[1])
-        if not indexed:
-            return []
-        adjusted: dict[int, float] = {}
-        previous: float | None = None
-        for idx, value in indexed:
-            candidate = value if previous is None else max(value, previous + min_gap)
-            adjusted[idx] = candidate
-            previous = candidate
-        return [adjusted[idx] for idx in range(len(values))]
-
-    def add_line_end_labels(
-        slide,
-        *,
-        labels: Sequence[str],
-        values: Sequence[float],
-        colors: Sequence[str],
-        left: float,
-        top: float,
-        width: float,
-        height: float,
-        axis_max: float,
-        axis_min: float = 0.0,
-        font_size: int = 11,
-        fill_colors: Sequence[str] | None = None,
-        text_colors: Sequence[str] | None = None,
-        side: str = "right",
-    ) -> None:
-        numeric_values = [float(value) for value in values]
-        plot_top = top + 0.22
-        plot_height = max(height - 0.58, 0.1)
-        plot_right = left + width - 0.38
-        plot_left = left + 0.62
-        value_span = max(axis_max - axis_min, 1.0)
-        raw_positions = [
-            plot_top + plot_height * (1.0 - ((value - axis_min) / value_span))
-            for value in numeric_values
-        ]
-        adjusted_positions = _repel_label_positions(raw_positions, min_gap=0.18)
-        for idx, label in enumerate(labels):
-            label_width = max(1.12, min(2.35, 0.50 + len(str(label)) * 0.12))
-            label_left = max(plot_left, left + 0.08) if side == "left" else min(plot_right, left + width - label_width - 0.10)
-            label_top = max(top + 0.02, adjusted_positions[idx] - 0.10)
-            fill_color = fill_colors[idx % len(fill_colors)] if fill_colors else None
-            if fill_color:
-                badge = slide.shapes.add_shape(
-                    MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE,
-                    Inches(label_left),
-                    Inches(label_top - 0.02),
-                    Inches(label_width),
-                    Inches(0.30),
-                )
-                badge.fill.solid()
-                badge.fill.fore_color.rgb = rgb(fill_color)
-                badge.line.fill.background()
-            add_textbox(
-                slide,
-                label_left,
-                label_top,
-                label_width,
-                0.22,
-                label,
-                size=font_size,
-                bold=True,
-                color=(text_colors[idx % len(text_colors)] if text_colors else colors[idx % len(colors)]),
-                align=PP_ALIGN.CENTER,
-            )
-
-    def _short_aging_label(label: str) -> str:
-        replacements = {
-            "Até 30 dias": "Até 30d",
-            "31 a 60 dias": "31-60d",
-            "61 a 90 dias": "61-90d",
-            "91 a 120 dias": "91-120d",
-            "121 a 150 dias": "121-150d",
-            "151 a 180 dias": "151-180d",
-            "181 a 360 dias": "181-360d",
-            "361 a 720 dias": "361-720d",
-            "721 a 1080 dias": "721-1080d",
-            "Acima de 1080 dias": ">1080d",
-        }
-        return replacements.get(str(label), str(label))
-
-    def _chart_text_color_for_fill(hex_color: str) -> str:
-        red, green, blue = _hex_to_rgb(hex_color)
-        luminance = (0.299 * red) + (0.587 * green) + (0.114 * blue)
-        return BLACK if luminance > 160 else WHITE
-
-    def add_aging_latest_breakdown(
-        slide,
-        *,
-        categories: Sequence[str],
-        series_map: Sequence[tuple[str, Sequence[float]]],
-        colors: Sequence[str],
-        left: float,
-        top: float,
-        width: float,
-        height: float,
-        axis_max: float,
-    ) -> None:
-        if not categories or not series_map:
-            return
-        latest_idx = _rightmost_category_index(categories)
-        if latest_idx is None:
-            return
-
-        values_for_latest: list[dict[str, object]] = []
-        cumulative = 0.0
-        for series_idx, (series_name, values) in enumerate(series_map):
-            if latest_idx >= len(values):
-                continue
-            value = _finite_float(values[latest_idx])
-            if value is None or value <= 0:
-                continue
-            next_cumulative = cumulative + value
-            values_for_latest.append(
-                {
-                    "name": str(series_name),
-                    "value": float(value),
-                    "mid_value": cumulative + (float(value) / 2.0),
-                    "top_value": next_cumulative,
-                    "bottom_value": cumulative,
-                    "color": colors[series_idx % len(colors)],
-                }
-            )
-            cumulative = next_cumulative
-        if not values_for_latest:
-            return
-
-        plot_left = left + 0.82
-        plot_right = left + width - 1.26
-        plot_top = top + 0.52
-        plot_bottom = top + height - 0.62
-        plot_width = max(plot_right - plot_left, 0.1)
-        plot_height = max(plot_bottom - plot_top, 0.1)
-        group_width = plot_width / max(len(categories), 1)
-        bar_width = min(0.42, max(0.20, group_width * 0.48))
-        latest_x = plot_left + ((latest_idx + 0.5) * group_width)
-        label_x = left + width - 1.12
-
-        add_textbox(
-            slide,
-            label_x,
-            plot_top - 0.22,
-            1.08,
-            0.16,
-            f"Breakdown {_format_competencia(categories[latest_idx])}",
-            size=LABEL_SIZE,
-            bold=True,
-            color=DARK_GRAY,
-            align=PP_ALIGN.LEFT,
-            word_wrap=False,
-        )
-
-        def _y(value: float) -> float:
-            return plot_bottom - (plot_height * (value / max(axis_max, 1.0)))
-
-        raw_positions = [_y(float(item["mid_value"])) for item in values_for_latest]
-        adjusted_positions = _repel_label_positions(raw_positions, min_gap=0.18)
-        for item, label_y in zip(values_for_latest, adjusted_positions, strict=False):
-            segment_top = _y(float(item["top_value"]))
-            segment_bottom = _y(float(item["bottom_value"]))
-            segment_height = abs(segment_bottom - segment_top)
-            color = str(item["color"])
-            value = float(item["value"])
-            if value >= 4.0 and segment_height >= 0.18:
-                add_textbox(
-                    slide,
-                    latest_x - (bar_width / 2.0),
-                    min(segment_top, segment_bottom) + (segment_height / 2.0) - 0.07,
-                    bar_width,
-                    0.14,
-                    _format_percent(value),
-                    size=LABEL_SIZE,
-                    bold=True,
-                    color=_chart_text_color_for_fill(color),
-                    align=PP_ALIGN.CENTER,
-                    word_wrap=False,
-                )
-            guide = slide.shapes.add_connector(
-                MSO_CONNECTOR.STRAIGHT,
-                Inches(latest_x + (bar_width / 2.0) + 0.02),
-                Inches(_y(float(item["mid_value"]))),
-                Inches(label_x - 0.04),
-                Inches(label_y + 0.08),
-            )
-            guide.line.color.rgb = rgb(color)
-            guide.line.width = Pt(1.0)
-            guide.line.dash_style = MSO_LINE_DASH_STYLE.DASH
-            add_textbox(
-                slide,
-                label_x,
-                label_y,
-                1.10,
-                0.16,
-                f"{_short_aging_label(str(item['name']))} {_format_percent(value)}",
-                size=LABEL_SIZE,
-                bold=True,
-                color=color,
-                align=PP_ALIGN.LEFT,
-                word_wrap=False,
-            )
 
     def add_overlay_combo_credit_chart(
         slide,
@@ -1002,24 +874,17 @@ def build_dashboard_pptx_bytes(
             _style_line_series(chart.series[0], color=COVERAGE_LINE_COLOR, width_pt=2.8, marker_size=8)
         if len(chart.series) >= 2:
             _style_line_series(chart.series[1], color=MID_GRAY, width_pt=1.3, marker_size=0, dashed=True, hide_marker=True)
-        latest_idx = _latest_competencia_index(categories)
-        if latest_idx is not None and latest_idx < len(coverage_values):
-            latest_value = _to_float(coverage_values[latest_idx])
-            if latest_value is not None:
-                add_line_end_labels(
-                    slide,
-                    labels=[_format_percent(latest_value)],
-                    values=[latest_value],
-                    colors=[COVERAGE_LINE_COLOR],
-                    left=left,
-                    top=top,
-                    width=width,
-                    height=height,
-                    axis_max=axis_max,
-                    font_size=9,
-                    fill_colors=[WHITE],
-                    text_colors=[COVERAGE_LINE_COLOR],
-                )
+        apply_last_point_labels(
+            chart,
+            categories=categories,
+            series_map=[("Cobertura", coverage_values), ("100% (paridade)", [100.0] * len(categories))],
+            formatter=lambda value, _series_name: _format_percent(value),
+            colors=[COVERAGE_LINE_COLOR, MID_GRAY],
+            font_size=10,
+            position="above",
+            label_color=COVERAGE_LINE_COLOR,
+            series_filter=lambda series_name: series_name == "Cobertura",
+        )
 
     def _over_focus_style(series_name: str, idx: int) -> tuple[str, float, int, bool]:
         return _over_visual_style(series_name, idx)
@@ -1061,98 +926,20 @@ def build_dashboard_pptx_bytes(
             show_legend=True,
             legend_position="bottom",
         )
-        latest_idx = _latest_competencia_index(categories)
-        end_labels: list[str] = []
-        end_values: list[float] = []
-        end_colors: list[str] = []
         for idx, series in enumerate(chart.series):
             series_name = ordered_names[idx] if idx < len(ordered_names) else str(idx)
             color, width_pt, marker_size, dashed = style_map.get(series_name, _over_focus_style(series_name, idx))
             _style_line_series(series, color=color, width_pt=width_pt, marker_size=marker_size, dashed=dashed)
-            if latest_idx is None or idx >= len(series_map):
-                continue
-            values = list(series_map[idx][1])
-            if latest_idx >= len(values):
-                continue
-            latest_value = _to_float(values[latest_idx])
-            if latest_value is None:
-                continue
-            end_labels.append(f"{series_name} {_format_percent(latest_value)}")
-            end_values.append(latest_value)
-            end_colors.append(color)
-        if end_labels:
-            add_line_end_labels(
-                slide,
-                labels=end_labels,
-                values=end_values,
-                colors=end_colors,
-                left=left,
-                top=top,
-                width=width,
-                height=height,
-                axis_max=axis_max,
-                font_size=8,
-                fill_colors=[WHITE] * len(end_labels),
-                text_colors=end_colors,
-            )
-
-    def add_over_snapshot_panel(
-        slide,
-        *,
-        title: str,
-        categories: Sequence[str],
-        series_map: Sequence[tuple[str, Sequence[float]]],
-        left: float,
-        top: float,
-        width: float,
-        height: float,
-    ) -> None:
-        panel = add_panel(slide, left, top, width, height)
-        style_shape_border(panel, line_color=GRID_GRAY, line_width_pt=0.7)
-        latest_idx = _latest_competencia_index(categories)
-        latest_label = categories[latest_idx] if latest_idx is not None and latest_idx < len(categories) else "última competência"
-        add_textbox(slide, left + 0.16, top + 0.14, width - 0.32, 0.20, title, size=SECTION_SIZE, bold=True, color=BLACK)
-        add_textbox(slide, left + 0.16, top + 0.38, width - 0.32, 0.16, f"Snapshot: {latest_label}", size=FOOTER_SIZE, color=MID_GRAY)
-        rows: list[tuple[str, float]] = []
-        if latest_idx is not None:
-            for series_name, values in series_map:
-                if latest_idx >= len(values):
-                    continue
-                latest_value = _to_float(values[latest_idx])
-                if latest_value is not None:
-                    rows.append((series_name, latest_value))
-        if not rows:
-            add_textbox(
-                slide,
-                left + 0.26,
-                top + (height / 2) - 0.22,
-                width - 0.52,
-                0.44,
-                "Sem dados Over na competência mais recente.",
-                size=BODY_SIZE,
-                color=MID_GRAY,
-                align=PP_ALIGN.CENTER,
-            )
-            return
-        max_value = max([value for _, value in rows], default=1.0)
-        max_value = max(max_value, 1.0)
-        row_top = top + 0.78
-        row_gap = min(0.55, max(0.34, (height - 1.05) / max(len(rows), 1)))
-        for idx, (series_name, value) in enumerate(rows):
-            color, _, _, _ = _over_focus_style(series_name, idx)
-            y = row_top + idx * row_gap
-            add_textbox(slide, left + 0.18, y, 0.86, 0.16, series_name, size=LABEL_SIZE, bold=True, color=DARK_GRAY, word_wrap=False)
-            bar_left = left + 1.02
-            bar_width = max(0.08, (width - 1.82) * (value / max_value))
-            bg = slide.shapes.add_shape(MSO_AUTO_SHAPE_TYPE.RECTANGLE, Inches(bar_left), Inches(y + 0.03), Inches(width - 1.82), Inches(0.12))
-            bg.fill.solid()
-            bg.fill.fore_color.rgb = rgb(SOFT_GRAY)
-            bg.line.fill.background()
-            fg = slide.shapes.add_shape(MSO_AUTO_SHAPE_TYPE.RECTANGLE, Inches(bar_left), Inches(y + 0.03), Inches(bar_width), Inches(0.12))
-            fg.fill.solid()
-            fg.fill.fore_color.rgb = rgb(color)
-            fg.line.fill.background()
-            add_textbox(slide, left + width - 0.72, y - 0.01, 0.56, 0.18, _format_percent(value), size=LABEL_SIZE, bold=True, color=color, align=PP_ALIGN.RIGHT, word_wrap=False)
+        apply_last_point_labels(
+            chart,
+            categories=categories,
+            series_map=series_map,
+            formatter=lambda value, _series_name: _format_percent(value),
+            colors=[style_map[name][0] for name in ordered_names],
+            font_size=10,
+            position="above",
+            alternate_positions=True,
+        )
 
     def add_compounding_waterfall_chart(
         slide,
@@ -1166,6 +953,7 @@ def build_dashboard_pptx_bytes(
         height: float,
         number_format: str,
         value_max: float | None,
+        title: str | None = None,
         title_suffix: str = "",
         label_font_size: int = 9,
     ) -> None:
@@ -1184,7 +972,7 @@ def build_dashboard_pptx_bytes(
         total_series_values.append(float(total_value))
         chart = add_chart(
             slide,
-            title=f"Waterfall de vencimento da carteira{title_suffix}",
+            title=f"{title or 'Waterfall de vencimento da carteira'}{title_suffix}",
             chart_type=XL_CHART_TYPE.COLUMN_STACKED,
             categories=list(categories) + ["Total"],
             series_map=[
@@ -1263,7 +1051,13 @@ def build_dashboard_pptx_bytes(
             align=PP_ALIGN.CENTER,
         )
 
-    def add_summary_cards(slide) -> None:  # noqa: ANN001
+    def add_summary_cards(
+        slide,  # noqa: ANN001
+        *,
+        start_top: float = 1.15,
+        card_height: float = 0.92,
+        compact: bool = False,
+    ) -> None:
         summary = dashboard.summary
         specs = [
             ("Ativo total", _format_brl_compact(summary.get("ativos_totais")), "APLIC_ATIVO/VL_SOM_APLIC_ATIVO"),
@@ -1283,9 +1077,7 @@ def build_dashboard_pptx_bytes(
         ]
         gap = 0.24
         card_width = (CONTENT_WIDTH_IN - (2 * gap)) / 3
-        card_height = 0.92
-        start_top = 1.15
-        row_gap = 0.24
+        row_gap = 0.10 if compact else 0.24
         for idx, (label, value, note) in enumerate(specs):
             row = idx // 3
             col = idx % 3
@@ -1298,6 +1090,7 @@ def build_dashboard_pptx_bytes(
                 label,
                 value,
                 note,
+                compact=compact,
             )
 
     full_width = CONTENT_WIDTH_IN
@@ -1319,29 +1112,12 @@ def build_dashboard_pptx_bytes(
         subtitle_text=f"Data-base {data_base_label} | {dashboard.fund_info.get('periodo_analisado', 'N/D')}",
         scope_text=f"Visão executiva — {scope_label}",
     )
-    next_page()
-    add_divider_slide(
-        number="01",
-        title="Visão executiva",
-        subtitle_text=(
-            "PL, estrutura, crédito, liquidez e prazo agregados"
-            if is_portfolio_scope
-            else "PL, estrutura, crédito, liquidez e prazo do fundo"
-        ),
-    )
-    next_page()
 
-    # Slide 1 — FIDC summary
-    slide = prs.slides.add_slide(blank)
-    current_page = next_page()
-    add_slide_header(slide, "Resumo da carteira" if is_portfolio_scope else "Resumo do FIDC")
-    add_summary_cards(slide)
-    add_footer(slide, timestamp_text, current_page)
-
-    # Slide 2 — structure and capital
+    # Slide 1 — structure, capital and compact summary
     slide = prs.slides.add_slide(blank)
     current_page = next_page()
     add_slide_header(slide, "Estrutura e capital")
+    add_summary_cards(slide, start_top=1.05, card_height=0.62, compact=True)
 
     sub_df = _sort_competencia_frame(dashboard.subordination_history_df, ascending=True)
     if not sub_df.empty:
@@ -1353,37 +1129,31 @@ def build_dashboard_pptx_bytes(
             categories=_competencia_labels(sub_df["competencia"].tolist()),
             series_map=sub_series,
             left=MARGIN_LEFT_IN,
-            top=top_row_top,
+            top=2.42,
             width=full_width,
-            height=2.05,
+            height=1.45,
             number_format='0.0"%"',
             percent_axis=True,
             label_position="above",
-            show_data_labels=len(sub_df["competencia"].drop_duplicates()) <= 12,
+            show_data_labels=False,
             label_font_size=9,
             value_max=_dashboard_percent_axis_upper(sub_series[0][1], max_cap=80.0),
         )
         _style_line_series(sub_chart.series[0], color=ORANGE, width_pt=2.8, marker_size=10)
-        if len(sub_df["competencia"].drop_duplicates()) > 12:
-            sub_values = [float(value or 0.0) for value in sub_series[0][1]]
-            add_line_end_labels(
-                slide,
-                labels=[_format_percent(sub_values[-1])],
-                values=[sub_values[-1]],
-                colors=[ORANGE],
-                left=MARGIN_LEFT_IN,
-                top=top_row_top,
-                width=full_width,
-                height=2.05,
-                axis_max=_dashboard_percent_axis_upper(sub_series[0][1], max_cap=80.0),
-                fill_colors=[WHITE],
-                text_colors=[ORANGE],
-                side="right",
-            )
+        apply_last_point_labels(
+            sub_chart,
+            categories=_competencia_labels(sub_df["competencia"].tolist()),
+            series_map=sub_series,
+            formatter=lambda value, _series_name: _format_percent(value),
+            colors=[ORANGE],
+            font_size=10,
+            position="above",
+            label_color=ORANGE,
+        )
         add_textbox(
             slide,
             MARGIN_LEFT_IN,
-            top_row_top + 2.06,
+            3.88,
             full_width,
             0.16,
             "Subordinação reportada = (PL mezzanino + PL subordinada residual) / PL total.",
@@ -1399,16 +1169,16 @@ def build_dashboard_pptx_bytes(
             for column in quota_values.columns
             if column != "competencia"
         ]
-        add_chart(
+        quota_chart = add_chart(
             slide,
             title="PL por tipo de cota",
             chart_type=XL_CHART_TYPE.COLUMN_STACKED,
             categories=_competencia_labels(quota_values["competencia"].tolist()),
             series_map=quota_series,
             left=MARGIN_LEFT_IN,
-            top=3.32,
+            top=4.18,
             width=full_width,
-            height=3.35,
+            height=2.44,
             number_format=_money_label_number_format(quota_scale),
             money_axis=True,
             gap_width=78,
@@ -1421,11 +1191,28 @@ def build_dashboard_pptx_bytes(
             value_max=_money_axis_max(_stacked_series_totals(quota_series)),
             show_legend=True,
             legend_position="bottom",
-            show_data_labels=True,
+            show_data_labels=False,
+        )
+        quota_label_categories = _competencia_labels(quota_values["competencia"].tolist())
+        apply_last_point_labels(
+            quota_chart,
+            categories=quota_label_categories,
+            series_map=quota_series,
+            formatter=lambda value, _series_name: (
+                f"{_format_decimal(value, decimals=0)} {quota_scale.suffix}".strip()
+            ),
+            colors=SERIES_COLORS,
+            font_size=10,
+            position="center",
+            label_color=WHITE,
+            series_filter=lambda series_name: any(
+                token in series_name.lower()
+                for token in ("sênior", "senior", "mezan", "mezz", "subordin")
+            ),
         )
     add_footer(slide, timestamp_text, current_page)
 
-    # Slide 3 — returns and term
+    # Slide 2 — returns and term
     slide = prs.slides.add_slide(blank)
     current_page = next_page()
     add_slide_header(slide, "Rentabilidade e prazo")
@@ -1446,60 +1233,6 @@ def build_dashboard_pptx_bytes(
             max_rows=8,
         )
 
-    base100_df = _build_return_base100_for_ppt(dashboard, selected_labels=selected_labels, months=12)
-    if not base100_df.empty:
-        ordered_base100 = _sort_competencia_frame(base100_df, ascending=True)
-        base100_series = [
-            (str(series_name), pd.to_numeric(group["valor"], errors="coerce").fillna(0.0).tolist())
-            for series_name, group in ordered_base100.groupby("serie", dropna=False)
-        ]
-        base100_numeric = pd.to_numeric(base100_df["valor"], errors="coerce")
-        base100_min = float(base100_numeric.min()) if not base100_numeric.dropna().empty else 100.0
-        base100_max = float(base100_numeric.max()) if not base100_numeric.dropna().empty else 100.0
-        base100_axis_min = min(95.0, base100_min * 0.98)
-        base100_axis_max = _nice_axis_max(max(base100_max * 1.06, 105.0))
-        base100_chart = add_chart(
-            slide,
-            title="Índice acumulado base 100",
-            chart_type=XL_CHART_TYPE.LINE_MARKERS,
-            categories=_competencia_labels(ordered_base100["competencia"].drop_duplicates().tolist()),
-            series_map=base100_series,
-            left=MARGIN_LEFT_IN,
-            top=2.82,
-            width=full_width,
-            height=1.40,
-            number_format="0.0",
-            label_position="above",
-            label_font_size=8,
-            show_data_labels=False,
-            series_colors=SERIES_COLORS,
-            value_min=base100_axis_min,
-            value_max=base100_axis_max,
-            show_legend=True,
-            legend_position="bottom",
-        )
-        for idx, series in enumerate(base100_chart.series):
-            _style_line_series(series, color=SERIES_COLORS[idx % len(SERIES_COLORS)], width_pt=2.0, marker_size=7)
-        base100_last_values = [values[-1] for _, values in base100_series if values]
-        if base100_last_values:
-            base100_label_colors = [SERIES_COLORS[idx % len(SERIES_COLORS)] for idx in range(len(base100_last_values))]
-            add_line_end_labels(
-                slide,
-                labels=[_format_decimal(value, decimals=1) for value in base100_last_values],
-                values=base100_last_values,
-                colors=base100_label_colors,
-                left=MARGIN_LEFT_IN,
-                top=2.82,
-                width=full_width,
-                height=1.40,
-                axis_min=base100_axis_min,
-                axis_max=base100_axis_max,
-                font_size=11,
-                fill_colors=[WHITE] * len(base100_last_values),
-                text_colors=base100_label_colors,
-                side="right",
-            )
-
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
     if not maturity_df.empty:
         maturity_df = maturity_df[pd.to_numeric(maturity_df["valor"], errors="coerce").fillna(0.0) > 0].copy()
@@ -1509,30 +1242,21 @@ def build_dashboard_pptx_bytes(
         maturity_title = (
             f"Prazo de vencimento dos DCs a vencer em {_format_competencia(dashboard.latest_competencia)}"
         )
-        maturity_chart = add_chart(
+        add_compounding_waterfall_chart(
             slide,
-            title=maturity_title,
-            chart_type=XL_CHART_TYPE.BAR_CLUSTERED,
             categories=maturity_df["faixa"].astype(str).tolist(),
-            series_map=[("Saldo", maturity_values)],
+            step_values=maturity_values,
+            total_value=float(sum(maturity_values)),
             left=MARGIN_LEFT_IN,
-            top=4.20,
+            top=3.00,
             width=left_wide_width,
-            height=2.40,
+            height=3.52,
             number_format=_money_number_format(maturity_scale),
-            gap_width=48,
-            label_position="outside_end",
-            label_font_size=8,
-            series_colors=[ORANGE],
-            value_min=0.0,
             value_max=_money_axis_max(list(maturity_values) + [sum(maturity_values)]),
-            show_legend=False,
-            show_data_labels=True,
+            title=maturity_title,
+            title_suffix=f" ({maturity_scale.label})" if maturity_scale.label else "",
+            label_font_size=9,
         )
-        try:
-            maturity_chart.category_axis.reverse_order = True
-        except Exception:  # noqa: BLE001
-            pass
 
     duration_df = _sort_competencia_frame(dashboard.duration_history_df, ascending=True)
     if not duration_df.empty:
@@ -1559,9 +1283,9 @@ def build_dashboard_pptx_bytes(
             categories=_competencia_labels(duration_df["competencia"].tolist()),
             series_map=duration_series,
             left=right_col_left,
-            top=4.20,
+            top=3.00,
             width=right_narrow_width,
-            height=2.40,
+            height=3.52,
             number_format='0.0',
             label_position="above",
             label_font_size=8,
@@ -1571,27 +1295,21 @@ def build_dashboard_pptx_bytes(
         )
         _style_line_series(duration_chart.series[0], color=ORANGE, width_pt=2.2, marker_size=9)
         if duration_values:
-            add_line_end_labels(
-                slide,
-                labels=[f"{_format_decimal(duration_values[-1], decimals=1)} dias"],
-                values=[duration_values[-1]],
+            apply_last_point_labels(
+                duration_chart,
+                categories=_competencia_labels(duration_df["competencia"].tolist()),
+                series_map=duration_series,
+                formatter=lambda value, _series_name: f"{_format_decimal(value, decimals=1)} dias",
                 colors=[ORANGE],
-                left=right_col_left,
-                top=4.20,
-                width=right_narrow_width,
-                height=2.40,
-                axis_max=duration_axis_max,
-                axis_min=0.0,
-                font_size=11,
-                fill_colors=[WHITE],
-                text_colors=[ORANGE],
-                side="right",
+                font_size=10,
+                position="above",
+                label_color=ORANGE,
             )
         if duration_axis_note is not None:
             add_textbox(
                 slide,
                 right_col_left,
-                6.48,
+                6.55,
                 right_narrow_width,
                 0.18,
                 duration_axis_note,
@@ -1709,17 +1427,6 @@ def build_dashboard_pptx_bytes(
                 legend_position="bottom",
                 show_data_labels=False,
             )
-            add_aging_latest_breakdown(
-                slide,
-                categories=aging_history["competencia"].astype(str).tolist(),
-                series_map=aging_series_map,
-                colors=AGING_PPT_COLORS,
-                left=MARGIN_LEFT_IN,
-                top=3.90,
-                width=full_width,
-                height=2.70,
-                axis_max=aging_axis_max,
-            )
         elif credit_has_values:
             credit_only_height = 3.72
             if credit_bar_has_values:
@@ -1810,17 +1517,6 @@ def build_dashboard_pptx_bytes(
                 legend_position="bottom",
                 show_data_labels=False,
             )
-            add_aging_latest_breakdown(
-                slide,
-                categories=aging_history["competencia"].astype(str).tolist(),
-                series_map=aging_series_map,
-                colors=AGING_PPT_COLORS,
-                left=MARGIN_LEFT_IN,
-                top=top_row_top,
-                width=full_width,
-                height=5.55,
-                axis_max=aging_axis_max,
-            )
         add_footer(slide, timestamp_text, current_page)
 
     over_history = _sort_competencia_frame(_build_over_aging_history_for_ppt(dashboard), ascending=True)
@@ -1831,9 +1527,6 @@ def build_dashboard_pptx_bytes(
             slide = prs.slides.add_slide(blank)
             current_page = next_page()
             add_slide_header(slide, "Deterioração acumulada")
-            over_snapshot_gap = 0.30
-            over_snapshot_width = 3.24
-            over_chart_width = full_width - over_snapshot_width - over_snapshot_gap
             add_over_focus_chart(
                 slide,
                 title="Inadimplência Over",
@@ -1841,17 +1534,7 @@ def build_dashboard_pptx_bytes(
                 series_map=over_series_map,
                 left=MARGIN_LEFT_IN,
                 top=top_row_top,
-                width=over_chart_width,
-                height=5.55,
-            )
-            add_over_snapshot_panel(
-                slide,
-                title="Última competência",
-                categories=_competencia_labels(over_history["competencia"].tolist()),
-                series_map=over_series_map,
-                left=MARGIN_LEFT_IN + over_chart_width + over_snapshot_gap,
-                top=top_row_top,
-                width=over_snapshot_width,
+                width=full_width,
                 height=5.55,
             )
             add_footer(slide, timestamp_text, current_page)
@@ -3020,72 +2703,6 @@ def _grouped_bar_chart_png(
     return buffer.getvalue()
 
 
-def _over_snapshot_png(
-    *,
-    title: str,
-    categories: Sequence[str],
-    series_map: Sequence[tuple[str, Sequence[float]]],
-    width_px: int,
-    height_px: int,
-) -> bytes:
-    image = Image.new("RGB", (width_px, height_px), _hex_to_rgb(WHITE))
-    draw = ImageDraw.Draw(image)
-    title_font = _load_pil_font(30, bold=True)
-    label_font = _load_pil_font(17, bold=True)
-    small_font = _load_pil_font(15, bold=False)
-    draw.rounded_rectangle(
-        (2, 2, width_px - 3, height_px - 3),
-        radius=12,
-        fill=_hex_to_rgb(WHITE),
-        outline=_hex_to_rgb(GRID_GRAY),
-        width=2,
-    )
-    draw.text((24, 24), title, fill=_hex_to_rgb(BLACK), font=title_font)
-    latest_idx = _rightmost_category_index(categories)
-    latest_label = categories[latest_idx] if latest_idx is not None and latest_idx < len(categories) else "última competência"
-    draw.text((24, 62), f"Snapshot: {latest_label}", fill=_hex_to_rgb(MID_GRAY), font=small_font)
-    rows: list[tuple[str, float]] = []
-    if latest_idx is not None:
-        for series_name, values in series_map:
-            if latest_idx >= len(values):
-                continue
-            latest_value = _finite_float(values[latest_idx])
-            if latest_value is not None:
-                rows.append((series_name, latest_value))
-    if not rows:
-        draw.text((24, 118), "Sem dados Over na competência mais recente.", fill=_hex_to_rgb(MID_GRAY), font=small_font)
-    else:
-        max_value = max([value for _, value in rows], default=1.0)
-        max_value = max(max_value, 1.0)
-        bar_left = 102
-        bar_right = width_px - 86
-        row_gap = max(38, min(56, int((height_px - 128) / max(len(rows), 1))))
-        row_top = 112
-        for idx, (series_name, value) in enumerate(rows):
-            color, _, _, _ = _over_visual_style(series_name, idx)
-            y = row_top + idx * row_gap
-            draw.text((24, y - 4), series_name, fill=_hex_to_rgb(DARK_GRAY), font=label_font)
-            draw.rounded_rectangle(
-                (bar_left, y + 4, bar_right, y + 17),
-                radius=4,
-                fill=_hex_to_rgb(SOFT_GRAY),
-                outline=_hex_to_rgb(SOFT_GRAY),
-            )
-            value_right = bar_left + max(4, int((bar_right - bar_left) * (value / max_value)))
-            draw.rounded_rectangle(
-                (bar_left, y + 4, value_right, y + 17),
-                radius=4,
-                fill=_hex_to_rgb(color),
-                outline=_hex_to_rgb(color),
-            )
-            value_label = _format_percent(value)
-            value_w, _ = _text_size(draw, value_label, label_font)
-            draw.text((width_px - 24 - value_w, y - 4), value_label, fill=_hex_to_rgb(color), font=label_font)
-    buffer = BytesIO()
-    image.save(buffer, format="PNG")
-    return buffer.getvalue()
-
-
 def _grouped_bar_line_chart_png(
     *,
     title: str,
@@ -3561,36 +3178,6 @@ def _render_returns_slide_png(
             height=1.38,
             col_widths=[2.15] + ([0.58] * month_count) + [0.86, 1.02],
         )
-    base100_df = _build_return_base100_for_ppt(dashboard, selected_labels=selected_labels, months=12)
-    if not base100_df.empty:
-        ordered_base100 = _sort_competencia_frame(base100_df, ascending=True)
-        base100_series = [
-            (str(series_name), pd.to_numeric(group["valor"], errors="coerce").fillna(0.0).tolist())
-            for series_name, group in ordered_base100.groupby("serie", dropna=False)
-        ]
-        base100_numeric = pd.to_numeric(base100_df["valor"], errors="coerce")
-        base100_min = float(base100_numeric.min()) if not base100_numeric.dropna().empty else 100.0
-        base100_max = float(base100_numeric.max()) if not base100_numeric.dropna().empty else 100.0
-        _paste_png(
-            image,
-            _line_chart_png(
-                title="Índice acumulado base 100",
-                categories=_competencia_labels(ordered_base100["competencia"].drop_duplicates().tolist()),
-                series_map=base100_series,
-                colors=SERIES_COLORS,
-                width_px=int(full_width * SLIDE_RENDER_DPI),
-                height_px=int(1.45 * SLIDE_RENDER_DPI),
-                axis_min=min(95.0, base100_min * 0.98),
-                axis_max=max(base100_max * 1.06, 105.0),
-                tick_formatter=_number_tick_formatter,
-                show_point_labels=False,
-                show_end_labels=True,
-            ),
-            left=MARGIN_LEFT_IN,
-            top=2.80,
-            width=full_width,
-            height=1.45,
-        )
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
     if not maturity_df.empty:
         maturity_scale = _money_scale(pd.to_numeric(maturity_df["valor"], errors="coerce"))
@@ -3603,13 +3190,13 @@ def _render_returns_slide_png(
                 step_values=maturity_values,
                 total_value=float(sum(maturity_values)),
                 width_px=int(left_wide_width * SLIDE_RENDER_DPI),
-                height_px=int(2.35 * SLIDE_RENDER_DPI),
+                height_px=int(3.35 * SLIDE_RENDER_DPI),
                 money_scale=maturity_scale,
             ),
             left=MARGIN_LEFT_IN,
-            top=4.30,
+            top=3.15,
             width=left_wide_width,
-            height=2.35,
+            height=3.35,
         )
     duration_df = _sort_competencia_frame(dashboard.duration_history_df, ascending=True)
     if not duration_df.empty:
@@ -3623,7 +3210,7 @@ def _render_returns_slide_png(
                 series_map=[("Prazo médio proxy (dias)", duration_values)],
                 colors=[ORANGE],
                 width_px=int(right_narrow_width * SLIDE_RENDER_DPI),
-                height_px=int(2.35 * SLIDE_RENDER_DPI),
+                height_px=int(3.35 * SLIDE_RENDER_DPI),
                 axis_min=0.0,
                 axis_max=duration_upper,
                 tick_formatter=_number_tick_formatter,
@@ -3631,9 +3218,9 @@ def _render_returns_slide_png(
                 show_end_labels=True,
             ),
             left=right_col_left,
-            top=4.30,
+            top=3.15,
             width=right_narrow_width,
-            height=2.35,
+            height=3.35,
         )
     buffer = BytesIO()
     image.save(buffer, format="PNG")
@@ -3713,7 +3300,7 @@ def _render_credit_slide_png(
                 width_px=int(full_width * SLIDE_RENDER_DPI),
                 height_px=int(2.75 * SLIDE_RENDER_DPI),
                 percent_axis=True,
-                show_latest_callouts=True,
+                show_latest_callouts=False,
             ),
             left=MARGIN_LEFT_IN,
             top=3.85,
@@ -3736,10 +3323,6 @@ def _render_over_slide_png(
     image, _ = _new_slide_canvas(section_title=section_title, title_fund=title_fund, subtitle=subtitle, timestamp_text=timestamp_text)
     full_width = CONTENT_WIDTH_IN
     top_row_top = 1.02
-    split_gap = 0.30
-    snapshot_width = 3.24
-    chart_width = full_width - snapshot_width - split_gap
-    snapshot_left = MARGIN_LEFT_IN + chart_width + split_gap
     over_history = _sort_competencia_frame(_build_over_aging_history_for_ppt(dashboard), ascending=True)
     if not over_history.empty:
         over_columns = [column for column in over_history.columns if column != "competencia"]
@@ -3760,7 +3343,7 @@ def _render_over_slide_png(
                 categories=_competencia_labels(over_history["competencia"].tolist()),
                 series_map=over_series_map,
                 colors=over_colors,
-                width_px=int(chart_width * SLIDE_RENDER_DPI),
+                width_px=int(full_width * SLIDE_RENDER_DPI),
                 height_px=int(5.55 * SLIDE_RENDER_DPI),
                 axis_min=0.0,
                 axis_max=over_axis_max,
@@ -3772,21 +3355,7 @@ def _render_over_slide_png(
             ),
             left=MARGIN_LEFT_IN,
             top=top_row_top,
-            width=chart_width,
-            height=5.55,
-        )
-        _paste_png(
-            image,
-            _over_snapshot_png(
-                title="Última competência",
-                categories=_competencia_labels(over_history["competencia"].tolist()),
-                series_map=over_series_map,
-                width_px=int(snapshot_width * SLIDE_RENDER_DPI),
-                height_px=int(5.55 * SLIDE_RENDER_DPI),
-            ),
-            left=snapshot_left,
-            top=top_row_top,
-            width=snapshot_width,
+            width=full_width,
             height=5.55,
         )
     buffer = BytesIO()

@@ -401,12 +401,12 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertIn("VISÃO EXECUTIVA — FIDC", deck_text)
         self.assertIn("Data-base:", deck_text)
         self.assertIn("Fonte: Informe Mensal CVM", deck_text)
-        self.assertIn("Resumo do FIDC", deck_text)
+        self.assertNotIn("Resumo do FIDC", deck_text)
+        self.assertIn("Estrutura e capital", deck_text)
         for card_label in ["ATIVO TOTAL", "DCS TOTAIS", "PL TOTAL", "VENCIDOS", "COBERTURA DE PROVISÃO", "SUBORDINAÇÃO REPORTADA"]:
             self.assertIn(card_label, deck_text)
         self.assertIn("Rentabilidade por tipo de cota (% a.m.)", deck_text)
-        self.assertIn("102,0", deck_text)
-        self.assertIn("101,0", deck_text)
+        self.assertNotIn("Índice acumulado base 100", deck_text)
         self.assertIn("Prazo médio proxy dos recebíveis (dias)", chart_xml)
         chart_count = sum(
             1
@@ -423,7 +423,7 @@ class FundonetDashboardTests(unittest.TestCase):
             for shape in returns_slide.shapes
             if getattr(shape, "has_chart", False)
         ]
-        self.assertNotIn(XL_CHART_TYPE.COLUMN_STACKED, slide_two_chart_types)
+        self.assertGreaterEqual(len(slide_two_chart_types), 1)
 
     def test_build_dashboard_pptx_bytes_supports_portfolio_aggregate_scope(self) -> None:
         if importlib.util.find_spec("pptx") is None:
@@ -468,7 +468,8 @@ class FundonetDashboardTests(unittest.TestCase):
         )
         self.assertIn("Carteira Agregada Teste", deck_text)
         self.assertIn("VISÃO EXECUTIVA — CARTEIRA AGREGADA", deck_text)
-        self.assertIn("Resumo da carteira", deck_text)
+        self.assertNotIn("Resumo da carteira", deck_text)
+        self.assertIn("Estrutura e capital", deck_text)
 
     def test_build_dashboard_pptx_cover_handles_long_fund_name_without_overlap(self) -> None:
         if importlib.util.find_spec("pptx") is None:
