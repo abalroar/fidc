@@ -122,14 +122,14 @@ _FIDC_REPORT_CSS = """
 }
 
 .fidc-snapshot-card {
-    flex: 1 1 168px;
+    flex: 1 1 136px;
     background: #ffffff;
     border: 1px solid #e9ecef;
     border-top: 3px solid #ff5a00;
     border-radius: 12px;
     padding: 11px 13px 10px 13px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-    min-width: 136px;
+    min-width: 100px;
 }
 
 .fidc-snapshot-card__label {
@@ -664,8 +664,8 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
     show_custom = st.session_state.get(custom_key, False)
 
     if not show_custom:
-        chip_col, link_col = st.columns([5, 1])
-        with chip_col:
+        radio_col, btn_col = st.columns([6, 1])
+        with radio_col:
             preset_months = st.radio(
                 "Janela móvel",
                 options=list(PERIOD_PRESET_OPTIONS),
@@ -675,18 +675,17 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
                 format_func=lambda v: f"{v}M",
                 label_visibility="collapsed",
             )
+        with btn_col:
+            st.write("")
+            if st.button("Personalizar →", key=f"{state_prefix}_btn_custom", use_container_width=True):
+                st.session_state[custom_key] = True
+                st.rerun()
         period = build_preset_period(end_month=end_month, months=int(preset_months))
         period_str = (
             f"{_format_competencia_display(period.start_month.isoformat())} "
             f"→ {_format_competencia_display(period.end_month.isoformat())}"
         )
-        cap_col, toggle_col = st.columns([5, 1])
-        with cap_col:
-            st.caption(period_str)
-        with toggle_col:
-            if st.button("Personalizar →", key=f"{state_prefix}_btn_custom"):
-                st.session_state[custom_key] = True
-                st.rerun()
+        st.caption(period_str)
     else:
         start_default = default_period.start_month
         start_index = max_options.index(start_default) if start_default in max_options else 0
@@ -1056,23 +1055,6 @@ def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[s
         _render_pptx_export_button(dashboard, context)
     if ENABLE_GLOBAL_PDF_EXPORT:
         _render_pdf_export_button(dashboard, context)
-
-
-def _render_risk_overview(dashboard: FundonetDashboardData) -> None:
-    _render_fidc_section(
-        "Radar de risco",
-        "Quatro sinais para entender rápido a situação mais recente do fundo.",
-    )
-    metric_lookup = dashboard.risk_metrics_df.set_index("metric_id", drop=False)
-    hero_cards: list[str] = []
-    if "subordinacao_pct" in metric_lookup.index:
-        hero_cards.append(_render_risk_card(dashboard, metric_lookup.loc["subordinacao_pct"]))
-    hero_cards.append(_render_inadimplencia_overview_card(dashboard))
-    if "provisao_pct_inadimplencia" in metric_lookup.index:
-        hero_cards.append(_render_risk_card(dashboard, metric_lookup.loc["provisao_pct_inadimplencia"]))
-    if "concentracao_segmento_proxy" in metric_lookup.index:
-        hero_cards.append(_render_risk_card(dashboard, metric_lookup.loc["concentracao_segmento_proxy"]))
-    st.markdown(_render_fidc_grid(hero_cards, "fidc-grid--hero"), unsafe_allow_html=True)
 
 
 def _render_over_transparency_notes(st_ctx: object, over_history_df: pd.DataFrame) -> None:
@@ -1987,73 +1969,10 @@ def _render_pptx_export_button(dashboard: FundonetDashboardData, context: dict[s
     )
 
 
-def _render_overview_metrics(dashboard: FundonetDashboardData) -> None:
-    summary = dashboard.summary
-    _render_fidc_section("Visão geral", "O que importa primeiro para se situar na competência mais recente.")
-    hero_cards = [
-        _render_fidc_card("Direitos creditórios", _format_brl_compact(summary.get("direitos_creditorios")), "DICRED/VL_DICRED"),
-        _render_fidc_card("PL total", _format_brl_compact(summary.get("pl_total")), "Sênior + mezzanino + subordinada"),
-        _render_fidc_card("Subordinação reportada", _format_percent(summary.get("subordinacao_pct")), "PL mezzanino + subordinada residual / PL total"),
-        _render_fidc_card(
-            "Inadimplência observada",
-            _format_percent(summary.get("inadimplencia_pct")),
-            "Inadimplência observada (IME) / DCs",
-            variant="risk",
-            tooltip="Refere-se a parcelas vencidas dos direitos creditórios reportadas no informe mensal.",
-        ),
-    ]
-    st.markdown(_render_fidc_grid(hero_cards, "fidc-grid--hero"), unsafe_allow_html=True)
-
-    supporting_cards = [
-        _render_fidc_card("Ativos totais", _format_brl_compact(summary.get("ativos_totais")), "APLIC_ATIVO/VL_SOM_APLIC_ATIVO"),
-        _render_fidc_card("Alocação", _format_percent(summary.get("alocacao_pct")), "Direitos creditórios / carteira"),
-        _render_fidc_card("Provisão", _format_brl_compact(summary.get("provisao_total")), "Provisão para redução/recuperação", variant="neutral"),
-        _render_fidc_card("Liquidez imediata", _format_brl_compact(summary.get("liquidez_imediata")), "OUTRAS_INFORM/LIQUIDEZ"),
-        _render_fidc_card("Liquidez até 30 dias", _format_brl_compact(summary.get("liquidez_30")), "OUTRAS_INFORM/LIQUIDEZ"),
-        _render_fidc_card("Resgate solicitado", _format_brl_compact(summary.get("resgate_solicitado_mes")), "CAPTA_RESGA_AMORTI/RESG_SOLIC", variant="risk"),
-    ]
-    st.markdown(_render_fidc_grid(supporting_cards, "fidc-grid--supporting"), unsafe_allow_html=True)
-
-
-def _render_monitoring_section(dashboard: FundonetDashboardData) -> None:
-    _render_fidc_section(
-        "Monitoramento estrutural",
-        "Indicadores úteis para acompanhamento recorrente já presentes no Informe Mensal, sem inferir covenants documentais fora da fonte.",
-    )
-    left, right = st.columns(2)
-    with left:
-        st.caption("Indicadores calculados")
-        st.dataframe(
-            _format_tracking_table(dashboard.tracking_latest_df),
-            width="stretch",
-            hide_index=True,
-        )
-    with right:
-        st.caption(f"Eventos e pressões de cotas em {dashboard.latest_competencia}")
-        st.dataframe(
-            _format_event_summary_table(dashboard.event_summary_latest_df),
-            width="stretch",
-            hide_index=True,
-        )
-
-
 def _render_fidc_section(title: str, caption: str | None = None) -> None:
     st.markdown(f'<div class="fidc-section">{escape(title)}</div>', unsafe_allow_html=True)
     if caption:
         st.markdown(f'<div class="fidc-section-caption">{escape(caption)}</div>', unsafe_allow_html=True)
-
-
-def _render_section_callout(*, question: str, ime_scope: str, caution: str) -> None:
-    st.markdown(
-        (
-            '<div class="fidc-inline-note">'
-            f"<strong>Como ler:</strong> {escape(question)}"
-            f"<br/><strong>Base:</strong> {escape(ime_scope)}"
-            f"<br/><strong>Cautela:</strong> {escape(caution)}"
-            "</div>"
-        ),
-        unsafe_allow_html=True,
-    )
 
 
 def _render_fidc_card(
@@ -2264,284 +2183,6 @@ def _sparkline_svg(values: list[float], *, width: int = 80, height: int = 24) ->
         f'<circle cx="{last_x}" cy="{last_y}" r="2.2" fill="#ff5a00" />'
         "</svg>"
     )
-
-
-def _render_asset_section(dashboard: FundonetDashboardData) -> None:
-    _render_fidc_section(
-        "Ativo e carteira",
-        "Composição da carteira, liquidez e vencimentos no padrão do relatório mensal.",
-    )
-    top_left, top_right = st.columns([3, 2])
-    top_left.altair_chart(
-        _line_history_chart(
-            _melt_metrics(
-                dashboard.asset_history_df,
-                ["ativos_totais", "carteira", "direitos_creditorios"],
-                {
-                    "ativos_totais": "Ativos totais",
-                    "carteira": "Carteira",
-                    "direitos_creditorios": "Direitos creditórios",
-                },
-            ),
-            title="Evolução do Ativo",
-            y_title="R$",
-        ),
-        width="stretch",
-    )
-    top_right.altair_chart(
-        _horizontal_bar_chart(
-            dashboard.composition_latest_df,
-            category_column="categoria",
-            value_column="valor",
-            title=f"Composição do Ativo em {dashboard.composition_latest_df['competencia'].iloc[0]}",
-        ),
-        width="stretch",
-    )
-
-    mid_left, mid_right = st.columns(2)
-    mid_left.altair_chart(
-        _line_history_chart(
-            _melt_metrics(
-                dashboard.asset_history_df,
-                ["alocacao_pct"],
-                {"alocacao_pct": "Alocação"},
-            ),
-            title="Alocação em Direitos Creditórios",
-            y_title="%",
-        ),
-        width="stretch",
-    )
-    mid_right.altair_chart(
-        _line_point_chart(
-            dashboard.liquidity_latest_df,
-            x_column="horizonte",
-            y_column="valor",
-            title=f"Liquidez Reportada em {dashboard.latest_competencia}",
-            y_title="R$",
-        ),
-        width="stretch",
-    )
-
-    bottom_left, bottom_right = st.columns(2)
-    bottom_left.altair_chart(
-        _bar_chart(
-            dashboard.maturity_latest_df,
-            x_column="faixa",
-            y_column="valor",
-            title=f"Direitos Creditórios por Prazo de Vencimento em {dashboard.latest_competencia}",
-            y_title="R$",
-        ),
-        width="stretch",
-    )
-    flow_df = _melt_metrics(
-        dashboard.asset_history_df,
-        ["aquisicoes", "alienacoes"],
-        {"aquisicoes": "Aquisições", "alienacoes": "Alienações"},
-    )
-    bottom_right.altair_chart(
-        _grouped_bar_chart(
-            flow_df,
-            title="Fluxo dos Direitos Creditórios",
-            y_title="R$",
-        ),
-        width="stretch",
-    )
-
-    table_left, table_right = st.columns(2)
-    with table_left:
-        st.caption("Composição do ativo/carteira")
-        st.dataframe(
-            _format_value_percent_table(
-                dashboard.composition_latest_df,
-                label_column="categoria",
-                label_title="Categoria",
-            ),
-            width="stretch",
-            hide_index=True,
-        )
-    with table_right:
-        st.caption("Carteira por segmento")
-        st.dataframe(
-            _format_value_percent_table(
-                dashboard.segment_latest_df,
-                label_column="segmento",
-                label_title="Segmento",
-            ),
-            width="stretch",
-            hide_index=True,
-        )
-
-
-def _render_quota_section(dashboard: FundonetDashboardData) -> None:
-    _render_fidc_section(
-        "Cotas, PL e remuneração",
-        "PL por classe, índice de subordinação e rentabilidade mensal das cotas.",
-    )
-    top_left, top_right = st.columns(2)
-    top_left.altair_chart(
-        _stacked_area_chart(
-            dashboard.quota_pl_history_df,
-            title="Patrimônio Líquido das Cotas",
-            value_column="pl",
-            y_title="R$",
-        ),
-        width="stretch",
-    )
-    top_right.altair_chart(
-        _line_history_chart(
-            _melt_metrics(
-                dashboard.subordination_history_df,
-                ["subordinacao_pct"],
-                {"subordinacao_pct": "Subordinação reportada"},
-            ),
-            title="Subordinação reportada",
-            y_title="%",
-        ),
-        width="stretch",
-    )
-
-    bottom_left, bottom_right = st.columns([3, 2])
-    bottom_left.altair_chart(
-        _line_history_chart(
-            _return_chart_frame(dashboard.return_history_df),
-            title="Rentabilidade Mensal das Cotas",
-            y_title="%",
-        ),
-        width="stretch",
-    )
-    bottom_right.dataframe(
-        _format_return_summary_frame(dashboard.return_summary_df),
-        width="stretch",
-        hide_index=True,
-    )
-    if not dashboard.performance_vs_benchmark_latest_df.empty:
-        bottom_right.caption(f"Benchmark x realizado em {dashboard.latest_competencia}")
-        bottom_right.dataframe(
-            _format_performance_benchmark_table(dashboard.performance_vs_benchmark_latest_df),
-            width="stretch",
-            hide_index=True,
-        )
-
-    latest_quota_df = _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia)
-    if not latest_quota_df.empty:
-        st.caption(f"Quadro de cotas em {dashboard.latest_competencia}")
-        st.dataframe(latest_quota_df, width="stretch", hide_index=True)
-
-
-def _render_default_section(dashboard: FundonetDashboardData) -> None:
-    _render_fidc_section(
-        "Inadimplência",
-        "Saldos vencidos, provisões e aging da inadimplência reportada.",
-    )
-    top_left, top_right = st.columns(2)
-    top_left.altair_chart(
-        _line_history_chart(
-            _melt_metrics(
-                dashboard.default_history_df,
-                ["inadimplencia_total", "provisao_total", "pendencia_total"],
-                {
-                    "inadimplencia_total": "Inadimplência",
-                    "provisao_total": "Provisão",
-                    "pendencia_total": "Pendências",
-                },
-            ),
-            title="Saldos de Crédito Problemático",
-            y_title="R$",
-        ),
-        width="stretch",
-    )
-    top_right.altair_chart(
-        _line_history_chart(
-            _melt_metrics(
-                dashboard.default_history_df,
-                ["inadimplencia_pct"],
-                {"inadimplencia_pct": "Inadimplência / Direitos creditórios"},
-            ),
-            title="Inadimplência Relativa",
-            y_title="%",
-        ),
-        width="stretch",
-    )
-
-    st.altair_chart(
-        _bar_chart(
-            dashboard.default_buckets_latest_df,
-            x_column="faixa",
-            y_column="valor",
-            title=f"Aging da Inadimplência em {dashboard.latest_competencia}",
-            y_title="R$",
-        ),
-        width="stretch",
-    )
-    st.dataframe(
-        _format_value_table(dashboard.default_buckets_latest_df, label_column="faixa", label_title="Faixa"),
-        width="stretch",
-        hide_index=True,
-    )
-
-
-def _render_events_section(dashboard: FundonetDashboardData) -> None:
-    _render_fidc_section(
-        "Emissões, resgates e amortizações",
-        "Eventos de cotas reportados no bloco CAPTA_RESGA_AMORTI, com sinal econômico separado do valor bruto.",
-    )
-    if not dashboard.event_summary_latest_df.empty:
-        st.caption(f"Resumo dos eventos em {dashboard.latest_competencia}")
-        st.dataframe(
-            _format_event_summary_table(dashboard.event_summary_latest_df),
-            width="stretch",
-            hide_index=True,
-        )
-
-    if dashboard.event_history_df.empty:
-        st.info("O intervalo selecionado não trouxe eventos de emissão, resgate ou amortização no Informe Mensal.")
-        return
-
-    event_chart_df = (
-        dashboard.event_history_df.groupby(["competencia", "competencia_dt", "event_type"], dropna=False)[
-            "valor_total_assinado"
-        ]
-        .sum()
-        .reset_index()
-        .rename(columns={"valor_total_assinado": "valor"})
-    )
-    event_chart_df["serie"] = event_chart_df["event_type"].map(
-        {
-            "emissao": "Emissão",
-            "resgate": "Resgate pago",
-            "amortizacao": "Amortização",
-        }
-    )
-    st.altair_chart(
-        _grouped_bar_chart(
-            event_chart_df,
-            title="Eventos de Cotas por Competência (Sinal Econômico)",
-            y_title="R$",
-        ),
-        width="stretch",
-    )
-
-    latest_events_df = dashboard.event_history_df[
-        dashboard.event_history_df["competencia"] == dashboard.latest_competencia
-    ].copy()
-    if not latest_events_df.empty:
-        latest_events_df["Evento"] = latest_events_df["event_type"].map(
-            {
-                "emissao": "Emissão",
-                "resgate": "Resgate pago",
-                "amortizacao": "Amortização",
-            }
-        )
-        latest_events_df["Valor total"] = latest_events_df["valor_total"].map(_format_brl_compact)
-        latest_events_df["Sinal econômico"] = latest_events_df["valor_total_assinado"].map(_format_brl_compact)
-        latest_events_df["% PL"] = latest_events_df["valor_total_pct_pl"].map(_format_percent)
-        latest_events_df["Valor por cota"] = latest_events_df["valor_cota"].map(_format_brl)
-        latest_events_df["Qt. cotas"] = latest_events_df["qt_cotas"].map(_format_decimal)
-        latest_events_df["Classe"] = latest_events_df["label"]
-        latest_events_df = latest_events_df[
-            ["Evento", "Classe", "Qt. cotas", "Valor por cota", "Valor total", "Sinal econômico", "% PL"]
-        ]
-        st.dataframe(latest_events_df, width="stretch", hide_index=True)
 
 
 def _render_cvm_tables_section(dashboard: FundonetDashboardData) -> None:
@@ -4579,13 +4220,13 @@ def _aging_history_callout_chart(
             }
         )
     connectors_df = pd.DataFrame(connector_rows)
-    scale_values = pd.concat(
-        [
-            pd.to_numeric(df[resolved_value_column], errors="coerce"),
-            pd.to_numeric(latest_df["label_y"], errors="coerce"),
-        ],
-        ignore_index=True,
-    )
+    _aging_bar_max = float(
+        df.groupby("competencia")[resolved_value_column]
+        .apply(lambda s: pd.to_numeric(s, errors="coerce").sum())
+        .max()
+    ) if not df.empty else 0.0
+    _aging_label_top = float(latest_df["label_y"].max()) if not latest_df.empty else 0.0
+    _aging_y_max = max(105.0, _aging_bar_max * 1.10, _aging_label_top + 4.0)
     x_encoding = alt.X(
         "competencia:N",
         title="Competência",
@@ -4609,7 +4250,7 @@ def _aging_history_callout_chart(
                 f"{resolved_value_column}:Q",
                 title="% da inadimplência",
                 stack=True,
-                scale=_quant_scale_with_headroom(scale_values, percent_like=True, max_cap=140.0),
+                scale=alt.Scale(domain=[0.0, _aging_y_max], nice=False),
             ),
             color=color_encoding,
             order=alt.Order("ordem:Q", sort="ascending") if "ordem" in df.columns else alt.Order("serie:N"),
