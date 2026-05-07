@@ -917,10 +917,6 @@ def build_dashboard_pptx_bytes(
         width: float,
         height: float,
     ) -> None:
-        title_height = 0.22
-        legend_top = top + height - 0.18
-        chart_top = top + title_height
-        chart_height = max(height - title_height - 0.24, 0.8)
         bar_values = [value for _, values in bar_series_map for value in values]
         line_values = [value for _, values in line_series_map for value in values]
         bar_axis_max = _dashboard_percent_axis_upper(bar_values, max_cap=140.0)
@@ -928,152 +924,45 @@ def build_dashboard_pptx_bytes(
             [float(value) for value in line_values if _to_float(value) is not None],
             default=100.0,
         )
-        line_axis_max = max(max_line_value * 1.12, max_line_value + 20.0, 120.0)
+        line_axis_max = _nice_axis_max(max(max_line_value * 1.12, max_line_value + 20.0, 120.0))
 
-        add_textbox(slide, left, top - 0.02, width, 0.18, title, size=SECTION_SIZE, bold=True, color=BLACK)
-        add_manual_legend(
+        bar_chart = add_chart(
             slide,
-            [
-                ("Inadimplência", ORANGE),
-                ("Provisão", BLACK),
-                ("Cobertura", COVERAGE_LINE_COLOR),
-            ],
-            left=left,
-            top=legend_top,
-            max_width=width,
-        )
-
-        add_chart(
-            slide,
-            title=None,
+            title=title,
             chart_type=XL_CHART_TYPE.COLUMN_CLUSTERED,
             categories=categories,
             series_map=bar_series_map,
             left=left,
-            top=chart_top,
+            top=top,
             width=width,
-            height=chart_height,
+            height=height,
             number_format='0.00"%"',
             percent_axis=True,
             gap_width=42,
             label_position="outside_end",
             label_font_size=8,
-            show_legend=False,
+            show_legend=True,
+            legend_position="bottom",
             value_max=bar_axis_max,
             show_data_labels=True,
             series_colors=[ORANGE, BLACK],
         )
 
-        plot_left = left + 0.78
-        plot_right = left + width - 1.02
-        plot_top = chart_top + 0.34
-        plot_bottom = chart_top + chart_height - 0.56
-        plot_height = max(plot_bottom - plot_top, 0.1)
-        plot_width = max(plot_right - plot_left, 0.1)
-        x_positions = [
-            plot_left + (plot_width * ((idx + 0.5) / max(len(categories), 1)))
-            for idx in range(len(categories))
-        ]
-
-        for tick_idx in range(5):
-            tick_value = line_axis_max * (tick_idx / 4)
-            y_pos = plot_bottom - (plot_height * (tick_value / line_axis_max))
-            add_textbox(
-                slide,
-                plot_right + 0.08,
-                y_pos - 0.06,
-                0.72,
-                0.12,
-                _format_percent(tick_value),
-                size=AXIS_SIZE,
-                color=COVERAGE_LINE_COLOR,
-                align=PP_ALIGN.LEFT,
-            )
-        add_textbox(
-            slide,
-            plot_right + 0.02,
-            plot_top - 0.18,
-            0.92,
-            0.16,
-            "Cobertura (%)",
-            size=LABEL_SIZE,
-            bold=True,
-            color=COVERAGE_LINE_COLOR,
-            align=PP_ALIGN.LEFT,
-        )
-
-        coverage_values = []
-        parity_values = []
+        coverage_values: list[float | None] = []
         for series_name, values in line_series_map:
             if series_name == "Cobertura":
-                coverage_values = [float(_to_float(value) or 0.0) for value in values]
-            elif series_name.startswith("100%"):
-                parity_values = [float(_to_float(value) or 0.0) for value in values]
-
-        if parity_values:
-            parity_y = plot_bottom - (plot_height * (min(parity_values[0], line_axis_max) / line_axis_max))
-            parity_shape = slide.shapes.add_connector(
-                MSO_CONNECTOR.STRAIGHT,
-                Inches(plot_left),
-                Inches(parity_y),
-                Inches(plot_right),
-                Inches(parity_y),
-            )
-            parity_shape.line.color.rgb = rgb(MID_GRAY)
-            parity_shape.line.width = Pt(1.1)
-            parity_shape.line.dash_style = MSO_LINE_DASH_STYLE.DASH
+                coverage_values = [_to_float(v) for v in values]
+                break
 
         if coverage_values:
-            raw_label_positions = []
-            marker_centers: list[tuple[float, float]] = []
-            for x_pos, raw_value in zip(x_positions, coverage_values, strict=False):
-                clamped_value = max(min(raw_value, line_axis_max), 0.0)
-                y_pos = plot_bottom - (plot_height * (clamped_value / line_axis_max))
-                marker_centers.append((x_pos, y_pos))
-                raw_label_positions.append(y_pos - 0.16)
-
-            adjusted_label_positions = _repel_label_positions(raw_label_positions, min_gap=0.18)
-            for idx in range(len(marker_centers) - 1):
-                x1, y1 = marker_centers[idx]
-                x2, y2 = marker_centers[idx + 1]
-                segment = slide.shapes.add_connector(
-                    MSO_CONNECTOR.STRAIGHT,
-                    Inches(x1),
-                    Inches(y1),
-                    Inches(x2),
-                    Inches(y2),
-                )
-                segment.line.fill.solid()
-                segment.line.fill.fore_color.rgb = rgb(COVERAGE_LINE_COLOR)
-                segment.line.width = Pt(2.4)
-
-            marker_w = 0.10
-            marker_h = 0.10
-            for idx, ((x_pos, y_pos), raw_value) in enumerate(zip(marker_centers, coverage_values, strict=False)):
-                marker = slide.shapes.add_shape(
-                    MSO_AUTO_SHAPE_TYPE.OVAL,
-                    Inches(x_pos - (marker_w / 2)),
-                    Inches(y_pos - (marker_h / 2)),
-                    Inches(marker_w),
-                    Inches(marker_h),
-                )
-                marker.fill.solid()
-                marker.fill.fore_color.rgb = rgb(COVERAGE_LINE_COLOR)
-                marker.line.fill.solid()
-                marker.line.fill.fore_color.rgb = rgb(COVERAGE_LINE_COLOR)
-                label_top = max(plot_top - 0.02, adjusted_label_positions[idx])
-                add_textbox(
-                    slide,
-                    x_pos - 0.24,
-                    label_top,
-                    0.48,
-                    0.14,
-                    _format_percent(raw_value),
-                    size=DEFAULT_LABEL_FONT_SIZE_PT,
-                    bold=True,
-                    color=COVERAGE_LINE_COLOR,
-                    align=PP_ALIGN.CENTER,
-                )
+            _inject_secondary_line_into_chart(
+                bar_chart,
+                series_name="Cobertura",
+                values=coverage_values,
+                categories=categories,
+                color_hex=COVERAGE_LINE_COLOR,
+                line_axis_max=line_axis_max,
+            )
 
     def add_compounding_waterfall_chart(
         slide,
@@ -1312,7 +1201,7 @@ def build_dashboard_pptx_bytes(
             color=MID_GRAY,
         )
 
-    quota_values = _quota_pl_value_pivot(dashboard.quota_pl_history_df)
+    quota_values = _sort_competencia_frame(_quota_pl_value_pivot(dashboard.quota_pl_history_df), ascending=True)
     if not quota_values.empty:
         quota_scale = _money_scale(quota_values.drop(columns=["competencia"]).stack())
         quota_series = [
@@ -1378,7 +1267,7 @@ def build_dashboard_pptx_bytes(
         base100_min = float(base100_numeric.min()) if not base100_numeric.dropna().empty else 100.0
         base100_max = float(base100_numeric.max()) if not base100_numeric.dropna().empty else 100.0
         base100_axis_min = min(95.0, base100_min * 0.98)
-        base100_axis_max = max(base100_max * 1.06, 105.0)
+        base100_axis_max = _nice_axis_max(max(base100_max * 1.06, 105.0))
         base100_chart = add_chart(
             slide,
             title="Índice acumulado base 100",
@@ -1462,11 +1351,11 @@ def build_dashboard_pptx_bytes(
         sorted_duration_values = sorted(duration_values)
         second_highest = sorted_duration_values[-2] if len(sorted_duration_values) >= 2 else (sorted_duration_values[-1] if sorted_duration_values else 0.0)
         max_duration = sorted_duration_values[-1] if sorted_duration_values else 0.0
-        duration_axis_max = max(max(duration_series[0][1], default=30.0) * 1.12, max(duration_series[0][1], default=30.0) + 4.0, 30.0)
+        duration_axis_max = _nice_axis_max(max(max(duration_series[0][1], default=30.0) * 1.12, max(duration_series[0][1], default=30.0) + 4.0, 30.0))
         duration_outlier_competencia = None
         duration_axis_note = None
         if max_duration > 0 and second_highest > 0 and max_duration >= second_highest * 3:
-            duration_axis_max = max(second_highest * 1.35, second_highest + 8.0, 30.0)
+            duration_axis_max = _nice_axis_max(max(second_highest * 1.35, second_highest + 8.0, 30.0))
             max_idx = duration_values.index(max_duration)
             duration_outlier_competencia = _format_competencia(str(duration_df.iloc[max_idx]["competencia"]))
             duration_axis_note = (
@@ -1652,7 +1541,7 @@ def build_dashboard_pptx_bytes(
             )
         add_footer(slide, timestamp_text, current_page)
 
-    over_history = _build_over_aging_history_for_ppt(dashboard)
+    over_history = _sort_competencia_frame(_build_over_aging_history_for_ppt(dashboard), ascending=True)
     if not over_history.empty:
         over_columns = [column for column in over_history.columns if column != "competencia"]
         over_series_map = [(column, over_history[column].tolist()) for column in over_columns]
@@ -1824,6 +1713,19 @@ def _percent_axis_max(series_map: Sequence[tuple[str, Sequence[float]]], *, cap:
     return min(cap, max(max_value * 1.18, max_value + 4.0))
 
 
+def _nice_axis_max(raw_max: float) -> float:
+    """Round raw_max up to the nearest fine decimal step for clean chart axis display.
+
+    Uses a step of magnitude/10 so results are always multiples of a single
+    significant digit: e.g. 477.4 → 480, 126.4 → 130, 697.4 → 700.
+    """
+    if raw_max <= 0:
+        return 1.0
+    magnitude = 10 ** math.floor(math.log10(raw_max))
+    step = magnitude / 10.0
+    return math.ceil(raw_max / step) * step
+
+
 def _money_axis_max(values: Sequence[object]) -> float | None:
     numeric = pd.to_numeric(pd.Series(values), errors="coerce")
     numeric = numeric[numeric.map(lambda value: math.isfinite(value) if pd.notna(value) else False)]
@@ -1832,7 +1734,7 @@ def _money_axis_max(values: Sequence[object]) -> float | None:
     max_value = float(numeric.max())
     if max_value <= 0:
         return None
-    return max_value * 1.16
+    return _nice_axis_max(max_value * 1.10)
 
 
 def _money_scale(values: pd.Series) -> MoneyScale:
@@ -1892,6 +1794,144 @@ def _latest_aging_table_frame(frame: pd.DataFrame) -> pd.DataFrame:
     output["% inadimplência"] = output[aging_column].map(_format_percent) if aging_column in output.columns else "N/D"
     output["% DCs"] = output[dc_column].map(_format_percent) if dc_column else "N/D"
     return output[["Faixa", "Valor", "% inadimplência", "% DCs"]]
+
+
+def _inject_secondary_line_into_chart(
+    chart,
+    *,
+    series_name: str,
+    values: Sequence[float | None],
+    categories: Sequence[str],
+    color_hex: str,
+    line_axis_max: float,
+) -> None:
+    """Inject a native lineChart series on a secondary right Y axis into an existing bar chart.
+
+    python-pptx creates single-plot charts; this injects a second plotElement and
+    a secondary valAx directly into the chart XML so the result is a true Office
+    combo chart that opens in Excel with both series editable.
+    """
+    try:
+        from lxml import etree  # always available as a python-pptx dependency
+    except ImportError:
+        return
+
+    C = "http://schemas.openxmlformats.org/drawingml/2006/chart"
+    A = "http://schemas.openxmlformats.org/drawingml/2006/main"
+
+    chart_space = chart._chartSpace
+    plot_area_list = chart_space.findall(f"{{{C}}}chart/{{{C}}}plotArea")
+    if not plot_area_list:
+        return
+    plot_area = plot_area_list[0]
+
+    first_plot = plot_area[0]
+    ax_id_els = first_plot.findall(f"{{{C}}}axId")
+    if len(ax_id_els) < 2:
+        return
+    cat_ax_id = ax_id_els[0].get("val", "1")
+    sec_val_ax_id = "2099999991"
+
+    hex_color = color_hex.lstrip("#").upper()
+    last_idx = max(len(values) - 1, 0)
+
+    cat_pts = "".join(
+        f'<c:pt idx="{i}"><c:v>{str(cat).replace("&", "&amp;").replace("<", "&lt;")}</c:v></c:pt>'
+        for i, cat in enumerate(categories)
+    )
+    val_pts = "".join(
+        f'<c:pt idx="{i}"><c:v>{float(v)}</c:v></c:pt>'
+        for i, v in enumerate(values)
+        if v is not None
+    )
+
+    line_chart_xml = (
+        f'<c:lineChart xmlns:c="{C}">'
+        f'<c:grouping val="standard"/>'
+        f'<c:varyColors val="0"/>'
+        f'<c:ser>'
+        f'<c:idx val="0"/><c:order val="0"/>'
+        f'<c:tx><c:strRef><c:f/>'
+        f'<c:strCache><c:ptCount val="1"/><c:pt idx="0"><c:v>{series_name}</c:v></c:pt></c:strCache>'
+        f'</c:strRef></c:tx>'
+        f'<c:spPr>'
+        f'<a:ln xmlns:a="{A}" w="22225"><a:solidFill><a:srgbClr val="{hex_color}"/></a:solidFill></a:ln>'
+        f'</c:spPr>'
+        f'<c:marker>'
+        f'<c:symbol val="circle"/><c:size val="8"/>'
+        f'<c:spPr>'
+        f'<a:solidFill xmlns:a="{A}"><a:srgbClr val="{hex_color}"/></a:solidFill>'
+        f'<a:ln xmlns:a="{A}"><a:solidFill><a:srgbClr val="{hex_color}"/></a:solidFill></a:ln>'
+        f'</c:spPr>'
+        f'</c:marker>'
+        f'<c:dLbls>'
+        f'<c:dLbl>'
+        f'<c:idx val="{last_idx}"/><c:spPr/>'
+        f'<c:txPr>'
+        f'<a:bodyPr xmlns:a="{A}"/><a:lstStyle xmlns:a="{A}"/>'
+        f'<a:p xmlns:a="{A}"><a:pPr><a:defRPr b="1" sz="1000">'
+        f'<a:solidFill><a:srgbClr val="{hex_color}"/></a:solidFill>'
+        f'</a:defRPr></a:pPr></a:p>'
+        f'</c:txPr>'
+        f'<c:showLegendKey val="0"/><c:showVal val="1"/><c:showCatName val="0"/>'
+        f'<c:showSerName val="0"/><c:showPercent val="0"/><c:showBubbleSize val="0"/>'
+        f'<c:numFmt formatCode="0.0&quot;%&quot;" sourceLinked="0"/>'
+        f'<c:dLblPos val="t"/>'
+        f'</c:dLbl>'
+        f'<c:numFmt formatCode="0.0&quot;%&quot;" sourceLinked="0"/>'
+        f'<c:showLegendKey val="0"/><c:showVal val="0"/><c:showCatName val="0"/>'
+        f'<c:showSerName val="0"/><c:showPercent val="0"/><c:showBubbleSize val="0"/>'
+        f'</c:dLbls>'
+        f'<c:cat><c:strRef><c:f/>'
+        f'<c:strCache><c:ptCount val="{len(categories)}"/>{cat_pts}</c:strCache>'
+        f'</c:strRef></c:cat>'
+        f'<c:val><c:numRef><c:f/>'
+        f'<c:numCache><c:formatCode>General</c:formatCode>'
+        f'<c:ptCount val="{len(values)}"/>{val_pts}'
+        f'</c:numCache></c:numRef></c:val>'
+        f'<c:smooth val="0"/>'
+        f'</c:ser>'
+        f'<c:marker val="1"/><c:smooth val="0"/>'
+        f'<c:axId val="{cat_ax_id}"/>'
+        f'<c:axId val="{sec_val_ax_id}"/>'
+        f'</c:lineChart>'
+    )
+
+    secondary_valax_xml = (
+        f'<c:valAx xmlns:c="{C}">'
+        f'<c:axId val="{sec_val_ax_id}"/>'
+        f'<c:scaling><c:orientation val="minMax"/>'
+        f'<c:max val="{line_axis_max}"/><c:min val="0.0"/>'
+        f'</c:scaling>'
+        f'<c:delete val="0"/>'
+        f'<c:axPos val="r"/>'
+        f'<c:numFmt formatCode="0&quot;%&quot;" sourceLinked="0"/>'
+        f'<c:tickLblPos val="nextTo"/>'
+        f'<c:spPr>'
+        f'<a:ln xmlns:a="{A}"><a:solidFill><a:srgbClr val="{hex_color}"/></a:solidFill></a:ln>'
+        f'</c:spPr>'
+        f'<c:txPr>'
+        f'<a:bodyPr xmlns:a="{A}"/><a:lstStyle xmlns:a="{A}"/>'
+        f'<a:p xmlns:a="{A}"><a:pPr><a:defRPr sz="900" b="0">'
+        f'<a:solidFill><a:srgbClr val="{hex_color}"/></a:solidFill>'
+        f'</a:defRPr></a:pPr></a:p>'
+        f'</c:txPr>'
+        f'<c:crossAx val="{cat_ax_id}"/>'
+        f'<c:crosses val="autoZero"/>'
+        f'<c:crossBetween val="between"/>'
+        f'</c:valAx>'
+    )
+
+    try:
+        line_chart_el = etree.fromstring(line_chart_xml)
+        secondary_valax_el = etree.fromstring(secondary_valax_xml)
+    except Exception:  # noqa: BLE001
+        return
+
+    cat_ax_el = plot_area.find(f"{{{C}}}catAx")
+    insert_idx = list(plot_area).index(cat_ax_el) if cat_ax_el is not None else len(plot_area)
+    plot_area.insert(insert_idx, line_chart_el)
+    plot_area.append(secondary_valax_el)
 
 
 def _build_over_aging_history_for_ppt(dashboard: FundonetDashboardData) -> pd.DataFrame:
