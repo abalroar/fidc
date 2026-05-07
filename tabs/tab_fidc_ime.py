@@ -20,6 +20,12 @@ from services.fundonet_dashboard import (
     ordered_class_labels,
     sort_class_display_frame,
 )
+from services.fundonet_executive_compare import (
+    available_comparison_metric_labels,
+    build_executive_comparison_df,
+    dashboard_column_labels,
+    default_comparison_metric_labels,
+)
 from services.fundonet_errors import FundosNetError
 from services.identifier_utils import format_cnpj
 from services.fundonet_service import InformeMensalResult
@@ -547,6 +553,70 @@ div[data-testid="stMetricLabel"] {
     font-weight: 500 !important;
 }
 
+.fidc-exec-compare-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+    margin-top: 0.4rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.fidc-exec-compare {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    table-layout: fixed;
+}
+
+.fidc-exec-compare th {
+    background: #1f1f1f;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 7px 8px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.16);
+    line-height: 1.25;
+}
+
+.fidc-exec-compare th:first-child {
+    text-align: left;
+    width: 230px;
+}
+
+.fidc-exec-compare th.highlight {
+    background: #ec7000;
+}
+
+.fidc-exec-compare td {
+    color: #1f1f1f;
+    padding: 6px 8px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #eeeeee;
+    line-height: 1.28;
+    overflow-wrap: anywhere;
+    vertical-align: middle;
+}
+
+.fidc-exec-compare td:first-child {
+    color: #1f1f1f;
+    font-weight: 600;
+    text-align: left;
+    background: #f7f7f7;
+}
+
+.fidc-exec-compare td.highlight {
+    background: #fff2e8;
+}
+
+.fidc-exec-compare tr:nth-child(even) td:not(:first-child):not(.highlight) {
+    background: #fafafa;
+}
+
+.fidc-exec-compare tr:hover td {
+    background: #f4f1ea !important;
+}
+
 @media (max-width: 900px) {
     .fidc-grid--hero,
     .fidc-grid--supporting,
@@ -905,6 +975,8 @@ def render_tab_fidc_ime(period: ImePeriodSelection | None = None) -> None:
             with tab:
                 _render_slot(slot_data, slot_key=f"slot{slot_i}")
 
+    _render_executive_comparison_section(sorted_slots)
+
 
 def _render_slot(slot_data: dict, slot_key: str) -> None:
     """Render one loaded FIDC slot (result + context)."""
@@ -1142,6 +1214,134 @@ def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[s
         _render_pptx_export_button(dashboard, context)
     if ENABLE_GLOBAL_PDF_EXPORT:
         _render_pdf_export_button(dashboard, context)
+
+
+def _render_executive_comparison_section(sorted_slots: list[tuple[int, dict]]) -> None:
+    entries: list[tuple[int, FundonetDashboardData]] = []
+    for slot_i, _slot_data in sorted_slots:
+        dashboard = st.session_state.get(f"_dashboard_slot{slot_i}")
+        if _dashboard_contract_is_current(dashboard):
+            entries.append((slot_i, dashboard))
+    if len(entries) < 2:
+        return
+
+    dashboards = [dashboard for _slot_i, dashboard in entries]
+    labels = dashboard_column_labels(dashboards)
+    label_to_dashboard = dict(zip(labels, dashboards))
+
+    _render_fidc_section(
+        "Comparativo Executivo de FIDCs",
+        "Matriz lado a lado construída exclusivamente com dados já carregados na Visão Executiva.",
+    )
+    selected_labels = st.multiselect(
+        "FIDCs no comparativo",
+        options=labels,
+        default=labels,
+        key="fidc_exec_compare_funds",
+        placeholder="Selecione fundos já carregados...",
+    )
+    selected_dashboards = [label_to_dashboard[label] for label in selected_labels if label in label_to_dashboard]
+    if len(selected_dashboards) < 2:
+        st.info("Selecione ao menos dois FIDCs já carregados para montar o comparativo.")
+        return
+
+    available_rows = available_comparison_metric_labels(selected_dashboards)
+    default_rows = default_comparison_metric_labels(selected_dashboards)
+    selected_rows = st.multiselect(
+        "Linhas exibidas",
+        options=available_rows,
+        default=default_rows or available_rows,
+        key="fidc_exec_compare_rows",
+        placeholder="Selecione métricas disponíveis...",
+    )
+    if not selected_rows:
+        st.warning("Selecione ao menos uma linha para exibir a tabela comparativa.")
+        return
+
+    comparison_df = build_executive_comparison_df(
+        selected_dashboards,
+        selected_metric_labels=selected_rows,
+    )
+    if comparison_df.empty:
+        st.info("Nenhuma métrica selecionada está disponível nos FIDCs carregados.")
+        return
+
+    highlight_options = ["Nenhuma", *comparison_df.columns[1:].tolist()]
+    highlighted_column = st.selectbox(
+        "Coluna em destaque",
+        options=highlight_options,
+        index=0,
+        key="fidc_exec_compare_highlight",
+    )
+    highlight_value = None if highlighted_column == "Nenhuma" else highlighted_column
+    st.caption(
+        "Campos ausentes aparecem como “—”. O comparativo não faz novas consultas e não recalcula dados fora da Visão Executiva."
+    )
+    _render_executive_comparison_table(comparison_df, highlighted_column=highlight_value)
+
+    try:
+        from services.fundonet_executive_compare_ppt import build_executive_comparison_pptx_bytes
+
+        latest_labels = sorted(
+            {
+                _format_competencia_label(dashboard.latest_competencia)
+                for dashboard in selected_dashboards
+                if dashboard.latest_competencia
+            }
+        )
+        subtitle = "Competência: " + ", ".join(latest_labels) if latest_labels else None
+        pptx_bytes = build_executive_comparison_pptx_bytes(
+            comparison_df,
+            highlighted_column=highlight_value,
+            subtitle=subtitle,
+        )
+        st.download_button(
+            "Exportar comparativo (PPTX)",
+            data=pptx_bytes,
+            file_name=_executive_comparison_file_name(selected_dashboards),
+            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            help="Exporta somente a matriz comparativa exibida, sem buscar dados adicionais.",
+        )
+    except RuntimeError as exc:
+        st.warning(str(exc))
+
+
+def _render_executive_comparison_table(
+    comparison_df: pd.DataFrame,
+    *,
+    highlighted_column: str | None,
+) -> None:
+    header_cells = []
+    for column in comparison_df.columns:
+        css_class = " class='highlight'" if column == highlighted_column else ""
+        header_cells.append(f"<th{css_class}>{escape(str(column))}</th>")
+    body_rows: list[str] = []
+    for _, row in comparison_df.iterrows():
+        cells = []
+        for column in comparison_df.columns:
+            css_class = " class='highlight'" if column == highlighted_column else ""
+            cells.append(f"<td{css_class}>{escape(str(row.get(column, '—')))}</td>")
+        body_rows.append("<tr>" + "".join(cells) + "</tr>")
+    html = (
+        "<div class='fidc-exec-compare-wrapper'>"
+        "<table class='fidc-exec-compare'>"
+        "<thead><tr>"
+        + "".join(header_cells)
+        + "</tr></thead><tbody>"
+        + "".join(body_rows)
+        + "</tbody></table></div>"
+    )
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def _executive_comparison_file_name(dashboards: list[FundonetDashboardData]) -> str:
+    competencias = {
+        _format_competencia_label(dashboard.latest_competencia).replace("-", "_")
+        for dashboard in dashboards
+        if dashboard.latest_competencia
+    }
+    suffix = "_".join(sorted(competencias)) if competencias else "comparativo"
+    return f"comparativo_executivo_fidcs_{suffix}.pptx"
 
 
 def _render_over_transparency_notes(st_ctx: object, over_history_df: pd.DataFrame) -> None:

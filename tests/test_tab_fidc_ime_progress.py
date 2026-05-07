@@ -507,6 +507,7 @@ class TabFidcImeProgressTests(unittest.TestCase):
 
     def test_format_cnpj_recovers_decimalized_identifier(self) -> None:
         self.assertEqual("36.113.876/0001-91", tab_fidc_ime._format_cnpj("36113876000191.0"))
+        self.assertEqual("08.417.544/0001-65", tab_fidc_ime._format_cnpj("8417544000165.0"))
 
     def test_stacked_history_bar_chart_can_limit_labels_per_competencia(self) -> None:
         frame = pd.DataFrame(

@@ -6,6 +6,7 @@ import re
 
 _BLANK_VALUES = {"", "nan", "none", "<na>"}
 _CNPJ_TRAILING_DECIMAL_RE = re.compile(r"^(\d{14})[.,]0+$")
+_CNPJ_LEADING_ZERO_DECIMAL_RE = re.compile(r"^(\d{13})[.,]0+$")
 
 
 def normalize_cnpj_digits(value: object) -> str:
@@ -26,6 +27,9 @@ def normalize_cnpj_digits(value: object) -> str:
     trailing_decimal = _CNPJ_TRAILING_DECIMAL_RE.fullmatch(raw)
     if trailing_decimal:
         return trailing_decimal.group(1)
+    leading_zero_decimal = _CNPJ_LEADING_ZERO_DECIMAL_RE.fullmatch(raw)
+    if leading_zero_decimal:
+        return leading_zero_decimal.group(1).zfill(14)
     digits = re.sub(r"\D", "", raw)
     if len(digits) == 14:
         return digits
