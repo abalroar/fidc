@@ -106,17 +106,6 @@ _PT_MONTH_NUMBER_BY_ABBR: dict[str, int] = {abbr: int(month) for month, abbr in 
 
 _FIDC_REPORT_CSS = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
-
-html, body, .stApp, .stMarkdown, .stDataFrame, div, p, label, input, select, textarea, button, h1, h2, h3, h4, h5, h6 {
-    font-family: 'IBM Plex Sans', sans-serif !important;
-}
-
-.stApp {
-    background: #ffffff;
-    color: #2f3a48;
-}
-
 .block-container {
     padding-top: 1rem !important;
     max-width: 100% !important;
@@ -1152,9 +1141,9 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 reference_value=100.0,
                 reference_label="100% (paridade)",
                 bar_size=credit_bar_size,
-                show_line_end_label=False,
+                show_line_end_label=True,
                 show_bar_labels=True,
-                show_all_line_labels=True,
+                show_all_line_labels=False,
                 bar_label_formatter=_format_percent,
                 line_label_formatter=_format_percent,
             ),
@@ -1246,17 +1235,14 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
     )
     st.caption("Subordinação reportada = (PL mezzanino + PL subordinada residual) / PL total.")
 
-    chart_col, control_col = st.columns([1.0, 0.32], gap="medium")
-    with chart_col:
-        _render_chart_heading(st, "PL por tipo de cota")
-    with control_col:
-        pl_view = st.radio(
-            "Visão do PL",
-            options=["Valores absolutos (R$)", "% do total por competência"],
-            horizontal=False,
-            label_visibility="collapsed",
-            key=f"pl_view_{slot_key}",
-        )
+    _render_chart_heading(st, "PL por tipo de cota")
+    pl_view = st.radio(
+        "Visão do PL",
+        options=["Valores absolutos (R$)", "% do total por competência"],
+        horizontal=True,
+        label_visibility="collapsed",
+        key=f"pl_view_{slot_key}",
+    )
     pl_periods = dashboard.quota_pl_history_df["competencia"].nunique()
     pl_bar_size = _executive_quota_bar_size(pl_periods)
     # Segment labels only when bars are wide enough (few periods) to avoid overlap
@@ -1277,7 +1263,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
             width="stretch",
         )
     else:
-        # For R$ view: total labels convey the key info; segment labels only when bars are wide
+        # For R$ view: total labels only when bars are wide enough to avoid collision
         st.altair_chart(
             _stacked_history_bar_chart(
                 _quota_pl_chart_frame(dashboard.quota_pl_history_df),
@@ -1286,7 +1272,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
                 value_column="valor",
                 bar_size=pl_bar_size,
                 label_font_size=9,
-                show_total_labels=True,
+                show_total_labels=(pl_periods <= 9),
                 show_segment_labels=show_pl_segment_labels,
                 smart_label_placement=False,
             ),
@@ -1297,7 +1283,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
     return_chart_df = _return_chart_frame(dashboard.return_history_df)
     if not return_chart_df.empty:
         ordered_labels = _return_ordered_labels(dashboard)
-        default_labels = ordered_labels
+        default_labels = ordered_labels[:5]
         selected_labels = st.multiselect(
             "Classes na rentabilidade",
             options=ordered_labels,
@@ -1593,7 +1579,6 @@ def _render_requested_period_coverage_warning(
 
 def _render_chart_heading(container, title: str, caption: str | None = None) -> None:
     container.markdown(f'<div class="fidc-chart-title">{escape(title)}</div>', unsafe_allow_html=True)
-    del caption
 
 
 def _build_dashboard_context_items(dashboard: FundonetDashboardData) -> list[tuple[str, str]]:
@@ -2054,7 +2039,8 @@ def _render_monitoring_section(dashboard: FundonetDashboardData) -> None:
 
 def _render_fidc_section(title: str, caption: str | None = None) -> None:
     st.markdown(f'<div class="fidc-section">{escape(title)}</div>', unsafe_allow_html=True)
-    del caption
+    if caption:
+        st.markdown(f'<div class="fidc-section-caption">{escape(caption)}</div>', unsafe_allow_html=True)
 
 
 def _render_section_callout(*, question: str, ime_scope: str, caution: str) -> None:
