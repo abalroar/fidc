@@ -14,7 +14,12 @@ import uuid
 import pandas as pd
 import streamlit as st
 
-from services.fundonet_dashboard import FundonetDashboardData, build_dashboard_data
+from services.fundonet_dashboard import (
+    FundonetDashboardData,
+    build_dashboard_data,
+    ordered_class_labels,
+    sort_class_display_frame,
+)
 from services.fundonet_errors import FundosNetError
 from services.identifier_utils import format_cnpj
 from services.fundonet_service import InformeMensalResult
@@ -1295,14 +1300,15 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
             key=f"return_labels_{slot_key}",
             placeholder="Selecione classes para exibir a rentabilidade...",
         )
-        selected_set = set(selected_labels) if selected_labels else set(default_labels)
+        selected_for_display = selected_labels if selected_labels else default_labels
+        selected_set = set(selected_for_display)
         return_summary_df = dashboard.return_summary_df.copy()
         if selected_set:
             return_summary_df = return_summary_df[return_summary_df[_class_display_column(return_summary_df)].isin(selected_set)].copy()
         return_matrix_df = _format_return_inline_matrix_frame(
             dashboard.return_history_df,
             return_summary_df,
-            selected_labels=list(selected_set) if selected_set else None,
+            selected_labels=selected_for_display if selected_for_display else None,
             months=12,
         )
         if not return_matrix_df.empty:
@@ -1314,7 +1320,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
             )
         base100_chart_df = _return_base100_chart_frame(
             dashboard.return_history_df,
-            selected_labels=list(selected_set) if selected_set else None,
+            selected_labels=selected_for_display if selected_for_display else None,
             months=12,
         )
         if not base100_chart_df.empty:
@@ -2253,8 +2259,13 @@ def _melt_metrics(source_df: pd.DataFrame, columns: list[str], label_map: dict[s
 def _return_chart_frame(return_history_df: pd.DataFrame) -> pd.DataFrame:
     if return_history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
-    label_column = _class_display_column(return_history_df)
-    chart_df = return_history_df[["competencia", "competencia_dt", label_column, "retorno_mensal_pct"]].copy()
+    ordered_history = sort_class_display_frame(
+        return_history_df,
+        label_column=_class_display_column(return_history_df),
+        extra_columns=["competencia_dt"],
+    )
+    label_column = _class_display_column(ordered_history)
+    chart_df = ordered_history[["competencia", "competencia_dt", label_column, "retorno_mensal_pct"]].copy()
     chart_df = chart_df.rename(columns={label_column: "serie", "retorno_mensal_pct": "valor"})
     chart_df["valor"] = pd.to_numeric(chart_df["valor"], errors="coerce")
     return chart_df.dropna(subset=["valor"])
@@ -2266,23 +2277,7 @@ def _return_ordered_labels(dashboard: FundonetDashboardData) -> list[str]:
         return []
     label_column = _class_display_column(return_history_df)
     labels = return_history_df[label_column].dropna().astype(str).drop_duplicates().tolist()
-    latest_quota_df = dashboard.quota_pl_history_df.copy()
-    if latest_quota_df.empty:
-        return labels
-    latest_quota_df = latest_quota_df[latest_quota_df["competencia"] == dashboard.latest_competencia].copy()
-    if latest_quota_df.empty:
-        return labels
-    latest_quota_df["pl"] = pd.to_numeric(latest_quota_df["pl"], errors="coerce")
-    ordered_from_pl = (
-        latest_quota_df.sort_values("pl", ascending=False)[_class_display_column(latest_quota_df)]
-        .dropna()
-        .astype(str)
-        .drop_duplicates()
-        .tolist()
-    )
-    present = [label for label in ordered_from_pl if label in set(labels)]
-    remaining = [label for label in labels if label not in set(present)]
-    return present + remaining
+    return ordered_class_labels(labels, return_history_df)
 
 
 def _format_return_inline_matrix_frame(
@@ -2314,8 +2309,9 @@ def _format_return_inline_matrix_frame(
         )
         .reindex(columns=display_competencias)
     )
-    ordered_labels = [label for label in (selected_labels or []) if label in pivot.index]
-    ordered_labels += [label for label in pivot.index.tolist() if label not in set(ordered_labels)]
+    candidate_labels = [label for label in (selected_labels or []) if label in pivot.index]
+    candidate_labels += [label for label in pivot.index.tolist() if label not in set(candidate_labels)]
+    ordered_labels = ordered_class_labels(candidate_labels, history_df)
     pivot = pivot.reindex(ordered_labels)
     pivot = pivot.reset_index(drop=True)
     labels_series = pd.Series(ordered_labels, dtype="object")
@@ -2335,7 +2331,7 @@ def _format_return_inline_matrix_frame(
 def _format_return_summary_frame(return_summary_df: pd.DataFrame) -> pd.DataFrame:
     if return_summary_df.empty:
         return pd.DataFrame(columns=["Classe", "Mês", "YTD", "12 Meses"])
-    table_df = return_summary_df.copy()
+    table_df = sort_class_display_frame(return_summary_df, label_column=_class_display_column(return_summary_df))
     table_df["Classe"] = table_df[_class_display_column(table_df)]
     table_df["Mês"] = table_df["retorno_mes_pct"].map(_format_percent)
     table_df["YTD"] = table_df["retorno_ano_pct"].map(_format_percent)
@@ -2366,7 +2362,8 @@ def _return_base100_chart_frame(
     if history_df.empty:
         return pd.DataFrame(columns=["competencia", "competencia_dt", "serie", "valor"])
     rows: list[dict[str, object]] = []
-    for label, group in history_df.groupby(label_column, dropna=False):
+    for label in ordered_class_labels(history_df[label_column].dropna().astype(str).drop_duplicates().tolist(), history_df):
+        group = history_df[history_df[label_column].astype(str) == label]
         ordered = group.sort_values("competencia_dt").copy()
         current_index = 100.0
         first_valid = True
@@ -2412,7 +2409,11 @@ def _return_monthly_matrix_frame(
         .reset_index()
         .sort_values("competencia_dt", ascending=False)
     )
-    display_columns = ["competencia", "competencia_dt"] + [label for label in (selected_labels or []) if label in pivot.columns]
+    available_labels = [column for column in pivot.columns if column not in {"competencia", "competencia_dt"}]
+    candidate_labels = [label for label in (selected_labels or []) if label in available_labels]
+    candidate_labels += [label for label in available_labels if label not in set(candidate_labels)]
+    ordered_labels = ordered_class_labels(candidate_labels, history_df)
+    display_columns = ["competencia", "competencia_dt"] + [label for label in ordered_labels if label in pivot.columns]
     display_columns += [column for column in pivot.columns if column not in display_columns]
     pivot = pivot[display_columns].copy()
     output = pd.DataFrame({"Competência": pivot["competencia"].map(_format_competencia_label)})
@@ -3431,7 +3432,7 @@ def _over_focus_line_chart(
             .mark_line()
             .encode(x="competencia:N", y=alt.Y("valor:Q", title=y_title))
         )
-        return _style_altair_chart(_chart_with_optional_title(empty_chart, height=320, title=title))
+        return _style_altair_chart(_chart_with_optional_title(empty_chart, height=640, title=title))
 
     x_sort = _competencia_axis_sort(chart_df)
     observed_series = chart_df["serie"].dropna().astype(str).drop_duplicates().tolist()
@@ -3490,7 +3491,7 @@ def _over_focus_line_chart(
         size=alt.Size("point_size:Q", legend=None),
         opacity=alt.Opacity("series_opacity:Q", legend=None),
     )
-    layered: alt.Chart = _chart_with_optional_title(lines + points, height=320, title=title)
+    layered: alt.Chart = _chart_with_optional_title(lines + points, height=640, title=title)
     end_labels = _line_series_end_label_layer(
         end_labels_df,
         x_sort=x_sort,

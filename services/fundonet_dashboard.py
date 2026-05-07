@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 import re
+import unicodedata
 
 import pandas as pd
 
@@ -33,6 +34,12 @@ EVENT_INTERPRETATION = {
     "resgate": "Saída de caixa paga a cotistas; sinal econômico negativo.",
     "resgate_solicitado": "Resgate solicitado a pagar; acompanha pressão futura de liquidez.",
     "amortizacao": "Devolução de capital aos cotistas; sinal econômico negativo.",
+}
+CLASS_DISPLAY_ORDER = {
+    "senior": 1,
+    "mezzanino": 2,
+    "subordinada": 3,
+    "nao_reconciliado": 98,
 }
 
 _MALHA_BASES = ["COMPMT_DICRED_AQUIS", "COMPMT_DICRED_SEM_AQUIS"]
@@ -2787,7 +2794,7 @@ def _build_return_summary(return_history_df: pd.DataFrame, latest_competencia: s
                 "retorno_12m_pct": _compound_percent(monthly.tail(12)),
             }
         )
-    return pd.DataFrame(rows).sort_values(["class_kind", "class_label"]).reset_index(drop=True)
+    return sort_class_display_frame(pd.DataFrame(rows), label_column="class_label")
 
 
 def _build_performance_vs_benchmark_latest_df(
@@ -2877,7 +2884,7 @@ def _build_performance_vs_benchmark_latest_df(
         (pd.to_numeric(latest_df["desempenho_real_pct"], errors="coerce") - pd.to_numeric(latest_df["desempenho_esperado_pct"], errors="coerce"))
         * 100.0
     )
-    return latest_df.sort_values(["class_kind", "class_label"]).reset_index(drop=True)
+    return sort_class_display_frame(latest_df, label_column="class_label")
 
 
 def _compound_percent(series: pd.Series) -> float | None:
@@ -3207,6 +3214,98 @@ def _resolve_class_macro(*, row: pd.Series, class_kind: str) -> tuple[str, str]:
     return "subordinada", "Subordinada"
 
 
+def class_display_sort_key(label: object, row: pd.Series | dict[str, object] | None = None) -> tuple[object, ...]:
+    """Deterministic display order for quota/return classes.
+
+    The analytical order is always class -> series -> item. The parser accepts
+    imperfect labels from the CVM XML, including labels like "Subordinada 1",
+    "Subordinada 1 - item 2", "Sênior · Série 3" and "Mezanino II - A".
+    """
+
+    row_lookup = row if row is not None else {}
+
+    def _row_value(name: str) -> object:
+        try:
+            return row_lookup.get(name)  # type: ignore[union-attr]
+        except AttributeError:
+            return None
+
+    raw_label = str(label or _row_value("class_label") or _row_value("label") or "").strip()
+    class_macro = _normalize_sort_text(_row_value("class_macro"))
+    class_kind = _normalize_sort_text(_row_value("class_kind"))
+    class_order = CLASS_DISPLAY_ORDER.get(class_macro)
+    if class_order is None:
+        class_order = CLASS_DISPLAY_ORDER.get(class_kind)
+    if class_order is None:
+        class_order = _class_order_from_text(raw_label)
+
+    series_source = next(
+        (
+            value
+            for value in (
+                _row_value("serie_raw"),
+                _row_value("SERIE"),
+                _row_value("tipo_raw"),
+                _row_value("TIPO"),
+                raw_label,
+            )
+            if not _is_blank(value)
+        ),
+        raw_label,
+    )
+    series_number, series_text = _series_sort_components(series_source, raw_label)
+    item_number = _item_sort_number(raw_label, _row_value("list_index"))
+    fallback = _natural_sort_tuple(_normalize_sort_text(raw_label))
+    return (class_order, series_number, series_text, item_number, fallback)
+
+
+def sort_class_display_frame(
+    frame: pd.DataFrame,
+    *,
+    label_column: str | None = None,
+    extra_columns: list[str] | None = None,
+) -> pd.DataFrame:
+    if frame.empty:
+        return frame.copy()
+    output = frame.copy()
+    resolved_label_column = label_column or ("class_label" if "class_label" in output.columns else "label")
+    if resolved_label_column not in output.columns:
+        return output.reset_index(drop=True)
+    sort_values = output.apply(
+        lambda row: class_display_sort_key(row.get(resolved_label_column), row),
+        axis=1,
+    )
+    sort_frame = pd.DataFrame(
+        sort_values.tolist(),
+        index=output.index,
+        columns=["__class_order", "__series_number", "__series_text", "__item_number", "__fallback"],
+    )
+    output = pd.concat([output, sort_frame], axis=1)
+    sort_columns = [column for column in (extra_columns or []) if column in output.columns]
+    sort_columns.extend(["__class_order", "__series_number", "__series_text", "__item_number", "__fallback"])
+    output = output.sort_values(sort_columns, kind="stable").drop(
+        columns=["__class_order", "__series_number", "__series_text", "__item_number", "__fallback"],
+    )
+    return output.reset_index(drop=True)
+
+
+def ordered_class_labels(labels: list[str] | pd.Series, reference_frame: pd.DataFrame | None = None) -> list[str]:
+    raw_labels = pd.Series(labels, dtype="object").dropna().astype(str).drop_duplicates().tolist()
+    if not raw_labels:
+        return []
+    if reference_frame is None or reference_frame.empty:
+        return sorted(raw_labels, key=class_display_sort_key)
+    label_column = "class_label" if "class_label" in reference_frame.columns else "label"
+    if label_column not in reference_frame.columns:
+        return sorted(raw_labels, key=class_display_sort_key)
+    ref = reference_frame[reference_frame[label_column].astype(str).isin(raw_labels)].copy()
+    ref = ref.drop_duplicates(subset=[label_column], keep="first")
+    ref = sort_class_display_frame(ref, label_column=label_column)
+    ordered = ref[label_column].dropna().astype(str).tolist()
+    remaining = [label for label in raw_labels if label not in set(ordered)]
+    return ordered + sorted(remaining, key=class_display_sort_key)
+
+
 def _attach_class_identity(
     *,
     frame: pd.DataFrame,
@@ -3295,6 +3394,87 @@ def _normalize_class_token(value: object) -> str:
     return re.sub(r"\s+", " ", text).strip().casefold()
 
 
+def _normalize_sort_text(value: object) -> str:
+    text = _display_value(value)
+    if not text:
+        return ""
+    normalized = unicodedata.normalize("NFKD", text)
+    ascii_text = "".join(char for char in normalized if not unicodedata.combining(char))
+    ascii_text = ascii_text.casefold().replace("·", " ").replace("|", " ")
+    return re.sub(r"\s+", " ", ascii_text).strip()
+
+
+def _class_order_from_text(value: object) -> int:
+    normalized = _normalize_sort_text(value)
+    if re.search(r"\bsenior\b", normalized):
+        return CLASS_DISPLAY_ORDER["senior"]
+    if re.search(r"\bmezz?\b|\bmezzanino\b|\bmezanino\b|\bmz\b", normalized):
+        return CLASS_DISPLAY_ORDER["mezzanino"]
+    if re.search(r"\bsubordinad[ao]?\b|\bsub\b", normalized):
+        return CLASS_DISPLAY_ORDER["subordinada"]
+    return 99
+
+
+def _series_sort_components(primary_value: object, label: object) -> tuple[int, str]:
+    for candidate in (primary_value, label):
+        normalized = _normalize_sort_text(candidate)
+        if not normalized:
+            continue
+        cleaned = re.sub(r"\bitem\s*\d+\b", " ", normalized)
+        cleaned = re.sub(r"\s+", " ", cleaned).strip()
+        number_match = re.search(
+            r"(?:serie|senior|subordinad[ao]?|mezzanino|mezanino|mezz?|mz)\D*(\d+)",
+            cleaned,
+        )
+        if number_match:
+            return int(number_match.group(1)), cleaned
+        ordinal_match = re.search(r"\b(\d+)\s*(?:a|o)?\s*serie\b", cleaned)
+        if ordinal_match:
+            return int(ordinal_match.group(1)), cleaned
+        generic_number = re.search(r"\b(\d+)\b", cleaned)
+        if generic_number:
+            return int(generic_number.group(1)), cleaned
+        roman_match = re.search(
+            r"(?:mezzanino|mezanino|mezz?|mz)\s+([ivxlcdm]+)\b",
+            cleaned,
+        )
+        if roman_match:
+            roman_value = _roman_to_int(roman_match.group(1))
+            if roman_value is not None:
+                return roman_value, cleaned
+    return 999_999, _normalize_sort_text(label)
+
+
+def _item_sort_number(label: object, list_index: object = None) -> int:
+    normalized = _normalize_sort_text(label)
+    item_match = re.search(r"\bitem\s*(\d+)\b", normalized)
+    if item_match:
+        return int(item_match.group(1))
+    return 0
+
+
+def _roman_to_int(value: str) -> int | None:
+    roman = str(value or "").upper()
+    if not roman or not re.fullmatch(r"[IVXLCDM]+", roman):
+        return None
+    values = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
+    total = 0
+    previous = 0
+    for char in reversed(roman):
+        current = values[char]
+        if current < previous:
+            total -= current
+        else:
+            total += current
+            previous = current
+    return total
+
+
+def _natural_sort_tuple(value: str) -> tuple[object, ...]:
+    parts = re.split(r"(\d+)", value)
+    return tuple((0, int(part)) if part.isdigit() else (1, part) for part in parts if part != "")
+
+
 def _safe_int(value: object) -> int | None:
     numeric = _to_numeric(value)
     if numeric is None:
@@ -3361,13 +3541,12 @@ def _finalize_class_frame(
     if existing_numeric:
         combined = combined.dropna(subset=existing_numeric, how="all")
 
-    sort_columns = [column for column in ["competencia_dt", "class_kind", "class_label", "label"] if column in combined.columns]
     dedupe_columns = [
         column
         for column in ["competencia", "class_kind", "class_key", "label", "event_type"]
         if column in combined.columns
     ]
-    combined = combined.sort_values(sort_columns, kind="stable")
+    combined = sort_class_display_frame(combined, extra_columns=["competencia_dt"])
     combined = combined.drop_duplicates(subset=dedupe_columns, keep="last")
 
     return combined.reset_index(drop=True)

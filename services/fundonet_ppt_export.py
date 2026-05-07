@@ -16,7 +16,7 @@ from services.export_chart_labels import (
     choose_export_label_policy,
     format_export_label,
 )
-from services.fundonet_dashboard import FundonetDashboardData
+from services.fundonet_dashboard import FundonetDashboardData, ordered_class_labels, sort_class_display_frame
 
 
 ORANGE = "#EC7000"
@@ -2063,27 +2063,16 @@ def _top_return_labels_for_ppt(dashboard: FundonetDashboardData, *, limit: int |
         return []
     label_column = _class_display_column(return_history_df)
     labels = return_history_df[label_column].dropna().astype(str).drop_duplicates().tolist()
-    if limit is None or len(labels) <= limit:
-        return labels
-    quota_df = dashboard.quota_pl_history_df.copy()
-    if quota_df.empty or dashboard.latest_competencia not in quota_df["competencia"].astype(str).tolist():
-        return labels[:limit]
-    quota_df = quota_df[quota_df["competencia"] == dashboard.latest_competencia].copy()
-    quota_df["pl"] = pd.to_numeric(quota_df["pl"], errors="coerce")
-    ordered = (
-        quota_df.sort_values("pl", ascending=False)[_class_display_column(quota_df)]
-        .dropna()
-        .astype(str)
-        .drop_duplicates()
-        .tolist()
-    )
-    selected = [label for label in ordered if label in set(labels)]
-    remaining = [label for label in labels if label not in set(selected)]
-    return (selected + remaining)[:limit]
+    ordered = ordered_class_labels(labels, return_history_df)
+    return ordered if limit is None else ordered[:limit]
 
 
 def _return_history_pivot(dashboard: FundonetDashboardData, *, selected_labels: Sequence[str] | None = None) -> pd.DataFrame:
-    return_history_df = dashboard.return_history_df.sort_values("competencia_dt").copy()
+    return_history_df = sort_class_display_frame(
+        dashboard.return_history_df,
+        label_column=_class_display_column(dashboard.return_history_df) if not dashboard.return_history_df.empty else None,
+        extra_columns=["competencia_dt"],
+    )
     if return_history_df.empty:
         return pd.DataFrame(columns=["competencia"])
     ordered_competencias = _ordered_competencias(return_history_df)
@@ -2092,6 +2081,7 @@ def _return_history_pivot(dashboard: FundonetDashboardData, *, selected_labels: 
         return_history_df = return_history_df[return_history_df[label_column].isin(list(selected_labels))].copy()
     if return_history_df.empty:
         return pd.DataFrame(columns=["competencia"])
+    available_labels = return_history_df[label_column].dropna().astype(str).drop_duplicates().tolist()
     return_history_df["retorno_mensal_pct"] = pd.to_numeric(return_history_df["retorno_mensal_pct"], errors="coerce")
     pivot = (
         return_history_df.pivot_table(
@@ -2102,7 +2092,10 @@ def _return_history_pivot(dashboard: FundonetDashboardData, *, selected_labels: 
         )
         .reset_index()
     )
-    ordered_columns = ["competencia"] + [label for label in (selected_labels or []) if label in pivot.columns]
+    candidate_labels = [label for label in (selected_labels or []) if label in pivot.columns]
+    candidate_labels += [label for label in available_labels if label in pivot.columns and label not in set(candidate_labels)]
+    ordered_labels = ordered_class_labels(candidate_labels, return_history_df)
+    ordered_columns = ["competencia"] + [label for label in ordered_labels if label in pivot.columns]
     remaining_columns = [column for column in pivot.columns if column not in ordered_columns]
     pivot = pivot[ordered_columns + remaining_columns].copy()
     return _reorder_competencia_pivot(pivot, ordered_competencias)
@@ -2809,8 +2802,15 @@ def _build_return_inline_table_for_ppt(
     selected_labels: Sequence[str] | None = None,
     months: int = 12,
 ) -> pd.DataFrame:
-    history_df = dashboard.return_history_df.sort_values("competencia_dt").copy()
-    summary_df = dashboard.return_summary_df.copy()
+    history_df = sort_class_display_frame(
+        dashboard.return_history_df,
+        label_column=_class_display_column(dashboard.return_history_df) if not dashboard.return_history_df.empty else None,
+        extra_columns=["competencia_dt"],
+    )
+    summary_df = sort_class_display_frame(
+        dashboard.return_summary_df,
+        label_column=_class_display_column(dashboard.return_summary_df) if not dashboard.return_summary_df.empty else None,
+    )
     if history_df.empty or summary_df.empty:
         return pd.DataFrame(columns=["Classe", "YTD", "12 meses"])
     label_column = _class_display_column(history_df)
@@ -2832,8 +2832,9 @@ def _build_return_inline_table_for_ppt(
         )
         .reindex(columns=display_competencias)
     )
-    ordered_labels = [label for label in (selected_labels or []) if label in pivot.index]
-    ordered_labels += [label for label in pivot.index.tolist() if label not in set(ordered_labels)]
+    candidate_labels = [label for label in (selected_labels or []) if label in pivot.index]
+    candidate_labels += [label for label in pivot.index.tolist() if label not in set(candidate_labels)]
+    ordered_labels = ordered_class_labels(candidate_labels, history_df)
     pivot = pivot.reindex(ordered_labels).reset_index(drop=True)
     output = pd.DataFrame({"Classe": pd.Series(ordered_labels, dtype="object")})
     for competencia in display_competencias:
@@ -2852,7 +2853,11 @@ def _build_return_base100_for_ppt(
     selected_labels: Sequence[str] | None = None,
     months: int = 12,
 ) -> pd.DataFrame:
-    history_df = dashboard.return_history_df.sort_values("competencia_dt").copy()
+    history_df = sort_class_display_frame(
+        dashboard.return_history_df,
+        label_column=_class_display_column(dashboard.return_history_df) if not dashboard.return_history_df.empty else None,
+        extra_columns=["competencia_dt"],
+    )
     if history_df.empty:
         return pd.DataFrame(columns=["competencia", "serie", "valor"])
     label_column = _class_display_column(history_df)
@@ -2863,7 +2868,9 @@ def _build_return_base100_for_ppt(
     if history_df.empty:
         return pd.DataFrame(columns=["competencia", "serie", "valor"])
     rows: list[dict[str, object]] = []
-    for label, group in history_df.groupby(label_column, dropna=False):
+    labels = history_df[label_column].dropna().astype(str).drop_duplicates().tolist()
+    for label in ordered_class_labels(labels, history_df):
+        group = history_df[history_df[label_column].astype(str) == label]
         ordered = group.sort_values("competencia_dt").copy()
         current_index = 100.0
         first_value = True

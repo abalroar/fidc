@@ -11,7 +11,7 @@ from types import SimpleNamespace
 
 import pandas as pd
 
-from services.fundonet_dashboard import _build_return_history, build_dashboard_data
+from services.fundonet_dashboard import _build_return_history, build_dashboard_data, ordered_class_labels, sort_class_display_frame
 from services.fundonet_pdf_export import build_dashboard_pdf_bytes
 
 
@@ -121,6 +121,50 @@ class FundonetDashboardTests(unittest.TestCase):
         )
         self.assertEqual(2, history["class_key"].nunique())
         self.assertEqual("RENT_MES.PR_APURADA", history["return_source"].iloc[0])
+
+    def test_class_display_order_is_class_series_item(self) -> None:
+        labels = [
+            "Subordinada 1 - item 2",
+            "Subordinada 1",
+            "Mezanino II - A",
+            "Sênior · Série 2",
+            "Subordinada 1 - item 1",
+            "Sênior · Série 1",
+            "Mezanino I",
+            "Subordinada 2",
+        ]
+
+        self.assertEqual(
+            [
+                "Sênior · Série 1",
+                "Sênior · Série 2",
+                "Mezanino I",
+                "Mezanino II - A",
+                "Subordinada 1",
+                "Subordinada 1 - item 1",
+                "Subordinada 1 - item 2",
+                "Subordinada 2",
+            ],
+            ordered_class_labels(labels),
+        )
+
+    def test_sort_class_display_frame_uses_metadata_when_label_is_inconsistent(self) -> None:
+        frame = pd.DataFrame(
+            [
+                {"class_label": "Subordinada 1 - item 2", "class_macro": "subordinada", "serie_raw": "1"},
+                {"class_label": "Série 2", "class_macro": "Sênior", "serie_raw": "2"},
+                {"class_label": "Subordinada 1", "class_macro": "subordinada", "serie_raw": "1"},
+                {"class_label": "Série 1", "class_macro": "Sênior", "serie_raw": "1"},
+                {"class_label": "Mezz B", "class_macro": "mezzanino", "serie_raw": "2"},
+            ]
+        )
+
+        ordered = sort_class_display_frame(frame, label_column="class_label")
+
+        self.assertEqual(
+            ["Série 1", "Série 2", "Mezz B", "Subordinada 1", "Subordinada 1 - item 2"],
+            ordered["class_label"].tolist(),
+        )
 
     def test_build_dashboard_data_exposes_fund_header_information(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -529,11 +573,18 @@ class FundonetDashboardTests(unittest.TestCase):
                 {"competencia": "03/2026", "competencia_dt": pd.Timestamp("2026-03-31"), "label": "Sênior · Série 1", "retorno_mensal_pct": 3.0},
                 {"competencia": "01/2026", "competencia_dt": pd.Timestamp("2026-01-31"), "label": "Sênior · Série 1", "retorno_mensal_pct": 1.0},
                 {"competencia": "02/2026", "competencia_dt": pd.Timestamp("2026-02-28"), "label": "Sênior · Série 1", "retorno_mensal_pct": 2.0},
+                {"competencia": "03/2026", "competencia_dt": pd.Timestamp("2026-03-31"), "label": "Subordinada 1 - item 2", "retorno_mensal_pct": 3.0},
+                {"competencia": "03/2026", "competencia_dt": pd.Timestamp("2026-03-31"), "label": "Subordinada 1", "retorno_mensal_pct": 3.0},
+                {"competencia": "03/2026", "competencia_dt": pd.Timestamp("2026-03-31"), "label": "Subordinada 1 - item 1", "retorno_mensal_pct": 3.0},
             ]
         )
         dashboard = SimpleNamespace(return_history_df=return_history_df)
         return_pivot = _return_history_pivot(dashboard)
         self.assertEqual(["01/2026", "02/2026", "03/2026"], return_pivot["competencia"].tolist())
+        self.assertEqual(
+            ["competencia", "Sênior · Série 1", "Subordinada 1", "Subordinada 1 - item 1", "Subordinada 1 - item 2"],
+            return_pivot.columns.tolist(),
+        )
 
         aging_df = pd.DataFrame(
             [
