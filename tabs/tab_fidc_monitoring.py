@@ -260,10 +260,7 @@ _PT_MONTH_ABBR = {
 def render_tab_fidc_monitoring(period: ImePeriodSelection | None = None) -> None:
     st.markdown(_CSS, unsafe_allow_html=True)
     st.markdown("## Monitoramento FIDCs")
-    st.caption(
-        "Cockpit comparativo de carteiras salvas. A carga usa o mesmo cache IME/FNET; "
-        "a janela exibida ancora automaticamente na última competência realmente disponível."
-    )
+    st.caption("Cockpit de carteiras salvas com dados do Informe Mensal.")
 
     if period is None:
         period = build_preset_period(end_month=current_default_end_month(), months=12)
@@ -304,19 +301,13 @@ def render_tab_fidc_monitoring(period: ImePeriodSelection | None = None) -> None
 
     _render_loaded_period_status(success_outputs, requested_period=period, load_period=load_period, cache_months=cache_months)
 
-    cockpit_tab, consolidated_tab, trend_tab, fund_tab, overrides_tab = st.tabs(
-        ["Cockpit", "Consolidado", "Tendências", "Tabela por Fundo", "Overrides de Mezanino"]
-    )
+    cockpit_tab, consolidated_tab, fund_tab = st.tabs(["Cockpit", "Consolidado", "Tabela por Fundo"])
     with cockpit_tab:
         _render_cockpit_tab(success_outputs)
     with consolidated_tab:
         _render_consolidado_tab(success_outputs)
-    with trend_tab:
-        _render_comparison_tab(success_outputs)
     with fund_tab:
         _render_fund_boards_tab(success_outputs)
-    with overrides_tab:
-        _render_overrides_tab(success_outputs)
 
 
 def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRecord | None:
@@ -338,7 +329,7 @@ def _render_cache_horizon_control(*, selected_portfolio: PortfolioRecord, period
     key = f"monitoring_cache_months::{selected_portfolio.id}"
     return int(
         st.selectbox(
-            "Histórico a carregar no cache para esta carteira",
+            "Histórico do cache",
             options=options,
             index=default_index,
             format_func=lambda value: f"{value} meses",
@@ -360,12 +351,12 @@ def _build_cache_load_period(*, period: ImePeriodSelection, cache_months: int) -
 
 
 def _render_requested_load_chips(*, period: ImePeriodSelection, load_period: ImePeriodSelection, cache_months: int, fund_count: int) -> None:
+    _ = load_period
     st.markdown(
         f"""
 <div class="monitor-card-row">
-  <span class="monitor-chip"><strong>Janela solicitada:</strong> {escape(_format_period_label(period))}</span>
-  <span class="monitor-chip"><strong>Cache a carregar:</strong> {escape(_format_period_label(load_period))}</span>
-  <span class="monitor-chip"><strong>Horizonte cache:</strong> {cache_months} meses</span>
+  <span class="monitor-chip"><strong>Janela:</strong> {escape(_format_period_label(period))}</span>
+  <span class="monitor-chip"><strong>Histórico:</strong> {cache_months} meses</span>
   <span class="monitor-chip"><strong>Fundos:</strong> {fund_count}</span>
 </div>
 """,
@@ -625,13 +616,13 @@ def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
         st.info("Não há competência disponível para montar o cockpit.")
         return
     st.markdown("### Cockpit da carteira")
-    st.caption(
-        "Valores por FIDC na competência mais recente com cobertura suficiente da carteira. "
-        "Percentuais consolidados são recalculados a partir de somas absolutas."
-    )
     _render_cockpit_cards(outputs, reference, eligible_count=reference_count, total_count=reference_total)
     st.markdown(_render_cockpit_table_html(outputs, reference), unsafe_allow_html=True)
     with st.expander("Diagnóstico de carga e cache", expanded=False):
+        st.caption(
+            "Use quando a carga estiver lenta ou algum fundo parecer ausente. "
+            "`hit` significa que o dado veio do cache; `miss` significa que foi recalculado nesta execução."
+        )
         st.dataframe(_build_cache_diagnostics_df(outputs), hide_index=True, use_container_width=True)
 
 
@@ -944,9 +935,7 @@ def _render_fund_boards_tab(outputs: list[dict[str, Any]]) -> None:
         return
     tables: MonitoringTables = selected["tables"]
     cnpj = str(selected["cnpj"])
-    display_name = str(selected["display_name"])
     fnet_url = f"https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo={cnpj}"
-    st.markdown(f'<div class="monitor-fund-title">{escape(display_name)}</div>', unsafe_allow_html=True)
     st.markdown(
         f'<div class="monitor-caption">{escape(format_portfolio_cnpj(cnpj))} · <a href="{escape(fnet_url)}" target="_blank">Abrir FNET</a></div>',
         unsafe_allow_html=True,
@@ -955,9 +944,11 @@ def _render_fund_boards_tab(outputs: list[dict[str, Any]]) -> None:
     _render_single_fund_cards(selected, latest)
     st.markdown("### Tabela Completa do fundo")
     st.markdown(_render_fund_time_table_html(selected), unsafe_allow_html=True)
-    st.markdown("### Aging da Carteira")
-    st.altair_chart(_aging_stacked_bar(tables.aging_df, list(selected.get("competencias") or [])), use_container_width=True)
     with st.expander("Auditoria de fórmulas", expanded=False):
+        st.caption(
+            "Use para checar a origem de cada linha da tabela: fórmula, fonte canônica e status. "
+            "Se um número parecer errado, esta é a memória para comparar com a Visão Executiva/IME."
+        )
         st.dataframe(tables.audit_df, hide_index=True, use_container_width=True)
     with st.expander("Dados brutos (variáveis IME)", expanded=False):
         _render_raw_data_panel(selected, key_suffix=str(selected.get("cnpj") or "fundo"))
@@ -1024,7 +1015,6 @@ def _render_single_fund_cards(item: dict[str, Any], latest: str | None) -> None:
         ("DC / PL", _format_metric_value(_metric_numeric(item, "Dir Cred / PL", latest), "ratio"), "alocação"),
         ("Over 90d", _format_metric_value(_metric_numeric(item, "Vencidos Over 90 d / Crédito", latest), "ratio"), "sobre crédito"),
         ("PDD / Over 90d", _format_metric_value(_metric_numeric(item, "PDD / Venc > 90 d", latest), "ratio"), "cobertura"),
-        ("Cache", str(item.get("cache_status") or "-"), "status"),
     ]
     html = ["<div class='monitor-card-grid'>"]
     for label, value, note in cards:
@@ -1250,7 +1240,10 @@ def _sparkline_from_indicator(frame: pd.DataFrame, indicator: str, title: str) -
 
 def _select_output(outputs: list[dict[str, Any]], *, key: str) -> dict[str, Any] | None:
     options = [item["cnpj"] for item in outputs]
-    labels = {item["cnpj"]: f"{item['display_name']} · {format_portfolio_cnpj(item['cnpj'])}" for item in outputs}
+    labels = {
+        item["cnpj"]: f"{_short_fund_label(str(item['display_name']))} · {format_portfolio_cnpj(str(item['cnpj']))}"
+        for item in outputs
+    }
     selected = st.selectbox("Fundo", options=options, key=key, format_func=lambda value: labels.get(value, value))
     return next((item for item in outputs if item["cnpj"] == selected), None)
 
@@ -1280,16 +1273,13 @@ def _build_cache_diagnostics_df(outputs: list[dict[str, Any]]) -> pd.DataFrame:
             {
                 "Fundo": item.get("display_name"),
                 "CNPJ": format_portfolio_cnpj(str(item.get("cnpj") or "")),
-                "Status cache": item.get("cache_status"),
-                "Cache derivado": item.get("derived_cache_status"),
-                "Tempo carga (s)": item.get("load_seconds"),
-                "Primeira no cache": _format_competencia_label(all_competencias[0]) if all_competencias else "-",
-                "Última no cache": _format_competencia_label(all_competencias[-1]) if all_competencias else "-",
+                "Cache IME": item.get("cache_status"),
+                "Cache Monitoramento": item.get("derived_cache_status"),
+                "Tempo (s)": item.get("load_seconds"),
+                "Última comp.": _format_competencia_label(all_competencias[-1]) if all_competencias else "-",
                 "Janela exibida": _format_competencia_span(display_competencias),
-                "Competências exibidas": len(display_competencias),
-                "Fonte das métricas": item.get("metric_source") or "-",
-                "Aviso Visão Executiva": item.get("dashboard_error") or "-",
-                "Diretório cache": item.get("cache_dir"),
+                "Fonte": item.get("metric_source") or "-",
+                "Aviso": item.get("dashboard_error") or "-",
             }
         )
     return pd.DataFrame(rows)
