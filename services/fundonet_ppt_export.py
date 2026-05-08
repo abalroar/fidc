@@ -92,6 +92,7 @@ def build_dashboard_pptx_bytes(
     *,
     generated_at: datetime | None = None,
     requested_period_label: str | None = None,
+    return_months: int | None = None,
 ) -> bytes:
     try:
         from pptx import Presentation
@@ -382,11 +383,11 @@ def build_dashboard_pptx_bytes(
         height: float,
         col_widths: Sequence[float] | None = None,
         max_rows: int = 30,
+        row_height_floor: float = 0.24,
     ):
         if title:
             add_textbox(slide, left, top - 0.22, width, 0.18, title, size=SECTION_SIZE, bold=True, color=BLACK)
         frame = df.copy()
-        row_height_floor = 0.24
         max_rows_fit = max(1, int(max((height - 0.30), row_height_floor) / row_height_floor) - 1)
         effective_max_rows = min(max_rows, max_rows_fit) if max_rows else max_rows_fit
         if effective_max_rows and len(frame) > effective_max_rows:
@@ -1198,6 +1199,55 @@ def build_dashboard_pptx_bytes(
         )
     add_footer(slide, timestamp_text, current_page)
 
+    return_window_months = int(return_months or len(getattr(dashboard, "competencias", []) or []) or 12)
+    return_table_df = _build_return_inline_table_for_ppt(dashboard, selected_labels=None, months=return_window_months)
+    if not return_table_df.empty:
+        column_chunks = _return_table_column_chunks(return_table_df)
+        total_return_slides = sum(
+            max(1, (len(column_chunk) + _return_table_rows_per_slide(column_chunk) - 1) // _return_table_rows_per_slide(column_chunk))
+            for column_chunk in column_chunks
+        )
+        emitted_return_slide = 0
+        for column_chunk in column_chunks:
+            rows_per_slide = _return_table_rows_per_slide(column_chunk)
+            return_chunks = [
+                column_chunk.iloc[start : start + rows_per_slide].copy()
+                for start in range(0, len(column_chunk), rows_per_slide)
+            ]
+            for return_chunk in return_chunks:
+                emitted_return_slide += 1
+                slide = prs.slides.add_slide(blank)
+                current_page = next_page()
+                title_suffix = (
+                    f" ({emitted_return_slide}/{total_return_slides})"
+                    if total_return_slides > 1
+                    else ""
+                )
+                add_slide_header(slide, "Rentabilidade por tipo de cota")
+                add_textbox(
+                    slide,
+                    MARGIN_LEFT_IN,
+                    1.03,
+                    full_width,
+                    0.18,
+                    f"Retornos mensais por classe/série, últimos {return_window_months} meses exibidos, YTD e 12 meses. Ordem: classe → série → item.",
+                    size=FOOTER_SIZE,
+                    color=MID_GRAY,
+                )
+                add_table(
+                    slide,
+                    return_chunk,
+                    title=f"Retornos por série{title_suffix}",
+                    left=MARGIN_LEFT_IN,
+                    top=1.46,
+                    width=full_width,
+                    height=5.18,
+                    col_widths=_return_table_col_widths(return_chunk),
+                    max_rows=len(return_chunk),
+                    row_height_floor=0.16,
+                )
+                add_footer(slide, timestamp_text, current_page)
+
     default_df = _sort_competencia_frame(dashboard.default_history_df, ascending=True)
     credit_categories = _competencia_labels(default_df["competencia"].tolist()) if not default_df.empty else []
     credit_bar_series: list[tuple[str, Sequence[float]]] = []
@@ -1514,6 +1564,13 @@ def _format_percent(value: object) -> str:
     if numeric is None:
         return "N/D"
     return f"{_format_decimal(numeric, decimals=1)}%"
+
+
+def _format_return_percent(value: object) -> str:
+    numeric = _to_float(value)
+    if numeric is None:
+        return "N/D"
+    return f"{_format_decimal(numeric, decimals=2)}%"
 
 
 def _format_metric_value(value: object, unit: str) -> str:
@@ -2838,13 +2895,51 @@ def _build_return_inline_table_for_ppt(
     pivot = pivot.reindex(ordered_labels).reset_index(drop=True)
     output = pd.DataFrame({"Classe": pd.Series(ordered_labels, dtype="object")})
     for competencia in display_competencias:
-        output[_format_competencia(competencia)] = pd.Series(pivot[competencia].tolist(), dtype="object").map(_format_percent)
+        output[_format_competencia(competencia)] = pd.Series(pivot[competencia].tolist(), dtype="object").map(_format_return_percent)
     summary_lookup = summary_df.set_index(summary_label_column)
     retorno_ano = summary_lookup["retorno_ano_pct"] if "retorno_ano_pct" in summary_lookup.columns else pd.Series(dtype="float64")
     retorno_12m = summary_lookup["retorno_12m_pct"] if "retorno_12m_pct" in summary_lookup.columns else pd.Series(dtype="float64")
-    output["YTD"] = output["Classe"].map(lambda label: _format_percent(retorno_ano.get(label)))
-    output["12 meses"] = output["Classe"].map(lambda label: _format_percent(retorno_12m.get(label)))
+    output["YTD"] = output["Classe"].map(lambda label: _format_return_percent(retorno_ano.get(label)))
+    output["12 meses"] = output["Classe"].map(lambda label: _format_return_percent(retorno_12m.get(label)))
     return output
+
+
+def _return_table_rows_per_slide(frame: pd.DataFrame) -> int:
+    if frame.empty:
+        return 1
+    # Keep body font at >=7pt while allowing long multi-series funds to fit.
+    if len(frame.columns) >= 12:
+        return 26
+    return 30
+
+
+def _return_table_col_widths(frame: pd.DataFrame) -> list[float]:
+    cols = list(frame.columns)
+    if not cols:
+        return []
+    month_count = max(len(cols) - 3, 0)
+    if month_count <= 1:
+        return [4.05] + ([1.70] * month_count) + [1.25, 1.45]
+    if month_count <= 6:
+        return [3.15] + ([0.92] * month_count) + [1.05, 1.20]
+    return [2.35] + ([0.66] * month_count) + [0.82, 0.95]
+
+
+def _return_table_column_chunks(frame: pd.DataFrame, *, max_month_columns: int = 12) -> list[pd.DataFrame]:
+    if frame.empty:
+        return [frame]
+    leading = ["Classe"] if "Classe" in frame.columns else [frame.columns[0]]
+    trailing = [column for column in ["YTD", "12 meses"] if column in frame.columns]
+    excluded = set(leading + trailing)
+    month_columns = [column for column in frame.columns if column not in excluded]
+    if len(month_columns) <= max_month_columns:
+        return [frame]
+    chunks: list[pd.DataFrame] = []
+    for start in range(0, len(month_columns), max_month_columns):
+        columns = leading + month_columns[start : start + max_month_columns] + trailing
+        chunks.append(frame[columns].copy())
+    return chunks
+
 
 
 def _build_return_base100_for_ppt(

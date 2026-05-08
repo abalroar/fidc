@@ -5,7 +5,8 @@ from datetime import date
 
 
 DEFAULT_PRESET_MONTHS = 12
-PERIOD_PRESET_OPTIONS = (3, 6, 9, 12, 24)
+PERIOD_PRESET_OPTIONS = (3, 6, 9, 12, 24, 36)
+PRESET_AVAILABILITY_BACKFILL_MONTHS = 3
 
 
 def month_start(value: date) -> date:
@@ -50,6 +51,69 @@ def select_decembers_plus_current_year_months(available_months: list[date]) -> l
     ]
     current_year_months = [value for value in normalized if value.year == reference_year]
     return previous_decembers + current_year_months
+
+
+def display_month_count_for_period(period: "ImePeriodSelection") -> int:
+    """Return the intended number of displayed months for a period selection."""
+    if period.mode == "preset" and period.preset_months is not None:
+        return int(period.preset_months)
+    return period.month_count
+
+
+def load_period_for_available_data(
+    period: "ImePeriodSelection",
+    *,
+    backfill_months: int = PRESET_AVAILABILITY_BACKFILL_MONTHS,
+) -> "ImePeriodSelection":
+    """Expand preset loads backwards so display windows can anchor to latest available data.
+
+    If the requested end month is not yet published, a strict 12M load such as
+    mai/25-abr/26 would only contain 11 valid months through mar/26. Loading a
+    small older buffer lets the presentation layer display abr/25-mar/26 while
+    keeping the user's requested window unchanged.
+    """
+    if period.mode != "preset" or backfill_months <= 0:
+        return period
+    return build_custom_period(
+        start_month=shift_month(period.start_month, -int(backfill_months)),
+        end_month=period.end_month,
+    )
+
+
+def select_available_months_for_period(
+    available_months: list[date],
+    period: "ImePeriodSelection",
+) -> list[date]:
+    """Select display months from available data using the requested period semantics.
+
+    Presets are anchored on the latest available month up to the requested end.
+    Custom intervals preserve the explicit start/end boundaries selected by the
+    user.
+    """
+    normalized = sorted({month_start(value) for value in available_months})
+    if not normalized:
+        return []
+    if period.mode == "custom":
+        return [value for value in normalized if period.start_month <= value <= period.end_month]
+    bounded = [value for value in normalized if value <= period.end_month]
+    target = display_month_count_for_period(period)
+    return bounded[-target:] if target > 0 else []
+
+
+def select_competencia_labels_for_period(
+    competencias: list[str],
+    period: "ImePeriodSelection",
+) -> list[str]:
+    """Return competencia labels in chronological order for the display window."""
+    label_by_month: dict[date, str] = {}
+    for label in competencias:
+        try:
+            parsed = parse_competencia_label(label)
+        except Exception:  # noqa: BLE001
+            continue
+        label_by_month[parsed] = str(label)
+    selected_months = select_available_months_for_period(list(label_by_month), period)
+    return [label_by_month[month] for month in selected_months if month in label_by_month]
 
 
 def parse_competencia_label(value: str) -> date:

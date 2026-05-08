@@ -17,6 +17,7 @@ import streamlit as st
 from services.fundonet_dashboard import (
     FundonetDashboardData,
     build_dashboard_data,
+    filter_dashboard_to_competencias,
     ordered_class_labels,
     sort_class_display_frame,
 )
@@ -37,7 +38,10 @@ from services.ime_period import (
     build_custom_period,
     build_preset_period,
     current_default_end_month,
+    display_month_count_for_period,
+    load_period_for_available_data,
     month_options as _period_month_options,
+    select_competencia_labels_for_period,
     shift_month as _period_shift_month,
 )
 
@@ -826,6 +830,7 @@ def render_tab_fidc_ime(period: ImePeriodSelection | None = None) -> None:
     MAX_SLOTS = 4
     if period is None:
         period = _render_period_selector(state_prefix="ime_simple")
+    load_period = load_period_for_available_data(period)
 
     _slots_key = "fidc_active_slots"
     _next_id_key = "fidc_next_slot_id"
@@ -905,7 +910,13 @@ def render_tab_fidc_ime(period: ImePeriodSelection | None = None) -> None:
                 "competencia_inicial": period.start_month.isoformat(),
                 "competencia_final": period.end_month.isoformat(),
                 "period_month_count": period.month_count,
+                "display_month_count": display_month_count_for_period(period),
                 "periodo_analisado_label": period.label,
+                "period_mode": period.mode,
+                "period_preset_months": period.preset_months,
+                "load_competencia_inicial": load_period.start_month.isoformat(),
+                "load_competencia_final": load_period.end_month.isoformat(),
+                "load_period_month_count": load_period.month_count,
                 "slot": slot_i,
             }
             status_box = st.empty()
@@ -926,8 +937,8 @@ def render_tab_fidc_ime(period: ImePeriodSelection | None = None) -> None:
             try:
                 cached_load = load_or_extract_informe(
                     cnpj_fundo=cnpj,
-                    data_inicial=period.start_month,
-                    data_final=period.end_month,
+                    data_inicial=load_period.start_month,
+                    data_final=load_period.end_month,
                     progress_callback=report_progress,
                 )
                 result = cached_load.result
@@ -1082,6 +1093,41 @@ def _read_csv_preview(csv_path, max_rows: int) -> pd.DataFrame:  # noqa: ANN001
     return pd.read_csv(csv_path, nrows=max_rows)
 
 
+def _period_from_context(context: dict[str, Any]) -> ImePeriodSelection | None:
+    try:
+        start_month = pd.Timestamp(context.get("competencia_inicial")).date()
+        end_month = pd.Timestamp(context.get("competencia_final")).date()
+    except Exception:  # noqa: BLE001
+        return None
+    if pd.isna(pd.Timestamp(start_month)) or pd.isna(pd.Timestamp(end_month)):
+        return None
+    preset_months = context.get("period_preset_months")
+    if context.get("period_mode") == "preset" and preset_months in PERIOD_PRESET_OPTIONS:
+        return ImePeriodSelection(
+            mode="preset",
+            start_month=start_month,
+            end_month=end_month,
+            preset_months=int(preset_months),
+        )
+    return build_custom_period(start_month=start_month, end_month=end_month)
+
+
+def _dashboard_for_context_display_window(
+    dashboard: FundonetDashboardData,
+    context: dict[str, Any],
+) -> FundonetDashboardData:
+    period = _period_from_context(context)
+    if period is None:
+        return dashboard
+    selected_competencias = select_competencia_labels_for_period(dashboard.competencias, period)
+    if not selected_competencias:
+        return dashboard
+    filtered = filter_dashboard_to_competencias(dashboard, selected_competencias)
+    context["display_month_count"] = len(filtered.competencias)
+    context["periodo_exibido_label"] = filtered.fund_info.get("periodo_analisado")
+    return filtered
+
+
 @_cache_data_decorator
 def _load_dashboard_data(
     wide_csv_path: str,
@@ -1154,7 +1200,11 @@ def _render_dashboard(
         timings["total_ate_dashboard_segundos"] = round(float(extraction_seconds) + float(dashboard_seconds), 3)
     st.session_state[_session_timing_key] = timings
     context["timings"] = timings
-    dashboard: FundonetDashboardData = st.session_state[_session_dashboard_key]
+    dashboard: FundonetDashboardData = _dashboard_for_context_display_window(
+        st.session_state[_session_dashboard_key],
+        context,
+    )
+    st.session_state[_session_dashboard_key] = dashboard
     st.markdown(_FIDC_REPORT_CSS, unsafe_allow_html=True)
 
     selected_view = st.radio(
@@ -1173,7 +1223,11 @@ def _render_dashboard(
         _render_requested_period_coverage_warning(dashboard, context)
         if docs_error:
             st.warning(f"{docs_error} informe(s) falharam no processamento. A leitura abaixo usa apenas os informes válidos.")
-        _render_structural_risk_section(dashboard, slot_key=slot_key)
+        _render_structural_risk_section(
+            dashboard,
+            slot_key=slot_key,
+            return_months=int(context.get("display_month_count") or len(dashboard.competencias) or 12),
+        )
         _render_credit_risk_section(dashboard)
         _render_liquidity_risk_section(dashboard)
         _render_calculation_memory_section(dashboard, slot_key=slot_key)
@@ -1487,7 +1541,12 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             st.dataframe(_aging_detail_df, width="stretch", hide_index=True)
 
 
-def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_key: str = "slot0") -> None:
+def _render_structural_risk_section(
+    dashboard: FundonetDashboardData,
+    *,
+    slot_key: str = "slot0",
+    return_months: int = 12,
+) -> None:
     _render_fidc_section("Estrutura")
     latest_subordination_match = (
         dashboard.subordination_history_df[
@@ -1591,7 +1650,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
             dashboard.return_history_df,
             return_summary_df,
             selected_labels=selected_for_display if selected_for_display else None,
-            months=12,
+            months=return_months,
         )
         if not return_matrix_df.empty:
             _render_chart_heading(st, "Rentabilidade por tipo de cota")
@@ -1603,7 +1662,7 @@ def _render_structural_risk_section(dashboard: FundonetDashboardData, *, slot_ke
         base100_chart_df = _return_base100_chart_frame(
             dashboard.return_history_df,
             selected_labels=selected_for_display if selected_for_display else None,
-            months=12,
+            months=return_months,
         )
         if not base100_chart_df.empty:
             with st.expander("Abrir histórico acumulado base 100", expanded=False):
@@ -2295,6 +2354,7 @@ def _render_pptx_export_button(dashboard: FundonetDashboardData, context: dict[s
                     pptx_bytes = build_dashboard_pptx_bytes(
                         dashboard,
                         requested_period_label=context.get("periodo_analisado_label"),
+                        return_months=int(context.get("display_month_count") or len(dashboard.competencias) or 12),
                     )
                 except Exception as exc:  # noqa: BLE001
                     st.warning(f"Não foi possível montar os slides do dashboard: {exc}")

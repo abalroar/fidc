@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, fields, replace
 from pathlib import Path
 import re
 import unicodedata
@@ -133,6 +133,39 @@ class FundonetDashboardData:
     executive_memory_df: pd.DataFrame
     consistency_audit_df: pd.DataFrame
     methodology_notes: list[str]
+
+
+def filter_dashboard_to_competencias(
+    dashboard: FundonetDashboardData,
+    competencias: list[str],
+) -> FundonetDashboardData:
+    """Return a presentation-scoped dashboard without recalculating metrics.
+
+    The dashboard builder may load a small older buffer to tolerate unavailable
+    end-month documents. This helper trims every competencia-indexed frame to
+    the display window while keeping the already computed latest metrics and
+    methodology intact.
+    """
+    selected = [str(value) for value in dashboard.competencias if str(value) in {str(item) for item in competencias}]
+    if not selected:
+        return dashboard
+    latest_competencia = selected[-1]
+    selected_set = set(selected)
+    replacements: dict[str, object] = {
+        "competencias": selected,
+        "latest_competencia": latest_competencia,
+        "fund_info": {
+            **dict(dashboard.fund_info),
+            "periodo_analisado": f"{selected[0]} a {latest_competencia}",
+            "ultima_competencia": latest_competencia,
+        },
+    }
+    for data_field in fields(FundonetDashboardData):
+        value = getattr(dashboard, data_field.name)
+        if isinstance(value, pd.DataFrame) and "competencia" in value.columns:
+            filtered = value[value["competencia"].astype(str).isin(selected_set)].copy()
+            replacements[data_field.name] = filtered.reset_index(drop=True)
+    return replace(dashboard, **replacements)
 
 
 def build_dashboard_data(

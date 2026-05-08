@@ -11,7 +11,13 @@ from types import SimpleNamespace
 
 import pandas as pd
 
-from services.fundonet_dashboard import _build_return_history, build_dashboard_data, ordered_class_labels, sort_class_display_frame
+from services.fundonet_dashboard import (
+    _build_return_history,
+    build_dashboard_data,
+    filter_dashboard_to_competencias,
+    ordered_class_labels,
+    sort_class_display_frame,
+)
 from services.fundonet_pdf_export import build_dashboard_pdf_bytes
 
 
@@ -58,6 +64,25 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(1.8, benchmark_row["desempenho_esperado_pct"], places=6)
         self.assertAlmostEqual(2.0, benchmark_row["desempenho_real_pct"], places=6)
         self.assertAlmostEqual(20.0, benchmark_row["gap_bps"], places=6)
+
+    def test_filter_dashboard_to_competencias_trims_history_without_recalculation(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            workspace = Path(tmpdir)
+            self._write_fixture_csvs(workspace)
+
+            dashboard = build_dashboard_data(
+                wide_csv_path=workspace / "informes_wide.csv",
+                listas_csv_path=workspace / "estruturas_lista.csv",
+                docs_csv_path=workspace / "documentos_filtrados.csv",
+            )
+
+        filtered = filter_dashboard_to_competencias(dashboard, ["01/2026"])
+
+        self.assertEqual(["01/2026"], filtered.competencias)
+        self.assertEqual("01/2026", filtered.latest_competencia)
+        self.assertEqual("01/2026 a 01/2026", filtered.fund_info["periodo_analisado"])
+        self.assertEqual(["01/2026"], filtered.quota_pl_history_df["competencia"].drop_duplicates().tolist())
+        self.assertEqual(["01/2026"], filtered.return_history_df["competencia"].drop_duplicates().tolist())
 
     def test_build_return_history_preserves_multiple_classes_with_same_tipo(self) -> None:
         wide_lookup = pd.DataFrame(columns=["tag_path"]).set_index("tag_path", drop=False)
@@ -450,7 +475,8 @@ class FundonetDashboardTests(unittest.TestCase):
         for card_label in ["ATIVO TOTAL", "DCS TOTAIS", "PL TOTAL", "VENCIDOS", "COBERTURA DE PROVISÃO", "SUBORDINAÇÃO REPORTADA"]:
             self.assertIn(card_label, deck_text)
         self.assertNotIn("Rentabilidade e prazo", deck_text)
-        self.assertNotIn("Rentabilidade por tipo de cota (% a.m.)", deck_text)
+        self.assertIn("Rentabilidade por tipo de cota", deck_text)
+        self.assertIn("Retornos por série", deck_text)
         self.assertNotIn("Índice acumulado base 100", deck_text)
         self.assertNotIn("Prazo médio proxy dos recebíveis (dias)", chart_xml)
         chart_count = sum(
