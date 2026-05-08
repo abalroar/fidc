@@ -40,7 +40,7 @@ class ImePeriodTests(unittest.TestCase):
         self.assertEqual(date(2023, 5, 1), period.start_month)
         self.assertEqual(date(2026, 4, 1), period.end_month)
         self.assertEqual(36, period.month_count)
-        self.assertEqual(36, display_month_count_for_period(period))
+        self.assertEqual(37, display_month_count_for_period(period))
 
     def test_build_custom_period_rejects_inverted_range(self) -> None:
         with self.assertRaisesRegex(ValueError, "Competência inicial"):
@@ -111,9 +111,9 @@ class ImePeriodTests(unittest.TestCase):
 
         selected = select_available_months_for_period(available, period)
 
-        self.assertEqual(date(2025, 4, 1), selected[0])
+        self.assertEqual(date(2025, 3, 1), selected[0])
         self.assertEqual(date(2026, 3, 1), selected[-1])
-        self.assertEqual(12, len(selected))
+        self.assertEqual(13, len(selected))
 
     def test_select_available_months_anchors_short_presets_to_latest_available(self) -> None:
         period = build_preset_period(end_month=date(2026, 4, 1), months=6)
@@ -149,9 +149,9 @@ class ImePeriodTests(unittest.TestCase):
 
         selected = select_competencia_labels_for_period(labels, period)
 
-        self.assertEqual("04/2025", selected[0])
+        self.assertEqual("03/2025", selected[0])
         self.assertEqual("03/2026", selected[-1])
-        self.assertEqual(12, len(selected))
+        self.assertEqual(13, len(selected))
 
 
 if __name__ == "__main__":

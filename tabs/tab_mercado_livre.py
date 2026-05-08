@@ -12,7 +12,9 @@ import streamlit as st
 from services.ime_period import (
     ImePeriodSelection,
     build_custom_period,
+    build_preset_period,
     current_default_end_month,
+    display_month_count_for_period,
     month_options,
     select_decembers_plus_current_year_months,
     shift_month,
@@ -366,7 +368,7 @@ def _render_somatorio_period_panel(global_period: ImePeriodSelection | None = No
         period = build_custom_period(start_month=date(end_month.year, 1, 1), end_month=end_month)
     else:
         months = int(selected.removesuffix("M"))
-        period = build_custom_period(start_month=shift_month(end_month, -(months - 1)), end_month=end_month)
+        period = build_preset_period(end_month=end_month, months=months)
     st.caption(f"Período de carga: {_format_month_option_label(period.start_month)} → {_format_month_option_label(period.end_month)} · {period.month_count} competências")
     return period
 
@@ -874,7 +876,8 @@ def _display_window_bounds(
     if selected in {DISPLAY_WINDOW_FULL_OPTION, "Customizado"}:
         return loaded_start, loaded_end
     months = int(selected.removesuffix("M"))
-    start_month = _clamp_month(shift_month(loaded_end, -(months - 1)), loaded_start, loaded_end)
+    display_months = display_month_count_for_period(build_preset_period(end_month=loaded_end, months=months))
+    start_month = _clamp_month(shift_month(loaded_end, -(display_months - 1)), loaded_start, loaded_end)
     return start_month, loaded_end
 
 

@@ -595,7 +595,7 @@ class MercadoLivreDashboardTests(unittest.TestCase):
             loaded_end=available[-1],
         )
 
-        self.assertEqual(date(2025, 4, 1), start)
+        self.assertEqual(date(2025, 3, 1), start)
         self.assertEqual(available[-1], end)
 
     def test_display_window_12m_anchors_to_latest_available_when_requested_end_is_missing(self) -> None:
@@ -607,9 +607,9 @@ class MercadoLivreDashboardTests(unittest.TestCase):
 
         months = _display_window_months(selected="12M", available=available)
 
-        self.assertEqual(date(2025, 4, 1), months[0])
+        self.assertEqual(date(2025, 3, 1), months[0])
         self.assertEqual(date(2026, 3, 1), months[-1])
-        self.assertEqual(12, len(months))
+        self.assertEqual(13, len(months))
 
     def test_requested_period_is_loaded_with_yoy_lookback_metadata(self) -> None:
         requested = build_custom_period(start_month=date(2025, 5, 1), end_month=date(2026, 4, 1))

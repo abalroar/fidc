@@ -56,7 +56,10 @@ def select_decembers_plus_current_year_months(available_months: list[date]) -> l
 def display_month_count_for_period(period: "ImePeriodSelection") -> int:
     """Return the intended number of displayed months for a period selection."""
     if period.mode == "preset" and period.preset_months is not None:
-        return int(period.preset_months)
+        months = int(period.preset_months)
+        # Annual presets include the same month in the prior year as an anchor
+        # for YoY/12M reads. Example: latest mar/26 -> mar/25...mar/26.
+        return months + 1 if months >= 12 and months % 12 == 0 else months
     return period.month_count
 
 

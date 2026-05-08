@@ -301,11 +301,9 @@ def render_tab_fidc_monitoring(period: ImePeriodSelection | None = None) -> None
 
     _render_loaded_period_status(success_outputs, requested_period=period, load_period=load_period, cache_months=cache_months)
 
-    cockpit_tab, consolidated_tab, fund_tab = st.tabs(["Cockpit", "Consolidado", "Tabela por Fundo"])
+    cockpit_tab, fund_tab = st.tabs(["Cockpit", "Tabela por Fundo"])
     with cockpit_tab:
         _render_cockpit_tab(success_outputs)
-    with consolidated_tab:
-        _render_consolidado_tab(success_outputs)
     with fund_tab:
         _render_fund_boards_tab(success_outputs)
 
@@ -334,10 +332,7 @@ def _render_cache_horizon_control(*, selected_portfolio: PortfolioRecord, period
             index=default_index,
             format_func=lambda value: f"{value} meses",
             key=key,
-            help=(
-                "Não muda a janela exibida. Só aumenta a janela baixada/lida do cache para permitir "
-                "ancorar a exibição no último mês realmente disponível e manter histórico adicional."
-            ),
+            help="Meses lidos do cache local.",
         )
     )
 
@@ -351,7 +346,6 @@ def _build_cache_load_period(*, period: ImePeriodSelection, cache_months: int) -
 
 
 def _render_requested_load_chips(*, period: ImePeriodSelection, load_period: ImePeriodSelection, cache_months: int, fund_count: int) -> None:
-    _ = load_period
     st.markdown(
         f"""
 <div class="monitor-card-row">
@@ -580,30 +574,19 @@ def _render_loaded_period_status(
     load_period: ImePeriodSelection,
     cache_months: int,
 ) -> None:
-    latest = _portfolio_latest_competencia(outputs)
     reference, reference_count, reference_total = _portfolio_reference_competencia(outputs)
     display_span = _portfolio_display_span(outputs)
-    latest_label = _format_competencia_label(latest) if latest else "-"
     reference_label = _format_competencia_label(reference) if reference else "-"
     display_label = display_span or "-"
     total_load_seconds = sum(float(item.get("load_seconds") or 0.0) for item in outputs)
-    if latest:
-        latest_date = parse_competencia_label(latest)
-        if requested_period.end_month > latest_date:
-            st.info(
-                f"A competência solicitada {_format_month_date_label(requested_period.end_month)} ainda não está disponível nos dados carregados. "
-                f"A janela exibida foi ancorada em {_format_competencia_label(latest)}."
-            )
+    _ = requested_period, load_period, cache_months
     st.markdown(
         f"""
 <div class="monitor-card-row">
-  <span class="monitor-chip"><strong>Janela exibida:</strong> {escape(display_label)}</span>
-  <span class="monitor-chip"><strong>Competência do cockpit:</strong> {escape(reference_label)}</span>
-  <span class="monitor-chip"><strong>Cobertura do cockpit:</strong> {reference_count}/{reference_total} fundos</span>
-  <span class="monitor-chip"><strong>Última competência disponível:</strong> {escape(latest_label)}</span>
-  <span class="monitor-chip"><strong>Cache carregado:</strong> {escape(_format_period_label(load_period))}</span>
-  <span class="monitor-chip"><strong>Horizonte:</strong> {cache_months} meses</span>
-  <span class="monitor-chip"><strong>Tempo da carga:</strong> {_format_decimal(total_load_seconds, 1)}s</span>
+  <span class="monitor-chip"><strong>{escape(display_label)}</strong></span>
+  <span class="monitor-chip"><strong>Cockpit:</strong> {escape(reference_label)}</span>
+  <span class="monitor-chip"><strong>{reference_count}/{reference_total}</strong> fundos</span>
+  <span class="monitor-chip"><strong>{_format_decimal(total_load_seconds, 1)}s</strong></span>
 </div>
 """,
         unsafe_allow_html=True,
