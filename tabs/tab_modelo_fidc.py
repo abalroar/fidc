@@ -1741,7 +1741,7 @@ def _render_curve_source_controls(
                 key="modelo_b3_date",
                 min_value=date(2000, 1, 1),
                 max_value=date.today(),
-                help="A data escolhida é exata. Se a B3 não tiver arquivo para essa data, o app mostra erro em vez de usar fallback.",
+                help="Data exata; sem fallback silencioso.",
             )
         st.selectbox(
             "Metodologia de interpolação",

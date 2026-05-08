@@ -282,7 +282,7 @@ def _render_period_panel(global_period: ImePeriodSelection | None = None) -> Ime
     else:
         months = int(selected.removesuffix("M"))
         selected_period = build_custom_period(start_month=shift_month(end_month, -(months - 1)), end_month=end_month)
-    st.caption(f"Período de carga: {_format_month_label(selected_period.start_month)} -> {_format_month_label(selected_period.end_month)} · {selected_period.month_count} competências")
+    st.caption(f"{_format_month_label(selected_period.start_month)} → {_format_month_label(selected_period.end_month)}")
     return selected_period
 
 
@@ -591,12 +591,12 @@ def _render_audit(outputs, monitor_outputs, research_outputs=None, verification_
     comparison = build_somatorio_dashboard_comparison(outputs, monitor_outputs)
     if not comparison.empty:
         st.markdown("**Conciliação base x análise de crédito**")
-        st.caption("Compara as métricas que deveriam bater entre a base do Somatório e as métricas derivadas da análise de crédito. `NPL ex-360 total / carteira ex-360` reconcilia `npl_over1_ex360_pct` da base com `npl_1_360_pct` da análise.")
+        st.caption("Conferência entre base do Somatório e métricas derivadas.")
         st.dataframe(_format_somatorio_dashboard_comparison(comparison), use_container_width=True, hide_index=True)
     ex360_memory = build_ex360_memory_table(outputs)
     if not ex360_memory.empty:
         st.markdown("**Memória de cálculo da carteira ex-360**")
-        st.caption("Use esta tabela para auditar valores como jan/25: `carteira_ex360 = carteira_bruta - npl_over360`.")
+        st.caption("Carteira ex-360 = carteira bruta - NPL Over 360.")
         st.dataframe(_format_ex360_memory_table(ex360_memory), use_container_width=True, hide_index=True)
 
 
@@ -835,20 +835,18 @@ def _render_status_bar(*, selected_portfolio: PortfolioRecord, period: ImePeriod
         loaded = "N/D"
         ok = 0
     total = len(selected_portfolio.funds)
-    identity = portfolio_identity_key(selected_portfolio.funds, fallback=selected_portfolio.id)
     st.markdown(
         f"""
 <div class="meli-period-bar">
-  <span><strong>Carteira:</strong> {escape(selected_portfolio.name)}</span>
-  <span><strong>Período solicitado:</strong> {escape(period.label)}</span>
-  <span><strong>Fundos carregados:</strong> {ok}/{total}</span>
-  <span><strong>Período carregado:</strong> {escape(loaded)}</span>
-  <span><strong>Storage:</strong> {escape(storage_source)}</span>
-  <span><strong>Identidade:</strong> {escape(identity)}</span>
+  <span><strong>{escape(selected_portfolio.name)}</strong></span>
+  <span>{escape(period.label)}</span>
+  <span>{ok}/{total} fundos</span>
+  <span>{escape(loaded)}</span>
 </div>
 """,
         unsafe_allow_html=True,
     )
+    _ = storage_source
 
 
 def _render_guide() -> None:

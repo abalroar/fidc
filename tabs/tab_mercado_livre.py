@@ -331,7 +331,7 @@ def _render_somatorio_period_panel(global_period: ImePeriodSelection | None = No
         index=options.index("12M"),
         horizontal=True,
         key="somatorio_fidcs_load_window",
-        help="Define o período carregado para a carteira. Use 24M ou 36M para YoY, roll rates e cohorts com mais contexto.",
+        help="Use 24M/36M para YoY, roll rates e cohorts.",
     )
     if selected == "Customizado":
         max_options = month_options(end_month, months_back=119)
@@ -369,7 +369,7 @@ def _render_somatorio_period_panel(global_period: ImePeriodSelection | None = No
     else:
         months = int(selected.removesuffix("M"))
         period = build_preset_period(end_month=end_month, months=months)
-    st.caption(f"Período de carga: {_format_month_option_label(period.start_month)} → {_format_month_option_label(period.end_month)} · {period.month_count} competências")
+    st.caption(f"{_format_month_option_label(period.start_month)} → {_format_month_option_label(period.end_month)}")
     return period
 
 
@@ -625,16 +625,15 @@ def _render_outputs(
     st.markdown(
         f"""
 <div class="somatorio-fidcs-period-bar">
-  <span><strong>Carteira:</strong> {escape(selected_portfolio.name)}</span>
-  <span><strong>Período solicitado:</strong> {escape(requested_period)}</span>
-  <span><strong>Fundos carregados:</strong> {ok}/{total}</span>
-  <span><strong>Período carregado:</strong> {escape(_loaded_period_label(outputs))}</span>
-  <span><strong>Storage:</strong> {escape(storage_source)}</span>
-  <span><strong>Identidade da carteira:</strong> {escape(str(outputs.metadata.get("storage_identity_key") or portfolio_identity_key(selected_portfolio.funds, fallback=selected_portfolio.id)))}</span>
+  <span><strong>{escape(selected_portfolio.name)}</strong></span>
+  <span>{escape(requested_period)}</span>
+  <span>{ok}/{total} fundos</span>
+  <span>{escape(_loaded_period_label(outputs))}</span>
 </div>
 """,
         unsafe_allow_html=True,
     )
+    _ = storage_source
 
     _render_somatorio_fidcs_guide()
     display_outputs = _render_loaded_period_window(outputs)
@@ -742,9 +741,9 @@ def _render_outputs(
 def _render_base_audit(*, display_outputs, cache_dir) -> None:  # noqa: ANN001
     with st.expander("Auditoria da base do Somatório", expanded=False):
         validation_df = build_validation_table(display_outputs)
-        st.caption("Base auxiliar para conferência: valores absolutos são calculados primeiro; percentuais são derivados depois.")
+        st.caption("Memória dos valores absolutos e percentuais derivados.")
         st.dataframe(_format_validation_for_display(validation_df), width="stretch", hide_index=True)
-        st.caption(f"Base calculada persistida em `{cache_dir}`.")
+        st.caption(f"Cache: `{cache_dir}`.")
         if not display_outputs.warnings_df.empty:
             st.markdown("**Warnings da base**")
             st.dataframe(display_outputs.warnings_df, width="stretch", hide_index=True)
@@ -779,7 +778,7 @@ def _render_fund_selectbox(outputs, *, key: str, label: str) -> str | None:  # n
 def _render_loaded_period_window(outputs):
     available = _available_competencia_months(outputs.consolidated_monthly)
     if not available:
-        st.caption("Filtro visual: sem competências disponíveis na base carregada.")
+        st.caption("Sem competências disponíveis.")
         return outputs
 
     loaded_start = available[0]
@@ -795,7 +794,7 @@ def _render_loaded_period_window(outputs):
         index=DISPLAY_WINDOW_OPTIONS.index(DISPLAY_WINDOW_FULL_OPTION),
         horizontal=True,
         key="somatorio_fidcs_display_window",
-        help="Filtra tabelas e gráficos usando somente a base já carregada; para ampliar a base, altere a Janela da Soma de FIDCs e carregue novamente.",
+        help="Filtra a base já carregada.",
     )
 
     display_months = _display_window_months(
@@ -829,15 +828,10 @@ def _render_loaded_period_window(outputs):
         missing_years = _missing_previous_decembers(available)
         if missing_years:
             missing = ", ".join(f"dez/{str(year)[-2:]}" for year in missing_years)
-            st.caption(f"Aviso: {missing} não está disponível na base carregada; nenhum mês substituto foi usado.")
+            st.caption(f"Sem dados para {missing}.")
 
     label = _display_months_label(display_months) if selected == DISPLAY_WINDOW_DECEMBERS_OPTION else _display_month_range_label(display_months)
-    st.caption(
-        "Filtro visual aplicado: "
-        f"{label} · "
-        f"{len(display_months)} competência(s). "
-        "A troca deste filtro usa a base já carregada e não recalcula o storage."
-    )
+    st.caption(f"{label} · {len(display_months)} competência(s)")
     return _filter_outputs_by_competencia_months(outputs, months=display_months, label=label, mode=str(selected))
 
 

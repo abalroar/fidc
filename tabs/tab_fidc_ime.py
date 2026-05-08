@@ -1497,7 +1497,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             )
     aging_history_df = dashboard.default_aging_history_df.copy()
     _render_chart_heading(st, "Aging")
-    st.caption("Barras empilhadas: composição da carteira vencida por faixa de atraso; callouts na competência mais recente.")
+    st.caption("Aging por faixa; labels na competência mais recente.")
     if aging_history_df.empty:
         st.caption("Sem dados de aging para o período selecionado.")
     else:

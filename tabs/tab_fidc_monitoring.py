@@ -260,7 +260,6 @@ _PT_MONTH_ABBR = {
 def render_tab_fidc_monitoring(period: ImePeriodSelection | None = None) -> None:
     st.markdown(_CSS, unsafe_allow_html=True)
     st.markdown("## Monitoramento FIDCs")
-    st.caption("Cockpit de carteiras salvas com dados do Informe Mensal.")
 
     if period is None:
         period = build_preset_period(end_month=current_default_end_month(), months=12)
@@ -280,13 +279,13 @@ def render_tab_fidc_monitoring(period: ImePeriodSelection | None = None) -> None
     _render_requested_load_chips(period=period, load_period=load_period, cache_months=cache_months, fund_count=len(selected_portfolio.funds))
 
     session_key = _session_key(selected_portfolio, period, cache_months)
-    if st.button("Carregar / atualizar monitoramento", type="primary", key=f"{session_key}::load"):
+    if st.button("Carregar monitoramento", type="primary", key=f"{session_key}::load"):
         st.session_state[session_key] = _load_portfolio_monitoring(selected_portfolio, period, cache_months)
         st.rerun()
 
     outputs = st.session_state.get(session_key)
     if not outputs:
-        st.info("Clique em **Carregar / atualizar monitoramento** para montar o cockpit com a carteira selecionada.")
+        st.info("Carregue a carteira para começar.")
         return
 
     success_outputs = [item for item in outputs if item.get("tables") is not None]
@@ -346,6 +345,7 @@ def _build_cache_load_period(*, period: ImePeriodSelection, cache_months: int) -
 
 
 def _render_requested_load_chips(*, period: ImePeriodSelection, load_period: ImePeriodSelection, cache_months: int, fund_count: int) -> None:
+    _ = load_period
     st.markdown(
         f"""
 <div class="monitor-card-row">
@@ -601,11 +601,8 @@ def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
     st.markdown("### Cockpit da carteira")
     _render_cockpit_cards(outputs, reference, eligible_count=reference_count, total_count=reference_total)
     st.markdown(_render_cockpit_table_html(outputs, reference), unsafe_allow_html=True)
-    with st.expander("Diagnóstico de carga e cache", expanded=False):
-        st.caption(
-            "Use quando a carga estiver lenta ou algum fundo parecer ausente. "
-            "`hit` significa que o dado veio do cache; `miss` significa que foi recalculado nesta execução."
-        )
+    with st.expander("Carga e cache", expanded=False):
+        st.caption("Use para investigar lentidão ou fundo ausente. `hit` = cache; `miss` = recalculado.")
         st.dataframe(_build_cache_diagnostics_df(outputs), hide_index=True, use_container_width=True)
 
 
@@ -928,10 +925,7 @@ def _render_fund_boards_tab(outputs: list[dict[str, Any]]) -> None:
     st.markdown("### Tabela Completa do fundo")
     st.markdown(_render_fund_time_table_html(selected), unsafe_allow_html=True)
     with st.expander("Auditoria de fórmulas", expanded=False):
-        st.caption(
-            "Use para checar a origem de cada linha da tabela: fórmula, fonte canônica e status. "
-            "Se um número parecer errado, esta é a memória para comparar com a Visão Executiva/IME."
-        )
+        st.caption("Fórmula, fonte e status de cada linha.")
         st.dataframe(tables.audit_df, hide_index=True, use_container_width=True)
     with st.expander("Dados brutos (variáveis IME)", expanded=False):
         _render_raw_data_panel(selected, key_suffix=str(selected.get("cnpj") or "fundo"))

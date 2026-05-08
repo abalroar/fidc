@@ -126,7 +126,7 @@ def render_saved_portfolio_delete_manager(
     labels = build_portfolio_record_label_lookup(portfolios)
 
     with st.expander("Gerenciar carteiras salvas", expanded=False):
-        st.caption("Revise a composição antes de apagar. A exclusão remove o preset salvo; não apaga dados já baixados da CVM.")
+        st.caption("Remove só o preset salvo; os dados baixados permanecem.")
         selected_id = st.selectbox(
             "Carteira para revisar ou apagar",
             options=options,
