@@ -12,6 +12,7 @@ from types import SimpleNamespace
 import pandas as pd
 
 from services.fundonet_dashboard import (
+    _build_duration_history_df,
     _build_return_history,
     build_dashboard_data,
     filter_dashboard_to_competencias,
@@ -258,6 +259,37 @@ class FundonetDashboardTests(unittest.TestCase):
         ].iloc[0]
         self.assertAlmostEqual(unreconciled_pl, unreconciled_row["pl"], places=2)
         self.assertEqual("pl_nao_reconciliado", unreconciled_row["pl_reconciliacao_role"])
+        self.assertEqual(
+            "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ",
+            unreconciled_row["pl_reconciliacao_fonte"],
+        )
+
+    def test_duration_is_not_calculated_when_open_maturity_bucket_dominates(self) -> None:
+        maturity_history_df = pd.DataFrame(
+            [
+                {
+                    "competencia": "12/2025",
+                    "competencia_dt": pd.Timestamp("2025-12-01"),
+                    "faixa": "Em 30 dias",
+                    "valor": 0.0,
+                    "prazo_proxy": 30.0,
+                },
+                {
+                    "competencia": "12/2025",
+                    "competencia_dt": pd.Timestamp("2025-12-01"),
+                    "faixa": "Acima de 1080 dias",
+                    "valor": 2_214_267_000.0,
+                    "prazo_proxy": 1440.0,
+                },
+            ]
+        )
+
+        duration_df = _build_duration_history_df(maturity_history_df)
+        row = duration_df.iloc[0]
+
+        self.assertTrue(pd.isna(row["duration_days"]))
+        self.assertAlmostEqual(100.0, row["open_bucket_share_pct"])
+        self.assertEqual("nao_calculavel_bucket_aberto_dominante", row["data_quality"])
 
     def test_build_dashboard_data_uses_dicred_total_and_exposes_cvm_tables(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:

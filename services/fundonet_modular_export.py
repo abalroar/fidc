@@ -94,7 +94,8 @@ def build_vencimento_pdf_bytes(dashboard: "FundonetDashboardData") -> bytes:
         story += [_duration_table(dashboard.duration_history_df)]
         story += _fonte_nota(
             "Duration = Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket). "
-            "Proxies: Vencidos=0d; ≤30d=30d; intervalos=ponto médio; >1080d=1440d (assumido). "
+            "Proxies: Vencidos=0d; ≤30d=30d; intervalos=ponto médio; "
+            ">1080d só entra se a faixa aberta não dominar a carteira. "
             "Fonte: COMPMT_DICRED_AQUIS / SEM_AQUIS — Informe Mensal CVM."
         )
     else:

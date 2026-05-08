@@ -1108,7 +1108,8 @@ def build_dashboard_pptx_bytes(
 
     sub_df = _sort_competencia_frame(dashboard.subordination_history_df, ascending=True)
     if not sub_df.empty:
-        sub_series = [("Subordinação reportada", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
+        sub_series = [("Subordinação reportada", _series_numeric(sub_df, "subordinacao_pct").tolist())]
+        sub_axis_min, sub_axis_max = _dashboard_percent_axis_bounds(sub_series[0][1])
         sub_chart = add_chart(
             slide,
             title="Subordinação reportada",
@@ -1124,7 +1125,8 @@ def build_dashboard_pptx_bytes(
             label_position="above",
             show_data_labels=False,
             label_font_size=9,
-            value_max=_dashboard_percent_axis_upper(sub_series[0][1], max_cap=80.0),
+            value_min=sub_axis_min,
+            value_max=sub_axis_max,
         )
         _style_line_series(sub_chart.series[0], color=ORANGE, width_pt=2.8, marker_size=10)
         apply_last_point_labels(
@@ -1241,10 +1243,10 @@ def build_dashboard_pptx_bytes(
                     left=MARGIN_LEFT_IN,
                     top=1.46,
                     width=full_width,
-                    height=5.18,
+                    height=_return_table_height(len(return_chunk)),
                     col_widths=_return_table_col_widths(return_chunk),
                     max_rows=len(return_chunk),
-                    row_height_floor=0.16,
+                    row_height_floor=0.18,
                 )
                 add_footer(slide, timestamp_text, current_page)
 
@@ -2913,6 +2915,15 @@ def _return_table_rows_per_slide(frame: pd.DataFrame) -> int:
     return 30
 
 
+def _return_table_height(row_count: int, *, max_height: float = 5.18) -> float:
+    """Fit return tables to their real row count instead of stretching sparse tables."""
+    body_rows = max(int(row_count or 0), 1)
+    title_height = 0.32
+    header_height = 0.27
+    body_height = body_rows * 0.24
+    return min(max_height, max(1.10, title_height + header_height + body_height))
+
+
 def _return_table_col_widths(frame: pd.DataFrame) -> list[float]:
     cols = list(frame.columns)
     if not cols:
@@ -3112,6 +3123,40 @@ def _dashboard_percent_axis_upper(values: Sequence[object], *, max_cap: float | 
     return max(upper, 0.5)
 
 
+def _dashboard_percent_axis_bounds(
+    values: Sequence[object],
+    *,
+    min_floor: float = 0.0,
+    max_cap: float | None = None,
+) -> tuple[float | None, float | None]:
+    """Return clean y-axis bounds around the selected data range.
+
+    Used for percentage charts where forcing the minimum to zero hides movement
+    in a narrow range, especially subordination.
+    """
+    numeric = pd.to_numeric(pd.Series(values), errors="coerce").dropna()
+    numeric = numeric[numeric.apply(lambda value: math.isfinite(float(value)))]
+    if numeric.empty:
+        return None, None
+    min_value = float(numeric.min())
+    max_value = float(numeric.max())
+    span = max_value - min_value
+    if span <= 0:
+        pad = max(abs(max_value) * 0.04, 1.0)
+    else:
+        pad = max(span * 0.18, 0.5 if max_value < 10.0 else 1.0)
+    raw_min = max(min_floor, min_value - pad)
+    raw_max = max_value + pad
+    step = 0.5 if max(abs(raw_max), abs(raw_min)) < 10.0 else 1.0 if raw_max < 25.0 else 5.0
+    axis_min = math.floor(raw_min / step) * step
+    axis_max = math.ceil(raw_max / step) * step
+    if max_cap is not None:
+        axis_max = min(axis_max, max_cap)
+    if axis_max <= axis_min:
+        axis_max = axis_min + step
+    return axis_min, axis_max
+
+
 def _render_structure_slide_png(
     *,
     dashboard: FundonetDashboardData,
@@ -3125,7 +3170,8 @@ def _render_structure_slide_png(
     top_row_top = 1.02
     sub_df = _sort_competencia_frame(dashboard.subordination_history_df, ascending=True)
     if not sub_df.empty:
-        sub_series = [("Subordinação reportada", _series_numeric(sub_df, "subordinacao_pct").fillna(0.0).tolist())]
+        sub_series = [("Subordinação reportada", _series_numeric(sub_df, "subordinacao_pct").tolist())]
+        sub_axis_min, sub_axis_max = _dashboard_percent_axis_bounds(sub_series[0][1])
         _paste_png(
             image,
             _line_chart_png(
@@ -3135,8 +3181,8 @@ def _render_structure_slide_png(
                 colors=[ORANGE],
                 width_px=int(full_width * SLIDE_RENDER_DPI),
                 height_px=int(2.05 * SLIDE_RENDER_DPI),
-                axis_min=0.0,
-                axis_max=_dashboard_percent_axis_upper(sub_series[0][1], max_cap=80.0),
+                axis_min=sub_axis_min if sub_axis_min is not None else 0.0,
+                axis_max=sub_axis_max if sub_axis_max is not None else _dashboard_percent_axis_upper(sub_series[0][1]),
                 tick_formatter=_percent_tick_formatter,
                 show_point_labels=len(sub_df["competencia"].drop_duplicates()) <= 12,
                 show_end_labels=len(sub_df["competencia"].drop_duplicates()) > 12,
@@ -3232,8 +3278,14 @@ def _render_returns_slide_png(
         )
     duration_df = _sort_competencia_frame(dashboard.duration_history_df, ascending=True)
     if not duration_df.empty:
-        duration_values = _series_numeric(duration_df, "duration_days").fillna(0.0).tolist()
-        duration_upper = max(max(duration_values or [0.0]) * 1.12, max(duration_values or [0.0]) + 4.0, 30.0)
+        duration_series = _series_numeric(duration_df, "duration_days")
+        duration_values = duration_series.tolist()
+        valid_duration_values = duration_series.dropna().tolist()
+        duration_upper = max(
+            max(valid_duration_values or [0.0]) * 1.12,
+            max(valid_duration_values or [0.0]) + 4.0,
+            30.0,
+        )
         _paste_png(
             image,
             _line_chart_png(

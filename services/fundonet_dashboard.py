@@ -1514,7 +1514,11 @@ def _build_maturity_latest_df(*, wide_lookup: pd.DataFrame, latest_competencia: 
 #   "Vencidos"          → 0 (overdue, no remaining term)
 #   "Em 30 dias"        → 30 (bucket upper bound used as proxy)
 #   Interval buckets    → midpoint of [lower, upper]
-#   "Acima de 1080 dias"→ 1440 (assumed = 1080 + 360; documented in tooltip)
+#   "Acima de 1080 dias"→ 1440 (assumed = 1080 + 360; only used when this
+#                         open bucket is not dominant enough to invalidate
+#                         the point estimate)
+OPEN_MATURITY_BUCKET_LABEL = "Acima de 1080 dias"
+OPEN_MATURITY_BUCKET_DOMINANCE_PCT = 80.0
 _MATURITY_BUCKET_SPECS: list[tuple[str, list[str], float]] = [
     ("Vencidos",           ["VL_SOM_INAD_VENC"],        0.0),
     ("Em 30 dias",         ["VL_PRAZO_VENC_30"],         30.0),
@@ -1526,7 +1530,7 @@ _MATURITY_BUCKET_SPECS: list[tuple[str, list[str], float]] = [
     ("181 a 360 dias",     ["VL_PRAZO_VENC_181_360"],    270.5),
     ("361 a 720 dias",     ["VL_PRAZO_VENC_361_720"],    540.5),
     ("721 a 1080 dias",    ["VL_PRAZO_VENC_721_1080"],   900.5),
-    ("Acima de 1080 dias", ["VL_PRAZO_VENC_1080"],       1440.0),
+    (OPEN_MATURITY_BUCKET_LABEL, ["VL_PRAZO_VENC_1080"],       1440.0),
 ]
 
 
@@ -1571,36 +1575,65 @@ def _build_duration_history_df(maturity_history_df: pd.DataFrame) -> pd.DataFram
         - Interval [A, B]      → (A + B) / 2  (midpoint of the range)
         - "Acima de 1080 dias" → 1440 d (assumed 1080 + 360; upper bound is open)
 
+    When the open-ended bucket ">1080d" dominates the balance, the point
+    estimate is not reliable: the XML gives no upper bound for that bucket. In
+    that case duration_days is left missing and data_quality explains the
+    limitation explicitly.
+
     Returns a DataFrame with columns:
-        competencia, competencia_dt, duration_days, total_saldo, data_quality
-    data_quality is "ok" when total_saldo > 0, otherwise "sem_dados".
+        competencia, competencia_dt, duration_days, total_saldo,
+        open_bucket_saldo, open_bucket_share_pct, data_quality
     """
     if maturity_history_df.empty:
         return pd.DataFrame(
-            columns=["competencia", "competencia_dt", "duration_days", "total_saldo", "data_quality"]
+            columns=[
+                "competencia",
+                "competencia_dt",
+                "duration_days",
+                "total_saldo",
+                "open_bucket_saldo",
+                "open_bucket_share_pct",
+                "data_quality",
+            ]
         )
     df = maturity_history_df.copy()
     df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
     df["prazo_proxy"] = pd.to_numeric(df["prazo_proxy"], errors="coerce").fillna(0.0)
     df["weighted"] = df["valor"] * df["prazo_proxy"]
+    df["open_bucket_value"] = df["valor"].where(df["faixa"].astype(str).eq(OPEN_MATURITY_BUCKET_LABEL), 0.0)
 
     grouped = df.groupby(["competencia", "competencia_dt"], sort=False).agg(
         total_saldo=("valor", "sum"),
         total_weighted=("weighted", "sum"),
+        open_bucket_saldo=("open_bucket_value", "sum"),
     ).reset_index()
+    grouped["open_bucket_share_pct"] = (
+        grouped["open_bucket_saldo"] / grouped["total_saldo"]
+    ).where(grouped["total_saldo"] > 0).mul(100.0)
 
-    grouped["duration_days"] = grouped.apply(
-        lambda row: row["total_weighted"] / row["total_saldo"]
-        if row["total_saldo"] > 0
-        else float("nan"),
-        axis=1,
+    has_balance = grouped["total_saldo"].gt(0)
+    open_bucket_dominant = pd.to_numeric(grouped["open_bucket_share_pct"], errors="coerce").ge(
+        OPEN_MATURITY_BUCKET_DOMINANCE_PCT
     )
-    grouped["data_quality"] = grouped["total_saldo"].apply(
-        lambda v: "ok" if v > 0 else "sem_dados"
+    grouped["duration_days"] = (grouped["total_weighted"] / grouped["total_saldo"]).where(
+        has_balance & ~open_bucket_dominant
     )
+    grouped["data_quality"] = "ok"
+    grouped.loc[~has_balance, "data_quality"] = "sem_dados"
+    grouped.loc[has_balance & open_bucket_dominant, "data_quality"] = "nao_calculavel_bucket_aberto_dominante"
     # Sort chronologically
     grouped = grouped.sort_values("competencia_dt").reset_index(drop=True)
-    return grouped[["competencia", "competencia_dt", "duration_days", "total_saldo", "data_quality"]]
+    return grouped[
+        [
+            "competencia",
+            "competencia_dt",
+            "duration_days",
+            "total_saldo",
+            "open_bucket_saldo",
+            "open_bucket_share_pct",
+            "data_quality",
+        ]
+    ]
 
 
 def _sum_latest_paths(wide_lookup: pd.DataFrame, competencias: list[str], tag_paths: list[str]) -> float:
@@ -2724,6 +2757,11 @@ def _append_unreconciled_pl_rows(
                 "vl_cota": pd.NA,
                 "pl": delta,
                 "pl_reconciliacao_role": "pl_nao_reconciliado",
+                "pl_reconciliacao_fonte": OFFICIAL_PL_PATH,
+                "pl_reconciliacao_observacao": (
+                    "Fallback explícito: PL oficial preservado como total; diferença não alocada "
+                    "a cotas porque QT_COTAS × VL_COTAS não reconcilia com o PL oficial."
+                ),
             }
         )
     if not rows:

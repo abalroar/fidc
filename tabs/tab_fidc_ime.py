@@ -1562,7 +1562,8 @@ def _render_structural_risk_section(
         st.warning(
             "PL oficial diverge da soma das classes reportadas. "
             f"PL não reconciliado: {delta} ({delta_pct}). "
-            "A subordinação não é exibida como métrica confiável para esta competência."
+            "Fallback explícito: o PL oficial é preservado como total, a diferença aparece separada "
+            "como PL não reconciliado e a subordinação não é exibida como métrica confiável."
         )
     subordination_periods = dashboard.subordination_history_df["competencia"].nunique()
     _render_chart_heading(st, "Subordinação reportada")
@@ -2199,21 +2200,26 @@ def _render_duration_section(dashboard: FundonetDashboardData) -> None:
         Duration_t = Σ(saldo_bucket_i,t × prazo_proxy_i) / Σ(saldo_bucket_i,t)
 
     Bucket proxy assumptions (see fundonet_dashboard._MATURITY_BUCKET_SPECS):
-        Vencidos → 0 d  |  ≤30 d → 30 d  |  intervals → midpoint  |  >1080 d → 1440 d
+        Vencidos → 0 d  |  ≤30 d → 30 d  |  intervals → midpoint.
+        If the open-ended bucket >1080d dominates the balance, the duration
+        point estimate is intentionally not shown.
     """
     duration_df = dashboard.duration_history_df
     if duration_df.empty:
         return
 
     ok_df = duration_df[duration_df["data_quality"] == "ok"]
-    if ok_df.empty:
-        return
 
     # --- KPI destaque: valor mais recente ---
-    latest_duration = ok_df.sort_values("competencia_dt").iloc[-1]
+    latest_duration = duration_df.sort_values("competencia_dt").iloc[-1]
     duration_val = latest_duration.get("duration_days")
     total_saldo = latest_duration.get("total_saldo")
-    duration_display = f"{float(duration_val):.0f} dias" if not pd.isna(duration_val) else "N/D"
+    latest_quality = str(latest_duration.get("data_quality") or "")
+    duration_display = (
+        f"{float(duration_val):.0f} dias"
+        if latest_quality == "ok" and not pd.isna(duration_val)
+        else "N/D"
+    )
     saldo_display = _format_brl_compact(total_saldo)
 
     tooltip_text = (
@@ -2221,8 +2227,8 @@ def _render_duration_section(dashboard: FundonetDashboardData) -> None:
         "Fórmula: Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket)\n"
         "Proxies por bucket: Vencidos=0d; Em 30 dias=30d; "
         "31-60d=45,5d; 61-90d=75,5d; 91-120d=105,5d; 121-150d=135,5d; "
-        "151-180d=165,5d; 181-360d=270,5d; 361-720d=540,5d; 721-1080d=900,5d; "
-        ">1080d=1440d (proxy assumido: 1080+360 dias).\n"
+        "151-180d=165,5d; 181-360d=270,5d; 361-720d=540,5d; 721-1080d=900,5d. "
+        "Se >1080d concentrar a carteira, o dado fica N/D porque a faixa é aberta e não tem limite superior.\n"
         "Fonte: quadro de vencimento dos direitos creditórios (COMPMT_DICRED_AQUIS / SEM_AQUIS)."
     )
     st.markdown(
@@ -2233,6 +2239,15 @@ def _render_duration_section(dashboard: FundonetDashboardData) -> None:
         f'</div>',
         unsafe_allow_html=True,
     )
+    if latest_quality == "nao_calculavel_bucket_aberto_dominante":
+        open_share = latest_duration.get("open_bucket_share_pct")
+        st.warning(
+            "Duration proxy não calculável para a competência mais recente: "
+            f"{_format_percent(open_share)} do saldo está na faixa aberta acima de 1080 dias. "
+            "Sem limite superior no XML, qualquer número pontual seria uma premissa arbitrária."
+        )
+    elif latest_quality == "sem_dados":
+        st.caption("Duration proxy não disponível para a competência mais recente porque não há saldo por vencimento.")
 
     # --- Série histórica ---
     if len(ok_df) < 2:
@@ -2363,7 +2378,8 @@ def _render_pptx_export_button(dashboard: FundonetDashboardData, context: dict[s
             timings["pptx_segundos"] = round(time.perf_counter() - start, 3)
             context["timings"] = timings
             st.session_state[payload_key] = pptx_bytes
-        return
+        else:
+            return
     if not pptx_bytes:
         return
 
@@ -5171,7 +5187,8 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
     # Tooltip rows — formula + proxy assumptions
     tooltip_nota = (
         "Duration = Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket). "
-        "Proxies: Vencidos=0d; ≤30d=30d; intervalos=ponto médio; >1080d=1440d."
+        "Proxies: Vencidos=0d; ≤30d=30d; intervalos=ponto médio; "
+        ">1080d só entra se a faixa aberta não dominar a carteira."
     )
     x_sort = _competencia_axis_sort(df)
 
