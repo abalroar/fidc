@@ -28,7 +28,7 @@ from services.monitoring_metrics import (
     save_manual_overrides,
 )
 from services.portfolio_store import PortfolioRecord
-from services.variaveis_fnet import VARIAVEIS_FNET, competencia_columns, resolve_tag_path
+from services.variaveis_fnet import competencia_columns, resolve_tag_path
 from tabs.ime_portfolio_support import (
     build_portfolio_record_label_lookup,
     format_portfolio_cnpj,
@@ -44,6 +44,16 @@ _CORE_AVAILABILITY_IDS = (
     "APLIC_ATIVO/VL_SOM_APLIC_ATIVO",
     "APLIC_ATIVO/VL_CARTEIRA",
 )
+_AGING_ABSOLUTE_BUCKETS = [
+    "1-30d",
+    "31-60d",
+    "61-90d",
+    "91-120d",
+    "121-150d",
+    "151-180d",
+    "181-360d",
+    "361d+",
+]
 
 
 @dataclass(frozen=True)
@@ -286,17 +296,17 @@ def render_tab_fidc_monitoring(period: ImePeriodSelection | None = None) -> None
 
     _render_loaded_period_status(success_outputs, requested_period=period, load_period=load_period, cache_months=cache_months)
 
-    cockpit_tab, trend_tab, fund_tab, raw_tab, overrides_tab = st.tabs(
-        ["Cockpit", "Tendências", "Tabela por Fundo", "Dados brutos", "Overrides de Mezanino"]
+    cockpit_tab, consolidated_tab, trend_tab, fund_tab, overrides_tab = st.tabs(
+        ["Cockpit", "Consolidado", "Tendências", "Tabela por Fundo", "Overrides de Mezanino"]
     )
     with cockpit_tab:
         _render_cockpit_tab(success_outputs)
+    with consolidated_tab:
+        _render_consolidado_tab(success_outputs)
     with trend_tab:
         _render_comparison_tab(success_outputs)
     with fund_tab:
         _render_fund_boards_tab(success_outputs)
-    with raw_tab:
-        _render_raw_data_tab(success_outputs)
     with overrides_tab:
         _render_overrides_tab(success_outputs)
 
@@ -518,42 +528,253 @@ def _render_cockpit_table_html(outputs: list[dict[str, Any]], latest: str) -> st
     return "\n".join(html)
 
 
-def _render_comparison_tab(outputs: list[dict[str, Any]]) -> None:
-    options = [item[0] for item in VARIAVEIS_FNET]
-    labels = {item[0]: item[1] for item in VARIAVEIS_FNET}
-    default_id = "PATRLIQ/VL_SOM_PATRLIQ"
-    selected_id = st.selectbox(
-        "Variável a comparar",
-        options=options,
-        index=options.index(default_id) if default_id in options else 0,
-        format_func=lambda value: f"{labels.get(value, value)} · {value}",
-        key="monitoring_compare_variable",
-    )
-    chart_df = _comparison_long_df(outputs, selected_id)
-    if chart_df.empty:
-        st.info("A variável selecionada não está disponível nos fundos carregados.")
+def _render_consolidado_tab(outputs: list[dict[str, Any]]) -> None:
+    competencias = _ordered_union_competencias(outputs)
+    if not competencias:
+        st.info("Sem competências disponíveis para consolidar.")
         return
-    unit = _unit_for_raw_variable(selected_id)
-    y_title = "R$ MM" if unit == "money" else ("%" if unit == "percent" else "Valor")
-    chart = (
-        alt.Chart(chart_df)
-        .mark_line(point=True, strokeWidth=2)
+    st.markdown(
+        f"""
+<div class="monitor-card-row">
+  <span class="monitor-chip"><strong>Fundos:</strong> {len(outputs)}</span>
+  <span class="monitor-chip"><strong>Janela:</strong> {escape(_format_competencia_span(competencias))}</span>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+    rows = []
+    for item in outputs:
+        row = {"Fundo": str(item.get("display_name") or item.get("cnpj") or "-")}
+        for competencia in competencias:
+            row[_format_competencia_label(competencia)] = _metric_numeric(item, "PL (R$ MM)", competencia)
+        rows.append(row)
+    df = pd.DataFrame(rows).set_index("Fundo") if rows else pd.DataFrame()
+    st.dataframe(df, use_container_width=True)
+
+
+def _render_comparison_tab(outputs: list[dict[str, Any]]) -> None:
+    selected = _select_output(outputs, key="monitoring_trend_fund")
+    if selected is None:
+        return
+    st.altair_chart(
+        _dual_axis_indicator_chart(
+            selected,
+            title="Evolução PL e Subordinação",
+            bar_indicator="PL (R$ MM)",
+            bar_title="PL (R$ MM)",
+            bar_color="#C0392B",
+            line_indicators=[("Cotas Sub / PL %", "Cotas Sub / PL %", "#1a1a1a", [])],
+            line_title="Cotas Sub / PL %",
+            line_value_transform=lambda value: value,
+            line_value_formatter=_format_chart_percent,
+        ),
+        use_container_width=True,
+    )
+    st.altair_chart(
+        _dual_axis_indicator_chart(
+            selected,
+            title="Evolução Dir Cred e Vencidos",
+            bar_indicator="Dir Cred (R$ MM)",
+            bar_title="Dir Cred (R$ MM)",
+            bar_color="#C0392B",
+            line_indicators=[
+                ("Vencidos <= 90 d / Crédito", "Vencidos ≤90d/Créd", "#555555", []),
+                ("Vencidos > 90 d / Crédito", "Vencidos >90d/Créd", "#1a1a1a", [4, 2]),
+            ],
+            line_title="Vencidos / Crédito (%)",
+            line_value_transform=lambda value: value * 100.0,
+            line_value_formatter=_format_chart_percent,
+        ),
+        use_container_width=True,
+    )
+    st.altair_chart(
+        _dual_axis_indicator_chart(
+            selected,
+            title="Provisão e Cobertura",
+            bar_indicator="PDD (R$ MM)",
+            bar_title="PDD (R$ MM)",
+            bar_color="#C0392B",
+            line_indicators=[("PDD / Venc Total", "PDD / Venc Total", "#1a1a1a", [])],
+            line_title="PDD / Venc Total (%)",
+            line_value_transform=lambda value: value * 100.0,
+            line_value_formatter=_format_chart_percent,
+        ),
+        use_container_width=True,
+    )
+    st.altair_chart(_return_lines_chart(selected), use_container_width=True)
+
+
+def _ordered_union_competencias(outputs: list[dict[str, Any]]) -> list[str]:
+    values = {
+        str(competencia)
+        for item in outputs
+        for competencia in (item.get("competencias") or [])
+        if str(competencia or "").strip()
+    }
+    return sorted(values, key=lambda value: parse_competencia_label(value))
+
+
+def _indicator_series_for_fund(item: dict[str, Any], indicator: str) -> list[dict[str, object]]:
+    """Retorna [{comp_label: str, valor: float}, ...] para o indicador dado."""
+    rows: list[dict[str, object]] = []
+    for competencia in item.get("competencias") or []:
+        value = _metric_numeric(item, indicator, competencia)
+        if value is None:
+            continue
+        rows.append(
+            {
+                "competencia": competencia,
+                "comp_label": _format_competencia_label(competencia),
+                "valor": float(value),
+            }
+        )
+    return rows
+
+
+def _dual_axis_indicator_chart(
+    item: dict[str, Any],
+    *,
+    title: str,
+    bar_indicator: str,
+    bar_title: str,
+    bar_color: str,
+    line_indicators: list[tuple[str, str, str, list[int]]],
+    line_title: str,
+    line_value_transform,
+    line_value_formatter,
+) -> alt.Chart:
+    comp_list = [_format_competencia_label(competencia) for competencia in item.get("competencias") or []]
+    bar_df = pd.DataFrame(_indicator_series_for_fund(item, bar_indicator))
+    if not bar_df.empty:
+        bar_df["valor_fmt"] = bar_df["valor"].map(_format_chart_money_mm)
+    line_rows: list[dict[str, object]] = []
+    for indicator, label, color, dash in line_indicators:
+        for row in _indicator_series_for_fund(item, indicator):
+            plot_value = line_value_transform(float(row["valor"]))
+            line_rows.append(
+                {
+                    "comp_label": row["comp_label"],
+                    "valor": plot_value,
+                    "valor_fmt": line_value_formatter(plot_value),
+                    "serie": label,
+                    "color": color,
+                    "dash": str(dash),
+                }
+            )
+    line_df = pd.DataFrame(line_rows)
+    if bar_df.empty and line_df.empty:
+        return _empty_monitoring_chart(title)
+
+    base = alt.Chart(pd.DataFrame({"comp_label": comp_list})).encode(
+        x=alt.X("comp_label:N", sort=comp_list, title=None)
+    )
+    bars = (
+        alt.Chart(bar_df)
+        .mark_bar(color=bar_color)
         .encode(
-            x=alt.X("competencia_label:N", title="Competência", sort=chart_df["competencia_label"].drop_duplicates().tolist()),
-            y=alt.Y("valor_plot:Q", title=y_title),
-            color=alt.Color("fundo:N", title="FIDC"),
+            x=alt.X("comp_label:N", sort=comp_list, title=None),
+            y=alt.Y("valor:Q", title=bar_title, axis=alt.Axis(titleColor=bar_color)),
             tooltip=[
-                alt.Tooltip("fundo:N", title="FIDC"),
-                alt.Tooltip("competencia_label:N", title="Competência"),
-                alt.Tooltip("valor_fmt:N", title="Valor"),
+                alt.Tooltip("comp_label:N", title="Competência"),
+                alt.Tooltip("valor_fmt:N", title=bar_title),
             ],
         )
-        .properties(height=380)
+        if not bar_df.empty
+        else base.mark_bar(opacity=0)
+    )
+    series_domain = [label for _, label, _, _ in line_indicators]
+    color_range = [color for _, _, color, _ in line_indicators]
+    dash_range = [dash for _, _, _, dash in line_indicators]
+    lines = (
+        alt.Chart(line_df)
+        .mark_line(point=True, strokeWidth=2.4)
+        .encode(
+            x=alt.X("comp_label:N", sort=comp_list, title=None),
+            y=alt.Y("valor:Q", title=line_title, axis=alt.Axis(titleColor="#1a1a1a"), scale=alt.Scale()),
+            color=alt.Color("serie:N", title=None, scale=alt.Scale(domain=series_domain, range=color_range)),
+            strokeDash=alt.StrokeDash("serie:N", legend=None, scale=alt.Scale(domain=series_domain, range=dash_range)),
+            tooltip=[
+                alt.Tooltip("comp_label:N", title="Competência"),
+                alt.Tooltip("serie:N", title="Série"),
+                alt.Tooltip("valor_fmt:N", title=line_title),
+            ],
+        )
+        if not line_df.empty
+        else base.mark_line(opacity=0)
+    )
+    return (
+        alt.layer(bars, lines)
+        .resolve_scale(y="independent")
+        .properties(height=260, title=title)
         .configure_axis(labelFontSize=11, titleFontSize=12)
         .configure_legend(labelFontSize=11, titleFontSize=11, orient="bottom")
     )
-    st.altair_chart(chart, use_container_width=True)
-    st.dataframe(_comparison_table(outputs, selected_id), hide_index=True, use_container_width=True)
+
+
+def _return_lines_chart(item: dict[str, Any]) -> alt.Chart:
+    comp_list = [_format_competencia_label(competencia) for competencia in item.get("competencias") or []]
+    series_specs = [
+        ("Rentabilidade SR % a.m.", "SR", "#2980B9"),
+        ("Rentabilidade Sub % a.m.", "Sub", "#1a1a1a"),
+        ("Rentabilidade MZ % a.m.", "MZ", "#8E44AD"),
+    ]
+    rows: list[dict[str, object]] = []
+    present_labels: list[str] = []
+    present_colors: list[str] = []
+    for indicator, label, color in series_specs:
+        series_rows = _indicator_series_for_fund(item, indicator)
+        if not series_rows:
+            continue
+        present_labels.append(label)
+        present_colors.append(color)
+        for row in series_rows:
+            value = float(row["valor"])
+            rows.append(
+                {
+                    "comp_label": row["comp_label"],
+                    "valor": value,
+                    "valor_fmt": _format_chart_percent(value),
+                    "serie": label,
+                }
+            )
+    df = pd.DataFrame(rows)
+    if df.empty:
+        return _empty_monitoring_chart("Rentabilidade das Cotas")
+    return (
+        alt.Chart(df)
+        .mark_line(point=True, strokeWidth=2.4)
+        .encode(
+            x=alt.X("comp_label:N", sort=comp_list, title=None),
+            y=alt.Y("valor:Q", title="% a.m.", scale=alt.Scale()),
+            color=alt.Color("serie:N", title=None, scale=alt.Scale(domain=present_labels, range=present_colors)),
+            tooltip=[
+                alt.Tooltip("comp_label:N", title="Competência"),
+                alt.Tooltip("serie:N", title="Cota"),
+                alt.Tooltip("valor_fmt:N", title="% a.m."),
+            ],
+        )
+        .properties(height=260, title="Rentabilidade das Cotas")
+        .configure_axis(labelFontSize=11, titleFontSize=12)
+        .configure_legend(labelFontSize=11, titleFontSize=11, orient="bottom")
+    )
+
+
+def _empty_monitoring_chart(title: str) -> alt.Chart:
+    return alt.Chart(pd.DataFrame({"comp_label": [], "valor": []})).mark_line().properties(height=260, title=title)
+
+
+def _format_chart_money_mm(value: object) -> str:
+    numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(numeric):
+        return "-"
+    return f"R$ {_format_decimal(float(numeric), 1)} MM"
+
+
+def _format_chart_percent(value: object) -> str:
+    numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(numeric):
+        return "-"
+    return f"{_format_decimal(float(numeric), 1)}%"
 
 
 def _render_fund_boards_tab(outputs: list[dict[str, Any]]) -> None:
@@ -571,15 +792,66 @@ def _render_fund_boards_tab(outputs: list[dict[str, Any]]) -> None:
     )
     latest = _latest_competencia(selected)
     _render_single_fund_cards(selected, latest)
-    spark_left, spark_right = st.columns(2)
-    with spark_left:
-        st.altair_chart(_sparkline_from_indicator(tables.indicators_df, "PL (R$ MM)", "PL (R$ MM)"), use_container_width=True)
-    with spark_right:
-        st.altair_chart(_sparkline_from_indicator(tables.indicators_df, "Vencidos Over 90 d / Crédito", "Over 90d / Crédito"), use_container_width=True)
     st.markdown("### Tabela Completa do fundo")
     st.markdown(_render_fund_time_table_html(selected), unsafe_allow_html=True)
+    st.markdown("### Aging da Carteira")
+    st.altair_chart(_aging_stacked_bar(tables.aging_df, list(selected.get("competencias") or [])), use_container_width=True)
     with st.expander("Auditoria de fórmulas", expanded=False):
         st.dataframe(tables.audit_df, hide_index=True, use_container_width=True)
+    with st.expander("Dados brutos (variáveis IME)", expanded=False):
+        _render_raw_data_panel(selected, key_suffix=str(selected.get("cnpj") or "fundo"))
+
+
+def _aging_stacked_bar(aging_df: pd.DataFrame, competencias: list[str]) -> alt.Chart:
+    rows: list[dict[str, object]] = []
+    comp_labels = [_format_competencia_label(competencia) for competencia in competencias]
+    for bucket_order, bucket in enumerate(_AGING_ABSOLUTE_BUCKETS):
+        match = aging_df[(aging_df["bucket"] == bucket) & (aging_df["unidade"] == "R$ MM")]
+        if match.empty:
+            continue
+        source = match.iloc[0]
+        for competencia in competencias:
+            value = pd.to_numeric(pd.Series([source.get(competencia)]), errors="coerce").iloc[0]
+            if pd.isna(value):
+                continue
+            rows.append(
+                {
+                    "comp_label": _format_competencia_label(competencia),
+                    "bucket": bucket,
+                    "bucket_order": bucket_order,
+                    "valor": float(value),
+                    "valor_fmt": f"{_format_decimal(float(value), 1)} MM",
+                }
+            )
+    data = pd.DataFrame(rows)
+    if data.empty:
+        return alt.Chart(pd.DataFrame({"comp_label": [], "valor": []})).mark_bar().properties(
+            height=240,
+            title="Aging — Vencidos por Bucket (R$ MM)",
+        )
+    return (
+        alt.Chart(data)
+        .mark_bar()
+        .encode(
+            x=alt.X("comp_label:N", sort=comp_labels, title=None),
+            y=alt.Y("valor:Q", title="R$ MM"),
+            color=alt.Color(
+                "bucket:N",
+                title="Bucket",
+                scale=alt.Scale(domain=_AGING_ABSOLUTE_BUCKETS, scheme="reds"),
+                sort=_AGING_ABSOLUTE_BUCKETS,
+            ),
+            order=alt.Order("bucket_order:Q"),
+            tooltip=[
+                alt.Tooltip("comp_label:N", title="Competência"),
+                alt.Tooltip("bucket:N", title="Bucket"),
+                alt.Tooltip("valor_fmt:N", title="Valor"),
+            ],
+        )
+        .properties(height=240, title="Aging — Vencidos por Bucket (R$ MM)")
+        .configure_axis(labelFontSize=11, titleFontSize=12)
+        .configure_legend(labelFontSize=11, titleFontSize=11, orient="bottom")
+    )
 
 
 def _render_single_fund_cards(item: dict[str, Any], latest: str | None) -> None:
@@ -668,6 +940,8 @@ def _fund_time_table_sections(tables: MonitoringTables) -> dict[str, list[dict[s
             sections[section] = rows
     aging_rows = []
     for _, row in tables.aging_df.iterrows():
+        if row.get("unidade") != "R$ MM":
+            continue
         payload = row.to_dict()
         payload["label"] = payload.get("bucket")
         payload["metric"] = payload.get("bucket")
@@ -682,13 +956,17 @@ def _render_raw_data_tab(outputs: list[dict[str, Any]]) -> None:
     selected = _select_output(outputs, key="monitoring_raw_fund")
     if selected is None:
         return
+    _render_raw_data_panel(selected, key_suffix="tab")
+
+
+def _render_raw_data_panel(selected: dict[str, Any], *, key_suffix: str) -> None:
     raw_df = selected["tables"].raw_variables_df.copy()
     sections = raw_df["secao"].dropna().astype(str).drop_duplicates().tolist()
     selected_sections = st.multiselect(
         "Seções",
         options=sections,
         default=sections,
-        key="monitoring_raw_sections",
+        key=f"monitoring_raw_sections::{key_suffix}",
     )
     if selected_sections:
         raw_df = raw_df[raw_df["secao"].isin(selected_sections)].copy()
