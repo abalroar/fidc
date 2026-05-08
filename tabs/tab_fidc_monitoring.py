@@ -2,8 +2,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
+import hashlib
 from html import escape
+import json
 import math
+from pathlib import Path
+import time
 from typing import Any
 
 import altair as alt
@@ -40,6 +44,8 @@ from tabs.ime_portfolio_support import (
 
 
 _CACHE_MONTH_OPTIONS = (12, 15, 18, 24, 36, 48, 60, 72)
+_MONITORING_DERIVED_CACHE_VERSION = 2
+_MONITORING_DERIVED_CACHE_ROOT = Path(".cache/fundonet-monitoring")
 _CORE_AVAILABILITY_IDS = (
     "PATRLIQ/VL_SOM_PATRLIQ",
     "PATRLIQ/VL_PATRIM_LIQ",
@@ -373,6 +379,7 @@ def _load_portfolio_monitoring(portfolio: PortfolioRecord, period: ImePeriodSele
     total = len(portfolio.funds)
     load_period = _build_cache_load_period(period=period, cache_months=cache_months)
     for index, fund in enumerate(portfolio.funds, start=1):
+        fund_started = time.perf_counter()
         progress.progress(index / max(total, 1), text=f"{index}/{total} · {fund.display_name}")
         try:
             cached = load_or_extract_informe(
@@ -384,23 +391,17 @@ def _load_portfolio_monitoring(portfolio: PortfolioRecord, period: ImePeriodSele
             all_competencias = _available_competencias_from_wide(wide_df)
             competencias = select_competencia_labels_for_period(all_competencias, period) or all_competencias
             overrides = load_manual_overrides(fund.cnpj)
-            dashboard_data = None
-            dashboard_error = ""
-            try:
-                dashboard_data = build_dashboard_data(
-                    wide_csv_path=cached.result.wide_csv_path,
-                    listas_csv_path=cached.result.listas_csv_path,
-                    docs_csv_path=cached.result.docs_csv_path,
-                )
-            except Exception as dashboard_exc:  # noqa: BLE001
-                dashboard_error = f"{type(dashboard_exc).__name__}: {dashboard_exc}"
-            tables = build_monitoring_tables(
-                wide_df,
-                competencias,
+            tables, metric_source, dashboard_error, derived_cache_status = _load_or_build_monitoring_tables(
+                wide_df=wide_df,
                 cnpj=fund.cnpj,
+                competencias=competencias,
                 overrides=overrides,
-                dashboard_data=dashboard_data,
+                ime_cache_key=cached.cache_key,
+                wide_csv_path=cached.result.wide_csv_path,
+                listas_csv_path=cached.result.listas_csv_path,
+                docs_csv_path=cached.result.docs_csv_path,
             )
+            elapsed = time.perf_counter() - fund_started
             outputs.append(
                 {
                     "cnpj": fund.cnpj,
@@ -409,10 +410,12 @@ def _load_portfolio_monitoring(portfolio: PortfolioRecord, period: ImePeriodSele
                     "all_competencias": all_competencias,
                     "tables": tables,
                     "cache_status": cached.cache_status,
+                    "derived_cache_status": derived_cache_status,
                     "cache_dir": str(cached.cache_dir),
                     "load_period_label": _format_period_label(load_period),
-                    "metric_source": "Visão Executiva canônica" if dashboard_data is not None else "Campos escalares IME",
+                    "metric_source": metric_source,
                     "dashboard_error": dashboard_error,
+                    "load_seconds": round(elapsed, 3),
                 }
             )
         except Exception as exc:  # noqa: BLE001
@@ -421,10 +424,139 @@ def _load_portfolio_monitoring(portfolio: PortfolioRecord, period: ImePeriodSele
                     "cnpj": fund.cnpj,
                     "display_name": normalize_portfolio_fund_name(fund.display_name, fund.cnpj),
                     "error": f"{type(exc).__name__}: {exc}",
+                    "load_seconds": round(time.perf_counter() - fund_started, 3),
                 }
             )
     progress.empty()
     return outputs
+
+
+def _load_or_build_monitoring_tables(
+    *,
+    wide_df: pd.DataFrame,
+    cnpj: str,
+    competencias: list[str],
+    overrides: dict[str, Any],
+    ime_cache_key: str,
+    wide_csv_path: Path,
+    listas_csv_path: Path,
+    docs_csv_path: Path,
+) -> tuple[MonitoringTables, str, str, str]:
+    cache_key = _monitoring_derived_cache_key(
+        cnpj=cnpj,
+        ime_cache_key=ime_cache_key,
+        competencias=competencias,
+        overrides=overrides,
+    )
+    cached = _read_monitoring_derived_cache(cache_key)
+    if cached is not None:
+        return cached
+
+    dashboard_data = None
+    dashboard_error = ""
+    try:
+        dashboard_data = build_dashboard_data(
+            wide_csv_path=wide_csv_path,
+            listas_csv_path=listas_csv_path,
+            docs_csv_path=docs_csv_path,
+        )
+    except Exception as dashboard_exc:  # noqa: BLE001
+        dashboard_error = f"{type(dashboard_exc).__name__}: {dashboard_exc}"
+    tables = build_monitoring_tables(
+        wide_df,
+        competencias,
+        cnpj=cnpj,
+        overrides=overrides,
+        dashboard_data=dashboard_data,
+    )
+    metric_source = "Visão Executiva canônica" if dashboard_data is not None else "Campos escalares IME"
+    _write_monitoring_derived_cache(
+        cache_key=cache_key,
+        tables=tables,
+        metric_source=metric_source,
+        dashboard_error=dashboard_error,
+    )
+    return tables, metric_source, dashboard_error, "miss"
+
+
+def _monitoring_derived_cache_key(
+    *,
+    cnpj: str,
+    ime_cache_key: str,
+    competencias: list[str],
+    overrides: dict[str, Any],
+) -> str:
+    payload = {
+        "schema_version": _MONITORING_DERIVED_CACHE_VERSION,
+        "cnpj": "".join(ch for ch in str(cnpj) if ch.isdigit()),
+        "ime_cache_key": ime_cache_key,
+        "competencias": list(competencias),
+        "overrides": overrides or {},
+    }
+    return hashlib.sha256(json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str).encode("utf-8")).hexdigest()
+
+
+def _read_monitoring_derived_cache(cache_key: str) -> tuple[MonitoringTables, str, str, str] | None:
+    cache_dir = _MONITORING_DERIVED_CACHE_ROOT / cache_key
+    manifest_path = cache_dir / "manifest.json"
+    if not manifest_path.exists():
+        return None
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if int(manifest.get("schema_version") or 0) != _MONITORING_DERIVED_CACHE_VERSION:
+        return None
+    files = manifest.get("files") or {}
+    required = {"raw_variables_df", "indicators_df", "aging_df", "audit_df"}
+    if not required.issubset(files):
+        return None
+    paths = {key: cache_dir / str(value) for key, value in files.items()}
+    if not all(paths[key].exists() for key in required):
+        return None
+    try:
+        tables = MonitoringTables(
+            raw_variables_df=pd.read_csv(paths["raw_variables_df"], dtype=str, keep_default_na=False),
+            indicators_df=pd.read_csv(paths["indicators_df"], dtype=str, keep_default_na=False),
+            aging_df=pd.read_csv(paths["aging_df"], dtype=str, keep_default_na=False),
+            audit_df=pd.read_csv(paths["audit_df"], dtype=str, keep_default_na=False),
+        )
+    except (OSError, pd.errors.ParserError):
+        return None
+    return (
+        tables,
+        str(manifest.get("metric_source") or "cache derivado"),
+        str(manifest.get("dashboard_error") or ""),
+        "hit",
+    )
+
+
+def _write_monitoring_derived_cache(
+    *,
+    cache_key: str,
+    tables: MonitoringTables,
+    metric_source: str,
+    dashboard_error: str,
+) -> None:
+    cache_dir = _MONITORING_DERIVED_CACHE_ROOT / cache_key
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    file_map = {
+        "raw_variables_df": "raw_variables.csv",
+        "indicators_df": "indicators.csv",
+        "aging_df": "aging.csv",
+        "audit_df": "audit.csv",
+    }
+    tables.raw_variables_df.to_csv(cache_dir / file_map["raw_variables_df"], index=False)
+    tables.indicators_df.to_csv(cache_dir / file_map["indicators_df"], index=False)
+    tables.aging_df.to_csv(cache_dir / file_map["aging_df"], index=False)
+    tables.audit_df.to_csv(cache_dir / file_map["audit_df"], index=False)
+    manifest = {
+        "schema_version": _MONITORING_DERIVED_CACHE_VERSION,
+        "metric_source": metric_source,
+        "dashboard_error": dashboard_error,
+        "files": file_map,
+    }
+    (cache_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 def _available_competencias_from_wide(wide_df: pd.DataFrame) -> list[str]:
@@ -463,6 +595,7 @@ def _render_loaded_period_status(
     latest_label = _format_competencia_label(latest) if latest else "-"
     reference_label = _format_competencia_label(reference) if reference else "-"
     display_label = display_span or "-"
+    total_load_seconds = sum(float(item.get("load_seconds") or 0.0) for item in outputs)
     if latest:
         latest_date = parse_competencia_label(latest)
         if requested_period.end_month > latest_date:
@@ -479,6 +612,7 @@ def _render_loaded_period_status(
   <span class="monitor-chip"><strong>Última competência disponível:</strong> {escape(latest_label)}</span>
   <span class="monitor-chip"><strong>Cache carregado:</strong> {escape(_format_period_label(load_period))}</span>
   <span class="monitor-chip"><strong>Horizonte:</strong> {cache_months} meses</span>
+  <span class="monitor-chip"><strong>Tempo da carga:</strong> {_format_decimal(total_load_seconds, 1)}s</span>
 </div>
 """,
         unsafe_allow_html=True,
@@ -1147,6 +1281,8 @@ def _build_cache_diagnostics_df(outputs: list[dict[str, Any]]) -> pd.DataFrame:
                 "Fundo": item.get("display_name"),
                 "CNPJ": format_portfolio_cnpj(str(item.get("cnpj") or "")),
                 "Status cache": item.get("cache_status"),
+                "Cache derivado": item.get("derived_cache_status"),
+                "Tempo carga (s)": item.get("load_seconds"),
                 "Primeira no cache": _format_competencia_label(all_competencias[0]) if all_competencias else "-",
                 "Última no cache": _format_competencia_label(all_competencias[-1]) if all_competencias else "-",
                 "Janela exibida": _format_competencia_span(display_competencias),
