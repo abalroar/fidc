@@ -153,6 +153,49 @@ def build_indicators_df(
             ]
         ),
     )
+    venc_over_30_raw = _sum_series(
+        wide_lookup,
+        competencias,
+        _aging_ids(
+            [
+                "VL_INAD_VENC_31_60",
+                "VL_INAD_VENC_61_90",
+                "VL_INAD_VENC_91_120",
+                "VL_INAD_VENC_121_150",
+                "VL_INAD_VENC_151_180",
+                "VL_INAD_VENC_181_360",
+                "VL_INAD_VENC_361_720",
+                "VL_INAD_VENC_721_1080",
+                "VL_INAD_VENC_1080",
+            ]
+        ),
+    )
+    venc_over_60_raw = _sum_series(
+        wide_lookup,
+        competencias,
+        _aging_ids(
+            [
+                "VL_INAD_VENC_61_90",
+                "VL_INAD_VENC_91_120",
+                "VL_INAD_VENC_121_150",
+                "VL_INAD_VENC_151_180",
+                "VL_INAD_VENC_181_360",
+                "VL_INAD_VENC_361_720",
+                "VL_INAD_VENC_721_1080",
+                "VL_INAD_VENC_1080",
+            ]
+        ),
+    )
+    venc_over_180_raw = _sum_series(
+        wide_lookup,
+        competencias,
+        _aging_ids(["VL_INAD_VENC_181_360", "VL_INAD_VENC_361_720", "VL_INAD_VENC_721_1080", "VL_INAD_VENC_1080"]),
+    )
+    venc_over_360_raw = _sum_series(
+        wide_lookup,
+        competencias,
+        _aging_ids(["VL_INAD_VENC_361_720", "VL_INAD_VENC_721_1080", "VL_INAD_VENC_1080"]),
+    )
     venc_total_raw = _sum_existing_series([venc_ate_90_raw, venc_acima_90_raw])
     pdd_raw = _sum_series(
         wide_lookup,
@@ -178,6 +221,16 @@ def build_indicators_df(
         ("Vencidos <= 90 d / Crédito", "ratio", _safe_divide(venc_ate_90_raw, dircred_raw), "Vencidos <=90d ÷ Dir Cred", "derivado"),
         ("Vencidos > 90 d / Crédito", "ratio", _safe_divide(venc_acima_90_raw, dircred_raw), "Vencidos >90d ÷ Dir Cred", "derivado"),
         ("Vencidos Total / Crédito", "ratio", _safe_divide(venc_total_raw, dircred_raw), "Vencidos Total ÷ Dir Cred", "derivado"),
+        ("Vencidos Over 30 d (R$ MM)", "R$ MM", venc_over_30_raw / MONEY_SCALE, "Soma buckets 31d+ ÷ 1e6", "COMPMT_DICRED_*"),
+        ("Vencidos Over 30 d / Crédito", "ratio", _safe_divide(venc_over_30_raw, dircred_raw), "Vencidos Over 30d ÷ Dir Cred", "derivado"),
+        ("Vencidos Over 60 d (R$ MM)", "R$ MM", venc_over_60_raw / MONEY_SCALE, "Soma buckets 61d+ ÷ 1e6", "COMPMT_DICRED_*"),
+        ("Vencidos Over 60 d / Crédito", "ratio", _safe_divide(venc_over_60_raw, dircred_raw), "Vencidos Over 60d ÷ Dir Cred", "derivado"),
+        ("Vencidos Over 90 d (R$ MM)", "R$ MM", venc_acima_90_raw / MONEY_SCALE, "Soma buckets 91d+ ÷ 1e6", "COMPMT_DICRED_*"),
+        ("Vencidos Over 90 d / Crédito", "ratio", _safe_divide(venc_acima_90_raw, dircred_raw), "Vencidos Over 90d ÷ Dir Cred", "derivado"),
+        ("Vencidos Over 180 d (R$ MM)", "R$ MM", venc_over_180_raw / MONEY_SCALE, "Soma buckets 181d+ ÷ 1e6", "COMPMT_DICRED_*"),
+        ("Vencidos Over 180 d / Crédito", "ratio", _safe_divide(venc_over_180_raw, dircred_raw), "Vencidos Over 180d ÷ Dir Cred", "derivado"),
+        ("Vencidos Over 360 d (R$ MM)", "R$ MM", venc_over_360_raw / MONEY_SCALE, "Soma buckets 361d+ ÷ 1e6", "COMPMT_DICRED_*"),
+        ("Vencidos Over 360 d / Crédito", "ratio", _safe_divide(venc_over_360_raw, dircred_raw), "Vencidos Over 360d ÷ Dir Cred", "derivado"),
         ("PDD (R$ MM)", "R$ MM", pdd_raw / MONEY_SCALE, "(PDD com aquisição + PDD sem aquisição) ÷ 1e6", "CRED_EXISTE/VL_PROVIS_REDUC_RECUP; DICRED/VL_DICRED_PROVIS_REDUC_RECUP"),
         ("PDD / Crédito", "ratio", _safe_divide(pdd_raw, dircred_raw), "PDD ÷ Dir Cred", "derivado"),
         ("PDD / Venc > 90 d", "ratio", _safe_divide(pdd_raw, venc_acima_90_raw), "PDD ÷ Vencidos >90d", "derivado"),

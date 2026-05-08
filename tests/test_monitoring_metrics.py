@@ -44,6 +44,8 @@ class MonitoringMetricsTests(unittest.TestCase):
         self.assertAlmostEqual(53_548.38 / dircred, _indicator(tables.indicators_df, "PDD / Crédito", "10/2025"), places=8)
         self.assertAlmostEqual(60_000.0 / 1_000_000.0, _aging(tables.aging_df, "1-30d", "10/2025"), places=8)
         self.assertAlmostEqual((60_000.0 + 15_000.0 + 5_000.0) / dircred, _indicator(tables.indicators_df, "Vencidos <= 90 d / Crédito", "10/2025"), places=8)
+        self.assertAlmostEqual((15_000.0 + 5_000.0 + 4_000.0 + 3_000.0 + 2_000.0 + 1_000.0) / dircred, _indicator(tables.indicators_df, "Vencidos Over 30 d / Crédito", "10/2025"), places=8)
+        self.assertAlmostEqual((4_000.0 + 3_000.0 + 2_000.0 + 1_000.0) / dircred, _indicator(tables.indicators_df, "Vencidos Over 90 d / Crédito", "10/2025"), places=8)
 
     def test_division_by_zero_returns_pd_na(self) -> None:
         wide_df = _fixture_wide_df(pl=0.0, dircred=0.0)
