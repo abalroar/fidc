@@ -4,6 +4,7 @@ import streamlit as st
 
 from tabs.tab_fidc_book import render_tab_fidc_book
 from tabs import tab_fidc_ime as ime_tab
+from tabs.tab_fidc_monitoring import render_tab_fidc_monitoring
 from tabs.tab_mercado_livre import render_tab_somatorio_fidcs
 from tabs.tab_fidc_ime_carteira import render_tab_fidc_ime_carteira
 from tabs.tab_modelo_fidc import render_tab_modelo_fidc
@@ -251,6 +252,7 @@ _MAIN_SECTIONS = [
     "Informe Mensal Estruturado",
     "Acompanhamento Carteira",
     "Soma de FIDCs",
+    "Monitoramento FIDCs",
     "Modelagem",
 ]
 
@@ -269,6 +271,8 @@ elif selected_section == "Acompanhamento Carteira":
     render_tab_fidc_ime_carteira(period=period)
 elif selected_section == "Soma de FIDCs":
     render_tab_somatorio_fidcs(period=period)
+elif selected_section == "Monitoramento FIDCs":
+    render_tab_fidc_monitoring(period=period)
 elif selected_section == "Modelagem":
     render_tab_modelo_fidc()
 elif selected_section == "Glossário FIDCs":
