@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from types import SimpleNamespace
 import tempfile
 import unittest
 
@@ -70,6 +71,32 @@ class MonitoringMetricsTests(unittest.TestCase):
         self.assertAlmostEqual(5.0, _indicator(tables.indicators_df, "Cotas MZ / PL %", "10/2025"), places=2)
         self.assertAlmostEqual(1.02, _indicator(tables.indicators_df, "Rentabilidade MZ % a.m.", "10/2025"), places=2)
 
+    def test_canonical_dashboard_data_overrides_sparse_scalar_fields(self) -> None:
+        wide_df = _fixture_wide_df(pl=1_000_000.0, dircred=210_000.0)
+        dashboard = _fixture_dashboard_data()
+
+        tables = build_monitoring_tables(wide_df, ["10/2025"], cnpj="12345678000199", dashboard_data=dashboard)
+
+        self.assertAlmostEqual(1_000_000_000.0, _indicator(tables.indicators_df, "PL (R$)", "10/2025"), places=2)
+        self.assertAlmostEqual(950.0, _indicator(tables.indicators_df, "Dir Cred (R$ MM)", "10/2025"), places=8)
+        self.assertAlmostEqual(0.95, _indicator(tables.indicators_df, "Dir Cred / PL", "10/2025"), places=8)
+        self.assertAlmostEqual(45.0, _indicator(tables.indicators_df, "Vencidos Over 90 d (R$ MM)", "10/2025"), places=8)
+        self.assertAlmostEqual(45.0 / 950.0, _indicator(tables.indicators_df, "Vencidos Over 90 d / Crédito", "10/2025"), places=8)
+        self.assertAlmostEqual(220.0, _aging(tables.aging_df, "361d+", "10/2025"), places=8)
+
+    def test_canonical_dashboard_data_reconstructs_quotas_and_weighted_returns(self) -> None:
+        wide_df = _fixture_wide_df(pl=1_000_000_000.0, dircred=950_000_000.0)
+        dashboard = _fixture_dashboard_data()
+
+        tables = build_monitoring_tables(wide_df, ["10/2025"], cnpj="12345678000199", dashboard_data=dashboard)
+
+        self.assertAlmostEqual(70.0, _indicator(tables.indicators_df, "Cotas SR / PL %", "10/2025"), places=8)
+        self.assertAlmostEqual(10.0, _indicator(tables.indicators_df, "Cotas MZ / PL %", "10/2025"), places=8)
+        self.assertAlmostEqual(20.0, _indicator(tables.indicators_df, "Cotas Sub / PL %", "10/2025"), places=8)
+        self.assertAlmostEqual(1.0714285714, _indicator(tables.indicators_df, "Rentabilidade SR % a.m.", "10/2025"), places=8)
+        self.assertAlmostEqual(1.5, _indicator(tables.indicators_df, "Rentabilidade MZ % a.m.", "10/2025"), places=8)
+        self.assertAlmostEqual(3.0, _indicator(tables.indicators_df, "Rentabilidade Sub % a.m.", "10/2025"), places=8)
+
 
 def _indicator(frame: pd.DataFrame, label: str, competencia: str) -> object:
     return frame.loc[frame["indicador"] == label, competencia].iloc[0]
@@ -104,6 +131,67 @@ def _fixture_wide_df(*, pl: float = 672_084_551.63, dircred: float | None = None
     }
     return pd.DataFrame(
         [{"tag_path": tag_path, "10/2025": value} for tag_path, value in rows.items()]
+    )
+
+
+def _fixture_dashboard_data() -> SimpleNamespace:
+    return SimpleNamespace(
+        subordination_history_df=pd.DataFrame(
+            [
+                {
+                    "competencia": "10/2025",
+                    "pl_total": 1_000_000_000.0,
+                    "pl_senior": 700_000_000.0,
+                    "pl_mezzanino": 100_000_000.0,
+                    "pl_subordinada_strict": 200_000_000.0,
+                }
+            ]
+        ),
+        dc_canonical_history_df=pd.DataFrame(
+            [{"competencia": "10/2025", "dc_total_canonico": 950_000_000.0}]
+        ),
+        default_history_df=pd.DataFrame(
+            [{"competencia": "10/2025", "inadimplencia_total": 120_000_000.0, "provisao_total": 55_000_000.0}]
+        ),
+        default_over_history_df=pd.DataFrame(
+            [
+                {"competencia": "10/2025", "serie": "Over 30", "valor": 80_000_000.0},
+                {"competencia": "10/2025", "serie": "Over 60", "valor": 65_000_000.0},
+                {"competencia": "10/2025", "serie": "Over 90", "valor": 45_000_000.0},
+                {"competencia": "10/2025", "serie": "Over 180", "valor": 20_000_000.0},
+                {"competencia": "10/2025", "serie": "Over 360", "valor": 10_000_000.0},
+            ]
+        ),
+        default_aging_history_df=pd.DataFrame(
+            [
+                {"competencia": "10/2025", "faixa": "Até 30 dias", "valor": 10_000_000.0},
+                {"competencia": "10/2025", "faixa": "31 a 60 dias", "valor": 20_000_000.0},
+                {"competencia": "10/2025", "faixa": "61 a 90 dias", "valor": 30_000_000.0},
+                {"competencia": "10/2025", "faixa": "91 a 120 dias", "valor": 40_000_000.0},
+                {"competencia": "10/2025", "faixa": "121 a 150 dias", "valor": 50_000_000.0},
+                {"competencia": "10/2025", "faixa": "151 a 180 dias", "valor": 60_000_000.0},
+                {"competencia": "10/2025", "faixa": "181 a 360 dias", "valor": 70_000_000.0},
+                {"competencia": "10/2025", "faixa": "361 a 720 dias", "valor": 80_000_000.0},
+                {"competencia": "10/2025", "faixa": "721 a 1080 dias", "valor": 90_000_000.0},
+                {"competencia": "10/2025", "faixa": "Acima de 1080 dias", "valor": 50_000_000.0},
+            ]
+        ),
+        quota_pl_history_df=pd.DataFrame(
+            [
+                {"competencia": "10/2025", "class_macro": "senior", "class_key": "sr1", "pl": 500_000_000.0, "pl_reconciliacao_role": "classe_reportada"},
+                {"competencia": "10/2025", "class_macro": "senior", "class_key": "sr2", "pl": 200_000_000.0, "pl_reconciliacao_role": "classe_reportada"},
+                {"competencia": "10/2025", "class_macro": "mezzanino", "class_key": "mz1", "pl": 100_000_000.0, "pl_reconciliacao_role": "classe_reportada"},
+                {"competencia": "10/2025", "class_macro": "subordinada", "class_key": "sub1", "pl": 200_000_000.0, "pl_reconciliacao_role": "classe_reportada"},
+            ]
+        ),
+        return_history_df=pd.DataFrame(
+            [
+                {"competencia": "10/2025", "class_macro": "senior", "class_key": "sr1", "retorno_mensal_pct": 1.0},
+                {"competencia": "10/2025", "class_macro": "senior", "class_key": "sr2", "retorno_mensal_pct": 1.25},
+                {"competencia": "10/2025", "class_macro": "mezzanino", "class_key": "mz1", "retorno_mensal_pct": 1.5},
+                {"competencia": "10/2025", "class_macro": "subordinada", "class_key": "sub1", "retorno_mensal_pct": 3.0},
+            ]
+        ),
     )
 
 

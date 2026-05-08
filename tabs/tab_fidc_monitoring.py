@@ -3,12 +3,14 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date
 from html import escape
+import math
 from typing import Any
 
 import altair as alt
 import pandas as pd
 import streamlit as st
 
+from services.fundonet_dashboard import build_dashboard_data
 from services.ime_loader import load_or_extract_informe
 from services.ime_period import (
     ImePeriodSelection,
@@ -382,7 +384,23 @@ def _load_portfolio_monitoring(portfolio: PortfolioRecord, period: ImePeriodSele
             all_competencias = _available_competencias_from_wide(wide_df)
             competencias = select_competencia_labels_for_period(all_competencias, period) or all_competencias
             overrides = load_manual_overrides(fund.cnpj)
-            tables = build_monitoring_tables(wide_df, competencias, cnpj=fund.cnpj, overrides=overrides)
+            dashboard_data = None
+            dashboard_error = ""
+            try:
+                dashboard_data = build_dashboard_data(
+                    wide_csv_path=cached.result.wide_csv_path,
+                    listas_csv_path=cached.result.listas_csv_path,
+                    docs_csv_path=cached.result.docs_csv_path,
+                )
+            except Exception as dashboard_exc:  # noqa: BLE001
+                dashboard_error = f"{type(dashboard_exc).__name__}: {dashboard_exc}"
+            tables = build_monitoring_tables(
+                wide_df,
+                competencias,
+                cnpj=fund.cnpj,
+                overrides=overrides,
+                dashboard_data=dashboard_data,
+            )
             outputs.append(
                 {
                     "cnpj": fund.cnpj,
@@ -393,6 +411,8 @@ def _load_portfolio_monitoring(portfolio: PortfolioRecord, period: ImePeriodSele
                     "cache_status": cached.cache_status,
                     "cache_dir": str(cached.cache_dir),
                     "load_period_label": _format_period_label(load_period),
+                    "metric_source": "Visão Executiva canônica" if dashboard_data is not None else "Campos escalares IME",
+                    "dashboard_error": dashboard_error,
                 }
             )
         except Exception as exc:  # noqa: BLE001
@@ -438,8 +458,10 @@ def _render_loaded_period_status(
     cache_months: int,
 ) -> None:
     latest = _portfolio_latest_competencia(outputs)
+    reference, reference_count, reference_total = _portfolio_reference_competencia(outputs)
     display_span = _portfolio_display_span(outputs)
     latest_label = _format_competencia_label(latest) if latest else "-"
+    reference_label = _format_competencia_label(reference) if reference else "-"
     display_label = display_span or "-"
     if latest:
         latest_date = parse_competencia_label(latest)
@@ -452,6 +474,8 @@ def _render_loaded_period_status(
         f"""
 <div class="monitor-card-row">
   <span class="monitor-chip"><strong>Janela exibida:</strong> {escape(display_label)}</span>
+  <span class="monitor-chip"><strong>Competência do cockpit:</strong> {escape(reference_label)}</span>
+  <span class="monitor-chip"><strong>Cobertura do cockpit:</strong> {reference_count}/{reference_total} fundos</span>
   <span class="monitor-chip"><strong>Última competência disponível:</strong> {escape(latest_label)}</span>
   <span class="monitor-chip"><strong>Cache carregado:</strong> {escape(_format_period_label(load_period))}</span>
   <span class="monitor-chip"><strong>Horizonte:</strong> {cache_months} meses</span>
@@ -462,22 +486,25 @@ def _render_loaded_period_status(
 
 
 def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
-    latest = _portfolio_latest_competencia(outputs)
-    if not latest:
+    reference, reference_count, reference_total = _portfolio_reference_competencia(outputs)
+    if not reference:
         st.info("Não há competência disponível para montar o cockpit.")
         return
     st.markdown("### Cockpit da carteira")
-    st.caption("Valores por FIDC na última competência disponível. Percentuais consolidados são recalculados a partir de somas absolutas.")
-    _render_cockpit_cards(outputs, latest)
-    st.markdown(_render_cockpit_table_html(outputs, latest), unsafe_allow_html=True)
+    st.caption(
+        "Valores por FIDC na competência mais recente com cobertura suficiente da carteira. "
+        "Percentuais consolidados são recalculados a partir de somas absolutas."
+    )
+    _render_cockpit_cards(outputs, reference, eligible_count=reference_count, total_count=reference_total)
+    st.markdown(_render_cockpit_table_html(outputs, reference), unsafe_allow_html=True)
     with st.expander("Diagnóstico de carga e cache", expanded=False):
         st.dataframe(_build_cache_diagnostics_df(outputs), hide_index=True, use_container_width=True)
 
 
-def _render_cockpit_cards(outputs: list[dict[str, Any]], latest: str) -> None:
+def _render_cockpit_cards(outputs: list[dict[str, Any]], latest: str, *, eligible_count: int, total_count: int) -> None:
     cards = [
-        ("Competência", _format_competencia_label(latest), "último dado disponível"),
-        ("Fundos com dados", f"{len(outputs)}", "carga concluída"),
+        ("Competência", _format_competencia_label(latest), "referência do cockpit"),
+        ("Fundos na competência", f"{eligible_count}/{total_count}", "com dado no mês"),
         ("PL total", _format_metric_value(_aggregate_metric(CockpitMetric("", "", "PL (R$)", "R$ bruto", "sum"), outputs, latest), "R$ bruto"), "soma dos fundos"),
         ("DC / PL", _format_metric_value(_aggregate_metric(CockpitMetric("", "", "Dir Cred / PL", "ratio", "dircred_pl"), outputs, latest), "ratio"), "recalculado"),
         ("Over 90d", _format_metric_value(_aggregate_metric(CockpitMetric("", "", "Vencidos Over 90 d / Crédito", "ratio", "over90_credito"), outputs, latest), "ratio"), "sobre crédito"),
@@ -1124,6 +1151,8 @@ def _build_cache_diagnostics_df(outputs: list[dict[str, Any]]) -> pd.DataFrame:
                 "Última no cache": _format_competencia_label(all_competencias[-1]) if all_competencias else "-",
                 "Janela exibida": _format_competencia_span(display_competencias),
                 "Competências exibidas": len(display_competencias),
+                "Fonte das métricas": item.get("metric_source") or "-",
+                "Aviso Visão Executiva": item.get("dashboard_error") or "-",
                 "Diretório cache": item.get("cache_dir"),
             }
         )
@@ -1302,6 +1331,30 @@ def _portfolio_latest_competencia(outputs: list[dict[str, Any]]) -> str | None:
             if latest is None or parsed > latest[0]:
                 latest = (parsed, competencia)
     return latest[1] if latest else None
+
+
+def _portfolio_reference_competencia(
+    outputs: list[dict[str, Any]],
+    *,
+    min_coverage_pct: float = 0.8,
+) -> tuple[str | None, int, int]:
+    total = len([item for item in outputs if item.get("tables") is not None])
+    if total <= 0:
+        return None, 0, 0
+    coverage: dict[str, int] = {}
+    for item in outputs:
+        competencias = {str(value) for value in (item.get("competencias") or []) if str(value or "").strip()}
+        for competencia in competencias:
+            coverage[competencia] = coverage.get(competencia, 0) + 1
+    if not coverage:
+        return None, 0, total
+    required = max(1, math.ceil(total * min_coverage_pct))
+    ordered = sorted(coverage, key=lambda value: parse_competencia_label(value), reverse=True)
+    for competencia in ordered:
+        if coverage.get(competencia, 0) >= required:
+            return competencia, coverage.get(competencia, 0), total
+    latest = ordered[0]
+    return latest, coverage.get(latest, 0), total
 
 
 def _latest_competencia(item: dict[str, Any]) -> str | None:
