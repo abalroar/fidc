@@ -186,11 +186,14 @@ _CSS = """
     border-bottom: 1px solid #3F3F3F;
     color: #000000;
     font-weight: 600;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
     padding: 6px 8px;
     position: sticky;
     text-align: right;
     top: 0;
     white-space: normal;
+    word-break: normal;
     z-index: 2;
 }
 .monitor-wide-table th.label-col,
@@ -629,7 +632,7 @@ def _render_cockpit_cards(outputs: list[dict[str, Any]], latest: str, *, eligibl
 
 
 def _render_cockpit_table_html(outputs: list[dict[str, Any]], latest: str) -> str:
-    fund_width = 128
+    fund_width = 172
     min_width = max(460 + fund_width * (len(outputs) + 1), 980)
     html = [f"<div class='monitor-wide-wrapper' style='min-width: 100%; --monitor-table-min-width: {min_width}px;'>"]
     by_section: dict[str, list[CockpitMetric]] = {}
@@ -642,9 +645,9 @@ def _render_cockpit_table_html(outputs: list[dict[str, Any]], latest: str) -> st
         html.append(f"<table class='monitor-wide-table' style='min-width: {min_width}px;'>")
         html.append("<colgroup><col style='width: 230px;'><col style='width: 120px;'>")
         html.extend(f"<col style='width: {fund_width}px;'>" for _ in outputs)
-        html.append("</colgroup><thead><tr><th class='label-col'>Métrica</th><th>Consolidado</th>")
+        html.append("</colgroup><thead><tr><th class='label-col'>Nome</th><th>Consolidado</th>")
         for item in outputs:
-            html.append(f"<th>{escape(_short_fund_label(str(item['display_name'])))}<br>{escape(format_portfolio_cnpj(str(item['cnpj']))[-8:])}</th>")
+            html.append(f"<th>{escape(str(item['display_name']))}</th>")
         html.append("</tr></thead><tbody>")
         for metric in metrics:
             row_class = "destaque" if metric.indicator in {"PL (R$)", "Vencidos Over 90 d / Crédito", "PDD / Venc > 90 d"} else ""
@@ -1020,7 +1023,7 @@ def _render_fund_time_table_html(item: dict[str, Any]) -> str:
         html.append(f"<table class='monitor-wide-table' style='min-width: {min_width}px;'>")
         html.append("<colgroup><col style='width: 280px;'>")
         html.extend("<col style='width: 104px;'>" for _ in competencias)
-        html.append("</colgroup><thead><tr><th class='label-col'>Métrica</th>")
+        html.append("</colgroup><thead><tr><th class='label-col'>Nome</th>")
         for competencia in competencias:
             html.append(f"<th>{escape(_format_competencia_label(competencia))}</th>")
         html.append("</tr></thead><tbody>")
@@ -1218,7 +1221,7 @@ def _sparkline_from_indicator(frame: pd.DataFrame, indicator: str, title: str) -
 def _select_output(outputs: list[dict[str, Any]], *, key: str) -> dict[str, Any] | None:
     options = [item["cnpj"] for item in outputs]
     labels = {
-        item["cnpj"]: f"{_short_fund_label(str(item['display_name']))} · {format_portfolio_cnpj(str(item['cnpj']))}"
+        item["cnpj"]: str(item["display_name"])
         for item in outputs
     }
     selected = st.selectbox("Fundo", options=options, key=key, format_func=lambda value: labels.get(value, value))
@@ -1467,13 +1470,6 @@ def _latest_competencia(item: dict[str, Any]) -> str | None:
 
 def _competencias_desc(competencias: list[str]) -> list[str]:
     return sorted(competencias, key=lambda value: parse_competencia_label(value), reverse=True)
-
-
-def _short_fund_label(value: str) -> str:
-    text = " ".join(str(value or "").split())
-    if len(text) <= 30:
-        return text
-    return f"{text[:27].rstrip()}..."
 
 
 def _friendly_indicator_label(value: str) -> str:
