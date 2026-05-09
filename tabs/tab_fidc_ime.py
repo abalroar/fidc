@@ -820,7 +820,7 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
         period = build_custom_period(start_month=start_month, end_month=end_month_selected)
         st.caption(
             f"{_format_competencia_display(period.start_month.isoformat())} "
-            f"→ {_format_competencia_display(period.end_month.isoformat())} · {period.month_count} competências"
+            f"→ {_format_competencia_display(period.end_month.isoformat())}"
         )
 
     return period
@@ -1285,7 +1285,7 @@ def _render_executive_comparison_section(sorted_slots: list[tuple[int, dict]]) -
 
     _render_fidc_section(
         "Comparativo Executivo de FIDCs",
-        "Matriz lado a lado construída exclusivamente com dados já carregados na Visão Executiva.",
+        "Matriz lado a lado dos FIDCs já carregados.",
     )
     selected_labels = st.multiselect(
         "FIDCs no comparativo",
@@ -1328,9 +1328,7 @@ def _render_executive_comparison_section(sorted_slots: list[tuple[int, dict]]) -
         key="fidc_exec_compare_highlight",
     )
     highlight_value = None if highlighted_column == "Nenhuma" else highlighted_column
-    st.caption(
-        "Campos ausentes aparecem como “—”. O comparativo não faz novas consultas e não recalcula dados fora da Visão Executiva."
-    )
+    st.caption("Campos ausentes aparecem como “—”.")
     _render_executive_comparison_table(comparison_df, highlighted_column=highlight_value)
 
     try:
@@ -1452,7 +1450,6 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     )
     credit_col, coverage_col = st.columns([0.62, 0.38])
     with credit_col:
-        st.caption("Eixo esquerdo: % dos direitos creditórios. Sem eixo direito.")
         if _credit_chart_all_zero:
             st.caption("Sem dados de inadimplência ou provisão nos informes do período.")
         else:
@@ -1473,7 +1470,6 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 width="stretch",
             )
     with coverage_col:
-        st.caption("Eixo esquerdo: PDD / vencidos. Linha tracejada: 100%.")
         coverage_all_zero = (
             cobertura_df.empty
             or (pd.to_numeric(cobertura_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
@@ -1497,7 +1493,6 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             )
     aging_history_df = dashboard.default_aging_history_df.copy()
     _render_chart_heading(st, "Aging")
-    st.caption("Aging por faixa; labels na competência mais recente.")
     if aging_history_df.empty:
         st.caption("Sem dados de aging para o período selecionado.")
     else:
@@ -1513,7 +1508,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         )
     over_history_df = dashboard.default_over_history_df.copy()
     _render_chart_heading(st, "Inadimplência Over")
-    st.caption("Over 30 e Over 90 são as séries principais; demais curvas ficam como contexto de severidade.")
+    st.caption("Séries principais: Over 30 e Over 90.")
     if over_history_df.empty:
         st.info("Dados de inadimplência Over não disponíveis nos informes selecionados.")
     else:
@@ -5616,30 +5611,19 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any], *, slot
 def _render_raw_extraction_section(result: InformeMensalResult) -> None:
     max_preview_rows = 300
     with st.expander("Artefatos brutos da extração", expanded=False):
-        st.caption(
-            f"Pré-visualizações limitadas a {max_preview_rows} linhas para manter a sessão estável. "
-            "Abra esse bloco apenas se precisar auditar o dado bruto da extração."
-        )
+        st.caption(f"Pré-visualizações até {max_preview_rows} linhas.")
 
         st.subheader("Documentos selecionados")
         st.dataframe(result.docs_df.head(max_preview_rows), width="stretch")
-        if len(result.docs_df) > max_preview_rows:
-            st.info(f"Exibindo {max_preview_rows} de {len(result.docs_df)} documentos.")
 
         st.subheader("Prévia da Tabela Completa final")
         wide_preview_df = _read_csv_preview(result.wide_csv_path, max_preview_rows)
         st.dataframe(wide_preview_df, width="stretch")
-        if result.wide_row_count > max_preview_rows:
-            st.info(f"Exibindo {max_preview_rows} de {result.wide_row_count} linhas da Tabela Completa final.")
 
         if result.listas_row_count > 0:
             st.subheader("Prévia das estruturas repetitivas")
             listas_preview_df = _read_csv_preview(result.listas_csv_path, max_preview_rows)
             st.dataframe(listas_preview_df, width="stretch")
-            if result.listas_row_count > max_preview_rows:
-                st.info(f"Exibindo {max_preview_rows} de {result.listas_row_count} linhas das estruturas repetitivas.")
 
         st.subheader("Auditoria")
         st.dataframe(result.audit_df.head(max_preview_rows), width="stretch")
-        if len(result.audit_df) > max_preview_rows:
-            st.info(f"Exibindo {max_preview_rows} de {len(result.audit_df)} eventos de auditoria.")

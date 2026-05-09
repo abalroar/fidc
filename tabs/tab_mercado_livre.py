@@ -243,7 +243,7 @@ def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None
             )
             st.session_state[cache_session_key] = cached_outputs
             st.session_state[f"{cache_session_key}::source"] = "cache"
-            st.toast(f"Base {SOMATORIO_FIDCS_TITLE} reutilizada do storage calculado.")
+            st.toast("Base reutilizada do cache.")
             st.rerun()
         _execute_portfolio_load_for_funds(
             selected_portfolio=selected_portfolio,
@@ -274,7 +274,7 @@ def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None
         return
     if not results:
         _render_status_bar(selected_portfolio=selected_portfolio, period=period, results=results)
-        st.info("Clique em **Carregar carteira** para montar a base auditável e os gráficos.")
+        st.info("Carregue a carteira para começar.")
         return
 
     dashboards_by_cnpj, dashboard_errors = _build_loaded_dashboards_by_cnpj(
@@ -743,7 +743,7 @@ def _render_base_audit(*, display_outputs, cache_dir) -> None:  # noqa: ANN001
         validation_df = build_validation_table(display_outputs)
         st.caption("Memória dos valores absolutos e percentuais derivados.")
         st.dataframe(_format_validation_for_display(validation_df), width="stretch", hide_index=True)
-        st.caption(f"Cache: `{cache_dir}`.")
+        _ = cache_dir
         if not display_outputs.warnings_df.empty:
             st.markdown("**Warnings da base**")
             st.dataframe(display_outputs.warnings_df, width="stretch", hide_index=True)
@@ -1150,35 +1150,20 @@ def _render_somatorio_fidcs_guide() -> None:
 
 def _build_somatorio_fidcs_guide_markdown() -> str:
     return """
-### Passo a passo de utilização
+### Como usar
 
-1. Selecione uma carteira salva ou crie uma nova carteira com os FIDCs desejados.
-2. Escolha o período de carga; o padrão é 12 meses, mas a aba permite carregar 6M, 12M, 24M, 36M, YTD ou intervalo customizado.
-3. Clique em **Carregar carteira** para montar ou reutilizar a base individual, a base consolidada, os gráficos e os arquivos exportáveis.
-4. Depois da carga, use o **Filtro visual (sem recarregar)** apenas para reduzir temporariamente a visualização. Por padrão, a aba mostra todo o período carregado; o preset **Dezembros + Ano Atual** mostra os fechamentos de dezembro dos anos anteriores e todos os meses do último ano disponível.
-5. Use **Tabela Completa** para validar **Dados Consolidados – Soma de FIDCs**; selecione um fundo individual por vez quando quiser ver tabela e gráficos por fundo.
-6. Use **Análise Crédito** para acompanhar primeiro carteira ex-360, crescimento e NPL; depois roll rates, cohorts, duration, auditoria derivada e exportação analítica.
+1. Selecione ou crie uma carteira, escolha a janela e carregue a base.
+2. Use **Tabela Completa** para conferir os dados consolidados e individuais.
+3. Use **Análise Crédito** para carteira ex-360, crescimento, NPL, roll rates, cohorts e duration.
+4. Use o filtro visual apenas para recortar a base já carregada.
 
-### Mecânica da aba
+### Mecânica essencial
 
-- A carteira é identificada por uma chave determinística baseada na composição dos fundos e nos parâmetros relevantes; o nome é apenas um rótulo amigável.
-- Quando a mesma carteira e o mesmo período já existem no storage, a aba reutiliza a base calculada; para ampliar a janela, carregue um período maior e depois filtre a visualização.
-- Para calcular crescimento YoY, a aba carrega 12 meses anteriores à janela solicitada como base de cálculo; esses meses só aparecem se forem selecionados no filtro visual.
-- Cada FIDC é normalizado em uma base mensal canônica com PL, classes, carteira, PDD, aging, NPL acumulado, ex-360 e flags de qualidade.
-- O PL total usa `PATRLIQ/VL_PATRIM_LIQ` quando disponível; a soma das classes fica como reconciliação e divergências materiais geram warning.
-- A visão **Ex-Vencidos > 360d** simula a baixa dos vencidos acima de 360 dias da carteira, da PDD disponível e, se necessário, do PL.
-- `PDD Ex Over 360d` é a PDD total menos a baixa dos vencidos acima de 360 dias, limitada ao saldo de PDD disponível; não é PDD específica por faixa.
-- NPL Over é acumulado: por exemplo, Over 90d soma 91-180, 181-360 e acima de 360 dias.
-- No consolidado, valores absolutos são somados por competência e os percentuais são recalculados a partir dos numeradores e denominadores agregados; a aba nunca faz média simples de percentuais.
-- Os gráficos das duas sub-abas usam a mesma base da **Tabela Completa**; se a tabela e o gráfico divergirem, a tabela é a memória de cálculo primária.
-- Os fundos individuais são exibidos um por vez para evitar páginas longas com vários blocos repetidos; o consolidado fica sempre visível.
-- O Excel de resumo e o PPTX respeitam exatamente o recorte exibido no filtro visual, com valores numéricos editáveis no Excel e pelo menos um slide por FIDC no PPTX.
-
-### Como interpretar
-
-- **Evolução de PL e Subordinação** mostra a composição entre cota sênior e subordinada + mezanino, além do índice de subordinação ex-360.
-- **NPL e Cobertura Ex-Vencidos > 360d** compara inadimplência Over 90d ex-360 com a cobertura de PDD sobre esse estoque.
-- Warnings indicam pontos que não devem ser lidos automaticamente, como PL oficial não reconciliado com classes ou denominadores zerados.
+- O consolidado soma valores absolutos por competência e recalcula percentuais; não há média simples de percentuais.
+- Para YoY, a carga inclui meses anteriores necessários ao cálculo; o filtro visual decide o que aparece.
+- NPL Over é acumulado: Over 90d soma todos os vencidos acima de 90 dias.
+- A visão ex-360 remove vencidos acima de 360 dias da carteira, da PDD disponível e, se necessário, do PL.
+- Warnings indicam limitações relevantes, como PL não reconciliado ou denominador indisponível.
 """
 
 

@@ -605,7 +605,7 @@ def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
     _render_cockpit_cards(outputs, reference, eligible_count=reference_count, total_count=reference_total)
     st.markdown(_render_cockpit_table_html(outputs, reference), unsafe_allow_html=True)
     with st.expander("Carga e cache", expanded=False):
-        st.caption("Use para investigar lentidão ou fundo ausente. `hit` = cache; `miss` = recalculado.")
+        st.caption("`hit` = cache; `miss` = recalculado.")
         st.dataframe(_build_cache_diagnostics_df(outputs), hide_index=True, use_container_width=True)
 
 
@@ -920,7 +920,7 @@ def _render_fund_boards_tab(outputs: list[dict[str, Any]]) -> None:
     cnpj = str(selected["cnpj"])
     fnet_url = f"https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo={cnpj}"
     st.markdown(
-        f'<div class="monitor-caption">{escape(format_portfolio_cnpj(cnpj))} · <a href="{escape(fnet_url)}" target="_blank">Abrir FNET</a></div>',
+        f'<div class="monitor-caption"><a href="{escape(fnet_url)}" target="_blank">Abrir FNET</a></div>',
         unsafe_allow_html=True,
     )
     latest = _latest_competencia(selected)

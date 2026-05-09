@@ -559,15 +559,14 @@ class MercadoLivreDashboardTests(unittest.TestCase):
     def test_mercado_livre_guide_documents_usage_and_mechanics(self) -> None:
         guide = _build_mercado_livre_guide_markdown()
 
-        self.assertIn("Passo a passo de utilização", guide)
-        self.assertIn("Dados Consolidados – Soma de FIDCs", guide)
-        self.assertIn("selecione um fundo individual por vez", guide)
-        self.assertIn("PATRLIQ/VL_PATRIM_LIQ", guide)
-        self.assertIn("Ex-Vencidos > 360d", guide)
-        self.assertIn("nunca faz média simples de percentuais", guide)
-        self.assertIn("um slide por FIDC", guide)
-        self.assertIn("Filtro visual (sem recarregar)", guide)
-        self.assertIn("todo o período carregado", guide)
+        self.assertIn("Como usar", guide)
+        self.assertIn("Tabela Completa", guide)
+        self.assertIn("Análise Crédito", guide)
+        self.assertIn("Mecânica essencial", guide)
+        self.assertIn("não há média simples de percentuais", guide)
+        self.assertIn("NPL Over é acumulado", guide)
+        self.assertIn("ex-360 remove vencidos acima de 360 dias", guide)
+        self.assertIn("filtro visual", guide.lower())
         self.assertNotIn("tabelas wide", guide.lower())
 
     def test_display_window_full_option_keeps_loaded_36_months_by_default(self) -> None:

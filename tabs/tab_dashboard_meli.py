@@ -391,8 +391,7 @@ def render_dashboard_meli_analysis(
 
 
 def _render_consolidated_dashboard(monitor_outputs, research_outputs=None) -> None:  # noqa: ANN001
-    _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios.")
-    _chart_note("Carteira ex-360 = carteira bruta - vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
+    _chart_title("Carteira ex-360 e crescimento YoY", "Carteira bruta menos vencidos acima de 360 dias; YoY contra o mesmo mês do ano anterior.")
     st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     _chart_title("NPL ex-360 por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
@@ -405,7 +404,6 @@ def _render_consolidated_dashboard(monitor_outputs, research_outputs=None) -> No
         "Roll rates",
         "Eixo esquerdo: roll rate em %. Sem eixo direito. A defasagem segue o bucket: 61-90 M-3, 91-120 M-4, 121-150 M-5 e 151-180 M-6.",
     )
-    _chart_note("O gráfico responde: de cada R$ 100 expostos no passado, quanto apareceu em atraso mais severo depois?")
     st.altair_chart(roll_rates_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     _render_consolidated_research_charts(research_outputs)
@@ -453,8 +451,7 @@ def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRec
         monitor = monitor_outputs.fund_monitor[cnpj]
         name = str(monitor["fund_name"].dropna().iloc[0]) if not monitor.empty and "fund_name" in monitor.columns and monitor["fund_name"].notna().any() else cnpj
         st.markdown(f"#### {escape(name)} · {escape(str(cnpj))}")
-        _chart_title("Carteira ex-360 e crescimento YoY", "Painéis empilhados com títulos e eixos próprios.")
-        _chart_note("Carteira ex-360 = carteira bruta - vencidos acima de 360 dias; YoY compara o mês atual com o mesmo mês do ano anterior.")
+        _chart_title("Carteira ex-360 e crescimento YoY", "Carteira bruta menos vencidos acima de 360 dias; YoY contra o mesmo mês do ano anterior.")
         st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
 
         _chart_title("NPL ex-360 por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
@@ -464,7 +461,6 @@ def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRec
         st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
 
         _chart_title("Roll rates", "Eixo esquerdo: roll rate em %. Sem eixo direito; denominador é carteira a vencer defasada conforme o bucket.")
-        _chart_note("O gráfico responde: de cada R$ 100 expostos no passado, quanto apareceu em atraso mais severo depois?")
         st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
 
         _chart_title("Duration", "Eixo esquerdo: duration em meses. Sem eixo direito.")
@@ -797,25 +793,21 @@ def _render_methodology(research_outputs=None) -> None:  # noqa: ANN001
     with st.expander("Metodologia, fórmulas e fontes dos indicadores", expanded=False):
         st.markdown(
             """
-O painel usa dados mensais já compilados na Soma de FIDCs. No consolidado, valores absolutos são somados primeiro e percentuais são recalculados depois.
+O consolidado soma valores absolutos por competência e recalcula percentuais; não há média simples de percentuais.
 
-**Leitura dos gráficos:** cada gráfico informa explicitamente o eixo usado, a unidade e se há eixo direito. Os rótulos finais mostram o último ponto calculável de cada série.
+**Ex-360:** remove vencidos acima de 360 dias da carteira. NPL por severidade usa `NPL 1-90d / carteira ex-360` e `NPL 91-360d / carteira ex-360`.
 
-**Roll rates:** mostram migração de risco. A pergunta é: quanto de uma base que estava exposta em um mês anterior apareceu em um bucket de atraso específico depois? A defasagem acompanha o bucket: `Roll 61-90 M-3`, `Roll 91-120 M-4`, `Roll 121-150 M-5` e `Roll 151-180 M-6`.
+**Roll rates:** medem migração de risco. A defasagem acompanha o bucket: `61-90 M-3`, `91-120 M-4`, `121-150 M-5` e `151-180 M-6`.
 
-**NPL ex-360 por severidade:** primeiro o modelo baixa conceitualmente da carteira os vencidos acima de 360 dias. Depois, sobre a carteira remanescente, separa o NPL em `1-90d` (atraso inicial) e `91-360d` (atraso maduro). Fórmulas: `NPL 1-90d / carteira ex-360` e `NPL 91-360d / carteira ex-360`.
+**YoY:** compara a competência atual com o mesmo mês do ano anterior.
 
-**Carteira ex-360 e YoY:** a carteira ex-360 remove vencidos acima de 360 dias. O YoY mostra crescimento contra a mesma competência do ano anterior, não contra o mês imediatamente anterior.
+**Duration:** `duration_dias = Σ(saldo_bucket × prazo_proxy_bucket) / Σ(saldo_bucket)`. O gráfico mostra `duration_meses = duration_dias / 30,4375`. Exemplo: bucket 61-90 dias usa `75,5` dias, o ponto médio da faixa.
 
-**Duration:** é prazo médio ponderado por saldo na malha de vencimentos. Fórmula: `duration_dias = Σ(saldo_bucket × prazo_proxy_bucket) / Σ(saldo_bucket)`. O gráfico exibe `duration_meses = duration_dias / 30,4375`, porque `30,4375 = 365,25 / 12`, a média de dias por mês em um ano com ajuste bissexto. Exemplo: saldo a vencer entre 61 e 90 dias usa `75,5 dias`, o ponto médio da faixa.
+**Cohorts:** cada linha é uma safra proxy definida pelo saldo que estava a vencer em até 30 dias no mês-base. Esse saldo é o denominador fixo da linha.
 
-**Cohorts recentes:** cada linha acompanha uma safra proxy. Como o Informe Mensal não traz originação contrato a contrato, a safra é definida pelo saldo que estava a vencer em até 30 dias no mês-base. Esse saldo vira o denominador fixo da linha.
+Exemplo: se em fev/26 havia R$ 100 milhões a vencer em até 30 dias, a linha `Fev-26` usa R$ 100 milhões como base. `M1` é mar/26, `M2` é abr/26, `M3` é mai/26. Se mar/26 tem R$ 39,6 milhões em atraso até 30 dias, `M1 = 39,6 / 100 = 39,6%`.
 
-**Exemplo de cohort:** se em fev/26 havia R$ 100 milhões a vencer em até 30 dias, a linha `Fev-26` usa R$ 100 milhões como base em todos os pontos. Para essa linha, `M1` é mar/26, `M2` é abr/26, `M3` é mai/26, e assim por diante. Se em mar/26 aparecem R$ 39,6 milhões em atraso até 30 dias, `M1 = 39,6 / 100 = 39,6%`.
-
-**Como ler M1-M6:** `M1 = atraso até 30d no mês seguinte / base da safra`; `M2 = atraso 31-60d dois meses depois / base da safra`; `M3 = atraso 61-90d três meses depois / base da safra`; `M4 = atraso 91-120d quatro meses depois / base da safra`; `M5 = atraso 121-150d cinco meses depois / base da safra`; `M6 = atraso 151-180d seis meses depois / base da safra`.
-
-**Como comparar cohorts:** M1, M2, M3... são meses de maturação depois da safra, não competências calendário fixas. Compare `M3` de uma safra com `M3` de outra safra. Linha mais alta no mesmo M indica que uma parcela maior daquela safra migrou para atraso.
+`M1 = atraso até 30d no mês seguinte / base`; `M2 = atraso 31-60d dois meses depois / base`; `M3 = atraso 61-90d três meses depois / base`; `M4`, `M5` e `M6` seguem a mesma lógica para 91-120d, 121-150d e 151-180d.
             """
         )
         st.markdown("**Eixos dos gráficos**")
@@ -853,13 +845,9 @@ def _render_guide() -> None:
     with st.expander("Como usar e interpretar a Análise Crédito", expanded=False):
         st.markdown(
             """
-1. Selecione a carteira salva na Soma de FIDCs e carregue uma janela longa, preferencialmente 24M ou 36M.
-2. Comece pelos roll rates: eles mostram a velocidade de deterioração sobre a carteira a vencer defasada, não apenas o estoque vencido.
-3. Use NPL ex-360 por severidade para separar atraso inicial (1-90d) de atraso mais maduro (91-360d), sempre depois da baixa conceitual dos vencidos acima de 360 dias.
-4. Confira carteira ex-360 e crescimento para saber se melhora de NPL vem de qualidade ou de efeito denominador.
-5. Use cohorts para comparar safras recentes contra a própria curva de maturação M1-M6.
-
-A análise usa os dados já compilados na Soma de FIDCs. Percentuais consolidados são sempre recalculados a partir da soma dos numeradores e denominadores.
+1. Use 24M ou 36M para ler YoY, roll rates e cohorts com contexto.
+2. Comece por carteira ex-360, crescimento e NPL; depois leia roll rates, duration e cohorts.
+3. No consolidado, percentuais são recalculados a partir da soma dos numeradores e denominadores.
             """
         )
 

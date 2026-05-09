@@ -824,10 +824,8 @@ def _render_portfolio_period_coverage_warning(
     if not missing_competencias:
         return
     st.warning(
-        "A carteira agregada usa interseção estrita: entram nos gráficos apenas as competências comuns "
-        "a todos os fundos incluídos no agregado. "
-        f"A janela solicitada tinha {len(expected_competencias)} competência(s), e a janela comum possui "
-        f"{len(common_competencias)}. Competência(s) fora do agregado: "
+        "A carteira agregada usa apenas competências comuns aos fundos incluídos. "
+        f"Fora do agregado: "
         f"{', '.join(ime_tab._format_competencia_label(value) for value in missing_competencias)}."
     )
 
