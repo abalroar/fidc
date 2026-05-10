@@ -41,9 +41,12 @@ def load_curated_regulatory_profile(
     if len(digits) != 14 or not base_dir.exists():
         return None
 
-    emissions_frames: list[pd.DataFrame] = []
-    criteria_frames: list[pd.DataFrame] = []
-    sources: list[Path] = []
+    manual_emissions_frames: list[pd.DataFrame] = []
+    manual_criteria_frames: list[pd.DataFrame] = []
+    manual_sources: list[Path] = []
+    triage_emissions_frames: list[pd.DataFrame] = []
+    triage_criteria_frames: list[pd.DataFrame] = []
+    triage_sources: list[Path] = []
 
     for path in sorted(base_dir.glob("*.csv")):
         try:
@@ -55,12 +58,19 @@ def load_curated_regulatory_profile(
         frame = frame[frame["CNPJ"].map(normalize_cnpj) == digits].copy()
         if frame.empty:
             continue
+        is_triage = path.name.startswith("all_fidcs_")
+        sources = triage_sources if is_triage else manual_sources
+        emissions_frames = triage_emissions_frames if is_triage else manual_emissions_frames
+        criteria_frames = triage_criteria_frames if is_triage else manual_criteria_frames
         sources.append(path)
         if {"Cota/Classe", "Amortização principal"}.issubset(frame.columns):
             emissions_frames.append(frame)
         elif {"Critério", "Monitorabilidade IME"}.issubset(frame.columns):
             criteria_frames.append(frame)
 
+    emissions_frames = manual_emissions_frames or triage_emissions_frames
+    criteria_frames = manual_criteria_frames or triage_criteria_frames
+    sources = manual_sources or triage_sources
     emissions_df = _concat_or_empty(emissions_frames)
     criteria_df = _concat_or_empty(criteria_frames)
     if emissions_df.empty and criteria_df.empty:
@@ -248,6 +258,8 @@ def _concat_or_empty(frames: list[pd.DataFrame]) -> pd.DataFrame:
 
 def _profile_type_from_sources(sources: list[Path]) -> str:
     names = {path.name for path in sources}
+    if any(name.startswith("pravaler_") for name in names):
+        return "curado parcial"
     if any(name.startswith("all_fidcs_") for name in names):
         return "triagem estruturada"
     return "curado"

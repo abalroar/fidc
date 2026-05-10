@@ -39,7 +39,9 @@ class MonitoringTabReferenceCompetenciaTests(unittest.TestCase):
                 indicators_df=pd.DataFrame(
                     [
                         {"indicador": "Cotas Sub / PL %", "03/2026": "12.0"},
+                        {"indicador": "Cotas SR / PL %", "03/2026": "80.0"},
                         {"indicador": "Dir Cred / PL", "03/2026": "0.72"},
+                        {"indicador": "Vencidos Over 90 d / Crédito", "03/2026": "0.082"},
                         {"indicador": "PL (R$)", "03/2026": "1500000"},
                     ]
                 ),
@@ -53,14 +55,18 @@ class MonitoringTabReferenceCompetenciaTests(unittest.TestCase):
                 {"Critério": "Alocação mínima regulatória", "Limite/regra": "Direitos Creditórios Elegíveis / PL >= 50%", "Monitorabilidade IME": "direto com ressalva"},
                 {"Critério": "Derivativos", "Limite/regra": "Operações com derivativos vedadas", "Monitorabilidade IME": "direto agregado"},
                 {"Critério": "PL mínimo operacional", "Limite/regra": "PL diário não inferior a R$ 1.000.000", "Monitorabilidade IME": "direto com ressalva"},
+                {"Critério": "Relação Mínima", "Limite/regra": "PL / Cotas Sênior >= 105%", "Monitorabilidade IME": "direto com ressalva"},
+                {"Critério": "Índice de Atraso Over 90", "Chave": "default_rate_evaluation_event", "Limite/regra": "Over 90 > 10,5%", "Monitorabilidade IME": "direto com ressalva"},
             ]
         )
 
         checks = _build_regulatory_monitoring_checks(item, criteria_df)
 
-        self.assertEqual(["OK", "OK", "OK", "OK"], checks["Status"].tolist())
+        self.assertEqual(["OK", "OK", "OK", "OK", "OK", "OK"], checks["Status"].tolist())
         self.assertEqual("12,00%", checks.loc[0, "Valor IME"])
         self.assertEqual("72,00%", checks.loc[1, "Valor IME"])
+        self.assertEqual("125,00%", checks.loc[4, "Valor IME"])
+        self.assertEqual("8,20%", checks.loc[5, "Valor IME"])
 
 
 if __name__ == "__main__":

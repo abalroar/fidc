@@ -49,6 +49,38 @@ class RegulatoryProfilesTests(unittest.TestCase):
         self.assertEqual(1, len(profile.criteria_df))
         self.assertEqual("Sênior 1", profile.emissions_df.iloc[0]["Cota/Classe"])
 
+    def test_manual_profile_takes_precedence_over_structured_triage(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            pd.DataFrame(
+                [
+                    {
+                        "Fundo": "A",
+                        "CNPJ": "08.417.544/0001-65",
+                        "Cota/Classe": "Sênior triagem",
+                        "Amortização principal": "",
+                    }
+                ]
+            ).to_csv(base / "all_fidcs_cotas_emissoes_pagamentos.csv", index=False)
+            pd.DataFrame(
+                [
+                    {
+                        "Fundo": "A",
+                        "CNPJ": "08.417.544/0001-65",
+                        "Cota/Classe": "Sênior curada",
+                        "Amortização principal": "Conforme suplemento validado",
+                    }
+                ]
+            ).to_csv(base / "pravaler_cotas_emissoes_pagamentos.csv", index=False)
+
+            profile = load_curated_regulatory_profile("08417544000165", base_dir=base)
+
+        self.assertIsNotNone(profile)
+        assert profile is not None
+        self.assertEqual("curado parcial", profile.profile_type)
+        self.assertEqual(1, len(profile.emissions_df))
+        self.assertEqual("Sênior curada", profile.emissions_df.iloc[0]["Cota/Classe"])
+
     def test_payment_calendar_rows_extracts_dated_amortizations_and_recurring_interest(self) -> None:
         frame = pd.DataFrame(
             [

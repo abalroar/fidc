@@ -800,7 +800,13 @@ def _evaluate_regulatory_criterion(item: dict[str, Any], competencia: str, crite
     current_value = "-"
 
     lowered_name = name.lower()
-    if key == "subordination_ratio_min" or "subordinação" in lowered_name:
+    if _is_senior_coverage_rule(name, rule):
+        senior_pct = _metric_numeric(item, "Cotas SR / PL %", competencia)
+        value = (10_000.0 / senior_pct) if senior_pct and senior_pct > 0 else None
+        limit = _parse_percent_limit(rule)
+        current_value = _format_metric_value(value, "%")
+        status = _limit_status(value, limit, higher_is_better=True)
+    elif key == "subordination_ratio_min" or "subordinação" in lowered_name or "relação mínima" in lowered_name:
         value = _metric_numeric(item, "Cotas Sub / PL %", competencia)
         limit = _parse_percent_limit(rule)
         current_value = _format_metric_value(value, "%")
@@ -859,6 +865,18 @@ def _evaluate_regulatory_criterion(item: dict[str, Any], competencia: str, crite
         "Alerta sugerido": alert,
         "Observação": note,
     }
+
+
+def _is_senior_coverage_rule(name: str, rule: str) -> bool:
+    text = f"{name} {rule}".lower()
+    return bool(
+        ("pl / cotas sênior" in text)
+        or ("pl / cotas senior" in text)
+        or ("pl/cotas sênior" in text)
+        or ("pl/cotas senior" in text)
+        or ("patrimônio líquido / cotas seniores" in text)
+        or ("patrimonio liquido / cotas seniores" in text)
+    )
 
 
 def _raw_variable_numeric(item: dict[str, Any], id_cvm: str, competencia: str) -> float | None:
