@@ -34,6 +34,14 @@ from services.monitoring_metrics import (
     save_manual_overrides,
 )
 from services.portfolio_store import PortfolioRecord
+from services.regulatory_knowledge import (
+    common_criteria_summary,
+    document_inventory_rows,
+    emission_rows,
+    extracted_criteria_rows,
+    knowledge_summary_rows,
+    load_regulatory_knowledge,
+)
 from services.variaveis_fnet import competencia_columns, resolve_tag_path
 from tabs.ime_portfolio_support import (
     build_portfolio_record_label_lookup,
@@ -303,9 +311,11 @@ def render_tab_fidc_monitoring(period: ImePeriodSelection | None = None) -> None
 
     _render_loaded_period_status(success_outputs, requested_period=period, load_period=load_period, cache_months=cache_months)
 
-    cockpit_tab, fund_tab = st.tabs(["Cockpit", "Tabela por Fundo"])
+    cockpit_tab, regulatory_tab, fund_tab = st.tabs(["Cockpit", "Base regulatória", "Tabela por Fundo"])
     with cockpit_tab:
         _render_cockpit_tab(success_outputs)
+    with regulatory_tab:
+        _render_regulatory_base_tab(success_outputs)
     with fund_tab:
         _render_fund_boards_tab(success_outputs)
 
@@ -607,6 +617,80 @@ def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
     with st.expander("Carga e cache", expanded=False):
         st.caption("`hit` = cache; `miss` = recalculado.")
         st.dataframe(_build_cache_diagnostics_df(outputs), hide_index=True, use_container_width=True)
+
+
+def _render_regulatory_base_tab(outputs: list[dict[str, Any]]) -> None:
+    loaded = []
+    missing = []
+    for item in outputs:
+        knowledge = load_regulatory_knowledge(str(item.get("cnpj") or ""))
+        if knowledge is None:
+            missing.append(item)
+            continue
+        loaded.append(knowledge)
+
+    if not loaded:
+        st.info("Base regulatória ainda não gerada para esta carteira.")
+        st.code("python3 scripts/build_regulatory_knowledge.py", language="bash")
+        return
+
+    st.markdown("### Base regulatória")
+    st.dataframe(pd.DataFrame(knowledge_summary_rows(loaded)), hide_index=True, use_container_width=True)
+
+    common = common_criteria_summary(loaded)
+    if common:
+        with st.expander("Critérios recorrentes na carteira", expanded=False):
+            st.dataframe(pd.DataFrame(common), hide_index=True, use_container_width=True)
+
+    options = [item.cnpj for item in loaded]
+    by_cnpj = {item.cnpj: item for item in loaded}
+    selected_cnpj = st.selectbox(
+        "Fundo",
+        options=options,
+        format_func=lambda cnpj: by_cnpj[cnpj].fund_name,
+        key="monitoring_regulatory_fund",
+    )
+    selected = by_cnpj.get(selected_cnpj)
+    if selected is None:
+        return
+
+    criteria_df = pd.DataFrame(extracted_criteria_rows(selected))
+    emissions_df = pd.DataFrame(emission_rows(selected))
+    inventory_df = pd.DataFrame(document_inventory_rows(selected))
+    timeline_df = (
+        inventory_df[inventory_df["Tipo"].isin(["regulamento", "assembleia", "emissao", "evento"])]
+        if not inventory_df.empty and "Tipo" in inventory_df
+        else pd.DataFrame()
+    )
+
+    st.markdown("#### Timeline documental CVM")
+    if timeline_df.empty:
+        st.caption("Sem documentos institucionais classificados para este fundo.")
+    else:
+        st.dataframe(timeline_df, hide_index=True, use_container_width=True)
+
+    st.markdown("#### Thresholds e eventos identificados")
+    extraction_errors = selected.payload.get("extraction_errors") or []
+    if extraction_errors:
+        st.warning(f"{len(extraction_errors)} documento(s) ainda sem extração estruturada.")
+    if criteria_df.empty:
+        st.caption("Nenhum threshold extraído para este fundo até agora.")
+    else:
+        st.dataframe(criteria_df, hide_index=True, use_container_width=True)
+
+    st.markdown("#### Emissões, amortizações e alterações de séries")
+    if emissions_df.empty:
+        st.caption("Nenhum evento de emissão/amortização extraído dos documentos processados.")
+    else:
+        st.dataframe(emissions_df, hide_index=True, use_container_width=True)
+
+    with st.expander("Documentos CVM inventariados", expanded=False):
+        st.dataframe(inventory_df, hide_index=True, use_container_width=True)
+
+    if missing:
+        with st.expander("Fundos sem base gerada", expanded=False):
+            for item in missing:
+                st.caption(str(item.get("display_name") or item.get("cnpj") or "-"))
 
 
 def _render_cockpit_cards(outputs: list[dict[str, Any]], latest: str, *, eligible_count: int, total_count: int) -> None:
