@@ -7,6 +7,7 @@ from html import escape
 import json
 import math
 from pathlib import Path
+import re
 import time
 from typing import Any
 
@@ -41,6 +42,12 @@ from services.regulatory_knowledge import (
     extracted_criteria_rows,
     knowledge_summary_rows,
     load_regulatory_knowledge,
+    normalize_cnpj,
+)
+from services.regulatory_profiles import (
+    CuratedRegulatoryProfile,
+    load_curated_regulatory_profile,
+    payment_calendar_rows,
 )
 from services.variaveis_fnet import competencia_columns, resolve_tag_path
 from tabs.ime_portfolio_support import (
@@ -622,67 +629,94 @@ def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
 def _render_regulatory_base_tab(outputs: list[dict[str, Any]]) -> None:
     loaded = []
     missing = []
+    profiles: dict[str, CuratedRegulatoryProfile] = {}
     for item in outputs:
-        knowledge = load_regulatory_knowledge(str(item.get("cnpj") or ""))
+        cnpj = str(item.get("cnpj") or "")
+        knowledge = load_regulatory_knowledge(cnpj)
         if knowledge is None:
             missing.append(item)
-            continue
-        loaded.append(knowledge)
+        else:
+            loaded.append(knowledge)
+        profile = load_curated_regulatory_profile(cnpj)
+        if profile is not None and profile.available:
+            profiles[profile.cnpj] = profile
 
-    if not loaded:
+    if not loaded and not profiles:
         st.info("Base regulatória ainda não gerada para esta carteira.")
         st.code("python3 scripts/build_regulatory_knowledge.py", language="bash")
         return
 
     st.markdown("### Base regulatória")
-    st.dataframe(pd.DataFrame(knowledge_summary_rows(loaded)), hide_index=True, use_container_width=True)
+    if loaded:
+        st.dataframe(pd.DataFrame(knowledge_summary_rows(loaded)), hide_index=True, use_container_width=True)
+    else:
+        st.caption("Esta carteira só possui perfis regulatórios curados locais.")
 
     common = common_criteria_summary(loaded)
     if common:
         with st.expander("Critérios recorrentes na carteira", expanded=False):
             st.dataframe(pd.DataFrame(common), hide_index=True, use_container_width=True)
 
-    options = [item.cnpj for item in loaded]
+    options = sorted(
+        {item.cnpj for item in loaded} | set(profiles),
+        key=lambda cnpj: _regulatory_fund_label(cnpj, loaded, outputs),
+    )
     by_cnpj = {item.cnpj: item for item in loaded}
+    by_output = {normalize_cnpj(str(item.get("cnpj") or "")): item for item in outputs}
     selected_cnpj = st.selectbox(
         "Fundo",
         options=options,
-        format_func=lambda cnpj: by_cnpj[cnpj].fund_name,
+        format_func=lambda cnpj: _regulatory_fund_label(cnpj, loaded, outputs),
         key="monitoring_regulatory_fund",
     )
     selected = by_cnpj.get(selected_cnpj)
-    if selected is None:
-        return
+    selected_output = by_output.get(selected_cnpj)
+    profile = profiles.get(selected_cnpj)
 
-    criteria_df = pd.DataFrame(extracted_criteria_rows(selected))
-    emissions_df = pd.DataFrame(emission_rows(selected))
-    inventory_df = pd.DataFrame(document_inventory_rows(selected))
+    criteria_df = _selected_criteria_df(selected, profile)
+    emissions_df = _selected_emissions_df(selected, profile)
+    inventory_df = pd.DataFrame(document_inventory_rows(selected)) if selected is not None else pd.DataFrame()
     timeline_df = (
         inventory_df[inventory_df["Tipo"].isin(["regulamento", "assembleia", "emissao", "evento"])]
         if not inventory_df.empty and "Tipo" in inventory_df
         else pd.DataFrame()
     )
 
-    st.markdown("#### Timeline documental CVM")
-    if timeline_df.empty:
-        st.caption("Sem documentos institucionais classificados para este fundo.")
-    else:
-        st.dataframe(timeline_df, hide_index=True, use_container_width=True)
+    _render_regulatory_profile_chips(selected, profile)
 
-    st.markdown("#### Thresholds e eventos identificados")
-    extraction_errors = selected.payload.get("extraction_errors") or []
+    if selected_output is not None and profile is not None and not profile.criteria_df.empty:
+        st.markdown("#### Monitoramento IME")
+        checks_df = _build_regulatory_monitoring_checks(selected_output, profile.criteria_df)
+        if checks_df.empty:
+            st.caption("Sem critério curado com proxy IME para a competência carregada.")
+        else:
+            st.dataframe(checks_df, hide_index=True, use_container_width=True)
+
+    st.markdown("#### Emissões e calendário de pagamentos")
+    calendar_df = pd.DataFrame(payment_calendar_rows(profile.emissions_df)) if profile is not None else pd.DataFrame()
+    if emissions_df.empty and calendar_df.empty:
+        st.caption("Nenhum evento de emissão, juros ou amortização extraído dos documentos processados.")
+    else:
+        if not emissions_df.empty:
+            st.dataframe(_drop_selected_fund_columns(emissions_df), hide_index=True, use_container_width=True)
+        if not calendar_df.empty:
+            with st.expander("Calendário operacional extraído", expanded=True):
+                st.dataframe(calendar_df, hide_index=True, use_container_width=True)
+
+    st.markdown("#### Critérios monitoráveis e qualitativos")
+    extraction_errors = selected.payload.get("extraction_errors") if selected is not None else []
     if extraction_errors:
         st.warning(f"{len(extraction_errors)} documento(s) ainda sem extração estruturada.")
     if criteria_df.empty:
         st.caption("Nenhum threshold extraído para este fundo até agora.")
     else:
-        st.dataframe(criteria_df, hide_index=True, use_container_width=True)
+        st.dataframe(_drop_selected_fund_columns(criteria_df), hide_index=True, use_container_width=True)
 
-    st.markdown("#### Emissões, amortizações e alterações de séries")
-    if emissions_df.empty:
-        st.caption("Nenhum evento de emissão/amortização extraído dos documentos processados.")
+    st.markdown("#### Timeline documental CVM")
+    if timeline_df.empty:
+        st.caption("Sem documentos institucionais classificados para este fundo.")
     else:
-        st.dataframe(emissions_df, hide_index=True, use_container_width=True)
+        st.dataframe(timeline_df, hide_index=True, use_container_width=True)
 
     with st.expander("Documentos CVM inventariados", expanded=False):
         st.dataframe(inventory_df, hide_index=True, use_container_width=True)
@@ -691,6 +725,141 @@ def _render_regulatory_base_tab(outputs: list[dict[str, Any]]) -> None:
         with st.expander("Fundos sem base gerada", expanded=False):
             for item in missing:
                 st.caption(str(item.get("display_name") or item.get("cnpj") or "-"))
+
+
+def _regulatory_fund_label(cnpj: str, loaded: list[Any], outputs: list[dict[str, Any]]) -> str:
+    digits = normalize_cnpj(cnpj)
+    for item in loaded:
+        if item.cnpj == digits:
+            return item.fund_name
+    for item in outputs:
+        if normalize_cnpj(str(item.get("cnpj") or "")) == digits:
+            return str(item.get("display_name") or cnpj)
+    return cnpj
+
+
+def _selected_criteria_df(selected: Any | None, profile: CuratedRegulatoryProfile | None) -> pd.DataFrame:
+    if profile is not None and not profile.criteria_df.empty:
+        return profile.criteria_df.copy()
+    return pd.DataFrame(extracted_criteria_rows(selected)) if selected is not None else pd.DataFrame()
+
+
+def _selected_emissions_df(selected: Any | None, profile: CuratedRegulatoryProfile | None) -> pd.DataFrame:
+    if profile is not None and not profile.emissions_df.empty:
+        return profile.emissions_df.copy()
+    return pd.DataFrame(emission_rows(selected)) if selected is not None else pd.DataFrame()
+
+
+def _render_regulatory_profile_chips(selected: Any | None, profile: CuratedRegulatoryProfile | None) -> None:
+    if selected is None and profile is None:
+        return
+    doc_count = len(selected.payload.get("documents") or []) if selected is not None else 0
+    criteria_count = len(profile.criteria_df) if profile is not None else 0
+    emission_count = len(profile.emissions_df) if profile is not None else 0
+    curated = "curado" if profile is not None else "heurístico"
+    st.markdown(
+        f"""
+<div class="monitor-card-row">
+  <span class="monitor-chip"><strong>Perfil:</strong> {escape(curated)}</span>
+  <span class="monitor-chip"><strong>Documentos:</strong> {doc_count}</span>
+  <span class="monitor-chip"><strong>Emissões:</strong> {emission_count}</span>
+  <span class="monitor-chip"><strong>Critérios:</strong> {criteria_count}</span>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+
+def _drop_selected_fund_columns(frame: pd.DataFrame) -> pd.DataFrame:
+    return frame.drop(columns=[column for column in ("Fundo", "CNPJ") if column in frame.columns]).copy()
+
+
+def _build_regulatory_monitoring_checks(item: dict[str, Any], criteria_df: pd.DataFrame) -> pd.DataFrame:
+    latest = _latest_competencia(item)
+    if not latest or criteria_df.empty:
+        return pd.DataFrame()
+
+    rows = []
+    for _, criterion in criteria_df.iterrows():
+        evaluated = _evaluate_regulatory_criterion(item, latest, criterion)
+        if evaluated:
+            rows.append(evaluated)
+    return pd.DataFrame(rows)
+
+
+def _evaluate_regulatory_criterion(item: dict[str, Any], competencia: str, criterion: pd.Series) -> dict[str, str] | None:
+    name = str(criterion.get("Critério") or "").strip()
+    monitorability = str(criterion.get("Monitorabilidade IME") or criterion.get("Monitoramento") or "").strip()
+    rule = str(criterion.get("Limite/regra") or criterion.get("Limite") or "").strip()
+    proxy = str(criterion.get("Métrica IME / proxy") or criterion.get("Métrica IME sugerida") or "").strip()
+    alert = str(criterion.get("Condição de alerta sugerida") or "").strip()
+    note = str(criterion.get("Observação técnica") or criterion.get("Comentário") or "").strip()
+
+    status = "Referência"
+    current_value = "-"
+
+    lowered_name = name.lower()
+    if "subordinação" in lowered_name:
+        value = _metric_numeric(item, "Cotas Sub / PL %", competencia)
+        limit = _parse_percent_limit(rule)
+        current_value = _format_metric_value(value, "%")
+        status = _limit_status(value, limit, higher_is_better=True)
+    elif "alocação mínima" in lowered_name:
+        value = _metric_numeric(item, "Dir Cred / PL", competencia)
+        limit = _parse_percent_limit(rule)
+        current_value = _format_metric_value(value, "ratio")
+        status = _limit_status((value * 100.0) if value is not None else None, limit, higher_is_better=True)
+    elif "derivativo" in lowered_name:
+        value = _raw_variable_numeric(item, "MERC_DERIVATIVO/VL_SOM_MERC_DERIVATIVO", competencia)
+        current_value = _format_metric_value(value, "R$ bruto")
+        status = "OK" if value is not None and abs(value) <= 1.0 else ("Sem dado" if value is None else "Alerta")
+    elif "pl mínimo" in lowered_name:
+        value = _metric_numeric(item, "PL (R$)", competencia)
+        current_value = _format_metric_value(value, "R$ bruto")
+        status = "OK" if value is not None and value >= 1_000_000 else ("Sem dado" if value is None else "Alerta")
+    elif "direto" not in monitorability.lower():
+        status = "Qualitativo"
+
+    return {
+        "Critério": name,
+        "Regra": rule,
+        "Monitorabilidade": monitorability,
+        "Proxy IME": proxy,
+        "Competência": _format_competencia_label(competencia),
+        "Valor IME": current_value,
+        "Status": status,
+        "Alerta sugerido": alert,
+        "Observação": note,
+    }
+
+
+def _raw_variable_numeric(item: dict[str, Any], id_cvm: str, competencia: str) -> float | None:
+    tables: MonitoringTables = item["tables"]
+    raw_df = tables.raw_variables_df
+    if competencia not in raw_df.columns:
+        return None
+    match = raw_df[raw_df["id_cvm"] == id_cvm]
+    if match.empty:
+        return None
+    value = pd.to_numeric(pd.Series([match.iloc[0].get(competencia)]), errors="coerce").iloc[0]
+    if pd.isna(value):
+        return None
+    return float(value)
+
+
+def _parse_percent_limit(value: str) -> float | None:
+    match = re.search(r"(\d+(?:[,.]\d+)?)\s*%", str(value or ""))
+    if not match:
+        return None
+    return float(match.group(1).replace(",", "."))
+
+
+def _limit_status(value: float | None, limit: float | None, *, higher_is_better: bool) -> str:
+    if value is None or limit is None:
+        return "Sem dado"
+    if higher_is_better:
+        return "OK" if value >= limit else "Alerta"
+    return "OK" if value <= limit else "Alerta"
 
 
 def _render_cockpit_cards(outputs: list[dict[str, Any]], latest: str, *, eligible_count: int, total_count: int) -> None:
