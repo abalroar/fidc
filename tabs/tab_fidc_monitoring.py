@@ -46,7 +46,7 @@ from services.regulatory_knowledge import (
 )
 from services.regulatory_profiles import (
     CuratedRegulatoryProfile,
-    load_curated_regulatory_profile,
+    load_regulatory_profile,
     payment_calendar_rows,
 )
 from services.variaveis_fnet import competencia_columns, resolve_tag_path
@@ -637,7 +637,7 @@ def _render_regulatory_base_tab(outputs: list[dict[str, Any]]) -> None:
             missing.append(item)
         else:
             loaded.append(knowledge)
-        profile = load_curated_regulatory_profile(cnpj)
+        profile = load_regulatory_profile(cnpj)
         if profile is not None and profile.available:
             profiles[profile.cnpj] = profile
 
@@ -756,11 +756,11 @@ def _render_regulatory_profile_chips(selected: Any | None, profile: CuratedRegul
     doc_count = len(selected.payload.get("documents") or []) if selected is not None else 0
     criteria_count = len(profile.criteria_df) if profile is not None else 0
     emission_count = len(profile.emissions_df) if profile is not None else 0
-    curated = "curado" if profile is not None else "heurístico"
+    profile_type = profile.profile_type if profile is not None else "heurístico"
     st.markdown(
         f"""
 <div class="monitor-card-row">
-  <span class="monitor-chip"><strong>Perfil:</strong> {escape(curated)}</span>
+  <span class="monitor-chip"><strong>Perfil:</strong> {escape(profile_type)}</span>
   <span class="monitor-chip"><strong>Documentos:</strong> {doc_count}</span>
   <span class="monitor-chip"><strong>Emissões:</strong> {emission_count}</span>
   <span class="monitor-chip"><strong>Critérios:</strong> {criteria_count}</span>
@@ -789,6 +789,7 @@ def _build_regulatory_monitoring_checks(item: dict[str, Any], criteria_df: pd.Da
 
 def _evaluate_regulatory_criterion(item: dict[str, Any], competencia: str, criterion: pd.Series) -> dict[str, str] | None:
     name = str(criterion.get("Critério") or "").strip()
+    key = str(criterion.get("Chave") or "").strip()
     monitorability = str(criterion.get("Monitorabilidade IME") or criterion.get("Monitoramento") or "").strip()
     rule = str(criterion.get("Limite/regra") or criterion.get("Limite") or "").strip()
     proxy = str(criterion.get("Métrica IME / proxy") or criterion.get("Métrica IME sugerida") or "").strip()
@@ -799,24 +800,51 @@ def _evaluate_regulatory_criterion(item: dict[str, Any], competencia: str, crite
     current_value = "-"
 
     lowered_name = name.lower()
-    if "subordinação" in lowered_name:
+    if key == "subordination_ratio_min" or "subordinação" in lowered_name:
         value = _metric_numeric(item, "Cotas Sub / PL %", competencia)
         limit = _parse_percent_limit(rule)
         current_value = _format_metric_value(value, "%")
         status = _limit_status(value, limit, higher_is_better=True)
-    elif "alocação mínima" in lowered_name:
+    elif key == "credit_rights_allocation_min" or "alocação mínima" in lowered_name:
         value = _metric_numeric(item, "Dir Cred / PL", competencia)
         limit = _parse_percent_limit(rule)
         current_value = _format_metric_value(value, "ratio")
         status = _limit_status((value * 100.0) if value is not None else None, limit, higher_is_better=True)
-    elif "derivativo" in lowered_name:
+    elif key in {"default_rate_evaluation_event", "default_rate_early_maturity"}:
+        indicator = _default_rate_indicator_for_rule(" ".join([name, rule, proxy, note]))
+        if indicator:
+            value = _metric_numeric(item, indicator, competencia)
+            limit = _parse_percent_limit(rule)
+            current_value = _format_metric_value(value, "ratio")
+            status = _limit_status((value * 100.0) if value is not None else None, limit, higher_is_better=False)
+        else:
+            status = "Qualitativo"
+    elif key == "pdd_coverage_min" or "pdd" in lowered_name:
+        value = _metric_numeric(item, "PDD / Venc Total", competencia)
+        limit = _parse_percent_limit(rule)
+        current_value = _format_metric_value(value, "ratio")
+        status = _limit_status((value * 100.0) if value is not None else None, limit, higher_is_better=True)
+    elif key == "recompras_max" or "recompra" in lowered_name:
+        value = _metric_numeric(item, "Recompras / Crédito", competencia)
+        limit = _parse_percent_limit(rule)
+        current_value = _format_metric_value(value, "ratio")
+        status = _limit_status((value * 100.0) if value is not None else None, limit, higher_is_better=False)
+    elif key == "permitted_hedges" or "derivativo" in lowered_name or "hedge" in lowered_name:
         value = _raw_variable_numeric(item, "MERC_DERIVATIVO/VL_SOM_MERC_DERIVATIVO", competencia)
         current_value = _format_metric_value(value, "R$ bruto")
-        status = "OK" if value is not None and abs(value) <= 1.0 else ("Sem dado" if value is None else "Alerta")
+        if re.search(r"\b(vedad|proibid|não\s+poder|nao\s+poder)\w*", rule.lower()):
+            status = "OK" if value is not None and abs(value) <= 1.0 else ("Sem dado" if value is None else "Alerta")
+        else:
+            status = "Qualitativo"
     elif "pl mínimo" in lowered_name:
         value = _metric_numeric(item, "PL (R$)", competencia)
         current_value = _format_metric_value(value, "R$ bruto")
         status = "OK" if value is not None and value >= 1_000_000 else ("Sem dado" if value is None else "Alerta")
+    elif key == "minimum_cash_ratio":
+        caixa = _raw_variable_numeric(item, "APLIC_ATIVO/VL_DISPONIB", competencia)
+        pl = _metric_numeric(item, "PL (R$)", competencia)
+        current_value = _format_metric_value(_safe_ratio(caixa, pl), "ratio")
+        status = "Qualitativo"
     elif "direto" not in monitorability.lower():
         status = "Qualitativo"
 
@@ -852,6 +880,21 @@ def _parse_percent_limit(value: str) -> float | None:
     if not match:
         return None
     return float(match.group(1).replace(",", "."))
+
+
+def _default_rate_indicator_for_rule(value: str) -> str | None:
+    text = str(value or "").lower()
+    if re.search(r"(over|acima|superior|maior|vencid\w*)\s*(?:a|de)?\s*360|360\s*d", text):
+        return "Vencidos Over 360 d / Crédito"
+    if re.search(r"(over|acima|superior|maior|vencid\w*)\s*(?:a|de)?\s*180|180\s*d", text):
+        return "Vencidos Over 180 d / Crédito"
+    if re.search(r"(over|acima|superior|maior|vencid\w*)\s*(?:a|de)?\s*90|90\s*d", text):
+        return "Vencidos Over 90 d / Crédito"
+    if re.search(r"(over|acima|superior|maior|vencid\w*)\s*(?:a|de)?\s*60|60\s*d", text):
+        return "Vencidos Over 60 d / Crédito"
+    if re.search(r"(over|acima|superior|maior|vencid\w*)\s*(?:a|de)?\s*30|30\s*d", text):
+        return "Vencidos Over 30 d / Crédito"
+    return None
 
 
 def _limit_status(value: float | None, limit: float | None, *, higher_is_better: bool) -> str:

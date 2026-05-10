@@ -3,10 +3,11 @@ from __future__ import annotations
 import tempfile
 from pathlib import Path
 import unittest
+import json
 
 import pandas as pd
 
-from services.regulatory_profiles import load_curated_regulatory_profile, payment_calendar_rows
+from services.regulatory_profiles import load_curated_regulatory_profile, load_regulatory_profile, payment_calendar_rows
 
 
 class RegulatoryProfilesTests(unittest.TestCase):
@@ -69,7 +70,51 @@ class RegulatoryProfilesTests(unittest.TestCase):
         self.assertEqual("25,00%", rows[1]["Detalhe"])
         self.assertEqual("15/01/2026", rows[2]["Data/janela"])
 
+    def test_load_regulatory_profile_falls_back_to_offline_knowledge(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            knowledge_dir = Path(tmp) / "knowledge"
+            curated_dir = Path(tmp) / "curated"
+            knowledge_dir.mkdir()
+            payload = {
+                "fund_name": "FIDC Teste",
+                "fund_cnpj": "11.111.111/0001-11",
+                "documents": [],
+                "criteria": [
+                    {
+                        "name": "Subordinação mínima",
+                        "canonical_key": "subordination_ratio_min",
+                        "comparison": ">=",
+                        "threshold_display": "10%",
+                        "source_document": "regulamento.pdf",
+                        "monitoring_mapping": {
+                            "status": "monitoravel",
+                            "ime_metric": "Cotas Sub / PL %",
+                            "rationale": "Teste",
+                        },
+                    }
+                ],
+                "emissions": [
+                    {
+                        "date": "2026-01-01",
+                        "event": "emissão",
+                        "series_or_class": "Sênior 1",
+                        "amount_display": "R$ 100.000.000",
+                        "remuneration": "DI + 1%",
+                        "amortization_schedule": "15/01/2028: 100%",
+                        "source_document": "emissao.pdf",
+                    }
+                ],
+            }
+            (knowledge_dir / "11111111000111.json").write_text(json.dumps(payload), encoding="utf-8")
+
+            profile = load_regulatory_profile("11.111.111/0001-11", curated_dir=curated_dir, knowledge_dir=knowledge_dir)
+
+        self.assertIsNotNone(profile)
+        assert profile is not None
+        self.assertEqual("heurístico", profile.profile_type)
+        self.assertEqual("Subordinação mínima", profile.criteria_df.iloc[0]["Critério"])
+        self.assertEqual("Sênior 1", profile.emissions_df.iloc[0]["Cota/Classe"])
+
 
 if __name__ == "__main__":
     unittest.main()
-
