@@ -70,7 +70,7 @@ def load_curated_regulatory_profile(
         emissions_df=emissions_df,
         criteria_df=criteria_df,
         source_files=tuple(dict.fromkeys(sources)),
-        profile_type="curado",
+        profile_type=_profile_type_from_sources(sources),
     )
 
 
@@ -244,6 +244,13 @@ def _concat_or_empty(frames: list[pd.DataFrame]) -> pd.DataFrame:
     if not frames:
         return pd.DataFrame()
     return pd.concat(frames, ignore_index=True).drop_duplicates().reset_index(drop=True)
+
+
+def _profile_type_from_sources(sources: list[Path]) -> str:
+    names = {path.name for path in sources}
+    if any(name.startswith("all_fidcs_") for name in names):
+        return "triagem estruturada"
+    return "curado"
 
 
 def _has_calendar_info(value: str) -> bool:
