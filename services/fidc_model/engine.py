@@ -22,6 +22,7 @@ INTEREST_PAYMENT_MODE_BULLET = "bullet"
 CREDIT_MODEL_LEGACY_PERCENT = "legacy_percent"
 CREDIT_MODEL_NPL90 = "npl90_provision"
 CREDIT_MODEL_MIGRATION = "migration_matrix"
+CREDIT_MODEL_MC3_CARTOES = "mc3_cartoes"
 
 
 def annual_252_to_monthly_rate(rate_aa: float) -> float:
@@ -434,6 +435,45 @@ def _migration_credit_period(
     )
 
 
+
+def _mc3_cartoes_credit_period(
+    *,
+    carteira: float,
+    carteira_vencendo: float,
+    premissas: Premissas,
+    period_months: float,
+    state: _CreditState,
+) -> _CreditPeriod:
+    base = _npl90_credit_period(
+        carteira=carteira,
+        carteira_vencendo=carteira_vencendo,
+        premissas=premissas,
+        period_months=period_months,
+        state=state,
+    )
+    cap = min(max(float(premissas.maturacao_over90_cap), 0.0), 1.0)
+    reneg = max(float(premissas.renegociado_pct), 0.0) * max(carteira_vencendo, 0.0)
+    over90_cap = max(carteira_vencendo, 0.0) * cap
+    over90_base = max(base.principal_inadimplente, 0.0)
+    over90_ajustado = min(over90_base, over90_cap)
+    pdd_requerida = over90_ajustado + reneg
+    despesa_pdd = max(pdd_requerida - base.provisao_saldo_inicio, 0.0)
+    cobertura = (pdd_requerida / over90_ajustado) if over90_ajustado > 0.0 else None
+    state.npl90_estoque = over90_ajustado
+    state.provisao_saldo = pdd_requerida
+    return replace(
+        base,
+        npl90_estoque_fim=over90_ajustado,
+        provisao_requerida=pdd_requerida,
+        despesa_provisao=despesa_pdd,
+        provisao_saldo_fim=pdd_requerida,
+        cobertura_npl90=cobertura,
+        perda_esperada_despesa=over90_ajustado,
+        perda_inesperada_despesa=reneg,
+        perda_carteira_despesa=despesa_pdd,
+        bucket_90_plus=over90_ajustado,
+    )
+
 def _credit_period(
     *,
     carteira: float,
@@ -455,6 +495,14 @@ def _credit_period(
         )
     if premissas.modelo_credito == CREDIT_MODEL_MIGRATION:
         return _migration_credit_period(
+            carteira=carteira,
+            carteira_vencendo=carteira_vencendo,
+            premissas=premissas,
+            period_months=period_months,
+            state=state,
+        )
+    if premissas.modelo_credito == CREDIT_MODEL_MC3_CARTOES:
+        return _mc3_cartoes_credit_period(
             carteira=carteira,
             carteira_vencendo=carteira_vencendo,
             premissas=premissas,
