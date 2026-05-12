@@ -15,6 +15,7 @@ from services.fidc_model import (
     AMORTIZATION_MODE_LINEAR,
     AMORTIZATION_MODE_NONE,
     AMORTIZATION_MODE_WORKBOOK,
+    CREDIT_MODEL_MC3_CARTOES,
     CREDIT_MODEL_MIGRATION,
     CREDIT_MODEL_NPL90,
     INTEREST_PAYMENT_MODE_AFTER_GRACE,
@@ -68,8 +69,10 @@ CESSION_INPUT_DISCOUNT = "Taxa de Cessão"
 CESSION_INPUT_MONTHLY = "Taxa Mensal (%)"
 CREDIT_LABEL_NPL90 = "NPL 90 + cobertura de provisão"
 CREDIT_LABEL_MIGRATION = "Migração por faixas de atraso"
+CREDIT_LABEL_MC3 = "MC3 Cartões (Over90 + Reneg 100% PDD)"
 CREDIT_MODEL_LABELS = {
     CREDIT_LABEL_NPL90: CREDIT_MODEL_NPL90,
+    CREDIT_LABEL_MC3: CREDIT_MODEL_MC3_CARTOES,
     CREDIT_LABEL_MIGRATION: CREDIT_MODEL_MIGRATION,
 }
 DEFAULT_VOLUME_CARTEIRA = 750_000_000.0
@@ -81,6 +84,8 @@ DEFAULT_PERDA_INESPERADA_AM = 0.0
 DEFAULT_PERDA_CICLO = 0.0
 DEFAULT_NPL90_LAG_MESES = 3
 DEFAULT_COBERTURA_NPL90 = 1.0
+DEFAULT_RENEGOCIADO_PCT = 0.0
+DEFAULT_MATURACAO_OVER90_CAP = 0.40
 DEFAULT_LGD = 1.0
 DEFAULT_ROLAGEM_ADIMPLENTE_1_30 = 0.0
 DEFAULT_ROLAGEM_1_30_31_60 = 0.0
@@ -2874,6 +2879,8 @@ def render_tab_modelo_fidc() -> None:
         rolagem_61_90_90_plus=rolagem_61_90_90_plus,
         recuperacao_90_plus=recuperacao_90_plus,
         writeoff_90_plus=writeoff_90_plus,
+        renegociado_pct=DEFAULT_RENEGOCIADO_PCT if modelo_credito != CREDIT_MODEL_MC3_CARTOES else perda_ciclo,
+        maturacao_over90_cap=DEFAULT_MATURACAO_OVER90_CAP,
         agio_aquisicao=agio_aquisicao,
         excesso_spread_senior_am=excesso_spread_senior_am,
         selic_aa_por_ano=effective_selic_aa_por_ano,
