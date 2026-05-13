@@ -800,7 +800,7 @@ def join_summary_items(values: list[str]) -> str:
             continue
         seen.add(cleaned)
         unique.append(cleaned)
-    return " | ".join(unique) if unique else "—"
+    return "\n".join(unique) if unique else "—"
 
 
 def build_latest_thresholds_table(threshold_versions: pd.DataFrame, coverage: pd.DataFrame) -> pd.DataFrame:

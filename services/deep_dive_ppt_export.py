@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from io import BytesIO
+import re
 from zoneinfo import ZoneInfo
 
 import pandas as pd
@@ -192,8 +193,9 @@ def _row_weight(row: pd.Series, columns: list[str]) -> float:
     max_score = 0.0
     for col_idx, column in enumerate(columns):
         text = _cell_text(row.get(column, "—"))
+        line_count = max(text.count("\n") + 1, 1)
         divisor = 34 if col_idx == 0 else 48
-        max_score = max(max_score, len(text) / divisor)
+        max_score = max(max_score, len(text) / divisor, line_count * 0.75)
     if max_score <= 1.35:
         return 1.0
     return min(4.0, 1.0 + (max_score - 1.0) * 0.72)
@@ -271,6 +273,8 @@ def _font_size(*, row_count: int, col_count: int, is_header: bool) -> float:
 
 def _cell_text(value: object) -> str:
     text = str(value if value is not None else "—").strip() or "—"
+    if len(text) > 80 and " | " in text:
+        text = re.sub(r"\s+\|\s+", "\n", text)
     return text
 
 
