@@ -2310,7 +2310,7 @@ def render_tab_modelo_fidc() -> None:
                     decimals=1,
                     help_text="Percentual do NPL 90+ não recuperado e tratado como perda econômica.",
                 )
-            if credit_model_label == CREDIT_LABEL_NPL90:
+            if credit_model_label in (CREDIT_LABEL_NPL90, CREDIT_LABEL_MC3):
                 perda_ciclo_text = _text_percent_input(
                     "NPL 90+ esperado por ciclo (% dos recebíveis que vencem)",
                     default=DEFAULT_PERDA_CICLO * 100.0,
@@ -2318,10 +2318,33 @@ def render_tab_modelo_fidc() -> None:
                     decimals=2,
                     help_text="Percentual do principal que vence no período e migra para NPL 90+ após o lag.",
                 )
+                if credit_model_label == CREDIT_LABEL_MC3:
+                    mc3_a, mc3_b = st.columns(2)
+                    with mc3_a:
+                        renegociado_pct_text = _text_percent_input(
+                            "Renegociado (% dos recebíveis que vencem)",
+                            default=DEFAULT_RENEGOCIADO_PCT * 100.0,
+                            key="modelo_mc3_renegociado_pct",
+                            decimals=2,
+                            help_text="Parcela renegociada no período que entra integralmente na base de PDD do MC3.",
+                        )
+                    with mc3_b:
+                        maturacao_over90_cap_text = _text_percent_input(
+                            "Teto maturação Over90 por safra (%)",
+                            default=DEFAULT_MATURACAO_OVER90_CAP * 100.0,
+                            key="modelo_mc3_maturacao_over90_cap",
+                            decimals=1,
+                            help_text="Limite máximo de maturação para Over90 aplicado ao principal que vence no período.",
+                        )
+                else:
+                    renegociado_pct_text = "0,00%"
+                    maturacao_over90_cap_text = f"{DEFAULT_MATURACAO_OVER90_CAP * 100:.1f}%".replace(".", ",")
                 roll_adimplente_text = roll_1_30_text = roll_31_60_text = roll_61_90_text = "0,00%"
                 recuperacao_90_text = writeoff_90_text = "0,00%"
             else:
                 perda_ciclo_text = "0,00%"
+                renegociado_pct_text = "0,00%"
+                maturacao_over90_cap_text = f"{DEFAULT_MATURACAO_OVER90_CAP * 100:.1f}%".replace(".", ",")
                 roll_a, roll_b = st.columns(2)
                 with roll_a:
                     roll_adimplente_text = _text_percent_input(
@@ -2731,6 +2754,14 @@ def render_tab_modelo_fidc() -> None:
             writeoff_90_text,
             field_name="Write-off 90+ (% a.m.)",
         ) / 100.0
+        renegociado_pct = _parse_br_number(
+            renegociado_pct_text,
+            field_name="Renegociado (% dos recebíveis que vencem)",
+        ) / 100.0
+        maturacao_over90_cap = _parse_br_number(
+            maturacao_over90_cap_text,
+            field_name="Teto maturação Over90 por safra (%)",
+        ) / 100.0
         if excesso_spread_base == "% a.m.":
             excesso_spread_senior_am = _parse_br_number(
                 excesso_spread_text,
@@ -2799,7 +2830,7 @@ def render_tab_modelo_fidc() -> None:
     if min(credit_percent_values) < 0 or npl90_lag_meses < 0:
         st.error("Premissas de crédito, provisão, LGD e rolagem não podem ser negativas.")
         return
-    if max(perda_ciclo, lgd, rolagem_adimplente_1_30, rolagem_1_30_31_60, rolagem_31_60_61_90, rolagem_61_90_90_plus, recuperacao_90_plus, writeoff_90_plus) > 1.0:
+    if max(perda_ciclo, lgd, rolagem_adimplente_1_30, rolagem_1_30_31_60, rolagem_31_60_61_90, rolagem_61_90_90_plus, recuperacao_90_plus, writeoff_90_plus, renegociado_pct, maturacao_over90_cap) > 1.0:
         st.error("Percentuais de perda, LGD, rolagem, recuperação e write-off devem ficar entre 0,00% e 100,00%.")
         return
     if agio_aquisicao < 0 or excesso_spread_senior_am < 0:
@@ -2879,8 +2910,8 @@ def render_tab_modelo_fidc() -> None:
         rolagem_61_90_90_plus=rolagem_61_90_90_plus,
         recuperacao_90_plus=recuperacao_90_plus,
         writeoff_90_plus=writeoff_90_plus,
-        renegociado_pct=DEFAULT_RENEGOCIADO_PCT if modelo_credito != CREDIT_MODEL_MC3_CARTOES else perda_ciclo,
-        maturacao_over90_cap=DEFAULT_MATURACAO_OVER90_CAP,
+        renegociado_pct=renegociado_pct if modelo_credito == CREDIT_MODEL_MC3_CARTOES else 0.0,
+        maturacao_over90_cap=maturacao_over90_cap if modelo_credito == CREDIT_MODEL_MC3_CARTOES else DEFAULT_MATURACAO_OVER90_CAP,
         agio_aquisicao=agio_aquisicao,
         excesso_spread_senior_am=excesso_spread_senior_am,
         selic_aa_por_ano=effective_selic_aa_por_ano,
@@ -2909,6 +2940,13 @@ def render_tab_modelo_fidc() -> None:
             f"NPL 90+ esperado {_format_percent(perda_ciclo)} dos recebíveis que vencem; "
             f"lag {npl90_lag_meses} meses; cobertura mínima {_format_percent(cobertura_minima_npl90)} "
             f"do NPL 90+ com LGD {_format_percent(lgd)}."
+        )
+    elif modelo_credito == CREDIT_MODEL_MC3_CARTOES:
+        st.caption(
+            "Crédito e provisão (MC3): "
+            f"Over90 esperado {_format_percent(perda_ciclo)} dos recebíveis que vencem; "
+            f"Reneg {_format_percent(renegociado_pct)} com PDD de 100%; "
+            f"teto de maturação Over90 {_format_percent(maturacao_over90_cap)} por safra."
         )
     else:
         st.caption(

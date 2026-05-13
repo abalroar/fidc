@@ -454,7 +454,8 @@ def _mc3_cartoes_credit_period(
     cap = min(max(float(premissas.maturacao_over90_cap), 0.0), 1.0)
     reneg = max(float(premissas.renegociado_pct), 0.0) * max(carteira_vencendo, 0.0)
     over90_cap = max(carteira_vencendo, 0.0) * cap
-    over90_ajustado = min(base.npl90_estoque_fim, over90_cap)
+    over90_base = max(base.principal_inadimplente, 0.0)
+    over90_ajustado = min(over90_base, over90_cap)
     pdd_requerida = over90_ajustado + reneg
     despesa_pdd = max(pdd_requerida - base.provisao_saldo_inicio, 0.0)
     cobertura = (pdd_requerida / over90_ajustado) if over90_ajustado > 0.0 else None
