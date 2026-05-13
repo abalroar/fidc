@@ -4,6 +4,7 @@ from io import BytesIO
 from datetime import date
 from types import SimpleNamespace
 import unittest
+import zipfile
 
 from openpyxl import load_workbook
 import pandas as pd
@@ -745,19 +746,32 @@ class TabModeloFidcTests(unittest.TestCase):
             mezz_interest_label="Pago em todo período",
             user_selic_aa_por_ano=((2026, 0.13),),
         )
+        kpi_cards = tab_modelo_fidc._model_kpi_cards_data(kpis, results, has_mezz=True)
+        revolvency_cards = tab_modelo_fidc._revolvency_cards_data(revolvency_metrics)
+        balance_chart_df = tab_modelo_fidc._build_balance_area_frame(frame)
+        loss_chart_df = tab_modelo_fidc._build_loss_area_frame(frame, volume=100.0)
+        protection_chart_df = tab_modelo_fidc._build_protection_area_frame(frame)
 
         xlsx = tab_modelo_fidc._build_model_dashboard_excel_bytes(
             export_frame=tab_modelo_fidc._build_export_dataframe(frame),
-            kpi_cards=tab_modelo_fidc._model_kpi_cards_data(kpis, results, has_mezz=True),
-            revolvency_cards=tab_modelo_fidc._revolvency_cards_data(revolvency_metrics),
+            kpi_cards=kpi_cards,
+            revolvency_cards=revolvency_cards,
             premissas_summary_df=premissas_summary,
             memory_df=pd.DataFrame([{"Indicador": "Teste", "Fórmula": "A + B", "Observação": "QA"}]),
             curve_source_df=pd.DataFrame([{"Fonte": "Teste", "Valor": "QA"}]),
             revolvency_export_df=tab_modelo_fidc._build_revolvency_export_dataframe(revolvency_metrics),
             protection_export_df=pd.DataFrame([{"Indicador": "Teste", "Valor": 1.0}]),
-            balance_chart_df=tab_modelo_fidc._build_balance_area_frame(frame),
-            loss_chart_df=tab_modelo_fidc._build_loss_area_frame(frame, volume=100.0),
-            protection_chart_df=tab_modelo_fidc._build_protection_area_frame(frame),
+            balance_chart_df=balance_chart_df,
+            loss_chart_df=loss_chart_df,
+            protection_chart_df=protection_chart_df,
+        )
+        pptx = tab_modelo_fidc._build_model_dashboard_pptx_bytes(
+            kpi_cards=kpi_cards,
+            revolvency_cards=revolvency_cards,
+            premissas_summary_df=premissas_summary,
+            balance_chart_df=balance_chart_df,
+            loss_chart_df=loss_chart_df,
+            protection_chart_df=protection_chart_df,
         )
 
         workbook = load_workbook(BytesIO(xlsx))
@@ -769,6 +783,25 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertEqual("Modelagem FIDC - Dashboard", workbook["dashboard"]["A1"].value)
         self.assertEqual(3, len(workbook["dashboard"]._charts))
         self.assertGreaterEqual(workbook["premissas_resumo"].max_row, 10)
+        self.assertTrue(pptx.startswith(b"PK"))
+        self.assertTrue(zipfile.is_zipfile(BytesIO(pptx)))
+        from pptx import Presentation
+
+        presentation = Presentation(BytesIO(pptx))
+        self.assertGreaterEqual(len(presentation.slides), 4)
+        with zipfile.ZipFile(BytesIO(pptx)) as archive:
+            names = archive.namelist()
+            xml_payload = "\n".join(
+                archive.read(name).decode("utf-8", errors="ignore")
+                for name in names
+                if name.endswith(".xml")
+            )
+        self.assertTrue(any(name.startswith("ppt/charts/chart") for name in names))
+        self.assertIn("Modelagem FIDC", xml_payload)
+        self.assertIn("Premissas resumidas", xml_payload)
+        self.assertIn("Evolução do saldo das cotas", xml_payload)
+        self.assertIn("Perda da carteira", xml_payload)
+        self.assertIn("Proteção da estrutura", xml_payload)
 
 
 if __name__ == "__main__":

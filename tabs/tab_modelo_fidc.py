@@ -1746,6 +1746,457 @@ def _add_line_chart(
     dashboard.add_chart(chart, anchor)
 
 
+def _build_model_dashboard_pptx_bytes(
+    *,
+    kpi_cards: list[dict[str, str]],
+    revolvency_cards: list[dict[str, str]],
+    premissas_summary_df: pd.DataFrame,
+    balance_chart_df: pd.DataFrame,
+    loss_chart_df: pd.DataFrame,
+    protection_chart_df: pd.DataFrame,
+) -> bytes:
+    try:
+        from pptx import Presentation
+        from pptx.chart.data import CategoryChartData
+        from pptx.dml.color import RGBColor
+        from pptx.enum.chart import XL_CHART_TYPE, XL_LEGEND_POSITION, XL_MARKER_STYLE
+        from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE
+        from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
+        from pptx.util import Inches, Pt
+    except ImportError as exc:  # pragma: no cover - environment guard
+        raise RuntimeError("Dependência python-pptx não instalada.") from exc
+
+    prs = Presentation()
+    prs.slide_width = Inches(13.333)
+    prs.slide_height = Inches(7.5)
+    layout = prs.slide_layouts[6]
+    deps = {
+        "CategoryChartData": CategoryChartData,
+        "RGBColor": RGBColor,
+        "XL_CHART_TYPE": XL_CHART_TYPE,
+        "XL_LEGEND_POSITION": XL_LEGEND_POSITION,
+        "XL_MARKER_STYLE": XL_MARKER_STYLE,
+        "MSO_AUTO_SHAPE_TYPE": MSO_AUTO_SHAPE_TYPE,
+        "MSO_ANCHOR": MSO_ANCHOR,
+        "PP_ALIGN": PP_ALIGN,
+        "Inches": Inches,
+        "Pt": Pt,
+    }
+
+    _ppt_add_summary_slide(prs, layout, kpi_cards, revolvency_cards, **deps)
+    _ppt_add_premissas_slides(prs, layout, premissas_summary_df, **deps)
+    _ppt_add_balance_slide(prs, layout, balance_chart_df, **deps)
+    _ppt_add_loss_protection_slide(prs, layout, loss_chart_df, protection_chart_df, **deps)
+    for page, slide in enumerate(prs.slides, start=1):
+        _ppt_add_footer(slide, page, len(prs.slides), **deps)
+
+    output = BytesIO()
+    prs.save(output)
+    return output.getvalue()
+
+
+def _ppt_add_summary_slide(
+    prs,
+    layout,
+    kpi_cards: list[dict[str, str]],
+    revolvency_cards: list[dict[str, str]],
+    **deps,
+) -> None:
+    slide = prs.slides.add_slide(layout)
+    _ppt_set_background(slide, "FFFFFF", **deps)
+    _ppt_add_header(
+        slide,
+        "Modelagem FIDC — Dashboard",
+        "Cards de resumo econômico, capacidade de perda e denominadores da tela de Modelagem.",
+        **deps,
+    )
+    _ppt_add_section_label(slide, "Resumo econômico", 0.55, **deps)
+    _ppt_add_card_grid(slide, kpi_cards, x=0.50, y=0.82, w=12.32, h=2.05, columns=4, **deps)
+    _ppt_add_section_label(slide, "Capacidade de perda e denominadores", 3.08, **deps)
+    _ppt_add_card_grid(slide, revolvency_cards, x=0.50, y=3.35, w=12.32, h=1.05, columns=4, **deps)
+    note = slide.shapes.add_textbox(deps["Inches"](0.55), deps["Inches"](4.75), deps["Inches"](12.20), deps["Inches"](1.05))
+    _ppt_textbox(
+        note,
+        "Premissas resumidas aparecem nos slides seguintes; timeline e memória detalhada seguem preservadas no Excel.",
+        deps["Pt"](12),
+        deps["RGBColor"].from_string("6B7280"),
+        bold=False,
+        align=deps["PP_ALIGN"].LEFT,
+    )
+
+
+def _ppt_add_premissas_slides(prs, layout, premissas_summary_df: pd.DataFrame, **deps) -> None:
+    rows_per_slide = 18
+    frame = premissas_summary_df.copy()
+    if frame.empty:
+        frame = pd.DataFrame([{"Categoria": "Premissas", "Premissa": "N/D", "Valor": "—", "Observação": ""}])
+    chunks = [frame.iloc[start : start + rows_per_slide] for start in range(0, len(frame), rows_per_slide)]
+    for idx, chunk in enumerate(chunks, start=1):
+        slide = prs.slides.add_slide(layout)
+        _ppt_set_background(slide, "FFFFFF", **deps)
+        subtitle = "Resumo das premissas usadas na simulação."
+        if len(chunks) > 1:
+            subtitle = f"{subtitle} Parte {idx} de {len(chunks)}."
+        _ppt_add_header(slide, "Premissas resumidas", subtitle, **deps)
+        _ppt_add_table(
+            slide,
+            chunk[["Categoria", "Premissa", "Valor", "Observação"]],
+            x=0.50,
+            y=0.88,
+            w=12.32,
+            h=5.92,
+            column_widths=[1.45, 2.55, 2.00, 6.32],
+            **deps,
+        )
+
+
+def _ppt_add_balance_slide(prs, layout, balance_chart_df: pd.DataFrame, **deps) -> None:
+    slide = prs.slides.add_slide(layout)
+    _ppt_set_background(slide, "FFFFFF", **deps)
+    _ppt_add_header(
+        slide,
+        "Evolução do saldo das cotas",
+        "Mesma visão exibida no dashboard: SEN, MEZZ, SUB disponível e déficit econômico.",
+        **deps,
+    )
+    wide = _balance_chart_wide(balance_chart_df)
+    _ppt_add_stacked_area_chart(
+        slide,
+        wide,
+        x=0.50,
+        y=1.00,
+        w=12.30,
+        h=5.65,
+        title="Evolução do saldo das cotas",
+        y_axis_title="R$ milhões",
+        colors=["2F6F9F", "F28E2B", "59A14F", "B23B3B"],
+        **deps,
+    )
+
+
+def _ppt_add_loss_protection_slide(
+    prs,
+    layout,
+    loss_chart_df: pd.DataFrame,
+    protection_chart_df: pd.DataFrame,
+    **deps,
+) -> None:
+    slide = prs.slides.add_slide(layout)
+    _ppt_set_background(slide, "FFFFFF", **deps)
+    _ppt_add_header(
+        slide,
+        "Perda da carteira e proteção da estrutura",
+        "Mesmas séries exibidas no dashboard, em gráficos editáveis do PowerPoint.",
+        **deps,
+    )
+    _ppt_add_line_chart(
+        slide,
+        _long_percent_chart_wide(loss_chart_df),
+        x=0.50,
+        y=1.00,
+        w=5.95,
+        h=4.65,
+        title="Perda da carteira",
+        y_axis_title="Perda da carteira (%)",
+        colors=["D62728", "F28E2B"],
+        percent_axis=True,
+        **deps,
+    )
+    _ppt_add_line_chart(
+        slide,
+        _long_percent_chart_wide(protection_chart_df),
+        x=6.86,
+        y=1.00,
+        w=5.95,
+        h=4.65,
+        title="Proteção da estrutura",
+        y_axis_title="Proteção da estrutura (%)",
+        colors=["2F6F9F", "59A14F"],
+        percent_axis=True,
+        **deps,
+    )
+    captions = [
+        ("Perda da carteira", _chart_definition_caption("loss"), 0.55),
+        ("Proteção da estrutura", _chart_definition_caption("protection"), 6.91),
+    ]
+    for title, text, x in captions:
+        box = slide.shapes.add_textbox(deps["Inches"](x), deps["Inches"](5.82), deps["Inches"](5.70), deps["Inches"](0.66))
+        _ppt_textbox(
+            box,
+            f"{title}: {text}",
+            deps["Pt"](7.5),
+            deps["RGBColor"].from_string("6B7280"),
+            bold=False,
+            align=deps["PP_ALIGN"].LEFT,
+        )
+
+
+def _ppt_set_background(slide, color: str, **deps) -> None:
+    background = slide.background
+    background.fill.solid()
+    background.fill.fore_color.rgb = deps["RGBColor"].from_string(color)
+
+
+def _ppt_add_header(slide, title: str, subtitle: str, **deps) -> None:
+    title_box = slide.shapes.add_textbox(deps["Inches"](0.50), deps["Inches"](0.20), deps["Inches"](8.50), deps["Inches"](0.34))
+    _ppt_textbox(title_box, title, deps["Pt"](22), deps["RGBColor"].from_string("1F1F1F"), bold=True, align=deps["PP_ALIGN"].LEFT)
+    subtitle_box = slide.shapes.add_textbox(deps["Inches"](0.52), deps["Inches"](0.57), deps["Inches"](11.80), deps["Inches"](0.24))
+    _ppt_textbox(subtitle_box, subtitle, deps["Pt"](9), deps["RGBColor"].from_string("6B7280"), bold=False, align=deps["PP_ALIGN"].LEFT)
+
+
+def _ppt_add_footer(slide, page: int, total_pages: int, **deps) -> None:
+    line = slide.shapes.add_shape(deps["MSO_AUTO_SHAPE_TYPE"].RECTANGLE, deps["Inches"](0.50), deps["Inches"](6.94), deps["Inches"](12.33), deps["Inches"](0.01))
+    line.fill.solid()
+    line.fill.fore_color.rgb = deps["RGBColor"].from_string("E0E0E0")
+    line.line.fill.background()
+    footer = slide.shapes.add_textbox(deps["Inches"](0.50), deps["Inches"](7.03), deps["Inches"](8.20), deps["Inches"](0.20))
+    _ppt_textbox(footer, "Fonte: simulação interna Toma Conta | Modelagem FIDC", deps["Pt"](7.5), deps["RGBColor"].from_string("6B7280"), bold=False, align=deps["PP_ALIGN"].LEFT)
+    page_box = slide.shapes.add_textbox(deps["Inches"](10.80), deps["Inches"](7.03), deps["Inches"](2.00), deps["Inches"](0.20))
+    _ppt_textbox(page_box, f"Página {page} de {total_pages}", deps["Pt"](7.5), deps["RGBColor"].from_string("6B7280"), bold=False, align=deps["PP_ALIGN"].RIGHT)
+
+
+def _ppt_add_section_label(slide, text: str, y: float, **deps) -> None:
+    box = slide.shapes.add_textbox(deps["Inches"](0.52), deps["Inches"](y), deps["Inches"](6.00), deps["Inches"](0.22))
+    _ppt_textbox(box, text, deps["Pt"](11), deps["RGBColor"].from_string("1F1F1F"), bold=True, align=deps["PP_ALIGN"].LEFT)
+
+
+def _ppt_add_card_grid(
+    slide,
+    cards: list[dict[str, str]],
+    *,
+    x: float,
+    y: float,
+    w: float,
+    h: float,
+    columns: int,
+    **deps,
+) -> None:
+    gap_x = 0.16
+    gap_y = 0.14
+    rows = max((len(cards) + columns - 1) // columns, 1)
+    card_w = (w - gap_x * (columns - 1)) / columns
+    card_h = (h - gap_y * (rows - 1)) / rows
+    for idx, card in enumerate(cards):
+        row = idx // columns
+        col = idx % columns
+        _ppt_add_card(slide, x + col * (card_w + gap_x), y + row * (card_h + gap_y), card_w, card_h, card, **deps)
+
+
+def _ppt_add_card(slide, x: float, y: float, w: float, h: float, card: dict[str, str], **deps) -> None:
+    shape = slide.shapes.add_shape(
+        deps["MSO_AUTO_SHAPE_TYPE"].ROUNDED_RECTANGLE,
+        deps["Inches"](x),
+        deps["Inches"](y),
+        deps["Inches"](w),
+        deps["Inches"](h),
+    )
+    shape.fill.solid()
+    shape.fill.fore_color.rgb = deps["RGBColor"].from_string("F7F7F7")
+    shape.line.color.rgb = deps["RGBColor"].from_string("E0E0E0")
+    text_frame = shape.text_frame
+    text_frame.clear()
+    text_frame.margin_left = deps["Inches"](0.08)
+    text_frame.margin_right = deps["Inches"](0.08)
+    text_frame.margin_top = deps["Inches"](0.04)
+    text_frame.margin_bottom = deps["Inches"](0.03)
+    text_frame.word_wrap = True
+    entries = [
+        (str(card.get("label", "")).upper(), 6.7, "6B7280", True),
+        (str(card.get("value", "")), 12.2, "1F1F1F", True),
+        (str(card.get("context", "")), 6.6, "6B7280", False),
+    ]
+    for idx, (text, size, color, bold) in enumerate(entries):
+        paragraph = text_frame.paragraphs[0] if idx == 0 else text_frame.add_paragraph()
+        paragraph.text = text
+        paragraph.font.name = "Calibri"
+        paragraph.font.size = deps["Pt"](size)
+        paragraph.font.bold = bold
+        paragraph.font.color.rgb = deps["RGBColor"].from_string(color)
+        paragraph.alignment = deps["PP_ALIGN"].LEFT
+        paragraph.space_after = deps["Pt"](0)
+
+
+def _ppt_textbox(shape, text: str, size, color, *, bold: bool, align, **_) -> None:
+    text_frame = shape.text_frame
+    text_frame.clear()
+    text_frame.word_wrap = True
+    paragraph = text_frame.paragraphs[0]
+    paragraph.text = text
+    paragraph.alignment = align
+    paragraph.font.name = "Calibri"
+    paragraph.font.size = size
+    paragraph.font.bold = bold
+    paragraph.font.color.rgb = color
+
+
+def _ppt_add_table(
+    slide,
+    frame: pd.DataFrame,
+    *,
+    x: float,
+    y: float,
+    w: float,
+    h: float,
+    column_widths: list[float],
+    **deps,
+) -> None:
+    table_shape = slide.shapes.add_table(len(frame) + 1, len(frame.columns), deps["Inches"](x), deps["Inches"](y), deps["Inches"](w), deps["Inches"](h))
+    table = table_shape.table
+    for idx, width in enumerate(column_widths):
+        table.columns[idx].width = deps["Inches"](width)
+    for col_idx, header in enumerate(frame.columns):
+        _ppt_style_table_cell(table.cell(0, col_idx), str(header), fill="1F1F1F", color="FFFFFF", bold=True, font_size=7.5, **deps)
+    for row_idx, row in enumerate(frame.itertuples(index=False), start=1):
+        fill = "F7F7F7" if row_idx % 2 == 0 else "FFFFFF"
+        for col_idx, value in enumerate(row):
+            _ppt_style_table_cell(table.cell(row_idx, col_idx), str(value or "—"), fill=fill, color="1F1F1F", bold=False, font_size=6.6, **deps)
+
+
+def _ppt_style_table_cell(
+    cell,
+    text: str,
+    *,
+    fill: str,
+    color: str,
+    bold: bool,
+    font_size: float,
+    **deps,
+) -> None:
+    cell.fill.solid()
+    cell.fill.fore_color.rgb = deps["RGBColor"].from_string(fill)
+    cell.vertical_anchor = deps["MSO_ANCHOR"].MIDDLE
+    cell.margin_left = deps["Inches"](0.04)
+    cell.margin_right = deps["Inches"](0.04)
+    cell.margin_top = deps["Inches"](0.02)
+    cell.margin_bottom = deps["Inches"](0.02)
+    paragraph = cell.text_frame.paragraphs[0]
+    paragraph.text = text
+    paragraph.font.name = "Calibri"
+    paragraph.font.size = deps["Pt"](font_size)
+    paragraph.font.bold = bold
+    paragraph.font.color.rgb = deps["RGBColor"].from_string(color)
+    paragraph.alignment = deps["PP_ALIGN"].LEFT
+
+
+def _ppt_add_stacked_area_chart(
+    slide,
+    wide: pd.DataFrame,
+    *,
+    x: float,
+    y: float,
+    w: float,
+    h: float,
+    title: str,
+    y_axis_title: str,
+    colors: list[str],
+    **deps,
+) -> None:
+    _ppt_add_chart(
+        slide,
+        wide,
+        chart_type=deps["XL_CHART_TYPE"].AREA_STACKED,
+        x=x,
+        y=y,
+        w=w,
+        h=h,
+        title=title,
+        y_axis_title=y_axis_title,
+        colors=colors,
+        percent_axis=False,
+        **deps,
+    )
+
+
+def _ppt_add_line_chart(
+    slide,
+    wide: pd.DataFrame,
+    *,
+    x: float,
+    y: float,
+    w: float,
+    h: float,
+    title: str,
+    y_axis_title: str,
+    colors: list[str],
+    percent_axis: bool,
+    **deps,
+) -> None:
+    _ppt_add_chart(
+        slide,
+        wide,
+        chart_type=deps["XL_CHART_TYPE"].LINE_MARKERS,
+        x=x,
+        y=y,
+        w=w,
+        h=h,
+        title=title,
+        y_axis_title=y_axis_title,
+        colors=colors,
+        percent_axis=percent_axis,
+        **deps,
+    )
+
+
+def _ppt_add_chart(
+    slide,
+    wide: pd.DataFrame,
+    *,
+    chart_type,
+    x: float,
+    y: float,
+    w: float,
+    h: float,
+    title: str,
+    y_axis_title: str,
+    colors: list[str],
+    percent_axis: bool,
+    **deps,
+) -> None:
+    if wide.empty or len(wide.columns) <= 2:
+        box = slide.shapes.add_textbox(deps["Inches"](x), deps["Inches"](y), deps["Inches"](w), deps["Inches"](0.45))
+        _ppt_textbox(box, f"{title}: sem dados suficientes.", deps["Pt"](10), deps["RGBColor"].from_string("6B7280"), bold=False, align=deps["PP_ALIGN"].LEFT)
+        return
+    chart_data = deps["CategoryChartData"]()
+    chart_data.categories = [f"M{int(value)}" if pd.notna(value) else "" for value in wide["Mês"]]
+    for column in [col for col in wide.columns if col not in {"Mês", "Data"}]:
+        chart_data.add_series(str(column), [float(value or 0.0) for value in wide[column].fillna(0.0).tolist()])
+    shape = slide.shapes.add_chart(
+        chart_type,
+        deps["Inches"](x),
+        deps["Inches"](y),
+        deps["Inches"](w),
+        deps["Inches"](h),
+        chart_data,
+    )
+    chart = shape.chart
+    chart.has_title = True
+    chart.chart_title.text_frame.text = title
+    chart.chart_title.text_frame.paragraphs[0].font.name = "Calibri"
+    chart.chart_title.text_frame.paragraphs[0].font.size = deps["Pt"](11)
+    chart.chart_title.text_frame.paragraphs[0].font.bold = True
+    chart.value_axis.has_title = True
+    chart.value_axis.axis_title.text_frame.text = y_axis_title
+    chart.value_axis.tick_labels.font.size = deps["Pt"](8)
+    chart.category_axis.tick_labels.font.size = deps["Pt"](8)
+    if percent_axis:
+        chart.value_axis.tick_labels.number_format = "0,0%"
+    chart.has_legend = True
+    chart.legend.position = deps["XL_LEGEND_POSITION"].BOTTOM
+    chart.legend.include_in_layout = False
+    chart.legend.font.size = deps["Pt"](8)
+    for idx, series in enumerate(chart.series):
+        color = colors[idx % len(colors)]
+        series.format.line.color.rgb = deps["RGBColor"].from_string(color)
+        series.format.fill.solid()
+        series.format.fill.fore_color.rgb = deps["RGBColor"].from_string(color)
+        if hasattr(series, "marker"):
+            series.marker.style = deps["XL_MARKER_STYLE"].CIRCLE
+            series.marker.size = 5
+            series.marker.format.fill.solid()
+            series.marker.format.fill.fore_color.rgb = deps["RGBColor"].from_string(color)
+            series.marker.format.line.color.rgb = deps["RGBColor"].from_string(color)
+
+
 def _build_workbook_mechanics_markdown(
     *,
     selected_curve: _SelectedCurve,
@@ -3788,10 +4239,12 @@ def render_tab_modelo_fidc() -> None:
         mezz_interest_label=mezz_interest_label,
         user_selic_aa_por_ano=tuple(user_selic_aa_por_ano),
     )
+    kpi_cards = _model_kpi_cards_data(kpis, results, has_mezz=proporcao_mezz > 0.000001)
+    revolvency_cards = _revolvency_cards_data(revolvency_metrics)
     excel_bytes = _build_model_dashboard_excel_bytes(
         export_frame=export_frame,
-        kpi_cards=_model_kpi_cards_data(kpis, results, has_mezz=proporcao_mezz > 0.000001),
-        revolvency_cards=_revolvency_cards_data(revolvency_metrics),
+        kpi_cards=kpi_cards,
+        revolvency_cards=revolvency_cards,
         premissas_summary_df=premissas_summary_df,
         memory_df=memory_df,
         curve_source_df=_build_curve_source_dataframe(selected_curve, selected_calendar, interpolation_label),
@@ -3801,7 +4254,15 @@ def render_tab_modelo_fidc() -> None:
         loss_chart_df=loss_chart_df,
         protection_chart_df=protection_display_chart_df,
     )
-    download_left, download_right = st.columns(2)
+    pptx_bytes = _build_model_dashboard_pptx_bytes(
+        kpi_cards=kpi_cards,
+        revolvency_cards=revolvency_cards,
+        premissas_summary_df=premissas_summary_df,
+        balance_chart_df=balance_chart_df,
+        loss_chart_df=loss_chart_df,
+        protection_chart_df=protection_display_chart_df,
+    )
+    download_left, download_mid, download_right = st.columns(3)
     download_left.download_button(
         "Baixar CSV",
         data=csv,
@@ -3809,11 +4270,18 @@ def render_tab_modelo_fidc() -> None:
         mime="text/csv",
         width="stretch",
     )
-    download_right.download_button(
+    download_mid.download_button(
         "Baixar Excel dashboard",
         data=excel_bytes,
         file_name="modelo_fidc_dashboard.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        width="stretch",
+    )
+    download_right.download_button(
+        "Baixar PPTX dashboard",
+        data=pptx_bytes,
+        file_name="modelo_fidc_dashboard.pptx",
+        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
         width="stretch",
     )
 
