@@ -859,11 +859,59 @@ class MercadoLivreDashboardTests(unittest.TestCase):
                 base_dir=Path(tmp_dir),
             )
             self.assertTrue((root / "metadata.json").exists())
+            metadata = json.loads((root / "metadata.json").read_text(encoding="utf-8"))
 
         self.assertIsNotNone(loaded)
         assert loaded is not None
         self.assertIn("11111111000111", loaded.fund_monthly)
         self.assertEqual(outputs.metadata["loaded_period_label"], loaded.metadata["loaded_period_label"])
+        self.assertEqual(["11111111000111"], metadata["requested_funds"])
+        self.assertEqual(["11111111000111"], metadata["loaded_funds"])
+        self.assertTrue(metadata["cache_complete"])
+
+    def test_outputs_cache_rejects_partial_portfolio_cache(self) -> None:
+        dashboard = _dashboard(
+            fund_name="FIDC A",
+            cnpj="11111111000111",
+            pl_total=100.0,
+            pl_senior=75.0,
+            pl_mezz=15.0,
+            pl_sub=10.0,
+            carteira=1_000.0,
+            pdd=100.0,
+            buckets={4: 40.0, 7: 10.0, 8: 10.0},
+        )
+        outputs = build_mercado_livre_outputs(
+            portfolio_id="portfolio-1",
+            portfolio_name="Carteira",
+            dashboards_by_cnpj={"11111111000111": ("FIDC A", dashboard)},
+            period_label="01/2026 a 01/2026",
+        )
+        requested_funds = (
+            PortfolioFund(cnpj="11111111000111", display_name="FIDC A"),
+            PortfolioFund(cnpj="22222222000122", display_name="FIDC B"),
+        )
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = save_outputs_to_cache(
+                outputs,
+                portfolio_id="portfolio-1",
+                period_key="2026-01-01::2026-01-01",
+                portfolio_funds=requested_funds,
+                base_dir=Path(tmp_dir),
+            )
+            metadata = json.loads((root / "metadata.json").read_text(encoding="utf-8"))
+            loaded = load_outputs_from_cache(
+                portfolio_id="portfolio-1",
+                period_key="2026-01-01::2026-01-01",
+                portfolio_funds=requested_funds,
+                base_dir=Path(tmp_dir),
+            )
+
+        self.assertFalse(metadata["cache_complete"])
+        self.assertEqual(["11111111000111", "22222222000122"], metadata["requested_funds"])
+        self.assertEqual(["11111111000111"], metadata["loaded_funds"])
+        self.assertIsNone(loaded)
 
     def test_outputs_cache_treats_empty_optional_warnings_as_empty_dataframe(self) -> None:
         dashboard = _dashboard(

@@ -127,7 +127,7 @@ PRIMITIVE_SUM_COLUMNS = [
 ]
 
 WIDE_TABLE_COLUMNS = ["Bloco", "Métrica", "Memória / fórmula"]
-CALCULATION_SCHEMA_VERSION = 6
+CALCULATION_SCHEMA_VERSION = 7
 OFFICIAL_PL_PATH = "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
 
 
@@ -356,6 +356,8 @@ def save_outputs_to_cache(
     base_dir: Path | str = ".cache/mercado-livre",
 ) -> Path:
     identity_key = portfolio_identity_key(portfolio_funds, fallback=portfolio_id)
+    requested_cnpjs = _cnpjs_from_portfolio_funds(portfolio_funds)
+    loaded_cnpjs = sorted({_digits(cnpj) for cnpj in outputs.fund_monthly if _digits(cnpj)})
     root = Path(base_dir) / identity_key / _safe_path_token(period_key)
     root.mkdir(parents=True, exist_ok=True)
     for cnpj, frame in outputs.fund_monthly.items():
@@ -371,6 +373,9 @@ def save_outputs_to_cache(
             "storage_identity_key": identity_key,
             "period_key": period_key,
             "cache_dir": str(root),
+            "requested_funds": requested_cnpjs,
+            "loaded_funds": loaded_cnpjs,
+            "cache_complete": not requested_cnpjs or requested_cnpjs == loaded_cnpjs,
         }
     )
     (root / "metadata.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -378,15 +383,7 @@ def save_outputs_to_cache(
 
 
 def portfolio_identity_key(portfolio_funds: list[dict[str, str]] | tuple[Any, ...] | None, *, fallback: str) -> str:
-    cnpjs: list[str] = []
-    for fund in portfolio_funds or []:
-        if isinstance(fund, dict):
-            cnpj = fund.get("cnpj")
-        else:
-            cnpj = getattr(fund, "cnpj", None)
-        digits = _digits(cnpj)
-        if digits:
-            cnpjs.append(digits)
+    cnpjs = _cnpjs_from_portfolio_funds(portfolio_funds)
     if not cnpjs:
         return _safe_path_token(fallback)
     payload = {
@@ -428,6 +425,18 @@ def load_outputs_from_cache(
     metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
     if int(metadata.get("schema_version") or 0) != CALCULATION_SCHEMA_VERSION:
         return None
+    requested_cnpjs = _cnpjs_from_portfolio_funds(portfolio_funds)
+    metadata_requested = _cnpjs_from_metadata_value(metadata.get("requested_funds"))
+    metadata_loaded = _cnpjs_from_metadata_value(metadata.get("loaded_funds"))
+    metadata_funds = _cnpjs_from_metadata_value(metadata.get("funds"))
+    if requested_cnpjs:
+        # Never reuse a cache created from a partial portfolio. Older cache files
+        # only have metadata["funds"], so treat that as the loaded set and require
+        # exact equality with the current selected basket.
+        cached_requested = metadata_requested or metadata_funds
+        cached_loaded = metadata_loaded or metadata_funds
+        if cached_requested != requested_cnpjs or cached_loaded != requested_cnpjs:
+            return None
     fund_monthly: dict[str, pd.DataFrame] = {}
     fund_wide: dict[str, pd.DataFrame] = {}
     for fund in metadata.get("funds") or []:
@@ -446,6 +455,9 @@ def load_outputs_from_cache(
             if wide_df is None:
                 return None
             fund_wide[cnpj] = wide_df
+    if requested_cnpjs:
+        if sorted(fund_monthly) != requested_cnpjs or sorted(fund_wide) != requested_cnpjs:
+            return None
     consolidated_monthly_path = root / "monthly_consolidado.csv"
     consolidated_wide_path = root / "wide_consolidado.csv"
     warnings_path = root / "warnings.csv"
@@ -464,6 +476,32 @@ def load_outputs_from_cache(
         warnings_df=_read_optional_cache_csv(warnings_path),
         metadata=metadata,
     )
+
+
+def _cnpjs_from_portfolio_funds(portfolio_funds: list[dict[str, str]] | tuple[Any, ...] | None) -> list[str]:
+    cnpjs: set[str] = set()
+    for fund in portfolio_funds or []:
+        if isinstance(fund, dict):
+            cnpj = fund.get("cnpj")
+        else:
+            cnpj = getattr(fund, "cnpj", None)
+        digits = _digits(cnpj)
+        if digits:
+            cnpjs.add(digits)
+    return sorted(cnpjs)
+
+
+def _cnpjs_from_metadata_value(value: Any) -> list[str]:
+    cnpjs: set[str] = set()
+    if isinstance(value, list):
+        for item in value:
+            if isinstance(item, dict):
+                digits = _digits(item.get("cnpj"))
+            else:
+                digits = _digits(item)
+            if digits:
+                cnpjs.add(digits)
+    return sorted(cnpjs)
 
 
 def _read_cache_csv(path: Path) -> pd.DataFrame | None:
