@@ -36,12 +36,7 @@ logging.getLogger("pypdf").setLevel(logging.ERROR)
 GLOBAL_DOCUMENT_INVENTORY = REPORTS / "regulatory_document_inventory.csv"
 GLOBAL_CURATION_STATUS = REPORTS / "all_fidcs_regulatory_curation_status.csv"
 GLOBAL_CRITERIA_MATRIX = REPORTS / "regulatory_criteria_matrix.csv"
-GLOBAL_CURATED_CRITERIA = ROOT / "data" / "regulatory_profiles" / "all_fidcs_criteria_monitoraveis_ime.csv"
-PRAVALER_CURATED_CRITERIA = ROOT / "data" / "regulatory_profiles" / "pravaler_criteria_monitoraveis_ime.csv"
-CLOUDWALK_CURATED_CRITERIA = ROOT / "data" / "regulatory_profiles" / "cloudwalk_criteria_monitoraveis_ime.csv"
-GLOBAL_CURATED_EMISSIONS = ROOT / "data" / "regulatory_profiles" / "all_fidcs_cotas_emissoes_pagamentos.csv"
-PRAVALER_CURATED_EMISSIONS = ROOT / "data" / "regulatory_profiles" / "pravaler_cotas_emissoes_pagamentos.csv"
-CLOUDWALK_CURATED_EMISSIONS = ROOT / "data" / "regulatory_profiles" / "cloudwalk_cotas_emissoes_pagamentos.csv"
+REGULATORY_PROFILES = ROOT / "data" / "regulatory_profiles"
 
 
 def main() -> None:
@@ -66,8 +61,8 @@ def build_sellers_mercado_credito_package(args: argparse.Namespace) -> None:
 
     coverage = read_csv(REPORTS / "sellers_mercado_credito_document_coverage.csv")
     performance = read_csv(REPORTS / "sellers_mercado_credito_performance_metrics.csv")
-    threshold_versions = read_csv(REPORTS / "sellers_mercado_credito_threshold_versions.csv")
-    emissions = read_csv(REPORTS / "sellers_mercado_credito_emissions.csv")
+    threshold_versions = build_threshold_versions_for_coverage(coverage)
+    emissions = build_emissions_for_coverage(coverage)
 
     performance = enrich_performance_from_local_ime_cache(performance, coverage)
     emission_rows = build_emission_rows(emissions, coverage)
@@ -270,12 +265,7 @@ def category_breakdown(docs: pd.DataFrame) -> str:
 
 
 def build_threshold_versions_for_coverage(coverage: pd.DataFrame) -> pd.DataFrame:
-    frames = [
-        normalize_curated_criteria(read_csv(GLOBAL_CURATED_CRITERIA), source_kind="curated"),
-        normalize_curated_criteria(read_csv(PRAVALER_CURATED_CRITERIA), source_kind="pravaler_curated"),
-        normalize_curated_criteria(read_csv(CLOUDWALK_CURATED_CRITERIA), source_kind="cloudwalk_curated"),
-        normalize_criteria_matrix(read_csv(GLOBAL_CRITERIA_MATRIX)),
-    ]
+    frames = curated_criteria_frames() + [normalize_criteria_matrix(read_csv(GLOBAL_CRITERIA_MATRIX))]
     combined = pd.concat([frame for frame in frames if not frame.empty], ignore_index=True, sort=False)
     if combined.empty or coverage.empty:
         return pd.DataFrame()
@@ -283,9 +273,7 @@ def build_threshold_versions_for_coverage(coverage: pd.DataFrame) -> pd.DataFram
     combined = combined[combined["cnpj"].map(normalize_cnpj).isin(cnpjs)].copy()
     if combined.empty:
         return combined
-    combined["_priority"] = combined["source_kind"].map(
-        {"pravaler_curated": 3, "cloudwalk_curated": 3, "curated": 2, "matrix": 1}
-    ).fillna(0)
+    combined["_priority"] = combined["source_kind"].map(profile_priority).fillna(0)
     combined["_dedupe"] = combined.apply(
         lambda row: "|".join(
             [
@@ -305,6 +293,53 @@ def build_threshold_versions_for_coverage(coverage: pd.DataFrame) -> pd.DataFram
     )
 
 
+def curated_criteria_frames() -> list[pd.DataFrame]:
+    frames: list[pd.DataFrame] = []
+    for path in sorted(REGULATORY_PROFILES.glob("*_criteria_monitoraveis_ime.csv")):
+        frames.append(normalize_curated_criteria(read_csv(path), source_kind=profile_source_kind(path)))
+    return frames
+
+
+def curated_emission_frames() -> list[pd.DataFrame]:
+    frames: list[pd.DataFrame] = []
+    for path in sorted(REGULATORY_PROFILES.glob("*_cotas_emissoes_pagamentos.csv")):
+        frame = read_csv(path)
+        if frame.empty:
+            continue
+        frame = frame.copy()
+        frame["source_kind"] = profile_source_kind(path)
+        frame["arquivo_origem_tabela"] = str(path.relative_to(ROOT))
+        frames.append(frame)
+    return frames
+
+
+def profile_source_kind(path: Path) -> str:
+    if path.name.startswith("all_fidcs_"):
+        return "curated"
+    stem = path.stem
+    for suffix in ("_criteria_monitoraveis_ime", "_cotas_emissoes_pagamentos"):
+        if stem.endswith(suffix):
+            stem = stem[: -len(suffix)]
+            break
+    return f"{stem}_curated"
+
+
+def profile_priority(source_kind: object) -> int:
+    source = str(source_kind or "")
+    if source == "matrix":
+        return 1
+    if source == "curated":
+        return 2
+    if source.endswith("_curated"):
+        return 3
+    return 0
+
+
+def is_dedicated_profile_source(source_kind: object) -> bool:
+    source = str(source_kind or "")
+    return source.endswith("_curated") and source != "curated"
+
+
 def normalize_curated_criteria(frame: pd.DataFrame, *, source_kind: str) -> pd.DataFrame:
     if frame.empty:
         return pd.DataFrame()
@@ -312,12 +347,13 @@ def normalize_curated_criteria(frame: pd.DataFrame, *, source_kind: str) -> pd.D
     for _, row in frame.iterrows():
         comparison, limit = split_limit_rule(row.get("Limite/regra"))
         source = row.get("Fonte") or ""
+        key = row.get("Chave") or infer_criteria_key(row.get("Critério"))
         output.append(
             {
                 "fundo": row.get("Fundo") or "",
                 "cnpj": row.get("CNPJ") or "",
                 "criterio": row.get("Critério") or "",
-                "chave": row.get("Chave") or "",
+                "chave": key,
                 "evento": row.get("Critério") or "",
                 "comparacao": comparison,
                 "limite": limit,
@@ -372,6 +408,27 @@ def split_limit_rule(value: object) -> tuple[str, str]:
     return "", text
 
 
+def infer_criteria_key(value: object) -> str:
+    text = strip_accents(str(value or "").lower())
+    if not text:
+        return ""
+    if "subordin" in text:
+        return "subordination_ratio_min"
+    if "alocacao" in text or "direitos creditorios" in text:
+        return "credit_rights_allocation_min"
+    if "derivativ" in text or "hedge" in text:
+        return "permitted_hedges"
+    if "reserva" in text or "caixa" in text or "liquidez" in text:
+        return "minimum_cash_ratio"
+    if "inadimplement" in text or "atraso" in text or "default" in text:
+        return "default_rate_evaluation_event"
+    if "pdd" in text or "provis" in text:
+        return "pdd_coverage_min"
+    if "cobertura" in text:
+        return "coverage_index_min"
+    return ""
+
+
 def classify_source(value: object) -> str:
     text = str(value or "").lower()
     for token in ("regulamento", "assembleia", "emissao", "evento"):
@@ -381,12 +438,7 @@ def classify_source(value: object) -> str:
 
 
 def build_emissions_for_coverage(coverage: pd.DataFrame) -> pd.DataFrame:
-    frames = [
-        read_csv(GLOBAL_CURATED_EMISSIONS),
-        read_csv(PRAVALER_CURATED_EMISSIONS),
-        read_csv(CLOUDWALK_CURATED_EMISSIONS),
-        read_csv(REPORTS / "sellers_mercado_credito_emissions.csv"),
-    ]
+    frames = curated_emission_frames() + [read_csv(REPORTS / "sellers_mercado_credito_emissions.csv")]
     combined = pd.concat([frame for frame in frames if not frame.empty], ignore_index=True, sort=False)
     if combined.empty or coverage.empty:
         return pd.DataFrame()
@@ -906,10 +958,13 @@ def latest_threshold_rows(threshold_versions: pd.DataFrame) -> pd.DataFrame:
     if threshold_versions.empty:
         return threshold_versions.copy()
     subset = threshold_versions.copy()
+    source_kind = subset.get("source_kind", pd.Series("", index=subset.index))
+    profile_mask = source_kind.astype(str).eq("curated") | source_kind.map(is_dedicated_profile_source)
     regulation_mask = (
         subset.get("categoria_documento", pd.Series("", index=subset.index)).astype(str).str.contains("regulamento", case=False, na=False)
         | subset.get("tipo_documento", pd.Series("", index=subset.index)).astype(str).str.contains("regulamento", case=False, na=False)
         | subset.get("source_file", pd.Series("", index=subset.index)).astype(str).str.contains("regulamento", case=False, na=False)
+        | profile_mask
     )
     subset = subset[regulation_mask].copy()
     if subset.empty:
@@ -918,7 +973,7 @@ def latest_threshold_rows(threshold_versions: pd.DataFrame) -> pd.DataFrame:
     subset["_sort_key"] = subset["data_documento"].map(date_sort)
     latest_rows = []
     for (cnpj, key), group in subset.sort_values("_sort_key").groupby(["_cnpj_norm", "chave"], dropna=False):
-        dedicated_mask = group["source_kind"].astype(str).isin({"pravaler_curated", "cloudwalk_curated"})
+        dedicated_mask = group["source_kind"].map(is_dedicated_profile_source)
         if dedicated_mask.any():
             latest_group = group[dedicated_mask].copy()
         else:
@@ -1031,6 +1086,11 @@ def preferred_emission_rows(emissions: pd.DataFrame) -> pd.DataFrame:
         return emissions
     selected = []
     for _, group in emissions.groupby(emissions["CNPJ"].map(normalize_cnpj), dropna=False):
+        source_kind = group.get("source_kind", pd.Series("", index=group.index))
+        dedicated_rows = group[source_kind.map(is_dedicated_profile_source)]
+        if not dedicated_rows.empty:
+            selected.append(dedicated_rows)
+            continue
         source = group.get("arquivo_origem_tabela", pd.Series("", index=group.index)).astype(str)
         profile_rows = group[source.str.contains("data/regulatory_profiles", case=False, na=False)]
         if not profile_rows.empty:
@@ -1068,13 +1128,23 @@ def clean_emission_type(value: object, class_text: str) -> str:
 
 def normalize_date_label(value: object) -> str:
     raw_text = str(value or "")
+    raw_lowered = strip_accents(raw_text.lower())
+    if "nao identific" in raw_lowered:
+        return ""
+    if "nao textual" in raw_lowered:
+        return ""
+    if "nao locali" in raw_lowered:
+        return ""
     embedded = extract_date_from_text(raw_text)
     if embedded:
         return embedded
     text = clean_emission_text(raw_text, max_len=40)
-    if "não identific" in text.lower():
+    lowered = strip_accents(text.lower())
+    if "nao identific" in lowered:
         return ""
-    if "não textual" in text.lower():
+    if "nao textual" in lowered:
+        return ""
+    if "nao locali" in lowered:
         return ""
     return text
 
@@ -1216,6 +1286,11 @@ def format_cnpj(cnpj_digits: object) -> str:
 
 def normalize_cnpj(value: object) -> str:
     return re.sub(r"\D", "", str(value or ""))
+
+
+def strip_accents(value: object) -> str:
+    normalized = unicodedata.normalize("NFKD", str(value or ""))
+    return normalized.encode("ascii", "ignore").decode("ascii")
 
 
 def short_name(value: object) -> str:
