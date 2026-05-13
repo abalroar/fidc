@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "sellers_vs_mercado_credito",
+  "title": "Comparativo Sellers vs Mercado Crédito",
+  "subtitle": "Estrutura, documentação, gatilhos e performance monitorável",
+  "portfolio_id": "",
+  "portfolio_signature": "",
+  "generated_at": "2026-05-13T10:59:26-03:00",
+  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "33.254.370/0001-04",
+      "name": "MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "short_name": "MERCADO CRÉDITO"
+    },
+    {
+      "cnpj": "37.511.828/0001-14",
+      "name": "MERCADO CRÉDITO I BRASIL FIDC SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "MERCADO CRÉDITO I BRASIL"
+    },
+    {
+      "cnpj": "41.970.012/0001-26",
+      "name": "MERCADO CRÉDITO II BRASIL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+      "short_name": "MERCADO CRÉDITO II BRASIL"
+    },
+    {
+      "cnpj": "28.472.333/0001-32",
+      "name": "Mercado Crédito Merchant Fundo de Investimento em Direitos Creditórios",
+      "short_name": "Mercado Crédito Merchant"
+    },
+    {
+      "cnpj": "63.572.282/0001-11",
+      "name": "SELLER 3 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESP LIMITADA",
+      "short_name": "SELLER 3"
+    },
+    {
+      "cnpj": "50.473.039/0001-02",
+      "name": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SELLER FIDC"
+    },
+    {
+      "cnpj": "55.471.753/0001-77",
+      "name": "SELLER II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO RESP LTDA",
+      "short_name": "SELLER II"
+    }
+  ],
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "subtitle": "Matriz FIDC x métrica",
+      "kind": "comparison_matrix",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e cronogramas",
+      "kind": "source_table",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "thresholds",
+      "title": "Triggers e thresholds",
+      "kind": "source_table",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "fundo"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
+      "Tabela principal com 27 linhas; documentos sem PDF local permanecem como lacuna."
+    ]
+  }
+}
