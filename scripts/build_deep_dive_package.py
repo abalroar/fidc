@@ -175,8 +175,12 @@ def build_comparison_main(
         ("volume_mm", "Volume emitido identificado (R$ mm)"),
         ("first_date", "Primeira emissão identificada"),
         ("last_date", "Última emissão identificada"),
-        ("latest_senior_remuneration", "Remuneração-alvo sênior mais recente"),
-        ("latest_amortization", "Cronograma de amortização mais recente"),
+    ]:
+        add_row(label, {fund: values.get(metric_key) for fund, values in emission_summary.items()})
+    for metric_key, label in [
+        ("emission_terms", "Emissões detectadas (data, classe, preço e volume)"),
+        ("remuneration_terms", "Remuneração-alvo por emissão detectada"),
+        ("amortization_terms", "Amortização/vencimento por emissão detectada"),
     ]:
         add_row(label, {fund: values.get(metric_key) for fund, values in emission_summary.items()})
 
@@ -423,8 +427,59 @@ def emission_summary_by_fund(rows: list[dict[str, object]]) -> dict[str, dict[st
             "last_date": next((str(row.get("date")) for row in reversed(dated) if display(row.get("date")) != "—"), "—"),
             "latest_senior_remuneration": summarize_with_date((senior_rows or any_remunerated)[-1] if (senior_rows or any_remunerated) else None, "remuneration"),
             "latest_amortization": summarize_with_date(amortized[-1] if amortized else None, "amortization"),
+            "emission_terms": summarize_emission_terms(dated),
+            "remuneration_terms": summarize_emission_field(dated, "remuneration"),
+            "amortization_terms": summarize_emission_field(dated, "amortization"),
         }
     return output
+
+
+def summarize_emission_terms(rows: list[dict[str, object]]) -> str:
+    values = []
+    for row in rows:
+        label = emission_label(row)
+        quantity = display(row.get("quantity"))
+        unit_price = display(row.get("unit_price"))
+        volume = format_optional_number(row.get("volume_mm"), decimals=0)
+        parts = []
+        if quantity != "—":
+            parts.append(f"Qtd {quantity}")
+        if unit_price != "—":
+            parts.append(f"Preço {unit_price}")
+        if volume != "—":
+            parts.append(f"R$ {volume} mm")
+        values.append(f"{label}: {'; '.join(parts) if parts else 'termos econômicos não identificados'}")
+    return join_summary_items(values)
+
+
+def summarize_emission_field(rows: list[dict[str, object]], field: str) -> str:
+    values = []
+    for row in rows:
+        value = display(row.get(field))
+        if value == "—":
+            continue
+        values.append(f"{emission_label(row)}: {value}")
+    return join_summary_items(values)
+
+
+def emission_label(row: dict[str, object]) -> str:
+    date = display(row.get("date"))
+    klass = display(row.get("class"))
+    kind = display(row.get("type"))
+    parts = [part for part in [date, klass, kind] if part != "—"]
+    return " · ".join(parts) or "Emissão sem data/classe identificada"
+
+
+def join_summary_items(values: list[str]) -> str:
+    unique = []
+    seen: set[str] = set()
+    for value in values:
+        cleaned = display(value)
+        if cleaned == "—" or cleaned in seen:
+            continue
+        seen.add(cleaned)
+        unique.append(cleaned)
+    return " | ".join(unique) if unique else "—"
 
 
 def build_latest_thresholds_table(threshold_versions: pd.DataFrame, coverage: pd.DataFrame) -> pd.DataFrame:
