@@ -6,6 +6,7 @@ from html import escape
 from io import BytesIO
 
 import altair as alt
+from openpyxl.styles import Alignment
 import pandas as pd
 import streamlit as st
 
@@ -1262,6 +1263,489 @@ def _build_time_protection_export_dataframe(protection_frame: pd.DataFrame) -> p
     ]
 
 
+def _build_premissas_summary_dataframe(
+    *,
+    premissas: Premissas,
+    taxa_cessao_input_mode: str,
+    tx_cessao_desagio: float,
+    tx_cessao_aa_equivalente: float,
+    credit_model_label: str,
+    portfolio_mode_label: str,
+    date_schedule_label: str,
+    data_inicial: date,
+    selected_curve: _SelectedCurve,
+    selected_calendar: _SelectedCalendar,
+    interpolation_label: str,
+    senior_mode_label: str,
+    mezz_mode_label: str,
+    sub_mode_label: str,
+    senior_amort_label: str,
+    mezz_amort_label: str,
+    senior_interest_label: str,
+    mezz_interest_label: str,
+    user_selic_aa_por_ano: tuple[tuple[int, float], ...],
+) -> pd.DataFrame:
+    rows: list[dict[str, str]] = []
+
+    def add(categoria: str, premissa: str, valor: str, observacao: str = "") -> None:
+        rows.append({"Categoria": categoria, "Premissa": premissa, "Valor": valor, "Observação": observacao})
+
+    add("Carteira", "Volume inicial", _format_brl(premissas.volume), "Valor de face dos recebíveis no mês zero.")
+    add("Carteira", "Modo da carteira", portfolio_mode_label, "Define se há reciclagem de principal/excesso de spread.")
+    add("Carteira", "Prazo total do FIDC", f"{_format_number_br(premissas.prazo_fidc_anos or 0.0, 1)} anos")
+    add("Carteira", "Prazo médio dos recebíveis", f"{_format_number_br(premissas.prazo_medio_recebiveis_meses, 1)} meses")
+    add("Carteira", "Entrada da taxa da carteira", taxa_cessao_input_mode)
+    add("Carteira", "Taxa de cessão equivalente", _format_percent(tx_cessao_desagio), "Deságio no prazo médio.")
+    add("Carteira", "Taxa mensal efetiva", _format_percent(premissas.tx_cessao_am))
+    add("Carteira", "Taxa anual equivalente base 252", _format_percent(tx_cessao_aa_equivalente))
+    add("Carteira", "Ágio sobre face", _format_percent(premissas.agio_aquisicao))
+    add("Carteira", "Excesso de spread sobre SEN", _format_percent(premissas.excesso_spread_senior_am), "Piso mensal adicional.")
+    add("Custos", "Administração/gestão", _format_percent(premissas.custo_adm_aa), "Percentual anual sobre PL econômico.")
+    add("Custos", "Custo mínimo mensal", _format_brl(premissas.custo_min))
+    add("Crédito", "Metodologia", credit_model_label)
+    add("Crédito", "NPL 90+ esperado por ciclo", _format_percent(premissas.perda_ciclo))
+    add("Crédito", "Lag até NPL 90+", f"{premissas.npl90_lag_meses} meses")
+    add("Crédito", "Cobertura mínima NPL 90+", _format_percent(premissas.cobertura_minima_npl90))
+    add("Crédito", "LGD econômica", _format_percent(premissas.lgd))
+    add("Crédito", "Rolagem atual → 1-30", _format_percent(premissas.rolagem_adimplente_1_30))
+    add("Crédito", "Rolagem 1-30 → 31-60", _format_percent(premissas.rolagem_1_30_31_60))
+    add("Crédito", "Rolagem 31-60 → 61-90", _format_percent(premissas.rolagem_31_60_61_90))
+    add("Crédito", "Rolagem 61-90 → 90+", _format_percent(premissas.rolagem_61_90_90_plus))
+    add("Crédito", "Recuperação 90+", _format_percent(premissas.recuperacao_90_plus))
+    add("Crédito", "Write-off 90+", _format_percent(premissas.writeoff_90_plus))
+    add("Crédito", "Renegociado", _format_percent(premissas.renegociado_pct), "Premissa MC3, quando aplicável.")
+    add("Crédito", "Teto maturação Over90", _format_percent(premissas.maturacao_over90_cap), "Premissa MC3, quando aplicável.")
+    add("Estrutura", "PL SEN", _format_percent(premissas.proporcao_senior))
+    add("Estrutura", "PL MEZZ", _format_percent(premissas.proporcao_mezz))
+    add("Estrutura", "PL SUB", _format_percent(premissas.proporcao_sub_jr))
+    add("Remuneração", "SEN", f"{senior_mode_label}; taxa/spread {_format_percent(premissas.taxa_senior)}")
+    add("Remuneração", "MEZZ", f"{mezz_mode_label}; taxa/spread {_format_percent(premissas.taxa_mezz)}")
+    add("Remuneração", "SUB", f"{sub_mode_label}; taxa-alvo {_format_percent(premissas.taxa_sub_jr)}")
+    add("Waterfall", "Amortização SEN", senior_amort_label)
+    add("Waterfall", "Amortização MEZZ", mezz_amort_label)
+    add("Waterfall", "Juros SEN", senior_interest_label)
+    add("Waterfall", "Juros MEZZ", mezz_interest_label)
+    add("Waterfall", "Início amortização SEN", f"Mês {premissas.inicio_amortizacao_senior_meses}")
+    add("Waterfall", "Início amortização MEZZ", f"Mês {premissas.inicio_amortizacao_mezz_meses}")
+    add("Datas", "Data inicial", data_inicial.strftime("%d/%m/%Y"))
+    add("Datas", "Cronograma do fluxo", date_schedule_label)
+    add("Curva", "Fonte da curva", selected_curve.source_label)
+    add("Curva", "Data-base da curva", selected_curve.base_date.strftime("%d/%m/%Y"))
+    add("Curva", "Interpolação", interpolation_label)
+    add("Curva", "Calendário de dias úteis", selected_calendar.source_label)
+    for year, rate in user_selic_aa_por_ano:
+        add("Caixa runoff", f"SELIC média {_selic_year_label(year, [item[0] for item in user_selic_aa_por_ano])}", _format_percent(rate))
+    return pd.DataFrame(rows)
+
+
+def _build_model_dashboard_excel_bytes(
+    *,
+    export_frame: pd.DataFrame,
+    kpi_cards: list[dict[str, str]],
+    revolvency_cards: list[dict[str, str]],
+    premissas_summary_df: pd.DataFrame,
+    memory_df: pd.DataFrame,
+    curve_source_df: pd.DataFrame,
+    revolvency_export_df: pd.DataFrame,
+    protection_export_df: pd.DataFrame,
+    balance_chart_df: pd.DataFrame,
+    loss_chart_df: pd.DataFrame,
+    protection_chart_df: pd.DataFrame,
+) -> bytes:
+    from openpyxl.chart import AreaChart, LineChart, Reference
+    from openpyxl.styles import Border, Font, PatternFill, Side
+    from openpyxl.utils import get_column_letter
+
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine="openpyxl") as writer:
+        export_frame.to_excel(writer, index=False, sheet_name="timeline")
+        pd.DataFrame(kpi_cards).to_excel(writer, index=False, sheet_name="cards_resumo")
+        premissas_summary_df.to_excel(writer, index=False, sheet_name="premissas_resumo")
+        memory_df.to_excel(writer, index=False, sheet_name="memoria_calculo")
+        curve_source_df.to_excel(writer, index=False, sheet_name="fonte_curva")
+        revolvency_export_df.to_excel(writer, index=False, sheet_name="capacidade_perda")
+        protection_export_df.to_excel(writer, index=False, sheet_name="protecao_tempo")
+
+        workbook = writer.book
+        dashboard = workbook.create_sheet("dashboard", 0)
+        chart_data = workbook.create_sheet("graficos_dados")
+
+        fonts = {
+            "title": Font(name="Calibri", size=18, bold=True, color="1F1F1F"),
+            "section": Font(name="Calibri", size=12, bold=True, color="1F1F1F"),
+            "header": Font(name="Calibri", size=9, bold=True, color="FFFFFF"),
+            "body": Font(name="Calibri", size=9, color="1F1F1F"),
+            "muted": Font(name="Calibri", size=8, color="6B7280"),
+            "card_label": Font(name="Calibri", size=8, bold=True, color="6B7280"),
+            "card_value": Font(name="Calibri", size=14, bold=True, color="1F1F1F"),
+        }
+        fills = {
+            "header": PatternFill("solid", fgColor="1F1F1F"),
+            "orange": PatternFill("solid", fgColor="EC7000"),
+            "soft": PatternFill("solid", fgColor="F7F7F7"),
+            "white": PatternFill("solid", fgColor="FFFFFF"),
+        }
+        border = Border(
+            left=Side(style="thin", color="E0E0E0"),
+            right=Side(style="thin", color="E0E0E0"),
+            top=Side(style="thin", color="E0E0E0"),
+            bottom=Side(style="thin", color="E0E0E0"),
+        )
+
+        _style_dataframe_sheets(workbook, fonts, fills, border)
+        _build_dashboard_sheet(
+            dashboard,
+            kpi_cards=kpi_cards,
+            revolvency_cards=revolvency_cards,
+            premissas_summary_df=premissas_summary_df,
+            fonts=fonts,
+            fills=fills,
+            border=border,
+        )
+        chart_ranges = _write_model_chart_sources(chart_data, balance_chart_df, loss_chart_df, protection_chart_df)
+        _style_dataframe_sheet(chart_data, fonts, fills, border)
+        _add_model_excel_charts(
+            dashboard,
+            chart_data,
+            chart_ranges,
+            AreaChart=AreaChart,
+            LineChart=LineChart,
+            Reference=Reference,
+        )
+        dashboard.freeze_panes = "A4"
+        for col in range(1, 15):
+            dashboard.column_dimensions[get_column_letter(col)].width = 12.5
+
+    return output.getvalue()
+
+
+def _style_dataframe_sheets(workbook, fonts: dict[str, object], fills: dict[str, object], border: object) -> None:
+    for worksheet in workbook.worksheets:
+        if worksheet.title == "dashboard":
+            continue
+        _style_dataframe_sheet(worksheet, fonts, fills, border)
+
+
+def _style_dataframe_sheet(worksheet, fonts: dict[str, object], fills: dict[str, object], border: object) -> None:
+    if worksheet.max_row < 1 or (worksheet.max_row == 1 and worksheet.max_column == 1 and worksheet["A1"].value is None):
+        return
+    worksheet.freeze_panes = "A2"
+    worksheet.auto_filter.ref = worksheet.dimensions
+    headers = [str(worksheet.cell(1, col).value or "") for col in range(1, worksheet.max_column + 1)]
+    for cell in worksheet[1]:
+        cell.fill = fills["header"]
+        cell.font = fonts["header"]
+        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        cell.border = border
+    money_tokens = ("Carteira", "Fluxo", "PL", "Custos", "Perda", "Provisão", "NPL", "Principal", "Juros", "PMT", "Saldo", "Resultado", "Originação", "Caixa", "EAD", "Valor")
+    pct_tokens = ("Taxa", "FRA", "Subordinação", "Cobertura", "Colchão", "Preço pago / face")
+    for col_idx, header in enumerate(headers, start=1):
+        values = [worksheet.cell(row, col_idx).value for row in range(1, min(worksheet.max_row, 80) + 1)]
+        non_empty_values = [value for value in values if value is not None]
+        width = min(max(len(str(value)) for value in non_empty_values) + 2, 48) if non_empty_values else 10
+        worksheet.column_dimensions[worksheet.cell(1, col_idx).column_letter].width = max(width, 10)
+        for row_idx in range(2, worksheet.max_row + 1):
+            cell = worksheet.cell(row_idx, col_idx)
+            cell.font = fonts["body"]
+            cell.border = border
+            cell.alignment = Alignment(vertical="top", wrap_text=True)
+            if isinstance(cell.value, (int, float)):
+                if any(token in header for token in pct_tokens):
+                    cell.number_format = "0.00%"
+                elif any(token in header for token in money_tokens):
+                    cell.number_format = 'R$ #,##0'
+                else:
+                    cell.number_format = "#,##0.00"
+
+
+def _build_dashboard_sheet(
+    worksheet,
+    *,
+    kpi_cards: list[dict[str, str]],
+    revolvency_cards: list[dict[str, str]],
+    premissas_summary_df: pd.DataFrame,
+    fonts: dict[str, object],
+    fills: dict[str, object],
+    border: object,
+) -> None:
+    worksheet.sheet_view.showGridLines = False
+    worksheet.merge_cells("A1:N1")
+    worksheet["A1"] = "Modelagem FIDC - Dashboard"
+    worksheet["A1"].font = fonts["title"]
+    worksheet["A1"].alignment = Alignment(vertical="center")
+    worksheet.merge_cells("A2:N2")
+    worksheet["A2"] = "Cards, gráficos e premissas resumidas da tela de Modelagem. Abas auxiliares preservam os dados numéricos auditáveis."
+    worksheet["A2"].font = fonts["muted"]
+
+    _section_title(worksheet, 4, "Premissas resumidas", fonts)
+    premissas_preview = premissas_summary_df.head(10)
+    headers = ["Categoria", "Premissa", "Valor", "Observação"]
+    for col_idx, header in enumerate(headers, start=1):
+        cell = worksheet.cell(5, col_idx, header)
+        cell.fill = fills["header"]
+        cell.font = fonts["header"]
+        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        cell.border = border
+    for row_offset, row in enumerate(premissas_preview.itertuples(index=False), start=6):
+        for col_idx, value in enumerate(row, start=1):
+            cell = worksheet.cell(row_offset, col_idx, value)
+            cell.fill = fills["soft"] if row_offset % 2 == 0 else fills["white"]
+            cell.font = fonts["body"]
+            cell.border = border
+            cell.alignment = Alignment(vertical="top", wrap_text=True)
+    worksheet.merge_cells("E5:N15")
+    note = worksheet["E5"]
+    note.value = "A planilha `premissas_resumo` contém a lista completa de premissas resumidas. Esta aba mostra uma prévia para leitura executiva."
+    note.fill = fills["soft"]
+    note.font = fonts["muted"]
+    note.alignment = Alignment(vertical="top", wrap_text=True)
+    note.border = border
+
+    _section_title(worksheet, 17, "Resumo econômico", fonts)
+    _add_cards_grid(worksheet, kpi_cards, start_row=18, fonts=fonts, fills=fills, border=border)
+    _section_title(worksheet, 30, "Capacidade de perda e denominadores", fonts)
+    _add_cards_grid(worksheet, revolvency_cards, start_row=31, fonts=fonts, fills=fills, border=border)
+    _section_title(worksheet, 42, "Evolução do saldo das cotas", fonts)
+    _section_title(worksheet, 64, "Perda da carteira", fonts)
+    _section_title(worksheet, 64, "Proteção da estrutura", fonts, start_col=8)
+
+
+def _section_title(worksheet, row: int, text: str, fonts: dict[str, object], *, start_col: int = 1) -> None:
+    cell = worksheet.cell(row, start_col, text)
+    cell.font = fonts["section"]
+    cell.alignment = Alignment(vertical="center")
+
+
+def _add_cards_grid(
+    worksheet,
+    cards: list[dict[str, str]],
+    *,
+    start_row: int,
+    fonts: dict[str, object],
+    fills: dict[str, object],
+    border: object,
+) -> None:
+    card_width = 4
+    card_height = 4
+    gap = 1
+    for idx, card in enumerate(cards):
+        block_row = start_row + (idx // 3) * (card_height + 1)
+        block_col = 1 + (idx % 3) * (card_width + gap)
+        _add_card_block(worksheet, block_row, block_col, card_width, card, fonts=fonts, fills=fills, border=border)
+
+
+def _add_card_block(
+    worksheet,
+    row: int,
+    col: int,
+    width: int,
+    card: dict[str, str],
+    *,
+    fonts: dict[str, object],
+    fills: dict[str, object],
+    border: object,
+) -> None:
+    worksheet.merge_cells(start_row=row, start_column=col, end_row=row, end_column=col + width - 1)
+    worksheet.cell(row, col).fill = fills["orange"]
+    for offset, value_key, font_key in [(1, "label", "card_label"), (2, "value", "card_value"), (3, "context", "muted")]:
+        worksheet.merge_cells(start_row=row + offset, start_column=col, end_row=row + offset, end_column=col + width - 1)
+        cell = worksheet.cell(row + offset, col, str(card.get(value_key, "")))
+        cell.font = fonts[font_key]
+        cell.fill = fills["soft"]
+        cell.alignment = Alignment(vertical="center", wrap_text=True)
+    for row_idx in range(row, row + 4):
+        for col_idx in range(col, col + width):
+            worksheet.cell(row_idx, col_idx).border = border
+
+
+def _write_model_chart_sources(
+    worksheet,
+    balance_chart_df: pd.DataFrame,
+    loss_chart_df: pd.DataFrame,
+    protection_chart_df: pd.DataFrame,
+) -> dict[str, tuple[int, int, int, int]]:
+    balance = _balance_chart_wide(balance_chart_df)
+    loss = _long_percent_chart_wide(loss_chart_df)
+    protection = _long_percent_chart_wide(protection_chart_df)
+    ranges = {}
+    ranges["balance"] = _write_dataframe_at(worksheet, balance, start_row=1, start_col=1)
+    ranges["loss"] = _write_dataframe_at(worksheet, loss, start_row=ranges["balance"][0] + ranges["balance"][2] + 3, start_col=1)
+    ranges["protection"] = _write_dataframe_at(
+        worksheet,
+        protection,
+        start_row=ranges["loss"][0] + ranges["loss"][2] + 3,
+        start_col=1,
+    )
+    return ranges
+
+
+def _write_dataframe_at(worksheet, frame: pd.DataFrame, *, start_row: int, start_col: int) -> tuple[int, int, int, int]:
+    from openpyxl.utils.dataframe import dataframe_to_rows
+
+    for row_offset, row in enumerate(dataframe_to_rows(frame, index=False, header=True), start=0):
+        for col_offset, value in enumerate(row, start=0):
+            worksheet.cell(start_row + row_offset, start_col + col_offset, value)
+    return start_row, start_col, len(frame) + 1, len(frame.columns)
+
+
+def _balance_chart_wide(chart_df: pd.DataFrame) -> pd.DataFrame:
+    if chart_df.empty:
+        return pd.DataFrame({"Mês": [], "Data": []})
+    wide = (
+        chart_df.pivot_table(
+            index=["indice", "periodo"],
+            columns="classe",
+            values="valor_milhoes",
+            aggfunc="sum",
+            fill_value=0.0,
+        )
+        .reset_index()
+        .rename(columns={"indice": "Mês", "periodo": "Data"})
+    )
+    for column in [LABELS_COTAS["sen"], LABELS_COTAS["mezz"], LABELS_COTAS["sub"], "Déficit econômico"]:
+        if column not in wide.columns:
+            wide[column] = 0.0
+    return wide[["Mês", "Data", LABELS_COTAS["sen"], LABELS_COTAS["mezz"], LABELS_COTAS["sub"], "Déficit econômico"]]
+
+
+def _long_percent_chart_wide(chart_df: pd.DataFrame) -> pd.DataFrame:
+    if chart_df.empty:
+        return pd.DataFrame({"Mês": [], "Data": []})
+    wide = (
+        chart_df.pivot_table(
+            index=["indice", "periodo"],
+            columns="serie",
+            values="valor",
+            aggfunc="sum",
+            fill_value=0.0,
+        )
+        .reset_index()
+        .rename(columns={"indice": "Mês", "periodo": "Data"})
+    )
+    series_columns = [column for column in wide.columns if column not in {"Mês", "Data"}]
+    return wide[["Mês", "Data", *series_columns]]
+
+
+def _add_model_excel_charts(
+    dashboard,
+    chart_data,
+    ranges: dict[str, tuple[int, int, int, int]],
+    *,
+    AreaChart,
+    LineChart,
+    Reference,
+) -> None:
+    _add_area_chart(
+        dashboard,
+        chart_data,
+        ranges["balance"],
+        AreaChart=AreaChart,
+        Reference=Reference,
+        anchor="A43",
+        title="Evolução do saldo das cotas",
+        y_axis_title="R$ milhões",
+        colors=["2F6F9F", "F28E2B", "59A14F", "B23B3B"],
+    )
+    _add_line_chart(
+        dashboard,
+        chart_data,
+        ranges["loss"],
+        LineChart=LineChart,
+        Reference=Reference,
+        anchor="A65",
+        title="Perda da carteira",
+        y_axis_title="Perda da carteira (%)",
+        colors=["D62728", "F28E2B"],
+        percent_axis=True,
+    )
+    _add_line_chart(
+        dashboard,
+        chart_data,
+        ranges["protection"],
+        LineChart=LineChart,
+        Reference=Reference,
+        anchor="H65",
+        title="Proteção da estrutura",
+        y_axis_title="Proteção da estrutura (%)",
+        colors=["2F6F9F", "59A14F"],
+        percent_axis=True,
+    )
+
+
+def _add_area_chart(
+    dashboard,
+    data_sheet,
+    data_range: tuple[int, int, int, int],
+    *,
+    AreaChart,
+    Reference,
+    anchor: str,
+    title: str,
+    y_axis_title: str,
+    colors: list[str],
+) -> None:
+    start_row, start_col, row_count, col_count = data_range
+    if row_count <= 1 or col_count <= 2:
+        return
+    chart = AreaChart()
+    chart.title = title
+    chart.y_axis.title = y_axis_title
+    chart.x_axis.title = "Mês do FIDC"
+    chart.grouping = "stacked"
+    chart.width = 23
+    chart.height = 9
+    data = Reference(data_sheet, min_col=start_col + 2, max_col=start_col + col_count - 1, min_row=start_row, max_row=start_row + row_count - 1)
+    cats = Reference(data_sheet, min_col=start_col, min_row=start_row + 1, max_row=start_row + row_count - 1)
+    chart.add_data(data, titles_from_data=True)
+    chart.set_categories(cats)
+    for idx, series in enumerate(chart.series):
+        color = colors[idx % len(colors)]
+        series.graphicalProperties.solidFill = color
+        series.graphicalProperties.line.solidFill = color
+    chart.legend.position = "b"
+    dashboard.add_chart(chart, anchor)
+
+
+def _add_line_chart(
+    dashboard,
+    data_sheet,
+    data_range: tuple[int, int, int, int],
+    *,
+    LineChart,
+    Reference,
+    anchor: str,
+    title: str,
+    y_axis_title: str,
+    colors: list[str],
+    percent_axis: bool = False,
+) -> None:
+    start_row, start_col, row_count, col_count = data_range
+    if row_count <= 1 or col_count <= 2:
+        return
+    chart = LineChart()
+    chart.title = title
+    chart.y_axis.title = y_axis_title
+    chart.x_axis.title = "Mês do FIDC"
+    chart.width = 11.2
+    chart.height = 8.2
+    if percent_axis:
+        chart.y_axis.numFmt = "0.0%"
+    data = Reference(data_sheet, min_col=start_col + 2, max_col=start_col + col_count - 1, min_row=start_row, max_row=start_row + row_count - 1)
+    cats = Reference(data_sheet, min_col=start_col, min_row=start_row + 1, max_row=start_row + row_count - 1)
+    chart.add_data(data, titles_from_data=True)
+    chart.set_categories(cats)
+    for idx, series in enumerate(chart.series):
+        color = colors[idx % len(colors)]
+        series.graphicalProperties.line.solidFill = color
+        series.graphicalProperties.line.width = 25000
+        series.marker.symbol = "circle"
+        series.marker.size = 5
+        series.marker.graphicalProperties.solidFill = color
+        series.marker.graphicalProperties.line.solidFill = color
+    chart.legend.position = "b"
+    dashboard.add_chart(chart, anchor)
+
+
 def _build_workbook_mechanics_markdown(
     *,
     selected_curve: _SelectedCurve,
@@ -2074,6 +2558,22 @@ def _model_tooltip_html(tooltip: str) -> str:
 
 
 def _render_model_kpi_cards(kpis, results, *, has_mezz: bool) -> None:
+    cards = _model_kpi_cards_data(kpis, results, has_mezz=has_mezz)
+    cards_html = "".join(
+        (
+            '<div class="fidc-model-kpi-card">'
+            f'<div class="fidc-model-kpi-label"><span>{escape(card["label"])}</span>'
+            f'{_model_tooltip_html(card["tooltip"])}</div>'
+            f'<div class="fidc-model-kpi-value">{escape(card["value"])}</div>'
+            f'<div class="fidc-model-kpi-context">{escape(card["context"])}</div>'
+            "</div>"
+        )
+        for card in cards
+    )
+    st.markdown(f'<div class="fidc-model-kpi-grid">{cards_html}</div>', unsafe_allow_html=True)
+
+
+def _model_kpi_cards_data(kpis, results, *, has_mezz: bool) -> list[dict[str, str]]:
     cards = [
         (
             "Retorno anualizado",
@@ -2126,21 +2626,34 @@ def _render_model_kpi_cards(kpis, results, *, has_mezz: bool) -> None:
                 "TIR anual do residual da SUB quando os fluxos permitem uma TIR válida.",
             ),
         )
+    return [
+        {
+            "label": label,
+            "value": value,
+            "context": context,
+            "tooltip": tooltip,
+        }
+        for label, value, context, tooltip in cards
+    ]
+
+
+def _render_revolvency_cards(metrics: _RevolvencyMetrics) -> None:
+    cards = _revolvency_cards_data(metrics)
     cards_html = "".join(
         (
             '<div class="fidc-model-kpi-card">'
-            f'<div class="fidc-model-kpi-label"><span>{escape(label)}</span>'
-            f'{_model_tooltip_html(tooltip)}</div>'
-            f'<div class="fidc-model-kpi-value">{escape(value)}</div>'
-            f'<div class="fidc-model-kpi-context">{escape(context)}</div>'
+            f'<div class="fidc-model-kpi-label"><span>{escape(card["label"])}</span>'
+            f'{_model_tooltip_html(card["tooltip"])}</div>'
+            f'<div class="fidc-model-kpi-value">{escape(card["value"])}</div>'
+            f'<div class="fidc-model-kpi-context">{escape(card["context"])}</div>'
             "</div>"
         )
-        for label, value, context, tooltip in cards
+        for card in cards
     )
     st.markdown(f'<div class="fidc-model-kpi-grid">{cards_html}</div>', unsafe_allow_html=True)
 
 
-def _render_revolvency_cards(metrics: _RevolvencyMetrics) -> None:
+def _revolvency_cards_data(metrics: _RevolvencyMetrics) -> list[dict[str, str]]:
     cards = [
         (
             "Prazo médio recebíveis",
@@ -2167,18 +2680,15 @@ def _render_revolvency_cards(metrics: _RevolvencyMetrics) -> None:
             "Mede excess spread acumulado sem perdas dividido pela carteira originada efetiva pelo motor.",
         ),
     ]
-    cards_html = "".join(
-        (
-            '<div class="fidc-model-kpi-card">'
-            f'<div class="fidc-model-kpi-label"><span>{escape(label)}</span>'
-            f'{_model_tooltip_html(tooltip)}</div>'
-            f'<div class="fidc-model-kpi-value">{escape(value)}</div>'
-            f'<div class="fidc-model-kpi-context">{escape(context)}</div>'
-            "</div>"
-        )
+    return [
+        {
+            "label": label,
+            "value": value,
+            "context": context,
+            "tooltip": tooltip,
+        }
         for label, value, context, tooltip in cards
-    )
-    st.markdown(f'<div class="fidc-model-kpi-grid">{cards_html}</div>', unsafe_allow_html=True)
+    ]
 
 
 def render_tab_modelo_fidc() -> None:
@@ -3070,6 +3580,9 @@ def render_tab_modelo_fidc() -> None:
     protection_chart_frame = pd.concat([protection_frame, zero_protection_frame], ignore_index=True)
     export_frame = _build_export_dataframe(frame)
     display_frame = _build_display_dataframe(export_frame)
+    balance_chart_df = _build_balance_area_frame(frame)
+    loss_chart_df = _build_loss_area_frame(frame, premissas.volume)
+    protection_display_chart_df = _build_protection_area_frame(frame, protection_frame)
 
     st.markdown('<div class="fidc-model-section-title">Resumo econômico</div>', unsafe_allow_html=True)
     _render_model_kpi_cards(kpis, results, has_mezz=proporcao_mezz > 0.000001)
@@ -3078,7 +3591,7 @@ def render_tab_modelo_fidc() -> None:
     _render_revolvency_cards(revolvency_metrics)
 
     st.markdown('<div class="fidc-model-section-title">Evolução do saldo das cotas</div>', unsafe_allow_html=True)
-    st.altair_chart(_area_money_chart(_build_balance_area_frame(frame)), width="stretch")
+    st.altair_chart(_area_money_chart(balance_chart_df), width="stretch")
 
     chart_left, chart_right = st.columns(2)
     with chart_left:
@@ -3086,7 +3599,7 @@ def render_tab_modelo_fidc() -> None:
         st.caption(_chart_definition_caption("loss"))
         st.altair_chart(
             _area_percent_chart(
-                _build_loss_area_frame(frame, premissas.volume),
+                loss_chart_df,
                 y_title="Perda da carteira (%)",
                 color_domain=["Perda acumulada", "Perda do período"],
                 color_range=["#d62728", "#f28e2b"],
@@ -3098,7 +3611,7 @@ def render_tab_modelo_fidc() -> None:
         st.caption(_chart_definition_caption("protection"))
         st.altair_chart(
             _area_percent_chart(
-                _build_protection_area_frame(frame, protection_frame),
+                protection_display_chart_df,
                 y_title="Proteção da estrutura (%)",
                 color_domain=["Subordinação econômica", "Colchão de proteção"],
                 color_range=["#2f6f9f", "#59a14f"],
@@ -3254,25 +3767,40 @@ def render_tab_modelo_fidc() -> None:
     st.dataframe(display_frame, width="stretch", hide_index=True)
 
     csv = export_frame.to_csv(index=False).encode("utf-8")
-    output = BytesIO()
-    with pd.ExcelWriter(output, engine="openpyxl") as writer:
-        export_frame.to_excel(writer, index=False, sheet_name="timeline")
-        _build_kpi_export_dataframe(kpis).to_excel(writer, index=False, sheet_name="kpis")
-        _build_curve_source_dataframe(selected_curve, selected_calendar, interpolation_label).to_excel(
-            writer,
-            index=False,
-            sheet_name="fonte_curva",
-        )
-        _build_revolvency_export_dataframe(revolvency_metrics).to_excel(
-            writer,
-            index=False,
-            sheet_name="capacidade_perda",
-        )
-        _build_time_protection_export_dataframe(protection_chart_frame).to_excel(
-            writer,
-            index=False,
-            sheet_name="protecao_tempo",
-        )
+    premissas_summary_df = _build_premissas_summary_dataframe(
+        premissas=premissas,
+        taxa_cessao_input_mode=taxa_cessao_input_mode,
+        tx_cessao_desagio=tx_cessao_desagio,
+        tx_cessao_aa_equivalente=tx_cessao_aa_equivalente,
+        credit_model_label=credit_model_label,
+        portfolio_mode_label=portfolio_mode_label,
+        date_schedule_label=date_schedule_label,
+        data_inicial=data_inicial_date,
+        selected_curve=selected_curve,
+        selected_calendar=selected_calendar,
+        interpolation_label=interpolation_label,
+        senior_mode_label=senior_mode_label,
+        mezz_mode_label=mezz_mode_label,
+        sub_mode_label=sub_mode_label,
+        senior_amort_label=senior_amort_label,
+        mezz_amort_label=mezz_amort_label,
+        senior_interest_label=senior_interest_label,
+        mezz_interest_label=mezz_interest_label,
+        user_selic_aa_por_ano=tuple(user_selic_aa_por_ano),
+    )
+    excel_bytes = _build_model_dashboard_excel_bytes(
+        export_frame=export_frame,
+        kpi_cards=_model_kpi_cards_data(kpis, results, has_mezz=proporcao_mezz > 0.000001),
+        revolvency_cards=_revolvency_cards_data(revolvency_metrics),
+        premissas_summary_df=premissas_summary_df,
+        memory_df=memory_df,
+        curve_source_df=_build_curve_source_dataframe(selected_curve, selected_calendar, interpolation_label),
+        revolvency_export_df=_build_revolvency_export_dataframe(revolvency_metrics),
+        protection_export_df=_build_time_protection_export_dataframe(protection_chart_frame),
+        balance_chart_df=balance_chart_df,
+        loss_chart_df=loss_chart_df,
+        protection_chart_df=protection_display_chart_df,
+    )
     download_left, download_right = st.columns(2)
     download_left.download_button(
         "Baixar CSV",
@@ -3282,9 +3810,9 @@ def render_tab_modelo_fidc() -> None:
         width="stretch",
     )
     download_right.download_button(
-        "Baixar Excel",
-        data=output.getvalue(),
-        file_name="modelo_fidc_resultados.xlsx",
+        "Baixar Excel dashboard",
+        data=excel_bytes,
+        file_name="modelo_fidc_dashboard.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         width="stretch",
     )

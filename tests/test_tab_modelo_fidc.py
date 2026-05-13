@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+from io import BytesIO
 from datetime import date
 from types import SimpleNamespace
 import unittest
 
+from openpyxl import load_workbook
 import pandas as pd
 
 from data_loader import load_model_inputs
@@ -642,6 +644,131 @@ class TabModeloFidcTests(unittest.TestCase):
         spec = tab_modelo_fidc._protection_ratio_chart(chart_df).to_dict()
 
         self.assertEqual("line", spec["layer"][0]["mark"]["type"])
+
+    def test_model_dashboard_excel_contains_cards_premissas_and_native_charts(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "indice": [0, 1, 2],
+                "data": pd.to_datetime(["2026-01-01", "2026-02-01", "2026-03-01"]),
+                "carteira": [100.0, 105.0, 110.0],
+                "pl_fidc": [100.0, 106.0, 112.0],
+                "pl_senior": [75.0, 75.0, 74.0],
+                "pl_mezz": [15.0, 15.0, 15.0],
+                "pl_sub_jr": [10.0, 16.0, 23.0],
+                "perda_carteira_despesa": [0.0, 1.0, 1.5],
+            }
+        )
+        kpis = SimpleNamespace(
+            xirr_senior=0.12,
+            xirr_mezz=0.16,
+            xirr_sub_jr=0.25,
+            duration_senior_anos=1.5,
+            pre_di_duration=0.13,
+        )
+        results = [SimpleNamespace(pl_sub_jr=10.0), SimpleNamespace(pl_sub_jr=23.0)]
+        revolvency_metrics = tab_modelo_fidc._RevolvencyMetrics(
+            portfolio_mode=tab_modelo_fidc.PORTFOLIO_MODE_REVOLVING,
+            prazo_total_anos=3.0,
+            prazo_medio_recebiveis_meses=6.0,
+            giro_estimado=6.0,
+            carteira_originada_programatica=600.0,
+            reinvestimento_principal_total=20.0,
+            reinvestimento_excesso_total=5.0,
+            nova_originacao_total=25.0,
+            carteira_total_originada=125.0,
+            ead_maximo=110.0,
+            ead_medio_ponderado=105.0,
+            sub_final_sem_inadimplencia=23.0,
+            colchao_sem_perdas_sobre_originacao=23.0 / 125.0,
+            perda_ciclo_calibrada=0.02,
+            perda_ciclo_calibrada_anual_equivalente=0.04,
+            perda_ciclo_calibrada_pos_lgd=0.02,
+            perda_ciclo_calibrada_excede_limite=False,
+        )
+        selected_curve = tab_modelo_fidc._SelectedCurve(
+            source_label=tab_modelo_fidc.CURVE_SOURCE_B3_LATEST,
+            curve_code="PRE",
+            base_date=date(2026, 1, 1),
+            curva_du=(1.0, 252.0),
+            curva_taxa_aa=(0.12, 0.13),
+            source_url="snapshot",
+            retrieved_label="01/01/2026",
+            content_sha256="abc123",
+            point_count=2,
+            first_du=1,
+            last_du=252,
+        )
+        selected_calendar = tab_modelo_fidc._SelectedCalendar(
+            source_label=tab_modelo_fidc.CALENDAR_SOURCE_B3_PROJECTED,
+            feriados=(),
+            holiday_count=0,
+            first_holiday=None,
+            last_holiday=None,
+            official_years=(2026,),
+            projected_years=(2027,),
+        )
+        premissas = tab_modelo_fidc.Premissas(
+            volume=100.0,
+            tx_cessao_am=0.02,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0035,
+            custo_min=1.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.75,
+            taxa_senior=0.0135,
+            proporcao_mezz=0.15,
+            taxa_mezz=0.05,
+            proporcao_subordinada=0.10,
+            prazo_fidc_anos=3.0,
+            prazo_medio_recebiveis_meses=6.0,
+            modelo_credito=tab_modelo_fidc.CREDIT_MODEL_NPL90,
+            selic_aa_por_ano=((2026, 0.13),),
+        )
+        premissas_summary = tab_modelo_fidc._build_premissas_summary_dataframe(
+            premissas=premissas,
+            taxa_cessao_input_mode=tab_modelo_fidc.CESSION_INPUT_MONTHLY,
+            tx_cessao_desagio=0.10,
+            tx_cessao_aa_equivalente=0.25,
+            credit_model_label="NPL 90 + cobertura de provisão",
+            portfolio_mode_label=tab_modelo_fidc.PORTFOLIO_MODE_REVOLVING,
+            date_schedule_label=tab_modelo_fidc.DATE_SCHEDULE_WORKBOOK,
+            data_inicial=date(2026, 1, 1),
+            selected_curve=selected_curve,
+            selected_calendar=selected_calendar,
+            interpolation_label=tab_modelo_fidc.INTERPOLATION_LABEL_B3,
+            senior_mode_label="Pós-fixada: CDI + spread aditivo",
+            mezz_mode_label="Pós-fixada: CDI + spread aditivo",
+            sub_mode_label="Residual",
+            senior_amort_label="Linear após carência",
+            mezz_amort_label="Linear após carência",
+            senior_interest_label="Pago em todo período",
+            mezz_interest_label="Pago em todo período",
+            user_selic_aa_por_ano=((2026, 0.13),),
+        )
+
+        xlsx = tab_modelo_fidc._build_model_dashboard_excel_bytes(
+            export_frame=tab_modelo_fidc._build_export_dataframe(frame),
+            kpi_cards=tab_modelo_fidc._model_kpi_cards_data(kpis, results, has_mezz=True),
+            revolvency_cards=tab_modelo_fidc._revolvency_cards_data(revolvency_metrics),
+            premissas_summary_df=premissas_summary,
+            memory_df=pd.DataFrame([{"Indicador": "Teste", "Fórmula": "A + B", "Observação": "QA"}]),
+            curve_source_df=pd.DataFrame([{"Fonte": "Teste", "Valor": "QA"}]),
+            revolvency_export_df=tab_modelo_fidc._build_revolvency_export_dataframe(revolvency_metrics),
+            protection_export_df=pd.DataFrame([{"Indicador": "Teste", "Valor": 1.0}]),
+            balance_chart_df=tab_modelo_fidc._build_balance_area_frame(frame),
+            loss_chart_df=tab_modelo_fidc._build_loss_area_frame(frame, volume=100.0),
+            protection_chart_df=tab_modelo_fidc._build_protection_area_frame(frame),
+        )
+
+        workbook = load_workbook(BytesIO(xlsx))
+
+        self.assertEqual("dashboard", workbook.sheetnames[0])
+        self.assertIn("premissas_resumo", workbook.sheetnames)
+        self.assertIn("cards_resumo", workbook.sheetnames)
+        self.assertIn("graficos_dados", workbook.sheetnames)
+        self.assertEqual("Modelagem FIDC - Dashboard", workbook["dashboard"]["A1"].value)
+        self.assertEqual(3, len(workbook["dashboard"]._charts))
+        self.assertGreaterEqual(workbook["premissas_resumo"].max_row, 10)
 
 
 if __name__ == "__main__":
