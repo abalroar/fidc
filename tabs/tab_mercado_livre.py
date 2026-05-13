@@ -21,6 +21,8 @@ from services.ime_period import (
 )
 from services.mercado_livre_dashboard import (
     build_consolidated_snapshot_excel_bytes,
+    build_full_variable_csv_zip_bytes,
+    build_full_variable_excel_export_bytes,
     build_mercado_livre_outputs,
     build_validation_table,
     build_wide_table,
@@ -646,12 +648,14 @@ def _render_outputs(
 
     with base_tab:
         snapshot_bytes = build_consolidated_snapshot_excel_bytes(display_outputs)
+        full_matrix_excel_bytes = build_full_variable_excel_export_bytes(display_outputs)
+        full_matrix_csv_zip_bytes = build_full_variable_csv_zip_bytes(display_outputs)
         pptx_bytes = build_somatorio_fidcs_pptx_bytes(
             outputs=display_outputs,
             monitor_outputs=monitor_outputs,
             research_outputs=research_outputs,
         )
-        btn_left, btn_right = st.columns([1.65, 1.45])
+        btn_left, btn_mid, btn_csv, btn_right = st.columns([1.45, 1.35, 1.1, 1.25])
         with btn_left:
             st.download_button(
                 "Baixar resumo exibido + gráficos consolidados",
@@ -659,6 +663,24 @@ def _render_outputs(
                 file_name=f"somatorio_fidcs_resumo_exibido_{_safe_file_token(selected_portfolio.name)}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 key=f"ml_snapshot_excel_download::{selected_portfolio.id}",
+                use_container_width=True,
+            )
+        with btn_mid:
+            st.download_button(
+                "Baixar base completa Excel",
+                data=full_matrix_excel_bytes,
+                file_name=f"somatorio_fidcs_base_completa_{file_token}.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                key=f"ml_full_matrix_excel_download::{selected_portfolio.id}",
+                use_container_width=True,
+            )
+        with btn_csv:
+            st.download_button(
+                "Baixar CSVs",
+                data=full_matrix_csv_zip_bytes,
+                file_name=f"somatorio_fidcs_base_completa_{file_token}.zip",
+                mime="application/zip",
+                key=f"ml_full_matrix_csv_download::{selected_portfolio.id}",
                 use_container_width=True,
             )
         with btn_right:

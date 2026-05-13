@@ -7,6 +7,7 @@ from io import BytesIO
 import json
 from pathlib import Path
 import re
+from zipfile import ZIP_DEFLATED, ZipFile
 from typing import Any
 
 import pandas as pd
@@ -556,6 +557,86 @@ def build_excel_export_bytes(outputs: MercadoLivreOutputs) -> bytes:
     return buffer.getvalue()
 
 
+def build_full_variable_excel_export_bytes(outputs: MercadoLivreOutputs) -> bytes:
+    """Build an analyst-friendly workbook with identical rows across all sheets.
+
+    Period values remain numeric in Excel. Metadata columns identify the readable
+    metric name and the XML/source variable used by the Soma de FIDCs layer.
+    """
+    buffer = BytesIO()
+    workbook = Workbook()
+    used_sheet_names: set[str] = set()
+    period_labels = _export_period_labels(outputs)
+
+    consolidated_ws = workbook.active
+    consolidated_ws.title = "Consolidado"
+    used_sheet_names.add(consolidated_ws.title)
+    _write_full_variable_matrix_sheet(
+        consolidated_ws,
+        build_full_variable_export_matrix(outputs.consolidated_monthly, period_labels=period_labels),
+        scope_name=str(outputs.metadata.get("portfolio_name") or "Consolidado"),
+    )
+
+    for cnpj, monthly_df in outputs.fund_monthly.items():
+        fallback_name = _fund_sheet_name(monthly_df, fallback=cnpj)
+        sheet_name = _unique_excel_sheet_name(fallback_name, used_sheet_names)
+        used_sheet_names.add(sheet_name)
+        ws = workbook.create_sheet(sheet_name)
+        _write_full_variable_matrix_sheet(
+            ws,
+            build_full_variable_export_matrix(monthly_df, period_labels=period_labels),
+            scope_name=fallback_name,
+        )
+
+    workbook.save(buffer)
+    return buffer.getvalue()
+
+
+def build_full_variable_csv_zip_bytes(outputs: MercadoLivreOutputs) -> bytes:
+    """Build one CSV per Excel-equivalent sheet inside a zip archive."""
+    period_labels = _export_period_labels(outputs)
+    buffer = BytesIO()
+    with ZipFile(buffer, mode="w", compression=ZIP_DEFLATED) as archive:
+        consolidated = build_full_variable_export_matrix(outputs.consolidated_monthly, period_labels=period_labels)
+        archive.writestr("consolidado.csv", consolidated.to_csv(index=False).encode("utf-8-sig"))
+        for cnpj, monthly_df in outputs.fund_monthly.items():
+            name = _fund_sheet_name(monthly_df, fallback=cnpj)
+            token = _safe_path_token(f"{cnpj}_{name}").lower()
+            frame = build_full_variable_export_matrix(monthly_df, period_labels=period_labels)
+            archive.writestr(f"{token}.csv", frame.to_csv(index=False).encode("utf-8-sig"))
+    return buffer.getvalue()
+
+
+def build_full_variable_export_matrix(monthly_df: pd.DataFrame, *, period_labels: list[str] | None = None) -> pd.DataFrame:
+    """Return rows = exposed Soma variables, columns = metadata + periods.
+
+    The same function is used for consolidated and individual sheets so the row
+    structure stays stable and comparable across funds.
+    """
+    sorted_df = _sort_monthly_by_competencia(monthly_df, descending=True) if monthly_df is not None else pd.DataFrame()
+    if period_labels is None:
+        period_labels = [_format_competencia_short(value) for value in sorted_df.get("competencia", pd.Series(dtype="object")).astype(str).tolist()]
+    rows: list[dict[str, object]] = []
+    metric_specs = _wide_metric_specs()
+    for spec in metric_specs:
+        row: dict[str, object] = {
+            "Bloco": _section_label(str(spec["block"])),
+            "Nome": spec["metric"],
+            "Nome original da variável": _source_for_metric_spec(spec),
+            "Unidade": _unit_label(str(spec["unit"])),
+        }
+        values_by_label: dict[str, object] = {}
+        if not sorted_df.empty:
+            for _, item in sorted_df.iterrows():
+                label = _format_competencia_short(item.get("competencia"))
+                values_by_label[label] = _excel_metric_value(item.get(spec["column"]), unit=str(spec["unit"]))
+        for label in period_labels:
+            row[label] = values_by_label.get(label)
+        row["Memória / fórmula"] = spec["formula"]
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
 def build_consolidated_snapshot_excel_bytes(outputs: MercadoLivreOutputs) -> bytes:
     workbook = Workbook()
     summary_ws = workbook.active
@@ -1015,6 +1096,109 @@ def _wide_metric_specs() -> list[dict[str, str]]:
     ]
 
 
+def _unit_label(unit: str) -> str:
+    return {
+        "money": "R$",
+        "percent": "%",
+        "count": "quantidade",
+        "bool": "booleano",
+        "text": "texto",
+    }.get(unit, unit)
+
+
+def _source_for_metric_spec(spec: dict[str, str]) -> str:
+    column = str(spec.get("column") or "")
+    direct = _metric_source_map().get(column)
+    if direct:
+        return direct
+    formula = str(spec.get("formula") or "").strip()
+    return "DERIVADA: " + formula if formula else "DERIVADA / campo auxiliar do Soma de FIDCs"
+
+
+def _xml(short_path: str) -> str:
+    return f"DOC_ARQ/LISTA_INFORM/{short_path}"
+
+
+def _xml_sum(*short_paths: str) -> str:
+    return " + ".join(_xml(path) for path in short_paths)
+
+
+def _metric_source_map() -> dict[str, str]:
+    overdue_aquis = "COMPMT_DICRED_AQUIS"
+    overdue_sem = "COMPMT_DICRED_SEM_AQUIS"
+    maturity_aquis = "COMPMT_DICRED_AQUIS"
+    maturity_sem = "COMPMT_DICRED_SEM_AQUIS"
+    return {
+        "fund_name": "DOC_ARQ/CAB_INFORM/NM_FUNDO_CLASSE",
+        "cnpj": "DOC_ARQ/CAB_INFORM/NR_CNPJ_FUNDO ou CNPJ da carteira salva",
+        "tipo_classe": "DOC_ARQ/CAB_INFORM/NM_CLASSE",
+        "serie_inicio": "DERIVADA: primeira competência disponível no cache",
+        "periodo_inicial": "DERIVADA: primeira competência carregada",
+        "periodo_final": "DERIVADA: última competência carregada",
+        "competencias_disponiveis": "DERIVADA: contagem de competências carregadas",
+        "warnings": "DERIVADA: flags de qualidade do Soma de FIDCs",
+        "pl_total": f"{_xml('PATRLIQ/VL_PATRIM_LIQ')} ; fallback: OUTRAS_INFORM/DESC_SERIE_CLASSE",
+        "pl_total_oficial": _xml("PATRLIQ/VL_PATRIM_LIQ"),
+        "pl_total_classes": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/*/(QT_COTAS × VL_COTAS)",
+        "pl_reconciliacao_delta": "DERIVADA: PL FIDC total usado - PL soma das classes",
+        "pl_reconciliacao_delta_pct": "DERIVADA: |PL FIDC total usado - PL soma das classes| / PL FIDC total usado",
+        "pl_total_usado_fonte": "DERIVADA: fonte efetiva selecionada para PL total",
+        "pl_senior": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SENIOR/*/(QT_COTAS × VL_COTAS)",
+        "pl_subordinada_strict": "DOC_ARQ/LISTA_INFORM/OUTRAS_INFORM/DESC_SERIE_CLASSE/DESC_SERIE_CLASSE_SUBORD/*/(QT_COTAS × VL_COTAS)",
+        "pl_mezzanino": "DERIVADA: subclasses econômicas identificadas como mezanino em DESC_SERIE_CLASSE_SUBORD",
+        "pl_subordinada_mezz": "DERIVADA: PL Subordinada + PL Mezanino",
+        "subordinacao_total_pct": "DERIVADA: (PL Subordinada + PL Mezanino) / PL FIDC total",
+        "carteira_bruta": _xml_sum("CRED_EXISTE/VL_SOM_DICRED_AQUIS", "DICRED/VL_DICRED"),
+        "pdd_total": _xml_sum("CRED_EXISTE/VL_PROVIS_REDUC_RECUP", "DICRED/VL_DICRED_PROVIS_REDUC_RECUP"),
+        "pdd_carteira_bruta_pct": "DERIVADA: PDD total / Carteira Bruta total",
+        "carteira_liquida": "DERIVADA: Carteira Bruta total - PDD total",
+        "carteira_em_dia": "DERIVADA: Carteira Bruta - NPL Over 1d",
+        "atraso_ate30": _xml_sum(f"{overdue_aquis}/VL_INAD_VENC_30", f"{overdue_sem}/VL_INAD_VENC_30"),
+        "atraso_31_60": _xml_sum(f"{overdue_aquis}/VL_INAD_VENC_31_60", f"{overdue_sem}/VL_INAD_VENC_31_60"),
+        "atraso_61_90": _xml_sum(f"{overdue_aquis}/VL_INAD_VENC_61_90", f"{overdue_sem}/VL_INAD_VENC_61_90"),
+        "atraso_91_180": _xml_sum(
+            f"{overdue_aquis}/VL_INAD_VENC_91_120",
+            f"{overdue_aquis}/VL_INAD_VENC_121_150",
+            f"{overdue_aquis}/VL_INAD_VENC_151_180",
+            f"{overdue_sem}/VL_INAD_VENC_91_120",
+            f"{overdue_sem}/VL_INAD_VENC_121_150",
+            f"{overdue_sem}/VL_INAD_VENC_151_180",
+        ),
+        "atraso_181_360": _xml_sum(f"{overdue_aquis}/VL_INAD_VENC_181_360", f"{overdue_sem}/VL_INAD_VENC_181_360"),
+        "vencidos_360": _xml_sum(
+            f"{overdue_aquis}/VL_INAD_VENC_361_720",
+            f"{overdue_aquis}/VL_INAD_VENC_721_1080",
+            f"{overdue_aquis}/VL_INAD_VENC_1080",
+            f"{overdue_sem}/VL_INAD_VENC_361_720",
+            f"{overdue_sem}/VL_INAD_VENC_721_1080",
+            f"{overdue_sem}/VL_INAD_VENC_1080",
+        ),
+        "carteira_bruta_origem": "DERIVADA: fonte efetiva da carteira canônica",
+        "missing_data_flag": "DERIVADA: flags de qualidade do Soma de FIDCs",
+        "division_by_zero_flag": "DERIVADA: flags de qualidade do Soma de FIDCs",
+        "negative_value_flag": "DERIVADA: flags de qualidade do Soma de FIDCs",
+        "not_calculable_flag": "DERIVADA: flags de qualidade do Soma de FIDCs",
+        "formula_npl_over90": "DERIVADA: texto de fórmula aplicada",
+        "prazo_vencidos": _xml_sum(f"{maturity_aquis}/VL_SOM_PRAZO_VENC", f"{maturity_sem}/VL_SOM_PRAZO_VENC"),
+        "prazo_venc_30": _xml_sum(f"{maturity_aquis}/VL_PRAZO_VENC_30", f"{maturity_sem}/VL_PRAZO_VENC_30"),
+        "prazo_venc_31_60": _xml_sum(f"{maturity_aquis}/VL_PRAZO_VENC_31_60", f"{maturity_sem}/VL_PRAZO_VENC_31_60"),
+        "prazo_venc_61_90": _xml_sum(f"{maturity_aquis}/VL_PRAZO_VENC_61_90", f"{maturity_sem}/VL_PRAZO_VENC_61_90"),
+        "prazo_venc_91_120": _xml_sum(f"{maturity_aquis}/VL_PRAZO_VENC_91_120", f"{maturity_sem}/VL_PRAZO_VENC_91_120"),
+        "prazo_venc_121_150": _xml_sum(f"{maturity_aquis}/VL_PRAZO_VENC_121_150", f"{maturity_sem}/VL_PRAZO_VENC_121_150"),
+        "prazo_venc_151_180": _xml_sum(f"{maturity_aquis}/VL_PRAZO_VENC_151_180", f"{maturity_sem}/VL_PRAZO_VENC_151_180"),
+        "prazo_venc_181_360": _xml_sum(f"{maturity_aquis}/VL_PRAZO_VENC_181_360", f"{maturity_sem}/VL_PRAZO_VENC_181_360"),
+        "prazo_venc_361_720": _xml_sum(f"{maturity_aquis}/VL_PRAZO_VENC_361_720", f"{maturity_sem}/VL_PRAZO_VENC_361_720"),
+        "prazo_venc_721_1080": _xml_sum(f"{maturity_aquis}/VL_PRAZO_VENC_721_1080", f"{maturity_sem}/VL_PRAZO_VENC_721_1080"),
+        "prazo_venc_1080": _xml_sum(f"{maturity_aquis}/VL_PRAZO_VENC_1080", f"{maturity_sem}/VL_PRAZO_VENC_1080"),
+        "carteira_a_vencer": "DERIVADA: soma dos buckets a vencer",
+        "duration_days": "DERIVADA: prazo médio ponderado pela malha de vencimentos",
+        "duration_months": "DERIVADA: duration_days / 30,4375",
+        "duration_total_saldo": "DERIVADA: soma dos saldos usados na duration",
+        "duration_weighted_days": "DERIVADA: soma de saldo × ponto médio de prazo",
+        "duration_source_status": "DERIVADA: qualidade da malha de vencimentos",
+    }
+
+
 def _money_scales_by_block(df: pd.DataFrame) -> dict[str, tuple[float, str]]:
     specs = _wide_metric_specs()
     result: dict[str, tuple[float, str]] = {}
@@ -1299,6 +1483,94 @@ def _fund_sheet_name(monthly_df: pd.DataFrame, *, fallback: str) -> str:
             if name and name.lower() not in {"nan", "none", "n/d", "<na>"}:
                 return name
     return fallback
+
+
+def _export_period_labels(outputs: MercadoLivreOutputs) -> list[str]:
+    monthly = outputs.consolidated_monthly
+    if monthly is None or monthly.empty:
+        return []
+    sorted_df = _sort_monthly_by_competencia(monthly, descending=True)
+    return [_format_competencia_short(value) for value in sorted_df["competencia"].astype(str).tolist()]
+
+
+def _write_full_variable_matrix_sheet(worksheet, matrix_df: pd.DataFrame, *, scope_name: str) -> None:  # noqa: ANN001
+    worksheet.sheet_view.showGridLines = False
+    if matrix_df is None or matrix_df.empty:
+        worksheet.append(["Bloco", "Nome", "Nome original da variável", "Unidade", "Memória / fórmula"])
+        worksheet.append(["Sem dados", "Sem dados", "", "", ""])
+        _style_plain_sheet(worksheet)
+        return
+
+    columns = [str(column) for column in matrix_df.columns]
+    worksheet.append(columns)
+    period_columns = [
+        column
+        for column in columns
+        if column not in {"Bloco", "Nome", "Nome original da variável", "Unidade", "Memória / fórmula"}
+    ]
+    unit_by_row: dict[int, str] = {}
+    for _, row in matrix_df.iterrows():
+        values = []
+        for column in columns:
+            value = row.get(column)
+            if pd.isna(value):
+                values.append(None)
+            elif isinstance(value, str):
+                values.append(_excel_text(value))
+            else:
+                values.append(value)
+        worksheet.append(values)
+        unit_by_row[worksheet.max_row] = str(row.get("Unidade") or "")
+
+    period_start_col = columns.index(period_columns[0]) + 1 if period_columns else 0
+    period_end_col = columns.index(period_columns[-1]) + 1 if period_columns else 0
+    if period_columns:
+        for row_idx in range(2, worksheet.max_row + 1):
+            unit = unit_by_row.get(row_idx, "")
+            for col_idx in range(period_start_col, period_end_col + 1):
+                cell = worksheet.cell(row=row_idx, column=col_idx)
+                if not isinstance(cell.value, (int, float)):
+                    continue
+                if unit == "%":
+                    cell.number_format = "0.00%"
+                elif unit == "R$":
+                    cell.number_format = '"R$" #,##0.00'
+                elif unit == "quantidade":
+                    cell.number_format = "#,##0"
+                else:
+                    cell.number_format = "#,##0.00"
+                cell.alignment = Alignment(horizontal="right")
+    _style_full_variable_matrix_sheet(worksheet, title=scope_name)
+
+
+def _style_full_variable_matrix_sheet(worksheet, *, title: str) -> None:  # noqa: ANN001
+    _ = title
+    header_fill = PatternFill("solid", fgColor="000000")
+    thin = Side(style="thin", color="E5E5E5")
+    for cell in worksheet[1]:
+        cell.font = Font(bold=True, color="FFFFFF")
+        cell.fill = header_fill
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+    for row_idx in range(2, worksheet.max_row + 1):
+        block_cell = worksheet.cell(row=row_idx, column=1)
+        name_cell = worksheet.cell(row=row_idx, column=2)
+        source_cell = worksheet.cell(row=row_idx, column=3)
+        formula_cell = worksheet.cell(row=row_idx, column=worksheet.max_column)
+        name_cell.font = Font(bold=_excel_metric_is_highlight(str(name_cell.value or "")))
+        block_cell.alignment = Alignment(wrap_text=True, vertical="top")
+        source_cell.alignment = Alignment(wrap_text=True, vertical="top")
+        formula_cell.alignment = Alignment(wrap_text=True, vertical="top")
+        for col_idx in range(1, worksheet.max_column + 1):
+            worksheet.cell(row=row_idx, column=col_idx).border = Border(bottom=thin)
+    worksheet.column_dimensions["A"].width = 27
+    worksheet.column_dimensions["B"].width = 38
+    worksheet.column_dimensions["C"].width = 54
+    worksheet.column_dimensions["D"].width = 12
+    worksheet.column_dimensions[get_column_letter(worksheet.max_column)].width = 62
+    for col_idx in range(5, worksheet.max_column):
+        worksheet.column_dimensions[get_column_letter(col_idx)].width = 14
+    worksheet.freeze_panes = "E2"
+    worksheet.auto_filter.ref = worksheet.dimensions
 
 
 def _write_numeric_wide_sheet(worksheet, monthly_df: pd.DataFrame, *, scope_name: str) -> None:  # noqa: ANN001

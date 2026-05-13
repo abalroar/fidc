@@ -16,6 +16,9 @@ from services.mercado_livre_dashboard import (
     build_consolidated_monthly_base,
     build_consolidated_snapshot_excel_bytes,
     build_excel_export_bytes,
+    build_full_variable_csv_zip_bytes,
+    build_full_variable_excel_export_bytes,
+    build_full_variable_export_matrix,
     build_fund_monthly_base,
     build_mercado_livre_outputs,
     build_wide_table,
@@ -360,6 +363,80 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("<c:title>", chart_xml)
         self.assertIn("PL total:", xml_payload)
         self.assertIn('sz="1000"', xml_payload)
+
+    def test_full_variable_export_has_equivalent_numeric_sheets_and_xml_source_names(self) -> None:
+        dashboard_a = _dashboard(
+            fund_name="FIDC A",
+            cnpj="11111111000111",
+            pl_total=100.0,
+            pl_senior=75.0,
+            pl_mezz=15.0,
+            pl_sub=10.0,
+            carteira=1_000.0,
+            pdd=100.0,
+            buckets={1: 25.0, 2: 10.0, 4: 40.0, 7: 10.0, 8: 10.0},
+        )
+        dashboard_b = _dashboard(
+            fund_name="FIDC B",
+            cnpj="22222222000122",
+            pl_total=200.0,
+            pl_senior=150.0,
+            pl_mezz=25.0,
+            pl_sub=25.0,
+            carteira=2_000.0,
+            pdd=150.0,
+            buckets={1: 35.0, 2: 20.0, 4: 80.0, 7: 20.0, 8: 20.0},
+        )
+        outputs = build_mercado_livre_outputs(
+            portfolio_id="portfolio-1",
+            portfolio_name="Carteira",
+            dashboards_by_cnpj={
+                "11111111000111": ("FIDC A", dashboard_a),
+                "22222222000122": ("FIDC B", dashboard_b),
+            },
+            period_label="01/2026 a 01/2026",
+        )
+
+        matrix = build_full_variable_export_matrix(outputs.consolidated_monthly)
+        self.assertIn("Nome", matrix.columns)
+        self.assertIn("Nome original da variável", matrix.columns)
+        self.assertEqual("PL FIDC total", matrix.loc[matrix["Nome"] == "PL FIDC total", "Nome"].iloc[0])
+        self.assertIn(
+            "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ",
+            matrix.loc[matrix["Nome"] == "PL FIDC oficial", "Nome original da variável"].iloc[0],
+        )
+
+        excel_bytes = build_full_variable_excel_export_bytes(outputs)
+        workbook = load_workbook(BytesIO(excel_bytes), data_only=True)
+        self.assertIn("Consolidado", workbook.sheetnames)
+        self.assertEqual(3, len(workbook.sheetnames))
+        consolidated = workbook["Consolidado"]
+        fund_a = workbook["FIDC A"]
+        fund_b = workbook["FIDC B"]
+        self.assertEqual(
+            [cell.value for cell in consolidated[1]],
+            [cell.value for cell in fund_a[1]],
+        )
+        self.assertEqual(
+            [row[1] for row in consolidated.iter_rows(min_row=2, values_only=True)],
+            [row[1] for row in fund_b.iter_rows(min_row=2, values_only=True)],
+        )
+        pl_row = next(row for row in consolidated.iter_rows(min_row=2, values_only=False) if row[1].value == "PL FIDC total")
+        carteira_row = next(row for row in consolidated.iter_rows(min_row=2, values_only=False) if row[1].value == "Carteira Bruta total")
+        sub_row = next(row for row in consolidated.iter_rows(min_row=2, values_only=False) if row[1].value == "% Subordinação Total")
+        self.assertAlmostEqual(300.0, pl_row[4].value)
+        self.assertAlmostEqual(3_000.0, carteira_row[4].value)
+        self.assertAlmostEqual(0.25, sub_row[4].value)
+        self.assertIn("R$", pl_row[4].number_format)
+        self.assertIn("%", sub_row[4].number_format)
+
+        csv_zip = build_full_variable_csv_zip_bytes(outputs)
+        with zipfile.ZipFile(BytesIO(csv_zip)) as archive:
+            self.assertIn("consolidado.csv", archive.namelist())
+            self.assertTrue(any(name.endswith("fidc_a.csv") for name in archive.namelist()))
+            csv_payload = archive.read("consolidado.csv").decode("utf-8-sig")
+        self.assertIn("Nome original da variável", csv_payload)
+        self.assertIn("PL FIDC total", csv_payload)
 
     def test_pptx_export_uses_one_2x2_slide_per_fund_plus_consolidated(self) -> None:
         dashboard_a = _dashboard(
