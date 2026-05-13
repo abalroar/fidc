@@ -5,7 +5,7 @@
   "subtitle": "Estrutura, documentação, gatilhos e performance monitorável",
   "portfolio_id": "",
   "portfolio_signature": "",
-  "generated_at": "2026-05-13T10:59:26-03:00",
+  "generated_at": "2026-05-13T12:34:28-03:00",
   "source": "Extração offline local · CVM/Fundos.NET · IME cache",
   "confidentiality": "Uso interno",
   "funds": [
@@ -49,21 +49,21 @@
     {
       "id": "comparison_main",
       "title": "Comparativo principal",
-      "subtitle": "Matriz FIDC x métrica",
+      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
       "kind": "comparison_matrix",
       "source_file": "tables/comparison_main.csv",
       "first_column": "Nome"
     },
     {
       "id": "emissions",
-      "title": "Emissões e cronogramas",
+      "title": "Cronograma de emissões",
       "kind": "source_table",
       "source_file": "tables/emissions.csv",
       "first_column": "Fundo"
     },
     {
       "id": "thresholds",
-      "title": "Triggers e thresholds",
+      "title": "Regulamento mais recente",
       "kind": "source_table",
       "source_file": "tables/thresholds.csv",
       "first_column": "fundo"
@@ -72,7 +72,8 @@
   "audit": {
     "warnings": [
       "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
-      "Tabela principal com 27 linhas; documentos sem PDF local permanecem como lacuna."
+      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
+      "Tabela principal com 30 linhas; contagem documental foi substituída por páginas locais analisadas."
     ]
   }
 }
