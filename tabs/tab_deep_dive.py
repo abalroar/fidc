@@ -168,36 +168,219 @@ _LONG_TEXT_ROWS = {
 
 _REVERSE_ENGINEERING_PROMPT = """Você é Codex trabalhando no repositório local `/fidc`.
 
-Objetivo: atualizar os pacotes da aba Deep Dive para todas as carteiras salvas do Toma Conta FIDCs, mantendo fluxo offline e rastreabilidade documental.
+Tarefa: atualizar o Deep Dive de UMA ÚNICA carteira específica, com o mesmo nível de profundidade usado na curadoria Pravaler. Não faça atualização em massa. Não processe outras carteiras. Não tente economizar tempo reduzindo escopo.
 
-Regras:
-- Antes de alterar qualquer coisa, rode `git pull` e confirme que o local está igual ao GitHub.
-- Preserve pacotes Deep Dive existentes, dados curados, modelo MC3 e arquivos locais não rastreados.
-- Não chame LLM nem API externa nesta etapa.
-- Use apenas dados já inventariados no repositório: `reports/regulatory_document_inventory.csv`, `reports/regulatory_criteria_matrix.csv`, `data/regulatory_profiles/*`, `data/regulatory_knowledge/*`, `data/raw/*` e caches IME locais.
-- Não invente thresholds, preço, prazo, remuneração ou cronograma: quando ausente, mantenha `—` ou explicite lacuna.
-- Para thresholds, use o regulamento/documento mais recente disponível por fundo quando a fonte permitir.
-- Para histórico de emissões, use todos os documentos inventariados/curados, não apenas a emissão mais recente.
-- O output deve ser uma tabela comparativa auditável, com uma coluna por FIDC e linhas para PL, direitos creditórios, NPL Over, PDD, cotas/PL, emissões detectadas, remuneração por emissão, amortização/vencimento por emissão e gatilhos monitoráveis.
-- O PPTX precisa ser editável, com tabela real, sem rasterizar, sem truncar texto longo.
-- Na aba Deep Dive, as métricas IME devem ser atualizadas ao vivo via pipeline existente (`load_or_extract_informe`) quando o usuário abrir o comparativo; documentos, emissões e thresholds continuam offline/versionados.
+INPUTS DA EXECUÇÃO:
+- Nome da carteira: [NOME_DA_CARTEIRA]
+- CNPJs dos fundos: [LISTA_DE_CNPJS]
+- Caminho do repositório: /Users/matheusjprates/fidc
+- Caminhos locais relevantes: [data/raw, reports, data/regulatory_profiles, data/deep_dives, caches IME]
+- Período de análise: [PERÍODO]
+- Deep Dive ID esperado: [DEEP_DIVE_ID]
+- Outputs esperados: comparison_main.csv, emissions.csv, thresholds.csv, evidence/performance_metrics_enriched.csv, manifest.json, PPTX QA editável
 
-Processo esperado:
-1. Inspecione as carteiras em `portfolios.json`.
-2. Audite a cobertura documental por CNPJ e conte páginas de PDFs locais quando necessário.
-3. Gere/atualize os pacotes com:
-   `.venv/bin/python scripts/build_deep_dive_package.py --all-portfolios`
-4. Valide `data/deep_dives/index.json`, cada `manifest.json` e as tabelas `comparison_main.csv`, `emissions.csv` e `thresholds.csv`.
-5. Gere pelo menos um PPTX QA com `services.deep_dive_ppt_export.build_deep_dive_pptx_bytes` e verifique que textos longos de amortização não aparecem cortados com `...`.
-6. Rode validações possíveis (`py_compile` e testes disponíveis).
-7. Commit e push somente dos arquivos rastreados relevantes.
+REGRAS INEGOCIÁVEIS:
+1. Analise apenas esta carteira. É proibido atualizar todas as carteiras.
+2. Não faça batch.
+3. Não misture documentos de outros grupos econômicos.
+4. Não use LLM nem API externa nesta etapa.
+5. Use apenas dados já inventariados no repositório: `reports/regulatory_document_inventory.csv`, `reports/regulatory_criteria_matrix.csv`, `data/regulatory_profiles/*`, `data/regulatory_knowledge/*`, `data/raw/*` e caches IME locais.
+6. Não use inferência fraca para preencher thresholds, preço, spread, prazo, remuneração, cronograma, volume ou quantidade de cotas.
+7. Toda afirmação material precisa ter fonte: arquivo, data, seção, página, cláusula ou ID documental quando disponível.
+8. Lacunas devem aparecer como lacunas, não como zeros, médias, extrapolações ou estimativas.
+9. Conflitos entre documentos devem ser registrados.
+10. O resultado precisa ser utilizável na aba Deep Dive e exportável em PPTX editável.
+11. Não rasterize tabelas no PPTX.
+12. Preserve pacotes Deep Dive existentes, dados curados, modelo MC3 e arquivos locais não rastreados.
+13. Preserve a separação: documentos/emissões/thresholds são offline e versionados; métricas IME devem ser atualizadas ao vivo pela aba usando `load_or_extract_informe` quando aplicável.
 
-Entregue no final:
-- carteiras processadas;
-- pacotes criados/atualizados;
-- principais lacunas documentais;
+ETAPA 1 — SINCRONIZAÇÃO E ESCOPO:
+- Rode `git pull --rebase`.
+- Verifique `git status`.
+- Identifique a carteira em `portfolios.json`.
+- Confirme CNPJs e nomes dos fundos.
+- Liste somente documentos e caches relacionados aos CNPJs informados.
+- Não toque em arquivos não rastreados sem necessidade.
+
+ETAPA 2 — INVENTÁRIO DOCUMENTAL DA CARTEIRA:
+Para cada CNPJ, inventarie todos os documentos disponíveis no repo:
+- regulamentos;
+- regulamentos consolidados;
+- suplementos;
+- atas de assembleia;
+- anúncios de início/encerramento;
+- documentos de emissão;
+- fatos relevantes;
+- relatórios trimestrais;
+- demonstrações financeiras;
+- relatórios de rating;
+- comunicados a cotistas;
+- XML/IME;
+- arquivos auxiliares.
+
+Use preferencialmente:
+- `reports/regulatory_document_inventory.csv`;
+- `reports/regulatory_criteria_matrix.csv`;
+- `data/raw/<cnpj>/`;
+- `data/regulatory_knowledge/`;
+- `data/regulatory_profiles/`;
+- caches IME existentes.
+
+Conte páginas de PDFs quando isso for útil para indicar cobertura documental. Não use quantidade de PDFs como métrica principal se páginas forem mais informativas.
+
+ETAPA 3 — LEITURA E EXTRAÇÃO DOCUMENTAL:
+Leia documentos relevantes um a um. Dê prioridade a documentos de emissão, suplementos, atas e regulamentos mais recentes, mas não ignore versões antigas quando forem necessárias para reconstruir histórico.
+
+Extraia, por emissão/série/classe:
+- fundo;
+- CNPJ;
+- classe/série;
+- tipo de cota: sênior, mezanino, subordinada;
+- data de deliberação;
+- data de emissão / primeira integralização;
+- data de encerramento/oferta;
+- quantidade emitida;
+- VNU/preço unitário;
+- volume total;
+- remuneração-alvo / benchmark / CDI + spread / IPCA + spread;
+- se o spread veio de bookbuilding, ato ou suplemento;
+- prazo;
+- carência;
+- juros;
+- amortização;
+- vencimento;
+- fonte documental;
+- status de curadoria.
+
+Se o valor final não estiver localizado, escreva explicitamente:
+- `spread final não localizado`;
+- `sobretaxa definida em bookbuilding`;
+- `sobretaxa definida em ato`;
+- `sobretaxa definida em suplemento`;
+- `prazo remetido ao suplemento`;
+- `cronograma fechado não identificado`;
+conforme o caso.
+
+ETAPA 4 — REGULAMENTO MAIS RECENTE E CRITÉRIOS MONITORÁVEIS:
+Para cada fundo, identifique o regulamento/documento vigente mais recente disponível.
+
+Extraia critérios monitoráveis ou parcialmente monitoráveis via IME:
+- subordinação mínima;
+- relação mínima;
+- alocação mínima em direitos creditórios;
+- índice de atraso / inadimplência por faixa;
+- PDD / cobertura;
+- reserva de liquidez / caixa;
+- derivativos/hedge permitidos;
+- concentração;
+- eventos de avaliação;
+- eventos de liquidação;
+- vencimento antecipado;
+- waivers/amendments relevantes.
+
+Para cada critério, registre:
+- limite;
+- comparação;
+- evento;
+- métrica IME correspondente;
+- grau de monitorabilidade: monitorável, monitorável com ressalva, parcial, não monitorável;
+- fonte exata.
+
+Não transforme regra jurídica em métrica se o IME não tiver granularidade suficiente.
+
+ETAPA 5 — CONFRONTO COM DADOS ESTRUTURADOS DO APP:
+Compare achados documentais com os dados estruturados já usados pelo app:
+- IME / Fundos.NET;
+- `build_monitoring_tables`;
+- Deep Dive live IME metrics;
+- caches locais;
+- dados de PL, direitos creditórios, vencidos, PDD, cotas/PL, subordinação.
+
+Separe:
+- dados documentais offline;
+- dados IME ao vivo;
+- lacunas;
+- divergências;
+- limitações metodológicas.
+
+ETAPA 6 — PERSISTÊNCIA:
+Crie ou atualize arquivos específicos da carteira, seguindo padrão auditável:
+- `data/regulatory_profiles/<slug_carteira>_cotas_emissoes_pagamentos.csv`
+- `data/regulatory_profiles/<slug_carteira>_criteria_monitoraveis_ime.csv`
+- `data/deep_dives/<deep_dive_id>/tables/emissions.csv`
+- `data/deep_dives/<deep_dive_id>/tables/thresholds.csv`
+- `data/deep_dives/<deep_dive_id>/tables/comparison_main.csv`
+- `data/deep_dives/<deep_dive_id>/evidence/performance_metrics_enriched.csv`
+- `data/deep_dives/<deep_dive_id>/manifest.json`
+
+Se o gerador ainda não suportar uma curadoria específica para esta carteira, implemente a menor generalização segura, sem hardcode frágil, sem quebrar Pravaler e sem quebrar carteiras já existentes.
+
+ETAPA 7 — FORMATO DO COMPARATIVO:
+A tabela principal deve ter:
+- primeira coluna: `Nome`;
+- demais colunas: um fundo por coluna;
+- linhas para métricas IME ao vivo;
+- linhas para emissões detectadas;
+- linhas para remuneração-alvo por emissão;
+- linhas para amortização/vencimento;
+- linhas para subordinação mínima;
+- linhas para alocação mínima;
+- linhas para eventos de avaliação/liquidação;
+- linhas para reserva/caixa;
+- linhas para hedges permitidos;
+- linhas para lacunas relevantes.
+
+Texto longo deve quebrar de forma legível no Streamlit e no PPTX. Não deixe `...` truncando cronogramas ou emissões.
+
+ETAPA 8 — PPTX EDITÁVEL:
+Gere PPTX QA com `services.deep_dive_ppt_export.build_deep_dive_pptx_bytes`.
+Verifique:
+- tabelas reais editáveis;
+- cabeçalho preservado;
+- múltiplos slides quando necessário;
+- sem texto truncado;
+- sem reticências indevidas;
+- sem rasterização;
+- layout institucional sóbrio.
+
+ETAPA 9 — VALIDAÇÕES:
+Antes de encerrar, rode:
+- `py_compile` nos arquivos Python alterados;
+- validação de CSV com pandas;
+- contagem de emissões por fundo;
+- checagem de remuneração vazia;
+- checagem de amortização/vencimento vazio;
+- checagem de colunas esperadas em `comparison_main.csv`;
+- geração e abertura estrutural do PPTX via `python-pptx`;
+- `git diff --check`.
+
+Critérios mínimos:
+- nenhuma remuneração deve ficar vazia sem justificativa textual;
+- nenhuma lacuna deve virar zero;
+- cada emissão deve ter fonte;
+- cada threshold deve ter fonte;
+- o pacote deve aparecer na aba Deep Dive;
+- o PPTX deve ser editável.
+
+ETAPA 10 — ENTREGA:
+Informe:
+- carteira processada;
+- CNPJs processados;
+- documentos/fontes usados;
+- número de emissões/classes detectadas por fundo;
+- principais spreads/benchmarks encontrados;
+- principais lacunas;
+- critérios monitoráveis por IME;
+- arquivos alterados;
 - validações realizadas;
-- commit e hash enviados ao GitHub."""
+- hash do commit, se houver commit;
+- status do push.
+
+Se for pedido commit/push:
+- adicione somente arquivos rastreados e relevantes;
+- não adicione PDFs soltos, relatórios temporários ou arquivos não relacionados;
+- faça commit com mensagem objetiva;
+- faça push."""
 
 
 def render_tab_deep_dive() -> None:
