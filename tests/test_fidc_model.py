@@ -12,6 +12,7 @@ from services.fidc_model import (
     AMORTIZATION_MODE_LINEAR,
     AMORTIZATION_MODE_WORKBOOK,
     CREDIT_MODEL_MIGRATION,
+    CREDIT_MODEL_MC3_CARTOES,
     CREDIT_MODEL_NPL90,
     INTEREST_PAYMENT_MODE_AFTER_GRACE,
     INTEREST_PAYMENT_MODE_PERIODIC,
@@ -684,6 +685,37 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertGreater(periodic[1].juros_senior, 0.0)
         self.assertEqual(0.0, deferred[1].juros_senior)
         self.assertGreater(deferred[7].juros_senior, periodic[7].juros_senior)
+
+    def test_mc3_model_applies_over90_cap_and_adds_reneg_to_pdd(self):
+        monthly_dates = [datetime(2025, 1, 1), datetime(2025, 2, 1)]
+        premissas = Premissas(
+            volume=1_000_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.0,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=1.0,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            modelo_credito=CREDIT_MODEL_MC3_CARTOES,
+            perda_ciclo=0.50,
+            npl90_lag_meses=0,
+            cobertura_minima_npl90=1.0,
+            lgd=1.0,
+            renegociado_pct=0.10,
+            maturacao_over90_cap=0.40,
+            prazo_medio_recebiveis_meses=1.0,
+            carteira_revolvente=False,
+        )
+        periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
+        self.assertAlmostEqual(400_000.0, periods[1].npl90_estoque_fim, delta=1e-6)
+        self.assertAlmostEqual(500_000.0, periods[1].provisao_requerida, delta=1e-6)
+        self.assertAlmostEqual(500_000.0, periods[1].despesa_provisao, delta=1e-6)
 
 
 if __name__ == "__main__":

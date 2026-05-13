@@ -48,6 +48,8 @@ class Premissas:
     rolagem_61_90_90_plus: float = 0.0
     recuperacao_90_plus: float = 0.0
     writeoff_90_plus: float = 0.0
+    renegociado_pct: float = 0.0
+    maturacao_over90_cap: float = 0.40
     agio_aquisicao: float = 0.0
     excesso_spread_senior_am: float = 0.0
     selic_aa_por_ano: tuple[tuple[int, float], ...] = ()
