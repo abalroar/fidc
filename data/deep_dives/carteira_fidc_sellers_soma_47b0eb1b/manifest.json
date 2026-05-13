@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_fidc_sellers_soma_47b0eb1b",
+  "title": "Deep Dive FIDC Sellers (Soma)",
+  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas IME",
+  "portfolio_id": "47b0eb1b7bea42ef85233f9b1186129c",
+  "portfolio_signature": "50473039000102|55471753000177|63572282000111",
+  "generated_at": "2026-05-13T13:13:31-03:00",
+  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "50.473.039/0001-02",
+      "name": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SELLER FIDC"
+    },
+    {
+      "cnpj": "55.471.753/0001-77",
+      "name": "SELLER II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO RESP LTDA",
+      "short_name": "SELLER II"
+    },
+    {
+      "cnpj": "63.572.282/0001-11",
+      "name": "SELLER 3 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESP LIMITADA",
+      "short_name": "SELLER 3"
+    }
+  ],
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
+      "kind": "comparison_matrix",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome"
+    },
+    {
+      "id": "emissions",
+      "title": "Cronograma de emissões",
+      "kind": "source_table",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "thresholds",
+      "title": "Regulamento mais recente",
+      "kind": "source_table",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "fundo"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
+      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
+      "Tabela principal com 31 linhas; contagem documental foi substituída por páginas locais analisadas."
+    ]
+  }
+}

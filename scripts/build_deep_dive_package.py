@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import re
 import sys
+import unicodedata
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -19,6 +21,7 @@ if str(ROOT) not in sys.path:
 from services.deep_dive_store import write_deep_dive_index
 from services.fundonet_dashboard import build_dashboard_data
 from services.monitoring_metrics import build_monitoring_tables, read_wide_csv
+from services.portfolio_store import PortfolioRecord, portfolio_basket_signature
 from services.variaveis_fnet import competencia_columns
 
 
@@ -26,10 +29,32 @@ DEFAULT_PACKAGE_ID = "sellers_vs_mercado_credito"
 REPORTS = ROOT / "reports"
 OUT_ROOT = ROOT / "data" / "deep_dives"
 IME_CACHE_ROOT = ROOT / ".cache" / "fundonet-ime"
+PORTFOLIOS_PATH = ROOT / "portfolios.json"
+
+logging.getLogger("pypdf").setLevel(logging.ERROR)
+
+GLOBAL_DOCUMENT_INVENTORY = REPORTS / "regulatory_document_inventory.csv"
+GLOBAL_CURATION_STATUS = REPORTS / "all_fidcs_regulatory_curation_status.csv"
+GLOBAL_CRITERIA_MATRIX = REPORTS / "regulatory_criteria_matrix.csv"
+GLOBAL_CURATED_CRITERIA = ROOT / "data" / "regulatory_profiles" / "all_fidcs_criteria_monitoraveis_ime.csv"
+GLOBAL_CURATED_EMISSIONS = ROOT / "data" / "regulatory_profiles" / "all_fidcs_cotas_emissoes_pagamentos.csv"
 
 
 def main() -> None:
     args = parse_args()
+    if args.all_portfolios:
+        build_all_portfolio_packages(args)
+        return
+    if args.portfolio_id:
+        portfolio = get_portfolio_by_id(args.portfolio_id)
+        if portfolio is None:
+            raise SystemExit(f"Carteira não encontrada: {args.portfolio_id}")
+        build_portfolio_package(args, portfolio)
+        return
+    build_sellers_mercado_credito_package(args)
+
+
+def build_sellers_mercado_credito_package(args: argparse.Namespace) -> None:
     package_dir = args.output_root / args.deep_dive_id
     (package_dir / "tables").mkdir(parents=True, exist_ok=True)
     (package_dir / "evidence").mkdir(parents=True, exist_ok=True)
@@ -64,6 +89,51 @@ def main() -> None:
     print(f"Pacote criado em {package_dir.relative_to(ROOT)}")
 
 
+def build_all_portfolio_packages(args: argparse.Namespace) -> None:
+    portfolios = load_saved_portfolios()
+    if not portfolios:
+        raise SystemExit("Nenhuma carteira salva encontrada em portfolios.json.")
+    for portfolio in portfolios:
+        build_portfolio_package(args, portfolio)
+    write_deep_dive_index(args.output_root)
+    print(f"{len(portfolios)} pacote(s) de carteira criados em {args.output_root.relative_to(ROOT)}")
+
+
+def build_portfolio_package(args: argparse.Namespace, portfolio: PortfolioRecord) -> None:
+    package_id = args.deep_dive_id if args.deep_dive_id != DEFAULT_PACKAGE_ID and not args.all_portfolios else portfolio_deep_dive_id(portfolio)
+    package_dir = args.output_root / package_id
+    (package_dir / "tables").mkdir(parents=True, exist_ok=True)
+    (package_dir / "evidence").mkdir(parents=True, exist_ok=True)
+    (package_dir / "notes").mkdir(parents=True, exist_ok=True)
+
+    coverage = build_portfolio_coverage(portfolio)
+    performance = enrich_performance_from_local_ime_cache(pd.DataFrame(), coverage)
+    threshold_versions = build_threshold_versions_for_coverage(coverage)
+    emissions = build_emissions_for_coverage(coverage)
+    emission_rows = build_emission_rows(emissions, coverage)
+    comparison = build_comparison_main(coverage, performance, threshold_versions, emissions)
+
+    comparison.to_csv(package_dir / "tables" / "comparison_main.csv", index=False)
+    build_emission_schedule_table(emission_rows).to_csv(package_dir / "tables" / "emissions.csv", index=False)
+    build_latest_thresholds_table(threshold_versions, coverage).to_csv(package_dir / "tables" / "thresholds.csv", index=False)
+    performance.to_csv(package_dir / "evidence" / "performance_metrics_enriched.csv", index=False)
+    coverage.to_csv(package_dir / "evidence" / "document_coverage.csv", index=False)
+
+    manifest = build_manifest(
+        argparse.Namespace(
+            deep_dive_id=package_id,
+            title=f"Deep Dive {portfolio.name}",
+            subtitle="Estrutura, emissões, gatilhos monitoráveis e métricas IME",
+            portfolio_id=portfolio.id,
+            portfolio_signature=portfolio_basket_signature(portfolio.funds),
+        ),
+        coverage,
+        comparison,
+    )
+    (package_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"Pacote criado em {package_dir.relative_to(ROOT)}")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Empacota artefatos offline em um Deep Dive consumível pelo app.")
     parser.add_argument("--deep-dive-id", default=DEFAULT_PACKAGE_ID)
@@ -72,7 +142,258 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--portfolio-id", default="")
     parser.add_argument("--portfolio-signature", default="")
     parser.add_argument("--output-root", type=Path, default=OUT_ROOT)
+    parser.add_argument("--all-portfolios", action="store_true", help="Gera um pacote Deep Dive para cada carteira salva.")
     return parser.parse_args()
+
+
+def load_saved_portfolios(path: Path = PORTFOLIOS_PATH) -> list[PortfolioRecord]:
+    if not path.exists():
+        return []
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return [PortfolioRecord.from_dict(item) for item in payload.get("portfolios") or []]
+
+
+def get_portfolio_by_id(portfolio_id: str) -> PortfolioRecord | None:
+    return next((portfolio for portfolio in load_saved_portfolios() if portfolio.id == portfolio_id), None)
+
+
+def portfolio_deep_dive_id(portfolio: PortfolioRecord) -> str:
+    return f"carteira_{safe_token(portfolio.name)}_{portfolio.id[:8]}"
+
+
+def build_portfolio_coverage(portfolio: PortfolioRecord) -> pd.DataFrame:
+    inventory = read_csv(GLOBAL_DOCUMENT_INVENTORY)
+    curation = read_csv(GLOBAL_CURATION_STATUS)
+    sellers_coverage = read_csv(REPORTS / "sellers_mercado_credito_document_coverage.csv")
+    page_cache: dict[str, int] = {}
+    rows = []
+    for fund in portfolio.funds:
+        cnpj = normalize_cnpj(fund.cnpj)
+        docs = inventory[inventory["CNPJ"].map(normalize_cnpj).eq(cnpj)].copy() if not inventory.empty else pd.DataFrame()
+        curation_row = first_matching_cnpj_row(curation, cnpj)
+        sellers_row = first_matching_cnpj_row(sellers_coverage, cnpj)
+        fund_name = (
+            display(curation_row.get("Fundo") if curation_row is not None else "")
+            if curation_row is not None
+            else "—"
+        )
+        if fund_name == "—":
+            fund_name = (
+                display(sellers_row.get("fundo") if sellers_row is not None else "")
+                if sellers_row is not None
+                else "—"
+            )
+        if fund_name == "—" and not docs.empty:
+            fund_name = display(docs.iloc[0].get("Fundo"))
+        if fund_name == "—":
+            fund_name = fund.display_name
+
+        if sellers_row is not None and display(sellers_row.get("paginas_pdf_locais")) != "—":
+            local_pages = sellers_row.get("paginas_pdf_locais")
+        else:
+            local_pages = str(sum_pdf_pages(docs.get("Arquivo", pd.Series(dtype=str)).tolist(), page_cache=page_cache))
+
+        local_pdfs = local_pdf_count(docs.get("Arquivo", pd.Series(dtype=str)).tolist())
+        rows.append(
+            {
+                "grupo": portfolio.name,
+                "cnpj": format_cnpj(cnpj),
+                "fundo": fund_name,
+                "documentos_inventariados": str(len(docs)) if sellers_row is None else display(sellers_row.get("documentos_inventariados")),
+                "pdfs_locais_analisaveis": str(local_pdfs) if sellers_row is None else display(sellers_row.get("pdfs_locais_analisaveis")),
+                "documentos_sem_pdf_local": str(max(len(docs) - local_pdfs, 0)) if sellers_row is None else display(sellers_row.get("documentos_sem_pdf_local")),
+                "paginas_pdf_locais": local_pages,
+                "quebra_por_categoria": category_breakdown(docs) if sellers_row is None else display(sellers_row.get("quebra_por_categoria")),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def first_matching_cnpj_row(frame: pd.DataFrame, cnpj: str) -> pd.Series | None:
+    if frame.empty:
+        return None
+    cnpj_col = "CNPJ" if "CNPJ" in frame.columns else "cnpj" if "cnpj" in frame.columns else ""
+    if not cnpj_col:
+        return None
+    subset = frame[frame[cnpj_col].map(normalize_cnpj).eq(cnpj)]
+    if subset.empty:
+        return None
+    return subset.iloc[0]
+
+
+def local_pdf_count(paths: list[object]) -> int:
+    return sum(1 for value in paths if pdf_path(value).exists())
+
+
+def sum_pdf_pages(paths: list[object], *, page_cache: dict[str, int]) -> int:
+    total = 0
+    for value in paths:
+        path = pdf_path(value)
+        if not path.exists():
+            continue
+        key = str(path)
+        if key not in page_cache:
+            page_cache[key] = count_pdf_pages(path)
+        total += page_cache[key]
+    return total
+
+
+def pdf_path(value: object) -> Path:
+    text = str(value or "").strip()
+    if not text:
+        return Path("__missing__")
+    path = Path(text)
+    if not path.is_absolute():
+        path = ROOT / path
+    return path
+
+
+def count_pdf_pages(path: Path) -> int:
+    try:
+        from pypdf import PdfReader
+
+        return len(PdfReader(str(path)).pages)
+    except Exception:  # noqa: BLE001
+        return 0
+
+
+def category_breakdown(docs: pd.DataFrame) -> str:
+    if docs.empty:
+        return "—"
+    column = "Tipo" if "Tipo" in docs.columns else docs.columns[0]
+    counts = docs[column].fillna("").replace("", "outro").value_counts()
+    return "; ".join(f"{key}: {value}" for key, value in counts.items())
+
+
+def build_threshold_versions_for_coverage(coverage: pd.DataFrame) -> pd.DataFrame:
+    frames = [
+        normalize_curated_criteria(read_csv(GLOBAL_CURATED_CRITERIA)),
+        normalize_criteria_matrix(read_csv(GLOBAL_CRITERIA_MATRIX)),
+    ]
+    combined = pd.concat([frame for frame in frames if not frame.empty], ignore_index=True, sort=False)
+    if combined.empty or coverage.empty:
+        return pd.DataFrame()
+    cnpjs = {normalize_cnpj(value) for value in coverage["cnpj"].tolist()}
+    combined = combined[combined["cnpj"].map(normalize_cnpj).isin(cnpjs)].copy()
+    if combined.empty:
+        return combined
+    combined["_priority"] = combined["source_kind"].map({"curated": 2, "matrix": 1}).fillna(0)
+    combined["_dedupe"] = combined.apply(
+        lambda row: "|".join(
+            [
+                normalize_cnpj(row.get("cnpj")),
+                str(row.get("chave") or ""),
+                str(row.get("comparacao") or ""),
+                str(row.get("limite") or ""),
+                str(row.get("source_file") or ""),
+            ]
+        ),
+        axis=1,
+    )
+    return (
+        combined.sort_values("_priority")
+        .drop_duplicates("_dedupe", keep="last")
+        .drop(columns=["_priority", "_dedupe"], errors="ignore")
+    )
+
+
+def normalize_curated_criteria(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame()
+    output = []
+    for _, row in frame.iterrows():
+        comparison, limit = split_limit_rule(row.get("Limite/regra"))
+        source = row.get("Fonte") or ""
+        output.append(
+            {
+                "fundo": row.get("Fundo") or "",
+                "cnpj": row.get("CNPJ") or "",
+                "criterio": row.get("Critério") or "",
+                "chave": row.get("Chave") or "",
+                "evento": row.get("Critério") or "",
+                "comparacao": comparison,
+                "limite": limit,
+                "monitorabilidade_ime": row.get("Monitorabilidade IME") or "",
+                "metrica_ime": row.get("Métrica IME / proxy") or "",
+                "fonte_pagina": source,
+                "source_file": source,
+                "data_documento": extract_date_from_text(source),
+                "categoria_documento": classify_source(source),
+                "tipo_documento": classify_source(source),
+                "source_kind": "curated",
+            }
+        )
+    return pd.DataFrame(output)
+
+
+def normalize_criteria_matrix(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame()
+    output = []
+    for _, row in frame.iterrows():
+        source = row.get("Fonte") or ""
+        output.append(
+            {
+                "fundo": row.get("Fundo") or "",
+                "cnpj": row.get("CNPJ") or "",
+                "criterio": row.get("Critério") or "",
+                "chave": row.get("Chave") or "",
+                "evento": row.get("Evento") or row.get("Critério") or "",
+                "comparacao": row.get("Comparação") or "",
+                "limite": row.get("Limite") or "",
+                "monitorabilidade_ime": row.get("Monitoramento") or "",
+                "metrica_ime": row.get("Métrica IME sugerida") or "",
+                "fonte_pagina": source,
+                "source_file": source,
+                "data_documento": extract_date_from_text(source),
+                "categoria_documento": classify_source(source),
+                "tipo_documento": classify_source(source),
+                "source_kind": "matrix",
+            }
+        )
+    return pd.DataFrame(output)
+
+
+def split_limit_rule(value: object) -> tuple[str, str]:
+    text = display(value)
+    if text == "—":
+        return "", ""
+    match = re.match(r"\s*(>=|<=|>|<|=)\s*(.+)", text)
+    if match:
+        return match.group(1), match.group(2).strip()
+    return "", text
+
+
+def classify_source(value: object) -> str:
+    text = str(value or "").lower()
+    for token in ("regulamento", "assembleia", "emissao", "evento"):
+        if token in text:
+            return token
+    return "outro"
+
+
+def build_emissions_for_coverage(coverage: pd.DataFrame) -> pd.DataFrame:
+    frames = [read_csv(GLOBAL_CURATED_EMISSIONS), read_csv(REPORTS / "sellers_mercado_credito_emissions.csv")]
+    combined = pd.concat([frame for frame in frames if not frame.empty], ignore_index=True, sort=False)
+    if combined.empty or coverage.empty:
+        return pd.DataFrame()
+    cnpjs = {normalize_cnpj(value) for value in coverage["cnpj"].tolist()}
+    combined = combined[combined["CNPJ"].map(normalize_cnpj).isin(cnpjs)].copy()
+    if combined.empty:
+        return combined
+    combined["_dedupe"] = combined.apply(
+        lambda row: "|".join(
+            [
+                normalize_cnpj(row.get("CNPJ")),
+                str(row.get("Cota/Classe") or row.get("Classe/Série") or ""),
+                str(row.get("Data emissão / 1ª integralização") or row.get("Data") or ""),
+                str(row.get("Volume") or ""),
+                str(row.get("Fonte") or ""),
+            ]
+        ),
+        axis=1,
+    )
+    return combined.drop_duplicates("_dedupe", keep="last").drop(columns=["_dedupe"], errors="ignore")
 
 
 def build_manifest(args: argparse.Namespace, coverage: pd.DataFrame, comparison: pd.DataFrame) -> dict[str, object]:
@@ -421,7 +742,7 @@ def emission_summary_by_fund(rows: list[dict[str, object]]) -> dict[str, dict[st
         any_remunerated = [row for row in dated if display(row.get("remuneration")) != "—"]
         amortized = [row for row in dated if display(row.get("amortization")) != "—"]
         output[fund] = {
-            "series_count": str(len(classes) or len(group_rows)),
+            "series_count": str(len(classes) or len(fund_rows)),
             "volume_mm": format_optional_number(volume_sum if volume_sum else None, decimals=0),
             "first_date": next((str(row.get("date")) for row in dated if display(row.get("date")) != "—"), "—"),
             "last_date": next((str(row.get("date")) for row in reversed(dated) if display(row.get("date")) != "—"), "—"),
@@ -892,6 +1213,13 @@ def short_name(value: object) -> str:
     if not text:
         return "FIDC"
     return text[:36].rstrip()
+
+
+def safe_token(value: object) -> str:
+    normalized = unicodedata.normalize("NFKD", str(value or ""))
+    ascii_text = normalized.encode("ascii", "ignore").decode("ascii")
+    token = re.sub(r"[^a-zA-Z0-9_-]+", "_", ascii_text.strip().lower())
+    return token.strip("_") or "deep_dive"
 
 
 def comp_sort(value: object) -> str:

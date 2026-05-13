@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_credito_ifs_-_mar26_73645b21",
+  "title": "Deep Dive Crédito IFs - Mar26",
+  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas IME",
+  "portfolio_id": "73645b2112b04ba280bb1b3437a43fc2",
+  "portfolio_signature": "08692888000182|26749095000134|28169275000172|35868110000154|42085816000105|42085830000109|45598747000121|50473039000102|50988212000105|51957370000152|54559035000194|54810968000102|55070804000159|55401645000128|62588266000154|62626887000185|62838025000116|63546406000194",
+  "generated_at": "2026-05-13T13:13:30-03:00",
+  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "08.692.888/0001-82",
+      "name": "CARTÃO DE COMPRA SUPPLIER FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+      "short_name": "CARTÃO DE COMPRA SUPPLIER"
+    },
+    {
+      "cnpj": "50.473.039/0001-02",
+      "name": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SELLER FIDC"
+    },
+    {
+      "cnpj": "62.838.025/0001-16",
+      "name": "ENDURANCE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "short_name": "ENDURANCE"
+    },
+    {
+      "cnpj": "55.070.804/0001-59",
+      "name": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+      "short_name": "ESTRATÉGIA VINCULADA II"
+    },
+    {
+      "cnpj": "28.169.275/0001-72",
+      "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS PAGSEGURO I",
+      "short_name": "PAGSEGURO I"
+    },
+    {
+      "cnpj": "35.868.110/0001-54",
+      "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BV - CRÉDITO DE VEÍCULOS RESPONSABILIDADE LIMITADA",
+      "short_name": "BV - CRÉDITO DE VEÍCULOS"
+    },
+    {
+      "cnpj": "54.559.035/0001-94",
+      "name": "ESTRATÉGIA VINCULADA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+      "short_name": "ESTRATÉGIA VINCULADA I"
+    },
+    {
+      "cnpj": "50.988.212/0001-05",
+      "name": "CARTÃO DE COMPRA SUPPLIER FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS II-RESPONSABILIDADE LIMITADA",
+      "short_name": "CARTÃO DE COMPRA SUPPLIER II"
+    },
+    {
+      "cnpj": "62.626.887/0001-85",
+      "name": "SUMUP SMART IV FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SUMUP SMART IV FIDC"
+    },
+    {
+      "cnpj": "45.598.747/0001-21",
+      "name": "SUMUP SOLO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILI",
+      "short_name": "SUMUP SOLO DE RESPONSABILI"
+    },
+    {
+      "cnpj": "62.588.266/0001-54",
+      "name": "VTK FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "short_name": "VTK"
+    },
+    {
+      "cnpj": "63.546.406/0001-94",
+      "name": "PINE INSS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "short_name": "PINE INSS III"
+    },
+    {
+      "cnpj": "42.085.830/0001-09",
+      "name": "CLOUDWALK AKIRA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO",
+      "short_name": "CLOUDWALK AKIRA I"
+    },
+    {
+      "cnpj": "42.085.816/0001-05",
+      "name": "CLOUDWALK KICK ASS I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO",
+      "short_name": "CLOUDWALK KICK ASS I"
+    },
+    {
+      "cnpj": "51.957.370/0001-52",
+      "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ANGÁ FGTS I - RESPONSABILIDADE LIMITADA",
+      "short_name": "ANGÁ FGTS I"
+    },
+    {
+      "cnpj": "55.401.645/0001-28",
+      "name": "QUATÁ FDC FGTS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+      "short_name": "QUATÁ FDC FGTS"
+    },
+    {
+      "cnpj": "26.749.095/0001-34",
+      "name": "PRAVALER CRÉDITO UNIVERSITÁRIO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESP LIMITADAL",
+      "short_name": "PRAVALER CRÉDITO UNIVERSITÁRIO II -"
+    },
+    {
+      "cnpj": "54.810.968/0001-02",
+      "name": "ANGÁ FGTS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+      "short_name": "ANGÁ FGTS III"
+    }
+  ],
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
+      "kind": "comparison_matrix",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome"
+    },
+    {
+      "id": "emissions",
+      "title": "Cronograma de emissões",
+      "kind": "source_table",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "thresholds",
+      "title": "Regulamento mais recente",
+      "kind": "source_table",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "fundo"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
+      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
+      "Tabela principal com 31 linhas; contagem documental foi substituída por páginas locais analisadas."
+    ]
+  }
+}

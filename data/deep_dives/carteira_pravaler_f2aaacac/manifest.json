@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_pravaler_f2aaacac",
+  "title": "Deep Dive Pravaler",
+  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas IME",
+  "portfolio_id": "f2aaacac4a4a424ab52582611f299bb1",
+  "portfolio_signature": "08417544000165|26749095000134|34408539000104|55983705000168",
+  "generated_at": "2026-05-13T13:13:40-03:00",
+  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "08.417.544/0001-65",
+      "name": "CRÉDITO UNIVERSITÁRIO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+      "short_name": "CRÉDITO UNIVERSITÁRIO"
+    },
+    {
+      "cnpj": "26.749.095/0001-34",
+      "name": "PRAVALER CRÉDITO UNIVERSITÁRIO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESP LIMITADAL",
+      "short_name": "PRAVALER CRÉDITO UNIVERSITÁRIO II -"
+    },
+    {
+      "cnpj": "55.983.705/0001-68",
+      "name": "CRÉDITO UNIVERSITÁRIO IV FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+      "short_name": "CRÉDITO UNIVERSITÁRIO IV"
+    },
+    {
+      "cnpj": "34.408.539/0001-04",
+      "name": "CREDITO UNIVERSITARIO III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+      "short_name": "CREDITO UNIVERSITARIO III"
+    }
+  ],
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
+      "kind": "comparison_matrix",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome"
+    },
+    {
+      "id": "emissions",
+      "title": "Cronograma de emissões",
+      "kind": "source_table",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "thresholds",
+      "title": "Regulamento mais recente",
+      "kind": "source_table",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "fundo"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
+      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
+      "Tabela principal com 31 linhas; contagem documental foi substituída por páginas locais analisadas."
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_mercado_livre_eef45567",
+  "title": "Deep Dive Mercado Livre",
+  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas IME",
+  "portfolio_id": "eef455671b8e4f7faa0cd247992e3bf7",
+  "portfolio_signature": "28472333000132|33254370000104|37511828000114|41970012000126|50473039000102|55471753000177|63572282000111",
+  "generated_at": "2026-05-13T13:13:34-03:00",
+  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "50.473.039/0001-02",
+      "name": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SELLER FIDC"
+    },
+    {
+      "cnpj": "55.471.753/0001-77",
+      "name": "SELLER II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO RESP LTDA",
+      "short_name": "SELLER II"
+    },
+    {
+      "cnpj": "63.572.282/0001-11",
+      "name": "SELLER 3 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESP LIMITADA",
+      "short_name": "SELLER 3"
+    },
+    {
+      "cnpj": "28.472.333/0001-32",
+      "name": "Mercado Crédito Merchant Fundo de Investimento em Direitos Creditórios",
+      "short_name": "Mercado Crédito Merchant"
+    },
+    {
+      "cnpj": "33.254.370/0001-04",
+      "name": "MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "short_name": "MERCADO CRÉDITO"
+    },
+    {
+      "cnpj": "37.511.828/0001-14",
+      "name": "MERCADO CRÉDITO I BRASIL FIDC SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "MERCADO CRÉDITO I BRASIL"
+    },
+    {
+      "cnpj": "41.970.012/0001-26",
+      "name": "MERCADO CRÉDITO II BRASIL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+      "short_name": "MERCADO CRÉDITO II BRASIL"
+    }
+  ],
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
+      "kind": "comparison_matrix",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome"
+    },
+    {
+      "id": "emissions",
+      "title": "Cronograma de emissões",
+      "kind": "source_table",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "thresholds",
+      "title": "Regulamento mais recente",
+      "kind": "source_table",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "fundo"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
+      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
+      "Tabela principal com 31 linhas; contagem documental foi substituída por páginas locais analisadas."
+    ]
+  }
+}

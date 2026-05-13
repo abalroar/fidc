@@ -113,6 +113,38 @@ _CSS = """
 </style>
 """
 
+_REVERSE_ENGINEERING_PROMPT = """Você é Codex trabalhando no repositório local `/fidc`.
+
+Objetivo: atualizar os pacotes da aba Deep Dive para todas as carteiras salvas do Toma Conta FIDCs, mantendo fluxo offline e rastreabilidade documental.
+
+Regras:
+- Antes de alterar qualquer coisa, rode `git pull` e confirme que o local está igual ao GitHub.
+- Preserve pacotes Deep Dive existentes, dados curados, modelo MC3 e arquivos locais não rastreados.
+- Não chame LLM nem API externa nesta etapa.
+- Use apenas dados já inventariados no repositório: `reports/regulatory_document_inventory.csv`, `reports/regulatory_criteria_matrix.csv`, `data/regulatory_profiles/*`, `data/regulatory_knowledge/*`, `data/raw/*` e caches IME locais.
+- Não invente thresholds, preço, prazo, remuneração ou cronograma: quando ausente, mantenha `—` ou explicite lacuna.
+- Para thresholds, use o regulamento/documento mais recente disponível por fundo quando a fonte permitir.
+- Para histórico de emissões, use todos os documentos inventariados/curados, não apenas a emissão mais recente.
+- O output deve ser uma tabela comparativa auditável, com uma coluna por FIDC e linhas para PL, direitos creditórios, NPL Over, PDD, cotas/PL, emissões detectadas, remuneração por emissão, amortização/vencimento por emissão e gatilhos monitoráveis.
+- O PPTX precisa ser editável, com tabela real, sem rasterizar, sem truncar texto longo.
+
+Processo esperado:
+1. Inspecione as carteiras em `portfolios.json`.
+2. Audite a cobertura documental por CNPJ e conte páginas de PDFs locais quando necessário.
+3. Gere/atualize os pacotes com:
+   `.venv/bin/python scripts/build_deep_dive_package.py --all-portfolios`
+4. Valide `data/deep_dives/index.json`, cada `manifest.json` e as tabelas `comparison_main.csv`, `emissions.csv` e `thresholds.csv`.
+5. Gere pelo menos um PPTX QA com `services.deep_dive_ppt_export.build_deep_dive_pptx_bytes` e verifique que textos longos de amortização não aparecem cortados com `...`.
+6. Rode validações possíveis (`py_compile` e testes disponíveis).
+7. Commit e push somente dos arquivos rastreados relevantes.
+
+Entregue no final:
+- carteiras processadas;
+- pacotes criados/atualizados;
+- principais lacunas documentais;
+- validações realizadas;
+- commit e hash enviados ao GitHub."""
+
 
 def render_tab_deep_dive() -> None:
     st.markdown(_CSS, unsafe_allow_html=True)
@@ -123,6 +155,8 @@ def render_tab_deep_dive() -> None:
         "<div class='deepdive-subtitle'>Pacotes comparativos gerados por extração offline, versionados no repositório e exportáveis em PPTX editável.</div>",
         unsafe_allow_html=True,
     )
+    with st.expander("Prompt para atualizar Deep Dives", expanded=False):
+        st.code(_REVERSE_ENGINEERING_PROMPT, language="markdown")
 
     if not manifests:
         st.info("Nenhum pacote em `data/deep_dives/`.")
