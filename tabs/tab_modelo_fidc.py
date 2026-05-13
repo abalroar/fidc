@@ -70,6 +70,8 @@ CESSION_INPUT_MONTHLY = "Taxa Mensal (%)"
 CREDIT_LABEL_NPL90 = "NPL 90 + cobertura de provisão"
 CREDIT_LABEL_MIGRATION = "Migração por faixas de atraso"
 CREDIT_LABEL_MC3 = "MC3 Cartões (Over90 + Reneg 100% PDD)"
+MODEL_VIEW_GERAL = "Modelo FIDC (geral)"
+MODEL_VIEW_MC3 = "FIDC MC3 Cartões"
 CREDIT_MODEL_LABELS = {
     CREDIT_LABEL_NPL90: CREDIT_MODEL_NPL90,
     CREDIT_LABEL_MC3: CREDIT_MODEL_MC3_CARTOES,
@@ -2280,11 +2282,22 @@ def render_tab_modelo_fidc() -> None:
                     help_text=HELP_CUSTO_MINIMO,
                 )
             st.markdown("##### Crédito e provisão")
+            model_view = st.radio(
+                "Sub-aba do modelo",
+                [MODEL_VIEW_GERAL, MODEL_VIEW_MC3],
+                horizontal=True,
+                help="Use a sub-aba MC3 para abrir o fluxo já focado no modelo de Cartões.",
+            )
+            mc3_forcado = model_view == MODEL_VIEW_MC3
             credit_model_label = st.selectbox(
                 "Metodologia de crédito",
                 list(CREDIT_MODEL_LABELS),
+                index=list(CREDIT_MODEL_LABELS).index(CREDIT_LABEL_MC3) if mc3_forcado else 0,
+                disabled=mc3_forcado,
                 help="Define se a perda vem de NPL 90+ por ciclo ou de migração mensal entre faixas de atraso.",
             )
+            if mc3_forcado:
+                st.caption("Sub-aba MC3 ativa: metodologia de crédito travada em MC3 Cartões.")
             common_credit_a, common_credit_b, common_credit_c = st.columns(3)
             with common_credit_a:
                 npl90_lag_text = _text_number_input(
