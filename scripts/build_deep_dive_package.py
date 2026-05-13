@@ -37,7 +37,9 @@ GLOBAL_DOCUMENT_INVENTORY = REPORTS / "regulatory_document_inventory.csv"
 GLOBAL_CURATION_STATUS = REPORTS / "all_fidcs_regulatory_curation_status.csv"
 GLOBAL_CRITERIA_MATRIX = REPORTS / "regulatory_criteria_matrix.csv"
 GLOBAL_CURATED_CRITERIA = ROOT / "data" / "regulatory_profiles" / "all_fidcs_criteria_monitoraveis_ime.csv"
+PRAVALER_CURATED_CRITERIA = ROOT / "data" / "regulatory_profiles" / "pravaler_criteria_monitoraveis_ime.csv"
 GLOBAL_CURATED_EMISSIONS = ROOT / "data" / "regulatory_profiles" / "all_fidcs_cotas_emissoes_pagamentos.csv"
+PRAVALER_CURATED_EMISSIONS = ROOT / "data" / "regulatory_profiles" / "pravaler_cotas_emissoes_pagamentos.csv"
 
 
 def main() -> None:
@@ -267,7 +269,8 @@ def category_breakdown(docs: pd.DataFrame) -> str:
 
 def build_threshold_versions_for_coverage(coverage: pd.DataFrame) -> pd.DataFrame:
     frames = [
-        normalize_curated_criteria(read_csv(GLOBAL_CURATED_CRITERIA)),
+        normalize_curated_criteria(read_csv(GLOBAL_CURATED_CRITERIA), source_kind="curated"),
+        normalize_curated_criteria(read_csv(PRAVALER_CURATED_CRITERIA), source_kind="pravaler_curated"),
         normalize_criteria_matrix(read_csv(GLOBAL_CRITERIA_MATRIX)),
     ]
     combined = pd.concat([frame for frame in frames if not frame.empty], ignore_index=True, sort=False)
@@ -277,7 +280,17 @@ def build_threshold_versions_for_coverage(coverage: pd.DataFrame) -> pd.DataFram
     combined = combined[combined["cnpj"].map(normalize_cnpj).isin(cnpjs)].copy()
     if combined.empty:
         return combined
-    combined["_priority"] = combined["source_kind"].map({"curated": 2, "matrix": 1}).fillna(0)
+    pravaler_cnpjs = set(
+        combined.loc[combined["source_kind"].astype(str).eq("pravaler_curated"), "cnpj"].map(normalize_cnpj)
+    )
+    if pravaler_cnpjs:
+        combined = combined[
+            ~(
+                combined["cnpj"].map(normalize_cnpj).isin(pravaler_cnpjs)
+                & combined["source_kind"].astype(str).ne("pravaler_curated")
+            )
+        ].copy()
+    combined["_priority"] = combined["source_kind"].map({"pravaler_curated": 3, "curated": 2, "matrix": 1}).fillna(0)
     combined["_dedupe"] = combined.apply(
         lambda row: "|".join(
             [
@@ -297,7 +310,7 @@ def build_threshold_versions_for_coverage(coverage: pd.DataFrame) -> pd.DataFram
     )
 
 
-def normalize_curated_criteria(frame: pd.DataFrame) -> pd.DataFrame:
+def normalize_curated_criteria(frame: pd.DataFrame, *, source_kind: str) -> pd.DataFrame:
     if frame.empty:
         return pd.DataFrame()
     output = []
@@ -320,7 +333,7 @@ def normalize_curated_criteria(frame: pd.DataFrame) -> pd.DataFrame:
                 "data_documento": extract_date_from_text(source),
                 "categoria_documento": classify_source(source),
                 "tipo_documento": classify_source(source),
-                "source_kind": "curated",
+                "source_kind": source_kind,
             }
         )
     return pd.DataFrame(output)
@@ -373,7 +386,11 @@ def classify_source(value: object) -> str:
 
 
 def build_emissions_for_coverage(coverage: pd.DataFrame) -> pd.DataFrame:
-    frames = [read_csv(GLOBAL_CURATED_EMISSIONS), read_csv(REPORTS / "sellers_mercado_credito_emissions.csv")]
+    frames = [
+        read_csv(GLOBAL_CURATED_EMISSIONS),
+        read_csv(PRAVALER_CURATED_EMISSIONS),
+        read_csv(REPORTS / "sellers_mercado_credito_emissions.csv"),
+    ]
     combined = pd.concat([frame for frame in frames if not frame.empty], ignore_index=True, sort=False)
     if combined.empty or coverage.empty:
         return pd.DataFrame()
@@ -762,6 +779,7 @@ def summarize_emission_terms(rows: list[dict[str, object]]) -> str:
         quantity = display(row.get("quantity"))
         unit_price = display(row.get("unit_price"))
         volume = format_optional_number(row.get("volume_mm"), decimals=0)
+        remuneration = display(row.get("remuneration"))
         parts = []
         if quantity != "—":
             parts.append(f"Qtd {quantity}")
@@ -769,6 +787,8 @@ def summarize_emission_terms(rows: list[dict[str, object]]) -> str:
             parts.append(f"Preço {unit_price}")
         if volume != "—":
             parts.append(f"R$ {volume} mm")
+        if remuneration != "—":
+            parts.append(f"Rem {remuneration}")
         values.append(f"{label}: {'; '.join(parts) if parts else 'termos econômicos não identificados'}")
     return join_summary_items(values)
 
@@ -904,6 +924,8 @@ def latest_threshold_rows(threshold_versions: pd.DataFrame) -> pd.DataFrame:
     for (cnpj, key), group in subset.sort_values("_sort_key").groupby(["_cnpj_norm", "chave"], dropna=False):
         latest_key = group["_sort_key"].max()
         latest_group = group[group["_sort_key"] == latest_key].copy()
+        if latest_group["source_kind"].astype(str).eq("pravaler_curated").any():
+            latest_group = latest_group[latest_group["source_kind"].astype(str).eq("pravaler_curated")].copy()
         latest_group["_dedupe"] = latest_group.apply(
             lambda row: "|".join(
                 [
@@ -1108,8 +1130,11 @@ def normalize_amortization(value: object) -> str:
     lowered = text.lower()
     has_date = bool(re.search(r"\d{2}/\d{2}/\d{4}", text))
     has_percent = "%" in text
+    has_term = bool(re.search(r"\b\d+\s*mes", lowered))
     has_schedule_word = any(token in lowered for token in ["amort", "vnu", "vencimento", "resgate"])
     if has_date and (has_percent or has_schedule_word):
+        return clean_emission_text(text, max_len=180)
+    if has_term and (has_schedule_word or "carência" in lowered or "carencia" in lowered or "principal" in lowered):
         return clean_emission_text(text, max_len=180)
     if has_percent and has_schedule_word and len(text) <= 180:
         return text
@@ -1201,6 +1226,7 @@ def short_name(value: object) -> str:
         r"\bDE RESPONSABILIDADE LIMITADA\b",
         r"\bRESPONSABILIDADE LIMITADA\b",
         r"\bDE RESP LIMITADA\b",
+        r"\bRESP LIMITADAL\b",
         r"\bRESP LIMITADA\b",
         r"\bRESP LTDA\b",
         r"\bLIMITADA\b",

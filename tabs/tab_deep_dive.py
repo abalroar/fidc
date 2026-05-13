@@ -564,6 +564,7 @@ def _short_name(value: object) -> str:
         "FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS",
         "RESPONSABILIDADE LIMITADA",
         "RESP LIMITADAL",
+        "RESP LIMITADA",
         "LIMITADA",
     ]
     for token in replacements:
