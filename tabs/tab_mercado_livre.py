@@ -50,6 +50,7 @@ from tabs.ime_portfolio_support import (
     get_portfolio_status_caption,
     list_saved_portfolios,
     load_fidc_catalog_cached,
+    refresh_saved_portfolios_cache,
     render_saved_portfolio_delete_manager,
     save_portfolio_record,
 )
@@ -216,6 +217,10 @@ def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None
     st.markdown(_SOMATORIO_FIDCS_UI_CSS, unsafe_allow_html=True)
     st.markdown(_DASHBOARD_MELI_CSS, unsafe_allow_html=True)
     _apply_pending_selection()
+
+    if not st.session_state.get("somatorio_fidcs_portfolios_refreshed"):
+        refresh_saved_portfolios_cache()
+        st.session_state["somatorio_fidcs_portfolios_refreshed"] = True
 
     portfolios = list_saved_portfolios()
     catalog_df = load_fidc_catalog_cached()

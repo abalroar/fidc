@@ -65,6 +65,12 @@ def list_saved_portfolios() -> list[PortfolioRecord]:
     return [PortfolioRecord.from_dict(item) for item in list_saved_portfolios_cached(signature)]
 
 
+def refresh_saved_portfolios_cache() -> None:
+    clear = getattr(list_saved_portfolios_cached, "clear", None)
+    if callable(clear):
+        clear()
+
+
 def save_portfolio_record(portfolio: PortfolioRecord) -> PortfolioRecord:
     store = build_portfolio_store(get_portfolio_store_config())
     stored = store.save_portfolio(portfolio)

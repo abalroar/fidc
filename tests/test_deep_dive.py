@@ -69,3 +69,28 @@ def test_deep_dive_pptx_is_editable_office_package(tmp_path: Path) -> None:
         slide_xml = archive.read("ppt/slides/slide1.xml").decode("utf-8")
         assert "Deep Dive Teste" in slide_xml
         assert "R$ 100 mm" in slide_xml
+
+
+def test_deep_dive_pptx_preserves_long_schedule_text(tmp_path: Path) -> None:
+    _write_package(tmp_path)
+    manifest = list_deep_dives(tmp_path)[0]
+    schedule = (
+        "15/12/2027: 16,67%; 15/01/2028: 20,00%; 15/02/2028: 25,00%; "
+        "15/03/2028: 33,33%; 15/04/2028: 50,00%; 15/05/2028: 100,00%"
+    )
+    frame = pd.DataFrame(
+        {
+            "Nome": ["Cronograma de amortização mais recente"],
+            "FIDC A": [schedule],
+            "FIDC B": ["—"],
+        }
+    )
+
+    pptx = build_deep_dive_pptx_bytes(manifest, [(manifest.tables[0], frame)])
+
+    path = tmp_path / "long_schedule.pptx"
+    path.write_bytes(pptx)
+    with ZipFile(path) as archive:
+        slide_xml = archive.read("ppt/slides/slide1.xml").decode("utf-8")
+        assert "15/05/2028: 100,00%" in slide_xml
+        assert "15/05/2..." not in slide_xml

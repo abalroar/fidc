@@ -109,9 +109,8 @@ def build_deep_dive_pptx_bytes(
         for col_start, col_end in col_chunks:
             chunk_cols = [spec.first_column, *normalized.columns[col_start:col_end].tolist()]
             col_frame = normalized[chunk_cols].copy()
-            rows_per_slide = _rows_per_slide(col_frame)
-            for row_start in range(0, len(col_frame), rows_per_slide):
-                slide_jobs.append((spec, col_frame.iloc[row_start : row_start + rows_per_slide].copy(), row_start, len(col_frame)))
+            for row_start, row_end in _row_chunks(col_frame):
+                slide_jobs.append((spec, col_frame.iloc[row_start:row_end].copy(), row_start, len(col_frame)))
     if not slide_jobs:
         slide_jobs.append((DeepDiveTableSpec(id="empty", title="Deep Dive", source_file=""), pd.DataFrame({"Nome": ["Sem dados"]}), 0, 1))
 
@@ -132,6 +131,7 @@ def build_deep_dive_pptx_bytes(
             Pt=Pt,
             MSO_ANCHOR=MSO_ANCHOR,
             PP_ALIGN=PP_ALIGN,
+            MSO_AUTO_SIZE=MSO_AUTO_SIZE,
         )
 
     output = BytesIO()
@@ -167,6 +167,38 @@ def _rows_per_slide(frame: pd.DataFrame) -> int:
     return 19
 
 
+def _row_chunks(frame: pd.DataFrame) -> list[tuple[int, int]]:
+    if frame.empty:
+        return [(0, 0)]
+
+    capacity = float(_rows_per_slide(frame))
+    chunks: list[tuple[int, int]] = []
+    start = 0
+    used = 0.0
+    for idx, (_, row) in enumerate(frame.iterrows()):
+        weight = _row_weight(row, list(frame.columns))
+        if idx > start and used + weight > capacity:
+            chunks.append((start, idx))
+            start = idx
+            used = 0.0
+        used += weight
+    chunks.append((start, len(frame)))
+    return chunks
+
+
+def _row_weight(row: pd.Series, columns: list[str]) -> float:
+    if not columns:
+        return 1.0
+    max_score = 0.0
+    for col_idx, column in enumerate(columns):
+        text = _cell_text(row.get(column, "—"))
+        divisor = 34 if col_idx == 0 else 48
+        max_score = max(max_score, len(text) / divisor)
+    if max_score <= 1.35:
+        return 1.0
+    return min(4.0, 1.0 + (max_score - 1.0) * 0.72)
+
+
 def _column_widths(columns: list[str]) -> list[float]:
     total = CONTENT_W
     if len(columns) == 1:
@@ -176,21 +208,23 @@ def _column_widths(columns: list[str]) -> list[float]:
     return [first, *([other] * (len(columns) - 1))]
 
 
-def _add_table(slide, frame: pd.DataFrame, *, highlighted_column: str | None, rgb, Inches, Pt, MSO_ANCHOR, PP_ALIGN) -> None:  # noqa: ANN001, PLR0913
+def _add_table(slide, frame: pd.DataFrame, *, highlighted_column: str | None, rgb, Inches, Pt, MSO_ANCHOR, PP_ALIGN, MSO_AUTO_SIZE) -> None:  # noqa: ANN001, PLR0913
     rows = len(frame) + 1
     cols = len(frame.columns)
     table = slide.shapes.add_table(rows, cols, Inches(LEFT), Inches(TABLE_TOP), Inches(CONTENT_W), Inches(TABLE_H)).table
     widths = _column_widths(list(frame.columns))
     for idx, width in enumerate(widths):
         table.columns[idx].width = Inches(width)
-    for row in table.rows:
-        row.height = Inches(TABLE_H / rows)
+    row_weights = [1.0, *[_row_weight(row, list(frame.columns)) for _, row in frame.iterrows()]]
+    weight_total = max(sum(row_weights), 1.0)
+    for row, weight in zip(table.rows, row_weights, strict=False):
+        row.height = Inches(TABLE_H * (weight / weight_total))
 
     for col_idx, column in enumerate(frame.columns):
         table.cell(0, col_idx).text = str(column)
     for row_idx, (_, row) in enumerate(frame.iterrows(), start=1):
         for col_idx, column in enumerate(frame.columns):
-            table.cell(row_idx, col_idx).text = _clip_cell(row.get(column, "—"))
+            table.cell(row_idx, col_idx).text = _cell_text(row.get(column, "—"))
 
     for row_idx in range(rows):
         for col_idx in range(cols):
@@ -222,6 +256,7 @@ def _add_table(slide, frame: pd.DataFrame, *, highlighted_column: str | None, rg
                     run.font.bold = is_header or is_first
                     run.font.color.rgb = rgb(WHITE if is_header else RED_TEXT if _looks_relevant(text) else BLACK)
             cell.text_frame.word_wrap = True
+            cell.text_frame.auto_size = MSO_AUTO_SIZE.TEXT_TO_FIT_SHAPE
 
 
 def _font_size(*, row_count: int, col_count: int, is_header: bool) -> float:
@@ -234,11 +269,9 @@ def _font_size(*, row_count: int, col_count: int, is_header: bool) -> float:
     return 8.2
 
 
-def _clip_cell(value: object) -> str:
+def _cell_text(value: object) -> str:
     text = str(value if value is not None else "—").strip() or "—"
-    if len(text) <= 110:
-        return text
-    return text[:107].rstrip() + "..."
+    return text
 
 
 def _looks_relevant(text: str) -> bool:
