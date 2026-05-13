@@ -38,8 +38,10 @@ GLOBAL_CURATION_STATUS = REPORTS / "all_fidcs_regulatory_curation_status.csv"
 GLOBAL_CRITERIA_MATRIX = REPORTS / "regulatory_criteria_matrix.csv"
 GLOBAL_CURATED_CRITERIA = ROOT / "data" / "regulatory_profiles" / "all_fidcs_criteria_monitoraveis_ime.csv"
 PRAVALER_CURATED_CRITERIA = ROOT / "data" / "regulatory_profiles" / "pravaler_criteria_monitoraveis_ime.csv"
+CLOUDWALK_CURATED_CRITERIA = ROOT / "data" / "regulatory_profiles" / "cloudwalk_criteria_monitoraveis_ime.csv"
 GLOBAL_CURATED_EMISSIONS = ROOT / "data" / "regulatory_profiles" / "all_fidcs_cotas_emissoes_pagamentos.csv"
 PRAVALER_CURATED_EMISSIONS = ROOT / "data" / "regulatory_profiles" / "pravaler_cotas_emissoes_pagamentos.csv"
+CLOUDWALK_CURATED_EMISSIONS = ROOT / "data" / "regulatory_profiles" / "cloudwalk_cotas_emissoes_pagamentos.csv"
 
 
 def main() -> None:
@@ -271,6 +273,7 @@ def build_threshold_versions_for_coverage(coverage: pd.DataFrame) -> pd.DataFram
     frames = [
         normalize_curated_criteria(read_csv(GLOBAL_CURATED_CRITERIA), source_kind="curated"),
         normalize_curated_criteria(read_csv(PRAVALER_CURATED_CRITERIA), source_kind="pravaler_curated"),
+        normalize_curated_criteria(read_csv(CLOUDWALK_CURATED_CRITERIA), source_kind="cloudwalk_curated"),
         normalize_criteria_matrix(read_csv(GLOBAL_CRITERIA_MATRIX)),
     ]
     combined = pd.concat([frame for frame in frames if not frame.empty], ignore_index=True, sort=False)
@@ -280,17 +283,9 @@ def build_threshold_versions_for_coverage(coverage: pd.DataFrame) -> pd.DataFram
     combined = combined[combined["cnpj"].map(normalize_cnpj).isin(cnpjs)].copy()
     if combined.empty:
         return combined
-    pravaler_cnpjs = set(
-        combined.loc[combined["source_kind"].astype(str).eq("pravaler_curated"), "cnpj"].map(normalize_cnpj)
-    )
-    if pravaler_cnpjs:
-        combined = combined[
-            ~(
-                combined["cnpj"].map(normalize_cnpj).isin(pravaler_cnpjs)
-                & combined["source_kind"].astype(str).ne("pravaler_curated")
-            )
-        ].copy()
-    combined["_priority"] = combined["source_kind"].map({"pravaler_curated": 3, "curated": 2, "matrix": 1}).fillna(0)
+    combined["_priority"] = combined["source_kind"].map(
+        {"pravaler_curated": 3, "cloudwalk_curated": 3, "curated": 2, "matrix": 1}
+    ).fillna(0)
     combined["_dedupe"] = combined.apply(
         lambda row: "|".join(
             [
@@ -389,6 +384,7 @@ def build_emissions_for_coverage(coverage: pd.DataFrame) -> pd.DataFrame:
     frames = [
         read_csv(GLOBAL_CURATED_EMISSIONS),
         read_csv(PRAVALER_CURATED_EMISSIONS),
+        read_csv(CLOUDWALK_CURATED_EMISSIONS),
         read_csv(REPORTS / "sellers_mercado_credito_emissions.csv"),
     ]
     combined = pd.concat([frame for frame in frames if not frame.empty], ignore_index=True, sort=False)
@@ -922,10 +918,12 @@ def latest_threshold_rows(threshold_versions: pd.DataFrame) -> pd.DataFrame:
     subset["_sort_key"] = subset["data_documento"].map(date_sort)
     latest_rows = []
     for (cnpj, key), group in subset.sort_values("_sort_key").groupby(["_cnpj_norm", "chave"], dropna=False):
-        latest_key = group["_sort_key"].max()
-        latest_group = group[group["_sort_key"] == latest_key].copy()
-        if latest_group["source_kind"].astype(str).eq("pravaler_curated").any():
-            latest_group = latest_group[latest_group["source_kind"].astype(str).eq("pravaler_curated")].copy()
+        dedicated_mask = group["source_kind"].astype(str).isin({"pravaler_curated", "cloudwalk_curated"})
+        if dedicated_mask.any():
+            latest_group = group[dedicated_mask].copy()
+        else:
+            latest_key = group["_sort_key"].max()
+            latest_group = group[group["_sort_key"] == latest_key].copy()
         latest_group["_dedupe"] = latest_group.apply(
             lambda row: "|".join(
                 [
@@ -1096,14 +1094,16 @@ def normalize_remuneration(value: object) -> str:
     text = re.sub(r"\s+", " ", str(value or "")).strip()
     if not text or text.lower() in {"nan", "none", "<na>"}:
         return ""
-    direct = re.search(r"\b(?:DI|CDI)\s*\+\s*\d{1,2}(?:[,.]\d{1,4})?\s*%\s*a\.?a\.?", text, flags=re.IGNORECASE)
+    text = re.sub(r"\ba\s+crescid", "acrescid", text, flags=re.IGNORECASE)
+    spread_number = r"\d{1,2}(?:[,.]\s*\d{1,4})?\s*%"
+    direct = re.search(rf"\b(?:DI|CDI)\s*\+\s*{spread_number}\s*a\.?a\.?", text, flags=re.IGNORECASE)
     if direct:
         return normalize_di_spread_label(direct.group(0))
-    direct = re.search(r"\b(?:DI|CDI)\s*\+\s*\d{1,2}(?:[,.]\d{1,4})?\s*%", text, flags=re.IGNORECASE)
+    direct = re.search(rf"\b(?:DI|CDI)\s*\+\s*{spread_number}", text, flags=re.IGNORECASE)
     if direct:
         return normalize_di_spread_label(direct.group(0))
     spread = re.search(
-        r"(?:taxa\s+di|cdi).*?(?:spread|acrescid[ao]s?\s+de|acrescid[ao]?\s+de).*?(\d{1,2}(?:[,.]\d{1,4})?\s*%)",
+        rf"(?:taxa\s+di|cdi).*?(?:spread|acrescid[ao]s?\s+de|acrescid[ao]?\s+de).*?({spread_number})",
         text,
         flags=re.IGNORECASE,
     )
@@ -1118,6 +1118,7 @@ def normalize_remuneration(value: object) -> str:
 
 def normalize_di_spread_label(value: object) -> str:
     text = clean_emission_text(value, max_len=90)
+    text = re.sub(r"([,.])\s+(\d)", r"\1\2", text)
     text = re.sub(r"\s*\+\s*", " + ", text)
     text = re.sub(r"\s+", " ", text)
     return text.strip()
