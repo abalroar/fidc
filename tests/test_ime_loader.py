@@ -86,8 +86,37 @@ class ImeLoaderTests(unittest.TestCase):
             self.assertEqual(1, service.run_calls)
             self.assertEqual("miss", first.cache_status)
             self.assertEqual("hit", second.cache_status)
+            self.assertTrue(first.source_refresh_attempted)
+            self.assertTrue(second.source_refresh_attempted)
             self.assertTrue(second.result.wide_csv_path.exists())
             self.assertTrue(str(second.result.workspace_dir).startswith(str(cache_root.resolve())))
+
+    def test_loader_force_refresh_bypasses_existing_cache_once(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            service = _FakeInformeService(tmp_path / "workspace")
+            cache_root = tmp_path / "cache"
+
+            first = load_or_extract_informe(
+                cnpj_fundo="12.345.678/0001-99",
+                data_inicial=date(2026, 1, 1),
+                data_final=date(2026, 4, 1),
+                service=service,
+                cache_root=cache_root,
+            )
+            refreshed = load_or_extract_informe(
+                cnpj_fundo="12.345.678/0001-99",
+                data_inicial=date(2026, 1, 1),
+                data_final=date(2026, 4, 1),
+                service=service,
+                cache_root=cache_root,
+                force_refresh=True,
+            )
+
+            self.assertEqual(first.cache_key, refreshed.cache_key)
+            self.assertEqual(2, service.run_calls)
+            self.assertEqual("refresh", refreshed.cache_status)
+            self.assertTrue(refreshed.source_refresh_attempted)
 
     def test_peek_cached_informe_reports_cache_availability(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:

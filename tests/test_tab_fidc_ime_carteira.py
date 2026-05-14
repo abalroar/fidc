@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import date
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
@@ -11,6 +12,8 @@ from tabs.tab_fidc_ime_carteira import (
     _build_portfolio_selector_label_lookup,
     _build_loaded_dashboards_by_cnpj,
     _execute_portfolio_load_for_funds,
+    _is_cache_ready_for_portfolio_load,
+    _load_single_portfolio_fund,
     _normalize_portfolio_editor_mode,
     _portfolio_worker_count,
     _queue_portfolio_selection,
@@ -166,8 +169,8 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
             cache_key="period-1",
             label="12 meses",
             mode="preset",
-            start_month=SimpleNamespace(isoformat=lambda: "2026-01-01"),
-            end_month=SimpleNamespace(isoformat=lambda: "2026-12-01"),
+            start_month=date(2026, 1, 1),
+            end_month=date(2026, 12, 1),
             preset_months=12,
         )
         initial_results = {
@@ -198,6 +201,105 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
         period = SimpleNamespace(month_count=36)
         self.assertEqual(10, _portfolio_worker_count(total=10, period=period, cached_count=10))
 
+    def test_partial_cache_is_not_counted_as_ready_for_portfolio_load(self) -> None:
+        self.assertFalse(
+            _is_cache_ready_for_portfolio_load(
+                SimpleNamespace(is_cached=True, cache_status="github_cache_partial")
+            )
+        )
+        self.assertTrue(
+            _is_cache_ready_for_portfolio_load(
+                SimpleNamespace(is_cached=True, cache_status="github_cache")
+            )
+        )
+
+    def test_load_single_portfolio_fund_refreshes_partial_cache_before_returning(self) -> None:
+        fund = PortfolioFund(cnpj="12345678000199", display_name="FIDC A")
+        period = SimpleNamespace(
+            month_count=2,
+            cache_key="period-2",
+            label="01/2026 a 02/2026",
+            start_month=date(2026, 1, 1),
+            end_month=date(2026, 2, 1),
+        )
+        partial_result = SimpleNamespace(competencias=["02/2026"], docs_df=None)
+        refreshed_result = SimpleNamespace(competencias=["01/2026", "02/2026"], docs_df=None)
+        partial_load = SimpleNamespace(
+            result=partial_result,
+            cache_status="github_cache_partial",
+            cache_source="portable_index:abc.zip",
+            cache_key="compatible-cache",
+            cache_dir=Path("/tmp/compatible"),
+            source_refresh_attempted=False,
+        )
+        refreshed_load = SimpleNamespace(
+            result=refreshed_result,
+            cache_status="refresh",
+            cache_source="fundonet",
+            cache_key="exact-cache",
+            cache_dir=Path("/tmp/exact"),
+            source_refresh_attempted=True,
+        )
+        probe = SimpleNamespace(
+            cache_status="github_cache_partial",
+            cache_source="portable_index:abc.zip",
+            cache_key="compatible-cache",
+            requested_cache_key="exact-cache",
+            cache_dir=Path("/tmp/compatible"),
+        )
+
+        with (
+            patch("tabs.tab_fidc_ime_carteira.peek_cached_informe", return_value=probe),
+            patch("tabs.tab_fidc_ime_carteira.load_or_extract_informe", side_effect=[partial_load, refreshed_load]) as loader,
+        ):
+            payload = _load_single_portfolio_fund(fund, period)
+
+        self.assertEqual(2, loader.call_count)
+        self.assertTrue(loader.call_args_list[1].kwargs["force_refresh"])
+        context = payload["context"]
+        self.assertTrue(context["cache_refresh_attempted"])
+        self.assertEqual(["01/2026"], context["missing_competencias_before_refresh"])
+        self.assertEqual([], context["missing_competencias_after_refresh"])
+        self.assertEqual("refresh", context["cache_status"])
+
+    def test_load_single_portfolio_fund_does_not_repeat_source_refresh_marker(self) -> None:
+        fund = PortfolioFund(cnpj="12345678000199", display_name="FIDC A")
+        period = SimpleNamespace(
+            month_count=2,
+            cache_key="period-2",
+            label="01/2026 a 02/2026",
+            start_month=date(2026, 1, 1),
+            end_month=date(2026, 2, 1),
+        )
+        cached_result = SimpleNamespace(competencias=["02/2026"], docs_df=None)
+        cached_load = SimpleNamespace(
+            result=cached_result,
+            cache_status="hit",
+            cache_source="runtime",
+            cache_key="exact-cache",
+            cache_dir=Path("/tmp/exact"),
+            source_refresh_attempted=True,
+        )
+        probe = SimpleNamespace(
+            cache_status="hit",
+            cache_source="runtime",
+            cache_key="exact-cache",
+            requested_cache_key="exact-cache",
+            cache_dir=Path("/tmp/exact"),
+        )
+
+        with (
+            patch("tabs.tab_fidc_ime_carteira.peek_cached_informe", return_value=probe),
+            patch("tabs.tab_fidc_ime_carteira.load_or_extract_informe", return_value=cached_load) as loader,
+        ):
+            payload = _load_single_portfolio_fund(fund, period)
+
+        loader.assert_called_once()
+        context = payload["context"]
+        self.assertFalse(context["cache_refresh_attempted"])
+        self.assertEqual(["01/2026"], context["missing_competencias_after_refresh"])
+        self.assertEqual("source_refresh_previously_attempted_for_this_cache", context["cache_refresh_skipped_reason"])
+
     def test_ensure_portfolio_ime_data_loads_all_missing_funds_without_button(self) -> None:
         portfolio = PortfolioRecord(
             id="portfolio-1",
@@ -214,8 +316,8 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
             cache_key="period-36",
             label="36 meses",
             mode="preset",
-            start_month=SimpleNamespace(isoformat=lambda: "2023-05-01"),
-            end_month=SimpleNamespace(isoformat=lambda: "2026-04-01"),
+            start_month=date(2023, 5, 1),
+            end_month=date(2026, 4, 1),
             preset_months=36,
         )
         runtime_state = {"results": {}}

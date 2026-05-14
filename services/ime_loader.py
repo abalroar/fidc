@@ -37,6 +37,7 @@ class CachedInformeLoad:
     cache_dir: Path
     cache_status: str
     cache_source: str = ""
+    source_refresh_attempted: bool = False
 
 
 @dataclass(frozen=True)
@@ -47,6 +48,8 @@ class CachedInformeProbe:
     is_cached: bool
     cache_status: str = "miss"
     cache_source: str = ""
+    requested_cache_key: str = ""
+    source_refresh_attempted: bool = False
 
 
 def load_or_extract_informe(
@@ -58,6 +61,7 @@ def load_or_extract_informe(
     cache_root: Path | None = None,
     portable_cache_root: Path | None = None,
     remote_cache_base_url: str | None = None,
+    force_refresh: bool = False,
     progress_callback=None,  # noqa: ANN001
 ) -> CachedInformeLoad:
     cache_key = _build_cache_key(cnpj_fundo=cnpj_fundo, data_inicial=data_inicial, data_final=data_final)
@@ -65,27 +69,28 @@ def load_or_extract_informe(
     cache_dir = runtime_cache_root / cache_key
     manifest_path = cache_dir / "manifest.json"
 
-    cached = _load_cached_result(
-        cache_dir=cache_dir,
-        manifest_path=manifest_path,
-        cache_key=cache_key,
-        cache_status="hit",
-        cache_source="runtime",
-    )
-    if cached is not None:
-        return cached
+    if not force_refresh:
+        cached = _load_cached_result(
+            cache_dir=cache_dir,
+            manifest_path=manifest_path,
+            cache_key=cache_key,
+            cache_status="hit",
+            cache_source="runtime",
+        )
+        if cached is not None:
+            return cached
 
-    cached = _load_portable_cached_result(
-        cache_key=cache_key,
-        cnpj_fundo=cnpj_fundo,
-        data_inicial=data_inicial,
-        data_final=data_final,
-        runtime_cache_root=runtime_cache_root,
-        portable_cache_root=portable_cache_root,
-        remote_cache_base_url=remote_cache_base_url,
-    )
-    if cached is not None:
-        return cached
+        cached = _load_portable_cached_result(
+            cache_key=cache_key,
+            cnpj_fundo=cnpj_fundo,
+            data_inicial=data_inicial,
+            data_final=data_final,
+            runtime_cache_root=runtime_cache_root,
+            portable_cache_root=portable_cache_root,
+            remote_cache_base_url=remote_cache_base_url,
+        )
+        if cached is not None:
+            return cached
 
     runtime_service = service or InformeMensalService()
     fresh = runtime_service.run(
@@ -103,11 +108,12 @@ def load_or_extract_informe(
         data_inicial=data_inicial,
         data_final=data_final,
     )
+    cache_status = "refresh" if force_refresh else "miss"
     cached = _load_cached_result(
         cache_dir=cache_dir,
         manifest_path=manifest_path,
         cache_key=cache_key,
-        cache_status="miss",
+        cache_status=cache_status,
         cache_source="fundonet",
     )
     if cached is None:
@@ -116,8 +122,9 @@ def load_or_extract_informe(
         result=cached.result,
         cache_key=cached.cache_key,
         cache_dir=cached.cache_dir,
-        cache_status="miss",
+        cache_status=cache_status,
         cache_source="fundonet",
+        source_refresh_attempted=True,
     )
 
 
@@ -141,6 +148,8 @@ def peek_cached_informe(
             is_cached=True,
             cache_status="hit",
             cache_source="runtime",
+            requested_cache_key=cache_key,
+            source_refresh_attempted=bool((_read_cache_manifest(manifest_path) or {}).get("source_refresh_attempted")),
         )
     portable_root = _portable_cache_root_path(portable_cache_root)
     if portable_root is not None:
@@ -154,6 +163,8 @@ def peek_cached_informe(
                 is_cached=True,
                 cache_status="github_cache",
                 cache_source="portable_dir",
+                requested_cache_key=cache_key,
+                source_refresh_attempted=bool((_read_cache_manifest(portable_manifest_path) or {}).get("source_refresh_attempted")),
             )
         portable_zip = portable_root / f"{cache_key}.zip"
         if _is_cache_zip_complete(portable_zip):
@@ -164,6 +175,8 @@ def peek_cached_informe(
                 is_cached=True,
                 cache_status="github_cache",
                 cache_source="portable_zip",
+                requested_cache_key=cache_key,
+                source_refresh_attempted=bool((_read_cache_zip_manifest(portable_zip) or {}).get("source_refresh_attempted")),
             )
     compatible = _find_compatible_cache_manifest(
         cnpj_fundo=cnpj_fundo,
@@ -180,6 +193,8 @@ def peek_cached_informe(
             is_cached=True,
             cache_status="partial_hit",
             cache_source="runtime_compatible",
+            requested_cache_key=cache_key,
+            source_refresh_attempted=bool(compatible_manifest.get("source_refresh_attempted")),
         )
     if portable_root is not None:
         compatible_package = _find_compatible_portable_package(
@@ -197,12 +212,15 @@ def peek_cached_informe(
                 is_cached=True,
                 cache_status="github_cache_partial",
                 cache_source=f"portable_index:{package_path.name}",
+                requested_cache_key=cache_key,
+                source_refresh_attempted=bool(package_manifest.get("source_refresh_attempted")),
             )
     return CachedInformeProbe(
         cache_key=cache_key,
         cache_dir=cache_dir,
         manifest_path=manifest_path,
         is_cached=False,
+        requested_cache_key=cache_key,
     )
 
 
@@ -548,6 +566,7 @@ def _persist_result_to_cache(
         "data_inicial": data_inicial.isoformat(),
         "data_final": data_final.isoformat(),
         "competencias": list(result.competencias),
+        "source_refresh_attempted": True,
         "contas_row_count": int(result.contas_row_count),
         "listas_row_count": int(result.listas_row_count),
         "wide_row_count": int(result.wide_row_count),
@@ -594,6 +613,7 @@ def _load_cached_result(
         cache_dir=cache_dir,
         cache_status=cache_status,
         cache_source=cache_source,
+        source_refresh_attempted=bool(manifest.get("source_refresh_attempted")),
     )
 
 

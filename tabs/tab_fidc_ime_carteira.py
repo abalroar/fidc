@@ -32,6 +32,9 @@ from tabs.ime_portfolio_support import (
 )
 
 
+PARTIAL_CACHE_STATUSES = {"partial_hit", "github_cache_partial"}
+
+
 def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> None:
     if period is None:
         period = ime_tab._render_period_selector(state_prefix="ime_portfolio", title="Período da carteira")
@@ -403,6 +406,9 @@ def _execute_portfolio_load_for_funds(
         "period_month_count": period.month_count,
         "requested_funds": total,
         "cache_ready_funds": cached_count,
+        "selected_funds": [{"cnpj": fund.cnpj, "display_name": fund.display_name} for fund in funds],
+        "expected_competencias": _expected_competencias_for_period(period),
+        "cache_refresh_attempts": sum(1 for payload in results.values() if (payload.get("context") or {}).get("cache_refresh_attempted")),
         "retryable_failures_detected": retried_count,
         "complexity_score": total * max(period.month_count, 1),
         "elapsed_seconds": round(time.perf_counter() - load_started, 3),
@@ -465,10 +471,39 @@ def _load_portfolio_funds_batch(
 def _load_single_portfolio_fund(fund: PortfolioFund, period: ImePeriodSelection) -> dict[str, Any]:
     request_id = uuid.uuid4().hex
     start_ts = datetime.now(timezone.utc)
+    expected_competencias = _expected_competencias_for_period(period)
+    cache_probe = peek_cached_informe(
+        cnpj_fundo=fund.cnpj,
+        data_inicial=period.start_month,
+        data_final=period.end_month,
+    )
     cached = load_or_extract_informe(
         cnpj_fundo=fund.cnpj,
         data_inicial=period.start_month,
         data_final=period.end_month,
+    )
+    missing_before_refresh = _missing_expected_competencias(
+        expected_competencias=expected_competencias,
+        found_competencias=list(cached.result.competencias or []),
+    )
+    refresh_reason = _cache_refresh_reason(cached=cached, missing_competencias=missing_before_refresh)
+    refresh_attempted = bool(refresh_reason)
+    refresh_error = ""
+    if refresh_reason:
+        try:
+            cached = load_or_extract_informe(
+                cnpj_fundo=fund.cnpj,
+                data_inicial=period.start_month,
+                data_final=period.end_month,
+                force_refresh=True,
+            )
+        except Exception as exc:  # noqa: BLE001
+            refresh_error = f"{type(exc).__name__}: {exc}"
+
+    found_competencias = list(cached.result.competencias or [])
+    missing_after_refresh = _missing_expected_competencias(
+        expected_competencias=expected_competencias,
+        found_competencias=found_competencias,
     )
     elapsed_seconds = (datetime.now(timezone.utc) - start_ts).total_seconds()
     return {
@@ -480,12 +515,32 @@ def _load_single_portfolio_fund(fund: PortfolioFund, period: ImePeriodSelection)
             "competencia_final": period.end_month.isoformat(),
             "period_month_count": period.month_count,
             "periodo_analisado_label": period.label,
+            "expected_competencias": expected_competencias,
+            "found_competencias": found_competencias,
+            "missing_competencias_before_refresh": missing_before_refresh,
+            "missing_competencias_after_refresh": missing_after_refresh,
             "portfolio_fund_name": fund.display_name,
             "portfolio_fund_name_resolved": _extract_loaded_fund_name(cached.result, fallback_name=fund.display_name),
             "elapsed_seconds": round(elapsed_seconds, 3),
+            "cache_probe_status": cache_probe.cache_status,
+            "cache_probe_source": cache_probe.cache_source,
+            "cache_probe_key": cache_probe.cache_key,
+            "cache_requested_key": cache_probe.requested_cache_key,
+            "cache_probe_dir": str(cache_probe.cache_dir),
             "cache_status": cached.cache_status,
+            "cache_source": cached.cache_source,
             "cache_key": cached.cache_key,
             "cache_dir": str(cached.cache_dir),
+            "cache_source_refresh_attempted": cached.source_refresh_attempted,
+            "cache_refresh_attempted": refresh_attempted,
+            "cache_refresh_reason": refresh_reason,
+            "cache_refresh_error": refresh_error,
+            "cache_refresh_skipped_reason": _cache_refresh_skipped_reason(
+                cached=cached,
+                missing_competencias=missing_after_refresh,
+                refresh_attempted=refresh_attempted,
+                refresh_error=refresh_error,
+            ),
         },
     }
 
@@ -572,12 +627,59 @@ def _count_cached_portfolio_funds(*, funds: tuple[PortfolioFund, ...], period: I
     return sum(
         1
         for fund in funds
-        if peek_cached_informe(
-            cnpj_fundo=fund.cnpj,
-            data_inicial=period.start_month,
-            data_final=period.end_month,
-        ).is_cached
+        if _is_cache_ready_for_portfolio_load(
+            peek_cached_informe(
+                cnpj_fundo=fund.cnpj,
+                data_inicial=period.start_month,
+                data_final=period.end_month,
+            )
+        )
     )
+
+
+def _is_cache_ready_for_portfolio_load(probe) -> bool:  # noqa: ANN001
+    return bool(probe.is_cached and probe.cache_status not in PARTIAL_CACHE_STATUSES)
+
+
+def _expected_competencias_for_period(period: ImePeriodSelection) -> list[str]:
+    return ime_tab._competencia_labels_between(period.start_month, period.end_month)
+
+
+def _missing_expected_competencias(*, expected_competencias: list[str], found_competencias: list[str]) -> list[str]:
+    found = {str(value) for value in found_competencias}
+    return [competencia for competencia in expected_competencias if competencia not in found]
+
+
+def _cache_refresh_reason(*, cached, missing_competencias: list[str]) -> str:  # noqa: ANN001
+    if not missing_competencias:
+        return ""
+    if cached.cache_status in {"miss", "refresh"}:
+        return ""
+    if cached.cache_status in PARTIAL_CACHE_STATUSES:
+        return "cache_partial_or_compatible_missing_requested_competencies"
+    if not getattr(cached, "source_refresh_attempted", False):
+        return "cache_missing_requested_competencies_without_prior_source_refresh"
+    return ""
+
+
+def _cache_refresh_skipped_reason(
+    *,
+    cached,  # noqa: ANN001
+    missing_competencias: list[str],
+    refresh_attempted: bool,
+    refresh_error: str,
+) -> str:
+    if not missing_competencias:
+        return ""
+    if refresh_error:
+        return "refresh_failed_kept_best_available_cache"
+    if refresh_attempted:
+        return "source_refreshed_but_competencies_still_unavailable"
+    if cached.cache_status in {"miss", "refresh"}:
+        return "source_refresh_already_attempted_in_this_load"
+    if getattr(cached, "source_refresh_attempted", False):
+        return "source_refresh_previously_attempted_for_this_cache"
+    return "not_applicable"
 
 
 def _portfolio_worker_count(*, total: int, period: ImePeriodSelection, cached_count: int = 0) -> int:
@@ -820,6 +922,12 @@ def _render_portfolio_aggregate_analysis(
             period=period,
         )
         _render_portfolio_period_coverage_warning(bundle=bundle, period=period)
+        _render_portfolio_cache_debug(
+            selected_portfolio=selected_portfolio,
+            results=results,
+            period=period,
+            common_competencias=list(bundle.dashboard.competencias),
+        )
         if excluded_funds:
             st.warning(
                 f"Leitura agregada usando {loaded_count} de {total_selected} fundo(s) da carteira. "
@@ -942,6 +1050,118 @@ def _render_portfolio_period_coverage_warning(
         f"Fora do agregado: "
         f"{', '.join(ime_tab._format_competencia_label(value) for value in missing_competencias)}."
     )
+
+
+def _render_portfolio_cache_debug(
+    *,
+    selected_portfolio: PortfolioRecord,
+    results: dict[str, dict[str, Any]],
+    period: ImePeriodSelection,
+    common_competencias: list[str],
+) -> None:
+    fund_rows = _build_portfolio_cache_debug_rows(selected_portfolio=selected_portfolio, results=results, period=period)
+    excluded_rows = _build_excluded_competency_debug_rows(
+        selected_portfolio=selected_portfolio,
+        results=results,
+        period=period,
+        common_competencias=common_competencias,
+    )
+    has_refresh_or_gap = any(row.get("Refresh acionado") == "sim" or row.get("Competências faltantes após refresh") for row in fund_rows)
+    expanded = bool(excluded_rows and has_refresh_or_gap)
+    with st.expander("Diagnóstico de cache e competências da carteira", expanded=expanded):
+        st.markdown("**Fundos selecionados e cache verificado**")
+        st.dataframe(pd.DataFrame(fund_rows), width="stretch", hide_index=True)
+        st.markdown("**Competências esperadas fora da interseção após refresh**")
+        if excluded_rows:
+            st.dataframe(pd.DataFrame(excluded_rows), width="stretch", hide_index=True)
+        else:
+            st.caption("Nenhuma competência esperada ficou fora da interseção comum.")
+
+
+def _build_portfolio_cache_debug_rows(
+    *,
+    selected_portfolio: PortfolioRecord,
+    results: dict[str, dict[str, Any]],
+    period: ImePeriodSelection,
+) -> list[dict[str, object]]:
+    expected_competencias = _expected_competencias_for_period(period)
+    rows: list[dict[str, object]] = []
+    for fund in selected_portfolio.funds:
+        payload = results.get(fund.cnpj) or {}
+        context = payload.get("context") or {}
+        found = [str(value) for value in (context.get("found_competencias") or [])]
+        missing_after = [str(value) for value in (context.get("missing_competencias_after_refresh") or [])]
+        rows.append(
+            {
+                "CNPJ": fund.cnpj,
+                "Fundo": _resolve_portfolio_fund_display_name(fund.cnpj, results, fallback_name=fund.display_name),
+                "Esperadas": len(expected_competencias),
+                "Encontradas": len(found),
+                "Janela encontrada": _format_competencia_debug_span(found),
+                "Status probe": context.get("cache_probe_status") or "-",
+                "Fonte probe": context.get("cache_probe_source") or "-",
+                "Cache solicitado": context.get("cache_requested_key") or "-",
+                "Cache carregado": context.get("cache_key") or "-",
+                "Status final": context.get("cache_status") or "-",
+                "Fonte final": context.get("cache_source") or "-",
+                "Refresh acionado": "sim" if context.get("cache_refresh_attempted") else "não",
+                "Motivo refresh": context.get("cache_refresh_reason") or context.get("cache_refresh_skipped_reason") or "-",
+                "Erro refresh": context.get("cache_refresh_error") or "-",
+                "Competências faltantes após refresh": _format_competencia_debug_list(missing_after),
+            }
+        )
+    return rows
+
+
+def _build_excluded_competency_debug_rows(
+    *,
+    selected_portfolio: PortfolioRecord,
+    results: dict[str, dict[str, Any]],
+    period: ImePeriodSelection,
+    common_competencias: list[str],
+) -> list[dict[str, object]]:
+    expected_competencias = _expected_competencias_for_period(period)
+    common = {str(value) for value in common_competencias}
+    rows: list[dict[str, object]] = []
+    for competencia in expected_competencias:
+        if competencia in common:
+            continue
+        missing_funds: list[str] = []
+        reasons: list[str] = []
+        for fund in selected_portfolio.funds:
+            payload = results.get(fund.cnpj) or {}
+            context = payload.get("context") or {}
+            found = {str(value) for value in (context.get("found_competencias") or [])}
+            if competencia in found:
+                continue
+            missing_funds.append(_resolve_portfolio_fund_display_name(fund.cnpj, results, fallback_name=fund.display_name))
+            reason = context.get("cache_refresh_error") or context.get("cache_refresh_skipped_reason") or context.get("cache_refresh_reason") or "sem dado carregado"
+            if reason not in reasons:
+                reasons.append(str(reason))
+        rows.append(
+            {
+                "Competência": ime_tab._format_competencia_label(competencia),
+                "Fundos sem competência": "; ".join(missing_funds) if missing_funds else "-",
+                "Motivo": "; ".join(reasons) if reasons else "-",
+            }
+        )
+    return rows
+
+
+def _format_competencia_debug_span(competencias: list[str]) -> str:
+    if not competencias:
+        return "-"
+    ordered = sorted(competencias, key=ime_tab._competencia_sort_key)
+    return f"{ime_tab._format_competencia_label(ordered[0])} a {ime_tab._format_competencia_label(ordered[-1])}"
+
+
+def _format_competencia_debug_list(competencias: list[str], *, limit: int = 6) -> str:
+    if not competencias:
+        return ""
+    ordered = sorted(competencias, key=ime_tab._competencia_sort_key)
+    labels = [ime_tab._format_competencia_label(value) for value in ordered[:limit]]
+    suffix = f" +{len(ordered) - limit}" if len(ordered) > limit else ""
+    return ", ".join(labels) + suffix
 
 
 def _render_portfolio_aggregate_audit(
