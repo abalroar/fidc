@@ -34,12 +34,24 @@ class FidcAmortizationSchedule:
 @dataclass(frozen=True)
 class WaterfallRow:
     data: date
-    saldo_devedor_total: float
     amortizacao_total: float
-    recebiveis_bucket: float
-    caixa_disponivel: float
-    posicao_liquida: float
+    amortizacao_acumulada: float
+    caixa_recebiveis_ime: float
     breakdown: dict[str, float]
+
+
+@dataclass(frozen=True)
+class ImeAssetSnapshot:
+    fund_name: str
+    cnpj: str
+    competencia: str
+    caixa: float
+    recebiveis: float
+    caixa_recebiveis: float
+    cache_status: str
+    source: str
+    included: bool
+    exclusion_reason: str | None = None
 
 
 @dataclass(frozen=True)
@@ -201,8 +213,7 @@ def load_cloudwalk_emissions(
 
 def build_waterfall_schedule(
     schedules: list[FidcAmortizationSchedule],
-    caixa_inicial: float,
-    recebiveis_por_bucket: dict[str, float],
+    caixa_recebiveis_ime: float,
     *,
     reference_date: date = DEFAULT_REFERENCE_DATE,
 ) -> list[WaterfallRow]:
@@ -218,28 +229,23 @@ def build_waterfall_schedule(
             by_fund = amortization_by_date.setdefault(item_date, {})
             by_fund[schedule.fund_name] = by_fund.get(schedule.fund_name, 0.0) + amount
 
-    receivables_by_date = _receivables_by_date(recebiveis_por_bucket, reference_date)
-    event_dates = sorted(set(amortization_by_date) | set(receivables_by_date))
+    event_dates = sorted(amortization_by_date)
     if not event_dates:
         return []
 
-    saldo = sum(schedule.saldo_atual for schedule in included)
-    caixa = float(caixa_inicial)
-    recebiveis_acumulados = 0.0
+    recursos_iniciais = float(caixa_recebiveis_ime or 0.0)
+    amortizacao_acumulada = 0.0
     rows: list[WaterfallRow] = []
     for item_date in event_dates:
         breakdown = amortization_by_date.get(item_date, {})
         amortizacao_total = sum(breakdown.values())
-        saldo = max(saldo - amortizacao_total, 0.0)
-        recebiveis_acumulados += receivables_by_date.get(item_date, 0.0)
+        amortizacao_acumulada += amortizacao_total
         rows.append(
             WaterfallRow(
                 data=item_date,
-                saldo_devedor_total=saldo,
                 amortizacao_total=amortizacao_total,
-                recebiveis_bucket=recebiveis_acumulados,
-                caixa_disponivel=caixa,
-                posicao_liquida=caixa + recebiveis_acumulados - saldo,
+                amortizacao_acumulada=amortizacao_acumulada,
+                caixa_recebiveis_ime=recursos_iniciais,
                 breakdown=dict(sorted(breakdown.items())),
             )
         )
@@ -250,20 +256,26 @@ def export_waterfall(
     rows: list[WaterfallRow],
     schedules: list[FidcAmortizationSchedule],
     output_dir: str | Path = DEFAULT_WATERFALL_OUTPUT_DIR,
+    *,
+    ime_assets: list[ImeAssetSnapshot] | None = None,
+    caixa_recebiveis_ime: float = 0.0,
 ) -> dict[str, str]:
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
     waterfall_path = output_path / "waterfall_cloudwalk.csv"
     plot_path = output_path / "waterfall_cloudwalk_plot.png"
     report_path = output_path / "waterfall_inclusion_report.csv"
+    ime_assets_path = output_path / "waterfall_ime_assets.csv"
 
     _waterfall_frame(rows).to_csv(waterfall_path, index=False)
     _inclusion_report_frame(schedules).to_csv(report_path, index=False)
-    _save_waterfall_plot(rows, plot_path)
+    _ime_assets_frame(ime_assets or []).to_csv(ime_assets_path, index=False)
+    _save_waterfall_plot(rows, plot_path, caixa_recebiveis_ime=caixa_recebiveis_ime)
     return {
         "waterfall_csv": str(waterfall_path),
         "plot_png": str(plot_path),
         "inclusion_report_csv": str(report_path),
+        "ime_assets_csv": str(ime_assets_path),
     }
 
 
@@ -275,6 +287,44 @@ def load_waterfall_inputs(path: str | Path) -> dict[str, Any]:
         "caixa_inicial": caixa,
         "recebiveis": {str(key): float(value or 0.0) for key, value in (payload.get("recebiveis") or {}).items()},
     }
+
+
+def load_cloudwalk_ime_assets(
+    cnpjs: list[str],
+    *,
+    fund_names: dict[str, str] | None = None,
+    cache_root: str | Path = ".cache/fundonet-ime",
+    fetch_missing: bool = False,
+    reference_date: date = DEFAULT_REFERENCE_DATE,
+    months_back: int = 14,
+) -> list[ImeAssetSnapshot]:
+    """Carrega Caixa + Recebíveis dos IMEs, preferindo cache local e sem fallback manual."""
+
+    output: list[ImeAssetSnapshot] = []
+    names = {only_digits(key): value for key, value in (fund_names or {}).items()}
+    for raw_cnpj in sorted({only_digits(cnpj) for cnpj in cnpjs if only_digits(cnpj)}):
+        fund_name = names.get(raw_cnpj, raw_cnpj)
+        cached = _find_latest_cached_ime(raw_cnpj, Path(cache_root))
+        if cached is None and fetch_missing:
+            cached = _fetch_ime_to_cache(raw_cnpj, reference_date=reference_date, months_back=months_back)
+        if cached is None:
+            output.append(
+                ImeAssetSnapshot(
+                    fund_name=fund_name,
+                    cnpj=raw_cnpj,
+                    competencia="",
+                    caixa=0.0,
+                    recebiveis=0.0,
+                    caixa_recebiveis=0.0,
+                    cache_status="sem_cache",
+                    source="",
+                    included=False,
+                    exclusion_reason="Sem IME em cache local para o CNPJ; atualize pelo Fundos.NET.",
+                )
+            )
+            continue
+        output.append(_ime_asset_snapshot_from_cache(raw_cnpj, fund_name, cached))
+    return output
 
 
 def parse_money_value(value: Any) -> float:
@@ -307,6 +357,10 @@ def display(value: Any) -> str:
     if not text or text.lower() in {"nan", "none", "<na>"}:
         return "—"
     return text
+
+
+def only_digits(value: Any) -> str:
+    return "".join(ch for ch in str(value or "") if ch.isdigit())
 
 
 def normalize_text(value: Any) -> str:
@@ -422,17 +476,194 @@ def _first_date_in_text(text: str) -> date | None:
     return None
 
 
+def _find_latest_cached_ime(cnpj: str, cache_root: Path) -> dict[str, Any] | None:
+    if not cache_root.exists():
+        return None
+    candidates: list[dict[str, Any]] = []
+    for manifest_path in cache_root.glob("*/manifest.json"):
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        if only_digits(manifest.get("cnpj_fundo")) != cnpj:
+            continue
+        files = manifest.get("files") or {}
+        wide_path = manifest_path.parent / str(files.get("wide_csv_path") or "informes_wide.csv")
+        if not wide_path.exists():
+            continue
+        latest = _latest_competencia(manifest.get("competencias") or [])
+        if not latest:
+            continue
+        candidates.append(
+            {
+                "manifest_path": manifest_path,
+                "cache_dir": manifest_path.parent,
+                "wide_csv_path": wide_path,
+                "competencia": latest,
+                "competencia_key": _competencia_sort_key(latest),
+                "cache_status": "hit",
+            }
+        )
+    if not candidates:
+        return None
+    return sorted(candidates, key=lambda item: item["competencia_key"])[-1]
+
+
+def _fetch_ime_to_cache(cnpj: str, *, reference_date: date, months_back: int) -> dict[str, Any] | None:
+    from services.ime_loader import load_or_extract_informe
+
+    end_month = date(reference_date.year, reference_date.month, 1)
+    end_month = _add_months(end_month, -1)
+    start_month = _add_months(end_month, -max(months_back, 0))
+    cached = load_or_extract_informe(cnpj_fundo=cnpj, data_inicial=start_month, data_final=end_month)
+    latest = _latest_competencia(cached.result.competencias)
+    if not latest:
+        return None
+    return {
+        "manifest_path": cached.cache_dir / "manifest.json",
+        "cache_dir": cached.cache_dir,
+        "wide_csv_path": cached.result.wide_csv_path,
+        "competencia": latest,
+        "competencia_key": _competencia_sort_key(latest),
+        "cache_status": cached.cache_status,
+    }
+
+
+def _ime_asset_snapshot_from_cache(cnpj: str, fund_name: str, cached: dict[str, Any]) -> ImeAssetSnapshot:
+    try:
+        wide_df = pd.read_csv(cached["wide_csv_path"], dtype=str, keep_default_na=False)
+        competencia = str(cached["competencia"])
+        wide_lookup = wide_df.set_index("tag_path", drop=False) if "tag_path" in wide_df.columns else pd.DataFrame()
+        caixa = _wide_numeric_value(
+            wide_lookup,
+            "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB",
+            competencia,
+        )
+        recebiveis = _ime_receivables_value(wide_lookup, competencia)
+    except Exception as exc:  # noqa: BLE001
+        return ImeAssetSnapshot(
+            fund_name=fund_name,
+            cnpj=cnpj,
+            competencia=str(cached.get("competencia") or ""),
+            caixa=0.0,
+            recebiveis=0.0,
+            caixa_recebiveis=0.0,
+            cache_status=str(cached.get("cache_status") or "erro"),
+            source=str(cached.get("cache_dir") or ""),
+            included=False,
+            exclusion_reason=f"Falha ao ler IME em cache: {type(exc).__name__}: {exc}",
+        )
+
+    has_caixa = caixa is not None
+    has_recebiveis = recebiveis is not None
+    if not has_caixa and not has_recebiveis:
+        return ImeAssetSnapshot(
+            fund_name=fund_name,
+            cnpj=cnpj,
+            competencia=competencia,
+            caixa=0.0,
+            recebiveis=0.0,
+            caixa_recebiveis=0.0,
+            cache_status=str(cached.get("cache_status") or "hit"),
+            source=str(cached.get("cache_dir") or ""),
+            included=False,
+            exclusion_reason="IME encontrado, mas sem campos de caixa e direitos creditórios na competência mais recente.",
+        )
+
+    caixa_value = float(caixa or 0.0)
+    recebiveis_value = float(recebiveis or 0.0)
+    return ImeAssetSnapshot(
+        fund_name=fund_name,
+        cnpj=cnpj,
+        competencia=competencia,
+        caixa=caixa_value,
+        recebiveis=recebiveis_value,
+        caixa_recebiveis=caixa_value + recebiveis_value,
+        cache_status=str(cached.get("cache_status") or "hit"),
+        source=str(cached.get("cache_dir") or ""),
+        included=True,
+        exclusion_reason=None,
+    )
+
+
+def _ime_receivables_value(wide_lookup: pd.DataFrame, competencia: str) -> float | None:
+    primary_paths = [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED",
+        "DOC_ARQ/LISTA_INFORM/CART_SEGMT/VL_SOM_CART_SEGMT",
+    ]
+    for tag_path in primary_paths:
+        value = _wide_numeric_value(wide_lookup, tag_path, competencia)
+        if value is not None:
+            return value
+
+    parts = [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_ADIMPL",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_VENC_INAD",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_CRED_EXISTE_INAD",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_VENC_INAD",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_EXISTE_INAD",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_SOM_DICRED_AQUIS",
+    ]
+    values = [_wide_numeric_value(wide_lookup, tag_path, competencia) for tag_path in parts]
+    numeric_values = [float(value) for value in values if value is not None]
+    if numeric_values:
+        return sum(numeric_values)
+    return None
+
+
+def _wide_numeric_value(wide_lookup: pd.DataFrame, tag_path: str, competencia: str) -> float | None:
+    if wide_lookup.empty or tag_path not in wide_lookup.index or competencia not in wide_lookup.columns:
+        return None
+    raw = wide_lookup.loc[tag_path, competencia]
+    if isinstance(raw, pd.Series):
+        values = raw.tolist()
+    else:
+        values = [raw]
+    for value in values:
+        numeric = _parse_ime_number(value)
+        if numeric is not None:
+            return numeric
+    return None
+
+
+def _parse_ime_number(value: Any) -> float | None:
+    text = str(value if value is not None else "").strip()
+    if not text or text.lower() in {"nan", "none", "<na>"}:
+        return None
+    cleaned = re.sub(r"[^\d,.\-]", "", text)
+    if not cleaned:
+        return None
+    if "," in cleaned:
+        cleaned = cleaned.replace(".", "").replace(",", ".")
+    try:
+        return float(cleaned)
+    except ValueError:
+        return None
+
+
+def _latest_competencia(competencias: list[str] | tuple[str, ...]) -> str:
+    valid = [str(item) for item in competencias if _competencia_sort_key(str(item)) != (0, 0)]
+    if not valid:
+        return ""
+    return sorted(valid, key=_competencia_sort_key)[-1]
+
+
+def _competencia_sort_key(value: str) -> tuple[int, int]:
+    match = re.fullmatch(r"(\d{1,2})/(\d{4})", str(value or "").strip())
+    if not match:
+        return (0, 0)
+    return (int(match.group(2)), int(match.group(1)))
+
+
 def _waterfall_frame(rows: list[WaterfallRow]) -> pd.DataFrame:
     fund_columns = sorted({fund for row in rows for fund in row.breakdown})
     output: list[dict[str, Any]] = []
     for row in rows:
         item = {
             "data": row.data.isoformat(),
-            "saldo_devedor_total": row.saldo_devedor_total,
             "amortizacao_total": row.amortizacao_total,
-            "recebiveis_bucket_acumulado": row.recebiveis_bucket,
-            "caixa_disponivel": row.caixa_disponivel,
-            "posicao_liquida": row.posicao_liquida,
+            "amortizacao_acumulada": row.amortizacao_acumulada,
+            "caixa_recebiveis_ime": row.caixa_recebiveis_ime,
         }
         for fund in fund_columns:
             item[fund] = row.breakdown.get(fund, 0.0)
@@ -441,12 +672,43 @@ def _waterfall_frame(rows: list[WaterfallRow]) -> pd.DataFrame:
         output,
         columns=[
             "data",
-            "saldo_devedor_total",
             "amortizacao_total",
-            "recebiveis_bucket_acumulado",
-            "caixa_disponivel",
-            "posicao_liquida",
+            "amortizacao_acumulada",
+            "caixa_recebiveis_ime",
             *fund_columns,
+        ],
+    )
+
+
+def _ime_assets_frame(ime_assets: list[ImeAssetSnapshot]) -> pd.DataFrame:
+    rows = [
+        {
+            "fund_name": item.fund_name,
+            "cnpj": item.cnpj,
+            "competencia": item.competencia,
+            "caixa": round(item.caixa, 2),
+            "recebiveis": round(item.recebiveis, 2),
+            "caixa_recebiveis": round(item.caixa_recebiveis, 2),
+            "cache_status": item.cache_status,
+            "source": item.source,
+            "included": item.included,
+            "exclusion_reason": item.exclusion_reason or "",
+        }
+        for item in ime_assets
+    ]
+    return pd.DataFrame(
+        rows,
+        columns=[
+            "fund_name",
+            "cnpj",
+            "competencia",
+            "caixa",
+            "recebiveis",
+            "caixa_recebiveis",
+            "cache_status",
+            "source",
+            "included",
+            "exclusion_reason",
         ],
     )
 
@@ -474,22 +736,58 @@ def _inclusion_report_frame(schedules: list[FidcAmortizationSchedule]) -> pd.Dat
     return pd.DataFrame(rows)
 
 
-def _save_waterfall_plot(rows: list[WaterfallRow], plot_path: Path) -> None:
+def _waterfall_steps(rows: list[WaterfallRow], caixa_recebiveis_ime: float) -> list[dict[str, Any]]:
+    steps: list[dict[str, Any]] = []
+    running = float(caixa_recebiveis_ime or 0.0)
+    if abs(running) > 1e-9:
+        steps.append(
+            {
+                "label": "Caixa + recebíveis IME",
+                "value": running,
+                "bar_start": 0.0,
+                "bar_end": running,
+                "running": running,
+                "type": "inicio",
+            }
+        )
+    for row in rows:
+        value = -float(row.amortizacao_total or 0.0)
+        start = running
+        running += value
+        steps.append(
+            {
+                "label": row.data.strftime("%d/%m/%y"),
+                "value": value,
+                "bar_start": min(start, running),
+                "bar_end": max(start, running),
+                "running": running,
+                "type": "amortizacao",
+            }
+        )
+    return steps
+
+
+def _format_brl_millions(value: float) -> str:
+    return f"R$ {value / 1_000_000.0:,.1f} mi".replace(",", "_").replace(".", ",").replace("_", ".")
+
+
+def _save_waterfall_plot(rows: list[WaterfallRow], plot_path: Path, *, caixa_recebiveis_ime: float) -> None:
     try:
         import matplotlib
     except ModuleNotFoundError:
-        _save_pillow_plot(rows, plot_path)
+        _save_pillow_plot(rows, plot_path, caixa_recebiveis_ime=caixa_recebiveis_ime)
         return
 
     matplotlib.use("Agg", force=True)
     import matplotlib.pyplot as plt
 
     fig, ax = plt.subplots(figsize=(13, 7))
-    if not rows:
+    steps = _waterfall_steps(rows, caixa_recebiveis_ime)
+    if not steps:
         ax.text(
             0.5,
             0.5,
-            "Nenhum FIDC Cloudwalk incluído: cronogramas sênior insuficientes ou ambíguos.",
+            "Nenhum dado disponível: IME ou cronogramas sênior insuficientes.",
             ha="center",
             va="center",
             fontsize=13,
@@ -499,30 +797,34 @@ def _save_waterfall_plot(rows: list[WaterfallRow], plot_path: Path) -> None:
         plt.close(fig)
         return
 
-    dates = [row.data for row in rows]
-    saldo = [row.saldo_devedor_total / 1_000_000.0 for row in rows]
-    posicao = [row.posicao_liquida / 1_000_000.0 for row in rows]
-    funds = sorted({fund for row in rows for fund in row.breakdown})
-    bottoms = [0.0] * len(rows)
-    for fund in funds:
-        values = [row.breakdown.get(fund, 0.0) / 1_000_000.0 for row in rows]
-        ax.bar(dates, values, bottom=bottoms, width=18, alpha=0.65, label=fund[:32])
-        bottoms = [base + value for base, value in zip(bottoms, values)]
+    labels = [step["label"] for step in steps]
+    starts = [step["bar_start"] / 1_000_000.0 for step in steps]
+    heights = [(step["bar_end"] - step["bar_start"]) / 1_000_000.0 for step in steps]
+    colors = ["#1F1F1F" if step["type"] == "inicio" else "#EC7000" for step in steps]
+    ax.bar(labels, heights, bottom=starts, color=colors, width=0.62)
 
-    ax.plot(dates, saldo, color="#1F1F1F", linewidth=2.4, label="Saldo devedor")
-    ax.fill_between(dates, saldo, color="#E5E5E5", alpha=0.35)
-    ax.plot(dates, posicao, color="#EC7000", linewidth=2.0, label="Posição líquida")
-    ax.set_title("Waterfall Cloudwalk — Cronograma de Amortizações")
+    for index, step in enumerate(steps[:-1]):
+        ax.plot(
+            [index + 0.31, index + 0.69],
+            [step["running"] / 1_000_000.0, step["running"] / 1_000_000.0],
+            color="#9CA3AF",
+            linewidth=1.0,
+            linestyle="--",
+        )
+    for index, step in enumerate(steps):
+        label_y = max(step["bar_start"], step["bar_end"]) / 1_000_000.0
+        ax.text(index, label_y, _format_brl_millions(abs(step["value"])), ha="center", va="bottom", fontsize=8)
+
+    ax.set_title("Waterfall Cloudwalk — Caixa + Recebíveis IME vs. Amortizações")
     ax.set_ylabel("R$ milhões")
+    ax.tick_params(axis="x", labelrotation=45)
     ax.grid(axis="y", color="#E5E5E5", linewidth=0.8)
-    ax.legend(loc="best", fontsize=8)
-    fig.autofmt_xdate()
     fig.tight_layout()
     fig.savefig(plot_path, dpi=160)
     plt.close(fig)
 
 
-def _save_pillow_plot(rows: list[WaterfallRow], plot_path: Path) -> None:
+def _save_pillow_plot(rows: list[WaterfallRow], plot_path: Path, *, caixa_recebiveis_ime: float) -> None:
     from PIL import Image, ImageDraw, ImageFont
 
     width, height = 1280, 720
@@ -530,11 +832,12 @@ def _save_pillow_plot(rows: list[WaterfallRow], plot_path: Path) -> None:
     image = Image.new("RGB", (width, height), "white")
     draw = ImageDraw.Draw(image)
     font = ImageFont.load_default()
-    title = "Waterfall Cloudwalk - Cronograma de Amortizacoes"
+    title = "Waterfall Cloudwalk - Caixa + Recebiveis IME vs Amortizacoes"
     draw.text((margin_left, 30), title, fill="#1F1F1F", font=font)
 
-    if not rows:
-        message = "Nenhum FIDC Cloudwalk incluido: cronogramas senior insuficientes ou ambiguos."
+    steps = _waterfall_steps(rows, caixa_recebiveis_ime)
+    if not steps:
+        message = "Nenhum dado disponivel: IME ou cronogramas senior insuficientes."
         draw.text((margin_left, height // 2), message, fill="#1F1F1F", font=font)
         image.save(plot_path)
         return
@@ -545,39 +848,32 @@ def _save_pillow_plot(rows: list[WaterfallRow], plot_path: Path) -> None:
     draw.line((x0, margin_top, x0, y0), fill="#6B6B6B", width=1)
     draw.line((x0, y0, width - margin_right, y0), fill="#6B6B6B", width=1)
 
-    saldo = [row.saldo_devedor_total / 1_000_000.0 for row in rows]
-    posicao = [row.posicao_liquida / 1_000_000.0 for row in rows]
-    amort = [row.amortizacao_total / 1_000_000.0 for row in rows]
-    y_min = min([0.0, *posicao])
-    y_max = max([1.0, *saldo, *amort])
+    values = [step["bar_start"] / 1_000_000.0 for step in steps] + [step["bar_end"] / 1_000_000.0 for step in steps]
+    y_min = min([0.0, *values])
+    y_max = max([1.0, *values])
     if abs(y_max - y_min) <= 1e-9:
         y_max = y_min + 1.0
 
     def x_at(index: int) -> float:
-        if len(rows) == 1:
+        if len(steps) == 1:
             return x0 + plot_width / 2
-        return x0 + (plot_width * index / (len(rows) - 1))
+        return x0 + (plot_width * index / (len(steps) - 1))
 
     def y_at(value: float) -> float:
         return margin_top + plot_height - ((value - y_min) / (y_max - y_min) * plot_height)
 
     zero_y = y_at(0.0)
     draw.line((x0, zero_y, width - margin_right, zero_y), fill="#E5E5E5", width=1)
-    bar_width = max(8, min(36, int(plot_width / max(len(rows), 1) * 0.45)))
-    for index, value in enumerate(amort):
+    bar_width = max(8, min(44, int(plot_width / max(len(steps), 1) * 0.5)))
+    for index, step in enumerate(steps):
         x = x_at(index)
-        draw.rectangle((x - bar_width / 2, y_at(value), x + bar_width / 2, zero_y), fill="#EC7000")
+        start = step["bar_start"] / 1_000_000.0
+        end = step["bar_end"] / 1_000_000.0
+        color = "#1F1F1F" if step["type"] == "inicio" else "#EC7000"
+        draw.rectangle((x - bar_width / 2, y_at(max(start, end)), x + bar_width / 2, y_at(min(start, end))), fill=color)
+        draw.text((x - bar_width / 2, y_at(max(start, end)) - 14), _format_brl_millions(abs(step["value"])), fill="#1F1F1F", font=font)
 
-    saldo_points = [(x_at(index), y_at(value)) for index, value in enumerate(saldo)]
-    posicao_points = [(x_at(index), y_at(value)) for index, value in enumerate(posicao)]
-    if len(saldo_points) == 1:
-        x, y = saldo_points[0]
-        draw.ellipse((x - 3, y - 3, x + 3, y + 3), fill="#1F1F1F")
-    else:
-        draw.line(saldo_points, fill="#1F1F1F", width=3)
-        draw.line(posicao_points, fill="#6B6B6B", width=2)
-
-    draw.text((margin_left, height - 48), "Preto: saldo devedor | Laranja: amortizacao | Cinza: posicao liquida", fill="#6B6B6B", font=font)
+    draw.text((margin_left, height - 48), "Preto: Caixa + Recebiveis IME | Laranja: amortizacoes documentais", fill="#6B6B6B", font=font)
     draw.text((margin_left, height - 28), "Eixo Y em R$ milhoes", fill="#6B6B6B", font=font)
     image.save(plot_path)
 

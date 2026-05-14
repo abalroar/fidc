@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 from typing import Any
 
+import altair as alt
 import pandas as pd
 import streamlit as st
 
@@ -27,7 +28,8 @@ from services.waterfall_schedule import (
     build_waterfall_schedule,
     export_waterfall,
     load_cloudwalk_emissions,
-    load_waterfall_inputs,
+    load_cloudwalk_ime_assets,
+    only_digits,
 )
 from tabs.ime_portfolio_support import (
     build_portfolio_record_label_lookup,
@@ -503,8 +505,14 @@ def render_tab_deep_dive() -> None:
 
 def _render_cloudwalk_waterfall() -> None:
     with st.expander("Waterfall Cloudwalk", expanded=False):
+        refresh_ime = st.toggle(
+            "Atualizar IME pelo Fundos.NET se não houver cache local",
+            value=False,
+            key="cloudwalk_waterfall_refresh_ime",
+            help="Desligado usa somente cache local para não travar a aba. Ligado busca IME faltante e grava cache.",
+        )
         try:
-            artifacts = _load_cloudwalk_waterfall_artifacts()
+            artifacts = _load_cloudwalk_waterfall_artifacts(refresh_ime)
         except Exception as exc:  # noqa: BLE001
             st.error("Não foi possível carregar o waterfall Cloudwalk.")
             st.caption(f"Detalhe técnico: {type(exc).__name__}: {exc}")
@@ -512,15 +520,24 @@ def _render_cloudwalk_waterfall() -> None:
 
         summary = artifacts["summary"]
         cols = st.columns(4)
-        cols[0].metric("Séries sênior incluídas", summary["included"])
-        cols[1].metric("Linhas excluídas", summary["excluded"])
-        cols[2].metric("Saldo inicial", f"R$ {_br_number(summary['initial_balance'] / 1_000_000, 0)} mi")
+        cols[0].metric("Caixa + recebíveis IME", f"R$ {_br_number(summary['caixa_recebiveis_ime'] / 1_000_000, 0)} mi")
+        cols[1].metric("Amortizações mapeadas", f"R$ {_br_number(summary['amortizacoes_total'] / 1_000_000, 0)} mi")
+        cols[2].metric("CNPJs com IME", f"{summary['ime_included']}/{summary['ime_total']}")
         cols[3].metric("Última amortização", summary["last_date"] or "—")
 
-        if artifacts["plot_png"]:
+        if summary["ime_missing"]:
+            st.warning(
+                "Há CNPJs sem Caixa + Recebíveis via IME no cache local. "
+                "Ative a atualização pelo Fundos.NET para buscar os IMEs faltantes."
+            )
+
+        chart = _cloudwalk_waterfall_chart(artifacts["chart_df"])
+        if chart is not None:
+            st.altair_chart(chart, use_container_width=True)
+        elif artifacts["plot_png"]:
             st.image(artifacts["plot_png"], use_container_width=True)
 
-        dl_cols = st.columns(3)
+        dl_cols = st.columns(4)
         with dl_cols[0]:
             st.download_button(
                 "Baixar waterfall CSV",
@@ -539,6 +556,14 @@ def _render_cloudwalk_waterfall() -> None:
             )
         with dl_cols[2]:
             st.download_button(
+                "Baixar IME CSV",
+                data=artifacts["ime_assets_csv"],
+                file_name="waterfall_ime_assets.csv",
+                mime="text/csv",
+                use_container_width=True,
+            )
+        with dl_cols[3]:
+            st.download_button(
                 "Baixar gráfico PNG",
                 data=artifacts["plot_png"],
                 file_name="waterfall_cloudwalk_plot.png",
@@ -548,31 +573,48 @@ def _render_cloudwalk_waterfall() -> None:
             )
 
         st.dataframe(artifacts["waterfall_df"], hide_index=True, use_container_width=True)
+        with st.expander("Caixa + Recebíveis via IME", expanded=False):
+            st.dataframe(artifacts["ime_assets_df"], hide_index=True, use_container_width=True)
         with st.expander("Relatório de inclusão/exclusão", expanded=False):
             st.dataframe(artifacts["report_df"], hide_index=True, use_container_width=True)
 
 
 @st.cache_data(ttl=600, show_spinner=False)
-def _load_cloudwalk_waterfall_artifacts() -> dict[str, Any]:
-    inputs = load_waterfall_inputs(Path("config/waterfall_cloudwalk_inputs.json"))
-    schedules = load_cloudwalk_emissions(DEFAULT_CLOUDWALK_EMISSIONS, reference_date=inputs["reference_date"])
-    rows = build_waterfall_schedule(
-        schedules,
-        inputs["caixa_inicial"],
-        inputs["recebiveis"],
-        reference_date=inputs["reference_date"],
+def _load_cloudwalk_waterfall_artifacts(refresh_ime: bool) -> dict[str, Any]:
+    reference_date = date(2026, 5, 14)
+    schedules = load_cloudwalk_emissions(DEFAULT_CLOUDWALK_EMISSIONS, reference_date=reference_date)
+    included = [schedule for schedule in schedules if schedule.included]
+    fund_names = {only_digits(schedule.cnpj): schedule.fund_name for schedule in schedules}
+    ime_assets = load_cloudwalk_ime_assets(
+        [schedule.cnpj for schedule in included],
+        fund_names=fund_names,
+        fetch_missing=refresh_ime,
+        reference_date=reference_date,
     )
-    paths = export_waterfall(rows, schedules, DEFAULT_WATERFALL_OUTPUT_DIR)
+    caixa_recebiveis_ime = sum(item.caixa_recebiveis for item in ime_assets if item.included)
+    rows = build_waterfall_schedule(schedules, caixa_recebiveis_ime, reference_date=reference_date)
+    paths = export_waterfall(
+        rows,
+        schedules,
+        DEFAULT_WATERFALL_OUTPUT_DIR,
+        ime_assets=ime_assets,
+        caixa_recebiveis_ime=caixa_recebiveis_ime,
+    )
     waterfall_path = Path(paths["waterfall_csv"])
     report_path = Path(paths["inclusion_report_csv"])
+    ime_assets_path = Path(paths["ime_assets_csv"])
     plot_path = Path(paths["plot_png"])
     waterfall_df = pd.read_csv(waterfall_path, keep_default_na=False)
     report_df = pd.read_csv(report_path, keep_default_na=False)
-    included = [schedule for schedule in schedules if schedule.included]
+    ime_assets_df = pd.read_csv(ime_assets_path, keep_default_na=False)
     summary = {
         "included": len(included),
         "excluded": len(schedules) - len(included),
-        "initial_balance": sum(schedule.saldo_atual for schedule in included),
+        "caixa_recebiveis_ime": caixa_recebiveis_ime,
+        "amortizacoes_total": sum(row.amortizacao_total for row in rows),
+        "ime_included": sum(1 for item in ime_assets if item.included),
+        "ime_total": len(ime_assets),
+        "ime_missing": sum(1 for item in ime_assets if not item.included),
         "last_date": max((item_date for schedule in included for item_date, _ in schedule.schedule), default=None),
     }
     summary["last_date"] = summary["last_date"].isoformat() if summary["last_date"] else ""
@@ -580,10 +622,101 @@ def _load_cloudwalk_waterfall_artifacts() -> dict[str, Any]:
         "summary": summary,
         "waterfall_df": waterfall_df,
         "report_df": report_df,
+        "ime_assets_df": ime_assets_df,
+        "chart_df": _cloudwalk_waterfall_chart_frame(rows, caixa_recebiveis_ime),
         "waterfall_csv": waterfall_path.read_bytes(),
         "report_csv": report_path.read_bytes(),
+        "ime_assets_csv": ime_assets_path.read_bytes(),
         "plot_png": plot_path.read_bytes() if plot_path.exists() else b"",
     }
+
+
+def _cloudwalk_waterfall_chart_frame(rows: list[Any], caixa_recebiveis_ime: float) -> pd.DataFrame:
+    output: list[dict[str, Any]] = []
+    running = float(caixa_recebiveis_ime or 0.0)
+    if abs(running) > 1e-9:
+        output.append(
+            {
+                "ordem": 1,
+                "etapa": "Caixa + recebíveis IME",
+                "tipo": "Caixa + recebíveis",
+                "valor": running,
+                "bar_start": 0.0,
+                "bar_end": running,
+                "label_y": running,
+                "valor_fmt": f"R$ {_br_number(abs(running) / 1_000_000, 1)} mi",
+            }
+        )
+    for row in rows:
+        start = running
+        value = -float(row.amortizacao_total or 0.0)
+        running += value
+        output.append(
+            {
+                "ordem": len(output) + 1,
+                "etapa": row.data.strftime("%d/%m/%y"),
+                "tipo": "Amortização",
+                "valor": value,
+                "bar_start": min(start, running),
+                "bar_end": max(start, running),
+                "label_y": max(start, running),
+                "valor_fmt": f"-R$ {_br_number(abs(value) / 1_000_000, 1)} mi",
+            }
+        )
+    frame = pd.DataFrame(output)
+    if frame.empty:
+        return frame
+    for column in ["valor", "bar_start", "bar_end", "label_y"]:
+        frame[f"{column}_mi"] = pd.to_numeric(frame[column], errors="coerce").fillna(0.0) / 1_000_000.0
+    return frame
+
+
+def _cloudwalk_waterfall_chart(chart_df: pd.DataFrame) -> alt.Chart | None:
+    if chart_df.empty:
+        return None
+    chart_df = chart_df.copy()
+    x_sort = chart_df.sort_values("ordem")["etapa"].tolist()
+    bars = (
+        alt.Chart(chart_df)
+        .mark_bar(size=max(14, min(56, int(620 / max(len(chart_df), 1)))))
+        .encode(
+            x=alt.X("etapa:N", title=None, sort=x_sort, axis=alt.Axis(labelAngle=-35, labelLimit=92)),
+            y=alt.Y("bar_end_mi:Q", title="R$ milhões"),
+            y2="bar_start_mi:Q",
+            color=alt.Color(
+                "tipo:N",
+                scale=alt.Scale(domain=["Caixa + recebíveis", "Amortização"], range=["#1F1F1F", "#EC7000"]),
+                legend=None,
+            ),
+            tooltip=[
+                alt.Tooltip("etapa:N", title="Etapa"),
+                alt.Tooltip("tipo:N", title="Tipo"),
+                alt.Tooltip("valor_fmt:N", title="Valor"),
+            ],
+        )
+    )
+    connector_df = chart_df.iloc[:-1].copy()
+    connector_df["etapa_proxima"] = chart_df["etapa"].shift(-1)
+    connector_df["running_mi"] = chart_df["valor"].cumsum().iloc[:-1].to_numpy() / 1_000_000.0
+    connectors = (
+        alt.Chart(connector_df)
+        .mark_rule(color="#9CA3AF", strokeDash=[4, 4], strokeWidth=1.2)
+        .encode(
+            x=alt.X("etapa:N", sort=x_sort),
+            x2="etapa_proxima:N",
+            y="running_mi:Q",
+        )
+    )
+    labels = (
+        alt.Chart(chart_df)
+        .mark_text(dy=-8, fontSize=12, fontWeight=700, color="#1F1F1F", clip=False)
+        .encode(
+            x=alt.X("etapa:N", sort=x_sort),
+            y="label_y_mi:Q",
+            text="valor_fmt:N",
+        )
+    )
+    return (bars + connectors + labels).properties(height=380).configure_view(strokeWidth=0)
 
 
 def _render_manifest_header(manifest: Any) -> None:

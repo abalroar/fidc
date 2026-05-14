@@ -9,10 +9,12 @@ import pandas as pd
 
 from services.waterfall_schedule import (
     FidcAmortizationSchedule,
+    ImeAssetSnapshot,
     build_waterfall_schedule,
     detect_amortization_convention,
     export_waterfall,
     load_cloudwalk_emissions,
+    load_cloudwalk_ime_assets,
     parse_amortization_schedule,
     percentages_to_incremental,
 )
@@ -133,13 +135,49 @@ class WaterfallScheduleTest(unittest.TestCase):
             ),
         ]
 
-        rows = build_waterfall_schedule(schedules, 100.0, {}, reference_date=date(2026, 5, 14))
+        rows = build_waterfall_schedule(schedules, 2_000.0, reference_date=date(2026, 5, 14))
 
         self.assertEqual([date(2027, 1, 31), date(2027, 2, 28)], [row.data for row in rows])
-        self.assertEqual(1_200.0, rows[0].saldo_devedor_total)
-        self.assertEqual(0.0, rows[1].saldo_devedor_total)
+        self.assertEqual(300.0, rows[0].amortizacao_total)
+        self.assertEqual(300.0, rows[0].amortizacao_acumulada)
+        self.assertEqual(2_000.0, rows[0].caixa_recebiveis_ime)
         self.assertEqual(1_200.0, rows[1].amortizacao_total)
-        self.assertEqual(100.0, rows[1].posicao_liquida)
+        self.assertEqual(1_500.0, rows[1].amortizacao_acumulada)
+        self.assertEqual(2_000.0, rows[1].caixa_recebiveis_ime)
+
+    def test_load_cloudwalk_ime_assets_uses_cached_cash_and_receivables(self):
+        with TemporaryDirectory() as tmp:
+            cache_dir = Path(tmp) / "cache-key"
+            cache_dir.mkdir()
+            pd.DataFrame(
+                [
+                    {
+                        "tag_path": "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB",
+                        "03/2026": "1000.50",
+                    },
+                    {
+                        "tag_path": "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED",
+                        "03/2026": "2500.25",
+                    },
+                ]
+            ).to_csv(cache_dir / "informes_wide.csv", index=False)
+            (cache_dir / "manifest.json").write_text(
+                """{
+  "schema_version": 1,
+  "cnpj_fundo": "12345678000190",
+  "competencias": ["03/2026"],
+  "files": {"wide_csv_path": "informes_wide.csv"}
+}""",
+                encoding="utf-8",
+            )
+
+            assets = load_cloudwalk_ime_assets(["12.345.678/0001-90"], cache_root=tmp)
+
+        self.assertEqual(1, len(assets))
+        self.assertTrue(assets[0].included)
+        self.assertAlmostEqual(1_000.50, assets[0].caixa)
+        self.assertAlmostEqual(2_500.25, assets[0].recebiveis)
+        self.assertAlmostEqual(3_500.75, assets[0].caixa_recebiveis)
 
     def test_export_creates_files(self):
         schedule = FidcAmortizationSchedule(
@@ -153,10 +191,23 @@ class WaterfallScheduleTest(unittest.TestCase):
             included=True,
             exclusion_reason=None,
         )
-        rows = build_waterfall_schedule([schedule], 0.0, {}, reference_date=date(2026, 5, 14))
+        rows = build_waterfall_schedule([schedule], 1_000.0, reference_date=date(2026, 5, 14))
+        ime_assets = [
+            ImeAssetSnapshot(
+                fund_name="FIDC A",
+                cnpj="1",
+                competencia="03/2026",
+                caixa=100.0,
+                recebiveis=900.0,
+                caixa_recebiveis=1_000.0,
+                cache_status="hit",
+                source="cache",
+                included=True,
+            )
+        ]
 
         with TemporaryDirectory() as tmp:
-            paths = export_waterfall(rows, [schedule], tmp)
+            paths = export_waterfall(rows, [schedule], tmp, ime_assets=ime_assets, caixa_recebiveis_ime=1_000.0)
 
             for path in paths.values():
                 self.assertTrue(Path(path).exists())
