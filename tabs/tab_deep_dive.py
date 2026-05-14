@@ -442,6 +442,8 @@ def render_tab_deep_dive(
     *,
     selected_portfolio: PortfolioRecord | None = None,
     show_portfolio_selector: bool = True,
+    show_curation_tools: bool = True,
+    compact: bool = False,
 ) -> None:
     manifests = list_deep_dives()
     st.markdown("<div class='deepdive-kicker'>Análise offline</div>", unsafe_allow_html=True)
@@ -450,10 +452,11 @@ def render_tab_deep_dive(
         "<div class='deepdive-subtitle'>Pacotes comparativos gerados por extração offline, versionados no repositório e exportáveis em PPTX editável.</div>",
         unsafe_allow_html=True,
     )
-    with st.expander("Prompt para atualizar Deep Dives", expanded=False):
-        st.code(_REVERSE_ENGINEERING_PROMPT, language="markdown")
+    if show_curation_tools:
+        with st.expander("Prompt para atualizar Deep Dives", expanded=False):
+            st.code(_REVERSE_ENGINEERING_PROMPT, language="markdown")
 
-    _render_cloudwalk_waterfall()
+    _render_cloudwalk_waterfall(wrap=not compact)
 
     if not manifests:
         st.info("Nenhum pacote em `data/deep_dives/`.")
@@ -554,80 +557,87 @@ def render_tab_deep_dive(
         st.dataframe(_source_files_df(manifest), hide_index=True, use_container_width=True)
 
 
-def _render_cloudwalk_waterfall() -> None:
-    with st.expander("Waterfall Cloudwalk", expanded=False):
-        refresh_ime = st.toggle(
-            "Atualizar IME pelo Fundos.NET se não houver cache local",
-            value=False,
-            key="cloudwalk_waterfall_refresh_ime",
-            help="Desligado usa somente cache local para não travar a aba. Ligado busca IME faltante e grava cache.",
+def _render_cloudwalk_waterfall(*, wrap: bool = True) -> None:
+    if wrap:
+        with st.expander("Waterfall Cloudwalk", expanded=False):
+            _render_cloudwalk_waterfall_body()
+        return
+    _render_cloudwalk_waterfall_body()
+
+
+def _render_cloudwalk_waterfall_body() -> None:
+    refresh_ime = st.toggle(
+        "Atualizar IME pelo Fundos.NET se não houver cache local",
+        value=False,
+        key="cloudwalk_waterfall_refresh_ime",
+        help="Desligado usa somente cache local para não travar a aba. Ligado busca IME faltante e grava cache.",
+    )
+    try:
+        artifacts = _load_cloudwalk_waterfall_artifacts(refresh_ime)
+    except Exception as exc:  # noqa: BLE001
+        st.error("Não foi possível carregar o waterfall Cloudwalk.")
+        st.caption(f"Detalhe técnico: {type(exc).__name__}: {exc}")
+        return
+
+    summary = artifacts["summary"]
+    cols = st.columns(4)
+    cols[0].metric("Caixa + recebíveis IME", f"R$ {_br_number(summary['caixa_recebiveis_ime'] / 1_000_000, 0)} mi")
+    cols[1].metric("Amortizações mapeadas", f"R$ {_br_number(summary['amortizacoes_total'] / 1_000_000, 0)} mi")
+    cols[2].metric("CNPJs com IME", f"{summary['ime_included']}/{summary['ime_total']}")
+    cols[3].metric("Última amortização", summary["last_date"] or "—")
+
+    if summary["ime_missing"]:
+        st.warning(
+            "Há CNPJs sem Caixa + Recebíveis via IME no cache local. "
+            "Ative a atualização pelo Fundos.NET para buscar os IMEs faltantes."
         )
-        try:
-            artifacts = _load_cloudwalk_waterfall_artifacts(refresh_ime)
-        except Exception as exc:  # noqa: BLE001
-            st.error("Não foi possível carregar o waterfall Cloudwalk.")
-            st.caption(f"Detalhe técnico: {type(exc).__name__}: {exc}")
-            return
 
-        summary = artifacts["summary"]
-        cols = st.columns(4)
-        cols[0].metric("Caixa + recebíveis IME", f"R$ {_br_number(summary['caixa_recebiveis_ime'] / 1_000_000, 0)} mi")
-        cols[1].metric("Amortizações mapeadas", f"R$ {_br_number(summary['amortizacoes_total'] / 1_000_000, 0)} mi")
-        cols[2].metric("CNPJs com IME", f"{summary['ime_included']}/{summary['ime_total']}")
-        cols[3].metric("Última amortização", summary["last_date"] or "—")
+    chart = _cloudwalk_waterfall_chart(artifacts["chart_df"])
+    if chart is not None:
+        st.altair_chart(chart, use_container_width=True)
+    elif artifacts["plot_png"]:
+        st.image(artifacts["plot_png"], use_container_width=True)
 
-        if summary["ime_missing"]:
-            st.warning(
-                "Há CNPJs sem Caixa + Recebíveis via IME no cache local. "
-                "Ative a atualização pelo Fundos.NET para buscar os IMEs faltantes."
-            )
+    dl_cols = st.columns(4)
+    with dl_cols[0]:
+        st.download_button(
+            "Baixar waterfall CSV",
+            data=artifacts["waterfall_csv"],
+            file_name="waterfall_cloudwalk.csv",
+            mime="text/csv",
+            use_container_width=True,
+        )
+    with dl_cols[1]:
+        st.download_button(
+            "Baixar relatório",
+            data=artifacts["report_csv"],
+            file_name="waterfall_inclusion_report.csv",
+            mime="text/csv",
+            use_container_width=True,
+        )
+    with dl_cols[2]:
+        st.download_button(
+            "Baixar IME CSV",
+            data=artifacts["ime_assets_csv"],
+            file_name="waterfall_ime_assets.csv",
+            mime="text/csv",
+            use_container_width=True,
+        )
+    with dl_cols[3]:
+        st.download_button(
+            "Baixar gráfico PNG",
+            data=artifacts["plot_png"],
+            file_name="waterfall_cloudwalk_plot.png",
+            mime="image/png",
+            use_container_width=True,
+            disabled=not bool(artifacts["plot_png"]),
+        )
 
-        chart = _cloudwalk_waterfall_chart(artifacts["chart_df"])
-        if chart is not None:
-            st.altair_chart(chart, use_container_width=True)
-        elif artifacts["plot_png"]:
-            st.image(artifacts["plot_png"], use_container_width=True)
-
-        dl_cols = st.columns(4)
-        with dl_cols[0]:
-            st.download_button(
-                "Baixar waterfall CSV",
-                data=artifacts["waterfall_csv"],
-                file_name="waterfall_cloudwalk.csv",
-                mime="text/csv",
-                use_container_width=True,
-            )
-        with dl_cols[1]:
-            st.download_button(
-                "Baixar relatório",
-                data=artifacts["report_csv"],
-                file_name="waterfall_inclusion_report.csv",
-                mime="text/csv",
-                use_container_width=True,
-            )
-        with dl_cols[2]:
-            st.download_button(
-                "Baixar IME CSV",
-                data=artifacts["ime_assets_csv"],
-                file_name="waterfall_ime_assets.csv",
-                mime="text/csv",
-                use_container_width=True,
-            )
-        with dl_cols[3]:
-            st.download_button(
-                "Baixar gráfico PNG",
-                data=artifacts["plot_png"],
-                file_name="waterfall_cloudwalk_plot.png",
-                mime="image/png",
-                use_container_width=True,
-                disabled=not bool(artifacts["plot_png"]),
-            )
-
-        st.dataframe(artifacts["waterfall_df"], hide_index=True, use_container_width=True)
-        with st.expander("Caixa + Recebíveis via IME", expanded=False):
-            st.dataframe(artifacts["ime_assets_df"], hide_index=True, use_container_width=True)
-        with st.expander("Relatório de inclusão/exclusão", expanded=False):
-            st.dataframe(artifacts["report_df"], hide_index=True, use_container_width=True)
+    st.dataframe(artifacts["waterfall_df"], hide_index=True, use_container_width=True)
+    with st.expander("Caixa + Recebíveis via IME", expanded=False):
+        st.dataframe(artifacts["ime_assets_df"], hide_index=True, use_container_width=True)
+    with st.expander("Relatório de inclusão/exclusão", expanded=False):
+        st.dataframe(artifacts["report_df"], hide_index=True, use_container_width=True)
 
 
 @st.cache_data(ttl=600, show_spinner=False)

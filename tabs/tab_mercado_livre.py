@@ -218,6 +218,7 @@ def render_tab_somatorio_fidcs(
     selected_portfolio: PortfolioRecord | None = None,
     show_portfolio_controls: bool = True,
     use_tabs: bool = True,
+    show_guide: bool = True,
 ) -> None:
     if show_portfolio_controls:
         _apply_pending_selection()
@@ -295,6 +296,7 @@ def render_tab_somatorio_fidcs(
             cache_dir=cache_dir,
             storage_source=str(st.session_state.get(f"{cache_session_key}::source") or "cache"),
             use_tabs=use_tabs,
+            show_guide=show_guide,
         )
         return
     if not results:
@@ -342,6 +344,7 @@ def render_tab_somatorio_fidcs(
         cache_dir=cache_dir,
         storage_source="recalculado",
         use_tabs=use_tabs,
+        show_guide=show_guide,
     )
 
 
@@ -645,6 +648,7 @@ def _render_outputs(
     cache_dir,
     storage_source: str,
     use_tabs: bool = True,
+    show_guide: bool = True,
 ) -> None:
     ok = len(outputs.fund_monthly)
     total = len(selected_portfolio.funds)
@@ -662,7 +666,8 @@ def _render_outputs(
     )
     _ = storage_source
 
-    _render_somatorio_fidcs_guide()
+    if show_guide:
+        _render_somatorio_fidcs_guide()
     display_outputs = _render_loaded_period_window(outputs)
     monitor_outputs = _build_credit_monitor_for_display(outputs=outputs, display_outputs=display_outputs)
     research_outputs = build_meli_research_outputs(monitor_outputs)
@@ -782,6 +787,7 @@ def _render_outputs(
             download_key_prefix="somatorio_fidcs_credito",
             pptx_file_token=file_token,
             use_tabs=use_tabs,
+            show_guide=show_guide,
         )
 
     if use_tabs:

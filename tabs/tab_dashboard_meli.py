@@ -353,6 +353,7 @@ def render_dashboard_meli_analysis(
     download_key_prefix: str = "dashboard_meli",
     pptx_file_token: str | None = None,
     use_tabs: bool = True,
+    show_guide: bool = True,
 ) -> None:  # noqa: ANN001
     """Renderiza a visão de crédito MELI a partir da base canônica já carregada."""
     if monitor_outputs is None:
@@ -361,7 +362,8 @@ def render_dashboard_meli_analysis(
         research_outputs = build_meli_research_outputs(monitor_outputs)
     if verification_report is None:
         verification_report = verify_meli_research_outputs(monitor_outputs, research_outputs)
-    _render_guide()
+    if show_guide:
+        _render_guide()
     file_token = pptx_file_token or _safe_file_token(selected_portfolio.name)
     if pptx_bytes is None:
         pptx_bytes = build_dashboard_meli_pptx_bytes(monitor_outputs, research_outputs)
@@ -409,8 +411,8 @@ def render_dashboard_meli_analysis(
         _render_main_view()
         st.markdown("#### Fundos individuais")
         _render_funds_view()
-        st.markdown("#### Auditoria")
-        _render_audit_view()
+        with st.expander("Auditoria e conciliações da análise de crédito", expanded=False):
+            _render_audit(outputs, monitor_outputs, research_outputs, verification_report, compact=True)
     _render_methodology(research_outputs)
 
 
@@ -564,15 +566,32 @@ def _dashboard_kpi_cards(row: pd.Series) -> list[tuple[str, str]]:
     return cards
 
 
-def _render_audit(outputs, monitor_outputs, research_outputs=None, verification_report: pd.DataFrame | None = None) -> None:  # noqa: ANN001
+def _render_audit(
+    outputs,
+    monitor_outputs,
+    research_outputs=None,
+    verification_report: pd.DataFrame | None = None,
+    *,
+    compact: bool = False,
+) -> None:  # noqa: ANN001
     if monitor_outputs.warnings:
-        with st.expander("Warnings do monitor", expanded=False):
+        if compact:
+            st.markdown("**Warnings do monitor**")
             for warning in monitor_outputs.warnings:
                 st.caption(warning)
+        else:
+            with st.expander("Warnings do monitor", expanded=False):
+                for warning in monitor_outputs.warnings:
+                    st.caption(warning)
     if research_outputs is not None and getattr(research_outputs, "warnings", None):
-        with st.expander("Warnings da visão research", expanded=False):
+        if compact:
+            st.markdown("**Warnings da visão research**")
             for warning in research_outputs.warnings:
                 st.caption(warning)
+        else:
+            with st.expander("Warnings da visão research", expanded=False):
+                for warning in research_outputs.warnings:
+                    st.caption(warning)
     audit = monitor_outputs.audit_table.copy()
     if audit.empty:
         st.info("Sem tabela de auditoria.")

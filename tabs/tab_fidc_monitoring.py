@@ -336,9 +336,9 @@ def render_tab_fidc_monitoring(
     st.markdown("### Cockpit")
     _render_cockpit_tab(success_outputs)
     st.markdown("### Base regulatória")
-    _render_regulatory_base_tab(success_outputs)
+    _render_regulatory_base_tab(success_outputs, compact=True)
     st.markdown("### Tabela por Fundo")
-    _render_fund_boards_tab(success_outputs)
+    _render_fund_boards_tab(success_outputs, compact=True)
 
 
 def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRecord | None:
@@ -640,7 +640,7 @@ def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
         st.dataframe(_build_cache_diagnostics_df(outputs), hide_index=True, use_container_width=True)
 
 
-def _render_regulatory_base_tab(outputs: list[dict[str, Any]]) -> None:
+def _render_regulatory_base_tab(outputs: list[dict[str, Any]], *, compact: bool = False) -> None:
     loaded = []
     missing = []
     profiles: dict[str, CuratedRegulatoryProfile] = {}
@@ -714,7 +714,7 @@ def _render_regulatory_base_tab(outputs: list[dict[str, Any]]) -> None:
         if not emissions_df.empty:
             st.dataframe(_drop_selected_fund_columns(emissions_df), hide_index=True, use_container_width=True)
         if not calendar_df.empty:
-            with st.expander("Calendário operacional extraído", expanded=True):
+            with st.expander("Calendário operacional extraído", expanded=not compact):
                 st.dataframe(calendar_df, hide_index=True, use_container_width=True)
 
     st.markdown("#### Critérios monitoráveis e qualitativos")
@@ -1240,7 +1240,7 @@ def _format_chart_percent(value: object) -> str:
     return f"{_format_decimal(float(numeric), 1)}%"
 
 
-def _render_fund_boards_tab(outputs: list[dict[str, Any]]) -> None:
+def _render_fund_boards_tab(outputs: list[dict[str, Any]], *, compact: bool = False) -> None:
     selected = _select_output(outputs, key="monitoring_fund_table")
     if selected is None:
         return
@@ -1259,6 +1259,14 @@ def _render_fund_boards_tab(outputs: list[dict[str, Any]]) -> None:
     )
     st.markdown("### Tabela Completa do fundo")
     st.markdown(_render_fund_time_table_html(selected), unsafe_allow_html=True)
+    if compact:
+        with st.expander("Auditoria e dados brutos do fundo", expanded=False):
+            st.markdown("**Auditoria de fórmulas**")
+            st.caption("Fórmula, fonte e status de cada linha.")
+            st.dataframe(tables.audit_df, hide_index=True, use_container_width=True)
+            st.markdown("**Dados brutos (variáveis IME)**")
+            _render_raw_data_panel(selected, key_suffix=str(selected.get("cnpj") or "fundo"))
+        return
     with st.expander("Auditoria de fórmulas", expanded=False):
         st.caption("Fórmula, fonte e status de cada linha.")
         st.dataframe(tables.audit_df, hide_index=True, use_container_width=True)

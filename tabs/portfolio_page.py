@@ -44,6 +44,7 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
             selected_portfolio=selected_portfolio,
             show_portfolio_controls=False,
             use_tabs=False,
+            show_guide=False,
         )
 
     _render_section_toggle(
@@ -62,12 +63,14 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
     _render_section_toggle(
         title="Waterfall e Deep Dives",
         key="portfolio_center_section_deep_dive",
-        default=True,
+        default=False,
     )
-    if st.session_state.get("portfolio_center_section_deep_dive", True):
+    if st.session_state.get("portfolio_center_section_deep_dive", False):
         deep_dive_tab.render_tab_deep_dive(
             selected_portfolio=selected_portfolio,
             show_portfolio_selector=False,
+            show_curation_tools=False,
+            compact=True,
         )
 
 

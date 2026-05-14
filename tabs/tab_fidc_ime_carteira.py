@@ -782,6 +782,7 @@ def _render_portfolio_aggregate_analysis(
             loaded_count=loaded_count,
             total_selected=total_selected,
             excluded_funds=excluded_funds,
+            compact=section_mode != "tabs",
         )
 
     if section_mode == "tabs":
@@ -884,6 +885,7 @@ def _render_portfolio_aggregate_audit(
     loaded_count: int,
     total_selected: int,
     excluded_funds: list[str],
+    compact: bool = False,
 ) -> None:
     st.markdown(
         f"""
@@ -895,36 +897,57 @@ def _render_portfolio_aggregate_audit(
 """,
         unsafe_allow_html=True,
     )
-    with st.expander("Escopo e cobertura da carteira", expanded=True):
-        st.markdown('<div class="fidc-detail-title">Fundos incluídos no agregado</div>', unsafe_allow_html=True)
+
+    def _render_scope_and_coverage() -> None:
+        st.markdown("**Fundos incluídos no agregado**")
         st.dataframe(
             _format_portfolio_scope_table(bundle.fund_scope_df),
             width="stretch",
             hide_index=True,
         )
         if excluded_funds:
-            st.markdown('<div class="fidc-detail-title">Fundos fora do agregado atual</div>', unsafe_allow_html=True)
+            st.markdown("**Fundos fora do agregado atual**")
             st.dataframe(
                 pd.DataFrame({"Fundo": excluded_funds}),
                 width="stretch",
                 hide_index=True,
             )
-        st.markdown('<div class="fidc-detail-title">Cobertura por bloco e competência</div>', unsafe_allow_html=True)
+        st.markdown("**Cobertura por bloco e competência**")
         st.dataframe(
             _format_portfolio_coverage_table(bundle.coverage_df),
             width="stretch",
             hide_index=True,
         )
-    with st.expander("Reconciliação do consolidado", expanded=True):
+
+    def _render_reconciliation() -> None:
         st.dataframe(
             _format_portfolio_reconciliation_table(bundle.reconciliation_df),
             width="stretch",
             hide_index=True,
         )
-    ime_tab._render_audit_section(bundle.dashboard)
-    with st.expander("Notas metodológicas da carteira", expanded=False):
+
+    def _render_methodology_notes() -> None:
         for note in bundle.dashboard.methodology_notes:
             st.markdown(f"- {note}")
+
+    if compact:
+        with st.expander("Dados técnicos da carteira", expanded=False):
+            _render_scope_and_coverage()
+            st.markdown("**Reconciliação do consolidado**")
+            _render_reconciliation()
+            ime_tab._render_audit_section(bundle.dashboard, compact=True, show_title=False)
+            if bundle.dashboard.methodology_notes:
+                st.markdown("**Notas metodológicas da carteira**")
+                _render_methodology_notes()
+        return
+
+    with st.expander("Escopo e cobertura da carteira", expanded=False):
+        _render_scope_and_coverage()
+    with st.expander("Reconciliação do consolidado", expanded=False):
+        _render_reconciliation()
+    ime_tab._render_audit_section(bundle.dashboard)
+    with st.expander("Notas metodológicas da carteira", expanded=False):
+        _render_methodology_notes()
 
 
 def _format_portfolio_scope_table(scope_df: pd.DataFrame) -> pd.DataFrame:

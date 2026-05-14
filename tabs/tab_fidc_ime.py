@@ -1750,11 +1750,72 @@ def _render_calculation_memory_section(dashboard: FundonetDashboardData, *, slot
         )
 
 
-def _render_audit_section(dashboard: FundonetDashboardData) -> None:
-    _render_fidc_section(
-        "Base auditável",
-        "Reconciliação completa entre dado bruto, transformação, output e limitação analítica.",
-    )
+def _render_audit_section(
+    dashboard: FundonetDashboardData,
+    *,
+    compact: bool = False,
+    show_title: bool = True,
+) -> None:
+    if show_title:
+        _render_fidc_section(
+            "Base auditável",
+            "Reconciliação completa entre dado bruto, transformação, output e limitação analítica.",
+        )
+    if compact:
+        st.markdown("**Diagnóstico de consistência**")
+        st.dataframe(
+            _format_consistency_audit_table(dashboard.consistency_audit_df),
+            width="stretch",
+            hide_index=True,
+        )
+        st.markdown("**Inventário dos outputs ativos**")
+        st.dataframe(
+            _format_dashboard_inventory_table(dashboard.current_dashboard_inventory_df),
+            width="stretch",
+            hide_index=True,
+        )
+        st.markdown("**Base canônica de direitos creditórios**")
+        st.dataframe(
+            _format_dc_canonical_audit_table(dashboard.dc_canonical_history_df),
+            width="stretch",
+            hide_index=True,
+        )
+        st.markdown("**Memória de cálculo**")
+        st.dataframe(
+            _format_executive_memory_table(dashboard.executive_memory_df),
+            width="stretch",
+            hide_index=True,
+        )
+        st.dataframe(
+            _format_risk_metrics_memory_table(dashboard.risk_metrics_df),
+            width="stretch",
+            hide_index=True,
+        )
+        st.markdown("**Base normalizada do Informe Mensal**")
+        left, right = st.columns(2)
+        with left:
+            st.caption("Liquidez reportada")
+            st.dataframe(
+                _format_value_table(dashboard.liquidity_latest_df, label_column="horizonte", label_title="Horizonte"),
+                width="stretch",
+                hide_index=True,
+            )
+        with right:
+            st.caption("Cotistas")
+            st.dataframe(
+                _format_holder_table(dashboard.holder_latest_df),
+                width="stretch",
+                hide_index=True,
+            )
+        if not dashboard.rate_negotiation_latest_df.empty:
+            st.markdown("**Taxas de negociação de direitos creditórios**")
+            st.dataframe(
+                _format_rate_table(dashboard.rate_negotiation_latest_df),
+                width="stretch",
+                hide_index=True,
+            )
+        return
+
     with st.expander("Diagnóstico de consistência da aba executiva", expanded=True):
         st.dataframe(
             _format_consistency_audit_table(dashboard.consistency_audit_df),
