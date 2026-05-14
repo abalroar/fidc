@@ -3,6 +3,7 @@ from __future__ import annotations
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from html import escape
+import re
 import time
 import traceback
 from typing import Any
@@ -33,6 +34,20 @@ from tabs.ime_portfolio_support import (
 
 
 PARTIAL_CACHE_STATUSES = {"partial_hit", "github_cache_partial"}
+_COMPETENCIA_MONTH_LABELS = {
+    "jan": 1,
+    "fev": 2,
+    "mar": 3,
+    "abr": 4,
+    "mai": 5,
+    "jun": 6,
+    "jul": 7,
+    "ago": 8,
+    "set": 9,
+    "out": 10,
+    "nov": 11,
+    "dez": 12,
+}
 
 
 def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> None:
@@ -301,6 +316,7 @@ def ensure_portfolio_ime_data(
             fund
             for fund in selected_portfolio.funds
             if fund.cnpj not in current_results
+            or _portfolio_payload_needs_cache_refresh(current_results.get(fund.cnpj) or {}, period)
         )
     if funds_to_load:
         with st.spinner(_autoload_spinner_label(selected_portfolio=selected_portfolio, period=period, funds=funds_to_load)):
@@ -680,6 +696,35 @@ def _cache_refresh_skipped_reason(
     if getattr(cached, "source_refresh_attempted", False):
         return "source_refresh_previously_attempted_for_this_cache"
     return "not_applicable"
+
+
+def _portfolio_payload_needs_cache_refresh(payload: dict[str, Any], period: ImePeriodSelection) -> bool:
+    result = payload.get("result")
+    if result is None:
+        return False
+    context = payload.get("context") or {}
+    expected_competencias = _expected_competencias_for_period(period)
+    found_competencias = context.get("found_competencias")
+    if found_competencias is None:
+        found_competencias = list(getattr(result, "competencias", []) or [])
+    missing = _missing_expected_competencias(
+        expected_competencias=expected_competencias,
+        found_competencias=[str(value) for value in found_competencias],
+    )
+    if not missing:
+        return False
+    if context.get("cache_refresh_attempted"):
+        return False
+    if context.get("cache_refresh_skipped_reason") in {
+        "source_refresh_already_attempted_in_this_load",
+        "source_refresh_previously_attempted_for_this_cache",
+        "source_refreshed_but_competencies_still_unavailable",
+    }:
+        return False
+    cache_status = str(context.get("cache_status") or "")
+    if cache_status in PARTIAL_CACHE_STATUSES:
+        return True
+    return not bool(context.get("cache_source_refresh_attempted"))
 
 
 def _portfolio_worker_count(*, total: int, period: ImePeriodSelection, cached_count: int = 0) -> int:
@@ -1151,17 +1196,38 @@ def _build_excluded_competency_debug_rows(
 def _format_competencia_debug_span(competencias: list[str]) -> str:
     if not competencias:
         return "-"
-    ordered = sorted(competencias, key=ime_tab._competencia_sort_key)
+    ordered = sorted(competencias, key=_competencia_debug_sort_key)
     return f"{ime_tab._format_competencia_label(ordered[0])} a {ime_tab._format_competencia_label(ordered[-1])}"
 
 
 def _format_competencia_debug_list(competencias: list[str], *, limit: int = 6) -> str:
     if not competencias:
         return ""
-    ordered = sorted(competencias, key=ime_tab._competencia_sort_key)
+    ordered = sorted(competencias, key=_competencia_debug_sort_key)
     labels = [ime_tab._format_competencia_label(value) for value in ordered[:limit]]
     suffix = f" +{len(ordered) - limit}" if len(ordered) > limit else ""
     return ", ".join(labels) + suffix
+
+
+def _competencia_debug_sort_key(value: object) -> tuple[int, int, str]:
+    raw = str(value or "").strip()
+    if not raw:
+        return (0, 0, "")
+    match = re.fullmatch(r"(\d{2})/(\d{4})", raw)
+    if match:
+        return (int(match.group(2)), int(match.group(1)), raw)
+    match = re.fullmatch(r"([a-z]{3})-(\d{2}|\d{4})", raw.lower())
+    if match:
+        year_text = match.group(2)
+        year = int(year_text) if len(year_text) == 4 else 2000 + int(year_text)
+        return (year, _COMPETENCIA_MONTH_LABELS.get(match.group(1), 0), raw)
+    try:
+        parsed = pd.Timestamp(raw)
+    except Exception:  # noqa: BLE001
+        return (0, 0, raw)
+    if pd.isna(parsed):
+        return (0, 0, raw)
+    return (int(parsed.year), int(parsed.month), raw)
 
 
 def _render_portfolio_aggregate_audit(

@@ -12,6 +12,8 @@ from tabs.tab_fidc_ime_carteira import (
     _build_portfolio_selector_label_lookup,
     _build_loaded_dashboards_by_cnpj,
     _execute_portfolio_load_for_funds,
+    _format_competencia_debug_list,
+    _format_competencia_debug_span,
     _is_cache_ready_for_portfolio_load,
     _load_single_portfolio_fund,
     _normalize_portfolio_editor_mode,
@@ -300,6 +302,15 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
         self.assertEqual(["01/2026"], context["missing_competencias_after_refresh"])
         self.assertEqual("source_refresh_previously_attempted_for_this_cache", context["cache_refresh_skipped_reason"])
 
+    def test_competencia_debug_formatters_sort_without_ime_private_sort_key(self) -> None:
+        competencias = ["02/2026", "01/2026", "2026-03-01", "abr-26"]
+
+        self.assertEqual("jan-26 a abr-26", _format_competencia_debug_span(competencias))
+        self.assertEqual(
+            "jan-26, fev-26, mar-26 +1",
+            _format_competencia_debug_list(competencias, limit=3),
+        )
+
     def test_ensure_portfolio_ime_data_loads_all_missing_funds_without_button(self) -> None:
         portfolio = PortfolioRecord(
             id="portfolio-1",
@@ -332,6 +343,58 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
         mocked_load.assert_called_once()
         self.assertEqual(tuple(portfolio.funds), mocked_load.call_args.kwargs["funds"])
         self.assertEqual({}, mocked_load.call_args.kwargs["existing_results"])
+
+    def test_ensure_portfolio_ime_data_reloads_stale_partial_results_without_button(self) -> None:
+        portfolio = PortfolioRecord(
+            id="portfolio-1",
+            name="Carteira Teste",
+            funds=(
+                PortfolioFund(cnpj="12345678000199", display_name="FIDC A"),
+                PortfolioFund(cnpj="22345678000199", display_name="FIDC B"),
+            ),
+            created_at="2026-04-15T00:00:00Z",
+            updated_at="2026-04-15T00:00:00Z",
+        )
+        period = SimpleNamespace(
+            month_count=2,
+            cache_key="period-2",
+            label="01/2026 a 02/2026",
+            mode="preset",
+            start_month=date(2026, 1, 1),
+            end_month=date(2026, 2, 1),
+            preset_months=2,
+        )
+        runtime_state = {
+            "results": {
+                "12345678000199": {
+                    "result": SimpleNamespace(competencias=["02/2026"]),
+                    "context": {
+                        "cache_status": "partial_hit",
+                        "found_competencias": ["02/2026"],
+                        "cache_source_refresh_attempted": False,
+                    },
+                },
+                "22345678000199": {
+                    "result": SimpleNamespace(competencias=["01/2026", "02/2026"]),
+                    "context": {
+                        "cache_status": "hit",
+                        "found_competencias": ["01/2026", "02/2026"],
+                        "cache_source_refresh_attempted": False,
+                    },
+                },
+            }
+        }
+
+        with (
+            patch("tabs.tab_fidc_ime_carteira._get_portfolio_runtime_state", return_value=runtime_state),
+            patch("tabs.tab_fidc_ime_carteira.st.spinner"),
+            patch("tabs.tab_fidc_ime_carteira._execute_portfolio_load_for_funds") as mocked_load,
+        ):
+            ensure_portfolio_ime_data(selected_portfolio=portfolio, period=period)
+
+        mocked_load.assert_called_once()
+        self.assertEqual((portfolio.funds[0],), mocked_load.call_args.kwargs["funds"])
+        self.assertEqual(runtime_state["results"], mocked_load.call_args.kwargs["existing_results"])
 
     def test_build_loaded_dashboards_by_cnpj_skips_funds_with_dashboard_error(self) -> None:
         portfolio = PortfolioRecord(
