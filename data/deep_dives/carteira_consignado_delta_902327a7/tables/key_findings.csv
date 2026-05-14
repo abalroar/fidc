@@ -1,0 +1,13 @@
+Tema,Conclusão,Fonte,Monitoramento
+Identidade,CONSIGNADO DELTA RECEIVABLES I FIDC - CNPJ 54.871.427/0001-94.,Fundos.NET; documentos CVM do fundo,Estático
+Administrador,BTG Pactual Serviços Financeiros S.A. DTVM - CNPJ 59.281.253/0001-23.,Regulamento 670691 p.1; cadastro CVM fi_cad_registro_fundo,Estático
+Gestor,BTG Pactual Asset Management S.A. DTVM - CNPJ 29.650.082/0001-00.,Regulamento 670691 p.1; cadastro CVM fi_cad_registro_fundo,Estático
+Custodiante,Banco BTG Pactual S.A. - CNPJ 30.306.294/0001-45.,Regulamento 670691 p.7,Estático
+Estrutura de cotas,"Classe única, subclasse única e série única; cotas pari passu sem subordinação.",Regulamento 670691 p.13-14,Monitorar classes/cotas no IME
+Ativo alvo,"CCCBs/CCBs de empréstimos pessoais consignados, com pagamento por folha, débito em conta e sinistros.",Regulamento 670691 p.9 e p.40,Monitorar Dir Cred / PL e atraso IME
+Alocação mínima,"Após 180 dias da 1ª integralização, mínimo de 50% do PL em direitos creditórios.",Regulamento 670691 p.11 item 4.9,Dir Cred / PL
+Composição tributária,O gestor busca manter ao menos 67% em direitos creditórios para regime tributário específico.,Regulamento 670691 p.5,Alerta informativo Dir Cred / PL < 67%
+Emissões identificadas,"1ª emissão: R$135mm distribuídos; 2ª emissão: R$55mm distribuídos; nova emissão privada 2025: até R$650mm.",Anúncios 677544/798101; ata 1055482,Tabela de emissões
+Amortização,"Sem cronograma fixo: amortizações a qualquer tempo a critério do gestor e/ou assembleia, conforme disponibilidade e ordem de alocação.",Regulamento 670691 p.15-16,Não há schedule mecânico no IME
+IME mais recente,"Última competência carregada no cache: 03/2026; PL aproximado R$2.606mm e Dir Cred / PL 81,5% no pacote.",Cache IME local 92615559; comparison_main.csv,Atualizável via aba Deep Dive/live IME
+Risco operacional relevante,"Eventos de avaliação dependem de endossantes, entrega de arquivos/documentos, convênios, obrigações contratuais e violações legais.",Regulamento 670691 p.17-19,Não monitorável automaticamente por IME

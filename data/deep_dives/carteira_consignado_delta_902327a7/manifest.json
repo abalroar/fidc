@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_consignado_delta_902327a7",
+  "title": "Deep Dive Consignado Delta",
+  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas IME",
+  "portfolio_id": "902327a723374db7997d01cc03951367",
+  "portfolio_signature": "54871427000194",
+  "generated_at": "2026-05-14T10:40:06-03:00",
+  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "54.871.427/0001-94",
+      "name": "CONSIGNADO DELTA RECEIVABLES I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+      "short_name": "CONSIGNADO DELTA RECEIVABLES I"
+    }
+  ],
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
+      "kind": "comparison_matrix",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome"
+    },
+    {
+      "id": "key_findings",
+      "title": "Achados principais",
+      "subtitle": "Resumo executivo auditável do fundo",
+      "kind": "source_table",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema"
+    },
+    {
+      "id": "emissions",
+      "title": "Cronograma de emissões",
+      "kind": "source_table",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "thresholds",
+      "title": "Regulamento mais recente",
+      "kind": "source_table",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "fundo"
+    },
+    {
+      "id": "fundonet_document_inventory",
+      "title": "Inventário Fundos.NET",
+      "subtitle": "Todos os documentos públicos listados para o CNPJ",
+      "kind": "source_table",
+      "source_file": "tables/fundonet_document_inventory.csv",
+      "first_column": "ID CVM"
+    },
+    {
+      "id": "document_inventory",
+      "title": "Inventário regulatório local",
+      "subtitle": "Documentos não-IME considerados na extração offline",
+      "kind": "source_table",
+      "source_file": "tables/document_inventory.csv",
+      "first_column": "Fundo"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
+      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
+      "Tabela principal com 31 linhas; contagem documental foi substituída por páginas locais analisadas.",
+      "Curadoria dedicada sobrescreve a triagem heurística: alocação mínima correta é 50% em direitos creditórios após 180 dias, não 15%.",
+      "Não há spread DI/CDI nem cronograma fixo de amortização identificado nos documentos locais analisados."
+    ]
+  }
+}
