@@ -212,22 +212,29 @@ _SOMATORIO_FIDCS_UI_CSS = """
 _MERCADO_LIVRE_UI_CSS = _SOMATORIO_FIDCS_UI_CSS + _DASHBOARD_MELI_CSS
 
 
-def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None:
-    st.markdown(ime_tab._FIDC_REPORT_CSS, unsafe_allow_html=True)
-    st.markdown(_SOMATORIO_FIDCS_UI_CSS, unsafe_allow_html=True)
-    st.markdown(_DASHBOARD_MELI_CSS, unsafe_allow_html=True)
-    _apply_pending_selection()
+def render_tab_somatorio_fidcs(
+    period: ImePeriodSelection | None = None,
+    *,
+    selected_portfolio: PortfolioRecord | None = None,
+    show_portfolio_controls: bool = True,
+    use_tabs: bool = True,
+) -> None:
+    if show_portfolio_controls:
+        _apply_pending_selection()
 
-    if not st.session_state.get("somatorio_fidcs_portfolios_refreshed"):
-        refresh_saved_portfolios_cache()
-        st.session_state["somatorio_fidcs_portfolios_refreshed"] = True
+        if not st.session_state.get("somatorio_fidcs_portfolios_refreshed"):
+            refresh_saved_portfolios_cache()
+            st.session_state["somatorio_fidcs_portfolios_refreshed"] = True
 
-    portfolios = list_saved_portfolios()
+        portfolios = list_saved_portfolios()
+    else:
+        portfolios = []
     catalog_df = load_fidc_catalog_cached()
     period = _render_somatorio_period_panel(period)
     calculation_period = _period_with_yoy_lookback(period)
 
-    selected_portfolio = _render_selection_controls(portfolios=portfolios, catalog_df=catalog_df)
+    if show_portfolio_controls:
+        selected_portfolio = _render_selection_controls(portfolios=portfolios, catalog_df=catalog_df)
     if selected_portfolio is None:
         st.info(f"Crie ou selecione uma carteira para iniciar a auditoria {SOMATORIO_FIDCS_TITLE}.")
         return
@@ -235,6 +242,16 @@ def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None
     runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=calculation_period)
     results = runtime_state.get("results") or {}
     cache_session_key = _outputs_session_key(selected_portfolio=selected_portfolio, period=calculation_period)
+
+    if not show_portfolio_controls:
+        if st.button(
+            "Carregar base de retornos",
+            key=f"ml_portfolio_load_button::{selected_portfolio.id}",
+            type="secondary",
+            use_container_width=False,
+        ):
+            st.session_state["_ml_load_requested"] = True
+            st.rerun()
 
     if st.session_state.pop("_ml_load_requested", False):
         cached_outputs = load_outputs_from_cache(
@@ -277,6 +294,7 @@ def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None
             selected_portfolio=selected_portfolio,
             cache_dir=cache_dir,
             storage_source=str(st.session_state.get(f"{cache_session_key}::source") or "cache"),
+            use_tabs=use_tabs,
         )
         return
     if not results:
@@ -323,6 +341,7 @@ def render_tab_somatorio_fidcs(period: ImePeriodSelection | None = None) -> None
         selected_portfolio=selected_portfolio,
         cache_dir=cache_dir,
         storage_source="recalculado",
+        use_tabs=use_tabs,
     )
 
 
@@ -625,6 +644,7 @@ def _render_outputs(
     selected_portfolio: PortfolioRecord,
     cache_dir,
     storage_source: str,
+    use_tabs: bool = True,
 ) -> None:
     ok = len(outputs.fund_monthly)
     total = len(selected_portfolio.funds)
@@ -649,17 +669,16 @@ def _render_outputs(
     verification_report = verify_meli_research_outputs(monitor_outputs, research_outputs)
     file_token = _safe_file_token(selected_portfolio.name)
 
-    base_tab, credit_tab = st.tabs(["Tabela Completa", "Análise Crédito"])
+    snapshot_bytes = build_consolidated_snapshot_excel_bytes(display_outputs)
+    full_matrix_excel_bytes = build_full_variable_excel_export_bytes(display_outputs)
+    full_matrix_csv_zip_bytes = build_full_variable_csv_zip_bytes(display_outputs)
+    pptx_bytes = build_somatorio_fidcs_pptx_bytes(
+        outputs=display_outputs,
+        monitor_outputs=monitor_outputs,
+        research_outputs=research_outputs,
+    )
 
-    with base_tab:
-        snapshot_bytes = build_consolidated_snapshot_excel_bytes(display_outputs)
-        full_matrix_excel_bytes = build_full_variable_excel_export_bytes(display_outputs)
-        full_matrix_csv_zip_bytes = build_full_variable_csv_zip_bytes(display_outputs)
-        pptx_bytes = build_somatorio_fidcs_pptx_bytes(
-            outputs=display_outputs,
-            monitor_outputs=monitor_outputs,
-            research_outputs=research_outputs,
-        )
+    def _render_base_view() -> None:
         btn_left, btn_mid, btn_csv, btn_right = st.columns([1.45, 1.35, 1.1, 1.25])
         with btn_left:
             st.download_button(
@@ -749,7 +768,7 @@ def _render_outputs(
 
         _render_base_audit(display_outputs=display_outputs, cache_dir=cache_dir)
 
-    with credit_tab:
+    def _render_credit_view() -> None:
         render_dashboard_meli_analysis(
             outputs=display_outputs,
             selected_portfolio=selected_portfolio,
@@ -762,7 +781,21 @@ def _render_outputs(
             excel_file_name=f"analise_credito_research_{file_token}.xlsx",
             download_key_prefix="somatorio_fidcs_credito",
             pptx_file_token=file_token,
+            use_tabs=use_tabs,
         )
+
+    if use_tabs:
+        base_tab, credit_tab = st.tabs(["Tabela Completa", "Análise Crédito"])
+        with base_tab:
+            _render_base_view()
+        with credit_tab:
+            _render_credit_view()
+        return
+
+    st.markdown("### Tabela Completa")
+    _render_base_view()
+    st.markdown("### Análise Crédito")
+    _render_credit_view()
 
 
 def _render_base_audit(*, display_outputs, cache_dir) -> None:  # noqa: ANN001

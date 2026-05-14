@@ -275,19 +275,24 @@ _PT_MONTH_ABBR = {
 }
 
 
-def render_tab_fidc_monitoring(period: ImePeriodSelection | None = None) -> None:
-    st.markdown(_CSS, unsafe_allow_html=True)
-    st.markdown("## Monitoramento FIDCs")
-
+def render_tab_fidc_monitoring(
+    period: ImePeriodSelection | None = None,
+    *,
+    selected_portfolio: PortfolioRecord | None = None,
+    show_portfolio_selector: bool = True,
+    use_tabs: bool = True,
+) -> None:
+    if show_portfolio_selector:
+        st.markdown("## Monitoramento FIDCs")
     if period is None:
         period = build_preset_period(end_month=current_default_end_month(), months=12)
 
-    portfolios = list_saved_portfolios()
-    if not portfolios:
-        st.info("Crie uma carteira salva nas abas de carteira/Soma de FIDCs para usar o monitoramento.")
-        return
-
-    selected_portfolio = _render_portfolio_selector(portfolios)
+    if selected_portfolio is None:
+        portfolios = list_saved_portfolios()
+        if not portfolios:
+            st.info("Crie uma carteira salva nas abas de carteira/Soma de FIDCs para usar o monitoramento.")
+            return
+        selected_portfolio = _render_portfolio_selector(portfolios)
     if selected_portfolio is None:
         return
 
@@ -318,13 +323,22 @@ def render_tab_fidc_monitoring(period: ImePeriodSelection | None = None) -> None
 
     _render_loaded_period_status(success_outputs, requested_period=period, load_period=load_period, cache_months=cache_months)
 
-    cockpit_tab, regulatory_tab, fund_tab = st.tabs(["Cockpit", "Base regulatória", "Tabela por Fundo"])
-    with cockpit_tab:
-        _render_cockpit_tab(success_outputs)
-    with regulatory_tab:
-        _render_regulatory_base_tab(success_outputs)
-    with fund_tab:
-        _render_fund_boards_tab(success_outputs)
+    if use_tabs:
+        cockpit_tab, regulatory_tab, fund_tab = st.tabs(["Cockpit", "Base regulatória", "Tabela por Fundo"])
+        with cockpit_tab:
+            _render_cockpit_tab(success_outputs)
+        with regulatory_tab:
+            _render_regulatory_base_tab(success_outputs)
+        with fund_tab:
+            _render_fund_boards_tab(success_outputs)
+        return
+
+    st.markdown("### Cockpit")
+    _render_cockpit_tab(success_outputs)
+    st.markdown("### Base regulatória")
+    _render_regulatory_base_tab(success_outputs)
+    st.markdown("### Tabela por Fundo")
+    _render_fund_boards_tab(success_outputs)
 
 
 def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRecord | None:
@@ -1239,6 +1253,10 @@ def _render_fund_boards_tab(outputs: list[dict[str, Any]]) -> None:
     )
     latest = _latest_competencia(selected)
     _render_single_fund_cards(selected, latest)
+    st.altair_chart(
+        _aging_stacked_bar(tables.aging_df, list(selected.get("competencias") or [])),
+        use_container_width=True,
+    )
     st.markdown("### Tabela Completa do fundo")
     st.markdown(_render_fund_time_table_html(selected), unsafe_allow_html=True)
     with st.expander("Auditoria de fórmulas", expanded=False):

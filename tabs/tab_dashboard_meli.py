@@ -157,9 +157,6 @@ ROLL_SEASONALITY_CHARTS: tuple[dict[str, str], ...] = (
 
 
 def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
-    st.markdown(ime_tab._FIDC_REPORT_CSS, unsafe_allow_html=True)
-    st.markdown(_DASHBOARD_MELI_CSS, unsafe_allow_html=True)
-
     portfolios = list_saved_portfolios()
     catalog_df = load_fidc_catalog_cached()
     selected_period = _render_period_panel(period)
@@ -323,13 +320,21 @@ def _render_portfolio_controls(portfolios: list[PortfolioRecord]) -> PortfolioRe
     return next((portfolio for portfolio in portfolios if portfolio.id == selected_id), None)
 
 
-def _render_outputs(*, outputs, selected_portfolio: PortfolioRecord, period: ImePeriodSelection, storage_source: str) -> None:  # noqa: ANN001
+def _render_outputs(
+    *,
+    outputs,
+    selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection,
+    storage_source: str,
+    use_tabs: bool = True,
+) -> None:  # noqa: ANN001
     _render_status_bar(selected_portfolio=selected_portfolio, period=period, outputs=outputs, storage_source=storage_source)
     render_dashboard_meli_analysis(
         outputs=outputs,
         selected_portfolio=selected_portfolio,
         download_key_prefix="dashboard_meli",
         pptx_file_token=_safe_file_token(selected_portfolio.name),
+        use_tabs=use_tabs,
     )
 
 
@@ -347,6 +352,7 @@ def render_dashboard_meli_analysis(
     excel_file_name: str | None = None,
     download_key_prefix: str = "dashboard_meli",
     pptx_file_token: str | None = None,
+    use_tabs: bool = True,
 ) -> None:  # noqa: ANN001
     """Renderiza a visão de crédito MELI a partir da base canônica já carregada."""
     if monitor_outputs is None:
@@ -380,13 +386,31 @@ def render_dashboard_meli_analysis(
             use_container_width=True,
         )
     _render_kpis(monitor_outputs.consolidated_monitor)
-    main_tab, funds_tab, audit_tab = st.tabs(["Consolidado", "Fundos individuais", "Auditoria"])
-    with main_tab:
+
+    def _render_main_view() -> None:
         _render_consolidated_dashboard(monitor_outputs, research_outputs)
-    with funds_tab:
+
+    def _render_funds_view() -> None:
         _render_fund_dashboards(monitor_outputs, selected_portfolio=selected_portfolio)
-    with audit_tab:
+
+    def _render_audit_view() -> None:
         _render_audit(outputs, monitor_outputs, research_outputs, verification_report)
+
+    if use_tabs:
+        main_tab, funds_tab, audit_tab = st.tabs(["Consolidado", "Fundos individuais", "Auditoria"])
+        with main_tab:
+            _render_main_view()
+        with funds_tab:
+            _render_funds_view()
+        with audit_tab:
+            _render_audit_view()
+    else:
+        st.markdown("#### Consolidado")
+        _render_main_view()
+        st.markdown("#### Fundos individuais")
+        _render_funds_view()
+        st.markdown("#### Auditoria")
+        _render_audit_view()
     _render_methodology(research_outputs)
 
 

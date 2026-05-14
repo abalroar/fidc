@@ -1205,8 +1205,6 @@ def _render_dashboard(
         context,
     )
     st.session_state[_session_dashboard_key] = dashboard
-    st.markdown(_FIDC_REPORT_CSS, unsafe_allow_html=True)
-
     selected_view = st.radio(
         "Visão do informe",
         options=["Visão executiva", "Auditoria técnica"],

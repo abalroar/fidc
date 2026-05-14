@@ -22,7 +22,7 @@ from services.fundonet_service import InformeMensalService
 from services.ime_loader import load_or_extract_informe
 from services.ime_period import current_default_end_month, shift_month
 from services.monitoring_metrics import build_monitoring_tables, read_wide_csv
-from services.portfolio_store import portfolio_basket_signature
+from services.portfolio_store import PortfolioRecord, portfolio_basket_signature
 from services.waterfall_schedule import (
     DEFAULT_CLOUDWALK_EMISSIONS,
     DEFAULT_WATERFALL_OUTPUT_DIR,
@@ -438,8 +438,11 @@ Se for pedido commit/push:
 - faça push."""
 
 
-def render_tab_deep_dive() -> None:
-    st.markdown(_CSS, unsafe_allow_html=True)
+def render_tab_deep_dive(
+    *,
+    selected_portfolio: PortfolioRecord | None = None,
+    show_portfolio_selector: bool = True,
+) -> None:
     manifests = list_deep_dives()
     st.markdown("<div class='deepdive-kicker'>Análise offline</div>", unsafe_allow_html=True)
     st.markdown("<div class='deepdive-title'>Deep Dive</div>", unsafe_allow_html=True)
@@ -456,16 +459,19 @@ def render_tab_deep_dive() -> None:
         st.info("Nenhum pacote em `data/deep_dives/`.")
         return
 
-    portfolios = list_saved_portfolios()
-    portfolio_labels = build_portfolio_record_label_lookup(portfolios)
-    portfolio_options = ["Todos", *[portfolio.id for portfolio in portfolios]]
-    selected_portfolio_id = st.selectbox(
-        "Carteira",
-        options=portfolio_options,
-        format_func=lambda value: "Todos os Deep Dives" if value == "Todos" else portfolio_labels.get(value, value),
-        key="deep_dive_portfolio",
-    )
-    selected_portfolio = next((portfolio for portfolio in portfolios if portfolio.id == selected_portfolio_id), None)
+    if show_portfolio_selector:
+        portfolios = list_saved_portfolios()
+        portfolio_labels = build_portfolio_record_label_lookup(portfolios)
+        portfolio_options = ["Todos", *[portfolio.id for portfolio in portfolios]]
+        selected_portfolio_id = st.selectbox(
+            "Carteira",
+            options=portfolio_options,
+            format_func=lambda value: "Todos os Deep Dives" if value == "Todos" else portfolio_labels.get(value, value),
+            key="deep_dive_portfolio",
+        )
+        selected_portfolio = next((portfolio for portfolio in portfolios if portfolio.id == selected_portfolio_id), None)
+    else:
+        selected_portfolio_id = selected_portfolio.id if selected_portfolio is not None else "Todos"
     selected_signature = portfolio_basket_signature(selected_portfolio.funds) if selected_portfolio else ""
     available = [
         manifest

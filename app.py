@@ -4,15 +4,14 @@ import streamlit as st
 
 from tabs.tab_fidc_book import render_tab_fidc_book
 from tabs import tab_fidc_ime as ime_tab
-from tabs.tab_fidc_monitoring import render_tab_fidc_monitoring
-from tabs.tab_deep_dive import render_tab_deep_dive
-from tabs.tab_mercado_livre import render_tab_somatorio_fidcs
-from tabs.tab_fidc_ime_carteira import render_tab_fidc_ime_carteira
+from tabs import tab_deep_dive as deep_dive_tab
+from tabs import tab_fidc_monitoring as monitoring_tab
+from tabs import tab_mercado_livre as somatorio_tab
+from tabs.portfolio_page import render_portfolio_center_page
 from tabs.tab_modelo_fidc import render_tab_modelo_fidc
 
 
-_APP_CSS = """
-<style>
+_APP_BASE_CSS = """
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
 
 html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRadio, .stTabs, div, p, label, input, button, h1, h2, h3, h4, h5, h6, li, table, th, td {
@@ -60,6 +59,11 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
     line-height: 1.55;
     margin-top: 0.65rem;
     max-width: 48rem;
+}
+
+.portfolio-section-spacer {
+    border-top: 1px solid #e3e8ef;
+    margin: 1.05rem 0 0.4rem 0;
 }
 
 .fidc-control-kicker {
@@ -226,8 +230,27 @@ div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-t
         font-size: 0.94rem;
     }
 }
-</style>
 """
+
+
+def _strip_style_tags(css: str) -> str:
+    return css.replace("<style>", "").replace("</style>", "").strip()
+
+
+_APP_CSS = (
+    "<style>\n"
+    + "\n\n".join(
+        _strip_style_tags(block)
+        for block in (
+            _APP_BASE_CSS,
+            ime_tab._FIDC_REPORT_CSS,
+            somatorio_tab._MERCADO_LIVRE_UI_CSS,
+            monitoring_tab._CSS,
+            deep_dive_tab._CSS,
+        )
+    )
+    + "\n</style>"
+)
 
 
 st.set_page_config(page_title="tomaconta FIDCs", page_icon="📊", layout="wide")
@@ -242,20 +265,11 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Global period selector — shared across Informe Mensal tabs to keep single-fund and portfolio views in sync.
-_render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
-period = _render_period_selector(state_prefix="ime_global")
-
-
 _MAIN_SECTIONS = [
-    "Sobre",
+    "Carteira FIDCs",
     "Glossário FIDCs",
-    "Informe Mensal Estruturado",
-    "Acompanhamento Carteira",
-    "Soma de FIDCs",
-    "Monitoramento FIDCs",
-    "Deep Dive",
     "Modelagem",
+    "Sobre",
 ]
 
 st.markdown("<div class='fidc-main-nav-marker'></div>", unsafe_allow_html=True)
@@ -267,16 +281,10 @@ selected_section = st.radio(
     label_visibility="collapsed",
 )
 
-if selected_section == "Informe Mensal Estruturado":
-    ime_tab.render_tab_fidc_ime(period=period)
-elif selected_section == "Acompanhamento Carteira":
-    render_tab_fidc_ime_carteira(period=period)
-elif selected_section == "Soma de FIDCs":
-    render_tab_somatorio_fidcs(period=period)
-elif selected_section == "Monitoramento FIDCs":
-    render_tab_fidc_monitoring(period=period)
-elif selected_section == "Deep Dive":
-    render_tab_deep_dive()
+if selected_section == "Carteira FIDCs":
+    _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
+    period = _render_period_selector(state_prefix="ime_global")
+    render_portfolio_center_page(period=period)
 elif selected_section == "Modelagem":
     render_tab_modelo_fidc()
 elif selected_section == "Glossário FIDCs":

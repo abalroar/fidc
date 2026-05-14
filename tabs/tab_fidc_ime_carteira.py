@@ -32,15 +32,35 @@ from tabs.ime_portfolio_support import (
 
 
 def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> None:
-    # Inject shared CSS so the compact header and downstream dashboard share the same tokens.
-    st.markdown(ime_tab._FIDC_REPORT_CSS, unsafe_allow_html=True)
+    if period is None:
+        period = ime_tab._render_period_selector(state_prefix="ime_portfolio", title="Período da carteira")
+
+    selected_portfolio, preload_clicked = render_portfolio_control_panel(
+        load_button_label="Carregar seleção",
+        load_button_key="ime_portfolio_load_button",
+    )
+    if preload_clicked and selected_portfolio is not None:
+        load_portfolio_ime_data(selected_portfolio=selected_portfolio, period=period)
+    if selected_portfolio is None:
+        return
+
+    render_portfolio_aging_analysis(
+        selected_portfolio=selected_portfolio,
+        period=period,
+        section_mode="tabs",
+    )
+
+
+def render_portfolio_control_panel(
+    *,
+    load_button_label: str,
+    load_button_key: str,
+    show_load_button: bool = True,
+) -> tuple[PortfolioRecord | None, bool]:
     _apply_pending_portfolio_selection()
 
     portfolios = list_saved_portfolios()
     catalog_df = load_fidc_catalog_cached()
-
-    if period is None:
-        period = ime_tab._render_period_selector(state_prefix="ime_portfolio", title="Período da carteira")
 
     editor_mode = _normalize_portfolio_editor_mode(
         st.session_state.get("ime_portfolio_editor_mode"),
@@ -78,12 +98,15 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
                 st.session_state[editor_open_key] = True
                 st.rerun()
         with btn_col:
-            preload_clicked = st.button(
-                "Carregar seleção",
-                type="secondary",
-                key="ime_portfolio_load_button",
-                use_container_width=True,
-            )
+            if show_load_button:
+                preload_clicked = st.button(
+                    load_button_label,
+                    type="secondary",
+                    key=load_button_key,
+                    use_container_width=True,
+                )
+            else:
+                preload_clicked = False
     else:
         selected_portfolio = None
         preload_clicked = False
@@ -107,17 +130,26 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
     if selected_portfolio is not None:
         selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
 
-    if preload_clicked and selected_portfolio is not None:
-        _execute_portfolio_load(selected_portfolio=selected_portfolio, period=period)
+    return selected_portfolio, preload_clicked
 
-    if selected_portfolio is None:
-        return
+
+def load_portfolio_ime_data(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection) -> None:
+    _execute_portfolio_load(selected_portfolio=selected_portfolio, period=period)
+
+
+def render_portfolio_aging_analysis(
+    *,
+    selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection,
+    section_mode: str = "tabs",
+) -> None:
     runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period)
 
     _render_loaded_portfolio_analysis(
         selected_portfolio=selected_portfolio,
         runtime_state=runtime_state,
         period=period,
+        section_mode=section_mode,
     )
 
 
@@ -509,6 +541,7 @@ def _render_loaded_portfolio_analysis(
     selected_portfolio: PortfolioRecord,
     runtime_state: dict[str, Any],
     period: ImePeriodSelection,
+    section_mode: str = "tabs",
 ) -> None:
     results = runtime_state.get("results") or {}
 
@@ -570,6 +603,7 @@ def _render_loaded_portfolio_analysis(
             results=results,
             period=period,
             total_selected=len(selected_portfolio.funds),
+            section_mode=section_mode,
         )
         return
 
@@ -684,6 +718,7 @@ def _render_portfolio_aggregate_analysis(
     results: dict[str, dict[str, Any]],
     period: ImePeriodSelection,
     total_selected: int,
+    section_mode: str = "tabs",
 ) -> None:
     try:
         bundle = build_portfolio_dashboard_bundle(
@@ -706,8 +741,7 @@ def _render_portfolio_aggregate_analysis(
         if fund.cnpj not in dashboards_by_cnpj
     ]
 
-    executive_tab, technical_tab = st.tabs(["Visão executiva", "Auditoria técnica"])
-    with executive_tab:
+    def _render_executive_view() -> None:
         _render_portfolio_aggregate_header(
             selected_portfolio=selected_portfolio,
             bundle=bundle,
@@ -741,7 +775,7 @@ def _render_portfolio_aggregate_analysis(
             slot_key=f"portfolio_agg_{selected_portfolio.id}",
         )
 
-    with technical_tab:
+    def _render_technical_view() -> None:
         _render_portfolio_aggregate_audit(
             bundle=bundle,
             selected_portfolio=selected_portfolio,
@@ -749,6 +783,19 @@ def _render_portfolio_aggregate_analysis(
             total_selected=total_selected,
             excluded_funds=excluded_funds,
         )
+
+    if section_mode == "tabs":
+        executive_tab, technical_tab = st.tabs(["Visão executiva", "Auditoria técnica"])
+        with executive_tab:
+            _render_executive_view()
+        with technical_tab:
+            _render_technical_view()
+        return
+
+    st.markdown("#### Visão executiva")
+    _render_executive_view()
+    st.markdown("#### Auditoria técnica")
+    _render_technical_view()
 
 
 def _render_portfolio_aggregate_header(
