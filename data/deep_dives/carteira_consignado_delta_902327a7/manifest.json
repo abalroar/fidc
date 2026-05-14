@@ -25,6 +25,14 @@
       "first_column": "Nome"
     },
     {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
+      "kind": "source_table",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo"
+    },
+    {
       "id": "key_findings",
       "title": "Achados principais",
       "subtitle": "Resumo executivo auditável do fundo",
@@ -69,7 +77,8 @@
       "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
       "Tabela principal com 31 linhas; contagem documental foi substituída por páginas locais analisadas.",
       "Curadoria dedicada sobrescreve a triagem heurística: alocação mínima correta é 50% em direitos creditórios após 180 dias, não 15%.",
-      "Não há spread DI/CDI nem cronograma fixo de amortização identificado nos documentos locais analisados."
+      "Não há spread DI/CDI nem cronograma fixo de amortização identificado nos documentos locais analisados.",
+      "Custos estruturais incluídos a partir de data/regulatory_profiles/structural_costs.csv; lacunas permanecem explícitas quando não há curadoria documental para o CNPJ."
     ]
   }
 }

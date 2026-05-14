@@ -50,6 +50,14 @@
       "first_column": "Nome"
     },
     {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
+      "kind": "source_table",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo"
+    },
+    {
       "id": "key_findings",
       "title": "Achados principais",
       "subtitle": "Resumo executivo auditável da carteira",
@@ -103,7 +111,8 @@
       "Tabela principal com 31 linhas; contagem documental foi substituída por páginas locais analisadas.",
       "Curadoria dedicada de BTG Pactual 1T26 adiciona mapa explícito de cedentes/sacados/origem e reaproveita a curadoria do Consignado Delta sem duplicar suas emissões.",
       "Única menção nominal a Meu Tudo/Parati encontrada na carteira: MT Consignado Privado I; Banco PAN não foi identificado por busca textual exata nos documentos locais analisados.",
-      "MT Global foi corrigido para a classe 63.953.620/0001-65; 63.953.619/0001-30 é o fundo guarda-chuva e não retornava documentos da classe no fluxo usado."
+      "MT Global foi corrigido para a classe 63.953.620/0001-65; 63.953.619/0001-30 é o fundo guarda-chuva e não retornava documentos da classe no fluxo usado.",
+      "Custos estruturais incluídos a partir de data/regulatory_profiles/structural_costs.csv; lacunas permanecem explícitas quando não há curadoria documental para o CNPJ."
     ]
   }
 }

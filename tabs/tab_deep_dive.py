@@ -188,7 +188,7 @@ INPUTS DA EXECUÇÃO:
 - Caminhos locais relevantes: [data/raw, reports, data/regulatory_profiles, data/deep_dives, caches IME]
 - Período de análise: [PERÍODO]
 - Deep Dive ID esperado: [DEEP_DIVE_ID]
-- Outputs esperados: comparison_main.csv, emissions.csv, thresholds.csv, evidence/performance_metrics_enriched.csv, manifest.json, PPTX QA editável
+- Outputs esperados: comparison_main.csv, emissions.csv, thresholds.csv, structural_costs.csv, evidence/performance_metrics_enriched.csv, manifest.json, PPTX QA editável
 
 REGRAS INEGOCIÁVEIS:
 1. Analise apenas esta carteira. É proibido atualizar todas as carteiras.
@@ -272,7 +272,45 @@ Se o valor final não estiver localizado, escreva explicitamente:
 - `cronograma fechado não identificado`;
 conforme o caso.
 
-ETAPA 4 — REGULAMENTO MAIS RECENTE E CRITÉRIOS MONITORÁVEIS:
+ETAPA 4 — CUSTOS ESTRUTURAIS:
+Para cada fundo, pesquise em todos os documentos disponíveis da carteira:
+- regulamentos;
+- suplementos;
+- atas;
+- demonstrações financeiras;
+- notas explicativas;
+- documentos de emissão;
+- demais PDFs/XMLs locais.
+
+Extraia e consolide, sempre priorizando a versão vigente mais recente:
+- taxa de administração (% a.a. sobre o Patrimônio Líquido);
+- taxa de gestão (% a.a. sobre o Patrimônio Líquido);
+- valor mínimo mensal de administração;
+- valor mínimo mensal de gestão;
+- indexador/reajuste dos mínimos, quando existir;
+- se custódia, escrituração, controladoria, agente de recebimento ou gestão estiverem embutidos na Taxa de Administração;
+- mudanças relevantes entre versões antigas e vigente.
+
+Produza tabela padronizada `structural_costs.csv` com colunas:
+- `Fundo`;
+- `CNPJ`;
+- `Item` (`Administração` ou `Gestão`);
+- `Percentual a.a.`;
+- `Mínimo mensal`;
+- `Fonte`;
+- `Versão vigente / base documental`;
+- `Mudanças relevantes`;
+- `Status curadoria`.
+
+Regras:
+- Não misture taxa de administração com taxa de gestão quando o regulamento separar ambas.
+- Se gestão estiver embutida na administração, escreva isso explicitamente.
+- Se não houver mínimo mensal separado, escreva `Sem mínimo mensal separado identificado`.
+- Se houver tabela escalonada por PL, preserve as faixas.
+- Se houver múltiplas versões, use a vigente mais recente e registre alteração material relevante.
+- Se a informação não aparecer, registre lacuna explícita com fonte da busca, nunca zero.
+
+ETAPA 5 — REGULAMENTO MAIS RECENTE E CRITÉRIOS MONITORÁVEIS:
 Para cada fundo, identifique o regulamento/documento vigente mais recente disponível.
 
 Extraia critérios monitoráveis ou parcialmente monitoráveis via IME:
@@ -299,7 +337,7 @@ Para cada critério, registre:
 
 Não transforme regra jurídica em métrica se o IME não tiver granularidade suficiente.
 
-ETAPA 5 — CONFRONTO COM DADOS ESTRUTURADOS DO APP:
+ETAPA 6 — CONFRONTO COM DADOS ESTRUTURADOS DO APP:
 Compare achados documentais com os dados estruturados já usados pelo app:
 - IME / Fundos.NET;
 - `build_monitoring_tables`;
@@ -314,19 +352,21 @@ Separe:
 - divergências;
 - limitações metodológicas.
 
-ETAPA 6 — PERSISTÊNCIA:
+ETAPA 7 — PERSISTÊNCIA:
 Crie ou atualize arquivos específicos da carteira, seguindo padrão auditável:
 - `data/regulatory_profiles/<slug_carteira>_cotas_emissoes_pagamentos.csv`
 - `data/regulatory_profiles/<slug_carteira>_criteria_monitoraveis_ime.csv`
+- `data/regulatory_profiles/structural_costs.csv` ou `data/regulatory_profiles/<slug_carteira>_structural_costs.csv`, conforme padrão disponível
 - `data/deep_dives/<deep_dive_id>/tables/emissions.csv`
 - `data/deep_dives/<deep_dive_id>/tables/thresholds.csv`
+- `data/deep_dives/<deep_dive_id>/tables/structural_costs.csv`
 - `data/deep_dives/<deep_dive_id>/tables/comparison_main.csv`
 - `data/deep_dives/<deep_dive_id>/evidence/performance_metrics_enriched.csv`
 - `data/deep_dives/<deep_dive_id>/manifest.json`
 
 Se o gerador ainda não suportar uma curadoria específica para esta carteira, implemente a menor generalização segura, sem hardcode frágil, sem quebrar Pravaler e sem quebrar carteiras já existentes.
 
-ETAPA 7 — FORMATO DO COMPARATIVO:
+ETAPA 8 — FORMATO DO COMPARATIVO:
 A tabela principal deve ter:
 - primeira coluna: `Nome`;
 - demais colunas: um fundo por coluna;
@@ -339,11 +379,12 @@ A tabela principal deve ter:
 - linhas para eventos de avaliação/liquidação;
 - linhas para reserva/caixa;
 - linhas para hedges permitidos;
+- linhas ou tabela dedicada para custos estruturais de administração/gestão;
 - linhas para lacunas relevantes.
 
 Texto longo deve quebrar de forma legível no Streamlit e no PPTX. Não deixe `...` truncando cronogramas ou emissões.
 
-ETAPA 8 — PPTX EDITÁVEL:
+ETAPA 9 — PPTX EDITÁVEL:
 Gere PPTX QA com `services.deep_dive_ppt_export.build_deep_dive_pptx_bytes`.
 Verifique:
 - tabelas reais editáveis;
@@ -354,13 +395,14 @@ Verifique:
 - sem rasterização;
 - layout institucional sóbrio.
 
-ETAPA 9 — VALIDAÇÕES:
+ETAPA 10 — VALIDAÇÕES:
 Antes de encerrar, rode:
 - `py_compile` nos arquivos Python alterados;
 - validação de CSV com pandas;
 - contagem de emissões por fundo;
 - checagem de remuneração vazia;
 - checagem de amortização/vencimento vazio;
+- checagem de `structural_costs.csv` com linhas para administração e gestão por fundo;
 - checagem de colunas esperadas em `comparison_main.csv`;
 - geração e abertura estrutural do PPTX via `python-pptx`;
 - `git diff --check`.
@@ -370,10 +412,11 @@ Critérios mínimos:
 - nenhuma lacuna deve virar zero;
 - cada emissão deve ter fonte;
 - cada threshold deve ter fonte;
+- cada custo estrutural deve ter fonte ou lacuna explícita;
 - o pacote deve aparecer na aba Deep Dive;
 - o PPTX deve ser editável.
 
-ETAPA 10 — ENTREGA:
+ETAPA 11 — ENTREGA:
 Informe:
 - carteira processada;
 - CNPJs processados;
@@ -381,6 +424,7 @@ Informe:
 - número de emissões/classes detectadas por fundo;
 - principais spreads/benchmarks encontrados;
 - principais lacunas;
+- custos estruturais de administração/gestão e mínimos mensais encontrados;
 - critérios monitoráveis por IME;
 - arquivos alterados;
 - validações realizadas;

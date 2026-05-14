@@ -55,6 +55,14 @@
       "first_column": "Nome"
     },
     {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
+      "kind": "source_table",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo"
+    },
+    {
       "id": "emissions",
       "title": "Cronograma de emissões",
       "kind": "source_table",
@@ -73,7 +81,8 @@
     "warnings": [
       "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
       "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
-      "Tabela principal com 31 linhas; contagem documental foi substituída por páginas locais analisadas."
+      "Tabela principal com 31 linhas; contagem documental foi substituída por páginas locais analisadas.",
+      "Custos estruturais incluídos a partir de data/regulatory_profiles/structural_costs.csv; lacunas permanecem explícitas quando não há curadoria documental para o CNPJ."
     ]
   }
 }

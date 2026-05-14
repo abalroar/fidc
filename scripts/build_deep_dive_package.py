@@ -37,6 +37,19 @@ GLOBAL_DOCUMENT_INVENTORY = REPORTS / "regulatory_document_inventory.csv"
 GLOBAL_CURATION_STATUS = REPORTS / "all_fidcs_regulatory_curation_status.csv"
 GLOBAL_CRITERIA_MATRIX = REPORTS / "regulatory_criteria_matrix.csv"
 REGULATORY_PROFILES = ROOT / "data" / "regulatory_profiles"
+GLOBAL_STRUCTURAL_COSTS = REGULATORY_PROFILES / "structural_costs.csv"
+
+STRUCTURAL_COST_COLUMNS = [
+    "Fundo",
+    "CNPJ",
+    "Item",
+    "Percentual a.a.",
+    "Mínimo mensal",
+    "Fonte",
+    "Versão vigente / base documental",
+    "Mudanças relevantes",
+    "Status curadoria",
+]
 
 
 def main() -> None:
@@ -63,6 +76,7 @@ def build_sellers_mercado_credito_package(args: argparse.Namespace) -> None:
     performance = read_csv(REPORTS / "sellers_mercado_credito_performance_metrics.csv")
     threshold_versions = build_threshold_versions_for_coverage(coverage)
     emissions = build_emissions_for_coverage(coverage)
+    structural_costs = build_structural_costs_for_coverage(coverage)
 
     performance = enrich_performance_from_local_ime_cache(performance, coverage)
     emission_rows = build_emission_rows(emissions, coverage)
@@ -70,6 +84,7 @@ def build_sellers_mercado_credito_package(args: argparse.Namespace) -> None:
     comparison.to_csv(package_dir / "tables" / "comparison_main.csv", index=False)
     build_emission_schedule_table(emission_rows).to_csv(package_dir / "tables" / "emissions.csv", index=False)
     build_latest_thresholds_table(threshold_versions, coverage).to_csv(package_dir / "tables" / "thresholds.csv", index=False)
+    structural_costs.to_csv(package_dir / "tables" / "structural_costs.csv", index=False)
     performance.to_csv(package_dir / "evidence" / "performance_metrics_enriched.csv", index=False)
     for name in [
         "sellers_mercado_credito_document_by_document_digest.csv",
@@ -82,7 +97,7 @@ def build_sellers_mercado_credito_package(args: argparse.Namespace) -> None:
         target = package_dir / ("notes" if source.suffix == ".md" else "evidence") / source.name
         target.write_bytes(source.read_bytes())
 
-    manifest = build_manifest(args, coverage, comparison)
+    manifest = build_manifest(args, coverage, comparison, structural_costs=structural_costs)
     (package_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
     write_deep_dive_index(args.output_root)
     print(f"Pacote criado em {package_dir.relative_to(ROOT)}")
@@ -109,12 +124,14 @@ def build_portfolio_package(args: argparse.Namespace, portfolio: PortfolioRecord
     performance = enrich_performance_from_local_ime_cache(pd.DataFrame(), coverage)
     threshold_versions = build_threshold_versions_for_coverage(coverage)
     emissions = build_emissions_for_coverage(coverage)
+    structural_costs = build_structural_costs_for_coverage(coverage)
     emission_rows = build_emission_rows(emissions, coverage)
     comparison = build_comparison_main(coverage, performance, threshold_versions, emissions)
 
     comparison.to_csv(package_dir / "tables" / "comparison_main.csv", index=False)
     build_emission_schedule_table(emission_rows).to_csv(package_dir / "tables" / "emissions.csv", index=False)
     build_latest_thresholds_table(threshold_versions, coverage).to_csv(package_dir / "tables" / "thresholds.csv", index=False)
+    structural_costs.to_csv(package_dir / "tables" / "structural_costs.csv", index=False)
     performance.to_csv(package_dir / "evidence" / "performance_metrics_enriched.csv", index=False)
     coverage.to_csv(package_dir / "evidence" / "document_coverage.csv", index=False)
 
@@ -128,6 +145,7 @@ def build_portfolio_package(args: argparse.Namespace, portfolio: PortfolioRecord
         ),
         coverage,
         comparison,
+        structural_costs=structural_costs,
     )
     (package_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"Pacote criado em {package_dir.relative_to(ROOT)}")
@@ -461,7 +479,79 @@ def build_emissions_for_coverage(coverage: pd.DataFrame) -> pd.DataFrame:
     return combined.drop_duplicates("_dedupe", keep="last").drop(columns=["_dedupe"], errors="ignore")
 
 
-def build_manifest(args: argparse.Namespace, coverage: pd.DataFrame, comparison: pd.DataFrame) -> dict[str, object]:
+def build_structural_costs_for_coverage(coverage: pd.DataFrame) -> pd.DataFrame:
+    funds: list[dict[str, str]] = []
+    if not coverage.empty:
+        for _, row in coverage.iterrows():
+            funds.append({"cnpj": str(row.get("cnpj") or ""), "name": str(row.get("fundo") or "")})
+    return build_structural_costs_for_funds(funds)
+
+
+def build_structural_costs_for_funds(funds: list[dict[str, str]]) -> pd.DataFrame:
+    frames = [read_csv(GLOBAL_STRUCTURAL_COSTS)]
+    frames.extend(read_csv(path) for path in sorted(REGULATORY_PROFILES.glob("*_structural_costs.csv")))
+    profile = pd.concat([frame for frame in frames if not frame.empty], ignore_index=True, sort=False) if any(not frame.empty for frame in frames) else pd.DataFrame()
+    if not profile.empty:
+        profile = profile.reindex(columns=STRUCTURAL_COST_COLUMNS, fill_value="")
+        profile["_cnpj_norm"] = profile["CNPJ"].map(normalize_cnpj)
+        profile["_item_norm"] = profile["Item"].map(lambda value: str(value or "").strip().lower())
+    rows: list[dict[str, str]] = []
+    for fund in funds:
+        cnpj = normalize_cnpj(fund.get("cnpj"))
+        fund_name = str(fund.get("name") or fund.get("short_name") or fund.get("cnpj") or "").strip()
+        for item in ("Administração", "Gestão"):
+            matched = pd.DataFrame()
+            if not profile.empty:
+                matched = profile[(profile["_cnpj_norm"].eq(cnpj)) & (profile["_item_norm"].eq(item.lower()))]
+            if not matched.empty:
+                row = {column: display(matched.iloc[-1].get(column)) for column in STRUCTURAL_COST_COLUMNS}
+                if row["Fundo"] == "—":
+                    row["Fundo"] = fund_name
+                if row["CNPJ"] == "—":
+                    row["CNPJ"] = format_cnpj(cnpj)
+                rows.append(row)
+            else:
+                rows.append(
+                    {
+                        "Fundo": fund_name,
+                        "CNPJ": format_cnpj(cnpj),
+                        "Item": item,
+                        "Percentual a.a.": "curadoria específica ainda não carregada",
+                        "Mínimo mensal": "curadoria específica ainda não carregada",
+                        "Fonte": "lacuna: CNPJ sem linha curada em data/regulatory_profiles/*structural_costs.csv",
+                        "Versão vigente / base documental": "—",
+                        "Mudanças relevantes": "—",
+                        "Status curadoria": "lacuna explícita",
+                    }
+                )
+    return pd.DataFrame(rows, columns=STRUCTURAL_COST_COLUMNS)
+
+
+def structural_cost_table_spec() -> dict[str, str]:
+    return {
+        "id": "structural_costs",
+        "title": "Custos estruturais",
+        "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
+        "kind": "source_table",
+        "source_file": "tables/structural_costs.csv",
+        "first_column": "Fundo",
+    }
+
+
+def ensure_structural_cost_table_spec(tables: list[dict[str, str]]) -> list[dict[str, str]]:
+    filtered = [table for table in tables if table.get("id") != "structural_costs"]
+    insert_at = 1 if filtered and filtered[0].get("id") == "comparison_main" else len(filtered)
+    filtered.insert(insert_at, structural_cost_table_spec())
+    return filtered
+
+
+def build_manifest(
+    args: argparse.Namespace,
+    coverage: pd.DataFrame,
+    comparison: pd.DataFrame,
+    *,
+    structural_costs: pd.DataFrame | None = None,
+) -> dict[str, object]:
     funds = []
     if not coverage.empty:
         for _, row in coverage.iterrows():
@@ -483,7 +573,7 @@ def build_manifest(args: argparse.Namespace, coverage: pd.DataFrame, comparison:
         "source": "Extração offline local · CVM/Fundos.NET · IME cache",
         "confidentiality": "Uso interno",
         "funds": funds,
-        "tables": [
+        "tables": ensure_structural_cost_table_spec([
             {
                 "id": "comparison_main",
                 "title": "Comparativo principal",
@@ -506,11 +596,12 @@ def build_manifest(args: argparse.Namespace, coverage: pd.DataFrame, comparison:
                 "source_file": "tables/thresholds.csv",
                 "first_column": "fundo",
             },
-        ],
+        ]),
         "audit": {
             "warnings": [
                 "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
                 "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
+                f"Custos estruturais: {len(structural_costs) if structural_costs is not None else 0} linhas com taxa de administração/gestão e mínimos mensais quando curados.",
                 f"Tabela principal com {len(comparison)} linhas; contagem documental foi substituída por páginas locais analisadas.",
             ]
         },
