@@ -51,6 +51,18 @@ class WaterfallScheduleTest(unittest.TestCase):
         self.assertAlmostEqual(970_000, sum(amount for _, amount in schedule))
         self.assertTrue(warnings)
 
+    def test_document_rounding_near_100_is_adjusted_to_principal(self):
+        _, schedule, warnings = parse_amortization_schedule(
+            "23/05/2029 11,67%; 23/06/2029 11,67%; 23/07/2029 11,67%; "
+            "23/08/2029 11,67%; 23/09/2029 11,67%; 23/10/2029 11,67%; "
+            "23/11/2029 5,00%; 23/12/2029 5,00%; 23/01/2030 5,00%; "
+            "23/02/2030 5,00%; 23/03/2030 5,00%; 23/04/2030 5,00%",
+            1_000_000,
+        )
+
+        self.assertAlmostEqual(1_000_000, sum(amount for _, amount in schedule))
+        self.assertEqual((), warnings)
+
     def test_incremental_sum_invalid(self):
         with self.assertRaises(ValueError):
             parse_amortization_schedule("50% em jan/27, 50% em fev/27, 50% em mar/27", 1_000_000)
@@ -82,6 +94,18 @@ class WaterfallScheduleTest(unittest.TestCase):
 
         self.assertFalse(schedules[0].included)
         self.assertIn("Amortização não mapeada", schedules[0].exclusion_reason)
+
+    def test_curated_cloudwalk_file_includes_mapped_senior_series(self):
+        schedules = load_cloudwalk_emissions("data/regulatory_profiles/cloudwalk_cotas_emissoes_pagamentos.csv")
+        included = [schedule for schedule in schedules if schedule.included]
+        included_cnpjs = {schedule.cnpj for schedule in included}
+        conventions = {(schedule.cnpj, schedule.classe): schedule.convention for schedule in included}
+
+        self.assertGreaterEqual(len(included), 5)
+        self.assertIn("57.609.282/0001-46", included_cnpjs)
+        self.assertIn("60.356.171/0001-80", included_cnpjs)
+        self.assertIn("62.393.679/0001-83", included_cnpjs)
+        self.assertEqual("cumulative", conventions[("57.609.282/0001-46", "1ª série sênior")])
 
     def test_waterfall_consolidation(self):
         schedules = [

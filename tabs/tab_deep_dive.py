@@ -21,6 +21,14 @@ from services.ime_loader import load_or_extract_informe
 from services.ime_period import current_default_end_month, shift_month
 from services.monitoring_metrics import build_monitoring_tables, read_wide_csv
 from services.portfolio_store import portfolio_basket_signature
+from services.waterfall_schedule import (
+    DEFAULT_CLOUDWALK_EMISSIONS,
+    DEFAULT_WATERFALL_OUTPUT_DIR,
+    build_waterfall_schedule,
+    export_waterfall,
+    load_cloudwalk_emissions,
+    load_waterfall_inputs,
+)
 from tabs.ime_portfolio_support import (
     build_portfolio_record_label_lookup,
     list_saved_portfolios,
@@ -395,6 +403,8 @@ def render_tab_deep_dive() -> None:
     with st.expander("Prompt para atualizar Deep Dives", expanded=False):
         st.code(_REVERSE_ENGINEERING_PROMPT, language="markdown")
 
+    _render_cloudwalk_waterfall()
+
     if not manifests:
         st.info("Nenhum pacote em `data/deep_dives/`.")
         return
@@ -489,6 +499,91 @@ def render_tab_deep_dive() -> None:
             st.markdown("**Atualização IME ao vivo**")
             st.dataframe(live_audit, hide_index=True, use_container_width=True)
         st.dataframe(_source_files_df(manifest), hide_index=True, use_container_width=True)
+
+
+def _render_cloudwalk_waterfall() -> None:
+    with st.expander("Waterfall Cloudwalk", expanded=False):
+        try:
+            artifacts = _load_cloudwalk_waterfall_artifacts()
+        except Exception as exc:  # noqa: BLE001
+            st.error("Não foi possível carregar o waterfall Cloudwalk.")
+            st.caption(f"Detalhe técnico: {type(exc).__name__}: {exc}")
+            return
+
+        summary = artifacts["summary"]
+        cols = st.columns(4)
+        cols[0].metric("Séries sênior incluídas", summary["included"])
+        cols[1].metric("Linhas excluídas", summary["excluded"])
+        cols[2].metric("Saldo inicial", f"R$ {_br_number(summary['initial_balance'] / 1_000_000, 0)} mi")
+        cols[3].metric("Última amortização", summary["last_date"] or "—")
+
+        if artifacts["plot_png"]:
+            st.image(artifacts["plot_png"], use_container_width=True)
+
+        dl_cols = st.columns(3)
+        with dl_cols[0]:
+            st.download_button(
+                "Baixar waterfall CSV",
+                data=artifacts["waterfall_csv"],
+                file_name="waterfall_cloudwalk.csv",
+                mime="text/csv",
+                use_container_width=True,
+            )
+        with dl_cols[1]:
+            st.download_button(
+                "Baixar relatório",
+                data=artifacts["report_csv"],
+                file_name="waterfall_inclusion_report.csv",
+                mime="text/csv",
+                use_container_width=True,
+            )
+        with dl_cols[2]:
+            st.download_button(
+                "Baixar gráfico PNG",
+                data=artifacts["plot_png"],
+                file_name="waterfall_cloudwalk_plot.png",
+                mime="image/png",
+                use_container_width=True,
+                disabled=not bool(artifacts["plot_png"]),
+            )
+
+        st.dataframe(artifacts["waterfall_df"], hide_index=True, use_container_width=True)
+        with st.expander("Relatório de inclusão/exclusão", expanded=False):
+            st.dataframe(artifacts["report_df"], hide_index=True, use_container_width=True)
+
+
+@st.cache_data(ttl=600, show_spinner=False)
+def _load_cloudwalk_waterfall_artifacts() -> dict[str, Any]:
+    inputs = load_waterfall_inputs(Path("config/waterfall_cloudwalk_inputs.json"))
+    schedules = load_cloudwalk_emissions(DEFAULT_CLOUDWALK_EMISSIONS, reference_date=inputs["reference_date"])
+    rows = build_waterfall_schedule(
+        schedules,
+        inputs["caixa_inicial"],
+        inputs["recebiveis"],
+        reference_date=inputs["reference_date"],
+    )
+    paths = export_waterfall(rows, schedules, DEFAULT_WATERFALL_OUTPUT_DIR)
+    waterfall_path = Path(paths["waterfall_csv"])
+    report_path = Path(paths["inclusion_report_csv"])
+    plot_path = Path(paths["plot_png"])
+    waterfall_df = pd.read_csv(waterfall_path, keep_default_na=False)
+    report_df = pd.read_csv(report_path, keep_default_na=False)
+    included = [schedule for schedule in schedules if schedule.included]
+    summary = {
+        "included": len(included),
+        "excluded": len(schedules) - len(included),
+        "initial_balance": sum(schedule.saldo_atual for schedule in included),
+        "last_date": max((item_date for schedule in included for item_date, _ in schedule.schedule), default=None),
+    }
+    summary["last_date"] = summary["last_date"].isoformat() if summary["last_date"] else ""
+    return {
+        "summary": summary,
+        "waterfall_df": waterfall_df,
+        "report_df": report_df,
+        "waterfall_csv": waterfall_path.read_bytes(),
+        "report_csv": report_path.read_bytes(),
+        "plot_png": plot_path.read_bytes() if plot_path.exists() else b"",
+    }
 
 
 def _render_manifest_header(manifest: Any) -> None:

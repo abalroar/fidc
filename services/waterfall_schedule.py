@@ -137,6 +137,10 @@ def parse_amortization_schedule(
         raise ValueError(warnings[0])
 
     values = [(item_date, volume_emitido * pct / 100.0) for item_date, pct in zip(dates, incremental_percentages)]
+    if values and abs(sum(incremental_percentages) - 100.0) <= 0.1:
+        current_total = sum(amount for _, amount in values)
+        final_date, final_amount = values[-1]
+        values[-1] = (final_date, max(final_amount + (volume_emitido - current_total), 0.0))
     return convention, values, warnings
 
 
@@ -432,7 +436,7 @@ def _waterfall_frame(rows: list[WaterfallRow]) -> pd.DataFrame:
         }
         for fund in fund_columns:
             item[fund] = row.breakdown.get(fund, 0.0)
-        output.append(item)
+        output.append({key: round(value, 2) if isinstance(value, float) else value for key, value in item.items()})
     return pd.DataFrame(
         output,
         columns=[
