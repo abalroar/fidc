@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "fund_name": "CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA",
+  "fund_cnpj": "63.953.620/0001-65",
+  "generated_at": "2026-05-14T14:16:22Z",
+  "documents": [
+    {
+      "id": 1087883,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Emissão de Cotas",
+      "especie": "",
+      "classification": "assembleia",
+      "data_referencia": "08/01/2026",
+      "data_entrega": "19/01/2026 21:35",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/63953620000165/1087883_assembleia_assembleia_1087883_2026-01-08.pdf"
+    },
+    {
+      "id": 1167032,
+      "categoria": "Relatórios",
+      "tipo": "Outros Relatórios",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "21/01/2026",
+      "data_entrega": "20/04/2026 23:11",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1177607,
+      "categoria": "Outras Demonstrações Financeiras ",
+      "tipo": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "02/02/2026",
+      "data_entrega": "30/04/2026 18:18",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1119041,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Emissão de Cotas",
+      "especie": "",
+      "classification": "assembleia",
+      "data_referencia": "18/02/2026",
+      "data_entrega": "20/02/2026 18:37",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/63953620000165/1119041_assembleia_assembleia_1119041_2026-02-18.pdf"
+    },
+    {
+      "id": 1142756,
+      "categoria": "Assembleia",
+      "tipo": "AGO",
+      "especie": "Ata da Assembleia",
+      "classification": "assembleia",
+      "data_referencia": "17/03/2026 08:00",
+      "data_entrega": "23/03/2026 20:23",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/63953620000165/1142756_assembleia_assembleia_1142756_2026-03-17.pdf"
+    }
+  ],
+  "criteria": [],
+  "eligibility_criteria": [],
+  "emissions": [
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "cotas seniores das Classes (“Cotas Seniores”)",
+      "amount": 15000000000.0,
+      "amount_display": "R$ 15.000.000.000,00",
+      "currency": "R$",
+      "remuneration": "",
+      "amortization_schedule": "",
+      "maturity": "ação Privada: R$ 15.000.000.000,00 (quinze bilhões de reais); b. Quantidade de Cotas : 15.000.000 ( quinze milhões) de Cotas Seniore s; c. Preço de Emissão (Valor Unitário) : R$ 1.000,00 (mil reais); d. Forma e Preço de Integralização: as Cotas serão integralizadas na forma prevista no Boletim de Subscrição; e. Prazo da Colocação Privada : as Cotas serão colocadas em até 180 (cento e oitenta) dias da data dest e IPA…",
+      "source_excerpt": ".2, 6.8.3 e 6.8.4 ; (iii) No Anexo III , (a) alterar o item 4.20.1, 6.8 e o Capítulo 13, (b) incluir o item 3.1, 8.1.(ii), 8.2, 8.2.1, e 10.2.(xvii); e (c) excluir os itens 6.8.1, 6.8.2, 6.8.3 e 6.8.4; (iv) No Anexo IV , (a) alterar o item 4.15.1, 6.8 e o Capítulo 13, (b) incluir o item 3.1, 8.1.(ii), 8.2, 8.2.1, e 10.2.(xvii); e (c) excluir os itens 6.8.1, 6.8.2, 6.8.3 e 6.8.4; (v) O Regulamento consolidado segue n…",
+      "source_document": "1087883_assembleia_assembleia_1087883_2026-01-08.pdf",
+      "source_document_id": 1087883
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": 1000000000.0,
+      "amount_display": "R$ 1.000.000.000,00",
+      "currency": "R$",
+      "remuneration": "",
+      "amortization_schedule": "",
+      "maturity": "",
+      "source_excerpt": "ÁRIOS, com sede no município do Rio de Janeiro, Estado do Rio de Janeiro, na Praia de Botaf ogo, nº 501, Torre Corcovado, 5º andar – parte, Botafogo, CEP 22250-040, inscrita no Cadastro Nacional da Pessoa Jurídica (“CNPJ”) sob o nº 59.281.253/0001-23, devidamente autorizada pela Comissão de Valores Mobiliários (“CVM”) para a atividade de administração de carteiras de valores mobiliários, de acordo com o Ato Declarat…",
+      "source_document": "1119041_assembleia_assembleia_1119041_2026-02-18.pdf",
+      "source_document_id": 1119041
+    }
+  ],
+  "extraction_count": 3,
+  "extraction_errors": []
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "fund_name": "V CDT 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+  "fund_cnpj": "62.552.447/0001-20",
+  "generated_at": "2026-05-14T14:04:58Z",
+  "documents": [
+    {
+      "id": 1034494,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "09/2025",
+      "data_entrega": "12/11/2025 08:41",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 988020,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Emissão de Cotas",
+      "especie": "",
+      "classification": "assembleia",
+      "data_referencia": "03/09/2025",
+      "data_entrega": "10/09/2025 18:25",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/62552447000120/988020_assembleia_assembleia_988020_2025-09-03.pdf"
+    },
+    {
+      "id": 1110293,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "12/2025",
+      "data_entrega": "12/02/2026 12:20",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    }
+  ],
+  "criteria": [],
+  "eligibility_criteria": [],
+  "emissions": [
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": 1000000.0,
+      "amount_display": "R$ 1.000.000,00",
+      "currency": "R$",
+      "remuneration": "",
+      "amortization_schedule": "da Classe descrita no Anexo da Classe, os recursos líquidos da Colocação Privada serão destinados à aquisição de Direitos Creditórios , que atendam aos Critérios de Elegibilidade e às Condições de Endosso (conforme definidos no Anexo da Classe), e Ativos Financeiros (conforme definidos no Anexo da Classe) . Forma de Amortização das Cotas: observada a ordem de alocação de recursos descrita no Capítulo 8 do Anexo da C…",
+      "maturity": "º 5.968, de 10 de maio de 2000 (“Gestora” e , quando em conjunto com a Administradora , “Prestadores de Serviços Essenciais ”), RESOLVEM: (i) Constituir um Fundo de Investimento, classificado, nos termos da legislação aplicável, como “Fundo de Investimento em Direitos Creditórios”, sob a forma de condomínio fechado, com prazo de duração indeterminado, nos termos da Resolução do Conselho Monetário Nacional nº 2.907,…",
+      "source_excerpt": "esolução CVM 175 (“Regulamento” e “Anexo da Classe”, respectivamente); (iii) Aprovar o que o patrimônio líquido inicial mínimo da Classe, correspondente à soma dos ativos e das disponibilidades integrantes da carteira de investimentos da Classe, deduzidas as exigibilidades da Classe, será equivalente a R$ 1.000.000,00 (um milhão de reais), observado o prazo do artigo 8º, § 3º, da parte geral da Resolução CVM 175; Cl…",
+      "source_document": "988020_assembleia_assembleia_988020_2025-09-03.pdf",
+      "source_document_id": 988020
+    }
+  ],
+  "extraction_count": 1,
+  "extraction_errors": []
+}

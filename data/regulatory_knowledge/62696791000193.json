@@ -1,0 +1,384 @@
+{
+  "schema_version": 1,
+  "fund_name": "BTG PACTUAL CERES CONFINA FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESP LIMITADA",
+  "fund_cnpj": "62.696.791/0001-93",
+  "generated_at": "2026-05-14T14:04:46Z",
+  "documents": [
+    {
+      "id": 1114465,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "12/2025",
+      "data_entrega": "13/02/2026 15:39",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1143317,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "20/03/2026",
+      "data_entrega": "24/03/2026 16:57",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/62696791000193/1143317_regulamento_regulamento_1143317_2026-03-20.pdf"
+    },
+    {
+      "id": 1143319,
+      "categoria": "Assembleia",
+      "tipo": "AGE",
+      "especie": "Ata da Assembleia",
+      "classification": "assembleia",
+      "data_referencia": "20/03/2026 10:00",
+      "data_entrega": "24/03/2026 16:58",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/62696791000193/1143319_assembleia_assembleia_1143319_2026-03-20.pdf"
+    },
+    {
+      "id": 1148821,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Emissão de Cotas",
+      "especie": "",
+      "classification": "assembleia",
+      "data_referencia": "27/03/2026",
+      "data_entrega": "30/03/2026 19:05",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/62696791000193/1148821_assembleia_assembleia_1148821_2026-03-27.pdf"
+    }
+  ],
+  "criteria": [
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.05,
+      "threshold_unit": "ratio",
+      "threshold_display": "5%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "nte realizadas; e (ii) o resultado da divisão do valor do Patrimônio Líquido apurado para o respectivo dia, pelo número de Cotas Seniores em circulação na respectiva data de cálculo; observado que, caso o Valor Unitário calculado no Dia Útil anterior seja distinto para a Subclasse ou Série, referida divisão será realizada ponderando -se os Valores Unitários das Cotas Seniores de cada Subclasse ou Série. 4. Índice de…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1143317_regulamento_regulamento_1143317_2026-03-20.pdf",
+      "source_document_id": 1143317,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.05,
+      "threshold_unit": "ratio",
+      "threshold_display": "5%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "do da divisão do valor do Patrimônio Líquido apurado para o respectivo dia, pelo número de Cotas Seniores em circulação na respectiva data de cálculo; observado que, caso o Valor Unitário calculado no Dia Útil anterior seja distinto para a Subclasse ou Série, referida divisão será realizada ponderando -se os Valores Unitários das Cotas Seniores de cada Subclasse ou Série. 4. Índice de Subordinação Sênior e Excesso d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1143317_regulamento_regulamento_1143317_2026-03-20.pdf",
+      "source_document_id": 1143317,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.05,
+      "threshold_unit": "ratio",
+      "threshold_display": "5%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "úmero de Cotas Seniores em circulação na respectiva data de cálculo; observado que, caso o Valor Unitário calculado no Dia Útil anterior seja distinto para a Subclasse ou Série, referida divisão será realizada ponderando -se os Valores Unitários das Cotas Seniores de cada Subclasse ou Série. 4. Índice de Subordinação Sênior e Excesso de Subordinação 4.1. Após a Data da 1ª Integralização de Cotas Seniores, o Índice d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1143317_regulamento_regulamento_1143317_2026-03-20.pdf",
+      "source_document_id": 1143317,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.05,
+      "threshold_unit": "ratio",
+      "threshold_display": "5%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "so o Valor Unitário calculado no Dia Útil anterior seja distinto para a Subclasse ou Série, referida divisão será realizada ponderando -se os Valores Unitários das Cotas Seniores de cada Subclasse ou Série. 4. Índice de Subordinação Sênior e Excesso de Subordinação 4.1. Após a Data da 1ª Integralização de Cotas Seniores, o Índice de Subordinação Sênior deverá ser igual ou superior a 5% (cinco por cento) (“ Índice de…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1143317_regulamento_regulamento_1143317_2026-03-20.pdf",
+      "source_document_id": 1143317,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.05,
+      "threshold_unit": "ratio",
+      "threshold_display": "5%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "eventualmente realizadas; e (ii) o resultado da divisão do valor do Patrimônio Líquido apurado para o respectivo dia, pelo número de Cotas Seniores em circulação na respectiva data de cálculo; observado que, caso o Valor Unitário calculado no Dia Útil anterior seja distinto para a Subclasse ou Série, referida divisão será realizada ponderando -se os Valores Unitários das Cotas Seniores de cada Subclasse ou Série. 4.…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1143317_regulamento_regulamento_1143317_2026-03-20.pdf",
+      "source_document_id": 1143317,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.5,
+      "threshold_unit": "ratio",
+      "threshold_display": "50%",
+      "comparison": ">=",
+      "formula_text": ") e/ou, ainda, em qua isquer dos seguintes ativos de origem vinculada às cadeias produtivas do agronegócio (“Outros Ativos”): (A) Categoria “Imobiliária” (“Ativos Imobiliários do Agronegócio”): (i) quaisquer direitos reais sobre imóveis rurais; (ii) direitos creditórios imobiliários relativos a imóveis rurais; e (iii) certificados de recebíveis imobiliários e outros títulos de securitização emitidos com lastro em di…",
+      "source_excerpt": ") e/ou, ainda, em qua isquer dos seguintes ativos de origem vinculada às cadeias produtivas do agronegócio (“Outros Ativos”): (A) Categoria “Imobiliária” (“Ativos Imobiliários do Agronegócio”): (i) quaisquer direitos reais sobre imóveis rurais; (ii) direitos creditórios imobiliários relativos a imóveis rurais; e (iii) certificados de recebíveis imobiliários e outros títulos de securitização emitidos com lastro em di…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1143317_regulamento_regulamento_1143317_2026-03-20.pdf",
+      "source_document_id": 1143317,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Limite de concentração",
+      "canonical_key": "concentration_limits",
+      "event_type": "elegibilidade",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "terceiros que não sejam partes relacionadas ao Gestor. 4.8.1 As aplicações em Direitos Creditórios do Agronegócio decorrentes de receitas públicas originárias ou derivadas da União, dos Estados, do Distrito Federal e dos Municípios ou de suas autarquias e fundações, assim como em Direitos Creditórios do Agronegócio cedidos ou originados por empresas controladas pelo poder público, não estão submetidas ao limite de c…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1143317_regulamento_regulamento_1143317_2026-03-20.pdf",
+      "source_document_id": 1143317,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Limites por sacado, cedente ou grupo econômico exigem granularidade não disponível no IME público."
+      }
+    },
+    {
+      "name": "Limite de concentração",
+      "canonical_key": "concentration_limits",
+      "event_type": "elegibilidade",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "esolução CVM 175, o Gestor deverá assegurar que, na consolidação das aplicações da Classe com as dos fundos investidos, o limite permanece observado, ficando dispensada a consolidação no caso de aplicações em fundos investidos geridos por terceiros que não sejam partes relacionadas ao Gestor. 4.10 Sem prejuízo de limites mais restritivos definidos neste Anexo, o Gestor deverá observar, ainda, os seguintes limites de…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1143317_regulamento_regulamento_1143317_2026-03-20.pdf",
+      "source_document_id": 1143317,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Limites por sacado, cedente ou grupo econômico exigem granularidade não disponível no IME público."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "artes relacionadas ao originador ou Cedente. (ii) No máximo, 100% ( cem por cento) do Patrimônio Líquido investido em Ativos Financeiros de Liquidez de emissão ou que envolvam retenção de risco por parte do Administrador, Gestor, e/ou suas partes relacionadas, observado ainda o disposto no item Error! Reference source not found.; (iii) No máximo, 100% (cem por cento) do Patrimônio Líquido investido em operações com…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1143317_regulamento_regulamento_1143317_2026-03-20.pdf",
+      "source_document_id": 1143317,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": 0.1,
+      "threshold_unit": "ratio",
+      "threshold_display": "10%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": ".4 Para fins deste Anexo, “Capital Comprometido” significa o montante total subscrito que os Cotistas se comprometeram a integralizar quando da assinatura dos documentos de subscrição. 4.27 A Classe não poderá realizar adiantamento para futuro aumento de capital (“AFAC”) nas Participações do Agronegócio Disposições gerais e vedações aplicáveis à classe 4.28 A Classe pode aplicar recursos em instrumentos financeiros…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1143317_regulamento_regulamento_1143317_2026-03-20.pdf",
+      "source_document_id": 1143317,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": 0.1,
+      "threshold_unit": "ratio",
+      "threshold_display": "10%",
+      "comparison": ">=",
+      "formula_text": "ivo VI da Resolução CVM 175, realizar operações da Classe quando caracterizada situação de conflito de interesses entre: (a) a Classe e o Administrador, Gestor ou Consultoria Especializada; (b) a Classe e Cotistas que detenham participação correspondente a, no mínimo, 10% (dez por cento) do patrimônio da Classe; (c) a Classe e o representante de Cotistas; e (d) a Classe e o empreendedor; (x) realizar operações com d…",
+      "source_excerpt": "ivo VI da Resolução CVM 175, realizar operações da Classe quando caracterizada situação de conflito de interesses entre: (a) a Classe e o Administrador, Gestor ou Consultoria Especializada; (b) a Classe e Cotistas que detenham participação correspondente a, no mínimo, 10% (dez por cento) do patrimônio da Classe; (c) a Classe e o representante de Cotistas; e (d) a Classe e o empreendedor; (x) realizar operações com d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1143317_regulamento_regulamento_1143317_2026-03-20.pdf",
+      "source_document_id": 1143317,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.5,
+      "threshold_unit": "ratio",
+      "threshold_display": "50%",
+      "comparison": ">=",
+      "formula_text": "os títulos de securitização emitidos com lastro em direitos creditórios do agro negócio; e (iv) certificados de recebíveis e outros títulos de securitização emitidos com lastro em ativos financeiros emitidos por pessoas naturais ou jurídicas que integrem as cadeias produtivas do agronegócio. (A) Categoria “Imobiliária” (“Ativos Imobiliários do Ag ronegócio”): (i) quaisquer direitos reais sobre imóveis rurais; (ii) d…",
+      "source_excerpt": "os títulos de securitização emitidos com lastro em direitos creditórios do agro negócio; e (iv) certificados de recebíveis e outros títulos de securitização emitidos com lastro em ativos financeiros emitidos por pessoas naturais ou jurídicas que integrem as cadeias produtivas do agronegócio. (A) Categoria “Imobiliária” (“Ativos Imobiliários do Ag ronegócio”): (i) quaisquer direitos reais sobre imóveis rurais; (ii) d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1143319_assembleia_assembleia_1143319_2026-03-20.pdf",
+      "source_document_id": 1143319,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.5,
+      "threshold_unit": "ratio",
+      "threshold_display": "50%",
+      "comparison": ">=",
+      "formula_text": "m lastro em ativos financeiros emitidos por pessoas naturais ou jurídicas que integrem as cadeias produtivas do agronegócio. (A) Categoria “Imobiliária” (“Ativos Imobiliários do Ag ronegócio”): (i) quaisquer direitos reais sobre imóveis rurais; (ii) direitos creditórios imobiliários relativos a imóve is rurais; e (iii) certificados de recebíveis imobiliários e outros títulos de securitização emitidos com lastro em d…",
+      "source_excerpt": "m lastro em ativos financeiros emitidos por pessoas naturais ou jurídicas que integrem as cadeias produtivas do agronegócio. (A) Categoria “Imobiliária” (“Ativos Imobiliários do Ag ronegócio”): (i) quaisquer direitos reais sobre imóveis rurais; (ii) direitos creditórios imobiliários relativos a imóve is rurais; e (iii) certificados de recebíveis imobiliários e outros títulos de securitização emitidos com lastro em d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1143319_assembleia_assembleia_1143319_2026-03-20.pdf",
+      "source_document_id": 1143319,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rendamento mercantil e de prestação de serviços, observadas as vedações do item 4.28 abaixo deste Anexo. 4.7.2 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios do Agronegócio integrantes da carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.7.3 Na hipótese de eventuais Direitos Creditórios do Agronegócio elegíveis deixar…",
+      "source_excerpt": "rendamento mercantil e de prestação de serviços, observadas as vedações do item 4.28 abaixo deste Anexo. 4.7.2 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios do Agronegócio integrantes da carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.7.3 Na hipótese de eventuais Direitos Creditórios do Agronegócio elegíveis deixar…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ate ou amortização, ou (ii) o recebimento dos Direitos Creditórios pela Classe, a título de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (iv) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Art. 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…",
+      "source_excerpt": "ate ou amortização, ou (ii) o recebimento dos Direitos Creditórios pela Classe, a título de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (iv) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Art. 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": 1000000000.0,
+      "amount_display": "R$ 1.000.000.000,00",
+      "currency": "R$",
+      "remuneration": "as respectivas: (i) características gerais, incluindo a indicação dos demais prestadores de serviços; (ii) responsabilidade dos cotistas e regime de insolvência; (iii) condições de resgate e amortização; (iv) assembleia especial de cotistas e demais procedimentos aplicáveis às manifestações de vontade dos cotistas; (v) remuneração dos prestadores Parte Geral do Regulamento BTG PACTUAL CERES CONFINA FUNDO DE INVESTIM…",
+      "amortization_schedule": "cotas (“ Classe”), conforme aplicável, dispõe, sem prejuízo de outros requisitos e informações previstos na regulamentação, sobre as respectivas: (i) características gerais, incluindo a indicação dos demais prestadores de serviços; (ii) responsabilidade dos cotistas e regime de insolvência; (iii) condições de resgate e amortização; (iv) assembleia especial de cotistas e demais procedimentos aplicáveis às manifestaçõ…",
+      "maturity": "incisos ou itens deste Regulamento, seus Anexos e Apêndices, conforme aplicável; (iii) todos os prazos previstos neste Regulamento, seus Anexos e Apêndices serão contados na forma prevista no Artigo 224 da Lei nº 13.105, de 16 de março de 2015, conforme alterada, isto é, excluindo-se o dia do começo e incluindo- se o do vencimento; (iv) caso qualquer data em que venha a ocorrer evento nos termos deste Regulamento, s…",
+      "source_excerpt": "custodiante, de acordo com o Ato Declaratório nº 7.204, de 25 de abril de 2003 (“Custodiante”). Controladoria e Escrituração BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e Valores Mobiliários, sociedade anônima, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Corcovado, Botafogo, CEP 22250 -040, inscrita no CNPJ sob o nº 59.281.253/0001-23 e a…",
+      "source_document": "1143317_regulamento_regulamento_1143317_2026-03-20.pdf",
+      "source_document_id": 1143317
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": null,
+      "amount_display": "",
+      "currency": null,
+      "remuneration": "ivo da Classe, para permitir o investimento em ativos integrantes das cadeias produtivas do agronegócio, incluindo, além de ativos imobiliários, ativos financeiros, direitos creditórios e participações em sociedades do agronegócio, na forma abaixo : A Classe tem por objetivo proporcionar aos Cotistas a valorização e a rentabilidade de suas cotas (“Cotas”), conforme a política de investimentos definida no Capítulo IV…",
+      "amortization_schedule": "",
+      "maturity": "",
+      "source_excerpt": "sociedade por ações, com sede no município e estado do Rio de Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar – parte, Botafogo, CEP 22250-040, inscrita no Cadastro Nacional da Pessoa Jurídica (“CNPJ”) sob o nº 59.281.253/0001-23 e devidamente autorizada pela Comissão de Valores Mobiliários (“CVM”) para a atividade de administração de carteiras de valores mobiliários, de acordo com o Ato Declaratóri…",
+      "source_document": "1143319_assembleia_assembleia_1143319_2026-03-20.pdf",
+      "source_document_id": 1143319
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "Cotas Subordinadas Júnior",
+      "amount": 1000.0,
+      "amount_display": "R$ 1.000,00",
+      "currency": "R$",
+      "remuneration": "",
+      "amortization_schedule": "",
+      "maturity": "ação: as Cotas Subordinadas Júnior serão integralizadas à vista, junto ao seu respectivo agente de custódia e/ou da Administradora na qualidade de escriturador das cotas; e e) Período de colocação: a subscrição das Cotas Subordinadas Júnior objeto da 2ª Emissão da Subclasse Subordinada Júnior, deverão ser realizadas no prazo máximo de 180 (cento e oitenta) dias, contados da data do presente instrumento. 2. Aprovar a…",
+      "source_excerpt": "e), CEP 22.250-040, inscrita no CNPJ sob nº 29.650.082/0001-00, devidamente credenciada junto à CVM para operar como administradora de carteira de valores mobiliários nos termos do Ato Declaratório CVM nº 5.968, de 10 de maio de 2000 (“Gestora” e quando em conjunto com a Administradora, “Prestadores de Serviços Essenciais”), considerando que, nos termos do item 8.2 do Anexo I ao Regulamento, é permitido ao Administr…",
+      "source_document": "1148821_assembleia_assembleia_1148821_2026-03-27.pdf",
+      "source_document_id": 1148821
+    }
+  ],
+  "extraction_count": 3,
+  "extraction_errors": []
+}
