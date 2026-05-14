@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import date
 import hashlib
@@ -16,7 +17,7 @@ import pandas as pd
 import streamlit as st
 
 from services.fundonet_dashboard import build_dashboard_data
-from services.ime_loader import load_or_extract_informe
+from services.ime_loader import load_or_extract_informe, peek_cached_informe
 from services.ime_period import (
     ImePeriodSelection,
     build_custom_period,
@@ -302,13 +303,12 @@ def render_tab_fidc_monitoring(
     _render_requested_load_chips(period=period, load_period=load_period, cache_months=cache_months, fund_count=len(selected_portfolio.funds))
 
     session_key = _session_key(selected_portfolio, period, cache_months)
-    if st.button("Carregar monitoramento", type="primary", key=f"{session_key}::load"):
+    if session_key not in st.session_state:
         st.session_state[session_key] = _load_portfolio_monitoring(selected_portfolio, period, cache_months)
-        st.rerun()
 
     outputs = st.session_state.get(session_key)
     if not outputs:
-        st.info("Carregue a carteira para começar.")
+        st.info("A carteira ainda não possui dados de monitoramento para este período.")
         return
 
     success_outputs = [item for item in outputs if item.get("tables") is not None]
@@ -397,57 +397,77 @@ def _load_portfolio_monitoring(portfolio: PortfolioRecord, period: ImePeriodSele
     outputs: list[dict[str, Any]] = []
     total = len(portfolio.funds)
     load_period = _build_cache_load_period(period=period, cache_months=cache_months)
-    for index, fund in enumerate(portfolio.funds, start=1):
-        fund_started = time.perf_counter()
-        progress.progress(index / max(total, 1), text=f"{index}/{total} · {fund.display_name}")
-        try:
-            cached = load_or_extract_informe(
-                cnpj_fundo=fund.cnpj,
-                data_inicial=load_period.start_month,
-                data_final=load_period.end_month,
-            )
-            wide_df = read_wide_csv(cached.result.wide_csv_path)
-            all_competencias = _available_competencias_from_wide(wide_df)
-            competencias = select_competencia_labels_for_period(all_competencias, period) or all_competencias
-            overrides = load_manual_overrides(fund.cnpj)
-            tables, metric_source, dashboard_error, derived_cache_status = _load_or_build_monitoring_tables(
-                wide_df=wide_df,
-                cnpj=fund.cnpj,
-                competencias=competencias,
-                overrides=overrides,
-                ime_cache_key=cached.cache_key,
-                wide_csv_path=cached.result.wide_csv_path,
-                listas_csv_path=cached.result.listas_csv_path,
-                docs_csv_path=cached.result.docs_csv_path,
-            )
-            elapsed = time.perf_counter() - fund_started
-            outputs.append(
-                {
-                    "cnpj": fund.cnpj,
-                    "display_name": normalize_portfolio_fund_name(fund.display_name, fund.cnpj),
-                    "competencias": competencias,
-                    "all_competencias": all_competencias,
-                    "tables": tables,
-                    "cache_status": cached.cache_status,
-                    "derived_cache_status": derived_cache_status,
-                    "cache_dir": str(cached.cache_dir),
-                    "load_period_label": _format_period_label(load_period),
-                    "metric_source": metric_source,
-                    "dashboard_error": dashboard_error,
-                    "load_seconds": round(elapsed, 3),
-                }
-            )
-        except Exception as exc:  # noqa: BLE001
-            outputs.append(
-                {
-                    "cnpj": fund.cnpj,
-                    "display_name": normalize_portfolio_fund_name(fund.display_name, fund.cnpj),
-                    "error": f"{type(exc).__name__}: {exc}",
-                    "load_seconds": round(time.perf_counter() - fund_started, 3),
-                }
-            )
+    cached_count = sum(
+        1
+        for fund in portfolio.funds
+        if peek_cached_informe(
+            cnpj_fundo=fund.cnpj,
+            data_inicial=load_period.start_month,
+            data_final=load_period.end_month,
+        ).is_cached
+    )
+    worker_count = min(10, total) if cached_count == total else min(4, total)
+    with ThreadPoolExecutor(max_workers=max(worker_count, 1)) as executor:
+        futures = {
+            executor.submit(_load_single_monitoring_fund, fund, period, load_period): fund
+            for fund in portfolio.funds
+        }
+        for completed, future in enumerate(as_completed(futures), start=1):
+            fund = futures[future]
+            progress.progress(completed / max(total, 1), text=f"{completed}/{total} · {fund.display_name}")
+            try:
+                outputs.append(future.result())
+            except Exception as exc:  # noqa: BLE001
+                outputs.append(
+                    {
+                        "cnpj": fund.cnpj,
+                        "display_name": normalize_portfolio_fund_name(fund.display_name, fund.cnpj),
+                        "error": f"{type(exc).__name__}: {exc}",
+                    }
+                )
     progress.empty()
     return outputs
+
+
+def _load_single_monitoring_fund(
+    fund,  # noqa: ANN001
+    period: ImePeriodSelection,
+    load_period: ImePeriodSelection,
+) -> dict[str, Any]:
+    fund_started = time.perf_counter()
+    cached = load_or_extract_informe(
+        cnpj_fundo=fund.cnpj,
+        data_inicial=load_period.start_month,
+        data_final=load_period.end_month,
+    )
+    wide_df = read_wide_csv(cached.result.wide_csv_path)
+    all_competencias = _available_competencias_from_wide(wide_df)
+    competencias = select_competencia_labels_for_period(all_competencias, period) or all_competencias
+    overrides = load_manual_overrides(fund.cnpj)
+    tables, metric_source, dashboard_error, derived_cache_status = _load_or_build_monitoring_tables(
+        wide_df=wide_df,
+        cnpj=fund.cnpj,
+        competencias=competencias,
+        overrides=overrides,
+        ime_cache_key=cached.cache_key,
+        wide_csv_path=cached.result.wide_csv_path,
+        listas_csv_path=cached.result.listas_csv_path,
+        docs_csv_path=cached.result.docs_csv_path,
+    )
+    return {
+        "cnpj": fund.cnpj,
+        "display_name": normalize_portfolio_fund_name(fund.display_name, fund.cnpj),
+        "competencias": competencias,
+        "all_competencias": all_competencias,
+        "tables": tables,
+        "cache_status": cached.cache_status,
+        "derived_cache_status": derived_cache_status,
+        "cache_dir": str(cached.cache_dir),
+        "load_period_label": _format_period_label(load_period),
+        "metric_source": metric_source,
+        "dashboard_error": dashboard_error,
+        "load_seconds": round(time.perf_counter() - fund_started, 3),
+    }
 
 
 def _load_or_build_monitoring_tables(

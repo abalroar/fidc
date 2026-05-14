@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from datetime import date
 
 
-DEFAULT_PRESET_MONTHS = 12
+DEFAULT_PRESET_MONTHS = 36
 PERIOD_PRESET_OPTIONS = (3, 6, 9, 12, 24, 36)
 PRESET_AVAILABILITY_BACKFILL_MONTHS = 3
 

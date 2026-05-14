@@ -3,6 +3,7 @@ from __future__ import annotations
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from html import escape
+import time
 import traceback
 from typing import Any
 import uuid
@@ -12,7 +13,7 @@ import streamlit as st
 
 from services.fundonet_errors import FundosNetError, ProviderUnavailableError
 from services.fundonet_portfolio_dashboard import PortfolioDashboardBundle, build_portfolio_dashboard_bundle
-from services.ime_loader import load_or_extract_informe
+from services.ime_loader import load_or_extract_informe, peek_cached_informe
 from services.ime_period import ImePeriodSelection
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from tabs import tab_fidc_ime as ime_tab
@@ -35,12 +36,11 @@ def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> No
     if period is None:
         period = ime_tab._render_period_selector(state_prefix="ime_portfolio", title="Período da carteira")
 
-    selected_portfolio, preload_clicked = render_portfolio_control_panel(
+    selected_portfolio, _ = render_portfolio_control_panel(
         load_button_label="Carregar seleção",
         load_button_key="ime_portfolio_load_button",
+        show_load_button=False,
     )
-    if preload_clicked and selected_portfolio is not None:
-        load_portfolio_ime_data(selected_portfolio=selected_portfolio, period=period)
     if selected_portfolio is None:
         return
 
@@ -137,8 +137,8 @@ def render_portfolio_control_panel(
     return selected_portfolio, preload_clicked
 
 
-def load_portfolio_ime_data(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection) -> None:
-    _execute_portfolio_load(selected_portfolio=selected_portfolio, period=period)
+def load_portfolio_ime_data(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection) -> dict[str, Any]:
+    return ensure_portfolio_ime_data(selected_portfolio=selected_portfolio, period=period, force=True)
 
 
 def render_portfolio_aging_analysis(
@@ -147,7 +147,7 @@ def render_portfolio_aging_analysis(
     period: ImePeriodSelection,
     section_mode: str = "tabs",
 ) -> None:
-    runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period)
+    runtime_state = ensure_portfolio_ime_data(selected_portfolio=selected_portfolio, period=period)
 
     _render_loaded_portfolio_analysis(
         selected_portfolio=selected_portfolio,
@@ -282,6 +282,52 @@ def _render_portfolio_editor(
             st.rerun()
 
 
+def ensure_portfolio_ime_data(
+    *,
+    selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection,
+    force: bool = False,
+) -> dict[str, Any]:
+    runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period)
+    current_results = dict(runtime_state.get("results") or {})
+    if force:
+        funds_to_load = tuple(selected_portfolio.funds)
+        current_results = {}
+    else:
+        funds_to_load = tuple(
+            fund
+            for fund in selected_portfolio.funds
+            if fund.cnpj not in current_results
+        )
+    if funds_to_load:
+        with st.spinner(_autoload_spinner_label(selected_portfolio=selected_portfolio, period=period, funds=funds_to_load)):
+            _execute_portfolio_load_for_funds(
+                selected_portfolio=selected_portfolio,
+                period=period,
+                funds=funds_to_load,
+                existing_results=current_results,
+            )
+        runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period)
+    return runtime_state
+
+
+def _autoload_spinner_label(
+    *,
+    selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection,
+    funds: tuple[PortfolioFund, ...],
+) -> str:
+    cached_count = _count_cached_portfolio_funds(funds=funds, period=period)
+    total = len(funds)
+    if cached_count == total:
+        source = "cache GitHub/local"
+    elif cached_count:
+        source = f"{cached_count}/{total} em cache"
+    else:
+        source = "Fundos.NET"
+    return f"Carregando {selected_portfolio.name} ({total} fundo(s), {period.month_count}M, {source})..."
+
+
 def _execute_portfolio_load(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection) -> None:
     _execute_portfolio_load_for_funds(
         selected_portfolio=selected_portfolio,
@@ -306,8 +352,10 @@ def _execute_portfolio_load_for_funds(
     progress_bar = st.progress(0.0, text="Preparando carga...")
     status_box = st.empty()
     results: dict[str, dict[str, Any]] = dict(existing_results or {})
-    worker_count = _portfolio_worker_count(total=total, period=period)
-    status_box.caption(f"{selected_portfolio.name} · {total} fundo(s)")
+    load_started = time.perf_counter()
+    cached_count = _count_cached_portfolio_funds(funds=funds, period=period)
+    worker_count = _portfolio_worker_count(total=total, period=period, cached_count=cached_count)
+    status_box.caption(f"{selected_portfolio.name} · {total} fundo(s) · {cached_count} em cache")
 
     initial_results = _load_portfolio_funds_batch(
         funds=funds,
@@ -354,8 +402,11 @@ def _execute_portfolio_load_for_funds(
         "workers": worker_count,
         "period_month_count": period.month_count,
         "requested_funds": total,
+        "cache_ready_funds": cached_count,
         "retryable_failures_detected": retried_count,
         "complexity_score": total * max(period.month_count, 1),
+        "elapsed_seconds": round(time.perf_counter() - load_started, 3),
+        "target_seconds": 20,
     }
     _save_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period, runtime_state=runtime_state)
 
@@ -517,10 +568,28 @@ def _build_portfolio_error_payload(
     }
 
 
-def _portfolio_worker_count(*, total: int, period: ImePeriodSelection) -> int:
+def _count_cached_portfolio_funds(*, funds: tuple[PortfolioFund, ...], period: ImePeriodSelection) -> int:
+    return sum(
+        1
+        for fund in funds
+        if peek_cached_informe(
+            cnpj_fundo=fund.cnpj,
+            data_inicial=period.start_month,
+            data_final=period.end_month,
+        ).is_cached
+    )
+
+
+def _portfolio_worker_count(*, total: int, period: ImePeriodSelection, cached_count: int = 0) -> int:
+    if total <= 0:
+        return 1
+    if cached_count >= total:
+        return min(10, total)
+    if cached_count:
+        return min(6, total)
     complexity_score = total * max(period.month_count, 1)
     if complexity_score >= 160:
-        return 1
+        return min(2, total)
     if complexity_score >= 84:
         return min(2, total)
     if complexity_score >= 36:
@@ -651,15 +720,8 @@ def _render_loaded_portfolio_analysis(
 
     focused_payload = results.get(focus_cnpj)
     if focused_payload is None:
-        focus_fund = next(fund for fund in selected_portfolio.funds if fund.cnpj == focus_cnpj)
-        with st.spinner(f"Carregando {focus_fund.display_name}..."):
-            _execute_portfolio_load_for_funds(
-                selected_portfolio=selected_portfolio,
-                period=period,
-                funds=(focus_fund,),
-                existing_results=results,
-            )
-        st.rerun()
+        st.info("A carga automática da carteira ainda não registrou este fundo. Atualize a página para repetir a leitura completa da seleção.")
+        return
 
     if focused_payload.get("result") is None:
         st.warning("O fundo selecionado falhou no carregamento.")

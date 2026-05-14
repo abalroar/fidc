@@ -18,16 +18,14 @@ ALL_SECTIONS = (*DEFAULT_SECTIONS, SECTION_DEEP_DIVE)
 
 
 def render_portfolio_center_page(period: ImePeriodSelection) -> None:
-    selected_portfolio, load_clicked = carteira_tab.render_portfolio_control_panel(
+    selected_portfolio, _ = carteira_tab.render_portfolio_control_panel(
         load_button_label="Carregar IME",
         load_button_key="portfolio_center_load_ime",
+        show_load_button=False,
     )
     if selected_portfolio is None:
         st.info("Crie ou selecione uma carteira para iniciar as análises.")
         return
-
-    if load_clicked:
-        carteira_tab.load_portfolio_ime_data(selected_portfolio=selected_portfolio, period=period)
 
     selected_sections = st.multiselect(
         "Blocos exibidos",

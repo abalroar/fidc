@@ -57,8 +57,7 @@ from tabs.ime_portfolio_support import (
 from tabs.tab_fidc_ime_carteira import (
     _build_loaded_dashboards_by_cnpj,
     _clear_portfolio_runtime_states,
-    _execute_portfolio_load_for_funds,
-    _get_portfolio_runtime_state,
+    ensure_portfolio_ime_data,
 )
 
 
@@ -240,43 +239,7 @@ def render_tab_somatorio_fidcs(
         st.info(f"Crie ou selecione uma carteira para iniciar a auditoria {SOMATORIO_FIDCS_TITLE}.")
         return
     selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
-    runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=calculation_period)
-    results = runtime_state.get("results") or {}
     cache_session_key = _outputs_session_key(selected_portfolio=selected_portfolio, period=calculation_period)
-
-    if not show_portfolio_controls:
-        if st.button(
-            "Carregar base de retornos",
-            key=f"ml_portfolio_load_button::{selected_portfolio.id}",
-            type="secondary",
-            use_container_width=False,
-        ):
-            st.session_state["_ml_load_requested"] = True
-            st.rerun()
-
-    if st.session_state.pop("_ml_load_requested", False):
-        cached_outputs = load_outputs_from_cache(
-            portfolio_id=selected_portfolio.id,
-            period_key=calculation_period.cache_key,
-            portfolio_funds=selected_portfolio.funds,
-        )
-        if cached_outputs is not None:
-            cached_outputs = _tag_outputs_requested_period(
-                cached_outputs,
-                requested_period=period,
-                calculation_period=calculation_period,
-            )
-            st.session_state[cache_session_key] = cached_outputs
-            st.session_state[f"{cache_session_key}::source"] = "cache"
-            st.toast("Base reutilizada do cache.")
-            st.rerun()
-        _execute_portfolio_load_for_funds(
-            selected_portfolio=selected_portfolio,
-            period=calculation_period,
-            funds=tuple(selected_portfolio.funds),
-            existing_results=None,
-        )
-        st.rerun()
 
     cached_session_outputs = st.session_state.get(cache_session_key)
     if cached_session_outputs is not None:
@@ -299,9 +262,38 @@ def render_tab_somatorio_fidcs(
             show_guide=show_guide,
         )
         return
+    cached_outputs = load_outputs_from_cache(
+        portfolio_id=selected_portfolio.id,
+        period_key=calculation_period.cache_key,
+        portfolio_funds=selected_portfolio.funds,
+    )
+    if cached_outputs is not None:
+        cached_outputs = _tag_outputs_requested_period(
+            cached_outputs,
+            requested_period=period,
+            calculation_period=calculation_period,
+        )
+        st.session_state[cache_session_key] = cached_outputs
+        st.session_state[f"{cache_session_key}::source"] = "cache"
+        cache_dir = cache_dir_for_outputs(
+            portfolio_id=selected_portfolio.id,
+            period_key=calculation_period.cache_key,
+            portfolio_funds=selected_portfolio.funds,
+        )
+        _render_outputs(
+            outputs=cached_outputs,
+            selected_portfolio=selected_portfolio,
+            cache_dir=cache_dir,
+            storage_source="cache",
+            use_tabs=use_tabs,
+            show_guide=show_guide,
+        )
+        return
+    runtime_state = ensure_portfolio_ime_data(selected_portfolio=selected_portfolio, period=calculation_period)
+    results = runtime_state.get("results") or {}
     if not results:
         _render_status_bar(selected_portfolio=selected_portfolio, period=period, results=results)
-        st.info("Carregue a carteira para começar.")
+        st.info("A carteira ainda não possui dados carregados para este período.")
         return
 
     dashboards_by_cnpj, dashboard_errors = _build_loaded_dashboards_by_cnpj(
@@ -450,15 +442,11 @@ def _render_selection_controls(
         selected_portfolio = None
     else:
         try:
-            sel_col, load_col = st.columns([4.0, 1.35], vertical_alignment="bottom")
+            (sel_col,) = st.columns([1], vertical_alignment="bottom")
         except TypeError:
-            sel_col, load_col = st.columns([4.0, 1.35])
+            (sel_col,) = st.columns([1])
         with sel_col:
             selected_portfolio = _render_portfolio_selector(portfolios)
-        with load_col:
-            if st.button("Carregar carteira", key="ml_portfolio_load_button", type="secondary", use_container_width=True):
-                st.session_state["_ml_load_requested"] = True
-                st.rerun()
 
     def _render_portfolio_management_actions() -> None:
         action_cols = st.columns(2)

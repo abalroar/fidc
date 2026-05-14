@@ -21,10 +21,10 @@ class ImePeriodTests(unittest.TestCase):
     def test_build_preset_period_is_inclusive(self) -> None:
         period = build_preset_period(end_month=date(2026, 4, 1), months=DEFAULT_PRESET_MONTHS)
 
-        self.assertEqual(date(2025, 5, 1), period.start_month)
+        self.assertEqual(date(2023, 5, 1), period.start_month)
         self.assertEqual(date(2026, 4, 1), period.end_month)
-        self.assertEqual(12, period.month_count)
-        self.assertEqual("05/2025 a 04/2026", period.label)
+        self.assertEqual(36, period.month_count)
+        self.assertEqual("05/2023 a 04/2026", period.label)
 
     def test_build_six_month_preset_keeps_six_competencies(self) -> None:
         period = build_preset_period(end_month=date(2026, 3, 1), months=6)

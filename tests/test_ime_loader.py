@@ -2,12 +2,13 @@ from __future__ import annotations
 
 from datetime import date
 from pathlib import Path
+import shutil
 import tempfile
 import unittest
 
 import pandas as pd
 
-from services.ime_loader import load_or_extract_informe, peek_cached_informe
+from services.ime_loader import export_cached_informe_package, load_or_extract_informe, peek_cached_informe
 from services.fundonet_service import InformeMensalResult
 
 
@@ -118,6 +119,98 @@ class ImeLoaderTests(unittest.TestCase):
             )
             self.assertTrue(after.is_cached)
             self.assertTrue(after.manifest_path.exists())
+
+    def test_loader_uses_portable_github_cache_package_before_service(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            source_service = _FakeInformeService(tmp_path / "workspace-source")
+            source_cache = tmp_path / "runtime-source"
+            portable_cache = tmp_path / "portable"
+            runtime_cache = tmp_path / "runtime-target"
+
+            first = load_or_extract_informe(
+                cnpj_fundo="12.345.678/0001-99",
+                data_inicial=date(2026, 1, 1),
+                data_final=date(2026, 4, 1),
+                service=source_service,
+                cache_root=source_cache,
+            )
+            package = export_cached_informe_package(
+                cache_key=first.cache_key,
+                cache_root=source_cache,
+                output_root=portable_cache,
+            )
+            shutil.rmtree(source_cache)
+            target_service = _FakeInformeService(tmp_path / "workspace-target")
+
+            probe = peek_cached_informe(
+                cnpj_fundo="12.345.678/0001-99",
+                data_inicial=date(2026, 1, 1),
+                data_final=date(2026, 4, 1),
+                cache_root=runtime_cache,
+                portable_cache_root=portable_cache,
+            )
+            loaded = load_or_extract_informe(
+                cnpj_fundo="12.345.678/0001-99",
+                data_inicial=date(2026, 1, 1),
+                data_final=date(2026, 4, 1),
+                service=target_service,
+                cache_root=runtime_cache,
+                portable_cache_root=portable_cache,
+            )
+
+            self.assertTrue(package.exists())
+            self.assertTrue(probe.is_cached)
+            self.assertEqual("github_cache", probe.cache_status)
+            self.assertEqual("github_cache", loaded.cache_status)
+            self.assertEqual(0, target_service.run_calls)
+            self.assertTrue(str(loaded.result.workspace_dir).startswith(str(runtime_cache.resolve())))
+
+    def test_loader_uses_compatible_portable_cache_for_36_month_request(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            source_service = _FakeInformeService(tmp_path / "workspace-source")
+            source_cache = tmp_path / "runtime-source"
+            portable_cache = tmp_path / "portable"
+            runtime_cache = tmp_path / "runtime-target"
+
+            source = load_or_extract_informe(
+                cnpj_fundo="12.345.678/0001-99",
+                data_inicial=date(2025, 2, 1),
+                data_final=date(2026, 4, 1),
+                service=source_service,
+                cache_root=source_cache,
+            )
+            export_cached_informe_package(
+                cache_key=source.cache_key,
+                cache_root=source_cache,
+                output_root=portable_cache,
+            )
+            shutil.rmtree(source_cache)
+            target_service = _FakeInformeService(tmp_path / "workspace-target")
+
+            probe = peek_cached_informe(
+                cnpj_fundo="12.345.678/0001-99",
+                data_inicial=date(2023, 5, 1),
+                data_final=date(2026, 4, 1),
+                cache_root=runtime_cache,
+                portable_cache_root=portable_cache,
+            )
+            loaded = load_or_extract_informe(
+                cnpj_fundo="12.345.678/0001-99",
+                data_inicial=date(2023, 5, 1),
+                data_final=date(2026, 4, 1),
+                service=target_service,
+                cache_root=runtime_cache,
+                portable_cache_root=portable_cache,
+            )
+
+            self.assertTrue(probe.is_cached)
+            self.assertEqual("github_cache_partial", probe.cache_status)
+            self.assertEqual("github_cache_partial", loaded.cache_status)
+            self.assertEqual(source.cache_key, loaded.cache_key)
+            self.assertEqual(0, target_service.run_calls)
+            self.assertTrue(str(loaded.result.workspace_dir).startswith(str(runtime_cache.resolve())))
 
 
 if __name__ == "__main__":
