@@ -1259,13 +1259,11 @@ def _render_dashboard(
 
 
 def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
-    download_cols = st.columns(2, gap="small")
-    with download_cols[0]:
+    _render_pptx_export_button(dashboard, context)
+    with st.expander("Documentos e anexos para diligência", expanded=False):
         _render_regulamento_export_button(dashboard, context)
-    with download_cols[1]:
-        _render_pptx_export_button(dashboard, context)
-    if ENABLE_GLOBAL_PDF_EXPORT:
-        _render_pdf_export_button(dashboard, context)
+        if ENABLE_GLOBAL_PDF_EXPORT:
+            _render_pdf_export_button(dashboard, context)
 
 
 def _render_executive_comparison_section(sorted_slots: list[tuple[int, dict]]) -> None:
@@ -1816,7 +1814,7 @@ def _render_audit_section(
             )
         return
 
-    with st.expander("Diagnóstico de consistência da aba executiva", expanded=True):
+    with st.expander("Diagnóstico de consistência da aba executiva", expanded=False):
         st.dataframe(
             _format_consistency_audit_table(dashboard.consistency_audit_df),
             width="stretch",
@@ -2407,7 +2405,7 @@ def _render_pptx_export_button(dashboard: FundonetDashboardData, context: dict[s
     pptx_bytes = st.session_state.get(payload_key)
     if pptx_bytes is None:
         if st.button(
-            "Preparar slides (PPTX)",
+            "Preparar deck de comitê (PPTX)",
             key=f"fidc_prepare_pptx::{payload_key}",
             use_container_width=True,
             help="Monta o PowerPoint somente sob demanda para priorizar a abertura dos gráficos.",
@@ -2438,7 +2436,7 @@ def _render_pptx_export_button(dashboard: FundonetDashboardData, context: dict[s
         return
 
     st.download_button(
-        "Download slides (PPTX)",
+        "Baixar deck de comitê (PPTX)",
         data=pptx_bytes,
         file_name=f"relatorio_fidc_ime_{context.get('request_id', 'execucao')}.pptx",
         mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",

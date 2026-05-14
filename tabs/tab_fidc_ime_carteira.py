@@ -73,30 +73,11 @@ def render_portfolio_control_panel(
 
     if portfolios:
         try:
-            sel_col, new_col, edit_col, btn_col = st.columns([4.0, 1.45, 1.45, 1.35], vertical_alignment="bottom")
+            sel_col, btn_col = st.columns([4.0, 1.35], vertical_alignment="bottom")
         except TypeError:
-            sel_col, new_col, edit_col, btn_col = st.columns([4.0, 1.45, 1.45, 1.35])
+            sel_col, btn_col = st.columns([4.0, 1.35])
         with sel_col:
             selected_portfolio = _render_portfolio_selector(portfolios)
-        with new_col:
-            if st.button(
-                "Criar nova seleção",
-                key="ime_portfolio_new_button",
-                use_container_width=True,
-            ):
-                _reset_new_portfolio_form_state()
-                st.session_state["ime_portfolio_editor_mode"] = "create"
-                st.session_state[editor_open_key] = True
-                st.rerun()
-        with edit_col:
-            if st.button(
-                "Editar seleção atual",
-                key="ime_portfolio_edit_button",
-                use_container_width=True,
-            ):
-                st.session_state["ime_portfolio_editor_mode"] = "edit"
-                st.session_state[editor_open_key] = True
-                st.rerun()
         with btn_col:
             if show_load_button:
                 preload_clicked = st.button(
@@ -110,6 +91,28 @@ def render_portfolio_control_panel(
     else:
         selected_portfolio = None
         preload_clicked = False
+
+    def _render_portfolio_management_actions() -> None:
+        action_cols = st.columns(2)
+        with action_cols[0]:
+            if st.button(
+                "Criar nova seleção",
+                key="ime_portfolio_new_button",
+                use_container_width=True,
+            ):
+                _reset_new_portfolio_form_state()
+                st.session_state["ime_portfolio_editor_mode"] = "create"
+                st.session_state[editor_open_key] = True
+                st.rerun()
+        with action_cols[1]:
+            if st.button(
+                "Editar seleção atual",
+                key="ime_portfolio_edit_button",
+                use_container_width=True,
+            ):
+                st.session_state["ime_portfolio_editor_mode"] = "edit"
+                st.session_state[editor_open_key] = True
+                st.rerun()
 
     if st.session_state.get(editor_open_key, False):
         st.markdown('<div style="height:0.35rem"></div>', unsafe_allow_html=True)
@@ -125,6 +128,7 @@ def render_portfolio_control_panel(
             key_prefix="ime_portfolio",
             selected_portfolio_id=selected_portfolio.id if selected_portfolio is not None else None,
             on_delete=_handle_deleted_portfolio,
+            render_actions=_render_portfolio_management_actions,
         )
 
     if selected_portfolio is not None:
@@ -852,7 +856,7 @@ def _render_portfolio_aggregate_pptx_export_button(
 
     file_token = selected_portfolio.id[:8] or "carteira"
     st.download_button(
-        "Download Carteira Agregada (PPTX)",
+        "Exportar deck de comitê da carteira (PPTX)",
         data=pptx_bytes,
         file_name=f"relatorio_carteira_agregada_{file_token}.pptx",
         mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",

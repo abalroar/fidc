@@ -1130,6 +1130,27 @@ def _build_display_dataframe(export_frame: pd.DataFrame) -> pd.DataFrame:
     return display
 
 
+def _build_committee_timeline_dataframe(display_frame: pd.DataFrame) -> pd.DataFrame:
+    committee_columns = [
+        "Índice",
+        "Data",
+        "Carteira de recebíveis (início do período)",
+        "Fluxo econômico total dos ativos",
+        "PL econômico do veículo",
+        "Despesa de provisão/perda",
+        "Estoque NPL 90+ (fim)",
+        "Provisão requerida",
+        "Juros sênior",
+        "PL sênior",
+        "PL MEZZ",
+        "Saldo residual júnior econômico",
+        "Subordinação econômica",
+        "Caixa não reinvestido",
+    ]
+    visible_columns = [column for column in committee_columns if column in display_frame.columns]
+    return display_frame.loc[:, visible_columns].copy()
+
+
 def _build_kpi_export_dataframe(kpis) -> pd.DataFrame:
     return pd.DataFrame(
         [
@@ -4031,6 +4052,7 @@ def render_tab_modelo_fidc() -> None:
     protection_chart_frame = pd.concat([protection_frame, zero_protection_frame], ignore_index=True)
     export_frame = _build_export_dataframe(frame)
     display_frame = _build_display_dataframe(export_frame)
+    committee_timeline_frame = _build_committee_timeline_dataframe(display_frame)
     balance_chart_df = _build_balance_area_frame(frame)
     loss_chart_df = _build_loss_area_frame(frame, premissas.volume)
     protection_display_chart_df = _build_protection_area_frame(frame, protection_frame)
@@ -4214,8 +4236,8 @@ def render_tab_modelo_fidc() -> None:
     with st.expander("Memória de cálculo", expanded=False):
         st.dataframe(memory_df, width="stretch", hide_index=True)
 
-    st.markdown('<div class="fidc-model-section-title">Timeline detalhada</div>', unsafe_allow_html=True)
-    st.dataframe(display_frame, width="stretch", hide_index=True)
+    st.markdown('<div class="fidc-model-section-title">Timeline de comitê</div>', unsafe_allow_html=True)
+    st.dataframe(committee_timeline_frame, width="stretch", hide_index=True)
 
     csv = export_frame.to_csv(index=False).encode("utf-8")
     premissas_summary_df = _build_premissas_summary_dataframe(
@@ -4262,46 +4284,43 @@ def render_tab_modelo_fidc() -> None:
         loss_chart_df=loss_chart_df,
         protection_chart_df=protection_display_chart_df,
     )
-    download_left, download_mid, download_right = st.columns(3)
-    download_left.download_button(
-        "Baixar CSV",
-        data=csv,
-        file_name="modelo_fidc_timeline.csv",
-        mime="text/csv",
-        width="stretch",
-    )
-    download_mid.download_button(
-        "Baixar Excel dashboard",
-        data=excel_bytes,
-        file_name="modelo_fidc_dashboard.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        width="stretch",
-    )
-    download_right.download_button(
-        "Baixar PPTX dashboard",
+    st.download_button(
+        "Exportar deck de comitê (PPTX)",
         data=pptx_bytes,
         file_name="modelo_fidc_dashboard.pptx",
         mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
         width="stretch",
     )
+    with st.expander("Dados do modelo para diligência", expanded=False):
+        st.download_button(
+            "Baixar timeline CSV",
+            data=csv,
+            file_name="modelo_fidc_timeline.csv",
+            mime="text/csv",
+            width="stretch",
+        )
+        st.download_button(
+            "Baixar dashboard Excel",
+            data=excel_bytes,
+            file_name="modelo_fidc_dashboard.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            width="stretch",
+        )
 
     st.markdown('<div class="fidc-model-section-title">Fontes de juros</div>', unsafe_allow_html=True)
     _render_curve_source_controls(inputs, selected_curve, selected_calendar)
     _render_selic_projection_info(selic_aa_por_ano=user_selic_aa_por_ano)
 
-    guide_left, guide_right = st.columns(2)
-    with guide_left:
-        with st.expander("Passo a passo", expanded=False):
-            st.markdown(_build_step_by_step_markdown())
-    with guide_right:
-        with st.expander("Mecânica completa da aba", expanded=False):
-            st.markdown(
-                _build_workbook_mechanics_markdown(
-                    selected_curve=selected_curve,
-                    selected_calendar=selected_calendar,
-                    interpolation_label=interpolation_label,
-                    taxa_cessao_input_mode=taxa_cessao_input_mode,
-                    data_inicial=data_inicial_date,
-                    credit_model_label=credit_model_label,
-                )
+    with st.expander("Metodologia e mecânica do modelo", expanded=False):
+        st.markdown(_build_step_by_step_markdown())
+        st.markdown("---")
+        st.markdown(
+            _build_workbook_mechanics_markdown(
+                selected_curve=selected_curve,
+                selected_calendar=selected_calendar,
+                interpolation_label=interpolation_label,
+                taxa_cessao_input_mode=taxa_cessao_input_mode,
+                data_inicial=data_inicial_date,
+                credit_model_label=credit_model_label,
             )
+        )

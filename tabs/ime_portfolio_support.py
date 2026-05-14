@@ -120,6 +120,7 @@ def render_saved_portfolio_delete_manager(
     key_prefix: str,
     selected_portfolio_id: str | None = None,
     on_delete=None,  # noqa: ANN001
+    render_actions=None,  # noqa: ANN001
 ) -> None:
     if not portfolios:
         return
@@ -132,6 +133,8 @@ def render_saved_portfolio_delete_manager(
     labels = build_portfolio_record_label_lookup(portfolios)
 
     with st.expander("Gerenciar carteiras salvas", expanded=False):
+        if callable(render_actions):
+            render_actions()
         st.caption("Remove só o preset salvo; os dados baixados permanecem.")
         selected_id = st.selectbox(
             "Carteira para revisar ou apagar",

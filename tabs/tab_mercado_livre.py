@@ -450,25 +450,28 @@ def _render_selection_controls(
         selected_portfolio = None
     else:
         try:
-            sel_col, new_col, edit_col, load_col = st.columns([4.0, 1.45, 1.45, 1.35], vertical_alignment="bottom")
+            sel_col, load_col = st.columns([4.0, 1.35], vertical_alignment="bottom")
         except TypeError:
-            sel_col, new_col, edit_col, load_col = st.columns([4.0, 1.45, 1.45, 1.35])
+            sel_col, load_col = st.columns([4.0, 1.35])
         with sel_col:
             selected_portfolio = _render_portfolio_selector(portfolios)
-        with new_col:
+        with load_col:
+            if st.button("Carregar carteira", key="ml_portfolio_load_button", type="secondary", use_container_width=True):
+                st.session_state["_ml_load_requested"] = True
+                st.rerun()
+
+    def _render_portfolio_management_actions() -> None:
+        action_cols = st.columns(2)
+        with action_cols[0]:
             if st.button("Criar nova seleção", key="ml_portfolio_new_button", use_container_width=True):
                 _reset_editor_state()
                 st.session_state["ml_editor_mode"] = "create"
                 st.session_state["ml_editor_open"] = True
                 st.rerun()
-        with edit_col:
+        with action_cols[1]:
             if st.button("Editar seleção atual", key="ml_portfolio_edit_button", use_container_width=True):
                 st.session_state["ml_editor_mode"] = "edit"
                 st.session_state["ml_editor_open"] = True
-                st.rerun()
-        with load_col:
-            if st.button("Carregar carteira", key="ml_portfolio_load_button", type="secondary", use_container_width=True):
-                st.session_state["_ml_load_requested"] = True
                 st.rerun()
 
     st.caption(get_portfolio_status_caption())
@@ -477,6 +480,7 @@ def _render_selection_controls(
         key_prefix="ml",
         selected_portfolio_id=selected_portfolio.id if selected_portfolio is not None else None,
         on_delete=_handle_deleted_portfolio,
+        render_actions=_render_portfolio_management_actions,
     )
     if st.session_state.get("ml_editor_open", False):
         _render_portfolio_editor(
@@ -684,8 +688,15 @@ def _render_outputs(
     )
 
     def _render_base_view() -> None:
-        btn_left, btn_mid, btn_csv, btn_right = st.columns([1.45, 1.35, 1.1, 1.25])
-        with btn_left:
+        st.download_button(
+            "Exportar deck de comitê (PPTX)",
+            data=pptx_bytes,
+            file_name=f"somatorio_fidcs_completo_{file_token}.pptx",
+            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            key=f"ml_pptx_completo_download::{selected_portfolio.id}",
+            use_container_width=True,
+        )
+        with st.expander("Dados do somatório para diligência", expanded=False):
             st.download_button(
                 "Baixar resumo exibido + gráficos consolidados",
                 data=snapshot_bytes,
@@ -694,7 +705,6 @@ def _render_outputs(
                 key=f"ml_snapshot_excel_download::{selected_portfolio.id}",
                 use_container_width=True,
             )
-        with btn_mid:
             st.download_button(
                 "Baixar base completa Excel",
                 data=full_matrix_excel_bytes,
@@ -703,22 +713,12 @@ def _render_outputs(
                 key=f"ml_full_matrix_excel_download::{selected_portfolio.id}",
                 use_container_width=True,
             )
-        with btn_csv:
             st.download_button(
                 "Baixar CSVs",
                 data=full_matrix_csv_zip_bytes,
                 file_name=f"somatorio_fidcs_base_completa_{file_token}.zip",
                 mime="application/zip",
                 key=f"ml_full_matrix_csv_download::{selected_portfolio.id}",
-                use_container_width=True,
-            )
-        with btn_right:
-            st.download_button(
-                "Baixar PPT completo",
-                data=pptx_bytes,
-                file_name=f"somatorio_fidcs_completo_{file_token}.pptx",
-                mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-                key=f"ml_pptx_completo_download::{selected_portfolio.id}",
                 use_container_width=True,
             )
 
@@ -781,13 +781,14 @@ def _render_outputs(
             research_outputs=research_outputs,
             verification_report=verification_report,
             pptx_bytes=pptx_bytes,
-            pptx_label="Baixar PPT completo",
+            pptx_label="Exportar deck de comitê (PPTX)",
             pptx_file_name=f"somatorio_fidcs_completo_{file_token}.pptx",
             excel_file_name=f"analise_credito_research_{file_token}.xlsx",
             download_key_prefix="somatorio_fidcs_credito",
             pptx_file_token=file_token,
             use_tabs=use_tabs,
             show_guide=show_guide,
+            show_downloads=use_tabs,
         )
 
     if use_tabs:

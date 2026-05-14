@@ -456,7 +456,7 @@ def render_tab_deep_dive(
         with st.expander("Prompt para atualizar Deep Dives", expanded=False):
             st.code(_REVERSE_ENGINEERING_PROMPT, language="markdown")
 
-    _render_cloudwalk_waterfall(wrap=not compact)
+    _render_cloudwalk_waterfall(wrap=not compact, compact=compact)
 
     if not manifests:
         st.info("Nenhum pacote em `data/deep_dives/`.")
@@ -519,31 +519,29 @@ def render_tab_deep_dive(
     )
     highlight_value = None if highlighted_column == "Nenhuma" else highlighted_column
 
-    top_cols = st.columns([1, 1, 4], gap="small")
-    with top_cols[0]:
+    try:
+        pptx_bytes = build_deep_dive_pptx_bytes(
+            manifest,
+            [(table_spec, frame)],
+            highlighted_column=highlight_value,
+        )
         st.download_button(
-            "Baixar CSV",
+            "Exportar deck de comitê (PPTX)",
+            data=pptx_bytes,
+            file_name=f"{_safe_token(manifest.deep_dive_id)}_{_safe_token(table_spec.id)}.pptx",
+            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            use_container_width=True,
+        )
+    except RuntimeError as exc:
+        st.warning(str(exc))
+    with st.expander("Dados do deep dive para diligência", expanded=False):
+        st.download_button(
+            "Baixar CSV da tabela selecionada",
             data=frame.to_csv(index=False).encode("utf-8"),
             file_name=f"{_safe_token(manifest.deep_dive_id)}_{_safe_token(table_spec.id)}.csv",
             mime="text/csv",
             use_container_width=True,
         )
-    with top_cols[1]:
-        try:
-            pptx_bytes = build_deep_dive_pptx_bytes(
-                manifest,
-                [(table_spec, frame)],
-                highlighted_column=highlight_value,
-            )
-            st.download_button(
-                "Baixar PPTX",
-                data=pptx_bytes,
-                file_name=f"{_safe_token(manifest.deep_dive_id)}_{_safe_token(table_spec.id)}.pptx",
-                mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-                use_container_width=True,
-            )
-        except RuntimeError as exc:
-            st.warning(str(exc))
 
     _render_comparison_table(frame, highlighted_column=highlight_value)
 
@@ -557,15 +555,15 @@ def render_tab_deep_dive(
         st.dataframe(_source_files_df(manifest), hide_index=True, use_container_width=True)
 
 
-def _render_cloudwalk_waterfall(*, wrap: bool = True) -> None:
+def _render_cloudwalk_waterfall(*, wrap: bool = True, compact: bool = False) -> None:
     if wrap:
         with st.expander("Waterfall Cloudwalk", expanded=False):
-            _render_cloudwalk_waterfall_body()
+            _render_cloudwalk_waterfall_body(compact=compact)
         return
-    _render_cloudwalk_waterfall_body()
+    _render_cloudwalk_waterfall_body(compact=compact)
 
 
-def _render_cloudwalk_waterfall_body() -> None:
+def _render_cloudwalk_waterfall_body(*, compact: bool = False) -> None:
     refresh_ime = st.toggle(
         "Atualizar IME pelo Fundos.NET se não houver cache local",
         value=False,
@@ -598,8 +596,8 @@ def _render_cloudwalk_waterfall_body() -> None:
     elif artifacts["plot_png"]:
         st.image(artifacts["plot_png"], use_container_width=True)
 
-    dl_cols = st.columns(4)
-    with dl_cols[0]:
+    export_label = "Dados do waterfall" if compact else "Arquivos do waterfall"
+    with st.expander(export_label, expanded=False):
         st.download_button(
             "Baixar waterfall CSV",
             data=artifacts["waterfall_csv"],
@@ -607,7 +605,6 @@ def _render_cloudwalk_waterfall_body() -> None:
             mime="text/csv",
             use_container_width=True,
         )
-    with dl_cols[1]:
         st.download_button(
             "Baixar relatório",
             data=artifacts["report_csv"],
@@ -615,7 +612,6 @@ def _render_cloudwalk_waterfall_body() -> None:
             mime="text/csv",
             use_container_width=True,
         )
-    with dl_cols[2]:
         st.download_button(
             "Baixar IME CSV",
             data=artifacts["ime_assets_csv"],
@@ -623,7 +619,6 @@ def _render_cloudwalk_waterfall_body() -> None:
             mime="text/csv",
             use_container_width=True,
         )
-    with dl_cols[3]:
         st.download_button(
             "Baixar gráfico PNG",
             data=artifacts["plot_png"],

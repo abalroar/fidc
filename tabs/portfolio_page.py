@@ -9,6 +9,14 @@ from tabs import tab_fidc_monitoring as monitoring_tab
 from tabs import tab_mercado_livre as somatorio_tab
 
 
+SECTION_AGING = "Aging e visão executiva"
+SECTION_RETURNS = "Retornos e análise de crédito"
+SECTION_MONITORING = "Monitoramento e base regulatória"
+SECTION_DEEP_DIVE = "Waterfall e Deep Dives"
+DEFAULT_SECTIONS = (SECTION_AGING, SECTION_RETURNS, SECTION_MONITORING)
+ALL_SECTIONS = (*DEFAULT_SECTIONS, SECTION_DEEP_DIVE)
+
+
 def render_portfolio_center_page(period: ImePeriodSelection) -> None:
     selected_portfolio, load_clicked = carteira_tab.render_portfolio_control_panel(
         load_button_label="Carregar IME",
@@ -21,24 +29,21 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
     if load_clicked:
         carteira_tab.load_portfolio_ime_data(selected_portfolio=selected_portfolio, period=period)
 
-    _render_section_toggle(
-        title="Aging e visão executiva",
-        key="portfolio_center_section_aging",
-        default=True,
+    selected_sections = st.multiselect(
+        "Blocos exibidos",
+        options=list(ALL_SECTIONS),
+        default=list(DEFAULT_SECTIONS),
+        key="portfolio_center_sections",
     )
-    if st.session_state.get("portfolio_center_section_aging", True):
+
+    if SECTION_AGING in selected_sections:
         carteira_tab.render_portfolio_aging_analysis(
             selected_portfolio=selected_portfolio,
             period=period,
             section_mode="stacked",
         )
 
-    _render_section_toggle(
-        title="Retornos e análise de crédito",
-        key="portfolio_center_section_returns",
-        default=True,
-    )
-    if st.session_state.get("portfolio_center_section_returns", True):
+    if SECTION_RETURNS in selected_sections:
         somatorio_tab.render_tab_somatorio_fidcs(
             period=period,
             selected_portfolio=selected_portfolio,
@@ -47,12 +52,7 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
             show_guide=False,
         )
 
-    _render_section_toggle(
-        title="Monitoramento e base regulatória",
-        key="portfolio_center_section_monitoring",
-        default=True,
-    )
-    if st.session_state.get("portfolio_center_section_monitoring", True):
+    if SECTION_MONITORING in selected_sections:
         monitoring_tab.render_tab_fidc_monitoring(
             period=period,
             selected_portfolio=selected_portfolio,
@@ -60,20 +60,10 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
             use_tabs=False,
         )
 
-    _render_section_toggle(
-        title="Waterfall e Deep Dives",
-        key="portfolio_center_section_deep_dive",
-        default=False,
-    )
-    if st.session_state.get("portfolio_center_section_deep_dive", False):
+    if SECTION_DEEP_DIVE in selected_sections:
         deep_dive_tab.render_tab_deep_dive(
             selected_portfolio=selected_portfolio,
             show_portfolio_selector=False,
             show_curation_tools=False,
             compact=True,
         )
-
-
-def _render_section_toggle(*, title: str, key: str, default: bool) -> None:
-    st.markdown("<div class='portfolio-section-spacer'></div>", unsafe_allow_html=True)
-    st.toggle(title, value=default, key=key)

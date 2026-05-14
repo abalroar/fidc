@@ -61,11 +61,6 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
     max-width: 48rem;
 }
 
-.portfolio-section-spacer {
-    border-top: 1px solid #e3e8ef;
-    margin: 1.05rem 0 0.4rem 0;
-}
-
 .fidc-control-kicker {
     color: #ff5a00;
     font-size: 0.72rem;

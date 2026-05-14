@@ -346,7 +346,7 @@ def render_dashboard_meli_analysis(
     research_outputs=None,
     verification_report: pd.DataFrame | None = None,
     pptx_bytes: bytes | None = None,
-    pptx_label: str = "Baixar gráficos PPTX",
+    pptx_label: str = "Exportar deck de comitê (PPTX)",
     pptx_file_name: str | None = None,
     excel_label: str = "Baixar base research Excel",
     excel_file_name: str | None = None,
@@ -354,6 +354,7 @@ def render_dashboard_meli_analysis(
     pptx_file_token: str | None = None,
     use_tabs: bool = True,
     show_guide: bool = True,
+    show_downloads: bool = True,
 ) -> None:  # noqa: ANN001
     """Renderiza a visão de crédito MELI a partir da base canônica já carregada."""
     if monitor_outputs is None:
@@ -367,9 +368,8 @@ def render_dashboard_meli_analysis(
     file_token = pptx_file_token or _safe_file_token(selected_portfolio.name)
     if pptx_bytes is None:
         pptx_bytes = build_dashboard_meli_pptx_bytes(monitor_outputs, research_outputs)
-    excel_bytes = build_research_excel_bytes(research_outputs, verification_report)
-    ppt_col, excel_col = st.columns(2)
-    with ppt_col:
+    if show_downloads:
+        excel_bytes = build_research_excel_bytes(research_outputs, verification_report)
         st.download_button(
             pptx_label,
             data=pptx_bytes,
@@ -378,15 +378,15 @@ def render_dashboard_meli_analysis(
             key=f"{download_key_prefix}_pptx_download::{selected_portfolio.id}",
             use_container_width=True,
         )
-    with excel_col:
-        st.download_button(
-            excel_label,
-            data=excel_bytes,
-            file_name=excel_file_name or f"analise_credito_research_{file_token}.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            key=f"{download_key_prefix}_research_xlsx_download::{selected_portfolio.id}",
-            use_container_width=True,
-        )
+        with st.expander("Dados da análise para diligência", expanded=False):
+            st.download_button(
+                excel_label,
+                data=excel_bytes,
+                file_name=excel_file_name or f"analise_credito_research_{file_token}.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                key=f"{download_key_prefix}_research_xlsx_download::{selected_portfolio.id}",
+                use_container_width=True,
+            )
     _render_kpis(monitor_outputs.consolidated_monitor)
 
     def _render_main_view() -> None:
