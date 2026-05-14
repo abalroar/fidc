@@ -43,6 +43,36 @@ class WaterfallScheduleTest(unittest.TestCase):
         self.assertEqual([16, 34, 30, 20], deltas)
         self.assertEqual([160_000, 340_000, 300_000, 200_000], [1_000_000 * value / 100 for value in deltas])
 
+    def test_current_balance_percentages_to_incremental(self):
+        deltas = percentages_to_incremental([16, 19.047619, 100], "current_balance")
+
+        self.assertAlmostEqual(16.0, deltas[0])
+        self.assertAlmostEqual(16.0, deltas[1], places=4)
+        self.assertAlmostEqual(68.0, deltas[2], places=4)
+
+    def test_parse_current_balance_schedule(self):
+        convention, schedule, warnings = parse_amortization_schedule(
+            "Percentual do saldo de Cotas Sêniores a serem amortizadas: "
+            "27/02/2025 16,00%; 27/08/2025 19,05%; 27/06/2026 100,00%",
+            1_500_000,
+        )
+
+        self.assertEqual("current_balance", convention)
+        self.assertAlmostEqual(1_500_000, sum(amount for _, amount in schedule), places=0)
+        self.assertEqual((), warnings)
+
+    def test_parse_linear_documented_dates_warns(self):
+        convention, schedule, warnings = parse_amortization_schedule(
+            "Linear em datas documentadas: 19/11/2026; 19/12/2026; 19/01/2027; "
+            "19/02/2027; 19/03/2027; 19/04/2027",
+            600_000,
+        )
+
+        self.assertEqual("incremental", convention)
+        self.assertEqual(6, len(schedule))
+        self.assertAlmostEqual(100_000, schedule[0][1])
+        self.assertTrue(warnings)
+
     def test_incremental_sum_validation_keeps_near_100_with_warning(self):
         convention, schedule, warnings = parse_amortization_schedule(
             "30% em jan/27, 30% em fev/27, 37% em mar/27",

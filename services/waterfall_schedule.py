@@ -5,6 +5,7 @@ from datetime import date, timedelta
 from pathlib import Path
 import calendar
 import json
+import math
 import re
 import unicodedata
 from typing import Any
@@ -58,6 +59,7 @@ class ImeAssetSnapshot:
 class ParsedAmortization:
     percentages: list[tuple[date, float]]
     convention_hint: str | None = None
+    warnings: tuple[str, ...] = field(default_factory=tuple)
 
 
 def detect_amortization_convention(dates: list[date], percentages: list[float]) -> str:
@@ -92,6 +94,16 @@ def detect_amortization_convention(dates: list[date], percentages: list[float]) 
 def percentages_to_incremental(percentages: list[float], convention: str) -> list[float]:
     if convention == "incremental":
         return list(percentages)
+    if convention == "current_balance":
+        remaining = 100.0
+        output: list[float] = []
+        for value in percentages:
+            if value < -1e-9:
+                raise ValueError("Percentuais sobre saldo remanescente não podem ser negativos.")
+            amortized = remaining * value / 100.0
+            output.append(max(amortized, 0.0))
+            remaining = max(remaining - amortized, 0.0)
+        return output
     if convention != "cumulative":
         raise ValueError(f"Convenção de amortização inválida: {convention}")
 
@@ -130,8 +142,10 @@ def parse_amortization_schedule(
         raise ValueError("Amortização não mapeada no campo de curadoria.")
     if "cronograma nao localizado" in normalized or "sem campo numerico" in normalized:
         raise ValueError("Cronograma de amortização não localizado na curadoria.")
+    if any(token in normalized for token in ["fundo encerrado", "resgate total", "substituido", "nao usado"]):
+        raise ValueError("Série sem dívida futura ativa para o waterfall.")
 
-    parsed = _parse_bullet(raw) or _parse_linear(raw) or _parse_dated_percentages(raw)
+    parsed = _parse_bullet(raw) or _parse_linear(raw) or _parse_linear_dates(raw) or _parse_dated_percentages(raw)
     if not parsed.percentages:
         raise ValueError("Não foi possível extrair datas e percentuais de amortização do texto.")
 
@@ -140,7 +154,7 @@ def parse_amortization_schedule(
     convention = amortization_convention or parsed.convention_hint
     if convention is None:
         convention = detect_amortization_convention(dates, percentages)
-    if convention not in {"incremental", "cumulative"}:
+    if convention not in {"incremental", "cumulative", "current_balance"}:
         raise ValueError(f"Convenção de amortização inválida: {convention}")
 
     incremental_percentages = percentages_to_incremental(percentages, convention)
@@ -153,7 +167,7 @@ def parse_amortization_schedule(
         current_total = sum(amount for _, amount in values)
         final_date, final_amount = values[-1]
         values[-1] = (final_date, max(final_amount + (volume_emitido - current_total), 0.0))
-    return convention, values, warnings
+    return convention, values, tuple(parsed.warnings) + tuple(warnings)
 
 
 def load_cloudwalk_emissions(
@@ -397,6 +411,24 @@ def _parse_linear(text: str) -> ParsedAmortization | None:
     )
 
 
+def _parse_linear_dates(text: str) -> ParsedAmortization | None:
+    normalized = normalize_text(text)
+    if "linear em datas documentadas" not in normalized:
+        return None
+
+    dates = _dates_in_text(text)
+    if not dates:
+        raise ValueError("Cronograma linear em datas documentadas sem datas parseáveis.")
+    amount = 100.0 / len(dates)
+    return ParsedAmortization(
+        percentages=[(item_date, amount) for item_date in dates],
+        convention_hint="incremental",
+        warnings=(
+            "Cronograma documental lista datas sem percentuais; waterfall usa amortização linear entre as datas documentadas.",
+        ),
+    )
+
+
 def _parse_dated_percentages(text: str) -> ParsedAmortization:
     entries: list[tuple[date, float]] = []
     normalized = normalize_text(text)
@@ -419,7 +451,8 @@ def _parse_dated_percentages(text: str) -> ParsedAmortization:
     unique: dict[tuple[date, float], tuple[date, float]] = {}
     for item in entries:
         unique[(item[0], round(item[1], 6))] = item
-    return ParsedAmortization(percentages=sorted(unique.values(), key=lambda item: item[0]))
+    convention_hint = "current_balance" if "percentual do saldo" in normalized else None
+    return ParsedAmortization(percentages=sorted(unique.values(), key=lambda item: item[0]), convention_hint=convention_hint)
 
 
 def parse_percent(value: str) -> float | None:
@@ -474,6 +507,19 @@ def _first_date_in_text(text: str) -> date | None:
     if match:
         return parse_date_label(match.group(0))
     return None
+
+
+def _dates_in_text(text: str) -> list[date]:
+    normalized = normalize_text(text)
+    date_pattern = r"\d{1,2}/\d{1,2}/\d{2,4}|\b(?:jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)[a-z]*/\d{2,4}\b"
+    parsed: list[date] = []
+    seen: set[date] = set()
+    for match in re.finditer(date_pattern, normalized):
+        item_date = parse_date_label(match.group(0))
+        if item_date is not None and item_date not in seen:
+            parsed.append(item_date)
+            seen.add(item_date)
+    return parsed
 
 
 def _find_latest_cached_ime(cnpj: str, cache_root: Path) -> dict[str, Any] | None:
@@ -742,7 +788,7 @@ def _waterfall_steps(rows: list[WaterfallRow], caixa_recebiveis_ime: float) -> l
     if abs(running) > 1e-9:
         steps.append(
             {
-                "label": "Caixa + recebíveis IME",
+                "label": "Caixa + recebíveis",
                 "value": running,
                 "bar_start": 0.0,
                 "bar_end": running,
@@ -811,12 +857,18 @@ def _save_waterfall_plot(rows: list[WaterfallRow], plot_path: Path, *, caixa_rec
             linewidth=1.0,
             linestyle="--",
         )
+    label_stride = max(1, math.ceil(len(steps) / 18))
     for index, step in enumerate(steps):
+        if index not in {0, len(steps) - 1} and index % label_stride != 0:
+            continue
         label_y = max(step["bar_start"], step["bar_end"]) / 1_000_000.0
-        ax.text(index, label_y, _format_brl_millions(abs(step["value"])), ha="center", va="bottom", fontsize=8)
+        ax.text(index, label_y, _format_brl_millions(abs(step["value"])), ha="center", va="bottom", fontsize=7)
 
     ax.set_title("Waterfall Cloudwalk — Caixa + Recebíveis IME vs. Amortizações")
     ax.set_ylabel("R$ milhões")
+    tick_stride = max(1, math.ceil(len(labels) / 28))
+    ax.set_xticks(range(len(labels)))
+    ax.set_xticklabels([label if index % tick_stride == 0 or index == len(labels) - 1 else "" for index, label in enumerate(labels)])
     ax.tick_params(axis="x", labelrotation=45)
     ax.grid(axis="y", color="#E5E5E5", linewidth=0.8)
     fig.tight_layout()
@@ -865,13 +917,18 @@ def _save_pillow_plot(rows: list[WaterfallRow], plot_path: Path, *, caixa_recebi
     zero_y = y_at(0.0)
     draw.line((x0, zero_y, width - margin_right, zero_y), fill="#E5E5E5", width=1)
     bar_width = max(8, min(44, int(plot_width / max(len(steps), 1) * 0.5)))
+    label_stride = max(1, math.ceil(len(steps) / 18))
+    tick_stride = max(1, math.ceil(len(steps) / 28))
     for index, step in enumerate(steps):
         x = x_at(index)
         start = step["bar_start"] / 1_000_000.0
         end = step["bar_end"] / 1_000_000.0
         color = "#1F1F1F" if step["type"] == "inicio" else "#EC7000"
         draw.rectangle((x - bar_width / 2, y_at(max(start, end)), x + bar_width / 2, y_at(min(start, end))), fill=color)
-        draw.text((x - bar_width / 2, y_at(max(start, end)) - 14), _format_brl_millions(abs(step["value"])), fill="#1F1F1F", font=font)
+        if index in {0, len(steps) - 1} or index % label_stride == 0:
+            draw.text((x - bar_width / 2, y_at(max(start, end)) - 14), _format_brl_millions(abs(step["value"])), fill="#1F1F1F", font=font)
+        if index % tick_stride == 0 or index == len(steps) - 1:
+            draw.text((x - bar_width / 2, y0 + 8), step["label"], fill="#6B6B6B", font=font)
 
     draw.text((margin_left, height - 48), "Preto: Caixa + Recebiveis IME | Laranja: amortizacoes documentais", fill="#6B6B6B", font=font)
     draw.text((margin_left, height - 28), "Eixo Y em R$ milhoes", fill="#6B6B6B", font=font)

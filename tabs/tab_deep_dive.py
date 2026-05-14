@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import date
 from html import escape
 from pathlib import Path
+import math
 import re
 from typing import Any
 
@@ -638,7 +639,7 @@ def _cloudwalk_waterfall_chart_frame(rows: list[Any], caixa_recebiveis_ime: floa
         output.append(
             {
                 "ordem": 1,
-                "etapa": "Caixa + recebíveis IME",
+                "etapa": "Caixa + recebíveis",
                 "tipo": "Caixa + recebíveis",
                 "valor": running,
                 "bar_start": 0.0,
@@ -668,6 +669,8 @@ def _cloudwalk_waterfall_chart_frame(rows: list[Any], caixa_recebiveis_ime: floa
         return frame
     for column in ["valor", "bar_start", "bar_end", "label_y"]:
         frame[f"{column}_mi"] = pd.to_numeric(frame[column], errors="coerce").fillna(0.0) / 1_000_000.0
+    label_stride = max(1, math.ceil(len(frame) / 18))
+    frame["show_label"] = frame["ordem"].isin({1, int(frame["ordem"].max())}) | ((frame["ordem"] - 1) % label_stride == 0)
     return frame
 
 
@@ -708,7 +711,7 @@ def _cloudwalk_waterfall_chart(chart_df: pd.DataFrame) -> alt.Chart | None:
         )
     )
     labels = (
-        alt.Chart(chart_df)
+        alt.Chart(chart_df[chart_df["show_label"]])
         .mark_text(dy=-8, fontSize=12, fontWeight=700, color="#1F1F1F", clip=False)
         .encode(
             x=alt.X("etapa:N", sort=x_sort),
