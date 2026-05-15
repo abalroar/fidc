@@ -973,11 +973,6 @@ def _render_portfolio_aggregate_analysis(
             period=period,
             common_competencias=list(bundle.dashboard.competencias),
         )
-        if excluded_funds:
-            st.warning(
-                f"Leitura agregada usando {loaded_count} de {total_selected} fundo(s) da carteira. "
-                f"Fora do agregado atual: {', '.join(excluded_funds)}."
-            )
         if dashboard_errors:
             with st.expander("Fundos excluídos por falha no dashboard base", expanded=False):
                 for cnpj, message in dashboard_errors.items():
