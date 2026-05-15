@@ -9,9 +9,11 @@ import streamlit as st
 
 from services.ime_period import ImePeriodSelection, build_custom_period, current_default_end_month, month_options, shift_month
 from services.meli_credit_monitor import (
+    build_ex360_memory_table,
     build_meli_chart_axis_table,
     build_meli_methodology_table,
     build_meli_monitor_outputs,
+    build_somatorio_dashboard_comparison,
     latest_row,
 )
 from services.meli_credit_monitor_ppt_export import build_dashboard_meli_pptx_bytes
@@ -393,17 +395,24 @@ def render_dashboard_meli_analysis(
     def _render_funds_view() -> None:
         _render_fund_dashboards(monitor_outputs, selected_portfolio=selected_portfolio)
 
+    def _render_audit_view() -> None:
+        _render_audit(outputs, monitor_outputs, research_outputs, verification_report)
+
     if use_tabs:
-        main_tab, funds_tab = st.tabs(["Consolidado", "Fundos individuais"])
+        main_tab, funds_tab, audit_tab = st.tabs(["Consolidado", "Fundos individuais", "Auditoria"])
         with main_tab:
             _render_main_view()
         with funds_tab:
             _render_funds_view()
+        with audit_tab:
+            _render_audit_view()
     else:
         st.markdown("#### Consolidado")
         _render_main_view()
         st.markdown("#### Fundos individuais")
         _render_funds_view()
+        with st.expander("Auditoria e conciliações da análise de crédito", expanded=False):
+            _render_audit(outputs, monitor_outputs, research_outputs, verification_report, compact=True)
     _render_methodology(research_outputs)
 
 
@@ -557,6 +566,79 @@ def _dashboard_kpi_cards(row: pd.Series) -> list[tuple[str, str]]:
     return cards
 
 
+def _render_audit(
+    outputs,
+    monitor_outputs,
+    research_outputs=None,
+    verification_report: pd.DataFrame | None = None,
+    *,
+    compact: bool = False,
+) -> None:  # noqa: ANN001
+    if monitor_outputs.warnings:
+        if compact:
+            st.markdown("**Warnings do monitor**")
+            for warning in monitor_outputs.warnings:
+                st.caption(warning)
+        else:
+            with st.expander("Warnings do monitor", expanded=False):
+                for warning in monitor_outputs.warnings:
+                    st.caption(warning)
+    if research_outputs is not None and getattr(research_outputs, "warnings", None):
+        if compact:
+            st.markdown("**Warnings da visão research**")
+            for warning in research_outputs.warnings:
+                st.caption(warning)
+        else:
+            with st.expander("Warnings da visão research", expanded=False):
+                for warning in research_outputs.warnings:
+                    st.caption(warning)
+    audit = monitor_outputs.audit_table.copy()
+    if audit.empty:
+        st.info("Sem tabela de auditoria.")
+        return
+    display = audit.copy()
+    for column in [col for col in display.columns if col.endswith("_pct")]:
+        display[column] = display[column].map(_format_percent)
+    for column in [
+        "carteira_bruta",
+        "vencidos_360",
+        "npl_over360",
+        "baixa_over360_carteira",
+        "carteira_ex360",
+        "pdd_total",
+        "baixa_over360_pdd",
+        "pdd_ex360",
+        "baixa_over360_pl",
+        "pl_total",
+        "pl_total_ex360",
+        "carteira_a_vencer",
+        "npl_1_90",
+        "npl_91_360",
+        "roll_61_90_m3_den",
+        "roll_91_120_m4_den",
+        "roll_121_150_m5_den",
+        "roll_151_180_m6_den",
+    ]:
+        if column in display.columns:
+            display[column] = display[column].map(_format_brl_compact)
+    if "duration_months" in display.columns:
+        display["duration_months"] = display["duration_months"].map(lambda value: f"{_format_decimal(value, 1)} meses")
+    st.dataframe(display, use_container_width=True)
+    if verification_report is not None and not verification_report.empty:
+        st.markdown("**Verificação independente**")
+        st.dataframe(_format_verification_table(verification_report), use_container_width=True, hide_index=True)
+    comparison = build_somatorio_dashboard_comparison(outputs, monitor_outputs)
+    if not comparison.empty:
+        st.markdown("**Conciliação base x análise de crédito**")
+        st.caption("Conferência entre base do Somatório e métricas derivadas.")
+        st.dataframe(_format_somatorio_dashboard_comparison(comparison), use_container_width=True, hide_index=True)
+    ex360_memory = build_ex360_memory_table(outputs)
+    if not ex360_memory.empty:
+        st.markdown("**Memória de cálculo da carteira ex-360**")
+        st.caption("Carteira ex-360 = carteira bruta - NPL Over 360.")
+        st.dataframe(_format_ex360_memory_table(ex360_memory), use_container_width=True, hide_index=True)
+
+
 def _research_scope_options(research_outputs) -> dict[str, str]:  # noqa: ANN001
     frames = [
         getattr(research_outputs, "roll_seasonality", pd.DataFrame()),
@@ -637,6 +719,87 @@ def _format_research_table(frame: pd.DataFrame) -> pd.DataFrame:
             "numerator": "Numerador",
             "denominator": "Denominador",
             "formula": "Fórmula",
+        }
+    )
+
+
+def _format_verification_table(frame: pd.DataFrame) -> pd.DataFrame:
+    display = frame.copy()
+    for column in ["calculated_value", "verified_value", "abs_diff"]:
+        if column in display.columns:
+            display[column] = display[column].map(lambda value: _format_decimal(value, 6) if pd.notna(pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]) else "N/D")
+    if "rel_diff_pct" in display.columns:
+        display["rel_diff_pct"] = display["rel_diff_pct"].map(_format_percent)
+    return display
+
+
+def _format_somatorio_dashboard_comparison(frame: pd.DataFrame) -> pd.DataFrame:
+    display = frame.copy()
+    for column in ["somatorio", "dashboard_meli", "diferenca_abs", "diferenca_rel_pct"]:
+        if column in display.columns:
+            display[column] = display[column].astype("object")
+    for idx, row in display.iterrows():
+        unit = str(row.get("unidade") or "")
+        for column in ["somatorio", "dashboard_meli", "diferenca_abs"]:
+            if column in display.columns:
+                display.loc[idx, column] = _format_research_value(row.get(column), unit=unit)
+        if "diferenca_rel_pct" in display.columns:
+            display.loc[idx, "diferenca_rel_pct"] = _format_research_value(row.get("diferenca_rel_pct"), unit="%")
+    return display.rename(
+        columns={
+            "escopo": "Escopo",
+            "cnpj": "CNPJ",
+            "competencia": "Competência",
+            "metrica": "Métrica",
+            "somatorio": "Soma de FIDCs",
+            "dashboard_meli": "Análise Crédito",
+            "diferenca_abs": "Diferença abs.",
+            "diferenca_rel_pct": "Diferença rel.",
+            "unidade": "Unidade",
+            "status": "Status",
+            "formula_somatorio": "Fórmula Somatório",
+            "formula_dashboard": "Fórmula Dashboard",
+        }
+    )
+
+
+def _format_ex360_memory_table(frame: pd.DataFrame) -> pd.DataFrame:
+    display = frame.copy()
+    money_columns = [
+        "carteira_bruta",
+        "vencidos_360",
+        "npl_over360",
+        "baixa_over360_carteira",
+        "carteira_ex360",
+        "pdd_total",
+        "baixa_over360_pdd",
+        "pdd_ex360",
+        "pl_total",
+        "baixa_over360_pl",
+        "pl_total_ex360",
+    ]
+    for column in money_columns:
+        if column in display.columns:
+            display[column] = display[column].astype("object")
+            display[column] = display[column].map(_format_brl_compact)
+    return display.rename(
+        columns={
+            "escopo": "Escopo",
+            "cnpj": "CNPJ",
+            "competencia": "Competência",
+            "carteira_bruta": "Carteira bruta",
+            "vencidos_360": "Vencidos > 360d",
+            "npl_over360": "NPL Over 360d",
+            "baixa_over360_carteira": "Baixa carteira > 360d",
+            "carteira_ex360": "Carteira ex-360",
+            "pdd_total": "PDD total",
+            "baixa_over360_pdd": "Baixa PDD > 360d",
+            "pdd_ex360": "PDD ex-360",
+            "pl_total": "PL total",
+            "baixa_over360_pl": "Baixa PL > 360d",
+            "pl_total_ex360": "PL ex-360",
+            "formula_carteira_ex360": "Fórmula carteira ex-360",
+            "formula_pl_ex360": "Fórmula PL ex-360",
         }
     )
 

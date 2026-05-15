@@ -697,8 +697,46 @@ def _build_failure_report(exc: Exception, tb_text: str, context: dict[str, Any])
 
 def _render_failure_diagnostics(exc: Exception, tb_text: str, context: dict[str, Any]) -> None:
     report = _build_failure_report(exc, tb_text, context)
-    st.error("Não foi possível carregar os informes para esta seleção.")
-    st.caption(f"Motivo: {report['categoria']}. Ajuste a janela ou tente novamente.")
+    st.error(f"Falha na extração: {report['categoria']}")
+
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Tipo de erro", report["erro_tipo"])
+    col2.metric("Timestamp (UTC)", report["timestamp_utc"])
+    col3.metric("Execução", context.get("request_id", "N/D"))
+    st.code(report["erro_mensagem"])
+
+    if isinstance(exc, FundosNetError) and exc.details:
+        st.warning("O provedor retornou detalhes técnicos relevantes para investigação.")
+        st.json(exc.details)
+
+    st.subheader("Diagnóstico técnico")
+    checklist = [
+        "Validar se o CNPJ possui 14 dígitos e corresponde a um FIDC ativo no Fundos.NET.",
+        "Conferir se há Informes Mensais públicos no intervalo de competência informado.",
+        "Checar se houve mudança de contrato no endpoint de listagem/download.",
+        "Inspecionar status HTTP e corpo de resposta prefixado em detalhes_provedor.",
+        "Comparar a trilha de auditoria para identificar a etapa exata da quebra.",
+    ]
+    for item in checklist:
+        st.markdown(f"- {item}")
+
+    with st.expander("Contexto da execução", expanded=False):
+        st.json(context)
+
+    if isinstance(exc, FundosNetError) and exc.trace:
+        st.subheader("Auditoria da falha")
+        audit_df = pd.DataFrame(exc.trace)
+        st.dataframe(audit_df, width="stretch")
+
+    with st.expander("Traceback completo", expanded=False):
+        st.code(tb_text)
+
+    st.download_button(
+        "Baixar relatório técnico da falha (JSON)",
+        data=_safe_json_bytes(report),
+        file_name="relatorio_falha_fidc_ime.json",
+        mime="application/json",
+    )
 
 
 def _update_progress_bar(progress_bar, value: float, message: str) -> None:
@@ -1008,6 +1046,53 @@ def _validate_result_contract(result: InformeMensalResult) -> dict[str, list[str
     return missing
 
 
+def _render_execution_observability(context: dict[str, Any], elapsed_seconds: float | None = None) -> None:
+    with st.expander("Observabilidade da execução", expanded=False):
+        payload = dict(context)
+        if elapsed_seconds is not None:
+            payload["duracao_segundos"] = round(elapsed_seconds, 3)
+        st.json(payload)
+
+
+def _format_elapsed_seconds(value: object) -> str:
+    numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(numeric):
+        return "N/D"
+    seconds = float(numeric)
+    if seconds < 60:
+        return f"{seconds:.1f}s".replace(".", ",")
+    minutes = int(seconds // 60)
+    remaining = seconds - (minutes * 60)
+    return f"{minutes}m {remaining:.0f}s"
+
+
+def _render_load_timing_bar(context: dict[str, Any]) -> None:
+    timings = dict(context.get("timings") or {})
+    if not timings and context.get("elapsed_seconds") is not None:
+        timings["extracao_cache_segundos"] = context.get("elapsed_seconds")
+    if not timings:
+        return
+    extraction = _format_elapsed_seconds(timings.get("extracao_cache_segundos"))
+    dashboard_data = _format_elapsed_seconds(timings.get("dashboard_data_segundos"))
+    total = _format_elapsed_seconds(timings.get("total_ate_dashboard_segundos"))
+    chips = [
+        ("Extração/cache", extraction),
+        ("Montagem dashboard", dashboard_data),
+        ("Total até dashboard", total),
+    ]
+    html = "".join(
+        f'<span class="fidc-timing-chip"><strong>{escape(label)}:</strong> {escape(value)}</span>'
+        for label, value in chips
+        if value != "N/D"
+    )
+    if html:
+        st.markdown(f'<div class="fidc-timing-bar">{html}</div>', unsafe_allow_html=True)
+
+
+def _read_csv_preview(csv_path, max_rows: int) -> pd.DataFrame:  # noqa: ANN001
+    return pd.read_csv(csv_path, nrows=max_rows)
+
+
 def _period_from_context(context: dict[str, Any]) -> ImePeriodSelection | None:
     try:
         start_month = pd.Timestamp(context.get("competencia_inicial")).date()
@@ -1078,11 +1163,12 @@ def _render_dashboard(
     context: dict[str, Any],
     *,
     contract_missing: dict[str, list[str]],
+    docs_ok: int,
     docs_error: int,
     slot_key: str = "slot0",
 ) -> None:
     # Cache the dashboard data in session_state so that widget interactions
-    # do not trigger a full CSV reload on every
+    # (e.g., radio-button toggles) do not trigger a full CSV reload on every
     # Streamlit rerun.  The cache entry is invalidated when the user clicks
     # "Carregar Informes Mensais" (see load_clicked handler above).
     _session_dashboard_key = f"_dashboard_{slot_key}"
@@ -1119,22 +1205,57 @@ def _render_dashboard(
         context,
     )
     st.session_state[_session_dashboard_key] = dashboard
-    _render_dashboard_header(dashboard)
-    _render_financial_snapshot_cards(dashboard)
-    _render_dashboard_controls(dashboard, context)
-    _render_dashboard_context_bar(dashboard)
-    _render_requested_period_coverage_warning(dashboard, context)
-    if docs_error:
-        st.warning(f"{docs_error} informe(s) não entraram na leitura. A visão usa apenas documentos válidos.")
-    if contract_missing:
-        st.warning("Alguns dados esperados não foram encontrados para esta janela.")
-    _render_structural_risk_section(
-        dashboard,
-        slot_key=slot_key,
-        return_months=int(context.get("display_month_count") or len(dashboard.competencias) or 12),
+    selected_view = st.radio(
+        "Visão do informe",
+        options=["Visão executiva", "Auditoria técnica"],
+        horizontal=True,
+        key=f"fidc_result_view_{slot_key}",
+        label_visibility="collapsed",
     )
-    _render_credit_risk_section(dashboard)
-    _render_liquidity_risk_section(dashboard)
+    if selected_view == "Visão executiva":
+        _render_dashboard_header(dashboard)
+        _render_load_timing_bar(context)
+        _render_financial_snapshot_cards(dashboard)
+        _render_dashboard_controls(dashboard, context)
+        _render_dashboard_context_bar(dashboard)
+        _render_requested_period_coverage_warning(dashboard, context)
+        if docs_error:
+            st.warning(f"{docs_error} informe(s) falharam no processamento. A leitura abaixo usa apenas os informes válidos.")
+        _render_structural_risk_section(
+            dashboard,
+            slot_key=slot_key,
+            return_months=int(context.get("display_month_count") or len(dashboard.competencias) or 12),
+        )
+        _render_credit_risk_section(dashboard)
+        _render_liquidity_risk_section(dashboard)
+        _render_calculation_memory_section(dashboard, slot_key=slot_key)
+    else:
+        _render_execution_observability(context, elapsed_seconds=context.get("elapsed_seconds"))
+        if contract_missing:
+            st.warning("Contrato de dados parcial detectado. Alguns blocos podem ficar incompletos.")
+            with st.expander("Diagnóstico de contrato de dados", expanded=True):
+                st.json(contract_missing)
+        _render_audit_section(dashboard)
+        _render_glossary_section(dashboard)
+        with st.expander("Notas metodológicas", expanded=False):
+            for note in dashboard.methodology_notes:
+                st.markdown(f"- {note}")
+        if docs_error:
+            with st.expander("Documentos com falha", expanded=True):
+                failed_docs = (
+                    result.docs_df[result.docs_df["processamento"] == "erro"].copy()
+                    if "processamento" in result.docs_df.columns
+                    else result.docs_df.copy()
+                )
+                st.caption(f"{docs_ok} informe(s) válidos · {docs_error} com falha")
+                st.dataframe(failed_docs, width="stretch", hide_index=True)
+                st.download_button(
+                    "Baixar documentos com falha (CSV)",
+                    data=failed_docs.to_csv(index=False).encode("utf-8"),
+                    file_name=f"documentos_falha_fidc_ime_{context.get('request_id', 'execucao')}.csv",
+                    mime="text/csv",
+                )
+        _render_raw_extraction_section(result)
 
 
 def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
@@ -1585,6 +1706,146 @@ def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
                 f"{row.get('definicao', row.get('definicao_curta', 'N/D'))}"
             )
             col.markdown("")
+
+
+def _render_calculation_memory_section(dashboard: FundonetDashboardData, *, slot_key: str = "slot0") -> None:
+    _render_fidc_section("Memória de cálculo da aba")
+    memory_df = dashboard.executive_memory_df.copy()
+    if memory_df.empty:
+        st.caption("Memória de cálculo indisponível nesta execução.")
+        return
+    ordered_types = [
+        "Monetária",
+        "Base canônica",
+        "Percentual",
+        "Bucket / distribuição",
+        "Classe / PL",
+        "Fluxo / evento",
+        "Prazo / duration",
+        "Métrica de risco",
+        "Metadado / referência",
+    ]
+    available_types = [t for t in ordered_types if not memory_df[memory_df["tipo_variavel"] == t].empty]
+    if not available_types:
+        return
+    selected_types = st.multiselect(
+        "Categorias de variáveis",
+        options=available_types,
+        default=[],
+        key=f"memory_types_{slot_key}",
+        placeholder="Selecione categorias para exibir a memória de cálculo...",
+    )
+    if selected_types:
+        subset = memory_df[memory_df["tipo_variavel"].isin(selected_types)].copy()
+        subset = subset.sort_values(["tipo_variavel", "bloco", "nome_variavel"], na_position="last")
+        formatted = _format_executive_memory_table(subset)
+        if "Tipo de variável" not in formatted.columns:
+            formatted.insert(0, "Tipo de variável", subset["tipo_variavel"].tolist())
+        st.dataframe(
+            formatted,
+            width="stretch",
+            hide_index=True,
+        )
+
+
+def _render_audit_section(
+    dashboard: FundonetDashboardData,
+    *,
+    compact: bool = False,
+    show_title: bool = True,
+) -> None:
+    if show_title:
+        _render_fidc_section(
+            "Base auditável",
+            "Reconciliação completa entre dado bruto, transformação, output e limitação analítica.",
+        )
+    if compact:
+        st.markdown("**Diagnóstico de consistência**")
+        st.dataframe(
+            _format_consistency_audit_table(dashboard.consistency_audit_df),
+            width="stretch",
+            hide_index=True,
+        )
+        st.markdown("**Inventário dos outputs ativos**")
+        st.dataframe(
+            _format_dashboard_inventory_table(dashboard.current_dashboard_inventory_df),
+            width="stretch",
+            hide_index=True,
+        )
+        st.markdown("**Base canônica de direitos creditórios**")
+        st.dataframe(
+            _format_dc_canonical_audit_table(dashboard.dc_canonical_history_df),
+            width="stretch",
+            hide_index=True,
+        )
+        st.markdown("**Memória de cálculo**")
+        st.dataframe(
+            _format_executive_memory_table(dashboard.executive_memory_df),
+            width="stretch",
+            hide_index=True,
+        )
+        st.dataframe(
+            _format_risk_metrics_memory_table(dashboard.risk_metrics_df),
+            width="stretch",
+            hide_index=True,
+        )
+        st.markdown("**Base normalizada do Informe Mensal**")
+        left, right = st.columns(2)
+        with left:
+            st.caption("Liquidez reportada")
+            st.dataframe(
+                _format_value_table(dashboard.liquidity_latest_df, label_column="horizonte", label_title="Horizonte"),
+                width="stretch",
+                hide_index=True,
+            )
+        with right:
+            st.caption("Cotistas")
+            st.dataframe(
+                _format_holder_table(dashboard.holder_latest_df),
+                width="stretch",
+                hide_index=True,
+            )
+        if not dashboard.rate_negotiation_latest_df.empty:
+            st.markdown("**Taxas de negociação de direitos creditórios**")
+            st.dataframe(
+                _format_rate_table(dashboard.rate_negotiation_latest_df),
+                width="stretch",
+                hide_index=True,
+            )
+        return
+
+    with st.expander("Diagnóstico de consistência da aba executiva", expanded=False):
+        st.dataframe(
+            _format_consistency_audit_table(dashboard.consistency_audit_df),
+            width="stretch",
+            hide_index=True,
+        )
+    with st.expander("Inventário auditável dos outputs ativos", expanded=False):
+        st.dataframe(
+            _format_dashboard_inventory_table(dashboard.current_dashboard_inventory_df),
+            width="stretch",
+            hide_index=True,
+        )
+    with st.expander("Base canônica de direitos creditórios", expanded=False):
+        st.dataframe(
+            _format_dc_canonical_audit_table(dashboard.dc_canonical_history_df),
+            width="stretch",
+            hide_index=True,
+        )
+    with st.expander("Memória de cálculo da visão executiva", expanded=False):
+        st.dataframe(
+            _format_executive_memory_table(dashboard.executive_memory_df),
+            width="stretch",
+            hide_index=True,
+        )
+    with st.expander("Memória de cálculo das métricas exibidas", expanded=False):
+        st.dataframe(
+            _format_risk_metrics_memory_table(dashboard.risk_metrics_df),
+            width="stretch",
+            hide_index=True,
+        )
+    with st.expander("Base normalizada do Informe Mensal", expanded=False):
+        _render_cvm_tables_section(dashboard)
 
 
 def _render_financial_snapshot_cards(dashboard: FundonetDashboardData) -> None:
@@ -2911,6 +3172,194 @@ def _format_risk_metrics_compact_table(metrics_df: pd.DataFrame, *, risk_block: 
         axis=1,
     )
     return output[["Métrica", "Valor"]]
+
+
+def _format_risk_metrics_memory_table(metrics_df: pd.DataFrame) -> pd.DataFrame:
+    if metrics_df.empty:
+        return pd.DataFrame(
+            columns=[
+                "Bloco de risco",
+                "Métrica",
+                "Variável final",
+                "Fonte",
+                "Transformação",
+                "Fórmula",
+                "Pipeline",
+                "Interpretação",
+                "Limitação",
+                "Estado",
+            ]
+        )
+    output = metrics_df.copy()
+    output["Bloco de risco"] = output["risk_block"]
+    output["Métrica"] = output["label"]
+    output["Variável final"] = output["final_variable"]
+    output["Fonte"] = output["source_data"]
+    output["Transformação"] = output["transformation"]
+    output["Fórmula"] = output["formula"]
+    output["Pipeline"] = output["pipeline"]
+    output["Interpretação"] = output["interpretation"]
+    output["Limitação"] = output["limitation"]
+    output["Estado"] = output["state"].map(_format_risk_metric_state)
+    return output[
+        [
+            "Bloco de risco",
+            "Métrica",
+            "Variável final",
+            "Fonte",
+            "Transformação",
+            "Fórmula",
+            "Pipeline",
+            "Interpretação",
+            "Limitação",
+            "Estado",
+        ]
+    ]
+
+
+def _format_dc_canonical_audit_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(
+            columns=[
+                "Competência",
+                "DC total canônico",
+                "Fonte efetiva",
+                "DC vencidos",
+                "DC a vencer",
+                "Malha x estoque",
+                "Malha x agregado",
+            ]
+        )
+    output = df.sort_values("competencia_dt").copy()
+    output["Competência"] = output["competencia"].map(_format_competencia_label)
+    output["DC total canônico"] = output["dc_total_canonico"].map(_format_brl_compact)
+    output["Fonte efetiva"] = output["dc_total_fonte_efetiva"].fillna("N/D")
+    output["DC vencidos"] = output["dc_vencidos_canonico"].map(_format_brl_compact)
+    output["DC a vencer"] = output["dc_a_vencer_canonico"].map(_format_brl_compact)
+    output["Malha x estoque"] = output.apply(
+        lambda row: _format_reconciliation_cell(
+            row.get("reconciliacao_malha_vs_estoque_status"),
+            row.get("reconciliacao_malha_vs_estoque_gap_pct"),
+        ),
+        axis=1,
+    )
+    output["Malha x agregado"] = output.apply(
+        lambda row: _format_reconciliation_cell(
+            row.get("reconciliacao_malha_vs_agregado_status"),
+            row.get("reconciliacao_malha_vs_agregado_gap_pct"),
+        ),
+        axis=1,
+    )
+    return output[
+        [
+            "Competência",
+            "DC total canônico",
+            "Fonte efetiva",
+            "DC vencidos",
+            "DC a vencer",
+            "Malha x estoque",
+            "Malha x agregado",
+        ]
+    ]
+
+
+def _format_reconciliation_cell(status: object, gap_pct: object) -> str:
+    status_text = str(status or "sem_base")
+    labels = {
+        "conciliado": "Conciliado",
+        "divergente": "Divergente",
+        "sem_base": "Sem base",
+    }
+    if gap_pct is None or _is_missing_value(gap_pct):
+        return labels.get(status_text, status_text)
+    return f"{labels.get(status_text, status_text)} ({_format_decimal(gap_pct, decimals=2)}%)"
+
+
+def _format_executive_memory_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(
+            columns=[
+                "Bloco",
+                "Componente",
+                "Variável final",
+                "Numerador",
+                "Denominador",
+                "Fonte CVM",
+                "Fonte efetiva",
+                "Fórmula",
+                "Observação",
+            ]
+        )
+    output = df.copy()
+    output["Bloco"] = output["bloco_executivo"]
+    output["Componente"] = output["componente"]
+    output["Variável final"] = output["variavel_final"]
+    output["Numerador"] = output["numerador"]
+    output["Denominador"] = output["denominador"]
+    output["Fonte CVM"] = output["fonte_cvm"]
+    output["Fonte efetiva"] = output["fonte_efetiva"]
+    output["Fórmula"] = output["formula"]
+    output["Observação"] = output["observacao"]
+    return output[
+        [
+            "Bloco",
+            "Componente",
+            "Variável final",
+            "Numerador",
+            "Denominador",
+            "Fonte CVM",
+            "Fonte efetiva",
+            "Fórmula",
+            "Observação",
+        ]
+    ]
+
+
+def _format_dashboard_inventory_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(
+            columns=[
+                "Output",
+                "Bloco",
+                "Variável",
+                "Fonte",
+                "Fórmula",
+                "Tipo",
+                "Unidade",
+            ]
+        )
+    output = df.copy()
+    output["Output"] = output["nome_exibido"]
+    output["Bloco"] = output["bloco_ui_atual"]
+    output["Variável"] = output["nome_variavel"]
+    output["Fonte"] = output["fonte_dado"]
+    output["Fórmula"] = output["formula"]
+    output["Tipo"] = output["tipo"]
+    output["Unidade"] = output["unidade"]
+    return output[["Output", "Bloco", "Variável", "Fonte", "Fórmula", "Tipo", "Unidade"]]
+
+
+def _format_consistency_audit_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=["Tema", "Status", "Checagem", "Resultado", "Ação"])
+    output = df.copy()
+    output["Tema"] = output["tema"]
+    output["Status"] = output["status"]
+    output["Checagem"] = output["checagem"]
+    output["Resultado"] = output["resultado"]
+    output["Ação"] = output["acao"]
+    return output[["Tema", "Status", "Checagem", "Resultado", "Ação"]]
+
+
+def _format_coverage_gap_table(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=["Tema", "Status", "Por que importa", "Fonte necessária"])
+    output = df.copy()
+    output["Tema"] = output["tema"]
+    output["Status"] = output["status"]
+    output["Por que importa"] = output["por_que_importa"]
+    output["Fonte necessária"] = output["fonte_necessaria"]
+    return output[["Tema", "Status", "Por que importa", "Fonte necessária"]]
 
 
 def _format_glossary_table(df: pd.DataFrame) -> pd.DataFrame:
@@ -5202,12 +5651,36 @@ def _format_competencia_display(competencia: object) -> str:
 
 def _render_result(result: InformeMensalResult, context: dict[str, Any], *, slot_key: str = "slot0") -> None:
     contract_missing = _validate_result_contract(result)
+    docs_ok = _count_docs_by_status(result.docs_df, "ok")
     docs_error = _count_docs_by_status(result.docs_df, "erro")
+    competencias = result.competencias
 
     _render_dashboard(
         result,
         context,
         contract_missing=contract_missing,
+        docs_ok=docs_ok,
         docs_error=docs_error,
         slot_key=slot_key,
     )
+
+
+def _render_raw_extraction_section(result: InformeMensalResult) -> None:
+    max_preview_rows = 300
+    with st.expander("Artefatos brutos da extração", expanded=False):
+        st.caption(f"Pré-visualizações até {max_preview_rows} linhas.")
+
+        st.subheader("Documentos selecionados")
+        st.dataframe(result.docs_df.head(max_preview_rows), width="stretch")
+
+        st.subheader("Prévia da Tabela Completa final")
+        wide_preview_df = _read_csv_preview(result.wide_csv_path, max_preview_rows)
+        st.dataframe(wide_preview_df, width="stretch")
+
+        if result.listas_row_count > 0:
+            st.subheader("Prévia das estruturas repetitivas")
+            listas_preview_df = _read_csv_preview(result.listas_csv_path, max_preview_rows)
+            st.dataframe(listas_preview_df, width="stretch")
+
+        st.subheader("Auditoria")
+        st.dataframe(result.audit_df.head(max_preview_rows), width="stretch")

@@ -574,7 +574,7 @@ def _render_cloudwalk_waterfall_body(*, compact: bool = False) -> None:
         artifacts = _load_cloudwalk_waterfall_artifacts(refresh_ime)
     except Exception as exc:  # noqa: BLE001
         st.error("Não foi possível carregar o waterfall Cloudwalk.")
-        st.caption("Tente novamente com cache local ou uma janela menor.")
+        st.caption(f"Detalhe técnico: {type(exc).__name__}: {exc}")
         return
 
     summary = artifacts["summary"]

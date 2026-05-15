@@ -12,6 +12,8 @@ from tabs.tab_fidc_ime_carteira import (
     _build_portfolio_selector_label_lookup,
     _build_loaded_dashboards_by_cnpj,
     _execute_portfolio_load_for_funds,
+    _format_competencia_debug_list,
+    _format_competencia_debug_span,
     _is_cache_ready_for_portfolio_load,
     _load_single_portfolio_fund,
     _normalize_portfolio_editor_mode,
@@ -299,6 +301,15 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
         self.assertFalse(context["cache_refresh_attempted"])
         self.assertEqual(["01/2026"], context["missing_competencias_after_refresh"])
         self.assertEqual("source_refresh_previously_attempted_for_this_cache", context["cache_refresh_skipped_reason"])
+
+    def test_competencia_debug_formatters_sort_without_ime_private_sort_key(self) -> None:
+        competencias = ["02/2026", "01/2026", "2026-03-01", "abr-26"]
+
+        self.assertEqual("jan-26 a abr-26", _format_competencia_debug_span(competencias))
+        self.assertEqual(
+            "jan-26, fev-26, mar-26 +1",
+            _format_competencia_debug_list(competencias, limit=3),
+        )
 
     def test_ensure_portfolio_ime_data_loads_all_missing_funds_without_button(self) -> None:
         portfolio = PortfolioRecord(
