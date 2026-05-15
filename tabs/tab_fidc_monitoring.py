@@ -1279,19 +1279,6 @@ def _render_fund_boards_tab(outputs: list[dict[str, Any]], *, compact: bool = Fa
     )
     st.markdown("### Tabela Completa do fundo")
     st.markdown(_render_fund_time_table_html(selected), unsafe_allow_html=True)
-    if compact:
-        with st.expander("Auditoria e dados brutos do fundo", expanded=False):
-            st.markdown("**Auditoria de fórmulas**")
-            st.caption("Fórmula, fonte e status de cada linha.")
-            st.dataframe(tables.audit_df, hide_index=True, use_container_width=True)
-            st.markdown("**Dados brutos (variáveis IME)**")
-            _render_raw_data_panel(selected, key_suffix=str(selected.get("cnpj") or "fundo"))
-        return
-    with st.expander("Auditoria de fórmulas", expanded=False):
-        st.caption("Fórmula, fonte e status de cada linha.")
-        st.dataframe(tables.audit_df, hide_index=True, use_container_width=True)
-    with st.expander("Dados brutos (variáveis IME)", expanded=False):
-        _render_raw_data_panel(selected, key_suffix=str(selected.get("cnpj") or "fundo"))
 
 
 def _aging_stacked_bar(aging_df: pd.DataFrame, competencias: list[str]) -> alt.Chart:

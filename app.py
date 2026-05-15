@@ -294,4 +294,4 @@ elif selected_section == "Sobre":
         st.caption(f"Módulo ausente: {exc.name}. As demais abas continuam disponíveis.")
     except Exception as exc:  # noqa: BLE001
         st.error("A tela Sobre encontrou um erro, mas as demais abas continuam disponíveis.")
-        st.caption(f"Detalhe técnico: {type(exc).__name__}: {exc}")
+        st.caption("Tente recarregar a página ou volte para outra seção.")

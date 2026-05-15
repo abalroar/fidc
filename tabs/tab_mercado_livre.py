@@ -24,7 +24,6 @@ from services.mercado_livre_dashboard import (
     build_full_variable_csv_zip_bytes,
     build_full_variable_excel_export_bytes,
     build_mercado_livre_outputs,
-    build_validation_table,
     build_wide_table,
     cache_dir_for_outputs,
     extract_official_pl_history_from_wide_csv,
@@ -236,7 +235,7 @@ def render_tab_somatorio_fidcs(
     if show_portfolio_controls:
         selected_portfolio = _render_selection_controls(portfolios=portfolios, catalog_df=catalog_df)
     if selected_portfolio is None:
-        st.info(f"Crie ou selecione uma carteira para iniciar a auditoria {SOMATORIO_FIDCS_TITLE}.")
+        st.info(f"Crie ou selecione uma carteira para iniciar a análise {SOMATORIO_FIDCS_TITLE}.")
         return
     selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
     cache_session_key = _outputs_session_key(selected_portfolio=selected_portfolio, period=calculation_period)
@@ -758,9 +757,6 @@ def _render_outputs(
                     "NPL Over 90d ex-360 e cobertura PDD ex-360 / NPL Over 90d ex-360.",
                     npl_coverage_chart(monthly_df),
                 )
-
-        _render_base_audit(display_outputs=display_outputs, cache_dir=cache_dir)
-
     def _render_credit_view() -> None:
         render_dashboard_meli_analysis(
             outputs=display_outputs,
@@ -791,17 +787,6 @@ def _render_outputs(
     _render_base_view()
     st.markdown("### Análise Crédito")
     _render_credit_view()
-
-
-def _render_base_audit(*, display_outputs, cache_dir) -> None:  # noqa: ANN001
-    with st.expander("Auditoria da base do Somatório", expanded=False):
-        validation_df = build_validation_table(display_outputs)
-        st.caption("Memória dos valores absolutos e percentuais derivados.")
-        st.dataframe(_format_validation_for_display(validation_df), width="stretch", hide_index=True)
-        _ = cache_dir
-        if not display_outputs.warnings_df.empty:
-            st.markdown("**Warnings da base**")
-            st.dataframe(display_outputs.warnings_df, width="stretch", hide_index=True)
 
 
 def _render_chart(title: str, subtitle: str, chart) -> None:
@@ -1429,71 +1414,6 @@ def _loaded_period_label(outputs) -> str:
         return "N/D"
     competencias = frame["competencia"].astype(str).tolist()
     return f"{ime_tab._format_competencia_label(competencias[0])} a {ime_tab._format_competencia_label(competencias[-1])}"
-
-
-def _format_validation_for_display(df: pd.DataFrame) -> pd.DataFrame:
-    if df.empty:
-        return df
-    output = df.copy()
-    rename = {
-        "fund_name": "Fundo",
-        "cnpj": "CNPJ",
-        "competencia": "Competência",
-        "pl_total": "PL total",
-        "pl_total_oficial": "PL oficial",
-        "pl_total_classes": "PL soma classes",
-        "pl_reconciliacao_delta": "Delta PL",
-        "pl_senior": "PL sênior",
-        "pl_subordinada_mezz": "Subordinada + Mez",
-        "subordinacao_total_pct": "% Subordinação",
-        "carteira_bruta": "Carteira",
-        "pdd_total": "PDD",
-        "npl_over90": "NPL Over 90d",
-        "npl_over360": "Over 360d",
-        "baixa_over360_carteira": "Baixa carteira >360",
-        "baixa_over360_pdd": "Baixa PDD >360",
-        "baixa_over360_pl": "Baixa PL >360",
-        "npl_over90_ex360": "NPL 90 ex-360",
-        "carteira_ex360": "Carteira ex-360",
-        "pdd_ex360": "PDD ex-360",
-        "pl_total_ex360": "PL ex-360",
-        "pl_subordinada_mezz_ex360": "Sub+Mez ex-360",
-        "subordinacao_total_ex360_pct": "% Subordinação ex-360",
-        "pdd_npl_over90_pct": "PDD/NPL90",
-        "pdd_npl_over90_ex360_pct": "PDD/NPL90 ex-360",
-        "warnings": "Warnings",
-    }
-    for column in [
-        "pl_total",
-        "pl_total_oficial",
-        "pl_total_classes",
-        "pl_reconciliacao_delta",
-        "pl_senior",
-        "pl_subordinada_mezz",
-        "carteira_bruta",
-        "pdd_total",
-        "npl_over90",
-        "npl_over360",
-        "baixa_over360_carteira",
-        "baixa_over360_pdd",
-        "baixa_over360_pl",
-        "npl_over90_ex360",
-        "carteira_ex360",
-        "pdd_ex360",
-        "pl_total_ex360",
-        "pl_subordinada_mezz_ex360",
-    ]:
-        if column in output.columns:
-            output[column] = output[column].map(_format_brl_compact)
-    for column in [
-        "subordinacao_total_pct",
-        "subordinacao_total_ex360_pct",
-        "pdd_npl_over90_pct",
-        "pdd_npl_over90_ex360_pct",
-    ]:
-        if column in output.columns:
-            output[column] = output[column].map(_format_percent)
-    return output.rename(columns=rename)
 
 
 def _format_brl_compact(value: object) -> str:
