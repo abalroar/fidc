@@ -59,6 +59,8 @@ from tabs.tab_fidc_ime_carteira import (
     ensure_portfolio_ime_data,
 )
 
+
+SOMATORIO_FIDCS_TITLE = "Soma de FIDCs"
 DISPLAY_WINDOW_FULL_OPTION = "Todo período carregado"
 DISPLAY_WINDOW_DECEMBERS_OPTION = "Dezembros + Ano Atual"
 DISPLAY_WINDOW_OPTIONS = (DISPLAY_WINDOW_FULL_OPTION, "6M", "12M", "24M", "36M", "YTD", DISPLAY_WINDOW_DECEMBERS_OPTION, "Customizado")
@@ -78,6 +80,43 @@ _SOMATORIO_FIDCS_UI_CSS = """
     font-size: 12px;
     line-height: 1.25;
     margin: 0 0 8px 0;
+}
+.chart-note-list {
+    color: #6f7a87;
+    font-size: 12px;
+    line-height: 1.35;
+    margin: 0.1rem 0 0.7rem 0;
+    padding-left: 1.05rem;
+}
+.chart-note-list li {
+    margin: 0.08rem 0;
+}
+.somatorio-fidcs-period-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    margin: 0 0 0.45rem 0;
+    scrollbar-width: thin;
+}
+.somatorio-fidcs-period-bar span {
+    align-items: center;
+    background: #f8f9fa;
+    border: 1px solid #eceff3;
+    border-radius: 999px;
+    color: #5a5a5a;
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: 0.72rem;
+    gap: 4px;
+    line-height: 1.2;
+    padding: 4px 7px;
+    white-space: nowrap;
+}
+.somatorio-fidcs-period-bar strong {
+    color: #212529;
+    font-weight: 500;
 }
 .wide-table-wrapper {
     overflow-x: auto;
@@ -196,7 +235,7 @@ def render_tab_somatorio_fidcs(
     if show_portfolio_controls:
         selected_portfolio = _render_selection_controls(portfolios=portfolios, catalog_df=catalog_df)
     if selected_portfolio is None:
-        st.info("Selecione uma carteira.")
+        st.info(f"Crie ou selecione uma carteira para iniciar a análise {SOMATORIO_FIDCS_TITLE}.")
         return
     selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
     cache_session_key = _outputs_session_key(selected_portfolio=selected_portfolio, period=calculation_period)
@@ -253,7 +292,7 @@ def render_tab_somatorio_fidcs(
     results = runtime_state.get("results") or {}
     if not results:
         _render_status_bar(selected_portfolio=selected_portfolio, period=period, results=results)
-        st.info("Sem dados para este período.")
+        st.info("A carteira ainda não possui dados carregados para este período.")
         return
 
     dashboards_by_cnpj, dashboard_errors = _build_loaded_dashboards_by_cnpj(
@@ -266,7 +305,7 @@ def render_tab_somatorio_fidcs(
                 st.caption(f"**{cnpj}** — {message}")
     if not dashboards_by_cnpj:
         _render_status_bar(selected_portfolio=selected_portfolio, period=period, results=results)
-        st.warning("Sem dados suficientes.")
+        st.warning(f"Nenhum fundo carregado com sucesso para montar a aba {SOMATORIO_FIDCS_TITLE}.")
         return
     official_pl_by_cnpj = _build_official_pl_by_cnpj(results=results, cnpjs=list(dashboards_by_cnpj))
 
@@ -312,6 +351,7 @@ def _render_somatorio_period_panel(global_period: ImePeriodSelection | None = No
         index=options.index("12M"),
         horizontal=True,
         key="somatorio_fidcs_load_window",
+        help="Use 24M/36M para YoY, roll rates e cohorts.",
     )
     if selected == "Customizado":
         max_options = month_options(end_month, months_back=119)
@@ -349,6 +389,7 @@ def _render_somatorio_period_panel(global_period: ImePeriodSelection | None = No
     else:
         months = int(selected.removesuffix("M"))
         period = build_preset_period(end_month=end_month, months=months)
+    st.caption(f"{_format_month_option_label(period.start_month)} → {_format_month_option_label(period.end_month)}")
     return period
 
 
@@ -420,6 +461,7 @@ def _render_selection_controls(
                 st.session_state["ml_editor_open"] = True
                 st.rerun()
 
+    st.caption(get_portfolio_status_caption())
     render_saved_portfolio_delete_manager(
         portfolios=portfolios,
         key_prefix="ml",
@@ -576,7 +618,15 @@ def _render_status_bar(
     period: ImePeriodSelection,
     results: dict[str, dict[str, Any]],
 ) -> None:
-    _ = (selected_portfolio, period, results)
+    _ = (period, results)
+    st.markdown(
+        f"""
+<div class="somatorio-fidcs-period-bar">
+  <span><strong>Carteira:</strong> {escape(selected_portfolio.name)}</span>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
 
 
 def _render_outputs(
@@ -588,7 +638,24 @@ def _render_outputs(
     use_tabs: bool = True,
     show_guide: bool = True,
 ) -> None:
-    _ = (selected_portfolio, storage_source, show_guide)
+    ok = len(outputs.fund_monthly)
+    total = len(selected_portfolio.funds)
+    requested_period = str(outputs.metadata.get("period_label") or _loaded_period_label(outputs))
+    st.markdown(
+        f"""
+<div class="somatorio-fidcs-period-bar">
+  <span><strong>{escape(selected_portfolio.name)}</strong></span>
+  <span>{escape(requested_period)}</span>
+  <span>{ok}/{total} fundos</span>
+  <span>{escape(_loaded_period_label(outputs))}</span>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+    _ = storage_source
+
+    if show_guide:
+        _render_somatorio_fidcs_guide()
     display_outputs = _render_loaded_period_window(outputs)
     monitor_outputs = _build_credit_monitor_for_display(outputs=outputs, display_outputs=display_outputs)
     research_outputs = build_meli_research_outputs(monitor_outputs)
@@ -613,7 +680,7 @@ def _render_outputs(
             key=f"ml_pptx_completo_download::{selected_portfolio.id}",
             use_container_width=True,
         )
-        with st.expander("Dados", expanded=False):
+        with st.expander("Dados do somatório para diligência", expanded=False):
             st.download_button(
                 "Baixar resumo exibido + gráficos consolidados",
                 data=snapshot_bytes,
@@ -639,10 +706,10 @@ def _render_outputs(
                 use_container_width=True,
             )
 
-        st.markdown("### Consolidado")
+        st.markdown("### Dados Consolidados – Soma de FIDCs")
         st.markdown(_render_wide_table_html(display_outputs.consolidated_wide), unsafe_allow_html=True)
 
-        st.markdown("### Gráficos")
+        st.markdown("### Gráficos consolidados")
         _render_graph_definitions()
         left, right = st.columns(2)
         with left:
@@ -666,12 +733,12 @@ def _render_outputs(
         )
         selected_fund_cnpjs = [selected_fund_cnpj] if selected_fund_cnpj else []
         if not selected_fund_cnpjs:
-            st.caption("Selecione um fundo.")
+            st.caption("Selecione um fundo para exibir tabela e gráficos individuais.")
 
         for cnpj in selected_fund_cnpjs:
             st.markdown(_render_wide_table_html(display_outputs.fund_wide[cnpj]), unsafe_allow_html=True)
 
-        st.markdown("#### Gráficos")
+        st.markdown("#### Gráficos do fundo selecionado")
         for cnpj in selected_fund_cnpjs:
             monthly_df = display_outputs.fund_monthly[cnpj]
             left, right = st.columns(2)
@@ -706,22 +773,23 @@ def _render_outputs(
         )
 
     if use_tabs:
-        base_tab, credit_tab = st.tabs(["Tabela", "Crédito"])
+        base_tab, credit_tab = st.tabs(["Tabela Completa", "Análise Crédito"])
         with base_tab:
             _render_base_view()
         with credit_tab:
             _render_credit_view()
         return
 
-    st.markdown("### Tabela")
+    st.markdown("### Tabela Completa")
     _render_base_view()
-    st.markdown("### Crédito")
+    st.markdown("### Análise Crédito")
     _render_credit_view()
 
 
 def _render_chart(title: str, subtitle: str, chart) -> None:
-    _ = subtitle
     st.markdown(f"<h4 class='chart-title'>{escape(title)}</h4>", unsafe_allow_html=True)
+    if subtitle:
+        st.markdown(f"<p class='chart-subtitle'>{escape(subtitle)}</p>", unsafe_allow_html=True)
     st.altair_chart(chart, width="stretch")
 
 
@@ -739,6 +807,7 @@ def _render_fund_selectbox(outputs, *, key: str, label: str) -> str | None:  # n
         index=0,
         key=key,
         format_func=lambda value: labels.get(value, str(value)),
+        help="Selecione um fundo individual por vez. O consolidado permanece sempre visível.",
     )
     return selected if selected in outputs.fund_monthly else None
 
@@ -799,6 +868,7 @@ def _render_loaded_period_window(outputs):
             st.caption(f"Sem dados para {missing}.")
 
     label = _display_months_label(display_months) if selected == DISPLAY_WINDOW_DECEMBERS_OPTION else _display_month_range_label(display_months)
+    st.caption(f"{label} · {len(display_months)} competência(s)")
     return _filter_outputs_by_competencia_months(outputs, months=display_months, label=label, mode=str(selected))
 
 
@@ -1110,9 +1180,41 @@ def _format_month_option_label(value: date) -> str:
     return ime_tab._format_month_option_label(value)
 
 
+def _render_somatorio_fidcs_guide() -> None:
+    with st.expander("Passo a passo de utilização e mecânica da aba", expanded=False):
+        st.markdown(_build_somatorio_fidcs_guide_markdown())
+
+
+def _build_somatorio_fidcs_guide_markdown() -> str:
+    return """
+### Como usar
+
+1. Selecione ou crie uma carteira, escolha a janela e carregue a base.
+2. Use **Tabela Completa** para conferir os dados consolidados e individuais.
+3. Use **Análise Crédito** para carteira ex-360, crescimento, NPL, roll rates, cohorts e duration.
+4. Use o filtro visual apenas para recortar a base já carregada.
+
+### Mecânica essencial
+
+- O consolidado soma valores absolutos por competência e recalcula percentuais; não há média simples de percentuais.
+- Para YoY, a carga inclui meses anteriores necessários ao cálculo; o filtro visual decide o que aparece.
+- NPL Over é acumulado: Over 90d soma todos os vencidos acima de 90 dias.
+- A visão ex-360 remove vencidos acima de 360 dias da carteira, da PDD disponível e, se necessário, do PL.
+- Warnings indicam limitações relevantes, como PL não reconciliado ou denominador indisponível.
+"""
+
+
+def _render_mercado_livre_guide() -> None:
+    _render_somatorio_fidcs_guide()
+
+
+def _build_mercado_livre_guide_markdown() -> str:
+    return _build_somatorio_fidcs_guide_markdown()
+
+
 def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
     if df_wide.empty:
-        return "<p class='chart-subtitle'>Sem dados.</p>"
+        return "<p class='chart-subtitle'>Sem dados para a Tabela Completa consolidada.</p>"
     period_columns = order_period_columns_desc(df_wide.columns)
     table_min_width = max(620 + 96 * len(period_columns), 920)
     colgroup = _wide_table_colgroup(period_columns)
@@ -1237,7 +1339,16 @@ def _format_br_number(value: float, *, decimals: int) -> str:
 
 
 def _render_graph_definitions() -> None:
-    return
+    st.markdown(
+        """
+<ul class="chart-note-list">
+  <li><strong>Evolução de PL e Subordinação:</strong> barras empilhadas mostram PL Sênior e Subordinada + Mez ex-360 em R$; a linha mostra subordinação ex-360.</li>
+  <li><strong>Base ex-360:</strong> considera eventual baixa residual de Over 360 não coberta por PDD.</li>
+  <li><strong>NPL e Cobertura:</strong> NPL usa Over 90d sem vencidos acima de 360 dias; cobertura usa PDD Ex Over 360d / NPL Over 90d Ex 360.</li>
+</ul>
+""",
+        unsafe_allow_html=True,
+    )
 
 
 def _resolve_existing_portfolio_for_save(

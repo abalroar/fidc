@@ -323,10 +323,12 @@ def _autoload_spinner_label(
     cached_count = _count_cached_portfolio_funds(funds=funds, period=period)
     total = len(funds)
     if cached_count == total:
-        return "Carregando do cache..."
-    if cached_count:
-        return f"Carregando carteira ({cached_count}/{total} em cache)..."
-    return f"Carregando carteira ({total} fundo(s))..."
+        source = "cache GitHub/local"
+    elif cached_count:
+        source = f"{cached_count}/{total} em cache"
+    else:
+        source = "Fundos.NET"
+    return f"Carregando {selected_portfolio.name} ({total} fundo(s), {period.month_count}M, {source})..."
 
 
 def _execute_portfolio_load(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection) -> None:
@@ -356,6 +358,7 @@ def _execute_portfolio_load_for_funds(
     load_started = time.perf_counter()
     cached_count = _count_cached_portfolio_funds(funds=funds, period=period)
     worker_count = _portfolio_worker_count(total=total, period=period, cached_count=cached_count)
+    status_box.caption(f"{selected_portfolio.name} · {total} fundo(s) · {cached_count} em cache")
 
     initial_results = _load_portfolio_funds_batch(
         funds=funds,
@@ -378,6 +381,7 @@ def _execute_portfolio_load_for_funds(
     if retryable_failures and worker_count > 1:
         retried_count = len(retryable_failures)
         progress_bar.progress(0.0, text=f"{selected_portfolio.name}: reprocessando {retried_count} fundo(s)...")
+        status_box.caption(f"{selected_portfolio.name} · reprocessando falhas")
         retry_results = _load_portfolio_funds_batch(
             funds=tuple(retryable_failures),
             period=period,
@@ -441,7 +445,6 @@ def _load_portfolio_funds_batch(
 ) -> dict[str, dict[str, Any]]:
     if not funds:
         return {}
-    _ = status_box
     total = len(funds)
     results: dict[str, dict[str, Any]] = {}
     with ThreadPoolExecutor(max_workers=max(1, worker_count)) as executor:
@@ -461,6 +464,7 @@ def _load_portfolio_funds_batch(
                 min(progress_fraction, 1.0),
                 text=f"{progress_label}: {completed}/{total} fundo(s)",
             )
+            status_box.caption(f"{fund.display_name} · {fund.cnpj}")
     return results
 
 
@@ -761,7 +765,7 @@ def _render_loaded_portfolio_analysis(
             results=results,
         )
         if len(dashboards_by_cnpj) < 2:
-            st.info("Dados insuficientes.")
+            st.info("Dados insuficientes para montar a carteira.")
             return
         _render_portfolio_aggregate_analysis(
             selected_portfolio=selected_portfolio,
@@ -773,12 +777,12 @@ def _render_loaded_portfolio_analysis(
         return
 
     if not successful_cnpjs:
-        st.warning("Sem dados carregados.")
+        st.warning("Sem dados carregados para esta carteira.")
         return
 
     focused_payload = results.get(successful_cnpjs[0])
     if not focused_payload or focused_payload.get("result") is None:
-        st.warning("Sem dados carregados.")
+        st.warning("Sem dados carregados para esta carteira.")
         return
 
     ime_tab._render_result(
@@ -834,7 +838,7 @@ def _render_portfolio_aggregate_analysis(
         st.warning(str(exc))
         return
     except Exception as exc:  # noqa: BLE001
-        st.warning("Carteira não montada.")
+        st.warning("A visão agregada não pôde ser montada para esta combinação de fundos.")
         return
 
     excluded_funds = [
@@ -845,7 +849,7 @@ def _render_portfolio_aggregate_analysis(
 
     def _render_executive_view() -> None:
         if excluded_funds:
-            st.warning(f"{len(excluded_funds)} fundo(s) sem dados suficientes.")
+            st.warning(f"{len(excluded_funds)} fundo(s) sem dados suficientes para esta janela.")
         if dashboard_errors:
             st.warning(f"{len(dashboard_errors)} fundo(s) com dados inconsistentes.")
         ime_tab._render_structural_risk_section(
@@ -881,14 +885,14 @@ def _render_portfolio_aggregate_pptx_export_button(
             requested_period_label=getattr(period, "label", None),
         )
     except Exception as exc:  # noqa: BLE001
-        st.warning(f"Não foi possível montar os slides: {exc}")
+        st.warning(f"Não foi possível montar os slides da carteira agregada: {exc}")
         return
 
     file_token = selected_portfolio.id[:8] or "carteira"
     st.download_button(
-        "Deck de comitê (PPTX)",
+        "Exportar deck de comitê da carteira (PPTX)",
         data=pptx_bytes,
-        file_name=f"relatorio_carteira_{file_token}.pptx",
+        file_name=f"relatorio_carteira_agregada_{file_token}.pptx",
         mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
         help="Deck executivo em PowerPoint com a carteira carregada.",
         key=f"ime_portfolio_aggregate_pptx::{selected_portfolio.id}",

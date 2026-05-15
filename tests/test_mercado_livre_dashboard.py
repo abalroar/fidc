@@ -33,6 +33,7 @@ from services.portfolio_store import PortfolioFund, PortfolioRecord
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
 from tabs.tab_mercado_livre import (
     _MERCADO_LIVRE_UI_CSS,
+    _build_mercado_livre_guide_markdown,
     _dense_wide_value,
     _display_window_bounds,
     _display_window_months,
@@ -631,6 +632,19 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("white-space: normal;", td_block)
         self.assertIn("overflow-wrap: anywhere;", td_block)
         self.assertIn("line-height: 1.25;", td_block)
+
+    def test_mercado_livre_guide_documents_usage_and_mechanics(self) -> None:
+        guide = _build_mercado_livre_guide_markdown()
+
+        self.assertIn("Como usar", guide)
+        self.assertIn("Tabela Completa", guide)
+        self.assertIn("Análise Crédito", guide)
+        self.assertIn("Mecânica essencial", guide)
+        self.assertIn("não há média simples de percentuais", guide)
+        self.assertIn("NPL Over é acumulado", guide)
+        self.assertIn("ex-360 remove vencidos acima de 360 dias", guide)
+        self.assertIn("filtro visual", guide.lower())
+        self.assertNotIn("tabelas wide", guide.lower())
 
     def test_display_window_full_option_keeps_loaded_36_months_by_default(self) -> None:
         available = [
