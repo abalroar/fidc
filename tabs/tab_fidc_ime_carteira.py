@@ -23,6 +23,7 @@ from tabs.ime_portfolio_support import (
     build_portfolio_funds_from_cnpjs,
     delete_portfolio_record,
     enrich_portfolio_funds_with_catalog,
+    format_portfolio_fund_label,
     list_saved_portfolios,
     load_fidc_catalog_cached,
     normalize_portfolio_fund_name,
@@ -756,16 +757,49 @@ def _render_loaded_portfolio_analysis(
     ]
     failed_cnpjs = [cnpj for cnpj, payload in results.items() if payload.get("result") is None]
 
-    if failed_cnpjs:
-        st.warning(f"{len(failed_cnpjs)} fundo(s) sem dados para esta janela.")
+    _render_portfolio_compact_header(
+        name=selected_portfolio.name,
+        period_label=runtime_state.get("period_label", "N/D"),
+        n_ok=len(successful_cnpjs),
+        n_total=len(selected_portfolio.funds),
+    )
 
+    if failed_cnpjs:
+        _render_portfolio_error_summary(failed_cnpjs=failed_cnpjs, results=results)
+        retryable_cnpjs = [cnpj for cnpj in failed_cnpjs if _is_retryable_portfolio_failure(results.get(cnpj) or {})]
+        if retryable_cnpjs:
+            if st.button(
+                "Recarregar só os fundos com falha transitória",
+                key=f"ime_portfolio_retry_{selected_portfolio.id}",
+                use_container_width=False,
+            ):
+                funds_to_retry = tuple(fund for fund in selected_portfolio.funds if fund.cnpj in retryable_cnpjs)
+                _execute_portfolio_load_for_funds(
+                    selected_portfolio=selected_portfolio,
+                    period=period,
+                    funds=funds_to_retry,
+                    existing_results=results,
+                )
+                st.rerun()
+
+    view_options = ["Fundo individual"]
     if len(successful_cnpjs) >= 2:
+        view_options.insert(0, "Carteira agregada")
+    view_mode = st.radio(
+        "Visão",
+        options=view_options,
+        horizontal=True,
+        key=f"ime_portfolio_view::{selected_portfolio.id}",
+        label_visibility="collapsed",
+    )
+
+    if view_mode == "Carteira agregada":
         dashboards_by_cnpj, dashboard_errors = _build_loaded_dashboards_by_cnpj(
             selected_portfolio=selected_portfolio,
             results=results,
         )
         if len(dashboards_by_cnpj) < 2:
-            st.info("Dados insuficientes para montar a carteira.")
+            st.info("Carregue ao menos dois fundos com sucesso para habilitar a visão agregada da carteira.")
             return
         _render_portfolio_aggregate_analysis(
             selected_portfolio=selected_portfolio,
@@ -773,22 +807,75 @@ def _render_loaded_portfolio_analysis(
             dashboard_errors=dashboard_errors,
             results=results,
             period=period,
+            total_selected=len(selected_portfolio.funds),
+            section_mode=section_mode,
         )
         return
 
-    if not successful_cnpjs:
-        st.warning("Sem dados carregados para esta carteira.")
+    all_cnpjs = [fund.cnpj for fund in selected_portfolio.funds]
+    focus_options, focus_lookup = _build_focus_option_lookup(selected_portfolio=selected_portfolio, results=results)
+    reverse_focus_lookup = {cnpj: label for label, cnpj in focus_lookup.items()}
+
+    focus_cnpj_key = f"ime_portfolio_focus_cnpj::{selected_portfolio.id}"
+    focus_label_key = f"ime_portfolio_focus_label::{selected_portfolio.id}"
+    default_focus_cnpj = st.session_state.get(focus_cnpj_key)
+    if default_focus_cnpj not in all_cnpjs:
+        default_focus_cnpj = None
+    if default_focus_cnpj is None and successful_cnpjs:
+        default_focus_cnpj = successful_cnpjs[0]
+        st.session_state[focus_cnpj_key] = default_focus_cnpj
+
+    default_focus_label = reverse_focus_lookup.get(default_focus_cnpj)
+    if default_focus_label is None:
+        st.session_state.pop(focus_label_key, None)
+    else:
+        current_focus_label = st.session_state.get(focus_label_key)
+        if current_focus_label not in focus_options:
+            st.session_state[focus_label_key] = default_focus_label
+
+    focus_label = st.selectbox(
+        "Fundo selecionado",
+        options=focus_options,
+        index=focus_options.index(default_focus_label) if default_focus_label in focus_options else None,
+        key=focus_label_key,
+        label_visibility="collapsed",
+        placeholder="Selecione um fundo da carteira",
+    )
+    if not focus_label:
+        st.caption("Selecione um fundo da lista acima.")
+        return
+    focus_cnpj = focus_lookup.get(focus_label)
+    if not focus_cnpj:
+        st.caption("Selecione um fundo válido.")
+        return
+    st.session_state[focus_cnpj_key] = focus_cnpj
+
+    focused_payload = results.get(focus_cnpj)
+    if focused_payload is None:
+        st.info("A carga automática da carteira ainda não registrou este fundo. Atualize a página para repetir a leitura completa da seleção.")
         return
 
-    focused_payload = results.get(successful_cnpjs[0])
-    if not focused_payload or focused_payload.get("result") is None:
-        st.warning("Sem dados carregados para esta carteira.")
+    if focused_payload.get("result") is None:
+        st.warning("O fundo selecionado falhou no carregamento.")
+        if st.button(
+            "Recarregar fundo selecionado",
+            key=f"ime_portfolio_retry_focus_{selected_portfolio.id}_{focus_cnpj}",
+            use_container_width=False,
+        ):
+            focus_fund = next(fund for fund in selected_portfolio.funds if fund.cnpj == focus_cnpj)
+            _execute_portfolio_load_for_funds(
+                selected_portfolio=selected_portfolio,
+                period=period,
+                funds=(focus_fund,),
+                existing_results=results,
+            )
+            st.rerun()
         return
 
     ime_tab._render_result(
         focused_payload["result"],
         focused_payload.get("context") or {},
-        slot_key=f"portfolio_{selected_portfolio.id}_{successful_cnpjs[0]}",
+        slot_key=f"portfolio_{selected_portfolio.id}_{focus_cnpj}",
     )
 
 
@@ -828,6 +915,8 @@ def _render_portfolio_aggregate_analysis(
     dashboard_errors: dict[str, str],
     results: dict[str, dict[str, Any]],
     period: ImePeriodSelection,
+    total_selected: int,
+    section_mode: str = "tabs",
 ) -> None:
     try:
         bundle = build_portfolio_dashboard_bundle(
@@ -841,6 +930,7 @@ def _render_portfolio_aggregate_analysis(
         st.warning("A visão agregada não pôde ser montada para esta combinação de fundos.")
         return
 
+    loaded_count = len(dashboards_by_cnpj)
     excluded_funds = [
         _resolve_portfolio_fund_display_name(fund.cnpj, results, fallback_name=fund.display_name)
         for fund in selected_portfolio.funds
@@ -848,23 +938,66 @@ def _render_portfolio_aggregate_analysis(
     ]
 
     def _render_executive_view() -> None:
+        _render_portfolio_aggregate_header(
+            selected_portfolio=selected_portfolio,
+            bundle=bundle,
+            loaded_count=loaded_count,
+            total_selected=total_selected,
+        )
+        _render_portfolio_aggregate_pptx_export_button(
+            selected_portfolio=selected_portfolio,
+            bundle=bundle,
+            period=period,
+        )
+        _render_portfolio_period_coverage_warning(bundle=bundle, period=period)
         if excluded_funds:
-            st.warning(f"{len(excluded_funds)} fundo(s) sem dados suficientes para esta janela.")
+            st.warning(
+                f"Agregado calculado com {loaded_count} de {total_selected} fundo(s). "
+                f"{len(excluded_funds)} fundo(s) ficou(ram) sem dados suficientes para esta visão."
+            )
         if dashboard_errors:
-            st.warning(f"{len(dashboard_errors)} fundo(s) com dados inconsistentes.")
+            st.warning(f"{len(dashboard_errors)} fundo(s) não entrou(ram) no agregado por inconsistência de dados.")
+        ime_tab._render_financial_snapshot_cards(bundle.dashboard)
         ime_tab._render_structural_risk_section(
             bundle.dashboard,
             slot_key=f"portfolio_agg_{selected_portfolio.id}",
         )
         ime_tab._render_credit_risk_section(bundle.dashboard)
         ime_tab._render_liquidity_risk_section(bundle.dashboard)
-        _render_portfolio_aggregate_pptx_export_button(
-            selected_portfolio=selected_portfolio,
-            bundle=bundle,
-            period=period,
-        )
 
+    if section_mode != "tabs":
+        st.markdown("#### Visão executiva")
     _render_executive_view()
+
+
+def _render_portfolio_aggregate_header(
+    *,
+    selected_portfolio: PortfolioRecord,
+    bundle: PortfolioDashboardBundle,
+    loaded_count: int,
+    total_selected: int,
+) -> None:
+    latest = ime_tab._format_competencia_label(bundle.dashboard.latest_competencia)
+    period_label = ime_tab._format_competencia_period(bundle.dashboard.fund_info.get("periodo_analisado") or "N/D")
+    st.markdown(
+        f"""
+<div class="fidc-hero">
+  <div class="fidc-hero__title">{escape(selected_portfolio.name)}</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        (
+            '<div class="fidc-period-bar">'
+            f"<span><strong>Escopo:</strong> Carteira agregada</span>"
+            f"<span><strong>Últ. competência comum:</strong> {escape(latest)}</span>"
+            f"<span><strong>Janela comum:</strong> {escape(period_label)}</span>"
+            f"<span><strong>Fundos incluídos:</strong> {loaded_count}/{total_selected}</span>"
+            "</div>"
+        ),
+        unsafe_allow_html=True,
+    )
 
 
 def _render_portfolio_aggregate_pptx_export_button(
@@ -894,8 +1027,38 @@ def _render_portfolio_aggregate_pptx_export_button(
         data=pptx_bytes,
         file_name=f"relatorio_carteira_agregada_{file_token}.pptx",
         mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        help="Deck executivo em PowerPoint com a carteira carregada.",
+        help="Deck executivo em PowerPoint com a visão agregada da carteira carregada.",
         key=f"ime_portfolio_aggregate_pptx::{selected_portfolio.id}",
+    )
+
+
+def _render_portfolio_period_coverage_warning(
+    *,
+    bundle: PortfolioDashboardBundle,
+    period: ImePeriodSelection,
+) -> None:
+    expected_competencias = ime_tab._competencia_labels_between(period.start_month, period.end_month)
+    common_competencias = set(str(value) for value in bundle.dashboard.competencias)
+    missing_competencias = [competencia for competencia in expected_competencias if competencia not in common_competencias]
+    if not missing_competencias:
+        return
+    st.warning(
+        "Carteira agregada limitada às competências comuns dos fundos. "
+        f"{len(missing_competencias)} competência(s) fora da interseção após atualização do cache."
+    )
+
+
+def _render_portfolio_compact_header(name: str, period_label: str, n_ok: int, n_total: int) -> None:
+    count_label = f"{n_ok}/{n_total}" if n_ok < n_total else str(n_total)
+    st.markdown(
+        f"""
+<div class="fidc-period-bar">
+  <span><strong>Seleção:</strong> {escape(name)}</span>
+  <span><strong>Período:</strong> {escape(period_label)}</span>
+  <span><strong>Fundos:</strong> {escape(count_label)}</span>
+</div>
+""",
+        unsafe_allow_html=True,
     )
 
 
@@ -939,6 +1102,52 @@ def _handle_deleted_portfolio(portfolio_id: str) -> None:
         _queue_portfolio_selection(None, clear=True)
     st.session_state["ime_portfolio_editor_open"] = False
     st.session_state["ime_portfolio_editor_mode"] = "edit"
+
+
+def _render_portfolio_error_summary(*, failed_cnpjs: list[str], results: dict[str, dict[str, Any]]) -> None:
+    n = len(failed_cnpjs)
+    plural = n > 1
+    label = f"⚠ {n} fundo{'s' if plural else ''} não {'carregados' if plural else 'carregado'}"
+    with st.expander(label, expanded=False):
+        timeout_like = 0
+        for cnpj in failed_cnpjs:
+            payload = results.get(cnpj) or {}
+            context = payload.get("context") or {}
+            fund_name = context.get("portfolio_fund_name_resolved") or context.get("portfolio_fund_name") or cnpj
+            error = payload.get("error")
+            if _is_retryable_portfolio_failure(payload):
+                timeout_like += 1
+            details = []
+            elapsed = context.get("elapsed_seconds")
+            if elapsed is not None:
+                details.append(f"{elapsed}s")
+            cache_status = context.get("cache_status")
+            if cache_status:
+                details.append(f"cache {cache_status}")
+            detail_suffix = f" ({', '.join(details)})" if details else ""
+            st.caption(f"**{fund_name}** · {cnpj} — {str(error) if error else 'Erro desconhecido'}{detail_suffix}")
+        if timeout_like:
+            st.info(
+                "Falhas de rede/timeout tendem a crescer quando a carteira é grande e a janela tem muitas competências. "
+                "A carga agora reduz o paralelismo e reprocessa falhas transitórias em modo conservador."
+            )
+
+
+def _build_focus_option_lookup(
+    *,
+    selected_portfolio: PortfolioRecord,
+    results: dict[str, dict[str, Any]],
+) -> tuple[list[str], dict[str, str]]:
+    options: list[str] = []
+    lookup: dict[str, str] = {}
+    for fund in selected_portfolio.funds:
+        label = format_portfolio_fund_label(
+            display_name=_resolve_portfolio_fund_display_name(fund.cnpj, results, fallback_name=fund.display_name),
+            cnpj=fund.cnpj,
+        )
+        options.append(label)
+        lookup[label] = fund.cnpj
+    return options, lookup
 
 
 def _resolve_portfolio_fund_display_name(
