@@ -8,12 +8,7 @@ import pandas as pd
 import streamlit as st
 
 from services.ime_period import ImePeriodSelection, build_custom_period, current_default_end_month, month_options, shift_month
-from services.meli_credit_monitor import (
-    build_meli_chart_axis_table,
-    build_meli_methodology_table,
-    build_meli_monitor_outputs,
-    latest_row,
-)
+from services.meli_credit_monitor import build_meli_monitor_outputs, latest_row
 from services.meli_credit_monitor_ppt_export import build_dashboard_meli_pptx_bytes
 from services.meli_credit_research import build_meli_research_outputs, build_research_excel_bytes
 from services.meli_credit_research_verification import verify_meli_research_outputs
@@ -36,7 +31,6 @@ from services.portfolio_store import PortfolioRecord
 from tabs import tab_fidc_ime as ime_tab
 from tabs.ime_portfolio_support import (
     enrich_portfolio_funds_with_catalog,
-    get_portfolio_status_caption,
     list_saved_portfolios,
     load_fidc_catalog_cached,
 )
@@ -73,45 +67,12 @@ _DASHBOARD_MELI_CSS = """
     font-weight: 700;
     line-height: 1.2;
 }
-.meli-period-bar {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 6px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-    margin: 0 0 0.6rem 0;
-    scrollbar-width: thin;
-}
-.meli-period-bar span {
-    align-items: center;
-    background: #f8f9fa;
-    border: 1px solid #eceff3;
-    border-radius: 999px;
-    color: #5a5a5a;
-    display: inline-flex;
-    flex: 0 0 auto;
-    font-size: 0.72rem;
-    gap: 4px;
-    line-height: 1.2;
-    padding: 4px 7px;
-    white-space: nowrap;
-}
-.meli-period-bar strong {
-    color: #212529;
-    font-weight: 500;
-}
 .meli-chart-title {
     color: #000000;
     font-size: clamp(16px, 1.45vw, 18px);
     font-weight: 600;
     line-height: 1.25;
     margin: 8px 0 3px 0;
-}
-.meli-chart-subtitle {
-    color: #8C8C8C;
-    font-size: 12px;
-    line-height: 1.35;
-    margin: 0 0 8px 0;
 }
 @media (max-width: 1180px) {
     .meli-kpi-grid {
@@ -160,7 +121,7 @@ def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
     selected_period = _render_period_panel(period)
     selected_portfolio = _render_portfolio_controls(portfolios)
     if selected_portfolio is None:
-        st.info("Salve uma carteira na Soma de FIDCs para usar a Análise Crédito.")
+        st.info("Selecione uma carteira.")
         return
     selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
     runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=selected_period)
@@ -176,7 +137,7 @@ def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
         if cached_outputs is not None:
             st.session_state[session_key] = cached_outputs
             st.session_state[f"{session_key}::source"] = "cache"
-            st.toast("Base da Análise Crédito reutilizada do storage.")
+            st.toast("Base reutilizada.")
             st.rerun()
         _execute_portfolio_load_for_funds(
             selected_portfolio=selected_portfolio,
@@ -198,7 +159,7 @@ def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
 
     if not results:
         _render_status_bar(selected_portfolio=selected_portfolio, period=selected_period, outputs=None, storage_source="não carregado")
-        st.info("Clique em **Carregar análise** para montar as visões de crédito.")
+        st.info("Carregue a análise.")
         return
 
     dashboards_by_cnpj, dashboard_errors = _build_loaded_dashboards_by_cnpj(
@@ -211,7 +172,7 @@ def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
                 st.caption(f"**{cnpj}** - {message}")
     if not dashboards_by_cnpj:
         _render_status_bar(selected_portfolio=selected_portfolio, period=selected_period, outputs=None, storage_source="não carregado")
-        st.warning("Nenhum fundo carregado com sucesso para montar a Análise Crédito.")
+        st.warning("Sem dados suficientes.")
         return
 
     outputs = build_mercado_livre_outputs(
@@ -236,12 +197,11 @@ def _render_period_panel(global_period: ImePeriodSelection | None = None) -> Ime
     end_month = current_default_end_month()
     options = ("12M", "24M", "36M", "YTD", "Customizado")
     selected = st.radio(
-        "Janela da Análise Crédito",
+        "Janela",
         options=options,
         index=options.index("24M"),
         horizontal=True,
         key="dashboard_meli_load_window",
-        help="Use 24M ou 36M para ler variação anual, roll rates e cohorts com mais contexto.",
     )
     if selected == "Customizado":
         max_options = month_options(end_month, months_back=119)
@@ -277,7 +237,6 @@ def _render_period_panel(global_period: ImePeriodSelection | None = None) -> Ime
     else:
         months = int(selected.removesuffix("M"))
         selected_period = build_custom_period(start_month=shift_month(end_month, -(months - 1)), end_month=end_month)
-    st.caption(f"{_format_month_label(selected_period.start_month)} → {_format_month_label(selected_period.end_month)}")
     return selected_period
 
 
@@ -314,7 +273,6 @@ def _render_portfolio_controls(portfolios: list[PortfolioRecord]) -> PortfolioRe
         if st.button("Carregar análise", key="dashboard_meli_load_button", type="secondary", use_container_width=True):
             st.session_state["_dashboard_meli_load_requested"] = True
             st.rerun()
-    st.caption(get_portfolio_status_caption())
     return next((portfolio for portfolio in portfolios if portfolio.id == selected_id), None)
 
 
@@ -326,7 +284,7 @@ def _render_outputs(
     storage_source: str,
     use_tabs: bool = True,
 ) -> None:  # noqa: ANN001
-    _render_status_bar(selected_portfolio=selected_portfolio, period=period, outputs=outputs, storage_source=storage_source)
+    _ = (period, storage_source)
     render_dashboard_meli_analysis(
         outputs=outputs,
         selected_portfolio=selected_portfolio,
@@ -376,7 +334,7 @@ def render_dashboard_meli_analysis(
             key=f"{download_key_prefix}_pptx_download::{selected_portfolio.id}",
             use_container_width=True,
         )
-        with st.expander("Dados da análise para diligência", expanded=False):
+        with st.expander("Dados", expanded=False):
             st.download_button(
                 excel_label,
                 data=excel_bytes,
@@ -394,7 +352,7 @@ def render_dashboard_meli_analysis(
         _render_fund_dashboards(monitor_outputs, selected_portfolio=selected_portfolio)
 
     if use_tabs:
-        main_tab, funds_tab = st.tabs(["Consolidado", "Fundos individuais"])
+        main_tab, funds_tab = st.tabs(["Consolidado", "Fundos"])
         with main_tab:
             _render_main_view()
         with funds_tab:
@@ -402,7 +360,7 @@ def render_dashboard_meli_analysis(
     else:
         st.markdown("#### Consolidado")
         _render_main_view()
-        st.markdown("#### Fundos individuais")
+        st.markdown("#### Fundos")
         _render_funds_view()
     _render_methodology(research_outputs)
 
@@ -454,7 +412,7 @@ def _render_research_roll_charts(roll_df: pd.DataFrame) -> None:
 
 def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRecord) -> None:  # noqa: ANN001
     if not monitor_outputs.fund_monitor:
-        st.info("Sem fundos individuais carregados.")
+        st.info("Sem fundos carregados.")
         return
     selected_cnpj = _render_monitor_fund_selectbox(
         monitor_outputs,
@@ -462,7 +420,7 @@ def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRec
     )
     selected_cnpjs = [selected_cnpj] if selected_cnpj else []
     if not selected_cnpjs:
-        st.caption("Selecione um fundo para exibir a análise individual.")
+        st.caption("Selecione um fundo.")
         return
     for cnpj in selected_cnpjs:
         monitor = monitor_outputs.fund_monitor[cnpj]
@@ -498,12 +456,11 @@ def _render_monitor_fund_selectbox(monitor_outputs, *, key: str) -> str | None: 
         name = str(frame["fund_name"].dropna().iloc[0]) if not frame.empty and "fund_name" in frame.columns and frame["fund_name"].notna().any() else str(cnpj)
         labels[cnpj] = f"{name} · {cnpj}"
     selected = st.selectbox(
-        "Fundo exibido na Análise Crédito",
+        "Fundo",
         options=options,
         index=0,
         key=key,
         format_func=lambda value: labels.get(value, str(value)),
-        help="Selecione um fundo individual por vez. O consolidado fica na subaba própria.",
     )
     return selected if selected in monitor_outputs.fund_monitor else None
 
@@ -511,7 +468,7 @@ def _render_monitor_fund_selectbox(monitor_outputs, *, key: str) -> str | None: 
 def _render_research_dashboard(research_outputs, verification_report: pd.DataFrame) -> None:  # noqa: ANN001
     scopes = _research_scope_options(research_outputs)
     if not scopes:
-        st.info("Sem dados suficientes para montar a visão research.")
+        st.info("Sem dados suficientes.")
         return
     selected_scope = st.selectbox(
         "Escopo da visão research",
@@ -670,75 +627,24 @@ def _format_research_value(value: object, *, unit: str) -> str:
 
 
 def _render_methodology(research_outputs=None) -> None:  # noqa: ANN001
-    with st.expander("Metodologia, fórmulas e fontes dos indicadores", expanded=False):
-        st.markdown(
-            """
-O consolidado soma valores absolutos por competência e recalcula percentuais; não há média simples de percentuais.
-
-**Ex-360:** remove vencidos acima de 360 dias da carteira. NPL por severidade usa `NPL 1-90d / carteira ex-360` e `NPL 91-360d / carteira ex-360`.
-
-**Roll rates:** medem migração de risco. A defasagem acompanha o bucket: `61-90 M-3`, `91-120 M-4`, `121-150 M-5` e `151-180 M-6`.
-
-**YoY:** compara a competência atual com o mesmo mês do ano anterior.
-
-**Duration:** `duration_dias = Σ(saldo_bucket × prazo_proxy_bucket) / Σ(saldo_bucket)`. O gráfico mostra `duration_meses = duration_dias / 30,4375`. Exemplo: bucket 61-90 dias usa `75,5` dias, o ponto médio da faixa.
-
-**Cohorts:** cada linha é uma safra proxy definida pelo saldo que estava a vencer em até 30 dias no mês-base. Esse saldo é o denominador fixo da linha.
-
-Exemplo: se em fev/26 havia R$ 100 milhões a vencer em até 30 dias, a linha `Fev-26` usa R$ 100 milhões como base. `M1` é mar/26, `M2` é abr/26, `M3` é mai/26. Se mar/26 tem R$ 39,6 milhões em atraso até 30 dias, `M1 = 39,6 / 100 = 39,6%`.
-
-`M1 = atraso até 30d no mês seguinte / base`; `M2 = atraso 31-60d dois meses depois / base`; `M3 = atraso 61-90d três meses depois / base`; `M4`, `M5` e `M6` seguem a mesma lógica para 91-120d, 121-150d e 151-180d.
-            """
-        )
-        st.markdown("**Eixos dos gráficos**")
-        st.dataframe(build_meli_chart_axis_table(), use_container_width=True, hide_index=True)
-        st.markdown("**Fórmulas e fontes das métricas**")
-        st.dataframe(build_meli_methodology_table(), use_container_width=True, hide_index=True)
-        if research_outputs is not None and getattr(research_outputs, "methodology", pd.DataFrame()).empty is False:
-            st.markdown("**Métricas complementares do consolidado: fórmulas e fontes**")
-            st.dataframe(research_outputs.methodology, use_container_width=True, hide_index=True)
+    _ = research_outputs
 
 
 def _render_status_bar(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection, outputs, storage_source: str) -> None:  # noqa: ANN001
-    if outputs is not None and getattr(outputs, "consolidated_monthly", pd.DataFrame()).empty is False:
-        loaded = _loaded_period_label(outputs)
-        ok = len(outputs.fund_monthly)
-    else:
-        loaded = "N/D"
-        ok = 0
-    total = len(selected_portfolio.funds)
-    st.markdown(
-        f"""
-<div class="meli-period-bar">
-  <span><strong>{escape(selected_portfolio.name)}</strong></span>
-  <span>{escape(period.label)}</span>
-  <span>{ok}/{total} fundos</span>
-  <span>{escape(loaded)}</span>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
-    _ = storage_source
+    _ = (selected_portfolio, period, outputs, storage_source)
 
 
 def _render_guide() -> None:
-    with st.expander("Como usar e interpretar a Análise Crédito", expanded=False):
-        st.markdown(
-            """
-1. Use 24M ou 36M para ler YoY, roll rates e cohorts com contexto.
-2. Comece por carteira ex-360, crescimento e NPL; depois leia roll rates, duration e cohorts.
-3. No consolidado, percentuais são recalculados a partir da soma dos numeradores e denominadores.
-            """
-        )
+    return
 
 
 def _chart_title(title: str, subtitle: str) -> None:
+    _ = subtitle
     st.markdown(f"<div class='meli-chart-title'>{escape(title)}</div>", unsafe_allow_html=True)
-    st.markdown(f"<div class='meli-chart-subtitle'>{escape(subtitle)}</div>", unsafe_allow_html=True)
 
 
 def _chart_note(text: str) -> None:
-    st.markdown(f"<div class='meli-chart-subtitle'>{escape(text)}</div>", unsafe_allow_html=True)
+    _ = text
 
 
 def _cohort_notes() -> None:
@@ -791,14 +697,6 @@ def _enrich_portfolio_record(*, selected_portfolio: PortfolioRecord, catalog_df:
         updated_at=selected_portfolio.updated_at,
         notes=selected_portfolio.notes,
     )
-
-
-def _loaded_period_label(outputs) -> str:  # noqa: ANN001
-    frame = outputs.consolidated_monthly
-    if frame is None or frame.empty or "competencia" not in frame.columns:
-        return "N/D"
-    competencias = frame["competencia"].astype(str).tolist()
-    return f"{ime_tab._format_competencia_label(competencias[0])} a {ime_tab._format_competencia_label(competencias[-1])}"
 
 
 def _format_month_label(value: date) -> str:

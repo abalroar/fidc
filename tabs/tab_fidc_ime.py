@@ -137,76 +137,12 @@ _FIDC_REPORT_CSS = """
     box-shadow: 0 10px 26px rgba(0,0,0,0.04);
 }
 
-.fidc-hero__kicker {
-    color: #ff5a00;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
 .fidc-hero__title {
     color: #212529;
     font-size: 1.18rem;
     line-height: 1.25;
     font-weight: 600;
     margin-bottom: 8px;
-}
-
-.fidc-hero__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.fidc-pill {
-    display: inline-flex;
-    gap: 5px;
-    align-items: center;
-    border-radius: 999px;
-    border: 1px solid rgba(255,90,0,0.22);
-    background: #ffffff;
-    color: #5a5a5a;
-    padding: 4px 9px;
-    font-size: 0.76rem;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.03);
-}
-
-.fidc-pill strong {
-    color: #111111;
-    font-weight: 500;
-}
-
-.fidc-hero__participantes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px solid rgba(255,90,0,0.10);
-}
-
-.fidc-pill--participante {
-    border-color: rgba(0,0,0,0.12);
-    background: #f8f9fa;
-    font-size: 0.74rem;
-}
-
-.fidc-inline-note {
-    margin: 0.15rem 0 0.85rem 0;
-    padding: 0.7rem 0.9rem;
-    border-radius: 10px;
-    border: 1px solid #e9ecef;
-    background: #f8f9fa;
-    color: #425160;
-    font-size: 0.83rem;
-    line-height: 1.45;
-}
-
-.fidc-inline-note strong {
-    color: #223247;
-    font-weight: 500;
 }
 
 .fidc-chart-title {
@@ -220,12 +156,6 @@ _FIDC_REPORT_CSS = """
     line-height: 1.35;
 }
 
-.fidc-chart-caption {
-    color: #667382;
-    font-size: 0.78rem;
-    margin: -0.1rem 0 0.35rem 0;
-}
-
 .fidc-section {
     color: #ff5a00;
     font-size: 0.72rem;
@@ -237,31 +167,6 @@ _FIDC_REPORT_CSS = """
     border-bottom: 1px solid #e9ecef;
 }
 
-.fidc-section-caption {
-    color: #667382;
-    font-size: 0.82rem;
-    margin: -0.1rem 0 0.75rem 0;
-}
-
-.fidc-period-bar {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    font-size: 0.76rem;
-    color: #5a5a5a;
-    margin: 0 0 0.45rem 0;
-}
-
-.fidc-period-bar span {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 8px;
-    background: #f8f9fa;
-    border: 1px solid #eceff3;
-    border-radius: 999px;
-}
-
 .fidc-block-spacer {
     margin-top: 0.2rem;
 }
@@ -271,11 +176,6 @@ _FIDC_REPORT_CSS = """
     font-size: 0.8rem;
     font-weight: 600;
     margin: 0.2rem 0 0.35rem 0;
-}
-
-.fidc-period-bar strong {
-    color: #212529;
-    font-weight: 500;
 }
 
 .fidc-timing-bar {
@@ -451,9 +351,8 @@ def _build_failure_report(exc: Exception, tb_text: str, context: dict[str, Any])
 
 
 def _render_failure_diagnostics(exc: Exception, tb_text: str, context: dict[str, Any]) -> None:
-    report = _build_failure_report(exc, tb_text, context)
+    _ = _build_failure_report(exc, tb_text, context)
     st.error("Não foi possível carregar os informes para esta seleção.")
-    st.caption(f"Motivo: {report['categoria']}. Ajuste a janela ou tente novamente.")
 
 
 def _update_progress_bar(progress_bar, value: float, message: str) -> None:
@@ -502,11 +401,6 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
                 st.session_state[custom_key] = True
                 st.rerun()
         period = build_preset_period(end_month=end_month, months=int(preset_months))
-        period_str = (
-            f"{_format_competencia_display(period.start_month.isoformat())} "
-            f"→ {_format_competencia_display(period.end_month.isoformat())}"
-        )
-        st.caption(period_str)
     else:
         start_default = default_period.start_month
         start_index = max_options.index(start_default) if start_default in max_options else 0
@@ -535,10 +429,6 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
                 st.session_state[custom_key] = False
                 st.rerun()
         period = build_custom_period(start_month=start_month, end_month=end_month_selected)
-        st.caption(
-            f"{_format_competencia_display(period.start_month.isoformat())} "
-            f"→ {_format_competencia_display(period.end_month.isoformat())}"
-        )
 
     return period
 
@@ -877,9 +767,9 @@ def _render_dashboard(
     _render_dashboard_header(dashboard)
     _render_dashboard_controls(dashboard, context)
     if docs_error:
-        st.warning(f"{docs_error} informe(s) não entraram na leitura. A visão usa apenas documentos válidos.")
+        st.warning(f"{docs_error} informe(s) ignorados.")
     if contract_missing:
-        st.warning("Alguns dados esperados não foram encontrados para esta janela.")
+        st.warning("Dados incompletos nesta janela.")
     _render_structural_risk_section(
         dashboard,
         slot_key=slot_key,
@@ -891,7 +781,7 @@ def _render_dashboard(
 
 def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:
     _render_pptx_export_button(dashboard, context)
-    with st.expander("Documentos e anexos para diligência", expanded=False):
+    with st.expander("Anexos", expanded=False):
         _render_regulamento_export_button(dashboard, context)
         if ENABLE_GLOBAL_PDF_EXPORT:
             _render_pdf_export_button(dashboard, context)
@@ -955,7 +845,6 @@ def _render_executive_comparison_section(sorted_slots: list[tuple[int, dict]]) -
         key="fidc_exec_compare_highlight",
     )
     highlight_value = None if highlighted_column == "Nenhuma" else highlighted_column
-    st.caption("Campos ausentes aparecem como “—”.")
     _render_executive_comparison_table(comparison_df, highlighted_column=highlight_value)
 
     try:
@@ -1041,25 +930,15 @@ def _render_over_transparency_notes(st_ctx: object, over_history_df: pd.DataFram
         .drop_duplicates()
         .tolist()
     )
+    notes: list[str] = []
     if incomplete_competencias:
-        st_ctx.caption(
-            f"Atenção: {len(incomplete_competencias)} competência(s) com buckets de aging sem dado confirmado "
-            f"({', '.join(incomplete_competencias[:4])}{'…' if len(incomplete_competencias) > 4 else ''}) "
-            "— pontos omitidos. Possível causa: informe não reporta todas as faixas de atraso."
-        )
+        notes.append(f"{len(incomplete_competencias)} omitida(s)")
     if partial_competencias:
-        st_ctx.caption(
-            f"Nota: {len(partial_competencias)} competência(s) com faixas de atraso ausentes no informe "
-            "(tratadas como zero no cálculo). Verifique a memória de cálculo para detalhes."
-        )
+        notes.append(f"{len(partial_competencias)} parcial(is)")
     if sem_denom:
-        st_ctx.caption(
-            f"Denominador de DCs não disponível em {len(sem_denom)} competência(s) — percentual não calculado."
-        )
-    denominadores = over_history_df["denominador_fonte"].dropna().unique().tolist() if "denominador_fonte" in over_history_df.columns else []
-    if denominadores:
-        denom_label = ", ".join(str(d) for d in denominadores)
-        st_ctx.caption(f"Denominador Over: {denom_label} (total canônico de DCs).")
+        notes.append(f"{len(sem_denom)} sem denominador")
+    if notes:
+        st_ctx.caption(f"Over: {'; '.join(notes)}.")
 
 
 def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
@@ -1067,10 +946,6 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
     cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
     _render_chart_heading(st, "Inadimplência, PDD e cobertura")
-    st.caption(
-        "Barras: inadimplência e provisão como % dos direitos creditórios. "
-        "Linha: cobertura PDD / vencidos, em gráfico separado para evitar mistura de escalas."
-    )
     _credit_chart_all_zero = (
         default_pct_chart_df.empty
         or (pd.to_numeric(default_pct_chart_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
@@ -1078,7 +953,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     credit_col, coverage_col = st.columns([0.62, 0.38])
     with credit_col:
         if _credit_chart_all_zero:
-            st.caption("Sem dados de inadimplência ou provisão nos informes do período.")
+            st.caption("Sem dados no período.")
         else:
             credit_bar_size = _executive_grouped_bar_size(
                 default_pct_chart_df["competencia"].nunique(),
@@ -1102,7 +977,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             or (pd.to_numeric(cobertura_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
         )
         if coverage_all_zero:
-            st.caption("Cobertura não disponível para o período selecionado.")
+            st.caption("Cobertura indisponível.")
         else:
             st.altair_chart(
                 _line_history_chart(
@@ -1121,7 +996,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     aging_history_df = dashboard.default_aging_history_df.copy()
     _render_chart_heading(st, "Aging")
     if aging_history_df.empty:
-        st.caption("Sem dados de aging para o período selecionado.")
+        st.caption("Sem aging.")
     else:
         aging_chart_df = _prepare_aging_history_chart_frame(aging_history_df)
         st.altair_chart(
@@ -1135,9 +1010,8 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         )
     over_history_df = dashboard.default_over_history_df.copy()
     _render_chart_heading(st, "Inadimplência Over")
-    st.caption("Séries principais: Over 30 e Over 90.")
     if over_history_df.empty:
-        st.info("Dados de inadimplência Over não disponíveis nos informes selecionados.")
+        st.info("Over indisponível.")
     else:
         over_chart_df = over_history_df[
             ["competencia", "competencia_dt", "ordem", "serie", "percentual"]
@@ -1153,12 +1027,12 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 width="stretch",
             )
         else:
-            st.caption("Curva Over não disponível — dados de aging incompletos para todos os períodos.")
+            st.caption("Curva Over indisponível.")
         _render_over_transparency_notes(st, over_history_df)
-    with st.expander("Detalhe numérico do aging", expanded=False):
+    with st.expander("Aging", expanded=False):
         _aging_detail_df = _format_aging_latest_table(dashboard.default_buckets_latest_df)
         if _aging_detail_df.empty:
-            st.caption("Sem dados de aging disponíveis para o período selecionado.")
+            st.caption("Sem aging.")
         else:
             st.dataframe(_aging_detail_df, width="stretch", hide_index=True)
 
@@ -1183,9 +1057,7 @@ def _render_structural_risk_section(
         delta_pct = _format_percent(latest_subordination_row.get("pl_reconciliacao_delta_pct"))
         st.warning(
             "PL oficial diverge da soma das classes reportadas. "
-            f"PL não reconciliado: {delta} ({delta_pct}). "
-            "Fallback explícito: o PL oficial é preservado como total, a diferença aparece separada "
-            "como PL não reconciliado e a subordinação não é exibida como métrica confiável."
+            f"Diferença: {delta} ({delta_pct})."
         )
     subordination_periods = dashboard.subordination_history_df["competencia"].nunique()
     _render_chart_heading(st, "Subordinação reportada")
@@ -1206,7 +1078,6 @@ def _render_structural_risk_section(
         ),
         width="stretch",
     )
-    st.caption("Subordinação reportada = (PL mezzanino + PL subordinada residual) / PL total.")
 
     _render_chart_heading(st, "PL por tipo de cota")
     pl_view = st.radio(
@@ -1288,7 +1159,7 @@ def _render_structural_risk_section(
             months=return_months,
         )
         if not base100_chart_df.empty:
-            with st.expander("Abrir histórico acumulado base 100", expanded=False):
+            with st.expander("Base 100", expanded=False):
                 st.altair_chart(
                     _line_history_chart(
                         base100_chart_df,
@@ -1324,7 +1195,7 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
 
 
 def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
-    with st.expander("Glossário essencial", expanded=False):
+    with st.expander("Glossário", expanded=False):
         glossary_df = dashboard.mini_glossary_df.copy()
         rows_list = glossary_df.to_dict("records")
         # Two-column layout for the glossary
@@ -1341,47 +1212,11 @@ def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
 
 def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
     info = dashboard.fund_info
-    # Pills: only Condomínio and Cotistas count (no labels for extras)
-    condominio = info.get("condominio", "")
-    cotistas = info.get("total_cotistas", "")
-    pills_parts: list[str] = []
-    if condominio and condominio not in ("", "N/D"):
-        pills_parts.append(f'<span class="fidc-pill"><strong>Condomínio:</strong> {escape(str(condominio))}</span>')
-    if cotistas and cotistas not in ("", "N/D", "0"):
-        pills_parts.append(f'<span class="fidc-pill"><strong>Cotistas:</strong> {escape(str(cotistas))}</span>')
-    pills_html = "\n".join(pills_parts)
-    participantes_pairs = [
-        (
-            "Administrador",
-            _format_participant_display(
-                info.get("nome_administrador") or info.get("nm_admin"),
-                info.get("cnpj_administrador") or info.get("cnpj_admin_cadastro"),
-            ),
-        ),
-        (
-            "Gestor",
-            _format_participant_display(info.get("nome_gestor") or info.get("nm_gestor"), info.get("cnpj_gestor")),
-        ),
-        (
-            "Custodiante",
-            _format_participant_display(
-                info.get("nome_custodiante") or info.get("nm_custodiante"),
-                info.get("cnpj_custodiante"),
-            ),
-        ),
-    ]
-    participantes_html = "\n".join(
-        f'<span class="fidc-pill fidc-pill--participante"><strong>{escape(label)}:</strong> {escape(value)}</span>'
-        for label, value in participantes_pairs
-        if value
-    )
     title = info.get("nome_fundo") or info.get("nome_classe") or "FIDC selecionado"
     st.markdown(
         f"""
 <div class="fidc-hero">
   <div class="fidc-hero__title">{escape(str(title))}</div>
-  {f'<div class="fidc-hero__meta">{pills_html}</div>' if pills_html else ""}
-  {f'<div class="fidc-hero__participantes">{participantes_html}</div>' if participantes_html else ""}
 </div>
 """,
         unsafe_allow_html=True,
@@ -1400,18 +1235,6 @@ def _competencia_labels_between(start_month: date, end_month: date) -> list[str]
 
 def _render_chart_heading(container, title: str, caption: str | None = None) -> None:
     container.markdown(f'<div class="fidc-chart-title">{escape(title)}</div>', unsafe_allow_html=True)
-
-
-def _format_participant_display(name: object, cnpj: object) -> str:
-    name_text = str(name or "").strip()
-    cnpj_text = _format_cnpj(cnpj)
-    if name_text and cnpj_text and cnpj_text != "N/D":
-        return f"{name_text} · {cnpj_text}"
-    if name_text:
-        return name_text
-    if cnpj_text != "N/D":
-        return cnpj_text
-    return ""
 
 
 def _format_competencia_label(value: object) -> str:
@@ -1652,46 +1475,16 @@ def _render_duration_section(dashboard: FundonetDashboardData) -> None:
 
     # --- KPI destaque: valor mais recente ---
     latest_duration = duration_df.sort_values("competencia_dt").iloc[-1]
-    duration_val = latest_duration.get("duration_days")
-    total_saldo = latest_duration.get("total_saldo")
     latest_quality = str(latest_duration.get("data_quality") or "")
-    duration_display = (
-        f"{float(duration_val):.0f} dias"
-        if latest_quality == "ok" and not pd.isna(duration_val)
-        else "N/D"
-    )
-    saldo_display = _format_brl_compact(total_saldo)
-
-    tooltip_text = (
-        "Prazo médio proxy = prazo médio ponderado da carteira de recebíveis.\n"
-        "Fórmula: Σ(saldo_bucket × prazo_proxy) / Σ(saldo_bucket)\n"
-        "Proxies por bucket: Vencidos=0d; Em 30 dias=30d; "
-        "31-60d=45,5d; 61-90d=75,5d; 91-120d=105,5d; 121-150d=135,5d; "
-        "151-180d=165,5d; 181-360d=270,5d; 361-720d=540,5d; 721-1080d=900,5d. "
-        "Se >1080d concentrar a carteira, o dado fica N/D porque a faixa é aberta e não tem limite superior.\n"
-        "Fonte: quadro de vencimento dos direitos creditórios (COMPMT_DICRED_AQUIS / SEM_AQUIS)."
-    )
-    st.markdown(
-        f'<div class="fidc-chart-caption">'
-        f'Prazo médio proxy dos recebíveis: <strong>{escape(duration_display)}</strong>'
-        f' em {escape(_format_competencia_label(str(latest_duration.get("competencia", ""))))}'
-        f', base de {escape(saldo_display)} em recebíveis.'
-        f'</div>',
-        unsafe_allow_html=True,
-    )
     if latest_quality == "nao_calculavel_bucket_aberto_dominante":
         open_share = latest_duration.get("open_bucket_share_pct")
-        st.warning(
-            "Duration proxy não calculável para a competência mais recente: "
-            f"{_format_percent(open_share)} do saldo está na faixa aberta acima de 1080 dias. "
-            "Sem limite superior no XML, qualquer número pontual seria uma premissa arbitrária."
-        )
+        st.warning(f"Duration não calculável: {_format_percent(open_share)} na faixa aberta >1080 dias.")
     elif latest_quality == "sem_dados":
-        st.caption("Duration proxy não disponível para a competência mais recente porque não há saldo por vencimento.")
+        st.caption("Duration não disponível.")
 
     # --- Série histórica ---
     if len(ok_df) < 2:
-        st.caption("Dados insuficientes para série histórica de duration (mínimo 2 competências).")
+        st.caption("Histórico insuficiente.")
         return
 
     _render_chart_heading(
@@ -1833,16 +1626,12 @@ def _render_pptx_export_button(dashboard: FundonetDashboardData, context: dict[s
 
 
 def _render_fidc_section(title: str, caption: str | None = None) -> None:
+    _ = caption
     st.markdown(f'<div class="fidc-section">{escape(title)}</div>', unsafe_allow_html=True)
-    if caption:
-        st.markdown(f'<div class="fidc-section-caption">{escape(caption)}</div>', unsafe_allow_html=True)
 
 
 def _render_cvm_tables_section(dashboard: FundonetDashboardData) -> None:
-    _render_fidc_section(
-        "Tabelas CVM normalizadas",
-        "Base tabular do XML parseado, útil para conferência e leitura de detalhe.",
-    )
+    _render_fidc_section("Tabelas CVM")
     left, right = st.columns(2)
     with left:
         st.caption("Liquidez reportada")
@@ -1860,7 +1649,7 @@ def _render_cvm_tables_section(dashboard: FundonetDashboardData) -> None:
         )
 
     if not dashboard.rate_negotiation_latest_df.empty:
-        with st.expander("Taxas de negociação de direitos creditórios", expanded=False):
+        with st.expander("Taxas", expanded=False):
             st.dataframe(
                 _format_rate_table(dashboard.rate_negotiation_latest_df),
                 width="stretch",
