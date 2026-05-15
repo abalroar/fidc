@@ -618,14 +618,11 @@ def _render_status_bar(
     period: ImePeriodSelection,
     results: dict[str, dict[str, Any]],
 ) -> None:
-    ok = sum(1 for payload in results.values() if payload.get("result") is not None)
-    total = len(selected_portfolio.funds)
+    _ = (period, results)
     st.markdown(
         f"""
 <div class="somatorio-fidcs-period-bar">
   <span><strong>Carteira:</strong> {escape(selected_portfolio.name)}</span>
-  <span><strong>Período solicitado:</strong> {escape(period.label)}</span>
-  <span><strong>Fundos carregados:</strong> {ok}/{total}</span>
 </div>
 """,
         unsafe_allow_html=True,
@@ -728,7 +725,7 @@ def _render_outputs(
                 npl_coverage_chart(display_outputs.consolidated_monthly),
             )
 
-        st.markdown("### Fundo individual")
+        st.markdown("### Por fundo")
         selected_fund_cnpj = _render_fund_selectbox(
             display_outputs,
             key=f"somatorio_fidcs_base_fund::{selected_portfolio.id}",

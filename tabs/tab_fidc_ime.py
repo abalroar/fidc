@@ -128,47 +128,6 @@ _FIDC_REPORT_CSS = """
     padding-right: 2rem !important;
 }
 
-/* Financial snapshot cards row */
-.fidc-snapshot-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin: 0.35rem 0 0.85rem 0;
-}
-
-.fidc-snapshot-card {
-    flex: 1 1 136px;
-    background: #ffffff;
-    border: 1px solid #e9ecef;
-    border-top: 3px solid #ff5a00;
-    border-radius: 12px;
-    padding: 11px 13px 10px 13px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-    min-width: 100px;
-}
-
-.fidc-snapshot-card__label {
-    color: #6c757d;
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-}
-
-.fidc-snapshot-card__value {
-    color: #212529;
-    font-size: 1.1rem;
-    font-weight: 500;
-    line-height: 1.1;
-}
-
-.fidc-snapshot-card__unit {
-    color: #8a96a3;
-    font-size: 0.72rem;
-    margin-top: 3px;
-}
-
 .fidc-hero {
     background: linear-gradient(180deg, rgba(255,90,0,0.08), rgba(255,255,255,0.98));
     border: 1px solid rgba(255,90,0,0.16);
@@ -234,193 +193,6 @@ _FIDC_REPORT_CSS = """
     font-size: 0.74rem;
 }
 
-.fidc-grid {
-    display: grid;
-    gap: 12px;
-    margin: 0.4rem 0 1.0rem 0;
-}
-
-.fidc-grid--hero {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.fidc-grid--supporting {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.fidc-card {
-    background: #ffffff;
-    border: 1px solid #e9ecef;
-    border-left: 3px solid #e9ecef;
-    border-radius: 10px;
-    padding: 16px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    min-height: 132px;
-    position: relative;
-}
-
-.fidc-card--risk {
-    border-left-color: #111111;
-}
-
-.fidc-card--monitor {
-    border-left-color: #ff5a00;
-}
-
-.fidc-card--neutral {
-    border-left-color: #adb5bd;
-}
-
-.fidc-card__header {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-bottom: 4px;
-}
-
-.fidc-card__label {
-    color: #6c757d;
-    font-size: 0.7rem;
-    font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-.fidc-card__info {
-    display: inline-flex;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    justify-content: center;
-    align-items: center;
-    font-size: 9px;
-    font-weight: 600;
-    color: #adb5bd;
-    border: 1px solid #dee2e6;
-    cursor: help;
-    position: relative;
-    flex-shrink: 0;
-}
-
-.fidc-card__info .fidc-card__tip {
-    display: none;
-    position: absolute;
-    bottom: 120%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #333333;
-    color: #ffffff;
-    font-size: 11px;
-    padding: 6px 10px;
-    border-radius: 6px;
-    white-space: normal;
-    min-width: 210px;
-    max-width: 300px;
-    z-index: 1000;
-    font-weight: 300;
-    text-transform: none;
-    letter-spacing: normal;
-    line-height: 1.4;
-}
-
-.fidc-card__info:hover .fidc-card__tip,
-.fidc-card__info:focus .fidc-card__tip {
-    display: block;
-}
-
-.fidc-card__value-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin: 6px 0 10px 0;
-}
-
-.fidc-card__value {
-    color: #212529;
-    font-size: 1.5rem;
-    font-weight: 400;
-    line-height: 1.1;
-}
-
-.fidc-card__sparkline {
-    opacity: 0.82;
-    flex-shrink: 0;
-}
-
-.fidc-card__meta {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 8px;
-}
-
-.fidc-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 3px 7px;
-    border-radius: 999px;
-    font-size: 0.67rem;
-    line-height: 1;
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    color: #5a5a5a;
-}
-
-.fidc-badge--critical {
-    border-color: rgba(17,17,17,0.12);
-    color: #111111;
-    background: rgba(17,17,17,0.04);
-}
-
-.fidc-badge--monitor {
-    border-color: rgba(255,90,0,0.18);
-    color: #ff5a00;
-    background: rgba(255,90,0,0.06);
-}
-
-.fidc-badge--neutral {
-    color: #6c757d;
-}
-
-.fidc-card__note {
-    color: #667382;
-    font-size: 0.78rem;
-    line-height: 1.35;
-}
-
-.fidc-callout {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr;
-    gap: 10px;
-    margin: 0.15rem 0 0.95rem 0;
-}
-
-.fidc-callout__item {
-    background: #ffffff;
-    border: 1px solid #e9ecef;
-    border-radius: 10px;
-    padding: 12px 13px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-}
-
-.fidc-callout__kicker {
-    color: #6c757d;
-    font-size: 0.67rem;
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-}
-
-.fidc-callout__value {
-    color: #212529;
-    font-size: 0.84rem;
-    line-height: 1.38;
-}
-
 .fidc-inline-note {
     margin: 0.15rem 0 0.85rem 0;
     padding: 0.7rem 0.9rem;
@@ -452,13 +224,6 @@ _FIDC_REPORT_CSS = """
     color: #667382;
     font-size: 0.78rem;
     margin: -0.1rem 0 0.35rem 0;
-}
-
-.fidc-card__source {
-    color: #8a96a3;
-    font-size: 0.72rem;
-    line-height: 1.3;
-    margin-top: 9px;
 }
 
 .fidc-section {
@@ -621,16 +386,6 @@ div[data-testid="stMetricLabel"] {
     background: #f4f1ea !important;
 }
 
-@media (max-width: 900px) {
-    .fidc-grid--hero,
-    .fidc-grid--supporting,
-    .fidc-callout {
-        grid-template-columns: 1fr;
-    }
-    .fidc-card__value {
-        font-size: 1.3rem;
-    }
-}
 </style>
 """
 
@@ -1120,10 +875,7 @@ def _render_dashboard(
     )
     st.session_state[_session_dashboard_key] = dashboard
     _render_dashboard_header(dashboard)
-    _render_financial_snapshot_cards(dashboard)
     _render_dashboard_controls(dashboard, context)
-    _render_dashboard_context_bar(dashboard)
-    _render_requested_period_coverage_warning(dashboard, context)
     if docs_error:
         st.warning(f"{docs_error} informe(s) não entraram na leitura. A visão usa apenas documentos válidos.")
     if contract_missing:
@@ -1587,37 +1339,6 @@ def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
             col.markdown("")
 
 
-def _render_financial_snapshot_cards(dashboard: FundonetDashboardData) -> None:
-    summary = dashboard.summary
-
-    def _card(label: str, value: object) -> str:
-        if label in {"Subordinação reportada", "Cobertura de provisão"}:
-            val_str = _format_percent(value)
-        else:
-            val_str = _format_brl_compact(value)
-        return (
-            f'<div class="fidc-snapshot-card">'
-            f'<div class="fidc-snapshot-card__label">{escape(label)}</div>'
-            f'<div class="fidc-snapshot-card__value">{escape(val_str)}</div>'
-            f'</div>'
-        )
-
-    cards: list[str] = [
-        _card("Ativo total", summary.get("ativos_totais")),
-        _card("DCs totais", summary.get("direitos_creditorios") or summary.get("inadimplencia_denominador")),
-        _card("PL total", summary.get("pl_total")),
-        _card("Vencidos", summary.get("inadimplencia_total")),
-        _card("Cobertura de provisão", summary.get("cobertura_pct")),
-        _card("Subordinação reportada", summary.get("subordinacao_pct")),
-    ]
-
-    cards_html = "\n".join(cards)
-    st.markdown(
-        f'<div class="fidc-snapshot-row">{cards_html}</div>',
-        unsafe_allow_html=True,
-    )
-
-
 def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
     info = dashboard.fund_info
     # Pills: only Condomínio and Cotistas count (no labels for extras)
@@ -1667,18 +1388,6 @@ def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
     )
 
 
-def _render_dashboard_context_bar(dashboard: FundonetDashboardData) -> None:
-    context_items = _build_dashboard_context_items(dashboard)
-    context_html = "".join(
-        f"<span><strong>{escape(label)}:</strong> {escape(value)}</span>"
-        for label, value in context_items
-    )
-    st.markdown(
-        f'<div class="fidc-period-bar">{context_html}</div>',
-        unsafe_allow_html=True,
-    )
-
-
 def _competencia_labels_between(start_month: date, end_month: date) -> list[str]:
     current = date(start_month.year, start_month.month, 1)
     end = date(end_month.year, end_month.month, 1)
@@ -1689,47 +1398,8 @@ def _competencia_labels_between(start_month: date, end_month: date) -> list[str]
     return labels
 
 
-def _expected_competencias_from_context(context: dict[str, Any]) -> list[str]:
-    try:
-        start_ts = pd.Timestamp(context.get("competencia_inicial"))
-        end_ts = pd.Timestamp(context.get("competencia_final"))
-    except Exception:  # noqa: BLE001
-        return []
-    if pd.isna(start_ts) or pd.isna(end_ts):
-        return []
-    return _competencia_labels_between(start_ts.date(), end_ts.date())
-
-
-def _render_requested_period_coverage_warning(
-    dashboard: FundonetDashboardData,
-    context: dict[str, Any],
-) -> None:
-    expected_competencias = _expected_competencias_from_context(context)
-    if not expected_competencias:
-        return
-    loaded_competencias = set(str(value) for value in dashboard.competencias)
-    missing_competencias = [competencia for competencia in expected_competencias if competencia not in loaded_competencias]
-    if not missing_competencias:
-        return
-    st.warning(
-        "A janela solicitada tinha "
-        f"{len(expected_competencias)} competência(s), mas o dashboard recebeu "
-        f"{len(loaded_competencias)} competência(s) processada(s). "
-        f"Competência(s) ausente(s): {', '.join(_format_competencia_label(value) for value in missing_competencias)}. "
-        "Os gráficos usam somente competências válidas e são ordenados da mais antiga para a mais recente."
-    )
-
-
 def _render_chart_heading(container, title: str, caption: str | None = None) -> None:
     container.markdown(f'<div class="fidc-chart-title">{escape(title)}</div>', unsafe_allow_html=True)
-
-
-def _build_dashboard_context_items(dashboard: FundonetDashboardData) -> list[tuple[str, str]]:
-    info = dashboard.fund_info
-    return [
-        ("Últ. competência", _format_competencia_label(info.get("ultima_competencia") or "N/D")),
-        ("Janela", _format_competencia_period(info.get("periodo_analisado") or "N/D")),
-    ]
 
 
 def _format_participant_display(name: object, cnpj: object) -> str:
@@ -1960,27 +1630,6 @@ def _render_aging_omission_note(container, default_buckets_latest_df: pd.DataFra
     del default_buckets_latest_df
 
 
-def _maturity_vencidos_caption(maturity_latest_df: pd.DataFrame) -> str | None:
-    """Returns 'Vencidos / DCs a vencer = X%' computed from the maturity DataFrame.
-
-    Denominator = sum of all future buckets (excluding 'Vencidos').
-    """
-    if maturity_latest_df.empty or "faixa" not in maturity_latest_df.columns or "valor" not in maturity_latest_df.columns:
-        return None
-    df = maturity_latest_df.copy()
-    df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
-    vencidos_mask = df["faixa"] == "Vencidos"
-    vencidos_val = float(df.loc[vencidos_mask, "valor"].sum())
-    dc_avencer = float(df.loc[~vencidos_mask, "valor"].sum())
-    if dc_avencer <= 0:
-        return None
-    ratio_pct = vencidos_val / dc_avencer * 100.0
-    return (
-        f"Vencidos {_format_brl_compact(vencidos_val)} / DCs a vencer {_format_brl_compact(dc_avencer)} "
-        f"= {_format_percent(ratio_pct)}"
-    )
-
-
 def _render_duration_section(dashboard: FundonetDashboardData) -> None:
     """Renders the estimated duration KPI card + monthly evolution chart.
 
@@ -2187,216 +1836,6 @@ def _render_fidc_section(title: str, caption: str | None = None) -> None:
     st.markdown(f'<div class="fidc-section">{escape(title)}</div>', unsafe_allow_html=True)
     if caption:
         st.markdown(f'<div class="fidc-section-caption">{escape(caption)}</div>', unsafe_allow_html=True)
-
-
-def _render_fidc_card(
-    label: str,
-    value: str,
-    source: str = "",
-    *,
-    variant: str = "",
-    note: str = "",
-    badges: list[tuple[str, str]] | None = None,
-    sparkline_svg: str = "",
-    tooltip: str = "",
-) -> str:
-    variant_class = f" fidc-card--{variant}" if variant else ""
-    info_html = ""
-    if tooltip or source:
-        tooltip_text = tooltip or source
-        info_html = (
-            '<span class="fidc-card__info">i'
-            f'<span class="fidc-card__tip">{escape(tooltip_text).replace(chr(10), "<br/>")}</span>'
-            "</span>"
-        )
-    meta_html = ""
-    if badges:
-        badge_parts = []
-        for badge_text, badge_variant in badges:
-            badge_variant = badge_variant if badge_variant in {"critical", "monitor", "neutral"} else "neutral"
-            badge_parts.append(f'<span class="fidc-badge fidc-badge--{badge_variant}">{escape(badge_text)}</span>')
-        meta_html = f'<div class="fidc-card__meta">{"".join(badge_parts)}</div>'
-    note_html = f'<div class="fidc-card__note">{escape(note)}</div>' if note else ""
-    spark_html = f'<div class="fidc-card__sparkline">{sparkline_svg}</div>' if sparkline_svg else ""
-    return (
-        f'<div class="fidc-card{variant_class}">'
-        f'<div class="fidc-card__header"><div class="fidc-card__label">{escape(label)}</div>{info_html}</div>'
-        f'<div class="fidc-card__value-row"><div class="fidc-card__value">{escape(value)}</div>{spark_html}</div>'
-        f"{meta_html}"
-        f"{note_html}"
-        "</div>"
-    )
-
-
-def _render_risk_card(dashboard: FundonetDashboardData, row: pd.Series) -> str:
-    criticality = str(row.get("criticality") or "")
-    variant_map = {
-        "critico": "risk",
-        "monitorar": "monitor",
-        "contexto": "neutral",
-    }
-    badges = []
-    if str(row.get("state") or "calculado") != "calculado":
-        badges.append((_format_risk_metric_state(row.get("state")), "neutral"))
-    tooltip_lines = [
-        f"Fonte: {row.get('source_data') or 'N/D'}",
-        f"Fórmula: {row.get('formula') or 'N/D'}",
-        f"Limitação: {row.get('limitation') or 'N/D'}",
-    ]
-    return _render_fidc_card(
-        str(row.get("label") or "Métrica"),
-        _format_metric_value(row.get("value"), str(row.get("unit") or "")),
-        str(row.get("source_data") or ""),
-        variant=variant_map.get(criticality, "neutral"),
-        badges=badges,
-        sparkline_svg=_sparkline_svg(_metric_history_values(dashboard, str(row.get("metric_id") or ""))),
-        tooltip="\n".join(tooltip_lines),
-    )
-
-
-def _render_inadimplencia_overview_card(dashboard: FundonetDashboardData) -> str:
-    latest_df = dashboard.default_history_df.sort_values("competencia_dt").copy()
-    latest_row = latest_df.iloc[-1] if not latest_df.empty else pd.Series(dtype=object)
-    previous_row = latest_df.iloc[-2] if len(latest_df.index) > 1 else pd.Series(dtype=object)
-
-    inadimplencia_total = latest_row.get("direitos_creditorios_vencidos")
-    direitos_creditorios = latest_row.get("direitos_creditorios_vencimento_total")
-    inadimplencia_pct = latest_row.get("inadimplencia_pct")
-    if _is_missing_value(inadimplencia_total) or _is_missing_value(direitos_creditorios) or _is_missing_value(inadimplencia_pct):
-        maturity_df = dashboard.maturity_latest_df
-        maturity_vencidos = 0.0
-        maturity_total = 0.0
-        if not maturity_df.empty and "valor" in maturity_df.columns and "faixa" in maturity_df.columns:
-            _m = maturity_df.copy()
-            _m["valor"] = pd.to_numeric(_m["valor"], errors="coerce").fillna(0.0)
-            maturity_vencidos = float(_m.loc[_m["faixa"] == "Vencidos", "valor"].sum())
-            maturity_total = float(_m["valor"].sum())
-        if maturity_total > 0:
-            inadimplencia_total = maturity_vencidos
-            direitos_creditorios = maturity_total
-            inadimplencia_pct = maturity_vencidos / maturity_total * 100.0
-
-    # Delta vs previous month using historical series
-    previous_pct_raw = pd.to_numeric(previous_row.get("inadimplencia_pct"), errors="coerce")
-    current_pct_raw = pd.to_numeric(inadimplencia_pct, errors="coerce")
-    delta_pp = current_pct_raw - previous_pct_raw if pd.notna(current_pct_raw) and pd.notna(previous_pct_raw) else None
-    trailing_mean = (
-        pd.to_numeric(latest_df["inadimplencia_pct"], errors="coerce").dropna().tail(12).mean()
-        if not latest_df.empty and "inadimplencia_pct" in latest_df.columns
-        else None
-    )
-    # Quando não há vencidos, exibir valor principal em branco (sem "0,00%" ou "R$ 0,00"),
-    # mas manter a memória de cálculo na parte inferior.
-    pct_numeric = pd.to_numeric(inadimplencia_pct, errors="coerce")
-    total_numeric = pd.to_numeric(inadimplencia_total, errors="coerce")
-    is_zero_vencidos = (
-        (pd.notna(pct_numeric) and abs(float(pct_numeric)) < 1e-9)
-        or (pd.notna(total_numeric) and abs(float(total_numeric)) < 1e-9)
-    )
-    # Memória de cálculo sempre presente (mesmo quando não há vencidos)
-    vencidos_fmt = _format_brl_compact(inadimplencia_total) if not _is_missing_value(inadimplencia_total) else "R$ 0,00"
-    total_fmt = _format_brl_compact(direitos_creditorios) if not _is_missing_value(direitos_creditorios) else "N/D"
-    note_parts = [f"{vencidos_fmt} / {total_fmt}"]
-    # Contexto adicional só é relevante quando existe inadimplência — caso contrário
-    # evita-se repetir "0,00%" desnecessariamente na UI.
-    if not is_zero_vencidos:
-        if delta_pp is not None:
-            note_parts.append(f"{_format_pp(delta_pp)} vs. mês anterior")
-        if trailing_mean is not None and not pd.isna(trailing_mean):
-            note_parts.append(f"Média 12 meses: {_format_percent(trailing_mean)}")
-        vencidos_ratio = _maturity_vencidos_caption(dashboard.maturity_latest_df)
-        if vencidos_ratio:
-            note_parts.append(vencidos_ratio)
-    tooltip_lines = [
-        "Total de parcelas vencidas sobre o total de direitos creditórios.",
-        "Fonte: Informe Mensal -> quadro de prazo de vencimento dos direitos creditórios, com fallback para o aging.",
-        "Fórmula: créditos vencidos / total de direitos creditórios * 100",
-        "Limitação: depende do preenchimento consistente dos quadros; não substitui perda esperada ou leitura por devedor.",
-    ]
-    display_value = "" if is_zero_vencidos else _format_percent(inadimplencia_pct)
-    return _render_fidc_card(
-        "Total de Vencidos",
-        display_value,
-        "Parcelas vencidas / direitos creditórios",
-        variant="risk",
-        note=" · ".join(note_parts),
-        sparkline_svg="" if is_zero_vencidos else _sparkline_svg(_metric_history_values(dashboard, "inadimplencia_pct")),
-        tooltip="\n".join(tooltip_lines),
-    )
-
-
-def _render_fidc_grid(cards_html: list[str], grid_class: str) -> str:
-    return f'<div class="fidc-grid {grid_class}">{"".join(cards_html)}</div>'
-
-
-def _metric_history_values(dashboard: FundonetDashboardData, metric_id: str) -> list[float]:
-    if metric_id == "subordinacao_pct":
-        return _series_to_values(dashboard.subordination_history_df.get("subordinacao_pct"))
-    if metric_id == "inadimplencia_pct":
-        return _series_to_values(dashboard.default_history_df.get("inadimplencia_pct"))
-    if metric_id == "alocacao_pct":
-        return _series_to_values(dashboard.asset_history_df.get("alocacao_pct"))
-    if metric_id == "provisao_pct_inadimplencia":
-        if dashboard.default_history_df.empty:
-            return []
-        series = (
-            dashboard.default_history_df["provisao_total"] / dashboard.default_history_df["inadimplencia_total"]
-        ).where(pd.to_numeric(dashboard.default_history_df["inadimplencia_total"], errors="coerce") > 0).mul(100.0)
-        return _series_to_values(series)
-    if metric_id == "liquidez_imediata_pct_pl":
-        if dashboard.subordination_history_df.empty or dashboard.liquidity_history_df.empty:
-            return []
-        merged = dashboard.liquidity_history_df.merge(
-            dashboard.subordination_history_df[["competencia", "pl_total"]],
-            on="competencia",
-            how="left",
-        )
-        series = (merged["liquidez_imediata"] / merged["pl_total"]).where(pd.to_numeric(merged["pl_total"], errors="coerce") > 0).mul(100.0)
-        return _series_to_values(series)
-    if metric_id == "liquidez_30_pct_pl":
-        if dashboard.subordination_history_df.empty or dashboard.liquidity_history_df.empty:
-            return []
-        merged = dashboard.liquidity_history_df.merge(
-            dashboard.subordination_history_df[["competencia", "pl_total"]],
-            on="competencia",
-            how="left",
-        )
-        series = (merged["liquidez_30"] / merged["pl_total"]).where(pd.to_numeric(merged["pl_total"], errors="coerce") > 0).mul(100.0)
-        return _series_to_values(series)
-    return []
-
-
-def _series_to_values(series: pd.Series | None) -> list[float]:
-    if series is None:
-        return []
-    numeric = pd.to_numeric(series, errors="coerce").dropna()
-    return [float(value) for value in numeric.tolist()]
-
-
-def _sparkline_svg(values: list[float], *, width: int = 80, height: int = 24) -> str:
-    if len(values) < 2:
-        return ""
-    min_val = min(values)
-    max_val = max(values)
-    span = max_val - min_val
-    if span == 0:
-        span = max(abs(max_val), 1.0)
-        min_val -= span / 2
-        max_val += span / 2
-    points: list[str] = []
-    step = width / max(len(values) - 1, 1)
-    for index, value in enumerate(values):
-        x = index * step
-        y = height - ((value - min_val) / (max_val - min_val) * (height - 4)) - 2
-        points.append(f"{x:.2f},{y:.2f}")
-    polyline = " ".join(points)
-    last_x, last_y = points[-1].split(",")
-    return (
-        f'<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-        f'<polyline fill="none" stroke="#111111" stroke-width="1.8" points="{polyline}" />'
-        f'<circle cx="{last_x}" cy="{last_y}" r="2.2" fill="#ff5a00" />'
-        "</svg>"
-    )
 
 
 def _render_cvm_tables_section(dashboard: FundonetDashboardData) -> None:
@@ -5120,14 +4559,6 @@ def _format_percent_rounded_label(value: object) -> str:
     if _is_missing_value(value):
         return "N/D"
     return f"{int(round(float(value)))}%"
-
-
-def _format_pp(value: object) -> str:
-    if _is_missing_value(value):
-        return "N/D"
-    numeric = float(value)
-    prefix = "+" if numeric > 0 else ""
-    return f"{prefix}{_format_decimal(numeric, decimals=2)} p.p."
 
 
 def _format_brl(value: object) -> str:

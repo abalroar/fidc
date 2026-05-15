@@ -488,23 +488,6 @@ class TabFidcImeProgressTests(unittest.TestCase):
         self.assertEqual("2,75%", senior_row["YTD"])
         self.assertEqual("21,00%", subordinada_row["12 meses"])
 
-    def test_build_dashboard_context_items_keeps_only_competencia_and_janela(self) -> None:
-        dashboard = SimpleNamespace(
-            fund_info={
-                "ultima_competencia": "02/2026",
-                "periodo_analisado": "01/2026 a 02/2026",
-                "ultima_entrega": "2026-03-14",
-            },
-            competencias=["01/2026", "02/2026"],
-        )
-
-        items = tab_fidc_ime._build_dashboard_context_items(dashboard)
-
-        self.assertEqual(
-            [("Últ. competência", "fev-26"), ("Janela", "jan-26 a fev-26")],
-            items,
-        )
-
     def test_format_cnpj_recovers_decimalized_identifier(self) -> None:
         self.assertEqual("36.113.876/0001-91", tab_fidc_ime._format_cnpj("36113876000191.0"))
         self.assertEqual("08.417.544/0001-65", tab_fidc_ime._format_cnpj("8417544000165.0"))
