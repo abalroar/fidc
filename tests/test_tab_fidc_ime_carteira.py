@@ -44,7 +44,7 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
     def test_build_portfolio_selector_label_lookup_disambiguates_duplicate_name_and_basket(self) -> None:
         portfolio_a = PortfolioRecord(
             id="57f3418c1e9341e79edeef6086b8c25d",
-            name="Mercado Credito Soma",
+            name="MELI (FIDCs Mercado Crédito 0, I e II)",
             funds=(
                 PortfolioFund(cnpj="33254370000104", display_name="FIDC A"),
                 PortfolioFund(cnpj="37511828000114", display_name="FIDC B"),
@@ -55,7 +55,7 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
         )
         portfolio_b = PortfolioRecord(
             id="4220dda141ea442abd86a6ee11ed249f",
-            name="Mercado Credito Soma",
+            name="MELI (FIDCs Mercado Crédito 0, I e II)",
             funds=(
                 PortfolioFund(cnpj="41970012000126", display_name="FIDC C"),
                 PortfolioFund(cnpj="37511828000114", display_name="FIDC B"),
@@ -68,11 +68,11 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
         labels = _build_portfolio_selector_label_lookup([portfolio_a, portfolio_b])
 
         self.assertEqual(
-            "Mercado Credito Soma · 3 fundo(s) · ID 57f3418c",
+            "MELI (FIDCs Mercado Crédito 0, I e II) · 3 fundo(s) · ID 57f3418c",
             labels[portfolio_a.id],
         )
         self.assertEqual(
-            "Mercado Credito Soma · 3 fundo(s) · ID 4220dda1",
+            "MELI (FIDCs Mercado Crédito 0, I e II) · 3 fundo(s) · ID 4220dda1",
             labels[portfolio_b.id],
         )
 

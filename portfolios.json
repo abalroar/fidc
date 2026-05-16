@@ -3,7 +3,7 @@
   "portfolios": [
     {
       "id": "56d75415a8444cf1981f0e08d9cb2e40",
-      "name": "BTG Pactual 1T26",
+      "name": "BTG Pactual (Fundos Consolidados 1T26)",
       "funds": [
         {
           "cnpj": "54871427000194",
@@ -36,7 +36,7 @@
     },
     {
       "id": "7681d350f2994945ada0590b0e3703c2",
-      "name": "Cloudwalk",
+      "name": "Cloudwalk (Fundos Adquirência 1T26)",
       "funds": [
         {
           "cnpj": "42085816000105",
@@ -88,21 +88,8 @@
       "notes": ""
     },
     {
-      "id": "902327a723374db7997d01cc03951367",
-      "name": "Consignado Delta",
-      "funds": [
-        {
-          "cnpj": "54871427000194",
-          "display_name": "CONSIGNADO DELTA RECEIVABLES I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS"
-        }
-      ],
-      "created_at": "2026-05-14T12:00:00Z",
-      "updated_at": "2026-05-14T12:00:00Z",
-      "notes": ""
-    },
-    {
       "id": "73645b2112b04ba280bb1b3437a43fc2",
-      "name": "Crédito IFs - Mar26",
+      "name": "Crédito IFs (Carteira Atual 1T26)",
       "funds": [
         {
           "cnpj": "08692888000182",
@@ -183,7 +170,7 @@
     },
     {
       "id": "47b0eb1b7bea42ef85233f9b1186129c",
-      "name": "FIDC Sellers (Soma)",
+      "name": "MELI (FIDC Sellers I, II e III)",
       "funds": [
         {
           "cnpj": "50473039000102",
@@ -204,7 +191,7 @@
     },
     {
       "id": "57f3418c1e9341e79edeef6086b8c25d",
-      "name": "Mercado Credito Soma",
+      "name": "MELI (FIDCs Mercado Crédito 0, I e II)",
       "funds": [
         {
           "cnpj": "33254370000104",
@@ -225,7 +212,7 @@
     },
     {
       "id": "eef455671b8e4f7faa0cd247992e3bf7",
-      "name": "Mercado Livre",
+      "name": "MELI (Todos)",
       "funds": [
         {
           "cnpj": "50473039000102",
@@ -262,7 +249,7 @@
     },
     {
       "id": "f2aaacac4a4a424ab52582611f299bb1",
-      "name": "Pravaler",
+      "name": "Pravaler (Cred. Universitário I, II, III e IV)",
       "funds": [
         {
           "cnpj": "08417544000165",
@@ -283,27 +270,6 @@
       ],
       "created_at": "2026-05-04T18:39:45Z",
       "updated_at": "2026-05-15T14:47:05Z",
-      "notes": ""
-    },
-    {
-      "id": "2637f5679d894995ae2bed14512b2966",
-      "name": "Soma",
-      "funds": [
-        {
-          "cnpj": "41970012000126",
-          "display_name": "41.970.012/0001-26"
-        },
-        {
-          "cnpj": "37511828000114",
-          "display_name": "37.511.828/0001-14"
-        },
-        {
-          "cnpj": "33254370000104",
-          "display_name": "33.254.370/0001-04"
-        }
-      ],
-      "created_at": "2026-04-22T17:02:16Z",
-      "updated_at": "2026-04-22T17:02:16Z",
       "notes": ""
     }
   ]

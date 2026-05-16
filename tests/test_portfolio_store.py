@@ -117,7 +117,7 @@ class PortfolioStoreTests(unittest.TestCase):
             store.save_portfolio(
                 PortfolioRecord(
                     id="portfolio-1",
-                    name="Mercado Credito Soma",
+                    name="MELI (FIDCs Mercado Crédito 0, I e II)",
                     funds=(
                         PortfolioFund(cnpj="33254370000104", display_name="FIDC A"),
                         PortfolioFund(cnpj="37511828000114", display_name="FIDC B"),
@@ -132,7 +132,7 @@ class PortfolioStoreTests(unittest.TestCase):
                 store.save_portfolio(
                     PortfolioRecord(
                         id="portfolio-2",
-                        name="Mercado Credito Soma",
+                        name="MELI (FIDCs Mercado Crédito 0, I e II)",
                         funds=(
                             PortfolioFund(cnpj="41970012000126", display_name="FIDC C"),
                             PortfolioFund(cnpj="37511828000114", display_name="FIDC B"),

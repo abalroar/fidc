@@ -487,7 +487,8 @@ def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRe
     labels = build_portfolio_record_label_lookup(portfolios)
     default_id = st.session_state.get("ml_portfolio_active_id")
     if default_id not in options:
-        mercado = next((portfolio.id for portfolio in portfolios if portfolio.name.strip().lower() == "mercado livre"), None)
+        preferred_names = {"meli (todos)", "mercado livre"}
+        mercado = next((portfolio.id for portfolio in portfolios if portfolio.name.strip().lower() in preferred_names), None)
         default_id = mercado or options[0]
         st.session_state["ml_portfolio_active_id"] = default_id
     selected_id = st.selectbox(

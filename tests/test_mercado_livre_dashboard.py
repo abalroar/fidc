@@ -1010,7 +1010,7 @@ class MercadoLivreDashboardTests(unittest.TestCase):
 
         existing = PortfolioRecord(
             id="portfolio-1",
-            name="Mercado Livre",
+            name="MELI (Todos)",
             funds=funds_a,
             created_at="2026-04-29T00:00:00Z",
             updated_at="2026-04-29T00:00:00Z",
