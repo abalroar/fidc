@@ -68,11 +68,11 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
         labels = _build_portfolio_selector_label_lookup([portfolio_a, portfolio_b])
 
         self.assertEqual(
-            "MELI (FIDCs Mercado Crédito 0, I e II) · 3 fundo(s) · ID 57f3418c",
+            "MELI (FIDCs Mercado Crédito 0, I e II) · ID 57f3418c",
             labels[portfolio_a.id],
         )
         self.assertEqual(
-            "MELI (FIDCs Mercado Crédito 0, I e II) · 3 fundo(s) · ID 4220dda1",
+            "MELI (FIDCs Mercado Crédito 0, I e II) · ID 4220dda1",
             labels[portfolio_b.id],
         )
 

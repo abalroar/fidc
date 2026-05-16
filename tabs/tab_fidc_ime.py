@@ -1425,10 +1425,6 @@ def _render_over_transparency_notes(st_ctx: object, over_history_df: pd.DataFram
         st_ctx.caption(
             f"Denominador de DCs não disponível em {len(sem_denom)} competência(s) — percentual não calculado."
         )
-    denominadores = over_history_df["denominador_fonte"].dropna().unique().tolist() if "denominador_fonte" in over_history_df.columns else []
-    if denominadores:
-        denom_label = ", ".join(str(d) for d in denominadores)
-        st_ctx.caption(f"Denominador Over: {denom_label} (total canônico de DCs).")
 
 
 def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
@@ -1778,6 +1774,7 @@ def _render_audit_section(
             width="stretch",
             hide_index=True,
         )
+        _render_over_denominator_audit_note(st, dashboard)
         st.markdown("**Memória de cálculo**")
         st.dataframe(
             _format_executive_memory_table(dashboard.executive_memory_df),
@@ -1832,6 +1829,7 @@ def _render_audit_section(
             width="stretch",
             hide_index=True,
         )
+        _render_over_denominator_audit_note(st, dashboard)
     with st.expander("Memória de cálculo da visão executiva", expanded=False):
         st.dataframe(
             _format_executive_memory_table(dashboard.executive_memory_df),
@@ -1846,6 +1844,19 @@ def _render_audit_section(
         )
     with st.expander("Base normalizada do Informe Mensal", expanded=False):
         _render_cvm_tables_section(dashboard)
+
+
+def _render_over_denominator_audit_note(container, dashboard: FundonetDashboardData) -> None:
+    over_history_df = dashboard.default_over_history_df
+    denominadores = (
+        over_history_df["denominador_fonte"].dropna().unique().tolist()
+        if not over_history_df.empty and "denominador_fonte" in over_history_df.columns
+        else []
+    )
+    if not denominadores:
+        return
+    denom_label = ", ".join(str(d) for d in denominadores)
+    container.caption(f"Denominador Over: {denom_label} (total canônico de DCs).")
 
 
 def _render_financial_snapshot_cards(dashboard: FundonetDashboardData) -> None:

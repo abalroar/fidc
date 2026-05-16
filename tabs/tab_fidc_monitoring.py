@@ -379,13 +379,12 @@ def _build_cache_load_period(*, period: ImePeriodSelection, cache_months: int) -
 
 
 def _render_requested_load_chips(*, period: ImePeriodSelection, load_period: ImePeriodSelection, cache_months: int, fund_count: int) -> None:
-    _ = load_period
+    _ = load_period, fund_count
     st.markdown(
         f"""
 <div class="monitor-card-row">
   <span class="monitor-chip"><strong>Janela:</strong> {escape(_format_period_label(period))}</span>
   <span class="monitor-chip"><strong>Histórico:</strong> {cache_months} meses</span>
-  <span class="monitor-chip"><strong>Fundos:</strong> {fund_count}</span>
 </div>
 """,
         unsafe_allow_html=True,
@@ -633,13 +632,12 @@ def _render_loaded_period_status(
     reference_label = _format_competencia_label(reference) if reference else "-"
     display_label = display_span or "-"
     total_load_seconds = sum(float(item.get("load_seconds") or 0.0) for item in outputs)
-    _ = requested_period, load_period, cache_months
+    _ = requested_period, load_period, cache_months, reference_count, reference_total
     st.markdown(
         f"""
 <div class="monitor-card-row">
   <span class="monitor-chip"><strong>{escape(display_label)}</strong></span>
   <span class="monitor-chip"><strong>Cockpit:</strong> {escape(reference_label)}</span>
-  <span class="monitor-chip"><strong>{reference_count}/{reference_total}</strong> fundos</span>
   <span class="monitor-chip"><strong>{_format_decimal(total_load_seconds, 1)}s</strong></span>
 </div>
 """,
@@ -1019,7 +1017,6 @@ def _render_consolidado_tab(outputs: list[dict[str, Any]]) -> None:
     st.markdown(
         f"""
 <div class="monitor-card-row">
-  <span class="monitor-chip"><strong>Fundos:</strong> {len(outputs)}</span>
   <span class="monitor-chip"><strong>Janela:</strong> {escape(_format_competencia_span(competencias))}</span>
 </div>
 """,

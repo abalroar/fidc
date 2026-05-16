@@ -620,18 +620,16 @@ def _render_status_bar(
     period: ImePeriodSelection,
     results: dict[str, dict[str, Any]],
 ) -> None:
-    ok = sum(1 for payload in results.values() if payload.get("result") is not None)
-    total = len(selected_portfolio.funds)
     st.markdown(
         f"""
 <div class="somatorio-fidcs-period-bar">
   <span><strong>Carteira:</strong> {escape(selected_portfolio.name)}</span>
   <span><strong>Período solicitado:</strong> {escape(period.label)}</span>
-  <span><strong>Fundos carregados:</strong> {ok}/{total}</span>
 </div>
 """,
         unsafe_allow_html=True,
     )
+    _ = results
 
 
 def _render_outputs(
@@ -643,15 +641,12 @@ def _render_outputs(
     use_tabs: bool = True,
     show_guide: bool = True,
 ) -> None:
-    ok = len(outputs.fund_monthly)
-    total = len(selected_portfolio.funds)
     requested_period = str(outputs.metadata.get("period_label") or _loaded_period_label(outputs))
     st.markdown(
         f"""
 <div class="somatorio-fidcs-period-bar">
   <span><strong>{escape(selected_portfolio.name)}</strong></span>
   <span>{escape(requested_period)}</span>
-  <span>{ok}/{total} fundos</span>
   <span>{escape(_loaded_period_label(outputs))}</span>
 </div>
 """,

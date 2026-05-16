@@ -5,6 +5,7 @@ import altair as alt
 
 from services.mercado_livre_dashboard import PT_MONTH_ABBR
 from services.mercado_livre_visuals import CORES_MELI
+from services.fund_name_display import short_fund_name
 
 
 PRIMARY = CORES_MELI["primaria"]
@@ -185,7 +186,7 @@ def duration_chart(consolidated_monitor: pd.DataFrame, fund_monitor: dict[str, p
         if frame is None or frame.empty:
             continue
         name = str(frame["fund_name"].dropna().iloc[0]) if "fund_name" in frame.columns and frame["fund_name"].notna().any() else "FIDC"
-        frames.append(_duration_series(frame, name))
+        frames.append(_duration_series(frame, short_fund_name(name)))
     chart_df = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
     if chart_df.empty:
         return _empty_chart()

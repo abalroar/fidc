@@ -94,7 +94,7 @@ def build_portfolio_record_label_lookup(portfolios: list[PortfolioRecord]) -> di
     for portfolio in portfolios:
         name_key = portfolio_name_key(portfolio.name)
         exact_key = (name_key, portfolio_basket_signature(portfolio.funds))
-        base = f"{portfolio.name} · {len(portfolio.funds)} fundo(s)"
+        base = portfolio.name
         if exact_counts[exact_key] > 1 or name_counts[name_key] > 1:
             base = f"{base} · ID {portfolio.id[:8]}"
         labels[portfolio.id] = base
@@ -145,10 +145,7 @@ def render_saved_portfolio_delete_manager(
         selected = next((portfolio for portfolio in portfolios if portfolio.id == selected_id), None)
         if selected is None:
             return
-        st.caption(
-            f"ID `{selected.id[:8]}` · {len(selected.funds)} fundo(s) · "
-            f"atualizada em {selected.updated_at or 'N/D'}"
-        )
+        st.caption(f"ID `{selected.id[:8]}` · atualizada em {selected.updated_at or 'N/D'}")
         st.dataframe(
             build_portfolio_funds_display_df(selected),
             hide_index=True,

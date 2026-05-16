@@ -953,6 +953,7 @@ def _render_portfolio_aggregate_analysis(
         for fund in selected_portfolio.funds
         if fund.cnpj not in dashboards_by_cnpj
     ]
+    excluded_competencias = _portfolio_missing_competencias_for_period(bundle=bundle, period=period)
 
     def _render_executive_view() -> None:
         _render_portfolio_aggregate_header(
@@ -966,7 +967,6 @@ def _render_portfolio_aggregate_analysis(
             bundle=bundle,
             period=period,
         )
-        _render_portfolio_period_coverage_warning(bundle=bundle, period=period)
         _render_portfolio_cache_debug(
             selected_portfolio=selected_portfolio,
             results=results,
@@ -996,6 +996,7 @@ def _render_portfolio_aggregate_analysis(
             loaded_count=loaded_count,
             total_selected=total_selected,
             excluded_funds=excluded_funds,
+            excluded_competencias=excluded_competencias,
             compact=section_mode != "tabs",
         )
 
@@ -1087,9 +1088,18 @@ def _render_portfolio_period_coverage_warning(
         return
     st.warning(
         "A carteira agregada usa apenas competências comuns aos fundos incluídos. "
-        f"Fora do agregado: "
-        f"{', '.join(ime_tab._format_competencia_label(value) for value in missing_competencias)}."
+        "Consulte a auditoria técnica para a lista de competências fora da interseção."
     )
+
+
+def _portfolio_missing_competencias_for_period(
+    *,
+    bundle: PortfolioDashboardBundle,
+    period: ImePeriodSelection,
+) -> list[str]:
+    expected_competencias = ime_tab._competencia_labels_between(period.start_month, period.end_month)
+    common_competencias = set(str(value) for value in bundle.dashboard.competencias)
+    return [competencia for competencia in expected_competencias if competencia not in common_competencias]
 
 
 def _render_portfolio_cache_debug(
@@ -1106,9 +1116,7 @@ def _render_portfolio_cache_debug(
         period=period,
         common_competencias=common_competencias,
     )
-    has_refresh_or_gap = any(row.get("Refresh acionado") == "sim" or row.get("Competências faltantes após refresh") for row in fund_rows)
-    expanded = bool(excluded_rows and has_refresh_or_gap)
-    with st.expander("Diagnóstico de cache e competências da carteira", expanded=expanded):
+    with st.expander("Diagnóstico de cache e competências da carteira", expanded=False):
         st.markdown("**Fundos selecionados e cache verificado**")
         st.dataframe(pd.DataFrame(fund_rows), width="stretch", hide_index=True)
         st.markdown("**Competências esperadas fora da interseção após refresh**")
@@ -1232,18 +1240,18 @@ def _render_portfolio_aggregate_audit(
     loaded_count: int,
     total_selected: int,
     excluded_funds: list[str],
+    excluded_competencias: list[str],
     compact: bool = False,
 ) -> None:
     st.markdown(
         f"""
 <div class="fidc-period-bar">
   <span><strong>Regra temporal:</strong> interseção estrita</span>
-  <span><strong>Últ. competência comum:</strong> {escape(ime_tab._format_competencia_label(bundle.dashboard.latest_competencia))}</span>
-  <span><strong>Fundos incluídos:</strong> {loaded_count}/{total_selected}</span>
 </div>
 """,
         unsafe_allow_html=True,
     )
+    _ = loaded_count, total_selected
 
     def _render_scope_and_coverage() -> None:
         st.markdown("**Fundos incluídos no agregado**")
@@ -1256,6 +1264,20 @@ def _render_portfolio_aggregate_audit(
             st.markdown("**Fundos fora do agregado atual**")
             st.dataframe(
                 pd.DataFrame({"Fundo": excluded_funds}),
+                width="stretch",
+                hide_index=True,
+            )
+        if excluded_competencias:
+            st.markdown("**Competências fora da interseção comum**")
+            st.dataframe(
+                pd.DataFrame(
+                    {
+                        "Competência": [
+                            ime_tab._format_competencia_label(value)
+                            for value in excluded_competencias
+                        ]
+                    }
+                ),
                 width="stretch",
                 hide_index=True,
             )
@@ -1370,13 +1392,12 @@ def _format_portfolio_reconciliation_table(reconciliation_df: pd.DataFrame) -> p
 
 
 def _render_portfolio_compact_header(name: str, period_label: str, n_ok: int, n_total: int) -> None:
-    count_label = f"{n_ok}/{n_total}" if n_ok < n_total else str(n_total)
+    _ = n_ok, n_total
     st.markdown(
         f"""
 <div class="fidc-period-bar">
   <span><strong>Seleção:</strong> {escape(name)}</span>
   <span><strong>Período:</strong> {escape(period_label)}</span>
-  <span><strong>Fundos:</strong> {escape(count_label)}</span>
 </div>
 """,
         unsafe_allow_html=True,

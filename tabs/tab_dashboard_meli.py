@@ -19,6 +19,7 @@ from services.meli_credit_monitor import (
 from services.meli_credit_monitor_ppt_export import build_dashboard_meli_pptx_bytes
 from services.meli_credit_research import build_meli_research_outputs, build_research_excel_bytes
 from services.meli_credit_research_verification import verify_meli_research_outputs
+from services.fund_name_display import short_fund_name
 from services.meli_credit_monitor_visuals import (
     cohort_chart,
     duration_chart,
@@ -37,6 +38,7 @@ from services.mercado_livre_dashboard import (
 from services.portfolio_store import PortfolioRecord
 from tabs import tab_fidc_ime as ime_tab
 from tabs.ime_portfolio_support import (
+    build_portfolio_record_label_lookup,
     enrich_portfolio_funds_with_catalog,
     get_portfolio_status_caption,
     list_saved_portfolios,
@@ -132,25 +134,21 @@ ROLL_SEASONALITY_CHARTS: tuple[dict[str, str], ...] = (
     {
         "metric_id": "roll_61_90_m3",
         "title": "Roll 61-90 por mês do ano",
-        "axis": "Eixo esquerdo: Roll 61-90 M-3 em %. Sem eixo direito; cada linha representa um ano-calendário.",
         "note": "Fórmula: atraso 61-90 no mês t ÷ carteira a vencer três meses antes. O gráfico mostra sazonalidade e compara anos na mesma janela mensal.",
     },
     {
         "metric_id": "roll_91_120_m4",
         "title": "Roll 91-120 por mês do ano",
-        "axis": "Eixo esquerdo: Roll 91-120 M-4 em %. Sem eixo direito; cada linha representa um ano-calendário.",
         "note": "Fórmula: atraso 91-120 no mês t ÷ carteira a vencer quatro meses antes. A defasagem acompanha a maturação para atraso acima de 90 dias.",
     },
     {
         "metric_id": "roll_121_150_m5",
         "title": "Roll 121-150 por mês do ano",
-        "axis": "Eixo esquerdo: Roll 121-150 M-5 em %. Sem eixo direito; cada linha representa um ano-calendário.",
         "note": "Fórmula: atraso 121-150 no mês t ÷ carteira a vencer cinco meses antes. A série mostra a migração intermediária antes do bucket 151-180.",
     },
     {
         "metric_id": "roll_151_180_m6",
         "title": "Roll 151-180 por mês do ano",
-        "axis": "Eixo esquerdo: Roll 151-180 M-6 em %. Sem eixo direito; cada linha representa um ano-calendário.",
         "note": "Fórmula: atraso 151-180 no mês t ÷ carteira a vencer seis meses antes. A defasagem acompanha a maturação até atraso severo.",
     },
 )
@@ -291,7 +289,7 @@ def _render_portfolio_controls(portfolios: list[PortfolioRecord]) -> PortfolioRe
     except TypeError:
         left, right = st.columns([5.0, 1.6])
     options = [portfolio.id for portfolio in portfolios]
-    labels = {portfolio.id: f"{portfolio.name} · {len(portfolio.funds)} fundo(s)" for portfolio in portfolios}
+    labels = build_portfolio_record_label_lookup(portfolios)
     default_id = st.session_state.get("dashboard_meli_portfolio_active_id")
     if default_id not in options:
         preferred = next(
@@ -420,7 +418,7 @@ def _render_consolidated_dashboard(monitor_outputs, research_outputs=None) -> No
     _chart_title("Carteira ex-360 e crescimento YoY", "Carteira bruta menos vencidos acima de 360 dias; YoY contra o mesmo mês do ano anterior.")
     st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
-    _chart_title("NPL ex-360 por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
+    _chart_title("NPL ex-360 por severidade", "Barras empilhadas por severidade.")
     _chart_note(
         "A carteira ex-360 remove vencidos acima de 360 dias do denominador; as barras separam o NPL remanescente entre atraso inicial (1-90d) e atraso maduro (91-360d)."
     )
@@ -428,17 +426,18 @@ def _render_consolidated_dashboard(monitor_outputs, research_outputs=None) -> No
 
     _chart_title(
         "Roll rates",
-        "Eixo esquerdo: roll rate em %. Sem eixo direito. A defasagem segue o bucket: 61-90 M-3, 91-120 M-4, 121-150 M-5 e 151-180 M-6.",
+        "",
     )
+    _chart_note("Denominador defasado conforme bucket: 61-90 M-3, 91-120 M-4, 121-150 M-5 e 151-180 M-6.")
     st.altair_chart(roll_rates_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     _render_consolidated_research_charts(research_outputs)
 
-    _chart_title("Duration por FIDC", "Eixo esquerdo: duration em meses. Sem eixo direito; consolidado ponderado por saldo.")
+    _chart_title("Duration por FIDC", "Consolidado ponderado por saldo.")
     _duration_notes()
     st.altair_chart(duration_chart(monitor_outputs.consolidated_monitor, monitor_outputs.fund_monitor), use_container_width=True)
 
-    _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
+    _chart_title("Cohorts recentes", "")
     _cohort_notes()
     st.altair_chart(cohort_chart(monitor_outputs.consolidated_cohorts), use_container_width=True)
 
@@ -453,10 +452,14 @@ def _render_consolidated_research_charts(research_outputs) -> None:  # noqa: ANN
 
 
 def _render_research_roll_charts(roll_df: pd.DataFrame) -> None:
+    rendered_note = False
     for spec in ROLL_SEASONALITY_CHARTS:
         if roll_df[roll_df["metric_id"].eq(spec["metric_id"])].empty:
             continue
-        _chart_title(spec["title"], spec["axis"])
+        if not rendered_note:
+            _chart_note("Eixo esquerdo: roll rate em %. Denominador defasado conforme bucket.")
+            rendered_note = True
+        _chart_title(spec["title"], "")
         _chart_note(spec["note"])
         st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id=spec["metric_id"]), use_container_width=True)
 
@@ -476,24 +479,25 @@ def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRec
     for cnpj in selected_cnpjs:
         monitor = monitor_outputs.fund_monitor[cnpj]
         name = str(monitor["fund_name"].dropna().iloc[0]) if not monitor.empty and "fund_name" in monitor.columns and monitor["fund_name"].notna().any() else cnpj
-        st.markdown(f"#### {escape(name)} · {escape(str(cnpj))}")
+        st.markdown(f"#### {escape(short_fund_name(name))}")
         _chart_title("Carteira ex-360 e crescimento YoY", "Carteira bruta menos vencidos acima de 360 dias; YoY contra o mesmo mês do ano anterior.")
         st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
 
-        _chart_title("NPL ex-360 por severidade", "Eixo esquerdo: NPL 1-90d e 91-360d como % da carteira ex-360. Sem eixo direito.")
+        _chart_title("NPL ex-360 por severidade", "Barras empilhadas por severidade.")
         _chart_note(
             "A carteira ex-360 remove vencidos acima de 360 dias do denominador; as barras separam o NPL remanescente entre atraso inicial (1-90d) e atraso maduro (91-360d)."
         )
         st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
 
-        _chart_title("Roll rates", "Eixo esquerdo: roll rate em %. Sem eixo direito; denominador é carteira a vencer defasada conforme o bucket.")
+        _chart_title("Roll rates", "")
+        _chart_note("Denominador defasado conforme bucket.")
         st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
 
-        _chart_title("Duration", "Eixo esquerdo: duration em meses. Sem eixo direito.")
+        _chart_title("Duration", "")
         _duration_notes()
         st.altair_chart(duration_chart(pd.DataFrame(), {cnpj: monitor}), use_container_width=True)
 
-        _chart_title("Cohorts recentes", "Eixo esquerdo: % do saldo a vencer em 30 dias. Sem eixo direito.")
+        _chart_title("Cohorts recentes", "")
         _cohort_notes()
         st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
 
@@ -865,17 +869,13 @@ Exemplo: se em fev/26 havia R$ 100 milhões a vencer em até 30 dias, a linha `F
 def _render_status_bar(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection, outputs, storage_source: str) -> None:  # noqa: ANN001
     if outputs is not None and getattr(outputs, "consolidated_monthly", pd.DataFrame()).empty is False:
         loaded = _loaded_period_label(outputs)
-        ok = len(outputs.fund_monthly)
     else:
         loaded = "N/D"
-        ok = 0
-    total = len(selected_portfolio.funds)
     st.markdown(
         f"""
 <div class="meli-period-bar">
   <span><strong>{escape(selected_portfolio.name)}</strong></span>
   <span>{escape(period.label)}</span>
-  <span>{ok}/{total} fundos</span>
   <span>{escape(loaded)}</span>
 </div>
 """,
@@ -897,7 +897,8 @@ def _render_guide() -> None:
 
 def _chart_title(title: str, subtitle: str) -> None:
     st.markdown(f"<div class='meli-chart-title'>{escape(title)}</div>", unsafe_allow_html=True)
-    st.markdown(f"<div class='meli-chart-subtitle'>{escape(subtitle)}</div>", unsafe_allow_html=True)
+    if subtitle:
+        st.markdown(f"<div class='meli-chart-subtitle'>{escape(subtitle)}</div>", unsafe_allow_html=True)
 
 
 def _chart_note(text: str) -> None:

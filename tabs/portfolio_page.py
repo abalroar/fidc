@@ -169,7 +169,6 @@ def _render_portfolio_context_header(
 <div class="portfolio-center-header">
   <div class="portfolio-center-title">{escape(selected_portfolio.name)}</div>
   <div class="portfolio-center-meta">
-    <span>{len(selected_portfolio.funds)} fundo(s)</span>
     <span>{escape(period.label)}</span>
     <span>{escape(flow)}</span>
   </div>
