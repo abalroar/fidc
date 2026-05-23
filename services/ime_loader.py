@@ -239,6 +239,40 @@ def _remote_cache_base_url(value: str | None) -> str:
     return str(value or os.environ.get(REMOTE_CACHE_BASE_URL_ENV) or "").strip().rstrip("/")
 
 
+def materialize_latest_portable_cache_for_cnpj(
+    cnpj_fundo: str,
+    *,
+    runtime_cache_root: Path | None = None,
+    portable_cache_root: Path | None = None,
+) -> Path | None:
+    portable_root = _portable_cache_root_path(portable_cache_root)
+    if portable_root is None:
+        return None
+
+    requested_cnpj = _normalize_cnpj(cnpj_fundo)
+    candidates: list[tuple[tuple[date, int, str], Path, dict[str, object]]] = []
+    for package_path, manifest in _iter_portable_package_manifests(portable_root):
+        if _normalize_cnpj(manifest.get("cnpj_fundo")) != requested_cnpj:
+            continue
+        if not _is_cache_zip_complete(package_path):
+            continue
+        manifest_end = _parse_manifest_month(manifest.get("data_final"))
+        if manifest_end is None:
+            continue
+        competencias = manifest.get("competencias") or []
+        competencia_count = len(competencias) if isinstance(competencias, list) else int(manifest.get("competencias") or 0)
+        cache_key = str(manifest.get("cache_key") or package_path.stem)
+        candidates.append(((manifest_end, competencia_count, cache_key), package_path, manifest))
+
+    if not candidates:
+        return None
+
+    _, package_path, manifest = max(candidates, key=lambda item: item[0])
+    cache_key = str(manifest.get("cache_key") or package_path.stem)
+    target_dir = (runtime_cache_root or DEFAULT_RUNTIME_CACHE_ROOT).resolve() / cache_key
+    return target_dir if _extract_cache_zip(package_path, target_dir) else None
+
+
 def _load_portable_cached_result(
     *,
     cache_key: str,
