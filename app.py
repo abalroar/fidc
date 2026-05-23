@@ -3,6 +3,7 @@ from __future__ import annotations
 import streamlit as st
 
 from tabs.tab_fidc_book import render_tab_fidc_book
+from tabs.tab_cloudwalk_financial_cost import render_tab_cloudwalk_financial_cost
 from tabs import tab_fidc_ime as ime_tab
 from tabs import tab_deep_dive as deep_dive_tab
 from tabs import tab_fidc_monitoring as monitoring_tab
@@ -262,6 +263,7 @@ st.markdown(
 
 _MAIN_SECTIONS = [
     "Carteira FIDCs",
+    "Custo Cloudwalk",
     "Glossário FIDCs",
     "Modelagem",
     "Sobre",
@@ -280,6 +282,8 @@ if selected_section == "Carteira FIDCs":
     _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
     period = _render_period_selector(state_prefix="ime_global")
     render_portfolio_center_page(period=period)
+elif selected_section == "Custo Cloudwalk":
+    render_tab_cloudwalk_financial_cost()
 elif selected_section == "Modelagem":
     render_tab_modelo_fidc()
 elif selected_section == "Glossário FIDCs":

@@ -20,6 +20,38 @@ streamlit run app.py
 
 > Execute o comando na raiz do repositório (mesma pasta de `app.py`).
 
+## Custo financeiro Cloudwalk
+
+A seção **Custo Cloudwalk** no Streamlit roda o motor de estimativa anual de
+despesa financeira dos FIDCs:
+
+- lê as cotas/emissões em `data/regulatory_profiles/cloudwalk_cotas_emissoes_pagamentos.csv`;
+- aplica spreads CDI+ parseados dos documentos e overrides de
+  `config/cloudwalk_financial_cost_inputs.json`;
+- busca o CDI pela infraestrutura B3 TaxaSwap PRE DU252, com opção de CDI
+  manual na tela;
+- usa cache IME local em `.cache/fundonet-ime` ou os pacotes versionáveis em
+  `data/ime_cache/fundonet-ime` para PL, recebíveis e caixa/LFT;
+- exibe as três estimativas, o CDI+ implícito, detalhes por FIDC/cota,
+  mensalização, premissas e download dos CSVs.
+
+O mesmo cálculo também pode ser rodado por CLI:
+
+```bash
+python scripts/run_cloudwalk_financial_cost.py --year 2026
+```
+
+Para informar spreads manuais, edite `config/cloudwalk_financial_cost_inputs.json`
+em `spreads_cdi_plus_aa` usando a chave `CNPJ|classe`, por exemplo:
+
+```json
+{
+  "spreads_cdi_plus_aa": {
+    "54218673000141|1ª série sênior": 0.012
+  }
+}
+```
+
 ## O que o app faz
 
 - Carrega premissas, feriados, curvas e timeline do `model_data.json`.
