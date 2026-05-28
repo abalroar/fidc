@@ -32,7 +32,9 @@ from services.mercado_livre_ppt_export import build_pptx_export_bytes
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
 from tabs.tab_mercado_livre import (
+    CONSOLIDATED_SCOPE_VALUE,
     _MERCADO_LIVRE_UI_CSS,
+    _build_base_scope_options,
     _build_mercado_livre_guide_markdown,
     _dense_wide_value,
     _display_window_bounds,
@@ -41,6 +43,7 @@ from tabs.tab_mercado_livre import (
     _period_with_yoy_lookback,
     _tag_outputs_requested_period,
     _filter_outputs_by_competencia_months,
+    _display_wide_table,
     _render_wide_table_html,
     _resolve_existing_portfolio_for_save,
 )
@@ -578,6 +581,71 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertEqual("", _dense_wide_value("N/D"))
         self.assertEqual("178,0%", _dense_wide_value("178,04%"))
         self.assertEqual("5.380,0 MM", _dense_wide_value("R$ mm 5.380,00"))
+
+    def test_base_scope_options_show_consolidated_only_for_multi_fund_portfolios(self) -> None:
+        portfolio = PortfolioRecord(
+            id="portfolio-1",
+            name="Carteira Teste",
+            funds=(
+                PortfolioFund(cnpj="11111111000111", display_name="FIDC A"),
+                PortfolioFund(cnpj="22222222000122", display_name="FIDC B"),
+            ),
+            created_at="2026-05-28T00:00:00Z",
+            updated_at="2026-05-28T00:00:00Z",
+        )
+        outputs = SimpleNamespace(
+            fund_monthly={
+                "11111111000111": pd.DataFrame({"fund_name": ["FIDC A"]}),
+                "22222222000122": pd.DataFrame({"fund_name": ["FIDC B"]}),
+            },
+            fund_wide={
+                "11111111000111": pd.DataFrame({"Métrica": ["PL"]}),
+                "22222222000122": pd.DataFrame({"Métrica": ["PL"]}),
+            },
+            consolidated_monthly=pd.DataFrame({"fund_name": ["Carteira Teste"]}),
+            consolidated_wide=pd.DataFrame({"Métrica": ["PL"]}),
+        )
+
+        options = _build_base_scope_options(display_outputs=outputs, selected_portfolio=portfolio)
+
+        self.assertEqual(CONSOLIDATED_SCOPE_VALUE, options[0].value)
+        self.assertEqual("consolidated", options[0].kind)
+        self.assertEqual(["fund::11111111000111", "fund::22222222000122"], [option.value for option in options[1:]])
+
+    def test_base_scope_options_hide_consolidated_for_single_fund_portfolios(self) -> None:
+        portfolio = PortfolioRecord(
+            id="portfolio-1",
+            name="Carteira Teste",
+            funds=(PortfolioFund(cnpj="11111111000111", display_name="FIDC A"),),
+            created_at="2026-05-28T00:00:00Z",
+            updated_at="2026-05-28T00:00:00Z",
+        )
+        outputs = SimpleNamespace(
+            fund_monthly={"11111111000111": pd.DataFrame({"fund_name": ["FIDC A"]})},
+            fund_wide={"11111111000111": pd.DataFrame({"Métrica": ["PL"]})},
+            consolidated_monthly=pd.DataFrame({"fund_name": ["Carteira Teste"]}),
+            consolidated_wide=pd.DataFrame({"Métrica": ["PL"]}),
+        )
+
+        options = _build_base_scope_options(display_outputs=outputs, selected_portfolio=portfolio)
+
+        self.assertEqual(1, len(options))
+        self.assertEqual("fund::11111111000111", options[0].value)
+        self.assertEqual("fund", options[0].kind)
+        self.assertEqual("FIDC A · 11111111000111", options[0].label)
+
+    def test_display_wide_table_removes_audit_blocks_but_keeps_formula_memory(self) -> None:
+        wide = pd.DataFrame(
+            [
+                {"Bloco": "2. PL FIDC", "Métrica": "PL FIDC total", "Memória / fórmula": "PATRLIQ"},
+                {"Bloco": "9. Campos auxiliares de auditoria", "Métrica": "Fonte", "Memória / fórmula": "debug"},
+            ]
+        )
+
+        display = _display_wide_table(wide)
+
+        self.assertEqual(["PL FIDC total"], display["Métrica"].tolist())
+        self.assertIn("Memória / fórmula", display.columns)
 
     def test_wide_table_uses_money_scale_by_metric_for_readability(self) -> None:
         monthly = pd.DataFrame(

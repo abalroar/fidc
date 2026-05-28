@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import replace
+from dataclasses import dataclass, replace
 from datetime import date, datetime, timezone
 from html import escape
 import uuid
@@ -66,6 +66,17 @@ DISPLAY_WINDOW_FULL_OPTION = "Todo período carregado"
 DISPLAY_WINDOW_DECEMBERS_OPTION = "Dezembros + Ano Atual"
 DISPLAY_WINDOW_OPTIONS = (DISPLAY_WINDOW_FULL_OPTION, "6M", "12M", "24M", "36M", "YTD", DISPLAY_WINDOW_DECEMBERS_OPTION, "Customizado")
 YOY_LOOKBACK_MONTHS = 12
+CONSOLIDATED_SCOPE_VALUE = "__consolidated__"
+
+
+@dataclass(frozen=True)
+class _BaseScopeOption:
+    value: str
+    label: str
+    heading: str
+    kind: str
+    wide_df: pd.DataFrame
+    monthly_df: pd.DataFrame
 
 _SOMATORIO_FIDCS_UI_CSS = """
 <style>
@@ -118,6 +129,31 @@ _SOMATORIO_FIDCS_UI_CSS = """
 .somatorio-fidcs-period-bar strong {
     color: #212529;
     font-weight: 500;
+}
+.somatorio-scope-current {
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #e6e8eb;
+    border-radius: 8px;
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    margin: 0.2rem 0 0.75rem 0;
+    padding: 8px 10px;
+}
+.somatorio-scope-current span {
+    color: #8c8c8c;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+.somatorio-scope-current strong {
+    color: #111827;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: right;
 }
 .wide-table-wrapper {
     overflow-x: auto;
@@ -642,17 +678,17 @@ def _render_outputs(
     show_guide: bool = True,
 ) -> None:
     requested_period = str(outputs.metadata.get("period_label") or _loaded_period_label(outputs))
-    st.markdown(
-        f"""
+    if use_tabs:
+        st.markdown(
+            f"""
 <div class="somatorio-fidcs-period-bar">
   <span><strong>{escape(selected_portfolio.name)}</strong></span>
-  <span>{escape(requested_period)}</span>
-  <span>{escape(_loaded_period_label(outputs))}</span>
 </div>
 """,
-        unsafe_allow_html=True,
-    )
+            unsafe_allow_html=True,
+        )
     _ = storage_source
+    _ = requested_period
 
     if show_guide:
         _render_somatorio_fidcs_guide()
@@ -680,9 +716,9 @@ def _render_outputs(
             key=f"ml_pptx_completo_download::{selected_portfolio.id}",
             use_container_width=True,
         )
-        with st.expander("Dados do somatório para diligência", expanded=False):
+        with st.expander("Downloads", expanded=False):
             st.download_button(
-                "Baixar resumo exibido + gráficos consolidados",
+                "Resumo (Excel)",
                 data=snapshot_bytes,
                 file_name=f"somatorio_fidcs_resumo_exibido_{_safe_file_token(selected_portfolio.name)}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -690,7 +726,7 @@ def _render_outputs(
                 use_container_width=True,
             )
             st.download_button(
-                "Baixar base completa Excel",
+                "Base completa (Excel)",
                 data=full_matrix_excel_bytes,
                 file_name=f"somatorio_fidcs_base_completa_{file_token}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -698,7 +734,7 @@ def _render_outputs(
                 use_container_width=True,
             )
             st.download_button(
-                "Baixar CSVs",
+                "Base completa (CSV)",
                 data=full_matrix_csv_zip_bytes,
                 file_name=f"somatorio_fidcs_base_completa_{file_token}.zip",
                 mime="application/zip",
@@ -706,56 +742,34 @@ def _render_outputs(
                 use_container_width=True,
             )
 
-        st.markdown("### Dados Consolidados – Soma de FIDCs")
-        st.markdown(_render_wide_table_html(display_outputs.consolidated_wide), unsafe_allow_html=True)
+        scope = _render_base_scope_selector(
+            display_outputs=display_outputs,
+            selected_portfolio=selected_portfolio,
+            key=f"somatorio_fidcs_base_scope::{selected_portfolio.id}",
+        )
+        if scope is None:
+            st.caption("Sem dados para exibir.")
+            return
 
-        st.markdown("### Gráficos consolidados")
-        _render_graph_definitions()
+        st.markdown(f"#### {escape(scope.heading)}")
+        st.markdown(_render_wide_table_html(_display_wide_table(scope.wide_df)), unsafe_allow_html=True)
+
+        st.markdown("#### Gráficos")
         left, right = st.columns(2)
         with left:
             _render_chart(
                 "Evolução de PL e Subordinação",
-                "PL consolidado em escala dinâmica; subordinação ex-360 no eixo direito.",
-                pl_subordination_chart(display_outputs.consolidated_monthly),
+                "",
+                pl_subordination_chart(scope.monthly_df),
             )
         with right:
             _render_chart(
                 "NPL e Cobertura Ex-Vencidos > 360d",
-                "Índices consolidados recalculados a partir das somas absolutas.",
-                npl_coverage_chart(display_outputs.consolidated_monthly),
+                "",
+                npl_coverage_chart(scope.monthly_df),
             )
-
-        st.markdown("### Fundo individual")
-        selected_fund_cnpj = _render_fund_selectbox(
-            display_outputs,
-            key=f"somatorio_fidcs_base_fund::{selected_portfolio.id}",
-            label="Selecionar fundo",
-        )
-        selected_fund_cnpjs = [selected_fund_cnpj] if selected_fund_cnpj else []
-        if not selected_fund_cnpjs:
-            st.caption("Selecione um fundo para exibir tabela e gráficos individuais.")
-
-        for cnpj in selected_fund_cnpjs:
-            st.markdown(_render_wide_table_html(display_outputs.fund_wide[cnpj]), unsafe_allow_html=True)
-
-        st.markdown("#### Gráficos do fundo selecionado")
-        for cnpj in selected_fund_cnpjs:
-            monthly_df = display_outputs.fund_monthly[cnpj]
-            left, right = st.columns(2)
-            with left:
-                _render_chart(
-                    "Evolução de PL e Subordinação",
-                    "PL em escala dinâmica; subordinação ex-360 no eixo direito.",
-                    pl_subordination_chart(monthly_df),
-                )
-            with right:
-                _render_chart(
-                    "NPL e Cobertura Ex-Vencidos > 360d",
-                    "NPL Over 90d ex-360 e cobertura PDD ex-360 / NPL Over 90d ex-360.",
-                    npl_coverage_chart(monthly_df),
-                )
-
-        _render_base_audit(display_outputs=display_outputs, cache_dir=cache_dir)
+        with st.expander("Memória dos gráficos", expanded=False):
+            _render_graph_definitions()
 
     def _render_credit_view() -> None:
         render_dashboard_meli_analysis(
@@ -798,6 +812,91 @@ def _render_base_audit(*, display_outputs, cache_dir) -> None:  # noqa: ANN001
         if not display_outputs.warnings_df.empty:
             st.markdown("**Warnings da base**")
             st.dataframe(display_outputs.warnings_df, width="stretch", hide_index=True)
+
+
+def _render_base_scope_selector(
+    *,
+    display_outputs,
+    selected_portfolio: PortfolioRecord,
+    key: str,
+) -> _BaseScopeOption | None:
+    options = _build_base_scope_options(display_outputs=display_outputs, selected_portfolio=selected_portfolio)
+    if not options:
+        return None
+    if len(options) == 1:
+        option = options[0]
+        st.markdown(
+            f"""
+<div class="somatorio-scope-current">
+  <span>Escopo</span>
+  <strong>{escape(option.label)}</strong>
+</div>
+""",
+            unsafe_allow_html=True,
+        )
+        return option
+
+    values = [option.value for option in options]
+    if st.session_state.get(key) not in values:
+        st.session_state[key] = values[0]
+    labels = {option.value: option.label for option in options}
+    selected = st.selectbox(
+        "Escopo exibido",
+        options=values,
+        key=key,
+        format_func=lambda value: labels.get(value, str(value)),
+    )
+    return next((option for option in options if option.value == selected), options[0])
+
+
+def _build_base_scope_options(*, display_outputs, selected_portfolio: PortfolioRecord) -> tuple[_BaseScopeOption, ...]:
+    fund_options = _build_fund_scope_options(display_outputs)
+    if len(fund_options) <= 1:
+        if fund_options:
+            return tuple(fund_options)
+        consolidated = _build_consolidated_scope_option(display_outputs, selected_portfolio=selected_portfolio)
+        return (consolidated,) if consolidated is not None else tuple()
+
+    consolidated = _build_consolidated_scope_option(display_outputs, selected_portfolio=selected_portfolio)
+    return tuple([consolidated] + fund_options) if consolidated is not None else tuple(fund_options)
+
+
+def _build_consolidated_scope_option(
+    display_outputs,
+    *,
+    selected_portfolio: PortfolioRecord,
+) -> _BaseScopeOption | None:
+    monthly_df = getattr(display_outputs, "consolidated_monthly", pd.DataFrame())
+    wide_df = getattr(display_outputs, "consolidated_wide", pd.DataFrame())
+    if monthly_df is None or wide_df is None:
+        return None
+    return _BaseScopeOption(
+        value=CONSOLIDATED_SCOPE_VALUE,
+        label="Consolidado - Soma de FIDCs",
+        heading=f"Consolidado - {selected_portfolio.name}",
+        kind="consolidated",
+        wide_df=wide_df,
+        monthly_df=monthly_df,
+    )
+
+
+def _build_fund_scope_options(display_outputs) -> list[_BaseScopeOption]:  # noqa: ANN001
+    options: list[_BaseScopeOption] = []
+    fund_monthly = getattr(display_outputs, "fund_monthly", {}) or {}
+    fund_wide = getattr(display_outputs, "fund_wide", {}) or {}
+    for cnpj, monthly_df in fund_monthly.items():
+        fund_name = _fund_name_from_frame(monthly_df, fallback=cnpj)
+        options.append(
+            _BaseScopeOption(
+                value=f"fund::{cnpj}",
+                label=f"{fund_name} · {cnpj}",
+                heading=fund_name,
+                kind="fund",
+                wide_df=fund_wide.get(cnpj, pd.DataFrame()),
+                monthly_df=monthly_df,
+            )
+        )
+    return options
 
 
 def _render_chart(title: str, subtitle: str, chart) -> None:
@@ -1272,6 +1371,14 @@ def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
     flush_section()
     html.append("</div>")
     return "\n".join(html)
+
+
+def _display_wide_table(df_wide: pd.DataFrame) -> pd.DataFrame:
+    if df_wide is None or df_wide.empty or "Bloco" not in df_wide.columns:
+        return df_wide
+    block_text = df_wide["Bloco"].astype(str).str.lower()
+    audit_blocks = block_text.str.contains("auditoria") | block_text.str.contains("campos auxiliares")
+    return df_wide.loc[~audit_blocks].copy()
 
 
 def _wide_table_colgroup(period_columns: list[str]) -> str:
