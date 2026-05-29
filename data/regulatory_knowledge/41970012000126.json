@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "MERCADO CRÉDITO II BRASIL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
   "fund_cnpj": "41.970.012/0001-26",
-  "generated_at": "2026-05-10T03:18:37Z",
+  "generated_at": "2026-05-29T01:35:03Z",
   "documents": [
     {
       "id": 201188,
@@ -989,14 +989,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "12/06/2025",
       "data_entrega": "26/09/2025 16:07",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/41970012000126/999523_assembleia_assembleia_999523_2025-06-12.pdf"
+      "source_file": "data/raw/41970012000126/999523_emissao_emissao_999523_2025-06-12.pdf"
     },
     {
       "id": 952882,
@@ -1095,6 +1095,34 @@
       "downloaded": false,
       "download_error": "",
       "source_file": ""
+    },
+    {
+      "id": 1197099,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 21:00",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1198631,
+      "categoria": "Comunicado ao Mercado",
+      "tipo": "Outros Comunicados Não Considerados Fatos Relevantes ",
+      "especie": "",
+      "classification": "evento",
+      "data_referencia": "11/05/2026",
+      "data_entrega": "18/05/2026 18:14",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/41970012000126/1198631_evento_evento_1198631_2026-05-11.pdf"
     }
   ],
   "criteria": [
@@ -5583,7 +5611,7 @@
       "source_document_id": 1077334
     }
   ],
-  "extraction_count": 40,
+  "extraction_count": 41,
   "extraction_errors": [
     {
       "document_id": 559877,

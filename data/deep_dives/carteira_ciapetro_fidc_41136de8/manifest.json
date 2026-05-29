@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_ciapetro_fidc_41136de8",
+  "title": "Deep Dive Ciapetro FIDC",
+  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas IME",
+  "portfolio_id": "41136de86335405b88b6db0c6ec89789",
+  "portfolio_signature": "47424724000126",
+  "generated_at": "2026-05-28T12:07:04-03:00",
+  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "47.424.724/0001-26",
+      "name": "MF GROUP FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS",
+      "short_name": "MF GROUP NÃO PADRONIZADOS"
+    }
+  ],
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
+      "kind": "comparison_matrix",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
+      "kind": "source_table",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "emissions",
+      "title": "Cronograma de emissões",
+      "kind": "source_table",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "thresholds",
+      "title": "Regulamento mais recente",
+      "kind": "source_table",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "fundo"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
+      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
+      "Custos estruturais: 2 linhas com taxa de administração/gestão e mínimos mensais quando curados.",
+      "Tabela principal com 38 linhas; contagem documental foi substituída por páginas locais analisadas."
+    ]
+  }
+}

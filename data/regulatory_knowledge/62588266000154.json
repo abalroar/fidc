@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "VTK FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
   "fund_cnpj": "62.588.266/0001-54",
-  "generated_at": "2026-05-10T03:20:41Z",
+  "generated_at": "2026-05-29T01:35:12Z",
   "documents": [
     {
       "id": 1039148,
@@ -23,14 +23,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "05/09/2025",
       "data_entrega": "10/09/2025 10:09",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/62588266000154/987462_assembleia_assembleia_987462_2025-09-05.pdf"
+      "source_file": "data/raw/62588266000154/987462_emissao_emissao_987462_2025-09-05.pdf"
     },
     {
       "id": 987463,
@@ -93,14 +93,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "17/09/2025",
       "data_entrega": "17/09/2025 18:56",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/62588266000154/993682_assembleia_assembleia_993682_2025-09-17.pdf"
+      "source_file": "data/raw/62588266000154/993682_emissao_emissao_993682_2025-09-17.pdf"
     },
     {
       "id": 995150,
@@ -185,6 +185,20 @@
       "downloaded": true,
       "download_error": "",
       "source_file": "data/raw/62588266000154/1126575_emissao_emissao_1126575_2026-02-27.pdf"
+    },
+    {
+      "id": 1195935,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 18:10",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
     }
   ],
   "criteria": [

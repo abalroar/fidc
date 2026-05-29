@@ -62,6 +62,7 @@ def main() -> None:
         if portfolio is None:
             raise SystemExit(f"Carteira não encontrada: {args.portfolio_id}")
         build_portfolio_package(args, portfolio)
+        write_deep_dive_index(args.output_root)
         return
     build_sellers_mercado_credito_package(args)
 
@@ -669,7 +670,14 @@ def build_comparison_main(
         ("default_rate_early_maturity", "Liquidação/vencimento por atraso"),
         ("pdd_coverage_min", "Cobertura mínima PDD"),
         ("minimum_cash_ratio", "Reserva/caixa mínimo"),
+        ("recompras_max", "Limite de recompra"),
+        ("cancellation_rate_max", "Limite de cancelamento"),
+        ("chargeback_rate_max", "Limite de chargeback/contestação"),
+        ("concentration_limits", "Limites de concentração"),
         ("permitted_hedges", "Hedges permitidos"),
+        ("cross_default_seller_event", "Cross default do cedente"),
+        ("service_provider_replacement_event", "Troca de gestor/administrador"),
+        ("eligibility_criteria_text", "Critérios de elegibilidade"),
     ]:
         add_row(label, latest_threshold_by_fund(threshold_versions, key, aliases))
 

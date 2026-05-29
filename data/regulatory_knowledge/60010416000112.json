@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "MT CONSIGNADO PRIVADO I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
   "fund_cnpj": "60.010.416/0001-12",
-  "generated_at": "2026-05-14T14:04:54Z",
+  "generated_at": "2026-05-29T01:35:04Z",
   "documents": [
     {
       "id": 901405,
@@ -23,14 +23,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "20/03/2025",
       "data_entrega": "18/09/2025 09:31",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/60010416000112/993785_assembleia_assembleia_993785_2025-03-20.pdf"
+      "source_file": "data/raw/60010416000112/993785_emissao_emissao_993785_2025-03-20.pdf"
     },
     {
       "id": 993786,
@@ -166,6 +166,20 @@
       "classification": "outro",
       "data_referencia": "12/2025",
       "data_entrega": "12/02/2026 12:15",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1197030,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 20:49",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,

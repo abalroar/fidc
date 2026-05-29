@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "CRÉDITO UNIVERSITÁRIO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
   "fund_cnpj": "08.417.544/0001-65",
-  "generated_at": "2026-05-10T03:14:54Z",
+  "generated_at": "2026-05-29T01:34:54Z",
   "documents": [
     {
       "id": 148080,
@@ -891,14 +891,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "06/02/2024",
       "data_entrega": "06/02/2024 17:33",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/08417544000165/596947_assembleia_assembleia_596947_2024-02-06.pdf"
+      "source_file": "data/raw/08417544000165/596947_emissao_emissao_596947_2024-02-06.pdf"
     },
     {
       "id": 602471,
@@ -1171,14 +1171,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "24/09/2024",
       "data_entrega": "24/09/2024 19:36",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/08417544000165/743627_assembleia_assembleia_743627_2024-09-24.pdf"
+      "source_file": "data/raw/08417544000165/743627_emissao_emissao_743627_2024-09-24.pdf"
     },
     {
       "id": 774892,
@@ -1559,6 +1559,20 @@
       "source_file": ""
     },
     {
+      "id": 1193374,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 09:58",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
       "id": 1139668,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
@@ -1566,6 +1580,20 @@
       "classification": "outro",
       "data_referencia": "12/03/2026",
       "data_entrega": "17/03/2026 18:00",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1199986,
+      "categoria": "Relatórios",
+      "tipo": "Relatório de Agência de Rating",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "14/05/2026",
+      "data_entrega": "20/05/2026 13:42",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,

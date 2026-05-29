@@ -356,7 +356,46 @@ LOCAL_RULES: tuple[dict[str, Any], ...] = (
         "context": ("permitid", "vedad", "proteção", "protecao"),
         "comparison": "texto",
     },
+    {
+        "canonical_key": "cancellation_rate_max",
+        "name": "Cancelamento máximo",
+        "event_type": "enquadramento",
+        "keywords": ("cancelamento", "cancelamentos", "cancelad"),
+        "context": ("máxim", "maxim", "limite", "percentual", "índice", "indice"),
+        "comparison": "<=",
+    },
+    {
+        "canonical_key": "cross_default_seller_event",
+        "name": "Cross default do cedente",
+        "event_type": "evento_de_avaliação_ou_liquidação",
+        "keywords": ("cross default", "inadimplemento cruzado", "vencimento antecipado cruzado"),
+        "context": ("cedente", "originador", "grupo econômico", "grupo economico", "controlad"),
+        "comparison": "texto",
+    },
+    {
+        "canonical_key": "service_provider_replacement_event",
+        "name": "Troca de administrador, gestor ou prestador-chave",
+        "event_type": "evento_de_avaliação_ou_liquidação",
+        "keywords": ("renúncia da administradora", "renuncia da administradora", "renúncia do gestor", "renuncia do gestor", "substituição da gestora", "substituicao da gestora", "substituição do gestor", "substituicao do gestor", "substituição da administradora", "substituicao da administradora"),
+        "context": ("administrador", "administradora", "gestor", "gestora", "custodiante", "consultor", "prestador"),
+        "comparison": "texto",
+    },
+    {
+        "canonical_key": "eligibility_criteria_text",
+        "name": "Critérios de elegibilidade dos direitos creditórios",
+        "event_type": "elegibilidade",
+        "keywords": ("critério de elegibilidade", "criterio de elegibilidade", "direitos creditórios elegíveis", "direitos creditorios elegiveis", "condições de cessão", "condicoes de cessao"),
+        "context": ("direitos creditórios", "direitos creditorios", "cedente", "sacado", "aquisição", "aquisicao"),
+        "comparison": "texto",
+    },
 )
+
+TEXTUAL_CRITERIA_KEYS = {
+    "permitted_hedges",
+    "cross_default_seller_event",
+    "service_provider_replacement_event",
+    "eligibility_criteria_text",
+}
 
 
 def _extract_local_structured_payload(text: str, *, method: str, classification: str) -> dict[str, Any]:
@@ -383,7 +422,8 @@ def _extract_local_criteria(text: str) -> list[dict[str, Any]]:
             if rule.get("context") and not any(str(token).lower() in snippet_l for token in rule["context"]):
                 continue
             percent_values = _percent_values(snippet)
-            if not percent_values and rule["canonical_key"] != "permitted_hedges":
+            is_textual = rule["canonical_key"] in TEXTUAL_CRITERIA_KEYS
+            if not percent_values and not is_textual:
                 continue
             threshold_value = percent_values[0] if percent_values else None
             compact = _compact_excerpt(snippet)
@@ -402,7 +442,7 @@ def _extract_local_criteria(text: str) -> list[dict[str, Any]]:
                     "comparison": _infer_comparison(snippet, default=str(rule["comparison"])),
                     "formula_text": _infer_formula_text(snippet),
                     "source_excerpt": compact,
-                    "confidence": "média" if threshold_value is not None else "baixa",
+                    "confidence": "média" if threshold_value is not None else "média" if is_textual else "baixa",
                     "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
                 }
             )
@@ -443,7 +483,11 @@ def _extract_local_emissions(text: str, *, classification: str) -> list[dict[str
     remuneration = _first_relevant_snippet(text, ("remuneração", "remuneracao", "rentabilidade", "benchmark", "cdi"), window=650)
     amortization = _first_relevant_snippet(text, ("amortização", "amortizacao", "resgate"), window=650)
     maturity = _first_relevant_snippet(text, ("vencimento", "prazo", "data de vencimento"), window=650)
-    amount_display = _first_money_display(base_snippet) or _first_money_display(text[:8000])
+    amount_display = _largest_money_display(base_snippet) or _largest_money_display(text[:12000])
+    remuneration_display = _first_remuneration_display(text)
+    remuneration_text = _compact_excerpt(remuneration) if remuneration else ""
+    if remuneration_display:
+        remuneration_text = f"{remuneration_display}" + (f" | {remuneration_text}" if remuneration_text else "")
     return [
         {
             "date": None,
@@ -452,7 +496,7 @@ def _extract_local_emissions(text: str, *, classification: str) -> list[dict[str
             "amount": _parse_money(amount_display),
             "amount_display": amount_display,
             "currency": "R$" if amount_display else None,
-            "remuneration": _compact_excerpt(remuneration) if remuneration else "",
+            "remuneration": remuneration_text,
             "amortization_schedule": _compact_excerpt(amortization) if amortization else "",
             "maturity": _compact_excerpt(maturity) if maturity else "",
             "source_excerpt": _compact_excerpt(base_snippet),
@@ -500,6 +544,92 @@ def _first_percent_display(text: str) -> str:
 def _first_money_display(text: str) -> str:
     match = re.search(r"R\$\s*\d[\d.\s]*(?:,\d{2})?", text)
     return re.sub(r"\s+", " ", match.group(0)).strip() if match else ""
+
+
+def _largest_money_display(text: str) -> str:
+    matches = re.findall(r"R\$\s*\d[\d.\s]*(?:,\d{2})?", text)
+    if not matches:
+        return ""
+    parsed = [(value, _parse_money(value) or 0.0) for value in matches]
+    return re.sub(r"\s+", " ", max(parsed, key=lambda item: item[1])[0]).strip()
+
+
+def _first_remuneration_display(text: str) -> str:
+    lowered = text.lower()
+    snippets: list[str] = []
+    for keyword in (
+        "meta de remuneração",
+        "benchmark sênior",
+        "benchmark senior",
+        "remuneração das cotas",
+        "sobretaxa",
+        "spread",
+        "fator spread",
+        "taxa de retorno",
+        "cotas seniores",
+    ):
+        snippets.extend(_keyword_snippets(text, lowered, keyword, window=1300, limit=4))
+    snippets.append(text[:12000])
+
+    seen: set[str] = set()
+    for snippet in snippets:
+        cleaned = _compact_excerpt(snippet, limit=1400)
+        key = cleaned[:160].lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        candidate = _remuneration_candidate(cleaned)
+        if candidate:
+            return candidate
+    return ""
+
+
+def _remuneration_candidate(text: str) -> str:
+    lowered = text.lower()
+    if any(token in lowered for token in ("cotista inadimplente", "multa não compensatória", "multa nao compensatoria", "débito atualizado", "debito atualizado")):
+        return ""
+
+    match = re.search(
+        r"(?:Taxa[s]?\s*DI|CDI|DI)[^.;]{0,380}?(?:sobretaxa\s*\(spread\)\s*equivalente\s+a|spread\s*equivalente\s+a|acrescid[ao]s?(?:\s+exponencialmente)?(?:\s+de)?)\s*(\d{1,2}(?:[,.]\d{1,4})?)\s*%\s*(?:a\.?\s*a\.?|ao\s+ano)?",
+        text,
+        flags=re.IGNORECASE,
+    )
+    if match:
+        return f"Taxa DI + {match.group(1).replace('.', ',')}% a.a."
+
+    match = re.search(
+        r"(?:sobretaxa|spread)[^.;]{0,160}?(\d{1,2}(?:[,.]\d{1,4})?)\s*%\s*(?:a\.?\s*a\.?|ao\s+ano)?",
+        text,
+        flags=re.IGNORECASE,
+    )
+    if match and any(token in lowered for token in ("taxa di", "cdi", "benchmark", "remuneração", "remuneracao", "fator de juros")):
+        return f"Taxa DI + {match.group(1).replace('.', ',')}% a.a."
+
+    match = re.search(r"\bSpread\s*[–-]\s*(\d{1,2}(?:[,.]\d{1,4})?)\b", text, flags=re.IGNORECASE)
+    if match and any(token in lowered for token in ("taxa di", "fator di", "fator de juros")):
+        return f"Taxa DI + {match.group(1).replace('.', ',')}% a.a."
+
+    match = re.search(
+        r"(?:rentabilidade\s+adicional)[^.;]{0,140}?(\d{1,2}(?:[,.]\d{1,4})?)\s*%",
+        text,
+        flags=re.IGNORECASE,
+    )
+    if match:
+        return f"Rentabilidade adicional: {match.group(1).replace('.', ',')}%"
+
+    match = re.search(
+        r"(?:CDI|DI)\s*\+\s*(\d{1,2}(?:[,.]\d{1,4})?)\s*%\s*(?:a\.?\s*a\.?|ao\s+ano)?",
+        text,
+        flags=re.IGNORECASE,
+    )
+    if match:
+        return f"Taxa DI + {match.group(1).replace('.', ',')}% a.a."
+
+    match = re.search(r"(\d{1,3}(?:[,.]\d{1,4})?)\s*%\s*(?:do\s*)?(?:CDI|DI)\b", text, flags=re.IGNORECASE)
+    if match:
+        return f"{match.group(1).replace('.', ',')}% do CDI"
+
+    return ""
 
 
 def _parse_money(value: str | None) -> float | None:
@@ -815,7 +945,7 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
             if key not in columns:
                 columns.append(key)
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=columns)
+        writer = csv.DictWriter(handle, fieldnames=columns, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 

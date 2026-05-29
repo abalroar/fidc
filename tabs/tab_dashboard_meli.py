@@ -568,6 +568,7 @@ def _render_monitor_fund_selectbox(monitor_outputs, *, key: str) -> str | None: 
         key=key,
         format_func=lambda value: labels.get(value, str(value)),
         help="Mostra um fundo individual por vez.",
+        label_visibility="collapsed",
     )
     return selected if selected in monitor_outputs.fund_monitor else None
 

@@ -2,21 +2,21 @@
   "schema_version": 1,
   "fund_name": "ENDURANCE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
   "fund_cnpj": "62.838.025/0001-16",
-  "generated_at": "2026-05-10T03:15:08Z",
+  "generated_at": "2026-05-29T01:34:55Z",
   "documents": [
     {
       "id": 1056017,
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "22/09/2025",
       "data_entrega": "08/12/2025 11:24",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/62838025000116/1056017_assembleia_assembleia_1056017_2025-09-22.pdf"
+      "source_file": "data/raw/62838025000116/1056017_emissao_emissao_1056017_2025-09-22.pdf"
     },
     {
       "id": 1056018,
@@ -37,14 +37,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "10/11/2025",
       "data_entrega": "10/11/2025 18:06",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/62838025000116/1032846_assembleia_assembleia_1032846_2025-11-10.pdf"
+      "source_file": "data/raw/62838025000116/1032846_emissao_emissao_1032846_2025-11-10.pdf"
     },
     {
       "id": 1108442,
@@ -65,14 +65,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "02/12/2025",
       "data_entrega": "02/12/2025 18:17",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/62838025000116/1052452_assembleia_assembleia_1052452_2025-12-02.pdf"
+      "source_file": "data/raw/62838025000116/1052452_emissao_emissao_1052452_2025-12-02.pdf"
     },
     {
       "id": 1054472,
@@ -143,6 +143,20 @@
       "downloaded": true,
       "download_error": "",
       "source_file": "data/raw/62838025000116/1171493_assembleia_assembleia_1171493_2026-02-06.pdf"
+    },
+    {
+      "id": 1193100,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "14/05/2026 23:19",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
     }
   ],
   "criteria": [

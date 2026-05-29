@@ -7,10 +7,13 @@ from services.cloudwalk_financial_cost import (
     CostRunConfig,
     FundingLine,
     _balance_at,
+    _parse_line_amortizations,
     _parse_programmed_range_schedule,
+    _period_funding_factor,
     _scheduled_cost,
     parse_cdi_plus_spread,
 )
+from services.fidc_model.b3_cdi import B3CdiMonthlyRate
 from services.fidc_model.calendar import b3_market_holidays_for_dates
 
 
@@ -67,6 +70,47 @@ class CloudwalkFinancialCostTest(unittest.TestCase):
         self.assertAlmostEqual(500_000.0, _balance_at(line, date(2026, 7, 1)))
         self.assertGreater(scheduled["gross_cost"], 0.0)
         self.assertLess(scheduled["average_balance"], 1_000_000.0)
+
+    def test_amortization_convention_override_wins_over_text_hint(self):
+        convention, schedule, warnings = _parse_line_amortizations(
+            "Percentual do saldo de Cotas Sêniores a serem amortizadas: "
+            "01/01/2025 50,00%; 01/02/2025 50,00%",
+            1_000_000.0,
+            amortization_convention="incremental",
+        )
+
+        self.assertEqual("incremental", convention)
+        self.assertEqual((), warnings)
+        self.assertAlmostEqual(1_000_000.0, sum(amount for _, amount in schedule))
+
+    def test_period_funding_factor_uses_monthly_cdi_when_available(self):
+        config = CostRunConfig(
+            start_date=date(2025, 1, 1),
+            end_date=date(2025, 1, 31),
+            snapshot_date=date(2025, 1, 31),
+            cdi_aa=0.50,
+            cdi_source="fallback",
+            monthly_cdi_rates=(
+                B3CdiMonthlyRate(
+                    mes="2025-01",
+                    cdi_mensal=0.01,
+                    dias_uteis=20,
+                    data_inicio=date(2025, 1, 2),
+                    data_fim=date(2025, 1, 31),
+                    source="fixture",
+                ),
+            ),
+        )
+
+        factor = _period_funding_factor(
+            config=config,
+            spread_aa=0.0,
+            current=date(2025, 1, 10),
+            du=20,
+            monthly_cdi={config.monthly_cdi_rates[0].mes: config.monthly_cdi_rates[0]},
+        )
+
+        self.assertAlmostEqual(0.01, factor)
 
 
 if __name__ == "__main__":

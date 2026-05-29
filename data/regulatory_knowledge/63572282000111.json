@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "SELLER 3 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESP LIMITADA",
   "fund_cnpj": "63.572.282/0001-11",
-  "generated_at": "2026-05-10T03:19:39Z",
+  "generated_at": "2026-05-29T01:35:08Z",
   "documents": [
     {
       "id": 1091930,
@@ -23,14 +23,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "07/11/2025",
       "data_entrega": "11/12/2025 15:32",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/63572282000111/1059049_assembleia_assembleia_1059049_2025-11-07.pdf"
+      "source_file": "data/raw/63572282000111/1059049_emissao_emissao_1059049_2025-11-07.pdf"
     },
     {
       "id": 1059052,
@@ -79,14 +79,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "12/01/2026",
       "data_entrega": "13/01/2026 11:27",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/63572282000111/1080490_assembleia_assembleia_1080490_2026-01-12.pdf"
+      "source_file": "data/raw/63572282000111/1080490_emissao_emissao_1080490_2026-01-12.pdf"
     },
     {
       "id": 1089840,
@@ -143,6 +143,20 @@
       "downloaded": true,
       "download_error": "",
       "source_file": "data/raw/63572282000111/1104314_emissao_emissao_1104314_2026-02-06.pdf"
+    },
+    {
+      "id": 1196530,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 19:39",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
     }
   ],
   "criteria": [

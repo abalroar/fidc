@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "MERCADO CRÉDITO I BRASIL FIDC SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA",
   "fund_cnpj": "37.511.828/0001-14",
-  "generated_at": "2026-05-10T03:17:53Z",
+  "generated_at": "2026-05-29T01:35:03Z",
   "documents": [
     {
       "id": 147917,
@@ -1025,6 +1025,34 @@
       "downloaded": false,
       "download_error": "",
       "source_file": ""
+    },
+    {
+      "id": 1200489,
+      "categoria": "Assembleia",
+      "tipo": "AGO",
+      "especie": "Ata da Assembleia",
+      "classification": "assembleia",
+      "data_referencia": "27/03/2026 10:00",
+      "data_entrega": "21/05/2026 10:26",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/37511828000114/1200489_assembleia_assembleia_1200489_2026-03-27.pdf"
+    },
+    {
+      "id": 1200490,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "27/03/2026",
+      "data_entrega": "21/05/2026 10:28",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/37511828000114/1200490_regulamento_regulamento_1200490_2026-03-27.pdf"
     }
   ],
   "criteria": [
@@ -4407,6 +4435,426 @@
         "ime_metric": "Posições mantidas em derivativos",
         "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
       }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.095,
+      "threshold_unit": "ratio",
+      "threshold_display": "9,5%",
+      "comparison": ">=",
+      "formula_text": "to), haverá aumento no percentual acima equivalente à diferença do Índice Histórico de Inadimplência Consumidor e 9,5% (nove inteiros e cinco décimos por cento); (c) caso o Índice Histórico de Inadimplência Comerciante esteja acima de 7% (sete por cento) até julho de 2025, haverá aumento no percentual acima equivalente à diferença do Índice Histórico de Inadimplência Comerciante e 7% (sete inteiros por cento). A Raz…",
+      "source_excerpt": "to), haverá aumento no percentual acima equivalente à diferença do Índice Histórico de Inadimplência Consumidor e 9,5% (nove inteiros e cinco décimos por cento); (c) caso o Índice Histórico de Inadimplência Comerciante esteja acima de 7% (sete por cento) até julho de 2025, haverá aumento no percentual acima equivalente à diferença do Índice Histórico de Inadimplência Comerciante e 7% (sete inteiros por cento). A Raz…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.07,
+      "threshold_unit": "ratio",
+      "threshold_display": "7%",
+      "comparison": ">=",
+      "formula_text": "iante esteja acima de 7% (sete por cento) até julho de 2025, haverá aumento no percentual acima equivalente à diferença do Índice Histórico de Inadimplência Comerciante e 7% (sete inteiros por cento). A Razão de Subordinação Júnior será calculada diariamente pelo Gestor e disponibilizada mensalmente, em cada Data de Cálculo, por meio do Relatório de Acompanhamento, sendo certo que, em caso de desenquadramento da Raz…",
+      "source_excerpt": "iante esteja acima de 7% (sete por cento) até julho de 2025, haverá aumento no percentual acima equivalente à diferença do Índice Histórico de Inadimplência Comerciante e 7% (sete inteiros por cento). A Razão de Subordinação Júnior será calculada diariamente pelo Gestor e disponibilizada mensalmente, em cada Data de Cálculo, por meio do Relatório de Acompanhamento, sendo certo que, em caso de desenquadramento da Raz…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Atraso/Inadimplência - evento de avaliação",
+      "canonical_key": "default_rate_evaluation_event",
+      "event_type": "avaliação",
+      "threshold_value": 0.08,
+      "threshold_unit": "ratio",
+      "threshold_display": "8%",
+      "comparison": "<=",
+      "formula_text": "ecorrência da titularidade da Cota Sênior no mês calendário de referência; pela (ii) média diária do Valor Principal da totalidade dos Direitos Creditórios Para Fins de Juros Excedentes no mês calendário de referência. O Índice de Juros Excedente será calculado e disponibilizado pelo Gestor por meio do Relatório de Acompanhamento. Inadimplência (Historical Merchant Default Rate) Significa: (i) para fins de verificaç…",
+      "source_excerpt": "ecorrência da titularidade da Cota Sênior no mês calendário de referência; pela (ii) média diária do Valor Principal da totalidade dos Direitos Creditórios Para Fins de Juros Excedentes no mês calendário de referência. O Índice de Juros Excedente será calculado e disponibilizado pelo Gestor por meio do Relatório de Acompanhamento. Inadimplência (Historical Merchant Default Rate) Significa: (i) para fins de verificaç…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Vencidos Over 30/60/90/180/360 d / Crédito",
+        "rationale": "Os buckets de atraso do Informe Mensal permitem recompor NPL Over acumulado por faixa."
+      }
+    },
+    {
+      "name": "Atraso/Inadimplência - evento de avaliação",
+      "canonical_key": "default_rate_evaluation_event",
+      "event_type": "avaliação",
+      "threshold_value": 0.08,
+      "threshold_unit": "ratio",
+      "threshold_display": "8%",
+      "comparison": "<=",
+      "formula_text": "i) para fins de verificação de Evento de Avaliação, o índice equivalente a 8% (oito por cento); e (ii) para fins de verificação de Evento de Amortização Acelerada, o índice equivalente a 7% (sete por cento). O Índice Histórico de Inadimplência Comerciante será calculado e disponibilizado pelo Gestor por meio do Relatório de Acompanhamento. 33 (Historical Consumer Default Rate) Significa: (i) para fins de verificação…",
+      "source_excerpt": "i) para fins de verificação de Evento de Avaliação, o índice equivalente a 8% (oito por cento); e (ii) para fins de verificação de Evento de Amortização Acelerada, o índice equivalente a 7% (sete por cento). O Índice Histórico de Inadimplência Comerciante será calculado e disponibilizado pelo Gestor por meio do Relatório de Acompanhamento. 33 (Historical Consumer Default Rate) Significa: (i) para fins de verificação…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Vencidos Over 30/60/90/180/360 d / Crédito",
+        "rationale": "Os buckets de atraso do Informe Mensal permitem recompor NPL Over acumulado por faixa."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.5,
+      "threshold_unit": "ratio",
+      "threshold_display": "50%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "e não pagos, nos termos e condições descritos neste Regulamento e no Contrato de Prestação de Serviços de Cobrança. Agente de Recebimento (Receiving Agent) Significa o Mercado Pago, contratado para prestação de serviços de agente de recebimento dos Direitos Creditórios do Fundo. Agente Escriturador (Bookepping Agent) Significa o Administrador, na qualidade de instituição responsável pela escrituração das Cotas do Fu…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.05,
+      "threshold_unit": "ratio",
+      "threshold_display": "5%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "......................................................................... 143 4 5 DEFINIÇÕES (Permitted Shareholder) Significa cada Pessoa, conforme disposto no Bad Acts Guaranty, titular de no mínimo 5% (cinco por cento) do Capital Social da MeLi e cada uma das suas Subsidiárias e Afiliadas. (Operational Agreement) Significa o \"Acordo Operacional entre Prestadores de Serviços Essenciais de Fundos de Investimento em…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.5,
+      "threshold_unit": "ratio",
+      "threshold_display": "50%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "por contrato ou de outra forma. Agência Classificadora de Risco (Risk Rating Agency) Significa qualquer agência de classificação de risco autorizada a prestar tais serviços junto a CVM que tenha sido contratada pelo Fundo para avaliação de risco das Cotas, conforme aplicável. Agente de Cobrança CCB (CCB Collection Agent or Collection Agent) Significa o Mercado Pago, contratado para prestação dos serviços de cobrança…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.5,
+      "threshold_unit": "ratio",
+      "threshold_display": "50%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "e de Cobrança CCB (CCB Collection Agent or Collection Agent) Significa o Mercado Pago, contratado para prestação dos serviços de cobrança dos Direitos Creditórios CCB vencidos e não pagos, nos termos e condições descritos neste Regulamento e no Contrato de Prestação de Serviços de Cobrança. Agente de Recebimento (Receiving Agent) Significa o Mercado Pago, contratado para prestação de serviços de agente de recebiment…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.5,
+      "threshold_unit": "ratio",
+      "threshold_display": "50%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "nifica o Mercado Pago, contratado para prestação de serviços de agente de recebimento dos Direitos Creditórios do Fundo. Agente Escriturador (Bookepping Agent) Significa o Administrador, na qualidade de instituição responsável pela escrituração das Cotas do Fundo. Alocação Mínima de Investimento (Minimum Investment Allocation) Significa a alocação de, no mínimo, 50% (cinquenta por cento) do Patrimônio Líquido do Fun…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": 0.2,
+      "threshold_unit": "ratio",
+      "threshold_display": "20%",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "ntas específicas abertas no Sistema Especial de Liquidação e de Custódia SELIC, ou junto às Pessoas autorizadas à prestação desse serviço pelo Banco Central ou pela CVM. 5.7. O Fundo não poderá realizar operações day trade, assim consideradas aquelas iniciadas e encerradas no mesmo dia. 5.8. Observado o disposto no artigo 44, parágrafo 2º, do Anexo Normativo II, da Resolução CVM 175, o Fundo poderá contratar operaçõ…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "tórios podem ser adversamente afetados por mudanças nas políticas governamentais, bem como por: (a) flutuações das taxas de câmbio; (b) alterações na inflação; (c) alterações nas taxas de juros; (d) alterações na política fiscal; e (e) outros eventos políticos, diplomáticos, sociais e econômicos que possam afetar o Brasil, ou os mercados internacionais. Além disso, o Fundo somente poderá realizar operações em mercad…",
+      "source_excerpt": "tórios podem ser adversamente afetados por mudanças nas políticas governamentais, bem como por: (a) flutuações das taxas de câmbio; (b) alterações na inflação; (c) alterações nas taxas de juros; (d) alterações na política fiscal; e (e) outros eventos políticos, diplomáticos, sociais e econômicos que possam afetar o Brasil, ou os mercados internacionais. Além disso, o Fundo somente poderá realizar operações em mercad…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "deverá comunicar ao Administrador, que convocará Assembleia Geral de Cotistas para determinar se será aplicado o mecanismo de Amortização Acelerada, conforme estabelecido na Cláusula 14.1 deste Regulamento. Inadimplemento do Gestor (Event of Default of the Manager and/or Administrator) Significam os eventos indicados na Cláusula 17.16.5 deste Regulamento, cuja ocorrência acarretará um Evento de Avaliação, e pode lev…",
+      "source_excerpt": "deverá comunicar ao Administrador, que convocará Assembleia Geral de Cotistas para determinar se será aplicado o mecanismo de Amortização Acelerada, conforme estabelecido na Cláusula 14.1 deste Regulamento. Inadimplemento do Gestor (Event of Default of the Manager and/or Administrator) Significam os eventos indicados na Cláusula 17.16.5 deste Regulamento, cuja ocorrência acarretará um Evento de Avaliação, e pode lev…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "equente término ou aditamento do respectivo Compromisso de Investimento, desde que a Assembleia Geral em questão ocorrer antes da Data Limite para Aquisição de Direitos Creditórios. Um Evento de Resilição Qualificada das Cotas Subordinadas Mezanino automaticamente acarretará a redução da Obrigação Comprometida Individual do Cotista Subordinado Mezanino. (Event of Replacement Without Just Cause) Significa a destituiç…",
+      "source_excerpt": "equente término ou aditamento do respectivo Compromisso de Investimento, desde que a Assembleia Geral em questão ocorrer antes da Data Limite para Aquisição de Direitos Creditórios. Um Evento de Resilição Qualificada das Cotas Subordinadas Mezanino automaticamente acarretará a redução da Obrigação Comprometida Individual do Cotista Subordinado Mezanino. (Event of Replacement Without Just Cause) Significa a destituiç…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "Gestor e/ou pelo Administrador ou por veículos de investimento geridos pelo Gestor e/ou pelo Administrador, conforme o caso, estes somente poderão votar caso não estejam em posição de conflito de interesses. 11.1 (ii): deliberar sobre (b) a ocorrência de um Evento de Substituição Sem Justa Causa; Voto do Cotista Sênior em conjunto com a maioria das Cotas Subordinadas Júnior em Circulação. Caso os Cotistas deliberem…",
+      "source_excerpt": "Gestor e/ou pelo Administrador ou por veículos de investimento geridos pelo Gestor e/ou pelo Administrador, conforme o caso, estes somente poderão votar caso não estejam em posição de conflito de interesses. 11.1 (ii): deliberar sobre (b) a ocorrência de um Evento de Substituição Sem Justa Causa; Voto do Cotista Sênior em conjunto com a maioria das Cotas Subordinadas Júnior em Circulação. Caso os Cotistas deliberem…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "erem pela substituição do Gestor sem Justa Causa será reconhecido ao Gestor, na mesma AGC, o direito de requerer a Amortização Acelerada integral das Cotas Subordinadas Mezanino por ele detidas, ficando tal amortização sujeita à aprovação apenas dos Cotistas Subordinados Mezanino. Voto do Cotista Sênior presente à AGC em conjunto com a maioria das Cotas Subordinadas Júnior presentes à AGC. Caso os Cotistas deliberem…",
+      "source_excerpt": "erem pela substituição do Gestor sem Justa Causa será reconhecido ao Gestor, na mesma AGC, o direito de requerer a Amortização Acelerada integral das Cotas Subordinadas Mezanino por ele detidas, ficando tal amortização sujeita à aprovação apenas dos Cotistas Subordinados Mezanino. Voto do Cotista Sênior presente à AGC em conjunto com a maioria das Cotas Subordinadas Júnior presentes à AGC. Caso os Cotistas deliberem…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "Sênior presente à AGC em conjunto com a maioria das Cotas Subordinadas Mezanino presentes à AGC, e caso, o aumento das taxas seja maior que 2 (duas) vezes o valor das taxas originais em vigor, o voto do Cotista Sênior presente à AGC em conjunto com a maioria das Cotas Subordinadas 71 Mezanino em Circulação e a maioria das Cotas Subordinadas Júnior em Circulação. Para fins de clareza, se o aumento das taxas resultar…",
+      "source_excerpt": "Sênior presente à AGC em conjunto com a maioria das Cotas Subordinadas Mezanino presentes à AGC, e caso, o aumento das taxas seja maior que 2 (duas) vezes o valor das taxas originais em vigor, o voto do Cotista Sênior presente à AGC em conjunto com a maioria das Cotas Subordinadas 71 Mezanino em Circulação e a maioria das Cotas Subordinadas Júnior em Circulação. Para fins de clareza, se o aumento das taxas resultar…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "e/ou pela existência dos Direitos Creditórios, sendo, no entanto, responsável pela análise dos Documentos Comprobatórios nos termos deste Capítulo e pela pronta comunicação de quaisquer inconsistências. CAPÍTULO SÉTIMO DOS CRITÉRIOS DE ELEGIBILIDADE E DAS CONDIÇÕES DE CESSÃO 7.1. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Aquisição e Pagamento, ao segu…",
+      "source_excerpt": "e/ou pela existência dos Direitos Creditórios, sendo, no entanto, responsável pela análise dos Documentos Comprobatórios nos termos deste Capítulo e pela pronta comunicação de quaisquer inconsistências. CAPÍTULO SÉTIMO DOS CRITÉRIOS DE ELEGIBILIDADE E DAS CONDIÇÕES DE CESSÃO 7.1. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Aquisição e Pagamento, ao segu…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": ". O Gestor poderá solicitar informações ao Custodiante para checagem dos Critérios de Elegibilidade. 52 7.2.1. Para a verificação dos Critérios de Elegibilidade, o Gestor poderá contratar um prestador de serviço, inclusive o Custodiante, devendo constar do contrato de prestação de serviços as regras e procedimentos aplicáveis à verificação. 7.2.2. O desenquadramento de qualquer Direito Creditório com relação a qualq…",
+      "source_excerpt": ". O Gestor poderá solicitar informações ao Custodiante para checagem dos Critérios de Elegibilidade. 52 7.2.1. Para a verificação dos Critérios de Elegibilidade, o Gestor poderá contratar um prestador de serviço, inclusive o Custodiante, devendo constar do contrato de prestação de serviços as regras e procedimentos aplicáveis à verificação. 7.2.2. O desenquadramento de qualquer Direito Creditório com relação a qualq…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "DO PATRIMÔNIO DO FUNDO ............ 47 CAPÍTULO TERCEIRO - DO PÚBLICO-ALVO DO FUNDO ......................................... 48 CAPÍTULO QUARTO DO OBJETIVO DO INVESTIMENTO .................................... 48 CAPÍTULO QUINTO DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA DO FUNDO 48 CAPÍTULO SEXTO DOS DOCUMENTOS COMPROBATÓRIOS ......................... 50 CAPÍTULO SÉTIMO DOS CRITÉRIOS DE ELEGIBILIDADE E…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "ventuais do Fundo. 6.4. O Gestor, o Custodiante ou os terceiros contratados por ele, conforme o caso, não são responsáveis pela veracidade dos Documentos Comprobatórios e/ou pela existência dos Direitos Creditórios, sendo, no entanto, responsável pela análise dos Documentos Comprobatórios nos termos deste Capítulo e pela pronta comunicação de quaisquer inconsistências. CAPÍTULO SÉTIMO DOS CRITÉRIOS DE ELEGIBILIDADE…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "III a este Regulamento. 7.3. Observados os termos e as condições do presente Regulamento, a verificação do atendimento pelos Direitos Creditórios Ofertados aos Critérios de Elegibilidade pelo Gestor será considerada definitiva. 7.4. Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Aquisição e Pagamento, às segu…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
     }
   ],
   "eligibility_criteria": [
@@ -4769,6 +5217,41 @@
       "name": "Critério de elegibilidade",
       "description": "empréstimos semelhantes originados pelas Instituições Financeiras Parceiras; e (xxvii)o Direito Creditório tem sido cobrado de acordo com a Política de Cobrança de Direitos Creditórios para Cobrança Extraordinária vigente na data de sua cobrança, e com o Contrato de Cobrança, conforme aplicável. 7.5.Observados os termos e as condições do presente Regulamento e dos Contratos de Endosso CCB, a verificação do atendimen…",
       "source_excerpt": "empréstimos semelhantes originados pelas Instituições Financeiras Parceiras; e (xxvii)o Direito Creditório tem sido cobrado de acordo com a Política de Cobrança de Direitos Creditórios para Cobrança Extraordinária vigente na data de sua cobrança, e com o Contrato de Cobrança, conforme aplicável. 7.5.Observados os termos e as condições do presente Regulamento e dos Contratos de Endosso CCB, a verificação do atendimen…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Documentos Comprobatórios e/ou pela existência dos Direitos Creditórios, sendo, no entanto, responsável pela análise dos Documentos Comprobatórios nos termos deste Capítulo e pela pronta comunicação de quaisquer inconsistências. CAPÍTULO SÉTIMO DOS CRITÉRIOS DE ELEGIBILIDADE E DAS CONDIÇÕES DE CESSÃO 7.1. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Aqui…",
+      "source_excerpt": "Documentos Comprobatórios e/ou pela existência dos Direitos Creditórios, sendo, no entanto, responsável pela análise dos Documentos Comprobatórios nos termos deste Capítulo e pela pronta comunicação de quaisquer inconsistências. CAPÍTULO SÉTIMO DOS CRITÉRIOS DE ELEGIBILIDADE E DAS CONDIÇÕES DE CESSÃO 7.1. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Aqui…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de Aquisição e Pagamento. O Gestor poderá solicitar informações ao Custodiante para checagem dos Critérios de Elegibilidade. 52 7.2.1. Para a verificação dos Critérios de Elegibilidade, o Gestor poderá contratar um prestador de serviço, inclusive o Custodiante, devendo constar do contrato de prestação de serviços as regras e procedimentos aplicáveis à verificação. 7.2.2. O desenquadramento de qualquer Direito Credit…",
+      "source_excerpt": "de Aquisição e Pagamento. O Gestor poderá solicitar informações ao Custodiante para checagem dos Critérios de Elegibilidade. 52 7.2.1. Para a verificação dos Critérios de Elegibilidade, o Gestor poderá contratar um prestador de serviço, inclusive o Custodiante, devendo constar do contrato de prestação de serviços as regras e procedimentos aplicáveis à verificação. 7.2.2. O desenquadramento de qualquer Direito Credit…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ULO SEGUNDO DA COMPOSIÇÃO DO PATRIMÔNIO DO FUNDO ............ 47 CAPÍTULO TERCEIRO - DO PÚBLICO-ALVO DO FUNDO ......................................... 48 CAPÍTULO QUARTO DO OBJETIVO DO INVESTIMENTO .................................... 48 CAPÍTULO QUINTO DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA DO FUNDO 48 CAPÍTULO SEXTO DOS DOCUMENTOS COMPROBATÓRIOS ......................... 50 CAPÍTULO SÉTIMO DOS CR…",
+      "source_excerpt": "ULO SEGUNDO DA COMPOSIÇÃO DO PATRIMÔNIO DO FUNDO ............ 47 CAPÍTULO TERCEIRO - DO PÚBLICO-ALVO DO FUNDO ......................................... 48 CAPÍTULO QUARTO DO OBJETIVO DO INVESTIMENTO .................................... 48 CAPÍTULO QUINTO DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA DO FUNDO 48 CAPÍTULO SEXTO DOS DOCUMENTOS COMPROBATÓRIOS ......................... 50 CAPÍTULO SÉTIMO DOS CR…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "nformações periódicas e eventuais do Fundo. 6.4. O Gestor, o Custodiante ou os terceiros contratados por ele, conforme o caso, não são responsáveis pela veracidade dos Documentos Comprobatórios e/ou pela existência dos Direitos Creditórios, sendo, no entanto, responsável pela análise dos Documentos Comprobatórios nos termos deste Capítulo e pela pronta comunicação de quaisquer inconsistências. CAPÍTULO SÉTIMO DOS CR…",
+      "source_excerpt": "nformações periódicas e eventuais do Fundo. 6.4. O Gestor, o Custodiante ou os terceiros contratados por ele, conforme o caso, não são responsáveis pela veracidade dos Documentos Comprobatórios e/ou pela existência dos Direitos Creditórios, sendo, no entanto, responsável pela análise dos Documentos Comprobatórios nos termos deste Capítulo e pela pronta comunicação de quaisquer inconsistências. CAPÍTULO SÉTIMO DOS CR…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "do Anexo VII e do Anexo VIII a este Regulamento. 7.3. Observados os termos e as condições do presente Regulamento, a verificação do atendimento pelos Direitos Creditórios Ofertados aos Critérios de Elegibilidade pelo Gestor será considerada definitiva. 7.4. Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Aquis…",
+      "source_excerpt": "do Anexo VII e do Anexo VIII a este Regulamento. 7.3. Observados os termos e as condições do presente Regulamento, a verificação do atendimento pelos Direitos Creditórios Ofertados aos Critérios de Elegibilidade pelo Gestor será considerada definitiva. 7.4. Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Aquis…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "préstimos semelhantes originados pelas Instituições Financeiras Parceiras; e (xxvii) o Direito Creditório tem sido cobrado de acordo com a Política de Cobrança de Direitos Creditórios para Cobrança Extraordinária vigente na data de sua cobrança, e com o Contrato de Cobrança, conforme aplicável. 7.5. Observados os termos e as condições do presente Regulamento e dos Contratos de Endosso CCB, a verificação do atendimen…",
+      "source_excerpt": "préstimos semelhantes originados pelas Instituições Financeiras Parceiras; e (xxvii) o Direito Creditório tem sido cobrado de acordo com a Política de Cobrança de Direitos Creditórios para Cobrança Extraordinária vigente na data de sua cobrança, e com o Contrato de Cobrança, conforme aplicável. 7.5. Observados os termos e as condições do presente Regulamento e dos Contratos de Endosso CCB, a verificação do atendimen…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "essão, por qualquer motivo que tenha ocorrido após a sua transferência ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, o Administrador, o Gestor, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. 7.7. Observados os termos e as condições do presente Regulamento, a verificação do atendimento pelos Dir…",
+      "source_excerpt": "essão, por qualquer motivo que tenha ocorrido após a sua transferência ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, o Administrador, o Gestor, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. 7.7. Observados os termos e as condições do presente Regulamento, a verificação do atendimento pelos Dir…"
     }
   ],
   "emissions": [
@@ -5079,9 +5562,23 @@
       "source_excerpt": "........ 47CAPÍTULO QUARTO – DO OBJETIVO DO INVESTIMENTO .................................... 47CAPÍTULO QUINTO – DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA DO FUNDO 47CAPÍTULO SEXTO – DOS DOCUMENTOS COMPROBATÓRIOS ......................... 49CAPÍTULO SÉTIMO – DOS CRITÉRIOS DE ELEGIBILIDADE E DAS CONDIÇÕES DE CESSÃO 50CAPÍTULO OITAVO – DAS OPERAÇÕES DE AQUISIÇÃO DE DIREITOS CREDITÓRIOS 55CAPÍTULO NONO –…",
       "source_document": "1019776_regulamento_regulamento_1019776_2025-10-20.pdf",
       "source_document_id": 1019776
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": null,
+      "amount_display": "",
+      "currency": null,
+      "remuneration": "nos termos das Cláusulas 10.21 e 10.24. (Initial Unit Nominal Amount) Significa o valor nominal unitário das Cotas indicado no respectivo Apêndice. (Principal Amount) Significa, em relação a qualquer Direito Creditório, o saldo devido e não pago do valor principal do crédito (sem considerar quaisquer valores decorrentes de remuneração, encargos, multas, juros, prêmios ou acréscimos de qualquer natureza). (Original P…",
+      "amortization_schedule": "INTEGRANTES DA CARTEIRA DO FUNDO ..... 57 CAPÍTULO DÉCIMO DAS CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO E INTEGRALIZAÇÃO DAS COTAS ..................................................... 57 CAPÍTULO DÉCIMO PRIMEIRO DA ASSEMBLEIA GERAL DE COTISTAS .............................. 66 CAPÍTULO DÉCIMO SEGUNDO DA AMORTIZAÇÃO DAS COTAS ........................................ 83 CAPÍTULO DÉCIMO TERCEIRO DOS…",
+      "maturity": "alor predominante dos créditos devidos pelos Devedores CCB Comerciante (ii) o Devedor CCB Comerciante seja classificado (Delinquent Credits) Significam os Direitos Creditórios Para Fins de Enquadramento relativamente aos quais qualquer pagamento permanecer inadimplente por período superior a 30 (trinta) dias após a data de vencimento inicialmente prevista, para os Direitos Creditórios CCB. (Charged Off Credits) Sign…",
+      "source_excerpt": "............... 48 CAPÍTULO QUARTO DO OBJETIVO DO INVESTIMENTO .................................... 48 CAPÍTULO QUINTO DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA DO FUNDO 48 CAPÍTULO SEXTO DOS DOCUMENTOS COMPROBATÓRIOS ......................... 50 CAPÍTULO SÉTIMO DOS CRITÉRIOS DE ELEGIBILIDADE E DAS CONDIÇÕES DE CESSÃO 51 CAPÍTULO OITAVO DAS OPERAÇÕES DE AQUISIÇÃO DE DIREITOS CREDITÓRIOS 56 CAPÍTULO NON…",
+      "source_document": "1200490_regulamento_regulamento_1200490_2026-03-27.pdf",
+      "source_document_id": 1200490
     }
   ],
-  "extraction_count": 39,
+  "extraction_count": 41,
   "extraction_errors": [
     {
       "document_id": 825889,

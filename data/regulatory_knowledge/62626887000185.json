@@ -2,21 +2,21 @@
   "schema_version": 1,
   "fund_name": "SUMUP SMART IV FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
   "fund_cnpj": "62.626.887/0001-85",
-  "generated_at": "2026-05-10T03:20:14Z",
+  "generated_at": "2026-05-29T01:35:09Z",
   "documents": [
     {
       "id": 995526,
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "09/09/2025",
       "data_entrega": "23/09/2025 08:58",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/62626887000185/995526_assembleia_assembleia_995526_2025-09-09.pdf"
+      "source_file": "data/raw/62626887000185/995526_emissao_emissao_995526_2025-09-09.pdf"
     },
     {
       "id": 995528,
@@ -271,6 +271,20 @@
       "source_file": "data/raw/62626887000185/1104103_assembleia_assembleia_1104103_2026-02-06.pdf"
     },
     {
+      "id": 1191512,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "14/05/2026 15:52",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
       "id": 1140787,
       "categoria": "Assembleia",
       "tipo": "AGO/E",
@@ -339,6 +353,34 @@
       "downloaded": true,
       "download_error": "",
       "source_file": "data/raw/62626887000185/1152823_regulamento_regulamento_1152823_2026-03-31.pdf"
+    },
+    {
+      "id": 1192935,
+      "categoria": "Relatórios",
+      "tipo": "Relatório de Agência de Rating",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "31/03/2026",
+      "data_entrega": "14/05/2026 21:42",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1192971,
+      "categoria": "Relatórios",
+      "tipo": "Outros Relatórios",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "31/03/2026",
+      "data_entrega": "14/05/2026 21:59",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
     }
   ],
   "criteria": [

@@ -1,0 +1,1000 @@
+{
+  "schema_version": 1,
+  "fund_name": "INOVA CREDTECH II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+  "fund_cnpj": "47.669.476/0001-83",
+  "generated_at": "2026-05-29T01:35:12Z",
+  "documents": [
+    {
+      "id": 387776,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "especie": "",
+      "classification": "emissao",
+      "data_referencia": "16/08/2022",
+      "data_entrega": "12/12/2022 15:29",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/47669476000183/387776_emissao_emissao_387776_2022-08-16.pdf"
+    },
+    {
+      "id": 387777,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "16/08/2022",
+      "data_entrega": "12/12/2022 15:30",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/47669476000183/387777_regulamento_regulamento_387777_2022-08-16.pdf"
+    },
+    {
+      "id": 393439,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Alteração do Regulamento",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "23/11/2022",
+      "data_entrega": "23/12/2022 17:02",
+      "nome_arquivo": null,
+      "status": "CC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/47669476000183/393439_regulamento_regulamento_393439_2022-11-23.pdf"
+    },
+    {
+      "id": 393441,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Alteração do Regulamento",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "23/12/2022",
+      "data_entrega": "23/12/2022 17:03",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/47669476000183/393441_regulamento_regulamento_393441_2022-12-23.pdf"
+    },
+    {
+      "id": 393442,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "23/12/2022",
+      "data_entrega": "23/12/2022 17:04",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/47669476000183/393442_regulamento_regulamento_393442_2022-12-23.pdf"
+    },
+    {
+      "id": 400717,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Alteração do Regulamento",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "12/01/2023",
+      "data_entrega": "12/01/2023 17:33",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/47669476000183/400717_regulamento_regulamento_400717_2023-01-12.pdf"
+    },
+    {
+      "id": 400722,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "12/01/2023",
+      "data_entrega": "12/01/2023 17:36",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/47669476000183/400722_regulamento_regulamento_400722_2023-01-12.pdf"
+    },
+    {
+      "id": 572305,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "especie": "",
+      "classification": "emissao",
+      "data_referencia": "18/12/2023",
+      "data_entrega": "18/12/2023 15:55",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/47669476000183/572305_emissao_emissao_572305_2023-12-18.pdf"
+    }
+  ],
+  "criteria": [
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.1,
+      "threshold_unit": "ratio",
+      "threshold_display": "10%",
+      "comparison": ">=",
+      "formula_text": "or da provisão. 10.2.1. O efeito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado levando-se em consideração o disposto no artigo 13 da Instrução CVM 489, sendo facultada a análise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual da Administradora ou, ainda, no manual do Custodiante. CAPÍTULO XI – RAZÃO DE…",
+      "source_excerpt": "or da provisão. 10.2.1. O efeito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado levando-se em consideração o disposto no artigo 13 da Instrução CVM 489, sendo facultada a análise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual da Administradora ou, ainda, no manual do Custodiante. CAPÍTULO XI – RAZÃO DE…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.05,
+      "threshold_unit": "ratio",
+      "threshold_display": "5%",
+      "comparison": ">=",
+      "formula_text": "ceiros, representado por Cotas Subordinadas , sendo ao menos 5% ( cinco por cento) do Patrimônio Líquido representado por Cotas Subordinadas Júnior . Na ausência de Cotas Subordinadas Mezanino em circulação, o Fundo deverá ter, no mínimo, 10% (dez por cento) do seu Patrimônio Líquido, deduzido o valor dos Ativos Financeiros, representado por Cotas Subordinas Júnior. 11.2. A Administradora deverá verificar a Razão de…",
+      "source_excerpt": "ceiros, representado por Cotas Subordinadas , sendo ao menos 5% ( cinco por cento) do Patrimônio Líquido representado por Cotas Subordinadas Júnior . Na ausência de Cotas Subordinadas Mezanino em circulação, o Fundo deverá ter, no mínimo, 10% (dez por cento) do seu Patrimônio Líquido, deduzido o valor dos Ativos Financeiros, representado por Cotas Subordinas Júnior. 11.2. A Administradora deverá verificar a Razão de…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.1,
+      "threshold_unit": "ratio",
+      "threshold_display": "10%",
+      "comparison": ">=",
+      "formula_text": "cento) do Patrimônio Líquido representado por Cotas Subordinadas Júnior . Na ausência de Cotas Subordinadas Mezanino em circulação, o Fundo deverá ter, no mínimo, 10% (dez por cento) do seu Patrimônio Líquido, deduzido o valor dos Ativos Financeiros, representado por Cotas Subordinas Júnior. 11.2. A Administradora deverá verificar a Razão de Subordinação diariamente. 11.3. Na hipótese de desenquadramento da Razão de…",
+      "source_excerpt": "cento) do Patrimônio Líquido representado por Cotas Subordinadas Júnior . Na ausência de Cotas Subordinadas Mezanino em circulação, o Fundo deverá ter, no mínimo, 10% (dez por cento) do seu Patrimônio Líquido, deduzido o valor dos Ativos Financeiros, representado por Cotas Subordinas Júnior. 11.2. A Administradora deverá verificar a Razão de Subordinação diariamente. 11.3. Na hipótese de desenquadramento da Razão de…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Cobertura mínima de PDD/provisão",
+      "canonical_key": "pdd_coverage_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.1,
+      "threshold_unit": "ratio",
+      "threshold_display": "10%",
+      "comparison": ">=",
+      "formula_text": "s Ativos FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR Rua Pasteur, 463, 11º andar 82250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br Financeiros integrantes da Carteira do Fundo serão, respectivamente, efetuadas ou reconhecidas nos termos da Instrução CVM 489. Desta forma, o valor do saldo dos Direitos Creditórios será reduzido pelo valor da provisão.…",
+      "source_excerpt": "s Ativos FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR Rua Pasteur, 463, 11º andar 82250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br Financeiros integrantes da Carteira do Fundo serão, respectivamente, efetuadas ou reconhecidas nos termos da Instrução CVM 489. Desta forma, o valor do saldo dos Direitos Creditórios será reduzido pelo valor da provisão.…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "PDD / Venc Total ou PDD / Venc > 90 d",
+        "rationale": "O Informe Mensal traz provisão e buckets de atraso; a aderência depende da definição exata do regulamento."
+      }
+    },
+    {
+      "name": "Cobertura mínima de PDD/provisão",
+      "canonical_key": "pdd_coverage_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.1,
+      "threshold_unit": "ratio",
+      "threshold_display": "10%",
+      "comparison": ">=",
+      "formula_text": "1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR Rua Pasteur, 463, 11º andar 82250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br Financeiros integrantes da Carteira do Fundo serão, respectivamente, efetuadas ou reconhecidas nos termos da Instrução CVM 489. Desta forma, o valor do saldo dos Direitos Creditórios será reduzido pelo valor da provisão. 10.2.1. O efeito de perda ou provisã…",
+      "source_excerpt": "1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR Rua Pasteur, 463, 11º andar 82250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br Financeiros integrantes da Carteira do Fundo serão, respectivamente, efetuadas ou reconhecidas nos termos da Instrução CVM 489. Desta forma, o valor do saldo dos Direitos Creditórios será reduzido pelo valor da provisão. 10.2.1. O efeito de perda ou provisã…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "PDD / Venc Total ou PDD / Venc > 90 d",
+        "rationale": "O Informe Mensal traz provisão e buckets de atraso; a aderência depende da definição exata do regulamento."
+      }
+    },
+    {
+      "name": "Limite de recompra",
+      "canonical_key": "recompras_max",
+      "event_type": "enquadramento",
+      "threshold_value": 0.02,
+      "threshold_unit": "ratio",
+      "threshold_display": "2%",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "todiante; (g) não sejam decorrentes de receitas públicas originárias ou derivadas da União, dos Estados, do Distrito Federal e dos Municípios, bem como de suas autarquias e fundações (h) não estejam vencidos, no momento de sua cessão para o Fundo; (i) cujo prazo de pagamento seja de, no máximo 180 (cento e oitenta) dias, contado a partir da respectiva Data da Aquisição dos e Pagamento; e (j) cujo Cedente não tenha r…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Recompras / Crédito ou Recompras / PL",
+        "rationale": "O Informe Mensal traz recompras mensais; thresholds acumulados exigem janela definida no documento."
+      }
+    },
+    {
+      "name": "Limite de concentração",
+      "canonical_key": "concentration_limits",
+      "event_type": "elegibilidade",
+      "threshold_value": 0.2,
+      "threshold_unit": "ratio",
+      "threshold_display": "20%",
+      "comparison": "<=",
+      "formula_text": "o Cotista. Entretanto, não há garantia de que o Fundo terá o tratamento tributário aplicável aos fundos de longo prazo , de forma que a FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR Rua Pasteur, 463, 11º andar 82250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br Administradora e Gestora não assumem qualquer compromisso nesse sentido. Limites de Concentraç…",
+      "source_excerpt": "o Cotista. Entretanto, não há garantia de que o Fundo terá o tratamento tributário aplicável aos fundos de longo prazo , de forma que a FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR Rua Pasteur, 463, 11º andar 82250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br Administradora e Gestora não assumem qualquer compromisso nesse sentido. Limites de Concentraç…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Limites por sacado, cedente ou grupo econômico exigem granularidade não disponível no IME público."
+      }
+    },
+    {
+      "name": "Limite de concentração",
+      "canonical_key": "concentration_limits",
+      "event_type": "elegibilidade",
+      "threshold_value": 0.2,
+      "threshold_unit": "ratio",
+      "threshold_display": "20%",
+      "comparison": "<=",
+      "formula_text": "órios e Ativos Financeiros de um mesmo Devedor, ou de coobrigação de uma mesma pessoa ou entidade, no limite de 20% (vinte por cento) de seu Patrimônio Líquido; sendo que, com relação aos Direit os Creditórios, o referido limite aplica -se também com relação aos respectivos originadores dos Direitos Creditórios. 5.8. Sem prejuízo do disposto nos itens 5.2 e 5.7 acima, o Fundo deverá observar os seguintes limites de…",
+      "source_excerpt": "órios e Ativos Financeiros de um mesmo Devedor, ou de coobrigação de uma mesma pessoa ou entidade, no limite de 20% (vinte por cento) de seu Patrimônio Líquido; sendo que, com relação aos Direit os Creditórios, o referido limite aplica -se também com relação aos respectivos originadores dos Direitos Creditórios. 5.8. Sem prejuízo do disposto nos itens 5.2 e 5.7 acima, o Fundo deverá observar os seguintes limites de…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Limites por sacado, cedente ou grupo econômico exigem granularidade não disponível no IME público."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": 0.05,
+      "threshold_unit": "ratio",
+      "threshold_display": "5%",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "(oito por cento) do Patrimônio Líquido, durante o primeiro ano de atividade do Fundo; e 5% (cinco por cento) do Patrimônio Líquido do Fundo, a partir do segundo ano de atividade do Fundo; (c) o prazo médio ponderado dos Direitos Creditórios integrantes da Carteira deve ser inferior a 45 (quarenta e cinco) dias. Outras disposições relativas à Política de Investimentos 5.9. A Gestora não poderá utilizar instrumentos d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "podem ser adversamente afetados por mudanças nas políticas governamentais, bem como por: (i) flutuações das taxas de câmbio; (ii) alterações na inflação; (iii) alterações nas taxas de juros; (iv) alterações na política fiscal; e (v) outros eventos políticos, diplomáticos, soc iais e econômicos que possam afetar o Brasil, ou os mercados internacionais. Além disso, o Fundo não poderá realizar operações em mercados de…",
+      "source_excerpt": "podem ser adversamente afetados por mudanças nas políticas governamentais, bem como por: (i) flutuações das taxas de câmbio; (ii) alterações na inflação; (iii) alterações nas taxas de juros; (iv) alterações na política fiscal; e (v) outros eventos políticos, diplomáticos, soc iais e econômicos que possam afetar o Brasil, ou os mercados internacionais. Além disso, o Fundo não poderá realizar operações em mercados de…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "m 9.1(f) acima; (d) não pagamento dos valores de Amortização Programa das Cotas nas datas e hipóteses previstas neste Regulamento e/ou no respectivo Suplemento , inclusive em virtude de caso fortuito ou força maior; (e) alteração ou conjunto de alterações na classificação de risco das Cotas que implique no rebaixamento de dois níveis na escala de risco pertinente elaborada pela Agência Classificadora de Risco; (f) r…",
+      "source_excerpt": "m 9.1(f) acima; (d) não pagamento dos valores de Amortização Programa das Cotas nas datas e hipóteses previstas neste Regulamento e/ou no respectivo Suplemento , inclusive em virtude de caso fortuito ou força maior; (e) alteração ou conjunto de alterações na classificação de risco das Cotas que implique no rebaixamento de dois níveis na escala de risco pertinente elaborada pela Agência Classificadora de Risco; (f) r…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "oderá renunciar às suas atribuições mediante aviso prévio de 60 (sessenta) dias, enviado por meio de correio eletrônico (e-mail) e carta com aviso de recebimento endereçada à Administradora. FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR Rua Pasteur, 463, 11º andar 82250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br CAPÍTULO XV – SUBSTITUIÇÃO E RENÚNCIA D…",
+      "source_excerpt": "oderá renunciar às suas atribuições mediante aviso prévio de 60 (sessenta) dias, enviado por meio de correio eletrônico (e-mail) e carta com aviso de recebimento endereçada à Administradora. FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR Rua Pasteur, 463, 11º andar 82250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br CAPÍTULO XV – SUBSTITUIÇÃO E RENÚNCIA D…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "o da Razão de Subordinação. CAPÍTULO XII – ASSEMBLEIA GERAL 12.1. Sem prejuízo das demais atribuições previstas neste Regulamento, compete privativamente à Assembleia Geral, observados os respectivos quóruns de deliberação: (a) tomar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício social, as contas do Fundo e deliberar sobre as demonstrações financeiras desse; (b) deliberar sobre a s…",
+      "source_excerpt": "o da Razão de Subordinação. CAPÍTULO XII – ASSEMBLEIA GERAL 12.1. Sem prejuízo das demais atribuições previstas neste Regulamento, compete privativamente à Assembleia Geral, observados os respectivos quóruns de deliberação: (a) tomar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício social, as contas do Fundo e deliberar sobre as demonstrações financeiras desse; (b) deliberar sobre a s…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.25,
+      "threshold_unit": "ratio",
+      "threshold_display": "25%",
+      "comparison": ">=",
+      "formula_text": "idores qualificados; ou nas hipóteses de transmissão decorrente de lei ou de decisão judicial. 8.12.3. Na transferência de titularidade das cotas fora de bolsa ou mercado de balcão organizado, o alienante deverá apres entar o documento de arrecadação de receitas federais que comprove o pagamento do imposto de renda sobre o ganho de capital incidente na alienação ou declaração sobre a inexistência de imposto devido.…",
+      "source_excerpt": "idores qualificados; ou nas hipóteses de transmissão decorrente de lei ou de decisão judicial. 8.12.3. Na transferência de titularidade das cotas fora de bolsa ou mercado de balcão organizado, o alienante deverá apres entar o documento de arrecadação de receitas federais que comprove o pagamento do imposto de renda sobre o ganho de capital incidente na alienação ou declaração sobre a inexistência de imposto devido.…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.25,
+      "threshold_unit": "ratio",
+      "threshold_display": "25%",
+      "comparison": ">=",
+      "formula_text": "8.12.3. Na transferência de titularidade das cotas fora de bolsa ou mercado de balcão organizado, o alienante deverá apres entar o documento de arrecadação de receitas federais que comprove o pagamento do imposto de renda sobre o ganho de capital incidente na alienação ou declaração sobre a inexistência de imposto devido. Subordinação e Excesso de Garantia 8.13. Após a Data da 1ª I ntegralização de Cotas Seniores, a…",
+      "source_excerpt": "8.12.3. Na transferência de titularidade das cotas fora de bolsa ou mercado de balcão organizado, o alienante deverá apres entar o documento de arrecadação de receitas federais que comprove o pagamento do imposto de renda sobre o ganho de capital incidente na alienação ou declaração sobre a inexistência de imposto devido. Subordinação e Excesso de Garantia 8.13. Após a Data da 1ª I ntegralização de Cotas Seniores, a…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.125,
+      "threshold_unit": "ratio",
+      "threshold_display": "12,5%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "S - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 11 sendo que, no mínimo, 12,5% (doze e meio por cento) do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior . Na ausência de Cotas Subordinadas Mezanino em circulação, o Fundo deverá ter, no mínimo, 25% do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. 8.13.1. A Subordi…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.125,
+      "threshold_unit": "ratio",
+      "threshold_display": "12,5%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "www.finaxis.com.br 11 sendo que, no mínimo, 12,5% (doze e meio por cento) do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior . Na ausência de Cotas Subordinadas Mezanino em circulação, o Fundo deverá ter, no mínimo, 25% do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. 8.13.1. A Subordinação será apurada diariamente pela Administradora. Para fins de cálculo da Subo…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "realizar aplicações que coloquem em risco parte ou a totalidade de seu patrimônio, nos t ermos do Artigo 24, parágrafo 1º, inciso III, da Instrução CVM 356. Dentre os diversos riscos aos quais está sujeita a carteira do Fundo estão, exemplificativamente, os analisados no Capítulo XXI abaixo , o qual deve ser cuidadosamente lido pelo subscritor ou adquirente das Cotas. 5.7. A Gestora não poderá utilizar instrumentos…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "odem ser adversamente afetados por mudanças nas políticas governamentais, bem como por: (i) flutuações das taxas de câmbio; (ii) alterações na inflação; (iii) alterações nas taxas de juros; (iv) alterações na política fiscal; e (v) outros eventos políticos, diplomáticos, soc iais e econômicos que possam afetar o Brasil, ou os mercados internacionais. Além disso, o Fundo não poderá realizar operações em mercados de d…",
+      "source_excerpt": "odem ser adversamente afetados por mudanças nas políticas governamentais, bem como por: (i) flutuações das taxas de câmbio; (ii) alterações na inflação; (iii) alterações nas taxas de juros; (iv) alterações na política fiscal; e (v) outros eventos políticos, diplomáticos, soc iais e econômicos que possam afetar o Brasil, ou os mercados internacionais. Além disso, o Fundo não poderá realizar operações em mercados de d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "GERAL 13.1. Sem prejuízo das demais atribuições previstas neste Regulamento, compete privativamente à Assembleia Geral, observados os respectivos quóruns de deliberação: (a) tomar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício social, as contas do Fundo e deliberar sobre as demonstrações financeiras desse; (b) deliberar sobre a substituição da Administradora; (c) deliberar sobre a s…",
+      "source_excerpt": "GERAL 13.1. Sem prejuízo das demais atribuições previstas neste Regulamento, compete privativamente à Assembleia Geral, observados os respectivos quóruns de deliberação: (a) tomar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício social, as contas do Fundo e deliberar sobre as demonstrações financeiras desse; (b) deliberar sobre a substituição da Administradora; (c) deliberar sobre a s…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "manual da Administradora. CAPÍTULO XIII – ASSEMBLEIA GERAL 13.1. Sem prejuízo das demais atribuições previstas neste Regulamento, compete privativamente à Assembleia Geral, observados os respectivos quóruns de deliberação: (a) tomar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício social, as contas do Fundo e deliberar sobre as demonstrações financeiras desse; (b) deliberar sobre a su…",
+      "source_excerpt": "manual da Administradora. CAPÍTULO XIII – ASSEMBLEIA GERAL 13.1. Sem prejuízo das demais atribuições previstas neste Regulamento, compete privativamente à Assembleia Geral, observados os respectivos quóruns de deliberação: (a) tomar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício social, as contas do Fundo e deliberar sobre as demonstrações financeiras desse; (b) deliberar sobre a su…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "inad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegibilidade, as Condições de…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de Elegibilidade e às…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉRIOS DE ELEGIBILIDADE E CO…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": 0.01,
+      "threshold_unit": "ratio",
+      "threshold_display": "1,0%",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "co e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodiante das Condições de Ces…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": ") o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critérios de Elegibilidade e às…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.25,
+      "threshold_unit": "ratio",
+      "threshold_display": "25%",
+      "comparison": ">=",
+      "formula_text": "idores qualificados; ou nas hipóteses de transmissão decorrente de lei ou de decisão judicial. 8.12.3. Na transferência de titularidade das cotas fora de bolsa ou mercado de balcão organizado, o alienante deverá apres entar o documento de arrecadação de receitas federais que comprove o pagamento do imposto de renda sobre o ganho de capital incidente na alienação ou declaração sobre a inexistência de imposto devido.…",
+      "source_excerpt": "idores qualificados; ou nas hipóteses de transmissão decorrente de lei ou de decisão judicial. 8.12.3. Na transferência de titularidade das cotas fora de bolsa ou mercado de balcão organizado, o alienante deverá apres entar o documento de arrecadação de receitas federais que comprove o pagamento do imposto de renda sobre o ganho de capital incidente na alienação ou declaração sobre a inexistência de imposto devido.…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.25,
+      "threshold_unit": "ratio",
+      "threshold_display": "25%",
+      "comparison": ">=",
+      "formula_text": "8.12.3. Na transferência de titularidade das cotas fora de bolsa ou mercado de balcão organizado, o alienante deverá apres entar o documento de arrecadação de receitas federais que comprove o pagamento do imposto de renda sobre o ganho de capital incidente na alienação ou declaração sobre a inexistência de imposto devido. Subordinação e Excesso de Garantia 8.13. Após a Data da 1ª I ntegralização de Cotas Seniores, a…",
+      "source_excerpt": "8.12.3. Na transferência de titularidade das cotas fora de bolsa ou mercado de balcão organizado, o alienante deverá apres entar o documento de arrecadação de receitas federais que comprove o pagamento do imposto de renda sobre o ganho de capital incidente na alienação ou declaração sobre a inexistência de imposto devido. Subordinação e Excesso de Garantia 8.13. Após a Data da 1ª I ntegralização de Cotas Seniores, a…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.125,
+      "threshold_unit": "ratio",
+      "threshold_display": "12,5%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "S - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 11 sendo que, no mínimo, 12,5% (doze e meio por cento) do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior . Na ausência de Cotas Subordinadas Mezanino em circulação, o Fundo deverá ter, no mínimo, 25% do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. 8.13.1. A Subordi…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.125,
+      "threshold_unit": "ratio",
+      "threshold_display": "12,5%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "www.finaxis.com.br 11 sendo que, no mínimo, 12,5% (doze e meio por cento) do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior . Na ausência de Cotas Subordinadas Mezanino em circulação, o Fundo deverá ter, no mínimo, 25% do Patrimônio Líquido deverá ser representado por Cotas Subordinadas Júnior. 8.13.1. A Subordinação será apurada diariamente pela Administradora. Para fins de cálculo da Subo…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "realizar aplicações que coloquem em risco parte ou a totalidade de seu patrimônio, nos t ermos do Artigo 24, parágrafo 1º, inciso III, da Instrução CVM 356. Dentre os diversos riscos aos quais está sujeita a carteira do Fundo estão, exemplificativamente, os analisados no Capítulo XXI abaixo , o qual deve ser cuidadosamente lido pelo subscritor ou adquirente das Cotas. 5.7. A Gestora não poderá utilizar instrumentos…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "odem ser adversamente afetados por mudanças nas políticas governamentais, bem como por: (i) flutuações das taxas de câmbio; (ii) alterações na inflação; (iii) alterações nas taxas de juros; (iv) alterações na política fiscal; e (v) outros eventos políticos, diplomáticos, soc iais e econômicos que possam afetar o Brasil, ou os mercados internacionais. Além disso, o Fundo não poderá realizar operações em mercados de d…",
+      "source_excerpt": "odem ser adversamente afetados por mudanças nas políticas governamentais, bem como por: (i) flutuações das taxas de câmbio; (ii) alterações na inflação; (iii) alterações nas taxas de juros; (iv) alterações na política fiscal; e (v) outros eventos políticos, diplomáticos, soc iais e econômicos que possam afetar o Brasil, ou os mercados internacionais. Além disso, o Fundo não poderá realizar operações em mercados de d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "GERAL 13.1. Sem prejuízo das demais atribuições previstas neste Regulamento, compete privativamente à Assembleia Geral, observados os respectivos quóruns de deliberação: (a) tomar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício social, as contas do Fundo e deliberar sobre as demonstrações financeiras desse; (b) deliberar sobre a substituição da Administradora; (c) deliberar sobre a s…",
+      "source_excerpt": "GERAL 13.1. Sem prejuízo das demais atribuições previstas neste Regulamento, compete privativamente à Assembleia Geral, observados os respectivos quóruns de deliberação: (a) tomar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício social, as contas do Fundo e deliberar sobre as demonstrações financeiras desse; (b) deliberar sobre a substituição da Administradora; (c) deliberar sobre a s…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "manual da Administradora. CAPÍTULO XIII – ASSEMBLEIA GERAL 13.1. Sem prejuízo das demais atribuições previstas neste Regulamento, compete privativamente à Assembleia Geral, observados os respectivos quóruns de deliberação: (a) tomar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício social, as contas do Fundo e deliberar sobre as demonstrações financeiras desse; (b) deliberar sobre a su…",
+      "source_excerpt": "manual da Administradora. CAPÍTULO XIII – ASSEMBLEIA GERAL 13.1. Sem prejuízo das demais atribuições previstas neste Regulamento, compete privativamente à Assembleia Geral, observados os respectivos quóruns de deliberação: (a) tomar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício social, as contas do Fundo e deliberar sobre as demonstrações financeiras desse; (b) deliberar sobre a su…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "inad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegibilidade, as Condições de…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de Elegibilidade e às…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉRIOS DE ELEGIBILIDADE E CO…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": 0.01,
+      "threshold_unit": "ratio",
+      "threshold_display": "1,0%",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "co e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodiante das Condições de Ces…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": ") o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critérios de Elegibilidade e às…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "comunhão de recursos destinad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegib…",
+      "source_excerpt": "comunhão de recursos destinad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegib…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "(b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critéri…",
+      "source_excerpt": "(b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critéri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ". 5.11. As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉR…",
+      "source_excerpt": ". 5.11. As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉR…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "espeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodi…",
+      "source_excerpt": "espeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "te ou amortização, ou (ii) o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…",
+      "source_excerpt": "te ou amortização, ou (ii) o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "comunhão de recursos destinad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegib…",
+      "source_excerpt": "comunhão de recursos destinad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegib…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "(b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critéri…",
+      "source_excerpt": "(b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critéri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ". 5.11. As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉR…",
+      "source_excerpt": ". 5.11. As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉR…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "espeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodi…",
+      "source_excerpt": "espeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "te ou amortização, ou (ii) o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…",
+      "source_excerpt": "te ou amortização, ou (ii) o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": 1000.0,
+      "amount_display": "R$ 1.000,00",
+      "currency": "R$",
+      "remuneration": "to, o Fundo poderá ser liquidado antecipadamente, caso ocorra qualquer Evento de Liquidação, ou se assim deliberado pelos Cotistas reunidos em Assembleia Geral. Por este motivo, os Cotistas poderão ter seu horizonte original de investimento reduzido e poderão não consegu ir reinvestir os recursos recebidos com a mesma remuneração buscada pelo Fundo, não sendo devida pelo Fundo, pela Administradora, pela Gestora ou p…",
+      "amortization_schedule": "mônio do Fundo será formado por 3 (três) classes de Cotas, quais sejam, as Cotas Seniores, as Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior. 7.1.1. As Cotas Seniores têm as seguintes características, vantagens, direitos e obrigações comuns: (a) têm prioridade em relação às Cotas Subordinadas para efeito de amortização e/ou resgate, observado o disposto neste Regulamento; (b) Valor Unitário inicial de em…",
+      "maturity": "s referências a quaisquer partes incluem seus sucessores, representantes e cessionários autorizados; e (f) salvo disposição em contrário, todos os prazos previstos neste Regulamento serão contados na forma prevista no Artigo 224 do Código de Processo Civil, isto é, excluindo -se o dia do começo e incluindo -se o dia do vencimento. CAPÍTULO II – DENOMINAÇÃO, FORMA E PRAZO DE DURAÇÃO DO FUNDO 2.1. O Fundo , denominado…",
+      "source_excerpt": "nte, adquiridos pelo Fundo juntamente com todos os direitos, privilégios, preferências, prerrogativas, ações e garantias assegurados aos seus titulares, por meio de Contratos de Cessão firmados entre o Fundo e pessoas jurídicas, constituídas sob qualquer tipo societário. 5.3.2. O Fundo poderá subscrever valores mobiliários colocados de forma privada ou ofertados publicamente, com ou sem esforços restritos de colocaç…",
+      "source_document": "387777_regulamento_regulamento_387777_2022-08-16.pdf",
+      "source_document_id": 387777
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": null,
+      "amount_display": "",
+      "currency": null,
+      "remuneration": "RIMÔNIO DO FUNDO, CARACTERÍSTICAS E CONDIÇÕES DAS COTAS 8.1. O patrimônio do Fundo é representado por 3 (três) classe s de Cotas, quais sejam, Cotas Seniores, Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior. As características, os direitos e as condições de emissão, distribuição, subscrição, integralização, remuneração, amortização e resgate das Cotas estão descritos neste Capítulo. 8.2. As Cotas terão a…",
+      "amortization_schedule": "UNDO, CARACTERÍSTICAS E CONDIÇÕES DAS COTAS 8.1. O patrimônio do Fundo é representado por 3 (três) classe s de Cotas, quais sejam, Cotas Seniores, Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior. As características, os direitos e as condições de emissão, distribuição, subscrição, integralização, remuneração, amortização e resgate das Cotas estão descritos neste Capítulo. 8.2. As Cotas terão a forma escrit…",
+      "maturity": "s referências a quaisquer partes incluem seus sucessores, representantes e cessionários autorizados; e (f) salvo disposição em contrário, todos os prazos previstos neste Regulamento serão contados na forma prevista no Artigo 224 do Código de Processo Civil, isto é, excluindo -se o dia do começo e incluindo -se o dia do vencimento. CAPÍTULO II – DENOMINAÇÃO, FORMA E PRAZO DE DURAÇÃO DO FUNDO 2.1. O Fundo , denominado…",
+      "source_excerpt": "editórios de titularidade do Fundo, seja direta FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 3 ou indiretamente; e/ou (iii) originar, direta ou indiretamente, Direitos Creditórios ao Fundo. Ativos Financeiros 5.3. A parcela do Patrimônio Líquido do Fundo que não estiver aloca…",
+      "source_document": "393442_regulamento_regulamento_393442_2022-12-23.pdf",
+      "source_document_id": 393442
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": null,
+      "amount_display": "",
+      "currency": null,
+      "remuneration": "RIMÔNIO DO FUNDO, CARACTERÍSTICAS E CONDIÇÕES DAS COTAS 8.1. O patrimônio do Fundo é representado por 3 (três) classe s de Cotas, quais sejam, Cotas Seniores, Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior. As características, os direitos e as condições de emissão, distribuição, subscrição, integralização, remuneração, amortização e resgate das Cotas estão descritos neste Capítulo. 8.2. As Cotas terão a…",
+      "amortization_schedule": "UNDO, CARACTERÍSTICAS E CONDIÇÕES DAS COTAS 8.1. O patrimônio do Fundo é representado por 3 (três) classe s de Cotas, quais sejam, Cotas Seniores, Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior. As características, os direitos e as condições de emissão, distribuição, subscrição, integralização, remuneração, amortização e resgate das Cotas estão descritos neste Capítulo. 8.2. As Cotas terão a forma escrit…",
+      "maturity": "s referências a quaisquer partes incluem seus sucessores, representantes e cessionários autorizados; e (f) salvo disposição em contrário, todos os prazos previstos neste Regulamento serão contados na forma prevista no Artigo 224 do Código de Processo Civil, isto é, excluindo -se o dia do começo e incluindo -se o dia do vencimento. CAPÍTULO II – DENOMINAÇÃO, FORMA E PRAZO DE DURAÇÃO DO FUNDO 2.1. O Fundo , denominado…",
+      "source_excerpt": "editórios de titularidade do Fundo, seja direta FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 3 ou indiretamente; e/ou (iii) originar, direta ou indiretamente, Direitos Creditórios ao Fundo. Ativos Financeiros 5.3. A parcela do Patrimônio Líquido do Fundo que não estiver aloca…",
+      "source_document": "400722_regulamento_regulamento_400722_2023-01-12.pdf",
+      "source_document_id": 400722
+    }
+  ],
+  "extraction_count": 8,
+  "extraction_errors": []
+}

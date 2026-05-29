@@ -1,0 +1,636 @@
+{
+  "schema_version": 1,
+  "fund_name": "FIDC RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA",
+  "fund_cnpj": "62.690.693/0001-49",
+  "generated_at": "2026-05-29T01:35:13Z",
+  "documents": [
+    {
+      "id": 992732,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "11/09/2025",
+      "data_entrega": "16/09/2025 11:02",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/62690693000149/992732_regulamento_regulamento_992732_2025-09-11.pdf"
+    },
+    {
+      "id": 992733,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "especie": "",
+      "classification": "emissao",
+      "data_referencia": "11/09/2025",
+      "data_entrega": "16/09/2025 11:03",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/62690693000149/992733_emissao_emissao_992733_2025-09-11.pdf"
+    },
+    {
+      "id": 1028142,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Alteração do Regulamento",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "03/11/2025",
+      "data_entrega": "05/11/2025 11:20",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/62690693000149/1028142_regulamento_regulamento_1028142_2025-11-03.pdf"
+    },
+    {
+      "id": 1028146,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "03/11/2025",
+      "data_entrega": "05/11/2025 11:22",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/62690693000149/1028146_regulamento_regulamento_1028146_2025-11-03.pdf"
+    },
+    {
+      "id": 1114340,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "12/2025",
+      "data_entrega": "13/02/2026 15:16",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1148173,
+      "categoria": "Informes Periódicos",
+      "tipo": "Demonstrações Financeiras",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "31/12/2025",
+      "data_entrega": "30/03/2026 16:05",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1195541,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 16:54",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    }
+  ],
+  "criteria": [
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.67,
+      "threshold_unit": "ratio",
+      "threshold_display": "67%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "da ., sociedade com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 1.744, 2º andar, conjunto 21, inscrita no CNPJ/M F sob o nº 03.223.073/0001-30, na qualidade de agente operacional contratado pela Gestora, em nome do Fundo, para auxiliar na operacionalização de procedimentos de cessão de Direitos Creditórios ao Fundo, nos termos de seu contrato de prestação de serviços. “Aloc…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "992732_regulamento_regulamento_992732_2025-09-11.pdf",
+      "source_document_id": 992732,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.67,
+      "threshold_unit": "ratio",
+      "threshold_display": "67%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "Lima, nº 1.744, 2º andar, conjunto 21, inscrita no CNPJ/M F sob o nº 03.223.073/0001-30, na qualidade de agente operacional contratado pela Gestora, em nome do Fundo, para auxiliar na operacionalização de procedimentos de cessão de Direitos Creditórios ao Fundo, nos termos de seu contrato de prestação de serviços. “Alocação Mínima” Tem o significado que lhe é atribuído no item IX(3) do presente Regulamento. \"Alocaçã…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "992732_regulamento_regulamento_992732_2025-09-11.pdf",
+      "source_document_id": 992732,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "sses de fundos de investime nto que invistam exclusivamente nos ativos financeiros referidos nos itens (i) a (iii) acima (cada, um “Investimento Permitido”). REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 11/09/2025. 36 9.3.1. Em até 180 (cento e oitenta) dias da Data de Início do Fundo, o Fundo deverá observar a Alocação M…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "992732_regulamento_regulamento_992732_2025-09-11.pdf",
+      "source_document_id": 992732,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "ez dos mercados financeiro e de capitais domésticos; política fiscal; instabilidade social e política; e outros acontecimentos políticos, sociais e econômicos que venham a ocorrer no Brasil ou que o afetem. Nesse cenário, efeitos adversos relacionados aos fatores mencionados podem impactar na rentabilidade das Cotas. Riscos de Média Materialidade Risco de Concentração em Investimentos Permitidos. Sem prejuízo da Alo…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "992732_regulamento_regulamento_992732_2025-09-11.pdf",
+      "source_document_id": 992732,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "e/ou titulares de títulos e valores mobiliários aos quais seja conferido o direito de voto . A versão integral da política de voto da Gestora está disponível para acesso no endereço eletrônico [●], em que poderão ser consultados o seu objeto, os princípios gerais, os procedimentos adotados em potenciais conflitos de interesse e o processo decisório de voto. (7) O Fundo não poderá realizar operações em mercados de de…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "992732_regulamento_regulamento_992732_2025-09-11.pdf",
+      "source_document_id": 992732,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "ade pelo Banco Randon e/ou de suas Ligadas, o Fundo poderá sofrer uma perda patrimonial significativa, o que afetaria negativamente a rentabilidade das Cotas. Risco decorrente da precificação dos Investimentos Permitidos. A precificação dos Investimentos Permitidos que integrem os Ativos do Fundo deverá ser realizada de acordo com os critérios e procedimentos de registro e avaliação de títulos, valores mobiliários,…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "992732_regulamento_regulamento_992732_2025-09-11.pdf",
+      "source_document_id": 992732,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "P SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 11/09/2025. 42 11.2.2. Observados os termos e condições do presente Regulamento, a verificação pela Gestora ou por terceiro por ela contratado do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 11.2.3. O desenquadramento de qualquer Direito Creditório Cedido com relação a qualquer Critério d…",
+      "source_excerpt": "P SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 11/09/2025. 42 11.2.2. Observados os termos e condições do presente Regulamento, a verificação pela Gestora ou por terceiro por ela contratado do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 11.2.3. O desenquadramento de qualquer Direito Creditório Cedido com relação a qualquer Critério d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "992732_regulamento_regulamento_992732_2025-09-11.pdf",
+      "source_document_id": 992732,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "lizados e evidenciados por meio dos correspondentes Documentos Comprobatórios, com tudo o que os referidos direitos creditórios representam, incluindo, sem limitação, juros, multas, ajustes monetários, eventuais garantias que venham a ser constituíd as e formalizadas nos termos da legislação vigente, demais acessórios e direitos assegurados aos respectivos Cedentes. “Direitos Creditórios Cedidos” Significam os Direi…",
+      "source_excerpt": "lizados e evidenciados por meio dos correspondentes Documentos Comprobatórios, com tudo o que os referidos direitos creditórios representam, incluindo, sem limitação, juros, multas, ajustes monetários, eventuais garantias que venham a ser constituíd as e formalizadas nos termos da legislação vigente, demais acessórios e direitos assegurados aos respectivos Cedentes. “Direitos Creditórios Cedidos” Significam os Direi…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "992732_regulamento_regulamento_992732_2025-09-11.pdf",
+      "source_document_id": 992732,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "de Cobrança. “Política de Investimento” Significa a política de investimento do Fundo descrita na Seção IX do presente Regulamento. “Prazo Máximo de Pagamento” Significa o prazo máximo no qual a nota fiscal eletrônica referente ao Direito Creditório Cedido deve ser paga, nos termos d o Convênio Operacional e do respectivo Termo de Adesão ao Convênio. “Preço de Aquisição” Significa o preço de aquisição dos Direitos C…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "992732_regulamento_regulamento_992732_2025-09-11.pdf",
+      "source_document_id": 992732,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "omo ao registro e à liquidação de operações com esses títulos. “Site” Significa a página do Administrador na rede mundial de computadores: www.integralaccess.com.br “Taxa de Administração” Tem o significado que lhe é atribuído no item VII(1) deste Regulamento. “Taxa de Cessão” Significa a taxa informada pela Gestora ao Custodiante e ao Agente Operacional, a ser utilizada no cálculo do Preço de Aquisição dos Direitos…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "992732_regulamento_regulamento_992732_2025-09-11.pdf",
+      "source_document_id": 992732,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "o Programa de Pagamento Diferenciado que altere o valor, a forma de pagamento e os demais termos específicos de uma compra e venda de Produtos no âmbito do Programa de Pagamento Diferenciado previstos no Convênio e/ou no Termo de Adesão ao Convênio. \"Termo de Cessão” Significa o termo de cessão a ser celebrado entre o Fundo e respectivos Cedentes na Data de Aquisição para formalizar a cessão dos correspondentes Dire…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "992732_regulamento_regulamento_992732_2025-09-11.pdf",
+      "source_document_id": 992732,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.5,
+      "threshold_unit": "ratio",
+      "threshold_display": "50%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "ro Faria Lima, nº 1.744, 2º andar, conjunto 22, Jardim Paulista, CEP 01451-910, inscrita no CNPJ/MF sob o nº 08.289.885/0001-00, neste ato representada nos termos de seu contrato social, na qualidade de agente operacional contratado pela Gestora, em nome do Fundo, para auxiliar na operacionalização de procedimentos de cessão de Direitos Creditórios ao Fundo, nos termos de seu contrato de prestação de serviços. “Aloc…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1028146_regulamento_regulamento_1028146_2025-11-03.pdf",
+      "source_document_id": 1028146,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.5,
+      "threshold_unit": "ratio",
+      "threshold_display": "50%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "u contrato de prestação de serviços. “Alocação Mínima” Significa o percentual mínimo de 50% cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. Informação Pública \"Alocação Míni…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1028146_regulamento_regulamento_1028146_2025-11-03.pdf",
+      "source_document_id": 1028146,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "elacionados aos fatores mencionados podem impactar na rentabilidade das Cotas. Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. Informação Pública Riscos de Média Materialidade Risco de Concentração em Investimentos Permitidos. Sem prejuízo da Alocação Mín…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1028146_regulamento_regulamento_1028146_2025-11-03.pdf",
+      "source_document_id": 1028146,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "aos quais seja conferido o direito de voto. A versão integral da política de voto da Gestora está disponível para acesso no endereço eletrônico https://integralinvest.com.br/documentos-regulatorios/, em que poderão ser consultados o seu objeto, os princípios gerais, os procedimentos adotados em potenciais conflitos de interesse e o processo decisório de voto. g. O Fundo não poderá realizar operações em mercados de d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1028146_regulamento_regulamento_1028146_2025-11-03.pdf",
+      "source_document_id": 1028146,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "desta faculdade pelo Cotista Subordinado, o Fundo poderá sofrer uma perda patrimonial significativa, o que afetaria negativamente a rentabilidade das Cotas. Risco decorrente da precificação dos Investimentos Permitidos. A precificação dos Investimentos Permitidos que integrem os Ativos do Fundo deverá ser realizada de acordo com os critérios e procedimentos de registro e avaliação de títulos, valores mobiliários, de…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1028146_regulamento_regulamento_1028146_2025-11-03.pdf",
+      "source_document_id": 1028146,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "de será verificado pela Gestora ou por terceiro por ela contratado na respectiva Data de Aquisição. b. Observados os termos e condições do presente Regulamento, a verificação pela Gestora ou por terceiro por ela contratado do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. c. O desenquadramento de qualquer Direito Creditório Cedido com relação a qualquer Critér…",
+      "source_excerpt": "de será verificado pela Gestora ou por terceiro por ela contratado na respectiva Data de Aquisição. b. Observados os termos e condições do presente Regulamento, a verificação pela Gestora ou por terceiro por ela contratado do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. c. O desenquadramento de qualquer Direito Creditório Cedido com relação a qualquer Critér…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1028146_regulamento_regulamento_1028146_2025-11-03.pdf",
+      "source_document_id": 1028146,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "rmalizados e evidenciados por meio dos correspondentes Documentos Comprobatórios, com tudo o que os referidos direitos creditórios representam, incluindo, sem limitação, juros, multas, ajustes monetários, eventuais garantias que venham a ser constituídas e formalizadas nos termos da legislação vigente, demais acessórios e direitos assegurados aos respectivos Cedentes. “Direitos Creditórios Cedidos” Significam os Dir…",
+      "source_excerpt": "rmalizados e evidenciados por meio dos correspondentes Documentos Comprobatórios, com tudo o que os referidos direitos creditórios representam, incluindo, sem limitação, juros, multas, ajustes monetários, eventuais garantias que venham a ser constituídas e formalizadas nos termos da legislação vigente, demais acessórios e direitos assegurados aos respectivos Cedentes. “Direitos Creditórios Cedidos” Significam os Dir…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1028146_regulamento_regulamento_1028146_2025-11-03.pdf",
+      "source_document_id": 1028146,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "“Política de Investimento” Significa a política de investimento do Fundo descrita na Seção (11) do presente Regulamento. Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. Informação Pública “Preço de Aquisição” Significa o preço de aquisição dos Direitos Cr…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1028146_regulamento_regulamento_1028146_2025-11-03.pdf",
+      "source_document_id": 1028146,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "como ao registro e à liquidação de operações com esses títulos. “Site” Significa a página do Administrador na rede mundial de computadores: www.integralaccess.com.br “Taxa de Administração” Tem o significado que lhe é atribuído no item (9)a deste Regulamento. “Taxa de Cessão” Significa a taxa informada pela Gestora ao Custodiante e ao Agente Operacional, a ser utilizada no cálculo do Preço de Aquisição dos Direitos…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1028146_regulamento_regulamento_1028146_2025-11-03.pdf",
+      "source_document_id": 1028146,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "Pagamento Diferenciado que altere o valor, a forma de pagamento e os demais termos específicos de uma nota fiscal de compra e venda de Produtos no âmbito do Programa de Pagamento Diferenciado previstos no Convênio e/ou no Termo de Adesão ao Convênio. \"Termo de Cessão” Significa o termo de cessão a ser celebrado entre o Fundo e respectivos Cedentes na Data de Aquisição para formalizar a cessão dos correspondentes Dir…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1028146_regulamento_regulamento_1028146_2025-11-03.pdf",
+      "source_document_id": 1028146,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "TOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 11/09/2025. 42 11.2.2. Observados os termos e condições do presente Regulamento, a verificação pela Gestora ou por terceiro por ela contratado do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 11.2.3. O desenquadramento de qualquer Direito Creditório Cedido com rela…",
+      "source_excerpt": "TOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 11/09/2025. 42 11.2.2. Observados os termos e condições do presente Regulamento, a verificação pela Gestora ou por terceiro por ela contratado do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 11.2.3. O desenquadramento de qualquer Direito Creditório Cedido com rela…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "dos ou a performar, formalizados e evidenciados por meio dos correspondentes Documentos Comprobatórios, com tudo o que os referidos direitos creditórios representam, incluindo, sem limitação, juros, multas, ajustes monetários, eventuais garantias que venham a ser constituíd as e formalizadas nos termos da legislação vigente, demais acessórios e direitos assegurados aos respectivos Cedentes. “Direitos Creditórios Ced…",
+      "source_excerpt": "dos ou a performar, formalizados e evidenciados por meio dos correspondentes Documentos Comprobatórios, com tudo o que os referidos direitos creditórios representam, incluindo, sem limitação, juros, multas, ajustes monetários, eventuais garantias que venham a ser constituíd as e formalizadas nos termos da legislação vigente, demais acessórios e direitos assegurados aos respectivos Cedentes. “Direitos Creditórios Ced…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de Cessão e no Contrato de Cobrança. “Política de Investimento” Significa a política de investimento do Fundo descrita na Seção IX do presente Regulamento. “Prazo Máximo de Pagamento” Significa o prazo máximo no qual a nota fiscal eletrônica referente ao Direito Creditório Cedido deve ser paga, nos termos d o Convênio Operacional e do respectivo Termo de Adesão ao Convênio. “Preço de Aquisição” Significa o preço de…",
+      "source_excerpt": "de Cessão e no Contrato de Cobrança. “Política de Investimento” Significa a política de investimento do Fundo descrita na Seção IX do presente Regulamento. “Prazo Máximo de Pagamento” Significa o prazo máximo no qual a nota fiscal eletrônica referente ao Direito Creditório Cedido deve ser paga, nos termos d o Convênio Operacional e do respectivo Termo de Adesão ao Convênio. “Preço de Aquisição” Significa o preço de…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o Tesouro Nacional, bem como ao registro e à liquidação de operações com esses títulos. “Site” Significa a página do Administrador na rede mundial de computadores: www.integralaccess.com.br “Taxa de Administração” Tem o significado que lhe é atribuído no item VII(1) deste Regulamento. “Taxa de Cessão” Significa a taxa informada pela Gestora ao Custodiante e ao Agente Operacional, a ser utilizada no cálculo do Preço…",
+      "source_excerpt": "o Tesouro Nacional, bem como ao registro e à liquidação de operações com esses títulos. “Site” Significa a página do Administrador na rede mundial de computadores: www.integralaccess.com.br “Taxa de Administração” Tem o significado que lhe é atribuído no item VII(1) deste Regulamento. “Taxa de Cessão” Significa a taxa informada pela Gestora ao Custodiante e ao Agente Operacional, a ser utilizada no cálculo do Preço…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "seja emitido no âmbito do Programa de Pagamento Diferenciado que altere o valor, a forma de pagamento e os demais termos específicos de uma compra e venda de Produtos no âmbito do Programa de Pagamento Diferenciado previstos no Convênio e/ou no Termo de Adesão ao Convênio. \"Termo de Cessão” Significa o termo de cessão a ser celebrado entre o Fundo e respectivos Cedentes na Data de Aquisição para formalizar a cessão…",
+      "source_excerpt": "seja emitido no âmbito do Programa de Pagamento Diferenciado que altere o valor, a forma de pagamento e os demais termos específicos de uma compra e venda de Produtos no âmbito do Programa de Pagamento Diferenciado previstos no Convênio e/ou no Termo de Adesão ao Convênio. \"Termo de Cessão” Significa o termo de cessão a ser celebrado entre o Fundo e respectivos Cedentes na Data de Aquisição para formalizar a cessão…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "erida emissão. REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 11/09/2025. 20 (5) Observados os itens (3) e 2.3.1 acima e o item (7) abaixo, o objetivo do Fundo é proporcionar aos Cotistas, no momento do resgate de suas Cotas, a valorização dos recursos aplicados inicialmente no Fundo, por meio do investimento de recursos na…",
+      "source_excerpt": "erida emissão. REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 11/09/2025. 20 (5) Observados os itens (3) e 2.3.1 acima e o item (7) abaixo, o objetivo do Fundo é proporcionar aos Cotistas, no momento do resgate de suas Cotas, a valorização dos recursos aplicados inicialmente no Fundo, por meio do investimento de recursos na…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Critérios de Elegibilidade será verificado pela Gestora ou por terceiro por ela contratado na respectiva Data de Aquisição. b. Observados os termos e condições do presente Regulamento, a verificação pela Gestora ou por terceiro por ela contratado do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. c. O desenquadramento de qualquer Direito Creditório Cedido com r…",
+      "source_excerpt": "Critérios de Elegibilidade será verificado pela Gestora ou por terceiro por ela contratado na respectiva Data de Aquisição. b. Observados os termos e condições do presente Regulamento, a verificação pela Gestora ou por terceiro por ela contratado do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. c. O desenquadramento de qualquer Direito Creditório Cedido com r…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rmados ou a performar, formalizados e evidenciados por meio dos correspondentes Documentos Comprobatórios, com tudo o que os referidos direitos creditórios representam, incluindo, sem limitação, juros, multas, ajustes monetários, eventuais garantias que venham a ser constituídas e formalizadas nos termos da legislação vigente, demais acessórios e direitos assegurados aos respectivos Cedentes. “Direitos Creditórios C…",
+      "source_excerpt": "rmados ou a performar, formalizados e evidenciados por meio dos correspondentes Documentos Comprobatórios, com tudo o que os referidos direitos creditórios representam, incluindo, sem limitação, juros, multas, ajustes monetários, eventuais garantias que venham a ser constituídas e formalizadas nos termos da legislação vigente, demais acessórios e direitos assegurados aos respectivos Cedentes. “Direitos Creditórios C…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o Contrato de Cobrança. “Política de Investimento” Significa a política de investimento do Fundo descrita na Seção (11) do presente Regulamento. Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. Informação Pública “Preço de Aquisição” Significa o preço de a…",
+      "source_excerpt": "o Contrato de Cobrança. “Política de Investimento” Significa a política de investimento do Fundo descrita na Seção (11) do presente Regulamento. Docusign Envelope ID: 43E90E8A-1619-45BC-8A7D-0396F98D78AB REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA – DATADO DE 03/11/2025. Informação Pública “Preço de Aquisição” Significa o preço de a…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "do Tesouro Nacional, bem como ao registro e à liquidação de operações com esses títulos. “Site” Significa a página do Administrador na rede mundial de computadores: www.integralaccess.com.br “Taxa de Administração” Tem o significado que lhe é atribuído no item (9)a deste Regulamento. “Taxa de Cessão” Significa a taxa informada pela Gestora ao Custodiante e ao Agente Operacional, a ser utilizada no cálculo do Preço d…",
+      "source_excerpt": "do Tesouro Nacional, bem como ao registro e à liquidação de operações com esses títulos. “Site” Significa a página do Administrador na rede mundial de computadores: www.integralaccess.com.br “Taxa de Administração” Tem o significado que lhe é atribuído no item (9)a deste Regulamento. “Taxa de Cessão” Significa a taxa informada pela Gestora ao Custodiante e ao Agente Operacional, a ser utilizada no cálculo do Preço d…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o âmbito do Programa de Pagamento Diferenciado que altere o valor, a forma de pagamento e os demais termos específicos de uma nota fiscal de compra e venda de Produtos no âmbito do Programa de Pagamento Diferenciado previstos no Convênio e/ou no Termo de Adesão ao Convênio. \"Termo de Cessão” Significa o termo de cessão a ser celebrado entre o Fundo e respectivos Cedentes na Data de Aquisição para formalizar a cessão…",
+      "source_excerpt": "o âmbito do Programa de Pagamento Diferenciado que altere o valor, a forma de pagamento e os demais termos específicos de uma nota fiscal de compra e venda de Produtos no âmbito do Programa de Pagamento Diferenciado previstos no Convênio e/ou no Termo de Adesão ao Convênio. \"Termo de Cessão” Significa o termo de cessão a ser celebrado entre o Fundo e respectivos Cedentes na Data de Aquisição para formalizar a cessão…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "as deverá especificar a forma de colocação, a quantidade de Cotas Seniores a serem emitidas, o valor de emissão e demais informações necessárias à operacionalização da referida emissão. e. Observados os itens c e c.a acima e o item g abaixo, o objetivo do Fundo é proporcionar aos Cotistas, no momento do resgate de suas Cotas, a valorização dos recursos aplicados inicialmente no Fundo, por meio do investimento de rec…",
+      "source_excerpt": "as deverá especificar a forma de colocação, a quantidade de Cotas Seniores a serem emitidas, o valor de emissão e demais informações necessárias à operacionalização da referida emissão. e. Observados os itens c e c.a acima e o item g abaixo, o objetivo do Fundo é proporcionar aos Cotistas, no momento do resgate de suas Cotas, a valorização dos recursos aplicados inicialmente no Fundo, por meio do investimento de rec…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": null,
+      "amount_display": "",
+      "currency": null,
+      "remuneration": ".br “Taxa de Administração” Tem o significado que lhe é atribuído no item VII(1) deste Regulamento. “Taxa de Cessão” Significa a taxa informada pela Gestora ao Custodiante e ao Agente Operacional, a ser utilizada no cálculo do Preço de Aquisição dos Direitos Creditórios Elegíveis. “Taxa de Cobrança” Significa a remuneração do Agente de Cobrança pela prestação de serviços de cobrança dos Direitos Creditórios Inadimpl…",
+      "amortization_schedule": "ora deverá comunicar imediatamente ao s distribuidores das Cotas sobre a suspensão de novas aplicações. Capítulo II. Distribuição de Resultados e Resgate (6) As Cotas: (i) poderão ser resgatadas a qualquer momento, mediante solicitação nesse sentido dirigida pelo Cotista ao Administrador; e (ii) não serão objeto de amortização, devendo seu valor ser integralmente liquidado no momento do resgate, nos termos deste Reg…",
+      "maturity": "ntratado, sem prejuízo da responsabilidade da Gestora. “Direitos Creditórios Inadimplidos” Significam os Direitos Creditórios Cedidos com relação aos quais não tenha havido o pagamento ao Fundo, por parte dos Devedores, conforme o caso, do valor respectivo previsto na nota fiscal eletrônica até a respectiva data de vencimento (inclusive), apurada em cada caso nos termos d o Convênio Operacional , acrescido dos respe…",
+      "source_excerpt": "Riscos de Liquidez ................................................................... 52 Capítulo VI. Riscos de Conflito de Interesses ............................................... 54 Capítulo VII. Riscos Específicos .................................................................. 55 XIV. COTAS E INVESTIMENTO ................................................................ 59 Capítulo I. Cotas .................…",
+      "source_document": "992732_regulamento_regulamento_992732_2025-09-11.pdf",
+      "source_document_id": 992732
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "Cotas Subordinadas”)",
+      "amount": 700000000.0,
+      "amount_display": "R$700.000.000,00",
+      "currency": "R$",
+      "remuneration": "",
+      "amortization_schedule": "",
+      "maturity": "",
+      "source_excerpt": "nos termos do Ato Declaratório CVM nº 8.662, de 21 de fevereiro de 2006, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 1.663, 3º andar, Jardim Paulistano, CEP 01452- 001, inscrita no CNPJ sob o nº 06.576.569/0001-86, neste ato representada na forma de seu contrato social (“Gestora” e, em conjunto com a Administradora, “Prestadores de Serviços Essenciais”); RESOLVEM: (1) a…",
+      "source_document": "1028142_regulamento_regulamento_1028142_2025-11-03.pdf",
+      "source_document_id": 1028142
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": null,
+      "amount_display": "",
+      "currency": null,
+      "remuneration": "om.br “Taxa de Administração” Tem o significado que lhe é atribuído no item (9)a deste Regulamento. “Taxa de Cessão” Significa a taxa informada pela Gestora ao Custodiante e ao Agente Operacional, a ser utilizada no cálculo do Preço de Aquisição dos Direitos Creditórios Elegíveis. “Taxa de Cobrança” Significa a remuneração do Agente de Cobrança pela prestação de serviços de cobrança dos Direitos Creditórios Inadimpl…",
+      "amortization_schedule": "stora deverá comunicar imediatamente aos distribuidores das Cotas sobre a suspensão de novas aplicações. Capítulo II. Distribuição de Resultados e Resgate f. As Cotas: (i) poderão ser resgatadas a qualquer momento, mediante solicitação nesse sentido dirigida pelo Cotista ao Administrador; e (ii) não serão objeto de amortização, devendo seu valor ser integralmente liquidado no momento do resgate, nos termos deste Reg…",
+      "maturity": "ntratado, sem prejuízo da responsabilidade da Gestora. “Direitos Creditórios Inadimplidos” Significam os Direitos Creditórios Cedidos com relação aos quais não tenha havido o pagamento ao Fundo, por parte dos Devedores, conforme o caso, do valor respectivo previsto na nota fiscal eletrônica até a respectiva data de vencimento (inclusive), apurada em cada caso nos termos do Convênio Operacional, acrescido dos respect…",
+      "source_excerpt": "sses ......................................................................... 65 Capítulo VII. Riscos Específicos ............................................................................................ 65 XIV. COTAS E INVESTIMENTO ........................................................................................... 70 Capítulo I. Cotas .....................................................................…",
+      "source_document": "1028146_regulamento_regulamento_1028146_2025-11-03.pdf",
+      "source_document_id": 1028146
+    }
+  ],
+  "extraction_count": 4,
+  "extraction_errors": []
+}

@@ -2,21 +2,21 @@
   "schema_version": 1,
   "fund_name": "PLGN MARKETPLACE FUNDO DE INVESTIMENTO EM COTAS DE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
   "fund_cnpj": "55.563.624/0001-09",
-  "generated_at": "2026-05-14T14:04:57Z",
+  "generated_at": "2026-05-29T01:35:06Z",
   "documents": [
     {
       "id": 691674,
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "03/07/2024",
       "data_entrega": "03/07/2024 18:13",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/55563624000109/691674_assembleia_assembleia_691674_2024-07-03.pdf"
+      "source_file": "data/raw/55563624000109/691674_emissao_emissao_691674_2024-07-03.pdf"
     },
     {
       "id": 702585,
@@ -439,6 +439,34 @@
       "source_file": ""
     },
     {
+      "id": 1196870,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 20:30",
+      "nome_arquivo": null,
+      "status": "IC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1206836,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "28/05/2026 20:22",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
       "id": 1184496,
       "categoria": "Informes Periódicos",
       "tipo": "Composição da Carteira (CDA)",
@@ -451,10 +479,270 @@
       "downloaded": false,
       "download_error": "",
       "source_file": ""
+    },
+    {
+      "id": 1192603,
+      "categoria": "Assembleia",
+      "tipo": "AGE",
+      "especie": "Ata da Assembleia",
+      "classification": "assembleia",
+      "data_referencia": "30/04/2026 10:00",
+      "data_entrega": "14/05/2026 19:01",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/55563624000109/1192603_assembleia_assembleia_1192603_2026-04-30.pdf"
+    },
+    {
+      "id": 1192614,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "30/04/2026",
+      "data_entrega": "14/05/2026 19:02",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/55563624000109/1192614_regulamento_regulamento_1192614_2026-04-30.pdf"
     }
   ],
-  "criteria": [],
-  "eligibility_criteria": [],
+  "criteria": [
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.9,
+      "threshold_unit": "ratio",
+      "threshold_display": "90%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "runs dispostos abaixo, em sede assembleia geral de cotistas ou de assembleia especial de cotistas, conforme o caso: MATÉRIA SUJEITA À APROVAÇÃO QUÓRUM DE DELIBERAÇÃO (i) aprovação das demonstrações contábeis do FUNDO; Maioria do total das Cotas emitidas Docusign Envelope ID: 4397A2AB-F11E-4391-82AE-C30BDED7E8FF Parte Geral do Regulamento PLGN MARKETPLACE FUNDO DE INVESTIMENTO EM COTAS DE FUNDO DE INVESTIMENTO EM DIR…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1192614_regulamento_regulamento_1192614_2026-04-30.pdf",
+      "source_document_id": 1192614,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "m em risco parte ou a totalidade de seu patrimônio. Dentre os diversos riscos aos quais está sujeita a Carteira da Classe estão, exemplificativamente, aqueles descritos no Capítulo 15 abaixo, o qual deve ser cuidadosamente lido pelo subscritor ou adquirente das Cotas. 4.20 É vedada à Classe a aplicação de recursos de seu Patrimônio Líquido na aquisição de ativos no exterior. 4.21 A Classe poderá utilizar instrumento…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1192614_regulamento_regulamento_1192614_2026-04-30.pdf",
+      "source_document_id": 1192614,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "os ativos da Carteira de modo não individualizado, proporcionalmente à quantidade de Cotas detidas por cada um. Portanto, os Cotistas não terão qualquer direito de propriedade direta sobre as Cotas da Classe Investida e os Ativos Financeiros de Liquidez integrantes da Carteira, ou mesmo sobre os direitos creditórios e os ativos financeiros de liquidez integrantes da carteira da Classe Investida. (xxii) Operações com…",
+      "source_excerpt": "os ativos da Carteira de modo não individualizado, proporcionalmente à quantidade de Cotas detidas por cada um. Portanto, os Cotistas não terão qualquer direito de propriedade direta sobre as Cotas da Classe Investida e os Ativos Financeiros de Liquidez integrantes da Carteira, ou mesmo sobre os direitos creditórios e os ativos financeiros de liquidez integrantes da carteira da Classe Investida. (xxii) Operações com…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1192614_regulamento_regulamento_1192614_2026-04-30.pdf",
+      "source_document_id": 1192614,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "roporcionalmente à quantidade de Cotas detidas por cada um. Portanto, os Cotistas não terão qualquer direito de propriedade direta sobre as Cotas da Classe Investida e os Ativos Financeiros de Liquidez integrantes da Carteira, ou mesmo sobre os direitos creditórios e os ativos financeiros de liquidez integrantes da carteira da Classe Investida. (xxii) Operações com derivativos . A Classe poderá realizar operações co…",
+      "source_excerpt": "roporcionalmente à quantidade de Cotas detidas por cada um. Portanto, os Cotistas não terão qualquer direito de propriedade direta sobre as Cotas da Classe Investida e os Ativos Financeiros de Liquidez integrantes da Carteira, ou mesmo sobre os direitos creditórios e os ativos financeiros de liquidez integrantes da carteira da Classe Investida. (xxii) Operações com derivativos . A Classe poderá realizar operações co…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1192614_regulamento_regulamento_1192614_2026-04-30.pdf",
+      "source_document_id": 1192614,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "o terão qualquer direito de propriedade direta sobre as Cotas da Classe Investida e os Ativos Financeiros de Liquidez integrantes da Carteira, ou mesmo sobre os direitos creditórios e os ativos financeiros de liquidez integrantes da carteira da Classe Investida. (xxii) Operações com derivativos . A Classe poderá realizar operações com derivativos exclusivamente com o objetivo de proteção patrimonial. As operações co…",
+      "source_excerpt": "o terão qualquer direito de propriedade direta sobre as Cotas da Classe Investida e os Ativos Financeiros de Liquidez integrantes da Carteira, ou mesmo sobre os direitos creditórios e os ativos financeiros de liquidez integrantes da carteira da Classe Investida. (xxii) Operações com derivativos . A Classe poderá realizar operações com derivativos exclusivamente com o objetivo de proteção patrimonial. As operações co…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1192614_regulamento_regulamento_1192614_2026-04-30.pdf",
+      "source_document_id": 1192614,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "Cotas; (iv) ordem de alocação de recursos; (v) assembleia especial de cotistas e demais procedimentos aplicáveis às manifestações de vontade dos cotistas; (vi) remuneração dos prestadores de serviços ; (vii) política de investimento e composição e diversificação da Carteira; (viii) eventos de avaliação, eventos de liquidação e procedimentos de liquidação antecipada da Classe; (ix) origem dos Direitos Creditórios; (x…",
+      "source_excerpt": "Cotas; (iv) ordem de alocação de recursos; (v) assembleia especial de cotistas e demais procedimentos aplicáveis às manifestações de vontade dos cotistas; (vi) remuneração dos prestadores de serviços ; (vii) política de investimento e composição e diversificação da Carteira; (viii) eventos de avaliação, eventos de liquidação e procedimentos de liquidação antecipada da Classe; (ix) origem dos Direitos Creditórios; (x…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1192614_regulamento_regulamento_1192614_2026-04-30.pdf",
+      "source_document_id": 1192614,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "TIMENTO EM DIREITOS CREDITÓRIOS DE CARTEIRA DIVERSIFICADA, COM NATUREZA E CARACTERÍSTICAS DISTINTAS. DESTA FORMA, O DESEMPENHO DA CARTEIRA PODE APRESENTAR COMPORTAMENTO DISTINTO AO LONGO DA EXISTÊNCIA DA CLASSE DE COTAS. Objetivo O objetivo da Classe é proporcionar aos Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Cotas da Classe Investida que atendam ao Cr…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1192614_regulamento_regulamento_1192614_2026-04-30.pdf",
+      "source_document_id": 1192614,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "tas da Classe Investida firmados entre a Classe e os respectivos vendedores das Cotas da Classe Investida ; (ii) negociação em mercado organizado; e/ou (iii) da subscrição de Cotas da Classe Investida, colocadas de forma privada ou ofertadas publicamente, independentemente do regime de distribuição, observada a Política de Investimentos e as demais disposições deste Anexo e da legislação e regulamentação aplicáveis.…",
+      "source_excerpt": "tas da Classe Investida firmados entre a Classe e os respectivos vendedores das Cotas da Classe Investida ; (ii) negociação em mercado organizado; e/ou (iii) da subscrição de Cotas da Classe Investida, colocadas de forma privada ou ofertadas publicamente, independentemente do regime de distribuição, observada a Política de Investimentos e as demais disposições deste Anexo e da legislação e regulamentação aplicáveis.…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1192614_regulamento_regulamento_1192614_2026-04-30.pdf",
+      "source_document_id": 1192614,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": 0.67,
+      "threshold_unit": "ratio",
+      "threshold_display": "67%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "e exclusivo Critério de Elegibilidade a ser verificado e validado pelo GESTOR, previamente à subscrição ou aquisição das Cotas da Classe Investida pela Classe. 4.8.1 A verificação e validação pelo GESTOR do enquadramento das Cotas da Classe Investida ao Critério de Elegibilidade será considerada como definitiva. 4.8.2 O GESTOR será o responsável por verificar e validar o atendimento das Cotas da Classe Investida ao…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1192614_regulamento_regulamento_1192614_2026-04-30.pdf",
+      "source_document_id": 1192614,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": ">=",
+      "formula_text": "72 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 19 (i) estruturar o FUNDO e a Classe, nos termos do art. 33, §1º, do Anexo Normativo II à Resolução CVM 175; (ii) adquirir, em nome da Classe, Cotas da Classe Investida e Ativos Financeiros de Liquidez, nos termos deste Anexo, observados os termos e condições aplicáveis à referida aquisição (incluindo, mas não se limitando, a Política de Investimento s e o Critér…",
+      "source_excerpt": "72 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 19 (i) estruturar o FUNDO e a Classe, nos termos do art. 33, §1º, do Anexo Normativo II à Resolução CVM 175; (ii) adquirir, em nome da Classe, Cotas da Classe Investida e Ativos Financeiros de Liquidez, nos termos deste Anexo, observados os termos e condições aplicáveis à referida aquisição (incluindo, mas não se limitando, a Política de Investimento s e o Critér…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1192614_regulamento_regulamento_1192614_2026-04-30.pdf",
+      "source_document_id": 1192614,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "mortização e resgate das Cotas; (iv) ordem de alocação de recursos; (v) assembleia especial de cotistas e demais procedimentos aplicáveis às manifestações de vontade dos cotistas; (vi) remuneração dos prestadores de serviços ; (vii) política de investimento e composição e diversificação da Carteira; (viii) eventos de avaliação, eventos de liquidação e procedimentos de liquidação antecipada da Classe; (ix) origem dos…",
+      "source_excerpt": "mortização e resgate das Cotas; (iv) ordem de alocação de recursos; (v) assembleia especial de cotistas e demais procedimentos aplicáveis às manifestações de vontade dos cotistas; (vi) remuneração dos prestadores de serviços ; (vii) política de investimento e composição e diversificação da Carteira; (viii) eventos de avaliação, eventos de liquidação e procedimentos de liquidação antecipada da Classe; (ix) origem dos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "VESTIR EM FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CARTEIRA DIVERSIFICADA, COM NATUREZA E CARACTERÍSTICAS DISTINTAS. DESTA FORMA, O DESEMPENHO DA CARTEIRA PODE APRESENTAR COMPORTAMENTO DISTINTO AO LONGO DA EXISTÊNCIA DA CLASSE DE COTAS. Objetivo O objetivo da Classe é proporcionar aos Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Cotas da Classe In…",
+      "source_excerpt": "VESTIR EM FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CARTEIRA DIVERSIFICADA, COM NATUREZA E CARACTERÍSTICAS DISTINTAS. DESTA FORMA, O DESEMPENHO DA CARTEIRA PODE APRESENTAR COMPORTAMENTO DISTINTO AO LONGO DA EXISTÊNCIA DA CLASSE DE COTAS. Objetivo O objetivo da Classe é proporcionar aos Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Cotas da Classe In…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "tratos de aquisição de Cotas da Classe Investida firmados entre a Classe e os respectivos vendedores das Cotas da Classe Investida ; (ii) negociação em mercado organizado; e/ou (iii) da subscrição de Cotas da Classe Investida, colocadas de forma privada ou ofertadas publicamente, independentemente do regime de distribuição, observada a Política de Investimentos e as demais disposições deste Anexo e da legislação e r…",
+      "source_excerpt": "tratos de aquisição de Cotas da Classe Investida firmados entre a Classe e os respectivos vendedores das Cotas da Classe Investida ; (ii) negociação em mercado organizado; e/ou (iii) da subscrição de Cotas da Classe Investida, colocadas de forma privada ou ofertadas publicamente, independentemente do regime de distribuição, observada a Política de Investimentos e as demais disposições deste Anexo e da legislação e r…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ida , sendo este o único e exclusivo Critério de Elegibilidade a ser verificado e validado pelo GESTOR, previamente à subscrição ou aquisição das Cotas da Classe Investida pela Classe. 4.8.1 A verificação e validação pelo GESTOR do enquadramento das Cotas da Classe Investida ao Critério de Elegibilidade será considerada como definitiva. 4.8.2 O GESTOR será o responsável por verificar e validar o atendimento das Cota…",
+      "source_excerpt": "ida , sendo este o único e exclusivo Critério de Elegibilidade a ser verificado e validado pelo GESTOR, previamente à subscrição ou aquisição das Cotas da Classe Investida pela Classe. 4.8.1 A verificação e validação pelo GESTOR do enquadramento das Cotas da Classe Investida ao Critério de Elegibilidade será considerada como definitiva. 4.8.2 O GESTOR será o responsável por verificar e validar o atendimento das Cota…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "gações das Cotas; 90% (noventa por cento) do total das Cotas emitidas (vii) alterar critérios e procedimentos para resgate de Cotas mediante dação em pagamento de Cotas da Classe Investida; Maioria do total das Cotas emitidas (viii) aprovar a emissão de novas Cotas fora do Capital Autorizado; Maioria do total das Cotas emitidas (ix) alterar a Política de Investimentos; 90% (noventa por cento) do total das Cotas emit…",
+      "source_excerpt": "gações das Cotas; 90% (noventa por cento) do total das Cotas emitidas (vii) alterar critérios e procedimentos para resgate de Cotas mediante dação em pagamento de Cotas da Classe Investida; Maioria do total das Cotas emitidas (viii) aprovar a emissão de novas Cotas fora do Capital Autorizado; Maioria do total das Cotas emitidas (ix) alterar a Política de Investimentos; 90% (noventa por cento) do total das Cotas emit…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ão decorrentes de operações de empréstimo específicas envolvendo as operações do Mercado Pago, conforme detalhadas no regulamento da Classe Investida. Na hipótese de não originação, originação insuficiente ou indisponibilidade para aquisição pelo Classe Investida, por qualquer motivo, inclusive em caso de redução ou descontinuidade das operações regulares dos cedentes, de direitos creditórios que satisfaçam os crité…",
+      "source_excerpt": "ão decorrentes de operações de empréstimo específicas envolvendo as operações do Mercado Pago, conforme detalhadas no regulamento da Classe Investida. Na hipótese de não originação, originação insuficiente ou indisponibilidade para aquisição pelo Classe Investida, por qualquer motivo, inclusive em caso de redução ou descontinuidade das operações regulares dos cedentes, de direitos creditórios que satisfaçam os crité…"
+    }
+  ],
   "emissions": [
     {
       "date": null,
@@ -511,8 +799,36 @@
       "source_excerpt": "ANÚNCIO DE ENCERRAMENTO OFERTA PÚBLICA DE DISTRIBUIÇÃO PRIMÁRIA DAS COTAS DA 1ª EMISSÃO DO PLGN MARKETPLACE FUNDO DE INVESTIMENTO EM COTAS DE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CNPJ/ME nº 55.563.624/0001-09 A BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DTVM , instituição financeira, com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), inscrita no Cadast…",
       "source_document": "811323_emissao_emissao_811323_2024-12-30.pdf",
       "source_document_id": 811323
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": 40000.0,
+      "amount_display": "R$ 40.000,00",
+      "currency": "R$",
+      "remuneration": "",
+      "amortization_schedule": "sses, quais sejam, subclasse A (“ Subclasse A”), subclasse B (“ Subclasse B”) e subclasse C (“Subclasse C” e, quando em conjunto com a Subclasse A e a Subclasse B, as “Subclasses”), considerando que serão mantidas as condições de investimento originalmente pactuadas com os cotistas, como critérios de aplicação, resgate, amortização e política de investimento da Classe Única , diferindo- se, exclusivamente, em relaçã…",
+      "maturity": "se C” e, quando em conjunto com a Subclasse A e a Subclasse B, as “Subclasses”), considerando que serão mantidas as condições de investimento originalmente pactuadas com os cotistas, como critérios de aplicação, resgate, amortização e política de investimento da Classe Única , diferindo- se, exclusivamente, em relação ao prazo de duração cada Subclasse. 4.2. Tendo em vista a alteração acima prevista, as informações…",
+      "source_excerpt": "ALORES MOBILIÁRIOS, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar – parte, Botafogo, CEP 22250 -040, inscrita no Cadastro Nacional da Pessoa Jurídica (“ CNPJ”) sob o nº 59.281.253/0001 -23, devidamente autorizada pela Comissão de Valores Mobiliários (“ CVM”) para a atividade de administração de carteiras de valores mobiliários, de acordo com o Ato Declarató…",
+      "source_document": "1192603_assembleia_assembleia_1192603_2026-04-30.pdf",
+      "source_document_id": 1192603
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": null,
+      "amount_display": "",
+      "currency": null,
+      "remuneration": "sponsabilidade dos cotistas e regime de insolvência; (iii) características, direitos, condições de emissão, subscrição, integralização, amortização e resgate das Cotas; (iv) ordem de alocação de recursos; (v) assembleia especial de cotistas e demais procedimentos aplicáveis às manifestações de vontade dos cotistas; (vi) remuneração dos prestadores de serviços ; (vii) política de investimento e composição e diversifi…",
+      "amortization_schedule": "informações previstos na regulamentação, sobre os seguintes aspectos relacionados à Classe: (i) características gerais, incluindo a indicação dos demais prestadores de serviços; (ii) responsabilidade dos cotistas e regime de insolvência; (iii) características, direitos, condições de emissão, subscrição, integralização, amortização e resgate das Cotas; (iv) ordem de alocação de recursos; (v) assembleia especial de co…",
+      "maturity": "pessoas controladoras, as sociedades por estes direta ou indiretamente controladas e coligadas ou outras sociedades sob controle comum, não são responsáveis, seja em conjunto ou isoladamente, pela adoção ou manutenção dos referidos procedimentos. O ingresso em juízo submete, ainda, a Classe à discricionariedade e ao convencimento dos julgadores das ações. Nas hipóteses descritas acima, a Assembleia Especial de Cotis…",
+      "source_excerpt": "l”, “Anexos” e “Apêndices”). Denominação da Classe Anexo CLASSE ÚNICA DE RESPONSABILIDADE LIMITADA DO PLGN MARKETPLACE FUNDO DE INVESTIMENTO EM COTAS DE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS (“Classe” ou “Classe Única”) Anexo Único (“Anexo”) 1.3 O Anexo dispõe, sem prejuízo de outros requisitos e informações previstos na regulamentação, sobre os seguintes aspectos relacionados à Classe: (i) características g…",
+      "source_document": "1192614_regulamento_regulamento_1192614_2026-04-30.pdf",
+      "source_document_id": 1192614
     }
   ],
-  "extraction_count": 4,
+  "extraction_count": 6,
   "extraction_errors": []
 }

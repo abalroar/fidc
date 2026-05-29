@@ -2,21 +2,21 @@
   "schema_version": 1,
   "fund_name": "CLOUDWALK BELA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO",
   "fund_cnpj": "62.393.679/0001-83",
-  "generated_at": "2026-05-10T03:10:59Z",
+  "generated_at": "2026-05-29T01:34:47Z",
   "documents": [
     {
       "id": 978248,
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "25/08/2025",
       "data_entrega": "26/08/2025 18:36",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/62393679000183/978248_assembleia_assembleia_978248_2025-08-25.pdf"
+      "source_file": "data/raw/62393679000183/978248_emissao_emissao_978248_2025-08-25.pdf"
     },
     {
       "id": 978252,
@@ -425,6 +425,20 @@
       "source_file": "data/raw/62393679000183/1124808_emissao_emissao_1124808_2026-02-27.pdf"
     },
     {
+      "id": 1195752,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 17:29",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
       "id": 1127089,
       "categoria": "Oferta Pública de Distribuição de Cotas",
       "tipo": "Anúncio de Início",
@@ -437,6 +451,34 @@
       "downloaded": true,
       "download_error": "",
       "source_file": "data/raw/62393679000183/1127089_emissao_emissao_1127089_2026-03-03.pdf"
+    },
+    {
+      "id": 1195777,
+      "categoria": "Relatórios",
+      "tipo": "Relatório de Agência de Rating",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "31/03/2026",
+      "data_entrega": "15/05/2026 17:35",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1195791,
+      "categoria": "Relatórios",
+      "tipo": "Outros Relatórios",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "31/03/2026",
+      "data_entrega": "15/05/2026 17:37",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
     },
     {
       "id": 1166893,

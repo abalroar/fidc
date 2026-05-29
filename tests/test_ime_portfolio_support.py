@@ -1,10 +1,15 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
 import pandas as pd
 
-from services.portfolio_store import PortfolioFund, PortfolioRecord
+from services.portfolio_store import PortfolioFund, PortfolioRecord, PortfolioStoreConfig
+from tabs import ime_portfolio_support
 from tabs.ime_portfolio_support import (
     build_portfolio_funds_display_df,
     build_portfolio_record_label_lookup,
@@ -91,6 +96,18 @@ class ImePortfolioSupportTests(unittest.TestCase):
         self.assertEqual(["Fundo", "CNPJ"], display.columns.tolist())
         self.assertEqual("FIDC XPTO", display.iloc[0]["Fundo"])
         self.assertEqual("12.345.678/0001-99", display.iloc[0]["CNPJ"])
+
+    def test_portfolio_store_signature_tracks_local_file_changes(self) -> None:
+        with TemporaryDirectory() as tmp_dir:
+            path = Path(tmp_dir) / "portfolios.json"
+            path.write_text('{"schema_version": 1, "portfolios": []}\n', encoding="utf-8")
+            config = PortfolioStoreConfig(backend="local", local_path=str(path))
+            with patch.object(ime_portfolio_support, "get_portfolio_store_config", return_value=config):
+                first = json.loads(ime_portfolio_support._portfolio_store_signature())
+                path.write_text('{"schema_version": 1, "portfolios": [{"id": "a"}]}\n', encoding="utf-8")
+                second = json.loads(ime_portfolio_support._portfolio_store_signature())
+
+        self.assertNotEqual(first["local_file"], second["local_file"])
 
 
 if __name__ == "__main__":

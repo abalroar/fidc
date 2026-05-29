@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "SELLER II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO RESP LTDA",
   "fund_cnpj": "55.471.753/0001-77",
-  "generated_at": "2026-05-10T03:20:04Z",
+  "generated_at": "2026-05-29T01:35:09Z",
   "documents": [
     {
       "id": 715331,
@@ -23,14 +23,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "10/06/2024",
       "data_entrega": "02/07/2024 23:05",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/55471753000177/691281_assembleia_assembleia_691281_2024-06-10.pdf"
+      "source_file": "data/raw/55471753000177/691281_emissao_emissao_691281_2024-06-10.pdf"
     },
     {
       "id": 691282,
@@ -219,14 +219,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "06/09/2024",
       "data_entrega": "06/09/2024 15:04",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/55471753000177/733048_assembleia_assembleia_733048_2024-09-06.pdf"
+      "source_file": "data/raw/55471753000177/733048_emissao_emissao_733048_2024-09-06.pdf"
     },
     {
       "id": 798085,
@@ -383,6 +383,20 @@
       "source_file": ""
     },
     {
+      "id": 1196364,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 19:24",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
       "id": 1139772,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
@@ -390,6 +404,20 @@
       "classification": "outro",
       "data_referencia": "12/03/2026",
       "data_entrega": "17/03/2026 18:51",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1185561,
+      "categoria": "Relatórios",
+      "tipo": "Relatório de Agência de Rating",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "06/05/2026",
+      "data_entrega": "11/05/2026 18:02",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,

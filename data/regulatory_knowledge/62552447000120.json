@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "V CDT 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
   "fund_cnpj": "62.552.447/0001-20",
-  "generated_at": "2026-05-14T14:04:58Z",
+  "generated_at": "2026-05-29T01:35:11Z",
   "documents": [
     {
       "id": 1034494,
@@ -23,14 +23,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "03/09/2025",
       "data_entrega": "10/09/2025 18:25",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/62552447000120/988020_assembleia_assembleia_988020_2025-09-03.pdf"
+      "source_file": "data/raw/62552447000120/988020_emissao_emissao_988020_2025-09-03.pdf"
     },
     {
       "id": 1110293,
@@ -45,10 +45,193 @@
       "downloaded": false,
       "download_error": "",
       "source_file": ""
+    },
+    {
+      "id": 1196511,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 19:36",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1200623,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "21/05/2026",
+      "data_entrega": "21/05/2026 15:31",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/62552447000120/1200623_regulamento_regulamento_1200623_2026-05-21.pdf"
+    },
+    {
+      "id": 1200625,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Alteração do Regulamento",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "21/05/2026",
+      "data_entrega": "21/05/2026 15:32",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/62552447000120/1200625_regulamento_regulamento_1200625_2026-05-21.pdf"
+    },
+    {
+      "id": 1200627,
+      "categoria": "Comunicado ao Mercado",
+      "tipo": "Outros Comunicados Não Considerados Fatos Relevantes ",
+      "especie": "",
+      "classification": "evento",
+      "data_referencia": "21/05/2026",
+      "data_entrega": "21/05/2026 15:32",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/62552447000120/1200627_evento_evento_1200627_2026-05-21.pdf"
     }
   ],
-  "criteria": [],
-  "eligibility_criteria": [],
+  "criteria": [
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "ção CVM 175. Eventual desenquadramento da Carteira obrigará o Gestor aos procedimentos de desenquadramento e reenquadramento previstos na Lei 14.754 e na Resolução CMN 5.111 , para fins tributários, e na Resolução CVM 175 , para fins regulatórios . 4.10 Nos termos do art. 45, §7º, inciso II, do Anexo Normativo II, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Direitos Creditórios,…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200623_regulamento_regulamento_1200623_2026-05-21.pdf",
+      "source_document_id": 1200623,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "órios, derivativos, observado o disposto abaixo, e Ativos Financeiros devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo grupo econômico e/ou de um mesmo Devedor, individualmente considerado, ainda que devidos e/ou de responsabilidade ou coobrigação dos Prestadores de Serviço Essenciais, outros prestadores de serviço da Classe, e/ou suas partes relacionadas. 4.10.1 O uso de…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200623_regulamento_regulamento_1200623_2026-05-21.pdf",
+      "source_document_id": 1200623,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": "texto",
+      "formula_text": "tos Creditórios não sejam partes relacionadas ao Originador ou Endossante ; (ii) Até 100% (cem por cento) da parcela do Patrimônio Líquido investid a em Ativos Financeiros poderão ser alocados em Ativos Financeiros de emissão ou que envolvam retenção de risco por parte do Administrador, Gestor e/ou suas partes relacionadas; e (iii) Até 100% (cem por cento) da parcela do Patrimônio Líquido investida em operações com…",
+      "source_excerpt": "tos Creditórios não sejam partes relacionadas ao Originador ou Endossante ; (ii) Até 100% (cem por cento) da parcela do Patrimônio Líquido investid a em Ativos Financeiros poderão ser alocados em Ativos Financeiros de emissão ou que envolvam retenção de risco por parte do Administrador, Gestor e/ou suas partes relacionadas; e (iii) Até 100% (cem por cento) da parcela do Patrimônio Líquido investida em operações com…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200623_regulamento_regulamento_1200623_2026-05-21.pdf",
+      "source_document_id": 1200623,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": "texto",
+      "formula_text": "Originador ou Endossante ; (ii) Até 100% (cem por cento) da parcela do Patrimônio Líquido investid a em Ativos Financeiros poderão ser alocados em Ativos Financeiros de emissão ou que envolvam retenção de risco por parte do Administrador, Gestor e/ou suas partes relacionadas; e (iii) Até 100% (cem por cento) da parcela do Patrimônio Líquido investida em operações com derivativos poderão ser alocados em operações com…",
+      "source_excerpt": "Originador ou Endossante ; (ii) Até 100% (cem por cento) da parcela do Patrimônio Líquido investid a em Ativos Financeiros poderão ser alocados em Ativos Financeiros de emissão ou que envolvam retenção de risco por parte do Administrador, Gestor e/ou suas partes relacionadas; e (iii) Até 100% (cem por cento) da parcela do Patrimônio Líquido investida em operações com derivativos poderão ser alocados em operações com…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200623_regulamento_regulamento_1200623_2026-05-21.pdf",
+      "source_document_id": 1200623,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "tos Creditórios Refinanciamento Livre , e os Critérios de Elegibilidade previstos neste Regulamento no momento de sua aquisição; (xiii) no caso de substituição e/ou destituição, por qualquer motivo, do Agente de Retenção e Cobrança; (xiv) verificação do descumprimento da Política de Investimentos no fechamento dos mercados por 5 (cinco) Dias Úteis dentro de um mesmo período de 42 (quarenta e dois ) Dias Úteis; (xv)…",
+      "source_excerpt": "tos Creditórios Refinanciamento Livre , e os Critérios de Elegibilidade previstos neste Regulamento no momento de sua aquisição; (xiii) no caso de substituição e/ou destituição, por qualquer motivo, do Agente de Retenção e Cobrança; (xiv) verificação do descumprimento da Política de Investimentos no fechamento dos mercados por 5 (cinco) Dias Úteis dentro de um mesmo período de 42 (quarenta e dois ) Dias Úteis; (xv)…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200623_regulamento_regulamento_1200623_2026-05-21.pdf",
+      "source_document_id": 1200623,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "ropriedade exclusivamente, não devendo, portanto, ser contabilizados para fins de enquadramento da Classe. Regras, procedimentos e limites para efetuar qualquer modalidade de transferência dos Direitos Creditórios, incluindo, sem limitação, endosso (“ Transferência”) para o Endossante e suas partes relacionadas 4.19 Na hipótese de, após a Data de Aquisição, o Direito Creditório adquirido deixar de atender a qualquer…",
+      "source_excerpt": "ropriedade exclusivamente, não devendo, portanto, ser contabilizados para fins de enquadramento da Classe. Regras, procedimentos e limites para efetuar qualquer modalidade de transferência dos Direitos Creditórios, incluindo, sem limitação, endosso (“ Transferência”) para o Endossante e suas partes relacionadas 4.19 Na hipótese de, após a Data de Aquisição, o Direito Creditório adquirido deixar de atender a qualquer…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1200623_regulamento_regulamento_1200623_2026-05-21.pdf",
+      "source_document_id": 1200623,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "forma que serão de sua propriedade exclusivamente, não devendo, portanto, ser contabilizados para fins de enquadramento da Classe. Regras, procedimentos e limites para efetuar qualquer modalidade de transferência dos Direitos Creditórios, incluindo, sem limitação, endosso (“ Transferência”) para o Endossante e suas partes relacionadas 4.19 Na hipótese de, após a Data de Aquisição, o Direito Creditório adquirido deix…",
+      "source_excerpt": "forma que serão de sua propriedade exclusivamente, não devendo, portanto, ser contabilizados para fins de enquadramento da Classe. Regras, procedimentos e limites para efetuar qualquer modalidade de transferência dos Direitos Creditórios, incluindo, sem limitação, endosso (“ Transferência”) para o Endossante e suas partes relacionadas 4.19 Na hipótese de, após a Data de Aquisição, o Direito Creditório adquirido deix…"
+    }
+  ],
   "emissions": [
     {
       "date": null,
@@ -63,8 +246,22 @@
       "source_excerpt": "esolução CVM 175 (“Regulamento” e “Anexo da Classe”, respectivamente); (iii) Aprovar o que o patrimônio líquido inicial mínimo da Classe, correspondente à soma dos ativos e das disponibilidades integrantes da carteira de investimentos da Classe, deduzidas as exigibilidades da Classe, será equivalente a R$ 1.000.000,00 (um milhão de reais), observado o prazo do artigo 8º, § 3º, da parte geral da Resolução CVM 175; Cl…",
       "source_document": "988020_assembleia_assembleia_988020_2025-09-03.pdf",
       "source_document_id": 988020
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": null,
+      "amount_display": "",
+      "currency": null,
+      "remuneration": "ços; (ii) responsabilidade dos Cotistas e regime de insolvência; (iii) características, direitos, condições de emissão, subscrição, integralização, Amortização e resgate das Cotas; (iv) ordem de alocação de recursos; (v) Assembleia Especial e demais procedimentos aplicáveis às manifestações de vontade dos Cotistas; (vi) remuneração dos prestadores de serviços; (vii) política de investimento e composição e diversific…",
+      "amortization_schedule": "dispõe, sem prejuízo de outros requisitos e informações previstos na regulamentação, sobre: (i) características gerais, incluindo a indicação dos demais prestadores de serviços; (ii) responsabilidade dos Cotistas e regime de insolvência; (iii) características, direitos, condições de emissão, subscrição, integralização, Amortização e resgate das Cotas; (iv) ordem de alocação de recursos; (v) Assembleia Especial e dem…",
+      "maturity": "tens deste Regulamento, nesta Parte Geral e no Anexo I, conforme aplicável; (iii) todos os prazos previstos neste Regulamento, nesta Parte Geral, no Anexo I serão contados na forma prevista no art. 224 da Lei n.º 13.105, de 16 de março de 2015, conforme alterada, isto é, excluindo-se o dia do começo e incluindo- se o do vencimento; (iv) caso qualquer data em que venha a ocorrer evento nos termos deste Regulamento e…",
+      "source_excerpt": "Último dia do mês de novembro de cada ano. V CDT 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA direitos e obrigações distintos das demais Classes, nos termos do art. 5º da Parte Geral da Resolução CVM 175. 1.4 O Anexo de cada classe de Cotas (“Classe”), conforme aplicável, dispõe, sem prejuízo de outros requisitos e informações previstos na regulamentação, sobre: (i) características gerai…",
+      "source_document": "1200623_regulamento_regulamento_1200623_2026-05-21.pdf",
+      "source_document_id": 1200623
     }
   ],
-  "extraction_count": 1,
+  "extraction_count": 4,
   "extraction_errors": []
 }

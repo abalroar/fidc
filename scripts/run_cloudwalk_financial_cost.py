@@ -17,11 +17,13 @@ from services.cloudwalk_financial_cost import (  # noqa: E402
     CostRunConfig,
     build_financial_cost_outputs,
     export_financial_cost_outputs,
+    load_amortization_convention_overrides,
     load_cash_yield_factor,
     load_funding_lines,
     load_ime_financial_snapshots,
     load_spread_overrides,
 )
+from services.fidc_model.b3_cdi import fetch_b3_cdi_monthly_rates  # noqa: E402
 from services.fidc_model.b3_curves import fetch_latest_taxaswap_curve  # noqa: E402
 from services.fidc_model.curves import INTERPOLATION_METHOD_FLAT_FORWARD_252, interpolate_curve  # noqa: E402
 from services.waterfall_schedule import DEFAULT_REFERENCE_DATE, only_digits  # noqa: E402
@@ -46,10 +48,16 @@ def main() -> None:
     end_date = date.fromisoformat(args.end_date) if args.end_date else date(args.year, 12, 31)
     snapshot_date = date.fromisoformat(args.snapshot_date) if args.snapshot_date else _default_snapshot_date(start_date, end_date)
     cdi_aa, cdi_source = _resolve_cdi(args.cdi_aa, date.fromisoformat(args.curve_date))
+    monthly_cdi_rates = () if args.cdi_aa is not None else fetch_b3_cdi_monthly_rates(start_date, end_date)
 
     spread_overrides = load_spread_overrides(args.config_json)
+    amortization_convention_overrides = load_amortization_convention_overrides(args.config_json)
     cash_yield_factor = load_cash_yield_factor(args.config_json)
-    lines = load_funding_lines(args.emissions_csv, spread_overrides=spread_overrides)
+    lines = load_funding_lines(
+        args.emissions_csv,
+        spread_overrides=spread_overrides,
+        amortization_convention_overrides=amortization_convention_overrides,
+    )
     fund_names = {only_digits(line.cnpj): line.fund_name for line in lines if line.fund_name}
     snapshots = load_ime_financial_snapshots(
         [line.cnpj for line in lines if line.included],
@@ -65,8 +73,9 @@ def main() -> None:
             end_date=end_date,
             snapshot_date=snapshot_date,
             cdi_aa=cdi_aa,
-            cdi_source=cdi_source,
+            cdi_source=f"{cdi_source}; CDI mensal B3 composto" if monthly_cdi_rates else cdi_source,
             cash_yield_cdi_factor=cash_yield_factor,
+            monthly_cdi_rates=monthly_cdi_rates,
         ),
     )
     paths = export_financial_cost_outputs(outputs, args.output_dir)

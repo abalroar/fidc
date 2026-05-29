@@ -179,263 +179,149 @@ _LONG_TEXT_ROWS = {
 
 _REVERSE_ENGINEERING_PROMPT = """Você é Codex trabalhando no repositório local `/fidc`.
 
-Tarefa: atualizar o Deep Dive de UMA ÚNICA carteira específica, com o mesmo nível de profundidade usado na curadoria Pravaler. Não faça atualização em massa. Não processe outras carteiras. Não tente economizar tempo reduzindo escopo.
+Tarefa: fazer o Deep Dive regulatório de UMA ÚNICA carteira específica e atualizar o pacote consumido pela aba Deep Dive. Atue como advogado de mercado de capitais, estruturador de renda fixa e engenheiro Python: leia documentos integralmente quando necessário, reconstrua termos econômicos, traduza regras jurídicas em dados auditáveis e diga claramente o que não é monitorável pelo Informe Mensal Estruturado (IME).
 
 INPUTS DA EXECUÇÃO:
 - Nome da carteira: [NOME_DA_CARTEIRA]
 - CNPJs dos fundos: [LISTA_DE_CNPJS]
 - Caminho do repositório: /Users/matheusjprates/fidc
-- Caminhos locais relevantes: [data/raw, reports, data/regulatory_profiles, data/deep_dives, caches IME]
-- Período de análise: [PERÍODO]
+- Período de análise / competência IME: [PERÍODO]
 - Deep Dive ID esperado: [DEEP_DIVE_ID]
-- Outputs esperados: comparison_main.csv, emissions.csv, thresholds.csv, structural_costs.csv, evidence/performance_metrics_enriched.csv, manifest.json, PPTX QA editável
+- Outputs esperados: perfis curados em `data/regulatory_profiles`, pacote `data/deep_dives/<deep_dive_id>/`, evidências, notas de auditoria e PPTX QA editável.
+
+CONTRATO ATUAL DA ABA DEEP DIVE, JÁ VERIFICADO NO REPOSITÓRIO:
+1. A aba consome `data/deep_dives/*/manifest.json`; cada pacote deve ter tabelas em `tables/` e evidências/notas em `evidence/` e `notes/`.
+2. Tabelas padrão do manifesto: `comparison_main`, `structural_costs`, `emissions`, `thresholds`. Tabelas adicionais como `key_findings`, `cedentes_sacados_origem`, `source_vehicle_trace`, `document_inventory` ou `fundonet_document_inventory` são bem-vindas quando ajudam a diligência.
+3. `comparison_main.csv` precisa ter primeira coluna `Nome` e uma coluna por fundo. As 31 linhas hoje renderizadas são, nesta ordem: Grupo; CNPJ; Páginas locais analisadas; Última competência IME; PL (R$ mm); Direitos creditórios / PL; Vencidos Over 30d / crédito; Vencidos Over 60d / crédito; Vencidos Over 90d / crédito; Vencidos Over 180d / crédito; Vencidos Over 360d / crédito; PDD / crédito; PDD / vencidos; Cotas sênior / PL; Cotas mezanino / PL; Cotas subordinadas / PL; Séries/classes emitidas identificadas; Volume emitido identificado (R$ mm); Primeira emissão identificada; Última emissão identificada; Emissões detectadas (data, classe, preço e volume); Remuneração-alvo por emissão detectada; Amortização/vencimento por emissão detectada; Regulamento-base dos thresholds; Alocação mínima em DCs; Subordinação mínima; Evento de avaliação por atraso; Liquidação/vencimento por atraso; Cobertura mínima PDD; Reserva/caixa mínimo; Hedges permitidos.
+4. `emissions.csv` da aba deve ter colunas: `Fundo`, `CNPJ`, `Data`, `Classe/Série`, `Tipo`, `Qtd cotas`, `Preço/VNU`, `Volume identificado (R$ mm)`, `Remuneração-alvo`, `Amortização/vencimento`, `Fonte`.
+5. O perfil curado de emissões em `data/regulatory_profiles/<slug>_cotas_emissoes_pagamentos.csv` deve preservar, quando disponível: `Fundo`, `CNPJ`, `Cota/Classe`, `Tipo`, `Data deliberação`, `Data emissão / 1ª integralização`, `Data encerramento/oferta`, `Quantidade`, `Volume`, `VNU`, `Remuneração`, `Juros/remuneração`, `Amortização principal`, `Status/evidência`, `Fonte`, `Status curadoria`, `arquivo_origem_tabela`.
+6. `thresholds.csv` da aba deve ter colunas: `fundo`, `CNPJ`, `Data regulamento`, `Critério`, `Evento`, `Comparação`, `Limite`, `Monitorável IME`, `Métrica IME`, `Fonte`.
+7. O perfil curado de critérios em `data/regulatory_profiles/<slug>_criteria_monitoraveis_ime.csv` deve ter colunas: `Fundo`, `CNPJ`, `Critério`, `Chave`, `Limite/regra`, `Monitorabilidade IME`, `Métrica IME / proxy`, `Condição de alerta sugerida`, `Observação técnica`, `Fonte`, `Status curadoria`.
+8. Chaves já usadas: `credit_rights_allocation_min`, `subordination_ratio_min`, `default_rate_evaluation_event`, `default_rate_early_maturity`, `pdd_coverage_min`, `minimum_cash_ratio`, `permitted_hedges`, `concentration_limits`, `eligibility_criteria`, `repurchase_indemnity`, `credit_rights_tax_allocation`, `day_trade_ban`, `minimum_net_worth`, `cash_sweep_amortization`, `invested_fund_exposure`, `servicer_identification`, `source_vehicle_trace`, `cnpj_resolution`, `originator_debtor_granularity`.
+9. Valores de monitorabilidade já aceitos: `monitoravel`, `monitoravel com ressalva`, `direto com validação`, `direto com ressalva`, `direto agregado`, `parcial`, `parcial fraco`, `nao_monitoravel`, `não usar via IME`. Use a grafia existente do perfil que estiver replicando; explique sempre a ressalva.
+10. `structural_costs.csv` deve ter colunas: `Fundo`, `CNPJ`, `Item`, `Percentual a.a.`, `Mínimo mensal`, `Fonte`, `Versão vigente / base documental`, `Mudanças relevantes`, `Status curadoria`; deve haver linha de Administração e Gestão por fundo, mesmo que como lacuna explícita.
+11. A aba Deep Dive atualiza ao vivo, quando a linha existe em `comparison_main`, as métricas IME: Última competência IME; PL (R$ mm); Direitos creditórios / PL; Vencidos Over 30/60/90/180/360d / crédito; PDD / crédito; PDD / vencidos; Cotas sênior/mezanino/subordinadas / PL.
+12. A aba Monitoramento avalia proxies com `build_monitoring_tables`: Dir Cred / PL, Over 30/60/90/180/360, PDD / Crédito, PDD / Venc Total, Recompras / Crédito, Cotas SR/MZ/Sub / PL, PL, caixa/disponibilidades e derivativos agregados. Ela classifica verificações como OK, Alerta, Sem dado, Referência ou Qualitativo.
 
 REGRAS INEGOCIÁVEIS:
-1. Analise apenas esta carteira. É proibido atualizar todas as carteiras.
-2. Não faça batch.
-3. Não misture documentos de outros grupos econômicos.
-4. Não use LLM nem API externa nesta etapa.
-5. Use apenas dados já inventariados no repositório: `reports/regulatory_document_inventory.csv`, `reports/regulatory_criteria_matrix.csv`, `data/regulatory_profiles/*`, `data/regulatory_knowledge/*`, `data/raw/*` e caches IME locais.
-6. Não use inferência fraca para preencher thresholds, preço, spread, prazo, remuneração, cronograma, volume ou quantidade de cotas.
-7. Toda afirmação material precisa ter fonte: arquivo, data, seção, página, cláusula ou ID documental quando disponível.
-8. Lacunas devem aparecer como lacunas, não como zeros, médias, extrapolações ou estimativas.
-9. Conflitos entre documentos devem ser registrados.
-10. O resultado precisa ser utilizável na aba Deep Dive e exportável em PPTX editável.
-11. Não rasterize tabelas no PPTX.
-12. Preserve pacotes Deep Dive existentes, dados curados, modelo MC3 e arquivos locais não rastreados.
-13. Preserve a separação: documentos/emissões/thresholds são offline e versionados; métricas IME devem ser atualizadas ao vivo pela aba usando `load_or_extract_informe` quando aplicável.
+1. Analise apenas esta carteira. É proibido atualizar todas as carteiras ou fazer batch.
+2. Não misture documentos de outros grupos econômicos, fundos homônimos ou classes guarda-chuva sem demonstrar a trilha CNPJ -> classe -> documento.
+3. Use evidências locais do repositório: `reports/regulatory_document_inventory.csv`, `reports/regulatory_criteria_matrix.csv`, `data/raw/<cnpj>/`, `data/regulatory_knowledge/<cnpj>.json`, `data/regulatory_profiles/*`, `data/deep_dives/*` e caches IME locais.
+4. Não consulte APIs externas nem crie dados por inferência fraca. Se algo depender de suplemento, bookbuilding, anúncio de encerramento ou ata não localizado, escreva a lacuna.
+5. Toda afirmação material precisa ter fonte: arquivo, data, ID CVM, página, seção, cláusula ou trecho curto auditável quando disponível.
+6. Lacunas devem aparecer como lacunas textuais, nunca como zero, média, extrapolação ou campo vazio.
+7. Conflitos entre documentos, versões de regulamento ou termos econômicos devem ser registrados e resolvidos por hierarquia temporal/documental.
+8. Preserve pacotes existentes, dados curados, arquivos não rastreados e separação entre dado documental offline e métrica IME ao vivo.
+9. O resultado precisa aparecer na aba Deep Dive e exportar PPTX com tabelas editáveis, sem rasterização e sem truncar cronogramas longos com `...`.
 
-ETAPA 1 — SINCRONIZAÇÃO E ESCOPO:
-- Rode `git pull --rebase`.
-- Verifique `git status`.
-- Identifique a carteira em `portfolios.json`.
-- Confirme CNPJs e nomes dos fundos.
-- Liste somente documentos e caches relacionados aos CNPJs informados.
-- Não toque em arquivos não rastreados sem necessidade.
+ETAPA 1 - ESCOPO E BASE LOCAL:
+- Verifique `git status` e registre mudanças alheias sem revertê-las.
+- Identifique a carteira em `portfolios.json`; confirme CNPJs, nomes formais, classes e short names.
+- Liste documentos e caches IME somente dos CNPJs escopados.
+- Levante pacotes Deep Dive parecidos para copiar schema e padrões, não conteúdo.
 
-ETAPA 2 — INVENTÁRIO DOCUMENTAL DA CARTEIRA:
-Para cada CNPJ, inventarie todos os documentos disponíveis no repo:
-- regulamentos;
-- regulamentos consolidados;
-- suplementos;
-- atas de assembleia;
-- anúncios de início/encerramento;
-- documentos de emissão;
-- fatos relevantes;
-- relatórios trimestrais;
-- demonstrações financeiras;
-- relatórios de rating;
-- comunicados a cotistas;
-- XML/IME;
-- arquivos auxiliares.
+ETAPA 2 - INVENTÁRIO E COBERTURA DOCUMENTAL:
+Para cada CNPJ, inventarie: regulamentos, consolidados, suplementos/apêndices, atas, anúncios de início/encerramento, documentos de oferta pública, fatos relevantes, comunicados, relatórios trimestrais, demonstrações financeiras, rating, XML/IME e auxiliares. Conte documentos e, quando possível, páginas locais analisáveis. Separe documentos sem PDF local.
 
-Use preferencialmente:
-- `reports/regulatory_document_inventory.csv`;
-- `reports/regulatory_criteria_matrix.csv`;
-- `data/raw/<cnpj>/`;
-- `data/regulatory_knowledge/`;
-- `data/regulatory_profiles/`;
-- caches IME existentes.
+ETAPA 3 - DUE DILIGENCE REGULATÓRIA COMPLETA:
+Leia os documentos relevantes como advogado/estruturador. Para cada fundo, extraia e explique:
+- regulamento vigente e versões anteriores relevantes;
+- política de investimento, ativos permitidos e ativos vedados;
+- critérios de elegibilidade dos direitos creditórios;
+- condições de cessão, recompra, substituição, indenização, coobrigação e vícios de lastro;
+- limites de concentração por cedente, sacado, devedor, endossante, grupo econômico, classe de ativo, originador e partes relacionadas;
+- derivativos/hedge permitidos, limites e finalidade;
+- subordinação, relação mínima, razão de garantia, índice de cobertura, reservas, caixa mínimo, cash sweep e waterfall;
+- eventos de avaliação, eventos de liquidação, vencimento antecipado, aceleração/amortização extraordinária, waivers e assembleias;
+- gatilhos de atraso/inadimplência, PDD, recompras, diluição, chargeback, cancelamento, fraude, pré-pagamento ou contestação quando aplicável;
+- cross default/cross acceleration do cedente, originador, endossante, grupo econômico ou prestadores essenciais;
+- troca, renúncia ou substituição de gestor, administrador, custodiante, agente de cobrança/recebimento, escriturador e servicer;
+- público-alvo, rating, prazo de duração, responsabilidades e alterações materiais.
 
-Conte páginas de PDFs quando isso for útil para indicar cobertura documental. Não use quantidade de PDFs como métrica principal se páginas forem mais informativas.
+ETAPA 4 - EMISSÕES E CALENDÁRIO DE PAGAMENTOS:
+Para cada emissão/série/classe, reconstrua:
+- fundo, CNPJ, classe/série, tipo de cota;
+- data de deliberação, emissão/primeira integralização, início e encerramento da oferta;
+- quantidade emitida, VNU/preço unitário, volume máximo/aprovado/distribuído;
+- remuneração-alvo, benchmark, DI/CDI + spread aditivo, IPCA + spread, taxa fixa, fator adicional, aceleração e fonte do spread;
+- juros, periodicidade, carência, prazo, vencimento final, amortização programada, amortização extraordinária e data de pagamento;
+- rating quando estiver vinculado à série;
+- fonte documental e status de curadoria.
 
-ETAPA 3 — LEITURA E EXTRAÇÃO DOCUMENTAL:
-Leia documentos relevantes um a um. Dê prioridade a documentos de emissão, suplementos, atas e regulamentos mais recentes, mas não ignore versões antigas quando forem necessárias para reconstruir histórico.
+Regra crítica: procure documentos públicos de emissão para validar tamanho e spread. Se o spread vier como `CDI`, `DI` ou `Taxa DI`, normalize como índice + spread aditivo percentual quando o texto permitir. Se o texto remeter a bookbuilding/suplemento/ato não localizado, escreva explicitamente `spread final não localizado`, `sobretaxa definida em bookbuilding`, `sobretaxa definida em ato`, `sobretaxa definida em suplemento`, `prazo remetido ao suplemento` ou `cronograma fechado não identificado`.
 
-Extraia, por emissão/série/classe:
-- fundo;
-- CNPJ;
-- classe/série;
-- tipo de cota: sênior, mezanino, subordinada;
-- data de deliberação;
-- data de emissão / primeira integralização;
-- data de encerramento/oferta;
-- quantidade emitida;
-- VNU/preço unitário;
-- volume total;
-- remuneração-alvo / benchmark / CDI + spread / IPCA + spread;
-- se o spread veio de bookbuilding, ato ou suplemento;
-- prazo;
-- carência;
-- juros;
-- amortização;
-- vencimento;
-- fonte documental;
-- status de curadoria.
+ETAPA 5 - CRITÉRIOS MONITORÁVEIS E QUALITATIVOS:
+Monte uma linha por critério material, mesmo que não seja monitorável. Para cada linha, preencha:
+- `Critério`: nome legível para analista;
+- `Chave`: chave canônica existente ou nova chave curta e estável;
+- `Limite/regra`: comparação, limite, janela, cura e evento;
+- `Monitorabilidade IME`: direto/monitorável/parcial/não monitorável, com ressalva quando a regra jurídica não for perfeitamente replicável;
+- `Métrica IME / proxy`: métrica existente do app ou proxy proposta;
+- `Condição de alerta sugerida`: condição operacional que a ferramenta poderia checar mensalmente;
+- `Observação técnica`: por que o IME basta, não basta ou exige input manual;
+- `Fonte` e `Status curadoria`.
 
-Se o valor final não estiver localizado, escreva explicitamente:
-- `spread final não localizado`;
-- `sobretaxa definida em bookbuilding`;
-- `sobretaxa definida em ato`;
-- `sobretaxa definida em suplemento`;
-- `prazo remetido ao suplemento`;
-- `cronograma fechado não identificado`;
-conforme o caso.
+Inclua obrigatoriamente, quando existirem no documento: alocação mínima em DCs, subordinação/relação mínima, índices Over 30/60/90/180/360, PDD/cobertura, recompras, reservas/caixa, derivativos, concentração, elegibilidade, recompra/indenização, chargeback/cancelamento, cross default, troca de prestadores e eventos de avaliação/liquidação.
 
-ETAPA 4 — CUSTOS ESTRUTURAIS:
-Para cada fundo, pesquise em todos os documentos disponíveis da carteira:
-- regulamentos;
-- suplementos;
-- atas;
-- demonstrações financeiras;
-- notas explicativas;
-- documentos de emissão;
-- demais PDFs/XMLs locais.
+Não transforme regra jurídica em alerta duro se o IME não tiver granularidade. Exemplo: concentração por devedor/cedente é normalmente `nao_monitoravel`; derivativos são no máximo parciais se o IME só traz posição agregada; reservas são parciais se exigirem cronograma de amortização/despesas; índice de cobertura com VP/fatores/comissões exige parâmetros manuais.
 
-Extraia e consolide, sempre priorizando a versão vigente mais recente:
-- taxa de administração (% a.a. sobre o Patrimônio Líquido);
-- taxa de gestão (% a.a. sobre o Patrimônio Líquido);
-- valor mínimo mensal de administração;
-- valor mínimo mensal de gestão;
-- indexador/reajuste dos mínimos, quando existir;
-- se custódia, escrituração, controladoria, agente de recebimento ou gestão estiverem embutidos na Taxa de Administração;
-- mudanças relevantes entre versões antigas e vigente.
+ETAPA 6 - CONFRONTO COM MONITORAMENTO E IME:
+- Carregue o IME local via cache quando existir e use `build_monitoring_tables`/`build_dashboard_data` para obter métricas padronizadas.
+- Compare os critérios documentais com PL, Dir Cred / PL, Over 30/60/90/180/360, PDD / Crédito, PDD / Venc Total, Recompras / Crédito, Cotas SR/MZ/Sub / PL, caixa/disponibilidades e derivativos.
+- Separe: dado documental offline; dado IME ao vivo; proxy calculável; proxy parcial; lacuna sem proxy; divergência; limitação metodológica.
+- Se a competência IME estiver ausente, registre `sem competência IME` e preserve o pacote documental.
 
-Produza tabela padronizada `structural_costs.csv` com colunas:
-- `Fundo`;
-- `CNPJ`;
-- `Item` (`Administração` ou `Gestão`);
-- `Percentual a.a.`;
-- `Mínimo mensal`;
-- `Fonte`;
-- `Versão vigente / base documental`;
-- `Mudanças relevantes`;
-- `Status curadoria`.
+ETAPA 7 - CUSTOS ESTRUTURAIS:
+Extraia administração e gestão separadamente, com percentual a.a., mínimo mensal, indexador/reajuste, bases de cálculo, serviços embutidos, taxas máximas, faixas por PL e mudanças vs versões antigas. Se gestão estiver embutida na administração, escreva explicitamente. Se não houver mínimo separado, escreva `Sem mínimo mensal separado identificado`.
 
-Regras:
-- Não misture taxa de administração com taxa de gestão quando o regulamento separar ambas.
-- Se gestão estiver embutida na administração, escreva isso explicitamente.
-- Se não houver mínimo mensal separado, escreva `Sem mínimo mensal separado identificado`.
-- Se houver tabela escalonada por PL, preserve as faixas.
-- Se houver múltiplas versões, use a vigente mais recente e registre alteração material relevante.
-- Se a informação não aparecer, registre lacuna explícita com fonte da busca, nunca zero.
-
-ETAPA 5 — REGULAMENTO MAIS RECENTE E CRITÉRIOS MONITORÁVEIS:
-Para cada fundo, identifique o regulamento/documento vigente mais recente disponível.
-
-Extraia critérios monitoráveis ou parcialmente monitoráveis via IME:
-- subordinação mínima;
-- relação mínima;
-- alocação mínima em direitos creditórios;
-- índice de atraso / inadimplência por faixa;
-- PDD / cobertura;
-- reserva de liquidez / caixa;
-- derivativos/hedge permitidos;
-- concentração;
-- eventos de avaliação;
-- eventos de liquidação;
-- vencimento antecipado;
-- waivers/amendments relevantes.
-
-Para cada critério, registre:
-- limite;
-- comparação;
-- evento;
-- métrica IME correspondente;
-- grau de monitorabilidade: monitorável, monitorável com ressalva, parcial, não monitorável;
-- fonte exata.
-
-Não transforme regra jurídica em métrica se o IME não tiver granularidade suficiente.
-
-ETAPA 6 — CONFRONTO COM DADOS ESTRUTURADOS DO APP:
-Compare achados documentais com os dados estruturados já usados pelo app:
-- IME / Fundos.NET;
-- `build_monitoring_tables`;
-- Deep Dive live IME metrics;
-- caches locais;
-- dados de PL, direitos creditórios, vencidos, PDD, cotas/PL, subordinação.
-
-Separe:
-- dados documentais offline;
-- dados IME ao vivo;
-- lacunas;
-- divergências;
-- limitações metodológicas.
-
-ETAPA 7 — PERSISTÊNCIA:
-Crie ou atualize arquivos específicos da carteira, seguindo padrão auditável:
-- `data/regulatory_profiles/<slug_carteira>_cotas_emissoes_pagamentos.csv`
-- `data/regulatory_profiles/<slug_carteira>_criteria_monitoraveis_ime.csv`
-- `data/regulatory_profiles/structural_costs.csv` ou `data/regulatory_profiles/<slug_carteira>_structural_costs.csv`, conforme padrão disponível
+ETAPA 8 - PERSISTÊNCIA:
+Crie/atualize somente os arquivos da carteira:
+- `data/regulatory_profiles/<slug>_cotas_emissoes_pagamentos.csv`
+- `data/regulatory_profiles/<slug>_criteria_monitoraveis_ime.csv`
+- `data/regulatory_profiles/<slug>_structural_costs.csv` ou `data/regulatory_profiles/structural_costs.csv`, conforme padrão existente
+- `data/deep_dives/<deep_dive_id>/tables/comparison_main.csv`
 - `data/deep_dives/<deep_dive_id>/tables/emissions.csv`
 - `data/deep_dives/<deep_dive_id>/tables/thresholds.csv`
 - `data/deep_dives/<deep_dive_id>/tables/structural_costs.csv`
-- `data/deep_dives/<deep_dive_id>/tables/comparison_main.csv`
-- `data/deep_dives/<deep_dive_id>/evidence/performance_metrics_enriched.csv`
+- `data/deep_dives/<deep_dive_id>/evidence/*.csv`
+- `data/deep_dives/<deep_dive_id>/notes/*.md`
 - `data/deep_dives/<deep_dive_id>/manifest.json`
 
-Se o gerador ainda não suportar uma curadoria específica para esta carteira, implemente a menor generalização segura, sem hardcode frágil, sem quebrar Pravaler e sem quebrar carteiras já existentes.
+Se o gerador ainda não suportar a curadoria específica, implemente a menor generalização segura, sem hardcode frágil e sem quebrar pacotes já existentes.
 
-ETAPA 8 — FORMATO DO COMPARATIVO:
-A tabela principal deve ter:
-- primeira coluna: `Nome`;
-- demais colunas: um fundo por coluna;
-- linhas para métricas IME ao vivo;
-- linhas para emissões detectadas;
-- linhas para remuneração-alvo por emissão;
-- linhas para amortização/vencimento;
-- linhas para subordinação mínima;
-- linhas para alocação mínima;
-- linhas para eventos de avaliação/liquidação;
-- linhas para reserva/caixa;
-- linhas para hedges permitidos;
-- linhas ou tabela dedicada para custos estruturais de administração/gestão;
-- linhas para lacunas relevantes.
-
-Texto longo deve quebrar de forma legível no Streamlit e no PPTX. Não deixe `...` truncando cronogramas ou emissões.
-
-ETAPA 9 — PPTX EDITÁVEL:
-Gere PPTX QA com `services.deep_dive_ppt_export.build_deep_dive_pptx_bytes`.
-Verifique:
-- tabelas reais editáveis;
-- cabeçalho preservado;
-- múltiplos slides quando necessário;
-- sem texto truncado;
-- sem reticências indevidas;
-- sem rasterização;
-- layout institucional sóbrio.
-
-ETAPA 10 — VALIDAÇÕES:
+ETAPA 9 - VALIDAÇÃO:
 Antes de encerrar, rode:
-- `py_compile` nos arquivos Python alterados;
-- validação de CSV com pandas;
-- contagem de emissões por fundo;
-- checagem de remuneração vazia;
-- checagem de amortização/vencimento vazio;
-- checagem de `structural_costs.csv` com linhas para administração e gestão por fundo;
-- checagem de colunas esperadas em `comparison_main.csv`;
-- geração e abertura estrutural do PPTX via `python-pptx`;
-- `git diff --check`.
+- validação de CSV com pandas e colunas esperadas;
+- contagem de emissões por fundo e checagem de fonte por emissão;
+- checagem de remuneração, spread, volume, amortização/vencimento e lacunas textuais;
+- checagem de critérios com chave, monitorabilidade, proxy/alerta/observação e fonte;
+- checagem de `structural_costs.csv` com Administração e Gestão por fundo;
+- geração/leitura estrutural do pacote pela aba Deep Dive;
+- PPTX QA com `services.deep_dive_ppt_export.build_deep_dive_pptx_bytes`;
+- `py_compile` dos Python alterados e `git diff --check`.
 
-Critérios mínimos:
-- nenhuma remuneração deve ficar vazia sem justificativa textual;
-- nenhuma lacuna deve virar zero;
-- cada emissão deve ter fonte;
-- cada threshold deve ter fonte;
-- cada custo estrutural deve ter fonte ou lacuna explícita;
-- o pacote deve aparecer na aba Deep Dive;
-- o PPTX deve ser editável.
-
-ETAPA 11 — ENTREGA:
-Informe:
-- carteira processada;
-- CNPJs processados;
-- documentos/fontes usados;
-- número de emissões/classes detectadas por fundo;
-- principais spreads/benchmarks encontrados;
-- principais lacunas;
-- custos estruturais de administração/gestão e mínimos mensais encontrados;
-- critérios monitoráveis por IME;
+ETAPA 10 - ENTREGA:
+Informe de forma objetiva:
+- carteira e CNPJs processados;
+- documentos/fontes usados e cobertura;
+- emissões/classes detectadas por fundo, volumes, spreads e calendário;
+- principais critérios monitoráveis/qualitativos e proxies IME;
+- principais lacunas, conflitos e riscos de leitura manual ainda necessários;
+- custos estruturais;
 - arquivos alterados;
-- validações realizadas;
-- hash do commit, se houver commit;
-- status do push.
+- validações realizadas.
 
-Se for pedido commit/push:
-- adicione somente arquivos rastreados e relevantes;
-- não adicione PDFs soltos, relatórios temporários ou arquivos não relacionados;
-- faça commit com mensagem objetiva;
-- faça push."""
+Se for pedido commit/push: adicione somente arquivos rastreados e relevantes; não adicione PDFs soltos, outputs temporários ou arquivos não relacionados; faça commit objetivo e push."""
+
+
+_REVERSE_ENGINEERING_PROMPT_PATH = Path("docs/fidc/monitoramento/prompt_deep_dive_nova_carteira.md")
+
+
+def _load_reverse_engineering_prompt() -> str:
+    try:
+        return _REVERSE_ENGINEERING_PROMPT_PATH.read_text(encoding="utf-8")
+    except OSError:
+        return _REVERSE_ENGINEERING_PROMPT
 
 
 def render_tab_deep_dive(
@@ -454,7 +340,7 @@ def render_tab_deep_dive(
     )
     if show_curation_tools:
         with st.expander("Prompt para atualizar Deep Dives", expanded=False):
-            st.code(_REVERSE_ENGINEERING_PROMPT, language="markdown")
+            st.code(_load_reverse_engineering_prompt(), language="markdown")
 
     _render_cloudwalk_waterfall(wrap=not compact, compact=compact)
 
@@ -481,6 +367,7 @@ def render_tab_deep_dive(
         for manifest in manifests
         if selected_portfolio_id == "Todos" or deep_dive_matches_portfolio(manifest, selected_portfolio_id, selected_signature)
     ]
+    available = sorted(available, key=lambda item: item.generated_at or "", reverse=True)
     if not available:
         st.warning("Não há Deep Dive salvo para a carteira selecionada.")
         return

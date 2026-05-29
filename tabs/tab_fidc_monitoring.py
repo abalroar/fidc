@@ -297,18 +297,22 @@ def render_tab_fidc_monitoring(
     if selected_portfolio is None:
         return
 
-    cache_months = _render_cache_horizon_control(selected_portfolio=selected_portfolio, period=period)
+    cache_months = (
+        _render_cache_horizon_control(selected_portfolio=selected_portfolio, period=period)
+        if show_portfolio_selector
+        else _default_cache_months_for_period(period)
+    )
     load_period = _build_cache_load_period(period=period, cache_months=cache_months)
-
-    _render_requested_load_chips(period=period, load_period=load_period, cache_months=cache_months, fund_count=len(selected_portfolio.funds))
 
     session_key = _session_key(selected_portfolio, period, cache_months)
     if session_key not in st.session_state:
         st.session_state[session_key] = _load_portfolio_monitoring(selected_portfolio, period, cache_months)
 
-    outputs = st.session_state.get(session_key)
+    outputs = st.session_state.get(session_key) or []
+    regulatory_outputs = _regulatory_outputs_for_portfolio(selected_portfolio, outputs)
     if not outputs:
         st.info("A carteira ainda não possui dados de monitoramento para este período.")
+        _render_regulatory_base_tab(regulatory_outputs)
         return
 
     success_outputs = [item for item in outputs if item.get("tables") is not None]
@@ -319,26 +323,21 @@ def render_tab_fidc_monitoring(
                 st.caption(f"**{item['display_name']}** · {item['cnpj']} — {item['error']}")
     if not success_outputs:
         st.warning("Nenhum fundo carregou dados suficientes para montar o monitoramento.")
+        _render_regulatory_base_tab(regulatory_outputs)
         return
 
-    _render_loaded_period_status(success_outputs, requested_period=period, load_period=load_period, cache_months=cache_months)
-
     if use_tabs:
-        cockpit_tab, regulatory_tab, fund_tab = st.tabs(["Cockpit", "Base regulatória", "Tabela por Fundo"])
+        cockpit_tab, regulatory_tab = st.tabs(["Cockpit", "Base regulatória"])
         with cockpit_tab:
             _render_cockpit_tab(success_outputs)
         with regulatory_tab:
-            _render_regulatory_base_tab(success_outputs)
-        with fund_tab:
-            _render_fund_boards_tab(success_outputs)
+            _render_regulatory_base_tab(regulatory_outputs)
         return
 
     st.markdown("### Cockpit")
     _render_cockpit_tab(success_outputs)
     st.markdown("### Base regulatória")
-    _render_regulatory_base_tab(success_outputs, compact=True)
-    st.markdown("### Tabela por Fundo")
-    _render_fund_boards_tab(success_outputs, compact=True)
+    _render_regulatory_base_tab(regulatory_outputs, compact=True)
 
 
 def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRecord | None:
@@ -354,7 +353,7 @@ def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRe
 
 def _render_cache_horizon_control(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection) -> int:
     target_months = display_month_count_for_period(period)
-    recommended = max(target_months + 3, 15)
+    recommended = _default_cache_months_for_period(period)
     options = sorted({*_CACHE_MONTH_OPTIONS, recommended, target_months})
     default_index = options.index(recommended)
     key = f"monitoring_cache_months::{selected_portfolio.id}"
@@ -368,6 +367,10 @@ def _render_cache_horizon_control(*, selected_portfolio: PortfolioRecord, period
             help="Meses lidos do cache local.",
         )
     )
+
+
+def _default_cache_months_for_period(period: ImePeriodSelection) -> int:
+    return max(display_month_count_for_period(period) + 3, 15)
 
 
 def _build_cache_load_period(*, period: ImePeriodSelection, cache_months: int) -> ImePeriodSelection:
@@ -467,6 +470,36 @@ def _load_single_monitoring_fund(
         "dashboard_error": dashboard_error,
         "load_seconds": round(time.perf_counter() - fund_started, 3),
     }
+
+
+def _regulatory_outputs_for_portfolio(portfolio: PortfolioRecord, outputs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    by_cnpj: dict[str, dict[str, Any]] = {}
+    for item in outputs:
+        cnpj = normalize_cnpj(str(item.get("cnpj") or ""))
+        if not cnpj:
+            continue
+        normalized = dict(item)
+        normalized["cnpj"] = cnpj
+        normalized["display_name"] = normalize_portfolio_fund_name(str(item.get("display_name") or cnpj), cnpj)
+        by_cnpj[cnpj] = normalized
+
+    ordered: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for fund in portfolio.funds:
+        cnpj = normalize_cnpj(fund.cnpj)
+        if not cnpj:
+            continue
+        item = by_cnpj.get(cnpj)
+        if item is None:
+            item = {
+                "cnpj": cnpj,
+                "display_name": normalize_portfolio_fund_name(fund.display_name, cnpj),
+            }
+        ordered.append(item)
+        seen.add(cnpj)
+
+    ordered.extend(item for cnpj, item in by_cnpj.items() if cnpj not in seen)
+    return ordered
 
 
 def _load_or_build_monitoring_tables(
@@ -650,12 +683,8 @@ def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
     if not reference:
         st.info("Não há competência disponível para montar o cockpit.")
         return
-    st.markdown("### Cockpit da carteira")
-    _render_cockpit_cards(outputs, reference, eligible_count=reference_count, total_count=reference_total)
+    _ = reference_count, reference_total
     st.markdown(_render_cockpit_table_html(outputs, reference), unsafe_allow_html=True)
-    with st.expander("Carga e cache", expanded=False):
-        st.caption("`hit` = cache; `miss` = recalculado.")
-        st.dataframe(_build_cache_diagnostics_df(outputs), hide_index=True, use_container_width=True)
 
 
 def _render_regulatory_base_tab(outputs: list[dict[str, Any]], *, compact: bool = False) -> None:
@@ -678,7 +707,6 @@ def _render_regulatory_base_tab(outputs: list[dict[str, Any]], *, compact: bool 
         st.code("python3 scripts/build_regulatory_knowledge.py", language="bash")
         return
 
-    st.markdown("### Base regulatória")
     if loaded:
         st.dataframe(pd.DataFrame(knowledge_summary_rows(loaded)), hide_index=True, use_container_width=True)
     else:
@@ -714,15 +742,16 @@ def _render_regulatory_base_tab(outputs: list[dict[str, Any]], *, compact: bool 
         else pd.DataFrame()
     )
 
-    _render_regulatory_profile_chips(selected, profile)
-
-    if selected_output is not None and profile is not None and not profile.criteria_df.empty:
+    if selected_output is not None and selected_output.get("tables") is not None and profile is not None and not profile.criteria_df.empty:
         st.markdown("#### Monitoramento IME")
         checks_df = _build_regulatory_monitoring_checks(selected_output, profile.criteria_df)
         if checks_df.empty:
             st.caption("Sem critério curado com proxy IME para a competência carregada.")
         else:
             st.dataframe(checks_df, hide_index=True, use_container_width=True)
+    elif profile is not None and not profile.criteria_df.empty:
+        st.markdown("#### Monitoramento IME")
+        st.caption("Base regulatória disponível; carregue o IME da carteira para calcular os checks monitoráveis do período.")
 
     st.markdown("#### Emissões e calendário de pagamentos")
     calendar_df = pd.DataFrame(payment_calendar_rows(profile.emissions_df)) if profile is not None else pd.DataFrame()
@@ -731,9 +760,7 @@ def _render_regulatory_base_tab(outputs: list[dict[str, Any]], *, compact: bool 
     else:
         if not emissions_df.empty:
             st.dataframe(_drop_selected_fund_columns(emissions_df), hide_index=True, use_container_width=True)
-        if not calendar_df.empty:
-            with st.expander("Calendário operacional extraído", expanded=not compact):
-                st.dataframe(calendar_df, hide_index=True, use_container_width=True)
+        _ = calendar_df
 
     st.markdown("#### Critérios monitoráveis e qualitativos")
     extraction_errors = selected.payload.get("extraction_errors") if selected is not None else []
@@ -744,14 +771,7 @@ def _render_regulatory_base_tab(outputs: list[dict[str, Any]], *, compact: bool 
     else:
         st.dataframe(_drop_selected_fund_columns(criteria_df), hide_index=True, use_container_width=True)
 
-    st.markdown("#### Timeline documental CVM")
-    if timeline_df.empty:
-        st.caption("Sem documentos institucionais classificados para este fundo.")
-    else:
-        st.dataframe(timeline_df, hide_index=True, use_container_width=True)
-
-    with st.expander("Documentos CVM inventariados", expanded=False):
-        st.dataframe(inventory_df, hide_index=True, use_container_width=True)
+    _ = timeline_df, inventory_df
 
     if missing:
         with st.expander("Fundos sem base gerada", expanded=False):

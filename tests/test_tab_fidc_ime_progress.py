@@ -49,6 +49,14 @@ def _make_streamlit_stub():
 # in test environments where Streamlit is not installed.
 if "streamlit" not in sys.modules:
     _stub_module = types.ModuleType("streamlit")
+
+    class _SpinnerStub:
+        def __enter__(self):  # noqa: ANN001
+            return self
+
+        def __exit__(self, *_args):  # noqa: ANN001
+            return False
+
     def _cache_data(*_args, **_kwargs):  # noqa: ANN001
         def _decorator(func):  # noqa: ANN001
             return func
@@ -59,6 +67,7 @@ if "streamlit" not in sys.modules:
     _stub_module.empty = lambda: None  # type: ignore[attr-defined]
     _stub_module.caption = lambda *a, **kw: None  # type: ignore[attr-defined]
     _stub_module.cache_data = _cache_data  # type: ignore[attr-defined]
+    _stub_module.spinner = lambda *a, **kw: _SpinnerStub()  # type: ignore[attr-defined]
     _stub_module.session_state = {}  # type: ignore[attr-defined]
     sys.modules["streamlit"] = _stub_module
 
@@ -90,6 +99,29 @@ class TabFidcImeProgressTests(unittest.TestCase):
 
         self.assertIn(b'"quando"', encoded)
         self.assertIn(b"2026-04-09 12:30:00", encoded)
+
+    def test_executive_memory_normalisation_accepts_portfolio_schema(self) -> None:
+        frame = pd.DataFrame(
+            [
+                {
+                    "tipo_variavel": "Prazo / duration",
+                    "bloco_executivo": "Prazo",
+                    "componente": "Prazo médio proxy agregado",
+                    "variavel_final": "duration_history_df.duration_days",
+                    "formula": "numerador / denominador",
+                }
+            ]
+        )
+
+        normalised = tab_fidc_ime._normalise_executive_memory_frame(frame)
+        sorted_frame = normalised.sort_values(
+            ["tipo_variavel", "bloco_executivo", "componente", "variavel_final"],
+            na_position="last",
+        )
+        formatted = tab_fidc_ime._format_executive_memory_table(sorted_frame)
+
+        self.assertEqual("Prazo", formatted.iloc[0]["Bloco"])
+        self.assertIn("Fonte CVM", formatted.columns)
 
     def test_line_history_chart_accepts_over_chart_frame_without_duplicate_columns(self) -> None:
         chart_df = pd.DataFrame(
@@ -298,6 +330,39 @@ class TabFidcImeProgressTests(unittest.TestCase):
 
         self.assertEqual(["2 bi", "18 mm"], chart_df["label_fmt"].tolist())
 
+    def test_executive_quota_bar_size_preserves_gap_in_dense_windows(self) -> None:
+        self.assertGreater(tab_fidc_ime._executive_quota_bar_size(6), tab_fidc_ime._executive_quota_bar_size(36))
+        self.assertLessEqual(tab_fidc_ime._executive_quota_bar_size(36), 7)
+
+    def test_dense_stacked_history_bar_chart_adds_visible_separators(self) -> None:
+        months = pd.date_range("2023-05-01", periods=36, freq="MS")
+        frame = pd.DataFrame(
+            [
+                {
+                    "competencia": month.strftime("%m/%Y"),
+                    "competencia_dt": month,
+                    "serie": "Subordinada",
+                    "ordem": 1,
+                    "valor": 10.0,
+                }
+                for month in months
+            ]
+        )
+
+        chart = tab_fidc_ime._stacked_history_bar_chart(
+            frame,
+            title=None,
+            y_title="R$",
+            value_column="valor",
+            bar_size=tab_fidc_ime._executive_quota_bar_size(36),
+            show_segment_labels=False,
+        )
+
+        mark = chart.to_dict()["mark"]
+        self.assertEqual(7, mark["size"])
+        self.assertEqual("#f8fafc", mark["stroke"])
+        self.assertEqual(1.4, mark["strokeWidth"])
+
     def test_duration_line_chart_renders_labels_for_all_points(self) -> None:
         frame = pd.DataFrame(
             {
@@ -401,6 +466,30 @@ class TabFidcImeProgressTests(unittest.TestCase):
         connector_dataset = spec["layer"][1]["data"]["name"]
         connector_points = datasets[connector_dataset]
         self.assertEqual({"fev-26", ""}, {row["competencia_plot"] for row in connector_points})
+
+    def test_dense_aging_history_callout_chart_adds_visible_separators(self) -> None:
+        months = pd.date_range("2023-05-01", periods=36, freq="MS")
+        frame = pd.DataFrame(
+            [
+                {
+                    "competencia": month.strftime("%m/%Y"),
+                    "competencia_dt": month,
+                    "faixa": "Até 30 dias",
+                    "ordem": 1,
+                    "percentual_inadimplencia": 100.0,
+                    "percentual_direitos_creditorios": 3.0,
+                }
+                for month in months
+            ]
+        )
+
+        prepared = tab_fidc_ime._prepare_aging_history_chart_frame(frame)
+        chart = tab_fidc_ime._aging_history_callout_chart(prepared, title=None)
+
+        mark = chart.to_dict()["layer"][0]["mark"]
+        self.assertEqual(7, mark["size"])
+        self.assertEqual("#f8fafc", mark["stroke"])
+        self.assertEqual(1.4, mark["strokeWidth"])
 
     def test_stacked_history_bar_chart_can_hide_segment_labels_and_keep_totals(self) -> None:
         frame = pd.DataFrame(

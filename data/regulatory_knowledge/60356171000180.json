@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "CLOUDWALK PI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO",
   "fund_cnpj": "60.356.171/0001-80",
-  "generated_at": "2026-05-10T03:13:41Z",
+  "generated_at": "2026-05-29T01:34:50Z",
   "documents": [
     {
       "id": 883040,
@@ -65,14 +65,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "23/04/2025",
       "data_entrega": "23/04/2025 15:09",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/60356171000180/883903_assembleia_assembleia_883903_2025-04-23.pdf"
+      "source_file": "data/raw/60356171000180/883903_emissao_emissao_883903_2025-04-23.pdf"
     },
     {
       "id": 884542,
@@ -227,6 +227,48 @@
       "downloaded": true,
       "download_error": "",
       "source_file": "data/raw/60356171000180/1086219_assembleia_assembleia_1086219_2026-01-14.pdf"
+    },
+    {
+      "id": 1196832,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 20:23",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1198483,
+      "categoria": "Comunicado ao Mercado",
+      "tipo": "Outros Comunicados Não Considerados Fatos Relevantes ",
+      "especie": "",
+      "classification": "evento",
+      "data_referencia": "11/05/2026",
+      "data_entrega": "18/05/2026 16:49",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/60356171000180/1198483_evento_evento_1198483_2026-05-11.pdf"
+    },
+    {
+      "id": 1204286,
+      "categoria": "Relatórios",
+      "tipo": "Relatório de Agência de Rating",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "15/05/2026",
+      "data_entrega": "26/05/2026 20:16",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
     }
   ],
   "criteria": [
@@ -883,6 +925,6 @@
       "source_document_id": 1086219
     }
   ],
-  "extraction_count": 9,
+  "extraction_count": 10,
   "extraction_errors": []
 }

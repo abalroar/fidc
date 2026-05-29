@@ -2,21 +2,21 @@
   "schema_version": 1,
   "fund_name": "CLOUDWALK A.I. FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO",
   "fund_cnpj": "57.609.282/0001-46",
-  "generated_at": "2026-05-10T03:10:09Z",
+  "generated_at": "2026-05-29T01:34:46Z",
   "documents": [
     {
       "id": 757909,
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "07/10/2024",
       "data_entrega": "14/10/2024 20:20",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/57609282000146/757909_assembleia_assembleia_757909_2024-10-07.pdf"
+      "source_file": "data/raw/57609282000146/757909_emissao_emissao_757909_2024-10-07.pdf"
     },
     {
       "id": 757913,
@@ -341,6 +341,20 @@
       "source_file": "data/raw/57609282000146/1086719_assembleia_assembleia_1086719_2026-01-14.pdf"
     },
     {
+      "id": 1196824,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 20:22",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
       "id": 1157275,
       "categoria": "Assembleia",
       "tipo": "AGO",
@@ -355,6 +369,34 @@
       "source_file": "data/raw/57609282000146/1157275_assembleia_assembleia_1157275_2026-04-08.pdf"
     },
     {
+      "id": 1198480,
+      "categoria": "Comunicado ao Mercado",
+      "tipo": "Outros Comunicados Não Considerados Fatos Relevantes ",
+      "especie": "",
+      "classification": "evento",
+      "data_referencia": "11/05/2026",
+      "data_entrega": "18/05/2026 16:47",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/57609282000146/1198480_evento_evento_1198480_2026-05-11.pdf"
+    },
+    {
+      "id": 1198765,
+      "categoria": "Assembleia",
+      "tipo": "AGO",
+      "especie": "Ata da Assembleia",
+      "classification": "assembleia",
+      "data_referencia": "11/05/2026 10:00",
+      "data_entrega": "18/05/2026 19:07",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/57609282000146/1198765_assembleia_assembleia_1198765_2026-05-11.pdf"
+    },
+    {
       "id": 1179452,
       "categoria": "Assembleia",
       "tipo": "AGO",
@@ -367,6 +409,20 @@
       "downloaded": true,
       "download_error": "",
       "source_file": "data/raw/57609282000146/1179452_assembleia_assembleia_1179452_2026-05-15.pdf"
+    },
+    {
+      "id": 1204281,
+      "categoria": "Relatórios",
+      "tipo": "Relatório de Agência de Rating",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "15/05/2026",
+      "data_entrega": "26/05/2026 20:12",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
     }
   ],
   "criteria": [
@@ -1050,7 +1106,7 @@
       "source_document_id": 1086719
     }
   ],
-  "extraction_count": 15,
+  "extraction_count": 17,
   "extraction_errors": [
     {
       "document_id": 774281,

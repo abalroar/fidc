@@ -786,8 +786,8 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
                 st.rerun()
         period = build_preset_period(end_month=end_month, months=int(preset_months))
         period_str = (
-            f"{_format_competencia_display(period.start_month.isoformat())} "
-            f"→ {_format_competencia_display(period.end_month.isoformat())}"
+            f"{_format_month_option_label(period.start_month)} "
+            f"→ {_format_month_option_label(period.end_month)}"
         )
         st.caption(period_str)
     else:
@@ -819,8 +819,8 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
                 st.rerun()
         period = build_custom_period(start_month=start_month, end_month=end_month_selected)
         st.caption(
-            f"{_format_competencia_display(period.start_month.isoformat())} "
-            f"→ {_format_competencia_display(period.end_month.isoformat())}"
+            f"{_format_month_option_label(period.start_month)} "
+            f"→ {_format_month_option_label(period.end_month)}"
         )
 
     return period
@@ -1494,7 +1494,6 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 aging_chart_df,
                 title=None,
                 height=455,
-                bar_size=_executive_monthly_bar_size(aging_history_df["competencia"].nunique()),
             ),
             width="stretch",
         )
@@ -1666,12 +1665,6 @@ def _render_structural_risk_section(
                     width="stretch",
                 )
 
-    structural_tables: list[tuple[str, pd.DataFrame]] = [
-        ("Métricas estruturais", _format_risk_metrics_compact_table(dashboard.risk_metrics_df, risk_block="Risco estrutural")),
-        (f"Quadro de cotas em {_format_competencia_label(dashboard.latest_competencia)}", _format_latest_quota_frame(dashboard.quota_pl_history_df, dashboard.latest_competencia)),
-    ]
-    _render_detail_tables_expander("Resumo Qtd e Volume Cotas", structural_tables)
-
 
 def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section("Prazo e eventos")
@@ -1706,7 +1699,7 @@ def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
 
 def _render_calculation_memory_section(dashboard: FundonetDashboardData, *, slot_key: str = "slot0") -> None:
     _render_fidc_section("Memória de cálculo da aba")
-    memory_df = dashboard.executive_memory_df.copy()
+    memory_df = _normalise_executive_memory_frame(dashboard.executive_memory_df)
     if memory_df.empty:
         st.caption("Memória de cálculo indisponível nesta execução.")
         return
@@ -1733,7 +1726,7 @@ def _render_calculation_memory_section(dashboard: FundonetDashboardData, *, slot
     )
     if selected_types:
         subset = memory_df[memory_df["tipo_variavel"].isin(selected_types)].copy()
-        subset = subset.sort_values(["tipo_variavel", "bloco", "nome_variavel"], na_position="last")
+        subset = subset.sort_values(["tipo_variavel", "bloco_executivo", "componente", "variavel_final"], na_position="last")
         formatted = _format_executive_memory_table(subset)
         if "Tipo de variável" not in formatted.columns:
             formatted.insert(0, "Tipo de variável", subset["tipo_variavel"].tolist())
@@ -1742,6 +1735,31 @@ def _render_calculation_memory_section(dashboard: FundonetDashboardData, *, slot
             width="stretch",
             hide_index=True,
         )
+
+
+def _normalise_executive_memory_frame(df: pd.DataFrame) -> pd.DataFrame:
+    if df is None or df.empty:
+        return pd.DataFrame()
+    output = df.copy()
+    aliases = {
+        "tipo_variavel": ("tipo", "categoria"),
+        "bloco_executivo": ("bloco", "bloco_ui_atual"),
+        "componente": ("nome_exibido", "metric_name", "indicador"),
+        "variavel_final": ("nome_variavel", "metric_id", "variavel"),
+        "numerador": ("numerator",),
+        "denominador": ("denominator",),
+        "fonte_cvm": ("fonte_dado", "source_columns"),
+        "fonte_efetiva": ("origem", "source"),
+        "formula": ("fórmula",),
+        "observacao": ("observação", "note"),
+    }
+    for target, candidates in aliases.items():
+        if target in output.columns:
+            continue
+        source = next((candidate for candidate in candidates if candidate in output.columns), None)
+        output[target] = output[source] if source is not None else pd.NA
+    output["tipo_variavel"] = output["tipo_variavel"].fillna("Metadado / referência").astype(str)
+    return output
 
 
 def _render_audit_section(
@@ -3469,12 +3487,31 @@ def _executive_monthly_bar_size(category_count: int) -> int:
 
 
 def _executive_quota_bar_size(category_count: int) -> int:
-    base = _single_series_bar_size(max(category_count, 1))
     if category_count <= 6:
-        return max(56, int(base * 1.20))
+        return 50
     if category_count <= 12:
-        return max(48, int(base * 1.36))
-    return max(40, int(base * 1.52))
+        return 34
+    if category_count <= 18:
+        return 18
+    if category_count <= 24:
+        return 12
+    if category_count <= 30:
+        return 9
+    return 7
+
+
+def _executive_aging_bar_size(category_count: int) -> int:
+    if category_count <= 6:
+        return 46
+    if category_count <= 12:
+        return 30
+    if category_count <= 18:
+        return 18
+    if category_count <= 24:
+        return 12
+    if category_count <= 30:
+        return 9
+    return 7
 
 
 def _executive_grouped_bar_size(period_count: int, series_count: int) -> int:
@@ -3810,7 +3847,13 @@ def _line_history_chart(
                     [scale_values, pd.Series([point_min - (point_padding * 0.35)])],
                     ignore_index=True,
                 )
-    x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort)
+    x_encoding = alt.X(
+        "competencia:N",
+        title="Competência",
+        sort=x_sort,
+        scale=alt.Scale(paddingInner=0.22, paddingOuter=0.06),
+        axis=alt.Axis(labelOverlap="greedy"),
+    )
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     y_encoding = alt.Y(
         "valor:Q",
@@ -4482,9 +4525,14 @@ def _stacked_history_bar_chart(
     if smart_label_placement:
         force_all_segment_labels = False
         allow_outside_labels = True
+    category_count = chart_df["competencia"].nunique()
+    resolved_bar_size = bar_size or _single_series_bar_size(category_count)
+    mark_kwargs: dict[str, Any] = {"size": resolved_bar_size}
+    if category_count >= 18 or resolved_bar_size <= 16:
+        mark_kwargs.update({"stroke": "#f8fafc", "strokeWidth": 1.4})
     chart = (
         alt.Chart(chart_df)
-        .mark_bar(size=bar_size or _single_series_bar_size(chart_df["competencia"].nunique()))
+        .mark_bar(**mark_kwargs)
         .encode(
             x=x_encoding,
             y=y_encoding,
@@ -4750,6 +4798,7 @@ def _aging_history_callout_chart(
     latest_competencia = x_sort[-1]
     latest_df = df[df["competencia"] == latest_competencia].copy()
     latest_df["valor_num"] = pd.to_numeric(latest_df[resolved_value_column], errors="coerce").fillna(0.0)
+    latest_df = latest_df[latest_df["valor_num"] >= 1.0].copy()
     if "ordem" in latest_df.columns:
         latest_df = latest_df.sort_values("ordem").reset_index(drop=True)
     latest_df["segment_top"] = latest_df["valor_num"].cumsum()
@@ -4791,7 +4840,10 @@ def _aging_history_callout_chart(
                 "point_order": 1,
             }
         )
-    connectors_df = pd.DataFrame(connector_rows)
+    connectors_df = pd.DataFrame(
+        connector_rows,
+        columns=["serie", "competencia_plot", "valor_plot", "point_order"],
+    )
     _aging_bar_max = float(
         df.groupby("competencia")[resolved_value_column]
         .apply(lambda s: pd.to_numeric(s, errors="coerce").sum())
@@ -4803,8 +4855,8 @@ def _aging_history_callout_chart(
         "competencia:N",
         title="Competência",
         sort=x_domain,
-        scale=alt.Scale(domain=x_domain),
-        axis=alt.Axis(labelExpr="datum.label == '' ? '' : datum.label"),
+        scale=alt.Scale(domain=x_domain, paddingInner=0.26, paddingOuter=0.08),
+        axis=alt.Axis(labelExpr="datum.label == '' ? '' : datum.label", labelOverlap="greedy"),
     )
     color_encoding = alt.Color(
         "serie:N",
@@ -4813,9 +4865,14 @@ def _aging_history_callout_chart(
         sort=series_order,
         legend=_series_legend("Faixas / séries", len(series_order)),
     )
+    category_count = df["competencia"].nunique()
+    resolved_bar_size = bar_size or _executive_aging_bar_size(category_count)
+    mark_kwargs: dict[str, Any] = {"size": resolved_bar_size}
+    if category_count >= 18 or resolved_bar_size <= 16:
+        mark_kwargs.update({"stroke": "#f8fafc", "strokeWidth": 1.4})
     bars = (
         alt.Chart(df)
-        .mark_bar(size=bar_size or _executive_monthly_bar_size(df["competencia"].nunique()))
+        .mark_bar(**mark_kwargs)
         .encode(
             x=x_encoding,
             y=alt.Y(
@@ -5650,7 +5707,11 @@ def _format_value_label(value: object, unit: str) -> str:
 
 def _format_competencia_display(competencia: object) -> str:
     """Converts '01/2026' → 'jan-26' for chart axis labels."""
+    if isinstance(competencia, date):
+        return _format_competencia_label(competencia.isoformat())
     text = str(competencia or "").strip()
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", text):
+        return _format_competencia_label(text)
     parts = text.split("/")
     if len(parts) != 2:
         return text

@@ -2,21 +2,21 @@
   "schema_version": 1,
   "fund_name": "CONSIGNADO DELTA RECEIVABLES I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
   "fund_cnpj": "54.871.427/0001-94",
-  "generated_at": "2026-05-14T13:17:03Z",
+  "generated_at": "2026-05-29T01:34:57Z",
   "documents": [
     {
       "id": 670687,
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "19/04/2024",
       "data_entrega": "28/05/2024 21:34",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/54871427000194/670687_assembleia_assembleia_670687_2024-04-19.pdf"
+      "source_file": "data/raw/54871427000194/670687_emissao_emissao_670687_2024-04-19.pdf"
     },
     {
       "id": 670689,
@@ -51,14 +51,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "24/05/2024",
       "data_entrega": "24/05/2024 19:00",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/54871427000194/668387_assembleia_assembleia_668387_2024-05-24.pdf"
+      "source_file": "data/raw/54871427000194/668387_emissao_emissao_668387_2024-05-24.pdf"
     },
     {
       "id": 669104,
@@ -311,6 +311,34 @@
       "downloaded": false,
       "download_error": "",
       "source_file": ""
+    },
+    {
+      "id": 1196840,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 20:24",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1198485,
+      "categoria": "Comunicado ao Mercado",
+      "tipo": "Outros Comunicados Não Considerados Fatos Relevantes ",
+      "especie": "",
+      "classification": "evento",
+      "data_referencia": "11/05/2026",
+      "data_entrega": "18/05/2026 16:51",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/54871427000194/1198485_evento_evento_1198485_2026-05-11.pdf"
     }
   ],
   "criteria": [
@@ -638,6 +666,6 @@
       "source_document_id": 1055482
     }
   ],
-  "extraction_count": 12,
+  "extraction_count": 13,
   "extraction_errors": []
 }

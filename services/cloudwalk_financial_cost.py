@@ -10,6 +10,7 @@ from typing import Any, Iterable
 
 import pandas as pd
 
+from services.fidc_model.b3_cdi import B3CdiMonthlyRate, compound_monthly_cdi
 from services.fidc_model.calendar import b3_market_holidays_for_dates, networkdays
 from services.ime_loader import DEFAULT_PORTABLE_CACHE_ROOT, DEFAULT_RUNTIME_CACHE_ROOT, materialize_latest_portable_cache_for_cnpj
 from services.waterfall_schedule import (
@@ -84,6 +85,7 @@ class CostRunConfig:
     cdi_aa: float
     cdi_source: str
     cash_yield_cdi_factor: float = DEFAULT_CASH_YIELD_CDI_FACTOR
+    monthly_cdi_rates: tuple[B3CdiMonthlyRate, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -152,16 +154,34 @@ def load_cash_yield_factor(path: str | Path | None = DEFAULT_FINANCIAL_COST_CONF
     return max(parsed, 0.0)
 
 
+def load_amortization_convention_overrides(path: str | Path | None = DEFAULT_FINANCIAL_COST_CONFIG) -> dict[str, str]:
+    if path is None or not Path(path).exists():
+        return {}
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    candidates = payload.get("amortization_conventions") if isinstance(payload, dict) else None
+    if not isinstance(candidates, dict):
+        return {}
+
+    overrides: dict[str, str] = {}
+    for key, raw_value in candidates.items():
+        value = str(raw_value or "").strip()
+        if value in {"incremental", "cumulative", "current_balance"}:
+            overrides[str(key)] = value
+    return overrides
+
+
 def load_funding_lines(
     csv_path: str | Path = DEFAULT_CLOUDWALK_EMISSIONS,
     *,
     spread_overrides: dict[str, float] | None = None,
+    amortization_convention_overrides: dict[str, str] | None = None,
 ) -> list[FundingLine]:
     frame = pd.read_csv(csv_path, dtype=str, keep_default_na=False)
     overrides = spread_overrides or {}
+    convention_overrides = amortization_convention_overrides or {}
     lines: list[FundingLine] = []
     for _, row in frame.iterrows():
-        lines.append(_funding_line_from_row(row, overrides=overrides))
+        lines.append(_funding_line_from_row(row, overrides=overrides, amortization_convention_overrides=convention_overrides))
     return lines
 
 
@@ -257,7 +277,12 @@ def export_financial_cost_outputs(
     return {key: str(value) for key, value in files.items()}
 
 
-def _funding_line_from_row(row: pd.Series, *, overrides: dict[str, float]) -> FundingLine:
+def _funding_line_from_row(
+    row: pd.Series,
+    *,
+    overrides: dict[str, float],
+    amortization_convention_overrides: dict[str, str] | None = None,
+) -> FundingLine:
     fund_name = _display(row.get("Fundo"))
     cnpj = _display(row.get("CNPJ"))
     classe = _display(row.get("Cota/Classe"))
@@ -282,8 +307,15 @@ def _funding_line_from_row(row: pd.Series, *, overrides: dict[str, float]) -> Fu
     amortizations: tuple[tuple[date, float], ...] = ()
     warnings: tuple[str, ...] = ()
     if active_ok:
-        convention, amortizations_list, warnings = _parse_line_amortizations(amortization_text, volume)
+        convention_override = _amortization_convention_for_line(cnpj, classe, amortization_convention_overrides or {})
+        convention, amortizations_list, warnings = _parse_line_amortizations(
+            amortization_text,
+            volume,
+            amortization_convention=convention_override,
+        )
         amortizations = tuple(amortizations_list)
+        if convention_override is not None:
+            warnings = warnings + (f"Convenção de amortização definida por override: {convention_override}.",)
         if spread is None:
             warnings = warnings + ("Spread CDI+ não localizado; linha fica fora dos totais até input manual.",)
 
@@ -306,6 +338,19 @@ def _funding_line_from_row(row: pd.Series, *, overrides: dict[str, float]) -> Fu
         exclusion_reason=exclusion_reason,
         warnings=warnings,
     )
+
+
+def _amortization_convention_for_line(
+    cnpj: str,
+    classe: str,
+    overrides: dict[str, str],
+) -> str | None:
+    exact_key = line_key(cnpj, classe)
+    cnpj_key = only_digits(cnpj)
+    for key in (exact_key, cnpj_key, classe):
+        if key in overrides:
+            return overrides[key]
+    return None
 
 
 def _spread_for_line(
@@ -367,9 +412,14 @@ def _parse_issue_date(row: pd.Series) -> date | None:
     return None
 
 
-def _parse_line_amortizations(text: str, volume: float) -> tuple[str, list[tuple[date, float]], tuple[str, ...]]:
+def _parse_line_amortizations(
+    text: str,
+    volume: float,
+    *,
+    amortization_convention: str | None = None,
+) -> tuple[str, list[tuple[date, float]], tuple[str, ...]]:
     try:
-        return parse_amortization_schedule(text, volume)
+        return parse_amortization_schedule(text, volume, amortization_convention=amortization_convention)
     except ValueError as exc:
         range_schedule = _parse_programmed_range_schedule(text, volume)
         if range_schedule is not None:
@@ -479,6 +529,7 @@ def _scheduled_cost(line: FundingLine, config: CostRunConfig, holidays: Iterable
     balance_weighted_days = 0.0
     monthly_rows: list[dict[str, Any]] = []
     rate_aa = _line_total_rate(config.cdi_aa, line.spread_aa)
+    monthly_cdi = _monthly_cdi_lookup(config)
     for current, nxt in zip(events, events[1:]):
         if nxt <= current:
             continue
@@ -486,9 +537,18 @@ def _scheduled_cost(line: FundingLine, config: CostRunConfig, holidays: Iterable
         calendar_days = (nxt - current).days
         balance_weighted_days += balance * calendar_days
         du = _business_days_between(current, nxt, holidays)
-        period_cost = balance * ((1.0 + rate_aa) ** (du / 252.0) - 1.0) if balance > 0.0 and du > 0 else 0.0
+        period_factor = _period_funding_factor(
+            config=config,
+            spread_aa=float(line.spread_aa or 0.0),
+            current=current,
+            du=du,
+            monthly_cdi=monthly_cdi,
+        )
+        period_cost = balance * period_factor if balance > 0.0 and du > 0 else 0.0
         gross_cost += period_cost
         if calendar_days > 0:
+            month_key = f"{current.year:04d}-{current.month:02d}"
+            month_cdi = monthly_cdi.get(month_key)
             monthly_rows.append(
                 {
                     "mes": f"{current.year:04d}-{current.month:02d}",
@@ -500,6 +560,8 @@ def _scheduled_cost(line: FundingLine, config: CostRunConfig, holidays: Iterable
                     "dias_corridos": calendar_days,
                     "dias_uteis": du,
                     "custo_programado_bruto": round(period_cost, 2),
+                    "cdi_mensal": round(month_cdi.cdi_mensal, 10) if month_cdi is not None else round(config.cdi_aa, 8),
+                    "dias_uteis_cdi_mes": month_cdi.dias_uteis if month_cdi is not None else "",
                     "spread_cdi_plus_aa": _round_or_none(line.spread_aa),
                     "taxa_total_aa": round(rate_aa, 8),
                 }
@@ -512,6 +574,31 @@ def _scheduled_cost(line: FundingLine, config: CostRunConfig, holidays: Iterable
         "principal_paid": principal_paid,
         "monthly_rows": monthly_rows,
     }
+
+
+def _monthly_cdi_lookup(config: CostRunConfig) -> dict[str, B3CdiMonthlyRate]:
+    return {item.mes: item for item in config.monthly_cdi_rates}
+
+
+def _period_funding_factor(
+    *,
+    config: CostRunConfig,
+    spread_aa: float,
+    current: date,
+    du: int,
+    monthly_cdi: dict[str, B3CdiMonthlyRate],
+) -> float:
+    if du <= 0:
+        return 0.0
+    month_key = f"{current.year:04d}-{current.month:02d}"
+    month_rate = monthly_cdi.get(month_key)
+    if month_rate is not None and month_rate.dias_uteis > 0:
+        cdi_factor = (1.0 + month_rate.cdi_mensal) ** (du / month_rate.dias_uteis) - 1.0
+        spread_factor = (1.0 + spread_aa) ** (du / 252.0) - 1.0
+        return (1.0 + cdi_factor) * (1.0 + spread_factor) - 1.0
+
+    rate = max(config.cdi_aa + spread_aa, -0.999999)
+    return (1.0 + rate) ** (du / 252.0) - 1.0
 
 
 def _average_balance(line: FundingLine, config: CostRunConfig) -> float:
@@ -612,6 +699,7 @@ def _summary_frame(
     output["snapshot_date"] = config.snapshot_date.isoformat()
     output["cdi_aa"] = round(config.cdi_aa, 8)
     output["cdi_source"] = config.cdi_source
+    output["cdi_monthly_compounded"] = bool(config.monthly_cdi_rates)
     output["cash_yield_cdi_factor"] = config.cash_yield_cdi_factor
     return output
 
@@ -619,10 +707,14 @@ def _summary_frame(
 def _ime_snapshot_frame(snapshots: list[ImeFinancialSnapshot], config: CostRunConfig) -> pd.DataFrame:
     holidays = b3_market_holidays_for_dates([config.start_date, config.end_date])
     total_du = _business_days_between(config.start_date, config.end_date + timedelta(days=1), holidays)
-    cash_rate = config.cdi_aa * config.cash_yield_cdi_factor
+    if config.monthly_cdi_rates:
+        cash_factor = compound_monthly_cdi(config.monthly_cdi_rates, factor=config.cash_yield_cdi_factor)
+    else:
+        cash_rate = config.cdi_aa * config.cash_yield_cdi_factor
+        cash_factor = (1.0 + cash_rate) ** (total_du / 252.0) - 1.0
     rows = []
     for item in snapshots:
-        cash_yield = item.cash_like * ((1.0 + cash_rate) ** (total_du / 252.0) - 1.0) if item.included else 0.0
+        cash_yield = item.cash_like * cash_factor if item.included else 0.0
         rows.append(
             {
                 "fund_name": item.fund_name,
@@ -695,11 +787,12 @@ def _methodology_markdown(
         "",
         f"Período: {config.start_date.isoformat()} a {config.end_date.isoformat()}. Snapshot: {config.snapshot_date.isoformat()}.",
         f"CDI/DI proxy anual: {config.cdi_aa:.4%}. Fonte: {config.cdi_source}.",
+        f"CDI mensal composto: {'sim' if config.monthly_cdi_rates else 'não; fallback anual'}.",
         "",
         "## Estimativas",
         "",
         "1. `snapshot_pl_sem_amortizacao`: saldo remunerado na data snapshot vezes CDI+spread por todo o período.",
-        "2. `programado_bruto_com_amortizacao`: saldo por linha ajustado por captações e amortizações documentadas; a despesa bruta é a referência para gross-up da receita de antecipação.",
+        "2. `programado_bruto_com_amortizacao`: saldo por linha ajustado por captações e amortizações documentadas; CDI mensal composto quando disponível; a despesa bruta é a referência para gross-up da receita de antecipação.",
         "3. `programado_liquido_caixa_lft`: mesma despesa bruta, menos rendimento CDI estimado sobre caixa/LFT. A base usa o maior valor entre caixa+títulos públicos reportados e a proxy `PL - recebíveis`, quando há recebíveis positivos.",
         "",
         "## Leitura contábil/gerencial",
@@ -711,7 +804,7 @@ def _methodology_markdown(
         f"Linhas ativas sem spread CDI+ parseável: {missing_count}. Saldo snapshot afetado: R$ {missing_balance / MONEY_SCALE:,.1f} mm.",
         f"Caixa/LFT usado na estimativa líquida: R$ {cash_like / MONEY_SCALE:,.1f} mm.",
         "",
-        "Quando você passar os spreads pendentes, preencha `config/cloudwalk_financial_cost_inputs.json` em `spreads_cdi_plus_aa` usando a chave `CNPJ|classe` listada em `cloudwalk_financial_cost_missing_inputs.csv`.",
+        "Spreads pendentes podem ser informados diretamente na aba Cloudwalk; o JSON fica apenas como configuração persistente do repositório.",
         "",
         "## Totais",
         "",

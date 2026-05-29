@@ -20,6 +20,12 @@ from services.regulatory_knowledge import (  # noqa: E402
 
 
 SELLER_CURATED_CNPJS = {"50473039000102", "55471753000177", "63572282000111"}
+TEXTUAL_LIMIT_RULES = {
+    "permitted_hedges": "Regra textual de derivativos/hedge; verificar observação e fonte.",
+    "cross_default_seller_event": "Regra textual de cross default do cedente; verificar observação e fonte.",
+    "service_provider_replacement_event": "Regra textual de troca/substituição de administrador, gestor ou prestador-chave.",
+    "eligibility_criteria_text": "Regra textual de elegibilidade dos direitos creditórios; verificar observação e fonte.",
+}
 
 CRITERIA_COLUMNS = [
     "Fundo",
@@ -235,7 +241,7 @@ def _has_material_criterion(item: dict[str, Any]) -> bool:
         return False
     if not _criterion_matches_key_context(item):
         return False
-    if key == "permitted_hedges":
+    if key in TEXTUAL_LIMIT_RULES:
         return bool(str(item.get("source_excerpt") or "").strip())
     return bool(str(item.get("threshold_display") or "").strip())
 
@@ -255,6 +261,14 @@ def _criterion_matches_key_context(item: dict[str, Any]) -> bool:
         return any(token in text for token in ("reserva", "caixa", "disponibilidades"))
     if key == "permitted_hedges":
         return any(token in text for token in ("derivativo", "derivativos", "hedge", "swap", "ndf"))
+    if key == "cross_default_seller_event":
+        return any(token in text for token in ("cross default", "inadimplemento cruzado", "vencimento antecipado cruzado"))
+    if key == "service_provider_replacement_event":
+        return any(token in text for token in ("renúncia", "renuncia", "substituição", "substituicao")) and any(
+            token in text for token in ("administrador", "administradora", "gestor", "gestora", "custodiante", "consultor")
+        )
+    if key == "eligibility_criteria_text":
+        return any(token in text for token in ("critério de elegibilidade", "criterio de elegibilidade", "direitos creditórios elegíveis", "direitos creditorios elegiveis", "condições de cessão", "condicoes de cessao"))
     if key == "concentration_limits":
         return "concentra" in text
     if key == "recompras_max":
@@ -277,9 +291,9 @@ def _has_material_emission(item: dict[str, Any]) -> bool:
     amount = str(item.get("amount_display") or "").strip()
     remuneration = str(item.get("remuneration") or "").strip()
     amortization = str(item.get("amortization_schedule") or item.get("maturity") or "").strip()
-    if classification == "regulamento" and not series:
+    if classification == "regulamento" and not series and not remuneration:
         return False
-    return bool(series or amount) and bool(amount or remuneration or amortization)
+    return bool(series or amount or remuneration) and bool(amount or remuneration or amortization)
 
 
 def _latest_regulation_criteria(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -313,6 +327,9 @@ def _max_rows_for_key(key: str) -> int:
         "pdd_coverage_min": 3,
         "minimum_cash_ratio": 3,
         "permitted_hedges": 2,
+        "cross_default_seller_event": 3,
+        "service_provider_replacement_event": 3,
+        "eligibility_criteria_text": 3,
         "concentration_limits": 4,
     }.get(key, 2)
 
@@ -327,9 +344,13 @@ def _criterion_display_order(key: str) -> int:
         "minimum_cash_ratio": 60,
         "recompras_max": 70,
         "permitted_hedges": 80,
-        "dilution_rate_max": 90,
-        "chargeback_rate_max": 100,
-        "concentration_limits": 110,
+        "cancellation_rate_max": 90,
+        "dilution_rate_max": 100,
+        "chargeback_rate_max": 110,
+        "cross_default_seller_event": 120,
+        "service_provider_replacement_event": 130,
+        "eligibility_criteria_text": 140,
+        "concentration_limits": 150,
     }
     return order.get(key, 999)
 
@@ -340,6 +361,12 @@ def _alert_text(item: dict[str, Any]) -> str:
     key = str(item.get("canonical_key") or "")
     if key == "permitted_hedges":
         return "Alerta se posição agregada em derivativos contrariar a regra textual"
+    if key == "cross_default_seller_event":
+        return "Alerta documental: ocorrência de cross default, vencimento antecipado ou insolvência relevante do cedente/grupo"
+    if key == "service_provider_replacement_event":
+        return "Alerta documental: renúncia, destituição ou substituição não saneada de administrador, gestor ou prestador-chave"
+    if key == "eligibility_criteria_text":
+        return "Alerta operacional: amostra ou regra de lastro indicar descumprimento dos critérios de elegibilidade"
     if not limit:
         return ""
     if comparison == ">=":
@@ -360,8 +387,8 @@ def _criterion_note(item: dict[str, Any]) -> str:
 
 
 def _short_rule_text(item: dict[str, Any]) -> str:
-    if str(item.get("canonical_key") or "") == "permitted_hedges":
-        return "Regra textual de derivativos/hedge; verificar observação e fonte."
+    if str(item.get("canonical_key") or "") in TEXTUAL_LIMIT_RULES:
+        return TEXTUAL_LIMIT_RULES[str(item.get("canonical_key") or "")]
     text = _clean_text(item.get("formula_text") or item.get("source_excerpt"))
     if not text:
         return ""
@@ -373,8 +400,8 @@ def _validated_limit_for_item(item: dict[str, Any]) -> str:
     text = _clean_text(" ".join(str(item.get(field) or "") for field in ("formula_text", "source_excerpt")))
     lowered = text.lower()
 
-    if key == "permitted_hedges":
-        return "Regra textual de derivativos/hedge; verificar observação e fonte."
+    if key in TEXTUAL_LIMIT_RULES:
+        return TEXTUAL_LIMIT_RULES[key]
 
     if key == "credit_rights_allocation_min":
         match = re.search(r"(?:mínimo|minimo|alocação mínima|alocacao minima)[^%]{0,120}?(\d{1,3}(?:[,.]\d{1,4})?)\s*%", lowered)
@@ -468,7 +495,7 @@ def _format_cnpj(cnpj: str) -> str:
 def _write_csv(path: Path, columns: list[str], rows: list[dict[str, str]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=columns, extrasaction="ignore")
+        writer = csv.DictWriter(handle, fieldnames=columns, extrasaction="ignore", lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 

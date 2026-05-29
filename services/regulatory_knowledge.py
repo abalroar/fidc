@@ -67,6 +67,26 @@ MONITORING_SOURCE_HINTS: dict[str, dict[str, str]] = {
         "ime_metric": "Posições mantidas em derivativos",
         "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção.",
     },
+    "cross_default_seller_event": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Eventos de cross default do cedente dependem de fatos societários/contratuais externos e não constam de forma padronizada no IME.",
+    },
+    "service_provider_replacement_event": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME.",
+    },
+    "cancellation_rate_max": {
+        "status": "parcial",
+        "ime_metric": "Recompras / Crédito, baixas ou eventos operacionais informados",
+        "rationale": "Cancelamentos podem ter proxy por recompras/baixas quando reportadas, mas a definição contratual costuma depender de dados operacionais do cedente.",
+    },
+    "eligibility_criteria_text": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público.",
+    },
 }
 
 
@@ -154,13 +174,13 @@ def classify_document(*, categoria: str = "", tipo: str = "", especie: str = "",
         return "informe_mensal"
     if any(token in text for token in ("regulamento", "aditamento", "alteração de regulamento", "alteracao de regulamento")):
         return "regulamento"
-    if any(token in text for token in ("assembleia", "assembléia", "ata", "deliberação", "deliberacao")):
-        return "assembleia"
     if any(
         token in text
         for token in (
-            "emissão",
-            "emissao",
+            "emissão de cotas",
+            "emissao de cotas",
+            "instrumento particular de emissão",
+            "instrumento particular de emissao",
             "suplemento",
             "série",
             "serie",
@@ -172,6 +192,10 @@ def classify_document(*, categoria: str = "", tipo: str = "", especie: str = "",
             "distribuicao",
         )
     ):
+        return "emissao"
+    if any(token in text for token in ("assembleia", "assembléia", "ata", "deliberação", "deliberacao")):
+        return "assembleia"
+    if any(token in text for token in ("emissão", "emissao")):
         return "emissao"
     if any(token in text for token in ("fato relevante", "comunicado", "aviso")):
         return "evento"

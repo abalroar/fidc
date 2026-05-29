@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
   "fund_cnpj": "50.473.039/0001-02",
-  "generated_at": "2026-05-10T03:19:53Z",
+  "generated_at": "2026-05-29T01:35:08Z",
   "documents": [
     {
       "id": 467929,
@@ -499,14 +499,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "26/05/2025",
       "data_entrega": "28/05/2025 10:35",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/50473039000102/912093_assembleia_assembleia_912093_2025-05-26.pdf"
+      "source_file": "data/raw/50473039000102/912093_emissao_emissao_912093_2025-05-26.pdf"
     },
     {
       "id": 912172,
@@ -614,6 +614,20 @@
       "classification": "outro",
       "data_referencia": "12/02/2026",
       "data_entrega": "23/02/2026 09:35",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1195849,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 17:50",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,

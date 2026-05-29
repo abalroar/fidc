@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "CREDITO UNIVERSITARIO III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
   "fund_cnpj": "34.408.539/0001-04",
-  "generated_at": "2026-05-10T03:14:36Z",
+  "generated_at": "2026-05-29T01:34:54Z",
   "documents": [
     {
       "id": 148087,
@@ -899,6 +899,48 @@
       "downloaded": false,
       "download_error": "",
       "source_file": ""
+    },
+    {
+      "id": 1193380,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 10:00",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1203889,
+      "categoria": "Assembleia",
+      "tipo": "AGE",
+      "especie": "Ata da Assembleia",
+      "classification": "assembleia",
+      "data_referencia": "25/05/2026 09:00",
+      "data_entrega": "26/05/2026 16:20",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/34408539000104/1203889_assembleia_assembleia_1203889_2026-05-25.pdf"
+    },
+    {
+      "id": 1203913,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "25/05/2026",
+      "data_entrega": "26/05/2026 16:36",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/34408539000104/1203913_regulamento_regulamento_1203913_2026-05-25.pdf"
     }
   ],
   "criteria": [
@@ -4701,6 +4743,866 @@
         "ime_metric": "Dir Cred / PL",
         "rationale": "O Informe Mensal traz direitos creditórios e PL."
       }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.67,
+      "threshold_unit": "ratio",
+      "threshold_display": "67%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "e) estabelecer, nos Critérios de Elegibilidade , novos parâmetros para a aquisição de Direitos Creditórios, com a consequente alteração do item 13.1; (f) alterar a ordem de aplicação de recursos prevista no Capítulo XVI, com a consequente revisão dos critérios das cláusulas 2 7.1, 27.2 e 27.3; (g) alterar a Política de Investimento da cláusula 11 para atender o mínimo obrigatório de 67% (sessenta e sete por cento) d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.67,
+      "threshold_unit": "ratio",
+      "threshold_display": "67%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "13.1; (f) alterar a ordem de aplicação de recursos prevista no Capítulo XVI, com a consequente revisão dos critérios das cláusulas 2 7.1, 27.2 e 27.3; (g) alterar a Política de Investimento da cláusula 11 para atender o mínimo obrigatório de 67% (sessenta e sete por cento) de Alocação Mínima, com a adição d a cláusula 11.1.1.1 para prever obrigação de Amortização Extraordinária Da Cota Sênior caso deixe de observar…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Reserva ou caixa mínimo",
+      "canonical_key": "minimum_cash_ratio",
+      "event_type": "enquadramento",
+      "threshold_value": 0.15,
+      "threshold_unit": "ratio",
+      "threshold_display": "15%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "otista. 17.9.4. O pagamento do resgate ou da amortização das Cotas será efetuado pelo valor unitário da Cota no encerramento do Dia Útil imediatamente anterior, em moeda corrente nacional, por meio: (a) da B3, caso as Cotas estejam custodiadas na B3; ou (b) de transferência eletrônica disponível – TED ou outros mecanismos de transferência de recursos autorizados pelo BACEN. 17.9.5. A reserva a ser constituída em Dis…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades / PL ou Disponibilidades / amortização estimada",
+        "rationale": "O Informe Mensal traz caixa, mas cronogramas futuros e reservas regulatórias nem sempre são campos padronizados."
+      }
+    },
+    {
+      "name": "Reserva ou caixa mínimo",
+      "canonical_key": "minimum_cash_ratio",
+      "event_type": "enquadramento",
+      "threshold_value": 0.15,
+      "threshold_unit": "ratio",
+      "threshold_display": "15%",
+      "comparison": ">=",
+      "formula_text": "rva a ser constituída em Disponibilidades pela Administradora para o pagamento das despesas e dos encargos do Fundo, nos termos do presente Regulamento e da legislação aplicável, deverá ser em montante equivalente às despesas e encargos projetados para os 3 (três) meses subsequentes, que será aplicado em Ativos Financeiros de liquidez diária (“Reserva de Despesas e Encargos”). 17.9.6. A reserva a ser constituída em…",
+      "source_excerpt": "rva a ser constituída em Disponibilidades pela Administradora para o pagamento das despesas e dos encargos do Fundo, nos termos do presente Regulamento e da legislação aplicável, deverá ser em montante equivalente às despesas e encargos projetados para os 3 (três) meses subsequentes, que será aplicado em Ativos Financeiros de liquidez diária (“Reserva de Despesas e Encargos”). 17.9.6. A reserva a ser constituída em…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades / PL ou Disponibilidades / amortização estimada",
+        "rationale": "O Informe Mensal traz caixa, mas cronogramas futuros e reservas regulatórias nem sempre são campos padronizados."
+      }
+    },
+    {
+      "name": "Limite de concentração",
+      "canonical_key": "concentration_limits",
+      "event_type": "elegibilidade",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "s de educação à distância, dentre outras), em que a Cedente deverá restituir imediatamente ao Fundo o Preço de Aquisição proporcional aos Direi tos Creditórios devidos pelos Devedores cujos contratos de prestação de serviços tenham sido cancelados ou interrompidos referente aos meses não cursados pelo Devedor, o risco de inadimplência dos Direitos Creditórios estará concentrado unicamente na Cedente. (ii) Risco de C…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Limites por sacado, cedente ou grupo econômico exigem granularidade não disponível no IME público."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": ">=",
+      "formula_text": "o Agente de Cobrança Extraordinária, seus administradores, empregados e demais prepostos não se responsabilizarão por danos ou prejuízos sofridos em decorrência da não propositura ou do não prosseguimento de medidas judiciai s ou extrajudiciais necessárias à salvaguarda de direitos, garantias e prerrogativas do Fundo, o patrimônio do Fundo poderá ser afetado negativamente. (vi) Risco de Utilização de Instrumentos De…",
+      "source_excerpt": "o Agente de Cobrança Extraordinária, seus administradores, empregados e demais prepostos não se responsabilizarão por danos ou prejuízos sofridos em decorrência da não propositura ou do não prosseguimento de medidas judiciai s ou extrajudiciais necessárias à salvaguarda de direitos, garantias e prerrogativas do Fundo, o patrimônio do Fundo poderá ser afetado negativamente. (vi) Risco de Utilização de Instrumentos De…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": ">=",
+      "formula_text": "repostos não se responsabilizarão por danos ou prejuízos sofridos em decorrência da não propositura ou do não prosseguimento de medidas judiciai s ou extrajudiciais necessárias à salvaguarda de direitos, garantias e prerrogativas do Fundo, o patrimônio do Fundo poderá ser afetado negativamente. (vi) Risco de Utilização de Instrumentos Derivativos . A eventual contratação, pelo Fundo, de modalidades de operações de d…",
+      "source_excerpt": "repostos não se responsabilizarão por danos ou prejuízos sofridos em decorrência da não propositura ou do não prosseguimento de medidas judiciai s ou extrajudiciais necessárias à salvaguarda de direitos, garantias e prerrogativas do Fundo, o patrimônio do Fundo poderá ser afetado negativamente. (vi) Risco de Utilização de Instrumentos Derivativos . A eventual contratação, pelo Fundo, de modalidades de operações de d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": ">=",
+      "formula_text": "ou extrajudiciais necessárias à salvaguarda de direitos, garantias e prerrogativas do Fundo, o patrimônio do Fundo poderá ser afetado negativamente. (vi) Risco de Utilização de Instrumentos Derivativos . A eventual contratação, pelo Fundo, de modalidades de operações de derivativos poderá ocorrer exclusivamente para proteção de posições detidas à vista pelo Fundo. A realização de operações pelo Fundo no mercado de d…",
+      "source_excerpt": "ou extrajudiciais necessárias à salvaguarda de direitos, garantias e prerrogativas do Fundo, o patrimônio do Fundo poderá ser afetado negativamente. (vi) Risco de Utilização de Instrumentos Derivativos . A eventual contratação, pelo Fundo, de modalidades de operações de derivativos poderá ocorrer exclusivamente para proteção de posições detidas à vista pelo Fundo. A realização de operações pelo Fundo no mercado de d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Cancelamento máximo",
+      "canonical_key": "cancellation_rate_max",
+      "event_type": "enquadramento",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "educacionais (aqui incluídas, exemplificativamente, as hipóteses de tr ancamento de matrícula, transferência de faculdade, não abertura ou fechamento de turma/curso, inclusive de cursos de educação à distância, dentre outras), em que a Cedente deverá restituir imediatamente ao Fundo o Preço de Aquisição proporcional aos Direi tos Creditórios devidos pelos Devedores cujos contratos de prestação de serviços tenham sid…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Recompras / Crédito, baixas ou eventos operacionais informados",
+        "rationale": "Cancelamentos podem ter proxy por recompras/baixas quando reportadas, mas a definição contratual costuma depender de dados operacionais do cedente."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "Limitada, realizada no dia 25 de maio de 2026. ÍNDICE CAPÍTULO I – DO OBJETO, DA FORMA DE CONSTITUIÇÃO, CLASSE ÚNICA, PRAZO E PÚBLICO-ALVOErro! Indicador não definido. CAPÍTULO II – PRESTADORES DE SERVIÇOS ESSENCIAIS......................Erro! Indicador não definido. CAPÍTULO III – DA TAXA DE ADMINISTRAÇÃO, TAXA DE GESTÃO E DEMAIS TAXAS DO FUNDO Erro! Indicador não definido. CAPÍTULO IV – DA SUBSTITUIÇÃO E RENÚNCIA…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "A remuneração dos distribuidores que sejam contratados e remunerados pontualmente, a cada nova emissão de Cotas, será prevista nos documentos das respectivas ofertas, conforme a Resolução CVM 160, e alterações posteriores. 7.6. Inexistência de Taxas Adicionais. Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. CAPÍTULO IV – DA SUBSTITUIÇÃO E REN…",
+      "source_excerpt": "A remuneração dos distribuidores que sejam contratados e remunerados pontualmente, a cada nova emissão de Cotas, será prevista nos documentos das respectivas ofertas, conforme a Resolução CVM 160, e alterações posteriores. 7.6. Inexistência de Taxas Adicionais. Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. CAPÍTULO IV – DA SUBSTITUIÇÃO E REN…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. CAPÍTULO IV – DA SUBSTITUIÇÃO E RENÚNCIA DA ADMINISTRADORA E DA GESTORA Esta folha é parte da Ata da Assembleia Geral de Cotistas do Crédito Universitário III Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada, realizada no dia 25 de maio de 2026. 8. SUBSTITUIÇÃO E RENÚNCIA…",
+      "source_excerpt": "Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. CAPÍTULO IV – DA SUBSTITUIÇÃO E RENÚNCIA DA ADMINISTRADORA E DA GESTORA Esta folha é parte da Ata da Assembleia Geral de Cotistas do Crédito Universitário III Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada, realizada no dia 25 de maio de 2026. 8. SUBSTITUIÇÃO E RENÚNCIA…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "itórios que poderão integrar a carteira do Fundo, cujos custos serão arcados pela Gestora e já estarão embutidos nas taxas de gestão aplicáveis ao Fundo; e (b) agente de cobrança dos Direitos Creditórios. 9.2.1. Ressalvada as situações de conflito de interesses, a substituição dos prestadores de serviço nominados nas alíneas acima será feita a critério da Gestora. 9.3. As disposições relativas à substituição e renún…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "s por qualquer dano ou prejuízo sofrido pelo Fundo e/ou por qualquer dos Cotistas em decorrência da não propositura (ou do não prosseguimento), pelo Fundo ou pelos Cotistas, de medidas judiciais ou extrajudiciais necessárias à preservação dos direitos e prerrogativas do Fundo no caso de não haver recursos suficientes para a realização dos procedimentos de cobrança. 10.6. As disposições relativas à substituição e à r…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "petente por ela subcontratado, a cada data em que um Cedente, nos termos do Contrato de Cessão em questão, ofertar Direitos Creditórios para cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Gestora do atendimento ao C…",
+      "source_excerpt": "petente por ela subcontratado, a cada data em que um Cedente, nos termos do Contrato de Cessão em questão, ofertar Direitos Creditórios para cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Gestora do atendimento ao C…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Gestora do atendimento ao Critério de Elegibilidade será considerada como definitiva. 13.4. O desenquadramento de qualquer Direito Creditório com relação a qualquer Cri…",
+      "source_excerpt": "cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Gestora do atendimento ao Critério de Elegibilidade será considerada como definitiva. 13.4. O desenquadramento de qualquer Direito Creditório com relação a qualquer Cri…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "istribuição dos rendimentos da carteira, nos termos do Regulamento. “Cotas Subordinadas Juniores” As Cotas Subordinadas Juniores emitidas pelo Fundo que se subordinam às Cotas Seniores e às Cotas Subordinadas Mezanino para efeitos de amortização, resgate e distribuição dos rendimentos da carteira do Fundo, nos termos do Regulamento. “Cotista” O titular de qualquer subclasse e séries de Cotas, sem distinção. “Critéri…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "á calculada em função do valor total das Cotas em circulação. Após a constituição do condomínio mencionado acima, a Administradora estará desobrigada em relação às responsabilidades estabelecidas no presente Regulamento, ficando autorizada a liquidar o Fundo perante as autoridades competentes. 16.2.6. Riscos de Originação (i) Originação dos Direitos Creditórios. Risco de Originação – Diminuição da Quantidade de Dire…",
+      "source_excerpt": "á calculada em função do valor total das Cotas em circulação. Após a constituição do condomínio mencionado acima, a Administradora estará desobrigada em relação às responsabilidades estabelecidas no presente Regulamento, ficando autorizada a liquidar o Fundo perante as autoridades competentes. 16.2.6. Riscos de Originação (i) Originação dos Direitos Creditórios. Risco de Originação – Diminuição da Quantidade de Dire…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "ISTRAÇÃO, TAXA DE GESTÃO E DEMAIS TAXAS DO FUNDO Erro! Indicador não definido. CAPÍTULO IV – DA SUBSTITUIÇÃO E RENÚNCIA DA ADMINISTRADORA E DA GESTORAErro! Indicador não definido. CAPÍTULO V – DA CONTRATAÇÃO DE PRESTADORES DE SERVIÇOS .........Erro! Indicador não definido. CAPÍTULO VI – DA POLÍTICA DE INVESTIMENTO E DOS DIREITOS CREDITÓRIOSErro! Indicador não definido. CAPÍTULO VII – DOS CRITÉRIOS DE ELEGIBILIDADE E…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.85,
+      "threshold_unit": "ratio",
+      "threshold_display": "85%",
+      "comparison": ">=",
+      "formula_text": "ermos do item Erro! Fonte de referência não encontrada. acima; (e) considerados pro forma os Direitos Creditórios a serem adquiridos, pelo menos 85% (oitenta e cinco por cento) de todos os Direitos Creditórios integrantes da carteira do Fundo na respectiva data de cessão deverão ser vinculados a cursos de medicina; (f) considerada pro forma a aquisição pretendida, deverá ser observado o enquadramento à Razão de Subo…",
+      "source_excerpt": "ermos do item Erro! Fonte de referência não encontrada. acima; (e) considerados pro forma os Direitos Creditórios a serem adquiridos, pelo menos 85% (oitenta e cinco por cento) de todos os Direitos Creditórios integrantes da carteira do Fundo na respectiva data de cessão deverão ser vinculados a cursos de medicina; (f) considerada pro forma a aquisição pretendida, deverá ser observado o enquadramento à Razão de Subo…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.85,
+      "threshold_unit": "ratio",
+      "threshold_display": "85%",
+      "comparison": ">=",
+      "formula_text": "ferência não encontrada. acima; (e) considerados pro forma os Direitos Creditórios a serem adquiridos, pelo menos 85% (oitenta e cinco por cento) de todos os Direitos Creditórios integrantes da carteira do Fundo na respectiva data de cessão deverão ser vinculados a cursos de medicina; (f) considerada pro forma a aquisição pretendida, deverá ser observado o enquadramento à Razão de Subordinação Sênior, à Razão de Sub…",
+      "source_excerpt": "ferência não encontrada. acima; (e) considerados pro forma os Direitos Creditórios a serem adquiridos, pelo menos 85% (oitenta e cinco por cento) de todos os Direitos Creditórios integrantes da carteira do Fundo na respectiva data de cessão deverão ser vinculados a cursos de medicina; (f) considerada pro forma a aquisição pretendida, deverá ser observado o enquadramento à Razão de Subordinação Sênior, à Razão de Sub…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.67,
+      "threshold_unit": "ratio",
+      "threshold_display": "67%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "os Cotistas a valorização de suas cotas, observada a Política de Investimento e diversificação de sua carteira, por meio da aplicação de recursos preponderantemente em Direitos Creditórios. 11.1.1. O Fundo deverá, após 180 (cento e oitenta) dias contados da Primeira Data de Integralização, observar um percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios (“A…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.67,
+      "threshold_unit": "ratio",
+      "threshold_display": "67%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": ".1.1. O Fundo deverá, após 180 (cento e oitenta) dias contados da Primeira Data de Integralização, observar um percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios (“Alocação Mínima”), podendo a CVM, a seu exclusivo critério, prorrogar esse prazo por igual período, desde que a Administradora apresente motivos que justifiquem a prorrogação. 11.1.1.1. Caso a…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.15,
+      "threshold_unit": "ratio",
+      "threshold_display": "15%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "u (ii) determinar a realização da Amortização Extraordinária das Cotas Seniores, nos termos do item Erro! Fonte de referência não encontrada.. Em caso de silêncio ou ausência de manifestação tempestiva, será realizada Amortização Extraordinária das Cotas Seniores, na proporção necessária ao reenquadramento do Fundo, nos termos do item Erro! Fonte de referência não encontrada.. 11.1.2. Se mantido o enquadramento da A…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Alocação mínima em direitos creditórios",
+      "canonical_key": "credit_rights_allocation_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.15,
+      "threshold_unit": "ratio",
+      "threshold_display": "15%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "Fundos Não Sujeitos à Tributação Periódica, conforme definiçã o disposta na Lei 14.754, e suas alterações, com a produção de efeitos completos a partir de 1º de janeiro de 2024 (“Início dos Efeitos”). Isso significa que, o Fundo estará sujeito ao imposto de renda retido na fonte (“ IRRF”) de 15% (quinze por cento) na distribuição de rendimentos, amortização ou resgate de cotas. 11.1.3. Caso, por qualquer motivo, a A…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Dir Cred / PL",
+        "rationale": "O Informe Mensal traz direitos creditórios e PL."
+      }
+    },
+    {
+      "name": "Reserva ou caixa mínimo",
+      "canonical_key": "minimum_cash_ratio",
+      "event_type": "enquadramento",
+      "threshold_value": 0.15,
+      "threshold_unit": "ratio",
+      "threshold_display": "15%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "otista. 17.9.4. O pagamento do resgate ou da amortização das Cotas será efetuado pelo valor unitário da Cota no encerramento do Dia Útil imediatamente anterior, em moeda corrente nacional, por meio: (a) da B3, caso as Cotas estejam custodiadas na B3; ou (b) de transferência eletrônica disponível – TED ou outros mecanismos de transferência de recursos autorizados pelo BACEN. 17.9.5. A reserva a ser constituída em Dis…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades / PL ou Disponibilidades / amortização estimada",
+        "rationale": "O Informe Mensal traz caixa, mas cronogramas futuros e reservas regulatórias nem sempre são campos padronizados."
+      }
+    },
+    {
+      "name": "Reserva ou caixa mínimo",
+      "canonical_key": "minimum_cash_ratio",
+      "event_type": "enquadramento",
+      "threshold_value": 0.15,
+      "threshold_unit": "ratio",
+      "threshold_display": "15%",
+      "comparison": ">=",
+      "formula_text": "rva a ser constituída em Disponibilidades pela Administradora para o pagamento das despesas e dos encargos do Fundo, nos termos do presente Regulamento e da legislação aplicável, deverá ser em montante equivalente às despesas e encargos projetados para os 3 (três) meses subsequentes, que será aplicado em Ativos Financeiros de liquidez diária (“Reserva de Despesas e Encargos”). 17.9.6. A reserva a ser constituída em…",
+      "source_excerpt": "rva a ser constituída em Disponibilidades pela Administradora para o pagamento das despesas e dos encargos do Fundo, nos termos do presente Regulamento e da legislação aplicável, deverá ser em montante equivalente às despesas e encargos projetados para os 3 (três) meses subsequentes, que será aplicado em Ativos Financeiros de liquidez diária (“Reserva de Despesas e Encargos”). 17.9.6. A reserva a ser constituída em…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades / PL ou Disponibilidades / amortização estimada",
+        "rationale": "O Informe Mensal traz caixa, mas cronogramas futuros e reservas regulatórias nem sempre são campos padronizados."
+      }
+    },
+    {
+      "name": "Reserva ou caixa mínimo",
+      "canonical_key": "minimum_cash_ratio",
+      "event_type": "enquadramento",
+      "threshold_value": 0.1,
+      "threshold_unit": "ratio",
+      "threshold_display": "10%",
+      "comparison": ">=",
+      "formula_text": "das Juniores, desde que, considerada a amortização, Esta folha é parte da Ata da Assembleia Geral de Cotistas do Crédito Universitário III Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada, realizada no dia 25 de maio de 2026. sejam observadas, cumulativamente: (i)a Razão de Subordinação Sênior; (ii) a Razão de Subordinação Mezanino; (iii) a Reserva de Alavancagem; e (iv) a Razão Mínima de Di…",
+      "source_excerpt": "das Juniores, desde que, considerada a amortização, Esta folha é parte da Ata da Assembleia Geral de Cotistas do Crédito Universitário III Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada, realizada no dia 25 de maio de 2026. sejam observadas, cumulativamente: (i)a Razão de Subordinação Sênior; (ii) a Razão de Subordinação Mezanino; (iii) a Reserva de Alavancagem; e (iv) a Razão Mínima de Di…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades / PL ou Disponibilidades / amortização estimada",
+        "rationale": "O Informe Mensal traz caixa, mas cronogramas futuros e reservas regulatórias nem sempre são campos padronizados."
+      }
+    },
+    {
+      "name": "Limite de concentração",
+      "canonical_key": "concentration_limits",
+      "event_type": "elegibilidade",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "s de educação à distância, dentre outras), em que a Cedente deverá restituir imediatamente ao Fundo o Preço de Aquisição proporcional aos Direi tos Creditórios devidos pelos Devedores cujos contratos de prestação de serviços tenham sido cancelados ou interrompidos referente aos meses não cursados pelo Devedor, o risco de inadimplência dos Direitos Creditórios estará concentrado unicamente na Cedente. (ii) Risco de C…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Limites por sacado, cedente ou grupo econômico exigem granularidade não disponível no IME público."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": ">=",
+      "formula_text": "o Agente de Cobrança Extraordinária, seus administradores, empregados e demais prepostos não se responsabilizarão por danos ou prejuízos sofridos em decorrência da não propositura ou do não prosseguimento de medidas judiciai s ou extrajudiciais necessárias à salvaguarda de direitos, garantias e prerrogativas do Fundo, o patrimônio do Fundo poderá ser afetado negativamente. (vi) Risco de Utilização de Instrumentos De…",
+      "source_excerpt": "o Agente de Cobrança Extraordinária, seus administradores, empregados e demais prepostos não se responsabilizarão por danos ou prejuízos sofridos em decorrência da não propositura ou do não prosseguimento de medidas judiciai s ou extrajudiciais necessárias à salvaguarda de direitos, garantias e prerrogativas do Fundo, o patrimônio do Fundo poderá ser afetado negativamente. (vi) Risco de Utilização de Instrumentos De…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": ">=",
+      "formula_text": "repostos não se responsabilizarão por danos ou prejuízos sofridos em decorrência da não propositura ou do não prosseguimento de medidas judiciai s ou extrajudiciais necessárias à salvaguarda de direitos, garantias e prerrogativas do Fundo, o patrimônio do Fundo poderá ser afetado negativamente. (vi) Risco de Utilização de Instrumentos Derivativos . A eventual contratação, pelo Fundo, de modalidades de operações de d…",
+      "source_excerpt": "repostos não se responsabilizarão por danos ou prejuízos sofridos em decorrência da não propositura ou do não prosseguimento de medidas judiciai s ou extrajudiciais necessárias à salvaguarda de direitos, garantias e prerrogativas do Fundo, o patrimônio do Fundo poderá ser afetado negativamente. (vi) Risco de Utilização de Instrumentos Derivativos . A eventual contratação, pelo Fundo, de modalidades de operações de d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": ">=",
+      "formula_text": "ou extrajudiciais necessárias à salvaguarda de direitos, garantias e prerrogativas do Fundo, o patrimônio do Fundo poderá ser afetado negativamente. (vi) Risco de Utilização de Instrumentos Derivativos . A eventual contratação, pelo Fundo, de modalidades de operações de derivativos poderá ocorrer exclusivamente para proteção de posições detidas à vista pelo Fundo. A realização de operações pelo Fundo no mercado de d…",
+      "source_excerpt": "ou extrajudiciais necessárias à salvaguarda de direitos, garantias e prerrogativas do Fundo, o patrimônio do Fundo poderá ser afetado negativamente. (vi) Risco de Utilização de Instrumentos Derivativos . A eventual contratação, pelo Fundo, de modalidades de operações de derivativos poderá ocorrer exclusivamente para proteção de posições detidas à vista pelo Fundo. A realização de operações pelo Fundo no mercado de d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Cancelamento máximo",
+      "canonical_key": "cancellation_rate_max",
+      "event_type": "enquadramento",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "educacionais (aqui incluídas, exemplificativamente, as hipóteses de tr ancamento de matrícula, transferência de faculdade, não abertura ou fechamento de turma/curso, inclusive de cursos de educação à distância, dentre outras), em que a Cedente deverá restituir imediatamente ao Fundo o Preço de Aquisição proporcional aos Direi tos Creditórios devidos pelos Devedores cujos contratos de prestação de serviços tenham sid…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Recompras / Crédito, baixas ou eventos operacionais informados",
+        "rationale": "Cancelamentos podem ter proxy por recompras/baixas quando reportadas, mas a definição contratual costuma depender de dados operacionais do cedente."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "Limitada, realizada no dia 25 de maio de 2026. ÍNDICE CAPÍTULO I – DO OBJETO, DA FORMA DE CONSTITUIÇÃO, CLASSE ÚNICA, PRAZO E PÚBLICO-ALVOErro! Indicador não definido. CAPÍTULO II – PRESTADORES DE SERVIÇOS ESSENCIAIS......................Erro! Indicador não definido. CAPÍTULO III – DA TAXA DE ADMINISTRAÇÃO, TAXA DE GESTÃO E DEMAIS TAXAS DO FUNDO Erro! Indicador não definido. CAPÍTULO IV – DA SUBSTITUIÇÃO E RENÚNCIA…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "A remuneração dos distribuidores que sejam contratados e remunerados pontualmente, a cada nova emissão de Cotas, será prevista nos documentos das respectivas ofertas, conforme a Resolução CVM 160, e alterações posteriores. 7.6. Inexistência de Taxas Adicionais. Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. CAPÍTULO IV – DA SUBSTITUIÇÃO E REN…",
+      "source_excerpt": "A remuneração dos distribuidores que sejam contratados e remunerados pontualmente, a cada nova emissão de Cotas, será prevista nos documentos das respectivas ofertas, conforme a Resolução CVM 160, e alterações posteriores. 7.6. Inexistência de Taxas Adicionais. Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. CAPÍTULO IV – DA SUBSTITUIÇÃO E REN…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. CAPÍTULO IV – DA SUBSTITUIÇÃO E RENÚNCIA DA ADMINISTRADORA E DA GESTORA Esta folha é parte da Ata da Assembleia Geral de Cotistas do Crédito Universitário III Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada, realizada no dia 25 de maio de 2026. 8. SUBSTITUIÇÃO E RENÚNCIA…",
+      "source_excerpt": "Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. CAPÍTULO IV – DA SUBSTITUIÇÃO E RENÚNCIA DA ADMINISTRADORA E DA GESTORA Esta folha é parte da Ata da Assembleia Geral de Cotistas do Crédito Universitário III Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada, realizada no dia 25 de maio de 2026. 8. SUBSTITUIÇÃO E RENÚNCIA…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "itórios que poderão integrar a carteira do Fundo, cujos custos serão arcados pela Gestora e já estarão embutidos nas taxas de gestão aplicáveis ao Fundo; e (b) agente de cobrança dos Direitos Creditórios. 9.2.1. Ressalvada as situações de conflito de interesses, a substituição dos prestadores de serviço nominados nas alíneas acima será feita a critério da Gestora. 9.3. As disposições relativas à substituição e renún…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "s por qualquer dano ou prejuízo sofrido pelo Fundo e/ou por qualquer dos Cotistas em decorrência da não propositura (ou do não prosseguimento), pelo Fundo ou pelos Cotistas, de medidas judiciais ou extrajudiciais necessárias à preservação dos direitos e prerrogativas do Fundo no caso de não haver recursos suficientes para a realização dos procedimentos de cobrança. 10.6. As disposições relativas à substituição e à r…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "petente por ela subcontratado, a cada data em que um Cedente, nos termos do Contrato de Cessão em questão, ofertar Direitos Creditórios para cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Gestora do atendimento ao C…",
+      "source_excerpt": "petente por ela subcontratado, a cada data em que um Cedente, nos termos do Contrato de Cessão em questão, ofertar Direitos Creditórios para cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Gestora do atendimento ao C…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Gestora do atendimento ao Critério de Elegibilidade será considerada como definitiva. 13.4. O desenquadramento de qualquer Direito Creditório com relação a qualquer Cri…",
+      "source_excerpt": "cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Gestora do atendimento ao Critério de Elegibilidade será considerada como definitiva. 13.4. O desenquadramento de qualquer Direito Creditório com relação a qualquer Cri…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "istribuição dos rendimentos da carteira, nos termos do Regulamento. “Cotas Subordinadas Juniores” As Cotas Subordinadas Juniores emitidas pelo Fundo que se subordinam às Cotas Seniores e às Cotas Subordinadas Mezanino para efeitos de amortização, resgate e distribuição dos rendimentos da carteira do Fundo, nos termos do Regulamento. “Cotista” O titular de qualquer subclasse e séries de Cotas, sem distinção. “Critéri…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "á calculada em função do valor total das Cotas em circulação. Após a constituição do condomínio mencionado acima, a Administradora estará desobrigada em relação às responsabilidades estabelecidas no presente Regulamento, ficando autorizada a liquidar o Fundo perante as autoridades competentes. 16.2.6. Riscos de Originação (i) Originação dos Direitos Creditórios. Risco de Originação – Diminuição da Quantidade de Dire…",
+      "source_excerpt": "á calculada em função do valor total das Cotas em circulação. Após a constituição do condomínio mencionado acima, a Administradora estará desobrigada em relação às responsabilidades estabelecidas no presente Regulamento, ficando autorizada a liquidar o Fundo perante as autoridades competentes. 16.2.6. Riscos de Originação (i) Originação dos Direitos Creditórios. Risco de Originação – Diminuição da Quantidade de Dire…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "",
+      "source_excerpt": "ISTRAÇÃO, TAXA DE GESTÃO E DEMAIS TAXAS DO FUNDO Erro! Indicador não definido. CAPÍTULO IV – DA SUBSTITUIÇÃO E RENÚNCIA DA ADMINISTRADORA E DA GESTORAErro! Indicador não definido. CAPÍTULO V – DA CONTRATAÇÃO DE PRESTADORES DE SERVIÇOS .........Erro! Indicador não definido. CAPÍTULO VI – DA POLÍTICA DE INVESTIMENTO E DOS DIREITOS CREDITÓRIOSErro! Indicador não definido. CAPÍTULO VII – DOS CRITÉRIOS DE ELEGIBILIDADE E…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
     }
   ],
   "eligibility_criteria": [
@@ -5388,6 +6290,96 @@
       "name": "Critério de elegibilidade",
       "description": "rição genérica dos procedimentos que serão adotados pela Gestora na avaliação e na seleção dos Direitos Creditórios, levando em consideração os processos de originação dos Direitos Creditórios e as políticas de concessão de crédito de cada Cedente. 12.5. Uma vez cumpridas as obrigações e demais formalidades relacionadas ao processo de aquisição dos Direitos Creditórios previstos neste Regulamento, notadamente a veri…",
       "source_excerpt": "rição genérica dos procedimentos que serão adotados pela Gestora na avaliação e na seleção dos Direitos Creditórios, levando em consideração os processos de originação dos Direitos Creditórios e as políticas de concessão de crédito de cada Cedente. 12.5. Uma vez cumpridas as obrigações e demais formalidades relacionadas ao processo de aquisição dos Direitos Creditórios previstos neste Regulamento, notadamente a veri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "prestador de serviço competente por ela subcontratado, a cada data em que um Cedente, nos termos do Contrato de Cessão em questão, ofertar Direitos Creditórios para cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Ges…",
+      "source_excerpt": "prestador de serviço competente por ela subcontratado, a cada data em que um Cedente, nos termos do Contrato de Cessão em questão, ofertar Direitos Creditórios para cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Ges…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ireitos Creditórios para cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Gestora do atendimento ao Critério de Elegibilidade será considerada como definitiva. 13.4. O desenquadramento de qualquer Direito Creditório c…",
+      "source_excerpt": "ireitos Creditórios para cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Gestora do atendimento ao Critério de Elegibilidade será considerada como definitiva. 13.4. O desenquadramento de qualquer Direito Creditório c…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "amortização, resgate e distribuição dos rendimentos da carteira, nos termos do Regulamento. “Cotas Subordinadas Juniores” As Cotas Subordinadas Juniores emitidas pelo Fundo que se subordinam às Cotas Seniores e às Cotas Subordinadas Mezanino para efeitos de amortização, resgate e distribuição dos rendimentos da carteira do Fundo, nos termos do Regulamento. “Cotista” O titular de qualquer subclasse e séries de Cotas,…",
+      "source_excerpt": "amortização, resgate e distribuição dos rendimentos da carteira, nos termos do Regulamento. “Cotas Subordinadas Juniores” As Cotas Subordinadas Juniores emitidas pelo Fundo que se subordinam às Cotas Seniores e às Cotas Subordinadas Mezanino para efeitos de amortização, resgate e distribuição dos rendimentos da carteira do Fundo, nos termos do Regulamento. “Cotista” O titular de qualquer subclasse e séries de Cotas,…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ideal de cada Cotista será calculada em função do valor total das Cotas em circulação. Após a constituição do condomínio mencionado acima, a Administradora estará desobrigada em relação às responsabilidades estabelecidas no presente Regulamento, ficando autorizada a liquidar o Fundo perante as autoridades competentes. 16.2.6. Riscos de Originação (i) Originação dos Direitos Creditórios. Risco de Originação – Diminui…",
+      "source_excerpt": "ideal de cada Cotista será calculada em função do valor total das Cotas em circulação. Após a constituição do condomínio mencionado acima, a Administradora estará desobrigada em relação às responsabilidades estabelecidas no presente Regulamento, ficando autorizada a liquidar o Fundo perante as autoridades competentes. 16.2.6. Riscos de Originação (i) Originação dos Direitos Creditórios. Risco de Originação – Diminui…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "LO III – DA TAXA DE ADMINISTRAÇÃO, TAXA DE GESTÃO E DEMAIS TAXAS DO FUNDO Erro! Indicador não definido. CAPÍTULO IV – DA SUBSTITUIÇÃO E RENÚNCIA DA ADMINISTRADORA E DA GESTORAErro! Indicador não definido. CAPÍTULO V – DA CONTRATAÇÃO DE PRESTADORES DE SERVIÇOS .........Erro! Indicador não definido. CAPÍTULO VI – DA POLÍTICA DE INVESTIMENTO E DOS DIREITOS CREDITÓRIOSErro! Indicador não definido. CAPÍTULO VII – DOS CRI…",
+      "source_excerpt": "LO III – DA TAXA DE ADMINISTRAÇÃO, TAXA DE GESTÃO E DEMAIS TAXAS DO FUNDO Erro! Indicador não definido. CAPÍTULO IV – DA SUBSTITUIÇÃO E RENÚNCIA DA ADMINISTRADORA E DA GESTORAErro! Indicador não definido. CAPÍTULO V – DA CONTRATAÇÃO DE PRESTADORES DE SERVIÇOS .........Erro! Indicador não definido. CAPÍTULO VI – DA POLÍTICA DE INVESTIMENTO E DOS DIREITOS CREDITÓRIOSErro! Indicador não definido. CAPÍTULO VII – DOS CRI…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "CVM; e II - se tratar de aplicações em: (a) Letras Financeiras do Tesouro - LFT; (b) operações compromissadas lastreadas em Letras Financeiras do Tesouro - LFT; e (c) cotas de fundos que possuam como política de investimento a alocação exclusiva nos títulos a que se referem as alíneas “a” e “b”. 11.2. Os Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Cessão, aos Critérios d…",
+      "source_excerpt": "CVM; e II - se tratar de aplicações em: (a) Letras Financeiras do Tesouro - LFT; (b) operações compromissadas lastreadas em Letras Financeiras do Tesouro - LFT; e (c) cotas de fundos que possuam como política de investimento a alocação exclusiva nos títulos a que se referem as alíneas “a” e “b”. 11.2. Os Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Cessão, aos Critérios d…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "espondem aos créditos representados por contratos de confissão de dívida, cédulas de crédito bancário e/ou outro tipo de instrumento financeiro firmados entre os estu dantes (Devedores), seus representantes, fiadores e/ou garantidores com as Instituições de Ensino Superior , na modalidade “Parcela Fácil” ou “Repasse Garantido” oferecida pelo Pravaler S.A. (acima qualificado), e que atendam cumulativamente aos Critér…",
+      "source_excerpt": "espondem aos créditos representados por contratos de confissão de dívida, cédulas de crédito bancário e/ou outro tipo de instrumento financeiro firmados entre os estu dantes (Devedores), seus representantes, fiadores e/ou garantidores com as Instituições de Ensino Superior , na modalidade “Parcela Fácil” ou “Repasse Garantido” oferecida pelo Pravaler S.A. (acima qualificado), e que atendam cumulativamente aos Critér…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "idade da Classe Única sempre que o tipo de direito creditório adquirido for suscetível a registro, contudo, não serão registrados em Cartório de Registro de Títulos e Documentos os Contratos e Termos de Cessão. 12.7. Revolvência: observada a ordem de alocação de recursos disposta no presente Regulamento, será admitida a revolvência dos Direitos Creditórios que compõem a carteira da Classe. CAPÍTULO VII – DOS CRITÉRI…",
+      "source_excerpt": "idade da Classe Única sempre que o tipo de direito creditório adquirido for suscetível a registro, contudo, não serão registrados em Cartório de Registro de Títulos e Documentos os Contratos e Termos de Cessão. 12.7. Revolvência: observada a ordem de alocação de recursos disposta no presente Regulamento, será admitida a revolvência dos Direitos Creditórios que compõem a carteira da Classe. CAPÍTULO VII – DOS CRITÉRI…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o disposto no item Erro! Fonte de referência não encontrada. acima, em caso de verificação da má formalização da cessão do Direito Creditório, após a cessão destes, o Fundo poderá reter os valores já pagos pelos respectivos Devedores. Esta folha é parte da Ata da Assembleia Geral de Cotistas do Crédito Universitário III Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada, realizada no dia 25 de…",
+      "source_excerpt": "o disposto no item Erro! Fonte de referência não encontrada. acima, em caso de verificação da má formalização da cessão do Direito Creditório, após a cessão destes, o Fundo poderá reter os valores já pagos pelos respectivos Devedores. Esta folha é parte da Ata da Assembleia Geral de Cotistas do Crédito Universitário III Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada, realizada no dia 25 de…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "prestador de serviço competente por ela subcontratado, a cada data em que um Cedente, nos termos do Contrato de Cessão em questão, ofertar Direitos Creditórios para cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Ges…",
+      "source_excerpt": "prestador de serviço competente por ela subcontratado, a cada data em que um Cedente, nos termos do Contrato de Cessão em questão, ofertar Direitos Creditórios para cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Ges…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ireitos Creditórios para cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Gestora do atendimento ao Critério de Elegibilidade será considerada como definitiva. 13.4. O desenquadramento de qualquer Direito Creditório c…",
+      "source_excerpt": "ireitos Creditórios para cessão ao Fundo, através do envio, pelo Cedente, de arquivo contendo a identificação dos Direitos Creditórios ofertados (“ Data de Oferta de Direitos Creditórios”). 13.3. Observados os termos e as condições do presente Regulamento, a verificação pela Gestora do atendimento ao Critério de Elegibilidade será considerada como definitiva. 13.4. O desenquadramento de qualquer Direito Creditório c…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "amortização, resgate e distribuição dos rendimentos da carteira, nos termos do Regulamento. “Cotas Subordinadas Juniores” As Cotas Subordinadas Juniores emitidas pelo Fundo que se subordinam às Cotas Seniores e às Cotas Subordinadas Mezanino para efeitos de amortização, resgate e distribuição dos rendimentos da carteira do Fundo, nos termos do Regulamento. “Cotista” O titular de qualquer subclasse e séries de Cotas,…",
+      "source_excerpt": "amortização, resgate e distribuição dos rendimentos da carteira, nos termos do Regulamento. “Cotas Subordinadas Juniores” As Cotas Subordinadas Juniores emitidas pelo Fundo que se subordinam às Cotas Seniores e às Cotas Subordinadas Mezanino para efeitos de amortização, resgate e distribuição dos rendimentos da carteira do Fundo, nos termos do Regulamento. “Cotista” O titular de qualquer subclasse e séries de Cotas,…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ideal de cada Cotista será calculada em função do valor total das Cotas em circulação. Após a constituição do condomínio mencionado acima, a Administradora estará desobrigada em relação às responsabilidades estabelecidas no presente Regulamento, ficando autorizada a liquidar o Fundo perante as autoridades competentes. 16.2.6. Riscos de Originação (i) Originação dos Direitos Creditórios. Risco de Originação – Diminui…",
+      "source_excerpt": "ideal de cada Cotista será calculada em função do valor total das Cotas em circulação. Após a constituição do condomínio mencionado acima, a Administradora estará desobrigada em relação às responsabilidades estabelecidas no presente Regulamento, ficando autorizada a liquidar o Fundo perante as autoridades competentes. 16.2.6. Riscos de Originação (i) Originação dos Direitos Creditórios. Risco de Originação – Diminui…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "LO III – DA TAXA DE ADMINISTRAÇÃO, TAXA DE GESTÃO E DEMAIS TAXAS DO FUNDO Erro! Indicador não definido. CAPÍTULO IV – DA SUBSTITUIÇÃO E RENÚNCIA DA ADMINISTRADORA E DA GESTORAErro! Indicador não definido. CAPÍTULO V – DA CONTRATAÇÃO DE PRESTADORES DE SERVIÇOS .........Erro! Indicador não definido. CAPÍTULO VI – DA POLÍTICA DE INVESTIMENTO E DOS DIREITOS CREDITÓRIOSErro! Indicador não definido. CAPÍTULO VII – DOS CRI…",
+      "source_excerpt": "LO III – DA TAXA DE ADMINISTRAÇÃO, TAXA DE GESTÃO E DEMAIS TAXAS DO FUNDO Erro! Indicador não definido. CAPÍTULO IV – DA SUBSTITUIÇÃO E RENÚNCIA DA ADMINISTRADORA E DA GESTORAErro! Indicador não definido. CAPÍTULO V – DA CONTRATAÇÃO DE PRESTADORES DE SERVIÇOS .........Erro! Indicador não definido. CAPÍTULO VI – DA POLÍTICA DE INVESTIMENTO E DOS DIREITOS CREDITÓRIOSErro! Indicador não definido. CAPÍTULO VII – DOS CRI…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "CVM; e II - se tratar de aplicações em: (a) Letras Financeiras do Tesouro - LFT; (b) operações compromissadas lastreadas em Letras Financeiras do Tesouro - LFT; e (c) cotas de fundos que possuam como política de investimento a alocação exclusiva nos títulos a que se referem as alíneas “a” e “b”. 11.2. Os Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Cessão, aos Critérios d…",
+      "source_excerpt": "CVM; e II - se tratar de aplicações em: (a) Letras Financeiras do Tesouro - LFT; (b) operações compromissadas lastreadas em Letras Financeiras do Tesouro - LFT; e (c) cotas de fundos que possuam como política de investimento a alocação exclusiva nos títulos a que se referem as alíneas “a” e “b”. 11.2. Os Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Cessão, aos Critérios d…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "espondem aos créditos representados por contratos de confissão de dívida, cédulas de crédito bancário e/ou outro tipo de instrumento financeiro firmados entre os estu dantes (Devedores), seus representantes, fiadores e/ou garantidores com as Instituições de Ensino Superior , na modalidade “Parcela Fácil” ou “Repasse Garantido” oferecida pelo Pravaler S.A. (acima qualificado), e que atendam cumulativamente aos Critér…",
+      "source_excerpt": "espondem aos créditos representados por contratos de confissão de dívida, cédulas de crédito bancário e/ou outro tipo de instrumento financeiro firmados entre os estu dantes (Devedores), seus representantes, fiadores e/ou garantidores com as Instituições de Ensino Superior , na modalidade “Parcela Fácil” ou “Repasse Garantido” oferecida pelo Pravaler S.A. (acima qualificado), e que atendam cumulativamente aos Critér…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "idade da Classe Única sempre que o tipo de direito creditório adquirido for suscetível a registro, contudo, não serão registrados em Cartório de Registro de Títulos e Documentos os Contratos e Termos de Cessão. 12.7. Revolvência: observada a ordem de alocação de recursos disposta no presente Regulamento, será admitida a revolvência dos Direitos Creditórios que compõem a carteira da Classe. CAPÍTULO VII – DOS CRITÉRI…",
+      "source_excerpt": "idade da Classe Única sempre que o tipo de direito creditório adquirido for suscetível a registro, contudo, não serão registrados em Cartório de Registro de Títulos e Documentos os Contratos e Termos de Cessão. 12.7. Revolvência: observada a ordem de alocação de recursos disposta no presente Regulamento, será admitida a revolvência dos Direitos Creditórios que compõem a carteira da Classe. CAPÍTULO VII – DOS CRITÉRI…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o disposto no item Erro! Fonte de referência não encontrada. acima, em caso de verificação da má formalização da cessão do Direito Creditório, após a cessão destes, o Fundo poderá reter os valores já pagos pelos respectivos Devedores. Esta folha é parte da Ata da Assembleia Geral de Cotistas do Crédito Universitário III Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada, realizada no dia 25 de…",
+      "source_excerpt": "o disposto no item Erro! Fonte de referência não encontrada. acima, em caso de verificação da má formalização da cessão do Direito Creditório, após a cessão destes, o Fundo poderá reter os valores já pagos pelos respectivos Devedores. Esta folha é parte da Ata da Assembleia Geral de Cotistas do Crédito Universitário III Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada, realizada no dia 25 de…"
     }
   ],
   "emissions": [
@@ -5726,9 +6718,37 @@
       "source_excerpt": "6.696, de 21 de fevereiro de 2002, inscrita no Cadastro Nacional de Pessoas Jurídicas (“CNPJ”) sob o n.º 36.113.876/0001-91, com sede na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, CEP 22640-102, Barra da Tijuca (“Administradora”) do CRÉDITO UNIVERSITÁRIO III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS – RESPONSABILIDADE LIMITADA (“Fundo”). 2. MESA: P…",
       "source_document": "965893_assembleia_assembleia_965893_2025-04-15.pdf",
       "source_document_id": 965893
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "Cotas Subordinadas Mezanino” e",
+      "amount": null,
+      "amount_display": "",
+      "currency": null,
+      "remuneration": "luir a possibilidade de pagamento do Preço de Aquisição à vista da cláusula 14.4.1; (j) adicionar obrigações relacionadas ao repasse de informações de monitoramento à agência classificadora de risco, com a inclusão da cláusula 24; (k) alterar a cláusula 17.9 e seus subitens, para incluir novas tratativas de pagamento de remuneração, resgate e amortização de cotas, bem como incluir a cláusula 17.9.12 para prever hipó…",
+      "amortization_schedule": "cação de recursos prevista no Capítulo XVI, com a consequente revisão dos critérios das cláusulas 2 7.1, 27.2 e 27.3; (g) alterar a Política de Investimento da cláusula 11 para atender o mínimo obrigatório de 67% (sessenta e sete por cento) de Alocação Mínima, com a adição d a cláusula 11.1.1.1 para prever obrigação de Amortização Extraordinária Da Cota Sênior caso deixe de observar a Alocação Mínima n o prazo de 30…",
+      "maturity": "Creditórios com os respectivos Cedentes, bem como formalizar os respectivos instrumentos de cessão e aquisição; (d) acompanhar a atuação do Custodiante ou da empresa contratada para a cobrança de todos os Direitos Creditórios Cedidos integrantes da carteira do Fundo que não tenham sido pagos nas respectivas datas de vencimento; (e) observar as disposições da regulamentação aplicável com relação ao exercício profissi…",
+      "source_excerpt": "Creditórios – Responsabilidade Limitada ”, respectivamente ; (b) reestruturar as cotas da subclasse subordinadas mezanino, a serem denominadas “Cotas Subordinadas Mezanino” e, deste modo, (1) incluir as definições de “Cotas Subordinadas” , “Cotas Subordinadas Mezanino”, “Razão de Subordinação Mezanino”, “Razão Mínima de Disponibilidades”, “Yield Da Carteira Ponderada”, e “Yield Mínimo da Carteira Ponderada; (2) alte…",
+      "source_document": "1203889_assembleia_assembleia_1203889_2026-05-25.pdf",
+      "source_document_id": 1203889
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": null,
+      "amount_display": "",
+      "currency": null,
+      "remuneration": ") Yield Mínimo da Carteira Ponderada; e (19) Parâmetros abaixo referentes a cada série e/ou subclasse de Cotas Seniores e Cotas Subordinadas Mezanino, conforme o caso, bem como suas consolidações por séries e/ou subclasses, referentes à próxima Data de Pagamento: i. Meta de Amortização de Principal; ii. Meta de Remuneração; iii. Meta de PMT; iv. Razão de Subordinação Sênior; e v. Razão de Subordinação Mezanino. (j)…",
+      "amortization_schedule": "(17) Contrato Médio da Carteira; (18) Yield Mínimo da Carteira Ponderada; e (19) Parâmetros abaixo referentes a cada série e/ou subclasse de Cotas Seniores e Cotas Subordinadas Mezanino, conforme o caso, bem como suas consolidações por séries e/ou subclasses, referentes à próxima Data de Pagamento: i. Meta de Amortização de Principal; ii. Meta de Remuneração; iii. Meta de PMT; iv. Razão de Subordinação Sênior; e v.…",
+      "maturity": "Creditórios com os respectivos Cedentes, bem como formalizar os respectivos instrumentos de cessão e aquisição; (d) acompanhar a atuação do Custodiante ou da empresa contratada para a cobrança de todos os Direitos Creditórios Cedidos integrantes da carteira do Fundo que não tenham sido pagos nas respectivas datas de vencimento; (e) observar as disposições da regulamentação aplicável com relação ao exercício profissi…",
+      "source_excerpt": "as, sob a forma de condomínio fechado, nos termos do artigo 5º do Anexo Normativo II, de modo que as Cotas somente serão resgatadas totalmente ao término dos respectivos Prazos de Duração da respectiva subclasse ou série de Cotas ou quando da liquidação do Fundo. 2.2. Nos termos das Regras e Procedimentos de Administração e Gestão de Recursos de Terceiros – ANBIMA para Classificação das Classes dos FIDC, a Classe é…",
+      "source_document": "1203913_regulamento_regulamento_1203913_2026-05-25.pdf",
+      "source_document_id": 1203913
     }
   ],
-  "extraction_count": 35,
+  "extraction_count": 37,
   "extraction_errors": [
     {
       "document_id": 318075,

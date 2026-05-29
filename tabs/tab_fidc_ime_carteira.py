@@ -3,7 +3,6 @@ from __future__ import annotations
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from html import escape
-import re
 import time
 import traceback
 from typing import Any
@@ -34,20 +33,6 @@ from tabs.ime_portfolio_support import (
 
 
 PARTIAL_CACHE_STATUSES = {"partial_hit", "github_cache_partial"}
-_COMPETENCIA_MONTH_LABELS = {
-    "jan": 1,
-    "fev": 2,
-    "mar": 3,
-    "abr": 4,
-    "mai": 5,
-    "jun": 6,
-    "jul": 7,
-    "ago": 8,
-    "set": 9,
-    "out": 10,
-    "nov": 11,
-    "dez": 12,
-}
 
 
 def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> None:
@@ -967,12 +952,6 @@ def _render_portfolio_aggregate_analysis(
             bundle=bundle,
             period=period,
         )
-        _render_portfolio_cache_debug(
-            selected_portfolio=selected_portfolio,
-            results=results,
-            period=period,
-            common_competencias=list(bundle.dashboard.competencias),
-        )
         if dashboard_errors:
             with st.expander("Fundos excluídos por falha no dashboard base", expanded=False):
                 for cnpj, message in dashboard_errors.items():
@@ -1021,25 +1000,13 @@ def _render_portfolio_aggregate_header(
     loaded_count: int,
     total_selected: int,
 ) -> None:
-    latest = ime_tab._format_competencia_label(bundle.dashboard.latest_competencia)
-    period_label = ime_tab._format_competencia_period(bundle.dashboard.fund_info.get("periodo_analisado") or "N/D")
+    _ = bundle, loaded_count, total_selected
     st.markdown(
         f"""
 <div class="fidc-hero">
   <div class="fidc-hero__title">{escape(selected_portfolio.name)}</div>
 </div>
 """,
-        unsafe_allow_html=True,
-    )
-    st.markdown(
-        (
-            '<div class="fidc-period-bar">'
-            f"<span><strong>Escopo:</strong> Carteira agregada</span>"
-            f"<span><strong>Últ. competência comum:</strong> {escape(latest)}</span>"
-            f"<span><strong>Janela comum:</strong> {escape(period_label)}</span>"
-            f"<span><strong>Fundos incluídos:</strong> {loaded_count}/{total_selected}</span>"
-            "</div>"
-        ),
         unsafe_allow_html=True,
     )
 
@@ -1102,137 +1069,6 @@ def _portfolio_missing_competencias_for_period(
     return [competencia for competencia in expected_competencias if competencia not in common_competencias]
 
 
-def _render_portfolio_cache_debug(
-    *,
-    selected_portfolio: PortfolioRecord,
-    results: dict[str, dict[str, Any]],
-    period: ImePeriodSelection,
-    common_competencias: list[str],
-) -> None:
-    fund_rows = _build_portfolio_cache_debug_rows(selected_portfolio=selected_portfolio, results=results, period=period)
-    excluded_rows = _build_excluded_competency_debug_rows(
-        selected_portfolio=selected_portfolio,
-        results=results,
-        period=period,
-        common_competencias=common_competencias,
-    )
-    with st.expander("Diagnóstico de cache e competências da carteira", expanded=False):
-        st.markdown("**Fundos selecionados e cache verificado**")
-        st.dataframe(pd.DataFrame(fund_rows), width="stretch", hide_index=True)
-        st.markdown("**Competências esperadas fora da interseção após refresh**")
-        if excluded_rows:
-            st.dataframe(pd.DataFrame(excluded_rows), width="stretch", hide_index=True)
-        else:
-            st.caption("Nenhuma competência esperada ficou fora da interseção comum.")
-
-
-def _build_portfolio_cache_debug_rows(
-    *,
-    selected_portfolio: PortfolioRecord,
-    results: dict[str, dict[str, Any]],
-    period: ImePeriodSelection,
-) -> list[dict[str, object]]:
-    expected_competencias = _expected_competencias_for_period(period)
-    rows: list[dict[str, object]] = []
-    for fund in selected_portfolio.funds:
-        payload = results.get(fund.cnpj) or {}
-        context = payload.get("context") or {}
-        found = [str(value) for value in (context.get("found_competencias") or [])]
-        missing_after = [str(value) for value in (context.get("missing_competencias_after_refresh") or [])]
-        rows.append(
-            {
-                "CNPJ": fund.cnpj,
-                "Fundo": _resolve_portfolio_fund_display_name(fund.cnpj, results, fallback_name=fund.display_name),
-                "Esperadas": len(expected_competencias),
-                "Encontradas": len(found),
-                "Janela encontrada": _format_competencia_debug_span(found),
-                "Status probe": context.get("cache_probe_status") or "-",
-                "Fonte probe": context.get("cache_probe_source") or "-",
-                "Cache solicitado": context.get("cache_requested_key") or "-",
-                "Cache carregado": context.get("cache_key") or "-",
-                "Status final": context.get("cache_status") or "-",
-                "Fonte final": context.get("cache_source") or "-",
-                "Refresh acionado": "sim" if context.get("cache_refresh_attempted") else "não",
-                "Motivo refresh": context.get("cache_refresh_reason") or context.get("cache_refresh_skipped_reason") or "-",
-                "Erro refresh": context.get("cache_refresh_error") or "-",
-                "Competências faltantes após refresh": _format_competencia_debug_list(missing_after),
-            }
-        )
-    return rows
-
-
-def _build_excluded_competency_debug_rows(
-    *,
-    selected_portfolio: PortfolioRecord,
-    results: dict[str, dict[str, Any]],
-    period: ImePeriodSelection,
-    common_competencias: list[str],
-) -> list[dict[str, object]]:
-    expected_competencias = _expected_competencias_for_period(period)
-    common = {str(value) for value in common_competencias}
-    rows: list[dict[str, object]] = []
-    for competencia in expected_competencias:
-        if competencia in common:
-            continue
-        missing_funds: list[str] = []
-        reasons: list[str] = []
-        for fund in selected_portfolio.funds:
-            payload = results.get(fund.cnpj) or {}
-            context = payload.get("context") or {}
-            found = {str(value) for value in (context.get("found_competencias") or [])}
-            if competencia in found:
-                continue
-            missing_funds.append(_resolve_portfolio_fund_display_name(fund.cnpj, results, fallback_name=fund.display_name))
-            reason = context.get("cache_refresh_error") or context.get("cache_refresh_skipped_reason") or context.get("cache_refresh_reason") or "sem dado carregado"
-            if reason not in reasons:
-                reasons.append(str(reason))
-        rows.append(
-            {
-                "Competência": ime_tab._format_competencia_label(competencia),
-                "Fundos sem competência": "; ".join(missing_funds) if missing_funds else "-",
-                "Motivo": "; ".join(reasons) if reasons else "-",
-            }
-        )
-    return rows
-
-
-def _format_competencia_debug_span(competencias: list[str]) -> str:
-    if not competencias:
-        return "-"
-    ordered = sorted(competencias, key=_competencia_debug_sort_key)
-    return f"{ime_tab._format_competencia_label(ordered[0])} a {ime_tab._format_competencia_label(ordered[-1])}"
-
-
-def _format_competencia_debug_list(competencias: list[str], *, limit: int = 6) -> str:
-    if not competencias:
-        return ""
-    ordered = sorted(competencias, key=_competencia_debug_sort_key)
-    labels = [ime_tab._format_competencia_label(value) for value in ordered[:limit]]
-    suffix = f" +{len(ordered) - limit}" if len(ordered) > limit else ""
-    return ", ".join(labels) + suffix
-
-
-def _competencia_debug_sort_key(value: object) -> tuple[int, int, str]:
-    raw = str(value or "").strip()
-    if not raw:
-        return (0, 0, "")
-    match = re.fullmatch(r"(\d{2})/(\d{4})", raw)
-    if match:
-        return (int(match.group(2)), int(match.group(1)), raw)
-    match = re.fullmatch(r"([a-z]{3})-(\d{2}|\d{4})", raw.lower())
-    if match:
-        year_text = match.group(2)
-        year = int(year_text) if len(year_text) == 4 else 2000 + int(year_text)
-        return (year, _COMPETENCIA_MONTH_LABELS.get(match.group(1), 0), raw)
-    try:
-        parsed = pd.Timestamp(raw)
-    except Exception:  # noqa: BLE001
-        return (0, 0, raw)
-    if pd.isna(parsed):
-        return (0, 0, raw)
-    return (int(parsed.year), int(parsed.month), raw)
-
-
 def _render_portfolio_aggregate_audit(
     *,
     bundle: PortfolioDashboardBundle,
@@ -1243,14 +1079,6 @@ def _render_portfolio_aggregate_audit(
     excluded_competencias: list[str],
     compact: bool = False,
 ) -> None:
-    st.markdown(
-        f"""
-<div class="fidc-period-bar">
-  <span><strong>Regra temporal:</strong> interseção estrita</span>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
     _ = loaded_count, total_selected
 
     def _render_scope_and_coverage() -> None:
@@ -1300,14 +1128,6 @@ def _render_portfolio_aggregate_audit(
             st.markdown(f"- {note}")
 
     if compact:
-        with st.expander("Dados técnicos da carteira", expanded=False):
-            _render_scope_and_coverage()
-            st.markdown("**Reconciliação do consolidado**")
-            _render_reconciliation()
-            ime_tab._render_audit_section(bundle.dashboard, compact=True, show_title=False)
-            if bundle.dashboard.methodology_notes:
-                st.markdown("**Notas metodológicas da carteira**")
-                _render_methodology_notes()
         return
 
     with st.expander("Escopo e cobertura da carteira", expanded=False):

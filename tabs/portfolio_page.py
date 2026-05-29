@@ -163,14 +163,13 @@ def _render_portfolio_context_header(
     period: ImePeriodSelection,
     selected_sections: tuple[str, ...],
 ) -> None:
-    flow = " / ".join(_BLOCK_BY_ID[section].title for section in selected_sections if section in _BLOCK_BY_ID)
+    _ = selected_sections
     st.markdown(
         f"""
 <div class="portfolio-center-header">
   <div class="portfolio-center-title">{escape(selected_portfolio.name)}</div>
   <div class="portfolio-center-meta">
     <span>{escape(period.label)}</span>
-    <span>{escape(flow)}</span>
   </div>
 </div>
 """,
@@ -207,12 +206,11 @@ def _returns_outputs_cached(*, selected_portfolio: PortfolioRecord, period: ImeP
 
 
 def _render_group_header(*, group_name: str, group_sections: tuple[str, ...]) -> None:
-    flow = " / ".join(_BLOCK_BY_ID[section].title for section in group_sections if section in _BLOCK_BY_ID)
+    _ = group_sections
     st.markdown(
         f"""
 <div class="portfolio-center-group">
   <div class="portfolio-center-group-title">{escape(group_name)}</div>
-  <div class="portfolio-center-group-flow">{escape(flow)}</div>
 </div>
 """,
         unsafe_allow_html=True,
@@ -265,7 +263,7 @@ def _format_section_option(section: str) -> str:
     block = _BLOCK_BY_ID.get(section)
     if block is None:
         return section
-    return f"{block.group} · {block.title}"
+    return block.title
 
 
 def _resolve_workflow_sections(selected_sections: list[str] | tuple[str, ...]) -> tuple[str, ...]:

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 import json
+from pathlib import Path
 import re
 from typing import Any
 
@@ -19,11 +20,23 @@ from services.portfolio_store import (
 )
 
 _cache_data = getattr(st, "cache_data", None)
-if callable(_cache_data):
-    _cache_data_decorator = _cache_data(show_spinner=False)
-else:
+
+
+def _build_cache_data_decorator(*, ttl: int | None = None):
+    if callable(_cache_data):
+        kwargs: dict[str, Any] = {"show_spinner": False}
+        if ttl is not None:
+            kwargs["ttl"] = ttl
+        return _cache_data(**kwargs)
+
     def _cache_data_decorator(func):  # type: ignore[misc]
         return func
+
+    return _cache_data_decorator
+
+
+_cache_data_decorator = _build_cache_data_decorator()
+_portfolio_cache_data_decorator = _build_cache_data_decorator(ttl=60)
 
 
 def _secrets_to_dict() -> dict[str, Any]:
@@ -39,6 +52,18 @@ def get_portfolio_store_config():
 
 def _portfolio_store_signature() -> str:
     config = get_portfolio_store_config()
+    local_file: dict[str, Any] = {}
+    if config.backend == "local":
+        local_path = Path(config.local_path or ".cache/portfolios.local.json")
+        try:
+            stat = local_path.stat()
+            local_file = {
+                "exists": True,
+                "mtime_ns": stat.st_mtime_ns,
+                "size": stat.st_size,
+            }
+        except OSError:
+            local_file = {"exists": False}
     return json.dumps(
         {
             "backend": config.backend,
@@ -46,6 +71,7 @@ def _portfolio_store_signature() -> str:
             "branch": config.branch,
             "path": config.path,
             "local_path": config.local_path,
+            "local_file": local_file,
             "api_base_url": config.api_base_url,
         },
         ensure_ascii=False,
@@ -53,7 +79,7 @@ def _portfolio_store_signature() -> str:
     )
 
 
-@_cache_data_decorator
+@_portfolio_cache_data_decorator
 def list_saved_portfolios_cached(signature: str) -> list[dict[str, Any]]:
     _ = signature
     store = build_portfolio_store(get_portfolio_store_config())

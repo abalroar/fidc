@@ -266,7 +266,8 @@ def render_tab_somatorio_fidcs(
     else:
         portfolios = []
     catalog_df = load_fidc_catalog_cached()
-    period = _render_somatorio_period_panel(period)
+    if show_portfolio_controls or period is None:
+        period = _render_somatorio_period_panel(period)
     calculation_period = _period_with_yoy_lookback(period)
 
     if show_portfolio_controls:

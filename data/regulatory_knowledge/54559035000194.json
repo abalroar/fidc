@@ -2,21 +2,21 @@
   "schema_version": 1,
   "fund_name": "ESTRATÉGIA VINCULADA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
   "fund_cnpj": "54.559.035/0001-94",
-  "generated_at": "2026-05-10T03:15:14Z",
+  "generated_at": "2026-05-29T01:34:56Z",
   "documents": [
     {
       "id": 634435,
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "01/04/2024",
       "data_entrega": "05/04/2024 11:25",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/54559035000194/634435_assembleia_assembleia_634435_2024-04-01.pdf"
+      "source_file": "data/raw/54559035000194/634435_emissao_emissao_634435_2024-04-01.pdf"
     },
     {
       "id": 634437,
@@ -236,6 +236,20 @@
       "classification": "outro",
       "data_referencia": "12/2025",
       "data_entrega": "12/02/2026 19:55",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1196213,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 19:03",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,

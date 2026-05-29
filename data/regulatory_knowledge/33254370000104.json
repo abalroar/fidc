@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
   "fund_cnpj": "33.254.370/0001-04",
-  "generated_at": "2026-05-10T03:17:05Z",
+  "generated_at": "2026-05-29T01:34:59Z",
   "documents": [
     {
       "id": 149747,
@@ -1027,6 +1027,20 @@
       "source_file": "data/raw/33254370000104/1121051_assembleia_assembleia_1121051_2026-02-24.pdf"
     },
     {
+      "id": 1197102,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 21:00",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
       "id": 1128337,
       "categoria": "Assembleia",
       "tipo": "AGE",
@@ -1053,6 +1067,20 @@
       "downloaded": true,
       "download_error": "",
       "source_file": "data/raw/33254370000104/1128340_regulamento_regulamento_1128340_2026-03-03.pdf"
+    },
+    {
+      "id": 1200703,
+      "categoria": "Assembleia",
+      "tipo": "AGE",
+      "especie": "Ata da Assembleia",
+      "classification": "assembleia",
+      "data_referencia": "20/05/2026 10:00",
+      "data_entrega": "21/05/2026 16:54",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/33254370000104/1200703_assembleia_assembleia_1200703_2026-05-20.pdf"
     }
   ],
   "criteria": [
@@ -3622,8 +3650,22 @@
       "source_excerpt": "os Direitos Creditórios PPV Adquiridos serão pagos diretamente pelo Devedor na conta do Fundo, nos termos dos Documentos de Aquisição. 2.1.11 A cobrança dos Direitos Creditórios CCB Adquiridos inadimplidos e dos Direitos Creditórios PPV Adquiridos inadimplidos será realizada pelo Agente de Cobrança, em todos os casos nos termos da Política de Cobrança, constante do Complemento III do Regulamento. 2.1.12 A parcela do…",
       "source_document": "1128340_regulamento_regulamento_1128340_2026-03-03.pdf",
       "source_document_id": 1128340
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "Cotas Seniores",
+      "amount": 100000000.0,
+      "amount_display": "R$ 100.000.000,00",
+      "currency": "R$",
+      "remuneration": "",
+      "amortization_schedule": "",
+      "maturity": "junto ao seu respectivo agente de custódia e/ou da Administradora na qualidade de escriturador das cotas, observados os termos e condições do res pectivo boletim de subscrição e compromisso de investimento; e f) Período de colocação: a subscrição das Cotas Seniores, objeto da Nova Emissão, deverão ser realizadas no prazo máximo de 180 (cento e oitenta) dias, contados da data de efeitos do presente instrumento; Os Co…",
+      "source_excerpt": "ÍGONO CAPITAL LTDA., sociedade limitada com sede no município de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 2601, 12º andar, Jardim Paulistano, inscrita no CNPJ/MF sob o nº 43.241.789/0001 -85, autorizada pela CVM para o exercício profissional da ad ministração da carteira de valores mobiliários, nos termos do Ato Declaratório nº 19.368, de 07 de dezembro de 20 21, neste ato devidamente rep…",
+      "source_document": "1200703_assembleia_assembleia_1200703_2026-05-20.pdf",
+      "source_document_id": 1200703
     }
   ],
-  "extraction_count": 30,
+  "extraction_count": 31,
   "extraction_errors": []
 }

@@ -2,21 +2,21 @@
   "schema_version": 1,
   "fund_name": "CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA",
   "fund_cnpj": "63.953.620/0001-65",
-  "generated_at": "2026-05-14T14:16:22Z",
+  "generated_at": "2026-05-29T01:35:04Z",
   "documents": [
     {
       "id": 1087883,
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "08/01/2026",
       "data_entrega": "19/01/2026 21:35",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/63953620000165/1087883_assembleia_assembleia_1087883_2026-01-08.pdf"
+      "source_file": "data/raw/63953620000165/1087883_emissao_emissao_1087883_2026-01-08.pdf"
     },
     {
       "id": 1167032,
@@ -51,14 +51,42 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Emissão de Cotas",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "18/02/2026",
       "data_entrega": "20/02/2026 18:37",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/63953620000165/1119041_assembleia_assembleia_1119041_2026-02-18.pdf"
+      "source_file": "data/raw/63953620000165/1119041_emissao_emissao_1119041_2026-02-18.pdf"
+    },
+    {
+      "id": 1200324,
+      "categoria": "Outras Demonstrações Financeiras ",
+      "tipo": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "19/02/2026",
+      "data_entrega": "20/05/2026 19:37",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1197021,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 20:47",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
     },
     {
       "id": 1142756,
@@ -73,6 +101,20 @@
       "downloaded": true,
       "download_error": "",
       "source_file": "data/raw/63953620000165/1142756_assembleia_assembleia_1142756_2026-03-17.pdf"
+    },
+    {
+      "id": 1205431,
+      "categoria": "Assembleia",
+      "tipo": "AGE",
+      "especie": "Ata da Assembleia",
+      "classification": "assembleia",
+      "data_referencia": "28/04/2026 00:00",
+      "data_entrega": "27/05/2026 16:56",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/63953620000165/1205431_assembleia_assembleia_1205431_2026-04-28.pdf"
     }
   ],
   "criteria": [],
@@ -107,6 +149,6 @@
       "source_document_id": 1119041
     }
   ],
-  "extraction_count": 3,
+  "extraction_count": 4,
   "extraction_errors": []
 }

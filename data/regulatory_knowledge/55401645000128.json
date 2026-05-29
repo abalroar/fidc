@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "QUATÁ FDC FGTS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
   "fund_cnpj": "55.401.645/0001-28",
-  "generated_at": "2026-05-10T03:19:25Z",
+  "generated_at": "2026-05-29T01:35:07Z",
   "documents": [
     {
       "id": 717311,
@@ -23,14 +23,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "04/06/2024",
       "data_entrega": "12/06/2024 11:05",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/55401645000128/677870_assembleia_assembleia_677870_2024-06-04.pdf"
+      "source_file": "data/raw/55401645000128/677870_emissao_emissao_677870_2024-06-04.pdf"
     },
     {
       "id": 677871,
@@ -51,14 +51,14 @@
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "07/06/2024",
       "data_entrega": "12/06/2024 11:10",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/55401645000128/677886_assembleia_assembleia_677886_2024-06-07.pdf"
+      "source_file": "data/raw/55401645000128/677886_emissao_emissao_677886_2024-06-07.pdf"
     },
     {
       "id": 678446,
@@ -460,6 +460,20 @@
       "classification": "outro",
       "data_referencia": "12/2025",
       "data_entrega": "12/02/2026 20:17",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1195797,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/05/2026 17:38",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,

@@ -2,21 +2,21 @@
   "schema_version": 1,
   "fund_name": "CLOUDWALK AKIRA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO",
   "fund_cnpj": "42.085.830/0001-09",
-  "generated_at": "2026-05-10T03:10:24Z",
+  "generated_at": "2026-05-29T01:34:46Z",
   "documents": [
     {
       "id": 257874,
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "assembleia",
+      "classification": "emissao",
       "data_referencia": "20/05/2021",
       "data_entrega": "18/01/2022 11:59",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/42085830000109/257874_assembleia_assembleia_257874_2021-05-20.pdf"
+      "source_file": "data/raw/42085830000109/257874_emissao_emissao_257874_2021-05-20.pdf"
     },
     {
       "id": 257875,
@@ -572,6 +572,20 @@
       "classification": "outro",
       "data_referencia": "12/2025",
       "data_entrega": "12/02/2026 07:57",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1188616,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "03/2026",
+      "data_entrega": "13/05/2026 15:32",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
