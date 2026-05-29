@@ -489,6 +489,8 @@ class FundonetDashboardTests(unittest.TestCase):
             )
         self.assertTrue(any(name.startswith("ppt/charts/") for name in archive_names))
         self.assertTrue(any("<p:graphicFrame" in xml for xml in slide_xml.values()))
+        self.assertIn("7A2432", chart_xml)
+        self.assertIn("<c:dLbls>", chart_xml)
         slide_texts = [
             "\n".join(
                 shape.text
@@ -610,10 +612,13 @@ class FundonetDashboardTests(unittest.TestCase):
             _build_over_aging_history_for_ppt,
             _chart_aging_history_for_ppt,
             _latest_competencia_index,
+            _latest_competencia_frame,
             _quota_pl_value_pivot,
             _return_history_pivot,
             _rightmost_category_index,
             _stacked_series_totals,
+            COVERAGE_LINE_COLOR,
+            CREDIT_RISK_VISUAL_MONTHS,
         )
 
         quota_df = pd.DataFrame(
@@ -670,6 +675,19 @@ class FundonetDashboardTests(unittest.TestCase):
         over_dashboard = SimpleNamespace(default_over_history_df=over_df)
         over_pivot = _build_over_aging_history_for_ppt(over_dashboard)
         self.assertEqual(["03/2026", "02/2026", "01/2026"], over_pivot["competencia"].tolist())
+
+        credit_df = pd.DataFrame(
+            {
+                "competencia": [f"{month:02d}/2025" for month in range(1, 13)] + [f"{month:02d}/2026" for month in range(1, 13)],
+                "competencia_dt": pd.date_range("2025-01-01", periods=24, freq="MS"),
+                "inadimplencia_pct": list(range(24)),
+            }
+        )
+        credit_frame = _latest_competencia_frame(credit_df, max_periods=CREDIT_RISK_VISUAL_MONTHS)
+        self.assertEqual(CREDIT_RISK_VISUAL_MONTHS, credit_frame["competencia"].nunique())
+        self.assertEqual("07/2025", credit_frame["competencia"].iloc[0])
+        self.assertEqual("12/2026", credit_frame["competencia"].iloc[-1])
+        self.assertEqual("#7A2432", COVERAGE_LINE_COLOR)
 
     def test_build_dashboard_pptx_bytes_sanitizes_nan_and_inf_series(self) -> None:
         if importlib.util.find_spec("pptx") is None:

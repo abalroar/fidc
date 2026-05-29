@@ -42,7 +42,8 @@ AGING_PPT_COLORS = [
     "#A6A6A6",
     "#D0D0D0",
 ]
-COVERAGE_LINE_COLOR = ORANGE
+COVERAGE_LINE_COLOR = "#7A2432"
+CREDIT_RISK_VISUAL_MONTHS = 18
 FONT_FAMILY = "Calibri"
 
 SLIDE_WIDTH_IN = 13.333
@@ -888,7 +889,7 @@ def build_dashboard_pptx_bytes(
             series_map=[("Cobertura", coverage_values), ("100% (paridade)", [100.0] * len(categories))],
             formatter=lambda value, _series_name: _format_percent(value),
             colors=[COVERAGE_LINE_COLOR, MID_GRAY],
-            font_size=10,
+            font_size=11,
             position="above",
             label_color=COVERAGE_LINE_COLOR,
             series_filter=lambda series_name: series_name == "Cobertura",
@@ -1250,7 +1251,10 @@ def build_dashboard_pptx_bytes(
                 )
                 add_footer(slide, timestamp_text, current_page)
 
-    default_df = _sort_competencia_frame(dashboard.default_history_df, ascending=True)
+    default_df = _latest_competencia_frame(
+        _sort_competencia_frame(dashboard.default_history_df, ascending=True),
+        max_periods=CREDIT_RISK_VISUAL_MONTHS,
+    )
     credit_categories = _competencia_labels(default_df["competencia"].tolist()) if not default_df.empty else []
     credit_bar_series: list[tuple[str, Sequence[float]]] = []
     credit_line_series: list[tuple[str, Sequence[float]]] = []
@@ -1299,7 +1303,7 @@ def build_dashboard_pptx_bytes(
                     percent_axis=True,
                     gap_width=52,
                     label_position="outside_end",
-                    label_font_size=8,
+                    label_font_size=9,
                     show_legend=True,
                     legend_position="bottom",
                     value_max=bar_axis_max,
@@ -1312,7 +1316,7 @@ def build_dashboard_pptx_bytes(
                     series_map=credit_bar_series,
                     formatter=lambda value, _series_name: _format_percent(value),
                     colors=[ORANGE, BLACK],
-                    font_size=10,
+                    font_size=11,
                     position="outside_end",
                     skip_nonpositive=True,
                 )
@@ -1400,7 +1404,7 @@ def build_dashboard_pptx_bytes(
                     percent_axis=True,
                     gap_width=52,
                     label_position="outside_end",
-                    label_font_size=8,
+                    label_font_size=9,
                     show_legend=True,
                     legend_position="bottom",
                     value_max=bar_axis_max,
@@ -1413,7 +1417,7 @@ def build_dashboard_pptx_bytes(
                     series_map=credit_bar_series,
                     formatter=lambda value, _series_name: _format_percent(value),
                     colors=[ORANGE, BLACK],
-                    font_size=10,
+                    font_size=11,
                     position="outside_end",
                     skip_nonpositive=True,
                 )
@@ -1631,6 +1635,18 @@ def _sort_competencia_frame(frame: pd.DataFrame, *, ascending: bool = True) -> p
         output = output.sort_values(helper_column, ascending=ascending, kind="stable").drop(columns=[helper_column])
         return output.reset_index(drop=True)
     return output.reset_index(drop=True)
+
+
+def _latest_competencia_frame(frame: pd.DataFrame, *, max_periods: int) -> pd.DataFrame:
+    if frame.empty or max_periods <= 0 or "competencia" not in frame.columns:
+        return frame.copy()
+    sorted_frame = _sort_competencia_frame(frame, ascending=True)
+    period_columns = ["competencia"]
+    if "competencia_dt" in sorted_frame.columns:
+        period_columns.append("competencia_dt")
+    periods = sorted_frame[period_columns].drop_duplicates(subset=["competencia"], keep="last")
+    selected = periods.tail(max_periods)["competencia"].astype(str).tolist()
+    return sorted_frame[sorted_frame["competencia"].astype(str).isin(set(selected))].reset_index(drop=True)
 
 
 def _safe_pct(numerator: object, denominator: object) -> float | None:
@@ -3326,7 +3342,10 @@ def _render_credit_slide_png(
     coverage_width = 3.88
     bars_width = full_width - coverage_width - split_gap
     coverage_left = MARGIN_LEFT_IN + bars_width + split_gap
-    default_df = _sort_competencia_frame(dashboard.default_history_df, ascending=True)
+    default_df = _latest_competencia_frame(
+        _sort_competencia_frame(dashboard.default_history_df, ascending=True),
+        max_periods=CREDIT_RISK_VISUAL_MONTHS,
+    )
     if not default_df.empty:
         categories = _competencia_labels(default_df["competencia"].tolist())
         coverage_values = _series_numeric(default_df, "cobertura_pct").fillna(0.0).tolist()

@@ -100,7 +100,8 @@ OVER_AGING_CHART_COLORS = [
 
 OVER_SERIES_ORDER = ["Over 1", "Over 30", "Over 60", "Over 90", "Over 180", "Over 360"]
 
-COVERAGE_LINE_COLOR = "#EC7000"
+COVERAGE_LINE_COLOR = "#7A2432"
+CREDIT_RISK_VISUAL_MONTHS = 18
 
 _PT_MONTH_ABBR: dict[str, str] = {
     "01": "jan",
@@ -1435,10 +1436,11 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
     _render_fidc_section("Crédito")
     default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
     cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
+    default_pct_chart_df = _latest_competencia_window(default_pct_chart_df, max_periods=CREDIT_RISK_VISUAL_MONTHS)
+    cobertura_df = _latest_competencia_window(cobertura_df, max_periods=CREDIT_RISK_VISUAL_MONTHS)
     _render_chart_heading(st, "Inadimplência, PDD e cobertura")
     st.caption(
-        "Barras: inadimplência e provisão como % dos direitos creditórios. "
-        "Linha: cobertura PDD / vencidos, em gráfico separado para evitar mistura de escalas."
+        "Barras: inadimplência e PDD sobre direitos creditórios. À direita: cobertura PDD / vencidos; 100% indica paridade."
     )
     _credit_chart_all_zero = (
         default_pct_chart_df.empty
@@ -1462,6 +1464,8 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                     bar_size=credit_bar_size,
                     label_font_size=10,
                     color_range=[FIDC_CHART_COLORS[0], FIDC_CHART_COLORS[1]],
+                    label_policy="latest_and_peak",
+                    x_label_angle=-45,
                 ),
                 width="stretch",
             )
@@ -1484,6 +1488,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                     point_size=64,
                     reference_value=100.0,
                     reference_label="100% (paridade)",
+                    x_label_angle=-45,
                 ),
                 width="stretch",
             )
@@ -3798,6 +3803,7 @@ def _line_history_chart(
     limit_label: str | None = None,
     reference_value: float | None = None,
     reference_label: str | None = None,
+    x_label_angle: int | None = None,
 ) -> alt.Chart:
     if limit_value is None and reference_value is not None:
         limit_value = reference_value
@@ -3842,12 +3848,15 @@ def _line_history_chart(
                     [scale_values, pd.Series([point_min - (point_padding * 0.35)])],
                     ignore_index=True,
                 )
+    x_axis_kwargs: dict[str, object] = {"labelOverlap": "greedy"}
+    if x_label_angle is not None:
+        x_axis_kwargs["labelAngle"] = x_label_angle
     x_encoding = alt.X(
         "competencia:N",
         title="Competência",
         sort=x_sort,
         scale=alt.Scale(paddingInner=0.22, paddingOuter=0.06),
-        axis=alt.Axis(labelOverlap="greedy"),
+        axis=alt.Axis(**x_axis_kwargs),
     )
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     y_encoding = alt.Y(
@@ -4965,6 +4974,8 @@ def _grouped_bar_chart(
     bar_size: int | None = None,
     label_font_size: int = 11,
     color_range: list[str] | None = None,
+    label_policy: str = "all",
+    x_label_angle: int | None = None,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df)
     chart_df = _sort_competencia_display_frame(chart_df, extra_columns=["serie"])
@@ -4975,7 +4986,10 @@ def _grouped_bar_chart(
     x_sort = _competencia_axis_sort(chart_df)
     chart_df["valor_fmt"] = chart_df[resolved_value_field].map(lambda v: _format_brl_compact(v) if y_title == "R$" else _format_percent(v) if "%" in y_title else _format_decimal(v))
     chart_df["label_fmt"] = chart_df[resolved_value_field].map(lambda v: _format_value_label(v, y_title))
-    x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort)
+    x_axis_kwargs: dict[str, object] = {"labelOverlap": "greedy"}
+    if x_label_angle is not None:
+        x_axis_kwargs["labelAngle"] = x_label_angle
+    x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort, axis=alt.Axis(**x_axis_kwargs))
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     y_encoding = alt.Y(
         f"{resolved_value_field}:Q",
@@ -5006,9 +5020,14 @@ def _grouped_bar_chart(
         )
     )
     chart = _chart_with_optional_title(chart, height=height, title=title)
+    labels_df = (
+        _latest_and_peak_bar_label_frame(chart_df, value_field=resolved_value_field)
+        if label_policy == "latest_and_peak"
+        else chart_df
+    )
     labels = _bar_label_layer(
-        chart_df,
-        x_encoding=alt.X("competencia:N", title="Competência", sort=x_sort),
+        labels_df,
+        x_encoding=alt.X("competencia:N", title="Competência", sort=x_sort, axis=alt.Axis(**x_axis_kwargs)),
         y_encoding=y_encoding,
         value_field=resolved_value_field,
         text_field="label_fmt",
@@ -5492,6 +5511,46 @@ def _default_ratio_chart_frame(default_history_df: pd.DataFrame) -> pd.DataFrame
     )
     chart_df["valor"] = pd.to_numeric(chart_df["valor"], errors="coerce")
     return chart_df.dropna(subset=["valor"])
+
+
+def _latest_competencia_window(chart_df: pd.DataFrame, *, max_periods: int) -> pd.DataFrame:
+    if chart_df.empty or max_periods <= 0 or "competencia" not in chart_df.columns:
+        return chart_df.copy()
+    base = chart_df.copy()
+    period_columns = ["competencia"]
+    if "competencia_dt" in base.columns:
+        period_columns.append("competencia_dt")
+    periods = base[period_columns].drop_duplicates(subset=["competencia"]).copy()
+    if "competencia_dt" in periods.columns:
+        periods["__sort_dt"] = pd.to_datetime(periods["competencia_dt"], errors="coerce")
+        periods = periods.sort_values(["__sort_dt", "competencia"], kind="stable")
+    else:
+        periods = periods.sort_values("competencia", kind="stable")
+    selected = periods.tail(max_periods)["competencia"].astype(str).tolist()
+    return base[base["competencia"].astype(str).isin(set(selected))].copy()
+
+
+def _latest_and_peak_bar_label_frame(chart_df: pd.DataFrame, *, value_field: str) -> pd.DataFrame:
+    if chart_df.empty or "serie" not in chart_df.columns:
+        return chart_df.iloc[0:0].copy()
+    selected_indices: set[object] = set()
+    values = pd.to_numeric(chart_df[value_field], errors="coerce")
+    sort_columns = [column for column in ["competencia_dt", "competencia"] if column in chart_df.columns]
+    for _, group in chart_df.assign(__value=values).groupby("serie", dropna=False):
+        ordered = group.sort_values(sort_columns, kind="stable") if sort_columns else group
+        positive = ordered[ordered["__value"].fillna(0.0) > 0.0]
+        if positive.empty:
+            continue
+        latest_row = ordered.tail(1)
+        if not latest_row.empty:
+            latest_value = pd.to_numeric(pd.Series([latest_row["__value"].iloc[0]]), errors="coerce").iloc[0]
+            if pd.notna(latest_value) and float(latest_value) > 0.0:
+                selected_indices.add(latest_row.index[0])
+        peak_idx = positive["__value"].idxmax()
+        selected_indices.add(peak_idx)
+    if not selected_indices:
+        return chart_df.iloc[0:0].copy()
+    return chart_df.loc[chart_df.index.isin(selected_indices)].copy()
 
 
 def _quota_pl_chart_frame(quota_pl_history_df: pd.DataFrame) -> pd.DataFrame:

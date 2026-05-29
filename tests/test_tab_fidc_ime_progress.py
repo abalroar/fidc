@@ -245,7 +245,7 @@ class TabFidcImeProgressTests(unittest.TestCase):
         line_encoding = spec["layer"][1]["layer"][1]["encoding"]
         self.assertEqual("right", line_encoding["y"]["axis"]["orient"])
         self.assertGreaterEqual(rhs_scale[1], 500.0)
-        self.assertEqual("#EC7000", spec["layer"][1]["layer"][1]["mark"]["point"]["fill"])
+        self.assertEqual(tab_fidc_ime.COVERAGE_LINE_COLOR, spec["layer"][1]["layer"][1]["mark"]["point"]["fill"])
 
     def test_grouped_bar_with_rhs_line_chart_supports_full_bar_and_line_labels(self) -> None:
         bar_df = pd.DataFrame(
@@ -283,7 +283,43 @@ class TabFidcImeProgressTests(unittest.TestCase):
         spec = chart.to_dict()
         self.assertEqual("text", spec["layer"][0]["layer"][1]["mark"]["type"])
         self.assertEqual("text", spec["layer"][1]["layer"][2]["mark"]["type"])
-        self.assertEqual("#EC7000", spec["layer"][1]["layer"][2]["mark"]["color"])
+        self.assertEqual(tab_fidc_ime.COVERAGE_LINE_COLOR, spec["layer"][1]["layer"][2]["mark"]["color"])
+
+    def test_credit_bar_label_policy_keeps_latest_and_peak_without_labeling_every_month(self) -> None:
+        chart_df = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "02/2026", "03/2026", "01/2026", "02/2026", "03/2026"],
+                "competencia_dt": pd.to_datetime(
+                    ["2026-01-01", "2026-02-01", "2026-03-01", "2026-01-01", "2026-02-01", "2026-03-01"]
+                ),
+                "serie": ["Inadimplência", "Inadimplência", "Inadimplência", "Provisão", "Provisão", "Provisão"],
+                "valor": [0.1, 9.6, 8.9, 0.0, 0.4, 0.3],
+            }
+        )
+
+        labels = tab_fidc_ime._latest_and_peak_bar_label_frame(chart_df, value_field="valor")
+
+        self.assertEqual(4, len(labels))
+        self.assertEqual(
+            {("Inadimplência", "02/2026"), ("Inadimplência", "03/2026"), ("Provisão", "02/2026"), ("Provisão", "03/2026")},
+            set(zip(labels["serie"], labels["competencia"], strict=False)),
+        )
+
+    def test_credit_visual_window_limits_dense_history_to_latest_competencias(self) -> None:
+        chart_df = pd.DataFrame(
+            {
+                "competencia": [f"{month:02d}/2025" for month in range(1, 13)] + [f"{month:02d}/2026" for month in range(1, 13)],
+                "competencia_dt": pd.date_range("2025-01-01", periods=24, freq="MS"),
+                "serie": ["Inadimplência"] * 24,
+                "valor": list(range(24)),
+            }
+        )
+
+        limited = tab_fidc_ime._latest_competencia_window(chart_df, max_periods=18)
+
+        self.assertEqual(18, limited["competencia"].nunique())
+        self.assertEqual("07/2025", limited["competencia"].iloc[0])
+        self.assertEqual("12/2026", limited["competencia"].iloc[-1])
 
     def test_build_line_series_end_labels_df_uses_value_only_labels(self) -> None:
         chart_df = pd.DataFrame(
