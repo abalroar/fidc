@@ -41,7 +41,8 @@ _ABOUT_CSS = """
     font-size: 1rem;
     line-height: 1.62;
     margin-top: 0.65rem;
-    max-width: 54rem;
+    max-width: none;
+    width: 100%;
 }
 
 .about-statement {
@@ -49,7 +50,8 @@ _ABOUT_CSS = """
     font-size: 0.96rem;
     line-height: 1.58;
     margin-top: 0.85rem;
-    max-width: 54rem;
+    max-width: none;
+    width: 100%;
 }
 
 .about-statement p {
