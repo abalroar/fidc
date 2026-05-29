@@ -31,8 +31,9 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 }
 
 .fidc-app-header {
-    margin: 0 0 1.1rem 0;
+    margin: 0 auto 1.1rem auto;
     max-width: 64rem;
+    text-align: center;
 }
 
 .fidc-app-kicker {
@@ -56,11 +57,11 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 
 .fidc-app-author {
     color: #8a94a3;
-    font-size: 0.84rem;
+    font-size: 1.02rem;
     font-weight: 300;
     letter-spacing: 0.01em;
     line-height: 1.3;
-    margin-top: 0.28rem;
+    margin-top: 0.35rem;
 }
 
 .fidc-app-subtitle {
