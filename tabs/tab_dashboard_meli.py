@@ -19,7 +19,6 @@ from services.meli_credit_monitor import (
 from services.meli_credit_monitor_ppt_export import build_dashboard_meli_pptx_bytes
 from services.meli_credit_research import build_meli_research_outputs, build_research_excel_bytes
 from services.meli_credit_research_verification import verify_meli_research_outputs
-from services.fund_name_display import short_fund_name
 from services.meli_credit_monitor_visuals import (
     cohort_chart,
     duration_chart,
@@ -36,6 +35,12 @@ from services.mercado_livre_dashboard import (
     save_outputs_to_cache,
 )
 from services.portfolio_store import PortfolioRecord
+from services.roll_rate_controls import (
+    ROLL_RATES_NOTES,
+    ROLL_SEASONALITY_CHARTS,
+    available_roll_seasonality_specs,
+    default_roll_seasonality_metric_ids,
+)
 from tabs import tab_fidc_ime as ime_tab
 from tabs.ime_portfolio_support import (
     build_portfolio_record_label_lookup,
@@ -109,13 +114,65 @@ _DASHBOARD_MELI_CSS = """
     font-size: clamp(16px, 1.45vw, 18px);
     font-weight: 600;
     line-height: 1.25;
-    margin: 8px 0 3px 0;
+    margin: 0;
 }
-.meli-chart-subtitle {
-    color: #8C8C8C;
+.meli-chart-heading {
+    align-items: center;
+    display: flex;
+    gap: 7px;
+    margin: 8px 0 8px 0;
+    min-height: 24px;
+}
+.meli-info-dot {
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #D8DCE2;
+    border-radius: 999px;
+    color: #5E6875;
+    cursor: help;
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 700;
+    height: 17px;
+    justify-content: center;
+    line-height: 1;
+    position: relative;
+    width: 17px;
+}
+.meli-info-dot:focus {
+    outline: 2px solid #AEB8C4;
+    outline-offset: 2px;
+}
+.meli-info-tooltip {
+    background: #FFFFFF;
+    border: 1px solid #D8DCE2;
+    border-radius: 8px;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
+    color: #20252B;
+    display: none;
     font-size: 12px;
-    line-height: 1.35;
-    margin: 0 0 8px 0;
+    font-weight: 400;
+    left: 0;
+    line-height: 1.4;
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 10px 12px;
+    position: absolute;
+    top: 23px;
+    width: min(560px, 72vw);
+    z-index: 1000;
+}
+.meli-info-dot:hover .meli-info-tooltip,
+.meli-info-dot:focus .meli-info-tooltip {
+    display: block;
+}
+.meli-tooltip-line {
+    display: block;
+    margin: 0 0 7px 0;
+}
+.meli-tooltip-line:last-child {
+    margin-bottom: 0;
 }
 @media (max-width: 1180px) {
     .meli-kpi-grid {
@@ -130,27 +187,15 @@ _DASHBOARD_MELI_CSS = """
 </style>
 """
 
-ROLL_SEASONALITY_CHARTS: tuple[dict[str, str], ...] = (
-    {
-        "metric_id": "roll_61_90_m3",
-        "title": "Roll 61-90 por mês do ano",
-        "note": "Fórmula: atraso 61-90 no mês t ÷ carteira a vencer três meses antes. O gráfico mostra sazonalidade e compara anos na mesma janela mensal.",
-    },
-    {
-        "metric_id": "roll_91_120_m4",
-        "title": "Roll 91-120 por mês do ano",
-        "note": "Fórmula: atraso 91-120 no mês t ÷ carteira a vencer quatro meses antes. A defasagem acompanha a maturação para atraso acima de 90 dias.",
-    },
-    {
-        "metric_id": "roll_121_150_m5",
-        "title": "Roll 121-150 por mês do ano",
-        "note": "Fórmula: atraso 121-150 no mês t ÷ carteira a vencer cinco meses antes. A série mostra a migração intermediária antes do bucket 151-180.",
-    },
-    {
-        "metric_id": "roll_151_180_m6",
-        "title": "Roll 151-180 por mês do ano",
-        "note": "Fórmula: atraso 151-180 no mês t ÷ carteira a vencer seis meses antes. A defasagem acompanha a maturação até atraso severo.",
-    },
+PORTFOLIO_GROWTH_NOTES: tuple[str, ...] = (
+    "Carteira ex-360 = carteira bruta menos vencidos acima de 360 dias.",
+    "Crescimento YoY compara a competência atual com o mesmo mês do ano anterior.",
+)
+
+NPL_SEVERITY_NOTES: tuple[str, ...] = (
+    "Barras empilhadas por severidade.",
+    "A carteira ex-360 remove vencidos acima de 360 dias do denominador.",
+    "O NPL remanescente é separado entre atraso inicial, de 1 a 90 dias, e atraso maduro, de 91 a 360 dias.",
 )
 
 
@@ -388,7 +433,7 @@ def render_dashboard_meli_analysis(
     _render_kpis(monitor_outputs.consolidated_monitor)
 
     def _render_main_view() -> None:
-        _render_consolidated_dashboard(monitor_outputs, research_outputs)
+        _render_consolidated_dashboard(monitor_outputs, research_outputs, key_prefix=download_key_prefix)
 
     def _render_funds_view() -> None:
         _render_fund_dashboards(monitor_outputs, selected_portfolio=selected_portfolio)
@@ -414,55 +459,67 @@ def render_dashboard_meli_analysis(
     _render_methodology(research_outputs)
 
 
-def _render_consolidated_dashboard(monitor_outputs, research_outputs=None) -> None:  # noqa: ANN001
-    _chart_title("Carteira ex-360 e crescimento YoY", "Carteira bruta menos vencidos acima de 360 dias; YoY contra o mesmo mês do ano anterior.")
+def _render_consolidated_dashboard(monitor_outputs, research_outputs=None, *, key_prefix: str = "dashboard_meli") -> None:  # noqa: ANN001
+    _chart_title("Carteira ex-360 e crescimento YoY", PORTFOLIO_GROWTH_NOTES)
     st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
-    _chart_title("NPL ex-360 por severidade", "Barras empilhadas por severidade.")
-    _chart_note(
-        "A carteira ex-360 remove vencidos acima de 360 dias do denominador; as barras separam o NPL remanescente entre atraso inicial (1-90d) e atraso maduro (91-360d)."
-    )
+    _chart_title("NPL ex-360 por severidade", NPL_SEVERITY_NOTES)
     st.altair_chart(npl_severity_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     _chart_title(
         "Roll rates",
-        "",
+        ROLL_RATES_NOTES,
     )
-    _chart_note("Denominador defasado conforme bucket: 61-90 M-3, 91-120 M-4, 121-150 M-5 e 151-180 M-6.")
     st.altair_chart(roll_rates_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
-    _render_consolidated_research_charts(research_outputs)
+    _render_consolidated_research_charts(research_outputs, key_prefix=key_prefix)
 
-    _chart_title("Duration por FIDC", "Consolidado ponderado por saldo.")
-    _duration_notes()
+    _chart_title("Duration por FIDC", ("Consolidado ponderado por saldo.", *_duration_notes()))
     st.altair_chart(duration_chart(monitor_outputs.consolidated_monitor, monitor_outputs.fund_monitor), use_container_width=True)
 
-    _chart_title("Cohorts recentes", "")
-    _cohort_notes()
+    _chart_title("Cohorts recentes", _cohort_notes())
     st.altair_chart(cohort_chart(monitor_outputs.consolidated_cohorts), use_container_width=True)
 
 
-def _render_consolidated_research_charts(research_outputs) -> None:  # noqa: ANN001
+def _render_consolidated_research_charts(research_outputs, *, key_prefix: str = "dashboard_meli") -> None:  # noqa: ANN001
     if research_outputs is None:
         return
     roll_df = _filter_research_scope(getattr(research_outputs, "roll_seasonality", pd.DataFrame()), "consolidado::")
     if roll_df.empty:
         return
-    _render_research_roll_charts(roll_df)
+    _render_research_roll_charts(roll_df, key=f"{key_prefix}_roll_seasonality_metrics")
 
 
-def _render_research_roll_charts(roll_df: pd.DataFrame) -> None:
-    rendered_note = False
-    for spec in ROLL_SEASONALITY_CHARTS:
-        if roll_df[roll_df["metric_id"].eq(spec["metric_id"])].empty:
+def _render_research_roll_charts(roll_df: pd.DataFrame, *, key: str) -> None:
+    specs = available_roll_seasonality_specs(roll_df)
+    if not specs:
+        return
+    metric_ids = [spec["metric_id"] for spec in specs]
+    labels = {spec["metric_id"]: spec["title"].removesuffix(" por mês do ano") for spec in specs}
+    selected_metric_ids = st.multiselect(
+        "Rolls por mês do ano",
+        options=metric_ids,
+        default=default_roll_seasonality_metric_ids(specs),
+        key=key,
+        format_func=lambda value: labels.get(value, str(value)),
+        help="Escolha quais buckets sazonais quer ver. O gráfico principal de Roll rates permanece sempre exibido acima.",
+    )
+    if not selected_metric_ids:
+        st.caption("Selecione ao menos um bucket de roll para exibir a sazonalidade.")
+        return
+    selected = set(selected_metric_ids)
+    for spec in specs:
+        if spec["metric_id"] not in selected:
             continue
-        if not rendered_note:
-            _chart_note("Eixo esquerdo: roll rate em %. Denominador defasado conforme bucket.")
-            rendered_note = True
-        _chart_title(spec["title"], "")
-        _chart_note(spec["note"])
+        _chart_title(
+            spec["title"],
+            (
+                spec["note"],
+                "Eixo X: mês do ano. Cada linha compara anos diferentes dentro do mesmo bucket.",
+                "O percentual é recalculado por numerador e denominador do escopo selecionado.",
+            ),
+        )
         st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id=spec["metric_id"]), use_container_width=True)
-
 
 def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRecord) -> None:  # noqa: ANN001
     if not monitor_outputs.fund_monitor:
@@ -478,27 +535,19 @@ def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRec
         return
     for cnpj in selected_cnpjs:
         monitor = monitor_outputs.fund_monitor[cnpj]
-        name = str(monitor["fund_name"].dropna().iloc[0]) if not monitor.empty and "fund_name" in monitor.columns and monitor["fund_name"].notna().any() else cnpj
-        st.markdown(f"#### {escape(short_fund_name(name))}")
-        _chart_title("Carteira ex-360 e crescimento YoY", "Carteira bruta menos vencidos acima de 360 dias; YoY contra o mesmo mês do ano anterior.")
+        _chart_title("Carteira ex-360 e crescimento YoY", PORTFOLIO_GROWTH_NOTES)
         st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
 
-        _chart_title("NPL ex-360 por severidade", "Barras empilhadas por severidade.")
-        _chart_note(
-            "A carteira ex-360 remove vencidos acima de 360 dias do denominador; as barras separam o NPL remanescente entre atraso inicial (1-90d) e atraso maduro (91-360d)."
-        )
+        _chart_title("NPL ex-360 por severidade", NPL_SEVERITY_NOTES)
         st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
 
-        _chart_title("Roll rates", "")
-        _chart_note("Denominador defasado conforme bucket.")
+        _chart_title("Roll rates", ROLL_RATES_NOTES)
         st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
 
-        _chart_title("Duration", "")
-        _duration_notes()
+        _chart_title("Duration", _duration_notes())
         st.altair_chart(duration_chart(pd.DataFrame(), {cnpj: monitor}), use_container_width=True)
 
-        _chart_title("Cohorts recentes", "")
-        _cohort_notes()
+        _chart_title("Cohorts recentes", _cohort_notes())
         st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
 
 
@@ -506,17 +555,19 @@ def _render_monitor_fund_selectbox(monitor_outputs, *, key: str) -> str | None: 
     options = list(getattr(monitor_outputs, "fund_monitor", {}).keys())
     if not options:
         return None
+    if len(options) == 1:
+        return options[0]
     labels: dict[str, str] = {}
     for cnpj, frame in getattr(monitor_outputs, "fund_monitor", {}).items():
         name = str(frame["fund_name"].dropna().iloc[0]) if not frame.empty and "fund_name" in frame.columns and frame["fund_name"].notna().any() else str(cnpj)
         labels[cnpj] = f"{name} · {cnpj}"
     selected = st.selectbox(
-        "Fundo exibido na Análise Crédito",
+        "Fundo",
         options=options,
         index=0,
         key=key,
         format_func=lambda value: labels.get(value, str(value)),
-        help="Selecione um fundo individual por vez. O consolidado fica na subaba própria.",
+        help="Mostra um fundo individual por vez.",
     )
     return selected if selected in monitor_outputs.fund_monitor else None
 
@@ -537,7 +588,7 @@ def _render_research_dashboard(research_outputs, verification_report: pd.DataFra
     portfolio_table = _filter_research_scope(research_outputs.portfolio_duration_table, selected_scope)
     verification = _filter_research_scope(verification_report, selected_scope)
 
-    _render_research_roll_charts(roll_df)
+    _render_research_roll_charts(roll_df, key=f"dashboard_meli_research_roll::{selected_scope}")
 
     st.markdown("**Tabela NPL e carteira ex-360**")
     st.dataframe(_format_research_table(npl_table), use_container_width=True, hide_index=True)
@@ -895,18 +946,42 @@ def _render_guide() -> None:
         )
 
 
-def _chart_title(title: str, subtitle: str) -> None:
-    st.markdown(f"<div class='meli-chart-title'>{escape(title)}</div>", unsafe_allow_html=True)
-    if subtitle:
-        st.markdown(f"<div class='meli-chart-subtitle'>{escape(subtitle)}</div>", unsafe_allow_html=True)
+def _chart_title(title: str, subtitle: object = "") -> None:
+    notes = _normalise_chart_notes(subtitle)
+    info_html = _chart_info_html(notes)
+    st.markdown(
+        f"<div class='meli-chart-heading'><div class='meli-chart-title'>{escape(title)}</div>{info_html}</div>",
+        unsafe_allow_html=True,
+    )
 
 
-def _chart_note(text: str) -> None:
-    st.markdown(f"<div class='meli-chart-subtitle'>{escape(text)}</div>", unsafe_allow_html=True)
+def _chart_info_html(notes: list[str]) -> str:
+    if not notes:
+        return ""
+    body = "".join(f"<span class='meli-tooltip-line'>{escape(note)}</span>" for note in notes)
+    return f"<span class='meli-info-dot' tabindex='0' aria-label='Metodologia'>i<span class='meli-info-tooltip'>{body}</span></span>"
 
 
-def _cohort_notes() -> None:
-    notes = [
+def _normalise_chart_notes(value: object) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        candidates = [value]
+    else:
+        try:
+            candidates = list(value)  # type: ignore[arg-type]
+        except TypeError:
+            candidates = [value]
+    notes: list[str] = []
+    for item in candidates:
+        text = str(item or "").strip()
+        if text:
+            notes.append(text)
+    return notes
+
+
+def _cohort_notes() -> tuple[str, ...]:
+    return (
         "Cada linha é uma safra proxy: a base fixa é o saldo que estava a vencer em até 30 dias no mês-base da safra.",
         "Se a linha Fev-26 mostra 39,6% em M1, leia assim: M1 é Mar-26 e o valor é atraso até 30d em Mar-26 dividido pelo saldo que estava a vencer em até 30d em Fev-26.",
         "M1 = mês seguinte à safra, usando atraso até 30d; M2 = dois meses depois, usando atraso 31-60d; M3 = três meses depois, usando atraso 61-90d.",
@@ -914,19 +989,15 @@ def _cohort_notes() -> None:
         "Exemplo: se Fev-26 tinha R$ 100 milhões a vencer em até 30 dias e Mar-26 tem R$ 39,6 milhões em atraso até 30d, M1 = 39,6 / 100 = 39,6%.",
         "M1, M2, M3... são meses de maturação depois da safra, não meses fixos do calendário; compare sempre o mesmo M entre safras.",
         "Linha mais alta no mesmo M indica pior deterioração relativa daquela safra.",
-    ]
-    for note in notes:
-        _chart_note(note)
+    )
 
 
-def _duration_notes() -> None:
-    notes = [
+def _duration_notes() -> tuple[str, ...]:
+    return (
         "Fórmula: duration_dias = Σ(saldo de cada faixa de vencimento × prazo proxy da faixa) ÷ Σ(saldos das faixas).",
         "O gráfico mostra duration_meses = duration_dias ÷ 30,4375; 30,4375 = 365,25 ÷ 12, a média de dias por mês em um ano com ajuste bissexto.",
         "Exemplo: um crédito a vencer entre 61 e 90 dias usa 75,5 dias como prazo proxy, que é o ponto médio (61 + 90) ÷ 2.",
-    ]
-    for note in notes:
-        _chart_note(note)
+    )
 
 
 def _outputs_session_key(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection) -> str:
