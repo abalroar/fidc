@@ -71,16 +71,10 @@ def choose_export_label_policy(
                 indices_by_series=tuple(_valid_indices(series) for series in values),
                 reason="barras com ate 8 periodos",
             )
-        if point_count <= 14:
-            return ExportLabelPolicy(
-                mode="selected",
-                indices_by_series=tuple(_selected_bar_indices(series) for series in values),
-                reason="barras com densidade media",
-            )
         return ExportLabelPolicy(
             mode="last",
             indices_by_series=tuple(_last_index_tuple(series) for series in values),
-            reason="barras densas",
+            reason="barras com mais de 8 periodos priorizam ultimo ponto",
         )
 
     if chart_kind == "cohort":
@@ -239,4 +233,3 @@ def _is_finite(value: object) -> bool:
 
 def _format_br(value: float, decimals: int) -> str:
     return f"{value:,.{decimals}f}".replace(",", "_").replace(".", ",").replace("_", ".")
-

@@ -24,7 +24,9 @@ Estrutura: 19 slides
 from __future__ import annotations
 
 from io import BytesIO
+from pathlib import PurePosixPath
 from typing import Any
+from zipfile import ZIP_DEFLATED, ZipFile
 
 import pandas as pd
 
@@ -212,11 +214,22 @@ def build_somatorio_fidcs_pptx_bytes(
                           next_page(), _TOTAL_SLIDES, data_base, **deps)
 
     # ---- Slide 19: Síntese ----
-    _add_synthesis(prs, layout, next_page(), _TOTAL_SLIDES, data_base, **deps)
+    _add_synthesis(
+        prs,
+        layout,
+        next_page(),
+        _TOTAL_SLIDES,
+        data_base,
+        consolidated_monitor=con_monitor,
+        consolidated_monthly=con_monthly,
+        fund_monitor_map=fund_monitor_map,
+        fund_monthly_map=fund_monthly_map,
+        **deps,
+    )
 
     buf = BytesIO()
     prs.save(buf)
-    return buf.getvalue()
+    return _normalize_pptx_native_number_formats(buf.getvalue())
 
 
 # ===========================================================================
@@ -280,7 +293,12 @@ def _add_divider(
 
 def _add_synthesis(
     prs, layout, page_num: int, total: int, data_base: str,
-    *, Inches, Pt, RGBColor, **_kw
+    *,
+    consolidated_monitor: pd.DataFrame,
+    consolidated_monthly: pd.DataFrame,
+    fund_monitor_map: dict[str, pd.DataFrame],
+    fund_monthly_map: dict[str, pd.DataFrame],
+    Inches, Pt, RGBColor, **_kw
 ) -> None:
     slide = prs.slides.add_slide(layout)
     slide.background.fill.solid()
@@ -291,31 +309,34 @@ def _add_synthesis(
     _slide_footer(slide, page_num, total, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
 
     col_top = _HDR_H + 0.15
-    col_h = _FTR_TOP - col_top - 0.10
     col_w = 5.50
     col_gap = 0.50
     col_left_1 = _MX
     col_left_2 = _MX + col_w + col_gap
 
-    bullets = ["[INSERIR PONTO 1]", "[INSERIR PONTO 2]", "[INSERIR PONTO 3]"]
+    sections = _build_synthesis_sections(
+        consolidated_monitor=consolidated_monitor,
+        consolidated_monthly=consolidated_monthly,
+        fund_monitor_map=fund_monitor_map,
+        fund_monthly_map=fund_monthly_map,
+    )
 
-    for col_left, hdr_color, hdr_text in [
-        (col_left_1, _ORANGE, "Pontos de atenção"),
-        (col_left_2, _BLACK, "Destaques positivos"),
+    for col_left, hdr_color, hdr_text, bullets in [
+        (col_left_1, _ORANGE, "Pontos de atenção", sections["attention"]),
+        (col_left_2, _BLACK, "Destaques positivos", sections["highlights"]),
     ]:
-        # Header da coluna
         _textbox(slide, hdr_text,
                  left=col_left, top=col_top, width=col_w, height=0.35,
                  size=16, bold=True, color=hdr_color,
                  Inches=Inches, Pt=Pt, RGBColor=RGBColor)
-        # Bullets placeholder
         bullet_top = col_top + 0.45
         for bullet in bullets:
             _textbox(slide, f"• {bullet}",
-                     left=col_left, top=bullet_top, width=col_w, height=0.30,
-                     size=14, bold=True, color=_BLACK,
+                     left=col_left, top=bullet_top, width=col_w, height=0.58,
+                     size=12.5, bold=False, color=_BLACK,
+                     word_wrap=True,
                      Inches=Inches, Pt=Pt, RGBColor=RGBColor)
-            bullet_top += 0.40
+            bullet_top += 0.70
 
 
 # ===========================================================================
@@ -814,12 +835,7 @@ def _chart_multi_line(
         percent=value_is_percent,
         RGBColor=RGBColor,
         Pt=Pt,
-        positions=[
-            XL_LABEL_POSITION.RIGHT,
-            XL_LABEL_POSITION.ABOVE,
-            XL_LABEL_POSITION.BELOW,
-            XL_LABEL_POSITION.LEFT,
-        ],
+        positions=_ranked_line_label_positions(all_vals, XL_LABEL_POSITION),
     )
 
 
@@ -903,12 +919,7 @@ def _chart_cohorts(
         percent=True,
         RGBColor=RGBColor,
         Pt=Pt,
-        positions=[
-            XL_LABEL_POSITION.RIGHT,
-            XL_LABEL_POSITION.ABOVE,
-            XL_LABEL_POSITION.BELOW,
-            XL_LABEL_POSITION.LEFT,
-        ],
+        positions=_ranked_line_label_positions(all_vals, XL_LABEL_POSITION),
     )
 
 
@@ -957,10 +968,14 @@ def _style_chart(chart, title, x_title, y_title, num_fmt, RGBColor, Pt) -> None:
 
     for axis in (chart.category_axis, chart.value_axis):
         axis.tick_labels.font.name = "Calibri"
-        axis.tick_labels.font.size = Pt(9)
+        axis.tick_labels.font.size = Pt(9.5)
         axis.tick_labels.font.color.rgb = _rgb(_GRAY, RGBColor)
 
     chart.value_axis.tick_labels.number_format = num_fmt
+    try:
+        chart.value_axis.tick_labels.number_format_is_linked = False
+    except Exception:
+        pass
     chart.value_axis.has_major_gridlines = True
     try:
         chart.value_axis.major_gridlines.format.line.color.rgb = _rgb(_GRAY_LIGHT, RGBColor)
@@ -1011,6 +1026,29 @@ def _series_line(series, color) -> None:
         pass
 
 
+def _ranked_line_label_positions(series_values: list[list], XL_LABEL_POSITION) -> list:
+    """Spread final-point labels using the latest y-value ranking."""
+    positions = [XL_LABEL_POSITION.RIGHT for _ in series_values]
+    latest: list[tuple[int, float]] = []
+    for idx, values in enumerate(series_values):
+        last_idx = _last_non_null(values)
+        if last_idx is None:
+            continue
+        value = _num(values[last_idx])
+        if value is not None:
+            latest.append((idx, value))
+    if len(latest) <= 1:
+        return positions
+
+    ranked = sorted(latest, key=lambda item: item[1])
+    positions[ranked[0][0]] = XL_LABEL_POSITION.BELOW
+    positions[ranked[-1][0]] = XL_LABEL_POSITION.ABOVE
+    middle_positions = [XL_LABEL_POSITION.RIGHT, XL_LABEL_POSITION.LEFT]
+    for offset, (idx, _value) in enumerate(ranked[1:-1]):
+        positions[idx] = middle_positions[offset % len(middle_positions)]
+    return positions
+
+
 def _apply_export_labels(
     chart,
     series_values: list[list],
@@ -1033,11 +1071,21 @@ def _apply_export_labels(
     )
     if policy.mode == "none":
         return
+    native_num_fmt = _native_label_number_format(
+        metric_kind=metric_kind,
+        percent=percent,
+        decimals=decimals,
+    )
 
     for series_idx, point_indices in enumerate(policy.indices_by_series):
         if series_idx >= len(chart.series):
             continue
         series = chart.series[series_idx]
+        try:
+            series.data_labels.number_format = native_num_fmt
+            series.data_labels.number_format_is_linked = False
+        except Exception:
+            pass
         values = series_values[series_idx]
         for point_idx in point_indices:
             if point_idx >= len(values):
@@ -1079,13 +1127,13 @@ def _empty_placeholder(slide, slot, title, msg, *, Inches, Pt, RGBColor) -> None
 
 def _textbox(
     slide, text: str, *, left, top, width, height, size, bold, color,
-    italic: bool = False, align_right: bool = False,
+    italic: bool = False, align_right: bool = False, word_wrap: bool = False,
     Inches, Pt, RGBColor,
 ) -> None:
     from pptx.enum.text import PP_ALIGN
     box = slide.shapes.add_textbox(Inches(left), Inches(top), Inches(width), Inches(height))
     tf = box.text_frame
-    tf.word_wrap = False
+    tf.word_wrap = word_wrap
     tf.clear()
     p = tf.paragraphs[0]
     if align_right:
@@ -1208,6 +1256,126 @@ def _build_kpi_cards(
     ]
 
 
+def _build_synthesis_sections(
+    *,
+    consolidated_monitor: pd.DataFrame,
+    consolidated_monthly: pd.DataFrame,
+    fund_monitor_map: dict[str, pd.DataFrame],
+    fund_monthly_map: dict[str, pd.DataFrame],
+) -> dict[str, list[str]]:
+    con_row = _latest_row(consolidated_monitor)
+    con_monthly_row = _latest_row(consolidated_monthly)
+    attention: list[str] = []
+    highlights: list[str] = []
+
+    fund_npl = _latest_fund_metric(fund_monitor_map, "npl_over90_ex360_pct")
+    if fund_npl is not None:
+        name, value = fund_npl
+        con_npl = _num(con_row.get("npl_over90_ex360_pct")) if con_row is not None else None
+        suffix = f"; consolidado em {_fmt_pct(con_npl)}" if con_npl is not None else ""
+        attention.append(f"Maior Over 90 ex-360: {name} em {_fmt_pct(value)}{suffix}.")
+
+    fund_coverage = _latest_fund_metric(
+        fund_monthly_map,
+        "pdd_npl_over90_ex360_pct",
+        choose="min",
+    )
+    if fund_coverage is not None:
+        name, value = fund_coverage
+        attention.append(f"Menor cobertura PDD/Over 90 ex-360: {name} em {_fmt_pct(value)}.")
+
+    duration = _num(con_row.get("duration_months")) if con_row is not None else None
+    if duration is not None:
+        attention.append(f"Duration consolidada em {_fmt_duration(duration)}; acompanhar dispersão entre fundos.")
+
+    carteira = _num(con_row.get("carteira_ex360")) if con_row is not None else None
+    yoy = _num(con_row.get("carteira_ex360_yoy_pct")) if con_row is not None else None
+    if carteira is not None:
+        yoy_text = f", com variação YoY de {_fmt_pct(yoy)}" if yoy is not None else ""
+        highlights.append(f"Carteira ex-360 consolidada em {_fmt_money(carteira)}{yoy_text}.")
+
+    subordination = _num(con_monthly_row.get("subordinacao_total_ex360_pct")) if con_monthly_row is not None else None
+    if subordination is not None:
+        highlights.append(f"Subordinação total ex-360 em {_fmt_pct(subordination)} na data-base.")
+
+    coverage = _num(con_monthly_row.get("pdd_npl_over90_ex360_pct")) if con_monthly_row is not None else None
+    if coverage is not None:
+        highlights.append(f"Cobertura consolidada PDD/Over 90 ex-360 em {_fmt_pct(coverage)}.")
+
+    npl_delta = _latest_delta(consolidated_monitor, "npl_over90_ex360_pct")
+    if npl_delta is not None and len(highlights) < 3:
+        direction = "recuou" if npl_delta < 0 else "avançou"
+        highlights.append(f"Over 90 ex-360 {direction} {_fmt_pp(abs(npl_delta))} versus mês anterior.")
+
+    return {
+        "attention": _ensure_three_bullets(
+            attention,
+            [
+                "Sem alerta automático adicional com a base disponível.",
+                "Verificar manualmente eventos regulatórios relevantes antes de uso externo.",
+                "Manter leitura por fundo para identificar concentração de risco.",
+            ],
+        ),
+        "highlights": _ensure_three_bullets(
+            highlights,
+            [
+                "Deck gerado com gráficos nativos e editáveis no PowerPoint.",
+                "Data-base, fonte e paginação preservadas automaticamente.",
+                "Indicadores percentuais recalculados a partir das bases consolidadas.",
+            ],
+        ),
+    }
+
+
+def _latest_row(frame: pd.DataFrame | None) -> pd.Series | None:
+    if frame is None or not isinstance(frame, pd.DataFrame) or frame.empty:
+        return None
+    df = _chart_monthly(frame)
+    if df.empty:
+        return None
+    return df.iloc[-1]
+
+
+def _latest_fund_metric(
+    fund_map: dict[str, pd.DataFrame],
+    column: str,
+    *,
+    choose: str = "max",
+) -> tuple[str, float] | None:
+    rows: list[tuple[str, float]] = []
+    for cnpj, frame in fund_map.items():
+        row = _latest_row(frame)
+        if row is None:
+            continue
+        value = _num(row.get(column))
+        if value is None:
+            continue
+        rows.append((_fund_display_name(frame, fallback=str(cnpj)), value))
+    if not rows:
+        return None
+    key = lambda item: item[1]
+    return min(rows, key=key) if choose == "min" else max(rows, key=key)
+
+
+def _latest_delta(frame: pd.DataFrame | None, column: str) -> float | None:
+    if frame is None or not isinstance(frame, pd.DataFrame) or frame.empty or column not in frame.columns:
+        return None
+    df = _chart_monthly(frame)
+    values = pd.to_numeric(df[column], errors="coerce").dropna()
+    if len(values) < 2:
+        return None
+    return float(values.iloc[-1] - values.iloc[-2])
+
+
+def _ensure_three_bullets(items: list[str], fallbacks: list[str]) -> list[str]:
+    clean = [item for item in items if item]
+    for fallback in fallbacks:
+        if len(clean) >= 3:
+            break
+        clean.append(fallback)
+    return clean[:3]
+
+
 def _build_duration_frame(
     consolidated: pd.DataFrame, fund_map: dict[str, pd.DataFrame]
 ) -> pd.DataFrame:
@@ -1318,6 +1486,12 @@ def _fmt_duration(v) -> str:
     return f"{_br(v, 1)} meses"
 
 
+def _fmt_pp(v) -> str:
+    if v is None:
+        return "N/D"
+    return f"{_br(v, 1)} p.p."
+
+
 def _fmt_money_scaled(total: float, div: float, lbl: str) -> str:
     scaled = total / div if div else total
     dec = 0 if abs(scaled) >= 10 else 1
@@ -1333,6 +1507,17 @@ def _fmt_val(v, *, percent: bool, decimals: int) -> str:
     if percent:
         return f"{_br(v * 100.0, decimals)}%"
     return _br(v, decimals)
+
+
+def _native_label_number_format(*, metric_kind: str, percent: bool, decimals: int | None = None) -> str:
+    if percent or metric_kind in {"npl_pct", "general_pct", "coverage_pct", "roll_pct", "cohort_pct"}:
+        places = 1 if decimals is None else max(0, int(decimals))
+        return "0%" if places == 0 else "0." + ("0" * places) + "%"
+    if metric_kind == "money":
+        return "#,##0" if decimals == 0 else "#,##0.0"
+    if metric_kind == "duration":
+        return "#,##0.0"
+    return "#,##0.0"
 
 
 def _br(v: float, decimals: int) -> str:
@@ -1377,3 +1562,135 @@ def _money_scale(values: pd.Series) -> tuple[float, str]:
 def _rgb(hex_color: str, RGBColor):
     c = str(hex_color).strip().lstrip("#")
     return RGBColor(int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16))
+
+
+# ===========================================================================
+# PPTX PACKAGE POST-PROCESSING
+# ===========================================================================
+
+def _normalize_pptx_native_number_formats(pptx_bytes: bytes) -> bytes:
+    """Persist axis number formats into chart caches and embedded workbooks.
+
+    PowerPoint can display chart axes correctly while keeping the embedded
+    workbook cells and chart value caches as ``General``. That is fragile for
+    analyst handoff: editing the chart may expose raw values such as ``1-4``
+    instead of ``100%-400%``. This pass keeps the deck fully native/editable and
+    makes the underlying Office objects carry the same unit contract as the
+    rendered axis.
+    """
+    try:
+        from lxml import etree
+        from openpyxl import load_workbook
+    except Exception:
+        return pptx_bytes
+
+    embedded_formats: dict[str, str] = {}
+    updated_payloads: dict[str, bytes] = {}
+    chart_ns = {"c": "http://schemas.openxmlformats.org/drawingml/2006/chart"}
+    rel_ns = {"rel": "http://schemas.openxmlformats.org/package/2006/relationships"}
+
+    with ZipFile(BytesIO(pptx_bytes), "r") as zin:
+        names = set(zin.namelist())
+        for name in sorted(n for n in names if n.startswith("ppt/charts/chart") and n.endswith(".xml")):
+            xml = zin.read(name)
+            try:
+                root = etree.fromstring(xml)
+            except Exception:
+                continue
+            fmt = _chart_value_axis_format(root, chart_ns)
+            if not fmt:
+                continue
+            changed = _set_chart_value_cache_format(root, fmt, chart_ns)
+            if changed:
+                updated_payloads[name] = etree.tostring(
+                    root,
+                    xml_declaration=True,
+                    encoding="UTF-8",
+                    standalone=True,
+                )
+
+            rels_name = _chart_rels_path(name)
+            if rels_name in names:
+                try:
+                    rel_root = etree.fromstring(zin.read(rels_name))
+                except Exception:
+                    continue
+                for rel in rel_root.xpath(".//rel:Relationship", namespaces=rel_ns):
+                    target = str(rel.get("Target") or "")
+                    if "embeddings/" not in target or not target.endswith(".xlsx"):
+                        continue
+                    embedded_name = _resolve_package_target(name, target)
+                    embedded_formats[embedded_name] = fmt
+
+        for embedded_name, fmt in embedded_formats.items():
+            if embedded_name not in names:
+                continue
+            try:
+                wb = load_workbook(BytesIO(zin.read(embedded_name)))
+                for ws in wb.worksheets:
+                    for row in ws.iter_rows(min_row=2, min_col=2):
+                        for cell in row:
+                            if isinstance(cell.value, (int, float)):
+                                cell.number_format = fmt
+                out = BytesIO()
+                wb.save(out)
+                updated_payloads[embedded_name] = out.getvalue()
+            except Exception:
+                continue
+
+        if not updated_payloads:
+            return pptx_bytes
+
+        out_zip = BytesIO()
+        with ZipFile(out_zip, "w", compression=ZIP_DEFLATED) as zout:
+            for info in zin.infolist():
+                payload = updated_payloads.get(info.filename, zin.read(info.filename))
+                zout.writestr(info.filename, payload)
+        return out_zip.getvalue()
+
+
+def _chart_value_axis_format(root, chart_ns: dict[str, str]) -> str | None:  # noqa: ANN001
+    num_fmt = root.find(".//c:valAx/c:numFmt", namespaces=chart_ns)
+    if num_fmt is not None and num_fmt.get("formatCode"):
+        return str(num_fmt.get("formatCode"))
+    axis_title = "".join(root.xpath(".//c:valAx/c:title//text()", namespaces=chart_ns))
+    if "%" in axis_title:
+        return "0.0%"
+    if "R$" in axis_title:
+        return "#,##0.0"
+    if "mes" in axis_title.lower():
+        return "#,##0.0"
+    return None
+
+
+def _set_chart_value_cache_format(root, fmt: str, chart_ns: dict[str, str]) -> bool:  # noqa: ANN001
+    from lxml import etree
+    from pptx.oxml.ns import qn
+
+    changed = False
+    for num_cache in root.xpath(".//c:ser/c:val//c:numCache", namespaces=chart_ns):
+        format_code = num_cache.find(qn("c:formatCode"))
+        if format_code is None:
+            format_code = etree.Element(qn("c:formatCode"))
+            num_cache.insert(0, format_code)
+            changed = True
+        if format_code.text != fmt:
+            format_code.text = fmt
+            changed = True
+    return changed
+
+
+def _chart_rels_path(chart_path: str) -> str:
+    path = PurePosixPath(chart_path)
+    return str(path.parent / "_rels" / f"{path.name}.rels")
+
+
+def _resolve_package_target(base_path: str, target: str) -> str:
+    parts: list[str] = []
+    for part in (PurePosixPath(base_path).parent / target).parts:
+        if part == "..":
+            if parts:
+                parts.pop()
+        elif part not in {"", "."}:
+            parts.append(part)
+    return "/".join(parts)

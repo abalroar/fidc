@@ -10,8 +10,8 @@ class ExportChartLabelsTest(unittest.TestCase):
         self.assertEqual(sparse.indices_by_series, ((0, 1, 2),))
 
         medium = choose_export_label_policy([list(range(12))], chart_kind="bar", metric_kind="money")
-        self.assertEqual(medium.mode, "selected")
-        self.assertEqual(medium.indices_by_series, ((0, 11),))
+        self.assertEqual(medium.mode, "last")
+        self.assertEqual(medium.indices_by_series, ((11,),))
 
     def test_multi_line_policy_uses_last_label_for_dense_series(self) -> None:
         policy = choose_export_label_policy(
@@ -30,4 +30,3 @@ class ExportChartLabelsTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

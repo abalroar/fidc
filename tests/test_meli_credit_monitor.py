@@ -267,6 +267,9 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertNotIn("Dashboard MELI - Visão research", xml_payload)
 
     def test_combined_somatorio_pptx_export_contains_base_and_credit_slides(self) -> None:
+        from openpyxl import load_workbook
+        from pptx import Presentation
+
         from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
 
         monitor = build_monitor_base(_sample_monthly(month_count=7))
@@ -304,10 +307,21 @@ class MeliCreditMonitorTest(unittest.TestCase):
 
         self.assertTrue(pptx_bytes.startswith(b"PK"))
         self.assertTrue(zipfile.is_zipfile(BytesIO(pptx_bytes)))
+        self.assertEqual(19, len(Presentation(BytesIO(pptx_bytes)).slides))
         with zipfile.ZipFile(BytesIO(pptx_bytes)) as archive:
             slide1_xml = archive.read("ppt/slides/slide1.xml").decode("utf-8", errors="ignore")
             slide2_xml = archive.read("ppt/slides/slide2.xml").decode("utf-8", errors="ignore")
             slide3_xml = archive.read("ppt/slides/slide3.xml").decode("utf-8", errors="ignore")
+            chart2_xml = archive.read("ppt/charts/chart2.xml").decode("utf-8", errors="ignore")
+            chart4_xml = archive.read("ppt/charts/chart4.xml").decode("utf-8", errors="ignore")
+            embedded_percent_wb = load_workbook(
+                BytesIO(archive.read("ppt/embeddings/Microsoft_Excel_Sheet2.xlsx")),
+                data_only=False,
+            )
+            embedded_coverage_wb = load_workbook(
+                BytesIO(archive.read("ppt/embeddings/Microsoft_Excel_Sheet4.xlsx")),
+                data_only=False,
+            )
             xml_payload = "\n".join(
                 archive.read(name).decode("utf-8", errors="ignore")
                 for name in archive.namelist()
@@ -322,6 +336,13 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertIn("NPL OVER 1D EX-360", xml_payload)
         self.assertIn("Roll 91-120 por mês do ano", xml_payload)
         self.assertIn("Roll 121-150 por mês do ano", xml_payload)
+        self.assertNotIn("[INSERIR PONTO", xml_payload)
+        self.assertIn("Pontos de atenção", xml_payload)
+        self.assertIn("Destaques positivos", xml_payload)
+        self.assertIn("<c:formatCode>0.0%</c:formatCode>", chart2_xml)
+        self.assertIn("<c:formatCode>0.0%</c:formatCode>", chart4_xml)
+        self.assertEqual("0.0%", embedded_percent_wb.active["B2"].number_format)
+        self.assertEqual("0.0%", embedded_coverage_wb.active["B2"].number_format)
 
     def test_research_layer_builds_auditable_metrics_and_verification(self) -> None:
         monitor = build_monitor_base(_sample_monthly(month_count=14))
