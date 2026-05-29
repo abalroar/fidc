@@ -44,6 +44,18 @@ _ABOUT_CSS = """
     max-width: 54rem;
 }
 
+.about-statement {
+    color: #3f4854;
+    font-size: 0.96rem;
+    line-height: 1.58;
+    margin-top: 0.85rem;
+    max-width: 54rem;
+}
+
+.about-statement p {
+    margin: 0 0 0.6rem 0;
+}
+
 .about-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -88,9 +100,13 @@ def render_tab_about() -> None:
           <div class="about-kicker">Sobre</div>
           <h2 class="about-title">tomaconta FIDCs</h2>
           <div class="about-summary">
-            Aplicação para leitura, acompanhamento e análise de Informes Mensais Estruturados de FIDCs.
+            Dashboard para leitura, acompanhamento e análise de Informes Mensais Estruturados de FIDCs.
             A ferramenta organiza dados oficiais, carteiras persistidas, gráficos de monitoramento,
             simulações e documentação técnica em uma experiência única de análise.
+          </div>
+          <div class="about-statement">
+            <p>O TomaConta FIDCs foi criado pelo Matheus Prates, CFA. A ideia da plataforma é facilitar a análise padronizada de securitizações por meio dos dados disponibilizados pela CVM.</p>
+            <p>Este é um projeto independente e em fase de testes. Use com responsabilidade e sempre valide os dados. Feedbacks são sempre bem-vindos!</p>
           </div>
           <div class="about-grid">
             <div class="about-card">

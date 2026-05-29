@@ -273,11 +273,11 @@ st.markdown(
 )
 
 _MAIN_SECTIONS = [
+    "Sobre",
     "Carteira FIDCs",
     "Custo Cloudwalk",
     "Glossário FIDCs",
     "Modelagem",
-    "Sobre",
 ]
 
 st.markdown("<div class='fidc-main-nav-marker'></div>", unsafe_allow_html=True)
