@@ -16,6 +16,7 @@ from tabs.ime_portfolio_support import (
     enrich_portfolio_funds_with_catalog,
     format_portfolio_fund_label,
     normalize_portfolio_fund_name,
+    resolve_default_active_portfolio_id,
 )
 
 
@@ -76,6 +77,69 @@ class ImePortfolioSupportTests(unittest.TestCase):
         self.assertIn("ID aaaa1111", labels["aaaa1111portfolio"])
         self.assertIn("ID bbbb2222", labels["bbbb2222portfolio"])
         self.assertNotEqual(labels["aaaa1111portfolio"], labels["bbbb2222portfolio"])
+
+    def test_default_active_portfolio_prefers_meli_mercado_credito(self) -> None:
+        portfolios = [
+            PortfolioRecord(
+                id="portfolio-a",
+                name="Carteira A",
+                funds=(PortfolioFund(cnpj="12345678000199", display_name="FIDC A"),),
+                created_at="2026-04-14T12:00:00Z",
+                updated_at="2026-04-14T12:00:00Z",
+            ),
+            PortfolioRecord(
+                id="portfolio-meli",
+                name="MELI (FIDCs Mercado Crédito 0, I e II)",
+                funds=(PortfolioFund(cnpj="33254370000104", display_name="MERCADO CRÉDITO FIDC"),),
+                created_at="2026-04-15T12:00:00Z",
+                updated_at="2026-04-15T12:00:00Z",
+            ),
+        ]
+
+        self.assertEqual("portfolio-meli", resolve_default_active_portfolio_id(portfolios))
+
+    def test_default_active_portfolio_keeps_explicit_fallback_when_meli_is_absent(self) -> None:
+        portfolios = [
+            PortfolioRecord(
+                id="portfolio-a",
+                name="Carteira A",
+                funds=(PortfolioFund(cnpj="12345678000199", display_name="FIDC A"),),
+                created_at="2026-04-14T12:00:00Z",
+                updated_at="2026-04-14T12:00:00Z",
+            ),
+            PortfolioRecord(
+                id="portfolio-b",
+                name="Mercado Livre",
+                funds=(PortfolioFund(cnpj="22345678000199", display_name="FIDC B"),),
+                created_at="2026-04-15T12:00:00Z",
+                updated_at="2026-04-15T12:00:00Z",
+            ),
+        ]
+
+        self.assertEqual(
+            "portfolio-b",
+            resolve_default_active_portfolio_id(portfolios, fallback_id="portfolio-b"),
+        )
+
+    def test_default_active_portfolio_uses_most_recent_duplicate_meli(self) -> None:
+        portfolios = [
+            PortfolioRecord(
+                id="portfolio-old",
+                name="MELI (FIDCs Mercado Crédito 0, I e II)",
+                funds=(PortfolioFund(cnpj="12345678000199", display_name="FIDC A"),),
+                created_at="2026-04-14T12:00:00Z",
+                updated_at="2026-04-14T12:00:00Z",
+            ),
+            PortfolioRecord(
+                id="portfolio-new",
+                name="MELI (FIDCs Mercado Crédito 0, I e II)",
+                funds=(PortfolioFund(cnpj="22345678000199", display_name="FIDC B"),),
+                created_at="2026-04-15T12:00:00Z",
+                updated_at="2026-04-16T12:00:00Z",
+            ),
+        ]
+
+        self.assertEqual("portfolio-new", resolve_default_active_portfolio_id(portfolios))
 
     def test_portfolio_funds_display_df_shows_clean_names_and_formatted_cnpjs(self) -> None:
         portfolio = PortfolioRecord(

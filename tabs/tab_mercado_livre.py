@@ -51,6 +51,7 @@ from tabs.ime_portfolio_support import (
     load_fidc_catalog_cached,
     refresh_saved_portfolios_cache,
     render_saved_portfolio_delete_manager,
+    resolve_default_active_portfolio_id,
     save_portfolio_record,
 )
 from tabs.tab_fidc_ime_carteira import (
@@ -527,7 +528,7 @@ def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRe
     if default_id not in options:
         preferred_names = {"meli (todos)", "mercado livre"}
         mercado = next((portfolio.id for portfolio in portfolios if portfolio.name.strip().lower() in preferred_names), None)
-        default_id = mercado or options[0]
+        default_id = resolve_default_active_portfolio_id(portfolios, fallback_id=mercado)
         st.session_state["ml_portfolio_active_id"] = default_id
     selected_id = st.selectbox(
         "Carteira salva",

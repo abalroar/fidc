@@ -47,6 +47,7 @@ from tabs.ime_portfolio_support import (
     enrich_portfolio_funds_with_catalog,
     list_saved_portfolios,
     load_fidc_catalog_cached,
+    resolve_default_active_portfolio_id,
 )
 from tabs.tab_fidc_ime_carteira import (
     _build_loaded_dashboards_by_cnpj,
@@ -336,15 +337,7 @@ def _render_portfolio_controls(portfolios: list[PortfolioRecord]) -> PortfolioRe
     labels = build_portfolio_record_label_lookup(portfolios)
     default_id = st.session_state.get("dashboard_meli_portfolio_active_id")
     if default_id not in options:
-        preferred = next(
-            (
-                portfolio.id
-                for portfolio in portfolios
-                if "mercado" in portfolio.name.strip().lower() or "meli" in portfolio.name.strip().lower()
-            ),
-            None,
-        )
-        default_id = preferred or options[0]
+        default_id = resolve_default_active_portfolio_id(portfolios)
         st.session_state["dashboard_meli_portfolio_active_id"] = default_id
     with left:
         selected_id = st.selectbox(

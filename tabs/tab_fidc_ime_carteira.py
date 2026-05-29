@@ -28,6 +28,7 @@ from tabs.ime_portfolio_support import (
     load_fidc_catalog_cached,
     normalize_portfolio_fund_name,
     render_saved_portfolio_delete_manager,
+    resolve_default_active_portfolio_id,
     save_portfolio_record,
 )
 
@@ -167,7 +168,7 @@ def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRe
     label_lookup = _build_portfolio_selector_label_lookup(portfolios)
     default_id = st.session_state.get("ime_portfolio_active_id")
     if default_id not in options:
-        default_id = options[0]
+        default_id = resolve_default_active_portfolio_id(portfolios)
         st.session_state["ime_portfolio_active_id"] = default_id
     selected_id = st.selectbox(
         "Seleção ativa",

@@ -38,6 +38,9 @@ def _build_cache_data_decorator(*, ttl: int | None = None):
 _cache_data_decorator = _build_cache_data_decorator()
 _portfolio_cache_data_decorator = _build_cache_data_decorator(ttl=60)
 
+DEFAULT_ACTIVE_PORTFOLIO_NAME = "MELI (FIDCs Mercado Crédito 0, I e II)"
+_DEFAULT_ACTIVE_PORTFOLIO_NAME_KEY = portfolio_name_key(DEFAULT_ACTIVE_PORTFOLIO_NAME)
+
 
 def _secrets_to_dict() -> dict[str, Any]:
     try:
@@ -125,6 +128,25 @@ def build_portfolio_record_label_lookup(portfolios: list[PortfolioRecord]) -> di
             base = f"{base} · ID {portfolio.id[:8]}"
         labels[portfolio.id] = base
     return labels
+
+
+def resolve_default_active_portfolio_id(
+    portfolios: list[PortfolioRecord],
+    *,
+    fallback_id: str | None = None,
+) -> str | None:
+    if not portfolios:
+        return None
+    preferred = [
+        portfolio
+        for portfolio in portfolios
+        if portfolio_name_key(portfolio.name) == _DEFAULT_ACTIVE_PORTFOLIO_NAME_KEY
+    ]
+    if preferred:
+        return max(preferred, key=lambda portfolio: (portfolio.updated_at or "", portfolio.created_at or "", portfolio.id)).id
+    if fallback_id is not None and any(portfolio.id == fallback_id for portfolio in portfolios):
+        return fallback_id
+    return portfolios[0].id
 
 
 def build_portfolio_funds_display_df(portfolio: PortfolioRecord) -> pd.DataFrame:

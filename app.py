@@ -31,7 +31,7 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 }
 
 .fidc-app-header {
-    margin: 0 auto 1.1rem auto;
+    margin: 1.15rem auto 1.75rem auto;
     max-width: 64rem;
     text-align: center;
 }
@@ -47,21 +47,21 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 }
 
 .fidc-app-title {
-    color: #283241;
-    font-size: 2.45rem;
-    font-weight: 700;
-    letter-spacing: 0;
-    line-height: 1.08;
-    margin: 0;
+    color: #2f7fa8 !important;
+    font-size: clamp(3.1rem, 6.2vw, 4.45rem) !important;
+    font-weight: 300 !important;
+    letter-spacing: -0.045em !important;
+    line-height: 0.98 !important;
+    margin: 0 !important;
 }
 
 .fidc-app-author {
-    color: #8a94a3;
-    font-size: 1.02rem;
-    font-weight: 300;
-    letter-spacing: 0.01em;
-    line-height: 1.3;
-    margin-top: 0.35rem;
+    color: #9aa3ad !important;
+    font-size: 1.02rem !important;
+    font-weight: 300 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.3 !important;
+    margin-top: 0.7rem !important;
 }
 
 .fidc-app-subtitle {
@@ -229,7 +229,7 @@ div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-t
     }
 
     .fidc-app-title {
-        font-size: 2rem;
+        font-size: 2.65rem !important;
     }
 
     .fidc-app-subtitle {
@@ -265,7 +265,7 @@ st.markdown(_APP_CSS, unsafe_allow_html=True)
 st.markdown(
     """
     <div class="fidc-app-header">
-      <h1 class="fidc-app-title">tomaconta FIDCs</h1>
+      <div class="fidc-app-title" role="heading" aria-level="1">tomaconta fidcs</div>
       <div class="fidc-app-author">por matheus prates, cfa</div>
     </div>
     """,
