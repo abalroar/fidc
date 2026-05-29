@@ -489,19 +489,67 @@ class TabFidcImeProgressTests(unittest.TestCase):
         chart = tab_fidc_ime._aging_history_callout_chart(prepared, title=None, height=420, bar_size=80)
         spec = chart.to_dict()
 
-        self.assertEqual(4, len(spec["layer"]))
+        self.assertEqual(3, len(spec["layer"]))
         self.assertEqual("bar", spec["layer"][0]["mark"]["type"])
         self.assertEqual("line", spec["layer"][1]["mark"]["type"])
-        self.assertEqual("text", spec["layer"][3]["mark"]["type"])
-        self.assertEqual("label_slot", spec["layer"][3]["encoding"]["x"]["field"])
-        self.assertEqual(14, spec["layer"][3]["mark"]["fontSize"])
-        self.assertEqual(248, spec["padding"]["right"])
+        self.assertEqual("text", spec["layer"][2]["mark"]["type"])
+        self.assertEqual("label_slot", spec["layer"][2]["encoding"]["x"]["field"])
+        self.assertEqual(14, spec["layer"][2]["mark"]["fontSize"])
+        self.assertEqual([0.0, 100.0], spec["layer"][0]["encoding"]["y"]["scale"]["domain"])
+        self.assertEqual([0, 20, 40, 60, 80, 100], spec["layer"][0]["encoding"]["y"]["axis"]["values"])
+        self.assertEqual(220, spec["padding"]["right"])
         x_domain = spec["layer"][0]["encoding"]["x"]["scale"]["domain"]
         self.assertEqual(["jan-26", "fev-26", ""], x_domain)
         datasets = spec.get("datasets", {})
         connector_dataset = spec["layer"][1]["data"]["name"]
         connector_points = datasets[connector_dataset]
         self.assertEqual({"fev-26", ""}, {row["competencia_plot"] for row in connector_points})
+
+    def test_aging_history_callout_chart_keeps_external_labels_within_100_percent_axis(self) -> None:
+        values = [38.0, 29.0, 6.0, 3.0, 3.0, 2.0, 8.0, 4.0, 4.0, 3.0]
+        frame = pd.DataFrame(
+            {
+                "competencia": ["04/2026"] * len(values),
+                "competencia_dt": [pd.Timestamp("2026-04-01")] * len(values),
+                "faixa": tab_fidc_ime.AGING_SERIES_ORDER[: len(values)],
+                "ordem": list(range(1, len(values) + 1)),
+                "valor": values,
+                "percentual_inadimplencia": values,
+            }
+        )
+
+        prepared = tab_fidc_ime._prepare_aging_history_chart_frame(frame)
+        chart = tab_fidc_ime._aging_history_callout_chart(prepared, title=None)
+        spec = chart.to_dict()
+        datasets = spec.get("datasets", {})
+        label_dataset = spec["layer"][2]["data"]["name"]
+        label_rows = datasets[label_dataset]
+        label_positions = [row["label_y"] for row in label_rows]
+
+        self.assertTrue(label_positions)
+        self.assertGreaterEqual(min(label_positions), 3.0)
+        self.assertLessEqual(max(label_positions), 97.0)
+
+    def test_aging_history_callout_chart_marks_missing_periods_without_zero_bars(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "02/2026", "02/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-02-01", "2026-02-01"]),
+                "faixa": ["Até 30 dias", "Até 30 dias", "31 a 60 dias"],
+                "ordem": [1, 1, 2],
+                "valor": [0.0, 70.0, 30.0],
+                "percentual_inadimplencia": [pd.NA, 70.0, 30.0],
+            }
+        )
+
+        prepared = tab_fidc_ime._prepare_aging_history_chart_frame(frame)
+        self.assertEqual(["jan-26"], tab_fidc_ime._missing_aging_competencia_labels(prepared))
+
+        chart = tab_fidc_ime._aging_history_callout_chart(prepared, title=None)
+        spec = chart.to_dict()
+
+        self.assertEqual("point", spec["layer"][1]["mark"]["type"])
+        self.assertEqual("cross", spec["layer"][1]["mark"]["shape"])
 
     def test_dense_aging_history_callout_chart_adds_visible_separators(self) -> None:
         months = pd.date_range("2023-05-01", periods=36, freq="MS")
@@ -526,6 +574,34 @@ class TabFidcImeProgressTests(unittest.TestCase):
         self.assertEqual(7, mark["size"])
         self.assertEqual("#f8fafc", mark["stroke"])
         self.assertEqual(1.4, mark["strokeWidth"])
+
+    def test_credit_grouped_bar_uses_compact_dodged_bars_for_18_months(self) -> None:
+        months = pd.date_range("2024-11-01", periods=18, freq="MS")
+        frame = pd.DataFrame(
+            {
+                "competencia": [month.strftime("%m/%Y") for month in months for _ in range(2)],
+                "competencia_dt": [month for month in months for _ in range(2)],
+                "serie": ["Inadimplência", "Provisão"] * len(months),
+                "valor": [30.0, 45.0] * len(months),
+            }
+        )
+        bar_size = tab_fidc_ime._executive_grouped_bar_size(
+            frame["competencia"].nunique(),
+            frame["serie"].nunique(),
+        )
+        chart = tab_fidc_ime._grouped_bar_chart(
+            frame,
+            title=None,
+            y_title="% dos DCs",
+            bar_size=bar_size,
+            x_label_angle=-45,
+        )
+        spec = chart.to_dict()
+
+        self.assertEqual(12, bar_size)
+        self.assertEqual(12, spec["layer"][0]["mark"]["size"])
+        self.assertEqual("serie", spec["layer"][0]["encoding"]["xOffset"]["field"])
+        self.assertEqual(0.34, spec["layer"][0]["encoding"]["x"]["scale"]["paddingInner"])
 
     def test_stacked_history_bar_chart_can_hide_segment_labels_and_keep_totals(self) -> None:
         frame = pd.DataFrame(

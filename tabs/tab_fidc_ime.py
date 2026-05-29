@@ -4,6 +4,7 @@ import altair as alt
 from datetime import date, datetime, timezone
 from html import escape
 import json
+import math
 from pathlib import Path
 import re
 import time
@@ -1489,6 +1490,13 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
             st.caption("Sem dados de aging para o período selecionado.")
         else:
             aging_chart_df = _prepare_aging_history_chart_frame(aging_history_df)
+            missing_aging_competencias = _missing_aging_competencia_labels(aging_chart_df)
+            if missing_aging_competencias:
+                st.caption(
+                    "Competências sem base de aging confirmada ficam marcadas com × no eixo "
+                    f"({', '.join(missing_aging_competencias[:5])}"
+                    f"{'…' if len(missing_aging_competencias) > 5 else ''})."
+                )
             st.altair_chart(
                 _aging_history_callout_chart(
                     aging_chart_df,
@@ -3505,8 +3513,19 @@ def _executive_aging_bar_size(category_count: int) -> int:
 
 
 def _executive_grouped_bar_size(period_count: int, series_count: int) -> int:
-    wide_bar_size = _executive_monthly_bar_size(period_count)
-    return max(26, int(wide_bar_size / max(series_count, 1)))
+    if series_count <= 1:
+        return _single_series_bar_size(period_count)
+    if period_count <= 6:
+        return 24
+    if period_count <= 9:
+        return 20
+    if period_count <= 12:
+        return 16
+    if period_count <= 18:
+        return 12
+    if period_count <= 24:
+        return 9
+    return 7
 
 
 def _hex_is_dark(color: str) -> bool:
@@ -3533,6 +3552,12 @@ def _category_color_map(categories: list[str], color_range: list[str]) -> dict[s
     return {category: color_range[index % len(color_range)] for index, category in enumerate(categories)}
 
 
+def _round_axis_upper(value: float, *, step: float) -> float:
+    if value <= 0 or step <= 0:
+        return step
+    return float(math.ceil(value / step) * step)
+
+
 def _quant_scale_with_headroom(
     values: pd.Series,
     *,
@@ -3554,6 +3579,9 @@ def _quant_scale_with_headroom(
         else:
             headroom = max(max_value * 0.25, min(max_value * 0.60, 2.0))
             upper = max_value + headroom
+        if max_cap is not None:
+            upper = min(upper, max_cap)
+        upper = _round_axis_upper(upper, step=10.0)
         if max_cap is not None:
             upper = min(upper, max_cap)
         lower = 0.0 if floor_zero else min_value
@@ -4749,12 +4777,66 @@ def _prepare_aging_history_chart_frame(chart_df: pd.DataFrame) -> pd.DataFrame:
     output = chart_df.copy()
     if "faixa" in output.columns and "serie" not in output.columns:
         output = output.rename(columns={"faixa": "serie"})
+    if {"competencia", "valor"}.issubset(output.columns):
+        numeric_values = pd.to_numeric(output["valor"], errors="coerce")
+        period_totals = numeric_values.groupby(output["competencia"], dropna=False).transform("sum")
+        recomputed_pct = numeric_values.div(period_totals).where(period_totals > 0).mul(100.0)
+        if recomputed_pct.notna().any():
+            output["percentual"] = recomputed_pct
     if "percentual" not in output.columns:
         for alias in ("percentual_inadimplencia", "percentual_direitos_creditorios"):
             if alias in output.columns:
                 output = output.rename(columns={alias: "percentual"})
                 break
     return output
+
+
+def _bounded_label_positions(
+    values: list[float],
+    *,
+    min_gap: float,
+    lower: float,
+    upper: float,
+) -> list[float]:
+    if not values:
+        return []
+    if len(values) == 1:
+        value = values[0]
+        return [min(max(value, lower), upper)]
+    effective_gap = min(min_gap, max((upper - lower) / (len(values) - 1), 0.1))
+    positions = [min(max(float(value), lower), upper) for value in values]
+    for idx in range(1, len(positions)):
+        positions[idx] = max(positions[idx], positions[idx - 1] + effective_gap)
+    if positions[-1] > upper:
+        positions[-1] = upper
+        for idx in range(len(positions) - 2, -1, -1):
+            positions[idx] = min(positions[idx], positions[idx + 1] - effective_gap)
+    if positions[0] < lower:
+        shift = lower - positions[0]
+        positions = [position + shift for position in positions]
+    return [min(max(position, lower), upper) for position in positions]
+
+
+def _missing_aging_competencia_labels(chart_df: pd.DataFrame) -> list[str]:
+    if chart_df.empty or "competencia" not in chart_df.columns:
+        return []
+    try:
+        value_column = _resolve_stacked_chart_value_column(chart_df, "percentual")
+    except ValueError:
+        return []
+    base = chart_df.copy()
+    base["__valor"] = pd.to_numeric(base[value_column], errors="coerce")
+    totals = base.groupby("competencia", dropna=False)["__valor"].sum(min_count=1).reset_index(name="total")
+    missing = totals[totals["total"].isna() | (totals["total"] <= 0)].copy()
+    if missing.empty:
+        return []
+    order_columns = ["competencia"]
+    if "competencia_dt" in base.columns:
+        period_order = base[["competencia", "competencia_dt"]].drop_duplicates("competencia")
+        missing = missing.merge(period_order, on="competencia", how="left")
+        order_columns = ["competencia_dt", "competencia"]
+    missing = missing.sort_values(order_columns, kind="stable")
+    return [_format_competencia_display(value) for value in missing["competencia"].astype(str).tolist()]
 
 
 def _aging_history_callout_chart(
@@ -4775,7 +4857,6 @@ def _aging_history_callout_chart(
             .encode(x="competencia:N", y=alt.Y("percentual:Q", title="% da inadimplência"))
         )
         return _style_altair_chart(_chart_with_optional_title(empty_chart, height=height, title=title))
-    resolved_value_column = _resolve_stacked_chart_value_column(df, "percentual")
     x_sort = _competencia_axis_sort(df)
     label_slot = ""
     x_domain = (x_sort + [label_slot]) if x_sort else [label_slot]
@@ -4783,12 +4864,24 @@ def _aging_history_callout_chart(
     remaining = [serie for serie in df["serie"].drop_duplicates().tolist() if serie not in set(series_order)]
     series_order = series_order + remaining
     color_map = _category_color_map(series_order, AGING_CHART_COLORS)
+    resolved_value_column = _resolve_stacked_chart_value_column(df, "percentual")
+    df[resolved_value_column] = pd.to_numeric(df[resolved_value_column], errors="coerce")
     df["valor_fmt"] = df[resolved_value_column].map(_format_percent)
     df["tooltip_pct_inad"] = df.get("percentual_inadimplencia", df[resolved_value_column]).map(_format_percent)
     if "percentual_direitos_creditorios" in df.columns:
         df["tooltip_pct_dcs"] = df["percentual_direitos_creditorios"].map(_format_percent)
     else:
         df["tooltip_pct_dcs"] = "N/D"
+    period_totals = (
+        df.groupby("competencia", dropna=False)[resolved_value_column]
+        .sum(min_count=1)
+        .reset_index(name="total_percentual")
+    )
+    missing_periods_df = period_totals[
+        period_totals["total_percentual"].isna() | (period_totals["total_percentual"] <= 0)
+    ].copy()
+    missing_periods_df["marker_y"] = 3.0
+    missing_periods_df["tooltip"] = "Sem base de aging confirmada"
     latest_competencia = x_sort[-1]
     latest_df = df[df["competencia"] == latest_competencia].copy()
     latest_df["valor_num"] = pd.to_numeric(latest_df[resolved_value_column], errors="coerce").fillna(0.0)
@@ -4798,15 +4891,12 @@ def _aging_history_callout_chart(
     latest_df["segment_top"] = latest_df["valor_num"].cumsum()
     latest_df["segment_center"] = latest_df["segment_top"] - (latest_df["valor_num"] / 2.0)
     ordered_labels = latest_df.sort_values("segment_center").reset_index(drop=True).copy()
-    min_gap = 4.2
-    adjusted_centers: list[float] = []
-    for _, row in ordered_labels.iterrows():
-        current = float(row["segment_center"])
-        if not adjusted_centers:
-            adjusted_centers.append(current)
-            continue
-        adjusted_centers.append(max(current, adjusted_centers[-1] + min_gap))
-    ordered_labels["label_y"] = adjusted_centers
+    ordered_labels["label_y"] = _bounded_label_positions(
+        ordered_labels["segment_center"].astype(float).tolist(),
+        min_gap=4.2,
+        lower=3.0,
+        upper=97.0,
+    )
     latest_df = latest_df.merge(
         ordered_labels[["serie", "label_y"]],
         on="serie",
@@ -4838,13 +4928,7 @@ def _aging_history_callout_chart(
         connector_rows,
         columns=["serie", "competencia_plot", "valor_plot", "point_order"],
     )
-    _aging_bar_max = float(
-        df.groupby("competencia")[resolved_value_column]
-        .apply(lambda s: pd.to_numeric(s, errors="coerce").sum())
-        .max()
-    ) if not df.empty else 0.0
-    _aging_label_top = float(latest_df["label_y"].max()) if not latest_df.empty else 0.0
-    _aging_y_max = max(105.0, _aging_bar_max * 1.10, _aging_label_top + 4.0)
+    _aging_y_max = 100.0
     x_encoding = alt.X(
         "competencia:N",
         title="Competência",
@@ -4874,6 +4958,7 @@ def _aging_history_callout_chart(
                 title="% da inadimplência",
                 stack=True,
                 scale=alt.Scale(domain=[0.0, _aging_y_max], nice=False),
+                axis=alt.Axis(values=[0, 20, 40, 60, 80, 100]),
             ),
             color=color_encoding,
             order=alt.Order("ordem:Q", sort="ascending") if "ordem" in df.columns else alt.Order("serie:N"),
@@ -4885,6 +4970,22 @@ def _aging_history_callout_chart(
             ],
         )
     )
+    missing_markers = None
+    if not missing_periods_df.empty:
+        missing_markers = (
+            alt.Chart(missing_periods_df)
+            .mark_point(shape="cross", size=58, strokeWidth=1.6, color="#94a3b8", opacity=0.9)
+            .encode(
+                x=alt.X(
+                    "competencia:N",
+                    sort=x_domain,
+                    scale=alt.Scale(domain=x_domain),
+                    axis=alt.Axis(labelExpr="datum.label == '' ? '' : datum.label"),
+                ),
+                y=alt.Y("marker_y:Q", title="% da inadimplência"),
+                tooltip=[alt.Tooltip("competencia:N", title="Competência"), alt.Tooltip("tooltip:N", title="Status")],
+            )
+        )
     connectors = (
         alt.Chart(connectors_df)
         .mark_line(strokeWidth=1.35, strokeDash=[4, 3], clip=False)
@@ -4906,20 +5007,6 @@ def _aging_history_callout_chart(
             ),
         )
     )
-    label_points = (
-        alt.Chart(latest_df)
-        .mark_point(filled=True, size=58, strokeWidth=0, clip=False)
-        .encode(
-            x=alt.X(
-                "label_slot:N",
-                sort=x_domain,
-                scale=alt.Scale(domain=x_domain),
-                axis=alt.Axis(labelExpr="datum.label == '' ? '' : datum.label"),
-            ),
-            y=alt.Y("label_y:Q", title="% da inadimplência"),
-            color=alt.Color("serie:N", scale=alt.Scale(domain=series_order, range=AGING_CHART_COLORS[: len(series_order)]), sort=series_order, legend=None),
-        )
-    )
     labels = (
         alt.Chart(latest_df)
         .mark_text(align="left", dx=12, fontSize=14, fontWeight=700, clip=False)
@@ -4935,8 +5022,11 @@ def _aging_history_callout_chart(
             color=alt.Color("serie:N", scale=alt.Scale(domain=series_order, range=AGING_CHART_COLORS[: len(series_order)]), sort=series_order, legend=None),
         )
     )
-    chart = _chart_with_optional_title(bars + connectors + label_points + labels, height=height, title=title)
-    return _style_altair_chart(chart.properties(padding={"left": 12, "right": 248, "top": 18, "bottom": 8}))
+    layered_chart = bars + connectors + labels
+    if missing_markers is not None:
+        layered_chart = bars + missing_markers + connectors + labels
+    chart = _chart_with_optional_title(layered_chart, height=height, title=title)
+    return _style_altair_chart(chart.properties(padding={"left": 12, "right": 220, "top": 18, "bottom": 8}))
 
 
 def _resolve_stacked_chart_value_column(chart_df: pd.DataFrame, requested_column: str) -> str:
@@ -4979,7 +5069,13 @@ def _grouped_bar_chart(
     x_axis_kwargs: dict[str, object] = {"labelOverlap": "greedy"}
     if x_label_angle is not None:
         x_axis_kwargs["labelAngle"] = x_label_angle
-    x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort, axis=alt.Axis(**x_axis_kwargs))
+    x_encoding = alt.X(
+        "competencia:N",
+        title="Competência",
+        sort=x_sort,
+        scale=alt.Scale(paddingInner=0.34, paddingOuter=0.08),
+        axis=alt.Axis(**x_axis_kwargs),
+    )
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     y_encoding = alt.Y(
         f"{resolved_value_field}:Q",
@@ -5017,7 +5113,13 @@ def _grouped_bar_chart(
     )
     labels = _bar_label_layer(
         labels_df,
-        x_encoding=alt.X("competencia:N", title="Competência", sort=x_sort, axis=alt.Axis(**x_axis_kwargs)),
+        x_encoding=alt.X(
+            "competencia:N",
+            title="Competência",
+            sort=x_sort,
+            scale=alt.Scale(paddingInner=0.34, paddingOuter=0.08),
+            axis=alt.Axis(**x_axis_kwargs),
+        ),
         y_encoding=y_encoding,
         value_field=resolved_value_field,
         text_field="label_fmt",
