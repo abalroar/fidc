@@ -51,7 +51,6 @@ from services.regulatory_profiles import (
 from services.variaveis_fnet import competencia_columns, resolve_tag_path
 from tabs.ime_portfolio_support import (
     build_portfolio_record_label_lookup,
-    format_portfolio_cnpj,
     list_saved_portfolios,
     normalize_portfolio_fund_name,
 )
@@ -262,6 +261,10 @@ _PT_MONTH_ABBR = {
 }
 
 
+def _render_monitoring_css() -> None:
+    st.markdown(_CSS, unsafe_allow_html=True)
+
+
 def render_tab_fidc_monitoring(
     period: ImePeriodSelection | None = None,
     *,
@@ -269,6 +272,7 @@ def render_tab_fidc_monitoring(
     show_portfolio_selector: bool = True,
     use_tabs: bool = True,
 ) -> None:
+    _render_monitoring_css()
     if show_portfolio_selector:
         st.markdown("## Monitoramento FIDCs")
     if period is None:
@@ -320,10 +324,30 @@ def render_tab_fidc_monitoring(
             _render_regulatory_base_tab(regulatory_outputs)
         return
 
-    st.markdown("### Cockpit")
-    _render_cockpit_tab(success_outputs)
     st.markdown("### Base regulatória")
     _render_regulatory_base_tab(regulatory_outputs, compact=True)
+
+
+def render_portfolio_cockpit_snapshot(
+    *,
+    period: ImePeriodSelection | None,
+    selected_portfolio: PortfolioRecord,
+) -> bool:
+    """Render the compact per-fund monitoring snapshot inside another page section."""
+    _render_monitoring_css()
+    if period is None:
+        period = build_preset_period(end_month=current_default_end_month(), months=12)
+    cache_months = _default_cache_months_for_period(period)
+    session_key = _session_key(selected_portfolio, period, cache_months)
+    if session_key not in st.session_state:
+        st.session_state[session_key] = _load_portfolio_monitoring(selected_portfolio, period, cache_months)
+    outputs = st.session_state.get(session_key) or []
+    success_outputs = [item for item in outputs if item.get("tables") is not None]
+    if not success_outputs:
+        st.caption("Sem indicadores por fundo para a competência de referência.")
+        return False
+    _render_cockpit_tab(success_outputs)
+    return True
 
 
 def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRecord | None:
@@ -364,19 +388,6 @@ def _build_cache_load_period(*, period: ImePeriodSelection, cache_months: int) -
     return build_custom_period(
         start_month=shift_month(period.end_month, -(cache_months - 1)),
         end_month=period.end_month,
-    )
-
-
-def _render_requested_load_chips(*, period: ImePeriodSelection, load_period: ImePeriodSelection, cache_months: int, fund_count: int) -> None:
-    _ = load_period, fund_count
-    st.markdown(
-        f"""
-<div class="monitor-card-row">
-  <span class="monitor-chip"><strong>Janela:</strong> {escape(_format_period_label(period))}</span>
-  <span class="monitor-chip"><strong>Histórico:</strong> {cache_months} meses</span>
-</div>
-""",
-        unsafe_allow_html=True,
     )
 
 
@@ -637,31 +648,6 @@ def _available_competencias_from_wide(wide_df: pd.DataFrame) -> list[str]:
         if numeric.notna().any():
             available.append(competencia)
     return available or competencias
-
-
-def _render_loaded_period_status(
-    outputs: list[dict[str, Any]],
-    *,
-    requested_period: ImePeriodSelection,
-    load_period: ImePeriodSelection,
-    cache_months: int,
-) -> None:
-    reference, reference_count, reference_total = _portfolio_reference_competencia(outputs)
-    display_span = _portfolio_display_span(outputs)
-    reference_label = _format_competencia_label(reference) if reference else "-"
-    display_label = display_span or "-"
-    total_load_seconds = sum(float(item.get("load_seconds") or 0.0) for item in outputs)
-    _ = requested_period, load_period, cache_months, reference_count, reference_total
-    st.markdown(
-        f"""
-<div class="monitor-card-row">
-  <span class="monitor-chip"><strong>{escape(display_label)}</strong></span>
-  <span class="monitor-chip"><strong>Cockpit:</strong> {escape(reference_label)}</span>
-  <span class="monitor-chip"><strong>{_format_decimal(total_load_seconds, 1)}s</strong></span>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
 
 
 def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
@@ -993,27 +979,6 @@ def _render_cockpit_table_html(outputs: list[dict[str, Any]], latest: str) -> st
     return "\n".join(html)
 
 
-def _build_cache_diagnostics_df(outputs: list[dict[str, Any]]) -> pd.DataFrame:
-    rows = []
-    for item in outputs:
-        all_competencias = list(item.get("all_competencias") or [])
-        display_competencias = list(item.get("competencias") or [])
-        rows.append(
-            {
-                "Fundo": item.get("display_name"),
-                "CNPJ": format_portfolio_cnpj(str(item.get("cnpj") or "")),
-                "Cache IME": item.get("cache_status"),
-                "Cache Monitoramento": item.get("derived_cache_status"),
-                "Tempo (s)": item.get("load_seconds"),
-                "Última comp.": _format_competencia_label(all_competencias[-1]) if all_competencias else "-",
-                "Janela exibida": _format_competencia_span(display_competencias),
-                "Fonte": item.get("metric_source") or "-",
-                "Aviso": item.get("dashboard_error") or "-",
-            }
-        )
-    return pd.DataFrame(rows)
-
-
 def _aggregate_metric(metric: CockpitMetric, outputs: list[dict[str, Any]], competencia: str) -> object:
     if metric.aggregate == "none":
         return pd.NA
@@ -1129,39 +1094,6 @@ def _format_month_date_label(value: date) -> str:
 
 def _format_period_label(period: ImePeriodSelection) -> str:
     return f"{_format_month_date_label(period.start_month)} → {_format_month_date_label(period.end_month)}"
-
-
-def _format_competencia_span(competencias: list[str]) -> str:
-    if not competencias:
-        return "-"
-    return f"{_format_competencia_label(competencias[0])} → {_format_competencia_label(competencias[-1])}"
-
-
-def _portfolio_display_span(outputs: list[dict[str, Any]]) -> str:
-    starts = []
-    ends = []
-    for item in outputs:
-        competencias = list(item.get("competencias") or [])
-        if not competencias:
-            continue
-        starts.append(parse_competencia_label(competencias[0]))
-        ends.append(parse_competencia_label(competencias[-1]))
-    if not starts or not ends:
-        return "-"
-    return f"{_format_month_date_label(min(starts))} → {_format_month_date_label(max(ends))}"
-
-
-def _portfolio_latest_competencia(outputs: list[dict[str, Any]]) -> str | None:
-    latest: tuple[date, str] | None = None
-    for item in outputs:
-        for competencia in item.get("competencias") or []:
-            try:
-                parsed = parse_competencia_label(competencia)
-            except Exception:  # noqa: BLE001
-                continue
-            if latest is None or parsed > latest[0]:
-                latest = (parsed, competencia)
-    return latest[1] if latest else None
 
 
 def _portfolio_reference_competencia(

@@ -862,6 +862,33 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("abr/26", filtered.consolidated_wide.columns)
         self.assertIn("dez/23", filtered.consolidated_wide.columns)
 
+    def test_compact_wide_table_hides_operational_identification_rows_only_in_main_view(self) -> None:
+        monthly = pd.DataFrame(
+            [
+                {
+                    "competencia": "03/2026",
+                    "competencia_dt": pd.Timestamp("2026-03-01"),
+                    "fund_name": "Carteira Teste",
+                    "cnpj": "CONSOLIDADO",
+                    "pl_total": 100.0,
+                    "carteira_bruta": 80.0,
+                    "pdd_total": 5.0,
+                    "npl_over90": 2.0,
+                }
+            ]
+        )
+        wide = build_wide_table(monthly, scope_name="Carteira Teste")
+
+        compact = _display_wide_table(wide, compact=True)
+        full = _display_wide_table(wide, compact=False)
+
+        self.assertNotIn("Nome do fundo", compact["Métrica"].tolist())
+        self.assertNotIn("Período final", compact["Métrica"].tolist())
+        self.assertIn("PL FIDC total", compact["Métrica"].tolist())
+        self.assertIn("NPL Over 90d / Carteira", compact["Métrica"].tolist())
+        self.assertIn("Nome do fundo", full["Métrica"].tolist())
+        self.assertIn("Período final", full["Métrica"].tolist())
+
     def test_snapshot_export_uses_all_displayed_months_instead_of_tail_six(self) -> None:
         months = pd.date_range("2023-12-01", "2026-04-01", freq="MS")
         monthly = pd.DataFrame(

@@ -1,11 +1,20 @@
 from __future__ import annotations
 
+from datetime import date
 import unittest
+from unittest.mock import patch
 
 import pandas as pd
 
+from services.ime_period import build_custom_period
 from services.monitoring_metrics import MonitoringTables
-from tabs.tab_fidc_monitoring import _build_regulatory_monitoring_checks, _portfolio_reference_competencia
+from services.portfolio_store import PortfolioFund, PortfolioRecord
+from tabs.tab_fidc_monitoring import (
+    _build_regulatory_monitoring_checks,
+    render_portfolio_cockpit_snapshot,
+    render_tab_fidc_monitoring,
+    _portfolio_reference_competencia,
+)
 
 
 class MonitoringTabReferenceCompetenciaTests(unittest.TestCase):
@@ -67,6 +76,75 @@ class MonitoringTabReferenceCompetenciaTests(unittest.TestCase):
         self.assertEqual("72,00%", checks.loc[1, "Valor IME"])
         self.assertEqual("125,00%", checks.loc[4, "Valor IME"])
         self.assertEqual("8,20%", checks.loc[5, "Valor IME"])
+
+    def test_main_page_monitoring_mode_does_not_render_duplicate_cockpit(self) -> None:
+        portfolio = PortfolioRecord(
+            id="portfolio-1",
+            name="Carteira Teste",
+            funds=(PortfolioFund(cnpj="11111111000111", display_name="FIDC A"),),
+            created_at="2026-01-01T00:00:00Z",
+            updated_at="2026-01-01T00:00:00Z",
+        )
+        period = build_custom_period(start_month=date(2026, 3, 1), end_month=date(2026, 3, 1))
+        outputs = [
+            {
+                "cnpj": "11111111000111",
+                "display_name": "FIDC A",
+                "competencias": ["03/2026"],
+                "tables": object(),
+            }
+        ]
+
+        with (
+            patch("tabs.tab_fidc_monitoring.st") as st_mock,
+            patch("tabs.tab_fidc_monitoring._load_portfolio_monitoring", return_value=outputs),
+            patch("tabs.tab_fidc_monitoring._render_cockpit_tab") as cockpit,
+            patch("tabs.tab_fidc_monitoring._render_regulatory_base_tab") as regulatory,
+        ):
+            st_mock.session_state = {}
+
+            render_tab_fidc_monitoring(
+                period=period,
+                selected_portfolio=portfolio,
+                show_portfolio_selector=False,
+                use_tabs=False,
+            )
+
+        cockpit.assert_not_called()
+        regulatory.assert_called_once()
+        markdown_values = [call.args[0] for call in st_mock.markdown.call_args_list if call.args]
+        self.assertIn("### Base regulatória", markdown_values)
+        self.assertNotIn("### Cockpit", markdown_values)
+
+    def test_cockpit_snapshot_helper_preserves_standalone_cockpit_table(self) -> None:
+        portfolio = PortfolioRecord(
+            id="portfolio-1",
+            name="Carteira Teste",
+            funds=(PortfolioFund(cnpj="11111111000111", display_name="FIDC A"),),
+            created_at="2026-01-01T00:00:00Z",
+            updated_at="2026-01-01T00:00:00Z",
+        )
+        period = build_custom_period(start_month=date(2026, 3, 1), end_month=date(2026, 3, 1))
+        outputs = [
+            {
+                "cnpj": "11111111000111",
+                "display_name": "FIDC A",
+                "competencias": ["03/2026"],
+                "tables": object(),
+            }
+        ]
+
+        with (
+            patch("tabs.tab_fidc_monitoring.st") as st_mock,
+            patch("tabs.tab_fidc_monitoring._load_portfolio_monitoring", return_value=outputs),
+            patch("tabs.tab_fidc_monitoring._render_cockpit_tab") as cockpit,
+        ):
+            st_mock.session_state = {}
+
+            rendered = render_portfolio_cockpit_snapshot(period=period, selected_portfolio=portfolio)
+
+        self.assertTrue(rendered)
+        cockpit.assert_called_once_with(outputs)
 
 
 if __name__ == "__main__":

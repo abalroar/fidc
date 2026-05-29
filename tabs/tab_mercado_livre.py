@@ -38,6 +38,7 @@ from services.meli_credit_research import build_meli_research_outputs
 from services.meli_credit_research_verification import verify_meli_research_outputs
 from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
 from services.portfolio_store import PortfolioFund, PortfolioRecord, portfolio_basket_signature, portfolio_name_key
+from tabs import tab_fidc_monitoring as monitoring_tab
 from tabs import tab_fidc_ime as ime_tab
 from tabs.tab_dashboard_meli import _DASHBOARD_MELI_CSS, render_dashboard_meli_analysis
 from tabs.ime_portfolio_support import (
@@ -294,6 +295,7 @@ def render_tab_somatorio_fidcs(
             selected_portfolio=selected_portfolio,
             cache_dir=cache_dir,
             storage_source=str(st.session_state.get(f"{cache_session_key}::source") or "cache"),
+            requested_period=period,
             use_tabs=use_tabs,
             show_guide=show_guide,
         )
@@ -321,6 +323,7 @@ def render_tab_somatorio_fidcs(
             selected_portfolio=selected_portfolio,
             cache_dir=cache_dir,
             storage_source="cache",
+            requested_period=period,
             use_tabs=use_tabs,
             show_guide=show_guide,
         )
@@ -371,6 +374,7 @@ def render_tab_somatorio_fidcs(
         selected_portfolio=selected_portfolio,
         cache_dir=cache_dir,
         storage_source="recalculado",
+        requested_period=period,
         use_tabs=use_tabs,
         show_guide=show_guide,
     )
@@ -674,10 +678,11 @@ def _render_outputs(
     selected_portfolio: PortfolioRecord,
     cache_dir,
     storage_source: str,
+    requested_period: ImePeriodSelection | None = None,
     use_tabs: bool = True,
     show_guide: bool = True,
 ) -> None:
-    requested_period = str(outputs.metadata.get("period_label") or _loaded_period_label(outputs))
+    requested_label = str(outputs.metadata.get("period_label") or _loaded_period_label(outputs))
     if use_tabs:
         st.markdown(
             f"""
@@ -687,12 +692,11 @@ def _render_outputs(
 """,
             unsafe_allow_html=True,
         )
-    _ = storage_source
-    _ = requested_period
+    _ = storage_source, requested_label
 
     if show_guide:
         _render_somatorio_fidcs_guide()
-    display_outputs = _render_loaded_period_window(outputs)
+    display_outputs = _render_loaded_period_window(outputs, show_caption=use_tabs)
     monitor_outputs = _build_credit_monitor_for_display(outputs=outputs, display_outputs=display_outputs)
     research_outputs = build_meli_research_outputs(monitor_outputs)
     verification_report = verify_meli_research_outputs(monitor_outputs, research_outputs)
@@ -742,6 +746,13 @@ def _render_outputs(
                 use_container_width=True,
             )
 
+        if not use_tabs:
+            st.markdown("#### Indicadores por fundo")
+            monitoring_tab.render_portfolio_cockpit_snapshot(
+                period=requested_period,
+                selected_portfolio=selected_portfolio,
+            )
+
         scope = _render_base_scope_selector(
             display_outputs=display_outputs,
             selected_portfolio=selected_portfolio,
@@ -751,8 +762,11 @@ def _render_outputs(
             st.caption("Sem dados para exibir.")
             return
 
-        st.markdown(f"#### {escape(scope.heading)}")
-        st.markdown(_render_wide_table_html(_display_wide_table(scope.wide_df)), unsafe_allow_html=True)
+        st.markdown(f"#### {escape(scope.heading)}" if use_tabs else "#### Histórico e memória")
+        st.markdown(
+            _render_wide_table_html(_display_wide_table(scope.wide_df, compact=not use_tabs)),
+            unsafe_allow_html=True,
+        )
 
     def _render_credit_view() -> None:
         render_dashboard_meli_analysis(
@@ -780,7 +794,7 @@ def _render_outputs(
             _render_credit_view()
         return
 
-    st.markdown("### Tabela Completa")
+    st.markdown("### Base analítica da carteira")
     _render_base_view()
     st.markdown("### Análise Crédito")
     _render_credit_view()
@@ -901,7 +915,7 @@ def _render_fund_selectbox(outputs, *, key: str, label: str) -> str | None:  # n
     return selected if selected in outputs.fund_monthly else None
 
 
-def _render_loaded_period_window(outputs):
+def _render_loaded_period_window(outputs, *, show_caption: bool = True):
     available = _available_competencia_months(outputs.consolidated_monthly)
     if not available:
         st.caption("Sem competências disponíveis.")
@@ -957,7 +971,8 @@ def _render_loaded_period_window(outputs):
             st.caption(f"Sem dados para {missing}.")
 
     label = _display_months_label(display_months) if selected == DISPLAY_WINDOW_DECEMBERS_OPTION else _display_month_range_label(display_months)
-    st.caption(f"{label} · {len(display_months)} competência(s)")
+    if show_caption:
+        st.caption(f"{label} · {len(display_months)} competência(s)")
     return _filter_outputs_by_competencia_months(outputs, months=display_months, label=label, mode=str(selected))
 
 
@@ -1303,7 +1318,7 @@ def _build_mercado_livre_guide_markdown() -> str:
 
 def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
     if df_wide.empty:
-        return "<p class='chart-subtitle'>Sem dados para a Tabela Completa consolidada.</p>"
+        return "<p class='chart-subtitle'>Sem dados para a base analítica consolidada.</p>"
     period_columns = order_period_columns_desc(df_wide.columns)
     table_min_width = max(620 + 96 * len(period_columns), 920)
     colgroup = _wide_table_colgroup(period_columns)
@@ -1349,12 +1364,17 @@ def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
     return "\n".join(html)
 
 
-def _display_wide_table(df_wide: pd.DataFrame) -> pd.DataFrame:
+def _display_wide_table(df_wide: pd.DataFrame, *, compact: bool = False) -> pd.DataFrame:
     if df_wide is None or df_wide.empty or "Bloco" not in df_wide.columns:
         return df_wide
     block_text = df_wide["Bloco"].astype(str).str.lower()
     audit_blocks = block_text.str.contains("auditoria") | block_text.str.contains("campos auxiliares")
-    return df_wide.loc[~audit_blocks].copy()
+    output = df_wide.loc[~audit_blocks].copy()
+    if not compact or "Métrica" not in output.columns:
+        return output
+    compact_block_text = output["Bloco"].astype(str).str.lower()
+    identification_blocks = compact_block_text.str.contains("identificação")
+    return output.loc[~identification_blocks].copy()
 
 
 def _wide_table_colgroup(period_columns: list[str]) -> str:

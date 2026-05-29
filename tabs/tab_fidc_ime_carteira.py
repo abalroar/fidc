@@ -757,12 +757,13 @@ def _render_loaded_portfolio_analysis(
     ]
     failed_cnpjs = [cnpj for cnpj, payload in results.items() if payload.get("result") is None]
 
-    _render_portfolio_compact_header(
-        name=selected_portfolio.name,
-        period_label=runtime_state.get("period_label", "N/D"),
-        n_ok=len(successful_cnpjs),
-        n_total=len(selected_portfolio.funds),
-    )
+    if section_mode == "tabs":
+        _render_portfolio_compact_header(
+            name=selected_portfolio.name,
+            period_label=runtime_state.get("period_label", "N/D"),
+            n_ok=len(successful_cnpjs),
+            n_total=len(selected_portfolio.funds),
+        )
 
     if failed_cnpjs:
         _render_portfolio_error_summary(failed_cnpjs=failed_cnpjs, results=results)
@@ -942,12 +943,13 @@ def _render_portfolio_aggregate_analysis(
     excluded_competencias = _portfolio_missing_competencias_for_period(bundle=bundle, period=period)
 
     def _render_executive_view() -> None:
-        _render_portfolio_aggregate_header(
-            selected_portfolio=selected_portfolio,
-            bundle=bundle,
-            loaded_count=loaded_count,
-            total_selected=total_selected,
-        )
+        if section_mode == "tabs":
+            _render_portfolio_aggregate_header(
+                selected_portfolio=selected_portfolio,
+                bundle=bundle,
+                loaded_count=loaded_count,
+                total_selected=total_selected,
+            )
         _render_portfolio_aggregate_pptx_export_button(
             selected_portfolio=selected_portfolio,
             bundle=bundle,
@@ -993,8 +995,6 @@ def _render_portfolio_aggregate_analysis(
 
     st.markdown("#### Visão executiva")
     _render_executive_view()
-    st.markdown("#### Auditoria técnica")
-    _render_technical_view()
 
 
 def _render_portfolio_aggregate_header(
