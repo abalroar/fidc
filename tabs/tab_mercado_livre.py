@@ -37,7 +37,6 @@ from services.meli_credit_monitor import MeliMonitorOutputs, build_meli_monitor_
 from services.meli_credit_research import build_meli_research_outputs
 from services.meli_credit_research_verification import verify_meli_research_outputs
 from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
-from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
 from services.portfolio_store import PortfolioFund, PortfolioRecord, portfolio_basket_signature, portfolio_name_key
 from tabs import tab_fidc_ime as ime_tab
 from tabs.tab_dashboard_meli import _DASHBOARD_MELI_CSS, render_dashboard_meli_analysis
@@ -755,23 +754,6 @@ def _render_outputs(
         st.markdown(f"#### {escape(scope.heading)}")
         st.markdown(_render_wide_table_html(_display_wide_table(scope.wide_df)), unsafe_allow_html=True)
 
-        st.markdown("#### Gráficos")
-        left, right = st.columns(2)
-        with left:
-            _render_chart(
-                "Evolução de PL e Subordinação",
-                "",
-                pl_subordination_chart(scope.monthly_df),
-            )
-        with right:
-            _render_chart(
-                "NPL e Cobertura Ex-Vencidos > 360d",
-                "",
-                npl_coverage_chart(scope.monthly_df),
-            )
-        with st.expander("Memória dos gráficos", expanded=False):
-            _render_graph_definitions()
-
     def _render_credit_view() -> None:
         render_dashboard_meli_analysis(
             outputs=display_outputs,
@@ -898,13 +880,6 @@ def _build_fund_scope_options(display_outputs) -> list[_BaseScopeOption]:  # noq
             )
         )
     return options
-
-
-def _render_chart(title: str, subtitle: str, chart) -> None:
-    st.markdown(f"<h4 class='chart-title'>{escape(title)}</h4>", unsafe_allow_html=True)
-    if subtitle:
-        st.markdown(f"<p class='chart-subtitle'>{escape(subtitle)}</p>", unsafe_allow_html=True)
-    st.altair_chart(chart, width="stretch")
 
 
 def _render_fund_selectbox(outputs, *, key: str, label: str) -> str | None:  # noqa: ANN001
@@ -1458,19 +1433,6 @@ def _parse_br_number(value: str) -> float | None:
 def _format_br_number(value: float, *, decimals: int) -> str:
     formatted = f"{float(value):,.{decimals}f}"
     return formatted.replace(",", "_").replace(".", ",").replace("_", ".")
-
-
-def _render_graph_definitions() -> None:
-    st.markdown(
-        """
-<ul class="chart-note-list">
-  <li><strong>Evolução de PL e Subordinação:</strong> barras empilhadas mostram PL Sênior e Subordinada + Mez ex-360 em R$; a linha mostra subordinação ex-360.</li>
-  <li><strong>Base ex-360:</strong> considera eventual baixa residual de Over 360 não coberta por PDD.</li>
-  <li><strong>NPL e Cobertura:</strong> NPL usa Over 90d sem vencidos acima de 360 dias; cobertura usa PDD Ex Over 360d / NPL Over 90d Ex 360.</li>
-</ul>
-""",
-        unsafe_allow_html=True,
-    )
 
 
 def _resolve_existing_portfolio_for_save(

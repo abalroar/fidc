@@ -452,8 +452,9 @@ def render_dashboard_meli_analysis(
     else:
         st.markdown("#### Consolidado")
         _render_main_view()
-        st.markdown("#### Fundos individuais")
-        _render_funds_view()
+        if len(getattr(monitor_outputs, "fund_monitor", {}) or {}) > 1:
+            st.markdown("#### Fundos individuais")
+            _render_funds_view()
         with st.expander("Auditoria e conciliações da análise de crédito", expanded=False):
             _render_audit(outputs, monitor_outputs, research_outputs, verification_report, compact=True)
     _render_methodology(research_outputs)
