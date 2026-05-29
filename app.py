@@ -54,6 +54,15 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
     margin: 0;
 }
 
+.fidc-app-author {
+    color: #8a94a3;
+    font-size: 0.84rem;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    line-height: 1.3;
+    margin-top: 0.28rem;
+}
+
 .fidc-app-subtitle {
     color: #6f7a87;
     font-size: 0.98rem;
@@ -256,6 +265,7 @@ st.markdown(
     """
     <div class="fidc-app-header">
       <h1 class="fidc-app-title">tomaconta FIDCs</h1>
+      <div class="fidc-app-author">por matheus prates, cfa</div>
     </div>
     """,
     unsafe_allow_html=True,
