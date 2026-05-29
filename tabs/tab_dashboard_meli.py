@@ -45,7 +45,6 @@ from tabs import tab_fidc_ime as ime_tab
 from tabs.ime_portfolio_support import (
     build_portfolio_record_label_lookup,
     enrich_portfolio_funds_with_catalog,
-    get_portfolio_status_caption,
     list_saved_portfolios,
     load_fidc_catalog_cached,
 )
@@ -359,7 +358,6 @@ def _render_portfolio_controls(portfolios: list[PortfolioRecord]) -> PortfolioRe
         if st.button("Carregar análise", key="dashboard_meli_load_button", type="secondary", use_container_width=True):
             st.session_state["_dashboard_meli_load_requested"] = True
             st.rerun()
-    st.caption(get_portfolio_status_caption())
     return next((portfolio for portfolio in portfolios if portfolio.id == selected_id), None)
 
 

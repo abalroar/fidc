@@ -36,6 +36,7 @@ from tabs.tab_mercado_livre import (
     _MERCADO_LIVRE_UI_CSS,
     _build_base_scope_options,
     _build_mercado_livre_guide_markdown,
+    _resolve_default_base_scope,
     _dense_wide_value,
     _display_window_bounds,
     _display_window_months,
@@ -634,6 +635,57 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertEqual("fund", options[0].kind)
         self.assertEqual("FIDC A · 11111111000111", options[0].label)
 
+    def test_default_base_scope_uses_consolidated_only_when_multiple_funds_exist(self) -> None:
+        portfolio = PortfolioRecord(
+            id="portfolio-1",
+            name="Carteira Teste",
+            funds=(
+                PortfolioFund(cnpj="11111111000111", display_name="FIDC A"),
+                PortfolioFund(cnpj="22222222000122", display_name="FIDC B"),
+            ),
+            created_at="2026-05-28T00:00:00Z",
+            updated_at="2026-05-28T00:00:00Z",
+        )
+        outputs = SimpleNamespace(
+            fund_monthly={
+                "11111111000111": pd.DataFrame({"fund_name": ["FIDC A"]}),
+                "22222222000122": pd.DataFrame({"fund_name": ["FIDC B"]}),
+            },
+            fund_wide={
+                "11111111000111": pd.DataFrame({"Métrica": ["PL"]}),
+                "22222222000122": pd.DataFrame({"Métrica": ["PL"]}),
+            },
+            consolidated_monthly=pd.DataFrame({"fund_name": ["Carteira Teste"]}),
+            consolidated_wide=pd.DataFrame({"Métrica": ["PL"]}),
+        )
+
+        option = _resolve_default_base_scope(display_outputs=outputs, selected_portfolio=portfolio)
+
+        self.assertIsNotNone(option)
+        self.assertEqual(CONSOLIDATED_SCOPE_VALUE, option.value)
+        self.assertEqual("consolidated", option.kind)
+
+    def test_default_base_scope_keeps_single_fund_direct_without_consolidated_label(self) -> None:
+        portfolio = PortfolioRecord(
+            id="portfolio-1",
+            name="Carteira Teste",
+            funds=(PortfolioFund(cnpj="11111111000111", display_name="FIDC A"),),
+            created_at="2026-05-28T00:00:00Z",
+            updated_at="2026-05-28T00:00:00Z",
+        )
+        outputs = SimpleNamespace(
+            fund_monthly={"11111111000111": pd.DataFrame({"fund_name": ["FIDC A"]})},
+            fund_wide={"11111111000111": pd.DataFrame({"Métrica": ["PL"]})},
+            consolidated_monthly=pd.DataFrame({"fund_name": ["Carteira Teste"]}),
+            consolidated_wide=pd.DataFrame({"Métrica": ["PL"]}),
+        )
+
+        option = _resolve_default_base_scope(display_outputs=outputs, selected_portfolio=portfolio)
+
+        self.assertIsNotNone(option)
+        self.assertEqual("fund::11111111000111", option.value)
+        self.assertEqual("fund", option.kind)
+
     def test_display_wide_table_removes_audit_blocks_but_keeps_formula_memory(self) -> None:
         wide = pd.DataFrame(
             [
@@ -705,7 +757,8 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         guide = _build_mercado_livre_guide_markdown()
 
         self.assertIn("Como usar", guide)
-        self.assertIn("Tabela Completa", guide)
+        self.assertIn("Base analítica", guide)
+        self.assertNotIn("Tabela Completa", guide)
         self.assertIn("Análise Crédito", guide)
         self.assertIn("Mecânica essencial", guide)
         self.assertIn("não há média simples de percentuais", guide)

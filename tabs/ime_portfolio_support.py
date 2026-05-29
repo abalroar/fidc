@@ -242,13 +242,6 @@ def load_fidc_catalog_cached() -> pd.DataFrame:
     return catalog.drop_duplicates(subset=["cnpj_fundo"], keep="last").sort_values(["nome_fundo", "cnpj_fundo"]).reset_index(drop=True)
 
 
-def get_portfolio_status_caption() -> str:
-    config = get_portfolio_store_config()
-    if config.backend == "github" and config.repo:
-        return f"Carteiras persistidas via GitHub: `{config.repo}` · branch `{config.branch}`."
-    return "Carteiras persistidas localmente neste ambiente."
-
-
 def _catalog_name_lookup(catalog_df: pd.DataFrame) -> dict[str, str]:
     if catalog_df is None or catalog_df.empty:
         return {}

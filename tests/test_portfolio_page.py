@@ -38,6 +38,17 @@ class PortfolioPageTests(unittest.TestCase):
             resolved,
         )
 
+    def test_workflow_selector_uses_fixed_basic_package_without_extra_controls(self) -> None:
+        with (
+            patch("tabs.portfolio_page.st.radio") as radio,
+            patch("tabs.portfolio_page.st.multiselect") as multiselect,
+        ):
+            selected = portfolio_page._render_workflow_selector()
+
+        self.assertEqual(portfolio_page.DEFAULT_SECTIONS, selected)
+        radio.assert_not_called()
+        multiselect.assert_not_called()
+
     def test_sections_grouped_for_render_keeps_related_blocks_together(self) -> None:
         groups = portfolio_page._sections_grouped_for_render(
             (

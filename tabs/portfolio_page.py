@@ -18,11 +18,6 @@ SECTION_RETURNS = "Retornos e análise de crédito"
 SECTION_MONITORING = "Monitoramento e base regulatória"
 SECTION_DEEP_DIVE = "Waterfall e Deep Dives"
 DEFAULT_SECTIONS = (SECTION_AGING, SECTION_RETURNS, SECTION_MONITORING)
-ALL_SECTIONS = (*DEFAULT_SECTIONS, SECTION_DEEP_DIVE)
-PRESET_OVERVIEW = "Panorama executivo"
-PRESET_CREDIT = "Crédito e retorno"
-PRESET_REGULATORY = "Monitoramento regulatório"
-PRESET_DILIGENCE = "Due diligence completa"
 
 
 @dataclass(frozen=True)
@@ -62,24 +57,6 @@ _PORTFOLIO_PAGE_CSS = """
     border-radius: 999px;
     padding: 0.18rem 0.55rem;
 }
-.portfolio-center-group {
-    border-top: 1px solid #dde3ea;
-    margin: 1.1rem 0 0.55rem 0;
-    padding-top: 0.75rem;
-}
-.portfolio-center-group-title {
-    color: #283241;
-    font-size: 0.94rem;
-    font-weight: 700;
-    line-height: 1.25;
-    margin: 0;
-}
-.portfolio-center-group-flow {
-    color: #6f7a87;
-    font-size: 0.76rem;
-    line-height: 1.35;
-    margin-top: 0.22rem;
-}
 </style>
 """
 
@@ -90,12 +67,6 @@ _BLOCKS = (
     PortfolioPageBlock(SECTION_DEEP_DIVE, "Waterfall e deep dives", "Monitoramento e governança", 40),
 )
 _BLOCK_BY_ID = {block.section_id: block for block in _BLOCKS}
-_PRESET_SECTIONS = {
-    PRESET_OVERVIEW: DEFAULT_SECTIONS,
-    PRESET_CREDIT: (SECTION_AGING, SECTION_RETURNS),
-    PRESET_REGULATORY: (SECTION_MONITORING,),
-    PRESET_DILIGENCE: ALL_SECTIONS,
-}
 _SECTION_DEPENDENCIES = {
     SECTION_DEEP_DIVE: (SECTION_MONITORING,),
 }
@@ -128,8 +99,7 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
         period=period,
         selected_sections=selected_sections,
     )
-    for group_name, group_sections in _sections_grouped_for_render(selected_sections):
-        _render_group_header(group_name=group_name, group_sections=group_sections)
+    for _, group_sections in _sections_grouped_for_render(selected_sections):
         for section in group_sections:
             _render_section(
                 section=section,
@@ -139,22 +109,7 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
 
 
 def _render_workflow_selector() -> tuple[str, ...]:
-    preset = st.radio(
-        "Roteiro",
-        options=list(_PRESET_SECTIONS),
-        index=list(_PRESET_SECTIONS).index(PRESET_OVERVIEW),
-        horizontal=True,
-        key="portfolio_center_preset",
-    )
-    multiselect_key = f"portfolio_center_sections::{_slug_widget_value(preset)}"
-    selected_sections = st.multiselect(
-        "Blocos da página",
-        options=list(ALL_SECTIONS),
-        default=list(_PRESET_SECTIONS[preset]),
-        key=multiselect_key,
-        format_func=_format_section_option,
-    )
-    return _resolve_workflow_sections(selected_sections)
+    return DEFAULT_SECTIONS
 
 
 def _render_portfolio_context_header(
@@ -203,19 +158,6 @@ def _returns_outputs_cached(*, selected_portfolio: PortfolioRecord, period: ImeP
         )
         is not None
     )
-
-
-def _render_group_header(*, group_name: str, group_sections: tuple[str, ...]) -> None:
-    _ = group_sections
-    st.markdown(
-        f"""
-<div class="portfolio-center-group">
-  <div class="portfolio-center-group-title">{escape(group_name)}</div>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
-
 
 def _render_section(
     *,
@@ -291,7 +233,3 @@ def _sections_grouped_for_render(selected_sections: tuple[str, ...]) -> tuple[tu
         if group_sections:
             groups.append((group_name, group_sections))
     return tuple(groups)
-
-
-def _slug_widget_value(value: str) -> str:
-    return "".join(ch.lower() if ch.isalnum() else "_" for ch in value).strip("_")

@@ -47,7 +47,6 @@ from tabs.ime_portfolio_support import (
     build_portfolio_funds_from_cnpjs,
     delete_portfolio_record,
     enrich_portfolio_funds_with_catalog,
-    get_portfolio_status_caption,
     list_saved_portfolios,
     load_fidc_catalog_cached,
     refresh_saved_portfolios_cache,
@@ -502,7 +501,6 @@ def _render_selection_controls(
                 st.session_state["ml_editor_open"] = True
                 st.rerun()
 
-    st.caption(get_portfolio_status_caption())
     render_saved_portfolio_delete_manager(
         portfolios=portfolios,
         key_prefix="ml",
@@ -747,22 +745,24 @@ def _render_outputs(
             )
 
         if not use_tabs:
-            st.markdown("#### Indicadores por fundo")
             monitoring_tab.render_portfolio_cockpit_snapshot(
                 period=requested_period,
                 selected_portfolio=selected_portfolio,
             )
 
-        scope = _render_base_scope_selector(
-            display_outputs=display_outputs,
-            selected_portfolio=selected_portfolio,
-            key=f"somatorio_fidcs_base_scope::{selected_portfolio.id}",
-        )
+        if use_tabs:
+            scope = _render_base_scope_selector(
+                display_outputs=display_outputs,
+                selected_portfolio=selected_portfolio,
+                key=f"somatorio_fidcs_base_scope::{selected_portfolio.id}",
+            )
+        else:
+            scope = _resolve_default_base_scope(display_outputs=display_outputs, selected_portfolio=selected_portfolio)
         if scope is None:
             st.caption("Sem dados para exibir.")
             return
 
-        st.markdown(f"#### {escape(scope.heading)}" if use_tabs else "#### Histórico e memória")
+        st.markdown(f"#### {escape(scope.heading)}" if use_tabs else "#### Histórico")
         st.markdown(
             _render_wide_table_html(_display_wide_table(scope.wide_df, compact=not use_tabs)),
             unsafe_allow_html=True,
@@ -844,6 +844,18 @@ def _render_base_scope_selector(
         format_func=lambda value: labels.get(value, str(value)),
     )
     return next((option for option in options if option.value == selected), options[0])
+
+
+def _resolve_default_base_scope(*, display_outputs, selected_portfolio: PortfolioRecord) -> _BaseScopeOption | None:
+    fund_options = _build_fund_scope_options(display_outputs)
+    if len(fund_options) <= 1:
+        if fund_options:
+            return fund_options[0]
+        return _build_consolidated_scope_option(display_outputs, selected_portfolio=selected_portfolio)
+    consolidated = _build_consolidated_scope_option(display_outputs, selected_portfolio=selected_portfolio)
+    if consolidated is not None:
+        return consolidated
+    return fund_options[0]
 
 
 def _build_base_scope_options(*, display_outputs, selected_portfolio: PortfolioRecord) -> tuple[_BaseScopeOption, ...]:
@@ -1294,7 +1306,7 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 ### Como usar
 
 1. Selecione ou crie uma carteira, escolha a janela e carregue a base.
-2. Use **Tabela Completa** para conferir os dados consolidados e individuais.
+2. Use **Base analítica** para conferir os dados consolidados e individuais.
 3. Use **Análise Crédito** para carteira ex-360, crescimento, NPL, roll rates, cohorts e duration.
 4. Use o filtro visual apenas para recortar a base já carregada.
 

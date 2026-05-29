@@ -783,16 +783,19 @@ def _render_loaded_portfolio_analysis(
                 )
                 st.rerun()
 
-    view_options = ["Fundo individual"]
-    if len(successful_cnpjs) >= 2:
-        view_options.insert(0, "Carteira agregada")
-    view_mode = st.radio(
-        "Visão",
-        options=view_options,
-        horizontal=True,
-        key=f"ime_portfolio_view::{selected_portfolio.id}",
-        label_visibility="collapsed",
-    )
+    if section_mode == "tabs":
+        view_options = ["Fundo individual"]
+        if len(successful_cnpjs) >= 2:
+            view_options.insert(0, "Carteira agregada")
+        view_mode = st.radio(
+            "Visão",
+            options=view_options,
+            horizontal=True,
+            key=f"ime_portfolio_view::{selected_portfolio.id}",
+            label_visibility="collapsed",
+        )
+    else:
+        view_mode = "Carteira agregada" if len(successful_cnpjs) >= 2 else "Fundo individual"
 
     if view_mode == "Carteira agregada":
         dashboards_by_cnpj, dashboard_errors = _build_loaded_dashboards_by_cnpj(
@@ -813,43 +816,47 @@ def _render_loaded_portfolio_analysis(
         )
         return
 
-    all_cnpjs = [fund.cnpj for fund in selected_portfolio.funds]
-    focus_options, focus_lookup = _build_focus_option_lookup(selected_portfolio=selected_portfolio, results=results)
-    reverse_focus_lookup = {cnpj: label for label, cnpj in focus_lookup.items()}
-
     focus_cnpj_key = f"ime_portfolio_focus_cnpj::{selected_portfolio.id}"
-    focus_label_key = f"ime_portfolio_focus_label::{selected_portfolio.id}"
-    default_focus_cnpj = st.session_state.get(focus_cnpj_key)
-    if default_focus_cnpj not in all_cnpjs:
-        default_focus_cnpj = None
-    if default_focus_cnpj is None and successful_cnpjs:
-        default_focus_cnpj = successful_cnpjs[0]
-        st.session_state[focus_cnpj_key] = default_focus_cnpj
-
-    default_focus_label = reverse_focus_lookup.get(default_focus_cnpj)
-    if default_focus_label is None:
-        st.session_state.pop(focus_label_key, None)
+    if section_mode != "tabs" and len(successful_cnpjs) == 1:
+        focus_cnpj = successful_cnpjs[0]
+        st.session_state[focus_cnpj_key] = focus_cnpj
     else:
-        current_focus_label = st.session_state.get(focus_label_key)
-        if current_focus_label not in focus_options:
-            st.session_state[focus_label_key] = default_focus_label
+        all_cnpjs = [fund.cnpj for fund in selected_portfolio.funds]
+        focus_options, focus_lookup = _build_focus_option_lookup(selected_portfolio=selected_portfolio, results=results)
+        reverse_focus_lookup = {cnpj: label for label, cnpj in focus_lookup.items()}
 
-    focus_label = st.selectbox(
-        "Fundo selecionado",
-        options=focus_options,
-        index=focus_options.index(default_focus_label) if default_focus_label in focus_options else None,
-        key=focus_label_key,
-        label_visibility="collapsed",
-        placeholder="Selecione um fundo da carteira",
-    )
-    if not focus_label:
-        st.caption("Selecione um fundo da lista acima.")
-        return
-    focus_cnpj = focus_lookup.get(focus_label)
-    if not focus_cnpj:
-        st.caption("Selecione um fundo válido.")
-        return
-    st.session_state[focus_cnpj_key] = focus_cnpj
+        focus_label_key = f"ime_portfolio_focus_label::{selected_portfolio.id}"
+        default_focus_cnpj = st.session_state.get(focus_cnpj_key)
+        if default_focus_cnpj not in all_cnpjs:
+            default_focus_cnpj = None
+        if default_focus_cnpj is None and successful_cnpjs:
+            default_focus_cnpj = successful_cnpjs[0]
+            st.session_state[focus_cnpj_key] = default_focus_cnpj
+
+        default_focus_label = reverse_focus_lookup.get(default_focus_cnpj)
+        if default_focus_label is None:
+            st.session_state.pop(focus_label_key, None)
+        else:
+            current_focus_label = st.session_state.get(focus_label_key)
+            if current_focus_label not in focus_options:
+                st.session_state[focus_label_key] = default_focus_label
+
+        focus_label = st.selectbox(
+            "Fundo selecionado",
+            options=focus_options,
+            index=focus_options.index(default_focus_label) if default_focus_label in focus_options else None,
+            key=focus_label_key,
+            label_visibility="collapsed",
+            placeholder="Selecione um fundo da carteira",
+        )
+        if not focus_label:
+            st.caption("Selecione um fundo da lista acima.")
+            return
+        focus_cnpj = focus_lookup.get(focus_label)
+        if not focus_cnpj:
+            st.caption("Selecione um fundo válido.")
+            return
+        st.session_state[focus_cnpj_key] = focus_cnpj
 
     focused_payload = results.get(focus_cnpj)
     if focused_payload is None:
@@ -993,7 +1000,6 @@ def _render_portfolio_aggregate_analysis(
             _render_technical_view()
         return
 
-    st.markdown("#### Visão executiva")
     _render_executive_view()
 
 
