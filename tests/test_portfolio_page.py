@@ -46,6 +46,7 @@ class PortfolioPageTests(unittest.TestCase):
             selected = portfolio_page._render_workflow_selector()
 
         self.assertEqual(portfolio_page.DEFAULT_SECTIONS, selected)
+        self.assertNotIn(portfolio_page.SECTION_MONITORING, selected)
         radio.assert_not_called()
         multiselect.assert_not_called()
 

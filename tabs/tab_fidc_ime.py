@@ -1207,60 +1207,50 @@ def _render_dashboard(
         context,
     )
     st.session_state[_session_dashboard_key] = dashboard
-    selected_view = st.radio(
-        "Visão do informe",
-        options=["Visão executiva", "Auditoria técnica"],
-        horizontal=True,
-        key=f"fidc_result_view_{slot_key}",
-        label_visibility="collapsed",
+    _render_dashboard_header(dashboard)
+    _render_load_timing_bar(context)
+    _render_financial_snapshot_cards(dashboard)
+    _render_dashboard_controls(dashboard, context)
+    _render_dashboard_context_bar(dashboard)
+    _render_requested_period_coverage_warning(dashboard, context)
+    if docs_error:
+        st.warning(f"{docs_error} informe(s) falharam no processamento. A leitura abaixo usa apenas os informes válidos.")
+    _render_structural_risk_section(
+        dashboard,
+        slot_key=slot_key,
+        return_months=int(context.get("display_month_count") or len(dashboard.competencias) or 12),
     )
-    if selected_view == "Visão executiva":
-        _render_dashboard_header(dashboard)
-        _render_load_timing_bar(context)
-        _render_financial_snapshot_cards(dashboard)
-        _render_dashboard_controls(dashboard, context)
-        _render_dashboard_context_bar(dashboard)
-        _render_requested_period_coverage_warning(dashboard, context)
-        if docs_error:
-            st.warning(f"{docs_error} informe(s) falharam no processamento. A leitura abaixo usa apenas os informes válidos.")
-        _render_structural_risk_section(
-            dashboard,
-            slot_key=slot_key,
-            return_months=int(context.get("display_month_count") or len(dashboard.competencias) or 12),
-        )
-        _render_credit_risk_section(dashboard)
-        _render_liquidity_risk_section(
-            dashboard,
-            show_duration_history_chart=not compact_visuals,
-        )
-        _render_calculation_memory_section(dashboard, slot_key=slot_key)
-    else:
-        _render_execution_observability(context, elapsed_seconds=context.get("elapsed_seconds"))
+    _render_credit_risk_section(dashboard)
+    _render_liquidity_risk_section(
+        dashboard,
+        show_duration_history_chart=not compact_visuals,
+    )
+    _render_calculation_memory_section(dashboard, slot_key=slot_key)
+    _render_secondary_audit_panel(
+        dashboard=dashboard,
+        contract_missing=contract_missing,
+        docs_error=docs_error,
+    )
+
+
+def _render_secondary_audit_panel(
+    *,
+    dashboard: FundonetDashboardData,
+    contract_missing: dict[str, Any],
+    docs_error: int,
+) -> None:
+    with st.expander("Auditoria técnica", expanded=False):
+        st.caption("Camada de reconciliação e diagnóstico. Não interfere nos cálculos nem na exportação em PPTX.")
         if contract_missing:
             st.warning("Contrato de dados parcial detectado. Alguns blocos podem ficar incompletos.")
-            with st.expander("Diagnóstico de contrato de dados", expanded=True):
-                st.json(contract_missing)
-        _render_audit_section(dashboard)
-        _render_glossary_section(dashboard)
-        with st.expander("Notas metodológicas", expanded=False):
+            st.json(contract_missing)
+        _render_audit_section(dashboard, compact=True, show_title=False)
+        if dashboard.methodology_notes:
+            st.markdown("**Notas metodológicas**")
             for note in dashboard.methodology_notes:
                 st.markdown(f"- {note}")
         if docs_error:
-            with st.expander("Documentos com falha", expanded=True):
-                failed_docs = (
-                    result.docs_df[result.docs_df["processamento"] == "erro"].copy()
-                    if "processamento" in result.docs_df.columns
-                    else result.docs_df.copy()
-                )
-                st.caption(f"{docs_ok} informe(s) válidos · {docs_error} com falha")
-                st.dataframe(failed_docs, width="stretch", hide_index=True)
-                st.download_button(
-                    "Baixar documentos com falha (CSV)",
-                    data=failed_docs.to_csv(index=False).encode("utf-8"),
-                    file_name=f"documentos_falha_fidc_ime_{context.get('request_id', 'execucao')}.csv",
-                    mime="text/csv",
-                )
-        _render_raw_extraction_section(result)
+            st.caption(f"{docs_error} documento(s) com falha ficam fora dos cálculos exibidos.")
 
 
 def _render_dashboard_controls(dashboard: FundonetDashboardData, context: dict[str, Any]) -> None:

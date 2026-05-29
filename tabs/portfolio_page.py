@@ -17,7 +17,7 @@ SECTION_AGING = "Aging e visão executiva"
 SECTION_RETURNS = "Retornos e análise de crédito"
 SECTION_MONITORING = "Monitoramento e base regulatória"
 SECTION_DEEP_DIVE = "Waterfall e Deep Dives"
-DEFAULT_SECTIONS = (SECTION_AGING, SECTION_RETURNS, SECTION_MONITORING)
+DEFAULT_SECTIONS = (SECTION_AGING, SECTION_RETURNS)
 
 
 @dataclass(frozen=True)
