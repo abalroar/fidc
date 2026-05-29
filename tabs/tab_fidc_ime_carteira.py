@@ -876,6 +876,7 @@ def _render_loaded_portfolio_analysis(
         focused_payload["result"],
         focused_payload.get("context") or {},
         slot_key=f"portfolio_{selected_portfolio.id}_{focus_cnpj}",
+        compact_visuals=True,
     )
 
 
@@ -962,7 +963,10 @@ def _render_portfolio_aggregate_analysis(
             slot_key=f"portfolio_agg_{selected_portfolio.id}",
         )
         ime_tab._render_credit_risk_section(bundle.dashboard)
-        ime_tab._render_liquidity_risk_section(bundle.dashboard)
+        ime_tab._render_liquidity_risk_section(
+            bundle.dashboard,
+            show_duration_history_chart=False,
+        )
         ime_tab._render_calculation_memory_section(
             bundle.dashboard,
             slot_key=f"portfolio_agg_{selected_portfolio.id}",

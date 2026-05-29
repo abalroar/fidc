@@ -1166,6 +1166,7 @@ def _render_dashboard(
     docs_ok: int,
     docs_error: int,
     slot_key: str = "slot0",
+    compact_visuals: bool = False,
 ) -> None:
     # Cache the dashboard data in session_state so that widget interactions
     # (e.g., radio-button toggles) do not trigger a full CSV reload on every
@@ -1227,7 +1228,10 @@ def _render_dashboard(
             return_months=int(context.get("display_month_count") or len(dashboard.competencias) or 12),
         )
         _render_credit_risk_section(dashboard)
-        _render_liquidity_risk_section(dashboard)
+        _render_liquidity_risk_section(
+            dashboard,
+            show_duration_history_chart=not compact_visuals,
+        )
         _render_calculation_memory_section(dashboard, slot_key=slot_key)
     else:
         _render_execution_observability(context, elapsed_seconds=context.get("elapsed_seconds"))
@@ -1483,48 +1487,49 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 ),
                 width="stretch",
             )
-    aging_history_df = dashboard.default_aging_history_df.copy()
-    _render_chart_heading(st, "Aging")
-    if aging_history_df.empty:
-        st.caption("Sem dados de aging para o período selecionado.")
-    else:
-        aging_chart_df = _prepare_aging_history_chart_frame(aging_history_df)
-        st.altair_chart(
-            _aging_history_callout_chart(
-                aging_chart_df,
-                title=None,
-                height=455,
-            ),
-            width="stretch",
-        )
-    over_history_df = dashboard.default_over_history_df.copy()
-    _render_chart_heading(st, "Inadimplência Over")
-    st.caption("Séries principais: Over 30 e Over 90.")
-    if over_history_df.empty:
-        st.info("Dados de inadimplência Over não disponíveis nos informes selecionados.")
-    else:
-        over_chart_df = over_history_df[
-            ["competencia", "competencia_dt", "ordem", "serie", "percentual"]
-        ].rename(columns={"percentual": "valor"})
-        over_chart_df = over_chart_df.dropna(subset=["valor"]).sort_values(["ordem", "competencia_dt"])
-        if not over_chart_df.empty:
+    with st.expander("Detalhe técnico do aging", expanded=False):
+        aging_history_df = dashboard.default_aging_history_df.copy()
+        _render_chart_heading(st, "Aging")
+        if aging_history_df.empty:
+            st.caption("Sem dados de aging para o período selecionado.")
+        else:
+            aging_chart_df = _prepare_aging_history_chart_frame(aging_history_df)
             st.altair_chart(
-                _over_focus_line_chart(
-                    over_chart_df,
+                _aging_history_callout_chart(
+                    aging_chart_df,
                     title=None,
-                    y_title="%",
+                    height=455,
                 ),
                 width="stretch",
             )
-        else:
-            st.caption("Curva Over não disponível — dados de aging incompletos para todos os períodos.")
-        _render_over_transparency_notes(st, over_history_df)
-    with st.expander("Detalhe numérico do aging", expanded=False):
         _aging_detail_df = _format_aging_latest_table(dashboard.default_buckets_latest_df)
         if _aging_detail_df.empty:
             st.caption("Sem dados de aging disponíveis para o período selecionado.")
         else:
             st.dataframe(_aging_detail_df, width="stretch", hide_index=True)
+    with st.expander("Detalhe técnico de inadimplência over", expanded=False):
+        over_history_df = dashboard.default_over_history_df.copy()
+        _render_chart_heading(st, "Inadimplência Over")
+        st.caption("Séries principais: Over 30 e Over 90.")
+        if over_history_df.empty:
+            st.info("Dados de inadimplência Over não disponíveis nos informes selecionados.")
+        else:
+            over_chart_df = over_history_df[
+                ["competencia", "competencia_dt", "ordem", "serie", "percentual"]
+            ].rename(columns={"percentual": "valor"})
+            over_chart_df = over_chart_df.dropna(subset=["valor"]).sort_values(["ordem", "competencia_dt"])
+            if not over_chart_df.empty:
+                st.altair_chart(
+                    _over_focus_line_chart(
+                        over_chart_df,
+                        title=None,
+                        y_title="%",
+                    ),
+                    width="stretch",
+                )
+            else:
+                st.caption("Curva Over não disponível — dados de aging incompletos para todos os períodos.")
+            _render_over_transparency_notes(st, over_history_df)
 
 
 def _render_structural_risk_section(
@@ -1551,27 +1556,6 @@ def _render_structural_risk_section(
             "Fallback explícito: o PL oficial é preservado como total, a diferença aparece separada "
             "como PL não reconciliado e a subordinação não é exibida como métrica confiável."
         )
-    subordination_periods = dashboard.subordination_history_df["competencia"].nunique()
-    _render_chart_heading(st, "Subordinação reportada")
-    st.altair_chart(
-        _line_history_chart(
-            _melt_metrics(
-                dashboard.subordination_history_df,
-                ["subordinacao_pct"],
-                {"subordinacao_pct": "Subordinação reportada"},
-            ),
-            title=None,
-            y_title="%",
-            show_point_labels=subordination_periods <= 12,
-            show_end_labels=subordination_periods > 12,
-            point_label_font_size=10,
-            point_label_font_weight=700,
-            point_size=90,
-        ),
-        width="stretch",
-    )
-    st.caption("Subordinação reportada = (PL mezzanino + PL subordinada residual) / PL total.")
-
     _render_chart_heading(st, "PL por tipo de cota")
     pl_view = st.radio(
         "Visão do PL",
@@ -1666,7 +1650,11 @@ def _render_structural_risk_section(
                 )
 
 
-def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
+def _render_liquidity_risk_section(
+    dashboard: FundonetDashboardData,
+    *,
+    show_duration_history_chart: bool = True,
+) -> None:
     _render_fidc_section("Prazo e eventos")
     _render_chart_heading(
         st,
@@ -1677,7 +1665,7 @@ def _render_liquidity_risk_section(dashboard: FundonetDashboardData) -> None:
         width="stretch",
     )
 
-    _render_duration_section(dashboard)
+    _render_duration_section(dashboard, show_history_chart=show_duration_history_chart)
 
 
 
@@ -2271,7 +2259,11 @@ def _maturity_vencidos_caption(maturity_latest_df: pd.DataFrame) -> str | None:
     )
 
 
-def _render_duration_section(dashboard: FundonetDashboardData) -> None:
+def _render_duration_section(
+    dashboard: FundonetDashboardData,
+    *,
+    show_history_chart: bool = True,
+) -> None:
     """Renders the estimated duration KPI card + monthly evolution chart.
 
     Duration is the weighted-average remaining term (days) of the receivables
@@ -2329,6 +2321,9 @@ def _render_duration_section(dashboard: FundonetDashboardData) -> None:
         )
     elif latest_quality == "sem_dados":
         st.caption("Duration proxy não disponível para a competência mais recente porque não há saldo por vencimento.")
+
+    if not show_history_chart:
+        return
 
     # --- Série histórica ---
     if len(ok_df) < 2:
@@ -5721,7 +5716,13 @@ def _format_competencia_display(competencia: object) -> str:
     return f"{month_abbr}-{year_short}"
 
 
-def _render_result(result: InformeMensalResult, context: dict[str, Any], *, slot_key: str = "slot0") -> None:
+def _render_result(
+    result: InformeMensalResult,
+    context: dict[str, Any],
+    *,
+    slot_key: str = "slot0",
+    compact_visuals: bool = False,
+) -> None:
     contract_missing = _validate_result_contract(result)
     docs_ok = _count_docs_by_status(result.docs_df, "ok")
     docs_error = _count_docs_by_status(result.docs_df, "erro")
@@ -5734,6 +5735,7 @@ def _render_result(result: InformeMensalResult, context: dict[str, Any], *, slot
         docs_ok=docs_ok,
         docs_error=docs_error,
         slot_key=slot_key,
+        compact_visuals=compact_visuals,
     )
 
 
