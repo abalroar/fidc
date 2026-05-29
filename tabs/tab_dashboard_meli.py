@@ -188,13 +188,13 @@ _DASHBOARD_MELI_CSS = """
 """
 
 PORTFOLIO_GROWTH_NOTES: tuple[str, ...] = (
-    "Carteira ex-360 = carteira bruta menos vencidos acima de 360 dias.",
+    "Carteira Bruta ex-360 = carteira bruta menos vencidos acima de 360 dias.",
     "Crescimento YoY compara a competência atual com o mesmo mês do ano anterior.",
 )
 
 NPL_SEVERITY_NOTES: tuple[str, ...] = (
     "Barras empilhadas por severidade.",
-    "A carteira ex-360 remove vencidos acima de 360 dias do denominador.",
+    "A carteira bruta ex-360 remove vencidos acima de 360 dias do denominador.",
     "O NPL remanescente é separado entre atraso inicial, de 1 a 90 dias, e atraso maduro, de 91 a 360 dias.",
 )
 
@@ -205,7 +205,7 @@ def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
     selected_period = _render_period_panel(period)
     selected_portfolio = _render_portfolio_controls(portfolios)
     if selected_portfolio is None:
-        st.info("Salve uma carteira na Soma de FIDCs para usar a Análise Crédito.")
+        st.info("Salve uma carteira na Soma de FIDCs para usar a Carteira de Crédito.")
         return
     selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
     runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=selected_period)
@@ -221,7 +221,7 @@ def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
         if cached_outputs is not None:
             st.session_state[session_key] = cached_outputs
             st.session_state[f"{session_key}::source"] = "cache"
-            st.toast("Base da Análise Crédito reutilizada do storage.")
+            st.toast("Base da Carteira de Crédito reutilizada do storage.")
             st.rerun()
         _execute_portfolio_load_for_funds(
             selected_portfolio=selected_portfolio,
@@ -256,7 +256,7 @@ def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
                 st.caption(f"**{cnpj}** - {message}")
     if not dashboards_by_cnpj:
         _render_status_bar(selected_portfolio=selected_portfolio, period=selected_period, outputs=None, storage_source="não carregado")
-        st.warning("Nenhum fundo carregado com sucesso para montar a Análise Crédito.")
+        st.warning("Nenhum fundo carregado com sucesso para montar a Carteira de Crédito.")
         return
 
     outputs = build_mercado_livre_outputs(
@@ -281,7 +281,7 @@ def _render_period_panel(global_period: ImePeriodSelection | None = None) -> Ime
     end_month = current_default_end_month()
     options = ("12M", "24M", "36M", "YTD", "Customizado")
     selected = st.radio(
-        "Janela da Análise Crédito",
+        "Janela da Carteira de Crédito",
         options=options,
         index=options.index("24M"),
         horizontal=True,
@@ -452,7 +452,7 @@ def render_dashboard_meli_analysis(
 
 
 def _render_consolidated_dashboard(monitor_outputs, research_outputs=None, *, key_prefix: str = "dashboard_meli") -> None:  # noqa: ANN001
-    _chart_title("Carteira ex-360 e crescimento YoY", PORTFOLIO_GROWTH_NOTES)
+    _chart_title("Carteira Bruta ex-360 e crescimento YoY", PORTFOLIO_GROWTH_NOTES)
     st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
     _chart_title("NPL ex-360 por severidade", NPL_SEVERITY_NOTES)
@@ -527,7 +527,7 @@ def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRec
         return
     for cnpj in selected_cnpjs:
         monitor = monitor_outputs.fund_monitor[cnpj]
-        _chart_title("Carteira ex-360 e crescimento YoY", PORTFOLIO_GROWTH_NOTES)
+        _chart_title("Carteira Bruta ex-360 e crescimento YoY", PORTFOLIO_GROWTH_NOTES)
         st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
 
         _chart_title("NPL ex-360 por severidade", NPL_SEVERITY_NOTES)
@@ -583,7 +583,7 @@ def _render_research_dashboard(research_outputs, verification_report: pd.DataFra
 
     _render_research_roll_charts(roll_df, key=f"dashboard_meli_research_roll::{selected_scope}")
 
-    st.markdown("**Tabela NPL e carteira ex-360**")
+    st.markdown("**Tabela NPL e carteira bruta ex-360**")
     st.dataframe(_format_research_table(npl_table), use_container_width=True, hide_index=True)
     st.markdown("**Tabela carteira e duration**")
     st.dataframe(_format_research_table(portfolio_table), use_container_width=True, hide_index=True)
@@ -604,7 +604,7 @@ def _render_kpis(monitor_df: pd.DataFrame) -> None:
 
 def _dashboard_kpi_cards(row: pd.Series) -> list[tuple[str, str]]:
     cards = [
-        ("Carteira ex-360", _format_brl_compact(row.get("carteira_ex360"))),
+        ("Carteira Bruta ex-360", _format_brl_compact(row.get("carteira_ex360"))),
         ("NPL Over 1d ex-360", _format_percent(row.get("npl_over1_ex360_pct"))),
         ("NPL Over 30d ex-360", _format_percent(row.get("npl_over30_ex360_pct"))),
         ("NPL Over 60d ex-360", _format_percent(row.get("npl_over60_ex360_pct"))),
@@ -677,13 +677,13 @@ def _render_audit(
         st.dataframe(_format_verification_table(verification_report), use_container_width=True, hide_index=True)
     comparison = build_somatorio_dashboard_comparison(outputs, monitor_outputs)
     if not comparison.empty:
-        st.markdown("**Conciliação base x análise de crédito**")
+        st.markdown("**Conciliação base x carteira de crédito**")
         st.caption("Conferência entre base do Somatório e métricas derivadas.")
         st.dataframe(_format_somatorio_dashboard_comparison(comparison), use_container_width=True, hide_index=True)
     ex360_memory = build_ex360_memory_table(outputs)
     if not ex360_memory.empty:
-        st.markdown("**Memória de cálculo da carteira ex-360**")
-        st.caption("Carteira ex-360 = carteira bruta - NPL Over 360.")
+        st.markdown("**Memória de cálculo da carteira bruta ex-360**")
+        st.caption("Carteira Bruta ex-360 = carteira bruta - NPL Over 360.")
         st.dataframe(_format_ex360_memory_table(ex360_memory), use_container_width=True, hide_index=True)
 
 
@@ -800,7 +800,7 @@ def _format_somatorio_dashboard_comparison(frame: pd.DataFrame) -> pd.DataFrame:
             "competencia": "Competência",
             "metrica": "Métrica",
             "somatorio": "Soma de FIDCs",
-            "dashboard_meli": "Análise Crédito",
+            "dashboard_meli": "Carteira de Crédito",
             "diferenca_abs": "Diferença abs.",
             "diferenca_rel_pct": "Diferença rel.",
             "unidade": "Unidade",
@@ -839,14 +839,14 @@ def _format_ex360_memory_table(frame: pd.DataFrame) -> pd.DataFrame:
             "vencidos_360": "Vencidos > 360d",
             "npl_over360": "NPL Over 360d",
             "baixa_over360_carteira": "Baixa carteira > 360d",
-            "carteira_ex360": "Carteira ex-360",
+            "carteira_ex360": "Carteira Bruta ex-360",
             "pdd_total": "PDD total",
             "baixa_over360_pdd": "Baixa PDD > 360d",
             "pdd_ex360": "PDD ex-360",
             "pl_total": "PL total",
             "baixa_over360_pl": "Baixa PL > 360d",
             "pl_total_ex360": "PL ex-360",
-            "formula_carteira_ex360": "Fórmula carteira ex-360",
+            "formula_carteira_ex360": "Fórmula carteira bruta ex-360",
             "formula_pl_ex360": "Fórmula PL ex-360",
         }
     )
@@ -886,7 +886,7 @@ def _render_methodology(research_outputs=None) -> None:  # noqa: ANN001
             """
 O consolidado soma valores absolutos por competência e recalcula percentuais; não há média simples de percentuais.
 
-**Ex-360:** remove vencidos acima de 360 dias da carteira. NPL por severidade usa `NPL 1-90d / carteira ex-360` e `NPL 91-360d / carteira ex-360`.
+**Ex-360:** remove vencidos acima de 360 dias da carteira. NPL por severidade usa `NPL 1-90d / carteira bruta ex-360` e `NPL 91-360d / carteira bruta ex-360`.
 
 **Roll rates:** medem migração de risco. A defasagem acompanha o bucket: `61-90 M-3`, `91-120 M-4`, `121-150 M-5` e `151-180 M-6`.
 
@@ -929,11 +929,11 @@ def _render_status_bar(*, selected_portfolio: PortfolioRecord, period: ImePeriod
 
 
 def _render_guide() -> None:
-    with st.expander("Como usar e interpretar a Análise Crédito", expanded=False):
+    with st.expander("Como usar e interpretar a Carteira de Crédito", expanded=False):
         st.markdown(
             """
 1. Use 24M ou 36M para ler YoY, roll rates e cohorts com contexto.
-2. Comece por carteira ex-360, crescimento e NPL; depois leia roll rates, duration e cohorts.
+2. Comece por carteira bruta ex-360, crescimento e NPL; depois leia roll rates, duration e cohorts.
 3. No consolidado, percentuais são recalculados a partir da soma dos numeradores e denominadores.
             """
         )

@@ -117,7 +117,7 @@ class MeliCreditMonitorTest(unittest.TestCase):
 
         reconciliation = build_pdf_reconciliation_table(monitor)
         npl_1_90 = reconciliation[reconciliation["Métrica"].eq("NPL 1-90d")].iloc[0]
-        npl_1_360_pct = reconciliation[reconciliation["Métrica"].eq("NPL 1-360d / carteira ex-360")].iloc[0]
+        npl_1_360_pct = reconciliation[reconciliation["Métrica"].eq("NPL 1-360d / carteira bruta ex-360")].iloc[0]
         no_pdf_target = reconciliation[reconciliation["Métrica"].eq("PL total")].iloc[0]
 
         self.assertAlmostEqual(600_000_000.0, npl_1_90["Valor app"])
@@ -150,7 +150,7 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertIn("3,0%", roll_payload)
         self.assertIn("Roll 91-120", roll_payload)
         self.assertIn("Roll 121-150", roll_payload)
-        self.assertIn("Carteira ex-360", growth_payload)
+        self.assertIn("Carteira Bruta ex-360", growth_payload)
         self.assertIn("Crescimento YoY", growth_payload)
         self.assertIn('"width": "container"', growth_payload)
         self.assertIn("text", growth_payload)
@@ -209,7 +209,7 @@ class MeliCreditMonitorTest(unittest.TestCase):
         comparison = build_somatorio_dashboard_comparison(outputs, monitor_outputs)
         memory = build_ex360_memory_table(outputs)
 
-        total_npl = comparison[comparison["metrica"].eq("NPL ex-360 total / carteira ex-360")]
+        total_npl = comparison[comparison["metrica"].eq("NPL ex-360 total / carteira bruta ex-360")]
         self.assertFalse(total_npl.empty)
         self.assertEqual({"OK"}, set(total_npl["status"]))
         self.assertIn("carteira_ex360", memory.columns)
@@ -253,8 +253,8 @@ class MeliCreditMonitorTest(unittest.TestCase):
                 if name.endswith(".xml")
             )
         self.assertTrue(any(name.startswith("ppt/charts/chart") for name in names))
-        self.assertIn("Carteira ex-360", xml_payload)
-        self.assertIn("Análise Crédito - Consolidado: duration e cohorts", xml_payload)
+        self.assertIn("Carteira Bruta ex-360", xml_payload)
+        self.assertIn("Carteira de Crédito - Consolidado: duration e cohorts", xml_payload)
         self.assertIn("NPL Over 1d ex-360", xml_payload)
         self.assertIn("NPL Over 60d ex-360", xml_payload)
         self.assertIn("Roll 61-90 por mês do ano", xml_payload)
@@ -332,7 +332,7 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertIn("Visão consolidada", slide2_xml)
         self.assertIn("Soma de FIDCs — Consolidado", slide3_xml)
         self.assertIn("Soma de FIDCs — Consolidado", xml_payload)
-        self.assertIn("Carteira ex-360", xml_payload)
+        self.assertIn("Carteira Bruta ex-360", xml_payload)
         self.assertIn("NPL OVER 1D EX-360", xml_payload)
         self.assertIn("Roll 91-120 por mês do ano", xml_payload)
         self.assertIn("Roll 121-150 por mês do ano", xml_payload)

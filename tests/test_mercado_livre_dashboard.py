@@ -759,7 +759,7 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("Como usar", guide)
         self.assertIn("Base analítica", guide)
         self.assertNotIn("Tabela Completa", guide)
-        self.assertIn("Análise Crédito", guide)
+        self.assertIn("Carteira de Crédito", guide)
         self.assertIn("Mecânica essencial", guide)
         self.assertIn("não há média simples de percentuais", guide)
         self.assertIn("NPL Over é acumulado", guide)

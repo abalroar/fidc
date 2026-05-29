@@ -76,7 +76,7 @@ def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
         .mark_bar()
         .encode(
             x=alt.X("competencia:N", title="Competência", sort=x_sort, axis=_category_axis()),
-            y=alt.Y("valor:Q", title="% da carteira ex-360", stack="zero", axis=_percent_axis()),
+            y=alt.Y("valor:Q", title="% da carteira bruta ex-360", stack="zero", axis=_percent_axis()),
             color=alt.Color(
                 "serie:N",
                 title="NPL",
@@ -117,7 +117,7 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
             y=alt.Y("carteira_scaled:Q", title=label, axis=_decimal_axis()),
             tooltip=[
                 alt.Tooltip("competencia_label:N", title="Competência"),
-                alt.Tooltip("carteira_fmt:N", title="Carteira ex-360"),
+                alt.Tooltip("carteira_fmt:N", title="Carteira Bruta ex-360"),
             ],
         )
     )
@@ -135,7 +135,7 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
     bar_chart = alt.layer(bars, bar_label).properties(
         width="container",
         height=SPLIT_PANEL_HEIGHT,
-        title=_panel_title("Carteira ex-360"),
+        title=_panel_title("Carteira Bruta ex-360"),
     )
     line = (
         alt.Chart(df)
@@ -554,7 +554,7 @@ def _bar_label_layers(label_df: pd.DataFrame, *, x: alt.X) -> list[alt.Chart]:
             )
             .encode(
                 x=x,
-                y=alt.Y("label_y:Q", title="% da carteira ex-360", axis=_percent_axis()),
+                y=alt.Y("label_y:Q", title="% da carteira bruta ex-360", axis=_percent_axis()),
                 text=alt.Text("label_text:N"),
             )
         )

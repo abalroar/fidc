@@ -102,7 +102,7 @@ NPL_RESEARCH_ROWS: tuple[dict[str, str], ...] = (
     {
         "block": "% NPL of Portfolio ex-360",
         "metric_id": "npl_1_360_pct",
-        "metric_name": "NPL 1-360d / carteira ex-360",
+        "metric_name": "NPL 1-360d / carteira bruta ex-360",
         "unit": "%",
         "formula": "(npl_1_90 + npl_91_360) / carteira_ex360",
         "source_columns": "npl_1_90; npl_91_360; carteira_ex360",
@@ -110,7 +110,7 @@ NPL_RESEARCH_ROWS: tuple[dict[str, str], ...] = (
     {
         "block": "% NPL of Portfolio ex-360",
         "metric_id": "npl_1_30_pct",
-        "metric_name": "NPL 1-30d / carteira ex-360",
+        "metric_name": "NPL 1-30d / carteira bruta ex-360",
         "unit": "%",
         "formula": "atraso_ate30 / carteira_ex360",
         "source_columns": "atraso_ate30; carteira_ex360",
@@ -118,7 +118,7 @@ NPL_RESEARCH_ROWS: tuple[dict[str, str], ...] = (
     {
         "block": "% NPL of Portfolio ex-360",
         "metric_id": "npl_31_60_pct",
-        "metric_name": "NPL 31-60d / carteira ex-360",
+        "metric_name": "NPL 31-60d / carteira bruta ex-360",
         "unit": "%",
         "formula": "atraso_31_60 / carteira_ex360",
         "source_columns": "atraso_31_60; carteira_ex360",
@@ -126,7 +126,7 @@ NPL_RESEARCH_ROWS: tuple[dict[str, str], ...] = (
     {
         "block": "% NPL of Portfolio ex-360",
         "metric_id": "npl_61_90_pct",
-        "metric_name": "NPL 61-90d / carteira ex-360",
+        "metric_name": "NPL 61-90d / carteira bruta ex-360",
         "unit": "%",
         "formula": "atraso_61_90 / carteira_ex360",
         "source_columns": "atraso_61_90; carteira_ex360",
@@ -134,7 +134,7 @@ NPL_RESEARCH_ROWS: tuple[dict[str, str], ...] = (
     {
         "block": "% NPL of Portfolio ex-360",
         "metric_id": "npl_91_180_pct",
-        "metric_name": "NPL 91-180d / carteira ex-360",
+        "metric_name": "NPL 91-180d / carteira bruta ex-360",
         "unit": "%",
         "formula": "(atraso_91_120 + atraso_121_150 + atraso_151_180) / carteira_ex360",
         "source_columns": "atraso_91_120; atraso_121_150; atraso_151_180; carteira_ex360",
@@ -142,7 +142,7 @@ NPL_RESEARCH_ROWS: tuple[dict[str, str], ...] = (
     {
         "block": "% NPL of Portfolio ex-360",
         "metric_id": "npl_181_360_pct",
-        "metric_name": "NPL 181-360d / carteira ex-360",
+        "metric_name": "NPL 181-360d / carteira bruta ex-360",
         "unit": "%",
         "formula": "atraso_181_360 / carteira_ex360",
         "source_columns": "atraso_181_360; carteira_ex360",
@@ -502,7 +502,7 @@ def build_research_methodology_table() -> pd.DataFrame:
         },
         {
             "Gráfico / indicador": "Tabela NPL ex-360",
-            "Definição": "Decompõe o NPL até 360 dias em valores absolutos e percentual da carteira ex-360.",
+            "Definição": "Decompõe o NPL até 360 dias em valores absolutos e percentual da carteira bruta ex-360.",
             "Numerador": "Bucket de atraso ou soma de buckets.",
             "Denominador": "carteira_ex360 nas linhas percentuais.",
             "Fórmula": "bucket / carteira_ex360; carteira_ex360 = carteira_bruta - npl_over360",
@@ -512,8 +512,8 @@ def build_research_methodology_table() -> pd.DataFrame:
         },
         {
             "Gráfico / indicador": "Portfolio e duration",
-            "Definição": "Mostra carteira ex-360 e prazo médio ponderado por saldo.",
-            "Numerador": "Carteira ex-360; ou Σ saldo_bucket × prazo_proxy_bucket para duration.",
+            "Definição": "Mostra carteira bruta ex-360 e prazo médio ponderado por saldo.",
+            "Numerador": "Carteira Bruta ex-360; ou Σ saldo_bucket × prazo_proxy_bucket para duration.",
             "Denominador": "Não aplicável para carteira; Σ saldo_bucket para duration.",
             "Fórmula": "duration_meses = (Σ saldo_bucket × prazo_proxy_bucket / Σ saldo_bucket) / 30,4375",
             "Unidade": "R$ e meses",
@@ -747,7 +747,7 @@ def _research_warnings(df: pd.DataFrame, *, scope: str, fund_name: str) -> list[
     if "pdd_ex360" not in df.columns:
         warnings.append(f"{fund_name}: PDD ex-360 não está disponível; indicadores de cobertura research não são expandidos nesta visão.")
     if "carteira_ex360" not in df.columns:
-        warnings.append(f"{fund_name}: carteira ex-360 ausente; tabelas research ficam incompletas.")
+        warnings.append(f"{fund_name}: carteira bruta ex-360 ausente; tabelas research ficam incompletas.")
     if scope == "consolidado" and len(df) < 13:
         warnings.append("Consolidado: janela menor que 13 competências limita cálculos YoY.")
     return warnings

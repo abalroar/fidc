@@ -414,14 +414,14 @@ def _add_credit_slide(
     cats = _category_labels(df)
     slots = _grid_2x2()
 
-    _chart_bar_money(slide, slots[0], title="Carteira ex-360",
-                     column="carteira_ex360", series_name="Carteira ex-360",
+    _chart_bar_money(slide, slots[0], title="Carteira Bruta ex-360",
+                     column="carteira_ex360", series_name="Carteira Bruta ex-360",
                      df=df, cats=cats,
                      CategoryChartData=CategoryChartData, RGBColor=RGBColor,
                      XL_CHART_TYPE=XL_CHART_TYPE,
                      XL_LABEL_POSITION=XL_LABEL_POSITION,
                      Inches=Inches, Pt=Pt)
-    _chart_multi_line(slide, slots[1], title="Crescimento YoY carteira ex-360",
+    _chart_multi_line(slide, slots[1], title="Crescimento YoY carteira bruta ex-360",
                       df=df, cats=cats,
                       series_specs=[("Crescimento YoY", "carteira_ex360_yoy_pct", _ORANGE)],
                       y_title="%", value_is_percent=True,
@@ -858,7 +858,7 @@ def _chart_stacked_npl(
 
     chart = _place_chart(slide, slot, XL_CHART_TYPE.COLUMN_STACKED, cdata, Inches)
     _style_chart(chart, "NPL ex-360 por severidade", "Competência",
-                 "% carteira ex-360", "0.0%", RGBColor, Pt)
+                 "% carteira bruta ex-360", "0.0%", RGBColor, Pt)
     chart.has_legend = True
     _style_legend(chart, XL_LEGEND_POSITION.BOTTOM, RGBColor, Pt)
     if chart.series:
@@ -1245,7 +1245,7 @@ def _build_kpi_cards(
         return []
 
     comp = _fmt_month(row.get("competencia_dt") or row.get("competencia"))
-    cart_label = f"Carteira ex-360 · {comp}" if comp else "Carteira ex-360"
+    cart_label = f"Carteira Bruta ex-360 · {comp}" if comp else "Carteira Bruta ex-360"
     return [
         (cart_label, _fmt_money(_num(row.get("carteira_ex360")))),
         ("NPL Over 1d ex-360", _fmt_pct(_num(row.get("npl_over1_ex360_pct")))),
@@ -1292,7 +1292,7 @@ def _build_synthesis_sections(
     yoy = _num(con_row.get("carteira_ex360_yoy_pct")) if con_row is not None else None
     if carteira is not None:
         yoy_text = f", com variação YoY de {_fmt_pct(yoy)}" if yoy is not None else ""
-        highlights.append(f"Carteira ex-360 consolidada em {_fmt_money(carteira)}{yoy_text}.")
+        highlights.append(f"Carteira Bruta ex-360 consolidada em {_fmt_money(carteira)}{yoy_text}.")
 
     subordination = _num(con_monthly_row.get("subordinacao_total_ex360_pct")) if con_monthly_row is not None else None
     if subordination is not None:

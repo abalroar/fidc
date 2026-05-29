@@ -141,7 +141,7 @@ def _add_consolidated_slide(
 ) -> None:
     slide = prs.slides.add_slide(layout)
     _style_slide(slide, RGBColor)
-    _add_header(slide, "Análise Crédito - Consolidado: carteira e risco", RGBColor, Inches, Pt)
+    _add_header(slide, "Carteira de Crédito - Consolidado: carteira e risco", RGBColor, Inches, Pt)
     slots = _grid_2x2_slots()
     df = _chart_monthly(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame()))
     _add_kpi_strip(slide, df, RGBColor, Inches, Pt)
@@ -149,11 +149,11 @@ def _add_consolidated_slide(
     _add_money_bar_chart(
         slide=slide,
         slot=slots[0],
-        title="Carteira ex-360",
+        title="Carteira Bruta ex-360",
         df=df,
         categories=categories,
         column="carteira_ex360",
-        series_name="Carteira ex-360",
+        series_name="Carteira Bruta ex-360",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
@@ -164,7 +164,7 @@ def _add_consolidated_slide(
     _add_multi_line_chart(
         slide=slide,
         slot=slots[1],
-        title="Crescimento YoY carteira ex-360",
+        title="Crescimento YoY carteira bruta ex-360",
         df=df,
         categories=categories,
         series_specs=[("Crescimento YoY", "carteira_ex360_yoy_pct", MELI_ORANGE)],
@@ -237,11 +237,11 @@ def _add_fund_slide(
     _add_money_bar_chart(
         slide=slide,
         slot=slots[0],
-        title="Carteira ex-360",
+        title="Carteira Bruta ex-360",
         df=df,
         categories=categories,
         column="carteira_ex360",
-        series_name="Carteira ex-360",
+        series_name="Carteira Bruta ex-360",
         CategoryChartData=CategoryChartData,
         RGBColor=RGBColor,
         XL_CHART_TYPE=XL_CHART_TYPE,
@@ -252,7 +252,7 @@ def _add_fund_slide(
     _add_multi_line_chart(
         slide=slide,
         slot=slots[1],
-        title="Crescimento YoY carteira ex-360",
+        title="Crescimento YoY carteira bruta ex-360",
         df=df,
         categories=categories,
         series_specs=[("Crescimento YoY", "carteira_ex360_yoy_pct", MELI_ORANGE)],
@@ -374,7 +374,7 @@ def _add_consolidated_detail_slide(
 ) -> None:
     slide = prs.slides.add_slide(layout)
     _style_slide(slide, RGBColor)
-    _add_header(slide, "Análise Crédito - Consolidado: duration e cohorts", RGBColor, Inches, Pt)
+    _add_header(slide, "Carteira de Crédito - Consolidado: duration e cohorts", RGBColor, Inches, Pt)
     _add_kpi_strip(slide, _chart_monthly(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame())), RGBColor, Inches, Pt)
     slots = _grid_1x2_slots()
     duration_df = _duration_frame(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame()), getattr(monitor_outputs, "fund_monitor", {}))
@@ -431,7 +431,7 @@ def _add_consolidated_roll_seasonality_slide(
 ) -> None:
     slide = prs.slides.add_slide(layout)
     _style_slide(slide, RGBColor)
-    _add_header(slide, "Análise Crédito - Roll rates por mês do ano", RGBColor, Inches, Pt)
+    _add_header(slide, "Carteira de Crédito - Roll rates por mês do ano", RGBColor, Inches, Pt)
     _add_kpi_strip(slide, _chart_monthly(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame())), RGBColor, Inches, Pt)
     slots = _grid_2x2_slots()
     roll_df = getattr(research_outputs, "roll_seasonality", pd.DataFrame())
@@ -537,7 +537,7 @@ def _add_stacked_npl_chart(
     chart_data.add_series("NPL 1-90d", series_values[0])
     chart_data.add_series("NPL 91-360d", series_values[1])
     chart = _add_chart(slide, slot, XL_CHART_TYPE.COLUMN_STACKED, chart_data, Inches)
-    _style_common_chart(chart, "NPL ex-360 por severidade", "Competência", "% da carteira ex-360", "0.0%", RGBColor, Pt)
+    _style_common_chart(chart, "NPL ex-360 por severidade", "Competência", "% da carteira bruta ex-360", "0.0%", RGBColor, Pt)
     chart.has_legend = True
     _style_legend(chart, XL_LEGEND_POSITION, RGBColor, Pt)
     for series, color in zip(chart.series, [MELI_BLACK, MELI_ORANGE], strict=False):
@@ -818,7 +818,7 @@ def _ppt_kpi_cards(row: pd.Series) -> list[tuple[str, str]]:
     if pd.isna(competencia_value):
         competencia_value = row.get("competencia")
     competencia = _format_month_label(competencia_value)
-    carteira_label = "Carteira ex-360" if not competencia else f"Carteira ex-360 · {competencia}"
+    carteira_label = "Carteira Bruta ex-360" if not competencia else f"Carteira Bruta ex-360 · {competencia}"
     return [
         (carteira_label, _format_money_kpi(row.get("carteira_ex360"))),
         ("NPL Over 1d ex-360", _format_percent_kpi(row.get("npl_over1_ex360_pct"))),

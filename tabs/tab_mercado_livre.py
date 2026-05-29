@@ -788,7 +788,7 @@ def _render_outputs(
         )
 
     if use_tabs:
-        base_tab, credit_tab = st.tabs(["Tabela Completa", "Análise Crédito"])
+        base_tab, credit_tab = st.tabs(["Tabela Completa", "Carteira de Crédito"])
         with base_tab:
             _render_base_view()
         with credit_tab:
@@ -797,7 +797,7 @@ def _render_outputs(
 
     st.markdown("### Base analítica da carteira")
     _render_base_view()
-    st.markdown("### Análise Crédito")
+    st.markdown("### Carteira de Crédito")
     _render_credit_view()
 
 
@@ -1308,7 +1308,7 @@ def _build_somatorio_fidcs_guide_markdown() -> str:
 
 1. Selecione ou crie uma carteira, escolha a janela e carregue a base.
 2. Use **Base analítica** para conferir os dados consolidados e individuais.
-3. Use **Análise Crédito** para carteira ex-360, crescimento, NPL, roll rates, cohorts e duration.
+3. Use **Carteira de Crédito** para carteira bruta ex-360, crescimento, NPL, roll rates, cohorts e duration.
 4. Use o filtro visual apenas para recortar a base já carregada.
 
 ### Mecânica essencial
@@ -1553,7 +1553,7 @@ def _format_validation_for_display(df: pd.DataFrame) -> pd.DataFrame:
         "baixa_over360_pdd": "Baixa PDD >360",
         "baixa_over360_pl": "Baixa PL >360",
         "npl_over90_ex360": "NPL 90 ex-360",
-        "carteira_ex360": "Carteira ex-360",
+        "carteira_ex360": "Carteira Bruta ex-360",
         "pdd_ex360": "PDD ex-360",
         "pl_total_ex360": "PL ex-360",
         "pl_subordinada_mezz_ex360": "Sub+Mez ex-360",
