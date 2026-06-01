@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_fidc_investcred_credsystem_9474a4e1",
+  "title": "Curadoria FIDC Investcred (Credsystem)",
+  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas do Informe Mensal",
+  "portfolio_id": "9474a4e17117447c896345827c177843",
+  "portfolio_signature": "29226654000110",
+  "generated_at": "2026-06-01T15:42:08-03:00",
+  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "29.226.654/0001-10",
+      "name": "INVESTCRED FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+      "short_name": "INVESTCRED"
+    }
+  ],
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
+      "kind": "comparison_matrix",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
+      "kind": "source_table",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "emissions",
+      "title": "Cronograma de emissões",
+      "kind": "source_table",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "thresholds",
+      "title": "Regulamento mais recente",
+      "kind": "source_table",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "fundo"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
+      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
+      "Custos estruturais: 2 linhas com taxa de administração/gestão e mínimos mensais quando curados.",
+      "Tabela principal com 38 linhas; contagem documental foi substituída por páginas locais analisadas."
+    ]
+  }
+}

@@ -1,14 +1,14 @@
 # Estudo regulatório dos FIDCs monitorados
 
-Gerado em: 2026-05-29T01:35:15Z
+Gerado em: 2026-06-01T18:31:46Z
 
 ## Resumo executivo
 
-- Fundos com base gerada: 63
-- Documentos inventariados: 2805
-- Documentos com extração estruturada: 1420
-- Critérios extraídos: 5879
-- Critérios classificados como monitoráveis pelo IME: 2736
+- Fundos com base gerada: 64
+- Documentos inventariados: 2872
+- Documentos com extração estruturada: 1445
+- Critérios extraídos: 6010
+- Critérios classificados como monitoráveis pelo IME: 2760
 - Documentos com erro de extração estruturada: 36
 
 A base separa documentos, critérios regulatórios e eventos de emissão/amortização. O app deve monitorar apenas critérios explicitamente encontrados e com mapeamento viável para o Informe Mensal; os demais ficam como referência para análise manual.
@@ -19,14 +19,14 @@ A extração estruturada desta entrega foi feita localmente, sem chamada externa
 
 | Critério | Ocorrências | Fundos | Monitoramento | Métrica IME |
 | --- | --- | --- | --- | --- |
-| credit_rights_allocation_min | 1276 | 57 | monitoravel | Dir Cred / PL |
+| credit_rights_allocation_min | 1298 | 58 | monitoravel | Dir Cred / PL |
 | permitted_hedges | 876 | 51 | parcial | Posições mantidas em derivativos |
-| concentration_limits | 622 | 45 | nao_monitoravel |  |
-| subordination_ratio_min | 840 | 37 | monitoravel | Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL % |
+| concentration_limits | 638 | 46 | nao_monitoravel |  |
+| subordination_ratio_min | 842 | 38 | monitoravel | Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL % |
+| eligibility_criteria_text | 704 | 23 | nao_monitoravel |  |
 | pdd_coverage_min | 307 | 23 | monitoravel | PDD / Venc Total ou PDD / Venc > 90 d |
-| eligibility_criteria_text | 658 | 22 | nao_monitoravel |  |
 | minimum_cash_ratio | 464 | 22 | parcial | Disponibilidades / PL ou Disponibilidades / amortização estimada |
-| service_provider_replacement_event | 467 | 18 | nao_monitoravel |  |
+| service_provider_replacement_event | 512 | 19 | nao_monitoravel |  |
 | default_rate_evaluation_event | 108 | 14 | monitoravel | Vencidos Over 30/60/90/180/360 d / Crédito |
 | recompras_max | 199 | 14 | monitoravel | Recompras / Crédito ou Recompras / PL |
 | cancellation_rate_max | 52 | 6 | parcial | Recompras / Crédito, baixas ou eventos operacionais informados |
@@ -46,6 +46,7 @@ A extração estruturada desta entrega foi feita localmente, sem chamada externa
 | PRAVALER CRÉDITO UNIVERSITÁRIO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESP LIMITADAL | 26.749.095/0001-34 | 81 | 8 | 16 | 9 | 126 | 38 | 78 | 31/12/2025 |
 | FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS PAGSEGURO I | 28.169.275/0001-72 | 71 | 6 | 9 | 4 | 111 | 48 | 45 | 31/12/2025 |
 | Mercado Crédito Merchant Fundo de Investimento em Direitos Creditórios | 28.472.333/0001-32 | 52 | 3 | 10 | 0 | 22 | 15 | 7 | 31/12/2023 |
+| INVESTCRED FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS | 29.226.654/0001-10 | 67 | 10 | 11 | 3 | 131 | 24 | 0 | 31/12/2025 |
 | MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA | 33.254.370/0001-04 | 77 | 13 | 17 | 0 | 89 | 61 | 27 | 31/12/2025 |
 | CREDITO UNIVERSITARIO III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA | 34.408.539/0001-04 | 67 | 14 | 23 | 0 | 233 | 66 | 129 | 31/12/2025 |
 | FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BV - CRÉDITO DE VEÍCULOS RESPONSABILIDADE LIMITADA | 35.868.110/0001-54 | 52 | 10 | 8 | 6 | 51 | 20 | 21 | 31/12/2024 |

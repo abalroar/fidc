@@ -139,8 +139,8 @@ def build_portfolio_package(args: argparse.Namespace, portfolio: PortfolioRecord
     manifest = build_manifest(
         argparse.Namespace(
             deep_dive_id=package_id,
-            title=f"Deep Dive {portfolio.name}",
-            subtitle="Estrutura, emissões, gatilhos monitoráveis e métricas IME",
+            title=f"Curadoria {portfolio.name}",
+            subtitle="Estrutura, emissões, gatilhos monitoráveis e métricas do Informe Mensal",
             portfolio_id=portfolio.id,
             portfolio_signature=portfolio_basket_signature(portfolio.funds),
         ),
@@ -1263,6 +1263,9 @@ def normalize_remuneration(value: object) -> str:
     text = re.sub(r"\s+", " ", str(value or "")).strip()
     if not text or text.lower() in {"nan", "none", "<na>"}:
         return ""
+    lowered = strip_accents(text.lower())
+    if "sem remuneracao" in lowered or "sem benchmark" in lowered:
+        return clean_emission_text(text, max_len=90)
     text = re.sub(r"\ba\s+crescid", "acrescid", text, flags=re.IGNORECASE)
     spread_number = r"\d{1,2}(?:[,.]\s*\d{1,4})?\s*%"
     direct = re.search(rf"\b(?:DI|CDI)\s*\+\s*{spread_number}\s*a\.?a\.?", text, flags=re.IGNORECASE)
@@ -1298,6 +1301,9 @@ def normalize_amortization(value: object) -> str:
     if not text:
         return ""
     lowered = text.lower()
+    normalized = strip_accents(lowered)
+    if "sem amortizacao" in normalized or "prazo indeterminado" in normalized:
+        return clean_emission_text(text, max_len=180)
     has_date = bool(re.search(r"\d{2}/\d{2}/\d{4}", text))
     has_percent = "%" in text
     has_term = bool(re.search(r"\b\d+\s*mes", lowered))
