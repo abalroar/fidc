@@ -8,6 +8,7 @@ import pandas as pd
 
 from services.deep_dive_ppt_export import build_deep_dive_pptx_bytes
 from services.deep_dive_store import list_deep_dives, load_deep_dive_table
+from tabs import tab_deep_dive
 
 
 def _write_package(root: Path) -> Path:
@@ -94,3 +95,26 @@ def test_deep_dive_pptx_preserves_long_schedule_text(tmp_path: Path) -> None:
         slide_xml = archive.read("ppt/slides/slide1.xml").decode("utf-8")
         assert "15/05/2028: 100,00%" in slide_xml
         assert "15/05/2..." not in slide_xml
+
+
+def test_curadoria_emissions_summary_aggregates_only_identified_values() -> None:
+    frame = pd.DataFrame(
+        {
+            "Tipo": ["Sênior", "Sênior", "Mezanino"],
+            "Qtd cotas": ["80.000", "não informada", "100.000"],
+            "Volume identificado (R$ mm)": ["80,0", "1.300,0", "—"],
+            "Remuneração-alvo": ["DI + 3,50% a.a.", "DI + 2,50% a.a.", "DI + 5,25% a.a."],
+            "Amortização/vencimento": ["jan/27", "out/31", "jun/29"],
+        }
+    )
+
+    summary = tab_deep_dive._build_emissions_type_summary(frame)
+
+    senior = summary.loc[summary["Tipo de cota"] == "Sênior"].iloc[0]
+    mezz = summary.loc[summary["Tipo de cota"] == "Mezanino"].iloc[0]
+    assert senior["Emissões"] == 2
+    assert senior["Volume identificado"] == "R$ 1.380,0 mm"
+    assert senior["Qtd cotas identificada"] == "80.000"
+    assert "DI + 3,50% a.a." in senior["Custo / remuneração"]
+    assert mezz["Volume identificado"] == "N/D"
+    assert mezz["Qtd cotas identificada"] == "100.000"

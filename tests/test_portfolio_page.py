@@ -27,12 +27,11 @@ class PortfolioPageTests(unittest.TestCase):
             resolved,
         )
 
-    def test_deep_dive_selection_includes_monitoring_context(self) -> None:
+    def test_curadoria_selection_does_not_force_monitoring_context(self) -> None:
         resolved = portfolio_page._resolve_workflow_sections([portfolio_page.SECTION_DEEP_DIVE])
 
         self.assertEqual(
             (
-                portfolio_page.SECTION_MONITORING,
                 portfolio_page.SECTION_DEEP_DIVE,
             ),
             resolved,
@@ -47,6 +46,7 @@ class PortfolioPageTests(unittest.TestCase):
 
         self.assertEqual(portfolio_page.DEFAULT_SECTIONS, selected)
         self.assertNotIn(portfolio_page.SECTION_MONITORING, selected)
+        self.assertIn(portfolio_page.SECTION_DEEP_DIVE, selected)
         radio.assert_not_called()
         multiselect.assert_not_called()
 

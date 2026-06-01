@@ -275,6 +275,7 @@ st.markdown(
 _MAIN_SECTIONS = [
     "Sobre",
     "Carteira FIDCs",
+    "Curadoria",
     "Custo Cloudwalk",
     "Glossário FIDCs",
     "Modelagem",
@@ -293,6 +294,8 @@ if selected_section == "Carteira FIDCs":
     _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
     period = _render_period_selector(state_prefix="ime_global")
     render_portfolio_center_page(period=period)
+elif selected_section == "Curadoria":
+    deep_dive_tab.render_tab_deep_dive()
 elif selected_section == "Custo Cloudwalk":
     render_tab_cloudwalk_financial_cost()
 elif selected_section == "Modelagem":

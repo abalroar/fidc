@@ -152,6 +152,12 @@ _CSS = """
     line-height: 1.25;
     margin: 0.25rem 0 0.55rem 0;
 }
+.deepdive-curadoria-note {
+    color: #6b7280;
+    font-size: 0.76rem;
+    line-height: 1.35;
+    margin: 0.1rem 0 0.45rem 0;
+}
 </style>
 """
 
@@ -332,17 +338,16 @@ def render_tab_deep_dive(
     compact: bool = False,
 ) -> None:
     manifests = list_deep_dives()
-    st.markdown("<div class='deepdive-kicker'>Análise offline</div>", unsafe_allow_html=True)
-    st.markdown("<div class='deepdive-title'>Deep Dive</div>", unsafe_allow_html=True)
+    st.markdown("<div class='deepdive-kicker'>Curadoria documental</div>", unsafe_allow_html=True)
+    st.markdown("<div class='deepdive-title'>Curadoria</div>", unsafe_allow_html=True)
     st.markdown(
-        "<div class='deepdive-subtitle'>Pacotes comparativos gerados por extração offline, versionados no repositório e exportáveis em PPTX editável.</div>",
+        "<div class='deepdive-subtitle'>Leitura curada de emissões, prazos, quantidades, custos e critérios documentais relevantes para a análise da carteira.</div>",
         unsafe_allow_html=True,
     )
     if show_curation_tools:
-        with st.expander("Prompt para atualizar Deep Dives", expanded=False):
+        with st.expander("Prompt para atualizar curadorias", expanded=False):
             st.code(_load_reverse_engineering_prompt(), language="markdown")
-
-    _render_cloudwalk_waterfall(wrap=not compact, compact=compact)
+        _render_cloudwalk_waterfall(wrap=True, compact=False)
 
     if not manifests:
         st.info("Nenhum pacote em `data/deep_dives/`.")
@@ -355,7 +360,7 @@ def render_tab_deep_dive(
         selected_portfolio_id = st.selectbox(
             "Carteira",
             options=portfolio_options,
-            format_func=lambda value: "Todos os Deep Dives" if value == "Todos" else portfolio_labels.get(value, value),
+            format_func=lambda value: "Todas as curadorias" if value == "Todos" else portfolio_labels.get(value, value),
             key="deep_dive_portfolio",
         )
         selected_portfolio = next((portfolio for portfolio in portfolios if portfolio.id == selected_portfolio_id), None)
@@ -369,22 +374,29 @@ def render_tab_deep_dive(
     ]
     available = sorted(available, key=lambda item: item.generated_at or "", reverse=True)
     if not available:
-        st.warning("Não há Deep Dive salvo para a carteira selecionada.")
+        st.warning("Não há curadoria salva para a carteira selecionada.")
+        return
+
+    if compact:
+        manifest = available[0]
+        _render_manifest_context_line(manifest)
+        _render_emissions_curadoria(manifest, compact=True)
         return
 
     manifest = st.selectbox(
-        "Material",
+        "Material de curadoria",
         options=available,
         format_func=lambda item: f"{item.title} · {item.generated_at or item.deep_dive_id}",
         key="deep_dive_manifest",
     )
     _render_manifest_header(manifest)
+    _render_emissions_curadoria(manifest, compact=False)
 
     if not manifest.tables:
         st.warning("Pacote sem tabelas configuradas.")
         return
     table_spec = st.selectbox(
-        "Tabela",
+        "Tabela da curadoria",
         options=list(manifest.tables),
         format_func=lambda item: item.title,
         key=f"deep_dive_table::{manifest.deep_dive_id}",
@@ -421,7 +433,7 @@ def render_tab_deep_dive(
         )
     except RuntimeError as exc:
         st.warning(str(exc))
-    with st.expander("Dados do deep dive para diligência", expanded=False):
+    with st.expander("Dados da curadoria para diligência", expanded=False):
         st.download_button(
             "Baixar CSV da tabela selecionada",
             data=frame.to_csv(index=False).encode("utf-8"),
@@ -440,6 +452,193 @@ def render_tab_deep_dive(
             st.markdown("**Atualização IME ao vivo**")
             st.dataframe(live_audit, hide_index=True, use_container_width=True)
         st.dataframe(_source_files_df(manifest), hide_index=True, use_container_width=True)
+
+
+def _render_manifest_context_line(manifest: Any) -> None:
+    context = " · ".join(
+        item
+        for item in [
+            str(getattr(manifest, "title", "") or "").strip(),
+            str(getattr(manifest, "generated_at", "") or "").strip(),
+        ]
+        if item
+    )
+    if context:
+        st.markdown(f"<div class='deepdive-curadoria-note'>Base: {escape(context)}</div>", unsafe_allow_html=True)
+
+
+def _render_emissions_curadoria(manifest: Any, *, compact: bool) -> None:
+    table_spec = _find_manifest_table(manifest, "emissions")
+    if table_spec is None:
+        if not compact:
+            st.info("Este pacote ainda não tem tabela de emissões curadas.")
+        return
+
+    frame = load_deep_dive_table(manifest, table_spec)
+    if frame.empty:
+        if not compact:
+            st.info("Tabela de emissões vazia ou ausente.")
+        return
+
+    summary = _build_emissions_type_summary(frame)
+    if summary.empty:
+        st.info("Não há emissões com tipo de cota identificado para resumir.")
+        return
+
+    st.markdown("#### Emissões por tipo de cota")
+    st.dataframe(summary, hide_index=True, use_container_width=True)
+    st.markdown(
+        "<div class='deepdive-curadoria-note'>Volumes monetários são somados apenas quando o campo documental está identificado. "
+        "Quantidades, prazos e custos/remuneração preservam lacunas explícitas em vez de virar zero.</div>",
+        unsafe_allow_html=True,
+    )
+
+    detail = _emissions_detail_frame(frame)
+    if detail.empty:
+        return
+    with st.expander("Detalhe documental das emissões", expanded=False):
+        st.dataframe(detail, hide_index=True, use_container_width=True)
+
+
+def _find_manifest_table(manifest: Any, table_id: str) -> Any | None:
+    for table in getattr(manifest, "tables", ()) or ():
+        if getattr(table, "id", "") == table_id:
+            return table
+    return None
+
+
+def _build_emissions_type_summary(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame()
+    work = frame.copy()
+    empty_column = pd.Series(["—"] * len(work), index=work.index)
+    work["__tipo"] = work.get("Tipo", empty_column).map(_normalize_quota_type)
+    work["__volume_mm"] = work.get("Volume identificado (R$ mm)", empty_column).map(_parse_br_decimal)
+    work["__qtd_cotas"] = work.get("Qtd cotas", empty_column).map(_parse_br_decimal)
+    rows: list[dict[str, object]] = []
+    for tipo, group in work.groupby("__tipo", sort=False):
+        volume_values = pd.to_numeric(group["__volume_mm"], errors="coerce")
+        quantity_values = pd.to_numeric(group["__qtd_cotas"], errors="coerce")
+        volume_count = int(volume_values.notna().sum())
+        quantity_count = int(quantity_values.notna().sum())
+        rows.append(
+            {
+                "Tipo de cota": tipo,
+                "Emissões": len(group),
+                "Volume identificado": _format_mm_sum(volume_values) if volume_count else "N/D",
+                "Qtd cotas identificada": _format_quantity_sum(quantity_values) if quantity_count else "N/D",
+                "Custo / remuneração": _collapse_text_values(group.get("Remuneração-alvo", pd.Series(dtype=str))),
+                "Prazo / amortização": _collapse_text_values(
+                    group.get("Amortização/vencimento", pd.Series(dtype=str)),
+                    max_chars=132,
+                ),
+            }
+        )
+    output = pd.DataFrame(rows)
+    if output.empty:
+        return output
+    output["__ordem"] = output["Tipo de cota"].map(_quota_type_sort_key)
+    output = output.sort_values(["__ordem", "Tipo de cota"], kind="stable").drop(columns=["__ordem"])
+    return output.reset_index(drop=True)
+
+
+def _emissions_detail_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    columns = [
+        "Fundo",
+        "Data",
+        "Classe/Série",
+        "Tipo",
+        "Qtd cotas",
+        "Volume identificado (R$ mm)",
+        "Remuneração-alvo",
+        "Amortização/vencimento",
+        "Fonte",
+    ]
+    available = [column for column in columns if column in frame.columns]
+    if not available:
+        return pd.DataFrame()
+    return frame[available].copy()
+
+
+def _normalize_quota_type(value: object) -> str:
+    text = _display(value)
+    folded = _normalize_text(text)
+    if "mezanino" in folded or "mezz" in folded:
+        return "Mezanino"
+    if "subordin" in folded:
+        return "Subordinada"
+    if "senior" in folded or "sênior" in folded:
+        return "Sênior"
+    if text in {"—", ""}:
+        return "Não classificada"
+    return text
+
+
+def _quota_type_sort_key(value: object) -> int:
+    order = {
+        "Sênior": 10,
+        "Mezanino": 20,
+        "Subordinada": 30,
+        "Classe única": 40,
+        "Não classificada": 90,
+    }
+    return order.get(str(value), 80)
+
+
+def _parse_br_decimal(value: object) -> float | None:
+    text = _display(value)
+    if text == "—":
+        return None
+    text = text.replace("R$", "").strip()
+    if re.search(r"[A-Za-zÀ-ÿ]", text):
+        return None
+    clean = re.sub(r"[^0-9,.\-]", "", text)
+    if not clean or clean in {"-", ",", "."}:
+        return None
+    if "," in clean:
+        clean = clean.replace(".", "").replace(",", ".")
+    elif "." in clean:
+        parts = clean.split(".")
+        if len(parts) > 2 or all(len(part) == 3 for part in parts[1:]):
+            clean = "".join(parts)
+    try:
+        return float(clean)
+    except ValueError:
+        return None
+
+
+def _format_mm_sum(values: pd.Series) -> str:
+    total = pd.to_numeric(values, errors="coerce").dropna().sum()
+    return f"R$ {_br_number(float(total), 1)} mm"
+
+
+def _format_quantity_sum(values: pd.Series) -> str:
+    total = float(pd.to_numeric(values, errors="coerce").dropna().sum())
+    decimals = 0 if abs(total - round(total)) < 1e-9 else 1
+    return _br_number(total, decimals)
+
+
+def _collapse_text_values(values: pd.Series, *, limit: int = 3, max_chars: int = 96) -> str:
+    seen: list[str] = []
+    for value in values.tolist() if isinstance(values, pd.Series) else list(values):
+        text = _display(value)
+        if text == "—":
+            continue
+        if text not in seen:
+            seen.append(text)
+    if not seen:
+        return "N/D"
+    clipped = [_clip_text(item, max_chars=max_chars) for item in seen[:limit]]
+    if len(seen) > limit:
+        clipped.append(f"+{len(seen) - limit} variação(ões)")
+    return " | ".join(clipped)
+
+
+def _clip_text(value: str, *, max_chars: int) -> str:
+    text = re.sub(r"\s+", " ", str(value or "").strip())
+    if len(text) <= max_chars:
+        return text
+    return text[: max_chars - 1].rstrip() + "…"
 
 
 def _render_cloudwalk_waterfall(*, wrap: bool = True, compact: bool = False) -> None:
