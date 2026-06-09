@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brazil FIDC Strategy Snapshot</title>
+  <style>
+    :root {
+      --ink: #17212b;
+      --muted: #637083;
+      --line: #dfe6ec;
+      --paper: #fbfcfd;
+      --blue: #315d8c;
+      --teal: #247873;
+      --orange: #c96731;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #eef2f5;
+      color: var(--ink);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+    main { max-width: 1180px; margin: 0 auto; padding: 34px 24px 56px; }
+    .hero {
+      background: linear-gradient(135deg, #17324d, #275f63);
+      color: white;
+      border-radius: 8px;
+      padding: 34px 36px;
+      margin-bottom: 18px;
+    }
+    .kicker { color: #f0b266; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { font-size: 46px; line-height: 1.02; margin: 10px 0 12px; letter-spacing: 0; }
+    h2 { font-size: 24px; margin: 0 0 14px; }
+    h3 { font-size: 15px; margin: 14px 0 8px; color: #263544; }
+    .lead { max-width: 760px; font-size: 18px; color: #dce7ee; margin: 0 0 16px; }
+    .stamp { display: inline-block; color: #dce7ee; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; padding: 6px 12px; font-size: 13px; }
+    .grid.metrics { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .metric, .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(25,36,48,.05);
+    }
+    .metric { padding: 16px; min-height: 118px; }
+    .metric-label { font-size: 11px; color: var(--muted); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .metric-value { font-size: 25px; font-weight: 800; margin-top: 8px; }
+    .metric-note { color: var(--muted); font-size: 13px; margin-top: 5px; }
+    .card { padding: 24px; margin: 14px 0; overflow-x: auto; }
+    .two-col { display: grid; grid-template-columns: 1.35fr .9fr; gap: 22px; }
+    .three-col { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .callout { background: #f5f8fa; border: 1px solid var(--line); border-left: 4px solid var(--orange); border-radius: 6px; padding: 16px; }
+    .note, .empty { color: var(--muted); font-size: 13px; margin: 4px 0 12px; }
+    ul, ol { margin-top: 0; padding-left: 21px; }
+    li { margin: 8px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; }
+    th { text-align: left; color: #536271; background: #f4f7f9; border-bottom: 1px solid var(--line); padding: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+    td { border-bottom: 1px solid #edf1f4; padding: 8px; vertical-align: top; }
+    svg { width: 100%; height: auto; margin: 10px 0 12px; }
+    .chart-title { font: 700 17px Inter, Arial, sans-serif; fill: var(--ink); }
+    .legend { font: 12px Inter, Arial, sans-serif; fill: var(--muted); }
+    .axis-label { font: 11px Inter, Arial, sans-serif; fill: #536271; }
+    .value-label { font: 11px Inter, Arial, sans-serif; fill: var(--ink); }
+    .dot-label { font: 11px Inter, Arial, sans-serif; fill: var(--orange); font-weight: 700; }
+    @media (max-width: 900px) {
+      main { padding: 18px 12px 36px; }
+      h1 { font-size: 34px; }
+      .grid.metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+    </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="kicker">Brazil Private Credit / FIDC</div>
+      <h1>FIDC Strategy Snapshot</h1>
+      <p class="lead">A lightweight, self-contained executive view of the FIDC study. It shows the final outputs without requiring the 212 MB SQLite database.</p>
+      <div class="stamp">As of 2026-06-09 · IME 2024-01-31 to 2026-04-30</div>
+    </section>
+
+    <section class="grid metrics">
+      <div class="metric">
+        <div class="metric-label">Consolidated FIDCs</div>
+        <div class="metric-value">7.399</div>
+        <div class="metric-note">CNPJs/classes in the universe</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Regulatory matrices</div>
+        <div class="metric-value">764</div>
+        <div class="metric-note">Regulations read and classified</div>
+      </div>
+      
+        <div class="metric">
+          <div class="metric-label">2024FY</div>
+          <div class="metric-value">R$ 113,8 bi</div>
+          <div class="metric-note">845 emissores | 359 matrizes</div>
+        </div>
+        
+        <div class="metric">
+          <div class="metric-label">2025FY</div>
+          <div class="metric-value">R$ 130,9 bi</div>
+          <div class="metric-note">943 emissores | 440 matrizes</div>
+        </div>
+        
+        <div class="metric">
+          <div class="metric-label">2026YTD</div>
+          <div class="metric-value">R$ 58,2 bi</div>
+          <div class="metric-note">466 emissores | - matrizes</div>
+        </div>
+        
+    </section>
+
+    <section class="card">
+      <h2>How to explain Brazilian securitization to a foreign investor</h2>
+      <div class="two-col">
+        <ul>
+          <li><strong>FIDC is a bankruptcy-remote receivables vehicle.</strong> Investors buy senior/mezz/subordinated quotas backed by a defined pool of credit rights.</li>
+          <li><strong>The market is naturally segmented.</strong> Brazil has consumer credit, payroll loans, FGTS loans, supplier finance, cards/payments, agribusiness, real estate, NPLs and litigation receivables.</li>
+          <li><strong>CDI is the base rate language.</strong> Local investors usually read senior pricing as CDI + spread or % of CDI.</li>
+          <li><strong>Credit enhancement is explicit.</strong> Subordination, reserves, eligibility criteria, concentration limits, triggers and repurchase obligations are the core structural toolkit.</li>
+          <li><strong>There is room for product innovation.</strong> Some segments have material issuance volume but uneven use of reserves, triggers and concentration packages.</li>
+          <li><strong>The opportunity is relative value plus structuring.</strong> Better data, cleaner covenants and verified reporting can compress spread while protecting downside.</li>
+        </ul>
+        <div class="callout">
+          <h3>Investment-banking angle</h3>
+          <p>The study is meant to identify where a bank can originate, arrange, warehouse or distribute FIDC deals with a clearer structural pitch: lower funding cost for the seller, tighter senior spread for investors, and better downside controls for credit committees.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Market size and segments</h2>
+      <svg viewBox='0 0 920 300' role='img' aria-label='2025 issuance volume by segment'>
+<text class='chart-title' x='0' y='20'>2025 issuance volume by segment</text>
+<text class='axis-label' x='250' y='56' text-anchor='end'>Crédito PF</text>
+<rect x='260' y='43' width='534' height='16' rx='2' fill='#f0f3f6'/>
+<rect x='260' y='43' width='534.0' height='16' rx='2' fill='#247873'/>
+<text class='value-label' x='802.0' y='56'>R$ 21,2 bi</text>
+<text class='axis-label' x='250' y='86' text-anchor='end'>Crédito PJ</text>
+<rect x='260' y='73' width='534' height='16' rx='2' fill='#f0f3f6'/>
+<rect x='260' y='73' width='461.7' height='16' rx='2' fill='#247873'/>
+<text class='value-label' x='729.7' y='86'>R$ 18,3 bi</text>
+<text class='axis-label' x='250' y='116' text-anchor='end'>Meios de Pagamento e Cartões</text>
+<rect x='260' y='103' width='534' height='16' rx='2' fill='#f0f3f6'/>
+<rect x='260' y='103' width='252.9' height='16' rx='2' fill='#247873'/>
+<text class='value-label' x='520.9' y='116'>R$ 10,0 bi</text>
+<text class='axis-label' x='250' y='146' text-anchor='end'>Agro</text>
+<rect x='260' y='133' width='534' height='16' rx='2' fill='#f0f3f6'/>
+<rect x='260' y='133' width='210.8' height='16' rx='2' fill='#247873'/>
+<text class='value-label' x='478.8' y='146'>R$ 8,4 bi</text>
+<text class='axis-label' x='250' y='176' text-anchor='end'>FIC/Alocador</text>
+<rect x='260' y='163' width='534' height='16' rx='2' fill='#f0f3f6'/>
+<rect x='260' y='163' width='120.2' height='16' rx='2' fill='#247873'/>
+<text class='value-label' x='388.2' y='176'>R$ 4,8 bi</text>
+<text class='axis-label' x='250' y='206' text-anchor='end'>Infra/Energia</text>
+<rect x='260' y='193' width='534' height='16' rx='2' fill='#f0f3f6'/>
+<rect x='260' y='193' width='77.7' height='16' rx='2' fill='#247873'/>
+<text class='value-label' x='345.7' y='206'>R$ 3,1 bi</text>
+<text class='axis-label' x='250' y='236' text-anchor='end'>Judicial/Precatórios/NPL</text>
+<rect x='260' y='223' width='534' height='16' rx='2' fill='#f0f3f6'/>
+<rect x='260' y='223' width='47.2' height='16' rx='2' fill='#247873'/>
+<text class='value-label' x='315.2' y='236'>R$ 1,9 bi</text>
+<text class='axis-label' x='250' y='266' text-anchor='end'>Imobiliário</text>
+<rect x='260' y='253' width='534' height='16' rx='2' fill='#f0f3f6'/>
+<rect x='260' y='253' width='39.3' height='16' rx='2' fill='#247873'/>
+<text class='value-label' x='307.3' y='266'>R$ 1,6 bi</text>
+</svg>
+      <table><thead><tr><th>Segment</th><th>2024 issuance</th><th>2025 issuance</th><th>2026 YTD</th><th>Current PL</th><th>Funds</th></tr></thead><tbody><tr><td>Crédito PF</td><td>R$ 15,9 bi</td><td>R$ 21,2 bi</td><td>R$ 7,8 bi</td><td>R$ 41,4 bi</td><td>235</td></tr><tr><td>Crédito PJ</td><td>R$ 9,3 bi</td><td>R$ 18,3 bi</td><td>R$ 4,4 bi</td><td>R$ 35,8 bi</td><td>182</td></tr><tr><td>Meios de Pagamento e Cartões</td><td>R$ 7,0 bi</td><td>R$ 10,0 bi</td><td>R$ 8,3 bi</td><td>R$ 39,4 bi</td><td>44</td></tr><tr><td>Agro</td><td>R$ 6,3 bi</td><td>R$ 8,4 bi</td><td>R$ 2,8 bi</td><td>R$ 14,6 bi</td><td>81</td></tr><tr><td>FIC/Alocador</td><td>R$ 3,0 bi</td><td>R$ 4,8 bi</td><td>R$ 1,2 bi</td><td>R$ 6,6 bi</td><td>14</td></tr><tr><td>Infra/Energia</td><td>R$ 836 mi</td><td>R$ 3,1 bi</td><td>R$ 170 mi</td><td>R$ 3,5 bi</td><td>17</td></tr><tr><td>Judicial/Precatórios/NPL</td><td>R$ 2,9 bi</td><td>R$ 1,9 bi</td><td>R$ 978 mi</td><td>R$ 14,7 bi</td><td>20</td></tr><tr><td>Imobiliário</td><td>R$ 1,7 bi</td><td>R$ 1,6 bi</td><td>R$ 1,0 bi</td><td>R$ 3,7 bi</td><td>34</td></tr></tbody></table>
+    </section>
+
+    <section class="card">
+      <h2>Regulatory heatmaps: what clauses are common?</h2>
+      <p class="note">These matrices read only funds with regulatory documents in the study. “No evidence” means the clause was not found by the extractor in the available regulation package.</p>
+      <svg viewBox='0 0 1040 492' role='img' aria-label='2024 issued funds: regulation feature matrix'>
+<text class='chart-title' x='0' y='22'>2024 issued funds: regulation feature matrix</text>
+<text class='legend' x='0' y='42'>Frequência equal-weight: percentual dos fundos lidos cujo regulamento contém a cláusula.</text>
+<text class='axis-label' x='212' y='79' text-anchor='end'>Crédito PF | Crédito pessoal/…</text>
+<rect x='220' y='62' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='62' width='43' height='23' fill='#2f6186'/>
+<rect x='308' y='62' width='43' height='23' fill='#80a1b4'/>
+<rect x='352' y='62' width='43' height='23' fill='#7a9db1'/>
+<rect x='396' y='62' width='43' height='23' fill='#2f6186'/>
+<rect x='440' y='62' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='62' width='43' height='23' fill='#2c5f85'/>
+<rect x='528' y='62' width='43' height='23' fill='#7a9db1'/>
+<rect x='572' y='62' width='43' height='23' fill='#e3f0ec'/>
+<rect x='616' y='62' width='43' height='23' fill='#c3d7da'/>
+<rect x='660' y='62' width='43' height='23' fill='#2f6186'/>
+<rect x='704' y='62' width='43' height='23' fill='#a4bec9'/>
+<rect x='748' y='62' width='43' height='23' fill='#acc4cd'/>
+<rect x='792' y='62' width='43' height='23' fill='#6b91a8'/>
+<text class='axis-label' x='212' y='103' text-anchor='end'>Agro | Agro</text>
+<rect x='220' y='86' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='86' width='43' height='23' fill='#457393'/>
+<rect x='308' y='86' width='43' height='23' fill='#769aaf'/>
+<rect x='352' y='86' width='43' height='23' fill='#85a6b7'/>
+<rect x='396' y='86' width='43' height='23' fill='#4f7a98'/>
+<rect x='440' y='86' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='86' width='43' height='23' fill='#406f90'/>
+<rect x='528' y='86' width='43' height='23' fill='#628aa4'/>
+<rect x='572' y='86' width='43' height='23' fill='#d9e8e7'/>
+<rect x='616' y='86' width='43' height='23' fill='#c5d9db'/>
+<rect x='660' y='86' width='43' height='23' fill='#4a7696'/>
+<rect x='704' y='86' width='43' height='23' fill='#99b5c2'/>
+<rect x='748' y='86' width='43' height='23' fill='#a8c1cb'/>
+<rect x='792' y='86' width='43' height='23' fill='#678ea6'/>
+<text class='axis-label' x='212' y='127' text-anchor='end'>Crédito PJ | Risco sacado/for…</text>
+<rect x='220' y='110' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='110' width='43' height='23' fill='#275b82'/>
+<rect x='308' y='110' width='43' height='23' fill='#467494'/>
+<rect x='352' y='110' width='43' height='23' fill='#6088a2'/>
+<rect x='396' y='110' width='43' height='23' fill='#2c5f85'/>
+<rect x='440' y='110' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='110' width='43' height='23' fill='#2c5f85'/>
+<rect x='528' y='110' width='43' height='23' fill='#517c9a'/>
+<rect x='572' y='110' width='43' height='23' fill='#e8f4ef'/>
+<rect x='616' y='110' width='43' height='23' fill='#b4cbd2'/>
+<rect x='660' y='110' width='43' height='23' fill='#2c5f85'/>
+<rect x='704' y='110' width='43' height='23' fill='#c9dbdd'/>
+<rect x='748' y='110' width='43' height='23' fill='#c3d7da'/>
+<rect x='792' y='110' width='43' height='23' fill='#4c7897'/>
+<text class='axis-label' x='212' y='151' text-anchor='end'>Crédito PJ | Recebíveis comer…</text>
+<rect x='220' y='134' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='134' width='43' height='23' fill='#59829e'/>
+<rect x='308' y='134' width='43' height='23' fill='#7fa1b4'/>
+<rect x='352' y='134' width='43' height='23' fill='#90aebd'/>
+<rect x='396' y='134' width='43' height='23' fill='#59829e'/>
+<rect x='440' y='134' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='134' width='43' height='23' fill='#59829e'/>
+<rect x='528' y='134' width='43' height='23' fill='#7498ae'/>
+<rect x='572' y='134' width='43' height='23' fill='#d7e7e6'/>
+<rect x='616' y='134' width='43' height='23' fill='#d2e3e3'/>
+<rect x='660' y='134' width='43' height='23' fill='#537e9b'/>
+<rect x='704' y='134' width='43' height='23' fill='#a0bbc7'/>
+<rect x='748' y='134' width='43' height='23' fill='#85a5b7'/>
+<rect x='792' y='134' width='43' height='23' fill='#95b2c0'/>
+<text class='axis-label' x='212' y='175' text-anchor='end'>Imobiliário | Imobiliário</text>
+<rect x='220' y='158' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='158' width='43' height='23' fill='#306287'/>
+<rect x='308' y='158' width='43' height='23' fill='#b1c8d0'/>
+<rect x='352' y='158' width='43' height='23' fill='#4c7897'/>
+<rect x='396' y='158' width='43' height='23' fill='#437192'/>
+<rect x='440' y='158' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='158' width='43' height='23' fill='#306287'/>
+<rect x='528' y='158' width='43' height='23' fill='#5e87a1'/>
+<rect x='572' y='158' width='43' height='23' fill='#b1c8d0'/>
+<rect x='616' y='158' width='43' height='23' fill='#8cabbb'/>
+<rect x='660' y='158' width='43' height='23' fill='#306287'/>
+<rect x='704' y='158' width='43' height='23' fill='#b1c8d0'/>
+<rect x='748' y='158' width='43' height='23' fill='#5e87a1'/>
+<rect x='792' y='158' width='43' height='23' fill='#b1c8d0'/>
+<text class='axis-label' x='212' y='199' text-anchor='end'>Crédito PF | Consignado/INSS</text>
+<rect x='220' y='182' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='182' width='43' height='23' fill='#3b6b8d'/>
+<rect x='308' y='182' width='43' height='23' fill='#82a3b6'/>
+<rect x='352' y='182' width='43' height='23' fill='#8dacbb'/>
+<rect x='396' y='182' width='43' height='23' fill='#457393'/>
+<rect x='440' y='182' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='182' width='43' height='23' fill='#457393'/>
+<rect x='528' y='182' width='43' height='23' fill='#6e93aa'/>
+<rect x='572' y='182' width='43' height='23' fill='#cadcde'/>
+<rect x='616' y='182' width='43' height='23' fill='#cadcde'/>
+<rect x='660' y='182' width='43' height='23' fill='#3b6b8d'/>
+<rect x='704' y='182' width='43' height='23' fill='#a1bcc7'/>
+<rect x='748' y='182' width='43' height='23' fill='#97b4c1'/>
+<rect x='792' y='182' width='43' height='23' fill='#789bb0'/>
+<text class='axis-label' x='212' y='223' text-anchor='end'>Meios de Pagamento e Cartões …</text>
+<rect x='220' y='206' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='206' width='43' height='23' fill='#275b82'/>
+<rect x='308' y='206' width='43' height='23' fill='#6088a2'/>
+<rect x='352' y='206' width='43' height='23' fill='#8dacbc'/>
+<rect x='396' y='206' width='43' height='23' fill='#326488'/>
+<rect x='440' y='206' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='206' width='43' height='23' fill='#326488'/>
+<rect x='528' y='206' width='43' height='23' fill='#6088a2'/>
+<rect x='572' y='206' width='43' height='23' fill='#bbd0d5'/>
+<rect x='616' y='206' width='43' height='23' fill='#afc7cf'/>
+<rect x='660' y='206' width='43' height='23' fill='#275b82'/>
+<rect x='704' y='206' width='43' height='23' fill='#769aaf'/>
+<rect x='748' y='206' width='43' height='23' fill='#a4bec9'/>
+<rect x='792' y='206' width='43' height='23' fill='#326488'/>
+<text class='axis-label' x='212' y='247' text-anchor='end'>Judicial/Precatórios/NPL | Nã…</text>
+<rect x='220' y='230' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='230' width='43' height='23' fill='#81a2b5'/>
+<rect x='308' y='230' width='43' height='23' fill='#b5cbd2'/>
+<rect x='352' y='230' width='43' height='23' fill='#a8c1cb'/>
+<rect x='396' y='230' width='43' height='23' fill='#5a849f'/>
+<rect x='440' y='230' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='230' width='43' height='23' fill='#81a2b5'/>
+<rect x='528' y='230' width='43' height='23' fill='#9bb7c3'/>
+<rect x='572' y='230' width='43' height='23' fill='#dbeae8'/>
+<rect x='616' y='230' width='43' height='23' fill='#c1d5d9'/>
+<rect x='660' y='230' width='43' height='23' fill='#81a2b5'/>
+<rect x='704' y='230' width='43' height='23' fill='#a8c1cb'/>
+<rect x='748' y='230' width='43' height='23' fill='#a8c1cb'/>
+<rect x='792' y='230' width='43' height='23' fill='#a8c1cb'/>
+<text class='axis-label' x='212' y='271' text-anchor='end'>Crédito PF | FGTS</text>
+<rect x='220' y='254' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='254' width='43' height='23' fill='#275b82'/>
+<rect x='308' y='254' width='43' height='23' fill='#57819d'/>
+<rect x='352' y='254' width='43' height='23' fill='#779baf'/>
+<rect x='396' y='254' width='43' height='23' fill='#477494'/>
+<rect x='440' y='254' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='254' width='43' height='23' fill='#477494'/>
+<rect x='528' y='254' width='43' height='23' fill='#477494'/>
+<rect x='572' y='254' width='43' height='23' fill='#275b82'/>
+<rect x='616' y='254' width='43' height='23' fill='#c8dadd'/>
+<rect x='660' y='254' width='43' height='23' fill='#477494'/>
+<rect x='704' y='254' width='43' height='23' fill='#779baf'/>
+<rect x='748' y='254' width='43' height='23' fill='#88a8b8'/>
+<rect x='792' y='254' width='43' height='23' fill='#477494'/>
+<text class='axis-label' x='212' y='295' text-anchor='end'>Crédito PJ | CCB/Notas comerc…</text>
+<rect x='220' y='278' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='278' width='43' height='23' fill='#275b82'/>
+<rect x='308' y='278' width='43' height='23' fill='#90aebd'/>
+<rect x='352' y='278' width='43' height='23' fill='#5c85a0'/>
+<rect x='396' y='278' width='43' height='23' fill='#275b82'/>
+<rect x='440' y='278' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='278' width='43' height='23' fill='#275b82'/>
+<rect x='528' y='278' width='43' height='23' fill='#6d93aa'/>
+<rect x='572' y='278' width='43' height='23' fill='#e8f4ef'/>
+<rect x='616' y='278' width='43' height='23' fill='#c5d8db'/>
+<rect x='660' y='278' width='43' height='23' fill='#275b82'/>
+<rect x='704' y='278' width='43' height='23' fill='#7fa1b4'/>
+<rect x='748' y='278' width='43' height='23' fill='#7fa1b4'/>
+<rect x='792' y='278' width='43' height='23' fill='#5c85a0'/>
+<text class='axis-label' transform='translate(232,312) rotate(60)'>Amortização defin…</text>
+<text class='axis-label' transform='translate(276,312) rotate(60)'>Lastro confirmado</text>
+<text class='axis-label' transform='translate(320,312) rotate(60)'>Reserva/caixa</text>
+<text class='axis-label' transform='translate(364,312) rotate(60)'>Concentração</text>
+<text class='axis-label' transform='translate(408,312) rotate(60)'>Triggers/performa…</text>
+<text class='axis-label' transform='translate(452,312) rotate(60)'>Derivativos</text>
+<text class='axis-label' transform='translate(496,312) rotate(60)'>Elegibilidade</text>
+<text class='axis-label' transform='translate(540,312) rotate(60)'>Mezanino</text>
+<text class='axis-label' transform='translate(584,312) rotate(60)'>Sacado/devedor no…</text>
+<text class='axis-label' transform='translate(628,312) rotate(60)'>Cedente/originado…</text>
+<text class='axis-label' transform='translate(672,312) rotate(60)'>Rating</text>
+<text class='axis-label' transform='translate(716,312) rotate(60)'>Recompra/indeniza…</text>
+<text class='axis-label' transform='translate(760,312) rotate(60)'>Revolvência</text>
+<text class='axis-label' transform='translate(804,312) rotate(60)'>Subordinação míni…</text>
+</svg>
+      <svg viewBox='0 0 1040 492' role='img' aria-label='2025 issued funds: regulation feature matrix'>
+<text class='chart-title' x='0' y='22'>2025 issued funds: regulation feature matrix</text>
+<text class='legend' x='0' y='42'>Frequência equal-weight: percentual dos fundos lidos cujo regulamento contém a cláusula.</text>
+<text class='axis-label' x='212' y='79' text-anchor='end'>Crédito PF | Crédito pessoal/…</text>
+<rect x='220' y='62' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='62' width='43' height='23' fill='#316388'/>
+<rect x='308' y='62' width='43' height='23' fill='#8dacbb'/>
+<rect x='352' y='62' width='43' height='23' fill='#7599ae'/>
+<rect x='396' y='62' width='43' height='23' fill='#2f6186'/>
+<rect x='440' y='62' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='62' width='43' height='23' fill='#2c5f85'/>
+<rect x='528' y='62' width='43' height='23' fill='#688fa7'/>
+<rect x='572' y='62' width='43' height='23' fill='#e0eeeb'/>
+<rect x='616' y='62' width='43' height='23' fill='#c6d9dc'/>
+<rect x='660' y='62' width='43' height='23' fill='#2c5f85'/>
+<rect x='704' y='62' width='43' height='23' fill='#b1c9d0'/>
+<rect x='748' y='62' width='43' height='23' fill='#9ab6c3'/>
+<rect x='792' y='62' width='43' height='23' fill='#5e86a1'/>
+<text class='axis-label' x='212' y='103' text-anchor='end'>Crédito PJ | Recebíveis comer…</text>
+<rect x='220' y='86' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='86' width='43' height='23' fill='#4c7997'/>
+<rect x='308' y='86' width='43' height='23' fill='#84a5b7'/>
+<rect x='352' y='86' width='43' height='23' fill='#6b91a9'/>
+<rect x='396' y='86' width='43' height='23' fill='#4f7b99'/>
+<rect x='440' y='86' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='86' width='43' height='23' fill='#56809c'/>
+<rect x='528' y='86' width='43' height='23' fill='#7599ae'/>
+<rect x='572' y='86' width='43' height='23' fill='#d2e3e3'/>
+<rect x='616' y='86' width='43' height='23' fill='#ccdedf'/>
+<rect x='660' y='86' width='43' height='23' fill='#497695'/>
+<rect x='704' y='86' width='43' height='23' fill='#9db9c5'/>
+<rect x='748' y='86' width='43' height='23' fill='#97b4c1'/>
+<rect x='792' y='86' width='43' height='23' fill='#789bb0'/>
+<text class='axis-label' x='212' y='127' text-anchor='end'>Agro | Agro</text>
+<rect x='220' y='110' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='110' width='43' height='23' fill='#3b6b8d'/>
+<rect x='308' y='110' width='43' height='23' fill='#7599ae'/>
+<rect x='352' y='110' width='43' height='23' fill='#678ea6'/>
+<rect x='396' y='110' width='43' height='23' fill='#427091'/>
+<rect x='440' y='110' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='110' width='43' height='23' fill='#3f6e8f'/>
+<rect x='528' y='110' width='43' height='23' fill='#5d86a1'/>
+<rect x='572' y='110' width='43' height='23' fill='#cadcde'/>
+<rect x='616' y='110' width='43' height='23' fill='#a1bcc7'/>
+<rect x='660' y='110' width='43' height='23' fill='#4c7997'/>
+<rect x='704' y='110' width='43' height='23' fill='#89a9b9'/>
+<rect x='748' y='110' width='43' height='23' fill='#93b1bf'/>
+<rect x='792' y='110' width='43' height='23' fill='#5d86a1'/>
+<text class='axis-label' x='212' y='151' text-anchor='end'>Crédito PJ | Risco sacado/for…</text>
+<rect x='220' y='134' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='134' width='43' height='23' fill='#275b82'/>
+<rect x='308' y='134' width='43' height='23' fill='#35668a'/>
+<rect x='352' y='134' width='43' height='23' fill='#527d9a'/>
+<rect x='396' y='134' width='43' height='23' fill='#275b82'/>
+<rect x='440' y='134' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='134' width='43' height='23' fill='#35668a'/>
+<rect x='528' y='134' width='43' height='23' fill='#447292'/>
+<rect x='572' y='134' width='43' height='23' fill='#e1eeeb'/>
+<rect x='616' y='134' width='43' height='23' fill='#a8c1cb'/>
+<rect x='660' y='134' width='43' height='23' fill='#275b82'/>
+<rect x='704' y='134' width='43' height='23' fill='#b6ccd3'/>
+<rect x='748' y='134' width='43' height='23' fill='#c4d8db'/>
+<rect x='792' y='134' width='43' height='23' fill='#447292'/>
+<text class='axis-label' x='212' y='175' text-anchor='end'>Crédito PF | Auto/Veículos</text>
+<rect x='220' y='158' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='158' width='43' height='23' fill='#3d6d8f'/>
+<rect x='308' y='158' width='43' height='23' fill='#96b3c1'/>
+<rect x='352' y='158' width='43' height='23' fill='#9eb9c5'/>
+<rect x='396' y='158' width='43' height='23' fill='#628aa4'/>
+<rect x='440' y='158' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='158' width='43' height='23' fill='#3d6d8f'/>
+<rect x='528' y='158' width='43' height='23' fill='#9eb9c5'/>
+<rect x='572' y='158' width='43' height='23' fill='#d2e2e2'/>
+<rect x='616' y='158' width='43' height='23' fill='#b4cbd2'/>
+<rect x='660' y='158' width='43' height='23' fill='#4c7897'/>
+<rect x='704' y='158' width='43' height='23' fill='#a5bfc9'/>
+<rect x='748' y='158' width='43' height='23' fill='#bbd1d6'/>
+<rect x='792' y='158' width='43' height='23' fill='#6a90a8'/>
+<text class='axis-label' x='212' y='199' text-anchor='end'>Crédito PJ | CCB/Notas comerc…</text>
+<rect x='220' y='182' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='182' width='43' height='23' fill='#7fa1b4'/>
+<rect x='308' y='182' width='43' height='23' fill='#a8c1cb'/>
+<rect x='352' y='182' width='43' height='23' fill='#a0bbc6'/>
+<rect x='396' y='182' width='43' height='23' fill='#779baf'/>
+<rect x='440' y='182' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='182' width='43' height='23' fill='#7fa1b4'/>
+<rect x='528' y='182' width='43' height='23' fill='#6f94ab'/>
+<rect x='572' y='182' width='43' height='23' fill='#e0eeea'/>
+<rect x='616' y='182' width='43' height='23' fill='#e0eeea'/>
+<rect x='660' y='182' width='43' height='23' fill='#779baf'/>
+<rect x='704' y='182' width='43' height='23' fill='#b0c7cf'/>
+<rect x='748' y='182' width='43' height='23' fill='#b8ced4'/>
+<rect x='792' y='182' width='43' height='23' fill='#90aebd'/>
+<text class='axis-label' x='212' y='223' text-anchor='end'>Crédito PF | Consignado/INSS</text>
+<rect x='220' y='206' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='206' width='43' height='23' fill='#517c9a'/>
+<rect x='308' y='206' width='43' height='23' fill='#7397ad'/>
+<rect x='352' y='206' width='43' height='23' fill='#94b1c0'/>
+<rect x='396' y='206' width='43' height='23' fill='#517c9a'/>
+<rect x='440' y='206' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='206' width='43' height='23' fill='#59839e'/>
+<rect x='528' y='206' width='43' height='23' fill='#59839e'/>
+<rect x='572' y='206' width='43' height='23' fill='#bed3d7'/>
+<rect x='616' y='206' width='43' height='23' fill='#d7e7e6'/>
+<rect x='660' y='206' width='43' height='23' fill='#497695'/>
+<rect x='704' y='206' width='43' height='23' fill='#94b1c0'/>
+<rect x='748' y='206' width='43' height='23' fill='#a5bfc9'/>
+<rect x='792' y='206' width='43' height='23' fill='#8cabbb'/>
+<text class='axis-label' x='212' y='247' text-anchor='end'>Imobiliário | Imobiliário</text>
+<rect x='220' y='230' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='230' width='43' height='23' fill='#346589'/>
+<rect x='308' y='230' width='43' height='23' fill='#9bb7c3'/>
+<rect x='352' y='230' width='43' height='23' fill='#678ea6'/>
+<rect x='396' y='230' width='43' height='23' fill='#4e7a98'/>
+<rect x='440' y='230' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='230' width='43' height='23' fill='#4e7a98'/>
+<rect x='528' y='230' width='43' height='23' fill='#8eadbc'/>
+<rect x='572' y='230' width='43' height='23' fill='#cee0e0'/>
+<rect x='616' y='230' width='43' height='23' fill='#b5cbd2'/>
+<rect x='660' y='230' width='43' height='23' fill='#346589'/>
+<rect x='704' y='230' width='43' height='23' fill='#cee0e0'/>
+<rect x='748' y='230' width='43' height='23' fill='#8eadbc'/>
+<rect x='792' y='230' width='43' height='23' fill='#8eadbc'/>
+<text class='axis-label' x='212' y='271' text-anchor='end'>Meios de Pagamento e Cartões …</text>
+<rect x='220' y='254' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='254' width='43' height='23' fill='#275b82'/>
+<rect x='308' y='254' width='43' height='23' fill='#7a9db1'/>
+<rect x='352' y='254' width='43' height='23' fill='#a3bdc8'/>
+<rect x='396' y='254' width='43' height='23' fill='#275b82'/>
+<rect x='440' y='254' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='254' width='43' height='23' fill='#275b82'/>
+<rect x='528' y='254' width='43' height='23' fill='#437192'/>
+<rect x='572' y='254' width='43' height='23' fill='#dae9e7'/>
+<rect x='616' y='254' width='43' height='23' fill='#dae9e7'/>
+<rect x='660' y='254' width='43' height='23' fill='#275b82'/>
+<rect x='704' y='254' width='43' height='23' fill='#a3bdc8'/>
+<rect x='748' y='254' width='43' height='23' fill='#b1c8d0'/>
+<rect x='792' y='254' width='43' height='23' fill='#437192'/>
+<text class='axis-label' x='212' y='295' text-anchor='end'>Infra/Energia | Energia/infra</text>
+<rect x='220' y='278' width='43' height='23' fill='#e8f4ef'/>
+<rect x='264' y='278' width='43' height='23' fill='#c8dadd'/>
+<rect x='308' y='278' width='43' height='23' fill='#d8e7e6'/>
+<rect x='352' y='278' width='43' height='23' fill='#e8f4ef'/>
+<rect x='396' y='278' width='43' height='23' fill='#c8dadd'/>
+<rect x='440' y='278' width='43' height='23' fill='#e8f4ef'/>
+<rect x='484' y='278' width='43' height='23' fill='#c8dadd'/>
+<rect x='528' y='278' width='43' height='23' fill='#c8dadd'/>
+<rect x='572' y='278' width='43' height='23' fill='#e8f4ef'/>
+<rect x='616' y='278' width='43' height='23' fill='#e8f4ef'/>
+<rect x='660' y='278' width='43' height='23' fill='#c8dadd'/>
+<rect x='704' y='278' width='43' height='23' fill='#e8f4ef'/>
+<rect x='748' y='278' width='43' height='23' fill='#d8e7e6'/>
+<rect x='792' y='278' width='43' height='23' fill='#c8dadd'/>
+<text class='axis-label' transform='translate(232,312) rotate(60)'>Amortização defin…</text>
+<text class='axis-label' transform='translate(276,312) rotate(60)'>Lastro confirmado</text>
+<text class='axis-label' transform='translate(320,312) rotate(60)'>Reserva/caixa</text>
+<text class='axis-label' transform='translate(364,312) rotate(60)'>Concentração</text>
+<text class='axis-label' transform='translate(408,312) rotate(60)'>Triggers/performa…</text>
+<text class='axis-label' transform='translate(452,312) rotate(60)'>Derivativos</text>
+<text class='axis-label' transform='translate(496,312) rotate(60)'>Elegibilidade</text>
+<text class='axis-label' transform='translate(540,312) rotate(60)'>Mezanino</text>
+<text class='axis-label' transform='translate(584,312) rotate(60)'>Sacado/devedor no…</text>
+<text class='axis-label' transform='translate(628,312) rotate(60)'>Cedente/originado…</text>
+<text class='axis-label' transform='translate(672,312) rotate(60)'>Rating</text>
+<text class='axis-label' transform='translate(716,312) rotate(60)'>Recompra/indeniza…</text>
+<text class='axis-label' transform='translate(760,312) rotate(60)'>Revolvência</text>
+<text class='axis-label' transform='translate(804,312) rotate(60)'>Subordinação míni…</text>
+</svg>
+    </section>
+
+    <section class="card">
+      <h2>Senior tranche economics: issuance size vs CDI+ spread</h2>
+      <p class="note">Bars show mapped senior issuance volume. Orange dots show CDI+ spread when extracted. Coverage is uneven because many offerings do not expose a clean CDI+ field in the parsed data.</p>
+      <svg viewBox='0 0 980 378' role='img' aria-label='2024 senior pricing'>
+<text class='chart-title' x='0' y='22'>2024 senior pricing</text>
+<text class='legend' x='284' y='40'>Barra = volume | ponto = CDI+ a.a.</text>
+<text class='axis-label' x='274' y='68' text-anchor='end'>Meios de Pagamento e Cartões | Arranj…</text>
+<rect x='284' y='54' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='54' width='520.0' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='812.0' y='68'>R$ 4,7 bi</text>
+<text class='axis-label' x='274' y='102' text-anchor='end'>Crédito PF | Consignado/INSS</text>
+<rect x='284' y='88' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='88' width='123.1' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='415.1' y='102'>R$ 1,1 bi</text>
+<text class='axis-label' x='274' y='136' text-anchor='end'>Agro | Agro</text>
+<rect x='284' y='122' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='122' width='78.6' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='370.6' y='136'>R$ 705 mi</text>
+<circle cx='804.0' cy='131' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='813.0' y='135'>9,00%</text>
+<text class='axis-label' x='274' y='170' text-anchor='end'>Crédito PF | FGTS</text>
+<rect x='284' y='156' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='156' width='63.0' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='355.0' y='170'>R$ 565 mi</text>
+<text class='axis-label' x='274' y='204' text-anchor='end'>Crédito PF | Crédito estudantil</text>
+<rect x='284' y='190' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='190' width='31.4' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='323.4' y='204'>R$ 282 mi</text>
+<text class='axis-label' x='274' y='238' text-anchor='end'>Crédito PJ | CCB/Notas comerciais/Cap…</text>
+<rect x='284' y='224' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='224' width='16.7' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='308.7' y='238'>R$ 150 mi</text>
+<text class='axis-label' x='274' y='272' text-anchor='end'>Meios de Pagamento e Cartões | Bancos…</text>
+<rect x='284' y='258' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='258' width='6.7' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='298.7' y='272'>R$ 60 mi</text>
+<circle cx='572.9' cy='267' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='581.9' y='271'>5,00%</text>
+<text class='axis-label' x='274' y='306' text-anchor='end'>Crédito PJ | Risco sacado/fornecedores</text>
+<rect x='284' y='292' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='292' width='2.0' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='294.0' y='306'>R$ 1 mi</text>
+<circle cx='601.8' cy='301' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='610.8' y='305'>5,50%</text>
+<text class='axis-label' x='274' y='340' text-anchor='end'>Sem oferta CVM mapeada | Sem oferta C…</text>
+<rect x='284' y='326' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='326' width='2.0' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='294.0' y='340'>R$ 21.000</text>
+<circle cx='549.8' cy='335' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='558.8' y='339'>4,60%</text>
+</svg>
+      <svg viewBox='0 0 980 344' role='img' aria-label='2025 senior pricing'>
+<text class='chart-title' x='0' y='22'>2025 senior pricing</text>
+<text class='legend' x='284' y='40'>Barra = volume | ponto = CDI+ a.a.</text>
+<text class='axis-label' x='274' y='68' text-anchor='end'>Meios de Pagamento e Cartões | Arranj…</text>
+<rect x='284' y='54' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='54' width='520.0' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='812.0' y='68'>R$ 11,5 bi</text>
+<text class='axis-label' x='274' y='102' text-anchor='end'>Crédito PJ | CCB/Notas comerciais/Cap…</text>
+<rect x='284' y='88' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='88' width='261.8' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='553.8' y='102'>R$ 5,8 bi</text>
+<text class='axis-label' x='274' y='136' text-anchor='end'>Crédito PF | Consignado/INSS</text>
+<rect x='284' y='122' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='122' width='15.3' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='307.3' y='136'>R$ 340 mi</text>
+<circle cx='492.0' cy='131' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='501.0' y='135'>2,40%</text>
+<text class='axis-label' x='274' y='170' text-anchor='end'>Crédito PJ | Risco sacado/fornecedores</text>
+<rect x='284' y='156' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='156' width='14.8' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='306.8' y='170'>R$ 330 mi</text>
+<circle cx='630.7' cy='165' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='639.7' y='169'>4,00%</text>
+<text class='axis-label' x='274' y='204' text-anchor='end'>Crédito PF | Crédito estudantil</text>
+<rect x='284' y='190' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='190' width='6.1' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='298.1' y='204'>R$ 135 mi</text>
+<text class='axis-label' x='274' y='238' text-anchor='end'>Crédito PF | FGTS</text>
+<rect x='284' y='224' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='224' width='3.8' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='295.8' y='238'>R$ 85 mi</text>
+<circle cx='500.7' cy='233' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='509.7' y='237'>2,50%</text>
+<text class='axis-label' x='274' y='272' text-anchor='end'>Meios de Pagamento e Cartões | Bancos…</text>
+<rect x='284' y='258' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='258' width='2.3' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='294.3' y='272'>R$ 50 mi</text>
+<text class='axis-label' x='274' y='306' text-anchor='end'>Sem oferta CVM mapeada | Sem oferta C…</text>
+<rect x='284' y='292' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='292' width='2.0' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='294.0' y='306'>R$ 3.000</text>
+<circle cx='804.0' cy='301' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='813.0' y='305'>6,00%</text>
+</svg>
+    </section>
+
+    <section class="card">
+      <h2>Current subordination observed in CVM monthly reports</h2>
+      <p class="note">This is the economic structure observed from IME quota values, not only the minimum subordination language in regulations.</p>
+      <svg viewBox='0 0 980 480' role='img' aria-label='2024 cohort: current PL vs actual subordination'>
+<text class='chart-title' x='0' y='22'>2024 cohort: current PL vs actual subordination</text>
+<text class='legend' x='284' y='40'>Barra = volume | ponto = median subordination</text>
+<text class='axis-label' x='274' y='68' text-anchor='end'>Meios de Pagamento e Cartões | Arranj…</text>
+<rect x='284' y='54' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='54' width='520.0' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='812.0' y='68'>R$ 14,2 bi</text>
+<circle cx='804.0' cy='63' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='813.0' y='67'>100,00%</text>
+<text class='axis-label' x='274' y='102' text-anchor='end'>Judicial/Precatórios/NPL | Não padron…</text>
+<rect x='284' y='88' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='88' width='514.3' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='806.3' y='102'>R$ 14,0 bi</text>
+<circle cx='466.2' cy='97' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='475.2' y='101'>35,03%</text>
+<text class='axis-label' x='274' y='136' text-anchor='end'>Agro | Agro</text>
+<rect x='284' y='122' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='122' width='359.1' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='651.1' y='136'>R$ 9,8 bi</text>
+<circle cx='480.4' cy='131' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='489.4' y='135'>37,77%</text>
+<text class='axis-label' x='274' y='170' text-anchor='end'>FIC/Alocador | FIC de FIDC</text>
+<rect x='284' y='156' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='156' width='355.0' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='647.0' y='170'>R$ 9,7 bi</text>
+<circle cx='364.4' cy='165' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='373.4' y='169'>15,46%</text>
+<text class='axis-label' x='274' y='204' text-anchor='end'>Crédito PJ | Recebíveis comerciais/mu…</text>
+<rect x='284' y='190' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='190' width='352.8' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='644.8' y='204'>R$ 9,6 bi</text>
+<circle cx='457.1' cy='199' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='466.1' y='203'>33,29%</text>
+<text class='axis-label' x='274' y='238' text-anchor='end'>Crédito PJ | Risco sacado/fornecedores</text>
+<rect x='284' y='224' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='224' width='340.9' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='632.9' y='238'>R$ 9,3 bi</text>
+<circle cx='570.7' cy='233' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='579.7' y='237'>55,14%</text>
+<text class='axis-label' x='274' y='272' text-anchor='end'>Crédito PF | Crédito pessoal/consumo</text>
+<rect x='284' y='258' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='258' width='324.3' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='616.3' y='272'>R$ 8,8 bi</text>
+<circle cx='508.4' cy='267' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='517.4' y='271'>43,15%</text>
+<text class='axis-label' x='274' y='306' text-anchor='end'>Crédito PF | Consignado/INSS</text>
+<rect x='284' y='292' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='292' width='304.8' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='596.8' y='306'>R$ 8,3 bi</text>
+<circle cx='380.4' cy='301' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='389.4' y='305'>18,53%</text>
+<text class='axis-label' x='274' y='340' text-anchor='end'>Crédito PF | FGTS</text>
+<rect x='284' y='326' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='326' width='147.1' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='439.1' y='340'>R$ 4,0 bi</text>
+<circle cx='367.4' cy='335' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='376.4' y='339'>16,03%</text>
+<text class='axis-label' x='274' y='374' text-anchor='end'>Crédito PJ | CCB/Notas comerciais/Cap…</text>
+<rect x='284' y='360' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='360' width='104.4' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='396.4' y='374'>R$ 2,8 bi</text>
+<circle cx='503.8' cy='369' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='512.8' y='373'>42,27%</text>
+<text class='axis-label' x='274' y='408' text-anchor='end'>Imobiliário | Imobiliário</text>
+<rect x='284' y='394' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='394' width='92.4' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='384.4' y='408'>R$ 2,5 bi</text>
+<circle cx='411.0' cy='403' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='420.0' y='407'>24,43%</text>
+<text class='axis-label' x='274' y='442' text-anchor='end'>Meios de Pagamento e Cartões | Bancos…</text>
+<rect x='284' y='428' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='428' width='89.5' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='381.5' y='442'>R$ 2,4 bi</text>
+<circle cx='671.5' cy='437' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='680.5' y='441'>74,52%</text>
+</svg>
+      <svg viewBox='0 0 980 480' role='img' aria-label='2025 cohort: current PL vs actual subordination'>
+<text class='chart-title' x='0' y='22'>2025 cohort: current PL vs actual subordination</text>
+<text class='legend' x='284' y='40'>Barra = volume | ponto = median subordination</text>
+<text class='axis-label' x='274' y='68' text-anchor='end'>Meios de Pagamento e Cartões | Arranj…</text>
+<rect x='284' y='54' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='54' width='520.0' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='812.0' y='68'>R$ 18,2 bi</text>
+<circle cx='678.7' cy='63' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='687.7' y='67'>48,34%</text>
+<text class='axis-label' x='274' y='102' text-anchor='end'>Crédito PJ | Recebíveis comerciais/mu…</text>
+<rect x='284' y='88' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='88' width='407.1' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='699.1' y='102'>R$ 14,3 bi</text>
+<circle cx='594.0' cy='97' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='603.0' y='101'>37,97%</text>
+<text class='axis-label' x='274' y='136' text-anchor='end'>Agro | Agro</text>
+<rect x='284' y='122' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='122' width='289.5' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='581.5' y='136'>R$ 10,1 bi</text>
+<circle cx='533.9' cy='131' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='542.9' y='135'>30,61%</text>
+<text class='axis-label' x='274' y='170' text-anchor='end'>Crédito PF | Consignado/INSS</text>
+<rect x='284' y='156' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='156' width='245.2' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='537.2' y='170'>R$ 8,6 bi</text>
+<circle cx='453.2' cy='165' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='462.2' y='169'>20,72%</text>
+<text class='axis-label' x='274' y='204' text-anchor='end'>Crédito PF | Crédito pessoal/consumo</text>
+<rect x='284' y='190' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='190' width='224.0' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='516.0' y='204'>R$ 7,8 bi</text>
+<circle cx='712.8' cy='199' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='721.8' y='203'>52,52%</text>
+<text class='axis-label' x='274' y='238' text-anchor='end'>Crédito PJ | CCB/Notas comerciais/Cap…</text>
+<rect x='284' y='224' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='224' width='216.1' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='508.1' y='238'>R$ 7,6 bi</text>
+<circle cx='458.1' cy='233' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='467.1' y='237'>21,33%</text>
+<text class='axis-label' x='274' y='272' text-anchor='end'>Crédito PF | Auto/Veículos</text>
+<rect x='284' y='258' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='258' width='183.3' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='475.3' y='272'>R$ 6,4 bi</text>
+<circle cx='407.4' cy='267' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='416.4' y='271'>15,12%</text>
+<text class='axis-label' x='274' y='306' text-anchor='end'>FIC/Alocador | FIC de FIDC</text>
+<rect x='284' y='292' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='292' width='173.0' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='465.0' y='306'>R$ 6,1 bi</text>
+<circle cx='410.3' cy='301' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='419.3' y='305'>15,46%</text>
+<text class='axis-label' x='274' y='340' text-anchor='end'>Crédito PJ | Risco sacado/fornecedores</text>
+<rect x='284' y='326' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='326' width='154.7' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='446.7' y='340'>R$ 5,4 bi</text>
+<circle cx='700.7' cy='335' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='709.7' y='339'>51,03%</text>
+<text class='axis-label' x='274' y='374' text-anchor='end'>Judicial/Precatórios/NPL | Não padron…</text>
+<rect x='284' y='360' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='360' width='152.5' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='444.5' y='374'>R$ 5,3 bi</text>
+<circle cx='684.5' cy='369' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='693.5' y='373'>49,05%</text>
+<text class='axis-label' x='274' y='408' text-anchor='end'>Infra/Energia | Energia/infra</text>
+<rect x='284' y='394' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='394' width='93.4' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='385.4' y='408'>R$ 3,3 bi</text>
+<circle cx='336.3' cy='403' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='345.3' y='407'>6,41%</text>
+<text class='axis-label' x='274' y='442' text-anchor='end'>Meios de Pagamento e Cartões | Bancos…</text>
+<rect x='284' y='428' width='520' height='18' rx='2' fill='#f0f3f6'/>
+<rect x='284' y='428' width='88.9' height='18' rx='2' fill='#315d8c'/>
+<text class='value-label' x='380.9' y='442'>R$ 3,1 bi</text>
+<circle cx='804.0' cy='437' r='6' fill='#c96731' stroke='white' stroke-width='2'/>
+<text class='dot-label' x='813.0' y='441'>63,69%</text>
+</svg>
+    </section>
+
+    <section class="card">
+      <h2>Senior quota subscription prices from IME</h2>
+      <p class="note">Unit prices are reported by quota movement and can be distorted by class conventions. Use this as a screen for follow-up, not as final pricing diligence.</p>
+      <table><thead><tr><th>Period</th><th>Subtype</th><th>Subscription volume</th><th>Median unit price</th><th>Volume-weighted price</th></tr></thead><tbody><tr><td>2024FY</td><td>Sem oferta CVM mapeada | Sem oferta CVM mapeada</td><td>R$ 5,3 bi</td><td>1,15</td><td>1,13</td></tr><tr><td>2024FY</td><td>Meios de Pagamento e Cartões | Arranjos de pagamento/adquirência</td><td>R$ 4,8 bi</td><td>1.000,00</td><td>999,98</td></tr><tr><td>2024FY</td><td>Crédito PF | Consignado/INSS</td><td>R$ 3,2 bi</td><td>1.007,63</td><td>1.230,13</td></tr><tr><td>2024FY</td><td>Crédito PF | FGTS</td><td>R$ 2,8 bi</td><td>1.013,63</td><td>1.004,56</td></tr><tr><td>2024FY</td><td>Agro | Agro</td><td>R$ 2,5 bi</td><td>1.022,20</td><td>1.844,63</td></tr><tr><td>2024FY</td><td>Crédito PJ | Recebíveis comerciais/multissetorial</td><td>R$ 2,1 bi</td><td>1.019,96</td><td>15.780,31</td></tr><tr><td>2024FY</td><td>FIC/Alocador | FIC de FIDC</td><td>R$ 1,8 bi</td><td>1.009,29</td><td>973,30</td></tr><tr><td>2024FY</td><td>Crédito PF | Crédito pessoal/consumo</td><td>R$ 1,8 bi</td><td>1.031,20</td><td>36.577,11</td></tr><tr><td>2024FY</td><td>Crédito PJ | Risco sacado/fornecedores</td><td>R$ 1,4 bi</td><td>1.013,65</td><td>1.019,96</td></tr><tr><td>2024FY</td><td>Judicial/Precatórios/NPL | Não padronizado/NPL</td><td>R$ 1,4 bi</td><td>1.029,63</td><td>221.089,59</td></tr><tr><td>2024FY</td><td>Crédito PJ | CCB/Notas comerciais/Capital de giro</td><td>R$ 869 mi</td><td>1.000,00</td><td>740,02</td></tr><tr><td>2024FY</td><td>Imobiliário | Imobiliário</td><td>R$ 675 mi</td><td>1.029,64</td><td>1.233,47</td></tr><tr><td>2024FY</td><td>Crédito PF | Auto/Veículos</td><td>R$ 348 mi</td><td>1.022,16</td><td>1.000,73</td></tr><tr><td>2024FY</td><td>Meios de Pagamento e Cartões | Bancos Emissores</td><td>R$ 44 mi</td><td>1.056,96</td><td>1.449,30</td></tr></tbody></table>
+    </section>
+
+    <section class="card">
+      <h2>Platforms, managers and coordinators</h2>
+      <div class="three-col">
+        <div>
+          <h3>Administrators</h3>
+          <table><thead><tr><th>Name</th><th>Funds</th><th>Volume</th></tr></thead><tbody><tr><td>BTG PACTUAL SERVIÇOS FINANCEIROS S/A DTVM</td><td>505</td><td>R$ 184,6 bi</td></tr><tr><td>BB GESTAO DE RECURSOS DTVM S.A</td><td>6</td><td>R$ 157,4 bi</td></tr><tr><td>REAG TRUST DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS S.A.</td><td>225</td><td>R$ 145,3 bi</td></tr><tr><td>QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.</td><td>966</td><td>R$ 142,3 bi</td></tr><tr><td>OLIVEIRA TRUST DTVM S.A.</td><td>280</td><td>R$ 131,7 bi</td></tr><tr><td>BEM - DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS LTDA.</td><td>176</td><td>R$ 60,0 bi</td></tr><tr><td>BANCO DAYCOVAL S.A.</td><td>426</td><td>R$ 51,0 bi</td></tr><tr><td>INTRAG DTVM LTDA.</td><td>89</td><td>R$ 50,9 bi</td></tr><tr><td>BRL TRUST DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS S.A.</td><td>213</td><td>R$ 39,4 bi</td></tr><tr><td>BEM - DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS LTDA.</td><td>4</td><td>R$ 33,8 bi</td></tr></tbody></table>
+        </div>
+        <div>
+          <h3>Managers / gestores</h3>
+          <table><thead><tr><th>Name</th><th>Funds</th><th>Volume</th></tr></thead><tbody><tr><td>BB GESTAO DE RECURSOS DTVM S.A</td><td>3</td><td>R$ 157,3 bi</td></tr><tr><td>OLIVEIRA TRUST SERVICER S/A</td><td>72</td><td>R$ 102,3 bi</td></tr><tr><td>CBSF TRUST ADMINISTRADORA DE RECURSOS LTDA.</td><td>69</td><td>R$ 63,2 bi</td></tr><tr><td>BANCO BTG PACTUAL S/A</td><td>9</td><td>R$ 53,0 bi</td></tr><tr><td>BANCO BRADESCO S.A.</td><td>4</td><td>R$ 33,8 bi</td></tr><tr><td>TERCON INVESTIMENTOS LTDA</td><td>317</td><td>R$ 32,8 bi</td></tr><tr><td>GENIAL GESTÃO LTDA.</td><td>65</td><td>R$ 27,2 bi</td></tr><tr><td>REAG JUS GESTÃO DE ATIVOS JUDICIAIS LTDA.</td><td>66</td><td>R$ 27,0 bi</td></tr><tr><td>JUS CAPITAL GESTÃO DE RECURSOS LTDA.</td><td>41</td><td>R$ 26,8 bi</td></tr><tr><td>BANCO BRADESCO S.A.</td><td>30</td><td>R$ 24,4 bi</td></tr></tbody></table>
+        </div>
+        <div>
+          <h3>Lead coordinators</h3>
+          <table><thead><tr><th>Name</th><th>Funds</th><th>Volume</th></tr></thead><tbody><tr><td>SINGULARE CORRETORA DE TITULOS E VALORES MOBILIARIOS S.A.</td><td>146</td><td>R$ 14,5 bi</td></tr><tr><td>ITAU BBA ASSESSORIA FINANCEIRA S.A</td><td>13</td><td>R$ 13,4 bi</td></tr><tr><td>BANCO BRADESCO BBI S.A.</td><td>7</td><td>R$ 11,5 bi</td></tr><tr><td>BANCO SANTANDER (BRASIL) S.A.</td><td>1</td><td>R$ 9,4 bi</td></tr><tr><td>BANCO DAYCOVAL S.A.</td><td>81</td><td>R$ 7,2 bi</td></tr><tr><td>BR PARTNERS BANCO DE INVESTIMENTO S.A.</td><td>11</td><td>R$ 7,0 bi</td></tr><tr><td>ITAU BBA ASSESSORIA FINANCEIRA S.A</td><td>10</td><td>R$ 5,2 bi</td></tr><tr><td>BANCO SANTANDER (BRASIL) S.A.</td><td>4</td><td>R$ 5,0 bi</td></tr><tr><td>SINGULARE CORRETORA DE TITULOS E VALORES MOBILIARIOS S.A.</td><td>42</td><td>R$ 4,8 bi</td></tr><tr><td>SINGULARE CORRETORA DE TITULOS E VALORES MOBILIARIOS S.A.</td><td>21</td><td>R$ 4,6 bi</td></tr></tbody></table>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Cedentes and sacados: candidate map</h2>
+      <p class="note">These are text-extracted candidates from documents/regulations, aggregated by associated fund volume. They are useful for prioritizing manual review, but not a definitive legal list of obligors or sellers.</p>
+      <div class="two-col">
+        <div>
+          <h3>Candidate cedentes / originators</h3>
+          <table><thead><tr><th>Name</th><th>Funds</th><th>Mentions</th><th>2024-2025 volume</th><th>Current PL</th></tr></thead><tbody><tr><td>PAULO, ESTADO DE SÃO PAULO</td><td>1</td><td>1</td><td>R$ 900 mi</td><td>R$ 815 mi</td></tr><tr><td>A TAYA TECH INTERMEDIAÇÃO LTDA</td><td>1</td><td>1</td><td>R$ 560 mi</td><td>R$ 442 mi</td></tr><tr><td>SIGNIFICA GRANDINO LTDA</td><td>1</td><td>1</td><td>R$ 380 mi</td><td>R$ 226 mi</td></tr><tr><td>SIGNIFICA A SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A</td><td>1</td><td>1</td><td>R$ 326 mi</td><td>R$ 239 mi</td></tr><tr><td>SIGNIFICA A CENCOSUD BRASIL COMERCIAL S.A</td><td>1</td><td>1</td><td>R$ 144 mi</td><td>R$ 91 mi</td></tr><tr><td>É A CHDS DO BRASIL COMÉRCIO DE INSUMOS AGRÍCOLAS LTDA</td><td>1</td><td>1</td><td>R$ 140 mi</td><td>R$ 287 mi</td></tr><tr><td>17.1 DO ANEXO DESCRITIVO. ORIGINADOR É A CONTPETRA CALCULOS JUDICIAIS LTDA , SOCIEDADE EMPRESÁRIA DE RESPONSABILIDADE LIMITADA, DEVIDAMENTE</td><td>1</td><td>1</td><td>R$ 131 mi</td><td>R$ 142 mi</td></tr><tr><td>ANDAR, CONJUNTO 202 , SALA 02, PINHEIROS</td><td>1</td><td>1</td><td>R$ 130 mi</td><td>R$ 17 mi</td></tr><tr><td>MAF FUNDO DE INVESTIMENTO MULTIMERCADO CRÉDITO PRIVADO</td><td>1</td><td>1</td><td>R$ 120 mi</td><td>R$ 59 mi</td></tr><tr><td>É A CON INVEST LTDA</td><td>1</td><td>1</td><td>R$ 97 mi</td><td>R$ 108 mi</td></tr><tr><td>NOVA OPÇÃO LOCADORA DE VEÍCULOS LTDA</td><td>1</td><td>1</td><td>R$ 95 mi</td><td>R$ 163 mi</td></tr><tr><td>1206, SALA 709</td><td>1</td><td>1</td><td>R$ 87 mi</td><td>R$ 88 mi</td></tr></tbody></table>
+        </div>
+        <div>
+          <h3>Candidate sacados / debtors</h3>
+          <table><thead><tr><th>Name</th><th>Funds</th><th>Mentions</th><th>2024-2025 volume</th><th>Current PL</th></tr></thead><tbody><tr><td>DATAPREV, EMPRESA PÚBLICA FEDERAL</td><td>1</td><td>1</td><td>R$ 540 mi</td><td>R$ 301 mi</td></tr><tr><td>INVESTIMENTO EM COTAS DE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CNPJ</td><td>1</td><td>1</td><td>R$ 405 mi</td><td>R$ 319 mi</td></tr><tr><td>CEP 03410 - 7 000, NA CIDADE DE SÃO PAULO, ESTADO DE SÃO PAULO</td><td>1</td><td>1</td><td>R$ 260 mi</td><td>R$ 189 mi</td></tr><tr><td>ANDAR, CONJUNTO 402B, BLOCO II, PINHEIROS</td><td>1</td><td>1</td><td>R$ 250 mi</td><td>R$ 103 mi</td></tr><tr><td>BUNGE ALIMENTOS S.A</td><td>1</td><td>1</td><td>R$ 250 mi</td><td>R$ 103 mi</td></tr><tr><td>É A THE ONE PRESTAÇÃO DE SERVIÇOS LTDA. , SOCIEDADE LIMITADA</td><td>1</td><td>1</td><td>R$ 200 mi</td><td>R$ 154 mi</td></tr><tr><td>GRUPO ECONÔMICO 2 SIGNIFICAM, EM CONJUNTO, A CEDENTE E A ROTAM DO BRASIL AGROQUÍMICA E PRODUTOS AGRÍCOLAS LTDA</td><td>1</td><td>1</td><td>R$ 80 mi</td><td>R$ 506 mi</td></tr><tr><td>BRADESCO S.A</td><td>1</td><td>1</td><td>R$ 75 mi</td><td>R$ 68 mi</td></tr><tr><td>E INDUSTRIA LTDA</td><td>1</td><td>1</td><td>R$ 55 mi</td><td>R$ 84 mi</td></tr><tr><td>E PARA O DEVEDOR ESPECIAL EBAZAR.COM.BR. LTDA</td><td>1</td><td>1</td><td>R$ 55 mi</td><td>R$ 84 mi</td></tr><tr><td>EBAZAR.COM.BR. LTDA</td><td>1</td><td>1</td><td>R$ 55 mi</td><td>R$ 84 mi</td></tr><tr><td>SOCIEDADE DE CRÉDITO DIRETO S.A. , INSTITUIÇÃO FINANCEIRA</td><td>1</td><td>1</td><td>R$ 45 mi</td><td>R$ 11 mi</td></tr></tbody></table>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>What to do next</h2>
+      <ol>
+        <li>Pick 20 high-materiality subtypes and manually review the regulations behind the heatmap outliers.</li>
+        <li>Validate CDI+ extraction and pricing fields for the largest deals with missing spread coverage.</li>
+        <li>Clean the cedente/sacado candidate map into a named-party database.</li>
+        <li>Turn the opportunity list into commercial theses: who to pitch, what structure, expected investor appetite, and required credit enhancement.</li>
+        <li>Create an English investor deck from this static view: market, structure, participants, economics, risks and why now.</li>
+      </ol>
+    </section>
+  </main>
+</body>
+</html>
