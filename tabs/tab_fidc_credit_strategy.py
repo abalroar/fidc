@@ -6,6 +6,7 @@ from pathlib import Path
 import altair as alt
 import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
 
 from services.fidc_credit_strategy import (
     DEFAULT_DB_PATH,
@@ -15,6 +16,7 @@ from services.fidc_credit_strategy import (
     load_table,
 )
 
+_STATIC_REPORT_PATH = Path(__file__).resolve().parents[1] / "reports" / "fidc_strategy_static_20260609.html"
 
 _CSS = """
 <style>
@@ -109,7 +111,7 @@ def render_tab_fidc_credit_strategy() -> None:
         unsafe_allow_html=True,
     )
     if not database_exists(DEFAULT_DB_PATH):
-        st.warning("Base de estratégia ainda não encontrada. Rode `scripts/build_fidc_credit_strategy_study.py`.")
+        _render_static_snapshot_fallback()
         return
 
     tables, metadata = _load_tables()
@@ -147,6 +149,27 @@ def render_tab_fidc_credit_strategy() -> None:
         _render_opportunities(opportunities, cohort, selected_sectors)
     with tabs[4]:
         _render_base_tables(tables)
+
+
+def _render_static_snapshot_fallback() -> None:
+    st.info(
+        "Versão leve carregada: este ambiente não tem o SQLite completo de 212 MB, "
+        "então a aba mostra o snapshot executivo committado no repositório."
+    )
+    if not _STATIC_REPORT_PATH.exists():
+        st.warning(
+            "Snapshot estático não encontrado. Rode `scripts/export_fidc_strategy_static_report.py` "
+            "em um ambiente que tenha a base completa."
+        )
+        return
+    html_report = _STATIC_REPORT_PATH.read_text(encoding="utf-8")
+    st.download_button(
+        "Baixar snapshot HTML",
+        data=html_report,
+        file_name="fidc_strategy_static_20260609.html",
+        mime="text/html",
+    )
+    components.html(html_report, height=7200, scrolling=True)
 
 
 def _render_kpis(
