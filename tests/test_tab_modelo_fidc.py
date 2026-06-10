@@ -364,7 +364,7 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertAlmostEqual(0.19047218455885997, kpis.xirr_mezz)
         self.assertAlmostEqual(785_962_270.9454902, periods[-1].pl_sub_jr, delta=1.0)
         self.assertFalse(exceeded)
-        self.assertAlmostEqual(0.1634674072265625, loss_cycle)
+        self.assertAlmostEqual(0.16376876831054688, loss_cycle)
 
     def test_time_protection_uses_monthly_revolving_origination(self) -> None:
         premissas = tab_modelo_fidc.Premissas(

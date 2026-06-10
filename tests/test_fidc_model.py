@@ -446,6 +446,48 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertAlmostEqual(periods[1].fluxo_remanescente_mezz, periods[1].saldo_caixa_selic_fim)
         self.assertGreater(periods[2].pl_fidc, periods[1].pl_fidc)
 
+    def test_revolving_portfolio_tops_up_carteira_with_excess_spread_capped_by_initial_pl(self):
+        monthly_dates = [datetime(2025, 1, 1), datetime(2025, 2, 1), datetime(2025, 3, 1)]
+        premissas = Premissas(
+            volume=1_000_000.0,
+            tx_cessao_am=0.10,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.0,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=1.0,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            carteira_revolvente=True,
+            prazo_fidc_anos=1.0,
+            prazo_medio_recebiveis_meses=6.0,
+            modelo_credito=CREDIT_MODEL_NPL90,
+            perda_ciclo=0.06,
+            npl90_lag_meses=0,
+            cobertura_minima_npl90=1.0,
+            lgd=1.0,
+        )
+
+        periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
+
+        # A baixa de crédito reduz a carteira abaixo do PL inicial do FIDC...
+        self.assertGreater(periods[1].baixa_credito, 0.0)
+        self.assertGreater(periods[1].fluxo_remanescente_mezz, 0.0)
+        # ...parte do excesso de spread é reciclada em carteira nova até repor o PL inicial...
+        self.assertGreater(periods[1].reinvestimento_excesso, 0.0)
+        self.assertLess(periods[1].reinvestimento_excesso, periods[1].fluxo_remanescente_mezz)
+        self.assertAlmostEqual(1_000_000.0, periods[1].carteira_fim)
+        # ...e o restante do excesso, que excederia o PL inicial, fica em caixa SELIC.
+        self.assertAlmostEqual(
+            periods[1].fluxo_remanescente_mezz - periods[1].reinvestimento_excesso,
+            periods[1].saldo_caixa_selic_fim,
+        )
+        self.assertGreater(periods[1].saldo_caixa_selic_fim, 0.0)
+
     def test_revolving_portfolio_stops_new_origination_when_average_term_no_longer_fits(self):
         monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(37)]
         premissas = Premissas(
