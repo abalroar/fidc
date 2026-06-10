@@ -19,6 +19,7 @@ DEFAULT_DB = Path("data/fidc_credit_strategy/fidc_credit_strategy.sqlite")
 DEFAULT_OUTPUT = Path("reports/fidc_strategy_static_20260609.html")
 DEFAULT_NAMED_PARTIES = Path("reports/fidc_clean_named_parties_20260609.csv")
 DEFAULT_MANUAL_REVIEW = Path("reports/fidc_manual_reclassification_review_20260609.csv")
+DEFAULT_PAYMENT_RAILS = Path("reports/fidc_payment_rails_universe_20260610.csv")
 OFFERS_PATH = Path("outputs/fidc_credit_strategy_study_20260609/issuance/fidc_public_offers_2024_2026ytd.csv")
 STRATEGY_DIR = Path("outputs/fidc_credit_strategy_study_20260609/strategy")
 DIAGNOSTIC_DIR = Path("outputs/fidc_director_deep_diagnostic_20260609")
@@ -61,8 +62,6 @@ CLASS_RULES: list[tuple[str, str, list[str]]] = [
             r"\bemissor(?:es)? de cart",
             r"\bissuer\b",
             r"fatura(?:s)? de cart",
-            r"cart[aã]o de cr[eé]dito consignado",
-            r"cart[aã]o benef[ií]cio consignado",
         ],
     ),
     (
@@ -73,8 +72,10 @@ CLASS_RULES: list[tuple[str, str, list[str]]] = [
             r"adquir[eê]ncia|adquirente|subadquirente|subcredenciador",
             r"estabelecimentos? credenciad",
             r"transa[cç][oõ]es? de pagamento",
+            r"receb[ií]veis? de cart[oõ]es|agenda de receb[ií]veis? de cart[oõ]es",
             r"sistema cloudwalk|sistema sumup|maquinin",
             r"instrumentos? de pagamento",
+            r"unidade[s]? de receb[ií]vel|\bUR\b registrada",
         ],
     ),
     (
@@ -85,7 +86,14 @@ CLASS_RULES: list[tuple[str, str, list[str]]] = [
     (
         "Crédito PF",
         "Consignado/INSS",
-        [r"\binss\b", r"consigna[cç][aã]o", r"empr[eé]stimos? consignad", r"benef[ií]cio previdenci[aá]rio"],
+        [
+            r"\binss\b",
+            r"consigna[cç][aã]o",
+            r"empr[eé]stimos? consignad",
+            r"benef[ií]cio previdenci[aá]rio",
+            r"cart[aã]o de cr[eé]dito consignado",
+            r"cart[aã]o benef[ií]cio consignado",
+        ],
     ),
     (
         "Crédito PF",
@@ -227,6 +235,16 @@ def norm_text(value: object) -> str:
 
 def clean_ws(value: object) -> str:
     return re.sub(r"\s+", " ", "" if value is None else str(value)).strip()
+
+
+def first_nonempty(values: list[object]) -> str:
+    for value in values:
+        if pd.isna(value):
+            continue
+        text = clean_ws(value)
+        if text and text.lower() != "nan":
+            return text
+    return ""
 
 
 def bool_series(series: pd.Series) -> pd.Series:
@@ -406,6 +424,170 @@ def build_reconciliation(offers: pd.DataFrame) -> pd.DataFrame:
             }
         )
     return pd.DataFrame(rows)
+
+
+PAYMENT_SIGNAL_PATTERNS = {
+    "arranjo/transações": r"arranjo(?:s)? de pagamento|transa[cç][oõ]es? de pagamento|instrumentos? de pagamento",
+    "estabelecimentos/usuários": r"estabelecimentos? comerciais|estabelecimentos? credenciad|usu[aá]rios[- ]?finais|lojistas?",
+    "credenciadora/adquirente": r"credenciador(?:a|as|es)?|subcredenciador(?:a|as|es)?|subadquirente|adquir[eê]ncia|contrato de adquir[eê]ncia|adquirentes?\s+(?:aprovad|de cart|e/ou bandeiras|e bandeiras)|contra credenciadoras",
+    "instituição de pagamento": r"institui[cç][aã]o de pagamento|institui[cç][oõ]es de pagamento",
+    "UR/registradora": r"unidade[s]? de receb[ií]vel|\bUR\b registrada|registro de unidade[s]? de receb[ií]vel",
+    "chargeback/conta centralizadora": r"chargebacks?|cancelamentos|conta centralizadora|conta de liquida[cç][aã]o",
+    "BACEN/BCB": r"banco central do brasil|\bbacen\b|\bbcb\b|entidade[s]? regulad[ao]s? pelo banco central|autorizad[ao]s? pelo banco central",
+    "banco emissor/cartão": r"\bbanco emissor\b|fatura(?:s)? de cart|verdecard|credsystem|dm cards?|brasil card|cart[aã]o robbin|edmil|amel administradora",
+    "plataforma/sistema": r"sistema cloudwalk|sistema sumup|sistema stone|sistema ticket|sistema pinbank|stone pagamentos|pagseguro|hotmart|kiwify|pagaleve|mercado pago|safrapay|pagueveloz|rappi|robbin pagamentos|\bcloudwalk\b|\bsumup\b|\bpinbank\b",
+}
+
+PAYMENT_CORE_TAGS = {
+    "arranjo/transações",
+    "credenciadora/adquirente",
+    "instituição de pagamento",
+    "banco emissor/cartão",
+    "plataforma/sistema",
+}
+
+
+def payment_tags(text: str) -> list[str]:
+    normalized = norm_text(text)
+    return [label for label, pattern in PAYMENT_SIGNAL_PATTERNS.items() if re.search(pattern, normalized, flags=re.I)]
+
+
+def payment_subtype(text: str, tags: list[str]) -> str:
+    normalized = norm_text(text)
+    issuer_specific = re.search(
+        r"\bfatura(?:s)? de cart|verdecard|credsystem|dm cards?|brasil card|cart[aã]o robbin|edmil|amel administradora|\bbanco emissor\b",
+        normalized,
+        flags=re.I,
+    )
+    if issuer_specific and not any(tag in tags for tag in ["credenciadora/adquirente", "plataforma/sistema"]):
+        return "Bancos emissores / risco emissor"
+    if re.search(r"hotmart|kiwify|pagaleve|rappi|marketplace", normalized, flags=re.I):
+        return "Marketplaces/plataformas"
+    if any(tag in tags for tag in ["credenciadora/adquirente", "instituição de pagamento", "UR/registradora"]):
+        return "Adquirência / credenciadoras / IPs"
+    return "Arranjos de pagamento / UR"
+
+
+def payment_seller_role(text: str, subtype: str) -> str:
+    if subtype == "Bancos emissores / risco emissor":
+        return "Cedente/risco = banco emissor ou instituição financeira"
+    normalized = norm_text(text)
+    if re.search(r"estabelecimentos? comerciais|estabelecimentos? credenciad|lojistas?", normalized, flags=re.I):
+        return "Cedente econômico = estabelecimentos/lojistas"
+    if re.search(r"institui[cç][aã]o de pagamento|credenciador|subcredenciador|adquirente|sistema cloudwalk|sistema sumup|pagseguro|mercado pago|safrapay|pagueveloz", normalized, flags=re.I):
+        return "Cedente/originador = credenciadora ou instituição de pagamento"
+    if re.search(r"banco emissor|emissor(?:es)? de cart|fatura(?:s)? de cart|cedente institui[cç][aã]o financeira", normalized, flags=re.I):
+        return "Cedente/risco = banco emissor ou instituição financeira"
+    return "Papel funcional descrito, sem cedente nomeado"
+
+
+def payment_evidence(text: str, tags: list[str]) -> str:
+    preferred = [
+        "credenciadora/adquirente",
+        "arranjo/transações",
+        "estabelecimentos/usuários",
+        "UR/registradora",
+        "banco emissor/cartão",
+        "instituição de pagamento",
+        "BACEN/BCB",
+    ]
+    for tag in preferred:
+        if tag in tags:
+            return extract_evidence(text, PAYMENT_SIGNAL_PATTERNS[tag], width=260)
+    return ""
+
+
+def payment_name_hint(text: str) -> bool:
+    normalized = norm_text(text)
+    return bool(
+        re.search(
+            r"segmento meios de pagamento|meios de pagamento|receb[ií]veis? de cart[oõ]es|cart[oõ]es|pagamentos|pagseguro|cloudwalk|sumup|stone pagamentos|cielo|seller|mercado pago|pinbank|hotmart|kiwify|pagaleve|rappi|robbin",
+            normalized,
+            flags=re.I,
+        )
+    )
+
+
+def build_payment_rails_universe(offers: pd.DataFrame, funds: pd.DataFrame) -> pd.DataFrame:
+    valid = offers[offers["valid_registered"]].copy()
+    fund_lookup = funds[
+        ["cnpj", "fund_name_final", "setor_n1", "setor_n2", "pl_atual_brl"]
+    ].drop_duplicates("cnpj")
+    rows = []
+    for cnpj, group in valid.groupby("cnpj_emissor", dropna=False):
+        frow = fund_lookup[fund_lookup["cnpj"].astype(str).eq(str(cnpj))]
+        official_text = " ".join(
+            clean_ws(value)
+            for value in pd.concat(
+                [
+                    group.get("nome_emissor", pd.Series(dtype=str)),
+                    group.get("fidc_subtipo", pd.Series(dtype=str)),
+                    group.get("tipo_lastro", pd.Series(dtype=str)),
+                    group.get("ativos_alvo", pd.Series(dtype=str)),
+                    group.get("administrador", pd.Series(dtype=str)),
+                    group.get("gestor", pd.Series(dtype=str)),
+                    group.get("custodiante", pd.Series(dtype=str)),
+                ]
+            ).dropna()
+        )
+        cached_text = load_cached_text(str(cnpj))
+        combined = official_text + " " + cached_text[:120000]
+        tags = payment_tags(combined)
+        core_match = any(tag in PAYMENT_CORE_TAGS for tag in tags)
+        base_setor = first_nonempty(frow["setor_n1"].tolist()) if not frow.empty else ""
+        base_subtipo = first_nonempty(frow["setor_n2"].tolist()) if not frow.empty else ""
+        payment_class = base_setor == "Meios de Pagamento e Cartões"
+        name_hint = payment_name_hint(
+            " ".join(
+                group.get("nome_emissor", pd.Series(dtype=str)).dropna().map(clean_ws).tolist()
+                + (frow["fund_name_final"].dropna().map(clean_ws).tolist() if not frow.empty else [])
+            )
+        )
+        strong_activity = any(tag in tags for tag in ["arranjo/transações", "credenciadora/adquirente", "banco emissor/cartão", "plataforma/sistema"])
+        only_operational_ip = (
+            "instituição de pagamento" in tags
+            and not strong_activity
+            and not payment_class
+            and not name_hint
+        )
+        legacy_credit_context = base_setor in {"Crédito PF", "Agro", "FIC/Alocador"} and not strong_activity and not name_hint
+        if not core_match and not name_hint:
+            continue
+        if only_operational_ip or legacy_credit_context:
+            continue
+        fund_name_values = []
+        if not frow.empty:
+            fund_name_values.extend(frow["fund_name_final"].tolist())
+        if "nome_emissor" in group.columns:
+            fund_name_values.extend(group["nome_emissor"].tolist())
+        fund_name_values.append(str(cnpj))
+        fund_name = first_nonempty(fund_name_values)
+        volumes = group.pivot_table(index="cnpj_emissor", columns="year", values="valor_brl", aggfunc="sum", fill_value=0)
+        subtype = payment_subtype(combined, tags)
+        evidence = payment_evidence(combined, tags) or (f"Denominação oficial indica payment rail: {fund_name}" if name_hint else "")
+        rows.append(
+            {
+                "CNPJ": str(cnpj),
+                "FIDC": fund_name,
+                "Subtipo funcional": subtype,
+                "Papel econômico do cedente": payment_seller_role(combined, subtype),
+                "Tags": ", ".join(tags),
+                "Menção BACEN/BCB": "Sim" if "BACEN/BCB" in tags else "Não",
+                "2024 Issuance": float(volumes.get(2024, pd.Series([0])).iloc[0]) if 2024 in volumes else 0.0,
+                "2025 Issuance": float(volumes.get(2025, pd.Series([0])).iloc[0]) if 2025 in volumes else 0.0,
+                "2026 YTD": float(volumes.get(2026, pd.Series([0])).iloc[0]) if 2026 in volumes else 0.0,
+                "Current PL": float(frow.iloc[0]["pl_atual_brl"]) if not frow.empty else 0.0,
+                "Classificação base": (
+                    f"{base_setor} | {base_subtipo}" if not frow.empty else ""
+                ),
+                "Evidência": evidence,
+            }
+        )
+    out = pd.DataFrame(rows)
+    if out.empty:
+        return out
+    out["Materialidade"] = out[["2024 Issuance", "2025 Issuance", "2026 YTD", "Current PL"]].max(axis=1)
+    return out.sort_values(["2025 Issuance", "Current PL", "Materialidade"], ascending=False)
 
 
 def build_manual_reclassification(funds: pd.DataFrame, max_rows: int = 40) -> pd.DataFrame:
@@ -1032,6 +1214,7 @@ def render_report(
     funds: pd.DataFrame,
     segment: pd.DataFrame,
     reconciliation: pd.DataFrame,
+    payment_rails: pd.DataFrame,
     heatmap: pd.DataFrame,
     pricing_coverage: pd.DataFrame,
     pricing_anomalies: pd.DataFrame,
@@ -1056,6 +1239,24 @@ def render_report(
     top_2025 = segment[segment["Segmento"].ne("Total")].copy()
     top_2025["Label"] = top_2025["Segmento"] + " | " + top_2025["Subtipo"]
     top_2025 = top_2025.sort_values("2025 Issuance", ascending=False)
+    payment_summary = pd.DataFrame()
+    payment_top = pd.DataFrame()
+    if not payment_rails.empty:
+        payment_summary = (
+            payment_rails.groupby("Subtipo funcional", dropna=False)
+            .agg(
+                Fundos=("CNPJ", "nunique"),
+                Volume_2024=("2024 Issuance", "sum"),
+                Volume_2025=("2025 Issuance", "sum"),
+                Volume_2026=("2026 YTD", "sum"),
+                PL_atual=("Current PL", "sum"),
+                Bacen=("Menção BACEN/BCB", lambda values: (values == "Sim").sum()),
+            )
+            .reset_index()
+            .sort_values("Volume_2025", ascending=False)
+        )
+        payment_summary["% com BACEN/BCB"] = payment_summary["Bacen"] / payment_summary["Fundos"] * 100
+        payment_top = payment_rails.sort_values(["2025 Issuance", "Current PL"], ascending=False).head(25)
     price_chart = pricing_2025.copy()
     price_chart["Label"] = price_chart["Setor"] + " | " + price_chart["Subtipo"]
     price_chart = price_chart.sort_values("Volume sênior lido", ascending=False)
@@ -1121,6 +1322,75 @@ def render_report(
             },
             max_rows=24,
         ),
+        "</section>",
+        "<section><h2>Onde estão os FIDCs de meios de pagamento?</h2>",
+        "<div class='callout'><strong>Correção de leitura:</strong> em meios de pagamento, o participante relevante muitas vezes aparece como papel funcional, não como nome jurídico. O regulamento fala em estabelecimentos comerciais/credenciados, usuários-finais, credenciadoras, subcredenciadoras, instituições de pagamento, URs, chargebacks, contas centralizadoras e entidades reguladas pelo Banco Central do Brasil. Por isso este corte não depende da extração genérica de cedente/sacado.</div>",
+        card_grid(
+            [
+                (
+                    "Fundos payment rails",
+                    num(payment_rails["CNPJ"].nunique()) if not payment_rails.empty else "0",
+                    "CNPJs com sinais de arranjo, adquirência, IP, cartão ou UR.",
+                ),
+                (
+                    "Issuance 2025",
+                    brl(payment_rails["2025 Issuance"].sum()) if not payment_rails.empty else "R$ 0",
+                    "Volume CVM válido no universo funcional de pagamentos.",
+                ),
+                (
+                    "PL atual",
+                    brl(payment_rails["Current PL"].sum()) if not payment_rails.empty else "R$ 0",
+                    "Estoque atual dos CNPJs identificados nesse radar.",
+                ),
+                (
+                    "Com BACEN/BCB",
+                    pct((payment_rails["Menção BACEN/BCB"].eq("Sim").mean() * 100) if not payment_rails.empty else math.nan),
+                    "Percentual com menção textual a Bacen/BCB ou entidade regulada.",
+                ),
+            ]
+        ),
+        "<h3>Subtipos funcionais de pagamento</h3>",
+        table_html(
+            payment_summary,
+            {
+                "Fundos": num,
+                "Volume_2024": brl,
+                "Volume_2025": brl,
+                "Volume_2026": brl,
+                "PL_atual": brl,
+                "Bacen": num,
+                "% com BACEN/BCB": pct,
+            },
+            max_rows=10,
+        ),
+        "<h3>Fundos e evidências</h3>",
+        table_html(
+            payment_top[
+                [
+                    "FIDC",
+                    "CNPJ",
+                    "Subtipo funcional",
+                    "Papel econômico do cedente",
+                    "Tags",
+                    "Menção BACEN/BCB",
+                    "2024 Issuance",
+                    "2025 Issuance",
+                    "2026 YTD",
+                    "Current PL",
+                    "Evidência",
+                ]
+            ]
+            if not payment_top.empty
+            else payment_top,
+            {
+                "2024 Issuance": brl,
+                "2025 Issuance": brl,
+                "2026 YTD": brl,
+                "Current PL": brl,
+            },
+            max_rows=22,
+        ),
+        "<p class='note'>Esse radar captura também casos em que a classificação setorial base ainda estava genérica, desde que haja evidência textual de pagamentos. Quando o texto diz apenas “Banco Central” sem vocabulário de arranjo/credenciadora/IP/UR, ele não entra automaticamente para evitar falso positivo.</p>",
         "</section>",
         "<section><h2>Heatmaps: número puro e cálculo</h2>",
         "<p>Fórmula da matriz: <strong>frequência equal-weight = feature_count / funds</strong>. A cor é esse percentual. O texto dentro da célula mostra numerador/denominador.</p>",
@@ -1213,6 +1483,7 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--named-parties-output", type=Path, default=DEFAULT_NAMED_PARTIES)
     parser.add_argument("--manual-review-output", type=Path, default=DEFAULT_MANUAL_REVIEW)
+    parser.add_argument("--payment-rails-output", type=Path, default=DEFAULT_PAYMENT_RAILS)
     args = parser.parse_args()
 
     if not args.db.exists():
@@ -1240,6 +1511,7 @@ def main() -> None:
     reconciliation = build_reconciliation(offers)
     manual_review = build_manual_reclassification(funds)
     parties = build_clean_named_parties(candidates, funds)
+    payment_rails = build_payment_rails_universe(offers, funds)
     pricing_coverage = build_pricing_coverage(pricing, offers)
     pricing_anomalies = build_pricing_anomalies(pricing, offers)
     participant_coverage, top_participants, current_participants = build_participant_coverage(offers, funds)
@@ -1248,6 +1520,7 @@ def main() -> None:
     args.named_parties_output.parent.mkdir(parents=True, exist_ok=True)
     parties.to_csv(args.named_parties_output, index=False)
     manual_review.to_csv(args.manual_review_output, index=False)
+    payment_rails.to_csv(args.payment_rails_output, index=False)
 
     html_report = render_report(
         metadata=metadata,
@@ -1255,6 +1528,7 @@ def main() -> None:
         funds=funds,
         segment=segment,
         reconciliation=reconciliation,
+        payment_rails=payment_rails,
         heatmap=heatmap,
         pricing_coverage=pricing_coverage,
         pricing_anomalies=pricing_anomalies,
@@ -1270,6 +1544,7 @@ def main() -> None:
     print(f"Wrote {args.output} ({args.output.stat().st_size:,} bytes)")
     print(f"Wrote {args.named_parties_output} ({len(parties):,} rows)")
     print(f"Wrote {args.manual_review_output} ({len(manual_review):,} rows)")
+    print(f"Wrote {args.payment_rails_output} ({len(payment_rails):,} rows)")
 
 
 if __name__ == "__main__":
