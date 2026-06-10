@@ -827,16 +827,16 @@ def build_flow(
         fluxo_remanescente_mezz = fluxo_remanescente - pmt_mezz
         pl_fidc_atual = pl_fidc_atual + fluxo_ativos_total - custos_adm - inadimplencia_despesa - pmt_senior - pmt_mezz
         pl_sub_jr = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
-        reinvestimento_excesso = max(fluxo_remanescente_mezz, 0.0) if reinvestimento_elegivel else 0.0
+        # Excesso de spread (fluxo remanescente após SEN/MEZZ/custos/perdas) não compra carteira
+        # nova: fica em caixa remunerado pela SELIC (rendimento_caixa_selic) até ser distribuído
+        # ou usado na amortização. Só o principal recebido é reciclado em nova originação.
+        reinvestimento_excesso = 0.0
         nova_originacao = reinvestimento_principal + reinvestimento_excesso
         baixa_credito_face = credit.baixa_credito / preco_pago_fator if preco_pago_fator > 1e-12 else credit.baixa_credito
         carteira_fim = max(carteira - principal_recebido_carteira - baixa_credito_face + nova_originacao, 0.0)
-        caixa_nao_reinvestido = (
-            principal_para_caixa_selic
-            + max(max(fluxo_remanescente_mezz, 0.0) - reinvestimento_excesso, 0.0)
-        )
+        caixa_nao_reinvestido = principal_para_caixa_selic + max(fluxo_remanescente_mezz, 0.0)
         saldo_caixa_selic_fim = max(
-            saldo_caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_mezz - reinvestimento_excesso,
+            saldo_caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_mezz,
             0.0,
         )
         carteira_atual = carteira_fim

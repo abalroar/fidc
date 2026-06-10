@@ -414,7 +414,7 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertGreater(periods[5].baixa_credito, 0.0)
         self.assertLess(periods[5].carteira_fim, periods[5].carteira)
 
-    def test_revolving_portfolio_reinvests_principal_and_excess_cash_while_eligible(self):
+    def test_revolving_portfolio_reinvests_principal_and_keeps_excess_spread_in_selic_while_eligible(self):
         monthly_dates = [datetime(2025, 1, 1), datetime(2025, 2, 1), datetime(2025, 3, 1)]
         premissas = Premissas(
             volume=1_000_000.0,
@@ -439,12 +439,11 @@ class FidcModelParityTest(unittest.TestCase):
 
         self.assertAlmostEqual(1_000_000.0, periods[1].carteira)
         self.assertGreater(periods[1].principal_recebido_carteira, 0.0)
-        self.assertGreater(periods[1].reinvestimento_excesso, 0.0)
-        self.assertAlmostEqual(
-            periods[1].principal_recebido_carteira + periods[1].reinvestimento_excesso,
-            periods[1].nova_originacao,
-        )
-        self.assertGreater(periods[2].carteira, 1_000_000.0)
+        self.assertEqual(0.0, periods[1].reinvestimento_excesso)
+        self.assertAlmostEqual(periods[1].principal_recebido_carteira, periods[1].nova_originacao)
+        self.assertAlmostEqual(1_000_000.0, periods[2].carteira)
+        self.assertGreater(periods[1].fluxo_remanescente_mezz, 0.0)
+        self.assertAlmostEqual(periods[1].fluxo_remanescente_mezz, periods[1].saldo_caixa_selic_fim)
         self.assertGreater(periods[2].pl_fidc, periods[1].pl_fidc)
 
     def test_revolving_portfolio_stops_new_origination_when_average_term_no_longer_fits(self):

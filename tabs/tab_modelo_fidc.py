@@ -120,6 +120,11 @@ LABELS_COTAS_ABBR = {
     "mezz": "MEZZ",
     "sub": "SUB",
 }
+# Paleta dos gráficos do modelo: somente tons de preto, laranja e cinza.
+COLOR_BLACK = "#1a1a1a"
+COLOR_GRAY = "#9c9c9c"
+COLOR_ORANGE = "#f28e2b"
+COLOR_DARK_ORANGE = "#b35c00"
 HELP_CUSTO_ADM_GESTAO = (
     "Custo anual sobre o PL econômico do fundo no início do período; aplica-se o maior entre "
     "o valor mensal composto e o custo mínimo mensal."
@@ -1665,7 +1670,7 @@ def _add_model_excel_charts(
         anchor="A43",
         title="Evolução do saldo das cotas",
         y_axis_title="R$ milhões",
-        colors=["2F6F9F", "F28E2B", "59A14F", "B23B3B"],
+        colors=["1A1A1A", "9C9C9C", "F28E2B", "B35C00"],
     )
     _add_line_chart(
         dashboard,
@@ -1676,7 +1681,7 @@ def _add_model_excel_charts(
         anchor="A65",
         title="Perda da carteira",
         y_axis_title="Perda da carteira (%)",
-        colors=["D62728", "F28E2B"],
+        colors=["F28E2B"],
         percent_axis=True,
     )
     _add_line_chart(
@@ -1688,7 +1693,7 @@ def _add_model_excel_charts(
         anchor="H65",
         title="Proteção da estrutura",
         y_axis_title="Proteção da estrutura (%)",
-        colors=["2F6F9F", "59A14F"],
+        colors=["1A1A1A", "F28E2B"],
         percent_axis=True,
     )
 
@@ -1890,7 +1895,7 @@ def _ppt_add_balance_slide(prs, layout, balance_chart_df: pd.DataFrame, **deps) 
         h=5.65,
         title="Evolução do saldo das cotas",
         y_axis_title="R$ milhões",
-        colors=["2F6F9F", "F28E2B", "59A14F", "B23B3B"],
+        colors=["1A1A1A", "9C9C9C", "F28E2B", "B35C00"],
         **deps,
     )
 
@@ -1919,7 +1924,7 @@ def _ppt_add_loss_protection_slide(
         h=4.65,
         title="Perda da carteira",
         y_axis_title="Perda da carteira (%)",
-        colors=["D62728", "F28E2B"],
+        colors=["F28E2B"],
         percent_axis=True,
         **deps,
     )
@@ -1932,7 +1937,7 @@ def _ppt_add_loss_protection_slide(
         h=4.65,
         title="Proteção da estrutura",
         y_axis_title="Proteção da estrutura (%)",
-        colors=["2F6F9F", "59A14F"],
+        colors=["1A1A1A", "F28E2B"],
         percent_axis=True,
         **deps,
     )
@@ -2267,7 +2272,7 @@ def _build_workbook_mechanics_markdown(
             "fluxo_carteira = carteira * ((1 + taxa_cessao_am_aplicada) ^ (delta_DU / 21) - 1)",
             "```",
             "",
-            "- Em carteira revolvente, `carteira` é o saldo em aberto usado para juros e perda; ele cresce com principal reciclado e excesso de caixa reinvestido enquanto a nova carteira couber no prazo do FIDC.",
+            "- Em carteira revolvente, `carteira` é o saldo em aberto usado para juros e perda; ele se mantém reciclando o principal recebido (reinvestimento de principal) enquanto a nova carteira couber no prazo do FIDC. O excesso de caixa após custos, perdas e PMTs de SEN/MEZZ não compra nova carteira; ele vai para o caixa aplicado à SELIC (seção 10).",
             "- A timeline preserva carteira pelo valor de face e mostra EAD/saldo em risco pelo preço pago. A provisão e o NPL usam EAD ajustado quando há ágio sobre face.",
             "",
             f"- Entrada informada pelo usuário nesta simulação: `{taxa_cessao_input_mode}`.",
@@ -2410,28 +2415,28 @@ def _build_workbook_mechanics_markdown(
             "",
             "### 9. Revolvência, denominadores e capacidade de perda",
             "",
-            "- Quando a carteira é revolvente, o modelo recicla principal recebido e excesso de caixa enquanto o prazo médio dos recebíveis ainda cabe no prazo restante do FIDC:",
+            "- Quando a carteira é revolvente, o modelo recicla apenas o principal recebido líquido enquanto o prazo médio dos recebíveis ainda cabe no prazo restante do FIDC:",
             "",
             "```text",
             "giro_estimado = prazo_total_fidc_anos * 12 / prazo_medio_recebiveis_meses",
             "mes_limite_reinvestimento = prazo_total_fidc_meses - prazo_medio_recebiveis_meses",
             "principal_programado = carteira_inicio * meses_periodo / prazo_medio_recebiveis_meses",
             "principal_recebido_liquido = max(principal_programado - principal_inadimplente, 0)",
-            "nova_originacao_economica = principal_recebido_liquido + max(fluxo_remanescente_apos_MEZZ, 0)",
+            "nova_originacao_economica = principal_recebido_liquido",
             "```",
             "",
             "- Se o mês do FIDC fica depois do mês limite de reinvestimento, a nova originação econômica vira `0` e a carteira começa a amortizar por runoff.",
             "- A partir desse ponto, o principal dos recebíveis que vence deixa de comprar nova carteira e passa a compor caixa aplicado à SELIC.",
-            "- O denominador principal de carteira originada usa a originação efetiva do motor. Portanto, se o modelo reinveste excesso de spread durante a revolvência, esse excesso entra no denominador e na memória de cálculo.",
-            "- Essa regra é importante para análise de capacidade de perda: se o fundo comprou mais carteira porque reinvestiu spread, a comparação da SUB final contra a carteira comprada precisa usar essa compra efetiva, não apenas o giro teórico do volume inicial.",
+            "- O excesso de caixa após custos, perdas e PMTs de SEN/MEZZ (`fluxo_remanescente_apos_MEZZ`, quando positivo) também nunca compra nova carteira; ele soma diretamente ao caixa aplicado à SELIC desde o primeiro período (seção 10).",
+            "- O denominador principal de carteira originada usa a originação efetiva do motor, isto é, apenas o principal reciclado mês a mês durante a revolvência.",
             "",
             "```text",
             "carteira_originada_efetiva = volume_inicial + soma(nova_originacao_economica_t)",
-            "nova_originacao_economica_t = reinvestimento_principal_t + reinvestimento_excesso_t",
+            "nova_originacao_economica_t = reinvestimento_principal_t",
             "```",
             "",
-            "- Exemplo: se o volume inicial é `R$ 750MM` e o motor origina mais `R$ 4,0 bi` entre principal reciclado e excesso de spread, a carteira originada efetiva é `R$ 4,75 bi`. É essa base que deve ser usada para ler o colchão econômico.",
-            "- O giro programático continua sendo exibido como referência operacional, mas não substitui o denominador econômico quando a carteira efetivamente cresce por reinvestimento de spread.",
+            "- No cenário sem perdas (usado para o colchão econômico), `principal_recebido_liquido` é igual a `principal_programado` em todo período elegível, então `carteira_originada_efetiva` converge para o giro programático do volume inicial.",
+            "- Em cenários com perdas, parte do principal programado vira inadimplência projetada e não é reciclada; por isso `carteira_originada_efetiva` pode ficar abaixo do giro programático nesses cenários.",
             "- Quando a carteira é estática, a carteira originada é apenas a compra inicial:",
             "",
             "```text",
@@ -2457,10 +2462,10 @@ def _build_workbook_mechanics_markdown(
             "",
             "### 10. Caixa pós-revolvência e SELIC projetada",
             "",
-            "- Enquanto a revolvência é elegível, o modelo reinveste principal recebido e excesso de caixa em novos recebíveis.",
-            "- Quando o prazo médio dos recebíveis já não cabe no prazo restante do FIDC, o principal recebido deixa de ser reinvestido e entra no saldo de caixa SELIC.",
+            "- Enquanto a revolvência é elegível, o modelo recicla apenas o principal recebido líquido em novos recebíveis; o excesso de caixa após custos, perdas e PMTs de SEN/MEZZ (`fluxo_remanescente_apos_MEZZ`, quando positivo) já entra no saldo de caixa SELIC desde o primeiro período.",
+            "- Quando o prazo médio dos recebíveis já não cabe mais no prazo restante do FIDC, o principal recebido também deixa de ser reciclado e passa a entrar no saldo de caixa SELIC.",
             "- A taxa SELIC média é uma projeção digitada pelo usuário por ano calendário; nesta etapa ela não vem de fonte externa.",
-            "- Esta curva manual remunera apenas o caixa excedente depois que a carteira entra em runoff.",
+            "- Esta curva manual remunera o caixa acumulado a cada período: excesso de spread desde o primeiro mês e, depois do mês limite de reinvestimento, também o principal recebido.",
             "- O CDI implícito das cotas pós-fixadas e o Pre DI na duration continuam usando a curva DI/Pré selecionada na fonte B3/local.",
             "- O default é `13,00% a.a.` para 2026, `12,00% a.a.` para 2027 e `12,00% a.a.` para 2028 em diante; o usuário pode sobrescrever os campos exibidos.",
             "- O motor transforma a taxa anual em taxa do período com matemática financeira exponencial e 21 dias úteis médios por mês:",
@@ -2468,7 +2473,7 @@ def _build_workbook_mechanics_markdown(
             "```text",
             "taxa_selic_periodo = (1 + selic_aa_do_ano) ^ (21 * meses_periodo / 252) - 1",
             "rendimento_caixa_selic = (caixa_selic_inicio + principal_para_caixa_selic) * taxa_selic_periodo",
-            "saldo_caixa_selic_fim = caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_apos_MEZZ - reinvestimento_excesso",
+            "saldo_caixa_selic_fim = caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_apos_MEZZ",
             "```",
             "",
             "- Exemplo: se o prazo médio é `6 meses`, cerca de `1/6` da carteira em aberto vence a cada mês.",
@@ -2488,10 +2493,10 @@ def _build_workbook_mechanics_markdown(
             "### 12. Como interpretar os gráficos",
             "",
             "- `Evolução do saldo das cotas`: mostra SEN, MEZZ, SUB disponível e, quando existir, déficit econômico separado.",
-            "- `Perda da carteira`: mostra somente perda do período e perda acumulada.",
+            "- `Perda da carteira`: mostra a perda do período, isto é, a despesa de provisão do mês dividida pela carteira do mês.",
             "- `Proteção da estrutura`: mostra subordinação econômica e colchão de proteção.",
             "- `Colchão de proteção` é `SUB disponível / carteira originada acumulada`; ele mede o colchão econômico naquele mês.",
-            "- Se a perda acumulada sobe enquanto a subordinação disponível cai para zero, a estrutura está consumindo o colchão subordinado.",
+            "- Se a perda do período se sustenta ao longo dos meses enquanto a subordinação disponível cai em direção a zero (gráfico de evolução do saldo das cotas), a estrutura está consumindo o colchão subordinado.",
             "- Se aparece déficit econômico, o cenário já ultrapassou a proteção da SUB dentro da mecânica atual.",
             "",
             "### 13. Limitações atuais",
@@ -2552,22 +2557,22 @@ def _build_step_by_step_markdown() -> str:
             "",
             "### 5. Entenda a revolvência",
             "",
-            "- Enquanto ainda há prazo suficiente para comprar novos recebíveis, o motor reinveste dois componentes: principal recebido líquido e excesso de caixa depois dos PMTs de SEN/MEZZ.",
+            "- Enquanto ainda há prazo suficiente para comprar novos recebíveis, o motor recicla apenas o principal recebido líquido.",
             "- **Principal recebido líquido** é o principal que venceu e pagou, já descontado do principal que vai virar NPL.",
-            "- **Excesso de spread reinvestido** é o caixa positivo remanescente após custos, perdas e pagamentos de SEN/MEZZ, quando a carteira ainda é elegível para revolvência.",
-            "- Quando o prazo médio dos recebíveis não cabe mais no prazo restante do FIDC, a carteira entra em runoff: o principal recebido deixa de comprar nova carteira e passa a render pela SELIC média informada.",
+            "- **Excesso de caixa** é o fluxo positivo remanescente após custos, perdas e pagamentos de SEN/MEZZ. Ele nunca compra nova carteira: desde o primeiro mês, ele vai para o caixa aplicado à SELIC.",
+            "- Quando o prazo médio dos recebíveis não cabe mais no prazo restante do FIDC, a carteira entra em runoff: o principal recebido também deixa de comprar nova carteira e passa a render pela SELIC média informada.",
             "",
             "### 6. Entenda os denominadores",
             "",
-            "- **Carteira originada programática** é apenas uma referência teórica de giro do volume inicial.",
-            "- **Carteira originada efetiva** é a base reconciliada com o motor: volume inicial + toda nova originação econômica efetiva.",
-            "- Se o modelo reinveste excesso de spread, esse reinvestimento aumenta a carteira originada efetiva. Por isso, o colchão sobre carteira originada usa essa base, não apenas o giro teórico.",
-            "- **Colchão sobre carteira originada** compara a SUB final sem perdas com a carteira originada efetiva; é uma leitura de quanto excess spread/subordinação foi gerado para cada real efetivamente comprado pelo motor.",
+            "- **Carteira originada programática** é a referência teórica de giro do volume inicial (volume + reposições de principal pelo prazo médio).",
+            "- **Carteira originada efetiva** é a base reconciliada com o motor: volume inicial + soma do principal reciclado mês a mês.",
+            "- No cenário sem perdas, as duas bases convergem, porque o motor recicla exatamente o principal programado. Em cenários com perdas, a efetiva fica abaixo da programática, pois parte do principal vira inadimplência projetada e não é reciclada.",
+            "- **Colchão sobre carteira originada** compara a SUB final sem perdas com a carteira originada efetiva; é uma leitura de quanto colchão/subordinação foi gerado para cada real efetivamente comprado pelo motor.",
             "",
             "### 7. Como ler os gráficos e a timeline",
             "",
             "- O gráfico de saldos mostra SEN, MEZZ, SUB residual e déficit econômico ao longo do tempo.",
-            "- O gráfico de perda mostra despesa de provisão/perda do período e acumulada; não é write-off acumulado nem estoque NPL acumulado.",
+            "- O gráfico de perda mostra a perda do período: despesa de provisão/perda do mês dividida pela carteira do mês; não é write-off acumulado nem estoque NPL acumulado.",
             "- O gráfico de proteção compara a subordinação econômica com o colchão de proteção sobre a carteira originada acumulada.",
             "- A timeline detalhada é a memória de cálculo: use as colunas de principal inadimplente, provisão, baixa, reinvestimento e carteira originada para reconciliar cada mês.",
         ]
@@ -2812,41 +2817,39 @@ def _available_subordination_pct(row: pd.Series) -> float | None:
     return max(float(pl_sub_jr), 0.0) / float(pl_fidc)
 
 
-def _build_loss_area_frame(
-    frame: pd.DataFrame,
-    volume: float,
-) -> pd.DataFrame:
+def _build_loss_area_frame(frame: pd.DataFrame) -> pd.DataFrame:
     loss_column = "perda_carteira_despesa" if "perda_carteira_despesa" in frame.columns else "inadimplencia_despesa"
     chart_frame = frame[["indice", "data", "carteira", loss_column]].copy()
     chart_frame = chart_frame.rename(columns={loss_column: "perda_carteira_despesa"})
-    chart_frame["perda_carteira_acumulada"] = chart_frame["perda_carteira_despesa"].fillna(0.0).cumsum()
     chart_frame["perda_periodo_pct"] = chart_frame.apply(
         lambda row: row["perda_carteira_despesa"] / row["carteira"] if row["carteira"] else None,
         axis=1,
     )
-    denominator = volume if volume else 1.0
-    chart_frame["perda_acumulada_pct"] = chart_frame["perda_carteira_acumulada"] / denominator
-    long_df = chart_frame.melt(
-        id_vars=["indice", "data"],
-        value_vars=["perda_acumulada_pct", "perda_periodo_pct"],
-        var_name="serie",
-        value_name="valor",
-    ).dropna(subset=["valor"])
-    label_map = {
-        "perda_acumulada_pct": "Perda acumulada",
-        "perda_periodo_pct": "Perda do período",
-    }
-    long_df["serie"] = long_df["serie"].map(label_map)
-    formula_map = {
-        "Perda acumulada": "Soma das despesas de provisão desde o mês 1",
-        "Perda do período": "Despesa de provisão reconhecida no mês",
-    }
-    long_df["formula_tooltip"] = long_df["serie"].map(formula_map)
+    long_df = chart_frame.dropna(subset=["perda_periodo_pct"]).copy()
+    long_df["serie"] = "Perda do período"
+    long_df["valor"] = long_df["perda_periodo_pct"]
+    long_df["formula_tooltip"] = "Numerador: despesa de provisão do mês. Denominador: carteira no início do mês."
+    long_df["numerador_formatado"] = long_df["perda_carteira_despesa"].map(_format_brl)
+    long_df["denominador_formatado"] = long_df["carteira"].map(_format_brl)
     long_df["valor_pct"] = long_df["valor"] * 100.0
     long_df["valor_formatado"] = long_df["valor"].map(_format_percent)
     long_df["periodo"] = long_df["data"].dt.strftime("%d/%m/%Y")
     long_df["mes_fidc"] = long_df["indice"].map(lambda value: f"Mês {int(value)}")
-    return long_df
+    return long_df[
+        [
+            "indice",
+            "data",
+            "serie",
+            "valor",
+            "formula_tooltip",
+            "numerador_formatado",
+            "denominador_formatado",
+            "valor_pct",
+            "valor_formatado",
+            "periodo",
+            "mes_fidc",
+        ]
+    ]
 
 
 def _build_protection_area_frame(
@@ -2855,25 +2858,45 @@ def _build_protection_area_frame(
 ) -> pd.DataFrame:
     chart_frame = frame[["indice", "data", "pl_fidc", "pl_sub_jr"]].copy()
     chart_frame["subordinacao_display"] = chart_frame.apply(_available_subordination_pct, axis=1)
+    chart_frame["numerador_formatado"] = chart_frame["pl_sub_jr"].clip(lower=0.0).map(_format_brl)
+    chart_frame["denominador_formatado"] = chart_frame["pl_fidc"].map(_format_brl)
     long_df = chart_frame.melt(
-        id_vars=["indice", "data"],
+        id_vars=["indice", "data", "numerador_formatado", "denominador_formatado"],
         value_vars=["subordinacao_display"],
         var_name="serie",
         value_name="valor",
     ).dropna(subset=["valor"])
     long_df["serie"] = "Subordinação econômica"
-    long_df["formula_tooltip"] = "max(PL FIDC - PL SEN - PL MEZZ, 0) / PL FIDC"
+    long_df["formula_tooltip"] = "Numerador: SUB disponível, max(PL FIDC - PL SEN - PL MEZZ, 0). Denominador: PL FIDC."
     long_df["valor_pct"] = long_df["valor"] * 100.0
     long_df["valor_formatado"] = long_df["valor"].map(_format_percent)
     long_df["periodo"] = long_df["data"].dt.strftime("%d/%m/%Y")
     long_df["mes_fidc"] = long_df["indice"].map(lambda value: f"Mês {int(value)}")
     if protection_frame is not None and not protection_frame.empty:
         protection_series = protection_frame[
-            ["indice", "data", "perda_maxima_suportada", "valor_pct", "valor_formatado", "periodo", "mes_fidc"]
+            [
+                "indice",
+                "data",
+                "perda_maxima_suportada",
+                "valor_pct",
+                "valor_formatado",
+                "sub_formatada",
+                "originada_formatada",
+                "periodo",
+                "mes_fidc",
+            ]
         ].copy()
-        protection_series = protection_series.rename(columns={"perda_maxima_suportada": "valor"})
+        protection_series = protection_series.rename(
+            columns={
+                "perda_maxima_suportada": "valor",
+                "sub_formatada": "numerador_formatado",
+                "originada_formatada": "denominador_formatado",
+            }
+        )
         protection_series["serie"] = "Colchão de proteção"
-        protection_series["formula_tooltip"] = "SUB disponível / carteira originada acumulada"
+        protection_series["formula_tooltip"] = (
+            "Numerador: SUB disponível no mês. Denominador: carteira originada acumulada (volume inicial + nova originação acumulada)."
+        )
         long_df = pd.concat([long_df, protection_series[long_df.columns]], ignore_index=True)
     return long_df
 
@@ -2889,7 +2912,7 @@ def _protection_ratio_chart(chart_df: pd.DataFrame) -> alt.Chart:
         color=alt.Color(
             "serie:N",
             title="Cenário",
-            scale=alt.Scale(range=["#2f6f9f", "#59a14f"]),
+            scale=alt.Scale(range=[COLOR_BLACK, COLOR_ORANGE]),
         ),
         tooltip=[
             alt.Tooltip("mes_fidc:N", title="Mês"),
@@ -2910,7 +2933,7 @@ def _protection_ratio_chart(chart_df: pd.DataFrame) -> alt.Chart:
 
 def _area_money_chart(chart_df: pd.DataFrame) -> alt.Chart:
     color_domain = [LABELS_COTAS["sen"], LABELS_COTAS["mezz"], LABELS_COTAS["sub"], "Déficit econômico"]
-    color_range = ["#2f6f9f", "#f28e2b", "#59a14f", "#b23b3b"]
+    color_range = [COLOR_BLACK, COLOR_GRAY, COLOR_ORANGE, COLOR_DARK_ORANGE]
     x_encoding = alt.X("indice:Q", title="Mês do FIDC", axis=alt.Axis(tickMinStep=1))
     color_encoding = alt.Color(
         "classe:N",
@@ -2965,6 +2988,10 @@ def _area_percent_chart(
         alt.Tooltip("serie:N", title="Série"),
         alt.Tooltip("valor_formatado:N", title="Valor"),
     ]
+    if "numerador_formatado" in chart_df.columns:
+        tooltip.append(alt.Tooltip("numerador_formatado:N", title="Numerador"))
+    if "denominador_formatado" in chart_df.columns:
+        tooltip.append(alt.Tooltip("denominador_formatado:N", title="Denominador"))
     if "formula_tooltip" in chart_df.columns:
         tooltip.append(alt.Tooltip("formula_tooltip:N", title="Cálculo"))
 
@@ -2991,14 +3018,18 @@ def _area_percent_chart(
 def _chart_definition_caption(kind: str) -> str:
     if kind == "loss":
         return (
-            "Perda do período = despesa de provisão reconhecida no mês. "
-            "Perda acumulada = soma das despesas de provisão desde o início; não é write-off acumulado nem NPL 90+ acumulado. "
-            "A SUB econômica já reflete o efeito líquido de perda, fluxo da carteira, custos e PMTs."
+            "Perda do período = despesa de provisão do mês (numerador) dividida pela carteira do mês (denominador). "
+            "Em regime estável essa razão tende a perda_ciclo / prazo médio dos recebíveis "
+            "(ex.: 40% / 6 meses = 6,67% a.m.); não existe nenhum teto de 25% ou 40% nesta série mensal — "
+            "perda_ciclo é uma taxa de perda do ciclo/safra (sobre o que vence em ~prazo médio meses), não uma taxa mensal direta. "
+            "O efeito acumulado das perdas sobre o colchão da SUB aparece na evolução do saldo das cotas e no gráfico de proteção da estrutura."
         )
     if kind == "protection":
         return (
-            "Subordinação econômica = SUB disponível no mês, isto é, max(PL FIDC - PL SEN - PL MEZZ, 0), exibida como % do PL econômico. "
-            "Colchão de proteção = SUB disponível dividida pela carteira originada acumulada até o mês."
+            "Subordinação econômica = SUB disponível no mês, max(PL FIDC - PL SEN - PL MEZZ, 0) (numerador), "
+            "dividida pelo PL FIDC do mês (denominador). "
+            "Colchão de proteção = SUB disponível no mês (numerador) dividida pela carteira originada acumulada, "
+            "isto é, volume inicial + nova originação acumulada (denominador)."
         )
     raise ValueError(f"Tipo de legenda de gráfico inválido: {kind}")
 
@@ -4054,7 +4085,7 @@ def render_tab_modelo_fidc() -> None:
     display_frame = _build_display_dataframe(export_frame)
     committee_timeline_frame = _build_committee_timeline_dataframe(display_frame)
     balance_chart_df = _build_balance_area_frame(frame)
-    loss_chart_df = _build_loss_area_frame(frame, premissas.volume)
+    loss_chart_df = _build_loss_area_frame(frame)
     protection_display_chart_df = _build_protection_area_frame(frame, protection_frame)
 
     st.markdown('<div class="fidc-model-section-title">Resumo econômico</div>', unsafe_allow_html=True)
@@ -4074,8 +4105,8 @@ def render_tab_modelo_fidc() -> None:
             _area_percent_chart(
                 loss_chart_df,
                 y_title="Perda da carteira (%)",
-                color_domain=["Perda acumulada", "Perda do período"],
-                color_range=["#d62728", "#f28e2b"],
+                color_domain=["Perda do período"],
+                color_range=[COLOR_ORANGE],
             ),
             width="stretch",
         )
@@ -4087,7 +4118,7 @@ def render_tab_modelo_fidc() -> None:
                 protection_display_chart_df,
                 y_title="Proteção da estrutura (%)",
                 color_domain=["Subordinação econômica", "Colchão de proteção"],
-                color_range=["#2f6f9f", "#59a14f"],
+                color_range=[COLOR_BLACK, COLOR_ORANGE],
             ),
             width="stretch",
         )
@@ -4102,17 +4133,17 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Fluxo econômico da carteira",
                 "Fórmula": "carteira * ((1 + tx_cessao_am_aplicada) ^ (delta_du / 21) - 1)",
-                "Observação": "Em carteira revolvente, a base de carteira evolui com principal reciclado e excesso de caixa reinvestido enquanto houver prazo para nova originação.",
+                "Observação": "Em carteira revolvente, a base de carteira evolui apenas com o principal reciclado (reinvestimento de principal) enquanto houver prazo para nova originação; o excesso de caixa não entra na carteira.",
             },
             {
                 "Indicador": "Rendimento do caixa SELIC",
                 "Fórmula": "rendimento_selic = (caixa_selic_inicio + principal_para_caixa_selic) * ((1 + selic_aa) ^ (21 * meses_periodo / 252) - 1)",
-                "Observação": "Quando a carteira não pode mais comprar recebíveis, o principal que vence passa a render pela SELIC média anual informada pelo usuário.",
+                "Observação": "O caixa SELIC recebe, desde o primeiro mês, o excesso de fluxo após custos, perdas e PMTs de SEN/MEZZ (quando positivo); quando a carteira não pode mais comprar recebíveis, o principal que vence também passa a compor esse caixa e a render pela SELIC média anual informada pelo usuário.",
             },
             {
                 "Indicador": "Fluxo econômico total dos ativos",
                 "Fórmula": "fluxo_ativos_total = fluxo_carteira + rendimento_caixa_selic + recuperacao_credito",
-                "Observação": "Este é o fluxo usado antes de custos, provisão/perda e pagamentos das cotas; a SELIC só entra sobre caixa fora da janela de reinvestimento.",
+                "Observação": "Este é o fluxo usado antes de custos, provisão/perda e pagamentos das cotas; a SELIC remunera o saldo de caixa acumulado, que já inclui excesso de spread desde o primeiro mês e, fora da janela de reinvestimento, também o principal recebido.",
             },
             {
                 "Indicador": "De-para da Taxa de Cessão",
@@ -4181,8 +4212,8 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Nova originação",
-                "Fórmula": "se elegível: principal_recebido_líquido + max(fluxo_remanescente_apos_MEZZ, 0); se não elegível: 0",
-                "Observação": "Captura reinvestimento do principal reciclado e do excesso de caixa; fora da janela elegível, o principal recebido vai para caixa SELIC.",
+                "Fórmula": "se elegível: principal_recebido_líquido; se não elegível: 0",
+                "Observação": "Captura apenas o reinvestimento do principal reciclado; o excesso de caixa após PMTs de SEN/MEZZ vai sempre para o caixa SELIC, e fora da janela elegível o principal recebido também vai para o caixa SELIC.",
             },
             {
                 "Indicador": "Juros sênior/MEZZ",
@@ -4206,12 +4237,12 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Carteira originada programática",
                 "Fórmula": "revolvente: volume + volume * max(prazo_total_meses - prazo_medio_meses, 0) / prazo_medio_meses; estática: volume",
-                "Observação": "Referência de giro teórico do volume inicial; não é usada como denominador principal quando o motor reinveste excesso de spread.",
+                "Observação": "Referência de giro teórico do volume inicial; no cenário sem perdas, converge com a carteira originada efetiva, pois o motor recicla apenas principal.",
             },
             {
                 "Indicador": "Carteira originada efetiva",
                 "Fórmula": "volume_inicial + soma(nova_originacao_economica_t)",
-                "Observação": "Denominador reconciliado com o motor; inclui reinvestimento de principal e de excesso de spread enquanto a revolvência é elegível.",
+                "Observação": "Denominador reconciliado com o motor; inclui apenas o reinvestimento de principal reciclado enquanto a revolvência é elegível.",
             },
             {
                 "Indicador": "Colchão de proteção no tempo",
