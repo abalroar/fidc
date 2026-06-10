@@ -120,7 +120,6 @@ def render_tab_fidc_credit_strategy() -> None:
     subordination = tables["subordination_by_sector_year"]
     pricing = tables["pricing_senior_by_sector_year"]
     ime_subordination = tables.get("ime_current_subordination_by_sector_year", pd.DataFrame())
-    ime_cota_price = tables.get("ime_cota_price_by_sector_year", pd.DataFrame())
     opportunities = tables["market_opportunities"]
     ime_cache = tables["ime_cache_summary"]
     _render_kpis(fund_universe, pricing, opportunities, ime_cache, metadata)
@@ -144,7 +143,7 @@ def render_tab_fidc_credit_strategy() -> None:
     with tabs[1]:
         _render_subordination(subordination, ime_subordination, cohort, selected_sectors)
     with tabs[2]:
-        _render_pricing(pricing, ime_cota_price, cohort, selected_sectors)
+        _render_pricing(pricing, cohort, selected_sectors)
     with tabs[3]:
         _render_opportunities(opportunities, cohort, selected_sectors)
     with tabs[4]:
@@ -286,7 +285,7 @@ def _render_subordination(frame: pd.DataFrame, ime_frame: pd.DataFrame, cohort: 
     _render_ime_subordination(ime_frame, cohort, sectors)
 
 
-def _render_pricing(frame: pd.DataFrame, ime_price: pd.DataFrame, cohort: str, sectors: list[str]) -> None:
+def _render_pricing(frame: pd.DataFrame, cohort: str, sectors: list[str]) -> None:
     data = frame[(frame["pricing_period"] == cohort) & frame["setor_n1"].isin(sectors)].copy()
     if data.empty:
         st.info("Sem pricing sênior para os filtros selecionados.")
@@ -323,9 +322,6 @@ def _render_pricing(frame: pd.DataFrame, ime_price: pd.DataFrame, cohort: str, s
         )
         st.altair_chart(alt.layer(bar, dot).resolve_scale(y="independent").properties(height=410), width="stretch")
         st.dataframe(_format_pricing_table(data), hide_index=True, width="stretch")
-
-    _render_ime_cota_price(ime_price, cohort, sectors)
-
 
 def _render_ime_subordination(frame: pd.DataFrame, cohort: str, sectors: list[str]) -> None:
     if frame.empty:
@@ -365,48 +361,6 @@ def _render_ime_subordination(frame: pd.DataFrame, cohort: str, sectors: list[st
     st.dataframe(_format_ime_subordination_table(data), hide_index=True, width="stretch")
 
 
-def _render_ime_cota_price(frame: pd.DataFrame, cohort: str, sectors: list[str]) -> None:
-    if frame.empty:
-        return
-    data = frame[(frame["periodo"] == cohort) & frame["setor_n1"].isin(sectors)].copy()
-    if data.empty:
-        return
-    operation_norm = data["operation_type"].astype(str).str.lower()
-    data = data[(data["quota_type"].astype(str) == "Sênior") & operation_norm.str.contains("capta", na=False)].copy()
-    if data.empty:
-        return
-    data["subtipo"] = data["setor_n1"].astype(str) + " | " + data["setor_n2"].astype(str)
-    data["volume_bi"] = _num(data["movement_volume_brl"]) / 1e9
-    data["median_unit_price"] = _num(data["unit_price_median_equal_weight"])
-    data["volume_weighted_unit_price"] = _num(data["unit_price_weighted_by_movement_volume"])
-    data = data.sort_values("volume_bi", ascending=False).head(18)
-    st.markdown("**Preço unitário de captações sênior no Informe Mensal CVM**")
-    bar = (
-        alt.Chart(data)
-        .mark_bar(color="#7E5A9B", opacity=0.82)
-        .encode(
-            x=alt.X("subtipo:N", title="", sort=data["subtipo"].tolist(), axis=alt.Axis(labelAngle=-35)),
-            y=alt.Y("volume_bi:Q", title="Volume captado IME (R$ bi)"),
-            tooltip=[alt.Tooltip("subtipo:N"), alt.Tooltip("volume_bi:Q", title="Volume R$ bi", format=".2f")],
-        )
-    )
-    dot = (
-        alt.Chart(data)
-        .mark_point(color="#1B7F7A", filled=True, size=95)
-        .encode(
-            x=alt.X("subtipo:N", sort=data["subtipo"].tolist()),
-            y=alt.Y("median_unit_price:Q", title="Preço unitário mediano"),
-            tooltip=[
-                alt.Tooltip("median_unit_price:Q", title="Mediana", format=".2f"),
-                alt.Tooltip("volume_weighted_unit_price:Q", title="Pond. volume", format=".2f"),
-                alt.Tooltip("unit_price_coverage_pct:Q", title="Cobertura", format=".1f"),
-            ],
-        )
-    )
-    st.altair_chart(alt.layer(bar, dot).resolve_scale(y="independent").properties(height=410), width="stretch")
-    st.dataframe(_format_ime_cota_price_table(data), hide_index=True, width="stretch")
-
-
 def _render_opportunities(frame: pd.DataFrame, cohort: str, sectors: list[str]) -> None:
     data = frame[(frame["periodo"] == cohort) & frame["setor_n1"].isin(sectors)].copy()
     if data.empty:
@@ -432,7 +386,6 @@ def _render_base_tables(tables: dict[str, pd.DataFrame]) -> None:
             "subordination_by_sector_year",
             "pricing_senior_by_sector_year",
             "ime_current_subordination_by_sector_year",
-            "ime_cota_price_by_sector_year",
             "ime_current_snapshot",
             "ime_cota_movements",
             "regulatory_feature_heatmap_year",
@@ -550,29 +503,6 @@ def _format_ime_subordination_table(frame: pd.DataFrame) -> pd.DataFrame:
         out[col] = out[col].map(_pct)
     for col in ["PL IME", "Cotas senior", "Sub+mez"]:
         out[col] = out[col].map(_money_bi)
-    return out
-
-
-def _format_ime_cota_price_table(frame: pd.DataFrame) -> pd.DataFrame:
-    cols = [
-        "periodo",
-        "setor_n1",
-        "setor_n2",
-        "quota_type",
-        "operation_type",
-        "funds",
-        "movement_volume_brl",
-        "unit_price_coverage_pct",
-        "unit_price_median_equal_weight",
-        "unit_price_weighted_by_movement_volume",
-        "unit_price_weighted_by_current_pl",
-    ]
-    out = frame[cols].copy()
-    out.columns = ["Período", "Setor", "Subtipo", "Cota", "Operação", "Fundos", "Volume", "Cobertura preço", "Preço mediano", "Pond. volume", "Pond. PL"]
-    out["Volume"] = out["Volume"].map(_money_bi)
-    out["Cobertura preço"] = out["Cobertura preço"].map(_pct)
-    for col in ["Preço mediano", "Pond. volume", "Pond. PL"]:
-        out[col] = pd.to_numeric(out[col], errors="coerce").map(lambda value: "" if pd.isna(value) else f"{value:,.2f}".replace(",", "_").replace(".", ",").replace("_", "."))
     return out
 
 
