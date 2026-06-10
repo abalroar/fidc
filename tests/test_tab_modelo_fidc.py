@@ -362,9 +362,9 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertAlmostEqual(0.18464034718783057, periods[1].taxa_mezz)
         self.assertAlmostEqual(0.15463403302424067, kpis.xirr_senior)
         self.assertAlmostEqual(0.19047218455885997, kpis.xirr_mezz)
-        self.assertAlmostEqual(1_495_454_499.5443125, periods[-1].pl_sub_jr, delta=1.0)
+        self.assertAlmostEqual(785_962_270.9454902, periods[-1].pl_sub_jr, delta=1.0)
         self.assertFalse(exceeded)
-        self.assertAlmostEqual(0.16382598876953125, loss_cycle)
+        self.assertAlmostEqual(0.1634674072265625, loss_cycle)
 
     def test_time_protection_uses_monthly_revolving_origination(self) -> None:
         premissas = tab_modelo_fidc.Premissas(
@@ -586,6 +586,8 @@ class TabModeloFidcTests(unittest.TestCase):
                 "perda_maxima_suportada": [0.2],
                 "valor_pct": [20.0],
                 "valor_formatado": ["20,00%"],
+                "sub_formatada": ["R$ 20,00"],
+                "originada_formatada": ["R$ 100,00"],
                 "periodo": ["01/02/2026"],
                 "mes_fidc": ["Mês 1"],
             }
@@ -607,16 +609,16 @@ class TabModeloFidcTests(unittest.TestCase):
                 "perda_carteira_despesa": [0.0, 2.0],
             }
         )
-        loss_df = tab_modelo_fidc._build_loss_area_frame(frame, volume=100.0)
+        loss_df = tab_modelo_fidc._build_loss_area_frame(frame)
         protection_df = tab_modelo_fidc._build_protection_area_frame(frame)
 
-        self.assertEqual({"Perda acumulada", "Perda do período"}, set(loss_df["serie"]))
+        self.assertEqual({"Perda do período"}, set(loss_df["serie"]))
         self.assertEqual({"Subordinação econômica"}, set(protection_df["serie"]))
         spec = tab_modelo_fidc._area_percent_chart(
             loss_df,
             y_title="Perda da carteira (%)",
-            color_domain=["Perda acumulada", "Perda do período"],
-            color_range=["#d62728", "#f28e2b"],
+            color_domain=["Perda do período"],
+            color_range=[tab_modelo_fidc.COLOR_ORANGE],
         ).to_dict()
         self.assertNotIn("resolve", spec)
         self.assertIn("despesa de provisão", tab_modelo_fidc._chart_definition_caption("loss"))
@@ -749,7 +751,7 @@ class TabModeloFidcTests(unittest.TestCase):
         kpi_cards = tab_modelo_fidc._model_kpi_cards_data(kpis, results, has_mezz=True)
         revolvency_cards = tab_modelo_fidc._revolvency_cards_data(revolvency_metrics)
         balance_chart_df = tab_modelo_fidc._build_balance_area_frame(frame)
-        loss_chart_df = tab_modelo_fidc._build_loss_area_frame(frame, volume=100.0)
+        loss_chart_df = tab_modelo_fidc._build_loss_area_frame(frame)
         protection_chart_df = tab_modelo_fidc._build_protection_area_frame(frame)
 
         xlsx = tab_modelo_fidc._build_model_dashboard_excel_bytes(
