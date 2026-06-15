@@ -14,6 +14,7 @@ import pandas as pd
 from services.fundonet_dashboard import (
     _build_duration_history_df,
     _build_return_history,
+    _build_return_summary,
     build_dashboard_data,
     filter_dashboard_to_competencias,
     ordered_class_labels,
@@ -58,6 +59,8 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(2.0, senior_row["retorno_mes_pct"], places=6)
         self.assertAlmostEqual(2.0, senior_row["retorno_ano_pct"], places=6)
         self.assertAlmostEqual(3.02, senior_row["retorno_12m_pct"], places=2)
+        self.assertAlmostEqual(3.02, senior_row["retorno_periodo_pct"], places=2)
+        self.assertEqual("12 meses", senior_row["retorno_periodo_label"])
 
         benchmark_row = dashboard.performance_vs_benchmark_latest_df[
             dashboard.performance_vs_benchmark_latest_df["label"] == "Sênior · Série 1"
@@ -66,7 +69,7 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(2.0, benchmark_row["desempenho_real_pct"], places=6)
         self.assertAlmostEqual(20.0, benchmark_row["gap_bps"], places=6)
 
-    def test_filter_dashboard_to_competencias_trims_history_without_recalculation(self) -> None:
+    def test_filter_dashboard_to_competencias_trims_history_and_recalculates_returns(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             workspace = Path(tmpdir)
             self._write_fixture_csvs(workspace)
@@ -84,6 +87,29 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertEqual("01/2026 a 01/2026", filtered.fund_info["periodo_analisado"])
         self.assertEqual(["01/2026"], filtered.quota_pl_history_df["competencia"].drop_duplicates().tolist())
         self.assertEqual(["01/2026"], filtered.return_history_df["competencia"].drop_duplicates().tolist())
+        self.assertEqual(1, int(filtered.return_summary_df["retorno_periodo_meses"].iloc[0]))
+
+    def test_build_return_summary_uses_requested_return_window(self) -> None:
+        competencias = pd.date_range("2024-01-01", periods=25, freq="MS")
+        history = pd.DataFrame(
+            {
+                "competencia": [competencia.strftime("%m/%Y") for competencia in competencias],
+                "competencia_dt": competencias,
+                "class_kind": ["senior"] * len(competencias),
+                "class_key": ["senior:1"] * len(competencias),
+                "class_label": ["Sênior"] * len(competencias),
+                "label": ["Sênior"] * len(competencias),
+                "retorno_mensal_pct": [1.0] * len(competencias),
+            }
+        )
+
+        summary = _build_return_summary(history, "01/2026", return_window_months=24)
+        row = summary.iloc[0]
+
+        self.assertEqual("24 meses", row["retorno_periodo_label"])
+        self.assertEqual(24, int(row["retorno_periodo_meses"]))
+        self.assertAlmostEqual(((1.01**24) - 1) * 100, row["retorno_periodo_pct"], places=6)
+        self.assertAlmostEqual(((1.01**12) - 1) * 100, row["retorno_12m_pct"], places=6)
 
     def test_build_return_history_preserves_multiple_classes_with_same_tipo(self) -> None:
         wide_lookup = pd.DataFrame(columns=["tag_path"]).set_index("tag_path", drop=False)

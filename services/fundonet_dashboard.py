@@ -135,16 +135,54 @@ class FundonetDashboardData:
     methodology_notes: list[str]
 
 
+def _coerce_return_window_months(value: int | None, *, default: int = 12) -> int:
+    try:
+        months = int(value) if value is not None else int(default)
+    except (TypeError, ValueError):
+        months = int(default)
+    return max(months, 1)
+
+
+def _return_window_label(window_months: int | None) -> str:
+    months = _coerce_return_window_months(window_months)
+    return "1 mês" if months == 1 else f"{months} meses"
+
+
+def _infer_return_window_months(competencias: list[str]) -> int:
+    count = len([competencia for competencia in competencias if str(competencia).strip()])
+    # Annual presets include the prior-year anchor month for YoY visuals.
+    if count in {13, 25, 37}:
+        return count - 1
+    return max(count, 1)
+
+
+def return_period_summary_spec(return_summary_df: pd.DataFrame) -> tuple[str, str]:
+    """Return the accumulated-period metric column and display label."""
+    if return_summary_df is not None and "retorno_periodo_pct" in return_summary_df.columns:
+        label = ""
+        if "retorno_periodo_label" in return_summary_df.columns:
+            labels = return_summary_df["retorno_periodo_label"].dropna().astype(str).str.strip()
+            label = next((item for item in labels.tolist() if item), "")
+        if not label and "retorno_periodo_meses" in return_summary_df.columns:
+            months = pd.to_numeric(return_summary_df["retorno_periodo_meses"], errors="coerce").dropna()
+            if not months.empty:
+                label = _return_window_label(int(months.iloc[0]))
+        return "retorno_periodo_pct", label or "Período"
+    return "retorno_12m_pct", "12 meses"
+
+
 def filter_dashboard_to_competencias(
     dashboard: FundonetDashboardData,
     competencias: list[str],
+    *,
+    return_window_months: int | None = None,
 ) -> FundonetDashboardData:
-    """Return a presentation-scoped dashboard without recalculating metrics.
+    """Return a presentation-scoped dashboard with period-scoped return metrics.
 
     The dashboard builder may load a small older buffer to tolerate unavailable
     end-month documents. This helper trims every competencia-indexed frame to
-    the display window while keeping the already computed latest metrics and
-    methodology intact.
+    the display window while keeping methodology intact and recalculating the
+    return summary for the requested analysis window.
     """
     selected = [str(value) for value in dashboard.competencias if str(value) in {str(item) for item in competencias}]
     if not selected:
@@ -165,6 +203,16 @@ def filter_dashboard_to_competencias(
         if isinstance(value, pd.DataFrame) and "competencia" in value.columns:
             filtered = value[value["competencia"].astype(str).isin(selected_set)].copy()
             replacements[data_field.name] = filtered.reset_index(drop=True)
+    filtered_return_history = replacements.get("return_history_df", dashboard.return_history_df)
+    if isinstance(filtered_return_history, pd.DataFrame):
+        replacements["return_summary_df"] = _build_return_summary(
+            filtered_return_history,
+            latest_competencia,
+            return_window_months=_coerce_return_window_months(
+                return_window_months,
+                default=_infer_return_window_months(selected),
+            ),
+        )
     return replace(dashboard, **replacements)
 
 
@@ -203,6 +251,7 @@ def build_dashboard_data(
     return_summary_df = _build_return_summary(
         return_history_df=return_history_df,
         latest_competencia=latest_competencia,
+        return_window_months=12,
     )
     performance_vs_benchmark_latest_df = _build_performance_vs_benchmark_latest_df(
         wide_lookup=wide_lookup,
@@ -2834,7 +2883,14 @@ def _build_return_history(
     return base_df
 
 
-def _build_return_summary(return_history_df: pd.DataFrame, latest_competencia: str) -> pd.DataFrame:
+def _build_return_summary(
+    return_history_df: pd.DataFrame,
+    latest_competencia: str,
+    *,
+    return_window_months: int | None = 12,
+) -> pd.DataFrame:
+    window_months = _coerce_return_window_months(return_window_months, default=12)
+    window_label = _return_window_label(window_months)
     if return_history_df.empty:
         return pd.DataFrame(
             columns=[
@@ -2845,6 +2901,9 @@ def _build_return_summary(return_history_df: pd.DataFrame, latest_competencia: s
                 "retorno_mes_pct",
                 "retorno_ano_pct",
                 "retorno_12m_pct",
+                "retorno_periodo_pct",
+                "retorno_periodo_label",
+                "retorno_periodo_meses",
             ]
         )
 
@@ -2869,6 +2928,9 @@ def _build_return_summary(return_history_df: pd.DataFrame, latest_competencia: s
                 "retorno_mes_pct": latest_return,
                 "retorno_ano_pct": _compound_percent(monthly[year_mask]),
                 "retorno_12m_pct": _compound_percent(monthly.tail(12)),
+                "retorno_periodo_pct": _compound_percent(monthly.tail(window_months)),
+                "retorno_periodo_label": window_label,
+                "retorno_periodo_meses": window_months,
             }
         )
     return sort_class_display_frame(pd.DataFrame(rows), label_column="class_label")

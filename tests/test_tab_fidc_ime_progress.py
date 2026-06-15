@@ -661,7 +661,7 @@ class TabFidcImeProgressTests(unittest.TestCase):
 
         self.assertEqual([100.0, 110.0, 104.5], [round(value, 1) for value in chart_df["valor"].tolist()])
 
-    def test_format_return_inline_matrix_frame_compacts_last_12_months_ytd_and_12m(self) -> None:
+    def test_format_return_inline_matrix_frame_orders_months_oldest_to_newest_with_totals_first(self) -> None:
         history = pd.DataFrame(
             {
                 "competencia": ["01/2026", "02/2026", "01/2026", "02/2026"],
@@ -681,13 +681,40 @@ class TabFidcImeProgressTests(unittest.TestCase):
 
         formatted = tab_fidc_ime._format_return_inline_matrix_frame(history, summary, months=12)
 
-        self.assertEqual(["Classe", "fev-26", "jan-26", "YTD", "12 meses"], formatted.columns.tolist())
+        self.assertEqual(["Classe", "YTD", "12 meses", "jan-26", "fev-26"], formatted.columns.tolist())
         senior_row = formatted[formatted["Classe"] == "Sênior"].iloc[0]
         subordinada_row = formatted[formatted["Classe"] == "Subordinada"].iloc[0]
         self.assertEqual("1,25%", senior_row["jan-26"])
         self.assertEqual("1,50%", senior_row["fev-26"])
         self.assertEqual("2,75%", senior_row["YTD"])
         self.assertEqual("21,00%", subordinada_row["12 meses"])
+
+    def test_format_return_inline_matrix_frame_uses_dynamic_period_column(self) -> None:
+        history = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "02/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-02-01"]),
+                "class_label": ["Sênior", "Sênior"],
+                "retorno_mensal_pct": [1.25, 1.50],
+            }
+        )
+        summary = pd.DataFrame(
+            {
+                "class_label": ["Sênior"],
+                "retorno_mes_pct": [1.50],
+                "retorno_ano_pct": [2.75],
+                "retorno_12m_pct": [14.0],
+                "retorno_periodo_pct": [26.82],
+                "retorno_periodo_label": ["24 meses"],
+                "retorno_periodo_meses": [24],
+            }
+        )
+
+        formatted = tab_fidc_ime._format_return_inline_matrix_frame(history, summary, months=2)
+
+        self.assertEqual(["Classe", "YTD", "24 meses", "jan-26", "fev-26"], formatted.columns.tolist())
+        senior_row = formatted.iloc[0]
+        self.assertEqual("26,82%", senior_row["24 meses"])
 
     def test_build_dashboard_context_items_keeps_only_competencia_and_janela(self) -> None:
         dashboard = SimpleNamespace(

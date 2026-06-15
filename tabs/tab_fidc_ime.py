@@ -20,6 +20,7 @@ from services.fundonet_dashboard import (
     build_dashboard_data,
     filter_dashboard_to_competencias,
     ordered_class_labels,
+    return_period_summary_spec,
     sort_class_display_frame,
 )
 from services.fundonet_executive_compare import (
@@ -50,7 +51,7 @@ from services.ime_period import (
 # Feature flag: set to True when global PDF dashboard export is stable and ready.
 # While False, the dashboard-level PDF button is hidden to prevent broken UX.
 ENABLE_GLOBAL_PDF_EXPORT: bool = False
-DASHBOARD_SCHEMA_VERSION: int = 5
+DASHBOARD_SCHEMA_VERSION: int = 6
 
 FIDC_CHART_COLORS = [
     "#ff5a00",
@@ -1114,6 +1115,12 @@ def _period_from_context(context: dict[str, Any]) -> ImePeriodSelection | None:
     return build_custom_period(start_month=start_month, end_month=end_month)
 
 
+def _return_window_months_for_period(period: ImePeriodSelection, selected_competencias: list[str]) -> int:
+    if period.mode == "preset" and period.preset_months is not None:
+        return int(period.preset_months)
+    return max(len(selected_competencias), 1)
+
+
 def _dashboard_for_context_display_window(
     dashboard: FundonetDashboardData,
     context: dict[str, Any],
@@ -1124,8 +1131,14 @@ def _dashboard_for_context_display_window(
     selected_competencias = select_competencia_labels_for_period(dashboard.competencias, period)
     if not selected_competencias:
         return dashboard
-    filtered = filter_dashboard_to_competencias(dashboard, selected_competencias)
+    return_window_months = _return_window_months_for_period(period, selected_competencias)
+    filtered = filter_dashboard_to_competencias(
+        dashboard,
+        selected_competencias,
+        return_window_months=return_window_months,
+    )
     context["display_month_count"] = len(filtered.competencias)
+    context["return_window_months"] = return_window_months
     context["periodo_exibido_label"] = filtered.fund_info.get("periodo_analisado")
     return filtered
 
@@ -1203,11 +1216,11 @@ def _render_dashboard(
         timings["total_ate_dashboard_segundos"] = round(float(extraction_seconds) + float(dashboard_seconds), 3)
     st.session_state[_session_timing_key] = timings
     context["timings"] = timings
+    base_dashboard: FundonetDashboardData = st.session_state[_session_dashboard_key]
     dashboard: FundonetDashboardData = _dashboard_for_context_display_window(
-        st.session_state[_session_dashboard_key],
+        base_dashboard,
         context,
     )
-    st.session_state[_session_dashboard_key] = dashboard
     _render_dashboard_header(dashboard)
     _render_load_timing_bar(context)
     _render_financial_snapshot_cards(dashboard)
@@ -2762,16 +2775,17 @@ def _format_return_inline_matrix_frame(
     months: int = 12,
 ) -> pd.DataFrame:
     history_df = _return_history_last_months(return_history_df, months=months)
+    period_column, period_label = return_period_summary_spec(return_summary_df)
     if history_df.empty or return_summary_df.empty:
-        return pd.DataFrame(columns=["Classe", "YTD", "12 meses"])
+        return pd.DataFrame(columns=["Classe", "YTD", period_label])
     label_column = _class_display_column(history_df)
     summary_label_column = _class_display_column(return_summary_df)
     if selected_labels:
         history_df = history_df[history_df[label_column].isin(selected_labels)].copy()
         return_summary_df = return_summary_df[return_summary_df[summary_label_column].isin(selected_labels)].copy()
     if history_df.empty or return_summary_df.empty:
-        return pd.DataFrame(columns=["Classe", "YTD", "12 meses"])
-    ordered_history = history_df.sort_values("competencia_dt", ascending=False).copy()
+        return pd.DataFrame(columns=["Classe", "YTD", period_label])
+    ordered_history = history_df.sort_values("competencia_dt", ascending=True).copy()
     competencias = ordered_history["competencia"].drop_duplicates().tolist()
     display_competencias = competencias
     pivot = (
@@ -2791,26 +2805,30 @@ def _format_return_inline_matrix_frame(
     labels_series = pd.Series(ordered_labels, dtype="object")
     month_columns = {competencia: _format_competencia_label(competencia) for competencia in display_competencias}
     output = pd.DataFrame({"Classe": labels_series})
+    summary_lookup = return_summary_df.set_index(summary_label_column)
+    retorno_ano = summary_lookup.get("retorno_ano_pct", pd.Series(dtype="float64"))
+    retorno_periodo = summary_lookup.get(period_column, pd.Series(dtype="float64"))
+    output["YTD"] = output["Classe"].map(lambda label: _format_percent(retorno_ano.get(label)))
+    output[period_label] = output["Classe"].map(lambda label: _format_percent(retorno_periodo.get(label)))
     for competencia in display_competencias:
         output[month_columns[competencia]] = pivot[competencia].tolist()
         output[month_columns[competencia]] = output[month_columns[competencia]].map(_format_percent)
-    summary_lookup = return_summary_df.set_index(summary_label_column)
-    retorno_ano = summary_lookup.get("retorno_ano_pct", pd.Series(dtype="float64"))
-    retorno_12m = summary_lookup.get("retorno_12m_pct", pd.Series(dtype="float64"))
-    output["YTD"] = output["Classe"].map(lambda label: _format_percent(retorno_ano.get(label)))
-    output["12 meses"] = output["Classe"].map(lambda label: _format_percent(retorno_12m.get(label)))
     return output
 
 
 def _format_return_summary_frame(return_summary_df: pd.DataFrame) -> pd.DataFrame:
+    period_column, period_label = return_period_summary_spec(return_summary_df)
     if return_summary_df.empty:
-        return pd.DataFrame(columns=["Classe", "Mês", "YTD", "12 Meses"])
+        return pd.DataFrame(columns=["Classe", "Mês", "YTD", period_label])
     table_df = sort_class_display_frame(return_summary_df, label_column=_class_display_column(return_summary_df))
     table_df["Classe"] = table_df[_class_display_column(table_df)]
     table_df["Mês"] = table_df["retorno_mes_pct"].map(_format_percent)
     table_df["YTD"] = table_df["retorno_ano_pct"].map(_format_percent)
-    table_df["12 Meses"] = table_df["retorno_12m_pct"].map(_format_percent)
-    return table_df[["Classe", "Mês", "YTD", "12 Meses"]]
+    if period_column in table_df.columns:
+        table_df[period_label] = table_df[period_column].map(_format_percent)
+    else:
+        table_df[period_label] = "N/D"
+    return table_df[["Classe", "Mês", "YTD", period_label]]
 
 
 def _return_history_last_months(return_history_df: pd.DataFrame, *, months: int = 12) -> pd.DataFrame:
@@ -2881,7 +2899,7 @@ def _return_monthly_matrix_frame(
             aggfunc="last",
         )
         .reset_index()
-        .sort_values("competencia_dt", ascending=False)
+        .sort_values("competencia_dt", ascending=True)
     )
     available_labels = [column for column in pivot.columns if column not in {"competencia", "competencia_dt"}]
     candidate_labels = [label for label in (selected_labels or []) if label in available_labels]
@@ -2932,7 +2950,7 @@ def _format_return_base100_matrix_frame(
             aggfunc="last",
         )
         .reset_index()
-        .sort_values("competencia_dt", ascending=False)
+        .sort_values("competencia_dt", ascending=True)
     )
     ordered_columns = ["competencia", "competencia_dt"] + [label for label in (selected_labels or []) if label in pivot.columns]
     ordered_columns += [column for column in pivot.columns if column not in ordered_columns]

@@ -259,7 +259,17 @@ def build_portfolio_dashboard_bundle(
         quota_pl_history_df=quota_pl_history_df,
         subordination_history_df=subordination_history_df,
         return_history_df=pd.DataFrame(columns=["competencia", "competencia_dt", "class_label", "retorno_mensal_pct"]),
-        return_summary_df=pd.DataFrame(columns=["label", "retorno_mes_pct", "retorno_ano_pct", "retorno_12m_pct"]),
+        return_summary_df=pd.DataFrame(
+            columns=[
+                "label",
+                "retorno_mes_pct",
+                "retorno_ano_pct",
+                "retorno_12m_pct",
+                "retorno_periodo_pct",
+                "retorno_periodo_label",
+                "retorno_periodo_meses",
+            ]
+        ),
         performance_vs_benchmark_latest_df=pd.DataFrame(columns=["label", "desempenho_esperado_pct", "desempenho_real_pct", "gap_bps"]),
         event_history_df=pd.DataFrame(columns=["competencia", "competencia_dt", "event_type", "valor_total_assinado"]),
         dc_canonical_history_df=dc_canonical_history_df,

@@ -13,7 +13,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
-from services.fundonet_dashboard import FundonetDashboardData
+from services.fundonet_dashboard import FundonetDashboardData, return_period_summary_spec
 from services.identifier_utils import format_cnpj
 
 
@@ -421,7 +421,12 @@ def _dataframe_table(
     for _, row in df.iterrows():
         cells: list[object] = []
         for column in columns:
-            style = styles["cell_right"] if str(column).strip().lower() in numeric_names else styles["cell"]
+            column_label = str(column).strip().lower()
+            style = (
+                styles["cell_right"]
+                if column_label in numeric_names or column_label.endswith(" meses") or column_label.endswith(" mês")
+                else styles["cell"]
+            )
             cells.append(Paragraph(_escape(_display(row.get(column))), style))
         data.append(cells)
 
@@ -498,14 +503,18 @@ def _class_display_column(df: pd.DataFrame) -> str:
 
 
 def _format_return_summary_table(df: pd.DataFrame) -> pd.DataFrame:
+    period_column, period_label = return_period_summary_spec(df)
     if df.empty:
-        return pd.DataFrame(columns=["Classe", "Mês", "Ano", "12 Meses"])
+        return pd.DataFrame(columns=["Classe", "Mês", "Ano", period_label])
     output = df.copy()
     output["Classe"] = output[_class_display_column(output)]
     output["Mês"] = output["retorno_mes_pct"].map(_format_percent)
     output["Ano"] = output["retorno_ano_pct"].map(_format_percent)
-    output["12 Meses"] = output["retorno_12m_pct"].map(_format_percent)
-    return output[["Classe", "Mês", "Ano", "12 Meses"]]
+    if period_column in output.columns:
+        output[period_label] = output[period_column].map(_format_percent)
+    else:
+        output[period_label] = "N/D"
+    return output[["Classe", "Mês", "Ano", period_label]]
 
 
 def _format_performance_benchmark_table(df: pd.DataFrame) -> pd.DataFrame:

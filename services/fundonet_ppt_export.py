@@ -16,7 +16,12 @@ from services.export_chart_labels import (
     choose_export_label_policy,
     format_export_label,
 )
-from services.fundonet_dashboard import FundonetDashboardData, ordered_class_labels, sort_class_display_frame
+from services.fundonet_dashboard import (
+    FundonetDashboardData,
+    ordered_class_labels,
+    return_period_summary_spec,
+    sort_class_display_frame,
+)
 
 
 ORANGE = "#EC7000"
@@ -1205,6 +1210,8 @@ def build_dashboard_pptx_bytes(
     return_window_months = int(return_months or len(getattr(dashboard, "competencias", []) or []) or 12)
     return_table_df = _build_return_inline_table_for_ppt(dashboard, selected_labels=None, months=return_window_months)
     if not return_table_df.empty:
+        summary_columns = _return_table_summary_columns(return_table_df)
+        period_label = next((str(column) for column in summary_columns if str(column) != "YTD"), "período")
         column_chunks = _return_table_column_chunks(return_table_df)
         total_return_slides = sum(
             max(1, (len(column_chunk) + _return_table_rows_per_slide(column_chunk) - 1) // _return_table_rows_per_slide(column_chunk))
@@ -1233,7 +1240,7 @@ def build_dashboard_pptx_bytes(
                     1.03,
                     full_width,
                     0.18,
-                    f"Retornos mensais por classe/série, últimos {return_window_months} meses exibidos, YTD e 12 meses. Ordem: classe → série → item.",
+                    f"Retornos mensais por classe/série, últimos {return_window_months} meses exibidos, YTD e {period_label}. Ordem: acumulados à esquerda e meses em ordem cronológica.",
                     size=FOOTER_SIZE,
                     color=MID_GRAY,
                 )
@@ -2877,6 +2884,7 @@ def _build_return_inline_table_for_ppt(
     selected_labels: Sequence[str] | None = None,
     months: int = 12,
 ) -> pd.DataFrame:
+    period_column, period_label = return_period_summary_spec(dashboard.return_summary_df)
     history_df = sort_class_display_frame(
         dashboard.return_history_df,
         label_column=_class_display_column(dashboard.return_history_df) if not dashboard.return_history_df.empty else None,
@@ -2887,17 +2895,18 @@ def _build_return_inline_table_for_ppt(
         label_column=_class_display_column(dashboard.return_summary_df) if not dashboard.return_summary_df.empty else None,
     )
     if history_df.empty or summary_df.empty:
-        return pd.DataFrame(columns=["Classe", "YTD", "12 meses"])
+        return pd.DataFrame(columns=["Classe", "YTD", period_label])
     label_column = _class_display_column(history_df)
     summary_label_column = _class_display_column(summary_df)
     if selected_labels:
         history_df = history_df[history_df[label_column].isin(list(selected_labels))].copy()
         summary_df = summary_df[summary_df[summary_label_column].isin(list(selected_labels))].copy()
-    competencias = history_df["competencia"].drop_duplicates().tail(months).tolist()
-    display_competencias = list(reversed(competencias))
+    ordered_history = history_df.sort_values("competencia_dt", ascending=True).copy()
+    competencias = ordered_history["competencia"].drop_duplicates().tail(months).tolist()
+    display_competencias = competencias
     history_df = history_df[history_df["competencia"].isin(competencias)].copy()
     if history_df.empty:
-        return pd.DataFrame(columns=["Classe", "YTD", "12 meses"])
+        return pd.DataFrame(columns=["Classe", "YTD", period_label])
     pivot = (
         history_df.pivot_table(
             index=label_column,
@@ -2912,13 +2921,13 @@ def _build_return_inline_table_for_ppt(
     ordered_labels = ordered_class_labels(candidate_labels, history_df)
     pivot = pivot.reindex(ordered_labels).reset_index(drop=True)
     output = pd.DataFrame({"Classe": pd.Series(ordered_labels, dtype="object")})
-    for competencia in display_competencias:
-        output[_format_competencia(competencia)] = pd.Series(pivot[competencia].tolist(), dtype="object").map(_format_return_percent)
     summary_lookup = summary_df.set_index(summary_label_column)
     retorno_ano = summary_lookup["retorno_ano_pct"] if "retorno_ano_pct" in summary_lookup.columns else pd.Series(dtype="float64")
-    retorno_12m = summary_lookup["retorno_12m_pct"] if "retorno_12m_pct" in summary_lookup.columns else pd.Series(dtype="float64")
+    retorno_periodo = summary_lookup[period_column] if period_column in summary_lookup.columns else pd.Series(dtype="float64")
     output["YTD"] = output["Classe"].map(lambda label: _format_return_percent(retorno_ano.get(label)))
-    output["12 meses"] = output["Classe"].map(lambda label: _format_return_percent(retorno_12m.get(label)))
+    output[period_label] = output["Classe"].map(lambda label: _format_return_percent(retorno_periodo.get(label)))
+    for competencia in display_competencias:
+        output[_format_competencia(competencia)] = pd.Series(pivot[competencia].tolist(), dtype="object").map(_format_return_percent)
     return output
 
 
@@ -2944,26 +2953,37 @@ def _return_table_col_widths(frame: pd.DataFrame) -> list[float]:
     cols = list(frame.columns)
     if not cols:
         return []
-    month_count = max(len(cols) - 3, 0)
+    summary_columns = _return_table_summary_columns(frame)
+    month_count = max(len(cols) - 1 - len(summary_columns), 0)
+    summary_widths = [0.82 if str(column) == "YTD" else 0.95 for column in summary_columns]
     if month_count <= 1:
-        return [4.05] + ([1.70] * month_count) + [1.25, 1.45]
+        return [4.05] + summary_widths + ([1.70] * month_count)
     if month_count <= 6:
-        return [3.15] + ([0.92] * month_count) + [1.05, 1.20]
-    return [2.35] + ([0.66] * month_count) + [0.82, 0.95]
+        return [3.15] + summary_widths + ([0.92] * month_count)
+    return [2.35] + summary_widths + ([0.66] * month_count)
+
+
+def _return_table_summary_columns(frame: pd.DataFrame) -> list[str]:
+    columns = []
+    for column in frame.columns:
+        label = str(column).strip().lower()
+        if column == "YTD" or label.endswith(" meses") or label.endswith(" mês"):
+            columns.append(column)
+    return columns
 
 
 def _return_table_column_chunks(frame: pd.DataFrame, *, max_month_columns: int = 12) -> list[pd.DataFrame]:
     if frame.empty:
         return [frame]
     leading = ["Classe"] if "Classe" in frame.columns else [frame.columns[0]]
-    trailing = [column for column in ["YTD", "12 meses"] if column in frame.columns]
-    excluded = set(leading + trailing)
+    summary_columns = _return_table_summary_columns(frame)
+    excluded = set(leading + summary_columns)
     month_columns = [column for column in frame.columns if column not in excluded]
     if len(month_columns) <= max_month_columns:
         return [frame]
     chunks: list[pd.DataFrame] = []
     for start in range(0, len(month_columns), max_month_columns):
-        columns = leading + month_columns[start : start + max_month_columns] + trailing
+        columns = leading + summary_columns + month_columns[start : start + max_month_columns]
         chunks.append(frame[columns].copy())
     return chunks
 
@@ -3260,17 +3280,18 @@ def _render_returns_slide_png(
     selected_labels = _top_return_labels_for_ppt(dashboard)
     return_table_df = _build_return_inline_table_for_ppt(dashboard, selected_labels=selected_labels, months=12)
     if not return_table_df.empty:
-        month_count = max(len(return_table_df.columns) - 3, 0)
+        summary_columns = _return_table_summary_columns(return_table_df)
+        month_count = max(len(return_table_df.columns) - 1 - len(summary_columns), 0)
         _draw_table_on_slide(
             image,
             draw,
             return_table_df,
-            title="Rentabilidade por tipo de cota (% a.m.) — últimos 12 meses",
+            title=f"Rentabilidade por tipo de cota (% a.m.) — últimos {month_count} meses",
             left=MARGIN_LEFT_IN,
             top=1.18,
             width=full_width,
             height=1.38,
-            col_widths=[2.15] + ([0.58] * month_count) + [0.86, 1.02],
+            col_widths=_return_table_col_widths(return_table_df),
         )
     maturity_df = _latest_maturity_chart_frame(dashboard.maturity_latest_df)
     if not maturity_df.empty:
