@@ -841,9 +841,10 @@ def build_flow(
             pl_sub_jr,
         ) = _period_cash_values(reinvestimento_principal)
         resultado_carteira_liquido = fluxo_carteira + credit.recuperacao_credito - perda_carteira_despesa
-        nova_originacao = reinvestimento_principal + reinvestimento_excesso
+        compra_carteira_periodo = reinvestimento_principal + reinvestimento_excesso
+        nova_originacao = reinvestimento_excesso
         baixa_credito_face = credit.baixa_credito / preco_pago_fator if preco_pago_fator > 1e-12 else credit.baixa_credito
-        carteira_fim = max(carteira - principal_recebido_carteira - baixa_credito_face + nova_originacao, 0.0)
+        carteira_fim = max(carteira - principal_recebido_carteira - baixa_credito_face + compra_carteira_periodo, 0.0)
         caixa_nao_reinvestido = principal_para_caixa_selic + max(fluxo_remanescente_mezz - reinvestimento_excesso, 0.0)
         saldo_caixa_selic_fim = max(
             saldo_caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_mezz - reinvestimento_excesso,
