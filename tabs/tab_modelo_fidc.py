@@ -1,11 +1,16 @@
 from __future__ import annotations
 
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
 from dataclasses import dataclass, replace
 from datetime import date, datetime, timedelta
 from html import escape
 from io import BytesIO
-import re
-from zipfile import ZIP_DEFLATED, ZipFile
+import tempfile
+from zipfile import ZipFile
 
 import altair as alt
 from openpyxl.styles import Alignment
@@ -110,7 +115,7 @@ DEFAULT_QTD_PARCELAS_MEDIA = 7.0
 DEFAULT_PRAZO_RECEBIVEIS_MESES = 3.154420901487235
 DEFAULT_CARENCIA_PRINCIPAL_MESES = 18.0
 DEFAULT_SUBORDINACAO_MINIMA_REINVESTIMENTO = 0.30
-MC3_PRESET_VERSION = "mc3-2026-06-19-duration-parcelas-v1"
+MC3_PRESET_VERSION = "mc3-2026-06-19-duration-parcelas-native-pptx-v2"
 DEFAULT_CURVE_START_YEAR = 2026
 DEFAULT_SELIC_PERPETUAL_YEAR = 2028
 DEFAULT_SELIC_AA_2026 = 0.13
@@ -1934,6 +1939,7 @@ def _committee_premissas_rows(premissas_summary_df: pd.DataFrame) -> list[tuple[
         ("LGD econômica", _short_percent_text(_summary_lookup(premissas_summary_df, "LGD econômica"), decimals=0)),
         ("Teto maturação Over90", _short_percent_text(_summary_lookup(premissas_summary_df, "Teto maturação Over90"), decimals=0)),
         ("PL SEN", _short_percent_text(_summary_lookup(premissas_summary_df, "PL SEN"), decimals=0)),
+        ("PL MEZ", _short_percent_text(_summary_lookup(premissas_summary_df, "PL MEZZ"), decimals=0)),
         ("PL SUB", _short_percent_text(_summary_lookup(premissas_summary_df, "PL SUB"), decimals=0)),
         ("Remuneração Sr.", "CDI +1,60%"),
         ("Amortização SEN", _summary_lookup(premissas_summary_df, "Amortização SEN")),
@@ -2034,6 +2040,153 @@ def _committee_cards(kpi_cards: list[dict[str, str]], revolvency_cards: list[dic
     ]
 
 
+def _pptxgen_runtime() -> tuple[Path, Path] | None:
+    module_candidates = [
+        os.environ.get("PPTXGENJS_MODULE"),
+        str(
+            Path.home()
+            / ".cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pptxgenjs/dist/pptxgen.cjs.js"
+        ),
+    ]
+    node_candidates = [
+        os.environ.get("PPTXGENJS_NODE"),
+        str(Path.home() / ".cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node"),
+        shutil.which("node"),
+    ]
+    module_path = next((Path(candidate) for candidate in module_candidates if candidate and Path(candidate).exists()), None)
+    node_path = next((Path(candidate) for candidate in node_candidates if candidate and Path(candidate).exists()), None)
+    if module_path is None or node_path is None:
+        return None
+    return node_path, module_path
+
+
+def _chart_payload_from_wide(wide: pd.DataFrame, *, colors: list[str]) -> dict[str, object]:
+    if wide.empty:
+        return {"categories": [], "series": []}
+    categories = [f"M{int(value)}" if pd.notna(value) else "" for value in wide["Mês"]]
+    series = []
+    for idx, column in enumerate(column for column in wide.columns if column not in {"Mês", "Data"}):
+        values = [float(value or 0.0) for value in wide[column].fillna(0.0).tolist()]
+        series.append({"name": str(column), "values": values, "fill": f"#{colors[idx % len(colors)].lstrip('#')}"})
+    return {"categories": categories, "series": series}
+
+
+def _committee_pptx_payload(
+    *,
+    kpi_cards: list[dict[str, str]],
+    revolvency_cards: list[dict[str, str]],
+    premissas_summary_df: pd.DataFrame,
+    timeline_frame: pd.DataFrame | None,
+    balance_chart_df: pd.DataFrame,
+    protection_chart_df: pd.DataFrame,
+) -> dict[str, object]:
+    lock_pct = _summary_lookup(premissas_summary_df, "Trava mínima de reinvestimento", "30,00%")
+    return {
+        "premissasTable": [["Premissa", "Valor"], *[list(row) for row in _committee_premissas_rows(premissas_summary_df)]],
+        "premissasBullets": [
+            f"Carteira inicial: {_summary_lookup(premissas_summary_df, 'Volume inicial', 'R$ 1 bi')}",
+            "Receita Carteira: ~14% a.m.",
+            f"Parcelas médias: {_summary_lookup(premissas_summary_df, 'Quantidade média de parcelas', '7,0 parcelas')}",
+            f"Prazo médio econômico: {_summary_lookup(premissas_summary_df, 'Prazo médio dos recebíveis', '3,15 meses')}",
+            "NPL/LGD assumidos: 40% / 100%",
+            "Nova carteira incremental vem do excesso de caixa",
+        ],
+        "flowBullets": [
+            "Principal vencendo: 1/7 da carteira por mês.",
+            "PDD: 40% da carteira provisionado linearmente até Over90.",
+            "Excesso de caixa positivo aumenta a carteira originada acumulada.",
+        ],
+        "flowTable": [["Item", "Valor", "Racional"], *[list(row) for row in _committee_flow_rows(timeline_frame)]],
+        "lockBullets": [
+            "Principal recebido repõe a carteira; só o excesso de caixa aumenta a originada acumulada.",
+            f"Subordinação mínima estrutural: SUB disponível / PL FIDC >= {lock_pct}.",
+            "Se perdas/custos consumirem SUB abaixo do piso, o modelo registra aporte necessário.",
+            "SUB / carteira originada acumulada fica como métrica de colchão econômico.",
+        ],
+        "formulaTable": [
+            ["Item", "Fórmula"],
+            ["SUB mínima", "SUB / PL FIDC >= 30%"],
+            ["Reposição", "principal recebido mantém o saldo da carteira"],
+            ["Nova originação", "se elegível: max(excesso de caixa, 0); se não: 0"],
+            ["Subordinação", "SUB disponível / PL FIDC"],
+            ["Aporte SUB", "max((30% x PL - SUB) / 70%, 0)"],
+        ],
+        "lockTable": [
+            list(_committee_lock_rows(timeline_frame).columns),
+            *(_committee_lock_rows(timeline_frame).astype(str).values.tolist()),
+        ],
+        "cards": _committee_cards(kpi_cards, revolvency_cards),
+        "outputs": _committee_outputs(timeline_frame),
+        "balanceChart": _chart_payload_from_wide(
+            _balance_chart_wide(balance_chart_df),
+            colors=["1A1A1A", "9C9C9C", "F28E2B", "B35C00"],
+        ),
+        "protectionChart": _chart_payload_from_wide(
+            _long_percent_chart_wide(protection_chart_df),
+            colors=["1A1A1A", "F28E2B"],
+        ),
+    }
+
+
+def _assert_native_office_charts(pptx_bytes: bytes, *, min_charts: int = 2) -> None:
+    with ZipFile(BytesIO(pptx_bytes), "r") as archive:
+        names = archive.namelist()
+        chart_parts = [name for name in names if name.startswith("ppt/charts/chart") and name.endswith(".xml")]
+        embedded_workbooks = [
+            name
+            for name in names
+            if name.startswith("ppt/embeddings/") and name.lower().endswith((".xlsx", ".xlsm"))
+        ]
+    if len(chart_parts) < min_charts or not embedded_workbooks:
+        raise RuntimeError("PPTX de comitê sem gráficos nativos do Office ou sem workbook embutido.")
+
+
+def _build_model_dashboard_pptx_bytes_pptxgen(
+    *,
+    kpi_cards: list[dict[str, str]],
+    revolvency_cards: list[dict[str, str]],
+    premissas_summary_df: pd.DataFrame,
+    timeline_frame: pd.DataFrame | None,
+    balance_chart_df: pd.DataFrame,
+    protection_chart_df: pd.DataFrame,
+) -> bytes | None:
+    runtime = _pptxgen_runtime()
+    if runtime is None:
+        return None
+    node_path, module_path = runtime
+    script_path = Path(__file__).resolve().parents[1] / "scripts" / "build_fidc_committee_pptxgen.mjs"
+    payload = _committee_pptx_payload(
+        kpi_cards=kpi_cards,
+        revolvency_cards=revolvency_cards,
+        premissas_summary_df=premissas_summary_df,
+        timeline_frame=timeline_frame,
+        balance_chart_df=balance_chart_df,
+        protection_chart_df=protection_chart_df,
+    )
+    with tempfile.TemporaryDirectory(prefix="fidc-committee-pptx-") as tmpdir:
+        tmp_path = Path(tmpdir)
+        input_path = tmp_path / "payload.json"
+        output_path = tmp_path / "committee.pptx"
+        input_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+        env = {**os.environ, "PPTXGENJS_MODULE": str(module_path)}
+        completed = subprocess.run(
+            [str(node_path), str(script_path), str(input_path), str(output_path)],
+            check=False,
+            capture_output=True,
+            text=True,
+            env=env,
+            timeout=60,
+        )
+        if completed.returncode != 0:
+            raise RuntimeError(
+                "Falha ao gerar PPTX de comitê com gráficos nativos: "
+                + (completed.stderr.strip() or completed.stdout.strip() or f"exit {completed.returncode}")
+            )
+        pptx_bytes = output_path.read_bytes()
+        _assert_native_office_charts(pptx_bytes)
+        return pptx_bytes
+
+
 def _build_model_dashboard_pptx_bytes(
     *,
     kpi_cards: list[dict[str, str]],
@@ -2044,82 +2197,18 @@ def _build_model_dashboard_pptx_bytes(
     loss_chart_df: pd.DataFrame,
     protection_chart_df: pd.DataFrame,
 ) -> bytes:
-    try:
-        from pptx import Presentation
-        from pptx.chart.data import CategoryChartData
-        from pptx.dml.color import RGBColor
-        from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION, XL_LEGEND_POSITION, XL_MARKER_STYLE
-        from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE
-        from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
-        from pptx.util import Inches, Pt
-    except ImportError as exc:  # pragma: no cover - environment guard
-        raise RuntimeError("Dependência python-pptx não instalada.") from exc
-
-    prs = Presentation()
-    prs.slide_width = Inches(13.333)
-    prs.slide_height = Inches(7.5)
-    layout = prs.slide_layouts[6]
-    deps = {
-        "CategoryChartData": CategoryChartData,
-        "RGBColor": RGBColor,
-        "XL_CHART_TYPE": XL_CHART_TYPE,
-        "XL_DATA_LABEL_POSITION": XL_DATA_LABEL_POSITION,
-        "XL_LEGEND_POSITION": XL_LEGEND_POSITION,
-        "XL_MARKER_STYLE": XL_MARKER_STYLE,
-        "MSO_AUTO_SHAPE_TYPE": MSO_AUTO_SHAPE_TYPE,
-        "MSO_ANCHOR": MSO_ANCHOR,
-        "PP_ALIGN": PP_ALIGN,
-        "Inches": Inches,
-        "Pt": Pt,
-    }
-
-    _ppt_add_committee_premissas_slide(prs, layout, premissas_summary_df, timeline_frame, **deps)
-    _ppt_add_committee_lock_slide(prs, layout, premissas_summary_df, timeline_frame, **deps)
-    _ppt_add_committee_outputs_slide(
-        prs,
-        layout,
-        _committee_cards(kpi_cards, revolvency_cards),
-        balance_chart_df,
-        protection_chart_df,
-        timeline_frame,
-        **deps,
+    pptxgen_bytes = _build_model_dashboard_pptx_bytes_pptxgen(
+        kpi_cards=kpi_cards,
+        revolvency_cards=revolvency_cards,
+        premissas_summary_df=premissas_summary_df,
+        timeline_frame=timeline_frame,
+        balance_chart_df=balance_chart_df,
+        protection_chart_df=protection_chart_df,
     )
-    for page, slide in enumerate(prs.slides, start=1):
-        _ppt_add_footer(slide, page, len(prs.slides), **deps)
+    if pptxgen_bytes is not None:
+        return pptxgen_bytes
 
-    output = BytesIO()
-    prs.save(output)
-    return _normalize_pptx_unsigned_chart_ids(output.getvalue())
-
-
-_PPTX_CHART_AXIS_ID_RE = re.compile(rb'(<c:(?:axId|crossAx)\b[^>]*\bval=")(-?\d+)(")')
-_PPTX_CHART_AXID_RE = re.compile(rb'<c:axId\b[^>]*\bval="(-?\d+)"')
-
-
-def _normalize_pptx_unsigned_chart_ids(pptx_bytes: bytes) -> bytes:
-    """Keep chart axis IDs positive, small, and unique across chart parts."""
-    source = BytesIO(pptx_bytes)
-    target = BytesIO()
-    next_axis_id = 1_000_000
-
-    with ZipFile(source, "r") as zin, ZipFile(target, "w", compression=ZIP_DEFLATED) as zout:
-        for item in zin.infolist():
-            payload = zin.read(item.filename)
-            if item.filename.startswith("ppt/charts/") and item.filename.endswith(".xml"):
-                axis_values = list(dict.fromkeys(_PPTX_CHART_AXID_RE.findall(payload)))
-                axis_id_map = {}
-                for old in axis_values:
-                    next_axis_id += 1
-                    axis_id_map[old] = str(next_axis_id).encode("ascii")
-
-                def normalize(match: re.Match[bytes]) -> bytes:
-                    value = match.group(2)
-                    normalized = axis_id_map.get(value, value)
-                    return match.group(1) + normalized + match.group(3)
-
-                payload = _PPTX_CHART_AXIS_ID_RE.sub(normalize, payload)
-            zout.writestr(item, payload)
-    return target.getvalue()
+    raise RuntimeError("Dependência Node/pptxgenjs não localizada para gerar PPTX com gráficos nativos do Office.")
 
 
 def _ppt_add_committee_header(slide, title: str, **deps) -> None:
@@ -2303,6 +2392,7 @@ def _committee_outputs(timeline_frame: pd.DataFrame | None) -> list[str]:
     return [
         "PDD: 40% da carteira provisionado em 3 meses até Over90.",
         "Nova originação incremental usa apenas excesso de caixa positivo.",
+        "Cards s/ perdas usam cenário paralelo sem PDD; gráfico abaixo usa cenário com perdas.",
         f"Carteira originada efetiva: {_compact_brl_from_text(_format_brl(total_originated))}.",
         f"SUB / PL final: {_format_percent(subordinacao)}; colchão sobre originada: {_format_percent(colchao)}.",
     ]

@@ -817,18 +817,23 @@ class TabModeloFidcTests(unittest.TestCase):
                 for name in names
                 if name.endswith(".xml")
             )
-            chart_axis_sets = []
-            for name in sorted(name for name in names if name.startswith("ppt/charts/chart") and name.endswith(".xml")):
-                chart_xml = archive.read(name).decode("utf-8", errors="ignore")
-                chart_axis_sets.append(
-                    set(int(value) for value in re.findall(r"<c:axId[^>]+val=\"(\d+)\"", chart_xml))
-                )
+            chart_xml_parts = {
+                name: archive.read(name).decode("utf-8", errors="ignore")
+                for name in sorted(name for name in names if name.startswith("ppt/charts/chart") and name.endswith(".xml"))
+            }
+            slide3_rels = archive.read("ppt/slides/_rels/slide3.xml.rels").decode("utf-8", errors="ignore")
         self.assertTrue(any(name.startswith("ppt/charts/chart") for name in names))
+        self.assertTrue(any(name.startswith("ppt/embeddings/") and name.endswith(".xlsx") for name in names))
         self.assertIn("Modelagem FIDC", xml_payload)
         self.assertIn("Premissas Principais", xml_payload)
         self.assertIn("Subordinação e Reinvestimento", xml_payload)
         self.assertIn("Evolução do Saldo das Cotas", xml_payload)
         self.assertIn("Proteção da estrutura", xml_payload)
+        self.assertEqual(2, len(chart_xml_parts))
+        self.assertTrue(any("<c:areaChart>" in chart_xml for chart_xml in chart_xml_parts.values()))
+        self.assertTrue(any("<c:lineChart>" in chart_xml for chart_xml in chart_xml_parts.values()))
+        self.assertTrue(all("<c:externalData" in chart_xml for chart_xml in chart_xml_parts.values()))
+        self.assertIn("/chart", slide3_rels)
         self.assertNotRegex(xml_payload, r"<c:(?:axId|crossAx)[^>]+val=\"-")
         axis_ids = [
             int(value)
@@ -836,8 +841,6 @@ class TabModeloFidcTests(unittest.TestCase):
         ]
         self.assertTrue(axis_ids)
         self.assertLess(max(axis_ids), 2**31)
-        self.assertTrue(all(len(axis_set) == 2 for axis_set in chart_axis_sets))
-        self.assertEqual(len(chart_axis_sets), len({tuple(sorted(axis_set)) for axis_set in chart_axis_sets}))
 
 
 if __name__ == "__main__":
