@@ -199,8 +199,8 @@ class TabModeloFidcTests(unittest.TestCase):
         )
 
         self.assertEqual(6.0, metrics.giro_estimado)
-        self.assertEqual(4_500_000_000.0, metrics.carteira_total_originada)
-        self.assertAlmostEqual(2_400_000_000.0 / 4_500_000_000.0, metrics.colchao_sem_perdas_sobre_originacao)
+        self.assertEqual(750_000_000.0, metrics.carteira_total_originada)
+        self.assertAlmostEqual(2_400_000_000.0 / 750_000_000.0, metrics.colchao_sem_perdas_sobre_originacao)
         self.assertEqual(750_000_000.0, metrics.ead_maximo)
         self.assertEqual(750_000_000.0, metrics.ead_medio_ponderado)
         self.assertAlmostEqual((1.05**2) - 1.0, metrics.perda_ciclo_calibrada_anual_equivalente)
@@ -231,7 +231,7 @@ class TabModeloFidcTests(unittest.TestCase):
                 delta_dc=30.0,
                 reinvestimento_principal=100.0,
                 reinvestimento_excesso=50.0,
-                nova_originacao=150.0,
+                nova_originacao=50.0,
             ),
             SimpleNamespace(
                 pl_sub_jr=140.0,
@@ -239,7 +239,7 @@ class TabModeloFidcTests(unittest.TestCase):
                 delta_dc=30.0,
                 reinvestimento_principal=110.0,
                 reinvestimento_excesso=60.0,
-                nova_originacao=170.0,
+                nova_originacao=60.0,
             ),
         ]
 
@@ -249,16 +249,16 @@ class TabModeloFidcTests(unittest.TestCase):
             portfolio_mode=tab_modelo_fidc.PORTFOLIO_MODE_REVOLVING,
         )
 
-        self.assertAlmostEqual(6_000.0, metrics.carteira_originada_programatica)
+        self.assertAlmostEqual(1_000.0, metrics.carteira_originada_programatica)
         self.assertAlmostEqual(210.0, metrics.reinvestimento_principal_total)
         self.assertAlmostEqual(110.0, metrics.reinvestimento_excesso_total)
-        self.assertAlmostEqual(320.0, metrics.nova_originacao_total)
-        self.assertAlmostEqual(1_320.0, metrics.carteira_total_originada)
-        self.assertAlmostEqual(140.0 / 1_320.0, metrics.colchao_sem_perdas_sobre_originacao)
+        self.assertAlmostEqual(110.0, metrics.nova_originacao_total)
+        self.assertAlmostEqual(1_110.0, metrics.carteira_total_originada)
+        self.assertAlmostEqual(140.0 / 1_110.0, metrics.colchao_sem_perdas_sobre_originacao)
 
         export = tab_modelo_fidc._build_revolvency_export_dataframe(metrics)
         exported_values = dict(zip(export["Indicador"], export["Valor"]))
-        self.assertAlmostEqual(metrics.carteira_total_originada, exported_values["Carteira originada efetiva"])
+        self.assertAlmostEqual(metrics.carteira_total_originada, exported_values["Carteira originada efetiva sem perdas"])
         self.assertAlmostEqual(metrics.reinvestimento_excesso_total, exported_values["Reinvestimento de excesso de spread"])
         self.assertAlmostEqual(
             metrics.colchao_sem_perdas_sobre_originacao,
@@ -416,13 +416,13 @@ class TabModeloFidcTests(unittest.TestCase):
 
         self.assertEqual([1, 6, 36], protection["indice"].tolist())
         self.assertAlmostEqual(750_000_000.0, protection.iloc[0]["carteira_inicial_considerada"])
-        self.assertAlmostEqual(125_000_000.0, protection.iloc[0]["nova_originacao_estimada"])
-        self.assertAlmostEqual(875_000_000.0, protection.iloc[0]["carteira_originada_acumulada"])
-        self.assertAlmostEqual(1_500_000_000.0, protection.iloc[1]["carteira_originada_acumulada"])
-        self.assertAlmostEqual(4_500_000_000.0, protection.iloc[2]["carteira_originada_acumulada"])
+        self.assertAlmostEqual(0.0, protection.iloc[0]["nova_originacao_estimada"])
+        self.assertAlmostEqual(750_000_000.0, protection.iloc[0]["carteira_originada_acumulada"])
+        self.assertAlmostEqual(750_000_000.0, protection.iloc[1]["carteira_originada_acumulada"])
+        self.assertAlmostEqual(750_000_000.0, protection.iloc[2]["carteira_originada_acumulada"])
         self.assertAlmostEqual(10_000_000.0, protection.iloc[0]["residual_economico_fluxo"])
-        self.assertAlmostEqual(75_000_000.0 / 875_000_000.0, protection.iloc[0]["perda_maxima_suportada"])
-        self.assertAlmostEqual(0.05, protection.iloc[1]["perda_maxima_suportada"])
+        self.assertAlmostEqual(75_000_000.0 / 750_000_000.0, protection.iloc[0]["perda_maxima_suportada"])
+        self.assertAlmostEqual(0.10, protection.iloc[1]["perda_maxima_suportada"])
 
     def test_time_protection_denominator_includes_initial_portfolio_in_first_month(self) -> None:
         premissas = tab_modelo_fidc.Premissas(
@@ -457,9 +457,9 @@ class TabModeloFidcTests(unittest.TestCase):
         )
 
         self.assertAlmostEqual(1_000_000_000.0, protection.iloc[0]["carteira_inicial_considerada"])
-        self.assertAlmostEqual(166_666_666.66666666, protection.iloc[0]["nova_originacao_estimada"])
-        self.assertAlmostEqual(1_166_666_666.6666667, protection.iloc[0]["carteira_originada_acumulada"])
-        self.assertAlmostEqual(100_000_000.0 / 1_166_666_666.6666667, protection.iloc[0]["perda_maxima_suportada"])
+        self.assertAlmostEqual(0.0, protection.iloc[0]["nova_originacao_estimada"])
+        self.assertAlmostEqual(1_000_000_000.0, protection.iloc[0]["carteira_originada_acumulada"])
+        self.assertAlmostEqual(100_000_000.0 / 1_000_000_000.0, protection.iloc[0]["perda_maxima_suportada"])
 
     def test_time_protection_uses_actual_motor_origination_when_available(self) -> None:
         premissas = tab_modelo_fidc.Premissas(

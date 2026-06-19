@@ -442,7 +442,7 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertGreater(periods[1].principal_recebido_carteira, 0.0)
         self.assertGreater(periods[1].reinvestimento_excesso, 0.0)
         self.assertAlmostEqual(
-            periods[1].principal_recebido_carteira + periods[1].reinvestimento_excesso,
+            periods[1].reinvestimento_excesso,
             periods[1].nova_originacao,
         )
         self.assertGreater(periods[2].carteira, periods[1].carteira)
@@ -476,9 +476,10 @@ class FidcModelParityTest(unittest.TestCase):
 
         self.assertAlmostEqual(250.0, periods[1].principal_recebido_carteira)
         self.assertAlmostEqual(250.0, periods[1].reinvestimento_principal)
+        self.assertAlmostEqual(0.0, periods[1].nova_originacao)
         self.assertAlmostEqual(0.0, periods[1].reinvestimento_bloqueado_subordinacao)
-        self.assertAlmostEqual(1_250.0, periods[1].carteira_originada_acumulada)
-        self.assertAlmostEqual(0.24, periods[1].colchao_originada_pct)
+        self.assertAlmostEqual(1_000.0, periods[1].carteira_originada_acumulada)
+        self.assertAlmostEqual(0.30, periods[1].colchao_originada_pct)
         self.assertAlmostEqual(0.30, periods[1].subordinacao_pct)
 
     def test_subordination_lock_adds_support_when_losses_breach_floor(self):
@@ -509,7 +510,7 @@ class FidcModelParityTest(unittest.TestCase):
 
         self.assertGreater(periods[1].aporte_subordinacao_minima, 0.0)
         self.assertAlmostEqual(0.30, periods[1].subordinacao_pct)
-        self.assertAlmostEqual(0.24, periods[1].colchao_originada_pct)
+        self.assertAlmostEqual(0.30, periods[1].colchao_originada_pct)
 
     def test_revolving_portfolio_stops_new_origination_when_average_term_no_longer_fits(self):
         monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(37)]

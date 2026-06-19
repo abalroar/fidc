@@ -812,13 +812,8 @@ def _build_revolvency_metrics(
 ) -> _RevolvencyMetrics:
     prazo_total_anos = float(premissas.prazo_fidc_anos or 0.0)
     prazo_medio_meses = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
-    prazo_principal_meses = max(float(premissas.qtd_parcelas_media or premissas.prazo_medio_recebiveis_meses), 0.01)
     giro_estimado = prazo_total_anos * 12.0 / prazo_medio_meses
-    if portfolio_mode == PORTFOLIO_MODE_STATIC:
-        carteira_originada_programatica = premissas.volume
-    else:
-        eligible_months = max(prazo_total_anos * 12.0 - prazo_medio_meses, 0.0)
-        carteira_originada_programatica = premissas.volume + premissas.volume * (eligible_months / prazo_principal_meses)
+    carteira_originada_programatica = premissas.volume
     reinvestimento_principal_total = sum(
         max(float(getattr(period, "reinvestimento_principal", 0.0)), 0.0) for period in zero_default_results[1:]
     )
@@ -999,17 +994,7 @@ def _scheduled_origination_components(
     portfolio_mode: str,
 ) -> tuple[float, float, float, float]:
     initial_portfolio = max(float(premissas.volume), 0.0)
-    if portfolio_mode == PORTFOLIO_MODE_STATIC:
-        return initial_portfolio, 0.0, 0.0, initial_portfolio
-
-    prazo_medio_meses = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
-    prazo_total_anos = float(premissas.prazo_fidc_anos or 0.0)
-    cutoff_month = max(prazo_total_anos * 12.0 - prazo_medio_meses, 0.0)
-    current_capped_month = min(max(float(month_index), 0.0), cutoff_month)
-    previous_capped_month = min(max(float(previous_month_index), 0.0), cutoff_month)
-    new_origination_period = premissas.volume * max(current_capped_month - previous_capped_month, 0.0) / prazo_medio_meses
-    new_origination_cumulative = premissas.volume * current_capped_month / prazo_medio_meses
-    return initial_portfolio, new_origination_period, new_origination_cumulative, initial_portfolio + new_origination_cumulative
+    return initial_portfolio, 0.0, 0.0, initial_portfolio
 
 
 def _build_time_protection_frame(
@@ -1356,12 +1341,12 @@ def _build_revolvency_export_dataframe(metrics: _RevolvencyMetrics) -> pd.DataFr
         [
             {"Indicador": "Prazo total do FIDC (anos)", "Valor": metrics.prazo_total_anos},
             {"Indicador": "Prazo médio dos recebíveis (meses)", "Valor": metrics.prazo_medio_recebiveis_meses},
-            {"Indicador": "Carteira originada programática", "Valor": metrics.carteira_originada_programatica},
+            {"Indicador": "Carteira base programática", "Valor": metrics.carteira_originada_programatica},
             {"Indicador": "Reinvestimento de principal", "Valor": metrics.reinvestimento_principal_total},
             {"Indicador": "Reinvestimento de excesso de spread", "Valor": metrics.reinvestimento_excesso_total},
-            {"Indicador": "Nova originação efetiva do motor", "Valor": metrics.nova_originacao_total},
+            {"Indicador": "Originação incremental por excesso", "Valor": metrics.nova_originacao_total},
             {"Indicador": "Bloqueio por trava", "Valor": metrics.reinvestimento_bloqueado_subordinacao_total},
-            {"Indicador": "Carteira originada efetiva", "Valor": metrics.carteira_total_originada},
+            {"Indicador": "Carteira originada efetiva sem perdas", "Valor": metrics.carteira_total_originada},
             {"Indicador": "SUB final sem perdas", "Valor": metrics.sub_final_sem_inadimplencia},
             {"Indicador": "Subordinação mínima para reinvestimento", "Valor": metrics.subordinacao_minima_reinvestimento},
             {"Indicador": "Colchão sem perdas sobre carteira originada", "Valor": metrics.colchao_sem_perdas_sobre_originacao},
@@ -1378,9 +1363,9 @@ def _build_time_protection_export_dataframe(protection_frame: pd.DataFrame) -> p
             "data": "Data",
             "pl_sub_jr": "SUB residual",
             "carteira_inicial_considerada": "Carteira inicial considerada",
-            "nova_originacao_estimada": "Nova originação estimada",
-            "nova_originacao_acumulada": "Nova originação acumulada",
-            "nova_originacao_motor": "Nova originação econômica do motor",
+            "nova_originacao_estimada": "Originação incremental estimada",
+            "nova_originacao_acumulada": "Originação incremental acumulada",
+            "nova_originacao_motor": "Originação incremental do motor",
             "prazo_medio_recebiveis_meses": "Prazo médio usado (meses)",
             "carteira_originada_acumulada": "Carteira originada acumulada",
             "residual_economico_fluxo": "Residual econômico do fluxo",
@@ -1394,9 +1379,9 @@ def _build_time_protection_export_dataframe(protection_frame: pd.DataFrame) -> p
             "Data",
             "Cenário",
             "Carteira inicial considerada",
-            "Nova originação estimada",
-            "Nova originação acumulada",
-            "Nova originação econômica do motor",
+            "Originação incremental estimada",
+            "Originação incremental acumulada",
+            "Originação incremental do motor",
             "Prazo médio usado (meses)",
             "Carteira originada acumulada",
             "SUB residual",
@@ -1482,8 +1467,8 @@ def _build_premissas_summary_dataframe(
     add("Waterfall", "Amortização MEZZ", mezz_amort_label)
     add("Waterfall", "Juros SEN", senior_interest_label)
     add("Waterfall", "Juros MEZZ", mezz_interest_label)
-    add("Waterfall", "Início amortização SEN", f"Mês {premissas.inicio_amortizacao_senior_meses}")
-    add("Waterfall", "Início amortização MEZZ", f"Mês {premissas.inicio_amortizacao_mezz_meses}")
+    add("Waterfall", "Início amortização SEN", f"Mês {_format_number_br(premissas.inicio_amortizacao_senior_meses, 0)}")
+    add("Waterfall", "Início amortização MEZZ", f"Mês {_format_number_br(premissas.inicio_amortizacao_mezz_meses, 0)}")
     add("Datas", "Data inicial", data_inicial.strftime("%d/%m/%Y"))
     add("Datas", "Cronograma do fluxo", date_schedule_label)
     add("Curva", "Fonte da curva", selected_curve.source_label)
@@ -1987,9 +1972,7 @@ def _committee_flow_rows(timeline_frame: pd.DataFrame | None) -> list[tuple[str,
     )
     pdd_value = float(row.get("despesa_provisao", row.get("perda_carteira_despesa", 0.0)) or 0.0)
     pdd_racional = "40% da carteira / 3 meses"
-    excesso_caixa = float(row.get("principal_recebido_carteira", 0.0) or 0.0) + float(
-        row.get("fluxo_remanescente_mezz", 0.0) or 0.0
-    )
+    excesso_caixa = float(row.get("fluxo_remanescente_mezz", 0.0) or 0.0)
 
     return [
         ("Carteira originada", "100,00", "Base do período"),
@@ -1998,7 +1981,7 @@ def _committee_flow_rows(timeline_frame: pd.DataFrame | None) -> list[tuple[str,
         ("PDD", _format_number_br(pdd_value * scale * -1.0, 2), pdd_racional),
         ("Custos adm.", scaled("custos_adm", -1.0), "Despesas operacionais"),
         ("Juros sênior", scaled("juros_senior", -1.0), "Remuneração da tranche sênior"),
-        ("Excesso de Caixa", _format_number_br(excesso_caixa * scale, 2), "Reinveste em carteira nova"),
+        ("Excesso de Caixa", _format_number_br(excesso_caixa * scale, 2), "Se positivo, origina carteira incremental"),
     ]
 
 
@@ -2032,7 +2015,10 @@ def _committee_cards(kpi_cards: list[dict[str, str]], revolvency_cards: list[dic
         by_label.get("Duration econômica", {"label": "Duration econômica", "value": "N/D", "context": "Cota sênior"}),
         by_label.get("SUB inicial", {"label": "SUB inicial", "value": "N/D", "context": "Colchão subordinado"}),
         by_label.get("Prazo médio recebíveis", {"label": "Prazo médio recebíveis", "value": "N/D", "context": "Prazo de giro"}),
-        by_label.get("Carteira originada efetiva", {"label": "Carteira originada efetiva", "value": "N/D", "context": "Base de comparação"}),
+        by_label.get(
+            "Originada efetiva s/ perdas",
+            by_label.get("Carteira originada efetiva", {"label": "Originada efetiva s/ perdas", "value": "N/D", "context": "Base de comparação"}),
+        ),
         by_label.get("SUB final sem perdas", {"label": "SUB final sem perdas", "value": "N/D", "context": "Colchão acumulado"}),
         by_label.get(
             "Colchão s/ perdas sobre originada",
@@ -2177,7 +2163,7 @@ def _ppt_add_committee_premissas_slide(prs, layout, premissas_summary_df: pd.Dat
             f"Parcelas médias: {_summary_lookup(premissas_summary_df, 'Quantidade média de parcelas', '7,0 parcelas')}",
             f"Prazo médio econômico: {_summary_lookup(premissas_summary_df, 'Prazo médio dos recebíveis', '3,15 meses')}",
             "NPL/LGD assumidos: 40% / 100%",
-            "Reinv. de principal e excesso dentro da janela elegível",
+            "Nova carteira incremental vem do excesso de caixa",
         ],
         6.45,
         0.92,
@@ -2190,7 +2176,7 @@ def _ppt_add_committee_premissas_slide(prs, layout, premissas_summary_df: pd.Dat
         [
             "Principal vencendo: 1/7 da carteira por mês.",
             "PDD: 40% da carteira provisionado linearmente até Over90.",
-            "Excesso de caixa positivo é reinvestido em nova carteira.",
+            "Excesso de caixa positivo aumenta a carteira originada acumulada.",
         ],
         6.45,
         2.78,
@@ -2219,7 +2205,7 @@ def _ppt_add_committee_lock_slide(prs, layout, premissas_summary_df: pd.DataFram
         slide,
         "Regra de modelagem",
         [
-            "Principal recebido e excesso de caixa podem ser reinvestidos integralmente.",
+            "Principal recebido repõe a carteira; só o excesso de caixa aumenta a originada acumulada.",
             f"Subordinação mínima estrutural: SUB disponível / PL FIDC >= {lock_pct}.",
             "Se perdas/custos consumirem SUB abaixo do piso, o modelo registra aporte necessário.",
             "SUB / carteira originada acumulada fica como métrica de colchão econômico.",
@@ -2232,8 +2218,8 @@ def _ppt_add_committee_lock_slide(prs, layout, premissas_summary_df: pd.DataFram
     formula_frame = pd.DataFrame(
         [
             ["SUB mínima", "SUB / PL FIDC >= 30%"],
-            ["Caixa reinvestível", "principal recebido + max(excesso de caixa, 0)"],
-            ["Nova originação", "se elegível: caixa reinvestível; se não: 0"],
+            ["Reposição", "principal recebido mantém o saldo da carteira"],
+            ["Nova originação", "se elegível: max(excesso de caixa, 0); se não: 0"],
             ["Subordinação", "SUB disponível / PL FIDC"],
             ["Aporte SUB", "max((30% x PL - SUB) / 70%, 0)"],
         ],
@@ -2245,7 +2231,7 @@ def _ppt_add_committee_lock_slide(prs, layout, premissas_summary_df: pd.DataFram
     note = slide.shapes.add_textbox(deps["Inches"](0.65), deps["Inches"](6.08), deps["Inches"](11.80), deps["Inches"](0.38))
     _ppt_textbox(
         note,
-        "Leitura: reinvestimento troca caixa por carteira e não consome PL; a trava de 30% é testada no PL econômico da estrutura.",
+        "Leitura: giro do principal não aumenta o denominador; a originada acumulada cresce apenas com excesso de caixa reinvestido.",
         deps["Pt"](8.4),
         deps["RGBColor"].from_string("6B7280"),
         bold=False,
@@ -2299,7 +2285,7 @@ def _committee_outputs(timeline_frame: pd.DataFrame | None) -> list[str]:
     if timeline_frame is None or timeline_frame.empty:
         return [
             "Principal vence por 1/7 da carteira e PDD é linear até Over90.",
-            "Excesso de caixa positivo é reinvestido durante a janela elegível.",
+            "Só o excesso de caixa positivo aumenta a carteira originada acumulada.",
             "Sub / carteira originada é métrica de colchão econômico, não trava de caixa.",
         ]
     last = timeline_frame.iloc[-1]
@@ -2315,7 +2301,7 @@ def _committee_outputs(timeline_frame: pd.DataFrame | None) -> list[str]:
         colchao = final_sub / total_originated
     return [
         "PDD: 40% da carteira provisionado em 3 meses até Over90.",
-        "Nova originação inclui principal recebido e excesso de caixa positivo.",
+        "Nova originação incremental usa apenas excesso de caixa positivo.",
         f"Carteira originada efetiva: {_compact_brl_from_text(_format_brl(total_originated))}.",
         f"SUB / PL final: {_format_percent(subordinacao)}; colchão sobre originada: {_format_percent(colchao)}.",
     ]
@@ -2858,7 +2844,7 @@ def _build_workbook_mechanics_markdown(
             "fluxo_carteira = carteira * ((1 + taxa_cessao_am_aplicada) ^ (delta_DU / 21) - 1)",
             "```",
             "",
-            "- Em carteira revolvente, `carteira` é o saldo em aberto usado para juros e perda; ele se mantém reciclando o principal recebido e o excesso de caixa positivo enquanto a nova carteira couber no prazo do FIDC. A subordinação mínima é testada como `SUB / PL FIDC`, não como cap de originação sobre carteira originada.",
+            "- Em carteira revolvente, `carteira` é o saldo em aberto usado para juros e perda; o principal recebido pode repor a carteira existente, mas só o excesso de caixa positivo aumenta a carteira originada acumulada. A subordinação mínima é testada como `SUB / PL FIDC`, não como cap de originação sobre carteira originada.",
             "- A timeline preserva carteira pelo valor de face e mostra EAD/saldo em risco pelo preço pago. A provisão e o NPL usam EAD ajustado quando há ágio sobre face.",
             "",
             f"- Entrada informada pelo usuário nesta simulação: `{taxa_cessao_input_mode}`.",
@@ -3001,28 +2987,29 @@ def _build_workbook_mechanics_markdown(
             "",
             "### 9. Revolvência, denominadores e capacidade de perda",
             "",
-            "- Quando a carteira é revolvente, o modelo recicla principal recebido e excesso de caixa positivo enquanto o prazo médio econômico dos recebíveis ainda cabe no prazo restante do FIDC:",
+            "- Quando a carteira é revolvente, o modelo separa reposição de principal e originação incremental enquanto o prazo médio econômico dos recebíveis ainda cabe no prazo restante do FIDC:",
             "",
             "```text",
             "giro_estimado = prazo_total_fidc_anos * 12 / prazo_medio_recebiveis_meses",
             "mes_limite_reinvestimento = prazo_total_fidc_meses - prazo_medio_recebiveis_meses",
             "principal_programado = carteira_inicio * meses_periodo / qtd_parcelas_media",
-            "principal_recebido = principal_programado",
+            "reposicao_principal = principal_programado",
             "excesso_caixa = max(fluxo_remanescente_apos_MEZZ, 0)",
-            "nova_originacao_economica = principal_recebido + excesso_caixa",
+            "compra_carteira_periodo = reposicao_principal + excesso_caixa",
+            "nova_originacao_economica = excesso_caixa",
             "```",
             "",
             "- Se o mês do FIDC fica depois do mês limite de reinvestimento, a nova originação econômica vira `0` e a carteira começa a amortizar por runoff.",
             "- A compra nova não é reduzida por `SUB / carteira originada acumulada`; reinvestimento troca caixa por carteira e não consome PL.",
             "- Se perdas/custos derrubarem `SUB / PL FIDC` abaixo da subordinação mínima, a timeline registra o aporte subordinado necessário para recompor o piso.",
-            "- O denominador principal de carteira originada usa a originação efetiva do motor, isto é, principal reciclado e excesso de caixa reinvestido durante a revolvência.",
+            "- O denominador principal de carteira originada usa a originação incremental efetiva do motor, isto é, apenas o excesso de caixa reinvestido durante a revolvência.",
             "",
             "```text",
             "carteira_originada_efetiva = volume_inicial + soma(nova_originacao_economica_t)",
-            "nova_originacao_economica_t = reinvestimento_principal_t + reinvestimento_excesso_t",
+            "nova_originacao_economica_t = reinvestimento_excesso_t",
             "```",
             "",
-            "- No cenário sem perdas (usado para o colchão econômico), a carteira originada efetiva também incorpora o excesso de caixa positivo gerado pela estrutura.",
+            "- No cenário sem perdas (usado para o colchão econômico), a carteira originada efetiva incorpora o excesso de caixa positivo gerado pela estrutura, sem multiplicar o denominador pelo giro do principal.",
             "- Em cenários com perdas, a PDD consome PL e pode reduzir o excesso reinvestível; por isso `carteira_originada_efetiva` pode ficar abaixo do giro programático.",
             "- Quando a carteira é estática, a carteira originada é apenas a compra inicial:",
             "",
@@ -3039,7 +3026,7 @@ def _build_workbook_mechanics_markdown(
             "- Ao longo do tempo, a carteira originada acumulada é calculada mês a mês:",
             "",
             "```text",
-            "nova_originacao_acumulada = volume_inicial * min(mes_fidc, mes_limite_reinvestimento) / prazo_medio_recebiveis_meses",
+            "nova_originacao_acumulada = soma(excesso_caixa_reinvestido_t)",
             "denominador_mes = volume_inicial + nova_originacao_acumulada",
             "protecao_disponivel_no_mes = SUB_disponivel_no_mes / denominador_mes",
             "```",
@@ -3049,8 +3036,8 @@ def _build_workbook_mechanics_markdown(
             "",
             "### 10. Caixa pós-revolvência e SELIC projetada",
             "",
-            "- Enquanto a revolvência é elegível, o modelo recicla principal recebido e excesso de caixa positivo em novos recebíveis.",
-            "- Quando o prazo médio dos recebíveis já não cabe mais no prazo restante do FIDC, principal recebido e excesso de caixa deixam de ser reciclados e passam a entrar no saldo de caixa SELIC.",
+            "- Enquanto a revolvência é elegível, o principal recebido repõe a carteira existente e o excesso de caixa positivo compra carteira incremental.",
+            "- Quando o prazo médio dos recebíveis já não cabe mais no prazo restante do FIDC, principal recebido e excesso de caixa deixam de comprar recebíveis e passam a entrar no saldo de caixa SELIC.",
             "- A taxa SELIC média é uma projeção digitada pelo usuário por ano calendário; nesta etapa ela não vem de fonte externa.",
             "- Esta curva manual remunera o caixa acumulado a cada período: caixa não reinvestido e, depois do mês limite de reinvestimento, também o principal recebido.",
             "- O CDI implícito das cotas pós-fixadas e o Pre DI na duration continuam usando a curva DI/Pré selecionada na fonte B3/local.",
@@ -3145,16 +3132,16 @@ def _build_step_by_step_markdown() -> str:
             "",
             "### 5. Entenda a revolvência",
             "",
-            "- Enquanto ainda há prazo suficiente para comprar novos recebíveis, o motor recicla o principal recebido e o excesso de caixa positivo.",
+            "- Enquanto ainda há prazo suficiente para comprar novos recebíveis, o motor usa o principal recebido para repor carteira e o excesso de caixa positivo para originar carteira incremental.",
             "- **Principal recebido** é o principal que venceu no mês conforme a quantidade média de parcelas.",
             "- **Subordinação mínima** é testada como SUB disponível / PL FIDC; ela não limita a compra de carteira originada pelo denominador acumulado.",
-            "- **Excesso de caixa** é o fluxo positivo remanescente após custos, perdas e pagamentos de SEN/MEZZ. Durante a janela elegível, ele compra carteira nova junto com o principal recebido.",
+            "- **Excesso de caixa** é o fluxo positivo remanescente após custos, perdas e pagamentos de SEN/MEZZ. Durante a janela elegível, ele aumenta a carteira originada acumulada.",
             "- Quando o prazo médio dos recebíveis não cabe mais no prazo restante do FIDC, a carteira entra em runoff: o principal recebido também deixa de comprar nova carteira e passa a render pela SELIC média informada.",
             "",
             "### 6. Entenda os denominadores",
             "",
-            "- **Carteira originada programática** é a referência teórica de giro do volume inicial (volume + reposições de principal pelo prazo médio).",
-            "- **Carteira originada efetiva** é a base reconciliada com o motor: volume inicial + soma de principal e excesso de caixa reinvestidos mês a mês.",
+            "- **Carteira base programática** é o volume inicial usado quando não há série do motor; ela não multiplica o denominador pelo giro do principal.",
+            "- **Carteira originada efetiva** é a base reconciliada com o motor: volume inicial + soma do excesso de caixa reinvestido mês a mês.",
             "- No cenário sem perdas, a efetiva incorpora o excesso de caixa gerado pela operação. Em cenários com perdas, a PDD consome PL e pode reduzir o excesso disponível para reinvestir.",
             "- **Colchão sem perdas sobre carteira originada** compara a SUB final sem perdas com a carteira originada efetiva; é uma leitura de excess spread e colchão potencial em uma simulação paralela sem perda de crédito.",
             "- O **gráfico de proteção da estrutura** usa o cenário principal com perdas e compara a SUB disponível de cada mês com PL ou carteira originada acumulada. Por isso, ele não precisa bater com o card sem perdas; são duas leituras complementares.",
@@ -3509,9 +3496,9 @@ def _protection_ratio_chart(chart_df: pd.DataFrame) -> alt.Chart:
             alt.Tooltip("periodo:N", title="Período"),
             alt.Tooltip("serie:N", title="Cenário"),
             alt.Tooltip("carteira_inicial_formatada:N", title="Carteira inicial"),
-            alt.Tooltip("nova_originacao_formatada:N", title="Nova originação"),
-            alt.Tooltip("nova_originacao_acumulada_formatada:N", title="Nova originação acumulada"),
-            alt.Tooltip("nova_originacao_motor_formatada:N", title="Originação econômica do motor"),
+            alt.Tooltip("nova_originacao_formatada:N", title="Originação incremental"),
+            alt.Tooltip("nova_originacao_acumulada_formatada:N", title="Originação incremental acumulada"),
+            alt.Tooltip("nova_originacao_motor_formatada:N", title="Originação incremental do motor"),
             alt.Tooltip("residual_fluxo_formatado:N", title="Residual do fluxo"),
             alt.Tooltip("sub_formatada:N", title="SUB disponível"),
             alt.Tooltip("originada_formatada:N", title="Denominador"),
@@ -3756,10 +3743,10 @@ def _revolvency_cards_data(metrics: _RevolvencyMetrics) -> list[dict[str, str]]:
             "Duration Macaulay calculada a partir da quantidade média de parcelas e da taxa mensal da carteira.",
         ),
         (
-            "Carteira originada efetiva",
+            "Originada efetiva s/ perdas",
             _format_brl(metrics.carteira_total_originada),
-            "Base de comparação",
-            "Volume comprado no motor, somando carteira inicial, principal recebido e excesso de caixa reinvestido.",
+            "Cenário paralelo sem perda",
+            "Volume inicial mais excesso de caixa reinvestido no cenário sem perdas; reposição de principal não aumenta o denominador.",
         ),
         (
             "Bloqueio por trava",
@@ -4215,8 +4202,8 @@ def render_tab_modelo_fidc() -> None:
                         [PORTFOLIO_MODE_REVOLVING, PORTFOLIO_MODE_STATIC],
                         key="modelo_portfolio_mode",
                         help=(
-                            "No modo revolvente, o principal recebido e o excesso de caixa recompram recebíveis "
-                            "enquanto o prazo médio couber no prazo restante do FIDC."
+                            "No modo revolvente, o principal recebido repõe a carteira existente e o excesso de caixa "
+                            "aumenta a carteira originada acumulada enquanto o prazo médio couber no prazo restante do FIDC."
                         ),
                     )
 
@@ -4759,7 +4746,7 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Fluxo econômico da carteira",
                 "Fórmula": "carteira * ((1 + tx_cessao_am_aplicada) ^ (delta_du / 21) - 1)",
-                "Observação": "Em carteira revolvente, a base de carteira evolui com principal reciclado e excesso de caixa positivo enquanto houver prazo para nova originação.",
+                "Observação": "Em carteira revolvente, o principal recebido repõe a carteira existente; só o excesso de caixa positivo entra como originação incremental no denominador.",
             },
             {
                 "Indicador": "Rendimento do caixa SELIC",
@@ -4838,8 +4825,8 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Nova originação",
-                "Fórmula": "se elegível: principal_recebido + max(fluxo_remanescente_apos_MEZZ, 0); se não elegível: 0",
-                "Observação": "Captura o reinvestimento integral do caixa elegível. A subordinação mínima é testada em SUB / PL FIDC e não reduz a nova originação por carteira originada acumulada.",
+                "Fórmula": "se elegível: max(fluxo_remanescente_apos_MEZZ, 0); se não elegível: 0",
+                "Observação": "Captura apenas a originação incremental financiada por excesso de caixa. A reposição de principal mantém o saldo da carteira, mas não aumenta a carteira originada acumulada.",
             },
             {
                 "Indicador": "Juros sênior/MEZZ",
@@ -4861,14 +4848,14 @@ def render_tab_modelo_fidc() -> None:
                 "Observação": "A SUB agora é uma premissa explícita na interface; o motor bloqueia soma diferente de 100%.",
             },
             {
-                "Indicador": "Carteira originada programática",
-                "Fórmula": "revolvente: volume + volume * max(prazo_total_meses - duration_meses, 0) / qtd_parcelas_media; estática: volume",
-                "Observação": "Referência de giro teórico do volume inicial usando a quantidade média de parcelas para principal vencendo.",
+                "Indicador": "Carteira base programática",
+                "Fórmula": "volume_inicial",
+                "Observação": "Fallback conservador quando a série do motor não está disponível; reposição de principal não aumenta carteira originada.",
             },
             {
                 "Indicador": "Carteira originada efetiva",
                 "Fórmula": "volume_inicial + soma(nova_originacao_economica_t)",
-                "Observação": "Denominador reconciliado com o motor; inclui reinvestimento de principal e excesso de caixa que passou pela janela de prazo.",
+                "Observação": "Denominador reconciliado com o motor; inclui o volume inicial e apenas o excesso de caixa que passou pela janela de prazo.",
             },
             {
                 "Indicador": "Subordinação mínima estrutural",
