@@ -299,8 +299,8 @@ def _npl90_credit_period(
     perda_ciclo = max(float(premissas.perda_ciclo), 0.0)
     lgd = min(max(float(premissas.lgd), 0.0), 1.0)
     cobertura_minima = max(float(premissas.cobertura_minima_npl90), 0.0)
-    npl90_futuro = max(carteira_vencendo, 0.0) * perda_ciclo
     lag = max(float(premissas.npl90_lag_meses), 0.0)
+    npl90_futuro = max(carteira, 0.0) * perda_ciclo * (period_months / lag if lag > 1e-9 else 1.0)
     if npl90_futuro > 0.0:
         if lag <= 1e-9:
             entrada_npl90 += npl90_futuro
@@ -313,7 +313,7 @@ def _npl90_credit_period(
     provisao_after_writeoff = max(provisao_start - writeoff_loss, 0.0)
     uncovered_writeoff = max(writeoff_loss - provisao_start, 0.0)
     npl90_end = max(npl90_end - writeoff_loss, 0.0)
-    provisao_base = npl90_futuro * lgd
+    provisao_base = 0.0 if lag <= 1e-9 else npl90_futuro * lgd
     provisao_minima = npl90_end * cobertura_minima * lgd
     provisao_requerida = max(provisao_after_writeoff + provisao_base, provisao_minima)
     despesa_provisao = uncovered_writeoff + max(provisao_requerida - provisao_after_writeoff, 0.0)
@@ -328,7 +328,7 @@ def _npl90_credit_period(
         perda_inesperada_despesa=reforco_cobertura,
         perda_carteira_despesa=despesa_provisao,
         carteira_vencendo=carteira_vencendo,
-        principal_inadimplente=npl90_futuro,
+        principal_inadimplente=0.0,
         entrada_npl90=entrada_npl90,
         npl90_estoque_inicio=npl90_start,
         npl90_estoque_fim=npl90_end,
@@ -444,34 +444,16 @@ def _mc3_cartoes_credit_period(
     period_months: float,
     state: _CreditState,
 ) -> _CreditPeriod:
-    base = _npl90_credit_period(
+    cap = min(max(float(premissas.maturacao_over90_cap), 0.0), 1.0)
+    perda_ciclo = min(max(float(premissas.perda_ciclo), 0.0), cap)
+    perda_ciclo += max(float(premissas.renegociado_pct), 0.0)
+    mc3_premissas = replace(premissas, perda_ciclo=perda_ciclo)
+    return _npl90_credit_period(
         carteira=carteira,
         carteira_vencendo=carteira_vencendo,
-        premissas=premissas,
+        premissas=mc3_premissas,
         period_months=period_months,
         state=state,
-    )
-    cap = min(max(float(premissas.maturacao_over90_cap), 0.0), 1.0)
-    reneg = max(float(premissas.renegociado_pct), 0.0) * max(carteira_vencendo, 0.0)
-    over90_cap = max(carteira_vencendo, 0.0) * cap
-    over90_base = max(base.principal_inadimplente, 0.0)
-    over90_ajustado = min(over90_base, over90_cap)
-    pdd_requerida = over90_ajustado + reneg
-    despesa_pdd = max(pdd_requerida - base.provisao_saldo_inicio, 0.0)
-    cobertura = (pdd_requerida / over90_ajustado) if over90_ajustado > 0.0 else None
-    state.npl90_estoque = over90_ajustado
-    state.provisao_saldo = pdd_requerida
-    return replace(
-        base,
-        npl90_estoque_fim=over90_ajustado,
-        provisao_requerida=pdd_requerida,
-        despesa_provisao=despesa_pdd,
-        provisao_saldo_fim=pdd_requerida,
-        cobertura_npl90=cobertura,
-        perda_esperada_despesa=over90_ajustado,
-        perda_inesperada_despesa=reneg,
-        perda_carteira_despesa=despesa_pdd,
-        bucket_90_plus=over90_ajustado,
     )
 
 def _credit_period(
@@ -766,9 +748,13 @@ def build_flow(
         tx_cessao_am_aplicada = max(premissas.tx_cessao_am, tx_cessao_am_piso)
         period_months = _period_month_fraction(month_deltas, index, delta_dc)
         prazo_medio_recebiveis = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
+        prazo_principal_recebiveis = max(
+            float(premissas.qtd_parcelas_media or premissas.prazo_medio_recebiveis_meses),
+            0.01,
+        )
         preco_pago_fator = _ead_factor_for_premissas(premissas, tx_cessao_am_aplicada, prazo_medio_recebiveis)
         ead_carteira = carteira * preco_pago_fator
-        principal_programado_carteira = min(carteira, max(carteira * period_months / prazo_medio_recebiveis, 0.0))
+        principal_programado_carteira = min(carteira, max(carteira * period_months / prazo_principal_recebiveis, 0.0))
         ead_vencendo = principal_programado_carteira * preco_pago_fator
         prazo_restante_reinvestimento = max(
             float(_term_months(premissas.prazo_fidc_anos, fallback_term_months) - month_deltas[index]),
@@ -826,14 +812,10 @@ def build_flow(
 
         pl_senior_fim = pl_senior_atual - principal_senior_period
         pl_mezz_fim = pl_mezz_atual - principal_mezz_period
-        # Excesso de spread (fluxo remanescente após SEN/MEZZ/custos/perdas) não compra carteira
-        # nova: fica em caixa remunerado pela SELIC (rendimento_caixa_selic) até ser distribuído
-        # ou usado na amortização. Só o principal recebido é reciclado em nova originação.
-        reinvestimento_excesso = 0.0
         reinvestimento_principal_desejado = principal_recebido_carteira if reinvestimento_elegivel else 0.0
 
         def _period_cash_values(reinvestimento_principal_periodo: float) -> tuple[float, float, float, float, float, float, float]:
-            principal_selic = max(principal_recebido_carteira - reinvestimento_principal_periodo, 0.0)
+            principal_selic = max(principal_recebido_carteira - min(reinvestimento_principal_periodo, principal_recebido_carteira), 0.0)
             rendimento_selic = (saldo_caixa_selic_inicio + principal_selic) * taxa_selic_periodo
             fluxo_total = fluxo_carteira + rendimento_selic + credit.recuperacao_credito
             fluxo_apos_senior = fluxo_total - custos_adm - inadimplencia_despesa - pmt_senior
@@ -843,27 +825,12 @@ def build_flow(
             return principal_selic, rendimento_selic, fluxo_total, fluxo_apos_senior, fluxo_apos_mezz, pl_fidc_fim, pl_sub_fim
 
         prelim_values = _period_cash_values(reinvestimento_principal_desejado)
+        reinvestimento_excesso_desejado = max(prelim_values[4], 0.0) if reinvestimento_elegivel else 0.0
         subordinacao_minima_reinvestimento = max(float(premissas.subordinacao_minima_reinvestimento), 0.0)
-        capacidade_reinvestimento_subordinacao = reinvestimento_principal_desejado
-        if (
-            reinvestimento_principal_desejado > 0.0
-            and subordinacao_minima_reinvestimento > 0.0
-            and premissas.carteira_revolvente
-        ):
-            pl_sub_preliminar = max(prelim_values[6], 0.0)
-            capacidade_total_originada = pl_sub_preliminar / subordinacao_minima_reinvestimento
-            capacidade_reinvestimento_subordinacao = max(
-                capacidade_total_originada - carteira_originada_acumulada,
-                0.0,
-            )
-        reinvestimento_principal = min(
-            reinvestimento_principal_desejado,
-            capacidade_reinvestimento_subordinacao,
-        )
-        reinvestimento_bloqueado_subordinacao = max(
-            reinvestimento_principal_desejado - reinvestimento_principal,
-            0.0,
-        )
+        capacidade_reinvestimento_subordinacao = reinvestimento_principal_desejado + reinvestimento_excesso_desejado
+        reinvestimento_principal = reinvestimento_principal_desejado
+        reinvestimento_excesso = reinvestimento_excesso_desejado
+        reinvestimento_bloqueado_subordinacao = 0.0
         (
             principal_para_caixa_selic,
             rendimento_caixa_selic,
@@ -877,16 +844,19 @@ def build_flow(
         nova_originacao = reinvestimento_principal + reinvestimento_excesso
         baixa_credito_face = credit.baixa_credito / preco_pago_fator if preco_pago_fator > 1e-12 else credit.baixa_credito
         carteira_fim = max(carteira - principal_recebido_carteira - baixa_credito_face + nova_originacao, 0.0)
-        caixa_nao_reinvestido = principal_para_caixa_selic + max(fluxo_remanescente_mezz, 0.0)
+        caixa_nao_reinvestido = principal_para_caixa_selic + max(fluxo_remanescente_mezz - reinvestimento_excesso, 0.0)
         saldo_caixa_selic_fim = max(
-            saldo_caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_mezz,
+            saldo_caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_mezz - reinvestimento_excesso,
             0.0,
         )
         carteira_originada_acumulada += nova_originacao
         aporte_subordinacao_minima = 0.0
-        if subordinacao_minima_reinvestimento > 0.0 and carteira_originada_acumulada > 0.0:
-            sub_requerida = subordinacao_minima_reinvestimento * carteira_originada_acumulada
-            aporte_subordinacao_minima = max(sub_requerida - pl_sub_jr, 0.0)
+        if 0.0 < subordinacao_minima_reinvestimento < 1.0 and pl_fidc_atual > 0.0:
+            aporte_subordinacao_minima = max(
+                (subordinacao_minima_reinvestimento * pl_fidc_atual - pl_sub_jr)
+                / (1.0 - subordinacao_minima_reinvestimento),
+                0.0,
+            )
             if aporte_subordinacao_minima > 0.0:
                 pl_fidc_atual += aporte_subordinacao_minima
                 pl_sub_jr += aporte_subordinacao_minima

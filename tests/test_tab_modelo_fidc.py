@@ -3,6 +3,7 @@ from __future__ import annotations
 from io import BytesIO
 from datetime import date
 from types import SimpleNamespace
+import re
 import unittest
 import zipfile
 
@@ -147,7 +148,7 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn("trava de caixa está desligada", markdown)
         self.assertIn("Metodologias de crédito, NPL e provisão", markdown)
         self.assertIn("provisao_minima = estoque_npl90_t", markdown)
-        self.assertIn("principal inadimplente projetado", markdown)
+        self.assertIn("PDD prospectiva", markdown)
         self.assertIn("writeoff_descoberto", markdown)
         self.assertIn("carteira_originada_efetiva = volume_inicial", markdown)
         self.assertIn("Migração por faixas de atraso", markdown)
@@ -164,8 +165,8 @@ class TabModeloFidcTests(unittest.TestCase):
         markdown = tab_modelo_fidc._build_step_by_step_markdown()
 
         self.assertIn("livro-caixa econômico simplificado", markdown)
-        self.assertIn("principal inadimplente projetado", markdown)
-        self.assertIn("não** é reinvestida", markdown)
+        self.assertIn("PDD mensal é R$ 13,33", markdown)
+        self.assertIn("excesso de caixa positivo", markdown)
         self.assertIn("Carteira originada efetiva", markdown)
         self.assertIn("timeline detalhada é a memória de cálculo", markdown)
 
@@ -377,9 +378,9 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertAlmostEqual(0.18464034718783057, periods[1].taxa_mezz)
         self.assertAlmostEqual(0.15463403302424067, kpis.xirr_senior)
         self.assertAlmostEqual(0.19047218455885997, kpis.xirr_mezz)
-        self.assertAlmostEqual(785_962_270.9454902, periods[-1].pl_sub_jr, delta=1.0)
+        self.assertAlmostEqual(1_495_454_499.5443125, periods[-1].pl_sub_jr, delta=1.0)
         self.assertFalse(exceeded)
-        self.assertAlmostEqual(0.1634674072265625, loss_cycle)
+        self.assertAlmostEqual(0.08177947998046875, loss_cycle)
 
     def test_time_protection_uses_monthly_revolving_origination(self) -> None:
         premissas = tab_modelo_fidc.Premissas(
@@ -819,10 +820,16 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertTrue(any(name.startswith("ppt/charts/chart") for name in names))
         self.assertIn("Modelagem FIDC", xml_payload)
         self.assertIn("Premissas Principais", xml_payload)
-        self.assertIn("Trava de Subordinação", xml_payload)
+        self.assertIn("Subordinação e Reinvestimento", xml_payload)
         self.assertIn("Evolução do Saldo das Cotas", xml_payload)
         self.assertIn("Proteção da estrutura", xml_payload)
         self.assertNotRegex(xml_payload, r"<c:(?:axId|crossAx)[^>]+val=\"-")
+        axis_ids = [
+            int(value)
+            for value in re.findall(r"<c:(?:axId|crossAx)[^>]+val=\"(\d+)\"", xml_payload)
+        ]
+        self.assertTrue(axis_ids)
+        self.assertLess(max(axis_ids), 2**31)
 
 
 if __name__ == "__main__":
