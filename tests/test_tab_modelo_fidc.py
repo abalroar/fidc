@@ -817,6 +817,12 @@ class TabModeloFidcTests(unittest.TestCase):
                 for name in names
                 if name.endswith(".xml")
             )
+            chart_axis_sets = []
+            for name in sorted(name for name in names if name.startswith("ppt/charts/chart") and name.endswith(".xml")):
+                chart_xml = archive.read(name).decode("utf-8", errors="ignore")
+                chart_axis_sets.append(
+                    set(int(value) for value in re.findall(r"<c:axId[^>]+val=\"(\d+)\"", chart_xml))
+                )
         self.assertTrue(any(name.startswith("ppt/charts/chart") for name in names))
         self.assertIn("Modelagem FIDC", xml_payload)
         self.assertIn("Premissas Principais", xml_payload)
@@ -830,6 +836,8 @@ class TabModeloFidcTests(unittest.TestCase):
         ]
         self.assertTrue(axis_ids)
         self.assertLess(max(axis_ids), 2**31)
+        self.assertTrue(all(len(axis_set) == 2 for axis_set in chart_axis_sets))
+        self.assertEqual(len(chart_axis_sets), len({tuple(sorted(axis_set)) for axis_set in chart_axis_sets}))
 
 
 if __name__ == "__main__":

@@ -2097,19 +2097,20 @@ _PPTX_CHART_AXID_RE = re.compile(rb'<c:axId\b[^>]*\bval="(-?\d+)"')
 
 
 def _normalize_pptx_unsigned_chart_ids(pptx_bytes: bytes) -> bytes:
-    """Keep chart axis IDs positive and inside Office's signed-32 comfort zone."""
+    """Keep chart axis IDs positive, small, and unique across chart parts."""
     source = BytesIO(pptx_bytes)
     target = BytesIO()
+    next_axis_id = 1_000_000
 
     with ZipFile(source, "r") as zin, ZipFile(target, "w", compression=ZIP_DEFLATED) as zout:
         for item in zin.infolist():
             payload = zin.read(item.filename)
             if item.filename.startswith("ppt/charts/") and item.filename.endswith(".xml"):
                 axis_values = list(dict.fromkeys(_PPTX_CHART_AXID_RE.findall(payload)))
-                axis_id_map = {
-                    old: str(1_000_000 + chart_index).encode("ascii")
-                    for chart_index, old in enumerate(axis_values, start=1)
-                }
+                axis_id_map = {}
+                for old in axis_values:
+                    next_axis_id += 1
+                    axis_id_map[old] = str(next_axis_id).encode("ascii")
 
                 def normalize(match: re.Match[bytes]) -> bytes:
                     value = match.group(2)
