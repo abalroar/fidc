@@ -646,6 +646,7 @@ def build_flow(
     pl_fidc_atual = premissas.volume
     pl_sub_jr_initial = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
     carteira_atual = premissas.volume
+    carteira_originada_acumulada = max(float(premissas.volume), 0.0)
     caixa_selic_atual = 0.0
     accrued_interest_senior = 0.0
     accrued_interest_mezz = 0.0
@@ -708,6 +709,11 @@ def build_flow(
                     resultado_carteira_liquido=0.0,
                     prazo_restante_reinvestimento_meses=float(_term_months(premissas.prazo_fidc_anos, fallback_term_months)),
                     reinvestimento_elegivel=premissas.carteira_revolvente,
+                    subordinacao_minima_reinvestimento=max(float(premissas.subordinacao_minima_reinvestimento), 0.0),
+                    carteira_originada_acumulada=carteira_originada_acumulada,
+                    capacidade_reinvestimento_subordinacao=0.0,
+                    reinvestimento_bloqueado_subordinacao=0.0,
+                    aporte_subordinacao_minima=0.0,
                     principal_recebido_carteira=0.0,
                     reinvestimento_principal=0.0,
                     reinvestimento_excesso=0.0,
@@ -740,6 +746,9 @@ def build_flow(
                     pmt_sub_jr=0.0,
                     pl_sub_jr=pl_sub_jr_initial,
                     subordinacao_pct=pl_sub_jr_initial / pl_fidc_atual if pl_fidc_atual else None,
+                    colchao_originada_pct=(
+                        pl_sub_jr_initial / carteira_originada_acumulada if carteira_originada_acumulada else None
+                    ),
                     pl_sub_jr_modelo=None,
                     subordinacao_pct_modelo=None,
                 )
@@ -780,18 +789,13 @@ def build_flow(
             credit.principal_inadimplente / preco_pago_fator if preco_pago_fator > 1e-12 else credit.principal_inadimplente
         )
         principal_recebido_carteira = max(principal_programado_carteira - principal_inadimplente_face, 0.0)
-        reinvestimento_principal = principal_recebido_carteira if reinvestimento_elegivel else 0.0
-        principal_para_caixa_selic = max(principal_recebido_carteira - reinvestimento_principal, 0.0)
         taxa_selic_aa = _selic_annual_rate_for_year(premissas, dt.year)
         taxa_selic_periodo = _annual_252_to_period_rate(taxa_selic_aa, period_months)
         saldo_caixa_selic_inicio = caixa_selic_atual
-        rendimento_caixa_selic = (saldo_caixa_selic_inicio + principal_para_caixa_selic) * taxa_selic_periodo
-        fluxo_ativos_total = fluxo_carteira + rendimento_caixa_selic + credit.recuperacao_credito
         perda_esperada_despesa = credit.perda_esperada_despesa
         perda_inesperada_despesa = credit.perda_inesperada_despesa
         perda_carteira_despesa = credit.perda_carteira_despesa
         inadimplencia_despesa = perda_carteira_despesa
-        resultado_carteira_liquido = fluxo_carteira + credit.recuperacao_credito - perda_carteira_despesa
 
         fra_mezz_period = fra_mezz[index] or 0.0
         juros_senior_bruto = pl_senior_atual * ((1.0 + fra_senior_period) ** (delta_du / 252.0) - 1.0)
@@ -820,17 +824,56 @@ def build_flow(
         pmt_senior = juros_senior + principal_senior_period
         pmt_mezz = juros_mezz + principal_mezz_period
 
-        pl_senior_atual -= principal_senior_period
-        pl_mezz_atual -= principal_mezz_period
-
-        fluxo_remanescente = fluxo_ativos_total - custos_adm - inadimplencia_despesa - pmt_senior
-        fluxo_remanescente_mezz = fluxo_remanescente - pmt_mezz
-        pl_fidc_atual = pl_fidc_atual + fluxo_ativos_total - custos_adm - inadimplencia_despesa - pmt_senior - pmt_mezz
-        pl_sub_jr = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
+        pl_senior_fim = pl_senior_atual - principal_senior_period
+        pl_mezz_fim = pl_mezz_atual - principal_mezz_period
         # Excesso de spread (fluxo remanescente após SEN/MEZZ/custos/perdas) não compra carteira
         # nova: fica em caixa remunerado pela SELIC (rendimento_caixa_selic) até ser distribuído
         # ou usado na amortização. Só o principal recebido é reciclado em nova originação.
         reinvestimento_excesso = 0.0
+        reinvestimento_principal_desejado = principal_recebido_carteira if reinvestimento_elegivel else 0.0
+
+        def _period_cash_values(reinvestimento_principal_periodo: float) -> tuple[float, float, float, float, float, float, float]:
+            principal_selic = max(principal_recebido_carteira - reinvestimento_principal_periodo, 0.0)
+            rendimento_selic = (saldo_caixa_selic_inicio + principal_selic) * taxa_selic_periodo
+            fluxo_total = fluxo_carteira + rendimento_selic + credit.recuperacao_credito
+            fluxo_apos_senior = fluxo_total - custos_adm - inadimplencia_despesa - pmt_senior
+            fluxo_apos_mezz = fluxo_apos_senior - pmt_mezz
+            pl_fidc_fim = pl_fidc_atual + fluxo_total - custos_adm - inadimplencia_despesa - pmt_senior - pmt_mezz
+            pl_sub_fim = pl_fidc_fim - pl_senior_fim - pl_mezz_fim
+            return principal_selic, rendimento_selic, fluxo_total, fluxo_apos_senior, fluxo_apos_mezz, pl_fidc_fim, pl_sub_fim
+
+        prelim_values = _period_cash_values(reinvestimento_principal_desejado)
+        subordinacao_minima_reinvestimento = max(float(premissas.subordinacao_minima_reinvestimento), 0.0)
+        capacidade_reinvestimento_subordinacao = reinvestimento_principal_desejado
+        if (
+            reinvestimento_principal_desejado > 0.0
+            and subordinacao_minima_reinvestimento > 0.0
+            and premissas.carteira_revolvente
+        ):
+            pl_sub_preliminar = max(prelim_values[6], 0.0)
+            capacidade_total_originada = pl_sub_preliminar / subordinacao_minima_reinvestimento
+            capacidade_reinvestimento_subordinacao = max(
+                capacidade_total_originada - carteira_originada_acumulada,
+                0.0,
+            )
+        reinvestimento_principal = min(
+            reinvestimento_principal_desejado,
+            capacidade_reinvestimento_subordinacao,
+        )
+        reinvestimento_bloqueado_subordinacao = max(
+            reinvestimento_principal_desejado - reinvestimento_principal,
+            0.0,
+        )
+        (
+            principal_para_caixa_selic,
+            rendimento_caixa_selic,
+            fluxo_ativos_total,
+            fluxo_remanescente,
+            fluxo_remanescente_mezz,
+            pl_fidc_atual,
+            pl_sub_jr,
+        ) = _period_cash_values(reinvestimento_principal)
+        resultado_carteira_liquido = fluxo_carteira + credit.recuperacao_credito - perda_carteira_despesa
         nova_originacao = reinvestimento_principal + reinvestimento_excesso
         baixa_credito_face = credit.baixa_credito / preco_pago_fator if preco_pago_fator > 1e-12 else credit.baixa_credito
         carteira_fim = max(carteira - principal_recebido_carteira - baixa_credito_face + nova_originacao, 0.0)
@@ -839,8 +882,19 @@ def build_flow(
             saldo_caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_mezz,
             0.0,
         )
+        carteira_originada_acumulada += nova_originacao
+        aporte_subordinacao_minima = 0.0
+        if subordinacao_minima_reinvestimento > 0.0 and carteira_originada_acumulada > 0.0:
+            sub_requerida = subordinacao_minima_reinvestimento * carteira_originada_acumulada
+            aporte_subordinacao_minima = max(sub_requerida - pl_sub_jr, 0.0)
+            if aporte_subordinacao_minima > 0.0:
+                pl_fidc_atual += aporte_subordinacao_minima
+                pl_sub_jr += aporte_subordinacao_minima
+                saldo_caixa_selic_fim += aporte_subordinacao_minima
         carteira_atual = carteira_fim
         caixa_selic_atual = saldo_caixa_selic_fim
+        pl_senior_atual = pl_senior_fim
+        pl_mezz_atual = pl_mezz_fim
 
         taxa_senior_period = taxa_senior[index]
         vp_pmt_senior = 0.0
@@ -897,6 +951,11 @@ def build_flow(
                 resultado_carteira_liquido=resultado_carteira_liquido,
                 prazo_restante_reinvestimento_meses=prazo_restante_reinvestimento,
                 reinvestimento_elegivel=reinvestimento_elegivel,
+                subordinacao_minima_reinvestimento=subordinacao_minima_reinvestimento,
+                carteira_originada_acumulada=carteira_originada_acumulada,
+                capacidade_reinvestimento_subordinacao=capacidade_reinvestimento_subordinacao,
+                reinvestimento_bloqueado_subordinacao=reinvestimento_bloqueado_subordinacao,
+                aporte_subordinacao_minima=aporte_subordinacao_minima,
                 principal_recebido_carteira=principal_recebido_carteira,
                 reinvestimento_principal=reinvestimento_principal,
                 reinvestimento_excesso=reinvestimento_excesso,
@@ -925,6 +984,7 @@ def build_flow(
                 pmt_sub_jr=0.0,
                 pl_sub_jr=pl_sub_jr,
                 subordinacao_pct=(pl_sub_jr / pl_fidc_atual) if pl_fidc_atual else None,
+                colchao_originada_pct=(pl_sub_jr / carteira_originada_acumulada) if carteira_originada_acumulada else None,
                 pl_sub_jr_modelo=None,
                 subordinacao_pct_modelo=None,
             )

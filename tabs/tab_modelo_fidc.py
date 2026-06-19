@@ -4,6 +4,8 @@ from dataclasses import dataclass, replace
 from datetime import date, datetime, timedelta
 from html import escape
 from io import BytesIO
+import re
+from zipfile import ZIP_DEFLATED, ZipFile
 
 import altair as alt
 from openpyxl.styles import Alignment
@@ -78,13 +80,13 @@ CREDIT_MODEL_LABELS = {
     CREDIT_LABEL_MC3: CREDIT_MODEL_MC3_CARTOES,
     CREDIT_LABEL_MIGRATION: CREDIT_MODEL_MIGRATION,
 }
-DEFAULT_VOLUME_CARTEIRA = 750_000_000.0
-DEFAULT_TX_CESSAO_AM = 0.04
+DEFAULT_VOLUME_CARTEIRA = 1_000_000_000.0
+DEFAULT_TX_CESSAO_AM = 0.14
 DEFAULT_CUSTO_ADM_AA = 0.0035
 DEFAULT_CUSTO_MIN_MENSAL = 20_000.0
 DEFAULT_PERDA_ESPERADA_AM = 0.0
 DEFAULT_PERDA_INESPERADA_AM = 0.0
-DEFAULT_PERDA_CICLO = 0.0
+DEFAULT_PERDA_CICLO = 0.40
 DEFAULT_NPL90_LAG_MESES = 3
 DEFAULT_COBERTURA_NPL90 = 1.0
 DEFAULT_RENEGOCIADO_PCT = 0.0
@@ -98,14 +100,17 @@ DEFAULT_RECUPERACAO_90_PLUS = 0.0
 DEFAULT_WRITEOFF_90_PLUS = 0.0
 DEFAULT_AGIO_AQUISICAO = 0.0
 DEFAULT_EXCESSO_SPREAD_SENIOR_AM = 0.0
-DEFAULT_PROP_SENIOR = 0.75
-DEFAULT_PROP_MEZZ = 0.15
-DEFAULT_PROP_SUB = 0.10
-DEFAULT_TAXA_SENIOR = 0.0135
-DEFAULT_TAXA_MEZZ = 0.05
-DEFAULT_PRAZO_ANOS = 3.0
-DEFAULT_PRAZO_RECEBIVEIS_MESES = 6.0
-DEFAULT_CARENCIA_PRINCIPAL_MESES = 30.0
+DEFAULT_PROP_SENIOR = 0.70
+DEFAULT_PROP_MEZZ = 0.0
+DEFAULT_PROP_SUB = 0.30
+DEFAULT_TAXA_SENIOR = 0.016
+DEFAULT_TAXA_MEZZ = 0.0
+DEFAULT_PRAZO_ANOS = 2.0
+DEFAULT_QTD_PARCELAS_MEDIA = 7.0
+DEFAULT_PRAZO_RECEBIVEIS_MESES = 3.154420901487235
+DEFAULT_CARENCIA_PRINCIPAL_MESES = 18.0
+DEFAULT_SUBORDINACAO_MINIMA_REINVESTIMENTO = 0.30
+MC3_PRESET_VERSION = "mc3-2026-06-19-duration-parcelas-v1"
 DEFAULT_CURVE_START_YEAR = 2026
 DEFAULT_SELIC_PERPETUAL_YEAR = 2028
 DEFAULT_SELIC_AA_2026 = 0.13
@@ -376,11 +381,13 @@ class _RevolvencyMetrics:
     reinvestimento_principal_total: float
     reinvestimento_excesso_total: float
     nova_originacao_total: float
+    reinvestimento_bloqueado_subordinacao_total: float
     carteira_total_originada: float
     ead_maximo: float
     ead_medio_ponderado: float
     sub_final_sem_inadimplencia: float
     colchao_sem_perdas_sobre_originacao: float | None
+    subordinacao_minima_reinvestimento: float
     perda_ciclo_calibrada: float | None
     perda_ciclo_calibrada_anual_equivalente: float | None
     perda_ciclo_calibrada_pos_lgd: float | None
@@ -571,6 +578,45 @@ def _parse_percent_for_visibility(value: str, *, default: float) -> float:
         return default
 
 
+def _principal_wal_from_installments(qtd_parcelas: float) -> float:
+    installments = max(int(round(float(qtd_parcelas))), 1)
+    return (installments + 1.0) / 2.0
+
+
+def _installment_macaulay_duration_months(qtd_parcelas: float, monthly_rate: float) -> float:
+    installments = max(int(round(float(qtd_parcelas))), 1)
+    rate = max(float(monthly_rate), 0.0)
+    weighted_pv = 0.0
+    total_pv = 0.0
+    for month in range(1, installments + 1):
+        outstanding_start = (installments - month + 1.0) / installments
+        cash_flow = (1.0 / installments) + outstanding_start * rate
+        pv = cash_flow / ((1.0 + rate) ** month)
+        weighted_pv += month * pv
+        total_pv += pv
+    return weighted_pv / total_pv if total_pv > 0.0 else _principal_wal_from_installments(installments)
+
+
+def _monthly_rate_from_discount_and_installment_duration(discount: float, qtd_parcelas: float) -> float:
+    rate = cession_discount_to_monthly_rate(discount, _principal_wal_from_installments(qtd_parcelas))
+    for _ in range(12):
+        duration = _installment_macaulay_duration_months(qtd_parcelas, rate)
+        rate = cession_discount_to_monthly_rate(discount, duration)
+    return rate
+
+
+def _safe_installment_duration_preview(qtd_parcelas_text: str, taxa_mensal_text: str) -> float:
+    try:
+        qtd_parcelas = _parse_br_number(qtd_parcelas_text, field_name="Quantidade média de parcelas")
+    except ValueError:
+        qtd_parcelas = DEFAULT_QTD_PARCELAS_MEDIA
+    try:
+        monthly_rate = _parse_br_number(taxa_mensal_text, field_name="Taxa Mensal (%)") / 100.0
+    except ValueError:
+        monthly_rate = DEFAULT_TX_CESSAO_AM
+    return _installment_macaulay_duration_months(qtd_parcelas, monthly_rate)
+
+
 def _format_raw_input_text(value: str, *, decimals: int, kind: str) -> str:
     parsed = _parse_br_number(value, field_name="valor")
     if kind == "brl":
@@ -609,6 +655,7 @@ _INPUT_NORMALIZATION_SPECS = {
     "modelo_taxa_mezz": (2, "percent"),
     "modelo_taxa_sub": (2, "percent"),
     "modelo_prazo_fidc_anos": (1, "number"),
+    "modelo_qtd_parcelas_media": (1, "number"),
     "modelo_prazo_recebiveis_meses": (1, "number"),
     "modelo_prazo_senior_anos": (1, "number"),
     "modelo_prazo_mezz_anos": (1, "number"),
@@ -633,6 +680,55 @@ def _normalize_model_input_values() -> None:
             st.session_state[key] = _format_raw_input_text(st.session_state[key], decimals=2, kind="percent")
         except ValueError:
             continue
+
+
+def _apply_mc3_preset_defaults() -> None:
+    if st.session_state.get("modelo_mc3_preset_version") == MC3_PRESET_VERSION:
+        return
+    preset_values = {
+        "modelo_view": MODEL_VIEW_MC3,
+        "modelo_taxa_cessao_input_mode": CESSION_INPUT_MONTHLY,
+        "modelo_credit_model": CREDIT_LABEL_NPL90,
+        "modelo_volume": _format_brl_input_value(DEFAULT_VOLUME_CARTEIRA, 2),
+        "modelo_tx_cessao_mensal": _format_percent_input_value(DEFAULT_TX_CESSAO_AM * 100.0, 2),
+        "modelo_custo_adm_pct": _format_percent_input_value(DEFAULT_CUSTO_ADM_AA * 100.0, 2),
+        "modelo_custo_min": _format_brl_input_value(DEFAULT_CUSTO_MIN_MENSAL, 2),
+        "modelo_perda_ciclo_pct": _format_percent_input_value(DEFAULT_PERDA_CICLO * 100.0, 2),
+        "modelo_npl90_lag_meses": _format_input_value(DEFAULT_NPL90_LAG_MESES, 0),
+        "modelo_cobertura_npl90_pct": _format_percent_input_value(DEFAULT_COBERTURA_NPL90 * 100.0, 1),
+        "modelo_lgd_pct": _format_percent_input_value(DEFAULT_LGD * 100.0, 1),
+        "modelo_mc3_maturacao_over90_cap": _format_percent_input_value(DEFAULT_MATURACAO_OVER90_CAP * 100.0, 1),
+        "modelo_agio_aquisicao_pct": _format_percent_input_value(DEFAULT_AGIO_AQUISICAO * 100.0, 2),
+        "modelo_excesso_spread_senior": _format_percent_input_value(DEFAULT_EXCESSO_SPREAD_SENIOR_AM * 100.0, 2),
+        "modelo_prop_senior": _format_percent_input_value(DEFAULT_PROP_SENIOR * 100.0, 1),
+        "modelo_prop_mezz": _format_percent_input_value(DEFAULT_PROP_MEZZ * 100.0, 1),
+        "modelo_prop_sub": _format_percent_input_value(DEFAULT_PROP_SUB * 100.0, 1),
+        "modelo_taxa_senior": _format_percent_input_value(DEFAULT_TAXA_SENIOR * 100.0, 2),
+        "modelo_taxa_mezz": _format_percent_input_value(DEFAULT_TAXA_MEZZ * 100.0, 2),
+        "modelo_taxa_sub": _format_percent_input_value(0.0, 2),
+        "modelo_date_schedule": DATE_SCHEDULE_MONTHLY,
+        "modelo_prazo_fidc_anos": _format_input_value(DEFAULT_PRAZO_ANOS, 1),
+        "modelo_qtd_parcelas_media": _format_input_value(DEFAULT_QTD_PARCELAS_MEDIA, 1),
+        "modelo_prazo_recebiveis_meses": _format_input_value(DEFAULT_PRAZO_RECEBIVEIS_MESES, 1),
+        "modelo_portfolio_mode": PORTFOLIO_MODE_REVOLVING,
+        "modelo_senior_mode": "Pós-fixada: CDI + spread aditivo",
+        "modelo_mezz_mode": "Pré-fixada: taxa % a.a.",
+        "modelo_sub_mode": "Residual",
+        "modelo_amort_senior": "Linear após carência",
+        "modelo_amort_mezz": "Sem amortização programada",
+        "modelo_juros_senior": "Pago em todo período",
+        "modelo_juros_mezz": "Pago em todo período",
+        "modelo_prazo_senior_anos": _format_input_value(DEFAULT_PRAZO_ANOS, 1),
+        "modelo_prazo_mezz_anos": _format_input_value(DEFAULT_PRAZO_ANOS, 1),
+        "modelo_prazo_sub_anos": _format_input_value(DEFAULT_PRAZO_ANOS, 1),
+        "modelo_inicio_amort_senior": _format_input_value(DEFAULT_CARENCIA_PRINCIPAL_MESES, 0),
+        "modelo_inicio_amort_mezz": _format_input_value(0.0, 0),
+    }
+    for key, value in preset_values.items():
+        st.session_state[key] = value
+    st.session_state["modelo_mc3_preset_version"] = MC3_PRESET_VERSION
+    for cache_key in ("modelo_fidc_signature", "modelo_fidc_periods", "modelo_fidc_kpis"):
+        st.session_state.pop(cache_key, None)
 
 
 def _add_months(dt: datetime, months: int) -> datetime:
@@ -731,6 +827,10 @@ def _build_revolvency_metrics(
     nova_originacao_total = sum(
         max(float(getattr(period, "nova_originacao", 0.0)), 0.0) for period in zero_default_results[1:]
     )
+    reinvestimento_bloqueado_subordinacao_total = sum(
+        max(float(getattr(period, "reinvestimento_bloqueado_subordinacao", 0.0)), 0.0)
+        for period in zero_default_results[1:]
+    )
     has_motor_origination = any(hasattr(period, "nova_originacao") for period in zero_default_results[1:])
     if zero_default_results and has_motor_origination:
         carteira_total_originada = max(float(premissas.volume), 0.0) + nova_originacao_total
@@ -770,11 +870,13 @@ def _build_revolvency_metrics(
         reinvestimento_principal_total=reinvestimento_principal_total,
         reinvestimento_excesso_total=reinvestimento_excesso_total,
         nova_originacao_total=nova_originacao_total,
+        reinvestimento_bloqueado_subordinacao_total=reinvestimento_bloqueado_subordinacao_total,
         carteira_total_originada=carteira_total_originada,
         ead_maximo=ead_maximo,
         ead_medio_ponderado=ead_medio,
         sub_final_sem_inadimplencia=sub_final,
         colchao_sem_perdas_sobre_originacao=colchao_sem_perdas,
+        subordinacao_minima_reinvestimento=max(float(premissas.subordinacao_minima_reinvestimento), 0.0),
         perda_ciclo_calibrada=calibrated_loss_cycle,
         perda_ciclo_calibrada_anual_equivalente=calibrated_loss_annual,
         perda_ciclo_calibrada_pos_lgd=calibrated_loss_post_lgd,
@@ -1064,6 +1166,11 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "resultado_carteira_liquido": "Resultado líquido da carteira",
             "prazo_restante_reinvestimento_meses": "Prazo restante para reinvestimento (meses)",
             "reinvestimento_elegivel": "Reinvestimento elegível",
+            "subordinacao_minima_reinvestimento": "Subordinação mínima para reinvestimento",
+            "carteira_originada_acumulada": "Carteira originada acumulada",
+            "capacidade_reinvestimento_subordinacao": "Capacidade de reinvestimento pela trava",
+            "reinvestimento_bloqueado_subordinacao": "Reinvestimento bloqueado pela trava",
+            "aporte_subordinacao_minima": "Aporte SUB para trava mínima",
             "principal_recebido_carteira": "Principal recebido da carteira",
             "reinvestimento_principal": "Reinvestimento de principal",
             "reinvestimento_excesso": "Reinvestimento de excesso de caixa",
@@ -1092,6 +1199,7 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "pmt_sub_jr": "PMT subordinada",
             "pl_sub_jr": "Saldo residual júnior econômico",
             "subordinacao_pct": "Subordinação econômica",
+            "colchao_originada_pct": "Colchão sobre carteira originada",
             "pl_sub_jr_modelo": "Saldo júnior histórico",
             "subordinacao_pct_modelo": "Subordinação histórica",
         }
@@ -1121,10 +1229,12 @@ def _build_display_dataframe(export_frame: pd.DataFrame) -> pd.DataFrame:
         "Originação",
         "Caixa",
         "Rendimento",
+        "Aporte",
         "EAD",
         "Ágio",
+        "Capacidade",
     )
-    percent_tokens = ("Pre DI", "Taxa", "FRA", "Subordinação", "Cobertura", "Preço pago / face")
+    percent_tokens = ("Pre DI", "Taxa", "FRA", "Subordinação", "Cobertura", "Preço pago / face", "Colchão")
     for column in display.columns:
         if column in {"Índice", "Dias corridos", "Dias úteis", "Delta dias corridos", "Delta dias úteis"}:
             display[column] = display[column].map(lambda value: _format_number_br(float(value), 0) if pd.notna(value) else "N/D")
@@ -1150,6 +1260,11 @@ def _build_committee_timeline_dataframe(display_frame: pd.DataFrame) -> pd.DataF
         "PL MEZZ",
         "Saldo residual júnior econômico",
         "Subordinação econômica",
+        "Carteira originada acumulada",
+        "Colchão sobre carteira originada",
+        "Capacidade de reinvestimento pela trava",
+        "Reinvestimento bloqueado pela trava",
+        "Aporte SUB para trava mínima",
         "Caixa não reinvestido",
     ]
     visible_columns = [column for column in committee_columns if column in display_frame.columns]
@@ -1244,9 +1359,11 @@ def _build_revolvency_export_dataframe(metrics: _RevolvencyMetrics) -> pd.DataFr
             {"Indicador": "Reinvestimento de principal", "Valor": metrics.reinvestimento_principal_total},
             {"Indicador": "Reinvestimento de excesso de spread", "Valor": metrics.reinvestimento_excesso_total},
             {"Indicador": "Nova originação efetiva do motor", "Valor": metrics.nova_originacao_total},
+            {"Indicador": "Reinvestimento bloqueado pela trava", "Valor": metrics.reinvestimento_bloqueado_subordinacao_total},
             {"Indicador": "Carteira originada efetiva", "Valor": metrics.carteira_total_originada},
             {"Indicador": "SUB final sem perdas", "Valor": metrics.sub_final_sem_inadimplencia},
-            {"Indicador": "Colchão sobre carteira originada", "Valor": metrics.colchao_sem_perdas_sobre_originacao},
+            {"Indicador": "Subordinação mínima para reinvestimento", "Valor": metrics.subordinacao_minima_reinvestimento},
+            {"Indicador": "Colchão sem perdas sobre carteira originada", "Valor": metrics.colchao_sem_perdas_sobre_originacao},
         ]
     )
 
@@ -1319,7 +1436,14 @@ def _build_premissas_summary_dataframe(
     add("Carteira", "Volume inicial", _format_brl(premissas.volume), "Valor de face dos recebíveis no mês zero.")
     add("Carteira", "Modo da carteira", portfolio_mode_label, "Define se há reciclagem de principal/excesso de spread.")
     add("Carteira", "Prazo total do FIDC", f"{_format_number_br(premissas.prazo_fidc_anos or 0.0, 1)} anos")
-    add("Carteira", "Prazo médio dos recebíveis", f"{_format_number_br(premissas.prazo_medio_recebiveis_meses, 1)} meses")
+    if premissas.qtd_parcelas_media is not None:
+        add("Carteira", "Quantidade média de parcelas", f"{_format_number_br(premissas.qtd_parcelas_media, 1)} parcelas")
+    add(
+        "Carteira",
+        "Prazo médio dos recebíveis",
+        f"{_format_number_br(premissas.prazo_medio_recebiveis_meses, 2)} meses",
+        "Duration econômica Macaulay calculada pela quantidade média de parcelas e taxa mensal da carteira.",
+    )
     add("Carteira", "Entrada da taxa da carteira", taxa_cessao_input_mode)
     add("Carteira", "Taxa de cessão equivalente", _format_percent(tx_cessao_desagio), "Deságio no prazo médio.")
     add("Carteira", "Taxa mensal efetiva", _format_percent(premissas.tx_cessao_am))
@@ -1344,6 +1468,12 @@ def _build_premissas_summary_dataframe(
     add("Estrutura", "PL SEN", _format_percent(premissas.proporcao_senior))
     add("Estrutura", "PL MEZZ", _format_percent(premissas.proporcao_mezz))
     add("Estrutura", "PL SUB", _format_percent(premissas.proporcao_sub_jr))
+    add(
+        "Estrutura",
+        "Trava mínima de reinvestimento",
+        _format_percent(premissas.subordinacao_minima_reinvestimento),
+        "Nova originação só ocorre se SUB / carteira originada acumulada ficar acima da trava.",
+    )
     add("Remuneração", "SEN", f"{senior_mode_label}; taxa/spread {_format_percent(premissas.taxa_senior)}")
     add("Remuneração", "MEZZ", f"{mezz_mode_label}; taxa/spread {_format_percent(premissas.taxa_mezz)}")
     add("Remuneração", "SUB", f"{sub_mode_label}; taxa-alvo {_format_percent(premissas.taxa_sub_jr)}")
@@ -1772,11 +1902,152 @@ def _add_line_chart(
     dashboard.add_chart(chart, anchor)
 
 
+def _summary_lookup(premissas_summary_df: pd.DataFrame, premissa: str, default: str = "N/D") -> str:
+    if premissas_summary_df.empty or "Premissa" not in premissas_summary_df.columns:
+        return default
+    rows = premissas_summary_df[premissas_summary_df["Premissa"] == premissa]
+    if rows.empty:
+        return default
+    return str(rows.iloc[0].get("Valor", default) or default)
+
+
+def _compact_brl_from_text(value: str) -> str:
+    try:
+        amount = _parse_br_number(value, field_name="valor")
+    except ValueError:
+        return value
+    if abs(amount) >= 1_000_000_000:
+        return f"R$ {_format_number_br(amount / 1_000_000_000.0, 1).replace(',0', '')} bi"
+    if abs(amount) >= 1_000_000:
+        return f"R$ {_format_number_br(amount / 1_000_000.0, 1).replace(',0', '')} mi"
+    return _format_brl(amount)
+
+
+def _short_percent_text(value: str, *, decimals: int = 0) -> str:
+    try:
+        pct = _parse_br_number(value, field_name="percentual")
+    except ValueError:
+        return value
+    return f"{_format_number_br(pct, decimals)}%"
+
+
+def _committee_premissas_rows(premissas_summary_df: pd.DataFrame) -> list[tuple[str, str]]:
+    return [
+        ("Volume inicial", _compact_brl_from_text(_summary_lookup(premissas_summary_df, "Volume inicial"))),
+        ("Modo da carteira", _summary_lookup(premissas_summary_df, "Modo da carteira")),
+        ("Prazo total do FIDC", _summary_lookup(premissas_summary_df, "Prazo total do FIDC").replace(" anos", " a")),
+        ("Prazo médio dos recebíveis", _summary_lookup(premissas_summary_df, "Prazo médio dos recebíveis").replace(" meses", "m")),
+        ("Entrada da taxa da carteira", _summary_lookup(premissas_summary_df, "Entrada da taxa da carteira")),
+        ("Taxa mensal efetiva", _short_percent_text(_summary_lookup(premissas_summary_df, "Taxa mensal efetiva"), decimals=0)),
+        ("Taxa anual equivalente base 252", _summary_lookup(premissas_summary_df, "Taxa anual equivalente base 252")),
+        ("Administração/gestão", _summary_lookup(premissas_summary_df, "Administração/gestão")),
+        ("Metodologia", "NPL 90 + cobertura de provisão"),
+        ("NPL 90+ esperado por ciclo", _summary_lookup(premissas_summary_df, "NPL 90+ esperado por ciclo")),
+        ("Lag até NPL 90+", _summary_lookup(premissas_summary_df, "Lag até NPL 90+")),
+        ("Cobertura mínima NPL 90+", _short_percent_text(_summary_lookup(premissas_summary_df, "Cobertura mínima NPL 90+"), decimals=0)),
+        ("LGD econômica", _short_percent_text(_summary_lookup(premissas_summary_df, "LGD econômica"), decimals=0)),
+        ("Teto maturação Over90", _short_percent_text(_summary_lookup(premissas_summary_df, "Teto maturação Over90"), decimals=0)),
+        ("PL SEN", _short_percent_text(_summary_lookup(premissas_summary_df, "PL SEN"), decimals=0)),
+        ("PL SUB", _short_percent_text(_summary_lookup(premissas_summary_df, "PL SUB"), decimals=0)),
+        ("Remuneração Sr.", "CDI +1,60%"),
+        ("Amortização SEN", _summary_lookup(premissas_summary_df, "Amortização SEN")),
+        ("Juros SEN", _summary_lookup(premissas_summary_df, "Juros SEN")),
+        ("Início amortização SEN", _summary_lookup(premissas_summary_df, "Início amortização SEN")),
+    ]
+
+
+def _committee_flow_rows(timeline_frame: pd.DataFrame | None) -> list[tuple[str, str, str]]:
+    if timeline_frame is None or timeline_frame.empty:
+        return [
+            ("Carteira originada", "100,00", "Base do período"),
+            ("Receita", "14,00", "~14% a.m."),
+            ("Principal vencendo", "31,70", "1/3,15 da carteira vence"),
+            ("NPL provisionado", "-6,67", "40% do principal vencido"),
+            ("Custos adm.", "-0,03", "Despesas operacionais"),
+            ("Juros sênior", "N/D", "Remuneração da tranche sênior"),
+            ("Excesso de Caixa", "N/D", ""),
+        ]
+    data = timeline_frame[timeline_frame["indice"] > 0].copy()
+    if data.empty:
+        return _committee_flow_rows(None)
+    row = data.iloc[0]
+    base = float(timeline_frame.iloc[0].get("carteira", 0.0) or 0.0)
+    scale = 100.0 / base if base else 0.0
+
+    def scaled(column: str, sign: float = 1.0) -> str:
+        return _format_number_br(float(row.get(column, 0.0) or 0.0) * scale * sign, 2)
+
+    carteira_vencendo = float(row.get("carteira_vencendo", 0.0) or 0.0)
+    prazo_medio = base / carteira_vencendo if base and carteira_vencendo else 0.0
+    principal_racional = (
+        f"1/{_format_number_br(prazo_medio, 2)} da carteira vence"
+        if prazo_medio > 0.0
+        else "Prazo médio econômico"
+    )
+
+    return [
+        ("Carteira originada", "100,00", "Base do período"),
+        ("Receita", scaled("fluxo_carteira"), "~14% a.m. ajustado por calendário"),
+        ("Principal vencendo", scaled("carteira_vencendo"), principal_racional),
+        ("NPL provisionado", scaled("principal_inadimplente", -1.0), "40% do principal vencido"),
+        ("Custos adm.", scaled("custos_adm", -1.0), "Despesas operacionais"),
+        ("Juros sênior", scaled("juros_senior", -1.0), "Remuneração da tranche sênior"),
+        ("Excesso de Caixa", scaled("fluxo_remanescente_mezz"), ""),
+    ]
+
+
+def _committee_lock_rows(timeline_frame: pd.DataFrame | None) -> pd.DataFrame:
+    columns = ["Mês", "Principal recebido", "Nova originação", "Bloqueado", "Aporte SUB", "Colchão"]
+    if timeline_frame is None or timeline_frame.empty:
+        return pd.DataFrame([["M1", "N/D", "N/D", "N/D", "N/D", "N/D"]], columns=columns)
+    data = timeline_frame[timeline_frame["indice"] > 0].head(8).copy()
+    if data.empty:
+        return pd.DataFrame([["M1", "N/D", "N/D", "N/D", "N/D", "N/D"]], columns=columns)
+    return pd.DataFrame(
+        [
+            [
+                f"M{int(row.get('indice', 0))}",
+                _compact_brl_from_text(_format_brl(float(row.get("principal_recebido_carteira", 0.0) or 0.0))),
+                _compact_brl_from_text(_format_brl(float(row.get("nova_originacao", 0.0) or 0.0))),
+                _compact_brl_from_text(_format_brl(float(row.get("reinvestimento_bloqueado_subordinacao", 0.0) or 0.0))),
+                _compact_brl_from_text(_format_brl(float(row.get("aporte_subordinacao_minima", 0.0) or 0.0))),
+                _format_percent(float(row.get("colchao_originada_pct", 0.0) or 0.0)),
+            ]
+            for _, row in data.iterrows()
+        ],
+        columns=columns,
+    )
+
+
+def _committee_cards(kpi_cards: list[dict[str, str]], revolvency_cards: list[dict[str, str]]) -> list[dict[str, str]]:
+    by_label = {card["label"]: card for card in kpi_cards + revolvency_cards}
+    selected = [
+        by_label.get("Retorno anualizado", {"label": "Retorno anualizado", "value": "N/D", "context": "Cota sênior"}),
+        by_label.get("Duration econômica", {"label": "Duration econômica", "value": "N/D", "context": "Cota sênior"}),
+        by_label.get("SUB inicial", {"label": "SUB inicial", "value": "N/D", "context": "Colchão subordinado"}),
+        by_label.get("Prazo médio recebíveis", {"label": "Prazo médio recebíveis", "value": "N/D", "context": "Prazo de giro"}),
+        by_label.get("Carteira originada efetiva", {"label": "Carteira originada efetiva", "value": "N/D", "context": "Base de comparação"}),
+        by_label.get("SUB final sem perdas", {"label": "SUB final sem perdas", "value": "N/D", "context": "Colchão acumulado"}),
+        by_label.get(
+            "Colchão s/ perdas sobre originada",
+            {"label": "Colchão s/ perdas sobre originada", "value": "N/D", "context": "SUB / carteira"},
+        ),
+    ]
+    return [
+        {
+            **card,
+            "value": _compact_brl_from_text(card["value"]) if str(card.get("value", "")).startswith("R$") else card["value"],
+        }
+        for card in selected
+    ]
+
+
 def _build_model_dashboard_pptx_bytes(
     *,
     kpi_cards: list[dict[str, str]],
     revolvency_cards: list[dict[str, str]],
     premissas_summary_df: pd.DataFrame,
+    timeline_frame: pd.DataFrame | None = None,
     balance_chart_df: pd.DataFrame,
     loss_chart_df: pd.DataFrame,
     protection_chart_df: pd.DataFrame,
@@ -1809,16 +2080,277 @@ def _build_model_dashboard_pptx_bytes(
         "Pt": Pt,
     }
 
-    _ppt_add_summary_slide(prs, layout, kpi_cards, revolvency_cards, **deps)
-    _ppt_add_premissas_slides(prs, layout, premissas_summary_df, **deps)
-    _ppt_add_balance_slide(prs, layout, balance_chart_df, **deps)
-    _ppt_add_loss_protection_slide(prs, layout, loss_chart_df, protection_chart_df, **deps)
+    _ppt_add_committee_premissas_slide(prs, layout, premissas_summary_df, timeline_frame, **deps)
+    _ppt_add_committee_lock_slide(prs, layout, premissas_summary_df, timeline_frame, **deps)
+    _ppt_add_committee_outputs_slide(
+        prs,
+        layout,
+        _committee_cards(kpi_cards, revolvency_cards),
+        balance_chart_df,
+        protection_chart_df,
+        timeline_frame,
+        **deps,
+    )
     for page, slide in enumerate(prs.slides, start=1):
         _ppt_add_footer(slide, page, len(prs.slides), **deps)
 
     output = BytesIO()
     prs.save(output)
-    return output.getvalue()
+    return _normalize_pptx_unsigned_chart_ids(output.getvalue())
+
+
+_PPTX_SIGNED_CHART_AXIS_ID_RE = re.compile(rb'(<c:(?:axId|crossAx)\b[^>]*\bval=")(-\d+)(")')
+
+
+def _normalize_pptx_unsigned_chart_ids(pptx_bytes: bytes) -> bytes:
+    """Make chart axis identifiers explicit UInt32 values for stricter OpenXML readers."""
+    source = BytesIO(pptx_bytes)
+    target = BytesIO()
+
+    def normalize(match: re.Match[bytes]) -> bytes:
+        unsigned_value = int(match.group(2)) % (2**32)
+        return match.group(1) + str(unsigned_value).encode("ascii") + match.group(3)
+
+    with ZipFile(source, "r") as zin, ZipFile(target, "w", compression=ZIP_DEFLATED) as zout:
+        for item in zin.infolist():
+            payload = zin.read(item.filename)
+            if item.filename.startswith("ppt/charts/") and item.filename.endswith(".xml"):
+                payload = _PPTX_SIGNED_CHART_AXIS_ID_RE.sub(normalize, payload)
+            zout.writestr(item, payload)
+    return target.getvalue()
+
+
+def _ppt_add_committee_header(slide, title: str, **deps) -> None:
+    logo = slide.shapes.add_shape(
+        deps["MSO_AUTO_SHAPE_TYPE"].ROUNDED_RECTANGLE,
+        deps["Inches"](0.50),
+        deps["Inches"](0.20),
+        deps["Inches"](0.52),
+        deps["Inches"](0.36),
+    )
+    logo.fill.solid()
+    logo.fill.fore_color.rgb = deps["RGBColor"].from_string("1F1F1F")
+    logo.line.fill.background()
+    _ppt_textbox(logo, "itaú", deps["Pt"](10), deps["RGBColor"].from_string("FFFFFF"), bold=True, align=deps["PP_ALIGN"].CENTER)
+    bba = slide.shapes.add_textbox(deps["Inches"](1.05), deps["Inches"](0.27), deps["Inches"](0.78), deps["Inches"](0.20))
+    _ppt_textbox(bba, "BBA", deps["Pt"](11), deps["RGBColor"].from_string("1F1F1F"), bold=True, align=deps["PP_ALIGN"].LEFT)
+    title_box = slide.shapes.add_textbox(deps["Inches"](1.95), deps["Inches"](0.16), deps["Inches"](10.80), deps["Inches"](0.50))
+    _ppt_textbox(title_box, title, deps["Pt"](23), deps["RGBColor"].from_string("1F1F1F"), bold=True, align=deps["PP_ALIGN"].LEFT)
+
+
+def _ppt_add_committee_premissas_slide(prs, layout, premissas_summary_df: pd.DataFrame, timeline_frame: pd.DataFrame | None, **deps) -> None:
+    slide = prs.slides.add_slide(layout)
+    _ppt_set_background(slide, "FFFFFF", **deps)
+    _ppt_add_committee_header(slide, "Modelagem FIDC | Fluxo Econômico e Mecânica Reinvestimento", **deps)
+    rows = pd.DataFrame(_committee_premissas_rows(premissas_summary_df), columns=["Premissa", "Valor"])
+    _ppt_add_table(
+        slide,
+        rows,
+        x=0.55,
+        y=0.82,
+        w=5.45,
+        h=5.84,
+        column_widths=[2.80, 2.65],
+        **deps,
+    )
+    _ppt_add_bullet_block(
+        slide,
+        "Premissas Principais",
+        [
+            "Carteira inicial: R$1 bi",
+            "Receita Carteira: ~14% a.m.",
+            f"Parcelas médias: {_summary_lookup(premissas_summary_df, 'Quantidade média de parcelas', '7,0 parcelas')}",
+            f"Prazo médio econômico: {_summary_lookup(premissas_summary_df, 'Prazo médio dos recebíveis', '3,15 meses')}",
+            "NPL/LGD assumidos: 40% / 100%",
+            "Reinv. limitado pela trava de subordinação mínima",
+        ],
+        6.45,
+        0.92,
+        5.95,
+        **deps,
+    )
+    _ppt_add_bullet_block(
+        slide,
+        "Fluxo Simplificado",
+        [
+            "Dos recebíveis que vencem, apenas 60% são efetivamente recebidos.",
+            "O principal recebido só compra novos DCs se a trava de 30% seguir atendida.",
+            "Caixa bloqueado ou fora da janela de reinvestimento passa a render SELIC.",
+        ],
+        6.45,
+        2.78,
+        5.95,
+        **deps,
+    )
+    flow = pd.DataFrame(_committee_flow_rows(timeline_frame), columns=["Item", "Valor", "Racional"])
+    _ppt_add_table(
+        slide,
+        flow,
+        x=6.50,
+        y=4.55,
+        w=6.08,
+        h=1.82,
+        column_widths=[2.15, 1.25, 2.68],
+        **deps,
+    )
+
+
+def _ppt_add_committee_lock_slide(prs, layout, premissas_summary_df: pd.DataFrame, timeline_frame: pd.DataFrame | None, **deps) -> None:
+    slide = prs.slides.add_slide(layout)
+    _ppt_set_background(slide, "FFFFFF", **deps)
+    _ppt_add_committee_header(slide, "Modelagem FIDC | Trava de Subordinação e Reinvestimento", **deps)
+    lock_pct = _summary_lookup(premissas_summary_df, "Trava mínima de reinvestimento", "30,00%")
+    _ppt_add_bullet_block(
+        slide,
+        "Regra de modelagem",
+        [
+            f"Trava mínima: SUB disponível / carteira originada acumulada >= {lock_pct}.",
+            "A capacidade de compra é calculada antes de cada nova originação.",
+            "Só o excedente que preserva a trava é reinvestido em novos recebíveis.",
+            "O principal bloqueado permanece no fundo como caixa aplicado à SELIC.",
+        ],
+        0.62,
+        0.95,
+        5.60,
+        **deps,
+    )
+    formula_frame = pd.DataFrame(
+        [
+            ["SUB mínima", "30% x carteira originada acumulada"],
+            ["Capacidade", "max(SUB preliminar / 30% - originada anterior, 0)"],
+            ["Nova originação", "min(principal recebido líquido, capacidade)"],
+            ["Bloqueio", "principal recebido líquido - nova originação"],
+            ["Aporte SUB", "max(30% x originada acumulada - SUB, 0)"],
+        ],
+        columns=["Item", "Fórmula"],
+    )
+    _ppt_add_table(slide, formula_frame, x=6.55, y=0.98, w=5.95, h=2.20, column_widths=[1.70, 4.25], **deps)
+    monthly = _committee_lock_rows(timeline_frame)
+    _ppt_add_table(slide, monthly, x=0.62, y=3.60, w=11.88, h=2.30, column_widths=[0.90, 2.25, 2.25, 2.15, 2.15, 2.18], **deps)
+    note = slide.shapes.add_textbox(deps["Inches"](0.65), deps["Inches"](6.08), deps["Inches"](11.80), deps["Inches"](0.38))
+    _ppt_textbox(
+        note,
+        "Leitura: quando a SUB ainda está exatamente no nível mínimo, a carteira não recompra todo o principal; primeiro acumula excesso econômico para abrir capacidade.",
+        deps["Pt"](8.4),
+        deps["RGBColor"].from_string("6B7280"),
+        bold=False,
+        align=deps["PP_ALIGN"].LEFT,
+    )
+
+
+def _ppt_add_committee_outputs_slide(
+    prs,
+    layout,
+    cards: list[dict[str, str]],
+    balance_chart_df: pd.DataFrame,
+    protection_chart_df: pd.DataFrame,
+    timeline_frame: pd.DataFrame | None,
+    **deps,
+) -> None:
+    slide = prs.slides.add_slide(layout)
+    _ppt_set_background(slide, "FFFFFF", **deps)
+    _ppt_add_committee_header(slide, "Modelagem FIDC | Fluxo Econômico e Mecânica Reinvestimento", **deps)
+    _ppt_add_committee_kpi_strip(slide, cards, **deps)
+    _ppt_add_stacked_area_chart(
+        slide,
+        _balance_chart_wide(balance_chart_df),
+        x=0.55,
+        y=1.42,
+        w=6.25,
+        h=2.70,
+        title="Evolução do Saldo das Cotas",
+        y_axis_title="R$ milhões",
+        colors=["1A1A1A", "9C9C9C", "F28E2B", "B35C00"],
+        **deps,
+    )
+    outputs = _committee_outputs(timeline_frame)
+    _ppt_add_bullet_block(slide, "Outputs", outputs, 7.20, 1.48, 5.35, **deps)
+    _ppt_add_line_chart(
+        slide,
+        _long_percent_chart_wide(protection_chart_df),
+        x=0.72,
+        y=4.62,
+        w=11.70,
+        h=1.78,
+        title="Proteção da estrutura",
+        y_axis_title="Proteção da estrutura (%)",
+        colors=["1A1A1A", "F28E2B"],
+        percent_axis=True,
+        **deps,
+    )
+
+
+def _committee_outputs(timeline_frame: pd.DataFrame | None) -> list[str]:
+    if timeline_frame is None or timeline_frame.empty:
+        return [
+            "Modelagem com trava mínima de 30% para reinvestimento.",
+            "Sub / carteira originada deixa de cair abaixo do piso estrutural.",
+            "Principal bloqueado fica em caixa e reduz a velocidade de originação.",
+        ]
+    last = timeline_frame.iloc[-1]
+    blocked = float(timeline_frame.get("reinvestimento_bloqueado_subordinacao", pd.Series(dtype=float)).sum() or 0.0)
+    total_originated = float(last.get("carteira_originada_acumulada", 0.0) or 0.0)
+    final_sub = float(last.get("pl_sub_jr", 0.0) or 0.0)
+    colchao = float(last.get("colchao_originada_pct", 0.0) or 0.0)
+    if total_originated <= 0.0:
+        initial_portfolio = float(timeline_frame.iloc[0].get("carteira", 0.0) or 0.0)
+        new_origination = float(timeline_frame.get("nova_originacao", pd.Series(dtype=float)).clip(lower=0.0).sum() or 0.0)
+        total_originated = initial_portfolio + new_origination
+    if colchao <= 0.0 and total_originated > 0.0:
+        colchao = final_sub / total_originated
+    return [
+        f"Trava: SUB / carteira originada >= {_format_percent(DEFAULT_SUBORDINACAO_MINIMA_REINVESTIMENTO)}.",
+        f"Carteira originada efetiva: {_compact_brl_from_text(_format_brl(total_originated))}.",
+        f"SUB final projetada: {_compact_brl_from_text(_format_brl(final_sub))}.",
+        f"Principal bloqueado pela trava: {_compact_brl_from_text(_format_brl(blocked))}.",
+        f"Colchão final sobre originada: {_format_percent(colchao)}.",
+    ]
+
+
+def _ppt_add_bullet_block(slide, title: str, bullets: list[str], x: float, y: float, w: float, **deps) -> None:
+    title_box = slide.shapes.add_textbox(deps["Inches"](x), deps["Inches"](y), deps["Inches"](w), deps["Inches"](0.26))
+    _ppt_textbox(title_box, title, deps["Pt"](13.5), deps["RGBColor"].from_string("1F1F1F"), bold=True, align=deps["PP_ALIGN"].LEFT)
+    body = slide.shapes.add_textbox(deps["Inches"](x), deps["Inches"](y + 0.38), deps["Inches"](w), deps["Inches"](1.35))
+    text = "\n".join(f"•  {item}" for item in bullets)
+    _ppt_textbox(body, text, deps["Pt"](10.0), deps["RGBColor"].from_string("2B2B2B"), bold=False, align=deps["PP_ALIGN"].LEFT)
+
+
+def _ppt_add_committee_kpi_strip(slide, cards: list[dict[str, str]], **deps) -> None:
+    left = 0.55
+    top = 0.78
+    gap = 0.12
+    width = (12.25 - gap * 6) / 7
+    for idx, card in enumerate(cards[:7]):
+        x = left + idx * (width + gap)
+        shape = slide.shapes.add_shape(
+            deps["MSO_AUTO_SHAPE_TYPE"].ROUNDED_RECTANGLE,
+            deps["Inches"](x),
+            deps["Inches"](top),
+            deps["Inches"](width),
+            deps["Inches"](0.50),
+        )
+        shape.fill.solid()
+        shape.fill.fore_color.rgb = deps["RGBColor"].from_string("F7F7F7")
+        shape.line.color.rgb = deps["RGBColor"].from_string("D9D9D9")
+        text_frame = shape.text_frame
+        text_frame.clear()
+        text_frame.margin_left = deps["Inches"](0.06)
+        text_frame.margin_right = deps["Inches"](0.04)
+        text_frame.margin_top = deps["Inches"](0.02)
+        text_frame.margin_bottom = deps["Inches"](0.01)
+        lines = [
+            (str(card.get("label", "")).upper(), 4.8, "6B7280", True),
+            (str(card.get("value", "")), 8.0, "1F1F1F", True),
+            (str(card.get("context", "")), 4.8, "6B7280", False),
+        ]
+        for line_idx, (text, size, color, bold) in enumerate(lines):
+            paragraph = text_frame.paragraphs[0] if line_idx == 0 else text_frame.add_paragraph()
+            paragraph.text = text
+            paragraph.font.name = "Calibri"
+            paragraph.font.size = deps["Pt"](size)
+            paragraph.font.bold = bold
+            paragraph.font.color.rgb = deps["RGBColor"].from_string(color)
+            paragraph.space_after = deps["Pt"](0)
 
 
 def _ppt_add_summary_slide(
@@ -2184,8 +2716,12 @@ def _ppt_add_chart(
         return
     chart_data = deps["CategoryChartData"]()
     chart_data.categories = [f"M{int(value)}" if pd.notna(value) else "" for value in wide["Mês"]]
+    value_scale = 100.0 if percent_axis else 1.0
     for column in [col for col in wide.columns if col not in {"Mês", "Data"}]:
-        chart_data.add_series(str(column), [float(value or 0.0) for value in wide[column].fillna(0.0).tolist()])
+        chart_data.add_series(
+            str(column),
+            [float(value or 0.0) * value_scale for value in wide[column].fillna(0.0).tolist()],
+        )
     shape = slide.shapes.add_chart(
         chart_type,
         deps["Inches"](x),
@@ -2205,7 +2741,7 @@ def _ppt_add_chart(
     chart.value_axis.tick_labels.font.size = deps["Pt"](8)
     chart.category_axis.tick_labels.font.size = deps["Pt"](8)
     if percent_axis:
-        chart.value_axis.tick_labels.number_format = "0,0%"
+        chart.value_axis.tick_labels.number_format = "0\\%"
     chart.has_legend = True
     chart.legend.position = deps["XL_LEGEND_POSITION"].BOTTOM
     chart.legend.include_in_layout = False
@@ -2272,7 +2808,7 @@ def _build_workbook_mechanics_markdown(
             "fluxo_carteira = carteira * ((1 + taxa_cessao_am_aplicada) ^ (delta_DU / 21) - 1)",
             "```",
             "",
-            "- Em carteira revolvente, `carteira` é o saldo em aberto usado para juros e perda; ele se mantém reciclando o principal recebido (reinvestimento de principal) enquanto a nova carteira couber no prazo do FIDC. O excesso de caixa após custos, perdas e PMTs de SEN/MEZZ não compra nova carteira; ele vai para o caixa aplicado à SELIC (seção 10).",
+            "- Em carteira revolvente, `carteira` é o saldo em aberto usado para juros e perda; ele se mantém reciclando o principal recebido (reinvestimento de principal) enquanto a nova carteira couber no prazo do FIDC e a trava de subordinação mínima continuar atendida. O excesso de caixa após custos, perdas e PMTs de SEN/MEZZ não compra nova carteira; ele vai para o caixa aplicado à SELIC (seção 10).",
             "- A timeline preserva carteira pelo valor de face e mostra EAD/saldo em risco pelo preço pago. A provisão e o NPL usam EAD ajustado quando há ágio sobre face.",
             "",
             f"- Entrada informada pelo usuário nesta simulação: `{taxa_cessao_input_mode}`.",
@@ -2422,12 +2958,14 @@ def _build_workbook_mechanics_markdown(
             "mes_limite_reinvestimento = prazo_total_fidc_meses - prazo_medio_recebiveis_meses",
             "principal_programado = carteira_inicio * meses_periodo / prazo_medio_recebiveis_meses",
             "principal_recebido_liquido = max(principal_programado - principal_inadimplente, 0)",
-            "nova_originacao_economica = principal_recebido_liquido",
+            "capacidade_reinvestimento_subordinacao = max(SUB_preliminar / subordinacao_minima - carteira_originada_acumulada_anterior, 0)",
+            "nova_originacao_economica = min(principal_recebido_liquido, capacidade_reinvestimento_subordinacao)",
             "```",
             "",
             "- Se o mês do FIDC fica depois do mês limite de reinvestimento, a nova originação econômica vira `0` e a carteira começa a amortizar por runoff.",
+            "- Se a compra nova faria `SUB disponível / carteira originada acumulada` ficar abaixo da trava mínima, a originação também é reduzida até o limite permitido.",
             "- A partir desse ponto, o principal dos recebíveis que vence deixa de comprar nova carteira e passa a compor caixa aplicado à SELIC.",
-            "- O excesso de caixa após custos, perdas e PMTs de SEN/MEZZ (`fluxo_remanescente_apos_MEZZ`, quando positivo) também nunca compra nova carteira; ele soma diretamente ao caixa aplicado à SELIC desde o primeiro período (seção 10).",
+            "- O excesso de caixa após custos, perdas e PMTs de SEN/MEZZ (`fluxo_remanescente_apos_MEZZ`, quando positivo) e o principal bloqueado pela trava também não compram nova carteira; eles somam diretamente ao caixa aplicado à SELIC desde o primeiro período (seção 10).",
             "- O denominador principal de carteira originada usa a originação efetiva do motor, isto é, apenas o principal reciclado mês a mês durante a revolvência.",
             "",
             "```text",
@@ -2435,7 +2973,7 @@ def _build_workbook_mechanics_markdown(
             "nova_originacao_economica_t = reinvestimento_principal_t",
             "```",
             "",
-            "- No cenário sem perdas (usado para o colchão econômico), `principal_recebido_liquido` é igual a `principal_programado` em todo período elegível, então `carteira_originada_efetiva` converge para o giro programático do volume inicial.",
+            "- No cenário sem perdas (usado para o colchão econômico), `principal_recebido_liquido` é igual a `principal_programado` em todo período elegível, mas a nova compra ainda pode ser limitada pela trava de subordinação mínima.",
             "- Em cenários com perdas, parte do principal programado vira inadimplência projetada e não é reciclada; por isso `carteira_originada_efetiva` pode ficar abaixo do giro programático nesses cenários.",
             "- Quando a carteira é estática, a carteira originada é apenas a compra inicial:",
             "",
@@ -2457,7 +2995,7 @@ def _build_workbook_mechanics_markdown(
             "protecao_disponivel_no_mes = SUB_disponivel_no_mes / denominador_mes",
             "```",
             "",
-            "- Exemplo: com prazo médio de recebíveis de `6 meses`, o mês 1 considera a carteira inicial mais o principal reciclado de cerca de `1/6` do volume inicial.",
+            "- Exemplo: com 7 parcelas e taxa mensal de 14%, a duration econômica fica perto de `3,15 meses`; o mês 1 considera a carteira inicial mais o principal reciclado de cerca de `1/3,15` do volume inicial.",
             "- Exemplo: em FIDC de `36 meses` com recebíveis de `12 meses`, a originação nova para quando o fluxo chega perto do mês `24`, porque novos recebíveis de 12 meses já não caberiam no prazo da estrutura.",
             "",
             "### 10. Caixa pós-revolvência e SELIC projetada",
@@ -2476,8 +3014,8 @@ def _build_workbook_mechanics_markdown(
             "saldo_caixa_selic_fim = caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_apos_MEZZ",
             "```",
             "",
-            "- Exemplo: se o prazo médio é `6 meses`, cerca de `1/6` da carteira em aberto vence a cada mês.",
-            "- Antes do mês limite de reinvestimento, esse `1/6` recompra recebíveis; depois do mês limite, esse `1/6` vai para caixa SELIC.",
+            "- Exemplo: se o prazo médio econômico é `3,15 meses`, cerca de `1/3,15` da carteira em aberto vence a cada mês.",
+            "- Antes do mês limite de reinvestimento, essa parcela recompra recebíveis; depois do mês limite, ela vai para caixa SELIC.",
             "- O rendimento do caixa SELIC entra no fluxo econômico total dos ativos antes de custos, perdas e pagamentos das cotas.",
             "- O modelo ainda não usa SELIC observada nem curva de mercado para essa projeção; a premissa é manual para manter rastreabilidade.",
             "",
@@ -2529,7 +3067,8 @@ def _build_step_by_step_markdown() -> str:
             "- **Volume da carteira** é o valor de face dos recebíveis comprados no início da simulação.",
             "- **Taxa de Cessão** é o deságio no prazo médio do recebível. **Taxa Mensal** é a taxa efetiva usada pelo motor. A aba mostra a equivalência entre as duas e a taxa anual em base 252.",
             "- **Ágio sobre face** significa pagar mais pelo recebível. Isso reduz a taxa efetiva da carteira e aumenta o EAD econômico; não aparece como despesa separada no mês zero.",
-            "- **Prazo médio dos recebíveis** define quanto da carteira vence por mês. Ex.: prazo médio de 6 meses implica, de forma simplificada, cerca de 1/6 da carteira vencendo a cada mês.",
+            "- **Quantidade média de parcelas** gera automaticamente o prazo médio econômico dos recebíveis. Para carteira parcelada, o modelo usa a duration Macaulay do fluxo de parcelas, não o prazo contratual final.",
+            "- **Prazo médio dos recebíveis** define quanto da carteira vence por mês. Ex.: com 7 parcelas e taxa mensal de 14%, a duration econômica fica em torno de 3,15 meses; portanto a carteira gira mais rápido do que um prazo contratual de 7 meses.",
             "",
             "### 2. Defina a estrutura de capital",
             "",
@@ -2557,17 +3096,19 @@ def _build_step_by_step_markdown() -> str:
             "",
             "### 5. Entenda a revolvência",
             "",
-            "- Enquanto ainda há prazo suficiente para comprar novos recebíveis, o motor recicla apenas o principal recebido líquido.",
+            "- Enquanto ainda há prazo suficiente para comprar novos recebíveis, o motor recicla apenas o principal recebido líquido que ainda respeita a trava mínima de subordinação.",
             "- **Principal recebido líquido** é o principal que venceu e pagou, já descontado do principal que vai virar NPL.",
-            "- **Excesso de caixa** é o fluxo positivo remanescente após custos, perdas e pagamentos de SEN/MEZZ. Ele nunca compra nova carteira: desde o primeiro mês, ele vai para o caixa aplicado à SELIC.",
+            "- **Trava de reinvestimento** limita a nova compra para manter SUB disponível / carteira originada acumulada em pelo menos 30% no FIDC padrão.",
+            "- **Excesso de caixa** é o fluxo positivo remanescente após custos, perdas e pagamentos de SEN/MEZZ. Ele nunca compra nova carteira: desde o primeiro mês, ele vai para o caixa aplicado à SELIC. O principal bloqueado pela trava segue a mesma lógica.",
             "- Quando o prazo médio dos recebíveis não cabe mais no prazo restante do FIDC, a carteira entra em runoff: o principal recebido também deixa de comprar nova carteira e passa a render pela SELIC média informada.",
             "",
             "### 6. Entenda os denominadores",
             "",
             "- **Carteira originada programática** é a referência teórica de giro do volume inicial (volume + reposições de principal pelo prazo médio).",
             "- **Carteira originada efetiva** é a base reconciliada com o motor: volume inicial + soma do principal reciclado mês a mês.",
-            "- No cenário sem perdas, as duas bases convergem, porque o motor recicla exatamente o principal programado. Em cenários com perdas, a efetiva fica abaixo da programática, pois parte do principal vira inadimplência projetada e não é reciclada.",
-            "- **Colchão sobre carteira originada** compara a SUB final sem perdas com a carteira originada efetiva; é uma leitura de quanto colchão/subordinação foi gerado para cada real efetivamente comprado pelo motor.",
+            "- No cenário sem perdas, a efetiva só converge com a programática se houver excesso de SUB suficiente para passar pela trava. Em cenários com perdas, a efetiva fica abaixo da programática, pois parte do principal vira inadimplência projetada e/ou é bloqueada pela trava.",
+            "- **Colchão sem perdas sobre carteira originada** compara a SUB final sem perdas com a carteira originada efetiva; é uma leitura de excess spread e colchão potencial em uma simulação paralela sem perda de crédito.",
+            "- O **gráfico de proteção da estrutura** usa o cenário principal com perdas e compara a SUB disponível de cada mês com PL ou carteira originada acumulada. Por isso, ele não precisa bater com o card sem perdas; são duas leituras complementares.",
             "",
             "### 7. Como ler os gráficos e a timeline",
             "",
@@ -3020,16 +3561,17 @@ def _chart_definition_caption(kind: str) -> str:
         return (
             "Perda do período = despesa de provisão do mês (numerador) dividida pela carteira do mês (denominador). "
             "Em regime estável essa razão tende a perda_ciclo / prazo médio dos recebíveis "
-            "(ex.: 40% / 6 meses = 6,67% a.m.); não existe nenhum teto de 25% ou 40% nesta série mensal — "
+            "(ex.: 40% / 3,15 meses = ~12,7% a.m.); não existe nenhum teto de 25% ou 40% nesta série mensal — "
             "perda_ciclo é uma taxa de perda do ciclo/safra (sobre o que vence em ~prazo médio meses), não uma taxa mensal direta. "
             "O efeito acumulado das perdas sobre o colchão da SUB aparece na evolução do saldo das cotas e no gráfico de proteção da estrutura."
         )
     if kind == "protection":
         return (
-            "Subordinação econômica = SUB disponível no mês, max(PL FIDC - PL SEN - PL MEZZ, 0) (numerador), "
+            "Este gráfico usa o cenário principal com perdas. Subordinação econômica = SUB disponível no mês, "
+            "max(PL FIDC - PL SEN - PL MEZZ, 0) (numerador), "
             "dividida pelo PL FIDC do mês (denominador). "
             "Colchão de proteção = SUB disponível no mês (numerador) dividida pela carteira originada acumulada, "
-            "isto é, volume inicial + nova originação acumulada (denominador)."
+            "isto é, volume inicial + nova originação acumulada (denominador). O card sem perdas é uma simulação paralela."
         )
     raise ValueError(f"Tipo de legenda de gráfico inválido: {kind}")
 
@@ -3160,27 +3702,33 @@ def _revolvency_cards_data(metrics: _RevolvencyMetrics) -> list[dict[str, str]]:
     cards = [
         (
             "Prazo médio recebíveis",
-            f"{_format_number_br(metrics.prazo_medio_recebiveis_meses, 1)} meses",
-            "Prazo de giro",
-            "Indica em quantos meses, em média, os recebíveis viram caixa para giro da carteira.",
+            f"{_format_number_br(metrics.prazo_medio_recebiveis_meses, 2)} meses",
+            "Duration econômica",
+            "Duration Macaulay calculada a partir da quantidade média de parcelas e da taxa mensal da carteira.",
         ),
         (
             "Carteira originada efetiva",
             _format_brl(metrics.carteira_total_originada),
             "Base de comparação",
-            "Volume comprado no motor, somando carteira inicial, reinvestimento de principal e reinvestimento de excesso de spread.",
+            "Volume comprado no motor, somando carteira inicial e reinvestimento de principal liberado pela trava.",
+        ),
+        (
+            "Bloqueado pela trava",
+            _format_brl(metrics.reinvestimento_bloqueado_subordinacao_total),
+            f"Min. {_format_percent(metrics.subordinacao_minima_reinvestimento)}",
+            "Principal recebido que não comprou nova carteira para manter SUB / carteira originada acumulada acima da trava.",
         ),
         (
             "SUB final sem perdas",
             _format_brl(metrics.sub_final_sem_inadimplencia),
-            "Colchão acumulado",
-            "Valor econômico residual da SUB no fim do prazo em cenário sem perdas de crédito.",
+            "Cenário paralelo sem perda",
+            "Valor econômico residual da SUB no fim do prazo em simulação paralela com perda de crédito zerada.",
         ),
         (
-            "Colchão sobre carteira originada",
+            "Colchão s/ perdas sobre originada",
             _format_percent(metrics.colchao_sem_perdas_sobre_originacao),
             "SUB final sem perdas / carteira originada",
-            "Mede excess spread acumulado sem perdas dividido pela carteira originada efetiva pelo motor.",
+            "Não é a mesma série do gráfico com perdas; mede o excess spread acumulado sem perdas dividido pela carteira originada efetiva.",
         ),
     ]
     return [
@@ -3202,6 +3750,8 @@ def render_tab_modelo_fidc() -> None:
     if source_errors:
         st.error("Fonte local do modelo incompleta: " + "; ".join(source_errors) + ".")
         return
+
+    _apply_mc3_preset_defaults()
 
     curve_source_label = _ensure_session_option("modelo_curve_source", CURVE_SOURCE_OPTIONS)
     selected_b3_date = _ensure_session_date("modelo_b3_date", date.today() - timedelta(days=1))
@@ -3256,6 +3806,7 @@ def render_tab_modelo_fidc() -> None:
                 [CESSION_INPUT_DISCOUNT, CESSION_INPUT_MONTHLY],
                 index=1,
                 horizontal=True,
+                key="modelo_taxa_cessao_input_mode",
                 help="Escolha entre informar deságio no prazo médio ou taxa efetiva mensal da carteira.",
             )
             if taxa_cessao_input_mode == CESSION_INPUT_DISCOUNT:
@@ -3299,18 +3850,20 @@ def render_tab_modelo_fidc() -> None:
                 "Sub-aba do modelo",
                 [MODEL_VIEW_GERAL, MODEL_VIEW_MC3],
                 horizontal=True,
+                key="modelo_view",
                 help="Use a sub-aba MC3 para abrir o fluxo já focado no modelo de Cartões.",
             )
             mc3_forcado = model_view == MODEL_VIEW_MC3
             credit_model_label = st.selectbox(
                 "Metodologia de crédito",
                 list(CREDIT_MODEL_LABELS),
-                index=list(CREDIT_MODEL_LABELS).index(CREDIT_LABEL_MC3) if mc3_forcado else 0,
+                index=list(CREDIT_MODEL_LABELS).index(CREDIT_LABEL_NPL90) if mc3_forcado else 0,
+                key="modelo_credit_model",
                 disabled=mc3_forcado,
                 help="Define se a perda vem de NPL 90+ por ciclo ou de migração mensal entre faixas de atraso.",
             )
             if mc3_forcado:
-                st.caption("Sub-aba MC3 ativa: metodologia de crédito travada em MC3 Cartões.")
+                st.caption("Sub-aba MC3 ativa: preset de cartões com metodologia NPL 90+ e trava de reinvestimento.")
             common_credit_a, common_credit_b, common_credit_c = st.columns(3)
             with common_credit_a:
                 npl90_lag_text = _text_number_input(
@@ -3468,6 +4021,11 @@ def render_tab_modelo_fidc() -> None:
                 )
             has_mezz = _parse_percent_for_visibility(mezz_pct_text, default=DEFAULT_PROP_MEZZ) > 0.000001
             st.caption("As proporções SEN, MEZZ e SUB devem somar 100,00%.")
+            st.caption(
+                "Trava de reinvestimento do FIDC padrão: nova originação só é permitida enquanto "
+                f"SUB disponível / carteira originada acumulada permanecer em pelo menos "
+                f"{_format_percent(DEFAULT_SUBORDINACAO_MINIMA_REINVESTIMENTO)}."
+            )
 
             st.markdown("##### Remuneração das cotas")
             senior_mode_label = st.selectbox(
@@ -3568,12 +4126,13 @@ def render_tab_modelo_fidc() -> None:
                     "Cronograma do fluxo",
                     [DATE_SCHEDULE_WORKBOOK, DATE_SCHEDULE_MONTHLY],
                     index=1,
+                    key="modelo_date_schedule",
                     help=(
                         "A grade semestral padrão mantém datas espaçadas por semestre. "
                         "O modo mensal gera novas competências até o prazo total informado."
                     ),
                 )
-                term_a, term_b, term_c = st.columns(3)
+                term_a, term_b, term_c, term_d = st.columns(4)
                 with term_a:
                     prazo_fidc_text = _text_number_input(
                         "Prazo total do FIDC (anos)",
@@ -3583,17 +4142,29 @@ def render_tab_modelo_fidc() -> None:
                         help_text="Prazo total da simulação em anos, usado para definir o último mês do fluxo.",
                     )
                 with term_b:
-                    prazo_recebiveis_text = _text_number_input(
-                        "Prazo médio dos recebíveis (meses)",
-                        default=DEFAULT_PRAZO_RECEBIVEIS_MESES,
-                        key="modelo_prazo_recebiveis_meses",
+                    qtd_parcelas_text = _text_number_input(
+                        "Qtd. média de parcelas",
+                        default=DEFAULT_QTD_PARCELAS_MEDIA,
+                        key="modelo_qtd_parcelas_media",
                         decimals=1,
-                        help_text="Prazo médio de vencimento da carteira, em meses, usado no giro e no runoff.",
+                        help_text="Número médio de parcelas da carteira. O prazo médio econômico é calculado automaticamente.",
                     )
                 with term_c:
+                    prazo_recebiveis_preview = _safe_installment_duration_preview(
+                        qtd_parcelas_text,
+                        tx_cessao_mensal_text or _format_percent_input_value(DEFAULT_TX_CESSAO_AM * 100.0, 2),
+                    )
+                    prazo_recebiveis_text = _format_input_value(prazo_recebiveis_preview, 2)
+                    st.metric("Prazo médio econômico", f"{_format_number_br(prazo_recebiveis_preview, 2)} meses")
+                    st.caption(
+                        "Duration Macaulay do fluxo parcelado: principal fixo + juros sobre saldo, "
+                        "descontado pela taxa mensal da carteira."
+                    )
+                with term_d:
                     portfolio_mode_label = st.selectbox(
                         "Originação da carteira",
                         [PORTFOLIO_MODE_REVOLVING, PORTFOLIO_MODE_STATIC],
+                        key="modelo_portfolio_mode",
                         help=(
                             "No modo revolvente, o principal recebido e o excesso de caixa recompram recebíveis "
                             "enquanto o prazo médio couber no prazo restante do FIDC."
@@ -3724,18 +4295,22 @@ def render_tab_modelo_fidc() -> None:
     try:
         volume = _parse_br_number(volume_text, field_name="Volume da carteira (R$)")
         prazo_fidc_anos = _parse_br_number(prazo_fidc_text, field_name="Prazo total do FIDC (anos)")
-        prazo_medio_recebiveis_meses = _parse_br_number(
-            prazo_recebiveis_text,
-            field_name="Prazo médio dos recebíveis (meses)",
-        )
+        qtd_parcelas_media = _parse_br_number(qtd_parcelas_text, field_name="Quantidade média de parcelas")
         agio_aquisicao = _parse_br_number(
             agio_aquisicao_text,
             field_name="Ágio (% sobre face)",
         ) / 100.0
         if taxa_cessao_input_mode == CESSION_INPUT_DISCOUNT:
             tx_cessao_desagio_nominal = _parse_br_number(tx_cessao_desagio_text, field_name="Taxa de Cessão (%)") / 100.0
+            tx_cessao_am_nominal = _monthly_rate_from_discount_and_installment_duration(
+                tx_cessao_desagio_nominal,
+                qtd_parcelas_media,
+            )
         else:
             tx_cessao_am_nominal = _parse_br_number(tx_cessao_mensal_text, field_name="Taxa Mensal (%)") / 100.0
+        prazo_medio_recebiveis_meses = _installment_macaulay_duration_months(qtd_parcelas_media, tx_cessao_am_nominal)
+        prazo_recebiveis_text = _format_input_value(prazo_medio_recebiveis_meses, 2)
+        if taxa_cessao_input_mode == CESSION_INPUT_MONTHLY:
             tx_cessao_desagio_nominal = monthly_rate_to_cession_discount(
                 tx_cessao_am_nominal,
                 prazo_medio_recebiveis_meses,
@@ -3833,8 +4408,8 @@ def render_tab_modelo_fidc() -> None:
     if volume <= 0:
         st.error("O volume da carteira deve ser maior que zero.")
         return
-    if prazo_fidc_anos <= 0 or prazo_medio_recebiveis_meses <= 0:
-        st.error("O prazo total do FIDC e o prazo médio dos recebíveis devem ser maiores que zero.")
+    if prazo_fidc_anos <= 0 or prazo_medio_recebiveis_meses <= 0 or qtd_parcelas_media <= 0:
+        st.error("O prazo total do FIDC, a quantidade média de parcelas e o prazo médio calculado devem ser maiores que zero.")
         return
     if min(prazo_senior_anos, prazo_mezz_anos, prazo_sub_anos) <= 0:
         st.error("Os prazos das cotas devem ser maiores que zero.")
@@ -3913,6 +4488,7 @@ def render_tab_modelo_fidc() -> None:
         ),
         prazo_fidc_anos=prazo_fidc_anos,
         prazo_medio_recebiveis_meses=prazo_medio_recebiveis_meses,
+        qtd_parcelas_media=qtd_parcelas_media,
         carteira_revolvente=portfolio_mode_label == PORTFOLIO_MODE_REVOLVING,
         prazo_senior_anos=prazo_senior_anos,
         prazo_mezz_anos=prazo_mezz_anos,
@@ -3940,6 +4516,7 @@ def render_tab_modelo_fidc() -> None:
         maturacao_over90_cap=maturacao_over90_cap if modelo_credito == CREDIT_MODEL_MC3_CARTOES else DEFAULT_MATURACAO_OVER90_CAP,
         agio_aquisicao=agio_aquisicao,
         excesso_spread_senior_am=excesso_spread_senior_am,
+        subordinacao_minima_reinvestimento=DEFAULT_SUBORDINACAO_MINIMA_REINVESTIMENTO,
         selic_aa_por_ano=effective_selic_aa_por_ano,
     )
 
@@ -4212,8 +4789,8 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Nova originação",
-                "Fórmula": "se elegível: principal_recebido_líquido; se não elegível: 0",
-                "Observação": "Captura apenas o reinvestimento do principal reciclado; o excesso de caixa após PMTs de SEN/MEZZ vai sempre para o caixa SELIC, e fora da janela elegível o principal recebido também vai para o caixa SELIC.",
+                "Fórmula": "se elegível: min(principal_recebido_líquido, capacidade_reinvestimento_subordinacao); se não elegível: 0",
+                "Observação": "Captura apenas o reinvestimento do principal reciclado que ainda preserva a trava de SUB / carteira originada acumulada; o excesso de caixa após PMTs de SEN/MEZZ e o principal bloqueado pela trava vão para o caixa SELIC.",
             },
             {
                 "Indicador": "Juros sênior/MEZZ",
@@ -4242,7 +4819,17 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Carteira originada efetiva",
                 "Fórmula": "volume_inicial + soma(nova_originacao_economica_t)",
-                "Observação": "Denominador reconciliado com o motor; inclui apenas o reinvestimento de principal reciclado enquanto a revolvência é elegível.",
+                "Observação": "Denominador reconciliado com o motor; inclui apenas o reinvestimento de principal reciclado que passou pela janela de prazo e pela trava de subordinação mínima.",
+            },
+            {
+                "Indicador": "Trava mínima de reinvestimento",
+                "Fórmula": "capacidade_reinvestimento_subordinacao = max(SUB_preliminar / subordinacao_minima - carteira_originada_acumulada_anterior, 0)",
+                "Observação": "Se a nova compra faria SUB disponível / carteira originada acumulada ficar abaixo da trava, o principal excedente não é reinvestido e passa para caixa SELIC.",
+            },
+            {
+                "Indicador": "Aporte SUB para trava mínima",
+                "Fórmula": "aporte_subordinacao_minima = max(subordinacao_minima * carteira_originada_acumulada - SUB_disponivel, 0)",
+                "Observação": "Quando perdas ou custos consumirem a SUB abaixo do piso, o motor registra o suporte subordinado necessário para que a condição mínima não seja desrespeitada.",
             },
             {
                 "Indicador": "Colchão de proteção no tempo",
@@ -4311,6 +4898,7 @@ def render_tab_modelo_fidc() -> None:
         kpi_cards=kpi_cards,
         revolvency_cards=revolvency_cards,
         premissas_summary_df=premissas_summary_df,
+        timeline_frame=frame,
         balance_chart_df=balance_chart_df,
         loss_chart_df=loss_chart_df,
         protection_chart_df=protection_display_chart_df,
