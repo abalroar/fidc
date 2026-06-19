@@ -713,6 +713,7 @@ def build_flow(
                     carteira_originada_acumulada=carteira_originada_acumulada,
                     capacidade_reinvestimento_subordinacao=0.0,
                     reinvestimento_bloqueado_subordinacao=0.0,
+                    aporte_subordinacao_minima=0.0,
                     principal_recebido_carteira=0.0,
                     reinvestimento_principal=0.0,
                     reinvestimento_excesso=0.0,
@@ -882,6 +883,14 @@ def build_flow(
             0.0,
         )
         carteira_originada_acumulada += nova_originacao
+        aporte_subordinacao_minima = 0.0
+        if subordinacao_minima_reinvestimento > 0.0 and carteira_originada_acumulada > 0.0:
+            sub_requerida = subordinacao_minima_reinvestimento * carteira_originada_acumulada
+            aporte_subordinacao_minima = max(sub_requerida - pl_sub_jr, 0.0)
+            if aporte_subordinacao_minima > 0.0:
+                pl_fidc_atual += aporte_subordinacao_minima
+                pl_sub_jr += aporte_subordinacao_minima
+                saldo_caixa_selic_fim += aporte_subordinacao_minima
         carteira_atual = carteira_fim
         caixa_selic_atual = saldo_caixa_selic_fim
         pl_senior_atual = pl_senior_fim
@@ -946,6 +955,7 @@ def build_flow(
                 carteira_originada_acumulada=carteira_originada_acumulada,
                 capacidade_reinvestimento_subordinacao=capacidade_reinvestimento_subordinacao,
                 reinvestimento_bloqueado_subordinacao=reinvestimento_bloqueado_subordinacao,
+                aporte_subordinacao_minima=aporte_subordinacao_minima,
                 principal_recebido_carteira=principal_recebido_carteira,
                 reinvestimento_principal=reinvestimento_principal,
                 reinvestimento_excesso=reinvestimento_excesso,

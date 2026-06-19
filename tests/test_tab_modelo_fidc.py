@@ -51,11 +51,20 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertEqual(0.30, tab_modelo_fidc.DEFAULT_PROP_SUB)
         self.assertEqual(0.016, tab_modelo_fidc.DEFAULT_TAXA_SENIOR)
         self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_TAXA_MEZZ)
+        self.assertEqual(7.0, tab_modelo_fidc.DEFAULT_QTD_PARCELAS_MEDIA)
+        self.assertAlmostEqual(3.154420901487235, tab_modelo_fidc.DEFAULT_PRAZO_RECEBIVEIS_MESES)
         self.assertEqual(18.0, tab_modelo_fidc.DEFAULT_CARENCIA_PRINCIPAL_MESES)
         self.assertEqual(0.30, tab_modelo_fidc.DEFAULT_SUBORDINACAO_MINIMA_REINVESTIMENTO)
         self.assertEqual(0.13, tab_modelo_fidc.DEFAULT_SELIC_AA_2026)
         self.assertEqual(0.12, tab_modelo_fidc.DEFAULT_SELIC_AA_2027_ONWARD)
         self.assertEqual(2028, tab_modelo_fidc.DEFAULT_SELIC_PERPETUAL_YEAR)
+
+    def test_installment_duration_uses_card_cash_flow_macaulay(self) -> None:
+        principal_wal = tab_modelo_fidc._principal_wal_from_installments(7.0)
+        duration = tab_modelo_fidc._installment_macaulay_duration_months(7.0, 0.14)
+
+        self.assertEqual(4.0, principal_wal)
+        self.assertAlmostEqual(3.154420901487235, duration)
 
     def test_admin_cost_help_text_matches_backend_basis(self) -> None:
         self.assertIn("PL econômico", tab_modelo_fidc.HELP_CUSTO_ADM_GESTAO)
@@ -250,6 +259,10 @@ class TabModeloFidcTests(unittest.TestCase):
         exported_values = dict(zip(export["Indicador"], export["Valor"]))
         self.assertAlmostEqual(metrics.carteira_total_originada, exported_values["Carteira originada efetiva"])
         self.assertAlmostEqual(metrics.reinvestimento_excesso_total, exported_values["Reinvestimento de excesso de spread"])
+        self.assertAlmostEqual(
+            metrics.colchao_sem_perdas_sobre_originacao,
+            exported_values["Colchão sem perdas sobre carteira originada"],
+        )
 
     def test_calibrated_loss_cycle_solver_finds_loss_that_exhausts_sub(self) -> None:
         dates = [pd.Timestamp(2026, 1, 1) + pd.DateOffset(months=month) for month in range(13)]

@@ -25,6 +25,7 @@ class Premissas:
     tipo_taxa_sub_jr: str = "residual"
     prazo_fidc_anos: Optional[float] = None
     prazo_medio_recebiveis_meses: float = 6.0
+    qtd_parcelas_media: Optional[float] = None
     carteira_revolvente: bool = True
     prazo_senior_anos: Optional[float] = None
     prazo_mezz_anos: Optional[float] = None
@@ -116,6 +117,7 @@ class PeriodResult:
     carteira_originada_acumulada: float
     capacidade_reinvestimento_subordinacao: float
     reinvestimento_bloqueado_subordinacao: float
+    aporte_subordinacao_minima: float
     principal_recebido_carteira: float
     reinvestimento_principal: float
     reinvestimento_excesso: float
