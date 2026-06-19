@@ -261,16 +261,16 @@ class FidcModelParityTest(unittest.TestCase):
         periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
 
         self.assertAlmostEqual(100.0, periods[1].carteira_vencendo)
-        self.assertAlmostEqual(6.0, periods[1].principal_inadimplente)
-        self.assertAlmostEqual(94.0, periods[1].principal_recebido_carteira)
-        self.assertAlmostEqual(94.0, periods[1].reinvestimento_principal)
-        self.assertAlmostEqual(6.0, periods[1].perda_esperada_despesa)
-        self.assertAlmostEqual(6.0, periods[1].despesa_provisao)
+        self.assertAlmostEqual(0.0, periods[1].principal_inadimplente)
+        self.assertAlmostEqual(100.0, periods[1].principal_recebido_carteira)
+        self.assertAlmostEqual(100.0, periods[1].reinvestimento_principal)
+        self.assertAlmostEqual(12.0, periods[1].perda_esperada_despesa)
+        self.assertAlmostEqual(12.0, periods[1].despesa_provisao)
         self.assertAlmostEqual(0.0, periods[1].entrada_npl90)
         self.assertAlmostEqual(0.0, periods[1].npl90_estoque_fim)
         self.assertAlmostEqual(600.0, periods[1].carteira_fim)
-        self.assertAlmostEqual(6.0, periods[4].entrada_npl90)
-        self.assertAlmostEqual(6.0, periods[4].baixa_credito)
+        self.assertAlmostEqual(12.0, periods[4].entrada_npl90)
+        self.assertAlmostEqual(12.0, periods[4].baixa_credito)
         self.assertAlmostEqual(0.0, periods[4].npl90_estoque_fim)
         self.assertLess(periods[4].carteira_fim, periods[4].carteira)
         self.assertGreaterEqual(periods[4].provisao_saldo_fim, periods[4].npl90_estoque_fim)
@@ -374,10 +374,11 @@ class FidcModelParityTest(unittest.TestCase):
 
         periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
 
-        self.assertAlmostEqual(6.0, periods[1].principal_inadimplente)
-        self.assertAlmostEqual(94.0, periods[1].principal_recebido_carteira)
-        self.assertAlmostEqual(6.0, periods[1].entrada_npl90)
-        self.assertAlmostEqual(6.0, periods[1].baixa_credito)
+        self.assertAlmostEqual(0.0, periods[1].principal_inadimplente)
+        self.assertAlmostEqual(100.0, periods[1].principal_recebido_carteira)
+        self.assertAlmostEqual(36.0, periods[1].entrada_npl90)
+        self.assertAlmostEqual(36.0, periods[1].baixa_credito)
+        self.assertAlmostEqual(36.0, periods[1].despesa_provisao)
         self.assertAlmostEqual(0.0, periods[1].npl90_estoque_fim)
         self.assertLess(periods[1].carteira_fim, periods[1].carteira)
         self.assertLess(periods[1].pl_sub_jr, periods[0].pl_sub_jr)
@@ -439,14 +440,17 @@ class FidcModelParityTest(unittest.TestCase):
 
         self.assertAlmostEqual(1_000_000.0, periods[1].carteira)
         self.assertGreater(periods[1].principal_recebido_carteira, 0.0)
-        self.assertEqual(0.0, periods[1].reinvestimento_excesso)
-        self.assertAlmostEqual(periods[1].principal_recebido_carteira, periods[1].nova_originacao)
-        self.assertAlmostEqual(1_000_000.0, periods[2].carteira)
+        self.assertGreater(periods[1].reinvestimento_excesso, 0.0)
+        self.assertAlmostEqual(
+            periods[1].principal_recebido_carteira + periods[1].reinvestimento_excesso,
+            periods[1].nova_originacao,
+        )
+        self.assertGreater(periods[2].carteira, periods[1].carteira)
         self.assertGreater(periods[1].fluxo_remanescente_mezz, 0.0)
-        self.assertAlmostEqual(periods[1].fluxo_remanescente_mezz, periods[1].saldo_caixa_selic_fim)
+        self.assertAlmostEqual(0.0, periods[1].saldo_caixa_selic_fim)
         self.assertGreater(periods[2].pl_fidc, periods[1].pl_fidc)
 
-    def test_reinvestment_lock_caps_new_origination_to_minimum_subordination(self):
+    def test_reinvestment_uses_cash_even_at_minimum_subordination(self):
         monthly_dates = [datetime(2025, 1, 1), datetime(2025, 2, 1)]
         premissas = Premissas(
             volume=1_000.0,
@@ -471,10 +475,11 @@ class FidcModelParityTest(unittest.TestCase):
         periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
 
         self.assertAlmostEqual(250.0, periods[1].principal_recebido_carteira)
-        self.assertAlmostEqual(0.0, periods[1].reinvestimento_principal)
-        self.assertAlmostEqual(250.0, periods[1].reinvestimento_bloqueado_subordinacao)
-        self.assertAlmostEqual(1_000.0, periods[1].carteira_originada_acumulada)
-        self.assertGreaterEqual(periods[1].colchao_originada_pct, 0.30)
+        self.assertAlmostEqual(250.0, periods[1].reinvestimento_principal)
+        self.assertAlmostEqual(0.0, periods[1].reinvestimento_bloqueado_subordinacao)
+        self.assertAlmostEqual(1_250.0, periods[1].carteira_originada_acumulada)
+        self.assertAlmostEqual(0.24, periods[1].colchao_originada_pct)
+        self.assertAlmostEqual(0.30, periods[1].subordinacao_pct)
 
     def test_subordination_lock_adds_support_when_losses_breach_floor(self):
         monthly_dates = [datetime(2025, 1, 1), datetime(2025, 2, 1)]
@@ -503,7 +508,8 @@ class FidcModelParityTest(unittest.TestCase):
         periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
 
         self.assertGreater(periods[1].aporte_subordinacao_minima, 0.0)
-        self.assertAlmostEqual(0.30, periods[1].colchao_originada_pct)
+        self.assertAlmostEqual(0.30, periods[1].subordinacao_pct)
+        self.assertAlmostEqual(0.24, periods[1].colchao_originada_pct)
 
     def test_revolving_portfolio_stops_new_origination_when_average_term_no_longer_fits(self):
         monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(37)]
@@ -771,8 +777,8 @@ class FidcModelParityTest(unittest.TestCase):
             carteira_revolvente=False,
         )
         periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
-        self.assertAlmostEqual(400_000.0, periods[1].npl90_estoque_fim, delta=1e-6)
-        self.assertAlmostEqual(500_000.0, periods[1].provisao_requerida, delta=1e-6)
+        self.assertAlmostEqual(0.0, periods[1].npl90_estoque_fim, delta=1e-6)
+        self.assertAlmostEqual(0.0, periods[1].provisao_requerida, delta=1e-6)
         self.assertAlmostEqual(500_000.0, periods[1].despesa_provisao, delta=1e-6)
 
 

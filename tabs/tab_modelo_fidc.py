@@ -812,12 +812,13 @@ def _build_revolvency_metrics(
 ) -> _RevolvencyMetrics:
     prazo_total_anos = float(premissas.prazo_fidc_anos or 0.0)
     prazo_medio_meses = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
+    prazo_principal_meses = max(float(premissas.qtd_parcelas_media or premissas.prazo_medio_recebiveis_meses), 0.01)
     giro_estimado = prazo_total_anos * 12.0 / prazo_medio_meses
     if portfolio_mode == PORTFOLIO_MODE_STATIC:
         carteira_originada_programatica = premissas.volume
     else:
         eligible_months = max(prazo_total_anos * 12.0 - prazo_medio_meses, 0.0)
-        carteira_originada_programatica = premissas.volume + premissas.volume * (eligible_months / prazo_medio_meses)
+        carteira_originada_programatica = premissas.volume + premissas.volume * (eligible_months / prazo_principal_meses)
     reinvestimento_principal_total = sum(
         max(float(getattr(period, "reinvestimento_principal", 0.0)), 0.0) for period in zero_default_results[1:]
     )
@@ -1168,8 +1169,8 @@ def _build_export_dataframe(frame: pd.DataFrame) -> pd.DataFrame:
             "reinvestimento_elegivel": "Reinvestimento elegível",
             "subordinacao_minima_reinvestimento": "Subordinação mínima para reinvestimento",
             "carteira_originada_acumulada": "Carteira originada acumulada",
-            "capacidade_reinvestimento_subordinacao": "Capacidade de reinvestimento pela trava",
-            "reinvestimento_bloqueado_subordinacao": "Reinvestimento bloqueado pela trava",
+            "capacidade_reinvestimento_subordinacao": "Caixa elegível para reinvestimento",
+            "reinvestimento_bloqueado_subordinacao": "Bloqueio por trava",
             "aporte_subordinacao_minima": "Aporte SUB para trava mínima",
             "principal_recebido_carteira": "Principal recebido da carteira",
             "reinvestimento_principal": "Reinvestimento de principal",
@@ -1262,8 +1263,8 @@ def _build_committee_timeline_dataframe(display_frame: pd.DataFrame) -> pd.DataF
         "Subordinação econômica",
         "Carteira originada acumulada",
         "Colchão sobre carteira originada",
-        "Capacidade de reinvestimento pela trava",
-        "Reinvestimento bloqueado pela trava",
+        "Caixa elegível para reinvestimento",
+        "Bloqueio por trava",
         "Aporte SUB para trava mínima",
         "Caixa não reinvestido",
     ]
@@ -1359,7 +1360,7 @@ def _build_revolvency_export_dataframe(metrics: _RevolvencyMetrics) -> pd.DataFr
             {"Indicador": "Reinvestimento de principal", "Valor": metrics.reinvestimento_principal_total},
             {"Indicador": "Reinvestimento de excesso de spread", "Valor": metrics.reinvestimento_excesso_total},
             {"Indicador": "Nova originação efetiva do motor", "Valor": metrics.nova_originacao_total},
-            {"Indicador": "Reinvestimento bloqueado pela trava", "Valor": metrics.reinvestimento_bloqueado_subordinacao_total},
+            {"Indicador": "Bloqueio por trava", "Valor": metrics.reinvestimento_bloqueado_subordinacao_total},
             {"Indicador": "Carteira originada efetiva", "Valor": metrics.carteira_total_originada},
             {"Indicador": "SUB final sem perdas", "Valor": metrics.sub_final_sem_inadimplencia},
             {"Indicador": "Subordinação mínima para reinvestimento", "Valor": metrics.subordinacao_minima_reinvestimento},
@@ -1472,7 +1473,7 @@ def _build_premissas_summary_dataframe(
         "Estrutura",
         "Trava mínima de reinvestimento",
         _format_percent(premissas.subordinacao_minima_reinvestimento),
-        "Nova originação só ocorre se SUB / carteira originada acumulada ficar acima da trava.",
+        "Piso estrutural de SUB / PL FIDC; a carteira originada acumulada fica como métrica de colchão econômico.",
     )
     add("Remuneração", "SEN", f"{senior_mode_label}; taxa/spread {_format_percent(premissas.taxa_senior)}")
     add("Remuneração", "MEZZ", f"{mezz_mode_label}; taxa/spread {_format_percent(premissas.taxa_mezz)}")
@@ -1961,8 +1962,8 @@ def _committee_flow_rows(timeline_frame: pd.DataFrame | None) -> list[tuple[str,
         return [
             ("Carteira originada", "100,00", "Base do período"),
             ("Receita", "14,00", "~14% a.m."),
-            ("Principal vencendo", "31,70", "1/3,15 da carteira vence"),
-            ("NPL provisionado", "-6,67", "40% do principal vencido"),
+            ("Principal vencendo", "14,29", "1/7 da carteira vence"),
+            ("PDD", "-13,33", "40% da carteira / 3 meses"),
             ("Custos adm.", "-0,03", "Despesas operacionais"),
             ("Juros sênior", "N/D", "Remuneração da tranche sênior"),
             ("Excesso de Caixa", "N/D", ""),
@@ -1980,24 +1981,29 @@ def _committee_flow_rows(timeline_frame: pd.DataFrame | None) -> list[tuple[str,
     carteira_vencendo = float(row.get("carteira_vencendo", 0.0) or 0.0)
     prazo_medio = base / carteira_vencendo if base and carteira_vencendo else 0.0
     principal_racional = (
-        f"1/{_format_number_br(prazo_medio, 2)} da carteira vence"
+        f"1/{_format_number_br(prazo_medio, 1).replace(',0', '')} da carteira vence"
         if prazo_medio > 0.0
-        else "Prazo médio econômico"
+        else "Quantidade média de parcelas"
+    )
+    pdd_value = float(row.get("despesa_provisao", row.get("perda_carteira_despesa", 0.0)) or 0.0)
+    pdd_racional = "40% da carteira / 3 meses"
+    excesso_caixa = float(row.get("principal_recebido_carteira", 0.0) or 0.0) + float(
+        row.get("fluxo_remanescente_mezz", 0.0) or 0.0
     )
 
     return [
         ("Carteira originada", "100,00", "Base do período"),
         ("Receita", scaled("fluxo_carteira"), "~14% a.m. ajustado por calendário"),
         ("Principal vencendo", scaled("carteira_vencendo"), principal_racional),
-        ("NPL provisionado", scaled("principal_inadimplente", -1.0), "40% do principal vencido"),
+        ("PDD", _format_number_br(pdd_value * scale * -1.0, 2), pdd_racional),
         ("Custos adm.", scaled("custos_adm", -1.0), "Despesas operacionais"),
         ("Juros sênior", scaled("juros_senior", -1.0), "Remuneração da tranche sênior"),
-        ("Excesso de Caixa", scaled("fluxo_remanescente_mezz"), ""),
+        ("Excesso de Caixa", _format_number_br(excesso_caixa * scale, 2), "Reinveste em carteira nova"),
     ]
 
 
 def _committee_lock_rows(timeline_frame: pd.DataFrame | None) -> pd.DataFrame:
-    columns = ["Mês", "Principal recebido", "Nova originação", "Bloqueado", "Aporte SUB", "Colchão"]
+    columns = ["Mês", "Principal recebido", "Excesso reinv.", "Nova originação", "Aporte SUB", "Sub/PL"]
     if timeline_frame is None or timeline_frame.empty:
         return pd.DataFrame([["M1", "N/D", "N/D", "N/D", "N/D", "N/D"]], columns=columns)
     data = timeline_frame[timeline_frame["indice"] > 0].head(8).copy()
@@ -2008,10 +2014,10 @@ def _committee_lock_rows(timeline_frame: pd.DataFrame | None) -> pd.DataFrame:
             [
                 f"M{int(row.get('indice', 0))}",
                 _compact_brl_from_text(_format_brl(float(row.get("principal_recebido_carteira", 0.0) or 0.0))),
+                _compact_brl_from_text(_format_brl(float(row.get("reinvestimento_excesso", 0.0) or 0.0))),
                 _compact_brl_from_text(_format_brl(float(row.get("nova_originacao", 0.0) or 0.0))),
-                _compact_brl_from_text(_format_brl(float(row.get("reinvestimento_bloqueado_subordinacao", 0.0) or 0.0))),
                 _compact_brl_from_text(_format_brl(float(row.get("aporte_subordinacao_minima", 0.0) or 0.0))),
-                _format_percent(float(row.get("colchao_originada_pct", 0.0) or 0.0)),
+                _format_percent(float(row.get("subordinacao_pct", 0.0) or 0.0)),
             ]
             for _, row in data.iterrows()
         ],
@@ -2056,7 +2062,7 @@ def _build_model_dashboard_pptx_bytes(
         from pptx import Presentation
         from pptx.chart.data import CategoryChartData
         from pptx.dml.color import RGBColor
-        from pptx.enum.chart import XL_CHART_TYPE, XL_LEGEND_POSITION, XL_MARKER_STYLE
+        from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION, XL_LEGEND_POSITION, XL_MARKER_STYLE
         from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE
         from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
         from pptx.util import Inches, Pt
@@ -2071,6 +2077,7 @@ def _build_model_dashboard_pptx_bytes(
         "CategoryChartData": CategoryChartData,
         "RGBColor": RGBColor,
         "XL_CHART_TYPE": XL_CHART_TYPE,
+        "XL_DATA_LABEL_POSITION": XL_DATA_LABEL_POSITION,
         "XL_LEGEND_POSITION": XL_LEGEND_POSITION,
         "XL_MARKER_STYLE": XL_MARKER_STYLE,
         "MSO_AUTO_SHAPE_TYPE": MSO_AUTO_SHAPE_TYPE,
@@ -2162,7 +2169,7 @@ def _ppt_add_committee_premissas_slide(prs, layout, premissas_summary_df: pd.Dat
             f"Parcelas médias: {_summary_lookup(premissas_summary_df, 'Quantidade média de parcelas', '7,0 parcelas')}",
             f"Prazo médio econômico: {_summary_lookup(premissas_summary_df, 'Prazo médio dos recebíveis', '3,15 meses')}",
             "NPL/LGD assumidos: 40% / 100%",
-            "Reinv. limitado pela trava de subordinação mínima",
+            "Reinv. de principal e excesso dentro da janela elegível",
         ],
         6.45,
         0.92,
@@ -2173,9 +2180,9 @@ def _ppt_add_committee_premissas_slide(prs, layout, premissas_summary_df: pd.Dat
         slide,
         "Fluxo Simplificado",
         [
-            "Dos recebíveis que vencem, apenas 60% são efetivamente recebidos.",
-            "O principal recebido só compra novos DCs se a trava de 30% seguir atendida.",
-            "Caixa bloqueado ou fora da janela de reinvestimento passa a render SELIC.",
+            "Principal vencendo: 1/7 da carteira por mês.",
+            "PDD: 40% da carteira provisionado linearmente até Over90.",
+            "Excesso de caixa positivo é reinvestido em nova carteira.",
         ],
         6.45,
         2.78,
@@ -2198,16 +2205,16 @@ def _ppt_add_committee_premissas_slide(prs, layout, premissas_summary_df: pd.Dat
 def _ppt_add_committee_lock_slide(prs, layout, premissas_summary_df: pd.DataFrame, timeline_frame: pd.DataFrame | None, **deps) -> None:
     slide = prs.slides.add_slide(layout)
     _ppt_set_background(slide, "FFFFFF", **deps)
-    _ppt_add_committee_header(slide, "Modelagem FIDC | Trava de Subordinação e Reinvestimento", **deps)
+    _ppt_add_committee_header(slide, "Modelagem FIDC | Subordinação e Reinvestimento", **deps)
     lock_pct = _summary_lookup(premissas_summary_df, "Trava mínima de reinvestimento", "30,00%")
     _ppt_add_bullet_block(
         slide,
         "Regra de modelagem",
         [
-            f"Trava mínima: SUB disponível / carteira originada acumulada >= {lock_pct}.",
-            "A capacidade de compra é calculada antes de cada nova originação.",
-            "Só o excedente que preserva a trava é reinvestido em novos recebíveis.",
-            "O principal bloqueado permanece no fundo como caixa aplicado à SELIC.",
+            "Principal recebido e excesso de caixa podem ser reinvestidos integralmente.",
+            f"Subordinação mínima estrutural: SUB disponível / PL FIDC >= {lock_pct}.",
+            "Se perdas/custos consumirem SUB abaixo do piso, o modelo registra aporte necessário.",
+            "SUB / carteira originada acumulada fica como métrica de colchão econômico.",
         ],
         0.62,
         0.95,
@@ -2216,11 +2223,11 @@ def _ppt_add_committee_lock_slide(prs, layout, premissas_summary_df: pd.DataFram
     )
     formula_frame = pd.DataFrame(
         [
-            ["SUB mínima", "30% x carteira originada acumulada"],
-            ["Capacidade", "max(SUB preliminar / 30% - originada anterior, 0)"],
-            ["Nova originação", "min(principal recebido líquido, capacidade)"],
-            ["Bloqueio", "principal recebido líquido - nova originação"],
-            ["Aporte SUB", "max(30% x originada acumulada - SUB, 0)"],
+            ["SUB mínima", "SUB / PL FIDC >= 30%"],
+            ["Caixa reinvestível", "principal recebido + max(excesso de caixa, 0)"],
+            ["Nova originação", "se elegível: caixa reinvestível; se não: 0"],
+            ["Subordinação", "SUB disponível / PL FIDC"],
+            ["Aporte SUB", "max((30% x PL - SUB) / 70%, 0)"],
         ],
         columns=["Item", "Fórmula"],
     )
@@ -2230,7 +2237,7 @@ def _ppt_add_committee_lock_slide(prs, layout, premissas_summary_df: pd.DataFram
     note = slide.shapes.add_textbox(deps["Inches"](0.65), deps["Inches"](6.08), deps["Inches"](11.80), deps["Inches"](0.38))
     _ppt_textbox(
         note,
-        "Leitura: quando a SUB ainda está exatamente no nível mínimo, a carteira não recompra todo o principal; primeiro acumula excesso econômico para abrir capacidade.",
+        "Leitura: reinvestimento troca caixa por carteira e não consome PL; a trava de 30% é testada no PL econômico da estrutura.",
         deps["Pt"](8.4),
         deps["RGBColor"].from_string("6B7280"),
         bold=False,
@@ -2283,15 +2290,15 @@ def _ppt_add_committee_outputs_slide(
 def _committee_outputs(timeline_frame: pd.DataFrame | None) -> list[str]:
     if timeline_frame is None or timeline_frame.empty:
         return [
-            "Modelagem com trava mínima de 30% para reinvestimento.",
-            "Sub / carteira originada deixa de cair abaixo do piso estrutural.",
-            "Principal bloqueado fica em caixa e reduz a velocidade de originação.",
+            "Principal vence por 1/7 da carteira e PDD é linear até Over90.",
+            "Excesso de caixa positivo é reinvestido durante a janela elegível.",
+            "Sub / carteira originada é métrica de colchão econômico, não trava de caixa.",
         ]
     last = timeline_frame.iloc[-1]
-    blocked = float(timeline_frame.get("reinvestimento_bloqueado_subordinacao", pd.Series(dtype=float)).sum() or 0.0)
     total_originated = float(last.get("carteira_originada_acumulada", 0.0) or 0.0)
     final_sub = float(last.get("pl_sub_jr", 0.0) or 0.0)
     colchao = float(last.get("colchao_originada_pct", 0.0) or 0.0)
+    subordinacao = float(last.get("subordinacao_pct", 0.0) or 0.0)
     if total_originated <= 0.0:
         initial_portfolio = float(timeline_frame.iloc[0].get("carteira", 0.0) or 0.0)
         new_origination = float(timeline_frame.get("nova_originacao", pd.Series(dtype=float)).clip(lower=0.0).sum() or 0.0)
@@ -2299,11 +2306,10 @@ def _committee_outputs(timeline_frame: pd.DataFrame | None) -> list[str]:
     if colchao <= 0.0 and total_originated > 0.0:
         colchao = final_sub / total_originated
     return [
-        f"Trava: SUB / carteira originada >= {_format_percent(DEFAULT_SUBORDINACAO_MINIMA_REINVESTIMENTO)}.",
+        "PDD: 40% da carteira provisionado em 3 meses até Over90.",
+        "Nova originação inclui principal recebido e excesso de caixa positivo.",
         f"Carteira originada efetiva: {_compact_brl_from_text(_format_brl(total_originated))}.",
-        f"SUB final projetada: {_compact_brl_from_text(_format_brl(final_sub))}.",
-        f"Principal bloqueado pela trava: {_compact_brl_from_text(_format_brl(blocked))}.",
-        f"Colchão final sobre originada: {_format_percent(colchao)}.",
+        f"SUB / PL final: {_format_percent(subordinacao)}; colchão sobre originada: {_format_percent(colchao)}.",
     ]
 
 
@@ -2649,7 +2655,7 @@ def _ppt_add_stacked_area_chart(
     colors: list[str],
     **deps,
 ) -> None:
-    _ppt_add_chart(
+    _ppt_add_native_chart(
         slide,
         wide,
         chart_type=deps["XL_CHART_TYPE"].AREA_STACKED,
@@ -2661,6 +2667,7 @@ def _ppt_add_stacked_area_chart(
         y_axis_title=y_axis_title,
         colors=colors,
         percent_axis=False,
+        show_data_labels=False,
         **deps,
     )
 
@@ -2679,7 +2686,7 @@ def _ppt_add_line_chart(
     percent_axis: bool,
     **deps,
 ) -> None:
-    _ppt_add_chart(
+    _ppt_add_native_chart(
         slide,
         wide,
         chart_type=deps["XL_CHART_TYPE"].LINE_MARKERS,
@@ -2691,11 +2698,12 @@ def _ppt_add_line_chart(
         y_axis_title=y_axis_title,
         colors=colors,
         percent_axis=percent_axis,
+        show_data_labels=percent_axis,
         **deps,
     )
 
 
-def _ppt_add_chart(
+def _ppt_add_native_chart(
     slide,
     wide: pd.DataFrame,
     *,
@@ -2708,16 +2716,17 @@ def _ppt_add_chart(
     y_axis_title: str,
     colors: list[str],
     percent_axis: bool,
+    show_data_labels: bool,
     **deps,
 ) -> None:
-    if wide.empty or len(wide.columns) <= 2:
-        box = slide.shapes.add_textbox(deps["Inches"](x), deps["Inches"](y), deps["Inches"](w), deps["Inches"](0.45))
-        _ppt_textbox(box, f"{title}: sem dados suficientes.", deps["Pt"](10), deps["RGBColor"].from_string("6B7280"), bold=False, align=deps["PP_ALIGN"].LEFT)
+    columns = _ppt_chart_series_columns(wide)
+    if wide.empty or not columns:
+        _ppt_add_chart_no_data(slide, title, x, y, w, **deps)
         return
     chart_data = deps["CategoryChartData"]()
     chart_data.categories = [f"M{int(value)}" if pd.notna(value) else "" for value in wide["Mês"]]
     value_scale = 100.0 if percent_axis else 1.0
-    for column in [col for col in wide.columns if col not in {"Mês", "Data"}]:
+    for column in columns:
         chart_data.add_series(
             str(column),
             [float(value or 0.0) * value_scale for value in wide[column].fillna(0.0).tolist()],
@@ -2742,6 +2751,10 @@ def _ppt_add_chart(
     chart.category_axis.tick_labels.font.size = deps["Pt"](8)
     if percent_axis:
         chart.value_axis.tick_labels.number_format = "0\\%"
+        try:
+            chart.value_axis.minimum_scale = 0.0
+        except ValueError:
+            pass
     chart.has_legend = True
     chart.legend.position = deps["XL_LEGEND_POSITION"].BOTTOM
     chart.legend.include_in_layout = False
@@ -2757,6 +2770,35 @@ def _ppt_add_chart(
             series.marker.format.fill.solid()
             series.marker.format.fill.fore_color.rgb = deps["RGBColor"].from_string(color)
             series.marker.format.line.color.rgb = deps["RGBColor"].from_string(color)
+    if show_data_labels:
+        try:
+            plot = chart.plots[0]
+            plot.has_data_labels = True
+            labels = plot.data_labels
+            labels.number_format = "0\\%" if percent_axis else "#,##0"
+            labels.position = deps["XL_DATA_LABEL_POSITION"].ABOVE
+            labels.font.size = deps["Pt"](7)
+            labels.font.color.rgb = deps["RGBColor"].from_string("333333")
+        except (AttributeError, IndexError, ValueError):
+            pass
+
+
+def _ppt_chart_series_columns(wide: pd.DataFrame) -> list[str]:
+    if wide.empty:
+        return []
+    return [str(column) for column in wide.columns if column not in {"Mês", "Data"}]
+
+
+def _ppt_add_chart_no_data(slide, title: str, x: float, y: float, w: float, **deps) -> None:
+    box = slide.shapes.add_textbox(deps["Inches"](x), deps["Inches"](y), deps["Inches"](w), deps["Inches"](0.45))
+    _ppt_textbox(
+        box,
+        f"{title}: sem dados suficientes.",
+        deps["Pt"](10),
+        deps["RGBColor"].from_string("6B7280"),
+        bold=False,
+        align=deps["PP_ALIGN"].LEFT,
+    )
 
 
 def _build_workbook_mechanics_markdown(
@@ -2808,7 +2850,7 @@ def _build_workbook_mechanics_markdown(
             "fluxo_carteira = carteira * ((1 + taxa_cessao_am_aplicada) ^ (delta_DU / 21) - 1)",
             "```",
             "",
-            "- Em carteira revolvente, `carteira` é o saldo em aberto usado para juros e perda; ele se mantém reciclando o principal recebido (reinvestimento de principal) enquanto a nova carteira couber no prazo do FIDC e a trava de subordinação mínima continuar atendida. O excesso de caixa após custos, perdas e PMTs de SEN/MEZZ não compra nova carteira; ele vai para o caixa aplicado à SELIC (seção 10).",
+            "- Em carteira revolvente, `carteira` é o saldo em aberto usado para juros e perda; ele se mantém reciclando o principal recebido e o excesso de caixa positivo enquanto a nova carteira couber no prazo do FIDC. A subordinação mínima é testada como `SUB / PL FIDC`, não como cap de originação sobre carteira originada.",
             "- A timeline preserva carteira pelo valor de face e mostra EAD/saldo em risco pelo preço pago. A provisão e o NPL usam EAD ajustado quando há ágio sobre face.",
             "",
             f"- Entrada informada pelo usuário nesta simulação: `{taxa_cessao_input_mode}`.",
@@ -2840,32 +2882,32 @@ def _build_workbook_mechanics_markdown(
             "- Esta seção é a principal para reconciliar a contabilidade econômica do fluxo projetado.",
             "- O motor separa quatro coisas que não devem ser misturadas:",
             "  1. **principal programado para vencer**: parcela da carteira que deveria virar caixa no mês;",
-            "  2. **principal inadimplente projetado**: parcela do principal vencendo que não vira caixa e não pode ser reinvestida;",
-            "  3. **provisão/despesa de perda**: rubrica que reduz o PL econômico;",
+            "  2. **provisão/despesa de PDD**: rubrica prospectiva que reduz o PL econômico;",
+            "  3. **entrada em NPL 90+**: maturação do evento de crédito depois do lag informado;",
             "  4. **baixa/write-off**: retirada do crédito da carteira, consumindo provisão já formada quando houver saldo.",
-            "- Na metodologia `NPL 90 + cobertura de provisão`, o usuário informa quanto do principal que vence no ciclo deve virar NPL 90+ depois do lag. O motor provisiona prospectivamente e baixa o crédito quando ele entra em NPL 90+.",
+            "- Na metodologia `NPL 90 + cobertura de provisão`, o usuário informa o NPL 90+ esperado por ciclo. O motor reconhece PDD linearmente até o lag e baixa o crédito quando ele entra em NPL 90+.",
             "",
             "```text",
-            "carteira_vencendo = carteira_inicio * meses_periodo / prazo_medio_recebiveis",
-            "npl90_futuro = carteira_vencendo * npl90_esperado_por_ciclo",
-            "principal_recebido_liquido = max(carteira_vencendo - npl90_futuro, 0)",
+            "carteira_vencendo = carteira_inicio * meses_periodo / qtd_parcelas_media",
+            "pdd_prospectiva = carteira_inicio * npl90_esperado_por_ciclo * meses_periodo / lag_npl90_meses",
+            "principal_recebido = carteira_vencendo",
             "entrada_npl90_t = npl90_futuro_de_periodos_anteriores_apos_lag",
             "baixa_credito_t = entrada_npl90_t * LGD",
             "estoque_npl90_t = max(estoque_npl90_t-1 + entrada_npl90_t - baixa_credito_t, 0)",
             "provisao_minima = estoque_npl90_t * cobertura_minima * LGD",
-            "provisao_prospectiva = npl90_futuro * LGD",
+            "provisao_prospectiva = pdd_prospectiva * LGD",
             "provisao_pos_writeoff = max(provisao_anterior - baixa_credito_t, 0)",
             "provisao_requerida = max(provisao_pos_writeoff + provisao_prospectiva, provisao_minima)",
             "despesa_provisao = writeoff_descoberto + max(provisao_requerida - provisao_pos_writeoff, 0)",
             "```",
             "",
-            "- Leitura prática: se `R$ 100` vencem no mês e `20%` devem virar NPL, o motor reconhece `R$ 20` como principal inadimplente projetado e só trata `R$ 80` como principal recebido líquido.",
-            "- Esses `R$ 20` não compram nova carteira. Depois do lag, entram em NPL 90+; com `LGD = 100%`, são baixados integralmente contra a provisão disponível.",
+            "- Leitura prática: com carteira de `R$ 100`, `7` parcelas e `40%` de NPL esperado em `3` meses, vencem `R$ 14,29` de principal e a PDD do mês é `R$ 13,33`.",
+            "- O principal programado e a PDD não são a mesma linha: a PDD reduz o PL econômico; o principal recebido pode ser reinvestido enquanto a revolvência estiver elegível.",
             "- Se a provisão anterior for suficiente, o write-off consome provisão e não gera despesa adicional além do reforço necessário para manter a provisão requerida.",
             "- Se a provisão anterior for insuficiente, a parte não coberta aparece como `writeoff_descoberto`, aumentando a despesa de provisão/perda do mês.",
             "- A baixa é imediata no mês em que o crédito entra em NPL 90+. Assim, com `LGD = 100%`, a entrada em NPL 90+ deixa de compor carteira performing no mesmo período.",
             "- A provisão modelada é prospectiva, no estilo `ECL forward-looking`: ela antecipa a perda esperada de ciclo antes do write-off e nunca deixa a provisão abaixo da cobertura mínima do NPL 90+ observado.",
-            "- Esta é uma aproximação econômica para simulação e não deve ser lida como regra contábil/regulatória estrita. O objetivo é evitar que a projeção trate principal inadimplente como caixa disponível.",
+            "- Esta é uma aproximação econômica para simulação e não deve ser lida como regra contábil/regulatória estrita. O objetivo é separar caixa de principal, PDD prospectiva e baixa de crédito.",
             "- A implementação atual não reconhece reversão negativa de provisão quando o estoque NPL 90+ cai. Isso é conservador e pode reduzir a SUB final; a revisão com reversão explícita depende de decisão metodológica posterior.",
             "- Na metodologia `Migração por faixas de atraso`, o usuário informa taxas mensais de rolagem entre buckets:",
             "",
@@ -2938,7 +2980,7 @@ def _build_workbook_mechanics_markdown(
             "```",
             "",
             "- O saldo econômico de SEN e MEZZ cai conforme o principal programado é amortizado.",
-            "- A carteira, por sua vez, evolui pelo saldo inicial, nova originação, principal recebido, principal inadimplente, baixas e runoff. Por isso a timeline mostra separadamente `Principal inadimplente não recebido`, `Baixa de crédito/write-off`, `Reinvestimento de principal` e `Reinvestimento de excesso de caixa`.",
+            "- A carteira, por sua vez, evolui pelo saldo inicial, nova originação, principal recebido, baixas e runoff. Por isso a timeline mostra separadamente `PDD`, `Baixa de crédito/write-off`, `Reinvestimento de principal` e `Reinvestimento de excesso de caixa`.",
             "- A SUB residual corrente é:",
             "",
             "```text",
@@ -2951,30 +2993,29 @@ def _build_workbook_mechanics_markdown(
             "",
             "### 9. Revolvência, denominadores e capacidade de perda",
             "",
-            "- Quando a carteira é revolvente, o modelo recicla apenas o principal recebido líquido enquanto o prazo médio dos recebíveis ainda cabe no prazo restante do FIDC:",
+            "- Quando a carteira é revolvente, o modelo recicla principal recebido e excesso de caixa positivo enquanto o prazo médio econômico dos recebíveis ainda cabe no prazo restante do FIDC:",
             "",
             "```text",
             "giro_estimado = prazo_total_fidc_anos * 12 / prazo_medio_recebiveis_meses",
             "mes_limite_reinvestimento = prazo_total_fidc_meses - prazo_medio_recebiveis_meses",
-            "principal_programado = carteira_inicio * meses_periodo / prazo_medio_recebiveis_meses",
-            "principal_recebido_liquido = max(principal_programado - principal_inadimplente, 0)",
-            "capacidade_reinvestimento_subordinacao = max(SUB_preliminar / subordinacao_minima - carteira_originada_acumulada_anterior, 0)",
-            "nova_originacao_economica = min(principal_recebido_liquido, capacidade_reinvestimento_subordinacao)",
+            "principal_programado = carteira_inicio * meses_periodo / qtd_parcelas_media",
+            "principal_recebido = principal_programado",
+            "excesso_caixa = max(fluxo_remanescente_apos_MEZZ, 0)",
+            "nova_originacao_economica = principal_recebido + excesso_caixa",
             "```",
             "",
             "- Se o mês do FIDC fica depois do mês limite de reinvestimento, a nova originação econômica vira `0` e a carteira começa a amortizar por runoff.",
-            "- Se a compra nova faria `SUB disponível / carteira originada acumulada` ficar abaixo da trava mínima, a originação também é reduzida até o limite permitido.",
-            "- A partir desse ponto, o principal dos recebíveis que vence deixa de comprar nova carteira e passa a compor caixa aplicado à SELIC.",
-            "- O excesso de caixa após custos, perdas e PMTs de SEN/MEZZ (`fluxo_remanescente_apos_MEZZ`, quando positivo) e o principal bloqueado pela trava também não compram nova carteira; eles somam diretamente ao caixa aplicado à SELIC desde o primeiro período (seção 10).",
-            "- O denominador principal de carteira originada usa a originação efetiva do motor, isto é, apenas o principal reciclado mês a mês durante a revolvência.",
+            "- A compra nova não é reduzida por `SUB / carteira originada acumulada`; reinvestimento troca caixa por carteira e não consome PL.",
+            "- Se perdas/custos derrubarem `SUB / PL FIDC` abaixo da subordinação mínima, a timeline registra o aporte subordinado necessário para recompor o piso.",
+            "- O denominador principal de carteira originada usa a originação efetiva do motor, isto é, principal reciclado e excesso de caixa reinvestido durante a revolvência.",
             "",
             "```text",
             "carteira_originada_efetiva = volume_inicial + soma(nova_originacao_economica_t)",
-            "nova_originacao_economica_t = reinvestimento_principal_t",
+            "nova_originacao_economica_t = reinvestimento_principal_t + reinvestimento_excesso_t",
             "```",
             "",
-            "- No cenário sem perdas (usado para o colchão econômico), `principal_recebido_liquido` é igual a `principal_programado` em todo período elegível, mas a nova compra ainda pode ser limitada pela trava de subordinação mínima.",
-            "- Em cenários com perdas, parte do principal programado vira inadimplência projetada e não é reciclada; por isso `carteira_originada_efetiva` pode ficar abaixo do giro programático nesses cenários.",
+            "- No cenário sem perdas (usado para o colchão econômico), a carteira originada efetiva também incorpora o excesso de caixa positivo gerado pela estrutura.",
+            "- Em cenários com perdas, a PDD consome PL e pode reduzir o excesso reinvestível; por isso `carteira_originada_efetiva` pode ficar abaixo do giro programático.",
             "- Quando a carteira é estática, a carteira originada é apenas a compra inicial:",
             "",
             "```text",
@@ -2995,15 +3036,15 @@ def _build_workbook_mechanics_markdown(
             "protecao_disponivel_no_mes = SUB_disponivel_no_mes / denominador_mes",
             "```",
             "",
-            "- Exemplo: com 7 parcelas e taxa mensal de 14%, a duration econômica fica perto de `3,15 meses`; o mês 1 considera a carteira inicial mais o principal reciclado de cerca de `1/3,15` do volume inicial.",
+            "- Exemplo: com 7 parcelas e taxa mensal de 14%, a duration econômica fica perto de `3,15 meses`, mas o principal que vence no mês segue a amortização das parcelas: cerca de `1/7` do volume inicial.",
             "- Exemplo: em FIDC de `36 meses` com recebíveis de `12 meses`, a originação nova para quando o fluxo chega perto do mês `24`, porque novos recebíveis de 12 meses já não caberiam no prazo da estrutura.",
             "",
             "### 10. Caixa pós-revolvência e SELIC projetada",
             "",
-            "- Enquanto a revolvência é elegível, o modelo recicla apenas o principal recebido líquido em novos recebíveis; o excesso de caixa após custos, perdas e PMTs de SEN/MEZZ (`fluxo_remanescente_apos_MEZZ`, quando positivo) já entra no saldo de caixa SELIC desde o primeiro período.",
-            "- Quando o prazo médio dos recebíveis já não cabe mais no prazo restante do FIDC, o principal recebido também deixa de ser reciclado e passa a entrar no saldo de caixa SELIC.",
+            "- Enquanto a revolvência é elegível, o modelo recicla principal recebido e excesso de caixa positivo em novos recebíveis.",
+            "- Quando o prazo médio dos recebíveis já não cabe mais no prazo restante do FIDC, principal recebido e excesso de caixa deixam de ser reciclados e passam a entrar no saldo de caixa SELIC.",
             "- A taxa SELIC média é uma projeção digitada pelo usuário por ano calendário; nesta etapa ela não vem de fonte externa.",
-            "- Esta curva manual remunera o caixa acumulado a cada período: excesso de spread desde o primeiro mês e, depois do mês limite de reinvestimento, também o principal recebido.",
+            "- Esta curva manual remunera o caixa acumulado a cada período: caixa não reinvestido e, depois do mês limite de reinvestimento, também o principal recebido.",
             "- O CDI implícito das cotas pós-fixadas e o Pre DI na duration continuam usando a curva DI/Pré selecionada na fonte B3/local.",
             "- O default é `13,00% a.a.` para 2026, `12,00% a.a.` para 2027 e `12,00% a.a.` para 2028 em diante; o usuário pode sobrescrever os campos exibidos.",
             "- O motor transforma a taxa anual em taxa do período com matemática financeira exponencial e 21 dias úteis médios por mês:",
@@ -3014,7 +3055,7 @@ def _build_workbook_mechanics_markdown(
             "saldo_caixa_selic_fim = caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_apos_MEZZ",
             "```",
             "",
-            "- Exemplo: se o prazo médio econômico é `3,15 meses`, cerca de `1/3,15` da carteira em aberto vence a cada mês.",
+            "- Exemplo: com 7 parcelas, cerca de `1/7` da carteira em aberto vence a cada mês.",
             "- Antes do mês limite de reinvestimento, essa parcela recompra recebíveis; depois do mês limite, ela vai para caixa SELIC.",
             "- O rendimento do caixa SELIC entra no fluxo econômico total dos ativos antes de custos, perdas e pagamentos das cotas.",
             "- O modelo ainda não usa SELIC observada nem curva de mercado para essa projeção; a premissa é manual para manter rastreabilidade.",
@@ -3081,32 +3122,32 @@ def _build_step_by_step_markdown() -> str:
             "- Em cada mês, o motor começa com a carteira e o PL econômico do mês anterior.",
             "- A carteira gera **juros/receita econômica** pela taxa da carteira.",
             "- Uma parte do principal vence. Se esse principal paga normalmente, ele vira caixa e pode ser reinvestido durante a revolvência.",
-            "- Se parte desse principal está projetada para virar NPL 90+, ela **não** é tratada como caixa recebido e **não** é reinvestida automaticamente.",
-            "- Depois entram custos, despesa de provisão/perda e PMTs de SEN/MEZZ. O que sobra no PL depois de SEN e MEZZ é a SUB residual.",
+            "- A PDD de NPL 90+ é reconhecida como despesa prospectiva separada do principal que vence.",
+            "- Depois entram custos, despesa de provisão/perda e PMTs de SEN/MEZZ. O que sobra no PL depois de SEN e MEZZ é a SUB residual e pode virar nova carteira enquanto houver janela elegível.",
             "",
             "### 4. Como ler NPL, provisão e write-off",
             "",
-            "- Na metodologia **NPL 90 + cobertura**, o usuário informa o percentual dos recebíveis que vencem no ciclo e devem virar NPL 90+ após o lag.",
+            "- Na metodologia **NPL 90 + cobertura**, o usuário informa o NPL 90+ esperado por ciclo e o lag até Over90.",
             "- O modelo provisiona essa perda de forma prospectiva antes de ela aparecer como estoque NPL 90+. É uma visão econômica tipo ECL, não uma regra contábil/regulatória completa.",
             "- Quando o crédito entra em NPL 90+, o motor aplica a LGD. Com LGD de 100%, a entrada em NPL 90+ é baixada integralmente.",
             "- A baixa consome a provisão já formada. Se a provisão for insuficiente, a diferença vira **write-off descoberto** e aumenta a despesa de perda do mês.",
             "- Importante: o write-off reduz o saldo da carteira; ele não é debitado de novo no PL fora da linha de provisão/perda. Isso evita dupla contagem.",
             "",
-            "Exemplo simples: se R$ 100 vencem no mês e 20% devem virar NPL, o caixa de principal recebido é R$ 80. Os R$ 20 são principal inadimplente projetado: não viram reinvestimento. Depois do lag, esses R$ 20 entram em NPL 90+ e, com LGD 100%, são baixados contra provisão.",
+            "Exemplo simples: com carteira de R$ 100, 7 parcelas e NPL esperado de 40% em 3 meses, vencem R$ 14,29 de principal e a PDD mensal é R$ 13,33. A PDD reduz PL; o principal recebido segue como caixa reinvestível.",
             "",
             "### 5. Entenda a revolvência",
             "",
-            "- Enquanto ainda há prazo suficiente para comprar novos recebíveis, o motor recicla apenas o principal recebido líquido que ainda respeita a trava mínima de subordinação.",
-            "- **Principal recebido líquido** é o principal que venceu e pagou, já descontado do principal que vai virar NPL.",
-            "- **Trava de reinvestimento** limita a nova compra para manter SUB disponível / carteira originada acumulada em pelo menos 30% no FIDC padrão.",
-            "- **Excesso de caixa** é o fluxo positivo remanescente após custos, perdas e pagamentos de SEN/MEZZ. Ele nunca compra nova carteira: desde o primeiro mês, ele vai para o caixa aplicado à SELIC. O principal bloqueado pela trava segue a mesma lógica.",
+            "- Enquanto ainda há prazo suficiente para comprar novos recebíveis, o motor recicla o principal recebido e o excesso de caixa positivo.",
+            "- **Principal recebido** é o principal que venceu no mês conforme a quantidade média de parcelas.",
+            "- **Subordinação mínima** é testada como SUB disponível / PL FIDC; ela não limita a compra de carteira originada pelo denominador acumulado.",
+            "- **Excesso de caixa** é o fluxo positivo remanescente após custos, perdas e pagamentos de SEN/MEZZ. Durante a janela elegível, ele compra carteira nova junto com o principal recebido.",
             "- Quando o prazo médio dos recebíveis não cabe mais no prazo restante do FIDC, a carteira entra em runoff: o principal recebido também deixa de comprar nova carteira e passa a render pela SELIC média informada.",
             "",
             "### 6. Entenda os denominadores",
             "",
             "- **Carteira originada programática** é a referência teórica de giro do volume inicial (volume + reposições de principal pelo prazo médio).",
-            "- **Carteira originada efetiva** é a base reconciliada com o motor: volume inicial + soma do principal reciclado mês a mês.",
-            "- No cenário sem perdas, a efetiva só converge com a programática se houver excesso de SUB suficiente para passar pela trava. Em cenários com perdas, a efetiva fica abaixo da programática, pois parte do principal vira inadimplência projetada e/ou é bloqueada pela trava.",
+            "- **Carteira originada efetiva** é a base reconciliada com o motor: volume inicial + soma de principal e excesso de caixa reinvestidos mês a mês.",
+            "- No cenário sem perdas, a efetiva incorpora o excesso de caixa gerado pela operação. Em cenários com perdas, a PDD consome PL e pode reduzir o excesso disponível para reinvestir.",
             "- **Colchão sem perdas sobre carteira originada** compara a SUB final sem perdas com a carteira originada efetiva; é uma leitura de excess spread e colchão potencial em uma simulação paralela sem perda de crédito.",
             "- O **gráfico de proteção da estrutura** usa o cenário principal com perdas e compara a SUB disponível de cada mês com PL ou carteira originada acumulada. Por isso, ele não precisa bater com o card sem perdas; são duas leituras complementares.",
             "",
@@ -3115,7 +3156,7 @@ def _build_step_by_step_markdown() -> str:
             "- O gráfico de saldos mostra SEN, MEZZ, SUB residual e déficit econômico ao longo do tempo.",
             "- O gráfico de perda mostra a perda do período: despesa de provisão/perda do mês dividida pela carteira do mês; não é write-off acumulado nem estoque NPL acumulado.",
             "- O gráfico de proteção compara a subordinação econômica com o colchão de proteção sobre a carteira originada acumulada.",
-            "- A timeline detalhada é a memória de cálculo: use as colunas de principal inadimplente, provisão, baixa, reinvestimento e carteira originada para reconciliar cada mês.",
+            "- A timeline detalhada é a memória de cálculo: use as colunas de PDD, provisão, baixa, reinvestimento e carteira originada para reconciliar cada mês.",
         ]
     )
 
@@ -3710,13 +3751,13 @@ def _revolvency_cards_data(metrics: _RevolvencyMetrics) -> list[dict[str, str]]:
             "Carteira originada efetiva",
             _format_brl(metrics.carteira_total_originada),
             "Base de comparação",
-            "Volume comprado no motor, somando carteira inicial e reinvestimento de principal liberado pela trava.",
+            "Volume comprado no motor, somando carteira inicial, principal recebido e excesso de caixa reinvestido.",
         ),
         (
-            "Bloqueado pela trava",
+            "Bloqueio por trava",
             _format_brl(metrics.reinvestimento_bloqueado_subordinacao_total),
-            f"Min. {_format_percent(metrics.subordinacao_minima_reinvestimento)}",
-            "Principal recebido que não comprou nova carteira para manter SUB / carteira originada acumulada acima da trava.",
+            "Inativo no preset",
+            "O caixa elegível é reinvestido integralmente; a subordinação mínima é testada em SUB / PL FIDC.",
         ),
         (
             "SUB final sem perdas",
@@ -4710,17 +4751,17 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Fluxo econômico da carteira",
                 "Fórmula": "carteira * ((1 + tx_cessao_am_aplicada) ^ (delta_du / 21) - 1)",
-                "Observação": "Em carteira revolvente, a base de carteira evolui apenas com o principal reciclado (reinvestimento de principal) enquanto houver prazo para nova originação; o excesso de caixa não entra na carteira.",
+                "Observação": "Em carteira revolvente, a base de carteira evolui com principal reciclado e excesso de caixa positivo enquanto houver prazo para nova originação.",
             },
             {
                 "Indicador": "Rendimento do caixa SELIC",
                 "Fórmula": "rendimento_selic = (caixa_selic_inicio + principal_para_caixa_selic) * ((1 + selic_aa) ^ (21 * meses_periodo / 252) - 1)",
-                "Observação": "O caixa SELIC recebe, desde o primeiro mês, o excesso de fluxo após custos, perdas e PMTs de SEN/MEZZ (quando positivo); quando a carteira não pode mais comprar recebíveis, o principal que vence também passa a compor esse caixa e a render pela SELIC média anual informada pelo usuário.",
+                "Observação": "O caixa SELIC recebe apenas caixa não reinvestido; quando a carteira não pode mais comprar recebíveis, o principal que vence também passa a compor esse caixa e a render pela SELIC média anual informada pelo usuário.",
             },
             {
                 "Indicador": "Fluxo econômico total dos ativos",
                 "Fórmula": "fluxo_ativos_total = fluxo_carteira + rendimento_caixa_selic + recuperacao_credito",
-                "Observação": "Este é o fluxo usado antes de custos, provisão/perda e pagamentos das cotas; a SELIC remunera o saldo de caixa acumulado, que já inclui excesso de spread desde o primeiro mês e, fora da janela de reinvestimento, também o principal recebido.",
+                "Observação": "Este é o fluxo usado antes de custos, provisão/perda e pagamentos das cotas; a SELIC remunera o saldo de caixa acumulado que não foi reinvestido em carteira nova.",
             },
             {
                 "Indicador": "De-para da Taxa de Cessão",
@@ -4750,21 +4791,21 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Metodologia de crédito",
                 "Fórmula": credit_model_label,
-                "Observação": "A provisão é ECL-style/prospectiva: a aba separa principal recebido, principal inadimplente, despesa de provisão, estoque NPL 90+, recuperação e write-off para não misturar caixa com estoque.",
+                "Observação": "A provisão é ECL-style/prospectiva: a aba separa principal recebido, despesa de PDD, estoque NPL 90+, recuperação e write-off para não misturar caixa com estoque.",
             },
             {
                 "Indicador": "Carteira vencendo no período",
-                "Fórmula": "carteira_inicio * meses_periodo / prazo_medio_recebiveis",
-                "Observação": "É a parcela programada para vencer; o principal inadimplente projetado é deduzido do caixa recebido e do reinvestimento.",
+                "Fórmula": "carteira_inicio * meses_periodo / qtd_parcelas_media",
+                "Observação": "É a parcela programada para vencer conforme a amortização das parcelas; no MC3, 7 parcelas implicam cerca de 1/7 da carteira por mês.",
             },
             {
-                "Indicador": "Principal inadimplente não recebido",
-                "Fórmula": "npl90_futuro = carteira_vencendo * perda_ciclo",
-                "Observação": "É a parcela do principal vencendo que o motor não trata como caixa. Ela não é reinvestida e, depois do lag, entra em NPL 90+.",
+                "Indicador": "PDD prospectiva",
+                "Fórmula": "pdd = carteira_inicio * perda_ciclo * meses_periodo / lag_npl90_meses",
+                "Observação": "Com carteira R$100, perda 40% e lag 3 meses, a PDD mensal é R$13,33. A PDD reduz PL econômico, mas não é dedução automática do principal que vence.",
             },
             {
                 "Indicador": "Entrada e estoque NPL 90+",
-                "Fórmula": "npl90_futuro = carteira_vencendo * perda_ciclo; estoque_npl90_t = max(estoque_t-1 + entrada_npl90_t - baixa_credito_t, 0)",
+                "Fórmula": "entrada_npl90_t = pdd_prospectiva_de_periodos_anteriores_apos_lag; estoque_npl90_t = max(estoque_t-1 + entrada_npl90_t - baixa_credito_t, 0)",
                 "Observação": "Na metodologia NPL 90 + cobertura, a entrada usa a perda de ciclo depois do lag e é baixada imediatamente pelo LGD informado.",
             },
             {
@@ -4775,7 +4816,7 @@ def render_tab_modelo_fidc() -> None:
             {
                 "Indicador": "Despesa de provisão/perda",
                 "Fórmula": "writeoff_descoberto + max(provisao_requerida - max(provisao_anterior - baixa_credito, 0), 0)",
-                "Observação": "A despesa reduz o PL econômico; a baixa reduz carteira e impede que principal inadimplente seja tratado como principal recebido.",
+                "Observação": "A despesa reduz o PL econômico; a baixa reduz carteira quando o crédito matura em NPL 90+.",
             },
             {
                 "Indicador": "Resultado líquido da carteira",
@@ -4789,8 +4830,8 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Nova originação",
-                "Fórmula": "se elegível: min(principal_recebido_líquido, capacidade_reinvestimento_subordinacao); se não elegível: 0",
-                "Observação": "Captura apenas o reinvestimento do principal reciclado que ainda preserva a trava de SUB / carteira originada acumulada; o excesso de caixa após PMTs de SEN/MEZZ e o principal bloqueado pela trava vão para o caixa SELIC.",
+                "Fórmula": "se elegível: principal_recebido + max(fluxo_remanescente_apos_MEZZ, 0); se não elegível: 0",
+                "Observação": "Captura o reinvestimento integral do caixa elegível. A subordinação mínima é testada em SUB / PL FIDC e não reduz a nova originação por carteira originada acumulada.",
             },
             {
                 "Indicador": "Juros sênior/MEZZ",
@@ -4813,22 +4854,22 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Carteira originada programática",
-                "Fórmula": "revolvente: volume + volume * max(prazo_total_meses - prazo_medio_meses, 0) / prazo_medio_meses; estática: volume",
-                "Observação": "Referência de giro teórico do volume inicial; no cenário sem perdas, converge com a carteira originada efetiva, pois o motor recicla apenas principal.",
+                "Fórmula": "revolvente: volume + volume * max(prazo_total_meses - duration_meses, 0) / qtd_parcelas_media; estática: volume",
+                "Observação": "Referência de giro teórico do volume inicial usando a quantidade média de parcelas para principal vencendo.",
             },
             {
                 "Indicador": "Carteira originada efetiva",
                 "Fórmula": "volume_inicial + soma(nova_originacao_economica_t)",
-                "Observação": "Denominador reconciliado com o motor; inclui apenas o reinvestimento de principal reciclado que passou pela janela de prazo e pela trava de subordinação mínima.",
+                "Observação": "Denominador reconciliado com o motor; inclui reinvestimento de principal e excesso de caixa que passou pela janela de prazo.",
             },
             {
-                "Indicador": "Trava mínima de reinvestimento",
-                "Fórmula": "capacidade_reinvestimento_subordinacao = max(SUB_preliminar / subordinacao_minima - carteira_originada_acumulada_anterior, 0)",
-                "Observação": "Se a nova compra faria SUB disponível / carteira originada acumulada ficar abaixo da trava, o principal excedente não é reinvestido e passa para caixa SELIC.",
+                "Indicador": "Subordinação mínima estrutural",
+                "Fórmula": "SUB_disponivel / PL_FIDC >= subordinacao_minima",
+                "Observação": "Reinvestimento troca caixa por carteira e não consome PL. Quando perdas/custos quebram o piso, o motor registra aporte subordinado necessário.",
             },
             {
                 "Indicador": "Aporte SUB para trava mínima",
-                "Fórmula": "aporte_subordinacao_minima = max(subordinacao_minima * carteira_originada_acumulada - SUB_disponivel, 0)",
+                "Fórmula": "aporte_subordinacao_minima = max((subordinacao_minima * PL_FIDC - SUB_disponivel) / (1 - subordinacao_minima), 0)",
                 "Observação": "Quando perdas ou custos consumirem a SUB abaixo do piso, o motor registra o suporte subordinado necessário para que a condição mínima não seja desrespeitada.",
             },
             {
