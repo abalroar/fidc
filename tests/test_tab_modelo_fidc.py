@@ -39,18 +39,20 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn('tabindex="0"', html)
 
     def test_requested_page_defaults_are_encoded(self) -> None:
-        self.assertEqual(750_000_000.0, tab_modelo_fidc.DEFAULT_VOLUME_CARTEIRA)
-        self.assertEqual(0.04, tab_modelo_fidc.DEFAULT_TX_CESSAO_AM)
+        self.assertEqual(1_000_000_000.0, tab_modelo_fidc.DEFAULT_VOLUME_CARTEIRA)
+        self.assertEqual(0.14, tab_modelo_fidc.DEFAULT_TX_CESSAO_AM)
         self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_PERDA_ESPERADA_AM)
         self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_PERDA_INESPERADA_AM)
+        self.assertEqual(0.40, tab_modelo_fidc.DEFAULT_PERDA_CICLO)
         self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_AGIO_AQUISICAO)
         self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_EXCESSO_SPREAD_SENIOR_AM)
-        self.assertEqual(0.75, tab_modelo_fidc.DEFAULT_PROP_SENIOR)
-        self.assertEqual(0.15, tab_modelo_fidc.DEFAULT_PROP_MEZZ)
-        self.assertEqual(0.10, tab_modelo_fidc.DEFAULT_PROP_SUB)
-        self.assertEqual(0.0135, tab_modelo_fidc.DEFAULT_TAXA_SENIOR)
-        self.assertEqual(0.05, tab_modelo_fidc.DEFAULT_TAXA_MEZZ)
-        self.assertEqual(30.0, tab_modelo_fidc.DEFAULT_CARENCIA_PRINCIPAL_MESES)
+        self.assertEqual(0.70, tab_modelo_fidc.DEFAULT_PROP_SENIOR)
+        self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_PROP_MEZZ)
+        self.assertEqual(0.30, tab_modelo_fidc.DEFAULT_PROP_SUB)
+        self.assertEqual(0.016, tab_modelo_fidc.DEFAULT_TAXA_SENIOR)
+        self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_TAXA_MEZZ)
+        self.assertEqual(18.0, tab_modelo_fidc.DEFAULT_CARENCIA_PRINCIPAL_MESES)
+        self.assertEqual(0.30, tab_modelo_fidc.DEFAULT_SUBORDINACAO_MINIMA_REINVESTIMENTO)
         self.assertEqual(0.13, tab_modelo_fidc.DEFAULT_SELIC_AA_2026)
         self.assertEqual(0.12, tab_modelo_fidc.DEFAULT_SELIC_AA_2027_ONWARD)
         self.assertEqual(2028, tab_modelo_fidc.DEFAULT_SELIC_PERPETUAL_YEAR)
@@ -678,11 +680,13 @@ class TabModeloFidcTests(unittest.TestCase):
             reinvestimento_principal_total=20.0,
             reinvestimento_excesso_total=5.0,
             nova_originacao_total=25.0,
+            reinvestimento_bloqueado_subordinacao_total=3.0,
             carteira_total_originada=125.0,
             ead_maximo=110.0,
             ead_medio_ponderado=105.0,
             sub_final_sem_inadimplencia=23.0,
             colchao_sem_perdas_sobre_originacao=23.0 / 125.0,
+            subordinacao_minima_reinvestimento=0.30,
             perda_ciclo_calibrada=0.02,
             perda_ciclo_calibrada_anual_equivalente=0.04,
             perda_ciclo_calibrada_pos_lgd=0.02,
@@ -771,6 +775,7 @@ class TabModeloFidcTests(unittest.TestCase):
             kpi_cards=kpi_cards,
             revolvency_cards=revolvency_cards,
             premissas_summary_df=premissas_summary,
+            timeline_frame=frame,
             balance_chart_df=balance_chart_df,
             loss_chart_df=loss_chart_df,
             protection_chart_df=protection_chart_df,
@@ -790,7 +795,7 @@ class TabModeloFidcTests(unittest.TestCase):
         from pptx import Presentation
 
         presentation = Presentation(BytesIO(pptx))
-        self.assertGreaterEqual(len(presentation.slides), 4)
+        self.assertEqual(3, len(presentation.slides))
         with zipfile.ZipFile(BytesIO(pptx)) as archive:
             names = archive.namelist()
             xml_payload = "\n".join(
@@ -800,10 +805,11 @@ class TabModeloFidcTests(unittest.TestCase):
             )
         self.assertTrue(any(name.startswith("ppt/charts/chart") for name in names))
         self.assertIn("Modelagem FIDC", xml_payload)
-        self.assertIn("Premissas resumidas", xml_payload)
-        self.assertIn("Evolução do saldo das cotas", xml_payload)
-        self.assertIn("Perda da carteira", xml_payload)
+        self.assertIn("Premissas Principais", xml_payload)
+        self.assertIn("Trava de Subordinação", xml_payload)
+        self.assertIn("Evolução do Saldo das Cotas", xml_payload)
         self.assertIn("Proteção da estrutura", xml_payload)
+        self.assertNotRegex(xml_payload, r"<c:(?:axId|crossAx)[^>]+val=\"-")
 
 
 if __name__ == "__main__":

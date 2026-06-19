@@ -446,6 +446,36 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertAlmostEqual(periods[1].fluxo_remanescente_mezz, periods[1].saldo_caixa_selic_fim)
         self.assertGreater(periods[2].pl_fidc, periods[1].pl_fidc)
 
+    def test_reinvestment_lock_caps_new_origination_to_minimum_subordination(self):
+        monthly_dates = [datetime(2025, 1, 1), datetime(2025, 2, 1)]
+        premissas = Premissas(
+            volume=1_000.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.70,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=0.30,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            carteira_revolvente=True,
+            prazo_fidc_anos=1.0,
+            prazo_medio_recebiveis_meses=4.0,
+            subordinacao_minima_reinvestimento=0.30,
+        )
+
+        periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
+
+        self.assertAlmostEqual(250.0, periods[1].principal_recebido_carteira)
+        self.assertAlmostEqual(0.0, periods[1].reinvestimento_principal)
+        self.assertAlmostEqual(250.0, periods[1].reinvestimento_bloqueado_subordinacao)
+        self.assertAlmostEqual(1_000.0, periods[1].carteira_originada_acumulada)
+        self.assertGreaterEqual(periods[1].colchao_originada_pct, 0.30)
+
     def test_revolving_portfolio_stops_new_origination_when_average_term_no_longer_fits(self):
         monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(37)]
         premissas = Premissas(

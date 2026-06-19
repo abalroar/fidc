@@ -52,6 +52,7 @@ class Premissas:
     maturacao_over90_cap: float = 0.40
     agio_aquisicao: float = 0.0
     excesso_spread_senior_am: float = 0.0
+    subordinacao_minima_reinvestimento: float = 0.0
     selic_aa_por_ano: tuple[tuple[int, float], ...] = ()
 
     @property
@@ -111,6 +112,10 @@ class PeriodResult:
     resultado_carteira_liquido: float
     prazo_restante_reinvestimento_meses: float
     reinvestimento_elegivel: bool
+    subordinacao_minima_reinvestimento: float
+    carteira_originada_acumulada: float
+    capacidade_reinvestimento_subordinacao: float
+    reinvestimento_bloqueado_subordinacao: float
     principal_recebido_carteira: float
     reinvestimento_principal: float
     reinvestimento_excesso: float
@@ -139,6 +144,7 @@ class PeriodResult:
     pmt_sub_jr: float
     pl_sub_jr: float
     subordinacao_pct: Optional[float]
+    colchao_originada_pct: Optional[float]
     pl_sub_jr_modelo: Optional[float] = field(default=None)
     subordinacao_pct_modelo: Optional[float] = field(default=None)
 
