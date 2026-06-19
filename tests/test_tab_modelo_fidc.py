@@ -3,6 +3,7 @@ from __future__ import annotations
 from io import BytesIO
 from datetime import date
 from types import SimpleNamespace
+import re
 import unittest
 import zipfile
 
@@ -823,6 +824,12 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn("Evolução do Saldo das Cotas", xml_payload)
         self.assertIn("Proteção da estrutura", xml_payload)
         self.assertNotRegex(xml_payload, r"<c:(?:axId|crossAx)[^>]+val=\"-")
+        axis_ids = [
+            int(value)
+            for value in re.findall(r"<c:(?:axId|crossAx)[^>]+val=\"(\d+)\"", xml_payload)
+        ]
+        self.assertTrue(axis_ids)
+        self.assertLess(max(axis_ids), 2**31)
 
 
 if __name__ == "__main__":

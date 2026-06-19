@@ -2106,23 +2106,31 @@ def _build_model_dashboard_pptx_bytes(
     return _normalize_pptx_unsigned_chart_ids(output.getvalue())
 
 
-_PPTX_SIGNED_CHART_AXIS_ID_RE = re.compile(rb'(<c:(?:axId|crossAx)\b[^>]*\bval=")(-\d+)(")')
+_PPTX_CHART_AXIS_ID_RE = re.compile(rb'(<c:(?:axId|crossAx)\b[^>]*\bval=")(-?\d+)(")')
+_PPTX_CHART_AXID_RE = re.compile(rb'<c:axId\b[^>]*\bval="(-?\d+)"')
 
 
 def _normalize_pptx_unsigned_chart_ids(pptx_bytes: bytes) -> bytes:
-    """Make chart axis identifiers explicit UInt32 values for stricter OpenXML readers."""
+    """Keep chart axis IDs positive and inside Office's signed-32 comfort zone."""
     source = BytesIO(pptx_bytes)
     target = BytesIO()
-
-    def normalize(match: re.Match[bytes]) -> bytes:
-        unsigned_value = int(match.group(2)) % (2**32)
-        return match.group(1) + str(unsigned_value).encode("ascii") + match.group(3)
 
     with ZipFile(source, "r") as zin, ZipFile(target, "w", compression=ZIP_DEFLATED) as zout:
         for item in zin.infolist():
             payload = zin.read(item.filename)
             if item.filename.startswith("ppt/charts/") and item.filename.endswith(".xml"):
-                payload = _PPTX_SIGNED_CHART_AXIS_ID_RE.sub(normalize, payload)
+                axis_values = list(dict.fromkeys(_PPTX_CHART_AXID_RE.findall(payload)))
+                axis_id_map = {
+                    old: str(1_000_000 + chart_index).encode("ascii")
+                    for chart_index, old in enumerate(axis_values, start=1)
+                }
+
+                def normalize(match: re.Match[bytes]) -> bytes:
+                    value = match.group(2)
+                    normalized = axis_id_map.get(value, value)
+                    return match.group(1) + normalized + match.group(3)
+
+                payload = _PPTX_CHART_AXIS_ID_RE.sub(normalize, payload)
             zout.writestr(item, payload)
     return target.getvalue()
 
