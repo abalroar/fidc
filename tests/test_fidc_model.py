@@ -442,7 +442,7 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertGreater(periods[1].principal_recebido_carteira, 0.0)
         self.assertGreater(periods[1].reinvestimento_excesso, 0.0)
         self.assertAlmostEqual(
-            periods[1].reinvestimento_excesso,
+            periods[1].reinvestimento_principal + periods[1].reinvestimento_excesso,
             periods[1].nova_originacao,
         )
         self.assertGreater(periods[2].carteira, periods[1].carteira)
@@ -479,10 +479,16 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertAlmostEqual(0.0, periods[1].reinvestimento_excesso)
         self.assertGreater(periods[1].reinvestimento_bloqueado_limite_carteira, 0.0)
         self.assertGreater(periods[1].saldo_caixa_selic_fim, 0.0)
-        self.assertAlmostEqual(1_000_000.0, periods[-1].carteira_originada_acumulada)
+        self.assertGreater(periods[-1].carteira_originada_acumulada, 1_000_000.0)
 
     def test_card_installment_vencimento_and_pdd_are_separate_for_mc3(self):
-        monthly_dates = [datetime(2025, 1, 1), datetime(2025, 2, 1)]
+        monthly_dates = [
+            datetime(2025, 1, 1),
+            datetime(2025, 2, 1),
+            datetime(2025, 3, 1),
+            datetime(2025, 4, 1),
+            datetime(2025, 5, 1),
+        ]
         premissas = Premissas(
             volume=100.0,
             tx_cessao_am=0.0,
@@ -513,8 +519,12 @@ class FidcModelParityTest(unittest.TestCase):
         periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
 
         self.assertAlmostEqual(100.0 / 7.0, periods[1].carteira_vencendo)
-        self.assertAlmostEqual(100.0 / 7.0, periods[1].principal_recebido_carteira)
-        self.assertAlmostEqual(100.0 * 0.40 / 3.0, periods[1].despesa_provisao)
+        self.assertAlmostEqual((100.0 / 7.0) * 0.60, periods[1].principal_recebido_carteira)
+        self.assertAlmostEqual((100.0 / 7.0) * 0.40, periods[1].principal_inadimplente)
+        self.assertAlmostEqual(0.0, periods[1].despesa_provisao)
+        self.assertAlmostEqual(0.0, periods[1].npl90_estoque_fim)
+        self.assertGreater(periods[4].entrada_npl90, 0.0)
+        self.assertGreater(periods[4].despesa_provisao, 0.0)
 
     def test_reinvestment_uses_cash_even_at_minimum_subordination(self):
         monthly_dates = [datetime(2025, 1, 1), datetime(2025, 2, 1)]
@@ -542,10 +552,10 @@ class FidcModelParityTest(unittest.TestCase):
 
         self.assertAlmostEqual(250.0, periods[1].principal_recebido_carteira)
         self.assertAlmostEqual(250.0, periods[1].reinvestimento_principal)
-        self.assertAlmostEqual(0.0, periods[1].nova_originacao)
+        self.assertAlmostEqual(250.0, periods[1].nova_originacao)
         self.assertAlmostEqual(0.0, periods[1].reinvestimento_bloqueado_subordinacao)
-        self.assertAlmostEqual(1_000.0, periods[1].carteira_originada_acumulada)
-        self.assertAlmostEqual(0.30, periods[1].colchao_originada_pct)
+        self.assertAlmostEqual(1_250.0, periods[1].carteira_originada_acumulada)
+        self.assertAlmostEqual(300.0 / 1_250.0, periods[1].colchao_originada_pct)
         self.assertAlmostEqual(0.30, periods[1].subordinacao_pct)
 
     def test_subordination_lock_adds_support_when_losses_breach_floor(self):
@@ -576,7 +586,7 @@ class FidcModelParityTest(unittest.TestCase):
 
         self.assertGreater(periods[1].aporte_subordinacao_minima, 0.0)
         self.assertAlmostEqual(0.30, periods[1].subordinacao_pct)
-        self.assertAlmostEqual(0.30, periods[1].colchao_originada_pct)
+        self.assertAlmostEqual(periods[1].pl_sub_jr / periods[1].carteira_originada_acumulada, periods[1].colchao_originada_pct)
 
     def test_revolving_portfolio_stops_new_origination_when_average_term_no_longer_fits(self):
         monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(37)]
@@ -844,9 +854,44 @@ class FidcModelParityTest(unittest.TestCase):
             carteira_revolvente=False,
         )
         periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
-        self.assertAlmostEqual(0.0, periods[1].npl90_estoque_fim, delta=1e-6)
-        self.assertAlmostEqual(0.0, periods[1].provisao_requerida, delta=1e-6)
+        self.assertAlmostEqual(500_000.0, periods[1].npl90_estoque_fim, delta=1e-6)
+        self.assertAlmostEqual(500_000.0, periods[1].provisao_requerida, delta=1e-6)
         self.assertAlmostEqual(500_000.0, periods[1].despesa_provisao, delta=1e-6)
+
+    def test_mc3_writeoff_occurs_360_days_after_default(self):
+        monthly_dates = [datetime(2025 + (month // 12), (month % 12) + 1, 1) for month in range(15)]
+        premissas = Premissas(
+            volume=100.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.0,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=1.0,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            modelo_credito=CREDIT_MODEL_MC3_CARTOES,
+            perda_ciclo=0.40,
+            npl90_lag_meses=3,
+            writeoff_apos_atraso_meses=12,
+            cobertura_minima_npl90=1.0,
+            lgd=1.0,
+            maturacao_over90_cap=0.40,
+            prazo_medio_recebiveis_meses=3.0,
+            qtd_parcelas_media=7.0,
+            carteira_revolvente=False,
+        )
+
+        periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
+
+        self.assertGreater(periods[4].entrada_npl90, 0.0)
+        self.assertEqual(0.0, periods[4].baixa_credito)
+        self.assertGreater(periods[12].npl90_estoque_fim, 0.0)
+        self.assertGreater(periods[13].baixa_credito, 0.0)
 
 
 if __name__ == "__main__":

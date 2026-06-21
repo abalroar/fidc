@@ -356,7 +356,7 @@ function addLockSlide() {
   });
   text(
     slide,
-    "Leitura: giro do principal não aumenta o denominador; excesso retido por limite fica em caixa/PL.",
+    "Leitura: toda compra de direitos creditórios aumenta a originada acumulada; caixa retido por limite fica em SELIC/PL.",
     0.65,
     6.08,
     11.80,

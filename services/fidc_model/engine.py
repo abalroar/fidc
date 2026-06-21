@@ -203,6 +203,7 @@ class _CreditState:
     provisao_saldo: float = 0.0
     npl90_estoque: float = 0.0
     npl90_pipeline: list[tuple[float, float]] | None = None
+    npl90_writeoff_pipeline: list[tuple[float, float]] | None = None
     bucket_1_30: float = 0.0
     bucket_31_60: float = 0.0
     bucket_61_90: float = 0.0
@@ -211,6 +212,8 @@ class _CreditState:
     def __post_init__(self) -> None:
         if self.npl90_pipeline is None:
             self.npl90_pipeline = []
+        if self.npl90_writeoff_pipeline is None:
+            self.npl90_writeoff_pipeline = []
 
 
 @dataclass(frozen=True)
@@ -246,16 +249,27 @@ def _scale_period_probability(monthly_probability: float, period_months: float) 
 
 
 def _age_npl90_pipeline(state: _CreditState, period_months: float) -> float:
+    matured, remaining_pipeline = _age_pipeline(state.npl90_pipeline or [], period_months)
+    state.npl90_pipeline = remaining_pipeline
+    return matured
+
+
+def _age_writeoff_pipeline(state: _CreditState, period_months: float) -> float:
+    matured, remaining_pipeline = _age_pipeline(state.npl90_writeoff_pipeline or [], period_months)
+    state.npl90_writeoff_pipeline = remaining_pipeline
+    return matured
+
+
+def _age_pipeline(pipeline: Sequence[tuple[float, float]], period_months: float) -> tuple[float, list[tuple[float, float]]]:
     matured = 0.0
     remaining_pipeline: list[tuple[float, float]] = []
-    for remaining_months, amount in state.npl90_pipeline or []:
+    for remaining_months, amount in pipeline:
         remaining_after_period = remaining_months - period_months
         if remaining_after_period <= 1e-9:
             matured += amount
         else:
             remaining_pipeline.append((remaining_after_period, amount))
-    state.npl90_pipeline = remaining_pipeline
-    return matured
+    return matured, remaining_pipeline
 
 
 def _legacy_credit_period(carteira: float, premissas: Premissas, delta_dc: int) -> _CreditPeriod:
@@ -444,16 +458,92 @@ def _mc3_cartoes_credit_period(
     period_months: float,
     state: _CreditState,
 ) -> _CreditPeriod:
+    npl90_start = state.npl90_estoque
+    provisao_start = state.provisao_saldo
+    lgd = min(max(float(premissas.lgd), 0.0), 1.0)
+    cobertura_minima = max(float(premissas.cobertura_minima_npl90), 0.0)
+    lag = max(float(premissas.npl90_lag_meses), 0.0)
+    writeoff_from_default = max(float(premissas.writeoff_apos_atraso_meses), 0.0)
+
+    writeoff_maturado = min(_age_writeoff_pipeline(state, period_months), npl90_start)
+    writeoff_loss = writeoff_maturado * lgd
+    provisao_after_writeoff = max(provisao_start - writeoff_loss, 0.0)
+    uncovered_writeoff = max(writeoff_loss - provisao_start, 0.0)
+    npl90_after_writeoff = max(npl90_start - writeoff_maturado, 0.0)
+
+    entrada_npl90 = _age_npl90_pipeline(state, period_months)
     cap = min(max(float(premissas.maturacao_over90_cap), 0.0), 1.0)
     perda_ciclo = min(max(float(premissas.perda_ciclo), 0.0), cap)
-    perda_ciclo += max(float(premissas.renegociado_pct), 0.0)
-    mc3_premissas = replace(premissas, perda_ciclo=perda_ciclo)
-    return _npl90_credit_period(
-        carteira=carteira,
+    perda_ciclo = min(perda_ciclo + max(float(premissas.renegociado_pct), 0.0), 1.0)
+    principal_inadimplente = max(carteira_vencendo, 0.0) * perda_ciclo
+    if principal_inadimplente > 0.0:
+        if lag <= 1e-9:
+            entrada_npl90 += principal_inadimplente
+        else:
+            assert state.npl90_pipeline is not None
+            state.npl90_pipeline.append((lag, principal_inadimplente))
+
+    writeoff_delay_after_npl = max(writeoff_from_default - lag, 0.0)
+    immediate_writeoff = 0.0
+    if entrada_npl90 > 0.0:
+        if writeoff_delay_after_npl <= 1e-9:
+            immediate_writeoff = entrada_npl90
+        else:
+            assert state.npl90_writeoff_pipeline is not None
+            state.npl90_writeoff_pipeline.append((writeoff_delay_after_npl, entrada_npl90))
+
+    npl90_pre_immediate_writeoff = npl90_after_writeoff + entrada_npl90
+    if immediate_writeoff > 0.0:
+        immediate_loss = immediate_writeoff * lgd
+        uncovered_immediate = max(immediate_loss - provisao_after_writeoff, 0.0)
+        provisao_after_writeoff = max(provisao_after_writeoff - immediate_loss, 0.0)
+        writeoff_loss += immediate_loss
+        uncovered_writeoff += uncovered_immediate
+    npl90_end = max(npl90_pre_immediate_writeoff - immediate_writeoff, 0.0)
+    provisao_requerida = npl90_end * cobertura_minima * lgd
+    reforco_provisao = max(provisao_requerida - provisao_after_writeoff, 0.0)
+    despesa_provisao = uncovered_writeoff + reforco_provisao
+    cobertura_npl90 = provisao_requerida / (npl90_end * lgd) if npl90_end > 0.0 and lgd > 0.0 else None
+
+    pipeline_by_bucket = {"1_30": 0.0, "31_60": 0.0, "61_90": 0.0}
+    for remaining_months, amount in state.npl90_pipeline or []:
+        if remaining_months > 2.0:
+            pipeline_by_bucket["1_30"] += amount
+        elif remaining_months > 1.0:
+            pipeline_by_bucket["31_60"] += amount
+        else:
+            pipeline_by_bucket["61_90"] += amount
+    pending_pre_90 = sum(pipeline_by_bucket.values())
+
+    state.provisao_saldo = provisao_requerida
+    state.npl90_estoque = npl90_end
+    state.bucket_1_30 = pipeline_by_bucket["1_30"]
+    state.bucket_31_60 = pipeline_by_bucket["31_60"]
+    state.bucket_61_90 = pipeline_by_bucket["61_90"]
+    state.bucket_90_plus = npl90_end
+
+    return _CreditPeriod(
+        perda_esperada_despesa=reforco_provisao,
+        perda_inesperada_despesa=uncovered_writeoff,
+        perda_carteira_despesa=despesa_provisao,
         carteira_vencendo=carteira_vencendo,
-        premissas=mc3_premissas,
-        period_months=period_months,
-        state=state,
+        principal_inadimplente=principal_inadimplente,
+        entrada_npl90=entrada_npl90,
+        npl90_estoque_inicio=npl90_start,
+        npl90_estoque_fim=npl90_end,
+        provisao_saldo_inicio=provisao_start,
+        provisao_requerida=provisao_requerida,
+        despesa_provisao=despesa_provisao,
+        provisao_saldo_fim=provisao_requerida,
+        cobertura_npl90=cobertura_npl90,
+        baixa_credito=writeoff_loss,
+        writeoff_descoberto=uncovered_writeoff,
+        recuperacao_credito=0.0,
+        bucket_adimplente=max(carteira - pending_pre_90 - npl90_end, 0.0),
+        bucket_1_30=pipeline_by_bucket["1_30"],
+        bucket_31_60=pipeline_by_bucket["31_60"],
+        bucket_61_90=pipeline_by_bucket["61_90"],
+        bucket_90_plus=npl90_end,
     )
 
 def _credit_period(
@@ -518,6 +608,8 @@ def _period_month_fraction(month_deltas: Sequence[int], index: int, delta_dc: in
 
 
 def _reinvestment_cutoff_month(premissas: Premissas, fallback_term_months: int) -> float:
+    if premissas.inicio_runoff_meses is not None:
+        return max(float(premissas.inicio_runoff_meses) - 1.0, 0.0)
     term_months = _term_months(premissas.prazo_fidc_anos, fallback_term_months)
     prazo_medio = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
     return max(float(term_months) - prazo_medio, 0.0)
@@ -529,14 +621,19 @@ def _is_reinvestment_eligible(premissas: Premissas, month_delta: int, fallback_t
     return float(month_delta) <= _reinvestment_cutoff_month(premissas, fallback_term_months)
 
 
-def _revolving_portfolio_limit(premissas: Premissas) -> float | None:
+def _revolving_portfolio_limit(premissas: Premissas, month_delta: int = 0) -> float | None:
+    limits: list[float] = []
     multiple = premissas.limite_carteira_revolvente_multiplo
-    if multiple is None:
-        return None
-    multiple = float(multiple)
-    if multiple <= 0.0:
-        return None
-    return max(float(premissas.volume), 0.0) * multiple
+    initial_portfolio = max(float(premissas.volume), 0.0)
+    if multiple is not None:
+        multiple = float(multiple)
+        if multiple > 0.0:
+            limits.append(initial_portfolio * multiple)
+    annual_growth = premissas.crescimento_max_carteira_aa
+    if annual_growth is not None:
+        annual_growth = max(float(annual_growth), -0.999999)
+        limits.append(initial_portfolio * ((1.0 + annual_growth) ** (max(float(month_delta), 0.0) / 12.0)))
+    return min(limits) if limits else None
 
 
 def _period_indexes_for_dates(datas: Sequence[datetime]) -> list[int]:
@@ -639,7 +736,7 @@ def build_flow(
     pl_sub_jr_initial = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
     carteira_atual = premissas.volume
     carteira_originada_acumulada = max(float(premissas.volume), 0.0)
-    limite_carteira_revolvente = _revolving_portfolio_limit(premissas) if premissas.carteira_revolvente else None
+    limite_carteira_revolvente = _revolving_portfolio_limit(premissas, 0) if premissas.carteira_revolvente else None
     caixa_selic_atual = 0.0
     accrued_interest_senior = 0.0
     accrued_interest_mezz = 0.0
@@ -760,6 +857,9 @@ def build_flow(
         )
         tx_cessao_am_aplicada = max(premissas.tx_cessao_am, tx_cessao_am_piso)
         period_months = _period_month_fraction(month_deltas, index, delta_dc)
+        limite_carteira_revolvente = (
+            _revolving_portfolio_limit(premissas, month_deltas[index]) if premissas.carteira_revolvente else None
+        )
         prazo_medio_recebiveis = max(float(premissas.prazo_medio_recebiveis_meses), 0.01)
         prazo_principal_recebiveis = max(
             float(premissas.qtd_parcelas_media or premissas.prazo_medio_recebiveis_meses),
@@ -840,9 +940,28 @@ def build_flow(
         prelim_values = _period_cash_values(reinvestimento_principal_desejado)
         reinvestimento_excesso_desejado = max(prelim_values[4], 0.0) if reinvestimento_elegivel else 0.0
         subordinacao_minima_reinvestimento = max(float(premissas.subordinacao_minima_reinvestimento), 0.0)
-        capacidade_reinvestimento_subordinacao = reinvestimento_principal_desejado + reinvestimento_excesso_desejado
-        reinvestimento_principal = reinvestimento_principal_desejado
+        compra_carteira_desejada = reinvestimento_principal_desejado + reinvestimento_excesso_desejado
+        capacidade_reinvestimento_subordinacao = compra_carteira_desejada
         reinvestimento_bloqueado_subordinacao = 0.0
+        resultado_carteira_liquido = fluxo_carteira + credit.recuperacao_credito - perda_carteira_despesa
+        baixa_credito_face = credit.baixa_credito / preco_pago_fator if preco_pago_fator > 1e-12 else credit.baixa_credito
+        carteira_apos_recebimento_e_baixa = max(
+            carteira - principal_recebido_carteira - baixa_credito_face,
+            0.0,
+        )
+        if not reinvestimento_elegivel:
+            compra_carteira_periodo = 0.0
+        elif limite_carteira_revolvente is None:
+            compra_carteira_periodo = compra_carteira_desejada
+        else:
+            capacidade_compra_por_limite = max(limite_carteira_revolvente - carteira_apos_recebimento_e_baixa, 0.0)
+            compra_carteira_periodo = min(compra_carteira_desejada, capacidade_compra_por_limite)
+        reinvestimento_principal = min(reinvestimento_principal_desejado, compra_carteira_periodo)
+        reinvestimento_excesso = min(
+            reinvestimento_excesso_desejado,
+            max(compra_carteira_periodo - reinvestimento_principal, 0.0),
+        )
+        reinvestimento_bloqueado_limite_carteira = max(compra_carteira_desejada - compra_carteira_periodo, 0.0)
         (
             principal_para_caixa_selic,
             rendimento_caixa_selic,
@@ -852,21 +971,9 @@ def build_flow(
             pl_fidc_atual,
             pl_sub_jr,
         ) = _period_cash_values(reinvestimento_principal)
-        resultado_carteira_liquido = fluxo_carteira + credit.recuperacao_credito - perda_carteira_despesa
-        baixa_credito_face = credit.baixa_credito / preco_pago_fator if preco_pago_fator > 1e-12 else credit.baixa_credito
-        carteira_apos_reposicao = max(
-            carteira - principal_recebido_carteira - baixa_credito_face + reinvestimento_principal,
-            0.0,
-        )
-        if limite_carteira_revolvente is None:
-            capacidade_excesso_por_limite = reinvestimento_excesso_desejado
-        else:
-            capacidade_excesso_por_limite = max(limite_carteira_revolvente - carteira_apos_reposicao, 0.0)
-        reinvestimento_excesso = min(reinvestimento_excesso_desejado, capacidade_excesso_por_limite)
-        reinvestimento_bloqueado_limite_carteira = max(reinvestimento_excesso_desejado - reinvestimento_excesso, 0.0)
         compra_carteira_periodo = reinvestimento_principal + reinvestimento_excesso
-        nova_originacao = reinvestimento_excesso
-        carteira_fim = carteira_apos_reposicao + reinvestimento_excesso
+        nova_originacao = compra_carteira_periodo
+        carteira_fim = carteira_apos_recebimento_e_baixa + compra_carteira_periodo
         caixa_nao_reinvestido = principal_para_caixa_selic + max(fluxo_remanescente_mezz - reinvestimento_excesso, 0.0)
         saldo_caixa_selic_fim = max(
             saldo_caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_mezz - reinvestimento_excesso,

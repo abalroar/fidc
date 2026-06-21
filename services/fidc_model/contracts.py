@@ -31,6 +31,8 @@ class Premissas:
     prazo_mezz_anos: Optional[float] = None
     prazo_sub_jr_anos: Optional[float] = None
     limite_carteira_revolvente_multiplo: Optional[float] = None
+    crescimento_max_carteira_aa: Optional[float] = None
+    inicio_runoff_meses: Optional[int] = None
     amortizacao_senior: str = "workbook"
     amortizacao_mezz: str = "workbook"
     juros_senior: str = "periodic"
@@ -42,6 +44,7 @@ class Premissas:
     modelo_credito: str = "legacy_percent"
     perda_ciclo: float = 0.0
     npl90_lag_meses: int = 3
+    writeoff_apos_atraso_meses: int = 12
     cobertura_minima_npl90: float = 1.0
     lgd: float = 1.0
     rolagem_adimplente_1_30: float = 0.0
