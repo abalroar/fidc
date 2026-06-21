@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from io import BytesIO
-from datetime import date
+from datetime import date, datetime
 from types import SimpleNamespace
 import re
 import unittest
@@ -506,6 +506,55 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertAlmostEqual(550.0, protection.iloc[1]["nova_originacao_acumulada"])
         self.assertAlmostEqual(1_550.0, protection.iloc[1]["carteira_originada_acumulada"])
         self.assertAlmostEqual(330.0, protection.iloc[1]["nova_originacao_motor"])
+
+    def test_loss_scenario_50_percent_is_not_capped_by_base_40_percent_over90_limit(self) -> None:
+        datas = tab_modelo_fidc._build_monthly_dates(datetime(2026, 1, 1), 2.0)
+        premissas = tab_modelo_fidc.Premissas(
+            volume=1_000_000_000.0,
+            tx_cessao_am=0.14,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0035,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.70,
+            taxa_senior=0.016,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=0.30,
+            prazo_fidc_anos=2.0,
+            prazo_medio_recebiveis_meses=tab_modelo_fidc.DEFAULT_PRAZO_RECEBIVEIS_MESES,
+            carteira_revolvente=True,
+            amortizacao_senior="linear",
+            juros_senior="periodic",
+            inicio_amortizacao_senior_meses=18,
+            modelo_credito="npl90_provision",
+            perda_ciclo=0.40,
+            npl90_lag_meses=3,
+            writeoff_apos_atraso_meses=12,
+            cobertura_minima_npl90=1.0,
+            lgd=1.0,
+            maturacao_over90_cap=0.40,
+            crescimento_max_carteira_aa=0.20,
+            inicio_runoff_meses=18,
+            subordinacao_minima_reinvestimento=0.30,
+            selic_aa_por_ano=((2026, 0.13), (2027, 0.12), (2028, 0.12)),
+        )
+
+        protection = tab_modelo_fidc._build_loss_scenario_protection_frame(
+            datas=datas,
+            feriados=(),
+            curva_du=(1.0, 252.0, 504.0),
+            curva_taxa_aa=(0.13, 0.13, 0.13),
+            premissas=premissas,
+            interpolation_method=tab_modelo_fidc.INTERPOLATION_METHOD_FLAT_FORWARD_252,
+            portfolio_mode=tab_modelo_fidc.PORTFOLIO_MODE_REVOLVING,
+        )
+
+        wide = protection.pivot_table(index="indice", columns="serie", values="valor", aggfunc="last")
+        loss_40 = wide["Perda 40%"].dropna()
+        loss_50 = wide["Perda 50%"].dropna()
+        self.assertFalse(loss_40.equals(loss_50))
+        self.assertNotAlmostEqual(float(loss_50.iloc[-1]), float(loss_40.iloc[-1]))
 
     def test_model_charts_are_filled_area_charts(self) -> None:
         frame = pd.DataFrame(

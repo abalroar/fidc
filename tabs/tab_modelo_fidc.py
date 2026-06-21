@@ -1125,6 +1125,16 @@ def _loss_scenario_label(loss_rate: float) -> str:
     return f"Perda {_format_number_br(loss_rate * 100.0, 0)}%"
 
 
+def _premissas_for_loss_scenario(premissas: Premissas, loss_rate: float) -> Premissas:
+    scenario_loss = max(float(loss_rate), 0.0)
+    base_cap = max(float(premissas.maturacao_over90_cap), 0.0)
+    return replace(
+        premissas,
+        perda_ciclo=scenario_loss,
+        maturacao_over90_cap=max(base_cap, scenario_loss),
+    )
+
+
 def _build_loss_scenario_protection_frame(
     *,
     datas: list[datetime],
@@ -1137,19 +1147,20 @@ def _build_loss_scenario_protection_frame(
 ) -> pd.DataFrame:
     scenario_frames: list[pd.DataFrame] = []
     for loss_rate in LOSS_SCENARIO_VALUES:
+        scenario_premissas = _premissas_for_loss_scenario(premissas, loss_rate)
         scenario_results = build_flow(
             datas,
             feriados,
             curva_du,
             curva_taxa_aa,
-            replace(premissas, perda_ciclo=loss_rate),
+            scenario_premissas,
             interpolation_method=interpolation_method,
         )
         scenario_frame = _build_dataframe(scenario_results)
         scenario_frames.append(
             _build_time_protection_frame(
                 scenario_frame,
-                premissas=replace(premissas, perda_ciclo=loss_rate),
+                premissas=scenario_premissas,
                 portfolio_mode=portfolio_mode,
                 scenario_label=_loss_scenario_label(loss_rate),
             )
