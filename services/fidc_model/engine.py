@@ -529,6 +529,16 @@ def _is_reinvestment_eligible(premissas: Premissas, month_delta: int, fallback_t
     return float(month_delta) <= _reinvestment_cutoff_month(premissas, fallback_term_months)
 
 
+def _revolving_portfolio_limit(premissas: Premissas) -> float | None:
+    multiple = premissas.limite_carteira_revolvente_multiplo
+    if multiple is None:
+        return None
+    multiple = float(multiple)
+    if multiple <= 0.0:
+        return None
+    return max(float(premissas.volume), 0.0) * multiple
+
+
 def _period_indexes_for_dates(datas: Sequence[datetime]) -> list[int]:
     month_deltas = [_months_between(datas[0], dt) for dt in datas]
     workbook_prefix = [0, 6, 12, 18, 24]
@@ -629,6 +639,7 @@ def build_flow(
     pl_sub_jr_initial = pl_fidc_atual - pl_senior_atual - pl_mezz_atual
     carteira_atual = premissas.volume
     carteira_originada_acumulada = max(float(premissas.volume), 0.0)
+    limite_carteira_revolvente = _revolving_portfolio_limit(premissas) if premissas.carteira_revolvente else None
     caixa_selic_atual = 0.0
     accrued_interest_senior = 0.0
     accrued_interest_mezz = 0.0
@@ -691,10 +702,12 @@ def build_flow(
                     resultado_carteira_liquido=0.0,
                     prazo_restante_reinvestimento_meses=float(_term_months(premissas.prazo_fidc_anos, fallback_term_months)),
                     reinvestimento_elegivel=premissas.carteira_revolvente,
+                    limite_carteira_revolvente=limite_carteira_revolvente,
                     subordinacao_minima_reinvestimento=max(float(premissas.subordinacao_minima_reinvestimento), 0.0),
                     carteira_originada_acumulada=carteira_originada_acumulada,
                     capacidade_reinvestimento_subordinacao=0.0,
                     reinvestimento_bloqueado_subordinacao=0.0,
+                    reinvestimento_bloqueado_limite_carteira=0.0,
                     aporte_subordinacao_minima=0.0,
                     principal_recebido_carteira=0.0,
                     reinvestimento_principal=0.0,
@@ -829,7 +842,6 @@ def build_flow(
         subordinacao_minima_reinvestimento = max(float(premissas.subordinacao_minima_reinvestimento), 0.0)
         capacidade_reinvestimento_subordinacao = reinvestimento_principal_desejado + reinvestimento_excesso_desejado
         reinvestimento_principal = reinvestimento_principal_desejado
-        reinvestimento_excesso = reinvestimento_excesso_desejado
         reinvestimento_bloqueado_subordinacao = 0.0
         (
             principal_para_caixa_selic,
@@ -841,10 +853,20 @@ def build_flow(
             pl_sub_jr,
         ) = _period_cash_values(reinvestimento_principal)
         resultado_carteira_liquido = fluxo_carteira + credit.recuperacao_credito - perda_carteira_despesa
+        baixa_credito_face = credit.baixa_credito / preco_pago_fator if preco_pago_fator > 1e-12 else credit.baixa_credito
+        carteira_apos_reposicao = max(
+            carteira - principal_recebido_carteira - baixa_credito_face + reinvestimento_principal,
+            0.0,
+        )
+        if limite_carteira_revolvente is None:
+            capacidade_excesso_por_limite = reinvestimento_excesso_desejado
+        else:
+            capacidade_excesso_por_limite = max(limite_carteira_revolvente - carteira_apos_reposicao, 0.0)
+        reinvestimento_excesso = min(reinvestimento_excesso_desejado, capacidade_excesso_por_limite)
+        reinvestimento_bloqueado_limite_carteira = max(reinvestimento_excesso_desejado - reinvestimento_excesso, 0.0)
         compra_carteira_periodo = reinvestimento_principal + reinvestimento_excesso
         nova_originacao = reinvestimento_excesso
-        baixa_credito_face = credit.baixa_credito / preco_pago_fator if preco_pago_fator > 1e-12 else credit.baixa_credito
-        carteira_fim = max(carteira - principal_recebido_carteira - baixa_credito_face + compra_carteira_periodo, 0.0)
+        carteira_fim = carteira_apos_reposicao + reinvestimento_excesso
         caixa_nao_reinvestido = principal_para_caixa_selic + max(fluxo_remanescente_mezz - reinvestimento_excesso, 0.0)
         saldo_caixa_selic_fim = max(
             saldo_caixa_selic_inicio + principal_para_caixa_selic + fluxo_remanescente_mezz - reinvestimento_excesso,
@@ -922,10 +944,12 @@ def build_flow(
                 resultado_carteira_liquido=resultado_carteira_liquido,
                 prazo_restante_reinvestimento_meses=prazo_restante_reinvestimento,
                 reinvestimento_elegivel=reinvestimento_elegivel,
+                limite_carteira_revolvente=limite_carteira_revolvente,
                 subordinacao_minima_reinvestimento=subordinacao_minima_reinvestimento,
                 carteira_originada_acumulada=carteira_originada_acumulada,
                 capacidade_reinvestimento_subordinacao=capacidade_reinvestimento_subordinacao,
                 reinvestimento_bloqueado_subordinacao=reinvestimento_bloqueado_subordinacao,
+                reinvestimento_bloqueado_limite_carteira=reinvestimento_bloqueado_limite_carteira,
                 aporte_subordinacao_minima=aporte_subordinacao_minima,
                 principal_recebido_carteira=principal_recebido_carteira,
                 reinvestimento_principal=reinvestimento_principal,

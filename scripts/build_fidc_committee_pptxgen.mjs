@@ -350,13 +350,13 @@ function addLockSlide() {
     bodyFontSize: 6.35,
     headerFontSize: 7.2,
   });
-  addTable(slide, payload.lockTable, 0.62, 3.60, 11.88, 2.30, [0.90, 2.25, 2.25, 2.15, 2.15, 2.18], {
+  addTable(slide, payload.lockTable, 0.62, 3.60, 11.88, 2.30, [0.70, 1.78, 1.64, 1.55, 1.65, 1.62, 2.94], {
     bodyFontSize: 6.15,
     headerFontSize: 6.8,
   });
   text(
     slide,
-    "Leitura: giro do principal não aumenta o denominador; a originada acumulada cresce apenas com excesso de caixa reinvestido.",
+    "Leitura: giro do principal não aumenta o denominador; excesso retido por limite fica em caixa/PL.",
     0.65,
     6.08,
     11.80,

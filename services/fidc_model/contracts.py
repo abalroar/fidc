@@ -30,6 +30,7 @@ class Premissas:
     prazo_senior_anos: Optional[float] = None
     prazo_mezz_anos: Optional[float] = None
     prazo_sub_jr_anos: Optional[float] = None
+    limite_carteira_revolvente_multiplo: Optional[float] = None
     amortizacao_senior: str = "workbook"
     amortizacao_mezz: str = "workbook"
     juros_senior: str = "periodic"
@@ -113,10 +114,12 @@ class PeriodResult:
     resultado_carteira_liquido: float
     prazo_restante_reinvestimento_meses: float
     reinvestimento_elegivel: bool
+    limite_carteira_revolvente: Optional[float]
     subordinacao_minima_reinvestimento: float
     carteira_originada_acumulada: float
     capacidade_reinvestimento_subordinacao: float
     reinvestimento_bloqueado_subordinacao: float
+    reinvestimento_bloqueado_limite_carteira: float
     aporte_subordinacao_minima: float
     principal_recebido_carteira: float
     reinvestimento_principal: float

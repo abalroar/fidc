@@ -56,6 +56,7 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertAlmostEqual(3.154420901487235, tab_modelo_fidc.DEFAULT_PRAZO_RECEBIVEIS_MESES)
         self.assertEqual(18.0, tab_modelo_fidc.DEFAULT_CARENCIA_PRINCIPAL_MESES)
         self.assertEqual(0.30, tab_modelo_fidc.DEFAULT_SUBORDINACAO_MINIMA_REINVESTIMENTO)
+        self.assertEqual(1.0, tab_modelo_fidc.DEFAULT_LIMITE_CARTEIRA_REVOLVENTE_MULTIPLO)
         self.assertEqual(0.13, tab_modelo_fidc.DEFAULT_SELIC_AA_2026)
         self.assertEqual(0.12, tab_modelo_fidc.DEFAULT_SELIC_AA_2027_ONWARD)
         self.assertEqual(2028, tab_modelo_fidc.DEFAULT_SELIC_PERPETUAL_YEAR)
@@ -695,6 +696,9 @@ class TabModeloFidcTests(unittest.TestCase):
             reinvestimento_excesso_total=5.0,
             nova_originacao_total=25.0,
             reinvestimento_bloqueado_subordinacao_total=3.0,
+            reinvestimento_bloqueado_limite_carteira_total=4.0,
+            limite_carteira_revolvente_multiplo=1.0,
+            limite_carteira_revolvente=100.0,
             carteira_total_originada=125.0,
             ead_maximo=110.0,
             ead_medio_ponderado=105.0,
