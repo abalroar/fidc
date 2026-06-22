@@ -45,6 +45,7 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_PERDA_ESPERADA_AM)
         self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_PERDA_INESPERADA_AM)
         self.assertEqual(0.40, tab_modelo_fidc.DEFAULT_PERDA_CICLO)
+        self.assertEqual(tab_modelo_fidc.PDD_METHOD_LINEAR_EXPECTED, tab_modelo_fidc.DEFAULT_METODOLOGIA_PDD)
         self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_AGIO_AQUISICAO)
         self.assertEqual(0.0, tab_modelo_fidc.DEFAULT_EXCESSO_SPREAD_SENIOR_AM)
         self.assertEqual(0.70, tab_modelo_fidc.DEFAULT_PROP_SENIOR)
@@ -156,7 +157,7 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn("writeoff_descoberto", markdown)
         self.assertIn("carteira_originada_efetiva = volume_inicial", markdown)
         self.assertIn("Migração por faixas de atraso", markdown)
-        self.assertIn("PDD de cobertura", markdown)
+        self.assertIn("PDD prospectiva", markdown)
         self.assertIn("13,00% a.a.", markdown)
         self.assertIn("12,00% a.a.", markdown)
         self.assertIn("Backlog Fase 2", markdown)
@@ -173,6 +174,19 @@ class TabModeloFidcTests(unittest.TestCase):
         self.assertIn("target de crescimento", markdown)
         self.assertIn("Carteira originada efetiva", markdown)
         self.assertIn("timeline detalhada é a memória de cálculo", markdown)
+
+    def test_committee_premissas_rows_expose_pdd_recognition_method(self) -> None:
+        summary = pd.DataFrame(
+            [
+                {"Premissa": "Metodologia", "Valor": "MC3 Cartões"},
+                {"Premissa": "Reconhecimento da PDD", "Valor": tab_modelo_fidc.PDD_LABEL_LINEAR_EXPECTED},
+            ]
+        )
+
+        rows = tab_modelo_fidc._committee_premissas_rows(summary)
+
+        self.assertIn(("Metodologia", "MC3 Cartões"), rows)
+        self.assertIn(("Reconhecimento da PDD", tab_modelo_fidc.PDD_LABEL_LINEAR_EXPECTED), rows)
 
     def test_revolvency_metrics_compare_sub_final_to_originated_portfolio(self) -> None:
         class Result:

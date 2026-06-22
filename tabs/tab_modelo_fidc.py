@@ -31,6 +31,8 @@ from services.fidc_model import (
     INTEREST_PAYMENT_MODE_PERIODIC,
     INTERPOLATION_METHOD_FLAT_FORWARD_252,
     INTERPOLATION_METHOD_SPLINE,
+    PDD_METHOD_LINEAR_EXPECTED,
+    PDD_METHOD_NPL90_STOCK,
     RATE_MODE_POST_CDI,
     RATE_MODE_PRE,
     Premissas,
@@ -80,6 +82,13 @@ CREDIT_LABEL_MIGRATION = "Migração por faixas de atraso"
 CREDIT_LABEL_MC3 = "MC3 Cartões (Over90 + Reneg 100% PDD)"
 MODEL_VIEW_GERAL = "Modelo FIDC (geral)"
 MODEL_VIEW_MC3 = "FIDC MC3 Cartões"
+PDD_LABEL_NPL90_STOCK = "PDD na entrada NPL 90-360"
+PDD_LABEL_LINEAR_EXPECTED = "PDD linear prospectiva até NPL 90"
+PDD_METHOD_LABELS = {
+    PDD_LABEL_LINEAR_EXPECTED: PDD_METHOD_LINEAR_EXPECTED,
+    PDD_LABEL_NPL90_STOCK: PDD_METHOD_NPL90_STOCK,
+}
+PDD_METHOD_NAMES = {value: label for label, value in PDD_METHOD_LABELS.items()}
 CREDIT_MODEL_LABELS = {
     CREDIT_LABEL_NPL90: CREDIT_MODEL_NPL90,
     CREDIT_LABEL_MC3: CREDIT_MODEL_MC3_CARTOES,
@@ -119,8 +128,9 @@ DEFAULT_LIMITE_CARTEIRA_REVOLVENTE_MULTIPLO = 0.0
 DEFAULT_CRESCIMENTO_MAX_CARTEIRA_AA = 0.20
 DEFAULT_INICIO_RUNOFF_MESES = 18.0
 DEFAULT_WRITEOFF_ATRASO_MESES = 12.0
+DEFAULT_METODOLOGIA_PDD = PDD_METHOD_LINEAR_EXPECTED
 LOSS_SCENARIO_VALUES = (0.0, 0.20, 0.30, 0.40, 0.50)
-MC3_PRESET_VERSION = "mc3-2026-06-21-safras-writeoff360-growth-v1"
+MC3_PRESET_VERSION = "mc3-2026-06-22-pdd-linear-v1"
 DEFAULT_CURVE_START_YEAR = 2026
 DEFAULT_SELIC_PERPETUAL_YEAR = 2028
 DEFAULT_SELIC_AA_2026 = 0.13
@@ -713,6 +723,7 @@ def _apply_mc3_preset_defaults() -> None:
         "modelo_custo_adm_pct": _format_percent_input_value(DEFAULT_CUSTO_ADM_AA * 100.0, 2),
         "modelo_custo_min": _format_brl_input_value(DEFAULT_CUSTO_MIN_MENSAL, 2),
         "modelo_perda_ciclo_pct": _format_percent_input_value(DEFAULT_PERDA_CICLO * 100.0, 2),
+        "modelo_pdd_method": PDD_METHOD_NAMES[DEFAULT_METODOLOGIA_PDD],
         "modelo_npl90_lag_meses": _format_input_value(DEFAULT_NPL90_LAG_MESES, 0),
         "modelo_cobertura_npl90_pct": _format_percent_input_value(DEFAULT_COBERTURA_NPL90 * 100.0, 1),
         "modelo_lgd_pct": _format_percent_input_value(DEFAULT_LGD * 100.0, 1),
@@ -1193,6 +1204,30 @@ def _build_loss_scenario_protection_frame(
     return pd.concat([chart_frame, reference], ignore_index=True)
 
 
+def _build_pdd_method_loss_scenario_frames(
+    *,
+    datas: list[datetime],
+    feriados: tuple[date, ...],
+    curva_du: tuple[float, ...],
+    curva_taxa_aa: tuple[float, ...],
+    premissas: Premissas,
+    interpolation_method: str,
+    portfolio_mode: str,
+) -> dict[str, pd.DataFrame]:
+    return {
+        label: _build_loss_scenario_protection_frame(
+            datas=datas,
+            feriados=feriados,
+            curva_du=curva_du,
+            curva_taxa_aa=curva_taxa_aa,
+            premissas=replace(premissas, metodologia_pdd=method),
+            interpolation_method=interpolation_method,
+            portfolio_mode=portfolio_mode,
+        )
+        for label, method in PDD_METHOD_LABELS.items()
+    }
+
+
 def _text_number_input(
     label: str,
     *,
@@ -1601,6 +1636,12 @@ def _build_premissas_summary_dataframe(
     add("Custos", "Administração/gestão", _format_percent(premissas.custo_adm_aa), "Percentual anual sobre PL econômico.")
     add("Custos", "Custo mínimo mensal", _format_brl(premissas.custo_min))
     add("Crédito", "Metodologia", credit_model_label)
+    add(
+        "Crédito",
+        "Reconhecimento da PDD",
+        PDD_METHOD_NAMES.get(premissas.metodologia_pdd, premissas.metodologia_pdd),
+        "Define se a despesa nasce no NPL 90-360 ou linearmente durante o lag esperado.",
+    )
     add("Crédito", "NPL 90+ esperado por ciclo", _format_percent(premissas.perda_ciclo))
     add("Crédito", "Lag até NPL 90+", f"{premissas.npl90_lag_meses} meses")
     add("Crédito", "Write-off desde atraso", f"{premissas.writeoff_apos_atraso_meses} meses")
@@ -2092,7 +2133,15 @@ def _committee_premissas_rows(premissas_summary_df: pd.DataFrame) -> list[tuple[
         ("Taxa mensal efetiva", _short_percent_text(_summary_lookup(premissas_summary_df, "Taxa mensal efetiva"), decimals=0)),
         ("Taxa anual equivalente base 252", _summary_lookup(premissas_summary_df, "Taxa anual equivalente base 252")),
         ("Administração/gestão", _summary_lookup(premissas_summary_df, "Administração/gestão")),
-        ("Metodologia", "NPL 90 + cobertura de provisão"),
+        ("Metodologia", _summary_lookup(premissas_summary_df, "Metodologia", "MC3 Cartões")),
+        (
+            "Reconhecimento da PDD",
+            _summary_lookup(
+                premissas_summary_df,
+                "Reconhecimento da PDD",
+                PDD_LABEL_LINEAR_EXPECTED,
+            ),
+        ),
         ("NPL 90+ esperado por ciclo", _summary_lookup(premissas_summary_df, "NPL 90+ esperado por ciclo")),
         ("Lag até NPL 90+", _summary_lookup(premissas_summary_df, "Lag até NPL 90+")),
         ("Write-off desde atraso", _summary_lookup(premissas_summary_df, "Write-off desde atraso")),
@@ -2138,7 +2187,13 @@ def _committee_flow_rows(timeline_frame: pd.DataFrame | None) -> list[tuple[str,
         else "Quantidade média de parcelas"
     )
     pdd_value = float(row.get("despesa_provisao", row.get("perda_carteira_despesa", 0.0)) or 0.0)
-    pdd_racional = "Sem Over90 no M1" if abs(pdd_value) <= 1e-9 else "100% do NPL 90-360"
+    entrada_npl90 = float(row.get("entrada_npl90", 0.0) or 0.0)
+    if abs(pdd_value) <= 1e-9:
+        pdd_racional = "Sem PDD no M1"
+    elif entrada_npl90 <= 1e-9:
+        pdd_racional = "PDD linear prospectiva"
+    else:
+        pdd_racional = "100% do NPL 90-360"
     excesso_caixa = float(row.get("fluxo_remanescente_mezz", 0.0) or 0.0)
     limite = float(row.get("limite_carteira_revolvente", 0.0) or 0.0)
     excesso_retido = float(row.get("reinvestimento_bloqueado_limite_carteira", 0.0) or 0.0)
@@ -2270,7 +2325,7 @@ def _committee_pptx_payload(
         ],
         "flowBullets": [
             "Principal vencendo: 1/7 da carteira por mês.",
-            "PDD: 100% do NPL 90-360; write-off no 360d desde atraso.",
+            f"PDD: {_summary_lookup(premissas_summary_df, 'Reconhecimento da PDD', 'PDD linear prospectiva até NPL 90')}.",
             "Novas safras usam principal recebido + excesso, limitadas por crescimento; saldo fica em LFT/SELIC.",
         ],
         "flowTable": [["Item", "Valor", "Racional"], *[list(row) for row in _committee_flow_rows(timeline_frame)]],
@@ -2285,7 +2340,7 @@ def _committee_pptx_payload(
             ["Item", "Fórmula"],
             ["SUB mínima", "SUB / PL FIDC >= 30%"],
             ["Nova safra", "min(principal recebido + excesso, target carteira - carteira pós-vencimento)"],
-            ["PDD", "provisão requerida = NPL 90-360 x LGD x cobertura"],
+            ["PDD", "linear: perda esperada / lag; NPL: cobertura do NPL 90-360"],
             ["Write-off", "baixa no mês 12 desde atraso, contra provisão"],
             ["Caixa retido", "excesso não reinvestido fica em caixa SELIC/PL"],
             ["Subordinação", "SUB disponível / PL FIDC"],
@@ -2445,7 +2500,7 @@ def _ppt_add_committee_premissas_slide(prs, layout, premissas_summary_df: pd.Dat
         "Fluxo Simplificado",
         [
             "Principal vencendo: 1/7 da carteira por mês.",
-            "PDD: 100% do NPL 90-360; write-off no 360d desde atraso.",
+            f"PDD: {_summary_lookup(premissas_summary_df, 'Reconhecimento da PDD', 'PDD linear prospectiva até NPL 90')}.",
             "Novas safras usam principal recebido + excesso, limitadas por crescimento.",
         ],
         6.45,
@@ -2489,7 +2544,7 @@ def _ppt_add_committee_lock_slide(prs, layout, premissas_summary_df: pd.DataFram
         [
             ["SUB mínima", "SUB / PL FIDC >= 30%"],
             ["Nova safra", "min(principal recebido + excesso, target - carteira pós-vencimento)"],
-            ["PDD", "NPL 90-360 x LGD x cobertura"],
+            ["PDD", "linear: perda esperada / lag; NPL: cobertura do NPL 90-360"],
             ["Write-off", "baixa no mês 12 desde atraso"],
             ["Subordinação", "SUB disponível / PL FIDC"],
             ["Aporte SUB", "max((30% x PL - SUB) / 70%, 0)"],
@@ -3214,17 +3269,20 @@ def _build_workbook_mechanics_markdown(
             "estoque_npl90_t = max(estoque_npl90_t-1 + entrada_npl90_t - baixa_360d_t, 0)",
             "provisao_minima = estoque_npl90_t * cobertura_minima * LGD",
             "provisao_pos_writeoff = max(provisao_anterior - baixa_360d_t * LGD, 0)",
-            "provisao_requerida = provisao_minima",
-            "despesa_provisao = writeoff_descoberto + max(provisao_requerida - provisao_pos_writeoff, 0)",
+            "PDD_NPL = writeoff_descoberto + max(provisao_minima - provisao_pos_writeoff, 0)",
+            "PDD_linear = atraso_novo * cobertura_minima * LGD / lag + parcelas_lineares_de_safras_anteriores",
+            "despesa_provisao = PDD_NPL ou PDD_linear + top-up se PDD acumulada < provisao_minima",
             "```",
             "",
-            "- Leitura prática: com carteira de `R$ 100`, `7` parcelas e `40%` de perda da safra, vencem `R$ 14,29`; `R$ 5,71` deixa de ser recebido e entra em Over90 após 3 meses. A PDD é reconhecida quando há NPL 90-360, não como `40% / 3` da carteira em M1.",
+            "- Leitura prática: com carteira de `R$ 100`, `7` parcelas e `40%` de perda da safra, vencem `R$ 14,29`; `R$ 5,71` deixa de ser recebido e entra em Over90 após 3 meses.",
+            "- Na opção **PDD linear prospectiva**, essa perda esperada de `R$ 5,71` é reconhecida em três parcelas mensais de cerca de `R$ 1,90`, antes da entrada em Over90.",
+            "- Na opção **PDD na entrada NPL 90-360**, a despesa aparece quando a safra entra no bucket regulatório e precisa ficar 100% provisionada.",
             "- O principal programado e a PDD não são a mesma linha: a PDD reduz o PL econômico; o principal recebido pode ser reinvestido enquanto a revolvência estiver elegível.",
             "- Se a provisão anterior for suficiente, o write-off consome provisão e não gera despesa adicional além do reforço necessário para manter a provisão requerida.",
             "- Se a provisão anterior for insuficiente, a parte não coberta aparece como `writeoff_descoberto`, aumentando a despesa de provisão/perda do mês.",
             "- A baixa ocorre em 360 dias desde o atraso. Assim, com `LGD = 100%`, o NPL 90-360 fica em estoque e provisionado até o write-off.",
             "- A provisão modelada replica a regra de cobertura: `PDD / NPL 90-360 = 100%` quando a cobertura mínima é 100%.",
-            "- Esta é uma aproximação econômica para simulação e não deve ser lida como demonstrativo contábil completo. O objetivo é separar caixa de principal, PDD de cobertura e baixa de crédito.",
+            "- Esta é uma aproximação econômica para simulação e não deve ser lida como demonstrativo contábil completo. O objetivo é separar caixa de principal, PDD prospectiva, PDD de cobertura e baixa de crédito.",
             "- A implementação atual não reconhece reversão negativa de provisão quando o estoque NPL 90+ cai. Isso é conservador e pode reduzir a SUB final; a revisão com reversão explícita depende de decisão metodológica posterior.",
             "- Na metodologia `Migração por faixas de atraso`, o usuário informa taxas mensais de rolagem entre buckets:",
             "",
@@ -3444,13 +3502,14 @@ def _build_step_by_step_markdown() -> str:
             "- Em cada mês, o motor começa com a carteira e o PL econômico do mês anterior.",
             "- A carteira gera **juros/receita econômica** pela taxa da carteira.",
             "- Uma parte do principal vence. Se esse principal paga normalmente, ele vira caixa e pode ser reinvestido durante a revolvência.",
-            "- A PDD de NPL 90+ é reconhecida quando há estoque NPL 90-360 a cobrir, separada do principal que vence.",
+            "- A PDD pode ser reconhecida linearmente desde a perda esperada da safra ou apenas quando há estoque NPL 90-360 a cobrir, conforme opção selecionada.",
             "- Depois entram custos, despesa de provisão/perda e PMTs de SEN/MEZZ. O que sobra no PL depois de SEN e MEZZ é a SUB residual e pode virar nova carteira enquanto houver janela elegível.",
             "",
             "### 4. Como ler NPL, provisão e write-off",
             "",
             "- Na metodologia **MC3 Cartões**, o usuário informa a perda esperada da safra sobre o principal que vence e o lag até Over90.",
-            "- A PDD nasce para manter `PDD / NPL 90-360 = 100%`; não é uma despesa de `40% / 3` da carteira em todo mês.",
+            "- Na opção **linear prospectiva**, a despesa de PDD nasce desde a safra e é dividida pelo lag até Over90.",
+            "- Na opção **NPL 90-360**, a PDD nasce para manter `PDD / NPL 90-360 = 100%` quando o estoque regulatório aparece.",
             "- Quando o crédito entra em NPL 90+, ele permanece no estoque NPL 90-360 até a baixa em 360 dias desde o atraso.",
             "- A baixa consome a provisão já formada. Se a provisão for insuficiente, a diferença vira **write-off descoberto** e aumenta a despesa de perda do mês.",
             "- Importante: o write-off reduz o saldo da carteira; ele não é debitado de novo no PL fora da linha de provisão/perda. Isso evita dupla contagem.",
@@ -3923,8 +3982,8 @@ def _chart_definition_caption(kind: str) -> str:
     if kind == "loss":
         return (
             "Perda do período = despesa de provisão do mês (numerador) dividida pela carteira do mês (denominador). "
-            "No MC3, o atraso nasce sobre o principal que vence; a PDD só é requerida quando a safra entra em NPL 90-360 "
-            "e deve cobrir 100% desse estoque até o write-off em 360 dias desde o atraso."
+            "No MC3, o atraso nasce sobre o principal que vence; a PDD pode ser linear prospectiva durante o lag "
+            "ou reconhecida quando a safra entra em NPL 90-360. O estoque NPL deve ficar 100% coberto até o write-off."
         )
     if kind == "protection":
         return (
@@ -4234,7 +4293,20 @@ def render_tab_modelo_fidc() -> None:
                 help="Define se a perda vem de NPL 90+ por ciclo ou de migração mensal entre faixas de atraso.",
             )
             if mc3_forcado:
-                st.caption("Sub-aba MC3 ativa: preset de cartões com safras mensais, Over90, PDD 100% e write-off em 360 dias desde atraso.")
+                st.caption(
+                    "Sub-aba MC3 ativa: preset de cartões com safras mensais, Over90, PDD 100% e "
+                    "write-off em 360 dias desde atraso. A PDD pode ser linear prospectiva ou reconhecida no NPL 90-360."
+                )
+            pdd_method_label = st.selectbox(
+                "Metodologia de reconhecimento da PDD",
+                list(PDD_METHOD_LABELS),
+                index=list(PDD_METHOD_LABELS).index(PDD_METHOD_NAMES[DEFAULT_METODOLOGIA_PDD]),
+                key="modelo_pdd_method",
+                help=(
+                    "NPL 90-360 reconhece a despesa quando o atraso entra no bucket regulatório. "
+                    "PDD linear prospectiva antecipa a perda esperada em parcelas mensais durante o lag até NPL 90."
+                ),
+            )
             common_credit_a, common_credit_b, common_credit_c = st.columns(3)
             with common_credit_a:
                 npl90_lag_text = _text_number_input(
@@ -4742,6 +4814,7 @@ def render_tab_modelo_fidc() -> None:
         custo_adm_aa = _parse_br_number(custo_adm_text, field_name="Custo de administração e gestão (% a.a. sobre PL)") / 100.0
         custo_min = _parse_br_number(custo_min_text, field_name="Custo mínimo de administração e gestão (R$/mês)")
         modelo_credito = CREDIT_MODEL_LABELS[credit_model_label]
+        metodologia_pdd = PDD_METHOD_LABELS[pdd_method_label]
         perda_ciclo = _parse_br_number(
             perda_ciclo_text,
             field_name="NPL 90+ esperado por ciclo (% dos recebíveis que vencem)",
@@ -4939,6 +5012,7 @@ def render_tab_modelo_fidc() -> None:
         modelo_credito=modelo_credito,
         perda_ciclo=perda_ciclo,
         npl90_lag_meses=npl90_lag_meses,
+        metodologia_pdd=metodologia_pdd,
         writeoff_apos_atraso_meses=writeoff_apos_atraso_meses,
         cobertura_minima_npl90=cobertura_minima_npl90,
         lgd=lgd,
@@ -5102,6 +5176,15 @@ def render_tab_modelo_fidc() -> None:
         interpolation_method=interpolation_method,
         portfolio_mode=portfolio_mode_label,
     )
+    pdd_method_protection_frames = _build_pdd_method_loss_scenario_frames(
+        datas=simulation_dates,
+        feriados=selected_calendar.feriados,
+        curva_du=selected_curve.curva_du,
+        curva_taxa_aa=selected_curve.curva_taxa_aa,
+        premissas=premissas,
+        interpolation_method=interpolation_method,
+        portfolio_mode=portfolio_mode_label,
+    )
     protection_chart_frame = pd.concat([protection_frame, zero_protection_frame], ignore_index=True)
     export_frame = _build_export_dataframe(frame)
     display_frame = _build_display_dataframe(export_frame)
@@ -5141,6 +5224,17 @@ def render_tab_modelo_fidc() -> None:
             ),
             width="stretch",
         )
+
+    st.markdown('<div class="fidc-model-section-title">Comparativo de reconhecimento da PDD</div>', unsafe_allow_html=True)
+    st.caption(
+        "Mesmas premissas e mesmos cenários de perda; muda apenas o timing da despesa de PDD: "
+        "linear prospectiva durante o lag ou reconhecimento no estoque NPL 90-360."
+    )
+    method_columns = st.columns(len(pdd_method_protection_frames))
+    for column, (method_label, method_frame) in zip(method_columns, pdd_method_protection_frames.items()):
+        with column:
+            st.markdown(f"**{method_label}**")
+            st.altair_chart(_protection_ratio_chart(method_frame), width="stretch")
 
     memory_df = pd.DataFrame(
         [
@@ -5200,9 +5294,9 @@ def render_tab_modelo_fidc() -> None:
                 "Observação": "É a parcela programada para vencer conforme a amortização das parcelas; no MC3, 7 parcelas implicam cerca de 1/7 da carteira por mês.",
             },
             {
-                "Indicador": "PDD de cobertura NPL 90-360",
-                "Fórmula": "atraso_novo = principal_vencendo * perda_ciclo; PDD requerida = NPL_90_360 * cobertura_minima * LGD",
-                "Observação": "No MC3 não há PDD de 40% da carteira em M1. A provisão nasce quando a safra atrasada entra em Over90 e deve cobrir 100% do NPL 90-360.",
+                "Indicador": "Reconhecimento da PDD",
+                "Fórmula": "linear: PDD_t += atraso_novo * LGD * cobertura / lag; NPL: PDD_t += max(NPL_90_360 * LGD * cobertura - provisao, 0)",
+                "Observação": "No MC3, a opção linear antecipa a perda esperada desde a safra; a opção NPL 90-360 reconhece a despesa apenas quando o atraso entra no bucket regulatório.",
             },
             {
                 "Indicador": "Entrada e estoque NPL 90+",
@@ -5216,8 +5310,8 @@ def render_tab_modelo_fidc() -> None:
             },
             {
                 "Indicador": "Despesa de provisão/perda",
-                "Fórmula": "writeoff_descoberto + max(provisao_requerida - max(provisao_anterior - baixa_credito, 0), 0)",
-                "Observação": "A despesa reduz o PL econômico; a baixa reduz carteira quando o crédito matura em NPL 90+.",
+                "Fórmula": "writeoff_descoberto + PDD_linear_periodo + reforco_para_cobertura_NPL_90_360",
+                "Observação": "A despesa reduz o PL econômico. Na metodologia linear, ela nasce antes do NPL 90; na metodologia NPL, ela nasce quando o estoque NPL 90-360 exige cobertura.",
             },
             {
                 "Indicador": "Resultado líquido da carteira",

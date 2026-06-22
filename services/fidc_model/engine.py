@@ -23,6 +23,8 @@ CREDIT_MODEL_LEGACY_PERCENT = "legacy_percent"
 CREDIT_MODEL_NPL90 = "npl90_provision"
 CREDIT_MODEL_MIGRATION = "migration_matrix"
 CREDIT_MODEL_MC3_CARTOES = "mc3_cartoes"
+PDD_METHOD_NPL90_STOCK = "npl90_stock"
+PDD_METHOD_LINEAR_EXPECTED = "linear_expected"
 
 
 def annual_252_to_monthly_rate(rate_aa: float) -> float:
@@ -204,6 +206,7 @@ class _CreditState:
     npl90_estoque: float = 0.0
     npl90_pipeline: list[tuple[float, float]] | None = None
     npl90_writeoff_pipeline: list[tuple[float, float]] | None = None
+    pdd_linear_pipeline: list[tuple[float, float]] | None = None
     bucket_1_30: float = 0.0
     bucket_31_60: float = 0.0
     bucket_61_90: float = 0.0
@@ -214,6 +217,8 @@ class _CreditState:
             self.npl90_pipeline = []
         if self.npl90_writeoff_pipeline is None:
             self.npl90_writeoff_pipeline = []
+        if self.pdd_linear_pipeline is None:
+            self.pdd_linear_pipeline = []
 
 
 @dataclass(frozen=True)
@@ -260,6 +265,12 @@ def _age_writeoff_pipeline(state: _CreditState, period_months: float) -> float:
     return matured
 
 
+def _age_pdd_linear_pipeline(state: _CreditState, period_months: float) -> float:
+    matured, remaining_pipeline = _age_pipeline(state.pdd_linear_pipeline or [], period_months)
+    state.pdd_linear_pipeline = remaining_pipeline
+    return matured
+
+
 def _age_pipeline(pipeline: Sequence[tuple[float, float]], period_months: float) -> tuple[float, list[tuple[float, float]]]:
     matured = 0.0
     remaining_pipeline: list[tuple[float, float]] = []
@@ -270,6 +281,25 @@ def _age_pipeline(pipeline: Sequence[tuple[float, float]], period_months: float)
         else:
             remaining_pipeline.append((remaining_after_period, amount))
     return matured, remaining_pipeline
+
+
+def _schedule_linear_expected_pdd(
+    *,
+    state: _CreditState,
+    expected_loss: float,
+    lag_months: float,
+) -> float:
+    expected_loss = max(float(expected_loss), 0.0)
+    if expected_loss <= 0.0:
+        return 0.0
+    if lag_months <= 1e-9:
+        return expected_loss
+    installments = max(int(round(lag_months)), 1)
+    installment = expected_loss / installments
+    assert state.pdd_linear_pipeline is not None
+    for month_offset in range(1, installments):
+        state.pdd_linear_pipeline.append((float(month_offset), installment))
+    return installment
 
 
 def _legacy_credit_period(carteira: float, premissas: Premissas, delta_dc: int) -> _CreditPeriod:
@@ -471,6 +501,7 @@ def _mc3_cartoes_credit_period(
     uncovered_writeoff = max(writeoff_loss - provisao_start, 0.0)
     npl90_after_writeoff = max(npl90_start - writeoff_maturado, 0.0)
 
+    pdd_linear_maturada = _age_pdd_linear_pipeline(state, period_months)
     entrada_npl90 = _age_npl90_pipeline(state, period_months)
     cap = min(max(float(premissas.maturacao_over90_cap), 0.0), 1.0)
     perda_ciclo = min(max(float(premissas.perda_ciclo), 0.0), cap)
@@ -501,8 +532,19 @@ def _mc3_cartoes_credit_period(
         uncovered_writeoff += uncovered_immediate
     npl90_end = max(npl90_pre_immediate_writeoff - immediate_writeoff, 0.0)
     provisao_requerida = npl90_end * cobertura_minima * lgd
-    reforco_provisao = max(provisao_requerida - provisao_after_writeoff, 0.0)
-    despesa_provisao = uncovered_writeoff + reforco_provisao
+    metodologia_pdd = str(getattr(premissas, "metodologia_pdd", PDD_METHOD_NPL90_STOCK) or PDD_METHOD_NPL90_STOCK)
+    pdd_linear_atual = 0.0
+    if metodologia_pdd == PDD_METHOD_LINEAR_EXPECTED:
+        pdd_linear_atual = _schedule_linear_expected_pdd(
+            state=state,
+            expected_loss=principal_inadimplente * cobertura_minima * lgd,
+            lag_months=lag,
+        )
+    pdd_linear_periodo = pdd_linear_maturada + pdd_linear_atual
+    provisao_after_scheduled = provisao_after_writeoff + pdd_linear_periodo
+    reforco_provisao = max(provisao_requerida - provisao_after_scheduled, 0.0)
+    despesa_provisao = uncovered_writeoff + pdd_linear_periodo + reforco_provisao
+    provisao_saldo_fim = max(provisao_after_scheduled + reforco_provisao, provisao_requerida)
     cobertura_npl90 = provisao_requerida / (npl90_end * lgd) if npl90_end > 0.0 and lgd > 0.0 else None
 
     pipeline_by_bucket = {"1_30": 0.0, "31_60": 0.0, "61_90": 0.0}
@@ -515,7 +557,7 @@ def _mc3_cartoes_credit_period(
             pipeline_by_bucket["61_90"] += amount
     pending_pre_90 = sum(pipeline_by_bucket.values())
 
-    state.provisao_saldo = provisao_requerida
+    state.provisao_saldo = provisao_saldo_fim
     state.npl90_estoque = npl90_end
     state.bucket_1_30 = pipeline_by_bucket["1_30"]
     state.bucket_31_60 = pipeline_by_bucket["31_60"]
@@ -523,7 +565,7 @@ def _mc3_cartoes_credit_period(
     state.bucket_90_plus = npl90_end
 
     return _CreditPeriod(
-        perda_esperada_despesa=reforco_provisao,
+        perda_esperada_despesa=pdd_linear_periodo + reforco_provisao,
         perda_inesperada_despesa=uncovered_writeoff,
         perda_carteira_despesa=despesa_provisao,
         carteira_vencendo=carteira_vencendo,
@@ -534,7 +576,7 @@ def _mc3_cartoes_credit_period(
         provisao_saldo_inicio=provisao_start,
         provisao_requerida=provisao_requerida,
         despesa_provisao=despesa_provisao,
-        provisao_saldo_fim=provisao_requerida,
+        provisao_saldo_fim=provisao_saldo_fim,
         cobertura_npl90=cobertura_npl90,
         baixa_credito=writeoff_loss,
         writeoff_descoberto=uncovered_writeoff,

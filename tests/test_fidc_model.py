@@ -16,6 +16,7 @@ from services.fidc_model import (
     CREDIT_MODEL_NPL90,
     INTEREST_PAYMENT_MODE_AFTER_GRACE,
     INTEREST_PAYMENT_MODE_PERIODIC,
+    PDD_METHOD_LINEAR_EXPECTED,
     RATE_MODE_POST_CDI,
     RATE_MODE_PRE,
     Premissas,
@@ -525,6 +526,54 @@ class FidcModelParityTest(unittest.TestCase):
         self.assertAlmostEqual(0.0, periods[1].npl90_estoque_fim)
         self.assertGreater(periods[4].entrada_npl90, 0.0)
         self.assertGreater(periods[4].despesa_provisao, 0.0)
+
+    def test_mc3_linear_expected_pdd_spreads_loss_before_npl90(self):
+        monthly_dates = [
+            datetime(2025, 1, 1),
+            datetime(2025, 2, 1),
+            datetime(2025, 3, 1),
+            datetime(2025, 4, 1),
+            datetime(2025, 5, 1),
+        ]
+        premissas = Premissas(
+            volume=100.0,
+            tx_cessao_am=0.0,
+            tx_cessao_cdi_aa=None,
+            custo_adm_aa=0.0,
+            custo_min=0.0,
+            inadimplencia=0.0,
+            proporcao_senior=0.0,
+            taxa_senior=0.0,
+            proporcao_mezz=0.0,
+            taxa_mezz=0.0,
+            proporcao_subordinada=1.0,
+            tipo_taxa_senior=RATE_MODE_PRE,
+            tipo_taxa_mezz=RATE_MODE_PRE,
+            carteira_revolvente=True,
+            prazo_fidc_anos=1.0,
+            prazo_medio_recebiveis_meses=3.154420901487235,
+            qtd_parcelas_media=7.0,
+            modelo_credito=CREDIT_MODEL_MC3_CARTOES,
+            perda_ciclo=0.40,
+            npl90_lag_meses=3,
+            metodologia_pdd=PDD_METHOD_LINEAR_EXPECTED,
+            cobertura_minima_npl90=1.0,
+            lgd=1.0,
+            maturacao_over90_cap=0.40,
+            limite_carteira_revolvente_multiplo=1.0,
+        )
+
+        periods = build_flow(monthly_dates, [], [1.0, 2000.0], [0.0, 0.0], premissas)
+
+        expected_loss_by_cohort = (100.0 / 7.0) * 0.40
+        monthly_pdd = expected_loss_by_cohort / 3.0
+        self.assertAlmostEqual(monthly_pdd, periods[1].despesa_provisao)
+        self.assertAlmostEqual(2.0 * monthly_pdd, periods[2].despesa_provisao)
+        self.assertAlmostEqual(expected_loss_by_cohort, periods[3].despesa_provisao)
+        self.assertAlmostEqual(0.0, periods[1].entrada_npl90)
+        self.assertAlmostEqual(expected_loss_by_cohort, periods[4].entrada_npl90)
+        self.assertAlmostEqual(expected_loss_by_cohort, periods[4].despesa_provisao)
+        self.assertGreaterEqual(periods[4].provisao_saldo_fim, periods[4].provisao_requerida)
 
     def test_reinvestment_uses_cash_even_at_minimum_subordination(self):
         monthly_dates = [datetime(2025, 1, 1), datetime(2025, 2, 1)]

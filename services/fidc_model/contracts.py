@@ -44,6 +44,7 @@ class Premissas:
     modelo_credito: str = "legacy_percent"
     perda_ciclo: float = 0.0
     npl90_lag_meses: int = 3
+    metodologia_pdd: str = "npl90_stock"
     writeoff_apos_atraso_meses: int = 12
     cobertura_minima_npl90: float = 1.0
     lgd: float = 1.0
