@@ -1,25 +1,14 @@
 """Soma de FIDCs — deck v3 para comitê de crédito.
 
-Estrutura: 19 slides
+Estrutura: 7 + 4 slides por FIDC da seleção
   1  Capa
   2  Divisor 01 — Visão consolidada
   3  Consolidado: PL por classe + subordinação + NPL + cobertura
   4  Consolidado: Carteira + crescimento YoY + NPL por severidade + roll rates
   5  Consolidado: Duration por FIDC + cohorts recentes
   6  Consolidado: Roll rates por mês do ano (placeholder se sem dados)
-  7  Divisor 02 — Mercado Crédito FIDC
-  8  MC FIDC: PL por classe + subordinação + NPL + cobertura
-  9  MC FIDC: Carteira + crescimento + NPL severidade + roll rates
-  10 MC FIDC: Duration + cohorts
-  11 Divisor 03 — Mercado Crédito I Brasil FIDC
-  12 MC I Brasil: PL + subordinação + NPL + cobertura
-  13 MC I Brasil: Carteira + crescimento + NPL severidade + roll rates
-  14 MC I Brasil: Duration + cohorts
-  15 Divisor 04 — Mercado Crédito II Brasil FIDC
-  16 MC II Brasil: PL + subordinação + NPL + cobertura
-  17 MC II Brasil: Carteira + crescimento + NPL severidade + roll rates
-  18 MC II Brasil: Duration + cohorts
-  19 Síntese — Pontos de atenção e destaques
+  7+ Blocos individuais por FIDC carregado
+  N  Síntese — Pontos de atenção e destaques
 """
 from __future__ import annotations
 
@@ -31,6 +20,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 import pandas as pd
 
 from services.export_chart_labels import choose_export_label_policy, format_export_label
+from services.fund_name_display import short_fund_name
 
 # ---------------------------------------------------------------------------
 # Paleta de cores
@@ -97,8 +87,6 @@ _MX = 0.50     # margem horizontal
 _CTX_H = _FTR_TOP - _CTX_TOP          # ~ 5.87"
 _GAP_X = 0.15
 _GAP_Y = 0.20
-_TOTAL_SLIDES = 19
-
 
 # ===========================================================================
 # ENTRY POINT
@@ -157,6 +145,8 @@ def build_somatorio_fidcs_pptx_bytes(
     con_monitor = _chart_monthly(getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame()))
     con_cohorts = getattr(monitor_outputs, "consolidated_cohorts", pd.DataFrame())
     roll_df = getattr(research_outputs, "roll_seasonality", pd.DataFrame()) if research_outputs else pd.DataFrame()
+    fund_sections = _build_fund_sections(outputs, fund_monthly_map)
+    total_slides = 7 + 4 * len(fund_sections)
 
     page = [0]  # mutable counter
 
@@ -175,50 +165,39 @@ def build_somatorio_fidcs_pptx_bytes(
 
     # ---- Slides 3–6: Consolidado ----
     _add_base_slide(prs, layout, con_monthly, con_monitor, "Soma de FIDCs — Consolidado",
-                    next_page(), _TOTAL_SLIDES, data_base, is_subordination_fund=False, **deps)
+                    next_page(), total_slides, data_base, is_subordination_fund=False, **deps)
     _add_credit_slide(prs, layout, con_monitor, "Soma de FIDCs — Consolidado",
-                      next_page(), _TOTAL_SLIDES, data_base, **deps)
+                      next_page(), total_slides, data_base, **deps)
     _add_detail_slide(prs, layout, con_monitor, fund_monitor_map, con_cohorts,
                       "Soma de FIDCs — Consolidado",
-                      next_page(), _TOTAL_SLIDES, data_base, **deps)
+                      next_page(), total_slides, data_base, **deps)
     _add_roll_slide(prs, layout, con_monitor, roll_df, "Soma de FIDCs — Consolidado",
-                    next_page(), _TOTAL_SLIDES, data_base, **deps)
+                    next_page(), total_slides, data_base, **deps)
 
     # ---- Per-fund blocks ----
-    section_meta = [
-        ("02", _FUND_NAMES.get("MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
-                                ("Mercado Crédito FIDC", "Mercado Crédito Fundo de Investimento em Direitos Creditórios Resp. Ltda."))),
-        ("03", _FUND_NAMES.get("MERCADO CRÉDITO I BRASIL FIDC SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA",
-                                ("Mercado Crédito I Brasil FIDC", "Mercado Crédito I Brasil FIDC Segmento Financeiro Resp. Ltda."))),
-        ("04", _FUND_NAMES.get("MERCADO CRÉDITO II BRASIL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
-                                ("Mercado Crédito II Brasil FIDC", "Mercado Crédito II Brasil Fundo de Investimento em Direitos Creditórios Resp. Ltda."))),
-    ]
-    fund_cnpjs = list(fund_monthly_map.keys())
-
-    for idx, (sec_num, (hdr, sub)) in enumerate(section_meta):
+    for sec_num, cnpj, hdr, sub, raw_name in fund_sections:
         _add_divider(prs, layout, sec_num, hdr, sub, **deps)
         next_page()
 
-        cnpj = fund_cnpjs[idx] if idx < len(fund_cnpjs) else None
         fm = fund_monthly_map.get(cnpj, pd.DataFrame()) if cnpj else pd.DataFrame()
         mon = fund_monitor_map.get(cnpj, pd.DataFrame()) if cnpj else pd.DataFrame()
         coh = fund_cohort_map.get(cnpj, pd.DataFrame()) if cnpj else pd.DataFrame()
-        is_mc_fidc = idx == 0  # outlier fix only for first fund
+        is_mc_fidc = _is_mercado_credito_zero(raw_name)
 
         _add_base_slide(prs, layout, fm, mon, hdr,
-                        next_page(), _TOTAL_SLIDES, data_base,
+                        next_page(), total_slides, data_base,
                         is_subordination_fund=is_mc_fidc, **deps)
         _add_credit_slide(prs, layout, mon, hdr,
-                          next_page(), _TOTAL_SLIDES, data_base, **deps)
+                          next_page(), total_slides, data_base, **deps)
         _add_detail_slide(prs, layout, mon, {}, coh, hdr,
-                          next_page(), _TOTAL_SLIDES, data_base, **deps)
+                          next_page(), total_slides, data_base, **deps)
 
     # ---- Slide 19: Síntese ----
     _add_synthesis(
         prs,
         layout,
         next_page(),
-        _TOTAL_SLIDES,
+        total_slides,
         data_base,
         consolidated_monitor=con_monitor,
         consolidated_monthly=con_monthly,
@@ -1179,6 +1158,63 @@ def _set_text(text_frame, text, size, bold, color, RGBColor) -> None:
 # DATA HELPERS
 # ===========================================================================
 
+def _build_fund_sections(
+    outputs: Any,
+    fund_monthly_map: dict[str, pd.DataFrame],
+) -> list[tuple[str, str, str, str, str]]:
+    metadata_names = _fund_names_from_metadata(getattr(outputs, "metadata", {}) or {})
+    sections: list[tuple[str, str, str, str, str]] = []
+    for idx, (cnpj, frame) in enumerate(fund_monthly_map.items(), start=2):
+        raw_name = _raw_fund_name(
+            frame,
+            fallback=metadata_names.get(_digits(cnpj)) or str(cnpj),
+        )
+        header, subtitle = _fund_title_meta(raw_name)
+        sections.append((f"{idx:02d}", cnpj, header, subtitle, raw_name))
+    return sections
+
+
+def _fund_names_from_metadata(metadata: dict[str, Any]) -> dict[str, str]:
+    names: dict[str, str] = {}
+    for item in metadata.get("funds") or []:
+        if not isinstance(item, dict):
+            continue
+        cnpj = _digits(item.get("cnpj"))
+        name = str(item.get("name") or "").strip()
+        if cnpj and name:
+            names[cnpj] = name
+    return names
+
+
+def _raw_fund_name(frame: pd.DataFrame, *, fallback: str) -> str:
+    if frame is not None and not frame.empty and "fund_name" in frame.columns and frame["fund_name"].notna().any():
+        raw = str(frame["fund_name"].dropna().iloc[0]).strip()
+        if raw:
+            return raw
+    return str(fallback or "").strip()
+
+
+def _fund_title_meta(raw_name: str) -> tuple[str, str]:
+    key = str(raw_name or "").strip().upper()
+    if key in _FUND_NAMES:
+        return _FUND_NAMES[key]
+    for prefix, short, subtitle in _FUND_PREFIXES:
+        if key.startswith(prefix):
+            return short, subtitle
+    header = short_fund_name(raw_name)
+    subtitle = str(raw_name or header).strip()
+    return header or subtitle or "FIDC", subtitle or header or "FIDC"
+
+
+def _is_mercado_credito_zero(raw_name: str) -> bool:
+    key = str(raw_name or "").strip().upper()
+    return key == "MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA"
+
+
+def _digits(value: object) -> str:
+    return "".join(ch for ch in str(value or "") if ch.isdigit())
+
+
 def _last_12m(df: pd.DataFrame) -> pd.DataFrame:
     """Filtra para os últimos 12 meses da série."""
     if not isinstance(df, pd.DataFrame) or df.empty:
@@ -1456,7 +1492,7 @@ def _short_name(raw: str) -> str:
     for prefix, short, _ in _FUND_PREFIXES:
         if key.startswith(prefix):
             return short
-    return raw
+    return short_fund_name(raw) or raw
 
 
 def _fmt_month(value) -> str:

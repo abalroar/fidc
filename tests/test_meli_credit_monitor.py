@@ -307,7 +307,7 @@ class MeliCreditMonitorTest(unittest.TestCase):
 
         self.assertTrue(pptx_bytes.startswith(b"PK"))
         self.assertTrue(zipfile.is_zipfile(BytesIO(pptx_bytes)))
-        self.assertEqual(19, len(Presentation(BytesIO(pptx_bytes)).slides))
+        self.assertEqual(11, len(Presentation(BytesIO(pptx_bytes)).slides))
         with zipfile.ZipFile(BytesIO(pptx_bytes)) as archive:
             slide1_xml = archive.read("ppt/slides/slide1.xml").decode("utf-8", errors="ignore")
             slide2_xml = archive.read("ppt/slides/slide2.xml").decode("utf-8", errors="ignore")
@@ -343,6 +343,84 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertIn("<c:formatCode>0.0%</c:formatCode>", chart4_xml)
         self.assertEqual("0.0%", embedded_percent_wb.active["B2"].number_format)
         self.assertEqual("0.0%", embedded_coverage_wb.active["B2"].number_format)
+
+    def test_somatorio_pptx_individual_sections_follow_selected_funds(self) -> None:
+        from pptx import Presentation
+
+        from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
+
+        seller_funds = {
+            "50473039000102": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+            "55471753000177": "SELLER II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO RESP LTDA",
+            "63572282000111": "SELLER 3 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESP LIMITADA",
+        }
+        base_monitor = build_monitor_base(_sample_monthly(month_count=7))
+        base_monthly = base_monitor.copy()
+        base_monthly["pl_senior"] = 700.0
+        base_monthly["pl_subordinada_mezz_ex360"] = 300.0
+        base_monthly["subordinacao_total_ex360_pct"] = 30.0
+        base_monthly["npl_over90_ex360_pct"] = 2.5
+        base_monthly["pdd_npl_over90_ex360_pct"] = 200.0
+        fund_monthly = {}
+        fund_monitor = {}
+        for cnpj, name in seller_funds.items():
+            frame = base_monthly.copy()
+            frame["cnpj"] = cnpj
+            frame["fund_name"] = name
+            fund_monthly[cnpj] = frame
+            fund_monitor[cnpj] = frame
+
+        base_outputs = type(
+            "BaseOutputs",
+            (),
+            {
+                "consolidated_monthly": build_consolidated_monthly_base(
+                    portfolio_name="MELI (FIDC Sellers I, II e III)",
+                    fund_monthly_frames=fund_monthly,
+                ),
+                "fund_monthly": fund_monthly,
+                "metadata": {
+                    "funds": [
+                        {"cnpj": cnpj, "name": name}
+                        for cnpj, name in seller_funds.items()
+                    ]
+                },
+            },
+        )()
+        monitor_outputs = MeliMonitorOutputs(
+            consolidated_monitor=build_monitor_base(base_outputs.consolidated_monthly),
+            fund_monitor=fund_monitor,
+            consolidated_cohorts=pd.DataFrame(),
+            fund_cohorts={},
+            audit_table=pd.DataFrame(),
+            pdf_reconciliation=pd.DataFrame(),
+            warnings=[],
+        )
+
+        pptx_bytes = build_somatorio_fidcs_pptx_bytes(
+            outputs=base_outputs,
+            monitor_outputs=monitor_outputs,
+            research_outputs=None,
+        )
+
+        prs = Presentation(BytesIO(pptx_bytes))
+        all_text = "\n".join(
+            shape.text
+            for slide in prs.slides
+            for shape in slide.shapes
+            if hasattr(shape, "text")
+        )
+        divider_text = "\n".join(
+            shape.text
+            for slide_index in (6, 10, 14)
+            for shape in prs.slides[slide_index].shapes
+            if hasattr(shape, "text")
+        )
+        self.assertEqual(19, len(prs.slides))
+        self.assertIn("Sellers I", divider_text)
+        self.assertIn("Sellers II", divider_text)
+        self.assertIn("Sellers III", divider_text)
+        self.assertNotIn("Mercado Crédito FIDC", all_text)
 
     def test_research_layer_builds_auditable_metrics_and_verification(self) -> None:
         monitor = build_monitor_base(_sample_monthly(month_count=14))
