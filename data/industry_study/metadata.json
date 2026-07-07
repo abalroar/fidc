@@ -1,0 +1,19 @@
+{
+  "gerado_em_utc": "2026-07-07T19:41:22+00:00",
+  "fonte_informe_mensal": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS (+ HIST/)",
+  "fonte_cadastro": "https://dados.cvm.gov.br/dados/FI/CAD/DADOS/registro_fundo_classe.zip",
+  "competencia_inicial": "201301",
+  "competencia_final": "202606",
+  "competencia_snapshot": "202605",
+  "n_competencias": 162,
+  "observacoes": [
+    "Unidade de observacao: veiculo reportante (fundo ate a adaptacao a RCVM 175, classe depois).",
+    "PL total soma fundos legados e classes; nao ha dupla contagem fundo x classe no dataset.",
+    "FIC-FIDC identificados por razao social; PL destacado em pl_fic_fidc (dupla contagem economica potencial).",
+    "Cotistas = contas por classe/serie (Tab X.1), nao CPFs/CNPJs unicos.",
+    "Captacao/resgate/amortizacao: Tab X.4 (valores de movimentacao de cotas no mes).",
+    "Gestor e custodiante vem do cadastro vigente (foto), nao do informe mensal.",
+    "Picos de um unico mes por veiculo (>20x o mes anterior e o seguinte) sao excluidos de PL e cotistas como erro de preenchimento.",
+    "Competencias recentes podem estar incompletas (entrega do informe ate 15 dias apos o fechamento; retificacoes ocorrem)."
+  ]
+}

@@ -10,6 +10,7 @@ from tabs import tab_deep_dive as deep_dive_tab
 from tabs import tab_fidc_monitoring as monitoring_tab
 from tabs import tab_mercado_livre as somatorio_tab
 from tabs.portfolio_page import render_portfolio_center_page
+from tabs.tab_industry_study import render_tab_industry_study
 from tabs.tab_modelo_fidc import render_tab_modelo_fidc
 
 
@@ -275,6 +276,7 @@ st.markdown(
 
 _MAIN_SECTIONS = [
     "Sobre",
+    "Indústria FIDCs",
     "Carteira FIDCs",
     "Infos Regulamento",
     "Estratégia FIDCs",
@@ -292,7 +294,9 @@ selected_section = st.radio(
     label_visibility="collapsed",
 )
 
-if selected_section == "Carteira FIDCs":
+if selected_section == "Indústria FIDCs":
+    render_tab_industry_study()
+elif selected_section == "Carteira FIDCs":
     _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
     period = _render_period_selector(state_prefix="ime_global")
     render_portfolio_center_page(period=period)
