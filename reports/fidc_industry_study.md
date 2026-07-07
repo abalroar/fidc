@@ -1,6 +1,6 @@
 # Estudo da industria de FIDCs — base CVM (dados abertos)
 
-**Data-base:** 2026-05 · **Serie:** 201301 a 202606 · **Gerado em:** 2026-07-07T19:31:43+00:00
+**Data-base:** 2026-05 · **Serie:** 201301 a 202606 · **Gerado em:** 2026-07-07T19:41:22+00:00
 
 > Relatorio gerado por `scripts/build_fidc_industry_study.py` a partir do dataset
 > oficial *FIDC — Documentos: Informe Mensal* (Portal de Dados Abertos da CVM) e do
@@ -250,6 +250,9 @@ esperado pela diferenca de universo.
 - **Fluxos (Tab X.4):** linhas com valor acima de max(3x PL do veiculo, R$ 2 bi)
   sao descartadas como erro de preenchimento (valor descartado registrado em
   `x4_valor_descartado`).
+- **Picos de um mes:** veiculo-mes cujo PL (ou nao de cotistas) supera 20x o mes
+  anterior E o seguinte do proprio veiculo e excluido como erro de preenchimento
+  (ex.: PL de R$ 101,6 bi reportado por um unico fundo apenas em 2016-05).
 - **Limitacoes conhecidas:** gestor/custodiante sao foto do cadastro vigente;
   FIC-FIDC e FIDC-NP identificados por razao social (heuristica); competencias
   recentes sujeitas a revisao; cotistas em base de contas.

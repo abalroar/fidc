@@ -286,13 +286,47 @@ class MonthAggregate:
     admin: list[dict]
 
 
-def aggregate_month(store: RawStore, yyyymm: str) -> MonthAggregate | None:
-    comp = f"{yyyymm[:4]}-{yyyymm[4:6]}"
+def load_tab4(store: RawStore, yyyymm: str) -> pd.DataFrame | None:
     tab4 = store.read_table(yyyymm, "tab_IV")
     if tab4 is None or tab4.empty:
         return None
     tab4["pl"] = to_num(tab4["TAB_IV_A_VL_PL"])
-    tab4 = tab4.drop_duplicates(subset=["cnpj"], keep="last")
+    return tab4.drop_duplicates(subset=["cnpj"], keep="last")
+
+
+def single_month_spikes(
+    panel: pd.DataFrame, *, value_col: str, ratio: float = 20.0, floor: float = 0.0
+) -> set[tuple[str, str]]:
+    """Detecta picos de um unico mes por veiculo (erros de preenchimento).
+
+    Um (competencia, cnpj) e marcado quando o valor supera `ratio` vezes o valor
+    do mes anterior E do mes seguinte do MESMO veiculo, alem do piso absoluto.
+    Ex.: INX SSPI BONDS FIDC-NP reportou PL de R$ 101,6 bi apenas em 2016-05;
+    FIDC JUST reportou 112 mil cotistas apenas em 2018-09.
+    """
+    spikes: set[tuple[str, str]] = set()
+    panel = panel.sort_values(["cnpj", "competencia"])
+    for cnpj, group in panel.groupby("cnpj"):
+        vals = group[value_col].to_numpy()
+        comps = group["competencia"].to_numpy()
+        for i in range(1, len(vals) - 1):
+            prev_v, cur, next_v = vals[i - 1], vals[i], vals[i + 1]
+            if cur <= floor:
+                continue
+            if cur > ratio * max(prev_v, 1e-9) and cur > ratio * max(next_v, 1e-9):
+                spikes.add((comps[i], cnpj))
+    return spikes
+
+
+def aggregate_month(
+    store: RawStore,
+    yyyymm: str,
+    tab4: pd.DataFrame,
+    cotistas_excluir: set[str] | None = None,
+) -> MonthAggregate | None:
+    comp = f"{yyyymm[:4]}-{yyyymm[4:6]}"
+    if tab4 is None or tab4.empty:
+        return None
     pl_by_cnpj = tab4.set_index("cnpj")["pl"]
 
     industry: dict = {
@@ -435,6 +469,8 @@ def aggregate_month(store: RawStore, yyyymm: str) -> MonthAggregate | None:
     # Tabela X.1: numero de cotistas (contas por classe/serie)
     x1 = store.read_table(yyyymm, "tab_X_1")
     if x1 is not None and not x1.empty:
+        if cotistas_excluir:
+            x1 = x1[~x1["cnpj"].isin(cotistas_excluir)]
         industry["cotistas_total"] = int(to_num(x1["TAB_X_NR_COTST"]).sum())
 
     # Tabela X.1.1: cotistas por tipo de investidor
@@ -623,10 +659,46 @@ def run_pipeline(args: argparse.Namespace) -> None:
     store = RawStore(raw_dir=raw_dir, allow_download=not args.skip_download)
 
     months = month_range(args.start, args.end)
+
+    # Pre-passe: paineis de PL (Tab IV) e cotistas (Tab X.1) por veiculo para
+    # detectar picos de um unico mes (erros de preenchimento individuais).
+    tab4_by_month: dict[str, pd.DataFrame] = {}
+    pl_panel_rows, cot_panel_rows = [], []
+    for yyyymm in months:
+        tab4 = load_tab4(store, yyyymm)
+        if tab4 is None:
+            continue
+        tab4_by_month[yyyymm] = tab4
+        pl_panel_rows.append(
+            pd.DataFrame({"competencia": yyyymm, "cnpj": tab4["cnpj"], "v": tab4["pl"]})
+        )
+        x1 = store.read_table(yyyymm, "tab_X_1")
+        if x1 is not None and not x1.empty:
+            cot = to_num(x1["TAB_X_NR_COTST"]).groupby(x1["cnpj"]).sum()
+            cot_panel_rows.append(
+                pd.DataFrame({"competencia": yyyymm, "cnpj": cot.index, "v": cot.to_numpy()})
+            )
+    pl_spikes = single_month_spikes(
+        pd.concat(pl_panel_rows, ignore_index=True), value_col="v", floor=1e9
+    ) if pl_panel_rows else set()
+    cot_spikes = single_month_spikes(
+        pd.concat(cot_panel_rows, ignore_index=True), value_col="v", floor=10_000
+    ) if cot_panel_rows else set()
+    if pl_spikes:
+        print(f"[info] {len(pl_spikes)} veiculo-mes de PL excluidos como pico de um mes")
+    if cot_spikes:
+        print(f"[info] {len(cot_spikes)} veiculo-mes de cotistas excluidos como pico de um mes")
+
     industry_rows, segment_rows, flow_rows, cotista_rows, admin_rows = [], [], [], [], []
     processed = []
     for yyyymm in months:
-        agg = aggregate_month(store, yyyymm)
+        tab4 = tab4_by_month.get(yyyymm)
+        if tab4 is not None:
+            excl = {c for (m, c) in pl_spikes if m == yyyymm}
+            if excl:
+                tab4 = tab4[~tab4["cnpj"].isin(excl)]
+        cot_excl = {c for (m, c) in cot_spikes if m == yyyymm}
+        agg = aggregate_month(store, yyyymm, tab4, cotistas_excluir=cot_excl)
         if agg is None:
             print(f"[warn] competencia {yyyymm} indisponivel; ignorada", file=sys.stderr)
             continue
@@ -682,6 +754,7 @@ def run_pipeline(args: argparse.Namespace) -> None:
             "Cotistas = contas por classe/serie (Tab X.1), nao CPFs/CNPJs unicos.",
             "Captacao/resgate/amortizacao: Tab X.4 (valores de movimentacao de cotas no mes).",
             "Gestor e custodiante vem do cadastro vigente (foto), nao do informe mensal.",
+            "Picos de um unico mes por veiculo (>20x o mes anterior e o seguinte) sao excluidos de PL e cotistas como erro de preenchimento.",
             "Competencias recentes podem estar incompletas (entrega do informe ate 15 dias apos o fechamento; retificacoes ocorrem).",
         ],
     }
@@ -977,6 +1050,9 @@ esperado pela diferenca de universo.
 - **Fluxos (Tab X.4):** linhas com valor acima de max(3x PL do veiculo, R$ 2 bi)
   sao descartadas como erro de preenchimento (valor descartado registrado em
   `x4_valor_descartado`).
+- **Picos de um mes:** veiculo-mes cujo PL (ou nao de cotistas) supera 20x o mes
+  anterior E o seguinte do proprio veiculo e excluido como erro de preenchimento
+  (ex.: PL de R$ 101,6 bi reportado por um unico fundo apenas em 2016-05).
 - **Limitacoes conhecidas:** gestor/custodiante sao foto do cadastro vigente;
   FIC-FIDC e FIDC-NP identificados por razao social (heuristica); competencias
   recentes sujeitas a revisao; cotistas em base de contas.

@@ -1,0 +1,362 @@
+<title>Indústria de FIDCs — Estudo CVM</title>
+<style>
+:root {
+  --page: #f9f9f7; --surface: #fcfcfb;
+  --ink-1: #0b0b0b; --ink-2: #52514e; --ink-3: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,0.10);
+  --s1: #2a78d6; --s1-soft: rgba(42,120,214,0.14);
+  --s2: #1baf7a; --neg: #e34948;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #0d0d0d; --surface: #1a1a19;
+    --ink-1: #ffffff; --ink-2: #c3c2b7; --ink-3: #898781;
+    --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
+    --s1: #3987e5; --s1-soft: rgba(57,135,229,0.20);
+    --s2: #199e70; --neg: #e66767;
+  }
+}
+:root[data-theme="dark"] {
+  --page: #0d0d0d; --surface: #1a1a19;
+  --ink-1: #ffffff; --ink-2: #c3c2b7; --ink-3: #898781;
+  --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
+  --s1: #3987e5; --s1-soft: rgba(57,135,229,0.20);
+  --s2: #199e70; --neg: #e66767;
+}
+:root[data-theme="light"] {
+  --page: #f9f9f7; --surface: #fcfcfb;
+  --ink-1: #0b0b0b; --ink-2: #52514e; --ink-3: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,0.10);
+  --s1: #2a78d6; --s1-soft: rgba(42,120,214,0.14);
+  --s2: #1baf7a; --neg: #e34948;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--page); color: var(--ink-1);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding: 32px 20px 64px; }
+header.page { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; margin-bottom: 6px; }
+.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); }
+h1 { font-size: 26px; line-height: 1.2; margin: 2px 0 0; text-wrap: balance; font-weight: 700; }
+.basebadge { font-size: 12px; color: var(--ink-2); border: 1px solid var(--ring); border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+p.lede { color: var(--ink-2); max-width: 72ch; margin: 8px 0 26px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.kpi { background: var(--surface); border: 1px solid var(--ring); border-radius: 10px; padding: 14px 16px; }
+.kpi .lbl { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); }
+.kpi .val { font-size: 26px; font-weight: 700; margin-top: 4px; line-height: 1.15; }
+.kpi .sub { font-size: 12px; color: var(--ink-2); margin-top: 3px; }
+.kpi .sub b.up { color: #006300; font-weight: 600; }
+:root[data-theme="dark"] .kpi .sub b.up { color: #0ca30c; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .kpi .sub b.up { color: #0ca30c; } }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid .full { grid-column: 1 / -1; }
+@media (max-width: 780px) { .grid { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--ring); border-radius: 10px; padding: 16px 18px 10px; min-width: 0; }
+.card h2 { font-size: 15px; font-weight: 700; margin: 0; }
+.card .def { font-size: 12px; color: var(--ink-3); margin: 2px 0 10px; }
+.legend { display: flex; gap: 14px; font-size: 12px; color: var(--ink-2); margin: 0 0 4px; flex-wrap: wrap; }
+.legend .sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; height: auto; }
+.tip {
+  position: absolute; pointer-events: none; background: var(--surface);
+  border: 1px solid var(--ring); border-radius: 8px; padding: 6px 9px;
+  font-size: 12px; color: var(--ink-1); box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+  white-space: nowrap; opacity: 0; transition: opacity .08s linear; z-index: 3;
+}
+@media (prefers-reduced-motion: reduce) { .tip { transition: none; } }
+.tip .t { color: var(--ink-3); font-size: 11px; }
+details.tbl { margin: 6px 0 6px; }
+details.tbl summary { font-size: 12px; color: var(--ink-2); cursor: pointer; }
+details.tbl summary:focus-visible { outline: 2px solid var(--s1); border-radius: 4px; }
+details.tbl .scroll { overflow-x: auto; }
+details.tbl table { border-collapse: collapse; font-size: 12px; margin-top: 8px; min-width: 320px; }
+details.tbl th, details.tbl td { text-align: right; padding: 4px 10px; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
+details.tbl th:first-child, details.tbl td:first-child { text-align: left; }
+details.tbl th { color: var(--ink-3); font-weight: 600; }
+footer.page { margin-top: 30px; font-size: 12px; color: var(--ink-3); max-width: 80ch; }
+footer.page a { color: var(--ink-2); }
+</style>
+<div class="wrap">
+  <header class="page">
+    <div>
+      <div class="eyebrow">Estudo de indústria · dados abertos CVM</div>
+      <h1>Indústria de FIDCs no Brasil</h1>
+    </div>
+    <span class="basebadge" id="basebadge"></span>
+  </header>
+  <p class="lede">Série reconstruída do informe mensal regulatório (Tabelas I, II, IV, X.1, X.1.1, X.2 e X.4),
+  jan/2013 em diante, somando fundos legados e classes RCVM 175 sem dupla contagem. Universo CVM: inclui
+  fundos exclusivos, não padronizados e FIC-FIDC — por isso o PL é maior que o divulgado pela ANBIMA.</p>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid">
+    <div class="card full">
+      <h2>Patrimônio líquido da indústria</h2>
+      <div class="def">R$ bilhões · soma do PL de todos os veículos reportantes (Tab IV)</div>
+      <div class="chart" id="ch-pl"></div>
+      <details class="tbl"><summary>Ver dados (dezembro de cada ano)</summary><div class="scroll" id="tb-pl"></div></details>
+    </div>
+    <div class="card">
+      <h2>Captação líquida mensal</h2>
+      <div class="def">R$ bilhões · captações − resgates − amortizações (Tab X.4), últimos 48 meses</div>
+      <div class="legend"><span><span class="sw" style="background:var(--s1)"></span>entrada líquida</span><span><span class="sw" style="background:var(--neg)"></span>saída líquida</span></div>
+      <div class="chart" id="ch-flow"></div>
+      <details class="tbl"><summary>Ver dados (últimos 12 meses)</summary><div class="scroll" id="tb-flow"></div></details>
+    </div>
+    <div class="card">
+      <h2>Contas de cotistas</h2>
+      <div class="def">mil contas por classe/série (Tab X.1) — não são CPFs únicos</div>
+      <div class="chart" id="ch-cot"></div>
+      <details class="tbl"><summary>Ver dados (dezembro de cada ano)</summary><div class="scroll" id="tb-cot"></div></details>
+    </div>
+    <div class="card">
+      <h2>Inadimplência da carteira</h2>
+      <div class="def">% da carteira de direitos creditórios (Tab I) · ajustada = inadimplência de cada veículo limitada à própria carteira (corrige NPL a valor de face)</div>
+      <div class="legend"><span><span class="sw" style="background:var(--s1)"></span>ajustada</span><span><span class="sw" style="background:var(--s2)"></span>bruta (como reportada)</span></div>
+      <div class="chart" id="ch-inad"></div>
+      <details class="tbl"><summary>Ver dados (dezembro de cada ano)</summary><div class="scroll" id="tb-inad"></div></details>
+    </div>
+    <div class="card">
+      <h2>Concentração de administradores</h2>
+      <div class="def">participação no PL total administrado</div>
+      <div class="legend"><span><span class="sw" style="background:var(--s1)"></span>top 10</span><span><span class="sw" style="background:var(--s2)"></span>top 5</span></div>
+      <div class="chart" id="ch-conc"></div>
+      <details class="tbl"><summary>Ver dados (dezembro de cada ano)</summary><div class="scroll" id="tb-conc"></div></details>
+    </div>
+    <div class="card">
+      <h2>Carteira por tipo de recebível</h2>
+      <div class="def">R$ bilhões na data-base · classificação oficial da Tab II</div>
+      <div class="chart" id="ch-seg"></div>
+      <details class="tbl"><summary>Ver dados</summary><div class="scroll" id="tb-seg"></div></details>
+    </div>
+    <div class="card">
+      <h2>Top 10 administradores por PL</h2>
+      <div class="def">R$ bilhões na data-base (Tab I + IV, auditável mês a mês)</div>
+      <div class="chart" id="ch-adm"></div>
+      <details class="tbl"><summary>Ver dados</summary><div class="scroll" id="tb-adm"></div></details>
+    </div>
+  </div>
+
+  <footer class="page">
+    Fonte: CVM — dataset público <i>FIDC: Documentos — Informe Mensal</i> e cadastro <i>registro_fundo_classe</i>.
+    Reproduzível via <code>scripts/build_fidc_industry_study.py</code> no repositório (agregados em
+    <code>data/industry_study/</code>; relatório completo com reconciliação CVM × ANBIMA × Uqbar em
+    <code>reports/fidc_industry_study.md</code>). Última competência do dataset ainda em carga é excluída da data-base.
+  </footer>
+</div>
+<script>
+const DATA = {"monthly": [{"c": "2013-01", "pl": 69.1, "cl": -1.7, "n": 412, "cot": 21460, "inad": 0.0242, "inadAdj": 0.0162}, {"c": "2013-02", "pl": 70.2, "cl": 0.14, "n": 414, "cot": 9087, "inad": 0.0247, "inadAdj": 0.0156}, {"c": "2013-03", "pl": 68.1, "cl": 10.23, "n": 417, "cot": 8601, "inad": 0.0234, "inadAdj": 0.0142}, {"c": "2013-04", "pl": 70.2, "cl": -0.01, "n": 419, "cot": 8829, "inad": 0.0271, "inadAdj": 0.0158}, {"c": "2013-05", "pl": 82.1, "cl": 11.6, "n": 417, "cot": 8787, "inad": 0.0232, "inadAdj": 0.0125}, {"c": "2013-06", "pl": 93.0, "cl": 10.22, "n": 415, "cot": 8817, "inad": 0.0232, "inadAdj": 0.0115}, {"c": "2013-07", "pl": 89.1, "cl": -3.83, "n": 420, "cot": 8451, "inad": 0.0216, "inadAdj": 0.0116}, {"c": "2013-08", "pl": 83.4, "cl": -6.28, "n": 420, "cot": 8390, "inad": 0.0227, "inadAdj": 0.0115}, {"c": "2013-09", "pl": 81.6, "cl": -3.31, "n": 419, "cot": 8324, "inad": 0.0256, "inadAdj": 0.0138}, {"c": "2013-10", "pl": 78.6, "cl": -0.7, "n": 428, "cot": 8456, "inad": 0.0296, "inadAdj": 0.0172}, {"c": "2013-11", "pl": 83.1, "cl": -0.76, "n": 430, "cot": 8534, "inad": 0.028, "inadAdj": 0.0158}, {"c": "2013-12", "pl": 84.5, "cl": -25.95, "n": 430, "cot": 9410, "inad": 0.0314, "inadAdj": 0.0182}, {"c": "2014-01", "pl": 85.9, "cl": 0.88, "n": 431, "cot": 8713, "inad": 0.0388, "inadAdj": 0.0248}, {"c": "2014-02", "pl": 80.1, "cl": 0.06, "n": 430, "cot": 8681, "inad": 0.038, "inadAdj": 0.0258}, {"c": "2014-03", "pl": 82.0, "cl": -1.62, "n": 435, "cot": 8717, "inad": 0.0377, "inadAdj": 0.0242}, {"c": "2014-04", "pl": 76.2, "cl": 4.14, "n": 436, "cot": 10014, "inad": 0.0419, "inadAdj": 0.0257}, {"c": "2014-05", "pl": 77.5, "cl": -1.47, "n": 446, "cot": 11522, "inad": 0.0344, "inadAdj": 0.0202}, {"c": "2014-06", "pl": 75.0, "cl": -3.39, "n": 456, "cot": 11055, "inad": 0.0378, "inadAdj": 0.0223}, {"c": "2014-07", "pl": 76.8, "cl": 0.56, "n": 458, "cot": 11105, "inad": 0.0485, "inadAdj": 0.0201}, {"c": "2014-08", "pl": 73.4, "cl": -4.03, "n": 462, "cot": 10935, "inad": 0.0526, "inadAdj": 0.0351}, {"c": "2014-09", "pl": 74.7, "cl": 1.54, "n": 466, "cot": 11116, "inad": 0.0872, "inadAdj": 0.0301}, {"c": "2014-10", "pl": 76.7, "cl": -0.06, "n": 465, "cot": 11366, "inad": 0.0876, "inadAdj": 0.0274}, {"c": "2014-11", "pl": 75.9, "cl": 7.89, "n": 472, "cot": 11424, "inad": 0.0842, "inadAdj": 0.0271}, {"c": "2014-12", "pl": 76.4, "cl": 0.1, "n": 477, "cot": 11402, "inad": 0.0843, "inadAdj": 0.0291}, {"c": "2015-01", "pl": 72.0, "cl": -5.09, "n": 476, "cot": 11430, "inad": 0.0931, "inadAdj": 0.0288}, {"c": "2015-02", "pl": 73.0, "cl": -0.48, "n": 482, "cot": 12081, "inad": 0.0955, "inadAdj": 0.0302}, {"c": "2015-03", "pl": 73.5, "cl": -0.28, "n": 488, "cot": 11991, "inad": 0.1208, "inadAdj": 0.0503}, {"c": "2015-04", "pl": 77.5, "cl": 3.28, "n": 488, "cot": 11646, "inad": 0.1222, "inadAdj": 0.043}, {"c": "2015-05", "pl": 75.1, "cl": -3.2, "n": 494, "cot": 12257, "inad": 0.0785, "inadAdj": 0.0237}, {"c": "2015-06", "pl": 79.0, "cl": 3.18, "n": 504, "cot": 12360, "inad": 0.0806, "inadAdj": 0.0278}, {"c": "2015-07", "pl": 77.7, "cl": -2.1, "n": 509, "cot": 12732, "inad": 0.0817, "inadAdj": 0.0286}, {"c": "2015-08", "pl": 79.2, "cl": -0.25, "n": 498, "cot": 12380, "inad": 0.0843, "inadAdj": 0.0307}, {"c": "2015-09", "pl": 84.6, "cl": 4.82, "n": 516, "cot": 11965, "inad": 0.078, "inadAdj": 0.0259}, {"c": "2015-10", "pl": 79.9, "cl": -4.65, "n": 520, "cot": 12190, "inad": 0.0758, "inadAdj": 0.028}, {"c": "2015-11", "pl": 84.2, "cl": 2.5, "n": 519, "cot": 12281, "inad": 0.0782, "inadAdj": 0.0235}, {"c": "2015-12", "pl": 84.7, "cl": -1.01, "n": 527, "cot": 12508, "inad": 0.0762, "inadAdj": 0.0257}, {"c": "2016-01", "pl": 84.3, "cl": -1.41, "n": 526, "cot": 12198, "inad": 0.0757, "inadAdj": 0.0301}, {"c": "2016-02", "pl": 83.7, "cl": -2.02, "n": 525, "cot": 12099, "inad": 0.1087, "inadAdj": 0.0329}, {"c": "2016-03", "pl": 81.2, "cl": -2.64, "n": 530, "cot": 12181, "inad": 0.1185, "inadAdj": 0.0358}, {"c": "2016-04", "pl": 82.6, "cl": 0.18, "n": 534, "cot": 12104, "inad": 0.1181, "inadAdj": 0.0336}, {"c": "2016-05", "pl": 80.2, "cl": -2.1, "n": 541, "cot": 13094, "inad": 0.0473, "inadAdj": 0.0121}, {"c": "2016-06", "pl": 78.6, "cl": -2.39, "n": 548, "cot": 13215, "inad": 0.1239, "inadAdj": 0.0289}, {"c": "2016-07", "pl": 83.5, "cl": 4.45, "n": 552, "cot": 13058, "inad": 0.1112, "inadAdj": 0.0312}, {"c": "2016-08", "pl": 86.6, "cl": -0.09, "n": 560, "cot": 13319, "inad": 0.1126, "inadAdj": 0.033}, {"c": "2016-09", "pl": 87.3, "cl": -0.28, "n": 561, "cot": 13406, "inad": 0.116, "inadAdj": 0.032}, {"c": "2016-10", "pl": 86.9, "cl": 11.61, "n": 566, "cot": 13879, "inad": 0.1, "inadAdj": 0.0254}, {"c": "2016-11", "pl": 89.1, "cl": 1.03, "n": 567, "cot": 14064, "inad": 0.1001, "inadAdj": 0.0273}, {"c": "2016-12", "pl": 93.8, "cl": 2.48, "n": 575, "cot": 13872, "inad": 0.1015, "inadAdj": 0.0308}, {"c": "2017-01", "pl": 89.4, "cl": -5.49, "n": 586, "cot": 14154, "inad": 0.1104, "inadAdj": 0.0373}, {"c": "2017-02", "pl": 91.9, "cl": 3.19, "n": 594, "cot": 14117, "inad": 0.0902, "inadAdj": 0.0359}, {"c": "2017-03", "pl": 94.2, "cl": 0.07, "n": 603, "cot": 14364, "inad": 0.1207, "inadAdj": 0.0404}, {"c": "2017-04", "pl": 90.7, "cl": -4.57, "n": 612, "cot": 16017, "inad": 0.0891, "inadAdj": 0.041}, {"c": "2017-05", "pl": 88.2, "cl": -3.45, "n": 620, "cot": 14448, "inad": 0.1252, "inadAdj": 0.0504}, {"c": "2017-06", "pl": 90.5, "cl": 1.6, "n": 626, "cot": 14053, "inad": 0.1152, "inadAdj": 0.039}, {"c": "2017-07", "pl": 94.5, "cl": -2.17, "n": 630, "cot": 14158, "inad": 0.0934, "inadAdj": 0.0404}, {"c": "2017-08", "pl": 102.9, "cl": 6.55, "n": 642, "cot": 14439, "inad": 0.1105, "inadAdj": 0.0345}, {"c": "2017-09", "pl": 99.5, "cl": -4.61, "n": 656, "cot": 14838, "inad": 0.0638, "inadAdj": 0.0336}, {"c": "2017-10", "pl": 93.4, "cl": -7.54, "n": 672, "cot": 14655, "inad": 0.0856, "inadAdj": 0.0344}, {"c": "2017-11", "pl": 96.2, "cl": 1.13, "n": 694, "cot": 15455, "inad": 0.1182, "inadAdj": 0.0441}, {"c": "2017-12", "pl": 115.2, "cl": 12.77, "n": 750, "cot": 16049, "inad": 0.0982, "inadAdj": 0.0389}, {"c": "2018-01", "pl": 116.0, "cl": -0.62, "n": 752, "cot": 16321, "inad": 0.0975, "inadAdj": 0.0599}, {"c": "2018-02", "pl": 113.8, "cl": 9.62, "n": 766, "cot": 15368, "inad": 0.0946, "inadAdj": 0.0528}, {"c": "2018-03", "pl": 118.0, "cl": 2.0, "n": 785, "cot": 16595, "inad": 0.0916, "inadAdj": 0.0331}, {"c": "2018-04", "pl": 125.7, "cl": 3.5, "n": 798, "cot": 16972, "inad": 0.0808, "inadAdj": 0.0295}, {"c": "2018-05", "pl": 120.0, "cl": -5.16, "n": 821, "cot": 16806, "inad": 0.0839, "inadAdj": 0.035}, {"c": "2018-06", "pl": 126.1, "cl": 3.4, "n": 824, "cot": 17414, "inad": 0.0867, "inadAdj": 0.0343}, {"c": "2018-07", "pl": 127.9, "cl": 13.12, "n": 834, "cot": 17010, "inad": 0.0702, "inadAdj": 0.0541}, {"c": "2018-08", "pl": 128.5, "cl": -1.53, "n": 846, "cot": 23803, "inad": 0.0706, "inadAdj": 0.036}, {"c": "2018-09", "pl": 130.5, "cl": 2.4, "n": 857, "cot": 17600, "inad": 0.0673, "inadAdj": 0.0542}, {"c": "2018-10", "pl": 134.0, "cl": 1.54, "n": 868, "cot": 17507, "inad": 0.0902, "inadAdj": 0.0596}, {"c": "2018-11", "pl": 136.3, "cl": 1.04, "n": 882, "cot": 16835, "inad": 0.0726, "inadAdj": 0.0607}, {"c": "2018-12", "pl": 141.6, "cl": 4.67, "n": 890, "cot": 17678, "inad": 0.0818, "inadAdj": 0.0341}, {"c": "2019-01", "pl": 148.0, "cl": -0.17, "n": 880, "cot": 17913, "inad": 0.113, "inadAdj": 0.0458}, {"c": "2019-02", "pl": 170.7, "cl": 18.89, "n": 898, "cot": 18284, "inad": 0.1013, "inadAdj": 0.0375}, {"c": "2019-03", "pl": 166.3, "cl": -4.95, "n": 911, "cot": 18007, "inad": 0.0811, "inadAdj": 0.0349}, {"c": "2019-04", "pl": 162.3, "cl": -5.47, "n": 921, "cot": 17556, "inad": 0.11, "inadAdj": 0.0375}, {"c": "2019-05", "pl": 201.6, "cl": 37.47, "n": 925, "cot": 17690, "inad": 0.2022, "inadAdj": 0.0298}, {"c": "2019-06", "pl": 216.7, "cl": 16.32, "n": 938, "cot": 17766, "inad": 0.3257, "inadAdj": 0.0623}, {"c": "2019-07", "pl": 212.1, "cl": -7.94, "n": 945, "cot": 17994, "inad": 0.2029, "inadAdj": 0.0327}, {"c": "2019-08", "pl": 212.6, "cl": -2.6, "n": 969, "cot": 18075, "inad": 0.227, "inadAdj": 0.0638}, {"c": "2019-09", "pl": 231.2, "cl": 15.61, "n": 992, "cot": 18383, "inad": 0.1997, "inadAdj": 0.0331}, {"c": "2019-10", "pl": 234.2, "cl": 0.27, "n": 1004, "cot": 18525, "inad": 0.2055, "inadAdj": 0.0362}, {"c": "2019-11", "pl": 242.3, "cl": 9.84, "n": 1020, "cot": 25677, "inad": 0.2271, "inadAdj": 0.0514}, {"c": "2019-12", "pl": 237.4, "cl": -9.07, "n": 1042, "cot": 25781, "inad": 0.1977, "inadAdj": 0.0453}, {"c": "2020-01", "pl": 231.1, "cl": -8.06, "n": 1052, "cot": 26958, "inad": 0.1993, "inadAdj": 0.0441}, {"c": "2020-02", "pl": 236.7, "cl": -0.54, "n": 1061, "cot": 28561, "inad": 0.2004, "inadAdj": 0.0467}, {"c": "2020-03", "pl": 242.9, "cl": 5.5, "n": 1070, "cot": 29131, "inad": 0.2063, "inadAdj": 0.05}, {"c": "2020-04", "pl": 230.7, "cl": -10.78, "n": 1077, "cot": 28927, "inad": 0.2199, "inadAdj": 0.0555}, {"c": "2020-05", "pl": 226.0, "cl": -3.39, "n": 1088, "cot": 28955, "inad": 0.2335, "inadAdj": 0.0586}, {"c": "2020-06", "pl": 225.5, "cl": 1.4, "n": 1091, "cot": 28777, "inad": 0.2117, "inadAdj": 0.055}, {"c": "2020-07", "pl": 225.2, "cl": 2.85, "n": 1115, "cot": 29817, "inad": 0.2141, "inadAdj": 0.0527}, {"c": "2020-08", "pl": 225.2, "cl": -0.71, "n": 1129, "cot": 31051, "inad": 0.2218, "inadAdj": 0.0536}, {"c": "2020-09", "pl": 230.1, "cl": 3.52, "n": 1144, "cot": 31474, "inad": 0.1945, "inadAdj": 0.0496}, {"c": "2020-10", "pl": 217.4, "cl": -13.91, "n": 1151, "cot": 31890, "inad": 0.1967, "inadAdj": 0.0493}, {"c": "2020-11", "pl": 214.1, "cl": -0.62, "n": 1198, "cot": 32071, "inad": 0.0937, "inadAdj": 0.0501}, {"c": "2020-12", "pl": 217.8, "cl": 3.77, "n": 1230, "cot": 32936, "inad": 0.0924, "inadAdj": 0.0488}, {"c": "2021-01", "pl": 216.0, "cl": 7.1, "n": 1224, "cot": 33238, "inad": 0.2026, "inadAdj": 0.0534}, {"c": "2021-02", "pl": 223.1, "cl": 5.57, "n": 1234, "cot": 33368, "inad": 0.2049, "inadAdj": 0.0544}, {"c": "2021-03", "pl": 246.6, "cl": 17.41, "n": 1273, "cot": 33780, "inad": 0.1895, "inadAdj": 0.0529}, {"c": "2021-04", "pl": 267.4, "cl": 16.63, "n": 1295, "cot": 33359, "inad": 0.1647, "inadAdj": 0.0466}, {"c": "2021-05", "pl": 281.7, "cl": 9.16, "n": 1338, "cot": 34682, "inad": 0.1573, "inadAdj": 0.0484}, {"c": "2021-06", "pl": 297.8, "cl": 17.75, "n": 1369, "cot": 36345, "inad": 0.1425, "inadAdj": 0.0438}, {"c": "2021-07", "pl": 291.9, "cl": 12.66, "n": 1383, "cot": 35559, "inad": 0.1533, "inadAdj": 0.0483}, {"c": "2021-08", "pl": 297.5, "cl": -4.77, "n": 1424, "cot": 36154, "inad": 0.1471, "inadAdj": 0.0477}, {"c": "2021-09", "pl": 303.9, "cl": 5.14, "n": 1456, "cot": 36179, "inad": 0.1509, "inadAdj": 0.0542}, {"c": "2021-10", "pl": 309.3, "cl": 14.54, "n": 1478, "cot": 36927, "inad": 0.1536, "inadAdj": 0.0603}, {"c": "2021-11", "pl": 330.6, "cl": 28.12, "n": 1493, "cot": 28060, "inad": 0.1534, "inadAdj": 0.0651}, {"c": "2021-12", "pl": 308.9, "cl": -25.26, "n": 1547, "cot": 31626, "inad": 0.1704, "inadAdj": 0.0678}, {"c": "2022-01", "pl": 307.1, "cl": -2.25, "n": 1553, "cot": 32248, "inad": 0.1743, "inadAdj": 0.0705}, {"c": "2022-02", "pl": 312.2, "cl": 3.77, "n": 1578, "cot": 32815, "inad": 0.1712, "inadAdj": 0.0687}, {"c": "2022-03", "pl": 327.6, "cl": 15.14, "n": 1607, "cot": 33405, "inad": 0.1767, "inadAdj": 0.0709}, {"c": "2022-04", "pl": 382.7, "cl": 53.27, "n": 1646, "cot": 38907, "inad": 0.1607, "inadAdj": 0.0651}, {"c": "2022-05", "pl": 367.9, "cl": -16.33, "n": 1665, "cot": 34746, "inad": 0.1691, "inadAdj": 0.0702}, {"c": "2022-06", "pl": 364.3, "cl": -8.22, "n": 1700, "cot": 40475, "inad": 0.17, "inadAdj": 0.0704}, {"c": "2022-07", "pl": 345.9, "cl": -19.61, "n": 1735, "cot": 47340, "inad": 0.1703, "inadAdj": 0.0707}, {"c": "2022-08", "pl": 339.3, "cl": -9.88, "n": 1767, "cot": 48017, "inad": 0.1858, "inadAdj": 0.0849}, {"c": "2022-09", "pl": 346.8, "cl": 4.84, "n": 1787, "cot": 48390, "inad": 0.1816, "inadAdj": 0.0784}, {"c": "2022-10", "pl": 350.5, "cl": 3.04, "n": 1824, "cot": 49333, "inad": 0.1753, "inadAdj": 0.0689}, {"c": "2022-11", "pl": 369.9, "cl": 17.32, "n": 1854, "cot": 47293, "inad": 0.195, "inadAdj": 0.0781}, {"c": "2022-12", "pl": 378.9, "cl": 3.83, "n": 1912, "cot": 48608, "inad": 0.1746, "inadAdj": 0.0677}, {"c": "2023-01", "pl": 375.9, "cl": -2.67, "n": 1937, "cot": 49343, "inad": 0.1801, "inadAdj": 0.0707}, {"c": "2023-02", "pl": 377.0, "cl": 1.98, "n": 1955, "cot": 49444, "inad": 0.1898, "inadAdj": 0.0793}, {"c": "2023-03", "pl": 384.8, "cl": 7.56, "n": 2009, "cot": 49607, "inad": 0.1954, "inadAdj": 0.0811}, {"c": "2023-04", "pl": 399.3, "cl": 11.89, "n": 2034, "cot": 49767, "inad": 0.1835, "inadAdj": 0.073}, {"c": "2023-05", "pl": 391.1, "cl": -9.76, "n": 2044, "cot": 50164, "inad": 0.1979, "inadAdj": 0.0837}, {"c": "2023-06", "pl": 403.6, "cl": 0.25, "n": 2068, "cot": 50967, "inad": 0.1809, "inadAdj": 0.0745}, {"c": "2023-07", "pl": 418.1, "cl": 9.65, "n": 2087, "cot": 53490, "inad": 0.19, "inadAdj": 0.0856}, {"c": "2023-08", "pl": 417.0, "cl": -3.1, "n": 2129, "cot": 55263, "inad": 0.1904, "inadAdj": 0.0846}, {"c": "2023-09", "pl": 424.4, "cl": 2.94, "n": 2276, "cot": 55081, "inad": 0.1922, "inadAdj": 0.0871}, {"c": "2023-10", "pl": 434.1, "cl": 16.07, "n": 2270, "cot": 56072, "inad": 0.1765, "inadAdj": 0.0739}, {"c": "2023-11", "pl": 448.5, "cl": 11.09, "n": 2272, "cot": 57380, "inad": 0.1635, "inadAdj": 0.0824}, {"c": "2023-12", "pl": 485.4, "cl": 12.22, "n": 2404, "cot": 61735, "inad": 0.1518, "inadAdj": 0.0752}, {"c": "2024-01", "pl": 494.4, "cl": 5.91, "n": 2425, "cot": 57540, "inad": 0.1549, "inadAdj": 0.0779}, {"c": "2024-02", "pl": 494.4, "cl": -2.32, "n": 2447, "cot": 63046, "inad": 0.1532, "inadAdj": 0.0776}, {"c": "2024-03", "pl": 501.2, "cl": 6.96, "n": 2490, "cot": 70320, "inad": 0.1436, "inadAdj": 0.0704}, {"c": "2024-04", "pl": 543.4, "cl": 39.78, "n": 2538, "cot": 78828, "inad": 0.1518, "inadAdj": 0.0798}, {"c": "2024-05", "pl": 551.0, "cl": 2.57, "n": 2612, "cot": 80321, "inad": 0.1545, "inadAdj": 0.0817}, {"c": "2024-06", "pl": 555.7, "cl": 5.3, "n": 2682, "cot": 90299, "inad": 0.1474, "inadAdj": 0.077}, {"c": "2024-07", "pl": 610.3, "cl": 48.05, "n": 2744, "cot": 88068, "inad": 0.0911, "inadAdj": 0.0671}, {"c": "2024-08", "pl": 623.5, "cl": 11.06, "n": 2810, "cot": 99185, "inad": 0.0915, "inadAdj": 0.0676}, {"c": "2024-09", "pl": 638.3, "cl": 9.46, "n": 2881, "cot": 103457, "inad": 0.0919, "inadAdj": 0.0699}, {"c": "2024-10", "pl": 678.4, "cl": 29.62, "n": 3007, "cot": 118352, "inad": 0.0901, "inadAdj": 0.0685}, {"c": "2024-11", "pl": 695.6, "cl": 44.72, "n": 3061, "cot": 143898, "inad": 0.0906, "inadAdj": 0.0699}, {"c": "2024-12", "pl": 731.8, "cl": 70.78, "n": 3140, "cot": 148582, "inad": 0.0825, "inadAdj": 0.063}, {"c": "2025-01", "pl": 734.6, "cl": -2.49, "n": 3192, "cot": 165768, "inad": 0.0796, "inadAdj": 0.0615}, {"c": "2025-02", "pl": 744.3, "cl": 8.93, "n": 3254, "cot": 174434, "inad": 0.077, "inadAdj": 0.0598}, {"c": "2025-03", "pl": 752.2, "cl": 8.11, "n": 3316, "cot": 192255, "inad": 0.0788, "inadAdj": 0.0593}, {"c": "2025-04", "pl": 768.3, "cl": 11.38, "n": 3388, "cot": 208337, "inad": 0.0825, "inadAdj": 0.0625}, {"c": "2025-05", "pl": 782.6, "cl": 14.16, "n": 3452, "cot": 234206, "inad": 0.0837, "inadAdj": 0.0629}, {"c": "2025-06", "pl": 857.9, "cl": 66.0, "n": 3592, "cot": 274917, "inad": 0.0821, "inadAdj": 0.0623}, {"c": "2025-07", "pl": 869.9, "cl": 10.11, "n": 3647, "cot": 331615, "inad": 0.0807, "inadAdj": 0.0602}, {"c": "2025-08", "pl": 876.6, "cl": 6.46, "n": 3717, "cot": 374091, "inad": 0.0776, "inadAdj": 0.0569}, {"c": "2025-09", "pl": 887.1, "cl": 10.66, "n": 3757, "cot": 358512, "inad": 0.0838, "inadAdj": 0.0629}, {"c": "2025-10", "pl": 892.1, "cl": 14.65, "n": 3824, "cot": 365017, "inad": 0.0781, "inadAdj": 0.0584}, {"c": "2025-11", "pl": 889.4, "cl": 5.65, "n": 3870, "cot": 374129, "inad": 0.0788, "inadAdj": 0.0606}, {"c": "2025-12", "pl": 918.1, "cl": 32.2, "n": 4007, "cot": 387334, "inad": 0.07, "inadAdj": 0.0504}, {"c": "2026-01", "pl": 892.6, "cl": 6.53, "n": 4059, "cot": 397000, "inad": 0.07, "inadAdj": 0.0507}, {"c": "2026-02", "pl": 906.6, "cl": 7.59, "n": 4095, "cot": 405933, "inad": 0.0712, "inadAdj": 0.0503}, {"c": "2026-03", "pl": 913.6, "cl": 22.37, "n": 4141, "cot": 416176, "inad": 0.0745, "inadAdj": 0.0537}, {"c": "2026-04", "pl": 954.8, "cl": 16.98, "n": 4212, "cot": 434025, "inad": 0.0726, "inadAdj": 0.052}, {"c": "2026-05", "pl": 958.5, "cl": 20.38, "n": 4224, "cot": 445664, "inad": 0.0802, "inadAdj": 0.0584}], "conc": [{"c": "2013-01", "t5": 0.6505, "t10": 0.8295}, {"c": "2013-02", "t5": 0.6495, "t10": 0.8267}, {"c": "2013-03", "t5": 0.6525, "t10": 0.8345}, {"c": "2013-04", "t5": 0.6573, "t10": 0.8378}, {"c": "2013-05", "t5": 0.6979, "t10": 0.8547}, {"c": "2013-06", "t5": 0.7314, "t10": 0.8732}, {"c": "2013-07", "t5": 0.726, "t10": 0.869}, {"c": "2013-08", "t5": 0.704, "t10": 0.8575}, {"c": "2013-09", "t5": 0.694, "t10": 0.8509}, {"c": "2013-10", "t5": 0.6742, "t10": 0.8393}, {"c": "2013-11", "t5": 0.6957, "t10": 0.8499}, {"c": "2013-12", "t5": 0.6927, "t10": 0.8454}, {"c": "2014-01", "t5": 0.7005, "t10": 0.8509}, {"c": "2014-02", "t5": 0.6834, "t10": 0.8457}, {"c": "2014-03", "t5": 0.6978, "t10": 0.8558}, {"c": "2014-04", "t5": 0.6682, "t10": 0.8402}, {"c": "2014-05", "t5": 0.6826, "t10": 0.8534}, {"c": "2014-06", "t5": 0.6598, "t10": 0.8397}, {"c": "2014-07", "t5": 0.6685, "t10": 0.8439}, {"c": "2014-08", "t5": 0.6515, "t10": 0.831}, {"c": "2014-09", "t5": 0.6478, "t10": 0.831}, {"c": "2014-10", "t5": 0.6324, "t10": 0.8216}, {"c": "2014-11", "t5": 0.6342, "t10": 0.8221}, {"c": "2014-12", "t5": 0.6422, "t10": 0.8146}, {"c": "2015-01", "t5": 0.6343, "t10": 0.8071}, {"c": "2015-02", "t5": 0.6441, "t10": 0.8138}, {"c": "2015-03", "t5": 0.6455, "t10": 0.8129}, {"c": "2015-04", "t5": 0.6616, "t10": 0.8193}, {"c": "2015-05", "t5": 0.6449, "t10": 0.808}, {"c": "2015-06", "t5": 0.665, "t10": 0.8192}, {"c": "2015-07", "t5": 0.6579, "t10": 0.8147}, {"c": "2015-08", "t5": 0.6598, "t10": 0.8133}, {"c": "2015-09", "t5": 0.6847, "t10": 0.8278}, {"c": "2015-10", "t5": 0.6716, "t10": 0.8238}, {"c": "2015-11", "t5": 0.672, "t10": 0.8204}, {"c": "2015-12", "t5": 0.6701, "t10": 0.8188}, {"c": "2016-01", "t5": 0.6744, "t10": 0.8193}, {"c": "2016-02", "t5": 0.6769, "t10": 0.8206}, {"c": "2016-03", "t5": 0.6766, "t10": 0.8228}, {"c": "2016-04", "t5": 0.6817, "t10": 0.8261}, {"c": "2016-05", "t5": 0.6943, "t10": 0.8363}, {"c": "2016-06", "t5": 0.6849, "t10": 0.8299}, {"c": "2016-07", "t5": 0.704, "t10": 0.8431}, {"c": "2016-08", "t5": 0.7064, "t10": 0.8411}, {"c": "2016-09", "t5": 0.7084, "t10": 0.8428}, {"c": "2016-10", "t5": 0.7087, "t10": 0.8473}, {"c": "2016-11", "t5": 0.7065, "t10": 0.8461}, {"c": "2016-12", "t5": 0.709, "t10": 0.8453}, {"c": "2017-01", "t5": 0.693, "t10": 0.8389}, {"c": "2017-02", "t5": 0.7117, "t10": 0.8407}, {"c": "2017-03", "t5": 0.7098, "t10": 0.8464}, {"c": "2017-04", "t5": 0.6946, "t10": 0.8349}, {"c": "2017-05", "t5": 0.6834, "t10": 0.8305}, {"c": "2017-06", "t5": 0.7039, "t10": 0.8445}, {"c": "2017-07", "t5": 0.7157, "t10": 0.8529}, {"c": "2017-08", "t5": 0.7269, "t10": 0.8555}, {"c": "2017-09", "t5": 0.7088, "t10": 0.844}, {"c": "2017-10", "t5": 0.6824, "t10": 0.8266}, {"c": "2017-11", "t5": 0.6826, "t10": 0.8266}, {"c": "2017-12", "t5": 0.6875, "t10": 0.8248}, {"c": "2018-01", "t5": 0.6825, "t10": 0.8177}, {"c": "2018-02", "t5": 0.6769, "t10": 0.8139}, {"c": "2018-03", "t5": 0.6757, "t10": 0.8122}, {"c": "2018-04", "t5": 0.6852, "t10": 0.8163}, {"c": "2018-05", "t5": 0.6678, "t10": 0.8056}, {"c": "2018-06", "t5": 0.685, "t10": 0.8103}, {"c": "2018-07", "t5": 0.6849, "t10": 0.8116}, {"c": "2018-08", "t5": 0.6704, "t10": 0.7982}, {"c": "2018-09", "t5": 0.6666, "t10": 0.7945}, {"c": "2018-10", "t5": 0.6637, "t10": 0.7916}, {"c": "2018-11", "t5": 0.6555, "t10": 0.7907}, {"c": "2018-12", "t5": 0.6675, "t10": 0.7981}, {"c": "2019-01", "t5": 0.6557, "t10": 0.8101}, {"c": "2019-02", "t5": 0.6793, "t10": 0.8189}, {"c": "2019-03", "t5": 0.6634, "t10": 0.8106}, {"c": "2019-04", "t5": 0.6486, "t10": 0.804}, {"c": "2019-05", "t5": 0.714, "t10": 0.8411}, {"c": "2019-06", "t5": 0.732, "t10": 0.8544}, {"c": "2019-07", "t5": 0.7111, "t10": 0.8483}, {"c": "2019-08", "t5": 0.6852, "t10": 0.8311}, {"c": "2019-09", "t5": 0.6642, "t10": 0.8269}, {"c": "2019-10", "t5": 0.6624, "t10": 0.8255}, {"c": "2019-11", "t5": 0.6708, "t10": 0.8274}, {"c": "2019-12", "t5": 0.6506, "t10": 0.816}, {"c": "2020-01", "t5": 0.6244, "t10": 0.7983}, {"c": "2020-02", "t5": 0.6182, "t10": 0.7922}, {"c": "2020-03", "t5": 0.6365, "t10": 0.7949}, {"c": "2020-04", "t5": 0.6081, "t10": 0.7776}, {"c": "2020-05", "t5": 0.6032, "t10": 0.7754}, {"c": "2020-06", "t5": 0.5948, "t10": 0.7604}, {"c": "2020-07", "t5": 0.5939, "t10": 0.763}, {"c": "2020-08", "t5": 0.5845, "t10": 0.7547}, {"c": "2020-09", "t5": 0.5877, "t10": 0.7529}, {"c": "2020-10", "t5": 0.5609, "t10": 0.736}, {"c": "2020-11", "t5": 0.561, "t10": 0.7654}, {"c": "2020-12", "t5": 0.5539, "t10": 0.7569}, {"c": "2021-01", "t5": 0.575, "t10": 0.7581}, {"c": "2021-02", "t5": 0.5757, "t10": 0.7637}, {"c": "2021-03", "t5": 0.5867, "t10": 0.7727}, {"c": "2021-04", "t5": 0.6079, "t10": 0.787}, {"c": "2021-05", "t5": 0.6199, "t10": 0.7962}, {"c": "2021-06", "t5": 0.6339, "t10": 0.8013}, {"c": "2021-07", "t5": 0.6682, "t10": 0.8137}, {"c": "2021-08", "t5": 0.6472, "t10": 0.8149}, {"c": "2021-09", "t5": 0.6454, "t10": 0.8102}, {"c": "2021-10", "t5": 0.6828, "t10": 0.8259}, {"c": "2021-11", "t5": 0.7087, "t10": 0.8427}, {"c": "2021-12", "t5": 0.6686, "t10": 0.8148}, {"c": "2022-01", "t5": 0.6619, "t10": 0.8172}, {"c": "2022-02", "t5": 0.6598, "t10": 0.8204}, {"c": "2022-03", "t5": 0.6673, "t10": 0.8191}, {"c": "2022-04", "t5": 0.701, "t10": 0.8342}, {"c": "2022-05", "t5": 0.6834, "t10": 0.822}, {"c": "2022-06", "t5": 0.6643, "t10": 0.8057}, {"c": "2022-07", "t5": 0.6367, "t10": 0.7908}, {"c": "2022-08", "t5": 0.6168, "t10": 0.7849}, {"c": "2022-09", "t5": 0.6174, "t10": 0.7808}, {"c": "2022-10", "t5": 0.6122, "t10": 0.7779}, {"c": "2022-11", "t5": 0.6145, "t10": 0.7856}, {"c": "2022-12", "t5": 0.6045, "t10": 0.7858}, {"c": "2023-01", "t5": 0.6013, "t10": 0.7837}, {"c": "2023-02", "t5": 0.5959, "t10": 0.7798}, {"c": "2023-03", "t5": 0.5926, "t10": 0.7794}, {"c": "2023-04", "t5": 0.6015, "t10": 0.7844}, {"c": "2023-05", "t5": 0.5949, "t10": 0.7772}, {"c": "2023-06", "t5": 0.6034, "t10": 0.7805}, {"c": "2023-07", "t5": 0.5962, "t10": 0.783}, {"c": "2023-08", "t5": 0.585, "t10": 0.7788}, {"c": "2023-09", "t5": 0.5796, "t10": 0.777}, {"c": "2023-10", "t5": 0.5953, "t10": 0.7809}, {"c": "2023-11", "t5": 0.5818, "t10": 0.777}, {"c": "2023-12", "t5": 0.5605, "t10": 0.7747}, {"c": "2024-01", "t5": 0.5626, "t10": 0.7748}, {"c": "2024-02", "t5": 0.552, "t10": 0.7648}, {"c": "2024-03", "t5": 0.548, "t10": 0.7572}, {"c": "2024-04", "t5": 0.5667, "t10": 0.7663}, {"c": "2024-05", "t5": 0.5504, "t10": 0.7639}, {"c": "2024-06", "t5": 0.5443, "t10": 0.757}, {"c": "2024-07", "t5": 0.5797, "t10": 0.777}, {"c": "2024-08", "t5": 0.5786, "t10": 0.7748}, {"c": "2024-09", "t5": 0.5777, "t10": 0.7765}, {"c": "2024-10", "t5": 0.5918, "t10": 0.7776}, {"c": "2024-11", "t5": 0.5826, "t10": 0.7691}, {"c": "2024-12", "t5": 0.584, "t10": 0.7695}, {"c": "2025-01", "t5": 0.5821, "t10": 0.7674}, {"c": "2025-02", "t5": 0.5718, "t10": 0.7613}, {"c": "2025-03", "t5": 0.5699, "t10": 0.7573}, {"c": "2025-04", "t5": 0.5693, "t10": 0.7542}, {"c": "2025-05", "t5": 0.5671, "t10": 0.7519}, {"c": "2025-06", "t5": 0.533, "t10": 0.7483}, {"c": "2025-07", "t5": 0.5294, "t10": 0.7424}, {"c": "2025-08", "t5": 0.5203, "t10": 0.7373}, {"c": "2025-09", "t5": 0.5161, "t10": 0.7301}, {"c": "2025-10", "t5": 0.5189, "t10": 0.7238}, {"c": "2025-11", "t5": 0.5325, "t10": 0.7415}, {"c": "2025-12", "t5": 0.5229, "t10": 0.7326}, {"c": "2026-01", "t5": 0.5089, "t10": 0.7245}, {"c": "2026-02", "t5": 0.5148, "t10": 0.7219}, {"c": "2026-03", "t5": 0.5195, "t10": 0.7107}, {"c": "2026-04", "t5": 0.519, "t10": 0.7136}, {"c": "2026-05", "t5": 0.5236, "t10": 0.7127}], "seg": [{"n": "Financeiro", "v": 311.6}, {"n": "Comercial", "v": 116.4}, {"n": "Cartão de crédito", "v": 77.8}, {"n": "Industrial", "v": 74.1}, {"n": "Serviços", "v": 70.1}, {"n": "Setor público", "v": 38.8}, {"n": "Ações judiciais", "v": 27.3}, {"n": "Agronegócio", "v": 9.3}, {"n": "Imobiliário", "v": 3.1}, {"n": "Factoring", "v": 0.1}], "adm": [{"n": "BTG Pactual Serviços Financeiros DTVM", "v": 146.4, "s": 0.1528, "k": 430}, {"n": "QI CTVM", "v": 139.2, "s": 0.1453, "k": 821}, {"n": "Oliveira Trust DTVM", "v": 97.7, "s": 0.1019, "k": 156}, {"n": "BB Gestao De Recursos DTVM S.A", "v": 60.9, "s": 0.0635, "k": 3}, {"n": "Banco Daycoval", "v": 57.7, "s": 0.0602, "k": 398}, {"n": "BEM DTVM", "v": 51.4, "s": 0.0536, "k": 46}, {"n": "CBSF DTVM", "v": 43.0, "s": 0.0448, "k": 80}, {"n": "Intrag DTVM", "v": 31.6, "s": 0.033, "k": 40}, {"n": "Genial Investimentos CVM", "v": 30.8, "s": 0.0321, "k": 83}, {"n": "Hemera DTVM", "v": 24.5, "s": 0.0256, "k": 127}]};
+
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const fmtBR = (v, d=1) => v.toLocaleString('pt-BR', {minimumFractionDigits:d, maximumFractionDigits:d});
+const fmtInt = v => Math.round(v).toLocaleString('pt-BR');
+const compLabel = c => { const [y,m]=c.split('-'); return ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'][+m-1]+'/'+y.slice(2); };
+
+function svgEl(tag, attrs) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const k in attrs) el.setAttribute(k, attrs[k]);
+  return el;
+}
+
+function niceTicks(min, max, n=4) {
+  const span = max - min || 1, step0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const step = [1,2,2.5,5,10].map(m=>m*mag).find(s=>span/s<=n+0.5) || 10*mag;
+  const lo = Math.floor(min/step)*step, ticks=[];
+  for (let v=lo; v<=max+1e-9; v+=step) if (v>=min-1e-9) ticks.push(+v.toFixed(10));
+  return ticks;
+}
+
+// Line/area chart with crosshair tooltip. series: [{name,color,vals:[..]}], labels: [...]
+function lineChart(id, labels, series, {area=false, fmt=(v)=>fmtBR(v), yfmt=(v)=>fmtBR(v,0), h=280, endLabel=true} = {}) {
+  const host = document.getElementById(id);
+  host.innerHTML = '';
+  const W = Math.max(host.clientWidth || 500, 320), H = h;
+  const padL = 44, padR = endLabel ? 84 : 16, padT = 12, padB = 26;
+  const iw = W - padL - padR, ih = H - padT - padB;
+  const all = series.flatMap(s=>s.vals).filter(v=>v!=null);
+  let ymin = Math.min(0, ...all), ymax = Math.max(...all);
+  if (ymin === ymax) ymax = ymin + 1;
+  const ticks = niceTicks(ymin, ymax); ymin = Math.min(ymin, ticks[0]); ymax = Math.max(ymax, ticks[ticks.length-1]);
+  const x = i => padL + iw * (labels.length<2 ? 0.5 : i/(labels.length-1));
+  const y = v => padT + ih * (1 - (v-ymin)/(ymax-ymin));
+  const svg = svgEl('svg', {viewBox:`0 0 ${W} ${H}`, width:W, height:H, role:'img'});
+  for (const t of ticks) {
+    svg.appendChild(svgEl('line', {x1:padL, x2:W-padR, y1:y(t), y2:y(t), stroke:css('--grid'), 'stroke-width':1}));
+    const lab = svgEl('text', {x:padL-8, y:y(t)+4, 'text-anchor':'end', fill:css('--ink-3'), 'font-size':11});
+    lab.textContent = yfmt(t); svg.appendChild(lab);
+  }
+  const nx = Math.min(7, labels.length);
+  for (let k=0; k<nx; k++) {
+    const i = Math.round(k*(labels.length-1)/(nx-1||1));
+    const lab = svgEl('text', {x:x(i), y:H-8, 'text-anchor':'middle', fill:css('--ink-3'), 'font-size':11});
+    lab.textContent = compLabel(labels[i]); svg.appendChild(lab);
+  }
+  svg.appendChild(svgEl('line', {x1:padL, x2:W-padR, y1:y(Math.max(0,ymin)), y2:y(Math.max(0,ymin)), stroke:css('--axis'), 'stroke-width':1}));
+  for (const s of series) {
+    const pts = s.vals.map((v,i)=>[x(i),y(v)]);
+    const d = pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join('');
+    if (area) {
+      const a = d + `L${x(s.vals.length-1)} ${y(Math.max(0,ymin))}L${x(0)} ${y(Math.max(0,ymin))}Z`;
+      svg.appendChild(svgEl('path', {d:a, fill:css('--s1-soft'), stroke:'none'}));
+    }
+    svg.appendChild(svgEl('path', {d, fill:'none', stroke:s.color, 'stroke-width':2, 'stroke-linejoin':'round'}));
+    const li = s.vals.length-1;
+    svg.appendChild(svgEl('circle', {cx:x(li), cy:y(s.vals[li]), r:4, fill:s.color, stroke:css('--surface'), 'stroke-width':2}));
+    if (endLabel) {
+      const lab = svgEl('text', {x:x(li)+8, y:y(s.vals[li])+4, fill:css('--ink-1'), 'font-size':12, 'font-weight':600});
+      lab.textContent = fmt(s.vals[li]); svg.appendChild(lab);
+    }
+  }
+  const cross = svgEl('line', {x1:0,x2:0,y1:padT,y2:H-padB, stroke:css('--axis'), 'stroke-width':1, opacity:0});
+  svg.appendChild(cross);
+  const dots = series.map(s=>{ const c = svgEl('circle',{r:4, fill:s.color, stroke:css('--surface'),'stroke-width':2, opacity:0}); svg.appendChild(c); return c; });
+  host.appendChild(svg);
+  const tip = document.createElement('div'); tip.className='tip'; host.appendChild(tip);
+  const move = ev => {
+    const r = svg.getBoundingClientRect(), sx = W/r.width;
+    const px = (ev.clientX-r.left)*sx;
+    let i = Math.round((px-padL)/(iw/((labels.length-1)||1)));
+    i = Math.max(0, Math.min(labels.length-1, i));
+    cross.setAttribute('x1',x(i)); cross.setAttribute('x2',x(i)); cross.setAttribute('opacity',1);
+    series.forEach((s,k)=>{ dots[k].setAttribute('cx',x(i)); dots[k].setAttribute('cy',y(s.vals[i])); dots[k].setAttribute('opacity',1); });
+    tip.innerHTML = `<div class="t">${compLabel(labels[i])}</div>` + series.map(s=>`${s.name}: <b>${fmt(s.vals[i])}</b>`).join('<br>');
+    tip.style.opacity = 1;
+    const tx = Math.min(Math.max(x(i)/sx - 40, 0), r.width-130);
+    tip.style.left = tx+'px'; tip.style.top = (padT/sx)+'px';
+  };
+  const leave = () => { tip.style.opacity=0; cross.setAttribute('opacity',0); dots.forEach(d=>d.setAttribute('opacity',0)); };
+  svg.addEventListener('pointermove', move); svg.addEventListener('pointerleave', leave);
+}
+
+// Vertical bars (monthly flows) with per-bar tooltip; polarity coloring.
+function barChartV(id, labels, vals, {h=280, fmt=v=>fmtBR(v)} = {}) {
+  const host = document.getElementById(id); host.innerHTML='';
+  const W = Math.max(host.clientWidth || 500, 320), H = h;
+  const padL=44, padR=10, padT=12, padB=26, iw=W-padL-padR, ih=H-padT-padB;
+  let ymin = Math.min(0, ...vals), ymax = Math.max(0, ...vals);
+  const ticks = niceTicks(ymin, ymax); ymin=Math.min(ymin,ticks[0]); ymax=Math.max(ymax,ticks[ticks.length-1]);
+  const y = v => padT + ih*(1-(v-ymin)/(ymax-ymin));
+  const bw = Math.max(2, iw/labels.length - 2);
+  const svg = svgEl('svg', {viewBox:`0 0 ${W} ${H}`, width:W, height:H, role:'img'});
+  for (const t of ticks) {
+    svg.appendChild(svgEl('line',{x1:padL,x2:W-padR,y1:y(t),y2:y(t),stroke:css('--grid'),'stroke-width':1}));
+    const lab = svgEl('text',{x:padL-8,y:y(t)+4,'text-anchor':'end',fill:css('--ink-3'),'font-size':11});
+    lab.textContent = fmtBR(t,0); svg.appendChild(lab);
+  }
+  const nx = Math.min(6, labels.length);
+  for (let k=0;k<nx;k++){
+    const i = Math.round(k*(labels.length-1)/(nx-1||1));
+    const lab = svgEl('text',{x:padL+iw*(i+0.5)/labels.length,y:H-8,'text-anchor':'middle',fill:css('--ink-3'),'font-size':11});
+    lab.textContent = compLabel(labels[i]); svg.appendChild(lab);
+  }
+  const bars = [];
+  vals.forEach((v,i)=>{
+    const x0 = padL + iw*i/labels.length + 1;
+    const yv = y(Math.max(0,v)), hgt = Math.abs(y(v)-y(0)) || 1;
+    const rect = svgEl('rect',{x:x0, y:yv, width:bw, height:hgt, rx:2, fill:v>=0?css('--s1'):css('--neg')});
+    svg.appendChild(rect); bars.push(rect);
+  });
+  svg.appendChild(svgEl('line',{x1:padL,x2:W-padR,y1:y(0),y2:y(0),stroke:css('--axis'),'stroke-width':1}));
+  host.appendChild(svg);
+  const tip = document.createElement('div'); tip.className='tip'; host.appendChild(tip);
+  svg.addEventListener('pointermove', ev=>{
+    const r = svg.getBoundingClientRect(), sx=W/r.width;
+    let i = Math.floor(((ev.clientX-r.left)*sx - padL)/(iw/labels.length));
+    if (i<0||i>=labels.length){ tip.style.opacity=0; return; }
+    tip.innerHTML = `<div class="t">${compLabel(labels[i])}</div>captação líquida: <b>${fmt(vals[i])} bi</b>`;
+    tip.style.opacity=1;
+    tip.style.left = Math.min(Math.max((padL+iw*(i+0.5)/labels.length)/sx-50,0), r.width-140)+'px';
+    tip.style.top = (padT/sx)+'px';
+  });
+  svg.addEventListener('pointerleave', ()=>{ tip.style.opacity=0; });
+}
+
+// Horizontal bars with direct value labels.
+function barChartH(id, items, {fmt=v=>fmtBR(v), unit=''} = {}) {
+  const host = document.getElementById(id); host.innerHTML='';
+  const W = Math.max(host.clientWidth || 500, 320);
+  const rowH = 30, padT = 6, padB = 6, padL = 8, padR = 84;
+  const H = padT + items.length*rowH + padB;
+  const vmax = Math.max(...items.map(d=>d.v));
+  const svg = svgEl('svg',{viewBox:`0 0 ${W} ${H}`, width:W, height:H, role:'img'});
+  items.forEach((d,i)=>{
+    const yy = padT + i*rowH;
+    const lab = svgEl('text',{x:padL, y:yy+11, fill:css('--ink-2'), 'font-size':11.5});
+    lab.textContent = d.name; svg.appendChild(lab);
+    const bw = Math.max(3, (W-padL-padR) * d.v/vmax);
+    svg.appendChild(svgEl('rect',{x:padL, y:yy+15, width:bw, height:9, rx:2, fill:css('--s1')}));
+    const val = svgEl('text',{x:padL+bw+7, y:yy+23, fill:css('--ink-1'), 'font-size':11.5, 'font-weight':600});
+    val.textContent = fmt(d.v)+unit; svg.appendChild(val);
+  });
+  host.appendChild(svg);
+}
+
+function table(id, headers, rows) {
+  const el = document.getElementById(id);
+  el.innerHTML = '<table><thead><tr>'+headers.map(hh=>`<th>${hh}</th>`).join('')+'</tr></thead><tbody>'+
+    rows.map(r=>'<tr>'+r.map(c=>`<td>${c}</td>`).join('')+'</tr>').join('')+'</tbody></table>';
+}
+
+function kpi(lbl, val, sub) {
+  return `<div class="kpi"><div class="lbl">${lbl}</div><div class="val">${val}</div><div class="sub">${sub||''}</div></div>`;
+}
+
+function render() {
+  const M = DATA.monthly, last = M[M.length-1];
+  const comp = last.c;
+  document.getElementById('basebadge').textContent = 'data-base: ' + compLabel(comp) + ' · série desde jan/2013';
+  const at = c => M.find(r=>r.c===c);
+  const y1 = at((+comp.slice(0,4)-1) + comp.slice(4));
+  const plDelta = y1 ? (last.pl/y1.pl-1)*100 : null;
+  const capt12 = M.slice(-12).reduce((a,r)=>a+r.cl,0);
+  const cotDelta = y1 ? (last.cot/y1.cot-1)*100 : null;
+  document.getElementById('kpis').innerHTML =
+    kpi('PL total', 'R$ '+fmtBR(last.pl,0)+' bi', plDelta!=null?`<b class="up">+${fmtBR(plDelta)}%</b> em 12m`:'') +
+    kpi('Captação líquida 12m', 'R$ '+fmtBR(capt12,0)+' bi', 'captações − resgates − amortizações') +
+    kpi('Veículos reportantes', fmtInt(last.n), y1?`+${fmtInt(last.n-y1.n)} em 12m`:'') +
+    kpi('Contas de cotistas', fmtInt(last.cot/1000)+' mil', cotDelta!=null?`<b class="up">+${fmtBR(cotDelta)}%</b> em 12m`:'') +
+    kpi('Inadimplência ajustada', fmtBR(last.inadAdj*100)+'%', 'bruta: '+fmtBR(last.inad*100)+'%') +
+    kpi('Top 5 administradores', fmtBR(DATA.conc[DATA.conc.length-1].t5*100)+'%', 'do PL administrado');
+
+  const labels = M.map(r=>r.c);
+  lineChart('ch-pl', labels, [{name:'PL', color:css('--s1'), vals:M.map(r=>r.pl)}], {area:true, fmt:v=>'R$ '+fmtBR(v,0)+' bi'});
+  const dec = M.filter(r=>r.c.endsWith('-12') || r.c===comp);
+  table('tb-pl', ['Competência','PL (R$ bi)','Veículos'], dec.map(r=>[compLabel(r.c), fmtBR(r.pl), fmtInt(r.n)]));
+
+  const f = M.slice(-48);
+  barChartV('ch-flow', f.map(r=>r.c), f.map(r=>r.cl), {fmt:v=>fmtBR(v)});
+  table('tb-flow', ['Competência','Captação líq. (R$ bi)'], M.slice(-12).map(r=>[compLabel(r.c), fmtBR(r.cl)]));
+
+  lineChart('ch-cot', labels, [{name:'contas', color:css('--s1'), vals:M.map(r=>r.cot/1000)}], {fmt:v=>fmtBR(v,0)+' mil', h:240});
+  table('tb-cot', ['Competência','Contas'], dec.map(r=>[compLabel(r.c), fmtInt(r.cot)]));
+
+  lineChart('ch-inad', labels, [
+    {name:'ajustada', color:css('--s1'), vals:M.map(r=>r.inadAdj*100)},
+    {name:'bruta', color:css('--s2'), vals:M.map(r=>r.inad*100)},
+  ], {fmt:v=>fmtBR(v)+'%', h:240, endLabel:false});
+  table('tb-inad', ['Competência','Ajustada','Bruta'], dec.map(r=>[compLabel(r.c), fmtBR(r.inadAdj*100)+'%', fmtBR(r.inad*100)+'%']));
+
+  const C = DATA.conc;
+  lineChart('ch-conc', C.map(r=>r.c), [
+    {name:'top 10', color:css('--s1'), vals:C.map(r=>r.t10*100)},
+    {name:'top 5', color:css('--s2'), vals:C.map(r=>r.t5*100)},
+  ], {fmt:v=>fmtBR(v)+'%', h:240, endLabel:false});
+  const decC = C.filter(r=>r.c.endsWith('-12') || r.c===comp);
+  table('tb-conc', ['Competência','Top 5','Top 10'], decC.map(r=>[compLabel(r.c), fmtBR(r.t5*100)+'%', fmtBR(r.t10*100)+'%']));
+
+  barChartH('ch-seg', DATA.seg.map(s=>({name:s.n, v:s.v})), {fmt:v=>'R$ '+fmtBR(v,0), unit:' bi'});
+  const segTot = DATA.seg.reduce((a,s)=>a+s.v,0);
+  table('tb-seg', ['Segmento','R$ bi','Share'], DATA.seg.map(s=>[s.n, fmtBR(s.v), fmtBR(s.v/segTot*100)+'%']));
+
+  barChartH('ch-adm', DATA.adm.map(a=>({name:a.n, v:a.v})), {fmt:v=>'R$ '+fmtBR(v,0), unit:' bi'});
+  table('tb-adm', ['Administrador','PL (R$ bi)','Share','Veículos'], DATA.adm.map(a=>[a.n, fmtBR(a.v), fmtBR(a.s*100)+'%', fmtInt(a.k)]));
+}
+
+let raf;
+window.addEventListener('resize', ()=>{ cancelAnimationFrame(raf); raf = requestAnimationFrame(render); });
+new MutationObserver(render).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
+render();
+</script>
