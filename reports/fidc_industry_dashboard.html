@@ -4,31 +4,31 @@
   --page: #f9f9f7; --surface: #fcfcfb;
   --ink-1: #0b0b0b; --ink-2: #52514e; --ink-3: #898781;
   --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,0.10);
-  --s1: #2a78d6; --s1-soft: rgba(42,120,214,0.14);
-  --s2: #1baf7a; --neg: #e34948;
+  --s1: #c2410c; --s1-soft: rgba(194,65,12,0.14);
+  --s2: #1a1a1a; --neg: #1a1a1a;
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --page: #0d0d0d; --surface: #1a1a19;
     --ink-1: #ffffff; --ink-2: #c3c2b7; --ink-3: #898781;
     --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
-    --s1: #3987e5; --s1-soft: rgba(57,135,229,0.20);
-    --s2: #199e70; --neg: #e66767;
+    --s1: #ff7a33; --s1-soft: rgba(255,122,51,0.18);
+    --s2: #f0f0f0; --neg: #f0f0f0;
   }
 }
 :root[data-theme="dark"] {
   --page: #0d0d0d; --surface: #1a1a19;
   --ink-1: #ffffff; --ink-2: #c3c2b7; --ink-3: #898781;
   --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
-  --s1: #3987e5; --s1-soft: rgba(57,135,229,0.20);
-  --s2: #199e70; --neg: #e66767;
+  --s1: #ff7a33; --s1-soft: rgba(255,122,51,0.18);
+  --s2: #f0f0f0; --neg: #f0f0f0;
 }
 :root[data-theme="light"] {
   --page: #f9f9f7; --surface: #fcfcfb;
   --ink-1: #0b0b0b; --ink-2: #52514e; --ink-3: #898781;
   --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,0.10);
-  --s1: #2a78d6; --s1-soft: rgba(42,120,214,0.14);
-  --s2: #1baf7a; --neg: #e34948;
+  --s1: #c2410c; --s1-soft: rgba(194,65,12,0.14);
+  --s2: #1a1a1a; --neg: #1a1a1a;
 }
 * { box-sizing: border-box; }
 body {
@@ -46,9 +46,9 @@ p.lede { color: var(--ink-2); max-width: 72ch; margin: 8px 0 26px; }
 .kpi .lbl { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); }
 .kpi .val { font-size: 26px; font-weight: 700; margin-top: 4px; line-height: 1.15; }
 .kpi .sub { font-size: 12px; color: var(--ink-2); margin-top: 3px; }
-.kpi .sub b.up { color: #006300; font-weight: 600; }
-:root[data-theme="dark"] .kpi .sub b.up { color: #0ca30c; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .kpi .sub b.up { color: #0ca30c; } }
+.kpi .sub b.up { color: var(--s1); font-weight: 600; }
+
+
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .grid .full { grid-column: 1 / -1; }
 @media (max-width: 780px) { .grid { grid-template-columns: 1fr; } }
@@ -358,5 +358,6 @@ function render() {
 let raf;
 window.addEventListener('resize', ()=>{ cancelAnimationFrame(raf); raf = requestAnimationFrame(render); });
 new MutationObserver(render).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', render);
 render();
 </script>
