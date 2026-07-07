@@ -64,6 +64,24 @@ em `spreads_cdi_plus_aa` usando a chave `CNPJ|classe`, por exemplo:
 O arquivo `model_data.json` contém os dados base extraídos do modelo original
 (premissas, feriados, curva CDI/DU e amostra de validação).
 
+## Estudo da industria de FIDCs (dados abertos CVM)
+
+Pipeline que reconstroi a serie mensal da industria de FIDCs (jan/2013 em diante)
+a partir do dataset publico *FIDC — Documentos: Informe Mensal* da CVM e do
+cadastro `registro_fundo_classe`:
+
+```bash
+python scripts/build_fidc_industry_study.py --report
+```
+
+- Baixa/cacheia os zips brutos em `.cache/cvm-industry-study` (nao versionado).
+- Grava agregados versionaveis em `data/industry_study/` (PL, veiculos, cotistas,
+  captacao/resgate/amortizacao, segmentos de recebiveis, inadimplencia ajustada,
+  subordinacao, rankings e concentracao de prestadores, universo por veiculo).
+- `--report` renderiza o relatorio executivo `reports/fidc_industry_study.md`
+  (com secao "Por que os numeros nao batem?" reconciliando CVM x ANBIMA x Uqbar).
+- `--report-only` re-renderiza o relatorio a partir dos CSVs ja gerados.
+
 ## Pipeline Fundos.NET (CVM)
 
 Para automatizar download de **Informes Mensais Estruturados (FIDC)** via endpoint público do Fundos.NET:
