@@ -1,0 +1,73 @@
+{
+  "schema_version": "industry-dimension-monthly-manifest/v1",
+  "generated_at_utc": "2026-07-08T16:50:00+00:00",
+  "pipeline": "industry_dimension_monthly",
+  "design_constraints": {
+    "modular": true,
+    "incremental": true,
+    "macbook_air_m4_friendly": true,
+    "notes": [
+      "Este modulo agrega metricas mensais por dimensao reutilizavel sem expandir o arquivo de UI.",
+      "O catalogo de dimensoes fornece pesos e relacoes; a base granular mensal fornece as metricas.",
+      "Deep Dives podem usar esta serie diretamente, preservando fallback para detalhe por veiculo."
+    ]
+  },
+  "inputs": {
+    "vehicle_monthly": {
+      "path": "data/industry_study/vehicle_monthly.csv.gz",
+      "exists": true,
+      "bytes": 25839425,
+      "sha256": "f09e8c63d385335cb3c2a7cc94a19184c4b773976210484a5b0f637513960aeb"
+    },
+    "dimension_catalog": {
+      "path": "data/industry_study/industry_dimension_catalog.csv.gz",
+      "exists": true,
+      "bytes": 1312249,
+      "sha256": "997744a6ef75169c6698ad97d2e35ddd93de1f62cdac52feda771fe21158d3a8"
+    }
+  },
+  "outputs": {
+    "dimension_monthly": {
+      "path": "data/industry_study/industry_dimension_monthly.csv.gz",
+      "exists": true,
+      "bytes": 2883900,
+      "sha256": "e16687b3668cb15d499bc4525e2a8c18f102aa313e8dd7f680cd0a780d486632"
+    },
+    "manifest": {
+      "path": "data/industry_study/industry_dimension_monthly_manifest.json"
+    }
+  },
+  "stages": [
+    {
+      "id": "load_vehicle_monthly_and_catalog",
+      "label": "Carregar base mensal e catalogo",
+      "status": "ok",
+      "input": "data/industry_study/vehicle_monthly.csv.gz+data/industry_study/industry_dimension_catalog.csv.gz",
+      "output": "memoria:vehicle_monthly+dimension_catalog",
+      "rows": 289791,
+      "rerun": "python scripts/build_fidc_industry_study.py --report && python scripts/build_fidc_industry_dimensions.py"
+    },
+    {
+      "id": "aggregate_monthly_by_dimension",
+      "label": "Agregar series por dimensao",
+      "status": "ok",
+      "input": "memoria:vehicle_monthly+dimension_catalog",
+      "output": "data/industry_study/industry_dimension_monthly.csv.gz",
+      "rows": 66946,
+      "months": 162,
+      "dimensions": 26,
+      "rerun": "python scripts/build_fidc_industry_dimension_monthly.py"
+    }
+  ],
+  "quality": {
+    "rows": 66946,
+    "months": 162,
+    "dimensions": 26,
+    "dimension_values": 853,
+    "latest_competencia": "2026-06",
+    "latest_rows": 337,
+    "latest_pl_brl": 1527924664246.29,
+    "with_source_document_links": 13988,
+    "curated_rows": 7776
+  }
+}

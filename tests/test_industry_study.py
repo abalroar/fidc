@@ -21,20 +21,29 @@ from services.industry_study import (  # noqa: E402
     assign_document_chunks,
     build_criteria_pipeline_manifest,
     build_criteria_structured,
+    build_dimension_catalog_pipeline_manifest,
+    build_dimension_monthly_pipeline_manifest,
     build_document_inventory,
     build_document_pipeline_manifest,
-    build_industry_pipeline_index,
+    build_industry_dimension_catalog,
+    build_industry_dimension_monthly,
     build_industry_fund_snapshot,
+    build_industry_market_share,
+    build_industry_pipeline_index,
     build_issuance_annual,
     build_issuance_pipeline_manifest,
     build_issuance_sector_year,
     build_issuance_tranches,
+    build_market_share_pipeline_manifest,
     build_cedente_structured,
     build_cedente_pipeline_manifest,
     cedente_quality_summary,
     criteria_quality_summary,
     document_quality_summary,
     fund_snapshot_quality_summary,
+    industry_dimension_catalog_quality_summary,
+    industry_dimension_monthly_quality_summary,
+    industry_market_share_quality_summary,
     load_cedente_structured,
     normalize_cnpj,
     save_pipeline_manifest,
@@ -865,6 +874,265 @@ def test_industry_snapshot_market_share_weights_multivalue_dimensions():
     assert round(float(by_dim.loc["CDI+", "Share"]), 6) == round(100 / 150, 6)
 
 
+def test_industry_market_share_materializes_weighted_dimensions_and_manifest():
+    snapshot = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "nome_exibicao": "FIDC ABC",
+                "pl": 100.0,
+                "valid_volume_2024_2026_brl": 40.0,
+                "admin_nome": "Admin A",
+                "indexadores": "CDI+ | IPCA+",
+                "document_rows": 2,
+                "cedente_rows": 1,
+                "criteria_rows": 1,
+                "tem_sub_minima": True,
+                "tem_emissao_2025_2026": True,
+                "camadas_com_evidencia": 5,
+            },
+            {
+                "cnpj_fundo": "11111111000111",
+                "nome_exibicao": "FIDC DEF",
+                "pl": 50.0,
+                "valid_volume_2024_2026_brl": 10.0,
+                "admin_nome": "Admin B",
+                "indexadores": "CDI+",
+                "document_rows": 0,
+                "cedente_rows": 0,
+                "criteria_rows": 0,
+                "tem_sub_minima": False,
+                "tem_emissao_2025_2026": False,
+                "camadas_com_evidencia": 1,
+            },
+        ]
+    )
+
+    market = build_industry_market_share(snapshot)
+    indexer_pl = market[(market["dimension_id"] == "indexador") & (market["metric_id"] == "pl")].set_index("dimension_value")
+    quality = industry_market_share_quality_summary(market)
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        snapshot_path = tmp_path / "industry_fund_snapshot.csv.gz"
+        output_path = tmp_path / "industry_market_share.csv.gz"
+        manifest_path = tmp_path / "industry_market_share_manifest.json"
+        snapshot.to_csv(snapshot_path, index=False, compression="gzip")
+        market.to_csv(output_path, index=False, compression="gzip")
+        manifest = build_market_share_pipeline_manifest(
+            industry_dir=tmp_path,
+            snapshot_path=snapshot_path,
+            output_path=output_path,
+            manifest_path=manifest_path,
+            snapshot=snapshot,
+            market_share=market,
+        )
+
+    assert round(float(indexer_pl.loc["CDI+", "metric_value"]), 6) == 100.0
+    assert round(float(indexer_pl.loc["IPCA+", "metric_value"]), 6) == 50.0
+    assert round(float(indexer_pl["metric_value"].sum()), 6) == 150.0
+    assert bool(indexer_pl.loc["CDI+", "weighted_multivalue"]) is True
+    assert quality["dimensions"] >= 3
+    assert quality["metrics"] == 6
+    assert manifest["schema_version"] == "industry-market-share-manifest/v1"
+    assert manifest["quality"]["rows"] == len(market)
+
+
+def test_industry_dimension_catalog_preserves_sources_and_weights():
+    snapshot = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05.753.599/0001-58",
+                "nome_exibicao": "FIDC ABC",
+                "admin_nome": "Admin A",
+                "segmento_principal": "Comercial",
+                "is_fic_fidc": False,
+                "indexadores": "CDI+ | IPCA+",
+                "criteria_keys": "subordination_ratio_min | concentration_limits",
+                "criteria_documentos": "reg.pdf",
+                "criteria_score_mediana": 0.9,
+                "sub_min_pct_median": 10.0,
+                "tem_sub_minima": True,
+                "camadas_com_evidencia": 5,
+                "snapshot_status": "completo",
+            }
+        ]
+    )
+    cedentes = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "fundo": "FIDC ABC",
+                "razao_social": "CEDENTE ABC S.A.",
+                "grupo_economico": "Grupo ABC",
+                "participant_type": "cedente_originador",
+                "tipo_participante": "cedente/originador",
+                "cnpj_participante": "12.345.678/0001-99",
+                "status_revisao": "aprovado",
+                "ativo_curadoria": True,
+                "periodo_prioritario": "2025-2026 YTD",
+                "score_confianca_final": 0.95,
+                "metodo_extracao": "manual",
+                "documento_origem": "regulamento.pdf",
+                "pagina": "12",
+            },
+            {
+                "cnpj_fundo": "05753599000158",
+                "fundo": "FIDC ABC",
+                "razao_social": "CEDENTE DEF S.A.",
+                "grupo_economico": "Grupo DEF",
+                "participant_type": "cedente_originador",
+                "tipo_participante": "cedente/originador",
+                "cnpj_participante": "98.765.432/0001-10",
+                "status_revisao": "aprovado",
+                "ativo_curadoria": True,
+                "periodo_prioritario": "2025-2026 YTD",
+                "score_confianca_final": 0.85,
+                "metodo_extracao": "manual",
+                "documento_origem": "regulamento.pdf",
+                "pagina": "13",
+            },
+        ]
+    )
+
+    catalog = build_industry_dimension_catalog(snapshot=snapshot, cedentes=cedentes)
+    quality = industry_dimension_catalog_quality_summary(catalog)
+    indexers = catalog[catalog["dimension_id"].eq("indexador")].set_index("dimension_value")
+    cedente_rows = catalog[catalog["dimension_id"].eq("cedente_sacado")].set_index("dimension_value")
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        snapshot_path = tmp_path / "industry_fund_snapshot.csv.gz"
+        cedentes_path = tmp_path / "cedentes_structured.csv.gz"
+        output_path = tmp_path / "industry_dimension_catalog.csv.gz"
+        manifest_path = tmp_path / "industry_dimension_catalog_manifest.json"
+        snapshot.to_csv(snapshot_path, index=False, compression="gzip")
+        cedentes.to_csv(cedentes_path, index=False, compression="gzip")
+        catalog.to_csv(output_path, index=False, compression="gzip")
+        manifest = build_dimension_catalog_pipeline_manifest(
+            industry_dir=tmp_path,
+            snapshot_path=snapshot_path,
+            cedentes_path=cedentes_path,
+            output_path=output_path,
+            manifest_path=manifest_path,
+            snapshot=snapshot,
+            cedentes=cedentes,
+            catalog=catalog,
+        )
+
+    assert round(float(indexers.loc["CDI+", "value_weight"]), 6) == 0.5
+    assert round(float(indexers.loc["IPCA+", "value_weight"]), 6) == 0.5
+    assert round(float(cedente_rows.loc["CEDENTE ABC S.A.", "value_weight"]), 6) == 0.5
+    assert cedente_rows.loc["CEDENTE ABC S.A.", "source_document"] == "regulamento.pdf"
+    assert cedente_rows.loc["CEDENTE ABC S.A.", "source_page"] == "12"
+    assert quality["dimensions"] >= 8
+    assert quality["with_source_document"] >= 2
+    assert manifest["schema_version"] == "industry-dimension-catalog-manifest/v1"
+    assert manifest["quality"]["rows"] == len(catalog)
+
+
+def test_industry_dimension_monthly_aggregates_weighted_series_and_manifest():
+    vehicle = pd.DataFrame(
+        [
+            {
+                "competencia": "2026-04",
+                "cnpj": "05753599000158",
+                "cnpj_fundo": "05753599000158",
+                "pl": 100.0,
+                "captacao_liquida": 10.0,
+                "carteira_dc": 80.0,
+                "dc_inadimplentes_ajustado": 4.0,
+                "cotistas": 2,
+            },
+            {
+                "competencia": "2026-04",
+                "cnpj": "11111111000111",
+                "cnpj_fundo": "11111111000111",
+                "pl": 50.0,
+                "captacao_liquida": -5.0,
+                "carteira_dc": 20.0,
+                "dc_inadimplentes_ajustado": 1.0,
+                "cotistas": 1,
+            },
+            {
+                "competencia": "2026-05",
+                "cnpj": "05753599000158",
+                "cnpj_fundo": "05753599000158",
+                "pl": 120.0,
+                "captacao_liquida": 20.0,
+                "carteira_dc": 90.0,
+                "dc_inadimplentes_ajustado": 9.0,
+                "cotistas": 3,
+            },
+        ]
+    )
+    catalog = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "dimension_id": "indexador",
+                "dimension_label": "Indexador",
+                "dimension_value": "CDI+",
+                "value_weight": 0.5,
+                "source_document": "reg.pdf",
+                "is_curated": False,
+                "is_multivalue": True,
+            },
+            {
+                "cnpj_fundo": "05753599000158",
+                "dimension_id": "indexador",
+                "dimension_label": "Indexador",
+                "dimension_value": "IPCA+",
+                "value_weight": 0.5,
+                "source_document": "reg.pdf",
+                "is_curated": False,
+                "is_multivalue": True,
+            },
+            {
+                "cnpj_fundo": "11111111000111",
+                "dimension_id": "indexador",
+                "dimension_label": "Indexador",
+                "dimension_value": "CDI+",
+                "value_weight": 1.0,
+                "source_document": "",
+                "is_curated": False,
+                "is_multivalue": False,
+            },
+        ]
+    )
+
+    monthly = build_industry_dimension_monthly(vehicle_monthly=vehicle, dimension_catalog=catalog)
+    quality = industry_dimension_monthly_quality_summary(monthly)
+    april = monthly[monthly["competencia"].eq("2026-04")].set_index("dimension_value")
+    may = monthly[monthly["competencia"].eq("2026-05")].set_index("dimension_value")
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        vehicle_path = tmp_path / "vehicle_monthly.csv.gz"
+        catalog_path = tmp_path / "industry_dimension_catalog.csv.gz"
+        output_path = tmp_path / "industry_dimension_monthly.csv.gz"
+        manifest_path = tmp_path / "industry_dimension_monthly_manifest.json"
+        vehicle.to_csv(vehicle_path, index=False, compression="gzip")
+        catalog.to_csv(catalog_path, index=False, compression="gzip")
+        monthly.to_csv(output_path, index=False, compression="gzip")
+        manifest = build_dimension_monthly_pipeline_manifest(
+            industry_dir=tmp_path,
+            vehicle_monthly_path=vehicle_path,
+            dimension_catalog_path=catalog_path,
+            output_path=output_path,
+            manifest_path=manifest_path,
+            vehicle_monthly=vehicle,
+            dimension_catalog=catalog,
+            monthly=monthly,
+        )
+
+    assert april.loc["CDI+", "pl_brl"] == 100.0
+    assert april.loc["IPCA+", "pl_brl"] == 50.0
+    assert may.loc["CDI+", "pl_brl"] == 60.0
+    assert round(float(may.loc["CDI+", "inad_pct_ajustada"]), 6) == 0.1
+    assert quality["months"] == 2
+    assert quality["dimensions"] == 1
+    assert manifest["schema_version"] == "industry-dimension-monthly-manifest/v1"
+    assert manifest["quality"]["rows"] == len(monthly)
+
+
 def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
@@ -945,15 +1213,71 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "with_subordination_min": 1,
             },
         )
+        write_module_manifest(
+            "industry_dimension_catalog_manifest.json",
+            "industry_dimension_catalog",
+            "industry_dimension_catalog.csv.gz",
+            {
+                "rows": 80,
+                "funds": 2,
+                "dimensions": 10,
+                "curated_rows": 12,
+                "weighted_dimensions": 3,
+                "with_source_document": 20,
+                "with_confidence": 18,
+            },
+        )
+        write_module_manifest(
+            "industry_dimension_monthly_manifest.json",
+            "industry_dimension_monthly",
+            "industry_dimension_monthly.csv.gz",
+            {
+                "rows": 120,
+                "months": 12,
+                "dimensions": 10,
+                "dimension_values": 20,
+                "latest_competencia": "202605",
+                "latest_rows": 10,
+                "with_source_document_links": 8,
+                "curated_rows": 4,
+            },
+        )
+        write_module_manifest(
+            "industry_market_share_manifest.json",
+            "industry_market_share",
+            "industry_market_share.csv.gz",
+            {
+                "rows": 30,
+                "dimensions": 5,
+                "metrics": 6,
+                "weighted_dimensions": 2,
+                "top5_pl_share_admin": 0.7,
+                "hhi_pl_admin": 1800.0,
+                "source_snapshot_rows": 2,
+            },
+        )
 
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
     assert index["schema_version"] == "industry-pipeline-index/v1"
-    assert index["quality_rollup"]["modules_total"] == 6
-    assert index["quality_rollup"]["module_status_counts"]["ok"] == 6
+    assert index["quality_rollup"]["modules_total"] == 9
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 9
     assert index["quality_rollup"]["competencia_snapshot"] == "202605"
     assert index["quality_rollup"]["document_chunks"] == 1
     assert index["quality_rollup"]["subordination_median_pct"] == 10.0
     assert index["quality_rollup"]["fund_snapshot_rows"] == 2
-    assert {stage["module_id"] for stage in index["refresh_plan"]} >= {"base_monthly", "fund_snapshot", "pipeline_index"}
+    assert index["quality_rollup"]["dimension_catalog_rows"] == 80
+    assert index["quality_rollup"]["dimension_catalog_dimensions"] == 10
+    assert index["quality_rollup"]["dimension_monthly_rows"] == 120
+    assert index["quality_rollup"]["dimension_monthly_latest_competencia"] == "202605"
+    assert index["quality_rollup"]["market_share_rows"] == 30
+    assert index["quality_rollup"]["market_share_dimensions"] == 5
+    assert {stage["module_id"] for stage in index["refresh_plan"]} >= {
+        "base_monthly",
+        "fund_snapshot",
+        "dimension_catalog",
+        "dimension_monthly",
+        "market_share",
+        "pipeline_index",
+    }
     assert any(row["artifact"] == "manifest" for row in index["artifact_index"])

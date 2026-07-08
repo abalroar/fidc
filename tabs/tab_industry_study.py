@@ -25,6 +25,9 @@ import streamlit as st
 from services.industry_study import (
     CEDENTE_REVIEW_COLUMNS,
     CRITERIA_REVIEW_COLUMNS,
+    DIMENSION_CATALOG_SPECS,
+    MARKET_SHARE_DIMENSIONS,
+    MARKET_SHARE_METRICS,
     build_cedente_pipeline_manifest,
     build_cedente_structured,
     build_criteria_pipeline_manifest,
@@ -55,6 +58,12 @@ _PIPELINE_MANIFEST_PATH = _DATA_DIR / "industry_pipeline_manifest.json"
 _PIPELINE_INDEX_PATH = _DATA_DIR / "industry_pipeline_index.json"
 _FUND_SNAPSHOT_PATH = _DATA_DIR / "industry_fund_snapshot.csv.gz"
 _FUND_SNAPSHOT_MANIFEST_PATH = _DATA_DIR / "industry_fund_snapshot_manifest.json"
+_DIMENSION_CATALOG_PATH = _DATA_DIR / "industry_dimension_catalog.csv.gz"
+_DIMENSION_CATALOG_MANIFEST_PATH = _DATA_DIR / "industry_dimension_catalog_manifest.json"
+_DIMENSION_MONTHLY_PATH = _DATA_DIR / "industry_dimension_monthly.csv.gz"
+_DIMENSION_MONTHLY_MANIFEST_PATH = _DATA_DIR / "industry_dimension_monthly_manifest.json"
+_MARKET_SHARE_PATH = _DATA_DIR / "industry_market_share.csv.gz"
+_MARKET_SHARE_MANIFEST_PATH = _DATA_DIR / "industry_market_share_manifest.json"
 _ISSUANCE_ANNUAL_PATH = _DATA_DIR / "issuance_annual.csv"
 _ISSUANCE_SECTOR_YEAR_PATH = _DATA_DIR / "issuance_sector_year.csv"
 _ISSUANCE_TRANCHES_PATH = _DATA_DIR / "issuance_tranches.csv.gz"
@@ -541,6 +550,30 @@ def _load_fund_snapshot_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     return {
         "snapshot": load_dataframe(_FUND_SNAPSHOT_PATH),
         "manifest": load_pipeline_manifest(_FUND_SNAPSHOT_MANIFEST_PATH),
+    }
+
+
+@st.cache_data(show_spinner=False)
+def _load_market_share_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    return {
+        "market_share": load_dataframe(_MARKET_SHARE_PATH),
+        "manifest": load_pipeline_manifest(_MARKET_SHARE_MANIFEST_PATH),
+    }
+
+
+@st.cache_data(show_spinner=False)
+def _load_dimension_catalog_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    return {
+        "catalog": load_dataframe(_DIMENSION_CATALOG_PATH),
+        "manifest": load_pipeline_manifest(_DIMENSION_CATALOG_MANIFEST_PATH),
+    }
+
+
+@st.cache_data(show_spinner=False)
+def _load_dimension_monthly_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    return {
+        "monthly": load_dataframe(_DIMENSION_MONTHLY_PATH),
+        "manifest": load_pipeline_manifest(_DIMENSION_MONTHLY_MANIFEST_PATH),
     }
 
 
@@ -1046,6 +1079,86 @@ def _build_snapshot_market_share(snapshot: pd.DataFrame, dimension: str, metric:
     return grouped.drop(columns=["Camadas_total"], errors="ignore"), summary
 
 
+def _market_share_options(frame: pd.DataFrame, field_id: str, field_label: str, specs: list[dict[str, object]]) -> dict[str, str]:
+    if frame.empty or field_id not in frame.columns or field_label not in frame.columns:
+        return {str(spec["label"]): str(spec.get("dimension_id") or spec.get("metric_id")) for spec in specs}
+    available = (
+        frame[[field_label, field_id]]
+        .dropna()
+        .astype(str)
+        .drop_duplicates()
+        .set_index(field_label)[field_id]
+        .to_dict()
+    )
+    ordered: dict[str, str] = {}
+    key = "dimension_id" if field_id == "dimension_id" else "metric_id"
+    for spec in specs:
+        label = str(spec["label"])
+        identifier = str(spec[key])
+        if available.get(label) == identifier:
+            ordered[label] = identifier
+    return ordered or available
+
+
+def _build_materialized_market_share(market_share: pd.DataFrame, dimension_id: str, metric_id: str) -> tuple[pd.DataFrame, dict[str, float]]:
+    if market_share.empty:
+        return pd.DataFrame(), {"groups": 0.0, "top5_share": 0.0, "top10_share": 0.0, "hhi": 0.0, "total_metric": 0.0}
+    frame = market_share[
+        market_share.get("dimension_id", pd.Series("", index=market_share.index)).astype(str).eq(dimension_id)
+        & market_share.get("metric_id", pd.Series("", index=market_share.index)).astype(str).eq(metric_id)
+    ].copy()
+    if frame.empty:
+        return pd.DataFrame(), {"groups": 0.0, "top5_share": 0.0, "top10_share": 0.0, "hhi": 0.0, "total_metric": 0.0}
+    numeric_cols = [
+        "metric_value",
+        "share",
+        "rank",
+        "groups",
+        "top5_share",
+        "top10_share",
+        "hhi",
+        "pl_brl",
+        "issuance_2024_2026_brl",
+        "funds_equivalent",
+        "funds_unique",
+        "document_rows",
+        "cedente_rows",
+        "criteria_rows",
+        "with_subordination_min_equiv",
+        "with_issuance_2025_2026_equiv",
+        "average_evidence_layers",
+    ]
+    for col in numeric_cols:
+        if col in frame.columns:
+            frame[col] = pd.to_numeric(frame[col], errors="coerce").fillna(0.0)
+    frame = frame.sort_values(["rank", "metric_value"], ascending=[True, False])
+    out = pd.DataFrame(
+        {
+            "Dimensão": frame.get("dimension_value", pd.Series("", index=frame.index)).astype(str),
+            "PL": frame.get("pl_brl", pd.Series(0.0, index=frame.index)),
+            "Emissões 24-26": frame.get("issuance_2024_2026_brl", pd.Series(0.0, index=frame.index)),
+            "Fundos eq.": frame.get("funds_equivalent", pd.Series(0.0, index=frame.index)),
+            "Fundos únicos": frame.get("funds_unique", pd.Series(0.0, index=frame.index)),
+            "Docs": frame.get("document_rows", pd.Series(0.0, index=frame.index)),
+            "Cedentes": frame.get("cedente_rows", pd.Series(0.0, index=frame.index)),
+            "Critérios": frame.get("criteria_rows", pd.Series(0.0, index=frame.index)),
+            "Com sub mín.": frame.get("with_subordination_min_equiv", pd.Series(0.0, index=frame.index)),
+            "Com emissão 25-26": frame.get("with_issuance_2025_2026_equiv", pd.Series(0.0, index=frame.index)),
+            "Camadas méd.": frame.get("average_evidence_layers", pd.Series(0.0, index=frame.index)),
+            "Métrica": frame.get("metric_value", pd.Series(0.0, index=frame.index)),
+            "Share": frame.get("share", pd.Series(0.0, index=frame.index)),
+        }
+    )
+    first = frame.iloc[0]
+    return out, {
+        "groups": float(first.get("groups", len(out)) or 0.0),
+        "top5_share": float(first.get("top5_share", 0.0) or 0.0),
+        "top10_share": float(first.get("top10_share", 0.0) or 0.0),
+        "hhi": float(first.get("hhi", 0.0) or 0.0),
+        "total_metric": float(frame.get("metric_value", pd.Series(0.0, index=frame.index)).sum()),
+    }
+
+
 def _format_snapshot_market_table(frame: pd.DataFrame) -> pd.DataFrame:
     out = frame.copy()
     for col in ["PL", "Emissões 24-26"]:
@@ -1069,31 +1182,19 @@ def _format_snapshot_market_table(frame: pd.DataFrame) -> pd.DataFrame:
 
 def _render_snapshot_market_share(snapshot: pd.DataFrame) -> None:
     st.markdown("**Market share e concentração do snapshot**")
-    dimensions = {
-        "Administrador": "admin_nome",
-        "Gestor": "gestor_nome",
-        "Custodiante": "custodiante_nome",
-        "Segmento IME": "segmento_principal",
-        "Segmento Estratégia": "segmento_estrategia",
-        "Subsegmento Estratégia": "subsegmento_estrategia",
-        "Status snapshot": "snapshot_status",
-        "FIC-FIDC": "is_fic_fidc",
-        "Emissão 25-26": "tem_emissao_2025_2026",
-        "Tem sub mín.": "tem_sub_minima",
-        "Documento local": "tem_documento_local",
-        "Indexador": "indexadores",
-        "Tipo de cota": "tipo_cotas",
-        "Classe documento": "document_classes",
-        "Critério": "criteria_keys",
-    }
-    metrics = {
-        "PL": "pl",
-        "Emissões 24-26": "issuance",
-        "Fundos eq.": "funds",
-        "Documentos": "documents",
-        "Cedentes": "cedentes",
-        "Critérios": "criteria",
-    }
+    market_tables = _load_market_share_tables()
+    market_share = market_tables["market_share"]
+    market_manifest = market_tables["manifest"]
+    assert isinstance(market_share, pd.DataFrame)
+    assert isinstance(market_manifest, dict)
+    dimension_columns = {str(spec["label"]): str(spec["column"]) for spec in MARKET_SHARE_DIMENSIONS}
+    metric_ids = {str(spec["label"]): str(spec["metric_id"]) for spec in MARKET_SHARE_METRICS}
+    if not market_share.empty:
+        dimensions = _market_share_options(market_share, "dimension_id", "dimension_label", MARKET_SHARE_DIMENSIONS)
+        metrics = _market_share_options(market_share, "metric_id", "metric_label", MARKET_SHARE_METRICS)
+    else:
+        dimensions = {str(spec["label"]): str(spec["column"]) for spec in MARKET_SHARE_DIMENSIONS}
+        metrics = metric_ids
     ctrl_a, ctrl_b, ctrl_c = st.columns([1.0, 0.9, 0.65])
     with ctrl_a:
         dim_label = st.selectbox("Dimensão", list(dimensions), key="industry_snapshot_market_dimension")
@@ -1102,8 +1203,14 @@ def _render_snapshot_market_share(snapshot: pd.DataFrame) -> None:
     with ctrl_c:
         top_n = st.slider("Top", min_value=5, max_value=30, value=15, step=1, key="industry_snapshot_market_top")
 
-    dimension = dimensions[dim_label]
-    market, summary = _build_snapshot_market_share(snapshot, dimension, metrics[metric_label])
+    uses_materialized = not market_share.empty
+    if uses_materialized:
+        market, summary = _build_materialized_market_share(market_share, dimensions[dim_label], metrics[metric_label])
+        if market.empty and dim_label in dimension_columns:
+            uses_materialized = False
+            market, summary = _build_snapshot_market_share(snapshot, dimension_columns[dim_label], metric_ids.get(metric_label, "pl"))
+    else:
+        market, summary = _build_snapshot_market_share(snapshot, dimensions[dim_label], metrics[metric_label])
     if market.empty:
         st.caption("Sem dados para a dimensão selecionada.")
         return
@@ -1141,7 +1248,18 @@ def _render_snapshot_market_share(snapshot: pd.DataFrame) -> None:
     )
     st.altair_chart(chart, width="stretch")
     st.dataframe(_format_snapshot_market_table(market.head(120)), hide_index=True, width="stretch")
-    if dimension in _SNAPSHOT_MARKET_MULTI_COLUMNS:
+    if uses_materialized:
+        weighted = market_share[
+            market_share.get("dimension_id", pd.Series("", index=market_share.index)).astype(str).eq(dimensions[dim_label])
+        ].get("weighted_multivalue", pd.Series(False)).astype(str).str.lower().isin({"true", "1"}).any()
+        generated_at = market_manifest.get("generated_at_utc", "")
+        source_note = f"Fonte: `{_MARKET_SHARE_PATH.name}`"
+        if generated_at:
+            source_note += f" · gerado em {generated_at}"
+        st.caption(source_note)
+    else:
+        weighted = dimension_columns.get(dim_label, dimensions[dim_label]) in _SNAPSHOT_MARKET_MULTI_COLUMNS
+    if weighted:
         st.caption("Dimensões multivalor são ponderadas por item para preservar o PL/volume total do snapshot.")
 
 
@@ -1616,6 +1734,196 @@ def _heatmap_base_frame(
     return _apply_multivalue_dimensions(frame, row_col, col_col)
 
 
+def _dimension_catalog_options(catalog: pd.DataFrame) -> dict[str, str]:
+    if catalog.empty or "dimension_id" not in catalog.columns or "dimension_label" not in catalog.columns:
+        return {}
+    available = set(catalog["dimension_id"].dropna().astype(str))
+    ordered: dict[str, str] = {}
+    for spec in DIMENSION_CATALOG_SPECS:
+        dimension_id = str(spec["dimension_id"])
+        if dimension_id in available:
+            ordered[str(spec["label"])] = dimension_id
+    return ordered
+
+
+def _dimension_catalog_rows(catalog: pd.DataFrame, dimension_id: str) -> pd.DataFrame:
+    if catalog.empty or "dimension_id" not in catalog.columns:
+        return pd.DataFrame()
+    rows = catalog[catalog["dimension_id"].astype(str).eq(str(dimension_id))].copy()
+    if rows.empty:
+        return rows
+    rows["cnpj_fundo_norm"] = rows["cnpj_fundo"].map(normalize_cnpj)
+    rows["dimension_value"] = rows["dimension_value"].fillna("").astype(str).str.strip()
+    rows["value_weight"] = pd.to_numeric(rows.get("value_weight"), errors="coerce").fillna(1.0)
+    return rows[rows["cnpj_fundo_norm"].str.len().eq(14) & rows["dimension_value"].ne("")].copy()
+
+
+def _base_with_catalog_id(vehicle: pd.DataFrame) -> pd.DataFrame:
+    frame = vehicle.copy()
+    id_col = "cnpj_fundo" if "cnpj_fundo" in frame.columns else "cnpj"
+    frame["cnpj_fundo_norm"] = frame[id_col].map(normalize_cnpj)
+    return frame
+
+
+def _catalog_heatmap_base_frame(vehicle: pd.DataFrame, catalog: pd.DataFrame, row_id: str, col_id: str) -> pd.DataFrame:
+    base = _base_with_catalog_id(vehicle)
+    row_dim = _dimension_catalog_rows(catalog, row_id)
+    col_dim = _dimension_catalog_rows(catalog, col_id)
+    if base.empty or row_dim.empty or col_dim.empty:
+        return base.iloc[0:0].copy()
+    row_keep = [
+        "cnpj_fundo_norm",
+        "dimension_value",
+        "value_weight",
+        "source_layer",
+        "is_multivalue",
+        "is_curated",
+    ]
+    if row_id == col_id:
+        pairs = row_dim[[col for col in row_keep if col in row_dim.columns]].copy()
+        pairs = pairs.rename(
+            columns={
+                "dimension_value": "linha",
+                "value_weight": "_metric_weight",
+                "source_layer": "row_source_layer",
+                "is_multivalue": "row_is_multivalue",
+                "is_curated": "row_is_curated",
+            }
+        )
+        pairs["coluna"] = pairs["linha"]
+        pairs["col_source_layer"] = pairs["row_source_layer"]
+        pairs["col_is_multivalue"] = pairs["row_is_multivalue"]
+        pairs["col_is_curated"] = pairs["row_is_curated"]
+    else:
+        left = row_dim[[col for col in row_keep if col in row_dim.columns]].rename(
+            columns={
+                "dimension_value": "linha",
+                "value_weight": "row_weight",
+                "source_layer": "row_source_layer",
+                "is_multivalue": "row_is_multivalue",
+                "is_curated": "row_is_curated",
+            }
+        )
+        right = col_dim[[col for col in row_keep if col in col_dim.columns]].rename(
+            columns={
+                "dimension_value": "coluna",
+                "value_weight": "col_weight",
+                "source_layer": "col_source_layer",
+                "is_multivalue": "col_is_multivalue",
+                "is_curated": "col_is_curated",
+            }
+        )
+        pairs = left.merge(right, on="cnpj_fundo_norm", how="inner")
+        pairs["_metric_weight"] = (
+            pd.to_numeric(pairs.get("row_weight"), errors="coerce").fillna(1.0)
+            * pd.to_numeric(pairs.get("col_weight"), errors="coerce").fillna(1.0)
+        )
+    if pairs.empty:
+        return base.iloc[0:0].copy()
+    frame = base.merge(pairs, on="cnpj_fundo_norm", how="inner")
+    return frame
+
+
+def _catalog_deep_dive_frame(vehicle: pd.DataFrame, catalog: pd.DataFrame, dimension_id: str) -> pd.DataFrame:
+    base = _base_with_catalog_id(vehicle)
+    dim = _dimension_catalog_rows(catalog, dimension_id)
+    if base.empty or dim.empty:
+        return base.iloc[0:0].copy()
+    keep = [
+        "cnpj_fundo_norm",
+        "dimension_value",
+        "value_weight",
+        "source_layer",
+        "source_document",
+        "source_page",
+        "source_method",
+        "confidence_score",
+        "review_status",
+        "participant_type",
+        "participant_cnpj",
+        "is_curated",
+        "is_multivalue",
+    ]
+    dim = dim[[col for col in keep if col in dim.columns]].rename(
+        columns={
+            "dimension_value": "valor_dimensao",
+            "value_weight": "_metric_weight",
+            "source_layer": "dimension_source_layer",
+            "source_document": "dimension_source_document",
+            "source_page": "dimension_source_page",
+            "source_method": "dimension_source_method",
+            "confidence_score": "dimension_confidence_score",
+            "review_status": "dimension_review_status",
+            "participant_type": "dimension_participant_type",
+            "participant_cnpj": "dimension_participant_cnpj",
+        }
+    )
+    frame = base.merge(dim, on="cnpj_fundo_norm", how="inner")
+    frame["_metric_weight"] = pd.to_numeric(frame.get("_metric_weight"), errors="coerce").fillna(1.0)
+    return frame
+
+
+def _dimension_monthly_for_value(
+    monthly: pd.DataFrame,
+    *,
+    dimension_id: str,
+    selected_value: str,
+    comp: str,
+    period: str,
+) -> pd.DataFrame:
+    if monthly.empty:
+        return pd.DataFrame()
+    required = {"competencia", "dimension_id", "dimension_value"}
+    if not required.issubset(monthly.columns):
+        return pd.DataFrame()
+    frame = monthly[
+        monthly["dimension_id"].astype(str).eq(str(dimension_id))
+        & monthly["dimension_value"].astype(str).eq(str(selected_value))
+    ].copy()
+    if frame.empty:
+        return frame
+    frame = _period_filter(frame, comp, period)
+    if frame.empty:
+        return frame
+    numeric_cols = [
+        "pl_brl",
+        "captacao_liquida_brl",
+        "carteira_dc_brl",
+        "dc_inadimplentes_ajustado_brl",
+        "inad_pct_ajustada",
+        "funds_unique",
+        "vehicles_unique",
+        "funds_equiv",
+        "cotistas_equiv",
+    ]
+    for col in numeric_cols:
+        if col in frame.columns:
+            frame[col] = pd.to_numeric(frame[col], errors="coerce").fillna(0.0)
+        else:
+            frame[col] = 0.0
+    frame = (
+        frame.groupby("competencia", dropna=False)
+        .agg(
+            pl=("pl_brl", "sum"),
+            captacao=("captacao_liquida_brl", "sum"),
+            carteira=("carteira_dc_brl", "sum"),
+            inad=("dc_inadimplentes_ajustado_brl", "sum"),
+            fundos=("funds_unique", "max"),
+            veiculos=("vehicles_unique", "max"),
+            funds_equiv=("funds_equiv", "sum"),
+            cotistas=("cotistas_equiv", "sum"),
+        )
+        .reset_index()
+        .sort_values("competencia")
+    )
+    frame["inad_pct_ajustada"] = frame["inad"] / frame["carteira"].replace(0, pd.NA)
+    frame["inad_pct_ajustada"] = frame["inad_pct_ajustada"].fillna(0.0)
+    frame["mes"] = pd.to_datetime(frame["competencia"] + "-01")
+    frame["pl_bi"] = frame["pl"] / 1e9
+    frame["captacao_bi"] = frame["captacao"] / 1e9
+    return frame
+
+
 def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
     st.markdown('<div class="industry-section">Heatmaps granulares</div>', unsafe_allow_html=True)
     st.markdown(
@@ -1627,7 +1935,7 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
         st.info("A base `vehicle_monthly.csv.gz` ainda não está disponível para montar heatmaps.")
         return
 
-    dimensions = {
+    fallback_dimensions = {
         "Administrador": "admin_nome",
         "Gestor": "gestor_nome",
         "Custodiante": "custodiante_nome",
@@ -1654,6 +1962,19 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
         "Critério": "criteria_keys",
         "Chunk docs": "document_chunk_ids",
     }
+    catalog_tables = _load_dimension_catalog_tables()
+    catalog = catalog_tables["catalog"]
+    catalog_manifest = catalog_tables["manifest"]
+    assert isinstance(catalog, pd.DataFrame)
+    assert isinstance(catalog_manifest, dict)
+    catalog_dimensions = _dimension_catalog_options(catalog)
+    use_catalog = bool(catalog_dimensions)
+    monthly_tables = _load_dimension_monthly_tables() if use_catalog else {"monthly": pd.DataFrame(), "manifest": {}}
+    dimension_monthly = monthly_tables["monthly"]
+    dimension_monthly_manifest = monthly_tables["manifest"]
+    assert isinstance(dimension_monthly, pd.DataFrame)
+    assert isinstance(dimension_monthly_manifest, dict)
+    dimensions = catalog_dimensions if use_catalog else fallback_dimensions
     metric_options = ["PL médio", "Captação líquida", "Veículos", "Fundos"]
     dimension_labels = list(dimensions)
 
@@ -1673,18 +1994,22 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
     with ctrl_e:
         top_n = st.slider("Top", min_value=5, max_value=25, value=12, step=1, key="industry_heatmap_top")
 
-    cedentes = _build_structured_cedentes()
-    snapshot_tables = _load_fund_snapshot_tables()
-    snapshot = snapshot_tables["snapshot"]
-    assert isinstance(snapshot, pd.DataFrame)
     frame = _period_filter(vehicle, comp, period)
-    frame = _heatmap_base_frame(frame, cedentes, snapshot, dimensions[row_label], dimensions[col_label])
+    if use_catalog:
+        frame = _catalog_heatmap_base_frame(frame, catalog, dimensions[row_label], dimensions[col_label])
+    else:
+        cedentes = _build_structured_cedentes()
+        snapshot_tables = _load_fund_snapshot_tables()
+        snapshot = snapshot_tables["snapshot"]
+        assert isinstance(snapshot, pd.DataFrame)
+        frame = _heatmap_base_frame(frame, cedentes, snapshot, dimensions[row_label], dimensions[col_label])
     if frame.empty:
         st.caption("Sem linhas para a janela selecionada.")
         return
     frame = frame.copy()
-    frame["linha"] = _dimension_series(frame, dimensions[row_label])
-    frame["coluna"] = _dimension_series(frame, dimensions[col_label])
+    if not use_catalog:
+        frame["linha"] = _dimension_series(frame, dimensions[row_label])
+        frame["coluna"] = _dimension_series(frame, dimensions[col_label])
     frame = frame[(frame["linha"] != "n/d") & (frame["coluna"] != "n/d")]
     if frame.empty:
         st.caption("As dimensões selecionadas não têm dados preenchidos nessa janela.")
@@ -1786,12 +2111,29 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
     pivot = heatmap.pivot_table(index="linha", columns="coluna", values="valor", aggfunc="sum", fill_value=0)
     pivot = pivot.reindex(index=row_order, columns=col_order).reset_index().rename(columns={"linha": row_label})
     st.dataframe(pivot, hide_index=True, width="stretch")
-    if dimensions[row_label] in _CEDENTE_HEATMAP_COLUMNS or dimensions[col_label] in _CEDENTE_HEATMAP_COLUMNS:
+    if use_catalog:
+        uses_curated = False
+        uses_multivalue = False
+        for col in ["row_is_curated", "col_is_curated"]:
+            if col in frame.columns:
+                uses_curated = uses_curated or frame[col].astype(str).str.lower().isin({"true", "1"}).any()
+        for col in ["row_is_multivalue", "col_is_multivalue"]:
+            if col in frame.columns:
+                uses_multivalue = uses_multivalue or frame[col].astype(str).str.lower().isin({"true", "1"}).any()
+        generated_at = catalog_manifest.get("generated_at_utc", "")
+        source_note = f"Fonte: `{_DIMENSION_CATALOG_PATH.name}`"
+        if generated_at:
+            source_note += f" · gerado em {generated_at}"
+        st.caption(source_note)
+    else:
+        uses_curated = dimensions[row_label] in _CEDENTE_HEATMAP_COLUMNS or dimensions[col_label] in _CEDENTE_HEATMAP_COLUMNS
+        uses_multivalue = dimensions[row_label] in _SNAPSHOT_MULTI_COLUMNS or dimensions[col_label] in _SNAPSHOT_MULTI_COLUMNS
+    if uses_curated:
         st.caption(
             "Quando a dimensão é cedente/sacado, PL e fluxo são alocados igualmente entre os participantes ativos "
             "do mesmo fundo para evitar dupla contagem direta."
         )
-    if dimensions[row_label] in _SNAPSHOT_MULTI_COLUMNS or dimensions[col_label] in _SNAPSHOT_MULTI_COLUMNS:
+    if uses_multivalue:
         st.caption(
             "Dimensões multivalor vindas do snapshot, como indexador e critérios, ponderam PL e fluxo entre os itens "
             "extraídos para preservar a ordem de grandeza agregada."
@@ -2733,7 +3075,7 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
         st.info("A base granular `vehicle_monthly.csv.gz` ainda não está disponível para Deep Dive.")
         return
 
-    dimensions = {
+    fallback_dimensions = {
         "Administrador": "admin_nome",
         "Gestor": "gestor_nome",
         "Custodiante": "custodiante_nome",
@@ -2759,6 +3101,19 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
         "Critério": "criteria_keys",
         "Chunk docs": "document_chunk_ids",
     }
+    catalog_tables = _load_dimension_catalog_tables()
+    catalog = catalog_tables["catalog"]
+    catalog_manifest = catalog_tables["manifest"]
+    assert isinstance(catalog, pd.DataFrame)
+    assert isinstance(catalog_manifest, dict)
+    catalog_dimensions = _dimension_catalog_options(catalog)
+    use_catalog = bool(catalog_dimensions)
+    monthly_tables = _load_dimension_monthly_tables() if use_catalog else {"monthly": pd.DataFrame(), "manifest": {}}
+    dimension_monthly = monthly_tables["monthly"]
+    dimension_monthly_manifest = monthly_tables["manifest"]
+    assert isinstance(dimension_monthly, pd.DataFrame)
+    assert isinstance(dimension_monthly_manifest, dict)
+    dimensions = catalog_dimensions if use_catalog else fallback_dimensions
     ctrl_a, ctrl_b, ctrl_c = st.columns([0.9, 0.9, 1.2])
     with ctrl_a:
         dimension_label = st.selectbox("Dimensão", list(dimensions), key="industry_deep_dimension")
@@ -2772,19 +3127,24 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
     with ctrl_c:
         query = st.text_input("Buscar valor", key="industry_deep_query", placeholder="nome, CNPJ, segmento ou participante")
 
-    cedentes = _build_structured_cedentes()
-    snapshot_tables = _load_fund_snapshot_tables()
-    snapshot = snapshot_tables["snapshot"]
-    assert isinstance(snapshot, pd.DataFrame)
     dim_col = dimensions[dimension_label]
     frame = _period_filter(vehicle, comp, period)
-    frame = _heatmap_base_frame(frame, cedentes, snapshot, dim_col, dim_col)
+    cedentes = pd.DataFrame()
+    if use_catalog:
+        frame = _catalog_deep_dive_frame(frame, catalog, dim_col)
+    else:
+        cedentes = _build_structured_cedentes()
+        snapshot_tables = _load_fund_snapshot_tables()
+        snapshot = snapshot_tables["snapshot"]
+        assert isinstance(snapshot, pd.DataFrame)
+        frame = _heatmap_base_frame(frame, cedentes, snapshot, dim_col, dim_col)
     if frame.empty:
         st.caption("Sem dados para a dimensão/janela selecionada.")
         return
 
     frame = frame.copy()
-    frame["valor_dimensao"] = _dimension_series(frame, dim_col)
+    if not use_catalog:
+        frame["valor_dimensao"] = _dimension_series(frame, dim_col)
     frame = frame[frame["valor_dimensao"] != "n/d"].copy()
     if query:
         frame = frame[frame["valor_dimensao"].astype(str).str.contains(query, case=False, na=False)].copy()
@@ -2825,13 +3185,34 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
     selected_value = st.selectbox("Valor", options, key="industry_deep_value")
     selected = frame[frame["valor_dimensao"].eq(selected_value)].copy()
     selected_current = current[current["valor_dimensao"].eq(selected_value)].copy()
+    monthly = pd.DataFrame()
+    uses_dimension_monthly = False
+    if use_catalog and not dimension_monthly.empty:
+        monthly = _dimension_monthly_for_value(
+            dimension_monthly,
+            dimension_id=dim_col,
+            selected_value=str(selected_value),
+            comp=comp,
+            period=period,
+        )
+        uses_dimension_monthly = not monthly.empty
 
-    total_pl = float(selected_current["pl_metric"].sum())
-    total_capt = float(selected["captacao_metric"].sum())
-    funds = selected_current[fund_id].nunique()
-    vehicles = selected_current["cnpj"].nunique()
-    carteira = float(selected_current["carteira_metric"].sum())
-    inad = float(selected_current["inad_metric"].sum())
+    if uses_dimension_monthly:
+        latest_comp = sorted(monthly["competencia"].dropna().astype(str).unique())[-1]
+        current_monthly = monthly[monthly["competencia"].eq(latest_comp)].iloc[-1]
+        total_pl = float(current_monthly["pl"])
+        total_capt = float(monthly["captacao"].sum())
+        funds = float(current_monthly["fundos"])
+        vehicles = float(current_monthly["veiculos"])
+        carteira = float(current_monthly["carteira"])
+        inad = float(current_monthly["inad"])
+    else:
+        total_pl = float(selected_current["pl_metric"].sum())
+        total_capt = float(selected["captacao_metric"].sum())
+        funds = float(selected_current[fund_id].nunique())
+        vehicles = float(selected_current["cnpj"].nunique())
+        carteira = float(selected_current["carteira_metric"].sum())
+        inad = float(selected_current["inad_metric"].sum())
     sub_med = _numeric_column(selected_current, "subordinacao_pct").median()
     cards = [
         _curation_card("PL atual", _fmt_bi(total_pl, 1), latest_comp),
@@ -2842,22 +3223,23 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    monthly = (
-        selected.groupby("competencia", dropna=False)
-        .agg(
-            pl=("pl_metric", "sum"),
-            captacao=("captacao_metric", "sum"),
-            veiculos=("cnpj", "nunique"),
-            fundos=(fund_id, "nunique"),
-            carteira=("carteira_metric", "sum"),
-            inad=("inad_metric", "sum"),
+    if not uses_dimension_monthly:
+        monthly = (
+            selected.groupby("competencia", dropna=False)
+            .agg(
+                pl=("pl_metric", "sum"),
+                captacao=("captacao_metric", "sum"),
+                veiculos=("cnpj", "nunique"),
+                fundos=(fund_id, "nunique"),
+                carteira=("carteira_metric", "sum"),
+                inad=("inad_metric", "sum"),
+            )
+            .reset_index()
+            .sort_values("competencia")
         )
-        .reset_index()
-        .sort_values("competencia")
-    )
-    monthly["mes"] = pd.to_datetime(monthly["competencia"] + "-01")
-    monthly["pl_bi"] = monthly["pl"] / 1e9
-    monthly["captacao_bi"] = monthly["captacao"] / 1e9
+        monthly["mes"] = pd.to_datetime(monthly["competencia"] + "-01")
+        monthly["pl_bi"] = monthly["pl"] / 1e9
+        monthly["captacao_bi"] = monthly["captacao"] / 1e9
     col_a, col_b = st.columns(2)
     with col_a:
         st.markdown("**PL e fundos no tempo**")
@@ -2929,7 +3311,41 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
         show = _format_vehicle_table(table)
         st.dataframe(show, hide_index=True, width="stretch")
 
-    if dim_col in _CEDENTE_HEATMAP_COLUMNS and not cedentes.empty:
+    if use_catalog:
+        generated_at = catalog_manifest.get("generated_at_utc", "")
+        source_note = f"Fonte: `{_DIMENSION_CATALOG_PATH.name}`"
+        if generated_at:
+            source_note += f" · gerado em {generated_at}"
+        if uses_dimension_monthly:
+            monthly_generated_at = dimension_monthly_manifest.get("generated_at_utc", "")
+            source_note += f" · séries: `{_DIMENSION_MONTHLY_PATH.name}`"
+            if monthly_generated_at:
+                source_note += f" ({monthly_generated_at})"
+        st.caption(source_note)
+        related = catalog[
+            catalog.get("dimension_id", pd.Series("", index=catalog.index)).astype(str).eq(str(dim_col))
+            & catalog.get("dimension_value", pd.Series("", index=catalog.index)).astype(str).eq(str(selected_value))
+        ].copy()
+        if not related.empty and related.get("source_layer", pd.Series("", index=related.index)).astype(str).isin({"cedente", "criteria", "snapshot"}).any():
+            st.markdown("**Evidências da dimensão selecionada**")
+            cols = [
+                "dimension_label",
+                "dimension_value",
+                "source_layer",
+                "participant_type",
+                "participant_cnpj",
+                "nome_exibicao",
+                "cnpj_fundo",
+                "source_document",
+                "source_page",
+                "source_method",
+                "confidence_score",
+                "review_status",
+                "priority_2025_2026",
+            ]
+            st.dataframe(related[[col for col in cols if col in related.columns]].head(80), hide_index=True, width="stretch")
+            st.caption("A tabela preserva fonte, documento, página, método, score e status de revisão quando disponíveis.")
+    elif dim_col in _CEDENTE_HEATMAP_COLUMNS and not cedentes.empty:
         st.markdown("**Evidências de cedente/sacado da dimensão selecionada**")
         related = cedentes[cedentes[dim_col].astype(str).eq(str(selected_value))].copy()
         cols = [

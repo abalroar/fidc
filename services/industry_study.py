@@ -1759,6 +1759,58 @@ def build_industry_pipeline_index(
                 "with_subordination_min",
             ],
         },
+        {
+            "module_id": "dimension_catalog",
+            "label": "Catálogo de dimensões",
+            "manifest_name": "industry_dimension_catalog_manifest.json",
+            "command": "python scripts/build_fidc_industry_dimensions.py",
+            "cadence": "após snapshot/cedentes",
+            "depends_on": ["snapshot unificado por FIDC", "cedentes estruturados"],
+            "quality_keys": [
+                "rows",
+                "funds",
+                "dimensions",
+                "curated_rows",
+                "weighted_dimensions",
+                "with_source_document",
+                "with_confidence",
+            ],
+        },
+        {
+            "module_id": "dimension_monthly",
+            "label": "Séries mensais por dimensão",
+            "manifest_name": "industry_dimension_monthly_manifest.json",
+            "command": "python scripts/build_fidc_industry_dimension_monthly.py",
+            "cadence": "após catálogo de dimensões",
+            "depends_on": ["base granular mensal", "catálogo de dimensões"],
+            "quality_keys": [
+                "rows",
+                "months",
+                "dimensions",
+                "dimension_values",
+                "latest_competencia",
+                "latest_rows",
+                "with_source_document_links",
+                "curated_rows",
+            ],
+        },
+        {
+            "module_id": "market_share",
+            "label": "Market share e concentração",
+            "manifest_name": "industry_market_share_manifest.json",
+            "command": "python scripts/build_fidc_industry_market_share.py",
+            "cadence": "após snapshot unificado",
+            "depends_on": ["snapshot unificado por FIDC"],
+            "quality_keys": [
+                "rows",
+                "dimensions",
+                "metrics",
+                "weighted_dimensions",
+                "top5_pl_share_admin",
+                "hhi_pl_admin",
+                "source_snapshot_rows",
+            ],
+        },
     ]
 
     base_module, base_artifacts = _build_base_monthly_module(industry_dir)
@@ -1820,6 +1872,30 @@ def build_industry_pipeline_index(
         },
         {
             "order": 7,
+            "module_id": "dimension_catalog",
+            "label": "Regerar catálogo de dimensões",
+            "command": "python scripts/build_fidc_industry_dimensions.py",
+            "reason": "Explode CNPJ x dimensão x valor com pesos, fonte e metadados de curadoria.",
+            "incremental_note": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos.",
+        },
+        {
+            "order": 8,
+            "module_id": "dimension_monthly",
+            "label": "Regerar séries mensais por dimensão",
+            "command": "python scripts/build_fidc_industry_dimension_monthly.py",
+            "reason": "Agrega PL, fluxos, carteira, inadimplência, fundos e veículos por competência × dimensão × valor.",
+            "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação.",
+        },
+        {
+            "order": 9,
+            "module_id": "market_share",
+            "label": "Regerar market share e concentração",
+            "command": "python scripts/build_fidc_industry_market_share.py",
+            "reason": "Materializa rankings por administrador, segmento, documentos, critérios e dimensões multivalor.",
+            "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe.",
+        },
+        {
+            "order": 10,
             "module_id": "pipeline_index",
             "label": "Atualizar cockpit do pipeline",
             "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -1841,6 +1917,9 @@ def build_industry_pipeline_index(
     cedente_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "cedentes"), {})
     issuance_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "issuance"), {})
     snapshot_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "fund_snapshot"), {})
+    dimension_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "dimension_catalog"), {})
+    dimension_monthly_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "dimension_monthly"), {})
+    market_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "market_share"), {})
     criteria_manifest = _safe_read_json(industry_dir / "industry_criteria_manifest.json")
     subordination = criteria_manifest.get("quality", {}).get("subordination", {}) if isinstance(criteria_manifest.get("quality"), dict) else {}
 
@@ -1880,6 +1959,13 @@ def build_industry_pipeline_index(
             "fund_snapshot_rows": snapshot_quality.get("fund_rows", 0),
             "fund_snapshot_with_cedentes": snapshot_quality.get("with_cedentes", 0),
             "fund_snapshot_with_criteria": snapshot_quality.get("with_criteria", 0),
+            "dimension_catalog_rows": dimension_quality.get("rows", 0),
+            "dimension_catalog_dimensions": dimension_quality.get("dimensions", 0),
+            "dimension_monthly_rows": dimension_monthly_quality.get("rows", 0),
+            "dimension_monthly_latest_competencia": dimension_monthly_quality.get("latest_competencia", ""),
+            "market_share_rows": market_quality.get("rows", 0),
+            "market_share_dimensions": market_quality.get("dimensions", 0),
+            "market_share_metrics": market_quality.get("metrics", 0),
         },
         "modules": modules,
         "refresh_plan": refresh_plan,
@@ -2632,6 +2718,894 @@ def fund_snapshot_quality_summary(snapshot: pd.DataFrame) -> dict[str, object]:
             if "sub_min_pct_median" in frame
             else 0.0,
         },
+    }
+
+
+MARKET_SHARE_DIMENSIONS = [
+    {"dimension_id": "admin", "label": "Administrador", "column": "admin_nome", "multi_value": False},
+    {"dimension_id": "gestor", "label": "Gestor", "column": "gestor_nome", "multi_value": False},
+    {"dimension_id": "custodiante", "label": "Custodiante", "column": "custodiante_nome", "multi_value": False},
+    {"dimension_id": "segmento_ime", "label": "Segmento IME", "column": "segmento_principal", "multi_value": False},
+    {"dimension_id": "segmento_estrategia", "label": "Segmento Estratégia", "column": "segmento_estrategia", "multi_value": False},
+    {"dimension_id": "subsegmento_estrategia", "label": "Subsegmento Estratégia", "column": "subsegmento_estrategia", "multi_value": False},
+    {"dimension_id": "snapshot_status", "label": "Status snapshot", "column": "snapshot_status", "multi_value": False},
+    {"dimension_id": "fic_fidc", "label": "FIC-FIDC", "column": "is_fic_fidc", "multi_value": False},
+    {"dimension_id": "emissao_2025_2026", "label": "Emissão 25-26", "column": "tem_emissao_2025_2026", "multi_value": False},
+    {"dimension_id": "subordinacao_minima", "label": "Tem sub mín.", "column": "tem_sub_minima", "multi_value": False},
+    {"dimension_id": "documento_local", "label": "Documento local", "column": "tem_documento_local", "multi_value": False},
+    {"dimension_id": "indexador", "label": "Indexador", "column": "indexadores", "multi_value": True},
+    {"dimension_id": "tipo_cota", "label": "Tipo de cota", "column": "tipo_cotas", "multi_value": True},
+    {"dimension_id": "classe_documento", "label": "Classe documento", "column": "document_classes", "multi_value": True},
+    {"dimension_id": "criterio", "label": "Critério", "column": "criteria_keys", "multi_value": True},
+]
+
+MARKET_SHARE_METRICS = [
+    {"metric_id": "pl", "label": "PL", "source": "pl_brl"},
+    {"metric_id": "issuance", "label": "Emissões 24-26", "source": "issuance_2024_2026_brl"},
+    {"metric_id": "funds", "label": "Fundos eq.", "source": "funds_equivalent"},
+    {"metric_id": "documents", "label": "Documentos", "source": "document_rows"},
+    {"metric_id": "cedentes", "label": "Cedentes", "source": "cedente_rows"},
+    {"metric_id": "criteria", "label": "Critérios", "source": "criteria_rows"},
+]
+
+DIMENSION_CATALOG_SPECS = [
+    {"dimension_id": "admin", "label": "Administrador", "column": "admin_nome", "source_layer": "snapshot", "multi_value": False},
+    {"dimension_id": "gestor", "label": "Gestor", "column": "gestor_nome", "source_layer": "snapshot", "multi_value": False},
+    {"dimension_id": "custodiante", "label": "Custodiante", "column": "custodiante_nome", "source_layer": "snapshot", "multi_value": False},
+    {"dimension_id": "cedente_sacado", "label": "Cedente/sacado", "column": "razao_social", "source_layer": "cedente", "multi_value": False},
+    {"dimension_id": "grupo_economico", "label": "Grupo econômico", "column": "grupo_economico", "source_layer": "cedente", "multi_value": False},
+    {"dimension_id": "tipo_participante", "label": "Tipo participante", "column": "tipo_participante", "source_layer": "cedente", "multi_value": False},
+    {"dimension_id": "setor_cedente", "label": "Setor cedente", "column": "setor", "source_layer": "cedente", "multi_value": False},
+    {"dimension_id": "segmento_cedente", "label": "Segmento cedente", "column": "segmento", "source_layer": "cedente", "multi_value": False},
+    {"dimension_id": "segmento", "label": "Segmento", "column": "segmento_principal", "source_layer": "snapshot", "multi_value": False},
+    {
+        "dimension_id": "segmento_estrategia",
+        "label": "Segmento Estratégia",
+        "column": "segmento_estrategia",
+        "source_layer": "snapshot",
+        "multi_value": False,
+    },
+    {
+        "dimension_id": "subsegmento_estrategia",
+        "label": "Subsegmento Estratégia",
+        "column": "subsegmento_estrategia",
+        "source_layer": "snapshot",
+        "multi_value": False,
+    },
+    {"dimension_id": "condominio", "label": "Condomínio", "column": "condominio", "source_layer": "snapshot", "multi_value": False},
+    {"dimension_id": "publico_alvo", "label": "Público-alvo", "column": "publico_alvo", "source_layer": "snapshot", "multi_value": False},
+    {"dimension_id": "fic_fidc", "label": "FIC-FIDC", "column": "is_fic_fidc", "source_layer": "snapshot", "multi_value": False},
+    {"dimension_id": "status_curadoria", "label": "Status curadoria", "column": "status_revisao", "source_layer": "cedente", "multi_value": False},
+    {"dimension_id": "periodo_prioritario", "label": "Período prioritário", "column": "periodo_prioritario", "source_layer": "cedente", "multi_value": False},
+    {"dimension_id": "snapshot_status", "label": "Status snapshot", "column": "snapshot_status", "source_layer": "snapshot", "multi_value": False},
+    {
+        "dimension_id": "camadas_evidencia",
+        "label": "Camadas evidência",
+        "column": "camadas_com_evidencia",
+        "source_layer": "snapshot",
+        "multi_value": False,
+    },
+    {
+        "dimension_id": "emissao_2025_2026",
+        "label": "Emissão 25-26",
+        "column": "tem_emissao_2025_2026",
+        "source_layer": "snapshot",
+        "multi_value": False,
+    },
+    {
+        "dimension_id": "faixa_sub_minima",
+        "label": "Faixa sub mín.",
+        "column": "sub_min_pct_median",
+        "source_layer": "snapshot",
+        "multi_value": False,
+        "derived": "sub_min_bucket",
+    },
+    {"dimension_id": "tem_sub_minima", "label": "Tem sub mín.", "column": "tem_sub_minima", "source_layer": "snapshot", "multi_value": False},
+    {"dimension_id": "documento_local", "label": "Documento local", "column": "tem_documento_local", "source_layer": "snapshot", "multi_value": False},
+    {"dimension_id": "indexador", "label": "Indexador", "column": "indexadores", "source_layer": "snapshot", "multi_value": True},
+    {"dimension_id": "tipo_cota", "label": "Tipo de cota", "column": "tipo_cotas", "source_layer": "snapshot", "multi_value": True},
+    {"dimension_id": "classe_documento", "label": "Classe documento", "column": "document_classes", "source_layer": "snapshot", "multi_value": True},
+    {"dimension_id": "criterio", "label": "Critério", "column": "criteria_keys", "source_layer": "snapshot", "multi_value": True},
+    {"dimension_id": "chunk_docs", "label": "Chunk docs", "column": "document_chunk_ids", "source_layer": "snapshot", "multi_value": True},
+]
+
+_MARKET_SHARE_COLUMNS = [
+    "dimension_id",
+    "dimension_label",
+    "dimension_column",
+    "dimension_value",
+    "metric_id",
+    "metric_label",
+    "metric_value",
+    "share",
+    "rank",
+    "groups",
+    "top5_share",
+    "top10_share",
+    "hhi",
+    "pl_brl",
+    "issuance_2024_2026_brl",
+    "funds_equivalent",
+    "funds_unique",
+    "document_rows",
+    "cedente_rows",
+    "criteria_rows",
+    "with_subordination_min_equiv",
+    "with_issuance_2025_2026_equiv",
+    "average_evidence_layers",
+    "weighted_multivalue",
+    "source_snapshot_rows",
+    "prepared_snapshot_rows",
+]
+
+
+def _split_market_values(value: object) -> list[str]:
+    values: list[str] = []
+    for part in str(value or "").split("|"):
+        text = part.strip()
+        if text and text.lower() not in {"nan", "none", "n/d"}:
+            values.append(text[:70])
+    return values
+
+
+def _market_dimension_values(frame: pd.DataFrame, column: str) -> pd.Series:
+    if column not in frame.columns:
+        return pd.Series("n/d", index=frame.index)
+    if column == "is_fic_fidc":
+        return _bool_series(frame[column], frame.index).map({True: "FIC-FIDC", False: "FIDC direto"})
+    boolean_labels = {
+        "tem_emissao_2025_2026": ("com emissão 2025-2026", "sem emissão 2025-2026"),
+        "tem_sub_minima": ("com sub mínima", "sem sub mínima"),
+        "tem_cedente": ("com cedente/sacado", "sem cedente/sacado"),
+        "tem_documento_local": ("com documento local", "sem documento local"),
+    }
+    if column in boolean_labels:
+        values = _bool_series(frame[column], frame.index)
+        yes, no = boolean_labels[column]
+        return values.map({True: yes, False: no})
+    if column == "camadas_com_evidencia":
+        numbers = _num(frame[column], frame.index).round().astype(int)
+        return numbers.map(lambda value: f"{value} camada" if value == 1 else f"{value} camadas")
+    values = _text(frame[column], frame.index).str.strip()
+    values = values.where(values.ne(""), "n/d")
+    return values.str.slice(0, 70)
+
+
+def _prepare_market_share_frame(snapshot: pd.DataFrame, dimension_spec: dict[str, object]) -> pd.DataFrame:
+    if snapshot is None or snapshot.empty:
+        return pd.DataFrame()
+    column = str(dimension_spec["column"])
+    frame = snapshot.copy()
+    frame["_metric_weight"] = 1.0
+    if bool(dimension_spec.get("multi_value")):
+        if column not in frame.columns:
+            return frame.iloc[0:0].copy()
+        values = frame[column].map(_split_market_values)
+        counts = values.map(len)
+        frame = frame[counts.gt(0)].copy()
+        if frame.empty:
+            return frame
+        values = values.loc[frame.index]
+        counts = counts.loc[frame.index]
+        frame[column] = values
+        frame["_metric_weight"] = 1.0 / counts
+        frame = frame.explode(column).reset_index(drop=True)
+    frame["_dimension_value"] = _market_dimension_values(frame, column)
+    frame = frame[frame["_dimension_value"].ne("n/d")].copy()
+    return frame
+
+
+def _market_grouped_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame()
+    fund_id = "cnpj_fundo" if "cnpj_fundo" in frame.columns else "cnpj"
+    if fund_id not in frame.columns:
+        frame = frame.copy()
+        fund_id = "_row_fund_id"
+        frame[fund_id] = frame.index.astype(str)
+    weighted = frame.copy()
+    weighted["_pl_metric"] = _num(weighted.get("pl"), weighted.index) * weighted["_metric_weight"]
+    weighted["_issuance_metric"] = _num(weighted.get("valid_volume_2024_2026_brl"), weighted.index) * weighted["_metric_weight"]
+    weighted["_fund_metric"] = weighted["_metric_weight"]
+    weighted["_document_metric"] = _num(weighted.get("document_rows"), weighted.index) * weighted["_metric_weight"]
+    weighted["_cedente_metric"] = _num(weighted.get("cedente_rows"), weighted.index) * weighted["_metric_weight"]
+    weighted["_criteria_metric"] = _num(weighted.get("criteria_rows"), weighted.index) * weighted["_metric_weight"]
+    weighted["_sub_min_metric"] = _bool_series(weighted.get("tem_sub_minima"), weighted.index).astype(float) * weighted["_metric_weight"]
+    weighted["_emission_2526_metric"] = (
+        _bool_series(weighted.get("tem_emissao_2025_2026"), weighted.index).astype(float) * weighted["_metric_weight"]
+    )
+    weighted["_layers_metric"] = _num(weighted.get("camadas_com_evidencia"), weighted.index) * weighted["_metric_weight"]
+    grouped = (
+        weighted.groupby("_dimension_value", dropna=False)
+        .agg(
+            pl_brl=("_pl_metric", "sum"),
+            issuance_2024_2026_brl=("_issuance_metric", "sum"),
+            funds_equivalent=("_fund_metric", "sum"),
+            funds_unique=(fund_id, "nunique"),
+            document_rows=("_document_metric", "sum"),
+            cedente_rows=("_cedente_metric", "sum"),
+            criteria_rows=("_criteria_metric", "sum"),
+            with_subordination_min_equiv=("_sub_min_metric", "sum"),
+            with_issuance_2025_2026_equiv=("_emission_2526_metric", "sum"),
+            evidence_layers_total=("_layers_metric", "sum"),
+        )
+        .reset_index()
+        .rename(columns={"_dimension_value": "dimension_value"})
+    )
+    grouped["average_evidence_layers"] = grouped["evidence_layers_total"] / grouped["funds_equivalent"].replace(0, pd.NA)
+    return grouped.drop(columns=["evidence_layers_total"], errors="ignore")
+
+
+def build_industry_market_share(
+    snapshot: pd.DataFrame,
+    *,
+    dimensions: list[dict[str, object]] | None = None,
+    metrics: list[dict[str, object]] | None = None,
+) -> pd.DataFrame:
+    """Materialize concentration and market-share views from the unified FIDC snapshot."""
+
+    dimension_specs = dimensions or MARKET_SHARE_DIMENSIONS
+    metric_specs = metrics or MARKET_SHARE_METRICS
+    if snapshot is None or snapshot.empty:
+        return pd.DataFrame(columns=_MARKET_SHARE_COLUMNS)
+
+    rows: list[dict[str, object]] = []
+    source_snapshot_rows = int(len(snapshot))
+    for dimension in dimension_specs:
+        prepared = _prepare_market_share_frame(snapshot, dimension)
+        grouped = _market_grouped_frame(prepared)
+        if grouped.empty:
+            continue
+        groups = int(len(grouped))
+        for metric in metric_specs:
+            source = str(metric["source"])
+            metric_values = pd.to_numeric(grouped.get(source), errors="coerce").fillna(0.0)
+            total_metric = float(metric_values.sum())
+            shares = metric_values / total_metric if total_metric else pd.Series(0.0, index=grouped.index)
+            ranked = grouped.copy()
+            ranked["metric_value"] = metric_values
+            ranked["share"] = shares
+            ranked = ranked.sort_values(["metric_value", "dimension_value"], ascending=[False, True]).reset_index(drop=True)
+            ranked["rank"] = range(1, len(ranked) + 1)
+            ranked_shares = ranked["share"].fillna(0.0)
+            top5_share = float(ranked_shares.head(5).sum())
+            top10_share = float(ranked_shares.head(10).sum())
+            hhi = float(ranked_shares.pow(2).sum() * 10000)
+            for record in ranked.to_dict("records"):
+                rows.append(
+                    {
+                        "dimension_id": dimension["dimension_id"],
+                        "dimension_label": dimension["label"],
+                        "dimension_column": dimension["column"],
+                        "dimension_value": record["dimension_value"],
+                        "metric_id": metric["metric_id"],
+                        "metric_label": metric["label"],
+                        "metric_value": _json_float(record["metric_value"]) or 0.0,
+                        "share": _json_float(record["share"]) or 0.0,
+                        "rank": int(record["rank"]),
+                        "groups": groups,
+                        "top5_share": top5_share,
+                        "top10_share": top10_share,
+                        "hhi": hhi,
+                        "pl_brl": _json_float(record.get("pl_brl")) or 0.0,
+                        "issuance_2024_2026_brl": _json_float(record.get("issuance_2024_2026_brl")) or 0.0,
+                        "funds_equivalent": _json_float(record.get("funds_equivalent")) or 0.0,
+                        "funds_unique": int(pd.to_numeric(pd.Series([record.get("funds_unique")]), errors="coerce").fillna(0).iloc[0]),
+                        "document_rows": _json_float(record.get("document_rows")) or 0.0,
+                        "cedente_rows": _json_float(record.get("cedente_rows")) or 0.0,
+                        "criteria_rows": _json_float(record.get("criteria_rows")) or 0.0,
+                        "with_subordination_min_equiv": _json_float(record.get("with_subordination_min_equiv")) or 0.0,
+                        "with_issuance_2025_2026_equiv": _json_float(record.get("with_issuance_2025_2026_equiv")) or 0.0,
+                        "average_evidence_layers": _json_float(record.get("average_evidence_layers")),
+                        "weighted_multivalue": bool(dimension.get("multi_value")),
+                        "source_snapshot_rows": source_snapshot_rows,
+                        "prepared_snapshot_rows": int(len(prepared)),
+                    }
+                )
+    if not rows:
+        return pd.DataFrame(columns=_MARKET_SHARE_COLUMNS)
+    return pd.DataFrame(rows, columns=_MARKET_SHARE_COLUMNS)
+
+
+def industry_market_share_quality_summary(market_share: pd.DataFrame) -> dict[str, object]:
+    if market_share is None or market_share.empty:
+        return {
+            "rows": 0,
+            "dimensions": 0,
+            "metrics": 0,
+            "weighted_dimensions": 0,
+        }
+    frame = market_share.copy()
+    pl_admin = frame[(frame["dimension_id"] == "admin") & (frame["metric_id"] == "pl")]
+    issuance_segment = frame[(frame["dimension_id"] == "segmento_estrategia") & (frame["metric_id"] == "issuance")]
+    return {
+        "rows": int(len(frame)),
+        "dimensions": int(frame["dimension_id"].nunique()) if "dimension_id" in frame else 0,
+        "metrics": int(frame["metric_id"].nunique()) if "metric_id" in frame else 0,
+        "weighted_dimensions": int(
+            frame.loc[frame.get("weighted_multivalue", pd.Series(False, index=frame.index)).astype(str).str.lower().isin({"true", "1"}), "dimension_id"].nunique()
+        )
+        if "dimension_id" in frame
+        else 0,
+        "top5_pl_share_admin": _json_float(pl_admin["top5_share"].iloc[0]) if not pl_admin.empty else None,
+        "hhi_pl_admin": _json_float(pl_admin["hhi"].iloc[0]) if not pl_admin.empty else None,
+        "top5_issuance_share_segmento_estrategia": _json_float(issuance_segment["top5_share"].iloc[0])
+        if not issuance_segment.empty
+        else None,
+        "max_groups": int(pd.to_numeric(frame.get("groups"), errors="coerce").fillna(0).max()) if "groups" in frame else 0,
+        "source_snapshot_rows": int(pd.to_numeric(frame.get("source_snapshot_rows"), errors="coerce").fillna(0).max())
+        if "source_snapshot_rows" in frame
+        else 0,
+    }
+
+
+def build_market_share_pipeline_manifest(
+    *,
+    industry_dir: Path,
+    snapshot_path: Path,
+    output_path: Path,
+    manifest_path: Path,
+    snapshot: pd.DataFrame,
+    market_share: pd.DataFrame,
+) -> dict[str, object]:
+    quality = industry_market_share_quality_summary(market_share)
+    return {
+        "schema_version": "industry-market-share-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_market_share",
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "macbook_air_m4_friendly": True,
+            "notes": [
+                "Este modulo transforma o snapshot unificado em rankings reutilizaveis de market share e concentracao.",
+                "Dimensoes multivalor sao ponderadas por item para preservar o PL/volume total do snapshot filtrado.",
+                "Novas combinacoes devem ser adicionadas pela lista declarativa de dimensoes e metricas, sem regra especifica de painel.",
+            ],
+        },
+        "inputs": {
+            "fund_snapshot": file_fingerprint(snapshot_path),
+        },
+        "outputs": {
+            "market_share": file_fingerprint(output_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "load_fund_snapshot",
+                "label": "Carregar snapshot por FIDC",
+                "status": "ok" if not snapshot.empty else "empty",
+                "input": str(snapshot_path),
+                "output": "memoria:industry_fund_snapshot",
+                "rows": int(len(snapshot)),
+                "rerun": "python scripts/build_fidc_industry_fund_snapshot.py",
+            },
+            {
+                "id": "aggregate_market_share",
+                "label": "Agregacoes de market share",
+                "status": "ok" if not market_share.empty else "empty",
+                "input": "memoria:industry_fund_snapshot",
+                "output": str(output_path),
+                "rows": int(len(market_share)),
+                "dimensions": quality.get("dimensions", 0),
+                "metrics": quality.get("metrics", 0),
+                "rerun": "python scripts/build_fidc_industry_market_share.py",
+            },
+        ],
+        "quality": quality,
+    }
+
+
+_DIMENSION_CATALOG_COLUMNS = [
+    "cnpj_fundo",
+    "nome_exibicao",
+    "dimension_id",
+    "dimension_label",
+    "dimension_column",
+    "dimension_value",
+    "source_layer",
+    "source_field",
+    "source_value",
+    "value_weight",
+    "is_multivalue",
+    "is_curated",
+    "participant_type",
+    "participant_cnpj",
+    "source_document",
+    "source_page",
+    "source_date",
+    "source_method",
+    "confidence_score",
+    "review_status",
+    "priority_2025_2026",
+]
+
+_DIMENSION_MONTHLY_COLUMNS = [
+    "competencia",
+    "dimension_id",
+    "dimension_label",
+    "dimension_value",
+    "pl_brl",
+    "captacao_liquida_brl",
+    "carteira_dc_brl",
+    "dc_inadimplentes_ajustado_brl",
+    "inad_pct_ajustada",
+    "cotistas_equiv",
+    "funds_equiv",
+    "funds_unique",
+    "vehicles_unique",
+    "catalog_links",
+    "source_document_links",
+    "curated_links",
+    "weighted_links",
+]
+
+
+def _catalog_clean_value(value: object) -> str:
+    text = re.sub(r"\s+", " ", str(value or "").strip())
+    if text.lower() in {"", "nan", "none", "n/d"}:
+        return ""
+    return text[:120]
+
+
+def _catalog_sub_min_bucket(value: object) -> str:
+    number = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(number):
+        return "sem sub mínima"
+    if number < 10:
+        return "<10%"
+    if number < 15:
+        return "10%-15%"
+    if number < 25:
+        return "15%-25%"
+    return ">=25%"
+
+
+def _catalog_document_column(dimension_id: str) -> str:
+    if dimension_id in {"indexador", "tipo_cota"}:
+        return "pricing_documentos"
+    if dimension_id in {"criterio", "tem_sub_minima", "faixa_sub_minima"}:
+        return "criteria_documentos"
+    if dimension_id in {"classe_documento", "chunk_docs", "documento_local"}:
+        return "document_classes"
+    return ""
+
+
+def _catalog_confidence_column(dimension_id: str) -> str:
+    if dimension_id in {"indexador", "tipo_cota"}:
+        return "pricing_score_mediana"
+    if dimension_id in {"criterio", "tem_sub_minima", "faixa_sub_minima"}:
+        return "criteria_score_mediana"
+    if dimension_id in {"cedente_sacado", "grupo_economico", "tipo_participante", "setor_cedente", "segmento_cedente"}:
+        return "cedente_score_mediana"
+    return ""
+
+
+def _catalog_snapshot_values(row: pd.Series, spec: dict[str, object]) -> list[tuple[str, object]]:
+    column = str(spec["column"])
+    if spec.get("derived") == "sub_min_bucket":
+        value = _catalog_sub_min_bucket(row.get(column))
+        return [(value, row.get(column, ""))]
+    if column not in row.index:
+        return []
+    if bool(spec.get("multi_value")):
+        parts = _split_market_values(row.get(column))
+        return [(part, row.get(column, "")) for part in parts]
+    frame = pd.DataFrame([row])
+    label = _market_dimension_values(frame, column).iloc[0]
+    value = _catalog_clean_value(label)
+    if not value:
+        return []
+    return [(value, row.get(column, ""))]
+
+
+def _catalog_row_base(row: pd.Series, spec: dict[str, object]) -> dict[str, object]:
+    dimension_id = str(spec["dimension_id"])
+    document_col = _catalog_document_column(dimension_id)
+    confidence_col = _catalog_confidence_column(dimension_id)
+    return {
+        "cnpj_fundo": normalize_cnpj(row.get("cnpj_fundo")),
+        "nome_exibicao": row.get("nome_exibicao") or row.get("fundo") or row.get("denominacao") or "",
+        "dimension_id": dimension_id,
+        "dimension_label": spec["label"],
+        "dimension_column": spec["column"],
+        "source_layer": spec["source_layer"],
+        "source_field": spec["column"],
+        "is_multivalue": bool(spec.get("multi_value")),
+        "is_curated": spec.get("source_layer") in {"cedente", "criteria"},
+        "participant_type": row.get("participant_type", ""),
+        "participant_cnpj": normalize_cnpj(row.get("cnpj_participante")) if row.get("cnpj_participante", "") else "",
+        "source_document": row.get(document_col, "") if document_col else row.get("documento_origem", ""),
+        "source_page": row.get("pagina", ""),
+        "source_date": row.get("document_date", "") or row.get("document_latest_date", "") or row.get("latest_regulamento_date", ""),
+        "source_method": row.get("metodo_extracao", "") or "snapshot_consolidado",
+        "confidence_score": _json_float(row.get(confidence_col, row.get("score_confianca_final", row.get("score_confianca", "")))),
+        "review_status": row.get("status_revisao", ""),
+        "priority_2025_2026": row.get("periodo_prioritario", "") == "2025-2026 YTD"
+        or str(row.get("priority_2025_2026", "")).lower() in {"true", "1", "sim"},
+    }
+
+
+def _build_snapshot_dimension_rows(snapshot: pd.DataFrame, specs: list[dict[str, object]]) -> list[dict[str, object]]:
+    if snapshot is None or snapshot.empty:
+        return []
+    frame = snapshot.copy()
+    if "cnpj_fundo" not in frame.columns and "cnpj" in frame.columns:
+        frame["cnpj_fundo"] = frame["cnpj"]
+    frame["cnpj_fundo"] = frame["cnpj_fundo"].map(normalize_cnpj)
+    rows: list[dict[str, object]] = []
+    snapshot_specs = [spec for spec in specs if spec.get("source_layer") == "snapshot"]
+    for _, row in frame.iterrows():
+        cnpj = normalize_cnpj(row.get("cnpj_fundo"))
+        if not cnpj:
+            continue
+        for spec in snapshot_specs:
+            values = _catalog_snapshot_values(row, spec)
+            if not values:
+                continue
+            weight = 1.0 / len(values)
+            base = _catalog_row_base(row, spec)
+            for value, source_value in values:
+                clean = _catalog_clean_value(value)
+                if not clean:
+                    continue
+                item = {
+                    **base,
+                    "dimension_value": clean,
+                    "source_value": _catalog_clean_value(source_value) or clean,
+                    "value_weight": weight,
+                }
+                rows.append(item)
+    return rows
+
+
+def _build_cedente_dimension_rows(cedentes: pd.DataFrame, specs: list[dict[str, object]]) -> list[dict[str, object]]:
+    if cedentes is None or cedentes.empty:
+        return []
+    frame = cedentes.copy()
+    if "cnpj_fundo" not in frame.columns:
+        return []
+    frame["cnpj_fundo"] = frame["cnpj_fundo"].map(normalize_cnpj)
+    if "ativo_curadoria" in frame.columns:
+        frame = frame[frame["ativo_curadoria"].astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})].copy()
+    cedente_specs = [spec for spec in specs if spec.get("source_layer") == "cedente"]
+    rows: list[dict[str, object]] = []
+    for spec in cedente_specs:
+        column = str(spec["column"])
+        if column not in frame.columns:
+            continue
+        part = frame.copy()
+        part["dimension_value"] = part[column].map(_catalog_clean_value)
+        part = part[part["dimension_value"].ne("")].copy()
+        if part.empty:
+            continue
+        part["_confidence_sort"] = _num(part.get("score_confianca_final"), part.index)
+        part = part.sort_values("_confidence_sort", ascending=False)
+        part = part.drop_duplicates(["cnpj_fundo", "dimension_value"], keep="first")
+        counts = part.groupby("cnpj_fundo")["dimension_value"].transform("nunique").clip(lower=1)
+        part["_catalog_weight"] = 1.0 / counts
+        for _, row in part.iterrows():
+            base = _catalog_row_base(row, spec)
+            rows.append(
+                {
+                    **base,
+                    "dimension_value": row["dimension_value"],
+                    "source_value": row["dimension_value"],
+                    "value_weight": _json_float(row["_catalog_weight"]) or 0.0,
+                }
+            )
+    return rows
+
+
+def build_industry_dimension_catalog(
+    *,
+    snapshot: pd.DataFrame,
+    cedentes: pd.DataFrame | None = None,
+    specs: list[dict[str, object]] | None = None,
+) -> pd.DataFrame:
+    """Build a reusable long catalog of FIDC dimensions with source metadata."""
+
+    catalog_specs = specs or DIMENSION_CATALOG_SPECS
+    rows = _build_snapshot_dimension_rows(snapshot, catalog_specs)
+    rows.extend(_build_cedente_dimension_rows(cedentes if cedentes is not None else pd.DataFrame(), catalog_specs))
+    if not rows:
+        return pd.DataFrame(columns=_DIMENSION_CATALOG_COLUMNS)
+    frame = pd.DataFrame(rows)
+    for col in _DIMENSION_CATALOG_COLUMNS:
+        if col not in frame.columns:
+            frame[col] = ""
+    frame["cnpj_fundo"] = frame["cnpj_fundo"].map(normalize_cnpj)
+    frame["value_weight"] = pd.to_numeric(frame["value_weight"], errors="coerce").fillna(0.0)
+    frame["confidence_score"] = pd.to_numeric(frame["confidence_score"], errors="coerce")
+    frame = frame[frame["cnpj_fundo"].astype(str).str.len().eq(14) & frame["dimension_value"].astype(str).str.strip().ne("")]
+    frame = frame.drop_duplicates(["cnpj_fundo", "dimension_id", "dimension_value", "source_layer"], keep="first")
+    return frame[_DIMENSION_CATALOG_COLUMNS].sort_values(["dimension_id", "dimension_value", "cnpj_fundo"])
+
+
+def industry_dimension_catalog_quality_summary(catalog: pd.DataFrame) -> dict[str, object]:
+    if catalog is None or catalog.empty:
+        return {
+            "rows": 0,
+            "funds": 0,
+            "dimensions": 0,
+            "source_layer_counts": {},
+        }
+    frame = catalog.copy()
+    return {
+        "rows": int(len(frame)),
+        "funds": int(frame["cnpj_fundo"].nunique()) if "cnpj_fundo" in frame else 0,
+        "dimensions": int(frame["dimension_id"].nunique()) if "dimension_id" in frame else 0,
+        "source_layer_counts": {
+            str(k): int(v)
+            for k, v in frame.get("source_layer", pd.Series("", index=frame.index)).fillna("").astype(str).value_counts().to_dict().items()
+        },
+        "curated_rows": int(frame.get("is_curated", pd.Series(False, index=frame.index)).astype(str).str.lower().isin({"true", "1"}).sum()),
+        "weighted_dimensions": int(
+            frame.loc[pd.to_numeric(frame.get("value_weight"), errors="coerce").fillna(1.0).lt(1.0), "dimension_id"].nunique()
+        )
+        if "dimension_id" in frame
+        else 0,
+        "with_source_document": int(frame.get("source_document", pd.Series("", index=frame.index)).fillna("").astype(str).str.strip().ne("").sum()),
+        "with_confidence": int(pd.to_numeric(frame.get("confidence_score"), errors="coerce").notna().sum())
+        if "confidence_score" in frame
+        else 0,
+    }
+
+
+def build_dimension_catalog_pipeline_manifest(
+    *,
+    industry_dir: Path,
+    snapshot_path: Path,
+    cedentes_path: Path,
+    output_path: Path,
+    manifest_path: Path,
+    snapshot: pd.DataFrame,
+    cedentes: pd.DataFrame,
+    catalog: pd.DataFrame,
+) -> dict[str, object]:
+    quality = industry_dimension_catalog_quality_summary(catalog)
+    return {
+        "schema_version": "industry-dimension-catalog-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_dimension_catalog",
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "macbook_air_m4_friendly": True,
+            "notes": [
+                "Este modulo materializa CNPJ x dimensao x valor, com pesos e metadados de fonte.",
+                "Heatmaps e Deep Dives podem cruzar qualquer dimensao sem regras especificas por painel.",
+                "Dimensoes de cedentes preservam documento, pagina, score e status de revisao quando disponiveis.",
+            ],
+        },
+        "inputs": {
+            "fund_snapshot": file_fingerprint(snapshot_path),
+            "cedentes_structured": file_fingerprint(cedentes_path),
+        },
+        "outputs": {
+            "dimension_catalog": file_fingerprint(output_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "load_snapshot_and_cedentes",
+                "label": "Carregar camadas estruturadas",
+                "status": "ok" if not snapshot.empty else "empty",
+                "input": f"{snapshot_path}+{cedentes_path}",
+                "output": "memoria:snapshot+cedentes",
+                "rows": int(len(snapshot) + len(cedentes)),
+                "rerun": "python scripts/build_fidc_industry_fund_snapshot.py && python scripts/build_fidc_industry_cedentes.py",
+            },
+            {
+                "id": "explode_dimension_catalog",
+                "label": "Explodir dimensoes reutilizaveis",
+                "status": "ok" if not catalog.empty else "empty",
+                "input": "memoria:snapshot+cedentes",
+                "output": str(output_path),
+                "rows": int(len(catalog)),
+                "dimensions": quality.get("dimensions", 0),
+                "rerun": "python scripts/build_fidc_industry_dimensions.py",
+            },
+        ],
+        "quality": quality,
+    }
+
+
+def build_industry_dimension_monthly(
+    *,
+    vehicle_monthly: pd.DataFrame,
+    dimension_catalog: pd.DataFrame,
+) -> pd.DataFrame:
+    """Aggregate monthly metrics by reusable Industry dimension/value."""
+
+    if vehicle_monthly is None or vehicle_monthly.empty or dimension_catalog is None or dimension_catalog.empty:
+        return pd.DataFrame(columns=_DIMENSION_MONTHLY_COLUMNS)
+    vehicle = vehicle_monthly.copy()
+    id_col = "cnpj_fundo" if "cnpj_fundo" in vehicle.columns else "cnpj"
+    if id_col not in vehicle.columns or "competencia" not in vehicle.columns:
+        return pd.DataFrame(columns=_DIMENSION_MONTHLY_COLUMNS)
+    vehicle["cnpj_fundo_norm"] = vehicle[id_col].map(normalize_cnpj)
+    vehicle = vehicle[vehicle["cnpj_fundo_norm"].astype(str).str.len().eq(14)].copy()
+    if vehicle.empty:
+        return pd.DataFrame(columns=_DIMENSION_MONTHLY_COLUMNS)
+    if "cnpj" not in vehicle.columns:
+        vehicle["cnpj"] = vehicle["cnpj_fundo_norm"]
+    metric_cols = [
+        "competencia",
+        "cnpj",
+        "cnpj_fundo_norm",
+        "pl",
+        "captacao_liquida",
+        "carteira_dc",
+        "dc_inadimplentes_ajustado",
+        "cotistas",
+    ]
+    for col in metric_cols:
+        if col not in vehicle.columns:
+            vehicle[col] = 0.0 if col not in {"competencia", "cnpj", "cnpj_fundo_norm"} else ""
+    vehicle = vehicle[metric_cols].copy()
+    for col in ["pl", "captacao_liquida", "carteira_dc", "dc_inadimplentes_ajustado", "cotistas"]:
+        vehicle[col] = _num(vehicle[col], vehicle.index)
+
+    catalog = dimension_catalog.copy()
+    if "cnpj_fundo" not in catalog.columns:
+        return pd.DataFrame(columns=_DIMENSION_MONTHLY_COLUMNS)
+    catalog["cnpj_fundo_norm"] = catalog["cnpj_fundo"].map(normalize_cnpj)
+    catalog = catalog[catalog["cnpj_fundo_norm"].astype(str).str.len().eq(14)].copy()
+    keep = [
+        "cnpj_fundo_norm",
+        "dimension_id",
+        "dimension_label",
+        "dimension_value",
+        "value_weight",
+        "source_document",
+        "is_curated",
+        "is_multivalue",
+    ]
+    for col in keep:
+        if col not in catalog.columns:
+            catalog[col] = ""
+    catalog = catalog[keep].copy()
+    catalog["dimension_value"] = catalog["dimension_value"].fillna("").astype(str).str.strip()
+    catalog = catalog[catalog["dimension_value"].ne("")].copy()
+    catalog["value_weight"] = pd.to_numeric(catalog["value_weight"], errors="coerce").fillna(1.0)
+    catalog["source_document_filled"] = catalog["source_document"].fillna("").astype(str).str.strip().ne("")
+    catalog["is_curated_bool"] = catalog["is_curated"].astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})
+    catalog["is_multivalue_bool"] = catalog["is_multivalue"].astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})
+    catalog = catalog.drop_duplicates(["cnpj_fundo_norm", "dimension_id", "dimension_value"], keep="first")
+    if catalog.empty:
+        return pd.DataFrame(columns=_DIMENSION_MONTHLY_COLUMNS)
+
+    joined = vehicle.merge(catalog, on="cnpj_fundo_norm", how="inner")
+    if joined.empty:
+        return pd.DataFrame(columns=_DIMENSION_MONTHLY_COLUMNS)
+    weight = pd.to_numeric(joined["value_weight"], errors="coerce").fillna(1.0)
+    joined["_pl_brl"] = joined["pl"] * weight
+    joined["_captacao_liquida_brl"] = joined["captacao_liquida"] * weight
+    joined["_carteira_dc_brl"] = joined["carteira_dc"] * weight
+    joined["_dc_inadimplentes_ajustado_brl"] = joined["dc_inadimplentes_ajustado"] * weight
+    joined["_cotistas_equiv"] = joined["cotistas"] * weight
+    joined["_funds_equiv"] = weight
+    joined["_source_document_link"] = joined["source_document_filled"].astype(int)
+    joined["_curated_link"] = joined["is_curated_bool"].astype(int)
+    joined["_weighted_link"] = weight.lt(1.0).astype(int)
+    keys = ["competencia", "dimension_id", "dimension_label", "dimension_value"]
+    grouped = (
+        joined.groupby(keys, dropna=False)
+        .agg(
+            pl_brl=("_pl_brl", "sum"),
+            captacao_liquida_brl=("_captacao_liquida_brl", "sum"),
+            carteira_dc_brl=("_carteira_dc_brl", "sum"),
+            dc_inadimplentes_ajustado_brl=("_dc_inadimplentes_ajustado_brl", "sum"),
+            cotistas_equiv=("_cotistas_equiv", "sum"),
+            funds_equiv=("_funds_equiv", "sum"),
+            funds_unique=("cnpj_fundo_norm", "nunique"),
+            vehicles_unique=("cnpj", "nunique"),
+            catalog_links=("cnpj_fundo_norm", "size"),
+            source_document_links=("_source_document_link", "sum"),
+            curated_links=("_curated_link", "sum"),
+            weighted_links=("_weighted_link", "sum"),
+        )
+        .reset_index()
+    )
+    grouped["inad_pct_ajustada"] = grouped["dc_inadimplentes_ajustado_brl"] / grouped["carteira_dc_brl"].replace(0, pd.NA)
+    grouped["inad_pct_ajustada"] = grouped["inad_pct_ajustada"].fillna(0.0)
+    for col in _DIMENSION_MONTHLY_COLUMNS:
+        if col not in grouped.columns:
+            grouped[col] = 0 if col not in {"competencia", "dimension_id", "dimension_label", "dimension_value"} else ""
+    return grouped[_DIMENSION_MONTHLY_COLUMNS].sort_values(["competencia", "dimension_id", "pl_brl"], ascending=[True, True, False])
+
+
+def industry_dimension_monthly_quality_summary(monthly: pd.DataFrame) -> dict[str, object]:
+    if monthly is None or monthly.empty:
+        return {
+            "rows": 0,
+            "months": 0,
+            "dimensions": 0,
+            "latest_competencia": "",
+            "latest_rows": 0,
+        }
+    frame = monthly.copy()
+    latest = str(frame["competencia"].dropna().astype(str).max()) if "competencia" in frame else ""
+    latest_frame = frame[frame["competencia"].astype(str).eq(latest)].copy() if latest else pd.DataFrame()
+    return {
+        "rows": int(len(frame)),
+        "months": int(frame["competencia"].nunique()) if "competencia" in frame else 0,
+        "dimensions": int(frame["dimension_id"].nunique()) if "dimension_id" in frame else 0,
+        "dimension_values": int(frame[["dimension_id", "dimension_value"]].drop_duplicates().shape[0])
+        if {"dimension_id", "dimension_value"}.issubset(frame.columns)
+        else 0,
+        "latest_competencia": latest,
+        "latest_rows": int(len(latest_frame)),
+        "latest_pl_brl": float(pd.to_numeric(latest_frame.get("pl_brl"), errors="coerce").fillna(0.0).sum())
+        if not latest_frame.empty
+        else 0.0,
+        "with_source_document_links": int(pd.to_numeric(frame.get("source_document_links"), errors="coerce").fillna(0).gt(0).sum())
+        if "source_document_links" in frame
+        else 0,
+        "curated_rows": int(pd.to_numeric(frame.get("curated_links"), errors="coerce").fillna(0).gt(0).sum())
+        if "curated_links" in frame
+        else 0,
+    }
+
+
+def build_dimension_monthly_pipeline_manifest(
+    *,
+    industry_dir: Path,
+    vehicle_monthly_path: Path,
+    dimension_catalog_path: Path,
+    output_path: Path,
+    manifest_path: Path,
+    vehicle_monthly: pd.DataFrame,
+    dimension_catalog: pd.DataFrame,
+    monthly: pd.DataFrame,
+) -> dict[str, object]:
+    quality = industry_dimension_monthly_quality_summary(monthly)
+    return {
+        "schema_version": "industry-dimension-monthly-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_dimension_monthly",
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "macbook_air_m4_friendly": True,
+            "notes": [
+                "Este modulo agrega metricas mensais por dimensao reutilizavel sem expandir o arquivo de UI.",
+                "O catalogo de dimensoes fornece pesos e relacoes; a base granular mensal fornece as metricas.",
+                "Deep Dives podem usar esta serie diretamente, preservando fallback para detalhe por veiculo.",
+            ],
+        },
+        "inputs": {
+            "vehicle_monthly": file_fingerprint(vehicle_monthly_path),
+            "dimension_catalog": file_fingerprint(dimension_catalog_path),
+        },
+        "outputs": {
+            "dimension_monthly": file_fingerprint(output_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "load_vehicle_monthly_and_catalog",
+                "label": "Carregar base mensal e catalogo",
+                "status": "ok" if not vehicle_monthly.empty and not dimension_catalog.empty else "empty",
+                "input": f"{vehicle_monthly_path}+{dimension_catalog_path}",
+                "output": "memoria:vehicle_monthly+dimension_catalog",
+                "rows": int(len(vehicle_monthly) + len(dimension_catalog)),
+                "rerun": "python scripts/build_fidc_industry_study.py --report && python scripts/build_fidc_industry_dimensions.py",
+            },
+            {
+                "id": "aggregate_monthly_by_dimension",
+                "label": "Agregar series por dimensao",
+                "status": "ok" if not monthly.empty else "empty",
+                "input": "memoria:vehicle_monthly+dimension_catalog",
+                "output": str(output_path),
+                "rows": int(len(monthly)),
+                "months": quality.get("months", 0),
+                "dimensions": quality.get("dimensions", 0),
+                "rerun": "python scripts/build_fidc_industry_dimension_monthly.py",
+            },
+        ],
+        "quality": quality,
     }
 
 

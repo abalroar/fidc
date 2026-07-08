@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-index/v1",
-  "generated_at_utc": "2026-07-08T16:04:33+00:00",
+  "generated_at_utc": "2026-07-08T16:50:08+00:00",
   "pipeline": "industry_monthly_refresh",
   "industry_dir": "data/industry_study",
   "output_path": "data/industry_study/industry_pipeline_index.json",
@@ -16,14 +16,14 @@
     ]
   },
   "quality_rollup": {
-    "modules_total": 6,
+    "modules_total": 9,
     "module_status_counts": {
-      "ok": 6
+      "ok": 9
     },
-    "artifacts_total": 37,
-    "artifacts_present": 37,
+    "artifacts_total": 48,
+    "artifacts_present": 48,
     "artifacts_missing": 0,
-    "latest_module_generated_at_utc": "2026-07-08T16:04:29+00:00",
+    "latest_module_generated_at_utc": "2026-07-08T16:50:00+00:00",
     "competencia_final": "202606",
     "competencia_snapshot": "202605",
     "document_chunks": 32,
@@ -35,7 +35,14 @@
     "issuance_volume_conservador_brl": 302957676634.37,
     "fund_snapshot_rows": 4219,
     "fund_snapshot_with_cedentes": 99,
-    "fund_snapshot_with_criteria": 49
+    "fund_snapshot_with_criteria": 49,
+    "dimension_catalog_rows": 63830,
+    "dimension_catalog_dimensions": 26,
+    "dimension_monthly_rows": 66946,
+    "dimension_monthly_latest_competencia": "2026-06",
+    "market_share_rows": 3900,
+    "market_share_dimensions": 15,
+    "market_share_metrics": 6
   },
   "modules": [
     {
@@ -218,6 +225,96 @@
         "with_criteria": 49,
         "with_subordination_min": 19
       }
+    },
+    {
+      "id": "dimension_catalog",
+      "label": "Catálogo de dimensões",
+      "status": "ok",
+      "schema_version": "industry-dimension-catalog-manifest/v1",
+      "pipeline": "industry_dimension_catalog",
+      "generated_at_utc": "2026-07-08T16:41:33+00:00",
+      "manifest_path": "data/industry_study/industry_dimension_catalog_manifest.json",
+      "command": "python scripts/build_fidc_industry_dimensions.py",
+      "cadence": "após snapshot/cedentes",
+      "depends_on": [
+        "snapshot unificado por FIDC",
+        "cedentes estruturados"
+      ],
+      "stage_status_counts": {
+        "ok": 2
+      },
+      "stage_count": 2,
+      "artifact_count": 4,
+      "artifacts_present": 4,
+      "quality_highlights": {
+        "rows": 63830,
+        "funds": 4286,
+        "dimensions": 26,
+        "curated_rows": 3741,
+        "weighted_dimensions": 7,
+        "with_source_document": 6433,
+        "with_confidence": 4135
+      }
+    },
+    {
+      "id": "dimension_monthly",
+      "label": "Séries mensais por dimensão",
+      "status": "ok",
+      "schema_version": "industry-dimension-monthly-manifest/v1",
+      "pipeline": "industry_dimension_monthly",
+      "generated_at_utc": "2026-07-08T16:50:00+00:00",
+      "manifest_path": "data/industry_study/industry_dimension_monthly_manifest.json",
+      "command": "python scripts/build_fidc_industry_dimension_monthly.py",
+      "cadence": "após catálogo de dimensões",
+      "depends_on": [
+        "base granular mensal",
+        "catálogo de dimensões"
+      ],
+      "stage_status_counts": {
+        "ok": 2
+      },
+      "stage_count": 2,
+      "artifact_count": 4,
+      "artifacts_present": 4,
+      "quality_highlights": {
+        "rows": 66946,
+        "months": 162,
+        "dimensions": 26,
+        "dimension_values": 853,
+        "latest_competencia": "2026-06",
+        "latest_rows": 337,
+        "with_source_document_links": 13988,
+        "curated_rows": 7776
+      }
+    },
+    {
+      "id": "market_share",
+      "label": "Market share e concentração",
+      "status": "ok",
+      "schema_version": "industry-market-share-manifest/v1",
+      "pipeline": "industry_market_share",
+      "generated_at_utc": "2026-07-08T16:30:15+00:00",
+      "manifest_path": "data/industry_study/industry_market_share_manifest.json",
+      "command": "python scripts/build_fidc_industry_market_share.py",
+      "cadence": "após snapshot unificado",
+      "depends_on": [
+        "snapshot unificado por FIDC"
+      ],
+      "stage_status_counts": {
+        "ok": 2
+      },
+      "stage_count": 2,
+      "artifact_count": 3,
+      "artifacts_present": 3,
+      "quality_highlights": {
+        "rows": 3900,
+        "dimensions": 15,
+        "metrics": 6,
+        "weighted_dimensions": 4,
+        "top5_pl_share_admin": 0.5230858938032834,
+        "hhi_pl_admin": 739.6354403547211,
+        "source_snapshot_rows": 4219
+      }
     }
   ],
   "refresh_plan": [
@@ -271,6 +368,30 @@
     },
     {
       "order": 7,
+      "module_id": "dimension_catalog",
+      "label": "Regerar catálogo de dimensões",
+      "command": "python scripts/build_fidc_industry_dimensions.py",
+      "reason": "Explode CNPJ x dimensão x valor com pesos, fonte e metadados de curadoria.",
+      "incremental_note": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos."
+    },
+    {
+      "order": 8,
+      "module_id": "dimension_monthly",
+      "label": "Regerar séries mensais por dimensão",
+      "command": "python scripts/build_fidc_industry_dimension_monthly.py",
+      "reason": "Agrega PL, fluxos, carteira, inadimplência, fundos e veículos por competência × dimensão × valor.",
+      "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação."
+    },
+    {
+      "order": 9,
+      "module_id": "market_share",
+      "label": "Regerar market share e concentração",
+      "command": "python scripts/build_fidc_industry_market_share.py",
+      "reason": "Materializa rankings por administrador, segmento, documentos, critérios e dimensões multivalor.",
+      "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe."
+    },
+    {
+      "order": 10,
       "module_id": "pipeline_index",
       "label": "Atualizar cockpit do pipeline",
       "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -649,6 +770,116 @@
       "exists": true,
       "bytes": 4226,
       "sha256": "4086dfe684fb7a40f7c0cb790b7c3f7e7924193812a5f33aca96c12b0a235ba0"
+    },
+    {
+      "module_id": "dimension_catalog",
+      "group": "inputs",
+      "artifact": "fund_snapshot",
+      "required": false,
+      "path": "data/industry_study/industry_fund_snapshot.csv.gz",
+      "exists": true,
+      "bytes": 389658,
+      "sha256": "b23a50f92e9b1e3aef0bfb84d77d4bd42fdf912e3b001fb337d6bef5fd5c847e"
+    },
+    {
+      "module_id": "dimension_catalog",
+      "group": "inputs",
+      "artifact": "cedentes_structured",
+      "required": false,
+      "path": "data/industry_study/cedentes_structured.csv.gz",
+      "exists": true,
+      "bytes": 312955,
+      "sha256": "5a239358d9c6147c16c63292382ad7213454bd115e6f9f59bc9de6ccbd598829"
+    },
+    {
+      "module_id": "dimension_catalog",
+      "group": "outputs",
+      "artifact": "dimension_catalog",
+      "required": true,
+      "path": "data/industry_study/industry_dimension_catalog.csv.gz",
+      "exists": true,
+      "bytes": 1312249,
+      "sha256": "997744a6ef75169c6698ad97d2e35ddd93de1f62cdac52feda771fe21158d3a8"
+    },
+    {
+      "module_id": "dimension_catalog",
+      "group": "outputs",
+      "artifact": "manifest",
+      "required": true,
+      "path": "data/industry_study/industry_dimension_catalog_manifest.json",
+      "exists": true,
+      "bytes": 2490,
+      "sha256": "5cb72f5dae641bdf6f01ba3a8575b04163862d58c172cd74314cb3aa77b26119"
+    },
+    {
+      "module_id": "dimension_monthly",
+      "group": "inputs",
+      "artifact": "vehicle_monthly",
+      "required": false,
+      "path": "data/industry_study/vehicle_monthly.csv.gz",
+      "exists": true,
+      "bytes": 25839425,
+      "sha256": "f09e8c63d385335cb3c2a7cc94a19184c4b773976210484a5b0f637513960aeb"
+    },
+    {
+      "module_id": "dimension_monthly",
+      "group": "inputs",
+      "artifact": "dimension_catalog",
+      "required": false,
+      "path": "data/industry_study/industry_dimension_catalog.csv.gz",
+      "exists": true,
+      "bytes": 1312249,
+      "sha256": "997744a6ef75169c6698ad97d2e35ddd93de1f62cdac52feda771fe21158d3a8"
+    },
+    {
+      "module_id": "dimension_monthly",
+      "group": "outputs",
+      "artifact": "dimension_monthly",
+      "required": true,
+      "path": "data/industry_study/industry_dimension_monthly.csv.gz",
+      "exists": true,
+      "bytes": 2883900,
+      "sha256": "e16687b3668cb15d499bc4525e2a8c18f102aa313e8dd7f680cd0a780d486632"
+    },
+    {
+      "module_id": "dimension_monthly",
+      "group": "outputs",
+      "artifact": "manifest",
+      "required": true,
+      "path": "data/industry_study/industry_dimension_monthly_manifest.json",
+      "exists": true,
+      "bytes": 2573,
+      "sha256": "5516814f6b0dde07eb73270e54645d2bd4312e2d0ab2eb9001fecdd5a713eb65"
+    },
+    {
+      "module_id": "market_share",
+      "group": "inputs",
+      "artifact": "fund_snapshot",
+      "required": false,
+      "path": "data/industry_study/industry_fund_snapshot.csv.gz",
+      "exists": true,
+      "bytes": 389658,
+      "sha256": "b23a50f92e9b1e3aef0bfb84d77d4bd42fdf912e3b001fb337d6bef5fd5c847e"
+    },
+    {
+      "module_id": "market_share",
+      "group": "outputs",
+      "artifact": "market_share",
+      "required": true,
+      "path": "data/industry_study/industry_market_share.csv.gz",
+      "exists": true,
+      "bytes": 125336,
+      "sha256": "3eba7fcb16ff96228c80c4f7452bd65aeba36da5f742537344f288d3403f6224"
+    },
+    {
+      "module_id": "market_share",
+      "group": "outputs",
+      "artifact": "manifest",
+      "required": true,
+      "path": "data/industry_study/industry_market_share_manifest.json",
+      "exists": true,
+      "bytes": 2237,
+      "sha256": "a6b0d2407adb0f94f791bb02d4b403e5c8c9f5f2d3b5fec6efc4a13ad1a2fd72"
     }
   ]
 }

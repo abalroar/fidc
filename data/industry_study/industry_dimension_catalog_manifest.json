@@ -1,0 +1,74 @@
+{
+  "schema_version": "industry-dimension-catalog-manifest/v1",
+  "generated_at_utc": "2026-07-08T16:41:33+00:00",
+  "pipeline": "industry_dimension_catalog",
+  "design_constraints": {
+    "modular": true,
+    "incremental": true,
+    "macbook_air_m4_friendly": true,
+    "notes": [
+      "Este modulo materializa CNPJ x dimensao x valor, com pesos e metadados de fonte.",
+      "Heatmaps e Deep Dives podem cruzar qualquer dimensao sem regras especificas por painel.",
+      "Dimensoes de cedentes preservam documento, pagina, score e status de revisao quando disponiveis."
+    ]
+  },
+  "inputs": {
+    "fund_snapshot": {
+      "path": "data/industry_study/industry_fund_snapshot.csv.gz",
+      "exists": true,
+      "bytes": 389658,
+      "sha256": "b23a50f92e9b1e3aef0bfb84d77d4bd42fdf912e3b001fb337d6bef5fd5c847e"
+    },
+    "cedentes_structured": {
+      "path": "data/industry_study/cedentes_structured.csv.gz",
+      "exists": true,
+      "bytes": 312955,
+      "sha256": "5a239358d9c6147c16c63292382ad7213454bd115e6f9f59bc9de6ccbd598829"
+    }
+  },
+  "outputs": {
+    "dimension_catalog": {
+      "path": "data/industry_study/industry_dimension_catalog.csv.gz",
+      "exists": true,
+      "bytes": 1312249,
+      "sha256": "997744a6ef75169c6698ad97d2e35ddd93de1f62cdac52feda771fe21158d3a8"
+    },
+    "manifest": {
+      "path": "data/industry_study/industry_dimension_catalog_manifest.json"
+    }
+  },
+  "stages": [
+    {
+      "id": "load_snapshot_and_cedentes",
+      "label": "Carregar camadas estruturadas",
+      "status": "ok",
+      "input": "data/industry_study/industry_fund_snapshot.csv.gz+data/industry_study/cedentes_structured.csv.gz",
+      "output": "memoria:snapshot+cedentes",
+      "rows": 5697,
+      "rerun": "python scripts/build_fidc_industry_fund_snapshot.py && python scripts/build_fidc_industry_cedentes.py"
+    },
+    {
+      "id": "explode_dimension_catalog",
+      "label": "Explodir dimensoes reutilizaveis",
+      "status": "ok",
+      "input": "memoria:snapshot+cedentes",
+      "output": "data/industry_study/industry_dimension_catalog.csv.gz",
+      "rows": 63830,
+      "dimensions": 26,
+      "rerun": "python scripts/build_fidc_industry_dimensions.py"
+    }
+  ],
+  "quality": {
+    "rows": 63830,
+    "funds": 4286,
+    "dimensions": 26,
+    "source_layer_counts": {
+      "snapshot": 60089,
+      "cedente": 3741
+    },
+    "curated_rows": 3741,
+    "weighted_dimensions": 7,
+    "with_source_document": 6433,
+    "with_confidence": 4135
+  }
+}
