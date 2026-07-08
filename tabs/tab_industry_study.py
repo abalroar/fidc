@@ -14,6 +14,8 @@ rotulo direto ou tabela ao lado.
 from __future__ import annotations
 
 import json
+import re
+import sqlite3
 from pathlib import Path
 
 import altair as alt
@@ -21,6 +23,8 @@ import pandas as pd
 import streamlit as st
 
 _DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
+_REGULATORY_DB = Path(__file__).resolve().parents[1] / "data" / "fidc_credit_strategy" / "fidc_credit_strategy.sqlite"
+_ALL_FIDCS_CRITERIA = Path(__file__).resolve().parents[1] / "data" / "regulatory_profiles" / "all_fidcs_criteria_monitoraveis_ime.csv"
 
 # Paleta laranja/preto/cinza - maior contraste entre tons sobre fundo branco.
 _ORANGE = "#ff5a00"
@@ -125,6 +129,12 @@ _CSS = """
     line-height: 1.4;
     margin-bottom: 0.35rem;
 }
+.industry-curation-note {
+    color: #595959;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    margin: 0.2rem 0 0.8rem 0;
+}
 </style>
 """
 
@@ -163,6 +173,12 @@ def _fmt_int(value: float) -> str:
     return f"{int(round(value)):,}".replace(",", ".")
 
 
+def _pct_label(value: float | None, digits: int = 1) -> str:
+    if value is None or pd.isna(value):
+        return "n/d"
+    return f"{value:.{digits}f}%".replace(".", ",")
+
+
 @st.cache_data(show_spinner=False)
 def _load_csv(name: str) -> pd.DataFrame | None:
     path = _DATA_DIR / name
@@ -177,6 +193,198 @@ def _load_metadata() -> dict:
     if not path.exists():
         return {}
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _extract_pct_values(text: object) -> list[float]:
+    values: list[float] = []
+    for match in re.finditer(r"(\d+(?:[\.,]\d+)?)\s*%", str(text or "")):
+        try:
+            values.append(float(match.group(1).replace(",", ".")))
+        except ValueError:
+            continue
+    return values
+
+
+def _clean_candidate_name(value: object) -> str:
+    text = re.sub(r"\s+", " ", str(value or "").strip(" ;,."))
+    if len(text) < 8:
+        return ""
+    upper = text.upper()
+    noisy_tokens = (
+        "CEP",
+        "ANDAR",
+        "CONJUNTO",
+        "SALA",
+        "BAIRRO",
+        "MUNICÍPIO",
+        "MUNICIPIO",
+        "RUA ",
+        "AVENIDA",
+        "DO DE INVESTIMENTO",
+    )
+    if any(token in upper for token in noisy_tokens):
+        return ""
+    if sum(char.isdigit() for char in text) > 4:
+        return ""
+    if not re.search(r"\b(S\.A\.?|LTDA|BANCO|INSTITUI|FUNDO|COMPANHIA|SOCIEDADE|SERVIÇOS|SERVICOS|TECH|TRANSPORTES)\b", upper):
+        return ""
+    return text[:120]
+
+
+@st.cache_data(show_spinner=False)
+def _load_regulatory_overlay() -> dict[str, pd.DataFrame | dict[str, float | int | str]]:
+    criteria = pd.DataFrame()
+    if _ALL_FIDCS_CRITERIA.exists():
+        criteria = pd.read_csv(_ALL_FIDCS_CRITERIA)
+
+    fund_universe = pd.DataFrame()
+    candidates = pd.DataFrame()
+    queue = pd.DataFrame()
+    metadata: dict[str, str] = {}
+    if _REGULATORY_DB.exists():
+        try:
+            with sqlite3.connect(_REGULATORY_DB) as conn:
+                fund_universe = pd.read_sql_query(
+                    """
+                    select cnpj, fund_name_final, setor_n1, setor_n2, pl_atual_brl,
+                           has_regulatory_matrix, named_originator_or_cedente_bool,
+                           named_debtor_or_sacado_bool, subordination_main_pct_num,
+                           monocedente_or_multicedente, concentrated_or_pulverized_debtors,
+                           regulamento_count, document_count_total, latest_regulamento_date
+                    from fund_universe
+                    """,
+                    conn,
+                )
+                candidates = pd.read_sql_query(
+                    """
+                    select cnpj_fundo, fund_name, setor_n1, setor_n2, participant_type,
+                           participant_name_candidate, evidence_context, source_cache
+                    from cedentes_sacados_candidates
+                    """,
+                    conn,
+                )
+                queue = pd.read_sql_query(
+                    """
+                    select review_wave, platform_coverage_level, manual_review_status,
+                           cnpj, setor_n1, setor_n2
+                    from manual_review_queue
+                    """,
+                    conn,
+                )
+                meta = pd.read_sql_query("select key, value from study_metadata", conn)
+                metadata = dict(zip(meta["key"].astype(str), meta["value"].astype(str), strict=False))
+        except sqlite3.Error:
+            fund_universe = pd.DataFrame()
+            candidates = pd.DataFrame()
+            queue = pd.DataFrame()
+
+    summary: dict[str, float | int | str] = {
+        "db_date": metadata.get("as_of_date", ""),
+        "universe_funds": int(fund_universe["cnpj"].nunique()) if not fund_universe.empty else 0,
+        "matrix_funds": int(pd.to_numeric(fund_universe.get("has_regulatory_matrix"), errors="coerce").fillna(0).sum()) if not fund_universe.empty else 0,
+        "cedente_funds": int(pd.to_numeric(fund_universe.get("named_originator_or_cedente_bool"), errors="coerce").fillna(0).sum()) if not fund_universe.empty else 0,
+        "sacado_funds": int(pd.to_numeric(fund_universe.get("named_debtor_or_sacado_bool"), errors="coerce").fillna(0).sum()) if not fund_universe.empty else 0,
+        "criteria_rows": int(len(criteria)),
+        "criteria_funds": int(criteria["CNPJ"].nunique()) if "CNPJ" in criteria.columns else 0,
+    }
+
+    sub_rules = pd.DataFrame()
+    if not criteria.empty and {"Chave", "Limite/regra"}.issubset(criteria.columns):
+        sub_rules = criteria[criteria["Chave"].eq("subordination_ratio_min")].copy()
+        sub_rules["pct_values"] = sub_rules["Limite/regra"].map(_extract_pct_values)
+        sub_rules["pct_min"] = sub_rules["pct_values"].map(lambda values: min(values) if values else None)
+        sub_values = pd.to_numeric(sub_rules["pct_min"], errors="coerce").dropna()
+        summary["sub_rules"] = int(len(sub_rules))
+        summary["sub_funds"] = int(sub_rules["CNPJ"].nunique()) if "CNPJ" in sub_rules.columns else 0
+        summary["sub_median"] = float(sub_values.median()) if not sub_values.empty else float("nan")
+        summary["sub_p25"] = float(sub_values.quantile(0.25)) if not sub_values.empty else float("nan")
+        summary["sub_p75"] = float(sub_values.quantile(0.75)) if not sub_values.empty else float("nan")
+    else:
+        summary["sub_rules"] = 0
+        summary["sub_funds"] = 0
+        summary["sub_median"] = float("nan")
+        summary["sub_p25"] = float("nan")
+        summary["sub_p75"] = float("nan")
+
+    sector_summary = pd.DataFrame()
+    if not fund_universe.empty:
+        frame = fund_universe.copy()
+        for col in ["has_regulatory_matrix", "named_originator_or_cedente_bool", "named_debtor_or_sacado_bool"]:
+            frame[col] = pd.to_numeric(frame[col], errors="coerce").fillna(0)
+        frame["subordination_main_pct_num"] = pd.to_numeric(frame["subordination_main_pct_num"], errors="coerce")
+        sector_summary = (
+            frame.groupby("setor_n1", dropna=False)
+            .agg(
+                CNPJs=("cnpj", "nunique"),
+                Matrizes=("has_regulatory_matrix", "sum"),
+                Cedente=("named_originator_or_cedente_bool", "sum"),
+                Sacado=("named_debtor_or_sacado_bool", "sum"),
+                Sub_n=("subordination_main_pct_num", "count"),
+                Sub_mediana=("subordination_main_pct_num", "median"),
+                PL=("pl_atual_brl", "sum"),
+            )
+            .reset_index()
+            .rename(columns={"setor_n1": "Setor"})
+            .sort_values(["Matrizes", "PL"], ascending=False)
+        )
+        for col in ["Matrizes", "Cedente", "Sacado", "Sub_n"]:
+            sector_summary[col] = sector_summary[col].astype(int)
+        sector_summary["Sub mediana"] = sector_summary["Sub_mediana"].map(_pct_label)
+        sector_summary["PL"] = sector_summary["PL"].map(lambda value: _fmt_bi(float(value), 1))
+        sector_summary = sector_summary[["Setor", "CNPJs", "Matrizes", "Cedente", "Sacado", "Sub_n", "Sub mediana", "PL"]]
+
+    candidate_summary = pd.DataFrame()
+    candidate_examples = pd.DataFrame()
+    if not candidates.empty:
+        candidate_summary = (
+            candidates.groupby(["setor_n1", "participant_type"], dropna=False)
+            .agg(Evidências=("participant_type", "size"), FIDCs=("cnpj_fundo", "nunique"))
+            .reset_index()
+            .rename(columns={"setor_n1": "Setor", "participant_type": "Tipo"})
+            .sort_values(["FIDCs", "Evidências"], ascending=False)
+        )
+        candidate_examples = candidates.copy()
+        candidate_examples["Participante"] = candidate_examples["participant_name_candidate"].map(_clean_candidate_name)
+        candidate_examples = candidate_examples[candidate_examples["Participante"] != ""]
+        if not candidate_examples.empty:
+            candidate_examples = (
+                candidate_examples.groupby(["participant_type", "Participante"], dropna=False)
+                .agg(FIDCs=("cnpj_fundo", "nunique"), Evidências=("evidence_context", "size"), Setores=("setor_n1", lambda s: ", ".join(sorted(set(map(str, s)))[:3])))
+                .reset_index()
+                .rename(columns={"participant_type": "Tipo"})
+                .sort_values(["FIDCs", "Evidências"], ascending=False)
+                .head(12)
+            )
+
+    criteria_summary = pd.DataFrame()
+    if not criteria.empty and {"Chave", "CNPJ", "Monitorabilidade IME"}.issubset(criteria.columns):
+        criteria_summary = (
+            criteria.groupby("Chave", dropna=False)
+            .agg(Regras=("Chave", "size"), FIDCs=("CNPJ", "nunique"), Monitorabilidade=("Monitorabilidade IME", lambda s: ", ".join(sorted(set(map(str, s)))[:3])))
+            .reset_index()
+            .sort_values(["FIDCs", "Regras"], ascending=False)
+            .head(12)
+        )
+
+    queue_summary = pd.DataFrame()
+    if not queue.empty:
+        queue_summary = (
+            queue.groupby("review_wave", dropna=False)
+            .agg(Linhas=("review_wave", "size"), FIDCs=("cnpj", "nunique"))
+            .reset_index()
+            .rename(columns={"review_wave": "Onda de revisão"})
+            .sort_values("Linhas", ascending=False)
+        )
+
+    return {
+        "summary": summary,
+        "sector_summary": sector_summary,
+        "candidate_summary": candidate_summary,
+        "candidate_examples": candidate_examples,
+        "criteria_summary": criteria_summary,
+        "sub_rules": sub_rules,
+        "queue_summary": queue_summary,
+    }
 
 
 def _month_axis(df: pd.DataFrame) -> pd.DataFrame:
@@ -206,6 +414,112 @@ def _drop_partial_tail(industry: pd.DataFrame) -> pd.DataFrame:
     while len(out) > 1 and out.iloc[-1]["pl_total"] < 0.7 * out.iloc[-2]["pl_total"]:
         out = out.iloc[:-1]
     return out
+
+
+def _curation_card(label: str, value: str, note: str = "") -> str:
+    note_html = f'<div class="industry-kpi-note">{note}</div>' if note else ""
+    return (
+        f'<div class="industry-kpi"><div class="industry-kpi-label">{label}</div>'
+        f'<div class="industry-kpi-value">{value}</div>{note_html}</div>'
+    )
+
+
+def _render_regulatory_curation_overlay() -> None:
+    overlay = _load_regulatory_overlay()
+    summary = overlay["summary"]
+    assert isinstance(summary, dict)
+
+    if not int(summary.get("universe_funds", 0)) and not int(summary.get("criteria_rows", 0)):
+        return
+
+    st.markdown('<div class="industry-section">Curadoria regulatória do universo</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Leitura documental estruturada para cedentes/sacados, subordinação mínima e critérios monitoráveis. '
+        "As contagens abaixo são de curadoria, não de informação obrigatória padronizada no IME.</div>",
+        unsafe_allow_html=True,
+    )
+
+    cards = [
+        _curation_card("CNPJs no SQLite", _fmt_int(float(summary.get("universe_funds", 0))), f"data-base {summary.get('db_date') or 'n/d'}"),
+        _curation_card("Matrizes lidas", _fmt_int(float(summary.get("matrix_funds", 0))), "regulamentos/documentos parseados"),
+        _curation_card("Cedente/originador", _fmt_int(float(summary.get("cedente_funds", 0))), "FIDCs com menção nomeada"),
+        _curation_card("Sacado/devedor", _fmt_int(float(summary.get("sacado_funds", 0))), "FIDCs com menção nomeada"),
+        _curation_card("Sub mínima mediana", _pct_label(summary.get("sub_median")), f"{_fmt_int(float(summary.get('sub_rules', 0)))} regras · {_fmt_int(float(summary.get('sub_funds', 0)))} FIDCs"),
+        _curation_card("Critérios all FIDCs", _fmt_int(float(summary.get("criteria_rows", 0))), f"{_fmt_int(float(summary.get('criteria_funds', 0)))} FIDCs com evidência"),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="industry-curation-note">Sub mínima: mediana dos percentuais mínimos extraídos em '
+        f'<code>{_ALL_FIDCS_CRITERIA.name}</code>; intervalo interquartil '
+        f'{_pct_label(summary.get("sub_p25"))}–{_pct_label(summary.get("sub_p75"))}. '
+        "Quando há mais de um percentual na mesma regra, usa-se o menor valor explícito como mínimo conservador.</div>",
+        unsafe_allow_html=True,
+    )
+
+    sector_summary = overlay["sector_summary"]
+    candidate_summary = overlay["candidate_summary"]
+    candidate_examples = overlay["candidate_examples"]
+    criteria_summary = overlay["criteria_summary"]
+    sub_rules = overlay["sub_rules"]
+    queue_summary = overlay["queue_summary"]
+
+    left, right = st.columns([1.2, 0.8])
+    with left:
+        st.markdown("**Cobertura por setor**")
+        if isinstance(sector_summary, pd.DataFrame) and not sector_summary.empty:
+            st.dataframe(sector_summary.head(12), hide_index=True, width="stretch")
+        else:
+            st.caption("Sem cobertura setorial disponível.")
+    with right:
+        st.markdown("**Cedente, sacado e consultora**")
+        if isinstance(candidate_summary, pd.DataFrame) and not candidate_summary.empty:
+            display = candidate_summary.head(12).copy()
+            display["Tipo"] = display["Tipo"].replace(
+                {
+                    "cedente_originador": "cedente/originador",
+                    "sacado_devedor": "sacado/devedor",
+                    "consultora": "consultora",
+                }
+            )
+            st.dataframe(display, hide_index=True, width="stretch")
+        else:
+            st.caption("Sem evidências de participantes no cache regulatório.")
+
+    tab_sub, tab_criteria, tab_examples, tab_queue = st.tabs(["Sub mínima", "Critérios", "Cedentes", "Fila"])
+    with tab_sub:
+        if isinstance(sub_rules, pd.DataFrame) and not sub_rules.empty:
+            cols = ["Fundo", "CNPJ", "Limite/regra", "pct_min", "Monitorabilidade IME", "Fonte", "Status curadoria"]
+            table = sub_rules[[col for col in cols if col in sub_rules.columns]].copy()
+            if "pct_min" in table.columns:
+                table["Mínimo extraído"] = table.pop("pct_min").map(_pct_label)
+            st.dataframe(table.head(40), hide_index=True, width="stretch")
+        else:
+            st.caption("Nenhuma regra de subordinação mínima encontrada na curadoria all FIDCs.")
+    with tab_criteria:
+        if isinstance(criteria_summary, pd.DataFrame) and not criteria_summary.empty:
+            st.dataframe(criteria_summary, hide_index=True, width="stretch")
+        else:
+            st.caption("Resumo de critérios indisponível.")
+    with tab_examples:
+        if isinstance(candidate_examples, pd.DataFrame) and not candidate_examples.empty:
+            display = candidate_examples.copy()
+            display["Tipo"] = display["Tipo"].replace(
+                {
+                    "cedente_originador": "cedente/originador",
+                    "sacado_devedor": "sacado/devedor",
+                    "consultora": "consultora",
+                }
+            )
+            st.dataframe(display, hide_index=True, width="stretch")
+        else:
+            st.caption(
+                "Há evidências textuais de cedente/sacado, mas poucos nomes limpos o bastante para exibir sem revisão manual."
+            )
+    with tab_queue:
+        if isinstance(queue_summary, pd.DataFrame) and not queue_summary.empty:
+            st.dataframe(queue_summary, hide_index=True, width="stretch")
+        else:
+            st.caption("Fila de curadoria não encontrada no SQLite regulatório.")
 
 
 def render_tab_industry_study() -> None:
@@ -478,6 +792,8 @@ def render_tab_industry_study() -> None:
                 .properties(height=280)
             )
             st.altair_chart(adm_chart, use_container_width=True)
+
+    _render_regulatory_curation_overlay()
 
     # --- Tabelas e metodologia ---------------------------------------------------
     with st.expander("Dados anuais (dezembro de cada ano)"):

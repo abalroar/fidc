@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from html import escape
-
 import streamlit as st
 
 from tabs.tab_fidc_book import render_tab_fidc_book
@@ -165,40 +163,57 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
     color: #ffffff !important;
 }
 
-.fidc-main-nav {
+.st-key-fidc_main_section {
     border-bottom: 1px solid #dde3ea;
-    display: flex;
-    gap: 0;
-    margin: 0.25rem 0 1rem 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.3rem;
+}
+
+.st-key-fidc_main_section [data-testid="stButtonGroup"] {
     overflow-x: auto;
+    padding-bottom: 0.2rem;
     scrollbar-width: thin;
 }
 
-.fidc-main-nav a,
-.fidc-main-nav a:visited {
-    border-bottom: 2px solid transparent;
-    color: #2f3a48;
-    display: inline-flex;
-    font-size: 0.95rem;
-    font-weight: 500;
-    line-height: 2.45rem;
-    padding: 0 1.05rem;
-    text-decoration: none !important;
-    white-space: nowrap;
+.st-key-fidc_main_section [data-baseweb="button-group"] {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    min-width: max-content;
+    width: 100%;
 }
 
-.fidc-main-nav a:hover,
-.fidc-main-nav a:focus {
-    border-bottom-color: #ffb180;
-    color: #ff5a00;
-    outline: none;
+.st-key-fidc_main_section [data-testid^="stBaseButton-segmented_control"] {
+    border-color: transparent !important;
+    border-radius: 7px !important;
+    color: #2f3a48 !important;
+    flex: 1 1 0 !important;
+    font-size: 0.93rem !important;
+    font-weight: 500 !important;
+    min-width: max-content !important;
+    min-height: 2.35rem !important;
+    padding-inline: 0.85rem !important;
+    white-space: nowrap !important;
+    width: auto !important;
 }
 
-.fidc-main-nav a.fidc-main-nav-active,
-.fidc-main-nav a.fidc-main-nav-active:visited {
-    border-bottom-color: #ff5a00;
-    color: #ff5a00;
-    font-weight: 650;
+.st-key-fidc_main_section [data-testid^="stBaseButton-segmented_control"] p {
+    color: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+}
+
+.st-key-fidc_main_section [data-testid^="stBaseButton-segmented_control"]:hover {
+    background: #fff4ed !important;
+    color: #ff5a00 !important;
+}
+
+.st-key-fidc_main_section [data-testid="stBaseButton-segmented_controlActive"],
+.st-key-fidc_main_section [data-testid="stBaseButton-segmented_controlActive"]:hover {
+    background: #ff5a00 !important;
+    border-color: #ff5a00 !important;
+    color: #ffffff !important;
+    font-weight: 650 !important;
 }
 
 [data-testid="stTabs"] [role="tab"] {
@@ -237,16 +252,10 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
         padding-right: 1rem !important;
     }
 
-    .fidc-main-nav {
-        flex-wrap: wrap;
-        overflow-x: visible;
-    }
-
-    .fidc-main-nav a,
-    .fidc-main-nav a:visited {
-        font-size: 0.88rem;
-        line-height: 2.15rem;
-        padding: 0 0.55rem;
+    .st-key-fidc_main_section [data-testid^="stBaseButton-segmented_control"] {
+        font-size: 0.86rem !important;
+        min-height: 2.1rem !important;
+        padding-inline: 0.55rem !important;
     }
 
     .fidc-app-title {
@@ -304,6 +313,7 @@ _MAIN_SECTIONS = (
     ("modelagem", "Modelagem"),
 )
 _MAIN_SECTION_LABELS = dict(_MAIN_SECTIONS)
+_MAIN_SECTION_SLUGS = tuple(slug for slug, _label in _MAIN_SECTIONS)
 _DEFAULT_SECTION = "sobre"
 
 
@@ -315,20 +325,28 @@ def _current_main_section() -> str:
     return section if section in _MAIN_SECTION_LABELS else _DEFAULT_SECTION
 
 
-def _render_main_nav(selected_section: str) -> None:
-    links = []
-    for slug, label in _MAIN_SECTIONS:
-        active_class = " fidc-main-nav-active" if slug == selected_section else ""
-        current_attr = ' aria-current="page"' if slug == selected_section else ""
-        links.append(
-            f'<a class="fidc-main-nav-link{active_class}" href="?section={escape(slug, quote=True)}"{current_attr}>'
-            f"{escape(label)}</a>"
-        )
-    st.markdown(f"<nav class='fidc-main-nav' aria-label='Seções principais'>{''.join(links)}</nav>", unsafe_allow_html=True)
+def _render_main_nav() -> str:
+    selected = st.segmented_control(
+        "Seção",
+        options=_MAIN_SECTION_SLUGS,
+        selection_mode="single",
+        format_func=_MAIN_SECTION_LABELS.get,
+        key="fidc_main_section",
+        label_visibility="collapsed",
+        required=True,
+        width="stretch",
+    )
+    return selected or _DEFAULT_SECTION
 
 
-selected_section = _current_main_section()
-_render_main_nav(selected_section)
+selected_section = st.session_state.get("fidc_main_section")
+if selected_section not in _MAIN_SECTION_LABELS:
+    st.session_state["fidc_main_section"] = _current_main_section()
+
+if "section" in st.query_params:
+    st.query_params.pop("section", None)
+
+selected_section = _render_main_nav()
 
 if selected_section == "industria":
     render_tab_industry_study()
