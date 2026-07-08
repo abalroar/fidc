@@ -16,7 +16,7 @@ from tabs import tab_mercado_livre as somatorio_tab
 SECTION_AGING = "Aging e visão executiva"
 SECTION_RETURNS = "Retornos e análise de crédito"
 SECTION_MONITORING = "Monitoramento e base regulatória"
-SECTION_DEEP_DIVE = "Curadoria"
+SECTION_DEEP_DIVE = "Regulamentos"
 DEFAULT_SECTIONS = (SECTION_AGING, SECTION_RETURNS, SECTION_DEEP_DIVE)
 
 
@@ -64,7 +64,7 @@ _BLOCKS = (
     PortfolioPageBlock(SECTION_AGING, "Diagnóstico da carteira", "Contexto e risco", 10),
     PortfolioPageBlock(SECTION_RETURNS, "Retorno e crédito", "Contexto e risco", 20),
     PortfolioPageBlock(SECTION_MONITORING, "Monitoramento recorrente", "Monitoramento e governança", 30),
-    PortfolioPageBlock(SECTION_DEEP_DIVE, "Curadoria", "Monitoramento e governança", 40),
+    PortfolioPageBlock(SECTION_DEEP_DIVE, "Regulamentos", "Monitoramento e governança", 40),
 )
 _BLOCK_BY_ID = {block.section_id: block for block in _BLOCKS}
 _SECTION_DEPENDENCIES: dict[str, tuple[str, ...]] = {}

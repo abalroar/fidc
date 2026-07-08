@@ -23,8 +23,8 @@ import streamlit as st
 _DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
 
 # Paleta laranja/preto/cinza - maior contraste entre tons sobre fundo branco.
-_ORANGE = "#c2410c"
-_ORANGE_SOFT = "rgba(194, 65, 12, 0.16)"
+_ORANGE = "#ff5a00"
+_ORANGE_SOFT = "rgba(255, 90, 0, 0.16)"
 _BLACK = "#1a1a1a"
 _GRAY = "#8c8c8c"
 _GRAY_LIGHT = "#e5e3e0"
@@ -51,7 +51,7 @@ _CSS = """
     padding-bottom: 0.9rem;
 }
 .industry-kicker {
-    color: #c2410c;
+    color: #ff5a00;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -86,7 +86,7 @@ _CSS = """
 .industry-kpi {
     background: #ffffff;
     border: 1px solid #e5e3e0;
-    border-top: 3px solid #c2410c;
+    border-top: 3px solid #ff5a00;
     border-radius: 6px;
     min-height: 76px;
     padding: 0.65rem 0.75rem;
@@ -234,13 +234,11 @@ def render_tab_industry_study() -> None:
     st.markdown(
         f"""
         <div class="industry-header">
-          <div class="industry-kicker">Indústria FIDCs · dados abertos CVM</div>
-          <div class="industry-title">Estudo da indústria de FIDCs</div>
+          <div class="industry-kicker">Indústria FIDCs</div>
+          <div class="industry-title">Crescimento, fluxos e concentração</div>
           <div class="industry-subtitle">
-            Série reconstruída do informe mensal regulatório (Tabelas I, II, IV, X.1, X.1.1, X.2 e X.4),
-            de {serie_ini[:4]} até <b>{comp}</b>, somando fundos legados e classes RCVM&nbsp;175 sem dupla
-            contagem. Universo CVM: inclui exclusivos, não padronizados e FIC-FIDC — por isso o PL é maior
-            que o divulgado pela ANBIMA. Relatório completo em <code>reports/fidc_industry_study.md</code>.
+            Série CVM reconstruída de {serie_ini[:4]} até <b>{comp}</b>, com PL, captação líquida,
+            cotistas, inadimplência e administradores. Universo CVM pode divergir da ANBIMA; metodologia no rodapé.
           </div>
         </div>
         """,

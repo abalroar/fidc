@@ -338,14 +338,14 @@ def render_tab_deep_dive(
     compact: bool = False,
 ) -> None:
     manifests = list_deep_dives()
-    st.markdown("<div class='deepdive-kicker'>Curadoria documental</div>", unsafe_allow_html=True)
-    st.markdown("<div class='deepdive-title'>Curadoria</div>", unsafe_allow_html=True)
+    st.markdown("<div class='deepdive-kicker'>Regulamentos</div>", unsafe_allow_html=True)
+    st.markdown("<div class='deepdive-title'>Regulamentos</div>", unsafe_allow_html=True)
     st.markdown(
-        "<div class='deepdive-subtitle'>Leitura curada de emissões, prazos, quantidades, custos e critérios documentais relevantes para a análise da carteira.</div>",
+        "<div class='deepdive-subtitle'>Emissões, prazos, custos e critérios documentais relevantes para a análise da carteira.</div>",
         unsafe_allow_html=True,
     )
     if show_curation_tools:
-        with st.expander("Prompt para atualizar curadorias", expanded=False):
+        with st.expander("Prompt de atualização", expanded=False):
             st.code(_load_reverse_engineering_prompt(), language="markdown")
         _render_cloudwalk_waterfall(wrap=True, compact=False)
 
@@ -360,7 +360,7 @@ def render_tab_deep_dive(
         selected_portfolio_id = st.selectbox(
             "Carteira",
             options=portfolio_options,
-            format_func=lambda value: "Todas as curadorias" if value == "Todos" else portfolio_labels.get(value, value),
+            format_func=lambda value: "Todos os pacotes" if value == "Todos" else portfolio_labels.get(value, value),
             key="deep_dive_portfolio",
         )
         selected_portfolio = next((portfolio for portfolio in portfolios if portfolio.id == selected_portfolio_id), None)
@@ -374,7 +374,7 @@ def render_tab_deep_dive(
     ]
     available = sorted(available, key=lambda item: item.generated_at or "", reverse=True)
     if not available:
-        st.warning("Não há curadoria salva para a carteira selecionada.")
+        st.warning("Não há pacote regulatório salvo para a carteira selecionada.")
         return
 
     if compact:
@@ -384,7 +384,7 @@ def render_tab_deep_dive(
         return
 
     manifest = st.selectbox(
-        "Material de curadoria",
+        "Pacote regulatório",
         options=available,
         format_func=lambda item: f"{item.title} · {item.generated_at or item.deep_dive_id}",
         key="deep_dive_manifest",
@@ -396,7 +396,7 @@ def render_tab_deep_dive(
         st.warning("Pacote sem tabelas configuradas.")
         return
     table_spec = st.selectbox(
-        "Tabela da curadoria",
+        "Tabela regulatória",
         options=list(manifest.tables),
         format_func=lambda item: item.title,
         key=f"deep_dive_table::{manifest.deep_dive_id}",
@@ -433,7 +433,7 @@ def render_tab_deep_dive(
         )
     except RuntimeError as exc:
         st.warning(str(exc))
-    with st.expander("Dados da curadoria para diligência", expanded=False):
+    with st.expander("Dados regulatórios para diligência", expanded=False):
         st.download_button(
             "Baixar CSV da tabela selecionada",
             data=frame.to_csv(index=False).encode("utf-8"),

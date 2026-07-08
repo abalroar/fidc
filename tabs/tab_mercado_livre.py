@@ -788,7 +788,7 @@ def _render_outputs(
         )
 
     if use_tabs:
-        base_tab, credit_tab = st.tabs(["Tabela Completa", "Carteira de Crédito"])
+        base_tab, credit_tab = st.tabs(["Tabela", "Crédito"])
         with base_tab:
             _render_base_view()
         with credit_tab:

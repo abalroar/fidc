@@ -19,7 +19,7 @@ _ABOUT_CSS = """
 }
 
 .about-kicker {
-    color: #1f77b4;
+    color: #ff5a00;
     font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -102,26 +102,24 @@ def render_tab_about() -> None:
           <div class="about-kicker">Sobre</div>
           <h2 class="about-title">tomaconta FIDCs</h2>
           <div class="about-summary">
-            Dashboard para leitura, acompanhamento e análise de Informes Mensais Estruturados de FIDCs.
-            A ferramenta organiza dados oficiais, carteiras persistidas, gráficos de monitoramento,
-            simulações e documentação técnica em uma experiência única de análise.
+            Dashboard para leitura de Informes Mensais, carteiras, regulamentos, simulações e métricas de mercado de FIDCs.
           </div>
           <div class="about-statement">
-            <p>O TomaConta FIDCs foi criado pelo Matheus Prates, CFA. A ideia da plataforma é facilitar a análise padronizada de securitizações por meio dos dados disponibilizados pela CVM.</p>
-            <p>Este é um projeto independente e em fase de testes. Use com responsabilidade e sempre valide os dados. Feedbacks são sempre bem-vindos!</p>
+            <p>Criado por Matheus Prates, CFA, para padronizar análises de securitização com dados públicos da CVM.</p>
+            <p>Projeto independente em testes. Valide os dados antes de usar em decisão externa.</p>
           </div>
           <div class="about-grid">
             <div class="about-card">
               <div class="about-card-title">Dados oficiais</div>
-              <div class="about-card-body">Rotinas voltadas ao uso dos informes estruturados, com rastreabilidade dos campos e validações de consistência.</div>
+              <div class="about-card-body">Informes estruturados, rastreabilidade de campos e validações de consistência.</div>
             </div>
             <div class="about-card">
               <div class="about-card-title">Análise de carteira</div>
-              <div class="about-card-body">Visões consolidadas e individuais para PL, subordinação, inadimplência, cobertura, aging, roll rates e duration.</div>
+              <div class="about-card-body">PL, subordinação, inadimplência, cobertura, aging, roll rates e duration.</div>
             </div>
             <div class="about-card">
               <div class="about-card-title">Modelagem</div>
-              <div class="about-card-body">Simulador econômico-financeiro de FIDC, com premissas explícitas e documentação da mecânica de cálculo.</div>
+              <div class="about-card-body">Simulador econômico-financeiro com premissas explícitas.</div>
             </div>
           </div>
         </div>

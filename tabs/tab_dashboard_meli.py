@@ -433,7 +433,7 @@ def render_dashboard_meli_analysis(
         _render_audit(outputs, monitor_outputs, research_outputs, verification_report)
 
     if use_tabs:
-        main_tab, funds_tab, audit_tab = st.tabs(["Consolidado", "Fundos individuais", "Auditoria"])
+        main_tab, funds_tab, audit_tab = st.tabs(["Consolidado", "Fundos", "Auditoria"])
         with main_tab:
             _render_main_view()
         with funds_tab:

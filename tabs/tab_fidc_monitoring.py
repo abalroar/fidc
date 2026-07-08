@@ -317,7 +317,7 @@ def render_tab_fidc_monitoring(
         return
 
     if use_tabs:
-        cockpit_tab, regulatory_tab = st.tabs(["Cockpit", "Base regulatória"])
+        cockpit_tab, regulatory_tab = st.tabs(["Cockpit", "Regulatório"])
         with cockpit_tab:
             _render_cockpit_tab(success_outputs)
         with regulatory_tab:

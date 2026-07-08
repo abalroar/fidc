@@ -994,7 +994,7 @@ def _render_portfolio_aggregate_analysis(
         )
 
     if section_mode == "tabs":
-        executive_tab, technical_tab = st.tabs(["Visão executiva", "Auditoria técnica"])
+        executive_tab, technical_tab = st.tabs(["Executivo", "Auditoria"])
         with executive_tab:
             _render_executive_view()
         with technical_tab:

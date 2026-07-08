@@ -26,7 +26,7 @@ _CSS = """
     padding-bottom: 0.9rem;
 }
 .strategy-kicker {
-    color: #d35714;
+    color: #ff5a00;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -74,6 +74,7 @@ _CSS = """
     font-weight: 750;
     line-height: 1.25;
     margin-top: 0.34rem;
+    overflow-wrap: anywhere;
 }
 .strategy-note {
     color: #68727d;
@@ -100,11 +101,10 @@ def render_tab_fidc_credit_strategy() -> None:
     st.markdown(
         """
         <div class="strategy-header">
-          <div class="strategy-kicker">FIDC Market Strategy</div>
-          <div class="strategy-title">Matrizes regulatórias, subordinação e pricing por subtipo</div>
+          <div class="strategy-kicker">Estratégia FIDCs</div>
+          <div class="strategy-title">Matrizes regulatórias, subordinação e pricing</div>
           <div class="strategy-subtitle">
-            Base persistente para comparar fundos emitidos em 2024 versus 2025, separando leitura equal-weight,
-            ponderação por PL atual e ponderação por volume emitido. A leitura é uma triagem analítica, não parecer jurídico.
+            Comparação por coorte, subtipo, PL e volume emitido. Leitura analítica; não é parecer jurídico.
           </div>
         </div>
         """,
@@ -137,7 +137,7 @@ def render_tab_fidc_credit_strategy() -> None:
     if not selected_sectors:
         selected_sectors = available_sectors
 
-    tabs = st.tabs(["Matriz tem/não tem", "Subordinação", "Pricing sênior", "Ideias comerciais", "Base"])
+    tabs = st.tabs(["Cláusulas", "Subord.", "Pricing", "Ideias", "Base"])
     with tabs[0]:
         _render_feature_heatmap(heatmap_year, cohort, selected_sectors)
     with tabs[1]:
@@ -200,7 +200,10 @@ def _render_kpis(
         )
     html += "</div>"
     st.markdown(html, unsafe_allow_html=True)
-    st.caption(f"IME/cache granular disponível para {ime_cache['cnpj'].nunique() if not ime_cache.empty else 0} CNPJs. O PL amplo vem do cadastro CVM atualizado.")
+    st.caption(
+        f"Base CVM/IME em {metadata.get('as_of_date', '-')}; "
+        f"IME granular disponível para {ime_cache['cnpj'].nunique() if not ime_cache.empty else 0} CNPJs."
+    )
 
 
 def _render_feature_heatmap(frame: pd.DataFrame, cohort: str, sectors: list[str]) -> None:
@@ -228,7 +231,7 @@ def _render_feature_heatmap(frame: pd.DataFrame, cohort: str, sectors: list[str]
         .encode(
             x=alt.X("feature_label:N", title="", sort=list(data["feature_label"].drop_duplicates())),
             y=alt.Y("subtipo:N", title="", sort=top_subtypes),
-            color=alt.Color("share_pct:Q", title="%", scale=alt.Scale(scheme="tealblues", domain=[0, 100])),
+            color=alt.Color("share_pct:Q", title="%", scale=alt.Scale(range=["#fff7ed", "#ff5a00"], domain=[0, 100])),
             tooltip=[
                 alt.Tooltip("emission_cohort:N", title="Coorte"),
                 alt.Tooltip("subtipo:N", title="Subtipo"),
@@ -259,7 +262,7 @@ def _render_subordination(frame: pd.DataFrame, ime_frame: pd.DataFrame, cohort: 
         st.markdown("**Mínimo regulatório extraído dos regulamentos**")
         bars = (
             alt.Chart(data)
-            .mark_bar(color="#355C7D", opacity=0.82)
+            .mark_bar(color="#25282d", opacity=0.82)
             .encode(
                 x=alt.X("subtipo:N", title="", sort=data["subtipo"].tolist(), axis=alt.Axis(labelAngle=-35)),
                 y=alt.Y("pl_bi:Q", title="PL atual (R$ bi)"),
@@ -268,7 +271,7 @@ def _render_subordination(frame: pd.DataFrame, ime_frame: pd.DataFrame, cohort: 
         )
         points = (
             alt.Chart(data)
-            .mark_point(color="#D66A2C", filled=True, size=95)
+            .mark_point(color="#ff5a00", filled=True, size=95)
             .encode(
                 x=alt.X("subtipo:N", sort=data["subtipo"].tolist()),
                 y=alt.Y("median_pct:Q", title="Subordinação mediana (%)"),
@@ -299,7 +302,7 @@ def _render_pricing(frame: pd.DataFrame, cohort: str, sectors: list[str]) -> Non
         st.markdown("**Remuneração de cotas seniores extraída das emissões/documentos**")
         bar = (
             alt.Chart(data)
-            .mark_bar(color="#C66A32", opacity=0.86)
+            .mark_bar(color="#ff5a00", opacity=0.86)
             .encode(
                 x=alt.X("subtipo:N", title="", sort=data["subtipo"].tolist(), axis=alt.Axis(labelAngle=-35)),
                 y=alt.Y("volume_bi:Q", title="Volume sênior mapeado (R$ bi)"),
@@ -308,7 +311,7 @@ def _render_pricing(frame: pd.DataFrame, cohort: str, sectors: list[str]) -> Non
         )
         dot = (
             alt.Chart(data)
-            .mark_point(color="#1B7F7A", filled=True, size=95)
+            .mark_point(color="#25282d", filled=True, size=95)
             .encode(
                 x=alt.X("subtipo:N", sort=data["subtipo"].tolist()),
                 y=alt.Y("median_spread:Q", title="CDI+ mediano a.a."),
@@ -337,7 +340,7 @@ def _render_ime_subordination(frame: pd.DataFrame, cohort: str, sectors: list[st
     st.markdown("**Subordinação atual observada no Informe Mensal CVM**")
     bars = (
         alt.Chart(data)
-        .mark_bar(color="#2B6F6C", opacity=0.82)
+        .mark_bar(color="#25282d", opacity=0.82)
         .encode(
             x=alt.X("subtipo:N", title="", sort=data["subtipo"].tolist(), axis=alt.Axis(labelAngle=-35)),
             y=alt.Y("pl_bi:Q", title="PL IME atual (R$ bi)"),
@@ -346,7 +349,7 @@ def _render_ime_subordination(frame: pd.DataFrame, cohort: str, sectors: list[st
     )
     points = (
         alt.Chart(data)
-        .mark_point(color="#B24D5A", filled=True, size=95)
+        .mark_point(color="#ff5a00", filled=True, size=95)
         .encode(
             x=alt.X("subtipo:N", sort=data["subtipo"].tolist()),
             y=alt.Y("actual_median_pct:Q", title="Subordinação IME mediana (%)"),

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from html import escape
+
 import streamlit as st
 
 from tabs.tab_fidc_book import render_tab_fidc_book
@@ -39,7 +41,7 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 }
 
 .fidc-app-kicker {
-    color: #1f77b4;
+    color: #ff5a00;
     font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -49,7 +51,7 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 }
 
 .fidc-app-title {
-    color: #2f7fa8 !important;
+    color: #12171d !important;
     font-size: clamp(3.1rem, 6.2vw, 4.45rem) !important;
     font-weight: 300 !important;
     letter-spacing: -0.045em !important;
@@ -104,94 +106,99 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 [data-testid="stRadio"] [data-baseweb="radio-group"] > label {
     display: inline-flex !important;
     align-items: center !important;
-    padding: 0.2rem 0.9rem !important;
-    border-radius: 999px !important;
-    border: 1.5px solid #dde3ea !important;
-    background: #f7f8fa !important;
-    font-size: 0.85rem !important;
-    font-weight: 500 !important;
-    color: #5a6478 !important;
+    background: transparent !important;
+    border: 0 !important;
     cursor: pointer !important;
-    transition: background 0.12s, border-color 0.12s, color 0.12s !important;
     margin: 0 !important;
-    line-height: 1.6 !important;
+    padding: 0 !important;
     white-space: nowrap !important;
 }
 
-/* Hide the radio circle SVG — show only the text */
+/* Hide the native radio circle and style the text node as the visible chip. */
 [data-testid="stRadio"] [role="radiogroup"] > label > div:first-child,
 [data-testid="stRadio"] [data-baseweb="radio-group"] > label > div:first-child {
     display: none !important;
 }
 
-[data-testid="stRadio"] [role="radiogroup"] > label:hover,
-[data-testid="stRadio"] [data-baseweb="radio-group"] > label:hover {
-    border-color: #1f77b4 !important;
-    color: #1f77b4 !important;
-    background: #f0f4f8 !important;
+[data-testid="stRadio"] [role="radiogroup"] > label > input[type="radio"],
+[data-testid="stRadio"] [data-baseweb="radio-group"] > label > input[type="radio"] {
+    height: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    width: 0 !important;
+}
+
+[data-testid="stRadio"] [role="radiogroup"] > label > input[type="radio"] + div,
+[data-testid="stRadio"] [data-baseweb="radio-group"] > label > input[type="radio"] + div {
+    align-items: center !important;
+    background: #f7f8fa !important;
+    border: 1.5px solid #dde3ea !important;
+    border-radius: 999px !important;
+    color: #5a6478 !important;
+    display: inline-flex !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    line-height: 1.6 !important;
+    padding: 0.2rem 0.9rem !important;
+    transition: background 0.12s, border-color 0.12s, color 0.12s !important;
+}
+
+[data-testid="stRadio"] [role="radiogroup"] > label:hover > input[type="radio"] + div,
+[data-testid="stRadio"] [data-baseweb="radio-group"] > label:hover > input[type="radio"] + div {
+    border-color: #ff5a00 !important;
+    color: #ff5a00 !important;
+    background: #fff4ed !important;
 }
 
 /* Selected chip */
-[data-testid="stRadio"] [role="radiogroup"] > label:has(input:checked),
-[data-testid="stRadio"] [data-baseweb="radio-group"] > label:has(input:checked) {
-    background: #1f77b4 !important;
-    border-color: #1f77b4 !important;
+[data-testid="stRadio"] [role="radiogroup"] > label > input[type="radio"]:checked + div,
+[data-testid="stRadio"] [data-baseweb="radio-group"] > label > input[type="radio"]:checked + div {
+    background: #ff5a00 !important;
+    border-color: #ff5a00 !important;
     color: #ffffff !important;
     font-weight: 600 !important;
 }
 
-[data-testid="stRadio"] [role="radiogroup"] > label:has(input:checked) *,
-[data-testid="stRadio"] [data-baseweb="radio-group"] > label:has(input:checked) * {
+[data-testid="stRadio"] [role="radiogroup"] > label > input[type="radio"]:checked + div *,
+[data-testid="stRadio"] [data-baseweb="radio-group"] > label > input[type="radio"]:checked + div * {
     color: #ffffff !important;
 }
 
-.fidc-main-nav-marker {
-    display: none;
-}
-
-div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [role="radiogroup"],
-div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [data-baseweb="radio-group"] {
+.fidc-main-nav {
     border-bottom: 1px solid #dde3ea;
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    gap: 0 !important;
-    overflow-x: auto !important;
-    padding-bottom: 0 !important;
+    display: flex;
+    gap: 0;
+    margin: 0.25rem 0 1rem 0;
+    overflow-x: auto;
     scrollbar-width: thin;
 }
 
-div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [role="radiogroup"] > label,
-div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [data-baseweb="radio-group"] > label {
-    background: #ffffff !important;
-    border: 0 !important;
-    border-bottom: 2px solid transparent !important;
-    border-radius: 0 !important;
-    color: #2f3a48 !important;
-    font-size: 0.95rem !important;
-    font-weight: 500 !important;
-    line-height: 2.4rem !important;
-    padding: 0 1.05rem !important;
-    white-space: nowrap !important;
+.fidc-main-nav a,
+.fidc-main-nav a:visited {
+    border-bottom: 2px solid transparent;
+    color: #2f3a48;
+    display: inline-flex;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 2.45rem;
+    padding: 0 1.05rem;
+    text-decoration: none !important;
+    white-space: nowrap;
 }
 
-div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [role="radiogroup"] > label:hover,
-div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [data-baseweb="radio-group"] > label:hover {
-    background: #ffffff !important;
-    border-bottom-color: #8db7dc !important;
-    color: #1f77b4 !important;
+.fidc-main-nav a:hover,
+.fidc-main-nav a:focus {
+    border-bottom-color: #ffb180;
+    color: #ff5a00;
+    outline: none;
 }
 
-div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [role="radiogroup"] > label:has(input:checked),
-div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [data-baseweb="radio-group"] > label:has(input:checked) {
-    background: #ffffff !important;
-    border-bottom-color: #1f77b4 !important;
-    color: #1f77b4 !important;
-    font-weight: 600 !important;
-}
-
-div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [role="radiogroup"] > label:has(input:checked) *,
-div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-testid="stRadio"] [data-baseweb="radio-group"] > label:has(input:checked) * {
-    color: #1f77b4 !important;
+.fidc-main-nav a.fidc-main-nav-active,
+.fidc-main-nav a.fidc-main-nav-active:visited {
+    border-bottom-color: #ff5a00;
+    color: #ff5a00;
+    font-weight: 650;
 }
 
 [data-testid="stTabs"] [role="tab"] {
@@ -205,7 +212,7 @@ div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-t
 }
 
 [data-testid="stTabs"] [aria-selected="true"] p {
-    color: #1f77b4;
+    color: #ff5a00;
     font-weight: 600;
 }
 
@@ -228,6 +235,18 @@ div.element-container:has(.fidc-main-nav-marker) + div.element-container [data-t
     .block-container {
         padding-left: 1rem !important;
         padding-right: 1rem !important;
+    }
+
+    .fidc-main-nav {
+        flex-wrap: wrap;
+        overflow-x: visible;
+    }
+
+    .fidc-main-nav a,
+    .fidc-main-nav a:visited {
+        font-size: 0.88rem;
+        line-height: 2.15rem;
+        padding: 0 0.55rem;
     }
 
     .fidc-app-title {
@@ -274,43 +293,60 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-_MAIN_SECTIONS = [
-    "Sobre",
-    "Indústria FIDCs",
-    "Carteira FIDCs",
-    "Infos Regulamento",
-    "Estratégia FIDCs",
-    "Custo Cloudwalk",
-    "Glossário FIDCs",
-    "Modelagem",
-]
-
-st.markdown("<div class='fidc-main-nav-marker'></div>", unsafe_allow_html=True)
-selected_section = st.radio(
-    "Seção",
-    options=_MAIN_SECTIONS,
-    key="fidc_main_section",
-    horizontal=True,
-    label_visibility="collapsed",
+_MAIN_SECTIONS = (
+    ("sobre", "Sobre"),
+    ("industria", "Indústria"),
+    ("carteira", "Carteira"),
+    ("regulamentos", "Regulamentos"),
+    ("estrategia", "Estratégia"),
+    ("cloudwalk", "Cloudwalk"),
+    ("glossario", "Glossário"),
+    ("modelagem", "Modelagem"),
 )
+_MAIN_SECTION_LABELS = dict(_MAIN_SECTIONS)
+_DEFAULT_SECTION = "sobre"
 
-if selected_section == "Indústria FIDCs":
+
+def _current_main_section() -> str:
+    raw_value = st.query_params.get("section", _DEFAULT_SECTION)
+    if isinstance(raw_value, list):
+        raw_value = raw_value[-1] if raw_value else _DEFAULT_SECTION
+    section = str(raw_value).strip().lower()
+    return section if section in _MAIN_SECTION_LABELS else _DEFAULT_SECTION
+
+
+def _render_main_nav(selected_section: str) -> None:
+    links = []
+    for slug, label in _MAIN_SECTIONS:
+        active_class = " fidc-main-nav-active" if slug == selected_section else ""
+        current_attr = ' aria-current="page"' if slug == selected_section else ""
+        links.append(
+            f'<a class="fidc-main-nav-link{active_class}" href="?section={escape(slug, quote=True)}"{current_attr}>'
+            f"{escape(label)}</a>"
+        )
+    st.markdown(f"<nav class='fidc-main-nav' aria-label='Seções principais'>{''.join(links)}</nav>", unsafe_allow_html=True)
+
+
+selected_section = _current_main_section()
+_render_main_nav(selected_section)
+
+if selected_section == "industria":
     render_tab_industry_study()
-elif selected_section == "Carteira FIDCs":
+elif selected_section == "carteira":
     _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
     period = _render_period_selector(state_prefix="ime_global")
     render_portfolio_center_page(period=period)
-elif selected_section == "Infos Regulamento":
+elif selected_section == "regulamentos":
     deep_dive_tab.render_tab_deep_dive()
-elif selected_section == "Estratégia FIDCs":
+elif selected_section == "estrategia":
     render_tab_fidc_credit_strategy()
-elif selected_section == "Custo Cloudwalk":
+elif selected_section == "cloudwalk":
     render_tab_cloudwalk_financial_cost()
-elif selected_section == "Modelagem":
+elif selected_section == "modelagem":
     render_tab_modelo_fidc()
-elif selected_section == "Glossário FIDCs":
+elif selected_section == "glossario":
     render_tab_fidc_book()
-elif selected_section == "Sobre":
+elif selected_section == "sobre":
     try:
         from tabs.tab_about import render_tab_about
 

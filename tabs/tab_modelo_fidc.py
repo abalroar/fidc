@@ -223,7 +223,7 @@ _MODEL_CSS = """
     background: #ffffff;
     border: 1px solid #dde3ea;
     border-radius: 8px;
-    border-top: 3px solid #1f77b4;
+    border-top: 3px solid #25282d;
     min-height: 6.1rem;
     padding: 0.75rem 0.8rem;
 }
@@ -316,8 +316,8 @@ _MODEL_CSS = """
 [data-testid="stFormSubmitButton"] button,
 [data-testid="stButton"] button[kind="primary"],
 [data-testid="stDownloadButton"] button[kind="primary"] {
-    background: #1f77b4 !important;
-    border-color: #1f77b4 !important;
+    background: #25282d !important;
+    border-color: #25282d !important;
     color: #ffffff !important;
 }
 

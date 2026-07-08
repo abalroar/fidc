@@ -116,7 +116,7 @@ def render_tab_cloudwalk_financial_cost() -> None:
         return
 
     _render_headline(outputs)
-    tabs = st.tabs(["Resumo", "Preço por série", "Custo mensal", "Waterfall PL", "Caixa/LFT", "Downloads"])
+    tabs = st.tabs(["Resumo", "Séries", "Mensal", "Waterfall", "Caixa", "Arquivos"])
     with tabs[0]:
         _render_summary(outputs, controls)
     with tabs[1]:
@@ -436,7 +436,7 @@ def _render_lines(outputs: FinancialCostOutputs) -> None:
     )
     chart = (
         alt.Chart(fund_cost)
-        .mark_bar(color="#1f77b4")
+        .mark_bar(color="#25282d")
         .encode(
             x=alt.X("custo_programado_bruto:Q", title="Custo bruto estimado"),
             y=alt.Y("fund_name:N", sort="-x", title="FIDC"),

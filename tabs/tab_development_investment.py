@@ -96,7 +96,7 @@ _DEV_HOURS_CSS = """
 }
 
 .dev-hours-pill {
-    color: #1f77b4;
+    color: #ff5a00;
     background: #f0f4f8;
     border: 1px solid #d9e4ef;
     border-radius: 999px;
@@ -318,7 +318,7 @@ def _render_weekly_chart(payload: dict[str, Any]) -> None:
             color=alt.Color(
                 "tipo:N",
                 title="Componente",
-                scale=alt.Scale(domain=["Horas entre commits", "Overhead de Sessão"], range=["#1f77b4", "#ff5a00"]),
+                scale=alt.Scale(domain=["Horas entre commits", "Overhead de Sessão"], range=["#25282d", "#ff5a00"]),
             ),
             tooltip=[
                 alt.Tooltip("semana_inicio:T", title="Semana", format="%d/%m/%Y"),
