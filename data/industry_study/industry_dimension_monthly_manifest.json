@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-monthly-manifest/v1",
-  "generated_at_utc": "2026-07-08T16:50:00+00:00",
+  "generated_at_utc": "2026-07-08T20:20:03+00:00",
   "pipeline": "industry_dimension_monthly",
   "design_constraints": {
     "modular": true,
@@ -22,16 +22,16 @@
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1312249,
-      "sha256": "997744a6ef75169c6698ad97d2e35ddd93de1f62cdac52feda771fe21158d3a8"
+      "bytes": 1370618,
+      "sha256": "114fbb900d57a5f186963813e6b13c4c448934390dcaae0778773018581b234a"
     }
   },
   "outputs": {
     "dimension_monthly": {
       "path": "data/industry_study/industry_dimension_monthly.csv.gz",
       "exists": true,
-      "bytes": 2883900,
-      "sha256": "e16687b3668cb15d499bc4525e2a8c18f102aa313e8dd7f680cd0a780d486632"
+      "bytes": 2934165,
+      "sha256": "289e3f11c14680f2e02a233c5bbda8a57caeb3d7bff62e1a02e2c82029fbe839"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_monthly_manifest.json"
@@ -44,7 +44,7 @@
       "status": "ok",
       "input": "data/industry_study/vehicle_monthly.csv.gz+data/industry_study/industry_dimension_catalog.csv.gz",
       "output": "memoria:vehicle_monthly+dimension_catalog",
-      "rows": 289791,
+      "rows": 292605,
       "rerun": "python scripts/build_fidc_industry_study.py --report && python scripts/build_fidc_industry_dimensions.py"
     },
     {
@@ -53,20 +53,20 @@
       "status": "ok",
       "input": "memoria:vehicle_monthly+dimension_catalog",
       "output": "data/industry_study/industry_dimension_monthly.csv.gz",
-      "rows": 66946,
+      "rows": 67918,
       "months": 162,
-      "dimensions": 26,
+      "dimensions": 28,
       "rerun": "python scripts/build_fidc_industry_dimension_monthly.py"
     }
   ],
   "quality": {
-    "rows": 66946,
+    "rows": 67918,
     "months": 162,
-    "dimensions": 26,
-    "dimension_values": 853,
+    "dimensions": 28,
+    "dimension_values": 859,
     "latest_competencia": "2026-06",
-    "latest_rows": 337,
-    "latest_pl_brl": 1527924664246.29,
+    "latest_rows": 343,
+    "latest_pl_brl": 1597775427820.3901,
     "with_source_document_links": 13988,
     "curated_rows": 7776
   }

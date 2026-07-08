@@ -65,9 +65,17 @@ from services.industry_study import (  # noqa: E402
     scan_regulatory_extraction_files,
 )
 from tabs.tab_industry_study import (  # noqa: E402
+    _apply_snapshot_gap_actions,
     _build_fund_dossier_tables,
     _build_snapshot_market_share,
+    _catalog_heatmap_cell_frame,
+    _dimension_profile_coverage_frame,
     _heatmap_base_frame,
+    _heatmap_preset_options,
+    _pl_fic_impact_frame,
+    _profile_heatmap_frame,
+    _snapshot_gap_actions_for_audit,
+    _snapshot_gap_frame,
 )
 
 
@@ -882,6 +890,401 @@ def test_industry_heatmap_base_uses_snapshot_multivalue_dimensions():
     assert set(frame["sub_min_bucket"]) == {"10%-15%"}
 
 
+def test_industry_heatmap_presets_follow_available_dimensions():
+    options = _heatmap_preset_options(
+        [
+            "Administrador",
+            "Gestor",
+            "Cedente/sacado",
+            "Segmento",
+            "Setor cedente",
+            "Ano 1ª oferta",
+            "Safra emissão",
+            "Indexador",
+            "Tipo de cota",
+        ]
+    )
+
+    assert options["Personalizado"] is None
+    assert options["Administrador × Segmento"] == ("Administrador", "Segmento")
+    assert options["Gestor × Segmento"] == ("Gestor", "Segmento")
+    assert options["Cedente/sacado × Administrador"] == ("Cedente/sacado", "Administrador")
+    assert options["Setor cedente × Ano 1ª oferta"] == ("Setor cedente", "Ano 1ª oferta")
+    assert options["Segmento × Safra emissão"] == ("Segmento", "Safra emissão")
+    assert options["Setor cedente × Indexador"] == ("Setor cedente", "Indexador")
+    assert options["Administrador × Tipo de cota"] == ("Administrador", "Tipo de cota")
+    assert "Critério × Segmento" not in options
+
+
+def test_industry_heatmap_cell_drilldown_preserves_catalog_evidence():
+    catalog = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05.753.599/0001-58",
+                "nome_exibicao": "FIDC ABC",
+                "dimension_id": "admin",
+                "dimension_label": "Administrador",
+                "dimension_value": "Admin A",
+                "value_weight": 1.0,
+                "source_layer": "snapshot",
+                "source_field": "admin_nome",
+                "source_value": "Admin A",
+                "is_multivalue": False,
+                "is_curated": False,
+                "source_document": "",
+                "source_page": "",
+                "source_method": "informe_mensal",
+                "confidence_score": 1.0,
+                "review_status": "",
+            },
+            {
+                "cnpj_fundo": "05.753.599/0001-58",
+                "nome_exibicao": "FIDC ABC",
+                "dimension_id": "segmento",
+                "dimension_label": "Segmento",
+                "dimension_value": "Financeiro",
+                "value_weight": 1.0,
+                "source_layer": "cedente",
+                "source_field": "segmento",
+                "source_value": "Financeiro",
+                "is_multivalue": False,
+                "is_curated": True,
+                "participant_type": "cedente",
+                "participant_cnpj": "12345678000190",
+                "source_document": "regulamento.pdf",
+                "source_page": "12",
+                "source_method": "manual_review",
+                "confidence_score": 0.85,
+                "review_status": "aprovado",
+            },
+            {
+                "cnpj_fundo": "11.111.111/0001-11",
+                "nome_exibicao": "FIDC DEF",
+                "dimension_id": "admin",
+                "dimension_label": "Administrador",
+                "dimension_value": "Admin B",
+                "value_weight": 1.0,
+                "source_layer": "snapshot",
+                "source_field": "admin_nome",
+                "source_value": "Admin B",
+                "source_method": "informe_mensal",
+                "confidence_score": 1.0,
+            },
+        ]
+    )
+    snapshot = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "nome_exibicao": "FIDC ABC",
+                "competencia": "2026-05",
+                "pl": 100.0,
+                "valid_volume_2024_2026_brl": 20.0,
+                "admin_nome": "Admin A",
+                "gestor_nome": "Gestor A",
+                "segmento_principal": "Financeiro",
+                "document_rows": 2,
+                "cedente_rows": 1,
+                "criteria_rows": 1,
+                "snapshot_status": "completo",
+            }
+        ]
+    )
+
+    drilldown = _catalog_heatmap_cell_frame(catalog, snapshot, "admin", "Admin A", "segmento", "Financeiro")
+
+    assert len(drilldown) == 1
+    row = drilldown.iloc[0]
+    assert row["cnpj_fundo_norm"] == "05753599000158"
+    assert row["pl"] == 100.0
+    assert row["row_source_method"] == "informe_mensal"
+    assert row["col_source_document"] == "regulamento.pdf"
+    assert row["col_source_page"] == "12"
+    assert row["col_confidence_score"] == 0.85
+    assert _catalog_heatmap_cell_frame(catalog, snapshot, "admin", "Admin A", "admin", "Admin B").empty
+
+
+def test_industry_snapshot_gap_frame_prioritizes_missing_structured_layers():
+    snapshot = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "nome_exibicao": "FIDC RECENTE",
+                "pl": 100.0,
+                "valid_volume_2024_2026_brl": 50.0,
+                "tem_emissao_2025_2026": True,
+                "document_rows": 0,
+                "document_local_ready": 0,
+                "cedente_rows": 0,
+                "criteria_rows": 1,
+                "criteria_subordination_rows": 0,
+            },
+            {
+                "cnpj_fundo": "11111111000111",
+                "nome_exibicao": "FIDC ANTIGO",
+                "pl": 300.0,
+                "valid_volume_2024_2026_brl": 0.0,
+                "tem_emissao_2025_2026": False,
+                "document_rows": 1,
+                "document_local_ready": 1,
+                "cedente_rows": 1,
+                "criteria_rows": 1,
+                "criteria_subordination_rows": 0,
+            },
+            {
+                "cnpj_fundo": "22222222000122",
+                "nome_exibicao": "FIDC COMPLETO",
+                "pl": 50.0,
+                "valid_volume_2024_2026_brl": 10.0,
+                "tem_emissao_2025_2026": True,
+                "document_rows": 1,
+                "document_local_ready": 1,
+                "cedente_rows": 1,
+                "criteria_rows": 1,
+                "criteria_subordination_rows": 1,
+            },
+        ]
+    )
+
+    gaps = _snapshot_gap_frame(snapshot)
+
+    assert list(gaps["cnpj_fundo"]) == ["05753599000158", "11111111000111"]
+    recent = gaps[gaps["cnpj_fundo"].eq("05753599000158")].iloc[0]
+    assert bool(recent["priority_2025_2026"]) is True
+    assert recent["gap_id"] == "snapshot_05753599000158"
+    assert recent["gap_count"] == 4
+    assert set(recent["missing_layers"].split(" | ")) == {
+        "sem documento",
+        "sem documento local",
+        "sem cedente/sacado",
+        "sem sub mínima",
+    }
+    overlayed = _apply_snapshot_gap_actions(
+        gaps,
+        pd.DataFrame(
+            [
+                {
+                    "gap_id": recent["gap_id"],
+                    "status_lacuna": "em andamento",
+                    "acao_revisada": "Baixar regulamento e revisar cedente",
+                    "responsavel": "Research",
+                    "prazo": "2026-07-15",
+                    "notas": "priorizar emissão recente",
+                    "updated_at_utc": "2026-07-08T12:00:00+00:00",
+                }
+            ]
+        ),
+    )
+    reviewed = overlayed[overlayed["gap_id"].eq(recent["gap_id"])].iloc[0]
+    assert reviewed["status_lacuna"] == "em andamento"
+    assert reviewed["acao_revisada"] == "Baixar regulamento e revisar cedente"
+    assert reviewed["responsavel"] == "Research"
+
+
+def test_industry_snapshot_gap_actions_for_audit_tracks_field_changes():
+    previous = pd.DataFrame(
+        [
+            {
+                "gap_id": "2026-05_05753599000158",
+                "status_lacuna": "pendente",
+                "acao_revisada": "",
+                "responsavel": "",
+                "prazo": "",
+                "notas": "",
+                "updated_at_utc": "",
+            }
+        ]
+    )
+    updated = pd.DataFrame(
+        [
+            {
+                "gap_id": "2026-05_05753599000158",
+                "status_lacuna": "em andamento",
+                "acao_revisada": "Baixar regulamento",
+                "responsavel": "Research",
+                "prazo": "2026-07-15",
+                "notas": "prioridade alta",
+                "updated_at_utc": "2026-07-08T12:00:00+00:00",
+            }
+        ]
+    )
+
+    events = build_review_audit_events(
+        previous=_snapshot_gap_actions_for_audit(previous),
+        updated=_snapshot_gap_actions_for_audit(updated),
+        key_column="gap_id",
+        review_domain="snapshot_gap",
+        saved_at_utc="2026-07-08T12:00:00+00:00",
+        source="test",
+    )
+
+    assert set(events["field"]) == {"status", "acao_revisada", "responsavel", "prazo", "notas"}
+    assert set(events["record_id"]) == {"2026-05_05753599000158"}
+    assert set(events["status_after"]) == {"em andamento"}
+
+
+def test_industry_pl_fic_impact_frame_quantifies_double_count_proxy():
+    industry = pd.DataFrame(
+        [
+            {"competencia": "2026-04", "pl_total": 900.0, "pl_fic_fidc": 90.0},
+            {"competencia": "2026-05", "pl_total": 1000.0, "pl_fic_fidc": 125.0},
+        ]
+    )
+
+    impact = _pl_fic_impact_frame(industry)
+
+    latest = impact.set_index("competencia").loc["2026-05"]
+    assert latest["pl_ex_fic_fidc"] == 875.0
+    assert latest["fic_share"] == 0.125
+
+    no_fic_col = _pl_fic_impact_frame(pd.DataFrame([{"competencia": "2026-05", "pl_total": 1000.0}]))
+    assert no_fic_col.iloc[0]["pl_fic_fidc"] == 0.0
+    assert no_fic_col.iloc[0]["pl_ex_fic_fidc"] == 1000.0
+
+
+def test_industry_profile_heatmap_reuses_materialized_profiles():
+    profiles = pd.DataFrame(
+        [
+            {
+                "competencia": "2026-05",
+                "source_dimension_id": "admin",
+                "source_dimension_label": "Administrador",
+                "source_dimension_value": "Admin A",
+                "target_dimension_id": "segmento",
+                "target_dimension_label": "Segmento",
+                "target_dimension_value": "Financeiro",
+                "pl_brl": 100_000_000_000.0,
+                "funds_unique": 2,
+                "vehicles_unique": 3,
+                "catalog_links": 4,
+                "source_document_links": 1,
+                "curated_links": 1,
+                "weighted_links": 0,
+                "avg_confidence_score": 0.8,
+            },
+            {
+                "competencia": "2026-05",
+                "source_dimension_id": "admin",
+                "source_dimension_label": "Administrador",
+                "source_dimension_value": "Admin A",
+                "target_dimension_id": "segmento",
+                "target_dimension_label": "Segmento",
+                "target_dimension_value": "Industrial",
+                "pl_brl": 50_000_000_000.0,
+                "funds_unique": 1,
+                "vehicles_unique": 1,
+                "catalog_links": 2,
+                "source_document_links": 0,
+                "curated_links": 0,
+                "weighted_links": 1,
+                "avg_confidence_score": 0.6,
+            },
+            {
+                "competencia": "2026-05",
+                "source_dimension_id": "admin",
+                "source_dimension_label": "Administrador",
+                "source_dimension_value": "Admin A",
+                "target_dimension_id": "admin",
+                "target_dimension_label": "Administrador",
+                "target_dimension_value": "Admin A",
+                "pl_brl": 100_000_000_000.0,
+                "funds_unique": 2,
+                "vehicles_unique": 3,
+                "catalog_links": 4,
+                "source_document_links": 1,
+                "curated_links": 1,
+                "weighted_links": 0,
+                "avg_confidence_score": 0.8,
+            },
+            {
+                "competencia": "2026-05",
+                "source_dimension_id": "admin",
+                "source_dimension_label": "Administrador",
+                "source_dimension_value": "Admin A",
+                "target_dimension_id": "admin",
+                "target_dimension_label": "Administrador",
+                "target_dimension_value": "Admin B",
+                "pl_brl": 10_000_000_000.0,
+                "funds_unique": 1,
+                "vehicles_unique": 1,
+                "catalog_links": 1,
+                "source_document_links": 0,
+                "curated_links": 0,
+                "weighted_links": 0,
+                "avg_confidence_score": 0.7,
+            },
+        ]
+    )
+
+    heatmap = _profile_heatmap_frame(profiles, "admin", "segmento", "PL médio")
+    by_segment = heatmap.set_index("coluna")
+
+    assert by_segment.loc["Financeiro", "valor"] == 100.0
+    assert by_segment.loc["Industrial", "valor"] == 50.0
+    assert by_segment.loc["Financeiro", "catalog_links"] == 4
+    assert by_segment.loc["Industrial", "weighted_links"] == 1
+
+    funds = _profile_heatmap_frame(profiles, "admin", "segmento", "Fundos")
+    assert funds.set_index("coluna").loc["Financeiro", "valor"] == 2
+
+    diagonal = _profile_heatmap_frame(profiles, "admin", "admin", "Veículos")
+    assert set(diagonal["coluna"]) == {"Admin A"}
+    assert _profile_heatmap_frame(profiles, "admin", "segmento", "Captação líquida").empty
+
+
+def test_industry_dimension_profile_coverage_summarizes_source_dimensions():
+    profiles = pd.DataFrame(
+        [
+            {
+                "source_dimension_id": "admin",
+                "source_dimension_label": "Administrador",
+                "source_dimension_value": "Admin A",
+                "target_dimension_id": "segmento",
+                "target_dimension_value": "Financeiro",
+                "catalog_links": 4,
+                "source_document_links": 1,
+                "curated_links": 1,
+                "weighted_links": 0,
+                "avg_confidence_score": 0.8,
+            },
+            {
+                "source_dimension_id": "admin",
+                "source_dimension_label": "Administrador",
+                "source_dimension_value": "Admin A",
+                "target_dimension_id": "indexador",
+                "target_dimension_value": "CDI+",
+                "catalog_links": 2,
+                "source_document_links": 1,
+                "curated_links": 0,
+                "weighted_links": 1,
+                "avg_confidence_score": 0.6,
+            },
+            {
+                "source_dimension_id": "segmento",
+                "source_dimension_label": "Segmento",
+                "source_dimension_value": "Financeiro",
+                "target_dimension_id": "admin",
+                "target_dimension_value": "Admin A",
+                "catalog_links": 3,
+                "source_document_links": 0,
+                "curated_links": 0,
+                "weighted_links": 0,
+                "avg_confidence_score": 0.9,
+            },
+        ]
+    )
+
+    coverage = _dimension_profile_coverage_frame(profiles)
+    by_dimension = coverage.set_index("source_dimension_id")
+
+    assert by_dimension.loc["admin", "source_values"] == 1
+    assert by_dimension.loc["admin", "target_dimensions"] == 2
+    assert by_dimension.loc["admin", "profile_links"] == 6
+    assert by_dimension.loc["admin", "source_document_ratio"] == 2 / 6
+    assert by_dimension.loc["admin", "weighted_ratio"] == 1 / 6
+    assert by_dimension.loc["segmento", "profile_links"] == 3
+
+
 def test_industry_fund_dossier_collects_all_structured_layers():
     snapshot = pd.DataFrame(
         [
@@ -1050,6 +1453,8 @@ def test_industry_dimension_catalog_preserves_sources_and_weights():
                 "tem_sub_minima": True,
                 "camadas_com_evidencia": 5,
                 "snapshot_status": "completo",
+                "first_offer_year": 2026,
+                "emission_cohort": "2026YTD",
             }
         ]
     )
@@ -1093,6 +1498,8 @@ def test_industry_dimension_catalog_preserves_sources_and_weights():
     catalog = build_industry_dimension_catalog(snapshot=snapshot, cedentes=cedentes)
     quality = industry_dimension_catalog_quality_summary(catalog)
     indexers = catalog[catalog["dimension_id"].eq("indexador")].set_index("dimension_value")
+    first_offer_year = catalog[catalog["dimension_id"].eq("ano_primeira_oferta")].set_index("dimension_value")
+    emission_cohort = catalog[catalog["dimension_id"].eq("safra_emissao")].set_index("dimension_value")
     cedente_rows = catalog[catalog["dimension_id"].eq("cedente_sacado")].set_index("dimension_value")
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
@@ -1116,6 +1523,8 @@ def test_industry_dimension_catalog_preserves_sources_and_weights():
 
     assert round(float(indexers.loc["CDI+", "value_weight"]), 6) == 0.5
     assert round(float(indexers.loc["IPCA+", "value_weight"]), 6) == 0.5
+    assert "2026" in first_offer_year.index
+    assert "2026YTD" in emission_cohort.index
     assert round(float(cedente_rows.loc["CEDENTE ABC S.A.", "value_weight"]), 6) == 0.5
     assert cedente_rows.loc["CEDENTE ABC S.A.", "source_document"] == "regulamento.pdf"
     assert cedente_rows.loc["CEDENTE ABC S.A.", "source_page"] == "12"
@@ -1611,6 +2020,14 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "with_subordination_min": 1,
             },
         )
+        (tmp_path / "snapshot_gap_actions.csv").write_text(
+            "gap_id,status_lacuna,acao_revisada,responsavel,prazo,notas,updated_at_utc\n"
+            "2026-05_05753599000158,em andamento,baixar documento,research,2026-07-15,,2026-07-08T12:00:00+00:00\n"
+        )
+        (tmp_path / "snapshot_gap_action_audit.csv").write_text(
+            "event_id,saved_at_utc,review_domain,record_id,field,old_value,new_value,status_after,source\n"
+            "abc,2026-07-08T12:00:00+00:00,snapshot_gap,2026-05_05753599000158,status,pendente,em andamento,em andamento,test\n"
+        )
         write_module_manifest(
             "industry_dimension_catalog_manifest.json",
             "industry_dimension_catalog",
@@ -1675,6 +2092,9 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["schema_version"] == "industry-pipeline-index/v1"
     assert index["quality_rollup"]["modules_total"] == 11
     assert index["quality_rollup"]["module_status_counts"]["ok"] == 11
+    assert index["quality_rollup"]["artifacts_missing"] == 0
+    assert index["quality_rollup"]["manual_review_artifacts_total"] == 2
+    assert index["quality_rollup"]["manual_review_artifacts_present"] == 2
     assert index["quality_rollup"]["competencia_snapshot"] == "202605"
     assert index["quality_rollup"]["monthly_delta_new_funds"] == 1
     assert index["quality_rollup"]["monthly_delta_high_priority"] == 2
@@ -1700,3 +2120,11 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         "pipeline_index",
     }
     assert any(row["artifact"] == "manifest" for row in index["artifact_index"])
+    manual_artifacts = {
+        row["artifact"]: row
+        for row in index["artifact_index"]
+        if row["module_id"] == "fund_snapshot" and row["group"] == "manual_review"
+    }
+    assert manual_artifacts["snapshot_gap_actions"]["required"] is False
+    assert manual_artifacts["snapshot_gap_actions"]["exists"] is True
+    assert manual_artifacts["snapshot_gap_action_audit"]["exists"] is True

@@ -2137,6 +2137,16 @@ def _manifest_artifacts(
     return rows
 
 
+def _optional_artifact_row(module_id: str, artifact: str, path: Path, *, group: str = "manual_review") -> dict[str, object]:
+    return {
+        "module_id": module_id,
+        "group": group,
+        "artifact": artifact,
+        "required": False,
+        **file_fingerprint(path),
+    }
+
+
 def _quality_pick(quality: dict[str, object], keys: list[str]) -> dict[str, object]:
     return {key: quality.get(key) for key in keys if key in quality}
 
@@ -2442,6 +2452,14 @@ def build_industry_pipeline_index(
     artifact_rows = base_artifacts
     for spec in module_specs:
         module, artifacts = _build_manifest_module(industry_dir=industry_dir, **spec)
+        if spec["module_id"] == "fund_snapshot":
+            manual_artifacts = [
+                _optional_artifact_row("fund_snapshot", "snapshot_gap_actions", industry_dir / "snapshot_gap_actions.csv"),
+                _optional_artifact_row("fund_snapshot", "snapshot_gap_action_audit", industry_dir / "snapshot_gap_action_audit.csv"),
+            ]
+            artifacts.extend(manual_artifacts)
+            module["artifact_count"] = len(artifacts)
+            module["artifacts_present"] = sum(1 for item in artifacts if item.get("exists") is True)
         modules.append(module)
         artifact_rows.extend(artifacts)
 
@@ -2549,8 +2567,15 @@ def build_industry_pipeline_index(
         status = str(module.get("status") or "unknown")
         status_counts[status] = status_counts.get(status, 0) + 1
     generated_values = [module.get("generated_at_utc") for module in modules if module.get("generated_at_utc")]
-    artifact_total = len(artifact_rows)
-    artifact_present = sum(1 for item in artifact_rows if item.get("exists") is True)
+    required_artifacts = [item for item in artifact_rows if item.get("required") is True]
+    optional_artifacts = [item for item in artifact_rows if item.get("required") is not True]
+    manual_review_artifacts = [item for item in artifact_rows if item.get("group") == "manual_review"]
+    artifact_total = len(required_artifacts)
+    artifact_present = sum(1 for item in required_artifacts if item.get("exists") is True)
+    optional_artifact_total = len(optional_artifacts)
+    optional_artifact_present = sum(1 for item in optional_artifacts if item.get("exists") is True)
+    manual_review_artifact_total = len(manual_review_artifacts)
+    manual_review_artifact_present = sum(1 for item in manual_review_artifacts if item.get("exists") is True)
     base_meta = base_module.get("quality_highlights", {})
     monthly_delta_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "monthly_delta"), {})
     criteria_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "criteria"), {})
@@ -2588,6 +2613,12 @@ def build_industry_pipeline_index(
             "artifacts_total": artifact_total,
             "artifacts_present": artifact_present,
             "artifacts_missing": artifact_total - artifact_present,
+            "optional_artifacts_total": optional_artifact_total,
+            "optional_artifacts_present": optional_artifact_present,
+            "optional_artifacts_missing": optional_artifact_total - optional_artifact_present,
+            "manual_review_artifacts_total": manual_review_artifact_total,
+            "manual_review_artifacts_present": manual_review_artifact_present,
+            "manual_review_artifacts_missing": manual_review_artifact_total - manual_review_artifact_present,
             "latest_module_generated_at_utc": _latest_iso(generated_values),
             "competencia_final": base_meta.get("competencia_final", ""),
             "competencia_snapshot": base_meta.get("competencia_snapshot", ""),
@@ -3449,6 +3480,20 @@ DIMENSION_CATALOG_SPECS = [
         "multi_value": False,
     },
     {
+        "dimension_id": "ano_primeira_oferta",
+        "label": "Ano 1ª oferta",
+        "column": "first_offer_year",
+        "source_layer": "snapshot",
+        "multi_value": False,
+    },
+    {
+        "dimension_id": "safra_emissao",
+        "label": "Safra emissão",
+        "column": "emission_cohort",
+        "source_layer": "snapshot",
+        "multi_value": False,
+    },
+    {
         "dimension_id": "faixa_sub_minima",
         "label": "Faixa sub mín.",
         "column": "sub_min_pct_median",
@@ -3522,6 +3567,9 @@ def _market_dimension_values(frame: pd.DataFrame, column: str) -> pd.Series:
     if column == "camadas_com_evidencia":
         numbers = _num(frame[column], frame.index).round().astype(int)
         return numbers.map(lambda value: f"{value} camada" if value == 1 else f"{value} camadas")
+    if column == "first_offer_year":
+        years = _num(frame[column], frame.index).round().astype(int)
+        return years.map(lambda value: "" if value <= 0 else str(value))
     values = _text(frame[column], frame.index).str.strip()
     values = values.where(values.ne(""), "n/d")
     return values.str.slice(0, 70)

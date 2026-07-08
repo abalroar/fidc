@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-index/v1",
-  "generated_at_utc": "2026-07-08T17:38:03+00:00",
+  "generated_at_utc": "2026-07-08T20:23:53+00:00",
   "pipeline": "industry_monthly_refresh",
   "industry_dir": "data/industry_study",
   "output_path": "data/industry_study/industry_pipeline_index.json",
@@ -20,10 +20,16 @@
     "module_status_counts": {
       "ok": 11
     },
-    "artifacts_total": 58,
-    "artifacts_present": 58,
+    "artifacts_total": 32,
+    "artifacts_present": 32,
     "artifacts_missing": 0,
-    "latest_module_generated_at_utc": "2026-07-08T17:38:02+00:00",
+    "optional_artifacts_total": 28,
+    "optional_artifacts_present": 26,
+    "optional_artifacts_missing": 2,
+    "manual_review_artifacts_total": 2,
+    "manual_review_artifacts_present": 0,
+    "manual_review_artifacts_missing": 2,
+    "latest_module_generated_at_utc": "2026-07-08T20:20:06+00:00",
     "competencia_final": "202606",
     "competencia_snapshot": "202605",
     "monthly_delta_rows": 4279,
@@ -40,12 +46,12 @@
     "fund_snapshot_rows": 4219,
     "fund_snapshot_with_cedentes": 99,
     "fund_snapshot_with_criteria": 49,
-    "dimension_catalog_rows": 63830,
-    "dimension_catalog_dimensions": 26,
-    "dimension_monthly_rows": 66946,
+    "dimension_catalog_rows": 66644,
+    "dimension_catalog_dimensions": 28,
+    "dimension_monthly_rows": 67918,
     "dimension_monthly_latest_competencia": "2026-06",
-    "dimension_profile_rows": 53541,
-    "dimension_profile_source_dimensions": 26,
+    "dimension_profile_rows": 58253,
+    "dimension_profile_source_dimensions": 28,
     "market_share_rows": 3900,
     "market_share_dimensions": 15,
     "market_share_metrics": 6
@@ -253,7 +259,7 @@
         "ok": 3
       },
       "stage_count": 3,
-      "artifact_count": 8,
+      "artifact_count": 10,
       "artifacts_present": 8,
       "quality_highlights": {
         "fund_rows": 4219,
@@ -271,7 +277,7 @@
       "status": "ok",
       "schema_version": "industry-dimension-catalog-manifest/v1",
       "pipeline": "industry_dimension_catalog",
-      "generated_at_utc": "2026-07-08T16:41:33+00:00",
+      "generated_at_utc": "2026-07-08T20:20:00+00:00",
       "manifest_path": "data/industry_study/industry_dimension_catalog_manifest.json",
       "command": "python scripts/build_fidc_industry_dimensions.py",
       "cadence": "após snapshot/cedentes",
@@ -286,9 +292,9 @@
       "artifact_count": 4,
       "artifacts_present": 4,
       "quality_highlights": {
-        "rows": 63830,
+        "rows": 66644,
         "funds": 4286,
-        "dimensions": 26,
+        "dimensions": 28,
         "curated_rows": 3741,
         "weighted_dimensions": 7,
         "with_source_document": 6433,
@@ -301,7 +307,7 @@
       "status": "ok",
       "schema_version": "industry-dimension-monthly-manifest/v1",
       "pipeline": "industry_dimension_monthly",
-      "generated_at_utc": "2026-07-08T16:50:00+00:00",
+      "generated_at_utc": "2026-07-08T20:20:03+00:00",
       "manifest_path": "data/industry_study/industry_dimension_monthly_manifest.json",
       "command": "python scripts/build_fidc_industry_dimension_monthly.py",
       "cadence": "após catálogo de dimensões",
@@ -316,12 +322,12 @@
       "artifact_count": 4,
       "artifacts_present": 4,
       "quality_highlights": {
-        "rows": 66946,
+        "rows": 67918,
         "months": 162,
-        "dimensions": 26,
-        "dimension_values": 853,
+        "dimensions": 28,
+        "dimension_values": 859,
         "latest_competencia": "2026-06",
-        "latest_rows": 337,
+        "latest_rows": 343,
         "with_source_document_links": 13988,
         "curated_rows": 7776
       }
@@ -332,7 +338,7 @@
       "status": "ok",
       "schema_version": "industry-dimension-profile-manifest/v1",
       "pipeline": "industry_dimension_profiles",
-      "generated_at_utc": "2026-07-08T17:38:02+00:00",
+      "generated_at_utc": "2026-07-08T20:20:05+00:00",
       "manifest_path": "data/industry_study/industry_dimension_profile_manifest.json",
       "command": "python scripts/build_fidc_industry_dimension_profiles.py",
       "cadence": "após catálogo de dimensões",
@@ -347,14 +353,14 @@
       "artifact_count": 4,
       "artifacts_present": 4,
       "quality_highlights": {
-        "rows": 53541,
+        "rows": 58253,
         "competencia": "2026-05",
-        "source_dimensions": 26,
-        "target_dimensions": 26,
-        "source_values": 847,
-        "target_values": 847,
-        "with_source_document_links": 220030,
-        "curated_links": 135606
+        "source_dimensions": 28,
+        "target_dimensions": 28,
+        "source_values": 853,
+        "target_values": 853,
+        "with_source_document_links": 242902,
+        "curated_links": 148422
       }
     },
     {
@@ -363,7 +369,7 @@
       "status": "ok",
       "schema_version": "industry-market-share-manifest/v1",
       "pipeline": "industry_market_share",
-      "generated_at_utc": "2026-07-08T16:30:15+00:00",
+      "generated_at_utc": "2026-07-08T20:20:06+00:00",
       "manifest_path": "data/industry_study/industry_market_share_manifest.json",
       "command": "python scripts/build_fidc_industry_market_share.py",
       "cadence": "após snapshot unificado",
@@ -918,6 +924,26 @@
       "sha256": "4086dfe684fb7a40f7c0cb790b7c3f7e7924193812a5f33aca96c12b0a235ba0"
     },
     {
+      "module_id": "fund_snapshot",
+      "group": "manual_review",
+      "artifact": "snapshot_gap_actions",
+      "required": false,
+      "path": "data/industry_study/snapshot_gap_actions.csv",
+      "exists": false,
+      "bytes": 0,
+      "sha256": ""
+    },
+    {
+      "module_id": "fund_snapshot",
+      "group": "manual_review",
+      "artifact": "snapshot_gap_action_audit",
+      "required": false,
+      "path": "data/industry_study/snapshot_gap_action_audit.csv",
+      "exists": false,
+      "bytes": 0,
+      "sha256": ""
+    },
+    {
       "module_id": "dimension_catalog",
       "group": "inputs",
       "artifact": "fund_snapshot",
@@ -944,8 +970,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1312249,
-      "sha256": "997744a6ef75169c6698ad97d2e35ddd93de1f62cdac52feda771fe21158d3a8"
+      "bytes": 1370618,
+      "sha256": "114fbb900d57a5f186963813e6b13c4c448934390dcaae0778773018581b234a"
     },
     {
       "module_id": "dimension_catalog",
@@ -955,7 +981,7 @@
       "path": "data/industry_study/industry_dimension_catalog_manifest.json",
       "exists": true,
       "bytes": 2490,
-      "sha256": "5cb72f5dae641bdf6f01ba3a8575b04163862d58c172cd74314cb3aa77b26119"
+      "sha256": "b6c49c6612a11932dd618886708bc6824bc2640e794b67c3c5f91462fe8f9ecb"
     },
     {
       "module_id": "dimension_monthly",
@@ -974,8 +1000,8 @@
       "required": false,
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1312249,
-      "sha256": "997744a6ef75169c6698ad97d2e35ddd93de1f62cdac52feda771fe21158d3a8"
+      "bytes": 1370618,
+      "sha256": "114fbb900d57a5f186963813e6b13c4c448934390dcaae0778773018581b234a"
     },
     {
       "module_id": "dimension_monthly",
@@ -984,8 +1010,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_monthly.csv.gz",
       "exists": true,
-      "bytes": 2883900,
-      "sha256": "e16687b3668cb15d499bc4525e2a8c18f102aa313e8dd7f680cd0a780d486632"
+      "bytes": 2934165,
+      "sha256": "289e3f11c14680f2e02a233c5bbda8a57caeb3d7bff62e1a02e2c82029fbe839"
     },
     {
       "module_id": "dimension_monthly",
@@ -994,8 +1020,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_monthly_manifest.json",
       "exists": true,
-      "bytes": 2573,
-      "sha256": "5516814f6b0dde07eb73270e54645d2bd4312e2d0ab2eb9001fecdd5a713eb65"
+      "bytes": 2575,
+      "sha256": "72e6fc3a83e5e5d2b67cd35d171d74bab4d27b184e8ae962c1db0671e49d79f1"
     },
     {
       "module_id": "dimension_profiles",
@@ -1014,8 +1040,8 @@
       "required": false,
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1312249,
-      "sha256": "997744a6ef75169c6698ad97d2e35ddd93de1f62cdac52feda771fe21158d3a8"
+      "bytes": 1370618,
+      "sha256": "114fbb900d57a5f186963813e6b13c4c448934390dcaae0778773018581b234a"
     },
     {
       "module_id": "dimension_profiles",
@@ -1024,8 +1050,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_profiles.csv.gz",
       "exists": true,
-      "bytes": 1183214,
-      "sha256": "359bf3bad92376f7b0ef3585d4b54c5ccd1f45f1281cf30995d70cf306a16ace"
+      "bytes": 1293074,
+      "sha256": "cd9b86438ba897d4b71c75982f25e82c57a445ac3e6514763d7f472d38619299"
     },
     {
       "module_id": "dimension_profiles",
@@ -1034,8 +1060,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_profile_manifest.json",
       "exists": true,
-      "bytes": 2559,
-      "sha256": "21d3905294027c1027bd60514d9eee77d3c381a0b9fa079eaa77858e6ee234a0"
+      "bytes": 2560,
+      "sha256": "aba9f7e8670523f0d0e599aaad65f6e63074efd046142f2c38b442254d96ec85"
     },
     {
       "module_id": "market_share",
@@ -1055,7 +1081,7 @@
       "path": "data/industry_study/industry_market_share.csv.gz",
       "exists": true,
       "bytes": 125336,
-      "sha256": "3eba7fcb16ff96228c80c4f7452bd65aeba36da5f742537344f288d3403f6224"
+      "sha256": "fbe668549938da6f644decc37687d965d152b6a9b685724ec1335c7df1fea613"
     },
     {
       "module_id": "market_share",
@@ -1065,7 +1091,7 @@
       "path": "data/industry_study/industry_market_share_manifest.json",
       "exists": true,
       "bytes": 2237,
-      "sha256": "a6b0d2407adb0f94f791bb02d4b403e5c8c9f5f2d3b5fec6efc4a13ad1a2fd72"
+      "sha256": "faccc7fc6ca15dd59d3cb5a0b2230b748f248aa0adab707b45587df4909687a5"
     }
   ]
 }

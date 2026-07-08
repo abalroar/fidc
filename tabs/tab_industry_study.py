@@ -67,6 +67,8 @@ _PIPELINE_INDEX_PATH = _DATA_DIR / "industry_pipeline_index.json"
 _MONTHLY_DELTA_PATH = _DATA_DIR / "industry_monthly_delta.csv.gz"
 _MONTHLY_DELTA_MANIFEST_PATH = _DATA_DIR / "industry_monthly_delta_manifest.json"
 _MONTHLY_DELTA_ACTIONS_PATH = _DATA_DIR / "monthly_delta_actions.csv"
+_SNAPSHOT_GAP_ACTIONS_PATH = _DATA_DIR / "snapshot_gap_actions.csv"
+_SNAPSHOT_GAP_ACTION_AUDIT_PATH = _DATA_DIR / "snapshot_gap_action_audit.csv"
 _FUND_SNAPSHOT_PATH = _DATA_DIR / "industry_fund_snapshot.csv.gz"
 _FUND_SNAPSHOT_MANIFEST_PATH = _DATA_DIR / "industry_fund_snapshot_manifest.json"
 _DIMENSION_CATALOG_PATH = _DATA_DIR / "industry_dimension_catalog.csv.gz"
@@ -90,6 +92,15 @@ _CRITERIA_STRUCTURED_PATH = _DATA_DIR / "criteria_structured.csv.gz"
 _CRITERIA_MANIFEST_PATH = _DATA_DIR / "industry_criteria_manifest.json"
 _CEDENTE_REVIEW_COLUMNS = CEDENTE_REVIEW_COLUMNS
 _CRITERIA_REVIEW_COLUMNS = CRITERIA_REVIEW_COLUMNS
+_SNAPSHOT_GAP_ACTION_COLUMNS = [
+    "gap_id",
+    "status_lacuna",
+    "acao_revisada",
+    "responsavel",
+    "prazo",
+    "notas",
+    "updated_at_utc",
+]
 
 # Paleta laranja/preto/cinza - maior contraste entre tons sobre fundo branco.
 _ORANGE = "#ff5a00"
@@ -601,6 +612,65 @@ def _load_dimension_profile_tables() -> dict[str, pd.DataFrame | dict[str, objec
     }
 
 
+@st.cache_data(show_spinner=False)
+def _load_snapshot_gap_actions() -> pd.DataFrame:
+    actions = load_dataframe(_SNAPSHOT_GAP_ACTIONS_PATH)
+    for col in _SNAPSHOT_GAP_ACTION_COLUMNS:
+        if col not in actions.columns:
+            actions[col] = ""
+    return actions[_SNAPSHOT_GAP_ACTION_COLUMNS]
+
+
+def _save_snapshot_gap_actions(actions: pd.DataFrame) -> pd.DataFrame:
+    out = actions.copy() if actions is not None else pd.DataFrame(columns=_SNAPSHOT_GAP_ACTION_COLUMNS)
+    for col in _SNAPSHOT_GAP_ACTION_COLUMNS:
+        if col not in out.columns:
+            out[col] = ""
+    out = out[_SNAPSHOT_GAP_ACTION_COLUMNS]
+    out = out[out["gap_id"].fillna("").astype(str).str.strip().ne("")].drop_duplicates("gap_id", keep="last")
+    save_dataframe(out, _SNAPSHOT_GAP_ACTIONS_PATH)
+    return out
+
+
+def _apply_snapshot_gap_actions(gaps: pd.DataFrame, actions: pd.DataFrame | None) -> pd.DataFrame:
+    if gaps is None or gaps.empty:
+        return pd.DataFrame() if gaps is None else gaps.copy()
+    out = gaps.copy()
+    for col in ["status_lacuna", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        if col not in out.columns:
+            out[col] = ""
+    if actions is None or actions.empty or "gap_id" not in actions.columns or "gap_id" not in out.columns:
+        out["status_lacuna"] = out["status_lacuna"].replace("", "pendente")
+        return out
+    overlay = actions.copy()
+    for col in _SNAPSHOT_GAP_ACTION_COLUMNS:
+        if col not in overlay.columns:
+            overlay[col] = ""
+    overlay = overlay[_SNAPSHOT_GAP_ACTION_COLUMNS].drop_duplicates("gap_id", keep="last")
+    out = out.merge(overlay, on="gap_id", how="left", suffixes=("", "_review"))
+    for col in ["status_lacuna", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        review_col = f"{col}_review"
+        if review_col in out.columns:
+            out[col] = out[review_col].fillna("").astype(str).where(
+                out[review_col].fillna("").astype(str).str.strip().ne(""),
+                out[col].fillna("").astype(str),
+            )
+            out = out.drop(columns=[review_col])
+    out["status_lacuna"] = out["status_lacuna"].replace("", "pendente")
+    return out
+
+
+def _snapshot_gap_actions_for_audit(actions: pd.DataFrame | None) -> pd.DataFrame:
+    if actions is None or actions.empty:
+        return pd.DataFrame(columns=["gap_id", "status", "acao_revisada", "responsavel", "prazo", "notas"])
+    out = actions.copy()
+    for col in _SNAPSHOT_GAP_ACTION_COLUMNS:
+        if col not in out.columns:
+            out[col] = ""
+    out["status"] = out["status_lacuna"].fillna("").astype(str).replace("", "pendente")
+    return out[["gap_id", "status", "acao_revisada", "responsavel", "prazo", "notas"]]
+
+
 def _format_fund_snapshot_table(frame: pd.DataFrame) -> pd.DataFrame:
     out = frame.copy()
     column_map = {
@@ -637,6 +707,133 @@ def _format_fund_snapshot_table(frame: pd.DataFrame) -> pd.DataFrame:
     if "Sub mín." in out.columns:
         out["Sub mín."] = pd.to_numeric(out["Sub mín."], errors="coerce").map(lambda value: _pct_label(value))
     return out
+
+
+def _snapshot_gap_frame(snapshot: pd.DataFrame) -> pd.DataFrame:
+    if snapshot.empty:
+        return pd.DataFrame()
+    frame = snapshot.copy()
+    for col in [
+        "pl",
+        "valid_volume_2024_2026_brl",
+        "document_rows",
+        "document_local_ready",
+        "cedente_rows",
+        "criteria_rows",
+        "criteria_subordination_rows",
+    ]:
+        if col in frame.columns:
+            frame[col] = pd.to_numeric(frame[col], errors="coerce").fillna(0.0)
+        else:
+            frame[col] = 0.0
+    bool_source = frame.get("tem_emissao_2025_2026", pd.Series(False, index=frame.index))
+    frame["priority_2025_2026"] = bool_source.astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})
+    competencia = frame.get("competencia", pd.Series("", index=frame.index)).fillna("").astype(str).replace("", "snapshot")
+    cnpj_norm = frame.get("cnpj_fundo", pd.Series("", index=frame.index)).map(normalize_cnpj)
+    frame["gap_id"] = competencia + "_" + cnpj_norm
+
+    gap_specs = [
+        ("sem documento", frame["document_rows"].le(0)),
+        ("sem documento local", frame["document_local_ready"].le(0)),
+        ("sem cedente/sacado", frame["cedente_rows"].le(0)),
+        ("sem critérios", frame["criteria_rows"].le(0)),
+        ("sem sub mínima", frame["criteria_subordination_rows"].le(0)),
+    ]
+    missing_layers: list[str] = []
+    gap_counts: list[int] = []
+    for idx in frame.index:
+        gaps = [label for label, mask in gap_specs if bool(mask.loc[idx])]
+        missing_layers.append(" | ".join(gaps))
+        gap_counts.append(len(gaps))
+    frame["missing_layers"] = missing_layers
+    frame["gap_count"] = gap_counts
+    frame["gap_priority_score"] = (
+        frame["gap_count"] * 10
+        + frame["priority_2025_2026"].astype(int) * 20
+        + pd.to_numeric(frame["pl"], errors="coerce").fillna(0.0).rank(pct=True).fillna(0.0) * 5
+    )
+    frame = frame[frame["gap_count"].gt(0)].copy()
+    if frame.empty:
+        return frame
+    return frame.sort_values(["priority_2025_2026", "gap_priority_score", "pl"], ascending=[False, False, False]).reset_index(drop=True)
+
+
+def _format_snapshot_gap_table(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    cols = [
+        "gap_id",
+        "cnpj_fundo",
+        "nome_exibicao",
+        "pl",
+        "valid_volume_2024_2026_brl",
+        "priority_2025_2026",
+        "gap_count",
+        "missing_layers",
+        "status_lacuna",
+        "acao_revisada",
+        "responsavel",
+        "prazo",
+        "notas",
+        "updated_at_utc",
+        "admin_nome",
+        "gestor_nome",
+        "segmento_principal",
+        "document_chunk_ids",
+    ]
+    out = frame[[col for col in cols if col in frame.columns]].copy()
+    out = out.rename(
+        columns={
+            "gap_id": "ID",
+            "cnpj_fundo": "CNPJ",
+            "nome_exibicao": "FIDC",
+            "pl": "PL",
+            "valid_volume_2024_2026_brl": "Emissões 24-26",
+            "priority_2025_2026": "Prioridade 25-26",
+            "gap_count": "Lacunas",
+            "missing_layers": "Camadas faltantes",
+            "status_lacuna": "Status lacuna",
+            "acao_revisada": "Ação revisada",
+            "responsavel": "Responsável",
+            "prazo": "Prazo",
+            "notas": "Notas",
+            "updated_at_utc": "Atualizado",
+            "admin_nome": "Administrador",
+            "gestor_nome": "Gestor",
+            "segmento_principal": "Segmento",
+            "document_chunk_ids": "Chunks",
+        }
+    )
+    for col in ["PL", "Emissões 24-26"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0.0).map(lambda value: _fmt_bi(float(value), 1))
+    if "Lacunas" in out.columns:
+        out["Lacunas"] = pd.to_numeric(out["Lacunas"], errors="coerce").fillna(0.0).map(lambda value: _fmt_int(float(value)))
+    if "Prioridade 25-26" in out.columns:
+        out["Prioridade 25-26"] = out["Prioridade 25-26"].astype(bool).map({True: "sim", False: "não"})
+    return out
+
+
+def _pl_fic_impact_frame(industry: pd.DataFrame) -> pd.DataFrame:
+    required = {"competencia", "pl_total"}
+    if industry.empty or not required.issubset(industry.columns):
+        return pd.DataFrame()
+    frame = industry.copy()
+    frame["pl_total"] = pd.to_numeric(frame["pl_total"], errors="coerce").fillna(0.0)
+    frame["pl_fic_fidc"] = pd.to_numeric(frame.get("pl_fic_fidc", pd.Series(0.0, index=frame.index)), errors="coerce").fillna(0.0)
+    frame["pl_ex_fic_fidc"] = (frame["pl_total"] - frame["pl_fic_fidc"]).clip(lower=0.0)
+    frame["fic_share"] = frame["pl_fic_fidc"] / frame["pl_total"].replace(0.0, pd.NA)
+    frame["fic_share"] = frame["fic_share"].fillna(0.0)
+    keep = [
+        "competencia",
+        "pl_total",
+        "pl_fic_fidc",
+        "pl_ex_fic_fidc",
+        "fic_share",
+    ]
+    if "mes" in frame.columns:
+        keep.insert(1, "mes")
+    return frame[keep].sort_values("competencia").reset_index(drop=True)
 
 
 def _filter_fund_rows(frame: pd.DataFrame, cnpj: object, *, column: str = "cnpj_fundo") -> pd.DataFrame:
@@ -1416,6 +1613,142 @@ def _render_fund_snapshot_universe() -> None:
             status = numeric["snapshot_status"].fillna("n/d").astype(str).value_counts().reset_index()
             status.columns = ["Status", "FIDCs"]
             st.dataframe(status, hide_index=True, width="stretch")
+        gap_actions = _load_snapshot_gap_actions()
+        gaps = _apply_snapshot_gap_actions(_snapshot_gap_frame(numeric), gap_actions)
+        st.markdown("**Fila de lacunas por FIDC**")
+        if gaps.empty:
+            st.caption("Nenhuma lacuna encontrada nas camadas estruturadas do snapshot.")
+        else:
+            gap_a, gap_b, gap_c = st.columns([1.05, 0.8, 1.1])
+            all_layers = sorted(
+                {
+                    layer
+                    for value in gaps["missing_layers"].fillna("").astype(str)
+                    for layer in [part.strip() for part in value.split("|")]
+                    if layer
+                }
+            )
+            with gap_a:
+                selected_layers = st.multiselect(
+                    "Camada faltante",
+                    all_layers,
+                    default=all_layers,
+                    key="industry_snapshot_gap_layers",
+                )
+            with gap_b:
+                priority_only = st.checkbox("Só prioridade 25-26", value=True, key="industry_snapshot_gap_priority")
+            with gap_c:
+                gap_query = st.text_input("Buscar lacuna", key="industry_snapshot_gap_query", placeholder="FIDC, CNPJ, administrador")
+            gap_view = gaps.copy()
+            if selected_layers:
+                gap_view = gap_view[
+                    gap_view["missing_layers"].fillna("").astype(str).map(
+                        lambda value: any(layer in {part.strip() for part in value.split("|")} for layer in selected_layers)
+                    )
+                ].copy()
+            if priority_only and "priority_2025_2026" in gap_view.columns:
+                gap_view = gap_view[gap_view["priority_2025_2026"].astype(bool)].copy()
+            if gap_query:
+                search_cols = [
+                    col
+                    for col in [
+                        "nome_exibicao",
+                        "cnpj_fundo",
+                        "admin_nome",
+                        "gestor_nome",
+                        "segmento_principal",
+                        "missing_layers",
+                    ]
+                    if col in gap_view.columns
+                ]
+                haystack = gap_view[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=gap_view.index)
+                gap_view = gap_view[haystack.str.contains(gap_query, case=False, na=False)].copy()
+            gap_cards = [
+                _curation_card("FIDCs com lacuna", _fmt_int(float(len(gap_view))), "filtro atual"),
+                _curation_card(
+                    "Prioridade 25-26",
+                    _fmt_int(float(gap_view.get("priority_2025_2026", pd.Series(False, index=gap_view.index)).astype(bool).sum())),
+                    "emissões recentes",
+                ),
+                _curation_card("PL monitorado", _fmt_bi(float(pd.to_numeric(gap_view.get("pl", pd.Series(dtype=float)), errors="coerce").fillna(0).sum()), 1), "filtro atual"),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(gap_cards)}</div>', unsafe_allow_html=True)
+            gap_page = gap_view.head(160).copy()
+            gap_display = _format_snapshot_gap_table(gap_page)
+            edited_gaps = st.data_editor(
+                gap_display,
+                hide_index=True,
+                width="stretch",
+                height=520,
+                disabled=[
+                    col
+                    for col in gap_display.columns
+                    if col not in {"Status lacuna", "Ação revisada", "Responsável", "Prazo", "Notas"}
+                ],
+                column_config={
+                    "ID": st.column_config.TextColumn("ID", width="small"),
+                    "Status lacuna": st.column_config.SelectboxColumn(
+                        "Status lacuna",
+                        options=["pendente", "em andamento", "corrigido", "aceito", "ignorado"],
+                        required=True,
+                    ),
+                    "Ação revisada": st.column_config.TextColumn("Ação revisada", width="large"),
+                    "Notas": st.column_config.TextColumn("Notas", width="large"),
+                },
+                key="industry_snapshot_gap_editor",
+            )
+            if st.button("Salvar acompanhamento das lacunas", type="primary", key="industry_save_snapshot_gap_actions"):
+                saved_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+                edited_actions_all = pd.DataFrame(
+                    {
+                        "gap_id": edited_gaps["ID"].fillna("").astype(str),
+                        "status_lacuna": edited_gaps["Status lacuna"].fillna("").astype(str).replace("", "pendente"),
+                        "acao_revisada": edited_gaps["Ação revisada"].fillna("").astype(str),
+                        "responsavel": edited_gaps["Responsável"].fillna("").astype(str),
+                        "prazo": edited_gaps["Prazo"].fillna("").astype(str),
+                        "notas": edited_gaps["Notas"].fillna("").astype(str),
+                        "updated_at_utc": saved_at,
+                    }
+                )
+                text_cols = ["acao_revisada", "responsavel", "prazo", "notas"]
+                material = edited_actions_all["status_lacuna"].ne("pendente") | (
+                    edited_actions_all[text_cols].fillna("").astype(str).agg(" ".join, axis=1).str.strip().ne("")
+                )
+                edited_actions_all = edited_actions_all[edited_actions_all["gap_id"].str.strip().ne("")].copy()
+                edited_actions = edited_actions_all[material.loc[edited_actions_all.index]].copy()
+                visible_ids = set(edited_gaps["ID"].fillna("").astype(str))
+                existing = gap_actions.copy()
+                if not existing.empty and "gap_id" in existing.columns:
+                    existing = existing[~existing["gap_id"].fillna("").astype(str).isin(visible_ids)].copy()
+                updated_actions = pd.concat([existing, edited_actions], ignore_index=True)
+                audit_source = pd.concat([existing, edited_actions_all], ignore_index=True)
+                audit_events = build_review_audit_events(
+                    previous=_snapshot_gap_actions_for_audit(gap_actions),
+                    updated=_snapshot_gap_actions_for_audit(audit_source),
+                    key_column="gap_id",
+                    review_domain="snapshot_gap",
+                    saved_at_utc=saved_at,
+                    source="industry_snapshot_gap_editor",
+                )
+                _save_snapshot_gap_actions(updated_actions)
+                append_review_audit_events(audit_events, _SNAPSHOT_GAP_ACTION_AUDIT_PATH)
+                _load_snapshot_gap_actions.clear()
+                st.success(
+                    f"Acompanhamento salvo para {_fmt_int(float(len(edited_actions)))} lacunas visíveis; "
+                    f"{_fmt_int(float(len(audit_events)))} eventos no histórico."
+                )
+            st.download_button(
+                "Baixar fila de lacunas",
+                data=gap_view.to_csv(index=False).encode("utf-8"),
+                file_name="industry_snapshot_gap_queue.csv",
+                mime="text/csv",
+                key="industry_snapshot_gap_download",
+            )
+            with st.expander("Histórico de revisão das lacunas"):
+                _render_review_audit(
+                    _SNAPSHOT_GAP_ACTION_AUDIT_PATH,
+                    empty_label="Nenhum histórico de lacunas salvo ainda.",
+                )
 
     with tab_manifest:
         if manifest:
@@ -1782,6 +2115,28 @@ def _dimension_catalog_options(catalog: pd.DataFrame) -> dict[str, str]:
     return ordered
 
 
+def _heatmap_preset_options(dimension_labels: list[str]) -> dict[str, tuple[str, str] | None]:
+    available = set(dimension_labels)
+    specs = [
+        ("Administrador × Segmento", "Administrador", "Segmento"),
+        ("Gestor × Segmento", "Gestor", "Segmento"),
+        ("Cedente/sacado × Segmento", "Cedente/sacado", "Segmento"),
+        ("Cedente/sacado × Administrador", "Cedente/sacado", "Administrador"),
+        ("Setor cedente × Ano 1ª oferta", "Setor cedente", "Ano 1ª oferta"),
+        ("Segmento × Safra emissão", "Segmento", "Safra emissão"),
+        ("Setor cedente × Indexador", "Setor cedente", "Indexador"),
+        ("Segmento × Indexador", "Segmento", "Indexador"),
+        ("Administrador × Tipo de cota", "Administrador", "Tipo de cota"),
+        ("Critério × Segmento", "Critério", "Segmento"),
+        ("Status curadoria × Segmento", "Status curadoria", "Segmento"),
+    ]
+    options: dict[str, tuple[str, str] | None] = {"Personalizado": None}
+    for label, row_label, col_label in specs:
+        if row_label in available and col_label in available:
+            options[label] = (row_label, col_label)
+    return options
+
+
 def _dimension_catalog_rows(catalog: pd.DataFrame, dimension_id: str) -> pd.DataFrame:
     if catalog.empty or "dimension_id" not in catalog.columns:
         return pd.DataFrame()
@@ -1858,6 +2213,342 @@ def _catalog_heatmap_base_frame(vehicle: pd.DataFrame, catalog: pd.DataFrame, ro
         return base.iloc[0:0].copy()
     frame = base.merge(pairs, on="cnpj_fundo_norm", how="inner")
     return frame
+
+
+def _catalog_heatmap_cell_frame(
+    catalog: pd.DataFrame,
+    snapshot: pd.DataFrame,
+    row_id: str,
+    row_value: str,
+    col_id: str,
+    col_value: str,
+) -> pd.DataFrame:
+    row_dim = _dimension_catalog_rows(catalog, row_id)
+    col_dim = _dimension_catalog_rows(catalog, col_id)
+    if row_dim.empty or col_dim.empty:
+        return pd.DataFrame()
+    row_dim = row_dim[row_dim["dimension_value"].astype(str).eq(str(row_value))].copy()
+    col_dim = col_dim[col_dim["dimension_value"].astype(str).eq(str(col_value))].copy()
+    if row_dim.empty or col_dim.empty:
+        return pd.DataFrame()
+
+    evidence_cols = [
+        "cnpj_fundo_norm",
+        "cnpj_fundo",
+        "nome_exibicao",
+        "dimension_value",
+        "value_weight",
+        "source_layer",
+        "source_field",
+        "source_value",
+        "is_multivalue",
+        "is_curated",
+        "participant_type",
+        "participant_cnpj",
+        "source_document",
+        "source_page",
+        "source_date",
+        "source_method",
+        "confidence_score",
+        "review_status",
+        "priority_2025_2026",
+    ]
+
+    def _prefix_dimension(frame: pd.DataFrame, prefix: str) -> pd.DataFrame:
+        keep = [col for col in evidence_cols if col in frame.columns]
+        out = frame[keep].copy()
+        return out.rename(columns={col: f"{prefix}_{col}" for col in keep if col != "cnpj_fundo_norm"})
+
+    left = _prefix_dimension(row_dim, "row")
+    right = _prefix_dimension(col_dim, "col")
+    if str(row_id) == str(col_id):
+        if str(row_value) != str(col_value):
+            return pd.DataFrame()
+        pairs = pd.concat(
+            [
+                left.reset_index(drop=True),
+                right.drop(columns=["cnpj_fundo_norm"], errors="ignore").reset_index(drop=True),
+            ],
+            axis=1,
+        )
+    else:
+        pairs = left.merge(right, on="cnpj_fundo_norm", how="inner")
+    if pairs.empty:
+        return pd.DataFrame()
+
+    fund_cols = [
+        "cnpj_fundo",
+        "nome_exibicao",
+        "competencia",
+        "pl",
+        "valid_volume_2024_2026_brl",
+        "admin_nome",
+        "gestor_nome",
+        "segmento_principal",
+        "segmento_estrategia",
+        "subsegmento_estrategia",
+        "document_rows",
+        "cedente_rows",
+        "criteria_rows",
+        "sub_min_pct_median",
+        "snapshot_status",
+        "document_chunk_ids",
+    ]
+    if snapshot is not None and not snapshot.empty:
+        funds = snapshot.copy()
+        id_col = "cnpj_fundo" if "cnpj_fundo" in funds.columns else "cnpj"
+        funds["cnpj_fundo_norm"] = funds[id_col].map(normalize_cnpj)
+        funds = funds[[col for col in ["cnpj_fundo_norm", *fund_cols] if col in funds.columns]].drop_duplicates("cnpj_fundo_norm")
+        out = pairs.merge(funds, on="cnpj_fundo_norm", how="left")
+    else:
+        out = pairs.copy()
+        out["cnpj_fundo"] = out["cnpj_fundo_norm"]
+    if "cnpj_fundo" in out.columns:
+        out["cnpj_fundo"] = out["cnpj_fundo"].fillna(out["cnpj_fundo_norm"])
+    for col in [
+        "pl",
+        "valid_volume_2024_2026_brl",
+        "document_rows",
+        "cedente_rows",
+        "criteria_rows",
+        "sub_min_pct_median",
+        "row_confidence_score",
+        "col_confidence_score",
+    ]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce")
+    sort_cols = [col for col in ["pl", "valid_volume_2024_2026_brl", "nome_exibicao"] if col in out.columns]
+    if sort_cols:
+        ascending = [False if col != "nome_exibicao" else True for col in sort_cols]
+        out = out.sort_values(sort_cols, ascending=ascending)
+    return out.reset_index(drop=True)
+
+
+def _format_heatmap_cell_drilldown(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    columns = [
+        "cnpj_fundo",
+        "nome_exibicao",
+        "pl",
+        "valid_volume_2024_2026_brl",
+        "admin_nome",
+        "gestor_nome",
+        "segmento_principal",
+        "snapshot_status",
+        "row_source_layer",
+        "row_source_document",
+        "row_source_page",
+        "row_source_method",
+        "row_confidence_score",
+        "row_review_status",
+        "col_source_layer",
+        "col_source_document",
+        "col_source_page",
+        "col_source_method",
+        "col_confidence_score",
+        "col_review_status",
+        "document_chunk_ids",
+    ]
+    out = frame[[col for col in columns if col in frame.columns]].copy()
+    out = out.rename(
+        columns={
+            "cnpj_fundo": "CNPJ",
+            "nome_exibicao": "FIDC",
+            "pl": "PL",
+            "valid_volume_2024_2026_brl": "Emissões 24-26",
+            "admin_nome": "Administrador",
+            "gestor_nome": "Gestor",
+            "segmento_principal": "Segmento",
+            "snapshot_status": "Status",
+            "row_source_layer": "Fonte linha",
+            "row_source_document": "Doc linha",
+            "row_source_page": "Pág. linha",
+            "row_source_method": "Método linha",
+            "row_confidence_score": "Score linha",
+            "row_review_status": "Revisão linha",
+            "col_source_layer": "Fonte coluna",
+            "col_source_document": "Doc coluna",
+            "col_source_page": "Pág. coluna",
+            "col_source_method": "Método coluna",
+            "col_confidence_score": "Score coluna",
+            "col_review_status": "Revisão coluna",
+            "document_chunk_ids": "Chunks",
+        }
+    )
+    for money_col in ["PL", "Emissões 24-26"]:
+        if money_col in out.columns:
+            out[money_col] = pd.to_numeric(out[money_col], errors="coerce").fillna(0.0).map(lambda value: _fmt_bi(float(value), 2))
+    for score_col in ["Score linha", "Score coluna"]:
+        if score_col in out.columns:
+            out[score_col] = pd.to_numeric(out[score_col], errors="coerce").map(
+                lambda value: "n/d" if pd.isna(value) else f"{float(value):.2f}".replace(".", ",")
+            )
+    return out
+
+
+_PROFILE_HEATMAP_METRICS = {
+    "PL médio": ("pl_brl", 1e9, "PL (R$ bi)", ",.1f"),
+    "Fundos": ("funds_unique", 1.0, "Fundos", ",.0f"),
+    "Veículos": ("vehicles_unique", 1.0, "Veículos", ",.0f"),
+}
+
+
+def _profile_heatmap_metric_config(metric_label: str) -> tuple[str, float, str, str] | None:
+    return _PROFILE_HEATMAP_METRICS.get(metric_label)
+
+
+def _profile_heatmap_frame(profiles: pd.DataFrame, row_id: str, col_id: str, metric_label: str) -> pd.DataFrame:
+    config = _profile_heatmap_metric_config(metric_label)
+    if config is None or profiles.empty:
+        return pd.DataFrame()
+    metric_col, divisor, _, _ = config
+    required = {
+        "competencia",
+        "source_dimension_id",
+        "source_dimension_label",
+        "source_dimension_value",
+        "target_dimension_id",
+        "target_dimension_label",
+        "target_dimension_value",
+        metric_col,
+    }
+    if not required.issubset(profiles.columns):
+        return pd.DataFrame()
+    frame = profiles[
+        profiles["source_dimension_id"].astype(str).eq(str(row_id))
+        & profiles["target_dimension_id"].astype(str).eq(str(col_id))
+    ].copy()
+    if frame.empty:
+        return pd.DataFrame()
+    if str(row_id) == str(col_id):
+        frame = frame[
+            frame["source_dimension_value"].astype(str).eq(frame["target_dimension_value"].astype(str))
+        ].copy()
+    if frame.empty:
+        return pd.DataFrame()
+
+    frame["linha"] = frame["source_dimension_value"].fillna("").astype(str).str.strip().replace("", "n/d")
+    frame["coluna"] = frame["target_dimension_value"].fillna("").astype(str).str.strip().replace("", "n/d")
+    frame["valor"] = pd.to_numeric(frame[metric_col], errors="coerce").fillna(0.0) / divisor
+    numeric_cols = [
+        "catalog_links",
+        "source_document_links",
+        "curated_links",
+        "weighted_links",
+        "avg_confidence_score",
+    ]
+    for col in numeric_cols:
+        if col in frame.columns:
+            frame[col] = pd.to_numeric(frame[col], errors="coerce").fillna(0.0)
+        else:
+            frame[col] = 0.0
+    return (
+        frame.groupby(["linha", "coluna"], dropna=False)
+        .agg(
+            valor=("valor", "sum"),
+            competencia=("competencia", "first"),
+            source_dimension_label=("source_dimension_label", "first"),
+            target_dimension_label=("target_dimension_label", "first"),
+            catalog_links=("catalog_links", "sum"),
+            source_document_links=("source_document_links", "sum"),
+            curated_links=("curated_links", "sum"),
+            weighted_links=("weighted_links", "sum"),
+            avg_confidence_score=("avg_confidence_score", "mean"),
+        )
+        .reset_index()
+    )
+
+
+def _dimension_profile_coverage_frame(profiles: pd.DataFrame) -> pd.DataFrame:
+    required = {
+        "source_dimension_id",
+        "source_dimension_label",
+        "source_dimension_value",
+        "target_dimension_id",
+        "target_dimension_value",
+    }
+    if profiles.empty or not required.issubset(profiles.columns):
+        return pd.DataFrame()
+    frame = profiles.copy()
+    numeric_cols = [
+        "catalog_links",
+        "source_document_links",
+        "curated_links",
+        "weighted_links",
+        "avg_confidence_score",
+    ]
+    for col in numeric_cols:
+        if col in frame.columns:
+            frame[col] = pd.to_numeric(frame[col], errors="coerce").fillna(0.0)
+        else:
+            frame[col] = 0.0
+    coverage = (
+        frame.groupby(["source_dimension_label", "source_dimension_id"], dropna=False)
+        .agg(
+            source_values=("source_dimension_value", "nunique"),
+            target_dimensions=("target_dimension_id", "nunique"),
+            target_values=("target_dimension_value", "nunique"),
+            profile_rows=("target_dimension_value", "size"),
+            profile_links=("catalog_links", "sum"),
+            source_document_links=("source_document_links", "sum"),
+            curated_links=("curated_links", "sum"),
+            weighted_links=("weighted_links", "sum"),
+            avg_confidence_score=("avg_confidence_score", "mean"),
+        )
+        .reset_index()
+    )
+    links = pd.to_numeric(coverage["profile_links"], errors="coerce").fillna(0.0).replace(0, pd.NA)
+    coverage["source_document_ratio"] = pd.to_numeric(coverage["source_document_links"], errors="coerce").fillna(0.0) / links
+    coverage["curated_ratio"] = pd.to_numeric(coverage["curated_links"], errors="coerce").fillna(0.0) / links
+    coverage["weighted_ratio"] = pd.to_numeric(coverage["weighted_links"], errors="coerce").fillna(0.0) / links
+    return coverage.sort_values(["profile_links", "profile_rows"], ascending=[False, False]).reset_index(drop=True)
+
+
+def _format_dimension_profile_coverage(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.rename(
+        columns={
+            "source_dimension_label": "Dimensão origem",
+            "source_dimension_id": "ID",
+            "source_values": "Valores origem",
+            "target_dimensions": "Dimensões alvo",
+            "target_values": "Valores alvo",
+            "profile_rows": "Células",
+            "profile_links": "Links",
+            "source_document_links": "Links com fonte",
+            "curated_links": "Links curados",
+            "weighted_links": "Links ponderados",
+            "source_document_ratio": "% com fonte",
+            "curated_ratio": "% curado",
+            "weighted_ratio": "% ponderado",
+            "avg_confidence_score": "Score médio",
+        }
+    )
+    count_cols = [
+        "Valores origem",
+        "Dimensões alvo",
+        "Valores alvo",
+        "Células",
+        "Links",
+        "Links com fonte",
+        "Links curados",
+        "Links ponderados",
+    ]
+    for col in count_cols:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    for col in ["% com fonte", "% curado", "% ponderado"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").map(
+                lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
+            )
+    if "Score médio" in out.columns:
+        out["Score médio"] = pd.to_numeric(out["Score médio"], errors="coerce").map(
+            lambda value: "n/d" if pd.isna(value) else f"{float(value):.2f}".replace(".", ",")
+        )
+    return out
 
 
 def _catalog_deep_dive_frame(vehicle: pd.DataFrame, catalog: pd.DataFrame, dimension_id: str) -> pd.DataFrame:
@@ -2010,89 +2701,136 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
     dimension_monthly_manifest = monthly_tables["manifest"]
     assert isinstance(dimension_monthly, pd.DataFrame)
     assert isinstance(dimension_monthly_manifest, dict)
+    profile_tables = _load_dimension_profile_tables() if use_catalog else {"profiles": pd.DataFrame(), "manifest": {}}
+    dimension_profiles = profile_tables["profiles"]
+    dimension_profile_manifest = profile_tables["manifest"]
+    assert isinstance(dimension_profiles, pd.DataFrame)
+    assert isinstance(dimension_profile_manifest, dict)
     dimensions = catalog_dimensions if use_catalog else fallback_dimensions
     metric_options = ["PL médio", "Captação líquida", "Veículos", "Fundos"]
     dimension_labels = list(dimensions)
+    preset_options = _heatmap_preset_options(dimension_labels)
+    preset_labels = list(preset_options)
+    default_preset = "Administrador × Segmento" if "Administrador × Segmento" in preset_options else "Personalizado"
 
-    ctrl_a, ctrl_b, ctrl_c, ctrl_d, ctrl_e = st.columns([1.0, 1.0, 0.9, 0.9, 0.65])
+    ctrl_a, ctrl_b, ctrl_c, ctrl_d = st.columns([1.35, 0.9, 0.9, 0.65])
     with ctrl_a:
-        row_label = st.selectbox("Linhas", dimension_labels, index=dimension_labels.index("Administrador"), key="industry_heatmap_rows")
+        preset_label = st.selectbox(
+            "Combinação",
+            preset_labels,
+            index=preset_labels.index(default_preset),
+            key="industry_heatmap_preset",
+        )
     with ctrl_b:
-        col_label = st.selectbox("Colunas", dimension_labels, index=dimension_labels.index("Segmento"), key="industry_heatmap_cols")
-    with ctrl_c:
         metric_label = st.selectbox("Métrica", metric_options, key="industry_heatmap_metric")
-    with ctrl_d:
+    with ctrl_c:
         period = st.selectbox(
             "Janela",
             ["Última competência", "Últimos 12 meses", "2025 até data-base", "Histórico completo"],
             key="industry_heatmap_period",
         )
-    with ctrl_e:
+    with ctrl_d:
         top_n = st.slider("Top", min_value=5, max_value=25, value=12, step=1, key="industry_heatmap_top")
 
-    frame = _period_filter(vehicle, comp, period)
-    if use_catalog:
-        frame = _catalog_heatmap_base_frame(frame, catalog, dimensions[row_label], dimensions[col_label])
+    preset_pair = preset_options[preset_label]
+    if preset_pair is None:
+        row_ctrl, col_ctrl = st.columns([1.0, 1.0])
+        with row_ctrl:
+            row_label = st.selectbox(
+                "Linhas",
+                dimension_labels,
+                index=dimension_labels.index("Administrador") if "Administrador" in dimension_labels else 0,
+                key="industry_heatmap_rows",
+            )
+        with col_ctrl:
+            col_label = st.selectbox(
+                "Colunas",
+                dimension_labels,
+                index=dimension_labels.index("Segmento") if "Segmento" in dimension_labels else 0,
+                key="industry_heatmap_cols",
+            )
     else:
-        cedentes = _build_structured_cedentes()
-        snapshot_tables = _load_fund_snapshot_tables()
-        snapshot = snapshot_tables["snapshot"]
-        assert isinstance(snapshot, pd.DataFrame)
-        frame = _heatmap_base_frame(frame, cedentes, snapshot, dimensions[row_label], dimensions[col_label])
-    if frame.empty:
-        st.caption("Sem linhas para a janela selecionada.")
-        return
-    frame = frame.copy()
-    if not use_catalog:
-        frame["linha"] = _dimension_series(frame, dimensions[row_label])
-        frame["coluna"] = _dimension_series(frame, dimensions[col_label])
-    frame = frame[(frame["linha"] != "n/d") & (frame["coluna"] != "n/d")]
-    if frame.empty:
-        st.caption("As dimensões selecionadas não têm dados preenchidos nessa janela.")
-        return
+        row_label, col_label = preset_pair
 
-    if metric_label == "PL médio":
-        frame["pl_metric"] = pd.to_numeric(frame["pl"], errors="coerce").fillna(0) * frame["_metric_weight"]
-        monthly = (
-            frame.groupby(["competencia", "linha", "coluna"], dropna=False)["pl_metric"]
-            .sum()
-            .reset_index(name="valor_base")
+    profile_heatmap_used = False
+    frame = pd.DataFrame()
+    profile_config = _profile_heatmap_metric_config(metric_label)
+    if use_catalog and period == "Última competência" and profile_config is not None:
+        heatmap = _profile_heatmap_frame(
+            dimension_profiles,
+            dimensions[row_label],
+            dimensions[col_label],
+            metric_label,
         )
-        heatmap = (
-            monthly.groupby(["linha", "coluna"], dropna=False)["valor_base"]
-            .mean()
-            .reset_index(name="valor")
-        )
-        value_title = "PL médio (R$ bi)"
-        value_format = ",.1f"
-        heatmap["valor"] = heatmap["valor"] / 1e9
-    elif metric_label == "Captação líquida":
-        frame["captacao_metric"] = pd.to_numeric(frame["captacao_liquida"], errors="coerce").fillna(0) * frame["_metric_weight"]
-        heatmap = (
-            frame.groupby(["linha", "coluna"], dropna=False)["captacao_metric"]
-            .sum()
-            .reset_index(name="valor")
-        )
-        value_title = "Captação líquida (R$ bi)"
-        value_format = ",.1f"
-        heatmap["valor"] = heatmap["valor"] / 1e9
-    elif metric_label == "Fundos":
-        id_col = "cnpj_fundo" if "cnpj_fundo" in frame.columns else "cnpj"
-        heatmap = (
-            frame.groupby(["linha", "coluna"], dropna=False)[id_col]
-            .nunique()
-            .reset_index(name="valor")
-        )
-        value_title = "Fundos"
-        value_format = ",.0f"
+        profile_heatmap_used = not heatmap.empty
+        _, _, value_title, value_format = profile_config
     else:
-        heatmap = (
-            frame.groupby(["linha", "coluna"], dropna=False)["cnpj"]
-            .nunique()
-            .reset_index(name="valor")
-        )
-        value_title = "Veículos"
-        value_format = ",.0f"
+        heatmap = pd.DataFrame()
+
+    if not profile_heatmap_used:
+        frame = _period_filter(vehicle, comp, period)
+        if use_catalog:
+            frame = _catalog_heatmap_base_frame(frame, catalog, dimensions[row_label], dimensions[col_label])
+        else:
+            cedentes = _build_structured_cedentes()
+            snapshot_tables = _load_fund_snapshot_tables()
+            snapshot = snapshot_tables["snapshot"]
+            assert isinstance(snapshot, pd.DataFrame)
+            frame = _heatmap_base_frame(frame, cedentes, snapshot, dimensions[row_label], dimensions[col_label])
+        if frame.empty:
+            st.caption("Sem linhas para a janela selecionada.")
+            return
+        frame = frame.copy()
+        if not use_catalog:
+            frame["linha"] = _dimension_series(frame, dimensions[row_label])
+            frame["coluna"] = _dimension_series(frame, dimensions[col_label])
+        frame = frame[(frame["linha"] != "n/d") & (frame["coluna"] != "n/d")]
+        if frame.empty:
+            st.caption("As dimensões selecionadas não têm dados preenchidos nessa janela.")
+            return
+
+        if metric_label == "PL médio":
+            frame["pl_metric"] = pd.to_numeric(frame["pl"], errors="coerce").fillna(0) * frame["_metric_weight"]
+            monthly = (
+                frame.groupby(["competencia", "linha", "coluna"], dropna=False)["pl_metric"]
+                .sum()
+                .reset_index(name="valor_base")
+            )
+            heatmap = (
+                monthly.groupby(["linha", "coluna"], dropna=False)["valor_base"]
+                .mean()
+                .reset_index(name="valor")
+            )
+            value_title = "PL médio (R$ bi)"
+            value_format = ",.1f"
+            heatmap["valor"] = heatmap["valor"] / 1e9
+        elif metric_label == "Captação líquida":
+            frame["captacao_metric"] = pd.to_numeric(frame["captacao_liquida"], errors="coerce").fillna(0) * frame["_metric_weight"]
+            heatmap = (
+                frame.groupby(["linha", "coluna"], dropna=False)["captacao_metric"]
+                .sum()
+                .reset_index(name="valor")
+            )
+            value_title = "Captação líquida (R$ bi)"
+            value_format = ",.1f"
+            heatmap["valor"] = heatmap["valor"] / 1e9
+        elif metric_label == "Fundos":
+            id_col = "cnpj_fundo" if "cnpj_fundo" in frame.columns else "cnpj"
+            heatmap = (
+                frame.groupby(["linha", "coluna"], dropna=False)[id_col]
+                .nunique()
+                .reset_index(name="valor")
+            )
+            value_title = "Fundos"
+            value_format = ",.0f"
+        else:
+            heatmap = (
+                frame.groupby(["linha", "coluna"], dropna=False)["cnpj"]
+                .nunique()
+                .reset_index(name="valor")
+            )
+            value_title = "Veículos"
+            value_format = ",.0f"
 
     heatmap = heatmap[pd.to_numeric(heatmap["valor"], errors="coerce").fillna(0).ne(0)].copy()
     if heatmap.empty:
@@ -2148,19 +2886,106 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
     pivot = pivot.reindex(index=row_order, columns=col_order).reset_index().rename(columns={"linha": row_label})
     st.dataframe(pivot, hide_index=True, width="stretch")
     if use_catalog:
-        uses_curated = False
-        uses_multivalue = False
-        for col in ["row_is_curated", "col_is_curated"]:
-            if col in frame.columns:
-                uses_curated = uses_curated or frame[col].astype(str).str.lower().isin({"true", "1"}).any()
-        for col in ["row_is_multivalue", "col_is_multivalue"]:
-            if col in frame.columns:
-                uses_multivalue = uses_multivalue or frame[col].astype(str).str.lower().isin({"true", "1"}).any()
-        generated_at = catalog_manifest.get("generated_at_utc", "")
-        source_note = f"Fonte: `{_DIMENSION_CATALOG_PATH.name}`"
-        if generated_at:
-            source_note += f" · gerado em {generated_at}"
-        st.caption(source_note)
+        row_options = [value for value in row_order if value in set(heatmap["linha"].astype(str))]
+        if row_options:
+            st.markdown("**Evidências da célula selecionada**")
+            drill_a, drill_b = st.columns([1.0, 1.0])
+            with drill_a:
+                drill_row = st.selectbox("Linha auditada", row_options, key="industry_heatmap_drill_row")
+            col_candidates = (
+                heatmap[heatmap["linha"].astype(str).eq(str(drill_row))]
+                .assign(abs_val=lambda df: pd.to_numeric(df["valor"], errors="coerce").fillna(0).abs())
+                .sort_values("abs_val", ascending=False)["coluna"]
+                .drop_duplicates()
+                .astype(str)
+                .tolist()
+            )
+            col_options_for_row = [value for value in col_order if str(value) in set(col_candidates)] or col_candidates
+            with drill_b:
+                drill_col = st.selectbox("Coluna auditada", col_options_for_row, key="industry_heatmap_drill_col")
+            snapshot_tables = _load_fund_snapshot_tables()
+            snapshot = snapshot_tables["snapshot"]
+            assert isinstance(snapshot, pd.DataFrame)
+            drilldown = _catalog_heatmap_cell_frame(
+                catalog,
+                snapshot,
+                dimensions[row_label],
+                str(drill_row),
+                dimensions[col_label],
+                str(drill_col),
+            )
+            if drilldown.empty:
+                st.caption("Sem evidências estruturadas para a célula selecionada.")
+            else:
+                unique_funds = drilldown.drop_duplicates("cnpj_fundo_norm") if "cnpj_fundo_norm" in drilldown.columns else drilldown
+                total_pl = float(pd.to_numeric(unique_funds.get("pl", pd.Series(dtype=float)), errors="coerce").fillna(0).sum())
+                row_docs = drilldown.get("row_source_document", pd.Series("", index=drilldown.index)).fillna("").astype(str).str.strip()
+                col_docs = drilldown.get("col_source_document", pd.Series("", index=drilldown.index)).fillna("").astype(str).str.strip()
+                evidence_pairs = len(drilldown)
+                source_docs = pd.concat([row_docs[row_docs.ne("")], col_docs[col_docs.ne("")]]).nunique()
+                drill_cards = [
+                    _curation_card("FIDCs", _fmt_int(float(len(unique_funds))), f"{drill_row} × {drill_col}"[:60]),
+                    _curation_card("PL", _fmt_bi(total_pl, 1), "fundos únicos"),
+                    _curation_card("Evidências", _fmt_int(float(evidence_pairs)), "pares linha × coluna"),
+                    _curation_card("Documentos", _fmt_int(float(source_docs)), "fontes distintas"),
+                ]
+                st.markdown(f'<div class="industry-kpi-grid">{"".join(drill_cards)}</div>', unsafe_allow_html=True)
+                table_drill = drilldown.drop_duplicates(
+                    [
+                        col
+                        for col in [
+                            "cnpj_fundo_norm",
+                            "row_source_layer",
+                            "row_source_document",
+                            "row_source_page",
+                            "col_source_layer",
+                            "col_source_document",
+                            "col_source_page",
+                        ]
+                        if col in drilldown.columns
+                    ]
+                ).head(120)
+                st.dataframe(_format_heatmap_cell_drilldown(table_drill), hide_index=True, width="stretch")
+                st.download_button(
+                    "Baixar evidências da célula",
+                    data=drilldown.to_csv(index=False).encode("utf-8"),
+                    file_name="industry_heatmap_cell_evidence.csv",
+                    mime="text/csv",
+                    key="industry_heatmap_cell_download",
+                )
+    if use_catalog:
+        if profile_heatmap_used:
+            uses_curated = pd.to_numeric(heatmap.get("curated_links", pd.Series(dtype=float)), errors="coerce").fillna(0).gt(0).any()
+            uses_multivalue = pd.to_numeric(heatmap.get("weighted_links", pd.Series(dtype=float)), errors="coerce").fillna(0).gt(0).any()
+            generated_at = dimension_profile_manifest.get("generated_at_utc", "")
+            profile_comp = ""
+            if "competencia" in heatmap.columns and not heatmap["competencia"].dropna().empty:
+                profile_comp = str(heatmap["competencia"].dropna().iloc[0])
+            visible_links = pd.to_numeric(heatmap.get("catalog_links", pd.Series(dtype=float)), errors="coerce").fillna(0).sum()
+            source_links = pd.to_numeric(heatmap.get("source_document_links", pd.Series(dtype=float)), errors="coerce").fillna(0).sum()
+            source_note = f"Fonte: `{_DIMENSION_PROFILE_PATH.name}`"
+            if profile_comp:
+                source_note += f" · competência {profile_comp}"
+            if generated_at:
+                source_note += f" · gerado em {generated_at}"
+            source_note += f" · links visíveis {_fmt_int(float(visible_links))}"
+            if source_links:
+                source_note += f" · com fonte {_fmt_int(float(source_links))}"
+            st.caption(source_note)
+        else:
+            uses_curated = False
+            uses_multivalue = False
+            for col in ["row_is_curated", "col_is_curated"]:
+                if col in frame.columns:
+                    uses_curated = uses_curated or frame[col].astype(str).str.lower().isin({"true", "1"}).any()
+            for col in ["row_is_multivalue", "col_is_multivalue"]:
+                if col in frame.columns:
+                    uses_multivalue = uses_multivalue or frame[col].astype(str).str.lower().isin({"true", "1"}).any()
+            generated_at = catalog_manifest.get("generated_at_utc", "")
+            source_note = f"Fonte: `{_DIMENSION_CATALOG_PATH.name}`"
+            if generated_at:
+                source_note += f" · gerado em {generated_at}"
+            st.caption(source_note)
     else:
         uses_curated = dimensions[row_label] in _CEDENTE_HEATMAP_COLUMNS or dimensions[col_label] in _CEDENTE_HEATMAP_COLUMNS
         uses_multivalue = dimensions[row_label] in _SNAPSHOT_MULTI_COLUMNS or dimensions[col_label] in _SNAPSHOT_MULTI_COLUMNS
@@ -3660,6 +4485,16 @@ def _render_pipeline_manifest() -> None:
     assert isinstance(monthly_delta, pd.DataFrame)
     assert isinstance(monthly_delta_actions, pd.DataFrame)
     monthly_delta = apply_monthly_delta_actions(monthly_delta, monthly_delta_actions)
+    profile_tables = _load_dimension_profile_tables()
+    dimension_profiles = profile_tables["profiles"]
+    dimension_profile_manifest = profile_tables["manifest"]
+    assert isinstance(dimension_profiles, pd.DataFrame)
+    assert isinstance(dimension_profile_manifest, dict)
+    profile_quality = (
+        dimension_profile_manifest.get("quality", {})
+        if isinstance(dimension_profile_manifest.get("quality"), dict)
+        else {}
+    )
 
     rollup = index.get("quality_rollup", {}) if isinstance(index.get("quality_rollup"), dict) else {}
     status_counts = rollup.get("module_status_counts", {}) if isinstance(rollup.get("module_status_counts"), dict) else {}
@@ -3675,7 +4510,7 @@ def _render_pipeline_manifest() -> None:
         _curation_card(
             "Artefatos presentes",
             f"{_fmt_int(float(rollup.get('artifacts_present', 0)))}/{_fmt_int(float(rollup.get('artifacts_total', 0)))}",
-            f"{_fmt_int(float(rollup.get('artifacts_missing', 0)))} ausentes",
+            f"{_fmt_int(float(rollup.get('artifacts_missing', 0)))} ausentes · revisão {_fmt_int(float(rollup.get('manual_review_artifacts_present', 0)))}/{_fmt_int(float(rollup.get('manual_review_artifacts_total', 0)))}",
         ),
         _curation_card(
             "Competência IME",
@@ -3693,6 +4528,11 @@ def _render_pipeline_manifest() -> None:
             "base unificada",
         ),
         _curation_card(
+            "Perfis cruzados",
+            _fmt_int(float(profile_quality.get("rows", rollup.get("dimension_profile_rows", 0)) or 0)),
+            f"{_fmt_int(float(profile_quality.get('source_dimensions', rollup.get('dimension_profile_source_dimensions', 0)) or 0))} dimensões",
+        ),
+        _curation_card(
             "Cedentes",
             _fmt_int(float(rollup.get("fund_snapshot_with_cedentes", rollup.get("cedentes_structured_rows", 0)))),
             "FIDCs com evidência",
@@ -3705,8 +4545,8 @@ def _render_pipeline_manifest() -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    tab_modules, tab_delta, tab_refresh, tab_artifacts, tab_json = st.tabs(
-        ["Módulos", "Delta mensal", "Refresh mensal", "Artefatos", "Manifesto"]
+    tab_modules, tab_profiles, tab_delta, tab_refresh, tab_artifacts, tab_json = st.tabs(
+        ["Módulos", "Perfis cruzados", "Delta mensal", "Refresh mensal", "Artefatos", "Manifesto"]
     )
     with tab_modules:
         module_rows = []
@@ -3751,6 +4591,96 @@ def _render_pipeline_manifest() -> None:
                 .properties(height=160)
             )
             st.altair_chart(chart, width="stretch")
+
+    with tab_profiles:
+        if dimension_profiles.empty:
+            st.caption("Perfis cruzados ainda não materializados. Rode `python scripts/build_fidc_industry_dimension_profiles.py`.")
+        else:
+            profile_links = float(profile_quality.get("profile_links", 0) or 0)
+            with_source = float(profile_quality.get("with_source_document_links", 0) or 0)
+            curated = float(profile_quality.get("curated_links", 0) or 0)
+            weighted = float(profile_quality.get("weighted_links", 0) or 0)
+            profile_cards = [
+                _curation_card(
+                    "Células origem × alvo",
+                    _fmt_int(float(profile_quality.get("rows", len(dimension_profiles)) or 0)),
+                    f"{profile_quality.get('competencia', 'n/d')}",
+                ),
+                _curation_card(
+                    "Dimensões",
+                    f"{_fmt_int(float(profile_quality.get('source_dimensions', 0) or 0))} × {_fmt_int(float(profile_quality.get('target_dimensions', 0) or 0))}",
+                    "origem × alvo",
+                ),
+                _curation_card(
+                    "Links de perfil",
+                    _fmt_int(profile_links),
+                    "relações fundo-dimensão",
+                ),
+                _curation_card(
+                    "Com fonte",
+                    _fmt_int(with_source),
+                    _fmt_pct(with_source / profile_links) if profile_links else "n/d",
+                ),
+                _curation_card(
+                    "Curados",
+                    _fmt_int(curated),
+                    _fmt_pct(curated / profile_links) if profile_links else "n/d",
+                ),
+                _curation_card(
+                    "Ponderados",
+                    _fmt_int(weighted),
+                    _fmt_pct(weighted / profile_links) if profile_links else "n/d",
+                ),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(profile_cards)}</div>', unsafe_allow_html=True)
+            coverage = _dimension_profile_coverage_frame(dimension_profiles)
+            if coverage.empty:
+                st.caption("Não foi possível resumir cobertura por dimensão.")
+            else:
+                top_coverage = coverage.head(18).copy()
+                chart = (
+                    alt.Chart(top_coverage)
+                    .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+                    .encode(
+                        x=alt.X("profile_links:Q", title="links", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                        y=alt.Y("source_dimension_label:N", title=None, sort="-x", axis=alt.Axis(labelLimit=260)),
+                        tooltip=[
+                            alt.Tooltip("source_dimension_label:N", title="dimensão"),
+                            alt.Tooltip("profile_links:Q", title="links", format=",.0f"),
+                            alt.Tooltip("source_document_ratio:Q", title="% com fonte", format=".1%"),
+                            alt.Tooltip("curated_ratio:Q", title="% curado", format=".1%"),
+                            alt.Tooltip("weighted_ratio:Q", title="% ponderado", format=".1%"),
+                        ],
+                    )
+                    .properties(height=max(260, 22 * len(top_coverage)))
+                )
+                st.altair_chart(chart, width="stretch")
+                keep_cols = [
+                    "source_dimension_label",
+                    "source_dimension_id",
+                    "source_values",
+                    "target_dimensions",
+                    "target_values",
+                    "profile_rows",
+                    "profile_links",
+                    "source_document_links",
+                    "source_document_ratio",
+                    "curated_links",
+                    "curated_ratio",
+                    "weighted_links",
+                    "weighted_ratio",
+                    "avg_confidence_score",
+                ]
+                st.dataframe(
+                    _format_dimension_profile_coverage(coverage[[col for col in keep_cols if col in coverage.columns]]),
+                    hide_index=True,
+                    width="stretch",
+                )
+            generated_at = dimension_profile_manifest.get("generated_at_utc", "")
+            source_note = f"Fonte: `{_DIMENSION_PROFILE_PATH.name}`"
+            if generated_at:
+                source_note += f" · gerado em {generated_at}"
+            st.caption(source_note)
 
     with tab_delta:
         st.markdown(
@@ -4260,6 +5190,35 @@ def render_tab_industry_study() -> None:
         )
     )
     st.altair_chart((area + lines).properties(height=300), width="stretch")
+    fic_impact = _pl_fic_impact_frame(industry)
+    if not fic_impact.empty:
+        latest_fic = fic_impact.iloc[-1]
+        fic_share = float(latest_fic.get("fic_share", 0.0))
+        last_12 = fic_impact.tail(12)
+        max_12 = last_12.loc[last_12["fic_share"].idxmax()] if not last_12.empty else latest_fic
+        fic_cards = [
+            _curation_card("PL sem FIC-FIDC", _fmt_bi(float(latest_fic.get("pl_ex_fic_fidc", 0.0)), 1), str(latest_fic.get("competencia", ""))),
+            _curation_card("PL em FIC-FIDC", _fmt_bi(float(latest_fic.get("pl_fic_fidc", 0.0)), 1), _fmt_pct(fic_share)),
+            _curation_card("Maior impacto 12m", _fmt_pct(float(max_12.get("fic_share", 0.0))), str(max_12.get("competencia", ""))),
+        ]
+        st.markdown(f'<div class="industry-kpi-grid">{"".join(fic_cards)}</div>', unsafe_allow_html=True)
+        recent_fic = fic_impact.tail(12).copy()
+        recent_fic["PL total"] = recent_fic["pl_total"].map(lambda value: _fmt_bi(float(value), 1))
+        recent_fic["Somente FIDCs"] = recent_fic["pl_ex_fic_fidc"].map(lambda value: _fmt_bi(float(value), 1))
+        recent_fic["FIC-FIDC"] = recent_fic["pl_fic_fidc"].map(lambda value: _fmt_bi(float(value), 1))
+        recent_fic["% FIC-FIDC"] = recent_fic["fic_share"].map(lambda value: _fmt_pct(float(value)))
+        st.dataframe(
+            recent_fic[["competencia", "PL total", "Somente FIDCs", "FIC-FIDC", "% FIC-FIDC"]].rename(
+                columns={"competencia": "Competência"}
+            ),
+            hide_index=True,
+            width="stretch",
+        )
+        st.caption(
+            "Metodologia: `FIDCs + FIC-FIDCs` soma todos os veículos reportantes; `Somente FIDCs` subtrai veículos "
+            "classificados como FIC-FIDC para reduzir dupla contagem potencial. A subtração é uma aproximação conservadora, "
+            "pois não recompõe as carteiras investidas pelos FICs."
+        )
 
     col_a, col_b = st.columns(2)
 

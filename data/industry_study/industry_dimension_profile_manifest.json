@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-profile-manifest/v1",
-  "generated_at_utc": "2026-07-08T17:38:02+00:00",
+  "generated_at_utc": "2026-07-08T20:20:05+00:00",
   "pipeline": "industry_dimension_profiles",
   "design_constraints": {
     "modular": true,
@@ -22,16 +22,16 @@
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1312249,
-      "sha256": "997744a6ef75169c6698ad97d2e35ddd93de1f62cdac52feda771fe21158d3a8"
+      "bytes": 1370618,
+      "sha256": "114fbb900d57a5f186963813e6b13c4c448934390dcaae0778773018581b234a"
     }
   },
   "outputs": {
     "dimension_profiles": {
       "path": "data/industry_study/industry_dimension_profiles.csv.gz",
       "exists": true,
-      "bytes": 1183214,
-      "sha256": "359bf3bad92376f7b0ef3585d4b54c5ccd1f45f1281cf30995d70cf306a16ace"
+      "bytes": 1293074,
+      "sha256": "cd9b86438ba897d4b71c75982f25e82c57a445ac3e6514763d7f472d38619299"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_profile_manifest.json"
@@ -44,7 +44,7 @@
       "status": "ok",
       "input": "data/industry_study/industry_fund_snapshot.csv.gz+data/industry_study/industry_dimension_catalog.csv.gz",
       "output": "memoria:snapshot+dimension_catalog",
-      "rows": 68049,
+      "rows": 70863,
       "rerun": "python scripts/build_fidc_industry_fund_snapshot.py && python scripts/build_fidc_industry_dimensions.py"
     },
     {
@@ -53,21 +53,21 @@
       "status": "ok",
       "input": "memoria:snapshot+dimension_catalog",
       "output": "data/industry_study/industry_dimension_profiles.csv.gz",
-      "rows": 53541,
-      "profile_links": 1002587,
+      "rows": 58253,
+      "profile_links": 1106247,
       "rerun": "python scripts/build_fidc_industry_dimension_profiles.py"
     }
   ],
   "quality": {
-    "rows": 53541,
+    "rows": 58253,
     "competencia": "2026-05",
-    "source_dimensions": 26,
-    "target_dimensions": 26,
-    "source_values": 847,
-    "target_values": 847,
-    "profile_links": 1002587,
-    "with_source_document_links": 220030,
-    "curated_links": 135606,
-    "weighted_links": 95029
+    "source_dimensions": 28,
+    "target_dimensions": 28,
+    "source_values": 853,
+    "target_values": 853,
+    "profile_links": 1106247,
+    "with_source_document_links": 242902,
+    "curated_links": 148422,
+    "weighted_links": 102741
   }
 }
