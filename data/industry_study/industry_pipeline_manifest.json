@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-manifest/v1",
-  "generated_at_utc": "2026-07-08T15:12:09+00:00",
+  "generated_at_utc": "2026-07-08T17:16:28+00:00",
   "pipeline": "industry_cedentes_structured",
   "design_constraints": {
     "modular": true,
@@ -35,8 +35,8 @@
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 312955,
-      "sha256": "5a239358d9c6147c16c63292382ad7213454bd115e6f9f59bc9de6ccbd598829"
+      "bytes": 313437,
+      "sha256": "51b3dd6cf6522d60fd2bc008151ec885f47376c3cd1a4252dd582cc301115943"
     },
     "manifest": {
       "path": "data/industry_study/industry_pipeline_manifest.json"

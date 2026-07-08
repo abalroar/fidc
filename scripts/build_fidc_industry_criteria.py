@@ -23,6 +23,7 @@ from services.industry_study import (
     load_criteria_reviews,
     load_criteria_source,
     load_fund_universe,
+    load_review_audit,
     save_dataframe,
     save_criteria_reviews,
     save_pipeline_manifest,
@@ -50,13 +51,19 @@ def main() -> None:
     reviews_path = args.reviews or args.industry_dir / "criteria_reviews.csv"
     output_path = args.output or args.industry_dir / "criteria_structured.csv.gz"
     manifest_path = args.manifest or args.industry_dir / "industry_criteria_manifest.json"
+    review_audit_path = args.industry_dir / "criteria_review_audit.csv"
 
     criteria = load_criteria_source(args.criteria_source)
     reviews = load_criteria_reviews(reviews_path)
     if not reviews_path.exists():
         save_criteria_reviews(reviews, reviews_path)
     fund_universe = load_fund_universe(args.strategy_db)
-    structured = build_criteria_structured(criteria, reviews, fund_universe=fund_universe)
+    structured = build_criteria_structured(
+        criteria,
+        reviews,
+        fund_universe=fund_universe,
+        review_audit=load_review_audit(review_audit_path),
+    )
     save_dataframe(structured, output_path)
     manifest = build_criteria_pipeline_manifest(
         industry_dir=args.industry_dir,

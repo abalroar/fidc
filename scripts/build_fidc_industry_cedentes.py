@@ -24,6 +24,7 @@ from services.industry_study import (
     load_cedente_candidates,
     load_cedente_reviews,
     load_fund_universe,
+    load_review_audit,
     load_vehicle_latest,
     save_pipeline_manifest,
     save_cedente_structured,
@@ -49,6 +50,7 @@ def main() -> None:
     reviews_path = args.reviews or args.industry_dir / "cedente_reviews.csv"
     output_path = args.output or args.industry_dir / "cedentes_structured.csv.gz"
     manifest_path = args.manifest or args.industry_dir / "industry_pipeline_manifest.json"
+    review_audit_path = args.industry_dir / "cedente_review_audit.csv"
 
     candidates = load_cedente_candidates(args.strategy_db)
     reviews = load_cedente_reviews(reviews_path)
@@ -59,6 +61,7 @@ def main() -> None:
         reviews,
         fund_universe=fund_universe,
         vehicle_latest=vehicle_latest,
+        review_audit=load_review_audit(review_audit_path),
     )
     save_cedente_structured(structured, output_path)
     manifest = build_cedente_pipeline_manifest(

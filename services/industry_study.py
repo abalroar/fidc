@@ -35,6 +35,28 @@ CRITERIA_REVIEW_COLUMNS = [
     "notas",
 ]
 
+REVIEW_AUDIT_COLUMNS = [
+    "event_id",
+    "saved_at_utc",
+    "review_domain",
+    "record_id",
+    "field",
+    "old_value",
+    "new_value",
+    "status_after",
+    "source",
+]
+
+MONTHLY_DELTA_ACTION_COLUMNS = [
+    "delta_id",
+    "status_acao",
+    "acao_revisada",
+    "responsavel",
+    "prazo",
+    "notas",
+    "updated_at_utc",
+]
+
 APPROVED_REVIEW_STATUSES = {"aprovado", "corrigido"}
 ISSUANCE_YEARS = [2024, 2025, 2026]
 
@@ -108,6 +130,192 @@ def save_cedente_reviews(reviews: pd.DataFrame, path: Path) -> None:
             out[col] = ""
     out = out[CEDENTE_REVIEW_COLUMNS].drop_duplicates("review_id", keep="last")
     out.to_csv(path, index=False)
+
+
+def load_review_audit(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        return pd.DataFrame(columns=REVIEW_AUDIT_COLUMNS)
+    audit = pd.read_csv(path, dtype=str, keep_default_na=False)
+    for col in REVIEW_AUDIT_COLUMNS:
+        if col not in audit.columns:
+            audit[col] = ""
+    return audit[REVIEW_AUDIT_COLUMNS]
+
+
+def _audit_value(value: object) -> str:
+    if value is None:
+        return ""
+    try:
+        if pd.isna(value):
+            return ""
+    except (TypeError, ValueError):
+        pass
+    return str(value).strip()
+
+
+def _material_review_mask(frame: pd.DataFrame, key_column: str) -> pd.Series:
+    if frame.empty:
+        return pd.Series(dtype=bool)
+    out = pd.Series(False, index=frame.index)
+    if "status" in frame.columns:
+        out = out | ~frame["status"].map(_audit_value).str.lower().isin({"", "pendente"})
+    for col in frame.columns:
+        if col in {key_column, "status"}:
+            continue
+        out = out | frame[col].map(_audit_value).ne("")
+    return out
+
+
+def build_review_audit_events(
+    *,
+    previous: pd.DataFrame,
+    updated: pd.DataFrame,
+    key_column: str,
+    review_domain: str,
+    saved_at_utc: str | None = None,
+    source: str = "app",
+) -> pd.DataFrame:
+    """Return append-only field-level audit events for changed review rows."""
+
+    if updated is None or updated.empty or key_column not in updated.columns:
+        return pd.DataFrame(columns=REVIEW_AUDIT_COLUMNS)
+    saved_at = saved_at_utc or datetime.now(timezone.utc).isoformat(timespec="seconds")
+    prev = previous.copy() if previous is not None and not previous.empty else pd.DataFrame()
+    curr = updated.copy()
+    columns = [col for col in curr.columns if col != key_column]
+    if key_column not in prev.columns:
+        prev = pd.DataFrame(columns=[key_column, *columns])
+    for col in columns:
+        if col not in prev.columns:
+            prev[col] = ""
+    prev = prev[[key_column, *columns]].drop_duplicates(key_column, keep="last")
+    curr = curr[[key_column, *columns]].drop_duplicates(key_column, keep="last")
+    prev = prev.set_index(key_column, drop=False)
+    curr = curr.set_index(key_column, drop=False)
+    material_curr = _material_review_mask(curr.reset_index(drop=True), key_column)
+    material_by_id = pd.Series(material_curr.to_numpy(), index=curr.index)
+
+    events: list[dict[str, str]] = []
+    for record_id, row in curr.iterrows():
+        record_key = _audit_value(record_id)
+        if not record_key:
+            continue
+        old_row = prev.loc[record_id] if record_id in prev.index else pd.Series(dtype=object)
+        existed_before = record_id in prev.index
+        if not existed_before and not bool(material_by_id.get(record_id, False)):
+            continue
+        status_after = _audit_value(row.get("status"))
+        for field in columns:
+            old_value = _audit_value(old_row.get(field, ""))
+            new_value = _audit_value(row.get(field, ""))
+            if old_value == new_value:
+                continue
+            event_key = "|".join(
+                [review_domain, record_key, field, saved_at, old_value, new_value, source]
+            )
+            events.append(
+                {
+                    "event_id": hashlib.sha1(event_key.encode("utf-8", errors="ignore")).hexdigest()[:20],
+                    "saved_at_utc": saved_at,
+                    "review_domain": review_domain,
+                    "record_id": record_key,
+                    "field": field,
+                    "old_value": old_value,
+                    "new_value": new_value,
+                    "status_after": status_after,
+                    "source": source,
+                }
+            )
+    if not events:
+        return pd.DataFrame(columns=REVIEW_AUDIT_COLUMNS)
+    return pd.DataFrame(events, columns=REVIEW_AUDIT_COLUMNS)
+
+
+def append_review_audit_events(events: pd.DataFrame, path: Path) -> pd.DataFrame:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if events is None or events.empty:
+        audit = load_review_audit(path)
+        if not path.exists():
+            audit.to_csv(path, index=False)
+        return audit
+    audit = load_review_audit(path)
+    combined = pd.concat([audit, events[REVIEW_AUDIT_COLUMNS]], ignore_index=True)
+    combined = combined.drop_duplicates("event_id", keep="last")
+    combined.to_csv(path, index=False)
+    return combined
+
+
+def load_monthly_delta_actions(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        return pd.DataFrame(columns=MONTHLY_DELTA_ACTION_COLUMNS)
+    actions = pd.read_csv(path, dtype=str, keep_default_na=False)
+    for col in MONTHLY_DELTA_ACTION_COLUMNS:
+        if col not in actions.columns:
+            actions[col] = ""
+    return actions[MONTHLY_DELTA_ACTION_COLUMNS]
+
+
+def save_monthly_delta_actions(actions: pd.DataFrame, path: Path) -> pd.DataFrame:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    out = actions.copy() if actions is not None else pd.DataFrame(columns=MONTHLY_DELTA_ACTION_COLUMNS)
+    for col in MONTHLY_DELTA_ACTION_COLUMNS:
+        if col not in out.columns:
+            out[col] = ""
+    out = out[MONTHLY_DELTA_ACTION_COLUMNS]
+    out = out[out["delta_id"].map(_audit_value).ne("")].drop_duplicates("delta_id", keep="last")
+    out.to_csv(path, index=False)
+    return out
+
+
+def apply_monthly_delta_actions(delta: pd.DataFrame, actions: pd.DataFrame | None) -> pd.DataFrame:
+    if delta is None or delta.empty:
+        return pd.DataFrame() if delta is None else delta.copy()
+    out = delta.copy()
+    for col in ["status_acao", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        if col not in out.columns:
+            out[col] = ""
+    if actions is None or actions.empty or "delta_id" not in actions.columns or "delta_id" not in out.columns:
+        out["status_acao"] = out["status_acao"].replace("", "pendente")
+        return out
+    overlay = actions.copy()
+    for col in MONTHLY_DELTA_ACTION_COLUMNS:
+        if col not in overlay.columns:
+            overlay[col] = ""
+    overlay = overlay[MONTHLY_DELTA_ACTION_COLUMNS].drop_duplicates("delta_id", keep="last")
+    out = out.merge(overlay, on="delta_id", how="left", suffixes=("", "_review"))
+    for col in ["status_acao", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        review_col = f"{col}_review"
+        if review_col in out.columns:
+            out[col] = out[review_col].where(out[review_col].map(_audit_value).ne(""), out[col])
+    out = out.drop(columns=[f"{col}_review" for col in ["status_acao", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]], errors="ignore")
+    out["status_acao"] = out["status_acao"].replace("", "pendente")
+    return out
+
+
+def review_audit_summary(audit: pd.DataFrame, key_column: str) -> pd.DataFrame:
+    columns = [
+        key_column,
+        "review_event_count",
+        "last_review_at_utc",
+        "last_review_field",
+        "last_review_source",
+    ]
+    if audit is None or audit.empty or "record_id" not in audit.columns:
+        return pd.DataFrame(columns=columns)
+    frame = audit.copy()
+    frame[key_column] = frame["record_id"].map(_audit_value)
+    frame = frame[frame[key_column].ne("")].copy()
+    if frame.empty:
+        return pd.DataFrame(columns=columns)
+    frame["saved_at_sort"] = pd.to_datetime(frame.get("saved_at_utc"), errors="coerce", utc=True)
+    frame = frame.sort_values(["saved_at_sort", "saved_at_utc"], ascending=[True, True])
+    grouped = frame.groupby(key_column, dropna=False)
+    latest = grouped.tail(1).set_index(key_column)
+    summary = grouped.size().rename("review_event_count").reset_index()
+    summary["last_review_at_utc"] = summary[key_column].map(latest["saved_at_utc"].to_dict()).fillna("")
+    summary["last_review_field"] = summary[key_column].map(latest["field"].to_dict()).fillna("")
+    summary["last_review_source"] = summary[key_column].map(latest["source"].to_dict()).fillna("")
+    return summary[columns]
 
 
 def load_cedente_candidates(db_path: Path) -> pd.DataFrame:
@@ -400,6 +608,7 @@ def build_cedente_structured(
     *,
     fund_universe: pd.DataFrame | None = None,
     vehicle_latest: pd.DataFrame | None = None,
+    review_audit: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     if candidates.empty:
         return pd.DataFrame()
@@ -534,6 +743,15 @@ def build_cedente_structured(
         {True: "2025-2026 YTD", False: "histórico"}
     )
 
+    if review_audit is not None and not review_audit.empty:
+        audit_summary = review_audit_summary(review_audit, "review_id")
+        if not audit_summary.empty:
+            out = out.merge(audit_summary, on="review_id", how="left")
+    for col in ["review_event_count", "last_review_at_utc", "last_review_field", "last_review_source"]:
+        if col not in out.columns:
+            out[col] = 0 if col == "review_event_count" else ""
+    out["review_event_count"] = pd.to_numeric(out["review_event_count"], errors="coerce").fillna(0).astype(int)
+
     ordered = [
         "review_id",
         "cnpj_fundo",
@@ -549,6 +767,10 @@ def build_cedente_structured(
         "status_revisao",
         "ativo_curadoria",
         "periodo_prioritario",
+        "review_event_count",
+        "last_review_at_utc",
+        "last_review_field",
+        "last_review_source",
         "score_confianca_final",
         "score_confianca",
         "n_evidencias",
@@ -588,6 +810,361 @@ def load_dataframe(path: Path) -> pd.DataFrame:
     if not path.exists():
         return pd.DataFrame()
     return pd.read_csv(path, dtype=str, keep_default_na=False, low_memory=False)
+
+
+def _competencia_key(value: object) -> str:
+    digits = re.sub(r"\D", "", str(value or ""))
+    return digits[:6] if len(digits) >= 6 else ""
+
+
+def _competencia_label(value: object) -> str:
+    key = _competencia_key(value)
+    return f"{key[:4]}-{key[4:6]}" if len(key) == 6 else str(value or "")
+
+
+def _first_non_empty(series: pd.Series) -> str:
+    for value in series:
+        text = str(value or "").strip()
+        if text:
+            return text
+    return ""
+
+
+def _vehicle_monthly_by_fund(frame: pd.DataFrame, competencia_key: str) -> pd.DataFrame:
+    if frame.empty or "competencia" not in frame.columns:
+        return pd.DataFrame()
+    base = frame.copy()
+    base["competencia_key"] = base["competencia"].map(_competencia_key)
+    base = base[base["competencia_key"].eq(competencia_key)].copy()
+    if base.empty:
+        return base
+    if "cnpj_fundo" in base.columns:
+        base["cnpj_fundo"] = base["cnpj_fundo"].map(normalize_cnpj)
+    elif "cnpj" in base.columns:
+        base["cnpj_fundo"] = base["cnpj"].map(normalize_cnpj)
+    else:
+        return pd.DataFrame()
+    base = base[base["cnpj_fundo"].astype(str).str.len().eq(14)].copy()
+    if base.empty:
+        return base
+    text_aggs = {
+        col: (col, _first_non_empty)
+        for col in [
+            "denominacao",
+            "admin_nome",
+            "gestor_nome",
+            "custodiante_nome",
+            "segmento_principal",
+            "segmento_financeiro_principal",
+        ]
+        if col in base.columns
+    }
+    num_aggs = {
+        "pl_atual": ("pl", "sum"),
+        "captacao_liquida_mes": ("captacao_liquida", "sum"),
+        "carteira_dc": ("carteira_dc", "sum"),
+        "cotistas": ("cotistas", "sum"),
+        "subordinacao_pct": ("subordinacao_pct", "median"),
+        "inad_pct_ajustada": ("inad_pct_ajustada", "median"),
+    }
+    for source_col, _agg in list(num_aggs.values()):
+        if source_col not in base.columns:
+            base[source_col] = 0.0
+        base[source_col] = pd.to_numeric(base[source_col], errors="coerce").fillna(0.0)
+    grouped = (
+        base.groupby("cnpj_fundo", dropna=False)
+        .agg(
+            vehicle_rows=("cnpj_fundo", "size"),
+            **text_aggs,
+            **num_aggs,
+        )
+        .reset_index()
+    )
+    grouped["competencia"] = _competencia_label(competencia_key)
+    return grouped
+
+
+def _snapshot_delta_overlay(snapshot: pd.DataFrame) -> pd.DataFrame:
+    columns = [
+        "cnpj_fundo",
+        "nome_exibicao",
+        "document_rows",
+        "cedente_rows",
+        "criteria_rows",
+        "tem_sub_minima",
+        "camadas_com_evidencia",
+        "snapshot_status",
+        "document_chunk_ids",
+        "cedentes_top",
+    ]
+    if snapshot.empty or "cnpj_fundo" not in snapshot.columns:
+        return pd.DataFrame(columns=columns)
+    out = snapshot.copy()
+    out["cnpj_fundo"] = out["cnpj_fundo"].map(normalize_cnpj)
+    keep = [col for col in columns if col in out.columns]
+    out = out[keep].drop_duplicates("cnpj_fundo", keep="first")
+    for col in columns:
+        if col not in out.columns:
+            out[col] = ""
+    return out[columns]
+
+
+def build_industry_monthly_delta(
+    *,
+    vehicle_monthly: pd.DataFrame,
+    snapshot: pd.DataFrame | None = None,
+    metadata: dict[str, object] | None = None,
+    action_reviews: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    if vehicle_monthly is None or vehicle_monthly.empty or "competencia" not in vehicle_monthly.columns:
+        return pd.DataFrame()
+    frame = vehicle_monthly.copy()
+    frame["competencia_key"] = frame["competencia"].map(_competencia_key)
+    frame = frame[frame["competencia_key"].str.len().eq(6)].copy()
+    if frame.empty:
+        return pd.DataFrame()
+    metadata = metadata or {}
+    current_key = _competencia_key(metadata.get("competencia_snapshot")) or frame["competencia_key"].max()
+    available = sorted(frame["competencia_key"].dropna().unique().tolist())
+    previous_candidates = [key for key in available if key < current_key]
+    previous_key = previous_candidates[-1] if previous_candidates else ""
+    current = _vehicle_monthly_by_fund(frame, current_key)
+    previous = _vehicle_monthly_by_fund(frame, previous_key) if previous_key else pd.DataFrame()
+
+    current_ids = set(current["cnpj_fundo"]) if "cnpj_fundo" in current.columns else set()
+    previous_ids = set(previous["cnpj_fundo"]) if "cnpj_fundo" in previous.columns else set()
+    historical = frame[frame["competencia_key"].lt(current_key)].copy()
+    if "cnpj_fundo" in historical.columns:
+        historical["cnpj_fundo"] = historical["cnpj_fundo"].map(normalize_cnpj)
+    elif "cnpj" in historical.columns:
+        historical["cnpj_fundo"] = historical["cnpj"].map(normalize_cnpj)
+    historical_ids = set(historical["cnpj_fundo"]) if "cnpj_fundo" in historical.columns else set()
+    all_ids = sorted(current_ids | previous_ids)
+    if not all_ids:
+        return pd.DataFrame()
+
+    current_prefixed = current.add_prefix("current_") if not current.empty else pd.DataFrame()
+    previous_prefixed = previous.add_prefix("previous_") if not previous.empty else pd.DataFrame()
+    base = pd.DataFrame({"cnpj_fundo": all_ids})
+    if not current_prefixed.empty:
+        base = base.merge(current_prefixed, left_on="cnpj_fundo", right_on="current_cnpj_fundo", how="left")
+    if not previous_prefixed.empty:
+        base = base.merge(previous_prefixed, left_on="cnpj_fundo", right_on="previous_cnpj_fundo", how="left")
+    base["in_current"] = base["cnpj_fundo"].isin(current_ids)
+    base["in_previous"] = base["cnpj_fundo"].isin(previous_ids)
+    base["status_delta"] = "recorrente"
+    base.loc[base["in_current"] & ~base["in_previous"] & ~base["cnpj_fundo"].isin(historical_ids), "status_delta"] = "novo_no_ime"
+    base.loc[base["in_current"] & ~base["in_previous"] & base["cnpj_fundo"].isin(historical_ids), "status_delta"] = "reativado"
+    base.loc[~base["in_current"] & base["in_previous"], "status_delta"] = "saiu_do_ime"
+
+    for col in ["pl_atual", "captacao_liquida_mes", "carteira_dc", "cotistas"]:
+        current_col = f"current_{col}"
+        previous_col = f"previous_{col}"
+        if current_col not in base.columns:
+            base[current_col] = 0.0
+        if previous_col not in base.columns:
+            base[previous_col] = 0.0
+        base[current_col] = pd.to_numeric(base[current_col], errors="coerce").fillna(0.0)
+        base[previous_col] = pd.to_numeric(base[previous_col], errors="coerce").fillna(0.0)
+    base["pl_delta"] = base["current_pl_atual"] - base["previous_pl_atual"]
+    base["pl_delta_pct"] = base["pl_delta"] / base["previous_pl_atual"].replace(0, pd.NA)
+
+    overlay = _snapshot_delta_overlay(snapshot if snapshot is not None else pd.DataFrame())
+    if not overlay.empty:
+        base = base.merge(overlay, on="cnpj_fundo", how="left")
+    for col in ["document_rows", "cedente_rows", "criteria_rows", "camadas_com_evidencia"]:
+        if col not in base.columns:
+            base[col] = 0
+        base[col] = pd.to_numeric(base[col], errors="coerce").fillna(0).astype(int)
+    if "tem_sub_minima" not in base.columns:
+        base["tem_sub_minima"] = False
+    has_sub = base["tem_sub_minima"].astype(str).str.lower().isin({"true", "1", "sim"})
+    base["needs_document_discovery"] = base["in_current"] & (
+        base["document_rows"].eq(0) | base["status_delta"].isin(["novo_no_ime", "reativado"])
+    )
+    base["needs_cedente_review"] = base["in_current"] & base["cedente_rows"].eq(0)
+    base["needs_criteria_review"] = base["in_current"] & base["criteria_rows"].eq(0)
+    base["needs_subordination_review"] = base["in_current"] & ~has_sub
+
+    pl_rank = pd.qcut(base["current_pl_atual"].rank(method="first"), q=min(5, len(base)), labels=False, duplicates="drop") if len(base) > 1 else pd.Series([0], index=base.index)
+    pl_rank = pd.to_numeric(pl_rank, errors="coerce").fillna(0)
+    priority = pd.Series(0.0, index=base.index)
+    priority += base["status_delta"].map({"novo_no_ime": 45, "reativado": 35, "saiu_do_ime": 15, "recorrente": 5}).fillna(0)
+    priority += base["needs_document_discovery"].astype(int) * 20
+    priority += base["needs_cedente_review"].astype(int) * 12
+    priority += base["needs_criteria_review"].astype(int) * 12
+    priority += base["needs_subordination_review"].astype(int) * 6
+    priority += pl_rank.astype(float) * 3
+    priority += pd.to_numeric(base["current_captacao_liquida_mes"], errors="coerce").fillna(0).gt(100_000_000).astype(int) * 8
+    base["priority_score"] = priority.round(1)
+    base["priority_band"] = pd.cut(
+        base["priority_score"],
+        bins=[-1, 39, 79, float("inf")],
+        labels=["baixa", "média", "alta"],
+    ).astype(str)
+
+    def actions(row: pd.Series) -> str:
+        items: list[str] = []
+        if row["status_delta"] in {"novo_no_ime", "reativado"}:
+            items.append("descobrir documentos")
+        if bool(row["needs_document_discovery"]):
+            items.append("inventariar documentos")
+        if bool(row["needs_cedente_review"]):
+            items.append("curar cedentes/sacados")
+        if bool(row["needs_criteria_review"]):
+            items.append("curar critérios")
+        if bool(row["needs_subordination_review"]):
+            items.append("validar sub mínima")
+        if row["status_delta"] == "saiu_do_ime":
+            items.append("validar ausência no próximo IME")
+        return " | ".join(dict.fromkeys(items)) or "monitorar"
+
+    base["next_actions"] = base.apply(actions, axis=1)
+    base["rerun_command"] = "python scripts/build_fidc_industry_documents.py && python scripts/build_fidc_industry_cedentes.py && python scripts/build_fidc_industry_criteria.py"
+    base["source_artifacts"] = "vehicle_monthly.csv.gz | industry_fund_snapshot.csv.gz"
+
+    out = pd.DataFrame(
+        {
+            "delta_id": [_competencia_key(current_key) + "_" + cnpj for cnpj in base["cnpj_fundo"]],
+            "competencia_atual": _competencia_label(current_key),
+            "competencia_anterior": _competencia_label(previous_key),
+            "cnpj_fundo": base["cnpj_fundo"],
+            "fundo": base.get("nome_exibicao", pd.Series("", index=base.index)).fillna("").astype(str).where(
+                base.get("nome_exibicao", pd.Series("", index=base.index)).fillna("").astype(str).str.strip().ne(""),
+                base.get("current_denominacao", pd.Series("", index=base.index)).fillna("").astype(str),
+            ),
+            "status_delta": base["status_delta"],
+            "priority_band": base["priority_band"],
+            "priority_score": base["priority_score"],
+            "next_actions": base["next_actions"],
+            "pl_atual": base["current_pl_atual"],
+            "pl_anterior": base["previous_pl_atual"],
+            "pl_delta": base["pl_delta"],
+            "pl_delta_pct": base["pl_delta_pct"],
+            "captacao_liquida_mes": base["current_captacao_liquida_mes"],
+            "carteira_dc": base["current_carteira_dc"],
+            "cotistas": base["current_cotistas"],
+            "admin_nome": base.get("current_admin_nome", pd.Series("", index=base.index)).fillna("").astype(str),
+            "gestor_nome": base.get("current_gestor_nome", pd.Series("", index=base.index)).fillna("").astype(str),
+            "custodiante_nome": base.get("current_custodiante_nome", pd.Series("", index=base.index)).fillna("").astype(str),
+            "segmento_principal": base.get("current_segmento_principal", pd.Series("", index=base.index)).fillna("").astype(str),
+            "document_rows": base["document_rows"],
+            "cedente_rows": base["cedente_rows"],
+            "criteria_rows": base["criteria_rows"],
+            "tem_sub_minima": has_sub,
+            "camadas_com_evidencia": base["camadas_com_evidencia"],
+            "snapshot_status": base.get("snapshot_status", pd.Series("", index=base.index)).fillna("").astype(str),
+            "document_chunk_ids": base.get("document_chunk_ids", pd.Series("", index=base.index)).fillna("").astype(str),
+            "cedentes_top": base.get("cedentes_top", pd.Series("", index=base.index)).fillna("").astype(str),
+            "needs_document_discovery": base["needs_document_discovery"],
+            "needs_cedente_review": base["needs_cedente_review"],
+            "needs_criteria_review": base["needs_criteria_review"],
+            "needs_subordination_review": base["needs_subordination_review"],
+            "rerun_command": base["rerun_command"],
+            "source_artifacts": base["source_artifacts"],
+        }
+    )
+    out = apply_monthly_delta_actions(out, action_reviews)
+    return out.sort_values(["priority_score", "pl_atual"], ascending=[False, False]).reset_index(drop=True)
+
+
+def industry_monthly_delta_quality_summary(delta: pd.DataFrame) -> dict[str, object]:
+    if delta is None or delta.empty:
+        return {
+            "rows": 0,
+            "current_funds": 0,
+            "new_funds": 0,
+            "reactivated_funds": 0,
+            "exited_funds": 0,
+            "high_priority_rows": 0,
+        }
+    status = delta.get("status_delta", pd.Series(dtype=str)).astype(str)
+    action_status = delta.get("status_acao", pd.Series(dtype=str)).fillna("").astype(str).replace("", "pendente")
+    action_counts = action_status.value_counts().to_dict()
+    return {
+        "rows": int(len(delta)),
+        "competencia_atual": _first_non_empty(delta.get("competencia_atual", pd.Series(dtype=str))),
+        "competencia_anterior": _first_non_empty(delta.get("competencia_anterior", pd.Series(dtype=str))),
+        "current_funds": int(status.ne("saiu_do_ime").sum()),
+        "new_funds": int(status.eq("novo_no_ime").sum()),
+        "reactivated_funds": int(status.eq("reativado").sum()),
+        "exited_funds": int(status.eq("saiu_do_ime").sum()),
+        "high_priority_rows": int(delta.get("priority_band", pd.Series(dtype=str)).astype(str).eq("alta").sum()),
+        "action_status_counts": {str(key): int(value) for key, value in action_counts.items()},
+        "completed_actions": int(action_status.isin(["concluído", "concluido"]).sum()),
+        "ignored_actions": int(action_status.eq("ignorado").sum()),
+        "needs_document_discovery": int(delta.get("needs_document_discovery", pd.Series(dtype=bool)).astype(str).str.lower().isin({"true", "1", "sim"}).sum()),
+        "needs_cedente_review": int(delta.get("needs_cedente_review", pd.Series(dtype=bool)).astype(str).str.lower().isin({"true", "1", "sim"}).sum()),
+        "needs_criteria_review": int(delta.get("needs_criteria_review", pd.Series(dtype=bool)).astype(str).str.lower().isin({"true", "1", "sim"}).sum()),
+        "needs_subordination_review": int(delta.get("needs_subordination_review", pd.Series(dtype=bool)).astype(str).str.lower().isin({"true", "1", "sim"}).sum()),
+    }
+
+
+def build_monthly_delta_pipeline_manifest(
+    *,
+    industry_dir: Path,
+    output_path: Path,
+    manifest_path: Path,
+    vehicle_monthly: pd.DataFrame,
+    snapshot: pd.DataFrame,
+    delta: pd.DataFrame,
+) -> dict[str, object]:
+    quality = industry_monthly_delta_quality_summary(delta)
+    return {
+        "schema_version": "industry-monthly-delta-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_monthly_delta",
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "manual_review_in_app": True,
+            "macbook_air_m4_friendly": True,
+            "notes": [
+                "Compara apenas a competência snapshot com a anterior para criar fila operacional mensal.",
+                "Não reprocessa documentos; aponta quais CNPJs precisam de descoberta, curadoria ou validação.",
+            ],
+        },
+        "inputs": {
+            "vehicle_monthly": file_fingerprint(industry_dir / "vehicle_monthly.csv.gz"),
+            "fund_snapshot": file_fingerprint(industry_dir / "industry_fund_snapshot.csv.gz"),
+            "metadata": file_fingerprint(industry_dir / "metadata.json"),
+            "monthly_delta_actions": file_fingerprint(industry_dir / "monthly_delta_actions.csv"),
+        },
+        "outputs": {
+            "monthly_delta": file_fingerprint(output_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "load_monthly_fund_panels",
+                "label": "Carregar competências atual e anterior",
+                "status": "ok" if not vehicle_monthly.empty else "empty",
+                "input": str(industry_dir / "vehicle_monthly.csv.gz"),
+                "output": "memoria:current_previous_funds",
+                "rows": int(len(vehicle_monthly)),
+                "rerun": "python scripts/build_fidc_industry_monthly_delta.py",
+            },
+            {
+                "id": "join_structured_snapshot",
+                "label": "Cruzar camadas estruturadas",
+                "status": "ok" if not snapshot.empty else "empty",
+                "input": str(industry_dir / "industry_fund_snapshot.csv.gz"),
+                "output": "memoria:fund_delta_with_layers",
+                "rows": int(len(snapshot)),
+                "rerun": "python scripts/build_fidc_industry_fund_snapshot.py",
+            },
+            {
+                "id": "prioritize_update_queue",
+                "label": "Priorizar fila mensal",
+                "status": "ok" if not delta.empty else "empty",
+                "input": "memoria:current_previous_funds+snapshot",
+                "output": str(output_path),
+                "rows": int(len(delta)),
+                "rerun": "python scripts/build_fidc_industry_monthly_delta.py",
+            },
+        ],
+        "quality": quality,
+    }
 
 
 _DOCUMENT_SOURCE_COLUMNS = [
@@ -1258,6 +1835,7 @@ def build_criteria_structured(
     reviews: pd.DataFrame | None = None,
     *,
     fund_universe: pd.DataFrame | None = None,
+    review_audit: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     if criteria is None or criteria.empty:
         return pd.DataFrame()
@@ -1375,6 +1953,14 @@ def build_criteria_structured(
             "pl_atual_brl": _num(merged.get("pl_atual_brl"), idx),
         }
     )
+    if review_audit is not None and not review_audit.empty:
+        audit_summary = review_audit_summary(review_audit, "rule_id")
+        if not audit_summary.empty:
+            out = out.merge(audit_summary, on="rule_id", how="left")
+    for col in ["review_event_count", "last_review_at_utc", "last_review_field", "last_review_source"]:
+        if col not in out.columns:
+            out[col] = 0 if col == "review_event_count" else ""
+    out["review_event_count"] = pd.to_numeric(out["review_event_count"], errors="coerce").fillna(0).astype(int)
     return out.sort_values(
         ["periodo_prioritario", "chave", "score_confianca_final", "cnpj_fundo"],
         ascending=[True, True, False, True],
@@ -1673,6 +2259,26 @@ def build_industry_pipeline_index(
 
     module_specs = [
         {
+            "module_id": "monthly_delta",
+            "label": "Delta mensal e fila de curadoria",
+            "manifest_name": "industry_monthly_delta_manifest.json",
+            "command": "python scripts/build_fidc_industry_monthly_delta.py",
+            "cadence": "após base granular mensal",
+            "depends_on": ["base granular mensal", "snapshot unificado por FIDC"],
+            "quality_keys": [
+                "rows",
+                "competencia_atual",
+                "competencia_anterior",
+                "new_funds",
+                "reactivated_funds",
+                "exited_funds",
+                "high_priority_rows",
+                "needs_document_discovery",
+                "needs_cedente_review",
+                "needs_criteria_review",
+            ],
+        },
+        {
             "module_id": "issuance",
             "label": "Emissões e ofertas",
             "manifest_name": "industry_issuance_manifest.json",
@@ -1832,6 +2438,14 @@ def build_industry_pipeline_index(
         },
         {
             "order": 2,
+            "module_id": "monthly_delta",
+            "label": "Gerar delta mensal e fila de curadoria",
+            "command": "python scripts/build_fidc_industry_monthly_delta.py",
+            "reason": "Identifica FIDCs novos, reativados ou ausentes e aponta lacunas de documentos, cedentes, critérios e subordinação.",
+            "incremental_note": "Compara apenas competência snapshot contra a anterior e cruza camadas já materializadas.",
+        },
+        {
+            "order": 3,
             "module_id": "issuance",
             "label": "Reconciliar emissões/ofertas",
             "command": "python scripts/build_fidc_industry_issuance.py",
@@ -1839,7 +2453,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê o SQLite da Estratégia já estruturado; não depende de Informe Mensal.",
         },
         {
-            "order": 3,
+            "order": 4,
             "module_id": "documents",
             "label": "Inventariar documentação pública",
             "command": "python scripts/build_fidc_industry_documents.py",
@@ -1847,7 +2461,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Use --chunk-id doc-0001 para rodar ou depurar lotes sem reprocessar a indústria toda.",
         },
         {
-            "order": 4,
+            "order": 5,
             "module_id": "cedentes",
             "label": "Regerar base de cedentes/sacados",
             "command": "python scripts/build_fidc_industry_cedentes.py",
@@ -1855,7 +2469,7 @@ def build_industry_pipeline_index(
             "incremental_note": "A curadoria continua sendo feita pela UI e reaplicada pelo overlay persistido.",
         },
         {
-            "order": 5,
+            "order": 6,
             "module_id": "criteria",
             "label": "Regerar critérios e subordinação mínima",
             "command": "python scripts/build_fidc_industry_criteria.py",
@@ -1863,7 +2477,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Revisões feitas pela UI são reaplicadas antes da consolidação.",
         },
         {
-            "order": 6,
+            "order": 7,
             "module_id": "fund_snapshot",
             "label": "Regerar snapshot unificado por FIDC",
             "command": "python scripts/build_fidc_industry_fund_snapshot.py",
@@ -1871,7 +2485,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem.",
         },
         {
-            "order": 7,
+            "order": 8,
             "module_id": "dimension_catalog",
             "label": "Regerar catálogo de dimensões",
             "command": "python scripts/build_fidc_industry_dimensions.py",
@@ -1879,7 +2493,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos.",
         },
         {
-            "order": 8,
+            "order": 9,
             "module_id": "dimension_monthly",
             "label": "Regerar séries mensais por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -1887,7 +2501,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação.",
         },
         {
-            "order": 9,
+            "order": 10,
             "module_id": "market_share",
             "label": "Regerar market share e concentração",
             "command": "python scripts/build_fidc_industry_market_share.py",
@@ -1895,7 +2509,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe.",
         },
         {
-            "order": 10,
+            "order": 11,
             "module_id": "pipeline_index",
             "label": "Atualizar cockpit do pipeline",
             "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -1912,6 +2526,7 @@ def build_industry_pipeline_index(
     artifact_total = len(artifact_rows)
     artifact_present = sum(1 for item in artifact_rows if item.get("exists") is True)
     base_meta = base_module.get("quality_highlights", {})
+    monthly_delta_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "monthly_delta"), {})
     criteria_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "criteria"), {})
     document_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "documents"), {})
     cedente_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "cedentes"), {})
@@ -1949,6 +2564,10 @@ def build_industry_pipeline_index(
             "latest_module_generated_at_utc": _latest_iso(generated_values),
             "competencia_final": base_meta.get("competencia_final", ""),
             "competencia_snapshot": base_meta.get("competencia_snapshot", ""),
+            "monthly_delta_rows": monthly_delta_quality.get("rows", 0),
+            "monthly_delta_new_funds": monthly_delta_quality.get("new_funds", 0),
+            "monthly_delta_reactivated_funds": monthly_delta_quality.get("reactivated_funds", 0),
+            "monthly_delta_high_priority": monthly_delta_quality.get("high_priority_rows", 0),
             "document_chunks": document_quality.get("chunks", 0),
             "max_documents_per_chunk": document_quality.get("max_documents_per_chunk", 0),
             "cedentes_structured_rows": cedente_quality.get("structured_rows", 0),
@@ -2052,6 +2671,13 @@ def build_cedente_pipeline_manifest(
     structured: pd.DataFrame,
 ) -> dict[str, object]:
     quality = cedente_quality_summary(candidates, reviews, structured)
+    outputs = {
+        "cedentes_structured": file_fingerprint(output_path),
+        "manifest": {"path": str(industry_dir / "industry_pipeline_manifest.json")},
+    }
+    review_audit_path = industry_dir / "cedente_review_audit.csv"
+    if review_audit_path.exists():
+        outputs["review_audit"] = file_fingerprint(review_audit_path)
     return {
         "schema_version": "industry-pipeline-manifest/v1",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -2070,10 +2696,7 @@ def build_cedente_pipeline_manifest(
             "manual_reviews": file_fingerprint(reviews_path),
             "vehicle_snapshot": file_fingerprint(industry_dir / "universe_latest.csv"),
         },
-        "outputs": {
-            "cedentes_structured": file_fingerprint(output_path),
-            "manifest": {"path": str(industry_dir / "industry_pipeline_manifest.json")},
-        },
+        "outputs": outputs,
         "stages": [
             {
                 "id": "extract_candidates",
@@ -2231,6 +2854,13 @@ def build_criteria_pipeline_manifest(
     structured: pd.DataFrame,
 ) -> dict[str, object]:
     quality = criteria_quality_summary(criteria, reviews, structured)
+    outputs = {
+        "criteria_structured": file_fingerprint(output_path),
+        "manifest": {"path": str(manifest_path)},
+    }
+    review_audit_path = industry_dir / "criteria_review_audit.csv"
+    if review_audit_path.exists():
+        outputs["review_audit"] = file_fingerprint(review_audit_path)
     return {
         "schema_version": "industry-criteria-manifest/v1",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -2250,10 +2880,7 @@ def build_criteria_pipeline_manifest(
             "criteria_source": file_fingerprint(criteria_source_path),
             "manual_reviews": file_fingerprint(reviews_path),
         },
-        "outputs": {
-            "criteria_structured": file_fingerprint(output_path),
-            "manifest": {"path": str(manifest_path)},
-        },
+        "outputs": outputs,
         "stages": [
             {
                 "id": "load_documentary_criteria",

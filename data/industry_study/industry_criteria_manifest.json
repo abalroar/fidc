@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-criteria-manifest/v1",
-  "generated_at_utc": "2026-07-08T15:43:06+00:00",
+  "generated_at_utc": "2026-07-08T17:16:28+00:00",
   "pipeline": "industry_criteria_structured",
   "design_constraints": {
     "modular": true,
@@ -36,8 +36,8 @@
     "criteria_structured": {
       "path": "data/industry_study/criteria_structured.csv.gz",
       "exists": true,
-      "bytes": 38453,
-      "sha256": "e6a2f338ddda4b5122e7ca87d107c761b42093bbf2dba04b19c55bc5549347e9"
+      "bytes": 38542,
+      "sha256": "504ba7317208a2735b4f88858e9b96b56dce34b87ddc563b25c00a1e0faebdf4"
     },
     "manifest": {
       "path": "data/industry_study/industry_criteria_manifest.json"

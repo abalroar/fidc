@@ -18,7 +18,12 @@ from build_fidc_industry_study import (  # noqa: E402
 from services.industry_study import (  # noqa: E402
     CEDENTE_REVIEW_COLUMNS,
     CRITERIA_REVIEW_COLUMNS,
+    MONTHLY_DELTA_ACTION_COLUMNS,
+    REVIEW_AUDIT_COLUMNS,
+    append_review_audit_events,
+    apply_monthly_delta_actions,
     assign_document_chunks,
+    build_review_audit_events,
     build_criteria_pipeline_manifest,
     build_criteria_structured,
     build_dimension_catalog_pipeline_manifest,
@@ -28,6 +33,7 @@ from services.industry_study import (  # noqa: E402
     build_industry_dimension_catalog,
     build_industry_dimension_monthly,
     build_industry_fund_snapshot,
+    build_industry_monthly_delta,
     build_industry_market_share,
     build_industry_pipeline_index,
     build_issuance_annual,
@@ -35,6 +41,7 @@ from services.industry_study import (  # noqa: E402
     build_issuance_sector_year,
     build_issuance_tranches,
     build_market_share_pipeline_manifest,
+    build_monthly_delta_pipeline_manifest,
     build_cedente_structured,
     build_cedente_pipeline_manifest,
     cedente_quality_summary,
@@ -44,8 +51,12 @@ from services.industry_study import (  # noqa: E402
     industry_dimension_catalog_quality_summary,
     industry_dimension_monthly_quality_summary,
     industry_market_share_quality_summary,
+    industry_monthly_delta_quality_summary,
     load_cedente_structured,
+    load_monthly_delta_actions,
+    load_review_audit,
     normalize_cnpj,
+    save_monthly_delta_actions,
     save_pipeline_manifest,
     save_cedente_structured,
     scan_regulatory_extraction_files,
@@ -132,6 +143,88 @@ def test_granular_vehicle_panel_reconciles_to_monthly_aggregates():
 def test_cedente_review_schema_keeps_manual_fields():
     assert "nome_fantasia_revisado" in CEDENTE_REVIEW_COLUMNS
     assert "confianca_manual" in CEDENTE_REVIEW_COLUMNS
+
+
+def test_review_audit_events_track_material_review_changes():
+    updated = pd.DataFrame(
+        [
+            {
+                "review_id": "r1",
+                "status": "aprovado",
+                "nome_revisado": "CEDENTE ABC S.A.",
+                "nome_fantasia_revisado": "",
+                "cnpj_revisado": "",
+                "grupo_economico": "",
+                "setor_revisado": "",
+                "segmento_revisado": "",
+                "confianca_manual": "0.90",
+                "notas": "",
+            },
+            {
+                "review_id": "r2",
+                "status": "pendente",
+                "nome_revisado": "",
+                "nome_fantasia_revisado": "",
+                "cnpj_revisado": "",
+                "grupo_economico": "",
+                "setor_revisado": "",
+                "segmento_revisado": "",
+                "confianca_manual": "",
+                "notas": "",
+            },
+        ],
+        columns=CEDENTE_REVIEW_COLUMNS,
+    )
+    events = build_review_audit_events(
+        previous=pd.DataFrame(columns=CEDENTE_REVIEW_COLUMNS),
+        updated=updated,
+        key_column="review_id",
+        review_domain="cedente",
+        saved_at_utc="2026-07-08T00:00:00+00:00",
+        source="test",
+    )
+
+    assert list(events.columns) == REVIEW_AUDIT_COLUMNS
+    assert set(events["record_id"]) == {"r1"}
+    assert {"status", "nome_revisado", "confianca_manual"}.issubset(set(events["field"]))
+
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "audit.csv"
+        audit = append_review_audit_events(events, path)
+        audit_again = append_review_audit_events(events, path)
+        loaded = load_review_audit(path)
+
+    assert len(audit) == len(events)
+    assert len(audit_again) == len(events)
+    assert loaded["event_id"].tolist() == audit["event_id"].tolist()
+
+    candidates = pd.DataFrame(
+        [
+            {
+                "review_id": "r1",
+                "cnpj_fundo": "12345678000190",
+                "fund_name": "FIDC TESTE",
+                "participant_type": "cedente_originador",
+                "participant_cnpj_candidate": "",
+                "participant_name_candidate": "CEDENTE AUTO S.A.",
+                "participante_extraido": "CEDENTE AUTO S.A.",
+                "setor_n1": "Crédito PJ",
+                "setor_n2": "Recebíveis comerciais",
+                "evidence_context": "Cedente CEDENTE AUTO S.A.",
+                "source_cache": "doc.txt",
+                "documento_origem": "doc.txt",
+                "pagina": "",
+                "metodo_extracao": "teste",
+                "score_confianca": 0.6,
+                "evidencias_agrupadas": 1,
+            }
+        ]
+    )
+    structured = build_cedente_structured(candidates, updated, review_audit=events)
+
+    assert structured.loc[0, "review_event_count"] == len(events)
+    assert structured.loc[0, "last_review_at_utc"] == "2026-07-08T00:00:00+00:00"
+    assert structured.loc[0, "last_review_source"] == "test"
 
 
 def test_cedente_structured_applies_manual_review():
@@ -1133,6 +1226,166 @@ def test_industry_dimension_monthly_aggregates_weighted_series_and_manifest():
     assert manifest["quality"]["rows"] == len(monthly)
 
 
+def test_industry_monthly_delta_prioritizes_incremental_review_queue():
+    vehicle = pd.DataFrame(
+        [
+            {
+                "competencia": "2026-04",
+                "cnpj_fundo": "11111111000111",
+                "denominacao": "FIDC RECORRENTE",
+                "admin_nome": "ADMIN A",
+                "segmento_principal": "Comercial",
+                "pl": 900.0,
+                "captacao_liquida": 10.0,
+                "carteira_dc": 700.0,
+                "cotistas": 10,
+            },
+            {
+                "competencia": "2026-05",
+                "cnpj_fundo": "11111111000111",
+                "denominacao": "FIDC RECORRENTE",
+                "admin_nome": "ADMIN A",
+                "segmento_principal": "Comercial",
+                "pl": 1000.0,
+                "captacao_liquida": 20.0,
+                "carteira_dc": 800.0,
+                "cotistas": 12,
+            },
+            {
+                "competencia": "2026-05",
+                "cnpj_fundo": "22222222000122",
+                "denominacao": "FIDC NOVO",
+                "admin_nome": "ADMIN B",
+                "segmento_principal": "Serviços",
+                "pl": 2000.0,
+                "captacao_liquida": 150_000_000.0,
+                "carteira_dc": 1200.0,
+                "cotistas": 8,
+            },
+            {
+                "competencia": "2026-04",
+                "cnpj_fundo": "33333333000133",
+                "denominacao": "FIDC SAIU",
+                "admin_nome": "ADMIN C",
+                "segmento_principal": "Industrial",
+                "pl": 500.0,
+                "captacao_liquida": -5.0,
+                "carteira_dc": 300.0,
+                "cotistas": 5,
+            },
+            {
+                "competencia": "2026-03",
+                "cnpj_fundo": "44444444000144",
+                "denominacao": "FIDC REATIVADO",
+                "admin_nome": "ADMIN D",
+                "segmento_principal": "Financeiro",
+                "pl": 100.0,
+                "captacao_liquida": 0.0,
+                "carteira_dc": 80.0,
+                "cotistas": 3,
+            },
+            {
+                "competencia": "2026-05",
+                "cnpj_fundo": "44444444000144",
+                "denominacao": "FIDC REATIVADO",
+                "admin_nome": "ADMIN D",
+                "segmento_principal": "Financeiro",
+                "pl": 700.0,
+                "captacao_liquida": 30.0,
+                "carteira_dc": 500.0,
+                "cotistas": 4,
+            },
+        ]
+    )
+    snapshot = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "11111111000111",
+                "nome_exibicao": "FIDC RECORRENTE",
+                "document_rows": 2,
+                "cedente_rows": 1,
+                "criteria_rows": 1,
+                "tem_sub_minima": True,
+                "camadas_com_evidencia": 4,
+            },
+            {
+                "cnpj_fundo": "22222222000122",
+                "nome_exibicao": "FIDC NOVO",
+                "document_rows": 0,
+                "cedente_rows": 0,
+                "criteria_rows": 0,
+                "tem_sub_minima": False,
+                "camadas_com_evidencia": 1,
+            },
+        ]
+    )
+
+    delta = build_industry_monthly_delta(
+        vehicle_monthly=vehicle,
+        snapshot=snapshot,
+        metadata={"competencia_snapshot": "202605"},
+    )
+    quality = industry_monthly_delta_quality_summary(delta)
+
+    statuses = delta.set_index("cnpj_fundo")["status_delta"].to_dict()
+    novo = delta[delta["cnpj_fundo"].eq("22222222000122")].iloc[0]
+
+    assert statuses["11111111000111"] == "recorrente"
+    assert statuses["22222222000122"] == "novo_no_ime"
+    assert statuses["33333333000133"] == "saiu_do_ime"
+    assert statuses["44444444000144"] == "reativado"
+    assert bool(novo["needs_document_discovery"]) is True
+    assert bool(novo["needs_cedente_review"]) is True
+    assert "curar critérios" in novo["next_actions"]
+    assert str(novo["delta_id"]) == "202605_22222222000122"
+    assert quality["new_funds"] == 1
+    assert quality["reactivated_funds"] == 1
+    assert quality["exited_funds"] == 1
+
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        output_path = tmp_path / "industry_monthly_delta.csv.gz"
+        manifest_path = tmp_path / "industry_monthly_delta_manifest.json"
+        actions_path = tmp_path / "monthly_delta_actions.csv"
+        actions = pd.DataFrame(
+            [
+                {
+                    "delta_id": novo["delta_id"],
+                    "status_acao": "em andamento",
+                    "acao_revisada": "Priorizar regulamento e suplemento",
+                    "responsavel": "mesa",
+                    "prazo": "2026-06-10",
+                    "notas": "FIDC novo no IME",
+                    "updated_at_utc": "2026-06-01T12:00:00+00:00",
+                }
+            ]
+        )
+        saved_actions = save_monthly_delta_actions(actions, actions_path)
+        loaded_actions = load_monthly_delta_actions(actions_path)
+        overlayed = apply_monthly_delta_actions(delta, loaded_actions)
+        novo_overlayed = overlayed[overlayed["delta_id"].eq(novo["delta_id"])].iloc[0]
+
+        assert saved_actions.columns.tolist() == MONTHLY_DELTA_ACTION_COLUMNS
+        assert loaded_actions.to_dict("records") == saved_actions.to_dict("records")
+        assert novo_overlayed["status_acao"] == "em andamento"
+        assert novo_overlayed["responsavel"] == "mesa"
+        assert industry_monthly_delta_quality_summary(overlayed)["action_status_counts"]["em andamento"] == 1
+
+        save_cedente_structured(delta, output_path)
+        manifest = build_monthly_delta_pipeline_manifest(
+            industry_dir=tmp_path,
+            output_path=output_path,
+            manifest_path=manifest_path,
+            vehicle_monthly=vehicle,
+            snapshot=snapshot,
+            delta=delta,
+        )
+
+    assert manifest["schema_version"] == "industry-monthly-delta-manifest/v1"
+    assert manifest["quality"]["rows"] == len(delta)
+    assert manifest["outputs"]["monthly_delta"]["sha256"]
+
+
 def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
@@ -1174,6 +1427,21 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
             }
             (tmp_path / name).write_text(json.dumps(manifest), encoding="utf-8")
 
+        write_module_manifest(
+            "industry_monthly_delta_manifest.json",
+            "industry_monthly_delta",
+            "industry_monthly_delta.csv.gz",
+            {
+                "rows": 6,
+                "competencia_atual": "2026-05",
+                "competencia_anterior": "2026-04",
+                "new_funds": 1,
+                "reactivated_funds": 1,
+                "exited_funds": 1,
+                "high_priority_rows": 2,
+                "needs_document_discovery": 2,
+            },
+        )
         write_module_manifest(
             "industry_issuance_manifest.json",
             "industry_issuance_structured",
@@ -1260,9 +1528,11 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
     assert index["schema_version"] == "industry-pipeline-index/v1"
-    assert index["quality_rollup"]["modules_total"] == 9
-    assert index["quality_rollup"]["module_status_counts"]["ok"] == 9
+    assert index["quality_rollup"]["modules_total"] == 10
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 10
     assert index["quality_rollup"]["competencia_snapshot"] == "202605"
+    assert index["quality_rollup"]["monthly_delta_new_funds"] == 1
+    assert index["quality_rollup"]["monthly_delta_high_priority"] == 2
     assert index["quality_rollup"]["document_chunks"] == 1
     assert index["quality_rollup"]["subordination_median_pct"] == 10.0
     assert index["quality_rollup"]["fund_snapshot_rows"] == 2
@@ -1278,6 +1548,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         "dimension_catalog",
         "dimension_monthly",
         "market_share",
+        "monthly_delta",
         "pipeline_index",
     }
     assert any(row["artifact"] == "manifest" for row in index["artifact_index"])

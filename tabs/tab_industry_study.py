@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import re
 import sqlite3
+from datetime import datetime, timezone
 from pathlib import Path
 
 import altair as alt
@@ -28,6 +29,9 @@ from services.industry_study import (
     DIMENSION_CATALOG_SPECS,
     MARKET_SHARE_DIMENSIONS,
     MARKET_SHARE_METRICS,
+    append_review_audit_events,
+    apply_monthly_delta_actions,
+    build_review_audit_events,
     build_cedente_pipeline_manifest,
     build_cedente_structured,
     build_criteria_pipeline_manifest,
@@ -38,13 +42,16 @@ from services.industry_study import (
     load_cedente_candidates,
     load_criteria_reviews,
     load_criteria_source,
+    load_monthly_delta_actions,
     load_pipeline_manifest,
     load_cedente_reviews,
     load_fund_universe,
+    load_review_audit,
     normalize_cnpj,
     save_cedente_reviews,
     save_criteria_reviews,
     save_dataframe,
+    save_monthly_delta_actions,
     save_pipeline_manifest,
     save_cedente_structured,
 )
@@ -53,9 +60,13 @@ _DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
 _REGULATORY_DB = Path(__file__).resolve().parents[1] / "data" / "fidc_credit_strategy" / "fidc_credit_strategy.sqlite"
 _ALL_FIDCS_CRITERIA = Path(__file__).resolve().parents[1] / "data" / "regulatory_profiles" / "all_fidcs_criteria_monitoraveis_ime.csv"
 _CEDENTE_REVIEW_PATH = _DATA_DIR / "cedente_reviews.csv"
+_CEDENTE_REVIEW_AUDIT_PATH = _DATA_DIR / "cedente_review_audit.csv"
 _CEDENTE_STRUCTURED_PATH = _DATA_DIR / "cedentes_structured.csv.gz"
 _PIPELINE_MANIFEST_PATH = _DATA_DIR / "industry_pipeline_manifest.json"
 _PIPELINE_INDEX_PATH = _DATA_DIR / "industry_pipeline_index.json"
+_MONTHLY_DELTA_PATH = _DATA_DIR / "industry_monthly_delta.csv.gz"
+_MONTHLY_DELTA_MANIFEST_PATH = _DATA_DIR / "industry_monthly_delta_manifest.json"
+_MONTHLY_DELTA_ACTIONS_PATH = _DATA_DIR / "monthly_delta_actions.csv"
 _FUND_SNAPSHOT_PATH = _DATA_DIR / "industry_fund_snapshot.csv.gz"
 _FUND_SNAPSHOT_MANIFEST_PATH = _DATA_DIR / "industry_fund_snapshot_manifest.json"
 _DIMENSION_CATALOG_PATH = _DATA_DIR / "industry_dimension_catalog.csv.gz"
@@ -72,6 +83,7 @@ _DOCUMENT_INVENTORY_PATH = _DATA_DIR / "document_inventory.csv.gz"
 _DOCUMENT_CHUNKS_PATH = _DATA_DIR / "document_processing_chunks.csv"
 _DOCUMENT_MANIFEST_PATH = _DATA_DIR / "industry_document_manifest.json"
 _CRITERIA_REVIEW_PATH = _DATA_DIR / "criteria_reviews.csv"
+_CRITERIA_REVIEW_AUDIT_PATH = _DATA_DIR / "criteria_review_audit.csv"
 _CRITERIA_STRUCTURED_PATH = _DATA_DIR / "criteria_structured.csv.gz"
 _CRITERIA_MANIFEST_PATH = _DATA_DIR / "industry_criteria_manifest.json"
 _CEDENTE_REVIEW_COLUMNS = CEDENTE_REVIEW_COLUMNS
@@ -291,6 +303,7 @@ def _build_structured_cedentes(
         reviews,
         fund_universe=_load_cedente_fund_universe(),
         vehicle_latest=vehicle_latest if vehicle_latest is not None else pd.DataFrame(),
+        review_audit=load_review_audit(_CEDENTE_REVIEW_AUDIT_PATH),
     )
 
 
@@ -302,6 +315,7 @@ def _persist_structured_cedentes(candidates: pd.DataFrame, reviews: pd.DataFrame
         reviews,
         fund_universe=fund_universe,
         vehicle_latest=vehicle_latest if vehicle_latest is not None else pd.DataFrame(),
+        review_audit=load_review_audit(_CEDENTE_REVIEW_AUDIT_PATH),
     )
     save_cedente_structured(structured, _CEDENTE_STRUCTURED_PATH)
     manifest = build_cedente_pipeline_manifest(
@@ -887,6 +901,9 @@ def _render_fund_dossier(snapshot: pd.DataFrame) -> None:
             "setor",
             "segmento",
             "status_revisao",
+            "review_event_count",
+            "last_review_at_utc",
+            "last_review_field",
             "score_confianca_final",
             "n_evidencias",
             "documento_origem",
@@ -906,6 +923,9 @@ def _render_fund_dossier(snapshot: pd.DataFrame) -> None:
                 "setor": "Setor",
                 "segmento": "Segmento",
                 "status_revisao": "Status revisão",
+                "review_event_count": "Eventos revisão",
+                "last_review_at_utc": "Última revisão",
+                "last_review_field": "Campo revisado",
                 "score_confianca_final": "Score",
                 "n_evidencias": "Evidências",
                 "documento_origem": "Documento",
@@ -930,6 +950,9 @@ def _render_fund_dossier(snapshot: pd.DataFrame) -> None:
             "document_date",
             "pagina",
             "status_revisao",
+            "review_event_count",
+            "last_review_at_utc",
+            "last_review_field",
             "score_confianca_final",
             "notas_revisao",
         ]
@@ -950,6 +973,9 @@ def _render_fund_dossier(snapshot: pd.DataFrame) -> None:
                 "document_date": "Data doc.",
                 "pagina": "Página",
                 "status_revisao": "Status revisão",
+                "review_event_count": "Eventos revisão",
+                "last_review_at_utc": "Última revisão",
+                "last_review_field": "Campo revisado",
                 "score_confianca_final": "Score",
                 "notas_revisao": "Notas",
             },
@@ -2589,6 +2615,56 @@ def _render_document_inventory() -> None:
             st.caption("Manifesto documental não encontrado.")
 
 
+def _format_review_audit_table(audit: pd.DataFrame) -> pd.DataFrame:
+    if audit.empty:
+        return pd.DataFrame(
+            columns=[
+                "Quando",
+                "Domínio",
+                "ID",
+                "Campo",
+                "Antes",
+                "Depois",
+                "Status",
+                "Origem",
+            ]
+        )
+    out = audit.copy()
+    out = out.sort_values("saved_at_utc", ascending=False).head(400)
+    return out.rename(
+        columns={
+            "saved_at_utc": "Quando",
+            "review_domain": "Domínio",
+            "record_id": "ID",
+            "field": "Campo",
+            "old_value": "Antes",
+            "new_value": "Depois",
+            "status_after": "Status",
+            "source": "Origem",
+        }
+    )[
+        ["Quando", "Domínio", "ID", "Campo", "Antes", "Depois", "Status", "Origem"]
+    ]
+
+
+def _render_review_audit(path: Path, *, empty_label: str) -> None:
+    audit = load_review_audit(path)
+    if audit.empty:
+        st.caption(empty_label)
+        return
+    col_a, col_b = st.columns([1.0, 1.0])
+    with col_a:
+        query = st.text_input("Buscar histórico", key=f"review_audit_query_{path.stem}", placeholder="ID, campo, valor ou status")
+    with col_b:
+        fields = sorted(audit["field"].dropna().astype(str).unique())
+        selected_fields = st.multiselect("Campo", fields, default=fields, key=f"review_audit_fields_{path.stem}")
+    filtered = audit[audit["field"].isin(selected_fields)].copy() if selected_fields else audit.iloc[0:0].copy()
+    if query:
+        search = filtered.fillna("").astype(str).agg(" ".join, axis=1)
+        filtered = filtered[search.str.contains(query, case=False, na=False)].copy()
+    st.dataframe(_format_review_audit_table(filtered), hide_index=True, width="stretch")
+
+
 def _load_criteria_reviews() -> pd.DataFrame:
     return load_criteria_reviews(_CRITERIA_REVIEW_PATH)
 
@@ -2600,7 +2676,12 @@ def _save_criteria_reviews(reviews: pd.DataFrame) -> None:
 def _persist_structured_criteria(reviews: pd.DataFrame) -> pd.DataFrame:
     criteria = load_criteria_source(_ALL_FIDCS_CRITERIA)
     fund_universe = _load_cedente_fund_universe()
-    structured = build_criteria_structured(criteria, reviews, fund_universe=fund_universe)
+    structured = build_criteria_structured(
+        criteria,
+        reviews,
+        fund_universe=fund_universe,
+        review_audit=load_review_audit(_CRITERIA_REVIEW_AUDIT_PATH),
+    )
     save_dataframe(structured, _CRITERIA_STRUCTURED_PATH)
     manifest = build_criteria_pipeline_manifest(
         industry_dir=_DATA_DIR,
@@ -2660,7 +2741,9 @@ def _render_criteria_study() -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    tab_sub, tab_heat, tab_base, tab_review, tab_manifest = st.tabs(["Sub mínima", "Heatmap", "Base", "Revisão", "Manifesto"])
+    tab_sub, tab_heat, tab_base, tab_review, tab_history, tab_manifest = st.tabs(
+        ["Sub mínima", "Heatmap", "Base", "Revisão", "Histórico", "Manifesto"]
+    )
     with tab_sub:
         if sub.empty:
             st.caption("Nenhuma regra de subordinação mínima na base estruturada.")
@@ -2865,12 +2948,27 @@ def _render_criteria_study() -> None:
             ).fillna("")
             keep_existing = reviews[~reviews["rule_id"].isin(edited_reviews["rule_id"])].copy() if not reviews.empty else reviews
             updated_reviews = pd.concat([keep_existing, edited_reviews], ignore_index=True)
+            audit_events = build_review_audit_events(
+                previous=reviews,
+                updated=updated_reviews,
+                key_column="rule_id",
+                review_domain="criteria",
+                source="industry_ui",
+            )
+            audit = append_review_audit_events(audit_events, _CRITERIA_REVIEW_AUDIT_PATH)
             _save_criteria_reviews(updated_reviews)
             structured_saved = _persist_structured_criteria(updated_reviews)
+            _load_criteria_tables.clear()
             st.success(
                 f"Revisões salvas em `{_CRITERIA_REVIEW_PATH}` e base recomposta "
-                f"em `{_CRITERIA_STRUCTURED_PATH.name}` ({len(structured_saved):,} regras)."
+                f"em `{_CRITERIA_STRUCTURED_PATH.name}` ({len(structured_saved):,} regras). "
+                f"Histórico: {len(audit_events):,} eventos novos, {len(audit):,} eventos no total."
             )
+    with tab_history:
+        _render_review_audit(
+            _CRITERIA_REVIEW_AUDIT_PATH,
+            empty_label="Ainda não há histórico de alterações em critérios. O primeiro salvamento com mudança material cria o ledger.",
+        )
     with tab_manifest:
         if manifest:
             st.download_button(
@@ -3050,12 +3148,27 @@ def _render_cedente_review_workbench() -> None:
         edited_reviews = edited_reviews.fillna("")
         keep_existing = reviews[~reviews["review_id"].isin(edited_reviews["review_id"])].copy()
         updated_reviews = pd.concat([keep_existing, edited_reviews], ignore_index=True)
+        audit_events = build_review_audit_events(
+            previous=reviews,
+            updated=updated_reviews,
+            key_column="review_id",
+            review_domain="cedente",
+            source="industry_ui",
+        )
+        audit = append_review_audit_events(audit_events, _CEDENTE_REVIEW_AUDIT_PATH)
         _save_cedente_reviews(updated_reviews)
         structured_saved = _persist_structured_cedentes(candidates, updated_reviews)
         st.success(
             f"Revisões salvas em `{_CEDENTE_REVIEW_PATH}` e base estruturada atualizada "
-            f"em `{_CEDENTE_STRUCTURED_PATH.name}` ({len(structured_saved):,} linhas)."
+            f"em `{_CEDENTE_STRUCTURED_PATH.name}` ({len(structured_saved):,} linhas). "
+            f"Histórico: {len(audit_events):,} eventos novos, {len(audit):,} eventos no total."
         )
+
+    st.markdown("**Histórico de revisões**")
+    _render_review_audit(
+        _CEDENTE_REVIEW_AUDIT_PATH,
+        empty_label="Ainda não há histórico de alterações em cedentes. O primeiro salvamento com mudança material cria o ledger.",
+    )
 
 
 def _numeric_column(frame: pd.DataFrame, column: str) -> pd.Series:
@@ -3379,6 +3492,15 @@ def _load_industry_pipeline_index() -> dict[str, object]:
     return build_industry_pipeline_index(industry_dir=_DATA_DIR, output_path=_PIPELINE_INDEX_PATH)
 
 
+@st.cache_data(show_spinner=False)
+def _load_monthly_delta_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    return {
+        "delta": load_dataframe(_MONTHLY_DELTA_PATH),
+        "actions": load_monthly_delta_actions(_MONTHLY_DELTA_ACTIONS_PATH),
+        "manifest": load_pipeline_manifest(_MONTHLY_DELTA_MANIFEST_PATH),
+    }
+
+
 def _status_badge_text(status: object) -> str:
     mapping = {
         "ok": "ok",
@@ -3402,6 +3524,12 @@ def _render_pipeline_manifest() -> None:
             "Índice do pipeline ainda não disponível. Rode `python scripts/build_fidc_industry_pipeline_index.py`."
         )
         return
+    monthly_delta_tables = _load_monthly_delta_tables()
+    monthly_delta = monthly_delta_tables["delta"]
+    monthly_delta_actions = monthly_delta_tables["actions"]
+    assert isinstance(monthly_delta, pd.DataFrame)
+    assert isinstance(monthly_delta_actions, pd.DataFrame)
+    monthly_delta = apply_monthly_delta_actions(monthly_delta, monthly_delta_actions)
 
     rollup = index.get("quality_rollup", {}) if isinstance(index.get("quality_rollup"), dict) else {}
     status_counts = rollup.get("module_status_counts", {}) if isinstance(rollup.get("module_status_counts"), dict) else {}
@@ -3425,6 +3553,11 @@ def _render_pipeline_manifest() -> None:
             "snapshot granular",
         ),
         _curation_card(
+            "Delta alta prioridade",
+            _fmt_int(float(rollup.get("monthly_delta_high_priority", 0))),
+            f"{_fmt_int(float(rollup.get('monthly_delta_new_funds', 0)))} novos · {_fmt_int(float(rollup.get('monthly_delta_reactivated_funds', 0)))} reativados",
+        ),
+        _curation_card(
             "Snapshot FIDCs",
             _fmt_int(float(rollup.get("fund_snapshot_rows", 0))),
             "base unificada",
@@ -3442,7 +3575,9 @@ def _render_pipeline_manifest() -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    tab_modules, tab_refresh, tab_artifacts, tab_json = st.tabs(["Módulos", "Refresh mensal", "Artefatos", "Manifesto"])
+    tab_modules, tab_delta, tab_refresh, tab_artifacts, tab_json = st.tabs(
+        ["Módulos", "Delta mensal", "Refresh mensal", "Artefatos", "Manifesto"]
+    )
     with tab_modules:
         module_rows = []
         for module in modules:
@@ -3486,6 +3621,178 @@ def _render_pipeline_manifest() -> None:
                 .properties(height=160)
             )
             st.altair_chart(chart, width="stretch")
+
+    with tab_delta:
+        st.markdown(
+            '<div class="industry-curation-note">Fila operacional da competência atual contra a anterior. '
+            "Use para decidir quais CNPJs precisam de descoberta documental, cedentes, critérios ou validação de saída.</div>",
+            unsafe_allow_html=True,
+        )
+        if monthly_delta.empty:
+            st.caption("Delta mensal ainda não materializado. Rode `python scripts/build_fidc_industry_monthly_delta.py`.")
+        else:
+            ctrl_a, ctrl_b, ctrl_c = st.columns([0.9, 0.9, 1.2])
+            with ctrl_a:
+                bands = sorted([value for value in monthly_delta.get("priority_band", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
+                selected_bands = st.multiselect("Prioridade", bands, default=bands, key="industry_delta_priority")
+            with ctrl_b:
+                statuses = sorted([value for value in monthly_delta.get("status_delta", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
+                selected_statuses = st.multiselect("Status", statuses, default=statuses, key="industry_delta_status")
+            with ctrl_c:
+                query = st.text_input("Buscar delta", key="industry_delta_query", placeholder="FIDC, CNPJ, administrador, ação")
+            delta = monthly_delta.copy()
+            if "delta_id" not in delta.columns and {"competencia_atual", "cnpj_fundo"}.issubset(delta.columns):
+                competencia_key = delta["competencia_atual"].fillna("").astype(str).str.replace("-", "", regex=False)
+                delta["delta_id"] = competencia_key + "_" + delta["cnpj_fundo"].fillna("").astype(str)
+            for col in ["status_acao", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+                if col not in delta.columns:
+                    delta[col] = ""
+            delta["status_acao"] = delta["status_acao"].fillna("").replace("", "pendente")
+            if selected_bands and "priority_band" in delta.columns:
+                delta = delta[delta["priority_band"].isin(selected_bands)].copy()
+            if selected_statuses and "status_delta" in delta.columns:
+                delta = delta[delta["status_delta"].isin(selected_statuses)].copy()
+            if query:
+                search_cols = [
+                    col
+                    for col in [
+                        "fundo",
+                        "cnpj_fundo",
+                        "admin_nome",
+                        "gestor_nome",
+                        "segmento_principal",
+                        "next_actions",
+                        "status_acao",
+                        "acao_revisada",
+                        "responsavel",
+                        "notas",
+                    ]
+                    if col in delta.columns
+                ]
+                search = delta[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=delta.index)
+                delta = delta[search.str.contains(query, case=False, na=False)].copy()
+            show_cols = [
+                "delta_id",
+                "competencia_atual",
+                "cnpj_fundo",
+                "fundo",
+                "status_delta",
+                "priority_band",
+                "priority_score",
+                "status_acao",
+                "acao_revisada",
+                "responsavel",
+                "prazo",
+                "notas",
+                "updated_at_utc",
+                "next_actions",
+                "pl_atual",
+                "pl_delta",
+                "captacao_liquida_mes",
+                "admin_nome",
+                "segmento_principal",
+                "document_rows",
+                "cedente_rows",
+                "criteria_rows",
+                "tem_sub_minima",
+                "document_chunk_ids",
+            ]
+            show = delta[[col for col in show_cols if col in delta.columns]].head(400).copy()
+            for col in ["pl_atual", "pl_delta", "captacao_liquida_mes"]:
+                if col in show.columns:
+                    show[col] = pd.to_numeric(show[col], errors="coerce").fillna(0).map(lambda value: _fmt_bi(float(value), 2))
+            display = show.rename(
+                columns={
+                    "delta_id": "ID",
+                    "competencia_atual": "Competência",
+                    "cnpj_fundo": "CNPJ",
+                    "fundo": "FIDC",
+                    "status_delta": "Status",
+                    "priority_band": "Prioridade",
+                    "priority_score": "Score",
+                    "status_acao": "Status ação",
+                    "acao_revisada": "Ação revisada",
+                    "responsavel": "Responsável",
+                    "prazo": "Prazo",
+                    "notas": "Notas",
+                    "updated_at_utc": "Atualizado",
+                    "next_actions": "Próximas ações",
+                    "pl_atual": "PL atual",
+                    "pl_delta": "Delta PL",
+                    "captacao_liquida_mes": "Captação mês",
+                    "admin_nome": "Administrador",
+                    "segmento_principal": "Segmento",
+                    "document_rows": "Docs",
+                    "cedente_rows": "Cedentes",
+                    "criteria_rows": "Critérios",
+                    "tem_sub_minima": "Sub mín.",
+                    "document_chunk_ids": "Chunks",
+                }
+            )
+            edited = st.data_editor(
+                display,
+                hide_index=True,
+                width="stretch",
+                height=560,
+                disabled=[
+                    "ID",
+                    "Competência",
+                    "CNPJ",
+                    "FIDC",
+                    "Status",
+                    "Prioridade",
+                    "Score",
+                    "Atualizado",
+                    "Próximas ações",
+                    "PL atual",
+                    "Delta PL",
+                    "Captação mês",
+                    "Administrador",
+                    "Segmento",
+                    "Docs",
+                    "Cedentes",
+                    "Critérios",
+                    "Sub mín.",
+                    "Chunks",
+                ],
+                column_config={
+                    "ID": st.column_config.TextColumn("ID", width="small"),
+                    "Status ação": st.column_config.SelectboxColumn(
+                        "Status ação",
+                        options=["pendente", "em andamento", "concluído", "ignorado"],
+                        required=True,
+                    ),
+                    "Ação revisada": st.column_config.TextColumn("Ação revisada", width="large"),
+                    "Notas": st.column_config.TextColumn("Notas", width="large"),
+                    "Próximas ações": st.column_config.TextColumn("Próximas ações", width="large"),
+                },
+                key="industry_monthly_delta_editor",
+            )
+            if st.button("Salvar acompanhamento do delta", type="primary", key="industry_save_monthly_delta_actions"):
+                edited_actions = pd.DataFrame(
+                    {
+                        "delta_id": edited["ID"].fillna("").astype(str),
+                        "status_acao": edited["Status ação"].fillna("").astype(str).replace("", "pendente"),
+                        "acao_revisada": edited["Ação revisada"].fillna("").astype(str),
+                        "responsavel": edited["Responsável"].fillna("").astype(str),
+                        "prazo": edited["Prazo"].fillna("").astype(str),
+                        "notas": edited["Notas"].fillna("").astype(str),
+                        "updated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                    }
+                )
+                text_cols = ["acao_revisada", "responsavel", "prazo", "notas"]
+                material = edited_actions["status_acao"].ne("pendente") | (
+                    edited_actions[text_cols].fillna("").astype(str).agg(" ".join, axis=1).str.strip().ne("")
+                )
+                edited_actions = edited_actions[edited_actions["delta_id"].str.strip().ne("") & material].copy()
+                visible_ids = set(edited["ID"].fillna("").astype(str))
+                existing = monthly_delta_actions.copy()
+                if not existing.empty and "delta_id" in existing.columns:
+                    existing = existing[~existing["delta_id"].fillna("").astype(str).isin(visible_ids)].copy()
+                updated_actions = pd.concat([existing, edited_actions], ignore_index=True)
+                save_monthly_delta_actions(updated_actions, _MONTHLY_DELTA_ACTIONS_PATH)
+                _load_monthly_delta_tables.clear()
+                st.success(f"Acompanhamento salvo para {_fmt_int(float(len(edited_actions)))} linhas visíveis.")
 
     with tab_refresh:
         st.markdown(
