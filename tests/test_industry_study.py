@@ -16,6 +16,12 @@ from build_fidc_industry_study import (  # noqa: E402
 )
 from services.industry_study import (  # noqa: E402
     CEDENTE_REVIEW_COLUMNS,
+    CRITERIA_REVIEW_COLUMNS,
+    assign_document_chunks,
+    build_criteria_pipeline_manifest,
+    build_criteria_structured,
+    build_document_inventory,
+    build_document_pipeline_manifest,
     build_issuance_annual,
     build_issuance_pipeline_manifest,
     build_issuance_sector_year,
@@ -23,10 +29,13 @@ from services.industry_study import (  # noqa: E402
     build_cedente_structured,
     build_cedente_pipeline_manifest,
     cedente_quality_summary,
+    criteria_quality_summary,
+    document_quality_summary,
     load_cedente_structured,
     normalize_cnpj,
     save_pipeline_manifest,
     save_cedente_structured,
+    scan_regulatory_extraction_files,
 )
 
 
@@ -389,3 +398,228 @@ def test_issuance_pipeline_manifest_lists_outputs():
     assert manifest["schema_version"] == "industry-issuance-manifest/v1"
     assert manifest["outputs"]["issuance_tranches"]["sha256"]
     assert {stage["id"] for stage in manifest["stages"]} >= {"aggregate_annual_issuance", "normalize_tranches"}
+
+
+def test_document_inventory_fingerprints_and_classifies_local_sources():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        pdf_dir = root / "data" / "raw" / "05753599000158"
+        pdf_dir.mkdir(parents=True)
+        pdf_path = pdf_dir / "123456_regulamento_regulamento_123456_2026-05-10.pdf"
+        pdf_path.write_bytes(b"%PDF local")
+        sources = pd.DataFrame(
+            [
+                {
+                    "cnpj_fundo": "05.753.599/0001-58",
+                    "fundo": "FIDC TESTE",
+                    "setor_n1": "Crédito PJ",
+                    "setor_n2": "Recebíveis",
+                    "source_table": "manual_review_queue",
+                    "source_field": "latest_regulamento_file",
+                    "source_value": "data/raw/05753599000158/123456_regulamento_regulamento_123456_2026-05-10.pdf",
+                    "document_date_hint": "2026-05-10",
+                    "priority_hint": "Onda 1",
+                }
+            ]
+        )
+
+        inventory = build_document_inventory(sources, root=root, max_hash_bytes=1024)
+        row = inventory.iloc[0]
+
+    assert row["cnpj_fundo"] == "05753599000158"
+    assert row["document_class"] == "regulamento"
+    assert row["content_kind"] == "pdf"
+    assert row["document_date"] == "2026-05-10"
+    assert bool(row["local_exists"]) is True
+    assert row["hash_status"] == "hashed"
+    assert len(row["sha256"]) == 64
+
+
+def test_document_chunks_keep_small_rerunnable_batches():
+    inventory = pd.DataFrame(
+        [
+            {
+                "document_key": f"k{i}",
+                "cnpj_fundo": f"{i:014d}",
+                "fundo": f"FIDC {i}",
+                "setor_n1": "Crédito PJ",
+                "setor_n2": "Recebíveis",
+                "documento_origem": f"doc_{i}.pdf",
+                "documento_id": str(1000 + i),
+                "document_class": "regulamento",
+                "content_kind": "pdf",
+                "document_date": "2026-01-01",
+                "local_path": f"data/raw/{i:014d}/doc.pdf",
+                "local_exists": True,
+                "bytes": 10,
+                "sha256": "a" * 64,
+                "hash_status": "hashed",
+                "source_table": "manual_review_queue",
+                "source_field": "latest_regulamento_file",
+                "source_value": "doc.pdf",
+                "source_rows": 1,
+                "priority_2025_2026": True,
+                "first_offer_year": 2026,
+                "emission_cohort": "2026YTD",
+                "suggested_stage": "ocr_parse_extract",
+                "processing_status": "local_ready",
+            }
+            for i in range(5)
+        ]
+    )
+
+    assigned, chunks = assign_document_chunks(inventory, max_cnpjs=2, max_documents=2, max_bytes=100)
+
+    assert assigned["chunk_id"].nunique() == 3
+    assert chunks["document_count"].max() == 2
+    assert chunks["cnpj_count"].max() == 2
+    assert chunks["rerun_command"].str.contains("--chunk-id doc-0001").any()
+
+
+def test_document_manifest_and_quality_describe_pipeline_outputs():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        db_path = tmp_path / "strategy.sqlite"
+        extraction_dir = tmp_path / "data" / "regulatory_extractions"
+        cnpj_dir = extraction_dir / "05753599000158"
+        cnpj_dir.mkdir(parents=True)
+        local_json = cnpj_dir / "123456.local.json"
+        local_json.write_text("{}", encoding="utf-8")
+        db_path.write_text("db")
+
+        extraction_rows = scan_regulatory_extraction_files(extraction_dir)
+        inventory = build_document_inventory(pd.DataFrame(), extraction_rows=extraction_rows, root=tmp_path)
+        inventory, chunks = assign_document_chunks(inventory, max_cnpjs=10, max_documents=10)
+        inventory_path = tmp_path / "document_inventory.csv.gz"
+        chunks_path = tmp_path / "document_processing_chunks.csv"
+        save_cedente_structured(inventory, inventory_path)
+        chunks.to_csv(chunks_path, index=False)
+        manifest = build_document_pipeline_manifest(
+            industry_dir=tmp_path,
+            strategy_db=db_path,
+            extractions_dir=extraction_dir,
+            inventory_path=inventory_path,
+            chunks_path=chunks_path,
+            manifest_path=tmp_path / "industry_document_manifest.json",
+            source_rows=pd.DataFrame(),
+            extraction_rows=extraction_rows,
+            inventory=inventory,
+            chunks=chunks,
+            max_hash_bytes=1024,
+        )
+        quality = document_quality_summary(inventory, chunks)
+
+    assert manifest["schema_version"] == "industry-document-manifest/v1"
+    assert {stage["id"] for stage in manifest["stages"]} >= {"scan_local_extraction_artifacts", "assign_processing_chunks"}
+    assert manifest["outputs"]["document_inventory"]["sha256"]
+    assert quality["document_rows"] == 1
+    assert quality["content_kind_counts"]["extraction_json"] == 1
+
+
+def test_criteria_structured_applies_review_and_tracks_subordination():
+    criteria = pd.DataFrame(
+        [
+            {
+                "Fundo": "FIDC ABC",
+                "CNPJ": "05.753.599/0001-58",
+                "Critério": "Subordinação mínima",
+                "Chave": "subordination_ratio_min",
+                "Limite/regra": "Relação mínima de 12,5%",
+                "Monitorabilidade IME": "monitoravel",
+                "Métrica IME / proxy": "Subordinadas / PL",
+                "Condição de alerta sugerida": "Abaixo de 12,5%",
+                "Observação técnica": "pagina 10",
+                "Fonte": "123456_regulamento_regulamento_123456_2026-05-10.pdf · ID 123456 · 10/05/2026",
+                "Status curadoria": "triagem estruturada por evidência documental offline",
+            }
+        ]
+    )
+    criteria["rule_id"] = ["r1"]
+    reviews = pd.DataFrame(
+        [
+            {
+                "rule_id": "r1",
+                "status": "corrigido",
+                "criterio_revisado": "Subordinação mínima revisada",
+                "chave_revisada": "",
+                "limite_revisado": "",
+                "pct_min_revisado": "10",
+                "monitorabilidade_revisada": "parcial",
+                "confianca_manual": "0.85",
+                "notas": "ok",
+            }
+        ],
+        columns=CRITERIA_REVIEW_COLUMNS,
+    )
+    funds = pd.DataFrame(
+        [
+            {
+                "cnpj": "05753599000158",
+                "fund_name_final": "FIDC ABC FINAL",
+                "setor_n1": "Crédito PJ",
+                "setor_n2": "Recebíveis",
+                "first_offer_year": 2026,
+                "emission_cohort": "2026YTD",
+                "pl_atual_brl": 100.0,
+                "has_regulatory_matrix": 1,
+            }
+        ]
+    )
+
+    structured = build_criteria_structured(criteria, reviews, fund_universe=funds)
+    row = structured.iloc[0]
+    quality = criteria_quality_summary(criteria, reviews, structured)
+
+    assert row["cnpj_fundo"] == "05753599000158"
+    assert row["criterio"] == "Subordinação mínima revisada"
+    assert row["pct_min"] == 10
+    assert row["monitorabilidade_ime"] == "parcial"
+    assert row["documento_id"] == "123456"
+    assert row["document_date"] == "2026-05-10"
+    assert row["score_confianca_final"] == 0.85
+    assert quality["subordination"]["median"] == 10.0
+    assert quality["coverage"]["documento_origem"] == 1.0
+
+
+def test_criteria_pipeline_manifest_lists_rerunnable_stages():
+    criteria = pd.DataFrame(
+        {
+            "rule_id": ["r1"],
+            "CNPJ": ["05753599000158"],
+            "Chave": ["subordination_ratio_min"],
+            "Critério": ["Sub"],
+            "Limite/regra": ["10%"],
+            "Monitorabilidade IME": ["monitoravel"],
+            "Fonte": ["doc.pdf · ID 1 · 01/01/2026"],
+        }
+    )
+    reviews = pd.DataFrame(columns=CRITERIA_REVIEW_COLUMNS)
+    funds = pd.DataFrame({"cnpj": ["05753599000158"]})
+    structured = build_criteria_structured(criteria, reviews, fund_universe=funds)
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        db_path = tmp_path / "strategy.sqlite"
+        source_path = tmp_path / "criteria.csv"
+        reviews_path = tmp_path / "criteria_reviews.csv"
+        output_path = tmp_path / "criteria_structured.csv.gz"
+        db_path.write_text("db")
+        criteria.to_csv(source_path, index=False)
+        reviews.to_csv(reviews_path, index=False)
+        save_cedente_structured(structured, output_path)
+        manifest = build_criteria_pipeline_manifest(
+            industry_dir=tmp_path,
+            strategy_db=db_path,
+            criteria_source_path=source_path,
+            reviews_path=reviews_path,
+            output_path=output_path,
+            manifest_path=tmp_path / "industry_criteria_manifest.json",
+            criteria=criteria,
+            reviews=reviews,
+            fund_universe=funds,
+            structured=structured,
+        )
+
+    assert manifest["schema_version"] == "industry-criteria-manifest/v1"
+    assert {stage["id"] for stage in manifest["stages"]} >= {"load_documentary_criteria", "normalize_structured_criteria"}
+    assert manifest["outputs"]["criteria_structured"]["sha256"]
+    assert manifest["quality"]["subordination_rows"] == 1

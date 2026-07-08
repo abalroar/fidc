@@ -1,0 +1,135 @@
+{
+  "schema_version": "industry-criteria-manifest/v1",
+  "generated_at_utc": "2026-07-08T15:43:06+00:00",
+  "pipeline": "industry_criteria_structured",
+  "design_constraints": {
+    "modular": true,
+    "incremental": true,
+    "macbook_air_m4_friendly": true,
+    "notes": [
+      "Este modulo consolida criterios monitoraveis e subordinação minima ja extraidos documentalmente.",
+      "Revisoes manuais sao aplicadas como overlay persistido pela UI; nao editar CSV interno manualmente.",
+      "Percentuais em uma mesma regra usam o menor valor explicito como minimo conservador."
+    ]
+  },
+  "inputs": {
+    "strategy_db": {
+      "path": "data/fidc_credit_strategy/fidc_credit_strategy.sqlite",
+      "exists": true,
+      "bytes": 222019584,
+      "sha256": "5334a9fd1eba8fdf28b79c7546602fcd88e4553336a64c950ce2ed8f456295f9"
+    },
+    "criteria_source": {
+      "path": "data/regulatory_profiles/all_fidcs_criteria_monitoraveis_ime.csv",
+      "exists": true,
+      "bytes": 203954,
+      "sha256": "78acaaf221e042abd02879cb1dd385edac62af6f8e3eade1f98ac33d6f321757"
+    },
+    "manual_reviews": {
+      "path": "data/industry_study/criteria_reviews.csv",
+      "exists": true,
+      "bytes": 130,
+      "sha256": "175d69ff6a6f0365e057ce26602a5e2660c90887db3bac85bbcc8dbfd6709249"
+    }
+  },
+  "outputs": {
+    "criteria_structured": {
+      "path": "data/industry_study/criteria_structured.csv.gz",
+      "exists": true,
+      "bytes": 38453,
+      "sha256": "e6a2f338ddda4b5122e7ca87d107c761b42093bbf2dba04b19c55bc5549347e9"
+    },
+    "manifest": {
+      "path": "data/industry_study/industry_criteria_manifest.json"
+    }
+  },
+  "stages": [
+    {
+      "id": "load_documentary_criteria",
+      "label": "Critérios documentais",
+      "status": "ok",
+      "input": "data/regulatory_profiles/all_fidcs_criteria_monitoraveis_ime.csv",
+      "output": "memoria:all_fidcs_criteria_monitoraveis_ime",
+      "rows": 183,
+      "funds": 56,
+      "rerun": "python scripts/classify_fidc_sectors_and_practices.py"
+    },
+    {
+      "id": "apply_manual_review",
+      "label": "Revisao manual persistida",
+      "status": "ok",
+      "input": "data/industry_study/criteria_reviews.csv",
+      "output": "memoria:criteria_review_overlay",
+      "rows": 0,
+      "rerun": "Editar pela aba Indústria > Critérios; nao editar CSV manualmente."
+    },
+    {
+      "id": "enrich_fund_universe",
+      "label": "Enriquecimento por universo/ofertas",
+      "status": "ok",
+      "input": "data/fidc_credit_strategy/fidc_credit_strategy.sqlite",
+      "output": "memoria:fund_universe",
+      "rows": 7399,
+      "funds": 7399,
+      "rerun": "python scripts/export_fidc_strategy_audit_report.py"
+    },
+    {
+      "id": "normalize_structured_criteria",
+      "label": "Base estruturada de critérios",
+      "status": "ok",
+      "input": "memoria:criteria+review_overlay+fund_universe",
+      "output": "data/industry_study/criteria_structured.csv.gz",
+      "rows": 183,
+      "funds": 56,
+      "rerun": "python scripts/build_fidc_industry_criteria.py"
+    }
+  ],
+  "quality": {
+    "source_rows": 183,
+    "source_funds": 56,
+    "structured_rows": 183,
+    "structured_funds": 56,
+    "active_rows": 183,
+    "active_funds": 56,
+    "subordination_rows": 31,
+    "subordination_funds": 21,
+    "monitorable_rows": 114,
+    "partial_rows": 69,
+    "review_rows": 0,
+    "review_status_counts": {},
+    "coverage": {
+      "cnpj_fundo": 1.0,
+      "criterio": 1.0,
+      "chave": 1.0,
+      "limite_regra": 1.0,
+      "pct_min": 0.546448087431694,
+      "monitorabilidade_ime": 1.0,
+      "documento_origem": 1.0,
+      "document_date": 1.0,
+      "score_confianca_final": 1.0
+    },
+    "subordination": {
+      "median": 10.0,
+      "p25": 7.0,
+      "p75": 25.0
+    },
+    "score": {
+      "median": 0.9,
+      "p25": 0.75,
+      "p75": 0.9
+    },
+    "criteria_key_counts": {
+      "permitted_hedges": 50,
+      "subordination_ratio_min": 31,
+      "credit_rights_allocation_min": 19,
+      "service_provider_replacement_event": 19,
+      "minimum_cash_ratio": 16,
+      "eligibility_criteria_text": 14,
+      "concentration_limits": 9,
+      "pdd_coverage_min": 9,
+      "recompras_max": 7,
+      "default_rate_evaluation_event": 6,
+      "cancellation_rate_max": 3
+    }
+  }
+}

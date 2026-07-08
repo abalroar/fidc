@@ -23,6 +23,18 @@ CEDENTE_REVIEW_COLUMNS = [
     "notas",
 ]
 
+CRITERIA_REVIEW_COLUMNS = [
+    "rule_id",
+    "status",
+    "criterio_revisado",
+    "chave_revisada",
+    "limite_revisado",
+    "pct_min_revisado",
+    "monitorabilidade_revisada",
+    "confianca_manual",
+    "notas",
+]
+
 APPROVED_REVIEW_STATUSES = {"aprovado", "corrigido"}
 ISSUANCE_YEARS = [2024, 2025, 2026]
 
@@ -578,6 +590,860 @@ def load_dataframe(path: Path) -> pd.DataFrame:
     return pd.read_csv(path, dtype=str, keep_default_na=False, low_memory=False)
 
 
+_DOCUMENT_SOURCE_COLUMNS = [
+    "cnpj_fundo",
+    "fundo",
+    "setor_n1",
+    "setor_n2",
+    "source_table",
+    "source_field",
+    "source_value",
+    "document_date_hint",
+    "priority_hint",
+]
+
+
+def _empty_document_sources() -> pd.DataFrame:
+    return pd.DataFrame(columns=_DOCUMENT_SOURCE_COLUMNS)
+
+
+def _table_names(conn: sqlite3.Connection) -> set[str]:
+    return {
+        row[0]
+        for row in conn.execute("select name from sqlite_master where type='table'").fetchall()
+    }
+
+
+def load_document_source_rows(strategy_db: Path) -> pd.DataFrame:
+    """Load document references already discovered by the strategy pipeline."""
+    if not strategy_db.exists():
+        return _empty_document_sources()
+    frames: list[pd.DataFrame] = []
+    try:
+        with sqlite3.connect(strategy_db) as conn:
+            tables = _table_names(conn)
+            if "manual_review_queue" in tables:
+                frames.append(
+                    pd.read_sql_query(
+                        """
+                        select coalesce(cnpj, cnpj_emissor, '') as cnpj_fundo,
+                               coalesce(nome_emissor, '') as fundo,
+                               coalesce(setor_n1_final, setor_n1, '') as setor_n1,
+                               coalesce(setor_n2_final, setor_n2, '') as setor_n2,
+                               'manual_review_queue' as source_table,
+                               'latest_regulamento_file' as source_field,
+                               coalesce(latest_regulamento_file, '') as source_value,
+                               coalesce(latest_regulamento_date, '') as document_date_hint,
+                               coalesce(review_wave, '') || ' ' || coalesce(review_reason, '') as priority_hint
+                        from manual_review_queue
+                        where trim(coalesce(latest_regulamento_file, '')) <> ''
+                        """,
+                        conn,
+                    )
+                )
+            if "cedentes_sacados_candidates" in tables:
+                frames.append(
+                    pd.read_sql_query(
+                        """
+                        select coalesce(cnpj_fundo, '') as cnpj_fundo,
+                               coalesce(fund_name, '') as fundo,
+                               coalesce(setor_n1, '') as setor_n1,
+                               coalesce(setor_n2, '') as setor_n2,
+                               'cedentes_sacados_candidates' as source_table,
+                               'source_cache' as source_field,
+                               coalesce(source_cache, '') as source_value,
+                               '' as document_date_hint,
+                               coalesce(participant_type, '') as priority_hint
+                        from cedentes_sacados_candidates
+                        where trim(coalesce(source_cache, '')) <> ''
+                        """,
+                        conn,
+                    )
+                )
+            if "pricing_tranche_enriched" in tables:
+                frames.append(
+                    pd.read_sql_query(
+                        """
+                        select coalesce(
+                                   nullif(nullif(cnpj_emissor, 'nan'), ''),
+                                   nullif(nullif(cnpj_2, 'nan'), ''),
+                                   nullif(nullif(cnpj, 'nan'), ''),
+                                   ''
+                               ) as cnpj_fundo,
+                               coalesce(fund_name_final, nome_emissor, fundo, '') as fundo,
+                               coalesce(setor_n1, setor_n1_y, setor_n1_x, '') as setor_n1,
+                               coalesce(setor_n2, setor_n2_y, setor_n2_x, '') as setor_n2,
+                               'pricing_tranche_enriched' as source_table,
+                               'fonte' as source_field,
+                               coalesce(fonte, '') as source_value,
+                               coalesce(data_deliberacao_dt, data_deliberacao, '') as document_date_hint,
+                               coalesce(pricing_period, emission_cohort, '') as priority_hint
+                        from pricing_tranche_enriched
+                        where trim(coalesce(fonte, '')) <> ''
+                        """,
+                        conn,
+                    )
+                )
+    except sqlite3.Error:
+        return _empty_document_sources()
+    if not frames:
+        return _empty_document_sources()
+    out = pd.concat(frames, ignore_index=True, sort=False)
+    for col in _DOCUMENT_SOURCE_COLUMNS:
+        if col not in out.columns:
+            out[col] = ""
+    out = out[_DOCUMENT_SOURCE_COLUMNS].fillna("").astype(str)
+    out["cnpj_fundo"] = out["cnpj_fundo"].map(normalize_cnpj)
+    out = out[out["source_value"].str.strip() != ""].copy()
+    return out.reset_index(drop=True)
+
+
+def scan_regulatory_extraction_files(extractions_dir: Path) -> pd.DataFrame:
+    """Expose local JSON extraction artifacts as document inventory inputs."""
+    if not extractions_dir.exists():
+        return _empty_document_sources()
+    rows = []
+    for path in sorted(extractions_dir.glob("*/*.local.json")):
+        cnpj = normalize_cnpj(path.parent.name)
+        if not cnpj:
+            continue
+        rows.append(
+            {
+                "cnpj_fundo": cnpj,
+                "fundo": "",
+                "setor_n1": "",
+                "setor_n2": "",
+                "source_table": "regulatory_extractions",
+                "source_field": "local_json",
+                "source_value": str(path),
+                "document_date_hint": "",
+                "priority_hint": "",
+            }
+        )
+    if not rows:
+        return _empty_document_sources()
+    return pd.DataFrame(rows, columns=_DOCUMENT_SOURCE_COLUMNS)
+
+
+def _first_nonempty(values: pd.Series) -> str:
+    for value in values:
+        text = str(value or "").strip()
+        if text:
+            return text
+    return ""
+
+
+def _join_unique(values: pd.Series, sep: str = " | ", limit: int = 8) -> str:
+    seen: list[str] = []
+    for value in values:
+        for part in str(value or "").split("|"):
+            text = part.strip()
+            if text and text not in seen:
+                seen.append(text)
+            if len(seen) >= limit:
+                return sep.join(seen)
+    return sep.join(seen)
+
+
+def _display_path(path: Path, root: Path) -> str:
+    try:
+        return path.resolve().relative_to(root.resolve()).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+def _document_name(value: object) -> str:
+    text = str(value or "").strip()
+    if not text:
+        return ""
+    first = re.split(r"\s+·\s+", text, maxsplit=1)[0].strip()
+    return Path(first).name or first
+
+
+def _document_id(value: object) -> str:
+    text = str(value or "")
+    patterns = [
+        r"\bID\s*(\d{4,})\b",
+        r"(?:^|/)(\d{4,})_",
+        r"(?:^|/)(\d{4,})\.local\.json$",
+        r"\b(\d{5,})\b",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text, flags=re.IGNORECASE)
+        if match:
+            return match.group(1)
+    return ""
+
+
+def _parse_document_date(*values: object) -> str:
+    for value in values:
+        text = str(value or "")
+        if not text.strip():
+            continue
+        match = re.search(r"\b(20\d{2}-\d{2}-\d{2})\b", text)
+        if match:
+            return match.group(1)
+        match = re.search(r"\b(\d{1,2}/\d{1,2}/20\d{2})\b", text)
+        candidate = match.group(1) if match else text
+        parsed = pd.to_datetime(pd.Series([candidate]), errors="coerce", dayfirst=True).iloc[0]
+        if pd.notna(parsed):
+            return parsed.date().isoformat()
+    return ""
+
+
+def classify_document(value: object) -> str:
+    text = str(value or "").lower()
+    replacements = {
+        "ç": "c",
+        "ã": "a",
+        "á": "a",
+        "à": "a",
+        "â": "a",
+        "é": "e",
+        "ê": "e",
+        "í": "i",
+        "ó": "o",
+        "ô": "o",
+        "õ": "o",
+        "ú": "u",
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    if "regulamento" in text:
+        return "regulamento"
+    if any(token in text for token in ["assembleia", "ata_", "ata-", "ata "]):
+        return "assembleia"
+    if any(token in text for token in ["suplemento", "emissao", "encerramento", "aviso", "anuncio", "oferta"]):
+        return "emissao"
+    if "rating" in text:
+        return "rating"
+    if "informe" in text:
+        return "informe"
+    if "demonstr" in text or "dfp" in text:
+        return "demonstracao_financeira"
+    if text.endswith(".local.json"):
+        return "extracao_json"
+    if text.endswith(".txt"):
+        return "cache_texto"
+    return "outro"
+
+
+def _resolve_document_path(source_value: object, cnpj: object, root: Path) -> Path | None:
+    text = str(source_value or "").strip()
+    if not text:
+        return None
+    first = re.split(r"\s+·\s+", text, maxsplit=1)[0].strip()
+    if not first:
+        return None
+    cnpj_digits = normalize_cnpj(cnpj)
+    raw_path = Path(first)
+    candidates: list[Path] = [raw_path if raw_path.is_absolute() else root / raw_path]
+    doc_name = Path(first).name
+    if cnpj_digits and doc_name:
+        candidates.append(root / "data" / "raw" / cnpj_digits / doc_name)
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    if "/" in first or "\\" in first:
+        return candidates[0]
+    return None
+
+
+def _content_kind(path: Path | None, document_name: str) -> str:
+    suffix = (path.suffix if path is not None else Path(document_name).suffix).lower()
+    if suffix == ".pdf":
+        return "pdf"
+    if suffix == ".txt":
+        return "text_cache"
+    if suffix == ".json":
+        return "extraction_json"
+    return "reference"
+
+
+def _suggested_stage(content_kind: str, local_exists: bool) -> str:
+    if not local_exists:
+        return "discover_download"
+    if content_kind == "pdf":
+        return "ocr_parse_extract"
+    if content_kind == "text_cache":
+        return "parse_extract"
+    if content_kind == "extraction_json":
+        return "consolidate_extraction"
+    return "classify_enrich"
+
+
+def _document_file_info(path: Path | None, root: Path, max_hash_bytes: int) -> dict[str, object]:
+    if path is None:
+        return {"local_path": "", "local_exists": False, "bytes": 0, "sha256": "", "hash_status": "missing_path"}
+    display = _display_path(path, root)
+    if not path.exists():
+        return {"local_path": display, "local_exists": False, "bytes": 0, "sha256": "", "hash_status": "missing_file"}
+    size = path.stat().st_size
+    if size > max_hash_bytes:
+        return {
+            "local_path": display,
+            "local_exists": True,
+            "bytes": int(size),
+            "sha256": "",
+            "hash_status": "skipped_large_file",
+        }
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return {
+        "local_path": display,
+        "local_exists": True,
+        "bytes": int(size),
+        "sha256": digest.hexdigest(),
+        "hash_status": "hashed",
+    }
+
+
+def build_document_inventory(
+    source_rows: pd.DataFrame,
+    *,
+    fund_universe: pd.DataFrame | None = None,
+    extraction_rows: pd.DataFrame | None = None,
+    root: Path | None = None,
+    max_hash_bytes: int = 25 * 1024 * 1024,
+) -> pd.DataFrame:
+    root = Path(".") if root is None else root
+    frames = []
+    if source_rows is not None and not source_rows.empty:
+        frames.append(source_rows.copy())
+    if extraction_rows is not None and not extraction_rows.empty:
+        frames.append(extraction_rows.copy())
+    if not frames:
+        return pd.DataFrame()
+    sources = pd.concat(frames, ignore_index=True, sort=False)
+    for col in _DOCUMENT_SOURCE_COLUMNS:
+        if col not in sources.columns:
+            sources[col] = ""
+    sources = sources[_DOCUMENT_SOURCE_COLUMNS].fillna("").astype(str)
+    sources["cnpj_fundo"] = sources["cnpj_fundo"].map(normalize_cnpj)
+    sources = sources[sources["source_value"].str.strip() != ""].copy()
+    if sources.empty:
+        return pd.DataFrame()
+
+    if fund_universe is not None and not fund_universe.empty:
+        funds = fund_universe.copy()
+        id_col = "cnpj" if "cnpj" in funds.columns else "cnpj_fundo"
+        funds["cnpj_lookup"] = funds[id_col].map(normalize_cnpj)
+        enrich_cols = [
+            col
+            for col in [
+                "cnpj_lookup",
+                "fund_name_final",
+                "setor_n1",
+                "setor_n2",
+                "first_offer_year",
+                "emission_cohort",
+                "valid_volume_2025_brl",
+                "valid_volume_2026_brl",
+                "has_regulatory_matrix",
+            ]
+            if col in funds.columns
+        ]
+        sources = sources.merge(
+            funds[enrich_cols].drop_duplicates("cnpj_lookup"),
+            left_on="cnpj_fundo",
+            right_on="cnpj_lookup",
+            how="left",
+        )
+        for col in ["fundo", "setor_n1", "setor_n2"]:
+            fund_col = "fund_name_final" if col == "fundo" else f"{col}_y"
+            source_col = col if col in sources.columns else f"{col}_x"
+            if fund_col in sources.columns and source_col in sources.columns:
+                sources[source_col] = sources[source_col].where(
+                    sources[source_col].astype(str).str.strip() != "",
+                    sources[fund_col].fillna("").astype(str),
+                )
+        for col in ["setor_n1", "setor_n2"]:
+            alt = f"{col}_x"
+            if alt in sources.columns and col not in sources.columns:
+                sources[col] = sources[alt]
+
+    rows = []
+    for _, row in sources.iterrows():
+        source_value = row.get("source_value", "")
+        doc_name = _document_name(source_value)
+        local_path = _resolve_document_path(source_value, row.get("cnpj_fundo", ""), root)
+        info = _document_file_info(local_path, root, max_hash_bytes=max_hash_bytes)
+        content_kind = _content_kind(local_path, doc_name)
+        document_class = classify_document(f"{doc_name} {source_value}")
+        document_date = _parse_document_date(source_value, row.get("document_date_hint", ""))
+        key_seed = info["local_path"] or "|".join(
+            [
+                str(row.get("cnpj_fundo", "")),
+                doc_name,
+                _document_id(source_value),
+                str(row.get("source_table", "")),
+            ]
+        )
+        first_offer_year = pd.to_numeric(pd.Series([row.get("first_offer_year", "")]), errors="coerce").iloc[0]
+        year_from_doc = pd.to_numeric(pd.Series([document_date[:4] if document_date else ""]), errors="coerce").iloc[0]
+        priority_hint = str(row.get("priority_hint", "")) + " " + str(row.get("emission_cohort", ""))
+        priority = (
+            (pd.notna(year_from_doc) and int(year_from_doc) in {2025, 2026})
+            or (pd.notna(first_offer_year) and int(first_offer_year) in {2025, 2026})
+            or bool(re.search(r"\b202[56]\b|2025|2026", priority_hint))
+        )
+        rows.append(
+            {
+                "document_key": hashlib.sha1(str(key_seed).encode("utf-8", errors="ignore")).hexdigest()[:16],
+                "cnpj_fundo": row.get("cnpj_fundo", ""),
+                "fundo": row.get("fundo", ""),
+                "setor_n1": row.get("setor_n1", ""),
+                "setor_n2": row.get("setor_n2", ""),
+                "documento_origem": doc_name,
+                "documento_id": _document_id(source_value),
+                "document_class": document_class,
+                "content_kind": content_kind,
+                "document_date": document_date,
+                "source_table": row.get("source_table", ""),
+                "source_field": row.get("source_field", ""),
+                "source_value": source_value,
+                "source_rows": 1,
+                "priority_2025_2026": bool(priority),
+                "first_offer_year": "" if pd.isna(first_offer_year) else int(first_offer_year),
+                "emission_cohort": row.get("emission_cohort", ""),
+                "suggested_stage": _suggested_stage(content_kind, bool(info["local_exists"])),
+                "processing_status": "local_ready" if info["local_exists"] else "missing_local_file",
+                **info,
+            }
+        )
+    detailed = pd.DataFrame(rows)
+    if detailed.empty:
+        return detailed
+    grouped = (
+        detailed.groupby("document_key", dropna=False)
+        .agg(
+            cnpj_fundo=("cnpj_fundo", _first_nonempty),
+            fundo=("fundo", _first_nonempty),
+            setor_n1=("setor_n1", _first_nonempty),
+            setor_n2=("setor_n2", _first_nonempty),
+            documento_origem=("documento_origem", _first_nonempty),
+            documento_id=("documento_id", _first_nonempty),
+            document_class=("document_class", _first_nonempty),
+            content_kind=("content_kind", _first_nonempty),
+            document_date=("document_date", _first_nonempty),
+            local_path=("local_path", _first_nonempty),
+            local_exists=("local_exists", "max"),
+            bytes=("bytes", "max"),
+            sha256=("sha256", _first_nonempty),
+            hash_status=("hash_status", _first_nonempty),
+            source_table=("source_table", _join_unique),
+            source_field=("source_field", _join_unique),
+            source_value=("source_value", _first_nonempty),
+            source_rows=("source_rows", "sum"),
+            priority_2025_2026=("priority_2025_2026", "max"),
+            first_offer_year=("first_offer_year", _first_nonempty),
+            emission_cohort=("emission_cohort", _first_nonempty),
+            suggested_stage=("suggested_stage", _first_nonempty),
+            processing_status=("processing_status", _first_nonempty),
+        )
+        .reset_index()
+    )
+    grouped["local_exists"] = grouped["local_exists"].astype(bool)
+    grouped["priority_2025_2026"] = grouped["priority_2025_2026"].astype(bool)
+    grouped["bytes"] = pd.to_numeric(grouped["bytes"], errors="coerce").fillna(0).astype("int64")
+    return grouped.sort_values(
+        ["priority_2025_2026", "cnpj_fundo", "document_class", "document_date", "documento_origem"],
+        ascending=[False, True, True, False, True],
+    ).reset_index(drop=True)
+
+
+def assign_document_chunks(
+    inventory: pd.DataFrame,
+    *,
+    max_cnpjs: int = 40,
+    max_documents: int = 250,
+    max_bytes: int = 256 * 1024 * 1024,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    if inventory is None or inventory.empty:
+        return pd.DataFrame(), pd.DataFrame()
+    frame = inventory.copy().reset_index(drop=True)
+    frame["bytes"] = pd.to_numeric(frame.get("bytes"), errors="coerce").fillna(0).astype("int64")
+    frame["priority_2025_2026"] = frame.get("priority_2025_2026", False).astype(bool)
+    frame = frame.sort_values(
+        ["priority_2025_2026", "cnpj_fundo", "document_class", "document_date", "documento_origem"],
+        ascending=[False, True, True, False, True],
+    ).reset_index(drop=True)
+
+    assignments: dict[int, str] = {}
+    chunk_rows: list[pd.DataFrame] = []
+    current: list[int] = []
+    current_cnpjs: set[str] = set()
+    current_bytes = 0
+
+    def flush() -> None:
+        nonlocal current, current_cnpjs, current_bytes
+        if not current:
+            return
+        chunk_id = f"doc-{len(chunk_rows) + 1:04d}"
+        for idx in current:
+            assignments[idx] = chunk_id
+        subset = frame.loc[current].copy()
+        chunk_rows.append(_document_chunk_summary(chunk_id, subset))
+        current = []
+        current_cnpjs = set()
+        current_bytes = 0
+
+    for idx, row in frame.iterrows():
+        cnpj = str(row.get("cnpj_fundo", ""))
+        row_bytes = int(row.get("bytes", 0) or 0)
+        next_cnpjs = current_cnpjs | ({cnpj} if cnpj else set())
+        should_flush = bool(
+            current
+            and (
+                len(current) + 1 > max_documents
+                or len(next_cnpjs) > max_cnpjs
+                or (current_bytes + row_bytes > max_bytes and current_bytes > 0)
+            )
+        )
+        if should_flush:
+            flush()
+        current.append(idx)
+        if cnpj:
+            current_cnpjs.add(cnpj)
+        current_bytes += row_bytes
+    flush()
+
+    frame["chunk_id"] = frame.index.map(assignments)
+    chunks = pd.concat(chunk_rows, ignore_index=True) if chunk_rows else pd.DataFrame()
+    return frame, chunks
+
+
+def _document_chunk_summary(chunk_id: str, subset: pd.DataFrame) -> pd.DataFrame:
+    cnpjs = [value for value in subset["cnpj_fundo"].astype(str).dropna().unique().tolist() if value]
+    classes = sorted(set(subset["document_class"].fillna("").astype(str)))
+    source_tables = sorted(
+        {
+            part.strip()
+            for value in subset["source_table"].fillna("").astype(str)
+            for part in value.split("|")
+            if part.strip()
+        }
+    )
+    dates = subset["document_date"].fillna("").astype(str)
+    dates = dates[dates != ""]
+    row = {
+        "chunk_id": chunk_id,
+        "document_count": int(len(subset)),
+        "cnpj_count": int(len(cnpjs)),
+        "priority_2025_2026_docs": int(subset["priority_2025_2026"].astype(bool).sum()),
+        "local_ready_docs": int(subset["local_exists"].astype(bool).sum()) if "local_exists" in subset else 0,
+        "hashed_docs": int(subset["sha256"].fillna("").astype(str).str.len().gt(0).sum()) if "sha256" in subset else 0,
+        "total_bytes": int(pd.to_numeric(subset["bytes"], errors="coerce").fillna(0).sum()),
+        "document_date_min": dates.min() if not dates.empty else "",
+        "document_date_max": dates.max() if not dates.empty else "",
+        "document_classes": ", ".join(classes[:8]),
+        "source_tables": ", ".join(source_tables[:8]),
+        "sample_cnpjs": ", ".join(cnpjs[:8]),
+        "rerun_command": f"python scripts/build_fidc_industry_documents.py --chunk-id {chunk_id}",
+    }
+    return pd.DataFrame([row])
+
+
+def document_quality_summary(inventory: pd.DataFrame, chunks: pd.DataFrame) -> dict[str, object]:
+    if inventory is None:
+        inventory = pd.DataFrame()
+    if chunks is None:
+        chunks = pd.DataFrame()
+    if inventory.empty:
+        return {
+            "document_rows": 0,
+            "funds": 0,
+            "chunks": 0,
+            "coverage": {},
+            "document_class_counts": {},
+            "content_kind_counts": {},
+        }
+    local_exists = inventory["local_exists"].astype(bool) if "local_exists" in inventory else pd.Series(False, index=inventory.index)
+    hashed = inventory["sha256"].fillna("").astype(str).str.len().gt(0) if "sha256" in inventory else pd.Series(False, index=inventory.index)
+    priority = inventory["priority_2025_2026"].astype(bool) if "priority_2025_2026" in inventory else pd.Series(False, index=inventory.index)
+    return {
+        "document_rows": int(len(inventory)),
+        "funds": int(inventory["cnpj_fundo"].nunique()) if "cnpj_fundo" in inventory else 0,
+        "priority_2025_2026_docs": int(priority.sum()),
+        "local_ready_docs": int(local_exists.sum()),
+        "missing_local_docs": int((~local_exists).sum()),
+        "hashed_docs": int(hashed.sum()),
+        "chunks": int(len(chunks)),
+        "max_documents_per_chunk": int(pd.to_numeric(chunks.get("document_count"), errors="coerce").max()) if not chunks.empty and "document_count" in chunks else 0,
+        "max_cnpjs_per_chunk": int(pd.to_numeric(chunks.get("cnpj_count"), errors="coerce").max()) if not chunks.empty and "cnpj_count" in chunks else 0,
+        "coverage": {
+            "cnpj_fundo": _coverage(inventory, "cnpj_fundo"),
+            "documento_origem": _coverage(inventory, "documento_origem"),
+            "documento_id": _coverage(inventory, "documento_id"),
+            "document_date": _coverage(inventory, "document_date"),
+            "local_path": _coverage(inventory, "local_path"),
+            "sha256": _coverage(inventory, "sha256"),
+            "setor_n1": _coverage(inventory, "setor_n1"),
+        },
+        "document_class_counts": {
+            str(k): int(v)
+            for k, v in inventory["document_class"].fillna("outro").astype(str).value_counts().to_dict().items()
+        }
+        if "document_class" in inventory
+        else {},
+        "content_kind_counts": {
+            str(k): int(v)
+            for k, v in inventory["content_kind"].fillna("reference").astype(str).value_counts().to_dict().items()
+        }
+        if "content_kind" in inventory
+        else {},
+    }
+
+
+def criteria_rule_id(row: pd.Series) -> str:
+    key = "|".join(
+        str(row.get(col, ""))
+        for col in ["CNPJ", "Critério", "Chave", "Limite/regra", "Fonte"]
+    )
+    return hashlib.sha1(key.encode("utf-8", errors="ignore")).hexdigest()[:16]
+
+
+def load_criteria_reviews(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        return pd.DataFrame(columns=CRITERIA_REVIEW_COLUMNS)
+    reviews = pd.read_csv(path, dtype=str, keep_default_na=False)
+    for col in CRITERIA_REVIEW_COLUMNS:
+        if col not in reviews.columns:
+            reviews[col] = ""
+    return reviews[CRITERIA_REVIEW_COLUMNS]
+
+
+def save_criteria_reviews(reviews: pd.DataFrame, path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    out = reviews.copy()
+    for col in CRITERIA_REVIEW_COLUMNS:
+        if col not in out.columns:
+            out[col] = ""
+    out = out[CRITERIA_REVIEW_COLUMNS].drop_duplicates("rule_id", keep="last")
+    out.to_csv(path, index=False)
+
+
+def load_criteria_source(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        return pd.DataFrame()
+    frame = pd.read_csv(path, dtype=str, keep_default_na=False, low_memory=False)
+    if frame.empty:
+        return frame
+    if "CNPJ" in frame.columns:
+        frame["CNPJ"] = frame["CNPJ"].map(normalize_cnpj)
+    frame["rule_id"] = frame.apply(criteria_rule_id, axis=1)
+    return frame
+
+
+def _pct_values(text: object) -> list[float]:
+    values: list[float] = []
+    for match in re.finditer(r"(\d+(?:[\.,]\d+)?)\s*%", str(text or "")):
+        try:
+            values.append(float(match.group(1).replace(",", ".")))
+        except ValueError:
+            continue
+    return values
+
+
+def _review_text(reviews: pd.DataFrame, column: str, index: pd.Index) -> pd.Series:
+    if column not in reviews.columns:
+        return pd.Series("", index=index)
+    return reviews[column].fillna("").astype(str).reindex(index).fillna("")
+
+
+def build_criteria_structured(
+    criteria: pd.DataFrame,
+    reviews: pd.DataFrame | None = None,
+    *,
+    fund_universe: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    if criteria is None or criteria.empty:
+        return pd.DataFrame()
+    reviews = pd.DataFrame(columns=CRITERIA_REVIEW_COLUMNS) if reviews is None else reviews.copy()
+    source = criteria.copy()
+    if "rule_id" not in source.columns:
+        source["rule_id"] = source.apply(criteria_rule_id, axis=1)
+    source["cnpj_fundo"] = source.get("CNPJ", pd.Series("", index=source.index)).map(normalize_cnpj)
+
+    enrich = pd.DataFrame()
+    if fund_universe is not None and not fund_universe.empty:
+        funds = fund_universe.copy()
+        id_col = "cnpj" if "cnpj" in funds.columns else "cnpj_fundo"
+        funds["cnpj_fundo"] = funds[id_col].map(normalize_cnpj)
+        enrich_cols = [
+            col
+            for col in [
+                "cnpj_fundo",
+                "fund_name_final",
+                "setor_n1",
+                "setor_n2",
+                "first_offer_year",
+                "emission_cohort",
+                "pl_atual_brl",
+                "has_regulatory_matrix",
+            ]
+            if col in funds.columns
+        ]
+        enrich = funds[enrich_cols].drop_duplicates("cnpj_fundo")
+
+    if not enrich.empty:
+        source = source.merge(enrich, on="cnpj_fundo", how="left", suffixes=("", "_fund"))
+
+    for col in CRITERIA_REVIEW_COLUMNS:
+        if col not in reviews.columns:
+            reviews[col] = ""
+    reviews = reviews[CRITERIA_REVIEW_COLUMNS].drop_duplicates("rule_id", keep="last")
+    merged = source.merge(reviews, on="rule_id", how="left", suffixes=("", "_review"))
+    idx = merged.index
+
+    criterio_auto = _text(merged.get("Critério"), idx)
+    chave_auto = _text(merged.get("Chave"), idx)
+    limite_auto = _text(merged.get("Limite/regra"), idx)
+    monitor_auto = _text(merged.get("Monitorabilidade IME"), idx)
+    status_review = _text(merged.get("status"), idx).replace("", "pendente")
+
+    criterio_final = criterio_auto.where(_review_text(merged, "criterio_revisado", idx).str.strip().eq(""), _review_text(merged, "criterio_revisado", idx))
+    chave_final = chave_auto.where(_review_text(merged, "chave_revisada", idx).str.strip().eq(""), _review_text(merged, "chave_revisada", idx))
+    limite_final = limite_auto.where(_review_text(merged, "limite_revisado", idx).str.strip().eq(""), _review_text(merged, "limite_revisado", idx))
+    monitor_final = monitor_auto.where(
+        _review_text(merged, "monitorabilidade_revisada", idx).str.strip().eq(""),
+        _review_text(merged, "monitorabilidade_revisada", idx),
+    )
+
+    pct_auto = limite_auto.map(_pct_values)
+    pct_min_auto = pct_auto.map(lambda values: min(values) if values else None)
+    pct_max_auto = pct_auto.map(lambda values: max(values) if values else None)
+    pct_manual = pd.to_numeric(_review_text(merged, "pct_min_revisado", idx).str.replace(",", ".", regex=False), errors="coerce")
+    pct_min_final = pd.to_numeric(pct_min_auto, errors="coerce")
+    pct_min_final = pct_min_final.where(pct_manual.isna(), pct_manual)
+    confidence_manual = pd.to_numeric(_review_text(merged, "confianca_manual", idx).str.replace(",", ".", regex=False), errors="coerce")
+
+    fonte = _text(merged.get("Fonte"), idx)
+    documento = fonte.map(source_document)
+    doc_date = fonte.map(_parse_document_date)
+    first_offer_year = pd.to_numeric(merged.get("first_offer_year"), errors="coerce") if "first_offer_year" in merged else pd.Series(index=idx, dtype=float)
+    year_from_doc = pd.to_numeric(doc_date.str.slice(0, 4), errors="coerce")
+    priority = first_offer_year.isin([2025, 2026]) | year_from_doc.isin([2025, 2026]) | _text(merged.get("emission_cohort"), idx).str.contains("2025|2026", regex=True)
+
+    status_curadoria = _text(merged.get("Status curadoria"), idx)
+    base_score = pd.Series(0.45, index=idx)
+    base_score += 0.15 * documento.ne("")
+    base_score += 0.15 * pct_min_final.notna()
+    base_score += 0.15 * status_curadoria.str.contains("estruturada|evidência|evidencia", case=False, na=False)
+    base_score += 0.10 * monitor_final.str.contains("monitoravel|monitorável", case=False, na=False)
+    score_final = base_score.clip(upper=0.9).where(confidence_manual.isna(), confidence_manual.clip(lower=0, upper=1))
+
+    fundo_auto = _text(merged.get("Fundo"), idx)
+    fundo_fund = _text(merged.get("fund_name_final"), idx)
+    setor_csv = _text(merged.get("setor_n1"), idx)
+    setor_fund = _text(merged.get("setor_n1_fund"), idx) if "setor_n1_fund" in merged else pd.Series("", index=idx)
+    segmento_csv = _text(merged.get("setor_n2"), idx)
+    segmento_fund = _text(merged.get("setor_n2_fund"), idx) if "setor_n2_fund" in merged else pd.Series("", index=idx)
+
+    out = pd.DataFrame(
+        {
+            "rule_id": merged["rule_id"].astype(str),
+            "cnpj_fundo": merged["cnpj_fundo"].astype(str),
+            "fundo": fundo_auto.where(fundo_auto.str.strip() != "", fundo_fund),
+            "setor": setor_csv.where(setor_csv.str.strip() != "", setor_fund),
+            "segmento": segmento_csv.where(segmento_csv.str.strip() != "", segmento_fund),
+            "criterio": criterio_final,
+            "chave": chave_final,
+            "limite_regra": limite_final,
+            "pct_min": pct_min_final,
+            "pct_max": pd.to_numeric(pct_max_auto, errors="coerce"),
+            "monitorabilidade_ime": monitor_final,
+            "metrica_ime_proxy": _text(merged.get("Métrica IME / proxy"), idx),
+            "condicao_alerta_sugerida": _text(merged.get("Condição de alerta sugerida"), idx),
+            "observacao_tecnica": _text(merged.get("Observação técnica"), idx),
+            "fonte": fonte,
+            "documento_origem": documento,
+            "documento_id": fonte.map(_document_id),
+            "document_date": doc_date,
+            "pagina": fonte.map(extract_page),
+            "status_curadoria": status_curadoria,
+            "status_revisao": status_review,
+            "ativo_curadoria": ~status_review.str.lower().eq("rejeitado"),
+            "metodo_extracao": "triagem_documental_offline",
+            "score_confianca_final": score_final,
+            "periodo_prioritario": priority.map({True: "2025-2026 YTD", False: "histórico"}),
+            "notas_revisao": _text(merged.get("notas"), idx),
+            "first_offer_year": first_offer_year,
+            "emission_cohort": _text(merged.get("emission_cohort"), idx),
+            "pl_atual_brl": _num(merged.get("pl_atual_brl"), idx),
+        }
+    )
+    return out.sort_values(
+        ["periodo_prioritario", "chave", "score_confianca_final", "cnpj_fundo"],
+        ascending=[True, True, False, True],
+    ).reset_index(drop=True)
+
+
+def criteria_quality_summary(
+    criteria: pd.DataFrame,
+    reviews: pd.DataFrame,
+    structured: pd.DataFrame,
+) -> dict[str, object]:
+    if criteria is None:
+        criteria = pd.DataFrame()
+    if reviews is None:
+        reviews = pd.DataFrame(columns=CRITERIA_REVIEW_COLUMNS)
+    if structured is None:
+        structured = pd.DataFrame()
+    active = structured
+    if "ativo_curadoria" in structured.columns:
+        active = structured[structured["ativo_curadoria"].astype(str).str.lower().isin({"true", "1", "sim"})]
+    sub = active[active["chave"].astype(str).eq("subordination_ratio_min")] if "chave" in active else pd.DataFrame()
+    sub_values = pd.to_numeric(sub.get("pct_min"), errors="coerce").dropna() if not sub.empty else pd.Series(dtype=float)
+    monitorable = active["monitorabilidade_ime"].astype(str).str.contains("monitoravel|monitorável", case=False, na=False) if "monitorabilidade_ime" in active else pd.Series(False, index=active.index)
+    partial = active["monitorabilidade_ime"].astype(str).str.contains("parcial", case=False, na=False) if "monitorabilidade_ime" in active else pd.Series(False, index=active.index)
+    score = pd.to_numeric(structured.get("score_confianca_final"), errors="coerce") if "score_confianca_final" in structured else pd.Series(dtype=float)
+    status_counts = reviews["status"].replace("", "pendente").value_counts().to_dict() if "status" in reviews else {}
+    return {
+        "source_rows": int(len(criteria)),
+        "source_funds": int(criteria["CNPJ"].nunique()) if "CNPJ" in criteria else 0,
+        "structured_rows": int(len(structured)),
+        "structured_funds": int(structured["cnpj_fundo"].nunique()) if "cnpj_fundo" in structured else 0,
+        "active_rows": int(len(active)),
+        "active_funds": int(active["cnpj_fundo"].nunique()) if "cnpj_fundo" in active else 0,
+        "subordination_rows": int(len(sub)),
+        "subordination_funds": int(sub["cnpj_fundo"].nunique()) if "cnpj_fundo" in sub else 0,
+        "monitorable_rows": int(monitorable.sum()),
+        "partial_rows": int(partial.sum()),
+        "review_rows": int(len(reviews)),
+        "review_status_counts": {str(k): int(v) for k, v in status_counts.items()},
+        "coverage": {
+            "cnpj_fundo": _coverage(structured, "cnpj_fundo"),
+            "criterio": _coverage(structured, "criterio"),
+            "chave": _coverage(structured, "chave"),
+            "limite_regra": _coverage(structured, "limite_regra"),
+            "pct_min": float(pd.to_numeric(structured.get("pct_min"), errors="coerce").notna().mean()) if "pct_min" in structured and len(structured) else 0.0,
+            "monitorabilidade_ime": _coverage(structured, "monitorabilidade_ime"),
+            "documento_origem": _coverage(structured, "documento_origem"),
+            "document_date": _coverage(structured, "document_date"),
+            "score_confianca_final": float(score.notna().mean()) if len(score) else 0.0,
+        },
+        "subordination": {
+            "median": _json_float(sub_values.median()) if sub_values.notna().any() else None,
+            "p25": _json_float(sub_values.quantile(0.25)) if sub_values.notna().any() else None,
+            "p75": _json_float(sub_values.quantile(0.75)) if sub_values.notna().any() else None,
+        },
+        "score": {
+            "median": _json_float(score.median()) if score.notna().any() else None,
+            "p25": _json_float(score.quantile(0.25)) if score.notna().any() else None,
+            "p75": _json_float(score.quantile(0.75)) if score.notna().any() else None,
+        },
+        "criteria_key_counts": {
+            str(k): int(v)
+            for k, v in structured["chave"].fillna("").astype(str).value_counts().to_dict().items()
+        }
+        if "chave" in structured
+        else {},
+    }
+
+
 def file_fingerprint(path: Path) -> dict[str, object]:
     if not path.exists():
         return {"path": str(path), "exists": False, "bytes": 0, "sha256": ""}
@@ -831,6 +1697,183 @@ def build_issuance_pipeline_manifest(
                 "rows": int(len(tranches)),
                 "funds": int(tranches["cnpj_fundo"].nunique()) if "cnpj_fundo" in tranches else 0,
                 "rerun": "python scripts/build_fidc_industry_issuance.py",
+            },
+        ],
+        "quality": quality,
+    }
+
+
+def build_criteria_pipeline_manifest(
+    *,
+    industry_dir: Path,
+    strategy_db: Path,
+    criteria_source_path: Path,
+    reviews_path: Path,
+    output_path: Path,
+    manifest_path: Path,
+    criteria: pd.DataFrame,
+    reviews: pd.DataFrame,
+    fund_universe: pd.DataFrame,
+    structured: pd.DataFrame,
+) -> dict[str, object]:
+    quality = criteria_quality_summary(criteria, reviews, structured)
+    return {
+        "schema_version": "industry-criteria-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_criteria_structured",
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "macbook_air_m4_friendly": True,
+            "notes": [
+                "Este modulo consolida criterios monitoraveis e subordinação minima ja extraidos documentalmente.",
+                "Revisoes manuais sao aplicadas como overlay persistido pela UI; nao editar CSV interno manualmente.",
+                "Percentuais em uma mesma regra usam o menor valor explicito como minimo conservador.",
+            ],
+        },
+        "inputs": {
+            "strategy_db": file_fingerprint(strategy_db),
+            "criteria_source": file_fingerprint(criteria_source_path),
+            "manual_reviews": file_fingerprint(reviews_path),
+        },
+        "outputs": {
+            "criteria_structured": file_fingerprint(output_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "load_documentary_criteria",
+                "label": "Critérios documentais",
+                "status": "ok" if not criteria.empty else "empty",
+                "input": str(criteria_source_path),
+                "output": "memoria:all_fidcs_criteria_monitoraveis_ime",
+                "rows": int(len(criteria)),
+                "funds": int(criteria["CNPJ"].nunique()) if "CNPJ" in criteria else 0,
+                "rerun": "python scripts/classify_fidc_sectors_and_practices.py",
+            },
+            {
+                "id": "apply_manual_review",
+                "label": "Revisao manual persistida",
+                "status": "ok",
+                "input": str(reviews_path),
+                "output": "memoria:criteria_review_overlay",
+                "rows": int(len(reviews)),
+                "rerun": "Editar pela aba Indústria > Critérios; nao editar CSV manualmente.",
+            },
+            {
+                "id": "enrich_fund_universe",
+                "label": "Enriquecimento por universo/ofertas",
+                "status": "ok" if not fund_universe.empty else "empty",
+                "input": str(strategy_db),
+                "output": "memoria:fund_universe",
+                "rows": int(len(fund_universe)),
+                "funds": int(fund_universe["cnpj"].nunique()) if "cnpj" in fund_universe else 0,
+                "rerun": "python scripts/export_fidc_strategy_audit_report.py",
+            },
+            {
+                "id": "normalize_structured_criteria",
+                "label": "Base estruturada de critérios",
+                "status": "ok" if not structured.empty else "empty",
+                "input": "memoria:criteria+review_overlay+fund_universe",
+                "output": str(output_path),
+                "rows": int(len(structured)),
+                "funds": int(structured["cnpj_fundo"].nunique()) if "cnpj_fundo" in structured else 0,
+                "rerun": "python scripts/build_fidc_industry_criteria.py",
+            },
+        ],
+        "quality": quality,
+    }
+
+
+def build_document_pipeline_manifest(
+    *,
+    industry_dir: Path,
+    strategy_db: Path,
+    extractions_dir: Path,
+    inventory_path: Path,
+    chunks_path: Path,
+    manifest_path: Path,
+    source_rows: pd.DataFrame,
+    extraction_rows: pd.DataFrame,
+    inventory: pd.DataFrame,
+    chunks: pd.DataFrame,
+    max_hash_bytes: int,
+) -> dict[str, object]:
+    quality = document_quality_summary(inventory, chunks)
+    return {
+        "schema_version": "industry-document-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_document_inventory",
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "macbook_air_m4_friendly": True,
+            "notes": [
+                "Este modulo inventaria documentos e caches locais; nao faz download, OCR ou interpretacao juridica.",
+                "Chunks pequenos permitem executar parsing/extracao por lote, sem reprocessar toda a industria.",
+                f"Arquivos acima de {max_hash_bytes:,} bytes recebem stat de tamanho, mas o hash e pulado para preservar tempo de execucao.",
+            ],
+        },
+        "inputs": {
+            "strategy_db": file_fingerprint(strategy_db),
+            "regulatory_extractions_dir": {
+                "path": str(extractions_dir),
+                "exists": extractions_dir.exists(),
+            },
+        },
+        "outputs": {
+            "document_inventory": file_fingerprint(inventory_path),
+            "document_processing_chunks": file_fingerprint(chunks_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "discover_sqlite_document_sources",
+                "label": "Descoberta em SQLite",
+                "status": "ok" if not source_rows.empty else "empty",
+                "input": str(strategy_db),
+                "output": "memoria:document_source_rows",
+                "rows": int(len(source_rows)),
+                "funds": int(source_rows["cnpj_fundo"].nunique()) if "cnpj_fundo" in source_rows else 0,
+                "rerun": "python scripts/build_fidc_industry_documents.py",
+            },
+            {
+                "id": "scan_local_extraction_artifacts",
+                "label": "Artefatos de extração locais",
+                "status": "ok" if not extraction_rows.empty else "empty",
+                "input": str(extractions_dir),
+                "output": "memoria:regulatory_extractions",
+                "rows": int(len(extraction_rows)),
+                "funds": int(extraction_rows["cnpj_fundo"].nunique()) if "cnpj_fundo" in extraction_rows else 0,
+                "rerun": "python scripts/build_fidc_industry_documents.py",
+            },
+            {
+                "id": "fingerprint_local_files",
+                "label": "Fingerprint e status local",
+                "status": "ok" if not inventory.empty else "empty",
+                "input": "memoria:document_source_rows+regulatory_extractions",
+                "output": "memoria:document_inventory",
+                "rows": int(len(inventory)),
+                "funds": int(inventory["cnpj_fundo"].nunique()) if "cnpj_fundo" in inventory else 0,
+                "rerun": "python scripts/build_fidc_industry_documents.py",
+            },
+            {
+                "id": "assign_processing_chunks",
+                "label": "Chunking incremental",
+                "status": "ok" if not chunks.empty else "empty",
+                "input": "memoria:document_inventory",
+                "output": str(chunks_path),
+                "rows": int(len(chunks)),
+                "rerun": "python scripts/build_fidc_industry_documents.py",
+            },
+            {
+                "id": "persist_document_inventory",
+                "label": "Inventário versionável",
+                "status": "ok" if inventory_path.exists() else "empty",
+                "input": "memoria:document_inventory",
+                "output": str(inventory_path),
+                "rows": int(len(inventory)),
+                "rerun": "python scripts/build_fidc_industry_documents.py",
             },
         ],
         "quality": quality,

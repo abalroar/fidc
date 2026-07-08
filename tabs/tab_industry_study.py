@@ -24,16 +24,23 @@ import streamlit as st
 
 from services.industry_study import (
     CEDENTE_REVIEW_COLUMNS,
+    CRITERIA_REVIEW_COLUMNS,
     build_cedente_pipeline_manifest,
     build_cedente_structured,
+    build_criteria_pipeline_manifest,
+    build_criteria_structured,
     clean_candidate_name,
     load_dataframe,
     load_cedente_candidates,
+    load_criteria_reviews,
+    load_criteria_source,
     load_pipeline_manifest,
     load_cedente_reviews,
     load_fund_universe,
     normalize_cnpj,
     save_cedente_reviews,
+    save_criteria_reviews,
+    save_dataframe,
     save_pipeline_manifest,
     save_cedente_structured,
 )
@@ -48,7 +55,14 @@ _ISSUANCE_ANNUAL_PATH = _DATA_DIR / "issuance_annual.csv"
 _ISSUANCE_SECTOR_YEAR_PATH = _DATA_DIR / "issuance_sector_year.csv"
 _ISSUANCE_TRANCHES_PATH = _DATA_DIR / "issuance_tranches.csv.gz"
 _ISSUANCE_MANIFEST_PATH = _DATA_DIR / "industry_issuance_manifest.json"
+_DOCUMENT_INVENTORY_PATH = _DATA_DIR / "document_inventory.csv.gz"
+_DOCUMENT_CHUNKS_PATH = _DATA_DIR / "document_processing_chunks.csv"
+_DOCUMENT_MANIFEST_PATH = _DATA_DIR / "industry_document_manifest.json"
+_CRITERIA_REVIEW_PATH = _DATA_DIR / "criteria_reviews.csv"
+_CRITERIA_STRUCTURED_PATH = _DATA_DIR / "criteria_structured.csv.gz"
+_CRITERIA_MANIFEST_PATH = _DATA_DIR / "industry_criteria_manifest.json"
 _CEDENTE_REVIEW_COLUMNS = CEDENTE_REVIEW_COLUMNS
+_CRITERIA_REVIEW_COLUMNS = CRITERIA_REVIEW_COLUMNS
 
 # Paleta laranja/preto/cinza - maior contraste entre tons sobre fundo branco.
 _ORANGE = "#ff5a00"
@@ -1124,6 +1138,546 @@ def _render_issuance_study() -> None:
             st.json(manifest)
 
 
+@st.cache_data(show_spinner=False)
+def _load_document_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    return {
+        "inventory": load_dataframe(_DOCUMENT_INVENTORY_PATH),
+        "chunks": load_dataframe(_DOCUMENT_CHUNKS_PATH),
+        "manifest": load_pipeline_manifest(_DOCUMENT_MANIFEST_PATH),
+    }
+
+
+def _format_bytes(value: object) -> str:
+    number = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(number) or float(number) <= 0:
+        return ""
+    size = float(number)
+    for unit in ["B", "KB", "MB", "GB"]:
+        if size < 1024 or unit == "GB":
+            return f"{size:,.1f} {unit}".replace(",", "@").replace(".", ",").replace("@", ".")
+        size /= 1024
+    return ""
+
+
+def _render_document_inventory() -> None:
+    st.markdown('<div class="industry-section">Documentos, caches e chunks</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Inventário documental versionável para descoberta, OCR, parsing e extração incremental. '
+        "Cada linha preserva fonte, documento, status local, fingerprint e chunk sugerido.</div>",
+        unsafe_allow_html=True,
+    )
+    tables = _load_document_tables()
+    inventory = tables["inventory"]
+    chunks = tables["chunks"]
+    manifest = tables["manifest"]
+    assert isinstance(inventory, pd.DataFrame)
+    assert isinstance(chunks, pd.DataFrame)
+    assert isinstance(manifest, dict)
+    if inventory.empty and chunks.empty:
+        st.info("Inventário documental ainda não gerado. Rode `python scripts/build_fidc_industry_documents.py`.")
+        return
+
+    quality = manifest.get("quality", {}) if isinstance(manifest, dict) else {}
+    coverage = quality.get("coverage", {}) if isinstance(quality, dict) else {}
+    doc_rows = int(quality.get("document_rows", len(inventory))) if isinstance(quality, dict) else len(inventory)
+    funds = int(quality.get("funds", inventory["cnpj_fundo"].nunique() if "cnpj_fundo" in inventory else 0)) if isinstance(quality, dict) else 0
+    local_ready = int(quality.get("local_ready_docs", 0)) if isinstance(quality, dict) else 0
+    priority_docs = int(quality.get("priority_2025_2026_docs", 0)) if isinstance(quality, dict) else 0
+    chunk_count = int(quality.get("chunks", len(chunks))) if isinstance(quality, dict) else len(chunks)
+    max_docs = int(quality.get("max_documents_per_chunk", 0)) if isinstance(quality, dict) else 0
+    cards = [
+        _curation_card("Documentos", _fmt_int(float(doc_rows)), f"{_fmt_int(float(funds))} FIDCs"),
+        _curation_card("Prioridade 2025-2026", _fmt_int(float(priority_docs)), "emissões recentes"),
+        _curation_card("Local ready", _fmt_int(float(local_ready)), _fmt_pct(local_ready / doc_rows) if doc_rows else "n/d"),
+        _curation_card("Chunks", _fmt_int(float(chunk_count)), f"até {_fmt_int(float(max_docs))} docs/chunk"),
+        _curation_card("CNPJ", _fmt_pct(float(coverage.get("cnpj_fundo", 0))) if isinstance(coverage, dict) else "n/d", "cobertura"),
+        _curation_card("Data doc.", _fmt_pct(float(coverage.get("document_date", 0))) if isinstance(coverage, dict) else "n/d", "cobertura"),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    tab_cov, tab_chunks, tab_inventory, tab_manifest = st.tabs(["Cobertura", "Chunks", "Inventário", "Manifesto"])
+    with tab_cov:
+        col_a, col_b = st.columns([1.0, 1.0])
+        with col_a:
+            st.markdown("**Classes documentais**")
+            if "document_class" in inventory.columns:
+                class_counts = (
+                    inventory["document_class"].fillna("outro").replace("", "outro").value_counts().reset_index()
+                )
+                class_counts.columns = ["Classe", "Documentos"]
+                chart = (
+                    alt.Chart(class_counts)
+                    .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+                    .encode(
+                        x=alt.X("Documentos:Q", title="documentos", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                        y=alt.Y("Classe:N", title=None, sort="-x"),
+                        tooltip=[
+                            alt.Tooltip("Classe:N", title="classe"),
+                            alt.Tooltip("Documentos:Q", title="documentos"),
+                        ],
+                    )
+                    .properties(height=260)
+                )
+                st.altair_chart(chart, width="stretch")
+            else:
+                st.caption("Classe documental indisponível.")
+        with col_b:
+            st.markdown("**Status por tipo de arquivo**")
+            if {"content_kind", "local_exists"}.issubset(inventory.columns):
+                status = inventory.copy()
+                status["Status"] = status["local_exists"].astype(str).str.lower().isin({"true", "1", "sim"}).map(
+                    {True: "local", False: "lacuna"}
+                )
+                grouped = (
+                    status.groupby(["content_kind", "Status"], dropna=False)
+                    .size()
+                    .reset_index(name="Documentos")
+                    .rename(columns={"content_kind": "Tipo"})
+                )
+                chart = (
+                    alt.Chart(grouped)
+                    .mark_bar(cornerRadiusEnd=2)
+                    .encode(
+                        x=alt.X("Documentos:Q", title="documentos", stack="zero", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                        y=alt.Y("Tipo:N", title=None, sort="-x"),
+                        color=alt.Color("Status:N", scale=alt.Scale(domain=["local", "lacuna"], range=[_ORANGE, _BLACK]), legend=alt.Legend(title=None, orient="top")),
+                        tooltip=[
+                            alt.Tooltip("Tipo:N", title="tipo"),
+                            alt.Tooltip("Status:N", title="status"),
+                            alt.Tooltip("Documentos:Q", title="documentos"),
+                        ],
+                    )
+                    .properties(height=260)
+                )
+                st.altair_chart(chart, width="stretch")
+            else:
+                st.caption("Status local indisponível.")
+        if isinstance(coverage, dict) and coverage:
+            cov = pd.DataFrame([{"Campo": key, "Cobertura": float(value) * 100} for key, value in coverage.items()])
+            cov = cov.sort_values("Cobertura", ascending=True)
+            st.markdown("**Cobertura dos campos de rastreabilidade**")
+            st.altair_chart(
+                alt.Chart(cov)
+                .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+                .encode(
+                    x=alt.X("Cobertura:Q", title="%", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    y=alt.Y("Campo:N", title=None, sort="x"),
+                    tooltip=[
+                        alt.Tooltip("Campo:N", title="campo"),
+                        alt.Tooltip("Cobertura:Q", title="cobertura", format=",.1f"),
+                    ],
+                )
+                .properties(height=260),
+                width="stretch",
+            )
+    with tab_chunks:
+        if chunks.empty:
+            st.caption("Chunks indisponíveis.")
+        else:
+            show = chunks.copy()
+            for col in ["document_count", "cnpj_count", "priority_2025_2026_docs", "local_ready_docs", "hashed_docs"]:
+                if col in show.columns:
+                    show[col] = pd.to_numeric(show[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+            if "total_bytes" in show.columns:
+                show["total_bytes"] = show["total_bytes"].map(_format_bytes)
+            rename = {
+                "chunk_id": "Chunk",
+                "document_count": "Docs",
+                "cnpj_count": "CNPJs",
+                "priority_2025_2026_docs": "Prioridade",
+                "local_ready_docs": "Locais",
+                "hashed_docs": "Com hash",
+                "total_bytes": "Tamanho",
+                "document_date_min": "Data mín.",
+                "document_date_max": "Data máx.",
+                "document_classes": "Classes",
+                "source_tables": "Fontes",
+                "sample_cnpjs": "Amostra CNPJs",
+                "rerun_command": "Reexecução",
+            }
+            cols = [col for col in rename if col in show.columns]
+            st.dataframe(show[cols].rename(columns=rename), hide_index=True, width="stretch")
+    with tab_inventory:
+        frame = inventory.copy()
+        ctrl_a, ctrl_b, ctrl_c, ctrl_d = st.columns([1.2, 0.9, 0.9, 0.7])
+        with ctrl_a:
+            query = st.text_input("Buscar documento/FIDC", key="industry_document_query", placeholder="nome, CNPJ, ID, fonte")
+        with ctrl_b:
+            class_values = sorted([value for value in frame.get("document_class", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
+            selected_classes = st.multiselect("Classe", class_values, default=class_values, key="industry_document_classes")
+        with ctrl_c:
+            chunk_values = ["Todos"] + sorted([value for value in frame.get("chunk_id", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
+            selected_chunk = st.selectbox("Chunk", chunk_values, key="industry_document_chunk")
+        with ctrl_d:
+            only_priority = st.checkbox("2025-2026", value=False, key="industry_document_priority")
+
+        if selected_classes and "document_class" in frame.columns:
+            frame = frame[frame["document_class"].isin(selected_classes)].copy()
+        if selected_chunk != "Todos" and "chunk_id" in frame.columns:
+            frame = frame[frame["chunk_id"].eq(selected_chunk)].copy()
+        if only_priority and "priority_2025_2026" in frame.columns:
+            frame = frame[frame["priority_2025_2026"].astype(str).str.lower().isin({"true", "1", "sim"})].copy()
+        if query:
+            search_cols = [
+                col
+                for col in ["cnpj_fundo", "fundo", "documento_origem", "documento_id", "source_table", "local_path", "chunk_id"]
+                if col in frame.columns
+            ]
+            search = frame[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=frame.index)
+            frame = frame[search.str.contains(query, case=False, na=False)].copy()
+
+        frame["bytes_num"] = pd.to_numeric(frame.get("bytes"), errors="coerce").fillna(0)
+        frame = frame.sort_values(["priority_2025_2026", "bytes_num"], ascending=[False, False]).head(400)
+        display_cols = [
+            "chunk_id",
+            "cnpj_fundo",
+            "fundo",
+            "setor_n1",
+            "document_class",
+            "content_kind",
+            "document_date",
+            "documento_origem",
+            "documento_id",
+            "local_exists",
+            "bytes",
+            "hash_status",
+            "source_table",
+            "suggested_stage",
+            "processing_status",
+        ]
+        show = frame[[col for col in display_cols if col in frame.columns]].copy()
+        if "bytes" in show.columns:
+            show["bytes"] = show["bytes"].map(_format_bytes)
+        for col in show.columns:
+            show[col] = show[col].fillna("").astype(str)
+        show = show.rename(
+            columns={
+                "chunk_id": "Chunk",
+                "cnpj_fundo": "CNPJ",
+                "fundo": "Fundo",
+                "setor_n1": "Setor",
+                "document_class": "Classe",
+                "content_kind": "Tipo",
+                "document_date": "Data",
+                "documento_origem": "Documento",
+                "documento_id": "ID doc",
+                "local_exists": "Local",
+                "bytes": "Tamanho",
+                "hash_status": "Hash",
+                "source_table": "Fonte",
+                "suggested_stage": "Próxima etapa",
+                "processing_status": "Status",
+            }
+        )
+        st.dataframe(show, hide_index=True, width="stretch")
+    with tab_manifest:
+        if manifest:
+            st.download_button(
+                "Baixar manifesto",
+                data=json.dumps(manifest, ensure_ascii=False, indent=2),
+                file_name="industry_document_manifest.json",
+                mime="application/json",
+            )
+            st.json(manifest)
+        else:
+            st.caption("Manifesto documental não encontrado.")
+
+
+def _load_criteria_reviews() -> pd.DataFrame:
+    return load_criteria_reviews(_CRITERIA_REVIEW_PATH)
+
+
+def _save_criteria_reviews(reviews: pd.DataFrame) -> None:
+    save_criteria_reviews(reviews, _CRITERIA_REVIEW_PATH)
+
+
+def _persist_structured_criteria(reviews: pd.DataFrame) -> pd.DataFrame:
+    criteria = load_criteria_source(_ALL_FIDCS_CRITERIA)
+    fund_universe = _load_cedente_fund_universe()
+    structured = build_criteria_structured(criteria, reviews, fund_universe=fund_universe)
+    save_dataframe(structured, _CRITERIA_STRUCTURED_PATH)
+    manifest = build_criteria_pipeline_manifest(
+        industry_dir=_DATA_DIR,
+        strategy_db=_REGULATORY_DB,
+        criteria_source_path=_ALL_FIDCS_CRITERIA,
+        reviews_path=_CRITERIA_REVIEW_PATH,
+        output_path=_CRITERIA_STRUCTURED_PATH,
+        manifest_path=_CRITERIA_MANIFEST_PATH,
+        criteria=criteria,
+        reviews=reviews,
+        fund_universe=fund_universe,
+        structured=structured,
+    )
+    save_pipeline_manifest(manifest, _CRITERIA_MANIFEST_PATH)
+    return structured
+
+
+@st.cache_data(show_spinner=False)
+def _load_criteria_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    return {
+        "structured": load_dataframe(_CRITERIA_STRUCTURED_PATH),
+        "manifest": load_pipeline_manifest(_CRITERIA_MANIFEST_PATH),
+    }
+
+
+def _render_criteria_study() -> None:
+    st.markdown('<div class="industry-section">Critérios, subordinação mínima e monitorabilidade</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Base documental estruturada para regras contratuais extraídas de todos os FIDCs cobertos pela curadoria local. '
+        "A revisão manual altera um overlay persistido e recompõe a base estruturada.</div>",
+        unsafe_allow_html=True,
+    )
+    tables = _load_criteria_tables()
+    structured = tables["structured"]
+    manifest = tables["manifest"]
+    assert isinstance(structured, pd.DataFrame)
+    assert isinstance(manifest, dict)
+    if structured.empty:
+        st.info("Base de critérios ainda não gerada. Rode `python scripts/build_fidc_industry_criteria.py`.")
+        return
+
+    reviews = _load_criteria_reviews()
+    frame = structured.copy()
+    frame["pct_min_num"] = pd.to_numeric(frame.get("pct_min"), errors="coerce")
+    frame["score_num"] = pd.to_numeric(frame.get("score_confianca_final"), errors="coerce")
+    active = frame[frame.get("ativo_curadoria", pd.Series(True, index=frame.index)).astype(str).str.lower().isin({"true", "1", "sim"})].copy()
+    sub = active[active["chave"].eq("subordination_ratio_min")].copy() if "chave" in active.columns else active.iloc[0:0]
+    sub_values = sub["pct_min_num"].dropna() if "pct_min_num" in sub.columns else pd.Series(dtype=float)
+    quality = manifest.get("quality", {}) if isinstance(manifest, dict) else {}
+    cards = [
+        _curation_card("Regras estruturadas", _fmt_int(float(len(active))), f"{_fmt_int(float(active['cnpj_fundo'].nunique())) if 'cnpj_fundo' in active else '0'} FIDCs"),
+        _curation_card("Sub mínima mediana", _pct_label(float(sub_values.median()) if not sub_values.empty else None), f"{_fmt_int(float(len(sub)))} regras · {_fmt_int(float(sub['cnpj_fundo'].nunique())) if 'cnpj_fundo' in sub else '0'} FIDCs"),
+        _curation_card("IQR sub mínima", f"{_pct_label(float(sub_values.quantile(0.25)) if not sub_values.empty else None)}-{_pct_label(float(sub_values.quantile(0.75)) if not sub_values.empty else None)}", "p25-p75"),
+        _curation_card("Monitoráveis", _fmt_int(float(quality.get("monitorable_rows", 0))) if isinstance(quality, dict) else "0", "proxy IME disponível"),
+        _curation_card("Parciais", _fmt_int(float(quality.get("partial_rows", 0))) if isinstance(quality, dict) else "0", "exigem leitura/operacional"),
+        _curation_card("Revisões", _fmt_int(float(len(reviews))), _CRITERIA_REVIEW_PATH.name),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    tab_sub, tab_heat, tab_base, tab_review, tab_manifest = st.tabs(["Sub mínima", "Heatmap", "Base", "Revisão", "Manifesto"])
+    with tab_sub:
+        if sub.empty:
+            st.caption("Nenhuma regra de subordinação mínima na base estruturada.")
+        else:
+            col_a, col_b = st.columns([0.95, 1.05])
+            with col_a:
+                plot = sub.dropna(subset=["pct_min_num"]).copy()
+                if not plot.empty:
+                    plot["pct_label"] = plot["pct_min_num"].map(lambda value: f"{value:.1f}%")
+                    chart = (
+                        alt.Chart(plot)
+                        .mark_bar(color=_ORANGE, cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
+                        .encode(
+                            x=alt.X("pct_min_num:Q", title="Subordinação mínima (%)", bin=alt.Bin(maxbins=20), axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                            y=alt.Y("count():Q", title="regras", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                            tooltip=[
+                                alt.Tooltip("count():Q", title="regras"),
+                            ],
+                        )
+                        .properties(height=280)
+                    )
+                    st.altair_chart(chart, width="stretch")
+                else:
+                    st.caption("Percentuais numéricos indisponíveis.")
+            with col_b:
+                st.markdown("**Subordinação mínima por regra**")
+                show = sub.sort_values("pct_min_num", ascending=True).copy()
+                keep = ["fundo", "cnpj_fundo", "setor", "segmento", "pct_min", "limite_regra", "monitorabilidade_ime", "documento_origem", "document_date", "score_confianca_final"]
+                show = show[[col for col in keep if col in show.columns]].head(80)
+                show = show.rename(
+                    columns={
+                        "fundo": "Fundo",
+                        "cnpj_fundo": "CNPJ",
+                        "setor": "Setor",
+                        "segmento": "Segmento",
+                        "pct_min": "Sub mínima",
+                        "limite_regra": "Regra",
+                        "monitorabilidade_ime": "Monitorabilidade",
+                        "documento_origem": "Documento",
+                        "document_date": "Data",
+                        "score_confianca_final": "Score",
+                    }
+                )
+                st.dataframe(show, hide_index=True, width="stretch")
+    with tab_heat:
+        data = active.copy()
+        if data.empty:
+            st.caption("Sem dados ativos.")
+        else:
+            left, right, top_ctrl = st.columns([0.9, 0.9, 0.6])
+            dim_options = {
+                "Setor": "setor",
+                "Segmento": "segmento",
+                "Monitorabilidade": "monitorabilidade_ime",
+                "Prioridade": "periodo_prioritario",
+            }
+            with left:
+                row_label = st.selectbox("Linhas", list(dim_options), key="industry_criteria_heat_rows")
+            with right:
+                metric = st.selectbox("Métrica", ["Regras", "FIDCs", "Sub mínima mediana"], key="industry_criteria_heat_metric")
+            with top_ctrl:
+                top_n = st.slider("Top", min_value=5, max_value=25, value=14, step=1, key="industry_criteria_heat_top")
+            row_col = dim_options[row_label]
+            data["linha"] = data.get(row_col, pd.Series("", index=data.index)).fillna("").astype(str).replace("", "n/d")
+            data["chave_plot"] = data["chave"].fillna("").astype(str).replace("", "n/d")
+            if metric == "FIDCs":
+                heat = data.groupby(["linha", "chave_plot"], dropna=False)["cnpj_fundo"].nunique().reset_index(name="valor")
+                title = "FIDCs"
+                fmt = ",.0f"
+            elif metric == "Sub mínima mediana":
+                sub_data = data[data["chave"].eq("subordination_ratio_min")].copy()
+                heat = sub_data.groupby(["linha", "chave_plot"], dropna=False)["pct_min_num"].median().reset_index(name="valor")
+                title = "Sub mínima mediana (%)"
+                fmt = ",.1f"
+            else:
+                heat = data.groupby(["linha", "chave_plot"], dropna=False).size().reset_index(name="valor")
+                title = "Regras"
+                fmt = ",.0f"
+            heat = heat[pd.to_numeric(heat["valor"], errors="coerce").fillna(0).gt(0)].copy()
+            if heat.empty:
+                st.caption("A combinação selecionada não retornou valores.")
+            else:
+                row_order = heat.groupby("linha")["valor"].sum().sort_values(ascending=False).head(top_n).index.tolist()
+                col_order = heat.groupby("chave_plot")["valor"].sum().sort_values(ascending=False).head(12).index.tolist()
+                heat = heat[heat["linha"].isin(row_order) & heat["chave_plot"].isin(col_order)].copy()
+                chart = (
+                    alt.Chart(heat)
+                    .mark_rect(cornerRadius=2)
+                    .encode(
+                        x=alt.X("chave_plot:N", title=None, sort=col_order, axis=alt.Axis(labelAngle=-35, labelLimit=150)),
+                        y=alt.Y("linha:N", title=None, sort=row_order, axis=alt.Axis(labelLimit=220)),
+                        color=alt.Color("valor:Q", title=title, scale=alt.Scale(range=["#f7f2ed", _ORANGE])),
+                        tooltip=[
+                            alt.Tooltip("linha:N", title=row_label),
+                            alt.Tooltip("chave_plot:N", title="critério"),
+                            alt.Tooltip("valor:Q", title=title, format=fmt),
+                        ],
+                    )
+                    .properties(height=max(300, 26 * len(row_order)))
+                )
+                st.altair_chart(chart, width="stretch")
+    with tab_base:
+        data = active.copy()
+        filt_a, filt_b, filt_c = st.columns([1.2, 0.9, 0.8])
+        with filt_a:
+            query = st.text_input("Buscar regra", key="industry_criteria_query", placeholder="fundo, CNPJ, critério, documento")
+        with filt_b:
+            keys = sorted([value for value in data.get("chave", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
+            selected_keys = st.multiselect("Chave", keys, default=keys, key="industry_criteria_keys")
+        with filt_c:
+            only_priority = st.checkbox("2025-2026", value=False, key="industry_criteria_priority")
+        if selected_keys and "chave" in data.columns:
+            data = data[data["chave"].isin(selected_keys)].copy()
+        if only_priority and "periodo_prioritario" in data.columns:
+            data = data[data["periodo_prioritario"].eq("2025-2026 YTD")].copy()
+        if query:
+            search_cols = [col for col in ["fundo", "cnpj_fundo", "criterio", "chave", "limite_regra", "documento_origem"] if col in data.columns]
+            search = data[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=data.index)
+            data = data[search.str.contains(query, case=False, na=False)].copy()
+        show = data.sort_values(["periodo_prioritario", "score_num"], ascending=[False, False]).head(300)
+        keep = ["fundo", "cnpj_fundo", "setor", "segmento", "criterio", "chave", "limite_regra", "pct_min", "monitorabilidade_ime", "documento_origem", "document_date", "status_revisao", "score_confianca_final"]
+        st.dataframe(
+            show[[col for col in keep if col in show.columns]].rename(
+                columns={
+                    "fundo": "Fundo",
+                    "cnpj_fundo": "CNPJ",
+                    "setor": "Setor",
+                    "segmento": "Segmento",
+                    "criterio": "Critério",
+                    "chave": "Chave",
+                    "limite_regra": "Regra",
+                    "pct_min": "Pct mín.",
+                    "monitorabilidade_ime": "Monitorabilidade",
+                    "documento_origem": "Documento",
+                    "document_date": "Data",
+                    "status_revisao": "Status",
+                    "score_confianca_final": "Score",
+                }
+            ),
+            hide_index=True,
+            width="stretch",
+        )
+    with tab_review:
+        merged = structured.merge(reviews, on="rule_id", how="left", suffixes=("", "_review"))
+        for col in _CRITERIA_REVIEW_COLUMNS:
+            if col not in merged.columns:
+                merged[col] = ""
+        merged["status"] = merged["status"].fillna("").replace("", "pendente")
+        merged = merged.sort_values(["periodo_prioritario", "score_confianca_final"], ascending=[True, False]).head(120)
+        display = pd.DataFrame(
+            {
+                "ID": merged["rule_id"],
+                "Status": merged["status"],
+                "Fundo": merged["fundo"].astype(str).str.slice(0, 72),
+                "CNPJ": merged["cnpj_fundo"],
+                "Critério auto": merged["criterio"],
+                "Chave auto": merged["chave"],
+                "Regra auto": merged["limite_regra"].astype(str).str.slice(0, 180),
+                "Pct auto": pd.to_numeric(merged["pct_min"], errors="coerce"),
+                "Monitor auto": merged["monitorabilidade_ime"],
+                "Critério revisado": merged["criterio_revisado"].fillna("").astype(str),
+                "Chave revisada": merged["chave_revisada"].fillna("").astype(str),
+                "Regra revisada": merged["limite_revisado"].fillna("").astype(str),
+                "Pct revisado": pd.to_numeric(merged["pct_min_revisado"], errors="coerce"),
+                "Monitor revisado": merged["monitorabilidade_revisada"].fillna("").astype(str),
+                "Confiança manual": pd.to_numeric(merged["confianca_manual"], errors="coerce"),
+                "Documento": merged["documento_origem"],
+                "Data": merged["document_date"],
+                "Notas": merged["notas"].fillna("").astype(str),
+            }
+        )
+        edited = st.data_editor(
+            display,
+            hide_index=True,
+            width="stretch",
+            height=520,
+            disabled=["ID", "Fundo", "CNPJ", "Critério auto", "Chave auto", "Regra auto", "Pct auto", "Monitor auto", "Documento", "Data"],
+            column_config={
+                "Status": st.column_config.SelectboxColumn(
+                    "Status",
+                    options=["pendente", "aprovado", "corrigido", "rejeitado"],
+                    required=True,
+                ),
+                "Confiança manual": st.column_config.NumberColumn("Confiança manual", min_value=0.0, max_value=1.0, step=0.05, format="%.2f"),
+                "Pct revisado": st.column_config.NumberColumn("Pct revisado", min_value=0.0, step=0.1, format="%.2f"),
+            },
+            key="industry_criteria_review_editor",
+        )
+        if st.button("Salvar revisões de critérios", type="primary", key="industry_save_criteria_reviews"):
+            edited_reviews = pd.DataFrame(
+                {
+                    "rule_id": edited["ID"],
+                    "status": edited["Status"],
+                    "criterio_revisado": edited["Critério revisado"],
+                    "chave_revisada": edited["Chave revisada"],
+                    "limite_revisado": edited["Regra revisada"],
+                    "pct_min_revisado": edited["Pct revisado"],
+                    "monitorabilidade_revisada": edited["Monitor revisado"],
+                    "confianca_manual": edited["Confiança manual"],
+                    "notas": edited["Notas"],
+                }
+            ).fillna("")
+            keep_existing = reviews[~reviews["rule_id"].isin(edited_reviews["rule_id"])].copy() if not reviews.empty else reviews
+            updated_reviews = pd.concat([keep_existing, edited_reviews], ignore_index=True)
+            _save_criteria_reviews(updated_reviews)
+            structured_saved = _persist_structured_criteria(updated_reviews)
+            st.success(
+                f"Revisões salvas em `{_CRITERIA_REVIEW_PATH}` e base recomposta "
+                f"em `{_CRITERIA_STRUCTURED_PATH.name}` ({len(structured_saved):,} regras)."
+            )
+    with tab_manifest:
+        if manifest:
+            st.download_button(
+                "Baixar manifesto",
+                data=json.dumps(manifest, ensure_ascii=False, indent=2),
+                file_name="industry_criteria_manifest.json",
+                mime="application/json",
+            )
+            st.json(manifest)
+        else:
+            st.caption("Manifesto de critérios não encontrado.")
+
+
 def _render_cedente_review_workbench() -> None:
     st.markdown('<div class="industry-section">Cedentes, sacados e revisão manual</div>', unsafe_allow_html=True)
     st.markdown(
@@ -1801,13 +2355,17 @@ def render_tab_industry_study() -> None:
     st.markdown(f'<div class="industry-kpi-grid">{"".join(kpis)}</div>', unsafe_allow_html=True)
 
     vehicle = _load_csv("vehicle_monthly.csv.gz")
-    audit_tab, issuance_tab, heatmap_tab, cedente_tab, deep_dive_tab, pipeline_tab = st.tabs(
-        ["Base granular", "Emissões", "Heatmaps", "Cedentes", "Deep Dive", "Pipeline"]
+    audit_tab, issuance_tab, documents_tab, criteria_tab, heatmap_tab, cedente_tab, deep_dive_tab, pipeline_tab = st.tabs(
+        ["Base granular", "Emissões", "Documentos", "Critérios", "Heatmaps", "Cedentes", "Deep Dive", "Pipeline"]
     )
     with audit_tab:
         _render_monthly_audit_and_base(industry, comp)
     with issuance_tab:
         _render_issuance_study()
+    with documents_tab:
+        _render_document_inventory()
+    with criteria_tab:
+        _render_criteria_study()
     with heatmap_tab:
         _render_generic_heatmaps(vehicle, comp)
     with cedente_tab:
