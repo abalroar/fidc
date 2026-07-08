@@ -1,0 +1,127 @@
+{
+  "schema_version": "industry-pipeline-manifest/v1",
+  "generated_at_utc": "2026-07-08T15:12:09+00:00",
+  "pipeline": "industry_cedentes_structured",
+  "design_constraints": {
+    "modular": true,
+    "incremental": true,
+    "macbook_air_m4_friendly": true,
+    "notes": [
+      "Este modulo consolida candidatos ja extraidos; nao baixa nem reprocessa documentos.",
+      "Cada entrada/saida fica persistida para permitir reexecucao parcial e auditoria mensal."
+    ]
+  },
+  "inputs": {
+    "strategy_db": {
+      "path": "data/fidc_credit_strategy/fidc_credit_strategy.sqlite",
+      "exists": true,
+      "bytes": 222019584,
+      "sha256": "5334a9fd1eba8fdf28b79c7546602fcd88e4553336a64c950ce2ed8f456295f9"
+    },
+    "manual_reviews": {
+      "path": "data/industry_study/cedente_reviews.csv",
+      "exists": true,
+      "bytes": 140,
+      "sha256": "2ff4a5cc01ece262039e0b2704a5f8de90bd716d45a071069e3cf011e44348b1"
+    },
+    "vehicle_snapshot": {
+      "path": "data/industry_study/universe_latest.csv",
+      "exists": true,
+      "bytes": 1526557,
+      "sha256": "e05e0030a1a5587a08db42659503e724afe84a4d840cf6a3a29b637eb89c3ee0"
+    }
+  },
+  "outputs": {
+    "cedentes_structured": {
+      "path": "data/industry_study/cedentes_structured.csv.gz",
+      "exists": true,
+      "bytes": 312955,
+      "sha256": "5a239358d9c6147c16c63292382ad7213454bd115e6f9f59bc9de6ccbd598829"
+    },
+    "manifest": {
+      "path": "data/industry_study/industry_pipeline_manifest.json"
+    }
+  },
+  "stages": [
+    {
+      "id": "extract_candidates",
+      "label": "Candidatos cedente/sacado",
+      "status": "ok",
+      "input": "data/fidc_credit_strategy/fidc_credit_strategy.sqlite",
+      "output": "memoria:cedentes_sacados_candidates",
+      "rows": 1478,
+      "funds": 569,
+      "rerun": "python scripts/execute_fidc_director_diagnostic.py --download-limit 0"
+    },
+    {
+      "id": "apply_manual_review",
+      "label": "Revisao manual persistida",
+      "status": "ok",
+      "input": "data/industry_study/cedente_reviews.csv",
+      "output": "memoria:review_overlay",
+      "rows": 0,
+      "rerun": "Editar pela aba Indústria > Cedentes; nao editar CSV manualmente."
+    },
+    {
+      "id": "enrich_funds",
+      "label": "Enriquecimento por fundos/ofertas",
+      "status": "ok",
+      "input": "data/fidc_credit_strategy/fidc_credit_strategy.sqlite",
+      "output": "memoria:fund_universe",
+      "rows": 7399,
+      "rerun": "python scripts/export_fidc_strategy_audit_report.py"
+    },
+    {
+      "id": "enrich_ime_snapshot",
+      "label": "Enriquecimento IME atual",
+      "status": "ok",
+      "input": "data/industry_study/universe_latest.csv",
+      "output": "memoria:universe_latest",
+      "rows": 4224,
+      "rerun": "python scripts/build_fidc_industry_study.py --report"
+    },
+    {
+      "id": "consolidate_structured_base",
+      "label": "Base estruturada de cedentes",
+      "status": "ok",
+      "input": "memoria:candidates+review_overlay+fund_universe+universe_latest",
+      "output": "data/industry_study/cedentes_structured.csv.gz",
+      "rows": 1478,
+      "funds": 569,
+      "rerun": "python scripts/build_fidc_industry_cedentes.py"
+    }
+  ],
+  "quality": {
+    "candidate_rows": 1478,
+    "candidate_funds": 569,
+    "structured_rows": 1478,
+    "active_rows": 1478,
+    "structured_funds": 569,
+    "priority_2025_2026_rows": 987,
+    "priority_2025_2026_funds": 386,
+    "review_rows": 0,
+    "review_status_counts": {},
+    "participant_type_counts": {
+      "sacado_devedor": 613,
+      "cedente_originador": 605,
+      "consultora": 260
+    },
+    "coverage": {
+      "razao_social": 0.10013531799729364,
+      "nome_fantasia": 0.0,
+      "cnpj_participante": 0.10013531799729364,
+      "grupo_economico": 0.0,
+      "setor": 1.0,
+      "segmento": 1.0,
+      "documento_origem": 1.0,
+      "pagina": 0.012178619756427604,
+      "metodo_extracao": 1.0,
+      "score_confianca_final": 1.0
+    },
+    "score": {
+      "median": 0.5,
+      "p25": 0.5,
+      "p75": 0.5
+    }
+  }
+}

@@ -13,7 +13,6 @@ rotulo direto ou tabela ao lado.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 import sqlite3
@@ -23,21 +22,33 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
+from services.industry_study import (
+    CEDENTE_REVIEW_COLUMNS,
+    build_cedente_pipeline_manifest,
+    build_cedente_structured,
+    clean_candidate_name,
+    load_dataframe,
+    load_cedente_candidates,
+    load_pipeline_manifest,
+    load_cedente_reviews,
+    load_fund_universe,
+    normalize_cnpj,
+    save_cedente_reviews,
+    save_pipeline_manifest,
+    save_cedente_structured,
+)
+
 _DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
 _REGULATORY_DB = Path(__file__).resolve().parents[1] / "data" / "fidc_credit_strategy" / "fidc_credit_strategy.sqlite"
 _ALL_FIDCS_CRITERIA = Path(__file__).resolve().parents[1] / "data" / "regulatory_profiles" / "all_fidcs_criteria_monitoraveis_ime.csv"
 _CEDENTE_REVIEW_PATH = _DATA_DIR / "cedente_reviews.csv"
-_CEDENTE_REVIEW_COLUMNS = [
-    "review_id",
-    "status",
-    "nome_revisado",
-    "cnpj_revisado",
-    "grupo_economico",
-    "setor_revisado",
-    "segmento_revisado",
-    "confianca_manual",
-    "notas",
-]
+_CEDENTE_STRUCTURED_PATH = _DATA_DIR / "cedentes_structured.csv.gz"
+_PIPELINE_MANIFEST_PATH = _DATA_DIR / "industry_pipeline_manifest.json"
+_ISSUANCE_ANNUAL_PATH = _DATA_DIR / "issuance_annual.csv"
+_ISSUANCE_SECTOR_YEAR_PATH = _DATA_DIR / "issuance_sector_year.csv"
+_ISSUANCE_TRANCHES_PATH = _DATA_DIR / "issuance_tranches.csv.gz"
+_ISSUANCE_MANIFEST_PATH = _DATA_DIR / "industry_issuance_manifest.json"
+_CEDENTE_REVIEW_COLUMNS = CEDENTE_REVIEW_COLUMNS
 
 # Paleta laranja/preto/cinza - maior contraste entre tons sobre fundo branco.
 _ORANGE = "#ff5a00"
@@ -219,100 +230,65 @@ def _extract_pct_values(text: object) -> list[float]:
 
 
 def _clean_candidate_name(value: object) -> str:
-    text = re.sub(r"\s+", " ", str(value or "").strip(" ;,."))
-    if len(text) < 8:
-        return ""
-    upper = text.upper()
-    noisy_tokens = (
-        "CEP",
-        "ANDAR",
-        "CONJUNTO",
-        "SALA",
-        "BAIRRO",
-        "MUNICÍPIO",
-        "MUNICIPIO",
-        "RUA ",
-        "AVENIDA",
-        "DO DE INVESTIMENTO",
-    )
-    if any(token in upper for token in noisy_tokens):
-        return ""
-    if sum(char.isdigit() for char in text) > 4:
-        return ""
-    if not re.search(r"\b(S\.A\.?|LTDA|BANCO|INSTITUI|FUNDO|COMPANHIA|SOCIEDADE|SERVIÇOS|SERVICOS|TECH|TRANSPORTES)\b", upper):
-        return ""
-    return text[:120]
-
-
-def _review_id(row: pd.Series) -> str:
-    key = "|".join(
-        str(row.get(col, ""))
-        for col in ["cnpj_fundo", "participant_type", "participant_name_candidate", "participant_cnpj_candidate", "source_cache"]
-    )
-    return hashlib.sha1(key.encode("utf-8", errors="ignore")).hexdigest()[:16]
-
-
-def _extract_page(value: object) -> str:
-    match = re.search(r"p[aá]gina\s+(\d+)|pagina\s+(\d+)|page\s+(\d+)", str(value or ""), flags=re.IGNORECASE)
-    if not match:
-        return ""
-    return next(group for group in match.groups() if group)
+    return clean_candidate_name(value)
 
 
 def _load_cedente_reviews() -> pd.DataFrame:
-    if not _CEDENTE_REVIEW_PATH.exists():
-        return pd.DataFrame(columns=_CEDENTE_REVIEW_COLUMNS)
-    reviews = pd.read_csv(_CEDENTE_REVIEW_PATH, dtype=str, keep_default_na=False)
-    for col in _CEDENTE_REVIEW_COLUMNS:
-        if col not in reviews.columns:
-            reviews[col] = ""
-    return reviews[_CEDENTE_REVIEW_COLUMNS]
+    return load_cedente_reviews(_CEDENTE_REVIEW_PATH)
 
 
 def _save_cedente_reviews(reviews: pd.DataFrame) -> None:
-    out = reviews.copy()
-    for col in _CEDENTE_REVIEW_COLUMNS:
-        if col not in out.columns:
-            out[col] = ""
-    out = out[_CEDENTE_REVIEW_COLUMNS].drop_duplicates("review_id", keep="last")
-    out.to_csv(_CEDENTE_REVIEW_PATH, index=False)
+    save_cedente_reviews(reviews, _CEDENTE_REVIEW_PATH)
 
 
 @st.cache_data(show_spinner=False)
 def _load_cedente_candidates() -> pd.DataFrame:
-    if not _REGULATORY_DB.exists():
-        return pd.DataFrame()
-    try:
-        with sqlite3.connect(_REGULATORY_DB) as conn:
-            candidates = pd.read_sql_query(
-                """
-                select cnpj_fundo, fund_name, setor_n1, setor_n2, participant_type,
-                       participant_cnpj_candidate, participant_name_candidate,
-                       evidence_context, source_cache
-                from cedentes_sacados_candidates
-                """,
-                conn,
-            )
-    except sqlite3.Error:
-        return pd.DataFrame()
-    if candidates.empty:
-        return candidates
-    candidates["review_id"] = candidates.apply(_review_id, axis=1)
-    candidates["participante_extraido"] = candidates["participant_name_candidate"].map(_clean_candidate_name)
-    candidates["participante_extraido"] = candidates["participante_extraido"].where(
-        candidates["participante_extraido"].astype(str).str.len() > 0,
-        candidates["participant_cnpj_candidate"].fillna("").astype(str),
+    return load_cedente_candidates(_REGULATORY_DB)
+
+
+@st.cache_data(show_spinner=False)
+def _load_cedente_fund_universe() -> pd.DataFrame:
+    return load_fund_universe(_REGULATORY_DB)
+
+
+def _build_structured_cedentes(
+    candidates: pd.DataFrame | None = None,
+    reviews: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    candidates = _load_cedente_candidates() if candidates is None else candidates
+    reviews = _load_cedente_reviews() if reviews is None else reviews
+    vehicle_latest = _load_csv("universe_latest.csv")
+    return build_cedente_structured(
+        candidates,
+        reviews,
+        fund_universe=_load_cedente_fund_universe(),
+        vehicle_latest=vehicle_latest if vehicle_latest is not None else pd.DataFrame(),
     )
-    candidates["documento_origem"] = candidates["source_cache"].map(lambda value: Path(str(value)).name if str(value) else "")
-    candidates["pagina"] = candidates["evidence_context"].map(_extract_page)
-    candidates["metodo_extracao"] = "regex_contexto_documental"
-    has_name = candidates["participante_extraido"].astype(str).str.len() > 0
-    has_cnpj = candidates["participant_cnpj_candidate"].astype(str).str.replace(r"\D", "", regex=True).str.len().eq(14)
-    has_doc = candidates["source_cache"].astype(str).str.len() > 0
-    candidates["score_confianca"] = (0.35 + 0.25 * has_name + 0.25 * has_cnpj + 0.15 * has_doc).clip(upper=0.95)
-    candidates["evidencias_agrupadas"] = candidates.groupby("review_id")["review_id"].transform("size")
-    candidates = candidates.sort_values(["score_confianca", "cnpj_fundo"], ascending=[False, True])
-    return candidates.drop_duplicates("review_id", keep="first").reset_index(drop=True)
+
+
+def _persist_structured_cedentes(candidates: pd.DataFrame, reviews: pd.DataFrame) -> pd.DataFrame:
+    fund_universe = _load_cedente_fund_universe()
+    vehicle_latest = _load_csv("universe_latest.csv")
+    structured = build_cedente_structured(
+        candidates,
+        reviews,
+        fund_universe=fund_universe,
+        vehicle_latest=vehicle_latest if vehicle_latest is not None else pd.DataFrame(),
+    )
+    save_cedente_structured(structured, _CEDENTE_STRUCTURED_PATH)
+    manifest = build_cedente_pipeline_manifest(
+        industry_dir=_DATA_DIR,
+        strategy_db=_REGULATORY_DB,
+        reviews_path=_CEDENTE_REVIEW_PATH,
+        output_path=_CEDENTE_STRUCTURED_PATH,
+        candidates=candidates,
+        reviews=reviews,
+        fund_universe=fund_universe,
+        vehicle_latest=vehicle_latest if vehicle_latest is not None else pd.DataFrame(),
+        structured=structured,
+    )
+    save_pipeline_manifest(manifest, _PIPELINE_MANIFEST_PATH)
+    return structured
 
 
 @st.cache_data(show_spinner=False)
@@ -734,6 +710,55 @@ def _period_filter(frame: pd.DataFrame, comp: str, period: str) -> pd.DataFrame:
     return frame[frame["competencia"].astype(str).isin(selected)].copy()
 
 
+_CEDENTE_HEATMAP_COLUMNS = {
+    "razao_social",
+    "grupo_economico",
+    "tipo_participante",
+    "status_revisao",
+    "periodo_prioritario",
+}
+
+
+def _heatmap_base_frame(
+    vehicle: pd.DataFrame,
+    cedentes: pd.DataFrame,
+    row_col: str,
+    col_col: str,
+) -> pd.DataFrame:
+    if row_col not in _CEDENTE_HEATMAP_COLUMNS and col_col not in _CEDENTE_HEATMAP_COLUMNS:
+        frame = vehicle.copy()
+        frame["_metric_weight"] = 1.0
+        return frame
+    if cedentes.empty:
+        return vehicle.iloc[0:0].copy()
+    relations = cedentes.copy()
+    relations = relations[relations.get("ativo_curadoria", pd.Series(True, index=relations.index)).astype(bool)].copy()
+    relations = relations[relations.get("razao_social", pd.Series("", index=relations.index)).fillna("").astype(str).str.strip() != ""]
+    if relations.empty:
+        return vehicle.iloc[0:0].copy()
+    relations["cnpj_fundo_norm"] = relations["cnpj_fundo"].map(normalize_cnpj)
+    relation_cols = [
+        "cnpj_fundo_norm",
+        "razao_social",
+        "grupo_economico",
+        "tipo_participante",
+        "status_revisao",
+        "periodo_prioritario",
+        "score_confianca_final",
+    ]
+    relations = relations[[col for col in relation_cols if col in relations.columns]].drop_duplicates()
+    frame = vehicle.copy()
+    id_col = "cnpj_fundo" if "cnpj_fundo" in frame.columns else "cnpj"
+    frame["cnpj_fundo_norm"] = frame[id_col].map(normalize_cnpj)
+    frame = frame.merge(relations, on="cnpj_fundo_norm", how="inner")
+    if frame.empty:
+        frame["_metric_weight"] = 1.0
+        return frame
+    relation_count = frame.groupby(["competencia", "cnpj"], dropna=False)["razao_social"].transform("nunique")
+    frame["_metric_weight"] = 1.0 / relation_count.clip(lower=1)
+    return frame
+
+
 def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
     st.markdown('<div class="industry-section">Heatmaps granulares</div>', unsafe_allow_html=True)
     st.markdown(
@@ -749,19 +774,24 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
         "Administrador": "admin_nome",
         "Gestor": "gestor_nome",
         "Custodiante": "custodiante_nome",
+        "Cedente/sacado": "razao_social",
+        "Grupo econômico": "grupo_economico",
+        "Tipo participante": "tipo_participante",
         "Segmento": "segmento_principal",
         "Subsegmento financeiro": "segmento_financeiro_principal",
         "Condomínio": "condominio",
         "Público-alvo": "publico_alvo",
         "FIC-FIDC": "is_fic_fidc",
+        "Status curadoria": "status_revisao",
     }
     metric_options = ["PL médio", "Captação líquida", "Veículos", "Fundos"]
+    dimension_labels = list(dimensions)
 
     ctrl_a, ctrl_b, ctrl_c, ctrl_d, ctrl_e = st.columns([1.0, 1.0, 0.9, 0.9, 0.65])
     with ctrl_a:
-        row_label = st.selectbox("Linhas", list(dimensions), index=0, key="industry_heatmap_rows")
+        row_label = st.selectbox("Linhas", dimension_labels, index=dimension_labels.index("Administrador"), key="industry_heatmap_rows")
     with ctrl_b:
-        col_label = st.selectbox("Colunas", list(dimensions), index=3, key="industry_heatmap_cols")
+        col_label = st.selectbox("Colunas", dimension_labels, index=dimension_labels.index("Segmento"), key="industry_heatmap_cols")
     with ctrl_c:
         metric_label = st.selectbox("Métrica", metric_options, key="industry_heatmap_metric")
     with ctrl_d:
@@ -773,7 +803,9 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
     with ctrl_e:
         top_n = st.slider("Top", min_value=5, max_value=25, value=12, step=1, key="industry_heatmap_top")
 
+    cedentes = _build_structured_cedentes()
     frame = _period_filter(vehicle, comp, period)
+    frame = _heatmap_base_frame(frame, cedentes, dimensions[row_label], dimensions[col_label])
     if frame.empty:
         st.caption("Sem linhas para a janela selecionada.")
         return
@@ -786,8 +818,9 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
         return
 
     if metric_label == "PL médio":
+        frame["pl_metric"] = pd.to_numeric(frame["pl"], errors="coerce").fillna(0) * frame["_metric_weight"]
         monthly = (
-            frame.groupby(["competencia", "linha", "coluna"], dropna=False)["pl"]
+            frame.groupby(["competencia", "linha", "coluna"], dropna=False)["pl_metric"]
             .sum()
             .reset_index(name="valor_base")
         )
@@ -800,8 +833,9 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
         value_format = ",.1f"
         heatmap["valor"] = heatmap["valor"] / 1e9
     elif metric_label == "Captação líquida":
+        frame["captacao_metric"] = pd.to_numeric(frame["captacao_liquida"], errors="coerce").fillna(0) * frame["_metric_weight"]
         heatmap = (
-            frame.groupby(["linha", "coluna"], dropna=False)["captacao_liquida"]
+            frame.groupby(["linha", "coluna"], dropna=False)["captacao_metric"]
             .sum()
             .reset_index(name="valor")
         )
@@ -879,6 +913,215 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
     pivot = heatmap.pivot_table(index="linha", columns="coluna", values="valor", aggfunc="sum", fill_value=0)
     pivot = pivot.reindex(index=row_order, columns=col_order).reset_index().rename(columns={"linha": row_label})
     st.dataframe(pivot, hide_index=True, width="stretch")
+    if dimensions[row_label] in _CEDENTE_HEATMAP_COLUMNS or dimensions[col_label] in _CEDENTE_HEATMAP_COLUMNS:
+        st.caption(
+            "Quando a dimensão é cedente/sacado, PL e fluxo são alocados igualmente entre os participantes ativos "
+            "do mesmo fundo para evitar dupla contagem direta."
+        )
+
+
+@st.cache_data(show_spinner=False)
+def _load_issuance_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    return {
+        "annual": load_dataframe(_ISSUANCE_ANNUAL_PATH),
+        "sector_year": load_dataframe(_ISSUANCE_SECTOR_YEAR_PATH),
+        "tranches": load_dataframe(_ISSUANCE_TRANCHES_PATH),
+        "manifest": load_pipeline_manifest(_ISSUANCE_MANIFEST_PATH),
+    }
+
+
+def _format_money_bi_column(frame: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
+    out = frame.copy()
+    for col in columns:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_bi(float(value), 1))
+    return out
+
+
+def _render_issuance_study() -> None:
+    st.markdown('<div class="industry-section">Emissões, ofertas e pricing documental</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Camada inspirada na aba Estratégia: volume anual de emissões/ofertas, '
+        "CNPJs emissores, setor × ano e tranches extraídas de documentos. Conceito distinto de captação líquida do IME.</div>",
+        unsafe_allow_html=True,
+    )
+    tables = _load_issuance_tables()
+    annual = tables["annual"]
+    sector_year = tables["sector_year"]
+    tranches = tables["tranches"]
+    manifest = tables["manifest"]
+    assert isinstance(annual, pd.DataFrame)
+    assert isinstance(sector_year, pd.DataFrame)
+    assert isinstance(tranches, pd.DataFrame)
+    assert isinstance(manifest, dict)
+    if annual.empty and sector_year.empty and tranches.empty:
+        st.info("Artefatos de emissão ainda não foram gerados. Rode `python scripts/build_fidc_industry_issuance.py`.")
+        return
+
+    annual_num = annual.copy()
+    for col in ["ano", "emissores_cnpj", "ofertas_linhas", "volume_registrado_brl", "volume_conservador_brl", "pl_atual_brl", "com_matriz_regulatoria"]:
+        if col in annual_num.columns:
+            annual_num[col] = pd.to_numeric(annual_num[col], errors="coerce").fillna(0)
+    latest = annual_num.sort_values("ano").iloc[-1] if not annual_num.empty else pd.Series(dtype=object)
+    total_conservador = float(annual_num.get("volume_conservador_brl", pd.Series(dtype=float)).sum()) if not annual_num.empty else 0.0
+    cards = [
+        _curation_card("Volume conservador", _fmt_bi(total_conservador, 1), "2024-2026 YTD"),
+        _curation_card("Último ano/YTD", _fmt_bi(float(latest.get("volume_conservador_brl", 0)), 1), str(latest.get("periodo", ""))),
+        _curation_card("CNPJs emissores", _fmt_int(float(latest.get("emissores_cnpj", 0))), "último período"),
+        _curation_card("Tranches documentais", _fmt_int(float(len(tranches))), f"{_fmt_int(float(tranches['cnpj_fundo'].nunique())) if 'cnpj_fundo' in tranches else '0'} FIDCs"),
+        _curation_card("Setores × ano", _fmt_int(float(len(sector_year))), "base agregada"),
+        _curation_card("Manifesto", str(manifest.get("schema_version", "n/d")).split("/")[-1], str(manifest.get("generated_at_utc", ""))[:10]),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    tab_annual, tab_sector, tab_pricing, tab_base = st.tabs(["Anual", "Setor × ano", "Indexadores", "Base"])
+    with tab_annual:
+        if not annual_num.empty:
+            chart_data = annual_num.copy()
+            chart_data["volume_bi"] = chart_data["volume_conservador_brl"] / 1e9
+            chart_data["ano_label"] = chart_data["periodo"].astype(str)
+            bars = (
+                alt.Chart(chart_data)
+                .mark_bar(color=_ORANGE, cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
+                .encode(
+                    x=alt.X("ano_label:N", title=None),
+                    y=alt.Y("volume_bi:Q", title="Volume conservador (R$ bi)", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    tooltip=[
+                        alt.Tooltip("periodo:N", title="período"),
+                        alt.Tooltip("volume_bi:Q", title="volume R$ bi", format=",.1f"),
+                        alt.Tooltip("emissores_cnpj:Q", title="CNPJs emissores"),
+                    ],
+                )
+            )
+            points = (
+                alt.Chart(chart_data)
+                .mark_point(color=_BLACK, filled=True, size=95)
+                .encode(
+                    x=alt.X("ano_label:N", title=None),
+                    y=alt.Y("emissores_cnpj:Q", title="CNPJs emissores"),
+                    tooltip=[alt.Tooltip("emissores_cnpj:Q", title="CNPJs emissores")],
+                )
+            )
+            st.altair_chart(alt.layer(bars, points).resolve_scale(y="independent").properties(height=330), width="stretch")
+            display = annual_num.copy()
+            display = display.rename(
+                columns={
+                    "ano": "Ano",
+                    "periodo": "Período",
+                    "emissores_cnpj": "CNPJs emissores",
+                    "ofertas_linhas": "Linhas oferta",
+                    "volume_registrado_brl": "Volume registrado",
+                    "volume_conservador_brl": "Volume conservador",
+                    "pl_atual_brl": "PL atual",
+                    "com_matriz_regulatoria": "Com matriz",
+                }
+            )
+            st.dataframe(_format_money_bi_column(display, ["Volume registrado", "Volume conservador", "PL atual"]), hide_index=True, width="stretch")
+        else:
+            st.caption("Agregado anual indisponível.")
+    with tab_sector:
+        if not sector_year.empty:
+            data = sector_year.copy()
+            data["ano"] = pd.to_numeric(data["ano"], errors="coerce").fillna(0).astype(int).astype(str)
+            data["volume_bi"] = pd.to_numeric(data["volume_conservador_brl"], errors="coerce").fillna(0) / 1e9
+            data["setor"] = data["setor_n1"].astype(str) + " | " + data["setor_n2"].astype(str)
+            top = data.groupby("setor")["volume_bi"].sum().sort_values(ascending=False).head(18).index.tolist()
+            data = data[data["setor"].isin(top)].copy()
+            heat = (
+                alt.Chart(data)
+                .mark_rect(cornerRadius=2)
+                .encode(
+                    x=alt.X("ano:N", title="Ano"),
+                    y=alt.Y("setor:N", title=None, sort=top),
+                    color=alt.Color("volume_bi:Q", title="R$ bi", scale=alt.Scale(range=["#f7f2ed", _ORANGE])),
+                    tooltip=[
+                        alt.Tooltip("ano:N", title="ano"),
+                        alt.Tooltip("setor:N", title="setor"),
+                        alt.Tooltip("volume_bi:Q", title="volume R$ bi", format=",.1f"),
+                        alt.Tooltip("emissores_cnpj:Q", title="CNPJs"),
+                    ],
+                )
+                .properties(height=max(320, 24 * len(top)))
+            )
+            st.altair_chart(heat, width="stretch")
+            table = data.sort_values(["ano", "volume_bi"], ascending=[False, False]).rename(
+                columns={
+                    "ano": "Ano",
+                    "setor_n1": "Setor",
+                    "setor_n2": "Subsegmento",
+                    "emissores_cnpj": "CNPJs",
+                    "volume_registrado_brl": "Volume registrado",
+                    "volume_conservador_brl": "Volume conservador",
+                    "pl_atual_brl": "PL atual",
+                }
+            )
+            st.dataframe(_format_money_bi_column(table[["Ano", "Setor", "Subsegmento", "CNPJs", "Volume registrado", "Volume conservador", "PL atual"]], ["Volume registrado", "Volume conservador", "PL atual"]), hide_index=True, width="stretch")
+        else:
+            st.caption("Setor × ano indisponível.")
+    with tab_pricing:
+        if not tranches.empty:
+            data = tranches.copy()
+            data["volume_bi"] = pd.to_numeric(data["volume_brl"], errors="coerce").fillna(0) / 1e9
+            data["setor"] = data["setor_n1"].astype(str)
+            data["indexador"] = data["indexador"].replace("", "n/d")
+            grouped = (
+                data.groupby(["setor", "indexador"], dropna=False)
+                .agg(Volume=("volume_bi", "sum"), Tranches=("cnpj_fundo", "size"), FIDCs=("cnpj_fundo", "nunique"))
+                .reset_index()
+            )
+            top_sectors = grouped.groupby("setor")["Volume"].sum().sort_values(ascending=False).head(14).index.tolist()
+            grouped = grouped[grouped["setor"].isin(top_sectors)].copy()
+            chart = (
+                alt.Chart(grouped)
+                .mark_rect(cornerRadius=2)
+                .encode(
+                    x=alt.X("indexador:N", title="Indexador"),
+                    y=alt.Y("setor:N", title=None, sort=top_sectors),
+                    color=alt.Color("Volume:Q", title="R$ bi", scale=alt.Scale(range=["#f7f2ed", _ORANGE])),
+                    tooltip=[
+                        alt.Tooltip("setor:N", title="setor"),
+                        alt.Tooltip("indexador:N", title="indexador"),
+                        alt.Tooltip("Volume:Q", title="volume R$ bi", format=",.2f"),
+                        alt.Tooltip("Tranches:Q", title="tranches"),
+                        alt.Tooltip("FIDCs:Q", title="FIDCs"),
+                    ],
+                )
+                .properties(height=max(300, 26 * len(top_sectors)))
+            )
+            st.altair_chart(chart, width="stretch")
+            detail = data.sort_values("volume_bi", ascending=False).head(80).copy()
+            detail = detail.rename(
+                columns={
+                    "fundo": "Fundo",
+                    "cnpj_fundo": "CNPJ",
+                    "ano": "Ano",
+                    "tipo_cota": "Tipo cota",
+                    "indexador": "Indexador",
+                    "volume_brl": "Volume",
+                    "setor_n1": "Setor",
+                    "setor_n2": "Subsegmento",
+                    "documento_origem": "Documento",
+                    "score_confianca": "Score",
+                }
+            )
+            keep = ["Fundo", "CNPJ", "Ano", "Tipo cota", "Indexador", "Volume", "Setor", "Subsegmento", "Documento", "Score"]
+            st.dataframe(_format_money_bi_column(detail[[col for col in keep if col in detail.columns]], ["Volume"]), hide_index=True, width="stretch")
+        else:
+            st.caption("Tranches documentais indisponíveis.")
+    with tab_base:
+        selected = st.selectbox(
+            "Tabela",
+            ["issuance_annual.csv", "issuance_sector_year.csv", "issuance_tranches.csv.gz", "industry_issuance_manifest.json"],
+            key="industry_issuance_base_select",
+        )
+        if selected == "issuance_annual.csv":
+            st.dataframe(annual.head(500), hide_index=True, width="stretch")
+        elif selected == "issuance_sector_year.csv":
+            st.dataframe(sector_year.head(500), hide_index=True, width="stretch")
+        elif selected == "issuance_tranches.csv.gz":
+            st.dataframe(tranches.head(500), hide_index=True, width="stretch")
+        else:
+            st.json(manifest)
 
 
 def _render_cedente_review_workbench() -> None:
@@ -901,6 +1144,7 @@ def _render_cedente_review_workbench() -> None:
             frame[col] = ""
     frame["status"] = frame["status"].fillna("").replace("", "pendente")
     frame["score_confianca"] = pd.to_numeric(frame["score_confianca"], errors="coerce").fillna(0)
+    structured = _build_structured_cedentes(candidates, reviews)
 
     type_labels = {
         "cedente_originador": "cedente/originador",
@@ -909,7 +1153,8 @@ def _render_cedente_review_workbench() -> None:
     }
     cards = [
         _curation_card("Candidatos automáticos", _fmt_int(float(len(frame))), "deduplicados por fundo/participante"),
-        _curation_card("FIDCs com evidência", _fmt_int(float(frame["cnpj_fundo"].nunique())), "universo regulatório"),
+        _curation_card("Base estruturada", _fmt_int(float(len(structured))), "linhas reutilizáveis"),
+        _curation_card("FIDCs com evidência", _fmt_int(float(structured["cnpj_fundo"].nunique() if not structured.empty else frame["cnpj_fundo"].nunique())), "universo regulatório"),
         _curation_card(
             "Cedente/originador",
             _fmt_int(float(frame[frame["participant_type"].eq("cedente_originador")]["cnpj_fundo"].nunique())),
@@ -976,6 +1221,7 @@ def _render_cedente_review_workbench() -> None:
             "Participante extraído": filtered["participante_extraido"],
             "CNPJ extraído": filtered["participant_cnpj_candidate"].fillna("").astype(str),
             "Nome revisado": filtered["nome_revisado"].fillna("").astype(str),
+            "Nome fantasia": filtered["nome_fantasia_revisado"].fillna("").astype(str),
             "CNPJ revisado": filtered["cnpj_revisado"].fillna("").astype(str),
             "Grupo econômico": filtered["grupo_economico"].fillna("").astype(str),
             "Setor revisado": filtered["setor_revisado"].fillna("").astype(str),
@@ -1032,6 +1278,7 @@ def _render_cedente_review_workbench() -> None:
                 "review_id": edited["ID"],
                 "status": edited["Status"],
                 "nome_revisado": edited["Nome revisado"],
+                "nome_fantasia_revisado": edited["Nome fantasia"],
                 "cnpj_revisado": edited["CNPJ revisado"],
                 "grupo_economico": edited["Grupo econômico"],
                 "setor_revisado": edited["Setor revisado"],
@@ -1042,8 +1289,344 @@ def _render_cedente_review_workbench() -> None:
         )
         edited_reviews = edited_reviews.fillna("")
         keep_existing = reviews[~reviews["review_id"].isin(edited_reviews["review_id"])].copy()
-        _save_cedente_reviews(pd.concat([keep_existing, edited_reviews], ignore_index=True))
-        st.success(f"Revisões salvas em `{_CEDENTE_REVIEW_PATH}`.")
+        updated_reviews = pd.concat([keep_existing, edited_reviews], ignore_index=True)
+        _save_cedente_reviews(updated_reviews)
+        structured_saved = _persist_structured_cedentes(candidates, updated_reviews)
+        st.success(
+            f"Revisões salvas em `{_CEDENTE_REVIEW_PATH}` e base estruturada atualizada "
+            f"em `{_CEDENTE_STRUCTURED_PATH.name}` ({len(structured_saved):,} linhas)."
+        )
+
+
+def _numeric_column(frame: pd.DataFrame, column: str) -> pd.Series:
+    if column not in frame.columns:
+        return pd.Series(0.0, index=frame.index)
+    return pd.to_numeric(frame[column], errors="coerce").fillna(0.0)
+
+
+def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
+    st.markdown('<div class="industry-section">Deep Dive por dimensão</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Exploração reutilizável da base estruturada: escolha uma dimensão, '
+        "um valor e uma janela; o painel recompõe PL, fluxo, veículos, segmentos e evidências sem regra específica.</div>",
+        unsafe_allow_html=True,
+    )
+    if vehicle is None or vehicle.empty:
+        st.info("A base granular `vehicle_monthly.csv.gz` ainda não está disponível para Deep Dive.")
+        return
+
+    dimensions = {
+        "Administrador": "admin_nome",
+        "Gestor": "gestor_nome",
+        "Custodiante": "custodiante_nome",
+        "Cedente/sacado": "razao_social",
+        "Grupo econômico": "grupo_economico",
+        "Tipo participante": "tipo_participante",
+        "Segmento": "segmento_principal",
+        "Subsegmento financeiro": "segmento_financeiro_principal",
+        "FIC-FIDC": "is_fic_fidc",
+        "Condomínio": "condominio",
+        "Público-alvo": "publico_alvo",
+    }
+    ctrl_a, ctrl_b, ctrl_c = st.columns([0.9, 0.9, 1.2])
+    with ctrl_a:
+        dimension_label = st.selectbox("Dimensão", list(dimensions), key="industry_deep_dimension")
+    with ctrl_b:
+        period = st.selectbox(
+            "Janela",
+            ["Última competência", "Últimos 12 meses", "2025 até data-base", "Histórico completo"],
+            index=1,
+            key="industry_deep_period",
+        )
+    with ctrl_c:
+        query = st.text_input("Buscar valor", key="industry_deep_query", placeholder="nome, CNPJ, segmento ou participante")
+
+    cedentes = _build_structured_cedentes()
+    dim_col = dimensions[dimension_label]
+    frame = _period_filter(vehicle, comp, period)
+    frame = _heatmap_base_frame(frame, cedentes, dim_col, dim_col)
+    if frame.empty:
+        st.caption("Sem dados para a dimensão/janela selecionada.")
+        return
+
+    frame = frame.copy()
+    frame["valor_dimensao"] = _dimension_series(frame, dim_col)
+    frame = frame[frame["valor_dimensao"] != "n/d"].copy()
+    if query:
+        frame = frame[frame["valor_dimensao"].astype(str).str.contains(query, case=False, na=False)].copy()
+    if frame.empty:
+        st.caption("Nenhum valor passou pela busca.")
+        return
+
+    frame["pl_metric"] = _numeric_column(frame, "pl") * frame["_metric_weight"]
+    frame["captacao_metric"] = _numeric_column(frame, "captacao_liquida") * frame["_metric_weight"]
+    frame["carteira_metric"] = _numeric_column(frame, "carteira_dc") * frame["_metric_weight"]
+    frame["inad_metric"] = _numeric_column(frame, "dc_inadimplentes_ajustado") * frame["_metric_weight"]
+    fund_id = "cnpj_fundo" if "cnpj_fundo" in frame.columns else "cnpj"
+    latest_comp = sorted(frame["competencia"].dropna().astype(str).unique())[-1]
+    current = frame[frame["competencia"].eq(latest_comp)].copy()
+    summary = (
+        current.groupby("valor_dimensao", dropna=False)
+        .agg(
+            PL=("pl_metric", "sum"),
+            Veículos=("cnpj", "nunique"),
+            Fundos=(fund_id, "nunique"),
+            Carteira=("carteira_metric", "sum"),
+            Inad=("inad_metric", "sum"),
+        )
+        .reset_index()
+    )
+    flow_summary = (
+        frame.groupby("valor_dimensao", dropna=False)["captacao_metric"]
+        .sum()
+        .reset_index(name="Captacao")
+    )
+    summary = summary.merge(flow_summary, on="valor_dimensao", how="left")
+    summary["_rank"] = summary["PL"].abs() + summary["Captacao"].abs()
+    summary = summary.sort_values("_rank", ascending=False).head(80)
+    options = summary["valor_dimensao"].astype(str).tolist()
+    if not options:
+        st.caption("Sem valores ranqueáveis para a dimensão.")
+        return
+    selected_value = st.selectbox("Valor", options, key="industry_deep_value")
+    selected = frame[frame["valor_dimensao"].eq(selected_value)].copy()
+    selected_current = current[current["valor_dimensao"].eq(selected_value)].copy()
+
+    total_pl = float(selected_current["pl_metric"].sum())
+    total_capt = float(selected["captacao_metric"].sum())
+    funds = selected_current[fund_id].nunique()
+    vehicles = selected_current["cnpj"].nunique()
+    carteira = float(selected_current["carteira_metric"].sum())
+    inad = float(selected_current["inad_metric"].sum())
+    sub_med = _numeric_column(selected_current, "subordinacao_pct").median()
+    cards = [
+        _curation_card("PL atual", _fmt_bi(total_pl, 1), latest_comp),
+        _curation_card("Captação líquida", _fmt_signed_bi(total_capt, 1), period),
+        _curation_card("Fundos", _fmt_int(float(funds)), f"{_fmt_int(float(vehicles))} veículos"),
+        _curation_card("Carteira DC", _fmt_bi(carteira, 1), f"Inad. ajustada {_fmt_pct(inad / carteira) if carteira else 'n/d'}"),
+        _curation_card("Sub mediana", _pct_label(sub_med * 100 if pd.notna(sub_med) else None), "observada no IME"),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    monthly = (
+        selected.groupby("competencia", dropna=False)
+        .agg(
+            pl=("pl_metric", "sum"),
+            captacao=("captacao_metric", "sum"),
+            veiculos=("cnpj", "nunique"),
+            fundos=(fund_id, "nunique"),
+            carteira=("carteira_metric", "sum"),
+            inad=("inad_metric", "sum"),
+        )
+        .reset_index()
+        .sort_values("competencia")
+    )
+    monthly["mes"] = pd.to_datetime(monthly["competencia"] + "-01")
+    monthly["pl_bi"] = monthly["pl"] / 1e9
+    monthly["captacao_bi"] = monthly["captacao"] / 1e9
+    col_a, col_b = st.columns(2)
+    with col_a:
+        st.markdown("**PL e fundos no tempo**")
+        line = (
+            alt.Chart(monthly)
+            .mark_line(color=_ORANGE, strokeWidth=2)
+            .encode(
+                x=alt.X("mes:T", title=None, axis=alt.Axis(format="%b/%y", grid=False)),
+                y=alt.Y("pl_bi:Q", title="PL (R$ bi)", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                tooltip=[
+                    alt.Tooltip("competencia:N", title="competência"),
+                    alt.Tooltip("pl_bi:Q", title="PL R$ bi", format=",.2f"),
+                    alt.Tooltip("fundos:Q", title="fundos"),
+                ],
+            )
+            .properties(height=260)
+        )
+        st.altair_chart(line, width="stretch")
+    with col_b:
+        st.markdown("**Captação líquida mensal**")
+        bars = (
+            alt.Chart(monthly)
+            .mark_bar(cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
+            .encode(
+                x=alt.X("mes:T", title=None, axis=alt.Axis(format="%b/%y", grid=False)),
+                y=alt.Y("captacao_bi:Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                color=alt.condition("datum.captacao_bi >= 0", alt.value(_ORANGE), alt.value(_BLACK)),
+                tooltip=[
+                    alt.Tooltip("competencia:N", title="competência"),
+                    alt.Tooltip("captacao_bi:Q", title="captação R$ bi", format=",.2f"),
+                ],
+            )
+            .properties(height=260)
+        )
+        st.altair_chart(bars, width="stretch")
+
+    col_c, col_d = st.columns([0.95, 1.05])
+    with col_c:
+        st.markdown("**Mix por segmento na competência atual**")
+        if "segmento_principal" in selected_current.columns:
+            mix = (
+                selected_current.groupby("segmento_principal", dropna=False)["pl_metric"]
+                .sum()
+                .reset_index(name="PL")
+                .sort_values("PL", ascending=False)
+                .head(12)
+            )
+            mix["segmento_principal"] = mix["segmento_principal"].fillna("").replace("", "n/d")
+            mix["PL_bi"] = mix["PL"] / 1e9
+            st.altair_chart(
+                alt.Chart(mix)
+                .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+                .encode(
+                    x=alt.X("PL_bi:Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    y=alt.Y("segmento_principal:N", title=None, sort="-x"),
+                    tooltip=[
+                        alt.Tooltip("segmento_principal:N", title="segmento"),
+                        alt.Tooltip("PL_bi:Q", title="PL R$ bi", format=",.2f"),
+                    ],
+                )
+                .properties(height=280),
+                width="stretch",
+            )
+        else:
+            st.caption("Segmento não disponível na base granular.")
+    with col_d:
+        st.markdown("**Top veículos/fundos**")
+        table = selected_current.sort_values("pl_metric", ascending=False).head(30).copy()
+        show = _format_vehicle_table(table)
+        st.dataframe(show, hide_index=True, width="stretch")
+
+    if dim_col in _CEDENTE_HEATMAP_COLUMNS and not cedentes.empty:
+        st.markdown("**Evidências de cedente/sacado da dimensão selecionada**")
+        related = cedentes[cedentes[dim_col].astype(str).eq(str(selected_value))].copy()
+        cols = [
+            "tipo_participante",
+            "razao_social",
+            "cnpj_participante",
+            "fundo",
+            "cnpj_fundo",
+            "setor",
+            "segmento",
+            "status_revisao",
+            "score_confianca_final",
+            "n_evidencias",
+            "documento_origem",
+            "pagina",
+        ]
+        st.dataframe(related[[col for col in cols if col in related.columns]].head(80), hide_index=True, width="stretch")
+        st.caption("A tabela preserva documento, página, método e status de revisão para rastrear a origem da relação.")
+
+
+@st.cache_data(show_spinner=False)
+def _load_industry_pipeline_manifest() -> dict[str, object]:
+    return load_pipeline_manifest(_PIPELINE_MANIFEST_PATH)
+
+
+def _render_pipeline_manifest() -> None:
+    st.markdown('<div class="industry-section">Pipeline, qualidade e reexecução</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Manifesto persistido da camada de cedentes: etapas independentes, '
+        "entradas, saídas, hashes, comandos de reexecução e cobertura dos campos críticos.</div>",
+        unsafe_allow_html=True,
+    )
+    manifest = _load_industry_pipeline_manifest()
+    if not manifest:
+        st.info(
+            "Manifesto ainda não gerado. Rode `python scripts/build_fidc_industry_cedentes.py` "
+            "para materializar `industry_pipeline_manifest.json`."
+        )
+        return
+
+    quality = manifest.get("quality", {})
+    coverage = quality.get("coverage", {}) if isinstance(quality, dict) else {}
+    score = quality.get("score", {}) if isinstance(quality, dict) else {}
+    cards = [
+        _curation_card("Manifesto", str(manifest.get("schema_version", "n/d")).split("/")[-1], str(manifest.get("generated_at_utc", "n/d"))),
+        _curation_card("Linhas estruturadas", _fmt_int(float(quality.get("structured_rows", 0))) if isinstance(quality, dict) else "0", f"{_fmt_int(float(quality.get('structured_funds', 0)))} FIDCs" if isinstance(quality, dict) else ""),
+        _curation_card("Prioridade 2025-2026", _fmt_int(float(quality.get("priority_2025_2026_rows", 0))) if isinstance(quality, dict) else "0", f"{_fmt_int(float(quality.get('priority_2025_2026_funds', 0)))} FIDCs"),
+        _curation_card("Revisões manuais", _fmt_int(float(quality.get("review_rows", 0))) if isinstance(quality, dict) else "0", "persistidas pela UI"),
+        _curation_card("CNPJ participante", _fmt_pct(float(coverage.get("cnpj_participante", 0))) if isinstance(coverage, dict) else "n/d", "cobertura"),
+        _curation_card("Score mediano", _pct_label(float(score.get("median", 0)) * 100) if isinstance(score, dict) and score.get("median") is not None else "n/d", "confiança final"),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    stage_rows = []
+    for stage in manifest.get("stages", []):
+        if not isinstance(stage, dict):
+            continue
+        stage_rows.append(
+            {
+                "Etapa": stage.get("label", stage.get("id", "")),
+                "Status": stage.get("status", ""),
+                "Linhas": _fmt_int(float(stage.get("rows", 0))) if stage.get("rows") not in ("", None) else "",
+                "FIDCs": _fmt_int(float(stage.get("funds", 0))) if stage.get("funds") not in ("", None) else "",
+                "Entrada": stage.get("input", ""),
+                "Saída": stage.get("output", ""),
+                "Reexecução": stage.get("rerun", ""),
+            }
+        )
+    if stage_rows:
+        st.markdown("**Etapas independentes**")
+        st.dataframe(pd.DataFrame(stage_rows), hide_index=True, width="stretch")
+
+    col_a, col_b = st.columns([0.9, 1.1])
+    with col_a:
+        st.markdown("**Cobertura de campos críticos**")
+        if isinstance(coverage, dict) and coverage:
+            cov = pd.DataFrame(
+                [
+                    {"Campo": key, "Cobertura": float(value) * 100}
+                    for key, value in coverage.items()
+                ]
+            ).sort_values("Cobertura", ascending=True)
+            chart = (
+                alt.Chart(cov)
+                .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+                .encode(
+                    x=alt.X("Cobertura:Q", title="%", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    y=alt.Y("Campo:N", title=None, sort="x"),
+                    tooltip=[
+                        alt.Tooltip("Campo:N", title="campo"),
+                        alt.Tooltip("Cobertura:Q", title="cobertura", format=",.1f"),
+                    ],
+                )
+                .properties(height=280)
+            )
+            st.altair_chart(chart, width="stretch")
+        else:
+            st.caption("Cobertura indisponível no manifesto.")
+    with col_b:
+        st.markdown("**Arquivos e fingerprints**")
+        file_rows = []
+        for group_name in ["inputs", "outputs"]:
+            files = manifest.get(group_name, {})
+            if not isinstance(files, dict):
+                continue
+            for label, info in files.items():
+                if not isinstance(info, dict):
+                    continue
+                file_rows.append(
+                    {
+                        "Grupo": group_name,
+                        "Artefato": label,
+                        "Existe": "sim" if info.get("exists") is True else "não" if info.get("exists") is False else "",
+                        "Bytes": _fmt_int(float(info.get("bytes", 0))) if info.get("bytes") not in ("", None) else "",
+                        "SHA-256": str(info.get("sha256", ""))[:16],
+                        "Caminho": info.get("path", ""),
+                    }
+                )
+        if file_rows:
+            st.dataframe(pd.DataFrame(file_rows), hide_index=True, width="stretch")
+        else:
+            st.caption("Fingerprints não encontrados.")
+
+    with st.expander("Manifesto JSON completo"):
+        st.download_button(
+            "Baixar manifesto",
+            data=json.dumps(manifest, ensure_ascii=False, indent=2),
+            file_name="industry_pipeline_manifest.json",
+            mime="application/json",
+        )
+        st.json(manifest)
 
 
 def _render_regulatory_curation_overlay() -> None:
@@ -1218,13 +1801,21 @@ def render_tab_industry_study() -> None:
     st.markdown(f'<div class="industry-kpi-grid">{"".join(kpis)}</div>', unsafe_allow_html=True)
 
     vehicle = _load_csv("vehicle_monthly.csv.gz")
-    audit_tab, heatmap_tab, cedente_tab = st.tabs(["Base granular", "Heatmaps", "Cedentes"])
+    audit_tab, issuance_tab, heatmap_tab, cedente_tab, deep_dive_tab, pipeline_tab = st.tabs(
+        ["Base granular", "Emissões", "Heatmaps", "Cedentes", "Deep Dive", "Pipeline"]
+    )
     with audit_tab:
         _render_monthly_audit_and_base(industry, comp)
+    with issuance_tab:
+        _render_issuance_study()
     with heatmap_tab:
         _render_generic_heatmaps(vehicle, comp)
     with cedente_tab:
         _render_cedente_review_workbench()
+    with deep_dive_tab:
+        _render_industry_deep_dive(vehicle, comp)
+    with pipeline_tab:
+        _render_pipeline_manifest()
 
     # --- PL da industria -------------------------------------------------
     st.markdown('<div class="industry-section">Patrimônio líquido da indústria</div>', unsafe_allow_html=True)
