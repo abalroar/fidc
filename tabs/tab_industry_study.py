@@ -184,7 +184,7 @@ def _load_csv(name: str) -> pd.DataFrame | None:
     path = _DATA_DIR / name
     if not path.exists():
         return None
-    return pd.read_csv(path)
+    return pd.read_csv(path, low_memory=False)
 
 
 @st.cache_data(show_spinner=False)
@@ -787,6 +787,8 @@ def render_tab_industry_study() -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(kpis)}</div>', unsafe_allow_html=True)
 
+    _render_monthly_audit_and_base(industry, comp)
+
     # --- PL da industria -------------------------------------------------
     st.markdown('<div class="industry-section">Patrimônio líquido da indústria</div>', unsafe_allow_html=True)
     st.markdown(
@@ -992,7 +994,6 @@ def render_tab_industry_study() -> None:
             )
             st.altair_chart(adm_chart, width="stretch")
 
-    _render_monthly_audit_and_base(industry, comp)
     _render_regulatory_curation_overlay()
 
     # --- Tabelas e metodologia ---------------------------------------------------
