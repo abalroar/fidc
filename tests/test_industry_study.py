@@ -41,7 +41,11 @@ from services.industry_study import (  # noqa: E402
     save_cedente_structured,
     scan_regulatory_extraction_files,
 )
-from tabs.tab_industry_study import _heatmap_base_frame  # noqa: E402
+from tabs.tab_industry_study import (  # noqa: E402
+    _build_fund_dossier_tables,
+    _build_snapshot_market_share,
+    _heatmap_base_frame,
+)
 
 
 def test_month_range_spans_years():
@@ -771,6 +775,94 @@ def test_industry_heatmap_base_uses_snapshot_multivalue_dimensions():
     assert set(frame["criteria_keys"]) == {"subordination_ratio_min", "concentration_limits"}
     assert frame["_metric_weight"].sum() == 1.0
     assert set(frame["sub_min_bucket"]) == {"10%-15%"}
+
+
+def test_industry_fund_dossier_collects_all_structured_layers():
+    snapshot = pd.DataFrame(
+        [
+            {"cnpj_fundo": "05.753.599/0001-58", "nome_exibicao": "FIDC ABC", "snapshot_status": "completo"},
+            {"cnpj_fundo": "11.111.111/0001-11", "nome_exibicao": "FIDC DEF", "snapshot_status": "basico"},
+        ]
+    )
+    tranches = pd.DataFrame(
+        [
+            {"cnpj_fundo": "05753599000158", "volume_brl": "10", "ano": "2026", "indexador": "CDI+"},
+            {"cnpj_fundo": "11111111000111", "volume_brl": "20", "ano": "2026", "indexador": "IPCA+"},
+        ]
+    )
+    documents = pd.DataFrame(
+        [
+            {"cnpj_fundo": "05753599000158", "document_class": "regulamento", "local_exists": "true", "chunk_id": "doc-1"},
+            {"cnpj_fundo": "11111111000111", "document_class": "assembleia", "local_exists": "true", "chunk_id": "doc-2"},
+        ]
+    )
+    cedentes = pd.DataFrame(
+        [
+            {"cnpj_fundo": "05753599000158", "razao_social": "CEDENTE ABC", "score_confianca_final": "0.9"},
+            {"cnpj_fundo": "11111111000111", "razao_social": "CEDENTE DEF", "score_confianca_final": "0.8"},
+        ]
+    )
+    criteria = pd.DataFrame(
+        [
+            {"cnpj_fundo": "05753599000158", "chave": "subordination_ratio_min", "pct_min": "10"},
+            {"cnpj_fundo": "11111111000111", "chave": "concentration_limits", "pct_min": "30"},
+        ]
+    )
+
+    dossier = _build_fund_dossier_tables(
+        cnpj="05.753.599/0001-58",
+        snapshot=snapshot,
+        tranches=tranches,
+        documents=documents,
+        cedentes=cedentes,
+        criteria=criteria,
+    )
+
+    assert dossier["snapshot"]["nome_exibicao"].tolist() == ["FIDC ABC"]
+    assert dossier["tranches"]["indexador"].tolist() == ["CDI+"]
+    assert dossier["documents"]["document_class"].tolist() == ["regulamento"]
+    assert dossier["cedentes"]["razao_social"].tolist() == ["CEDENTE ABC"]
+    assert dossier["criteria"]["chave"].tolist() == ["subordination_ratio_min"]
+
+
+def test_industry_snapshot_market_share_weights_multivalue_dimensions():
+    snapshot = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "pl": 100.0,
+                "valid_volume_2024_2026_brl": 40.0,
+                "indexadores": "CDI+ | IPCA+",
+                "document_rows": 2,
+                "cedente_rows": 1,
+                "criteria_rows": 1,
+                "tem_sub_minima": True,
+                "tem_emissao_2025_2026": True,
+                "camadas_com_evidencia": 5,
+            },
+            {
+                "cnpj_fundo": "11111111000111",
+                "pl": 50.0,
+                "valid_volume_2024_2026_brl": 10.0,
+                "indexadores": "CDI+",
+                "document_rows": 0,
+                "cedente_rows": 0,
+                "criteria_rows": 0,
+                "tem_sub_minima": False,
+                "tem_emissao_2025_2026": False,
+                "camadas_com_evidencia": 1,
+            },
+        ]
+    )
+
+    market, summary = _build_snapshot_market_share(snapshot, "indexadores", "pl")
+
+    by_dim = market.set_index("Dimensão")
+    assert by_dim.loc["CDI+", "PL"] == 100.0
+    assert by_dim.loc["IPCA+", "PL"] == 50.0
+    assert market["PL"].sum() == 150.0
+    assert summary["total_metric"] == 150.0
+    assert round(float(by_dim.loc["CDI+", "Share"]), 6) == round(100 / 150, 6)
 
 
 def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():

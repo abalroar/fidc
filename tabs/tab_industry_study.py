@@ -216,9 +216,10 @@ def _fmt_int(value: float) -> str:
 
 
 def _pct_label(value: float | None, digits: int = 1) -> str:
-    if value is None or pd.isna(value):
+    number = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(number):
         return "n/d"
-    return f"{value:.{digits}f}%".replace(".", ",")
+    return f"{float(number):.{digits}f}%".replace(".", ",")
 
 
 @st.cache_data(show_spinner=False)
@@ -581,6 +582,569 @@ def _format_fund_snapshot_table(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def _filter_fund_rows(frame: pd.DataFrame, cnpj: object, *, column: str = "cnpj_fundo") -> pd.DataFrame:
+    if frame.empty or column not in frame.columns:
+        return frame.iloc[0:0].copy()
+    target = normalize_cnpj(cnpj)
+    if not target:
+        return frame.iloc[0:0].copy()
+    out = frame.copy()
+    return out[out[column].map(normalize_cnpj).eq(target)].copy()
+
+
+def _sort_fund_detail(frame: pd.DataFrame, preferred: list[tuple[str, bool]]) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.copy()
+    sort_cols: list[str] = []
+    ascending: list[bool] = []
+    for col, asc in preferred:
+        if col not in out.columns:
+            continue
+        sort_col = f"__sort_{col}"
+        if col in {"volume_brl", "score_confianca", "score_confianca_final", "pct_min", "document_date"}:
+            out[sort_col] = pd.to_numeric(out[col], errors="coerce").fillna(0)
+        elif col in {"local_exists", "priority_2025_2026", "ativo_curadoria"}:
+            out[sort_col] = out[col].astype(str).str.lower().isin({"true", "1", "sim"})
+        else:
+            out[sort_col] = out[col].fillna("").astype(str)
+        sort_cols.append(sort_col)
+        ascending.append(asc)
+    if sort_cols:
+        out = out.sort_values(sort_cols, ascending=ascending)
+    return out.drop(columns=sort_cols, errors="ignore")
+
+
+def _build_fund_dossier_tables(
+    *,
+    cnpj: object,
+    snapshot: pd.DataFrame,
+    tranches: pd.DataFrame,
+    documents: pd.DataFrame,
+    cedentes: pd.DataFrame,
+    criteria: pd.DataFrame,
+) -> dict[str, pd.DataFrame]:
+    """Return all structured Industry layers for one normalized FIDC CNPJ."""
+
+    snapshot_rows = _filter_fund_rows(snapshot, cnpj)
+    tranche_rows = _sort_fund_detail(
+        _filter_fund_rows(tranches, cnpj),
+        [("ano", False), ("volume_brl", False), ("data_deliberacao", False)],
+    )
+    document_rows = _sort_fund_detail(
+        _filter_fund_rows(documents, cnpj),
+        [("priority_2025_2026", False), ("local_exists", False), ("document_date", False)],
+    )
+    cedente_rows = _sort_fund_detail(
+        _filter_fund_rows(cedentes, cnpj),
+        [("ativo_curadoria", False), ("score_confianca_final", False), ("razao_social", True)],
+    )
+    criteria_rows = _sort_fund_detail(
+        _filter_fund_rows(criteria, cnpj),
+        [("ativo_curadoria", False), ("pct_min", False), ("score_confianca_final", False)],
+    )
+    return {
+        "snapshot": snapshot_rows,
+        "tranches": tranche_rows,
+        "documents": document_rows,
+        "cedentes": cedente_rows,
+        "criteria": criteria_rows,
+    }
+
+
+def _fund_dossier_layer_summary(dossier: dict[str, pd.DataFrame]) -> pd.DataFrame:
+    snapshot = dossier.get("snapshot", pd.DataFrame())
+    row = snapshot.iloc[0] if snapshot is not None and not snapshot.empty else pd.Series(dtype=object)
+    return pd.DataFrame(
+        [
+            {
+                "Camada": "IME mensal",
+                "Linhas": 1 if not snapshot.empty else 0,
+                "Status": row.get("competencia", ""),
+                "Evidência": row.get("admin_nome", ""),
+            },
+            {
+                "Camada": "Emissões",
+                "Linhas": len(dossier.get("tranches", pd.DataFrame())),
+                "Status": row.get("indexadores", ""),
+                "Evidência": row.get("pricing_documentos", ""),
+            },
+            {
+                "Camada": "Documentos",
+                "Linhas": len(dossier.get("documents", pd.DataFrame())),
+                "Status": row.get("document_classes", ""),
+                "Evidência": row.get("document_chunk_ids", ""),
+            },
+            {
+                "Camada": "Cedentes/sacados",
+                "Linhas": len(dossier.get("cedentes", pd.DataFrame())),
+                "Status": row.get("cedente_statuses", ""),
+                "Evidência": row.get("cedentes_top", ""),
+            },
+            {
+                "Camada": "Critérios",
+                "Linhas": len(dossier.get("criteria", pd.DataFrame())),
+                "Status": row.get("criteria_keys", ""),
+                "Evidência": row.get("criteria_documentos", ""),
+            },
+        ]
+    )
+
+
+def _select_display_columns(frame: pd.DataFrame, columns: list[str], rename: dict[str, str]) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame(columns=[rename.get(col, col) for col in columns])
+    keep = [col for col in columns if col in frame.columns]
+    out = frame[keep].copy()
+    return out.rename(columns={col: rename[col] for col in keep if col in rename})
+
+
+def _format_dossier_money(frame: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
+    out = frame.copy()
+    for col in columns:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_bi(float(value), 2))
+    return out
+
+
+def _render_fund_dossier(snapshot: pd.DataFrame) -> None:
+    st.markdown("**Dossiê por FIDC**")
+    ctrl_a, ctrl_b = st.columns([1.15, 1.35])
+    with ctrl_a:
+        query = st.text_input("Buscar FIDC", key="industry_dossier_query", placeholder="nome, CNPJ, administrador ou cedente")
+
+    options_frame = snapshot.copy()
+    if query:
+        search_cols = [
+            col
+            for col in ["nome_exibicao", "cnpj_fundo", "admin_nome", "gestor_nome", "cedentes_top", "segmento_estrategia"]
+            if col in options_frame.columns
+        ]
+        haystack = options_frame[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=options_frame.index)
+        options_frame = options_frame[haystack.str.contains(query, case=False, na=False)].copy()
+    if "camadas_com_evidencia" in options_frame.columns:
+        options_frame["camadas_num"] = pd.to_numeric(options_frame["camadas_com_evidencia"], errors="coerce").fillna(0)
+    else:
+        options_frame["camadas_num"] = 0
+    if "pl" in options_frame.columns:
+        options_frame["pl_num"] = pd.to_numeric(options_frame["pl"], errors="coerce").fillna(0)
+    else:
+        options_frame["pl_num"] = 0
+    options_frame = options_frame.sort_values(["camadas_num", "pl_num"], ascending=[False, False]).head(250)
+    options = {
+        f"{row.get('nome_exibicao', row.get('denominacao', 'FIDC'))} · {row.get('cnpj_fundo', '')}": row.get("cnpj_fundo", "")
+        for _, row in options_frame.iterrows()
+    }
+    with ctrl_b:
+        selected_label = st.selectbox("FIDC", list(options), key="industry_dossier_fund") if options else ""
+    if not selected_label:
+        st.caption("Nenhum FIDC encontrado para a busca.")
+        return
+
+    selected_cnpj = options[selected_label]
+    issuance_tables = _load_issuance_tables()
+    document_tables = _load_document_tables()
+    criteria_tables = _load_criteria_tables()
+    dossier = _build_fund_dossier_tables(
+        cnpj=selected_cnpj,
+        snapshot=snapshot,
+        tranches=issuance_tables["tranches"] if isinstance(issuance_tables["tranches"], pd.DataFrame) else pd.DataFrame(),
+        documents=document_tables["inventory"] if isinstance(document_tables["inventory"], pd.DataFrame) else pd.DataFrame(),
+        cedentes=_build_structured_cedentes(),
+        criteria=criteria_tables["structured"] if isinstance(criteria_tables["structured"], pd.DataFrame) else pd.DataFrame(),
+    )
+    snapshot_rows = dossier["snapshot"]
+    row = snapshot_rows.iloc[0] if not snapshot_rows.empty else pd.Series(dtype=object)
+    cards = [
+        _curation_card("PL", _fmt_bi(float(pd.to_numeric(pd.Series([row.get("pl", 0)]), errors="coerce").fillna(0).iloc[0]), 1), str(row.get("competencia", ""))),
+        _curation_card("Status", str(row.get("snapshot_status", "n/d")), f"{row.get('camadas_com_evidencia', 0)} camadas"),
+        _curation_card("Emissões 25-26", _fmt_bi(float(pd.to_numeric(pd.Series([row.get("valid_volume_2025_brl", 0)]), errors="coerce").fillna(0).iloc[0]) + float(pd.to_numeric(pd.Series([row.get("valid_volume_2026_brl", 0)]), errors="coerce").fillna(0).iloc[0]), 1), str(row.get("indexadores", "n/d"))[:48]),
+        _curation_card("Documentos", _fmt_int(float(len(dossier["documents"]))), str(row.get("document_chunk_ids", ""))[:48]),
+        _curation_card("Cedentes", _fmt_int(float(len(dossier["cedentes"]))), str(row.get("cedentes_top", ""))[:48]),
+        _curation_card("Critérios", _fmt_int(float(len(dossier["criteria"]))), f"sub mín. {_pct_label(row.get('sub_min_pct_median'))}"),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    tab_snapshot, tab_emissions, tab_documents, tab_cedentes, tab_criteria = st.tabs(
+        ["Resumo", "Emissões", "Documentos", "Cedentes", "Critérios"]
+    )
+    with tab_snapshot:
+        st.dataframe(_format_fund_snapshot_table(snapshot_rows), hide_index=True, width="stretch")
+        summary = _fund_dossier_layer_summary(dossier)
+        st.dataframe(summary, hide_index=True, width="stretch")
+    with tab_emissions:
+        columns = [
+            "data_deliberacao",
+            "ano",
+            "periodo",
+            "tipo_cota",
+            "indexador",
+            "volume_brl",
+            "documento_origem",
+            "score_confianca",
+            "pricing_evidence",
+            "remuneracao_texto",
+            "amortizacao_texto",
+        ]
+        show = _select_display_columns(
+            dossier["tranches"],
+            columns,
+            {
+                "data_deliberacao": "Data",
+                "ano": "Ano",
+                "periodo": "Período",
+                "tipo_cota": "Tipo cota",
+                "indexador": "Indexador",
+                "volume_brl": "Volume",
+                "documento_origem": "Documento",
+                "score_confianca": "Score",
+                "pricing_evidence": "Evidência",
+                "remuneracao_texto": "Remuneração",
+                "amortizacao_texto": "Amortização",
+            },
+        )
+        st.dataframe(_format_dossier_money(show, ["Volume"]), hide_index=True, width="stretch")
+    with tab_documents:
+        columns = [
+            "chunk_id",
+            "document_class",
+            "content_kind",
+            "document_date",
+            "local_exists",
+            "bytes",
+            "hash_status",
+            "processing_status",
+            "documento_id",
+            "documento_origem",
+            "source_table",
+            "source_field",
+            "local_path",
+            "sha256",
+        ]
+        show = _select_display_columns(
+            dossier["documents"],
+            columns,
+            {
+                "chunk_id": "Chunk",
+                "document_class": "Classe",
+                "content_kind": "Tipo",
+                "document_date": "Data",
+                "local_exists": "Local",
+                "bytes": "Tamanho",
+                "hash_status": "Hash",
+                "processing_status": "Status",
+                "documento_id": "ID doc",
+                "documento_origem": "Documento",
+                "source_table": "Fonte",
+                "source_field": "Campo fonte",
+                "local_path": "Arquivo local",
+                "sha256": "SHA-256",
+            },
+        )
+        if "Tamanho" in show.columns:
+            show["Tamanho"] = show["Tamanho"].map(_format_bytes)
+        st.dataframe(show, hide_index=True, width="stretch")
+    with tab_cedentes:
+        columns = [
+            "tipo_participante",
+            "razao_social",
+            "nome_fantasia",
+            "cnpj_participante",
+            "grupo_economico",
+            "setor",
+            "segmento",
+            "status_revisao",
+            "score_confianca_final",
+            "n_evidencias",
+            "documento_origem",
+            "pagina",
+            "metodo_extracao",
+            "evidencia",
+        ]
+        show = _select_display_columns(
+            dossier["cedentes"],
+            columns,
+            {
+                "tipo_participante": "Tipo",
+                "razao_social": "Razão social",
+                "nome_fantasia": "Fantasia",
+                "cnpj_participante": "CNPJ participante",
+                "grupo_economico": "Grupo",
+                "setor": "Setor",
+                "segmento": "Segmento",
+                "status_revisao": "Status revisão",
+                "score_confianca_final": "Score",
+                "n_evidencias": "Evidências",
+                "documento_origem": "Documento",
+                "pagina": "Página",
+                "metodo_extracao": "Método",
+                "evidencia": "Trecho",
+            },
+        )
+        st.dataframe(show, hide_index=True, width="stretch")
+    with tab_criteria:
+        columns = [
+            "criterio",
+            "chave",
+            "limite_regra",
+            "pct_min",
+            "pct_max",
+            "monitorabilidade_ime",
+            "metrica_ime_proxy",
+            "condicao_alerta_sugerida",
+            "documento_origem",
+            "documento_id",
+            "document_date",
+            "pagina",
+            "status_revisao",
+            "score_confianca_final",
+            "notas_revisao",
+        ]
+        show = _select_display_columns(
+            dossier["criteria"],
+            columns,
+            {
+                "criterio": "Critério",
+                "chave": "Chave",
+                "limite_regra": "Limite/regra",
+                "pct_min": "Mín. %",
+                "pct_max": "Máx. %",
+                "monitorabilidade_ime": "Monitorabilidade",
+                "metrica_ime_proxy": "Proxy IME",
+                "condicao_alerta_sugerida": "Alerta",
+                "documento_origem": "Documento",
+                "documento_id": "ID doc",
+                "document_date": "Data doc.",
+                "pagina": "Página",
+                "status_revisao": "Status revisão",
+                "score_confianca_final": "Score",
+                "notas_revisao": "Notas",
+            },
+        )
+        st.dataframe(show, hide_index=True, width="stretch")
+
+
+_SNAPSHOT_MARKET_MULTI_COLUMNS = {"indexadores", "tipo_cotas", "document_classes", "criteria_keys", "document_chunk_ids"}
+
+
+def _snapshot_metric_series(frame: pd.DataFrame, column: str) -> pd.Series:
+    if column not in frame.columns:
+        return pd.Series(0.0, index=frame.index)
+    return pd.to_numeric(frame[column], errors="coerce").fillna(0.0)
+
+
+def _snapshot_bool_series(frame: pd.DataFrame, column: str) -> pd.Series:
+    if column not in frame.columns:
+        return pd.Series(False, index=frame.index)
+    return frame[column].astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})
+
+
+def _prepare_snapshot_market_frame(snapshot: pd.DataFrame, dimension: str) -> pd.DataFrame:
+    if snapshot.empty:
+        return snapshot.copy()
+    frame = snapshot.copy()
+    frame["_metric_weight"] = 1.0
+    if dimension in _SNAPSHOT_MARKET_MULTI_COLUMNS:
+        if dimension not in frame.columns:
+            return frame.iloc[0:0].copy()
+        values = frame[dimension].map(_split_multivalue)
+        counts = values.map(len)
+        frame = frame[counts.gt(0)].copy()
+        if frame.empty:
+            return frame
+        values = values.loc[frame.index]
+        counts = counts.loc[frame.index]
+        frame[dimension] = values
+        frame["_metric_weight"] = 1.0 / counts
+        frame = frame.explode(dimension).reset_index(drop=True)
+    frame["_dimension"] = _dimension_series(frame, dimension)
+    frame = frame[frame["_dimension"].ne("n/d")].copy()
+    return frame
+
+
+def _build_snapshot_market_share(snapshot: pd.DataFrame, dimension: str, metric: str = "pl") -> tuple[pd.DataFrame, dict[str, float]]:
+    frame = _prepare_snapshot_market_frame(snapshot, dimension)
+    if frame.empty:
+        empty = pd.DataFrame(
+            columns=[
+                "Dimensão",
+                "PL",
+                "Emissões 24-26",
+                "Fundos eq.",
+                "Fundos únicos",
+                "Docs",
+                "Cedentes",
+                "Critérios",
+                "Com sub mín.",
+                "Com emissão 25-26",
+                "Camadas méd.",
+                "Métrica",
+                "Share",
+            ]
+        )
+        return empty, {"groups": 0.0, "top5_share": 0.0, "top10_share": 0.0, "hhi": 0.0, "total_metric": 0.0}
+
+    frame["_pl_metric"] = _snapshot_metric_series(frame, "pl") * frame["_metric_weight"]
+    frame["_issuance_metric"] = _snapshot_metric_series(frame, "valid_volume_2024_2026_brl") * frame["_metric_weight"]
+    frame["_fund_metric"] = frame["_metric_weight"]
+    frame["_document_metric"] = _snapshot_metric_series(frame, "document_rows") * frame["_metric_weight"]
+    frame["_cedente_metric"] = _snapshot_metric_series(frame, "cedente_rows") * frame["_metric_weight"]
+    frame["_criteria_metric"] = _snapshot_metric_series(frame, "criteria_rows") * frame["_metric_weight"]
+    frame["_sub_min_metric"] = _snapshot_bool_series(frame, "tem_sub_minima").astype(float) * frame["_metric_weight"]
+    frame["_emission_2526_metric"] = _snapshot_bool_series(frame, "tem_emissao_2025_2026").astype(float) * frame["_metric_weight"]
+    frame["_layers_metric"] = _snapshot_metric_series(frame, "camadas_com_evidencia") * frame["_metric_weight"]
+
+    fund_id = "cnpj_fundo" if "cnpj_fundo" in frame.columns else "cnpj"
+    grouped = (
+        frame.groupby("_dimension", dropna=False)
+        .agg(
+            PL=("_pl_metric", "sum"),
+            Emissoes_24_26=("_issuance_metric", "sum"),
+            Fundos_eq=("_fund_metric", "sum"),
+            Fundos_unicos=(fund_id, "nunique"),
+            Docs=("_document_metric", "sum"),
+            Cedentes=("_cedente_metric", "sum"),
+            Criterios=("_criteria_metric", "sum"),
+            Com_sub_min=("_sub_min_metric", "sum"),
+            Com_emissao_25_26=("_emission_2526_metric", "sum"),
+            Camadas_total=("_layers_metric", "sum"),
+        )
+        .reset_index()
+        .rename(columns={"_dimension": "Dimensão"})
+    )
+    grouped["Camadas méd."] = grouped["Camadas_total"] / grouped["Fundos_eq"].replace(0, pd.NA)
+    metric_map = {
+        "pl": "PL",
+        "issuance": "Emissoes_24_26",
+        "funds": "Fundos_eq",
+        "documents": "Docs",
+        "cedentes": "Cedentes",
+        "criteria": "Criterios",
+    }
+    metric_col = metric_map.get(metric, "PL")
+    grouped["Métrica"] = pd.to_numeric(grouped[metric_col], errors="coerce").fillna(0.0)
+    total_metric = float(grouped["Métrica"].sum())
+    grouped["Share"] = grouped["Métrica"] / total_metric if total_metric else 0.0
+    grouped = grouped.sort_values("Métrica", ascending=False).reset_index(drop=True)
+    shares = grouped["Share"].fillna(0.0)
+    summary = {
+        "groups": float(len(grouped)),
+        "top5_share": float(shares.head(5).sum()),
+        "top10_share": float(shares.head(10).sum()),
+        "hhi": float((shares.pow(2).sum()) * 10000),
+        "total_metric": total_metric,
+    }
+    grouped = grouped.rename(
+        columns={
+            "Emissoes_24_26": "Emissões 24-26",
+            "Fundos_eq": "Fundos eq.",
+            "Fundos_unicos": "Fundos únicos",
+            "Com_sub_min": "Com sub mín.",
+            "Com_emissao_25_26": "Com emissão 25-26",
+        }
+    )
+    return grouped.drop(columns=["Camadas_total"], errors="ignore"), summary
+
+
+def _format_snapshot_market_table(frame: pd.DataFrame) -> pd.DataFrame:
+    out = frame.copy()
+    for col in ["PL", "Emissões 24-26"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_bi(float(value), 1))
+    for col in ["Fundos eq.", "Docs", "Cedentes", "Critérios", "Com sub mín.", "Com emissão 25-26"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: f"{float(value):,.1f}".replace(",", "@").replace(".", ",").replace("@", "."))
+    if "Fundos únicos" in out.columns:
+        out["Fundos únicos"] = pd.to_numeric(out["Fundos únicos"], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    if "Camadas méd." in out.columns:
+        out["Camadas méd."] = pd.to_numeric(out["Camadas méd."], errors="coerce").map(
+            lambda value: "n/d" if pd.isna(value) else f"{float(value):.1f}".replace(".", ",")
+        )
+    if "Share" in out.columns:
+        out["Share"] = pd.to_numeric(out["Share"], errors="coerce").fillna(0).map(_fmt_pct)
+    if "Métrica" in out.columns:
+        out = out.drop(columns=["Métrica"])
+    return out
+
+
+def _render_snapshot_market_share(snapshot: pd.DataFrame) -> None:
+    st.markdown("**Market share e concentração do snapshot**")
+    dimensions = {
+        "Administrador": "admin_nome",
+        "Gestor": "gestor_nome",
+        "Custodiante": "custodiante_nome",
+        "Segmento IME": "segmento_principal",
+        "Segmento Estratégia": "segmento_estrategia",
+        "Subsegmento Estratégia": "subsegmento_estrategia",
+        "Status snapshot": "snapshot_status",
+        "FIC-FIDC": "is_fic_fidc",
+        "Emissão 25-26": "tem_emissao_2025_2026",
+        "Tem sub mín.": "tem_sub_minima",
+        "Documento local": "tem_documento_local",
+        "Indexador": "indexadores",
+        "Tipo de cota": "tipo_cotas",
+        "Classe documento": "document_classes",
+        "Critério": "criteria_keys",
+    }
+    metrics = {
+        "PL": "pl",
+        "Emissões 24-26": "issuance",
+        "Fundos eq.": "funds",
+        "Documentos": "documents",
+        "Cedentes": "cedentes",
+        "Critérios": "criteria",
+    }
+    ctrl_a, ctrl_b, ctrl_c = st.columns([1.0, 0.9, 0.65])
+    with ctrl_a:
+        dim_label = st.selectbox("Dimensão", list(dimensions), key="industry_snapshot_market_dimension")
+    with ctrl_b:
+        metric_label = st.selectbox("Métrica", list(metrics), key="industry_snapshot_market_metric")
+    with ctrl_c:
+        top_n = st.slider("Top", min_value=5, max_value=30, value=15, step=1, key="industry_snapshot_market_top")
+
+    dimension = dimensions[dim_label]
+    market, summary = _build_snapshot_market_share(snapshot, dimension, metrics[metric_label])
+    if market.empty:
+        st.caption("Sem dados para a dimensão selecionada.")
+        return
+
+    cards = [
+        _curation_card("Grupos", _fmt_int(summary["groups"]), dim_label),
+        _curation_card("Top 5", _fmt_pct(summary["top5_share"]), metric_label),
+        _curation_card("Top 10", _fmt_pct(summary["top10_share"]), metric_label),
+        _curation_card("HHI", _fmt_int(summary["hhi"]), "0-10.000"),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    chart_data = market.head(top_n).copy()
+    chart_data["Métrica_fmt"] = chart_data["Métrica"]
+    if metric_label in {"PL", "Emissões 24-26"}:
+        chart_data["Métrica_plot"] = chart_data["Métrica"] / 1e9
+        x_title = "R$ bi"
+    else:
+        chart_data["Métrica_plot"] = chart_data["Métrica"]
+        x_title = metric_label
+    chart = (
+        alt.Chart(chart_data)
+        .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+        .encode(
+            x=alt.X("Métrica_plot:Q", title=x_title, axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+            y=alt.Y("Dimensão:N", title=None, sort="-x", axis=alt.Axis(labelLimit=260)),
+            tooltip=[
+                alt.Tooltip("Dimensão:N", title=dim_label),
+                alt.Tooltip("Métrica_plot:Q", title=x_title, format=",.2f"),
+                alt.Tooltip("Share:Q", title="share", format=".1%"),
+                alt.Tooltip("Fundos únicos:Q", title="fundos"),
+            ],
+        )
+        .properties(height=max(280, 24 * len(chart_data)))
+    )
+    st.altair_chart(chart, width="stretch")
+    st.dataframe(_format_snapshot_market_table(market.head(120)), hide_index=True, width="stretch")
+    if dimension in _SNAPSHOT_MARKET_MULTI_COLUMNS:
+        st.caption("Dimensões multivalor são ponderadas por item para preservar o PL/volume total do snapshot.")
+
+
 def _render_fund_snapshot_universe() -> None:
     st.markdown('<div class="industry-section">Universo estruturado por FIDC</div>', unsafe_allow_html=True)
     st.markdown(
@@ -620,7 +1184,7 @@ def _render_fund_snapshot_universe() -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    tab_table, tab_coverage, tab_manifest = st.tabs(["Tabela", "Cobertura", "Manifesto"])
+    tab_table, tab_dossier, tab_market, tab_coverage, tab_manifest = st.tabs(["Tabela", "Dossiê", "Market Share", "Cobertura", "Manifesto"])
     with tab_table:
         ctrl_a, ctrl_b, ctrl_c, ctrl_d = st.columns([1.15, 0.9, 0.75, 0.65])
         with ctrl_a:
@@ -661,6 +1225,12 @@ def _render_fund_snapshot_universe() -> None:
             filtered = filtered[haystack.str.contains(query, case=False, na=False)].copy()
         filtered = filtered.sort_values(["pl", "camadas_com_evidencia"], ascending=[False, False]).head(300)
         st.dataframe(_format_fund_snapshot_table(filtered), hide_index=True, width="stretch")
+
+    with tab_dossier:
+        _render_fund_dossier(numeric)
+
+    with tab_market:
+        _render_snapshot_market_share(numeric)
 
     with tab_coverage:
         coverage_rows = [
