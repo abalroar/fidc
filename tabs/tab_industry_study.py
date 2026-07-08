@@ -13,6 +13,7 @@ rotulo direto ou tabela ao lado.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import sqlite3
@@ -25,6 +26,18 @@ import streamlit as st
 _DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
 _REGULATORY_DB = Path(__file__).resolve().parents[1] / "data" / "fidc_credit_strategy" / "fidc_credit_strategy.sqlite"
 _ALL_FIDCS_CRITERIA = Path(__file__).resolve().parents[1] / "data" / "regulatory_profiles" / "all_fidcs_criteria_monitoraveis_ime.csv"
+_CEDENTE_REVIEW_PATH = _DATA_DIR / "cedente_reviews.csv"
+_CEDENTE_REVIEW_COLUMNS = [
+    "review_id",
+    "status",
+    "nome_revisado",
+    "cnpj_revisado",
+    "grupo_economico",
+    "setor_revisado",
+    "segmento_revisado",
+    "confianca_manual",
+    "notas",
+]
 
 # Paleta laranja/preto/cinza - maior contraste entre tons sobre fundo branco.
 _ORANGE = "#ff5a00"
@@ -229,6 +242,77 @@ def _clean_candidate_name(value: object) -> str:
     if not re.search(r"\b(S\.A\.?|LTDA|BANCO|INSTITUI|FUNDO|COMPANHIA|SOCIEDADE|SERVIÇOS|SERVICOS|TECH|TRANSPORTES)\b", upper):
         return ""
     return text[:120]
+
+
+def _review_id(row: pd.Series) -> str:
+    key = "|".join(
+        str(row.get(col, ""))
+        for col in ["cnpj_fundo", "participant_type", "participant_name_candidate", "participant_cnpj_candidate", "source_cache"]
+    )
+    return hashlib.sha1(key.encode("utf-8", errors="ignore")).hexdigest()[:16]
+
+
+def _extract_page(value: object) -> str:
+    match = re.search(r"p[aá]gina\s+(\d+)|pagina\s+(\d+)|page\s+(\d+)", str(value or ""), flags=re.IGNORECASE)
+    if not match:
+        return ""
+    return next(group for group in match.groups() if group)
+
+
+def _load_cedente_reviews() -> pd.DataFrame:
+    if not _CEDENTE_REVIEW_PATH.exists():
+        return pd.DataFrame(columns=_CEDENTE_REVIEW_COLUMNS)
+    reviews = pd.read_csv(_CEDENTE_REVIEW_PATH, dtype=str, keep_default_na=False)
+    for col in _CEDENTE_REVIEW_COLUMNS:
+        if col not in reviews.columns:
+            reviews[col] = ""
+    return reviews[_CEDENTE_REVIEW_COLUMNS]
+
+
+def _save_cedente_reviews(reviews: pd.DataFrame) -> None:
+    out = reviews.copy()
+    for col in _CEDENTE_REVIEW_COLUMNS:
+        if col not in out.columns:
+            out[col] = ""
+    out = out[_CEDENTE_REVIEW_COLUMNS].drop_duplicates("review_id", keep="last")
+    out.to_csv(_CEDENTE_REVIEW_PATH, index=False)
+
+
+@st.cache_data(show_spinner=False)
+def _load_cedente_candidates() -> pd.DataFrame:
+    if not _REGULATORY_DB.exists():
+        return pd.DataFrame()
+    try:
+        with sqlite3.connect(_REGULATORY_DB) as conn:
+            candidates = pd.read_sql_query(
+                """
+                select cnpj_fundo, fund_name, setor_n1, setor_n2, participant_type,
+                       participant_cnpj_candidate, participant_name_candidate,
+                       evidence_context, source_cache
+                from cedentes_sacados_candidates
+                """,
+                conn,
+            )
+    except sqlite3.Error:
+        return pd.DataFrame()
+    if candidates.empty:
+        return candidates
+    candidates["review_id"] = candidates.apply(_review_id, axis=1)
+    candidates["participante_extraido"] = candidates["participant_name_candidate"].map(_clean_candidate_name)
+    candidates["participante_extraido"] = candidates["participante_extraido"].where(
+        candidates["participante_extraido"].astype(str).str.len() > 0,
+        candidates["participant_cnpj_candidate"].fillna("").astype(str),
+    )
+    candidates["documento_origem"] = candidates["source_cache"].map(lambda value: Path(str(value)).name if str(value) else "")
+    candidates["pagina"] = candidates["evidence_context"].map(_extract_page)
+    candidates["metodo_extracao"] = "regex_contexto_documental"
+    has_name = candidates["participante_extraido"].astype(str).str.len() > 0
+    has_cnpj = candidates["participant_cnpj_candidate"].astype(str).str.replace(r"\D", "", regex=True).str.len().eq(14)
+    has_doc = candidates["source_cache"].astype(str).str.len() > 0
+    candidates["score_confianca"] = (0.35 + 0.25 * has_name + 0.25 * has_cnpj + 0.15 * has_doc).clip(upper=0.95)
+    candidates["evidencias_agrupadas"] = candidates.groupby("review_id")["review_id"].transform("size")
+    candidates = candidates.sort_values(["score_confianca", "cnpj_fundo"], ascending=[False, True])
+    return candidates.drop_duplicates("review_id", keep="first").reset_index(drop=True)
 
 
 @st.cache_data(show_spinner=False)
@@ -623,6 +707,345 @@ def _render_monthly_audit_and_base(industry: pd.DataFrame, comp: str) -> None:
             st.caption("Arquivo `update_audit_monthly.csv` não encontrado.")
 
 
+def _dimension_series(frame: pd.DataFrame, column: str) -> pd.Series:
+    if column not in frame.columns:
+        return pd.Series("n/d", index=frame.index)
+    if column == "is_fic_fidc":
+        values = frame[column].astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})
+        return values.map({True: "FIC-FIDC", False: "FIDC direto"})
+    values = frame[column].fillna("").astype(str).str.strip()
+    values = values.where(values != "", "n/d")
+    return values.str.slice(0, 70)
+
+
+def _period_filter(frame: pd.DataFrame, comp: str, period: str) -> pd.DataFrame:
+    comps = sorted(frame["competencia"].dropna().astype(str).unique())
+    comps = [value for value in comps if value <= comp]
+    if not comps:
+        return frame.iloc[0:0].copy()
+    if period == "Última competência":
+        selected = [comp if comp in comps else comps[-1]]
+    elif period == "Últimos 12 meses":
+        selected = comps[-12:]
+    elif period == "2025 até data-base":
+        selected = [value for value in comps if value >= "2025-01"]
+    else:
+        selected = comps
+    return frame[frame["competencia"].astype(str).isin(selected)].copy()
+
+
+def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
+    st.markdown('<div class="industry-section">Heatmaps granulares</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Combinações livres sobre a base competência × veículo. '
+        "O PL em janelas longas é média mensal; fluxos são somados no período.</div>",
+        unsafe_allow_html=True,
+    )
+    if vehicle is None or vehicle.empty:
+        st.info("A base `vehicle_monthly.csv.gz` ainda não está disponível para montar heatmaps.")
+        return
+
+    dimensions = {
+        "Administrador": "admin_nome",
+        "Gestor": "gestor_nome",
+        "Custodiante": "custodiante_nome",
+        "Segmento": "segmento_principal",
+        "Subsegmento financeiro": "segmento_financeiro_principal",
+        "Condomínio": "condominio",
+        "Público-alvo": "publico_alvo",
+        "FIC-FIDC": "is_fic_fidc",
+    }
+    metric_options = ["PL médio", "Captação líquida", "Veículos", "Fundos"]
+
+    ctrl_a, ctrl_b, ctrl_c, ctrl_d, ctrl_e = st.columns([1.0, 1.0, 0.9, 0.9, 0.65])
+    with ctrl_a:
+        row_label = st.selectbox("Linhas", list(dimensions), index=0, key="industry_heatmap_rows")
+    with ctrl_b:
+        col_label = st.selectbox("Colunas", list(dimensions), index=3, key="industry_heatmap_cols")
+    with ctrl_c:
+        metric_label = st.selectbox("Métrica", metric_options, key="industry_heatmap_metric")
+    with ctrl_d:
+        period = st.selectbox(
+            "Janela",
+            ["Última competência", "Últimos 12 meses", "2025 até data-base", "Histórico completo"],
+            key="industry_heatmap_period",
+        )
+    with ctrl_e:
+        top_n = st.slider("Top", min_value=5, max_value=25, value=12, step=1, key="industry_heatmap_top")
+
+    frame = _period_filter(vehicle, comp, period)
+    if frame.empty:
+        st.caption("Sem linhas para a janela selecionada.")
+        return
+    frame = frame.copy()
+    frame["linha"] = _dimension_series(frame, dimensions[row_label])
+    frame["coluna"] = _dimension_series(frame, dimensions[col_label])
+    frame = frame[(frame["linha"] != "n/d") & (frame["coluna"] != "n/d")]
+    if frame.empty:
+        st.caption("As dimensões selecionadas não têm dados preenchidos nessa janela.")
+        return
+
+    if metric_label == "PL médio":
+        monthly = (
+            frame.groupby(["competencia", "linha", "coluna"], dropna=False)["pl"]
+            .sum()
+            .reset_index(name="valor_base")
+        )
+        heatmap = (
+            monthly.groupby(["linha", "coluna"], dropna=False)["valor_base"]
+            .mean()
+            .reset_index(name="valor")
+        )
+        value_title = "PL médio (R$ bi)"
+        value_format = ",.1f"
+        heatmap["valor"] = heatmap["valor"] / 1e9
+    elif metric_label == "Captação líquida":
+        heatmap = (
+            frame.groupby(["linha", "coluna"], dropna=False)["captacao_liquida"]
+            .sum()
+            .reset_index(name="valor")
+        )
+        value_title = "Captação líquida (R$ bi)"
+        value_format = ",.1f"
+        heatmap["valor"] = heatmap["valor"] / 1e9
+    elif metric_label == "Fundos":
+        id_col = "cnpj_fundo" if "cnpj_fundo" in frame.columns else "cnpj"
+        heatmap = (
+            frame.groupby(["linha", "coluna"], dropna=False)[id_col]
+            .nunique()
+            .reset_index(name="valor")
+        )
+        value_title = "Fundos"
+        value_format = ",.0f"
+    else:
+        heatmap = (
+            frame.groupby(["linha", "coluna"], dropna=False)["cnpj"]
+            .nunique()
+            .reset_index(name="valor")
+        )
+        value_title = "Veículos"
+        value_format = ",.0f"
+
+    heatmap = heatmap[pd.to_numeric(heatmap["valor"], errors="coerce").fillna(0).ne(0)].copy()
+    if heatmap.empty:
+        st.caption("A combinação escolhida só retornou valores zerados.")
+        return
+
+    row_order = (
+        heatmap.assign(abs_val=heatmap["valor"].abs())
+        .groupby("linha", dropna=False)["abs_val"]
+        .sum()
+        .sort_values(ascending=False)
+        .head(top_n)
+        .index.tolist()
+    )
+    col_order = (
+        heatmap.assign(abs_val=heatmap["valor"].abs())
+        .groupby("coluna", dropna=False)["abs_val"]
+        .sum()
+        .sort_values(ascending=False)
+        .head(top_n)
+        .index.tolist()
+    )
+    heatmap = heatmap[heatmap["linha"].isin(row_order) & heatmap["coluna"].isin(col_order)].copy()
+    heatmap["valor_formatado"] = heatmap["valor"].map(
+        lambda value: f"{value:,.1f}".replace(",", "@").replace(".", ",").replace("@", ".")
+        if metric_label in {"PL médio", "Captação líquida"}
+        else _fmt_int(float(value))
+    )
+
+    scale = (
+        alt.Scale(domainMid=0, range=[_BLACK, "#f7f2ed", _ORANGE])
+        if metric_label == "Captação líquida"
+        else alt.Scale(range=["#f7f2ed", _ORANGE])
+    )
+    chart = (
+        alt.Chart(heatmap)
+        .mark_rect(cornerRadius=2)
+        .encode(
+            x=alt.X("coluna:N", title=None, sort=col_order, axis=alt.Axis(labelLimit=130)),
+            y=alt.Y("linha:N", title=None, sort=row_order, axis=alt.Axis(labelLimit=250)),
+            color=alt.Color("valor:Q", title=value_title, scale=scale),
+            tooltip=[
+                alt.Tooltip("linha:N", title=row_label),
+                alt.Tooltip("coluna:N", title=col_label),
+                alt.Tooltip("valor:Q", title=value_title, format=value_format),
+            ],
+        )
+        .properties(height=max(280, min(560, 26 * len(row_order))))
+    )
+    st.altair_chart(chart, width="stretch")
+
+    pivot = heatmap.pivot_table(index="linha", columns="coluna", values="valor", aggfunc="sum", fill_value=0)
+    pivot = pivot.reindex(index=row_order, columns=col_order).reset_index().rename(columns={"linha": row_label})
+    st.dataframe(pivot, hide_index=True, width="stretch")
+
+
+def _render_cedente_review_workbench() -> None:
+    st.markdown('<div class="industry-section">Cedentes, sacados e revisão manual</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Mesa de curadoria sobre todos os FIDCs cobertos pelo SQLite regulatório. '
+        "A extração automática fica ao lado dos campos revisáveis; o arquivo salvo vira trilha auditável mês a mês.</div>",
+        unsafe_allow_html=True,
+    )
+
+    candidates = _load_cedente_candidates()
+    if candidates.empty:
+        st.info("Ainda não há candidatos de cedente/sacado no SQLite regulatório.")
+        return
+
+    reviews = _load_cedente_reviews()
+    frame = candidates.merge(reviews, on="review_id", how="left")
+    for col in _CEDENTE_REVIEW_COLUMNS:
+        if col not in frame.columns:
+            frame[col] = ""
+    frame["status"] = frame["status"].fillna("").replace("", "pendente")
+    frame["score_confianca"] = pd.to_numeric(frame["score_confianca"], errors="coerce").fillna(0)
+
+    type_labels = {
+        "cedente_originador": "cedente/originador",
+        "sacado_devedor": "sacado/devedor",
+        "consultora": "consultora",
+    }
+    cards = [
+        _curation_card("Candidatos automáticos", _fmt_int(float(len(frame))), "deduplicados por fundo/participante"),
+        _curation_card("FIDCs com evidência", _fmt_int(float(frame["cnpj_fundo"].nunique())), "universo regulatório"),
+        _curation_card(
+            "Cedente/originador",
+            _fmt_int(float(frame[frame["participant_type"].eq("cedente_originador")]["cnpj_fundo"].nunique())),
+            "FIDCs com menção",
+        ),
+        _curation_card(
+            "Sacado/devedor",
+            _fmt_int(float(frame[frame["participant_type"].eq("sacado_devedor")]["cnpj_fundo"].nunique())),
+            "FIDCs com menção",
+        ),
+        _curation_card("Revisões salvas", _fmt_int(float(len(reviews))), _CEDENTE_REVIEW_PATH.name),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    filter_a, filter_b, filter_c, filter_d = st.columns([1.3, 0.8, 0.8, 0.7])
+    with filter_a:
+        query = st.text_input("Buscar", key="industry_cedente_query", placeholder="fundo, CNPJ, participante ou evidência")
+    with filter_b:
+        types = sorted(frame["participant_type"].dropna().astype(str).unique())
+        selected_types = st.multiselect(
+            "Tipo",
+            types,
+            default=types,
+            format_func=lambda value: type_labels.get(value, value),
+            key="industry_cedente_types",
+        )
+    with filter_c:
+        statuses = ["pendente", "aprovado", "corrigido", "rejeitado"]
+        selected_statuses = st.multiselect("Status", statuses, default=statuses, key="industry_cedente_status")
+    with filter_d:
+        min_score = st.slider("Score mín.", 0.0, 0.95, 0.55, 0.05, key="industry_cedente_score")
+
+    filtered = frame[
+        frame["participant_type"].isin(selected_types)
+        & frame["status"].isin(selected_statuses)
+        & frame["score_confianca"].ge(min_score)
+    ].copy()
+    if query:
+        search = (
+            filtered["fund_name"].astype(str)
+            + " "
+            + filtered["cnpj_fundo"].astype(str)
+            + " "
+            + filtered["participante_extraido"].astype(str)
+            + " "
+            + filtered["participant_cnpj_candidate"].astype(str)
+            + " "
+            + filtered["evidence_context"].astype(str)
+        )
+        filtered = filtered[search.str.contains(query, case=False, na=False)].copy()
+
+    filtered = filtered.sort_values(["score_confianca", "cnpj_fundo"], ascending=[False, True]).head(120)
+    if filtered.empty:
+        st.caption("Nenhum candidato passou pelos filtros.")
+        return
+
+    display = pd.DataFrame(
+        {
+            "ID": filtered["review_id"],
+            "Status": filtered["status"],
+            "Tipo": filtered["participant_type"].replace(type_labels),
+            "Fundo": filtered["fund_name"].astype(str).str.slice(0, 78),
+            "CNPJ fundo": filtered["cnpj_fundo"],
+            "Participante extraído": filtered["participante_extraido"],
+            "CNPJ extraído": filtered["participant_cnpj_candidate"].fillna("").astype(str),
+            "Nome revisado": filtered["nome_revisado"].fillna("").astype(str),
+            "CNPJ revisado": filtered["cnpj_revisado"].fillna("").astype(str),
+            "Grupo econômico": filtered["grupo_economico"].fillna("").astype(str),
+            "Setor revisado": filtered["setor_revisado"].fillna("").astype(str),
+            "Segmento revisado": filtered["segmento_revisado"].fillna("").astype(str),
+            "Confiança manual": pd.to_numeric(filtered["confianca_manual"], errors="coerce"),
+            "Score auto": filtered["score_confianca"].round(2),
+            "Evidências": filtered["evidencias_agrupadas"],
+            "Documento": filtered["documento_origem"],
+            "Página": filtered["pagina"],
+            "Evidência": filtered["evidence_context"].astype(str).str.slice(0, 240),
+            "Notas": filtered["notas"].fillna("").astype(str),
+        }
+    )
+    disabled_cols = [
+        "ID",
+        "Tipo",
+        "Fundo",
+        "CNPJ fundo",
+        "Participante extraído",
+        "CNPJ extraído",
+        "Score auto",
+        "Evidências",
+        "Documento",
+        "Página",
+        "Evidência",
+    ]
+    edited = st.data_editor(
+        display,
+        hide_index=True,
+        width="stretch",
+        height=520,
+        disabled=disabled_cols,
+        column_config={
+            "Status": st.column_config.SelectboxColumn(
+                "Status",
+                options=["pendente", "aprovado", "corrigido", "rejeitado"],
+                required=True,
+            ),
+            "Confiança manual": st.column_config.NumberColumn(
+                "Confiança manual",
+                min_value=0.0,
+                max_value=1.0,
+                step=0.05,
+                format="%.2f",
+            ),
+            "Evidência": st.column_config.TextColumn("Evidência", width="large"),
+        },
+        key="industry_cedente_review_editor",
+    )
+
+    if st.button("Salvar revisões da página filtrada", type="primary", key="industry_save_cedente_reviews"):
+        edited_reviews = pd.DataFrame(
+            {
+                "review_id": edited["ID"],
+                "status": edited["Status"],
+                "nome_revisado": edited["Nome revisado"],
+                "cnpj_revisado": edited["CNPJ revisado"],
+                "grupo_economico": edited["Grupo econômico"],
+                "setor_revisado": edited["Setor revisado"],
+                "segmento_revisado": edited["Segmento revisado"],
+                "confianca_manual": edited["Confiança manual"],
+                "notas": edited["Notas"],
+            }
+        )
+        edited_reviews = edited_reviews.fillna("")
+        keep_existing = reviews[~reviews["review_id"].isin(edited_reviews["review_id"])].copy()
+        _save_cedente_reviews(pd.concat([keep_existing, edited_reviews], ignore_index=True))
+        st.success(f"Revisões salvas em `{_CEDENTE_REVIEW_PATH}`.")
+
+
 def _render_regulatory_curation_overlay() -> None:
     overlay = _load_regulatory_overlay()
     summary = overlay["summary"]
@@ -777,8 +1200,15 @@ def render_tab_industry_study() -> None:
         if ref_12m is not None and ref_12m["cotistas_total"]
         else None
     )
+    pl_ex_fic = float(last["pl_total"] - last.get("pl_fic_fidc", 0))
     kpis = [
-        _kpi("PL total", _fmt_bi(last["pl_total"], 0), f"+{_fmt_pct(pl_delta)} em 12m" if pl_delta is not None else ""),
+        _kpi(
+            "PL total",
+            _fmt_bi(last["pl_total"], 0),
+            f"{_fmt_bi(pl_ex_fic, 0)} ex-FIC-FIDC · +{_fmt_pct(pl_delta)} em 12m"
+            if pl_delta is not None
+            else f"{_fmt_bi(pl_ex_fic, 0)} ex-FIC-FIDC",
+        ),
         _kpi("Captação líquida 12m", _fmt_bi(capt_12m, 0), "captações − resgates − amortizações"),
         _kpi("Veículos reportantes", _fmt_int(last["n_veiculos"]), f"+{_fmt_int(last['n_veiculos'] - ref_12m['n_veiculos'])} em 12m" if ref_12m is not None else ""),
         _kpi("Contas de cotistas", f"{_fmt_int(last['cotistas_total'] / 1000)} mil", f"+{_fmt_pct(cot_delta)} em 12m" if cot_delta is not None else ""),
@@ -787,30 +1217,76 @@ def render_tab_industry_study() -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(kpis)}</div>', unsafe_allow_html=True)
 
-    _render_monthly_audit_and_base(industry, comp)
+    vehicle = _load_csv("vehicle_monthly.csv.gz")
+    audit_tab, heatmap_tab, cedente_tab = st.tabs(["Base granular", "Heatmaps", "Cedentes"])
+    with audit_tab:
+        _render_monthly_audit_and_base(industry, comp)
+    with heatmap_tab:
+        _render_generic_heatmaps(vehicle, comp)
+    with cedente_tab:
+        _render_cedente_review_workbench()
 
     # --- PL da industria -------------------------------------------------
     st.markdown('<div class="industry-section">Patrimônio líquido da indústria</div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="industry-def">Soma do PL de todos os veículos reportantes (Tab IV), em R$ bilhões. '
-        "Picos de um único mês por veículo são excluídos como erro de preenchimento.</div>",
+        "A linha preta remove FIC-FIDC para reduzir dupla contagem potencial; picos de um único mês por veículo são excluídos.</div>",
         unsafe_allow_html=True,
     )
-    pl_df = industry.assign(pl_bi=industry["pl_total"] / 1e9)
+    pl_df = industry.assign(
+        total_bi=industry["pl_total"] / 1e9,
+        ex_fic_bi=(industry["pl_total"] - industry["pl_fic_fidc"].fillna(0)) / 1e9,
+    )
+    pl_long = pd.concat(
+        [
+            pl_df.assign(serie="FIDCs + FIC-FIDCs", valor_bi=pl_df["total_bi"]),
+            pl_df.assign(serie="Somente FIDCs (ex-FIC-FIDCs)", valor_bi=pl_df["ex_fic_bi"]),
+        ],
+        ignore_index=True,
+    )
     area = (
         alt.Chart(pl_df)
-        .mark_area(color=_ORANGE_SOFT, line={"color": _ORANGE, "strokeWidth": 2})
+        .mark_area(color=_ORANGE_SOFT)
         .encode(
             x=alt.X("mes:T", title=None, axis=alt.Axis(format="%b/%y", grid=False)),
-            y=alt.Y("pl_bi:Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+            y=alt.Y("total_bi:Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
             tooltip=[
                 alt.Tooltip("competencia:N", title="competência"),
-                alt.Tooltip("pl_bi:Q", title="PL (R$ bi)", format=",.1f"),
+                alt.Tooltip("total_bi:Q", title="PL total (R$ bi)", format=",.1f"),
+                alt.Tooltip("ex_fic_bi:Q", title="PL ex-FIC-FIDC (R$ bi)", format=",.1f"),
             ],
         )
-        .properties(height=300)
     )
-    st.altair_chart(area, width="stretch")
+    lines = (
+        alt.Chart(pl_long)
+        .mark_line(strokeWidth=2)
+        .encode(
+            x=alt.X("mes:T", title=None, axis=alt.Axis(format="%b/%y", grid=False)),
+            y=alt.Y("valor_bi:Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+            color=alt.Color(
+                "serie:N",
+                scale=alt.Scale(
+                    domain=["FIDCs + FIC-FIDCs", "Somente FIDCs (ex-FIC-FIDCs)"],
+                    range=[_ORANGE, _BLACK],
+                ),
+                legend=alt.Legend(title=None, orient="top"),
+            ),
+            strokeDash=alt.StrokeDash(
+                "serie:N",
+                scale=alt.Scale(
+                    domain=["FIDCs + FIC-FIDCs", "Somente FIDCs (ex-FIC-FIDCs)"],
+                    range=[[1, 0], [5, 3]],
+                ),
+                legend=None,
+            ),
+            tooltip=[
+                alt.Tooltip("competencia:N", title="competência"),
+                alt.Tooltip("serie:N", title="série"),
+                alt.Tooltip("valor_bi:Q", title="PL (R$ bi)", format=",.1f"),
+            ],
+        )
+    )
+    st.altair_chart((area + lines).properties(height=300), width="stretch")
 
     col_a, col_b = st.columns(2)
 
