@@ -424,6 +424,205 @@ def _curation_card(label: str, value: str, note: str = "") -> str:
     )
 
 
+def _fmt_signed_bi(value: float, digits: int = 1) -> str:
+    prefix = "+" if value > 0 else ""
+    return prefix + _fmt_bi(value, digits)
+
+
+def _format_vehicle_table(frame: pd.DataFrame) -> pd.DataFrame:
+    out = frame.copy()
+    column_map = {
+        "denominacao": "Veículo",
+        "cnpj": "CNPJ",
+        "cnpj_fundo": "CNPJ fundo",
+        "admin_nome": "Administrador",
+        "segmento_principal": "Segmento",
+        "pl": "PL",
+        "captacao_liquida": "Captação líquida",
+        "carteira_dc": "Carteira DC",
+        "inad_pct_ajustada": "Inad. ajustada",
+        "subordinacao_pct": "Subordinação",
+        "cotistas": "Cotistas",
+    }
+    keep = [col for col in column_map if col in out.columns]
+    out = out[keep].rename(columns=column_map)
+    for col in ["PL", "Captação líquida", "Carteira DC"]:
+        if col in out.columns:
+            out[col] = out[col].map(lambda value: _fmt_bi(float(value), 1))
+    for col in ["Inad. ajustada", "Subordinação"]:
+        if col in out.columns:
+            out[col] = out[col].map(lambda value: _fmt_pct(float(value)))
+    if "Cotistas" in out.columns:
+        out["Cotistas"] = out["Cotistas"].map(lambda value: _fmt_int(float(value)))
+    return out
+
+
+def _render_monthly_audit_and_base(industry: pd.DataFrame, comp: str) -> None:
+    vehicle = _load_csv("vehicle_monthly.csv.gz")
+    audit = _load_csv("update_audit_monthly.csv")
+    if (vehicle is None or vehicle.empty) and (audit is None or audit.empty):
+        st.markdown('<div class="industry-section">Auditoria mensal e base granular</div>', unsafe_allow_html=True)
+        st.info(
+            "A base granular ainda não foi gerada. Rode `python scripts/build_fidc_industry_study.py --report` "
+            "para criar `vehicle_monthly.csv.gz` e `update_audit_monthly.csv`."
+        )
+        return
+
+    st.markdown('<div class="industry-section">Auditoria mensal e base granular</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Camada inspirada na aba Estratégia: cada agregado pode ser reaberto '
+        "em competência × veículo reportante, com cobertura de tabelas-fonte e filtros de sanidade.</div>",
+        unsafe_allow_html=True,
+    )
+
+    current_vehicle = pd.DataFrame()
+    if vehicle is not None and not vehicle.empty:
+        current_vehicle = vehicle[vehicle["competencia"].eq(comp)].copy()
+
+    audit_last = None
+    if audit is not None and not audit.empty:
+        match = audit[audit["competencia"].eq(comp)]
+        audit_last = match.iloc[0] if not match.empty else audit.sort_values("competencia").iloc[-1]
+
+    cards = []
+    if not current_vehicle.empty:
+        cards.append(_curation_card("Linhas granulares", _fmt_int(len(current_vehicle)), f"{comp} · veículo/classe"))
+        cards.append(_curation_card("Fundos únicos", _fmt_int(current_vehicle["cnpj_fundo"].nunique() if "cnpj_fundo" in current_vehicle else current_vehicle["cnpj"].nunique()), "após mapa classe → fundo"))
+    if audit_last is not None:
+        cards.extend(
+            [
+                _curation_card("Cobertura Tab I", _fmt_pct(float(audit_last.get("tab1_coverage", 0))), "ativo, DC, admin"),
+                _curation_card("Cobertura Tab X.4", _fmt_pct(float(audit_last.get("x4_coverage", 0))), "fluxos de cotas"),
+                _curation_card("Fluxo descartado", _fmt_bi(float(audit_last.get("x4_valor_descartado", 0))), f"{_fmt_int(float(audit_last.get('x4_linhas_descartadas', 0)))} linhas"),
+                _curation_card("Picos removidos", _fmt_int(float(audit_last.get("pl_spike_excluidos", 0)) + float(audit_last.get("cotistas_spike_excluidos", 0))), "PL/cotistas"),
+            ]
+        )
+    if cards:
+        st.markdown(f'<div class="industry-kpi-grid">{"".join(cards[:6])}</div>', unsafe_allow_html=True)
+
+    col_a, col_b = st.columns([0.9, 1.1])
+    with col_a:
+        st.markdown("**Cobertura das tabelas-fonte**")
+        if audit is not None and not audit.empty:
+            coverage_cols = [
+                ("tab1_coverage", "Tab I"),
+                ("tab2_coverage", "Tab II"),
+                ("x1_coverage", "X.1"),
+                ("x2_coverage", "X.2"),
+                ("x4_coverage", "X.4"),
+            ]
+            cov = audit.tail(36).copy()
+            cov["mes"] = pd.to_datetime(cov["competencia"] + "-01")
+            cov_long = []
+            for col, label in coverage_cols:
+                if col in cov.columns:
+                    cov_long.append(cov.assign(Tabela=label, Cobertura=cov[col] * 100))
+            if cov_long:
+                cov_long_df = pd.concat(cov_long, ignore_index=True)
+                chart = (
+                    alt.Chart(cov_long_df)
+                    .mark_line(strokeWidth=2)
+                    .encode(
+                        x=alt.X("mes:T", title=None, axis=alt.Axis(format="%b/%y", grid=False)),
+                        y=alt.Y("Cobertura:Q", title="% dos veículos", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                        color=alt.Color("Tabela:N", legend=alt.Legend(title=None, orient="top")),
+                        tooltip=[
+                            alt.Tooltip("competencia:N", title="competência"),
+                            alt.Tooltip("Tabela:N", title="tabela"),
+                            alt.Tooltip("Cobertura:Q", title="cobertura", format=",.1f"),
+                        ],
+                    )
+                    .properties(height=260)
+                )
+                st.altair_chart(chart, width="stretch")
+        else:
+            st.caption("Arquivo de auditoria mensal indisponível.")
+
+    with col_b:
+        st.markdown("**Maiores variações de PL no mês**")
+        if vehicle is not None and not vehicle.empty and not current_vehicle.empty:
+            comps = sorted(vehicle["competencia"].dropna().unique())
+            if comp in comps and comps.index(comp) > 0:
+                prev_comp = comps[comps.index(comp) - 1]
+                prev = vehicle[vehicle["competencia"].eq(prev_comp)][["cnpj", "pl"]].rename(columns={"pl": "pl_anterior"})
+                movers = current_vehicle.merge(prev, on="cnpj", how="left")
+                movers["pl_delta"] = movers["pl"] - movers["pl_anterior"].fillna(0.0)
+                movers = movers[movers["pl_delta"].abs() > 5e7].copy()
+                movers = movers.reindex(movers["pl_delta"].abs().sort_values(ascending=False).index).head(12)
+                if not movers.empty:
+                    movers["nome_curto"] = movers["denominacao"].astype(str).str.slice(0, 54)
+                    movers["delta_bi"] = movers["pl_delta"] / 1e9
+                    chart = (
+                        alt.Chart(movers)
+                        .mark_bar(cornerRadiusEnd=2)
+                        .encode(
+                            x=alt.X("delta_bi:Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                            y=alt.Y("nome_curto:N", title=None, sort="-x", axis=alt.Axis(labelLimit=260)),
+                            color=alt.condition("datum.delta_bi >= 0", alt.value(_ORANGE), alt.value(_BLACK)),
+                            tooltip=[
+                                alt.Tooltip("denominacao:N", title="veículo"),
+                                alt.Tooltip("cnpj:N", title="CNPJ"),
+                                alt.Tooltip("delta_bi:Q", title="variação PL (R$ bi)", format=",.2f"),
+                            ],
+                        )
+                        .properties(height=260)
+                    )
+                    st.altair_chart(chart, width="stretch")
+                else:
+                    st.caption("Sem variações materiais acima de R$ 50 mi.")
+            else:
+                st.caption("Competência sem mês anterior na base granular.")
+        else:
+            st.caption("Base granular indisponível.")
+
+    if vehicle is None or vehicle.empty:
+        return
+
+    st.markdown("**Base granular filtrável**")
+    comps = sorted(vehicle["competencia"].dropna().unique(), reverse=True)
+    default_idx = comps.index(comp) if comp in comps else 0
+    selected_comp = st.selectbox("Competência granular", comps, index=default_idx, key="industry_granular_comp")
+    filtered = vehicle[vehicle["competencia"].eq(selected_comp)].copy()
+    left, mid, right = st.columns([1.15, 1.0, 1.0])
+    with left:
+        query = st.text_input("Buscar veículo/CNPJ", key="industry_granular_query", placeholder="nome, CNPJ ou administrador")
+    with mid:
+        metric_label = st.selectbox(
+            "Ordenar por",
+            ["PL", "Captação líquida", "Carteira DC", "Inadimplência ajustada", "Subordinação"],
+            key="industry_granular_metric",
+        )
+    with right:
+        top_n = st.slider("Linhas", min_value=10, max_value=100, value=30, step=10, key="industry_granular_rows")
+    if query:
+        mask = (
+            filtered["denominacao"].astype(str).str.contains(query, case=False, na=False)
+            | filtered["cnpj"].astype(str).str.contains(query, case=False, na=False)
+            | filtered.get("admin_nome", pd.Series("", index=filtered.index)).astype(str).str.contains(query, case=False, na=False)
+        )
+        filtered = filtered[mask].copy()
+    metric_col = {
+        "PL": "pl",
+        "Captação líquida": "captacao_liquida",
+        "Carteira DC": "carteira_dc",
+        "Inadimplência ajustada": "inad_pct_ajustada",
+        "Subordinação": "subordinacao_pct",
+    }[metric_label]
+    if metric_col in filtered.columns:
+        filtered = filtered.sort_values(metric_col, ascending=False)
+    st.dataframe(_format_vehicle_table(filtered.head(top_n)), hide_index=True, width="stretch")
+
+    with st.expander("Auditoria mensal completa"):
+        if audit is not None and not audit.empty:
+            show = audit.tail(24).copy()
+            percent_cols = [col for col in show.columns if col.endswith("_coverage")]
+            for col in percent_cols:
+                show[col] = (show[col] * 100).round(1)
+            st.dataframe(show, hide_index=True, width="stretch")
+        else:
+            st.caption("Arquivo `update_audit_monthly.csv` não encontrado.")
+
+
 def _render_regulatory_curation_overlay() -> None:
     overlay = _load_regulatory_overlay()
     summary = overlay["summary"]
@@ -609,7 +808,7 @@ def render_tab_industry_study() -> None:
         )
         .properties(height=300)
     )
-    st.altair_chart(area, use_container_width=True)
+    st.altair_chart(area, width="stretch")
 
     col_a, col_b = st.columns(2)
 
@@ -644,7 +843,7 @@ def render_tab_industry_study() -> None:
             )
             .properties(height=260)
         )
-        st.altair_chart(bars, use_container_width=True)
+        st.altair_chart(bars, width="stretch")
 
     # --- Cotistas ---------------------------------------------------------
     with col_b:
@@ -657,7 +856,7 @@ def render_tab_industry_study() -> None:
         cot_df = industry.assign(cot_mil=industry["cotistas_total"] / 1000)
         st.altair_chart(
             _base_line(cot_df, "cot_mil", "mil contas", _ORANGE).properties(height=260),
-            use_container_width=True,
+            width="stretch",
         )
 
     col_c, col_d = st.columns(2)
@@ -695,7 +894,7 @@ def render_tab_industry_study() -> None:
             )
             .properties(height=260)
         )
-        st.altair_chart(inad_chart, use_container_width=True)
+        st.altair_chart(inad_chart, width="stretch")
 
     # --- Concentracao -------------------------------------------------------
     with col_d:
@@ -732,7 +931,7 @@ def render_tab_industry_study() -> None:
                 )
                 .properties(height=260)
             )
-            st.altair_chart(conc_chart, use_container_width=True)
+            st.altair_chart(conc_chart, width="stretch")
         else:
             st.caption("Série de concentração indisponível.")
 
@@ -763,7 +962,7 @@ def render_tab_industry_study() -> None:
                 )
                 .properties(height=280)
             )
-            st.altair_chart(seg_chart, use_container_width=True)
+            st.altair_chart(seg_chart, width="stretch")
 
     # --- Top administradores ---------------------------------------------------
     with col_f:
@@ -791,8 +990,9 @@ def render_tab_industry_study() -> None:
                 )
                 .properties(height=280)
             )
-            st.altair_chart(adm_chart, use_container_width=True)
+            st.altair_chart(adm_chart, width="stretch")
 
+    _render_monthly_audit_and_base(industry, comp)
     _render_regulatory_curation_overlay()
 
     # --- Tabelas e metodologia ---------------------------------------------------
@@ -810,7 +1010,7 @@ def render_tab_industry_study() -> None:
                 "Inad. ajustada (%)": (dez["inad_pct_ajustada"] * 100).round(1),
             }
         )
-        st.dataframe(tabela, hide_index=True, use_container_width=True)
+        st.dataframe(tabela, hide_index=True, width="stretch")
 
     with st.expander("Metodologia, fontes e limitações"):
         st.markdown(

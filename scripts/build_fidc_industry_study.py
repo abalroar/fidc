@@ -13,7 +13,7 @@ Unidade de observacao do informe mensal:
 O script normaliza as duas eras numa chave unica por veiculo reportante e
 mapeia classe -> fundo via cadastro para contagem de fundos unicos.
 
-Saidas (CSVs pequenos, versionaveis) em data/industry_study/:
+Saidas versionaveis em data/industry_study/:
 - industry_monthly.csv        serie mensal da industria (PL, veiculos, cotistas,
                               captacao, resgate, inadimplencia, subordinacao...)
 - segments_monthly.csv        carteira por tipo de recebivel (Tab II)
@@ -21,6 +21,8 @@ Saidas (CSVs pequenos, versionaveis) em data/industry_study/:
 - cotistas_tipo_monthly.csv   numero de cotistas por tipo de investidor (Tab X.1.1)
 - admin_monthly.csv           PL e nao de veiculos por administrador por mes (Tab I + IV)
 - concentration_monthly.csv   HHI e share top 5/10 de administradores
+- vehicle_monthly.csv.gz      painel granular por competencia x veiculo reportante
+- update_audit_monthly.csv    cobertura das tabelas-fonte e filtros de sanidade por mes
 - universe_latest.csv         foto por veiculo no ultimo mes completo
 - prestadores_latest.csv      ranking de admin/gestor/custodiante no ultimo mes
 - metadata.json               proveniencia e parametros da execucao
@@ -284,6 +286,8 @@ class MonthAggregate:
     flows: list[dict]
     cotistas_tipo: list[dict]
     admin: list[dict]
+    vehicle: list[dict]
+    audit: dict
 
 
 def load_tab4(store: RawStore, yyyymm: str) -> pd.DataFrame | None:
@@ -328,6 +332,16 @@ def aggregate_month(
     if tab4 is None or tab4.empty:
         return None
     pl_by_cnpj = tab4.set_index("cnpj")["pl"]
+    vehicle = pd.DataFrame(
+        {
+            "competencia": comp,
+            "cnpj": tab4["cnpj"],
+            "tp_registro": tab4["tp_registro"],
+            "denominacao": tab4["DENOM_SOCIAL"].map(_norm_name),
+            "pl": tab4["pl"],
+        }
+    )
+    vehicle["is_fic_fidc"] = vehicle["denominacao"].str.contains(FIC_FIDC_PATTERN, na=False)
 
     industry: dict = {
         "competencia": comp,
@@ -335,6 +349,19 @@ def aggregate_month(
         "n_registros_classe": int((tab4["tp_registro"] == "Classe").sum()),
         "n_registros_fundo": int((tab4["tp_registro"] == "Fundo").sum()),
         "pl_total": float(tab4["pl"].sum()),
+    }
+    audit: dict = {
+        "competencia": comp,
+        "n_veiculos_usados": int(len(tab4)),
+        "pl_total_usado": float(tab4["pl"].sum()),
+        "tab1_veiculos": 0,
+        "tab2_veiculos": 0,
+        "x1_veiculos": 0,
+        "x2_veiculos": 0,
+        "x4_veiculos": 0,
+        "tab7_veiculos": 0,
+        "x4_linhas_descartadas": 0,
+        "x4_valor_descartado": 0.0,
     }
     industry["pl_fic_fidc"] = float(
         tab4.loc[tab4["DENOM_SOCIAL"].str.contains(FIC_FIDC_PATTERN, na=False), "pl"].sum()
@@ -345,6 +372,7 @@ def aggregate_month(
     admin_rows: list[dict] = []
     if tab1 is not None and not tab1.empty:
         tab1 = tab1.drop_duplicates(subset=["cnpj"], keep="last")
+        audit["tab1_veiculos"] = int(tab1["cnpj"].nunique())
         for col in (
             "TAB_I_VL_ATIVO",
             "TAB_I2A_VL_DIRCRED_RISCO",
@@ -405,6 +433,23 @@ def aggregate_month(
         )
 
         tab1["pl_join"] = tab1["cnpj"].map(pl_by_cnpj).fillna(0.0)
+        slim1 = pd.DataFrame(
+            {
+                "cnpj": tab1["cnpj"],
+                "admin_nome": tab1.get("ADMIN", "").map(_norm_name),
+                "admin_cnpj": tab1.get("CNPJ_ADMIN", "").map(_strip_digits),
+                "condominio": tab1.get("CONDOM", "").map(_norm_name),
+                "exclusivo": tab1.get("FUNDO_EXCLUSIVO", "").map(_norm_name),
+                "ativo": tab1["TAB_I_VL_ATIVO_n"],
+                "carteira_dc": tab1["dc_veiculo"],
+                "dc_inadimplentes": tab1["inad_veiculo"],
+                "dc_inadimplentes_ajustado": tab1["inad_cap"],
+                "dc_a_vencer_com_parcela_inad": tab1["TAB_I2A2_VL_CRED_VENC_INAD_n"]
+                + tab1["TAB_I2B2_VL_CRED_VENC_INAD_n"],
+                "is_np": is_np,
+            }
+        )
+        vehicle = vehicle.merge(slim1, on="cnpj", how="left")
         condom = tab1.groupby(tab1["CONDOM"].map(_norm_name))["pl_join"].sum()
         industry["pl_condominio_aberto"] = float(condom.get("ABERTO", 0.0))
         industry["pl_condominio_fechado"] = float(condom.get("FECHADO", 0.0))
@@ -432,6 +477,7 @@ def aggregate_month(
     tab2 = store.read_table(yyyymm, "tab_II")
     if tab2 is not None and not tab2.empty:
         tab2 = tab2.drop_duplicates(subset=["cnpj"], keep="last")
+        audit["tab2_veiculos"] = int(tab2["cnpj"].nunique())
         for col, label in {**SEGMENT_LABELS, **SEGMENT_FIN_SUB_LABELS}.items():
             if col in tab2.columns:
                 segments.append(
@@ -442,6 +488,35 @@ def aggregate_month(
                         "valor": float(to_num(tab2[col]).sum()),
                     }
                 )
+        top_cols = [col for col in SEGMENT_LABELS if col in tab2.columns]
+        fin_cols = [col for col in SEGMENT_FIN_SUB_LABELS if col in tab2.columns]
+        seg_parts = [pd.DataFrame({"cnpj": tab2["cnpj"]})]
+        if top_cols:
+            top_vals = tab2[top_cols].apply(to_num)
+            main_seg = top_vals.idxmax(axis=1).map(SEGMENT_LABELS)
+            main_seg[top_vals.max(axis=1) <= 0] = ""
+            seg_parts.append(
+                pd.DataFrame(
+                    {
+                        "segmento_principal": main_seg,
+                        "segmento_principal_valor": top_vals.max(axis=1),
+                        "segmento_reportado_total": top_vals.sum(axis=1),
+                    }
+                )
+            )
+        if fin_cols:
+            fin_vals = tab2[fin_cols].apply(to_num)
+            fin_seg = fin_vals.idxmax(axis=1).map(SEGMENT_FIN_SUB_LABELS)
+            fin_seg[fin_vals.max(axis=1) <= 0] = ""
+            seg_parts.append(
+                pd.DataFrame(
+                    {
+                        "segmento_financeiro_principal": fin_seg,
+                        "segmento_financeiro_valor": fin_vals.max(axis=1),
+                    }
+                )
+            )
+        vehicle = vehicle.merge(pd.concat(seg_parts, axis=1), on="cnpj", how="left")
 
     # Tabela X.4: movimentacao de cotas. Ha erros grosseiros de preenchimento
     # (ex.: captacao de R$ 7,25e14 num unico veiculo em 2020-12); descartamos
@@ -449,13 +524,55 @@ def aggregate_month(
     flows: list[dict] = []
     x4 = store.read_table(yyyymm, "tab_X_4")
     if x4 is not None and not x4.empty:
+        audit["x4_veiculos"] = int(x4["cnpj"].nunique())
         x4["valor"] = to_num(x4["TAB_X_VL_TOTAL"])
         x4["pl_veiculo"] = x4["cnpj"].map(pl_by_cnpj).fillna(0.0)
         cap = (3.0 * x4["pl_veiculo"]).clip(lower=2e9)
         dropped = x4[x4["valor"] > cap]
         industry["x4_linhas_descartadas"] = int(len(dropped))
         industry["x4_valor_descartado"] = float(dropped["valor"].sum())
+        audit["x4_linhas_descartadas"] = int(len(dropped))
+        audit["x4_valor_descartado"] = float(dropped["valor"].sum())
+        if not dropped.empty:
+            discarded = dropped.groupby("cnpj").agg(
+                x4_linhas_descartadas_veiculo=("valor", "size"),
+                x4_valor_descartado_veiculo=("valor", "sum"),
+            )
+            vehicle = vehicle.merge(discarded.reset_index(), on="cnpj", how="left")
         x4 = x4[x4["valor"] <= cap]
+        if not x4.empty:
+            flow_vehicle = (
+                x4.pivot_table(index="cnpj", columns="TAB_X_TP_OPER", values="valor", aggfunc="sum", fill_value=0.0)
+                .rename(
+                    columns={
+                        "Captações no Mês": "captacoes",
+                        "Resgates no Mês": "resgates",
+                        "Amortizações": "amortizacoes",
+                    }
+                )
+                .reset_index()
+            )
+            wanted = ["cnpj", "captacoes", "resgates", "amortizacoes"]
+            flow_vehicle = flow_vehicle[[col for col in wanted if col in flow_vehicle.columns]]
+            missing_flow = flow_vehicle[~flow_vehicle["cnpj"].isin(vehicle["cnpj"])]
+            if not missing_flow.empty:
+                vehicle = pd.concat(
+                    [
+                        vehicle,
+                        pd.DataFrame(
+                            {
+                                "competencia": comp,
+                                "cnpj": missing_flow["cnpj"],
+                                "tp_registro": "Sem Tab IV",
+                                "denominacao": "",
+                                "pl": 0.0,
+                                "is_fic_fidc": False,
+                            }
+                        ),
+                    ],
+                    ignore_index=True,
+                )
+            vehicle = vehicle.merge(flow_vehicle, on="cnpj", how="left")
         for tp_oper, valor in x4.groupby("TAB_X_TP_OPER")["valor"].sum().items():
             flows.append({"competencia": comp, "tp_oper": str(tp_oper), "valor": float(valor)})
     flow_map = {f["tp_oper"]: f["valor"] for f in flows}
@@ -469,9 +586,12 @@ def aggregate_month(
     # Tabela X.1: numero de cotistas (contas por classe/serie)
     x1 = store.read_table(yyyymm, "tab_X_1")
     if x1 is not None and not x1.empty:
+        audit["x1_veiculos"] = int(x1["cnpj"].nunique())
         if cotistas_excluir:
             x1 = x1[~x1["cnpj"].isin(cotistas_excluir)]
         industry["cotistas_total"] = int(to_num(x1["TAB_X_NR_COTST"]).sum())
+        x1_vehicle = to_num(x1["TAB_X_NR_COTST"]).groupby(x1["cnpj"]).sum().rename("cotistas")
+        vehicle = vehicle.merge(x1_vehicle.reset_index(), on="cnpj", how="left")
 
     # Tabela X.1.1: cotistas por tipo de investidor
     cotistas_tipo: list[dict] = []
@@ -492,6 +612,7 @@ def aggregate_month(
     # so entram veiculos cujo valor total de cotas fica entre 0 e 3x o proprio PL.
     x2 = store.read_table(yyyymm, "tab_X_2")
     if x2 is not None and not x2.empty:
+        audit["x2_veiculos"] = int(x2["cnpj"].nunique())
         x2["valor"] = to_num(x2["TAB_X_QT_COTA"]) * to_num(x2["TAB_X_VL_COTA"])
         x2["pl_veiculo"] = x2["cnpj"].map(pl_by_cnpj).fillna(0.0)
         total_por_veiculo = x2.groupby("cnpj")["valor"].transform("sum")
@@ -512,15 +633,66 @@ def aggregate_month(
         industry["x2_pl_coberto"] = float(
             x2_sane.drop_duplicates("cnpj")["pl_veiculo"].sum()
         )
+        if not x2_sane.empty:
+            x2_vehicle_source = x2_sane.assign(vl_cotas_subordinadas=x2_sane["valor"].where(is_sub, 0.0))
+            x2_vehicle = (
+                x2_vehicle_source.groupby("cnpj")
+                .agg(
+                    vl_cotas_total=("valor", "sum"),
+                    vl_cotas_subordinadas=("vl_cotas_subordinadas", "sum"),
+                )
+                .reset_index()
+            )
+            x2_vehicle["subordinacao_pct"] = (
+                x2_vehicle["vl_cotas_subordinadas"] / x2_vehicle["vl_cotas_total"]
+            ).where(x2_vehicle["vl_cotas_total"] > 0, 0.0)
+            vehicle = vehicle.merge(x2_vehicle, on="cnpj", how="left")
 
     # Tabela VII: recompras e substituicoes no mes
     tab7 = store.read_table(yyyymm, "tab_VII")
     if tab7 is not None and not tab7.empty:
         tab7 = tab7.drop_duplicates(subset=["cnpj"], keep="last")
+        audit["tab7_veiculos"] = int(tab7["cnpj"].nunique())
+        tab7_vehicle = pd.DataFrame({"cnpj": tab7["cnpj"]})
         if "TAB_VII_D_2_VL_RECOMPRA" in tab7.columns:
             industry["vl_recompras"] = float(to_num(tab7["TAB_VII_D_2_VL_RECOMPRA"]).sum())
+            tab7_vehicle["vl_recompras"] = to_num(tab7["TAB_VII_D_2_VL_RECOMPRA"])
         if "TAB_VII_C_2_VL_SUBST" in tab7.columns:
             industry["vl_substituicoes"] = float(to_num(tab7["TAB_VII_C_2_VL_SUBST"]).sum())
+            tab7_vehicle["vl_substituicoes"] = to_num(tab7["TAB_VII_C_2_VL_SUBST"])
+        vehicle = vehicle.merge(tab7_vehicle, on="cnpj", how="left")
+
+    for col in (
+        "ativo",
+        "carteira_dc",
+        "dc_inadimplentes",
+        "dc_inadimplentes_ajustado",
+        "dc_a_vencer_com_parcela_inad",
+        "captacoes",
+        "resgates",
+        "amortizacoes",
+        "cotistas",
+        "vl_cotas_total",
+        "vl_cotas_subordinadas",
+        "subordinacao_pct",
+        "vl_recompras",
+        "vl_substituicoes",
+        "x4_linhas_descartadas_veiculo",
+        "x4_valor_descartado_veiculo",
+    ):
+        if col not in vehicle.columns:
+            vehicle[col] = 0.0
+        vehicle[col] = to_num(vehicle[col])
+    vehicle["captacao_liquida"] = vehicle["captacoes"] - vehicle["resgates"] - vehicle["amortizacoes"]
+    vehicle["inad_pct"] = (vehicle["dc_inadimplentes"] / vehicle["carteira_dc"]).where(
+        vehicle["carteira_dc"] > 0, 0.0
+    )
+    vehicle["inad_pct_ajustada"] = (
+        vehicle["dc_inadimplentes_ajustado"] / vehicle["carteira_dc"]
+    ).where(vehicle["carteira_dc"] > 0, 0.0)
+    vehicle["share_dc_no_ativo"] = (vehicle["carteira_dc"] / vehicle["ativo"]).where(
+        vehicle["ativo"] > 0, 0.0
+    )
 
     return MonthAggregate(
         competencia=comp,
@@ -529,6 +701,8 @@ def aggregate_month(
         flows=flows,
         cotistas_tipo=cotistas_tipo,
         admin=admin_rows,
+        vehicle=vehicle.to_dict("records"),
+        audit=audit,
     )
 
 
@@ -690,6 +864,7 @@ def run_pipeline(args: argparse.Namespace) -> None:
         print(f"[info] {len(cot_spikes)} veiculo-mes de cotistas excluidos como pico de um mes")
 
     industry_rows, segment_rows, flow_rows, cotista_rows, admin_rows = [], [], [], [], []
+    vehicle_rows, audit_rows = [], []
     processed = []
     for yyyymm in months:
         tab4 = tab4_by_month.get(yyyymm)
@@ -708,6 +883,10 @@ def run_pipeline(args: argparse.Namespace) -> None:
         flow_rows.extend(agg.flows)
         cotista_rows.extend(agg.cotistas_tipo)
         admin_rows.extend(agg.admin)
+        vehicle_rows.extend(agg.vehicle)
+        agg.audit["pl_spike_excluidos"] = len(excl)
+        agg.audit["cotistas_spike_excluidos"] = len(cot_excl)
+        audit_rows.append(agg.audit)
         if len(processed) % 12 == 0:
             print(f"[info] processadas {len(processed)} competencias (ate {yyyymm})")
 
@@ -726,6 +905,33 @@ def run_pipeline(args: argparse.Namespace) -> None:
     )
 
     classe_map = load_classe_fundo_map(raw_dir, allow_download=not args.skip_download)
+    vehicle_monthly = pd.DataFrame(vehicle_rows)
+    if not vehicle_monthly.empty:
+        if not classe_map.empty:
+            vehicle_monthly = vehicle_monthly.merge(
+                classe_map.rename(columns={"cnpj_classe": "cnpj"}),
+                on="cnpj",
+                how="left",
+            )
+            vehicle_monthly["cnpj_fundo"] = vehicle_monthly["cnpj_fundo"].fillna(vehicle_monthly["cnpj"])
+        else:
+            vehicle_monthly["cnpj_fundo"] = vehicle_monthly["cnpj"]
+        sort_cols = ["competencia", "pl"]
+        vehicle_monthly = vehicle_monthly.sort_values(sort_cols, ascending=[True, False])
+        vehicle_monthly.to_csv(
+            output_dir / "vehicle_monthly.csv.gz",
+            index=False,
+            compression="gzip",
+        )
+    audit_monthly = pd.DataFrame(audit_rows).sort_values("competencia")
+    if not audit_monthly.empty:
+        for col in ["tab1", "tab2", "x1", "x2", "x4", "tab7"]:
+            source_col = f"{col}_veiculos"
+            audit_monthly[f"{col}_coverage"] = (
+                audit_monthly[source_col] / audit_monthly["n_veiculos_usados"]
+            ).where(audit_monthly["n_veiculos_usados"] > 0, 0.0)
+        audit_monthly.to_csv(output_dir / "update_audit_monthly.csv", index=False)
+
     # Foto do universo: ultima competencia "cheia" (a mais recente pode estar em
     # carga no dataset da CVM e viria com PL muito abaixo do mes anterior).
     last_month = args.snapshot_month or processed[-1]
@@ -753,6 +959,8 @@ def run_pipeline(args: argparse.Namespace) -> None:
             "FIC-FIDC identificados por razao social; PL destacado em pl_fic_fidc (dupla contagem economica potencial).",
             "Cotistas = contas por classe/serie (Tab X.1), nao CPFs/CNPJs unicos.",
             "Captacao/resgate/amortizacao: Tab X.4 (valores de movimentacao de cotas no mes).",
+            "vehicle_monthly.csv.gz materializa a menor unidade analitica mensal versionada: competencia x veiculo reportante.",
+            "update_audit_monthly.csv registra cobertura de tabelas e filtros de sanidade para atualizar o estudo mes a mes.",
             "Gestor e custodiante vem do cadastro vigente (foto), nao do informe mensal.",
             "Picos de um unico mes por veiculo (>20x o mes anterior e o seguinte) sao excluidos de PL e cotistas como erro de preenchimento.",
             "Competencias recentes podem estar incompletas (entrega do informe ate 15 dias apos o fechamento; retificacoes ocorrem).",
@@ -961,6 +1169,12 @@ diretamente a leitura dos numeros:
 Serie mensal completa em `data/industry_study/industry_monthly.csv`
 (PL, ativo, carteira, captacoes, resgates, amortizacoes, cotistas, inadimplencia,
 subordinacao, recompras, PL aberto/fechado/exclusivo e PL de FIC-FIDC).
+
+Base granular reprodutivel em `data/industry_study/vehicle_monthly.csv.gz`:
+uma linha por competencia x veiculo reportante, com PL, administrador, segmento
+dominante, fluxos, cotistas, inadimplencia, subordinacao, recompras e chaves
+classe/fundo. A qualidade da atualizacao mensal fica em
+`data/industry_study/update_audit_monthly.csv`.
 
 ## 4. Composicao por tipo de recebivel ({ref_comp})
 

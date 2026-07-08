@@ -1,6 +1,6 @@
 # Estudo da industria de FIDCs — base CVM (dados abertos)
 
-**Data-base:** 2026-05 · **Serie:** 201301 a 202606 · **Gerado em:** 2026-07-07T19:41:22+00:00
+**Data-base:** 2026-05 · **Serie:** 201301 a 202606 · **Gerado em:** 2026-07-08T03:48:48+00:00
 
 > Relatorio gerado por `scripts/build_fidc_industry_study.py` a partir do dataset
 > oficial *FIDC — Documentos: Informe Mensal* (Portal de Dados Abertos da CVM) e do
@@ -75,6 +75,12 @@ diretamente a leitura dos numeros:
 Serie mensal completa em `data/industry_study/industry_monthly.csv`
 (PL, ativo, carteira, captacoes, resgates, amortizacoes, cotistas, inadimplencia,
 subordinacao, recompras, PL aberto/fechado/exclusivo e PL de FIC-FIDC).
+
+Base granular reprodutivel em `data/industry_study/vehicle_monthly.csv.gz`:
+uma linha por competencia x veiculo reportante, com PL, administrador, segmento
+dominante, fluxos, cotistas, inadimplencia, subordinacao, recompras e chaves
+classe/fundo. A qualidade da atualizacao mensal fica em
+`data/industry_study/update_audit_monthly.csv`.
 
 ## 4. Composicao por tipo de recebivel (2026-05)
 
