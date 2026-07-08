@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-index/v1",
-  "generated_at_utc": "2026-07-08T17:26:44+00:00",
+  "generated_at_utc": "2026-07-08T17:38:03+00:00",
   "pipeline": "industry_monthly_refresh",
   "industry_dir": "data/industry_study",
   "output_path": "data/industry_study/industry_pipeline_index.json",
@@ -16,14 +16,14 @@
     ]
   },
   "quality_rollup": {
-    "modules_total": 10,
+    "modules_total": 11,
     "module_status_counts": {
-      "ok": 10
+      "ok": 11
     },
-    "artifacts_total": 54,
-    "artifacts_present": 54,
+    "artifacts_total": 58,
+    "artifacts_present": 58,
     "artifacts_missing": 0,
-    "latest_module_generated_at_utc": "2026-07-08T17:26:43+00:00",
+    "latest_module_generated_at_utc": "2026-07-08T17:38:02+00:00",
     "competencia_final": "202606",
     "competencia_snapshot": "202605",
     "monthly_delta_rows": 4279,
@@ -44,6 +44,8 @@
     "dimension_catalog_dimensions": 26,
     "dimension_monthly_rows": 66946,
     "dimension_monthly_latest_competencia": "2026-06",
+    "dimension_profile_rows": 53541,
+    "dimension_profile_source_dimensions": 26,
     "market_share_rows": 3900,
     "market_share_dimensions": 15,
     "market_share_metrics": 6
@@ -325,6 +327,37 @@
       }
     },
     {
+      "id": "dimension_profiles",
+      "label": "Perfis cruzados por dimensão",
+      "status": "ok",
+      "schema_version": "industry-dimension-profile-manifest/v1",
+      "pipeline": "industry_dimension_profiles",
+      "generated_at_utc": "2026-07-08T17:38:02+00:00",
+      "manifest_path": "data/industry_study/industry_dimension_profile_manifest.json",
+      "command": "python scripts/build_fidc_industry_dimension_profiles.py",
+      "cadence": "após catálogo de dimensões",
+      "depends_on": [
+        "snapshot unificado por FIDC",
+        "catálogo de dimensões"
+      ],
+      "stage_status_counts": {
+        "ok": 2
+      },
+      "stage_count": 2,
+      "artifact_count": 4,
+      "artifacts_present": 4,
+      "quality_highlights": {
+        "rows": 53541,
+        "competencia": "2026-05",
+        "source_dimensions": 26,
+        "target_dimensions": 26,
+        "source_values": 847,
+        "target_values": 847,
+        "with_source_document_links": 220030,
+        "curated_links": 135606
+      }
+    },
+    {
       "id": "market_share",
       "label": "Market share e concentração",
       "status": "ok",
@@ -421,6 +454,14 @@
     },
     {
       "order": 9,
+      "module_id": "dimension_profiles",
+      "label": "Regerar perfis cruzados por dimensão",
+      "command": "python scripts/build_fidc_industry_dimension_profiles.py",
+      "reason": "Materializa composição de cada dimensão por outras dimensões para Deep Dive e heatmaps sem cálculo ad hoc.",
+      "incremental_note": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado."
+    },
+    {
+      "order": 10,
       "module_id": "dimension_monthly",
       "label": "Regerar séries mensais por dimensão",
       "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -428,7 +469,7 @@
       "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação."
     },
     {
-      "order": 10,
+      "order": 11,
       "module_id": "market_share",
       "label": "Regerar market share e concentração",
       "command": "python scripts/build_fidc_industry_market_share.py",
@@ -436,7 +477,7 @@
       "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe."
     },
     {
-      "order": 11,
+      "order": 12,
       "module_id": "pipeline_index",
       "label": "Atualizar cockpit do pipeline",
       "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -955,6 +996,46 @@
       "exists": true,
       "bytes": 2573,
       "sha256": "5516814f6b0dde07eb73270e54645d2bd4312e2d0ab2eb9001fecdd5a713eb65"
+    },
+    {
+      "module_id": "dimension_profiles",
+      "group": "inputs",
+      "artifact": "fund_snapshot",
+      "required": false,
+      "path": "data/industry_study/industry_fund_snapshot.csv.gz",
+      "exists": true,
+      "bytes": 389658,
+      "sha256": "b23a50f92e9b1e3aef0bfb84d77d4bd42fdf912e3b001fb337d6bef5fd5c847e"
+    },
+    {
+      "module_id": "dimension_profiles",
+      "group": "inputs",
+      "artifact": "dimension_catalog",
+      "required": false,
+      "path": "data/industry_study/industry_dimension_catalog.csv.gz",
+      "exists": true,
+      "bytes": 1312249,
+      "sha256": "997744a6ef75169c6698ad97d2e35ddd93de1f62cdac52feda771fe21158d3a8"
+    },
+    {
+      "module_id": "dimension_profiles",
+      "group": "outputs",
+      "artifact": "dimension_profiles",
+      "required": true,
+      "path": "data/industry_study/industry_dimension_profiles.csv.gz",
+      "exists": true,
+      "bytes": 1183214,
+      "sha256": "359bf3bad92376f7b0ef3585d4b54c5ccd1f45f1281cf30995d70cf306a16ace"
+    },
+    {
+      "module_id": "dimension_profiles",
+      "group": "outputs",
+      "artifact": "manifest",
+      "required": true,
+      "path": "data/industry_study/industry_dimension_profile_manifest.json",
+      "exists": true,
+      "bytes": 2559,
+      "sha256": "21d3905294027c1027bd60514d9eee77d3c381a0b9fa079eaa77858e6ee234a0"
     },
     {
       "module_id": "market_share",

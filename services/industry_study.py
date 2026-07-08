@@ -2401,6 +2401,24 @@ def build_industry_pipeline_index(
             ],
         },
         {
+            "module_id": "dimension_profiles",
+            "label": "Perfis cruzados por dimensão",
+            "manifest_name": "industry_dimension_profile_manifest.json",
+            "command": "python scripts/build_fidc_industry_dimension_profiles.py",
+            "cadence": "após catálogo de dimensões",
+            "depends_on": ["snapshot unificado por FIDC", "catálogo de dimensões"],
+            "quality_keys": [
+                "rows",
+                "competencia",
+                "source_dimensions",
+                "target_dimensions",
+                "source_values",
+                "target_values",
+                "with_source_document_links",
+                "curated_links",
+            ],
+        },
+        {
             "module_id": "market_share",
             "label": "Market share e concentração",
             "manifest_name": "industry_market_share_manifest.json",
@@ -2494,6 +2512,14 @@ def build_industry_pipeline_index(
         },
         {
             "order": 9,
+            "module_id": "dimension_profiles",
+            "label": "Regerar perfis cruzados por dimensão",
+            "command": "python scripts/build_fidc_industry_dimension_profiles.py",
+            "reason": "Materializa composição de cada dimensão por outras dimensões para Deep Dive e heatmaps sem cálculo ad hoc.",
+            "incremental_note": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado.",
+        },
+        {
+            "order": 10,
             "module_id": "dimension_monthly",
             "label": "Regerar séries mensais por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -2501,7 +2527,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação.",
         },
         {
-            "order": 10,
+            "order": 11,
             "module_id": "market_share",
             "label": "Regerar market share e concentração",
             "command": "python scripts/build_fidc_industry_market_share.py",
@@ -2509,7 +2535,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe.",
         },
         {
-            "order": 11,
+            "order": 12,
             "module_id": "pipeline_index",
             "label": "Atualizar cockpit do pipeline",
             "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -2534,6 +2560,7 @@ def build_industry_pipeline_index(
     snapshot_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "fund_snapshot"), {})
     dimension_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "dimension_catalog"), {})
     dimension_monthly_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "dimension_monthly"), {})
+    dimension_profile_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "dimension_profiles"), {})
     market_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "market_share"), {})
     criteria_manifest = _safe_read_json(industry_dir / "industry_criteria_manifest.json")
     subordination = criteria_manifest.get("quality", {}).get("subordination", {}) if isinstance(criteria_manifest.get("quality"), dict) else {}
@@ -2582,6 +2609,8 @@ def build_industry_pipeline_index(
             "dimension_catalog_dimensions": dimension_quality.get("dimensions", 0),
             "dimension_monthly_rows": dimension_monthly_quality.get("rows", 0),
             "dimension_monthly_latest_competencia": dimension_monthly_quality.get("latest_competencia", ""),
+            "dimension_profile_rows": dimension_profile_quality.get("rows", 0),
+            "dimension_profile_source_dimensions": dimension_profile_quality.get("source_dimensions", 0),
             "market_share_rows": market_quality.get("rows", 0),
             "market_share_dimensions": market_quality.get("dimensions", 0),
             "market_share_metrics": market_quality.get("metrics", 0),
@@ -3767,6 +3796,31 @@ _DIMENSION_MONTHLY_COLUMNS = [
     "weighted_links",
 ]
 
+_DIMENSION_PROFILE_COLUMNS = [
+    "competencia",
+    "source_dimension_id",
+    "source_dimension_label",
+    "source_dimension_value",
+    "target_dimension_id",
+    "target_dimension_label",
+    "target_dimension_value",
+    "pl_brl",
+    "issuance_2024_2026_brl",
+    "funds_equiv",
+    "funds_unique",
+    "vehicles_unique",
+    "document_rows_equiv",
+    "cedente_rows_equiv",
+    "criteria_rows_equiv",
+    "evidence_layers_equiv",
+    "with_subordination_min_equiv",
+    "catalog_links",
+    "source_document_links",
+    "curated_links",
+    "weighted_links",
+    "avg_confidence_score",
+]
+
 
 def _catalog_clean_value(value: object) -> str:
     text = re.sub(r"\s+", " ", str(value or "").strip())
@@ -4173,6 +4227,264 @@ def industry_dimension_monthly_quality_summary(monthly: pd.DataFrame) -> dict[st
         "curated_rows": int(pd.to_numeric(frame.get("curated_links"), errors="coerce").fillna(0).gt(0).sum())
         if "curated_links" in frame
         else 0,
+    }
+
+
+def _dimension_profile_snapshot(snapshot: pd.DataFrame) -> pd.DataFrame:
+    if snapshot is None or snapshot.empty:
+        return pd.DataFrame()
+    frame = snapshot.copy()
+    if "cnpj_fundo" not in frame.columns and "cnpj" in frame.columns:
+        frame["cnpj_fundo"] = frame["cnpj"]
+    if "cnpj_fundo" not in frame.columns:
+        return pd.DataFrame()
+    frame["cnpj_fundo_norm"] = frame["cnpj_fundo"].map(normalize_cnpj)
+    frame = frame[frame["cnpj_fundo_norm"].astype(str).str.len().eq(14)].copy()
+    if frame.empty:
+        return frame
+    if "cnpj" not in frame.columns:
+        frame["cnpj"] = frame["cnpj_fundo_norm"]
+    defaults = {
+        "competencia": "",
+        "pl": 0.0,
+        "valid_volume_2024_2026_brl": 0.0,
+        "document_rows": 0.0,
+        "cedente_rows": 0.0,
+        "criteria_rows": 0.0,
+        "camadas_com_evidencia": 0.0,
+        "tem_sub_minima": False,
+    }
+    for col, default in defaults.items():
+        if col not in frame.columns:
+            frame[col] = default
+    for col in ["pl", "valid_volume_2024_2026_brl", "document_rows", "cedente_rows", "criteria_rows", "camadas_com_evidencia"]:
+        frame[col] = pd.to_numeric(frame[col], errors="coerce").fillna(0.0)
+    frame["tem_sub_minima_bool"] = frame["tem_sub_minima"].astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})
+    return frame[
+        [
+            "cnpj_fundo_norm",
+            "cnpj",
+            "competencia",
+            "pl",
+            "valid_volume_2024_2026_brl",
+            "document_rows",
+            "cedente_rows",
+            "criteria_rows",
+            "camadas_com_evidencia",
+            "tem_sub_minima_bool",
+        ]
+    ].copy()
+
+
+def _dimension_profile_catalog(catalog: pd.DataFrame) -> pd.DataFrame:
+    if catalog is None or catalog.empty or "cnpj_fundo" not in catalog.columns:
+        return pd.DataFrame()
+    frame = catalog.copy()
+    frame["cnpj_fundo_norm"] = frame["cnpj_fundo"].map(normalize_cnpj)
+    frame = frame[frame["cnpj_fundo_norm"].astype(str).str.len().eq(14)].copy()
+    required = [
+        "dimension_id",
+        "dimension_label",
+        "dimension_value",
+        "value_weight",
+        "source_document",
+        "is_curated",
+        "is_multivalue",
+        "confidence_score",
+    ]
+    for col in required:
+        if col not in frame.columns:
+            frame[col] = ""
+    frame["dimension_value"] = frame["dimension_value"].map(_catalog_clean_value)
+    frame = frame[frame["dimension_value"].ne("")].copy()
+    frame["value_weight"] = pd.to_numeric(frame["value_weight"], errors="coerce").fillna(1.0)
+    frame["source_document_filled"] = frame["source_document"].fillna("").astype(str).str.strip().ne("")
+    frame["is_curated_bool"] = frame["is_curated"].astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})
+    frame["is_multivalue_bool"] = frame["is_multivalue"].astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})
+    frame["confidence_score_num"] = pd.to_numeric(frame["confidence_score"], errors="coerce")
+    frame = frame.drop_duplicates(["cnpj_fundo_norm", "dimension_id", "dimension_value"], keep="first")
+    return frame[
+        [
+            "cnpj_fundo_norm",
+            "dimension_id",
+            "dimension_label",
+            "dimension_value",
+            "value_weight",
+            "source_document_filled",
+            "is_curated_bool",
+            "is_multivalue_bool",
+            "confidence_score_num",
+        ]
+    ].copy()
+
+
+def build_industry_dimension_profiles(
+    *,
+    snapshot: pd.DataFrame,
+    dimension_catalog: pd.DataFrame,
+    target_dimensions: list[str] | None = None,
+) -> pd.DataFrame:
+    """Aggregate latest source-dimension x target-dimension profiles."""
+
+    funds = _dimension_profile_snapshot(snapshot)
+    catalog = _dimension_profile_catalog(dimension_catalog)
+    if funds.empty or catalog.empty:
+        return pd.DataFrame(columns=_DIMENSION_PROFILE_COLUMNS)
+    source = catalog.add_prefix("source_").rename(columns={"source_cnpj_fundo_norm": "cnpj_fundo_norm"})
+    target = catalog
+    if target_dimensions:
+        targets = {str(item) for item in target_dimensions}
+        target = target[target["dimension_id"].astype(str).isin(targets)].copy()
+    target = target.add_prefix("target_").rename(columns={"target_cnpj_fundo_norm": "cnpj_fundo_norm"})
+    pairs = source.merge(target, on="cnpj_fundo_norm", how="inner")
+    if pairs.empty:
+        return pd.DataFrame(columns=_DIMENSION_PROFILE_COLUMNS)
+    pairs = pairs.merge(funds, on="cnpj_fundo_norm", how="inner")
+    if pairs.empty:
+        return pd.DataFrame(columns=_DIMENSION_PROFILE_COLUMNS)
+
+    weight = (
+        pd.to_numeric(pairs["source_value_weight"], errors="coerce").fillna(1.0)
+        * pd.to_numeric(pairs["target_value_weight"], errors="coerce").fillna(1.0)
+    )
+    pairs["_pair_weight"] = weight
+    pairs["_pl_brl"] = pairs["pl"] * weight
+    pairs["_issuance_2024_2026_brl"] = pairs["valid_volume_2024_2026_brl"] * weight
+    pairs["_document_rows_equiv"] = pairs["document_rows"] * weight
+    pairs["_cedente_rows_equiv"] = pairs["cedente_rows"] * weight
+    pairs["_criteria_rows_equiv"] = pairs["criteria_rows"] * weight
+    pairs["_evidence_layers_equiv"] = pairs["camadas_com_evidencia"] * weight
+    pairs["_with_subordination_min_equiv"] = pairs["tem_sub_minima_bool"].astype(int) * weight
+    pairs["_source_document_pair"] = (
+        pairs["source_source_document_filled"].astype(bool) | pairs["target_source_document_filled"].astype(bool)
+    ).astype(int)
+    pairs["_curated_pair"] = (pairs["source_is_curated_bool"].astype(bool) | pairs["target_is_curated_bool"].astype(bool)).astype(int)
+    pairs["_weighted_pair"] = weight.lt(1.0).astype(int)
+    pairs["_pair_confidence"] = pairs[["source_confidence_score_num", "target_confidence_score_num"]].mean(axis=1, skipna=True)
+
+    keys = [
+        "competencia",
+        "source_dimension_id",
+        "source_dimension_label",
+        "source_dimension_value",
+        "target_dimension_id",
+        "target_dimension_label",
+        "target_dimension_value",
+    ]
+    grouped = (
+        pairs.groupby(keys, dropna=False)
+        .agg(
+            pl_brl=("_pl_brl", "sum"),
+            issuance_2024_2026_brl=("_issuance_2024_2026_brl", "sum"),
+            funds_equiv=("_pair_weight", "sum"),
+            funds_unique=("cnpj_fundo_norm", "nunique"),
+            vehicles_unique=("cnpj", "nunique"),
+            document_rows_equiv=("_document_rows_equiv", "sum"),
+            cedente_rows_equiv=("_cedente_rows_equiv", "sum"),
+            criteria_rows_equiv=("_criteria_rows_equiv", "sum"),
+            evidence_layers_equiv=("_evidence_layers_equiv", "sum"),
+            with_subordination_min_equiv=("_with_subordination_min_equiv", "sum"),
+            catalog_links=("cnpj_fundo_norm", "size"),
+            source_document_links=("_source_document_pair", "sum"),
+            curated_links=("_curated_pair", "sum"),
+            weighted_links=("_weighted_pair", "sum"),
+            avg_confidence_score=("_pair_confidence", "mean"),
+        )
+        .reset_index()
+    )
+    for col in _DIMENSION_PROFILE_COLUMNS:
+        if col not in grouped.columns:
+            grouped[col] = 0 if col not in keys else ""
+    return grouped[_DIMENSION_PROFILE_COLUMNS].sort_values(
+        ["source_dimension_id", "source_dimension_value", "target_dimension_id", "pl_brl"],
+        ascending=[True, True, True, False],
+    )
+
+
+def industry_dimension_profile_quality_summary(profiles: pd.DataFrame) -> dict[str, object]:
+    if profiles is None or profiles.empty:
+        return {
+            "rows": 0,
+            "source_dimensions": 0,
+            "target_dimensions": 0,
+            "source_values": 0,
+            "target_values": 0,
+        }
+    frame = profiles.copy()
+    return {
+        "rows": int(len(frame)),
+        "competencia": _first_non_empty(frame.get("competencia", pd.Series(dtype=str))),
+        "source_dimensions": int(frame["source_dimension_id"].nunique()) if "source_dimension_id" in frame else 0,
+        "target_dimensions": int(frame["target_dimension_id"].nunique()) if "target_dimension_id" in frame else 0,
+        "source_values": int(frame[["source_dimension_id", "source_dimension_value"]].drop_duplicates().shape[0])
+        if {"source_dimension_id", "source_dimension_value"}.issubset(frame.columns)
+        else 0,
+        "target_values": int(frame[["target_dimension_id", "target_dimension_value"]].drop_duplicates().shape[0])
+        if {"target_dimension_id", "target_dimension_value"}.issubset(frame.columns)
+        else 0,
+        "profile_links": int(pd.to_numeric(frame.get("catalog_links"), errors="coerce").fillna(0).sum()),
+        "with_source_document_links": int(pd.to_numeric(frame.get("source_document_links"), errors="coerce").fillna(0).sum()),
+        "curated_links": int(pd.to_numeric(frame.get("curated_links"), errors="coerce").fillna(0).sum()),
+        "weighted_links": int(pd.to_numeric(frame.get("weighted_links"), errors="coerce").fillna(0).sum()),
+    }
+
+
+def build_dimension_profile_pipeline_manifest(
+    *,
+    industry_dir: Path,
+    snapshot_path: Path,
+    dimension_catalog_path: Path,
+    output_path: Path,
+    manifest_path: Path,
+    snapshot: pd.DataFrame,
+    dimension_catalog: pd.DataFrame,
+    profiles: pd.DataFrame,
+) -> dict[str, object]:
+    quality = industry_dimension_profile_quality_summary(profiles)
+    return {
+        "schema_version": "industry-dimension-profile-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_dimension_profiles",
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "macbook_air_m4_friendly": True,
+            "notes": [
+                "Materializa cruzamentos dimensão-origem x dimensão-alvo para Deep Dives e heatmaps.",
+                "Usa apenas snapshot e catálogo já estruturados; não reprocessa informes ou documentos.",
+                "Dimensões multivalor são ponderadas pelo produto dos pesos de origem e alvo.",
+            ],
+        },
+        "inputs": {
+            "fund_snapshot": file_fingerprint(snapshot_path),
+            "dimension_catalog": file_fingerprint(dimension_catalog_path),
+        },
+        "outputs": {
+            "dimension_profiles": file_fingerprint(output_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "load_snapshot_and_catalog",
+                "label": "Carregar snapshot e catálogo",
+                "status": "ok" if not snapshot.empty and not dimension_catalog.empty else "empty",
+                "input": f"{snapshot_path}+{dimension_catalog_path}",
+                "output": "memoria:snapshot+dimension_catalog",
+                "rows": int(len(snapshot) + len(dimension_catalog)),
+                "rerun": "python scripts/build_fidc_industry_fund_snapshot.py && python scripts/build_fidc_industry_dimensions.py",
+            },
+            {
+                "id": "aggregate_cross_dimension_profiles",
+                "label": "Agregar perfis cruzados",
+                "status": "ok" if not profiles.empty else "empty",
+                "input": "memoria:snapshot+dimension_catalog",
+                "output": str(output_path),
+                "rows": int(len(profiles)),
+                "profile_links": quality.get("profile_links", 0),
+                "rerun": "python scripts/build_fidc_industry_dimension_profiles.py",
+            },
+        ],
+        "quality": quality,
     }
 
 

@@ -28,10 +28,12 @@ from services.industry_study import (  # noqa: E402
     build_criteria_structured,
     build_dimension_catalog_pipeline_manifest,
     build_dimension_monthly_pipeline_manifest,
+    build_dimension_profile_pipeline_manifest,
     build_document_inventory,
     build_document_pipeline_manifest,
     build_industry_dimension_catalog,
     build_industry_dimension_monthly,
+    build_industry_dimension_profiles,
     build_industry_fund_snapshot,
     build_industry_monthly_delta,
     build_industry_market_share,
@@ -50,6 +52,7 @@ from services.industry_study import (  # noqa: E402
     fund_snapshot_quality_summary,
     industry_dimension_catalog_quality_summary,
     industry_dimension_monthly_quality_summary,
+    industry_dimension_profile_quality_summary,
     industry_market_share_quality_summary,
     industry_monthly_delta_quality_summary,
     load_cedente_structured,
@@ -1226,6 +1229,133 @@ def test_industry_dimension_monthly_aggregates_weighted_series_and_manifest():
     assert manifest["quality"]["rows"] == len(monthly)
 
 
+def test_industry_dimension_profiles_crosses_catalog_dimensions_and_manifest():
+    snapshot = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "cnpj": "05753599000158",
+                "competencia": "2026-05",
+                "pl": 100.0,
+                "valid_volume_2024_2026_brl": 40.0,
+                "document_rows": 2,
+                "cedente_rows": 1,
+                "criteria_rows": 1,
+                "camadas_com_evidencia": 4,
+                "tem_sub_minima": True,
+            },
+            {
+                "cnpj_fundo": "11111111000111",
+                "cnpj": "11111111000111",
+                "competencia": "2026-05",
+                "pl": 50.0,
+                "valid_volume_2024_2026_brl": 10.0,
+                "document_rows": 1,
+                "cedente_rows": 0,
+                "criteria_rows": 0,
+                "camadas_com_evidencia": 2,
+                "tem_sub_minima": False,
+            },
+        ]
+    )
+    catalog = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "dimension_id": "admin",
+                "dimension_label": "Administrador",
+                "dimension_value": "ADMIN A",
+                "value_weight": 1.0,
+            },
+            {
+                "cnpj_fundo": "11111111000111",
+                "dimension_id": "admin",
+                "dimension_label": "Administrador",
+                "dimension_value": "ADMIN A",
+                "value_weight": 1.0,
+            },
+            {
+                "cnpj_fundo": "05753599000158",
+                "dimension_id": "segmento",
+                "dimension_label": "Segmento",
+                "dimension_value": "Financeiro",
+                "value_weight": 1.0,
+            },
+            {
+                "cnpj_fundo": "11111111000111",
+                "dimension_id": "segmento",
+                "dimension_label": "Segmento",
+                "dimension_value": "Industrial",
+                "value_weight": 1.0,
+            },
+            {
+                "cnpj_fundo": "05753599000158",
+                "dimension_id": "indexador",
+                "dimension_label": "Indexador",
+                "dimension_value": "CDI+",
+                "value_weight": 0.5,
+                "source_document": "reg.pdf",
+                "is_multivalue": True,
+                "confidence_score": 0.8,
+            },
+            {
+                "cnpj_fundo": "05753599000158",
+                "dimension_id": "indexador",
+                "dimension_label": "Indexador",
+                "dimension_value": "IPCA+",
+                "value_weight": 0.5,
+                "source_document": "reg.pdf",
+                "is_multivalue": True,
+                "confidence_score": 0.8,
+            },
+        ]
+    )
+
+    profiles = build_industry_dimension_profiles(snapshot=snapshot, dimension_catalog=catalog)
+    quality = industry_dimension_profile_quality_summary(profiles)
+    admin_segments = profiles[
+        profiles["source_dimension_id"].eq("admin")
+        & profiles["source_dimension_value"].eq("ADMIN A")
+        & profiles["target_dimension_id"].eq("segmento")
+    ].set_index("target_dimension_value")
+    admin_indexers = profiles[
+        profiles["source_dimension_id"].eq("admin")
+        & profiles["source_dimension_value"].eq("ADMIN A")
+        & profiles["target_dimension_id"].eq("indexador")
+    ].set_index("target_dimension_value")
+
+    assert admin_segments.loc["Financeiro", "pl_brl"] == 100.0
+    assert admin_segments.loc["Industrial", "pl_brl"] == 50.0
+    assert admin_indexers.loc["CDI+", "pl_brl"] == 50.0
+    assert admin_indexers.loc["IPCA+", "pl_brl"] == 50.0
+    assert admin_indexers.loc["CDI+", "source_document_links"] == 1
+    assert quality["source_dimensions"] == 3
+    assert quality["target_dimensions"] == 3
+
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        snapshot_path = tmp_path / "industry_fund_snapshot.csv.gz"
+        catalog_path = tmp_path / "industry_dimension_catalog.csv.gz"
+        output_path = tmp_path / "industry_dimension_profiles.csv.gz"
+        manifest_path = tmp_path / "industry_dimension_profile_manifest.json"
+        snapshot.to_csv(snapshot_path, index=False, compression="gzip")
+        catalog.to_csv(catalog_path, index=False, compression="gzip")
+        profiles.to_csv(output_path, index=False, compression="gzip")
+        manifest = build_dimension_profile_pipeline_manifest(
+            industry_dir=tmp_path,
+            snapshot_path=snapshot_path,
+            dimension_catalog_path=catalog_path,
+            output_path=output_path,
+            manifest_path=manifest_path,
+            snapshot=snapshot,
+            dimension_catalog=catalog,
+            profiles=profiles,
+        )
+
+    assert manifest["schema_version"] == "industry-dimension-profile-manifest/v1"
+    assert manifest["quality"]["rows"] == len(profiles)
+
+
 def test_industry_monthly_delta_prioritizes_incremental_review_queue():
     vehicle = pd.DataFrame(
         [
@@ -1511,6 +1641,21 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
             },
         )
         write_module_manifest(
+            "industry_dimension_profile_manifest.json",
+            "industry_dimension_profiles",
+            "industry_dimension_profiles.csv.gz",
+            {
+                "rows": 240,
+                "competencia": "2026-05",
+                "source_dimensions": 10,
+                "target_dimensions": 10,
+                "source_values": 20,
+                "target_values": 20,
+                "with_source_document_links": 8,
+                "curated_links": 4,
+            },
+        )
+        write_module_manifest(
             "industry_market_share_manifest.json",
             "industry_market_share",
             "industry_market_share.csv.gz",
@@ -1528,8 +1673,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
     assert index["schema_version"] == "industry-pipeline-index/v1"
-    assert index["quality_rollup"]["modules_total"] == 10
-    assert index["quality_rollup"]["module_status_counts"]["ok"] == 10
+    assert index["quality_rollup"]["modules_total"] == 11
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 11
     assert index["quality_rollup"]["competencia_snapshot"] == "202605"
     assert index["quality_rollup"]["monthly_delta_new_funds"] == 1
     assert index["quality_rollup"]["monthly_delta_high_priority"] == 2
@@ -1540,12 +1685,15 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["dimension_catalog_dimensions"] == 10
     assert index["quality_rollup"]["dimension_monthly_rows"] == 120
     assert index["quality_rollup"]["dimension_monthly_latest_competencia"] == "202605"
+    assert index["quality_rollup"]["dimension_profile_rows"] == 240
+    assert index["quality_rollup"]["dimension_profile_source_dimensions"] == 10
     assert index["quality_rollup"]["market_share_rows"] == 30
     assert index["quality_rollup"]["market_share_dimensions"] == 5
     assert {stage["module_id"] for stage in index["refresh_plan"]} >= {
         "base_monthly",
         "fund_snapshot",
         "dimension_catalog",
+        "dimension_profiles",
         "dimension_monthly",
         "market_share",
         "monthly_delta",

@@ -73,6 +73,8 @@ _DIMENSION_CATALOG_PATH = _DATA_DIR / "industry_dimension_catalog.csv.gz"
 _DIMENSION_CATALOG_MANIFEST_PATH = _DATA_DIR / "industry_dimension_catalog_manifest.json"
 _DIMENSION_MONTHLY_PATH = _DATA_DIR / "industry_dimension_monthly.csv.gz"
 _DIMENSION_MONTHLY_MANIFEST_PATH = _DATA_DIR / "industry_dimension_monthly_manifest.json"
+_DIMENSION_PROFILE_PATH = _DATA_DIR / "industry_dimension_profiles.csv.gz"
+_DIMENSION_PROFILE_MANIFEST_PATH = _DATA_DIR / "industry_dimension_profile_manifest.json"
 _MARKET_SHARE_PATH = _DATA_DIR / "industry_market_share.csv.gz"
 _MARKET_SHARE_MANIFEST_PATH = _DATA_DIR / "industry_market_share_manifest.json"
 _ISSUANCE_ANNUAL_PATH = _DATA_DIR / "issuance_annual.csv"
@@ -588,6 +590,14 @@ def _load_dimension_monthly_tables() -> dict[str, pd.DataFrame | dict[str, objec
     return {
         "monthly": load_dataframe(_DIMENSION_MONTHLY_PATH),
         "manifest": load_pipeline_manifest(_DIMENSION_MONTHLY_MANIFEST_PATH),
+    }
+
+
+@st.cache_data(show_spinner=False)
+def _load_dimension_profile_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    return {
+        "profiles": load_dataframe(_DIMENSION_PROFILE_PATH),
+        "manifest": load_pipeline_manifest(_DIMENSION_PROFILE_MANIFEST_PATH),
     }
 
 
@@ -3226,6 +3236,11 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
     dimension_monthly_manifest = monthly_tables["manifest"]
     assert isinstance(dimension_monthly, pd.DataFrame)
     assert isinstance(dimension_monthly_manifest, dict)
+    profile_tables = _load_dimension_profile_tables() if use_catalog else {"profiles": pd.DataFrame(), "manifest": {}}
+    dimension_profiles = profile_tables["profiles"]
+    dimension_profile_manifest = profile_tables["manifest"]
+    assert isinstance(dimension_profiles, pd.DataFrame)
+    assert isinstance(dimension_profile_manifest, dict)
     dimensions = catalog_dimensions if use_catalog else fallback_dimensions
     ctrl_a, ctrl_b, ctrl_c = st.columns([0.9, 0.9, 1.2])
     with ctrl_a:
@@ -3423,6 +3438,121 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
         table = selected_current.sort_values("pl_metric", ascending=False).head(30).copy()
         show = _format_vehicle_table(table)
         st.dataframe(show, hide_index=True, width="stretch")
+
+    if use_catalog and not dimension_profiles.empty:
+        profile = dimension_profiles[
+            dimension_profiles.get("source_dimension_id", pd.Series("", index=dimension_profiles.index)).astype(str).eq(str(dim_col))
+            & dimension_profiles.get("source_dimension_value", pd.Series("", index=dimension_profiles.index)).astype(str).eq(str(selected_value))
+        ].copy()
+        if not profile.empty:
+            st.markdown("**Perfil cruzado estruturado**")
+            option_rows = (
+                profile[["target_dimension_label", "target_dimension_id"]]
+                .drop_duplicates()
+                .sort_values("target_dimension_label")
+            )
+            target_options = {
+                str(row["target_dimension_label"]): str(row["target_dimension_id"])
+                for _, row in option_rows.iterrows()
+                if str(row["target_dimension_label"]).strip()
+            }
+            default_label = next(
+                (
+                    label
+                    for label in ["Segmento", "Administrador", "Cedente/sacado", "Critério", "Indexador"]
+                    if label in target_options and target_options[label] != str(dim_col)
+                ),
+                next(iter(target_options), ""),
+            )
+            metric_options = {
+                "PL": "pl_brl",
+                "Emissões 24-26": "issuance_2024_2026_brl",
+                "Fundos eq.": "funds_equiv",
+                "Documentos": "document_rows_equiv",
+                "Cedentes": "cedente_rows_equiv",
+                "Critérios": "criteria_rows_equiv",
+            }
+            ctrl_profile_a, ctrl_profile_b = st.columns([1.0, 0.8])
+            with ctrl_profile_a:
+                target_label = st.selectbox(
+                    "Quebra",
+                    list(target_options),
+                    index=list(target_options).index(default_label) if default_label in target_options else 0,
+                    key="industry_deep_profile_target",
+                )
+            with ctrl_profile_b:
+                profile_metric_label = st.selectbox(
+                    "Métrica do perfil",
+                    list(metric_options),
+                    key="industry_deep_profile_metric",
+                )
+            target_id = target_options[target_label]
+            metric_col = metric_options[profile_metric_label]
+            breakdown = profile[profile["target_dimension_id"].astype(str).eq(target_id)].copy()
+            breakdown[metric_col] = pd.to_numeric(breakdown.get(metric_col), errors="coerce").fillna(0.0)
+            breakdown = breakdown.sort_values(metric_col, ascending=False).head(20)
+            if not breakdown.empty:
+                value_col = "Valor"
+                chart_data = breakdown[["target_dimension_value", metric_col]].rename(
+                    columns={"target_dimension_value": value_col, metric_col: "Métrica"}
+                )
+                chart_data["Métrica bi"] = chart_data["Métrica"] / 1e9 if metric_col.endswith("_brl") else chart_data["Métrica"]
+                axis_title = "R$ bi" if metric_col.endswith("_brl") else profile_metric_label
+                st.altair_chart(
+                    alt.Chart(chart_data)
+                    .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+                    .encode(
+                        x=alt.X("Métrica bi:Q", title=axis_title, axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                        y=alt.Y(f"{value_col}:N", title=None, sort="-x"),
+                        tooltip=[
+                            alt.Tooltip(f"{value_col}:N", title=target_label),
+                            alt.Tooltip("Métrica bi:Q", title=axis_title, format=",.2f"),
+                        ],
+                    )
+                    .properties(height=320),
+                    width="stretch",
+                )
+                table_profile = breakdown[
+                    [
+                        "target_dimension_value",
+                        "pl_brl",
+                        "issuance_2024_2026_brl",
+                        "funds_equiv",
+                        "funds_unique",
+                        "document_rows_equiv",
+                        "cedente_rows_equiv",
+                        "criteria_rows_equiv",
+                        "curated_links",
+                        "source_document_links",
+                    ]
+                ].rename(
+                    columns={
+                        "target_dimension_value": target_label,
+                        "pl_brl": "PL",
+                        "issuance_2024_2026_brl": "Emissões 24-26",
+                        "funds_equiv": "Fundos eq.",
+                        "funds_unique": "Fundos únicos",
+                        "document_rows_equiv": "Docs",
+                        "cedente_rows_equiv": "Cedentes",
+                        "criteria_rows_equiv": "Critérios",
+                        "curated_links": "Links curados",
+                        "source_document_links": "Links com fonte",
+                    }
+                )
+                for money_col in ["PL", "Emissões 24-26"]:
+                    table_profile[money_col] = pd.to_numeric(table_profile[money_col], errors="coerce").fillna(0).map(
+                        lambda value: _fmt_bi(float(value), 2)
+                    )
+                for count_col in ["Fundos eq.", "Fundos únicos", "Docs", "Cedentes", "Critérios", "Links curados", "Links com fonte"]:
+                    table_profile[count_col] = pd.to_numeric(table_profile[count_col], errors="coerce").fillna(0).map(
+                        lambda value: _fmt_int(float(value))
+                    )
+                st.dataframe(table_profile, hide_index=True, width="stretch")
+                generated_at = dimension_profile_manifest.get("generated_at_utc", "")
+                source = f"Perfil: `{_DIMENSION_PROFILE_PATH.name}`"
+                if generated_at:
+                    source += f" · gerado em {generated_at}"
+                st.caption(source)
 
     if use_catalog:
         generated_at = catalog_manifest.get("generated_at_utc", "")
