@@ -1447,6 +1447,14 @@ def criteria_quality_summary(
 def file_fingerprint(path: Path) -> dict[str, object]:
     if not path.exists():
         return {"path": str(path), "exists": False, "bytes": 0, "sha256": ""}
+    if path.is_dir():
+        return {
+            "path": str(path),
+            "exists": True,
+            "bytes": 0,
+            "sha256": "",
+            "kind": "directory",
+        }
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
@@ -1456,6 +1464,426 @@ def file_fingerprint(path: Path) -> dict[str, object]:
         "exists": True,
         "bytes": path.stat().st_size,
         "sha256": digest.hexdigest(),
+    }
+
+
+def _safe_read_json(path: Path) -> dict[str, object]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _artifact_info(info: object, *, fallback_path: Path | None = None) -> dict[str, object]:
+    if isinstance(info, dict):
+        path_value = info.get("path") or (str(fallback_path) if fallback_path is not None else "")
+        if path_value:
+            fingerprint = file_fingerprint(Path(str(path_value)))
+            out = {**fingerprint, **info}
+            out["exists"] = bool(fingerprint.get("exists"))
+            out["bytes"] = fingerprint.get("bytes", info.get("bytes", 0))
+            out["sha256"] = fingerprint.get("sha256", info.get("sha256", ""))
+            out["path"] = str(path_value)
+            return out
+        return {**info, "path": ""}
+    if fallback_path is None:
+        return {"path": "", "exists": False, "bytes": 0, "sha256": ""}
+    return file_fingerprint(fallback_path)
+
+
+def _stage_status_counts(manifest: dict[str, object]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for stage in manifest.get("stages", []):
+        if not isinstance(stage, dict):
+            continue
+        status = str(stage.get("status") or "unknown")
+        counts[status] = counts.get(status, 0) + 1
+    return counts
+
+
+def _module_status(manifest: dict[str, object], artifacts: list[dict[str, object]]) -> str:
+    if not manifest:
+        return "missing"
+    if any(item.get("required") is True and item.get("exists") is False for item in artifacts):
+        return "missing_artifact"
+    counts = _stage_status_counts(manifest)
+    if any(status not in {"ok"} for status in counts):
+        return "warning"
+    return "ok"
+
+
+def _manifest_artifacts(
+    manifest: dict[str, object],
+    *,
+    module_id: str,
+    manifest_path: Path,
+) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for group_name in ["inputs", "outputs"]:
+        files = manifest.get(group_name, {})
+        if not isinstance(files, dict):
+            continue
+        for artifact, info in files.items():
+            fallback = manifest_path if artifact == "manifest" else None
+            artifact_info = _artifact_info(info, fallback_path=fallback)
+            rows.append(
+                {
+                    "module_id": module_id,
+                    "group": group_name,
+                    "artifact": str(artifact),
+                    "required": group_name == "outputs",
+                    **artifact_info,
+                }
+            )
+    if not any(row["artifact"] == "manifest" and row["group"] == "outputs" for row in rows):
+        rows.append(
+            {
+                "module_id": module_id,
+                "group": "outputs",
+                "artifact": "manifest",
+                "required": True,
+                **file_fingerprint(manifest_path),
+            }
+        )
+    return rows
+
+
+def _quality_pick(quality: dict[str, object], keys: list[str]) -> dict[str, object]:
+    return {key: quality.get(key) for key in keys if key in quality}
+
+
+def _build_base_monthly_module(industry_dir: Path) -> tuple[dict[str, object], list[dict[str, object]]]:
+    metadata_path = industry_dir / "metadata.json"
+    metadata = _safe_read_json(metadata_path)
+    output_names = [
+        "industry_monthly.csv",
+        "vehicle_monthly.csv.gz",
+        "update_audit_monthly.csv",
+        "admin_monthly.csv",
+        "flows_monthly.csv",
+        "segments_monthly.csv",
+        "prestadores_latest.csv",
+        "universe_latest.csv",
+    ]
+    artifacts = [
+        {
+            "module_id": "base_monthly",
+            "group": "outputs",
+            "artifact": name,
+            "required": True,
+            **file_fingerprint(industry_dir / name),
+        }
+        for name in output_names
+    ]
+    artifacts.append(
+        {
+            "module_id": "base_monthly",
+            "group": "outputs",
+            "artifact": "metadata",
+            "required": True,
+            **file_fingerprint(metadata_path),
+        }
+    )
+    missing_required = any(row.get("exists") is False for row in artifacts)
+    module = {
+        "id": "base_monthly",
+        "label": "Base granular mensal",
+        "status": "missing_artifact" if missing_required else "ok",
+        "schema_version": "industry-monthly-base/v1",
+        "pipeline": "industry_granular_ime",
+        "generated_at_utc": metadata.get("gerado_em_utc", ""),
+        "manifest_path": str(metadata_path),
+        "command": "python scripts/build_fidc_industry_study.py --report",
+        "cadence": "mensal",
+        "depends_on": ["CVM informes mensais", "Cadastro CVM"],
+        "stage_status_counts": {"ok": 1} if not missing_required else {"missing_artifact": 1},
+        "artifact_count": len(artifacts),
+        "artifacts_present": sum(1 for item in artifacts if item.get("exists") is True),
+        "quality_highlights": {
+            "competencia_inicial": metadata.get("competencia_inicial", ""),
+            "competencia_final": metadata.get("competencia_final", ""),
+            "competencia_snapshot": metadata.get("competencia_snapshot", ""),
+            "n_competencias": metadata.get("n_competencias", 0),
+        },
+    }
+    return module, artifacts
+
+
+def _build_manifest_module(
+    *,
+    industry_dir: Path,
+    module_id: str,
+    label: str,
+    manifest_name: str,
+    command: str,
+    cadence: str,
+    depends_on: list[str],
+    quality_keys: list[str],
+) -> tuple[dict[str, object], list[dict[str, object]]]:
+    manifest_path = industry_dir / manifest_name
+    manifest = _safe_read_json(manifest_path)
+    artifacts = _manifest_artifacts(manifest, module_id=module_id, manifest_path=manifest_path) if manifest else [
+        {
+            "module_id": module_id,
+            "group": "outputs",
+            "artifact": "manifest",
+            "required": True,
+            **file_fingerprint(manifest_path),
+        }
+    ]
+    quality = manifest.get("quality", {}) if isinstance(manifest.get("quality"), dict) else {}
+    module = {
+        "id": module_id,
+        "label": label,
+        "status": _module_status(manifest, artifacts),
+        "schema_version": manifest.get("schema_version", ""),
+        "pipeline": manifest.get("pipeline", ""),
+        "generated_at_utc": manifest.get("generated_at_utc", ""),
+        "manifest_path": str(manifest_path),
+        "command": command,
+        "cadence": cadence,
+        "depends_on": depends_on,
+        "stage_status_counts": _stage_status_counts(manifest),
+        "stage_count": len(manifest.get("stages", [])) if isinstance(manifest.get("stages"), list) else 0,
+        "artifact_count": len(artifacts),
+        "artifacts_present": sum(1 for item in artifacts if item.get("exists") is True),
+        "quality_highlights": _quality_pick(quality, quality_keys),
+    }
+    return module, artifacts
+
+
+def _latest_iso(values: list[object]) -> str:
+    parsed: list[str] = []
+    for value in values:
+        text = str(value or "").strip()
+        if text:
+            parsed.append(text)
+    return max(parsed) if parsed else ""
+
+
+def build_industry_pipeline_index(
+    *,
+    industry_dir: Path,
+    output_path: Path | None = None,
+) -> dict[str, object]:
+    """Build the monthly refresh cockpit for all Industry tab modules."""
+
+    module_specs = [
+        {
+            "module_id": "issuance",
+            "label": "Emissões e ofertas",
+            "manifest_name": "industry_issuance_manifest.json",
+            "command": "python scripts/build_fidc_industry_issuance.py",
+            "cadence": "quando Estratégia/ofertas mudar",
+            "depends_on": ["SQLite da aba Estratégia"],
+            "quality_keys": [
+                "annual_years",
+                "annual_volume_conservador_brl",
+                "annual_emissores_cnpj",
+                "sector_year_rows",
+                "tranche_rows",
+                "tranche_funds",
+            ],
+        },
+        {
+            "module_id": "documents",
+            "label": "Inventário documental",
+            "manifest_name": "industry_document_manifest.json",
+            "command": "python scripts/build_fidc_industry_documents.py",
+            "cadence": "incremental/chunks",
+            "depends_on": ["SQLite da aba Estratégia", "data/regulatory_extractions"],
+            "quality_keys": [
+                "document_rows",
+                "funds",
+                "priority_2025_2026_docs",
+                "local_ready_docs",
+                "missing_local_docs",
+                "chunks",
+                "max_documents_per_chunk",
+                "max_cnpjs_per_chunk",
+            ],
+        },
+        {
+            "module_id": "cedentes",
+            "label": "Cedentes e sacados",
+            "manifest_name": "industry_pipeline_manifest.json",
+            "command": "python scripts/build_fidc_industry_cedentes.py",
+            "cadence": "após extração/curadoria",
+            "depends_on": ["SQLite da aba Estratégia", "revisões manuais da UI", "base granular mensal"],
+            "quality_keys": [
+                "candidate_rows",
+                "candidate_funds",
+                "structured_rows",
+                "structured_funds",
+                "priority_2025_2026_rows",
+                "priority_2025_2026_funds",
+                "review_rows",
+            ],
+        },
+        {
+            "module_id": "criteria",
+            "label": "Critérios e subordinação",
+            "manifest_name": "industry_criteria_manifest.json",
+            "command": "python scripts/build_fidc_industry_criteria.py",
+            "cadence": "após curadoria regulatória",
+            "depends_on": ["data/regulatory_profiles/all_fidcs_criteria_monitoraveis_ime.csv", "revisões manuais da UI"],
+            "quality_keys": [
+                "source_rows",
+                "source_funds",
+                "structured_rows",
+                "structured_funds",
+                "subordination_rows",
+                "subordination_funds",
+                "monitorable_rows",
+                "partial_rows",
+                "review_rows",
+            ],
+        },
+        {
+            "module_id": "fund_snapshot",
+            "label": "Snapshot unificado por FIDC",
+            "manifest_name": "industry_fund_snapshot_manifest.json",
+            "command": "python scripts/build_fidc_industry_fund_snapshot.py",
+            "cadence": "após módulos estruturados",
+            "depends_on": ["base granular mensal", "emissões", "documentos", "cedentes", "critérios"],
+            "quality_keys": [
+                "fund_rows",
+                "pl_total_brl",
+                "with_issuance_2025_2026",
+                "with_documents",
+                "with_cedentes",
+                "with_criteria",
+                "with_subordination_min",
+            ],
+        },
+    ]
+
+    base_module, base_artifacts = _build_base_monthly_module(industry_dir)
+    modules = [base_module]
+    artifact_rows = base_artifacts
+    for spec in module_specs:
+        module, artifacts = _build_manifest_module(industry_dir=industry_dir, **spec)
+        modules.append(module)
+        artifact_rows.extend(artifacts)
+
+    refresh_plan = [
+        {
+            "order": 1,
+            "module_id": "base_monthly",
+            "label": "Atualizar informes mensais e foto granular",
+            "command": "python scripts/build_fidc_industry_study.py --report",
+            "reason": "Atualiza PL, fluxos, inadimplência, FIC-FIDC overlay, prestadores e auditoria de cobertura.",
+            "incremental_note": "Baixa/usa apenas competências necessárias e materializa CSVs por veículo x competência.",
+        },
+        {
+            "order": 2,
+            "module_id": "issuance",
+            "label": "Reconciliar emissões/ofertas",
+            "command": "python scripts/build_fidc_industry_issuance.py",
+            "reason": "Refaz séries de volume anual, emissores, setor x ano e tranches documentais.",
+            "incremental_note": "Lê o SQLite da Estratégia já estruturado; não depende de Informe Mensal.",
+        },
+        {
+            "order": 3,
+            "module_id": "documents",
+            "label": "Inventariar documentação pública",
+            "command": "python scripts/build_fidc_industry_documents.py",
+            "reason": "Atualiza fingerprints, classes documentais e chunks pequenos para processamento posterior.",
+            "incremental_note": "Use --chunk-id doc-0001 para rodar ou depurar lotes sem reprocessar a indústria toda.",
+        },
+        {
+            "order": 4,
+            "module_id": "cedentes",
+            "label": "Regerar base de cedentes/sacados",
+            "command": "python scripts/build_fidc_industry_cedentes.py",
+            "reason": "Aplica revisões manuais e expõe participantes para heatmaps e deep dives.",
+            "incremental_note": "A curadoria continua sendo feita pela UI e reaplicada pelo overlay persistido.",
+        },
+        {
+            "order": 5,
+            "module_id": "criteria",
+            "label": "Regerar critérios e subordinação mínima",
+            "command": "python scripts/build_fidc_industry_criteria.py",
+            "reason": "Atualiza regras monitoráveis, sub mínima e status de revisão por fundo.",
+            "incremental_note": "Revisões feitas pela UI são reaplicadas antes da consolidação.",
+        },
+        {
+            "order": 6,
+            "module_id": "fund_snapshot",
+            "label": "Regerar snapshot unificado por FIDC",
+            "command": "python scripts/build_fidc_industry_fund_snapshot.py",
+            "reason": "Consolida uma linha por CNPJ com IME, emissões, documentos, cedentes e critérios.",
+            "incremental_note": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem.",
+        },
+        {
+            "order": 7,
+            "module_id": "pipeline_index",
+            "label": "Atualizar cockpit do pipeline",
+            "command": "python scripts/build_fidc_industry_pipeline_index.py",
+            "reason": "Recalcula hashes, freshness, status dos módulos e checklist mensal visível na aba Pipeline.",
+            "incremental_note": "Não reprocessa dados; apenas lê manifests e arquivos já materializados.",
+        },
+    ]
+
+    status_counts: dict[str, int] = {}
+    for module in modules:
+        status = str(module.get("status") or "unknown")
+        status_counts[status] = status_counts.get(status, 0) + 1
+    generated_values = [module.get("generated_at_utc") for module in modules if module.get("generated_at_utc")]
+    artifact_total = len(artifact_rows)
+    artifact_present = sum(1 for item in artifact_rows if item.get("exists") is True)
+    base_meta = base_module.get("quality_highlights", {})
+    criteria_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "criteria"), {})
+    document_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "documents"), {})
+    cedente_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "cedentes"), {})
+    issuance_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "issuance"), {})
+    snapshot_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "fund_snapshot"), {})
+    criteria_manifest = _safe_read_json(industry_dir / "industry_criteria_manifest.json")
+    subordination = criteria_manifest.get("quality", {}).get("subordination", {}) if isinstance(criteria_manifest.get("quality"), dict) else {}
+
+    return {
+        "schema_version": "industry-pipeline-index/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_monthly_refresh",
+        "industry_dir": str(industry_dir),
+        "output_path": str(output_path) if output_path is not None else str(industry_dir / "industry_pipeline_index.json"),
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "manual_review_in_app": True,
+            "macbook_air_m4_friendly": True,
+            "notes": [
+                "Este índice não reprocessa dados; ele agrega manifests e fingerprints para orientar a atualização mensal.",
+                "Cada módulo pode ser reexecutado de forma independente e possui artefatos persistidos.",
+                "Documentos são divididos em chunks para processamento incremental confortável em notebook.",
+            ],
+        },
+        "quality_rollup": {
+            "modules_total": len(modules),
+            "module_status_counts": status_counts,
+            "artifacts_total": artifact_total,
+            "artifacts_present": artifact_present,
+            "artifacts_missing": artifact_total - artifact_present,
+            "latest_module_generated_at_utc": _latest_iso(generated_values),
+            "competencia_final": base_meta.get("competencia_final", ""),
+            "competencia_snapshot": base_meta.get("competencia_snapshot", ""),
+            "document_chunks": document_quality.get("chunks", 0),
+            "max_documents_per_chunk": document_quality.get("max_documents_per_chunk", 0),
+            "cedentes_structured_rows": cedente_quality.get("structured_rows", 0),
+            "criteria_structured_rows": criteria_quality.get("structured_rows", 0),
+            "subordination_funds": criteria_quality.get("subordination_funds", 0),
+            "subordination_median_pct": subordination.get("median") if isinstance(subordination, dict) else None,
+            "issuance_volume_conservador_brl": issuance_quality.get("annual_volume_conservador_brl", 0),
+            "fund_snapshot_rows": snapshot_quality.get("fund_rows", 0),
+            "fund_snapshot_with_cedentes": snapshot_quality.get("with_cedentes", 0),
+            "fund_snapshot_with_criteria": snapshot_quality.get("with_criteria", 0),
+        },
+        "modules": modules,
+        "refresh_plan": refresh_plan,
+        "artifact_index": artifact_rows,
     }
 
 
@@ -1779,6 +2207,510 @@ def build_criteria_pipeline_manifest(
                 "rows": int(len(structured)),
                 "funds": int(structured["cnpj_fundo"].nunique()) if "cnpj_fundo" in structured else 0,
                 "rerun": "python scripts/build_fidc_industry_criteria.py",
+            },
+        ],
+        "quality": quality,
+    }
+
+
+def _normalize_snapshot_id(frame: pd.DataFrame, preferred: str = "cnpj_fundo") -> pd.DataFrame:
+    out = frame.copy()
+    if preferred not in out.columns:
+        fallback = "cnpj" if "cnpj" in out.columns else ""
+        out[preferred] = out[fallback] if fallback else ""
+    out[preferred] = out[preferred].map(normalize_cnpj)
+    return out[out[preferred].astype(str).str.len().eq(14)].copy()
+
+
+def _bool_series(series: pd.Series | None, index: pd.Index | None = None) -> pd.Series:
+    values = _text(series, index=index).str.lower().str.strip()
+    return values.isin({"true", "1", "sim", "s", "yes"})
+
+
+def _median_numeric(values: pd.Series) -> float | None:
+    number = pd.to_numeric(values, errors="coerce")
+    if not number.notna().any():
+        return None
+    return _json_float(number.median())
+
+
+def _latest_text(values: pd.Series) -> str:
+    clean = values.fillna("").astype(str).str.strip()
+    clean = clean[clean.ne("")]
+    if clean.empty:
+        return ""
+    return str(clean.max())
+
+
+def _aggregate_strategy_universe(fund_universe: pd.DataFrame) -> pd.DataFrame:
+    if fund_universe is None or fund_universe.empty:
+        return pd.DataFrame()
+    frame = fund_universe.copy()
+    frame["cnpj_fundo"] = _text(frame.get("cnpj"), frame.index).map(normalize_cnpj)
+    frame = frame[frame["cnpj_fundo"].str.len().eq(14)].copy()
+    if frame.empty:
+        return frame
+    rows = []
+    for cnpj, group in frame.groupby("cnpj_fundo", dropna=False):
+        row: dict[str, object] = {
+            "cnpj_fundo": cnpj,
+            "fundo_estrategia": _first_nonempty(group.get("fund_name_final", pd.Series(dtype=str))),
+            "segmento_estrategia": _first_nonempty(group.get("setor_n1", pd.Series(dtype=str))),
+            "subsegmento_estrategia": _first_nonempty(group.get("setor_n2", pd.Series(dtype=str))),
+            "emission_cohort": _first_nonempty(group.get("emission_cohort", pd.Series(dtype=str))),
+            "first_offer_year": _json_float(_num(group.get("first_offer_year"), group.index).replace(0, pd.NA).min()),
+            "has_regulatory_matrix": int(_num(group.get("has_regulatory_matrix"), group.index).gt(0).any()),
+            "latest_regulamento_date": _latest_text(group.get("latest_regulamento_date", pd.Series(dtype=str))),
+        }
+        for year in ISSUANCE_YEARS:
+            row[f"volume_{year}_brl"] = float(_num(group.get(f"volume_{year}_brl"), group.index).sum())
+            row[f"valid_volume_{year}_brl"] = float(_num(group.get(f"valid_volume_{year}_brl"), group.index).sum())
+            row[f"offers_{year}"] = int(_num(group.get(f"offers_{year}"), group.index).sum())
+            row[f"emitted_{year}"] = bool(
+                row[f"volume_{year}_brl"] > 0 or row[f"valid_volume_{year}_brl"] > 0 or row[f"offers_{year}"] > 0
+            )
+        row["valid_volume_2024_2026_brl"] = float(sum(float(row.get(f"valid_volume_{year}_brl", 0)) for year in ISSUANCE_YEARS))
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def _aggregate_tranches(tranches: pd.DataFrame) -> pd.DataFrame:
+    if tranches is None or tranches.empty:
+        return pd.DataFrame()
+    frame = _normalize_snapshot_id(tranches)
+    if frame.empty:
+        return frame
+    frame["volume_brl"] = _num(frame.get("volume_brl"), frame.index)
+    frame["ano"] = _num(frame.get("ano"), frame.index).round().astype("Int64")
+    rows = []
+    for cnpj, group in frame.groupby("cnpj_fundo", dropna=False):
+        row: dict[str, object] = {
+            "cnpj_fundo": cnpj,
+            "tranche_rows": int(len(group)),
+            "tranche_volume_brl": float(group["volume_brl"].sum()),
+            "indexadores": _join_unique(group.get("indexador", pd.Series(dtype=str)), limit=6),
+            "tipo_cotas": _join_unique(group.get("tipo_cota", pd.Series(dtype=str)), limit=6),
+            "pricing_documentos": _join_unique(group.get("documento_origem", pd.Series(dtype=str)), limit=5),
+            "pricing_score_mediana": _median_numeric(group.get("score_confianca", pd.Series(dtype=float))),
+        }
+        for year in ISSUANCE_YEARS:
+            row[f"tranche_volume_{year}_brl"] = float(group.loc[group["ano"].eq(year), "volume_brl"].sum())
+            row[f"tranche_rows_{year}"] = int(group["ano"].eq(year).sum())
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def _aggregate_cedentes_snapshot(cedentes: pd.DataFrame) -> pd.DataFrame:
+    if cedentes is None or cedentes.empty:
+        return pd.DataFrame()
+    frame = _normalize_snapshot_id(cedentes)
+    if frame.empty:
+        return frame
+    if "ativo_curadoria" in frame.columns:
+        frame = frame[_bool_series(frame["ativo_curadoria"], frame.index)].copy()
+    frame = frame[frame.get("razao_social", pd.Series("", index=frame.index)).fillna("").astype(str).str.strip().ne("")]
+    if frame.empty:
+        return frame
+    rows = []
+    for cnpj, group in frame.groupby("cnpj_fundo", dropna=False):
+        participant = group.get("participant_type", pd.Series("", index=group.index)).fillna("").astype(str)
+        row = {
+            "cnpj_fundo": cnpj,
+            "cedente_rows": int(len(group)),
+            "cedente_originador_count": int(participant.eq("cedente_originador").sum()),
+            "sacado_devedor_count": int(participant.eq("sacado_devedor").sum()),
+            "participantes_count": int(group.get("razao_social", pd.Series(dtype=str)).nunique()),
+            "cedentes_top": _join_unique(group.get("razao_social", pd.Series(dtype=str)), limit=6),
+            "grupos_economicos": _join_unique(group.get("grupo_economico", pd.Series(dtype=str)), limit=6),
+            "tipos_participante": _join_unique(group.get("tipo_participante", pd.Series(dtype=str)), limit=5),
+            "cedente_statuses": _join_unique(group.get("status_revisao", pd.Series(dtype=str)), limit=5),
+            "cedente_documentos": _join_unique(group.get("documento_origem", pd.Series(dtype=str)), limit=5),
+            "cedente_score_mediana": _median_numeric(group.get("score_confianca_final", pd.Series(dtype=float))),
+            "cedentes_prioridade_2025_2026": int(
+                group.get("periodo_prioritario", pd.Series("", index=group.index)).astype(str).eq("2025-2026 YTD").sum()
+            ),
+        }
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def _aggregate_criteria_snapshot(criteria: pd.DataFrame) -> pd.DataFrame:
+    if criteria is None or criteria.empty:
+        return pd.DataFrame()
+    frame = _normalize_snapshot_id(criteria)
+    if frame.empty:
+        return frame
+    if "ativo_curadoria" in frame.columns:
+        frame = frame[_bool_series(frame["ativo_curadoria"], frame.index)].copy()
+    if frame.empty:
+        return frame
+    frame["pct_min"] = pd.to_numeric(frame.get("pct_min"), errors="coerce")
+    rows = []
+    for cnpj, group in frame.groupby("cnpj_fundo", dropna=False):
+        monitor = group.get("monitorabilidade_ime", pd.Series("", index=group.index)).fillna("").astype(str)
+        sub = group[group.get("chave", pd.Series("", index=group.index)).astype(str).eq("subordination_ratio_min")]
+        row = {
+            "cnpj_fundo": cnpj,
+            "criteria_rows": int(len(group)),
+            "criteria_monitorable_rows": int(monitor.eq("monitoravel").sum()),
+            "criteria_partial_rows": int(monitor.eq("parcial").sum()),
+            "criteria_not_monitorable_rows": int(monitor.eq("nao_monitoravel").sum()),
+            "criteria_subordination_rows": int(len(sub)),
+            "sub_min_pct_median": _median_numeric(sub.get("pct_min", pd.Series(dtype=float))),
+            "sub_min_pct_min": _json_float(pd.to_numeric(sub.get("pct_min", pd.Series(dtype=float)), errors="coerce").min()) if not sub.empty else None,
+            "sub_min_pct_max": _json_float(pd.to_numeric(sub.get("pct_min", pd.Series(dtype=float)), errors="coerce").max()) if not sub.empty else None,
+            "criteria_keys": _join_unique(group.get("chave", pd.Series(dtype=str)), limit=8),
+            "criteria_documentos": _join_unique(group.get("documento_origem", pd.Series(dtype=str)), limit=5),
+            "criteria_score_mediana": _median_numeric(group.get("score_confianca_final", pd.Series(dtype=float))),
+        }
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def _aggregate_document_snapshot(documents: pd.DataFrame) -> pd.DataFrame:
+    if documents is None or documents.empty:
+        return pd.DataFrame()
+    frame = _normalize_snapshot_id(documents)
+    if frame.empty:
+        return frame
+    local = _bool_series(frame.get("local_exists"), frame.index)
+    priority = _bool_series(frame.get("priority_2025_2026"), frame.index)
+    frame = frame.assign(_local_exists=local, _priority=priority)
+    rows = []
+    for cnpj, group in frame.groupby("cnpj_fundo", dropna=False):
+        row = {
+            "cnpj_fundo": cnpj,
+            "document_rows": int(len(group)),
+            "document_local_ready": int(group["_local_exists"].sum()),
+            "document_missing_local": int((~group["_local_exists"]).sum()),
+            "document_priority_2025_2026": int(group["_priority"].sum()),
+            "document_classes": _join_unique(group.get("document_class", pd.Series(dtype=str)), limit=8),
+            "document_content_kinds": _join_unique(group.get("content_kind", pd.Series(dtype=str)), limit=5),
+            "document_chunk_ids": _join_unique(group.get("chunk_id", pd.Series(dtype=str)), limit=6),
+            "document_latest_date": _latest_text(group.get("document_date", pd.Series(dtype=str))),
+        }
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def build_industry_fund_snapshot(
+    *,
+    vehicle_latest: pd.DataFrame,
+    fund_universe: pd.DataFrame | None = None,
+    issuance_tranches: pd.DataFrame | None = None,
+    cedentes: pd.DataFrame | None = None,
+    criteria: pd.DataFrame | None = None,
+    documents: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    """Build one auditable row per FIDC with all Industry intelligence layers."""
+
+    base = vehicle_latest.copy() if vehicle_latest is not None else pd.DataFrame()
+    if base.empty:
+        frames = [fund_universe, issuance_tranches, cedentes, criteria, documents]
+        ids = []
+        for frame in frames:
+            if frame is None or frame.empty:
+                continue
+            id_col = "cnpj_fundo" if "cnpj_fundo" in frame.columns else "cnpj"
+            if id_col in frame.columns:
+                ids.extend(frame[id_col].map(normalize_cnpj).tolist())
+        base = pd.DataFrame({"cnpj_fundo": sorted(set(cnpj for cnpj in ids if len(cnpj) == 14))})
+    base = _normalize_snapshot_id(base)
+    if base.empty:
+        return pd.DataFrame()
+    if "cnpj" not in base.columns:
+        base["cnpj"] = base["cnpj_fundo"]
+    base = base.drop_duplicates("cnpj_fundo", keep="first").copy()
+
+    keep_cols = [
+        "cnpj_fundo",
+        "cnpj",
+        "competencia",
+        "tp_registro",
+        "denominacao",
+        "pl",
+        "is_fic_fidc",
+        "admin_nome",
+        "admin_cnpj",
+        "gestor_nome",
+        "gestor_cnpj",
+        "custodiante_nome",
+        "custodiante_cnpj",
+        "condominio",
+        "exclusivo",
+        "publico_alvo",
+        "classificacao_anbima",
+        "segmento_principal",
+        "carteira_dc",
+        "dc_inadimplentes",
+        "inad_pct",
+        "cotistas",
+    ]
+    snapshot = base[[col for col in keep_cols if col in base.columns]].copy()
+    snapshot["cnpj_fundo"] = snapshot["cnpj_fundo"].map(normalize_cnpj)
+    numeric_cols = ["pl", "carteira_dc", "dc_inadimplentes", "inad_pct", "cotistas"]
+    for col in numeric_cols:
+        if col in snapshot.columns:
+            snapshot[col] = _num(snapshot[col], snapshot.index)
+    snapshot["is_fic_fidc"] = _bool_series(snapshot.get("is_fic_fidc"), snapshot.index)
+
+    aggregates = [
+        _aggregate_strategy_universe(fund_universe if fund_universe is not None else pd.DataFrame()),
+        _aggregate_tranches(issuance_tranches if issuance_tranches is not None else pd.DataFrame()),
+        _aggregate_cedentes_snapshot(cedentes if cedentes is not None else pd.DataFrame()),
+        _aggregate_criteria_snapshot(criteria if criteria is not None else pd.DataFrame()),
+        _aggregate_document_snapshot(documents if documents is not None else pd.DataFrame()),
+    ]
+    for agg in aggregates:
+        if agg is not None and not agg.empty:
+            snapshot = snapshot.merge(agg, on="cnpj_fundo", how="left")
+
+    count_defaults = [
+        "tranche_rows",
+        "cedente_rows",
+        "cedente_originador_count",
+        "sacado_devedor_count",
+        "participantes_count",
+        "criteria_rows",
+        "criteria_monitorable_rows",
+        "criteria_partial_rows",
+        "criteria_not_monitorable_rows",
+        "criteria_subordination_rows",
+        "document_rows",
+        "document_local_ready",
+        "document_missing_local",
+        "document_priority_2025_2026",
+        "has_regulatory_matrix",
+    ]
+    for col in count_defaults:
+        if col not in snapshot.columns:
+            snapshot[col] = 0
+        snapshot[col] = _num(snapshot[col], snapshot.index).round().astype(int)
+    money_defaults = [
+        "valid_volume_2024_2026_brl",
+        "tranche_volume_brl",
+        "volume_2024_brl",
+        "volume_2025_brl",
+        "volume_2026_brl",
+        "valid_volume_2024_brl",
+        "valid_volume_2025_brl",
+        "valid_volume_2026_brl",
+        "tranche_volume_2024_brl",
+        "tranche_volume_2025_brl",
+        "tranche_volume_2026_brl",
+    ]
+    for col in money_defaults:
+        if col not in snapshot.columns:
+            snapshot[col] = 0.0
+        snapshot[col] = _num(snapshot[col], snapshot.index)
+    text_defaults = [
+        "fundo_estrategia",
+        "segmento_estrategia",
+        "subsegmento_estrategia",
+        "emission_cohort",
+        "latest_regulamento_date",
+        "indexadores",
+        "tipo_cotas",
+        "pricing_documentos",
+        "cedentes_top",
+        "grupos_economicos",
+        "tipos_participante",
+        "cedente_statuses",
+        "cedente_documentos",
+        "criteria_keys",
+        "criteria_documentos",
+        "document_classes",
+        "document_content_kinds",
+        "document_chunk_ids",
+        "document_latest_date",
+    ]
+    for col in text_defaults:
+        if col not in snapshot.columns:
+            snapshot[col] = ""
+        snapshot[col] = _text(snapshot[col], snapshot.index)
+
+    evidence_flags = pd.DataFrame(
+        {
+            "ime": snapshot.get("pl", pd.Series(0, index=snapshot.index)).fillna(0).gt(0),
+            "emissoes": snapshot["valid_volume_2024_2026_brl"].gt(0) | snapshot["tranche_rows"].gt(0),
+            "documentos": snapshot["document_rows"].gt(0),
+            "cedentes": snapshot["cedente_rows"].gt(0),
+            "criterios": snapshot["criteria_rows"].gt(0),
+        }
+    )
+    snapshot["camadas_com_evidencia"] = evidence_flags.sum(axis=1).astype(int)
+    snapshot["tem_emissao_2025_2026"] = snapshot["valid_volume_2025_brl"].gt(0) | snapshot["valid_volume_2026_brl"].gt(0)
+    snapshot["tem_sub_minima"] = snapshot["criteria_subordination_rows"].gt(0)
+    snapshot["tem_cedente"] = snapshot["cedente_rows"].gt(0)
+    snapshot["tem_documento_local"] = snapshot["document_local_ready"].gt(0)
+    snapshot["snapshot_status"] = snapshot["camadas_com_evidencia"].map(
+        lambda value: "completo" if value >= 4 else "parcial" if value >= 2 else "basico"
+    )
+    if "denominacao" in snapshot.columns:
+        snapshot["nome_exibicao"] = snapshot["denominacao"].where(
+            snapshot["denominacao"].astype(str).str.strip().ne(""),
+            snapshot["fundo_estrategia"],
+        )
+    else:
+        snapshot["nome_exibicao"] = snapshot["fundo_estrategia"]
+
+    ordered = [
+        "cnpj_fundo",
+        "nome_exibicao",
+        "competencia",
+        "pl",
+        "is_fic_fidc",
+        "segmento_principal",
+        "segmento_estrategia",
+        "subsegmento_estrategia",
+        "admin_nome",
+        "gestor_nome",
+        "custodiante_nome",
+        "condominio",
+        "publico_alvo",
+        "valid_volume_2024_2026_brl",
+        "valid_volume_2025_brl",
+        "valid_volume_2026_brl",
+        "tranche_rows",
+        "indexadores",
+        "document_rows",
+        "document_local_ready",
+        "document_chunk_ids",
+        "cedente_rows",
+        "participantes_count",
+        "cedentes_top",
+        "criteria_rows",
+        "criteria_subordination_rows",
+        "sub_min_pct_median",
+        "criteria_keys",
+        "camadas_com_evidencia",
+        "snapshot_status",
+    ]
+    ordered_present = [col for col in ordered if col in snapshot.columns]
+    rest = [col for col in snapshot.columns if col not in ordered_present]
+    return snapshot[ordered_present + rest].sort_values(["pl", "camadas_com_evidencia"], ascending=[False, False])
+
+
+def fund_snapshot_quality_summary(snapshot: pd.DataFrame) -> dict[str, object]:
+    if snapshot is None or snapshot.empty:
+        return {
+            "fund_rows": 0,
+            "pl_total_brl": 0.0,
+            "evidence_layer_counts": {},
+            "coverage": {},
+        }
+    frame = snapshot.copy()
+    score = _num(frame.get("camadas_com_evidencia"), frame.index)
+    return {
+        "fund_rows": int(len(frame)),
+        "pl_total_brl": float(_num(frame.get("pl"), frame.index).sum()),
+        "fic_fidc_rows": int(_bool_series(frame.get("is_fic_fidc"), frame.index).sum()),
+        "with_issuance_2025_2026": int(_bool_series(frame.get("tem_emissao_2025_2026"), frame.index).sum()),
+        "with_documents": int(_num(frame.get("document_rows"), frame.index).gt(0).sum()),
+        "with_local_documents": int(_num(frame.get("document_local_ready"), frame.index).gt(0).sum()),
+        "with_cedentes": int(_num(frame.get("cedente_rows"), frame.index).gt(0).sum()),
+        "with_criteria": int(_num(frame.get("criteria_rows"), frame.index).gt(0).sum()),
+        "with_subordination_min": int(_num(frame.get("criteria_subordination_rows"), frame.index).gt(0).sum()),
+        "evidence_layers": {
+            "median": _json_float(score.median()),
+            "p25": _json_float(score.quantile(0.25)),
+            "p75": _json_float(score.quantile(0.75)),
+        },
+        "status_counts": {
+            str(k): int(v)
+            for k, v in frame.get("snapshot_status", pd.Series("", index=frame.index)).fillna("").astype(str).value_counts().to_dict().items()
+        },
+        "coverage": {
+            "segmento_principal": _coverage(frame, "segmento_principal"),
+            "segmento_estrategia": _coverage(frame, "segmento_estrategia"),
+            "admin_nome": _coverage(frame, "admin_nome"),
+            "gestor_nome": _coverage(frame, "gestor_nome"),
+            "document_rows": float(_num(frame.get("document_rows"), frame.index).gt(0).mean()),
+            "cedente_rows": float(_num(frame.get("cedente_rows"), frame.index).gt(0).mean()),
+            "criteria_rows": float(_num(frame.get("criteria_rows"), frame.index).gt(0).mean()),
+            "sub_min_pct_median": float(pd.to_numeric(frame.get("sub_min_pct_median"), errors="coerce").notna().mean())
+            if "sub_min_pct_median" in frame
+            else 0.0,
+        },
+    }
+
+
+def build_fund_snapshot_pipeline_manifest(
+    *,
+    industry_dir: Path,
+    strategy_db: Path,
+    output_path: Path,
+    manifest_path: Path,
+    vehicle_latest: pd.DataFrame,
+    fund_universe: pd.DataFrame,
+    issuance_tranches: pd.DataFrame,
+    cedentes: pd.DataFrame,
+    criteria: pd.DataFrame,
+    documents: pd.DataFrame,
+    snapshot: pd.DataFrame,
+) -> dict[str, object]:
+    quality = fund_snapshot_quality_summary(snapshot)
+    return {
+        "schema_version": "industry-fund-snapshot-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_fund_snapshot",
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "macbook_air_m4_friendly": True,
+            "notes": [
+                "Este modulo consolida uma linha por FIDC, sem apagar as bases detalhe.",
+                "O snapshot e uma camada de leitura e navegacao; auditoria fina permanece nos artefatos de origem.",
+                "Novas dimensoes devem ser adicionadas a partir das bases estruturadas, nao por regra especifica de painel.",
+            ],
+        },
+        "inputs": {
+            "strategy_db": file_fingerprint(strategy_db),
+            "vehicle_latest": file_fingerprint(industry_dir / "universe_latest.csv"),
+            "issuance_tranches": file_fingerprint(industry_dir / "issuance_tranches.csv.gz"),
+            "cedentes_structured": file_fingerprint(industry_dir / "cedentes_structured.csv.gz"),
+            "criteria_structured": file_fingerprint(industry_dir / "criteria_structured.csv.gz"),
+            "document_inventory": file_fingerprint(industry_dir / "document_inventory.csv.gz"),
+        },
+        "outputs": {
+            "fund_snapshot": file_fingerprint(output_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "load_latest_ime_universe",
+                "label": "Foto IME por FIDC",
+                "status": "ok" if not vehicle_latest.empty else "empty",
+                "input": str(industry_dir / "universe_latest.csv"),
+                "output": "memoria:vehicle_latest",
+                "rows": int(len(vehicle_latest)),
+                "funds": int(vehicle_latest["cnpj_fundo"].nunique()) if "cnpj_fundo" in vehicle_latest else 0,
+                "rerun": "python scripts/build_fidc_industry_study.py --report",
+            },
+            {
+                "id": "join_issuance_documents_criteria_cedentes",
+                "label": "Join das camadas estruturadas",
+                "status": "ok" if not snapshot.empty else "empty",
+                "input": "memoria:vehicle_latest+fund_universe+tranches+cedentes+criteria+documents",
+                "output": str(output_path),
+                "rows": int(len(snapshot)),
+                "funds": int(snapshot["cnpj_fundo"].nunique()) if "cnpj_fundo" in snapshot else 0,
+                "rerun": "python scripts/build_fidc_industry_fund_snapshot.py",
+            },
+            {
+                "id": "preserve_source_granularity",
+                "label": "Rastreabilidade das bases detalhe",
+                "status": "ok",
+                "input": "artefatos estruturados versionados",
+                "output": "metadados de contagem/camadas por CNPJ",
+                "rows": int(
+                    len(fund_universe)
+                    + len(issuance_tranches)
+                    + len(cedentes)
+                    + len(criteria)
+                    + len(documents)
+                ),
+                "rerun": "Reexecute apenas o modulo de origem alterado e depois este snapshot.",
             },
         ],
         "quality": quality,

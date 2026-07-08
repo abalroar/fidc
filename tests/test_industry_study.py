@@ -1,3 +1,4 @@
+import json
 import sys
 import tempfile
 from pathlib import Path
@@ -22,6 +23,8 @@ from services.industry_study import (  # noqa: E402
     build_criteria_structured,
     build_document_inventory,
     build_document_pipeline_manifest,
+    build_industry_pipeline_index,
+    build_industry_fund_snapshot,
     build_issuance_annual,
     build_issuance_pipeline_manifest,
     build_issuance_sector_year,
@@ -31,12 +34,14 @@ from services.industry_study import (  # noqa: E402
     cedente_quality_summary,
     criteria_quality_summary,
     document_quality_summary,
+    fund_snapshot_quality_summary,
     load_cedente_structured,
     normalize_cnpj,
     save_pipeline_manifest,
     save_cedente_structured,
     scan_regulatory_extraction_files,
 )
+from tabs.tab_industry_study import _heatmap_base_frame  # noqa: E402
 
 
 def test_month_range_spans_years():
@@ -623,3 +628,240 @@ def test_criteria_pipeline_manifest_lists_rerunnable_stages():
     assert {stage["id"] for stage in manifest["stages"]} >= {"load_documentary_criteria", "normalize_structured_criteria"}
     assert manifest["outputs"]["criteria_structured"]["sha256"]
     assert manifest["quality"]["subordination_rows"] == 1
+
+
+def test_industry_fund_snapshot_unifies_layers_per_fund():
+    vehicle = pd.DataFrame(
+        [
+            {
+                "cnpj": "05.753.599/0001-58",
+                "cnpj_fundo": "05.753.599/0001-58",
+                "competencia": "2026-05",
+                "denominacao": "FIDC ABC",
+                "pl": 1000.0,
+                "is_fic_fidc": False,
+                "admin_nome": "Admin",
+                "gestor_nome": "Gestor",
+                "segmento_principal": "Comercial",
+                "carteira_dc": 800.0,
+                "dc_inadimplentes": 10.0,
+                "cotistas": 3,
+            },
+            {
+                "cnpj": "11.111.111/0001-11",
+                "cnpj_fundo": "11.111.111/0001-11",
+                "competencia": "2026-05",
+                "denominacao": "FIDC DEF",
+                "pl": 500.0,
+                "is_fic_fidc": True,
+                "admin_nome": "Admin",
+                "gestor_nome": "Gestor",
+                "segmento_principal": "Financeiro",
+            },
+        ]
+    )
+    funds = pd.DataFrame(
+        {
+            "cnpj": ["05753599000158"],
+            "fund_name_final": ["FIDC ABC"],
+            "setor_n1": ["Crédito PJ"],
+            "setor_n2": ["Recebíveis"],
+            "valid_volume_2025_brl": [100.0],
+            "valid_volume_2026_brl": [50.0],
+            "has_regulatory_matrix": [1],
+        }
+    )
+    tranches = pd.DataFrame(
+        {
+            "cnpj_fundo": ["05753599000158"],
+            "ano": [2026],
+            "volume_brl": [25.0],
+            "indexador": ["CDI+"],
+            "tipo_cota": ["Sênior"],
+            "documento_origem": ["emissao.pdf"],
+            "score_confianca": [0.9],
+        }
+    )
+    cedentes = pd.DataFrame(
+        {
+            "cnpj_fundo": ["05753599000158"],
+            "razao_social": ["Cedente ABC S.A."],
+            "participant_type": ["cedente_originador"],
+            "tipo_participante": ["cedente/originador"],
+            "ativo_curadoria": [True],
+            "status_revisao": ["aprovado"],
+            "score_confianca_final": [0.95],
+            "documento_origem": ["reg.pdf"],
+            "periodo_prioritario": ["2025-2026 YTD"],
+        }
+    )
+    criteria = pd.DataFrame(
+        {
+            "cnpj_fundo": ["05753599000158"],
+            "chave": ["subordination_ratio_min"],
+            "pct_min": [10.0],
+            "monitorabilidade_ime": ["monitoravel"],
+            "ativo_curadoria": [True],
+            "documento_origem": ["reg.pdf"],
+            "score_confianca_final": [0.9],
+        }
+    )
+    docs = pd.DataFrame(
+        {
+            "cnpj_fundo": ["05753599000158"],
+            "document_class": ["regulamento"],
+            "content_kind": ["pdf"],
+            "document_date": ["2026-01-01"],
+            "local_exists": [True],
+            "priority_2025_2026": [True],
+            "chunk_id": ["doc-0001"],
+        }
+    )
+
+    snapshot = build_industry_fund_snapshot(
+        vehicle_latest=vehicle,
+        fund_universe=funds,
+        issuance_tranches=tranches,
+        cedentes=cedentes,
+        criteria=criteria,
+        documents=docs,
+    )
+    quality = fund_snapshot_quality_summary(snapshot)
+    abc = snapshot[snapshot["cnpj_fundo"].eq("05753599000158")].iloc[0]
+    defe = snapshot[snapshot["cnpj_fundo"].eq("11111111000111")].iloc[0]
+
+    assert len(snapshot) == 2
+    assert abc["camadas_com_evidencia"] == 5
+    assert abc["snapshot_status"] == "completo"
+    assert abc["participantes_count"] == 1
+    assert abc["sub_min_pct_median"] == 10.0
+    assert abc["document_chunk_ids"] == "doc-0001"
+    assert defe["snapshot_status"] == "basico"
+    assert quality["with_subordination_min"] == 1
+
+
+def test_industry_heatmap_base_uses_snapshot_multivalue_dimensions():
+    vehicle = pd.DataFrame(
+        [
+            {
+                "competencia": "2026-05",
+                "cnpj": "05753599000158",
+                "cnpj_fundo": "05753599000158",
+                "pl": 100.0,
+                "captacao_liquida": 20.0,
+            }
+        ]
+    )
+    snapshot = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05.753.599/0001-58",
+                "indexadores": "CDI+ | IPCA+",
+                "criteria_keys": "subordination_ratio_min | concentration_limits",
+                "sub_min_pct_median": 10.0,
+                "snapshot_status": "completo",
+            }
+        ]
+    )
+
+    frame = _heatmap_base_frame(vehicle, pd.DataFrame(), snapshot, "indexadores", "criteria_keys")
+
+    assert len(frame) == 4
+    assert set(frame["indexadores"]) == {"CDI+", "IPCA+"}
+    assert set(frame["criteria_keys"]) == {"subordination_ratio_min", "concentration_limits"}
+    assert frame["_metric_weight"].sum() == 1.0
+    assert set(frame["sub_min_bucket"]) == {"10%-15%"}
+
+
+def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        for name in [
+            "industry_monthly.csv",
+            "vehicle_monthly.csv.gz",
+            "update_audit_monthly.csv",
+            "admin_monthly.csv",
+            "flows_monthly.csv",
+            "segments_monthly.csv",
+            "prestadores_latest.csv",
+            "universe_latest.csv",
+        ]:
+            (tmp_path / name).write_text("col\n1\n", encoding="utf-8")
+        (tmp_path / "metadata.json").write_text(
+            json.dumps(
+                {
+                    "gerado_em_utc": "2026-07-08T00:00:00+00:00",
+                    "competencia_inicial": "201301",
+                    "competencia_final": "202606",
+                    "competencia_snapshot": "202605",
+                    "n_competencias": 162,
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        def write_module_manifest(name: str, pipeline: str, output_name: str, quality: dict[str, object]) -> None:
+            output_path = tmp_path / output_name
+            output_path.write_text("col\n1\n", encoding="utf-8")
+            manifest = {
+                "schema_version": f"{pipeline}/v1",
+                "generated_at_utc": "2026-07-08T01:00:00+00:00",
+                "pipeline": pipeline,
+                "inputs": {},
+                "outputs": {output_name.replace(".", "_"): {"path": str(output_path)}},
+                "stages": [{"id": "stage", "label": "Stage", "status": "ok", "rerun": "python x.py"}],
+                "quality": quality,
+            }
+            (tmp_path / name).write_text(json.dumps(manifest), encoding="utf-8")
+
+        write_module_manifest(
+            "industry_issuance_manifest.json",
+            "industry_issuance_structured",
+            "issuance_annual.csv",
+            {"annual_volume_conservador_brl": 100.0, "tranche_rows": 1},
+        )
+        write_module_manifest(
+            "industry_document_manifest.json",
+            "industry_document_inventory",
+            "document_inventory.csv.gz",
+            {"document_rows": 2, "chunks": 1, "max_documents_per_chunk": 2},
+        )
+        write_module_manifest(
+            "industry_pipeline_manifest.json",
+            "industry_cedentes_structured",
+            "cedentes_structured.csv.gz",
+            {"structured_rows": 3, "structured_funds": 2},
+        )
+        write_module_manifest(
+            "industry_criteria_manifest.json",
+            "industry_criteria_structured",
+            "criteria_structured.csv.gz",
+            {
+                "structured_rows": 4,
+                "subordination_funds": 2,
+                "subordination": {"median": 10.0},
+            },
+        )
+        write_module_manifest(
+            "industry_fund_snapshot_manifest.json",
+            "industry_fund_snapshot",
+            "industry_fund_snapshot.csv.gz",
+            {
+                "fund_rows": 2,
+                "with_cedentes": 1,
+                "with_criteria": 1,
+                "with_subordination_min": 1,
+            },
+        )
+
+        index = build_industry_pipeline_index(industry_dir=tmp_path)
+
+    assert index["schema_version"] == "industry-pipeline-index/v1"
+    assert index["quality_rollup"]["modules_total"] == 6
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 6
+    assert index["quality_rollup"]["competencia_snapshot"] == "202605"
+    assert index["quality_rollup"]["document_chunks"] == 1
+    assert index["quality_rollup"]["subordination_median_pct"] == 10.0
+    assert index["quality_rollup"]["fund_snapshot_rows"] == 2
+    assert {stage["module_id"] for stage in index["refresh_plan"]} >= {"base_monthly", "fund_snapshot", "pipeline_index"}
+    assert any(row["artifact"] == "manifest" for row in index["artifact_index"])

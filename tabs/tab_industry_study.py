@@ -29,6 +29,7 @@ from services.industry_study import (
     build_cedente_structured,
     build_criteria_pipeline_manifest,
     build_criteria_structured,
+    build_industry_pipeline_index,
     clean_candidate_name,
     load_dataframe,
     load_cedente_candidates,
@@ -51,6 +52,9 @@ _ALL_FIDCS_CRITERIA = Path(__file__).resolve().parents[1] / "data" / "regulatory
 _CEDENTE_REVIEW_PATH = _DATA_DIR / "cedente_reviews.csv"
 _CEDENTE_STRUCTURED_PATH = _DATA_DIR / "cedentes_structured.csv.gz"
 _PIPELINE_MANIFEST_PATH = _DATA_DIR / "industry_pipeline_manifest.json"
+_PIPELINE_INDEX_PATH = _DATA_DIR / "industry_pipeline_index.json"
+_FUND_SNAPSHOT_PATH = _DATA_DIR / "industry_fund_snapshot.csv.gz"
+_FUND_SNAPSHOT_MANIFEST_PATH = _DATA_DIR / "industry_fund_snapshot_manifest.json"
 _ISSUANCE_ANNUAL_PATH = _DATA_DIR / "issuance_annual.csv"
 _ISSUANCE_SECTOR_YEAR_PATH = _DATA_DIR / "issuance_sector_year.csv"
 _ISSUANCE_TRANCHES_PATH = _DATA_DIR / "issuance_tranches.csv.gz"
@@ -531,6 +535,177 @@ def _format_vehicle_table(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+@st.cache_data(show_spinner=False)
+def _load_fund_snapshot_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    return {
+        "snapshot": load_dataframe(_FUND_SNAPSHOT_PATH),
+        "manifest": load_pipeline_manifest(_FUND_SNAPSHOT_MANIFEST_PATH),
+    }
+
+
+def _format_fund_snapshot_table(frame: pd.DataFrame) -> pd.DataFrame:
+    out = frame.copy()
+    column_map = {
+        "cnpj_fundo": "CNPJ",
+        "nome_exibicao": "FIDC",
+        "competencia": "Competência",
+        "pl": "PL",
+        "segmento_principal": "Segmento IME",
+        "segmento_estrategia": "Segmento Estratégia",
+        "subsegmento_estrategia": "Subsegmento",
+        "admin_nome": "Administrador",
+        "gestor_nome": "Gestor",
+        "valid_volume_2024_2026_brl": "Emissões 24-26",
+        "valid_volume_2025_brl": "Emissões 2025",
+        "valid_volume_2026_brl": "Emissões 2026",
+        "document_rows": "Docs",
+        "cedente_rows": "Cedentes",
+        "criteria_rows": "Critérios",
+        "sub_min_pct_median": "Sub mín.",
+        "camadas_com_evidencia": "Camadas",
+        "snapshot_status": "Status",
+        "cedentes_top": "Cedentes top",
+        "indexadores": "Indexadores",
+        "document_chunk_ids": "Chunks",
+    }
+    keep = [col for col in column_map if col in out.columns]
+    out = out[keep].rename(columns=column_map)
+    for col in ["PL", "Emissões 24-26", "Emissões 2025", "Emissões 2026"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_bi(float(value), 1))
+    for col in ["Docs", "Cedentes", "Critérios", "Camadas"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    if "Sub mín." in out.columns:
+        out["Sub mín."] = pd.to_numeric(out["Sub mín."], errors="coerce").map(lambda value: _pct_label(value))
+    return out
+
+
+def _render_fund_snapshot_universe() -> None:
+    st.markdown('<div class="industry-section">Universo estruturado por FIDC</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Uma linha por CNPJ, consolidando foto IME, emissões, documentos, '
+        "cedentes/sacados e critérios. As bases detalhe continuam preservadas para auditoria.</div>",
+        unsafe_allow_html=True,
+    )
+    tables = _load_fund_snapshot_tables()
+    snapshot = tables["snapshot"]
+    manifest = tables["manifest"]
+    assert isinstance(snapshot, pd.DataFrame)
+    assert isinstance(manifest, dict)
+    if snapshot.empty:
+        st.info("Snapshot ainda não gerado. Rode `python scripts/build_fidc_industry_fund_snapshot.py`.")
+        return
+
+    numeric = snapshot.copy()
+    for col in [
+        "pl",
+        "valid_volume_2024_2026_brl",
+        "document_rows",
+        "document_local_ready",
+        "cedente_rows",
+        "criteria_rows",
+        "criteria_subordination_rows",
+        "camadas_com_evidencia",
+    ]:
+        if col in numeric.columns:
+            numeric[col] = pd.to_numeric(numeric[col], errors="coerce").fillna(0)
+    cards = [
+        _curation_card("FIDCs no snapshot", _fmt_int(float(len(numeric))), f"{_fmt_bi(float(numeric.get('pl', pd.Series(dtype=float)).sum()), 0)} PL"),
+        _curation_card("Com emissões 25-26", _fmt_int(float(numeric.get("tem_emissao_2025_2026", pd.Series(False, index=numeric.index)).astype(str).str.lower().isin({"true", "1"}).sum())), "base Estratégia/ofertas"),
+        _curation_card("Com documentos", _fmt_int(float((numeric.get("document_rows", pd.Series(0, index=numeric.index)) > 0).sum())), "inventário local/CVM"),
+        _curation_card("Com cedentes", _fmt_int(float((numeric.get("cedente_rows", pd.Series(0, index=numeric.index)) > 0).sum())), "curadoria estruturada"),
+        _curation_card("Com critérios", _fmt_int(float((numeric.get("criteria_rows", pd.Series(0, index=numeric.index)) > 0).sum())), "regras monitoráveis"),
+        _curation_card("Com sub mín.", _fmt_int(float((numeric.get("criteria_subordination_rows", pd.Series(0, index=numeric.index)) > 0).sum())), "percentual extraído"),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    tab_table, tab_coverage, tab_manifest = st.tabs(["Tabela", "Cobertura", "Manifesto"])
+    with tab_table:
+        ctrl_a, ctrl_b, ctrl_c, ctrl_d = st.columns([1.15, 0.9, 0.75, 0.65])
+        with ctrl_a:
+            query = st.text_input("Buscar", key="industry_snapshot_query", placeholder="FIDC, CNPJ, administrador, cedente")
+        with ctrl_b:
+            segment_options = sorted(
+                set(
+                    numeric.get("segmento_principal", pd.Series(dtype=str)).fillna("").astype(str).str.strip()
+                    .replace("", "n/d")
+                    .tolist()
+                )
+            )
+            segment_filter = st.multiselect("Segmento", segment_options, default=segment_options, key="industry_snapshot_segment")
+        with ctrl_c:
+            status_options = sorted(numeric.get("snapshot_status", pd.Series(dtype=str)).fillna("").astype(str).replace("", "n/d").unique())
+            status_filter = st.multiselect("Status", status_options, default=status_options, key="industry_snapshot_status")
+        with ctrl_d:
+            min_layers = st.slider("Camadas mín.", min_value=1, max_value=5, value=1, step=1, key="industry_snapshot_layers")
+
+        filtered = numeric.copy()
+        segment_values = filtered.get("segmento_principal", pd.Series("", index=filtered.index)).fillna("").astype(str).str.strip().replace("", "n/d")
+        status_values = filtered.get("snapshot_status", pd.Series("", index=filtered.index)).fillna("").astype(str).replace("", "n/d")
+        filtered = filtered[
+            segment_values.isin(segment_filter)
+            & status_values.isin(status_filter)
+            & pd.to_numeric(filtered.get("camadas_com_evidencia", pd.Series(0, index=filtered.index)), errors="coerce").fillna(0).ge(min_layers)
+        ].copy()
+        if query:
+            haystack = (
+                filtered.get("nome_exibicao", pd.Series("", index=filtered.index)).fillna("").astype(str)
+                + " "
+                + filtered.get("cnpj_fundo", pd.Series("", index=filtered.index)).fillna("").astype(str)
+                + " "
+                + filtered.get("admin_nome", pd.Series("", index=filtered.index)).fillna("").astype(str)
+                + " "
+                + filtered.get("cedentes_top", pd.Series("", index=filtered.index)).fillna("").astype(str)
+            )
+            filtered = filtered[haystack.str.contains(query, case=False, na=False)].copy()
+        filtered = filtered.sort_values(["pl", "camadas_com_evidencia"], ascending=[False, False]).head(300)
+        st.dataframe(_format_fund_snapshot_table(filtered), hide_index=True, width="stretch")
+
+    with tab_coverage:
+        coverage_rows = [
+            {"Camada": "Emissões 2025-2026", "FIDCs": int(numeric.get("tem_emissao_2025_2026", pd.Series(False, index=numeric.index)).astype(str).str.lower().isin({"true", "1"}).sum())},
+            {"Camada": "Documentos", "FIDCs": int((numeric.get("document_rows", pd.Series(0, index=numeric.index)) > 0).sum())},
+            {"Camada": "Documentos locais", "FIDCs": int((numeric.get("document_local_ready", pd.Series(0, index=numeric.index)) > 0).sum())},
+            {"Camada": "Cedentes/sacados", "FIDCs": int((numeric.get("cedente_rows", pd.Series(0, index=numeric.index)) > 0).sum())},
+            {"Camada": "Critérios", "FIDCs": int((numeric.get("criteria_rows", pd.Series(0, index=numeric.index)) > 0).sum())},
+            {"Camada": "Sub mínima", "FIDCs": int((numeric.get("criteria_subordination_rows", pd.Series(0, index=numeric.index)) > 0).sum())},
+        ]
+        coverage = pd.DataFrame(coverage_rows)
+        coverage["Cobertura"] = coverage["FIDCs"] / max(len(numeric), 1) * 100
+        st.altair_chart(
+            alt.Chart(coverage)
+            .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+            .encode(
+                x=alt.X("Cobertura:Q", title="% dos FIDCs", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                y=alt.Y("Camada:N", title=None, sort="-x"),
+                tooltip=[
+                    alt.Tooltip("Camada:N"),
+                    alt.Tooltip("FIDCs:Q"),
+                    alt.Tooltip("Cobertura:Q", format=",.1f"),
+                ],
+            )
+            .properties(height=260),
+            width="stretch",
+        )
+        if "snapshot_status" in numeric.columns:
+            status = numeric["snapshot_status"].fillna("n/d").astype(str).value_counts().reset_index()
+            status.columns = ["Status", "FIDCs"]
+            st.dataframe(status, hide_index=True, width="stretch")
+
+    with tab_manifest:
+        if manifest:
+            st.download_button(
+                "Baixar manifesto",
+                data=json.dumps(manifest, ensure_ascii=False, indent=2),
+                file_name="industry_fund_snapshot_manifest.json",
+                mime="application/json",
+            )
+            st.json(manifest)
+        else:
+            st.caption("Manifesto do snapshot ainda não encontrado.")
+
+
 def _render_monthly_audit_and_base(industry: pd.DataFrame, comp: str) -> None:
     vehicle = _load_csv("vehicle_monthly.csv.gz")
     audit = _load_csv("update_audit_monthly.csv")
@@ -703,6 +878,19 @@ def _dimension_series(frame: pd.DataFrame, column: str) -> pd.Series:
     if column == "is_fic_fidc":
         values = frame[column].astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})
         return values.map({True: "FIC-FIDC", False: "FIDC direto"})
+    boolean_labels = {
+        "tem_emissao_2025_2026": ("com emissão 2025-2026", "sem emissão 2025-2026"),
+        "tem_sub_minima": ("com sub mínima", "sem sub mínima"),
+        "tem_cedente": ("com cedente/sacado", "sem cedente/sacado"),
+        "tem_documento_local": ("com documento local", "sem documento local"),
+    }
+    if column in boolean_labels:
+        values = frame[column].astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})
+        yes, no = boolean_labels[column]
+        return values.map({True: yes, False: no})
+    if column == "camadas_com_evidencia":
+        numbers = pd.to_numeric(frame[column], errors="coerce").fillna(0).round().astype(int)
+        return numbers.map(lambda value: f"{value} camada" if value == 1 else f"{value} camadas")
     values = frame[column].fillna("").astype(str).str.strip()
     values = values.where(values != "", "n/d")
     return values.str.slice(0, 70)
@@ -733,23 +921,110 @@ _CEDENTE_HEATMAP_COLUMNS = {
 }
 
 
+_SNAPSHOT_MULTI_COLUMNS = {
+    "indexadores",
+    "tipo_cotas",
+    "document_classes",
+    "criteria_keys",
+    "document_chunk_ids",
+}
+
+_SNAPSHOT_ANALYSIS_COLUMNS = [
+    "cnpj_fundo",
+    "segmento_estrategia",
+    "subsegmento_estrategia",
+    "snapshot_status",
+    "camadas_com_evidencia",
+    "tem_emissao_2025_2026",
+    "tem_sub_minima",
+    "tem_cedente",
+    "tem_documento_local",
+    "sub_min_pct_median",
+    "indexadores",
+    "tipo_cotas",
+    "document_classes",
+    "criteria_keys",
+    "document_chunk_ids",
+    "document_rows",
+    "cedente_rows",
+    "criteria_rows",
+]
+
+
+def _split_multivalue(value: object) -> list[str]:
+    parts = [part.strip() for part in str(value or "").split("|")]
+    return [part for part in parts if part and part.lower() not in {"nan", "none", "n/d"}]
+
+
+def _sub_min_bucket(value: object) -> str:
+    number = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(number):
+        return "sem sub mínima"
+    if number < 10:
+        return "<10%"
+    if number < 15:
+        return "10%-15%"
+    if number < 25:
+        return "15%-25%"
+    return ">=25%"
+
+
+def _enrich_vehicle_with_snapshot(vehicle: pd.DataFrame, snapshot: pd.DataFrame | None) -> pd.DataFrame:
+    frame = vehicle.copy()
+    id_col = "cnpj_fundo" if "cnpj_fundo" in frame.columns else "cnpj"
+    frame["cnpj_fundo_norm"] = frame[id_col].map(normalize_cnpj)
+    if snapshot is None or snapshot.empty:
+        return frame
+    snap = snapshot.copy()
+    if "cnpj_fundo" not in snap.columns:
+        return frame
+    snap["cnpj_fundo_norm"] = snap["cnpj_fundo"].map(normalize_cnpj)
+    snap_cols = ["cnpj_fundo_norm"] + [col for col in _SNAPSHOT_ANALYSIS_COLUMNS if col in snap.columns and col != "cnpj_fundo"]
+    snap = snap[snap_cols].drop_duplicates("cnpj_fundo_norm", keep="first")
+    frame = frame.merge(snap, on="cnpj_fundo_norm", how="left")
+    if "sub_min_pct_median" in frame.columns:
+        frame["sub_min_bucket"] = frame["sub_min_pct_median"].map(_sub_min_bucket)
+    else:
+        frame["sub_min_bucket"] = "sem sub mínima"
+    return frame
+
+
+def _apply_multivalue_dimensions(frame: pd.DataFrame, row_col: str, col_col: str) -> pd.DataFrame:
+    out = frame.copy()
+    if "_metric_weight" not in out.columns:
+        out["_metric_weight"] = 1.0
+    selected = [col for col in [row_col, col_col] if col in _SNAPSHOT_MULTI_COLUMNS]
+    for col in dict.fromkeys(selected):
+        if col not in out.columns:
+            return out.iloc[0:0].copy()
+        values = out[col].map(_split_multivalue)
+        counts = values.map(len).replace(0, 1)
+        out[col] = values
+        out["_metric_weight"] = out["_metric_weight"] / counts
+        out = out.explode(col).reset_index(drop=True)
+        out[col] = out[col].fillna("").astype(str)
+    return out
+
+
 def _heatmap_base_frame(
     vehicle: pd.DataFrame,
     cedentes: pd.DataFrame,
+    snapshot: pd.DataFrame | None,
     row_col: str,
     col_col: str,
 ) -> pd.DataFrame:
+    base = _enrich_vehicle_with_snapshot(vehicle, snapshot)
     if row_col not in _CEDENTE_HEATMAP_COLUMNS and col_col not in _CEDENTE_HEATMAP_COLUMNS:
-        frame = vehicle.copy()
+        frame = base.copy()
         frame["_metric_weight"] = 1.0
-        return frame
+        return _apply_multivalue_dimensions(frame, row_col, col_col)
     if cedentes.empty:
-        return vehicle.iloc[0:0].copy()
+        return base.iloc[0:0].copy()
     relations = cedentes.copy()
     relations = relations[relations.get("ativo_curadoria", pd.Series(True, index=relations.index)).astype(bool)].copy()
     relations = relations[relations.get("razao_social", pd.Series("", index=relations.index)).fillna("").astype(str).str.strip() != ""]
     if relations.empty:
-        return vehicle.iloc[0:0].copy()
+        return base.iloc[0:0].copy()
     relations["cnpj_fundo_norm"] = relations["cnpj_fundo"].map(normalize_cnpj)
     relation_cols = [
         "cnpj_fundo_norm",
@@ -761,16 +1036,14 @@ def _heatmap_base_frame(
         "score_confianca_final",
     ]
     relations = relations[[col for col in relation_cols if col in relations.columns]].drop_duplicates()
-    frame = vehicle.copy()
-    id_col = "cnpj_fundo" if "cnpj_fundo" in frame.columns else "cnpj"
-    frame["cnpj_fundo_norm"] = frame[id_col].map(normalize_cnpj)
+    frame = base.copy()
     frame = frame.merge(relations, on="cnpj_fundo_norm", how="inner")
     if frame.empty:
         frame["_metric_weight"] = 1.0
         return frame
     relation_count = frame.groupby(["competencia", "cnpj"], dropna=False)["razao_social"].transform("nunique")
     frame["_metric_weight"] = 1.0 / relation_count.clip(lower=1)
-    return frame
+    return _apply_multivalue_dimensions(frame, row_col, col_col)
 
 
 def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
@@ -797,6 +1070,19 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
         "Público-alvo": "publico_alvo",
         "FIC-FIDC": "is_fic_fidc",
         "Status curadoria": "status_revisao",
+        "Segmento Estratégia": "segmento_estrategia",
+        "Subsegmento Estratégia": "subsegmento_estrategia",
+        "Status snapshot": "snapshot_status",
+        "Camadas evidência": "camadas_com_evidencia",
+        "Emissão 25-26": "tem_emissao_2025_2026",
+        "Faixa sub mín.": "sub_min_bucket",
+        "Tem sub mín.": "tem_sub_minima",
+        "Documento local": "tem_documento_local",
+        "Indexador": "indexadores",
+        "Tipo de cota": "tipo_cotas",
+        "Classe documento": "document_classes",
+        "Critério": "criteria_keys",
+        "Chunk docs": "document_chunk_ids",
     }
     metric_options = ["PL médio", "Captação líquida", "Veículos", "Fundos"]
     dimension_labels = list(dimensions)
@@ -818,8 +1104,11 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
         top_n = st.slider("Top", min_value=5, max_value=25, value=12, step=1, key="industry_heatmap_top")
 
     cedentes = _build_structured_cedentes()
+    snapshot_tables = _load_fund_snapshot_tables()
+    snapshot = snapshot_tables["snapshot"]
+    assert isinstance(snapshot, pd.DataFrame)
     frame = _period_filter(vehicle, comp, period)
-    frame = _heatmap_base_frame(frame, cedentes, dimensions[row_label], dimensions[col_label])
+    frame = _heatmap_base_frame(frame, cedentes, snapshot, dimensions[row_label], dimensions[col_label])
     if frame.empty:
         st.caption("Sem linhas para a janela selecionada.")
         return
@@ -931,6 +1220,11 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
         st.caption(
             "Quando a dimensão é cedente/sacado, PL e fluxo são alocados igualmente entre os participantes ativos "
             "do mesmo fundo para evitar dupla contagem direta."
+        )
+    if dimensions[row_label] in _SNAPSHOT_MULTI_COLUMNS or dimensions[col_label] in _SNAPSHOT_MULTI_COLUMNS:
+        st.caption(
+            "Dimensões multivalor vindas do snapshot, como indexador e critérios, ponderam PL e fluxo entre os itens "
+            "extraídos para preservar a ordem de grandeza agregada."
         )
 
 
@@ -1881,6 +2175,19 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
         "FIC-FIDC": "is_fic_fidc",
         "Condomínio": "condominio",
         "Público-alvo": "publico_alvo",
+        "Segmento Estratégia": "segmento_estrategia",
+        "Subsegmento Estratégia": "subsegmento_estrategia",
+        "Status snapshot": "snapshot_status",
+        "Camadas evidência": "camadas_com_evidencia",
+        "Emissão 25-26": "tem_emissao_2025_2026",
+        "Faixa sub mín.": "sub_min_bucket",
+        "Tem sub mín.": "tem_sub_minima",
+        "Documento local": "tem_documento_local",
+        "Indexador": "indexadores",
+        "Tipo de cota": "tipo_cotas",
+        "Classe documento": "document_classes",
+        "Critério": "criteria_keys",
+        "Chunk docs": "document_chunk_ids",
     }
     ctrl_a, ctrl_b, ctrl_c = st.columns([0.9, 0.9, 1.2])
     with ctrl_a:
@@ -1896,9 +2203,12 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
         query = st.text_input("Buscar valor", key="industry_deep_query", placeholder="nome, CNPJ, segmento ou participante")
 
     cedentes = _build_structured_cedentes()
+    snapshot_tables = _load_fund_snapshot_tables()
+    snapshot = snapshot_tables["snapshot"]
+    assert isinstance(snapshot, pd.DataFrame)
     dim_col = dimensions[dimension_label]
     frame = _period_filter(vehicle, comp, period)
-    frame = _heatmap_base_frame(frame, cedentes, dim_col, dim_col)
+    frame = _heatmap_base_frame(frame, cedentes, snapshot, dim_col, dim_col)
     if frame.empty:
         st.caption("Sem dados para a dimensão/janela selecionada.")
         return
@@ -2075,112 +2385,201 @@ def _load_industry_pipeline_manifest() -> dict[str, object]:
     return load_pipeline_manifest(_PIPELINE_MANIFEST_PATH)
 
 
+@st.cache_data(show_spinner=False)
+def _load_industry_pipeline_index() -> dict[str, object]:
+    index = load_pipeline_manifest(_PIPELINE_INDEX_PATH)
+    if index:
+        return index
+    return build_industry_pipeline_index(industry_dir=_DATA_DIR, output_path=_PIPELINE_INDEX_PATH)
+
+
+def _status_badge_text(status: object) -> str:
+    mapping = {
+        "ok": "ok",
+        "warning": "atenção",
+        "missing": "ausente",
+        "missing_artifact": "artefato ausente",
+    }
+    return mapping.get(str(status or ""), str(status or "n/d"))
+
+
 def _render_pipeline_manifest() -> None:
-    st.markdown('<div class="industry-section">Pipeline, qualidade e reexecução</div>', unsafe_allow_html=True)
+    st.markdown('<div class="industry-section">Pipeline mensal e cockpit de atualização</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="industry-def">Manifesto persistido da camada de cedentes: etapas independentes, '
-        "entradas, saídas, hashes, comandos de reexecução e cobertura dos campos críticos.</div>",
+        '<div class="industry-def">Índice consolidado dos módulos da aba Indústria: base granular mensal, '
+        "emissões, documentos, cedentes, critérios, fingerprints, freshness e comandos de refresh.</div>",
         unsafe_allow_html=True,
     )
-    manifest = _load_industry_pipeline_manifest()
-    if not manifest:
+    index = _load_industry_pipeline_index()
+    if not index:
         st.info(
-            "Manifesto ainda não gerado. Rode `python scripts/build_fidc_industry_cedentes.py` "
-            "para materializar `industry_pipeline_manifest.json`."
+            "Índice do pipeline ainda não disponível. Rode `python scripts/build_fidc_industry_pipeline_index.py`."
         )
         return
 
-    quality = manifest.get("quality", {})
-    coverage = quality.get("coverage", {}) if isinstance(quality, dict) else {}
-    score = quality.get("score", {}) if isinstance(quality, dict) else {}
+    rollup = index.get("quality_rollup", {}) if isinstance(index.get("quality_rollup"), dict) else {}
+    status_counts = rollup.get("module_status_counts", {}) if isinstance(rollup.get("module_status_counts"), dict) else {}
+    modules = index.get("modules", []) if isinstance(index.get("modules"), list) else []
+    refresh_plan = index.get("refresh_plan", []) if isinstance(index.get("refresh_plan"), list) else []
+    artifacts = index.get("artifact_index", []) if isinstance(index.get("artifact_index"), list) else []
     cards = [
-        _curation_card("Manifesto", str(manifest.get("schema_version", "n/d")).split("/")[-1], str(manifest.get("generated_at_utc", "n/d"))),
-        _curation_card("Linhas estruturadas", _fmt_int(float(quality.get("structured_rows", 0))) if isinstance(quality, dict) else "0", f"{_fmt_int(float(quality.get('structured_funds', 0)))} FIDCs" if isinstance(quality, dict) else ""),
-        _curation_card("Prioridade 2025-2026", _fmt_int(float(quality.get("priority_2025_2026_rows", 0))) if isinstance(quality, dict) else "0", f"{_fmt_int(float(quality.get('priority_2025_2026_funds', 0)))} FIDCs"),
-        _curation_card("Revisões manuais", _fmt_int(float(quality.get("review_rows", 0))) if isinstance(quality, dict) else "0", "persistidas pela UI"),
-        _curation_card("CNPJ participante", _fmt_pct(float(coverage.get("cnpj_participante", 0))) if isinstance(coverage, dict) else "n/d", "cobertura"),
-        _curation_card("Score mediano", _pct_label(float(score.get("median", 0)) * 100) if isinstance(score, dict) and score.get("median") is not None else "n/d", "confiança final"),
+        _curation_card(
+            "Módulos ok",
+            f"{_fmt_int(float(status_counts.get('ok', 0)))}/{_fmt_int(float(rollup.get('modules_total', 0)))}",
+            f"gerado {str(index.get('generated_at_utc', ''))[:10]}",
+        ),
+        _curation_card(
+            "Artefatos presentes",
+            f"{_fmt_int(float(rollup.get('artifacts_present', 0)))}/{_fmt_int(float(rollup.get('artifacts_total', 0)))}",
+            f"{_fmt_int(float(rollup.get('artifacts_missing', 0)))} ausentes",
+        ),
+        _curation_card(
+            "Competência IME",
+            str(rollup.get("competencia_snapshot") or rollup.get("competencia_final") or "n/d"),
+            "snapshot granular",
+        ),
+        _curation_card(
+            "Snapshot FIDCs",
+            _fmt_int(float(rollup.get("fund_snapshot_rows", 0))),
+            "base unificada",
+        ),
+        _curation_card(
+            "Cedentes",
+            _fmt_int(float(rollup.get("fund_snapshot_with_cedentes", rollup.get("cedentes_structured_rows", 0)))),
+            "FIDCs com evidência",
+        ),
+        _curation_card(
+            "Sub mínima",
+            _pct_label(float(rollup.get("subordination_median_pct", 0))) if rollup.get("subordination_median_pct") is not None else "n/d",
+            f"{_fmt_int(float(rollup.get('subordination_funds', 0)))} FIDCs",
+        ),
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    stage_rows = []
-    for stage in manifest.get("stages", []):
-        if not isinstance(stage, dict):
-            continue
-        stage_rows.append(
-            {
-                "Etapa": stage.get("label", stage.get("id", "")),
-                "Status": stage.get("status", ""),
-                "Linhas": _fmt_int(float(stage.get("rows", 0))) if stage.get("rows") not in ("", None) else "",
-                "FIDCs": _fmt_int(float(stage.get("funds", 0))) if stage.get("funds") not in ("", None) else "",
-                "Entrada": stage.get("input", ""),
-                "Saída": stage.get("output", ""),
-                "Reexecução": stage.get("rerun", ""),
-            }
-        )
-    if stage_rows:
-        st.markdown("**Etapas independentes**")
-        st.dataframe(pd.DataFrame(stage_rows), hide_index=True, width="stretch")
+    tab_modules, tab_refresh, tab_artifacts, tab_json = st.tabs(["Módulos", "Refresh mensal", "Artefatos", "Manifesto"])
+    with tab_modules:
+        module_rows = []
+        for module in modules:
+            if not isinstance(module, dict):
+                continue
+            quality = module.get("quality_highlights", {}) if isinstance(module.get("quality_highlights"), dict) else {}
+            quality_text = " · ".join(
+                f"{key}: {value}"
+                for key, value in quality.items()
+                if value not in ("", None, {})
+            )
+            module_rows.append(
+                {
+                    "Módulo": module.get("label", module.get("id", "")),
+                    "Status": _status_badge_text(module.get("status")),
+                    "Gerado em": str(module.get("generated_at_utc", ""))[:19],
+                    "Cadência": module.get("cadence", ""),
+                    "Etapas": _fmt_int(float(module.get("stage_count", 0))) if module.get("stage_count") not in ("", None) else "",
+                    "Artefatos": f"{module.get('artifacts_present', 0)}/{module.get('artifact_count', 0)}",
+                    "Comando": module.get("command", ""),
+                    "Métricas": quality_text[:260],
+                }
+            )
+        if module_rows:
+            st.dataframe(pd.DataFrame(module_rows), hide_index=True, width="stretch")
+        else:
+            st.caption("Nenhum módulo encontrado no índice.")
 
-    col_a, col_b = st.columns([0.9, 1.1])
-    with col_a:
-        st.markdown("**Cobertura de campos críticos**")
-        if isinstance(coverage, dict) and coverage:
-            cov = pd.DataFrame(
-                [
-                    {"Campo": key, "Cobertura": float(value) * 100}
-                    for key, value in coverage.items()
-                ]
-            ).sort_values("Cobertura", ascending=True)
+        if status_counts:
+            status_frame = pd.DataFrame(
+                [{"Status": _status_badge_text(key), "Módulos": int(value)} for key, value in status_counts.items()]
+            )
             chart = (
-                alt.Chart(cov)
+                alt.Chart(status_frame)
                 .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
                 .encode(
-                    x=alt.X("Cobertura:Q", title="%", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
-                    y=alt.Y("Campo:N", title=None, sort="x"),
-                    tooltip=[
-                        alt.Tooltip("Campo:N", title="campo"),
-                        alt.Tooltip("Cobertura:Q", title="cobertura", format=",.1f"),
-                    ],
+                    x=alt.X("Módulos:Q", title="módulos", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    y=alt.Y("Status:N", title=None, sort="-x"),
+                    tooltip=[alt.Tooltip("Status:N"), alt.Tooltip("Módulos:Q")],
                 )
-                .properties(height=280)
+                .properties(height=160)
             )
             st.altair_chart(chart, width="stretch")
-        else:
-            st.caption("Cobertura indisponível no manifesto.")
-    with col_b:
-        st.markdown("**Arquivos e fingerprints**")
-        file_rows = []
-        for group_name in ["inputs", "outputs"]:
-            files = manifest.get(group_name, {})
-            if not isinstance(files, dict):
-                continue
-            for label, info in files.items():
-                if not isinstance(info, dict):
-                    continue
-                file_rows.append(
-                    {
-                        "Grupo": group_name,
-                        "Artefato": label,
-                        "Existe": "sim" if info.get("exists") is True else "não" if info.get("exists") is False else "",
-                        "Bytes": _fmt_int(float(info.get("bytes", 0))) if info.get("bytes") not in ("", None) else "",
-                        "SHA-256": str(info.get("sha256", ""))[:16],
-                        "Caminho": info.get("path", ""),
-                    }
-                )
-        if file_rows:
-            st.dataframe(pd.DataFrame(file_rows), hide_index=True, width="stretch")
-        else:
-            st.caption("Fingerprints não encontrados.")
 
-    with st.expander("Manifesto JSON completo"):
+    with tab_refresh:
+        st.markdown(
+            '<div class="industry-curation-note">A ordem abaixo foi pensada para atualização mensal: '
+            "primeiro os informes e séries granulares, depois camadas derivadas, e por último o próprio índice. "
+            "Os módulos documentais e de curadoria podem ser reexecutados em lotes.</div>",
+            unsafe_allow_html=True,
+        )
+        refresh_rows = []
+        for stage in refresh_plan:
+            if not isinstance(stage, dict):
+                continue
+            refresh_rows.append(
+                {
+                    "Ordem": stage.get("order", ""),
+                    "Módulo": stage.get("label", stage.get("module_id", "")),
+                    "Comando": stage.get("command", ""),
+                    "Por quê": stage.get("reason", ""),
+                    "Incrementalidade": stage.get("incremental_note", ""),
+                }
+            )
+        if refresh_rows:
+            st.dataframe(pd.DataFrame(refresh_rows), hide_index=True, width="stretch")
+        else:
+            st.caption("Plano de refresh não encontrado no índice.")
+
+    with tab_artifacts:
+        artifact_rows = []
+        for item in artifacts:
+            if not isinstance(item, dict):
+                continue
+            artifact_rows.append(
+                {
+                    "Módulo": item.get("module_id", ""),
+                    "Grupo": item.get("group", ""),
+                    "Artefato": item.get("artifact", ""),
+                    "Existe": "sim" if item.get("exists") is True else "não",
+                    "Bytes": _fmt_int(float(item.get("bytes", 0))) if item.get("bytes") not in ("", None) else "",
+                    "SHA-256": str(item.get("sha256", ""))[:16],
+                    "Caminho": item.get("path", ""),
+                }
+            )
+        if artifact_rows:
+            artifact_frame = pd.DataFrame(artifact_rows)
+            col_status, col_module = st.columns([1, 1])
+            with col_status:
+                status_filter = st.multiselect(
+                    "Status do artefato",
+                    ["sim", "não"],
+                    default=["sim", "não"],
+                    key="industry_pipeline_artifact_status",
+                )
+            with col_module:
+                module_options = sorted(artifact_frame["Módulo"].dropna().astype(str).unique())
+                module_filter = st.multiselect(
+                    "Módulo",
+                    module_options,
+                    default=module_options,
+                    key="industry_pipeline_artifact_module",
+                )
+            filtered = artifact_frame[
+                artifact_frame["Existe"].isin(status_filter) & artifact_frame["Módulo"].isin(module_filter)
+            ].copy()
+            st.dataframe(filtered, hide_index=True, width="stretch")
+        else:
+            st.caption("Índice de artefatos vazio.")
+
+    with tab_json:
         st.download_button(
-            "Baixar manifesto",
-            data=json.dumps(manifest, ensure_ascii=False, indent=2),
-            file_name="industry_pipeline_manifest.json",
+            "Baixar índice",
+            data=json.dumps(index, ensure_ascii=False, indent=2),
+            file_name="industry_pipeline_index.json",
             mime="application/json",
         )
-        st.json(manifest)
+        st.json(index)
+
+    legacy_manifest = _load_industry_pipeline_manifest()
+    if legacy_manifest:
+        with st.expander("Manifesto legado de cedentes"):
+            st.json(legacy_manifest)
 
 
 def _render_regulatory_curation_overlay() -> None:
@@ -2355,9 +2754,11 @@ def render_tab_industry_study() -> None:
     st.markdown(f'<div class="industry-kpi-grid">{"".join(kpis)}</div>', unsafe_allow_html=True)
 
     vehicle = _load_csv("vehicle_monthly.csv.gz")
-    audit_tab, issuance_tab, documents_tab, criteria_tab, heatmap_tab, cedente_tab, deep_dive_tab, pipeline_tab = st.tabs(
-        ["Base granular", "Emissões", "Documentos", "Critérios", "Heatmaps", "Cedentes", "Deep Dive", "Pipeline"]
+    universe_tab, audit_tab, issuance_tab, documents_tab, criteria_tab, heatmap_tab, cedente_tab, deep_dive_tab, pipeline_tab = st.tabs(
+        ["Universo", "Base granular", "Emissões", "Documentos", "Critérios", "Heatmaps", "Cedentes", "Deep Dive", "Pipeline"]
     )
+    with universe_tab:
+        _render_fund_snapshot_universe()
     with audit_tab:
         _render_monthly_audit_and_base(industry, comp)
     with issuance_tab:
