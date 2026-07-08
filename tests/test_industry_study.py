@@ -68,8 +68,18 @@ from tabs.tab_industry_study import (  # noqa: E402
     _apply_snapshot_gap_actions,
     _build_fund_dossier_tables,
     _build_snapshot_market_share,
+    _apply_catalog_gap_actions,
     _catalog_heatmap_cell_frame,
+    _catalog_gap_actions_for_audit,
+    _dimension_catalog_gap_frame,
+    _dimension_catalog_quality_frame,
     _dimension_profile_coverage_frame,
+    _dimension_radar_frame,
+    _dimension_value_snapshot_frame,
+    _format_dimension_catalog_gaps,
+    _format_dimension_catalog_quality,
+    _format_dimension_value_snapshot,
+    _format_dimension_radar,
     _heatmap_base_frame,
     _heatmap_preset_options,
     _pl_fic_impact_frame,
@@ -1004,6 +1014,112 @@ def test_industry_heatmap_cell_drilldown_preserves_catalog_evidence():
     assert _catalog_heatmap_cell_frame(catalog, snapshot, "admin", "Admin A", "admin", "Admin B").empty
 
 
+def test_industry_dimension_value_snapshot_combines_evidence_gaps_and_actions():
+    catalog = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05.753.599/0001-58",
+                "nome_exibicao": "FIDC ABC",
+                "dimension_id": "admin",
+                "dimension_label": "Administrador",
+                "dimension_value": "Admin A",
+                "value_weight": 1.0,
+                "source_layer": "snapshot",
+                "source_document": "",
+                "source_page": "",
+                "source_method": "informe_mensal",
+                "confidence_score": 1.0,
+                "review_status": "",
+                "is_curated": False,
+                "is_multivalue": False,
+            },
+            {
+                "cnpj_fundo": "22.222.222/0001-22",
+                "nome_exibicao": "FIDC CEDENTE",
+                "dimension_id": "admin",
+                "dimension_label": "Administrador",
+                "dimension_value": "Admin A",
+                "value_weight": 1.0,
+                "source_layer": "cedente",
+                "source_document": "regulamento.pdf",
+                "source_page": "12",
+                "source_method": "manual_review",
+                "confidence_score": 0.85,
+                "review_status": "aprovado",
+                "participant_cnpj": "12345678000190",
+                "is_curated": True,
+                "is_multivalue": False,
+            },
+        ]
+    )
+    snapshot = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "nome_exibicao": "FIDC ABC",
+                "competencia": "2026-05",
+                "pl": 100.0,
+                "valid_volume_2024_2026_brl": 50.0,
+                "tem_emissao_2025_2026": True,
+                "document_rows": 0,
+                "document_local_ready": 0,
+                "cedente_rows": 0,
+                "criteria_rows": 1,
+                "criteria_subordination_rows": 0,
+                "admin_nome": "Admin A",
+                "segmento_principal": "Financeiro",
+            },
+            {
+                "cnpj_fundo": "22222222000122",
+                "nome_exibicao": "FIDC CEDENTE",
+                "competencia": "2026-05",
+                "pl": 80.0,
+                "valid_volume_2024_2026_brl": 10.0,
+                "tem_emissao_2025_2026": False,
+                "document_rows": 1,
+                "document_local_ready": 1,
+                "cedente_rows": 1,
+                "criteria_rows": 1,
+                "criteria_subordination_rows": 1,
+                "sub_min_pct_median": 12.5,
+                "admin_nome": "Admin A",
+                "segmento_principal": "Comercial",
+            },
+        ]
+    )
+
+    value_snapshot = _dimension_value_snapshot_frame(catalog, snapshot, "admin", "Admin A")
+    value_snapshot = _apply_snapshot_gap_actions(
+        value_snapshot,
+        pd.DataFrame(
+            [
+                {
+                    "gap_id": "2026-05_05753599000158",
+                    "status_lacuna": "em andamento",
+                    "acao_revisada": "Baixar regulamento",
+                    "responsavel": "Research",
+                    "prazo": "2026-07-15",
+                    "notas": "",
+                    "updated_at_utc": "2026-07-08T12:00:00+00:00",
+                }
+            ]
+        ),
+    )
+    by_cnpj = value_snapshot.set_index("cnpj_fundo_norm")
+
+    assert list(value_snapshot["cnpj_fundo_norm"])[0] == "05753599000158"
+    assert by_cnpj.loc["05753599000158", "gap_count"] == 4
+    assert by_cnpj.loc["05753599000158", "status_lacuna"] == "em andamento"
+    assert by_cnpj.loc["22222222000122", "dimension_documents"] == "regulamento.pdf"
+    assert bool(by_cnpj.loc["22222222000122", "dimension_curated"]) is True
+
+    formatted = _format_dimension_value_snapshot(value_snapshot)
+
+    assert "Camadas faltantes" in formatted.columns
+    assert formatted.loc[formatted["CNPJ"].eq("05753599000158"), "Status lacuna"].iloc[0] == "em andamento"
+    assert formatted.loc[formatted["CNPJ"].eq("22222222000122"), "Docs dimensão"].iloc[0] == "regulamento.pdf"
+
+
 def test_industry_snapshot_gap_frame_prioritizes_missing_structured_layers():
     snapshot = pd.DataFrame(
         [
@@ -1534,6 +1650,116 @@ def test_industry_dimension_catalog_preserves_sources_and_weights():
     assert manifest["quality"]["rows"] == len(catalog)
 
 
+def test_industry_dimension_catalog_quality_flags_traceability_gaps():
+    catalog = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "nome_exibicao": "FIDC ABC",
+                "dimension_id": "admin",
+                "dimension_label": "Administrador",
+                "dimension_value": "Admin A",
+                "source_layer": "snapshot",
+                "source_method": "informe_mensal",
+                "confidence_score": 1.0,
+                "source_document": "",
+                "source_page": "",
+                "review_status": "",
+                "is_curated": False,
+                "is_multivalue": False,
+            },
+            {
+                "cnpj_fundo": "11111111000111",
+                "nome_exibicao": "FIDC DEF",
+                "dimension_id": "cedente_sacado",
+                "dimension_label": "Cedente/sacado",
+                "dimension_value": "CEDENTE DEF",
+                "source_layer": "cedente",
+                "source_method": "manual_review",
+                "confidence_score": 0.8,
+                "source_document": "regulamento.pdf",
+                "source_page": "",
+                "review_status": "",
+                "participant_cnpj": "12345678000190",
+                "is_curated": True,
+                "is_multivalue": False,
+                "priority_2025_2026": True,
+            },
+        ]
+    )
+
+    quality = _dimension_catalog_quality_frame(catalog)
+    gaps = _dimension_catalog_gap_frame(catalog)
+    by_dimension = quality.set_index("dimension_id")
+
+    assert by_dimension.loc["admin", "source_method_ratio"] == 1.0
+    assert pd.isna(by_dimension.loc["admin", "source_document_ratio"])
+    assert by_dimension.loc["cedente_sacado", "source_document_ratio"] == 1.0
+    assert by_dimension.loc["cedente_sacado", "source_page_ratio"] == 0.0
+    assert by_dimension.loc["cedente_sacado", "review_status_ratio"] == 0.0
+    assert len(gaps) == 1
+    assert gaps.iloc[0]["missing_traceability_fields"] == "página | status revisão"
+
+    formatted_quality = _format_dimension_catalog_quality(quality)
+    formatted_gaps = _format_dimension_catalog_gaps(gaps)
+
+    assert "Score qualidade" in formatted_quality.columns
+    assert formatted_gaps.iloc[0]["Campos faltantes"] == "página | status revisão"
+
+
+def test_industry_dimension_catalog_gap_actions_overlay_and_audit():
+    catalog = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "11111111000111",
+                "nome_exibicao": "FIDC DEF",
+                "dimension_id": "cedente_sacado",
+                "dimension_label": "Cedente/sacado",
+                "dimension_value": "CEDENTE DEF",
+                "source_layer": "cedente",
+                "source_method": "manual_review",
+                "confidence_score": 0.8,
+                "source_document": "regulamento.pdf",
+                "source_page": "",
+                "review_status": "",
+                "participant_cnpj": "12345678000190",
+                "is_curated": True,
+                "priority_2025_2026": True,
+            }
+        ]
+    )
+    gaps = _dimension_catalog_gap_frame(catalog)
+    gap_id = gaps.iloc[0]["traceability_gap_id"]
+    actions = pd.DataFrame(
+        [
+            {
+                "traceability_gap_id": gap_id,
+                "status_lacuna": "em andamento",
+                "acao_revisada": "Localizar página no regulamento",
+                "responsavel": "Research",
+                "prazo": "2026-07-20",
+                "notas": "prioridade cedente",
+                "updated_at_utc": "2026-07-08T12:00:00+00:00",
+            }
+        ]
+    )
+
+    overlayed = _apply_catalog_gap_actions(gaps, actions)
+    events = build_review_audit_events(
+        previous=_catalog_gap_actions_for_audit(pd.DataFrame(columns=actions.columns)),
+        updated=_catalog_gap_actions_for_audit(actions),
+        key_column="traceability_gap_id",
+        review_domain="dimension_catalog_gap",
+        saved_at_utc="2026-07-08T12:00:00+00:00",
+        source="test",
+    )
+
+    assert overlayed.iloc[0]["status_lacuna"] == "em andamento"
+    assert overlayed.iloc[0]["acao_revisada"] == "Localizar página no regulamento"
+    assert set(events["field"]) == {"status", "acao_revisada", "responsavel", "prazo", "notas"}
+    assert set(events["record_id"]) == {gap_id}
+
+
 def test_industry_dimension_monthly_aggregates_weighted_series_and_manifest():
     vehicle = pd.DataFrame(
         [
@@ -1636,6 +1862,64 @@ def test_industry_dimension_monthly_aggregates_weighted_series_and_manifest():
     assert quality["dimensions"] == 1
     assert manifest["schema_version"] == "industry-dimension-monthly-manifest/v1"
     assert manifest["quality"]["rows"] == len(monthly)
+
+
+def test_industry_dimension_radar_tracks_window_and_12m_growth():
+    months = pd.period_range("2025-06", "2026-06", freq="M").astype(str)
+    rows = []
+    for idx, competencia in enumerate(months):
+        rows.append(
+            {
+                "competencia": competencia,
+                "dimension_id": "admin",
+                "dimension_value": "Admin A",
+                "pl_brl": 100.0 + idx * 10.0,
+                "captacao_liquida_brl": 10.0,
+                "carteira_dc_brl": 500.0,
+                "dc_inadimplentes_ajustado_brl": 25.0,
+                "funds_unique": 2,
+                "vehicles_unique": 3,
+                "catalog_links": 4,
+                "source_document_links": 2,
+                "curated_links": 1,
+                "weighted_links": 0,
+            }
+        )
+        rows.append(
+            {
+                "competencia": competencia,
+                "dimension_id": "admin",
+                "dimension_value": "Admin B",
+                "pl_brl": 50.0,
+                "captacao_liquida_brl": -1.0,
+                "carteira_dc_brl": 100.0,
+                "dc_inadimplentes_ajustado_brl": 0.0,
+                "funds_unique": 1,
+                "vehicles_unique": 1,
+                "catalog_links": 1,
+                "source_document_links": 0,
+                "curated_links": 0,
+                "weighted_links": 0,
+            }
+        )
+    monthly = pd.DataFrame(rows)
+
+    radar = _dimension_radar_frame(monthly, dimension_id="admin", comp="2026-06", period="Últimos 12 meses")
+    by_value = radar.set_index("dimension_value")
+    admin_a = by_value.loc["Admin A"]
+
+    assert admin_a["competencia_atual"] == "2026-06"
+    assert admin_a["competencia_12m_antes"] == "2025-06"
+    assert admin_a["pl_atual_brl"] == 220.0
+    assert admin_a["captacao_janela_brl"] == 120.0
+    assert admin_a["pl_delta_12m_brl"] == 120.0
+    assert round(float(admin_a["pl_growth_12m_pct"]), 6) == 1.2
+    assert admin_a["evidence_coverage"] == 0.5
+
+    formatted = _format_dimension_radar(radar.head(1))
+
+    assert list(formatted.columns)[:5] == ["Valor", "Competência", "PL atual", "Captação janela", "Delta PL 12m"]
+    assert formatted.iloc[0]["Cresc. PL 12m"] == "120,0%"
 
 
 def test_industry_dimension_profiles_crosses_catalog_dimensions_and_manifest():

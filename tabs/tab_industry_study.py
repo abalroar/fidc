@@ -13,6 +13,7 @@ rotulo direto ou tabela ao lado.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import sqlite3
@@ -69,6 +70,8 @@ _MONTHLY_DELTA_MANIFEST_PATH = _DATA_DIR / "industry_monthly_delta_manifest.json
 _MONTHLY_DELTA_ACTIONS_PATH = _DATA_DIR / "monthly_delta_actions.csv"
 _SNAPSHOT_GAP_ACTIONS_PATH = _DATA_DIR / "snapshot_gap_actions.csv"
 _SNAPSHOT_GAP_ACTION_AUDIT_PATH = _DATA_DIR / "snapshot_gap_action_audit.csv"
+_CATALOG_GAP_ACTIONS_PATH = _DATA_DIR / "dimension_catalog_gap_actions.csv"
+_CATALOG_GAP_ACTION_AUDIT_PATH = _DATA_DIR / "dimension_catalog_gap_action_audit.csv"
 _FUND_SNAPSHOT_PATH = _DATA_DIR / "industry_fund_snapshot.csv.gz"
 _FUND_SNAPSHOT_MANIFEST_PATH = _DATA_DIR / "industry_fund_snapshot_manifest.json"
 _DIMENSION_CATALOG_PATH = _DATA_DIR / "industry_dimension_catalog.csv.gz"
@@ -94,6 +97,15 @@ _CEDENTE_REVIEW_COLUMNS = CEDENTE_REVIEW_COLUMNS
 _CRITERIA_REVIEW_COLUMNS = CRITERIA_REVIEW_COLUMNS
 _SNAPSHOT_GAP_ACTION_COLUMNS = [
     "gap_id",
+    "status_lacuna",
+    "acao_revisada",
+    "responsavel",
+    "prazo",
+    "notas",
+    "updated_at_utc",
+]
+_CATALOG_GAP_ACTION_COLUMNS = [
+    "traceability_gap_id",
     "status_lacuna",
     "acao_revisada",
     "responsavel",
@@ -671,6 +683,71 @@ def _snapshot_gap_actions_for_audit(actions: pd.DataFrame | None) -> pd.DataFram
     return out[["gap_id", "status", "acao_revisada", "responsavel", "prazo", "notas"]]
 
 
+@st.cache_data(show_spinner=False)
+def _load_catalog_gap_actions() -> pd.DataFrame:
+    actions = load_dataframe(_CATALOG_GAP_ACTIONS_PATH)
+    for col in _CATALOG_GAP_ACTION_COLUMNS:
+        if col not in actions.columns:
+            actions[col] = ""
+    return actions[_CATALOG_GAP_ACTION_COLUMNS]
+
+
+def _save_catalog_gap_actions(actions: pd.DataFrame) -> pd.DataFrame:
+    out = actions.copy() if actions is not None else pd.DataFrame(columns=_CATALOG_GAP_ACTION_COLUMNS)
+    for col in _CATALOG_GAP_ACTION_COLUMNS:
+        if col not in out.columns:
+            out[col] = ""
+    out = out[_CATALOG_GAP_ACTION_COLUMNS]
+    out = out[out["traceability_gap_id"].fillna("").astype(str).str.strip().ne("")]
+    out = out.drop_duplicates("traceability_gap_id", keep="last")
+    save_dataframe(out, _CATALOG_GAP_ACTIONS_PATH)
+    return out
+
+
+def _apply_catalog_gap_actions(gaps: pd.DataFrame, actions: pd.DataFrame | None) -> pd.DataFrame:
+    if gaps is None or gaps.empty:
+        return pd.DataFrame() if gaps is None else gaps.copy()
+    out = gaps.copy()
+    for col in ["status_lacuna", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        if col not in out.columns:
+            out[col] = ""
+    if (
+        actions is None
+        or actions.empty
+        or "traceability_gap_id" not in actions.columns
+        or "traceability_gap_id" not in out.columns
+    ):
+        out["status_lacuna"] = out["status_lacuna"].replace("", "pendente")
+        return out
+    overlay = actions.copy()
+    for col in _CATALOG_GAP_ACTION_COLUMNS:
+        if col not in overlay.columns:
+            overlay[col] = ""
+    overlay = overlay[_CATALOG_GAP_ACTION_COLUMNS].drop_duplicates("traceability_gap_id", keep="last")
+    out = out.merge(overlay, on="traceability_gap_id", how="left", suffixes=("", "_review"))
+    for col in ["status_lacuna", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        review_col = f"{col}_review"
+        if review_col in out.columns:
+            out[col] = out[review_col].fillna("").astype(str).where(
+                out[review_col].fillna("").astype(str).str.strip().ne(""),
+                out[col].fillna("").astype(str),
+            )
+            out = out.drop(columns=[review_col])
+    out["status_lacuna"] = out["status_lacuna"].replace("", "pendente")
+    return out
+
+
+def _catalog_gap_actions_for_audit(actions: pd.DataFrame | None) -> pd.DataFrame:
+    if actions is None or actions.empty:
+        return pd.DataFrame(columns=["traceability_gap_id", "status", "acao_revisada", "responsavel", "prazo", "notas"])
+    out = actions.copy()
+    for col in _CATALOG_GAP_ACTION_COLUMNS:
+        if col not in out.columns:
+            out[col] = ""
+    out["status"] = out["status_lacuna"].fillna("").astype(str).replace("", "pendente")
+    return out[["traceability_gap_id", "status", "acao_revisada", "responsavel", "prazo", "notas"]]
+
+
 def _format_fund_snapshot_table(frame: pd.DataFrame) -> pd.DataFrame:
     out = frame.copy()
     column_map = {
@@ -811,6 +888,199 @@ def _format_snapshot_gap_table(frame: pd.DataFrame) -> pd.DataFrame:
         out["Lacunas"] = pd.to_numeric(out["Lacunas"], errors="coerce").fillna(0.0).map(lambda value: _fmt_int(float(value)))
     if "Prioridade 25-26" in out.columns:
         out["Prioridade 25-26"] = out["Prioridade 25-26"].astype(bool).map({True: "sim", False: "não"})
+    return out
+
+
+def _join_distinct(values: pd.Series, *, limit: int = 5) -> str:
+    seen: list[str] = []
+    for value in values.fillna("").astype(str):
+        value = value.strip()
+        if not value or value.lower() in {"nan", "none", "n/d"} or value in seen:
+            continue
+        seen.append(value)
+        if len(seen) >= limit:
+            break
+    return " | ".join(seen)
+
+
+def _dimension_value_snapshot_frame(
+    catalog: pd.DataFrame,
+    snapshot: pd.DataFrame,
+    dimension_id: str,
+    selected_value: str,
+) -> pd.DataFrame:
+    dim = _dimension_catalog_rows(catalog, dimension_id)
+    if dim.empty:
+        return pd.DataFrame()
+    dim = dim[dim["dimension_value"].astype(str).eq(str(selected_value))].copy()
+    if dim.empty:
+        return dim
+    for col in [
+        "source_layer",
+        "source_document",
+        "source_page",
+        "source_method",
+        "review_status",
+        "participant_cnpj",
+    ]:
+        if col not in dim.columns:
+            dim[col] = ""
+    if "dimension_label" not in dim.columns:
+        dim["dimension_label"] = str(dimension_id)
+    if "confidence_score" in dim.columns:
+        dim["confidence_score"] = pd.to_numeric(dim["confidence_score"], errors="coerce")
+    else:
+        dim["confidence_score"] = pd.NA
+    for col in ["is_curated", "is_multivalue"]:
+        if col in dim.columns:
+            dim[col] = dim[col].astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})
+        else:
+            dim[col] = False
+    evidence = (
+        dim.groupby("cnpj_fundo_norm", dropna=False)
+        .agg(
+            dimension_value=("dimension_value", "first"),
+            dimension_label=("dimension_label", "first"),
+            dimension_links=("dimension_value", "size"),
+            dimension_weight=("value_weight", "sum"),
+            dimension_source_layers=("source_layer", _join_distinct),
+            dimension_documents=("source_document", _join_distinct),
+            dimension_pages=("source_page", _join_distinct),
+            dimension_methods=("source_method", _join_distinct),
+            dimension_review_status=("review_status", _join_distinct),
+            dimension_participant_cnpjs=("participant_cnpj", _join_distinct),
+            dimension_confidence=("confidence_score", "median"),
+            dimension_curated=("is_curated", "max"),
+            dimension_multivalue=("is_multivalue", "max"),
+        )
+        .reset_index()
+    )
+    if snapshot is not None and not snapshot.empty:
+        funds = snapshot.copy()
+        id_col = "cnpj_fundo" if "cnpj_fundo" in funds.columns else "cnpj"
+        funds["cnpj_fundo_norm"] = funds[id_col].map(normalize_cnpj)
+        snapshot_cols = [
+            "cnpj_fundo_norm",
+            "cnpj_fundo",
+            "nome_exibicao",
+            "competencia",
+            "pl",
+            "valid_volume_2024_2026_brl",
+            "admin_nome",
+            "gestor_nome",
+            "segmento_principal",
+            "segmento_estrategia",
+            "subsegmento_estrategia",
+            "document_rows",
+            "document_local_ready",
+            "cedente_rows",
+            "criteria_rows",
+            "criteria_subordination_rows",
+            "sub_min_pct_median",
+            "tem_emissao_2025_2026",
+            "document_chunk_ids",
+            "snapshot_status",
+        ]
+        funds = funds[[col for col in snapshot_cols if col in funds.columns]].drop_duplicates("cnpj_fundo_norm")
+        out = evidence.merge(funds, on="cnpj_fundo_norm", how="left")
+    else:
+        out = evidence.copy()
+    if "cnpj_fundo" not in out.columns:
+        out["cnpj_fundo"] = out["cnpj_fundo_norm"]
+    out["cnpj_fundo"] = out["cnpj_fundo"].fillna("").astype(str).where(
+        out["cnpj_fundo"].fillna("").astype(str).str.strip().ne(""),
+        out["cnpj_fundo_norm"],
+    )
+    competencia = out.get("competencia", pd.Series("snapshot", index=out.index)).fillna("").astype(str).replace("", "snapshot")
+    out["gap_id"] = competencia + "_" + out["cnpj_fundo_norm"].fillna("").astype(str)
+    gaps = _snapshot_gap_frame(out)
+    gap_cols = ["cnpj_fundo_norm", "gap_id", "gap_count", "missing_layers", "gap_priority_score", "priority_2025_2026"]
+    if not gaps.empty:
+        out = out.merge(gaps[[col for col in gap_cols if col in gaps.columns]], on="cnpj_fundo_norm", how="left", suffixes=("", "_gap"))
+        if "gap_id_gap" in out.columns:
+            out["gap_id"] = out["gap_id_gap"].fillna("").astype(str).where(out["gap_id_gap"].fillna("").astype(str).str.strip().ne(""), out["gap_id"])
+            out = out.drop(columns=["gap_id_gap"])
+    for col in ["gap_count", "gap_priority_score"]:
+        out[col] = pd.to_numeric(out.get(col), errors="coerce").fillna(0.0)
+    out["missing_layers"] = out.get("missing_layers", pd.Series("", index=out.index)).fillna("").astype(str)
+    priority_values = out.get("priority_2025_2026", pd.Series(False, index=out.index))
+    out["priority_2025_2026"] = priority_values.astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})
+    for col in ["pl", "valid_volume_2024_2026_brl", "document_rows", "document_local_ready", "cedente_rows", "criteria_rows", "criteria_subordination_rows"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0.0)
+        else:
+            out[col] = 0.0
+    return out.sort_values(["priority_2025_2026", "gap_count", "pl", "dimension_confidence"], ascending=[False, False, False, False]).reset_index(drop=True)
+
+
+def _format_dimension_value_snapshot(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    cols = [
+        "cnpj_fundo",
+        "nome_exibicao",
+        "pl",
+        "valid_volume_2024_2026_brl",
+        "gap_count",
+        "missing_layers",
+        "status_lacuna",
+        "admin_nome",
+        "segmento_principal",
+        "document_rows",
+        "cedente_rows",
+        "criteria_rows",
+        "criteria_subordination_rows",
+        "sub_min_pct_median",
+        "dimension_links",
+        "dimension_source_layers",
+        "dimension_documents",
+        "dimension_pages",
+        "dimension_methods",
+        "dimension_confidence",
+        "dimension_review_status",
+        "document_chunk_ids",
+    ]
+    out = frame[[col for col in cols if col in frame.columns]].copy()
+    out = out.rename(
+        columns={
+            "cnpj_fundo": "CNPJ",
+            "nome_exibicao": "FIDC",
+            "pl": "PL",
+            "valid_volume_2024_2026_brl": "Emissões 24-26",
+            "gap_count": "Lacunas",
+            "missing_layers": "Camadas faltantes",
+            "status_lacuna": "Status lacuna",
+            "admin_nome": "Administrador",
+            "segmento_principal": "Segmento",
+            "document_rows": "Docs",
+            "cedente_rows": "Cedentes",
+            "criteria_rows": "Critérios",
+            "criteria_subordination_rows": "Sub mín. evid.",
+            "sub_min_pct_median": "Sub mín. mediana",
+            "dimension_links": "Links dimensão",
+            "dimension_source_layers": "Fonte dimensão",
+            "dimension_documents": "Docs dimensão",
+            "dimension_pages": "Págs dimensão",
+            "dimension_methods": "Métodos dimensão",
+            "dimension_confidence": "Score dimensão",
+            "dimension_review_status": "Revisão dimensão",
+            "document_chunk_ids": "Chunks",
+        }
+    )
+    for col in ["PL", "Emissões 24-26"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0.0).map(lambda value: _fmt_bi(float(value), 2))
+    for col in ["Lacunas", "Docs", "Cedentes", "Critérios", "Sub mín. evid.", "Links dimensão"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0.0).map(lambda value: _fmt_int(float(value)))
+    if "Sub mín. mediana" in out.columns:
+        out["Sub mín. mediana"] = pd.to_numeric(out["Sub mín. mediana"], errors="coerce").map(
+            lambda value: _pct_label(float(value)) if pd.notna(value) else "n/d"
+        )
+    if "Score dimensão" in out.columns:
+        out["Score dimensão"] = pd.to_numeric(out["Score dimensão"], errors="coerce").map(
+            lambda value: "n/d" if pd.isna(value) else f"{float(value):.2f}".replace(".", ",")
+        )
     return out
 
 
@@ -2551,6 +2821,294 @@ def _format_dimension_profile_coverage(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def _truthy_series(values: pd.Series) -> pd.Series:
+    return values.astype("string").fillna("").str.lower().isin({"true", "1", "sim", "s", "yes"})
+
+
+def _nonempty_series(values: pd.Series) -> pd.Series:
+    return values.fillna("").astype(str).str.strip().ne("")
+
+
+def _numeric_median_or_na(values: pd.Series) -> object:
+    numeric = pd.to_numeric(values, errors="coerce").dropna()
+    if numeric.empty:
+        return pd.NA
+    return float(numeric.median())
+
+
+def _dimension_catalog_quality_frame(catalog: pd.DataFrame) -> pd.DataFrame:
+    required = {"dimension_id", "dimension_label", "dimension_value", "cnpj_fundo"}
+    if catalog.empty or not required.issubset(catalog.columns):
+        return pd.DataFrame()
+    frame = catalog.copy()
+    for col in [
+        "source_layer",
+        "source_document",
+        "source_page",
+        "source_date",
+        "source_method",
+        "confidence_score",
+        "review_status",
+        "participant_cnpj",
+        "is_curated",
+        "is_multivalue",
+    ]:
+        if col not in frame.columns:
+            frame[col] = ""
+    frame["_cnpj_norm"] = frame["cnpj_fundo"].map(normalize_cnpj)
+    frame["_has_source_layer"] = _nonempty_series(frame["source_layer"])
+    frame["_has_source_document"] = _nonempty_series(frame["source_document"])
+    frame["_has_source_page"] = _nonempty_series(frame["source_page"])
+    frame["_has_source_date"] = _nonempty_series(frame["source_date"])
+    frame["_has_source_method"] = _nonempty_series(frame["source_method"])
+    frame["_has_confidence"] = pd.to_numeric(frame["confidence_score"], errors="coerce").notna()
+    frame["_has_review_status"] = _nonempty_series(frame["review_status"])
+    frame["_has_participant_cnpj"] = _nonempty_series(frame["participant_cnpj"].map(normalize_cnpj))
+    frame["_is_curated"] = _truthy_series(frame["is_curated"])
+    frame["_is_multivalue"] = _truthy_series(frame["is_multivalue"])
+    source_layer = frame["source_layer"].fillna("").astype(str)
+    frame["_doc_expected"] = frame["_is_curated"] | source_layer.isin({"cedente", "criteria"}) | frame["_has_source_document"]
+    frame["_review_expected"] = frame["_is_curated"] | source_layer.isin({"cedente", "criteria"})
+    confidence = pd.to_numeric(frame["confidence_score"], errors="coerce")
+    grouped = (
+        frame.groupby(["dimension_label", "dimension_id"], dropna=False)
+        .agg(
+            rows=("dimension_value", "size"),
+            funds=("_cnpj_norm", "nunique"),
+            values=("dimension_value", "nunique"),
+            curated_rows=("_is_curated", "sum"),
+            multivalue_rows=("_is_multivalue", "sum"),
+            document_expected_rows=("_doc_expected", "sum"),
+            review_expected_rows=("_review_expected", "sum"),
+            with_source_layer=("_has_source_layer", "sum"),
+            with_source_document=("_has_source_document", "sum"),
+            with_source_page=("_has_source_page", "sum"),
+            with_source_date=("_has_source_date", "sum"),
+            with_source_method=("_has_source_method", "sum"),
+            with_confidence=("_has_confidence", "sum"),
+            with_review_status=("_has_review_status", "sum"),
+            with_participant_cnpj=("_has_participant_cnpj", "sum"),
+            confidence_median=("confidence_score", _numeric_median_or_na),
+        )
+        .reset_index()
+    )
+    rows = pd.to_numeric(grouped["rows"], errors="coerce").astype(float)
+    rows = rows.where(rows.ne(0))
+    doc_expected = pd.to_numeric(grouped["document_expected_rows"], errors="coerce").astype(float)
+    doc_expected = doc_expected.where(doc_expected.ne(0))
+    review_expected = pd.to_numeric(grouped["review_expected_rows"], errors="coerce").astype(float)
+    review_expected = review_expected.where(review_expected.ne(0))
+    grouped["source_layer_ratio"] = grouped["with_source_layer"] / rows
+    grouped["source_method_ratio"] = grouped["with_source_method"] / rows
+    grouped["confidence_ratio"] = grouped["with_confidence"] / rows
+    grouped["source_document_ratio"] = grouped["with_source_document"] / doc_expected
+    grouped["source_page_ratio"] = grouped["with_source_page"] / doc_expected
+    grouped["review_status_ratio"] = grouped["with_review_status"] / review_expected
+    grouped["quality_score"] = (
+        grouped["source_layer_ratio"].fillna(0.0) * 0.15
+        + grouped["source_method_ratio"].fillna(0.0) * 0.20
+        + grouped["confidence_ratio"].fillna(0.0) * 0.20
+        + grouped["source_document_ratio"].fillna(1.0) * 0.20
+        + grouped["source_page_ratio"].fillna(1.0) * 0.15
+        + grouped["review_status_ratio"].fillna(1.0) * 0.10
+    )
+    return grouped.sort_values(["quality_score", "rows"], ascending=[True, False]).reset_index(drop=True)
+
+
+def _dimension_catalog_gap_frame(catalog: pd.DataFrame) -> pd.DataFrame:
+    if catalog.empty or "dimension_id" not in catalog.columns:
+        return pd.DataFrame()
+    frame = catalog.copy()
+    for col in [
+        "cnpj_fundo",
+        "nome_exibicao",
+        "dimension_label",
+        "dimension_value",
+        "source_layer",
+        "source_document",
+        "source_page",
+        "source_date",
+        "source_method",
+        "confidence_score",
+        "review_status",
+        "participant_type",
+        "participant_cnpj",
+        "is_curated",
+        "priority_2025_2026",
+    ]:
+        if col not in frame.columns:
+            frame[col] = ""
+    source_layer = frame["source_layer"].fillna("").astype(str)
+    is_curated = _truthy_series(frame["is_curated"])
+    doc_expected = is_curated | source_layer.isin({"cedente", "criteria"}) | _nonempty_series(frame["source_document"])
+    review_expected = is_curated | source_layer.isin({"cedente", "criteria"})
+    has_source_layer = _nonempty_series(frame["source_layer"])
+    has_source_document = _nonempty_series(frame["source_document"])
+    has_source_page = _nonempty_series(frame["source_page"])
+    has_source_method = _nonempty_series(frame["source_method"])
+    has_confidence = pd.to_numeric(frame["confidence_score"], errors="coerce").notna()
+    has_review_status = _nonempty_series(frame["review_status"])
+    missing: list[str] = []
+    scores: list[int] = []
+    for idx in frame.index:
+        fields: list[str] = []
+        if not bool(has_source_layer.loc[idx]):
+            fields.append("fonte")
+        if not bool(has_source_method.loc[idx]):
+            fields.append("método")
+        if not bool(has_confidence.loc[idx]):
+            fields.append("score")
+        if bool(doc_expected.loc[idx]) and not bool(has_source_document.loc[idx]):
+            fields.append("documento")
+        if bool(doc_expected.loc[idx]) and not bool(has_source_page.loc[idx]):
+            fields.append("página")
+        if bool(review_expected.loc[idx]) and not bool(has_review_status.loc[idx]):
+            fields.append("status revisão")
+        missing.append(" | ".join(fields))
+        scores.append(len(fields) + int(bool(is_curated.loc[idx])) + int(bool(doc_expected.loc[idx])))
+    frame["missing_traceability_fields"] = missing
+    frame["traceability_gap_score"] = scores
+    out = frame[frame["missing_traceability_fields"].astype(str).str.strip().ne("")].copy()
+    if out.empty:
+        return out
+    out["cnpj_fundo_norm"] = out["cnpj_fundo"].map(normalize_cnpj)
+    value_hash = out["dimension_value"].fillna("").astype(str).map(
+        lambda value: hashlib.sha1(value.encode("utf-8")).hexdigest()[:12]
+    )
+    out["traceability_gap_id"] = (
+        "catalog_"
+        + out["dimension_id"].fillna("").astype(str).str.replace(r"[^A-Za-z0-9_]+", "_", regex=True)
+        + "_"
+        + out["cnpj_fundo_norm"].fillna("").astype(str)
+        + "_"
+        + value_hash
+    )
+    out["priority_2025_2026"] = _truthy_series(out["priority_2025_2026"])
+    out["confidence_score"] = pd.to_numeric(out["confidence_score"], errors="coerce")
+    return out.sort_values(
+        ["priority_2025_2026", "traceability_gap_score", "dimension_label", "dimension_value"],
+        ascending=[False, False, True, True],
+    ).reset_index(drop=True)
+
+
+def _format_dimension_catalog_quality(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.rename(
+        columns={
+            "dimension_label": "Dimensão",
+            "dimension_id": "ID",
+            "rows": "Linhas",
+            "funds": "FIDCs",
+            "values": "Valores",
+            "curated_rows": "Curadas",
+            "document_expected_rows": "Doc esperado",
+            "source_method_ratio": "% método",
+            "confidence_ratio": "% score",
+            "source_document_ratio": "% documento",
+            "source_page_ratio": "% página",
+            "review_status_ratio": "% revisão",
+            "confidence_median": "Score mediano",
+            "quality_score": "Score qualidade",
+        }
+    )
+    keep = [
+        "Dimensão",
+        "ID",
+        "Linhas",
+        "FIDCs",
+        "Valores",
+        "Curadas",
+        "Doc esperado",
+        "% método",
+        "% score",
+        "% documento",
+        "% página",
+        "% revisão",
+        "Score mediano",
+        "Score qualidade",
+    ]
+    out = out[[col for col in keep if col in out.columns]].copy()
+    for col in ["Linhas", "FIDCs", "Valores", "Curadas", "Doc esperado"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    for col in ["% método", "% score", "% documento", "% página", "% revisão", "Score qualidade"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").map(
+                lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
+            )
+    if "Score mediano" in out.columns:
+        out["Score mediano"] = pd.to_numeric(out["Score mediano"], errors="coerce").map(
+            lambda value: "n/d" if pd.isna(value) else f"{float(value):.2f}".replace(".", ",")
+        )
+    return out
+
+
+def _format_dimension_catalog_gaps(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    cols = [
+        "traceability_gap_id",
+        "dimension_label",
+        "dimension_value",
+        "cnpj_fundo",
+        "nome_exibicao",
+        "missing_traceability_fields",
+        "traceability_gap_score",
+        "status_lacuna",
+        "acao_revisada",
+        "responsavel",
+        "prazo",
+        "notas",
+        "updated_at_utc",
+        "source_layer",
+        "source_document",
+        "source_page",
+        "source_method",
+        "confidence_score",
+        "review_status",
+        "participant_type",
+        "participant_cnpj",
+        "priority_2025_2026",
+    ]
+    out = frame[[col for col in cols if col in frame.columns]].copy()
+    out = out.rename(
+        columns={
+            "traceability_gap_id": "ID",
+            "dimension_label": "Dimensão",
+            "dimension_value": "Valor",
+            "cnpj_fundo": "CNPJ",
+            "nome_exibicao": "FIDC",
+            "missing_traceability_fields": "Campos faltantes",
+            "traceability_gap_score": "Score lacuna",
+            "status_lacuna": "Status lacuna",
+            "acao_revisada": "Ação revisada",
+            "responsavel": "Responsável",
+            "prazo": "Prazo",
+            "notas": "Notas",
+            "updated_at_utc": "Atualizado",
+            "source_layer": "Fonte",
+            "source_document": "Documento",
+            "source_page": "Página",
+            "source_method": "Método",
+            "confidence_score": "Score",
+            "review_status": "Revisão",
+            "participant_type": "Tipo participante",
+            "participant_cnpj": "CNPJ participante",
+            "priority_2025_2026": "Prioridade 25-26",
+        }
+    )
+    if "Score lacuna" in out.columns:
+        out["Score lacuna"] = pd.to_numeric(out["Score lacuna"], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    if "Score" in out.columns:
+        out["Score"] = pd.to_numeric(out["Score"], errors="coerce").map(
+            lambda value: "n/d" if pd.isna(value) else f"{float(value):.2f}".replace(".", ",")
+        )
+    if "Prioridade 25-26" in out.columns:
+        out["Prioridade 25-26"] = out["Prioridade 25-26"].astype(bool).map({True: "sim", False: "não"})
+    return out
+
+
 def _catalog_deep_dive_frame(vehicle: pd.DataFrame, catalog: pd.DataFrame, dimension_id: str) -> pd.DataFrame:
     base = _base_with_catalog_id(vehicle)
     dim = _dimension_catalog_rows(catalog, dimension_id)
@@ -2649,6 +3207,167 @@ def _dimension_monthly_for_value(
     frame["pl_bi"] = frame["pl"] / 1e9
     frame["captacao_bi"] = frame["captacao"] / 1e9
     return frame
+
+
+def _dimension_radar_frame(monthly: pd.DataFrame, *, dimension_id: str, comp: str, period: str) -> pd.DataFrame:
+    required = {"competencia", "dimension_id", "dimension_value"}
+    if monthly.empty or not required.issubset(monthly.columns):
+        return pd.DataFrame()
+    frame = monthly[monthly["dimension_id"].astype(str).eq(str(dimension_id))].copy()
+    if frame.empty:
+        return frame
+    numeric_cols = [
+        "pl_brl",
+        "captacao_liquida_brl",
+        "carteira_dc_brl",
+        "dc_inadimplentes_ajustado_brl",
+        "funds_unique",
+        "vehicles_unique",
+        "catalog_links",
+        "source_document_links",
+        "curated_links",
+        "weighted_links",
+    ]
+    for col in numeric_cols:
+        if col in frame.columns:
+            frame[col] = pd.to_numeric(frame[col], errors="coerce").fillna(0.0)
+        else:
+            frame[col] = 0.0
+    all_comps = sorted([value for value in frame["competencia"].dropna().astype(str).unique() if value <= comp])
+    previous_comp = all_comps[-13] if len(all_comps) >= 13 else ""
+    period_frame = _period_filter(frame, comp, period)
+    if period_frame.empty:
+        return period_frame
+    grouped = (
+        period_frame.groupby(["competencia", "dimension_value"], dropna=False)
+        .agg(
+            pl_brl=("pl_brl", "sum"),
+            captacao_liquida_brl=("captacao_liquida_brl", "sum"),
+            carteira_dc_brl=("carteira_dc_brl", "sum"),
+            dc_inadimplentes_ajustado_brl=("dc_inadimplentes_ajustado_brl", "sum"),
+            funds_unique=("funds_unique", "max"),
+            vehicles_unique=("vehicles_unique", "max"),
+            catalog_links=("catalog_links", "sum"),
+            source_document_links=("source_document_links", "sum"),
+            curated_links=("curated_links", "sum"),
+            weighted_links=("weighted_links", "sum"),
+        )
+        .reset_index()
+    )
+    if grouped.empty:
+        return grouped
+    comps = sorted(grouped["competencia"].dropna().astype(str).unique())
+    latest_comp = comps[-1]
+    current = grouped[grouped["competencia"].astype(str).eq(latest_comp)].copy()
+    current = current.rename(
+        columns={
+            "pl_brl": "pl_atual_brl",
+            "carteira_dc_brl": "carteira_atual_brl",
+            "dc_inadimplentes_ajustado_brl": "inad_atual_brl",
+            "funds_unique": "fundos_atuais",
+            "vehicles_unique": "veiculos_atuais",
+            "catalog_links": "links_catalogo",
+            "source_document_links": "links_com_fonte",
+            "curated_links": "links_curados",
+            "weighted_links": "links_ponderados",
+        }
+    )
+    flow = (
+        grouped.groupby("dimension_value", dropna=False)["captacao_liquida_brl"]
+        .sum()
+        .reset_index(name="captacao_janela_brl")
+    )
+    out = current.merge(flow, on="dimension_value", how="outer")
+    if previous_comp:
+        previous = (
+            frame[frame["competencia"].astype(str).eq(previous_comp)]
+            .groupby("dimension_value", dropna=False)["pl_brl"]
+            .sum()
+            .reset_index(name="pl_12m_antes_brl")
+        )
+        out = out.merge(previous, on="dimension_value", how="left")
+    else:
+        out["pl_12m_antes_brl"] = pd.NA
+    for col in [
+        "pl_atual_brl",
+        "captacao_janela_brl",
+        "pl_12m_antes_brl",
+        "carteira_atual_brl",
+        "inad_atual_brl",
+        "fundos_atuais",
+        "veiculos_atuais",
+        "links_catalogo",
+        "links_com_fonte",
+        "links_curados",
+        "links_ponderados",
+    ]:
+        out[col] = pd.to_numeric(out.get(col), errors="coerce").fillna(0.0)
+    out["competencia_atual"] = latest_comp
+    out["competencia_12m_antes"] = previous_comp
+    out["pl_delta_12m_brl"] = out["pl_atual_brl"] - out["pl_12m_antes_brl"]
+    denom = out["pl_12m_antes_brl"].where(out["pl_12m_antes_brl"].ne(0))
+    out["pl_growth_12m_pct"] = out["pl_delta_12m_brl"] / denom
+    carteira = out["carteira_atual_brl"].where(out["carteira_atual_brl"].ne(0))
+    links = out["links_catalogo"].where(out["links_catalogo"].ne(0))
+    out["inad_pct_atual"] = out["inad_atual_brl"] / carteira
+    out["evidence_coverage"] = out["links_com_fonte"] / links
+    out["curated_coverage"] = out["links_curados"] / links
+    out["rank_score"] = out["pl_atual_brl"].abs() + out["captacao_janela_brl"].abs()
+    return (
+        out.sort_values(["rank_score", "links_com_fonte", "dimension_value"], ascending=[False, False, True])
+        .reset_index(drop=True)
+    )
+
+
+def _format_dimension_radar(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.copy()
+    out = out.rename(
+        columns={
+            "dimension_value": "Valor",
+            "competencia_atual": "Competência",
+            "pl_atual_brl": "PL atual",
+            "captacao_janela_brl": "Captação janela",
+            "pl_delta_12m_brl": "Delta PL 12m",
+            "pl_growth_12m_pct": "Cresc. PL 12m",
+            "fundos_atuais": "Fundos",
+            "veiculos_atuais": "Veículos",
+            "inad_pct_atual": "Inad. atual",
+            "links_catalogo": "Links catálogo",
+            "links_com_fonte": "Links com fonte",
+            "evidence_coverage": "% com fonte",
+            "curated_coverage": "% curado",
+        }
+    )
+    keep = [
+        "Valor",
+        "Competência",
+        "PL atual",
+        "Captação janela",
+        "Delta PL 12m",
+        "Cresc. PL 12m",
+        "Fundos",
+        "Veículos",
+        "Inad. atual",
+        "Links catálogo",
+        "Links com fonte",
+        "% com fonte",
+        "% curado",
+    ]
+    out = out[[col for col in keep if col in out.columns]].copy()
+    for col in ["PL atual", "Captação janela", "Delta PL 12m"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0.0).map(lambda value: _fmt_bi(float(value), 2))
+    for col in ["Cresc. PL 12m", "Inad. atual", "% com fonte", "% curado"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").map(
+                lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
+            )
+    for col in ["Fundos", "Veículos", "Links catálogo", "Links com fonte"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    return out
 
 
 def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
@@ -4135,6 +4854,61 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
     if not options:
         st.caption("Sem valores ranqueáveis para a dimensão.")
         return
+    if use_catalog and not dimension_monthly.empty:
+        radar = _dimension_radar_frame(dimension_monthly, dimension_id=dim_col, comp=comp, period=period)
+        if query and not radar.empty:
+            radar = radar[radar["dimension_value"].astype(str).str.contains(query, case=False, na=False)].copy()
+        if not radar.empty:
+            st.markdown("**Radar da dimensão**")
+            total_catalog_links = float(pd.to_numeric(radar["links_catalogo"], errors="coerce").fillna(0.0).sum())
+            total_source_links = float(pd.to_numeric(radar["links_com_fonte"], errors="coerce").fillna(0.0).sum())
+            top_pl = radar.sort_values("pl_atual_brl", ascending=False).head(20)
+            radar_cards = [
+                _curation_card("Valores", _fmt_int(float(len(radar))), dimension_label),
+                _curation_card(
+                    "PL top 20",
+                    _fmt_bi(float(top_pl["pl_atual_brl"].sum()), 1),
+                    str(radar["competencia_atual"].iloc[0]),
+                ),
+                _curation_card(
+                    "Captação top 20",
+                    _fmt_signed_bi(float(radar.head(20)["captacao_janela_brl"].sum()), 1),
+                    period,
+                ),
+                _curation_card(
+                    "Com fonte",
+                    _fmt_pct(total_source_links / total_catalog_links) if total_catalog_links else "n/d",
+                    "links do catálogo",
+                ),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(radar_cards)}</div>', unsafe_allow_html=True)
+            radar_plot = radar.sort_values("pl_atual_brl", ascending=False).head(18).copy()
+            radar_plot["pl_bi"] = radar_plot["pl_atual_brl"] / 1e9
+            st.altair_chart(
+                alt.Chart(radar_plot)
+                .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+                .encode(
+                    x=alt.X("pl_bi:Q", title="PL atual (R$ bi)", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    y=alt.Y("dimension_value:N", title=None, sort="-x", axis=alt.Axis(labelLimit=300)),
+                    tooltip=[
+                        alt.Tooltip("dimension_value:N", title=dimension_label),
+                        alt.Tooltip("pl_bi:Q", title="PL R$ bi", format=",.2f"),
+                        alt.Tooltip("captacao_janela_brl:Q", title="captação janela", format=",.0f"),
+                        alt.Tooltip("pl_growth_12m_pct:Q", title="crescimento 12m", format=".1%"),
+                        alt.Tooltip("fundos_atuais:Q", title="fundos", format=",.0f"),
+                    ],
+                )
+                .properties(height=max(260, 24 * len(radar_plot))),
+                width="stretch",
+            )
+            st.dataframe(_format_dimension_radar(radar.head(80)), hide_index=True, width="stretch")
+            st.download_button(
+                "Baixar radar da dimensão",
+                data=radar.drop(columns=["rank_score"], errors="ignore").to_csv(index=False).encode("utf-8"),
+                file_name=f"industry_deep_dive_{dim_col}_radar.csv",
+                mime="text/csv",
+                key=f"industry_deep_radar_download_{dim_col}",
+            )
     selected_value = st.selectbox("Valor", options, key="industry_deep_value")
     selected = frame[frame["valor_dimensao"].eq(selected_value)].copy()
     selected_current = current[current["valor_dimensao"].eq(selected_value)].copy()
@@ -4175,6 +4949,42 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
         _curation_card("Sub mediana", _pct_label(sub_med * 100 if pd.notna(sub_med) else None), "observada no IME"),
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    if use_catalog:
+        snapshot_tables = _load_fund_snapshot_tables()
+        snapshot = snapshot_tables["snapshot"]
+        assert isinstance(snapshot, pd.DataFrame)
+        value_snapshot = _dimension_value_snapshot_frame(catalog, snapshot, dim_col, str(selected_value))
+        if not value_snapshot.empty:
+            value_snapshot = _apply_snapshot_gap_actions(value_snapshot, _load_snapshot_gap_actions())
+            with_gap = value_snapshot[pd.to_numeric(value_snapshot.get("gap_count"), errors="coerce").fillna(0).gt(0)]
+            priority_gap = with_gap[
+                with_gap.get("priority_2025_2026", pd.Series(False, index=with_gap.index)).astype(bool)
+            ]
+            dimension_links = pd.to_numeric(
+                value_snapshot.get("dimension_links", pd.Series(0.0, index=value_snapshot.index)),
+                errors="coerce",
+            ).fillna(0.0)
+            evidence_links = float(dimension_links.sum())
+            curated_flags = value_snapshot.get("dimension_curated", pd.Series(False, index=value_snapshot.index)).astype(bool)
+            curated_links = float(dimension_links[curated_flags].sum())
+            st.markdown("**Curadoria do valor selecionado**")
+            curation_cards = [
+                _curation_card("FIDCs ligados", _fmt_int(float(len(value_snapshot))), "snapshot estruturado"),
+                _curation_card("Com lacuna", _fmt_int(float(len(with_gap))), _fmt_bi(float(with_gap.get("pl", pd.Series(dtype=float)).sum()), 1)),
+                _curation_card("Prioridade 25-26", _fmt_int(float(len(priority_gap))), "lacunas recentes"),
+                _curation_card("Links de evidência", _fmt_int(evidence_links), f"{_fmt_int(curated_links)} curados"),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(curation_cards)}</div>', unsafe_allow_html=True)
+            st.dataframe(_format_dimension_value_snapshot(value_snapshot.head(120)), hide_index=True, width="stretch")
+            st.download_button(
+                "Baixar curadoria do valor",
+                data=value_snapshot.to_csv(index=False).encode("utf-8"),
+                file_name=f"industry_deep_dive_{dim_col}_curadoria.csv",
+                mime="text/csv",
+                key=f"industry_deep_value_snapshot_download_{dim_col}",
+            )
+            st.caption("Curadoria combina catálogo dimensional, snapshot por FIDC, lacunas e overlay de acompanhamento manual quando existir.")
 
     if not uses_dimension_monthly:
         monthly = (
@@ -4495,6 +5305,11 @@ def _render_pipeline_manifest() -> None:
         if isinstance(dimension_profile_manifest.get("quality"), dict)
         else {}
     )
+    catalog_tables = _load_dimension_catalog_tables()
+    dimension_catalog = catalog_tables["catalog"]
+    dimension_catalog_manifest = catalog_tables["manifest"]
+    assert isinstance(dimension_catalog, pd.DataFrame)
+    assert isinstance(dimension_catalog_manifest, dict)
 
     rollup = index.get("quality_rollup", {}) if isinstance(index.get("quality_rollup"), dict) else {}
     status_counts = rollup.get("module_status_counts", {}) if isinstance(rollup.get("module_status_counts"), dict) else {}
@@ -4545,8 +5360,8 @@ def _render_pipeline_manifest() -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    tab_modules, tab_profiles, tab_delta, tab_refresh, tab_artifacts, tab_json = st.tabs(
-        ["Módulos", "Perfis cruzados", "Delta mensal", "Refresh mensal", "Artefatos", "Manifesto"]
+    tab_modules, tab_profiles, tab_catalog_quality, tab_delta, tab_refresh, tab_artifacts, tab_json = st.tabs(
+        ["Módulos", "Perfis cruzados", "Qualidade catálogo", "Delta mensal", "Refresh mensal", "Artefatos", "Manifesto"]
     )
     with tab_modules:
         module_rows = []
@@ -4678,6 +5493,179 @@ def _render_pipeline_manifest() -> None:
                 )
             generated_at = dimension_profile_manifest.get("generated_at_utc", "")
             source_note = f"Fonte: `{_DIMENSION_PROFILE_PATH.name}`"
+            if generated_at:
+                source_note += f" · gerado em {generated_at}"
+            st.caption(source_note)
+
+    with tab_catalog_quality:
+        if dimension_catalog.empty:
+            st.caption("Catálogo dimensional ainda não materializado. Rode `python scripts/build_fidc_industry_dimensions.py`.")
+        else:
+            quality = _dimension_catalog_quality_frame(dimension_catalog)
+            catalog_gap_actions = _load_catalog_gap_actions()
+            gaps = _apply_catalog_gap_actions(_dimension_catalog_gap_frame(dimension_catalog), catalog_gap_actions)
+            total_rows = float(len(dimension_catalog))
+            gap_rows = float(len(gaps))
+            doc_expected = float(pd.to_numeric(quality.get("document_expected_rows", pd.Series(dtype=float)), errors="coerce").fillna(0).sum()) if not quality.empty else 0.0
+            with_doc = float(pd.to_numeric(quality.get("with_source_document", pd.Series(dtype=float)), errors="coerce").fillna(0).sum()) if not quality.empty else 0.0
+            with_method = float(pd.to_numeric(quality.get("with_source_method", pd.Series(dtype=float)), errors="coerce").fillna(0).sum()) if not quality.empty else 0.0
+            with_confidence = float(pd.to_numeric(quality.get("with_confidence", pd.Series(dtype=float)), errors="coerce").fillna(0).sum()) if not quality.empty else 0.0
+            cards_quality = [
+                _curation_card("Linhas catálogo", _fmt_int(total_rows), f"{_fmt_int(float(dimension_catalog['dimension_id'].nunique())) if 'dimension_id' in dimension_catalog else '0'} dimensões"),
+                _curation_card("Com lacuna", _fmt_int(gap_rows), _fmt_pct(gap_rows / total_rows) if total_rows else "n/d"),
+                _curation_card("Documento", _fmt_pct(with_doc / doc_expected) if doc_expected else "n/d", "quando esperado"),
+                _curation_card("Método", _fmt_pct(with_method / total_rows) if total_rows else "n/d", "todas as linhas"),
+                _curation_card("Score", _fmt_pct(with_confidence / total_rows) if total_rows else "n/d", "todas as linhas"),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(cards_quality)}</div>', unsafe_allow_html=True)
+            if not quality.empty:
+                plot = quality.sort_values("quality_score", ascending=True).head(18).copy()
+                plot["quality_pct"] = pd.to_numeric(plot["quality_score"], errors="coerce").fillna(0.0) * 100
+                st.altair_chart(
+                    alt.Chart(plot)
+                    .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+                    .encode(
+                        x=alt.X("quality_pct:Q", title="score de qualidade (%)", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                        y=alt.Y("dimension_label:N", title=None, sort="x", axis=alt.Axis(labelLimit=260)),
+                        tooltip=[
+                            alt.Tooltip("dimension_label:N", title="dimensão"),
+                            alt.Tooltip("rows:Q", title="linhas", format=",.0f"),
+                            alt.Tooltip("quality_pct:Q", title="score", format=",.1f"),
+                            alt.Tooltip("source_document_ratio:Q", title="% documento", format=".1%"),
+                            alt.Tooltip("source_page_ratio:Q", title="% página", format=".1%"),
+                        ],
+                    )
+                    .properties(height=max(260, 22 * len(plot))),
+                    width="stretch",
+                )
+                st.dataframe(_format_dimension_catalog_quality(quality), hide_index=True, width="stretch")
+            if not gaps.empty:
+                st.markdown("**Fila de lacunas de rastreabilidade**")
+                gap_ctrl_a, gap_ctrl_b, gap_ctrl_c = st.columns([1.0, 0.8, 1.2])
+                with gap_ctrl_a:
+                    dim_options = sorted(gaps["dimension_label"].fillna("").astype(str).unique())
+                    selected_dims = st.multiselect("Dimensão", dim_options, default=dim_options[:8], key="industry_catalog_gap_dimensions")
+                with gap_ctrl_b:
+                    status_options = ["pendente", "em andamento", "corrigido", "aceito", "ignorado"]
+                    selected_gap_status = st.multiselect(
+                        "Status lacuna",
+                        status_options,
+                        default=status_options,
+                        key="industry_catalog_gap_status",
+                    )
+                with gap_ctrl_c:
+                    gap_query = st.text_input("Buscar lacuna", key="industry_catalog_gap_query", placeholder="valor, FIDC, CNPJ, documento")
+                gap_view = gaps[gaps["dimension_label"].isin(selected_dims)].copy() if selected_dims else gaps.iloc[0:0].copy()
+                if selected_gap_status and "status_lacuna" in gap_view.columns:
+                    gap_view = gap_view[gap_view["status_lacuna"].fillna("").replace("", "pendente").isin(selected_gap_status)].copy()
+                if gap_query:
+                    search_cols = [
+                        col
+                        for col in [
+                            "dimension_value",
+                            "cnpj_fundo",
+                            "nome_exibicao",
+                            "missing_traceability_fields",
+                            "source_document",
+                            "acao_revisada",
+                            "responsavel",
+                            "notas",
+                        ]
+                        if col in gap_view.columns
+                    ]
+                    search = gap_view[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=gap_view.index)
+                    gap_view = gap_view[search.str.contains(gap_query, case=False, na=False)].copy()
+                gap_page = gap_view.head(300).copy()
+                gap_display = _format_dimension_catalog_gaps(gap_page)
+                edited_catalog_gaps = st.data_editor(
+                    gap_display,
+                    hide_index=True,
+                    width="stretch",
+                    height=520,
+                    disabled=[
+                        "ID",
+                        "Dimensão",
+                        "Valor",
+                        "CNPJ",
+                        "FIDC",
+                        "Campos faltantes",
+                        "Score lacuna",
+                        "Atualizado",
+                        "Fonte",
+                        "Documento",
+                        "Página",
+                        "Método",
+                        "Score",
+                        "Revisão",
+                        "Tipo participante",
+                        "CNPJ participante",
+                        "Prioridade 25-26",
+                    ],
+                    column_config={
+                        "Status lacuna": st.column_config.SelectboxColumn(
+                            "Status lacuna",
+                            options=status_options,
+                            required=True,
+                        ),
+                        "Ação revisada": st.column_config.TextColumn("Ação revisada", width="large"),
+                        "Notas": st.column_config.TextColumn("Notas", width="large"),
+                    },
+                    key="industry_catalog_gap_editor",
+                )
+                if st.button("Salvar acompanhamento do catálogo", type="primary", key="industry_save_catalog_gap_actions"):
+                    edited_actions = pd.DataFrame(
+                        {
+                            "traceability_gap_id": edited_catalog_gaps["ID"],
+                            "status_lacuna": edited_catalog_gaps["Status lacuna"],
+                            "acao_revisada": edited_catalog_gaps["Ação revisada"],
+                            "responsavel": edited_catalog_gaps["Responsável"],
+                            "prazo": edited_catalog_gaps["Prazo"],
+                            "notas": edited_catalog_gaps["Notas"],
+                            "updated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                        }
+                    ).fillna("")
+                    material_cols = ["status_lacuna", "acao_revisada", "responsavel", "prazo", "notas"]
+                    material_mask = edited_actions[material_cols].fillna("").astype(str).apply(
+                        lambda row: any(value.strip() and value.strip() != "pendente" for value in row),
+                        axis=1,
+                    )
+                    edited_actions = edited_actions[material_mask].copy()
+                    keep_existing = (
+                        catalog_gap_actions[
+                            ~catalog_gap_actions["traceability_gap_id"].isin(edited_actions["traceability_gap_id"])
+                        ].copy()
+                        if not catalog_gap_actions.empty
+                        else catalog_gap_actions
+                    )
+                    updated_actions = pd.concat([keep_existing, edited_actions], ignore_index=True)
+                    audit_events = build_review_audit_events(
+                        previous=_catalog_gap_actions_for_audit(catalog_gap_actions),
+                        updated=_catalog_gap_actions_for_audit(updated_actions),
+                        key_column="traceability_gap_id",
+                        review_domain="dimension_catalog_gap",
+                        source="industry_catalog_gap_editor",
+                    )
+                    audit = append_review_audit_events(audit_events, _CATALOG_GAP_ACTION_AUDIT_PATH)
+                    _save_catalog_gap_actions(updated_actions)
+                    _load_catalog_gap_actions.clear()
+                    st.success(
+                        f"Acompanhamento salvo em `{_CATALOG_GAP_ACTIONS_PATH.name}`. "
+                        f"Histórico: {len(audit_events):,} eventos novos, {len(audit):,} eventos no total."
+                    )
+                st.download_button(
+                    "Baixar lacunas do catálogo",
+                    data=gap_view.to_csv(index=False).encode("utf-8"),
+                    file_name="industry_dimension_catalog_traceability_gaps.csv",
+                    mime="text/csv",
+                    key="industry_catalog_gap_download",
+                )
+                with st.expander("Histórico das lacunas de rastreabilidade"):
+                    _render_review_audit(
+                        _CATALOG_GAP_ACTION_AUDIT_PATH,
+                        empty_label="Ainda não há histórico de acompanhamento das lacunas do catálogo.",
+                    )
+            generated_at = dimension_catalog_manifest.get("generated_at_utc", "")
+            source_note = f"Fonte: `{_DIMENSION_CATALOG_PATH.name}`"
             if generated_at:
                 source_note += f" · gerado em {generated_at}"
             st.caption(source_note)
