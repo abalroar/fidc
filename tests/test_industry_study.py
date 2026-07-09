@@ -26,6 +26,8 @@ from services.industry_study import (  # noqa: E402
     build_review_audit_events,
     build_criteria_pipeline_manifest,
     build_criteria_structured,
+    build_document_chunk_plan,
+    build_industry_curation_queue,
     build_dimension_catalog_pipeline_manifest,
     build_dimension_monthly_pipeline_manifest,
     build_dimension_profile_pipeline_manifest,
@@ -55,11 +57,13 @@ from services.industry_study import (  # noqa: E402
     industry_dimension_profile_quality_summary,
     industry_market_share_quality_summary,
     industry_monthly_delta_quality_summary,
+    industry_curation_queue_quality_summary,
     load_cedente_structured,
     load_monthly_delta_actions,
     load_review_audit,
     normalize_cnpj,
     save_monthly_delta_actions,
+    save_dataframe,
     save_pipeline_manifest,
     save_cedente_structured,
     scan_regulatory_extraction_files,
@@ -72,6 +76,7 @@ from tabs.tab_industry_study import (  # noqa: E402
     _apply_catalog_gap_actions,
     _catalog_heatmap_cell_frame,
     _catalog_gap_actions_for_audit,
+    _curation_queue_updates_to_domain_actions,
     _dimension_catalog_gap_frame,
     _dimension_catalog_quality_frame,
     _dimension_profile_coverage_frame,
@@ -765,29 +770,36 @@ def test_document_manifest_and_quality_describe_pipeline_outputs():
         extraction_rows = scan_regulatory_extraction_files(extraction_dir)
         inventory = build_document_inventory(pd.DataFrame(), extraction_rows=extraction_rows, root=tmp_path)
         inventory, chunks = assign_document_chunks(inventory, max_cnpjs=10, max_documents=10)
+        chunk_plan = build_document_chunk_plan(chunks, inventory)
         inventory_path = tmp_path / "document_inventory.csv.gz"
         chunks_path = tmp_path / "document_processing_chunks.csv"
-        save_cedente_structured(inventory, inventory_path)
-        chunks.to_csv(chunks_path, index=False)
+        plan_path = tmp_path / "document_chunk_plan.csv"
+        save_dataframe(inventory, inventory_path)
+        save_dataframe(chunks, chunks_path)
+        save_dataframe(chunk_plan, plan_path)
         manifest = build_document_pipeline_manifest(
             industry_dir=tmp_path,
             strategy_db=db_path,
             extractions_dir=extraction_dir,
             inventory_path=inventory_path,
             chunks_path=chunks_path,
+            plan_path=plan_path,
             manifest_path=tmp_path / "industry_document_manifest.json",
             source_rows=pd.DataFrame(),
             extraction_rows=extraction_rows,
             inventory=inventory,
             chunks=chunks,
+            chunk_plan=chunk_plan,
             max_hash_bytes=1024,
         )
-        quality = document_quality_summary(inventory, chunks)
+        quality = document_quality_summary(inventory, chunks, chunk_plan)
 
     assert manifest["schema_version"] == "industry-document-manifest/v1"
     assert {stage["id"] for stage in manifest["stages"]} >= {"scan_local_extraction_artifacts", "assign_processing_chunks"}
     assert manifest["outputs"]["document_inventory"]["sha256"]
+    assert manifest["outputs"]["document_chunk_plan"]["sha256"]
     assert quality["document_rows"] == 1
+    assert quality["chunk_plan_rows"] == 1
     assert quality["content_kind_counts"]["extraction_json"] == 1
 
 
@@ -2462,6 +2474,162 @@ def test_industry_monthly_delta_prioritizes_incremental_review_queue():
     assert manifest["outputs"]["monthly_delta"]["sha256"]
 
 
+def test_curation_queue_updates_route_to_domain_action_files():
+    updates = pd.DataFrame(
+        [
+            {
+                "queue_domain": "monthly_delta",
+                "record_id": "delta-1",
+                "status_curadoria": "corrigido",
+                "acao_revisada": "ok",
+                "responsavel": "mesa",
+                "prazo": "2026-07-20",
+                "notas": "",
+                "updated_at_utc": "2026-07-08T12:00:00+00:00",
+            },
+            {
+                "queue_domain": "snapshot_gap",
+                "record_id": "gap-1",
+                "status_curadoria": "concluído",
+                "acao_revisada": "baixado",
+                "responsavel": "research",
+                "prazo": "",
+                "notas": "",
+                "updated_at_utc": "2026-07-08T12:00:00+00:00",
+            },
+            {
+                "queue_domain": "catalog_gap",
+                "record_id": "catalog-1",
+                "status_curadoria": "aceito",
+                "acao_revisada": "sem página no documento",
+                "responsavel": "",
+                "prazo": "",
+                "notas": "justificado",
+                "updated_at_utc": "2026-07-08T12:00:00+00:00",
+            },
+            {
+                "queue_domain": "document_chunk",
+                "record_id": "doc-0001",
+                "status_curadoria": "corrigido",
+                "acao_revisada": "processado",
+                "responsavel": "",
+                "prazo": "",
+                "notas": "",
+                "updated_at_utc": "2026-07-08T12:00:00+00:00",
+            },
+        ]
+    )
+
+    routed = _curation_queue_updates_to_domain_actions(updates)
+
+    assert routed["monthly_delta"].iloc[0]["delta_id"] == "delta-1"
+    assert routed["monthly_delta"].iloc[0]["status_acao"] == "concluído"
+    assert routed["snapshot_gap"].iloc[0]["gap_id"] == "gap-1"
+    assert routed["snapshot_gap"].iloc[0]["status_lacuna"] == "corrigido"
+    assert routed["catalog_gap"].iloc[0]["traceability_gap_id"] == "catalog-1"
+    assert routed["catalog_gap"].iloc[0]["status_lacuna"] == "aceito"
+    assert routed["document_chunk"].iloc[0]["chunk_id"] == "doc-0001"
+    assert routed["document_chunk"].iloc[0]["status_lote"] == "processado"
+
+
+def test_industry_curation_queue_unifies_all_fidc_workstreams():
+    snapshot = pd.DataFrame(
+        [
+            {
+                "competencia": "2026-05",
+                "cnpj_fundo": "05.753.599/0001-58",
+                "nome_exibicao": "FIDC ABC",
+                "admin_nome": "ADMIN A",
+                "gestor_nome": "GESTOR A",
+                "segmento_principal": "Comercial",
+                "pl": 1000.0,
+                "tem_emissao_2025_2026": True,
+                "valid_volume_2025_brl": 10.0,
+                "document_rows": 0,
+                "document_local_ready": 0,
+                "cedente_rows": 0,
+                "criteria_rows": 0,
+                "criteria_subordination_rows": 0,
+                "document_chunk_ids": "doc-0001",
+            }
+        ]
+    )
+    monthly_delta = pd.DataFrame(
+        [
+            {
+                "delta_id": "202605_05753599000158",
+                "competencia_atual": "2026-05",
+                "cnpj_fundo": "05753599000158",
+                "fundo": "FIDC ABC",
+                "priority_band": "alta",
+                "priority_score": 95,
+                "status_acao": "pendente",
+                "status_delta": "novo_no_ime",
+                "next_actions": "curar cedentes/sacados",
+                "pl_atual": 1000.0,
+                "admin_nome": "ADMIN A",
+            }
+        ]
+    )
+    chunk_plan = pd.DataFrame(
+        [
+            {
+                "chunk_id": "doc-0001",
+                "chunk_status": "processar",
+                "next_action": "ocr parse extract",
+                "priority_score": 12,
+                "priority_docs_effective": 1,
+                "document_count": 2,
+                "missing_local_docs": 0,
+                "hash_pending_docs": 0,
+                "status_lote": "pendente",
+                "sample_cnpjs": "05753599000158",
+                "sample_funds": "FIDC ABC",
+                "document_classes": "regulamento",
+            }
+        ]
+    )
+    catalog = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "nome_exibicao": "FIDC ABC",
+                "dimension_id": "cedente_sacado",
+                "dimension_label": "Cedente/sacado",
+                "dimension_value": "CEDENTE ABC",
+                "source_layer": "cedente",
+                "source_document": "regulamento.pdf",
+                "source_page": "",
+                "source_method": "manual_review",
+                "confidence_score": "0.8",
+                "review_status": "",
+                "is_curated": True,
+                "priority_2025_2026": True,
+            }
+        ]
+    )
+
+    queue = build_industry_curation_queue(
+        snapshot=snapshot,
+        monthly_delta=monthly_delta,
+        document_chunk_plan=chunk_plan,
+        dimension_catalog=catalog,
+    )
+    quality = industry_curation_queue_quality_summary(queue)
+    domains = set(queue["queue_domain"])
+
+    assert domains == {"snapshot_gap", "monthly_delta", "document_chunk", "catalog_gap"}
+    assert quality["rows"] == 4
+    assert quality["open_rows"] == 4
+    assert quality["high_priority_rows"] >= 1
+    assert queue.iloc[0]["priority_band"] == "alta"
+    assert queue.iloc[0]["queue_domain"] in {"monthly_delta", "snapshot_gap", "catalog_gap"}
+    snapshot_row = queue[queue["queue_domain"].eq("snapshot_gap")].iloc[0]
+    assert snapshot_row["cnpj_fundo"] == "05753599000158"
+    assert "sem cedente/sacado" in snapshot_row["gap_summary"]
+    assert queue[queue["queue_domain"].eq("catalog_gap")]["source_document"].iloc[0] == "regulamento.pdf"
+
+
 def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
@@ -2533,10 +2701,29 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
             {"annual_volume_conservador_brl": 100.0, "tranche_rows": 1},
         )
         write_module_manifest(
+            "industry_curation_queue_manifest.json",
+            "industry_curation_queue",
+            "industry_curation_queue.csv.gz",
+            {
+                "rows": 5,
+                "funds": 2,
+                "open_rows": 3,
+                "high_priority_rows": 1,
+                "priority_2025_2026_rows": 2,
+                "domain_counts": {"snapshot_gap": 2, "monthly_delta": 1, "document_chunk": 1, "catalog_gap": 1},
+                "status_counts": {"pendente": 3, "em andamento": 2},
+            },
+        )
+        write_module_manifest(
             "industry_document_manifest.json",
             "industry_document_inventory",
             "document_inventory.csv.gz",
-            {"document_rows": 2, "chunks": 1, "max_documents_per_chunk": 2},
+            {"document_rows": 2, "chunks": 1, "chunk_plan_rows": 1, "chunk_plan_open_rows": 1, "max_documents_per_chunk": 2},
+        )
+        (tmp_path / "document_chunk_plan.csv").write_text(
+            "chunk_id,chunk_status,status_lote\n"
+            "doc-0001,processar,em andamento\n",
+            encoding="utf-8",
         )
         (tmp_path / "document_chunk_actions.csv").write_text(
             "chunk_id,status_lote,acao_revisada,responsavel,prazo,notas,updated_at_utc\n"
@@ -2643,8 +2830,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
     assert index["schema_version"] == "industry-pipeline-index/v1"
-    assert index["quality_rollup"]["modules_total"] == 11
-    assert index["quality_rollup"]["module_status_counts"]["ok"] == 11
+    assert index["quality_rollup"]["modules_total"] == 12
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 12
     assert index["quality_rollup"]["artifacts_missing"] == 0
     assert index["quality_rollup"]["manual_review_artifacts_total"] == 6
     assert index["quality_rollup"]["manual_review_artifacts_present"] == 6
@@ -2652,7 +2839,12 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["monthly_delta_competencia_atual"] == "2026-05"
     assert index["quality_rollup"]["monthly_delta_new_funds"] == 1
     assert index["quality_rollup"]["monthly_delta_high_priority"] == 2
+    assert index["quality_rollup"]["curation_queue_rows"] == 5
+    assert index["quality_rollup"]["curation_queue_open_rows"] == 3
+    assert index["quality_rollup"]["curation_queue_high_priority_rows"] == 1
     assert index["quality_rollup"]["document_chunks"] == 1
+    assert index["quality_rollup"]["document_chunk_plan_rows"] == 1
+    assert index["quality_rollup"]["document_chunk_plan_open_rows"] == 1
     assert index["quality_rollup"]["document_chunk_actions_rows"] == 1
     assert index["quality_rollup"]["document_chunks_in_progress"] == 1
     assert index["quality_rollup"]["document_chunks_without_action"] == 0
@@ -2674,6 +2866,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         "dimension_monthly",
         "market_share",
         "monthly_delta",
+        "curation_queue",
         "pipeline_index",
     }
     assert any(row["artifact"] == "manifest" for row in index["artifact_index"])
@@ -2681,6 +2874,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert readiness["competencia_alignment"]["status_prontidao"] == "ok"
     assert readiness["monthly_delta_queue"]["status_prontidao"] == "bloqueado"
     assert readiness["monthly_delta_queue"]["pendencias"] == 2
+    assert readiness["curation_queue"]["status_prontidao"] == "bloqueado"
+    assert readiness["curation_queue"]["pendencias"] == 1
     assert readiness["document_chunk_processing"]["status_prontidao"] == "atenção"
     assert readiness["document_chunk_processing"]["pendencias"] == 1
     assert readiness["structured_coverage"]["status_prontidao"] == "atenção"
@@ -2693,6 +2888,12 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert manual_artifacts["monthly_delta_action_audit"]["exists"] is True
     assert manual_artifacts["document_chunk_actions"]["module_id"] == "documents"
     assert manual_artifacts["document_chunk_action_audit"]["exists"] is True
+    derived_artifacts = {
+        row["artifact"]: row
+        for row in index["artifact_index"]
+        if row["group"] == "derived"
+    }
+    assert derived_artifacts["document_chunk_plan"]["exists"] is True
     assert manual_artifacts["snapshot_gap_actions"]["required"] is False
     assert manual_artifacts["snapshot_gap_actions"]["exists"] is True
     assert manual_artifacts["snapshot_gap_action_audit"]["exists"] is True

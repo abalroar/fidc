@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-document-manifest/v1",
-  "generated_at_utc": "2026-07-08T15:34:47+00:00",
+  "generated_at_utc": "2026-07-09T02:03:08+00:00",
   "pipeline": "industry_document_inventory",
   "design_constraints": {
     "modular": true,
@@ -28,17 +28,23 @@
     "document_inventory": {
       "path": "data/industry_study/document_inventory.csv.gz",
       "exists": true,
-      "bytes": 338650,
-      "sha256": "349f25f5424ddb0ddd00a204439f2f303de1b2efda8b9558957bd02437441d8b"
+      "bytes": 338594,
+      "sha256": "ad98d29950d29b8b7f2f78cb9e7d525033f9e64819414f42fcca13c4f6f730c1"
     },
     "document_processing_chunks": {
       "path": "data/industry_study/document_processing_chunks.csv",
       "exists": true,
-      "bytes": 12268,
-      "sha256": "fd89a07d93331552794a8e3c6b0014368b8379113b451b43510bc5ac902579e7"
+      "bytes": 10514,
+      "sha256": "79ff5db97a59bd94d94b7b2c52bac18c1a1f1dc13936b94178b120f0ac16f845"
     },
     "manifest": {
       "path": "data/industry_study/industry_document_manifest.json"
+    },
+    "document_chunk_plan": {
+      "path": "data/industry_study/document_chunk_plan.csv",
+      "exists": true,
+      "bytes": 22110,
+      "sha256": "f7515ec3420aa4542d5e31592c504607499678de5f7f63756605096c732fe194"
     }
   },
   "stages": [
@@ -78,8 +84,17 @@
       "status": "ok",
       "input": "memoria:document_inventory",
       "output": "data/industry_study/document_processing_chunks.csv",
-      "rows": 32,
+      "rows": 27,
       "rerun": "python scripts/build_fidc_industry_documents.py"
+    },
+    {
+      "id": "build_chunk_execution_plan",
+      "label": "Plano operacional dos chunks",
+      "status": "ok",
+      "input": "document_processing_chunks+document_inventory+document_chunk_actions",
+      "output": "data/industry_study/document_chunk_plan.csv",
+      "rows": 27,
+      "rerun": "python scripts/build_fidc_industry_document_chunk_plan.py"
     },
     {
       "id": "persist_document_inventory",
@@ -98,9 +113,14 @@
     "local_ready_docs": 3521,
     "missing_local_docs": 0,
     "hashed_docs": 3521,
-    "chunks": 32,
-    "max_documents_per_chunk": 200,
-    "max_cnpjs_per_chunk": 35,
+    "chunks": 27,
+    "chunk_plan_rows": 27,
+    "chunk_plan_status_counts": {
+      "processar": 27
+    },
+    "chunk_plan_open_rows": 27,
+    "max_documents_per_chunk": 250,
+    "max_cnpjs_per_chunk": 40,
     "coverage": {
       "cnpj_fundo": 1.0,
       "documento_origem": 1.0,

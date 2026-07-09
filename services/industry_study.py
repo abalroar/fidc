@@ -57,6 +57,36 @@ MONTHLY_DELTA_ACTION_COLUMNS = [
     "updated_at_utc",
 ]
 
+DOCUMENT_CHUNK_ACTION_COLUMNS = [
+    "chunk_id",
+    "status_lote",
+    "acao_revisada",
+    "responsavel",
+    "prazo",
+    "notas",
+    "updated_at_utc",
+]
+
+SNAPSHOT_GAP_ACTION_COLUMNS = [
+    "gap_id",
+    "status_lacuna",
+    "acao_revisada",
+    "responsavel",
+    "prazo",
+    "notas",
+    "updated_at_utc",
+]
+
+CATALOG_GAP_ACTION_COLUMNS = [
+    "traceability_gap_id",
+    "status_lacuna",
+    "acao_revisada",
+    "responsavel",
+    "prazo",
+    "notas",
+    "updated_at_utc",
+]
+
 APPROVED_REVIEW_STATUSES = {"aprovado", "corrigido"}
 ISSUANCE_YEARS = [2024, 2025, 2026]
 
@@ -1723,16 +1753,202 @@ def _document_chunk_summary(chunk_id: str, subset: pd.DataFrame) -> pd.DataFrame
     return pd.DataFrame([row])
 
 
-def document_quality_summary(inventory: pd.DataFrame, chunks: pd.DataFrame) -> dict[str, object]:
+def _boolish_series(series: pd.Series) -> pd.Series:
+    return series.fillna(False).astype(str).str.strip().str.lower().isin({"true", "1", "sim", "yes", "y"})
+
+
+def _mode_text(values: pd.Series) -> str:
+    cleaned = values.fillna("").astype(str).str.strip()
+    cleaned = cleaned[cleaned.ne("")]
+    if cleaned.empty:
+        return ""
+    return str(cleaned.value_counts().index[0])
+
+
+def apply_document_chunk_actions(plan: pd.DataFrame, actions: pd.DataFrame | None) -> pd.DataFrame:
+    """Apply manual chunk tracking actions onto a generated processing plan."""
+
+    if plan is None or plan.empty:
+        return pd.DataFrame() if plan is None else plan.copy()
+    out = plan.copy()
+    for col in ["status_lote", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        if col not in out.columns:
+            out[col] = ""
+    if actions is None or actions.empty or "chunk_id" not in actions.columns or "chunk_id" not in out.columns:
+        out["status_lote"] = out["status_lote"].fillna("").astype(str).replace("", "pendente")
+        return out
+
+    overlay = actions.copy()
+    for col in DOCUMENT_CHUNK_ACTION_COLUMNS:
+        if col not in overlay.columns:
+            overlay[col] = ""
+    overlay = overlay[DOCUMENT_CHUNK_ACTION_COLUMNS].drop_duplicates("chunk_id", keep="last")
+    out = out.merge(overlay, on="chunk_id", how="left", suffixes=("", "_review"))
+    for col in ["status_lote", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        review_col = f"{col}_review"
+        if review_col in out.columns:
+            review_values = out[review_col].fillna("").astype(str)
+            out[col] = review_values.where(review_values.str.strip().ne(""), out[col].fillna("").astype(str))
+            out = out.drop(columns=[review_col])
+    out["status_lote"] = out["status_lote"].fillna("").astype(str).replace("", "pendente")
+    return out
+
+
+def build_document_chunk_plan(
+    chunks: pd.DataFrame,
+    inventory: pd.DataFrame,
+    actions: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    """Build the operational plan for document chunks using persisted inventory detail."""
+
+    if chunks is None or chunks.empty or "chunk_id" not in chunks.columns:
+        return pd.DataFrame()
+    plan = chunks.copy()
+    plan["chunk_id"] = plan["chunk_id"].fillna("").astype(str)
+    plan = plan[plan["chunk_id"].str.strip().ne("")].copy()
+    if plan.empty:
+        return plan
+
+    inv = pd.DataFrame() if inventory is None else inventory.copy()
+    if not inv.empty and "chunk_id" in inv.columns:
+        inv["chunk_id"] = inv["chunk_id"].fillna("").astype(str)
+        inv = inv[inv["chunk_id"].str.strip().ne("")].copy()
+    else:
+        inv = pd.DataFrame()
+
+    if inv.empty:
+        for col in [
+            "inventory_docs",
+            "missing_local_docs",
+            "hash_pending_docs",
+            "dominant_stage",
+            "dominant_processing_status",
+            "priority_score",
+        ]:
+            plan[col] = 0 if col.endswith("_docs") or col == "priority_score" else ""
+    else:
+        for col in ["fundo", "suggested_stage", "processing_status"]:
+            if col not in inv.columns:
+                inv[col] = ""
+        local_ready = _boolish_series(inv.get("local_exists", pd.Series(False, index=inv.index)))
+        priority = _boolish_series(inv.get("priority_2025_2026", pd.Series(False, index=inv.index)))
+        hashed = inv.get("sha256", pd.Series("", index=inv.index)).fillna("").astype(str).str.strip().ne("")
+        inv = inv.assign(
+            _local_ready=local_ready,
+            _priority=priority,
+            _hashed=hashed,
+            _bytes=pd.to_numeric(inv.get("bytes", pd.Series(0, index=inv.index)), errors="coerce").fillna(0),
+        )
+        grouped = inv.groupby("chunk_id", dropna=False)
+        summary = grouped.agg(
+            inventory_docs=("chunk_id", "size"),
+            missing_local_docs=("_local_ready", lambda values: int((~values.astype(bool)).sum())),
+            hash_pending_docs=("_hashed", lambda values: int((~values.astype(bool)).sum())),
+            priority_docs_inventory=("_priority", "sum"),
+            bytes_inventory=("_bytes", "sum"),
+            sample_funds=("fundo", lambda values: _join_unique(values, sep=", ", limit=4)),
+        ).reset_index()
+        stage = grouped["suggested_stage"].apply(_mode_text).rename("dominant_stage").reset_index()
+        processing = grouped["processing_status"].apply(_mode_text).rename("dominant_processing_status").reset_index()
+        summary = summary.merge(stage, on="chunk_id", how="left").merge(processing, on="chunk_id", how="left")
+        plan = plan.merge(summary, on="chunk_id", how="left")
+
+    numeric_cols = [
+        "document_count",
+        "cnpj_count",
+        "priority_2025_2026_docs",
+        "local_ready_docs",
+        "hashed_docs",
+        "total_bytes",
+        "inventory_docs",
+        "missing_local_docs",
+        "hash_pending_docs",
+        "priority_docs_inventory",
+        "bytes_inventory",
+    ]
+    for col in numeric_cols:
+        if col not in plan.columns:
+            plan[col] = 0
+        plan[col] = pd.to_numeric(plan[col], errors="coerce").fillna(0)
+    for col in ["dominant_stage", "dominant_processing_status", "sample_funds", "rerun_command"]:
+        if col not in plan.columns:
+            plan[col] = ""
+        plan[col] = plan[col].fillna("").astype(str)
+
+    plan["missing_local_docs"] = plan["missing_local_docs"].astype(int)
+    plan["hash_pending_docs"] = plan["hash_pending_docs"].astype(int)
+    plan["priority_docs_effective"] = plan["priority_docs_inventory"].where(
+        plan["priority_docs_inventory"].gt(0),
+        plan["priority_2025_2026_docs"],
+    )
+    plan["local_ready_ratio"] = plan["local_ready_docs"] / plan["document_count"].where(plan["document_count"].ne(0), pd.NA)
+    plan["hash_ratio"] = plan["hashed_docs"] / plan["document_count"].where(plan["document_count"].ne(0), pd.NA)
+
+    def status(row: pd.Series) -> str:
+        if int(row.get("missing_local_docs", 0)) > 0:
+            return "baixar"
+        if int(row.get("hash_pending_docs", 0)) > 0:
+            return "fingerprint"
+        if str(row.get("dominant_stage", "")).strip():
+            return "processar"
+        return "pronto"
+
+    def action(row: pd.Series) -> str:
+        if row["chunk_status"] == "baixar":
+            return "baixar documentos faltantes"
+        if row["chunk_status"] == "fingerprint":
+            return "atualizar fingerprint"
+        if row["chunk_status"] == "processar":
+            stage = str(row.get("dominant_stage", "")).replace("_", " ").strip()
+            return stage or "processar lote"
+        return "sem ação"
+
+    plan["chunk_status"] = plan.apply(status, axis=1)
+    plan["next_action"] = plan.apply(action, axis=1)
+    plan["priority_score"] = (
+        plan["priority_docs_effective"].fillna(0) * 3
+        + plan["missing_local_docs"].fillna(0) * 2
+        + plan["document_count"].fillna(0) * 0.01
+    )
+    status_order = {"baixar": 0, "fingerprint": 1, "processar": 2, "pronto": 3}
+    plan["_status_order"] = plan["chunk_status"].map(status_order).fillna(9)
+    plan = plan.sort_values(["_status_order", "priority_score", "chunk_id"], ascending=[True, False, True]).drop(
+        columns=["_status_order"]
+    ).reset_index(drop=True)
+    return apply_document_chunk_actions(plan, actions)
+
+
+def document_quality_summary(
+    inventory: pd.DataFrame,
+    chunks: pd.DataFrame,
+    chunk_plan: pd.DataFrame | None = None,
+) -> dict[str, object]:
     if inventory is None:
         inventory = pd.DataFrame()
     if chunks is None:
         chunks = pd.DataFrame()
+    if chunk_plan is None:
+        chunk_plan = pd.DataFrame()
+    plan_status_counts = (
+        {
+            str(k): int(v)
+            for k, v in chunk_plan.get("chunk_status", pd.Series(dtype=str)).fillna("").astype(str).value_counts().to_dict().items()
+        }
+        if not chunk_plan.empty
+        else {}
+    )
     if inventory.empty:
         return {
             "document_rows": 0,
             "funds": 0,
             "chunks": 0,
+            "chunk_plan_rows": int(len(chunk_plan)),
+            "chunk_plan_status_counts": plan_status_counts,
+            "chunk_plan_open_rows": int(
+                chunk_plan.get("chunk_status", pd.Series(dtype=str)).fillna("").astype(str).ne("pronto").sum()
+            )
+            if not chunk_plan.empty
+            else 0,
             "coverage": {},
             "document_class_counts": {},
             "content_kind_counts": {},
@@ -1748,6 +1964,13 @@ def document_quality_summary(inventory: pd.DataFrame, chunks: pd.DataFrame) -> d
         "missing_local_docs": int((~local_exists).sum()),
         "hashed_docs": int(hashed.sum()),
         "chunks": int(len(chunks)),
+        "chunk_plan_rows": int(len(chunk_plan)),
+        "chunk_plan_status_counts": plan_status_counts,
+        "chunk_plan_open_rows": int(
+            chunk_plan.get("chunk_status", pd.Series(dtype=str)).fillna("").astype(str).ne("pronto").sum()
+        )
+        if not chunk_plan.empty
+        else 0,
         "max_documents_per_chunk": int(pd.to_numeric(chunks.get("document_count"), errors="coerce").max()) if not chunks.empty and "document_count" in chunks else 0,
         "max_cnpjs_per_chunk": int(pd.to_numeric(chunks.get("cnpj_count"), errors="coerce").max()) if not chunks.empty and "cnpj_count" in chunks else 0,
         "coverage": {
@@ -1771,6 +1994,514 @@ def document_quality_summary(inventory: pd.DataFrame, chunks: pd.DataFrame) -> d
         }
         if "content_kind" in inventory
         else {},
+    }
+
+
+def _nonempty_series(series: pd.Series) -> pd.Series:
+    return series.fillna("").astype(str).str.strip().ne("")
+
+
+def _normalized_status(series: pd.Series, default: str = "pendente") -> pd.Series:
+    return series.fillna("").astype(str).str.strip().str.lower().replace("", default)
+
+
+def apply_snapshot_gap_actions(gaps: pd.DataFrame, actions: pd.DataFrame | None) -> pd.DataFrame:
+    if gaps is None or gaps.empty:
+        return pd.DataFrame() if gaps is None else gaps.copy()
+    out = gaps.copy()
+    for col in ["status_lacuna", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        if col not in out.columns:
+            out[col] = ""
+    if actions is None or actions.empty or "gap_id" not in actions.columns or "gap_id" not in out.columns:
+        out["status_lacuna"] = out["status_lacuna"].fillna("").astype(str).replace("", "pendente")
+        return out
+    overlay = actions.copy()
+    for col in SNAPSHOT_GAP_ACTION_COLUMNS:
+        if col not in overlay.columns:
+            overlay[col] = ""
+    overlay = overlay[SNAPSHOT_GAP_ACTION_COLUMNS].drop_duplicates("gap_id", keep="last")
+    out = out.merge(overlay, on="gap_id", how="left", suffixes=("", "_review"))
+    for col in ["status_lacuna", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        review_col = f"{col}_review"
+        if review_col in out.columns:
+            review_values = out[review_col].fillna("").astype(str)
+            out[col] = review_values.where(review_values.str.strip().ne(""), out[col].fillna("").astype(str))
+            out = out.drop(columns=[review_col])
+    out["status_lacuna"] = out["status_lacuna"].fillna("").astype(str).replace("", "pendente")
+    return out
+
+
+def apply_dimension_catalog_gap_actions(gaps: pd.DataFrame, actions: pd.DataFrame | None) -> pd.DataFrame:
+    if gaps is None or gaps.empty:
+        return pd.DataFrame() if gaps is None else gaps.copy()
+    out = gaps.copy()
+    for col in ["status_lacuna", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        if col not in out.columns:
+            out[col] = ""
+    if (
+        actions is None
+        or actions.empty
+        or "traceability_gap_id" not in actions.columns
+        or "traceability_gap_id" not in out.columns
+    ):
+        out["status_lacuna"] = out["status_lacuna"].fillna("").astype(str).replace("", "pendente")
+        return out
+    overlay = actions.copy()
+    for col in CATALOG_GAP_ACTION_COLUMNS:
+        if col not in overlay.columns:
+            overlay[col] = ""
+    overlay = overlay[CATALOG_GAP_ACTION_COLUMNS].drop_duplicates("traceability_gap_id", keep="last")
+    out = out.merge(overlay, on="traceability_gap_id", how="left", suffixes=("", "_review"))
+    for col in ["status_lacuna", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        review_col = f"{col}_review"
+        if review_col in out.columns:
+            review_values = out[review_col].fillna("").astype(str)
+            out[col] = review_values.where(review_values.str.strip().ne(""), out[col].fillna("").astype(str))
+            out = out.drop(columns=[review_col])
+    out["status_lacuna"] = out["status_lacuna"].fillna("").astype(str).replace("", "pendente")
+    return out
+
+
+def build_snapshot_gap_queue(snapshot: pd.DataFrame, actions: pd.DataFrame | None = None) -> pd.DataFrame:
+    """Build the all-FIDC structural gap queue from the current fund snapshot."""
+
+    if snapshot is None or snapshot.empty:
+        return pd.DataFrame()
+    frame = snapshot.copy()
+    for col in [
+        "pl",
+        "valid_volume_2024_2026_brl",
+        "valid_volume_2025_brl",
+        "valid_volume_2026_brl",
+        "document_rows",
+        "document_local_ready",
+        "cedente_rows",
+        "criteria_rows",
+        "criteria_subordination_rows",
+    ]:
+        frame[col] = pd.to_numeric(frame.get(col, pd.Series(0, index=frame.index)), errors="coerce").fillna(0.0)
+    for col in ["cnpj_fundo", "nome_exibicao", "competencia", "admin_nome", "gestor_nome", "segmento_principal", "document_chunk_ids"]:
+        if col not in frame.columns:
+            frame[col] = ""
+        frame[col] = frame[col].fillna("").astype(str)
+
+    cnpj_norm = frame["cnpj_fundo"].map(normalize_cnpj)
+    competencia = frame["competencia"].replace("", "snapshot")
+    frame["gap_id"] = "snapshot_" + competencia + "_" + cnpj_norm
+    priority_source = _boolish_series(frame.get("tem_emissao_2025_2026", pd.Series(False, index=frame.index)))
+    priority_source = priority_source | frame["valid_volume_2025_brl"].gt(0) | frame["valid_volume_2026_brl"].gt(0)
+    frame["priority_2025_2026"] = priority_source
+
+    gap_specs = [
+        ("sem documento", frame["document_rows"].le(0)),
+        ("sem documento local", frame["document_local_ready"].le(0)),
+        ("sem cedente/sacado", frame["cedente_rows"].le(0)),
+        ("sem critérios", frame["criteria_rows"].le(0)),
+        ("sem sub mínima", frame["criteria_subordination_rows"].le(0)),
+    ]
+    missing_layers: list[str] = []
+    gap_counts: list[int] = []
+    for idx in frame.index:
+        gaps = [label for label, mask in gap_specs if bool(mask.loc[idx])]
+        missing_layers.append(" | ".join(gaps))
+        gap_counts.append(len(gaps))
+    frame["missing_layers"] = missing_layers
+    frame["gap_count"] = gap_counts
+    frame["gap_priority_score"] = (
+        frame["gap_count"] * 10
+        + frame["priority_2025_2026"].astype(int) * 20
+        + frame["pl"].rank(pct=True).fillna(0.0) * 5
+    ).round(1)
+    frame = frame[frame["gap_count"].gt(0)].copy()
+    if frame.empty:
+        return frame
+    frame = apply_snapshot_gap_actions(frame, actions)
+    return frame.sort_values(["priority_2025_2026", "gap_priority_score", "pl"], ascending=[False, False, False]).reset_index(drop=True)
+
+
+def build_dimension_catalog_gap_queue(catalog: pd.DataFrame, actions: pd.DataFrame | None = None) -> pd.DataFrame:
+    """Build traceability gaps for structured dimensions used by heatmaps and deep dives."""
+
+    if catalog is None or catalog.empty or "dimension_id" not in catalog.columns:
+        return pd.DataFrame()
+    frame = catalog.copy()
+    for col in [
+        "cnpj_fundo",
+        "nome_exibicao",
+        "dimension_id",
+        "dimension_label",
+        "dimension_value",
+        "source_layer",
+        "source_document",
+        "source_page",
+        "source_date",
+        "source_method",
+        "confidence_score",
+        "review_status",
+        "participant_type",
+        "participant_cnpj",
+        "is_curated",
+        "priority_2025_2026",
+    ]:
+        if col not in frame.columns:
+            frame[col] = ""
+    source_layer = frame["source_layer"].fillna("").astype(str)
+    is_curated = _boolish_series(frame["is_curated"])
+    doc_expected = is_curated | source_layer.isin({"cedente", "criteria"}) | _nonempty_series(frame["source_document"])
+    review_expected = is_curated | source_layer.isin({"cedente", "criteria"})
+    has_source_layer = _nonempty_series(frame["source_layer"])
+    has_source_document = _nonempty_series(frame["source_document"])
+    has_source_page = _nonempty_series(frame["source_page"])
+    has_source_method = _nonempty_series(frame["source_method"])
+    has_confidence = pd.to_numeric(frame["confidence_score"], errors="coerce").notna()
+    has_review_status = _nonempty_series(frame["review_status"])
+    missing: list[str] = []
+    scores: list[int] = []
+    for idx in frame.index:
+        fields: list[str] = []
+        if not bool(has_source_layer.loc[idx]):
+            fields.append("fonte")
+        if not bool(has_source_method.loc[idx]):
+            fields.append("método")
+        if not bool(has_confidence.loc[idx]):
+            fields.append("score")
+        if bool(doc_expected.loc[idx]) and not bool(has_source_document.loc[idx]):
+            fields.append("documento")
+        if bool(doc_expected.loc[idx]) and not bool(has_source_page.loc[idx]):
+            fields.append("página")
+        if bool(review_expected.loc[idx]) and not bool(has_review_status.loc[idx]):
+            fields.append("status revisão")
+        missing.append(" | ".join(fields))
+        scores.append(len(fields) + int(bool(is_curated.loc[idx])) + int(bool(doc_expected.loc[idx])))
+    frame["missing_traceability_fields"] = missing
+    frame["traceability_gap_score"] = scores
+    out = frame[frame["missing_traceability_fields"].astype(str).str.strip().ne("")].copy()
+    if out.empty:
+        return out
+    out["cnpj_fundo_norm"] = out["cnpj_fundo"].map(normalize_cnpj)
+    value_hash = out["dimension_value"].fillna("").astype(str).map(
+        lambda value: hashlib.sha1(value.encode("utf-8")).hexdigest()[:12]
+    )
+    out["traceability_gap_id"] = (
+        "catalog_"
+        + out["dimension_id"].fillna("").astype(str).str.replace(r"[^A-Za-z0-9_]+", "_", regex=True)
+        + "_"
+        + out["cnpj_fundo_norm"].fillna("").astype(str)
+        + "_"
+        + value_hash
+    )
+    out["priority_2025_2026"] = _boolish_series(out["priority_2025_2026"])
+    out["confidence_score"] = pd.to_numeric(out["confidence_score"], errors="coerce")
+    out = apply_dimension_catalog_gap_actions(out, actions)
+    return out.sort_values(
+        ["priority_2025_2026", "traceability_gap_score", "dimension_label", "dimension_value"],
+        ascending=[False, False, True, True],
+    ).reset_index(drop=True)
+
+
+def _queue_status_from(row: pd.Series, *columns: str) -> str:
+    for col in columns:
+        text = str(row.get(col, "") or "").strip()
+        if text:
+            return text
+    return "pendente"
+
+
+def _queue_review_fields(row: pd.Series) -> dict[str, object]:
+    return {
+        "status_curadoria": _queue_status_from(row, "status_lacuna", "status_acao", "status_lote"),
+        "acao_revisada": row.get("acao_revisada", ""),
+        "responsavel": row.get("responsavel", ""),
+        "prazo": row.get("prazo", ""),
+        "notas": row.get("notas", ""),
+        "updated_at_utc": row.get("updated_at_utc", ""),
+    }
+
+
+def build_industry_curation_queue(
+    *,
+    snapshot: pd.DataFrame | None = None,
+    monthly_delta: pd.DataFrame | None = None,
+    document_chunk_plan: pd.DataFrame | None = None,
+    dimension_catalog: pd.DataFrame | None = None,
+    snapshot_gap_actions: pd.DataFrame | None = None,
+    catalog_gap_actions: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    """Build a single all-FIDC operational curation queue for the Industry tab."""
+
+    rows: list[dict[str, object]] = []
+
+    snapshot_gaps = build_snapshot_gap_queue(snapshot if snapshot is not None else pd.DataFrame(), snapshot_gap_actions)
+    for _, row in snapshot_gaps.iterrows():
+        review = _queue_review_fields(row)
+        rows.append(
+            {
+                "queue_id": f"snapshot_gap:{row.get('gap_id', '')}",
+                "queue_domain": "snapshot_gap",
+                "record_id": row.get("gap_id", ""),
+                "competencia": row.get("competencia", ""),
+                "cnpj_fundo": normalize_cnpj(row.get("cnpj_fundo", "")),
+                "nome_exibicao": row.get("nome_exibicao", ""),
+                "admin_nome": row.get("admin_nome", ""),
+                "gestor_nome": row.get("gestor_nome", ""),
+                "segmento_principal": row.get("segmento_principal", ""),
+                "pl": row.get("pl", 0),
+                "priority_2025_2026": bool(row.get("priority_2025_2026", False)),
+                "priority_score": row.get("gap_priority_score", 0),
+                "priority_band": "alta" if bool(row.get("priority_2025_2026", False)) else "média",
+                "action_type": "completar camadas estruturadas",
+                "next_action": row.get("missing_layers", ""),
+                "gap_summary": row.get("missing_layers", ""),
+                "source_artifacts": "industry_fund_snapshot.csv.gz | snapshot_gap_actions.csv",
+                "source_document": row.get("document_chunk_ids", ""),
+                "source_page": "",
+                "source_method": "snapshot_gap_queue",
+                "confidence_score": "",
+                "rerun_command": "python scripts/build_fidc_industry_fund_snapshot.py",
+                **review,
+            }
+        )
+
+    delta = pd.DataFrame() if monthly_delta is None else monthly_delta.copy()
+    if not delta.empty and "delta_id" in delta.columns:
+        status = _normalized_status(delta.get("status_acao", pd.Series("", index=delta.index)))
+        open_delta = delta[~status.isin({"concluído", "concluido", "ignorado"})].copy()
+        for _, row in open_delta.iterrows():
+            review = _queue_review_fields(row)
+            rows.append(
+                {
+                    "queue_id": f"monthly_delta:{row.get('delta_id', '')}",
+                    "queue_domain": "monthly_delta",
+                    "record_id": row.get("delta_id", ""),
+                    "competencia": row.get("competencia_atual", ""),
+                    "cnpj_fundo": normalize_cnpj(row.get("cnpj_fundo", "")),
+                    "nome_exibicao": row.get("fundo", ""),
+                    "admin_nome": row.get("admin_nome", ""),
+                    "gestor_nome": row.get("gestor_nome", ""),
+                    "segmento_principal": row.get("segmento_principal", ""),
+                    "pl": row.get("pl_atual", 0),
+                    "priority_2025_2026": True,
+                    "priority_score": row.get("priority_score", 0),
+                    "priority_band": row.get("priority_band", ""),
+                    "action_type": row.get("status_delta", ""),
+                    "next_action": row.get("next_actions", ""),
+                    "gap_summary": row.get("next_actions", ""),
+                    "source_artifacts": row.get("source_artifacts", "industry_monthly_delta.csv.gz"),
+                    "source_document": row.get("document_chunk_ids", ""),
+                    "source_page": "",
+                    "source_method": "monthly_delta",
+                    "confidence_score": "",
+                    "rerun_command": row.get("rerun_command", "python scripts/build_fidc_industry_monthly_delta.py"),
+                    **review,
+                }
+            )
+
+    chunk_plan = pd.DataFrame() if document_chunk_plan is None else document_chunk_plan.copy()
+    if not chunk_plan.empty and "chunk_id" in chunk_plan.columns:
+        status = _normalized_status(chunk_plan.get("status_lote", pd.Series("", index=chunk_plan.index)))
+        open_chunks = chunk_plan[~status.isin({"processado", "ignorado", "concluído", "concluido"})].copy()
+        for _, row in open_chunks.iterrows():
+            review = _queue_review_fields(row)
+            rows.append(
+                {
+                    "queue_id": f"document_chunk:{row.get('chunk_id', '')}",
+                    "queue_domain": "document_chunk",
+                    "record_id": row.get("chunk_id", ""),
+                    "competencia": row.get("document_date_max", ""),
+                    "cnpj_fundo": row.get("sample_cnpjs", ""),
+                    "nome_exibicao": row.get("sample_funds", ""),
+                    "admin_nome": "",
+                    "gestor_nome": "",
+                    "segmento_principal": row.get("document_classes", ""),
+                    "pl": 0,
+                    "priority_2025_2026": pd.to_numeric(pd.Series([row.get("priority_docs_effective", 0)]), errors="coerce").fillna(0).iloc[0] > 0,
+                    "priority_score": row.get("priority_score", 0),
+                    "priority_band": "alta" if str(row.get("chunk_status", "")) in {"baixar", "fingerprint"} else "média",
+                    "action_type": row.get("chunk_status", ""),
+                    "next_action": row.get("next_action", ""),
+                    "gap_summary": (
+                        f"{row.get('document_count', 0)} docs; "
+                        f"{row.get('missing_local_docs', 0)} sem local; {row.get('hash_pending_docs', 0)} sem hash"
+                    ),
+                    "source_artifacts": "document_chunk_plan.csv | document_processing_chunks.csv",
+                    "source_document": row.get("document_classes", ""),
+                    "source_page": "",
+                    "source_method": "document_chunk_plan",
+                    "confidence_score": "",
+                    "rerun_command": row.get("rerun_command", "python scripts/build_fidc_industry_document_chunk_plan.py"),
+                    **review,
+                }
+            )
+
+    catalog_gaps = build_dimension_catalog_gap_queue(
+        dimension_catalog if dimension_catalog is not None else pd.DataFrame(),
+        catalog_gap_actions,
+    )
+    for _, row in catalog_gaps.iterrows():
+        review = _queue_review_fields(row)
+        rows.append(
+            {
+                "queue_id": f"catalog_gap:{row.get('traceability_gap_id', '')}",
+                "queue_domain": "catalog_gap",
+                "record_id": row.get("traceability_gap_id", ""),
+                "competencia": row.get("source_date", ""),
+                "cnpj_fundo": normalize_cnpj(row.get("cnpj_fundo", "")),
+                "nome_exibicao": row.get("nome_exibicao", ""),
+                "admin_nome": "",
+                "gestor_nome": "",
+                "segmento_principal": row.get("dimension_label", ""),
+                "pl": 0,
+                "priority_2025_2026": bool(row.get("priority_2025_2026", False)),
+                "priority_score": row.get("traceability_gap_score", 0),
+                "priority_band": "alta" if bool(row.get("priority_2025_2026", False)) else "média",
+                "action_type": "completar rastreabilidade",
+                "next_action": row.get("missing_traceability_fields", ""),
+                "gap_summary": f"{row.get('dimension_label', '')}: {row.get('dimension_value', '')}",
+                "source_artifacts": "industry_dimension_catalog.csv.gz | dimension_catalog_gap_actions.csv",
+                "source_document": row.get("source_document", ""),
+                "source_page": row.get("source_page", ""),
+                "source_method": row.get("source_method", ""),
+                "confidence_score": row.get("confidence_score", ""),
+                "rerun_command": "python scripts/build_fidc_industry_dimensions.py",
+                **review,
+            }
+        )
+
+    if not rows:
+        return pd.DataFrame(
+            columns=[
+                "queue_id",
+                "queue_domain",
+                "record_id",
+                "competencia",
+                "cnpj_fundo",
+                "nome_exibicao",
+                "priority_score",
+                "priority_band",
+                "status_curadoria",
+                "action_type",
+                "next_action",
+            ]
+        )
+    out = pd.DataFrame(rows)
+    out["priority_score"] = pd.to_numeric(out.get("priority_score"), errors="coerce").fillna(0.0)
+    out["pl"] = pd.to_numeric(out.get("pl"), errors="coerce").fillna(0.0)
+    out["status_curadoria"] = _normalized_status(out.get("status_curadoria", pd.Series("", index=out.index)))
+    domain_order = {"monthly_delta": 0, "snapshot_gap": 1, "document_chunk": 2, "catalog_gap": 3}
+    status_order = {"bloqueado": 0, "pendente": 1, "em andamento": 2, "corrigido": 5, "aceito": 5, "ignorado": 6, "processado": 6}
+    priority_order = {"alta": 0, "média": 1, "media": 1, "baixa": 2}
+    out["_domain_order"] = out["queue_domain"].map(domain_order).fillna(9)
+    out["_status_order"] = out["status_curadoria"].map(status_order).fillna(3)
+    out["_priority_order"] = out["priority_band"].fillna("").astype(str).str.lower().map(priority_order).fillna(4)
+    return out.sort_values(
+        ["_status_order", "_priority_order", "priority_score", "pl", "_domain_order", "queue_id"],
+        ascending=[True, True, False, False, True, True],
+    ).drop(columns=["_domain_order", "_status_order", "_priority_order"]).reset_index(drop=True)
+
+
+def industry_curation_queue_quality_summary(queue: pd.DataFrame) -> dict[str, object]:
+    if queue is None or queue.empty:
+        return {
+            "rows": 0,
+            "funds": 0,
+            "open_rows": 0,
+            "high_priority_rows": 0,
+            "domain_counts": {},
+            "status_counts": {},
+        }
+    status = _normalized_status(queue.get("status_curadoria", pd.Series("", index=queue.index)))
+    open_status = ~status.isin({"corrigido", "aceito", "ignorado", "processado", "concluído", "concluido"})
+    domain = queue.get("queue_domain", pd.Series("", index=queue.index)).fillna("").astype(str)
+    priority = queue.get("priority_band", pd.Series("", index=queue.index)).fillna("").astype(str).str.lower()
+    cnpj = queue.get("cnpj_fundo", pd.Series("", index=queue.index)).fillna("").astype(str)
+    return {
+        "rows": int(len(queue)),
+        "funds": int(cnpj.map(normalize_cnpj).replace("", pd.NA).dropna().nunique()),
+        "open_rows": int(open_status.sum()),
+        "high_priority_rows": int(priority.eq("alta").sum()),
+        "priority_2025_2026_rows": int(_boolish_series(queue.get("priority_2025_2026", pd.Series(False, index=queue.index))).sum()),
+        "domain_counts": {str(k): int(v) for k, v in domain.value_counts().to_dict().items()},
+        "status_counts": {str(k): int(v) for k, v in status.value_counts().to_dict().items()},
+    }
+
+
+def build_curation_queue_pipeline_manifest(
+    *,
+    industry_dir: Path,
+    output_path: Path,
+    manifest_path: Path,
+    snapshot: pd.DataFrame,
+    monthly_delta: pd.DataFrame,
+    document_chunk_plan: pd.DataFrame,
+    dimension_catalog: pd.DataFrame,
+    queue: pd.DataFrame,
+) -> dict[str, object]:
+    quality = industry_curation_queue_quality_summary(queue)
+    return {
+        "schema_version": "industry-curation-queue-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_curation_queue",
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "manual_review_in_app": True,
+            "notes": [
+                "A fila unifica delta mensal, lacunas all-FIDCs do snapshot, chunks documentais e rastreabilidade do catálogo.",
+                "As ações continuam sendo editadas nas telas específicas; este artefato consolida prioridades para o fechamento mensal.",
+            ],
+        },
+        "inputs": {
+            "fund_snapshot": file_fingerprint(industry_dir / "industry_fund_snapshot.csv.gz"),
+            "monthly_delta": file_fingerprint(industry_dir / "industry_monthly_delta.csv.gz"),
+            "document_chunk_plan": file_fingerprint(industry_dir / "document_chunk_plan.csv"),
+            "dimension_catalog": file_fingerprint(industry_dir / "industry_dimension_catalog.csv.gz"),
+            "snapshot_gap_actions": file_fingerprint(industry_dir / "snapshot_gap_actions.csv"),
+            "catalog_gap_actions": file_fingerprint(industry_dir / "dimension_catalog_gap_actions.csv"),
+            "monthly_delta_actions": file_fingerprint(industry_dir / "monthly_delta_actions.csv"),
+            "document_chunk_actions": file_fingerprint(industry_dir / "document_chunk_actions.csv"),
+        },
+        "outputs": {
+            "curation_queue": file_fingerprint(output_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "snapshot_all_fidcs_gaps",
+                "label": "Lacunas estruturais all FIDCs",
+                "status": "ok" if snapshot is not None and not snapshot.empty else "empty",
+                "rows": int(len(snapshot)) if snapshot is not None else 0,
+                "rerun": "python scripts/build_fidc_industry_fund_snapshot.py",
+            },
+            {
+                "id": "monthly_delta_queue",
+                "label": "Delta mensal",
+                "status": "ok" if monthly_delta is not None and not monthly_delta.empty else "empty",
+                "rows": int(len(monthly_delta)) if monthly_delta is not None else 0,
+                "rerun": "python scripts/build_fidc_industry_monthly_delta.py",
+            },
+            {
+                "id": "document_chunk_queue",
+                "label": "Chunks documentais",
+                "status": "ok" if document_chunk_plan is not None and not document_chunk_plan.empty else "empty",
+                "rows": int(len(document_chunk_plan)) if document_chunk_plan is not None else 0,
+                "rerun": "python scripts/build_fidc_industry_document_chunk_plan.py",
+            },
+            {
+                "id": "catalog_traceability_queue",
+                "label": "Rastreabilidade do catálogo",
+                "status": "ok" if dimension_catalog is not None and not dimension_catalog.empty else "empty",
+                "rows": int(len(dimension_catalog)) if dimension_catalog is not None else 0,
+                "rerun": "python scripts/build_fidc_industry_dimensions.py",
+            },
+            {
+                "id": "persist_unified_queue",
+                "label": "Fila única de curadoria",
+                "status": "ok" if output_path.exists() else "empty",
+                "rows": int(len(queue)),
+                "rerun": "python scripts/build_fidc_industry_curation_queue.py",
+            },
+        ],
+        "quality": quality,
     }
 
 
@@ -2395,6 +3126,21 @@ def build_pipeline_readiness_checks(
         "python scripts/build_fidc_industry_monthly_delta.py",
     )
 
+    curation_open = int(quality_rollup.get("curation_queue_open_rows", 0) or 0)
+    curation_high = int(quality_rollup.get("curation_queue_high_priority_rows", 0) or 0)
+    add(
+        "curation_queue",
+        5,
+        "Curadoria",
+        "Fila única all-FIDCs",
+        "bloqueado" if curation_high else ("atenção" if curation_open else "ok"),
+        curation_high if curation_high else curation_open,
+        f"{curation_open} abertas; {curation_high} alta prioridade",
+        "Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.",
+        "industry_curation_queue.csv.gz",
+        "python scripts/build_fidc_industry_curation_queue.py",
+    )
+
     document_chunks = int(quality_rollup.get("document_chunks", 0) or 0)
     chunk_untracked = int(quality_rollup.get("document_chunks_without_action", 0) or 0)
     chunk_pending = int(quality_rollup.get("document_chunks_pending_action", 0) or 0)
@@ -2404,7 +3150,7 @@ def build_pipeline_readiness_checks(
     chunk_open = chunk_untracked + chunk_pending + chunk_in_progress + chunk_blocked
     add(
         "document_chunk_processing",
-        5,
+        6,
         "Documentos",
         "Execução incremental de OCR, parsing e extração por chunk",
         "bloqueado" if chunk_blocked else ("atenção" if chunk_open else "ok"),
@@ -2415,7 +3161,7 @@ def build_pipeline_readiness_checks(
         ),
         "Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.",
         "document_chunk_actions.csv",
-        "python scripts/build_fidc_industry_documents.py --chunk-id doc-0001",
+        "python scripts/build_fidc_industry_document_chunk_plan.py && python scripts/build_fidc_industry_documents.py --chunk-id doc-0001",
     )
 
     snapshot_rows = int(quality_rollup.get("fund_snapshot_rows", 0) or 0)
@@ -2424,7 +3170,7 @@ def build_pipeline_readiness_checks(
     missing_structured = max(snapshot_rows - min(with_cedentes, with_criteria), 0)
     add(
         "structured_coverage",
-        6,
+        7,
         "Snapshot",
         "Cobertura de cedentes e critérios estruturados",
         "atenção" if missing_structured else "ok",
@@ -2489,6 +3235,23 @@ def build_industry_pipeline_index(
             ],
         },
         {
+            "module_id": "curation_queue",
+            "label": "Fila única de curadoria",
+            "manifest_name": "industry_curation_queue_manifest.json",
+            "command": "python scripts/build_fidc_industry_curation_queue.py",
+            "cadence": "mensal/após filas operacionais",
+            "depends_on": ["delta mensal", "snapshot unificado por FIDC", "documentos", "catálogo de dimensões"],
+            "quality_keys": [
+                "rows",
+                "funds",
+                "open_rows",
+                "high_priority_rows",
+                "priority_2025_2026_rows",
+                "domain_counts",
+                "status_counts",
+            ],
+        },
+        {
             "module_id": "documents",
             "label": "Inventário documental",
             "manifest_name": "industry_document_manifest.json",
@@ -2502,6 +3265,8 @@ def build_industry_pipeline_index(
                 "local_ready_docs",
                 "missing_local_docs",
                 "chunks",
+                "chunk_plan_rows",
+                "chunk_plan_open_rows",
                 "max_documents_per_chunk",
                 "max_cnpjs_per_chunk",
             ],
@@ -2645,6 +3410,10 @@ def build_industry_pipeline_index(
             module["artifact_count"] = len(artifacts)
             module["artifacts_present"] = sum(1 for item in artifacts if item.get("exists") is True)
         if spec["module_id"] == "documents":
+            derived_artifacts = [
+                _optional_artifact_row("documents", "document_chunk_plan", industry_dir / "document_chunk_plan.csv", group="derived"),
+            ]
+            artifacts.extend(derived_artifacts)
             manual_artifacts = [
                 _optional_artifact_row("documents", "document_chunk_actions", industry_dir / "document_chunk_actions.csv"),
                 _optional_artifact_row("documents", "document_chunk_action_audit", industry_dir / "document_chunk_action_audit.csv"),
@@ -2698,6 +3467,14 @@ def build_industry_pipeline_index(
         },
         {
             "order": 5,
+            "module_id": "document_chunk_plan",
+            "label": "Atualizar plano operacional de chunks",
+            "command": "python scripts/build_fidc_industry_document_chunk_plan.py",
+            "reason": "Aplica o acompanhamento salvo na UI sobre inventário e chunks para priorizar download, fingerprint, OCR, parsing e extração.",
+            "incremental_note": "Rerun leve quando o usuário muda status/responsável/prazo na aba Documentos > Chunks.",
+        },
+        {
+            "order": 6,
             "module_id": "cedentes",
             "label": "Regerar base de cedentes/sacados",
             "command": "python scripts/build_fidc_industry_cedentes.py",
@@ -2705,7 +3482,7 @@ def build_industry_pipeline_index(
             "incremental_note": "A curadoria continua sendo feita pela UI e reaplicada pelo overlay persistido.",
         },
         {
-            "order": 6,
+            "order": 7,
             "module_id": "criteria",
             "label": "Regerar critérios e subordinação mínima",
             "command": "python scripts/build_fidc_industry_criteria.py",
@@ -2713,7 +3490,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Revisões feitas pela UI são reaplicadas antes da consolidação.",
         },
         {
-            "order": 7,
+            "order": 8,
             "module_id": "fund_snapshot",
             "label": "Regerar snapshot unificado por FIDC",
             "command": "python scripts/build_fidc_industry_fund_snapshot.py",
@@ -2721,7 +3498,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem.",
         },
         {
-            "order": 8,
+            "order": 9,
             "module_id": "dimension_catalog",
             "label": "Regerar catálogo de dimensões",
             "command": "python scripts/build_fidc_industry_dimensions.py",
@@ -2729,7 +3506,15 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos.",
         },
         {
-            "order": 9,
+            "order": 10,
+            "module_id": "curation_queue",
+            "label": "Consolidar fila única de curadoria",
+            "command": "python scripts/build_fidc_industry_curation_queue.py",
+            "reason": "Une delta mensal, lacunas all-FIDCs, chunks documentais e rastreabilidade do catálogo em uma fila operacional.",
+            "incremental_note": "Rerun leve depois de salvar ações manuais na UI ou de regenerar qualquer fila detalhe.",
+        },
+        {
+            "order": 11,
             "module_id": "dimension_profiles",
             "label": "Regerar perfis cruzados por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_profiles.py",
@@ -2737,7 +3522,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado.",
         },
         {
-            "order": 10,
+            "order": 12,
             "module_id": "dimension_monthly",
             "label": "Regerar séries mensais por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -2745,7 +3530,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação.",
         },
         {
-            "order": 11,
+            "order": 13,
             "module_id": "market_share",
             "label": "Regerar market share e concentração",
             "command": "python scripts/build_fidc_industry_market_share.py",
@@ -2753,7 +3538,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe.",
         },
         {
-            "order": 12,
+            "order": 14,
             "module_id": "pipeline_index",
             "label": "Atualizar cockpit do pipeline",
             "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -2778,6 +3563,7 @@ def build_industry_pipeline_index(
     manual_review_artifact_present = sum(1 for item in manual_review_artifacts if item.get("exists") is True)
     base_meta = base_module.get("quality_highlights", {})
     monthly_delta_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "monthly_delta"), {})
+    curation_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "curation_queue"), {})
     criteria_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "criteria"), {})
     document_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "documents"), {})
     cedente_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "cedentes"), {})
@@ -2790,6 +3576,8 @@ def build_industry_pipeline_index(
     criteria_manifest = _safe_read_json(industry_dir / "industry_criteria_manifest.json")
     subordination = criteria_manifest.get("quality", {}).get("subordination", {}) if isinstance(criteria_manifest.get("quality"), dict) else {}
     document_chunks_total = int(document_quality.get("chunks", 0) or 0)
+    document_chunk_plan_rows = int(document_quality.get("chunk_plan_rows", 0) or 0)
+    document_chunk_plan_open_rows = int(document_quality.get("chunk_plan_open_rows", 0) or 0)
     document_chunk_actions = load_dataframe(industry_dir / "document_chunk_actions.csv")
     if document_chunk_actions.empty or "chunk_id" not in document_chunk_actions.columns:
         document_chunk_action_rows = 0
@@ -2838,7 +3626,14 @@ def build_industry_pipeline_index(
         "monthly_delta_new_funds": monthly_delta_quality.get("new_funds", 0),
         "monthly_delta_reactivated_funds": monthly_delta_quality.get("reactivated_funds", 0),
         "monthly_delta_high_priority": monthly_delta_quality.get("high_priority_rows", 0),
+        "curation_queue_rows": curation_quality.get("rows", 0),
+        "curation_queue_funds": curation_quality.get("funds", 0),
+        "curation_queue_open_rows": curation_quality.get("open_rows", 0),
+        "curation_queue_high_priority_rows": curation_quality.get("high_priority_rows", 0),
+        "curation_queue_priority_2025_2026_rows": curation_quality.get("priority_2025_2026_rows", 0),
         "document_chunks": document_chunks_total,
+        "document_chunk_plan_rows": document_chunk_plan_rows,
+        "document_chunk_plan_open_rows": document_chunk_plan_open_rows,
         "max_documents_per_chunk": document_quality.get("max_documents_per_chunk", 0),
         "document_chunk_actions_rows": document_chunk_action_rows,
         "document_chunk_action_status_counts": document_chunk_status_counts,
@@ -4935,8 +5730,83 @@ def build_document_pipeline_manifest(
     inventory: pd.DataFrame,
     chunks: pd.DataFrame,
     max_hash_bytes: int,
+    plan_path: Path | None = None,
+    chunk_plan: pd.DataFrame | None = None,
 ) -> dict[str, object]:
-    quality = document_quality_summary(inventory, chunks)
+    if chunk_plan is None:
+        chunk_plan = pd.DataFrame()
+    quality = document_quality_summary(inventory, chunks, chunk_plan)
+    outputs = {
+        "document_inventory": file_fingerprint(inventory_path),
+        "document_processing_chunks": file_fingerprint(chunks_path),
+        "manifest": {"path": str(manifest_path)},
+    }
+    if plan_path is not None:
+        outputs["document_chunk_plan"] = file_fingerprint(plan_path)
+    stages = [
+        {
+            "id": "discover_sqlite_document_sources",
+            "label": "Descoberta em SQLite",
+            "status": "ok" if not source_rows.empty else "empty",
+            "input": str(strategy_db),
+            "output": "memoria:document_source_rows",
+            "rows": int(len(source_rows)),
+            "funds": int(source_rows["cnpj_fundo"].nunique()) if "cnpj_fundo" in source_rows else 0,
+            "rerun": "python scripts/build_fidc_industry_documents.py",
+        },
+        {
+            "id": "scan_local_extraction_artifacts",
+            "label": "Artefatos de extração locais",
+            "status": "ok" if not extraction_rows.empty else "empty",
+            "input": str(extractions_dir),
+            "output": "memoria:regulatory_extractions",
+            "rows": int(len(extraction_rows)),
+            "funds": int(extraction_rows["cnpj_fundo"].nunique()) if "cnpj_fundo" in extraction_rows else 0,
+            "rerun": "python scripts/build_fidc_industry_documents.py",
+        },
+        {
+            "id": "fingerprint_local_files",
+            "label": "Fingerprint e status local",
+            "status": "ok" if not inventory.empty else "empty",
+            "input": "memoria:document_source_rows+regulatory_extractions",
+            "output": "memoria:document_inventory",
+            "rows": int(len(inventory)),
+            "funds": int(inventory["cnpj_fundo"].nunique()) if "cnpj_fundo" in inventory else 0,
+            "rerun": "python scripts/build_fidc_industry_documents.py",
+        },
+        {
+            "id": "assign_processing_chunks",
+            "label": "Chunking incremental",
+            "status": "ok" if not chunks.empty else "empty",
+            "input": "memoria:document_inventory",
+            "output": str(chunks_path),
+            "rows": int(len(chunks)),
+            "rerun": "python scripts/build_fidc_industry_documents.py",
+        },
+    ]
+    if plan_path is not None:
+        stages.append(
+            {
+                "id": "build_chunk_execution_plan",
+                "label": "Plano operacional dos chunks",
+                "status": "ok" if not chunk_plan.empty else "empty",
+                "input": "document_processing_chunks+document_inventory+document_chunk_actions",
+                "output": str(plan_path),
+                "rows": int(len(chunk_plan)),
+                "rerun": "python scripts/build_fidc_industry_document_chunk_plan.py",
+            }
+        )
+    stages.append(
+        {
+            "id": "persist_document_inventory",
+            "label": "Inventário versionável",
+            "status": "ok" if inventory_path.exists() else "empty",
+            "input": "memoria:document_inventory",
+            "output": str(inventory_path),
+            "rows": int(len(inventory)),
+            "rerun": "python scripts/build_fidc_industry_documents.py",
+        }
+    )
     return {
         "schema_version": "industry-document-manifest/v1",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -4958,61 +5828,8 @@ def build_document_pipeline_manifest(
                 "exists": extractions_dir.exists(),
             },
         },
-        "outputs": {
-            "document_inventory": file_fingerprint(inventory_path),
-            "document_processing_chunks": file_fingerprint(chunks_path),
-            "manifest": {"path": str(manifest_path)},
-        },
-        "stages": [
-            {
-                "id": "discover_sqlite_document_sources",
-                "label": "Descoberta em SQLite",
-                "status": "ok" if not source_rows.empty else "empty",
-                "input": str(strategy_db),
-                "output": "memoria:document_source_rows",
-                "rows": int(len(source_rows)),
-                "funds": int(source_rows["cnpj_fundo"].nunique()) if "cnpj_fundo" in source_rows else 0,
-                "rerun": "python scripts/build_fidc_industry_documents.py",
-            },
-            {
-                "id": "scan_local_extraction_artifacts",
-                "label": "Artefatos de extração locais",
-                "status": "ok" if not extraction_rows.empty else "empty",
-                "input": str(extractions_dir),
-                "output": "memoria:regulatory_extractions",
-                "rows": int(len(extraction_rows)),
-                "funds": int(extraction_rows["cnpj_fundo"].nunique()) if "cnpj_fundo" in extraction_rows else 0,
-                "rerun": "python scripts/build_fidc_industry_documents.py",
-            },
-            {
-                "id": "fingerprint_local_files",
-                "label": "Fingerprint e status local",
-                "status": "ok" if not inventory.empty else "empty",
-                "input": "memoria:document_source_rows+regulatory_extractions",
-                "output": "memoria:document_inventory",
-                "rows": int(len(inventory)),
-                "funds": int(inventory["cnpj_fundo"].nunique()) if "cnpj_fundo" in inventory else 0,
-                "rerun": "python scripts/build_fidc_industry_documents.py",
-            },
-            {
-                "id": "assign_processing_chunks",
-                "label": "Chunking incremental",
-                "status": "ok" if not chunks.empty else "empty",
-                "input": "memoria:document_inventory",
-                "output": str(chunks_path),
-                "rows": int(len(chunks)),
-                "rerun": "python scripts/build_fidc_industry_documents.py",
-            },
-            {
-                "id": "persist_document_inventory",
-                "label": "Inventário versionável",
-                "status": "ok" if inventory_path.exists() else "empty",
-                "input": "memoria:document_inventory",
-                "output": str(inventory_path),
-                "rows": int(len(inventory)),
-                "rerun": "python scripts/build_fidc_industry_documents.py",
-            },
-        ],
+        "outputs": outputs,
+        "stages": stages,
         "quality": quality,
     }
 

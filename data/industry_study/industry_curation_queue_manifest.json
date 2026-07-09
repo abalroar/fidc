@@ -1,0 +1,128 @@
+{
+  "schema_version": "industry-curation-queue-manifest/v1",
+  "generated_at_utc": "2026-07-09T02:26:25+00:00",
+  "pipeline": "industry_curation_queue",
+  "design_constraints": {
+    "modular": true,
+    "incremental": true,
+    "manual_review_in_app": true,
+    "notes": [
+      "A fila unifica delta mensal, lacunas all-FIDCs do snapshot, chunks documentais e rastreabilidade do catálogo.",
+      "As ações continuam sendo editadas nas telas específicas; este artefato consolida prioridades para o fechamento mensal."
+    ]
+  },
+  "inputs": {
+    "fund_snapshot": {
+      "path": "data/industry_study/industry_fund_snapshot.csv.gz",
+      "exists": true,
+      "bytes": 389658,
+      "sha256": "b23a50f92e9b1e3aef0bfb84d77d4bd42fdf912e3b001fb337d6bef5fd5c847e"
+    },
+    "monthly_delta": {
+      "path": "data/industry_study/industry_monthly_delta.csv.gz",
+      "exists": true,
+      "bytes": 359824,
+      "sha256": "74b1fdef1d0e6993e49fc87b660e7e4ed2ebe0109862926e5ae4f42101ec90f5"
+    },
+    "document_chunk_plan": {
+      "path": "data/industry_study/document_chunk_plan.csv",
+      "exists": true,
+      "bytes": 22110,
+      "sha256": "f7515ec3420aa4542d5e31592c504607499678de5f7f63756605096c732fe194"
+    },
+    "dimension_catalog": {
+      "path": "data/industry_study/industry_dimension_catalog.csv.gz",
+      "exists": true,
+      "bytes": 1370618,
+      "sha256": "114fbb900d57a5f186963813e6b13c4c448934390dcaae0778773018581b234a"
+    },
+    "snapshot_gap_actions": {
+      "path": "data/industry_study/snapshot_gap_actions.csv",
+      "exists": false,
+      "bytes": 0,
+      "sha256": ""
+    },
+    "catalog_gap_actions": {
+      "path": "data/industry_study/dimension_catalog_gap_actions.csv",
+      "exists": false,
+      "bytes": 0,
+      "sha256": ""
+    },
+    "monthly_delta_actions": {
+      "path": "data/industry_study/monthly_delta_actions.csv",
+      "exists": true,
+      "bytes": 74,
+      "sha256": "4701c1985eea1c04ff6a6307b2f8f22fa12d2eead73d219c625515bb5eda378a"
+    },
+    "document_chunk_actions": {
+      "path": "data/industry_study/document_chunk_actions.csv",
+      "exists": false,
+      "bytes": 0,
+      "sha256": ""
+    }
+  },
+  "outputs": {
+    "curation_queue": {
+      "path": "data/industry_study/industry_curation_queue.csv.gz",
+      "exists": true,
+      "bytes": 2396743,
+      "sha256": "e1c597fd20ae491f0b0acdf2dd9933d56963be26bfa1b988983a6ee286b05181"
+    },
+    "manifest": {
+      "path": "data/industry_study/industry_curation_queue_manifest.json"
+    }
+  },
+  "stages": [
+    {
+      "id": "snapshot_all_fidcs_gaps",
+      "label": "Lacunas estruturais all FIDCs",
+      "status": "ok",
+      "rows": 4219,
+      "rerun": "python scripts/build_fidc_industry_fund_snapshot.py"
+    },
+    {
+      "id": "monthly_delta_queue",
+      "label": "Delta mensal",
+      "status": "ok",
+      "rows": 4279,
+      "rerun": "python scripts/build_fidc_industry_monthly_delta.py"
+    },
+    {
+      "id": "document_chunk_queue",
+      "label": "Chunks documentais",
+      "status": "ok",
+      "rows": 27,
+      "rerun": "python scripts/build_fidc_industry_document_chunk_plan.py"
+    },
+    {
+      "id": "catalog_traceability_queue",
+      "label": "Rastreabilidade do catálogo",
+      "status": "ok",
+      "rows": 66644,
+      "rerun": "python scripts/build_fidc_industry_dimensions.py"
+    },
+    {
+      "id": "persist_unified_queue",
+      "label": "Fila única de curadoria",
+      "status": "ok",
+      "rows": 75116,
+      "rerun": "python scripts/build_fidc_industry_curation_queue.py"
+    }
+  ],
+  "quality": {
+    "rows": 75116,
+    "funds": 4337,
+    "open_rows": 75116,
+    "high_priority_rows": 3563,
+    "priority_2025_2026_rows": 7787,
+    "domain_counts": {
+      "catalog_gap": 66599,
+      "monthly_delta": 4279,
+      "snapshot_gap": 4211,
+      "document_chunk": 27
+    },
+    "status_counts": {
+      "pendente": 75116
+    }
+  }
+}

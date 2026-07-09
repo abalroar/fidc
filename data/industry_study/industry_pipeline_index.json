@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-index/v1",
-  "generated_at_utc": "2026-07-09T01:54:57+00:00",
+  "generated_at_utc": "2026-07-09T02:26:31+00:00",
   "pipeline": "industry_monthly_refresh",
   "industry_dir": "data/industry_study",
   "output_path": "data/industry_study/industry_pipeline_index.json",
@@ -16,20 +16,20 @@
     ]
   },
   "quality_rollup": {
-    "modules_total": 11,
+    "modules_total": 12,
     "module_status_counts": {
-      "ok": 11
+      "ok": 12
     },
-    "artifacts_total": 32,
-    "artifacts_present": 32,
+    "artifacts_total": 35,
+    "artifacts_present": 35,
     "artifacts_missing": 0,
-    "optional_artifacts_total": 32,
-    "optional_artifacts_present": 27,
-    "optional_artifacts_missing": 5,
+    "optional_artifacts_total": 41,
+    "optional_artifacts_present": 33,
+    "optional_artifacts_missing": 8,
     "manual_review_artifacts_total": 6,
     "manual_review_artifacts_present": 1,
     "manual_review_artifacts_missing": 5,
-    "latest_module_generated_at_utc": "2026-07-08T20:20:06+00:00",
+    "latest_module_generated_at_utc": "2026-07-09T02:26:25+00:00",
     "competencia_final": "202606",
     "competencia_snapshot": "202605",
     "monthly_delta_rows": 4279,
@@ -38,11 +38,18 @@
     "monthly_delta_new_funds": 63,
     "monthly_delta_reactivated_funds": 8,
     "monthly_delta_high_priority": 71,
-    "document_chunks": 32,
-    "max_documents_per_chunk": 200,
+    "curation_queue_rows": 75116,
+    "curation_queue_funds": 4337,
+    "curation_queue_open_rows": 75116,
+    "curation_queue_high_priority_rows": 3563,
+    "curation_queue_priority_2025_2026_rows": 7787,
+    "document_chunks": 27,
+    "document_chunk_plan_rows": 27,
+    "document_chunk_plan_open_rows": 27,
+    "max_documents_per_chunk": 250,
     "document_chunk_actions_rows": 0,
     "document_chunk_action_status_counts": {},
-    "document_chunks_without_action": 32,
+    "document_chunks_without_action": 27,
     "document_chunks_pending_action": 0,
     "document_chunks_in_progress": 0,
     "document_chunks_blocked": 0,
@@ -91,32 +98,44 @@
       "comando": "python scripts/build_fidc_industry_monthly_delta.py"
     },
     {
+      "check_id": "curation_queue",
+      "ordem": 5,
+      "frente": "Curadoria",
+      "escopo": "Fila única all-FIDCs",
+      "status_prontidao": "bloqueado",
+      "pendencias": 3563,
+      "amostra": "75116 abertas; 3563 alta prioridade",
+      "acao_sugerida": "Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.",
+      "fonte": "industry_curation_queue.csv.gz",
+      "comando": "python scripts/build_fidc_industry_curation_queue.py"
+    },
+    {
       "check_id": "artifact_presence",
       "ordem": 3,
       "frente": "Artefatos",
       "escopo": "Arquivos obrigatórios e opcionais",
       "status_prontidao": "atenção",
-      "pendencias": 5,
-      "amostra": "monthly_delta · monthly_delta_action_audit | documents · document_chunk_actions | documents · document_chunk_action_audit | fund_snapshot · snapshot_gap_actions",
+      "pendencias": 8,
+      "amostra": "monthly_delta · monthly_delta_action_audit | curation_queue · snapshot_gap_actions | curation_queue · catalog_gap_actions | curation_queue · document_chunk_actions",
       "acao_sugerida": "Gerar arquivos ausentes; opcionais indicam histórico de revisão ainda não iniciado.",
       "fonte": "artifact_index",
       "comando": ""
     },
     {
       "check_id": "document_chunk_processing",
-      "ordem": 5,
+      "ordem": 6,
       "frente": "Documentos",
       "escopo": "Execução incremental de OCR, parsing e extração por chunk",
       "status_prontidao": "atenção",
-      "pendencias": 32,
-      "amostra": "0/32 processados; 32 sem acompanhamento; 0 em andamento; 0 bloqueados",
+      "pendencias": 27,
+      "amostra": "0/27 processados; 27 sem acompanhamento; 0 em andamento; 0 bloqueados",
       "acao_sugerida": "Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.",
       "fonte": "document_chunk_actions.csv",
-      "comando": "python scripts/build_fidc_industry_documents.py --chunk-id doc-0001"
+      "comando": "python scripts/build_fidc_industry_document_chunk_plan.py && python scripts/build_fidc_industry_documents.py --chunk-id doc-0001"
     },
     {
       "check_id": "structured_coverage",
-      "ordem": 6,
+      "ordem": 7,
       "frente": "Snapshot",
       "escopo": "Cobertura de cedentes e critérios estruturados",
       "status_prontidao": "atenção",
@@ -228,12 +247,51 @@
       }
     },
     {
+      "id": "curation_queue",
+      "label": "Fila única de curadoria",
+      "status": "ok",
+      "schema_version": "industry-curation-queue-manifest/v1",
+      "pipeline": "industry_curation_queue",
+      "generated_at_utc": "2026-07-09T02:26:25+00:00",
+      "manifest_path": "data/industry_study/industry_curation_queue_manifest.json",
+      "command": "python scripts/build_fidc_industry_curation_queue.py",
+      "cadence": "mensal/após filas operacionais",
+      "depends_on": [
+        "delta mensal",
+        "snapshot unificado por FIDC",
+        "documentos",
+        "catálogo de dimensões"
+      ],
+      "stage_status_counts": {
+        "ok": 5
+      },
+      "stage_count": 5,
+      "artifact_count": 10,
+      "artifacts_present": 7,
+      "quality_highlights": {
+        "rows": 75116,
+        "funds": 4337,
+        "open_rows": 75116,
+        "high_priority_rows": 3563,
+        "priority_2025_2026_rows": 7787,
+        "domain_counts": {
+          "catalog_gap": 66599,
+          "monthly_delta": 4279,
+          "snapshot_gap": 4211,
+          "document_chunk": 27
+        },
+        "status_counts": {
+          "pendente": 75116
+        }
+      }
+    },
+    {
       "id": "documents",
       "label": "Inventário documental",
       "status": "ok",
       "schema_version": "industry-document-manifest/v1",
       "pipeline": "industry_document_inventory",
-      "generated_at_utc": "2026-07-08T15:34:47+00:00",
+      "generated_at_utc": "2026-07-09T02:03:08+00:00",
       "manifest_path": "data/industry_study/industry_document_manifest.json",
       "command": "python scripts/build_fidc_industry_documents.py",
       "cadence": "incremental/chunks",
@@ -242,20 +300,22 @@
         "data/regulatory_extractions"
       ],
       "stage_status_counts": {
-        "ok": 5
+        "ok": 6
       },
-      "stage_count": 5,
-      "artifact_count": 7,
-      "artifacts_present": 5,
+      "stage_count": 6,
+      "artifact_count": 9,
+      "artifacts_present": 7,
       "quality_highlights": {
         "document_rows": 3521,
         "funds": 739,
         "priority_2025_2026_docs": 1312,
         "local_ready_docs": 3521,
         "missing_local_docs": 0,
-        "chunks": 32,
-        "max_documents_per_chunk": 200,
-        "max_cnpjs_per_chunk": 35
+        "chunks": 27,
+        "chunk_plan_rows": 27,
+        "chunk_plan_open_rows": 27,
+        "max_documents_per_chunk": 250,
+        "max_cnpjs_per_chunk": 40
       }
     },
     {
@@ -511,6 +571,14 @@
     },
     {
       "order": 5,
+      "module_id": "document_chunk_plan",
+      "label": "Atualizar plano operacional de chunks",
+      "command": "python scripts/build_fidc_industry_document_chunk_plan.py",
+      "reason": "Aplica o acompanhamento salvo na UI sobre inventário e chunks para priorizar download, fingerprint, OCR, parsing e extração.",
+      "incremental_note": "Rerun leve quando o usuário muda status/responsável/prazo na aba Documentos > Chunks."
+    },
+    {
+      "order": 6,
       "module_id": "cedentes",
       "label": "Regerar base de cedentes/sacados",
       "command": "python scripts/build_fidc_industry_cedentes.py",
@@ -518,7 +586,7 @@
       "incremental_note": "A curadoria continua sendo feita pela UI e reaplicada pelo overlay persistido."
     },
     {
-      "order": 6,
+      "order": 7,
       "module_id": "criteria",
       "label": "Regerar critérios e subordinação mínima",
       "command": "python scripts/build_fidc_industry_criteria.py",
@@ -526,7 +594,7 @@
       "incremental_note": "Revisões feitas pela UI são reaplicadas antes da consolidação."
     },
     {
-      "order": 7,
+      "order": 8,
       "module_id": "fund_snapshot",
       "label": "Regerar snapshot unificado por FIDC",
       "command": "python scripts/build_fidc_industry_fund_snapshot.py",
@@ -534,7 +602,7 @@
       "incremental_note": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem."
     },
     {
-      "order": 8,
+      "order": 9,
       "module_id": "dimension_catalog",
       "label": "Regerar catálogo de dimensões",
       "command": "python scripts/build_fidc_industry_dimensions.py",
@@ -542,7 +610,15 @@
       "incremental_note": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos."
     },
     {
-      "order": 9,
+      "order": 10,
+      "module_id": "curation_queue",
+      "label": "Consolidar fila única de curadoria",
+      "command": "python scripts/build_fidc_industry_curation_queue.py",
+      "reason": "Une delta mensal, lacunas all-FIDCs, chunks documentais e rastreabilidade do catálogo em uma fila operacional.",
+      "incremental_note": "Rerun leve depois de salvar ações manuais na UI ou de regenerar qualquer fila detalhe."
+    },
+    {
+      "order": 11,
       "module_id": "dimension_profiles",
       "label": "Regerar perfis cruzados por dimensão",
       "command": "python scripts/build_fidc_industry_dimension_profiles.py",
@@ -550,7 +626,7 @@
       "incremental_note": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado."
     },
     {
-      "order": 10,
+      "order": 12,
       "module_id": "dimension_monthly",
       "label": "Regerar séries mensais por dimensão",
       "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -558,7 +634,7 @@
       "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação."
     },
     {
-      "order": 11,
+      "order": 13,
       "module_id": "market_share",
       "label": "Regerar market share e concentração",
       "command": "python scripts/build_fidc_industry_market_share.py",
@@ -566,7 +642,7 @@
       "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe."
     },
     {
-      "order": 12,
+      "order": 14,
       "module_id": "pipeline_index",
       "label": "Atualizar cockpit do pipeline",
       "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -796,6 +872,106 @@
       "sha256": "c4dfe502da0df0a7933fbc3a741f9fbffc8e06430f781e20ee524ca58206326e"
     },
     {
+      "module_id": "curation_queue",
+      "group": "inputs",
+      "artifact": "fund_snapshot",
+      "required": false,
+      "path": "data/industry_study/industry_fund_snapshot.csv.gz",
+      "exists": true,
+      "bytes": 389658,
+      "sha256": "b23a50f92e9b1e3aef0bfb84d77d4bd42fdf912e3b001fb337d6bef5fd5c847e"
+    },
+    {
+      "module_id": "curation_queue",
+      "group": "inputs",
+      "artifact": "monthly_delta",
+      "required": false,
+      "path": "data/industry_study/industry_monthly_delta.csv.gz",
+      "exists": true,
+      "bytes": 359824,
+      "sha256": "74b1fdef1d0e6993e49fc87b660e7e4ed2ebe0109862926e5ae4f42101ec90f5"
+    },
+    {
+      "module_id": "curation_queue",
+      "group": "inputs",
+      "artifact": "document_chunk_plan",
+      "required": false,
+      "path": "data/industry_study/document_chunk_plan.csv",
+      "exists": true,
+      "bytes": 22110,
+      "sha256": "f7515ec3420aa4542d5e31592c504607499678de5f7f63756605096c732fe194"
+    },
+    {
+      "module_id": "curation_queue",
+      "group": "inputs",
+      "artifact": "dimension_catalog",
+      "required": false,
+      "path": "data/industry_study/industry_dimension_catalog.csv.gz",
+      "exists": true,
+      "bytes": 1370618,
+      "sha256": "114fbb900d57a5f186963813e6b13c4c448934390dcaae0778773018581b234a"
+    },
+    {
+      "module_id": "curation_queue",
+      "group": "inputs",
+      "artifact": "snapshot_gap_actions",
+      "required": false,
+      "path": "data/industry_study/snapshot_gap_actions.csv",
+      "exists": false,
+      "bytes": 0,
+      "sha256": ""
+    },
+    {
+      "module_id": "curation_queue",
+      "group": "inputs",
+      "artifact": "catalog_gap_actions",
+      "required": false,
+      "path": "data/industry_study/dimension_catalog_gap_actions.csv",
+      "exists": false,
+      "bytes": 0,
+      "sha256": ""
+    },
+    {
+      "module_id": "curation_queue",
+      "group": "inputs",
+      "artifact": "monthly_delta_actions",
+      "required": false,
+      "path": "data/industry_study/monthly_delta_actions.csv",
+      "exists": true,
+      "bytes": 74,
+      "sha256": "4701c1985eea1c04ff6a6307b2f8f22fa12d2eead73d219c625515bb5eda378a"
+    },
+    {
+      "module_id": "curation_queue",
+      "group": "inputs",
+      "artifact": "document_chunk_actions",
+      "required": false,
+      "path": "data/industry_study/document_chunk_actions.csv",
+      "exists": false,
+      "bytes": 0,
+      "sha256": ""
+    },
+    {
+      "module_id": "curation_queue",
+      "group": "outputs",
+      "artifact": "curation_queue",
+      "required": true,
+      "path": "data/industry_study/industry_curation_queue.csv.gz",
+      "exists": true,
+      "bytes": 2396743,
+      "sha256": "e1c597fd20ae491f0b0acdf2dd9933d56963be26bfa1b988983a6ee286b05181"
+    },
+    {
+      "module_id": "curation_queue",
+      "group": "outputs",
+      "artifact": "manifest",
+      "required": true,
+      "path": "data/industry_study/industry_curation_queue_manifest.json",
+      "exists": true,
+      "bytes": 3904,
+      "sha256": "88e3a858959e1c304700bffca8c04fa6d1c888d3c7f22686c9bcae5d0b79d086"
+    },
+    {
       "module_id": "documents",
       "group": "inputs",
       "artifact": "strategy_db",
@@ -823,8 +999,8 @@
       "required": true,
       "path": "data/industry_study/document_inventory.csv.gz",
       "exists": true,
-      "bytes": 338650,
-      "sha256": "349f25f5424ddb0ddd00a204439f2f303de1b2efda8b9558957bd02437441d8b"
+      "bytes": 338594,
+      "sha256": "ad98d29950d29b8b7f2f78cb9e7d525033f9e64819414f42fcca13c4f6f730c1"
     },
     {
       "module_id": "documents",
@@ -833,8 +1009,8 @@
       "required": true,
       "path": "data/industry_study/document_processing_chunks.csv",
       "exists": true,
-      "bytes": 12268,
-      "sha256": "fd89a07d93331552794a8e3c6b0014368b8379113b451b43510bc5ac902579e7"
+      "bytes": 10514,
+      "sha256": "79ff5db97a59bd94d94b7b2c52bac18c1a1f1dc13936b94178b120f0ac16f845"
     },
     {
       "module_id": "documents",
@@ -843,8 +1019,28 @@
       "required": true,
       "path": "data/industry_study/industry_document_manifest.json",
       "exists": true,
-      "bytes": 3958,
-      "sha256": "a1ce3fa19e91b59da47f9484d744a8b2e4b246db8c2afd3ee2ae22779f137b13"
+      "bytes": 4671,
+      "sha256": "20b7b722baef682d8cbdcf983ebdafc80bf560a1549d2d5cc7f740f729119d98"
+    },
+    {
+      "module_id": "documents",
+      "group": "outputs",
+      "artifact": "document_chunk_plan",
+      "required": true,
+      "path": "data/industry_study/document_chunk_plan.csv",
+      "exists": true,
+      "bytes": 22110,
+      "sha256": "f7515ec3420aa4542d5e31592c504607499678de5f7f63756605096c732fe194"
+    },
+    {
+      "module_id": "documents",
+      "group": "derived",
+      "artifact": "document_chunk_plan",
+      "required": false,
+      "path": "data/industry_study/document_chunk_plan.csv",
+      "exists": true,
+      "bytes": 22110,
+      "sha256": "f7515ec3420aa4542d5e31592c504607499678de5f7f63756605096c732fe194"
     },
     {
       "module_id": "documents",
@@ -1023,8 +1219,8 @@
       "required": false,
       "path": "data/industry_study/document_inventory.csv.gz",
       "exists": true,
-      "bytes": 338650,
-      "sha256": "349f25f5424ddb0ddd00a204439f2f303de1b2efda8b9558957bd02437441d8b"
+      "bytes": 338594,
+      "sha256": "ad98d29950d29b8b7f2f78cb9e7d525033f9e64819414f42fcca13c4f6f730c1"
     },
     {
       "module_id": "fund_snapshot",
