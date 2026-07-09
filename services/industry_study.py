@@ -67,6 +67,23 @@ DOCUMENT_CHUNK_ACTION_COLUMNS = [
     "updated_at_utc",
 ]
 
+PUBLICATION_GATE_COLUMNS = [
+    "gate_id",
+    "ordem",
+    "tipo_sinal",
+    "frente",
+    "status_gate",
+    "decisao_publicacao",
+    "bloqueia_publicacao",
+    "exige_nota_publica",
+    "pendencias",
+    "evidencia",
+    "acao_sugerida",
+    "fonte",
+    "comando",
+    "competencia_referencia",
+]
+
 SNAPSHOT_GAP_ACTION_COLUMNS = [
     "gap_id",
     "status_lacuna",
@@ -5022,6 +5039,224 @@ def build_monthly_update_plan(
     return frame.to_dict("records")
 
 
+def build_monthly_publication_gate(
+    *,
+    readiness_checks: list[dict[str, object]],
+    prd_coverage: list[dict[str, object]],
+    monthly_update_plan: list[dict[str, object]],
+    quality_rollup: dict[str, object],
+) -> list[dict[str, object]]:
+    """Build a director-facing monthly publish gate from existing cockpit signals."""
+
+    status_order = {"bloqueado": 0, "atenção": 1, "ok": 2, "n/d": 3}
+    competencia = str(
+        quality_rollup.get("competencia_snapshot")
+        or quality_rollup.get("competencia_final")
+        or quality_rollup.get("monthly_delta_competencia_atual")
+        or ""
+    )
+
+    def number(key: str) -> float:
+        return float(pd.to_numeric(pd.Series([quality_rollup.get(key, 0)]), errors="coerce").fillna(0).iloc[0])
+
+    def norm_status(value: object) -> str:
+        text = str(value or "n/d").strip().lower()
+        return text if text else "n/d"
+
+    def decision(status: str, note: bool = False) -> str:
+        if status == "bloqueado":
+            return "não publicar antes de fechar"
+        if status == "atenção" or note:
+            return "publicar apenas com ressalva explícita"
+        if status == "ok":
+            return "liberado"
+        return "validar antes de publicar"
+
+    def row(
+        *,
+        gate_id: str,
+        ordem: int,
+        tipo_sinal: str,
+        frente: str,
+        status_gate: str,
+        pendencias: object,
+        evidencia: str,
+        acao_sugerida: str,
+        fonte: str,
+        comando: str,
+        exige_nota_publica: bool = False,
+    ) -> dict[str, object]:
+        status = norm_status(status_gate)
+        return {
+            "gate_id": gate_id,
+            "ordem": ordem,
+            "tipo_sinal": tipo_sinal,
+            "frente": frente,
+            "status_gate": status,
+            "decisao_publicacao": decision(status, exige_nota_publica),
+            "bloqueia_publicacao": status == "bloqueado",
+            "exige_nota_publica": bool(exige_nota_publica),
+            "pendencias": pendencias,
+            "evidencia": evidencia,
+            "acao_sugerida": acao_sugerida,
+            "fonte": fonte,
+            "comando": comando,
+            "competencia_referencia": competencia,
+        }
+
+    readiness = pd.DataFrame(readiness_checks)
+    prd = pd.DataFrame(prd_coverage)
+    plan = pd.DataFrame(monthly_update_plan)
+    rows: list[dict[str, object]] = []
+
+    readiness_status = (
+        readiness.get("status_prontidao", pd.Series(dtype=str)).fillna("").astype(str)
+        if not readiness.empty
+        else pd.Series(dtype=str)
+    )
+    prd_status = (
+        prd.get("status_prd", pd.Series(dtype=str)).fillna("").astype(str)
+        if not prd.empty
+        else pd.Series(dtype=str)
+    )
+    plan_status = (
+        plan.get("status_prontidao", pd.Series(dtype=str)).fillna("").astype(str)
+        if not plan.empty
+        else pd.Series(dtype=str)
+    )
+
+    readiness_blocked = int(readiness_status.eq("bloqueado").sum())
+    readiness_attention = int(readiness_status.eq("atenção").sum())
+    prd_blocked = int(prd_status.eq("bloqueado").sum())
+    prd_attention = int(prd_status.eq("atenção").sum())
+    plan_blocked = int(plan_status.eq("bloqueado").sum())
+    plan_attention = int(plan_status.eq("atenção").sum())
+    disclosure_rows = int(
+        number("public_claim_methodology_bridge_needs_disclosure_rows")
+        + number("public_claim_audit_methodology_gap_claims")
+    )
+    blocking_signals = readiness_blocked + prd_blocked + plan_blocked
+    attention_signals = readiness_attention + prd_attention + plan_attention + (1 if disclosure_rows else 0)
+    summary_status = "bloqueado" if blocking_signals else ("atenção" if attention_signals else "ok")
+    readiness_open_pending = 0
+    if not readiness.empty and "pendencias" in readiness.columns:
+        open_readiness = readiness[~readiness_status.eq("ok")]
+        readiness_open_pending = int(pd.to_numeric(open_readiness["pendencias"], errors="coerce").fillna(0).sum())
+    rows.append(
+        row(
+            gate_id="publication_gate_summary",
+            ordem=0,
+            tipo_sinal="síntese",
+            frente="Portão mensal",
+            status_gate=summary_status,
+            pendencias=readiness_open_pending + prd_blocked + prd_attention + plan_blocked + plan_attention,
+            evidencia=(
+                f"readiness {readiness_blocked} bloqueado/{readiness_attention} atenção; "
+                f"PRD {prd_blocked} bloqueado/{prd_attention} atenção; "
+                f"plano {plan_blocked} bloqueado/{plan_attention} atenção; "
+                f"notas públicas {disclosure_rows}"
+            ),
+            acao_sugerida=(
+                "Fechar todos os sinais bloqueados e registrar ressalvas metodológicas antes de apresentação externa."
+                if summary_status == "bloqueado"
+                else "Registrar ressalvas metodológicas no material antes de publicar."
+                if summary_status == "atenção"
+                else "Atualizar evidências e publicar a competência."
+            ),
+            fonte="industry_pipeline_index.json",
+            comando="python scripts/build_fidc_industry_pipeline_index.py",
+            exige_nota_publica=disclosure_rows > 0,
+        )
+    )
+
+    if not readiness.empty:
+        open_readiness = readiness[~readiness_status.eq("ok")].copy()
+        for pos, item in enumerate(open_readiness.to_dict("records"), start=10):
+            rows.append(
+                row(
+                    gate_id=f"readiness_{item.get('check_id', pos)}",
+                    ordem=pos,
+                    tipo_sinal="prontidão",
+                    frente=str(item.get("frente") or item.get("check_id") or ""),
+                    status_gate=str(item.get("status_prontidao") or "n/d"),
+                    pendencias=item.get("pendencias", 0),
+                    evidencia=str(item.get("amostra") or ""),
+                    acao_sugerida=str(item.get("acao_sugerida") or ""),
+                    fonte=str(item.get("fonte") or "industry_monthly_readiness.csv"),
+                    comando=str(item.get("comando") or ""),
+                )
+            )
+
+    if not prd.empty:
+        open_prd = prd[~prd_status.eq("ok")].copy()
+        for pos, item in enumerate(open_prd.to_dict("records"), start=100):
+            req_id = str(item.get("requirement_id") or pos)
+            rows.append(
+                row(
+                    gate_id=f"prd_{req_id}",
+                    ordem=pos,
+                    tipo_sinal="PRD",
+                    frente=str(item.get("tema") or req_id),
+                    status_gate=str(item.get("status_prd") or "n/d"),
+                    pendencias=1,
+                    evidencia=str(item.get("evidencia") or item.get("metrica") or ""),
+                    acao_sugerida=str(item.get("proximo_passo") or ""),
+                    fonte=str(item.get("artefato") or "industry_pipeline_index.json"),
+                    comando=str(item.get("comando") or ""),
+                    exige_nota_publica=req_id == "public_audit_readiness",
+                )
+            )
+
+    if disclosure_rows:
+        rows.append(
+            row(
+                gate_id="public_methodology_disclosure",
+                ordem=180,
+                tipo_sinal="divulgação pública",
+                frente="Claims públicos",
+                status_gate="atenção",
+                pendencias=disclosure_rows,
+                evidencia=(
+                    f"{int(number('public_claim_methodology_bridge_rows'))} pontes; "
+                    f"{int(number('public_claim_methodology_bridge_high_or_blocking_rows'))} severidade alta/bloqueante"
+                ),
+                acao_sugerida="Manter nota ANBIMA/CVM e diferenças de universo/conceito junto dos números públicos.",
+                fonte="industry_public_claim_methodology_bridge.csv",
+                comando="python scripts/build_fidc_industry_public_claim_audit.py",
+                exige_nota_publica=True,
+            )
+        )
+
+    if not plan.empty:
+        open_plan = plan[~plan_status.eq("ok")].copy()
+        if "order" in open_plan.columns:
+            open_plan = open_plan.sort_values("order")
+        for pos, item in enumerate(open_plan.to_dict("records"), start=200):
+            module_id = str(item.get("module_id") or item.get("plan_id") or pos)
+            rows.append(
+                row(
+                    gate_id=f"plan_{module_id}_{pos}",
+                    ordem=pos,
+                    tipo_sinal="plano mensal",
+                    frente=str(item.get("etapa") or module_id),
+                    status_gate=str(item.get("status_prontidao") or "n/d"),
+                    pendencias=1,
+                    evidencia=str(item.get("bloqueios_ou_atencoes") or item.get("evidencia_atual") or ""),
+                    acao_sugerida=str(item.get("acao_antes_de_rodar") or ""),
+                    fonte=str(item.get("saidas") or "industry_monthly_update_plan.csv"),
+                    comando=str(item.get("comando") or ""),
+                )
+            )
+
+    frame = pd.DataFrame(rows)
+    for col in PUBLICATION_GATE_COLUMNS:
+        if col not in frame.columns:
+            frame[col] = ""
+    frame["_status_order"] = frame["status_gate"].map(status_order).fillna(9)
+    frame = frame.sort_values(["ordem", "_status_order"]).drop(columns=["_status_order"]).reset_index(drop=True)
+    return frame[PUBLICATION_GATE_COLUMNS].to_dict("records")
+
+
 def build_manual_review_ledger(*, industry_dir: Path) -> list[dict[str, object]]:
     """Summarize all in-app review domains, their persisted actions and append-only audit logs."""
 
@@ -5863,6 +6098,13 @@ def build_industry_pipeline_index(
                 "required": False,
                 **file_fingerprint(industry_dir / "industry_monthly_readiness.csv"),
             },
+            {
+                "module_id": "pipeline_index",
+                "group": "outputs",
+                "artifact": "industry_publication_gate",
+                "required": False,
+                **file_fingerprint(industry_dir / "industry_publication_gate.csv"),
+            },
         ]
     )
 
@@ -6253,6 +6495,29 @@ def build_industry_pipeline_index(
         update_plan_status_counts[status] = update_plan_status_counts.get(status, 0) + 1
     quality_rollup["monthly_update_plan_rows"] = len(monthly_update_plan)
     quality_rollup["monthly_update_plan_status_counts"] = update_plan_status_counts
+    publication_gate = build_monthly_publication_gate(
+        readiness_checks=readiness_checks,
+        prd_coverage=prd_coverage,
+        monthly_update_plan=monthly_update_plan,
+        quality_rollup=quality_rollup,
+    )
+    gate_status_counts: dict[str, int] = {}
+    gate_blocking_rows = 0
+    gate_disclosure_rows = 0
+    for row in publication_gate:
+        status = str(row.get("status_gate") or "n/d")
+        gate_status_counts[status] = gate_status_counts.get(status, 0) + 1
+        if row.get("bloqueia_publicacao") is True:
+            gate_blocking_rows += 1
+        if row.get("exige_nota_publica") is True:
+            gate_disclosure_rows += 1
+    quality_rollup["publication_gate_rows"] = len(publication_gate)
+    quality_rollup["publication_gate_status"] = (
+        str(publication_gate[0].get("status_gate") or "n/d") if publication_gate else "n/d"
+    )
+    quality_rollup["publication_gate_status_counts"] = gate_status_counts
+    quality_rollup["publication_gate_blocking_rows"] = gate_blocking_rows
+    quality_rollup["publication_gate_disclosure_rows"] = gate_disclosure_rows
     manual_review_ledger = build_manual_review_ledger(industry_dir=industry_dir)
     manual_review_status_counts: dict[str, int] = {}
     for row in manual_review_ledger:
@@ -6293,6 +6558,7 @@ def build_industry_pipeline_index(
         "readiness_checks": readiness_checks,
         "prd_coverage": prd_coverage,
         "monthly_update_plan": monthly_update_plan,
+        "publication_gate": publication_gate,
         "manual_review_ledger": manual_review_ledger,
         "modules": modules,
         "refresh_plan": refresh_plan,

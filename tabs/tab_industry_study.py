@@ -79,6 +79,7 @@ _PIPELINE_MANIFEST_PATH = _DATA_DIR / "industry_pipeline_manifest.json"
 _PIPELINE_INDEX_PATH = _DATA_DIR / "industry_pipeline_index.json"
 _MONTHLY_UPDATE_PLAN_PATH = _DATA_DIR / "industry_monthly_update_plan.csv"
 _MONTHLY_READINESS_PATH = _DATA_DIR / "industry_monthly_readiness.csv"
+_PUBLICATION_GATE_PATH = _DATA_DIR / "industry_publication_gate.csv"
 _INCREMENTAL_ONBOARDING_PATH = _DATA_DIR / "industry_incremental_onboarding.csv"
 _INCREMENTAL_ONBOARDING_MANIFEST_PATH = _DATA_DIR / "industry_incremental_onboarding_manifest.json"
 _CURATION_QUEUE_PATH = _DATA_DIR / "industry_curation_queue.csv.gz"
@@ -3651,7 +3652,54 @@ def _format_monthly_readiness(frame: pd.DataFrame) -> pd.DataFrame:
     keep = ["Status", "Frente", "Escopo", "Pendências", "Amostra", "Ação sugerida", "Fonte", "Comando", "ID"]
     out = out[[col for col in keep if col in out.columns]].copy()
     if "Pendências" in out.columns:
+            out["Pendências"] = pd.to_numeric(out["Pendências"], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    return out
+
+
+def _format_publication_gate(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.rename(
+        columns={
+            "gate_id": "ID",
+            "ordem": "Ordem",
+            "tipo_sinal": "Tipo",
+            "frente": "Frente",
+            "status_gate": "Status",
+            "decisao_publicacao": "Decisão",
+            "bloqueia_publicacao": "Bloqueia",
+            "exige_nota_publica": "Nota pública",
+            "pendencias": "Pendências",
+            "evidencia": "Evidência",
+            "acao_sugerida": "Ação",
+            "fonte": "Fonte",
+            "comando": "Comando",
+            "competencia_referencia": "Competência",
+        }
+    )
+    keep = [
+        "Status",
+        "Decisão",
+        "Tipo",
+        "Frente",
+        "Pendências",
+        "Evidência",
+        "Ação",
+        "Fonte",
+        "Comando",
+        "Nota pública",
+        "Bloqueia",
+        "Competência",
+        "ID",
+    ]
+    out = out[[col for col in keep if col in out.columns]].copy()
+    if "Status" in out.columns:
+        out["Status"] = out["Status"].map(_status_badge_text)
+    if "Pendências" in out.columns:
         out["Pendências"] = pd.to_numeric(out["Pendências"], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    for col in ["Nota pública", "Bloqueia"]:
+        if col in out.columns:
+            out[col] = out[col].map(lambda value: "sim" if str(value).lower() in {"true", "1", "sim"} else "não")
     return out
 
 
@@ -6980,6 +7028,9 @@ def _render_pipeline_manifest() -> None:
         else (index.get("monthly_update_plan", []) if isinstance(index.get("monthly_update_plan"), list) else [])
     )
     monthly_readiness_frame = load_dataframe(_MONTHLY_READINESS_PATH)
+    publication_gate_frame = load_dataframe(_PUBLICATION_GATE_PATH)
+    if publication_gate_frame.empty and isinstance(index.get("publication_gate"), list):
+        publication_gate_frame = pd.DataFrame(index.get("publication_gate", []))
     incremental_onboarding = load_dataframe(_INCREMENTAL_ONBOARDING_PATH)
     incremental_onboarding_manifest = load_pipeline_manifest(_INCREMENTAL_ONBOARDING_MANIFEST_PATH)
     onboarding_quality = (
@@ -7004,7 +7055,18 @@ def _render_pipeline_manifest() -> None:
         if isinstance(rollup.get("manual_review_status_counts"), dict)
         else {}
     )
+    publication_gate_status = str(rollup.get("publication_gate_status") or "")
+    publication_gate_label = {
+        "bloqueado": "Bloqueado",
+        "atenção": "Com ressalva",
+        "ok": "Liberado",
+    }.get(publication_gate_status, "n/d")
     cards = [
+        _curation_card(
+            "Portão mensal",
+            publication_gate_label,
+            f"{_fmt_int(float(rollup.get('publication_gate_blocking_rows', 0) or 0))} bloqueios · {_fmt_int(float(rollup.get('publication_gate_disclosure_rows', 0) or 0))} notas",
+        ),
         _curation_card(
             "Módulos ok",
             f"{_fmt_int(float(status_counts.get('ok', 0)))}/{_fmt_int(float(rollup.get('modules_total', 0)))}",
@@ -7093,8 +7155,9 @@ def _render_pipeline_manifest() -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    tab_modules, tab_prd, tab_public, tab_reviews, tab_queue, tab_profiles, tab_dossiers, tab_catalog_quality, tab_delta, tab_refresh, tab_artifacts, tab_json = st.tabs(
+    tab_gate, tab_modules, tab_prd, tab_public, tab_reviews, tab_queue, tab_profiles, tab_dossiers, tab_catalog_quality, tab_delta, tab_refresh, tab_artifacts, tab_json = st.tabs(
         [
+            "Portão",
             "Módulos",
             "PRD",
             "Público",
@@ -7109,6 +7172,95 @@ def _render_pipeline_manifest() -> None:
             "Manifesto",
         ]
     )
+    with tab_gate:
+        gate_frame = publication_gate_frame.copy()
+        if gate_frame.empty:
+            st.caption("Portão mensal ainda não materializado. Rode `python scripts/build_fidc_industry_pipeline_index.py`.")
+        else:
+            gate_status_raw = gate_frame.get("status_gate", pd.Series("", index=gate_frame.index)).fillna("").astype(str)
+            gate_type_raw = gate_frame.get("tipo_sinal", pd.Series("", index=gate_frame.index)).fillna("").astype(str)
+            gate_status_counts = gate_status_raw.value_counts().to_dict()
+            note_count = int(
+                gate_frame.get("exige_nota_publica", pd.Series(False, index=gate_frame.index))
+                .fillna(False)
+                .astype(str)
+                .str.lower()
+                .isin({"true", "1", "sim"})
+                .sum()
+            )
+            gate_cards = [
+                _curation_card("Status", publication_gate_label, "decisão da competência"),
+                _curation_card("Bloqueios", _fmt_int(float(gate_status_counts.get("bloqueado", 0))), "fechar antes de publicar"),
+                _curation_card("Atenções", _fmt_int(float(gate_status_counts.get("atenção", 0))), "publicar com ressalva"),
+                _curation_card("Notas públicas", _fmt_int(float(note_count)), "metodologia/claims"),
+            ]
+            st.markdown("**Portão de publicação da competência**")
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(gate_cards)}</div>', unsafe_allow_html=True)
+            gate_a, gate_b, gate_c = st.columns([0.8, 0.9, 1.5])
+            with gate_a:
+                gate_status_options = [
+                    value
+                    for value in ["bloqueado", "atenção", "ok", "n/d"]
+                    if value in set(gate_status_raw)
+                ] or sorted([value for value in gate_status_raw.unique() if value])
+                selected_gate_status = st.multiselect(
+                    "Status portão",
+                    gate_status_options,
+                    default=[value for value in gate_status_options if value != "ok"] or gate_status_options,
+                    key="industry_publication_gate_status",
+                )
+            with gate_b:
+                gate_type_options = sorted([value for value in gate_type_raw.unique() if value])
+                selected_gate_types = st.multiselect(
+                    "Tipo sinal",
+                    gate_type_options,
+                    default=gate_type_options,
+                    key="industry_publication_gate_type",
+                )
+            with gate_c:
+                gate_query = st.text_input(
+                    "Buscar portão",
+                    key="industry_publication_gate_query",
+                    placeholder="PRD, chunks, claims, comando, fonte",
+                )
+            gate_view = gate_frame.copy()
+            if selected_gate_status:
+                gate_view = gate_view[
+                    gate_view.get("status_gate", pd.Series("", index=gate_view.index)).fillna("").astype(str).isin(selected_gate_status)
+                ].copy()
+            if selected_gate_types:
+                gate_view = gate_view[
+                    gate_view.get("tipo_sinal", pd.Series("", index=gate_view.index)).fillna("").astype(str).isin(selected_gate_types)
+                ].copy()
+            if gate_query:
+                search_cols = [
+                    col
+                    for col in [
+                        "tipo_sinal",
+                        "frente",
+                        "status_gate",
+                        "decisao_publicacao",
+                        "evidencia",
+                        "acao_sugerida",
+                        "fonte",
+                        "comando",
+                    ]
+                    if col in gate_view.columns
+                ]
+                search = gate_view[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=gate_view.index)
+                gate_view = gate_view[search.str.contains(gate_query, case=False, na=False)].copy()
+            if "ordem" in gate_view.columns:
+                gate_view = gate_view.sort_values("ordem").copy()
+            st.dataframe(_format_publication_gate(gate_view), hide_index=True, width="stretch", height=520)
+            st.download_button(
+                "Baixar portão mensal",
+                data=gate_frame.to_csv(index=False).encode("utf-8"),
+                file_name=_PUBLICATION_GATE_PATH.name,
+                mime="text/csv",
+                key="industry_publication_gate_download",
+            )
+            st.caption(f"Fonte: `{_PUBLICATION_GATE_PATH.name}`")
+
     with tab_modules:
         module_rows = []
         for module in modules:
@@ -7750,6 +7902,8 @@ def _render_pipeline_manifest() -> None:
                 save_pipeline_manifest(curation_manifest, _CURATION_QUEUE_MANIFEST_PATH)
                 new_index = build_industry_pipeline_index(industry_dir=_DATA_DIR, output_path=_PIPELINE_INDEX_PATH)
                 save_dataframe(pd.DataFrame(new_index.get("monthly_update_plan", [])), _MONTHLY_UPDATE_PLAN_PATH)
+                save_dataframe(pd.DataFrame(new_index.get("readiness_checks", [])), _MONTHLY_READINESS_PATH)
+                save_dataframe(pd.DataFrame(new_index.get("publication_gate", [])), _PUBLICATION_GATE_PATH)
                 save_pipeline_manifest(new_index, _PIPELINE_INDEX_PATH)
                 _load_monthly_delta_tables.clear()
                 _load_snapshot_gap_actions.clear()

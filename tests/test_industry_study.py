@@ -57,6 +57,7 @@ from services.industry_study import (  # noqa: E402
     build_issuance_tranches,
     build_market_share_pipeline_manifest,
     build_monthly_delta_pipeline_manifest,
+    build_monthly_publication_gate,
     build_cedente_structured,
     build_cedente_pipeline_manifest,
     cedente_quality_summary,
@@ -115,6 +116,7 @@ from tabs.tab_industry_study import (  # noqa: E402
     _format_dimension_value_snapshot,
     _format_dimension_radar,
     _format_monthly_readiness,
+    _format_publication_gate,
     _heatmap_base_frame,
     _heatmap_preset_options,
     _monthly_delta_actions_for_audit,
@@ -2904,6 +2906,54 @@ def test_industry_monthly_readiness_flags_release_blockers_and_normalizes_compet
     assert formatted.loc[formatted["ID"].eq("competencia_alignment"), "Status"].iloc[0] == "ok"
     assert formatted.loc[formatted["ID"].eq("artifact_presence"), "Pendências"].iloc[0] == "1"
 
+    gate = build_monthly_publication_gate(
+        readiness_checks=readiness.to_dict("records"),
+        prd_coverage=[
+            {
+                "requirement_id": "public_audit_readiness",
+                "tema": "Qualidade",
+                "status_prd": "atenção",
+                "evidencia": "claims com diferença metodológica",
+                "proximo_passo": "explicitar nota pública",
+                "artefato": "industry_public_claim_methodology_bridge.csv",
+                "comando": "python scripts/build_fidc_industry_public_claim_audit.py",
+            }
+        ],
+        monthly_update_plan=[
+            {
+                "plan_id": "03_monthly_delta",
+                "module_id": "monthly_delta",
+                "etapa": "Gerar delta mensal",
+                "status_prontidao": "bloqueado",
+                "bloqueios_ou_atencoes": "Delta mensal pendente",
+                "acao_antes_de_rodar": "Fechar bloqueios",
+                "saidas": "industry_monthly_delta.csv.gz",
+                "comando": "python scripts/build_fidc_industry_monthly_delta.py",
+            }
+        ],
+        quality_rollup={
+            "competencia_snapshot": "202605",
+            "public_claim_methodology_bridge_rows": 2,
+            "public_claim_methodology_bridge_needs_disclosure_rows": 1,
+            "public_claim_methodology_bridge_high_or_blocking_rows": 1,
+            "public_claim_audit_methodology_gap_claims": 1,
+        },
+    )
+    gate_by_id = {row["gate_id"]: row for row in gate}
+
+    assert gate_by_id["publication_gate_summary"]["status_gate"] == "bloqueado"
+    assert gate_by_id["publication_gate_summary"]["bloqueia_publicacao"] is True
+    assert gate_by_id["publication_gate_summary"]["exige_nota_publica"] is True
+    assert gate_by_id["public_methodology_disclosure"]["status_gate"] == "atenção"
+    assert gate_by_id["prd_public_audit_readiness"]["exige_nota_publica"] is True
+    assert all(row["competencia_referencia"] == "202605" for row in gate)
+
+    formatted_gate = _format_publication_gate(pd.DataFrame(gate))
+
+    assert "Decisão" in formatted_gate.columns
+    assert formatted_gate.iloc[0]["Status"] == "bloqueado"
+    assert formatted_gate.loc[formatted_gate["ID"].eq("public_methodology_disclosure"), "Nota pública"].iloc[0] == "sim"
+
 
 def test_industry_monthly_delta_prioritizes_incremental_review_queue():
     vehicle = pd.DataFrame(
@@ -3785,6 +3835,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         (tmp_path / "industry_pipeline_index.json").write_text("{}\n", encoding="utf-8")
         (tmp_path / "industry_monthly_update_plan.csv").write_text("plan_id\n", encoding="utf-8")
         (tmp_path / "industry_monthly_readiness.csv").write_text("check_id\n", encoding="utf-8")
+        (tmp_path / "industry_publication_gate.csv").write_text("gate_id\n", encoding="utf-8")
 
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
@@ -3882,6 +3933,13 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert prd["public_audit_readiness"]["status_prd"] == "atenção"
     assert index["quality_rollup"]["monthly_update_plan_rows"] == 19
     assert "monthly_update_plan_status_counts" in index["quality_rollup"]
+    assert index["quality_rollup"]["publication_gate_status"] == "bloqueado"
+    assert index["quality_rollup"]["publication_gate_rows"] > 1
+    assert index["quality_rollup"]["publication_gate_blocking_rows"] >= 1
+    assert index["quality_rollup"]["publication_gate_disclosure_rows"] >= 1
+    publication_gate = {row["gate_id"]: row for row in index["publication_gate"]}
+    assert publication_gate["publication_gate_summary"]["status_gate"] == "bloqueado"
+    assert publication_gate["public_methodology_disclosure"]["exige_nota_publica"] is True
     monthly_plan = {row["module_id"]: row for row in index["monthly_update_plan"]}
     assert monthly_plan["base_monthly"]["comando"] == "python scripts/build_fidc_industry_study.py --report"
     assert monthly_plan["manual_review_ledgers"]["comando"] == "python scripts/build_fidc_industry_manual_review_ledgers.py"
@@ -3896,11 +3954,14 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert monthly_plan["dimension_dossiers"]["comando"] == "python scripts/build_fidc_industry_dimension_dossiers.py"
     assert "industry_monthly_update_plan" in monthly_plan["pipeline_index"]["saidas"]
     assert "industry_monthly_readiness" in monthly_plan["pipeline_index"]["saidas"]
+    assert "industry_publication_gate" in monthly_plan["pipeline_index"]["saidas"]
     artifacts = {(row["module_id"], row["artifact"]): row for row in index["artifact_index"]}
     assert ("pipeline_index", "industry_monthly_update_plan") in artifacts
     assert artifacts[("pipeline_index", "industry_monthly_update_plan")]["required"] is False
     assert ("pipeline_index", "industry_monthly_readiness") in artifacts
     assert artifacts[("pipeline_index", "industry_monthly_readiness")]["required"] is False
+    assert ("pipeline_index", "industry_publication_gate") in artifacts
+    assert artifacts[("pipeline_index", "industry_publication_gate")]["required"] is False
     assert ("public_claims", "methodology_bridge") in artifacts
     assert artifacts[("public_claims", "methodology_bridge")]["required"] is True
     assert index["quality_rollup"]["manual_review_domains_total"] == 6
