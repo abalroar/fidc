@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-index/v1",
-  "generated_at_utc": "2026-07-09T16:02:01+00:00",
+  "generated_at_utc": "2026-07-09T16:12:58+00:00",
   "pipeline": "industry_monthly_refresh",
   "industry_dir": "data/industry_study",
   "output_path": "data/industry_study/industry_pipeline_index.json",
@@ -20,8 +20,8 @@
     "module_status_counts": {
       "ok": 17
     },
-    "artifacts_total": 61,
-    "artifacts_present": 61,
+    "artifacts_total": 62,
+    "artifacts_present": 62,
     "artifacts_missing": 0,
     "optional_artifacts_total": 60,
     "optional_artifacts_present": 60,
@@ -29,7 +29,7 @@
     "manual_review_artifacts_total": 12,
     "manual_review_artifacts_present": 12,
     "manual_review_artifacts_missing": 0,
-    "latest_module_generated_at_utc": "2026-07-09T15:56:18+00:00",
+    "latest_module_generated_at_utc": "2026-07-09T16:12:48+00:00",
     "competencia_final": "202606",
     "competencia_snapshot": "202605",
     "monthly_delta_rows": 4279,
@@ -90,6 +90,9 @@
     "public_claim_audit_divergent_claims": 0,
     "public_claim_audit_missing_local_claims": 0,
     "public_claim_audit_max_abs_delta_pct": 7.150438917299664,
+    "public_claim_methodology_bridge_rows": 8,
+    "public_claim_methodology_bridge_needs_disclosure_rows": 8,
+    "public_claim_methodology_bridge_high_or_blocking_rows": 5,
     "fund_snapshot_rows": 4219,
     "fund_snapshot_with_cedentes": 99,
     "fund_snapshot_with_participant_signal": 167,
@@ -281,9 +284,9 @@
       "tema": "Qualidade",
       "requisito": "Camada auditável para escrutínio público com fonte, documento, página, método e score",
       "status_prd": "atenção",
-      "evidencia": "229 valores com documento; 15 com página; 197 com score; 6 grupos dimensão/fonte baixa qualidade; 8 claims públicos reconciliados",
-      "metrica": "readiness_checks=11; traceability_matrix=29; methodology_gaps=8",
-      "artefato": "industry_pipeline_index.json | industry_dimension_traceability_matrix.csv | industry_dimension_value_atlas.csv.gz | industry_public_claim_audit.csv",
+      "evidencia": "229 valores com documento; 15 com página; 197 com score; 6 grupos dimensão/fonte baixa qualidade; 8 claims públicos reconciliados; 8 pontes metodológicas",
+      "metrica": "readiness_checks=11; traceability_matrix=29; methodology_gaps=8; bridge_high=5",
+      "artefato": "industry_pipeline_index.json | industry_dimension_traceability_matrix.csv | industry_dimension_value_atlas.csv.gz | industry_public_claim_audit.csv | industry_public_claim_methodology_bridge.csv",
       "proximo_passo": "Aumentar cobertura de página/score e manter diferenças ANBIMA/CVM explícitas antes de apresentações externas.",
       "comando": "python scripts/build_fidc_industry_traceability.py && python scripts/build_fidc_industry_public_claim_audit.py && python scripts/build_fidc_industry_pipeline_index.py"
     },
@@ -293,7 +296,7 @@
       "tema": "Arquitetura",
       "requisito": "Pipeline modular com etapas reexecutáveis e artefatos persistidos",
       "status_prd": "ok",
-      "evidencia": "17/17 módulos ok; 61/61 artefatos obrigatórios presentes",
+      "evidencia": "17/17 módulos ok; 62/62 artefatos obrigatórios presentes",
       "metrica": "refresh_plan=19",
       "artefato": "industry_pipeline_index.json",
       "proximo_passo": "Rodar módulos não-ok ou gerar artefatos obrigatórios ausentes.",
@@ -516,10 +519,10 @@
       "comando": "python scripts/build_fidc_industry_public_claim_audit.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "base granular mensal | emissões/ofertas | claims públicos declarados",
-      "saidas": "public_claim_audit | manifest",
+      "saidas": "public_claim_audit | methodology_bridge | manifest",
       "evidencia_atual": "rows=8 · claims_with_local_metric=8 · public_sources=2 · methodology_gap_claims=8 · adherent_claims=0 · divergent_claims=0",
-      "artefatos": "5/5",
-      "gerado_em_utc": "2026-07-09T13:40:53+00:00",
+      "artefatos": "6/6",
+      "gerado_em_utc": "2026-07-09T16:12:48+00:00",
       "motivo": "Compara números citados por ANBIMA/Seu Dinheiro contra métricas locais e explicita divergências de universo/conceito.",
       "incrementalidade": "Rerun leve quando uma nova notícia for adicionada aos specs ou quando base mensal/emissões forem atualizadas."
     },
@@ -790,9 +793,9 @@
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "",
       "saidas": "industry_pipeline_index | industry_monthly_update_plan | industry_monthly_readiness",
-      "evidencia_atual": "prd_requirements_total=12 · artifacts_present=61 · artifacts_total=61",
-      "artefatos": "61/61",
-      "gerado_em_utc": "2026-07-09T15:56:18+00:00",
+      "evidencia_atual": "prd_requirements_total=12 · artifacts_present=62 · artifacts_total=62",
+      "artefatos": "62/62",
+      "gerado_em_utc": "2026-07-09T16:12:48+00:00",
       "motivo": "Recalcula hashes, freshness, status dos módulos e checklist mensal visível na aba Pipeline.",
       "incrementalidade": "Não reprocessa dados; apenas lê manifests e arquivos já materializados."
     }
@@ -1102,7 +1105,7 @@
       "status": "ok",
       "schema_version": "industry-public-claim-audit-manifest/v1",
       "pipeline": "industry_public_claim_audit",
-      "generated_at_utc": "2026-07-09T13:40:53+00:00",
+      "generated_at_utc": "2026-07-09T16:12:48+00:00",
       "manifest_path": "data/industry_study/industry_public_claim_audit_manifest.json",
       "command": "python scripts/build_fidc_industry_public_claim_audit.py",
       "cadence": "quando fontes públicas ou números-base mudarem",
@@ -1115,8 +1118,8 @@
         "ok": 3
       },
       "stage_count": 3,
-      "artifact_count": 5,
-      "artifacts_present": 5,
+      "artifact_count": 6,
+      "artifacts_present": 6,
       "quality_highlights": {
         "rows": 8,
         "claims_with_local_metric": 8,
@@ -1126,6 +1129,13 @@
         "divergent_claims": 0,
         "missing_local_claims": 0,
         "max_abs_delta_pct": 7.150438917299664,
+        "methodology_bridge_rows": 8,
+        "methodology_bridge_needs_disclosure_rows": 8,
+        "methodology_bridge_high_or_blocking_rows": 5,
+        "methodology_bridge_severity_counts": {
+          "alta": 5,
+          "média": 3
+        },
         "status_counts": {
           "diferença_metodológica": 8
         }
@@ -2126,12 +2136,22 @@
     {
       "module_id": "public_claims",
       "group": "outputs",
+      "artifact": "methodology_bridge",
+      "required": true,
+      "path": "data/industry_study/industry_public_claim_methodology_bridge.csv",
+      "exists": true,
+      "bytes": 6960,
+      "sha256": "58a262332dddc9196d8869e02ec9fb79979df495f72b9a256b007b71ca9290a7"
+    },
+    {
+      "module_id": "public_claims",
+      "group": "outputs",
       "artifact": "manifest",
       "required": true,
       "path": "data/industry_study/industry_public_claim_audit_manifest.json",
       "exists": true,
-      "bytes": 3160,
-      "sha256": "25252aded4193ecb1f55da208387a9ea94761559f278f7864d2ec84ac696cd71"
+      "bytes": 3735,
+      "sha256": "963672ba639507a3ce559f10f70258f2e2c31308792692331e741dadd575aa7f"
     },
     {
       "module_id": "curation_queue",
@@ -2871,8 +2891,8 @@
       "required": false,
       "path": "data/industry_study/industry_pipeline_index.json",
       "exists": true,
-      "bytes": 115995,
-      "sha256": "7737ae8ce554d2f5421101d431b80f7c0adb33ce0832364dae5d10114f2aa4c2"
+      "bytes": 116497,
+      "sha256": "a142f5f060b771ca783824f2e60de7e1fa70b384d8d935f50607ecf93d138e73"
     },
     {
       "module_id": "pipeline_index",
@@ -2881,8 +2901,8 @@
       "required": false,
       "path": "data/industry_study/industry_monthly_update_plan.csv",
       "exists": true,
-      "bytes": 16592,
-      "sha256": "d5d75f3bb590d8d95f0467e4d4ace0597a4be93a3a6efd740c7137e397a0abe1"
+      "bytes": 16371,
+      "sha256": "747c7cfbed318a67ecf1869300946328b5fadbadfa062143d80cdafbf79e88e2"
     },
     {
       "module_id": "pipeline_index",
@@ -2891,8 +2911,8 @@
       "required": false,
       "path": "data/industry_study/industry_monthly_readiness.csv",
       "exists": true,
-      "bytes": 2320,
-      "sha256": "21566972aa82c4808bb855ec2838db49b80753b8eb0be54818ab676a6aae3fd4"
+      "bytes": 2269,
+      "sha256": "1053144477192a895075bc252f8f7c67fab6ca64b02e11ee40e87c5f36870258"
     }
   ]
 }

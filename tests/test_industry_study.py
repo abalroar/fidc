@@ -50,6 +50,7 @@ from services.industry_study import (  # noqa: E402
     build_industry_pipeline_index,
     build_manual_review_pipeline_manifest,
     build_public_claim_audit,
+    build_public_claim_methodology_bridge,
     build_issuance_annual,
     build_issuance_pipeline_manifest,
     build_issuance_sector_year,
@@ -79,6 +80,7 @@ from services.industry_study import (  # noqa: E402
     manual_review_file_specs,
     manual_review_ledgers_quality_summary,
     public_claim_audit_quality_summary,
+    public_claim_methodology_bridge_quality_summary,
     load_cedente_structured,
     load_monthly_delta_actions,
     load_regulatory_feature_criteria,
@@ -709,16 +711,27 @@ def test_public_claim_audit_compares_news_claims_to_local_metrics():
 
     audit = build_public_claim_audit(industry_monthly=monthly, issuance_tranches=tranches, claim_specs=specs)
     quality = public_claim_audit_quality_summary(audit)
+    bridge = build_public_claim_methodology_bridge(audit)
+    bridge_quality = public_claim_methodology_bridge_quality_summary(bridge)
     by_id = audit.set_index("claim_id")
+    bridge_by_id = bridge.set_index("claim_id")
 
     assert by_id.loc["flow", "local_value"] == 30.0
     assert by_id.loc["flow", "status_auditoria"] == "aderente"
     assert by_id.loc["offers", "local_value"] == 40.0
     assert by_id.loc["offers", "status_auditoria"] == "diferença_metodológica"
+    assert bridge_by_id.loc["flow", "gap_severity"] == "baixa"
+    assert bool(bridge_by_id.loc["flow", "needs_methodology_disclosure"]) is False
+    assert bridge_by_id.loc["offers", "gap_severity"] == "alta"
+    assert bool(bridge_by_id.loc["offers", "needs_methodology_disclosure"]) is True
+    assert "Subcobertura" in bridge_by_id.loc["offers", "primary_gap"]
     assert quality["rows"] == 2
     assert quality["claims_with_local_metric"] == 2
     assert quality["adherent_claims"] == 1
     assert quality["methodology_gap_claims"] == 1
+    assert bridge_quality["rows"] == 2
+    assert bridge_quality["needs_disclosure_rows"] == 1
+    assert bridge_quality["high_or_blocking_rows"] == 1
 
 
 def test_document_inventory_fingerprints_and_classifies_local_sources():
@@ -3550,8 +3563,17 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "divergent_claims": 0,
                 "missing_local_claims": 0,
                 "max_abs_delta_pct": 1.2,
+                "methodology_bridge_rows": 4,
+                "methodology_bridge_needs_disclosure_rows": 3,
+                "methodology_bridge_high_or_blocking_rows": 2,
             },
         )
+        bridge_path = tmp_path / "industry_public_claim_methodology_bridge.csv"
+        bridge_path.write_text("claim_id,gap_severity\nclaim1,alta\n", encoding="utf-8")
+        public_manifest_path = tmp_path / "industry_public_claim_audit_manifest.json"
+        public_manifest = json.loads(public_manifest_path.read_text())
+        public_manifest["outputs"]["methodology_bridge"] = {"path": str(bridge_path)}
+        public_manifest_path.write_text(json.dumps(public_manifest), encoding="utf-8")
         write_module_manifest(
             "industry_curation_queue_manifest.json",
             "industry_curation_queue",
@@ -3836,6 +3858,9 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["public_claim_audit_rows"] == 4
     assert index["quality_rollup"]["public_claim_audit_sources"] == 2
     assert index["quality_rollup"]["public_claim_audit_methodology_gap_claims"] == 3
+    assert index["quality_rollup"]["public_claim_methodology_bridge_rows"] == 4
+    assert index["quality_rollup"]["public_claim_methodology_bridge_needs_disclosure_rows"] == 3
+    assert index["quality_rollup"]["public_claim_methodology_bridge_high_or_blocking_rows"] == 2
     assert index["quality_rollup"]["readiness_checks_rows"] == 7
     assert index["quality_rollup"]["readiness_status_counts"]["bloqueado"] == 2
     assert index["quality_rollup"]["readiness_status_counts"]["atenção"] == 2
@@ -3876,6 +3901,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert artifacts[("pipeline_index", "industry_monthly_update_plan")]["required"] is False
     assert ("pipeline_index", "industry_monthly_readiness") in artifacts
     assert artifacts[("pipeline_index", "industry_monthly_readiness")]["required"] is False
+    assert ("public_claims", "methodology_bridge") in artifacts
+    assert artifacts[("public_claims", "methodology_bridge")]["required"] is True
     assert index["quality_rollup"]["manual_review_domains_total"] == 6
     assert index["quality_rollup"]["manual_review_domains_with_actions"] == 6
     assert index["quality_rollup"]["manual_review_domains_with_audit"] == 6

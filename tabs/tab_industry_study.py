@@ -113,6 +113,7 @@ _ISSUANCE_SECTOR_YEAR_PATH = _DATA_DIR / "issuance_sector_year.csv"
 _ISSUANCE_TRANCHES_PATH = _DATA_DIR / "issuance_tranches.csv.gz"
 _ISSUANCE_MANIFEST_PATH = _DATA_DIR / "industry_issuance_manifest.json"
 _PUBLIC_CLAIM_AUDIT_PATH = _DATA_DIR / "industry_public_claim_audit.csv"
+_PUBLIC_CLAIM_BRIDGE_PATH = _DATA_DIR / "industry_public_claim_methodology_bridge.csv"
 _PUBLIC_CLAIM_AUDIT_MANIFEST_PATH = _DATA_DIR / "industry_public_claim_audit_manifest.json"
 _DOCUMENT_INVENTORY_PATH = _DATA_DIR / "document_inventory.csv.gz"
 _DOCUMENT_CHUNKS_PATH = _DATA_DIR / "document_processing_chunks.csv"
@@ -680,6 +681,7 @@ def _load_dimension_dossier_tables() -> dict[str, pd.DataFrame | dict[str, objec
 def _load_public_claim_audit_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     return {
         "audit": load_dataframe(_PUBLIC_CLAIM_AUDIT_PATH),
+        "bridge": load_dataframe(_PUBLIC_CLAIM_BRIDGE_PATH),
         "manifest": load_pipeline_manifest(_PUBLIC_CLAIM_AUDIT_MANIFEST_PATH),
     }
 
@@ -3916,6 +3918,65 @@ def _format_public_claim_audit(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def _format_public_claim_bridge(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.rename(
+        columns={
+            "source_name": "Fonte",
+            "metric_group": "Métrica",
+            "period_start": "Início",
+            "period_end": "Fim",
+            "status_auditoria": "Status",
+            "comparability": "Comparabilidade",
+            "public_universe": "Universo público",
+            "local_universe": "Universo local",
+            "local_concept": "Conceito local",
+            "primary_gap": "Diferença principal",
+            "reconciliation_basis": "Base de reconciliação",
+            "delta_pct": "Dif. %",
+            "gap_severity": "Severidade",
+            "needs_methodology_disclosure": "Exige nota",
+            "external_use_status": "Uso externo",
+            "action_before_external_use": "Ação antes de usar",
+            "local_source_artifact": "Artefato local",
+            "source_url": "URL",
+            "claim_id": "ID",
+        }
+    )
+    keep = [
+        "Severidade",
+        "Fonte",
+        "Métrica",
+        "Início",
+        "Fim",
+        "Status",
+        "Comparabilidade",
+        "Dif. %",
+        "Universo público",
+        "Universo local",
+        "Conceito local",
+        "Diferença principal",
+        "Base de reconciliação",
+        "Uso externo",
+        "Ação antes de usar",
+        "Exige nota",
+        "Artefato local",
+        "URL",
+        "ID",
+    ]
+    out = out[[col for col in keep if col in out.columns]].copy()
+    if "Status" in out.columns:
+        out["Status"] = out["Status"].map(_status_badge_text)
+    if "Dif. %" in out.columns:
+        out["Dif. %"] = pd.to_numeric(out["Dif. %"], errors="coerce").map(
+            lambda value: "" if pd.isna(value) else _fmt_pct(float(value))
+        )
+    if "Exige nota" in out.columns:
+        out["Exige nota"] = out["Exige nota"].astype(str).str.lower().isin({"true", "1", "sim"}).map({True: "sim", False: "não"})
+    return out
+
+
 def _catalog_deep_dive_frame(vehicle: pd.DataFrame, catalog: pd.DataFrame, dimension_id: str) -> pd.DataFrame:
     base = _base_with_catalog_id(vehicle)
     dim = _dimension_catalog_rows(catalog, dimension_id)
@@ -6888,8 +6949,10 @@ def _render_pipeline_manifest() -> None:
     )
     public_claim_tables = _load_public_claim_audit_tables()
     public_claim_audit = public_claim_tables["audit"]
+    public_claim_bridge = public_claim_tables["bridge"]
     public_claim_manifest = public_claim_tables["manifest"]
     assert isinstance(public_claim_audit, pd.DataFrame)
+    assert isinstance(public_claim_bridge, pd.DataFrame)
     assert isinstance(public_claim_manifest, dict)
     catalog_tables = _load_dimension_catalog_tables()
     dimension_catalog = catalog_tables["catalog"]
@@ -7219,6 +7282,73 @@ def _render_pipeline_manifest() -> None:
                 mime="text/csv",
                 key="industry_public_claim_download",
             )
+            if not public_claim_bridge.empty:
+                bridge_view = public_claim_bridge.copy()
+                if selected_sources:
+                    bridge_view = bridge_view[
+                        bridge_view.get("source_name", pd.Series("", index=bridge_view.index)).fillna("").astype(str).isin(selected_sources)
+                    ].copy()
+                if selected_metrics:
+                    bridge_view = bridge_view[
+                        bridge_view.get("metric_group", pd.Series("", index=bridge_view.index)).fillna("").astype(str).isin(selected_metrics)
+                    ].copy()
+                if selected_public_status:
+                    bridge_view = bridge_view[
+                        bridge_view.get("status_auditoria", pd.Series("", index=bridge_view.index)).fillna("").astype(str).isin(selected_public_status)
+                    ].copy()
+                if public_query:
+                    bridge_search_cols = [
+                        col
+                        for col in [
+                            "source_name",
+                            "metric_group",
+                            "status_auditoria",
+                            "comparability",
+                            "public_universe",
+                            "local_universe",
+                            "local_concept",
+                            "primary_gap",
+                            "reconciliation_basis",
+                            "external_use_status",
+                            "action_before_external_use",
+                        ]
+                        if col in bridge_view.columns
+                    ]
+                    bridge_search = (
+                        bridge_view[bridge_search_cols].fillna("").astype(str).agg(" ".join, axis=1)
+                        if bridge_search_cols
+                        else pd.Series("", index=bridge_view.index)
+                    )
+                    bridge_view = bridge_view[bridge_search.str.contains(public_query, case=False, na=False)].copy()
+                severity_counts = (
+                    public_claim_bridge.get("gap_severity", pd.Series("", index=public_claim_bridge.index))
+                    .fillna("")
+                    .astype(str)
+                    .value_counts()
+                    .to_dict()
+                )
+                needs_disclosure = (
+                    public_claim_bridge.get("needs_methodology_disclosure", pd.Series(False, index=public_claim_bridge.index))
+                    .astype(str)
+                    .str.lower()
+                    .isin({"true", "1", "sim"})
+                    .sum()
+                )
+                bridge_cards = [
+                    _curation_card("Pontes", _fmt_int(float(len(public_claim_bridge))), "claim × base local"),
+                    _curation_card("Exigem nota", _fmt_int(float(needs_disclosure)), "uso externo"),
+                    _curation_card("Alta/bloq.", _fmt_int(float(severity_counts.get("alta", 0) + severity_counts.get("bloqueante", 0))), "antes do comitê"),
+                ]
+                st.markdown("**Ponte metodológica claim × base local**")
+                st.markdown(f'<div class="industry-kpi-grid">{"".join(bridge_cards)}</div>', unsafe_allow_html=True)
+                st.dataframe(_format_public_claim_bridge(bridge_view), hide_index=True, width="stretch", height=360)
+                st.download_button(
+                    "Baixar ponte metodológica",
+                    data=public_claim_bridge.to_csv(index=False).encode("utf-8"),
+                    file_name=_PUBLIC_CLAIM_BRIDGE_PATH.name,
+                    mime="text/csv",
+                    key="industry_public_claim_bridge_download",
+                )
             if public_claim_manifest:
                 generated_at = public_claim_manifest.get("generated_at_utc", "")
                 source_note = f"Fonte: `{_PUBLIC_CLAIM_AUDIT_PATH.name}`"

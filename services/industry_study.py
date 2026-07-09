@@ -1670,6 +1670,152 @@ def public_claim_audit_quality_summary(audit: pd.DataFrame) -> dict[str, object]
     }
 
 
+def _public_claim_bridge_profile(row: pd.Series) -> dict[str, str]:
+    source = str(row.get("source_name") or "").strip()
+    metric = str(row.get("metric_group") or "").strip().lower()
+    local_metric = str(row.get("local_metric") or "").strip()
+    comparability = str(row.get("comparability") or "").strip()
+    public_universe = "Fonte pública declarada"
+    if source == "ANBIMA":
+        public_universe = "ANBIMA; categoria pública de FIDCs na indústria de fundos"
+    elif source == "Seu Dinheiro":
+        public_universe = "Notícia pública baseada em dados ANBIMA"
+
+    local_universe = "Base local da aba Indústria"
+    local_concept = "Métrica local materializada"
+    primary_gap = "Conceito público e métrica local não são perfeitamente equivalentes"
+    reconciliation_basis = "Comparar como ponte metodológica, não como erro automático"
+    if local_metric == "monthly_net_flow_sum":
+        local_universe = "Informe Mensal CVM; veículos/classes reportantes em industry_monthly.csv"
+        local_concept = "Soma de captação líquida reconstruída como aplicações menos resgates e amortizações"
+        primary_gap = "ANBIMA usa sua base de indústria; CVM soma veículos reportantes e pode carregar diferenças de universo, classes, exclusivos, NP e FIC-FIDC"
+        reconciliation_basis = "Usar para explicar direção e ordem de grandeza; valor absoluto exige nota de universo"
+    elif local_metric == "cotistas_total_snapshot":
+        local_universe = "Informe Mensal CVM; contas/cotistas reportadas por veículo"
+        local_concept = "Contas de cotistas do snapshot mensal; não representa CPF/CNPJ único consolidado"
+        primary_gap = "Contas podem ser duplicadas entre veículos/classes e divergir de consolidação pública por distribuidor/categoria"
+        reconciliation_basis = "Apresentar como contas reportadas CVM, não como investidores únicos"
+    elif local_metric == "pl_total_snapshot":
+        local_universe = "Informe Mensal CVM; FIDCs + FIC-FIDCs no snapshot mensal"
+        local_concept = "Patrimônio líquido total reportado; a aba também mantém série ex-FIC para reduzir dupla contagem"
+        primary_gap = "Universo CVM e universo consolidado ANBIMA/notícia diferem; FIC-FIDC pode induzir dupla contagem"
+        reconciliation_basis = "Mostrar sempre as duas séries de PL e explicitar possível dupla contagem"
+    elif local_metric == "issuance_tranche_volume_sum":
+        local_universe = "Base local de tranches/ofertas extraída da aba Estratégia e documentação disponível"
+        local_concept = "Volume de tranches documentais com data de deliberação no período"
+        primary_gap = "Base local de ofertas é curada/offline e pode subcobrir boletins ANBIMA de mercado de capitais"
+        reconciliation_basis = "Usar como evidência documental local; não como substituto do boletim ANBIMA"
+
+    if comparability == "subcobertura_documental":
+        primary_gap = "Subcobertura documental local frente ao boletim público de ofertas"
+    if metric and "oferta" in metric:
+        reconciliation_basis = "Tratar diferença como cobertura documental até completar a base de ofertas"
+
+    return {
+        "public_universe": public_universe,
+        "local_universe": local_universe,
+        "local_concept": local_concept,
+        "primary_gap": primary_gap,
+        "reconciliation_basis": reconciliation_basis,
+    }
+
+
+def build_public_claim_methodology_bridge(audit: pd.DataFrame) -> pd.DataFrame:
+    """Create an explicit per-claim bridge between public figures and local CVM metrics."""
+
+    columns = [
+        "claim_id",
+        "source_name",
+        "metric_group",
+        "period_start",
+        "period_end",
+        "status_auditoria",
+        "comparability",
+        "public_universe",
+        "local_universe",
+        "local_concept",
+        "primary_gap",
+        "reconciliation_basis",
+        "delta_pct",
+        "gap_severity",
+        "needs_methodology_disclosure",
+        "external_use_status",
+        "action_before_external_use",
+        "local_source_artifact",
+        "source_url",
+    ]
+    if audit is None or audit.empty:
+        return pd.DataFrame(columns=columns)
+    rows: list[dict[str, object]] = []
+    for _, row in audit.iterrows():
+        profile = _public_claim_bridge_profile(row)
+        status = str(row.get("status_auditoria") or "").strip()
+        comparability = str(row.get("comparability") or "").strip()
+        delta_pct = pd.to_numeric(pd.Series([row.get("delta_pct")]), errors="coerce").iloc[0]
+        abs_delta = None if pd.isna(delta_pct) else abs(float(delta_pct))
+        needs_disclosure = status in {"diferença_metodológica", "divergente", "sem_base_local"} or comparability != "comparável"
+        if status == "sem_base_local":
+            severity = "bloqueante"
+            external_status = "não usar externamente sem base local"
+            action = "Materializar a métrica local antes de comparar com a notícia."
+        elif comparability == "subcobertura_documental":
+            severity = "alta"
+            external_status = "usar apenas como evidência de subcobertura"
+            action = "Completar cobertura documental de ofertas ou citar explicitamente a subcobertura local."
+        elif needs_disclosure and abs_delta is not None and abs_delta >= 0.50:
+            severity = "alta"
+            external_status = "usar com nota metodológica explícita"
+            action = "Explicar universo público versus CVM antes de apresentação externa."
+        elif needs_disclosure:
+            severity = "média"
+            external_status = "usar com nota metodológica"
+            action = "Manter a diferença metodológica no rodapé ou na fala executiva."
+        else:
+            severity = "baixa"
+            external_status = "comparável dentro da tolerância"
+            action = "Pode ser usado como reconciliação direta, mantendo fonte e período."
+        rows.append(
+            {
+                "claim_id": row.get("claim_id", ""),
+                "source_name": row.get("source_name", ""),
+                "metric_group": row.get("metric_group", ""),
+                "period_start": row.get("period_start", ""),
+                "period_end": row.get("period_end", ""),
+                "status_auditoria": status,
+                "comparability": comparability,
+                **profile,
+                "delta_pct": None if pd.isna(delta_pct) else float(delta_pct),
+                "gap_severity": severity,
+                "needs_methodology_disclosure": bool(needs_disclosure),
+                "external_use_status": external_status,
+                "action_before_external_use": action,
+                "local_source_artifact": row.get("local_source_artifact", ""),
+                "source_url": row.get("source_url", ""),
+            }
+        )
+    out = pd.DataFrame(rows, columns=columns)
+    status_order = {"bloqueante": 0, "alta": 1, "média": 2, "baixa": 3}
+    out["_severity_order"] = out["gap_severity"].map(status_order).fillna(9)
+    return out.sort_values(["_severity_order", "source_name", "metric_group", "period_start"]).drop(columns=["_severity_order"]).reset_index(drop=True)
+
+
+def public_claim_methodology_bridge_quality_summary(bridge: pd.DataFrame) -> dict[str, object]:
+    if bridge is None or bridge.empty:
+        return {
+            "rows": 0,
+            "needs_disclosure_rows": 0,
+            "high_or_blocking_rows": 0,
+        }
+    severity = bridge.get("gap_severity", pd.Series("", index=bridge.index)).fillna("").astype(str)
+    needs = _boolish_series(bridge.get("needs_methodology_disclosure", pd.Series(False, index=bridge.index)))
+    return {
+        "rows": int(len(bridge)),
+        "needs_disclosure_rows": int(needs.sum()),
+        "high_or_blocking_rows": int(severity.isin({"bloqueante", "alta"}).sum()),
+        "severity_counts": {str(key): int(value) for key, value in severity.value_counts().to_dict().items()},
+    }
+
+
 def _first_non_empty(series: pd.Series) -> str:
     for value in series:
         text = str(value or "").strip()
@@ -5265,14 +5411,16 @@ def build_prd_coverage_matrix(
             f"{int(number('dimension_value_atlas_values_with_source_page_sample'))} com página; "
             f"{int(number('dimension_value_atlas_values_with_confidence'))} com score; "
             f"{int(number('dimension_traceability_low_quality_rows'))} grupos dimensão/fonte baixa qualidade; "
-            f"{int(number('public_claim_audit_rows'))} claims públicos reconciliados"
+            f"{int(number('public_claim_audit_rows'))} claims públicos reconciliados; "
+            f"{int(number('public_claim_methodology_bridge_rows'))} pontes metodológicas"
         ),
         (
             f"readiness_checks={len(rows)}; "
             f"traceability_matrix={int(number('dimension_traceability_rows'))}; "
-            f"methodology_gaps={int(number('public_claim_audit_methodology_gap_claims'))}"
+            f"methodology_gaps={int(number('public_claim_audit_methodology_gap_claims'))}; "
+            f"bridge_high={int(number('public_claim_methodology_bridge_high_or_blocking_rows'))}"
         ),
-        "industry_pipeline_index.json | industry_dimension_traceability_matrix.csv | industry_dimension_value_atlas.csv.gz | industry_public_claim_audit.csv",
+        "industry_pipeline_index.json | industry_dimension_traceability_matrix.csv | industry_dimension_value_atlas.csv.gz | industry_public_claim_audit.csv | industry_public_claim_methodology_bridge.csv",
         "Aumentar cobertura de página/score e manter diferenças ANBIMA/CVM explícitas antes de apresentações externas.",
         "python scripts/build_fidc_industry_traceability.py && python scripts/build_fidc_industry_public_claim_audit.py && python scripts/build_fidc_industry_pipeline_index.py",
     )
@@ -5388,6 +5536,10 @@ def build_industry_pipeline_index(
                 "divergent_claims",
                 "missing_local_claims",
                 "max_abs_delta_pct",
+                "methodology_bridge_rows",
+                "methodology_bridge_needs_disclosure_rows",
+                "methodology_bridge_high_or_blocking_rows",
+                "methodology_bridge_severity_counts",
                 "status_counts",
             ],
         },
@@ -6002,6 +6154,13 @@ def build_industry_pipeline_index(
         "public_claim_audit_divergent_claims": public_claim_quality.get("divergent_claims", 0),
         "public_claim_audit_missing_local_claims": public_claim_quality.get("missing_local_claims", 0),
         "public_claim_audit_max_abs_delta_pct": public_claim_quality.get("max_abs_delta_pct"),
+        "public_claim_methodology_bridge_rows": public_claim_quality.get("methodology_bridge_rows", 0),
+        "public_claim_methodology_bridge_needs_disclosure_rows": public_claim_quality.get(
+            "methodology_bridge_needs_disclosure_rows", 0
+        ),
+        "public_claim_methodology_bridge_high_or_blocking_rows": public_claim_quality.get(
+            "methodology_bridge_high_or_blocking_rows", 0
+        ),
         "fund_snapshot_rows": snapshot_quality.get("fund_rows", 0),
         "fund_snapshot_with_cedentes": snapshot_quality.get("with_cedentes", 0),
         "fund_snapshot_with_participant_signal": snapshot_quality.get("with_participant_signal", 0),
@@ -6411,14 +6570,24 @@ def build_public_claim_audit_pipeline_manifest(
     *,
     industry_dir: Path,
     output_path: Path,
+    bridge_path: Path,
     manifest_path: Path,
     industry_monthly_path: Path,
     issuance_tranches_path: Path,
     industry_monthly: pd.DataFrame,
     issuance_tranches: pd.DataFrame,
     audit: pd.DataFrame,
+    bridge: pd.DataFrame,
 ) -> dict[str, object]:
     quality = public_claim_audit_quality_summary(audit)
+    bridge_quality = public_claim_methodology_bridge_quality_summary(bridge)
+    quality = {
+        **quality,
+        "methodology_bridge_rows": bridge_quality.get("rows", 0),
+        "methodology_bridge_needs_disclosure_rows": bridge_quality.get("needs_disclosure_rows", 0),
+        "methodology_bridge_high_or_blocking_rows": bridge_quality.get("high_or_blocking_rows", 0),
+        "methodology_bridge_severity_counts": bridge_quality.get("severity_counts", {}),
+    }
     return {
         "schema_version": "industry-public-claim-audit-manifest/v1",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -6444,6 +6613,7 @@ def build_public_claim_audit_pipeline_manifest(
         },
         "outputs": {
             "public_claim_audit": file_fingerprint(output_path),
+            "methodology_bridge": file_fingerprint(bridge_path),
             "manifest": {"path": str(manifest_path)},
         },
         "stages": [
@@ -6471,9 +6641,11 @@ def build_public_claim_audit_pipeline_manifest(
                 "label": "Classificar aderência/metodologia",
                 "status": "ok" if int(quality.get("claims_with_local_metric", 0) or 0) else "empty",
                 "input": str(output_path),
-                "output": "memoria:status_auditoria",
+                "output": str(bridge_path),
                 "methodology_gap_claims": int(quality.get("methodology_gap_claims", 0) or 0),
                 "adherent_claims": int(quality.get("adherent_claims", 0) or 0),
+                "methodology_bridge_rows": int(bridge_quality.get("rows", 0) or 0),
+                "high_or_blocking_rows": int(bridge_quality.get("high_or_blocking_rows", 0) or 0),
                 "rerun": "python scripts/build_fidc_industry_public_claim_audit.py",
             },
         ],
