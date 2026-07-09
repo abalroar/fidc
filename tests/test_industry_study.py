@@ -30,12 +30,14 @@ from services.industry_study import (  # noqa: E402
     build_industry_curation_queue,
     build_industry_curation_queue_summary,
     build_dimension_catalog_pipeline_manifest,
+    build_dimension_dossier_pipeline_manifest,
     build_dimension_monthly_pipeline_manifest,
     build_dimension_profile_pipeline_manifest,
     build_document_inventory,
     build_document_pipeline_manifest,
     build_industry_heatmap_registry,
     build_industry_dimension_catalog,
+    build_industry_dimension_dossiers,
     build_industry_dimension_value_atlas,
     build_industry_dimension_monthly,
     build_industry_dimension_profiles,
@@ -43,6 +45,7 @@ from services.industry_study import (  # noqa: E402
     build_industry_monthly_delta,
     build_industry_market_share,
     build_industry_pipeline_index,
+    build_manual_review_pipeline_manifest,
     build_public_claim_audit,
     build_issuance_annual,
     build_issuance_pipeline_manifest,
@@ -57,12 +60,16 @@ from services.industry_study import (  # noqa: E402
     document_quality_summary,
     fund_snapshot_quality_summary,
     industry_dimension_catalog_quality_summary,
+    industry_dimension_dossier_quality_summary,
     industry_dimension_value_atlas_quality_summary,
     industry_dimension_monthly_quality_summary,
     industry_dimension_profile_quality_summary,
     industry_market_share_quality_summary,
     industry_monthly_delta_quality_summary,
     industry_curation_queue_quality_summary,
+    initialize_manual_review_ledgers,
+    manual_review_file_specs,
+    manual_review_ledgers_quality_summary,
     public_claim_audit_quality_summary,
     load_cedente_structured,
     load_monthly_delta_actions,
@@ -2142,12 +2149,16 @@ def test_industry_dimension_monthly_aggregates_weighted_series_and_manifest():
     assert atlas_by_value.loc["CDI+", "pl_atual_brl"] == 60.0
     assert atlas_by_value.loc["CDI+", "captacao_12m_brl"] == 10.0
     assert atlas_by_value.loc["CDI+", "links_com_fonte"] == 1
+    assert atlas_by_value.loc["CDI+", "links_com_metodo"] == 2
+    assert atlas_by_value.loc["CDI+", "links_com_camada"] == 2
+    assert round(float(atlas_by_value.loc["CDI+", "traceability_coverage"]), 6) == 1.0
     assert atlas_by_value.loc["CDI+", "source_documents_sample"] == "reg.pdf"
     assert atlas_by_value.loc["CDI+", "source_pages_sample"] == "12"
     assert atlas_by_value.loc["CDI+", "source_methods_sample"] == "manual_review | snapshot_consolidado"
     assert round(float(atlas_by_value.loc["CDI+", "avg_confidence_score"]), 6) == 0.8
     assert atlas_quality["rows"] == 2
     assert atlas_quality["values_with_source_document_links"] == 2
+    assert atlas_quality["values_with_traceability_links"] == 2
     assert atlas_quality["values_with_source_document_sample"] == 2
     assert atlas_quality["values_with_source_page_sample"] == 2
     assert atlas_quality["values_with_confidence"] == 2
@@ -2156,6 +2167,8 @@ def test_industry_dimension_monthly_aggregates_weighted_series_and_manifest():
     assert manifest["schema_version"] == "industry-dimension-monthly-manifest/v1"
     assert manifest["quality"]["rows"] == len(monthly)
     assert manifest["quality"]["atlas_rows"] == len(atlas)
+    assert manifest["quality"]["atlas_values_with_traceability_links"] == 2
+    assert manifest["quality"]["atlas_traceability_coverage"] == 1.0
     assert manifest["outputs"]["dimension_value_atlas"]["exists"] is True
 
 
@@ -2349,6 +2362,123 @@ def test_industry_dimension_profiles_crosses_catalog_dimensions_and_manifest():
     assert manifest["quality"]["rows"] == len(profiles)
     assert manifest["quality"]["heatmap_preset_profile_available"] >= 2
     assert manifest["outputs"]["heatmap_registry"]["exists"] is True
+
+
+def test_industry_dimension_dossiers_summarize_deep_dive_readiness():
+    atlas = pd.DataFrame(
+        [
+            {
+                "dimension_id": "admin",
+                "dimension_label": "Administrador",
+                "dimension_value": "ADMIN A",
+                "competencia_atual": "2026-05",
+                "pl_atual_brl": 100.0,
+                "captacao_12m_brl": 12.0,
+                "fundos_atuais": 2,
+                "veiculos_atuais": 3,
+                "links_catalogo": 2,
+                "links_com_fonte": 2,
+                "links_curados": 1,
+                "links_ponderados": 0,
+                "source_documents_sample": "reg.pdf",
+                "source_pages_sample": "10",
+                "source_methods_sample": "manual_review",
+                "review_status_mix": "aprovado",
+                "avg_confidence_score": 0.9,
+                "priority_2025_2026_links": 1,
+                "rank_score": 112.0,
+            },
+            {
+                "dimension_id": "segmento",
+                "dimension_label": "Segmento",
+                "dimension_value": "Financeiro",
+                "competencia_atual": "2026-05",
+                "pl_atual_brl": 80.0,
+                "captacao_12m_brl": 8.0,
+                "fundos_atuais": 1,
+                "veiculos_atuais": 1,
+                "links_catalogo": 3,
+                "links_com_fonte": 0,
+                "links_curados": 0,
+                "links_ponderados": 0,
+                "rank_score": 88.0,
+            },
+        ]
+    )
+    profiles = pd.DataFrame(
+        [
+            {
+                "source_dimension_id": "admin",
+                "source_dimension_label": "Administrador",
+                "source_dimension_value": "ADMIN A",
+                "target_dimension_id": "segmento",
+                "target_dimension_label": "Segmento",
+                "target_dimension_value": "Financeiro",
+                "pl_brl": 100.0,
+                "catalog_links": 2,
+                "source_document_links": 2,
+                "curated_links": 1,
+                "weighted_links": 0,
+                "avg_confidence_score": 0.85,
+            }
+        ]
+    )
+    heatmap_registry = pd.DataFrame(
+        [
+            {
+                "preset_id": "admin_segmento",
+                "preset_label": "Administrador × Segmento",
+                "row_dimension_id": "admin",
+                "row_dimension_label": "Administrador",
+                "col_dimension_id": "segmento",
+                "col_dimension_label": "Segmento",
+                "profile_available": True,
+            }
+        ]
+    )
+
+    dossiers = build_industry_dimension_dossiers(atlas=atlas, profiles=profiles, heatmap_registry=heatmap_registry)
+    quality = industry_dimension_dossier_quality_summary(dossiers)
+    by_id = dossiers.set_index("dimension_id")
+
+    assert by_id.loc["admin", "status_dossie"] == "ok"
+    assert by_id.loc["admin", "profile_rows"] == 1
+    assert by_id.loc["admin", "heatmap_presets_ok"] == 1
+    assert by_id.loc["segmento", "status_dossie"] == "atenção"
+    assert "sem perfil cruzado" in by_id.loc["segmento", "status_reasons"]
+    assert quality["rows"] == 2
+    assert quality["ok_rows"] == 1
+    assert quality["attention_rows"] == 1
+    assert quality["source_document_coverage"] == 0.4
+    assert quality["traceability_coverage"] == 0.4
+
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        atlas_path = tmp_path / "industry_dimension_value_atlas.csv.gz"
+        profiles_path = tmp_path / "industry_dimension_profiles.csv.gz"
+        registry_path = tmp_path / "industry_heatmap_registry.csv"
+        output_path = tmp_path / "industry_dimension_dossiers.csv"
+        manifest_path = tmp_path / "industry_dimension_dossier_manifest.json"
+        atlas.to_csv(atlas_path, index=False, compression="gzip")
+        profiles.to_csv(profiles_path, index=False, compression="gzip")
+        heatmap_registry.to_csv(registry_path, index=False)
+        dossiers.to_csv(output_path, index=False)
+        manifest = build_dimension_dossier_pipeline_manifest(
+            industry_dir=tmp_path,
+            atlas_path=atlas_path,
+            profiles_path=profiles_path,
+            heatmap_registry_path=registry_path,
+            output_path=output_path,
+            manifest_path=manifest_path,
+            atlas=atlas,
+            profiles=profiles,
+            heatmap_registry=heatmap_registry,
+            dossiers=dossiers,
+        )
+
+    assert manifest["schema_version"] == "industry-dimension-dossier-manifest/v1"
+    assert manifest["quality"]["ok_rows"] == 1
+    assert manifest["outputs"]["dimension_dossiers"]["exists"] is True
 
 
 def test_industry_monthly_readiness_flags_release_blockers_and_normalizes_competencia():
@@ -2788,6 +2918,47 @@ def test_industry_curation_queue_unifies_all_fidc_workstreams():
     assert admin_summary["rows"] == 2
 
 
+def test_manual_review_ledgers_initialize_headers_without_fake_events():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        specs = manual_review_file_specs()
+        monthly_action_spec = next(
+            spec
+            for spec in specs
+            if spec["domain_id"] == "monthly_delta_action" and spec["file_role"] == "actions"
+        )
+        existing = {str(col): "" for col in monthly_action_spec["columns"]}
+        existing["delta_id"] = "202605_22222222000122"
+        existing["status_acao"] = "em andamento"
+        existing["updated_at_utc"] = "2026-07-08T12:00:00+00:00"
+        pd.DataFrame([existing]).to_csv(tmp_path / "monthly_delta_actions.csv", index=False)
+
+        ledger_files = initialize_manual_review_ledgers(industry_dir=tmp_path)
+        quality = manual_review_ledgers_quality_summary(ledger_files)
+        manifest = build_manual_review_pipeline_manifest(
+            industry_dir=tmp_path,
+            manifest_path=tmp_path / "industry_manual_review_manifest.json",
+            ledger_files=ledger_files,
+        )
+
+    assert len(ledger_files) == 12
+    assert quality["files"] == 12
+    assert quality["files_present"] == 12
+    assert quality["files_created"] == 11
+    assert quality["schema_ok_files"] == 12
+    assert quality["domains"] == 6
+    assert quality["action_files"] == 6
+    assert quality["audit_files"] == 6
+    assert quality["rows"] == 1
+    assert set(ledger_files["file_role"]) == {"actions", "audit"}
+    assert int(ledger_files[ledger_files["file_role"].eq("audit")]["rows"].sum()) == 0
+    assert manifest["inputs"] == {}
+    assert manifest["review_specs"]["files_expected"] == 12
+    assert len(manifest["outputs"]) == 13
+    assert manifest["quality"]["schema_ok_files"] == 12
+    assert manifest["stages"][0]["files_created"] == 11
+
+
 def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
@@ -2829,6 +3000,21 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
             }
             (tmp_path / name).write_text(json.dumps(manifest), encoding="utf-8")
 
+        write_module_manifest(
+            "industry_manual_review_manifest.json",
+            "industry_manual_review_ledgers",
+            "industry_manual_review_inventory.csv",
+            {
+                "files": 12,
+                "files_present": 12,
+                "files_created": 0,
+                "schema_ok_files": 12,
+                "domains": 6,
+                "action_files": 6,
+                "audit_files": 6,
+                "rows": 12,
+            },
+        )
         write_module_manifest(
             "industry_monthly_delta_manifest.json",
             "industry_monthly_delta",
@@ -3001,9 +3187,11 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "atlas_latest_competencia": "2026-05",
                 "atlas_values_with_pl": 35,
                 "atlas_values_with_source_document_links": 12,
+                "atlas_values_with_traceability_links": 40,
                 "atlas_values_with_source_document_sample": 11,
                 "atlas_values_with_source_page_sample": 8,
                 "atlas_values_with_confidence": 9,
+                "atlas_traceability_coverage": 1.0,
             },
         )
         write_module_manifest(
@@ -3025,6 +3213,26 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
             },
         )
         write_module_manifest(
+            "industry_dimension_dossier_manifest.json",
+            "industry_dimension_dossiers",
+            "industry_dimension_dossiers.csv",
+            {
+                "rows": 10,
+                "dimensions": 10,
+                "ok_rows": 8,
+                "attention_rows": 2,
+                "blocked_rows": 0,
+                "atlas_values": 40,
+                "atlas_values_with_pl": 35,
+                "with_profiles": 9,
+                "profile_rows": 240,
+                "heatmap_presets": 11,
+                "heatmap_presets_ok": 7,
+                "traceability_coverage": 1.0,
+                "source_document_coverage": 0.55,
+            },
+        )
+        write_module_manifest(
             "industry_market_share_manifest.json",
             "industry_market_share",
             "industry_market_share.csv.gz",
@@ -3042,11 +3250,11 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
     assert index["schema_version"] == "industry-pipeline-index/v1"
-    assert index["quality_rollup"]["modules_total"] == 13
-    assert index["quality_rollup"]["module_status_counts"]["ok"] == 13
+    assert index["quality_rollup"]["modules_total"] == 15
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 15
     assert index["quality_rollup"]["artifacts_missing"] == 0
-    assert index["quality_rollup"]["manual_review_artifacts_total"] == 6
-    assert index["quality_rollup"]["manual_review_artifacts_present"] == 6
+    assert index["quality_rollup"]["manual_review_artifacts_total"] == 12
+    assert index["quality_rollup"]["manual_review_artifacts_present"] == 12
     assert index["quality_rollup"]["competencia_snapshot"] == "202605"
     assert index["quality_rollup"]["monthly_delta_competencia_atual"] == "2026-05"
     assert index["quality_rollup"]["monthly_delta_new_funds"] == 1
@@ -3075,14 +3283,23 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["dimension_value_atlas_latest_competencia"] == "2026-05"
     assert index["quality_rollup"]["dimension_value_atlas_values_with_pl"] == 35
     assert index["quality_rollup"]["dimension_value_atlas_values_with_source_document_links"] == 12
+    assert index["quality_rollup"]["dimension_value_atlas_values_with_traceability_links"] == 40
     assert index["quality_rollup"]["dimension_value_atlas_values_with_source_document_sample"] == 11
     assert index["quality_rollup"]["dimension_value_atlas_values_with_source_page_sample"] == 8
     assert index["quality_rollup"]["dimension_value_atlas_values_with_confidence"] == 9
+    assert index["quality_rollup"]["dimension_value_atlas_traceability_coverage"] == 1.0
     assert index["quality_rollup"]["dimension_profile_rows"] == 240
     assert index["quality_rollup"]["dimension_profile_source_dimensions"] == 10
     assert index["quality_rollup"]["heatmap_preset_rows"] == 11
     assert index["quality_rollup"]["heatmap_preset_available"] == 9
     assert index["quality_rollup"]["heatmap_preset_profile_available"] == 7
+    assert index["quality_rollup"]["dimension_dossier_rows"] == 10
+    assert index["quality_rollup"]["dimension_dossier_ok_rows"] == 8
+    assert index["quality_rollup"]["dimension_dossier_attention_rows"] == 2
+    assert index["quality_rollup"]["dimension_dossier_blocked_rows"] == 0
+    assert index["quality_rollup"]["dimension_dossier_with_profiles"] == 9
+    assert index["quality_rollup"]["dimension_dossier_traceability_coverage"] == 1.0
+    assert index["quality_rollup"]["dimension_dossier_source_document_coverage"] == 0.55
     assert index["quality_rollup"]["market_share_rows"] == 30
     assert index["quality_rollup"]["market_share_dimensions"] == 5
     assert index["quality_rollup"]["public_claim_audit_rows"] == 4
@@ -3103,15 +3320,17 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert prd["manual_review_in_app"]["status_prd"] == "ok"
     assert prd["heatmaps_generic"]["status_prd"] == "atenção"
     assert prd["public_audit_readiness"]["status_prd"] == "atenção"
-    assert index["quality_rollup"]["monthly_update_plan_rows"] == 15
+    assert index["quality_rollup"]["monthly_update_plan_rows"] == 17
     assert "monthly_update_plan_status_counts" in index["quality_rollup"]
     monthly_plan = {row["module_id"]: row for row in index["monthly_update_plan"]}
     assert monthly_plan["base_monthly"]["comando"] == "python scripts/build_fidc_industry_study.py --report"
+    assert monthly_plan["manual_review_ledgers"]["comando"] == "python scripts/build_fidc_industry_manual_review_ledgers.py"
     assert monthly_plan["public_claims"]["comando"] == "python scripts/build_fidc_industry_public_claim_audit.py"
     assert monthly_plan["monthly_delta"]["status_prontidao"] == "bloqueado"
     assert monthly_plan["document_chunk_plan"]["status_prontidao"] == "atenção"
     assert monthly_plan["dimension_monthly"]["validacao"] == "python scripts/build_fidc_industry_pipeline_index.py"
     assert "industry_dimension_monthly" in monthly_plan["dimension_monthly"]["saidas"]
+    assert monthly_plan["dimension_dossiers"]["comando"] == "python scripts/build_fidc_industry_dimension_dossiers.py"
     assert index["quality_rollup"]["manual_review_domains_total"] == 6
     assert index["quality_rollup"]["manual_review_domains_with_actions"] == 6
     assert index["quality_rollup"]["manual_review_domains_with_audit"] == 6
@@ -3131,10 +3350,12 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert "critério" in ledger["criteria_review"]["comparison"]
     assert {stage["module_id"] for stage in index["refresh_plan"]} >= {
         "base_monthly",
+        "manual_review_ledgers",
         "fund_snapshot",
         "dimension_catalog",
         "dimension_profiles",
         "dimension_monthly",
+        "dimension_dossiers",
         "public_claims",
         "market_share",
         "monthly_delta",
@@ -3156,6 +3377,10 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         for row in index["artifact_index"]
         if row["group"] == "manual_review"
     }
+    assert manual_artifacts["cedente_reviews"]["module_id"] == "cedentes"
+    assert manual_artifacts["cedente_review_audit"]["exists"] is True
+    assert manual_artifacts["criteria_reviews"]["module_id"] == "criteria"
+    assert manual_artifacts["criteria_review_audit"]["exists"] is True
     assert manual_artifacts["monthly_delta_actions"]["module_id"] == "monthly_delta"
     assert manual_artifacts["monthly_delta_action_audit"]["exists"] is True
     assert manual_artifacts["document_chunk_actions"]["module_id"] == "documents"
@@ -3169,3 +3394,5 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert manual_artifacts["snapshot_gap_actions"]["required"] is False
     assert manual_artifacts["snapshot_gap_actions"]["exists"] is True
     assert manual_artifacts["snapshot_gap_action_audit"]["exists"] is True
+    assert manual_artifacts["dimension_catalog_gap_actions"]["module_id"] == "dimension_catalog"
+    assert manual_artifacts["dimension_catalog_gap_action_audit"]["exists"] is True

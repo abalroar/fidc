@@ -1,0 +1,125 @@
+{
+  "schema_version": "industry-manual-review-manifest/v1",
+  "generated_at_utc": "2026-07-09T14:17:01+00:00",
+  "pipeline": "industry_manual_review_ledgers",
+  "design_constraints": {
+    "modular": true,
+    "incremental": true,
+    "manual_review_in_app": true,
+    "notes": [
+      "Inicializa arquivos CSV vazios com cabeçalhos oficiais para que a UI persista revisões sem edição manual.",
+      "Não cria decisões, aprovações ou eventos artificiais; auditoria continua append-only quando o usuário salva alterações.",
+      "Cada domínio preserva schema próprio de ações e compartilha o schema único de eventos de auditoria."
+    ]
+  },
+  "inputs": {},
+  "review_specs": {
+    "domains": 6,
+    "files_expected": 12
+  },
+  "outputs": {
+    "manifest": {
+      "path": "data/industry_study/industry_manual_review_manifest.json"
+    },
+    "cedente_review_actions": {
+      "path": "data/industry_study/cedente_reviews.csv",
+      "exists": true,
+      "bytes": 140,
+      "sha256": "2ff4a5cc01ece262039e0b2704a5f8de90bd716d45a071069e3cf011e44348b1"
+    },
+    "cedente_review_audit": {
+      "path": "data/industry_study/cedente_review_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    "criteria_review_actions": {
+      "path": "data/industry_study/criteria_reviews.csv",
+      "exists": true,
+      "bytes": 130,
+      "sha256": "175d69ff6a6f0365e057ce26602a5e2660c90887db3bac85bbcc8dbfd6709249"
+    },
+    "criteria_review_audit": {
+      "path": "data/industry_study/criteria_review_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    "monthly_delta_action_actions": {
+      "path": "data/industry_study/monthly_delta_actions.csv",
+      "exists": true,
+      "bytes": 74,
+      "sha256": "4701c1985eea1c04ff6a6307b2f8f22fa12d2eead73d219c625515bb5eda378a"
+    },
+    "monthly_delta_action_audit": {
+      "path": "data/industry_study/monthly_delta_action_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    "document_chunk_action_actions": {
+      "path": "data/industry_study/document_chunk_actions.csv",
+      "exists": true,
+      "bytes": 74,
+      "sha256": "6b4ac30c064b1f6fa17ddc31afff220d2858d8866f1b12addef5515efc5989e4"
+    },
+    "document_chunk_action_audit": {
+      "path": "data/industry_study/document_chunk_action_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    "snapshot_gap_actions": {
+      "path": "data/industry_study/snapshot_gap_actions.csv",
+      "exists": true,
+      "bytes": 74,
+      "sha256": "61e6f5788b102ad037d807cbcdf1344c7e598139a1c3064422474e3bb99228b5"
+    },
+    "snapshot_gap_audit": {
+      "path": "data/industry_study/snapshot_gap_action_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    "dimension_catalog_gap_actions": {
+      "path": "data/industry_study/dimension_catalog_gap_actions.csv",
+      "exists": true,
+      "bytes": 87,
+      "sha256": "1d4637acb84614e9d8bbfcec0f2a9d1ce08f746d99a26637363ca3801c88a425"
+    },
+    "dimension_catalog_gap_audit": {
+      "path": "data/industry_study/dimension_catalog_gap_action_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    }
+  },
+  "stages": [
+    {
+      "id": "initialize_missing_ledgers",
+      "label": "Inicializar ledgers ausentes",
+      "status": "ok",
+      "rows": 12,
+      "files_created": 0,
+      "rerun": "python scripts/build_fidc_industry_manual_review_ledgers.py"
+    },
+    {
+      "id": "validate_review_schemas",
+      "label": "Validar schemas de revisão",
+      "status": "ok",
+      "schema_ok_files": 12,
+      "files": 12,
+      "rerun": "python scripts/build_fidc_industry_manual_review_ledgers.py"
+    }
+  ],
+  "quality": {
+    "files": 12,
+    "files_present": 12,
+    "files_created": 0,
+    "schema_ok_files": 12,
+    "domains": 6,
+    "action_files": 6,
+    "audit_files": 6,
+    "rows": 0
+  }
+}

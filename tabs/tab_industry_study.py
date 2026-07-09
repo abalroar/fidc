@@ -96,6 +96,8 @@ _DIMENSION_MONTHLY_MANIFEST_PATH = _DATA_DIR / "industry_dimension_monthly_manif
 _DIMENSION_PROFILE_PATH = _DATA_DIR / "industry_dimension_profiles.csv.gz"
 _HEATMAP_REGISTRY_PATH = _DATA_DIR / "industry_heatmap_registry.csv"
 _DIMENSION_PROFILE_MANIFEST_PATH = _DATA_DIR / "industry_dimension_profile_manifest.json"
+_DIMENSION_DOSSIER_PATH = _DATA_DIR / "industry_dimension_dossiers.csv"
+_DIMENSION_DOSSIER_MANIFEST_PATH = _DATA_DIR / "industry_dimension_dossier_manifest.json"
 _MARKET_SHARE_PATH = _DATA_DIR / "industry_market_share.csv.gz"
 _MARKET_SHARE_MANIFEST_PATH = _DATA_DIR / "industry_market_share_manifest.json"
 _ISSUANCE_ANNUAL_PATH = _DATA_DIR / "issuance_annual.csv"
@@ -655,6 +657,14 @@ def _load_dimension_profile_tables() -> dict[str, pd.DataFrame | dict[str, objec
         "profiles": profiles,
         "heatmap_registry": registry,
         "manifest": load_pipeline_manifest(_DIMENSION_PROFILE_MANIFEST_PATH),
+    }
+
+
+@st.cache_data(show_spinner=False)
+def _load_dimension_dossier_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    return {
+        "dossiers": load_dataframe(_DIMENSION_DOSSIER_PATH),
+        "manifest": load_pipeline_manifest(_DIMENSION_DOSSIER_MANIFEST_PATH),
     }
 
 
@@ -3933,8 +3943,8 @@ def _format_dimension_radar(frame: pd.DataFrame) -> pd.DataFrame:
             "veiculos_atuais": "Veículos",
             "inad_pct_atual": "Inad. atual",
             "links_catalogo": "Links catálogo",
-            "links_com_fonte": "Links com fonte",
-            "evidence_coverage": "% com fonte",
+            "links_com_fonte": "Links documento",
+            "evidence_coverage": "% documento",
             "curated_coverage": "% curado",
         }
     )
@@ -3949,20 +3959,20 @@ def _format_dimension_radar(frame: pd.DataFrame) -> pd.DataFrame:
         "Veículos",
         "Inad. atual",
         "Links catálogo",
-        "Links com fonte",
-        "% com fonte",
+        "Links documento",
+        "% documento",
         "% curado",
     ]
     out = out[[col for col in keep if col in out.columns]].copy()
     for col in ["PL atual", "Captação janela", "Delta PL 12m"]:
         if col in out.columns:
             out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0.0).map(lambda value: _fmt_bi(float(value), 2))
-    for col in ["Cresc. PL 12m", "Inad. atual", "% com fonte", "% curado"]:
+    for col in ["Cresc. PL 12m", "Inad. atual", "% documento", "% curado"]:
         if col in out.columns:
             out[col] = pd.to_numeric(out[col], errors="coerce").map(
                 lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
             )
-    for col in ["Fundos", "Veículos", "Links catálogo", "Links com fonte"]:
+    for col in ["Fundos", "Veículos", "Links catálogo", "Links documento"]:
         if col in out.columns:
             out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
     return out
@@ -3985,8 +3995,11 @@ def _format_dimension_value_atlas(frame: pd.DataFrame) -> pd.DataFrame:
             "veiculos_atuais": "Veículos",
             "inad_pct_atual": "Inad. atual",
             "links_catalogo": "Links catálogo",
-            "links_com_fonte": "Links com fonte",
-            "evidence_coverage": "% com fonte",
+            "links_com_fonte": "Links documento",
+            "links_com_metodo": "Links método",
+            "links_com_camada": "Links camada",
+            "traceability_coverage": "% rastreável",
+            "evidence_coverage": "% documento",
             "source_documents_sample": "Documentos",
             "source_pages_sample": "Páginas",
             "source_methods_sample": "Métodos",
@@ -4007,8 +4020,11 @@ def _format_dimension_value_atlas(frame: pd.DataFrame) -> pd.DataFrame:
         "Veículos",
         "Inad. atual",
         "Links catálogo",
-        "Links com fonte",
-        "% com fonte",
+        "Links documento",
+        "Links método",
+        "Links camada",
+        "% rastreável",
+        "% documento",
         "Documentos",
         "Páginas",
         "Métodos",
@@ -4020,18 +4036,97 @@ def _format_dimension_value_atlas(frame: pd.DataFrame) -> pd.DataFrame:
     for col in ["PL atual", "Captação 12m", "Delta PL 12m"]:
         if col in out.columns:
             out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0.0).map(lambda value: _fmt_bi(float(value), 2))
-    for col in ["Cresc. PL 12m", "Inad. atual", "% com fonte"]:
+    for col in ["Cresc. PL 12m", "Inad. atual", "% rastreável", "% documento"]:
         if col in out.columns:
             out[col] = pd.to_numeric(out[col], errors="coerce").map(
                 lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
             )
-    for col in ["# dim.", "Fundos", "Veículos", "Links catálogo", "Links com fonte"]:
+    for col in ["# dim.", "Fundos", "Veículos", "Links catálogo", "Links documento", "Links método", "Links camada"]:
         if col in out.columns:
             out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
     if "Score médio" in out.columns:
-        out["Score médio"] = pd.to_numeric(out["Score médio"], errors="coerce").map(
+            out["Score médio"] = pd.to_numeric(out["Score médio"], errors="coerce").map(
             lambda value: "" if pd.isna(value) else f"{float(value):.2f}".replace(".", ",")
         )
+    return out
+
+
+def _format_dimension_dossiers(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.copy()
+    out = out.rename(
+        columns={
+            "dimension_label": "Dimensão",
+            "dimension_id": "ID",
+            "status_dossie": "Status",
+            "status_reasons": "Pendências",
+            "latest_competencia": "Competência",
+            "atlas_values": "Valores",
+            "atlas_values_with_pl": "Com PL",
+            "top_values_sample": "Top valores",
+            "pl_total_atual_brl": "PL atual",
+            "pl_top_20_brl": "PL top 20",
+            "captacao_12m_top_20_brl": "Captação 12m top 20",
+            "traceability_coverage": "% rastreável",
+            "source_document_coverage": "% documento",
+            "links_com_metodo": "Links método",
+            "links_com_camada": "Links camada",
+            "curated_coverage": "% curado",
+            "weighted_coverage": "% ponderado",
+            "profile_rows": "Perfis",
+            "profile_target_dimensions": "Dim. alvo",
+            "profile_target_values": "Valores alvo",
+            "heatmap_presets": "Presets",
+            "heatmap_presets_ok": "Presets ok",
+            "source_documents_sample": "Documentos",
+            "source_pages_sample": "Páginas",
+            "source_methods_sample": "Métodos",
+            "review_status_mix": "Revisão",
+        }
+    )
+    keep = [
+        "Dimensão",
+        "ID",
+        "Status",
+        "Pendências",
+        "Competência",
+        "Valores",
+        "Com PL",
+        "PL atual",
+        "PL top 20",
+        "Captação 12m top 20",
+        "% rastreável",
+        "% documento",
+        "Links método",
+        "Links camada",
+        "% curado",
+        "% ponderado",
+        "Perfis",
+        "Dim. alvo",
+        "Valores alvo",
+        "Presets",
+        "Presets ok",
+        "Top valores",
+        "Documentos",
+        "Páginas",
+        "Métodos",
+        "Revisão",
+    ]
+    out = out[[col for col in keep if col in out.columns]].copy()
+    for col in ["PL atual", "PL top 20", "Captação 12m top 20"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0.0).map(lambda value: _fmt_bi(float(value), 2))
+    for col in ["% rastreável", "% documento", "% curado", "% ponderado"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").map(
+                lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
+            )
+    for col in ["Valores", "Com PL", "Links método", "Links camada", "Perfis", "Dim. alvo", "Valores alvo", "Presets", "Presets ok"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    if "Status" in out.columns:
+        out["Status"] = out["Status"].map(_status_badge_text)
     return out
 
 
@@ -5693,14 +5788,21 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
     use_catalog = bool(catalog_dimensions)
     monthly_tables = _load_dimension_monthly_tables() if use_catalog else {"monthly": pd.DataFrame(), "manifest": {}}
     dimension_monthly = monthly_tables["monthly"]
+    dimension_value_atlas = monthly_tables.get("atlas", pd.DataFrame())
     dimension_monthly_manifest = monthly_tables["manifest"]
     assert isinstance(dimension_monthly, pd.DataFrame)
+    assert isinstance(dimension_value_atlas, pd.DataFrame)
     assert isinstance(dimension_monthly_manifest, dict)
     profile_tables = _load_dimension_profile_tables() if use_catalog else {"profiles": pd.DataFrame(), "manifest": {}}
     dimension_profiles = profile_tables["profiles"]
     dimension_profile_manifest = profile_tables["manifest"]
     assert isinstance(dimension_profiles, pd.DataFrame)
     assert isinstance(dimension_profile_manifest, dict)
+    dossier_tables = _load_dimension_dossier_tables() if use_catalog else {"dossiers": pd.DataFrame(), "manifest": {}}
+    dimension_dossiers = dossier_tables["dossiers"]
+    dimension_dossier_manifest = dossier_tables["manifest"]
+    assert isinstance(dimension_dossiers, pd.DataFrame)
+    assert isinstance(dimension_dossier_manifest, dict)
     dimensions = catalog_dimensions if use_catalog else fallback_dimensions
     ctrl_a, ctrl_b, ctrl_c = st.columns([0.9, 0.9, 1.2])
     with ctrl_a:
@@ -5716,6 +5818,31 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
         query = st.text_input("Buscar valor", key="industry_deep_query", placeholder="nome, CNPJ, segmento ou participante")
 
     dim_col = dimensions[dimension_label]
+    if use_catalog and not dimension_dossiers.empty:
+        dossier_view = dimension_dossiers[
+            dimension_dossiers.get("dimension_id", pd.Series("", index=dimension_dossiers.index)).astype(str).eq(str(dim_col))
+        ].copy()
+        if not dossier_view.empty:
+            dossier_row = dossier_view.iloc[0]
+            profile_rows = float(pd.to_numeric(pd.Series([dossier_row.get("profile_rows")]), errors="coerce").fillna(0).iloc[0])
+            presets = float(pd.to_numeric(pd.Series([dossier_row.get("heatmap_presets")]), errors="coerce").fillna(0).iloc[0])
+            presets_ok = float(pd.to_numeric(pd.Series([dossier_row.get("heatmap_presets_ok")]), errors="coerce").fillna(0).iloc[0])
+            traceability_cov = pd.to_numeric(pd.Series([dossier_row.get("traceability_coverage")]), errors="coerce").iloc[0]
+            st.markdown("**Dossiê materializado da dimensão**")
+            dossier_cards = [
+                _curation_card("Status", _status_badge_text(dossier_row.get("status_dossie")), str(dossier_row.get("status_reasons") or "sem pendência")),
+                _curation_card("Valores", _fmt_int(float(dossier_row.get("atlas_values") or 0)), f"{_fmt_int(float(dossier_row.get('atlas_values_with_pl') or 0))} com PL"),
+                _curation_card("Rastreabilidade", _fmt_pct(float(traceability_cov)) if pd.notna(traceability_cov) else "n/d", "fonte ou método"),
+                _curation_card("Perfis", _fmt_int(profile_rows), f"{_fmt_int(float(dossier_row.get('profile_target_dimensions') or 0))} quebras"),
+                _curation_card("Heatmaps", f"{_fmt_int(presets_ok)}/{_fmt_int(presets)}", "presets ligados"),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(dossier_cards)}</div>', unsafe_allow_html=True)
+            st.dataframe(_format_dimension_dossiers(dossier_view), hide_index=True, width="stretch")
+            generated_at = dimension_dossier_manifest.get("generated_at_utc", "")
+            source_note = f"Fonte: `{_DIMENSION_DOSSIER_PATH.name}`"
+            if generated_at:
+                source_note += f" · gerado em {generated_at}"
+            st.caption(source_note)
     frame = _period_filter(vehicle, comp, period)
     cedentes = pd.DataFrame()
     if use_catalog:
@@ -5802,14 +5929,14 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
                     "atlas",
                 ),
                 _curation_card(
-                    "Com fonte",
+                    "Com documento",
                     _fmt_pct(
                         float(pd.to_numeric(atlas_view.get("links_com_fonte"), errors="coerce").fillna(0).sum())
                         / float(pd.to_numeric(atlas_view.get("links_catalogo"), errors="coerce").fillna(0).sum())
                     )
                     if float(pd.to_numeric(atlas_view.get("links_catalogo"), errors="coerce").fillna(0).sum())
                     else "n/d",
-                    "links do catálogo",
+                    "documento regulatório",
                 ),
             ]
             st.markdown(f'<div class="industry-kpi-grid">{"".join(atlas_cards)}</div>', unsafe_allow_html=True)
@@ -5843,9 +5970,9 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
                     period,
                 ),
                 _curation_card(
-                    "Com fonte",
+                    "Com documento",
                     _fmt_pct(total_source_links / total_catalog_links) if total_catalog_links else "n/d",
-                    "links do catálogo",
+                    "documento regulatório",
                 ),
             ]
             st.markdown(f'<div class="industry-kpi-grid">{"".join(radar_cards)}</div>', unsafe_allow_html=True)
@@ -6495,6 +6622,16 @@ def _render_pipeline_manifest() -> None:
         if isinstance(dimension_profile_manifest.get("quality"), dict)
         else {}
     )
+    dossier_tables = _load_dimension_dossier_tables()
+    dimension_dossiers = dossier_tables["dossiers"]
+    dimension_dossier_manifest = dossier_tables["manifest"]
+    assert isinstance(dimension_dossiers, pd.DataFrame)
+    assert isinstance(dimension_dossier_manifest, dict)
+    dossier_quality = (
+        dimension_dossier_manifest.get("quality", {})
+        if isinstance(dimension_dossier_manifest.get("quality"), dict)
+        else {}
+    )
     public_claim_tables = _load_public_claim_audit_tables()
     public_claim_audit = public_claim_tables["audit"]
     public_claim_manifest = public_claim_tables["manifest"]
@@ -6592,6 +6729,11 @@ def _render_pipeline_manifest() -> None:
             f"{_fmt_int(float(profile_quality.get('source_dimensions', rollup.get('dimension_profile_source_dimensions', 0)) or 0))} dimensões",
         ),
         _curation_card(
+            "Dossiês",
+            f"{_fmt_int(float(dossier_quality.get('ok_rows', rollup.get('dimension_dossier_ok_rows', 0)) or 0))}/{_fmt_int(float(dossier_quality.get('rows', rollup.get('dimension_dossier_rows', len(dimension_dossiers))) or 0))}",
+            f"{_fmt_int(float(dossier_quality.get('attention_rows', rollup.get('dimension_dossier_attention_rows', 0)) or 0))} atenção",
+        ),
+        _curation_card(
             "Cedentes",
             _fmt_int(float(rollup.get("fund_snapshot_with_cedentes", rollup.get("cedentes_structured_rows", 0)))),
             "FIDCs com evidência",
@@ -6604,7 +6746,7 @@ def _render_pipeline_manifest() -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    tab_modules, tab_prd, tab_public, tab_reviews, tab_queue, tab_profiles, tab_catalog_quality, tab_delta, tab_refresh, tab_artifacts, tab_json = st.tabs(
+    tab_modules, tab_prd, tab_public, tab_reviews, tab_queue, tab_profiles, tab_dossiers, tab_catalog_quality, tab_delta, tab_refresh, tab_artifacts, tab_json = st.tabs(
         [
             "Módulos",
             "PRD",
@@ -6612,6 +6754,7 @@ def _render_pipeline_manifest() -> None:
             "Revisões",
             "Fila única",
             "Perfis cruzados",
+            "Dossiês",
             "Qualidade catálogo",
             "Delta mensal",
             "Refresh mensal",
@@ -7332,6 +7475,88 @@ def _render_pipeline_manifest() -> None:
                 )
             generated_at = dimension_profile_manifest.get("generated_at_utc", "")
             source_note = f"Fonte: `{_DIMENSION_PROFILE_PATH.name}`"
+            if generated_at:
+                source_note += f" · gerado em {generated_at}"
+            st.caption(source_note)
+
+    with tab_dossiers:
+        if dimension_dossiers.empty:
+            st.caption("Dossiês dimensionais ainda não materializados. Rode `python scripts/build_fidc_industry_dimension_dossiers.py`.")
+        else:
+            dossier_status = (
+                dimension_dossiers.get("status_dossie", pd.Series("", index=dimension_dossiers.index))
+                .fillna("")
+                .astype(str)
+                .value_counts()
+                .to_dict()
+            )
+            dossier_links = float(pd.to_numeric(dimension_dossiers.get("links_catalogo"), errors="coerce").fillna(0).sum())
+            dossier_source_links = float(pd.to_numeric(dimension_dossiers.get("links_com_fonte"), errors="coerce").fillna(0).sum())
+            dossier_traceability_links = float(pd.to_numeric(dimension_dossiers.get("traceability_links"), errors="coerce").fillna(0).sum())
+            dossier_profile_rows = float(pd.to_numeric(dimension_dossiers.get("profile_rows"), errors="coerce").fillna(0).sum())
+            dossier_presets = float(pd.to_numeric(dimension_dossiers.get("heatmap_presets"), errors="coerce").fillna(0).sum())
+            dossier_presets_ok = float(pd.to_numeric(dimension_dossiers.get("heatmap_presets_ok"), errors="coerce").fillna(0).sum())
+            dossier_cards = [
+                _curation_card("Dimensões", _fmt_int(float(len(dimension_dossiers))), "dossiês materializados"),
+                _curation_card("Ok", _fmt_int(float(dossier_status.get("ok", 0))), f"{_fmt_int(float(dossier_status.get('atenção', 0)))} atenção"),
+                _curation_card("Rastreável", _fmt_pct(dossier_traceability_links / dossier_links) if dossier_links else "n/d", "fonte ou método"),
+                _curation_card("Com documento", _fmt_pct(dossier_source_links / dossier_links) if dossier_links else "n/d", "documento regulatório"),
+                _curation_card("Perfis", _fmt_int(dossier_profile_rows), "células origem × alvo"),
+                _curation_card("Heatmaps", f"{_fmt_int(dossier_presets_ok)}/{_fmt_int(dossier_presets)}", "presets ligados"),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(dossier_cards)}</div>', unsafe_allow_html=True)
+            dossier_a, dossier_b = st.columns([0.8, 1.4])
+            with dossier_a:
+                status_options = sorted(
+                    [
+                        value
+                        for value in dimension_dossiers.get("status_dossie", pd.Series(dtype=str)).fillna("").astype(str).unique()
+                        if value
+                    ]
+                )
+                selected_status = st.multiselect(
+                    "Status",
+                    status_options,
+                    default=status_options,
+                    key="industry_dimension_dossier_status",
+                )
+            with dossier_b:
+                dossier_query = st.text_input(
+                    "Buscar dossiê",
+                    key="industry_dimension_dossier_query",
+                    placeholder="administrador, cedente, segmento, indexador, pendência",
+                )
+            dossier_view = dimension_dossiers.copy()
+            if selected_status:
+                dossier_view = dossier_view[
+                    dossier_view.get("status_dossie", pd.Series("", index=dossier_view.index)).fillna("").astype(str).isin(selected_status)
+                ].copy()
+            if dossier_query:
+                search_cols = [
+                    col
+                    for col in [
+                        "dimension_id",
+                        "dimension_label",
+                        "status_dossie",
+                        "status_reasons",
+                        "top_values_sample",
+                        "source_documents_sample",
+                        "heatmap_preset_labels_sample",
+                    ]
+                    if col in dossier_view.columns
+                ]
+                search = dossier_view[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=dossier_view.index)
+                dossier_view = dossier_view[search.str.contains(dossier_query, case=False, na=False)].copy()
+            st.dataframe(_format_dimension_dossiers(dossier_view), hide_index=True, width="stretch", height=460)
+            st.download_button(
+                "Baixar dossiês dimensionais",
+                data=dimension_dossiers.to_csv(index=False).encode("utf-8"),
+                file_name="industry_dimension_dossiers.csv",
+                mime="text/csv",
+                key="industry_dimension_dossier_download",
+            )
+            generated_at = dimension_dossier_manifest.get("generated_at_utc", "")
+            source_note = f"Fonte: `{_DIMENSION_DOSSIER_PATH.name}`"
             if generated_at:
                 source_note += f" · gerado em {generated_at}"
             st.caption(source_note)

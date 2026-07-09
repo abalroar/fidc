@@ -87,6 +87,87 @@ CATALOG_GAP_ACTION_COLUMNS = [
     "updated_at_utc",
 ]
 
+MANUAL_REVIEW_LEDGER_SPECS = [
+    {
+        "domain_id": "cedente_review",
+        "label": "Cedentes/sacados",
+        "module_id": "cedentes",
+        "action_file": "cedente_reviews.csv",
+        "audit_file": "cedente_review_audit.csv",
+        "key_column": "review_id",
+        "status_column": "status",
+        "ui_surface": "Cedentes",
+        "comparison": "participante extraído × nome/CNPJ/setor revisado",
+        "rerun_command": "python scripts/build_fidc_industry_cedentes.py",
+        "action_columns": CEDENTE_REVIEW_COLUMNS,
+    },
+    {
+        "domain_id": "criteria_review",
+        "label": "Critérios e subordinação",
+        "module_id": "criteria",
+        "action_file": "criteria_reviews.csv",
+        "audit_file": "criteria_review_audit.csv",
+        "key_column": "rule_id",
+        "status_column": "status",
+        "ui_surface": "Critérios",
+        "comparison": "critério/regra automática × regra revisada",
+        "rerun_command": "python scripts/build_fidc_industry_criteria.py",
+        "action_columns": CRITERIA_REVIEW_COLUMNS,
+    },
+    {
+        "domain_id": "monthly_delta_action",
+        "label": "Delta mensal",
+        "module_id": "monthly_delta",
+        "action_file": "monthly_delta_actions.csv",
+        "audit_file": "monthly_delta_action_audit.csv",
+        "key_column": "delta_id",
+        "status_column": "status_acao",
+        "ui_surface": "Pipeline > Delta mensal",
+        "comparison": "delta automático × ação revisada",
+        "rerun_command": "python scripts/build_fidc_industry_monthly_delta.py",
+        "action_columns": MONTHLY_DELTA_ACTION_COLUMNS,
+    },
+    {
+        "domain_id": "document_chunk_action",
+        "label": "Chunks documentais",
+        "module_id": "documents",
+        "action_file": "document_chunk_actions.csv",
+        "audit_file": "document_chunk_action_audit.csv",
+        "key_column": "chunk_id",
+        "status_column": "status_lote",
+        "ui_surface": "Documentos",
+        "comparison": "chunk planejado × acompanhamento revisado",
+        "rerun_command": "python scripts/build_fidc_industry_document_chunk_plan.py",
+        "action_columns": DOCUMENT_CHUNK_ACTION_COLUMNS,
+    },
+    {
+        "domain_id": "snapshot_gap",
+        "label": "Lacunas do snapshot",
+        "module_id": "fund_snapshot",
+        "action_file": "snapshot_gap_actions.csv",
+        "audit_file": "snapshot_gap_action_audit.csv",
+        "key_column": "gap_id",
+        "status_column": "status_lacuna",
+        "ui_surface": "Base granular",
+        "comparison": "lacuna automática × decisão manual",
+        "rerun_command": "python scripts/build_fidc_industry_fund_snapshot.py",
+        "action_columns": SNAPSHOT_GAP_ACTION_COLUMNS,
+    },
+    {
+        "domain_id": "dimension_catalog_gap",
+        "label": "Rastreabilidade do catálogo",
+        "module_id": "dimension_catalog",
+        "action_file": "dimension_catalog_gap_actions.csv",
+        "audit_file": "dimension_catalog_gap_action_audit.csv",
+        "key_column": "traceability_gap_id",
+        "status_column": "status_lacuna",
+        "ui_surface": "Pipeline > Qualidade catálogo",
+        "comparison": "campo faltante × decisão manual",
+        "rerun_command": "python scripts/build_fidc_industry_dimensions.py",
+        "action_columns": CATALOG_GAP_ACTION_COLUMNS,
+    },
+]
+
 PUBLIC_CLAIM_SPECS = [
     {
         "claim_id": "anbima_fidc_net_flow_2025_jan_sep",
@@ -396,8 +477,14 @@ DIMENSION_VALUE_ATLAS_COLUMNS = [
     "cotistas_equiv_atual",
     "links_catalogo",
     "links_com_fonte",
+    "links_com_metodo",
+    "links_com_camada",
+    "links_com_pagina",
+    "links_com_data",
+    "links_com_score",
     "links_curados",
     "links_ponderados",
+    "traceability_coverage",
     "evidence_coverage",
     "curated_coverage",
     "weighted_coverage",
@@ -412,6 +499,53 @@ DIMENSION_VALUE_ATLAS_COLUMNS = [
     "last_source_date",
     "rank_score",
     "source_artifact",
+    "source_method",
+    "rerun_command",
+]
+
+DIMENSION_DOSSIER_COLUMNS = [
+    "dimension_id",
+    "dimension_label",
+    "status_dossie",
+    "status_reasons",
+    "latest_competencia",
+    "atlas_values",
+    "atlas_values_with_pl",
+    "top_values_sample",
+    "pl_total_atual_brl",
+    "pl_top_20_brl",
+    "captacao_12m_top_20_brl",
+    "fundos_atuais_total",
+    "veiculos_atuais_total",
+    "links_catalogo",
+    "links_com_fonte",
+    "source_document_coverage",
+    "links_com_metodo",
+    "links_com_camada",
+    "traceability_links",
+    "traceability_coverage",
+    "links_curados",
+    "curated_coverage",
+    "links_ponderados",
+    "weighted_coverage",
+    "avg_confidence_score",
+    "source_documents_sample",
+    "source_pages_sample",
+    "source_methods_sample",
+    "review_status_mix",
+    "priority_2025_2026_links",
+    "profile_rows",
+    "profile_target_dimensions",
+    "profile_target_values",
+    "profile_links",
+    "profile_source_document_links",
+    "profile_curated_links",
+    "profile_weighted_links",
+    "profile_avg_confidence_score",
+    "heatmap_presets",
+    "heatmap_presets_ok",
+    "heatmap_preset_labels_sample",
+    "source_artifacts",
     "source_method",
     "rerun_command",
 ]
@@ -1169,6 +1303,78 @@ def load_dataframe(path: Path) -> pd.DataFrame:
     if not path.exists():
         return pd.DataFrame()
     return pd.read_csv(path, dtype=str, keep_default_na=False, low_memory=False)
+
+
+def manual_review_file_specs() -> list[dict[str, object]]:
+    """Return the authoritative in-app manual review file inventory."""
+
+    specs: list[dict[str, object]] = []
+    for spec in MANUAL_REVIEW_LEDGER_SPECS:
+        action = dict(spec)
+        action["file_role"] = "actions"
+        action["file_name"] = spec["action_file"]
+        action["columns"] = list(spec["action_columns"])
+        specs.append(action)
+        audit = dict(spec)
+        audit["file_role"] = "audit"
+        audit["file_name"] = spec["audit_file"]
+        audit["columns"] = list(REVIEW_AUDIT_COLUMNS)
+        specs.append(audit)
+    return specs
+
+
+def initialize_manual_review_ledgers(*, industry_dir: Path) -> pd.DataFrame:
+    """Create missing in-app review CSVs with headers, without adding decisions."""
+
+    rows: list[dict[str, object]] = []
+    for spec in manual_review_file_specs():
+        file_name = str(spec["file_name"])
+        path = industry_dir / file_name
+        columns = [str(col) for col in spec.get("columns", [])]
+        existed_before = path.exists()
+        if not existed_before:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            pd.DataFrame(columns=columns).to_csv(path, index=False)
+        frame = load_dataframe(path)
+        rows.append(
+            {
+                "domain_id": spec.get("domain_id", ""),
+                "label": spec.get("label", ""),
+                "module_id": spec.get("module_id", ""),
+                "file_role": spec.get("file_role", ""),
+                "file_name": file_name,
+                "path": str(path),
+                "exists": path.exists(),
+                "created": not existed_before,
+                "rows": int(len(frame)),
+                "columns_expected": len(columns),
+                "columns_present": int(sum(1 for col in columns if col in frame.columns)),
+                "schema_ok": all(col in frame.columns for col in columns),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def manual_review_ledgers_quality_summary(ledger_files: pd.DataFrame) -> dict[str, object]:
+    if ledger_files is None or ledger_files.empty:
+        return {
+            "files": 0,
+            "files_present": 0,
+            "files_created": 0,
+            "schema_ok_files": 0,
+            "domains": 0,
+        }
+    frame = ledger_files.copy()
+    return {
+        "files": int(len(frame)),
+        "files_present": int(frame.get("exists", pd.Series(False, index=frame.index)).astype(bool).sum()),
+        "files_created": int(frame.get("created", pd.Series(False, index=frame.index)).astype(bool).sum()),
+        "schema_ok_files": int(frame.get("schema_ok", pd.Series(False, index=frame.index)).astype(bool).sum()),
+        "domains": int(frame.get("domain_id", pd.Series("", index=frame.index)).fillna("").astype(str).nunique()),
+        "action_files": int(frame.get("file_role", pd.Series("", index=frame.index)).fillna("").astype(str).eq("actions").sum()),
+        "audit_files": int(frame.get("file_role", pd.Series("", index=frame.index)).fillna("").astype(str).eq("audit").sum()),
+        "rows": int(pd.to_numeric(frame.get("rows"), errors="coerce").fillna(0).sum()),
+    }
 
 
 def _competencia_key(value: object) -> str:
@@ -3851,6 +4057,7 @@ def build_monthly_update_plan(
     }
     stage_checks = {
         "base_monthly": ["competencia_alignment"],
+        "manual_review_ledgers": ["artifact_presence"],
         "monthly_delta": ["competencia_alignment", "monthly_delta_queue"],
         "issuance": [],
         "public_claims": ["competencia_alignment"],
@@ -3863,19 +4070,20 @@ def build_monthly_update_plan(
         "curation_queue": ["curation_queue"],
         "dimension_profiles": ["structured_coverage"],
         "dimension_monthly": ["competencia_alignment", "structured_coverage"],
+        "dimension_dossiers": ["competencia_alignment", "structured_coverage"],
         "market_share": ["structured_coverage"],
         "pipeline_index": ["module_status", "artifact_presence"],
     }
     status_order = {"bloqueado": 0, "atenção": 1, "ok": 2, "n/d": 3}
 
     def phase(order: int) -> str:
-        if order <= 2:
+        if order <= 3:
             return "Informe mensal e delta"
-        if order <= 5:
+        if order <= 7:
             return "Documentos e ofertas"
-        if order <= 9:
+        if order <= 12:
             return "Estruturação"
-        if order <= 13:
+        if order <= 15:
             return "Agregações reutilizáveis"
         return "Controle"
 
@@ -4005,74 +4213,7 @@ def build_manual_review_ledger(*, industry_dir: Path) -> list[dict[str, object]]
         "concluído",
         "concluido",
     }
-    specs = [
-        {
-            "domain_id": "cedente_review",
-            "label": "Cedentes/sacados",
-            "action_file": "cedente_reviews.csv",
-            "audit_file": "cedente_review_audit.csv",
-            "key_column": "review_id",
-            "status_column": "status",
-            "ui_surface": "Cedentes",
-            "comparison": "participante extraído × nome/CNPJ/setor revisado",
-            "rerun_command": "python scripts/build_fidc_industry_cedentes.py",
-        },
-        {
-            "domain_id": "criteria_review",
-            "label": "Critérios e subordinação",
-            "action_file": "criteria_reviews.csv",
-            "audit_file": "criteria_review_audit.csv",
-            "key_column": "rule_id",
-            "status_column": "status",
-            "ui_surface": "Critérios",
-            "comparison": "critério/regra automática × regra revisada",
-            "rerun_command": "python scripts/build_fidc_industry_criteria.py",
-        },
-        {
-            "domain_id": "monthly_delta_action",
-            "label": "Delta mensal",
-            "action_file": "monthly_delta_actions.csv",
-            "audit_file": "monthly_delta_action_audit.csv",
-            "key_column": "delta_id",
-            "status_column": "status_acao",
-            "ui_surface": "Pipeline > Delta mensal",
-            "comparison": "delta automático × ação revisada",
-            "rerun_command": "python scripts/build_fidc_industry_monthly_delta.py",
-        },
-        {
-            "domain_id": "document_chunk_action",
-            "label": "Chunks documentais",
-            "action_file": "document_chunk_actions.csv",
-            "audit_file": "document_chunk_action_audit.csv",
-            "key_column": "chunk_id",
-            "status_column": "status_lote",
-            "ui_surface": "Documentos",
-            "comparison": "chunk planejado × acompanhamento revisado",
-            "rerun_command": "python scripts/build_fidc_industry_document_chunk_plan.py",
-        },
-        {
-            "domain_id": "snapshot_gap",
-            "label": "Lacunas do snapshot",
-            "action_file": "snapshot_gap_actions.csv",
-            "audit_file": "snapshot_gap_action_audit.csv",
-            "key_column": "gap_id",
-            "status_column": "status_lacuna",
-            "ui_surface": "Base granular",
-            "comparison": "lacuna automática × decisão manual",
-            "rerun_command": "python scripts/build_fidc_industry_fund_snapshot.py",
-        },
-        {
-            "domain_id": "dimension_catalog_gap",
-            "label": "Rastreabilidade do catálogo",
-            "action_file": "dimension_catalog_gap_actions.csv",
-            "audit_file": "dimension_catalog_gap_action_audit.csv",
-            "key_column": "traceability_gap_id",
-            "status_column": "status_lacuna",
-            "ui_surface": "Pipeline > Qualidade catálogo",
-            "comparison": "campo faltante × decisão manual",
-            "rerun_command": "python scripts/build_fidc_industry_dimensions.py",
-        },
-    ]
+    specs = MANUAL_REVIEW_LEDGER_SPECS
 
     rows: list[dict[str, object]] = []
     for spec in specs:
@@ -4168,6 +4309,64 @@ def build_manual_review_ledger(*, industry_dir: Path) -> list[dict[str, object]]
     return frame.to_dict("records")
 
 
+def build_manual_review_pipeline_manifest(
+    *,
+    industry_dir: Path,
+    manifest_path: Path,
+    ledger_files: pd.DataFrame,
+) -> dict[str, object]:
+    quality = manual_review_ledgers_quality_summary(ledger_files)
+    outputs = {
+        "manifest": {"path": str(manifest_path)},
+    }
+    for spec in manual_review_file_specs():
+        role = str(spec.get("file_role") or "")
+        domain = str(spec.get("domain_id") or "")
+        file_name = str(spec.get("file_name") or "")
+        artifact_id = f"{domain}_{role}"
+        outputs[artifact_id] = file_fingerprint(industry_dir / file_name)
+    return {
+        "schema_version": "industry-manual-review-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_manual_review_ledgers",
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "manual_review_in_app": True,
+            "notes": [
+                "Inicializa arquivos CSV vazios com cabeçalhos oficiais para que a UI persista revisões sem edição manual.",
+                "Não cria decisões, aprovações ou eventos artificiais; auditoria continua append-only quando o usuário salva alterações.",
+                "Cada domínio preserva schema próprio de ações e compartilha o schema único de eventos de auditoria.",
+            ],
+        },
+        "inputs": {},
+        "review_specs": {
+            "domains": len(MANUAL_REVIEW_LEDGER_SPECS),
+            "files_expected": len(manual_review_file_specs()),
+        },
+        "outputs": outputs,
+        "stages": [
+            {
+                "id": "initialize_missing_ledgers",
+                "label": "Inicializar ledgers ausentes",
+                "status": "ok" if quality.get("files_present") == quality.get("files") else "missing",
+                "rows": int(len(ledger_files)) if ledger_files is not None else 0,
+                "files_created": quality.get("files_created", 0),
+                "rerun": "python scripts/build_fidc_industry_manual_review_ledgers.py",
+            },
+            {
+                "id": "validate_review_schemas",
+                "label": "Validar schemas de revisão",
+                "status": "ok" if quality.get("schema_ok_files") == quality.get("files") else "atenção",
+                "schema_ok_files": quality.get("schema_ok_files", 0),
+                "files": quality.get("files", 0),
+                "rerun": "python scripts/build_fidc_industry_manual_review_ledgers.py",
+            },
+        ],
+        "quality": quality,
+    }
+
+
 def build_prd_coverage_matrix(
     *,
     quality_rollup: dict[str, object],
@@ -4255,9 +4454,9 @@ def build_prd_coverage_matrix(
         "ok" if manual_total and manual_present == manual_total else "atenção",
         f"{manual_present}/{manual_total} artefatos de revisão/histórico presentes; fila única {int(number('curation_queue_rows'))} linhas",
         f"manual_artifacts={manual_present}/{manual_total}",
-        "monthly_delta_actions.csv | document_chunk_actions.csv | snapshot_gap_actions.csv",
-        "Usar a fila única e as mesas específicas para registrar decisões e auditoria.",
-        "python scripts/build_fidc_industry_curation_queue.py",
+        "cedente_reviews.csv | criteria_reviews.csv | monthly_delta_actions.csv | document_chunk_actions.csv | snapshot_gap_actions.csv | dimension_catalog_gap_actions.csv",
+        "Inicializar ledgers ausentes e usar a fila única e as mesas específicas para registrar decisões e auditoria.",
+        "python scripts/build_fidc_industry_manual_review_ledgers.py && python scripts/build_fidc_industry_curation_queue.py",
     )
     add(
         "fic_fidc_pl_overlay",
@@ -4323,13 +4522,13 @@ def build_prd_coverage_matrix(
         "deep_dive_reusable",
         9,
         "Deep Dive",
-        "Análises por qualquer dimensão reutilizando catálogo, atlas e perfis",
-        "ok" if number("dimension_value_atlas_rows") and number("dimension_profile_rows") else "atenção",
-        f"{int(number('dimension_value_atlas_rows'))} valores no atlas; {int(number('dimension_profile_rows'))} células de perfil",
-        f"atlas_dimensions={int(number('dimension_value_atlas_dimensions'))}; profile_dimensions={int(number('dimension_profile_source_dimensions'))}",
-        "industry_dimension_value_atlas.csv.gz | industry_dimension_profiles.csv.gz",
-        "Usar o atlas como entrada primária do Deep Dive e completar fonte/página onde faltar.",
-        "python scripts/build_fidc_industry_dimension_monthly.py && python scripts/build_fidc_industry_dimension_profiles.py",
+        "Análises por qualquer dimensão reutilizando catálogo, atlas, perfis e dossiês",
+        "ok" if number("dimension_dossier_rows") and number("dimension_dossier_blocked_rows") == 0 else "atenção",
+        f"{int(number('dimension_dossier_rows'))} dossiês; {int(number('dimension_value_atlas_rows'))} valores no atlas; {int(number('dimension_profile_rows'))} células de perfil",
+        f"ok={int(number('dimension_dossier_ok_rows'))}; atenção={int(number('dimension_dossier_attention_rows'))}; bloqueado={int(number('dimension_dossier_blocked_rows'))}",
+        "industry_dimension_dossiers.csv | industry_dimension_value_atlas.csv.gz | industry_dimension_profiles.csv.gz",
+        "Usar dossiês como camada primária do Deep Dive e completar fonte/página onde faltar.",
+        "python scripts/build_fidc_industry_dimension_dossiers.py",
     )
     add(
         "market_share_concentration",
@@ -4394,6 +4593,24 @@ def build_industry_pipeline_index(
     """Build the monthly refresh cockpit for all Industry tab modules."""
 
     module_specs = [
+        {
+            "module_id": "manual_review_ledgers",
+            "label": "Ledgers de revisão manual",
+            "manifest_name": "industry_manual_review_manifest.json",
+            "command": "python scripts/build_fidc_industry_manual_review_ledgers.py",
+            "cadence": "antes da curadoria mensal",
+            "depends_on": ["schemas de revisão manual", "UI de curadoria"],
+            "quality_keys": [
+                "files",
+                "files_present",
+                "files_created",
+                "schema_ok_files",
+                "domains",
+                "action_files",
+                "audit_files",
+                "rows",
+            ],
+        },
         {
             "module_id": "monthly_delta",
             "label": "Delta mensal e fila de curadoria",
@@ -4582,9 +4799,11 @@ def build_industry_pipeline_index(
                 "atlas_latest_competencia",
                 "atlas_values_with_pl",
                 "atlas_values_with_source_document_links",
+                "atlas_values_with_traceability_links",
                 "atlas_values_with_source_document_sample",
                 "atlas_values_with_source_page_sample",
                 "atlas_values_with_confidence",
+                "atlas_traceability_coverage",
             ],
         },
         {
@@ -4607,6 +4826,29 @@ def build_industry_pipeline_index(
                 "heatmap_preset_available",
                 "heatmap_preset_profile_available",
                 "heatmap_preset_status_counts",
+            ],
+        },
+        {
+            "module_id": "dimension_dossiers",
+            "label": "Dossiês dimensionais",
+            "manifest_name": "industry_dimension_dossier_manifest.json",
+            "command": "python scripts/build_fidc_industry_dimension_dossiers.py",
+            "cadence": "após atlas e perfis cruzados",
+            "depends_on": ["séries mensais por dimensão", "perfis cruzados", "registry de heatmaps"],
+            "quality_keys": [
+                "rows",
+                "dimensions",
+                "ok_rows",
+                "attention_rows",
+                "blocked_rows",
+                "atlas_values",
+                "atlas_values_with_pl",
+                "with_profiles",
+                "profile_rows",
+                "heatmap_presets",
+                "heatmap_presets_ok",
+                "traceability_coverage",
+                "source_document_coverage",
             ],
         },
         {
@@ -4633,6 +4875,22 @@ def build_industry_pipeline_index(
     artifact_rows = base_artifacts
     for spec in module_specs:
         module, artifacts = _build_manifest_module(industry_dir=industry_dir, **spec)
+        if spec["module_id"] == "cedentes":
+            manual_artifacts = [
+                _optional_artifact_row("cedentes", "cedente_reviews", industry_dir / "cedente_reviews.csv"),
+                _optional_artifact_row("cedentes", "cedente_review_audit", industry_dir / "cedente_review_audit.csv"),
+            ]
+            artifacts.extend(manual_artifacts)
+            module["artifact_count"] = len(artifacts)
+            module["artifacts_present"] = sum(1 for item in artifacts if item.get("exists") is True)
+        if spec["module_id"] == "criteria":
+            manual_artifacts = [
+                _optional_artifact_row("criteria", "criteria_reviews", industry_dir / "criteria_reviews.csv"),
+                _optional_artifact_row("criteria", "criteria_review_audit", industry_dir / "criteria_review_audit.csv"),
+            ]
+            artifacts.extend(manual_artifacts)
+            module["artifact_count"] = len(artifacts)
+            module["artifacts_present"] = sum(1 for item in artifacts if item.get("exists") is True)
         if spec["module_id"] == "monthly_delta":
             manual_artifacts = [
                 _optional_artifact_row("monthly_delta", "monthly_delta_actions", industry_dir / "monthly_delta_actions.csv"),
@@ -4661,6 +4919,14 @@ def build_industry_pipeline_index(
             artifacts.extend(manual_artifacts)
             module["artifact_count"] = len(artifacts)
             module["artifacts_present"] = sum(1 for item in artifacts if item.get("exists") is True)
+        if spec["module_id"] == "dimension_catalog":
+            manual_artifacts = [
+                _optional_artifact_row("dimension_catalog", "dimension_catalog_gap_actions", industry_dir / "dimension_catalog_gap_actions.csv"),
+                _optional_artifact_row("dimension_catalog", "dimension_catalog_gap_action_audit", industry_dir / "dimension_catalog_gap_action_audit.csv"),
+            ]
+            artifacts.extend(manual_artifacts)
+            module["artifact_count"] = len(artifacts)
+            module["artifacts_present"] = sum(1 for item in artifacts if item.get("exists") is True)
         modules.append(module)
         artifact_rows.extend(artifacts)
 
@@ -4675,6 +4941,14 @@ def build_industry_pipeline_index(
         },
         {
             "order": 2,
+            "module_id": "manual_review_ledgers",
+            "label": "Inicializar ledgers de revisão manual",
+            "command": "python scripts/build_fidc_industry_manual_review_ledgers.py",
+            "reason": "Garante arquivos de ações e auditoria com schema oficial antes de qualquer edição na UI.",
+            "incremental_note": "Cria apenas arquivos ausentes; não cria decisões, aprovações ou eventos artificiais.",
+        },
+        {
+            "order": 3,
             "module_id": "monthly_delta",
             "label": "Gerar delta mensal e fila de curadoria",
             "command": "python scripts/build_fidc_industry_monthly_delta.py",
@@ -4682,7 +4956,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Compara apenas competência snapshot contra a anterior e cruza camadas já materializadas.",
         },
         {
-            "order": 3,
+            "order": 4,
             "module_id": "issuance",
             "label": "Reconciliar emissões/ofertas",
             "command": "python scripts/build_fidc_industry_issuance.py",
@@ -4690,7 +4964,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê o SQLite da Estratégia já estruturado; não depende de Informe Mensal.",
         },
         {
-            "order": 4,
+            "order": 5,
             "module_id": "public_claims",
             "label": "Auditar claims públicos",
             "command": "python scripts/build_fidc_industry_public_claim_audit.py",
@@ -4698,7 +4972,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Rerun leve quando uma nova notícia for adicionada aos specs ou quando base mensal/emissões forem atualizadas.",
         },
         {
-            "order": 5,
+            "order": 6,
             "module_id": "documents",
             "label": "Inventariar documentação pública",
             "command": "python scripts/build_fidc_industry_documents.py",
@@ -4706,7 +4980,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Use --chunk-id doc-0001 para rodar ou depurar lotes sem reprocessar a indústria toda.",
         },
         {
-            "order": 6,
+            "order": 7,
             "module_id": "document_chunk_plan",
             "label": "Atualizar plano operacional de chunks",
             "command": "python scripts/build_fidc_industry_document_chunk_plan.py",
@@ -4714,7 +4988,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Rerun leve quando o usuário muda status/responsável/prazo na aba Documentos > Chunks.",
         },
         {
-            "order": 7,
+            "order": 8,
             "module_id": "cedentes",
             "label": "Regerar base de cedentes/sacados",
             "command": "python scripts/build_fidc_industry_cedentes.py",
@@ -4722,7 +4996,7 @@ def build_industry_pipeline_index(
             "incremental_note": "A curadoria continua sendo feita pela UI e reaplicada pelo overlay persistido.",
         },
         {
-            "order": 8,
+            "order": 9,
             "module_id": "criteria",
             "label": "Regerar critérios e subordinação mínima",
             "command": "python scripts/build_fidc_industry_criteria.py",
@@ -4730,7 +5004,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Revisões feitas pela UI são reaplicadas antes da consolidação.",
         },
         {
-            "order": 9,
+            "order": 10,
             "module_id": "fund_snapshot",
             "label": "Regerar snapshot unificado por FIDC",
             "command": "python scripts/build_fidc_industry_fund_snapshot.py",
@@ -4738,7 +5012,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem.",
         },
         {
-            "order": 10,
+            "order": 11,
             "module_id": "dimension_catalog",
             "label": "Regerar catálogo de dimensões",
             "command": "python scripts/build_fidc_industry_dimensions.py",
@@ -4746,7 +5020,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos.",
         },
         {
-            "order": 11,
+            "order": 12,
             "module_id": "curation_queue",
             "label": "Consolidar fila única de curadoria",
             "command": "python scripts/build_fidc_industry_curation_queue.py",
@@ -4754,7 +5028,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Rerun leve depois de salvar ações manuais na UI ou de regenerar qualquer fila detalhe.",
         },
         {
-            "order": 12,
+            "order": 13,
             "module_id": "dimension_profiles",
             "label": "Regerar perfis cruzados por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_profiles.py",
@@ -4762,7 +5036,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado.",
         },
         {
-            "order": 13,
+            "order": 14,
             "module_id": "dimension_monthly",
             "label": "Regerar séries mensais por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -4770,7 +5044,15 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação.",
         },
         {
-            "order": 14,
+            "order": 15,
+            "module_id": "dimension_dossiers",
+            "label": "Regerar dossiês dimensionais",
+            "command": "python scripts/build_fidc_industry_dimension_dossiers.py",
+            "reason": "Resume cobertura, evidência, perfis e presets de cada dimensão para Deep Dive e auditoria mês a mês.",
+            "incremental_note": "Lê apenas atlas, perfis e registry já materializados; não reprocessa documentos ou informe mensal.",
+        },
+        {
+            "order": 16,
             "module_id": "market_share",
             "label": "Regerar market share e concentração",
             "command": "python scripts/build_fidc_industry_market_share.py",
@@ -4778,7 +5060,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe.",
         },
         {
-            "order": 15,
+            "order": 17,
             "module_id": "pipeline_index",
             "label": "Atualizar cockpit do pipeline",
             "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -4813,6 +5095,7 @@ def build_industry_pipeline_index(
     dimension_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "dimension_catalog"), {})
     dimension_monthly_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "dimension_monthly"), {})
     dimension_profile_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "dimension_profiles"), {})
+    dimension_dossier_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "dimension_dossiers"), {})
     market_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "market_share"), {})
     criteria_manifest = _safe_read_json(industry_dir / "industry_criteria_manifest.json")
     subordination = criteria_manifest.get("quality", {}).get("subordination", {}) if isinstance(criteria_manifest.get("quality"), dict) else {}
@@ -4914,6 +5197,9 @@ def build_industry_pipeline_index(
         "dimension_value_atlas_values_with_source_document_links": dimension_monthly_quality.get(
             "atlas_values_with_source_document_links", 0
         ),
+        "dimension_value_atlas_values_with_traceability_links": dimension_monthly_quality.get(
+            "atlas_values_with_traceability_links", 0
+        ),
         "dimension_value_atlas_values_with_source_document_sample": dimension_monthly_quality.get(
             "atlas_values_with_source_document_sample", 0
         ),
@@ -4921,11 +5207,22 @@ def build_industry_pipeline_index(
             "atlas_values_with_source_page_sample", 0
         ),
         "dimension_value_atlas_values_with_confidence": dimension_monthly_quality.get("atlas_values_with_confidence", 0),
+        "dimension_value_atlas_traceability_coverage": dimension_monthly_quality.get("atlas_traceability_coverage"),
         "dimension_profile_rows": dimension_profile_quality.get("rows", 0),
         "dimension_profile_source_dimensions": dimension_profile_quality.get("source_dimensions", 0),
         "heatmap_preset_rows": dimension_profile_quality.get("heatmap_preset_rows", 0),
         "heatmap_preset_available": dimension_profile_quality.get("heatmap_preset_available", 0),
         "heatmap_preset_profile_available": dimension_profile_quality.get("heatmap_preset_profile_available", 0),
+        "dimension_dossier_rows": dimension_dossier_quality.get("rows", 0),
+        "dimension_dossier_ok_rows": dimension_dossier_quality.get("ok_rows", 0),
+        "dimension_dossier_attention_rows": dimension_dossier_quality.get("attention_rows", 0),
+        "dimension_dossier_blocked_rows": dimension_dossier_quality.get("blocked_rows", 0),
+        "dimension_dossier_atlas_values": dimension_dossier_quality.get("atlas_values", 0),
+        "dimension_dossier_with_profiles": dimension_dossier_quality.get("with_profiles", 0),
+        "dimension_dossier_profile_rows": dimension_dossier_quality.get("profile_rows", 0),
+        "dimension_dossier_heatmap_presets": dimension_dossier_quality.get("heatmap_presets", 0),
+        "dimension_dossier_traceability_coverage": dimension_dossier_quality.get("traceability_coverage"),
+        "dimension_dossier_source_document_coverage": dimension_dossier_quality.get("source_document_coverage"),
         "market_share_rows": market_quality.get("rows", 0),
         "market_share_dimensions": market_quality.get("dimensions", 0),
         "market_share_metrics": market_quality.get("metrics", 0),
@@ -6810,6 +7107,11 @@ def build_industry_dimension_value_atlas(
         "cotistas_equiv_atual",
         "links_catalogo",
         "links_com_fonte",
+        "links_com_metodo",
+        "links_com_camada",
+        "links_com_pagina",
+        "links_com_data",
+        "links_com_score",
         "links_curados",
         "links_ponderados",
     ]:
@@ -6820,6 +7122,11 @@ def build_industry_dimension_value_atlas(
     out["pl_delta_12m_brl"] = out["pl_atual_brl"] - out["pl_12m_antes_brl"]
     out["pl_growth_12m_pct"] = out["pl_delta_12m_brl"] / out["pl_12m_antes_brl"].where(out["pl_12m_antes_brl"].ne(0))
     out["inad_pct_atual"] = out["inad_atual_brl"] / out["carteira_atual_brl"].where(out["carteira_atual_brl"].ne(0))
+    out["traceability_links"] = out[
+        ["links_com_fonte", "links_com_metodo", "links_com_camada", "links_com_pagina", "links_com_data", "links_com_score"]
+    ].max(axis=1)
+    out["traceability_links_capped"] = out[["traceability_links", "links_catalogo"]].min(axis=1)
+    out["traceability_coverage"] = out["traceability_links_capped"] / out["links_catalogo"].where(out["links_catalogo"].ne(0))
     out["evidence_coverage"] = out["links_com_fonte"] / out["links_catalogo"].where(out["links_catalogo"].ne(0))
     out["curated_coverage"] = out["links_curados"] / out["links_catalogo"].where(out["links_catalogo"].ne(0))
     out["weighted_coverage"] = out["links_ponderados"] / out["links_catalogo"].where(out["links_catalogo"].ne(0))
@@ -6863,10 +7170,21 @@ def _dimension_value_atlas_evidence_summary(catalog: pd.DataFrame | None) -> pd.
     frame["cnpj_fundo_norm"] = frame["cnpj_fundo"].map(normalize_cnpj)
     frame["confidence_score_num"] = pd.to_numeric(frame["confidence_score"], errors="coerce")
     frame["priority_2025_2026_bool"] = _boolish_series(frame["priority_2025_2026"])
+    frame["_source_layer_link"] = frame["source_layer"].ne("").astype(int)
+    frame["_source_document_link"] = frame["source_document"].ne("").astype(int)
+    frame["_source_page_link"] = frame["source_page"].ne("").astype(int)
+    frame["_source_method_link"] = frame["source_method"].ne("").astype(int)
+    frame["_source_date_link"] = frame["source_date"].ne("").astype(int)
+    frame["_confidence_score_link"] = frame["confidence_score_num"].notna().astype(int)
     grouped = (
         frame.groupby(keys, dropna=False)
         .agg(
             evidence_funds=("cnpj_fundo_norm", lambda values: int(pd.Series(values).replace("", pd.NA).dropna().nunique())),
+            links_com_camada=("_source_layer_link", "sum"),
+            links_com_pagina=("_source_page_link", "sum"),
+            links_com_metodo=("_source_method_link", "sum"),
+            links_com_data=("_source_date_link", "sum"),
+            links_com_score=("_confidence_score_link", "sum"),
             source_layers=("source_layer", lambda values: _join_unique(values, limit=5)),
             source_documents_sample=("source_document", lambda values: _join_unique(values, limit=5)),
             source_pages_sample=("source_page", lambda values: _join_unique(values, limit=5)),
@@ -6904,6 +7222,11 @@ def industry_dimension_value_atlas_quality_summary(atlas: pd.DataFrame) -> dict[
         )
         if "links_com_fonte" in frame
         else 0,
+        "values_with_traceability_links": int(
+            pd.to_numeric(frame.get("traceability_coverage"), errors="coerce").fillna(0).gt(0).sum()
+        )
+        if "traceability_coverage" in frame
+        else 0,
         "values_with_source_document_sample": int(
             frame.get("source_documents_sample", pd.Series("", index=frame.index)).fillna("").astype(str).str.strip().ne("").sum()
         )
@@ -6920,6 +7243,9 @@ def industry_dimension_value_atlas_quality_summary(atlas: pd.DataFrame) -> dict[
         "with_source_document_links": int(pd.to_numeric(frame.get("links_com_fonte"), errors="coerce").fillna(0).sum())
         if "links_com_fonte" in frame
         else 0,
+        "traceability_coverage": _json_float(pd.to_numeric(frame.get("traceability_coverage"), errors="coerce").mean())
+        if "traceability_coverage" in frame
+        else None,
         "top_rank_score": _json_float(pd.to_numeric(frame.get("rank_score"), errors="coerce").fillna(0).max())
         if "rank_score" in frame
         else None,
@@ -7212,6 +7538,391 @@ def industry_dimension_profile_quality_summary(profiles: pd.DataFrame) -> dict[s
     }
 
 
+def _dimension_label_lookup(
+    atlas: pd.DataFrame | None,
+    profiles: pd.DataFrame | None,
+    heatmap_registry: pd.DataFrame | None,
+) -> dict[str, str]:
+    labels: dict[str, str] = {}
+    if atlas is not None and not atlas.empty and {"dimension_id", "dimension_label"}.issubset(atlas.columns):
+        for _, row in atlas[["dimension_id", "dimension_label"]].drop_duplicates().iterrows():
+            dim_id = str(row.get("dimension_id", "") or "").strip()
+            label = str(row.get("dimension_label", "") or "").strip()
+            if dim_id and label and dim_id not in labels:
+                labels[dim_id] = label
+    if profiles is not None and not profiles.empty:
+        for id_col, label_col in [
+            ("source_dimension_id", "source_dimension_label"),
+            ("target_dimension_id", "target_dimension_label"),
+        ]:
+            if {id_col, label_col}.issubset(profiles.columns):
+                for _, row in profiles[[id_col, label_col]].drop_duplicates().iterrows():
+                    dim_id = str(row.get(id_col, "") or "").strip()
+                    label = str(row.get(label_col, "") or "").strip()
+                    if dim_id and label and dim_id not in labels:
+                        labels[dim_id] = label
+    if heatmap_registry is not None and not heatmap_registry.empty:
+        for id_col, label_col in [
+            ("row_dimension_id", "row_dimension_label"),
+            ("col_dimension_id", "col_dimension_label"),
+        ]:
+            if {id_col, label_col}.issubset(heatmap_registry.columns):
+                for _, row in heatmap_registry[[id_col, label_col]].drop_duplicates().iterrows():
+                    dim_id = str(row.get(id_col, "") or "").strip()
+                    label = str(row.get(label_col, "") or "").strip()
+                    if dim_id and label and dim_id not in labels:
+                        labels[dim_id] = label
+    return labels
+
+
+def build_industry_dimension_dossiers(
+    *,
+    atlas: pd.DataFrame,
+    profiles: pd.DataFrame | None = None,
+    heatmap_registry: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    """Summarize Deep Dive readiness by reusable structured dimension."""
+
+    atlas_frame = pd.DataFrame() if atlas is None else atlas.copy()
+    profile_frame = pd.DataFrame() if profiles is None else profiles.copy()
+    registry_frame = pd.DataFrame() if heatmap_registry is None else heatmap_registry.copy()
+    labels = _dimension_label_lookup(atlas_frame, profile_frame, registry_frame)
+    dimension_ids: set[str] = set(labels)
+    if not atlas_frame.empty and "dimension_id" in atlas_frame.columns:
+        dimension_ids.update(value for value in atlas_frame["dimension_id"].fillna("").astype(str).str.strip() if value)
+    if not profile_frame.empty and "source_dimension_id" in profile_frame.columns:
+        dimension_ids.update(value for value in profile_frame["source_dimension_id"].fillna("").astype(str).str.strip() if value)
+    if not registry_frame.empty:
+        for col in ["row_dimension_id", "col_dimension_id"]:
+            if col in registry_frame.columns:
+                dimension_ids.update(value for value in registry_frame[col].fillna("").astype(str).str.strip() if value)
+    if not dimension_ids:
+        return pd.DataFrame(columns=DIMENSION_DOSSIER_COLUMNS)
+
+    atlas_required = {"dimension_id", "dimension_value"}
+    if not atlas_frame.empty and atlas_required.issubset(atlas_frame.columns):
+        for col in [
+            "pl_atual_brl",
+            "captacao_12m_brl",
+            "fundos_atuais",
+            "veiculos_atuais",
+            "links_catalogo",
+            "links_com_fonte",
+            "links_com_metodo",
+            "links_com_camada",
+            "links_com_pagina",
+            "links_com_data",
+            "links_com_score",
+            "links_curados",
+            "links_ponderados",
+            "avg_confidence_score",
+            "priority_2025_2026_links",
+            "rank_score",
+        ]:
+            if col not in atlas_frame.columns:
+                atlas_frame[col] = 0.0
+            atlas_frame[col] = pd.to_numeric(atlas_frame[col], errors="coerce").fillna(0.0)
+        for col in [
+            "dimension_label",
+            "competencia_atual",
+            "source_documents_sample",
+            "source_pages_sample",
+            "source_methods_sample",
+            "review_status_mix",
+        ]:
+            if col not in atlas_frame.columns:
+                atlas_frame[col] = ""
+            atlas_frame[col] = atlas_frame[col].fillna("").astype(str)
+        atlas_frame["dimension_id"] = atlas_frame["dimension_id"].fillna("").astype(str).str.strip()
+        atlas_frame["dimension_value"] = atlas_frame["dimension_value"].fillna("").astype(str).str.strip()
+    else:
+        atlas_frame = pd.DataFrame()
+
+    if not profile_frame.empty and "source_dimension_id" in profile_frame.columns:
+        for col in [
+            "catalog_links",
+            "source_document_links",
+            "curated_links",
+            "weighted_links",
+            "avg_confidence_score",
+        ]:
+            if col not in profile_frame.columns:
+                profile_frame[col] = 0.0
+            profile_frame[col] = pd.to_numeric(profile_frame[col], errors="coerce").fillna(0.0)
+        for col in ["source_dimension_id", "target_dimension_id", "target_dimension_value"]:
+            if col not in profile_frame.columns:
+                profile_frame[col] = ""
+            profile_frame[col] = profile_frame[col].fillna("").astype(str).str.strip()
+    else:
+        profile_frame = pd.DataFrame()
+
+    if not registry_frame.empty:
+        for col in ["row_dimension_id", "col_dimension_id", "preset_label"]:
+            if col not in registry_frame.columns:
+                registry_frame[col] = ""
+            registry_frame[col] = registry_frame[col].fillna("").astype(str).str.strip()
+        if "profile_available" not in registry_frame.columns:
+            registry_frame["profile_available"] = False
+        registry_frame["_profile_available_bool"] = _boolish_series(registry_frame["profile_available"])
+
+    rows: list[dict[str, object]] = []
+    for dim_id in sorted(dimension_ids):
+        dim_atlas = (
+            atlas_frame[atlas_frame["dimension_id"].astype(str).eq(dim_id)].copy()
+            if not atlas_frame.empty
+            else pd.DataFrame()
+        )
+        label = labels.get(dim_id, dim_id)
+        if not dim_atlas.empty:
+            label = _first_non_empty(dim_atlas.get("dimension_label", pd.Series(dtype=str))) or label
+            sort_cols = [col for col in ["rank_score", "pl_atual_brl", "dimension_value"] if col in dim_atlas.columns]
+            if sort_cols:
+                dim_atlas = dim_atlas.sort_values(
+                    sort_cols,
+                    ascending=[False if col != "dimension_value" else True for col in sort_cols],
+                )
+            top_20 = dim_atlas.head(20)
+            links_catalogo = float(pd.to_numeric(dim_atlas.get("links_catalogo"), errors="coerce").fillna(0.0).sum())
+            links_com_fonte = float(pd.to_numeric(dim_atlas.get("links_com_fonte"), errors="coerce").fillna(0.0).sum())
+            links_com_metodo = float(pd.to_numeric(dim_atlas.get("links_com_metodo"), errors="coerce").fillna(0.0).sum())
+            links_com_camada = float(pd.to_numeric(dim_atlas.get("links_com_camada"), errors="coerce").fillna(0.0).sum())
+            links_com_pagina = float(pd.to_numeric(dim_atlas.get("links_com_pagina"), errors="coerce").fillna(0.0).sum())
+            links_com_data = float(pd.to_numeric(dim_atlas.get("links_com_data"), errors="coerce").fillna(0.0).sum())
+            links_com_score = float(pd.to_numeric(dim_atlas.get("links_com_score"), errors="coerce").fillna(0.0).sum())
+            links_curados = float(pd.to_numeric(dim_atlas.get("links_curados"), errors="coerce").fillna(0.0).sum())
+            links_ponderados = float(pd.to_numeric(dim_atlas.get("links_ponderados"), errors="coerce").fillna(0.0).sum())
+            traceability_parts = dim_atlas[
+                [
+                    "links_com_fonte",
+                    "links_com_metodo",
+                    "links_com_camada",
+                    "links_com_pagina",
+                    "links_com_data",
+                    "links_com_score",
+                ]
+            ].copy()
+            traceability_by_value = traceability_parts.max(axis=1)
+            catalog_by_value = pd.to_numeric(dim_atlas.get("links_catalogo"), errors="coerce").fillna(0.0)
+            traceability_links = float(pd.concat([traceability_by_value, catalog_by_value], axis=1).min(axis=1).sum())
+            atlas_values = int(dim_atlas["dimension_value"].nunique())
+            atlas_values_with_pl = int(pd.to_numeric(dim_atlas.get("pl_atual_brl"), errors="coerce").fillna(0).gt(0).sum())
+            source_document_coverage = links_com_fonte / links_catalogo if links_catalogo else None
+            traceability_coverage = traceability_links / links_catalogo if links_catalogo else None
+            curated_coverage = links_curados / links_catalogo if links_catalogo else None
+            weighted_coverage = links_ponderados / links_catalogo if links_catalogo else None
+            avg_confidence = _json_float(pd.to_numeric(dim_atlas.get("avg_confidence_score"), errors="coerce").mean())
+        else:
+            top_20 = pd.DataFrame()
+            links_catalogo = links_com_fonte = links_com_metodo = links_com_camada = 0.0
+            links_com_pagina = links_com_data = links_com_score = 0.0
+            traceability_links = links_curados = links_ponderados = 0.0
+            atlas_values = atlas_values_with_pl = 0
+            source_document_coverage = traceability_coverage = curated_coverage = weighted_coverage = None
+            avg_confidence = None
+
+        dim_profiles = (
+            profile_frame[profile_frame["source_dimension_id"].astype(str).eq(dim_id)].copy()
+            if not profile_frame.empty
+            else pd.DataFrame()
+        )
+        profile_links = float(pd.to_numeric(dim_profiles.get("catalog_links"), errors="coerce").fillna(0.0).sum()) if not dim_profiles.empty else 0.0
+        profile_source_document_links = (
+            float(pd.to_numeric(dim_profiles.get("source_document_links"), errors="coerce").fillna(0.0).sum())
+            if not dim_profiles.empty
+            else 0.0
+        )
+        profile_curated_links = (
+            float(pd.to_numeric(dim_profiles.get("curated_links"), errors="coerce").fillna(0.0).sum())
+            if not dim_profiles.empty
+            else 0.0
+        )
+        profile_weighted_links = (
+            float(pd.to_numeric(dim_profiles.get("weighted_links"), errors="coerce").fillna(0.0).sum())
+            if not dim_profiles.empty
+            else 0.0
+        )
+
+        if not registry_frame.empty:
+            dim_registry = registry_frame[
+                registry_frame["row_dimension_id"].astype(str).eq(dim_id)
+                | registry_frame["col_dimension_id"].astype(str).eq(dim_id)
+            ].copy()
+        else:
+            dim_registry = pd.DataFrame()
+        heatmap_presets = int(len(dim_registry))
+        heatmap_presets_ok = (
+            int(dim_registry.get("_profile_available_bool", pd.Series(False, index=dim_registry.index)).sum())
+            if not dim_registry.empty
+            else 0
+        )
+
+        reasons = []
+        if atlas_values == 0:
+            reasons.append("sem atlas mensal")
+        if atlas_values_with_pl == 0:
+            reasons.append("sem PL atual")
+        if profile_links == 0:
+            reasons.append("sem perfil cruzado")
+        if links_catalogo and (traceability_coverage or 0.0) < 0.5:
+            reasons.append("baixa rastreabilidade")
+        if heatmap_presets and heatmap_presets_ok == 0:
+            reasons.append("presets sem perfil")
+        status = "bloqueado" if atlas_values == 0 else ("atenção" if reasons else "ok")
+
+        rows.append(
+            {
+                "dimension_id": dim_id,
+                "dimension_label": label,
+                "status_dossie": status,
+                "status_reasons": " | ".join(reasons),
+                "latest_competencia": _first_non_empty(dim_atlas.get("competencia_atual", pd.Series(dtype=str))) if not dim_atlas.empty else "",
+                "atlas_values": atlas_values,
+                "atlas_values_with_pl": atlas_values_with_pl,
+                "top_values_sample": _join_unique(top_20.get("dimension_value", pd.Series(dtype=str)), limit=10) if not top_20.empty else "",
+                "pl_total_atual_brl": float(pd.to_numeric(dim_atlas.get("pl_atual_brl"), errors="coerce").fillna(0.0).sum()) if not dim_atlas.empty else 0.0,
+                "pl_top_20_brl": float(pd.to_numeric(top_20.get("pl_atual_brl"), errors="coerce").fillna(0.0).sum()) if not top_20.empty else 0.0,
+                "captacao_12m_top_20_brl": float(pd.to_numeric(top_20.get("captacao_12m_brl"), errors="coerce").fillna(0.0).sum()) if not top_20.empty else 0.0,
+                "fundos_atuais_total": float(pd.to_numeric(dim_atlas.get("fundos_atuais"), errors="coerce").fillna(0.0).sum()) if not dim_atlas.empty else 0.0,
+                "veiculos_atuais_total": float(pd.to_numeric(dim_atlas.get("veiculos_atuais"), errors="coerce").fillna(0.0).sum()) if not dim_atlas.empty else 0.0,
+                "links_catalogo": links_catalogo,
+                "links_com_fonte": links_com_fonte,
+                "source_document_coverage": source_document_coverage,
+                "links_com_metodo": links_com_metodo,
+                "links_com_camada": links_com_camada,
+                "traceability_links": traceability_links,
+                "traceability_coverage": traceability_coverage,
+                "links_curados": links_curados,
+                "curated_coverage": curated_coverage,
+                "links_ponderados": links_ponderados,
+                "weighted_coverage": weighted_coverage,
+                "avg_confidence_score": avg_confidence,
+                "source_documents_sample": _join_unique(dim_atlas.get("source_documents_sample", pd.Series(dtype=str)), limit=8) if not dim_atlas.empty else "",
+                "source_pages_sample": _join_unique(dim_atlas.get("source_pages_sample", pd.Series(dtype=str)), limit=8) if not dim_atlas.empty else "",
+                "source_methods_sample": _join_unique(dim_atlas.get("source_methods_sample", pd.Series(dtype=str)), limit=8) if not dim_atlas.empty else "",
+                "review_status_mix": _join_unique(dim_atlas.get("review_status_mix", pd.Series(dtype=str)), limit=8) if not dim_atlas.empty else "",
+                "priority_2025_2026_links": float(pd.to_numeric(dim_atlas.get("priority_2025_2026_links"), errors="coerce").fillna(0.0).sum()) if not dim_atlas.empty else 0.0,
+                "profile_rows": int(len(dim_profiles)),
+                "profile_target_dimensions": int(dim_profiles["target_dimension_id"].nunique()) if not dim_profiles.empty else 0,
+                "profile_target_values": int(dim_profiles["target_dimension_value"].nunique()) if not dim_profiles.empty else 0,
+                "profile_links": profile_links,
+                "profile_source_document_links": profile_source_document_links,
+                "profile_curated_links": profile_curated_links,
+                "profile_weighted_links": profile_weighted_links,
+                "profile_avg_confidence_score": _json_float(pd.to_numeric(dim_profiles.get("avg_confidence_score"), errors="coerce").mean()) if not dim_profiles.empty else None,
+                "heatmap_presets": heatmap_presets,
+                "heatmap_presets_ok": heatmap_presets_ok,
+                "heatmap_preset_labels_sample": _join_unique(dim_registry.get("preset_label", pd.Series(dtype=str)), limit=8) if not dim_registry.empty else "",
+                "source_artifacts": "industry_dimension_value_atlas.csv.gz | industry_dimension_profiles.csv.gz | industry_heatmap_registry.csv",
+                "source_method": "dimension_dossier",
+                "rerun_command": "python scripts/build_fidc_industry_dimension_dossiers.py",
+            }
+        )
+
+    frame = pd.DataFrame(rows)
+    for col in DIMENSION_DOSSIER_COLUMNS:
+        if col not in frame.columns:
+            frame[col] = ""
+    status_order = {"bloqueado": 0, "atenção": 1, "ok": 2}
+    frame["_status_order"] = frame["status_dossie"].map(status_order).fillna(9)
+    frame["pl_total_atual_brl"] = pd.to_numeric(frame["pl_total_atual_brl"], errors="coerce").fillna(0.0)
+    frame = frame.sort_values(["_status_order", "pl_total_atual_brl", "dimension_label"], ascending=[True, False, True])
+    return frame.drop(columns=["_status_order"])[DIMENSION_DOSSIER_COLUMNS].reset_index(drop=True)
+
+
+def industry_dimension_dossier_quality_summary(dossiers: pd.DataFrame) -> dict[str, object]:
+    if dossiers is None or dossiers.empty:
+        return {
+            "rows": 0,
+            "ok_rows": 0,
+            "attention_rows": 0,
+            "blocked_rows": 0,
+            "dimensions": 0,
+        }
+    frame = dossiers.copy()
+    status = frame.get("status_dossie", pd.Series("", index=frame.index)).fillna("").astype(str)
+    links = pd.to_numeric(frame.get("links_catalogo"), errors="coerce").fillna(0.0)
+    source_links = pd.to_numeric(frame.get("links_com_fonte"), errors="coerce").fillna(0.0)
+    traceability_links = pd.to_numeric(frame.get("traceability_links"), errors="coerce").fillna(0.0)
+    return {
+        "rows": int(len(frame)),
+        "dimensions": int(frame["dimension_id"].nunique()) if "dimension_id" in frame else int(len(frame)),
+        "ok_rows": int(status.eq("ok").sum()),
+        "attention_rows": int(status.eq("atenção").sum()),
+        "blocked_rows": int(status.eq("bloqueado").sum()),
+        "atlas_values": int(pd.to_numeric(frame.get("atlas_values"), errors="coerce").fillna(0).sum()),
+        "atlas_values_with_pl": int(pd.to_numeric(frame.get("atlas_values_with_pl"), errors="coerce").fillna(0).sum()),
+        "profile_rows": int(pd.to_numeric(frame.get("profile_rows"), errors="coerce").fillna(0).sum()),
+        "profile_links": int(pd.to_numeric(frame.get("profile_links"), errors="coerce").fillna(0).sum()),
+        "with_profiles": int(pd.to_numeric(frame.get("profile_rows"), errors="coerce").fillna(0).gt(0).sum()),
+        "heatmap_presets": int(pd.to_numeric(frame.get("heatmap_presets"), errors="coerce").fillna(0).sum()),
+        "heatmap_presets_ok": int(pd.to_numeric(frame.get("heatmap_presets_ok"), errors="coerce").fillna(0).sum()),
+        "source_document_coverage": _json_float(source_links.sum() / links.sum()) if links.sum() else None,
+        "traceability_coverage": _json_float(traceability_links.sum() / links.sum()) if links.sum() else None,
+    }
+
+
+def build_dimension_dossier_pipeline_manifest(
+    *,
+    industry_dir: Path,
+    atlas_path: Path,
+    profiles_path: Path,
+    heatmap_registry_path: Path,
+    output_path: Path,
+    manifest_path: Path,
+    atlas: pd.DataFrame,
+    profiles: pd.DataFrame,
+    heatmap_registry: pd.DataFrame,
+    dossiers: pd.DataFrame,
+) -> dict[str, object]:
+    quality = industry_dimension_dossier_quality_summary(dossiers)
+    return {
+        "schema_version": "industry-dimension-dossier-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_dimension_dossiers",
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "macbook_air_m4_friendly": True,
+            "notes": [
+                "Resume cada dimensao estruturada em um dossie reutilizavel para Deep Dive e auditoria publica.",
+                "Nao le documentos brutos; consome apenas atlas, perfis e registry de heatmaps ja materializados.",
+                "A UI pode atualizar mensalmente lendo este CSV sem joins pesados no momento da interacao.",
+            ],
+        },
+        "inputs": {
+            "dimension_value_atlas": file_fingerprint(atlas_path),
+            "dimension_profiles": file_fingerprint(profiles_path),
+            "heatmap_registry": file_fingerprint(heatmap_registry_path),
+        },
+        "outputs": {
+            "dimension_dossiers": file_fingerprint(output_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "load_dimension_layers",
+                "label": "Carregar camadas dimensionais",
+                "status": "ok" if not atlas.empty and not profiles.empty else "empty",
+                "input": f"{atlas_path}+{profiles_path}+{heatmap_registry_path}",
+                "output": "memoria:atlas+profiles+heatmap_registry",
+                "rows": int(len(atlas) + len(profiles) + len(heatmap_registry)),
+                "rerun": "python scripts/build_fidc_industry_dimension_monthly.py && python scripts/build_fidc_industry_dimension_profiles.py",
+            },
+            {
+                "id": "summarize_dimension_dossiers",
+                "label": "Materializar dossiês por dimensão",
+                "status": "ok" if not dossiers.empty else "empty",
+                "input": "memoria:atlas+profiles+heatmap_registry",
+                "output": str(output_path),
+                "rows": int(len(dossiers)),
+                "ok_rows": quality.get("ok_rows", 0),
+                "rerun": "python scripts/build_fidc_industry_dimension_dossiers.py",
+            },
+        ],
+        "quality": quality,
+    }
+
+
 def build_dimension_profile_pipeline_manifest(
     *,
     industry_dir: Path,
@@ -7345,10 +8056,12 @@ def build_dimension_monthly_pipeline_manifest(
             "atlas_latest_competencia": atlas_quality.get("latest_competencia", ""),
             "atlas_values_with_pl": atlas_quality.get("values_with_pl", 0),
             "atlas_values_with_source_document_links": atlas_quality.get("values_with_source_document_links", 0),
+            "atlas_values_with_traceability_links": atlas_quality.get("values_with_traceability_links", 0),
             "atlas_values_with_source_document_sample": atlas_quality.get("values_with_source_document_sample", 0),
             "atlas_values_with_source_page_sample": atlas_quality.get("values_with_source_page_sample", 0),
             "atlas_values_with_confidence": atlas_quality.get("values_with_confidence", 0),
             "atlas_source_document_links": atlas_quality.get("with_source_document_links", 0),
+            "atlas_traceability_coverage": atlas_quality.get("traceability_coverage"),
         }
     )
     outputs = {

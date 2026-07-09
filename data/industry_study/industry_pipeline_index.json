@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-index/v1",
-  "generated_at_utc": "2026-07-09T13:40:54+00:00",
+  "generated_at_utc": "2026-07-09T14:17:02+00:00",
   "pipeline": "industry_monthly_refresh",
   "industry_dir": "data/industry_study",
   "output_path": "data/industry_study/industry_pipeline_index.json",
@@ -16,20 +16,20 @@
     ]
   },
   "quality_rollup": {
-    "modules_total": 13,
+    "modules_total": 15,
     "module_status_counts": {
-      "ok": 13
+      "ok": 15
     },
-    "artifacts_total": 40,
-    "artifacts_present": 40,
+    "artifacts_total": 55,
+    "artifacts_present": 55,
     "artifacts_missing": 0,
-    "optional_artifacts_total": 44,
-    "optional_artifacts_present": 36,
-    "optional_artifacts_missing": 8,
-    "manual_review_artifacts_total": 6,
-    "manual_review_artifacts_present": 1,
-    "manual_review_artifacts_missing": 5,
-    "latest_module_generated_at_utc": "2026-07-09T13:40:53+00:00",
+    "optional_artifacts_total": 53,
+    "optional_artifacts_present": 53,
+    "optional_artifacts_missing": 0,
+    "manual_review_artifacts_total": 12,
+    "manual_review_artifacts_present": 12,
+    "manual_review_artifacts_missing": 0,
+    "latest_module_generated_at_utc": "2026-07-09T14:17:01+00:00",
     "competencia_final": "202606",
     "competencia_snapshot": "202605",
     "monthly_delta_rows": 4279,
@@ -83,27 +83,39 @@
     "dimension_value_atlas_latest_competencia": "2026-06",
     "dimension_value_atlas_values_with_pl": 329,
     "dimension_value_atlas_values_with_source_document_links": 109,
+    "dimension_value_atlas_values_with_traceability_links": 343,
     "dimension_value_atlas_values_with_source_document_sample": 109,
     "dimension_value_atlas_values_with_source_page_sample": 12,
     "dimension_value_atlas_values_with_confidence": 73,
+    "dimension_value_atlas_traceability_coverage": 1.0,
     "dimension_profile_rows": 58253,
     "dimension_profile_source_dimensions": 28,
     "heatmap_preset_rows": 11,
     "heatmap_preset_available": 11,
     "heatmap_preset_profile_available": 11,
+    "dimension_dossier_rows": 28,
+    "dimension_dossier_ok_rows": 28,
+    "dimension_dossier_attention_rows": 0,
+    "dimension_dossier_blocked_rows": 0,
+    "dimension_dossier_atlas_values": 343,
+    "dimension_dossier_with_profiles": 28,
+    "dimension_dossier_profile_rows": 58253,
+    "dimension_dossier_heatmap_presets": 22,
+    "dimension_dossier_traceability_coverage": 1.0,
+    "dimension_dossier_source_document_coverage": 0.10434782608695652,
     "market_share_rows": 3900,
     "market_share_dimensions": 15,
     "market_share_metrics": 6,
     "prd_requirements_total": 12,
     "prd_status_counts": {
-      "atenção": 4,
-      "ok": 8
+      "atenção": 3,
+      "ok": 9
     },
-    "monthly_update_plan_rows": 15,
+    "monthly_update_plan_rows": 17,
     "monthly_update_plan_status_counts": {
-      "bloqueado": 9,
-      "ok": 1,
-      "atenção": 5
+      "bloqueado": 10,
+      "ok": 3,
+      "atenção": 4
     },
     "manual_review_domains_total": 6,
     "manual_review_domains_with_actions": 0,
@@ -153,18 +165,6 @@
       "comando": "python scripts/build_fidc_industry_curation_queue.py"
     },
     {
-      "check_id": "artifact_presence",
-      "ordem": 3,
-      "frente": "Artefatos",
-      "escopo": "Arquivos obrigatórios e opcionais",
-      "status_prontidao": "atenção",
-      "pendencias": 8,
-      "amostra": "monthly_delta · monthly_delta_action_audit | curation_queue · snapshot_gap_actions | curation_queue · catalog_gap_actions | curation_queue · document_chunk_actions",
-      "acao_sugerida": "Gerar arquivos ausentes; opcionais indicam histórico de revisão ainda não iniciado.",
-      "fonte": "artifact_index",
-      "comando": ""
-    },
-    {
       "check_id": "document_chunk_processing",
       "ordem": 6,
       "frente": "Documentos",
@@ -199,6 +199,18 @@
       "acao_sugerida": "Rodar os comandos dos módulos pendentes antes de fechar a competência.",
       "fonte": "modules",
       "comando": ""
+    },
+    {
+      "check_id": "artifact_presence",
+      "ordem": 3,
+      "frente": "Artefatos",
+      "escopo": "Arquivos obrigatórios e opcionais",
+      "status_prontidao": "ok",
+      "pendencias": 0,
+      "amostra": "",
+      "acao_sugerida": "Gerar arquivos ausentes; opcionais indicam histórico de revisão ainda não iniciado.",
+      "fonte": "artifact_index",
+      "comando": ""
     }
   ],
   "prd_coverage": [
@@ -213,18 +225,6 @@
       "artefato": "document_chunk_plan.csv",
       "proximo_passo": "Fechar ou justificar chunks abertos antes de depender da extração documental.",
       "comando": "python scripts/build_fidc_industry_documents.py && python scripts/build_fidc_industry_document_chunk_plan.py"
-    },
-    {
-      "requirement_id": "manual_review_in_app",
-      "ordem": 3,
-      "tema": "Revisão manual",
-      "requisito": "Curadoria pela interface com persistência e histórico",
-      "status_prd": "atenção",
-      "evidencia": "1/6 artefatos de revisão/histórico presentes; fila única 75116 linhas",
-      "metrica": "manual_artifacts=1/6",
-      "artefato": "monthly_delta_actions.csv | document_chunk_actions.csv | snapshot_gap_actions.csv",
-      "proximo_passo": "Usar a fila única e as mesas específicas para registrar decisões e auditoria.",
-      "comando": "python scripts/build_fidc_industry_curation_queue.py"
     },
     {
       "requirement_id": "incremental_monthly_update",
@@ -256,11 +256,23 @@
       "tema": "Arquitetura",
       "requisito": "Pipeline modular com etapas reexecutáveis e artefatos persistidos",
       "status_prd": "ok",
-      "evidencia": "13/13 módulos ok; 40/40 artefatos obrigatórios presentes",
-      "metrica": "refresh_plan=15",
+      "evidencia": "15/15 módulos ok; 55/55 artefatos obrigatórios presentes",
+      "metrica": "refresh_plan=17",
       "artefato": "industry_pipeline_index.json",
       "proximo_passo": "Rodar módulos não-ok ou gerar artefatos obrigatórios ausentes.",
       "comando": "python scripts/build_fidc_industry_pipeline_index.py"
+    },
+    {
+      "requirement_id": "manual_review_in_app",
+      "ordem": 3,
+      "tema": "Revisão manual",
+      "requisito": "Curadoria pela interface com persistência e histórico",
+      "status_prd": "ok",
+      "evidencia": "12/12 artefatos de revisão/histórico presentes; fila única 75116 linhas",
+      "metrica": "manual_artifacts=12/12",
+      "artefato": "cedente_reviews.csv | criteria_reviews.csv | monthly_delta_actions.csv | document_chunk_actions.csv | snapshot_gap_actions.csv | dimension_catalog_gap_actions.csv",
+      "proximo_passo": "Inicializar ledgers ausentes e usar a fila única e as mesas específicas para registrar decisões e auditoria.",
+      "comando": "python scripts/build_fidc_industry_manual_review_ledgers.py && python scripts/build_fidc_industry_curation_queue.py"
     },
     {
       "requirement_id": "fic_fidc_pl_overlay",
@@ -326,13 +338,13 @@
       "requirement_id": "deep_dive_reusable",
       "ordem": 9,
       "tema": "Deep Dive",
-      "requisito": "Análises por qualquer dimensão reutilizando catálogo, atlas e perfis",
+      "requisito": "Análises por qualquer dimensão reutilizando catálogo, atlas, perfis e dossiês",
       "status_prd": "ok",
-      "evidencia": "343 valores no atlas; 58253 células de perfil",
-      "metrica": "atlas_dimensions=28; profile_dimensions=28",
-      "artefato": "industry_dimension_value_atlas.csv.gz | industry_dimension_profiles.csv.gz",
-      "proximo_passo": "Usar o atlas como entrada primária do Deep Dive e completar fonte/página onde faltar.",
-      "comando": "python scripts/build_fidc_industry_dimension_monthly.py && python scripts/build_fidc_industry_dimension_profiles.py"
+      "evidencia": "28 dossiês; 343 valores no atlas; 58253 células de perfil",
+      "metrica": "ok=28; atenção=0; bloqueado=0",
+      "artefato": "industry_dimension_dossiers.csv | industry_dimension_value_atlas.csv.gz | industry_dimension_profiles.csv.gz",
+      "proximo_passo": "Usar dossiês como camada primária do Deep Dive e completar fonte/página onde faltar.",
+      "comando": "python scripts/build_fidc_industry_dimension_dossiers.py"
     },
     {
       "requirement_id": "market_share_concentration",
@@ -370,8 +382,29 @@
       "incrementalidade": "Baixa/usa apenas competências necessárias e materializa CSVs por veículo x competência."
     },
     {
-      "plan_id": "02_monthly_delta",
+      "plan_id": "02_manual_review_ledgers",
       "order": 2,
+      "fase": "Informe mensal e delta",
+      "module_id": "manual_review_ledgers",
+      "etapa": "Inicializar ledgers de revisão manual",
+      "competencia_referencia": "202605",
+      "status_modulo": "ok",
+      "status_prontidao": "ok",
+      "bloqueios_ou_atencoes": "",
+      "acao_antes_de_rodar": "Rodar ou validar a etapa e seguir para a próxima ordem.",
+      "comando": "python scripts/build_fidc_industry_manual_review_ledgers.py",
+      "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
+      "entradas": "schemas de revisão manual | UI de curadoria",
+      "saidas": "manifest | cedente_review_actions | cedente_review_audit | criteria_review_actions | criteria_review_audit | monthly_delta_action_actions",
+      "evidencia_atual": "files=12 · files_present=12 · files_created=0 · schema_ok_files=12 · domains=6 · action_files=6",
+      "artefatos": "13/13",
+      "gerado_em_utc": "2026-07-09T14:17:01+00:00",
+      "motivo": "Garante arquivos de ações e auditoria com schema oficial antes de qualquer edição na UI.",
+      "incrementalidade": "Cria apenas arquivos ausentes; não cria decisões, aprovações ou eventos artificiais."
+    },
+    {
+      "plan_id": "03_monthly_delta",
+      "order": 3,
       "fase": "Informe mensal e delta",
       "module_id": "monthly_delta",
       "etapa": "Gerar delta mensal e fila de curadoria",
@@ -385,14 +418,14 @@
       "entradas": "base granular mensal | snapshot unificado por FIDC",
       "saidas": "monthly_delta | manifest",
       "evidencia_atual": "rows=4279 · competencia_atual=2026-05 · competencia_anterior=2026-04 · new_funds=63 · reactivated_funds=8 · exited_funds=60",
-      "artefatos": "7/8",
+      "artefatos": "8/8",
       "gerado_em_utc": "2026-07-08T17:26:43+00:00",
       "motivo": "Identifica FIDCs novos, reativados ou ausentes e aponta lacunas de documentos, cedentes, critérios e subordinação.",
       "incrementalidade": "Compara apenas competência snapshot contra a anterior e cruza camadas já materializadas."
     },
     {
-      "plan_id": "03_issuance",
-      "order": 3,
+      "plan_id": "04_issuance",
+      "order": 4,
       "fase": "Documentos e ofertas",
       "module_id": "issuance",
       "etapa": "Reconciliar emissões/ofertas",
@@ -412,8 +445,8 @@
       "incrementalidade": "Lê o SQLite da Estratégia já estruturado; não depende de Informe Mensal."
     },
     {
-      "plan_id": "04_public_claims",
-      "order": 4,
+      "plan_id": "05_public_claims",
+      "order": 5,
       "fase": "Documentos e ofertas",
       "module_id": "public_claims",
       "etapa": "Auditar claims públicos",
@@ -433,8 +466,8 @@
       "incrementalidade": "Rerun leve quando uma nova notícia for adicionada aos specs ou quando base mensal/emissões forem atualizadas."
     },
     {
-      "plan_id": "05_documents",
-      "order": 5,
+      "plan_id": "06_documents",
+      "order": 6,
       "fase": "Documentos e ofertas",
       "module_id": "documents",
       "etapa": "Inventariar documentação pública",
@@ -448,15 +481,15 @@
       "entradas": "SQLite da aba Estratégia | data/regulatory_extractions",
       "saidas": "document_inventory | document_processing_chunks | manifest | document_chunk_plan",
       "evidencia_atual": "document_rows=3521 · funds=739 · priority_2025_2026_docs=1312 · local_ready_docs=3521 · missing_local_docs=0 · chunks=27",
-      "artefatos": "7/9",
+      "artefatos": "9/9",
       "gerado_em_utc": "2026-07-09T02:03:08+00:00",
       "motivo": "Atualiza fingerprints, classes documentais e chunks pequenos para processamento posterior.",
       "incrementalidade": "Use --chunk-id doc-0001 para rodar ou depurar lotes sem reprocessar a indústria toda."
     },
     {
-      "plan_id": "06_document_chunk_plan",
-      "order": 6,
-      "fase": "Estruturação",
+      "plan_id": "07_document_chunk_plan",
+      "order": 7,
+      "fase": "Documentos e ofertas",
       "module_id": "document_chunk_plan",
       "etapa": "Atualizar plano operacional de chunks",
       "competencia_referencia": "202605",
@@ -469,14 +502,14 @@
       "entradas": "SQLite da aba Estratégia | data/regulatory_extractions",
       "saidas": "document_inventory | document_processing_chunks | manifest | document_chunk_plan",
       "evidencia_atual": "document_rows=3521 · funds=739 · priority_2025_2026_docs=1312 · local_ready_docs=3521 · missing_local_docs=0 · chunks=27",
-      "artefatos": "7/9",
+      "artefatos": "9/9",
       "gerado_em_utc": "2026-07-09T02:03:08+00:00",
       "motivo": "Aplica o acompanhamento salvo na UI sobre inventário e chunks para priorizar download, fingerprint, OCR, parsing e extração.",
       "incrementalidade": "Rerun leve quando o usuário muda status/responsável/prazo na aba Documentos > Chunks."
     },
     {
-      "plan_id": "07_cedentes",
-      "order": 7,
+      "plan_id": "08_cedentes",
+      "order": 8,
       "fase": "Estruturação",
       "module_id": "cedentes",
       "etapa": "Regerar base de cedentes/sacados",
@@ -490,14 +523,14 @@
       "entradas": "SQLite da aba Estratégia | revisões manuais da UI | base granular mensal",
       "saidas": "cedentes_structured | manifest",
       "evidencia_atual": "candidate_rows=1478 · candidate_funds=569 · structured_rows=1478 · structured_funds=569 · priority_2025_2026_rows=987 · priority_2025_2026_funds=386",
-      "artefatos": "5/5",
+      "artefatos": "7/7",
       "gerado_em_utc": "2026-07-08T17:16:28+00:00",
       "motivo": "Aplica revisões manuais e expõe participantes para heatmaps e deep dives.",
       "incrementalidade": "A curadoria continua sendo feita pela UI e reaplicada pelo overlay persistido."
     },
     {
-      "plan_id": "08_criteria",
-      "order": 8,
+      "plan_id": "09_criteria",
+      "order": 9,
       "fase": "Estruturação",
       "module_id": "criteria",
       "etapa": "Regerar critérios e subordinação mínima",
@@ -511,14 +544,14 @@
       "entradas": "data/regulatory_profiles/all_fidcs_criteria_monitoraveis_ime.csv | revisões manuais da UI",
       "saidas": "criteria_structured | manifest",
       "evidencia_atual": "source_rows=183 · source_funds=56 · structured_rows=183 · structured_funds=56 · subordination_rows=31 · subordination_funds=21",
-      "artefatos": "5/5",
+      "artefatos": "7/7",
       "gerado_em_utc": "2026-07-08T17:16:28+00:00",
       "motivo": "Atualiza regras monitoráveis, sub mínima e status de revisão por fundo.",
       "incrementalidade": "Revisões feitas pela UI são reaplicadas antes da consolidação."
     },
     {
-      "plan_id": "09_fund_snapshot",
-      "order": 9,
+      "plan_id": "10_fund_snapshot",
+      "order": 10,
       "fase": "Estruturação",
       "module_id": "fund_snapshot",
       "etapa": "Regerar snapshot unificado por FIDC",
@@ -532,15 +565,15 @@
       "entradas": "base granular mensal | emissões | documentos | cedentes | critérios",
       "saidas": "fund_snapshot | manifest",
       "evidencia_atual": "fund_rows=4219 · pl_total_brl=957384697019.4601 · with_issuance_2025_2026=1014 · with_documents=651 · with_cedentes=99 · with_criteria=49",
-      "artefatos": "8/10",
+      "artefatos": "10/10",
       "gerado_em_utc": "2026-07-08T16:04:29+00:00",
       "motivo": "Consolida uma linha por CNPJ com IME, emissões, documentos, cedentes e critérios.",
       "incrementalidade": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem."
     },
     {
-      "plan_id": "10_dimension_catalog",
-      "order": 10,
-      "fase": "Agregações reutilizáveis",
+      "plan_id": "11_dimension_catalog",
+      "order": 11,
+      "fase": "Estruturação",
       "module_id": "dimension_catalog",
       "etapa": "Regerar catálogo de dimensões",
       "competencia_referencia": "202605",
@@ -553,15 +586,15 @@
       "entradas": "snapshot unificado por FIDC | cedentes estruturados",
       "saidas": "dimension_catalog | manifest",
       "evidencia_atual": "rows=66644 · funds=4286 · dimensions=28 · curated_rows=3741 · weighted_dimensions=7 · with_source_document=6433",
-      "artefatos": "4/4",
+      "artefatos": "6/6",
       "gerado_em_utc": "2026-07-08T20:20:00+00:00",
       "motivo": "Explode CNPJ x dimensão x valor com pesos, fonte e metadados de curadoria.",
       "incrementalidade": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos."
     },
     {
-      "plan_id": "11_curation_queue",
-      "order": 11,
-      "fase": "Agregações reutilizáveis",
+      "plan_id": "12_curation_queue",
+      "order": 12,
+      "fase": "Estruturação",
       "module_id": "curation_queue",
       "etapa": "Consolidar fila única de curadoria",
       "competencia_referencia": "202605",
@@ -574,14 +607,14 @@
       "entradas": "delta mensal | snapshot unificado por FIDC | documentos | catálogo de dimensões",
       "saidas": "curation_queue | manifest | curation_queue_summary",
       "evidencia_atual": "rows=75116 · funds=4337 · open_rows=75116 · high_priority_rows=3563 · priority_2025_2026_rows=7787 · summary_rows=4438",
-      "artefatos": "8/11",
+      "artefatos": "11/11",
       "gerado_em_utc": "2026-07-09T02:35:05+00:00",
       "motivo": "Une delta mensal, lacunas all-FIDCs, chunks documentais e rastreabilidade do catálogo em uma fila operacional.",
       "incrementalidade": "Rerun leve depois de salvar ações manuais na UI ou de regenerar qualquer fila detalhe."
     },
     {
-      "plan_id": "12_dimension_profiles",
-      "order": 12,
+      "plan_id": "13_dimension_profiles",
+      "order": 13,
       "fase": "Agregações reutilizáveis",
       "module_id": "dimension_profiles",
       "etapa": "Regerar perfis cruzados por dimensão",
@@ -601,8 +634,8 @@
       "incrementalidade": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado."
     },
     {
-      "plan_id": "13_dimension_monthly",
-      "order": 13,
+      "plan_id": "14_dimension_monthly",
+      "order": 14,
       "fase": "Agregações reutilizáveis",
       "module_id": "dimension_monthly",
       "etapa": "Regerar séries mensais por dimensão",
@@ -617,13 +650,34 @@
       "saidas": "dimension_monthly | manifest | dimension_value_atlas",
       "evidencia_atual": "rows=67918 · months=162 · dimensions=28 · dimension_values=859 · latest_competencia=2026-06 · latest_rows=343",
       "artefatos": "5/5",
-      "gerado_em_utc": "2026-07-09T02:54:23+00:00",
+      "gerado_em_utc": "2026-07-09T14:02:22+00:00",
       "motivo": "Agrega PL, fluxos, carteira, inadimplência, fundos e veículos por competência × dimensão × valor.",
       "incrementalidade": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação."
     },
     {
-      "plan_id": "14_market_share",
-      "order": 14,
+      "plan_id": "15_dimension_dossiers",
+      "order": 15,
+      "fase": "Agregações reutilizáveis",
+      "module_id": "dimension_dossiers",
+      "etapa": "Regerar dossiês dimensionais",
+      "competencia_referencia": "202605",
+      "status_modulo": "ok",
+      "status_prontidao": "bloqueado",
+      "bloqueios_ou_atencoes": "Competência: 1 (Reexecutar os módulos derivados depois de atualizar a base granular.) | Snapshot: 4170 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
+      "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
+      "comando": "python scripts/build_fidc_industry_dimension_dossiers.py",
+      "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
+      "entradas": "séries mensais por dimensão | perfis cruzados | registry de heatmaps",
+      "saidas": "dimension_dossiers | manifest",
+      "evidencia_atual": "rows=28 · dimensions=28 · ok_rows=28 · attention_rows=0 · blocked_rows=0 · atlas_values=343",
+      "artefatos": "5/5",
+      "gerado_em_utc": "2026-07-09T14:02:22+00:00",
+      "motivo": "Resume cobertura, evidência, perfis e presets de cada dimensão para Deep Dive e auditoria mês a mês.",
+      "incrementalidade": "Lê apenas atlas, perfis e registry já materializados; não reprocessa documentos ou informe mensal."
+    },
+    {
+      "plan_id": "16_market_share",
+      "order": 16,
       "fase": "Controle",
       "module_id": "market_share",
       "etapa": "Regerar market share e concentração",
@@ -643,23 +697,23 @@
       "incrementalidade": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe."
     },
     {
-      "plan_id": "15_pipeline_index",
-      "order": 15,
+      "plan_id": "17_pipeline_index",
+      "order": 17,
       "fase": "Controle",
       "module_id": "pipeline_index",
       "etapa": "Atualizar cockpit do pipeline",
       "competencia_referencia": "202605",
       "status_modulo": "ok",
-      "status_prontidao": "atenção",
-      "bloqueios_ou_atencoes": "Artefatos: 8 (Gerar arquivos ausentes; opcionais indicam histórico de revisão ainda não iniciado.)",
-      "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
+      "status_prontidao": "ok",
+      "bloqueios_ou_atencoes": "",
+      "acao_antes_de_rodar": "Rodar ou validar a etapa e seguir para a próxima ordem.",
       "comando": "python scripts/build_fidc_industry_pipeline_index.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "",
       "saidas": "",
-      "evidencia_atual": "prd_requirements_total=12 · artifacts_present=40 · artifacts_total=40",
-      "artefatos": "40/40",
-      "gerado_em_utc": "2026-07-09T13:40:53+00:00",
+      "evidencia_atual": "prd_requirements_total=12 · artifacts_present=55 · artifacts_total=55",
+      "artefatos": "55/55",
+      "gerado_em_utc": "2026-07-09T14:17:01+00:00",
       "motivo": "Recalcula hashes, freshness, status dos módulos e checklist mensal visível na aba Pipeline.",
       "incrementalidade": "Não reprocessa dados; apenas lê manifests e arquivos já materializados."
     }
@@ -674,7 +728,7 @@
       "action_file": "cedente_reviews.csv",
       "audit_file": "cedente_review_audit.csv",
       "action_exists": true,
-      "audit_exists": false,
+      "audit_exists": true,
       "action_rows": 0,
       "action_records": 0,
       "open_rows": 0,
@@ -697,7 +751,7 @@
       "action_file": "criteria_reviews.csv",
       "audit_file": "criteria_review_audit.csv",
       "action_exists": true,
-      "audit_exists": false,
+      "audit_exists": true,
       "action_rows": 0,
       "action_records": 0,
       "open_rows": 0,
@@ -719,8 +773,8 @@
       "comparison": "campo faltante × decisão manual",
       "action_file": "dimension_catalog_gap_actions.csv",
       "audit_file": "dimension_catalog_gap_action_audit.csv",
-      "action_exists": false,
-      "audit_exists": false,
+      "action_exists": true,
+      "audit_exists": true,
       "action_rows": 0,
       "action_records": 0,
       "open_rows": 0,
@@ -742,8 +796,8 @@
       "comparison": "chunk planejado × acompanhamento revisado",
       "action_file": "document_chunk_actions.csv",
       "audit_file": "document_chunk_action_audit.csv",
-      "action_exists": false,
-      "audit_exists": false,
+      "action_exists": true,
+      "audit_exists": true,
       "action_rows": 0,
       "action_records": 0,
       "open_rows": 0,
@@ -766,7 +820,7 @@
       "action_file": "monthly_delta_actions.csv",
       "audit_file": "monthly_delta_action_audit.csv",
       "action_exists": true,
-      "audit_exists": false,
+      "audit_exists": true,
       "action_rows": 0,
       "action_records": 0,
       "open_rows": 0,
@@ -788,8 +842,8 @@
       "comparison": "lacuna automática × decisão manual",
       "action_file": "snapshot_gap_actions.csv",
       "audit_file": "snapshot_gap_action_audit.csv",
-      "action_exists": false,
-      "audit_exists": false,
+      "action_exists": true,
+      "audit_exists": true,
       "action_rows": 0,
       "action_records": 0,
       "open_rows": 0,
@@ -832,6 +886,37 @@
       }
     },
     {
+      "id": "manual_review_ledgers",
+      "label": "Ledgers de revisão manual",
+      "status": "ok",
+      "schema_version": "industry-manual-review-manifest/v1",
+      "pipeline": "industry_manual_review_ledgers",
+      "generated_at_utc": "2026-07-09T14:17:01+00:00",
+      "manifest_path": "data/industry_study/industry_manual_review_manifest.json",
+      "command": "python scripts/build_fidc_industry_manual_review_ledgers.py",
+      "cadence": "antes da curadoria mensal",
+      "depends_on": [
+        "schemas de revisão manual",
+        "UI de curadoria"
+      ],
+      "stage_status_counts": {
+        "ok": 2
+      },
+      "stage_count": 2,
+      "artifact_count": 13,
+      "artifacts_present": 13,
+      "quality_highlights": {
+        "files": 12,
+        "files_present": 12,
+        "files_created": 0,
+        "schema_ok_files": 12,
+        "domains": 6,
+        "action_files": 6,
+        "audit_files": 6,
+        "rows": 0
+      }
+    },
+    {
       "id": "monthly_delta",
       "label": "Delta mensal e fila de curadoria",
       "status": "ok",
@@ -850,7 +935,7 @@
       },
       "stage_count": 3,
       "artifact_count": 8,
-      "artifacts_present": 7,
+      "artifacts_present": 8,
       "quality_highlights": {
         "rows": 4279,
         "competencia_atual": "2026-05",
@@ -948,7 +1033,7 @@
       },
       "stage_count": 6,
       "artifact_count": 11,
-      "artifacts_present": 8,
+      "artifacts_present": 11,
       "quality_highlights": {
         "rows": 75116,
         "funds": 4337,
@@ -995,7 +1080,7 @@
       },
       "stage_count": 6,
       "artifact_count": 9,
-      "artifacts_present": 7,
+      "artifacts_present": 9,
       "quality_highlights": {
         "document_rows": 3521,
         "funds": 739,
@@ -1028,8 +1113,8 @@
         "ok": 5
       },
       "stage_count": 5,
-      "artifact_count": 5,
-      "artifacts_present": 5,
+      "artifact_count": 7,
+      "artifacts_present": 7,
       "quality_highlights": {
         "candidate_rows": 1478,
         "candidate_funds": 569,
@@ -1058,8 +1143,8 @@
         "ok": 4
       },
       "stage_count": 4,
-      "artifact_count": 5,
-      "artifacts_present": 5,
+      "artifact_count": 7,
+      "artifacts_present": 7,
       "quality_highlights": {
         "source_rows": 183,
         "source_funds": 56,
@@ -1094,7 +1179,7 @@
       },
       "stage_count": 3,
       "artifact_count": 10,
-      "artifacts_present": 8,
+      "artifacts_present": 10,
       "quality_highlights": {
         "fund_rows": 4219,
         "pl_total_brl": 957384697019.4601,
@@ -1123,8 +1208,8 @@
         "ok": 2
       },
       "stage_count": 2,
-      "artifact_count": 4,
-      "artifacts_present": 4,
+      "artifact_count": 6,
+      "artifacts_present": 6,
       "quality_highlights": {
         "rows": 66644,
         "funds": 4286,
@@ -1141,7 +1226,7 @@
       "status": "ok",
       "schema_version": "industry-dimension-monthly-manifest/v1",
       "pipeline": "industry_dimension_monthly",
-      "generated_at_utc": "2026-07-09T02:54:23+00:00",
+      "generated_at_utc": "2026-07-09T14:02:22+00:00",
       "manifest_path": "data/industry_study/industry_dimension_monthly_manifest.json",
       "command": "python scripts/build_fidc_industry_dimension_monthly.py",
       "cadence": "após catálogo de dimensões",
@@ -1169,9 +1254,11 @@
         "atlas_latest_competencia": "2026-06",
         "atlas_values_with_pl": 329,
         "atlas_values_with_source_document_links": 109,
+        "atlas_values_with_traceability_links": 343,
         "atlas_values_with_source_document_sample": 109,
         "atlas_values_with_source_page_sample": 12,
-        "atlas_values_with_confidence": 73
+        "atlas_values_with_confidence": 73,
+        "atlas_traceability_coverage": 1.0
       }
     },
     {
@@ -1209,6 +1296,43 @@
         "heatmap_preset_status_counts": {
           "ok": 11
         }
+      }
+    },
+    {
+      "id": "dimension_dossiers",
+      "label": "Dossiês dimensionais",
+      "status": "ok",
+      "schema_version": "industry-dimension-dossier-manifest/v1",
+      "pipeline": "industry_dimension_dossiers",
+      "generated_at_utc": "2026-07-09T14:02:22+00:00",
+      "manifest_path": "data/industry_study/industry_dimension_dossier_manifest.json",
+      "command": "python scripts/build_fidc_industry_dimension_dossiers.py",
+      "cadence": "após atlas e perfis cruzados",
+      "depends_on": [
+        "séries mensais por dimensão",
+        "perfis cruzados",
+        "registry de heatmaps"
+      ],
+      "stage_status_counts": {
+        "ok": 2
+      },
+      "stage_count": 2,
+      "artifact_count": 5,
+      "artifacts_present": 5,
+      "quality_highlights": {
+        "rows": 28,
+        "dimensions": 28,
+        "ok_rows": 28,
+        "attention_rows": 0,
+        "blocked_rows": 0,
+        "atlas_values": 343,
+        "atlas_values_with_pl": 329,
+        "with_profiles": 28,
+        "profile_rows": 58253,
+        "heatmap_presets": 22,
+        "heatmap_presets_ok": 22,
+        "traceability_coverage": 1.0,
+        "source_document_coverage": 0.10434782608695652
       }
     },
     {
@@ -1252,6 +1376,14 @@
     },
     {
       "order": 2,
+      "module_id": "manual_review_ledgers",
+      "label": "Inicializar ledgers de revisão manual",
+      "command": "python scripts/build_fidc_industry_manual_review_ledgers.py",
+      "reason": "Garante arquivos de ações e auditoria com schema oficial antes de qualquer edição na UI.",
+      "incremental_note": "Cria apenas arquivos ausentes; não cria decisões, aprovações ou eventos artificiais."
+    },
+    {
+      "order": 3,
       "module_id": "monthly_delta",
       "label": "Gerar delta mensal e fila de curadoria",
       "command": "python scripts/build_fidc_industry_monthly_delta.py",
@@ -1259,7 +1391,7 @@
       "incremental_note": "Compara apenas competência snapshot contra a anterior e cruza camadas já materializadas."
     },
     {
-      "order": 3,
+      "order": 4,
       "module_id": "issuance",
       "label": "Reconciliar emissões/ofertas",
       "command": "python scripts/build_fidc_industry_issuance.py",
@@ -1267,7 +1399,7 @@
       "incremental_note": "Lê o SQLite da Estratégia já estruturado; não depende de Informe Mensal."
     },
     {
-      "order": 4,
+      "order": 5,
       "module_id": "public_claims",
       "label": "Auditar claims públicos",
       "command": "python scripts/build_fidc_industry_public_claim_audit.py",
@@ -1275,7 +1407,7 @@
       "incremental_note": "Rerun leve quando uma nova notícia for adicionada aos specs ou quando base mensal/emissões forem atualizadas."
     },
     {
-      "order": 5,
+      "order": 6,
       "module_id": "documents",
       "label": "Inventariar documentação pública",
       "command": "python scripts/build_fidc_industry_documents.py",
@@ -1283,7 +1415,7 @@
       "incremental_note": "Use --chunk-id doc-0001 para rodar ou depurar lotes sem reprocessar a indústria toda."
     },
     {
-      "order": 6,
+      "order": 7,
       "module_id": "document_chunk_plan",
       "label": "Atualizar plano operacional de chunks",
       "command": "python scripts/build_fidc_industry_document_chunk_plan.py",
@@ -1291,7 +1423,7 @@
       "incremental_note": "Rerun leve quando o usuário muda status/responsável/prazo na aba Documentos > Chunks."
     },
     {
-      "order": 7,
+      "order": 8,
       "module_id": "cedentes",
       "label": "Regerar base de cedentes/sacados",
       "command": "python scripts/build_fidc_industry_cedentes.py",
@@ -1299,7 +1431,7 @@
       "incremental_note": "A curadoria continua sendo feita pela UI e reaplicada pelo overlay persistido."
     },
     {
-      "order": 8,
+      "order": 9,
       "module_id": "criteria",
       "label": "Regerar critérios e subordinação mínima",
       "command": "python scripts/build_fidc_industry_criteria.py",
@@ -1307,7 +1439,7 @@
       "incremental_note": "Revisões feitas pela UI são reaplicadas antes da consolidação."
     },
     {
-      "order": 9,
+      "order": 10,
       "module_id": "fund_snapshot",
       "label": "Regerar snapshot unificado por FIDC",
       "command": "python scripts/build_fidc_industry_fund_snapshot.py",
@@ -1315,7 +1447,7 @@
       "incremental_note": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem."
     },
     {
-      "order": 10,
+      "order": 11,
       "module_id": "dimension_catalog",
       "label": "Regerar catálogo de dimensões",
       "command": "python scripts/build_fidc_industry_dimensions.py",
@@ -1323,7 +1455,7 @@
       "incremental_note": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos."
     },
     {
-      "order": 11,
+      "order": 12,
       "module_id": "curation_queue",
       "label": "Consolidar fila única de curadoria",
       "command": "python scripts/build_fidc_industry_curation_queue.py",
@@ -1331,7 +1463,7 @@
       "incremental_note": "Rerun leve depois de salvar ações manuais na UI ou de regenerar qualquer fila detalhe."
     },
     {
-      "order": 12,
+      "order": 13,
       "module_id": "dimension_profiles",
       "label": "Regerar perfis cruzados por dimensão",
       "command": "python scripts/build_fidc_industry_dimension_profiles.py",
@@ -1339,7 +1471,7 @@
       "incremental_note": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado."
     },
     {
-      "order": 13,
+      "order": 14,
       "module_id": "dimension_monthly",
       "label": "Regerar séries mensais por dimensão",
       "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -1347,7 +1479,15 @@
       "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação."
     },
     {
-      "order": 14,
+      "order": 15,
+      "module_id": "dimension_dossiers",
+      "label": "Regerar dossiês dimensionais",
+      "command": "python scripts/build_fidc_industry_dimension_dossiers.py",
+      "reason": "Resume cobertura, evidência, perfis e presets de cada dimensão para Deep Dive e auditoria mês a mês.",
+      "incremental_note": "Lê apenas atlas, perfis e registry já materializados; não reprocessa documentos ou informe mensal."
+    },
+    {
+      "order": 16,
       "module_id": "market_share",
       "label": "Regerar market share e concentração",
       "command": "python scripts/build_fidc_industry_market_share.py",
@@ -1355,7 +1495,7 @@
       "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe."
     },
     {
-      "order": 15,
+      "order": 17,
       "module_id": "pipeline_index",
       "label": "Atualizar cockpit do pipeline",
       "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -1455,6 +1595,136 @@
       "sha256": "3d8f6c33db2c60c58b60e94a2ed4fe7a50b1845ea44f05a2409b4eebacbe2e05"
     },
     {
+      "module_id": "manual_review_ledgers",
+      "group": "outputs",
+      "artifact": "manifest",
+      "required": true,
+      "path": "data/industry_study/industry_manual_review_manifest.json",
+      "exists": true,
+      "bytes": 4322,
+      "sha256": "dc63736012245068f341090e93f25e33e9652ccf0ef4d1f111c73f78011580e3"
+    },
+    {
+      "module_id": "manual_review_ledgers",
+      "group": "outputs",
+      "artifact": "cedente_review_actions",
+      "required": true,
+      "path": "data/industry_study/cedente_reviews.csv",
+      "exists": true,
+      "bytes": 140,
+      "sha256": "2ff4a5cc01ece262039e0b2704a5f8de90bd716d45a071069e3cf011e44348b1"
+    },
+    {
+      "module_id": "manual_review_ledgers",
+      "group": "outputs",
+      "artifact": "cedente_review_audit",
+      "required": true,
+      "path": "data/industry_study/cedente_review_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    {
+      "module_id": "manual_review_ledgers",
+      "group": "outputs",
+      "artifact": "criteria_review_actions",
+      "required": true,
+      "path": "data/industry_study/criteria_reviews.csv",
+      "exists": true,
+      "bytes": 130,
+      "sha256": "175d69ff6a6f0365e057ce26602a5e2660c90887db3bac85bbcc8dbfd6709249"
+    },
+    {
+      "module_id": "manual_review_ledgers",
+      "group": "outputs",
+      "artifact": "criteria_review_audit",
+      "required": true,
+      "path": "data/industry_study/criteria_review_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    {
+      "module_id": "manual_review_ledgers",
+      "group": "outputs",
+      "artifact": "monthly_delta_action_actions",
+      "required": true,
+      "path": "data/industry_study/monthly_delta_actions.csv",
+      "exists": true,
+      "bytes": 74,
+      "sha256": "4701c1985eea1c04ff6a6307b2f8f22fa12d2eead73d219c625515bb5eda378a"
+    },
+    {
+      "module_id": "manual_review_ledgers",
+      "group": "outputs",
+      "artifact": "monthly_delta_action_audit",
+      "required": true,
+      "path": "data/industry_study/monthly_delta_action_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    {
+      "module_id": "manual_review_ledgers",
+      "group": "outputs",
+      "artifact": "document_chunk_action_actions",
+      "required": true,
+      "path": "data/industry_study/document_chunk_actions.csv",
+      "exists": true,
+      "bytes": 74,
+      "sha256": "6b4ac30c064b1f6fa17ddc31afff220d2858d8866f1b12addef5515efc5989e4"
+    },
+    {
+      "module_id": "manual_review_ledgers",
+      "group": "outputs",
+      "artifact": "document_chunk_action_audit",
+      "required": true,
+      "path": "data/industry_study/document_chunk_action_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    {
+      "module_id": "manual_review_ledgers",
+      "group": "outputs",
+      "artifact": "snapshot_gap_actions",
+      "required": true,
+      "path": "data/industry_study/snapshot_gap_actions.csv",
+      "exists": true,
+      "bytes": 74,
+      "sha256": "61e6f5788b102ad037d807cbcdf1344c7e598139a1c3064422474e3bb99228b5"
+    },
+    {
+      "module_id": "manual_review_ledgers",
+      "group": "outputs",
+      "artifact": "snapshot_gap_audit",
+      "required": true,
+      "path": "data/industry_study/snapshot_gap_action_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    {
+      "module_id": "manual_review_ledgers",
+      "group": "outputs",
+      "artifact": "dimension_catalog_gap_actions",
+      "required": true,
+      "path": "data/industry_study/dimension_catalog_gap_actions.csv",
+      "exists": true,
+      "bytes": 87,
+      "sha256": "1d4637acb84614e9d8bbfcec0f2a9d1ce08f746d99a26637363ca3801c88a425"
+    },
+    {
+      "module_id": "manual_review_ledgers",
+      "group": "outputs",
+      "artifact": "dimension_catalog_gap_audit",
+      "required": true,
+      "path": "data/industry_study/dimension_catalog_gap_action_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    {
       "module_id": "monthly_delta",
       "group": "inputs",
       "artifact": "vehicle_monthly",
@@ -1530,9 +1800,9 @@
       "artifact": "monthly_delta_action_audit",
       "required": false,
       "path": "data/industry_study/monthly_delta_action_audit.csv",
-      "exists": false,
-      "bytes": 0,
-      "sha256": ""
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
     },
     {
       "module_id": "issuance",
@@ -1680,9 +1950,9 @@
       "artifact": "snapshot_gap_actions",
       "required": false,
       "path": "data/industry_study/snapshot_gap_actions.csv",
-      "exists": false,
-      "bytes": 0,
-      "sha256": ""
+      "exists": true,
+      "bytes": 74,
+      "sha256": "61e6f5788b102ad037d807cbcdf1344c7e598139a1c3064422474e3bb99228b5"
     },
     {
       "module_id": "curation_queue",
@@ -1690,9 +1960,9 @@
       "artifact": "catalog_gap_actions",
       "required": false,
       "path": "data/industry_study/dimension_catalog_gap_actions.csv",
-      "exists": false,
-      "bytes": 0,
-      "sha256": ""
+      "exists": true,
+      "bytes": 87,
+      "sha256": "1d4637acb84614e9d8bbfcec0f2a9d1ce08f746d99a26637363ca3801c88a425"
     },
     {
       "module_id": "curation_queue",
@@ -1710,9 +1980,9 @@
       "artifact": "document_chunk_actions",
       "required": false,
       "path": "data/industry_study/document_chunk_actions.csv",
-      "exists": false,
-      "bytes": 0,
-      "sha256": ""
+      "exists": true,
+      "bytes": 74,
+      "sha256": "6b4ac30c064b1f6fa17ddc31afff220d2858d8866f1b12addef5515efc5989e4"
     },
     {
       "module_id": "curation_queue",
@@ -1821,9 +2091,9 @@
       "artifact": "document_chunk_actions",
       "required": false,
       "path": "data/industry_study/document_chunk_actions.csv",
-      "exists": false,
-      "bytes": 0,
-      "sha256": ""
+      "exists": true,
+      "bytes": 74,
+      "sha256": "6b4ac30c064b1f6fa17ddc31afff220d2858d8866f1b12addef5515efc5989e4"
     },
     {
       "module_id": "documents",
@@ -1831,9 +2101,9 @@
       "artifact": "document_chunk_action_audit",
       "required": false,
       "path": "data/industry_study/document_chunk_action_audit.csv",
-      "exists": false,
-      "bytes": 0,
-      "sha256": ""
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
     },
     {
       "module_id": "cedentes",
@@ -1886,6 +2156,26 @@
       "sha256": "bb187034bf0c6be14d01bc1d15030e0c9bbc33c47257638430e6166109b15036"
     },
     {
+      "module_id": "cedentes",
+      "group": "manual_review",
+      "artifact": "cedente_reviews",
+      "required": false,
+      "path": "data/industry_study/cedente_reviews.csv",
+      "exists": true,
+      "bytes": 140,
+      "sha256": "2ff4a5cc01ece262039e0b2704a5f8de90bd716d45a071069e3cf011e44348b1"
+    },
+    {
+      "module_id": "cedentes",
+      "group": "manual_review",
+      "artifact": "cedente_review_audit",
+      "required": false,
+      "path": "data/industry_study/cedente_review_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    {
       "module_id": "criteria",
       "group": "inputs",
       "artifact": "strategy_db",
@@ -1934,6 +2224,26 @@
       "exists": true,
       "bytes": 4284,
       "sha256": "848cbeb327cd15674206bc33cfdc2e23d0bfe2b60739a52690bfbd96c05b0473"
+    },
+    {
+      "module_id": "criteria",
+      "group": "manual_review",
+      "artifact": "criteria_reviews",
+      "required": false,
+      "path": "data/industry_study/criteria_reviews.csv",
+      "exists": true,
+      "bytes": 130,
+      "sha256": "175d69ff6a6f0365e057ce26602a5e2660c90887db3bac85bbcc8dbfd6709249"
+    },
+    {
+      "module_id": "criteria",
+      "group": "manual_review",
+      "artifact": "criteria_review_audit",
+      "required": false,
+      "path": "data/industry_study/criteria_review_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
     },
     {
       "module_id": "fund_snapshot",
@@ -2021,9 +2331,9 @@
       "artifact": "snapshot_gap_actions",
       "required": false,
       "path": "data/industry_study/snapshot_gap_actions.csv",
-      "exists": false,
-      "bytes": 0,
-      "sha256": ""
+      "exists": true,
+      "bytes": 74,
+      "sha256": "61e6f5788b102ad037d807cbcdf1344c7e598139a1c3064422474e3bb99228b5"
     },
     {
       "module_id": "fund_snapshot",
@@ -2031,9 +2341,9 @@
       "artifact": "snapshot_gap_action_audit",
       "required": false,
       "path": "data/industry_study/snapshot_gap_action_audit.csv",
-      "exists": false,
-      "bytes": 0,
-      "sha256": ""
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
     },
     {
       "module_id": "dimension_catalog",
@@ -2076,6 +2386,26 @@
       "sha256": "b6c49c6612a11932dd618886708bc6824bc2640e794b67c3c5f91462fe8f9ecb"
     },
     {
+      "module_id": "dimension_catalog",
+      "group": "manual_review",
+      "artifact": "dimension_catalog_gap_actions",
+      "required": false,
+      "path": "data/industry_study/dimension_catalog_gap_actions.csv",
+      "exists": true,
+      "bytes": 87,
+      "sha256": "1d4637acb84614e9d8bbfcec0f2a9d1ce08f746d99a26637363ca3801c88a425"
+    },
+    {
+      "module_id": "dimension_catalog",
+      "group": "manual_review",
+      "artifact": "dimension_catalog_gap_action_audit",
+      "required": false,
+      "path": "data/industry_study/dimension_catalog_gap_action_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    {
       "module_id": "dimension_monthly",
       "group": "inputs",
       "artifact": "vehicle_monthly",
@@ -2103,7 +2433,7 @@
       "path": "data/industry_study/industry_dimension_monthly.csv.gz",
       "exists": true,
       "bytes": 2934165,
-      "sha256": "ac39a0797a0885f6e52ec1bf8d947b1e598d577473e477386eeffc328c711b69"
+      "sha256": "6073b5fc293b2f9b2affec209ad7891533506f7980b4783733729a4f49bb8bbd"
     },
     {
       "module_id": "dimension_monthly",
@@ -2112,8 +2442,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_monthly_manifest.json",
       "exists": true,
-      "bytes": 3567,
-      "sha256": "47c1d96295bd31f367ddfd3b9227ba42d3d857a83dd4ad956ed25a494d1609e3"
+      "bytes": 3656,
+      "sha256": "07e58348d7989b9cb03bf32b2887d15d0e730973469b0f81687b440b2fdecee8"
     },
     {
       "module_id": "dimension_monthly",
@@ -2122,8 +2452,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_value_atlas.csv.gz",
       "exists": true,
-      "bytes": 39401,
-      "sha256": "0944128189eb32fed2830836ef2ac26afc7e7ac6ff0ca61810433987fc4e0d79"
+      "bytes": 40870,
+      "sha256": "f356290398f613686bbc9a78064f630e1e2fe390c5a055262a6e753e5b7a1aa0"
     },
     {
       "module_id": "dimension_profiles",
@@ -2174,6 +2504,56 @@
       "exists": true,
       "bytes": 2979,
       "sha256": "73fd6d5e4aeccc397769779cb00ae701e0d36cf8c445d74528a93c6720548d98"
+    },
+    {
+      "module_id": "dimension_dossiers",
+      "group": "inputs",
+      "artifact": "dimension_value_atlas",
+      "required": false,
+      "path": "data/industry_study/industry_dimension_value_atlas.csv.gz",
+      "exists": true,
+      "bytes": 40870,
+      "sha256": "f356290398f613686bbc9a78064f630e1e2fe390c5a055262a6e753e5b7a1aa0"
+    },
+    {
+      "module_id": "dimension_dossiers",
+      "group": "inputs",
+      "artifact": "dimension_profiles",
+      "required": false,
+      "path": "data/industry_study/industry_dimension_profiles.csv.gz",
+      "exists": true,
+      "bytes": 1293074,
+      "sha256": "1bee31c930b7f9f15dbd8b6ad710b378455f3158a0727bac2b60271a68656da8"
+    },
+    {
+      "module_id": "dimension_dossiers",
+      "group": "inputs",
+      "artifact": "heatmap_registry",
+      "required": false,
+      "path": "data/industry_study/industry_heatmap_registry.csv",
+      "exists": true,
+      "bytes": 2979,
+      "sha256": "73fd6d5e4aeccc397769779cb00ae701e0d36cf8c445d74528a93c6720548d98"
+    },
+    {
+      "module_id": "dimension_dossiers",
+      "group": "outputs",
+      "artifact": "dimension_dossiers",
+      "required": true,
+      "path": "data/industry_study/industry_dimension_dossiers.csv",
+      "exists": true,
+      "bytes": 23651,
+      "sha256": "3a88faf0a72e03a28f2df17e28f35f6d849544d062e4496618b834308a73984c"
+    },
+    {
+      "module_id": "dimension_dossiers",
+      "group": "outputs",
+      "artifact": "manifest",
+      "required": true,
+      "path": "data/industry_study/industry_dimension_dossier_manifest.json",
+      "exists": true,
+      "bytes": 2990,
+      "sha256": "49cd771cfba259d420069533992dea09f4d197d629ba684d18b9cd985d28b506"
     },
     {
       "module_id": "market_share",

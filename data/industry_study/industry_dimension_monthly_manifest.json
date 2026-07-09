@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-monthly-manifest/v1",
-  "generated_at_utc": "2026-07-09T02:54:23+00:00",
+  "generated_at_utc": "2026-07-09T14:02:22+00:00",
   "pipeline": "industry_dimension_monthly",
   "design_constraints": {
     "modular": true,
@@ -31,7 +31,7 @@
       "path": "data/industry_study/industry_dimension_monthly.csv.gz",
       "exists": true,
       "bytes": 2934165,
-      "sha256": "ac39a0797a0885f6e52ec1bf8d947b1e598d577473e477386eeffc328c711b69"
+      "sha256": "6073b5fc293b2f9b2affec209ad7891533506f7980b4783733729a4f49bb8bbd"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_monthly_manifest.json"
@@ -39,8 +39,8 @@
     "dimension_value_atlas": {
       "path": "data/industry_study/industry_dimension_value_atlas.csv.gz",
       "exists": true,
-      "bytes": 39401,
-      "sha256": "0944128189eb32fed2830836ef2ac26afc7e7ac6ff0ca61810433987fc4e0d79"
+      "bytes": 40870,
+      "sha256": "f356290398f613686bbc9a78064f630e1e2fe390c5a055262a6e753e5b7a1aa0"
     }
   },
   "stages": [
@@ -90,9 +90,11 @@
     "atlas_latest_competencia": "2026-06",
     "atlas_values_with_pl": 329,
     "atlas_values_with_source_document_links": 109,
+    "atlas_values_with_traceability_links": 343,
     "atlas_values_with_source_document_sample": 109,
     "atlas_values_with_source_page_sample": 12,
     "atlas_values_with_confidence": 73,
-    "atlas_source_document_links": 1260
+    "atlas_source_document_links": 1260,
+    "atlas_traceability_coverage": 1.0
   }
 }
