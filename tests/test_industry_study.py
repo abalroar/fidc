@@ -1,4 +1,5 @@
 import json
+import sqlite3
 import sys
 import tempfile
 from pathlib import Path
@@ -76,6 +77,7 @@ from services.industry_study import (  # noqa: E402
     public_claim_audit_quality_summary,
     load_cedente_structured,
     load_monthly_delta_actions,
+    load_regulatory_feature_criteria,
     load_review_audit,
     normalize_cnpj,
     save_monthly_delta_actions,
@@ -90,6 +92,7 @@ from tabs.tab_industry_study import (  # noqa: E402
     _build_fund_dossier_tables,
     _build_snapshot_market_share,
     _apply_catalog_gap_actions,
+    _cedente_signal_focus_frame,
     _catalog_heatmap_cell_frame,
     _catalog_gap_actions_for_audit,
     _curation_queue_updates_to_domain_actions,
@@ -960,6 +963,62 @@ def test_criteria_structured_applies_review_and_tracks_subordination():
     assert quality["coverage"]["documento_origem"] == 1.0
 
 
+def test_regulatory_feature_criteria_loads_positive_strategy_signals(tmp_path):
+    db_path = tmp_path / "strategy.sqlite"
+    rows = pd.DataFrame(
+        [
+            {
+                "cnpj": "05.753.599/0001-58",
+                "fund_name": "FIDC ABC",
+                "setor_n1": "Crédito PJ",
+                "setor_n2": "Recebíveis",
+                "emission_cohort": "2026YTD",
+                "emitted_2024": 0,
+                "emitted_2025": 1,
+                "has_regulatory_matrix": 1,
+                "feature_key": "subordination_minimum",
+                "feature_label": "Subordinação mínima presente",
+                "has_feature": 1,
+                "evidence": "classe subordinada mínima definida no regulamento",
+                "pl_atual_brl": 100.0,
+                "volume_2024_brl": 0.0,
+                "volume_2025_brl": 25.0,
+            },
+            {
+                "cnpj": "05.753.599/0001-58",
+                "fund_name": "FIDC ABC",
+                "setor_n1": "Crédito PJ",
+                "setor_n2": "Recebíveis",
+                "emission_cohort": "2026YTD",
+                "emitted_2024": 0,
+                "emitted_2025": 1,
+                "has_regulatory_matrix": 1,
+                "feature_key": "derivatives_allowed",
+                "feature_label": "Derivativos permitidos",
+                "has_feature": 0,
+                "evidence": "",
+                "pl_atual_brl": 100.0,
+                "volume_2024_brl": 0.0,
+                "volume_2025_brl": 25.0,
+            },
+        ]
+    )
+    with sqlite3.connect(db_path) as conn:
+        rows.to_sql("regulatory_feature_long", conn, index=False)
+
+    features = load_regulatory_feature_criteria(db_path)
+    structured = build_criteria_structured(features, pd.DataFrame(columns=CRITERIA_REVIEW_COLUMNS))
+    quality = criteria_quality_summary(features, pd.DataFrame(columns=CRITERIA_REVIEW_COLUMNS), structured)
+
+    assert len(features) == 1
+    assert features.iloc[0]["CNPJ"] == "05753599000158"
+    assert features.iloc[0]["Chave"] == "feature_subordination_minimum"
+    assert structured.iloc[0]["chave"] == "feature_subordination_minimum"
+    assert structured.iloc[0]["metodo_extracao"] == "strategy_regulatory_feature_matrix"
+    assert quality["feature_rows"] == 1
+    assert quality["subordination_rows"] == 0
+
+
 def test_criteria_pipeline_manifest_lists_rerunnable_stages():
     criteria = pd.DataFrame(
         {
@@ -1071,13 +1130,14 @@ def test_industry_fund_snapshot_unifies_layers_per_fund():
     )
     criteria = pd.DataFrame(
         {
-            "cnpj_fundo": ["05753599000158"],
-            "chave": ["subordination_ratio_min"],
-            "pct_min": [10.0],
-            "monitorabilidade_ime": ["monitoravel"],
-            "ativo_curadoria": [True],
-            "documento_origem": ["reg.pdf"],
-            "score_confianca_final": [0.9],
+            "cnpj_fundo": ["05753599000158", "11111111000111"],
+            "chave": ["subordination_ratio_min", "feature_named_originator_or_cedente"],
+            "pct_min": [10.0, None],
+            "monitorabilidade_ime": ["monitoravel", "feature_documental"],
+            "ativo_curadoria": [True, True],
+            "documento_origem": ["reg.pdf", "strategy_regulatory_feature_long"],
+            "limite_regra": ["10%", "Cedente/originador nomeado detectado"],
+            "score_confianca_final": [0.9, 0.9],
         }
     )
     docs = pd.DataFrame(
@@ -1110,7 +1170,11 @@ def test_industry_fund_snapshot_unifies_layers_per_fund():
     assert abc["participantes_count"] == 1
     assert abc["sub_min_pct_median"] == 10.0
     assert abc["document_chunk_ids"] == "doc-0001"
-    assert defe["snapshot_status"] == "basico"
+    assert defe["participant_signal_rows"] == 1
+    assert bool(defe["tem_sinal_sem_participante"]) is True
+    assert defe["snapshot_status"] == "parcial"
+    assert quality["with_participant_signal"] == 1
+    assert quality["with_participant_signal_without_cedente"] == 1
     assert quality["with_subordination_min"] == 1
 
 
@@ -1343,6 +1407,7 @@ def test_industry_dimension_value_snapshot_combines_evidence_gaps_and_actions():
                 "document_rows": 0,
                 "document_local_ready": 0,
                 "cedente_rows": 0,
+                "participant_signal_rows": 1,
                 "criteria_rows": 1,
                 "criteria_subordination_rows": 0,
                 "admin_nome": "Admin A",
@@ -1411,6 +1476,7 @@ def test_industry_snapshot_gap_frame_prioritizes_missing_structured_layers():
                 "document_rows": 0,
                 "document_local_ready": 0,
                 "cedente_rows": 0,
+                "participant_signal_rows": 1,
                 "criteria_rows": 1,
                 "criteria_subordination_rows": 0,
             },
@@ -1423,6 +1489,7 @@ def test_industry_snapshot_gap_frame_prioritizes_missing_structured_layers():
                 "document_rows": 1,
                 "document_local_ready": 1,
                 "cedente_rows": 1,
+                "participant_signal_rows": 0,
                 "criteria_rows": 1,
                 "criteria_subordination_rows": 0,
             },
@@ -1435,6 +1502,7 @@ def test_industry_snapshot_gap_frame_prioritizes_missing_structured_layers():
                 "document_rows": 1,
                 "document_local_ready": 1,
                 "cedente_rows": 1,
+                "participant_signal_rows": 0,
                 "criteria_rows": 1,
                 "criteria_subordination_rows": 1,
             },
@@ -1451,7 +1519,7 @@ def test_industry_snapshot_gap_frame_prioritizes_missing_structured_layers():
     assert set(recent["missing_layers"].split(" | ")) == {
         "sem documento",
         "sem documento local",
-        "sem cedente/sacado",
+        "cedente/sacado sinalizado sem participante",
         "sem sub mínima",
     }
     overlayed = _apply_snapshot_gap_actions(
@@ -1474,6 +1542,48 @@ def test_industry_snapshot_gap_frame_prioritizes_missing_structured_layers():
     assert reviewed["status_lacuna"] == "em andamento"
     assert reviewed["acao_revisada"] == "Baixar regulamento e revisar cedente"
     assert reviewed["responsavel"] == "Research"
+
+
+def test_cedente_signal_focus_frame_keeps_only_unidentified_signals():
+    snapshot = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05.753.599/0001-58",
+                "nome_exibicao": "FIDC SINAL",
+                "pl": 100.0,
+                "admin_nome": "Admin A",
+                "segmento_principal": "Comercial",
+                "cedente_rows": 0,
+                "participant_signal_rows": 1,
+                "participant_signal_keys": "feature_named_originator_or_cedente",
+                "participant_signal_evidence": "CEDENTE ABC S.A.",
+                "criteria_documentos": "strategy_regulatory_feature_long",
+                "document_chunk_ids": "doc-0001",
+                "latest_regulamento_date": "2026-05-01",
+            },
+            {
+                "cnpj_fundo": "11.111.111/0001-11",
+                "nome_exibicao": "FIDC IDENTIFICADO",
+                "pl": 200.0,
+                "cedente_rows": 1,
+                "participant_signal_rows": 1,
+            },
+            {
+                "cnpj_fundo": "22.222.222/0001-22",
+                "nome_exibicao": "FIDC SEM SINAL",
+                "pl": 300.0,
+                "cedente_rows": 0,
+                "participant_signal_rows": 0,
+            },
+        ]
+    )
+
+    focus = _cedente_signal_focus_frame(snapshot)
+
+    assert focus["cnpj_fundo"].tolist() == ["05753599000158"]
+    assert focus.iloc[0]["participant_signal_keys"] == "feature_named_originator_or_cedente"
+    assert focus.iloc[0]["participant_signal_evidence"] == "CEDENTE ABC S.A."
+    assert focus.iloc[0]["pl_sinal_brl"] == 100.0
 
 
 def test_industry_snapshot_gap_actions_for_audit_tracks_field_changes():
