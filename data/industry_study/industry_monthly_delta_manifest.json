@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-monthly-delta-manifest/v1",
-  "generated_at_utc": "2026-07-08T17:26:43+00:00",
+  "generated_at_utc": "2026-07-09T14:30:48+00:00",
   "pipeline": "industry_monthly_delta",
   "design_constraints": {
     "modular": true,
@@ -34,8 +34,8 @@
     "monthly_delta_actions": {
       "path": "data/industry_study/monthly_delta_actions.csv",
       "exists": true,
-      "bytes": 74,
-      "sha256": "4701c1985eea1c04ff6a6307b2f8f22fa12d2eead73d219c625515bb5eda378a"
+      "bytes": 2630,
+      "sha256": "40b1d71fc97bf1fe785373c64efa0aa5bfdb7afa0a552105a7122cdaf5bf9af8"
     }
   },
   "outputs": {
@@ -43,7 +43,7 @@
       "path": "data/industry_study/industry_monthly_delta.csv.gz",
       "exists": true,
       "bytes": 359824,
-      "sha256": "74b1fdef1d0e6993e49fc87b660e7e4ed2ebe0109862926e5ae4f42101ec90f5"
+      "sha256": "dcebaae0a1505caf46609f80a600b7bed765d072019c4faee23043af7ebf87ca"
     },
     "manifest": {
       "path": "data/industry_study/industry_monthly_delta_manifest.json"
@@ -87,6 +87,10 @@
     "reactivated_funds": 8,
     "exited_funds": 60,
     "high_priority_rows": 71,
+    "high_priority_open_rows": 71,
+    "high_priority_pending_rows": 71,
+    "high_priority_in_progress_rows": 0,
+    "high_priority_closed_rows": 0,
     "action_status_counts": {
       "pendente": 4279
     },

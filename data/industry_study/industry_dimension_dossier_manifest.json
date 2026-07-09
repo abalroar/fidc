@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-dossier-manifest/v1",
-  "generated_at_utc": "2026-07-09T14:02:22+00:00",
+  "generated_at_utc": "2026-07-09T14:21:06+00:00",
   "pipeline": "industry_dimension_dossiers",
   "design_constraints": {
     "modular": true,
@@ -16,8 +16,8 @@
     "dimension_value_atlas": {
       "path": "data/industry_study/industry_dimension_value_atlas.csv.gz",
       "exists": true,
-      "bytes": 40870,
-      "sha256": "f356290398f613686bbc9a78064f630e1e2fe390c5a055262a6e753e5b7a1aa0"
+      "bytes": 90360,
+      "sha256": "98b6959d20fa46665b008ef1badc7215d6e8c2113868ad236c9b2743f14b34d3"
     },
     "dimension_profiles": {
       "path": "data/industry_study/industry_dimension_profiles.csv.gz",
@@ -36,8 +36,8 @@
     "dimension_dossiers": {
       "path": "data/industry_study/industry_dimension_dossiers.csv",
       "exists": true,
-      "bytes": 23651,
-      "sha256": "3a88faf0a72e03a28f2df17e28f35f6d849544d062e4496618b834308a73984c"
+      "bytes": 23652,
+      "sha256": "1b956d5d15be2df1537a4edd9988f943c282a4d20d3145faf15148d85dbfbd8c"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_dossier_manifest.json"
@@ -50,7 +50,7 @@
       "status": "ok",
       "input": "data/industry_study/industry_dimension_value_atlas.csv.gz+data/industry_study/industry_dimension_profiles.csv.gz+data/industry_study/industry_heatmap_registry.csv",
       "output": "memoria:atlas+profiles+heatmap_registry",
-      "rows": 58607,
+      "rows": 59117,
       "rerun": "python scripts/build_fidc_industry_dimension_monthly.py && python scripts/build_fidc_industry_dimension_profiles.py"
     },
     {
@@ -70,14 +70,14 @@
     "ok_rows": 28,
     "attention_rows": 0,
     "blocked_rows": 0,
-    "atlas_values": 343,
-    "atlas_values_with_pl": 329,
+    "atlas_values": 853,
+    "atlas_values_with_pl": 845,
     "profile_rows": 58253,
     "profile_links": 1106247,
     "with_profiles": 28,
     "heatmap_presets": 22,
     "heatmap_presets_ok": 22,
-    "source_document_coverage": 0.10434782608695652,
-    "traceability_coverage": 1.0
+    "source_document_coverage": 0.09058266195950636,
+    "traceability_coverage": 0.9989891674964545
   }
 }

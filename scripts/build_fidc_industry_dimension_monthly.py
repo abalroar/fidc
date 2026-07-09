@@ -11,6 +11,7 @@ Uso:
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -41,6 +42,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--atlas-output", type=Path, default=None)
     parser.add_argument("--manifest", type=Path, default=None)
+    parser.add_argument(
+        "--max-competencia",
+        default=None,
+        help="Competencia maxima da serie/atlas. Default: metadata.json competencia_snapshot.",
+    )
     return parser.parse_args()
 
 
@@ -51,15 +57,23 @@ def main() -> None:
     output_path = args.output or args.industry_dir / "industry_dimension_monthly.csv.gz"
     atlas_path = args.atlas_output or args.industry_dir / "industry_dimension_value_atlas.csv.gz"
     manifest_path = args.manifest or args.industry_dir / "industry_dimension_monthly_manifest.json"
+    metadata_path = args.industry_dir / "metadata.json"
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8")) if metadata_path.exists() else {}
+    max_competencia = args.max_competencia or metadata.get("competencia_snapshot")
 
     vehicle_monthly = load_dataframe(vehicle_path)
     dimension_catalog = load_dataframe(catalog_path)
     monthly = build_industry_dimension_monthly(
         vehicle_monthly=vehicle_monthly,
         dimension_catalog=dimension_catalog,
+        max_competencia=max_competencia,
     )
     save_dataframe(monthly, output_path)
-    atlas = build_industry_dimension_value_atlas(monthly, dimension_catalog=dimension_catalog)
+    atlas = build_industry_dimension_value_atlas(
+        monthly,
+        dimension_catalog=dimension_catalog,
+        latest_competencia=max_competencia,
+    )
     save_dataframe(atlas, atlas_path)
     manifest = build_dimension_monthly_pipeline_manifest(
         industry_dir=args.industry_dir,
@@ -72,6 +86,7 @@ def main() -> None:
         dimension_catalog=dimension_catalog,
         monthly=monthly,
         atlas=atlas,
+        max_competencia=max_competencia,
     )
     save_pipeline_manifest(manifest, manifest_path)
     quality = industry_dimension_monthly_quality_summary(monthly)

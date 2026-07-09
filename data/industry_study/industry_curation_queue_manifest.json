@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-curation-queue-manifest/v1",
-  "generated_at_utc": "2026-07-09T02:35:05+00:00",
+  "generated_at_utc": "2026-07-09T14:35:43+00:00",
   "pipeline": "industry_curation_queue",
   "design_constraints": {
     "modular": true,
@@ -22,7 +22,7 @@
       "path": "data/industry_study/industry_monthly_delta.csv.gz",
       "exists": true,
       "bytes": 359824,
-      "sha256": "74b1fdef1d0e6993e49fc87b660e7e4ed2ebe0109862926e5ae4f42101ec90f5"
+      "sha256": "dcebaae0a1505caf46609f80a600b7bed765d072019c4faee23043af7ebf87ca"
     },
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
@@ -38,27 +38,27 @@
     },
     "snapshot_gap_actions": {
       "path": "data/industry_study/snapshot_gap_actions.csv",
-      "exists": false,
-      "bytes": 0,
-      "sha256": ""
+      "exists": true,
+      "bytes": 46442,
+      "sha256": "1c7705ddfae1f77f704636bf8a39877d19e1bb144563fac80e927abf9c886db5"
     },
     "catalog_gap_actions": {
       "path": "data/industry_study/dimension_catalog_gap_actions.csv",
-      "exists": false,
-      "bytes": 0,
-      "sha256": ""
+      "exists": true,
+      "bytes": 167203,
+      "sha256": "f6cc32e6272522f59a0618ed40d1996125bd02e11ce8830575b38b003792fbaa"
     },
     "monthly_delta_actions": {
       "path": "data/industry_study/monthly_delta_actions.csv",
       "exists": true,
-      "bytes": 74,
-      "sha256": "4701c1985eea1c04ff6a6307b2f8f22fa12d2eead73d219c625515bb5eda378a"
+      "bytes": 2630,
+      "sha256": "40b1d71fc97bf1fe785373c64efa0aa5bfdb7afa0a552105a7122cdaf5bf9af8"
     },
     "document_chunk_actions": {
       "path": "data/industry_study/document_chunk_actions.csv",
-      "exists": false,
-      "bytes": 0,
-      "sha256": ""
+      "exists": true,
+      "bytes": 695,
+      "sha256": "1d7f834015b9c5826faad3304e7cf49ef2772a9b419bf6f69a357cca583e8d7f"
     }
   },
   "outputs": {
@@ -66,7 +66,7 @@
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
       "bytes": 2396743,
-      "sha256": "ec6a44de38faf23a98f40c361a5bff465b6567d69e5adf0b50235bae771ebb92"
+      "sha256": "aa075dac3481951b3ee4b2025c63b97d3694c77683da66fc464ac42bba4912c6"
     },
     "manifest": {
       "path": "data/industry_study/industry_curation_queue_manifest.json"
@@ -75,7 +75,7 @@
       "path": "data/industry_study/industry_curation_queue_summary.csv.gz",
       "exists": true,
       "bytes": 258201,
-      "sha256": "0d7770be0be5ec5952a9388e8aaa890491f784fbe6a5d8c7d1beb1fcc6bb9ec4"
+      "sha256": "572dafe360f464466a436b47431eff8398b3d140c40fde6fa6974c1b3e0f64b5"
     }
   },
   "stages": [
@@ -127,6 +127,10 @@
     "funds": 4337,
     "open_rows": 75116,
     "high_priority_rows": 3563,
+    "high_priority_open_rows": 3563,
+    "high_priority_pending_rows": 3563,
+    "high_priority_in_progress_rows": 0,
+    "high_priority_closed_rows": 0,
     "priority_2025_2026_rows": 7787,
     "domain_counts": {
       "catalog_gap": 66599,

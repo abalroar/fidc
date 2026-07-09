@@ -18,7 +18,12 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from services.industry_study import build_document_chunk_plan, load_dataframe, save_dataframe
+from services.industry_study import (
+    build_document_chunk_plan,
+    initialize_document_chunk_actions,
+    load_dataframe,
+    save_dataframe,
+)
 
 
 DEFAULT_INDUSTRY_DIR = Path("data/industry_study")
@@ -31,6 +36,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--chunks", type=Path, default=None)
     parser.add_argument("--actions", type=Path, default=None)
     parser.add_argument("--output", type=Path, default=None)
+    parser.add_argument(
+        "--no-initialize-actions",
+        action="store_true",
+        help="Nao criar linhas pendentes para chunks sem acompanhamento persistido.",
+    )
     return parser.parse_args()
 
 
@@ -45,6 +55,13 @@ def main() -> None:
     chunks = load_dataframe(chunks_path)
     actions = load_dataframe(actions_path)
     plan = build_document_chunk_plan(chunks, inventory, actions=actions)
+    created_actions = 0
+    if not args.no_initialize_actions:
+        initialized_actions = initialize_document_chunk_actions(plan, actions)
+        created_actions = max(len(initialized_actions) - len(actions), 0)
+        save_dataframe(initialized_actions, actions_path)
+        actions = initialized_actions
+        plan = build_document_chunk_plan(chunks, inventory, actions=actions)
     save_dataframe(plan, output_path)
 
     status_counts = plan["chunk_status"].value_counts().to_dict() if "chunk_status" in plan else {}
@@ -55,6 +72,7 @@ def main() -> None:
     )
     open_rows = int(plan["chunk_status"].fillna("").astype(str).ne("pronto").sum()) if "chunk_status" in plan else 0
     print(f"[ok] plano de chunks gravado em {output_path} ({len(plan):,} chunks; {open_rows:,} abertos)")
+    print(f"[ok] acompanhamento salvo em {actions_path} ({len(actions):,} linhas; {created_actions:,} criadas)")
     print(f"[ok] status operacional: {status_counts}")
     print(f"[ok] acompanhamento: {action_counts}")
 

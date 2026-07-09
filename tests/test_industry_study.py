@@ -59,6 +59,9 @@ from services.industry_study import (  # noqa: E402
     criteria_quality_summary,
     document_quality_summary,
     fund_snapshot_quality_summary,
+    initialize_document_chunk_actions,
+    initialize_curation_queue_actions,
+    initialize_monthly_delta_actions,
     industry_dimension_catalog_quality_summary,
     industry_dimension_dossier_quality_summary,
     industry_dimension_value_atlas_quality_summary,
@@ -805,6 +808,10 @@ def test_document_chunk_plan_prioritizes_download_hash_and_processing_actions():
         ]
     )
     tracked = _apply_document_chunk_actions(plan, actions)
+    initialized_actions = initialize_document_chunk_actions(plan, actions)
+    initialized_by_chunk = initialized_actions.set_index("chunk_id")
+    initialized_plan = _apply_document_chunk_actions(plan, initialized_actions)
+    initialized_plan_by_chunk = initialized_plan.set_index("chunk_id")
     tracked_by_chunk = tracked.set_index("chunk_id")
     events = build_review_audit_events(
         previous=_document_chunk_actions_for_audit(pd.DataFrame(columns=actions.columns)),
@@ -823,6 +830,13 @@ def test_document_chunk_plan_prioritizes_download_hash_and_processing_actions():
     assert by_chunk.loc["doc-0003", "chunk_status"] == "pronto"
     assert tracked_by_chunk.loc["doc-0002", "status_lote"] == "em andamento"
     assert tracked_by_chunk.loc["doc-0002", "acao_revisada"] == "Rodar OCR e parsing"
+    assert set(initialized_actions["chunk_id"]) == {"doc-0001", "doc-0002", "doc-0003"}
+    assert initialized_by_chunk.loc["doc-0001", "status_lote"] == "pendente"
+    assert initialized_by_chunk.loc["doc-0001", "acao_revisada"] == ""
+    assert initialized_by_chunk.loc["doc-0001", "updated_at_utc"] == ""
+    assert initialized_by_chunk.loc["doc-0002", "status_lote"] == "em andamento"
+    assert initialized_plan_by_chunk.loc["doc-0001", "status_lote"] == "pendente"
+    assert initialized_plan_by_chunk.loc["doc-0002", "acao_revisada"] == "Rodar OCR e parsing"
     assert set(events["field"]) == {"status", "acao_revisada", "responsavel", "prazo", "notas"}
     assert set(events["record_id"]) == {"doc-0002"}
 
@@ -2058,6 +2072,16 @@ def test_industry_dimension_monthly_aggregates_weighted_series_and_manifest():
                 "dc_inadimplentes_ajustado": 9.0,
                 "cotistas": 3,
             },
+            {
+                "competencia": "2026-06",
+                "cnpj": "05753599000158",
+                "cnpj_fundo": "05753599000158",
+                "pl": 500.0,
+                "captacao_liquida": 300.0,
+                "carteira_dc": 400.0,
+                "dc_inadimplentes_ajustado": 80.0,
+                "cotistas": 8,
+            },
         ]
     )
     catalog = pd.DataFrame(
@@ -2110,8 +2134,16 @@ def test_industry_dimension_monthly_aggregates_weighted_series_and_manifest():
         ]
     )
 
-    monthly = build_industry_dimension_monthly(vehicle_monthly=vehicle, dimension_catalog=catalog)
-    atlas = build_industry_dimension_value_atlas(monthly, dimension_catalog=catalog)
+    monthly = build_industry_dimension_monthly(
+        vehicle_monthly=vehicle,
+        dimension_catalog=catalog,
+        max_competencia="2026-05",
+    )
+    atlas = build_industry_dimension_value_atlas(
+        monthly,
+        dimension_catalog=catalog,
+        latest_competencia="2026-05",
+    )
     atlas_quality = industry_dimension_value_atlas_quality_summary(atlas)
     quality = industry_dimension_monthly_quality_summary(monthly)
     april = monthly[monthly["competencia"].eq("2026-04")].set_index("dimension_value")
@@ -2139,8 +2171,10 @@ def test_industry_dimension_monthly_aggregates_weighted_series_and_manifest():
             dimension_catalog=catalog,
             monthly=monthly,
             atlas=atlas,
+            max_competencia="2026-05",
         )
 
+    assert "2026-06" not in set(monthly["competencia"])
     assert april.loc["CDI+", "pl_brl"] == 100.0
     assert april.loc["IPCA+", "pl_brl"] == 50.0
     assert may.loc["CDI+", "pl_brl"] == 60.0
@@ -2166,7 +2200,11 @@ def test_industry_dimension_monthly_aggregates_weighted_series_and_manifest():
     assert quality["dimensions"] == 1
     assert manifest["schema_version"] == "industry-dimension-monthly-manifest/v1"
     assert manifest["quality"]["rows"] == len(monthly)
+    assert manifest["quality"]["latest_competencia"] == "2026-05"
+    assert manifest["quality"]["max_competencia_requested"] == "2026-05"
+    assert manifest["parameters"]["max_competencia"] == "2026-05"
     assert manifest["quality"]["atlas_rows"] == len(atlas)
+    assert manifest["quality"]["atlas_latest_competencia"] == "2026-05"
     assert manifest["quality"]["atlas_values_with_traceability_links"] == 2
     assert manifest["quality"]["atlas_traceability_coverage"] == 1.0
     assert manifest["outputs"]["dimension_value_atlas"]["exists"] is True
@@ -2695,6 +2733,8 @@ def test_industry_monthly_delta_prioritizes_incremental_review_queue():
     assert quality["new_funds"] == 1
     assert quality["reactivated_funds"] == 1
     assert quality["exited_funds"] == 1
+    assert quality["high_priority_rows"] == 2
+    assert quality["high_priority_open_rows"] == 2
 
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
@@ -2716,7 +2756,16 @@ def test_industry_monthly_delta_prioritizes_incremental_review_queue():
         )
         saved_actions = save_monthly_delta_actions(actions, actions_path)
         loaded_actions = load_monthly_delta_actions(actions_path)
+        initialized_actions = initialize_monthly_delta_actions(delta, loaded_actions)
+        initialized_by_id = initialized_actions.set_index("delta_id")
         overlayed = apply_monthly_delta_actions(delta, loaded_actions)
+        closed_actions = initialized_actions.copy()
+        closed_actions.loc[
+            closed_actions["delta_id"].eq("202605_44444444000144"),
+            "status_acao",
+        ] = "concluído"
+        closed_overlayed = apply_monthly_delta_actions(delta, closed_actions)
+        closed_quality = industry_monthly_delta_quality_summary(closed_overlayed)
         novo_overlayed = overlayed[overlayed["delta_id"].eq(novo["delta_id"])].iloc[0]
         audit_events = build_review_audit_events(
             previous=_monthly_delta_actions_for_audit(pd.DataFrame(columns=MONTHLY_DELTA_ACTION_COLUMNS)),
@@ -2729,6 +2778,15 @@ def test_industry_monthly_delta_prioritizes_incremental_review_queue():
 
         assert saved_actions.columns.tolist() == MONTHLY_DELTA_ACTION_COLUMNS
         assert loaded_actions.to_dict("records") == saved_actions.to_dict("records")
+        assert set(initialized_actions["delta_id"]) >= {"202605_22222222000122", "202605_44444444000144"}
+        assert initialized_by_id.loc["202605_22222222000122", "status_acao"] == "em andamento"
+        assert initialized_by_id.loc["202605_44444444000144", "status_acao"] == "pendente"
+        assert initialized_by_id.loc["202605_44444444000144", "acao_revisada"] == ""
+        assert initialized_by_id.loc["202605_44444444000144", "updated_at_utc"] == ""
+        assert "202605_33333333000133" not in set(initialized_actions["delta_id"])
+        assert closed_quality["high_priority_rows"] == 2
+        assert closed_quality["high_priority_open_rows"] == 1
+        assert closed_quality["high_priority_closed_rows"] == 1
         assert novo_overlayed["status_acao"] == "em andamento"
         assert novo_overlayed["responsavel"] == "mesa"
         assert industry_monthly_delta_quality_summary(overlayed)["action_status_counts"]["em andamento"] == 1
@@ -2893,12 +2951,38 @@ def test_industry_curation_queue_unifies_all_fidc_workstreams():
         dimension_catalog=catalog,
     )
     quality = industry_curation_queue_quality_summary(queue)
+    closed_queue = queue.copy()
+    closed_queue.loc[closed_queue["queue_domain"].eq("catalog_gap"), "status_curadoria"] = "aceito"
+    closed_quality = industry_curation_queue_quality_summary(closed_queue)
+    initialized = initialize_curation_queue_actions(
+        queue,
+        monthly_delta_actions=pd.DataFrame(
+            [
+                {
+                    "delta_id": "202605_05753599000158",
+                    "status_acao": "em andamento",
+                    "acao_revisada": "priorizar",
+                    "responsavel": "",
+                    "prazo": "",
+                    "notas": "",
+                    "updated_at_utc": "2026-07-08T12:00:00+00:00",
+                }
+            ]
+        ),
+    )
     domains = set(queue["queue_domain"])
 
     assert domains == {"snapshot_gap", "monthly_delta", "document_chunk", "catalog_gap"}
     assert quality["rows"] == 4
     assert quality["open_rows"] == 4
-    assert quality["high_priority_rows"] >= 1
+    assert quality["high_priority_rows"] == 3
+    assert quality["high_priority_open_rows"] == 3
+    assert closed_quality["high_priority_open_rows"] == 2
+    assert closed_quality["high_priority_closed_rows"] == 1
+    assert initialized["monthly_delta"].iloc[0]["status_acao"] == "em andamento"
+    assert initialized["snapshot_gap"].iloc[0]["status_lacuna"] == "pendente"
+    assert initialized["catalog_gap"].iloc[0]["status_lacuna"] == "pendente"
+    assert initialized["document_chunk"].empty
     assert queue.iloc[0]["priority_band"] == "alta"
     assert queue.iloc[0]["queue_domain"] in {"monthly_delta", "snapshot_gap", "catalog_gap"}
     snapshot_row = queue[queue["queue_domain"].eq("snapshot_gap")].iloc[0]
@@ -3027,6 +3111,10 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "reactivated_funds": 1,
                 "exited_funds": 1,
                 "high_priority_rows": 2,
+                "high_priority_open_rows": 2,
+                "high_priority_pending_rows": 1,
+                "high_priority_in_progress_rows": 1,
+                "high_priority_closed_rows": 0,
                 "needs_document_discovery": 2,
             },
         )
@@ -3068,6 +3156,10 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "funds": 2,
                 "open_rows": 3,
                 "high_priority_rows": 1,
+                "high_priority_open_rows": 1,
+                "high_priority_pending_rows": 1,
+                "high_priority_in_progress_rows": 0,
+                "high_priority_closed_rows": 0,
                 "priority_2025_2026_rows": 2,
                 "summary_rows": 8,
                 "fund_backlog_rows": 2,
@@ -3259,9 +3351,17 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["monthly_delta_competencia_atual"] == "2026-05"
     assert index["quality_rollup"]["monthly_delta_new_funds"] == 1
     assert index["quality_rollup"]["monthly_delta_high_priority"] == 2
+    assert index["quality_rollup"]["monthly_delta_high_priority_open"] == 2
+    assert index["quality_rollup"]["monthly_delta_high_priority_pending"] == 1
+    assert index["quality_rollup"]["monthly_delta_high_priority_in_progress"] == 1
+    assert index["quality_rollup"]["monthly_delta_high_priority_closed"] == 0
     assert index["quality_rollup"]["curation_queue_rows"] == 5
     assert index["quality_rollup"]["curation_queue_open_rows"] == 3
     assert index["quality_rollup"]["curation_queue_high_priority_rows"] == 1
+    assert index["quality_rollup"]["curation_queue_high_priority_open_rows"] == 1
+    assert index["quality_rollup"]["curation_queue_high_priority_pending_rows"] == 1
+    assert index["quality_rollup"]["curation_queue_high_priority_in_progress_rows"] == 0
+    assert index["quality_rollup"]["curation_queue_high_priority_closed_rows"] == 0
     assert index["quality_rollup"]["curation_queue_summary_rows"] == 8
     assert index["quality_rollup"]["curation_queue_fund_backlog_rows"] == 2
     assert index["quality_rollup"]["curation_queue_admin_backlog_rows"] == 1

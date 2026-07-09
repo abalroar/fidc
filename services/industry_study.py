@@ -760,6 +760,43 @@ def save_monthly_delta_actions(actions: pd.DataFrame, path: Path) -> pd.DataFram
     return out
 
 
+def initialize_monthly_delta_actions(
+    delta: pd.DataFrame,
+    actions: pd.DataFrame | None = None,
+    *,
+    priority_bands: tuple[str, ...] = ("alta",),
+) -> pd.DataFrame:
+    """Create pending action rows for priority deltas without creating decisions."""
+
+    existing = pd.DataFrame() if actions is None else actions.copy()
+    for col in MONTHLY_DELTA_ACTION_COLUMNS:
+        if col not in existing.columns:
+            existing[col] = ""
+    existing = existing[MONTHLY_DELTA_ACTION_COLUMNS].copy()
+    existing["delta_id"] = existing["delta_id"].map(_audit_value)
+    existing = existing[existing["delta_id"].ne("")].drop_duplicates("delta_id", keep="last")
+    if delta is None or delta.empty or "delta_id" not in delta.columns:
+        return existing.reset_index(drop=True)
+
+    candidates = delta.copy()
+    candidates["delta_id"] = candidates["delta_id"].map(_audit_value)
+    candidates = candidates[candidates["delta_id"].ne("")].drop_duplicates("delta_id", keep="first")
+    if priority_bands and "priority_band" in candidates.columns:
+        bands = {str(value).strip().lower() for value in priority_bands if str(value).strip()}
+        priority = candidates["priority_band"].fillna("").astype(str).str.strip().str.lower()
+        candidates = candidates[priority.isin(bands)].copy()
+    candidates = candidates[~candidates["delta_id"].isin(set(existing["delta_id"]))].copy()
+    if candidates.empty:
+        return existing.reset_index(drop=True)
+
+    seeded = pd.DataFrame({"delta_id": candidates["delta_id"].tolist()})
+    seeded["status_acao"] = "pendente"
+    for col in ["acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        seeded[col] = ""
+    seeded = seeded[MONTHLY_DELTA_ACTION_COLUMNS]
+    return pd.concat([existing, seeded], ignore_index=True)[MONTHLY_DELTA_ACTION_COLUMNS].reset_index(drop=True)
+
+
 def apply_monthly_delta_actions(delta: pd.DataFrame, actions: pd.DataFrame | None) -> pd.DataFrame:
     if delta is None or delta.empty:
         return pd.DataFrame() if delta is None else delta.copy()
@@ -1790,6 +1827,10 @@ def industry_monthly_delta_quality_summary(delta: pd.DataFrame) -> dict[str, obj
     status = delta.get("status_delta", pd.Series(dtype=str)).astype(str)
     action_status = delta.get("status_acao", pd.Series(dtype=str)).fillna("").astype(str).replace("", "pendente")
     action_counts = action_status.value_counts().to_dict()
+    high_priority_mask = delta.get("priority_band", pd.Series(dtype=str)).astype(str).eq("alta")
+    normalized_action = action_status.str.strip().str.lower()
+    closed_action = normalized_action.isin({"concluído", "concluido", "ignorado", "resolvido", "aprovado"})
+    high_priority_open = high_priority_mask & ~closed_action
     return {
         "rows": int(len(delta)),
         "competencia_atual": _first_non_empty(delta.get("competencia_atual", pd.Series(dtype=str))),
@@ -1798,7 +1839,11 @@ def industry_monthly_delta_quality_summary(delta: pd.DataFrame) -> dict[str, obj
         "new_funds": int(status.eq("novo_no_ime").sum()),
         "reactivated_funds": int(status.eq("reativado").sum()),
         "exited_funds": int(status.eq("saiu_do_ime").sum()),
-        "high_priority_rows": int(delta.get("priority_band", pd.Series(dtype=str)).astype(str).eq("alta").sum()),
+        "high_priority_rows": int(high_priority_mask.sum()),
+        "high_priority_open_rows": int(high_priority_open.sum()),
+        "high_priority_pending_rows": int((high_priority_mask & normalized_action.eq("pendente")).sum()),
+        "high_priority_in_progress_rows": int((high_priority_mask & normalized_action.eq("em andamento")).sum()),
+        "high_priority_closed_rows": int((high_priority_mask & closed_action).sum()),
         "action_status_counts": {str(key): int(value) for key, value in action_counts.items()},
         "completed_actions": int(action_status.isin(["concluído", "concluido"]).sum()),
         "ignored_actions": int(action_status.eq("ignorado").sum()),
@@ -2473,6 +2518,33 @@ def apply_document_chunk_actions(plan: pd.DataFrame, actions: pd.DataFrame | Non
     return out
 
 
+def initialize_document_chunk_actions(plan: pd.DataFrame, actions: pd.DataFrame | None = None) -> pd.DataFrame:
+    """Persist pending tracking rows for chunks that do not yet have an action row."""
+
+    existing = pd.DataFrame() if actions is None else actions.copy()
+    for col in DOCUMENT_CHUNK_ACTION_COLUMNS:
+        if col not in existing.columns:
+            existing[col] = ""
+    existing = existing[DOCUMENT_CHUNK_ACTION_COLUMNS].copy()
+    existing["chunk_id"] = existing["chunk_id"].fillna("").astype(str).str.strip()
+    existing = existing[existing["chunk_id"].ne("")].drop_duplicates("chunk_id", keep="last")
+    if plan is None or plan.empty or "chunk_id" not in plan.columns:
+        return existing.reset_index(drop=True)
+
+    plan_rows = plan.copy()
+    plan_rows["chunk_id"] = plan_rows["chunk_id"].fillna("").astype(str).str.strip()
+    plan_rows = plan_rows[plan_rows["chunk_id"].ne("")].drop_duplicates("chunk_id", keep="first")
+    missing = plan_rows[~plan_rows["chunk_id"].isin(set(existing["chunk_id"]))].copy()
+    if missing.empty:
+        return existing.reset_index(drop=True)
+    seeded = pd.DataFrame({"chunk_id": missing["chunk_id"].tolist()})
+    seeded["status_lote"] = "pendente"
+    for col in ["acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+        seeded[col] = ""
+    seeded = seeded[DOCUMENT_CHUNK_ACTION_COLUMNS]
+    return pd.concat([existing, seeded], ignore_index=True)[DOCUMENT_CHUNK_ACTION_COLUMNS].reset_index(drop=True)
+
+
 def build_document_chunk_plan(
     chunks: pd.DataFrame,
     inventory: pd.DataFrame,
@@ -3085,6 +3157,7 @@ def industry_curation_queue_quality_summary(queue: pd.DataFrame) -> dict[str, ob
             "funds": 0,
             "open_rows": 0,
             "high_priority_rows": 0,
+            "high_priority_open_rows": 0,
             "domain_counts": {},
             "status_counts": {},
         }
@@ -3092,16 +3165,75 @@ def industry_curation_queue_quality_summary(queue: pd.DataFrame) -> dict[str, ob
     open_status = ~status.isin({"corrigido", "aceito", "ignorado", "processado", "concluído", "concluido"})
     domain = queue.get("queue_domain", pd.Series("", index=queue.index)).fillna("").astype(str)
     priority = queue.get("priority_band", pd.Series("", index=queue.index)).fillna("").astype(str).str.lower()
+    high_priority = priority.eq("alta")
     cnpj = queue.get("cnpj_fundo", pd.Series("", index=queue.index)).fillna("").astype(str)
     return {
         "rows": int(len(queue)),
         "funds": int(cnpj.map(normalize_cnpj).replace("", pd.NA).dropna().nunique()),
         "open_rows": int(open_status.sum()),
-        "high_priority_rows": int(priority.eq("alta").sum()),
+        "high_priority_rows": int(high_priority.sum()),
+        "high_priority_open_rows": int((high_priority & open_status).sum()),
+        "high_priority_pending_rows": int((high_priority & status.eq("pendente")).sum()),
+        "high_priority_in_progress_rows": int((high_priority & status.eq("em andamento")).sum()),
+        "high_priority_closed_rows": int((high_priority & ~open_status).sum()),
         "priority_2025_2026_rows": int(_boolish_series(queue.get("priority_2025_2026", pd.Series(False, index=queue.index))).sum()),
         "domain_counts": {str(k): int(v) for k, v in domain.value_counts().to_dict().items()},
         "status_counts": {str(k): int(v) for k, v in status.value_counts().to_dict().items()},
     }
+
+
+def initialize_curation_queue_actions(
+    queue: pd.DataFrame,
+    *,
+    monthly_delta_actions: pd.DataFrame | None = None,
+    snapshot_gap_actions: pd.DataFrame | None = None,
+    catalog_gap_actions: pd.DataFrame | None = None,
+    document_chunk_actions: pd.DataFrame | None = None,
+    priority_bands: tuple[str, ...] = ("alta",),
+) -> dict[str, pd.DataFrame]:
+    """Create pending domain action rows for curation queue items without decisions."""
+
+    specs = {
+        "monthly_delta": ("record_id", "delta_id", "status_acao", MONTHLY_DELTA_ACTION_COLUMNS, monthly_delta_actions),
+        "snapshot_gap": ("record_id", "gap_id", "status_lacuna", SNAPSHOT_GAP_ACTION_COLUMNS, snapshot_gap_actions),
+        "catalog_gap": ("record_id", "traceability_gap_id", "status_lacuna", CATALOG_GAP_ACTION_COLUMNS, catalog_gap_actions),
+        "document_chunk": ("record_id", "chunk_id", "status_lote", DOCUMENT_CHUNK_ACTION_COLUMNS, document_chunk_actions),
+    }
+    outputs: dict[str, pd.DataFrame] = {}
+    queue_frame = pd.DataFrame() if queue is None else queue.copy()
+    for domain, (queue_id_col, action_id_col, status_col, columns, existing_actions) in specs.items():
+        existing = pd.DataFrame() if existing_actions is None else existing_actions.copy()
+        for col in columns:
+            if col not in existing.columns:
+                existing[col] = ""
+        existing = existing[columns].copy()
+        existing[action_id_col] = existing[action_id_col].map(_audit_value)
+        existing = existing[existing[action_id_col].ne("")].drop_duplicates(action_id_col, keep="last")
+        if queue_frame.empty or "queue_domain" not in queue_frame.columns or queue_id_col not in queue_frame.columns:
+            outputs[domain] = existing.reset_index(drop=True)
+            continue
+
+        subset = queue_frame[queue_frame["queue_domain"].fillna("").astype(str).eq(domain)].copy()
+        if priority_bands and "priority_band" in subset.columns:
+            bands = {str(value).strip().lower() for value in priority_bands if str(value).strip()}
+            priority = subset["priority_band"].fillna("").astype(str).str.strip().str.lower()
+            subset = subset[priority.isin(bands)].copy()
+        if subset.empty:
+            outputs[domain] = existing.reset_index(drop=True)
+            continue
+        subset[action_id_col] = subset[queue_id_col].map(_audit_value)
+        subset = subset[subset[action_id_col].ne("")].drop_duplicates(action_id_col, keep="first")
+        missing = subset[~subset[action_id_col].isin(set(existing[action_id_col]))].copy()
+        if missing.empty:
+            outputs[domain] = existing.reset_index(drop=True)
+            continue
+        seeded = pd.DataFrame({action_id_col: missing[action_id_col].tolist()})
+        seeded[status_col] = "pendente"
+        for col in ["acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]:
+            seeded[col] = ""
+        seeded = seeded[columns]
+        outputs[domain] = pd.concat([existing, seeded], ignore_index=True)[columns].reset_index(drop=True)
+    return outputs
 
 
 def _single_cnpj_or_empty(value: object) -> str:
@@ -3958,7 +4090,11 @@ def build_pipeline_readiness_checks(
         "",
     )
 
-    high_priority = int(quality_rollup.get("monthly_delta_high_priority", 0) or 0)
+    high_priority = int(quality_rollup.get("monthly_delta_high_priority_open", 0) or 0)
+    high_priority_total = int(quality_rollup.get("monthly_delta_high_priority", 0) or 0)
+    high_priority_pending = int(quality_rollup.get("monthly_delta_high_priority_pending", 0) or 0)
+    high_priority_in_progress = int(quality_rollup.get("monthly_delta_high_priority_in_progress", 0) or 0)
+    high_priority_closed = int(quality_rollup.get("monthly_delta_high_priority_closed", 0) or 0)
     new_funds = int(quality_rollup.get("monthly_delta_new_funds", 0) or 0)
     reactivated = int(quality_rollup.get("monthly_delta_reactivated_funds", 0) or 0)
     add(
@@ -3968,14 +4104,22 @@ def build_pipeline_readiness_checks(
         "Novos, reativados, saídas e grandes variações",
         "bloqueado" if high_priority else ("atenção" if new_funds or reactivated else "ok"),
         high_priority if high_priority else new_funds + reactivated,
-        f"{new_funds} novos; {reactivated} reativados",
+        (
+            f"{new_funds} novos; {reactivated} reativados; "
+            f"alta prioridade {high_priority}/{high_priority_total} abertos "
+            f"({high_priority_pending} pendentes; {high_priority_in_progress} em andamento; {high_priority_closed} fechados)"
+        ),
         "Fechar ou justificar as ações do delta mensal de maior prioridade.",
         "industry_monthly_delta_manifest.json",
         "python scripts/build_fidc_industry_monthly_delta.py",
     )
 
     curation_open = int(quality_rollup.get("curation_queue_open_rows", 0) or 0)
-    curation_high = int(quality_rollup.get("curation_queue_high_priority_rows", 0) or 0)
+    curation_high = int(quality_rollup.get("curation_queue_high_priority_open_rows", 0) or 0)
+    curation_high_total = int(quality_rollup.get("curation_queue_high_priority_rows", 0) or 0)
+    curation_high_pending = int(quality_rollup.get("curation_queue_high_priority_pending_rows", 0) or 0)
+    curation_high_in_progress = int(quality_rollup.get("curation_queue_high_priority_in_progress_rows", 0) or 0)
+    curation_high_closed = int(quality_rollup.get("curation_queue_high_priority_closed_rows", 0) or 0)
     add(
         "curation_queue",
         5,
@@ -3983,7 +4127,10 @@ def build_pipeline_readiness_checks(
         "Fila única all-FIDCs",
         "bloqueado" if curation_high else ("atenção" if curation_open else "ok"),
         curation_high if curation_high else curation_open,
-        f"{curation_open} abertas; {curation_high} alta prioridade",
+        (
+            f"{curation_open} abertas; alta prioridade {curation_high}/{curation_high_total} abertas "
+            f"({curation_high_pending} pendentes; {curation_high_in_progress} em andamento; {curation_high_closed} fechadas)"
+        ),
         "Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.",
         "industry_curation_queue.csv.gz",
         "python scripts/build_fidc_industry_curation_queue.py",
@@ -4005,7 +4152,8 @@ def build_pipeline_readiness_checks(
         chunk_open,
         (
             f"{chunk_processed}/{document_chunks} processados; "
-            f"{chunk_untracked} sem acompanhamento; {chunk_in_progress} em andamento; {chunk_blocked} bloqueados"
+            f"{chunk_untracked} sem acompanhamento; {chunk_pending} pendentes; "
+            f"{chunk_in_progress} em andamento; {chunk_blocked} bloqueados"
         ),
         "Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.",
         "document_chunk_actions.csv",
@@ -4547,9 +4695,17 @@ def build_prd_coverage_matrix(
         11,
         "Evolução contínua",
         "Atualização mensal incremental para novos FIDCs sem reprocessar tudo",
-        "atenção" if number("curation_queue_high_priority_rows") else "ok",
-        f"{int(number('monthly_delta_rows'))} linhas de delta; {int(number('curation_queue_high_priority_rows'))} alta prioridade na fila única",
-        f"delta_high={int(number('monthly_delta_high_priority'))}; curation_open={int(number('curation_queue_open_rows'))}",
+        "atenção" if number("curation_queue_high_priority_open_rows") else "ok",
+        (
+            f"{int(number('monthly_delta_rows'))} linhas de delta; "
+            f"{int(number('curation_queue_high_priority_open_rows'))}/{int(number('curation_queue_high_priority_rows'))} "
+            "alta prioridade abertas na fila única"
+        ),
+        (
+            f"delta_high_open={int(number('monthly_delta_high_priority_open'))}; "
+            f"delta_high_total={int(number('monthly_delta_high_priority'))}; "
+            f"curation_open={int(number('curation_queue_open_rows'))}"
+        ),
         "industry_monthly_delta.csv.gz | industry_curation_queue.csv.gz",
         "Fechar alta prioridade da fila única antes de publicar a competência.",
         "python scripts/build_fidc_industry_monthly_delta.py && python scripts/build_fidc_industry_curation_queue.py",
@@ -4626,6 +4782,10 @@ def build_industry_pipeline_index(
                 "reactivated_funds",
                 "exited_funds",
                 "high_priority_rows",
+                "high_priority_open_rows",
+                "high_priority_pending_rows",
+                "high_priority_in_progress_rows",
+                "high_priority_closed_rows",
                 "needs_document_discovery",
                 "needs_cedente_review",
                 "needs_criteria_review",
@@ -4678,6 +4838,10 @@ def build_industry_pipeline_index(
                 "funds",
                 "open_rows",
                 "high_priority_rows",
+                "high_priority_open_rows",
+                "high_priority_pending_rows",
+                "high_priority_in_progress_rows",
+                "high_priority_closed_rows",
                 "priority_2025_2026_rows",
                 "summary_rows",
                 "summary_type_counts",
@@ -5150,10 +5314,18 @@ def build_industry_pipeline_index(
         "monthly_delta_new_funds": monthly_delta_quality.get("new_funds", 0),
         "monthly_delta_reactivated_funds": monthly_delta_quality.get("reactivated_funds", 0),
         "monthly_delta_high_priority": monthly_delta_quality.get("high_priority_rows", 0),
+        "monthly_delta_high_priority_open": monthly_delta_quality.get("high_priority_open_rows", 0),
+        "monthly_delta_high_priority_pending": monthly_delta_quality.get("high_priority_pending_rows", 0),
+        "monthly_delta_high_priority_in_progress": monthly_delta_quality.get("high_priority_in_progress_rows", 0),
+        "monthly_delta_high_priority_closed": monthly_delta_quality.get("high_priority_closed_rows", 0),
         "curation_queue_rows": curation_quality.get("rows", 0),
         "curation_queue_funds": curation_quality.get("funds", 0),
         "curation_queue_open_rows": curation_quality.get("open_rows", 0),
         "curation_queue_high_priority_rows": curation_quality.get("high_priority_rows", 0),
+        "curation_queue_high_priority_open_rows": curation_quality.get("high_priority_open_rows", 0),
+        "curation_queue_high_priority_pending_rows": curation_quality.get("high_priority_pending_rows", 0),
+        "curation_queue_high_priority_in_progress_rows": curation_quality.get("high_priority_in_progress_rows", 0),
+        "curation_queue_high_priority_closed_rows": curation_quality.get("high_priority_closed_rows", 0),
         "curation_queue_priority_2025_2026_rows": curation_quality.get("priority_2025_2026_rows", 0),
         "curation_queue_summary_rows": curation_quality.get("summary_rows", 0),
         "curation_queue_fund_backlog_rows": curation_quality.get("fund_backlog_rows", 0),
@@ -6869,6 +7041,7 @@ def build_industry_dimension_monthly(
     *,
     vehicle_monthly: pd.DataFrame,
     dimension_catalog: pd.DataFrame,
+    max_competencia: str | None = None,
 ) -> pd.DataFrame:
     """Aggregate monthly metrics by reusable Industry dimension/value."""
 
@@ -6884,6 +7057,13 @@ def build_industry_dimension_monthly(
         return pd.DataFrame(columns=_DIMENSION_MONTHLY_COLUMNS)
     if "cnpj" not in vehicle.columns:
         vehicle["cnpj"] = vehicle["cnpj_fundo_norm"]
+    max_key = _competencia_key(max_competencia) if max_competencia else ""
+    if max_key:
+        vehicle["_competencia_key"] = vehicle["competencia"].map(_competencia_key)
+        vehicle = vehicle[vehicle["_competencia_key"].le(max_key)].copy()
+        vehicle = vehicle.drop(columns=["_competencia_key"])
+        if vehicle.empty:
+            return pd.DataFrame(columns=_DIMENSION_MONTHLY_COLUMNS)
     metric_cols = [
         "competencia",
         "cnpj",
@@ -8046,11 +8226,13 @@ def build_dimension_monthly_pipeline_manifest(
     dimension_catalog: pd.DataFrame,
     monthly: pd.DataFrame,
     atlas: pd.DataFrame | None = None,
+    max_competencia: str | None = None,
 ) -> dict[str, object]:
     quality = industry_dimension_monthly_quality_summary(monthly)
     atlas_quality = industry_dimension_value_atlas_quality_summary(atlas if atlas is not None else pd.DataFrame())
     quality.update(
         {
+            "max_competencia_requested": _competencia_label(max_competencia) if max_competencia else "",
             "atlas_rows": atlas_quality.get("rows", 0),
             "atlas_dimensions": atlas_quality.get("dimensions", 0),
             "atlas_latest_competencia": atlas_quality.get("latest_competencia", ""),
@@ -8081,12 +8263,16 @@ def build_dimension_monthly_pipeline_manifest(
             "notes": [
                 "Este modulo agrega metricas mensais por dimensao reutilizavel sem expandir o arquivo de UI.",
                 "O catalogo de dimensoes fornece pesos e relacoes; a base granular mensal fornece as metricas.",
+                "Por padrao, a serie e o atlas param na competencia_snapshot para nao misturar dimensoes curadas de uma foto antiga com um mes agregado mais recente.",
                 "Deep Dives podem usar esta serie diretamente, preservando fallback para detalhe por veiculo.",
             ],
         },
         "inputs": {
             "vehicle_monthly": file_fingerprint(vehicle_monthly_path),
             "dimension_catalog": file_fingerprint(dimension_catalog_path),
+        },
+        "parameters": {
+            "max_competencia": _competencia_label(max_competencia) if max_competencia else "",
         },
         "outputs": outputs,
         "stages": [

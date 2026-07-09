@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-document-manifest/v1",
-  "generated_at_utc": "2026-07-09T02:03:08+00:00",
+  "generated_at_utc": "2026-07-09T14:25:01+00:00",
   "pipeline": "industry_document_inventory",
   "design_constraints": {
     "modular": true,
@@ -28,8 +28,8 @@
     "document_inventory": {
       "path": "data/industry_study/document_inventory.csv.gz",
       "exists": true,
-      "bytes": 338594,
-      "sha256": "ad98d29950d29b8b7f2f78cb9e7d525033f9e64819414f42fcca13c4f6f730c1"
+      "bytes": 338622,
+      "sha256": "88c2c79a10d2bbfbcdb91b0cb3cd56ee8425f199823dc20e74508b06b3be7f20"
     },
     "document_processing_chunks": {
       "path": "data/industry_study/document_processing_chunks.csv",
