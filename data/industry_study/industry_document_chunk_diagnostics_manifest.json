@@ -1,8 +1,8 @@
 {
   "schema_version": "industry-document-chunk-diagnostics-manifest/v1",
-  "generated_at_utc": "2026-07-09T18:51:00+00:00",
+  "generated_at_utc": "2026-07-09T18:56:52+00:00",
   "pipeline": "industry_document_chunk_diagnostics",
-  "selected_chunk_id": "doc-0001",
+  "selected_chunk_id": "doc-0027",
   "design_constraints": {
     "modular": true,
     "incremental": true,
@@ -31,14 +31,14 @@
     "document_chunk_diagnostics": {
       "path": "data/industry_study/document_chunk_diagnostics.csv.gz",
       "exists": true,
-      "bytes": 47650,
-      "sha256": "84b860e3316ab11777e55d39361ac06e179879c02971b9484813a05d8440c5a0"
+      "bytes": 1318580,
+      "sha256": "1e5ae78dd03284dd7769cc22beabda92c91bf25c61d8c024c1e6754c056dff49"
     },
     "document_chunk_run_summary": {
       "path": "data/industry_study/document_chunk_run_summary.csv",
       "exists": true,
-      "bytes": 721,
-      "sha256": "945796ec2287ce45968a14829b79817d10e47a42766edc5dfcf74e459b1d5855"
+      "bytes": 13529,
+      "sha256": "8589535364a28ba41a80a05a826e68208ea4e6a8cd5ae79e6686f16dc84225ab"
     },
     "manifest": {
       "path": "data/industry_study/industry_document_chunk_diagnostics_manifest.json"
@@ -50,18 +50,18 @@
       "label": "Selecionar chunk incremental",
       "status": "ok",
       "input": "document_inventory+document_chunk_plan",
-      "output": "doc-0001",
-      "rows": 1,
-      "rerun": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001"
+      "output": "doc-0027",
+      "rows": 27,
+      "rerun": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0027"
     },
     {
       "id": "probe_local_documents",
       "label": "Diagnosticar texto/JSON/PDF",
       "status": "ok",
-      "input": "doc-0001",
+      "input": "doc-0027",
       "output": "data/industry_study/document_chunk_diagnostics.csv.gz",
-      "rows": 116,
-      "rerun": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001"
+      "rows": 3521,
+      "rerun": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0027"
     },
     {
       "id": "persist_run_summary",
@@ -69,31 +69,34 @@
       "status": "ok",
       "input": "data/industry_study/document_chunk_diagnostics.csv.gz",
       "output": "data/industry_study/document_chunk_run_summary.csv",
-      "rows": 1,
+      "rows": 27,
       "rerun": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001"
     }
   ],
   "quality": {
-    "diagnostics_rows": 116,
-    "processed_chunks": 1,
+    "diagnostics_rows": 3521,
+    "processed_chunks": 27,
     "total_chunks": 27,
-    "pending_chunks": 26,
-    "docs_with_text": 116,
-    "pdf_docs": 100,
-    "pdf_text_ready_docs": 100,
-    "pdf_needs_ocr_docs": 0,
-    "json_ready_docs": 0,
-    "text_cache_ready_docs": 16,
+    "pending_chunks": 0,
+    "docs_with_text": 3517,
+    "pdf_docs": 1501,
+    "pdf_text_ready_docs": 1497,
+    "pdf_needs_ocr_docs": 4,
+    "json_ready_docs": 1449,
+    "text_cache_ready_docs": 571,
     "error_docs": 0,
     "missing_docs": 0,
-    "latest_chunk_id": "doc-0001",
+    "latest_chunk_id": "doc-0027",
     "status_counts": {
-      "pdf_text_ready": 100,
-      "text_ready": 16
+      "pdf_text_ready": 1497,
+      "json_ready": 1449,
+      "text_ready": 571,
+      "pdf_needs_ocr": 4
     },
     "content_kind_counts": {
-      "pdf": 100,
-      "text_cache": 16
+      "pdf": 1501,
+      "extraction_json": 1449,
+      "text_cache": 571
     }
   }
 }

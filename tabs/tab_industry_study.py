@@ -124,6 +124,9 @@ _DOCUMENT_MANIFEST_PATH = _DATA_DIR / "industry_document_manifest.json"
 _DOCUMENT_CHUNK_DIAGNOSTICS_PATH = _DATA_DIR / "document_chunk_diagnostics.csv.gz"
 _DOCUMENT_CHUNK_RUN_SUMMARY_PATH = _DATA_DIR / "document_chunk_run_summary.csv"
 _DOCUMENT_CHUNK_DIAGNOSTICS_MANIFEST_PATH = _DATA_DIR / "industry_document_chunk_diagnostics_manifest.json"
+_DOCUMENT_TEXT_INDEX_PATH = _DATA_DIR / "document_text_index.csv.gz"
+_DOCUMENT_TEXT_RUN_SUMMARY_PATH = _DATA_DIR / "document_text_run_summary.csv"
+_DOCUMENT_TEXT_MANIFEST_PATH = _DATA_DIR / "industry_document_text_manifest.json"
 _DOCUMENT_CHUNK_ACTIONS_PATH = _DATA_DIR / "document_chunk_actions.csv"
 _DOCUMENT_CHUNK_ACTION_AUDIT_PATH = _DATA_DIR / "document_chunk_action_audit.csv"
 _CRITERIA_REVIEW_PATH = _DATA_DIR / "criteria_reviews.csv"
@@ -5065,8 +5068,11 @@ def _load_document_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
         "chunks": load_dataframe(_DOCUMENT_CHUNKS_PATH),
         "diagnostics": load_dataframe(_DOCUMENT_CHUNK_DIAGNOSTICS_PATH),
         "diagnostic_summary": load_dataframe(_DOCUMENT_CHUNK_RUN_SUMMARY_PATH),
+        "text_index": load_dataframe(_DOCUMENT_TEXT_INDEX_PATH),
+        "text_summary": load_dataframe(_DOCUMENT_TEXT_RUN_SUMMARY_PATH),
         "manifest": load_pipeline_manifest(_DOCUMENT_MANIFEST_PATH),
         "diagnostic_manifest": load_pipeline_manifest(_DOCUMENT_CHUNK_DIAGNOSTICS_MANIFEST_PATH),
+        "text_manifest": load_pipeline_manifest(_DOCUMENT_TEXT_MANIFEST_PATH),
     }
 
 
@@ -5279,6 +5285,144 @@ def _format_document_chunk_diagnostics(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def _format_document_text_run_summary(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    columns = [
+        "chunk_id",
+        "extracted_at_utc",
+        "documents",
+        "ready_docs",
+        "cached_docs",
+        "pdf_docs",
+        "json_docs",
+        "text_cache_docs",
+        "ocr_required_docs",
+        "error_docs",
+        "page_count",
+        "pages_processed",
+        "pages_with_text",
+        "text_chars",
+        "cache_bytes",
+        "avg_confidence",
+        "status_mix",
+        "source_methods",
+        "sample_documents",
+        "rerun_command",
+    ]
+    out = frame[[col for col in columns if col in frame.columns]].copy()
+    out = out.rename(
+        columns={
+            "chunk_id": "Chunk",
+            "extracted_at_utc": "Extraído",
+            "documents": "Docs",
+            "ready_docs": "Prontos",
+            "cached_docs": "Cache",
+            "pdf_docs": "PDFs",
+            "json_docs": "JSON",
+            "text_cache_docs": "Texto legado",
+            "ocr_required_docs": "OCR",
+            "error_docs": "Erros",
+            "page_count": "Páginas fonte",
+            "pages_processed": "Páginas proc.",
+            "pages_with_text": "Páginas texto",
+            "text_chars": "Chars texto",
+            "cache_bytes": "Cache bytes",
+            "avg_confidence": "Conf. média",
+            "status_mix": "Status",
+            "source_methods": "Métodos",
+            "sample_documents": "Amostra docs",
+            "rerun_command": "Comando",
+        }
+    )
+    count_columns = [
+        "Docs",
+        "Prontos",
+        "Cache",
+        "PDFs",
+        "JSON",
+        "Texto legado",
+        "OCR",
+        "Erros",
+        "Páginas fonte",
+        "Páginas proc.",
+        "Páginas texto",
+        "Chars texto",
+    ]
+    for col in count_columns:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    if "Cache bytes" in out.columns:
+        out["Cache bytes"] = out["Cache bytes"].map(_format_bytes)
+    if "Conf. média" in out.columns:
+        out["Conf. média"] = pd.to_numeric(out["Conf. média"], errors="coerce").map(
+            lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
+        )
+    return out
+
+
+def _format_document_text_index(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    columns = [
+        "chunk_id",
+        "cnpj_fundo",
+        "fundo",
+        "documento_origem",
+        "document_class",
+        "content_kind",
+        "parse_status",
+        "extraction_method",
+        "confidence_score",
+        "page_count",
+        "pages_processed",
+        "pages_with_text",
+        "text_chars",
+        "cache_bytes",
+        "sample_text",
+        "error_message",
+        "cache_path",
+        "source_path",
+        "extracted_at_utc",
+    ]
+    out = frame[[col for col in columns if col in frame.columns]].copy()
+    out = out.rename(
+        columns={
+            "chunk_id": "Chunk",
+            "cnpj_fundo": "CNPJ",
+            "fundo": "Fundo",
+            "documento_origem": "Documento",
+            "document_class": "Classe",
+            "content_kind": "Tipo",
+            "parse_status": "Status texto",
+            "extraction_method": "Método",
+            "confidence_score": "Confiança",
+            "page_count": "Páginas fonte",
+            "pages_processed": "Páginas proc.",
+            "pages_with_text": "Páginas texto",
+            "text_chars": "Chars texto",
+            "cache_bytes": "Cache",
+            "sample_text": "Prévia",
+            "error_message": "Erro",
+            "cache_path": "Cache path",
+            "source_path": "Fonte path",
+            "extracted_at_utc": "Extraído",
+        }
+    )
+    for col in ["Páginas fonte", "Páginas proc.", "Páginas texto", "Chars texto"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    if "Cache" in out.columns:
+        out["Cache"] = out["Cache"].map(_format_bytes)
+    if "Confiança" in out.columns:
+        out["Confiança"] = pd.to_numeric(out["Confiança"], errors="coerce").map(
+            lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
+        )
+    for col in out.columns:
+        out[col] = out[col].fillna("").astype(str)
+    return out
+
+
 def _render_document_inventory() -> None:
     st.markdown('<div class="industry-section">Documentos, caches e chunks</div>', unsafe_allow_html=True)
     st.markdown(
@@ -5291,20 +5435,27 @@ def _render_document_inventory() -> None:
     chunks = tables["chunks"]
     diagnostics = tables["diagnostics"]
     diagnostic_summary = tables["diagnostic_summary"]
+    text_index = tables["text_index"]
+    text_summary = tables["text_summary"]
     manifest = tables["manifest"]
     diagnostic_manifest = tables["diagnostic_manifest"]
+    text_manifest = tables["text_manifest"]
     assert isinstance(inventory, pd.DataFrame)
     assert isinstance(chunks, pd.DataFrame)
     assert isinstance(diagnostics, pd.DataFrame)
     assert isinstance(diagnostic_summary, pd.DataFrame)
+    assert isinstance(text_index, pd.DataFrame)
+    assert isinstance(text_summary, pd.DataFrame)
     assert isinstance(manifest, dict)
     assert isinstance(diagnostic_manifest, dict)
+    assert isinstance(text_manifest, dict)
     if inventory.empty and chunks.empty:
         st.info("Inventário documental ainda não gerado. Rode `python scripts/build_fidc_industry_documents.py`.")
         return
 
     quality = manifest.get("quality", {}) if isinstance(manifest, dict) else {}
     diagnostic_quality = diagnostic_manifest.get("quality", {}) if isinstance(diagnostic_manifest, dict) else {}
+    text_quality = text_manifest.get("quality", {}) if isinstance(text_manifest, dict) else {}
     coverage = quality.get("coverage", {}) if isinstance(quality, dict) else {}
     doc_rows = int(quality.get("document_rows", len(inventory))) if isinstance(quality, dict) else len(inventory)
     funds = int(quality.get("funds", inventory["cnpj_fundo"].nunique() if "cnpj_fundo" in inventory else 0)) if isinstance(quality, dict) else 0
@@ -5313,18 +5464,19 @@ def _render_document_inventory() -> None:
     chunk_count = int(quality.get("chunks", len(chunks))) if isinstance(quality, dict) else len(chunks)
     max_docs = int(quality.get("max_documents_per_chunk", 0)) if isinstance(quality, dict) else 0
     diagnosed_chunks = int(diagnostic_quality.get("processed_chunks", 0)) if isinstance(diagnostic_quality, dict) else 0
+    text_chunks = int(text_quality.get("processed_chunks", 0)) if isinstance(text_quality, dict) else 0
     cards = [
         _curation_card("Documentos", _fmt_int(float(doc_rows)), f"{_fmt_int(float(funds))} FIDCs"),
         _curation_card("Prioridade 2025-2026", _fmt_int(float(priority_docs)), "emissões recentes"),
         _curation_card("Local ready", _fmt_int(float(local_ready)), _fmt_pct(local_ready / doc_rows) if doc_rows else "n/d"),
         _curation_card("Chunks", _fmt_int(float(chunk_count)), f"até {_fmt_int(float(max_docs))} docs/chunk"),
         _curation_card("Diag. chunks", _fmt_int(float(diagnosed_chunks)), f"{_fmt_int(float(len(diagnostics)))} docs"),
-        _curation_card("CNPJ", _fmt_pct(float(coverage.get("cnpj_fundo", 0))) if isinstance(coverage, dict) else "n/d", "cobertura"),
+        _curation_card("Texto chunks", _fmt_int(float(text_chunks)), f"{_fmt_int(float(len(text_index)))} docs"),
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    tab_cov, tab_chunks, tab_diagnostics, tab_inventory, tab_manifest = st.tabs(
-        ["Cobertura", "Chunks", "Diagnóstico", "Inventário", "Manifesto"]
+    tab_cov, tab_chunks, tab_diagnostics, tab_text, tab_inventory, tab_manifest = st.tabs(
+        ["Cobertura", "Chunks", "Diagnóstico", "Textos", "Inventário", "Manifesto"]
     )
     with tab_cov:
         col_a, col_b = st.columns([1.0, 1.0])
@@ -5693,6 +5845,131 @@ def _render_document_inventory() -> None:
                 mime="text/csv",
                 key="industry_document_diag_download",
             )
+    with tab_text:
+        if text_index.empty:
+            st.info(
+                "Texto documental ainda não materializado. Rode "
+                "`python scripts/build_fidc_industry_document_text.py --chunk-id doc-0001`."
+            )
+        else:
+            text_rows = int(text_quality.get("rows", len(text_index))) if isinstance(text_quality, dict) else len(text_index)
+            text_ready = int(text_quality.get("ready_docs", 0)) if isinstance(text_quality, dict) else 0
+            text_ocr = int(text_quality.get("ocr_required_docs", 0)) if isinstance(text_quality, dict) else 0
+            text_errors = int(text_quality.get("error_docs", 0)) if isinstance(text_quality, dict) else 0
+            text_pages = int(text_quality.get("pages_processed", 0)) if isinstance(text_quality, dict) else 0
+            text_cards = [
+                _curation_card(
+                    "Docs texto",
+                    _fmt_int(float(text_rows)),
+                    f"{_fmt_int(float(text_chunks))} {'chunk' if text_chunks == 1 else 'chunks'}",
+                ),
+                _curation_card("Prontos", _fmt_int(float(text_ready)), _fmt_pct(text_ready / text_rows) if text_rows else "n/d"),
+                _curation_card("Páginas", _fmt_int(float(text_pages)), "processadas"),
+                _curation_card("OCR", _fmt_int(float(text_ocr)), f"{_fmt_int(float(text_errors))} erros"),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(text_cards)}</div>', unsafe_allow_html=True)
+            if not text_summary.empty:
+                st.markdown("**Resumo por chunk**")
+                st.dataframe(
+                    _format_document_text_run_summary(text_summary),
+                    hide_index=True,
+                    width="stretch",
+                    height=260,
+                )
+
+            text_frame = text_index.copy()
+            text_ctrl_a, text_ctrl_b, text_ctrl_c, text_ctrl_d = st.columns([0.9, 1.0, 1.0, 1.3])
+            with text_ctrl_a:
+                text_chunk_values = ["Todos"] + sorted(
+                    [value for value in text_frame.get("chunk_id", pd.Series(dtype=str)).fillna("").astype(str).unique() if value]
+                )
+                selected_text_chunk = st.selectbox("Chunk", text_chunk_values, key="industry_document_text_chunk")
+            with text_ctrl_b:
+                text_status_values = sorted(
+                    [value for value in text_frame.get("parse_status", pd.Series(dtype=str)).fillna("").astype(str).unique() if value]
+                )
+                selected_text_status = st.multiselect(
+                    "Status texto",
+                    text_status_values,
+                    default=text_status_values,
+                    key="industry_document_text_status",
+                )
+            with text_ctrl_c:
+                text_kind_values = sorted(
+                    [value for value in text_frame.get("content_kind", pd.Series(dtype=str)).fillna("").astype(str).unique() if value]
+                )
+                selected_text_kinds = st.multiselect(
+                    "Tipo",
+                    text_kind_values,
+                    default=text_kind_values,
+                    key="industry_document_text_kind",
+                )
+            with text_ctrl_d:
+                text_query = st.text_input(
+                    "Buscar texto",
+                    key="industry_document_text_query",
+                    placeholder="FIDC, CNPJ, documento, status ou conteúdo",
+                )
+            if selected_text_chunk != "Todos" and "chunk_id" in text_frame.columns:
+                text_frame = text_frame[text_frame["chunk_id"].fillna("").astype(str).eq(selected_text_chunk)].copy()
+            if selected_text_status and "parse_status" in text_frame.columns:
+                text_frame = text_frame[text_frame["parse_status"].fillna("").astype(str).isin(selected_text_status)].copy()
+            if selected_text_kinds and "content_kind" in text_frame.columns:
+                text_frame = text_frame[text_frame["content_kind"].fillna("").astype(str).isin(selected_text_kinds)].copy()
+            if text_query:
+                search_cols = [
+                    col
+                    for col in [
+                        "chunk_id",
+                        "cnpj_fundo",
+                        "fundo",
+                        "documento_origem",
+                        "parse_status",
+                        "sample_text",
+                        "error_message",
+                        "source_path",
+                    ]
+                    if col in text_frame.columns
+                ]
+                search = text_frame[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=text_frame.index)
+                text_frame = text_frame[search.str.contains(text_query, case=False, na=False)].copy()
+            st.dataframe(
+                _format_document_text_index(text_frame.head(500)),
+                hide_index=True,
+                width="stretch",
+                height=480,
+            )
+            if not text_frame.empty:
+                preview_frame = text_frame.head(500).reset_index(drop=True)
+                preview_options = list(preview_frame.index)
+                preview_index = st.selectbox(
+                    "Prévia do documento",
+                    preview_options,
+                    format_func=lambda index: (
+                        f"{preview_frame.loc[index].get('fundo', '')} · "
+                        f"{preview_frame.loc[index].get('documento_origem', '')}"
+                    )[:180],
+                    key="industry_document_text_preview",
+                )
+                preview_row = preview_frame.loc[preview_index]
+                st.text_area(
+                    "Texto extraído",
+                    value=str(preview_row.get("sample_text", "") or ""),
+                    height=220,
+                    disabled=True,
+                    key="industry_document_text_preview_value",
+                )
+                st.caption(
+                    f"{preview_row.get('parse_status', '')} · {preview_row.get('extraction_method', '')} · "
+                    f"cache: {preview_row.get('cache_path', '')}"
+                )
+            st.download_button(
+                "Baixar índice filtrado",
+                data=text_frame.to_csv(index=False).encode("utf-8"),
+                file_name="industry_document_text_index.csv",
+                mime="text/csv",
+                key="industry_document_text_download",
+            )
     with tab_inventory:
         frame = inventory.copy()
         ctrl_a, ctrl_b, ctrl_c, ctrl_d = st.columns([1.2, 0.9, 0.9, 0.7])
@@ -5767,18 +6044,21 @@ def _render_document_inventory() -> None:
         )
         st.dataframe(show, hide_index=True, width="stretch")
     with tab_manifest:
-        if manifest:
+        if manifest or diagnostic_manifest or text_manifest:
             selected_manifest = st.selectbox(
                 "Manifesto",
-                ["Inventário documental", "Diagnóstico por chunk"],
+                ["Inventário documental", "Diagnóstico por chunk", "Texto por página"],
                 key="industry_document_manifest_select",
             )
-            manifest_payload = diagnostic_manifest if selected_manifest == "Diagnóstico por chunk" else manifest
-            manifest_name = (
-                "industry_document_chunk_diagnostics_manifest.json"
-                if selected_manifest == "Diagnóstico por chunk"
-                else "industry_document_manifest.json"
-            )
+            if selected_manifest == "Diagnóstico por chunk":
+                manifest_payload = diagnostic_manifest
+                manifest_name = "industry_document_chunk_diagnostics_manifest.json"
+            elif selected_manifest == "Texto por página":
+                manifest_payload = text_manifest
+                manifest_name = "industry_document_text_manifest.json"
+            else:
+                manifest_payload = manifest
+                manifest_name = "industry_document_manifest.json"
             st.download_button(
                 "Baixar manifesto",
                 data=json.dumps(manifest_payload, ensure_ascii=False, indent=2),
