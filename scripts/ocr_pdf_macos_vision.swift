@@ -23,7 +23,7 @@ func fail(_ message: String) -> Never {
 }
 
 guard CommandLine.arguments.count >= 2 else {
-    fail("Uso: swift ocr_pdf_macos_vision.swift arquivo.pdf [max_pages] [pt-BR,en-US]")
+    fail("Uso: swift ocr_pdf_macos_vision.swift arquivo.pdf [max_pages] [pt-BR,en-US] [1,3,8]")
 }
 
 let pdfURL = URL(fileURLWithPath: CommandLine.arguments[1])
@@ -31,6 +31,9 @@ let maxPages = CommandLine.arguments.count >= 3 ? Int(CommandLine.arguments[2]) 
 let languages = CommandLine.arguments.count >= 4
     ? CommandLine.arguments[3].split(separator: ",").map(String.init).filter { !$0.isEmpty }
     : ["pt-BR", "en-US"]
+let requestedPages = CommandLine.arguments.count >= 5
+    ? CommandLine.arguments[4].split(separator: ",").compactMap { Int($0) }
+    : []
 
 guard let document = PDFDocument(url: pdfURL) else {
     fail("Não foi possível abrir o PDF: \(pdfURL.path)")
@@ -38,10 +41,19 @@ guard let document = PDFDocument(url: pdfURL) else {
 
 let pageCount = document.pageCount
 let limit = maxPages > 0 ? min(pageCount, maxPages) : pageCount
+let pageIndices: [Int]
+if requestedPages.isEmpty {
+    pageIndices = Array(0..<limit)
+} else {
+    pageIndices = Array(Set(requestedPages))
+        .filter { $0 >= 1 && $0 <= limit }
+        .sorted()
+        .map { $0 - 1 }
+}
 var outputPages: [OCRPage] = []
 var errors: [String] = []
 
-for pageIndex in 0..<limit {
+for pageIndex in pageIndices {
     autoreleasepool {
         guard let page = document.page(at: pageIndex) else {
             errors.append("p.\(pageIndex + 1): página indisponível")
@@ -93,7 +105,7 @@ for pageIndex in 0..<limit {
 let payload = OCRPayload(
     engine: "macos_vision",
     page_count: pageCount,
-    pages_processed: limit,
+    pages_processed: outputPages.count,
     pages: outputPages,
     errors: errors
 )

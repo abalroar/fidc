@@ -19,6 +19,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from services.industry_study import (
+    apply_document_chunk_actions,
     apply_monthly_delta_actions,
     build_curation_queue_pipeline_manifest,
     build_document_chunk_plan,
@@ -64,9 +65,17 @@ def main() -> None:
     inventory = load_dataframe(args.industry_dir / "document_inventory.csv.gz")
     chunks = load_dataframe(args.industry_dir / "document_processing_chunks.csv")
     document_chunk_actions = load_dataframe(args.industry_dir / "document_chunk_actions.csv")
-    document_chunk_plan = build_document_chunk_plan(chunks, inventory, actions=document_chunk_actions)
+    persisted_document_plan = load_dataframe(args.industry_dir / "document_chunk_plan.csv")
+    document_chunk_plan = apply_document_chunk_actions(persisted_document_plan, document_chunk_actions)
     if document_chunk_plan.empty:
-        document_chunk_plan = load_dataframe(args.industry_dir / "document_chunk_plan.csv")
+        document_chunk_plan = build_document_chunk_plan(
+            chunks,
+            inventory,
+            actions=document_chunk_actions,
+            diagnostics_summary=load_dataframe(args.industry_dir / "document_chunk_run_summary.csv"),
+            text_summary=load_dataframe(args.industry_dir / "document_text_run_summary.csv"),
+            field_summary=load_dataframe(args.industry_dir / "document_field_run_summary.csv"),
+        )
 
     dimension_catalog = load_dataframe(args.industry_dir / "industry_dimension_catalog.csv.gz")
     snapshot_gap_actions = load_dataframe(args.industry_dir / "snapshot_gap_actions.csv")
@@ -109,9 +118,7 @@ def main() -> None:
         catalog_gap_actions = initialized_actions["catalog_gap"]
         document_chunk_actions = initialized_actions["document_chunk"]
         monthly_delta = apply_monthly_delta_actions(monthly_delta, monthly_delta_actions)
-        document_chunk_plan = build_document_chunk_plan(chunks, inventory, actions=document_chunk_actions)
-        if document_chunk_plan.empty:
-            document_chunk_plan = load_dataframe(args.industry_dir / "document_chunk_plan.csv")
+        document_chunk_plan = apply_document_chunk_actions(document_chunk_plan, document_chunk_actions)
         queue = build_industry_curation_queue(
             snapshot=snapshot,
             monthly_delta=monthly_delta,

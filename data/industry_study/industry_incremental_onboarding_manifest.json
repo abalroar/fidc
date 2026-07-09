@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-incremental-onboarding-manifest/v1",
-  "generated_at_utc": "2026-07-09T15:56:18+00:00",
+  "generated_at_utc": "2026-07-09T23:34:02+00:00",
   "pipeline": "industry_incremental_onboarding",
   "design_constraints": {
     "modular": true,
@@ -16,28 +16,28 @@
     "monthly_delta": {
       "path": "data/industry_study/industry_monthly_delta.csv.gz",
       "exists": true,
-      "bytes": 359824,
-      "sha256": "dcebaae0a1505caf46609f80a600b7bed765d072019c4faee23043af7ebf87ca"
+      "bytes": 368849,
+      "sha256": "a84f7b9a0cf9f83542a954a525ef4a02f1205c252565d362ec724bdc54280a0c"
     },
     "curation_queue": {
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
-      "bytes": 2575020,
-      "sha256": "807d2e7e9ede6cf1b77b7f8794f698255c5aaafa2dec8fa1cd0d30fb830c815d"
+      "bytes": 2656792,
+      "sha256": "1546c0c9a521db05c2aef9116e6e5f0d683d4122092f85e234b8282c92337a74"
     },
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 22110,
-      "sha256": "f7515ec3420aa4542d5e31592c504607499678de5f7f63756605096c732fe194"
+      "bytes": 85849,
+      "sha256": "db84c35efbc8f77f06a94a4c595035e10a19b25e6b33727fafb07ab5897b6197"
     }
   },
   "outputs": {
     "incremental_onboarding": {
       "path": "data/industry_study/industry_incremental_onboarding.csv",
       "exists": true,
-      "bytes": 91521,
-      "sha256": "01c91c280bcbf94acb831984a82d80d297a47a7920a5996023afa37628e306e1"
+      "bytes": 91163,
+      "sha256": "3be0a2ac362335bf9a82eabee8b2705dad5fd22bf49f5acaec75f8343a7282c0"
     },
     "manifest": {
       "path": "data/industry_study/industry_incremental_onboarding_manifest.json"
@@ -55,7 +55,7 @@
       "id": "join_queue_and_chunks",
       "label": "Cruzar fila única e chunks documentais",
       "status": "ok",
-      "rows": 82888,
+      "rows": 84898,
       "rerun": "python scripts/build_fidc_industry_curation_queue.py"
     },
     {
@@ -74,11 +74,11 @@
     "blocked_rows": 71,
     "attention_rows": 0,
     "ok_rows": 0,
-    "discovery_blocked": 62,
-    "processing_attention": 9,
-    "incorporation_blocked": 71,
-    "open_queue_rows": 1337,
-    "open_high_priority_rows": 139,
+    "discovery_blocked": 61,
+    "processing_attention": 10,
+    "incorporation_blocked": 63,
+    "open_queue_rows": 1355,
+    "open_high_priority_rows": 131,
     "status_counts": {
       "bloqueado": 71
     }

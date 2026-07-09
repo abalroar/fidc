@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-curation-queue-manifest/v1",
-  "generated_at_utc": "2026-07-09T20:57:44+00:00",
+  "generated_at_utc": "2026-07-09T23:33:51+00:00",
   "pipeline": "industry_curation_queue",
   "design_constraints": {
     "modular": true,
@@ -15,26 +15,26 @@
     "fund_snapshot": {
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 424684,
-      "sha256": "9ec9471ae06124da7879c0328fcf9a3b4c10d137af9eae4dd844a2b3edbb71d6"
+      "bytes": 445308,
+      "sha256": "f5a2e21253adefe6539697378777476f451cb379e31227c0633c23bb497ce15e"
     },
     "monthly_delta": {
       "path": "data/industry_study/industry_monthly_delta.csv.gz",
       "exists": true,
-      "bytes": 359824,
-      "sha256": "dcebaae0a1505caf46609f80a600b7bed765d072019c4faee23043af7ebf87ca"
+      "bytes": 368849,
+      "sha256": "a84f7b9a0cf9f83542a954a525ef4a02f1205c252565d362ec724bdc54280a0c"
     },
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 23357,
-      "sha256": "2efd3ccd19a51e882a45f4a50ed3e4a82d4124c30f98b9fcf0647183d055a3ac"
+      "bytes": 85849,
+      "sha256": "db84c35efbc8f77f06a94a4c595035e10a19b25e6b33727fafb07ab5897b6197"
     },
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1616014,
-      "sha256": "03c3ed49d4cec7beac62ed2d373866fc1ac5e2fb6288f09ae24b3545221ebf81"
+      "bytes": 1728584,
+      "sha256": "bdbb4fc85291ffc8eb9e53493cad7828848021ce12d425e7b129a8490533033b"
     },
     "snapshot_gap_actions": {
       "path": "data/industry_study/snapshot_gap_actions.csv",
@@ -57,16 +57,16 @@
     "document_chunk_actions": {
       "path": "data/industry_study/document_chunk_actions.csv",
       "exists": true,
-      "bytes": 695,
-      "sha256": "1d7f834015b9c5826faad3304e7cf49ef2772a9b419bf6f69a357cca583e8d7f"
+      "bytes": 2581,
+      "sha256": "c317b61fa6c18be9ced462b7b5dd08ca2dcdb8f6eb8c841cd85035c80000d288"
     }
   },
   "outputs": {
     "curation_queue": {
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
-      "bytes": 2593973,
-      "sha256": "c08cc129a4f8a347157251c55c43dbd698749c1a41cd5f64cf12366ae5f17678"
+      "bytes": 2656792,
+      "sha256": "1546c0c9a521db05c2aef9116e6e5f0d683d4122092f85e234b8282c92337a74"
     },
     "manifest": {
       "path": "data/industry_study/industry_curation_queue_manifest.json"
@@ -74,8 +74,8 @@
     "curation_queue_summary": {
       "path": "data/industry_study/industry_curation_queue_summary.csv.gz",
       "exists": true,
-      "bytes": 261642,
-      "sha256": "8bdfbc5b0709f8eeed430c6e100577a8443ae57abca21b626cf91d7c42fded70"
+      "bytes": 261776,
+      "sha256": "47d7e34fe647e4a4505f83dabe14cb21c2ec3c1e77f359abcfab011bc4abba36"
     }
   },
   "stages": [
@@ -97,59 +97,59 @@
       "id": "document_chunk_queue",
       "label": "Chunks documentais",
       "status": "ok",
-      "rows": 27,
+      "rows": 109,
       "rerun": "python scripts/build_fidc_industry_document_chunk_plan.py"
     },
     {
       "id": "catalog_traceability_queue",
       "label": "Rastreabilidade do catálogo",
       "status": "ok",
-      "rows": 74695,
+      "rows": 77096,
       "rerun": "python scripts/build_fidc_industry_dimensions.py"
     },
     {
       "id": "persist_unified_queue",
       "label": "Fila única de curadoria",
       "status": "ok",
-      "rows": 82775,
+      "rows": 84898,
       "rerun": "python scripts/build_fidc_industry_curation_queue.py"
     },
     {
       "id": "persist_operational_summary",
       "label": "Resumo operacional da fila",
       "status": "ok",
-      "rows": 4439,
+      "rows": 4444,
       "rerun": "python scripts/build_fidc_industry_curation_queue.py"
     }
   ],
   "quality": {
-    "rows": 82775,
-    "funds": 4337,
-    "open_rows": 82775,
-    "high_priority_rows": 3453,
-    "high_priority_open_rows": 3453,
-    "high_priority_pending_rows": 3453,
+    "rows": 84898,
+    "funds": 4340,
+    "open_rows": 84898,
+    "high_priority_rows": 3327,
+    "high_priority_open_rows": 3327,
+    "high_priority_pending_rows": 3327,
     "high_priority_in_progress_rows": 0,
     "high_priority_closed_rows": 0,
-    "priority_2025_2026_rows": 7677,
+    "priority_2025_2026_rows": 7618,
     "domain_counts": {
-      "catalog_gap": 74315,
+      "catalog_gap": 76381,
       "monthly_delta": 4279,
-      "snapshot_gap": 4154,
-      "document_chunk": 27
+      "snapshot_gap": 4129,
+      "document_chunk": 109
     },
     "status_counts": {
-      "pendente": 82775
+      "pendente": 84898
     },
-    "summary_rows": 4439,
+    "summary_rows": 4444,
     "summary_type_counts": {
       "fidc_backlog": 4336,
       "admin_backlog": 52,
-      "segment_backlog": 43,
+      "segment_backlog": 48,
       "frente_status": 8
     },
     "fund_backlog_rows": 4336,
     "admin_backlog_rows": 52,
-    "segment_backlog_rows": 43
+    "segment_backlog_rows": 48
   }
 }

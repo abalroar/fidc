@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-manifest/v1",
-  "generated_at_utc": "2026-07-09T20:44:06+00:00",
+  "generated_at_utc": "2026-07-09T23:30:56+00:00",
   "pipeline": "industry_cedentes_structured",
   "design_constraints": {
     "modular": true,
@@ -21,8 +21,8 @@
     "document_participant_candidates": {
       "path": "data/industry_study/document_participant_candidates.csv.gz",
       "exists": true,
-      "bytes": 62582,
-      "sha256": "e9f0993bb7747732e577c853a2183dec9ec236cba17b54b425ebcbbf16a75e06"
+      "bytes": 171954,
+      "sha256": "cf22c3a43f67d19229c9e508323dfc6c67ebc7a79b8b2a868b28169077d89707"
     },
     "manual_reviews": {
       "path": "data/industry_study/cedente_reviews.csv",
@@ -41,8 +41,8 @@
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 374886,
-      "sha256": "ce546584643872462dd8eaf929db72084f1f5b15c4263ba0ec6251e17688756e"
+      "bytes": 452577,
+      "sha256": "c7abc64cdaaa6e7ea268b935214fdadb0fe011bb9c83855125227f8b0a860bfa"
     },
     "manifest": {
       "path": "data/industry_study/industry_pipeline_manifest.json"
@@ -61,8 +61,8 @@
       "status": "ok",
       "input": "data/fidc_credit_strategy/fidc_credit_strategy.sqlite | data/industry_study/document_participant_candidates.csv.gz",
       "output": "memoria:cedentes_sacados_candidates",
-      "rows": 1729,
-      "funds": 581,
+      "rows": 2326,
+      "funds": 604,
       "rerun": "python scripts/execute_fidc_director_diagnostic.py --download-limit 0"
     },
     {
@@ -98,48 +98,48 @@
       "status": "ok",
       "input": "memoria:candidates+review_overlay+fund_universe+universe_latest",
       "output": "data/industry_study/cedentes_structured.csv.gz",
-      "rows": 1729,
-      "funds": 581,
-      "identified_funds": 164,
-      "signal_placeholder_funds": 8,
+      "rows": 2326,
+      "funds": 604,
+      "identified_funds": 224,
+      "signal_placeholder_funds": 6,
       "rerun": "python scripts/build_fidc_industry_cedentes.py"
     }
   ],
   "quality": {
-    "candidate_rows": 1729,
-    "candidate_funds": 581,
-    "structured_rows": 1729,
-    "active_rows": 1729,
-    "structured_funds": 581,
-    "identified_rows": 391,
-    "identified_funds": 164,
-    "signal_placeholder_rows": 8,
-    "signal_placeholder_funds": 8,
-    "priority_2025_2026_rows": 1176,
-    "priority_2025_2026_funds": 395,
+    "candidate_rows": 2326,
+    "candidate_funds": 604,
+    "structured_rows": 2326,
+    "active_rows": 2326,
+    "structured_funds": 604,
+    "identified_rows": 990,
+    "identified_funds": 224,
+    "signal_placeholder_rows": 6,
+    "signal_placeholder_funds": 6,
+    "priority_2025_2026_rows": 1712,
+    "priority_2025_2026_funds": 413,
     "review_rows": 0,
     "review_status_counts": {},
     "participant_type_counts": {
-      "cedente_originador": 754,
-      "sacado_devedor": 653,
-      "consultora": 322
+      "cedente_originador": 1133,
+      "sacado_devedor": 731,
+      "consultora": 462
     },
     "coverage": {
-      "razao_social": 0.22614227877385773,
+      "razao_social": 0.42562338779019776,
       "nome_fantasia": 0.0,
-      "cnpj_participante": 0.21341816078658185,
+      "cnpj_participante": 0.3963886500429923,
       "grupo_economico": 0.0,
-      "setor": 0.8582995951417004,
-      "segmento": 0.8582995951417004,
+      "setor": 0.6371453138435081,
+      "segmento": 0.6371453138435081,
       "documento_origem": 1.0,
-      "pagina": 0.1434355118565645,
+      "pagina": 0.3645743766122098,
       "metodo_extracao": 1.0,
       "score_confianca_final": 1.0
     },
     "score": {
       "median": 0.5,
       "p25": 0.5,
-      "p75": 0.5
+      "p75": 0.75
     }
   }
 }

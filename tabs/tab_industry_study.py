@@ -418,6 +418,7 @@ def _load_regulatory_overlay() -> dict[str, pd.DataFrame | dict[str, float | int
     if _ALL_FIDCS_CRITERIA.exists():
         criteria = pd.read_csv(_ALL_FIDCS_CRITERIA)
     structured_criteria = load_dataframe(_CRITERIA_STRUCTURED_PATH)
+    active_structured_criteria = pd.DataFrame()
     structured_cedentes = load_dataframe(_CEDENTE_STRUCTURED_PATH)
     criteria_manifest = load_pipeline_manifest(_CRITERIA_MANIFEST_PATH)
 
@@ -466,6 +467,7 @@ def _load_regulatory_overlay() -> dict[str, pd.DataFrame | dict[str, float | int
         active = structured_criteria.copy()
         if "ativo_curadoria" in active.columns:
             active = active[active["ativo_curadoria"].astype(str).str.lower().isin({"true", "1", "sim"})].copy()
+        active_structured_criteria = active.copy()
         criteria = active.rename(
             columns={
                 "fundo": "Fundo",
@@ -556,6 +558,32 @@ def _load_regulatory_overlay() -> dict[str, pd.DataFrame | dict[str, float | int
         summary["sub_p25"] = sub_quality.get("p25")
         summary["sub_p75"] = sub_quality.get("p75")
 
+    sub_distribution = pd.DataFrame()
+    if not active_structured_criteria.empty and {"chave", "pct_min"}.issubset(active_structured_criteria.columns):
+        sub_metric = select_subordination_metric_rows(
+            active_structured_criteria[
+                active_structured_criteria["chave"].astype(str).eq("subordination_ratio_min")
+            ].copy()
+        )
+        if not sub_metric.empty:
+            idx = sub_metric.index
+            sub_distribution = pd.DataFrame(
+                {
+                    "CNPJ": sub_metric.get("cnpj_fundo", pd.Series("", index=idx)).astype(str),
+                    "Fundo": sub_metric.get("fundo", pd.Series("", index=idx)).fillna("").astype(str),
+                    "Tipo/setor": sub_metric.get("setor", pd.Series("", index=idx)).fillna("").astype(str),
+                    "Segmento": sub_metric.get("segmento", pd.Series("", index=idx)).fillna("").astype(str),
+                    "Subordinação mínima (%)": pd.to_numeric(sub_metric.get("pct_min"), errors="coerce"),
+                    "Documento": sub_metric.get("documento_origem", pd.Series("", index=idx)).fillna("").astype(str),
+                    "Página": sub_metric.get("pagina", pd.Series("", index=idx)).fillna("").astype(str),
+                    "Score": pd.to_numeric(sub_metric.get("score_confianca_final"), errors="coerce"),
+                }
+            )
+            sub_distribution["Tipo/setor"] = sub_distribution["Tipo/setor"].replace("", "Não classificado")
+            sub_distribution = sub_distribution[
+                sub_distribution["Subordinação mínima (%)"].between(0, 100, inclusive="both")
+            ].reset_index(drop=True)
+
     sector_summary = pd.DataFrame()
     if not fund_universe.empty:
         frame = fund_universe.copy()
@@ -633,6 +661,7 @@ def _load_regulatory_overlay() -> dict[str, pd.DataFrame | dict[str, float | int
         "candidate_examples": candidate_examples,
         "criteria_summary": criteria_summary,
         "sub_rules": sub_rules,
+        "sub_distribution": sub_distribution,
         "queue_summary": queue_summary,
     }
 
@@ -5741,6 +5770,15 @@ def _render_document_inventory() -> None:
     text_quality = text_manifest.get("quality", {}) if isinstance(text_manifest, dict) else {}
     field_quality = field_manifest.get("quality", {}) if isinstance(field_manifest, dict) else {}
     coverage = quality.get("coverage", {}) if isinstance(quality, dict) else {}
+    source_table_counts = quality.get("source_table_counts", {}) if isinstance(quality, dict) else {}
+    raw_stage = next(
+        (
+            stage
+            for stage in manifest.get("stages", [])
+            if isinstance(stage, dict) and stage.get("id") == "scan_raw_public_documents"
+        ),
+        {},
+    ) if isinstance(manifest, dict) else {}
     doc_rows = int(quality.get("document_rows", len(inventory))) if isinstance(quality, dict) else len(inventory)
     funds = int(quality.get("funds", inventory["cnpj_fundo"].nunique() if "cnpj_fundo" in inventory else 0)) if isinstance(quality, dict) else 0
     local_ready = int(quality.get("local_ready_docs", 0)) if isinstance(quality, dict) else 0
@@ -5752,6 +5790,11 @@ def _render_document_inventory() -> None:
     field_chunks = int(field_quality.get("processed_chunks", 0)) if isinstance(field_quality, dict) else 0
     cards = [
         _curation_card("Documentos", _fmt_int(float(doc_rows)), f"{_fmt_int(float(funds))} FIDCs"),
+        _curation_card(
+            "Acervo raw",
+            _fmt_int(float(source_table_counts.get("raw_document_files", 0))) if isinstance(source_table_counts, dict) else "0",
+            f"{_fmt_int(float(raw_stage.get('funds', 0) or 0))} FIDCs locais",
+        ),
         _curation_card("Prioridade 2025-2026", _fmt_int(float(priority_docs)), "emissões recentes"),
         _curation_card("Local ready", _fmt_int(float(local_ready)), _fmt_pct(local_ready / doc_rows) if doc_rows else "n/d"),
         _curation_card("Chunks", _fmt_int(float(chunk_count)), f"diag. {_fmt_int(float(diagnosed_chunks))}/{_fmt_int(float(chunk_count))}"),
@@ -5839,6 +5882,29 @@ def _render_document_inventory() -> None:
                     ],
                 )
                 .properties(height=260),
+                width="stretch",
+            )
+        if isinstance(source_table_counts, dict) and source_table_counts:
+            sources = pd.DataFrame(
+                [
+                    {"Camada": str(key), "Documentos": int(value)}
+                    for key, value in source_table_counts.items()
+                    if int(value) > 0
+                ]
+            ).sort_values("Documentos", ascending=True)
+            st.markdown("**Camadas de descoberta documental**")
+            st.altair_chart(
+                alt.Chart(sources)
+                .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+                .encode(
+                    x=alt.X("Documentos:Q", title="documentos", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    y=alt.Y("Camada:N", title=None, sort="x"),
+                    tooltip=[
+                        alt.Tooltip("Camada:N", title="camada"),
+                        alt.Tooltip("Documentos:Q", title="documentos", format=",.0f"),
+                    ],
+                )
+                .properties(height=max(160, min(320, 28 * len(sources)))),
                 width="stretch",
             )
     with tab_chunks:
@@ -5996,7 +6062,14 @@ def _render_document_inventory() -> None:
                     )
                     audit = append_review_audit_events(audit_events, _DOCUMENT_CHUNK_ACTION_AUDIT_PATH)
                     _save_document_chunk_actions(updated_actions)
-                    materialized_plan = build_document_chunk_plan(chunks, inventory, actions=updated_actions)
+                    materialized_plan = build_document_chunk_plan(
+                        chunks,
+                        inventory,
+                        actions=updated_actions,
+                        diagnostics_summary=diagnostic_summary,
+                        text_summary=text_summary,
+                        field_summary=field_summary,
+                    )
                     save_dataframe(materialized_plan, _DOCUMENT_CHUNK_PLAN_PATH)
                     _load_document_chunk_actions.clear()
                     st.success(
@@ -10108,6 +10181,7 @@ def _render_regulatory_curation_overlay() -> None:
     candidate_examples = overlay["candidate_examples"]
     criteria_summary = overlay["criteria_summary"]
     sub_rules = overlay["sub_rules"]
+    sub_distribution = overlay["sub_distribution"]
     queue_summary = overlay["queue_summary"]
 
     left, right = st.columns([1.2, 0.8])
@@ -10134,6 +10208,60 @@ def _render_regulatory_curation_overlay() -> None:
 
     tab_sub, tab_criteria, tab_examples, tab_queue = st.tabs(["Sub mínima", "Critérios", "Cedentes", "Fila"])
     with tab_sub:
+        if isinstance(sub_distribution, pd.DataFrame) and not sub_distribution.empty:
+            st.markdown("**Distribuição por tipo/setor**")
+            counts = (
+                sub_distribution.groupby("Tipo/setor", dropna=False)
+                .agg(FIDCs=("CNPJ", "nunique"))
+                .reset_index()
+                .sort_values("FIDCs", ascending=False)
+            )
+            type_options = counts["Tipo/setor"].astype(str).tolist()
+            default_types = type_options[: min(5, len(type_options))]
+            selected_types = st.multiselect(
+                "Tipo/setor",
+                type_options,
+                default=default_types,
+                key="industry_subordination_histogram_types",
+            )
+            hist = sub_distribution[sub_distribution["Tipo/setor"].isin(selected_types)].copy()
+            if not hist.empty:
+                max_pct = pd.to_numeric(hist["Subordinação mínima (%)"], errors="coerce").max()
+                x_domain = [0, max(40, min(100, int(((max_pct if pd.notna(max_pct) else 40) + 9) // 10 * 10)))]
+                chart = (
+                    alt.Chart(hist)
+                    .mark_bar(color=_ORANGE, opacity=0.86)
+                    .encode(
+                        x=alt.X(
+                            "Subordinação mínima (%):Q",
+                            bin=alt.Bin(step=5, extent=x_domain),
+                            scale=alt.Scale(domain=x_domain),
+                            title="Subordinação mínima extraída (p.p.)",
+                        ),
+                        y=alt.Y("count():Q", title="FIDCs", axis=alt.Axis(tickMinStep=1)),
+                        tooltip=[
+                            alt.Tooltip("Tipo/setor:N", title="Tipo/setor"),
+                            alt.Tooltip("count():Q", title="FIDCs"),
+                        ],
+                    )
+                    .properties(height=84)
+                    .facet(
+                        row=alt.Row(
+                            "Tipo/setor:N",
+                            title=None,
+                            sort=selected_types,
+                            header=alt.Header(labelFontWeight="bold", labelFontSize=12),
+                        )
+                    )
+                    .resolve_scale(y="independent")
+                )
+                st.altair_chart(chart, width="stretch")
+                st.caption(
+                    "Uma observação por FIDC: menor percentual mínimo no documento mais recente; "
+                    "revisão aprovada prevalece. Tipo/setor é a classificação setorial disponível."
+                )
+            else:
+                st.caption("Selecione ao menos um tipo/setor para ver a distribuição.")
         if isinstance(sub_rules, pd.DataFrame) and not sub_rules.empty:
             cols = ["Fundo", "CNPJ", "Limite/regra", "pct_min", "Monitorabilidade IME", "Fonte", "Status curadoria"]
             table = sub_rules[[col for col in cols if col in sub_rules.columns]].copy()

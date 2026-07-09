@@ -1,9 +1,9 @@
 """Materializa o inventario documental incremental da aba Industria.
 
 O script nao baixa documentos nem interpreta conteudo. Ele consolida referencias
-ja descobertas pela aba Estrategia, cruza com artefatos locais, calcula status de
-arquivo/fingerprint leve e divide o trabalho em chunks pequenos para OCR,
-parsing e extracao em etapas futuras.
+da aba Estrategia, artefatos de extracao e todos os documentos publicos ja
+baixados em data/raw. Os chunks sao append-only: documentos conhecidos preservam
+o lote anterior e apenas arquivos novos recebem novos IDs.
 
 Uso:
     python scripts/build_fidc_industry_documents.py
@@ -28,8 +28,10 @@ from services.industry_study import (
     load_dataframe,
     load_document_source_rows,
     load_fund_universe,
+    merge_document_source_rows,
     save_dataframe,
     save_pipeline_manifest,
+    scan_raw_document_files,
     scan_regulatory_extraction_files,
 )
 
@@ -37,6 +39,7 @@ from services.industry_study import (
 DEFAULT_INDUSTRY_DIR = Path("data/industry_study")
 DEFAULT_STRATEGY_DB = Path("data/fidc_credit_strategy/fidc_credit_strategy.sqlite")
 DEFAULT_EXTRACTIONS_DIR = Path("data/regulatory_extractions")
+DEFAULT_RAW_DIR = Path("data/raw")
 
 
 def parse_args() -> argparse.Namespace:
@@ -44,6 +47,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--industry-dir", type=Path, default=DEFAULT_INDUSTRY_DIR)
     parser.add_argument("--strategy-db", type=Path, default=DEFAULT_STRATEGY_DB)
     parser.add_argument("--extractions-dir", type=Path, default=DEFAULT_EXTRACTIONS_DIR)
+    parser.add_argument("--raw-dir", type=Path, default=DEFAULT_RAW_DIR)
     parser.add_argument("--inventory-output", type=Path, default=None)
     parser.add_argument("--chunks-output", type=Path, default=None)
     parser.add_argument("--plan-output", type=Path, default=None)
@@ -53,10 +57,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--field-summary", type=Path, default=None)
     parser.add_argument("--manifest", type=Path, default=None)
     parser.add_argument("--chunk-id", type=str, default="")
-    parser.add_argument("--max-cnpjs", type=int, default=40)
-    parser.add_argument("--max-documents", type=int, default=250)
-    parser.add_argument("--max-bytes", type=int, default=256 * 1024 * 1024)
+    parser.add_argument("--max-cnpjs", type=int, default=20)
+    parser.add_argument("--max-documents", type=int, default=100)
+    parser.add_argument("--max-bytes", type=int, default=128 * 1024 * 1024)
     parser.add_argument("--max-hash-bytes", type=int, default=25 * 1024 * 1024)
+    parser.add_argument("--repartition", action="store_true", help="Ignora IDs de chunks existentes e reparte todo o inventário.")
     return parser.parse_args()
 
 
@@ -74,20 +79,24 @@ def main() -> None:
     manifest_path = args.manifest or args.industry_dir / default_manifest_name
 
     source_rows = load_document_source_rows(args.strategy_db)
+    raw_rows = scan_raw_document_files(args.raw_dir)
+    document_sources = merge_document_source_rows(source_rows, raw_rows)
     extraction_rows = scan_regulatory_extraction_files(args.extractions_dir)
     fund_universe = load_fund_universe(args.strategy_db)
     inventory = build_document_inventory(
-        source_rows,
+        document_sources,
         fund_universe=fund_universe,
         extraction_rows=extraction_rows,
         root=ROOT,
         max_hash_bytes=args.max_hash_bytes,
     )
+    existing_inventory = None if args.repartition else load_dataframe(args.industry_dir / "document_inventory.csv.gz")
     inventory, chunks = assign_document_chunks(
         inventory,
         max_cnpjs=args.max_cnpjs,
         max_documents=args.max_documents,
         max_bytes=args.max_bytes,
+        existing_inventory=existing_inventory,
     )
     selected_inventory = inventory
     if args.chunk_id:
@@ -122,6 +131,8 @@ def main() -> None:
         chunks=chunks,
         chunk_plan=chunk_plan,
         max_hash_bytes=args.max_hash_bytes,
+        raw_dir=args.raw_dir,
+        raw_rows=raw_rows,
     )
     save_pipeline_manifest(manifest, manifest_path)
 

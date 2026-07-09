@@ -34,6 +34,7 @@ def ocr_pdf_pages(
     *,
     engine: str = "auto",
     max_pages: int = 0,
+    page_numbers: list[int] | None = None,
     languages: str = "pt-BR,en-US",
     root: Path | None = None,
     timeout_seconds: int = 1800,
@@ -54,6 +55,7 @@ def ocr_pdf_pages(
         str(path),
         str(max(int(max_pages), 0)),
         str(languages or "pt-BR,en-US"),
+        ",".join(str(int(value)) for value in (page_numbers or []) if int(value) > 0),
     ]
     completed = subprocess.run(
         command,

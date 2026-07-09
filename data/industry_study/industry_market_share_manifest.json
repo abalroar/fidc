@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-market-share-manifest/v1",
-  "generated_at_utc": "2026-07-09T20:57:53+00:00",
+  "generated_at_utc": "2026-07-09T23:34:37+00:00",
   "pipeline": "industry_market_share",
   "design_constraints": {
     "modular": true,
@@ -16,16 +16,16 @@
     "fund_snapshot": {
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 424684,
-      "sha256": "9ec9471ae06124da7879c0328fcf9a3b4c10d137af9eae4dd844a2b3edbb71d6"
+      "bytes": 445308,
+      "sha256": "f5a2e21253adefe6539697378777476f451cb379e31227c0633c23bb497ce15e"
     }
   },
   "outputs": {
     "market_share": {
       "path": "data/industry_study/industry_market_share.csv.gz",
       "exists": true,
-      "bytes": 133772,
-      "sha256": "85d06cff75acb44e89669e6b83d5e55b33dc3d85b42fab138ffe6e37ad49ea97"
+      "bytes": 136900,
+      "sha256": "27ed8091ee838f6401f44a8f4d43e4cbc9ce45a4b8305afbbcc78090a62a1d8f"
     },
     "manifest": {
       "path": "data/industry_study/industry_market_share_manifest.json"
@@ -47,14 +47,14 @@
       "status": "ok",
       "input": "memoria:industry_fund_snapshot",
       "output": "data/industry_study/industry_market_share.csv.gz",
-      "rows": 3990,
+      "rows": 4002,
       "dimensions": 16,
       "metrics": 6,
       "rerun": "python scripts/build_fidc_industry_market_share.py"
     }
   ],
   "quality": {
-    "rows": 3990,
+    "rows": 4002,
     "dimensions": 16,
     "metrics": 6,
     "weighted_dimensions": 4,

@@ -1,14 +1,14 @@
 {
   "schema_version": "industry-document-manifest/v1",
-  "generated_at_utc": "2026-07-09T20:40:01+00:00",
+  "generated_at_utc": "2026-07-09T23:43:43+00:00",
   "pipeline": "industry_document_inventory",
   "design_constraints": {
     "modular": true,
     "incremental": true,
     "macbook_air_m4_friendly": true,
     "notes": [
-      "Este modulo inventaria documentos e caches locais; nao faz download, OCR ou interpretacao juridica.",
-      "Chunks pequenos permitem executar parsing/extracao por lote, sem reprocessar toda a industria.",
+      "Este modulo inventaria referências, documentos públicos já baixados e caches locais; não faz download, OCR ou interpretação jurídica.",
+      "Chunks append-only preservam os IDs já processados e colocam apenas documentos novos em lotes adicionais.",
       "Arquivos acima de 26,214,400 bytes recebem stat de tamanho, mas o hash e pulado para preservar tempo de execucao."
     ]
   },
@@ -22,20 +22,24 @@
     "regulatory_extractions_dir": {
       "path": "data/regulatory_extractions",
       "exists": true
+    },
+    "raw_documents_dir": {
+      "path": "data/raw",
+      "exists": true
     }
   },
   "outputs": {
     "document_inventory": {
       "path": "data/industry_study/document_inventory.csv.gz",
       "exists": true,
-      "bytes": 338622,
-      "sha256": "0ea5db2778697b32d8186e9134da1e997ace8324f886303f977c9c9ebb507b36"
+      "bytes": 1077830,
+      "sha256": "3cebf161beebb31e4ccbf5bf282d06356c7974bae336a14b0ff8a7ac599dda6e"
     },
     "document_processing_chunks": {
       "path": "data/industry_study/document_processing_chunks.csv",
       "exists": true,
-      "bytes": 10514,
-      "sha256": "79ff5db97a59bd94d94b7b2c52bac18c1a1f1dc13936b94178b120f0ac16f845"
+      "bytes": 36970,
+      "sha256": "667936b6c6a4e3118fcfd5415b629ed26be05a4c560090c26c36ad430c6a192b"
     },
     "manifest": {
       "path": "data/industry_study/industry_document_manifest.json"
@@ -43,8 +47,8 @@
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 23357,
-      "sha256": "2efd3ccd19a51e882a45f4a50ed3e4a82d4124c30f98b9fcf0647183d055a3ac"
+      "bytes": 85849,
+      "sha256": "db84c35efbc8f77f06a94a4c595035e10a19b25e6b33727fafb07ab5897b6197"
     }
   },
   "stages": [
@@ -69,13 +73,23 @@
       "rerun": "python scripts/build_fidc_industry_documents.py"
     },
     {
+      "id": "scan_raw_public_documents",
+      "label": "Documentos públicos locais",
+      "status": "ok",
+      "input": "data/raw",
+      "output": "memoria:raw_document_files",
+      "rows": 9645,
+      "funds": 764,
+      "rerun": "python scripts/build_fidc_industry_documents.py"
+    },
+    {
       "id": "fingerprint_local_files",
       "label": "Fingerprint e status local",
       "status": "ok",
-      "input": "memoria:document_source_rows+regulatory_extractions",
+      "input": "memoria:document_source_rows+regulatory_extractions+raw_document_files",
       "output": "memoria:document_inventory",
-      "rows": 3521,
-      "funds": 739,
+      "rows": 11665,
+      "funds": 764,
       "rerun": "python scripts/build_fidc_industry_documents.py"
     },
     {
@@ -84,7 +98,7 @@
       "status": "ok",
       "input": "memoria:document_inventory",
       "output": "data/industry_study/document_processing_chunks.csv",
-      "rows": 27,
+      "rows": 109,
       "rerun": "python scripts/build_fidc_industry_documents.py"
     },
     {
@@ -93,7 +107,7 @@
       "status": "ok",
       "input": "document_processing_chunks+document_inventory+document_chunk_actions",
       "output": "data/industry_study/document_chunk_plan.csv",
-      "rows": 27,
+      "rows": 109,
       "rerun": "python scripts/build_fidc_industry_document_chunk_plan.py"
     },
     {
@@ -102,44 +116,54 @@
       "status": "ok",
       "input": "memoria:document_inventory",
       "output": "data/industry_study/document_inventory.csv.gz",
-      "rows": 3521,
+      "rows": 11665,
       "rerun": "python scripts/build_fidc_industry_documents.py"
     }
   ],
   "quality": {
-    "document_rows": 3521,
-    "funds": 739,
-    "priority_2025_2026_docs": 1312,
-    "local_ready_docs": 3521,
+    "document_rows": 11665,
+    "funds": 764,
+    "priority_2025_2026_docs": 6744,
+    "local_ready_docs": 11665,
     "missing_local_docs": 0,
-    "hashed_docs": 3521,
-    "chunks": 27,
-    "chunk_plan_rows": 27,
+    "hashed_docs": 11665,
+    "chunks": 109,
+    "chunk_plan_rows": 109,
     "chunk_plan_status_counts": {
-      "pronto": 27
+      "pronto": 80,
+      "processar": 29
     },
-    "chunk_plan_open_rows": 0,
+    "chunk_plan_open_rows": 29,
     "max_documents_per_chunk": 250,
     "max_cnpjs_per_chunk": 40,
     "coverage": {
       "cnpj_fundo": 1.0,
       "documento_origem": 1.0,
       "documento_id": 1.0,
-      "document_date": 0.42629934677648396,
+      "document_date": 0.8756965280754393,
       "local_path": 1.0,
       "sha256": 1.0,
       "setor_n1": 1.0
     },
     "document_class_counts": {
-      "regulamento": 1566,
+      "regulamento": 5128,
+      "emissao": 2734,
+      "assembleia": 2008,
       "extracao_json": 1449,
-      "assembleia": 293,
-      "emissao": 213
+      "evento": 266,
+      "outro": 80
     },
     "content_kind_counts": {
-      "pdf": 1501,
+      "pdf": 9645,
       "extraction_json": 1449,
       "text_cache": 571
+    },
+    "source_table_counts": {
+      "pricing_tranche_enriched": 815,
+      "raw_document_files": 9645,
+      "cedentes_sacados_candidates": 571,
+      "manual_review_queue": 686,
+      "regulatory_extractions": 1449
     }
   }
 }

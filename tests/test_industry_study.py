@@ -17,6 +17,7 @@ from build_fidc_industry_study import (  # noqa: E402
     _strip_digits,
     month_range,
 )
+from process_fidc_industry_document_chunks import select_document_chunks  # noqa: E402
 from services.industry_study import (  # noqa: E402
     CEDENTE_REVIEW_COLUMNS,
     CRITERIA_REVIEW_COLUMNS,
@@ -110,6 +111,7 @@ from services.industry_study import (  # noqa: E402
     save_pipeline_manifest,
     save_cedente_structured,
     select_subordination_metric_rows,
+    scan_raw_document_files,
     scan_regulatory_extraction_files,
     merge_document_chunk_diagnostics,
     merge_document_text_index,
@@ -117,6 +119,7 @@ from services.industry_study import (  # noqa: E402
     merge_document_field_run_summary,
     merge_cedente_candidate_sources,
     merge_criteria_candidate_sources,
+    merge_document_source_rows,
 )
 from tabs.tab_industry_study import (  # noqa: E402
     _apply_document_chunk_actions,
@@ -1062,6 +1065,105 @@ def test_document_manifest_and_quality_describe_pipeline_outputs():
     assert quality["content_kind_counts"]["extraction_json"] == 1
 
 
+def test_raw_document_scan_adds_every_local_public_file_with_traceable_source():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        raw_dir = root / "data" / "raw"
+        fund_dir = raw_dir / "05753599000158"
+        fund_dir.mkdir(parents=True)
+        regulation = fund_dir / "123456_regulamento_regulamento_2026-05-20.pdf"
+        event = fund_dir / "123457_evento_evento_2026-05-21.pdf"
+        regulation.write_bytes(b"%PDF-1.4 regulation")
+        event.write_bytes(b"%PDF-1.4 event")
+        (fund_dir / ".DS_Store").write_text("ignored", encoding="utf-8")
+        (fund_dir / "notes.md").write_text("ignored", encoding="utf-8")
+        invalid_dir = raw_dir / "not-a-cnpj"
+        invalid_dir.mkdir()
+        (invalid_dir / "other.pdf").write_bytes(b"%PDF-1.4")
+
+        raw_rows = scan_raw_document_files(raw_dir)
+        merged_sources = merge_document_source_rows(raw_rows, raw_rows)
+        inventory = build_document_inventory(merged_sources, root=root)
+        _, chunks = assign_document_chunks(inventory, max_documents=10)
+        quality = document_quality_summary(inventory, chunks)
+
+    assert len(raw_rows) == 2
+    assert len(merged_sources) == 2
+    assert set(inventory["document_class"]) == {"regulamento", "evento"}
+    assert set(inventory["document_date"]) == {"2026-05-20", "2026-05-21"}
+    assert inventory["local_exists"].all()
+    assert inventory["sha256"].str.len().eq(64).all()
+    assert quality["source_table_counts"] == {"raw_document_files": 2}
+
+
+def test_document_chunks_are_append_only_when_new_files_arrive():
+    def row(key: str, cnpj: str, *, priority: bool = False) -> dict[str, object]:
+        return {
+            "document_key": key,
+            "cnpj_fundo": cnpj,
+            "document_class": "regulamento",
+            "document_date": "2026-05-01",
+            "documento_origem": f"{key}.pdf",
+            "source_table": "raw_document_files",
+            "local_exists": True,
+            "sha256": key.ljust(64, "a")[:64],
+            "bytes": 10,
+            "priority_2025_2026": priority,
+        }
+
+    initial = pd.DataFrame(
+        [
+            row("old-a", "11111111000111"),
+            row("old-b", "11111111000111"),
+            row("old-c", "22222222000122"),
+        ]
+    )
+    assigned_initial, _ = assign_document_chunks(initial, max_documents=2, max_cnpjs=2)
+    updated = pd.concat(
+        [
+            initial,
+            pd.DataFrame(
+                [
+                    row("new-priority", "33333333000133", priority=True),
+                    row("new-other", "44444444000144"),
+                ]
+            ),
+        ],
+        ignore_index=True,
+    )
+    assigned_updated, chunks = assign_document_chunks(
+        updated,
+        max_documents=2,
+        max_cnpjs=2,
+        existing_inventory=assigned_initial,
+    )
+    initial_ids = assigned_initial.set_index("document_key")["chunk_id"].to_dict()
+    updated_ids = assigned_updated.set_index("document_key")["chunk_id"].to_dict()
+
+    assert {updated_ids[key] for key in initial_ids} == set(initial_ids.values())
+    assert all(updated_ids[key] == value for key, value in initial_ids.items())
+    assert updated_ids["new-priority"] == "doc-0003"
+    assert updated_ids["new-other"] == "doc-0003"
+    assert set(chunks["chunk_id"]) == {"doc-0001", "doc-0002", "doc-0003"}
+
+
+def test_document_chunk_runner_selects_only_open_priority_work_and_explicit_ids():
+    plan = pd.DataFrame(
+        [
+            {"chunk_id": "doc-0001", "technical_complete": True, "chunk_status": "pronto", "priority_score": 999, "priority_docs_effective": 10},
+            {"chunk_id": "doc-0002", "technical_complete": False, "chunk_status": "processar", "priority_score": 20, "priority_docs_effective": 0},
+            {"chunk_id": "doc-0003", "technical_complete": False, "chunk_status": "processar", "priority_score": 80, "priority_docs_effective": 5},
+            {"chunk_id": "doc-0004", "technical_complete": False, "chunk_status": "processar", "priority_score": 50, "priority_docs_effective": 2},
+        ]
+    )
+
+    selected = select_document_chunks(plan, max_chunks=1, priority_only=True)
+    explicit = select_document_chunks(plan, chunk_ids=["doc-0002", "doc-0001"], max_chunks=0)
+
+    assert selected["chunk_id"].tolist() == ["doc-0003"]
+    assert explicit["chunk_id"].tolist() == ["doc-0002", "doc-0001"]
+
+
 def test_document_chunk_diagnostics_probe_incremental_outputs_and_ui_formatters():
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
@@ -1355,6 +1457,89 @@ def test_document_text_retries_ocr_required_cache_with_page_level_backend(monkey
     assert record["extracted_at_utc"] == "2026-07-10T12:00:00+00:00"
     assert payload["pages"][0]["page_number"] == 1
     assert "CEDENTE OCR" in payload["pages"][0]["text"]
+
+
+def test_document_text_recovers_only_failed_pdf_pages_with_ocr(monkeypatch):
+    class FakePage:
+        def __init__(self, text: str = "", error: str = "") -> None:
+            self.text = text
+            self.error = error
+
+        def extract_text(self) -> str:
+            if self.error:
+                raise TypeError(self.error)
+            return self.text
+
+    class FakeReader:
+        pages = [
+            FakePage("Página textual um"),
+            FakePage(error="IndirectObject inválido"),
+            FakePage("Página textual três"),
+        ]
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        source_dir = root / "data" / "raw" / "05753599000158"
+        source_dir.mkdir(parents=True)
+        pdf_path = source_dir / "hybrid.pdf"
+        pdf_path.write_bytes(b"%PDF-1.4 hybrid")
+        inventory = pd.DataFrame(
+            [
+                {
+                    "chunk_id": "doc-0001",
+                    "document_key": "hybrid-pdf",
+                    "cnpj_fundo": "05753599000158",
+                    "fundo": "FIDC HÍBRIDO",
+                    "documento_origem": "hybrid.pdf",
+                    "document_class": "regulamento",
+                    "content_kind": "pdf",
+                    "document_date": "2026-05-01",
+                    "local_path": "data/raw/05753599000158/hybrid.pdf",
+                    "local_exists": True,
+                    "bytes": pdf_path.stat().st_size,
+                    "sha256": "d" * 64,
+                }
+            ]
+        )
+        requested: list[int] = []
+
+        monkeypatch.setattr("pypdf.PdfReader", lambda *_args, **_kwargs: FakeReader())
+        monkeypatch.setattr(
+            "services.document_ocr.resolve_ocr_engine",
+            lambda engine="auto", root=None: "macos_vision",
+        )
+
+        def fake_ocr(*_args, **kwargs):
+            requested.extend(kwargs.get("page_numbers") or [])
+            return {
+                "engine": "macos_vision",
+                "pages": [{"page_number": 2, "text": "Página dois recuperada"}],
+                "page_count": 3,
+                "pages_processed": 1,
+                "confidence_score": 0.9,
+                "errors": [],
+            }
+
+        monkeypatch.setattr("services.document_ocr.ocr_pdf_pages", fake_ocr)
+        result = build_document_chunk_text_index(
+            inventory,
+            chunk_id="doc-0001",
+            root=root,
+            cache_dir=root / "cache",
+            ocr_engine="auto",
+            extracted_at_utc="2026-07-09T12:00:00+00:00",
+        )
+        record = result.iloc[0]
+        with gzip.open(root / str(record["cache_path"]), "rt", encoding="utf-8") as handle:
+            payload = json.load(handle)
+
+    assert requested == [2]
+    assert record["parse_status"] == "ocr_ready"
+    assert record["extraction_method"] == "pypdf_plus_macos_vision_ocr_1_pages"
+    assert record["pages_processed"] == 3
+    assert record["pages_with_text"] == 3
+    assert record["error_message"] == ""
+    assert payload["pages"][1]["text"] == "Página dois recuperada"
 
 
 def test_document_fields_extract_page_traceable_candidates_and_map_to_review_schemas():

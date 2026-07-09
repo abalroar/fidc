@@ -3,6 +3,7 @@ from __future__ import annotations
 import gzip
 import hashlib
 import json
+import logging
 import re
 import sqlite3
 import unicodedata
@@ -10,6 +11,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import pandas as pd
+
+
+logging.getLogger("pypdf").setLevel(logging.ERROR)
 
 
 CEDENTE_REVIEW_COLUMNS = [
@@ -2585,6 +2589,53 @@ def scan_regulatory_extraction_files(extractions_dir: Path) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=_DOCUMENT_SOURCE_COLUMNS)
 
 
+def scan_raw_document_files(raw_dir: Path) -> pd.DataFrame:
+    """Expose every locally downloaded public document as an inventory source."""
+
+    if not raw_dir.exists():
+        return _empty_document_sources()
+    rows: list[dict[str, str]] = []
+    for fund_dir in sorted(path for path in raw_dir.iterdir() if path.is_dir()):
+        cnpj = normalize_cnpj(fund_dir.name)
+        if len(cnpj) != 14:
+            continue
+        for path in sorted(item for item in fund_dir.iterdir() if item.is_file() and not item.name.startswith(".")):
+            if path.suffix.lower() not in {".pdf", ".txt", ".json", ".xml", ".zip"}:
+                continue
+            rows.append(
+                {
+                    "cnpj_fundo": cnpj,
+                    "fundo": "",
+                    "setor_n1": "",
+                    "setor_n2": "",
+                    "source_table": "raw_document_files",
+                    "source_field": "filesystem_path",
+                    "source_value": str(path),
+                    "document_date_hint": _parse_document_date(path.name),
+                    "priority_hint": path.name,
+                }
+            )
+    if not rows:
+        return _empty_document_sources()
+    return pd.DataFrame(rows, columns=_DOCUMENT_SOURCE_COLUMNS)
+
+
+def merge_document_source_rows(*sources: pd.DataFrame) -> pd.DataFrame:
+    """Combine discovery layers without duplicating the same fund/file reference."""
+
+    frames = [frame for frame in sources if frame is not None and not frame.empty]
+    if not frames:
+        return _empty_document_sources()
+    combined = pd.concat(frames, ignore_index=True, sort=False)
+    for col in _DOCUMENT_SOURCE_COLUMNS:
+        if col not in combined.columns:
+            combined[col] = ""
+    combined = combined[_DOCUMENT_SOURCE_COLUMNS].fillna("").astype(str)
+    combined["cnpj_fundo"] = combined["cnpj_fundo"].map(normalize_cnpj)
+    combined = combined[combined["source_value"].str.strip().ne("")].copy()
+    return combined.drop_duplicates(["cnpj_fundo", "source_value", "source_table"], keep="last").reset_index(drop=True)
+
+
 def _first_nonempty(values: pd.Series) -> str:
     for value in values:
         text = str(value or "").strip()
@@ -2640,10 +2691,10 @@ def _parse_document_date(*values: object) -> str:
         text = str(value or "")
         if not text.strip():
             continue
-        match = re.search(r"\b(20\d{2}-\d{2}-\d{2})\b", text)
+        match = re.search(r"(?<!\d)(20\d{2}-\d{2}-\d{2})(?!\d)", text)
         if match:
             return match.group(1)
-        match = re.search(r"\b(\d{1,2}/\d{1,2}/20\d{2})\b", text)
+        match = re.search(r"(?<!\d)(\d{1,2}/\d{1,2}/20\d{2})(?!\d)", text)
         candidate = match.group(1) if match else text
         parsed = pd.to_datetime(pd.Series([candidate]), errors="coerce", dayfirst=True).iloc[0]
         if pd.notna(parsed):
@@ -2673,6 +2724,8 @@ def classify_document(value: object) -> str:
         return "regulamento"
     if any(token in text for token in ["assembleia", "ata_", "ata-", "ata "]):
         return "assembleia"
+    if any(token in text for token in ["fato relevante", "comunicado", "evento_", "evento-", "evento "]):
+        return "evento"
     if any(token in text for token in ["suplemento", "emissao", "encerramento", "aviso", "anuncio", "oferta"]):
         return "emissao"
     if "rating" in text:
@@ -2920,7 +2973,10 @@ def assign_document_chunks(
     max_cnpjs: int = 40,
     max_documents: int = 250,
     max_bytes: int = 256 * 1024 * 1024,
+    existing_inventory: pd.DataFrame | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Assign append-only chunks, preserving prior IDs for unchanged documents."""
+
     if inventory is None or inventory.empty:
         return pd.DataFrame(), pd.DataFrame()
     frame = inventory.copy().reset_index(drop=True)
@@ -2931,26 +2987,50 @@ def assign_document_chunks(
         ascending=[False, True, True, False, True],
     ).reset_index(drop=True)
 
-    assignments: dict[int, str] = {}
-    chunk_rows: list[pd.DataFrame] = []
+    frame["chunk_id"] = ""
+    existing_chunk_ids: set[str] = set()
+    if (
+        existing_inventory is not None
+        and not existing_inventory.empty
+        and {"document_key", "chunk_id"}.issubset(existing_inventory.columns)
+        and "document_key" in frame.columns
+    ):
+        previous = existing_inventory[["document_key", "chunk_id"]].copy()
+        previous["document_key"] = previous["document_key"].fillna("").astype(str)
+        previous["chunk_id"] = previous["chunk_id"].fillna("").astype(str)
+        previous = previous[previous["document_key"].str.strip().ne("") & previous["chunk_id"].str.strip().ne("")]
+        previous = previous.drop_duplicates("document_key", keep="last")
+        chunk_by_document = previous.set_index("document_key")["chunk_id"].to_dict()
+        frame["chunk_id"] = frame["document_key"].fillna("").astype(str).map(chunk_by_document).fillna("")
+        existing_chunk_ids = set(previous["chunk_id"])
+
+    numeric_ids = [
+        int(match.group(1))
+        for value in existing_chunk_ids
+        if (match := re.fullmatch(r"doc-(\d+)", str(value).strip()))
+    ]
+    next_chunk_number = max(numeric_ids, default=0) + 1
     current: list[int] = []
     current_cnpjs: set[str] = set()
     current_bytes = 0
 
     def flush() -> None:
-        nonlocal current, current_cnpjs, current_bytes
+        nonlocal current, current_cnpjs, current_bytes, next_chunk_number
         if not current:
             return
-        chunk_id = f"doc-{len(chunk_rows) + 1:04d}"
+        chunk_id = f"doc-{next_chunk_number:04d}"
+        while chunk_id in existing_chunk_ids:
+            next_chunk_number += 1
+            chunk_id = f"doc-{next_chunk_number:04d}"
         for idx in current:
-            assignments[idx] = chunk_id
-        subset = frame.loc[current].copy()
-        chunk_rows.append(_document_chunk_summary(chunk_id, subset))
+            frame.at[idx, "chunk_id"] = chunk_id
+        existing_chunk_ids.add(chunk_id)
+        next_chunk_number += 1
         current = []
         current_cnpjs = set()
         current_bytes = 0
 
-    for idx, row in frame.iterrows():
+    for idx, row in frame[frame["chunk_id"].str.strip().eq("")].iterrows():
         cnpj = str(row.get("cnpj_fundo", ""))
         row_bytes = int(row.get("bytes", 0) or 0)
         next_cnpjs = current_cnpjs | ({cnpj} if cnpj else set())
@@ -2970,7 +3050,17 @@ def assign_document_chunks(
         current_bytes += row_bytes
     flush()
 
-    frame["chunk_id"] = frame.index.map(assignments)
+    chunk_ids = sorted(
+        [value for value in frame["chunk_id"].fillna("").astype(str).unique() if value],
+        key=lambda value: (
+            int(match.group(1)) if (match := re.fullmatch(r"doc-(\d+)", value)) else 10**9,
+            value,
+        ),
+    )
+    chunk_rows = [
+        _document_chunk_summary(chunk_id, frame[frame["chunk_id"].eq(chunk_id)].copy())
+        for chunk_id in chunk_ids
+    ]
     chunks = pd.concat(chunk_rows, ignore_index=True) if chunk_rows else pd.DataFrame()
     return frame, chunks
 
@@ -3299,10 +3389,18 @@ def document_quality_summary(
             "coverage": {},
             "document_class_counts": {},
             "content_kind_counts": {},
+            "source_table_counts": {},
         }
     local_exists = inventory["local_exists"].astype(bool) if "local_exists" in inventory else pd.Series(False, index=inventory.index)
     hashed = inventory["sha256"].fillna("").astype(str).str.len().gt(0) if "sha256" in inventory else pd.Series(False, index=inventory.index)
     priority = inventory["priority_2025_2026"].astype(bool) if "priority_2025_2026" in inventory else pd.Series(False, index=inventory.index)
+    source_table_counts: dict[str, int] = {}
+    if "source_table" in inventory:
+        for value in inventory["source_table"].fillna("").astype(str):
+            for part in value.split("|"):
+                source = part.strip()
+                if source:
+                    source_table_counts[source] = source_table_counts.get(source, 0) + 1
     return {
         "document_rows": int(len(inventory)),
         "funds": int(inventory["cnpj_fundo"].nunique()) if "cnpj_fundo" in inventory else 0,
@@ -3341,6 +3439,7 @@ def document_quality_summary(
         }
         if "content_kind" in inventory
         else {},
+        "source_table_counts": source_table_counts,
     }
 
 
@@ -3835,16 +3934,18 @@ def _document_text_payload(
         reader = PdfReader(str(path))
         page_count = len(reader.pages)
         limit = page_count if max_pdf_pages <= 0 else min(page_count, max_pdf_pages)
+        pdf_page_errors: dict[int, str] = {}
         for page_number, page in enumerate(reader.pages[:limit], start=1):
             try:
                 text = page.extract_text() or ""
             except Exception as exc:
                 text = ""
-                errors.append(f"p.{page_number}: {exc}")
+                pdf_page_errors[page_number] = str(exc)
             pages.append({"page_number": page_number, "text": text})
         method = "pypdf_all_pages" if limit == page_count else f"pypdf_first_{limit}_pages"
         confidence = 0.8 if limit == page_count else 0.65
-        if not any(str(page.get("text", "") or "").strip() for page in pages) and ocr_engine != "none":
+        has_pdf_text = any(str(page.get("text", "") or "").strip() for page in pages)
+        if not has_pdf_text and ocr_engine != "none":
             from services.document_ocr import ocr_pdf_pages
 
             ocr_payload = ocr_pdf_pages(
@@ -3859,6 +3960,7 @@ def _document_text_payload(
                 pages = ocr_pages
             page_count = max(int(ocr_payload.get("page_count", 0) or 0), page_count)
             ocr_errors = ocr_payload.get("errors", [])
+            errors = []
             if isinstance(ocr_errors, list):
                 errors.extend(str(value) for value in ocr_errors if str(value).strip())
             method = f"{ocr_payload.get('engine', ocr_engine)}_ocr_" + (
@@ -3866,6 +3968,47 @@ def _document_text_payload(
             )
             confidence = float(ocr_payload.get("confidence_score", 0.0) or 0.0)
             ocr_applied = any(str(page.get("text", "") or "").strip() for page in pages)
+        elif pdf_page_errors and ocr_engine != "none":
+            from services.document_ocr import ocr_pdf_pages
+
+            requested_pages = sorted(pdf_page_errors)
+            ocr_payload = ocr_pdf_pages(
+                path,
+                engine=ocr_engine,
+                max_pages=max_pdf_pages,
+                page_numbers=requested_pages,
+                languages=ocr_languages,
+                root=root,
+            )
+            ocr_pages = ocr_payload.get("pages", [])
+            ocr_by_page = {
+                int(page.get("page_number", 0) or 0): str(page.get("text", "") or "")
+                for page in ocr_pages
+                if isinstance(page, dict) and int(page.get("page_number", 0) or 0) > 0
+            } if isinstance(ocr_pages, list) else {}
+            recovered_pages: set[int] = set()
+            for page in pages:
+                page_number = int(page.get("page_number", 0) or 0)
+                recovered_text = ocr_by_page.get(page_number, "")
+                if page_number in pdf_page_errors and recovered_text.strip():
+                    page["text"] = recovered_text
+                    recovered_pages.add(page_number)
+            errors = [
+                f"p.{page_number}: {message}"
+                for page_number, message in pdf_page_errors.items()
+                if page_number not in recovered_pages
+            ]
+            ocr_errors = ocr_payload.get("errors", [])
+            if isinstance(ocr_errors, list):
+                errors.extend(str(value) for value in ocr_errors if str(value).strip())
+            if recovered_pages:
+                engine_name = str(ocr_payload.get("engine", ocr_engine) or ocr_engine)
+                method = f"pypdf_plus_{engine_name}_ocr_{len(recovered_pages)}_pages"
+                ocr_confidence = float(ocr_payload.get("confidence_score", 0.0) or 0.0)
+                confidence = min(confidence, max(ocr_confidence, 0.35))
+                ocr_applied = True
+        else:
+            errors = [f"p.{page_number}: {message}" for page_number, message in pdf_page_errors.items()]
     else:
         return {
             "parse_status": "unsupported",
@@ -3995,7 +4138,8 @@ def build_document_chunk_text_index(
         previous = existing_by_key.get(document_key)
         previous_requires_ocr = (
             previous is not None
-            and str(previous.get("parse_status", "") or "").strip() == "ocr_required"
+            and str(previous.get("parse_status", "") or "").strip()
+            in {"ocr_required", "text_ready_with_page_errors", "ocr_ready_with_page_errors"}
             and resolved_ocr_engine != "none"
         )
         if (
@@ -12602,9 +12746,13 @@ def build_document_pipeline_manifest(
     max_hash_bytes: int,
     plan_path: Path | None = None,
     chunk_plan: pd.DataFrame | None = None,
+    raw_dir: Path | None = None,
+    raw_rows: pd.DataFrame | None = None,
 ) -> dict[str, object]:
     if chunk_plan is None:
         chunk_plan = pd.DataFrame()
+    if raw_rows is None:
+        raw_rows = pd.DataFrame()
     quality = document_quality_summary(inventory, chunks, chunk_plan)
     outputs = {
         "document_inventory": file_fingerprint(inventory_path),
@@ -12635,10 +12783,20 @@ def build_document_pipeline_manifest(
             "rerun": "python scripts/build_fidc_industry_documents.py",
         },
         {
+            "id": "scan_raw_public_documents",
+            "label": "Documentos públicos locais",
+            "status": "ok" if not raw_rows.empty else "empty",
+            "input": str(raw_dir or "data/raw"),
+            "output": "memoria:raw_document_files",
+            "rows": int(len(raw_rows)),
+            "funds": int(raw_rows["cnpj_fundo"].nunique()) if "cnpj_fundo" in raw_rows else 0,
+            "rerun": "python scripts/build_fidc_industry_documents.py",
+        },
+        {
             "id": "fingerprint_local_files",
             "label": "Fingerprint e status local",
             "status": "ok" if not inventory.empty else "empty",
-            "input": "memoria:document_source_rows+regulatory_extractions",
+            "input": "memoria:document_source_rows+regulatory_extractions+raw_document_files",
             "output": "memoria:document_inventory",
             "rows": int(len(inventory)),
             "funds": int(inventory["cnpj_fundo"].nunique()) if "cnpj_fundo" in inventory else 0,
@@ -12686,8 +12844,8 @@ def build_document_pipeline_manifest(
             "incremental": True,
             "macbook_air_m4_friendly": True,
             "notes": [
-                "Este modulo inventaria documentos e caches locais; nao faz download, OCR ou interpretacao juridica.",
-                "Chunks pequenos permitem executar parsing/extracao por lote, sem reprocessar toda a industria.",
+                "Este modulo inventaria referências, documentos públicos já baixados e caches locais; não faz download, OCR ou interpretação jurídica.",
+                "Chunks append-only preservam os IDs já processados e colocam apenas documentos novos em lotes adicionais.",
                 f"Arquivos acima de {max_hash_bytes:,} bytes recebem stat de tamanho, mas o hash e pulado para preservar tempo de execucao.",
             ],
         },
@@ -12696,6 +12854,10 @@ def build_document_pipeline_manifest(
             "regulatory_extractions_dir": {
                 "path": str(extractions_dir),
                 "exists": extractions_dir.exists(),
+            },
+            "raw_documents_dir": {
+                "path": str(raw_dir or "data/raw"),
+                "exists": bool(raw_dir and raw_dir.exists()),
             },
         },
         "outputs": outputs,
