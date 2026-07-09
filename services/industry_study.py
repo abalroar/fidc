@@ -5704,6 +5704,13 @@ def build_industry_pipeline_index(
                 "required": False,
                 **file_fingerprint(industry_dir / "industry_monthly_update_plan.csv"),
             },
+            {
+                "module_id": "pipeline_index",
+                "group": "outputs",
+                "artifact": "industry_monthly_readiness",
+                "required": False,
+                **file_fingerprint(industry_dir / "industry_monthly_readiness.csv"),
+            },
         ]
     )
 
@@ -6057,6 +6064,12 @@ def build_industry_pipeline_index(
         artifact_rows=artifact_rows,
         quality_rollup=quality_rollup,
     )
+    readiness_status_counts: dict[str, int] = {}
+    for row in readiness_checks:
+        status = str(row.get("status_prontidao") or "n/d")
+        readiness_status_counts[status] = readiness_status_counts.get(status, 0) + 1
+    quality_rollup["readiness_checks_rows"] = len(readiness_checks)
+    quality_rollup["readiness_status_counts"] = readiness_status_counts
     prd_coverage = build_prd_coverage_matrix(
         quality_rollup=quality_rollup,
         artifact_rows=artifact_rows,

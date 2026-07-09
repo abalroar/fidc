@@ -3760,6 +3760,9 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "source_snapshot_rows": 2,
             },
         )
+        (tmp_path / "industry_pipeline_index.json").write_text("{}\n", encoding="utf-8")
+        (tmp_path / "industry_monthly_update_plan.csv").write_text("plan_id\n", encoding="utf-8")
+        (tmp_path / "industry_monthly_readiness.csv").write_text("check_id\n", encoding="utf-8")
 
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
@@ -3833,6 +3836,10 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["public_claim_audit_rows"] == 4
     assert index["quality_rollup"]["public_claim_audit_sources"] == 2
     assert index["quality_rollup"]["public_claim_audit_methodology_gap_claims"] == 3
+    assert index["quality_rollup"]["readiness_checks_rows"] == 7
+    assert index["quality_rollup"]["readiness_status_counts"]["bloqueado"] == 2
+    assert index["quality_rollup"]["readiness_status_counts"]["atenção"] == 2
+    assert index["quality_rollup"]["readiness_status_counts"]["ok"] == 3
     assert index["quality_rollup"]["prd_requirements_total"] == 12
     assert "prd_status_counts" in index["quality_rollup"]
     prd = {row["requirement_id"]: row for row in index["prd_coverage"]}
@@ -3863,9 +3870,12 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert "industry_dimension_monthly" in monthly_plan["dimension_monthly"]["saidas"]
     assert monthly_plan["dimension_dossiers"]["comando"] == "python scripts/build_fidc_industry_dimension_dossiers.py"
     assert "industry_monthly_update_plan" in monthly_plan["pipeline_index"]["saidas"]
+    assert "industry_monthly_readiness" in monthly_plan["pipeline_index"]["saidas"]
     artifacts = {(row["module_id"], row["artifact"]): row for row in index["artifact_index"]}
     assert ("pipeline_index", "industry_monthly_update_plan") in artifacts
     assert artifacts[("pipeline_index", "industry_monthly_update_plan")]["required"] is False
+    assert ("pipeline_index", "industry_monthly_readiness") in artifacts
+    assert artifacts[("pipeline_index", "industry_monthly_readiness")]["required"] is False
     assert index["quality_rollup"]["manual_review_domains_total"] == 6
     assert index["quality_rollup"]["manual_review_domains_with_actions"] == 6
     assert index["quality_rollup"]["manual_review_domains_with_audit"] == 6

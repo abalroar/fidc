@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-index/v1",
-  "generated_at_utc": "2026-07-09T15:56:24+00:00",
+  "generated_at_utc": "2026-07-09T16:02:01+00:00",
   "pipeline": "industry_monthly_refresh",
   "industry_dir": "data/industry_study",
   "output_path": "data/industry_study/industry_pipeline_index.json",
@@ -23,8 +23,8 @@
     "artifacts_total": 61,
     "artifacts_present": 61,
     "artifacts_missing": 0,
-    "optional_artifacts_total": 59,
-    "optional_artifacts_present": 59,
+    "optional_artifacts_total": 60,
+    "optional_artifacts_present": 60,
     "optional_artifacts_missing": 0,
     "manual_review_artifacts_total": 12,
     "manual_review_artifacts_present": 12,
@@ -136,6 +136,12 @@
     "market_share_rows": 3984,
     "market_share_dimensions": 16,
     "market_share_metrics": 6,
+    "readiness_checks_rows": 7,
+    "readiness_status_counts": {
+      "bloqueado": 2,
+      "atenção": 2,
+      "ok": 3
+    },
     "prd_requirements_total": 12,
     "prd_status_counts": {
       "atenção": 3,
@@ -783,7 +789,7 @@
       "comando": "python scripts/build_fidc_industry_pipeline_index.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "",
-      "saidas": "industry_pipeline_index | industry_monthly_update_plan",
+      "saidas": "industry_pipeline_index | industry_monthly_update_plan | industry_monthly_readiness",
       "evidencia_atual": "prd_requirements_total=12 · artifacts_present=61 · artifacts_total=61",
       "artefatos": "61/61",
       "gerado_em_utc": "2026-07-09T15:56:18+00:00",
@@ -2865,8 +2871,8 @@
       "required": false,
       "path": "data/industry_study/industry_pipeline_index.json",
       "exists": true,
-      "bytes": 111703,
-      "sha256": "02ca8b4355139ad9997958511184e6e64bfded4f4e8baf6b60326bc639a82d09"
+      "bytes": 115995,
+      "sha256": "7737ae8ce554d2f5421101d431b80f7c0adb33ce0832364dae5d10114f2aa4c2"
     },
     {
       "module_id": "pipeline_index",
@@ -2875,8 +2881,18 @@
       "required": false,
       "path": "data/industry_study/industry_monthly_update_plan.csv",
       "exists": true,
-      "bytes": 16321,
-      "sha256": "edb18e55d3e8d598e915552a0e4347b47a1768218d266bbdb4a2f0bf619639e5"
+      "bytes": 16592,
+      "sha256": "d5d75f3bb590d8d95f0467e4d4ace0597a4be93a3a6efd740c7137e397a0abe1"
+    },
+    {
+      "module_id": "pipeline_index",
+      "group": "outputs",
+      "artifact": "industry_monthly_readiness",
+      "required": false,
+      "path": "data/industry_study/industry_monthly_readiness.csv",
+      "exists": true,
+      "bytes": 2320,
+      "sha256": "21566972aa82c4808bb855ec2838db49b80753b8eb0be54818ab676a6aae3fd4"
     }
   ]
 }

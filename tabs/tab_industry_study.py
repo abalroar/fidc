@@ -78,6 +78,7 @@ _CEDENTE_STRUCTURED_PATH = _DATA_DIR / "cedentes_structured.csv.gz"
 _PIPELINE_MANIFEST_PATH = _DATA_DIR / "industry_pipeline_manifest.json"
 _PIPELINE_INDEX_PATH = _DATA_DIR / "industry_pipeline_index.json"
 _MONTHLY_UPDATE_PLAN_PATH = _DATA_DIR / "industry_monthly_update_plan.csv"
+_MONTHLY_READINESS_PATH = _DATA_DIR / "industry_monthly_readiness.csv"
 _INCREMENTAL_ONBOARDING_PATH = _DATA_DIR / "industry_incremental_onboarding.csv"
 _INCREMENTAL_ONBOARDING_MANIFEST_PATH = _DATA_DIR / "industry_incremental_onboarding_manifest.json"
 _CURATION_QUEUE_PATH = _DATA_DIR / "industry_curation_queue.csv.gz"
@@ -6915,6 +6916,7 @@ def _render_pipeline_manifest() -> None:
         if not monthly_update_plan_frame.empty
         else (index.get("monthly_update_plan", []) if isinstance(index.get("monthly_update_plan"), list) else [])
     )
+    monthly_readiness_frame = load_dataframe(_MONTHLY_READINESS_PATH)
     incremental_onboarding = load_dataframe(_INCREMENTAL_ONBOARDING_PATH)
     incremental_onboarding_manifest = load_pipeline_manifest(_INCREMENTAL_ONBOARDING_MANIFEST_PATH)
     onboarding_quality = (
@@ -8483,11 +8485,16 @@ def _render_pipeline_manifest() -> None:
                 mime="text/csv",
                 key="industry_monthly_readiness_download",
             )
-        persisted_readiness = pd.DataFrame(index.get("readiness_checks", []))
+        persisted_readiness = (
+            monthly_readiness_frame.copy()
+            if not monthly_readiness_frame.empty
+            else pd.DataFrame(index.get("readiness_checks", []))
+        )
         if not persisted_readiness.empty:
             with st.expander("Checklist persistido no índice"):
                 st.caption(
-                    "Este checklist vem de `industry_pipeline_index.json` e usa apenas manifestos, artefatos e rollups. "
+                    f"Este checklist vem de `{_MONTHLY_READINESS_PATH.name}` quando o CSV existe; caso contrário, usa `industry_pipeline_index.json`. "
+                    "Ele usa apenas manifestos, artefatos e rollups. "
                     "A tabela acima recalcula também lacunas linha a linha quando as bases estruturadas estão disponíveis."
                 )
                 st.dataframe(_format_monthly_readiness(persisted_readiness), hide_index=True, width="stretch")
