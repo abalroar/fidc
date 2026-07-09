@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-market-share-manifest/v1",
-  "generated_at_utc": "2026-07-09T15:12:34+00:00",
+  "generated_at_utc": "2026-07-09T15:32:42+00:00",
   "pipeline": "industry_market_share",
   "design_constraints": {
     "modular": true,
@@ -17,7 +17,7 @@
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
       "bytes": 411296,
-      "sha256": "60f60a382987f6f8cdc2ac45f0ddec1771da9f57cf28ffa6d2dc1903a0b813f2"
+      "sha256": "713e5bd503033eb477887333d63b344fd65c5d2a5c5561d3342d399b7b5b5a83"
     }
   },
   "outputs": {
@@ -25,7 +25,7 @@
       "path": "data/industry_study/industry_market_share.csv.gz",
       "exists": true,
       "bytes": 132066,
-      "sha256": "3326cfb0bd54bed6d49cf9a7c3257681a812ffda503346893eee73761db89012"
+      "sha256": "5526948aea040c8c3f46de990944018e317d69e81ed237e8fdbe2f609c680be9"
     },
     "manifest": {
       "path": "data/industry_study/industry_market_share_manifest.json"

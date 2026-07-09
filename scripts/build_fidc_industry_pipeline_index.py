@@ -14,11 +14,13 @@ import argparse
 import sys
 from pathlib import Path
 
+import pandas as pd
+
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from services.industry_study import build_industry_pipeline_index, save_pipeline_manifest
+from services.industry_study import build_industry_pipeline_index, save_dataframe, save_pipeline_manifest
 
 
 DEFAULT_INDUSTRY_DIR = Path("data/industry_study")
@@ -34,7 +36,11 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     output_path = args.output or args.industry_dir / "industry_pipeline_index.json"
+    plan_path = args.industry_dir / "industry_monthly_update_plan.csv"
     index = build_industry_pipeline_index(industry_dir=args.industry_dir, output_path=output_path)
+    save_dataframe(pd.DataFrame(index.get("monthly_update_plan", [])), plan_path)
+    index = build_industry_pipeline_index(industry_dir=args.industry_dir, output_path=output_path)
+    save_dataframe(pd.DataFrame(index.get("monthly_update_plan", [])), plan_path)
     save_pipeline_manifest(index, output_path)
     rollup = index.get("quality_rollup", {})
     status_counts = rollup.get("module_status_counts", {}) if isinstance(rollup, dict) else {}
@@ -46,6 +52,7 @@ def main() -> None:
         f"[ok] artefatos: {rollup.get('artifacts_present', 0)}/"
         f"{rollup.get('artifacts_total', 0)} presentes"
     )
+    print(f"[ok] plano mensal gravado em {plan_path} ({rollup.get('monthly_update_plan_rows', 0)} etapas)")
     readiness = index.get("readiness_checks", [])
     if isinstance(readiness, list) and readiness:
         status_counts: dict[str, int] = {}

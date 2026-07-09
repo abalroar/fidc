@@ -36,6 +36,7 @@ from services.industry_study import (
     append_review_audit_events,
     apply_document_chunk_actions,
     apply_monthly_delta_actions,
+    augment_cedente_candidates_with_signal_focus,
     build_document_chunk_plan,
     build_curation_queue_pipeline_manifest,
     build_industry_curation_queue,
@@ -76,6 +77,9 @@ _CEDENTE_REVIEW_AUDIT_PATH = _DATA_DIR / "cedente_review_audit.csv"
 _CEDENTE_STRUCTURED_PATH = _DATA_DIR / "cedentes_structured.csv.gz"
 _PIPELINE_MANIFEST_PATH = _DATA_DIR / "industry_pipeline_manifest.json"
 _PIPELINE_INDEX_PATH = _DATA_DIR / "industry_pipeline_index.json"
+_MONTHLY_UPDATE_PLAN_PATH = _DATA_DIR / "industry_monthly_update_plan.csv"
+_INCREMENTAL_ONBOARDING_PATH = _DATA_DIR / "industry_incremental_onboarding.csv"
+_INCREMENTAL_ONBOARDING_MANIFEST_PATH = _DATA_DIR / "industry_incremental_onboarding_manifest.json"
 _CURATION_QUEUE_PATH = _DATA_DIR / "industry_curation_queue.csv.gz"
 _CURATION_QUEUE_SUMMARY_PATH = _DATA_DIR / "industry_curation_queue_summary.csv.gz"
 _CURATION_QUEUE_MANIFEST_PATH = _DATA_DIR / "industry_curation_queue_manifest.json"
@@ -91,6 +95,8 @@ _FUND_SNAPSHOT_PATH = _DATA_DIR / "industry_fund_snapshot.csv.gz"
 _FUND_SNAPSHOT_MANIFEST_PATH = _DATA_DIR / "industry_fund_snapshot_manifest.json"
 _DIMENSION_CATALOG_PATH = _DATA_DIR / "industry_dimension_catalog.csv.gz"
 _DIMENSION_CATALOG_MANIFEST_PATH = _DATA_DIR / "industry_dimension_catalog_manifest.json"
+_TRACEABILITY_MATRIX_PATH = _DATA_DIR / "industry_dimension_traceability_matrix.csv"
+_TRACEABILITY_MATRIX_MANIFEST_PATH = _DATA_DIR / "industry_dimension_traceability_manifest.json"
 _DIMENSION_MONTHLY_PATH = _DATA_DIR / "industry_dimension_monthly.csv.gz"
 _DIMENSION_VALUE_ATLAS_PATH = _DATA_DIR / "industry_dimension_value_atlas.csv.gz"
 _DIMENSION_MONTHLY_MANIFEST_PATH = _DATA_DIR / "industry_dimension_monthly_manifest.json"
@@ -3262,6 +3268,75 @@ def _format_dimension_catalog_quality(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def _format_traceability_matrix(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.rename(
+        columns={
+            "dimension_label": "Dimensão",
+            "dimension_id": "ID",
+            "source_layer": "Camada",
+            "rows": "Linhas",
+            "funds": "FIDCs",
+            "values": "Valores",
+            "curated_rows": "Curadas",
+            "priority_2025_2026_rows": "Prioridade 25-26",
+            "document_expected_rows": "Doc esperado",
+            "source_document_ratio": "% documento",
+            "source_page_ratio": "% página",
+            "source_date_ratio": "% data",
+            "source_method_ratio": "% método",
+            "confidence_ratio": "% score",
+            "review_status_ratio": "% revisão",
+            "quality_score": "Score qualidade",
+            "missing_document_rows": "Falta doc",
+            "missing_page_rows": "Falta página",
+            "missing_method_rows": "Falta método",
+            "missing_score_rows": "Falta score",
+            "missing_review_rows": "Falta revisão",
+            "traceability_gap_rows": "Lacunas",
+            "traceability_priority_score": "Prioridade lacuna",
+        }
+    )
+    keep = [
+        "Dimensão",
+        "ID",
+        "Camada",
+        "Linhas",
+        "FIDCs",
+        "Valores",
+        "Curadas",
+        "Prioridade 25-26",
+        "Doc esperado",
+        "% documento",
+        "% página",
+        "% data",
+        "% método",
+        "% score",
+        "% revisão",
+        "Score qualidade",
+        "Falta doc",
+        "Falta página",
+        "Falta método",
+        "Falta score",
+        "Falta revisão",
+        "Lacunas",
+        "Prioridade lacuna",
+    ]
+    out = out[[col for col in keep if col in out.columns]].copy()
+    for col in ["Linhas", "FIDCs", "Valores", "Curadas", "Prioridade 25-26", "Doc esperado", "Falta doc", "Falta página", "Falta método", "Falta score", "Falta revisão", "Lacunas"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    for col in ["% documento", "% página", "% data", "% método", "% score", "% revisão", "Score qualidade"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").map(lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value)))
+    if "Prioridade lacuna" in out.columns:
+        out["Prioridade lacuna"] = pd.to_numeric(out["Prioridade lacuna"], errors="coerce").map(
+            lambda value: "" if pd.isna(value) else f"{float(value):,.1f}".replace(",", "X").replace(".", ",").replace("X", ".")
+        )
+    return out
+
+
 def _format_dimension_catalog_gaps(frame: pd.DataFrame) -> pd.DataFrame:
     if frame.empty:
         return frame
@@ -3631,6 +3706,79 @@ def _format_monthly_update_plan(frame: pd.DataFrame) -> pd.DataFrame:
             out[col] = out[col].map(_status_badge_text)
     if "Gerado em" in out.columns:
         out["Gerado em"] = out["Gerado em"].fillna("").astype(str).str.slice(0, 19)
+    return out
+
+
+def _format_incremental_onboarding(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.rename(
+        columns={
+            "competencia_atual": "Competência",
+            "cnpj_fundo": "CNPJ",
+            "fundo": "FIDC",
+            "status_delta": "Entrada",
+            "priority_band": "Prioridade",
+            "priority_score": "Score",
+            "pl_atual": "PL",
+            "admin_nome": "Administrador",
+            "segmento_principal": "Segmento",
+            "overall_status": "Status geral",
+            "discovery_status": "Descoberta",
+            "processing_status": "Processamento",
+            "incorporation_status": "Incorporação",
+            "missing_steps": "Pendências",
+            "document_rows": "Docs",
+            "document_chunk_ids": "Chunks",
+            "cedente_rows": "Cedentes",
+            "criteria_rows": "Critérios",
+            "tem_sub_minima": "Sub mínima",
+            "open_queue_rows": "Fila aberta",
+            "open_high_priority_rows": "Fila alta",
+            "queue_domains": "Frentes",
+            "queue_next_actions": "Ações fila",
+            "rerun_command": "Comando",
+            "onboarding_id": "ID",
+        }
+    )
+    keep = [
+        "Status geral",
+        "Competência",
+        "Entrada",
+        "Prioridade",
+        "Score",
+        "PL",
+        "CNPJ",
+        "FIDC",
+        "Administrador",
+        "Segmento",
+        "Descoberta",
+        "Processamento",
+        "Incorporação",
+        "Pendências",
+        "Docs",
+        "Chunks",
+        "Cedentes",
+        "Critérios",
+        "Sub mínima",
+        "Fila aberta",
+        "Fila alta",
+        "Frentes",
+        "Ações fila",
+        "Comando",
+        "ID",
+    ]
+    out = out[[col for col in keep if col in out.columns]].copy()
+    for col in ["Status geral", "Descoberta", "Processamento", "Incorporação"]:
+        if col in out.columns:
+            out[col] = out[col].map(_status_badge_text)
+    for col in ["Score", "Docs", "Cedentes", "Critérios", "Fila aberta", "Fila alta"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    if "PL" in out.columns:
+        out["PL"] = pd.to_numeric(out["PL"], errors="coerce").fillna(0).map(lambda value: _fmt_bi(float(value), 2) if value else "")
+    if "Sub mínima" in out.columns:
+        out["Sub mínima"] = out["Sub mínima"].astype(str).str.lower().isin({"true", "1", "sim"}).map({True: "sim", False: "não"})
     return out
 
 
@@ -5615,7 +5763,10 @@ def _render_cedente_review_workbench() -> None:
         unsafe_allow_html=True,
     )
 
-    candidates = _load_cedente_candidates()
+    snapshot_tables = _load_fund_snapshot_tables()
+    snapshot = snapshot_tables.get("snapshot", pd.DataFrame())
+    signal_focus = _cedente_signal_focus_frame(snapshot if isinstance(snapshot, pd.DataFrame) else pd.DataFrame())
+    candidates = augment_cedente_candidates_with_signal_focus(_load_cedente_candidates(), signal_focus)
     if candidates.empty:
         st.info("Ainda não há candidatos de cedente/sacado no SQLite regulatório.")
         return
@@ -5628,9 +5779,6 @@ def _render_cedente_review_workbench() -> None:
     frame["status"] = frame["status"].fillna("").replace("", "pendente")
     frame["score_confianca"] = pd.to_numeric(frame["score_confianca"], errors="coerce").fillna(0)
     structured = _build_structured_cedentes(candidates, reviews)
-    snapshot_tables = _load_fund_snapshot_tables()
-    snapshot = snapshot_tables.get("snapshot", pd.DataFrame())
-    signal_focus = _cedente_signal_focus_frame(snapshot if isinstance(snapshot, pd.DataFrame) else pd.DataFrame())
     if not signal_focus.empty:
         frame = frame.merge(signal_focus, on="cnpj_fundo", how="left")
     else:
@@ -5669,6 +5817,11 @@ def _render_cedente_review_workbench() -> None:
             "FIDCs com menção",
         ),
         _curation_card("Sinal sem participante", _fmt_int(float(len(focus_cnpjs))), "prioridade de extração"),
+        _curation_card(
+            "Sinais sem candidato",
+            _fmt_int(float(pd.Series(frame.get("signal_placeholder", False)).astype(str).str.lower().isin({"true", "1"}).sum())),
+            "placeholders editáveis",
+        ),
         _curation_card("Revisões salvas", _fmt_int(float(len(reviews))), _CEDENTE_REVIEW_PATH.name),
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
@@ -6742,6 +6895,13 @@ def _render_pipeline_manifest() -> None:
     dimension_catalog_manifest = catalog_tables["manifest"]
     assert isinstance(dimension_catalog, pd.DataFrame)
     assert isinstance(dimension_catalog_manifest, dict)
+    traceability_matrix = load_dataframe(_TRACEABILITY_MATRIX_PATH)
+    traceability_manifest = load_pipeline_manifest(_TRACEABILITY_MATRIX_MANIFEST_PATH)
+    traceability_quality = (
+        traceability_manifest.get("quality", {})
+        if isinstance(traceability_manifest.get("quality"), dict)
+        else {}
+    )
 
     rollup = index.get("quality_rollup", {}) if isinstance(index.get("quality_rollup"), dict) else {}
     status_counts = rollup.get("module_status_counts", {}) if isinstance(rollup.get("module_status_counts"), dict) else {}
@@ -6749,7 +6909,19 @@ def _render_pipeline_manifest() -> None:
     refresh_plan = index.get("refresh_plan", []) if isinstance(index.get("refresh_plan"), list) else []
     artifacts = index.get("artifact_index", []) if isinstance(index.get("artifact_index"), list) else []
     prd_coverage = index.get("prd_coverage", []) if isinstance(index.get("prd_coverage"), list) else []
-    monthly_update_plan = index.get("monthly_update_plan", []) if isinstance(index.get("monthly_update_plan"), list) else []
+    monthly_update_plan_frame = load_dataframe(_MONTHLY_UPDATE_PLAN_PATH)
+    monthly_update_plan = (
+        monthly_update_plan_frame.to_dict("records")
+        if not monthly_update_plan_frame.empty
+        else (index.get("monthly_update_plan", []) if isinstance(index.get("monthly_update_plan"), list) else [])
+    )
+    incremental_onboarding = load_dataframe(_INCREMENTAL_ONBOARDING_PATH)
+    incremental_onboarding_manifest = load_pipeline_manifest(_INCREMENTAL_ONBOARDING_MANIFEST_PATH)
+    onboarding_quality = (
+        incremental_onboarding_manifest.get("quality", {})
+        if isinstance(incremental_onboarding_manifest.get("quality"), dict)
+        else {}
+    )
     manual_review_ledger = index.get("manual_review_ledger", []) if isinstance(index.get("manual_review_ledger"), list) else []
     public_claim_quality = (
         public_claim_manifest.get("quality", {})
@@ -6802,6 +6974,16 @@ def _render_pipeline_manifest() -> None:
             "Plano mensal",
             f"{_fmt_int(float(update_plan_status_counts.get('ok', 0) or 0))}/{_fmt_int(float(rollup.get('monthly_update_plan_rows', len(monthly_update_plan)) or 0))}",
             f"{_fmt_int(float(update_plan_status_counts.get('atenção', 0) or 0))} atenção · {_fmt_int(float(update_plan_status_counts.get('bloqueado', 0) or 0))} bloqueado",
+        ),
+        _curation_card(
+            "Rastreabilidade",
+            _fmt_int(float(traceability_quality.get("rows", rollup.get("dimension_traceability_rows", len(traceability_matrix))) or 0)),
+            f"{_fmt_int(float(traceability_quality.get('low_quality_rows', rollup.get('dimension_traceability_low_quality_rows', 0)) or 0))} baixa qualidade",
+        ),
+        _curation_card(
+            "Onboarding",
+            _fmt_int(float(onboarding_quality.get("rows", rollup.get("incremental_onboarding_rows", len(incremental_onboarding))) or 0)),
+            f"{_fmt_int(float(onboarding_quality.get('blocked_rows', rollup.get('incremental_onboarding_blocked_rows', 0)) or 0))} bloqueados",
         ),
         _curation_card(
             "Revisões",
@@ -7435,6 +7617,7 @@ def _render_pipeline_manifest() -> None:
                 )
                 save_pipeline_manifest(curation_manifest, _CURATION_QUEUE_MANIFEST_PATH)
                 new_index = build_industry_pipeline_index(industry_dir=_DATA_DIR, output_path=_PIPELINE_INDEX_PATH)
+                save_dataframe(pd.DataFrame(new_index.get("monthly_update_plan", [])), _MONTHLY_UPDATE_PLAN_PATH)
                 save_pipeline_manifest(new_index, _PIPELINE_INDEX_PATH)
                 _load_monthly_delta_tables.clear()
                 _load_snapshot_gap_actions.clear()
@@ -7703,6 +7886,50 @@ def _render_pipeline_manifest() -> None:
                     width="stretch",
                 )
                 st.dataframe(_format_dimension_catalog_quality(quality), hide_index=True, width="stretch")
+            if not traceability_matrix.empty:
+                st.markdown("**Matriz dimensão × camada**")
+                matrix = traceability_matrix.copy()
+                matrix_a, matrix_b, matrix_c = st.columns([0.9, 0.9, 1.3])
+                with matrix_a:
+                    matrix_layers = sorted([value for value in matrix.get("source_layer", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
+                    selected_layers = st.multiselect(
+                        "Camada",
+                        matrix_layers,
+                        default=matrix_layers,
+                        key="industry_traceability_matrix_layer",
+                    )
+                with matrix_b:
+                    min_gap = st.slider("Lacunas mín.", 0, 5000, 1, 10, key="industry_traceability_min_gap")
+                with matrix_c:
+                    matrix_query = st.text_input(
+                        "Buscar matriz",
+                        key="industry_traceability_matrix_query",
+                        placeholder="dimensão, camada ou fonte",
+                    )
+                if selected_layers:
+                    matrix = matrix[matrix.get("source_layer", pd.Series("", index=matrix.index)).fillna("").astype(str).isin(selected_layers)].copy()
+                gap_total = pd.to_numeric(matrix.get("traceability_gap_rows", pd.Series(0, index=matrix.index)), errors="coerce").fillna(0)
+                matrix = matrix[gap_total.ge(min_gap)].copy()
+                if matrix_query:
+                    search_cols = [col for col in ["dimension_label", "dimension_id", "source_layer"] if col in matrix.columns]
+                    search = matrix[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=matrix.index)
+                    matrix = matrix[search.str.contains(matrix_query, case=False, na=False)].copy()
+                matrix = matrix.sort_values(["quality_score", "traceability_priority_score"], ascending=[True, False]).head(160)
+                st.dataframe(_format_traceability_matrix(matrix), hide_index=True, width="stretch", height=360)
+                st.download_button(
+                    "Baixar matriz de rastreabilidade",
+                    data=traceability_matrix.to_csv(index=False).encode("utf-8"),
+                    file_name=_TRACEABILITY_MATRIX_PATH.name,
+                    mime="text/csv",
+                    key="industry_traceability_matrix_download",
+                )
+                generated_at = traceability_manifest.get("generated_at_utc", "")
+                source_note = f"Fonte: `{_TRACEABILITY_MATRIX_PATH.name}`"
+                if generated_at:
+                    source_note += f" · gerado em {generated_at}"
+                st.caption(source_note)
+            else:
+                st.caption("Matriz de rastreabilidade ainda não materializada. Rode `python scripts/build_fidc_industry_traceability.py`.")
             if not gaps.empty:
                 st.markdown("**Fila de lacunas de rastreabilidade**")
                 gap_ctrl_a, gap_ctrl_b, gap_ctrl_c = st.columns([1.0, 0.8, 1.2])
@@ -8096,12 +8323,109 @@ def _render_pipeline_manifest() -> None:
             st.download_button(
                 "Baixar plano mensal",
                 data=plan_frame.to_csv(index=False).encode("utf-8"),
-                file_name="industry_monthly_update_plan.csv",
+                file_name=_MONTHLY_UPDATE_PLAN_PATH.name,
                 mime="text/csv",
                 key="industry_monthly_update_plan_download",
             )
+            if _MONTHLY_UPDATE_PLAN_PATH.exists():
+                st.caption(f"Fonte: `{_MONTHLY_UPDATE_PLAN_PATH.name}`")
         else:
             st.caption("Plano operacional mensal ainda não materializado no índice.")
+
+        if not incremental_onboarding.empty:
+            st.markdown("**Onboarding de FIDCs novos/reativados**")
+            onboarding_status = (
+                incremental_onboarding.get("overall_status", pd.Series("", index=incremental_onboarding.index))
+                .fillna("")
+                .astype(str)
+                .value_counts()
+                .to_dict()
+            )
+            onboarding_cards = [
+                _curation_card("FIDCs", _fmt_int(float(len(incremental_onboarding))), "novos ou reativados"),
+                _curation_card("Bloqueados", _fmt_int(float(onboarding_status.get("bloqueado", 0))), "antes de publicar"),
+                _curation_card("Atenção", _fmt_int(float(onboarding_status.get("atenção", 0))), "processo incompleto"),
+                _curation_card("Prontos", _fmt_int(float(onboarding_status.get("ok", 0))), "incorporados"),
+                _curation_card(
+                    "Fila aberta",
+                    _fmt_int(
+                        float(
+                            pd.to_numeric(
+                                incremental_onboarding.get("open_queue_rows", pd.Series(0, index=incremental_onboarding.index)),
+                                errors="coerce",
+                            )
+                            .fillna(0)
+                            .sum()
+                        )
+                    ),
+                    "ações vinculadas",
+                ),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(onboarding_cards)}</div>', unsafe_allow_html=True)
+            onboard_a, onboard_b, onboard_c = st.columns([0.8, 0.8, 1.4])
+            with onboard_a:
+                onboard_status_options = [value for value in ["bloqueado", "atenção", "ok"] if value in set(incremental_onboarding.get("overall_status", pd.Series(dtype=str)).fillna("").astype(str))]
+                selected_onboard_status = st.multiselect(
+                    "Status onboarding",
+                    onboard_status_options,
+                    default=onboard_status_options,
+                    key="industry_incremental_onboarding_status",
+                )
+            with onboard_b:
+                entry_options = sorted([value for value in incremental_onboarding.get("status_delta", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
+                selected_entries = st.multiselect(
+                    "Entrada",
+                    entry_options,
+                    default=entry_options,
+                    key="industry_incremental_onboarding_entry",
+                )
+            with onboard_c:
+                onboarding_query = st.text_input(
+                    "Buscar onboarding",
+                    key="industry_incremental_onboarding_query",
+                    placeholder="FIDC, CNPJ, administrador, pendência ou ação",
+                )
+            onboarding_view = incremental_onboarding.copy()
+            if selected_onboard_status:
+                onboarding_view = onboarding_view[
+                    onboarding_view.get("overall_status", pd.Series("", index=onboarding_view.index)).fillna("").astype(str).isin(selected_onboard_status)
+                ].copy()
+            if selected_entries:
+                onboarding_view = onboarding_view[
+                    onboarding_view.get("status_delta", pd.Series("", index=onboarding_view.index)).fillna("").astype(str).isin(selected_entries)
+                ].copy()
+            if onboarding_query:
+                search_cols = [
+                    col
+                    for col in [
+                        "cnpj_fundo",
+                        "fundo",
+                        "admin_nome",
+                        "segmento_principal",
+                        "missing_steps",
+                        "queue_next_actions",
+                        "next_actions",
+                        "rerun_command",
+                    ]
+                    if col in onboarding_view.columns
+                ]
+                search = onboarding_view[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=onboarding_view.index)
+                onboarding_view = onboarding_view[search.str.contains(onboarding_query, case=False, na=False)].copy()
+            st.dataframe(_format_incremental_onboarding(onboarding_view.head(300)), hide_index=True, width="stretch", height=420)
+            st.download_button(
+                "Baixar onboarding incremental",
+                data=incremental_onboarding.to_csv(index=False).encode("utf-8"),
+                file_name=_INCREMENTAL_ONBOARDING_PATH.name,
+                mime="text/csv",
+                key="industry_incremental_onboarding_download",
+            )
+            generated_at = incremental_onboarding_manifest.get("generated_at_utc", "")
+            source_note = f"Fonte: `{_INCREMENTAL_ONBOARDING_PATH.name}`"
+            if generated_at:
+                source_note += f" · gerado em {generated_at}"
+            st.caption(source_note)
+        else:
+            st.caption("Onboarding incremental ainda não materializado. Rode `python scripts/build_fidc_industry_incremental_onboarding.py`.")
 
         snapshot_tables = _load_fund_snapshot_tables()
         fund_snapshot = snapshot_tables["snapshot"]

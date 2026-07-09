@@ -19,8 +19,10 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from services.industry_study import (
+    augment_cedente_candidates_with_signal_focus,
     build_cedente_pipeline_manifest,
     build_cedente_structured,
+    load_dataframe,
     load_cedente_candidates,
     load_cedente_reviews,
     load_fund_universe,
@@ -52,7 +54,11 @@ def main() -> None:
     manifest_path = args.manifest or args.industry_dir / "industry_pipeline_manifest.json"
     review_audit_path = args.industry_dir / "cedente_review_audit.csv"
 
-    candidates = load_cedente_candidates(args.strategy_db)
+    snapshot = load_dataframe(args.industry_dir / "industry_fund_snapshot.csv.gz")
+    candidates = augment_cedente_candidates_with_signal_focus(
+        load_cedente_candidates(args.strategy_db),
+        snapshot,
+    )
     reviews = load_cedente_reviews(reviews_path)
     fund_universe = load_fund_universe(args.strategy_db)
     vehicle_latest = load_vehicle_latest(args.industry_dir)
@@ -76,9 +82,11 @@ def main() -> None:
         structured=structured,
     )
     save_pipeline_manifest(manifest, manifest_path)
+    quality = manifest.get("quality", {})
     print(
         f"[ok] {len(structured):,} linhas estruturadas gravadas em {output_path} "
-        f"({structured['cnpj_fundo'].nunique() if 'cnpj_fundo' in structured else 0:,} FIDCs)"
+        f"({int(quality.get('identified_funds', 0)):,} FIDCs identificados; "
+        f"{int(quality.get('signal_placeholder_funds', 0)):,} placeholders de sinal)"
     )
     print(f"[ok] manifesto gravado em {manifest_path}")
 

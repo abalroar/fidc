@@ -31,6 +31,7 @@ from services.industry_study import (  # noqa: E402
     build_industry_curation_queue,
     build_industry_curation_queue_summary,
     build_dimension_catalog_pipeline_manifest,
+    build_dimension_traceability_matrix,
     build_dimension_dossier_pipeline_manifest,
     build_dimension_monthly_pipeline_manifest,
     build_dimension_profile_pipeline_manifest,
@@ -43,6 +44,7 @@ from services.industry_study import (  # noqa: E402
     build_industry_dimension_monthly,
     build_industry_dimension_profiles,
     build_industry_fund_snapshot,
+    build_incremental_onboarding_plan,
     build_industry_monthly_delta,
     build_industry_market_share,
     build_industry_pipeline_index,
@@ -68,9 +70,11 @@ from services.industry_study import (  # noqa: E402
     industry_dimension_value_atlas_quality_summary,
     industry_dimension_monthly_quality_summary,
     industry_dimension_profile_quality_summary,
+    dimension_traceability_quality_summary,
     industry_market_share_quality_summary,
     industry_monthly_delta_quality_summary,
     industry_curation_queue_quality_summary,
+    augment_cedente_candidates_with_signal_focus,
     initialize_manual_review_ledgers,
     manual_review_file_specs,
     manual_review_ledgers_quality_summary,
@@ -332,6 +336,90 @@ def test_cedente_structured_applies_manual_review():
     assert row["score_confianca_final"] == 0.9
 
 
+def test_signal_focus_placeholder_is_reviewable_without_auto_identification():
+    candidates = pd.DataFrame(
+        [
+            {
+                "review_id": "existing",
+                "cnpj_fundo": "11.111.111/0001-11",
+                "fund_name": "FIDC COM CANDIDATO",
+                "participant_type": "cedente_originador",
+                "participant_cnpj_candidate": "",
+                "participant_name_candidate": "CEDENTE EXISTENTE S.A.",
+                "participante_extraido": "CEDENTE EXISTENTE S.A.",
+                "setor_n1": "Crédito PJ",
+                "setor_n2": "Recebíveis comerciais",
+                "evidence_context": "Cedente existente",
+                "source_cache": "doc.txt",
+                "documento_origem": "doc.txt",
+                "pagina": "",
+                "metodo_extracao": "regex_contexto_documental",
+                "score_confianca": 0.6,
+                "evidencias_agrupadas": 1,
+            }
+        ]
+    )
+    signal_focus = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "11.111.111/0001-11",
+                "nome_exibicao": "FIDC COM CANDIDATO",
+                "participant_signal_rows": 1,
+                "participant_signal_keys": "feature_named_originator_or_cedente",
+                "participant_signal_evidence": "CEDENTE JA COBERTO",
+                "criteria_documentos": "criteria.csv",
+                "cedente_rows": 0,
+            },
+            {
+                "cnpj_fundo": "05.753.599/0001-58",
+                "nome_exibicao": "FIDC SINAL",
+                "signal_segmento_principal": "Meios de pagamento",
+                "participant_signal_rows": 1,
+                "participant_signal_keys": "feature_named_debtor_or_sacado",
+                "participant_signal_evidence": "SACADO FGTS",
+                "criteria_documentos": "strategy_regulatory_feature_long",
+                "cedente_rows": 0,
+            },
+        ]
+    )
+
+    augmented = augment_cedente_candidates_with_signal_focus(candidates, signal_focus)
+
+    assert len(augmented) == 2
+    placeholder = augmented[augmented["cnpj_fundo"].eq("05753599000158")].iloc[0]
+    assert placeholder["participant_type"] == "sacado_devedor"
+    assert placeholder["participante_extraido"] == ""
+    assert placeholder["participant_name_candidate"] == ""
+    assert placeholder["metodo_extracao"] == "strategy_regulatory_feature_signal"
+    assert placeholder["evidence_context"] == "SACADO FGTS"
+    assert bool(placeholder["signal_placeholder"]) is True
+
+    structured = build_cedente_structured(
+        augmented[augmented["cnpj_fundo"].eq("05753599000158")],
+        pd.DataFrame(),
+    )
+    assert structured.iloc[0]["razao_social"] == ""
+    assert structured.iloc[0]["cnpj_participante"] == ""
+
+    reviewed = build_cedente_structured(
+        augmented[augmented["cnpj_fundo"].eq("05753599000158")],
+        pd.DataFrame(
+            [
+                {
+                    "review_id": placeholder["review_id"],
+                    "status": "corrigido",
+                    "nome_revisado": "SACADO REVISADO S.A.",
+                    "cnpj_revisado": "05.753.599/0001-58",
+                    "confianca_manual": "0.85",
+                }
+            ]
+        ),
+    )
+    assert reviewed.iloc[0]["razao_social"] == "SACADO REVISADO S.A."
+    assert reviewed.iloc[0]["cnpj_participante"] == "05753599000158"
+    assert reviewed.iloc[0]["fonte_nome"] == "revisao_manual"
+
+
 def test_cedente_structured_roundtrip_preserves_cnpj_text():
     frame = pd.DataFrame(
         [
@@ -377,10 +465,11 @@ def test_cedente_quality_summary_tracks_coverage_and_priority():
                 "segmento": "Consignado",
                 "documento_origem": "doc2.txt",
                 "pagina": "",
-                "metodo_extracao": "teste",
+                "metodo_extracao": "strategy_regulatory_feature_signal",
                 "score_confianca_final": 0.5,
                 "periodo_prioritario": "histórico",
                 "ativo_curadoria": True,
+                "signal_placeholder": True,
             },
         ]
     )
@@ -391,6 +480,10 @@ def test_cedente_quality_summary_tracks_coverage_and_priority():
     )
 
     assert summary["structured_rows"] == 2
+    assert summary["identified_rows"] == 1
+    assert summary["identified_funds"] == 1
+    assert summary["signal_placeholder_rows"] == 1
+    assert summary["signal_placeholder_funds"] == 1
     assert summary["priority_2025_2026_rows"] == 1
     assert summary["coverage"]["razao_social"] == 0.5
     assert summary["coverage"]["documento_origem"] == 1.0
@@ -2096,6 +2189,77 @@ def test_industry_dimension_catalog_quality_flags_traceability_gaps():
     assert formatted_gaps.iloc[0]["Campos faltantes"] == "página | status revisão"
 
 
+def test_dimension_traceability_matrix_groups_quality_by_layer():
+    catalog = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "nome_exibicao": "FIDC ABC",
+                "dimension_id": "admin",
+                "dimension_label": "Administrador",
+                "dimension_value": "Admin A",
+                "source_layer": "snapshot",
+                "source_method": "informe_mensal",
+                "source_date": "2026-05-31",
+                "confidence_score": 1.0,
+                "source_document": "",
+                "source_page": "",
+                "review_status": "",
+                "is_curated": False,
+                "is_multivalue": False,
+                "priority_2025_2026": False,
+            },
+            {
+                "cnpj_fundo": "11111111000111",
+                "nome_exibicao": "FIDC DEF",
+                "dimension_id": "cedente_sacado",
+                "dimension_label": "Cedente/sacado",
+                "dimension_value": "CEDENTE DEF",
+                "source_layer": "cedente",
+                "source_method": "manual_review",
+                "source_date": "",
+                "confidence_score": 0.8,
+                "source_document": "regulamento.pdf",
+                "source_page": "",
+                "review_status": "",
+                "is_curated": True,
+                "is_multivalue": False,
+                "priority_2025_2026": True,
+            },
+            {
+                "cnpj_fundo": "22222222000122",
+                "nome_exibicao": "FIDC GHI",
+                "dimension_id": "subordinacao_minima",
+                "dimension_label": "Subordinação mínima",
+                "dimension_value": "15%",
+                "source_layer": "criteria",
+                "source_method": "",
+                "source_date": "",
+                "confidence_score": "",
+                "source_document": "",
+                "source_page": "",
+                "review_status": "",
+                "is_curated": False,
+                "is_multivalue": False,
+                "priority_2025_2026": True,
+            },
+        ]
+    )
+
+    matrix = build_dimension_traceability_matrix(catalog)
+    quality = dimension_traceability_quality_summary(matrix)
+    by_layer = matrix.set_index(["dimension_id", "source_layer"])
+
+    assert quality["rows"] == 3
+    assert quality["dimensions"] == 3
+    assert quality["low_quality_rows"] == 2
+    assert quality["missing_page_rows"] == 2
+    assert quality["missing_document_rows"] == 1
+    assert by_layer.loc[("admin", "snapshot"), "traceability_gap_rows"] == 0
+    assert by_layer.loc[("cedente_sacado", "cedente"), "missing_page_rows"] == 1
+    assert by_layer.loc[("subordinacao_minima", "criteria"), "missing_score_rows"] == 1
+
+
 def test_industry_dimension_catalog_gap_actions_overlay_and_audit():
     catalog = pd.DataFrame(
         [
@@ -2919,6 +3083,118 @@ def test_industry_monthly_delta_prioritizes_incremental_review_queue():
     assert manifest["outputs"]["monthly_delta"]["sha256"]
 
 
+def test_incremental_onboarding_plan_tracks_new_fund_steps():
+    monthly_delta = pd.DataFrame(
+        [
+            {
+                "delta_id": "202605_22222222000122",
+                "competencia_atual": "2026-05",
+                "cnpj_fundo": "22.222.222/0001-22",
+                "fundo": "FIDC NOVO",
+                "status_delta": "novo_no_ime",
+                "priority_band": "alta",
+                "priority_score": 100,
+                "pl_atual": 2_000.0,
+                "admin_nome": "ADMIN B",
+                "segmento_principal": "Serviços",
+                "document_rows": 0,
+                "document_chunk_ids": "",
+                "cedente_rows": 0,
+                "criteria_rows": 0,
+                "tem_sub_minima": False,
+                "camadas_com_evidencia": 1,
+                "needs_document_discovery": True,
+                "needs_cedente_review": True,
+                "needs_criteria_review": True,
+                "needs_subordination_review": True,
+                "next_actions": "descobrir documentos | curar cedentes",
+                "rerun_command": "python scripts/build_fidc_industry_documents.py",
+                "source_artifacts": "industry_monthly_delta.csv.gz",
+            },
+            {
+                "delta_id": "202605_44444444000144",
+                "competencia_atual": "2026-05",
+                "cnpj_fundo": "44444444000144",
+                "fundo": "FIDC REATIVADO",
+                "status_delta": "reativado",
+                "priority_band": "alta",
+                "priority_score": 80,
+                "pl_atual": 700.0,
+                "admin_nome": "ADMIN D",
+                "segmento_principal": "Financeiro",
+                "document_rows": 2,
+                "document_chunk_ids": "doc-0001",
+                "cedente_rows": 1,
+                "criteria_rows": 1,
+                "tem_sub_minima": True,
+                "camadas_com_evidencia": 4,
+                "needs_document_discovery": False,
+                "needs_cedente_review": False,
+                "needs_criteria_review": False,
+                "needs_subordination_review": False,
+                "next_actions": "monitorar",
+                "rerun_command": "python scripts/build_fidc_industry_fund_snapshot.py",
+                "source_artifacts": "industry_monthly_delta.csv.gz",
+            },
+            {
+                "delta_id": "202605_11111111000111",
+                "competencia_atual": "2026-05",
+                "cnpj_fundo": "11111111000111",
+                "fundo": "FIDC RECORRENTE",
+                "status_delta": "recorrente",
+            },
+        ]
+    )
+    curation_queue = pd.DataFrame(
+        [
+            {
+                "queue_domain": "monthly_delta",
+                "record_id": "202605_22222222000122",
+                "cnpj_fundo": "22222222000122",
+                "priority_band": "alta",
+                "status_curadoria": "pendente",
+                "action_type": "novo_no_ime",
+                "next_action": "descobrir documentos",
+                "rerun_command": "python scripts/build_fidc_industry_documents.py",
+            },
+            {
+                "queue_domain": "snapshot_gap",
+                "record_id": "gap-1",
+                "cnpj_fundo": "44444444000144",
+                "priority_band": "média",
+                "status_curadoria": "corrigido",
+                "action_type": "completar camadas",
+                "next_action": "ok",
+                "rerun_command": "python scripts/build_fidc_industry_fund_snapshot.py",
+            },
+        ]
+    )
+    chunk_plan = pd.DataFrame(
+        [
+            {
+                "chunk_id": "doc-0001",
+                "status_lote": "processado",
+                "next_action": "feito",
+            }
+        ]
+    )
+
+    plan = build_incremental_onboarding_plan(
+        monthly_delta=monthly_delta,
+        curation_queue=curation_queue,
+        document_chunk_plan=chunk_plan,
+    )
+
+    assert plan["cnpj_fundo"].tolist() == ["22222222000122", "44444444000144"]
+    by_cnpj = plan.set_index("cnpj_fundo")
+    assert by_cnpj.loc["22222222000122", "overall_status"] == "bloqueado"
+    assert by_cnpj.loc["22222222000122", "discovery_status"] == "bloqueado"
+    assert by_cnpj.loc["22222222000122", "open_high_priority_rows"] == 1
+    assert "descoberta documental" in by_cnpj.loc["22222222000122", "missing_steps"]
+    assert by_cnpj.loc["44444444000144", "overall_status"] == "ok"
+    assert by_cnpj.loc["44444444000144", "document_chunk_statuses"] == "processado"
+
+
 def test_curation_queue_updates_route_to_domain_action_files():
     updates = pd.DataFrame(
         [
@@ -3228,6 +3504,25 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "needs_document_discovery": 2,
             },
         )
+        write_module_manifest(
+            "industry_incremental_onboarding_manifest.json",
+            "industry_incremental_onboarding",
+            "industry_incremental_onboarding.csv",
+            {
+                "rows": 2,
+                "funds": 2,
+                "new_funds": 1,
+                "reactivated_funds": 1,
+                "blocked_rows": 1,
+                "attention_rows": 1,
+                "ok_rows": 0,
+                "discovery_blocked": 1,
+                "processing_attention": 1,
+                "incorporation_blocked": 1,
+                "open_queue_rows": 4,
+                "open_high_priority_rows": 1,
+            },
+        )
         (tmp_path / "monthly_delta_actions.csv").write_text(
             "delta_id,status_acao,acao_revisada,responsavel,prazo,notas,updated_at_utc\n"
             "202605_22222222000122,em andamento,baixar regulamento,research,2026-07-15,,2026-07-08T12:00:00+00:00\n"
@@ -3363,6 +3658,23 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "with_confidence": 18,
             },
         )
+        write_module_manifest(
+            "industry_dimension_traceability_manifest.json",
+            "industry_dimension_traceability",
+            "industry_dimension_traceability_matrix.csv",
+            {
+                "rows": 6,
+                "dimensions": 3,
+                "source_layers": 2,
+                "low_quality_rows": 2,
+                "missing_page_rows": 4,
+                "missing_document_rows": 1,
+                "missing_method_rows": 0,
+                "missing_score_rows": 3,
+                "median_quality_score": 0.72,
+                "worst_quality_score": 0.45,
+            },
+        )
         (tmp_path / "dimension_catalog_gap_actions.csv").write_text(
             "traceability_gap_id,status_lacuna,acao_revisada,responsavel,prazo,notas,updated_at_utc\n"
             "gap1,aceito,fonte suficiente,research,2026-07-15,,2026-07-08T12:00:00+00:00\n"
@@ -3452,8 +3764,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
     assert index["schema_version"] == "industry-pipeline-index/v1"
-    assert index["quality_rollup"]["modules_total"] == 15
-    assert index["quality_rollup"]["module_status_counts"]["ok"] == 15
+    assert index["quality_rollup"]["modules_total"] == 17
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 17
     assert index["quality_rollup"]["artifacts_missing"] == 0
     assert index["quality_rollup"]["manual_review_artifacts_total"] == 12
     assert index["quality_rollup"]["manual_review_artifacts_present"] == 12
@@ -3465,6 +3777,9 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["monthly_delta_high_priority_pending"] == 1
     assert index["quality_rollup"]["monthly_delta_high_priority_in_progress"] == 1
     assert index["quality_rollup"]["monthly_delta_high_priority_closed"] == 0
+    assert index["quality_rollup"]["incremental_onboarding_rows"] == 2
+    assert index["quality_rollup"]["incremental_onboarding_blocked_rows"] == 1
+    assert index["quality_rollup"]["incremental_onboarding_open_high_priority_rows"] == 1
     assert index["quality_rollup"]["curation_queue_rows"] == 5
     assert index["quality_rollup"]["curation_queue_open_rows"] == 3
     assert index["quality_rollup"]["curation_queue_high_priority_rows"] == 1
@@ -3486,6 +3801,9 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["fund_snapshot_rows"] == 2
     assert index["quality_rollup"]["dimension_catalog_rows"] == 80
     assert index["quality_rollup"]["dimension_catalog_dimensions"] == 10
+    assert index["quality_rollup"]["dimension_traceability_rows"] == 6
+    assert index["quality_rollup"]["dimension_traceability_low_quality_rows"] == 2
+    assert index["quality_rollup"]["dimension_traceability_missing_page_rows"] == 4
     assert index["quality_rollup"]["dimension_monthly_rows"] == 120
     assert index["quality_rollup"]["dimension_monthly_latest_competencia"] == "202605"
     assert index["quality_rollup"]["dimension_value_atlas_rows"] == 40
@@ -3530,17 +3848,24 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert prd["manual_review_in_app"]["status_prd"] == "ok"
     assert prd["heatmaps_generic"]["status_prd"] == "atenção"
     assert prd["public_audit_readiness"]["status_prd"] == "atenção"
-    assert index["quality_rollup"]["monthly_update_plan_rows"] == 17
+    assert index["quality_rollup"]["monthly_update_plan_rows"] == 19
     assert "monthly_update_plan_status_counts" in index["quality_rollup"]
     monthly_plan = {row["module_id"]: row for row in index["monthly_update_plan"]}
     assert monthly_plan["base_monthly"]["comando"] == "python scripts/build_fidc_industry_study.py --report"
     assert monthly_plan["manual_review_ledgers"]["comando"] == "python scripts/build_fidc_industry_manual_review_ledgers.py"
     assert monthly_plan["public_claims"]["comando"] == "python scripts/build_fidc_industry_public_claim_audit.py"
+    assert monthly_plan["incremental_onboarding"]["comando"] == "python scripts/build_fidc_industry_incremental_onboarding.py"
+    assert monthly_plan["dimension_traceability"]["comando"] == "python scripts/build_fidc_industry_traceability.py"
+    assert monthly_plan["incremental_onboarding"]["status_prontidao"] == "bloqueado"
     assert monthly_plan["monthly_delta"]["status_prontidao"] == "bloqueado"
     assert monthly_plan["document_chunk_plan"]["status_prontidao"] == "atenção"
     assert monthly_plan["dimension_monthly"]["validacao"] == "python scripts/build_fidc_industry_pipeline_index.py"
     assert "industry_dimension_monthly" in monthly_plan["dimension_monthly"]["saidas"]
     assert monthly_plan["dimension_dossiers"]["comando"] == "python scripts/build_fidc_industry_dimension_dossiers.py"
+    assert "industry_monthly_update_plan" in monthly_plan["pipeline_index"]["saidas"]
+    artifacts = {(row["module_id"], row["artifact"]): row for row in index["artifact_index"]}
+    assert ("pipeline_index", "industry_monthly_update_plan") in artifacts
+    assert artifacts[("pipeline_index", "industry_monthly_update_plan")]["required"] is False
     assert index["quality_rollup"]["manual_review_domains_total"] == 6
     assert index["quality_rollup"]["manual_review_domains_with_actions"] == 6
     assert index["quality_rollup"]["manual_review_domains_with_audit"] == 6
@@ -3563,6 +3888,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         "manual_review_ledgers",
         "fund_snapshot",
         "dimension_catalog",
+        "dimension_traceability",
         "dimension_profiles",
         "dimension_monthly",
         "dimension_dossiers",

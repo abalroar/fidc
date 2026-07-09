@@ -1,0 +1,61 @@
+{
+  "schema_version": "industry-dimension-traceability-manifest/v1",
+  "generated_at_utc": "2026-07-09T15:56:17+00:00",
+  "pipeline": "industry_dimension_traceability",
+  "design_constraints": {
+    "modular": true,
+    "incremental": true,
+    "manual_review_in_app": true,
+    "notes": [
+      "Resume a cobertura de fonte, documento, pagina, metodo, score e status de revisao por dimensao e camada.",
+      "Serve para priorizar lacunas de rastreabilidade antes de usar valores em escrutinio publico."
+    ]
+  },
+  "inputs": {
+    "dimension_catalog": {
+      "path": "data/industry_study/industry_dimension_catalog.csv.gz",
+      "exists": true,
+      "bytes": 1552323,
+      "sha256": "406265aa22339632fb1275e9bd3b22042d28e406c56670106165a90464e0c569"
+    }
+  },
+  "outputs": {
+    "traceability_matrix": {
+      "path": "data/industry_study/industry_dimension_traceability_matrix.csv",
+      "exists": true,
+      "bytes": 5144,
+      "sha256": "9355e358eab05ef8522c9e3456234ba571a471f9846c9f04a6f5513d875f9591"
+    },
+    "manifest": {
+      "path": "data/industry_study/industry_dimension_traceability_manifest.json"
+    }
+  },
+  "stages": [
+    {
+      "id": "load_dimension_catalog",
+      "label": "Carregar catálogo de dimensões",
+      "status": "ok",
+      "rows": 74426,
+      "rerun": "python scripts/build_fidc_industry_dimensions.py"
+    },
+    {
+      "id": "aggregate_traceability_matrix",
+      "label": "Agregar qualidade por dimensão e camada",
+      "status": "ok",
+      "rows": 29,
+      "rerun": "python scripts/build_fidc_industry_traceability.py"
+    }
+  ],
+  "quality": {
+    "rows": 29,
+    "dimensions": 29,
+    "source_layers": 2,
+    "low_quality_rows": 6,
+    "missing_page_rows": 11493,
+    "missing_document_rows": 0,
+    "missing_method_rows": 0,
+    "missing_score_rows": 65173,
+    "median_quality_score": 0.7154301967290828,
+    "worst_quality_score": 0.5354301967290828
+  }
+}

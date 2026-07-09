@@ -1,0 +1,86 @@
+{
+  "schema_version": "industry-incremental-onboarding-manifest/v1",
+  "generated_at_utc": "2026-07-09T15:56:18+00:00",
+  "pipeline": "industry_incremental_onboarding",
+  "design_constraints": {
+    "modular": true,
+    "incremental": true,
+    "manual_review_in_app": true,
+    "notes": [
+      "Materializa apenas FIDCs novos ou reativados da competência corrente.",
+      "O checklist consolida descoberta documental, processamento por chunks e incorporação às bases estruturadas.",
+      "Não cria decisões de curadoria; usa a fila única e os ledgers existentes como fonte de status."
+    ]
+  },
+  "inputs": {
+    "monthly_delta": {
+      "path": "data/industry_study/industry_monthly_delta.csv.gz",
+      "exists": true,
+      "bytes": 359824,
+      "sha256": "dcebaae0a1505caf46609f80a600b7bed765d072019c4faee23043af7ebf87ca"
+    },
+    "curation_queue": {
+      "path": "data/industry_study/industry_curation_queue.csv.gz",
+      "exists": true,
+      "bytes": 2575020,
+      "sha256": "807d2e7e9ede6cf1b77b7f8794f698255c5aaafa2dec8fa1cd0d30fb830c815d"
+    },
+    "document_chunk_plan": {
+      "path": "data/industry_study/document_chunk_plan.csv",
+      "exists": true,
+      "bytes": 22110,
+      "sha256": "f7515ec3420aa4542d5e31592c504607499678de5f7f63756605096c732fe194"
+    }
+  },
+  "outputs": {
+    "incremental_onboarding": {
+      "path": "data/industry_study/industry_incremental_onboarding.csv",
+      "exists": true,
+      "bytes": 91521,
+      "sha256": "01c91c280bcbf94acb831984a82d80d297a47a7920a5996023afa37628e306e1"
+    },
+    "manifest": {
+      "path": "data/industry_study/industry_incremental_onboarding_manifest.json"
+    }
+  },
+  "stages": [
+    {
+      "id": "filter_new_reactivated",
+      "label": "Filtrar novos e reativados",
+      "status": "ok",
+      "rows": 4279,
+      "rerun": "python scripts/build_fidc_industry_monthly_delta.py"
+    },
+    {
+      "id": "join_queue_and_chunks",
+      "label": "Cruzar fila única e chunks documentais",
+      "status": "ok",
+      "rows": 82888,
+      "rerun": "python scripts/build_fidc_industry_curation_queue.py"
+    },
+    {
+      "id": "persist_onboarding_plan",
+      "label": "Persistir onboarding incremental",
+      "status": "ok",
+      "rows": 71,
+      "rerun": "python scripts/build_fidc_industry_incremental_onboarding.py"
+    }
+  ],
+  "quality": {
+    "rows": 71,
+    "funds": 71,
+    "new_funds": 63,
+    "reactivated_funds": 8,
+    "blocked_rows": 71,
+    "attention_rows": 0,
+    "ok_rows": 0,
+    "discovery_blocked": 62,
+    "processing_attention": 9,
+    "incorporation_blocked": 71,
+    "open_queue_rows": 1337,
+    "open_high_priority_rows": 139,
+    "status_counts": {
+      "bloqueado": 71
+    }
+  }
+}

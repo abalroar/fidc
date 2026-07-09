@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-fund-snapshot-manifest/v1",
-  "generated_at_utc": "2026-07-09T14:58:28+00:00",
+  "generated_at_utc": "2026-07-09T15:30:48+00:00",
   "pipeline": "industry_fund_snapshot",
   "design_constraints": {
     "modular": true,
@@ -34,8 +34,8 @@
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 313437,
-      "sha256": "51b3dd6cf6522d60fd2bc008151ec885f47376c3cd1a4252dd582cc301115943"
+      "bytes": 314735,
+      "sha256": "af6bae816de29d3849aac2af20a313fbf62eef98fa8ea97cb16ec97723362a6d"
     },
     "criteria_structured": {
       "path": "data/industry_study/criteria_structured.csv.gz",
@@ -55,7 +55,7 @@
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
       "bytes": 411296,
-      "sha256": "60f60a382987f6f8cdc2ac45f0ddec1771da9f57cf28ffa6d2dc1903a0b813f2"
+      "sha256": "713e5bd503033eb477887333d63b344fd65c5d2a5c5561d3342d399b7b5b5a83"
     },
     "manifest": {
       "path": "data/industry_study/industry_fund_snapshot_manifest.json"
@@ -88,7 +88,7 @@
       "status": "ok",
       "input": "artefatos estruturados versionados",
       "output": "metadados de contagem/camadas por CNPJ",
-      "rows": 17572,
+      "rows": 17581,
       "rerun": "Reexecute apenas o modulo de origem alterado e depois este snapshot."
     }
   ],
