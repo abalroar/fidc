@@ -28,6 +28,9 @@ from services.industry_study import (  # noqa: E402
     build_criteria_pipeline_manifest,
     build_criteria_structured,
     build_document_chunk_plan,
+    build_document_chunk_diagnostics,
+    build_document_chunk_diagnostics_manifest,
+    build_document_chunk_run_summary,
     build_industry_curation_queue,
     build_industry_curation_queue_summary,
     build_dimension_catalog_pipeline_manifest,
@@ -64,6 +67,7 @@ from services.industry_study import (  # noqa: E402
     cedente_quality_summary,
     criteria_quality_summary,
     document_quality_summary,
+    document_chunk_diagnostics_quality_summary,
     fund_snapshot_quality_summary,
     initialize_document_chunk_actions,
     initialize_curation_queue_actions,
@@ -93,6 +97,7 @@ from services.industry_study import (  # noqa: E402
     save_pipeline_manifest,
     save_cedente_structured,
     scan_regulatory_extraction_files,
+    merge_document_chunk_diagnostics,
 )
 from tabs.tab_industry_study import (  # noqa: E402
     _apply_document_chunk_actions,
@@ -111,7 +116,9 @@ from tabs.tab_industry_study import (  # noqa: E402
     _dimension_value_snapshot_frame,
     _document_chunk_actions_for_audit,
     _document_chunk_plan_frame,
+    _format_document_chunk_diagnostics,
     _format_document_chunk_plan,
+    _format_document_chunk_run_summary,
     _format_dimension_catalog_gaps,
     _format_dimension_catalog_quality,
     _format_dimension_value_snapshot,
@@ -1006,6 +1013,115 @@ def test_document_manifest_and_quality_describe_pipeline_outputs():
     assert quality["document_rows"] == 1
     assert quality["chunk_plan_rows"] == 1
     assert quality["content_kind_counts"]["extraction_json"] == 1
+
+
+def test_document_chunk_diagnostics_probe_incremental_outputs_and_ui_formatters():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        cache_dir = root / "data" / "raw" / "05753599000158"
+        cache_dir.mkdir(parents=True)
+        text_path = cache_dir / "cache.txt"
+        json_path = cache_dir / "123456.local.json"
+        text_path.write_text("Cedente ABC\nSubordinacao minima 10%", encoding="utf-8")
+        json_path.write_text('{"cedentes": ["Cedente ABC"], "subordinacao": 10}', encoding="utf-8")
+        inventory = pd.DataFrame(
+            [
+                {
+                    "chunk_id": "doc-0001",
+                    "document_key": "txt1",
+                    "cnpj_fundo": "05753599000158",
+                    "fundo": "FIDC TEXTO",
+                    "documento_origem": "cache.txt",
+                    "document_class": "cache_texto",
+                    "content_kind": "text_cache",
+                    "document_date": "2026-05-01",
+                    "local_path": "data/raw/05753599000158/cache.txt",
+                    "local_exists": True,
+                    "bytes": 10,
+                    "sha256": "a" * 64,
+                },
+                {
+                    "chunk_id": "doc-0001",
+                    "document_key": "json1",
+                    "cnpj_fundo": "05753599000158",
+                    "fundo": "FIDC JSON",
+                    "documento_origem": "123456.local.json",
+                    "document_class": "extracao_json",
+                    "content_kind": "extraction_json",
+                    "document_date": "2026-05-02",
+                    "local_path": "data/raw/05753599000158/123456.local.json",
+                    "local_exists": True,
+                    "bytes": 12,
+                    "sha256": "b" * 64,
+                },
+                {
+                    "chunk_id": "doc-0001",
+                    "document_key": "pdf1",
+                    "cnpj_fundo": "05753599000158",
+                    "fundo": "FIDC PDF",
+                    "documento_origem": "missing.pdf",
+                    "document_class": "regulamento",
+                    "content_kind": "pdf",
+                    "document_date": "2026-05-03",
+                    "local_path": "data/raw/05753599000158/missing.pdf",
+                    "local_exists": False,
+                    "bytes": 0,
+                    "sha256": "",
+                },
+            ]
+        )
+        chunk_plan = pd.DataFrame(
+            [
+                {
+                    "chunk_id": "doc-0001",
+                    "chunk_status": "processar",
+                    "status_lote": "em andamento",
+                    "rerun_command": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001",
+                }
+            ]
+        )
+
+        diagnostics = build_document_chunk_diagnostics(
+            inventory,
+            chunk_id="doc-0001",
+            root=root,
+            diagnosed_at_utc="2026-07-09T12:00:00+00:00",
+        )
+        merged = merge_document_chunk_diagnostics(pd.DataFrame(), diagnostics)
+        summary = build_document_chunk_run_summary(merged, chunk_plan)
+        quality = document_chunk_diagnostics_quality_summary(merged, summary, chunk_plan=chunk_plan)
+        diagnostics_path = root / "document_chunk_diagnostics.csv.gz"
+        summary_path = root / "document_chunk_run_summary.csv"
+        manifest_path = root / "industry_document_chunk_diagnostics_manifest.json"
+        save_dataframe(merged, diagnostics_path)
+        save_dataframe(summary, summary_path)
+        manifest = build_document_chunk_diagnostics_manifest(
+            industry_dir=root,
+            diagnostics_path=diagnostics_path,
+            run_summary_path=summary_path,
+            manifest_path=manifest_path,
+            diagnostics=merged,
+            run_summary=summary,
+            chunk_plan=chunk_plan,
+            chunk_id="doc-0001",
+        )
+        formatted_diag = _format_document_chunk_diagnostics(merged)
+        formatted_summary = _format_document_chunk_run_summary(summary)
+
+    by_key = diagnostics.set_index("document_key")
+    assert by_key.loc["txt1", "diagnostic_status"] == "text_ready"
+    assert by_key.loc["json1", "diagnostic_status"] == "json_ready"
+    assert by_key.loc["pdf1", "diagnostic_status"] == "missing_file"
+    assert quality["diagnostics_rows"] == 3
+    assert quality["processed_chunks"] == 1
+    assert quality["pending_chunks"] == 0
+    assert quality["docs_with_text"] == 2
+    assert quality["missing_docs"] == 1
+    assert summary.iloc[0]["status_lote"] == "em andamento"
+    assert manifest["schema_version"] == "industry-document-chunk-diagnostics-manifest/v1"
+    assert manifest["outputs"]["document_chunk_diagnostics"]["sha256"]
+    assert "Status diag." in formatted_diag.columns
+    assert "PDF OCR" in formatted_summary.columns
 
 
 def test_criteria_structured_applies_review_and_tracks_subordination():
@@ -3813,6 +3929,37 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
             "doc1,2026-07-08T12:00:00+00:00,document_chunk_action,doc-0001,status,pendente,em andamento,em andamento,test\n"
         )
         write_module_manifest(
+            "industry_document_chunk_diagnostics_manifest.json",
+            "industry_document_chunk_diagnostics",
+            "document_chunk_diagnostics.csv.gz",
+            {
+                "diagnostics_rows": 2,
+                "processed_chunks": 1,
+                "total_chunks": 1,
+                "pending_chunks": 0,
+                "docs_with_text": 1,
+                "pdf_docs": 1,
+                "pdf_text_ready_docs": 0,
+                "pdf_needs_ocr_docs": 1,
+                "json_ready_docs": 1,
+                "text_cache_ready_docs": 0,
+                "error_docs": 0,
+                "missing_docs": 0,
+                "latest_chunk_id": "doc-0001",
+            },
+        )
+        (tmp_path / "document_chunk_run_summary.csv").write_text(
+            "chunk_id,documents,docs_with_text,pdf_needs_ocr_docs\n"
+            "doc-0001,2,1,1\n",
+            encoding="utf-8",
+        )
+        diagnostic_manifest_path = tmp_path / "industry_document_chunk_diagnostics_manifest.json"
+        diagnostic_manifest = json.loads(diagnostic_manifest_path.read_text())
+        diagnostic_manifest["outputs"]["document_chunk_run_summary"] = {
+            "path": str(tmp_path / "document_chunk_run_summary.csv")
+        }
+        diagnostic_manifest_path.write_text(json.dumps(diagnostic_manifest), encoding="utf-8")
+        write_module_manifest(
             "industry_pipeline_manifest.json",
             "industry_cedentes_structured",
             "cedentes_structured.csv.gz",
@@ -3988,8 +4135,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
     assert index["schema_version"] == "industry-pipeline-index/v1"
-    assert index["quality_rollup"]["modules_total"] == 17
-    assert index["quality_rollup"]["module_status_counts"]["ok"] == 17
+    assert index["quality_rollup"]["modules_total"] == 18
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 18
     assert index["quality_rollup"]["artifacts_missing"] == 0
     assert index["quality_rollup"]["manual_review_artifacts_total"] == 12
     assert index["quality_rollup"]["manual_review_artifacts_present"] == 12
@@ -4021,6 +4168,9 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["document_chunk_actions_rows"] == 1
     assert index["quality_rollup"]["document_chunks_in_progress"] == 1
     assert index["quality_rollup"]["document_chunks_without_action"] == 0
+    assert index["quality_rollup"]["document_chunk_diagnostics_rows"] == 2
+    assert index["quality_rollup"]["document_chunk_diagnostics_processed_chunks"] == 1
+    assert index["quality_rollup"]["document_chunk_diagnostics_pdf_needs_ocr_docs"] == 1
     assert index["quality_rollup"]["subordination_median_pct"] == 10.0
     assert index["quality_rollup"]["fund_snapshot_rows"] == 2
     assert index["quality_rollup"]["dimension_catalog_rows"] == 80
@@ -4079,7 +4229,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert prd["manual_review_in_app"]["status_prd"] == "ok"
     assert prd["heatmaps_generic"]["status_prd"] == "atenção"
     assert prd["public_audit_readiness"]["status_prd"] == "atenção"
-    assert index["quality_rollup"]["monthly_update_plan_rows"] == 19
+    assert index["quality_rollup"]["monthly_update_plan_rows"] == 20
     assert "monthly_update_plan_status_counts" in index["quality_rollup"]
     assert index["quality_rollup"]["publication_gate_status"] == "bloqueado"
     assert index["quality_rollup"]["publication_gate_rows"] > 1
@@ -4099,6 +4249,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert monthly_plan["manual_review_ledgers"]["comando"] == "python scripts/build_fidc_industry_manual_review_ledgers.py"
     assert monthly_plan["public_claims"]["comando"] == "python scripts/build_fidc_industry_public_claim_audit.py"
     assert monthly_plan["incremental_onboarding"]["comando"] == "python scripts/build_fidc_industry_incremental_onboarding.py"
+    assert monthly_plan["document_chunk_diagnostics"]["comando"] == "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001"
     assert monthly_plan["dimension_traceability"]["comando"] == "python scripts/build_fidc_industry_traceability.py"
     assert monthly_plan["incremental_onboarding"]["status_prontidao"] == "bloqueado"
     assert monthly_plan["monthly_delta"]["status_prontidao"] == "bloqueado"
@@ -4150,10 +4301,12 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         "public_claims",
         "market_share",
         "monthly_delta",
+        "document_chunk_diagnostics",
         "curation_queue",
         "pipeline_index",
     }
     assert any(row["artifact"] == "manifest" for row in index["artifact_index"])
+    assert ("document_chunk_diagnostics", "document_chunk_run_summary") in artifacts
     readiness = {row["check_id"]: row for row in index["readiness_checks"]}
     assert readiness["competencia_alignment"]["status_prontidao"] == "ok"
     assert readiness["monthly_delta_queue"]["status_prontidao"] == "bloqueado"

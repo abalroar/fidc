@@ -67,6 +67,53 @@ DOCUMENT_CHUNK_ACTION_COLUMNS = [
     "updated_at_utc",
 ]
 
+DOCUMENT_CHUNK_DIAGNOSTIC_COLUMNS = [
+    "diagnostic_id",
+    "chunk_id",
+    "document_key",
+    "cnpj_fundo",
+    "fundo",
+    "documento_origem",
+    "document_class",
+    "content_kind",
+    "document_date",
+    "local_path",
+    "local_exists",
+    "bytes",
+    "sha256",
+    "diagnostic_status",
+    "extraction_method",
+    "confidence_score",
+    "page_count",
+    "pages_sampled",
+    "text_chars",
+    "sample_text",
+    "error_message",
+    "diagnosed_at_utc",
+]
+
+DOCUMENT_CHUNK_RUN_SUMMARY_COLUMNS = [
+    "chunk_id",
+    "diagnosed_at_utc",
+    "documents",
+    "local_ready_docs",
+    "docs_with_text",
+    "pdf_docs",
+    "pdf_text_ready_docs",
+    "pdf_needs_ocr_docs",
+    "json_ready_docs",
+    "text_cache_ready_docs",
+    "error_docs",
+    "missing_docs",
+    "avg_confidence",
+    "status_mix",
+    "source_methods",
+    "sample_documents",
+    "chunk_status",
+    "status_lote",
+    "rerun_command",
+]
+
 PUBLICATION_GATE_COLUMNS = [
     "gate_id",
     "ordem",
@@ -3034,6 +3081,439 @@ def document_quality_summary(
     }
 
 
+def _boolish_value(value: object) -> bool:
+    return str(value or "").strip().lower() in {"true", "1", "sim", "yes", "y"}
+
+
+def _diagnostic_columns(frame: pd.DataFrame | None, columns: list[str]) -> pd.DataFrame:
+    out = pd.DataFrame() if frame is None else frame.copy()
+    for col in columns:
+        if col not in out.columns:
+            out[col] = ""
+    return out[columns]
+
+
+def _resolve_inventory_path(value: object, root: Path) -> Path | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    path = Path(text)
+    return path if path.is_absolute() else root / path
+
+
+def _sample_text(value: object, max_chars: int) -> str:
+    text = re.sub(r"\s+", " ", str(value or "")).strip()
+    if max_chars <= 0:
+        return ""
+    return text[:max_chars]
+
+
+def _read_text_payload(path: Path, max_chars: int) -> tuple[str, str]:
+    for encoding in ["utf-8", "latin-1"]:
+        try:
+            text = path.read_text(encoding=encoding, errors="ignore")
+            return text, encoding
+        except OSError:
+            raise
+        except UnicodeError:
+            continue
+    return path.read_text(errors="ignore"), "default"
+
+
+def _probe_document_payload(
+    *,
+    path: Path | None,
+    content_kind: str,
+    local_exists: bool,
+    max_text_chars: int,
+    max_pdf_pages: int,
+) -> dict[str, object]:
+    if path is None or not local_exists:
+        return {
+            "diagnostic_status": "missing_file",
+            "extraction_method": "stat",
+            "confidence_score": 0.0,
+            "page_count": 0,
+            "pages_sampled": 0,
+            "text_chars": 0,
+            "sample_text": "",
+            "error_message": "Arquivo local ausente.",
+        }
+    if content_kind == "text_cache":
+        try:
+            text, encoding = _read_text_payload(path, max_text_chars)
+        except OSError as exc:
+            return {
+                "diagnostic_status": "read_error",
+                "extraction_method": "text_cache",
+                "confidence_score": 0.1,
+                "page_count": 0,
+                "pages_sampled": 0,
+                "text_chars": 0,
+                "sample_text": "",
+                "error_message": str(exc),
+            }
+        chars = len(text.strip())
+        return {
+            "diagnostic_status": "text_ready" if chars else "text_empty",
+            "extraction_method": f"text_cache_{encoding}",
+            "confidence_score": 0.85 if chars else 0.3,
+            "page_count": 0,
+            "pages_sampled": 0,
+            "text_chars": int(chars),
+            "sample_text": _sample_text(text, max_text_chars),
+            "error_message": "",
+        }
+    if content_kind == "extraction_json":
+        try:
+            raw, encoding = _read_text_payload(path, max_text_chars)
+            payload = json.loads(raw) if raw.strip() else {}
+        except json.JSONDecodeError as exc:
+            return {
+                "diagnostic_status": "json_parse_error",
+                "extraction_method": "json_load",
+                "confidence_score": 0.2,
+                "page_count": 0,
+                "pages_sampled": 0,
+                "text_chars": 0,
+                "sample_text": _sample_text(raw if "raw" in locals() else "", max_text_chars),
+                "error_message": str(exc),
+            }
+        except OSError as exc:
+            return {
+                "diagnostic_status": "read_error",
+                "extraction_method": "json_load",
+                "confidence_score": 0.1,
+                "page_count": 0,
+                "pages_sampled": 0,
+                "text_chars": 0,
+                "sample_text": "",
+                "error_message": str(exc),
+            }
+        sample = json.dumps(payload, ensure_ascii=False, sort_keys=True) if payload else raw
+        chars = len(sample.strip())
+        return {
+            "diagnostic_status": "json_ready" if chars else "json_empty",
+            "extraction_method": f"json_load_{encoding}",
+            "confidence_score": 0.9 if chars else 0.35,
+            "page_count": 0,
+            "pages_sampled": 0,
+            "text_chars": int(chars),
+            "sample_text": _sample_text(sample, max_text_chars),
+            "error_message": "",
+        }
+    if content_kind == "pdf":
+        try:
+            from pypdf import PdfReader
+
+            reader = PdfReader(str(path))
+            page_count = len(reader.pages)
+            pages_sampled = min(max(int(max_pdf_pages), 0), page_count)
+            pieces: list[str] = []
+            for page in reader.pages[:pages_sampled]:
+                try:
+                    pieces.append(page.extract_text() or "")
+                except Exception:
+                    pieces.append("")
+            text = "\n".join(pieces).strip()
+            chars = len(text)
+            return {
+                "diagnostic_status": "pdf_text_ready" if chars else "pdf_needs_ocr",
+                "extraction_method": f"pypdf_first_{pages_sampled}_pages",
+                "confidence_score": 0.75 if chars else 0.25,
+                "page_count": int(page_count),
+                "pages_sampled": int(pages_sampled),
+                "text_chars": int(chars),
+                "sample_text": _sample_text(text, max_text_chars),
+                "error_message": "",
+            }
+        except Exception as exc:
+            return {
+                "diagnostic_status": "pdf_probe_error",
+                "extraction_method": "pypdf",
+                "confidence_score": 0.1,
+                "page_count": 0,
+                "pages_sampled": 0,
+                "text_chars": 0,
+                "sample_text": "",
+                "error_message": str(exc),
+            }
+    return {
+        "diagnostic_status": "reference_only",
+        "extraction_method": "metadata_only",
+        "confidence_score": 0.15,
+        "page_count": 0,
+        "pages_sampled": 0,
+        "text_chars": 0,
+        "sample_text": "",
+        "error_message": "",
+    }
+
+
+def build_document_chunk_diagnostics(
+    inventory: pd.DataFrame,
+    *,
+    chunk_id: str = "",
+    root: Path | None = None,
+    max_text_chars: int = 2000,
+    max_pdf_pages: int = 2,
+    diagnosed_at_utc: str | None = None,
+) -> pd.DataFrame:
+    """Probe one document chunk and persist evidence about extractability."""
+
+    if inventory is None or inventory.empty:
+        return pd.DataFrame(columns=DOCUMENT_CHUNK_DIAGNOSTIC_COLUMNS)
+    root = Path(".") if root is None else root
+    frame = inventory.copy()
+    if "chunk_id" not in frame.columns:
+        frame["chunk_id"] = ""
+    frame["chunk_id"] = frame["chunk_id"].fillna("").astype(str).str.strip()
+    selected_chunk = str(chunk_id or "").strip()
+    if selected_chunk:
+        frame = frame[frame["chunk_id"].eq(selected_chunk)].copy()
+    if frame.empty:
+        return pd.DataFrame(columns=DOCUMENT_CHUNK_DIAGNOSTIC_COLUMNS)
+    if diagnosed_at_utc is None:
+        diagnosed_at_utc = datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+    rows: list[dict[str, object]] = []
+    for _, row in frame.iterrows():
+        local_path_text = str(row.get("local_path", "") or "").strip()
+        path = _resolve_inventory_path(local_path_text, root)
+        actual_exists = bool(path is not None and path.exists())
+        inventory_exists = _boolish_value(row.get("local_exists", ""))
+        local_exists = bool(actual_exists or inventory_exists and path is not None)
+        content_kind = str(row.get("content_kind", "") or "").strip() or _content_kind(path, row.get("documento_origem", ""))
+        bytes_value = pd.to_numeric(pd.Series([row.get("bytes", 0)]), errors="coerce").fillna(0).iloc[0]
+        if path is not None and path.exists():
+            bytes_value = path.stat().st_size
+        probe = _probe_document_payload(
+            path=path,
+            content_kind=content_kind,
+            local_exists=actual_exists,
+            max_text_chars=max_text_chars,
+            max_pdf_pages=max_pdf_pages,
+        )
+        doc_key = str(row.get("document_key", "") or "").strip()
+        seed = "|".join([str(row.get("chunk_id", "")), doc_key, local_path_text, str(row.get("documento_origem", ""))])
+        rows.append(
+            {
+                "diagnostic_id": hashlib.sha1(seed.encode("utf-8", errors="ignore")).hexdigest()[:16],
+                "chunk_id": str(row.get("chunk_id", "")),
+                "document_key": doc_key,
+                "cnpj_fundo": row.get("cnpj_fundo", ""),
+                "fundo": row.get("fundo", ""),
+                "documento_origem": row.get("documento_origem", ""),
+                "document_class": row.get("document_class", ""),
+                "content_kind": content_kind,
+                "document_date": row.get("document_date", ""),
+                "local_path": local_path_text,
+                "local_exists": bool(local_exists),
+                "bytes": int(bytes_value),
+                "sha256": row.get("sha256", ""),
+                "diagnosed_at_utc": diagnosed_at_utc,
+                **probe,
+            }
+        )
+    out = pd.DataFrame(rows)
+    return _diagnostic_columns(out, DOCUMENT_CHUNK_DIAGNOSTIC_COLUMNS)
+
+
+def merge_document_chunk_diagnostics(existing: pd.DataFrame | None, new: pd.DataFrame | None) -> pd.DataFrame:
+    existing_frame = _diagnostic_columns(existing, DOCUMENT_CHUNK_DIAGNOSTIC_COLUMNS)
+    new_frame = _diagnostic_columns(new, DOCUMENT_CHUNK_DIAGNOSTIC_COLUMNS)
+    if new_frame.empty:
+        return existing_frame.reset_index(drop=True)
+    keys = set(new_frame["document_key"].fillna("").astype(str))
+    chunks = set(new_frame["chunk_id"].fillna("").astype(str))
+    old = existing_frame[
+        ~(
+            existing_frame["document_key"].fillna("").astype(str).isin(keys)
+            | existing_frame["chunk_id"].fillna("").astype(str).isin(chunks)
+            & existing_frame["document_key"].fillna("").astype(str).eq("")
+        )
+    ].copy()
+    merged = pd.concat([old, new_frame], ignore_index=True, sort=False)
+    return _diagnostic_columns(merged, DOCUMENT_CHUNK_DIAGNOSTIC_COLUMNS).reset_index(drop=True)
+
+
+def build_document_chunk_run_summary(
+    diagnostics: pd.DataFrame,
+    chunk_plan: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    diagnostics = _diagnostic_columns(diagnostics, DOCUMENT_CHUNK_DIAGNOSTIC_COLUMNS)
+    if diagnostics.empty:
+        return pd.DataFrame(columns=DOCUMENT_CHUNK_RUN_SUMMARY_COLUMNS)
+    frame = diagnostics.copy()
+    frame["chunk_id"] = frame["chunk_id"].fillna("").astype(str)
+    frame = frame[frame["chunk_id"].str.strip().ne("")].copy()
+    if frame.empty:
+        return pd.DataFrame(columns=DOCUMENT_CHUNK_RUN_SUMMARY_COLUMNS)
+    frame["_local_exists"] = _boolish_series(frame["local_exists"])
+    frame["_text_chars"] = pd.to_numeric(frame["text_chars"], errors="coerce").fillna(0)
+    frame["_confidence"] = pd.to_numeric(frame["confidence_score"], errors="coerce")
+    frame["_status"] = frame["diagnostic_status"].fillna("").astype(str)
+    frame["_kind"] = frame["content_kind"].fillna("").astype(str)
+    frame["_is_error"] = frame["_status"].str.contains("error", case=False, na=False) | frame["_status"].eq("read_error")
+    frame["_is_missing"] = frame["_status"].eq("missing_file")
+    frame["_has_text"] = frame["_text_chars"].gt(0)
+    grouped = frame.groupby("chunk_id", dropna=False)
+    summary = grouped.agg(
+        diagnosed_at_utc=("diagnosed_at_utc", "max"),
+        documents=("chunk_id", "size"),
+        local_ready_docs=("_local_exists", "sum"),
+        docs_with_text=("_has_text", "sum"),
+        pdf_docs=("_kind", lambda values: int(values.eq("pdf").sum())),
+        pdf_text_ready_docs=("_status", lambda values: int(values.eq("pdf_text_ready").sum())),
+        pdf_needs_ocr_docs=("_status", lambda values: int(values.eq("pdf_needs_ocr").sum())),
+        json_ready_docs=("_status", lambda values: int(values.eq("json_ready").sum())),
+        text_cache_ready_docs=("_status", lambda values: int(values.eq("text_ready").sum())),
+        error_docs=("_is_error", "sum"),
+        missing_docs=("_is_missing", "sum"),
+        avg_confidence=("_confidence", "mean"),
+        status_mix=("diagnostic_status", lambda values: _join_unique(values, limit=8)),
+        source_methods=("extraction_method", lambda values: _join_unique(values, limit=6)),
+        sample_documents=("documento_origem", lambda values: _join_unique(values, sep=", ", limit=4)),
+    ).reset_index()
+    summary["avg_confidence"] = summary["avg_confidence"].map(lambda value: "" if pd.isna(value) else round(float(value), 4))
+    plan = pd.DataFrame() if chunk_plan is None else chunk_plan.copy()
+    if not plan.empty and "chunk_id" in plan.columns:
+        plan["chunk_id"] = plan["chunk_id"].fillna("").astype(str)
+        keep = [col for col in ["chunk_id", "chunk_status", "status_lote", "rerun_command"] if col in plan.columns]
+        summary = summary.merge(plan[keep].drop_duplicates("chunk_id", keep="last"), on="chunk_id", how="left")
+    for col in ["chunk_status", "status_lote", "rerun_command"]:
+        if col not in summary.columns:
+            summary[col] = ""
+    return _diagnostic_columns(summary, DOCUMENT_CHUNK_RUN_SUMMARY_COLUMNS)
+
+
+def document_chunk_diagnostics_quality_summary(
+    diagnostics: pd.DataFrame,
+    run_summary: pd.DataFrame | None = None,
+    *,
+    chunk_plan: pd.DataFrame | None = None,
+) -> dict[str, object]:
+    diagnostics = _diagnostic_columns(diagnostics, DOCUMENT_CHUNK_DIAGNOSTIC_COLUMNS)
+    run_summary = _diagnostic_columns(run_summary, DOCUMENT_CHUNK_RUN_SUMMARY_COLUMNS)
+    chunk_total = 0
+    if chunk_plan is not None and not chunk_plan.empty and "chunk_id" in chunk_plan.columns:
+        chunk_total = int(chunk_plan["chunk_id"].fillna("").astype(str).str.strip().replace("", pd.NA).dropna().nunique())
+    if diagnostics.empty:
+        return {
+            "diagnostics_rows": 0,
+            "processed_chunks": 0,
+            "total_chunks": chunk_total,
+            "pending_chunks": chunk_total,
+            "docs_with_text": 0,
+            "pdf_docs": 0,
+            "pdf_text_ready_docs": 0,
+            "pdf_needs_ocr_docs": 0,
+            "json_ready_docs": 0,
+            "text_cache_ready_docs": 0,
+            "error_docs": 0,
+            "missing_docs": 0,
+            "status_counts": {},
+            "content_kind_counts": {},
+        }
+    status = diagnostics["diagnostic_status"].fillna("").astype(str)
+    kind = diagnostics["content_kind"].fillna("").astype(str)
+    text_chars = pd.to_numeric(diagnostics["text_chars"], errors="coerce").fillna(0)
+    processed_chunks = int(diagnostics["chunk_id"].fillna("").astype(str).str.strip().replace("", pd.NA).dropna().nunique())
+    if chunk_total == 0:
+        chunk_total = processed_chunks
+    latest_chunk_id = ""
+    if not run_summary.empty:
+        latest = run_summary.sort_values("diagnosed_at_utc").tail(1)
+        latest_chunk_id = str(latest["chunk_id"].iloc[0]) if not latest.empty else ""
+    return {
+        "diagnostics_rows": int(len(diagnostics)),
+        "processed_chunks": processed_chunks,
+        "total_chunks": chunk_total,
+        "pending_chunks": max(chunk_total - processed_chunks, 0),
+        "docs_with_text": int(text_chars.gt(0).sum()),
+        "pdf_docs": int(kind.eq("pdf").sum()),
+        "pdf_text_ready_docs": int(status.eq("pdf_text_ready").sum()),
+        "pdf_needs_ocr_docs": int(status.eq("pdf_needs_ocr").sum()),
+        "json_ready_docs": int(status.eq("json_ready").sum()),
+        "text_cache_ready_docs": int(status.eq("text_ready").sum()),
+        "error_docs": int(status.str.contains("error", case=False, na=False).sum() + status.eq("read_error").sum()),
+        "missing_docs": int(status.eq("missing_file").sum()),
+        "latest_chunk_id": latest_chunk_id,
+        "status_counts": {str(k): int(v) for k, v in status.value_counts().to_dict().items()},
+        "content_kind_counts": {str(k): int(v) for k, v in kind.value_counts().to_dict().items()},
+    }
+
+
+def build_document_chunk_diagnostics_manifest(
+    *,
+    industry_dir: Path,
+    diagnostics_path: Path,
+    run_summary_path: Path,
+    manifest_path: Path,
+    diagnostics: pd.DataFrame,
+    run_summary: pd.DataFrame,
+    chunk_plan: pd.DataFrame | None = None,
+    chunk_id: str = "",
+) -> dict[str, object]:
+    quality = document_chunk_diagnostics_quality_summary(diagnostics, run_summary, chunk_plan=chunk_plan)
+    selected = str(chunk_id or quality.get("latest_chunk_id", "") or "").strip()
+    return {
+        "schema_version": "industry-document-chunk-diagnostics-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_document_chunk_diagnostics",
+        "selected_chunk_id": selected,
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "macbook_air_m4_friendly": True,
+            "notes": [
+                "Este modulo diagnostica um chunk por execucao e acumula os resultados.",
+                "A etapa prova se documentos locais ja possuem texto/JSON parseavel ou se PDFs precisam OCR.",
+                "Nao interpreta clausulas regulatórias; a extracao estruturada continua em modulos e curadoria separados.",
+            ],
+        },
+        "inputs": {
+            "document_inventory": file_fingerprint(industry_dir / "document_inventory.csv.gz"),
+            "document_chunk_plan": file_fingerprint(industry_dir / "document_chunk_plan.csv"),
+        },
+        "outputs": {
+            "document_chunk_diagnostics": file_fingerprint(diagnostics_path),
+            "document_chunk_run_summary": file_fingerprint(run_summary_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "select_chunk",
+                "label": "Selecionar chunk incremental",
+                "status": "ok" if selected else "empty",
+                "input": "document_inventory+document_chunk_plan",
+                "output": selected,
+                "rows": int(len(run_summary)),
+                "rerun": f"python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id {selected}".strip(),
+            },
+            {
+                "id": "probe_local_documents",
+                "label": "Diagnosticar texto/JSON/PDF",
+                "status": "ok" if not diagnostics.empty else "empty",
+                "input": selected or "chunk selecionado",
+                "output": str(diagnostics_path),
+                "rows": int(len(diagnostics)),
+                "rerun": f"python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id {selected}".strip(),
+            },
+            {
+                "id": "persist_run_summary",
+                "label": "Resumo acumulado por chunk",
+                "status": "ok" if run_summary_path.exists() else "empty",
+                "input": str(diagnostics_path),
+                "output": str(run_summary_path),
+                "rows": int(len(run_summary)),
+                "rerun": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001",
+            },
+        ],
+        "quality": quality,
+    }
+
+
 def _nonempty_series(series: pd.Series) -> pd.Series:
     return series.fillna("").astype(str).str.strip().ne("")
 
@@ -4847,22 +5327,29 @@ def build_pipeline_readiness_checks(
     chunk_blocked = int(quality_rollup.get("document_chunks_blocked", 0) or 0)
     chunk_in_progress = int(quality_rollup.get("document_chunks_in_progress", 0) or 0)
     chunk_processed = int(quality_rollup.get("document_chunks_processed", 0) or 0)
+    diagnostic_chunks = int(quality_rollup.get("document_chunk_diagnostics_processed_chunks", 0) or 0)
+    diagnostic_rows = int(quality_rollup.get("document_chunk_diagnostics_rows", 0) or 0)
+    diagnostic_pending = int(quality_rollup.get("document_chunk_diagnostics_pending_chunks", 0) or 0)
+    diagnostic_ocr = int(quality_rollup.get("document_chunk_diagnostics_pdf_needs_ocr_docs", 0) or 0)
+    diagnostic_errors = int(quality_rollup.get("document_chunk_diagnostics_error_docs", 0) or 0)
     chunk_open = chunk_untracked + chunk_pending + chunk_in_progress + chunk_blocked
     add(
         "document_chunk_processing",
         6,
         "Documentos",
         "Execução incremental de OCR, parsing e extração por chunk",
-        "bloqueado" if chunk_blocked else ("atenção" if chunk_open else "ok"),
-        chunk_open,
+        "bloqueado" if chunk_blocked or diagnostic_errors else ("atenção" if chunk_open or diagnostic_pending else "ok"),
+        max(chunk_open, diagnostic_pending, diagnostic_errors),
         (
             f"{chunk_processed}/{document_chunks} processados; "
             f"{chunk_untracked} sem acompanhamento; {chunk_pending} pendentes; "
-            f"{chunk_in_progress} em andamento; {chunk_blocked} bloqueados"
+            f"{chunk_in_progress} em andamento; {chunk_blocked} bloqueados; "
+            f"diagnóstico {diagnostic_chunks}/{document_chunks} chunks, {diagnostic_rows} docs, "
+            f"{diagnostic_ocr} PDFs para OCR, {diagnostic_errors} erros"
         ),
-        "Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.",
-        "document_chunk_actions.csv",
-        "python scripts/build_fidc_industry_document_chunk_plan.py && python scripts/build_fidc_industry_documents.py --chunk-id doc-0001",
+        "Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.",
+        "document_chunk_actions.csv | document_chunk_diagnostics.csv.gz",
+        "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py",
     )
 
     snapshot_rows = int(quality_rollup.get("fund_snapshot_rows", 0) or 0)
@@ -4922,6 +5409,7 @@ def build_monthly_update_plan(
         "issuance": [],
         "public_claims": ["competencia_alignment"],
         "documents": ["document_chunk_processing"],
+        "document_chunk_diagnostics": ["document_chunk_processing"],
         "document_chunk_plan": ["document_chunk_processing"],
         "cedentes": ["structured_coverage", "curation_queue"],
         "criteria": ["structured_coverage", "curation_queue"],
@@ -4939,11 +5427,11 @@ def build_monthly_update_plan(
     def phase(order: int) -> str:
         if order <= 3:
             return "Informe mensal e delta"
-        if order <= 8:
+        if order <= 9:
             return "Documentos e ofertas"
-        if order <= 14:
+        if order <= 15:
             return "Estruturação"
-        if order <= 18:
+        if order <= 19:
             return "Agregações reutilizáveis"
         return "Controle"
 
@@ -5834,17 +6322,24 @@ def build_prd_coverage_matrix(
         "python scripts/build_fidc_industry_pipeline_index.py",
     )
     chunk_open = int(number("document_chunk_plan_open_rows"))
+    diagnostic_chunks = int(number("document_chunk_diagnostics_processed_chunks"))
+    diagnostic_docs = int(number("document_chunk_diagnostics_rows"))
+    diagnostic_ocr = int(number("document_chunk_diagnostics_pdf_needs_ocr_docs"))
     add(
         "document_processing_chunks",
         2,
         "Documentos",
         "Descoberta/documentos em chunks pequenos para processamento incremental",
         "atenção" if chunk_open else ("ok" if number("document_chunks") else "bloqueado"),
-        f"{int(number('document_chunks'))} chunks; {chunk_open} abertos; {int(number('max_documents_per_chunk'))} docs/chunk máx.",
-        f"document_chunks={int(number('document_chunks'))}",
-        "document_chunk_plan.csv",
-        "Fechar ou justificar chunks abertos antes de depender da extração documental.",
-        "python scripts/build_fidc_industry_documents.py && python scripts/build_fidc_industry_document_chunk_plan.py",
+        (
+            f"{int(number('document_chunks'))} chunks; {chunk_open} abertos; "
+            f"{int(number('max_documents_per_chunk'))} docs/chunk máx.; "
+            f"diagnóstico {diagnostic_chunks} chunks/{diagnostic_docs} docs; {diagnostic_ocr} PDFs para OCR"
+        ),
+        f"document_chunks={int(number('document_chunks'))}; diagnostics_chunks={diagnostic_chunks}",
+        "document_chunk_plan.csv | document_chunk_diagnostics.csv.gz",
+        "Rodar diagnóstico por chunk e fechar/justificar chunks abertos antes de depender da extração documental.",
+        "python scripts/build_fidc_industry_documents.py && python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py",
     )
     manual_present = int(number("manual_review_artifacts_present"))
     manual_total = int(number("manual_review_artifacts_total"))
@@ -6167,6 +6662,29 @@ def build_industry_pipeline_index(
                 "chunk_plan_open_rows",
                 "max_documents_per_chunk",
                 "max_cnpjs_per_chunk",
+            ],
+        },
+        {
+            "module_id": "document_chunk_diagnostics",
+            "label": "Diagnóstico documental por chunk",
+            "manifest_name": "industry_document_chunk_diagnostics_manifest.json",
+            "command": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001",
+            "cadence": "por chunk/antes de OCR e extração",
+            "depends_on": ["inventário documental", "plano operacional de chunks"],
+            "quality_keys": [
+                "diagnostics_rows",
+                "processed_chunks",
+                "total_chunks",
+                "pending_chunks",
+                "docs_with_text",
+                "pdf_docs",
+                "pdf_text_ready_docs",
+                "pdf_needs_ocr_docs",
+                "json_ready_docs",
+                "text_cache_ready_docs",
+                "error_docs",
+                "missing_docs",
+                "latest_chunk_id",
             ],
         },
         {
@@ -6519,6 +7037,14 @@ def build_industry_pipeline_index(
         },
         {
             "order": 8,
+            "module_id": "document_chunk_diagnostics",
+            "label": "Diagnosticar extraibilidade do próximo chunk",
+            "command": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001",
+            "reason": "Separa documentos com texto/JSON extraível de PDFs que exigem OCR antes da extração estruturada.",
+            "incremental_note": "Processa um chunk por execução e acumula o histórico em document_chunk_diagnostics.csv.gz.",
+        },
+        {
+            "order": 9,
             "module_id": "document_chunk_plan",
             "label": "Atualizar plano operacional de chunks",
             "command": "python scripts/build_fidc_industry_document_chunk_plan.py",
@@ -6526,7 +7052,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Rerun leve quando o usuário muda status/responsável/prazo na aba Documentos > Chunks.",
         },
         {
-            "order": 9,
+            "order": 10,
             "module_id": "cedentes",
             "label": "Regerar base de cedentes/sacados",
             "command": "python scripts/build_fidc_industry_cedentes.py",
@@ -6534,7 +7060,7 @@ def build_industry_pipeline_index(
             "incremental_note": "A curadoria continua sendo feita pela UI e reaplicada pelo overlay persistido.",
         },
         {
-            "order": 10,
+            "order": 11,
             "module_id": "criteria",
             "label": "Regerar critérios e subordinação mínima",
             "command": "python scripts/build_fidc_industry_criteria.py",
@@ -6542,7 +7068,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Revisões feitas pela UI são reaplicadas antes da consolidação.",
         },
         {
-            "order": 11,
+            "order": 12,
             "module_id": "fund_snapshot",
             "label": "Regerar snapshot unificado por FIDC",
             "command": "python scripts/build_fidc_industry_fund_snapshot.py",
@@ -6550,7 +7076,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem.",
         },
         {
-            "order": 12,
+            "order": 13,
             "module_id": "dimension_catalog",
             "label": "Regerar catálogo de dimensões",
             "command": "python scripts/build_fidc_industry_dimensions.py",
@@ -6558,7 +7084,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos.",
         },
         {
-            "order": 13,
+            "order": 14,
             "module_id": "dimension_traceability",
             "label": "Regerar matriz de rastreabilidade",
             "command": "python scripts/build_fidc_industry_traceability.py",
@@ -6566,7 +7092,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas o catálogo de dimensões; ajuda a priorizar lacunas antes de uso público.",
         },
         {
-            "order": 14,
+            "order": 15,
             "module_id": "curation_queue",
             "label": "Consolidar fila única de curadoria",
             "command": "python scripts/build_fidc_industry_curation_queue.py",
@@ -6574,7 +7100,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Rerun leve depois de salvar ações manuais na UI ou de regenerar qualquer fila detalhe.",
         },
         {
-            "order": 15,
+            "order": 16,
             "module_id": "dimension_profiles",
             "label": "Regerar perfis cruzados por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_profiles.py",
@@ -6582,7 +7108,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado.",
         },
         {
-            "order": 16,
+            "order": 17,
             "module_id": "dimension_monthly",
             "label": "Regerar séries mensais por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -6590,7 +7116,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação.",
         },
         {
-            "order": 17,
+            "order": 18,
             "module_id": "dimension_dossiers",
             "label": "Regerar dossiês dimensionais",
             "command": "python scripts/build_fidc_industry_dimension_dossiers.py",
@@ -6598,7 +7124,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas atlas, perfis e registry já materializados; não reprocessa documentos ou informe mensal.",
         },
         {
-            "order": 18,
+            "order": 19,
             "module_id": "market_share",
             "label": "Regerar market share e concentração",
             "command": "python scripts/build_fidc_industry_market_share.py",
@@ -6606,7 +7132,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe.",
         },
         {
-            "order": 19,
+            "order": 20,
             "module_id": "pipeline_index",
             "label": "Atualizar cockpit do pipeline",
             "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -6645,6 +7171,10 @@ def build_industry_pipeline_index(
     dimension_profile_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "dimension_profiles"), {})
     dimension_dossier_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "dimension_dossiers"), {})
     market_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "market_share"), {})
+    document_diagnostics_quality = next(
+        (m.get("quality_highlights", {}) for m in modules if m.get("id") == "document_chunk_diagnostics"),
+        {},
+    )
     criteria_manifest = _safe_read_json(industry_dir / "industry_criteria_manifest.json")
     subordination = criteria_manifest.get("quality", {}).get("subordination", {}) if isinstance(criteria_manifest.get("quality"), dict) else {}
     document_chunks_total = int(document_quality.get("chunks", 0) or 0)
@@ -6735,6 +7265,19 @@ def build_industry_pipeline_index(
         "document_chunks_in_progress": document_chunks_in_progress,
         "document_chunks_blocked": document_chunks_blocked,
         "document_chunks_processed": document_chunks_processed,
+        "document_chunk_diagnostics_rows": document_diagnostics_quality.get("diagnostics_rows", 0),
+        "document_chunk_diagnostics_processed_chunks": document_diagnostics_quality.get("processed_chunks", 0),
+        "document_chunk_diagnostics_total_chunks": document_diagnostics_quality.get("total_chunks", 0),
+        "document_chunk_diagnostics_pending_chunks": document_diagnostics_quality.get("pending_chunks", 0),
+        "document_chunk_diagnostics_docs_with_text": document_diagnostics_quality.get("docs_with_text", 0),
+        "document_chunk_diagnostics_pdf_docs": document_diagnostics_quality.get("pdf_docs", 0),
+        "document_chunk_diagnostics_pdf_text_ready_docs": document_diagnostics_quality.get("pdf_text_ready_docs", 0),
+        "document_chunk_diagnostics_pdf_needs_ocr_docs": document_diagnostics_quality.get("pdf_needs_ocr_docs", 0),
+        "document_chunk_diagnostics_json_ready_docs": document_diagnostics_quality.get("json_ready_docs", 0),
+        "document_chunk_diagnostics_text_cache_ready_docs": document_diagnostics_quality.get("text_cache_ready_docs", 0),
+        "document_chunk_diagnostics_error_docs": document_diagnostics_quality.get("error_docs", 0),
+        "document_chunk_diagnostics_missing_docs": document_diagnostics_quality.get("missing_docs", 0),
+        "document_chunk_diagnostics_latest_chunk_id": document_diagnostics_quality.get("latest_chunk_id", ""),
         "cedentes_structured_rows": cedente_quality.get("structured_rows", 0),
         "criteria_structured_rows": criteria_quality.get("structured_rows", 0),
         "subordination_funds": criteria_quality.get("subordination_funds", 0),

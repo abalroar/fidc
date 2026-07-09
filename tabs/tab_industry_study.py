@@ -121,6 +121,9 @@ _DOCUMENT_INVENTORY_PATH = _DATA_DIR / "document_inventory.csv.gz"
 _DOCUMENT_CHUNKS_PATH = _DATA_DIR / "document_processing_chunks.csv"
 _DOCUMENT_CHUNK_PLAN_PATH = _DATA_DIR / "document_chunk_plan.csv"
 _DOCUMENT_MANIFEST_PATH = _DATA_DIR / "industry_document_manifest.json"
+_DOCUMENT_CHUNK_DIAGNOSTICS_PATH = _DATA_DIR / "document_chunk_diagnostics.csv.gz"
+_DOCUMENT_CHUNK_RUN_SUMMARY_PATH = _DATA_DIR / "document_chunk_run_summary.csv"
+_DOCUMENT_CHUNK_DIAGNOSTICS_MANIFEST_PATH = _DATA_DIR / "industry_document_chunk_diagnostics_manifest.json"
 _DOCUMENT_CHUNK_ACTIONS_PATH = _DATA_DIR / "document_chunk_actions.csv"
 _DOCUMENT_CHUNK_ACTION_AUDIT_PATH = _DATA_DIR / "document_chunk_action_audit.csv"
 _CRITERIA_REVIEW_PATH = _DATA_DIR / "criteria_reviews.csv"
@@ -5060,7 +5063,10 @@ def _load_document_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     return {
         "inventory": load_dataframe(_DOCUMENT_INVENTORY_PATH),
         "chunks": load_dataframe(_DOCUMENT_CHUNKS_PATH),
+        "diagnostics": load_dataframe(_DOCUMENT_CHUNK_DIAGNOSTICS_PATH),
+        "diagnostic_summary": load_dataframe(_DOCUMENT_CHUNK_RUN_SUMMARY_PATH),
         "manifest": load_pipeline_manifest(_DOCUMENT_MANIFEST_PATH),
+        "diagnostic_manifest": load_pipeline_manifest(_DOCUMENT_CHUNK_DIAGNOSTICS_MANIFEST_PATH),
     }
 
 
@@ -5155,6 +5161,124 @@ def _format_document_chunk_plan(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def _format_document_chunk_run_summary(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    columns = [
+        "chunk_id",
+        "diagnosed_at_utc",
+        "documents",
+        "local_ready_docs",
+        "docs_with_text",
+        "pdf_docs",
+        "pdf_text_ready_docs",
+        "pdf_needs_ocr_docs",
+        "json_ready_docs",
+        "text_cache_ready_docs",
+        "error_docs",
+        "missing_docs",
+        "avg_confidence",
+        "status_mix",
+        "source_methods",
+        "sample_documents",
+        "chunk_status",
+        "status_lote",
+        "rerun_command",
+    ]
+    out = frame[[col for col in columns if col in frame.columns]].copy()
+    out = out.rename(
+        columns={
+            "chunk_id": "Chunk",
+            "diagnosed_at_utc": "Diagnosticado",
+            "documents": "Docs",
+            "local_ready_docs": "Locais",
+            "docs_with_text": "Com texto",
+            "pdf_docs": "PDFs",
+            "pdf_text_ready_docs": "PDF texto",
+            "pdf_needs_ocr_docs": "PDF OCR",
+            "json_ready_docs": "JSON ok",
+            "text_cache_ready_docs": "Cache texto",
+            "error_docs": "Erros",
+            "missing_docs": "Ausentes",
+            "avg_confidence": "Conf. média",
+            "status_mix": "Status diag.",
+            "source_methods": "Métodos",
+            "sample_documents": "Amostra docs",
+            "chunk_status": "Status chunk",
+            "status_lote": "Acomp.",
+            "rerun_command": "Comando",
+        }
+    )
+    for col in ["Docs", "Locais", "Com texto", "PDFs", "PDF texto", "PDF OCR", "JSON ok", "Cache texto", "Erros", "Ausentes"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    if "Conf. média" in out.columns:
+        out["Conf. média"] = pd.to_numeric(out["Conf. média"], errors="coerce").map(
+            lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
+        )
+    return out
+
+
+def _format_document_chunk_diagnostics(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    columns = [
+        "chunk_id",
+        "cnpj_fundo",
+        "fundo",
+        "documento_origem",
+        "document_class",
+        "content_kind",
+        "diagnostic_status",
+        "extraction_method",
+        "confidence_score",
+        "page_count",
+        "pages_sampled",
+        "text_chars",
+        "local_exists",
+        "bytes",
+        "sample_text",
+        "error_message",
+        "local_path",
+        "diagnosed_at_utc",
+    ]
+    out = frame[[col for col in columns if col in frame.columns]].copy()
+    out = out.rename(
+        columns={
+            "chunk_id": "Chunk",
+            "cnpj_fundo": "CNPJ",
+            "fundo": "Fundo",
+            "documento_origem": "Documento",
+            "document_class": "Classe",
+            "content_kind": "Tipo",
+            "diagnostic_status": "Status diag.",
+            "extraction_method": "Método",
+            "confidence_score": "Confiança",
+            "page_count": "Páginas",
+            "pages_sampled": "Amostra págs.",
+            "text_chars": "Chars texto",
+            "local_exists": "Local",
+            "bytes": "Tamanho",
+            "sample_text": "Amostra texto",
+            "error_message": "Erro",
+            "local_path": "Caminho",
+            "diagnosed_at_utc": "Diagnosticado",
+        }
+    )
+    for col in ["Páginas", "Amostra págs.", "Chars texto"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    if "Confiança" in out.columns:
+        out["Confiança"] = pd.to_numeric(out["Confiança"], errors="coerce").map(
+            lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
+        )
+    if "Tamanho" in out.columns:
+        out["Tamanho"] = out["Tamanho"].map(_format_bytes)
+    for col in out.columns:
+        out[col] = out[col].fillna("").astype(str)
+    return out
+
+
 def _render_document_inventory() -> None:
     st.markdown('<div class="industry-section">Documentos, caches e chunks</div>', unsafe_allow_html=True)
     st.markdown(
@@ -5165,15 +5289,22 @@ def _render_document_inventory() -> None:
     tables = _load_document_tables()
     inventory = tables["inventory"]
     chunks = tables["chunks"]
+    diagnostics = tables["diagnostics"]
+    diagnostic_summary = tables["diagnostic_summary"]
     manifest = tables["manifest"]
+    diagnostic_manifest = tables["diagnostic_manifest"]
     assert isinstance(inventory, pd.DataFrame)
     assert isinstance(chunks, pd.DataFrame)
+    assert isinstance(diagnostics, pd.DataFrame)
+    assert isinstance(diagnostic_summary, pd.DataFrame)
     assert isinstance(manifest, dict)
+    assert isinstance(diagnostic_manifest, dict)
     if inventory.empty and chunks.empty:
         st.info("Inventário documental ainda não gerado. Rode `python scripts/build_fidc_industry_documents.py`.")
         return
 
     quality = manifest.get("quality", {}) if isinstance(manifest, dict) else {}
+    diagnostic_quality = diagnostic_manifest.get("quality", {}) if isinstance(diagnostic_manifest, dict) else {}
     coverage = quality.get("coverage", {}) if isinstance(quality, dict) else {}
     doc_rows = int(quality.get("document_rows", len(inventory))) if isinstance(quality, dict) else len(inventory)
     funds = int(quality.get("funds", inventory["cnpj_fundo"].nunique() if "cnpj_fundo" in inventory else 0)) if isinstance(quality, dict) else 0
@@ -5181,17 +5312,20 @@ def _render_document_inventory() -> None:
     priority_docs = int(quality.get("priority_2025_2026_docs", 0)) if isinstance(quality, dict) else 0
     chunk_count = int(quality.get("chunks", len(chunks))) if isinstance(quality, dict) else len(chunks)
     max_docs = int(quality.get("max_documents_per_chunk", 0)) if isinstance(quality, dict) else 0
+    diagnosed_chunks = int(diagnostic_quality.get("processed_chunks", 0)) if isinstance(diagnostic_quality, dict) else 0
     cards = [
         _curation_card("Documentos", _fmt_int(float(doc_rows)), f"{_fmt_int(float(funds))} FIDCs"),
         _curation_card("Prioridade 2025-2026", _fmt_int(float(priority_docs)), "emissões recentes"),
         _curation_card("Local ready", _fmt_int(float(local_ready)), _fmt_pct(local_ready / doc_rows) if doc_rows else "n/d"),
         _curation_card("Chunks", _fmt_int(float(chunk_count)), f"até {_fmt_int(float(max_docs))} docs/chunk"),
+        _curation_card("Diag. chunks", _fmt_int(float(diagnosed_chunks)), f"{_fmt_int(float(len(diagnostics)))} docs"),
         _curation_card("CNPJ", _fmt_pct(float(coverage.get("cnpj_fundo", 0))) if isinstance(coverage, dict) else "n/d", "cobertura"),
-        _curation_card("Data doc.", _fmt_pct(float(coverage.get("document_date", 0))) if isinstance(coverage, dict) else "n/d", "cobertura"),
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    tab_cov, tab_chunks, tab_inventory, tab_manifest = st.tabs(["Cobertura", "Chunks", "Inventário", "Manifesto"])
+    tab_cov, tab_chunks, tab_diagnostics, tab_inventory, tab_manifest = st.tabs(
+        ["Cobertura", "Chunks", "Diagnóstico", "Inventário", "Manifesto"]
+    )
     with tab_cov:
         col_a, col_b = st.columns([1.0, 1.0])
         with col_a:
@@ -5463,6 +5597,102 @@ def _render_document_inventory() -> None:
                     }
                     cols = [col for col in rename if col in show.columns]
                     st.dataframe(show[cols].rename(columns=rename), hide_index=True, width="stretch")
+    with tab_diagnostics:
+        if diagnostics.empty:
+            st.info(
+                "Diagnóstico documental ainda não gerado. Rode "
+                "`python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001`."
+            )
+        else:
+            diag_rows = int(diagnostic_quality.get("diagnostics_rows", len(diagnostics))) if isinstance(diagnostic_quality, dict) else len(diagnostics)
+            diag_chunks = int(diagnostic_quality.get("processed_chunks", 0)) if isinstance(diagnostic_quality, dict) else 0
+            docs_with_text = int(diagnostic_quality.get("docs_with_text", 0)) if isinstance(diagnostic_quality, dict) else 0
+            pdf_needs_ocr = int(diagnostic_quality.get("pdf_needs_ocr_docs", 0)) if isinstance(diagnostic_quality, dict) else 0
+            diag_errors = int(diagnostic_quality.get("error_docs", 0)) if isinstance(diagnostic_quality, dict) else 0
+            diag_cards = [
+                _curation_card("Docs diag.", _fmt_int(float(diag_rows)), f"{_fmt_int(float(diag_chunks))} chunks"),
+                _curation_card("Com texto", _fmt_int(float(docs_with_text)), _fmt_pct(docs_with_text / diag_rows) if diag_rows else "n/d"),
+                _curation_card("PDF OCR", _fmt_int(float(pdf_needs_ocr)), "sem texto extraível"),
+                _curation_card("Erros", _fmt_int(float(diag_errors)), "leitura/probe"),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(diag_cards)}</div>', unsafe_allow_html=True)
+            if not diagnostic_summary.empty:
+                st.markdown("**Resumo por chunk**")
+                st.dataframe(
+                    _format_document_chunk_run_summary(diagnostic_summary),
+                    hide_index=True,
+                    width="stretch",
+                    height=260,
+                )
+            diag_frame = diagnostics.copy()
+            ctrl_a, ctrl_b, ctrl_c, ctrl_d = st.columns([0.9, 1.0, 1.0, 1.3])
+            with ctrl_a:
+                diag_chunk_values = ["Todos"] + sorted(
+                    [value for value in diag_frame.get("chunk_id", pd.Series(dtype=str)).fillna("").astype(str).unique() if value]
+                )
+                selected_diag_chunk = st.selectbox("Chunk", diag_chunk_values, key="industry_document_diag_chunk")
+            with ctrl_b:
+                diag_status_values = sorted(
+                    [value for value in diag_frame.get("diagnostic_status", pd.Series(dtype=str)).fillna("").astype(str).unique() if value]
+                )
+                selected_diag_status = st.multiselect(
+                    "Status diagnóstico",
+                    diag_status_values,
+                    default=diag_status_values,
+                    key="industry_document_diag_status",
+                )
+            with ctrl_c:
+                diag_kind_values = sorted(
+                    [value for value in diag_frame.get("content_kind", pd.Series(dtype=str)).fillna("").astype(str).unique() if value]
+                )
+                selected_diag_kinds = st.multiselect(
+                    "Tipo",
+                    diag_kind_values,
+                    default=diag_kind_values,
+                    key="industry_document_diag_kind",
+                )
+            with ctrl_d:
+                diag_query = st.text_input(
+                    "Buscar diagnóstico",
+                    key="industry_document_diag_query",
+                    placeholder="FIDC, CNPJ, documento, erro ou texto",
+                )
+            if selected_diag_chunk != "Todos" and "chunk_id" in diag_frame.columns:
+                diag_frame = diag_frame[diag_frame["chunk_id"].fillna("").astype(str).eq(selected_diag_chunk)].copy()
+            if selected_diag_status and "diagnostic_status" in diag_frame.columns:
+                diag_frame = diag_frame[diag_frame["diagnostic_status"].fillna("").astype(str).isin(selected_diag_status)].copy()
+            if selected_diag_kinds and "content_kind" in diag_frame.columns:
+                diag_frame = diag_frame[diag_frame["content_kind"].fillna("").astype(str).isin(selected_diag_kinds)].copy()
+            if diag_query:
+                search_cols = [
+                    col
+                    for col in [
+                        "chunk_id",
+                        "cnpj_fundo",
+                        "fundo",
+                        "documento_origem",
+                        "diagnostic_status",
+                        "sample_text",
+                        "error_message",
+                        "local_path",
+                    ]
+                    if col in diag_frame.columns
+                ]
+                search = diag_frame[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=diag_frame.index)
+                diag_frame = diag_frame[search.str.contains(diag_query, case=False, na=False)].copy()
+            st.dataframe(
+                _format_document_chunk_diagnostics(diag_frame.head(500)),
+                hide_index=True,
+                width="stretch",
+                height=520,
+            )
+            st.download_button(
+                "Baixar diagnóstico filtrado",
+                data=diag_frame.to_csv(index=False).encode("utf-8"),
+                file_name="industry_document_chunk_diagnostics.csv",
+                mime="text/csv",
+                key="industry_document_diag_download",
+            )
     with tab_inventory:
         frame = inventory.copy()
         ctrl_a, ctrl_b, ctrl_c, ctrl_d = st.columns([1.2, 0.9, 0.9, 0.7])
@@ -5538,13 +5768,24 @@ def _render_document_inventory() -> None:
         st.dataframe(show, hide_index=True, width="stretch")
     with tab_manifest:
         if manifest:
+            selected_manifest = st.selectbox(
+                "Manifesto",
+                ["Inventário documental", "Diagnóstico por chunk"],
+                key="industry_document_manifest_select",
+            )
+            manifest_payload = diagnostic_manifest if selected_manifest == "Diagnóstico por chunk" else manifest
+            manifest_name = (
+                "industry_document_chunk_diagnostics_manifest.json"
+                if selected_manifest == "Diagnóstico por chunk"
+                else "industry_document_manifest.json"
+            )
             st.download_button(
                 "Baixar manifesto",
-                data=json.dumps(manifest, ensure_ascii=False, indent=2),
-                file_name="industry_document_manifest.json",
+                data=json.dumps(manifest_payload, ensure_ascii=False, indent=2),
+                file_name=manifest_name,
                 mime="application/json",
             )
-            st.json(manifest)
+            st.json(manifest_payload)
         else:
             st.caption("Manifesto documental não encontrado.")
 

@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-index/v1",
-  "generated_at_utc": "2026-07-09T16:31:26+00:00",
+  "generated_at_utc": "2026-07-09T18:51:06+00:00",
   "pipeline": "industry_monthly_refresh",
   "industry_dir": "data/industry_study",
   "output_path": "data/industry_study/industry_pipeline_index.json",
@@ -16,20 +16,20 @@
     ]
   },
   "quality_rollup": {
-    "modules_total": 17,
+    "modules_total": 18,
     "module_status_counts": {
-      "ok": 17
+      "ok": 18
     },
-    "artifacts_total": 62,
-    "artifacts_present": 62,
+    "artifacts_total": 65,
+    "artifacts_present": 65,
     "artifacts_missing": 0,
-    "optional_artifacts_total": 62,
-    "optional_artifacts_present": 62,
+    "optional_artifacts_total": 64,
+    "optional_artifacts_present": 64,
     "optional_artifacts_missing": 0,
     "manual_review_artifacts_total": 12,
     "manual_review_artifacts_present": 12,
     "manual_review_artifacts_missing": 0,
-    "latest_module_generated_at_utc": "2026-07-09T16:12:48+00:00",
+    "latest_module_generated_at_utc": "2026-07-09T18:51:00+00:00",
     "competencia_final": "202606",
     "competencia_snapshot": "202605",
     "monthly_delta_rows": 4279,
@@ -77,6 +77,19 @@
     "document_chunks_in_progress": 0,
     "document_chunks_blocked": 0,
     "document_chunks_processed": 0,
+    "document_chunk_diagnostics_rows": 116,
+    "document_chunk_diagnostics_processed_chunks": 1,
+    "document_chunk_diagnostics_total_chunks": 27,
+    "document_chunk_diagnostics_pending_chunks": 26,
+    "document_chunk_diagnostics_docs_with_text": 116,
+    "document_chunk_diagnostics_pdf_docs": 100,
+    "document_chunk_diagnostics_pdf_text_ready_docs": 100,
+    "document_chunk_diagnostics_pdf_needs_ocr_docs": 0,
+    "document_chunk_diagnostics_json_ready_docs": 0,
+    "document_chunk_diagnostics_text_cache_ready_docs": 16,
+    "document_chunk_diagnostics_error_docs": 0,
+    "document_chunk_diagnostics_missing_docs": 0,
+    "document_chunk_diagnostics_latest_chunk_id": "doc-0001",
     "cedentes_structured_rows": 1487,
     "criteria_structured_rows": 4569,
     "subordination_funds": 21,
@@ -150,27 +163,27 @@
       "atenção": 3,
       "ok": 9
     },
-    "monthly_update_plan_rows": 19,
+    "monthly_update_plan_rows": 20,
     "monthly_update_plan_status_counts": {
       "ok": 6,
       "bloqueado": 6,
-      "atenção": 7
+      "atenção": 8
     },
-    "publication_gate_rows": 22,
+    "publication_gate_rows": 23,
     "publication_gate_status": "bloqueado",
     "publication_gate_status_counts": {
       "bloqueado": 9,
-      "atenção": 13
+      "atenção": 14
     },
     "publication_gate_blocking_rows": 9,
     "publication_gate_disclosure_rows": 3,
-    "monthly_closeout_plan_rows": 174,
+    "monthly_closeout_plan_rows": 175,
     "monthly_closeout_status_counts": {
       "bloqueado": 128,
-      "atenção": 46
+      "atenção": 47
     },
     "monthly_closeout_package_counts": {
-      "portão": 21,
+      "portão": 22,
       "fila única": 10,
       "onboarding": 71,
       "segment_backlog": 14,
@@ -223,10 +236,10 @@
       "escopo": "Execução incremental de OCR, parsing e extração por chunk",
       "status_prontidao": "atenção",
       "pendencias": 27,
-      "amostra": "0/27 processados; 0 sem acompanhamento; 27 pendentes; 0 em andamento; 0 bloqueados",
-      "acao_sugerida": "Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.",
-      "fonte": "document_chunk_actions.csv",
-      "comando": "python scripts/build_fidc_industry_document_chunk_plan.py && python scripts/build_fidc_industry_documents.py --chunk-id doc-0001"
+      "amostra": "0/27 processados; 0 sem acompanhamento; 27 pendentes; 0 em andamento; 0 bloqueados; diagnóstico 1/27 chunks, 116 docs, 0 PDFs para OCR, 0 erros",
+      "acao_sugerida": "Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.",
+      "fonte": "document_chunk_actions.csv | document_chunk_diagnostics.csv.gz",
+      "comando": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py"
     },
     {
       "check_id": "structured_coverage",
@@ -284,11 +297,11 @@
       "tema": "Documentos",
       "requisito": "Descoberta/documentos em chunks pequenos para processamento incremental",
       "status_prd": "atenção",
-      "evidencia": "27 chunks; 27 abertos; 250 docs/chunk máx.",
-      "metrica": "document_chunks=27",
-      "artefato": "document_chunk_plan.csv",
-      "proximo_passo": "Fechar ou justificar chunks abertos antes de depender da extração documental.",
-      "comando": "python scripts/build_fidc_industry_documents.py && python scripts/build_fidc_industry_document_chunk_plan.py"
+      "evidencia": "27 chunks; 27 abertos; 250 docs/chunk máx.; diagnóstico 1 chunks/116 docs; 0 PDFs para OCR",
+      "metrica": "document_chunks=27; diagnostics_chunks=1",
+      "artefato": "document_chunk_plan.csv | document_chunk_diagnostics.csv.gz",
+      "proximo_passo": "Rodar diagnóstico por chunk e fechar/justificar chunks abertos antes de depender da extração documental.",
+      "comando": "python scripts/build_fidc_industry_documents.py && python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py"
     },
     {
       "requirement_id": "incremental_monthly_update",
@@ -320,8 +333,8 @@
       "tema": "Arquitetura",
       "requisito": "Pipeline modular com etapas reexecutáveis e artefatos persistidos",
       "status_prd": "ok",
-      "evidencia": "17/17 módulos ok; 62/62 artefatos obrigatórios presentes",
-      "metrica": "refresh_plan=19",
+      "evidencia": "18/18 módulos ok; 65/65 artefatos obrigatórios presentes",
+      "metrica": "refresh_plan=20",
       "artefato": "industry_pipeline_index.json",
       "proximo_passo": "Rodar módulos não-ok ou gerar artefatos obrigatórios ausentes.",
       "comando": "python scripts/build_fidc_industry_pipeline_index.py"
@@ -496,7 +509,7 @@
       "competencia_referencia": "202605",
       "status_modulo": "ok",
       "status_prontidao": "bloqueado",
-      "bloqueios_ou_atencoes": "Delta mensal: 71 (Fechar ou justificar as ações do delta mensal de maior prioridade.) | Curadoria: 3581 (Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.) | Documentos: 27 (Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.) | Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
+      "bloqueios_ou_atencoes": "Delta mensal: 71 (Fechar ou justificar as ações do delta mensal de maior prioridade.) | Curadoria: 3581 (Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.) | Documentos: 27 (Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.) | Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
       "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "comando": "python scripts/build_fidc_industry_incremental_onboarding.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -559,7 +572,7 @@
       "competencia_referencia": "202605",
       "status_modulo": "ok",
       "status_prontidao": "atenção",
-      "bloqueios_ou_atencoes": "Documentos: 27 (Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.)",
+      "bloqueios_ou_atencoes": "Documentos: 27 (Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.)",
       "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "comando": "python scripts/build_fidc_industry_documents.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -572,15 +585,36 @@
       "incrementalidade": "Use --chunk-id doc-0001 para rodar ou depurar lotes sem reprocessar a indústria toda."
     },
     {
-      "plan_id": "08_document_chunk_plan",
+      "plan_id": "08_document_chunk_diagnostics",
       "order": 8,
+      "fase": "Documentos e ofertas",
+      "module_id": "document_chunk_diagnostics",
+      "etapa": "Diagnosticar extraibilidade do próximo chunk",
+      "competencia_referencia": "202605",
+      "status_modulo": "ok",
+      "status_prontidao": "atenção",
+      "bloqueios_ou_atencoes": "Documentos: 27 (Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.)",
+      "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
+      "comando": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001",
+      "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
+      "entradas": "inventário documental | plano operacional de chunks",
+      "saidas": "document_chunk_diagnostics | document_chunk_run_summary | manifest",
+      "evidencia_atual": "diagnostics_rows=116 · processed_chunks=1 · total_chunks=27 · pending_chunks=26 · docs_with_text=116 · pdf_docs=100",
+      "artefatos": "5/5",
+      "gerado_em_utc": "2026-07-09T18:51:00+00:00",
+      "motivo": "Separa documentos com texto/JSON extraível de PDFs que exigem OCR antes da extração estruturada.",
+      "incrementalidade": "Processa um chunk por execução e acumula o histórico em document_chunk_diagnostics.csv.gz."
+    },
+    {
+      "plan_id": "09_document_chunk_plan",
+      "order": 9,
       "fase": "Documentos e ofertas",
       "module_id": "document_chunk_plan",
       "etapa": "Atualizar plano operacional de chunks",
       "competencia_referencia": "202605",
       "status_modulo": "ok",
       "status_prontidao": "atenção",
-      "bloqueios_ou_atencoes": "Documentos: 27 (Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.)",
+      "bloqueios_ou_atencoes": "Documentos: 27 (Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.)",
       "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "comando": "python scripts/build_fidc_industry_document_chunk_plan.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -593,8 +627,8 @@
       "incrementalidade": "Rerun leve quando o usuário muda status/responsável/prazo na aba Documentos > Chunks."
     },
     {
-      "plan_id": "09_cedentes",
-      "order": 9,
+      "plan_id": "10_cedentes",
+      "order": 10,
       "fase": "Estruturação",
       "module_id": "cedentes",
       "etapa": "Regerar base de cedentes/sacados",
@@ -614,8 +648,8 @@
       "incrementalidade": "A curadoria continua sendo feita pela UI e reaplicada pelo overlay persistido."
     },
     {
-      "plan_id": "10_criteria",
-      "order": 10,
+      "plan_id": "11_criteria",
+      "order": 11,
       "fase": "Estruturação",
       "module_id": "criteria",
       "etapa": "Regerar critérios e subordinação mínima",
@@ -635,8 +669,8 @@
       "incrementalidade": "Revisões feitas pela UI são reaplicadas antes da consolidação."
     },
     {
-      "plan_id": "11_fund_snapshot",
-      "order": 11,
+      "plan_id": "12_fund_snapshot",
+      "order": 12,
       "fase": "Estruturação",
       "module_id": "fund_snapshot",
       "etapa": "Regerar snapshot unificado por FIDC",
@@ -656,8 +690,8 @@
       "incrementalidade": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem."
     },
     {
-      "plan_id": "12_dimension_catalog",
-      "order": 12,
+      "plan_id": "13_dimension_catalog",
+      "order": 13,
       "fase": "Estruturação",
       "module_id": "dimension_catalog",
       "etapa": "Regerar catálogo de dimensões",
@@ -677,8 +711,8 @@
       "incrementalidade": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos."
     },
     {
-      "plan_id": "13_dimension_traceability",
-      "order": 13,
+      "plan_id": "14_dimension_traceability",
+      "order": 14,
       "fase": "Estruturação",
       "module_id": "dimension_traceability",
       "etapa": "Regerar matriz de rastreabilidade",
@@ -698,8 +732,8 @@
       "incrementalidade": "Lê apenas o catálogo de dimensões; ajuda a priorizar lacunas antes de uso público."
     },
     {
-      "plan_id": "14_curation_queue",
-      "order": 14,
+      "plan_id": "15_curation_queue",
+      "order": 15,
       "fase": "Estruturação",
       "module_id": "curation_queue",
       "etapa": "Consolidar fila única de curadoria",
@@ -719,8 +753,8 @@
       "incrementalidade": "Rerun leve depois de salvar ações manuais na UI ou de regenerar qualquer fila detalhe."
     },
     {
-      "plan_id": "15_dimension_profiles",
-      "order": 15,
+      "plan_id": "16_dimension_profiles",
+      "order": 16,
       "fase": "Agregações reutilizáveis",
       "module_id": "dimension_profiles",
       "etapa": "Regerar perfis cruzados por dimensão",
@@ -740,8 +774,8 @@
       "incrementalidade": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado."
     },
     {
-      "plan_id": "16_dimension_monthly",
-      "order": 16,
+      "plan_id": "17_dimension_monthly",
+      "order": 17,
       "fase": "Agregações reutilizáveis",
       "module_id": "dimension_monthly",
       "etapa": "Regerar séries mensais por dimensão",
@@ -761,8 +795,8 @@
       "incrementalidade": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação."
     },
     {
-      "plan_id": "17_dimension_dossiers",
-      "order": 17,
+      "plan_id": "18_dimension_dossiers",
+      "order": 18,
       "fase": "Agregações reutilizáveis",
       "module_id": "dimension_dossiers",
       "etapa": "Regerar dossiês dimensionais",
@@ -782,8 +816,8 @@
       "incrementalidade": "Lê apenas atlas, perfis e registry já materializados; não reprocessa documentos ou informe mensal."
     },
     {
-      "plan_id": "18_market_share",
-      "order": 18,
+      "plan_id": "19_market_share",
+      "order": 19,
       "fase": "Agregações reutilizáveis",
       "module_id": "market_share",
       "etapa": "Regerar market share e concentração",
@@ -803,8 +837,8 @@
       "incrementalidade": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe."
     },
     {
-      "plan_id": "19_pipeline_index",
-      "order": 19,
+      "plan_id": "20_pipeline_index",
+      "order": 20,
       "fase": "Controle",
       "module_id": "pipeline_index",
       "etapa": "Atualizar cockpit do pipeline",
@@ -817,9 +851,9 @@
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "",
       "saidas": "industry_pipeline_index | industry_monthly_update_plan | industry_monthly_readiness | industry_publication_gate | industry_monthly_closeout_plan",
-      "evidencia_atual": "prd_requirements_total=12 · artifacts_present=62 · artifacts_total=62",
-      "artefatos": "62/62",
-      "gerado_em_utc": "2026-07-09T16:12:48+00:00",
+      "evidencia_atual": "prd_requirements_total=12 · artifacts_present=65 · artifacts_total=65",
+      "artefatos": "65/65",
+      "gerado_em_utc": "2026-07-09T18:51:00+00:00",
       "motivo": "Recalcula hashes, freshness, status dos módulos e checklist mensal visível na aba Pipeline.",
       "incrementalidade": "Não reprocessa dados; apenas lê manifests e arquivos já materializados."
     }
@@ -834,8 +868,8 @@
       "decisao_publicacao": "não publicar antes de fechar",
       "bloqueia_publicacao": true,
       "exige_nota_publica": true,
-      "pendencias": 7815,
-      "evidencia": "readiness 2 bloqueado/2 atenção; PRD 0 bloqueado/3 atenção; plano 6 bloqueado/7 atenção; notas públicas 16",
+      "pendencias": 7816,
+      "evidencia": "readiness 2 bloqueado/2 atenção; PRD 0 bloqueado/3 atenção; plano 6 bloqueado/8 atenção; notas públicas 16",
       "acao_sugerida": "Fechar todos os sinais bloqueados e registrar ressalvas metodológicas antes de apresentação externa.",
       "fonte": "industry_pipeline_index.json",
       "comando": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -883,10 +917,10 @@
       "bloqueia_publicacao": false,
       "exige_nota_publica": false,
       "pendencias": 27,
-      "evidencia": "0/27 processados; 0 sem acompanhamento; 27 pendentes; 0 em andamento; 0 bloqueados",
-      "acao_sugerida": "Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.",
-      "fonte": "document_chunk_actions.csv",
-      "comando": "python scripts/build_fidc_industry_document_chunk_plan.py && python scripts/build_fidc_industry_documents.py --chunk-id doc-0001",
+      "evidencia": "0/27 processados; 0 sem acompanhamento; 27 pendentes; 0 em andamento; 0 bloqueados; diagnóstico 1/27 chunks, 116 docs, 0 PDFs para OCR, 0 erros",
+      "acao_sugerida": "Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.",
+      "fonte": "document_chunk_actions.csv | document_chunk_diagnostics.csv.gz",
+      "comando": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py",
       "competencia_referencia": "202605"
     },
     {
@@ -915,10 +949,10 @@
       "bloqueia_publicacao": false,
       "exige_nota_publica": false,
       "pendencias": 1,
-      "evidencia": "27 chunks; 27 abertos; 250 docs/chunk máx.",
-      "acao_sugerida": "Fechar ou justificar chunks abertos antes de depender da extração documental.",
-      "fonte": "document_chunk_plan.csv",
-      "comando": "python scripts/build_fidc_industry_documents.py && python scripts/build_fidc_industry_document_chunk_plan.py",
+      "evidencia": "27 chunks; 27 abertos; 250 docs/chunk máx.; diagnóstico 1 chunks/116 docs; 0 PDFs para OCR",
+      "acao_sugerida": "Rodar diagnóstico por chunk e fechar/justificar chunks abertos antes de depender da extração documental.",
+      "fonte": "document_chunk_plan.csv | document_chunk_diagnostics.csv.gz",
+      "comando": "python scripts/build_fidc_industry_documents.py && python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py",
       "competencia_referencia": "202605"
     },
     {
@@ -995,7 +1029,7 @@
       "bloqueia_publicacao": true,
       "exige_nota_publica": false,
       "pendencias": 1,
-      "evidencia": "Delta mensal: 71 (Fechar ou justificar as ações do delta mensal de maior prioridade.) | Curadoria: 3581 (Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.) | Documentos: 27 (Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.) | Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
+      "evidencia": "Delta mensal: 71 (Fechar ou justificar as ações do delta mensal de maior prioridade.) | Curadoria: 3581 (Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.) | Documentos: 27 (Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.) | Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
       "acao_sugerida": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "fonte": "incremental_onboarding | manifest",
       "comando": "python scripts/build_fidc_industry_incremental_onboarding.py",
@@ -1011,15 +1045,31 @@
       "bloqueia_publicacao": false,
       "exige_nota_publica": false,
       "pendencias": 1,
-      "evidencia": "Documentos: 27 (Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.)",
+      "evidencia": "Documentos: 27 (Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.)",
       "acao_sugerida": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "fonte": "document_inventory | document_processing_chunks | manifest | document_chunk_plan",
       "comando": "python scripts/build_fidc_industry_documents.py",
       "competencia_referencia": "202605"
     },
     {
-      "gate_id": "plan_document_chunk_plan_203",
+      "gate_id": "plan_document_chunk_diagnostics_203",
       "ordem": 203,
+      "tipo_sinal": "plano mensal",
+      "frente": "Diagnosticar extraibilidade do próximo chunk",
+      "status_gate": "atenção",
+      "decisao_publicacao": "publicar apenas com ressalva explícita",
+      "bloqueia_publicacao": false,
+      "exige_nota_publica": false,
+      "pendencias": 1,
+      "evidencia": "Documentos: 27 (Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.)",
+      "acao_sugerida": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
+      "fonte": "document_chunk_diagnostics | document_chunk_run_summary | manifest",
+      "comando": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001",
+      "competencia_referencia": "202605"
+    },
+    {
+      "gate_id": "plan_document_chunk_plan_204",
+      "ordem": 204,
       "tipo_sinal": "plano mensal",
       "frente": "Atualizar plano operacional de chunks",
       "status_gate": "atenção",
@@ -1027,15 +1077,15 @@
       "bloqueia_publicacao": false,
       "exige_nota_publica": false,
       "pendencias": 1,
-      "evidencia": "Documentos: 27 (Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.)",
+      "evidencia": "Documentos: 27 (Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.)",
       "acao_sugerida": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "fonte": "document_inventory | document_processing_chunks | manifest | document_chunk_plan",
       "comando": "python scripts/build_fidc_industry_document_chunk_plan.py",
       "competencia_referencia": "202605"
     },
     {
-      "gate_id": "plan_cedentes_204",
-      "ordem": 204,
+      "gate_id": "plan_cedentes_205",
+      "ordem": 205,
       "tipo_sinal": "plano mensal",
       "frente": "Regerar base de cedentes/sacados",
       "status_gate": "bloqueado",
@@ -1050,8 +1100,8 @@
       "competencia_referencia": "202605"
     },
     {
-      "gate_id": "plan_criteria_205",
-      "ordem": 205,
+      "gate_id": "plan_criteria_206",
+      "ordem": 206,
       "tipo_sinal": "plano mensal",
       "frente": "Regerar critérios e subordinação mínima",
       "status_gate": "bloqueado",
@@ -1066,8 +1116,8 @@
       "competencia_referencia": "202605"
     },
     {
-      "gate_id": "plan_fund_snapshot_206",
-      "ordem": 206,
+      "gate_id": "plan_fund_snapshot_207",
+      "ordem": 207,
       "tipo_sinal": "plano mensal",
       "frente": "Regerar snapshot unificado por FIDC",
       "status_gate": "atenção",
@@ -1082,8 +1132,8 @@
       "competencia_referencia": "202605"
     },
     {
-      "gate_id": "plan_dimension_catalog_207",
-      "ordem": 207,
+      "gate_id": "plan_dimension_catalog_208",
+      "ordem": 208,
       "tipo_sinal": "plano mensal",
       "frente": "Regerar catálogo de dimensões",
       "status_gate": "bloqueado",
@@ -1098,8 +1148,8 @@
       "competencia_referencia": "202605"
     },
     {
-      "gate_id": "plan_curation_queue_208",
-      "ordem": 208,
+      "gate_id": "plan_curation_queue_209",
+      "ordem": 209,
       "tipo_sinal": "plano mensal",
       "frente": "Consolidar fila única de curadoria",
       "status_gate": "bloqueado",
@@ -1114,8 +1164,8 @@
       "competencia_referencia": "202605"
     },
     {
-      "gate_id": "plan_dimension_profiles_209",
-      "ordem": 209,
+      "gate_id": "plan_dimension_profiles_210",
+      "ordem": 210,
       "tipo_sinal": "plano mensal",
       "frente": "Regerar perfis cruzados por dimensão",
       "status_gate": "atenção",
@@ -1130,8 +1180,8 @@
       "competencia_referencia": "202605"
     },
     {
-      "gate_id": "plan_dimension_monthly_210",
-      "ordem": 210,
+      "gate_id": "plan_dimension_monthly_211",
+      "ordem": 211,
       "tipo_sinal": "plano mensal",
       "frente": "Regerar séries mensais por dimensão",
       "status_gate": "atenção",
@@ -1146,8 +1196,8 @@
       "competencia_referencia": "202605"
     },
     {
-      "gate_id": "plan_dimension_dossiers_211",
-      "ordem": 211,
+      "gate_id": "plan_dimension_dossiers_212",
+      "ordem": 212,
       "tipo_sinal": "plano mensal",
       "frente": "Regerar dossiês dimensionais",
       "status_gate": "atenção",
@@ -1162,8 +1212,8 @@
       "competencia_referencia": "202605"
     },
     {
-      "gate_id": "plan_market_share_212",
-      "ordem": 212,
+      "gate_id": "plan_market_share_213",
+      "ordem": 213,
       "tipo_sinal": "plano mensal",
       "frente": "Regerar market share e concentração",
       "status_gate": "atenção",
@@ -1252,7 +1302,7 @@
       "fundos": 0,
       "pl_referencia_brl": 0,
       "competencia_referencia": "202605",
-      "evidencia": "Delta mensal: 71 (Fechar ou justificar as ações do delta mensal de maior prioridade.) | Curadoria: 3581 (Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.) | Documentos: 27 (Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.) | Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
+      "evidencia": "Delta mensal: 71 (Fechar ou justificar as ações do delta mensal de maior prioridade.) | Curadoria: 3581 (Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.) | Documentos: 27 (Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.) | Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
       "acao_sugerida": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "incremental_onboarding | manifest",
@@ -1260,8 +1310,8 @@
       "record_ids_sample": "plan_incremental_onboarding_201"
     },
     {
-      "closeout_id": "gate_plan_cedentes_204",
-      "ordem": 22,
+      "closeout_id": "gate_plan_cedentes_205",
+      "ordem": 23,
       "pacote_tipo": "portão",
       "escopo": "Regerar base de cedentes/sacados",
       "prioridade": "alta",
@@ -1277,11 +1327,11 @@
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "cedentes_structured | manifest | review_audit",
       "rerun_command": "python scripts/build_fidc_industry_cedentes.py",
-      "record_ids_sample": "plan_cedentes_204"
+      "record_ids_sample": "plan_cedentes_205"
     },
     {
-      "closeout_id": "gate_plan_criteria_205",
-      "ordem": 23,
+      "closeout_id": "gate_plan_criteria_206",
+      "ordem": 24,
       "pacote_tipo": "portão",
       "escopo": "Regerar critérios e subordinação mínima",
       "prioridade": "alta",
@@ -1297,11 +1347,11 @@
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "criteria_structured | manifest | review_audit",
       "rerun_command": "python scripts/build_fidc_industry_criteria.py",
-      "record_ids_sample": "plan_criteria_205"
+      "record_ids_sample": "plan_criteria_206"
     },
     {
-      "closeout_id": "gate_plan_dimension_catalog_207",
-      "ordem": 25,
+      "closeout_id": "gate_plan_dimension_catalog_208",
+      "ordem": 26,
       "pacote_tipo": "portão",
       "escopo": "Regerar catálogo de dimensões",
       "prioridade": "alta",
@@ -1317,11 +1367,11 @@
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "dimension_catalog | manifest",
       "rerun_command": "python scripts/build_fidc_industry_dimensions.py",
-      "record_ids_sample": "plan_dimension_catalog_207"
+      "record_ids_sample": "plan_dimension_catalog_208"
     },
     {
-      "closeout_id": "gate_plan_curation_queue_208",
-      "ordem": 26,
+      "closeout_id": "gate_plan_curation_queue_209",
+      "ordem": 27,
       "pacote_tipo": "portão",
       "escopo": "Consolidar fila única de curadoria",
       "prioridade": "alta",
@@ -1337,7 +1387,7 @@
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "curation_queue | manifest | curation_queue_summary",
       "rerun_command": "python scripts/build_fidc_industry_curation_queue.py",
-      "record_ids_sample": "plan_curation_queue_208"
+      "record_ids_sample": "plan_curation_queue_209"
     },
     {
       "closeout_id": "queue_catalog_gap_completar_rastreabilidade_100",
@@ -4072,11 +4122,11 @@
       "fundos": 0,
       "pl_referencia_brl": 0,
       "competencia_referencia": "202605",
-      "evidencia": "0/27 processados; 0 sem acompanhamento; 27 pendentes; 0 em andamento; 0 bloqueados",
-      "acao_sugerida": "Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.",
+      "evidencia": "0/27 processados; 0 sem acompanhamento; 27 pendentes; 0 em andamento; 0 bloqueados; diagnóstico 1/27 chunks, 116 docs, 0 PDFs para OCR, 0 erros",
+      "acao_sugerida": "Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.",
       "ui_surface": "Pipeline > Portão",
-      "source_artifacts": "document_chunk_actions.csv",
-      "rerun_command": "python scripts/build_fidc_industry_document_chunk_plan.py && python scripts/build_fidc_industry_documents.py --chunk-id doc-0001",
+      "source_artifacts": "document_chunk_actions.csv | document_chunk_diagnostics.csv.gz",
+      "rerun_command": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py",
       "record_ids_sample": "readiness_document_chunk_processing"
     },
     {
@@ -4112,11 +4162,11 @@
       "fundos": 0,
       "pl_referencia_brl": 0,
       "competencia_referencia": "202605",
-      "evidencia": "27 chunks; 27 abertos; 250 docs/chunk máx.",
-      "acao_sugerida": "Fechar ou justificar chunks abertos antes de depender da extração documental.",
+      "evidencia": "27 chunks; 27 abertos; 250 docs/chunk máx.; diagnóstico 1 chunks/116 docs; 0 PDFs para OCR",
+      "acao_sugerida": "Rodar diagnóstico por chunk e fechar/justificar chunks abertos antes de depender da extração documental.",
       "ui_surface": "Pipeline > Portão",
-      "source_artifacts": "document_chunk_plan.csv",
-      "rerun_command": "python scripts/build_fidc_industry_documents.py && python scripts/build_fidc_industry_document_chunk_plan.py",
+      "source_artifacts": "document_chunk_plan.csv | document_chunk_diagnostics.csv.gz",
+      "rerun_command": "python scripts/build_fidc_industry_documents.py && python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py",
       "record_ids_sample": "prd_document_processing_chunks"
     },
     {
@@ -4192,7 +4242,7 @@
       "fundos": 0,
       "pl_referencia_brl": 0,
       "competencia_referencia": "202605",
-      "evidencia": "Documentos: 27 (Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.)",
+      "evidencia": "Documentos: 27 (Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.)",
       "acao_sugerida": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "document_inventory | document_processing_chunks | manifest | document_chunk_plan",
@@ -4200,8 +4250,28 @@
       "record_ids_sample": "plan_documents_202"
     },
     {
-      "closeout_id": "gate_plan_document_chunk_plan_203",
+      "closeout_id": "gate_plan_document_chunk_diagnostics_203",
       "ordem": 21,
+      "pacote_tipo": "portão",
+      "escopo": "Diagnosticar extraibilidade do próximo chunk",
+      "prioridade": "média",
+      "status_fechamento": "atenção",
+      "bloqueia_publicacao": false,
+      "exige_nota_publica": false,
+      "pendencias": 1,
+      "fundos": 0,
+      "pl_referencia_brl": 0,
+      "competencia_referencia": "202605",
+      "evidencia": "Documentos: 27 (Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.)",
+      "acao_sugerida": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
+      "ui_surface": "Pipeline > Portão",
+      "source_artifacts": "document_chunk_diagnostics | document_chunk_run_summary | manifest",
+      "rerun_command": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001",
+      "record_ids_sample": "plan_document_chunk_diagnostics_203"
+    },
+    {
+      "closeout_id": "gate_plan_document_chunk_plan_204",
+      "ordem": 22,
       "pacote_tipo": "portão",
       "escopo": "Atualizar plano operacional de chunks",
       "prioridade": "média",
@@ -4212,16 +4282,16 @@
       "fundos": 0,
       "pl_referencia_brl": 0,
       "competencia_referencia": "202605",
-      "evidencia": "Documentos: 27 (Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.)",
+      "evidencia": "Documentos: 27 (Rodar diagnóstico por chunk, acompanhar OCR/parsing e fechar status no editor Documentos > Chunks.)",
       "acao_sugerida": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "document_inventory | document_processing_chunks | manifest | document_chunk_plan",
       "rerun_command": "python scripts/build_fidc_industry_document_chunk_plan.py",
-      "record_ids_sample": "plan_document_chunk_plan_203"
+      "record_ids_sample": "plan_document_chunk_plan_204"
     },
     {
-      "closeout_id": "gate_plan_fund_snapshot_206",
-      "ordem": 24,
+      "closeout_id": "gate_plan_fund_snapshot_207",
+      "ordem": 25,
       "pacote_tipo": "portão",
       "escopo": "Regerar snapshot unificado por FIDC",
       "prioridade": "média",
@@ -4237,11 +4307,11 @@
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "fund_snapshot | manifest",
       "rerun_command": "python scripts/build_fidc_industry_fund_snapshot.py",
-      "record_ids_sample": "plan_fund_snapshot_206"
+      "record_ids_sample": "plan_fund_snapshot_207"
     },
     {
-      "closeout_id": "gate_plan_dimension_profiles_209",
-      "ordem": 27,
+      "closeout_id": "gate_plan_dimension_profiles_210",
+      "ordem": 28,
       "pacote_tipo": "portão",
       "escopo": "Regerar perfis cruzados por dimensão",
       "prioridade": "média",
@@ -4257,11 +4327,11 @@
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "dimension_profiles | manifest | heatmap_registry",
       "rerun_command": "python scripts/build_fidc_industry_dimension_profiles.py",
-      "record_ids_sample": "plan_dimension_profiles_209"
+      "record_ids_sample": "plan_dimension_profiles_210"
     },
     {
-      "closeout_id": "gate_plan_dimension_monthly_210",
-      "ordem": 28,
+      "closeout_id": "gate_plan_dimension_monthly_211",
+      "ordem": 29,
       "pacote_tipo": "portão",
       "escopo": "Regerar séries mensais por dimensão",
       "prioridade": "média",
@@ -4277,11 +4347,11 @@
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "dimension_monthly | manifest | dimension_value_atlas",
       "rerun_command": "python scripts/build_fidc_industry_dimension_monthly.py",
-      "record_ids_sample": "plan_dimension_monthly_210"
+      "record_ids_sample": "plan_dimension_monthly_211"
     },
     {
-      "closeout_id": "gate_plan_dimension_dossiers_211",
-      "ordem": 29,
+      "closeout_id": "gate_plan_dimension_dossiers_212",
+      "ordem": 30,
       "pacote_tipo": "portão",
       "escopo": "Regerar dossiês dimensionais",
       "prioridade": "média",
@@ -4297,11 +4367,11 @@
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "dimension_dossiers | manifest",
       "rerun_command": "python scripts/build_fidc_industry_dimension_dossiers.py",
-      "record_ids_sample": "plan_dimension_dossiers_211"
+      "record_ids_sample": "plan_dimension_dossiers_212"
     },
     {
-      "closeout_id": "gate_plan_market_share_212",
-      "ordem": 30,
+      "closeout_id": "gate_plan_market_share_213",
+      "ordem": 31,
       "pacote_tipo": "portão",
       "escopo": "Regerar market share e concentração",
       "prioridade": "média",
@@ -4317,7 +4387,7 @@
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "market_share | manifest",
       "rerun_command": "python scripts/build_fidc_industry_market_share.py",
-      "record_ids_sample": "plan_market_share_212"
+      "record_ids_sample": "plan_market_share_213"
     },
     {
       "closeout_id": "queue_catalog_gap_completar_rastreabilidade_104",
@@ -5088,6 +5158,42 @@
       }
     },
     {
+      "id": "document_chunk_diagnostics",
+      "label": "Diagnóstico documental por chunk",
+      "status": "ok",
+      "schema_version": "industry-document-chunk-diagnostics-manifest/v1",
+      "pipeline": "industry_document_chunk_diagnostics",
+      "generated_at_utc": "2026-07-09T18:51:00+00:00",
+      "manifest_path": "data/industry_study/industry_document_chunk_diagnostics_manifest.json",
+      "command": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001",
+      "cadence": "por chunk/antes de OCR e extração",
+      "depends_on": [
+        "inventário documental",
+        "plano operacional de chunks"
+      ],
+      "stage_status_counts": {
+        "ok": 3
+      },
+      "stage_count": 3,
+      "artifact_count": 5,
+      "artifacts_present": 5,
+      "quality_highlights": {
+        "diagnostics_rows": 116,
+        "processed_chunks": 1,
+        "total_chunks": 27,
+        "pending_chunks": 26,
+        "docs_with_text": 116,
+        "pdf_docs": 100,
+        "pdf_text_ready_docs": 100,
+        "pdf_needs_ocr_docs": 0,
+        "json_ready_docs": 0,
+        "text_cache_ready_docs": 16,
+        "error_docs": 0,
+        "missing_docs": 0,
+        "latest_chunk_id": "doc-0001"
+      }
+    },
+    {
       "id": "cedentes",
       "label": "Cedentes e sacados",
       "status": "ok",
@@ -5457,6 +5563,14 @@
     },
     {
       "order": 8,
+      "module_id": "document_chunk_diagnostics",
+      "label": "Diagnosticar extraibilidade do próximo chunk",
+      "command": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001",
+      "reason": "Separa documentos com texto/JSON extraível de PDFs que exigem OCR antes da extração estruturada.",
+      "incremental_note": "Processa um chunk por execução e acumula o histórico em document_chunk_diagnostics.csv.gz."
+    },
+    {
+      "order": 9,
       "module_id": "document_chunk_plan",
       "label": "Atualizar plano operacional de chunks",
       "command": "python scripts/build_fidc_industry_document_chunk_plan.py",
@@ -5464,7 +5578,7 @@
       "incremental_note": "Rerun leve quando o usuário muda status/responsável/prazo na aba Documentos > Chunks."
     },
     {
-      "order": 9,
+      "order": 10,
       "module_id": "cedentes",
       "label": "Regerar base de cedentes/sacados",
       "command": "python scripts/build_fidc_industry_cedentes.py",
@@ -5472,7 +5586,7 @@
       "incremental_note": "A curadoria continua sendo feita pela UI e reaplicada pelo overlay persistido."
     },
     {
-      "order": 10,
+      "order": 11,
       "module_id": "criteria",
       "label": "Regerar critérios e subordinação mínima",
       "command": "python scripts/build_fidc_industry_criteria.py",
@@ -5480,7 +5594,7 @@
       "incremental_note": "Revisões feitas pela UI são reaplicadas antes da consolidação."
     },
     {
-      "order": 11,
+      "order": 12,
       "module_id": "fund_snapshot",
       "label": "Regerar snapshot unificado por FIDC",
       "command": "python scripts/build_fidc_industry_fund_snapshot.py",
@@ -5488,7 +5602,7 @@
       "incremental_note": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem."
     },
     {
-      "order": 12,
+      "order": 13,
       "module_id": "dimension_catalog",
       "label": "Regerar catálogo de dimensões",
       "command": "python scripts/build_fidc_industry_dimensions.py",
@@ -5496,7 +5610,7 @@
       "incremental_note": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos."
     },
     {
-      "order": 13,
+      "order": 14,
       "module_id": "dimension_traceability",
       "label": "Regerar matriz de rastreabilidade",
       "command": "python scripts/build_fidc_industry_traceability.py",
@@ -5504,7 +5618,7 @@
       "incremental_note": "Lê apenas o catálogo de dimensões; ajuda a priorizar lacunas antes de uso público."
     },
     {
-      "order": 14,
+      "order": 15,
       "module_id": "curation_queue",
       "label": "Consolidar fila única de curadoria",
       "command": "python scripts/build_fidc_industry_curation_queue.py",
@@ -5512,7 +5626,7 @@
       "incremental_note": "Rerun leve depois de salvar ações manuais na UI ou de regenerar qualquer fila detalhe."
     },
     {
-      "order": 15,
+      "order": 16,
       "module_id": "dimension_profiles",
       "label": "Regerar perfis cruzados por dimensão",
       "command": "python scripts/build_fidc_industry_dimension_profiles.py",
@@ -5520,7 +5634,7 @@
       "incremental_note": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado."
     },
     {
-      "order": 16,
+      "order": 17,
       "module_id": "dimension_monthly",
       "label": "Regerar séries mensais por dimensão",
       "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -5528,7 +5642,7 @@
       "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação."
     },
     {
-      "order": 17,
+      "order": 18,
       "module_id": "dimension_dossiers",
       "label": "Regerar dossiês dimensionais",
       "command": "python scripts/build_fidc_industry_dimension_dossiers.py",
@@ -5536,7 +5650,7 @@
       "incremental_note": "Lê apenas atlas, perfis e registry já materializados; não reprocessa documentos ou informe mensal."
     },
     {
-      "order": 18,
+      "order": 19,
       "module_id": "market_share",
       "label": "Regerar market share e concentração",
       "command": "python scripts/build_fidc_industry_market_share.py",
@@ -5544,7 +5658,7 @@
       "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe."
     },
     {
-      "order": 19,
+      "order": 20,
       "module_id": "pipeline_index",
       "label": "Atualizar cockpit do pipeline",
       "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -6215,6 +6329,56 @@
       "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
     },
     {
+      "module_id": "document_chunk_diagnostics",
+      "group": "inputs",
+      "artifact": "document_inventory",
+      "required": false,
+      "path": "data/industry_study/document_inventory.csv.gz",
+      "exists": true,
+      "bytes": 338622,
+      "sha256": "88c2c79a10d2bbfbcdb91b0cb3cd56ee8425f199823dc20e74508b06b3be7f20"
+    },
+    {
+      "module_id": "document_chunk_diagnostics",
+      "group": "inputs",
+      "artifact": "document_chunk_plan",
+      "required": false,
+      "path": "data/industry_study/document_chunk_plan.csv",
+      "exists": true,
+      "bytes": 22110,
+      "sha256": "f7515ec3420aa4542d5e31592c504607499678de5f7f63756605096c732fe194"
+    },
+    {
+      "module_id": "document_chunk_diagnostics",
+      "group": "outputs",
+      "artifact": "document_chunk_diagnostics",
+      "required": true,
+      "path": "data/industry_study/document_chunk_diagnostics.csv.gz",
+      "exists": true,
+      "bytes": 47650,
+      "sha256": "84b860e3316ab11777e55d39361ac06e179879c02971b9484813a05d8440c5a0"
+    },
+    {
+      "module_id": "document_chunk_diagnostics",
+      "group": "outputs",
+      "artifact": "document_chunk_run_summary",
+      "required": true,
+      "path": "data/industry_study/document_chunk_run_summary.csv",
+      "exists": true,
+      "bytes": 721,
+      "sha256": "945796ec2287ce45968a14829b79817d10e47a42766edc5dfcf74e459b1d5855"
+    },
+    {
+      "module_id": "document_chunk_diagnostics",
+      "group": "outputs",
+      "artifact": "manifest",
+      "required": true,
+      "path": "data/industry_study/industry_document_chunk_diagnostics_manifest.json",
+      "exists": true,
+      "bytes": 3295,
+      "sha256": "85720979dd77e3b3988460fc2573f8f35dd61ed7a1785def820593dc171e029d"
+    },
+    {
       "module_id": "cedentes",
       "group": "inputs",
       "artifact": "strategy_db",
@@ -6751,8 +6915,8 @@
       "required": false,
       "path": "data/industry_study/industry_pipeline_index.json",
       "exists": true,
-      "bytes": 135961,
-      "sha256": "495844d0dab44e0345bc7b954535c1883af6faf42f943c9efe112fc5b2d6ba8c"
+      "bytes": 343986,
+      "sha256": "d1842467d017f0c1e893d09f4cfd3080f6fe41ccecb79b82b0f35771d1f93109"
     },
     {
       "module_id": "pipeline_index",
@@ -6761,8 +6925,8 @@
       "required": false,
       "path": "data/industry_study/industry_monthly_update_plan.csv",
       "exists": true,
-      "bytes": 16674,
-      "sha256": "dc40377826ab23038c6c8a2ba7db6d561093e47cccfea09e7b1864c1b357e7c8"
+      "bytes": 17363,
+      "sha256": "98503c5b7cff57e472247e0dd70e35aeb81e2344cfe16355728660deea256e55"
     },
     {
       "module_id": "pipeline_index",
@@ -6771,8 +6935,8 @@
       "required": false,
       "path": "data/industry_study/industry_monthly_readiness.csv",
       "exists": true,
-      "bytes": 2324,
-      "sha256": "7e2fb2b90d5d085aa7dd1553f421af3854bb5bd96a07de9636ec711d0bf6bd52"
+      "bytes": 2384,
+      "sha256": "ac3a34b0319727aad8ff10d9dda150ce611f10bed5cc85e3ce8c6f68f25b4dee"
     },
     {
       "module_id": "pipeline_index",
@@ -6781,8 +6945,8 @@
       "required": false,
       "path": "data/industry_study/industry_publication_gate.csv",
       "exists": true,
-      "bytes": 11823,
-      "sha256": "8e87f9c1fec2c6475b8ae5825304fb785ab96d88c154e07d11c88d234e129e74"
+      "bytes": 11327,
+      "sha256": "69fe71561ebe3c7275b9ecdbcee68156fde817bb4516d694506b6ce958ac2370"
     },
     {
       "module_id": "pipeline_index",
@@ -6791,8 +6955,8 @@
       "required": false,
       "path": "data/industry_study/industry_monthly_closeout_plan.csv",
       "exists": true,
-      "bytes": 127444,
-      "sha256": "ca9c8f78aab4defd88a26ff155d161021b7eabef3b805640f2e52f1f8e8fa0cf"
+      "bytes": 126920,
+      "sha256": "cd81502ea55ab20c42f3e8037c96738a83af4b09f74f8dd09477ddd123dd8ede"
     }
   ]
 }
