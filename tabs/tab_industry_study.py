@@ -102,6 +102,8 @@ _ISSUANCE_ANNUAL_PATH = _DATA_DIR / "issuance_annual.csv"
 _ISSUANCE_SECTOR_YEAR_PATH = _DATA_DIR / "issuance_sector_year.csv"
 _ISSUANCE_TRANCHES_PATH = _DATA_DIR / "issuance_tranches.csv.gz"
 _ISSUANCE_MANIFEST_PATH = _DATA_DIR / "industry_issuance_manifest.json"
+_PUBLIC_CLAIM_AUDIT_PATH = _DATA_DIR / "industry_public_claim_audit.csv"
+_PUBLIC_CLAIM_AUDIT_MANIFEST_PATH = _DATA_DIR / "industry_public_claim_audit_manifest.json"
 _DOCUMENT_INVENTORY_PATH = _DATA_DIR / "document_inventory.csv.gz"
 _DOCUMENT_CHUNKS_PATH = _DATA_DIR / "document_processing_chunks.csv"
 _DOCUMENT_CHUNK_PLAN_PATH = _DATA_DIR / "document_chunk_plan.csv"
@@ -653,6 +655,14 @@ def _load_dimension_profile_tables() -> dict[str, pd.DataFrame | dict[str, objec
         "profiles": profiles,
         "heatmap_registry": registry,
         "manifest": load_pipeline_manifest(_DIMENSION_PROFILE_MANIFEST_PATH),
+    }
+
+
+@st.cache_data(show_spinner=False)
+def _load_public_claim_audit_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    return {
+        "audit": load_dataframe(_PUBLIC_CLAIM_AUDIT_PATH),
+        "manifest": load_pipeline_manifest(_PUBLIC_CLAIM_AUDIT_MANIFEST_PATH),
     }
 
 
@@ -3507,6 +3517,196 @@ def _format_monthly_readiness(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def _format_monthly_update_plan(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.rename(
+        columns={
+            "order": "Ordem",
+            "fase": "Fase",
+            "etapa": "Etapa",
+            "competencia_referencia": "Competência",
+            "status_modulo": "Status módulo",
+            "status_prontidao": "Prontidão",
+            "bloqueios_ou_atencoes": "Bloqueios/atenções",
+            "acao_antes_de_rodar": "Antes de rodar",
+            "comando": "Comando",
+            "validacao": "Validação",
+            "entradas": "Entradas",
+            "saidas": "Saídas",
+            "evidencia_atual": "Evidência atual",
+            "artefatos": "Artefatos",
+            "gerado_em_utc": "Gerado em",
+            "motivo": "Motivo",
+            "incrementalidade": "Incrementalidade",
+            "module_id": "Módulo ID",
+            "plan_id": "ID",
+        }
+    )
+    keep = [
+        "Ordem",
+        "Fase",
+        "Etapa",
+        "Prontidão",
+        "Status módulo",
+        "Bloqueios/atenções",
+        "Antes de rodar",
+        "Comando",
+        "Validação",
+        "Entradas",
+        "Saídas",
+        "Evidência atual",
+        "Artefatos",
+        "Gerado em",
+        "Motivo",
+        "Incrementalidade",
+        "Módulo ID",
+        "ID",
+    ]
+    out = out[[col for col in keep if col in out.columns]].copy()
+    if "Ordem" in out.columns:
+        out["Ordem"] = pd.to_numeric(out["Ordem"], errors="coerce").fillna(0).astype(int)
+    for col in ["Prontidão", "Status módulo"]:
+        if col in out.columns:
+            out[col] = out[col].map(_status_badge_text)
+    if "Gerado em" in out.columns:
+        out["Gerado em"] = out["Gerado em"].fillna("").astype(str).str.slice(0, 19)
+    return out
+
+
+def _format_manual_review_ledger(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.rename(
+        columns={
+            "label": "Domínio",
+            "status_ledger": "Status",
+            "ui_surface": "Tela",
+            "comparison": "Comparação",
+            "action_file": "Arquivo ações",
+            "audit_file": "Arquivo auditoria",
+            "action_exists": "Ações existem",
+            "audit_exists": "Auditoria existe",
+            "action_rows": "Ações",
+            "action_records": "Registros",
+            "open_rows": "Abertas",
+            "closed_rows": "Fechadas",
+            "status_mix": "Mix status",
+            "audit_events": "Eventos auditoria",
+            "audited_records": "Registros auditados",
+            "audit_domains": "Domínios auditoria",
+            "latest_action_utc": "Última ação",
+            "latest_audit_utc": "Última auditoria",
+            "source_artifacts": "Artefatos",
+            "rerun_command": "Comando",
+            "domain_id": "ID",
+        }
+    )
+    keep = [
+        "Status",
+        "Domínio",
+        "Tela",
+        "Comparação",
+        "Ações",
+        "Registros",
+        "Abertas",
+        "Fechadas",
+        "Eventos auditoria",
+        "Registros auditados",
+        "Ações existem",
+        "Auditoria existe",
+        "Mix status",
+        "Última ação",
+        "Última auditoria",
+        "Arquivo ações",
+        "Arquivo auditoria",
+        "Comando",
+        "ID",
+    ]
+    out = out[[col for col in keep if col in out.columns]].copy()
+    if "Status" in out.columns:
+        out["Status"] = out["Status"].map(_status_badge_text)
+    for col in ["Ações", "Registros", "Abertas", "Fechadas", "Eventos auditoria", "Registros auditados"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    for col in ["Ações existem", "Auditoria existe"]:
+        if col in out.columns:
+            out[col] = out[col].map(lambda value: "sim" if bool(value) else "não")
+    for col in ["Última ação", "Última auditoria"]:
+        if col in out.columns:
+            out[col] = out[col].fillna("").astype(str).str.slice(0, 19)
+    return out
+
+
+def _format_public_claim_audit(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.rename(
+        columns={
+            "source_name": "Fonte",
+            "published_at": "Data",
+            "metric_group": "Métrica",
+            "claim_text": "Claim público",
+            "period_start": "Início",
+            "period_end": "Fim",
+            "unit": "Unidade",
+            "public_value": "Valor público",
+            "local_value": "Valor aba",
+            "delta_value": "Diferença",
+            "delta_pct": "Dif. %",
+            "status_auditoria": "Status",
+            "comparability": "Comparabilidade",
+            "local_source_artifact": "Artefato local",
+            "local_evidence": "Evidência local",
+            "method_note": "Nota metodológica",
+            "source_url": "URL",
+            "rerun_command": "Comando",
+            "claim_id": "ID",
+        }
+    )
+    keep = [
+        "Status",
+        "Fonte",
+        "Data",
+        "Métrica",
+        "Claim público",
+        "Início",
+        "Fim",
+        "Valor público",
+        "Valor aba",
+        "Diferença",
+        "Dif. %",
+        "Comparabilidade",
+        "Artefato local",
+        "Evidência local",
+        "Nota metodológica",
+        "URL",
+        "Comando",
+        "ID",
+    ]
+    out = out[[col for col in keep if col in out.columns]].copy()
+    unit = frame.get("unit", pd.Series("", index=frame.index)).fillna("").astype(str).reset_index(drop=True)
+    for col in ["Valor público", "Valor aba", "Diferença"]:
+        if col in out.columns:
+            values = pd.to_numeric(out[col], errors="coerce")
+            formatted: list[str] = []
+            for idx, value in enumerate(values):
+                if pd.isna(value):
+                    formatted.append("")
+                elif idx < len(unit) and unit.iloc[idx] == "BRL":
+                    formatted.append(_fmt_bi(float(value), 2))
+                else:
+                    formatted.append(_fmt_int(float(value)))
+            out[col] = formatted
+    if "Dif. %" in out.columns:
+        out["Dif. %"] = pd.to_numeric(out["Dif. %"], errors="coerce").map(
+            lambda value: "" if pd.isna(value) else _fmt_pct(float(value))
+        )
+    if "Status" in out.columns:
+        out["Status"] = out["Status"].map(_status_badge_text)
+    return out
+
+
 def _catalog_deep_dive_frame(vehicle: pd.DataFrame, catalog: pd.DataFrame, dimension_id: str) -> pd.DataFrame:
     base = _base_with_catalog_id(vehicle)
     dim = _dimension_catalog_rows(catalog, dimension_id)
@@ -6052,6 +6252,11 @@ def _status_badge_text(status: object) -> str:
         "warning": "atenção",
         "missing": "ausente",
         "missing_artifact": "artefato ausente",
+        "diferença_metodológica": "dif. metodologia",
+        "sem_base_local": "sem base local",
+        "sem_uso": "sem uso",
+        "aderente": "aderente",
+        "divergente": "divergente",
     }
     return mapping.get(str(status or ""), str(status or "n/d"))
 
@@ -6290,6 +6495,11 @@ def _render_pipeline_manifest() -> None:
         if isinstance(dimension_profile_manifest.get("quality"), dict)
         else {}
     )
+    public_claim_tables = _load_public_claim_audit_tables()
+    public_claim_audit = public_claim_tables["audit"]
+    public_claim_manifest = public_claim_tables["manifest"]
+    assert isinstance(public_claim_audit, pd.DataFrame)
+    assert isinstance(public_claim_manifest, dict)
     catalog_tables = _load_dimension_catalog_tables()
     dimension_catalog = catalog_tables["catalog"]
     dimension_catalog_manifest = catalog_tables["manifest"]
@@ -6302,7 +6512,24 @@ def _render_pipeline_manifest() -> None:
     refresh_plan = index.get("refresh_plan", []) if isinstance(index.get("refresh_plan"), list) else []
     artifacts = index.get("artifact_index", []) if isinstance(index.get("artifact_index"), list) else []
     prd_coverage = index.get("prd_coverage", []) if isinstance(index.get("prd_coverage"), list) else []
+    monthly_update_plan = index.get("monthly_update_plan", []) if isinstance(index.get("monthly_update_plan"), list) else []
+    manual_review_ledger = index.get("manual_review_ledger", []) if isinstance(index.get("manual_review_ledger"), list) else []
+    public_claim_quality = (
+        public_claim_manifest.get("quality", {})
+        if isinstance(public_claim_manifest.get("quality"), dict)
+        else {}
+    )
     prd_status_counts = rollup.get("prd_status_counts", {}) if isinstance(rollup.get("prd_status_counts"), dict) else {}
+    update_plan_status_counts = (
+        rollup.get("monthly_update_plan_status_counts", {})
+        if isinstance(rollup.get("monthly_update_plan_status_counts"), dict)
+        else {}
+    )
+    manual_review_status_counts = (
+        rollup.get("manual_review_status_counts", {})
+        if isinstance(rollup.get("manual_review_status_counts"), dict)
+        else {}
+    )
     cards = [
         _curation_card(
             "Módulos ok",
@@ -6335,6 +6562,21 @@ def _render_pipeline_manifest() -> None:
             f"{_fmt_int(float(prd_status_counts.get('atenção', 0) or 0))} atenção · {_fmt_int(float(prd_status_counts.get('bloqueado', 0) or 0))} bloqueado",
         ),
         _curation_card(
+            "Plano mensal",
+            f"{_fmt_int(float(update_plan_status_counts.get('ok', 0) or 0))}/{_fmt_int(float(rollup.get('monthly_update_plan_rows', len(monthly_update_plan)) or 0))}",
+            f"{_fmt_int(float(update_plan_status_counts.get('atenção', 0) or 0))} atenção · {_fmt_int(float(update_plan_status_counts.get('bloqueado', 0) or 0))} bloqueado",
+        ),
+        _curation_card(
+            "Revisões",
+            _fmt_int(float(rollup.get("manual_review_action_rows", 0) or 0)),
+            f"{_fmt_int(float(rollup.get('manual_review_audit_events', 0) or 0))} eventos · {_fmt_int(float(manual_review_status_counts.get('atenção', 0) or 0))} atenção",
+        ),
+        _curation_card(
+            "Claims públicos",
+            _fmt_int(float(public_claim_quality.get("rows", rollup.get("public_claim_audit_rows", len(public_claim_audit))) or 0)),
+            f"{_fmt_int(float(public_claim_quality.get('methodology_gap_claims', rollup.get('public_claim_audit_methodology_gap_claims', 0)) or 0))} dif. metodologia",
+        ),
+        _curation_card(
             "Chunks docs",
             f"{_fmt_int(float(rollup.get('document_chunks_processed', 0)))}/{_fmt_int(float(rollup.get('document_chunks', 0)))}",
             f"{_fmt_int(float(rollup.get('document_chunks_without_action', 0)))} sem acomp.",
@@ -6362,10 +6604,12 @@ def _render_pipeline_manifest() -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    tab_modules, tab_prd, tab_queue, tab_profiles, tab_catalog_quality, tab_delta, tab_refresh, tab_artifacts, tab_json = st.tabs(
+    tab_modules, tab_prd, tab_public, tab_reviews, tab_queue, tab_profiles, tab_catalog_quality, tab_delta, tab_refresh, tab_artifacts, tab_json = st.tabs(
         [
             "Módulos",
             "PRD",
+            "Público",
+            "Revisões",
             "Fila única",
             "Perfis cruzados",
             "Qualidade catálogo",
@@ -6470,6 +6714,166 @@ def _render_pipeline_manifest() -> None:
                     [{"Status": _status_badge_text(key), "Requisitos": int(value)} for key, value in prd_status_counts.items()]
                 )
                 st.dataframe(prd_status_frame, hide_index=True, width="stretch")
+
+    with tab_public:
+        if public_claim_audit.empty:
+            st.caption("Auditoria pública ainda não materializada. Rode `python scripts/build_fidc_industry_public_claim_audit.py`.")
+        else:
+            public_status = public_claim_audit.get("status_auditoria", pd.Series("", index=public_claim_audit.index)).fillna("").astype(str).value_counts().to_dict()
+            public_cards = [
+                _curation_card("Claims", _fmt_int(float(len(public_claim_audit))), "notícias/boletins"),
+                _curation_card("Com métrica local", _fmt_int(float(public_claim_quality.get("claims_with_local_metric", 0) or 0)), "comparação calculada"),
+                _curation_card("Fontes", _fmt_int(float(public_claim_quality.get("public_sources", public_claim_audit.get("source_name", pd.Series(dtype=str)).nunique()) or 0)), "origens públicas"),
+                _curation_card("Dif. metodologia", _fmt_int(float(public_status.get("diferença_metodológica", 0))), "não é erro automático"),
+                _curation_card("Aderentes", _fmt_int(float(public_status.get("aderente", 0))), "dentro da tolerância"),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(public_cards)}</div>', unsafe_allow_html=True)
+            public_a, public_b, public_c, public_d = st.columns([0.8, 0.8, 0.9, 1.4])
+            with public_a:
+                source_options = sorted([value for value in public_claim_audit.get("source_name", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
+                selected_sources = st.multiselect(
+                    "Fonte",
+                    source_options,
+                    default=source_options,
+                    key="industry_public_claim_source",
+                )
+            with public_b:
+                metric_options = sorted([value for value in public_claim_audit.get("metric_group", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
+                selected_metrics = st.multiselect(
+                    "Métrica",
+                    metric_options,
+                    default=metric_options,
+                    key="industry_public_claim_metric",
+                )
+            with public_c:
+                status_options = sorted([value for value in public_claim_audit.get("status_auditoria", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
+                selected_public_status = st.multiselect(
+                    "Status",
+                    status_options,
+                    default=status_options,
+                    key="industry_public_claim_status",
+                )
+            with public_d:
+                public_query = st.text_input(
+                    "Buscar claim",
+                    key="industry_public_claim_query",
+                    placeholder="ANBIMA, PL, captação, ofertas, metodologia",
+                )
+            public_view = public_claim_audit.copy()
+            if selected_sources:
+                public_view = public_view[public_view.get("source_name", pd.Series("", index=public_view.index)).fillna("").astype(str).isin(selected_sources)].copy()
+            if selected_metrics:
+                public_view = public_view[public_view.get("metric_group", pd.Series("", index=public_view.index)).fillna("").astype(str).isin(selected_metrics)].copy()
+            if selected_public_status:
+                public_view = public_view[public_view.get("status_auditoria", pd.Series("", index=public_view.index)).fillna("").astype(str).isin(selected_public_status)].copy()
+            if public_query:
+                search_cols = [
+                    col
+                    for col in [
+                        "source_name",
+                        "source_title",
+                        "metric_group",
+                        "claim_text",
+                        "status_auditoria",
+                        "comparability",
+                        "local_source_artifact",
+                        "local_evidence",
+                        "method_note",
+                    ]
+                    if col in public_view.columns
+                ]
+                search = public_view[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=public_view.index)
+                public_view = public_view[search.str.contains(public_query, case=False, na=False)].copy()
+            st.dataframe(_format_public_claim_audit(public_view), hide_index=True, width="stretch", height=440)
+            st.download_button(
+                "Baixar auditoria pública",
+                data=public_claim_audit.to_csv(index=False).encode("utf-8"),
+                file_name="industry_public_claim_audit.csv",
+                mime="text/csv",
+                key="industry_public_claim_download",
+            )
+            if public_claim_manifest:
+                generated_at = public_claim_manifest.get("generated_at_utc", "")
+                source_note = f"Fonte: `{_PUBLIC_CLAIM_AUDIT_PATH.name}`"
+                if generated_at:
+                    source_note += f" · gerado em {generated_at}"
+                st.caption(source_note)
+
+    with tab_reviews:
+        if not manual_review_ledger:
+            st.caption("Ledger de revisão manual ainda não materializado. Recalcule o índice do pipeline.")
+        else:
+            ledger = pd.DataFrame(manual_review_ledger)
+            ledger_status = ledger.get("status_ledger", pd.Series("", index=ledger.index)).fillna("").astype(str).value_counts().to_dict()
+            review_cards = [
+                _curation_card("Domínios", _fmt_int(float(len(ledger))), "mesas e filas com persistência"),
+                _curation_card("Com ações", _fmt_int(float(rollup.get("manual_review_domains_with_actions", 0) or 0)), "arquivos não vazios"),
+                _curation_card("Com auditoria", _fmt_int(float(rollup.get("manual_review_domains_with_audit", 0) or 0)), "eventos salvos"),
+                _curation_card("Ações", _fmt_int(float(rollup.get("manual_review_action_rows", 0) or 0)), "linhas persistidas"),
+                _curation_card("Eventos", _fmt_int(float(rollup.get("manual_review_audit_events", 0) or 0)), "histórico append-only"),
+                _curation_card("Atenção", _fmt_int(float(ledger_status.get("atenção", 0))), "ação sem auditoria ou vice-versa"),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(review_cards)}</div>', unsafe_allow_html=True)
+            review_a, review_b, review_c = st.columns([0.9, 1.0, 1.4])
+            with review_a:
+                status_options = sorted([value for value in ledger.get("status_ledger", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
+                selected_review_status = st.multiselect(
+                    "Status ledger",
+                    status_options,
+                    default=status_options,
+                    key="industry_manual_review_ledger_status",
+                )
+            with review_b:
+                surface_options = sorted([value for value in ledger.get("ui_surface", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
+                selected_surfaces = st.multiselect(
+                    "Tela",
+                    surface_options,
+                    default=surface_options,
+                    key="industry_manual_review_ledger_surface",
+                )
+            with review_c:
+                review_query = st.text_input(
+                    "Buscar revisão",
+                    key="industry_manual_review_ledger_query",
+                    placeholder="cedentes, critérios, auditoria, snapshot, catálogo",
+                )
+            ledger_view = ledger.copy()
+            if selected_review_status:
+                ledger_view = ledger_view[
+                    ledger_view.get("status_ledger", pd.Series("", index=ledger_view.index)).fillna("").astype(str).isin(selected_review_status)
+                ].copy()
+            if selected_surfaces:
+                ledger_view = ledger_view[
+                    ledger_view.get("ui_surface", pd.Series("", index=ledger_view.index)).fillna("").astype(str).isin(selected_surfaces)
+                ].copy()
+            if review_query:
+                search_cols = [
+                    col
+                    for col in [
+                        "domain_id",
+                        "label",
+                        "status_ledger",
+                        "ui_surface",
+                        "comparison",
+                        "action_file",
+                        "audit_file",
+                        "status_mix",
+                        "audit_domains",
+                        "source_artifacts",
+                        "rerun_command",
+                    ]
+                    if col in ledger_view.columns
+                ]
+                search = ledger_view[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=ledger_view.index)
+                ledger_view = ledger_view[search.str.contains(review_query, case=False, na=False)].copy()
+            st.dataframe(_format_manual_review_ledger(ledger_view), hide_index=True, width="stretch", height=420)
+            st.download_button(
+                "Baixar ledger de revisões",
+                data=ledger.to_csv(index=False).encode("utf-8"),
+                file_name="industry_manual_review_ledger.csv",
+                mime="text/csv",
+                key="industry_manual_review_ledger_download",
+            )
 
     with tab_queue:
         if curation_queue.empty:
@@ -7300,6 +7704,80 @@ def _render_pipeline_manifest() -> None:
             "Os módulos documentais e de curadoria podem ser reexecutados em lotes.</div>",
             unsafe_allow_html=True,
         )
+        plan_frame = pd.DataFrame(monthly_update_plan)
+        if not plan_frame.empty:
+            plan_status = plan_frame.get("status_prontidao", pd.Series("", index=plan_frame.index)).fillna("").astype(str).value_counts().to_dict()
+            plan_cards = [
+                _curation_card("Etapas plano", _fmt_int(float(len(plan_frame))), "ordem mensal"),
+                _curation_card("Bloqueadas", _fmt_int(float(plan_status.get("bloqueado", 0))), "não publicar antes de fechar"),
+                _curation_card("Em atenção", _fmt_int(float(plan_status.get("atenção", 0))), "rodar com ressalva"),
+                _curation_card("Prontas", _fmt_int(float(plan_status.get("ok", 0))), "sem bloqueio vinculado"),
+            ]
+            st.markdown("**Plano operacional da competência**")
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(plan_cards)}</div>', unsafe_allow_html=True)
+            plan_a, plan_b, plan_c = st.columns([0.9, 0.9, 1.4])
+            with plan_a:
+                phase_options = sorted([value for value in plan_frame.get("fase", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
+                selected_phases = st.multiselect(
+                    "Fase",
+                    phase_options,
+                    default=phase_options,
+                    key="industry_monthly_update_plan_phase",
+                )
+            with plan_b:
+                plan_status_options = [value for value in ["bloqueado", "atenção", "ok"] if value in set(plan_frame.get("status_prontidao", pd.Series(dtype=str)).fillna("").astype(str))]
+                selected_plan_status = st.multiselect(
+                    "Prontidão etapa",
+                    plan_status_options,
+                    default=plan_status_options,
+                    key="industry_monthly_update_plan_status",
+                )
+            with plan_c:
+                plan_query = st.text_input(
+                    "Buscar etapa",
+                    key="industry_monthly_update_plan_query",
+                    placeholder="informes, cedentes, chunks, heatmaps, validação",
+                )
+            plan_view = plan_frame.copy()
+            if selected_phases:
+                plan_view = plan_view[plan_view.get("fase", pd.Series("", index=plan_view.index)).fillna("").astype(str).isin(selected_phases)].copy()
+            if selected_plan_status:
+                plan_view = plan_view[
+                    plan_view.get("status_prontidao", pd.Series("", index=plan_view.index)).fillna("").astype(str).isin(selected_plan_status)
+                ].copy()
+            if plan_query:
+                search_cols = [
+                    col
+                    for col in [
+                        "fase",
+                        "etapa",
+                        "status_prontidao",
+                        "bloqueios_ou_atencoes",
+                        "acao_antes_de_rodar",
+                        "comando",
+                        "entradas",
+                        "saidas",
+                        "evidencia_atual",
+                        "motivo",
+                        "incrementalidade",
+                    ]
+                    if col in plan_view.columns
+                ]
+                search = plan_view[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=plan_view.index)
+                plan_view = plan_view[search.str.contains(plan_query, case=False, na=False)].copy()
+            if "order" in plan_view.columns:
+                plan_view = plan_view.sort_values("order").copy()
+            st.dataframe(_format_monthly_update_plan(plan_view), hide_index=True, width="stretch", height=460)
+            st.download_button(
+                "Baixar plano mensal",
+                data=plan_frame.to_csv(index=False).encode("utf-8"),
+                file_name="industry_monthly_update_plan.csv",
+                mime="text/csv",
+                key="industry_monthly_update_plan_download",
+            )
+        else:
+            st.caption("Plano operacional mensal ainda não materializado no índice.")
+
         snapshot_tables = _load_fund_snapshot_tables()
         fund_snapshot = snapshot_tables["snapshot"]
         assert isinstance(fund_snapshot, pd.DataFrame)

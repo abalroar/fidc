@@ -87,6 +87,145 @@ CATALOG_GAP_ACTION_COLUMNS = [
     "updated_at_utc",
 ]
 
+PUBLIC_CLAIM_SPECS = [
+    {
+        "claim_id": "anbima_fidc_net_flow_2025_jan_sep",
+        "source_name": "ANBIMA",
+        "source_title": "Indústria de fundos registra captação líquida de R$ 110,9 bilhões no ano até setembro",
+        "source_url": "https://www.anbima.com.br/pt_br/noticias/industria-de-fundos-registra-captacao-liquida-de-r-110-9-bilhoes-no-ano-ate-setembro.htm",
+        "published_at": "2025-10-07",
+        "metric_group": "captação líquida",
+        "claim_text": "FIDCs captaram R$ 63,0 bi entre janeiro e setembro de 2025.",
+        "period_start": "2025-01",
+        "period_end": "2025-09",
+        "public_value": 63_000_000_000.0,
+        "unit": "BRL",
+        "local_metric": "monthly_net_flow_sum",
+        "local_source_artifact": "industry_monthly.csv",
+        "comparability": "metodologia_diferente",
+        "method_note": "ANBIMA usa universo próprio da indústria de fundos; a aba usa Informe Mensal CVM com veículos/classes, exclusivos, NP e FIC-FIDC.",
+    },
+    {
+        "claim_id": "anbima_fidc_accounts_aug_2025",
+        "source_name": "ANBIMA",
+        "source_title": "Indústria de fundos registra captação líquida de R$ 110,9 bilhões no ano até setembro",
+        "source_url": "https://www.anbima.com.br/pt_br/noticias/industria-de-fundos-registra-captacao-liquida-de-r-110-9-bilhoes-no-ano-ate-setembro.htm",
+        "published_at": "2025-10-07",
+        "metric_group": "contas",
+        "claim_text": "Contas de investidores em FIDCs chegaram a 318,8 mil em agosto de 2025.",
+        "period_start": "2025-08",
+        "period_end": "2025-08",
+        "public_value": 318_800.0,
+        "unit": "contas",
+        "local_metric": "cotistas_total_snapshot",
+        "local_source_artifact": "industry_monthly.csv",
+        "comparability": "metodologia_diferente",
+        "method_note": "CVM reporta cotistas/contas por veículo; ANBIMA pode consolidar contas por categoria e distribuidor.",
+    },
+    {
+        "claim_id": "anbima_fidc_net_flow_2025_full",
+        "source_name": "ANBIMA",
+        "source_title": "Renda fixa, FIPs e FIDCs puxam a captação e indústria de fundos encerra 2025 no azul",
+        "source_url": "https://www.anbima.com.br/pt_br/noticias/renda-fixa-fips-e-fidcs-puxam-a-captacao-e-industria-de-fundos-encerra-2025-no-azul.htm",
+        "published_at": "2026-01-08",
+        "metric_group": "captação líquida",
+        "claim_text": "FIDCs captaram R$ 57,6 bi em 2025.",
+        "period_start": "2025-01",
+        "period_end": "2025-12",
+        "public_value": 57_600_000_000.0,
+        "unit": "BRL",
+        "local_metric": "monthly_net_flow_sum",
+        "local_source_artifact": "industry_monthly.csv",
+        "comparability": "metodologia_diferente",
+        "method_note": "Conceito público da ANBIMA não é idêntico ao fluxo reconstruído do Informe Mensal CVM.",
+    },
+    {
+        "claim_id": "anbima_fidc_accounts_dec_2025",
+        "source_name": "ANBIMA",
+        "source_title": "Renda fixa, FIPs e FIDCs puxam a captação e indústria de fundos encerra 2025 no azul",
+        "source_url": "https://www.anbima.com.br/pt_br/noticias/renda-fixa-fips-e-fidcs-puxam-a-captacao-e-industria-de-fundos-encerra-2025-no-azul.htm",
+        "published_at": "2026-01-08",
+        "metric_group": "contas",
+        "claim_text": "Contas de investidores em FIDCs chegaram a 331,4 mil em dezembro de 2025.",
+        "period_start": "2025-12",
+        "period_end": "2025-12",
+        "public_value": 331_400.0,
+        "unit": "contas",
+        "local_metric": "cotistas_total_snapshot",
+        "local_source_artifact": "industry_monthly.csv",
+        "comparability": "metodologia_diferente",
+        "method_note": "CVM reporta cotistas/contas por veículo; pode haver dupla contagem entre fundos/classes.",
+    },
+    {
+        "claim_id": "anbima_fidc_offers_2026_jan_may",
+        "source_name": "ANBIMA",
+        "source_title": "Mercado de capitais movimenta R$ 283 bilhões em ofertas puxado por FIDCs, híbridos e ações",
+        "source_url": "https://www.anbima.com.br/pt_br/noticias/mercado-de-capitais-movimenta-r-283-bilhoes-em-ofertas-puxado-por-fidcs-hibridos-e-acoes.htm",
+        "published_at": "2026-06-16",
+        "metric_group": "ofertas",
+        "claim_text": "FIDCs somaram R$ 41,7 bi em ofertas nos cinco primeiros meses de 2026.",
+        "period_start": "2026-01",
+        "period_end": "2026-05",
+        "public_value": 41_700_000_000.0,
+        "unit": "BRL",
+        "local_metric": "issuance_tranche_volume_sum",
+        "local_source_artifact": "issuance_tranches.csv.gz",
+        "comparability": "subcobertura_documental",
+        "method_note": "A base local de tranches documentais é curada/offline e não deve ser lida como boletim ANBIMA de ofertas encerradas.",
+    },
+    {
+        "claim_id": "seu_dinheiro_fidc_pl_may_2026",
+        "source_name": "Seu Dinheiro",
+        "source_title": "Resgates de fundos multimercados disparam e FIDCs entram na mira do investidor",
+        "source_url": "https://www.seudinheiro.com/2026/economia/resgates-de-fundos-multimercados-dispara-e-fidcs-entram-na-mira-do-investidor-segundo-anbima-entenda-lbrdcp162/",
+        "published_at": "2026-06-17",
+        "metric_group": "patrimônio líquido",
+        "claim_text": "Indústria de FIDCs chegou a R$ 754 bi em maio de 2026.",
+        "period_start": "2026-05",
+        "period_end": "2026-05",
+        "public_value": 754_000_000_000.0,
+        "unit": "BRL",
+        "local_metric": "pl_total_snapshot",
+        "local_source_artifact": "industry_monthly.csv",
+        "comparability": "metodologia_diferente",
+        "method_note": "A aba exibe FIDCs + FIC-FIDCs e série ex-FIC; veículos CVM não são o mesmo universo consolidado da notícia.",
+    },
+    {
+        "claim_id": "seu_dinheiro_fidc_net_flow_apr_2026",
+        "source_name": "Seu Dinheiro",
+        "source_title": "Resgates de fundos multimercados disparam e FIDCs entram na mira do investidor",
+        "source_url": "https://www.seudinheiro.com/2026/economia/resgates-de-fundos-multimercados-dispara-e-fidcs-entram-na-mira-do-investidor-segundo-anbima-entenda-lbrdcp162/",
+        "published_at": "2026-06-17",
+        "metric_group": "captação líquida",
+        "claim_text": "FIDCs tiveram captação mensal de R$ 4,5 bi em abril de 2026.",
+        "period_start": "2026-04",
+        "period_end": "2026-04",
+        "public_value": 4_500_000_000.0,
+        "unit": "BRL",
+        "local_metric": "monthly_net_flow_sum",
+        "local_source_artifact": "industry_monthly.csv",
+        "comparability": "metodologia_diferente",
+        "method_note": "A notícia usa ANBIMA; a aba soma aplicações, resgates e amortizações do Informe Mensal CVM.",
+    },
+    {
+        "claim_id": "seu_dinheiro_fidc_net_flow_may_2026",
+        "source_name": "Seu Dinheiro",
+        "source_title": "Resgates de fundos multimercados disparam e FIDCs entram na mira do investidor",
+        "source_url": "https://www.seudinheiro.com/2026/economia/resgates-de-fundos-multimercados-dispara-e-fidcs-entram-na-mira-do-investidor-segundo-anbima-entenda-lbrdcp162/",
+        "published_at": "2026-06-17",
+        "metric_group": "captação líquida",
+        "claim_text": "FIDCs captaram R$ 2,5 bi em maio de 2026.",
+        "period_start": "2026-05",
+        "period_end": "2026-05",
+        "public_value": 2_500_000_000.0,
+        "unit": "BRL",
+        "local_metric": "monthly_net_flow_sum",
+        "local_source_artifact": "industry_monthly.csv",
+        "comparability": "metodologia_diferente",
+        "method_note": "A notícia usa ANBIMA; a aba soma aplicações, resgates e amortizações do Informe Mensal CVM.",
+    },
+]
+
 CURATION_QUEUE_SUMMARY_COLUMNS = [
     "summary_id",
     "summary_type",
@@ -1040,6 +1179,150 @@ def _competencia_key(value: object) -> str:
 def _competencia_label(value: object) -> str:
     key = _competencia_key(value)
     return f"{key[:4]}-{key[4:6]}" if len(key) == 6 else str(value or "")
+
+
+def _period_month_mask(frame: pd.DataFrame, start: str, end: str) -> pd.Series:
+    if frame.empty or "competencia" not in frame.columns:
+        return pd.Series(False, index=frame.index)
+    comp = frame["competencia"].fillna("").astype(str)
+    return comp.ge(str(start)) & comp.le(str(end))
+
+
+def _public_claim_local_value(
+    *,
+    spec: dict[str, object],
+    industry_monthly: pd.DataFrame,
+    issuance_tranches: pd.DataFrame,
+) -> tuple[float | None, str, str]:
+    metric = str(spec.get("local_metric") or "")
+    start = str(spec.get("period_start") or "")
+    end = str(spec.get("period_end") or start)
+    if metric in {"monthly_net_flow_sum", "cotistas_total_snapshot", "pl_total_snapshot"}:
+        frame = industry_monthly.copy()
+        if frame.empty or "competencia" not in frame.columns:
+            return None, "", "industry_monthly vazio ou sem competência"
+        rows = frame[_period_month_mask(frame, start, end)].copy()
+        if rows.empty:
+            return None, "", f"sem linhas CVM entre {start} e {end}"
+        if metric == "monthly_net_flow_sum":
+            value = pd.to_numeric(rows.get("captacao_liquida"), errors="coerce").fillna(0.0).sum()
+            evidence = f"{len(rows)} competência(s) em industry_monthly.csv"
+            return float(value), evidence, ""
+        snapshot = rows.sort_values("competencia").tail(1).iloc[0]
+        if metric == "cotistas_total_snapshot":
+            value = pd.to_numeric(pd.Series([snapshot.get("cotistas_total")]), errors="coerce").iloc[0]
+            return (None if pd.isna(value) else float(value)), f"competência {snapshot.get('competencia')}", ""
+        if metric == "pl_total_snapshot":
+            value = pd.to_numeric(pd.Series([snapshot.get("pl_total")]), errors="coerce").iloc[0]
+            return (None if pd.isna(value) else float(value)), f"competência {snapshot.get('competencia')}", ""
+    if metric == "issuance_tranche_volume_sum":
+        frame = issuance_tranches.copy()
+        if frame.empty or "data_deliberacao" not in frame.columns:
+            return None, "", "issuance_tranches vazio ou sem data"
+        dates = pd.to_datetime(frame["data_deliberacao"], errors="coerce")
+        start_date = pd.to_datetime(f"{start}-01", errors="coerce")
+        end_date = pd.to_datetime(f"{end}-01", errors="coerce") + pd.offsets.MonthEnd(0)
+        rows = frame[dates.ge(start_date) & dates.le(end_date)].copy()
+        if rows.empty:
+            return 0.0, f"0 tranche entre {start} e {end}", ""
+        value = pd.to_numeric(rows.get("volume_brl"), errors="coerce").fillna(0.0).sum()
+        evidence = f"{len(rows)} tranche(s); {rows.get('cnpj_fundo', pd.Series(dtype=str)).nunique()} FIDC(s)"
+        return float(value), evidence, ""
+    return None, "", f"métrica local não implementada: {metric}"
+
+
+def build_public_claim_audit(
+    *,
+    industry_monthly: pd.DataFrame,
+    issuance_tranches: pd.DataFrame,
+    claim_specs: list[dict[str, object]] | None = None,
+    tolerance_pct: float = 0.10,
+) -> pd.DataFrame:
+    """Compare public market claims with the Industry tab's auditable local metrics."""
+
+    specs = claim_specs or PUBLIC_CLAIM_SPECS
+    rows: list[dict[str, object]] = []
+    for spec in specs:
+        public_value = pd.to_numeric(pd.Series([spec.get("public_value")]), errors="coerce").iloc[0]
+        local_value, evidence, local_note = _public_claim_local_value(
+            spec=spec,
+            industry_monthly=industry_monthly,
+            issuance_tranches=issuance_tranches,
+        )
+        if pd.isna(public_value):
+            public_value = None
+        delta_value = None
+        delta_pct = None
+        if public_value not in (None, 0) and local_value is not None:
+            delta_value = float(local_value) - float(public_value)
+            delta_pct = delta_value / float(public_value)
+        comparability = str(spec.get("comparability") or "comparável")
+        if local_value is None:
+            status = "sem_base_local"
+        elif comparability != "comparável":
+            status = "diferença_metodológica"
+        elif delta_pct is not None and abs(float(delta_pct)) <= tolerance_pct:
+            status = "aderente"
+        else:
+            status = "divergente"
+        rows.append(
+            {
+                "claim_id": spec.get("claim_id", ""),
+                "source_name": spec.get("source_name", ""),
+                "source_title": spec.get("source_title", ""),
+                "source_url": spec.get("source_url", ""),
+                "published_at": spec.get("published_at", ""),
+                "metric_group": spec.get("metric_group", ""),
+                "claim_text": spec.get("claim_text", ""),
+                "period_start": spec.get("period_start", ""),
+                "period_end": spec.get("period_end", ""),
+                "unit": spec.get("unit", ""),
+                "public_value": public_value,
+                "local_value": local_value,
+                "delta_value": delta_value,
+                "delta_pct": delta_pct,
+                "status_auditoria": status,
+                "comparability": comparability,
+                "tolerance_pct": tolerance_pct,
+                "local_metric": spec.get("local_metric", ""),
+                "local_source_artifact": spec.get("local_source_artifact", ""),
+                "local_evidence": evidence,
+                "method_note": spec.get("method_note", ""),
+                "local_note": local_note,
+                "rerun_command": "python scripts/build_fidc_industry_public_claim_audit.py",
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def public_claim_audit_quality_summary(audit: pd.DataFrame) -> dict[str, object]:
+    if audit is None or audit.empty:
+        return {
+            "rows": 0,
+            "claims_with_local_metric": 0,
+            "public_sources": 0,
+            "methodology_gap_claims": 0,
+            "adherent_claims": 0,
+            "divergent_claims": 0,
+            "max_abs_delta_pct": None,
+        }
+    status = audit.get("status_auditoria", pd.Series("", index=audit.index)).fillna("").astype(str)
+    delta_abs = pd.to_numeric(audit.get("delta_pct"), errors="coerce").abs()
+    return {
+        "rows": int(len(audit)),
+        "claims_with_local_metric": int(audit.get("local_value", pd.Series(dtype=float)).notna().sum()),
+        "public_sources": int(audit.get("source_name", pd.Series(dtype=str)).nunique()),
+        "methodology_gap_claims": int(status.eq("diferença_metodológica").sum()),
+        "adherent_claims": int(status.eq("aderente").sum()),
+        "divergent_claims": int(status.eq("divergente").sum()),
+        "missing_local_claims": int(status.eq("sem_base_local").sum()),
+        "max_abs_delta_pct": None if delta_abs.dropna().empty else float(delta_abs.max()),
+        "metric_group_counts": {
+            str(key): int(value)
+            for key, value in audit.get("metric_group", pd.Series(dtype=str)).fillna("n/d").astype(str).value_counts().to_dict().items()
+        },
+        "status_counts": {str(key): int(value) for key, value in status.value_counts().to_dict().items()},
+    }
 
 
 def _first_non_empty(series: pd.Series) -> str:
@@ -3549,6 +3832,342 @@ def build_pipeline_readiness_checks(
     return checks.to_dict("records")
 
 
+def build_monthly_update_plan(
+    *,
+    modules: list[dict[str, object]],
+    artifact_rows: list[dict[str, object]],
+    refresh_plan: list[dict[str, object]],
+    readiness_checks: list[dict[str, object]],
+    quality_rollup: dict[str, object],
+) -> list[dict[str, object]]:
+    """Join refresh commands, module evidence and readiness blockers into an operational monthly plan."""
+
+    module_by_id = {str(module.get("id") or ""): module for module in modules if isinstance(module, dict)}
+    artifact_frame = pd.DataFrame(artifact_rows)
+    readiness_by_id = {
+        str(row.get("check_id") or ""): row
+        for row in readiness_checks
+        if isinstance(row, dict)
+    }
+    stage_checks = {
+        "base_monthly": ["competencia_alignment"],
+        "monthly_delta": ["competencia_alignment", "monthly_delta_queue"],
+        "issuance": [],
+        "public_claims": ["competencia_alignment"],
+        "documents": ["document_chunk_processing"],
+        "document_chunk_plan": ["document_chunk_processing"],
+        "cedentes": ["structured_coverage", "curation_queue"],
+        "criteria": ["structured_coverage", "curation_queue"],
+        "fund_snapshot": ["structured_coverage", "competencia_alignment"],
+        "dimension_catalog": ["structured_coverage", "curation_queue"],
+        "curation_queue": ["curation_queue"],
+        "dimension_profiles": ["structured_coverage"],
+        "dimension_monthly": ["competencia_alignment", "structured_coverage"],
+        "market_share": ["structured_coverage"],
+        "pipeline_index": ["module_status", "artifact_presence"],
+    }
+    status_order = {"bloqueado": 0, "atenção": 1, "ok": 2, "n/d": 3}
+
+    def phase(order: int) -> str:
+        if order <= 2:
+            return "Informe mensal e delta"
+        if order <= 5:
+            return "Documentos e ofertas"
+        if order <= 9:
+            return "Estruturação"
+        if order <= 13:
+            return "Agregações reutilizáveis"
+        return "Controle"
+
+    def module_for_stage(module_id: str) -> dict[str, object]:
+        if module_id == "document_chunk_plan":
+            return module_by_id.get("documents", {})
+        if module_id == "pipeline_index":
+            return {
+                "id": "pipeline_index",
+                "label": "Cockpit do pipeline",
+                "status": "ok",
+                "generated_at_utc": quality_rollup.get("latest_module_generated_at_utc", ""),
+                "artifact_count": quality_rollup.get("artifacts_total", 0),
+                "artifacts_present": quality_rollup.get("artifacts_present", 0),
+                "quality_highlights": {
+                    "prd_requirements_total": quality_rollup.get("prd_requirements_total", 0),
+                    "artifacts_present": quality_rollup.get("artifacts_present", 0),
+                    "artifacts_total": quality_rollup.get("artifacts_total", 0),
+                },
+            }
+        return module_by_id.get(module_id, {})
+
+    def artifact_names(module_id: str, group: str | None = None, limit: int = 6) -> str:
+        if artifact_frame.empty:
+            return ""
+        ids = [module_id]
+        if module_id == "document_chunk_plan":
+            ids = ["documents"]
+        subset = artifact_frame[artifact_frame.get("module_id", pd.Series("", index=artifact_frame.index)).astype(str).isin(ids)].copy()
+        if group is not None and "group" in subset.columns:
+            subset = subset[subset["group"].astype(str).eq(group)].copy()
+        if subset.empty or "artifact" not in subset.columns:
+            return ""
+        names = subset["artifact"].fillna("").astype(str)
+        names = [name for name in names if name]
+        return " | ".join(dict.fromkeys(names[:limit]))
+
+    def quality_text(module: dict[str, object]) -> str:
+        quality = module.get("quality_highlights", {}) if isinstance(module.get("quality_highlights"), dict) else {}
+        parts: list[str] = []
+        for key, value in quality.items():
+            if value in ("", None, {}, []):
+                continue
+            parts.append(f"{key}={value}")
+            if len(parts) >= 6:
+                break
+        return " · ".join(parts)
+
+    rows: list[dict[str, object]] = []
+    competencia = str(quality_rollup.get("competencia_snapshot") or quality_rollup.get("competencia_final") or "")
+    for stage in refresh_plan:
+        if not isinstance(stage, dict):
+            continue
+        order = int(pd.to_numeric(pd.Series([stage.get("order", 0)]), errors="coerce").fillna(0).iloc[0])
+        module_id = str(stage.get("module_id") or "")
+        module = module_for_stage(module_id)
+        linked_checks = [
+            readiness_by_id[check_id]
+            for check_id in stage_checks.get(module_id, [])
+            if check_id in readiness_by_id
+        ]
+        if linked_checks:
+            worst = sorted(
+                [str(check.get("status_prontidao") or "n/d") for check in linked_checks],
+                key=lambda value: status_order.get(value, 9),
+            )[0]
+            open_checks = [
+                check
+                for check in linked_checks
+                if str(check.get("status_prontidao") or "") != "ok"
+            ]
+        else:
+            worst = "ok"
+            open_checks = []
+        blocker_text = " | ".join(
+            f"{check.get('frente')}: {check.get('pendencias', 0)} ({check.get('acao_sugerida')})"
+            for check in open_checks
+        )
+        next_action = (
+            "Fechar bloqueios/atenções vinculados antes de depender desta etapa."
+            if open_checks
+            else "Rodar ou validar a etapa e seguir para a próxima ordem."
+        )
+        rows.append(
+            {
+                "plan_id": f"{order:02d}_{module_id}",
+                "order": order,
+                "fase": phase(order),
+                "module_id": module_id,
+                "etapa": stage.get("label", module.get("label", module_id)),
+                "competencia_referencia": competencia,
+                "status_modulo": module.get("status", "n/d"),
+                "status_prontidao": worst,
+                "bloqueios_ou_atencoes": blocker_text,
+                "acao_antes_de_rodar": next_action,
+                "comando": stage.get("command", ""),
+                "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
+                "entradas": " | ".join(str(value) for value in module.get("depends_on", []) if value)
+                or artifact_names(module_id, group="inputs"),
+                "saidas": artifact_names(module_id, group="outputs"),
+                "evidencia_atual": quality_text(module),
+                "artefatos": f"{module.get('artifacts_present', 0)}/{module.get('artifact_count', 0)}",
+                "gerado_em_utc": module.get("generated_at_utc", ""),
+                "motivo": stage.get("reason", ""),
+                "incrementalidade": stage.get("incremental_note", ""),
+            }
+        )
+
+    frame = pd.DataFrame(rows)
+    if frame.empty:
+        return []
+    frame["_status_order"] = frame["status_prontidao"].map(status_order).fillna(9)
+    frame = frame.sort_values(["order", "_status_order"]).drop(columns=["_status_order"]).reset_index(drop=True)
+    return frame.to_dict("records")
+
+
+def build_manual_review_ledger(*, industry_dir: Path) -> list[dict[str, object]]:
+    """Summarize all in-app review domains, their persisted actions and append-only audit logs."""
+
+    closed_statuses = {
+        "aprovado",
+        "corrigido",
+        "rejeitado",
+        "aceito",
+        "ignorado",
+        "processado",
+        "concluído",
+        "concluido",
+    }
+    specs = [
+        {
+            "domain_id": "cedente_review",
+            "label": "Cedentes/sacados",
+            "action_file": "cedente_reviews.csv",
+            "audit_file": "cedente_review_audit.csv",
+            "key_column": "review_id",
+            "status_column": "status",
+            "ui_surface": "Cedentes",
+            "comparison": "participante extraído × nome/CNPJ/setor revisado",
+            "rerun_command": "python scripts/build_fidc_industry_cedentes.py",
+        },
+        {
+            "domain_id": "criteria_review",
+            "label": "Critérios e subordinação",
+            "action_file": "criteria_reviews.csv",
+            "audit_file": "criteria_review_audit.csv",
+            "key_column": "rule_id",
+            "status_column": "status",
+            "ui_surface": "Critérios",
+            "comparison": "critério/regra automática × regra revisada",
+            "rerun_command": "python scripts/build_fidc_industry_criteria.py",
+        },
+        {
+            "domain_id": "monthly_delta_action",
+            "label": "Delta mensal",
+            "action_file": "monthly_delta_actions.csv",
+            "audit_file": "monthly_delta_action_audit.csv",
+            "key_column": "delta_id",
+            "status_column": "status_acao",
+            "ui_surface": "Pipeline > Delta mensal",
+            "comparison": "delta automático × ação revisada",
+            "rerun_command": "python scripts/build_fidc_industry_monthly_delta.py",
+        },
+        {
+            "domain_id": "document_chunk_action",
+            "label": "Chunks documentais",
+            "action_file": "document_chunk_actions.csv",
+            "audit_file": "document_chunk_action_audit.csv",
+            "key_column": "chunk_id",
+            "status_column": "status_lote",
+            "ui_surface": "Documentos",
+            "comparison": "chunk planejado × acompanhamento revisado",
+            "rerun_command": "python scripts/build_fidc_industry_document_chunk_plan.py",
+        },
+        {
+            "domain_id": "snapshot_gap",
+            "label": "Lacunas do snapshot",
+            "action_file": "snapshot_gap_actions.csv",
+            "audit_file": "snapshot_gap_action_audit.csv",
+            "key_column": "gap_id",
+            "status_column": "status_lacuna",
+            "ui_surface": "Base granular",
+            "comparison": "lacuna automática × decisão manual",
+            "rerun_command": "python scripts/build_fidc_industry_fund_snapshot.py",
+        },
+        {
+            "domain_id": "dimension_catalog_gap",
+            "label": "Rastreabilidade do catálogo",
+            "action_file": "dimension_catalog_gap_actions.csv",
+            "audit_file": "dimension_catalog_gap_action_audit.csv",
+            "key_column": "traceability_gap_id",
+            "status_column": "status_lacuna",
+            "ui_surface": "Pipeline > Qualidade catálogo",
+            "comparison": "campo faltante × decisão manual",
+            "rerun_command": "python scripts/build_fidc_industry_dimensions.py",
+        },
+    ]
+
+    rows: list[dict[str, object]] = []
+    for spec in specs:
+        action_path = industry_dir / str(spec["action_file"])
+        audit_path = industry_dir / str(spec["audit_file"])
+        actions = load_dataframe(action_path)
+        audit = load_review_audit(audit_path)
+        key_column = str(spec["key_column"])
+        status_column = str(spec["status_column"])
+
+        action_rows = int(len(actions))
+        action_records = 0
+        open_rows = 0
+        closed_rows = 0
+        status_mix = ""
+        latest_action_utc = ""
+        if not actions.empty:
+            if key_column in actions.columns:
+                action_keys = actions[key_column].fillna("").astype(str).str.strip()
+                action_records = int(action_keys[action_keys.ne("")].nunique())
+            if status_column in actions.columns:
+                status = (
+                    actions[status_column]
+                    .fillna("")
+                    .astype(str)
+                    .str.strip()
+                    .str.lower()
+                    .replace("", "pendente")
+                )
+                counts = status.value_counts().to_dict()
+                status_mix = " | ".join(f"{key}:{int(value)}" for key, value in counts.items())
+                closed_mask = status.isin(closed_statuses)
+                closed_rows = int(closed_mask.sum())
+                open_rows = int((~closed_mask).sum())
+            else:
+                open_rows = action_rows
+            if "updated_at_utc" in actions.columns:
+                latest_action_utc = _latest_iso(actions["updated_at_utc"].tolist())
+
+        audit_events = int(len(audit))
+        audited_records = 0
+        latest_audit_utc = ""
+        audit_domains = ""
+        if not audit.empty:
+            audited_keys = audit.get("record_id", pd.Series(dtype=str)).fillna("").astype(str).str.strip()
+            audited_records = int(audited_keys[audited_keys.ne("")].nunique())
+            latest_audit_utc = _latest_iso(audit.get("saved_at_utc", pd.Series(dtype=str)).tolist())
+            if "review_domain" in audit.columns:
+                counts = audit["review_domain"].fillna("").astype(str).replace("", "n/d").value_counts().to_dict()
+                audit_domains = " | ".join(f"{key}:{int(value)}" for key, value in counts.items())
+
+        if action_rows and audit_events:
+            status_ledger = "ok"
+        elif action_rows and not audit_events:
+            status_ledger = "atenção"
+        elif not action_rows and audit_events:
+            status_ledger = "atenção"
+        else:
+            status_ledger = "sem_uso"
+
+        rows.append(
+            {
+                "domain_id": spec["domain_id"],
+                "label": spec["label"],
+                "status_ledger": status_ledger,
+                "ui_surface": spec["ui_surface"],
+                "comparison": spec["comparison"],
+                "action_file": spec["action_file"],
+                "audit_file": spec["audit_file"],
+                "action_exists": action_path.exists(),
+                "audit_exists": audit_path.exists(),
+                "action_rows": action_rows,
+                "action_records": action_records,
+                "open_rows": open_rows,
+                "closed_rows": closed_rows,
+                "status_mix": status_mix,
+                "audit_events": audit_events,
+                "audited_records": audited_records,
+                "audit_domains": audit_domains,
+                "latest_action_utc": latest_action_utc,
+                "latest_audit_utc": latest_audit_utc,
+                "source_artifacts": f"{spec['action_file']} | {spec['audit_file']}",
+                "rerun_command": spec["rerun_command"],
+            }
+        )
+
+    status_order = {"atenção": 0, "sem_uso": 1, "ok": 2}
+    frame = pd.DataFrame(rows)
+    if frame.empty:
+        return []
+    frame["_status_order"] = frame["status_ledger"].map(status_order).fillna(9)
+    frame = frame.sort_values(["_status_order", "domain_id"]).drop(columns=["_status_order"]).reset_index(drop=True)
+    return frame.to_dict("records")
+
+
 def build_prd_coverage_matrix(
     *,
     quality_rollup: dict[str, object],
@@ -3742,17 +4361,22 @@ def build_prd_coverage_matrix(
         "Qualidade",
         "Camada auditável para escrutínio público com fonte, documento, página, método e score",
         "atenção"
-        if number("dimension_value_atlas_values_with_source_page_sample") < number("dimension_value_atlas_values_with_source_document_sample")
+        if (
+            number("dimension_value_atlas_values_with_source_page_sample")
+            < number("dimension_value_atlas_values_with_source_document_sample")
+            or number("public_claim_audit_methodology_gap_claims")
+        )
         else "ok",
         (
             f"{int(number('dimension_value_atlas_values_with_source_document_sample'))} valores com documento; "
             f"{int(number('dimension_value_atlas_values_with_source_page_sample'))} com página; "
-            f"{int(number('dimension_value_atlas_values_with_confidence'))} com score"
+            f"{int(number('dimension_value_atlas_values_with_confidence'))} com score; "
+            f"{int(number('public_claim_audit_rows'))} claims públicos reconciliados"
         ),
-        f"readiness_checks={len(rows)}",
-        "industry_pipeline_index.json | industry_dimension_value_atlas.csv.gz",
-        "Aumentar cobertura de página/score nas dimensões curadas antes de apresentações externas.",
-        "python scripts/build_fidc_industry_pipeline_index.py",
+        f"readiness_checks={len(rows)}; methodology_gaps={int(number('public_claim_audit_methodology_gap_claims'))}",
+        "industry_pipeline_index.json | industry_dimension_value_atlas.csv.gz | industry_public_claim_audit.csv",
+        "Aumentar cobertura de página/score e manter diferenças ANBIMA/CVM explícitas antes de apresentações externas.",
+        "python scripts/build_fidc_industry_public_claim_audit.py && python scripts/build_fidc_industry_pipeline_index.py",
     )
 
     status_order = {"bloqueado": 0, "atenção": 1, "ok": 2}
@@ -3804,6 +4428,25 @@ def build_industry_pipeline_index(
                 "sector_year_rows",
                 "tranche_rows",
                 "tranche_funds",
+            ],
+        },
+        {
+            "module_id": "public_claims",
+            "label": "Auditoria de claims públicos",
+            "manifest_name": "industry_public_claim_audit_manifest.json",
+            "command": "python scripts/build_fidc_industry_public_claim_audit.py",
+            "cadence": "quando fontes públicas ou números-base mudarem",
+            "depends_on": ["base granular mensal", "emissões/ofertas", "claims públicos declarados"],
+            "quality_keys": [
+                "rows",
+                "claims_with_local_metric",
+                "public_sources",
+                "methodology_gap_claims",
+                "adherent_claims",
+                "divergent_claims",
+                "missing_local_claims",
+                "max_abs_delta_pct",
+                "status_counts",
             ],
         },
         {
@@ -4048,6 +4691,14 @@ def build_industry_pipeline_index(
         },
         {
             "order": 4,
+            "module_id": "public_claims",
+            "label": "Auditar claims públicos",
+            "command": "python scripts/build_fidc_industry_public_claim_audit.py",
+            "reason": "Compara números citados por ANBIMA/Seu Dinheiro contra métricas locais e explicita divergências de universo/conceito.",
+            "incremental_note": "Rerun leve quando uma nova notícia for adicionada aos specs ou quando base mensal/emissões forem atualizadas.",
+        },
+        {
+            "order": 5,
             "module_id": "documents",
             "label": "Inventariar documentação pública",
             "command": "python scripts/build_fidc_industry_documents.py",
@@ -4055,7 +4706,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Use --chunk-id doc-0001 para rodar ou depurar lotes sem reprocessar a indústria toda.",
         },
         {
-            "order": 5,
+            "order": 6,
             "module_id": "document_chunk_plan",
             "label": "Atualizar plano operacional de chunks",
             "command": "python scripts/build_fidc_industry_document_chunk_plan.py",
@@ -4063,7 +4714,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Rerun leve quando o usuário muda status/responsável/prazo na aba Documentos > Chunks.",
         },
         {
-            "order": 6,
+            "order": 7,
             "module_id": "cedentes",
             "label": "Regerar base de cedentes/sacados",
             "command": "python scripts/build_fidc_industry_cedentes.py",
@@ -4071,7 +4722,7 @@ def build_industry_pipeline_index(
             "incremental_note": "A curadoria continua sendo feita pela UI e reaplicada pelo overlay persistido.",
         },
         {
-            "order": 7,
+            "order": 8,
             "module_id": "criteria",
             "label": "Regerar critérios e subordinação mínima",
             "command": "python scripts/build_fidc_industry_criteria.py",
@@ -4079,7 +4730,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Revisões feitas pela UI são reaplicadas antes da consolidação.",
         },
         {
-            "order": 8,
+            "order": 9,
             "module_id": "fund_snapshot",
             "label": "Regerar snapshot unificado por FIDC",
             "command": "python scripts/build_fidc_industry_fund_snapshot.py",
@@ -4087,7 +4738,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem.",
         },
         {
-            "order": 9,
+            "order": 10,
             "module_id": "dimension_catalog",
             "label": "Regerar catálogo de dimensões",
             "command": "python scripts/build_fidc_industry_dimensions.py",
@@ -4095,7 +4746,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos.",
         },
         {
-            "order": 10,
+            "order": 11,
             "module_id": "curation_queue",
             "label": "Consolidar fila única de curadoria",
             "command": "python scripts/build_fidc_industry_curation_queue.py",
@@ -4103,7 +4754,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Rerun leve depois de salvar ações manuais na UI ou de regenerar qualquer fila detalhe.",
         },
         {
-            "order": 11,
+            "order": 12,
             "module_id": "dimension_profiles",
             "label": "Regerar perfis cruzados por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_profiles.py",
@@ -4111,7 +4762,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado.",
         },
         {
-            "order": 12,
+            "order": 13,
             "module_id": "dimension_monthly",
             "label": "Regerar séries mensais por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -4119,7 +4770,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação.",
         },
         {
-            "order": 13,
+            "order": 14,
             "module_id": "market_share",
             "label": "Regerar market share e concentração",
             "command": "python scripts/build_fidc_industry_market_share.py",
@@ -4127,7 +4778,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe.",
         },
         {
-            "order": 14,
+            "order": 15,
             "module_id": "pipeline_index",
             "label": "Atualizar cockpit do pipeline",
             "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -4157,6 +4808,7 @@ def build_industry_pipeline_index(
     document_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "documents"), {})
     cedente_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "cedentes"), {})
     issuance_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "issuance"), {})
+    public_claim_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "public_claims"), {})
     snapshot_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "fund_snapshot"), {})
     dimension_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "dimension_catalog"), {})
     dimension_monthly_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "dimension_monthly"), {})
@@ -4240,6 +4892,14 @@ def build_industry_pipeline_index(
         "subordination_funds": criteria_quality.get("subordination_funds", 0),
         "subordination_median_pct": subordination.get("median") if isinstance(subordination, dict) else None,
         "issuance_volume_conservador_brl": issuance_quality.get("annual_volume_conservador_brl", 0),
+        "public_claim_audit_rows": public_claim_quality.get("rows", 0),
+        "public_claim_audit_claims_with_local_metric": public_claim_quality.get("claims_with_local_metric", 0),
+        "public_claim_audit_sources": public_claim_quality.get("public_sources", 0),
+        "public_claim_audit_methodology_gap_claims": public_claim_quality.get("methodology_gap_claims", 0),
+        "public_claim_audit_adherent_claims": public_claim_quality.get("adherent_claims", 0),
+        "public_claim_audit_divergent_claims": public_claim_quality.get("divergent_claims", 0),
+        "public_claim_audit_missing_local_claims": public_claim_quality.get("missing_local_claims", 0),
+        "public_claim_audit_max_abs_delta_pct": public_claim_quality.get("max_abs_delta_pct"),
         "fund_snapshot_rows": snapshot_quality.get("fund_rows", 0),
         "fund_snapshot_with_cedentes": snapshot_quality.get("with_cedentes", 0),
         "fund_snapshot_with_criteria": snapshot_quality.get("with_criteria", 0),
@@ -4286,6 +4946,37 @@ def build_industry_pipeline_index(
         prd_status_counts[status] = prd_status_counts.get(status, 0) + 1
     quality_rollup["prd_requirements_total"] = len(prd_coverage)
     quality_rollup["prd_status_counts"] = prd_status_counts
+    monthly_update_plan = build_monthly_update_plan(
+        modules=modules,
+        artifact_rows=artifact_rows,
+        refresh_plan=refresh_plan,
+        readiness_checks=readiness_checks,
+        quality_rollup=quality_rollup,
+    )
+    update_plan_status_counts: dict[str, int] = {}
+    for row in monthly_update_plan:
+        status = str(row.get("status_prontidao") or "n/d")
+        update_plan_status_counts[status] = update_plan_status_counts.get(status, 0) + 1
+    quality_rollup["monthly_update_plan_rows"] = len(monthly_update_plan)
+    quality_rollup["monthly_update_plan_status_counts"] = update_plan_status_counts
+    manual_review_ledger = build_manual_review_ledger(industry_dir=industry_dir)
+    manual_review_status_counts: dict[str, int] = {}
+    for row in manual_review_ledger:
+        status = str(row.get("status_ledger") or "n/d")
+        manual_review_status_counts[status] = manual_review_status_counts.get(status, 0) + 1
+    quality_rollup["manual_review_domains_total"] = len(manual_review_ledger)
+    quality_rollup["manual_review_domains_with_actions"] = sum(
+        1 for row in manual_review_ledger if int(row.get("action_rows", 0) or 0) > 0
+    )
+    quality_rollup["manual_review_domains_with_audit"] = sum(
+        1 for row in manual_review_ledger if int(row.get("audit_events", 0) or 0) > 0
+    )
+    quality_rollup["manual_review_action_rows"] = sum(int(row.get("action_rows", 0) or 0) for row in manual_review_ledger)
+    quality_rollup["manual_review_audit_events"] = sum(int(row.get("audit_events", 0) or 0) for row in manual_review_ledger)
+    quality_rollup["manual_review_status_counts"] = manual_review_status_counts
+    quality_rollup["manual_review_latest_audit_utc"] = _latest_iso(
+        [row.get("latest_audit_utc", "") for row in manual_review_ledger]
+    )
 
     return {
         "schema_version": "industry-pipeline-index/v1",
@@ -4307,6 +4998,8 @@ def build_industry_pipeline_index(
         "quality_rollup": quality_rollup,
         "readiness_checks": readiness_checks,
         "prd_coverage": prd_coverage,
+        "monthly_update_plan": monthly_update_plan,
+        "manual_review_ledger": manual_review_ledger,
         "modules": modules,
         "refresh_plan": refresh_plan,
         "artifact_index": artifact_rows,
@@ -4555,6 +5248,80 @@ def build_issuance_pipeline_manifest(
                 "rows": int(len(tranches)),
                 "funds": int(tranches["cnpj_fundo"].nunique()) if "cnpj_fundo" in tranches else 0,
                 "rerun": "python scripts/build_fidc_industry_issuance.py",
+            },
+        ],
+        "quality": quality,
+    }
+
+
+def build_public_claim_audit_pipeline_manifest(
+    *,
+    industry_dir: Path,
+    output_path: Path,
+    manifest_path: Path,
+    industry_monthly_path: Path,
+    issuance_tranches_path: Path,
+    industry_monthly: pd.DataFrame,
+    issuance_tranches: pd.DataFrame,
+    audit: pd.DataFrame,
+) -> dict[str, object]:
+    quality = public_claim_audit_quality_summary(audit)
+    return {
+        "schema_version": "industry-public-claim-audit-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_public_claim_audit",
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "macbook_air_m4_friendly": True,
+            "notes": [
+                "Este modulo compara claims publicos contra metricas locais ja materializadas.",
+                "Divergencias metodologicas sao preservadas como evidência, não corrigidas por ajuste ad hoc.",
+                "O objetivo é preparar a aba para escrutinio publico antes de apresentacoes executivas.",
+            ],
+        },
+        "inputs": {
+            "industry_monthly": file_fingerprint(industry_monthly_path),
+            "issuance_tranches": file_fingerprint(issuance_tranches_path),
+            "public_claim_specs": {
+                "exists": True,
+                "rows": len(PUBLIC_CLAIM_SPECS),
+                "source": "services.industry_study.PUBLIC_CLAIM_SPECS",
+            },
+        },
+        "outputs": {
+            "public_claim_audit": file_fingerprint(output_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "load_local_metrics",
+                "label": "Carregar métricas locais",
+                "status": "ok" if not industry_monthly.empty else "empty",
+                "input": f"{industry_monthly_path} | {issuance_tranches_path}",
+                "output": "memoria:industry_monthly+issuance_tranches",
+                "rows": int(len(industry_monthly)),
+                "rerun": "python scripts/build_fidc_industry_study.py --report && python scripts/build_fidc_industry_issuance.py",
+            },
+            {
+                "id": "compare_public_claims",
+                "label": "Comparar claims públicos",
+                "status": "ok" if not audit.empty else "empty",
+                "input": "PUBLIC_CLAIM_SPECS",
+                "output": str(output_path),
+                "rows": int(len(audit)),
+                "claims_with_local_metric": int(quality.get("claims_with_local_metric", 0) or 0),
+                "rerun": "python scripts/build_fidc_industry_public_claim_audit.py",
+            },
+            {
+                "id": "classify_methodology_gaps",
+                "label": "Classificar aderência/metodologia",
+                "status": "ok" if int(quality.get("claims_with_local_metric", 0) or 0) else "empty",
+                "input": str(output_path),
+                "output": "memoria:status_auditoria",
+                "methodology_gap_claims": int(quality.get("methodology_gap_claims", 0) or 0),
+                "adherent_claims": int(quality.get("adherent_claims", 0) or 0),
+                "rerun": "python scripts/build_fidc_industry_public_claim_audit.py",
             },
         ],
         "quality": quality,

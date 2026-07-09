@@ -1,0 +1,95 @@
+{
+  "schema_version": "industry-public-claim-audit-manifest/v1",
+  "generated_at_utc": "2026-07-09T13:40:53+00:00",
+  "pipeline": "industry_public_claim_audit",
+  "design_constraints": {
+    "modular": true,
+    "incremental": true,
+    "macbook_air_m4_friendly": true,
+    "notes": [
+      "Este modulo compara claims publicos contra metricas locais ja materializadas.",
+      "Divergencias metodologicas sao preservadas como evidência, não corrigidas por ajuste ad hoc.",
+      "O objetivo é preparar a aba para escrutinio publico antes de apresentacoes executivas."
+    ]
+  },
+  "inputs": {
+    "industry_monthly": {
+      "path": "data/industry_study/industry_monthly.csv",
+      "exists": true,
+      "bytes": 70453,
+      "sha256": "a501fb2f97294772758b1d517d98b0e0188f4312bd84acbd05f06f67a8cd86c5"
+    },
+    "issuance_tranches": {
+      "path": "data/industry_study/issuance_tranches.csv.gz",
+      "exists": true,
+      "bytes": 115626,
+      "sha256": "3f37fdbd397b08924dac0043057782a258b0f6e41a5f9e19a9b00cb59494a267"
+    },
+    "public_claim_specs": {
+      "exists": true,
+      "rows": 8,
+      "source": "services.industry_study.PUBLIC_CLAIM_SPECS"
+    }
+  },
+  "outputs": {
+    "public_claim_audit": {
+      "path": "data/industry_study/industry_public_claim_audit.csv",
+      "exists": true,
+      "bytes": 6135,
+      "sha256": "144b1194a1e85f7f2470634fe836bee109555862cef214501a415acc01127880"
+    },
+    "manifest": {
+      "path": "data/industry_study/industry_public_claim_audit_manifest.json"
+    }
+  },
+  "stages": [
+    {
+      "id": "load_local_metrics",
+      "label": "Carregar métricas locais",
+      "status": "ok",
+      "input": "data/industry_study/industry_monthly.csv | data/industry_study/issuance_tranches.csv.gz",
+      "output": "memoria:industry_monthly+issuance_tranches",
+      "rows": 162,
+      "rerun": "python scripts/build_fidc_industry_study.py --report && python scripts/build_fidc_industry_issuance.py"
+    },
+    {
+      "id": "compare_public_claims",
+      "label": "Comparar claims públicos",
+      "status": "ok",
+      "input": "PUBLIC_CLAIM_SPECS",
+      "output": "data/industry_study/industry_public_claim_audit.csv",
+      "rows": 8,
+      "claims_with_local_metric": 8,
+      "rerun": "python scripts/build_fidc_industry_public_claim_audit.py"
+    },
+    {
+      "id": "classify_methodology_gaps",
+      "label": "Classificar aderência/metodologia",
+      "status": "ok",
+      "input": "data/industry_study/industry_public_claim_audit.csv",
+      "output": "memoria:status_auditoria",
+      "methodology_gap_claims": 8,
+      "adherent_claims": 0,
+      "rerun": "python scripts/build_fidc_industry_public_claim_audit.py"
+    }
+  ],
+  "quality": {
+    "rows": 8,
+    "claims_with_local_metric": 8,
+    "public_sources": 2,
+    "methodology_gap_claims": 8,
+    "adherent_claims": 0,
+    "divergent_claims": 0,
+    "missing_local_claims": 0,
+    "max_abs_delta_pct": 7.150438917299664,
+    "metric_group_counts": {
+      "captação líquida": 4,
+      "contas": 2,
+      "ofertas": 1,
+      "patrimônio líquido": 1
+    },
+    "status_counts": {
+      "diferença_metodológica": 8
+    }
+  }
+}

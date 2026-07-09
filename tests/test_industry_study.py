@@ -43,6 +43,7 @@ from services.industry_study import (  # noqa: E402
     build_industry_monthly_delta,
     build_industry_market_share,
     build_industry_pipeline_index,
+    build_public_claim_audit,
     build_issuance_annual,
     build_issuance_pipeline_manifest,
     build_issuance_sector_year,
@@ -62,6 +63,7 @@ from services.industry_study import (  # noqa: E402
     industry_market_share_quality_summary,
     industry_monthly_delta_quality_summary,
     industry_curation_queue_quality_summary,
+    public_claim_audit_quality_summary,
     load_cedente_structured,
     load_monthly_delta_actions,
     load_review_audit,
@@ -546,6 +548,71 @@ def test_issuance_pipeline_manifest_lists_outputs():
     assert manifest["schema_version"] == "industry-issuance-manifest/v1"
     assert manifest["outputs"]["issuance_tranches"]["sha256"]
     assert {stage["id"] for stage in manifest["stages"]} >= {"aggregate_annual_issuance", "normalize_tranches"}
+
+
+def test_public_claim_audit_compares_news_claims_to_local_metrics():
+    monthly = pd.DataFrame(
+        [
+            {"competencia": "2025-01", "captacao_liquida": 10.0, "cotistas_total": 100, "pl_total": 1000.0},
+            {"competencia": "2025-02", "captacao_liquida": 20.0, "cotistas_total": 110, "pl_total": 1100.0},
+            {"competencia": "2026-05", "captacao_liquida": 30.0, "cotistas_total": 120, "pl_total": 1200.0},
+        ]
+    )
+    tranches = pd.DataFrame(
+        [
+            {"data_deliberacao": "2026-01-10", "volume_brl": 40.0, "cnpj_fundo": "11111111000111"},
+            {"data_deliberacao": "2026-06-10", "volume_brl": 90.0, "cnpj_fundo": "22222222000122"},
+        ]
+    )
+    specs = [
+        {
+            "claim_id": "flow",
+            "source_name": "Teste",
+            "source_title": "Claim",
+            "source_url": "https://example.com",
+            "published_at": "2026-01-01",
+            "metric_group": "captação líquida",
+            "claim_text": "Fluxo",
+            "period_start": "2025-01",
+            "period_end": "2025-02",
+            "public_value": 30.0,
+            "unit": "BRL",
+            "local_metric": "monthly_net_flow_sum",
+            "local_source_artifact": "industry_monthly.csv",
+            "comparability": "comparável",
+            "method_note": "",
+        },
+        {
+            "claim_id": "offers",
+            "source_name": "Teste",
+            "source_title": "Claim",
+            "source_url": "https://example.com",
+            "published_at": "2026-01-01",
+            "metric_group": "ofertas",
+            "claim_text": "Ofertas",
+            "period_start": "2026-01",
+            "period_end": "2026-05",
+            "public_value": 50.0,
+            "unit": "BRL",
+            "local_metric": "issuance_tranche_volume_sum",
+            "local_source_artifact": "issuance_tranches.csv.gz",
+            "comparability": "subcobertura_documental",
+            "method_note": "",
+        },
+    ]
+
+    audit = build_public_claim_audit(industry_monthly=monthly, issuance_tranches=tranches, claim_specs=specs)
+    quality = public_claim_audit_quality_summary(audit)
+    by_id = audit.set_index("claim_id")
+
+    assert by_id.loc["flow", "local_value"] == 30.0
+    assert by_id.loc["flow", "status_auditoria"] == "aderente"
+    assert by_id.loc["offers", "local_value"] == 40.0
+    assert by_id.loc["offers", "status_auditoria"] == "diferença_metodológica"
+    assert quality["rows"] == 2
+    assert quality["claims_with_local_metric"] == 2
+    assert quality["adherent_claims"] == 1
+    assert quality["methodology_gap_claims"] == 1
 
 
 def test_document_inventory_fingerprints_and_classifies_local_sources():
@@ -2792,6 +2859,21 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
             {"annual_volume_conservador_brl": 100.0, "tranche_rows": 1},
         )
         write_module_manifest(
+            "industry_public_claim_audit_manifest.json",
+            "industry_public_claim_audit",
+            "industry_public_claim_audit.csv",
+            {
+                "rows": 4,
+                "claims_with_local_metric": 4,
+                "public_sources": 2,
+                "methodology_gap_claims": 3,
+                "adherent_claims": 1,
+                "divergent_claims": 0,
+                "missing_local_claims": 0,
+                "max_abs_delta_pct": 1.2,
+            },
+        )
+        write_module_manifest(
             "industry_curation_queue_manifest.json",
             "industry_curation_queue",
             "industry_curation_queue.csv.gz",
@@ -2834,6 +2916,14 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
             "cedentes_structured.csv.gz",
             {"structured_rows": 3, "structured_funds": 2},
         )
+        (tmp_path / "cedente_reviews.csv").write_text(
+            "review_id,status,nome_revisado,nome_fantasia_revisado,cnpj_revisado,grupo_economico,setor_revisado,segmento_revisado,confianca_manual,notas\n"
+            "ced1,corrigido,CEDENTE ABC,,11111111000111,Grupo ABC,Serviços,Recebíveis,0.9,ok\n"
+        )
+        (tmp_path / "cedente_review_audit.csv").write_text(
+            "event_id,saved_at_utc,review_domain,record_id,field,old_value,new_value,status_after,source\n"
+            "cedev1,2026-07-08T12:00:00+00:00,cedente,ced1,status,pendente,corrigido,corrigido,test\n"
+        )
         write_module_manifest(
             "industry_criteria_manifest.json",
             "industry_criteria_structured",
@@ -2843,6 +2933,14 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "subordination_funds": 2,
                 "subordination": {"median": 10.0},
             },
+        )
+        (tmp_path / "criteria_reviews.csv").write_text(
+            "rule_id,status,criterio_revisado,chave_revisada,limite_revisado,pct_min_revisado,monitorabilidade_revisada,confianca_manual,notas\n"
+            "rule1,aprovado,Subordinação,subordinacao_minima,10%,10,monitorável,0.8,ok\n"
+        )
+        (tmp_path / "criteria_review_audit.csv").write_text(
+            "event_id,saved_at_utc,review_domain,record_id,field,old_value,new_value,status_after,source\n"
+            "critev1,2026-07-08T12:00:00+00:00,criteria,rule1,status,pendente,aprovado,aprovado,test\n"
         )
         write_module_manifest(
             "industry_fund_snapshot_manifest.json",
@@ -2876,6 +2974,14 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "with_source_document": 20,
                 "with_confidence": 18,
             },
+        )
+        (tmp_path / "dimension_catalog_gap_actions.csv").write_text(
+            "traceability_gap_id,status_lacuna,acao_revisada,responsavel,prazo,notas,updated_at_utc\n"
+            "gap1,aceito,fonte suficiente,research,2026-07-15,,2026-07-08T12:00:00+00:00\n"
+        )
+        (tmp_path / "dimension_catalog_gap_action_audit.csv").write_text(
+            "event_id,saved_at_utc,review_domain,record_id,field,old_value,new_value,status_after,source\n"
+            "cat1,2026-07-08T12:00:00+00:00,dimension_catalog_gap,gap1,status,pendente,aceito,aceito,test\n"
         )
         write_module_manifest(
             "industry_dimension_monthly_manifest.json",
@@ -2936,8 +3042,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
     assert index["schema_version"] == "industry-pipeline-index/v1"
-    assert index["quality_rollup"]["modules_total"] == 12
-    assert index["quality_rollup"]["module_status_counts"]["ok"] == 12
+    assert index["quality_rollup"]["modules_total"] == 13
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 13
     assert index["quality_rollup"]["artifacts_missing"] == 0
     assert index["quality_rollup"]["manual_review_artifacts_total"] == 6
     assert index["quality_rollup"]["manual_review_artifacts_present"] == 6
@@ -2979,6 +3085,9 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["heatmap_preset_profile_available"] == 7
     assert index["quality_rollup"]["market_share_rows"] == 30
     assert index["quality_rollup"]["market_share_dimensions"] == 5
+    assert index["quality_rollup"]["public_claim_audit_rows"] == 4
+    assert index["quality_rollup"]["public_claim_audit_sources"] == 2
+    assert index["quality_rollup"]["public_claim_audit_methodology_gap_claims"] == 3
     assert index["quality_rollup"]["prd_requirements_total"] == 12
     assert "prd_status_counts" in index["quality_rollup"]
     prd = {row["requirement_id"]: row for row in index["prd_coverage"]}
@@ -2994,12 +3103,39 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert prd["manual_review_in_app"]["status_prd"] == "ok"
     assert prd["heatmaps_generic"]["status_prd"] == "atenção"
     assert prd["public_audit_readiness"]["status_prd"] == "atenção"
+    assert index["quality_rollup"]["monthly_update_plan_rows"] == 15
+    assert "monthly_update_plan_status_counts" in index["quality_rollup"]
+    monthly_plan = {row["module_id"]: row for row in index["monthly_update_plan"]}
+    assert monthly_plan["base_monthly"]["comando"] == "python scripts/build_fidc_industry_study.py --report"
+    assert monthly_plan["public_claims"]["comando"] == "python scripts/build_fidc_industry_public_claim_audit.py"
+    assert monthly_plan["monthly_delta"]["status_prontidao"] == "bloqueado"
+    assert monthly_plan["document_chunk_plan"]["status_prontidao"] == "atenção"
+    assert monthly_plan["dimension_monthly"]["validacao"] == "python scripts/build_fidc_industry_pipeline_index.py"
+    assert "industry_dimension_monthly" in monthly_plan["dimension_monthly"]["saidas"]
+    assert index["quality_rollup"]["manual_review_domains_total"] == 6
+    assert index["quality_rollup"]["manual_review_domains_with_actions"] == 6
+    assert index["quality_rollup"]["manual_review_domains_with_audit"] == 6
+    assert index["quality_rollup"]["manual_review_action_rows"] == 6
+    assert index["quality_rollup"]["manual_review_audit_events"] == 6
+    ledger = {row["domain_id"]: row for row in index["manual_review_ledger"]}
+    assert set(ledger) == {
+        "cedente_review",
+        "criteria_review",
+        "monthly_delta_action",
+        "document_chunk_action",
+        "snapshot_gap",
+        "dimension_catalog_gap",
+    }
+    assert ledger["cedente_review"]["status_ledger"] == "ok"
+    assert ledger["dimension_catalog_gap"]["audit_events"] == 1
+    assert "critério" in ledger["criteria_review"]["comparison"]
     assert {stage["module_id"] for stage in index["refresh_plan"]} >= {
         "base_monthly",
         "fund_snapshot",
         "dimension_catalog",
         "dimension_profiles",
         "dimension_monthly",
+        "public_claims",
         "market_share",
         "monthly_delta",
         "curation_queue",
