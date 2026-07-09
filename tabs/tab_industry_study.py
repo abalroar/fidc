@@ -29,6 +29,7 @@ from services.industry_study import (
     CRITERIA_REVIEW_COLUMNS,
     DOCUMENT_CHUNK_ACTION_COLUMNS,
     DIMENSION_CATALOG_SPECS,
+    HEATMAP_PRESET_SPECS,
     MARKET_SHARE_DIMENSIONS,
     MARKET_SHARE_METRICS,
     MONTHLY_DELTA_ACTION_COLUMNS,
@@ -38,6 +39,9 @@ from services.industry_study import (
     build_document_chunk_plan,
     build_curation_queue_pipeline_manifest,
     build_industry_curation_queue,
+    build_industry_curation_queue_summary,
+    build_industry_dimension_value_atlas,
+    build_industry_heatmap_registry,
     build_review_audit_events,
     build_cedente_pipeline_manifest,
     build_cedente_structured,
@@ -72,6 +76,7 @@ _CEDENTE_STRUCTURED_PATH = _DATA_DIR / "cedentes_structured.csv.gz"
 _PIPELINE_MANIFEST_PATH = _DATA_DIR / "industry_pipeline_manifest.json"
 _PIPELINE_INDEX_PATH = _DATA_DIR / "industry_pipeline_index.json"
 _CURATION_QUEUE_PATH = _DATA_DIR / "industry_curation_queue.csv.gz"
+_CURATION_QUEUE_SUMMARY_PATH = _DATA_DIR / "industry_curation_queue_summary.csv.gz"
 _CURATION_QUEUE_MANIFEST_PATH = _DATA_DIR / "industry_curation_queue_manifest.json"
 _MONTHLY_DELTA_PATH = _DATA_DIR / "industry_monthly_delta.csv.gz"
 _MONTHLY_DELTA_MANIFEST_PATH = _DATA_DIR / "industry_monthly_delta_manifest.json"
@@ -86,8 +91,10 @@ _FUND_SNAPSHOT_MANIFEST_PATH = _DATA_DIR / "industry_fund_snapshot_manifest.json
 _DIMENSION_CATALOG_PATH = _DATA_DIR / "industry_dimension_catalog.csv.gz"
 _DIMENSION_CATALOG_MANIFEST_PATH = _DATA_DIR / "industry_dimension_catalog_manifest.json"
 _DIMENSION_MONTHLY_PATH = _DATA_DIR / "industry_dimension_monthly.csv.gz"
+_DIMENSION_VALUE_ATLAS_PATH = _DATA_DIR / "industry_dimension_value_atlas.csv.gz"
 _DIMENSION_MONTHLY_MANIFEST_PATH = _DATA_DIR / "industry_dimension_monthly_manifest.json"
 _DIMENSION_PROFILE_PATH = _DATA_DIR / "industry_dimension_profiles.csv.gz"
+_HEATMAP_REGISTRY_PATH = _DATA_DIR / "industry_heatmap_registry.csv"
 _DIMENSION_PROFILE_MANIFEST_PATH = _DATA_DIR / "industry_dimension_profile_manifest.json"
 _MARKET_SHARE_PATH = _DATA_DIR / "industry_market_share.csv.gz"
 _MARKET_SHARE_MANIFEST_PATH = _DATA_DIR / "industry_market_share_manifest.json"
@@ -623,16 +630,28 @@ def _load_dimension_catalog_tables() -> dict[str, pd.DataFrame | dict[str, objec
 
 @st.cache_data(show_spinner=False)
 def _load_dimension_monthly_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    monthly = load_dataframe(_DIMENSION_MONTHLY_PATH)
+    atlas = load_dataframe(_DIMENSION_VALUE_ATLAS_PATH)
+    if atlas.empty and not monthly.empty:
+        catalog = load_dataframe(_DIMENSION_CATALOG_PATH)
+        atlas = build_industry_dimension_value_atlas(monthly, dimension_catalog=catalog)
     return {
-        "monthly": load_dataframe(_DIMENSION_MONTHLY_PATH),
+        "monthly": monthly,
+        "atlas": atlas,
         "manifest": load_pipeline_manifest(_DIMENSION_MONTHLY_MANIFEST_PATH),
     }
 
 
 @st.cache_data(show_spinner=False)
 def _load_dimension_profile_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    profiles = load_dataframe(_DIMENSION_PROFILE_PATH)
+    registry = load_dataframe(_HEATMAP_REGISTRY_PATH)
+    if registry.empty:
+        catalog = load_dataframe(_DIMENSION_CATALOG_PATH)
+        registry = build_industry_heatmap_registry(dimension_catalog=catalog, profiles=profiles)
     return {
-        "profiles": load_dataframe(_DIMENSION_PROFILE_PATH),
+        "profiles": profiles,
+        "heatmap_registry": registry,
         "manifest": load_pipeline_manifest(_DIMENSION_PROFILE_MANIFEST_PATH),
     }
 
@@ -2447,21 +2466,11 @@ def _dimension_catalog_options(catalog: pd.DataFrame) -> dict[str, str]:
 
 def _heatmap_preset_options(dimension_labels: list[str]) -> dict[str, tuple[str, str] | None]:
     available = set(dimension_labels)
-    specs = [
-        ("Administrador × Segmento", "Administrador", "Segmento"),
-        ("Gestor × Segmento", "Gestor", "Segmento"),
-        ("Cedente/sacado × Segmento", "Cedente/sacado", "Segmento"),
-        ("Cedente/sacado × Administrador", "Cedente/sacado", "Administrador"),
-        ("Setor cedente × Ano 1ª oferta", "Setor cedente", "Ano 1ª oferta"),
-        ("Segmento × Safra emissão", "Segmento", "Safra emissão"),
-        ("Setor cedente × Indexador", "Setor cedente", "Indexador"),
-        ("Segmento × Indexador", "Segmento", "Indexador"),
-        ("Administrador × Tipo de cota", "Administrador", "Tipo de cota"),
-        ("Critério × Segmento", "Critério", "Segmento"),
-        ("Status curadoria × Segmento", "Status curadoria", "Segmento"),
-    ]
     options: dict[str, tuple[str, str] | None] = {"Personalizado": None}
-    for label, row_label, col_label in specs:
+    for spec in HEATMAP_PRESET_SPECS:
+        label = str(spec["label"])
+        row_label = str(spec["row_label"])
+        col_label = str(spec["col_label"])
         if row_label in available and col_label in available:
             options[label] = (row_label, col_label)
     return options
@@ -2878,6 +2887,85 @@ def _format_dimension_profile_coverage(frame: pd.DataFrame) -> pd.DataFrame:
         out["Score médio"] = pd.to_numeric(out["Score médio"], errors="coerce").map(
             lambda value: "n/d" if pd.isna(value) else f"{float(value):.2f}".replace(".", ",")
         )
+    return out
+
+
+def _format_heatmap_registry(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    cols = [
+        "preset_label",
+        "status",
+        "row_dimension_label",
+        "col_dimension_label",
+        "profile_rows",
+        "profile_links",
+        "source_document_links",
+        "curated_links",
+        "weighted_links",
+        "avg_confidence_score",
+        "missing_dimensions",
+        "metrics_supported",
+        "source_mode",
+        "rerun_command",
+    ]
+    out = frame[[col for col in cols if col in frame.columns]].copy()
+    out = out.rename(
+        columns={
+            "preset_label": "Preset",
+            "status": "Status",
+            "row_dimension_label": "Linha",
+            "col_dimension_label": "Coluna",
+            "profile_rows": "Células",
+            "profile_links": "Links",
+            "source_document_links": "Links com fonte",
+            "curated_links": "Links curados",
+            "weighted_links": "Links ponderados",
+            "avg_confidence_score": "Score médio",
+            "missing_dimensions": "Dimensões faltantes",
+            "metrics_supported": "Métricas",
+            "source_mode": "Fonte cálculo",
+            "rerun_command": "Comando",
+        }
+    )
+    for col in ["Células", "Links", "Links com fonte", "Links curados", "Links ponderados"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    if "Score médio" in out.columns:
+        out["Score médio"] = pd.to_numeric(out["Score médio"], errors="coerce").map(
+            lambda value: "" if pd.isna(value) else f"{float(value):.2f}".replace(".", ",")
+        )
+    return out
+
+
+def _format_prd_coverage(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    cols = [
+        "tema",
+        "requisito",
+        "status_prd",
+        "evidencia",
+        "metrica",
+        "artefato",
+        "proximo_passo",
+        "comando",
+    ]
+    out = frame[[col for col in cols if col in frame.columns]].copy()
+    out = out.rename(
+        columns={
+            "tema": "Tema",
+            "requisito": "Requisito PRD",
+            "status_prd": "Status",
+            "evidencia": "Evidência materializada",
+            "metrica": "Métrica",
+            "artefato": "Artefato",
+            "proximo_passo": "Próximo passo",
+            "comando": "Comando",
+        }
+    )
+    if "Status" in out.columns:
+        out["Status"] = out["Status"].map(_status_badge_text)
     return out
 
 
@@ -3680,6 +3768,73 @@ def _format_dimension_radar(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def _format_dimension_value_atlas(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.copy()
+    out = out.rename(
+        columns={
+            "dimension_value": "Valor",
+            "rank_in_dimension": "# dim.",
+            "competencia_atual": "Competência",
+            "pl_atual_brl": "PL atual",
+            "captacao_12m_brl": "Captação 12m",
+            "pl_delta_12m_brl": "Delta PL 12m",
+            "pl_growth_12m_pct": "Cresc. PL 12m",
+            "fundos_atuais": "Fundos",
+            "veiculos_atuais": "Veículos",
+            "inad_pct_atual": "Inad. atual",
+            "links_catalogo": "Links catálogo",
+            "links_com_fonte": "Links com fonte",
+            "evidence_coverage": "% com fonte",
+            "source_documents_sample": "Documentos",
+            "source_pages_sample": "Páginas",
+            "source_methods_sample": "Métodos",
+            "review_status_mix": "Status revisão",
+            "avg_confidence_score": "Score médio",
+            "source_method": "Método",
+        }
+    )
+    keep = [
+        "Valor",
+        "# dim.",
+        "Competência",
+        "PL atual",
+        "Captação 12m",
+        "Delta PL 12m",
+        "Cresc. PL 12m",
+        "Fundos",
+        "Veículos",
+        "Inad. atual",
+        "Links catálogo",
+        "Links com fonte",
+        "% com fonte",
+        "Documentos",
+        "Páginas",
+        "Métodos",
+        "Status revisão",
+        "Score médio",
+        "Método",
+    ]
+    out = out[[col for col in keep if col in out.columns]].copy()
+    for col in ["PL atual", "Captação 12m", "Delta PL 12m"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0.0).map(lambda value: _fmt_bi(float(value), 2))
+    for col in ["Cresc. PL 12m", "Inad. atual", "% com fonte"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").map(
+                lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
+            )
+    for col in ["# dim.", "Fundos", "Veículos", "Links catálogo", "Links com fonte"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    if "Score médio" in out.columns:
+        out["Score médio"] = pd.to_numeric(out["Score médio"], errors="coerce").map(
+            lambda value: "" if pd.isna(value) else f"{float(value):.2f}".replace(".", ",")
+        )
+    return out
+
+
 def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
     st.markdown('<div class="industry-section">Heatmaps granulares</div>', unsafe_allow_html=True)
     st.markdown(
@@ -3727,8 +3882,10 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
     use_catalog = bool(catalog_dimensions)
     monthly_tables = _load_dimension_monthly_tables() if use_catalog else {"monthly": pd.DataFrame(), "manifest": {}}
     dimension_monthly = monthly_tables["monthly"]
+    dimension_value_atlas = monthly_tables.get("atlas", pd.DataFrame())
     dimension_monthly_manifest = monthly_tables["manifest"]
     assert isinstance(dimension_monthly, pd.DataFrame)
+    assert isinstance(dimension_value_atlas, pd.DataFrame)
     assert isinstance(dimension_monthly_manifest, dict)
     profile_tables = _load_dimension_profile_tables() if use_catalog else {"profiles": pd.DataFrame(), "manifest": {}}
     dimension_profiles = profile_tables["profiles"]
@@ -5413,6 +5570,57 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
     if not options:
         st.caption("Sem valores ranqueáveis para a dimensão.")
         return
+    if use_catalog and not dimension_value_atlas.empty:
+        atlas_view = dimension_value_atlas[
+            dimension_value_atlas.get("dimension_id", pd.Series("", index=dimension_value_atlas.index)).astype(str).eq(str(dim_col))
+        ].copy()
+        if query and not atlas_view.empty:
+            atlas_view = atlas_view[
+                atlas_view.get("dimension_value", pd.Series("", index=atlas_view.index))
+                .astype(str)
+                .str.contains(query, case=False, na=False)
+            ].copy()
+        if not atlas_view.empty:
+            atlas_view["rank_score_num"] = pd.to_numeric(atlas_view.get("rank_score"), errors="coerce").fillna(0.0)
+            atlas_view = atlas_view.sort_values(["rank_score_num", "links_com_fonte", "dimension_value"], ascending=[False, False, True]).drop(
+                columns=["rank_score_num"], errors="ignore"
+            )
+            st.markdown("**Atlas materializado da dimensão**")
+            atlas_cards = [
+                _curation_card("Valores", _fmt_int(float(len(atlas_view))), dimension_label),
+                _curation_card(
+                    "PL top 20",
+                    _fmt_bi(float(pd.to_numeric(atlas_view.head(20).get("pl_atual_brl"), errors="coerce").fillna(0).sum()), 1),
+                    str(atlas_view.get("competencia_atual", pd.Series([""])).iloc[0]),
+                ),
+                _curation_card(
+                    "Captação 12m top 20",
+                    _fmt_signed_bi(
+                        float(pd.to_numeric(atlas_view.head(20).get("captacao_12m_brl"), errors="coerce").fillna(0).sum()),
+                        1,
+                    ),
+                    "atlas",
+                ),
+                _curation_card(
+                    "Com fonte",
+                    _fmt_pct(
+                        float(pd.to_numeric(atlas_view.get("links_com_fonte"), errors="coerce").fillna(0).sum())
+                        / float(pd.to_numeric(atlas_view.get("links_catalogo"), errors="coerce").fillna(0).sum())
+                    )
+                    if float(pd.to_numeric(atlas_view.get("links_catalogo"), errors="coerce").fillna(0).sum())
+                    else "n/d",
+                    "links do catálogo",
+                ),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(atlas_cards)}</div>', unsafe_allow_html=True)
+            st.dataframe(_format_dimension_value_atlas(atlas_view.head(80)), hide_index=True, width="stretch")
+            st.download_button(
+                "Baixar atlas da dimensão",
+                data=atlas_view.drop(columns=["rank_score_num"], errors="ignore").to_csv(index=False).encode("utf-8"),
+                file_name=f"industry_deep_dive_{dim_col}_atlas.csv",
+                mime="text/csv",
+                key=f"industry_deep_atlas_download_{dim_col}",
+            )
     if use_catalog and not dimension_monthly.empty:
         radar = _dimension_radar_frame(dimension_monthly, dimension_id=dim_col, comp=comp, period=period)
         if query and not radar.empty:
@@ -5827,8 +6035,13 @@ def _load_monthly_delta_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
 
 @st.cache_data(show_spinner=False)
 def _load_curation_queue_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
+    queue = load_dataframe(_CURATION_QUEUE_PATH)
+    summary = load_dataframe(_CURATION_QUEUE_SUMMARY_PATH)
+    if summary.empty and not queue.empty:
+        summary = build_industry_curation_queue_summary(queue)
     return {
-        "queue": load_dataframe(_CURATION_QUEUE_PATH),
+        "queue": queue,
+        "summary": summary,
         "manifest": load_pipeline_manifest(_CURATION_QUEUE_MANIFEST_PATH),
     }
 
@@ -5915,6 +6128,68 @@ def _format_curation_queue(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def _format_curation_queue_summary(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    cols = [
+        "summary_type",
+        "rank",
+        "scope_label",
+        "rows",
+        "open_rows",
+        "closed_rows",
+        "high_priority_rows",
+        "priority_2025_2026_rows",
+        "funds",
+        "max_priority_score",
+        "pl_reference_brl",
+        "latest_competencia",
+        "domains",
+        "status_mix",
+        "priority_mix",
+        "action_types",
+        "next_actions_sample",
+        "source_documents_sample",
+        "rerun_commands_sample",
+    ]
+    out = frame[[col for col in cols if col in frame.columns]].copy()
+    out = out.rename(
+        columns={
+            "summary_type": "Visão",
+            "rank": "#",
+            "scope_label": "Escopo",
+            "rows": "Linhas",
+            "open_rows": "Abertas",
+            "closed_rows": "Fechadas",
+            "high_priority_rows": "Alta prioridade",
+            "priority_2025_2026_rows": "Prioridade 2025-26",
+            "funds": "FIDCs",
+            "max_priority_score": "Score máx.",
+            "pl_reference_brl": "PL ref.",
+            "latest_competencia": "Última comp.",
+            "domains": "Frentes",
+            "status_mix": "Status",
+            "priority_mix": "Prioridades",
+            "action_types": "Tipos",
+            "next_actions_sample": "Ações",
+            "source_documents_sample": "Documentos",
+            "rerun_commands_sample": "Comandos",
+        }
+    )
+    for col in ["Linhas", "Abertas", "Fechadas", "Alta prioridade", "Prioridade 2025-26", "FIDCs", "#"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).astype(int)
+    if "Score máx." in out.columns:
+        out["Score máx."] = pd.to_numeric(out["Score máx."], errors="coerce").map(
+            lambda value: "" if pd.isna(value) else f"{float(value):.1f}".replace(".", ",")
+        )
+    if "PL ref." in out.columns:
+        out["PL ref."] = pd.to_numeric(out["PL ref."], errors="coerce").fillna(0).map(
+            lambda value: "" if value == 0 else _fmt_bi(float(value), 2)
+        )
+    return out
+
+
 def _coerce_curation_queue_status(domain: object, status: object) -> str:
     text = str(status or "").strip().lower() or "pendente"
     domain_text = str(domain or "").strip()
@@ -5998,13 +6273,17 @@ def _render_pipeline_manifest() -> None:
     monthly_delta = apply_monthly_delta_actions(monthly_delta, monthly_delta_actions)
     curation_queue_tables = _load_curation_queue_tables()
     curation_queue = curation_queue_tables["queue"]
+    curation_queue_summary = curation_queue_tables["summary"]
     curation_queue_manifest = curation_queue_tables["manifest"]
     assert isinstance(curation_queue, pd.DataFrame)
+    assert isinstance(curation_queue_summary, pd.DataFrame)
     assert isinstance(curation_queue_manifest, dict)
     profile_tables = _load_dimension_profile_tables()
     dimension_profiles = profile_tables["profiles"]
+    heatmap_registry = profile_tables["heatmap_registry"]
     dimension_profile_manifest = profile_tables["manifest"]
     assert isinstance(dimension_profiles, pd.DataFrame)
+    assert isinstance(heatmap_registry, pd.DataFrame)
     assert isinstance(dimension_profile_manifest, dict)
     profile_quality = (
         dimension_profile_manifest.get("quality", {})
@@ -6022,6 +6301,8 @@ def _render_pipeline_manifest() -> None:
     modules = index.get("modules", []) if isinstance(index.get("modules"), list) else []
     refresh_plan = index.get("refresh_plan", []) if isinstance(index.get("refresh_plan"), list) else []
     artifacts = index.get("artifact_index", []) if isinstance(index.get("artifact_index"), list) else []
+    prd_coverage = index.get("prd_coverage", []) if isinstance(index.get("prd_coverage"), list) else []
+    prd_status_counts = rollup.get("prd_status_counts", {}) if isinstance(rollup.get("prd_status_counts"), dict) else {}
     cards = [
         _curation_card(
             "Módulos ok",
@@ -6047,6 +6328,11 @@ def _render_pipeline_manifest() -> None:
             "Fila única",
             _fmt_int(float(rollup.get("curation_queue_open_rows", len(curation_queue)) or 0)),
             f"{_fmt_int(float(rollup.get('curation_queue_high_priority_rows', 0) or 0))} alta prioridade",
+        ),
+        _curation_card(
+            "PRD",
+            f"{_fmt_int(float(prd_status_counts.get('ok', 0) or 0))}/{_fmt_int(float(rollup.get('prd_requirements_total', len(prd_coverage)) or 0))}",
+            f"{_fmt_int(float(prd_status_counts.get('atenção', 0) or 0))} atenção · {_fmt_int(float(prd_status_counts.get('bloqueado', 0) or 0))} bloqueado",
         ),
         _curation_card(
             "Chunks docs",
@@ -6076,8 +6362,18 @@ def _render_pipeline_manifest() -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    tab_modules, tab_queue, tab_profiles, tab_catalog_quality, tab_delta, tab_refresh, tab_artifacts, tab_json = st.tabs(
-        ["Módulos", "Fila única", "Perfis cruzados", "Qualidade catálogo", "Delta mensal", "Refresh mensal", "Artefatos", "Manifesto"]
+    tab_modules, tab_prd, tab_queue, tab_profiles, tab_catalog_quality, tab_delta, tab_refresh, tab_artifacts, tab_json = st.tabs(
+        [
+            "Módulos",
+            "PRD",
+            "Fila única",
+            "Perfis cruzados",
+            "Qualidade catálogo",
+            "Delta mensal",
+            "Refresh mensal",
+            "Artefatos",
+            "Manifesto",
+        ]
     )
     with tab_modules:
         module_rows = []
@@ -6123,6 +6419,58 @@ def _render_pipeline_manifest() -> None:
             )
             st.altair_chart(chart, width="stretch")
 
+    with tab_prd:
+        if not prd_coverage:
+            st.caption("Matriz PRD ainda não materializada. Recalcule o índice do pipeline.")
+        else:
+            prd_frame = pd.DataFrame(prd_coverage)
+            status_values = sorted(
+                [value for value in prd_frame.get("status_prd", pd.Series(dtype=str)).fillna("").astype(str).unique() if value]
+            )
+            default_status = [value for value in ["bloqueado", "atenção", "ok"] if value in set(status_values)] or status_values
+            prd_a, prd_b = st.columns([0.85, 1.35])
+            with prd_a:
+                selected_prd_status = st.multiselect(
+                    "Status PRD",
+                    status_values,
+                    default=default_status,
+                    key="industry_prd_status",
+                )
+            with prd_b:
+                prd_query = st.text_input(
+                    "Buscar requisito",
+                    key="industry_prd_query",
+                    placeholder="cedentes, heatmap, revisão, documento, score",
+                )
+            prd_view = prd_frame.copy()
+            if selected_prd_status:
+                prd_view = prd_view[
+                    prd_view.get("status_prd", pd.Series("", index=prd_view.index)).fillna("").astype(str).isin(selected_prd_status)
+                ].copy()
+            if prd_query:
+                search_cols = [
+                    col
+                    for col in [
+                        "tema",
+                        "requisito",
+                        "status_prd",
+                        "evidencia",
+                        "metrica",
+                        "artefato",
+                        "proximo_passo",
+                        "comando",
+                    ]
+                    if col in prd_view.columns
+                ]
+                search = prd_view[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=prd_view.index)
+                prd_view = prd_view[search.str.contains(prd_query, case=False, na=False)].copy()
+            st.dataframe(_format_prd_coverage(prd_view), hide_index=True, width="stretch", height=460)
+            if prd_status_counts:
+                prd_status_frame = pd.DataFrame(
+                    [{"Status": _status_badge_text(key), "Requisitos": int(value)} for key, value in prd_status_counts.items()]
+                )
+                st.dataframe(prd_status_frame, hide_index=True, width="stretch")
+
     with tab_queue:
         if curation_queue.empty:
             st.caption("Fila única ainda não materializada. Rode `python scripts/build_fidc_industry_curation_queue.py`.")
@@ -6144,6 +6492,57 @@ def _render_pipeline_manifest() -> None:
                 _curation_card("Delta", _fmt_int(float(domain_counts.get("monthly_delta", 0))), "mudança mensal"),
             ]
             st.markdown(f'<div class="industry-kpi-grid">{"".join(queue_cards)}</div>', unsafe_allow_html=True)
+            summary = curation_queue_summary.copy()
+            if summary.empty:
+                summary = build_industry_curation_queue_summary(queue)
+            if not summary.empty:
+                type_labels = {
+                    "frente_status": "Frente/status",
+                    "fidc_backlog": "FIDC",
+                    "admin_backlog": "Administrador",
+                    "segment_backlog": "Segmento",
+                }
+                summary_types = [value for value in ["frente_status", "fidc_backlog", "admin_backlog", "segment_backlog"] if value in set(summary["summary_type"].fillna("").astype(str))]
+                if summary_types:
+                    st.markdown("**Resumo operacional**")
+                    summary_a, summary_b = st.columns([0.85, 1.4])
+                    with summary_a:
+                        selected_summary_type = st.selectbox(
+                            "Visão",
+                            summary_types,
+                            format_func=lambda value: type_labels.get(value, value),
+                            key="industry_curation_queue_summary_type",
+                        )
+                    with summary_b:
+                        summary_query = st.text_input(
+                            "Buscar resumo",
+                            key="industry_curation_queue_summary_query",
+                            placeholder="FIDC, administrador, segmento, ação ou documento",
+                        )
+                    summary_view = summary[summary["summary_type"].fillna("").astype(str).eq(selected_summary_type)].copy()
+                    if summary_query:
+                        summary_search_cols = [
+                            col
+                            for col in [
+                                "scope_label",
+                                "domains",
+                                "status_mix",
+                                "priority_mix",
+                                "action_types",
+                                "next_actions_sample",
+                                "gap_sample",
+                                "source_documents_sample",
+                                "rerun_commands_sample",
+                                "admin_nome",
+                                "segmento_principal",
+                                "cnpj_fundo",
+                            ]
+                            if col in summary_view.columns
+                        ]
+                        if summary_search_cols:
+                            summary_search = summary_view[summary_search_cols].fillna("").astype(str).agg(" ".join, axis=1)
+                            summary_view = summary_view[summary_search.str.contains(summary_query, case=False, na=False)].copy()
+                    st.dataframe(_format_curation_queue_summary(summary_view.head(120)), hide_index=True, width="stretch", height=300)
             queue_a, queue_b, queue_c, queue_d = st.columns([0.85, 0.85, 0.85, 1.3])
             with queue_a:
                 domain_options = sorted([value for value in queue.get("queue_domain", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
@@ -6373,15 +6772,19 @@ def _render_pipeline_manifest() -> None:
                     catalog_gap_actions=updated_catalog_actions,
                 )
                 save_dataframe(materialized_queue, _CURATION_QUEUE_PATH)
+                materialized_summary = build_industry_curation_queue_summary(materialized_queue)
+                save_dataframe(materialized_summary, _CURATION_QUEUE_SUMMARY_PATH)
                 curation_manifest = build_curation_queue_pipeline_manifest(
                     industry_dir=_DATA_DIR,
                     output_path=_CURATION_QUEUE_PATH,
                     manifest_path=_CURATION_QUEUE_MANIFEST_PATH,
+                    summary_path=_CURATION_QUEUE_SUMMARY_PATH,
                     snapshot=snapshot,
                     monthly_delta=monthly_delta_refreshed,
                     document_chunk_plan=materialized_plan,
                     dimension_catalog=dimension_catalog,
                     queue=materialized_queue,
+                    summary=materialized_summary,
                 )
                 save_pipeline_manifest(curation_manifest, _CURATION_QUEUE_MANIFEST_PATH)
                 new_index = build_industry_pipeline_index(industry_dir=_DATA_DIR, output_path=_PIPELINE_INDEX_PATH)
@@ -6423,6 +6826,8 @@ def _render_pipeline_manifest() -> None:
             with_source = float(profile_quality.get("with_source_document_links", 0) or 0)
             curated = float(profile_quality.get("curated_links", 0) or 0)
             weighted = float(profile_quality.get("weighted_links", 0) or 0)
+            heatmap_available = float(profile_quality.get("heatmap_preset_profile_available", 0) or 0)
+            heatmap_total = float(profile_quality.get("heatmap_preset_rows", len(heatmap_registry)) or 0)
             profile_cards = [
                 _curation_card(
                     "Células origem × alvo",
@@ -6454,8 +6859,30 @@ def _render_pipeline_manifest() -> None:
                     _fmt_int(weighted),
                     _fmt_pct(weighted / profile_links) if profile_links else "n/d",
                 ),
+                _curation_card(
+                    "Presets heatmap",
+                    f"{_fmt_int(heatmap_available)}/{_fmt_int(heatmap_total)}",
+                    "com perfil materializado",
+                ),
             ]
             st.markdown(f'<div class="industry-kpi-grid">{"".join(profile_cards)}</div>', unsafe_allow_html=True)
+            if not heatmap_registry.empty:
+                st.markdown("**Presets auditáveis de heatmap**")
+                status_filter = st.multiselect(
+                    "Status preset",
+                    sorted(heatmap_registry.get("status", pd.Series(dtype=str)).fillna("").astype(str).unique()),
+                    default=[
+                        value
+                        for value in ["ok", "sem_perfil"]
+                        if value in set(heatmap_registry.get("status", pd.Series(dtype=str)).fillna("").astype(str))
+                    ]
+                    or sorted(heatmap_registry.get("status", pd.Series(dtype=str)).fillna("").astype(str).unique()),
+                    key="industry_heatmap_registry_status",
+                )
+                registry_view = heatmap_registry.copy()
+                if status_filter:
+                    registry_view = registry_view[registry_view.get("status", pd.Series("", index=registry_view.index)).isin(status_filter)].copy()
+                st.dataframe(_format_heatmap_registry(registry_view), hide_index=True, width="stretch")
             coverage = _dimension_profile_coverage_frame(dimension_profiles)
             if coverage.empty:
                 st.caption("Não foi possível resumir cobertura por dimensão.")

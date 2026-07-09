@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-profile-manifest/v1",
-  "generated_at_utc": "2026-07-08T20:20:05+00:00",
+  "generated_at_utc": "2026-07-09T02:42:01+00:00",
   "pipeline": "industry_dimension_profiles",
   "design_constraints": {
     "modular": true,
@@ -31,10 +31,16 @@
       "path": "data/industry_study/industry_dimension_profiles.csv.gz",
       "exists": true,
       "bytes": 1293074,
-      "sha256": "cd9b86438ba897d4b71c75982f25e82c57a445ac3e6514763d7f472d38619299"
+      "sha256": "1bee31c930b7f9f15dbd8b6ad710b378455f3158a0727bac2b60271a68656da8"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_profile_manifest.json"
+    },
+    "heatmap_registry": {
+      "path": "data/industry_study/industry_heatmap_registry.csv",
+      "exists": true,
+      "bytes": 2979,
+      "sha256": "73fd6d5e4aeccc397769779cb00ae701e0d36cf8c445d74528a93c6720548d98"
     }
   },
   "stages": [
@@ -56,6 +62,16 @@
       "rows": 58253,
       "profile_links": 1106247,
       "rerun": "python scripts/build_fidc_industry_dimension_profiles.py"
+    },
+    {
+      "id": "register_heatmap_presets",
+      "label": "Registrar presets de heatmap",
+      "status": "ok",
+      "input": "memoria:dimension_profiles+dimension_catalog",
+      "output": "data/industry_study/industry_heatmap_registry.csv",
+      "rows": 11,
+      "available_presets": 11,
+      "rerun": "python scripts/build_fidc_industry_dimension_profiles.py"
     }
   ],
   "quality": {
@@ -68,6 +84,12 @@
     "profile_links": 1106247,
     "with_source_document_links": 242902,
     "curated_links": 148422,
-    "weighted_links": 102741
+    "weighted_links": 102741,
+    "heatmap_preset_rows": 11,
+    "heatmap_preset_available": 11,
+    "heatmap_preset_profile_available": 11,
+    "heatmap_preset_status_counts": {
+      "ok": 11
+    }
   }
 }

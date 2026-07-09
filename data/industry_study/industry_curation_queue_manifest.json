@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-curation-queue-manifest/v1",
-  "generated_at_utc": "2026-07-09T02:26:25+00:00",
+  "generated_at_utc": "2026-07-09T02:35:05+00:00",
   "pipeline": "industry_curation_queue",
   "design_constraints": {
     "modular": true,
@@ -66,10 +66,16 @@
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
       "bytes": 2396743,
-      "sha256": "e1c597fd20ae491f0b0acdf2dd9933d56963be26bfa1b988983a6ee286b05181"
+      "sha256": "ec6a44de38faf23a98f40c361a5bff465b6567d69e5adf0b50235bae771ebb92"
     },
     "manifest": {
       "path": "data/industry_study/industry_curation_queue_manifest.json"
+    },
+    "curation_queue_summary": {
+      "path": "data/industry_study/industry_curation_queue_summary.csv.gz",
+      "exists": true,
+      "bytes": 258201,
+      "sha256": "0d7770be0be5ec5952a9388e8aaa890491f784fbe6a5d8c7d1beb1fcc6bb9ec4"
     }
   },
   "stages": [
@@ -107,6 +113,13 @@
       "status": "ok",
       "rows": 75116,
       "rerun": "python scripts/build_fidc_industry_curation_queue.py"
+    },
+    {
+      "id": "persist_operational_summary",
+      "label": "Resumo operacional da fila",
+      "status": "ok",
+      "rows": 4438,
+      "rerun": "python scripts/build_fidc_industry_curation_queue.py"
     }
   ],
   "quality": {
@@ -123,6 +136,16 @@
     },
     "status_counts": {
       "pendente": 75116
-    }
+    },
+    "summary_rows": 4438,
+    "summary_type_counts": {
+      "fidc_backlog": 4336,
+      "admin_backlog": 52,
+      "segment_backlog": 42,
+      "frente_status": 8
+    },
+    "fund_backlog_rows": 4336,
+    "admin_backlog_rows": 52,
+    "segment_backlog_rows": 42
   }
 }

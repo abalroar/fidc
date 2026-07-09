@@ -20,7 +20,9 @@ if str(ROOT) not in sys.path:
 
 from services.industry_study import (
     build_dimension_monthly_pipeline_manifest,
+    build_industry_dimension_value_atlas,
     build_industry_dimension_monthly,
+    industry_dimension_value_atlas_quality_summary,
     industry_dimension_monthly_quality_summary,
     load_dataframe,
     save_dataframe,
@@ -37,6 +39,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--vehicle-monthly", type=Path, default=None)
     parser.add_argument("--dimension-catalog", type=Path, default=None)
     parser.add_argument("--output", type=Path, default=None)
+    parser.add_argument("--atlas-output", type=Path, default=None)
     parser.add_argument("--manifest", type=Path, default=None)
     return parser.parse_args()
 
@@ -46,6 +49,7 @@ def main() -> None:
     vehicle_path = args.vehicle_monthly or args.industry_dir / "vehicle_monthly.csv.gz"
     catalog_path = args.dimension_catalog or args.industry_dir / "industry_dimension_catalog.csv.gz"
     output_path = args.output or args.industry_dir / "industry_dimension_monthly.csv.gz"
+    atlas_path = args.atlas_output or args.industry_dir / "industry_dimension_value_atlas.csv.gz"
     manifest_path = args.manifest or args.industry_dir / "industry_dimension_monthly_manifest.json"
 
     vehicle_monthly = load_dataframe(vehicle_path)
@@ -55,15 +59,19 @@ def main() -> None:
         dimension_catalog=dimension_catalog,
     )
     save_dataframe(monthly, output_path)
+    atlas = build_industry_dimension_value_atlas(monthly, dimension_catalog=dimension_catalog)
+    save_dataframe(atlas, atlas_path)
     manifest = build_dimension_monthly_pipeline_manifest(
         industry_dir=args.industry_dir,
         vehicle_monthly_path=vehicle_path,
         dimension_catalog_path=catalog_path,
         output_path=output_path,
         manifest_path=manifest_path,
+        atlas_path=atlas_path,
         vehicle_monthly=vehicle_monthly,
         dimension_catalog=dimension_catalog,
         monthly=monthly,
+        atlas=atlas,
     )
     save_pipeline_manifest(manifest, manifest_path)
     quality = industry_dimension_monthly_quality_summary(monthly)
@@ -71,6 +79,11 @@ def main() -> None:
         f"[ok] series mensais gravadas em {output_path} "
         f"({quality.get('rows', 0):,} linhas; {quality.get('months', 0)} meses; "
         f"{quality.get('dimensions', 0)} dimensoes)"
+    )
+    atlas_quality = industry_dimension_value_atlas_quality_summary(atlas)
+    print(
+        f"[ok] atlas de valores gravado em {atlas_path} "
+        f"({atlas_quality.get('rows', 0):,} valores; {atlas_quality.get('dimensions', 0)} dimensoes)"
     )
     print(f"[ok] manifesto gravado em {manifest_path}")
 
