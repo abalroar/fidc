@@ -46,6 +46,23 @@ def main() -> None:
         f"[ok] artefatos: {rollup.get('artifacts_present', 0)}/"
         f"{rollup.get('artifacts_total', 0)} presentes"
     )
+    readiness = index.get("readiness_checks", [])
+    if isinstance(readiness, list) and readiness:
+        status_counts: dict[str, int] = {}
+        for row in readiness:
+            if not isinstance(row, dict):
+                continue
+            status = str(row.get("status_prontidao") or "n/d")
+            status_counts[status] = status_counts.get(status, 0) + 1
+        print(f"[ok] prontidão: {status_counts}")
+        for row in readiness:
+            if not isinstance(row, dict) or row.get("status_prontidao") == "ok":
+                continue
+            print(
+                "[check] "
+                f"{row.get('status_prontidao')}: {row.get('frente')} · "
+                f"{row.get('pendencias', 0)} pendência(s) · {row.get('acao_sugerida')}"
+            )
 
 
 if __name__ == "__main__":

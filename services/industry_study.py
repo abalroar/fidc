@@ -2260,6 +2260,190 @@ def _latest_iso(values: list[object]) -> str:
     return max(parsed) if parsed else ""
 
 
+def _competencia_key(value: object) -> str:
+    digits = re.sub(r"\D", "", str(value or ""))
+    if len(digits) >= 6:
+        return digits[:6]
+    return digits
+
+
+def _readiness_sample(frame: pd.DataFrame, cols: list[str], limit: int = 4) -> str:
+    if frame.empty:
+        return ""
+    samples: list[str] = []
+    for _, row in frame.head(limit).iterrows():
+        values = [str(row.get(col, "") or "").strip() for col in cols]
+        values = [value for value in values if value]
+        if values:
+            samples.append(" · ".join(values))
+    return " | ".join(samples)
+
+
+def build_pipeline_readiness_checks(
+    *,
+    modules: list[dict[str, object]],
+    artifact_rows: list[dict[str, object]],
+    quality_rollup: dict[str, object],
+) -> list[dict[str, object]]:
+    """Build persisted, lightweight readiness checks for the monthly Industry refresh."""
+
+    rows: list[dict[str, object]] = []
+
+    def add(
+        check_id: str,
+        ordem: int,
+        frente: str,
+        escopo: str,
+        status: str,
+        pendencias: int,
+        amostra: str,
+        acao: str,
+        fonte: str,
+        comando: str = "",
+    ) -> None:
+        rows.append(
+            {
+                "check_id": check_id,
+                "ordem": ordem,
+                "frente": frente,
+                "escopo": escopo,
+                "status_prontidao": status,
+                "pendencias": int(pendencias),
+                "amostra": amostra,
+                "acao_sugerida": acao,
+                "fonte": fonte,
+                "comando": comando,
+            }
+        )
+
+    snapshot_comp = str(quality_rollup.get("competencia_snapshot", "") or "")
+    dimension_monthly_comp = str(quality_rollup.get("dimension_monthly_latest_competencia", "") or "")
+    delta_comp = str(quality_rollup.get("monthly_delta_competencia_atual", "") or "")
+    stale = []
+    snapshot_key = _competencia_key(snapshot_comp)
+    dimension_key = _competencia_key(dimension_monthly_comp)
+    delta_key = _competencia_key(delta_comp)
+    if snapshot_key and dimension_key and snapshot_key != dimension_key:
+        stale.append("séries por dimensão")
+    if snapshot_key and delta_key and snapshot_key != delta_key:
+        stale.append("delta mensal")
+    add(
+        "competencia_alignment",
+        1,
+        "Competência",
+        "Sincronia dos artefatos mensais",
+        "bloqueado" if stale else "ok",
+        len(stale),
+        f"snapshot {snapshot_comp or 'n/d'}; dimensão {dimension_monthly_comp or 'n/d'}; delta {delta_comp or 'n/d'}",
+        "Reexecutar os módulos derivados depois de atualizar a base granular.",
+        "quality_rollup",
+        "python scripts/build_fidc_industry_dimension_monthly.py && python scripts/build_fidc_industry_monthly_delta.py",
+    )
+
+    module_frame = pd.DataFrame(modules)
+    bad_modules = module_frame.iloc[0:0].copy() if module_frame.empty else module_frame[
+        ~module_frame.get("status", pd.Series("", index=module_frame.index)).fillna("").astype(str).str.lower().eq("ok")
+    ].copy()
+    add(
+        "module_status",
+        2,
+        "Pipeline",
+        "Módulos com manifesto válido",
+        "bloqueado" if not bad_modules.empty else "ok",
+        len(bad_modules),
+        _readiness_sample(bad_modules.rename(columns={"label": "module_label"}), ["module_label", "status"]),
+        "Rodar os comandos dos módulos pendentes antes de fechar a competência.",
+        "modules",
+        " && ".join([str(value) for value in bad_modules.get("command", pd.Series(dtype=str)).head(3) if str(value).strip()]),
+    )
+
+    artifact_frame = pd.DataFrame(artifact_rows)
+    if artifact_frame.empty:
+        missing_required = artifact_frame
+        missing_optional = artifact_frame
+    else:
+        exists = artifact_frame.get("exists", pd.Series(False, index=artifact_frame.index)).eq(True)
+        required = artifact_frame.get("required", pd.Series(False, index=artifact_frame.index)).eq(True)
+        missing_required = artifact_frame[required & ~exists].copy()
+        missing_optional = artifact_frame[~required & ~exists].copy()
+    add(
+        "artifact_presence",
+        3,
+        "Artefatos",
+        "Arquivos obrigatórios e opcionais",
+        "bloqueado" if not missing_required.empty else ("atenção" if not missing_optional.empty else "ok"),
+        len(missing_required) if not missing_required.empty else len(missing_optional),
+        _readiness_sample(pd.concat([missing_required, missing_optional], ignore_index=True), ["module_id", "artifact"]),
+        "Gerar arquivos ausentes; opcionais indicam histórico de revisão ainda não iniciado.",
+        "artifact_index",
+        "",
+    )
+
+    high_priority = int(quality_rollup.get("monthly_delta_high_priority", 0) or 0)
+    new_funds = int(quality_rollup.get("monthly_delta_new_funds", 0) or 0)
+    reactivated = int(quality_rollup.get("monthly_delta_reactivated_funds", 0) or 0)
+    add(
+        "monthly_delta_queue",
+        4,
+        "Delta mensal",
+        "Novos, reativados, saídas e grandes variações",
+        "bloqueado" if high_priority else ("atenção" if new_funds or reactivated else "ok"),
+        high_priority if high_priority else new_funds + reactivated,
+        f"{new_funds} novos; {reactivated} reativados",
+        "Fechar ou justificar as ações do delta mensal de maior prioridade.",
+        "industry_monthly_delta_manifest.json",
+        "python scripts/build_fidc_industry_monthly_delta.py",
+    )
+
+    document_chunks = int(quality_rollup.get("document_chunks", 0) or 0)
+    chunk_untracked = int(quality_rollup.get("document_chunks_without_action", 0) or 0)
+    chunk_pending = int(quality_rollup.get("document_chunks_pending_action", 0) or 0)
+    chunk_blocked = int(quality_rollup.get("document_chunks_blocked", 0) or 0)
+    chunk_in_progress = int(quality_rollup.get("document_chunks_in_progress", 0) or 0)
+    chunk_processed = int(quality_rollup.get("document_chunks_processed", 0) or 0)
+    chunk_open = chunk_untracked + chunk_pending + chunk_in_progress + chunk_blocked
+    add(
+        "document_chunk_processing",
+        5,
+        "Documentos",
+        "Execução incremental de OCR, parsing e extração por chunk",
+        "bloqueado" if chunk_blocked else ("atenção" if chunk_open else "ok"),
+        chunk_open,
+        (
+            f"{chunk_processed}/{document_chunks} processados; "
+            f"{chunk_untracked} sem acompanhamento; {chunk_in_progress} em andamento; {chunk_blocked} bloqueados"
+        ),
+        "Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.",
+        "document_chunk_actions.csv",
+        "python scripts/build_fidc_industry_documents.py --chunk-id doc-0001",
+    )
+
+    snapshot_rows = int(quality_rollup.get("fund_snapshot_rows", 0) or 0)
+    with_cedentes = int(quality_rollup.get("fund_snapshot_with_cedentes", 0) or 0)
+    with_criteria = int(quality_rollup.get("fund_snapshot_with_criteria", 0) or 0)
+    missing_structured = max(snapshot_rows - min(with_cedentes, with_criteria), 0)
+    add(
+        "structured_coverage",
+        6,
+        "Snapshot",
+        "Cobertura de cedentes e critérios estruturados",
+        "atenção" if missing_structured else "ok",
+        missing_structured,
+        f"cedentes {with_cedentes}/{snapshot_rows}; critérios {with_criteria}/{snapshot_rows}",
+        "Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.",
+        "industry_fund_snapshot_manifest.json",
+        "python scripts/build_fidc_industry_fund_snapshot.py",
+    )
+
+    checks = pd.DataFrame(rows)
+    if checks.empty:
+        return []
+    status_order = {"bloqueado": 0, "atenção": 1, "ok": 2}
+    checks["_status_order"] = checks["status_prontidao"].map(status_order).fillna(9)
+    checks = checks.sort_values(["_status_order", "ordem"]).drop(columns=["_status_order"]).reset_index(drop=True)
+    return checks.to_dict("records")
+
+
 def build_industry_pipeline_index(
     *,
     industry_dir: Path,
@@ -2452,6 +2636,22 @@ def build_industry_pipeline_index(
     artifact_rows = base_artifacts
     for spec in module_specs:
         module, artifacts = _build_manifest_module(industry_dir=industry_dir, **spec)
+        if spec["module_id"] == "monthly_delta":
+            manual_artifacts = [
+                _optional_artifact_row("monthly_delta", "monthly_delta_actions", industry_dir / "monthly_delta_actions.csv"),
+                _optional_artifact_row("monthly_delta", "monthly_delta_action_audit", industry_dir / "monthly_delta_action_audit.csv"),
+            ]
+            artifacts.extend(manual_artifacts)
+            module["artifact_count"] = len(artifacts)
+            module["artifacts_present"] = sum(1 for item in artifacts if item.get("exists") is True)
+        if spec["module_id"] == "documents":
+            manual_artifacts = [
+                _optional_artifact_row("documents", "document_chunk_actions", industry_dir / "document_chunk_actions.csv"),
+                _optional_artifact_row("documents", "document_chunk_action_audit", industry_dir / "document_chunk_action_audit.csv"),
+            ]
+            artifacts.extend(manual_artifacts)
+            module["artifact_count"] = len(artifacts)
+            module["artifacts_present"] = sum(1 for item in artifacts if item.get("exists") is True)
         if spec["module_id"] == "fund_snapshot":
             manual_artifacts = [
                 _optional_artifact_row("fund_snapshot", "snapshot_gap_actions", industry_dir / "snapshot_gap_actions.csv"),
@@ -2589,6 +2789,87 @@ def build_industry_pipeline_index(
     market_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "market_share"), {})
     criteria_manifest = _safe_read_json(industry_dir / "industry_criteria_manifest.json")
     subordination = criteria_manifest.get("quality", {}).get("subordination", {}) if isinstance(criteria_manifest.get("quality"), dict) else {}
+    document_chunks_total = int(document_quality.get("chunks", 0) or 0)
+    document_chunk_actions = load_dataframe(industry_dir / "document_chunk_actions.csv")
+    if document_chunk_actions.empty or "chunk_id" not in document_chunk_actions.columns:
+        document_chunk_action_rows = 0
+        document_chunk_status_counts: dict[str, int] = {}
+    else:
+        document_chunk_actions = document_chunk_actions.copy()
+        document_chunk_actions["chunk_id"] = document_chunk_actions["chunk_id"].fillna("").astype(str)
+        document_chunk_actions = document_chunk_actions[document_chunk_actions["chunk_id"].str.strip().ne("")]
+        document_chunk_actions = document_chunk_actions.drop_duplicates("chunk_id", keep="last")
+        status_series = (
+            document_chunk_actions.get("status_lote", pd.Series("", index=document_chunk_actions.index))
+            .fillna("")
+            .astype(str)
+            .str.strip()
+            .str.lower()
+            .replace("", "pendente")
+        )
+        document_chunk_status_counts = {str(k): int(v) for k, v in status_series.value_counts().to_dict().items()}
+        document_chunk_action_rows = int(len(document_chunk_actions))
+    document_chunks_without_action = max(document_chunks_total - document_chunk_action_rows, 0)
+    document_chunks_pending_action = document_chunk_status_counts.get("pendente", 0)
+    document_chunks_in_progress = document_chunk_status_counts.get("em andamento", 0)
+    document_chunks_blocked = document_chunk_status_counts.get("bloqueado", 0)
+    document_chunks_processed = (
+        document_chunk_status_counts.get("processado", 0)
+        + document_chunk_status_counts.get("ignorado", 0)
+    )
+    quality_rollup = {
+        "modules_total": len(modules),
+        "module_status_counts": status_counts,
+        "artifacts_total": artifact_total,
+        "artifacts_present": artifact_present,
+        "artifacts_missing": artifact_total - artifact_present,
+        "optional_artifacts_total": optional_artifact_total,
+        "optional_artifacts_present": optional_artifact_present,
+        "optional_artifacts_missing": optional_artifact_total - optional_artifact_present,
+        "manual_review_artifacts_total": manual_review_artifact_total,
+        "manual_review_artifacts_present": manual_review_artifact_present,
+        "manual_review_artifacts_missing": manual_review_artifact_total - manual_review_artifact_present,
+        "latest_module_generated_at_utc": _latest_iso(generated_values),
+        "competencia_final": base_meta.get("competencia_final", ""),
+        "competencia_snapshot": base_meta.get("competencia_snapshot", ""),
+        "monthly_delta_rows": monthly_delta_quality.get("rows", 0),
+        "monthly_delta_competencia_atual": monthly_delta_quality.get("competencia_atual", ""),
+        "monthly_delta_competencia_anterior": monthly_delta_quality.get("competencia_anterior", ""),
+        "monthly_delta_new_funds": monthly_delta_quality.get("new_funds", 0),
+        "monthly_delta_reactivated_funds": monthly_delta_quality.get("reactivated_funds", 0),
+        "monthly_delta_high_priority": monthly_delta_quality.get("high_priority_rows", 0),
+        "document_chunks": document_chunks_total,
+        "max_documents_per_chunk": document_quality.get("max_documents_per_chunk", 0),
+        "document_chunk_actions_rows": document_chunk_action_rows,
+        "document_chunk_action_status_counts": document_chunk_status_counts,
+        "document_chunks_without_action": document_chunks_without_action,
+        "document_chunks_pending_action": document_chunks_pending_action,
+        "document_chunks_in_progress": document_chunks_in_progress,
+        "document_chunks_blocked": document_chunks_blocked,
+        "document_chunks_processed": document_chunks_processed,
+        "cedentes_structured_rows": cedente_quality.get("structured_rows", 0),
+        "criteria_structured_rows": criteria_quality.get("structured_rows", 0),
+        "subordination_funds": criteria_quality.get("subordination_funds", 0),
+        "subordination_median_pct": subordination.get("median") if isinstance(subordination, dict) else None,
+        "issuance_volume_conservador_brl": issuance_quality.get("annual_volume_conservador_brl", 0),
+        "fund_snapshot_rows": snapshot_quality.get("fund_rows", 0),
+        "fund_snapshot_with_cedentes": snapshot_quality.get("with_cedentes", 0),
+        "fund_snapshot_with_criteria": snapshot_quality.get("with_criteria", 0),
+        "dimension_catalog_rows": dimension_quality.get("rows", 0),
+        "dimension_catalog_dimensions": dimension_quality.get("dimensions", 0),
+        "dimension_monthly_rows": dimension_monthly_quality.get("rows", 0),
+        "dimension_monthly_latest_competencia": dimension_monthly_quality.get("latest_competencia", ""),
+        "dimension_profile_rows": dimension_profile_quality.get("rows", 0),
+        "dimension_profile_source_dimensions": dimension_profile_quality.get("source_dimensions", 0),
+        "market_share_rows": market_quality.get("rows", 0),
+        "market_share_dimensions": market_quality.get("dimensions", 0),
+        "market_share_metrics": market_quality.get("metrics", 0),
+    }
+    readiness_checks = build_pipeline_readiness_checks(
+        modules=modules,
+        artifact_rows=artifact_rows,
+        quality_rollup=quality_rollup,
+    )
 
     return {
         "schema_version": "industry-pipeline-index/v1",
@@ -2607,45 +2888,8 @@ def build_industry_pipeline_index(
                 "Documentos são divididos em chunks para processamento incremental confortável em notebook.",
             ],
         },
-        "quality_rollup": {
-            "modules_total": len(modules),
-            "module_status_counts": status_counts,
-            "artifacts_total": artifact_total,
-            "artifacts_present": artifact_present,
-            "artifacts_missing": artifact_total - artifact_present,
-            "optional_artifacts_total": optional_artifact_total,
-            "optional_artifacts_present": optional_artifact_present,
-            "optional_artifacts_missing": optional_artifact_total - optional_artifact_present,
-            "manual_review_artifacts_total": manual_review_artifact_total,
-            "manual_review_artifacts_present": manual_review_artifact_present,
-            "manual_review_artifacts_missing": manual_review_artifact_total - manual_review_artifact_present,
-            "latest_module_generated_at_utc": _latest_iso(generated_values),
-            "competencia_final": base_meta.get("competencia_final", ""),
-            "competencia_snapshot": base_meta.get("competencia_snapshot", ""),
-            "monthly_delta_rows": monthly_delta_quality.get("rows", 0),
-            "monthly_delta_new_funds": monthly_delta_quality.get("new_funds", 0),
-            "monthly_delta_reactivated_funds": monthly_delta_quality.get("reactivated_funds", 0),
-            "monthly_delta_high_priority": monthly_delta_quality.get("high_priority_rows", 0),
-            "document_chunks": document_quality.get("chunks", 0),
-            "max_documents_per_chunk": document_quality.get("max_documents_per_chunk", 0),
-            "cedentes_structured_rows": cedente_quality.get("structured_rows", 0),
-            "criteria_structured_rows": criteria_quality.get("structured_rows", 0),
-            "subordination_funds": criteria_quality.get("subordination_funds", 0),
-            "subordination_median_pct": subordination.get("median") if isinstance(subordination, dict) else None,
-            "issuance_volume_conservador_brl": issuance_quality.get("annual_volume_conservador_brl", 0),
-            "fund_snapshot_rows": snapshot_quality.get("fund_rows", 0),
-            "fund_snapshot_with_cedentes": snapshot_quality.get("with_cedentes", 0),
-            "fund_snapshot_with_criteria": snapshot_quality.get("with_criteria", 0),
-            "dimension_catalog_rows": dimension_quality.get("rows", 0),
-            "dimension_catalog_dimensions": dimension_quality.get("dimensions", 0),
-            "dimension_monthly_rows": dimension_monthly_quality.get("rows", 0),
-            "dimension_monthly_latest_competencia": dimension_monthly_quality.get("latest_competencia", ""),
-            "dimension_profile_rows": dimension_profile_quality.get("rows", 0),
-            "dimension_profile_source_dimensions": dimension_profile_quality.get("source_dimensions", 0),
-            "market_share_rows": market_quality.get("rows", 0),
-            "market_share_dimensions": market_quality.get("dimensions", 0),
-            "market_share_metrics": market_quality.get("metrics", 0),
-        },
+        "quality_rollup": quality_rollup,
+        "readiness_checks": readiness_checks,
         "modules": modules,
         "refresh_plan": refresh_plan,
         "artifact_index": artifact_rows,

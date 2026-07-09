@@ -65,6 +65,7 @@ from services.industry_study import (  # noqa: E402
     scan_regulatory_extraction_files,
 )
 from tabs.tab_industry_study import (  # noqa: E402
+    _apply_document_chunk_actions,
     _apply_snapshot_gap_actions,
     _build_fund_dossier_tables,
     _build_snapshot_market_share,
@@ -76,12 +77,18 @@ from tabs.tab_industry_study import (  # noqa: E402
     _dimension_profile_coverage_frame,
     _dimension_radar_frame,
     _dimension_value_snapshot_frame,
+    _document_chunk_actions_for_audit,
+    _document_chunk_plan_frame,
+    _format_document_chunk_plan,
     _format_dimension_catalog_gaps,
     _format_dimension_catalog_quality,
     _format_dimension_value_snapshot,
     _format_dimension_radar,
+    _format_monthly_readiness,
     _heatmap_base_frame,
     _heatmap_preset_options,
+    _monthly_delta_actions_for_audit,
+    _monthly_readiness_frame,
     _pl_fic_impact_frame,
     _profile_heatmap_frame,
     _snapshot_gap_actions_for_audit,
@@ -606,6 +613,142 @@ def test_document_chunks_keep_small_rerunnable_batches():
     assert chunks["document_count"].max() == 2
     assert chunks["cnpj_count"].max() == 2
     assert chunks["rerun_command"].str.contains("--chunk-id doc-0001").any()
+
+
+def test_document_chunk_plan_prioritizes_download_hash_and_processing_actions():
+    chunks = pd.DataFrame(
+        [
+            {
+                "chunk_id": "doc-0001",
+                "document_count": 2,
+                "cnpj_count": 2,
+                "priority_2025_2026_docs": 2,
+                "local_ready_docs": 1,
+                "hashed_docs": 1,
+                "total_bytes": 1024,
+                "document_classes": "regulamento",
+                "rerun_command": "python scripts/build_fidc_industry_documents.py --chunk-id doc-0001",
+            },
+            {
+                "chunk_id": "doc-0002",
+                "document_count": 1,
+                "cnpj_count": 1,
+                "priority_2025_2026_docs": 1,
+                "local_ready_docs": 1,
+                "hashed_docs": 1,
+                "total_bytes": 2048,
+                "document_classes": "emissao",
+                "rerun_command": "python scripts/build_fidc_industry_documents.py --chunk-id doc-0002",
+            },
+            {
+                "chunk_id": "doc-0003",
+                "document_count": 1,
+                "cnpj_count": 1,
+                "priority_2025_2026_docs": 0,
+                "local_ready_docs": 1,
+                "hashed_docs": 1,
+                "total_bytes": 512,
+                "document_classes": "assembleia",
+                "rerun_command": "python scripts/build_fidc_industry_documents.py --chunk-id doc-0003",
+            },
+        ]
+    )
+    inventory = pd.DataFrame(
+        [
+            {
+                "chunk_id": "doc-0001",
+                "cnpj_fundo": "05753599000158",
+                "fundo": "FIDC BAIXAR",
+                "document_class": "regulamento",
+                "local_exists": False,
+                "sha256": "",
+                "bytes": 0,
+                "priority_2025_2026": True,
+                "suggested_stage": "discover_download",
+                "processing_status": "missing_local",
+            },
+            {
+                "chunk_id": "doc-0001",
+                "cnpj_fundo": "11111111000111",
+                "fundo": "FIDC LOCAL",
+                "document_class": "regulamento",
+                "local_exists": True,
+                "sha256": "a" * 64,
+                "bytes": 1024,
+                "priority_2025_2026": True,
+                "suggested_stage": "ocr_parse_extract",
+                "processing_status": "local_ready",
+            },
+            {
+                "chunk_id": "doc-0002",
+                "cnpj_fundo": "22222222000122",
+                "fundo": "FIDC PROCESSAR",
+                "document_class": "emissao",
+                "local_exists": True,
+                "sha256": "b" * 64,
+                "bytes": 2048,
+                "priority_2025_2026": True,
+                "suggested_stage": "ocr_parse_extract",
+                "processing_status": "local_ready",
+            },
+            {
+                "chunk_id": "doc-0003",
+                "cnpj_fundo": "33333333000133",
+                "fundo": "FIDC PRONTO",
+                "document_class": "assembleia",
+                "local_exists": True,
+                "sha256": "c" * 64,
+                "bytes": 512,
+                "priority_2025_2026": False,
+                "suggested_stage": "",
+                "processing_status": "complete",
+            },
+        ]
+    )
+
+    plan = _document_chunk_plan_frame(chunks, inventory)
+    by_chunk = plan.set_index("chunk_id")
+    actions = pd.DataFrame(
+        [
+            {
+                "chunk_id": "doc-0002",
+                "status_lote": "em andamento",
+                "acao_revisada": "Rodar OCR e parsing",
+                "responsavel": "Research",
+                "prazo": "2026-07-20",
+                "notas": "prioridade emissões",
+                "updated_at_utc": "2026-07-08T12:00:00+00:00",
+            }
+        ]
+    )
+    tracked = _apply_document_chunk_actions(plan, actions)
+    tracked_by_chunk = tracked.set_index("chunk_id")
+    events = build_review_audit_events(
+        previous=_document_chunk_actions_for_audit(pd.DataFrame(columns=actions.columns)),
+        updated=_document_chunk_actions_for_audit(actions),
+        key_column="chunk_id",
+        review_domain="document_chunk_action",
+        saved_at_utc="2026-07-08T12:00:00+00:00",
+        source="test",
+    )
+
+    assert list(plan["chunk_id"])[:3] == ["doc-0001", "doc-0002", "doc-0003"]
+    assert by_chunk.loc["doc-0001", "chunk_status"] == "baixar"
+    assert by_chunk.loc["doc-0001", "missing_local_docs"] == 1
+    assert by_chunk.loc["doc-0002", "chunk_status"] == "processar"
+    assert by_chunk.loc["doc-0002", "next_action"] == "ocr parse extract"
+    assert by_chunk.loc["doc-0003", "chunk_status"] == "pronto"
+    assert tracked_by_chunk.loc["doc-0002", "status_lote"] == "em andamento"
+    assert tracked_by_chunk.loc["doc-0002", "acao_revisada"] == "Rodar OCR e parsing"
+    assert set(events["field"]) == {"status", "acao_revisada", "responsavel", "prazo", "notas"}
+    assert set(events["record_id"]) == {"doc-0002"}
+
+    formatted = _format_document_chunk_plan(tracked)
+
+    assert formatted.loc[formatted["Chunk"].eq("doc-0001"), "Status"].iloc[0] == "baixar"
+    assert formatted.loc[formatted["Chunk"].eq("doc-0002"), "Próxima ação"].iloc[0] == "ocr parse extract"
+    assert formatted.loc[formatted["Chunk"].eq("doc-0002"), "Status acomp."].iloc[0] == "em andamento"
+    assert "Comando" in formatted.columns
 
 
 def test_document_manifest_and_quality_describe_pipeline_outputs():
@@ -2049,6 +2192,105 @@ def test_industry_dimension_profiles_crosses_catalog_dimensions_and_manifest():
     assert manifest["quality"]["rows"] == len(profiles)
 
 
+def test_industry_monthly_readiness_flags_release_blockers_and_normalizes_competencia():
+    index = {
+        "quality_rollup": {
+            "competencia_snapshot": "202605",
+            "dimension_monthly_latest_competencia": "2026-05",
+        },
+        "modules": [
+            {"label": "Base granular mensal", "status": "ok", "command": "python base.py"},
+            {"label": "Inventário documental", "status": "missing_artifact", "command": "python docs.py"},
+        ],
+        "artifact_index": [
+            {"module_id": "documents", "artifact": "manifest", "required": True, "exists": False},
+            {"module_id": "fund_snapshot", "artifact": "snapshot_gap_action_audit", "required": False, "exists": False},
+        ],
+    }
+    monthly_delta = pd.DataFrame(
+        [
+            {
+                "competencia_atual": "2026-05",
+                "cnpj_fundo": "05753599000158",
+                "fundo": "FIDC NOVO",
+                "priority_band": "alta",
+                "priority_score": 95,
+                "status_acao": "pendente",
+                "next_actions": "descobrir documentos",
+            },
+            {
+                "competencia_atual": "2026-05",
+                "cnpj_fundo": "11111111000111",
+                "fundo": "FIDC BAIXO",
+                "priority_band": "baixa",
+                "priority_score": 5,
+                "status_acao": "concluído",
+                "next_actions": "",
+            },
+        ]
+    )
+    snapshot = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "nome_exibicao": "FIDC NOVO",
+                "pl": 100.0,
+                "valid_volume_2024_2026_brl": 50.0,
+                "tem_emissao_2025_2026": True,
+                "document_rows": 0,
+                "document_local_ready": 0,
+                "cedente_rows": 0,
+                "criteria_rows": 0,
+                "criteria_subordination_rows": 0,
+            }
+        ]
+    )
+    catalog = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "nome_exibicao": "FIDC NOVO",
+                "dimension_id": "cedente_sacado",
+                "dimension_label": "Cedente/sacado",
+                "dimension_value": "CEDENTE ABC",
+                "source_layer": "cedente",
+                "source_method": "manual_review",
+                "confidence_score": 0.8,
+                "source_document": "regulamento.pdf",
+                "source_page": "",
+                "review_status": "",
+                "participant_cnpj": "12345678000190",
+                "is_curated": True,
+                "is_multivalue": False,
+                "priority_2025_2026": True,
+            }
+        ]
+    )
+
+    readiness = _monthly_readiness_frame(
+        index=index,
+        monthly_delta=monthly_delta,
+        snapshot=snapshot,
+        dimension_catalog=catalog,
+        snapshot_gap_actions=pd.DataFrame(),
+        catalog_gap_actions=pd.DataFrame(),
+    )
+    by_check = readiness.set_index("check_id")
+
+    assert by_check.loc["competencia_alignment", "status_prontidao"] == "ok"
+    assert by_check.loc["module_status", "status_prontidao"] == "bloqueado"
+    assert by_check.loc["artifact_presence", "pendencias"] == 1
+    assert by_check.loc["monthly_delta_queue", "status_prontidao"] == "bloqueado"
+    assert by_check.loc["snapshot_structural_gaps", "pendencias"] == 1
+    assert by_check.loc["catalog_traceability_gaps", "status_prontidao"] == "bloqueado"
+
+    formatted = _format_monthly_readiness(readiness)
+
+    assert "Ação sugerida" in formatted.columns
+    assert formatted.loc[formatted["ID"].eq("competencia_alignment"), "Status"].iloc[0] == "ok"
+    assert formatted.loc[formatted["ID"].eq("artifact_presence"), "Pendências"].iloc[0] == "1"
+
+
 def test_industry_monthly_delta_prioritizes_incremental_review_queue():
     vehicle = pd.DataFrame(
         [
@@ -2187,12 +2429,23 @@ def test_industry_monthly_delta_prioritizes_incremental_review_queue():
         loaded_actions = load_monthly_delta_actions(actions_path)
         overlayed = apply_monthly_delta_actions(delta, loaded_actions)
         novo_overlayed = overlayed[overlayed["delta_id"].eq(novo["delta_id"])].iloc[0]
+        audit_events = build_review_audit_events(
+            previous=_monthly_delta_actions_for_audit(pd.DataFrame(columns=MONTHLY_DELTA_ACTION_COLUMNS)),
+            updated=_monthly_delta_actions_for_audit(loaded_actions),
+            key_column="delta_id",
+            review_domain="monthly_delta_action",
+            saved_at_utc="2026-06-01T12:00:00+00:00",
+            source="test",
+        )
 
         assert saved_actions.columns.tolist() == MONTHLY_DELTA_ACTION_COLUMNS
         assert loaded_actions.to_dict("records") == saved_actions.to_dict("records")
         assert novo_overlayed["status_acao"] == "em andamento"
         assert novo_overlayed["responsavel"] == "mesa"
         assert industry_monthly_delta_quality_summary(overlayed)["action_status_counts"]["em andamento"] == 1
+        assert set(audit_events["field"]) == {"status", "acao_revisada", "responsavel", "prazo", "notas"}
+        assert set(audit_events["record_id"]) == {novo["delta_id"]}
+        assert set(audit_events["status_after"]) == {"em andamento"}
 
         save_cedente_structured(delta, output_path)
         manifest = build_monthly_delta_pipeline_manifest(
@@ -2265,6 +2518,14 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "needs_document_discovery": 2,
             },
         )
+        (tmp_path / "monthly_delta_actions.csv").write_text(
+            "delta_id,status_acao,acao_revisada,responsavel,prazo,notas,updated_at_utc\n"
+            "202605_22222222000122,em andamento,baixar regulamento,research,2026-07-15,,2026-07-08T12:00:00+00:00\n"
+        )
+        (tmp_path / "monthly_delta_action_audit.csv").write_text(
+            "event_id,saved_at_utc,review_domain,record_id,field,old_value,new_value,status_after,source\n"
+            "delta1,2026-07-08T12:00:00+00:00,monthly_delta_action,202605_22222222000122,status,pendente,em andamento,em andamento,test\n"
+        )
         write_module_manifest(
             "industry_issuance_manifest.json",
             "industry_issuance_structured",
@@ -2276,6 +2537,14 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
             "industry_document_inventory",
             "document_inventory.csv.gz",
             {"document_rows": 2, "chunks": 1, "max_documents_per_chunk": 2},
+        )
+        (tmp_path / "document_chunk_actions.csv").write_text(
+            "chunk_id,status_lote,acao_revisada,responsavel,prazo,notas,updated_at_utc\n"
+            "doc-0001,em andamento,rodar OCR,research,2026-07-20,,2026-07-08T12:00:00+00:00\n"
+        )
+        (tmp_path / "document_chunk_action_audit.csv").write_text(
+            "event_id,saved_at_utc,review_domain,record_id,field,old_value,new_value,status_after,source\n"
+            "doc1,2026-07-08T12:00:00+00:00,document_chunk_action,doc-0001,status,pendente,em andamento,em andamento,test\n"
         )
         write_module_manifest(
             "industry_pipeline_manifest.json",
@@ -2377,12 +2646,16 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["modules_total"] == 11
     assert index["quality_rollup"]["module_status_counts"]["ok"] == 11
     assert index["quality_rollup"]["artifacts_missing"] == 0
-    assert index["quality_rollup"]["manual_review_artifacts_total"] == 2
-    assert index["quality_rollup"]["manual_review_artifacts_present"] == 2
+    assert index["quality_rollup"]["manual_review_artifacts_total"] == 6
+    assert index["quality_rollup"]["manual_review_artifacts_present"] == 6
     assert index["quality_rollup"]["competencia_snapshot"] == "202605"
+    assert index["quality_rollup"]["monthly_delta_competencia_atual"] == "2026-05"
     assert index["quality_rollup"]["monthly_delta_new_funds"] == 1
     assert index["quality_rollup"]["monthly_delta_high_priority"] == 2
     assert index["quality_rollup"]["document_chunks"] == 1
+    assert index["quality_rollup"]["document_chunk_actions_rows"] == 1
+    assert index["quality_rollup"]["document_chunks_in_progress"] == 1
+    assert index["quality_rollup"]["document_chunks_without_action"] == 0
     assert index["quality_rollup"]["subordination_median_pct"] == 10.0
     assert index["quality_rollup"]["fund_snapshot_rows"] == 2
     assert index["quality_rollup"]["dimension_catalog_rows"] == 80
@@ -2404,11 +2677,22 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         "pipeline_index",
     }
     assert any(row["artifact"] == "manifest" for row in index["artifact_index"])
+    readiness = {row["check_id"]: row for row in index["readiness_checks"]}
+    assert readiness["competencia_alignment"]["status_prontidao"] == "ok"
+    assert readiness["monthly_delta_queue"]["status_prontidao"] == "bloqueado"
+    assert readiness["monthly_delta_queue"]["pendencias"] == 2
+    assert readiness["document_chunk_processing"]["status_prontidao"] == "atenção"
+    assert readiness["document_chunk_processing"]["pendencias"] == 1
+    assert readiness["structured_coverage"]["status_prontidao"] == "atenção"
     manual_artifacts = {
         row["artifact"]: row
         for row in index["artifact_index"]
-        if row["module_id"] == "fund_snapshot" and row["group"] == "manual_review"
+        if row["group"] == "manual_review"
     }
+    assert manual_artifacts["monthly_delta_actions"]["module_id"] == "monthly_delta"
+    assert manual_artifacts["monthly_delta_action_audit"]["exists"] is True
+    assert manual_artifacts["document_chunk_actions"]["module_id"] == "documents"
+    assert manual_artifacts["document_chunk_action_audit"]["exists"] is True
     assert manual_artifacts["snapshot_gap_actions"]["required"] is False
     assert manual_artifacts["snapshot_gap_actions"]["exists"] is True
     assert manual_artifacts["snapshot_gap_action_audit"]["exists"] is True

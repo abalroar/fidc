@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-index/v1",
-  "generated_at_utc": "2026-07-08T20:23:53+00:00",
+  "generated_at_utc": "2026-07-09T01:54:57+00:00",
   "pipeline": "industry_monthly_refresh",
   "industry_dir": "data/industry_study",
   "output_path": "data/industry_study/industry_pipeline_index.json",
@@ -23,21 +23,30 @@
     "artifacts_total": 32,
     "artifacts_present": 32,
     "artifacts_missing": 0,
-    "optional_artifacts_total": 28,
-    "optional_artifacts_present": 26,
-    "optional_artifacts_missing": 2,
-    "manual_review_artifacts_total": 2,
-    "manual_review_artifacts_present": 0,
-    "manual_review_artifacts_missing": 2,
+    "optional_artifacts_total": 32,
+    "optional_artifacts_present": 27,
+    "optional_artifacts_missing": 5,
+    "manual_review_artifacts_total": 6,
+    "manual_review_artifacts_present": 1,
+    "manual_review_artifacts_missing": 5,
     "latest_module_generated_at_utc": "2026-07-08T20:20:06+00:00",
     "competencia_final": "202606",
     "competencia_snapshot": "202605",
     "monthly_delta_rows": 4279,
+    "monthly_delta_competencia_atual": "2026-05",
+    "monthly_delta_competencia_anterior": "2026-04",
     "monthly_delta_new_funds": 63,
     "monthly_delta_reactivated_funds": 8,
     "monthly_delta_high_priority": 71,
     "document_chunks": 32,
     "max_documents_per_chunk": 200,
+    "document_chunk_actions_rows": 0,
+    "document_chunk_action_status_counts": {},
+    "document_chunks_without_action": 32,
+    "document_chunks_pending_action": 0,
+    "document_chunks_in_progress": 0,
+    "document_chunks_blocked": 0,
+    "document_chunks_processed": 0,
     "cedentes_structured_rows": 1478,
     "criteria_structured_rows": 183,
     "subordination_funds": 21,
@@ -56,6 +65,80 @@
     "market_share_dimensions": 15,
     "market_share_metrics": 6
   },
+  "readiness_checks": [
+    {
+      "check_id": "competencia_alignment",
+      "ordem": 1,
+      "frente": "Competência",
+      "escopo": "Sincronia dos artefatos mensais",
+      "status_prontidao": "bloqueado",
+      "pendencias": 1,
+      "amostra": "snapshot 202605; dimensão 2026-06; delta 2026-05",
+      "acao_sugerida": "Reexecutar os módulos derivados depois de atualizar a base granular.",
+      "fonte": "quality_rollup",
+      "comando": "python scripts/build_fidc_industry_dimension_monthly.py && python scripts/build_fidc_industry_monthly_delta.py"
+    },
+    {
+      "check_id": "monthly_delta_queue",
+      "ordem": 4,
+      "frente": "Delta mensal",
+      "escopo": "Novos, reativados, saídas e grandes variações",
+      "status_prontidao": "bloqueado",
+      "pendencias": 71,
+      "amostra": "63 novos; 8 reativados",
+      "acao_sugerida": "Fechar ou justificar as ações do delta mensal de maior prioridade.",
+      "fonte": "industry_monthly_delta_manifest.json",
+      "comando": "python scripts/build_fidc_industry_monthly_delta.py"
+    },
+    {
+      "check_id": "artifact_presence",
+      "ordem": 3,
+      "frente": "Artefatos",
+      "escopo": "Arquivos obrigatórios e opcionais",
+      "status_prontidao": "atenção",
+      "pendencias": 5,
+      "amostra": "monthly_delta · monthly_delta_action_audit | documents · document_chunk_actions | documents · document_chunk_action_audit | fund_snapshot · snapshot_gap_actions",
+      "acao_sugerida": "Gerar arquivos ausentes; opcionais indicam histórico de revisão ainda não iniciado.",
+      "fonte": "artifact_index",
+      "comando": ""
+    },
+    {
+      "check_id": "document_chunk_processing",
+      "ordem": 5,
+      "frente": "Documentos",
+      "escopo": "Execução incremental de OCR, parsing e extração por chunk",
+      "status_prontidao": "atenção",
+      "pendencias": 32,
+      "amostra": "0/32 processados; 32 sem acompanhamento; 0 em andamento; 0 bloqueados",
+      "acao_sugerida": "Acompanhar e fechar chunks no editor Documentos > Chunks antes de depender das extrações documentais.",
+      "fonte": "document_chunk_actions.csv",
+      "comando": "python scripts/build_fidc_industry_documents.py --chunk-id doc-0001"
+    },
+    {
+      "check_id": "structured_coverage",
+      "ordem": 6,
+      "frente": "Snapshot",
+      "escopo": "Cobertura de cedentes e critérios estruturados",
+      "status_prontidao": "atenção",
+      "pendencias": 4170,
+      "amostra": "cedentes 99/4219; critérios 49/4219",
+      "acao_sugerida": "Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.",
+      "fonte": "industry_fund_snapshot_manifest.json",
+      "comando": "python scripts/build_fidc_industry_fund_snapshot.py"
+    },
+    {
+      "check_id": "module_status",
+      "ordem": 2,
+      "frente": "Pipeline",
+      "escopo": "Módulos com manifesto válido",
+      "status_prontidao": "ok",
+      "pendencias": 0,
+      "amostra": "",
+      "acao_sugerida": "Rodar os comandos dos módulos pendentes antes de fechar a competência.",
+      "fonte": "modules",
+      "comando": ""
+    }
+  ],
   "modules": [
     {
       "id": "base_monthly",
@@ -101,8 +184,8 @@
         "ok": 3
       },
       "stage_count": 3,
-      "artifact_count": 6,
-      "artifacts_present": 6,
+      "artifact_count": 8,
+      "artifacts_present": 7,
       "quality_highlights": {
         "rows": 4279,
         "competencia_atual": "2026-05",
@@ -162,7 +245,7 @@
         "ok": 5
       },
       "stage_count": 5,
-      "artifact_count": 5,
+      "artifact_count": 7,
       "artifacts_present": 5,
       "quality_highlights": {
         "document_rows": 3521,
@@ -643,6 +726,26 @@
       "sha256": "6a2c88a33f0b5fff49834a91ebf71ba80f8598ed994fce47d5707dea1806d9be"
     },
     {
+      "module_id": "monthly_delta",
+      "group": "manual_review",
+      "artifact": "monthly_delta_actions",
+      "required": false,
+      "path": "data/industry_study/monthly_delta_actions.csv",
+      "exists": true,
+      "bytes": 74,
+      "sha256": "4701c1985eea1c04ff6a6307b2f8f22fa12d2eead73d219c625515bb5eda378a"
+    },
+    {
+      "module_id": "monthly_delta",
+      "group": "manual_review",
+      "artifact": "monthly_delta_action_audit",
+      "required": false,
+      "path": "data/industry_study/monthly_delta_action_audit.csv",
+      "exists": false,
+      "bytes": 0,
+      "sha256": ""
+    },
+    {
       "module_id": "issuance",
       "group": "inputs",
       "artifact": "strategy_db",
@@ -742,6 +845,26 @@
       "exists": true,
       "bytes": 3958,
       "sha256": "a1ce3fa19e91b59da47f9484d744a8b2e4b246db8c2afd3ee2ae22779f137b13"
+    },
+    {
+      "module_id": "documents",
+      "group": "manual_review",
+      "artifact": "document_chunk_actions",
+      "required": false,
+      "path": "data/industry_study/document_chunk_actions.csv",
+      "exists": false,
+      "bytes": 0,
+      "sha256": ""
+    },
+    {
+      "module_id": "documents",
+      "group": "manual_review",
+      "artifact": "document_chunk_action_audit",
+      "required": false,
+      "path": "data/industry_study/document_chunk_action_audit.csv",
+      "exists": false,
+      "bytes": 0,
+      "sha256": ""
     },
     {
       "module_id": "cedentes",
