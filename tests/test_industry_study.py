@@ -20,6 +20,8 @@ from build_fidc_industry_study import (  # noqa: E402
 from services.industry_study import (  # noqa: E402
     CEDENTE_REVIEW_COLUMNS,
     CRITERIA_REVIEW_COLUMNS,
+    DOCUMENT_CRITERIA_CANDIDATE_COLUMNS,
+    DOCUMENT_PARTICIPANT_CANDIDATE_COLUMNS,
     MONTHLY_DELTA_ACTION_COLUMNS,
     REVIEW_AUDIT_COLUMNS,
     append_review_audit_events,
@@ -33,6 +35,9 @@ from services.industry_study import (  # noqa: E402
     build_document_chunk_diagnostics_manifest,
     build_document_chunk_run_summary,
     build_document_chunk_text_index,
+    build_document_field_candidates,
+    build_document_field_chunk_summary,
+    build_document_field_manifest,
     build_document_text_manifest,
     build_document_text_run_summary,
     build_industry_curation_queue,
@@ -73,6 +78,7 @@ from services.industry_study import (  # noqa: E402
     document_quality_summary,
     document_chunk_diagnostics_quality_summary,
     document_text_quality_summary,
+    document_field_quality_summary,
     fund_snapshot_quality_summary,
     initialize_document_chunk_actions,
     initialize_curation_queue_actions,
@@ -93,6 +99,8 @@ from services.industry_study import (  # noqa: E402
     public_claim_audit_quality_summary,
     public_claim_methodology_bridge_quality_summary,
     load_cedente_structured,
+    load_document_criteria_candidates,
+    load_document_participant_candidates,
     load_monthly_delta_actions,
     load_regulatory_feature_criteria,
     load_review_audit,
@@ -104,6 +112,8 @@ from services.industry_study import (  # noqa: E402
     scan_regulatory_extraction_files,
     merge_document_chunk_diagnostics,
     merge_document_text_index,
+    merge_document_field_candidates,
+    merge_document_field_run_summary,
 )
 from tabs.tab_industry_study import (  # noqa: E402
     _apply_document_chunk_actions,
@@ -127,6 +137,9 @@ from tabs.tab_industry_study import (  # noqa: E402
     _format_document_chunk_run_summary,
     _format_document_text_index,
     _format_document_text_run_summary,
+    _format_document_criteria_candidates,
+    _format_document_field_summary,
+    _format_document_participant_candidates,
     _format_dimension_catalog_gaps,
     _format_dimension_catalog_quality,
     _format_dimension_value_snapshot,
@@ -1239,6 +1252,163 @@ def test_document_text_materializes_page_cache_and_reuses_unchanged_sources():
     assert reused["extracted_at_utc"].eq("2026-07-09T12:00:00+00:00").all()
     assert "Status texto" in formatted_index.columns
     assert "Páginas proc." in formatted_summary.columns
+
+
+def test_document_fields_extract_page_traceable_candidates_and_map_to_review_schemas():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        cache_dir = root / "data" / "industry_study" / "document_text_cache" / "doc-0001"
+        cache_dir.mkdir(parents=True)
+        page_text = (
+            "EMPRESA CEDENTE S.A., inscrita no CNPJ sob o nº 12.345.678/0001-90, "
+            "na qualidade de Cedente. O Índice de Subordinação Mínimo deverá permanecer "
+            "igual ou superior a 20%."
+        )
+
+        pdf_cache = cache_dir / "pdf-doc.json.gz"
+        with gzip.open(pdf_cache, "wt", encoding="utf-8") as handle:
+            json.dump(
+                {
+                    "schema_version": "industry-document-text-cache/v1",
+                    "pages": [{"page_number": 1, "text": page_text}],
+                },
+                handle,
+                ensure_ascii=False,
+            )
+        extraction_dir = root / "data" / "regulatory_extractions" / "05753599000158"
+        extraction_dir.mkdir(parents=True)
+        json_source = extraction_dir / "123.local.json"
+        json_source.write_text(
+            json.dumps(
+                {
+                    "fund_name": "FIDC TESTE",
+                    "fund_cnpj": "05.753.599/0001-58",
+                    "document_id": 123,
+                    "source_file": "data/raw/05753599000158/123_regulamento_2026-05-01.pdf",
+                    "effective_date": "2026-05-01",
+                    "criteria": [
+                        {
+                            "name": "Subordinação mínima",
+                            "canonical_key": "subordination_ratio_min",
+                            "event_type": "enquadramento",
+                            "threshold_value": 0.2,
+                            "threshold_unit": "ratio",
+                            "threshold_display": "20%",
+                            "comparison": ">=",
+                            "source_excerpt": page_text,
+                            "confidence": "média",
+                            "monitoring_mapping": {
+                                "status": "monitoravel",
+                                "ime_metric": "Cotas Sub / PL %",
+                                "rationale": "Percentual explícito.",
+                            },
+                        }
+                    ],
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        text_index = pd.DataFrame(
+            [
+                {
+                    "chunk_id": "doc-0001",
+                    "document_key": "pdf-doc",
+                    "cnpj_fundo": "05753599000158",
+                    "fundo": "FIDC TESTE",
+                    "documento_origem": "123_regulamento_2026-05-01.pdf",
+                    "content_kind": "pdf",
+                    "document_date": "2026-05-01",
+                    "source_path": "data/raw/05753599000158/123_regulamento_2026-05-01.pdf",
+                    "source_sha256": "a" * 64,
+                    "cache_path": "data/industry_study/document_text_cache/doc-0001/pdf-doc.json.gz",
+                    "parse_status": "text_ready",
+                },
+                {
+                    "chunk_id": "doc-0001",
+                    "document_key": "json-doc",
+                    "cnpj_fundo": "05753599000158",
+                    "fundo": "FIDC TESTE",
+                    "documento_origem": "123.local.json",
+                    "content_kind": "extraction_json",
+                    "document_date": "2026-05-01",
+                    "source_path": "data/regulatory_extractions/05753599000158/123.local.json",
+                    "source_sha256": "b" * 64,
+                    "cache_path": "data/industry_study/document_text_cache/doc-0001/json-doc.json.gz",
+                    "parse_status": "structured_ready",
+                },
+            ]
+        )
+        participants, criteria = build_document_field_candidates(
+            text_index,
+            chunk_id="doc-0001",
+            root=root,
+            extracted_at_utc="2026-07-09T15:00:00+00:00",
+        )
+        summary_current = build_document_field_chunk_summary(
+            chunk_id="doc-0001",
+            text_index=text_index,
+            participant_candidates=participants,
+            criteria_candidates=criteria,
+            extracted_at_utc="2026-07-09T15:00:00+00:00",
+        )
+        summary = merge_document_field_run_summary(pd.DataFrame(), summary_current)
+        chunk_plan = pd.DataFrame([{"chunk_id": "doc-0001"}])
+        quality = document_field_quality_summary(participants, criteria, summary, chunk_plan=chunk_plan)
+        participant_path = root / "document_participant_candidates.csv.gz"
+        criteria_path = root / "document_criteria_candidates.csv.gz"
+        summary_path = root / "document_field_run_summary.csv"
+        manifest_path = root / "industry_document_field_manifest.json"
+        save_dataframe(participants, participant_path)
+        save_dataframe(criteria, criteria_path)
+        save_dataframe(summary, summary_path)
+        manifest = build_document_field_manifest(
+            industry_dir=root,
+            participant_path=participant_path,
+            criteria_path=criteria_path,
+            run_summary_path=summary_path,
+            manifest_path=manifest_path,
+            participant_candidates=participants,
+            criteria_candidates=criteria,
+            run_summary=summary,
+            chunk_plan=chunk_plan,
+            chunk_id="doc-0001",
+        )
+        mapped_participants = load_document_participant_candidates(participant_path)
+        mapped_criteria = load_document_criteria_candidates(criteria_path)
+        no_page = participants.copy()
+        no_page["source_page"] = ""
+        no_page["confidence_score"] = 0.5
+        merged_participants = merge_document_field_candidates(
+            no_page,
+            participants,
+            columns=DOCUMENT_PARTICIPANT_CANDIDATE_COLUMNS,
+            chunk_id="",
+        )
+        formatted_participants = _format_document_participant_candidates(participants)
+        formatted_criteria = _format_document_criteria_candidates(criteria)
+        formatted_summary = _format_document_field_summary(summary)
+
+    assert len(participants) == 1
+    assert participants.iloc[0]["participant_type"] == "cedente_originador"
+    assert participants.iloc[0]["participant_cnpj_candidate"] == "12345678000190"
+    assert participants.iloc[0]["source_page"] == 1
+    assert participants.iloc[0]["participant_name_candidate"] == "EMPRESA CEDENTE S.A"
+    assert not criteria.empty
+    assert set(criteria["canonical_key"]) == {"subordination_ratio_min"}
+    assert criteria["source_page"].astype(str).eq("1").all()
+    assert quality["processed_chunks"] == 1
+    assert quality["participant_with_page"] == 1
+    assert quality["subordination_funds"] == 1
+    assert manifest["schema_version"] == "industry-document-field-manifest/v1"
+    assert mapped_participants.iloc[0]["pagina"] == "1"
+    assert mapped_participants.iloc[0]["review_id"]
+    assert "página 1" in mapped_criteria.iloc[0]["Fonte"]
+    assert mapped_criteria.iloc[0]["rule_id"]
+    assert merged_participants.iloc[0]["source_page"] == 1
+    assert "Papel" in formatted_participants.columns
+    assert "Match página" in formatted_criteria.columns
+    assert "Part. página" in formatted_summary.columns
 
 
 def test_criteria_structured_applies_review_and_tracks_subordination():
@@ -4098,6 +4268,30 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
             },
         )
         write_module_manifest(
+            "industry_document_field_manifest.json",
+            "industry_document_fields",
+            "document_participant_candidates.csv.gz",
+            {
+                "processed_chunks": 1,
+                "total_chunks": 1,
+                "pending_chunks": 0,
+                "documents_scanned": 2,
+                "participant_candidates": 3,
+                "participant_funds": 2,
+                "participant_with_name": 2,
+                "participant_with_cnpj": 3,
+                "participant_with_page": 3,
+                "participant_avg_confidence": 0.82,
+                "criteria_candidates": 4,
+                "criteria_funds": 2,
+                "criteria_with_threshold": 4,
+                "criteria_with_page": 3,
+                "criteria_avg_confidence": 0.75,
+                "subordination_candidates": 2,
+                "subordination_funds": 2,
+            },
+        )
+        write_module_manifest(
             "industry_pipeline_manifest.json",
             "industry_cedentes_structured",
             "cedentes_structured.csv.gz",
@@ -4273,8 +4467,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
     assert index["schema_version"] == "industry-pipeline-index/v1"
-    assert index["quality_rollup"]["modules_total"] == 19
-    assert index["quality_rollup"]["module_status_counts"]["ok"] == 19
+    assert index["quality_rollup"]["modules_total"] == 20
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 20
     assert index["quality_rollup"]["artifacts_missing"] == 0
     assert index["quality_rollup"]["manual_review_artifacts_total"] == 12
     assert index["quality_rollup"]["manual_review_artifacts_present"] == 12
@@ -4314,6 +4508,11 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["document_text_ready_docs"] == 1
     assert index["quality_rollup"]["document_text_ocr_required_docs"] == 1
     assert index["quality_rollup"]["document_text_pages_processed"] == 8
+    assert index["quality_rollup"]["document_field_processed_chunks"] == 1
+    assert index["quality_rollup"]["document_field_participant_candidates"] == 3
+    assert index["quality_rollup"]["document_field_participant_with_page"] == 3
+    assert index["quality_rollup"]["document_field_criteria_candidates"] == 4
+    assert index["quality_rollup"]["document_field_subordination_funds"] == 2
     assert index["quality_rollup"]["subordination_median_pct"] == 10.0
     assert index["quality_rollup"]["fund_snapshot_rows"] == 2
     assert index["quality_rollup"]["dimension_catalog_rows"] == 80
@@ -4372,7 +4571,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert prd["manual_review_in_app"]["status_prd"] == "ok"
     assert prd["heatmaps_generic"]["status_prd"] == "atenção"
     assert prd["public_audit_readiness"]["status_prd"] == "atenção"
-    assert index["quality_rollup"]["monthly_update_plan_rows"] == 21
+    assert index["quality_rollup"]["monthly_update_plan_rows"] == 22
     assert "monthly_update_plan_status_counts" in index["quality_rollup"]
     assert index["quality_rollup"]["publication_gate_status"] == "bloqueado"
     assert index["quality_rollup"]["publication_gate_rows"] > 1
@@ -4394,6 +4593,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert monthly_plan["incremental_onboarding"]["comando"] == "python scripts/build_fidc_industry_incremental_onboarding.py"
     assert monthly_plan["document_chunk_diagnostics"]["comando"] == "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001"
     assert monthly_plan["document_text"]["comando"] == "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0001"
+    assert monthly_plan["document_fields"]["comando"] == "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001"
     assert monthly_plan["dimension_traceability"]["comando"] == "python scripts/build_fidc_industry_traceability.py"
     assert monthly_plan["incremental_onboarding"]["status_prontidao"] == "bloqueado"
     assert monthly_plan["monthly_delta"]["status_prontidao"] == "bloqueado"
@@ -4447,12 +4647,14 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         "monthly_delta",
         "document_chunk_diagnostics",
         "document_text",
+        "document_fields",
         "curation_queue",
         "pipeline_index",
     }
     assert any(row["artifact"] == "manifest" for row in index["artifact_index"])
     assert ("document_chunk_diagnostics", "document_chunk_run_summary") in artifacts
     assert ("document_text", "document_text_index_csv_gz") in artifacts
+    assert ("document_fields", "document_participant_candidates_csv_gz") in artifacts
     readiness = {row["check_id"]: row for row in index["readiness_checks"]}
     assert readiness["competencia_alignment"]["status_prontidao"] == "ok"
     assert readiness["monthly_delta_queue"]["status_prontidao"] == "bloqueado"

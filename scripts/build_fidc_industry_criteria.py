@@ -24,6 +24,7 @@ from services.industry_study import (
     build_criteria_structured,
     load_criteria_reviews,
     load_criteria_source,
+    load_document_criteria_candidates,
     load_fund_universe,
     load_regulatory_feature_criteria,
     load_review_audit,
@@ -57,8 +58,16 @@ def main() -> None:
     review_audit_path = args.industry_dir / "criteria_review_audit.csv"
 
     documentary_criteria = load_criteria_source(args.criteria_source)
+    document_candidates_path = args.industry_dir / "document_criteria_candidates.csv.gz"
+    document_candidates = load_document_criteria_candidates(document_candidates_path)
     regulatory_features = load_regulatory_feature_criteria(args.strategy_db)
-    criteria = pd.concat([documentary_criteria, regulatory_features], ignore_index=True, sort=False)
+    criteria = pd.concat(
+        [documentary_criteria, document_candidates, regulatory_features],
+        ignore_index=True,
+        sort=False,
+    )
+    if not criteria.empty and "rule_id" in criteria.columns:
+        criteria = criteria.drop_duplicates("rule_id", keep="first")
     reviews = load_criteria_reviews(reviews_path)
     if not reviews_path.exists():
         save_criteria_reviews(reviews, reviews_path)
@@ -74,6 +83,7 @@ def main() -> None:
         industry_dir=args.industry_dir,
         strategy_db=args.strategy_db,
         criteria_source_path=args.criteria_source,
+        document_candidates_path=document_candidates_path,
         reviews_path=reviews_path,
         output_path=output_path,
         manifest_path=manifest_path,

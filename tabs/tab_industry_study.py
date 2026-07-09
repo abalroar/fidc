@@ -127,6 +127,10 @@ _DOCUMENT_CHUNK_DIAGNOSTICS_MANIFEST_PATH = _DATA_DIR / "industry_document_chunk
 _DOCUMENT_TEXT_INDEX_PATH = _DATA_DIR / "document_text_index.csv.gz"
 _DOCUMENT_TEXT_RUN_SUMMARY_PATH = _DATA_DIR / "document_text_run_summary.csv"
 _DOCUMENT_TEXT_MANIFEST_PATH = _DATA_DIR / "industry_document_text_manifest.json"
+_DOCUMENT_PARTICIPANT_CANDIDATES_PATH = _DATA_DIR / "document_participant_candidates.csv.gz"
+_DOCUMENT_CRITERIA_CANDIDATES_PATH = _DATA_DIR / "document_criteria_candidates.csv.gz"
+_DOCUMENT_FIELD_RUN_SUMMARY_PATH = _DATA_DIR / "document_field_run_summary.csv"
+_DOCUMENT_FIELD_MANIFEST_PATH = _DATA_DIR / "industry_document_field_manifest.json"
 _DOCUMENT_CHUNK_ACTIONS_PATH = _DATA_DIR / "document_chunk_actions.csv"
 _DOCUMENT_CHUNK_ACTION_AUDIT_PATH = _DATA_DIR / "document_chunk_action_audit.csv"
 _CRITERIA_REVIEW_PATH = _DATA_DIR / "criteria_reviews.csv"
@@ -309,7 +313,7 @@ def _pct_label(value: float | None, digits: int = 1) -> str:
     return f"{float(number):.{digits}f}%".replace(".", ",")
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_csv(name: str) -> pd.DataFrame | None:
     path = _DATA_DIR / name
     if not path.exists():
@@ -317,7 +321,7 @@ def _load_csv(name: str) -> pd.DataFrame | None:
     return pd.read_csv(path, low_memory=False)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_metadata() -> dict:
     path = _DATA_DIR / "metadata.json"
     if not path.exists():
@@ -347,12 +351,12 @@ def _save_cedente_reviews(reviews: pd.DataFrame) -> None:
     save_cedente_reviews(reviews, _CEDENTE_REVIEW_PATH)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_cedente_candidates() -> pd.DataFrame:
     return load_cedente_candidates(_REGULATORY_DB)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_cedente_fund_universe() -> pd.DataFrame:
     return load_fund_universe(_REGULATORY_DB)
 
@@ -399,11 +403,14 @@ def _persist_structured_cedentes(candidates: pd.DataFrame, reviews: pd.DataFrame
     return structured
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_regulatory_overlay() -> dict[str, pd.DataFrame | dict[str, float | int | str]]:
     criteria = pd.DataFrame()
     if _ALL_FIDCS_CRITERIA.exists():
         criteria = pd.read_csv(_ALL_FIDCS_CRITERIA)
+    structured_criteria = load_dataframe(_CRITERIA_STRUCTURED_PATH)
+    structured_cedentes = load_dataframe(_CEDENTE_STRUCTURED_PATH)
+    criteria_manifest = load_pipeline_manifest(_CRITERIA_MANIFEST_PATH)
 
     fund_universe = pd.DataFrame()
     candidates = pd.DataFrame()
@@ -446,6 +453,41 @@ def _load_regulatory_overlay() -> dict[str, pd.DataFrame | dict[str, float | int
             candidates = pd.DataFrame()
             queue = pd.DataFrame()
 
+    if not structured_criteria.empty:
+        active = structured_criteria.copy()
+        if "ativo_curadoria" in active.columns:
+            active = active[active["ativo_curadoria"].astype(str).str.lower().isin({"true", "1", "sim"})].copy()
+        criteria = active.rename(
+            columns={
+                "fundo": "Fundo",
+                "cnpj_fundo": "CNPJ",
+                "criterio": "Critério",
+                "chave": "Chave",
+                "limite_regra": "Limite/regra",
+                "monitorabilidade_ime": "Monitorabilidade IME",
+                "fonte": "Fonte",
+                "status_curadoria": "Status curadoria",
+            }
+        )
+    if not structured_cedentes.empty:
+        active_cedentes = structured_cedentes.copy()
+        if "ativo_curadoria" in active_cedentes.columns:
+            active_cedentes = active_cedentes[
+                active_cedentes["ativo_curadoria"].astype(str).str.lower().isin({"true", "1", "sim"})
+            ].copy()
+        candidates = pd.DataFrame(
+            {
+                "cnpj_fundo": active_cedentes.get("cnpj_fundo", ""),
+                "fund_name": active_cedentes.get("fundo", ""),
+                "setor_n1": active_cedentes.get("setor", ""),
+                "setor_n2": active_cedentes.get("segmento", ""),
+                "participant_type": active_cedentes.get("participant_type", ""),
+                "participant_name_candidate": active_cedentes.get("razao_social", ""),
+                "evidence_context": active_cedentes.get("evidencia", ""),
+                "source_cache": active_cedentes.get("source_cache", ""),
+            }
+        )
+
     summary: dict[str, float | int | str] = {
         "db_date": metadata.get("as_of_date", ""),
         "universe_funds": int(fund_universe["cnpj"].nunique()) if not fund_universe.empty else 0,
@@ -455,6 +497,29 @@ def _load_regulatory_overlay() -> dict[str, pd.DataFrame | dict[str, float | int
         "criteria_rows": int(len(criteria)),
         "criteria_funds": int(criteria["CNPJ"].nunique()) if "CNPJ" in criteria.columns else 0,
     }
+    if not structured_cedentes.empty:
+        participant_type = structured_cedentes.get(
+            "participant_type",
+            pd.Series("", index=structured_cedentes.index),
+        ).fillna("").astype(str)
+        identified = (
+            structured_cedentes.get("razao_social", pd.Series("", index=structured_cedentes.index))
+            .fillna("")
+            .astype(str)
+            .str.strip()
+            .ne("")
+            | structured_cedentes.get("cnpj_participante", pd.Series("", index=structured_cedentes.index))
+            .fillna("")
+            .astype(str)
+            .str.strip()
+            .ne("")
+        )
+        summary["cedente_funds"] = int(
+            structured_cedentes.loc[identified & participant_type.eq("cedente_originador"), "cnpj_fundo"].nunique()
+        )
+        summary["sacado_funds"] = int(
+            structured_cedentes.loc[identified & participant_type.eq("sacado_devedor"), "cnpj_fundo"].nunique()
+        )
 
     sub_rules = pd.DataFrame()
     if not criteria.empty and {"Chave", "Limite/regra"}.issubset(criteria.columns):
@@ -473,6 +538,14 @@ def _load_regulatory_overlay() -> dict[str, pd.DataFrame | dict[str, float | int
         summary["sub_median"] = float("nan")
         summary["sub_p25"] = float("nan")
         summary["sub_p75"] = float("nan")
+    criteria_quality = criteria_manifest.get("quality", {}) if isinstance(criteria_manifest, dict) else {}
+    sub_quality = criteria_quality.get("subordination", {}) if isinstance(criteria_quality, dict) else {}
+    if isinstance(sub_quality, dict) and sub_quality:
+        summary["sub_rules"] = int(criteria_quality.get("subordination_rows", summary.get("sub_rules", 0)) or 0)
+        summary["sub_funds"] = int(criteria_quality.get("subordination_funds", summary.get("sub_funds", 0)) or 0)
+        summary["sub_median"] = sub_quality.get("median")
+        summary["sub_p25"] = sub_quality.get("p25")
+        summary["sub_p75"] = sub_quality.get("p75")
 
     sector_summary = pd.DataFrame()
     if not fund_universe.empty:
@@ -625,7 +698,7 @@ def _format_vehicle_table(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_fund_snapshot_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     return {
         "snapshot": load_dataframe(_FUND_SNAPSHOT_PATH),
@@ -633,7 +706,7 @@ def _load_fund_snapshot_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     }
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_market_share_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     return {
         "market_share": load_dataframe(_MARKET_SHARE_PATH),
@@ -641,7 +714,7 @@ def _load_market_share_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     }
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_dimension_catalog_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     return {
         "catalog": load_dataframe(_DIMENSION_CATALOG_PATH),
@@ -649,7 +722,7 @@ def _load_dimension_catalog_tables() -> dict[str, pd.DataFrame | dict[str, objec
     }
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_dimension_monthly_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     monthly = load_dataframe(_DIMENSION_MONTHLY_PATH)
     atlas = load_dataframe(_DIMENSION_VALUE_ATLAS_PATH)
@@ -663,7 +736,7 @@ def _load_dimension_monthly_tables() -> dict[str, pd.DataFrame | dict[str, objec
     }
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_dimension_profile_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     profiles = load_dataframe(_DIMENSION_PROFILE_PATH)
     registry = load_dataframe(_HEATMAP_REGISTRY_PATH)
@@ -677,7 +750,7 @@ def _load_dimension_profile_tables() -> dict[str, pd.DataFrame | dict[str, objec
     }
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_dimension_dossier_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     return {
         "dossiers": load_dataframe(_DIMENSION_DOSSIER_PATH),
@@ -685,7 +758,7 @@ def _load_dimension_dossier_tables() -> dict[str, pd.DataFrame | dict[str, objec
     }
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_public_claim_audit_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     return {
         "audit": load_dataframe(_PUBLIC_CLAIM_AUDIT_PATH),
@@ -694,7 +767,7 @@ def _load_public_claim_audit_tables() -> dict[str, pd.DataFrame | dict[str, obje
     }
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_snapshot_gap_actions() -> pd.DataFrame:
     actions = load_dataframe(_SNAPSHOT_GAP_ACTIONS_PATH)
     for col in _SNAPSHOT_GAP_ACTION_COLUMNS:
@@ -753,7 +826,7 @@ def _snapshot_gap_actions_for_audit(actions: pd.DataFrame | None) -> pd.DataFram
     return out[["gap_id", "status", "acao_revisada", "responsavel", "prazo", "notas"]]
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_catalog_gap_actions() -> pd.DataFrame:
     actions = load_dataframe(_CATALOG_GAP_ACTIONS_PATH)
     for col in _CATALOG_GAP_ACTION_COLUMNS:
@@ -829,7 +902,7 @@ def _monthly_delta_actions_for_audit(actions: pd.DataFrame | None) -> pd.DataFra
     return out[["delta_id", "status", "acao_revisada", "responsavel", "prazo", "notas"]]
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_document_chunk_actions() -> pd.DataFrame:
     actions = load_dataframe(_DOCUMENT_CHUNK_ACTIONS_PATH)
     for col in _DOCUMENT_CHUNK_ACTION_COLUMNS:
@@ -4857,7 +4930,7 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
         )
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_issuance_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     return {
         "annual": load_dataframe(_ISSUANCE_ANNUAL_PATH),
@@ -5061,7 +5134,7 @@ def _render_issuance_study() -> None:
             st.json(manifest)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_document_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     return {
         "inventory": load_dataframe(_DOCUMENT_INVENTORY_PATH),
@@ -5070,9 +5143,13 @@ def _load_document_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
         "diagnostic_summary": load_dataframe(_DOCUMENT_CHUNK_RUN_SUMMARY_PATH),
         "text_index": load_dataframe(_DOCUMENT_TEXT_INDEX_PATH),
         "text_summary": load_dataframe(_DOCUMENT_TEXT_RUN_SUMMARY_PATH),
+        "participant_candidates": load_dataframe(_DOCUMENT_PARTICIPANT_CANDIDATES_PATH),
+        "criteria_candidates": load_dataframe(_DOCUMENT_CRITERIA_CANDIDATES_PATH),
+        "field_summary": load_dataframe(_DOCUMENT_FIELD_RUN_SUMMARY_PATH),
         "manifest": load_pipeline_manifest(_DOCUMENT_MANIFEST_PATH),
         "diagnostic_manifest": load_pipeline_manifest(_DOCUMENT_CHUNK_DIAGNOSTICS_MANIFEST_PATH),
         "text_manifest": load_pipeline_manifest(_DOCUMENT_TEXT_MANIFEST_PATH),
+        "field_manifest": load_pipeline_manifest(_DOCUMENT_FIELD_MANIFEST_PATH),
     }
 
 
@@ -5423,6 +5500,163 @@ def _format_document_text_index(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def _format_document_field_summary(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    columns = [
+        "chunk_id",
+        "documents_scanned",
+        "participant_candidates",
+        "participant_funds",
+        "participant_with_name",
+        "participant_with_cnpj",
+        "participant_with_page",
+        "criteria_candidates",
+        "criteria_funds",
+        "criteria_with_threshold",
+        "criteria_with_page",
+        "subordination_candidates",
+        "subordination_funds",
+        "avg_participant_confidence",
+        "avg_criteria_confidence",
+        "extracted_at_utc",
+        "rerun_command",
+    ]
+    out = frame[[col for col in columns if col in frame.columns]].copy()
+    out = out.rename(
+        columns={
+            "chunk_id": "Chunk",
+            "documents_scanned": "Docs",
+            "participant_candidates": "Participantes",
+            "participant_funds": "FIDCs part.",
+            "participant_with_name": "Com nome",
+            "participant_with_cnpj": "Com CNPJ",
+            "participant_with_page": "Part. página",
+            "criteria_candidates": "Critérios",
+            "criteria_funds": "FIDCs crit.",
+            "criteria_with_threshold": "Com limite",
+            "criteria_with_page": "Crit. página",
+            "subordination_candidates": "Sub mínima",
+            "subordination_funds": "FIDCs sub",
+            "avg_participant_confidence": "Conf. part.",
+            "avg_criteria_confidence": "Conf. crit.",
+            "extracted_at_utc": "Extraído",
+            "rerun_command": "Comando",
+        }
+    )
+    for col in [
+        "Docs",
+        "Participantes",
+        "FIDCs part.",
+        "Com nome",
+        "Com CNPJ",
+        "Part. página",
+        "Critérios",
+        "FIDCs crit.",
+        "Com limite",
+        "Crit. página",
+        "Sub mínima",
+        "FIDCs sub",
+    ]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    for col in ["Conf. part.", "Conf. crit."]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").map(
+                lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
+            )
+    return out
+
+
+def _format_document_participant_candidates(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    columns = [
+        "chunk_id",
+        "cnpj_fundo",
+        "fundo",
+        "participant_type",
+        "participant_name_candidate",
+        "participant_cnpj_candidate",
+        "source_document",
+        "source_page",
+        "confidence_score",
+        "extraction_method",
+        "evidence_context",
+        "source_cache",
+    ]
+    out = frame[[col for col in columns if col in frame.columns]].copy().rename(
+        columns={
+            "chunk_id": "Chunk",
+            "cnpj_fundo": "CNPJ fundo",
+            "fundo": "Fundo",
+            "participant_type": "Papel",
+            "participant_name_candidate": "Nome candidato",
+            "participant_cnpj_candidate": "CNPJ candidato",
+            "source_document": "Documento",
+            "source_page": "Página",
+            "confidence_score": "Confiança",
+            "extraction_method": "Método",
+            "evidence_context": "Evidência",
+            "source_cache": "Cache",
+        }
+    )
+    if "Confiança" in out.columns:
+        out["Confiança"] = pd.to_numeric(out["Confiança"], errors="coerce").map(
+            lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
+        )
+    return out.fillna("")
+
+
+def _format_document_criteria_candidates(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    columns = [
+        "chunk_id",
+        "cnpj_fundo",
+        "fundo",
+        "criterion_name",
+        "canonical_key",
+        "criterion_scope",
+        "threshold_display",
+        "comparison",
+        "source_document",
+        "source_page",
+        "confidence_score",
+        "page_match_score",
+        "extraction_method",
+        "monitoring_status",
+        "evidence_context",
+        "source_cache",
+    ]
+    out = frame[[col for col in columns if col in frame.columns]].copy().rename(
+        columns={
+            "chunk_id": "Chunk",
+            "cnpj_fundo": "CNPJ fundo",
+            "fundo": "Fundo",
+            "criterion_name": "Critério",
+            "canonical_key": "Chave",
+            "criterion_scope": "Escopo",
+            "threshold_display": "Limite",
+            "comparison": "Comparação",
+            "source_document": "Documento",
+            "source_page": "Página",
+            "confidence_score": "Confiança",
+            "page_match_score": "Match página",
+            "extraction_method": "Método",
+            "monitoring_status": "Monitorabilidade",
+            "evidence_context": "Evidência",
+            "source_cache": "Cache",
+        }
+    )
+    for col in ["Confiança", "Match página"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").map(
+                lambda value: "n/d" if pd.isna(value) else _fmt_pct(float(value))
+            )
+    return out.fillna("")
+
+
 def _render_document_inventory() -> None:
     st.markdown('<div class="industry-section">Documentos, caches e chunks</div>', unsafe_allow_html=True)
     st.markdown(
@@ -5437,18 +5671,26 @@ def _render_document_inventory() -> None:
     diagnostic_summary = tables["diagnostic_summary"]
     text_index = tables["text_index"]
     text_summary = tables["text_summary"]
+    participant_candidates = tables["participant_candidates"]
+    criteria_candidates = tables["criteria_candidates"]
+    field_summary = tables["field_summary"]
     manifest = tables["manifest"]
     diagnostic_manifest = tables["diagnostic_manifest"]
     text_manifest = tables["text_manifest"]
+    field_manifest = tables["field_manifest"]
     assert isinstance(inventory, pd.DataFrame)
     assert isinstance(chunks, pd.DataFrame)
     assert isinstance(diagnostics, pd.DataFrame)
     assert isinstance(diagnostic_summary, pd.DataFrame)
     assert isinstance(text_index, pd.DataFrame)
     assert isinstance(text_summary, pd.DataFrame)
+    assert isinstance(participant_candidates, pd.DataFrame)
+    assert isinstance(criteria_candidates, pd.DataFrame)
+    assert isinstance(field_summary, pd.DataFrame)
     assert isinstance(manifest, dict)
     assert isinstance(diagnostic_manifest, dict)
     assert isinstance(text_manifest, dict)
+    assert isinstance(field_manifest, dict)
     if inventory.empty and chunks.empty:
         st.info("Inventário documental ainda não gerado. Rode `python scripts/build_fidc_industry_documents.py`.")
         return
@@ -5456,6 +5698,7 @@ def _render_document_inventory() -> None:
     quality = manifest.get("quality", {}) if isinstance(manifest, dict) else {}
     diagnostic_quality = diagnostic_manifest.get("quality", {}) if isinstance(diagnostic_manifest, dict) else {}
     text_quality = text_manifest.get("quality", {}) if isinstance(text_manifest, dict) else {}
+    field_quality = field_manifest.get("quality", {}) if isinstance(field_manifest, dict) else {}
     coverage = quality.get("coverage", {}) if isinstance(quality, dict) else {}
     doc_rows = int(quality.get("document_rows", len(inventory))) if isinstance(quality, dict) else len(inventory)
     funds = int(quality.get("funds", inventory["cnpj_fundo"].nunique() if "cnpj_fundo" in inventory else 0)) if isinstance(quality, dict) else 0
@@ -5465,18 +5708,23 @@ def _render_document_inventory() -> None:
     max_docs = int(quality.get("max_documents_per_chunk", 0)) if isinstance(quality, dict) else 0
     diagnosed_chunks = int(diagnostic_quality.get("processed_chunks", 0)) if isinstance(diagnostic_quality, dict) else 0
     text_chunks = int(text_quality.get("processed_chunks", 0)) if isinstance(text_quality, dict) else 0
+    field_chunks = int(field_quality.get("processed_chunks", 0)) if isinstance(field_quality, dict) else 0
     cards = [
         _curation_card("Documentos", _fmt_int(float(doc_rows)), f"{_fmt_int(float(funds))} FIDCs"),
         _curation_card("Prioridade 2025-2026", _fmt_int(float(priority_docs)), "emissões recentes"),
         _curation_card("Local ready", _fmt_int(float(local_ready)), _fmt_pct(local_ready / doc_rows) if doc_rows else "n/d"),
-        _curation_card("Chunks", _fmt_int(float(chunk_count)), f"até {_fmt_int(float(max_docs))} docs/chunk"),
-        _curation_card("Diag. chunks", _fmt_int(float(diagnosed_chunks)), f"{_fmt_int(float(len(diagnostics)))} docs"),
+        _curation_card("Chunks", _fmt_int(float(chunk_count)), f"diag. {_fmt_int(float(diagnosed_chunks))}/{_fmt_int(float(chunk_count))}"),
         _curation_card("Texto chunks", _fmt_int(float(text_chunks)), f"{_fmt_int(float(len(text_index)))} docs"),
+        _curation_card(
+            "Campos chunks",
+            _fmt_int(float(field_chunks)),
+            f"{_fmt_int(float(len(participant_candidates)))} part. · {_fmt_int(float(len(criteria_candidates)))} crit.",
+        ),
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    tab_cov, tab_chunks, tab_diagnostics, tab_text, tab_inventory, tab_manifest = st.tabs(
-        ["Cobertura", "Chunks", "Diagnóstico", "Textos", "Inventário", "Manifesto"]
+    tab_cov, tab_chunks, tab_diagnostics, tab_text, tab_fields, tab_inventory, tab_manifest = st.tabs(
+        ["Cobertura", "Chunks", "Diagnóstico", "Textos", "Extrações", "Inventário", "Manifesto"]
     )
     with tab_cov:
         col_a, col_b = st.columns([1.0, 1.0])
@@ -5970,6 +6218,134 @@ def _render_document_inventory() -> None:
                 mime="text/csv",
                 key="industry_document_text_download",
             )
+    with tab_fields:
+        if participant_candidates.empty and criteria_candidates.empty:
+            st.info(
+                "Candidatos documentais ainda não gerados. Rode "
+                "`python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001`."
+            )
+        else:
+            participant_rows = int(field_quality.get("participant_candidates", len(participant_candidates)))
+            participant_funds = int(field_quality.get("participant_funds", 0))
+            participant_pages = int(field_quality.get("participant_with_page", 0))
+            criteria_rows = int(field_quality.get("criteria_candidates", len(criteria_candidates)))
+            criteria_funds = int(field_quality.get("criteria_funds", 0))
+            criteria_pages = int(field_quality.get("criteria_with_page", 0))
+            subordination_funds = int(field_quality.get("subordination_funds", 0))
+            field_cards = [
+                _curation_card("Participantes", _fmt_int(float(participant_rows)), f"{_fmt_int(float(participant_funds))} FIDCs"),
+                _curation_card("Part. com página", _fmt_int(float(participant_pages)), _fmt_pct(participant_pages / participant_rows) if participant_rows else "n/d"),
+                _curation_card("Critérios", _fmt_int(float(criteria_rows)), f"{_fmt_int(float(criteria_funds))} FIDCs"),
+                _curation_card("Crit. com página", _fmt_int(float(criteria_pages)), _fmt_pct(criteria_pages / criteria_rows) if criteria_rows else "n/d"),
+                _curation_card("Sub mínima", _fmt_int(float(field_quality.get("subordination_candidates", 0))), f"{_fmt_int(float(subordination_funds))} FIDCs"),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(field_cards)}</div>', unsafe_allow_html=True)
+            if not field_summary.empty:
+                st.markdown("**Resumo por chunk**")
+                st.dataframe(
+                    _format_document_field_summary(field_summary),
+                    hide_index=True,
+                    width="stretch",
+                    height=260,
+                )
+
+            tab_participants, tab_criteria_fields = st.tabs(["Participantes", "Critérios"])
+            with tab_participants:
+                participant_frame = participant_candidates.copy()
+                part_ctrl_a, part_ctrl_b, part_ctrl_c, part_ctrl_d = st.columns([0.9, 1.1, 0.8, 1.4])
+                with part_ctrl_a:
+                    part_chunks = ["Todos"] + sorted(
+                        [value for value in participant_frame.get("chunk_id", pd.Series(dtype=str)).fillna("").astype(str).unique() if value]
+                    )
+                    selected_part_chunk = st.selectbox("Chunk", part_chunks, key="industry_document_field_part_chunk")
+                with part_ctrl_b:
+                    part_types = sorted(
+                        [value for value in participant_frame.get("participant_type", pd.Series(dtype=str)).fillna("").astype(str).unique() if value]
+                    )
+                    selected_part_types = st.multiselect(
+                        "Papel",
+                        part_types,
+                        default=part_types,
+                        key="industry_document_field_part_type",
+                    )
+                with part_ctrl_c:
+                    part_only_page = st.checkbox("Com página", value=False, key="industry_document_field_part_page")
+                with part_ctrl_d:
+                    part_query = st.text_input(
+                        "Buscar participante",
+                        key="industry_document_field_part_query",
+                        placeholder="FIDC, nome, CNPJ ou evidência",
+                    )
+                if selected_part_chunk != "Todos" and "chunk_id" in participant_frame.columns:
+                    participant_frame = participant_frame[participant_frame["chunk_id"].astype(str).eq(selected_part_chunk)].copy()
+                if selected_part_types and "participant_type" in participant_frame.columns:
+                    participant_frame = participant_frame[participant_frame["participant_type"].astype(str).isin(selected_part_types)].copy()
+                if part_only_page and "source_page" in participant_frame.columns:
+                    participant_frame = participant_frame[participant_frame["source_page"].fillna("").astype(str).str.strip().ne("")].copy()
+                if part_query:
+                    search = participant_frame.fillna("").astype(str).agg(" ".join, axis=1)
+                    participant_frame = participant_frame[search.str.contains(part_query, case=False, na=False)].copy()
+                st.dataframe(
+                    _format_document_participant_candidates(participant_frame.head(500)),
+                    hide_index=True,
+                    width="stretch",
+                    height=520,
+                )
+                st.download_button(
+                    "Baixar participantes filtrados",
+                    data=participant_frame.to_csv(index=False).encode("utf-8"),
+                    file_name="industry_document_participant_candidates.csv",
+                    mime="text/csv",
+                    key="industry_document_field_part_download",
+                )
+            with tab_criteria_fields:
+                criteria_frame = criteria_candidates.copy()
+                crit_ctrl_a, crit_ctrl_b, crit_ctrl_c, crit_ctrl_d = st.columns([0.9, 1.2, 0.8, 1.4])
+                with crit_ctrl_a:
+                    crit_chunks = ["Todos"] + sorted(
+                        [value for value in criteria_frame.get("chunk_id", pd.Series(dtype=str)).fillna("").astype(str).unique() if value]
+                    )
+                    selected_crit_chunk = st.selectbox("Chunk", crit_chunks, key="industry_document_field_crit_chunk")
+                with crit_ctrl_b:
+                    crit_keys = sorted(
+                        [value for value in criteria_frame.get("canonical_key", pd.Series(dtype=str)).fillna("").astype(str).unique() if value]
+                    )
+                    selected_crit_keys = st.multiselect(
+                        "Chave",
+                        crit_keys,
+                        default=crit_keys,
+                        key="industry_document_field_crit_key",
+                    )
+                with crit_ctrl_c:
+                    crit_only_page = st.checkbox("Com página", value=False, key="industry_document_field_crit_page")
+                with crit_ctrl_d:
+                    crit_query = st.text_input(
+                        "Buscar critério",
+                        key="industry_document_field_crit_query",
+                        placeholder="FIDC, limite, documento ou evidência",
+                    )
+                if selected_crit_chunk != "Todos" and "chunk_id" in criteria_frame.columns:
+                    criteria_frame = criteria_frame[criteria_frame["chunk_id"].astype(str).eq(selected_crit_chunk)].copy()
+                if selected_crit_keys and "canonical_key" in criteria_frame.columns:
+                    criteria_frame = criteria_frame[criteria_frame["canonical_key"].astype(str).isin(selected_crit_keys)].copy()
+                if crit_only_page and "source_page" in criteria_frame.columns:
+                    criteria_frame = criteria_frame[criteria_frame["source_page"].fillna("").astype(str).str.strip().ne("")].copy()
+                if crit_query:
+                    search = criteria_frame.fillna("").astype(str).agg(" ".join, axis=1)
+                    criteria_frame = criteria_frame[search.str.contains(crit_query, case=False, na=False)].copy()
+                st.dataframe(
+                    _format_document_criteria_candidates(criteria_frame.head(500)),
+                    hide_index=True,
+                    width="stretch",
+                    height=520,
+                )
+                st.download_button(
+                    "Baixar critérios filtrados",
+                    data=criteria_frame.to_csv(index=False).encode("utf-8"),
+                    file_name="industry_document_criteria_candidates.csv",
+                    mime="text/csv",
+                    key="industry_document_field_crit_download",
+                )
     with tab_inventory:
         frame = inventory.copy()
         ctrl_a, ctrl_b, ctrl_c, ctrl_d = st.columns([1.2, 0.9, 0.9, 0.7])
@@ -6044,10 +6420,10 @@ def _render_document_inventory() -> None:
         )
         st.dataframe(show, hide_index=True, width="stretch")
     with tab_manifest:
-        if manifest or diagnostic_manifest or text_manifest:
+        if manifest or diagnostic_manifest or text_manifest or field_manifest:
             selected_manifest = st.selectbox(
                 "Manifesto",
-                ["Inventário documental", "Diagnóstico por chunk", "Texto por página"],
+                ["Inventário documental", "Diagnóstico por chunk", "Texto por página", "Campos por página"],
                 key="industry_document_manifest_select",
             )
             if selected_manifest == "Diagnóstico por chunk":
@@ -6056,6 +6432,9 @@ def _render_document_inventory() -> None:
             elif selected_manifest == "Texto por página":
                 manifest_payload = text_manifest
                 manifest_name = "industry_document_text_manifest.json"
+            elif selected_manifest == "Campos por página":
+                manifest_payload = field_manifest
+                manifest_name = "industry_document_field_manifest.json"
             else:
                 manifest_payload = manifest
                 manifest_name = "industry_document_manifest.json"
@@ -6161,7 +6540,7 @@ def _persist_structured_criteria(reviews: pd.DataFrame) -> pd.DataFrame:
     return structured
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_criteria_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     return {
         "structured": load_dataframe(_CRITERIA_STRUCTURED_PATH),
@@ -7283,12 +7662,12 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
         st.caption("A tabela preserva documento, página, método e status de revisão para rastrear a origem da relação.")
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_industry_pipeline_manifest() -> dict[str, object]:
     return load_pipeline_manifest(_PIPELINE_MANIFEST_PATH)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_industry_pipeline_index() -> dict[str, object]:
     index = load_pipeline_manifest(_PIPELINE_INDEX_PATH)
     if index:
@@ -7296,7 +7675,7 @@ def _load_industry_pipeline_index() -> dict[str, object]:
     return build_industry_pipeline_index(industry_dir=_DATA_DIR, output_path=_PIPELINE_INDEX_PATH)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_monthly_delta_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     return {
         "delta": load_dataframe(_MONTHLY_DELTA_PATH),
@@ -7305,7 +7684,7 @@ def _load_monthly_delta_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     }
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def _load_curation_queue_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     queue = load_dataframe(_CURATION_QUEUE_PATH)
     summary = load_dataframe(_CURATION_QUEUE_SUMMARY_PATH)
@@ -9589,9 +9968,9 @@ def _render_regulatory_curation_overlay() -> None:
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
     st.markdown(
         f'<div class="industry-curation-note">Sub mínima: mediana dos percentuais mínimos extraídos em '
-        f'<code>{_ALL_FIDCS_CRITERIA.name}</code>; intervalo interquartil '
+        f'<code>{_CRITERIA_STRUCTURED_PATH.name}</code>; intervalo interquartil '
         f'{_pct_label(summary.get("sub_p25"))}–{_pct_label(summary.get("sub_p75"))}. '
-        "Quando há mais de um percentual na mesma regra, usa-se o menor valor explícito como mínimo conservador.</div>",
+        "A métrica usa o menor percentual por FIDC no documento mais recente; revisão aprovada prevalece.</div>",
         unsafe_allow_html=True,
     )
 

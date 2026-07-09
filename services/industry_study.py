@@ -5,6 +5,7 @@ import hashlib
 import json
 import re
 import sqlite3
+import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -163,6 +164,81 @@ DOCUMENT_TEXT_RUN_SUMMARY_COLUMNS = [
     "status_mix",
     "source_methods",
     "sample_documents",
+    "rerun_command",
+]
+
+DOCUMENT_PARTICIPANT_CANDIDATE_COLUMNS = [
+    "candidate_id",
+    "chunk_id",
+    "document_key",
+    "cnpj_fundo",
+    "fundo",
+    "participant_type",
+    "participant_name_candidate",
+    "participant_cnpj_candidate",
+    "evidence_context",
+    "source_document",
+    "source_page",
+    "source_document_date",
+    "source_cache",
+    "source_sha256",
+    "extraction_method",
+    "confidence_score",
+    "priority_2025_2026",
+    "extracted_at_utc",
+]
+
+DOCUMENT_CRITERIA_CANDIDATE_COLUMNS = [
+    "candidate_id",
+    "chunk_id",
+    "document_key",
+    "cnpj_fundo",
+    "fundo",
+    "criterion_name",
+    "canonical_key",
+    "criterion_scope",
+    "event_type",
+    "threshold_value",
+    "threshold_unit",
+    "threshold_display",
+    "comparison",
+    "formula_text",
+    "evidence_context",
+    "source_document",
+    "source_document_id",
+    "source_page",
+    "source_document_date",
+    "source_cache",
+    "source_sha256",
+    "extraction_method",
+    "confidence_score",
+    "page_match_score",
+    "monitoring_status",
+    "ime_metric",
+    "rationale",
+    "priority_2025_2026",
+    "extracted_at_utc",
+]
+
+DOCUMENT_FIELD_RUN_SUMMARY_COLUMNS = [
+    "chunk_id",
+    "extracted_at_utc",
+    "documents_scanned",
+    "participant_candidates",
+    "participant_funds",
+    "participant_with_name",
+    "participant_with_cnpj",
+    "participant_with_page",
+    "criteria_candidates",
+    "criteria_funds",
+    "criteria_with_threshold",
+    "criteria_with_page",
+    "subordination_candidates",
+    "subordination_funds",
+    "avg_participant_confidence",
+    "avg_criteria_confidence",
+    "participant_types",
+    "criteria_keys",
     "rerun_command",
 ]
 
@@ -1020,6 +1096,43 @@ def load_cedente_candidates(db_path: Path) -> pd.DataFrame:
     candidates["evidencias_agrupadas"] = candidates.groupby("review_id")["review_id"].transform("size")
     candidates = candidates.sort_values(["score_confianca", "cnpj_fundo"], ascending=[False, True])
     return candidates.drop_duplicates("review_id", keep="first").reset_index(drop=True)
+
+
+def load_document_participant_candidates(path: Path) -> pd.DataFrame:
+    """Map page-traceable document candidates into the cedente review schema."""
+
+    frame = load_dataframe(path)
+    if frame.empty:
+        return frame
+    out = pd.DataFrame(index=frame.index)
+    out["cnpj_fundo"] = frame.get("cnpj_fundo", pd.Series("", index=frame.index)).map(normalize_cnpj)
+    out["fund_name"] = _text(frame.get("fundo"), frame.index)
+    out["setor_n1"] = ""
+    out["setor_n2"] = ""
+    out["participant_type"] = _text(frame.get("participant_type"), frame.index)
+    out["participant_cnpj_candidate"] = _text(frame.get("participant_cnpj_candidate"), frame.index).map(normalize_cnpj)
+    out["participant_name_candidate"] = _text(frame.get("participant_name_candidate"), frame.index)
+    out["evidence_context"] = _text(frame.get("evidence_context"), frame.index)
+    out["source_cache"] = _text(frame.get("source_cache"), frame.index)
+    out["documento_origem"] = _text(frame.get("source_document"), frame.index)
+    out["pagina"] = _text(frame.get("source_page"), frame.index)
+    out["metodo_extracao"] = _text(frame.get("extraction_method"), frame.index).replace(
+        "",
+        "document_field_candidates",
+    )
+    out["score_confianca"] = pd.to_numeric(frame.get("confidence_score"), errors="coerce").fillna(0.5).clip(0, 1)
+    out["participante_extraido"] = out["participant_name_candidate"].map(_plausible_participant_name)
+    out["participante_extraido"] = out["participante_extraido"].where(
+        out["participante_extraido"].str.strip().ne(""),
+        out["participant_cnpj_candidate"],
+    )
+    out["review_id"] = out.apply(review_id, axis=1)
+    out["evidencias_agrupadas"] = out.groupby("review_id")["review_id"].transform("size")
+    out = out[out["cnpj_fundo"].str.len().eq(14)].copy()
+    return out.sort_values(["score_confianca", "cnpj_fundo"], ascending=[False, True]).drop_duplicates(
+        "review_id",
+        keep="first",
+    ).reset_index(drop=True)
 
 
 def _participant_types_from_signal_keys(value: object) -> list[str]:
@@ -4022,6 +4135,813 @@ def build_document_text_manifest(
     }
 
 
+_PARTICIPANT_ROLE_PATTERNS = {
+    "cedente_originador": re.compile(r"\b(?:cedentes?|originadores?|endossantes?)\b", re.IGNORECASE),
+    "sacado_devedor": re.compile(r"\b(?:sacados?|devedores?|banco\s+emissor)\b", re.IGNORECASE),
+    "consultora": re.compile(r"\bconsultora(?:\s+especializada)?\b", re.IGNORECASE),
+}
+_CNPJ_PATTERN = re.compile(r"\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2}")
+_LEGAL_NAME_SUFFIX = r"(?:S\.?\s*A\.?|LTDA\.?|LIMITADA|EIRELI|BANCO|COMPANHIA|SOCIEDADE|COOPERATIVA)"
+_LEGAL_NAME_PATTERN = re.compile(
+    rf"([A-ZÀ-Ü][A-ZÀ-Ü0-9&'.,()\-/ ]{{5,150}}?\b{_LEGAL_NAME_SUFFIX})",
+    re.IGNORECASE,
+)
+
+
+def _ascii_compact(value: object) -> str:
+    text = unicodedata.normalize("NFKD", str(value or ""))
+    text = "".join(char for char in text if not unicodedata.combining(char))
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _load_document_cache_pages(record: pd.Series | dict[str, object], root: Path) -> list[dict[str, object]]:
+    cache_path = _resolve_inventory_path(record.get("cache_path", ""), root)
+    if cache_path is None or not cache_path.exists():
+        return []
+    try:
+        with gzip.open(cache_path, "rt", encoding="utf-8") as handle:
+            payload = json.load(handle)
+    except (OSError, json.JSONDecodeError):
+        return []
+    pages = payload.get("pages", []) if isinstance(payload, dict) else []
+    return [page for page in pages if isinstance(page, dict)]
+
+
+def _evidence_context(text: str, start: int, end: int, radius: int = 260) -> str:
+    left = max(start - radius, 0)
+    right = min(end + radius, len(text))
+    return _sample_text(text[left:right], radius * 2)
+
+
+def _candidate_name_near_cnpj(context: str, cnpj: str) -> str:
+    position = context.find(cnpj)
+    if position < 0:
+        digits = normalize_cnpj(cnpj)
+        for match in _CNPJ_PATTERN.finditer(context):
+            if normalize_cnpj(match.group(0)) == digits:
+                position = match.start()
+                break
+    if position < 0:
+        return ""
+    before = context[max(position - 190, 0) : position]
+    before = re.sub(
+        r"(?:inscrit[ao]s?|registrad[ao]s?)\s+(?:no|sob\s+o)?\s*$",
+        "",
+        before,
+        flags=re.IGNORECASE,
+    )
+    matches = list(_LEGAL_NAME_PATTERN.finditer(before))
+    if not matches:
+        return ""
+    candidate = matches[-1].group(1)
+    candidate = re.split(
+        r"(?:^|[;:\n])\s*(?:cedentes?|originadores?|endossantes?|sacados?|devedores?|consultora(?:\s+especializada)?)\s*(?:significa|:|é|e)?\s*",
+        candidate,
+        flags=re.IGNORECASE,
+    )[-1]
+    candidate = re.split(r"\b(?:pela|pelo|a\s+sociedade|o\s+banco)\b", candidate, flags=re.IGNORECASE)[-1]
+    return _plausible_participant_name(clean_candidate_name(candidate))
+
+
+def _plausible_participant_name(value: object) -> str:
+    text = re.sub(r"\s+", " ", str(value or "")).strip(" ,.;:-")
+    text = re.sub(
+        r"^(?:e?specializada|consultora\s+especializada)\s*(?:a\s+)?",
+        "",
+        text,
+        flags=re.IGNORECASE,
+    ).strip(" ,.;:-")
+    if not text or len(text) > 120:
+        return ""
+    words = re.findall(r"[A-Za-zÀ-Üà-ü0-9&]+", text)
+    if len(words) < 2 or len(words) > 14:
+        return ""
+    normalized = _ascii_compact(text).lower()
+    noisy = [
+        "responsavel por",
+        "demonstracoes financeiras",
+        "direitos creditorios",
+        "previamente a cada",
+        "selecao dos",
+        "cobranca de",
+        "emitidas e cedidas",
+        "respectivas partes",
+        "movimentaveis somente",
+        "nao podem ser",
+        "sejam companhia",
+        "acessa o banco",
+        "envia ao banco",
+        "boletos bancarios",
+        "em favor dos",
+        "envia ao banco",
+        "nvia ao banco",
+    ]
+    if any(fragment in normalized for fragment in noisy):
+        return ""
+    generic = {
+        "a sociedade",
+        "o banco",
+        "cedente banco",
+        "empresa de consultoria",
+        "consultora especializada a sociedade",
+    }
+    if normalized in generic:
+        return ""
+    return text
+
+
+def _canonical_evidence_document(record: pd.Series) -> str:
+    name = str(record.get("documento_origem", "") or "")
+    if str(record.get("content_kind", "") or "") != "text_cache":
+        return name
+    stem = Path(name).stem
+    stem = re.sub(r"^\d{14}_", "", stem)
+    return f"{stem}.pdf" if stem else name
+
+
+def _participant_candidates_from_page(
+    *,
+    text: str,
+    page_number: object,
+    record: pd.Series,
+    extracted_at_utc: str,
+) -> list[dict[str, object]]:
+    if not text.strip():
+        return []
+    role_matches: list[tuple[str, re.Match[str]]] = []
+    for participant_type, pattern in _PARTICIPANT_ROLE_PATTERNS.items():
+        role_matches.extend((participant_type, match) for match in pattern.finditer(text))
+    if not role_matches:
+        return []
+    rows: list[dict[str, object]] = []
+    fund_cnpj = normalize_cnpj(record.get("cnpj_fundo", ""))
+    for cnpj_match in _CNPJ_PATTERN.finditer(text):
+        participant_cnpj = normalize_cnpj(cnpj_match.group(0))
+        if len(participant_cnpj) != 14 or participant_cnpj == fund_cnpj:
+            continue
+        nearest_type = ""
+        nearest_distance = 10**9
+        nearest_role: re.Match[str] | None = None
+        cnpj_center = (cnpj_match.start() + cnpj_match.end()) / 2
+        for participant_type, role_match in role_matches:
+            role_center = (role_match.start() + role_match.end()) / 2
+            distance = abs(role_center - cnpj_center)
+            if distance < nearest_distance:
+                nearest_type = participant_type
+                nearest_distance = distance
+                nearest_role = role_match
+        if nearest_role is None or nearest_distance > 190:
+            continue
+        between = text[
+            min(nearest_role.end(), cnpj_match.end()) : max(nearest_role.start(), cnpj_match.start())
+        ]
+        if re.search(r"\.\s+[“\"]?[A-ZÁÀÂÃÉÊÍÓÔÕÚÜÇ0-9]{2,}", between):
+            continue
+        context_start = min(nearest_role.start(), cnpj_match.start())
+        context_end = max(nearest_role.end(), cnpj_match.end())
+        context = _evidence_context(text, context_start, context_end)
+        name = _candidate_name_near_cnpj(context, cnpj_match.group(0))
+        explicit = bool(
+            re.search(
+                r"(?:na\s+qualidade\s+de|denominad[ao]|doravante|significa|como)\s+(?:a\s+|o\s+)?"
+                r"(?:cedente|originador|endossante|sacado|devedor|consultora)",
+                context,
+                flags=re.IGNORECASE,
+            )
+        )
+        confidence = min(0.95, 0.48 + 0.2 + 0.17 * bool(name) + 0.07 * (nearest_distance <= 90) + 0.03 * explicit)
+        source_document = _canonical_evidence_document(record)
+        seed = "|".join(
+            [
+                fund_cnpj,
+                nearest_type,
+                participant_cnpj,
+                name,
+                source_document,
+            ]
+        )
+        rows.append(
+            {
+                "candidate_id": hashlib.sha1(seed.encode("utf-8", errors="ignore")).hexdigest()[:20],
+                "chunk_id": record.get("chunk_id", ""),
+                "document_key": record.get("document_key", ""),
+                "cnpj_fundo": fund_cnpj,
+                "fundo": record.get("fundo", ""),
+                "participant_type": nearest_type,
+                "participant_name_candidate": name,
+                "participant_cnpj_candidate": participant_cnpj,
+                "evidence_context": context,
+                "source_document": source_document,
+                "source_page": page_number or "",
+                "source_document_date": record.get("document_date", ""),
+                "source_cache": record.get("cache_path", ""),
+                "source_sha256": record.get("source_sha256", ""),
+                "extraction_method": "role_cnpj_page_context_v1",
+                "confidence_score": round(confidence, 4),
+                "priority_2025_2026": str(record.get("document_date", "")).startswith(("2025", "2026")),
+                "extracted_at_utc": extracted_at_utc,
+            }
+        )
+
+    explicit_pattern = re.compile(
+        rf"(?P<role>cedente|originador|endossante|sacado|devedor|consultora(?:\s+especializada)?)"
+        rf"\s*(?:significa|:|é)\s*(?:a\s+|o\s+)?(?P<name>[A-ZÀ-Ü][A-ZÀ-Ü0-9&'.,()\-/ ]{{5,150}}?\b{_LEGAL_NAME_SUFFIX})",
+        flags=re.IGNORECASE,
+    )
+    for match in explicit_pattern.finditer(text):
+        role = _ascii_compact(match.group("role")).lower()
+        if role.startswith(("cedente", "originador", "endossante")):
+            participant_type = "cedente_originador"
+        elif role.startswith(("sacado", "devedor")):
+            participant_type = "sacado_devedor"
+        else:
+            participant_type = "consultora"
+        name = _plausible_participant_name(clean_candidate_name(match.group("name")))
+        if not name:
+            continue
+        context = _evidence_context(text, match.start(), match.end())
+        cnpj_matches = _CNPJ_PATTERN.findall(context)
+        participant_cnpj = normalize_cnpj(cnpj_matches[0]) if cnpj_matches else ""
+        if participant_cnpj == fund_cnpj:
+            participant_cnpj = ""
+        source_document = _canonical_evidence_document(record)
+        seed = "|".join([fund_cnpj, participant_type, participant_cnpj, name, source_document])
+        rows.append(
+            {
+                "candidate_id": hashlib.sha1(seed.encode("utf-8", errors="ignore")).hexdigest()[:20],
+                "chunk_id": record.get("chunk_id", ""),
+                "document_key": record.get("document_key", ""),
+                "cnpj_fundo": fund_cnpj,
+                "fundo": record.get("fundo", ""),
+                "participant_type": participant_type,
+                "participant_name_candidate": name,
+                "participant_cnpj_candidate": participant_cnpj,
+                "evidence_context": context,
+                "source_document": source_document,
+                "source_page": page_number or "",
+                "source_document_date": record.get("document_date", ""),
+                "source_cache": record.get("cache_path", ""),
+                "source_sha256": record.get("source_sha256", ""),
+                "extraction_method": "role_definition_page_context_v1",
+                "confidence_score": 0.78 if participant_cnpj else 0.68,
+                "priority_2025_2026": str(record.get("document_date", "")).startswith(("2025", "2026")),
+                "extracted_at_utc": extracted_at_utc,
+            }
+        )
+    return rows
+
+
+def _criterion_scope(value: object) -> str:
+    text = _ascii_compact(value).lower()
+    if "mezan" in text:
+        return "mezanino"
+    if "senior" in text:
+        return "senior"
+    if "junior" in text:
+        return "junior"
+    return "global"
+
+
+def _subordination_candidates_from_page(
+    *,
+    text: str,
+    page_number: object,
+    record: pd.Series,
+    extracted_at_utc: str,
+) -> list[dict[str, object]]:
+    compact = re.sub(r"\s+", " ", text).strip()
+    if not compact or not re.search(r"subordina(?:ç|c)[aã]o", compact, flags=re.IGNORECASE):
+        return []
+    patterns = [
+        re.compile(
+            r"(?P<label>(?:índice\s+de\s+)?subordina(?:ç|c)[aã]o(?:\s+(?:sênior|senior|mezanino|júnior|junior))?\s+mínim[oa])"
+            r".{0,180}?(?P<pct>\d{1,3}(?:[\.,]\d+)?)\s*%",
+            flags=re.IGNORECASE,
+        ),
+        re.compile(
+            r"(?P<pct>\d{1,3}(?:[\.,]\d+)?)\s*%.{0,120}?"
+            r"(?P<label>(?:índice\s+de\s+)?subordina(?:ç|c)[aã]o(?:\s+(?:sênior|senior|mezanino|júnior|junior))?\s+mínim[oa])",
+            flags=re.IGNORECASE,
+        ),
+        re.compile(
+            r"(?P<label>cotas?\s+subordinad[ao]s?(?:\s+(?:mezanino|júnior|junior))?).{0,160}?"
+            r"(?:representar|corresponder|equivaler).{0,80}?(?:no\s+mínimo|mínim[oa]).{0,40}?"
+            r"(?P<pct>\d{1,3}(?:[\.,]\d+)?)\s*%",
+            flags=re.IGNORECASE,
+        ),
+    ]
+    rows: list[dict[str, object]] = []
+    seen: set[tuple[str, float]] = set()
+    for pattern in patterns:
+        for match in pattern.finditer(compact):
+            try:
+                pct = float(match.group("pct").replace(",", "."))
+            except ValueError:
+                continue
+            if pct <= 0 or pct > 100:
+                continue
+            scope = _criterion_scope(match.group("label"))
+            key = (scope, pct)
+            if key in seen:
+                continue
+            seen.add(key)
+            context = _evidence_context(compact, match.start(), match.end(), radius=320)
+            source_document = str(record.get("documento_origem", "") or "")
+            seed = "|".join(
+                [
+                    normalize_cnpj(record.get("cnpj_fundo", "")),
+                    "subordination_ratio_min",
+                    scope,
+                    f"{pct:.6f}",
+                    source_document,
+                    str(page_number or ""),
+                ]
+            )
+            rows.append(
+                {
+                    "candidate_id": hashlib.sha1(seed.encode("utf-8", errors="ignore")).hexdigest()[:20],
+                    "chunk_id": record.get("chunk_id", ""),
+                    "document_key": record.get("document_key", ""),
+                    "cnpj_fundo": normalize_cnpj(record.get("cnpj_fundo", "")),
+                    "fundo": record.get("fundo", ""),
+                    "criterion_name": f"Subordinação mínima ({scope})" if scope != "global" else "Subordinação mínima",
+                    "canonical_key": "subordination_ratio_min",
+                    "criterion_scope": scope,
+                    "event_type": "enquadramento",
+                    "threshold_value": pct / 100.0,
+                    "threshold_unit": "ratio",
+                    "threshold_display": f"{pct:g}%",
+                    "comparison": ">=",
+                    "formula_text": context,
+                    "evidence_context": context,
+                    "source_document": source_document,
+                    "source_document_id": _document_id(source_document),
+                    "source_page": page_number or "",
+                    "source_document_date": record.get("document_date", ""),
+                    "source_cache": record.get("cache_path", ""),
+                    "source_sha256": record.get("source_sha256", ""),
+                    "extraction_method": "regex_subordination_page_v1",
+                    "confidence_score": 0.88,
+                    "page_match_score": 1.0,
+                    "monitoring_status": "monitoravel",
+                    "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+                    "rationale": "Percentual mínimo explicitamente associado à subordinação no documento.",
+                    "priority_2025_2026": str(record.get("document_date", "")).startswith(("2025", "2026")),
+                    "extracted_at_utc": extracted_at_utc,
+                }
+            )
+    return rows
+
+
+def _text_shingles(value: object, size: int = 3) -> set[tuple[str, ...]]:
+    tokens = re.findall(r"[a-z0-9]+", _ascii_compact(value).lower())
+    if len(tokens) < size:
+        return {tuple(tokens)} if tokens else set()
+    return {tuple(tokens[index : index + size]) for index in range(len(tokens) - size + 1)}
+
+
+def _best_page_match(pages: list[dict[str, object]], excerpt: object) -> tuple[object, float]:
+    target = _text_shingles(excerpt)
+    if not target:
+        return "", 0.0
+    best_page: object = ""
+    best_score = 0.0
+    for page in pages:
+        page_shingles = _text_shingles(page.get("text", ""))
+        if not page_shingles:
+            continue
+        score = len(target & page_shingles) / max(len(target), 1)
+        if score > best_score:
+            best_page = page.get("page_number", "") or ""
+            best_score = score
+    return (best_page if best_score >= 0.12 else ""), round(best_score, 4)
+
+
+def _confidence_value(value: object) -> float:
+    text = _ascii_compact(value).lower()
+    if text in {"alta", "high"}:
+        return 0.9
+    if text in {"media", "medium"}:
+        return 0.7
+    if text in {"baixa", "low"}:
+        return 0.45
+    number = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    return float(number) if not pd.isna(number) else 0.55
+
+
+def _structured_criteria_from_json(
+    *,
+    record: pd.Series,
+    root: Path,
+    pdf_lookup: dict[tuple[str, str], pd.Series],
+    page_cache: dict[str, list[dict[str, object]]],
+    extracted_at_utc: str,
+) -> list[dict[str, object]]:
+    source_path = _resolve_inventory_path(record.get("source_path", ""), root)
+    if source_path is None or not source_path.exists():
+        return []
+    try:
+        payload = json.loads(source_path.read_text(encoding="utf-8", errors="ignore"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    if not isinstance(payload, dict):
+        return []
+    raw_criteria: list[dict[str, object]] = []
+    for key in ["criteria", "eligibility_criteria"]:
+        values = payload.get(key, [])
+        if isinstance(values, list):
+            raw_criteria.extend(value for value in values if isinstance(value, dict))
+    if not raw_criteria:
+        return []
+    fund_cnpj = normalize_cnpj(record.get("cnpj_fundo", ""))
+    source_file = str(payload.get("source_file", "") or "")
+    source_document = Path(source_file).name if source_file else str(record.get("documento_origem", "") or "")
+    pdf_record = pdf_lookup.get((fund_cnpj, source_document.lower()))
+    pages: list[dict[str, object]] = []
+    if pdf_record is not None:
+        pdf_key = str(pdf_record.get("document_key", "") or "")
+        if pdf_key not in page_cache:
+            page_cache[pdf_key] = _load_document_cache_pages(pdf_record, root)
+        pages = page_cache[pdf_key]
+    rows: list[dict[str, object]] = []
+    for criterion in raw_criteria:
+        name = str(criterion.get("name", "") or "").strip()
+        canonical_key = str(criterion.get("canonical_key", "") or "").strip()
+        excerpt = criterion.get("source_excerpt", "") or criterion.get("formula_text", "") or ""
+        if not name and not canonical_key:
+            continue
+        page, page_score = _best_page_match(pages, excerpt)
+        threshold_display = str(criterion.get("threshold_display", "") or "").strip()
+        threshold_value = criterion.get("threshold_value", "")
+        threshold_unit = str(criterion.get("threshold_unit", "") or "").strip()
+        if not threshold_display and threshold_value not in {"", None}:
+            number = pd.to_numeric(pd.Series([threshold_value]), errors="coerce").iloc[0]
+            if not pd.isna(number):
+                threshold_display = f"{float(number) * 100:g}%" if threshold_unit == "ratio" else f"{float(number):g}"
+        monitoring = criterion.get("monitoring_mapping", {})
+        monitoring = monitoring if isinstance(monitoring, dict) else {}
+        base_confidence = _confidence_value(criterion.get("confidence", ""))
+        confidence = min(0.95, base_confidence + (0.08 if page else 0.0))
+        seed = "|".join(
+            [
+                fund_cnpj,
+                canonical_key,
+                str(threshold_value),
+                source_document,
+                str(page or ""),
+                hashlib.sha1(str(excerpt).encode("utf-8", errors="ignore")).hexdigest()[:10],
+            ]
+        )
+        rows.append(
+            {
+                "candidate_id": hashlib.sha1(seed.encode("utf-8", errors="ignore")).hexdigest()[:20],
+                "chunk_id": record.get("chunk_id", ""),
+                "document_key": record.get("document_key", ""),
+                "cnpj_fundo": fund_cnpj,
+                "fundo": payload.get("fund_name", "") or record.get("fundo", ""),
+                "criterion_name": name or canonical_key,
+                "canonical_key": canonical_key or _feature_criteria_key(name),
+                "criterion_scope": _criterion_scope(f"{name} {excerpt}"),
+                "event_type": criterion.get("event_type", ""),
+                "threshold_value": threshold_value,
+                "threshold_unit": threshold_unit,
+                "threshold_display": threshold_display,
+                "comparison": criterion.get("comparison", ""),
+                "formula_text": criterion.get("formula_text", ""),
+                "evidence_context": excerpt,
+                "source_document": source_document,
+                "source_document_id": criterion.get("source_document_id", payload.get("document_id", "")),
+                "source_page": page,
+                "source_document_date": payload.get("effective_date", "") or record.get("document_date", ""),
+                "source_cache": pdf_record.get("cache_path", "") if pdf_record is not None else record.get("cache_path", ""),
+                "source_sha256": pdf_record.get("source_sha256", "") if pdf_record is not None else record.get("source_sha256", ""),
+                "extraction_method": "structured_json_page_backfill_v1" if page else "structured_json_v1",
+                "confidence_score": round(confidence, 4),
+                "page_match_score": page_score,
+                "monitoring_status": monitoring.get("status", ""),
+                "ime_metric": monitoring.get("ime_metric", ""),
+                "rationale": monitoring.get("rationale", ""),
+                "priority_2025_2026": str(payload.get("effective_date", "")).startswith(("2025", "2026")),
+                "extracted_at_utc": extracted_at_utc,
+            }
+        )
+    return rows
+
+
+def build_document_field_candidates(
+    text_index: pd.DataFrame,
+    *,
+    chunk_id: str,
+    root: Path | None = None,
+    extracted_at_utc: str | None = None,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Extract participant and criteria candidates from one normalized text chunk."""
+
+    if text_index is None or text_index.empty:
+        return (
+            pd.DataFrame(columns=DOCUMENT_PARTICIPANT_CANDIDATE_COLUMNS),
+            pd.DataFrame(columns=DOCUMENT_CRITERIA_CANDIDATE_COLUMNS),
+        )
+    root = Path(".") if root is None else root
+    selected_chunk = str(chunk_id or "").strip()
+    frame = text_index.copy()
+    frame["chunk_id"] = frame.get("chunk_id", pd.Series("", index=frame.index)).fillna("").astype(str)
+    selected = frame[frame["chunk_id"].eq(selected_chunk)].copy()
+    if selected.empty:
+        return (
+            pd.DataFrame(columns=DOCUMENT_PARTICIPANT_CANDIDATE_COLUMNS),
+            pd.DataFrame(columns=DOCUMENT_CRITERIA_CANDIDATE_COLUMNS),
+        )
+    extracted_at_utc = extracted_at_utc or datetime.now(timezone.utc).isoformat(timespec="seconds")
+    pdf_lookup: dict[tuple[str, str], pd.Series] = {}
+    for _, pdf_record in frame[frame["content_kind"].fillna("").astype(str).eq("pdf")].iterrows():
+        key = (
+            normalize_cnpj(pdf_record.get("cnpj_fundo", "")),
+            str(pdf_record.get("documento_origem", "") or "").lower(),
+        )
+        pdf_lookup[key] = pdf_record
+    page_cache: dict[str, list[dict[str, object]]] = {}
+    participant_rows: list[dict[str, object]] = []
+    criteria_rows: list[dict[str, object]] = []
+    for _, record in selected.iterrows():
+        status = str(record.get("parse_status", "") or "")
+        if status not in {"text_ready", "text_ready_with_page_errors", "structured_ready"}:
+            continue
+        if str(record.get("content_kind", "") or "") == "extraction_json":
+            criteria_rows.extend(
+                _structured_criteria_from_json(
+                    record=record,
+                    root=root,
+                    pdf_lookup=pdf_lookup,
+                    page_cache=page_cache,
+                    extracted_at_utc=extracted_at_utc,
+                )
+            )
+            continue
+        document_key = str(record.get("document_key", "") or "")
+        if document_key not in page_cache:
+            page_cache[document_key] = _load_document_cache_pages(record, root)
+        for page in page_cache[document_key]:
+            page_text = str(page.get("text", "") or "")
+            page_number = page.get("page_number", "") or ""
+            participant_rows.extend(
+                _participant_candidates_from_page(
+                    text=page_text,
+                    page_number=page_number,
+                    record=record,
+                    extracted_at_utc=extracted_at_utc,
+                )
+            )
+            criteria_rows.extend(
+                _subordination_candidates_from_page(
+                    text=page_text,
+                    page_number=page_number,
+                    record=record,
+                    extracted_at_utc=extracted_at_utc,
+                )
+            )
+    participants = _diagnostic_columns(pd.DataFrame(participant_rows), DOCUMENT_PARTICIPANT_CANDIDATE_COLUMNS)
+    criteria = _diagnostic_columns(pd.DataFrame(criteria_rows), DOCUMENT_CRITERIA_CANDIDATE_COLUMNS)
+    if not participants.empty:
+        participants["_has_page"] = participants["source_page"].fillna("").astype(str).str.strip().ne("")
+        participants["_has_name"] = participants["participant_name_candidate"].fillna("").astype(str).str.strip().ne("")
+        participants["_confidence"] = pd.to_numeric(participants["confidence_score"], errors="coerce").fillna(0)
+        participants = (
+            participants.sort_values(["_has_page", "_has_name", "_confidence"], ascending=[False, False, False])
+            .drop_duplicates("candidate_id", keep="first")
+        )
+        with_cnpj = participants["participant_cnpj_candidate"].map(normalize_cnpj).str.len().eq(14)
+        cnpj_rows = participants[with_cnpj].drop_duplicates(
+            ["cnpj_fundo", "participant_type", "participant_cnpj_candidate", "source_document"],
+            keep="first",
+        )
+        name_rows = participants[~with_cnpj].drop_duplicates(
+            ["cnpj_fundo", "participant_type", "participant_name_candidate", "source_document"],
+            keep="first",
+        )
+        participants = pd.concat([cnpj_rows, name_rows], ignore_index=True).drop(
+            columns=["_has_page", "_has_name", "_confidence"]
+        )
+    if not criteria.empty:
+        criteria["_has_page"] = criteria["source_page"].fillna("").astype(str).str.strip().ne("")
+        criteria["_confidence"] = pd.to_numeric(criteria["confidence_score"], errors="coerce").fillna(0)
+        criteria = criteria.sort_values(["_has_page", "_confidence"], ascending=[False, False])
+        dedupe_cols = [
+            "cnpj_fundo",
+            "canonical_key",
+            "criterion_scope",
+            "threshold_display",
+            "source_document",
+            "source_page",
+        ]
+        criteria = criteria.drop_duplicates(dedupe_cols, keep="first").drop(columns=["_has_page", "_confidence"])
+    return participants.reset_index(drop=True), criteria.reset_index(drop=True)
+
+
+def merge_document_field_candidates(
+    existing: pd.DataFrame | None,
+    new: pd.DataFrame | None,
+    *,
+    columns: list[str],
+    chunk_id: str,
+) -> pd.DataFrame:
+    existing_frame = _diagnostic_columns(existing, columns)
+    new_frame = _diagnostic_columns(new, columns)
+    selected_chunk = str(chunk_id or "").strip()
+    if selected_chunk:
+        existing_frame = existing_frame[
+            ~existing_frame["chunk_id"].fillna("").astype(str).eq(selected_chunk)
+        ].copy()
+    merged = pd.concat([existing_frame, new_frame], ignore_index=True, sort=False)
+    if "candidate_id" in merged.columns:
+        page = merged.get("source_page", pd.Series("", index=merged.index)).fillna("").astype(str).str.strip()
+        confidence = pd.to_numeric(
+            merged.get("confidence_score", pd.Series(0, index=merged.index)),
+            errors="coerce",
+        ).fillna(0)
+        merged["_has_page"] = page.ne("")
+        merged["_confidence"] = confidence
+        merged = (
+            merged.sort_values(["_has_page", "_confidence"], ascending=[False, False])
+            .drop_duplicates("candidate_id", keep="first")
+            .drop(columns=["_has_page", "_confidence"])
+        )
+    return _diagnostic_columns(merged, columns).reset_index(drop=True)
+
+
+def build_document_field_chunk_summary(
+    *,
+    chunk_id: str,
+    text_index: pd.DataFrame,
+    participant_candidates: pd.DataFrame,
+    criteria_candidates: pd.DataFrame,
+    extracted_at_utc: str | None = None,
+) -> pd.DataFrame:
+    extracted_at_utc = extracted_at_utc or datetime.now(timezone.utc).isoformat(timespec="seconds")
+    participants = _diagnostic_columns(participant_candidates, DOCUMENT_PARTICIPANT_CANDIDATE_COLUMNS)
+    criteria = _diagnostic_columns(criteria_candidates, DOCUMENT_CRITERIA_CANDIDATE_COLUMNS)
+    selected_docs = text_index[
+        text_index.get("chunk_id", pd.Series("", index=text_index.index)).fillna("").astype(str).eq(str(chunk_id))
+    ]
+    participant_conf = pd.to_numeric(participants["confidence_score"], errors="coerce")
+    criteria_conf = pd.to_numeric(criteria["confidence_score"], errors="coerce")
+    sub = criteria[criteria["canonical_key"].fillna("").astype(str).eq("subordination_ratio_min")]
+    row = {
+        "chunk_id": str(chunk_id),
+        "extracted_at_utc": extracted_at_utc,
+        "documents_scanned": int(len(selected_docs)),
+        "participant_candidates": int(len(participants)),
+        "participant_funds": int(participants["cnpj_fundo"].nunique()),
+        "participant_with_name": int(participants["participant_name_candidate"].fillna("").astype(str).str.strip().ne("").sum()),
+        "participant_with_cnpj": int(participants["participant_cnpj_candidate"].map(normalize_cnpj).str.len().eq(14).sum()),
+        "participant_with_page": int(participants["source_page"].fillna("").astype(str).str.strip().ne("").sum()),
+        "criteria_candidates": int(len(criteria)),
+        "criteria_funds": int(criteria["cnpj_fundo"].nunique()),
+        "criteria_with_threshold": int(criteria["threshold_display"].fillna("").astype(str).str.strip().ne("").sum()),
+        "criteria_with_page": int(criteria["source_page"].fillna("").astype(str).str.strip().ne("").sum()),
+        "subordination_candidates": int(len(sub)),
+        "subordination_funds": int(sub["cnpj_fundo"].nunique()),
+        "avg_participant_confidence": round(float(participant_conf.mean()), 4) if participant_conf.notna().any() else "",
+        "avg_criteria_confidence": round(float(criteria_conf.mean()), 4) if criteria_conf.notna().any() else "",
+        "participant_types": _join_unique(participants["participant_type"], limit=8),
+        "criteria_keys": _join_unique(criteria["canonical_key"], limit=10),
+        "rerun_command": f"python scripts/build_fidc_industry_document_fields.py --chunk-id {chunk_id}",
+    }
+    return _diagnostic_columns(pd.DataFrame([row]), DOCUMENT_FIELD_RUN_SUMMARY_COLUMNS)
+
+
+def merge_document_field_run_summary(existing: pd.DataFrame | None, new: pd.DataFrame | None) -> pd.DataFrame:
+    existing_frame = _diagnostic_columns(existing, DOCUMENT_FIELD_RUN_SUMMARY_COLUMNS)
+    new_frame = _diagnostic_columns(new, DOCUMENT_FIELD_RUN_SUMMARY_COLUMNS)
+    if new_frame.empty:
+        return existing_frame.reset_index(drop=True)
+    chunks = set(new_frame["chunk_id"].fillna("").astype(str))
+    old = existing_frame[~existing_frame["chunk_id"].fillna("").astype(str).isin(chunks)].copy()
+    return _diagnostic_columns(
+        pd.concat([old, new_frame], ignore_index=True, sort=False),
+        DOCUMENT_FIELD_RUN_SUMMARY_COLUMNS,
+    ).reset_index(drop=True)
+
+
+def document_field_quality_summary(
+    participant_candidates: pd.DataFrame,
+    criteria_candidates: pd.DataFrame,
+    run_summary: pd.DataFrame,
+    *,
+    chunk_plan: pd.DataFrame | None = None,
+) -> dict[str, object]:
+    participants = _diagnostic_columns(participant_candidates, DOCUMENT_PARTICIPANT_CANDIDATE_COLUMNS)
+    criteria = _diagnostic_columns(criteria_candidates, DOCUMENT_CRITERIA_CANDIDATE_COLUMNS)
+    summary = _diagnostic_columns(run_summary, DOCUMENT_FIELD_RUN_SUMMARY_COLUMNS)
+    total_chunks = 0
+    if chunk_plan is not None and not chunk_plan.empty and "chunk_id" in chunk_plan.columns:
+        total_chunks = int(chunk_plan["chunk_id"].fillna("").astype(str).str.strip().replace("", pd.NA).dropna().nunique())
+    processed_chunks = int(summary["chunk_id"].fillna("").astype(str).str.strip().replace("", pd.NA).dropna().nunique())
+    if total_chunks == 0:
+        total_chunks = processed_chunks
+    sub = criteria[criteria["canonical_key"].fillna("").astype(str).eq("subordination_ratio_min")]
+    participant_conf = pd.to_numeric(participants["confidence_score"], errors="coerce")
+    criteria_conf = pd.to_numeric(criteria["confidence_score"], errors="coerce")
+    return {
+        "processed_chunks": processed_chunks,
+        "total_chunks": total_chunks,
+        "pending_chunks": max(total_chunks - processed_chunks, 0),
+        "documents_scanned": int(pd.to_numeric(summary["documents_scanned"], errors="coerce").fillna(0).sum()),
+        "participant_candidates": int(len(participants)),
+        "participant_funds": int(participants["cnpj_fundo"].nunique()),
+        "participant_with_name": int(participants["participant_name_candidate"].fillna("").astype(str).str.strip().ne("").sum()),
+        "participant_with_cnpj": int(participants["participant_cnpj_candidate"].map(normalize_cnpj).str.len().eq(14).sum()),
+        "participant_with_page": int(participants["source_page"].fillna("").astype(str).str.strip().ne("").sum()),
+        "participant_avg_confidence": _json_float(participant_conf.mean()) if participant_conf.notna().any() else None,
+        "criteria_candidates": int(len(criteria)),
+        "criteria_funds": int(criteria["cnpj_fundo"].nunique()),
+        "criteria_with_threshold": int(criteria["threshold_display"].fillna("").astype(str).str.strip().ne("").sum()),
+        "criteria_with_page": int(criteria["source_page"].fillna("").astype(str).str.strip().ne("").sum()),
+        "criteria_avg_confidence": _json_float(criteria_conf.mean()) if criteria_conf.notna().any() else None,
+        "subordination_candidates": int(len(sub)),
+        "subordination_funds": int(sub["cnpj_fundo"].nunique()),
+        "participant_type_counts": {
+            str(k): int(v) for k, v in participants["participant_type"].fillna("").astype(str).value_counts().to_dict().items()
+        },
+        "criteria_key_counts": {
+            str(k): int(v) for k, v in criteria["canonical_key"].fillna("").astype(str).value_counts().to_dict().items()
+        },
+    }
+
+
+def build_document_field_manifest(
+    *,
+    industry_dir: Path,
+    participant_path: Path,
+    criteria_path: Path,
+    run_summary_path: Path,
+    manifest_path: Path,
+    participant_candidates: pd.DataFrame,
+    criteria_candidates: pd.DataFrame,
+    run_summary: pd.DataFrame,
+    chunk_plan: pd.DataFrame | None = None,
+    chunk_id: str = "",
+) -> dict[str, object]:
+    quality = document_field_quality_summary(
+        participant_candidates,
+        criteria_candidates,
+        run_summary,
+        chunk_plan=chunk_plan,
+    )
+    return {
+        "schema_version": "industry-document-field-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_document_fields",
+        "selected_chunk_id": str(chunk_id or ""),
+        "design_constraints": {
+            "modular": True,
+            "incremental": True,
+            "page_traceable": True,
+            "manual_review_required": True,
+            "notes": [
+                "Candidatos são extrações automáticas; aprovação/rejeição permanece nas mesas de curadoria da aplicação.",
+                "Participantes exigem contexto explícito de papel e CNPJ ou definição nominal próxima.",
+                "Critérios estruturados reaproveitam JSON regulatório e tentam recuperar a página no PDF por similaridade textual.",
+            ],
+        },
+        "inputs": {
+            "document_text_index": file_fingerprint(industry_dir / "document_text_index.csv.gz"),
+            "document_text_cache": file_fingerprint(industry_dir / "document_text_cache"),
+            "document_chunk_plan": file_fingerprint(industry_dir / "document_chunk_plan.csv"),
+        },
+        "outputs": {
+            "document_participant_candidates": file_fingerprint(participant_path),
+            "document_criteria_candidates": file_fingerprint(criteria_path),
+            "document_field_run_summary": file_fingerprint(run_summary_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "extract_participants",
+                "label": "Extrair participantes com evidência por página",
+                "status": "ok",
+                "rows": int(len(participant_candidates)),
+                "rerun": f"python scripts/build_fidc_industry_document_fields.py --chunk-id {chunk_id}",
+            },
+            {
+                "id": "extract_criteria",
+                "label": "Extrair critérios e recuperar página",
+                "status": "ok",
+                "rows": int(len(criteria_candidates)),
+                "rerun": f"python scripts/build_fidc_industry_document_fields.py --chunk-id {chunk_id}",
+            },
+            {
+                "id": "persist_candidate_indexes",
+                "label": "Persistir candidatos e resumo acumulado",
+                "status": "ok" if participant_path.exists() and criteria_path.exists() and run_summary_path.exists() else "empty",
+                "rows": int(len(run_summary)),
+                "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001",
+            },
+        ],
+        "quality": quality,
+    }
+
+
 def _nonempty_series(series: pd.Series) -> pd.Series:
     return series.fillna("").astype(str).str.strip().ne("")
 
@@ -5130,6 +6050,43 @@ def load_criteria_source(path: Path) -> pd.DataFrame:
     return frame
 
 
+def load_document_criteria_candidates(path: Path) -> pd.DataFrame:
+    """Map document field candidates into the criteria review schema."""
+
+    frame = load_dataframe(path)
+    if frame.empty:
+        return frame
+    idx = frame.index
+    out = pd.DataFrame(index=idx)
+    out["Fundo"] = _text(frame.get("fundo"), idx)
+    out["CNPJ"] = _text(frame.get("cnpj_fundo"), idx).map(normalize_cnpj)
+    out["Critério"] = _text(frame.get("criterion_name"), idx)
+    out["Chave"] = _text(frame.get("canonical_key"), idx)
+    threshold = _text(frame.get("threshold_display"), idx)
+    evidence = _text(frame.get("evidence_context"), idx).str.replace(r"\s+", " ", regex=True).str.strip()
+    out["Limite/regra"] = (threshold + " · " + evidence).str.strip(" ·").str.slice(0, 900)
+    out["Monitorabilidade IME"] = _text(frame.get("monitoring_status"), idx).replace("", "triagem_documental")
+    out["Métrica IME / proxy"] = _text(frame.get("ime_metric"), idx)
+    out["Condição de alerta sugerida"] = "Validar o candidato na curadoria antes de ativar alerta mensal."
+    out["Observação técnica"] = _text(frame.get("rationale"), idx)
+    source_document = _text(frame.get("source_document"), idx)
+    source_page = _text(frame.get("source_page"), idx)
+    source_cache = _text(frame.get("source_cache"), idx)
+    page_label = source_page.map(lambda value: f" · página {value}" if value else "")
+    cache_label = source_cache.map(lambda value: f" · cache={value}" if value else "")
+    out["Fonte"] = source_document + page_label + cache_label
+    out["Status curadoria"] = "candidato automático com evidência documental; revisão pendente"
+    out["Fonte camada"] = "industry_document_field_candidates"
+    out["Método extração"] = _text(frame.get("extraction_method"), idx).replace("", "document_field_candidates")
+    out["Score confiança"] = pd.to_numeric(frame.get("confidence_score"), errors="coerce")
+    out["criterion_scope"] = _text(frame.get("criterion_scope"), idx)
+    out["source_page"] = source_page
+    out["source_document_date"] = _text(frame.get("source_document_date"), idx)
+    out = out[out["CNPJ"].str.len().eq(14)].copy()
+    out["rule_id"] = out.apply(criteria_rule_id, axis=1)
+    return out.drop_duplicates("rule_id", keep="first").reset_index(drop=True)
+
+
 def _feature_criteria_key(value: object) -> str:
     key = re.sub(r"[^a-z0-9_]+", "_", str(value or "").strip().lower()).strip("_")
     return f"feature_{key}" if key else "feature_regulatoria"
@@ -5293,7 +6250,10 @@ def build_criteria_structured(
 
     fonte = _text(merged.get("Fonte"), idx)
     documento = fonte.map(source_document)
-    doc_date = fonte.map(_parse_document_date)
+    doc_date_from_source = _text(merged.get("source_document_date"), idx)
+    doc_date = doc_date_from_source.where(doc_date_from_source.str.strip().ne(""), fonte.map(_parse_document_date))
+    page_from_source = _text(merged.get("source_page"), idx)
+    source_score = pd.to_numeric(merged.get("Score confiança"), errors="coerce") if "Score confiança" in merged else pd.Series(index=idx, dtype=float)
     first_offer_year = pd.to_numeric(merged.get("first_offer_year"), errors="coerce") if "first_offer_year" in merged else pd.Series(index=idx, dtype=float)
     year_from_doc = pd.to_numeric(doc_date.str.slice(0, 4), errors="coerce")
     priority = first_offer_year.isin([2025, 2026]) | year_from_doc.isin([2025, 2026]) | _text(merged.get("emission_cohort"), idx).str.contains("2025|2026", regex=True)
@@ -5306,7 +6266,8 @@ def build_criteria_structured(
     base_score += 0.15 * pct_min_final.notna()
     base_score += 0.15 * status_curadoria.str.contains("estruturada|evidência|evidencia", case=False, na=False)
     base_score += 0.10 * monitor_final.str.contains("monitoravel|monitorável", case=False, na=False)
-    score_final = base_score.clip(upper=0.9).where(confidence_manual.isna(), confidence_manual.clip(lower=0, upper=1))
+    score_auto = base_score.clip(upper=0.9).where(source_score.isna(), source_score.clip(lower=0, upper=1))
+    score_final = score_auto.where(confidence_manual.isna(), confidence_manual.clip(lower=0, upper=1))
 
     fundo_auto = _text(merged.get("Fundo"), idx)
     fundo_fund = _text(merged.get("fund_name_final"), idx)
@@ -5336,7 +6297,7 @@ def build_criteria_structured(
             "documento_origem": documento,
             "documento_id": fonte.map(_document_id),
             "document_date": doc_date,
-            "pagina": fonte.map(extract_page),
+            "pagina": page_from_source.where(page_from_source.str.strip().ne(""), fonte.map(extract_page)),
             "status_curadoria": status_curadoria,
             "status_revisao": status_review,
             "ativo_curadoria": ~status_review.str.lower().eq("rejeitado"),
@@ -5363,6 +6324,29 @@ def build_criteria_structured(
     ).reset_index(drop=True)
 
 
+def _select_subordination_metric_rows(subordination: pd.DataFrame) -> pd.DataFrame:
+    if subordination is None or subordination.empty:
+        return pd.DataFrame() if subordination is None else subordination.copy()
+    frame = subordination.copy()
+    frame["_pct"] = pd.to_numeric(frame.get("pct_min"), errors="coerce")
+    frame = frame[frame["_pct"].notna()].copy()
+    if frame.empty:
+        return frame
+    selected: list[pd.DataFrame] = []
+    group_col = "cnpj_fundo" if "cnpj_fundo" in frame.columns else None
+    groups = frame.groupby(group_col, dropna=False) if group_col else [("", frame)]
+    for _, group in groups:
+        status = group.get("status_revisao", pd.Series("", index=group.index)).fillna("").astype(str).str.lower()
+        approved = status.isin(APPROVED_REVIEW_STATUSES)
+        if approved.any():
+            group = group[approved].copy()
+        dates = pd.to_datetime(group.get("document_date", pd.Series("", index=group.index)), errors="coerce")
+        if dates.notna().any():
+            group = group[dates.eq(dates.max())].copy()
+        selected.append(group)
+    return pd.concat(selected, ignore_index=True, sort=False) if selected else frame.iloc[0:0].copy()
+
+
 def criteria_quality_summary(
     criteria: pd.DataFrame,
     reviews: pd.DataFrame,
@@ -5378,7 +6362,11 @@ def criteria_quality_summary(
     if "ativo_curadoria" in structured.columns:
         active = structured[structured["ativo_curadoria"].astype(str).str.lower().isin({"true", "1", "sim"})]
     sub = active[active["chave"].astype(str).eq("subordination_ratio_min")] if "chave" in active else pd.DataFrame()
-    sub_values = pd.to_numeric(sub.get("pct_min"), errors="coerce").dropna() if not sub.empty else pd.Series(dtype=float)
+    sub_metric_rows = _select_subordination_metric_rows(sub)
+    if not sub_metric_rows.empty and "cnpj_fundo" in sub_metric_rows.columns:
+        sub_values = sub_metric_rows.groupby("cnpj_fundo")["_pct"].min()
+    else:
+        sub_values = pd.Series(dtype=float)
     monitorable = active["monitorabilidade_ime"].astype(str).str.contains("monitoravel|monitorável", case=False, na=False) if "monitorabilidade_ime" in active else pd.Series(False, index=active.index)
     partial = active["monitorabilidade_ime"].astype(str).str.contains("parcial", case=False, na=False) if "monitorabilidade_ime" in active else pd.Series(False, index=active.index)
     score = pd.to_numeric(structured.get("score_confianca_final"), errors="coerce") if "score_confianca_final" in structured else pd.Series(dtype=float)
@@ -5386,6 +6374,7 @@ def criteria_quality_summary(
     source_layer = structured.get("fonte_camada", pd.Series("", index=structured.index)).fillna("").astype(str)
     active_source_layer = active.get("fonte_camada", pd.Series("", index=active.index)).fillna("").astype(str)
     feature_active = active_source_layer.eq("strategy_regulatory_feature_long")
+    document_candidate_active = active_source_layer.eq("industry_document_field_candidates")
     return {
         "source_rows": int(len(criteria)),
         "source_funds": int(criteria["CNPJ"].nunique()) if "CNPJ" in criteria else 0,
@@ -5396,10 +6385,23 @@ def criteria_quality_summary(
         "source_layer_counts": {str(k): int(v) for k, v in source_layer.value_counts().to_dict().items()},
         "feature_rows": int(feature_active.sum()),
         "feature_funds": int(active.loc[feature_active, "cnpj_fundo"].nunique()) if "cnpj_fundo" in active else 0,
+        "document_candidate_rows": int(document_candidate_active.sum()),
+        "document_candidate_funds": int(active.loc[document_candidate_active, "cnpj_fundo"].nunique())
+        if "cnpj_fundo" in active
+        else 0,
+        "document_candidate_with_page": int(
+            active.loc[document_candidate_active, "pagina"].fillna("").astype(str).str.strip().ne("").sum()
+        )
+        if "pagina" in active
+        else 0,
         "documentary_rows": int((~feature_active).sum()),
         "documentary_funds": int(active.loc[~feature_active, "cnpj_fundo"].nunique()) if "cnpj_fundo" in active else 0,
         "subordination_rows": int(len(sub)),
         "subordination_funds": int(sub["cnpj_fundo"].nunique()) if "cnpj_fundo" in sub else 0,
+        "subordination_metric_rows": int(len(sub_metric_rows)),
+        "subordination_metric_funds": int(sub_metric_rows["cnpj_fundo"].nunique())
+        if "cnpj_fundo" in sub_metric_rows
+        else 0,
         "monitorable_rows": int(monitorable.sum()),
         "partial_rows": int(partial.sum()),
         "review_rows": int(len(reviews)),
@@ -5419,6 +6421,7 @@ def criteria_quality_summary(
             "median": _json_float(sub_values.median()) if sub_values.notna().any() else None,
             "p25": _json_float(sub_values.quantile(0.25)) if sub_values.notna().any() else None,
             "p75": _json_float(sub_values.quantile(0.75)) if sub_values.notna().any() else None,
+            "method": "mínimo por FIDC no documento mais recente; revisão aprovada prevalece",
         },
         "score": {
             "median": _json_float(score.median()) if score.notna().any() else None,
@@ -5845,6 +6848,10 @@ def build_pipeline_readiness_checks(
     text_pending = int(quality_rollup.get("document_text_pending_chunks", 0) or 0)
     text_ocr = int(quality_rollup.get("document_text_ocr_required_docs", 0) or 0)
     text_errors = int(quality_rollup.get("document_text_error_docs", 0) or 0)
+    field_chunks = int(quality_rollup.get("document_field_processed_chunks", 0) or 0)
+    field_pending = int(quality_rollup.get("document_field_pending_chunks", 0) or 0)
+    field_participants = int(quality_rollup.get("document_field_participant_candidates", 0) or 0)
+    field_criteria = int(quality_rollup.get("document_field_criteria_candidates", 0) or 0)
     chunk_open = chunk_untracked + chunk_pending + chunk_in_progress + chunk_blocked
     add(
         "document_chunk_processing",
@@ -5853,8 +6860,8 @@ def build_pipeline_readiness_checks(
         "Execução incremental de OCR, parsing e extração por chunk",
         "bloqueado"
         if chunk_blocked or diagnostic_errors or text_errors
-        else ("atenção" if chunk_open or diagnostic_pending or text_pending or text_ocr else "ok"),
-        max(chunk_open, diagnostic_pending, text_pending, diagnostic_errors, text_errors, text_ocr),
+        else ("atenção" if chunk_open or diagnostic_pending or text_pending or text_ocr or field_pending else "ok"),
+        max(chunk_open, diagnostic_pending, text_pending, field_pending, diagnostic_errors, text_errors, text_ocr),
         (
             f"{chunk_processed}/{document_chunks} processados; "
             f"{chunk_untracked} sem acompanhamento; {chunk_pending} pendentes; "
@@ -5862,11 +6869,13 @@ def build_pipeline_readiness_checks(
             f"diagnóstico {diagnostic_chunks}/{document_chunks} chunks, {diagnostic_rows} docs, "
             f"{diagnostic_ocr} PDFs para OCR, {diagnostic_errors} erros; "
             f"texto {text_chunks}/{document_chunks} chunks, {text_rows} docs, "
-            f"{text_ocr} OCR, {text_errors} erros"
+            f"{text_ocr} OCR, {text_errors} erros; "
+            f"campos {field_chunks}/{document_chunks} chunks, "
+            f"{field_participants} participantes, {field_criteria} critérios"
         ),
-        "Materializar texto por chunk, tratar a fila OCR e fechar status no editor Documentos > Chunks.",
-        "document_chunk_actions.csv | document_chunk_diagnostics.csv.gz | document_text_index.csv.gz",
-        "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py",
+        "Tratar a fila OCR, revisar candidatos e fechar status no editor Documentos > Chunks.",
+        "document_chunk_diagnostics.csv.gz | document_text_index.csv.gz | document_participant_candidates.csv.gz | document_criteria_candidates.csv.gz",
+        "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py",
     )
 
     snapshot_rows = int(quality_rollup.get("fund_snapshot_rows", 0) or 0)
@@ -5928,6 +6937,7 @@ def build_monthly_update_plan(
         "documents": ["document_chunk_processing"],
         "document_chunk_diagnostics": ["document_chunk_processing"],
         "document_text": ["document_chunk_processing"],
+        "document_fields": ["document_chunk_processing"],
         "document_chunk_plan": ["document_chunk_processing"],
         "cedentes": ["structured_coverage", "curation_queue"],
         "criteria": ["structured_coverage", "curation_queue"],
@@ -5945,11 +6955,11 @@ def build_monthly_update_plan(
     def phase(order: int) -> str:
         if order <= 3:
             return "Informe mensal e delta"
-        if order <= 10:
+        if order <= 11:
             return "Documentos e ofertas"
-        if order <= 16:
+        if order <= 17:
             return "Estruturação"
-        if order <= 20:
+        if order <= 21:
             return "Agregações reutilizáveis"
         return "Controle"
 
@@ -6847,27 +7857,32 @@ def build_prd_coverage_matrix(
     text_docs = int(number("document_text_rows"))
     text_pending = int(number("document_text_pending_chunks"))
     text_ocr = int(number("document_text_ocr_required_docs"))
+    field_chunks = int(number("document_field_processed_chunks"))
+    field_pending = int(number("document_field_pending_chunks"))
+    field_participants = int(number("document_field_participant_candidates"))
+    field_criteria = int(number("document_field_criteria_candidates"))
     add(
         "document_processing_chunks",
         2,
         "Documentos",
         "Descoberta/documentos em chunks pequenos para processamento incremental",
         "atenção"
-        if chunk_open or text_pending or text_ocr
-        else ("ok" if number("document_chunks") and text_chunks else "bloqueado"),
+        if chunk_open or text_pending or text_ocr or field_pending
+        else ("ok" if number("document_chunks") and text_chunks and field_chunks else "bloqueado"),
         (
             f"{int(number('document_chunks'))} chunks; {chunk_open} abertos; "
             f"{int(number('max_documents_per_chunk'))} docs/chunk máx.; "
             f"diagnóstico {diagnostic_chunks} chunks/{diagnostic_docs} docs; {diagnostic_ocr} PDFs para OCR; "
-            f"texto {text_chunks} chunks/{text_docs} docs; {text_ocr} OCR"
+            f"texto {text_chunks} chunks/{text_docs} docs; {text_ocr} OCR; "
+            f"campos {field_chunks} chunks/{field_participants} participantes/{field_criteria} critérios"
         ),
         (
             f"document_chunks={int(number('document_chunks'))}; diagnostics_chunks={diagnostic_chunks}; "
-            f"text_chunks={text_chunks}"
+            f"text_chunks={text_chunks}; field_chunks={field_chunks}"
         ),
-        "document_chunk_plan.csv | document_chunk_diagnostics.csv.gz | document_text_index.csv.gz",
-        "Materializar texto por chunk, tratar exceções de OCR e fechar/justificar os chunks abertos.",
-        "python scripts/build_fidc_industry_documents.py && python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_text.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py",
+        "document_chunk_plan.csv | document_text_index.csv.gz | document_participant_candidates.csv.gz | document_criteria_candidates.csv.gz",
+        "Tratar exceções de OCR, revisar candidatos e fechar/justificar os chunks abertos.",
+        "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py",
     )
     manual_present = int(number("manual_review_artifacts_present"))
     manual_total = int(number("manual_review_artifacts_total"))
@@ -7240,6 +8255,33 @@ def build_industry_pipeline_index(
             ],
         },
         {
+            "module_id": "document_fields",
+            "label": "Campos documentais por página",
+            "manifest_name": "industry_document_field_manifest.json",
+            "command": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001",
+            "cadence": "por chunk/após texto",
+            "depends_on": ["texto documental por página", "plano operacional de chunks"],
+            "quality_keys": [
+                "processed_chunks",
+                "total_chunks",
+                "pending_chunks",
+                "documents_scanned",
+                "participant_candidates",
+                "participant_funds",
+                "participant_with_name",
+                "participant_with_cnpj",
+                "participant_with_page",
+                "participant_avg_confidence",
+                "criteria_candidates",
+                "criteria_funds",
+                "criteria_with_threshold",
+                "criteria_with_page",
+                "criteria_avg_confidence",
+                "subordination_candidates",
+                "subordination_funds",
+            ],
+        },
+        {
             "module_id": "cedentes",
             "label": "Cedentes e sacados",
             "manifest_name": "industry_pipeline_manifest.json",
@@ -7270,6 +8312,9 @@ def build_industry_pipeline_index(
                 "structured_funds",
                 "feature_rows",
                 "feature_funds",
+                "document_candidate_rows",
+                "document_candidate_funds",
+                "document_candidate_with_page",
                 "documentary_rows",
                 "documentary_funds",
                 "subordination_rows",
@@ -7605,6 +8650,14 @@ def build_industry_pipeline_index(
         },
         {
             "order": 10,
+            "module_id": "document_fields",
+            "label": "Extrair campos do próximo chunk",
+            "command": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001",
+            "reason": "Gera candidatos de participantes e critérios com documento, página, método e confiança.",
+            "incremental_note": "Lê somente caches do chunk e preserva candidatos acumulados dos demais lotes.",
+        },
+        {
+            "order": 11,
             "module_id": "document_chunk_plan",
             "label": "Atualizar plano operacional de chunks",
             "command": "python scripts/build_fidc_industry_document_chunk_plan.py",
@@ -7612,7 +8665,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Rerun leve quando o usuário muda status/responsável/prazo na aba Documentos > Chunks.",
         },
         {
-            "order": 11,
+            "order": 12,
             "module_id": "cedentes",
             "label": "Regerar base de cedentes/sacados",
             "command": "python scripts/build_fidc_industry_cedentes.py",
@@ -7620,7 +8673,7 @@ def build_industry_pipeline_index(
             "incremental_note": "A curadoria continua sendo feita pela UI e reaplicada pelo overlay persistido.",
         },
         {
-            "order": 12,
+            "order": 13,
             "module_id": "criteria",
             "label": "Regerar critérios e subordinação mínima",
             "command": "python scripts/build_fidc_industry_criteria.py",
@@ -7628,7 +8681,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Revisões feitas pela UI são reaplicadas antes da consolidação.",
         },
         {
-            "order": 13,
+            "order": 14,
             "module_id": "fund_snapshot",
             "label": "Regerar snapshot unificado por FIDC",
             "command": "python scripts/build_fidc_industry_fund_snapshot.py",
@@ -7636,7 +8689,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem.",
         },
         {
-            "order": 14,
+            "order": 15,
             "module_id": "dimension_catalog",
             "label": "Regerar catálogo de dimensões",
             "command": "python scripts/build_fidc_industry_dimensions.py",
@@ -7644,7 +8697,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos.",
         },
         {
-            "order": 15,
+            "order": 16,
             "module_id": "dimension_traceability",
             "label": "Regerar matriz de rastreabilidade",
             "command": "python scripts/build_fidc_industry_traceability.py",
@@ -7652,7 +8705,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas o catálogo de dimensões; ajuda a priorizar lacunas antes de uso público.",
         },
         {
-            "order": 16,
+            "order": 17,
             "module_id": "curation_queue",
             "label": "Consolidar fila única de curadoria",
             "command": "python scripts/build_fidc_industry_curation_queue.py",
@@ -7660,7 +8713,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Rerun leve depois de salvar ações manuais na UI ou de regenerar qualquer fila detalhe.",
         },
         {
-            "order": 17,
+            "order": 18,
             "module_id": "dimension_profiles",
             "label": "Regerar perfis cruzados por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_profiles.py",
@@ -7668,7 +8721,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado.",
         },
         {
-            "order": 18,
+            "order": 19,
             "module_id": "dimension_monthly",
             "label": "Regerar séries mensais por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -7676,7 +8729,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação.",
         },
         {
-            "order": 19,
+            "order": 20,
             "module_id": "dimension_dossiers",
             "label": "Regerar dossiês dimensionais",
             "command": "python scripts/build_fidc_industry_dimension_dossiers.py",
@@ -7684,7 +8737,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas atlas, perfis e registry já materializados; não reprocessa documentos ou informe mensal.",
         },
         {
-            "order": 20,
+            "order": 21,
             "module_id": "market_share",
             "label": "Regerar market share e concentração",
             "command": "python scripts/build_fidc_industry_market_share.py",
@@ -7692,7 +8745,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe.",
         },
         {
-            "order": 21,
+            "order": 22,
             "module_id": "pipeline_index",
             "label": "Atualizar cockpit do pipeline",
             "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -7737,6 +8790,10 @@ def build_industry_pipeline_index(
     )
     document_text_quality = next(
         (m.get("quality_highlights", {}) for m in modules if m.get("id") == "document_text"),
+        {},
+    )
+    document_field_quality = next(
+        (m.get("quality_highlights", {}) for m in modules if m.get("id") == "document_fields"),
         {},
     )
     criteria_manifest = _safe_read_json(industry_dir / "industry_criteria_manifest.json")
@@ -7856,6 +8913,21 @@ def build_industry_pipeline_index(
         "document_text_chars": document_text_quality.get("text_chars", 0),
         "document_text_cache_bytes": document_text_quality.get("cache_bytes", 0),
         "document_text_latest_chunk_id": document_text_quality.get("latest_chunk_id", ""),
+        "document_field_processed_chunks": document_field_quality.get("processed_chunks", 0),
+        "document_field_total_chunks": document_field_quality.get("total_chunks", 0),
+        "document_field_pending_chunks": document_field_quality.get("pending_chunks", 0),
+        "document_field_documents_scanned": document_field_quality.get("documents_scanned", 0),
+        "document_field_participant_candidates": document_field_quality.get("participant_candidates", 0),
+        "document_field_participant_funds": document_field_quality.get("participant_funds", 0),
+        "document_field_participant_with_name": document_field_quality.get("participant_with_name", 0),
+        "document_field_participant_with_cnpj": document_field_quality.get("participant_with_cnpj", 0),
+        "document_field_participant_with_page": document_field_quality.get("participant_with_page", 0),
+        "document_field_criteria_candidates": document_field_quality.get("criteria_candidates", 0),
+        "document_field_criteria_funds": document_field_quality.get("criteria_funds", 0),
+        "document_field_criteria_with_threshold": document_field_quality.get("criteria_with_threshold", 0),
+        "document_field_criteria_with_page": document_field_quality.get("criteria_with_page", 0),
+        "document_field_subordination_candidates": document_field_quality.get("subordination_candidates", 0),
+        "document_field_subordination_funds": document_field_quality.get("subordination_funds", 0),
         "cedentes_structured_rows": cedente_quality.get("structured_rows", 0),
         "criteria_structured_rows": criteria_quality.get("structured_rows", 0),
         "subordination_funds": criteria_quality.get("subordination_funds", 0),
@@ -8152,6 +9224,7 @@ def build_cedente_pipeline_manifest(
     *,
     industry_dir: Path,
     strategy_db: Path,
+    document_candidates_path: Path | None = None,
     reviews_path: Path,
     output_path: Path,
     candidates: pd.DataFrame,
@@ -8183,6 +9256,9 @@ def build_cedente_pipeline_manifest(
         },
         "inputs": {
             "strategy_db": file_fingerprint(strategy_db),
+            "document_participant_candidates": file_fingerprint(
+                document_candidates_path or industry_dir / "document_participant_candidates.csv.gz"
+            ),
             "manual_reviews": file_fingerprint(reviews_path),
             "vehicle_snapshot": file_fingerprint(industry_dir / "universe_latest.csv"),
         },
@@ -8192,7 +9268,7 @@ def build_cedente_pipeline_manifest(
                 "id": "extract_candidates",
                 "label": "Candidatos cedente/sacado",
                 "status": "ok" if not candidates.empty else "empty",
-                "input": str(strategy_db),
+                "input": f"{strategy_db} | {document_candidates_path or industry_dir / 'document_participant_candidates.csv.gz'}",
                 "output": "memoria:cedentes_sacados_candidates",
                 "rows": int(len(candidates)),
                 "funds": int(candidates["cnpj_fundo"].nunique()) if "cnpj_fundo" in candidates else 0,
@@ -8424,6 +9500,7 @@ def build_criteria_pipeline_manifest(
     industry_dir: Path,
     strategy_db: Path,
     criteria_source_path: Path,
+    document_candidates_path: Path | None = None,
     reviews_path: Path,
     output_path: Path,
     manifest_path: Path,
@@ -8457,6 +9534,9 @@ def build_criteria_pipeline_manifest(
         "inputs": {
             "strategy_db": file_fingerprint(strategy_db),
             "criteria_source": file_fingerprint(criteria_source_path),
+            "document_criteria_candidates": file_fingerprint(
+                document_candidates_path or industry_dir / "document_criteria_candidates.csv.gz"
+            ),
             "manual_reviews": file_fingerprint(reviews_path),
         },
         "outputs": outputs,
@@ -8470,6 +9550,16 @@ def build_criteria_pipeline_manifest(
                 "rows": int(quality.get("documentary_rows", 0) or 0),
                 "funds": int(quality.get("documentary_funds", 0) or 0),
                 "rerun": "python scripts/classify_fidc_sectors_and_practices.py",
+            },
+            {
+                "id": "load_document_field_candidates",
+                "label": "Candidatos documentais por página",
+                "status": "ok" if int(quality.get("document_candidate_rows", 0) or 0) else "empty",
+                "input": str(document_candidates_path or industry_dir / "document_criteria_candidates.csv.gz"),
+                "output": "memoria:industry_document_field_candidates",
+                "rows": int(quality.get("document_candidate_rows", 0) or 0),
+                "funds": int(quality.get("document_candidate_funds", 0) or 0),
+                "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001",
             },
             {
                 "id": "load_strategy_regulatory_features",
@@ -8652,6 +9742,8 @@ def _aggregate_criteria_snapshot(criteria: pd.DataFrame) -> pd.DataFrame:
         monitor = group.get("monitorabilidade_ime", pd.Series("", index=group.index)).fillna("").astype(str)
         keys = group.get("chave", pd.Series("", index=group.index)).fillna("").astype(str)
         sub = group[keys.eq("subordination_ratio_min")]
+        sub_metric = _select_subordination_metric_rows(sub)
+        sub_metric_values = pd.to_numeric(sub_metric.get("_pct", pd.Series(dtype=float)), errors="coerce")
         cedente_signal = group[keys.eq("feature_named_originator_or_cedente")]
         sacado_signal = group[keys.eq("feature_named_debtor_or_sacado")]
         participant_signal = group[keys.isin({"feature_named_originator_or_cedente", "feature_named_debtor_or_sacado"})]
@@ -8665,9 +9757,9 @@ def _aggregate_criteria_snapshot(criteria: pd.DataFrame) -> pd.DataFrame:
             "cedente_signal_rows": int(len(cedente_signal)),
             "sacado_signal_rows": int(len(sacado_signal)),
             "participant_signal_rows": int(len(participant_signal)),
-            "sub_min_pct_median": _median_numeric(sub.get("pct_min", pd.Series(dtype=float))),
-            "sub_min_pct_min": _json_float(pd.to_numeric(sub.get("pct_min", pd.Series(dtype=float)), errors="coerce").min()) if not sub.empty else None,
-            "sub_min_pct_max": _json_float(pd.to_numeric(sub.get("pct_min", pd.Series(dtype=float)), errors="coerce").max()) if not sub.empty else None,
+            "sub_min_pct_median": _json_float(sub_metric_values.median()) if sub_metric_values.notna().any() else None,
+            "sub_min_pct_min": _json_float(sub_metric_values.min()) if sub_metric_values.notna().any() else None,
+            "sub_min_pct_max": _json_float(sub_metric_values.max()) if sub_metric_values.notna().any() else None,
             "criteria_keys": _join_unique(group.get("chave", pd.Series(dtype=str)), limit=8),
             "participant_signal_keys": _join_unique(participant_signal.get("chave", pd.Series(dtype=str)), limit=4),
             "participant_signal_evidence": _join_unique(participant_signal.get("limite_regra", pd.Series(dtype=str)), limit=3),

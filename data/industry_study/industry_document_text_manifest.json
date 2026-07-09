@@ -1,8 +1,8 @@
 {
   "schema_version": "industry-document-text-manifest/v1",
-  "generated_at_utc": "2026-07-09T19:15:39+00:00",
+  "generated_at_utc": "2026-07-09T19:46:06+00:00",
   "pipeline": "industry_document_text",
-  "selected_chunk_id": "doc-0017",
+  "selected_chunk_id": "doc-0013",
   "design_constraints": {
     "modular": true,
     "incremental": true,
@@ -38,14 +38,14 @@
     "document_text_index": {
       "path": "data/industry_study/document_text_index.csv.gz",
       "exists": true,
-      "bytes": 623078,
-      "sha256": "0e53129104baeabc2e430e854049a4d60275502f85f7d844a9b117138487d742"
+      "bytes": 1950033,
+      "sha256": "a2f9579206fdc68b826dd945ee2c292b5108d8c7252b8bf79d06f1452c177efe"
     },
     "document_text_run_summary": {
       "path": "data/industry_study/document_text_run_summary.csv",
       "exists": true,
-      "bytes": 3812,
-      "sha256": "fe560942cfa396e00ed34b740b3f2d09f77f55bb14ba2bb9602d5f45a2dfc411"
+      "bytes": 13067,
+      "sha256": "24a718be419efd9cdd7d57e235ee5190caf1ec2fb613cef77753fcb0f96f40df"
     },
     "document_text_cache": {
       "path": "data/industry_study/document_text_cache",
@@ -64,18 +64,18 @@
       "label": "Selecionar chunk ainda não materializado",
       "status": "ok",
       "input": "document_chunk_plan+document_text_index",
-      "output": "doc-0017",
-      "rows": 8,
-      "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0017"
+      "output": "doc-0013",
+      "rows": 27,
+      "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0013"
     },
     {
       "id": "extract_page_text",
       "label": "Extrair e persistir texto por documento/página",
       "status": "ok",
-      "input": "doc-0017",
+      "input": "doc-0013",
       "output": "data/industry_study/document_text_cache",
-      "rows": 1181,
-      "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0017"
+      "rows": 3521,
+      "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0013"
     },
     {
       "id": "persist_text_index",
@@ -83,28 +83,29 @@
       "status": "ok",
       "input": "data/industry_study/document_text_cache",
       "output": "data/industry_study/document_text_index.csv.gz | data/industry_study/document_text_run_summary.csv",
-      "rows": 1181,
+      "rows": 3521,
       "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0001"
     }
   ],
   "quality": {
-    "rows": 1181,
-    "processed_chunks": 8,
+    "rows": 3521,
+    "processed_chunks": 27,
     "total_chunks": 27,
-    "pending_chunks": 19,
-    "ready_docs": 1181,
-    "cached_docs": 1181,
-    "ocr_required_docs": 0,
+    "pending_chunks": 0,
+    "ready_docs": 3518,
+    "cached_docs": 3521,
+    "ocr_required_docs": 3,
     "error_docs": 0,
-    "page_count": 13952,
-    "pages_processed": 14782,
-    "pages_with_text": 14772,
-    "text_chars": 56174671,
-    "cache_bytes": 15951710,
-    "latest_chunk_id": "doc-0017",
+    "page_count": 75503,
+    "pages_processed": 77522,
+    "pages_with_text": 77379,
+    "text_chars": 240761163,
+    "cache_bytes": 67509558,
+    "latest_chunk_id": "doc-0013",
     "status_counts": {
-      "structured_ready": 623,
-      "text_ready": 558
+      "text_ready": 2069,
+      "structured_ready": 1449,
+      "ocr_required": 3
     }
   }
 }

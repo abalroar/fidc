@@ -14,6 +14,8 @@ import argparse
 import sys
 from pathlib import Path
 
+import pandas as pd
+
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -24,6 +26,7 @@ from services.industry_study import (
     build_cedente_structured,
     load_dataframe,
     load_cedente_candidates,
+    load_document_participant_candidates,
     load_cedente_reviews,
     load_fund_universe,
     load_review_audit,
@@ -55,8 +58,19 @@ def main() -> None:
     review_audit_path = args.industry_dir / "cedente_review_audit.csv"
 
     snapshot = load_dataframe(args.industry_dir / "industry_fund_snapshot.csv.gz")
+    document_candidates_path = args.industry_dir / "document_participant_candidates.csv.gz"
+    candidates = pd.concat(
+        [
+            load_cedente_candidates(args.strategy_db),
+            load_document_participant_candidates(document_candidates_path),
+        ],
+        ignore_index=True,
+        sort=False,
+    )
+    if not candidates.empty and "review_id" in candidates.columns:
+        candidates = candidates.sort_values("score_confianca", ascending=False).drop_duplicates("review_id", keep="first")
     candidates = augment_cedente_candidates_with_signal_focus(
-        load_cedente_candidates(args.strategy_db),
+        candidates,
         snapshot,
     )
     reviews = load_cedente_reviews(reviews_path)
@@ -73,6 +87,7 @@ def main() -> None:
     manifest = build_cedente_pipeline_manifest(
         industry_dir=args.industry_dir,
         strategy_db=args.strategy_db,
+        document_candidates_path=document_candidates_path,
         reviews_path=reviews_path,
         output_path=output_path,
         candidates=candidates,
