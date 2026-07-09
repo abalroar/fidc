@@ -35,6 +35,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--inventory", type=Path, default=None)
     parser.add_argument("--chunks", type=Path, default=None)
     parser.add_argument("--actions", type=Path, default=None)
+    parser.add_argument("--diagnostics-summary", type=Path, default=None)
+    parser.add_argument("--text-summary", type=Path, default=None)
+    parser.add_argument("--field-summary", type=Path, default=None)
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument(
         "--no-initialize-actions",
@@ -49,19 +52,39 @@ def main() -> None:
     inventory_path = args.inventory or args.industry_dir / "document_inventory.csv.gz"
     chunks_path = args.chunks or args.industry_dir / "document_processing_chunks.csv"
     actions_path = args.actions or args.industry_dir / "document_chunk_actions.csv"
+    diagnostics_summary_path = args.diagnostics_summary or args.industry_dir / "document_chunk_run_summary.csv"
+    text_summary_path = args.text_summary or args.industry_dir / "document_text_run_summary.csv"
+    field_summary_path = args.field_summary or args.industry_dir / "document_field_run_summary.csv"
     output_path = args.output or args.industry_dir / "document_chunk_plan.csv"
 
     inventory = load_dataframe(inventory_path)
     chunks = load_dataframe(chunks_path)
     actions = load_dataframe(actions_path)
-    plan = build_document_chunk_plan(chunks, inventory, actions=actions)
+    diagnostics_summary = load_dataframe(diagnostics_summary_path)
+    text_summary = load_dataframe(text_summary_path)
+    field_summary = load_dataframe(field_summary_path)
+    plan = build_document_chunk_plan(
+        chunks,
+        inventory,
+        actions=actions,
+        diagnostics_summary=diagnostics_summary,
+        text_summary=text_summary,
+        field_summary=field_summary,
+    )
     created_actions = 0
     if not args.no_initialize_actions:
         initialized_actions = initialize_document_chunk_actions(plan, actions)
         created_actions = max(len(initialized_actions) - len(actions), 0)
         save_dataframe(initialized_actions, actions_path)
         actions = initialized_actions
-        plan = build_document_chunk_plan(chunks, inventory, actions=actions)
+        plan = build_document_chunk_plan(
+            chunks,
+            inventory,
+            actions=actions,
+            diagnostics_summary=diagnostics_summary,
+            text_summary=text_summary,
+            field_summary=field_summary,
+        )
     save_dataframe(plan, output_path)
 
     status_counts = plan["chunk_status"].value_counts().to_dict() if "chunk_status" in plan else {}

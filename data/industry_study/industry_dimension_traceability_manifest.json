@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-traceability-manifest/v1",
-  "generated_at_utc": "2026-07-09T20:19:56+00:00",
+  "generated_at_utc": "2026-07-09T20:57:30+00:00",
   "pipeline": "industry_dimension_traceability",
   "design_constraints": {
     "modular": true,
@@ -15,16 +15,16 @@
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1616013,
-      "sha256": "250bd5d3cca4a036edca56db8266a31dab557c20e5d31215c0eaec7ff70b7d26"
+      "bytes": 1616014,
+      "sha256": "03c3ed49d4cec7beac62ed2d373866fc1ac5e2fb6288f09ae24b3545221ebf81"
     }
   },
   "outputs": {
     "traceability_matrix": {
       "path": "data/industry_study/industry_dimension_traceability_matrix.csv",
       "exists": true,
-      "bytes": 5164,
-      "sha256": "30997fe0d2cde365f9c90d387f8fdc0d9b6f81891cbea385c3dd96e6399bd879"
+      "bytes": 5163,
+      "sha256": "9224f43a87804aee05f68841eb59f63d7ef1a373108851d244b08ef11ad811ab"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_traceability_manifest.json"
@@ -51,7 +51,7 @@
     "dimensions": 29,
     "source_layers": 2,
     "low_quality_rows": 6,
-    "missing_page_rows": 11436,
+    "missing_page_rows": 11437,
     "missing_document_rows": 0,
     "missing_method_rows": 0,
     "missing_score_rows": 65173,

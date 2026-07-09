@@ -52,6 +52,8 @@ from services.industry_study import (
     clean_candidate_name,
     load_dataframe,
     load_cedente_candidates,
+    load_document_criteria_candidates,
+    load_document_participant_candidates,
     load_criteria_reviews,
     load_criteria_source,
     load_monthly_delta_actions,
@@ -60,6 +62,8 @@ from services.industry_study import (
     load_fund_universe,
     load_regulatory_feature_criteria,
     load_review_audit,
+    merge_cedente_candidate_sources,
+    merge_criteria_candidate_sources,
     normalize_cnpj,
     save_cedente_reviews,
     save_criteria_reviews,
@@ -67,6 +71,7 @@ from services.industry_study import (
     save_monthly_delta_actions,
     save_pipeline_manifest,
     save_cedente_structured,
+    select_subordination_metric_rows,
 )
 
 _DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
@@ -353,7 +358,10 @@ def _save_cedente_reviews(reviews: pd.DataFrame) -> None:
 
 @st.cache_data(show_spinner=False, ttl=60)
 def _load_cedente_candidates() -> pd.DataFrame:
-    return load_cedente_candidates(_REGULATORY_DB)
+    return merge_cedente_candidate_sources(
+        load_cedente_candidates(_REGULATORY_DB),
+        load_document_participant_candidates(_DOCUMENT_PARTICIPANT_CANDIDATES_PATH),
+    )
 
 
 @st.cache_data(show_spinner=False, ttl=60)
@@ -391,6 +399,7 @@ def _persist_structured_cedentes(candidates: pd.DataFrame, reviews: pd.DataFrame
     manifest = build_cedente_pipeline_manifest(
         industry_dir=_DATA_DIR,
         strategy_db=_REGULATORY_DB,
+        document_candidates_path=_DOCUMENT_PARTICIPANT_CANDIDATES_PATH,
         reviews_path=_CEDENTE_REVIEW_PATH,
         output_path=_CEDENTE_STRUCTURED_PATH,
         candidates=candidates,
@@ -2056,20 +2065,25 @@ def _render_fund_snapshot_universe() -> None:
                     .tolist()
                 )
             )
-            segment_filter = st.multiselect("Segmento", segment_options, default=segment_options, key="industry_snapshot_segment")
+            segment_filter = st.multiselect("Segmento", segment_options, default=[], key="industry_snapshot_segment")
         with ctrl_c:
             status_options = sorted(numeric.get("snapshot_status", pd.Series(dtype=str)).fillna("").astype(str).replace("", "n/d").unique())
-            status_filter = st.multiselect("Status", status_options, default=status_options, key="industry_snapshot_status")
+            status_filter = st.multiselect("Status", status_options, default=[], key="industry_snapshot_status")
         with ctrl_d:
             min_layers = st.slider("Camadas mín.", min_value=1, max_value=5, value=1, step=1, key="industry_snapshot_layers")
 
         filtered = numeric.copy()
         segment_values = filtered.get("segmento_principal", pd.Series("", index=filtered.index)).fillna("").astype(str).str.strip().replace("", "n/d")
         status_values = filtered.get("snapshot_status", pd.Series("", index=filtered.index)).fillna("").astype(str).replace("", "n/d")
+        if segment_filter:
+            filtered = filtered[segment_values.isin(segment_filter)].copy()
+            status_values = status_values.loc[filtered.index]
+        if status_filter:
+            filtered = filtered[status_values.isin(status_filter)].copy()
         filtered = filtered[
-            segment_values.isin(segment_filter)
-            & status_values.isin(status_filter)
-            & pd.to_numeric(filtered.get("camadas_com_evidencia", pd.Series(0, index=filtered.index)), errors="coerce").fillna(0).ge(min_layers)
+            pd.to_numeric(filtered.get("camadas_com_evidencia", pd.Series(0, index=filtered.index)), errors="coerce")
+            .fillna(0)
+            .ge(min_layers)
         ].copy()
         if query:
             haystack = (
@@ -5165,8 +5179,20 @@ def _format_bytes(value: object) -> str:
     return ""
 
 
-def _document_chunk_plan_frame(chunks: pd.DataFrame, inventory: pd.DataFrame) -> pd.DataFrame:
-    return build_document_chunk_plan(chunks, inventory)
+def _document_chunk_plan_frame(
+    chunks: pd.DataFrame,
+    inventory: pd.DataFrame,
+    diagnostics_summary: pd.DataFrame | None = None,
+    text_summary: pd.DataFrame | None = None,
+    field_summary: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    return build_document_chunk_plan(
+        chunks,
+        inventory,
+        diagnostics_summary=diagnostics_summary,
+        text_summary=text_summary,
+        field_summary=field_summary,
+    )
 
 
 def _format_document_chunk_plan(frame: pd.DataFrame) -> pd.DataFrame:
@@ -5182,6 +5208,12 @@ def _format_document_chunk_plan(frame: pd.DataFrame) -> pd.DataFrame:
         "prazo",
         "notas",
         "updated_at_utc",
+        "technical_complete",
+        "diagnostic_docs",
+        "text_ready_docs",
+        "text_ocr_required_docs",
+        "text_error_docs",
+        "field_docs_scanned",
         "document_count",
         "cnpj_count",
         "priority_docs_effective",
@@ -5212,6 +5244,12 @@ def _format_document_chunk_plan(frame: pd.DataFrame) -> pd.DataFrame:
             "prazo": "Prazo",
             "notas": "Notas",
             "updated_at_utc": "Atualizado",
+            "technical_complete": "Técnico pronto",
+            "diagnostic_docs": "Docs diag.",
+            "text_ready_docs": "Texto pronto",
+            "text_ocr_required_docs": "OCR pend.",
+            "text_error_docs": "Erros texto",
+            "field_docs_scanned": "Docs campos",
             "document_count": "Docs",
             "cnpj_count": "CNPJs",
             "priority_docs_effective": "Prioridade 25-26",
@@ -5374,6 +5412,7 @@ def _format_document_text_run_summary(frame: pd.DataFrame) -> pd.DataFrame:
         "pdf_docs",
         "json_docs",
         "text_cache_docs",
+        "ocr_ready_docs",
         "ocr_required_docs",
         "error_docs",
         "page_count",
@@ -5398,6 +5437,7 @@ def _format_document_text_run_summary(frame: pd.DataFrame) -> pd.DataFrame:
             "pdf_docs": "PDFs",
             "json_docs": "JSON",
             "text_cache_docs": "Texto legado",
+            "ocr_ready_docs": "OCR pronto",
             "ocr_required_docs": "OCR",
             "error_docs": "Erros",
             "page_count": "Páginas fonte",
@@ -5419,6 +5459,7 @@ def _format_document_text_run_summary(frame: pd.DataFrame) -> pd.DataFrame:
         "PDFs",
         "JSON",
         "Texto legado",
+        "OCR pronto",
         "OCR",
         "Erros",
         "Páginas fonte",
@@ -5805,7 +5846,10 @@ def _render_document_inventory() -> None:
             st.caption("Chunks indisponíveis.")
         else:
             chunk_actions = _load_document_chunk_actions()
-            plan = _apply_document_chunk_actions(_document_chunk_plan_frame(chunks, inventory), chunk_actions)
+            plan = _apply_document_chunk_actions(
+                _document_chunk_plan_frame(chunks, inventory, diagnostic_summary, text_summary, field_summary),
+                chunk_actions,
+            )
             if plan.empty:
                 st.caption("Não foi possível montar plano de processamento por chunk.")
             else:
@@ -5820,19 +5864,18 @@ def _render_document_inventory() -> None:
                 )
                 chunk_cards = [
                     _curation_card("Baixar", _fmt_int(float(status_counts.get("baixar", 0))), f"{_fmt_int(missing_docs)} docs faltantes"),
-                    _curation_card("Fingerprint", _fmt_int(float(status_counts.get("fingerprint", 0))), "hash pendente"),
                     _curation_card("Processar", _fmt_int(float(status_counts.get("processar", 0))), f"{_fmt_int(priority_open)} docs prioridade"),
-                    _curation_card("Em andamento", _fmt_int(float(action_counts.get("em andamento", 0))), "acompanhamento salvo"),
+                    _curation_card("Técnico pronto", _fmt_int(float(status_counts.get("pronto", 0))), f"{_fmt_int(float(len(plan)))} chunks"),
+                    _curation_card("Revisão pend.", _fmt_int(float(action_counts.get("pendente", 0))), "acompanhamento humano"),
                 ]
                 st.markdown(f'<div class="industry-kpi-grid">{"".join(chunk_cards)}</div>', unsafe_allow_html=True)
                 chunk_ctrl_a, chunk_ctrl_b, chunk_ctrl_c, chunk_ctrl_d = st.columns([0.8, 1.0, 0.9, 1.2])
                 with chunk_ctrl_a:
                     status_options = [value for value in ["baixar", "fingerprint", "processar", "pronto"] if value in set(plan["chunk_status"])]
-                    default_status = [value for value in status_options if value != "pronto"] or status_options
                     selected_statuses = st.multiselect(
                         "Status",
                         status_options,
-                        default=default_status,
+                        default=[],
                         key="industry_document_chunk_status",
                     )
                 with chunk_ctrl_b:
@@ -5840,7 +5883,7 @@ def _render_document_inventory() -> None:
                     selected_stages = st.multiselect(
                         "Etapa",
                         stage_options,
-                        default=stage_options,
+                        default=[],
                         key="industry_document_chunk_stage",
                     )
                 with chunk_ctrl_c:
@@ -5848,7 +5891,7 @@ def _render_document_inventory() -> None:
                     selected_action_statuses = st.multiselect(
                         "Acompanhamento",
                         action_status_options,
-                        default=action_status_options,
+                        default=[],
                         key="industry_document_chunk_action_status",
                     )
                 with chunk_ctrl_d:
@@ -5857,7 +5900,7 @@ def _render_document_inventory() -> None:
                         key="industry_document_chunk_query",
                         placeholder="chunk, classe, FIDC, CNPJ ou comando",
                     )
-                chunk_view = plan[plan["chunk_status"].isin(selected_statuses)].copy() if selected_statuses else plan.iloc[0:0].copy()
+                chunk_view = plan[plan["chunk_status"].isin(selected_statuses)].copy() if selected_statuses else plan.copy()
                 if selected_stages and "dominant_stage" in chunk_view.columns:
                     chunk_view = chunk_view[chunk_view["dominant_stage"].isin(selected_stages)].copy()
                 if selected_action_statuses and "status_lote" in chunk_view.columns:
@@ -6038,7 +6081,7 @@ def _render_document_inventory() -> None:
                 selected_diag_status = st.multiselect(
                     "Status diagnóstico",
                     diag_status_values,
-                    default=diag_status_values,
+                    default=[],
                     key="industry_document_diag_status",
                 )
             with ctrl_c:
@@ -6048,7 +6091,7 @@ def _render_document_inventory() -> None:
                 selected_diag_kinds = st.multiselect(
                     "Tipo",
                     diag_kind_values,
-                    default=diag_kind_values,
+                    default=[],
                     key="industry_document_diag_kind",
                 )
             with ctrl_d:
@@ -6102,6 +6145,7 @@ def _render_document_inventory() -> None:
         else:
             text_rows = int(text_quality.get("rows", len(text_index))) if isinstance(text_quality, dict) else len(text_index)
             text_ready = int(text_quality.get("ready_docs", 0)) if isinstance(text_quality, dict) else 0
+            text_ocr_ready = int(text_quality.get("ocr_ready_docs", 0)) if isinstance(text_quality, dict) else 0
             text_ocr = int(text_quality.get("ocr_required_docs", 0)) if isinstance(text_quality, dict) else 0
             text_errors = int(text_quality.get("error_docs", 0)) if isinstance(text_quality, dict) else 0
             text_pages = int(text_quality.get("pages_processed", 0)) if isinstance(text_quality, dict) else 0
@@ -6113,7 +6157,7 @@ def _render_document_inventory() -> None:
                 ),
                 _curation_card("Prontos", _fmt_int(float(text_ready)), _fmt_pct(text_ready / text_rows) if text_rows else "n/d"),
                 _curation_card("Páginas", _fmt_int(float(text_pages)), "processadas"),
-                _curation_card("OCR", _fmt_int(float(text_ocr)), f"{_fmt_int(float(text_errors))} erros"),
+                _curation_card("OCR pronto", _fmt_int(float(text_ocr_ready)), f"{_fmt_int(float(text_ocr))} pend. · {_fmt_int(float(text_errors))} erros"),
             ]
             st.markdown(f'<div class="industry-kpi-grid">{"".join(text_cards)}</div>', unsafe_allow_html=True)
             if not text_summary.empty:
@@ -6139,7 +6183,7 @@ def _render_document_inventory() -> None:
                 selected_text_status = st.multiselect(
                     "Status texto",
                     text_status_values,
-                    default=text_status_values,
+                    default=[],
                     key="industry_document_text_status",
                 )
             with text_ctrl_c:
@@ -6149,7 +6193,7 @@ def _render_document_inventory() -> None:
                 selected_text_kinds = st.multiselect(
                     "Tipo",
                     text_kind_values,
-                    default=text_kind_values,
+                    default=[],
                     key="industry_document_text_kind",
                 )
             with text_ctrl_d:
@@ -6265,7 +6309,7 @@ def _render_document_inventory() -> None:
                     selected_part_types = st.multiselect(
                         "Papel",
                         part_types,
-                        default=part_types,
+                        default=[],
                         key="industry_document_field_part_type",
                     )
                 with part_ctrl_c:
@@ -6313,7 +6357,7 @@ def _render_document_inventory() -> None:
                     selected_crit_keys = st.multiselect(
                         "Chave",
                         crit_keys,
-                        default=crit_keys,
+                        default=[],
                         key="industry_document_field_crit_key",
                     )
                 with crit_ctrl_c:
@@ -6353,7 +6397,7 @@ def _render_document_inventory() -> None:
             query = st.text_input("Buscar documento/FIDC", key="industry_document_query", placeholder="nome, CNPJ, ID, fonte")
         with ctrl_b:
             class_values = sorted([value for value in frame.get("document_class", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
-            selected_classes = st.multiselect("Classe", class_values, default=class_values, key="industry_document_classes")
+            selected_classes = st.multiselect("Classe", class_values, default=[], key="industry_document_classes")
         with ctrl_c:
             chunk_values = ["Todos"] + sorted([value for value in frame.get("chunk_id", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
             selected_chunk = st.selectbox("Chunk", chunk_values, key="industry_document_chunk")
@@ -6508,13 +6552,10 @@ def _save_criteria_reviews(reviews: pd.DataFrame) -> None:
 
 
 def _persist_structured_criteria(reviews: pd.DataFrame) -> pd.DataFrame:
-    criteria = pd.concat(
-        [
-            load_criteria_source(_ALL_FIDCS_CRITERIA),
-            load_regulatory_feature_criteria(_REGULATORY_DB),
-        ],
-        ignore_index=True,
-        sort=False,
+    criteria = merge_criteria_candidate_sources(
+        load_criteria_source(_ALL_FIDCS_CRITERIA),
+        load_document_criteria_candidates(_DOCUMENT_CRITERIA_CANDIDATES_PATH),
+        load_regulatory_feature_criteria(_REGULATORY_DB),
     )
     fund_universe = _load_cedente_fund_universe()
     structured = build_criteria_structured(
@@ -6528,6 +6569,7 @@ def _persist_structured_criteria(reviews: pd.DataFrame) -> pd.DataFrame:
         industry_dir=_DATA_DIR,
         strategy_db=_REGULATORY_DB,
         criteria_source_path=_ALL_FIDCS_CRITERIA,
+        document_candidates_path=_DOCUMENT_CRITERIA_CANDIDATES_PATH,
         reviews_path=_CRITERIA_REVIEW_PATH,
         output_path=_CRITERIA_STRUCTURED_PATH,
         manifest_path=_CRITERIA_MANIFEST_PATH,
@@ -6570,14 +6612,27 @@ def _render_criteria_study() -> None:
     frame["pct_min_num"] = pd.to_numeric(frame.get("pct_min"), errors="coerce")
     frame["score_num"] = pd.to_numeric(frame.get("score_confianca_final"), errors="coerce")
     active = frame[frame.get("ativo_curadoria", pd.Series(True, index=frame.index)).astype(str).str.lower().isin({"true", "1", "sim"})].copy()
-    sub = active[active["chave"].eq("subordination_ratio_min")].copy() if "chave" in active.columns else active.iloc[0:0]
+    sub_all = active[active["chave"].eq("subordination_ratio_min")].copy() if "chave" in active.columns else active.iloc[0:0]
+    sub = select_subordination_metric_rows(sub_all)
     sub_values = sub["pct_min_num"].dropna() if "pct_min_num" in sub.columns else pd.Series(dtype=float)
     quality = manifest.get("quality", {}) if isinstance(manifest, dict) else {}
+    sub_quality = quality.get("subordination", {}) if isinstance(quality, dict) else {}
+    sub_median = pd.to_numeric(pd.Series([sub_quality.get("median")]), errors="coerce").iloc[0]
+    sub_p25 = pd.to_numeric(pd.Series([sub_quality.get("p25")]), errors="coerce").iloc[0]
+    sub_p75 = pd.to_numeric(pd.Series([sub_quality.get("p75")]), errors="coerce").iloc[0]
     cards = [
         _curation_card("Regras estruturadas", _fmt_int(float(len(active))), f"{_fmt_int(float(active['cnpj_fundo'].nunique())) if 'cnpj_fundo' in active else '0'} FIDCs"),
         _curation_card("Features Estratégia", _fmt_int(float(quality.get("feature_rows", 0))) if isinstance(quality, dict) else "0", f"{_fmt_int(float(quality.get('feature_funds', 0)))} FIDCs"),
-        _curation_card("Sub mínima mediana", _pct_label(float(sub_values.median()) if not sub_values.empty else None), f"{_fmt_int(float(len(sub)))} regras · {_fmt_int(float(sub['cnpj_fundo'].nunique())) if 'cnpj_fundo' in sub else '0'} FIDCs"),
-        _curation_card("IQR sub mínima", f"{_pct_label(float(sub_values.quantile(0.25)) if not sub_values.empty else None)}-{_pct_label(float(sub_values.quantile(0.75)) if not sub_values.empty else None)}", "p25-p75"),
+        _curation_card(
+            "Sub mínima mediana",
+            _pct_label(float(sub_median)) if not pd.isna(sub_median) else _pct_label(float(sub_values.median()) if not sub_values.empty else None),
+            f"{_fmt_int(float(len(sub_all)))} evidências · {_fmt_int(float(sub['cnpj_fundo'].nunique())) if 'cnpj_fundo' in sub else '0'} FIDCs",
+        ),
+        _curation_card(
+            "IQR sub mínima",
+            f"{_pct_label(float(sub_p25)) if not pd.isna(sub_p25) else 'n/d'}-{_pct_label(float(sub_p75)) if not pd.isna(sub_p75) else 'n/d'}",
+            "mínimo/FIDC no doc. mais recente",
+        ),
         _curation_card("Monitoráveis", _fmt_int(float(quality.get("monitorable_rows", 0))) if isinstance(quality, dict) else "0", "proxy IME disponível"),
         _curation_card("Parciais", _fmt_int(float(quality.get("partial_rows", 0))) if isinstance(quality, dict) else "0", "exigem leitura/operacional"),
         _curation_card("Revisões", _fmt_int(float(len(reviews))), _CRITERIA_REVIEW_PATH.name),
@@ -6695,7 +6750,7 @@ def _render_criteria_study() -> None:
             query = st.text_input("Buscar regra", key="industry_criteria_query", placeholder="fundo, CNPJ, critério, documento")
         with filt_b:
             keys = sorted([value for value in data.get("chave", pd.Series(dtype=str)).fillna("").astype(str).unique() if value])
-            selected_keys = st.multiselect("Chave", keys, default=keys, key="industry_criteria_keys")
+            selected_keys = st.multiselect("Chave", keys, default=[], key="industry_criteria_keys")
         with filt_c:
             only_priority = st.checkbox("2025-2026", value=False, key="industry_criteria_priority")
         if selected_keys and "chave" in data.columns:
@@ -6736,7 +6791,62 @@ def _render_criteria_study() -> None:
             if col not in merged.columns:
                 merged[col] = ""
         merged["status"] = merged["status"].fillna("").replace("", "pendente")
-        merged = merged.sort_values(["periodo_prioritario", "score_confianca_final"], ascending=[True, False]).head(120)
+        review_ctrl_a, review_ctrl_b, review_ctrl_c, review_ctrl_d = st.columns([1.4, 0.9, 1.0, 0.65])
+        with review_ctrl_a:
+            review_query = st.text_input(
+                "Buscar revisão",
+                key="industry_criteria_review_query",
+                placeholder="fundo, CNPJ, critério, documento ou evidência",
+            )
+        with review_ctrl_b:
+            review_status_options = ["pendente", "aprovado", "corrigido", "rejeitado"]
+            review_statuses = st.multiselect(
+                "Status",
+                review_status_options,
+                default=[],
+                key="industry_criteria_review_status",
+            )
+        with review_ctrl_c:
+            review_key_options = sorted(
+                [value for value in merged.get("chave", pd.Series(dtype=str)).fillna("").astype(str).unique() if value]
+            )
+            review_keys = st.multiselect(
+                "Chave",
+                review_key_options,
+                default=[],
+                key="industry_criteria_review_key",
+            )
+        with review_ctrl_d:
+            review_priority_only = st.checkbox(
+                "2025-2026",
+                value=False,
+                key="industry_criteria_review_priority",
+            )
+        if review_statuses:
+            merged = merged[merged["status"].isin(review_statuses)].copy()
+        if review_keys:
+            merged = merged[merged.get("chave", pd.Series("", index=merged.index)).isin(review_keys)].copy()
+        if review_priority_only:
+            merged = merged[merged.get("periodo_prioritario", pd.Series("", index=merged.index)).eq("2025-2026 YTD")].copy()
+        if review_query:
+            search_columns = [
+                col
+                for col in ["fundo", "cnpj_fundo", "criterio", "chave", "limite_regra", "documento_origem", "observacao_tecnica"]
+                if col in merged.columns
+            ]
+            search = (
+                merged[search_columns].fillna("").astype(str).agg(" ".join, axis=1)
+                if search_columns
+                else pd.Series("", index=merged.index)
+            )
+            merged = merged[search.str.contains(review_query, case=False, na=False)].copy()
+        status_rank = {"pendente": 0, "corrigido": 1, "aprovado": 2, "rejeitado": 3}
+        merged["_status_rank"] = merged["status"].map(status_rank).fillna(9)
+        merged["_priority_rank"] = merged.get("periodo_prioritario", pd.Series("", index=merged.index)).eq("2025-2026 YTD")
+        merged = merged.sort_values(
+            ["_status_rank", "_priority_rank", "score_confianca_final"],
+            ascending=[True, False, False],
+        ).head(250)
         display = pd.DataFrame(
             {
                 "ID": merged["rule_id"],
@@ -6756,6 +6866,8 @@ def _render_criteria_study() -> None:
                 "Confiança manual": pd.to_numeric(merged["confianca_manual"], errors="coerce"),
                 "Documento": merged["documento_origem"],
                 "Data": merged["document_date"],
+                "Página": merged.get("pagina", pd.Series("", index=merged.index)),
+                "Método": merged.get("metodo_extracao", pd.Series("", index=merged.index)),
                 "Notas": merged["notas"].fillna("").astype(str),
             }
         )
@@ -6764,7 +6876,20 @@ def _render_criteria_study() -> None:
             hide_index=True,
             width="stretch",
             height=520,
-            disabled=["ID", "Fundo", "CNPJ", "Critério auto", "Chave auto", "Regra auto", "Pct auto", "Monitor auto", "Documento", "Data"],
+            disabled=[
+                "ID",
+                "Fundo",
+                "CNPJ",
+                "Critério auto",
+                "Chave auto",
+                "Regra auto",
+                "Pct auto",
+                "Monitor auto",
+                "Documento",
+                "Data",
+                "Página",
+                "Método",
+            ],
             column_config={
                 "Status": st.column_config.SelectboxColumn(
                     "Status",
@@ -6905,13 +7030,13 @@ def _render_cedente_review_workbench() -> None:
         selected_types = st.multiselect(
             "Tipo",
             types,
-            default=types,
+            default=[],
             format_func=lambda value: type_labels.get(value, value),
             key="industry_cedente_types",
         )
     with filter_c:
         statuses = ["pendente", "aprovado", "corrigido", "rejeitado"]
-        selected_statuses = st.multiselect("Status", statuses, default=statuses, key="industry_cedente_status")
+        selected_statuses = st.multiselect("Status", statuses, default=[], key="industry_cedente_status")
     with filter_d:
         min_score = st.slider("Score mín.", 0.0, 0.95, 0.55, 0.05, key="industry_cedente_score")
     with filter_e:
@@ -6920,7 +7045,11 @@ def _render_cedente_review_workbench() -> None:
     score_mask = frame["score_confianca"].ge(min_score)
     if only_signal_focus:
         score_mask = pd.Series(True, index=frame.index)
-    filtered = frame[frame["participant_type"].isin(selected_types) & frame["status"].isin(selected_statuses) & score_mask].copy()
+    filtered = frame[score_mask].copy()
+    if selected_types:
+        filtered = filtered[filtered["participant_type"].isin(selected_types)].copy()
+    if selected_statuses:
+        filtered = filtered[filtered["status"].isin(selected_statuses)].copy()
     if only_signal_focus:
         filtered = filtered[filtered["cnpj_fundo"].astype(str).isin(focus_cnpjs)].copy()
     if query:
@@ -8098,8 +8227,8 @@ def _render_pipeline_manifest() -> None:
         ),
         _curation_card(
             "Chunks docs",
-            f"{_fmt_int(float(rollup.get('document_chunks_processed', 0)))}/{_fmt_int(float(rollup.get('document_chunks', 0)))}",
-            f"{_fmt_int(float(rollup.get('document_chunks_without_action', 0)))} sem acomp.",
+            f"{_fmt_int(float(rollup.get('document_chunks_technical_ready', 0)))}/{_fmt_int(float(rollup.get('document_chunks', 0)))}",
+            f"{_fmt_int(float(rollup.get('document_chunks_pending_action', 0)))} revisão pend.",
         ),
         _curation_card(
             "Snapshot FIDCs",

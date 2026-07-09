@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-manifest/v1",
-  "generated_at_utc": "2026-07-09T20:05:38+00:00",
+  "generated_at_utc": "2026-07-09T20:44:06+00:00",
   "pipeline": "industry_cedentes_structured",
   "design_constraints": {
     "modular": true,
@@ -21,8 +21,8 @@
     "document_participant_candidates": {
       "path": "data/industry_study/document_participant_candidates.csv.gz",
       "exists": true,
-      "bytes": 62537,
-      "sha256": "cdb86e2217a8dc35104f9287378aeea676fffb829a2ceefd49c774dd74337d92"
+      "bytes": 62582,
+      "sha256": "e9f0993bb7747732e577c853a2183dec9ec236cba17b54b425ebcbbf16a75e06"
     },
     "manual_reviews": {
       "path": "data/industry_study/cedente_reviews.csv",
@@ -41,8 +41,8 @@
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 374192,
-      "sha256": "01ab5f17aa2b214a547725358398b1fad1819093bcbb91315b1f63aee4f91bab"
+      "bytes": 374886,
+      "sha256": "ce546584643872462dd8eaf929db72084f1f5b15c4263ba0ec6251e17688756e"
     },
     "manifest": {
       "path": "data/industry_study/industry_pipeline_manifest.json"

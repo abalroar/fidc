@@ -43,6 +43,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest", type=Path, default=None)
     parser.add_argument("--chunk-id", type=str, default="")
     parser.add_argument("--max-pdf-pages", type=int, default=0, help="0 processa todas as páginas.")
+    parser.add_argument(
+        "--ocr-engine",
+        choices=["auto", "none", "macos_vision"],
+        default="auto",
+        help="OCR de fallback para PDFs sem camada textual; auto usa Apple Vision no macOS.",
+    )
+    parser.add_argument("--ocr-languages", default="pt-BR,en-US")
     parser.add_argument("--force", action="store_true", help="Ignora cache existente do chunk selecionado.")
     return parser.parse_args()
 
@@ -93,6 +100,8 @@ def main() -> None:
         cache_dir=cache_dir if cache_dir.is_absolute() else ROOT / cache_dir,
         existing=existing,
         max_pdf_pages=args.max_pdf_pages,
+        ocr_engine=args.ocr_engine,
+        ocr_languages=args.ocr_languages,
         force=args.force,
     )
     text_index = merge_document_text_index(existing, current)

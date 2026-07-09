@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-catalog-manifest/v1",
-  "generated_at_utc": "2026-07-09T20:19:55+00:00",
+  "generated_at_utc": "2026-07-09T20:57:30+00:00",
   "pipeline": "industry_dimension_catalog",
   "design_constraints": {
     "modular": true,
@@ -16,22 +16,22 @@
     "fund_snapshot": {
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 424725,
-      "sha256": "6f951e304c06631e2f871482be891186273ce49ae9b4a3b56becde0d94571e5a"
+      "bytes": 424684,
+      "sha256": "9ec9471ae06124da7879c0328fcf9a3b4c10d137af9eae4dd844a2b3edbb71d6"
     },
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 374192,
-      "sha256": "01ab5f17aa2b214a547725358398b1fad1819093bcbb91315b1f63aee4f91bab"
+      "bytes": 374886,
+      "sha256": "ce546584643872462dd8eaf929db72084f1f5b15c4263ba0ec6251e17688756e"
     }
   },
   "outputs": {
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1616013,
-      "sha256": "250bd5d3cca4a036edca56db8266a31dab557c20e5d31215c0eaec7ff70b7d26"
+      "bytes": 1616014,
+      "sha256": "03c3ed49d4cec7beac62ed2d373866fc1ac5e2fb6288f09ae24b3545221ebf81"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_catalog_manifest.json"

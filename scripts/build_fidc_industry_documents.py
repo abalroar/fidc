@@ -48,6 +48,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--chunks-output", type=Path, default=None)
     parser.add_argument("--plan-output", type=Path, default=None)
     parser.add_argument("--chunk-actions", type=Path, default=None)
+    parser.add_argument("--diagnostics-summary", type=Path, default=None)
+    parser.add_argument("--text-summary", type=Path, default=None)
+    parser.add_argument("--field-summary", type=Path, default=None)
     parser.add_argument("--manifest", type=Path, default=None)
     parser.add_argument("--chunk-id", type=str, default="")
     parser.add_argument("--max-cnpjs", type=int, default=40)
@@ -65,6 +68,9 @@ def main() -> None:
     chunks_path = args.chunks_output or args.industry_dir / "document_processing_chunks.csv"
     plan_path = args.plan_output or args.industry_dir / "document_chunk_plan.csv"
     actions_path = args.chunk_actions or args.industry_dir / "document_chunk_actions.csv"
+    diagnostics_summary_path = args.diagnostics_summary or args.industry_dir / "document_chunk_run_summary.csv"
+    text_summary_path = args.text_summary or args.industry_dir / "document_text_run_summary.csv"
+    field_summary_path = args.field_summary or args.industry_dir / "document_field_run_summary.csv"
     manifest_path = args.manifest or args.industry_dir / default_manifest_name
 
     source_rows = load_document_source_rows(args.strategy_db)
@@ -91,7 +97,14 @@ def main() -> None:
             raise SystemExit(f"Chunk {args.chunk_id!r} nao encontrado. Exemplos disponiveis: {available}")
 
     chunk_actions = load_dataframe(actions_path)
-    chunk_plan = build_document_chunk_plan(chunks, inventory, actions=chunk_actions)
+    chunk_plan = build_document_chunk_plan(
+        chunks,
+        inventory,
+        actions=chunk_actions,
+        diagnostics_summary=load_dataframe(diagnostics_summary_path),
+        text_summary=load_dataframe(text_summary_path),
+        field_summary=load_dataframe(field_summary_path),
+    )
     save_dataframe(selected_inventory, inventory_path)
     save_dataframe(chunks, chunks_path)
     save_dataframe(chunk_plan, plan_path)

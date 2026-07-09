@@ -153,6 +153,7 @@ DOCUMENT_TEXT_RUN_SUMMARY_COLUMNS = [
     "pdf_docs",
     "json_docs",
     "text_cache_docs",
+    "ocr_ready_docs",
     "ocr_required_docs",
     "error_docs",
     "page_count",
@@ -1133,6 +1134,36 @@ def load_document_participant_candidates(path: Path) -> pd.DataFrame:
         "review_id",
         keep="first",
     ).reset_index(drop=True)
+
+
+def merge_cedente_candidate_sources(*sources: pd.DataFrame) -> pd.DataFrame:
+    """Combine every cedente review source with stable best-evidence precedence."""
+
+    frames = [frame for frame in sources if frame is not None and not frame.empty]
+    if not frames:
+        return pd.DataFrame()
+    combined = pd.concat(frames, ignore_index=True, sort=False)
+    if "review_id" not in combined.columns:
+        return combined
+    combined["_score"] = pd.to_numeric(
+        combined.get("score_confianca", pd.Series(0, index=combined.index)),
+        errors="coerce",
+    ).fillna(0)
+    combined["_has_page"] = combined.get("pagina", pd.Series("", index=combined.index)).fillna("").astype(str).str.strip().ne("")
+    combined = combined.sort_values(["_score", "_has_page"], ascending=[False, False])
+    return combined.drop_duplicates("review_id", keep="first").drop(columns=["_score", "_has_page"]).reset_index(drop=True)
+
+
+def merge_criteria_candidate_sources(*sources: pd.DataFrame) -> pd.DataFrame:
+    """Combine documentary and feature criteria without changing stable rule IDs."""
+
+    frames = [frame for frame in sources if frame is not None and not frame.empty]
+    if not frames:
+        return pd.DataFrame()
+    combined = pd.concat(frames, ignore_index=True, sort=False)
+    if "rule_id" in combined.columns:
+        combined = combined.drop_duplicates("rule_id", keep="first")
+    return combined.reset_index(drop=True)
 
 
 def _participant_types_from_signal_keys(value: object) -> list[str]:
@@ -3047,6 +3078,9 @@ def build_document_chunk_plan(
     chunks: pd.DataFrame,
     inventory: pd.DataFrame,
     actions: pd.DataFrame | None = None,
+    diagnostics_summary: pd.DataFrame | None = None,
+    text_summary: pd.DataFrame | None = None,
+    field_summary: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     """Build the operational plan for document chunks using persisted inventory detail."""
 
@@ -3124,6 +3158,48 @@ def build_document_chunk_plan(
             plan[col] = ""
         plan[col] = plan[col].fillna("").astype(str)
 
+    technical_sources = [
+        (
+            diagnostics_summary,
+            {
+                "documents": "diagnostic_docs",
+                "error_docs": "diagnostic_error_docs",
+                "missing_docs": "diagnostic_missing_docs",
+            },
+        ),
+        (
+            text_summary,
+            {
+                "documents": "text_docs",
+                "ready_docs": "text_ready_docs",
+                "ocr_required_docs": "text_ocr_required_docs",
+                "error_docs": "text_error_docs",
+            },
+        ),
+        (
+            field_summary,
+            {
+                "documents_scanned": "field_docs_scanned",
+            },
+        ),
+    ]
+    technical_columns: list[str] = []
+    for source, rename_map in technical_sources:
+        technical_columns.extend(rename_map.values())
+        if source is None or source.empty or "chunk_id" not in source.columns:
+            continue
+        available = {key: value for key, value in rename_map.items() if key in source.columns}
+        if not available:
+            continue
+        stage = source[["chunk_id", *available]].copy().rename(columns=available)
+        stage["chunk_id"] = stage["chunk_id"].fillna("").astype(str)
+        stage = stage.drop_duplicates("chunk_id", keep="last")
+        plan = plan.merge(stage, on="chunk_id", how="left")
+    for col in technical_columns:
+        if col not in plan.columns:
+            plan[col] = 0
+        plan[col] = pd.to_numeric(plan[col], errors="coerce").fillna(0).astype(int)
+
     plan["missing_local_docs"] = plan["missing_local_docs"].astype(int)
     plan["hash_pending_docs"] = plan["hash_pending_docs"].astype(int)
     plan["priority_docs_effective"] = plan["priority_docs_inventory"].where(
@@ -3132,12 +3208,29 @@ def build_document_chunk_plan(
     )
     plan["local_ready_ratio"] = plan["local_ready_docs"] / plan["document_count"].where(plan["document_count"].ne(0), pd.NA)
     plan["hash_ratio"] = plan["hashed_docs"] / plan["document_count"].where(plan["document_count"].ne(0), pd.NA)
+    plan["diagnostic_complete"] = (
+        plan["diagnostic_docs"].ge(plan["document_count"])
+        & plan["diagnostic_error_docs"].eq(0)
+        & plan["diagnostic_missing_docs"].eq(0)
+    )
+    plan["text_complete"] = (
+        plan["text_docs"].ge(plan["document_count"])
+        & plan["text_ready_docs"].ge(plan["document_count"])
+        & plan["text_ocr_required_docs"].eq(0)
+        & plan["text_error_docs"].eq(0)
+    )
+    plan["fields_complete"] = plan["field_docs_scanned"].ge(plan["document_count"])
+    plan["technical_complete"] = (
+        plan["diagnostic_complete"] & plan["text_complete"] & plan["fields_complete"]
+    )
 
     def status(row: pd.Series) -> str:
         if int(row.get("missing_local_docs", 0)) > 0:
             return "baixar"
         if int(row.get("hash_pending_docs", 0)) > 0:
             return "fingerprint"
+        if bool(row.get("technical_complete", False)):
+            return "pronto"
         if str(row.get("dominant_stage", "")).strip():
             return "processar"
         return "pronto"
@@ -3164,7 +3257,12 @@ def build_document_chunk_plan(
     plan = plan.sort_values(["_status_order", "priority_score", "chunk_id"], ascending=[True, False, True]).drop(
         columns=["_status_order"]
     ).reset_index(drop=True)
-    return apply_document_chunk_actions(plan, actions)
+    plan = apply_document_chunk_actions(plan, actions)
+    pending_review = plan["status_lote"].fillna("").astype(str).str.strip().str.lower().isin(
+        {"", "pendente", "em andamento"}
+    )
+    plan.loc[plan["chunk_status"].eq("pronto") & pending_review, "next_action"] = "revisar candidatos"
+    return plan
 
 
 def document_quality_summary(
@@ -3694,12 +3792,21 @@ def _document_cache_name(document_key: object, source_path: object) -> str:
     return f"{safe[:96]}.json.gz"
 
 
-def _document_text_payload(path: Path, content_kind: str, max_pdf_pages: int) -> dict[str, object]:
+def _document_text_payload(
+    path: Path,
+    content_kind: str,
+    max_pdf_pages: int,
+    *,
+    ocr_engine: str = "none",
+    ocr_languages: str = "pt-BR,en-US",
+    root: Path | None = None,
+) -> dict[str, object]:
     pages: list[dict[str, object]] = []
     errors: list[str] = []
     page_count = 0
     method = "metadata_only"
     confidence = 0.15
+    ocr_applied = False
 
     if content_kind == "text_cache":
         text, encoding = _read_text_payload(path, 0)
@@ -3737,6 +3844,28 @@ def _document_text_payload(path: Path, content_kind: str, max_pdf_pages: int) ->
             pages.append({"page_number": page_number, "text": text})
         method = "pypdf_all_pages" if limit == page_count else f"pypdf_first_{limit}_pages"
         confidence = 0.8 if limit == page_count else 0.65
+        if not any(str(page.get("text", "") or "").strip() for page in pages) and ocr_engine != "none":
+            from services.document_ocr import ocr_pdf_pages
+
+            ocr_payload = ocr_pdf_pages(
+                path,
+                engine=ocr_engine,
+                max_pages=max_pdf_pages,
+                languages=ocr_languages,
+                root=root,
+            )
+            ocr_pages = ocr_payload.get("pages", [])
+            if isinstance(ocr_pages, list) and ocr_pages:
+                pages = ocr_pages
+            page_count = max(int(ocr_payload.get("page_count", 0) or 0), page_count)
+            ocr_errors = ocr_payload.get("errors", [])
+            if isinstance(ocr_errors, list):
+                errors.extend(str(value) for value in ocr_errors if str(value).strip())
+            method = f"{ocr_payload.get('engine', ocr_engine)}_ocr_" + (
+                "all_pages" if max_pdf_pages <= 0 or len(pages) == page_count else f"first_{len(pages)}_pages"
+            )
+            confidence = float(ocr_payload.get("confidence_score", 0.0) or 0.0)
+            ocr_applied = any(str(page.get("text", "") or "").strip() for page in pages)
     else:
         return {
             "parse_status": "unsupported",
@@ -3759,6 +3888,9 @@ def _document_text_payload(path: Path, content_kind: str, max_pdf_pages: int) ->
     elif content_kind == "pdf" and not text_chars:
         status = "ocr_required"
         confidence = 0.25
+    elif content_kind == "pdf" and ocr_applied:
+        status = "ocr_ready_with_page_errors" if errors else "ocr_ready"
+        confidence = min(max(confidence, 0.35), 0.95)
     elif text_chars and errors:
         status = "text_ready_with_page_errors"
         confidence = min(confidence, 0.7)
@@ -3814,6 +3946,8 @@ def build_document_chunk_text_index(
     cache_dir: Path | None = None,
     existing: pd.DataFrame | None = None,
     max_pdf_pages: int = 0,
+    ocr_engine: str = "none",
+    ocr_languages: str = "pt-BR,en-US",
     force: bool = False,
     extracted_at_utc: str | None = None,
 ) -> pd.DataFrame:
@@ -3826,6 +3960,9 @@ def build_document_chunk_text_index(
     if inventory is None or inventory.empty:
         return pd.DataFrame(columns=DOCUMENT_TEXT_INDEX_COLUMNS)
     root = Path(".") if root is None else root
+    from services.document_ocr import resolve_ocr_engine
+
+    resolved_ocr_engine = resolve_ocr_engine(ocr_engine, root=root)
     cache_dir = root / "data" / "industry_study" / "document_text_cache" if cache_dir is None else cache_dir
     selected_chunk = str(chunk_id or "").strip()
     frame = inventory.copy()
@@ -3856,11 +3993,21 @@ def build_document_chunk_text_index(
         if source_path is not None and source_path.exists():
             source_bytes = int(source_path.stat().st_size)
         previous = existing_by_key.get(document_key)
-        if previous is not None and not force and _cached_text_record_is_reusable(
-            previous,
-            root=root,
-            source_sha256=source_sha256,
-            source_bytes=source_bytes,
+        previous_requires_ocr = (
+            previous is not None
+            and str(previous.get("parse_status", "") or "").strip() == "ocr_required"
+            and resolved_ocr_engine != "none"
+        )
+        if (
+            previous is not None
+            and not force
+            and not previous_requires_ocr
+            and _cached_text_record_is_reusable(
+                previous,
+                root=root,
+                source_sha256=source_sha256,
+                source_bytes=source_bytes,
+            )
         ):
             rows.append({col: previous.get(col, "") for col in DOCUMENT_TEXT_INDEX_COLUMNS})
             continue
@@ -3905,7 +4052,14 @@ def build_document_chunk_text_index(
             row.get("documento_origem", ""),
         )
         try:
-            extracted = _document_text_payload(source_path, content_kind, max_pdf_pages)
+            extracted = _document_text_payload(
+                source_path,
+                content_kind,
+                max_pdf_pages,
+                ocr_engine=resolved_ocr_engine,
+                ocr_languages=ocr_languages,
+                root=root,
+            )
             cache_path = cache_dir / str(row.get("chunk_id", "") or "sem-chunk") / _document_cache_name(
                 document_key,
                 source_path_text,
@@ -3983,7 +4137,9 @@ def build_document_text_run_summary(
         return pd.DataFrame(columns=DOCUMENT_TEXT_RUN_SUMMARY_COLUMNS)
     frame["_status"] = frame["parse_status"].fillna("").astype(str)
     frame["_kind"] = frame["content_kind"].fillna("").astype(str)
-    frame["_ready"] = frame["_status"].isin({"text_ready", "text_ready_with_page_errors", "structured_ready"})
+    frame["_ready"] = frame["_status"].isin(
+        {"text_ready", "text_ready_with_page_errors", "structured_ready", "ocr_ready", "ocr_ready_with_page_errors"}
+    )
     frame["_cached"] = frame["cache_path"].fillna("").astype(str).str.strip().ne("")
     frame["_error"] = frame["_status"].str.contains("error", case=False, na=False) | frame["_status"].eq("missing_file")
     for col in ["page_count", "pages_processed", "pages_with_text", "text_chars", "cache_bytes", "confidence_score"]:
@@ -3998,6 +4154,7 @@ def build_document_text_run_summary(
             pdf_docs=("_kind", lambda values: int(values.eq("pdf").sum())),
             json_docs=("_kind", lambda values: int(values.eq("extraction_json").sum())),
             text_cache_docs=("_kind", lambda values: int(values.eq("text_cache").sum())),
+            ocr_ready_docs=("_status", lambda values: int(values.str.startswith("ocr_ready").sum())),
             ocr_required_docs=("_status", lambda values: int(values.eq("ocr_required").sum())),
             error_docs=("_error", "sum"),
             page_count=("_page_count", "sum"),
@@ -4036,7 +4193,9 @@ def document_text_quality_summary(
     if total_chunks == 0:
         total_chunks = processed_chunks
     status = frame["parse_status"].fillna("").astype(str)
-    ready = status.isin({"text_ready", "text_ready_with_page_errors", "structured_ready"})
+    ready = status.isin(
+        {"text_ready", "text_ready_with_page_errors", "structured_ready", "ocr_ready", "ocr_ready_with_page_errors"}
+    )
     numeric = lambda column: pd.to_numeric(frame[column], errors="coerce").fillna(0)
     latest_chunk_id = ""
     if not summary.empty:
@@ -4049,6 +4208,7 @@ def document_text_quality_summary(
         "pending_chunks": max(total_chunks - processed_chunks, 0),
         "ready_docs": int(ready.sum()),
         "cached_docs": int(frame["cache_path"].fillna("").astype(str).str.strip().ne("").sum()),
+        "ocr_ready_docs": int(status.str.startswith("ocr_ready").sum()),
         "ocr_required_docs": int(status.eq("ocr_required").sum()),
         "error_docs": int((status.str.contains("error", case=False, na=False) | status.eq("missing_file")).sum()),
         "page_count": int(numeric("page_count").sum()),
@@ -4088,6 +4248,7 @@ def build_document_text_manifest(
             "notes": [
                 "Cada execução processa um único chunk e reaproveita caches cujo hash de origem não mudou.",
                 "PDFs são persistidos com texto por página; JSON e caches legados mantêm página nula quando a origem não informa paginação.",
+                "No macOS, PDFs sem camada textual usam Apple Vision localmente, sem enviar o documento a serviço externo.",
                 "Caches completos são artefatos locais; índice, resumo e manifesto tornam o processamento auditável e reexecutável.",
             ],
         },
@@ -6324,7 +6485,14 @@ def build_criteria_structured(
     ).reset_index(drop=True)
 
 
-def _select_subordination_metric_rows(subordination: pd.DataFrame) -> pd.DataFrame:
+def select_subordination_metric_rows(subordination: pd.DataFrame) -> pd.DataFrame:
+    """Select one defensible subordination metric per FIDC.
+
+    Manual approvals prevail. Otherwise, automatic percentages outside 0%-100%
+    stay in the structured base but are excluded from the industry metric.
+    The latest document is selected and its lowest stated minimum is used.
+    """
+
     if subordination is None or subordination.empty:
         return pd.DataFrame() if subordination is None else subordination.copy()
     frame = subordination.copy()
@@ -6338,13 +6506,28 @@ def _select_subordination_metric_rows(subordination: pd.DataFrame) -> pd.DataFra
     for _, group in groups:
         status = group.get("status_revisao", pd.Series("", index=group.index)).fillna("").astype(str).str.lower()
         approved = status.isin(APPROVED_REVIEW_STATUSES)
-        if approved.any():
+        approved_mode = bool(approved.any())
+        if approved_mode:
             group = group[approved].copy()
         dates = pd.to_datetime(group.get("document_date", pd.Series("", index=group.index)), errors="coerce")
         if dates.notna().any():
             group = group[dates.eq(dates.max())].copy()
-        selected.append(group)
+        if not approved_mode:
+            group = group[group["_pct"].between(0, 100, inclusive="both")].copy()
+            if group.empty:
+                continue
+        group = group[group["_pct"].eq(group["_pct"].min())].copy()
+        group["_has_page"] = group.get("pagina", pd.Series("", index=group.index)).fillna("").astype(str).str.strip().ne("")
+        group["_confidence"] = pd.to_numeric(
+            group.get("score_confianca_final", pd.Series(0, index=group.index)),
+            errors="coerce",
+        ).fillna(0)
+        selected.append(group.sort_values(["_has_page", "_confidence"], ascending=[False, False]).head(1))
     return pd.concat(selected, ignore_index=True, sort=False) if selected else frame.iloc[0:0].copy()
+
+
+def _select_subordination_metric_rows(subordination: pd.DataFrame) -> pd.DataFrame:
+    return select_subordination_metric_rows(subordination)
 
 
 def criteria_quality_summary(
@@ -6363,6 +6546,11 @@ def criteria_quality_summary(
         active = structured[structured["ativo_curadoria"].astype(str).str.lower().isin({"true", "1", "sim"})]
     sub = active[active["chave"].astype(str).eq("subordination_ratio_min")] if "chave" in active else pd.DataFrame()
     sub_metric_rows = _select_subordination_metric_rows(sub)
+    sub_numeric = pd.to_numeric(sub.get("pct_min", pd.Series(dtype=float)), errors="coerce")
+    sub_status = sub.get("status_revisao", pd.Series("", index=sub.index)).fillna("").astype(str).str.lower()
+    invalid_automatic = sub_numeric.notna() & ~sub_numeric.between(0, 100, inclusive="both") & ~sub_status.isin(
+        APPROVED_REVIEW_STATUSES
+    )
     if not sub_metric_rows.empty and "cnpj_fundo" in sub_metric_rows.columns:
         sub_values = sub_metric_rows.groupby("cnpj_fundo")["_pct"].min()
     else:
@@ -6401,6 +6589,10 @@ def criteria_quality_summary(
         "subordination_metric_rows": int(len(sub_metric_rows)),
         "subordination_metric_funds": int(sub_metric_rows["cnpj_fundo"].nunique())
         if "cnpj_fundo" in sub_metric_rows
+        else 0,
+        "subordination_invalid_range_rows": int(invalid_automatic.sum()),
+        "subordination_invalid_range_funds": int(sub.loc[invalid_automatic, "cnpj_fundo"].nunique())
+        if "cnpj_fundo" in sub.columns
         else 0,
         "monitorable_rows": int(monitorable.sum()),
         "partial_rows": int(partial.sum()),
@@ -6838,6 +7030,8 @@ def build_pipeline_readiness_checks(
     chunk_blocked = int(quality_rollup.get("document_chunks_blocked", 0) or 0)
     chunk_in_progress = int(quality_rollup.get("document_chunks_in_progress", 0) or 0)
     chunk_processed = int(quality_rollup.get("document_chunks_processed", 0) or 0)
+    chunk_technical_ready = int(quality_rollup.get("document_chunks_technical_ready", 0) or 0)
+    chunk_technical_open = int(quality_rollup.get("document_chunks_technical_open", 0) or 0)
     diagnostic_chunks = int(quality_rollup.get("document_chunk_diagnostics_processed_chunks", 0) or 0)
     diagnostic_rows = int(quality_rollup.get("document_chunk_diagnostics_rows", 0) or 0)
     diagnostic_pending = int(quality_rollup.get("document_chunk_diagnostics_pending_chunks", 0) or 0)
@@ -6860,10 +7054,24 @@ def build_pipeline_readiness_checks(
         "Execução incremental de OCR, parsing e extração por chunk",
         "bloqueado"
         if chunk_blocked or diagnostic_errors or text_errors
-        else ("atenção" if chunk_open or diagnostic_pending or text_pending or text_ocr or field_pending else "ok"),
-        max(chunk_open, diagnostic_pending, text_pending, field_pending, diagnostic_errors, text_errors, text_ocr),
+        else (
+            "atenção"
+            if chunk_open or chunk_technical_open or diagnostic_pending or text_pending or text_ocr or field_pending
+            else "ok"
+        ),
+        max(
+            chunk_open,
+            chunk_technical_open,
+            diagnostic_pending,
+            text_pending,
+            field_pending,
+            diagnostic_errors,
+            text_errors,
+            text_ocr,
+        ),
         (
-            f"{chunk_processed}/{document_chunks} processados; "
+            f"técnico {chunk_technical_ready}/{document_chunks} prontos; "
+            f"acompanhamento {chunk_processed}/{document_chunks} fechado; "
             f"{chunk_untracked} sem acompanhamento; {chunk_pending} pendentes; "
             f"{chunk_in_progress} em andamento; {chunk_blocked} bloqueados; "
             f"diagnóstico {diagnostic_chunks}/{document_chunks} chunks, {diagnostic_rows} docs, "
@@ -6873,7 +7081,7 @@ def build_pipeline_readiness_checks(
             f"campos {field_chunks}/{document_chunks} chunks, "
             f"{field_participants} participantes, {field_criteria} critérios"
         ),
-        "Tratar a fila OCR, revisar candidatos e fechar status no editor Documentos > Chunks.",
+        "Revisar candidatos e fechar o acompanhamento no editor Documentos > Chunks; OCR só aparece se restar lacuna técnica.",
         "document_chunk_diagnostics.csv.gz | document_text_index.csv.gz | document_participant_candidates.csv.gz | document_criteria_candidates.csv.gz",
         "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py",
     )
@@ -8202,6 +8410,7 @@ def build_industry_pipeline_index(
                 "missing_local_docs",
                 "chunks",
                 "chunk_plan_rows",
+                "chunk_plan_status_counts",
                 "chunk_plan_open_rows",
                 "max_documents_per_chunk",
                 "max_cnpjs_per_chunk",
@@ -8244,6 +8453,7 @@ def build_industry_pipeline_index(
                 "pending_chunks",
                 "ready_docs",
                 "cached_docs",
+                "ocr_ready_docs",
                 "ocr_required_docs",
                 "error_docs",
                 "page_count",
@@ -8801,6 +9011,10 @@ def build_industry_pipeline_index(
     document_chunks_total = int(document_quality.get("chunks", 0) or 0)
     document_chunk_plan_rows = int(document_quality.get("chunk_plan_rows", 0) or 0)
     document_chunk_plan_open_rows = int(document_quality.get("chunk_plan_open_rows", 0) or 0)
+    document_chunk_plan_status_counts = document_quality.get("chunk_plan_status_counts", {})
+    if not isinstance(document_chunk_plan_status_counts, dict):
+        document_chunk_plan_status_counts = {}
+    document_chunks_technical_ready = int(document_chunk_plan_status_counts.get("pronto", 0) or 0)
     document_chunk_actions = load_dataframe(industry_dir / "document_chunk_actions.csv")
     if document_chunk_actions.empty or "chunk_id" not in document_chunk_actions.columns:
         document_chunk_action_rows = 0
@@ -8878,6 +9092,8 @@ def build_industry_pipeline_index(
         "document_chunks": document_chunks_total,
         "document_chunk_plan_rows": document_chunk_plan_rows,
         "document_chunk_plan_open_rows": document_chunk_plan_open_rows,
+        "document_chunks_technical_ready": document_chunks_technical_ready,
+        "document_chunks_technical_open": document_chunk_plan_open_rows,
         "max_documents_per_chunk": document_quality.get("max_documents_per_chunk", 0),
         "document_chunk_actions_rows": document_chunk_action_rows,
         "document_chunk_action_status_counts": document_chunk_status_counts,
@@ -8905,6 +9121,7 @@ def build_industry_pipeline_index(
         "document_text_pending_chunks": document_text_quality.get("pending_chunks", 0),
         "document_text_ready_docs": document_text_quality.get("ready_docs", 0),
         "document_text_cached_docs": document_text_quality.get("cached_docs", 0),
+        "document_text_ocr_ready_docs": document_text_quality.get("ocr_ready_docs", 0),
         "document_text_ocr_required_docs": document_text_quality.get("ocr_required_docs", 0),
         "document_text_error_docs": document_text_quality.get("error_docs", 0),
         "document_text_page_count": document_text_quality.get("page_count", 0),

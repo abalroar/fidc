@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-document-manifest/v1",
-  "generated_at_utc": "2026-07-09T14:25:01+00:00",
+  "generated_at_utc": "2026-07-09T20:40:01+00:00",
   "pipeline": "industry_document_inventory",
   "design_constraints": {
     "modular": true,
@@ -29,7 +29,7 @@
       "path": "data/industry_study/document_inventory.csv.gz",
       "exists": true,
       "bytes": 338622,
-      "sha256": "88c2c79a10d2bbfbcdb91b0cb3cd56ee8425f199823dc20e74508b06b3be7f20"
+      "sha256": "0ea5db2778697b32d8186e9134da1e997ace8324f886303f977c9c9ebb507b36"
     },
     "document_processing_chunks": {
       "path": "data/industry_study/document_processing_chunks.csv",
@@ -43,8 +43,8 @@
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 22110,
-      "sha256": "f7515ec3420aa4542d5e31592c504607499678de5f7f63756605096c732fe194"
+      "bytes": 23357,
+      "sha256": "2efd3ccd19a51e882a45f4a50ed3e4a82d4124c30f98b9fcf0647183d055a3ac"
     }
   },
   "stages": [
@@ -116,9 +116,9 @@
     "chunks": 27,
     "chunk_plan_rows": 27,
     "chunk_plan_status_counts": {
-      "processar": 27
+      "pronto": 27
     },
-    "chunk_plan_open_rows": 27,
+    "chunk_plan_open_rows": 0,
     "max_documents_per_chunk": 250,
     "max_cnpjs_per_chunk": 40,
     "coverage": {

@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-fund-snapshot-manifest/v1",
-  "generated_at_utc": "2026-07-09T20:17:57+00:00",
+  "generated_at_utc": "2026-07-09T20:55:51+00:00",
   "pipeline": "industry_fund_snapshot",
   "design_constraints": {
     "modular": true,
@@ -34,28 +34,28 @@
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 374192,
-      "sha256": "01ab5f17aa2b214a547725358398b1fad1819093bcbb91315b1f63aee4f91bab"
+      "bytes": 374886,
+      "sha256": "ce546584643872462dd8eaf929db72084f1f5b15c4263ba0ec6251e17688756e"
     },
     "criteria_structured": {
       "path": "data/industry_study/criteria_structured.csv.gz",
       "exists": true,
       "bytes": 1124148,
-      "sha256": "ed75499a083eebba9a7f24dcc81b1f608f66d4294647a60330fbb14e3615368c"
+      "sha256": "bb78fe0221a18744f3c6625543f1620a93abf9bafefc319807cbddd14d1293e5"
     },
     "document_inventory": {
       "path": "data/industry_study/document_inventory.csv.gz",
       "exists": true,
       "bytes": 338622,
-      "sha256": "88c2c79a10d2bbfbcdb91b0cb3cd56ee8425f199823dc20e74508b06b3be7f20"
+      "sha256": "0ea5db2778697b32d8186e9134da1e997ace8324f886303f977c9c9ebb507b36"
     }
   },
   "outputs": {
     "fund_snapshot": {
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 424725,
-      "sha256": "6f951e304c06631e2f871482be891186273ce49ae9b4a3b56becde0d94571e5a"
+      "bytes": 424684,
+      "sha256": "9ec9471ae06124da7879c0328fcf9a3b4c10d137af9eae4dd844a2b3edbb71d6"
     },
     "manifest": {
       "path": "data/industry_study/industry_fund_snapshot_manifest.json"

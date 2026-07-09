@@ -109,11 +109,14 @@ from services.industry_study import (  # noqa: E402
     save_dataframe,
     save_pipeline_manifest,
     save_cedente_structured,
+    select_subordination_metric_rows,
     scan_regulatory_extraction_files,
     merge_document_chunk_diagnostics,
     merge_document_text_index,
     merge_document_field_candidates,
     merge_document_field_run_summary,
+    merge_cedente_candidate_sources,
+    merge_criteria_candidate_sources,
 )
 from tabs.tab_industry_study import (  # noqa: E402
     _apply_document_chunk_actions,
@@ -954,6 +957,26 @@ def test_document_chunk_plan_prioritizes_download_hash_and_processing_actions():
     initialized_plan = _apply_document_chunk_actions(plan, initialized_actions)
     initialized_plan_by_chunk = initialized_plan.set_index("chunk_id")
     tracked_by_chunk = tracked.set_index("chunk_id")
+    technical_plan = build_document_chunk_plan(
+        chunks,
+        inventory,
+        diagnostics_summary=pd.DataFrame(
+            [{"chunk_id": "doc-0002", "documents": 1, "error_docs": 0, "missing_docs": 0}]
+        ),
+        text_summary=pd.DataFrame(
+            [
+                {
+                    "chunk_id": "doc-0002",
+                    "documents": 1,
+                    "ready_docs": 1,
+                    "ocr_required_docs": 0,
+                    "error_docs": 0,
+                }
+            ]
+        ),
+        field_summary=pd.DataFrame([{"chunk_id": "doc-0002", "documents_scanned": 1}]),
+    )
+    technical_by_chunk = technical_plan.set_index("chunk_id")
     events = build_review_audit_events(
         previous=_document_chunk_actions_for_audit(pd.DataFrame(columns=actions.columns)),
         updated=_document_chunk_actions_for_audit(actions),
@@ -968,6 +991,9 @@ def test_document_chunk_plan_prioritizes_download_hash_and_processing_actions():
     assert by_chunk.loc["doc-0001", "missing_local_docs"] == 1
     assert by_chunk.loc["doc-0002", "chunk_status"] == "processar"
     assert by_chunk.loc["doc-0002", "next_action"] == "ocr parse extract"
+    assert technical_by_chunk.loc["doc-0002", "technical_complete"]
+    assert technical_by_chunk.loc["doc-0002", "chunk_status"] == "pronto"
+    assert technical_by_chunk.loc["doc-0002", "next_action"] == "revisar candidatos"
     assert by_chunk.loc["doc-0003", "chunk_status"] == "pronto"
     assert tracked_by_chunk.loc["doc-0002", "status_lote"] == "em andamento"
     assert tracked_by_chunk.loc["doc-0002", "acao_revisada"] == "Rodar OCR e parsing"
@@ -1254,6 +1280,83 @@ def test_document_text_materializes_page_cache_and_reuses_unchanged_sources():
     assert "Páginas proc." in formatted_summary.columns
 
 
+def test_document_text_retries_ocr_required_cache_with_page_level_backend(monkeypatch):
+    from pypdf import PdfWriter
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        source_dir = root / "data" / "raw" / "05753599000158"
+        source_dir.mkdir(parents=True)
+        pdf_path = source_dir / "scanned.pdf"
+        writer = PdfWriter()
+        writer.add_blank_page(width=595, height=842)
+        with pdf_path.open("wb") as handle:
+            writer.write(handle)
+        inventory = pd.DataFrame(
+            [
+                {
+                    "chunk_id": "doc-0001",
+                    "document_key": "scanned-pdf",
+                    "cnpj_fundo": "05753599000158",
+                    "fundo": "FIDC OCR",
+                    "documento_origem": "scanned.pdf",
+                    "document_class": "regulamento",
+                    "content_kind": "pdf",
+                    "document_date": "2026-05-01",
+                    "local_path": "data/raw/05753599000158/scanned.pdf",
+                    "local_exists": True,
+                    "bytes": pdf_path.stat().st_size,
+                    "sha256": "c" * 64,
+                }
+            ]
+        )
+        cache_dir = root / "data" / "industry_study" / "document_text_cache"
+        without_ocr = build_document_chunk_text_index(
+            inventory,
+            chunk_id="doc-0001",
+            root=root,
+            cache_dir=cache_dir,
+            extracted_at_utc="2026-07-09T12:00:00+00:00",
+        )
+
+        monkeypatch.setattr(
+            "services.document_ocr.resolve_ocr_engine",
+            lambda engine="auto", root=None: "macos_vision",
+        )
+        monkeypatch.setattr(
+            "services.document_ocr.ocr_pdf_pages",
+            lambda *args, **kwargs: {
+                "engine": "macos_vision",
+                "pages": [{"page_number": 1, "text": "CEDENTE OCR S.A. CNPJ 12.345.678/0001-90"}],
+                "page_count": 1,
+                "pages_processed": 1,
+                "confidence_score": 0.91,
+                "errors": [],
+            },
+        )
+        with_ocr = build_document_chunk_text_index(
+            inventory,
+            chunk_id="doc-0001",
+            root=root,
+            cache_dir=cache_dir,
+            existing=without_ocr,
+            ocr_engine="auto",
+            extracted_at_utc="2026-07-10T12:00:00+00:00",
+        )
+        record = with_ocr.iloc[0]
+        with gzip.open(root / str(record["cache_path"]), "rt", encoding="utf-8") as handle:
+            payload = json.load(handle)
+
+    assert without_ocr.iloc[0]["parse_status"] == "ocr_required"
+    assert record["parse_status"] == "ocr_ready"
+    assert record["extraction_method"] == "macos_vision_ocr_all_pages"
+    assert record["confidence_score"] == 0.91
+    assert record["pages_with_text"] == 1
+    assert record["extracted_at_utc"] == "2026-07-10T12:00:00+00:00"
+    assert payload["pages"][0]["page_number"] == 1
+    assert "CEDENTE OCR" in payload["pages"][0]["text"]
+
+
 def test_document_fields_extract_page_traceable_candidates_and_map_to_review_schemas():
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
@@ -1409,6 +1512,58 @@ def test_document_fields_extract_page_traceable_candidates_and_map_to_review_sch
     assert "Papel" in formatted_participants.columns
     assert "Match página" in formatted_criteria.columns
     assert "Part. página" in formatted_summary.columns
+
+
+def test_manual_review_sources_keep_page_candidates_during_ui_rebuilds():
+    strategy_candidates = pd.DataFrame(
+        [
+            {"review_id": "same", "score_confianca": 0.7, "pagina": "", "participante_extraido": "Fonte antiga"},
+            {"review_id": "strategy-only", "score_confianca": 0.9, "pagina": "4", "participante_extraido": "Estratégia"},
+        ]
+    )
+    page_candidates = pd.DataFrame(
+        [
+            {"review_id": "same", "score_confianca": 0.85, "pagina": "12", "participante_extraido": "Fonte por página"},
+            {"review_id": "page-only", "score_confianca": 0.8, "pagina": "7", "participante_extraido": "Documento"},
+        ]
+    )
+    merged_cedentes = merge_cedente_candidate_sources(strategy_candidates, page_candidates).set_index("review_id")
+
+    documentary_criteria = pd.DataFrame([{"rule_id": "same", "fonte_camada": "legado"}])
+    page_criteria = pd.DataFrame(
+        [
+            {"rule_id": "same", "fonte_camada": "página"},
+            {"rule_id": "page-only", "fonte_camada": "página"},
+        ]
+    )
+    features = pd.DataFrame([{"rule_id": "feature-only", "fonte_camada": "feature"}])
+    merged_criteria = merge_criteria_candidate_sources(documentary_criteria, page_criteria, features).set_index("rule_id")
+
+    assert set(merged_cedentes.index) == {"same", "strategy-only", "page-only"}
+    assert merged_cedentes.loc["same", "participante_extraido"] == "Fonte por página"
+    assert merged_cedentes.loc["same", "pagina"] == "12"
+    assert set(merged_criteria.index) == {"same", "page-only", "feature-only"}
+    assert merged_criteria.loc["same", "fonte_camada"] == "legado"
+
+
+def test_subordination_metric_uses_latest_minimum_and_quarantines_invalid_automatic_ratios():
+    rows = pd.DataFrame(
+        [
+            {"cnpj_fundo": "A", "pct_min": 10, "document_date": "2025-01-01", "status_revisao": "", "pagina": 1},
+            {"cnpj_fundo": "A", "pct_min": 30, "document_date": "2026-01-01", "status_revisao": "", "pagina": 2},
+            {"cnpj_fundo": "A", "pct_min": 20, "document_date": "2026-01-01", "status_revisao": "", "pagina": 3},
+            {"cnpj_fundo": "B", "pct_min": 181.82, "document_date": "2026-01-01", "status_revisao": "", "pagina": 4},
+            {"cnpj_fundo": "C", "pct_min": 110.25, "document_date": "2026-01-01", "status_revisao": "aprovado", "pagina": 5},
+            {"cnpj_fundo": "D", "pct_min": 15, "document_date": "2025-01-01", "status_revisao": "", "pagina": 6},
+            {"cnpj_fundo": "D", "pct_min": 150, "document_date": "2026-01-01", "status_revisao": "", "pagina": 7},
+        ]
+    )
+    selected = select_subordination_metric_rows(rows).set_index("cnpj_fundo")
+
+    assert set(selected.index) == {"A", "C"}
+    assert selected.loc["A", "_pct"] == 20
+    assert selected.loc["A", "pagina"] == 3
+    assert selected.loc["C", "_pct"] == 110.25
 
 
 def test_criteria_structured_applies_review_and_tracks_subordination():

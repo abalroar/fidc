@@ -1,8 +1,8 @@
 {
   "schema_version": "industry-document-text-manifest/v1",
-  "generated_at_utc": "2026-07-09T19:46:06+00:00",
+  "generated_at_utc": "2026-07-09T20:39:52+00:00",
   "pipeline": "industry_document_text",
-  "selected_chunk_id": "doc-0013",
+  "selected_chunk_id": "doc-0006",
   "design_constraints": {
     "modular": true,
     "incremental": true,
@@ -11,6 +11,7 @@
     "notes": [
       "Cada execução processa um único chunk e reaproveita caches cujo hash de origem não mudou.",
       "PDFs são persistidos com texto por página; JSON e caches legados mantêm página nula quando a origem não informa paginação.",
+      "No macOS, PDFs sem camada textual usam Apple Vision localmente, sem enviar o documento a serviço externo.",
       "Caches completos são artefatos locais; índice, resumo e manifesto tornam o processamento auditável e reexecutável."
     ]
   },
@@ -38,14 +39,14 @@
     "document_text_index": {
       "path": "data/industry_study/document_text_index.csv.gz",
       "exists": true,
-      "bytes": 1950033,
-      "sha256": "a2f9579206fdc68b826dd945ee2c292b5108d8c7252b8bf79d06f1452c177efe"
+      "bytes": 1952414,
+      "sha256": "258de90d4056538bf3ad633f7005d090102dd400cd565cf4e4876eaa5ee6597f"
     },
     "document_text_run_summary": {
       "path": "data/industry_study/document_text_run_summary.csv",
       "exists": true,
-      "bytes": 13067,
-      "sha256": "24a718be419efd9cdd7d57e235ee5190caf1ec2fb613cef77753fcb0f96f40df"
+      "bytes": 13214,
+      "sha256": "273da227500708a0e7a7cd83af27226993438121d3229e16de11dadb05bbd530"
     },
     "document_text_cache": {
       "path": "data/industry_study/document_text_cache",
@@ -64,18 +65,18 @@
       "label": "Selecionar chunk ainda não materializado",
       "status": "ok",
       "input": "document_chunk_plan+document_text_index",
-      "output": "doc-0013",
+      "output": "doc-0006",
       "rows": 27,
-      "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0013"
+      "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0006"
     },
     {
       "id": "extract_page_text",
       "label": "Extrair e persistir texto por documento/página",
       "status": "ok",
-      "input": "doc-0013",
+      "input": "doc-0006",
       "output": "data/industry_study/document_text_cache",
       "rows": 3521,
-      "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0013"
+      "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0006"
     },
     {
       "id": "persist_text_index",
@@ -92,20 +93,21 @@
     "processed_chunks": 27,
     "total_chunks": 27,
     "pending_chunks": 0,
-    "ready_docs": 3518,
+    "ready_docs": 3521,
     "cached_docs": 3521,
-    "ocr_required_docs": 3,
+    "ocr_ready_docs": 3,
+    "ocr_required_docs": 0,
     "error_docs": 0,
     "page_count": 75503,
     "pages_processed": 77522,
-    "pages_with_text": 77379,
-    "text_chars": 240761163,
-    "cache_bytes": 67509558,
-    "latest_chunk_id": "doc-0013",
+    "pages_with_text": 77454,
+    "text_chars": 240921137,
+    "cache_bytes": 67557183,
+    "latest_chunk_id": "doc-0023",
     "status_counts": {
       "text_ready": 2069,
       "structured_ready": 1449,
-      "ocr_required": 3
+      "ocr_ready": 3
     }
   }
 }

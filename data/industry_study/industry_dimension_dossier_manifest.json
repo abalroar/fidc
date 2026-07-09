@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-dossier-manifest/v1",
-  "generated_at_utc": "2026-07-09T20:20:26+00:00",
+  "generated_at_utc": "2026-07-09T20:57:51+00:00",
   "pipeline": "industry_dimension_dossiers",
   "design_constraints": {
     "modular": true,
@@ -16,14 +16,14 @@
     "dimension_value_atlas": {
       "path": "data/industry_study/industry_dimension_value_atlas.csv.gz",
       "exists": true,
-      "bytes": 104000,
-      "sha256": "0d8cff8f8469aef04aa7b06ed3c6de019518e523d4541892c01ae80a494301ae"
+      "bytes": 104067,
+      "sha256": "5d5a65e6e27b71e750b039c66b8d37a9d6595e247219ef6395c730ad9beeb644"
     },
     "dimension_profiles": {
       "path": "data/industry_study/industry_dimension_profiles.csv.gz",
       "exists": true,
-      "bytes": 2097611,
-      "sha256": "408a5a557c837b9c8ce814efff1f2915e20116b67be8647a57f7151d2e2ff281"
+      "bytes": 2097196,
+      "sha256": "abd355850285ee56c8875e87579d80ab348316d32f35522ca5a03a61127a7c98"
     },
     "heatmap_registry": {
       "path": "data/industry_study/industry_heatmap_registry.csv",
@@ -36,8 +36,8 @@
     "dimension_dossiers": {
       "path": "data/industry_study/industry_dimension_dossiers.csv",
       "exists": true,
-      "bytes": 25023,
-      "sha256": "0fa1c717ce5ac5277f189177297e14ad4abe63ca901bf652d6fa886faf91eb4b"
+      "bytes": 25041,
+      "sha256": "6cfdb568a21b3ef6fd74f18e41ec2282a01837f926f01a021bd5e3f8f13a70ea"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_dossier_manifest.json"
@@ -50,7 +50,7 @@
       "status": "ok",
       "input": "data/industry_study/industry_dimension_value_atlas.csv.gz+data/industry_study/industry_dimension_profiles.csv.gz+data/industry_study/industry_heatmap_registry.csv",
       "output": "memoria:atlas+profiles+heatmap_registry",
-      "rows": 83453,
+      "rows": 83449,
       "rerun": "python scripts/build_fidc_industry_dimension_monthly.py && python scripts/build_fidc_industry_dimension_profiles.py"
     },
     {
@@ -72,7 +72,7 @@
     "blocked_rows": 0,
     "atlas_values": 1010,
     "atlas_values_with_pl": 995,
-    "profile_rows": 82432,
+    "profile_rows": 82428,
     "profile_links": 1472034,
     "with_profiles": 29,
     "heatmap_presets": 22,

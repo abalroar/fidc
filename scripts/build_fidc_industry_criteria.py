@@ -13,8 +13,6 @@ import argparse
 import sys
 from pathlib import Path
 
-import pandas as pd
-
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -25,6 +23,7 @@ from services.industry_study import (
     load_criteria_reviews,
     load_criteria_source,
     load_document_criteria_candidates,
+    merge_criteria_candidate_sources,
     load_fund_universe,
     load_regulatory_feature_criteria,
     load_review_audit,
@@ -61,13 +60,11 @@ def main() -> None:
     document_candidates_path = args.industry_dir / "document_criteria_candidates.csv.gz"
     document_candidates = load_document_criteria_candidates(document_candidates_path)
     regulatory_features = load_regulatory_feature_criteria(args.strategy_db)
-    criteria = pd.concat(
-        [documentary_criteria, document_candidates, regulatory_features],
-        ignore_index=True,
-        sort=False,
+    criteria = merge_criteria_candidate_sources(
+        documentary_criteria,
+        document_candidates,
+        regulatory_features,
     )
-    if not criteria.empty and "rule_id" in criteria.columns:
-        criteria = criteria.drop_duplicates("rule_id", keep="first")
     reviews = load_criteria_reviews(reviews_path)
     if not reviews_path.exists():
         save_criteria_reviews(reviews, reviews_path)

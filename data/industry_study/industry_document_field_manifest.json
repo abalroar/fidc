@@ -1,8 +1,8 @@
 {
   "schema_version": "industry-document-field-manifest/v1",
-  "generated_at_utc": "2026-07-09T20:05:20+00:00",
+  "generated_at_utc": "2026-07-09T20:33:48+00:00",
   "pipeline": "industry_document_fields",
-  "selected_chunk_id": "doc-0027",
+  "selected_chunk_id": "doc-0023",
   "design_constraints": {
     "modular": true,
     "incremental": true,
@@ -18,8 +18,8 @@
     "document_text_index": {
       "path": "data/industry_study/document_text_index.csv.gz",
       "exists": true,
-      "bytes": 1950033,
-      "sha256": "a2f9579206fdc68b826dd945ee2c292b5108d8c7252b8bf79d06f1452c177efe"
+      "bytes": 1952546,
+      "sha256": "1c7dc3177e55b192f90f3a29649091af8e08e64cd842edbabc67ef00aeee2009"
     },
     "document_text_cache": {
       "path": "data/industry_study/document_text_cache",
@@ -39,20 +39,20 @@
     "document_participant_candidates": {
       "path": "data/industry_study/document_participant_candidates.csv.gz",
       "exists": true,
-      "bytes": 62537,
-      "sha256": "cdb86e2217a8dc35104f9287378aeea676fffb829a2ceefd49c774dd74337d92"
+      "bytes": 62582,
+      "sha256": "e9f0993bb7747732e577c853a2183dec9ec236cba17b54b425ebcbbf16a75e06"
     },
     "document_criteria_candidates": {
       "path": "data/industry_study/document_criteria_candidates.csv.gz",
       "exists": true,
-      "bytes": 848015,
-      "sha256": "bc1a1fb637843b4a8204ab6571bd3b74ee5e9619b52654fba10dcf6a567a4274"
+      "bytes": 848049,
+      "sha256": "a495c4cb6b748a3794d9b8d0f6a66e1190dcb03776d214248ce7fe7daf20f87a"
     },
     "document_field_run_summary": {
       "path": "data/industry_study/document_field_run_summary.csv",
       "exists": true,
       "bytes": 9734,
-      "sha256": "3ed06733efb32b05fc1f186312d0fa1241cbf02c485b22f28ce9cd49ab4891aa"
+      "sha256": "838ae0f73e3258d0a76fca56eea926825e0b76d44af98aa8efe2704cf2f2a85a"
     },
     "manifest": {
       "path": "data/industry_study/industry_document_field_manifest.json"
@@ -64,14 +64,14 @@
       "label": "Extrair participantes com evidência por página",
       "status": "ok",
       "rows": 243,
-      "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0027"
+      "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0023"
     },
     {
       "id": "extract_criteria",
       "label": "Extrair critérios e recuperar página",
       "status": "ok",
       "rows": 6563,
-      "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0027"
+      "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0023"
     },
     {
       "id": "persist_candidate_indexes",
