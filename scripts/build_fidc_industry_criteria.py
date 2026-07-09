@@ -13,6 +13,8 @@ import argparse
 import sys
 from pathlib import Path
 
+import pandas as pd
+
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -23,6 +25,7 @@ from services.industry_study import (
     load_criteria_reviews,
     load_criteria_source,
     load_fund_universe,
+    load_regulatory_feature_criteria,
     load_review_audit,
     save_dataframe,
     save_criteria_reviews,
@@ -53,7 +56,9 @@ def main() -> None:
     manifest_path = args.manifest or args.industry_dir / "industry_criteria_manifest.json"
     review_audit_path = args.industry_dir / "criteria_review_audit.csv"
 
-    criteria = load_criteria_source(args.criteria_source)
+    documentary_criteria = load_criteria_source(args.criteria_source)
+    regulatory_features = load_regulatory_feature_criteria(args.strategy_db)
+    criteria = pd.concat([documentary_criteria, regulatory_features], ignore_index=True, sort=False)
     reviews = load_criteria_reviews(reviews_path)
     if not reviews_path.exists():
         save_criteria_reviews(reviews, reviews_path)
@@ -83,6 +88,10 @@ def main() -> None:
     print(
         f"[ok] criterios estruturados gravados em {output_path} "
         f"({len(structured):,} regras; {structured['cnpj_fundo'].nunique() if 'cnpj_fundo' in structured else 0:,} FIDCs)"
+    )
+    print(
+        f"[ok] matriz regulatória Estratégia: {len(regulatory_features):,} sinais positivos "
+        f"em {regulatory_features['CNPJ'].nunique() if 'CNPJ' in regulatory_features else 0:,} FIDCs"
     )
     print(f"[ok] subordinação mínima: {len(sub):,} regras em {sub['cnpj_fundo'].nunique() if 'cnpj_fundo' in sub else 0:,} FIDCs")
     print(f"[ok] manifesto gravado em {manifest_path}")

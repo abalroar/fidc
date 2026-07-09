@@ -57,6 +57,7 @@ from services.industry_study import (
     load_pipeline_manifest,
     load_cedente_reviews,
     load_fund_universe,
+    load_regulatory_feature_criteria,
     load_review_audit,
     normalize_cnpj,
     save_cedente_reviews,
@@ -864,6 +865,7 @@ def _format_fund_snapshot_table(frame: pd.DataFrame) -> pd.DataFrame:
         "valid_volume_2026_brl": "Emissões 2026",
         "document_rows": "Docs",
         "cedente_rows": "Cedentes",
+        "participant_signal_rows": "Sinal ced/sac",
         "criteria_rows": "Critérios",
         "sub_min_pct_median": "Sub mín.",
         "camadas_com_evidencia": "Camadas",
@@ -877,12 +879,53 @@ def _format_fund_snapshot_table(frame: pd.DataFrame) -> pd.DataFrame:
     for col in ["PL", "Emissões 24-26", "Emissões 2025", "Emissões 2026"]:
         if col in out.columns:
             out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_bi(float(value), 1))
-    for col in ["Docs", "Cedentes", "Critérios", "Camadas"]:
+    for col in ["Docs", "Cedentes", "Sinal ced/sac", "Critérios", "Camadas"]:
         if col in out.columns:
             out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
     if "Sub mín." in out.columns:
         out["Sub mín."] = pd.to_numeric(out["Sub mín."], errors="coerce").map(lambda value: _pct_label(value))
     return out
+
+
+def _cedente_signal_focus_frame(snapshot: pd.DataFrame) -> pd.DataFrame:
+    """Return funds with regulatory participant signal but no identified cedente/sacado."""
+
+    columns = [
+        "cnpj_fundo",
+        "pl_sinal_brl",
+        "signal_admin_nome",
+        "signal_segmento_principal",
+        "participant_signal_rows",
+        "participant_signal_keys",
+        "participant_signal_evidence",
+        "criteria_documentos",
+        "document_chunk_ids",
+        "latest_regulamento_date",
+    ]
+    if snapshot is None or snapshot.empty:
+        return pd.DataFrame(columns=columns)
+    frame = snapshot.copy()
+    frame["cnpj_fundo"] = frame.get("cnpj_fundo", pd.Series("", index=frame.index)).map(normalize_cnpj)
+    participant_signal = pd.to_numeric(frame.get("participant_signal_rows"), errors="coerce").fillna(0)
+    cedente_rows = pd.to_numeric(frame.get("cedente_rows"), errors="coerce").fillna(0)
+    focus = frame[participant_signal.gt(0) & cedente_rows.le(0)].copy()
+    if focus.empty:
+        return pd.DataFrame(columns=columns)
+    focus["pl_sinal_brl"] = pd.to_numeric(focus.get("pl"), errors="coerce").fillna(0.0)
+    focus["signal_admin_nome"] = focus.get("admin_nome", pd.Series("", index=focus.index)).fillna("").astype(str)
+    focus["signal_segmento_principal"] = focus.get("segmento_principal", pd.Series("", index=focus.index)).fillna("").astype(str)
+    for col in [
+        "participant_signal_rows",
+        "participant_signal_keys",
+        "participant_signal_evidence",
+        "criteria_documentos",
+        "document_chunk_ids",
+        "latest_regulamento_date",
+    ]:
+        if col not in focus.columns:
+            focus[col] = ""
+    focus = focus[columns].drop_duplicates("cnpj_fundo", keep="first")
+    return focus.sort_values("pl_sinal_brl", ascending=False).reset_index(drop=True)
 
 
 def _snapshot_gap_frame(snapshot: pd.DataFrame) -> pd.DataFrame:
@@ -895,6 +938,7 @@ def _snapshot_gap_frame(snapshot: pd.DataFrame) -> pd.DataFrame:
         "document_rows",
         "document_local_ready",
         "cedente_rows",
+        "participant_signal_rows",
         "criteria_rows",
         "criteria_subordination_rows",
     ]:
@@ -908,10 +952,13 @@ def _snapshot_gap_frame(snapshot: pd.DataFrame) -> pd.DataFrame:
     cnpj_norm = frame.get("cnpj_fundo", pd.Series("", index=frame.index)).map(normalize_cnpj)
     frame["gap_id"] = competencia + "_" + cnpj_norm
 
+    missing_cedente = frame["cedente_rows"].le(0)
+    has_participant_signal = frame["participant_signal_rows"].gt(0)
     gap_specs = [
         ("sem documento", frame["document_rows"].le(0)),
         ("sem documento local", frame["document_local_ready"].le(0)),
-        ("sem cedente/sacado", frame["cedente_rows"].le(0)),
+        ("cedente/sacado sinalizado sem participante", missing_cedente & has_participant_signal),
+        ("sem cedente/sacado", missing_cedente & ~has_participant_signal),
         ("sem critérios", frame["criteria_rows"].le(0)),
         ("sem sub mínima", frame["criteria_subordination_rows"].le(0)),
     ]
@@ -1888,6 +1935,7 @@ def _render_fund_snapshot_universe() -> None:
         "document_rows",
         "document_local_ready",
         "cedente_rows",
+        "participant_signal_rows",
         "criteria_rows",
         "criteria_subordination_rows",
         "camadas_com_evidencia",
@@ -1898,7 +1946,8 @@ def _render_fund_snapshot_universe() -> None:
         _curation_card("FIDCs no snapshot", _fmt_int(float(len(numeric))), f"{_fmt_bi(float(numeric.get('pl', pd.Series(dtype=float)).sum()), 0)} PL"),
         _curation_card("Com emissões 25-26", _fmt_int(float(numeric.get("tem_emissao_2025_2026", pd.Series(False, index=numeric.index)).astype(str).str.lower().isin({"true", "1"}).sum())), "base Estratégia/ofertas"),
         _curation_card("Com documentos", _fmt_int(float((numeric.get("document_rows", pd.Series(0, index=numeric.index)) > 0).sum())), "inventário local/CVM"),
-        _curation_card("Com cedentes", _fmt_int(float((numeric.get("cedente_rows", pd.Series(0, index=numeric.index)) > 0).sum())), "curadoria estruturada"),
+        _curation_card("Cedentes identificados", _fmt_int(float((numeric.get("cedente_rows", pd.Series(0, index=numeric.index)) > 0).sum())), "participante extraído"),
+        _curation_card("Sinal cedente/sacado", _fmt_int(float((numeric.get("participant_signal_rows", pd.Series(0, index=numeric.index)) > 0).sum())), "matriz Estratégia"),
         _curation_card("Com critérios", _fmt_int(float((numeric.get("criteria_rows", pd.Series(0, index=numeric.index)) > 0).sum())), "regras monitoráveis"),
         _curation_card("Com sub mín.", _fmt_int(float((numeric.get("criteria_subordination_rows", pd.Series(0, index=numeric.index)) > 0).sum())), "percentual extraído"),
     ]
@@ -1957,7 +2006,8 @@ def _render_fund_snapshot_universe() -> None:
             {"Camada": "Emissões 2025-2026", "FIDCs": int(numeric.get("tem_emissao_2025_2026", pd.Series(False, index=numeric.index)).astype(str).str.lower().isin({"true", "1"}).sum())},
             {"Camada": "Documentos", "FIDCs": int((numeric.get("document_rows", pd.Series(0, index=numeric.index)) > 0).sum())},
             {"Camada": "Documentos locais", "FIDCs": int((numeric.get("document_local_ready", pd.Series(0, index=numeric.index)) > 0).sum())},
-            {"Camada": "Cedentes/sacados", "FIDCs": int((numeric.get("cedente_rows", pd.Series(0, index=numeric.index)) > 0).sum())},
+            {"Camada": "Cedentes/sacados identificados", "FIDCs": int((numeric.get("cedente_rows", pd.Series(0, index=numeric.index)) > 0).sum())},
+            {"Camada": "Sinal cedente/sacado", "FIDCs": int((numeric.get("participant_signal_rows", pd.Series(0, index=numeric.index)) > 0).sum())},
             {"Camada": "Critérios", "FIDCs": int((numeric.get("criteria_rows", pd.Series(0, index=numeric.index)) > 0).sum())},
             {"Camada": "Sub mínima", "FIDCs": int((numeric.get("criteria_subordination_rows", pd.Series(0, index=numeric.index)) > 0).sum())},
         ]
@@ -5239,7 +5289,14 @@ def _save_criteria_reviews(reviews: pd.DataFrame) -> None:
 
 
 def _persist_structured_criteria(reviews: pd.DataFrame) -> pd.DataFrame:
-    criteria = load_criteria_source(_ALL_FIDCS_CRITERIA)
+    criteria = pd.concat(
+        [
+            load_criteria_source(_ALL_FIDCS_CRITERIA),
+            load_regulatory_feature_criteria(_REGULATORY_DB),
+        ],
+        ignore_index=True,
+        sort=False,
+    )
     fund_universe = _load_cedente_fund_universe()
     structured = build_criteria_structured(
         criteria,
@@ -5276,6 +5333,7 @@ def _render_criteria_study() -> None:
     st.markdown('<div class="industry-section">Critérios, subordinação mínima e monitorabilidade</div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="industry-def">Base documental estruturada para regras contratuais extraídas de todos os FIDCs cobertos pela curadoria local. '
+        "A camada de features reaproveita a matriz regulatória da aba Estratégia sem contaminar a mediana de subordinação percentual. "
         "A revisão manual altera um overlay persistido e recompõe a base estruturada.</div>",
         unsafe_allow_html=True,
     )
@@ -5298,6 +5356,7 @@ def _render_criteria_study() -> None:
     quality = manifest.get("quality", {}) if isinstance(manifest, dict) else {}
     cards = [
         _curation_card("Regras estruturadas", _fmt_int(float(len(active))), f"{_fmt_int(float(active['cnpj_fundo'].nunique())) if 'cnpj_fundo' in active else '0'} FIDCs"),
+        _curation_card("Features Estratégia", _fmt_int(float(quality.get("feature_rows", 0))) if isinstance(quality, dict) else "0", f"{_fmt_int(float(quality.get('feature_funds', 0)))} FIDCs"),
         _curation_card("Sub mínima mediana", _pct_label(float(sub_values.median()) if not sub_values.empty else None), f"{_fmt_int(float(len(sub)))} regras · {_fmt_int(float(sub['cnpj_fundo'].nunique())) if 'cnpj_fundo' in sub else '0'} FIDCs"),
         _curation_card("IQR sub mínima", f"{_pct_label(float(sub_values.quantile(0.25)) if not sub_values.empty else None)}-{_pct_label(float(sub_values.quantile(0.75)) if not sub_values.empty else None)}", "p25-p75"),
         _curation_card("Monitoráveis", _fmt_int(float(quality.get("monitorable_rows", 0))) if isinstance(quality, dict) else "0", "proxy IME disponível"),
@@ -5429,7 +5488,7 @@ def _render_criteria_study() -> None:
             search = data[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=data.index)
             data = data[search.str.contains(query, case=False, na=False)].copy()
         show = data.sort_values(["periodo_prioritario", "score_num"], ascending=[False, False]).head(300)
-        keep = ["fundo", "cnpj_fundo", "setor", "segmento", "criterio", "chave", "limite_regra", "pct_min", "monitorabilidade_ime", "documento_origem", "document_date", "status_revisao", "score_confianca_final"]
+        keep = ["fundo", "cnpj_fundo", "setor", "segmento", "criterio", "chave", "fonte_camada", "limite_regra", "pct_min", "monitorabilidade_ime", "documento_origem", "document_date", "status_revisao", "score_confianca_final"]
         st.dataframe(
             show[[col for col in keep if col in show.columns]].rename(
                 columns={
@@ -5439,6 +5498,7 @@ def _render_criteria_study() -> None:
                     "segmento": "Segmento",
                     "criterio": "Critério",
                     "chave": "Chave",
+                    "fonte_camada": "Camada",
                     "limite_regra": "Regra",
                     "pct_min": "Pct mín.",
                     "monitorabilidade_ime": "Monitorabilidade",
@@ -5568,6 +5628,26 @@ def _render_cedente_review_workbench() -> None:
     frame["status"] = frame["status"].fillna("").replace("", "pendente")
     frame["score_confianca"] = pd.to_numeric(frame["score_confianca"], errors="coerce").fillna(0)
     structured = _build_structured_cedentes(candidates, reviews)
+    snapshot_tables = _load_fund_snapshot_tables()
+    snapshot = snapshot_tables.get("snapshot", pd.DataFrame())
+    signal_focus = _cedente_signal_focus_frame(snapshot if isinstance(snapshot, pd.DataFrame) else pd.DataFrame())
+    if not signal_focus.empty:
+        frame = frame.merge(signal_focus, on="cnpj_fundo", how="left")
+    else:
+        for col in [
+            "pl_sinal_brl",
+            "signal_admin_nome",
+            "signal_segmento_principal",
+            "participant_signal_rows",
+            "participant_signal_keys",
+            "participant_signal_evidence",
+            "criteria_documentos",
+            "document_chunk_ids",
+            "latest_regulamento_date",
+        ]:
+            if col not in frame.columns:
+                frame[col] = ""
+    focus_cnpjs = set(signal_focus["cnpj_fundo"].astype(str)) if not signal_focus.empty else set()
 
     type_labels = {
         "cedente_originador": "cedente/originador",
@@ -5588,11 +5668,12 @@ def _render_cedente_review_workbench() -> None:
             _fmt_int(float(frame[frame["participant_type"].eq("sacado_devedor")]["cnpj_fundo"].nunique())),
             "FIDCs com menção",
         ),
+        _curation_card("Sinal sem participante", _fmt_int(float(len(focus_cnpjs))), "prioridade de extração"),
         _curation_card("Revisões salvas", _fmt_int(float(len(reviews))), _CEDENTE_REVIEW_PATH.name),
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    filter_a, filter_b, filter_c, filter_d = st.columns([1.3, 0.8, 0.8, 0.7])
+    filter_a, filter_b, filter_c, filter_d, filter_e = st.columns([1.2, 0.78, 0.78, 0.65, 0.78])
     with filter_a:
         query = st.text_input("Buscar", key="industry_cedente_query", placeholder="fundo, CNPJ, participante ou evidência")
     with filter_b:
@@ -5609,12 +5690,15 @@ def _render_cedente_review_workbench() -> None:
         selected_statuses = st.multiselect("Status", statuses, default=statuses, key="industry_cedente_status")
     with filter_d:
         min_score = st.slider("Score mín.", 0.0, 0.95, 0.55, 0.05, key="industry_cedente_score")
+    with filter_e:
+        only_signal_focus = st.checkbox("Sinal sem participante", value=False, key="industry_cedente_signal_focus")
 
-    filtered = frame[
-        frame["participant_type"].isin(selected_types)
-        & frame["status"].isin(selected_statuses)
-        & frame["score_confianca"].ge(min_score)
-    ].copy()
+    score_mask = frame["score_confianca"].ge(min_score)
+    if only_signal_focus:
+        score_mask = pd.Series(True, index=frame.index)
+    filtered = frame[frame["participant_type"].isin(selected_types) & frame["status"].isin(selected_statuses) & score_mask].copy()
+    if only_signal_focus:
+        filtered = filtered[filtered["cnpj_fundo"].astype(str).isin(focus_cnpjs)].copy()
     if query:
         search = (
             filtered["fund_name"].astype(str)
@@ -5626,10 +5710,17 @@ def _render_cedente_review_workbench() -> None:
             + filtered["participant_cnpj_candidate"].astype(str)
             + " "
             + filtered["evidence_context"].astype(str)
+            + " "
+            + filtered.get("participant_signal_evidence", pd.Series("", index=filtered.index)).astype(str)
         )
         filtered = filtered[search.str.contains(query, case=False, na=False)].copy()
 
-    filtered = filtered.sort_values(["score_confianca", "cnpj_fundo"], ascending=[False, True]).head(120)
+    if only_signal_focus and "pl_sinal_brl" in filtered.columns:
+        filtered["pl_sinal_num"] = pd.to_numeric(filtered["pl_sinal_brl"], errors="coerce").fillna(0.0)
+        filtered = filtered.sort_values(["pl_sinal_num", "score_confianca", "cnpj_fundo"], ascending=[False, False, True])
+    else:
+        filtered = filtered.sort_values(["score_confianca", "cnpj_fundo"], ascending=[False, True])
+    filtered = filtered.head(120)
     if filtered.empty:
         st.caption("Nenhum candidato passou pelos filtros.")
         return
@@ -5652,12 +5743,17 @@ def _render_cedente_review_workbench() -> None:
             "Confiança manual": pd.to_numeric(filtered["confianca_manual"], errors="coerce"),
             "Score auto": filtered["score_confianca"].round(2),
             "Evidências": filtered["evidencias_agrupadas"],
+            "PL sinal": pd.to_numeric(filtered.get("pl_sinal_brl", pd.Series(0, index=filtered.index)), errors="coerce").fillna(0.0),
+            "Sinal regulatório": filtered.get("participant_signal_keys", pd.Series("", index=filtered.index)).fillna("").astype(str),
+            "Evidência sinal": filtered.get("participant_signal_evidence", pd.Series("", index=filtered.index)).fillna("").astype(str).str.slice(0, 240),
+            "Chunks sinal": filtered.get("document_chunk_ids", pd.Series("", index=filtered.index)).fillna("").astype(str),
             "Documento": filtered["documento_origem"],
             "Página": filtered["pagina"],
             "Evidência": filtered["evidence_context"].astype(str).str.slice(0, 240),
             "Notas": filtered["notas"].fillna("").astype(str),
         }
     )
+    display["PL sinal"] = display["PL sinal"].map(lambda value: _fmt_bi(float(value), 1) if float(value or 0) else "")
     disabled_cols = [
         "ID",
         "Tipo",
@@ -5667,6 +5763,10 @@ def _render_cedente_review_workbench() -> None:
         "CNPJ extraído",
         "Score auto",
         "Evidências",
+        "PL sinal",
+        "Sinal regulatório",
+        "Evidência sinal",
+        "Chunks sinal",
         "Documento",
         "Página",
         "Evidência",

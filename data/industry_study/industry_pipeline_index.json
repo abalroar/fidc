@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-index/v1",
-  "generated_at_utc": "2026-07-09T14:35:44+00:00",
+  "generated_at_utc": "2026-07-09T15:14:19+00:00",
   "pipeline": "industry_monthly_refresh",
   "industry_dir": "data/industry_study",
   "output_path": "data/industry_study/industry_pipeline_index.json",
@@ -20,8 +20,8 @@
     "module_status_counts": {
       "ok": 15
     },
-    "artifacts_total": 55,
-    "artifacts_present": 55,
+    "artifacts_total": 56,
+    "artifacts_present": 56,
     "artifacts_missing": 0,
     "optional_artifacts_total": 53,
     "optional_artifacts_present": 53,
@@ -29,7 +29,7 @@
     "manual_review_artifacts_total": 12,
     "manual_review_artifacts_present": 12,
     "manual_review_artifacts_missing": 0,
-    "latest_module_generated_at_utc": "2026-07-09T14:35:43+00:00",
+    "latest_module_generated_at_utc": "2026-07-09T15:13:15+00:00",
     "competencia_final": "202606",
     "competencia_snapshot": "202605",
     "monthly_delta_rows": 4279,
@@ -42,19 +42,19 @@
     "monthly_delta_high_priority_pending": 71,
     "monthly_delta_high_priority_in_progress": 0,
     "monthly_delta_high_priority_closed": 0,
-    "curation_queue_rows": 75116,
+    "curation_queue_rows": 82857,
     "curation_queue_funds": 4337,
-    "curation_queue_open_rows": 75116,
+    "curation_queue_open_rows": 82857,
     "curation_queue_high_priority_rows": 3563,
     "curation_queue_high_priority_open_rows": 3563,
     "curation_queue_high_priority_pending_rows": 3563,
     "curation_queue_high_priority_in_progress_rows": 0,
     "curation_queue_high_priority_closed_rows": 0,
     "curation_queue_priority_2025_2026_rows": 7787,
-    "curation_queue_summary_rows": 4438,
+    "curation_queue_summary_rows": 4439,
     "curation_queue_fund_backlog_rows": 4336,
     "curation_queue_admin_backlog_rows": 52,
-    "curation_queue_segment_backlog_rows": 42,
+    "curation_queue_segment_backlog_rows": 43,
     "document_chunks": 27,
     "document_chunk_plan_rows": 27,
     "document_chunk_plan_open_rows": 27,
@@ -69,7 +69,7 @@
     "document_chunks_blocked": 0,
     "document_chunks_processed": 0,
     "cedentes_structured_rows": 1478,
-    "criteria_structured_rows": 183,
+    "criteria_structured_rows": 4569,
     "subordination_funds": 21,
     "subordination_median_pct": 10.0,
     "issuance_volume_conservador_brl": 302957676634.37,
@@ -83,38 +83,42 @@
     "public_claim_audit_max_abs_delta_pct": 7.150438917299664,
     "fund_snapshot_rows": 4219,
     "fund_snapshot_with_cedentes": 99,
-    "fund_snapshot_with_criteria": 49,
-    "dimension_catalog_rows": 66644,
-    "dimension_catalog_dimensions": 28,
-    "dimension_monthly_rows": 67575,
+    "fund_snapshot_with_participant_signal": 167,
+    "fund_snapshot_with_participant_signal_without_cedente": 97,
+    "fund_snapshot_with_cedente_signal": 121,
+    "fund_snapshot_with_sacado_signal": 75,
+    "fund_snapshot_with_criteria": 550,
+    "dimension_catalog_rows": 74385,
+    "dimension_catalog_dimensions": 29,
+    "dimension_monthly_rows": 69548,
     "dimension_monthly_latest_competencia": "2026-05",
-    "dimension_value_atlas_rows": 853,
-    "dimension_value_atlas_dimensions": 28,
+    "dimension_value_atlas_rows": 862,
+    "dimension_value_atlas_dimensions": 29,
     "dimension_value_atlas_latest_competencia": "2026-05",
-    "dimension_value_atlas_values_with_pl": 845,
-    "dimension_value_atlas_values_with_source_document_links": 214,
-    "dimension_value_atlas_values_with_traceability_links": 853,
-    "dimension_value_atlas_values_with_source_document_sample": 214,
+    "dimension_value_atlas_values_with_pl": 854,
+    "dimension_value_atlas_values_with_source_document_links": 223,
+    "dimension_value_atlas_values_with_traceability_links": 862,
+    "dimension_value_atlas_values_with_source_document_sample": 223,
     "dimension_value_atlas_values_with_source_page_sample": 13,
-    "dimension_value_atlas_values_with_confidence": 177,
-    "dimension_value_atlas_traceability_coverage": 0.99893309156485,
-    "dimension_profile_rows": 58253,
-    "dimension_profile_source_dimensions": 28,
+    "dimension_value_atlas_values_with_confidence": 191,
+    "dimension_value_atlas_traceability_coverage": 0.9989427997185002,
+    "dimension_profile_rows": 69254,
+    "dimension_profile_source_dimensions": 29,
     "heatmap_preset_rows": 11,
     "heatmap_preset_available": 11,
     "heatmap_preset_profile_available": 11,
-    "dimension_dossier_rows": 28,
-    "dimension_dossier_ok_rows": 28,
+    "dimension_dossier_rows": 29,
+    "dimension_dossier_ok_rows": 29,
     "dimension_dossier_attention_rows": 0,
     "dimension_dossier_blocked_rows": 0,
-    "dimension_dossier_atlas_values": 853,
-    "dimension_dossier_with_profiles": 28,
-    "dimension_dossier_profile_rows": 58253,
+    "dimension_dossier_atlas_values": 862,
+    "dimension_dossier_with_profiles": 29,
+    "dimension_dossier_profile_rows": 69254,
     "dimension_dossier_heatmap_presets": 22,
-    "dimension_dossier_traceability_coverage": 0.9989891674964545,
-    "dimension_dossier_source_document_coverage": 0.09058266195950636,
-    "market_share_rows": 3900,
-    "market_share_dimensions": 15,
+    "dimension_dossier_traceability_coverage": 0.9990273950397147,
+    "dimension_dossier_source_document_coverage": 0.14964607986167397,
+    "market_share_rows": 3984,
+    "market_share_dimensions": 16,
     "market_share_metrics": 6,
     "prd_requirements_total": 12,
     "prd_status_counts": {
@@ -158,7 +162,7 @@
       "escopo": "Fila única all-FIDCs",
       "status_prontidao": "bloqueado",
       "pendencias": 3563,
-      "amostra": "75116 abertas; alta prioridade 3563/3563 abertas (3563 pendentes; 0 em andamento; 0 fechadas)",
+      "amostra": "82857 abertas; alta prioridade 3563/3563 abertas (3563 pendentes; 0 em andamento; 0 fechadas)",
       "acao_sugerida": "Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.",
       "fonte": "industry_curation_queue.csv.gz",
       "comando": "python scripts/build_fidc_industry_curation_queue.py"
@@ -181,8 +185,8 @@
       "frente": "Snapshot",
       "escopo": "Cobertura de cedentes e critérios estruturados",
       "status_prontidao": "atenção",
-      "pendencias": 4170,
-      "amostra": "cedentes 99/4219; critérios 49/4219",
+      "pendencias": 4120,
+      "amostra": "cedentes identificados 99/4219; sinal cedente/sacado 167/4219 (97 sem participante); critérios 550/4219",
       "acao_sugerida": "Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.",
       "fonte": "industry_fund_snapshot_manifest.json",
       "comando": "python scripts/build_fidc_industry_fund_snapshot.py"
@@ -244,7 +248,7 @@
       "requisito": "Atualização mensal incremental para novos FIDCs sem reprocessar tudo",
       "status_prd": "atenção",
       "evidencia": "4279 linhas de delta; 3563/3563 alta prioridade abertas na fila única",
-      "metrica": "delta_high_open=71; delta_high_total=71; curation_open=75116",
+      "metrica": "delta_high_open=71; delta_high_total=71; curation_open=82857",
       "artefato": "industry_monthly_delta.csv.gz | industry_curation_queue.csv.gz",
       "proximo_passo": "Fechar alta prioridade da fila única antes de publicar a competência.",
       "comando": "python scripts/build_fidc_industry_monthly_delta.py && python scripts/build_fidc_industry_curation_queue.py"
@@ -255,7 +259,7 @@
       "tema": "Qualidade",
       "requisito": "Camada auditável para escrutínio público com fonte, documento, página, método e score",
       "status_prd": "atenção",
-      "evidencia": "214 valores com documento; 13 com página; 177 com score; 8 claims públicos reconciliados",
+      "evidencia": "223 valores com documento; 13 com página; 191 com score; 8 claims públicos reconciliados",
       "metrica": "readiness_checks=11; methodology_gaps=8",
       "artefato": "industry_pipeline_index.json | industry_dimension_value_atlas.csv.gz | industry_public_claim_audit.csv",
       "proximo_passo": "Aumentar cobertura de página/score e manter diferenças ANBIMA/CVM explícitas antes de apresentações externas.",
@@ -267,7 +271,7 @@
       "tema": "Arquitetura",
       "requisito": "Pipeline modular com etapas reexecutáveis e artefatos persistidos",
       "status_prd": "ok",
-      "evidencia": "15/15 módulos ok; 55/55 artefatos obrigatórios presentes",
+      "evidencia": "15/15 módulos ok; 56/56 artefatos obrigatórios presentes",
       "metrica": "refresh_plan=17",
       "artefato": "industry_pipeline_index.json",
       "proximo_passo": "Rodar módulos não-ok ou gerar artefatos obrigatórios ausentes.",
@@ -279,7 +283,7 @@
       "tema": "Revisão manual",
       "requisito": "Curadoria pela interface com persistência e histórico",
       "status_prd": "ok",
-      "evidencia": "12/12 artefatos de revisão/histórico presentes; fila única 75116 linhas",
+      "evidencia": "12/12 artefatos de revisão/histórico presentes; fila única 82857 linhas",
       "metrica": "manual_artifacts=12/12",
       "artefato": "cedente_reviews.csv | criteria_reviews.csv | monthly_delta_actions.csv | document_chunk_actions.csv | snapshot_gap_actions.csv | dimension_catalog_gap_actions.csv",
       "proximo_passo": "Inicializar ledgers ausentes e usar a fila única e as mesas específicas para registrar decisões e auditoria.",
@@ -303,10 +307,10 @@
       "tema": "Cedentes",
       "requisito": "Base estruturada de cedentes/sacados com prioridade 2025-2026 e evidência",
       "status_prd": "ok",
-      "evidencia": "1478 linhas estruturadas; 99 FIDCs com cedentes no snapshot",
-      "metrica": "cedentes=1478",
+      "evidencia": "1478 linhas estruturadas; 99 FIDCs com participante identificado; 167 com sinal regulatório; 97 sinalizados sem participante",
+      "metrica": "cedentes=1478; sinais=167",
       "artefato": "cedentes_structured.csv.gz",
-      "proximo_passo": "Priorizar a fila única e revisar cedentes sem documento/página/score.",
+      "proximo_passo": "Priorizar FIDCs sinalizados sem participante para extrair razão social/CNPJ e fechar lacunas de fonte/página/score.",
       "comando": "python scripts/build_fidc_industry_cedentes.py"
     },
     {
@@ -315,7 +319,7 @@
       "tema": "Critérios",
       "requisito": "Subordinação mínima, critérios monitoráveis e score de extração",
       "status_prd": "ok",
-      "evidencia": "183 critérios; 21 FIDCs com sub mínima; mediana 10.0",
+      "evidencia": "4569 critérios; 21 FIDCs com sub mínima; mediana 10.0",
       "metrica": "subordination_funds=21",
       "artefato": "criteria_structured.csv.gz",
       "proximo_passo": "Completar revisão documental de regras monitoráveis e subordinação.",
@@ -327,8 +331,8 @@
       "tema": "Base estruturada",
       "requisito": "Catálogo CNPJ × dimensão × valor com fonte, documento, método e score",
       "status_prd": "ok",
-      "evidencia": "66644 linhas; 28 dimensões",
-      "metrica": "atlas_docs=214; atlas_pages=13",
+      "evidencia": "74385 linhas; 29 dimensões",
+      "metrica": "atlas_docs=223; atlas_pages=13",
       "artefato": "industry_dimension_catalog.csv.gz | industry_dimension_value_atlas.csv.gz",
       "proximo_passo": "Fechar lacunas de rastreabilidade no catálogo e rematerializar atlas/perfis.",
       "comando": "python scripts/build_fidc_industry_dimensions.py && python scripts/build_fidc_industry_dimension_monthly.py"
@@ -340,7 +344,7 @@
       "requisito": "Combinações livres e presets sem regra específica por painel",
       "status_prd": "ok",
       "evidencia": "11/11 presets com perfil materializado",
-      "metrica": "market_share_dimensions=15",
+      "metrica": "market_share_dimensions=16",
       "artefato": "industry_heatmap_registry.csv | industry_dimension_profiles.csv.gz",
       "proximo_passo": "Adicionar novas combinações pela lista declarativa de presets/dimensões.",
       "comando": "python scripts/build_fidc_industry_dimension_profiles.py"
@@ -351,8 +355,8 @@
       "tema": "Deep Dive",
       "requisito": "Análises por qualquer dimensão reutilizando catálogo, atlas, perfis e dossiês",
       "status_prd": "ok",
-      "evidencia": "28 dossiês; 853 valores no atlas; 58253 células de perfil",
-      "metrica": "ok=28; atenção=0; bloqueado=0",
+      "evidencia": "29 dossiês; 862 valores no atlas; 69254 células de perfil",
+      "metrica": "ok=29; atenção=0; bloqueado=0",
       "artefato": "industry_dimension_dossiers.csv | industry_dimension_value_atlas.csv.gz | industry_dimension_profiles.csv.gz",
       "proximo_passo": "Usar dossiês como camada primária do Deep Dive e completar fonte/página onde faltar.",
       "comando": "python scripts/build_fidc_industry_dimension_dossiers.py"
@@ -363,8 +367,8 @@
       "tema": "Market share",
       "requisito": "Market share, concentração e rankings por participante/dimensão",
       "status_prd": "ok",
-      "evidencia": "3900 linhas; 15 dimensões; 6 métricas",
-      "metrica": "market_share_rows=3900",
+      "evidencia": "3984 linhas; 16 dimensões; 6 métricas",
+      "metrica": "market_share_rows=3984",
       "artefato": "industry_market_share.csv.gz",
       "proximo_passo": "Reexecutar após mudanças no snapshot unificado por FIDC.",
       "comando": "python scripts/build_fidc_industry_market_share.py"
@@ -527,7 +531,7 @@
       "competencia_referencia": "202605",
       "status_modulo": "ok",
       "status_prontidao": "bloqueado",
-      "bloqueios_ou_atencoes": "Snapshot: 4170 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.) | Curadoria: 3563 (Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.)",
+      "bloqueios_ou_atencoes": "Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.) | Curadoria: 3563 (Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.)",
       "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "comando": "python scripts/build_fidc_industry_cedentes.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -548,15 +552,15 @@
       "competencia_referencia": "202605",
       "status_modulo": "ok",
       "status_prontidao": "bloqueado",
-      "bloqueios_ou_atencoes": "Snapshot: 4170 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.) | Curadoria: 3563 (Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.)",
+      "bloqueios_ou_atencoes": "Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.) | Curadoria: 3563 (Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.)",
       "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "comando": "python scripts/build_fidc_industry_criteria.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "data/regulatory_profiles/all_fidcs_criteria_monitoraveis_ime.csv | revisões manuais da UI",
-      "saidas": "criteria_structured | manifest",
-      "evidencia_atual": "source_rows=183 · source_funds=56 · structured_rows=183 · structured_funds=56 · subordination_rows=31 · subordination_funds=21",
-      "artefatos": "7/7",
-      "gerado_em_utc": "2026-07-08T17:16:28+00:00",
+      "saidas": "criteria_structured | manifest | review_audit",
+      "evidencia_atual": "source_rows=4569 · source_funds=619 · structured_rows=4569 · structured_funds=619 · feature_rows=4386 · feature_funds=617",
+      "artefatos": "8/8",
+      "gerado_em_utc": "2026-07-09T14:47:42+00:00",
       "motivo": "Atualiza regras monitoráveis, sub mínima e status de revisão por fundo.",
       "incrementalidade": "Revisões feitas pela UI são reaplicadas antes da consolidação."
     },
@@ -569,15 +573,15 @@
       "competencia_referencia": "202605",
       "status_modulo": "ok",
       "status_prontidao": "atenção",
-      "bloqueios_ou_atencoes": "Snapshot: 4170 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
+      "bloqueios_ou_atencoes": "Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
       "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "comando": "python scripts/build_fidc_industry_fund_snapshot.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "base granular mensal | emissões | documentos | cedentes | critérios",
       "saidas": "fund_snapshot | manifest",
-      "evidencia_atual": "fund_rows=4219 · pl_total_brl=957384697019.4601 · with_issuance_2025_2026=1014 · with_documents=651 · with_cedentes=99 · with_criteria=49",
+      "evidencia_atual": "fund_rows=4219 · pl_total_brl=957384697019.4601 · with_issuance_2025_2026=1014 · with_documents=651 · with_cedentes=99 · with_participant_signal=167",
       "artefatos": "10/10",
-      "gerado_em_utc": "2026-07-08T16:04:29+00:00",
+      "gerado_em_utc": "2026-07-09T14:58:28+00:00",
       "motivo": "Consolida uma linha por CNPJ com IME, emissões, documentos, cedentes e critérios.",
       "incrementalidade": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem."
     },
@@ -590,15 +594,15 @@
       "competencia_referencia": "202605",
       "status_modulo": "ok",
       "status_prontidao": "bloqueado",
-      "bloqueios_ou_atencoes": "Snapshot: 4170 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.) | Curadoria: 3563 (Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.)",
+      "bloqueios_ou_atencoes": "Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.) | Curadoria: 3563 (Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.)",
       "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "comando": "python scripts/build_fidc_industry_dimensions.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "snapshot unificado por FIDC | cedentes estruturados",
       "saidas": "dimension_catalog | manifest",
-      "evidencia_atual": "rows=66644 · funds=4286 · dimensions=28 · curated_rows=3741 · weighted_dimensions=7 · with_source_document=6433",
+      "evidencia_atual": "rows=74385 · funds=4286 · dimensions=29 · curated_rows=3741 · weighted_dimensions=7 · with_source_document=11507",
       "artefatos": "6/6",
-      "gerado_em_utc": "2026-07-08T20:20:00+00:00",
+      "gerado_em_utc": "2026-07-09T15:12:27+00:00",
       "motivo": "Explode CNPJ x dimensão x valor com pesos, fonte e metadados de curadoria.",
       "incrementalidade": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos."
     },
@@ -617,9 +621,9 @@
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "delta mensal | snapshot unificado por FIDC | documentos | catálogo de dimensões",
       "saidas": "curation_queue | manifest | curation_queue_summary",
-      "evidencia_atual": "rows=75116 · funds=4337 · open_rows=75116 · high_priority_rows=3563 · high_priority_open_rows=3563 · high_priority_pending_rows=3563",
+      "evidencia_atual": "rows=82857 · funds=4337 · open_rows=82857 · high_priority_rows=3563 · high_priority_open_rows=3563 · high_priority_pending_rows=3563",
       "artefatos": "11/11",
-      "gerado_em_utc": "2026-07-09T14:35:43+00:00",
+      "gerado_em_utc": "2026-07-09T15:13:15+00:00",
       "motivo": "Une delta mensal, lacunas all-FIDCs, chunks documentais e rastreabilidade do catálogo em uma fila operacional.",
       "incrementalidade": "Rerun leve depois de salvar ações manuais na UI ou de regenerar qualquer fila detalhe."
     },
@@ -632,15 +636,15 @@
       "competencia_referencia": "202605",
       "status_modulo": "ok",
       "status_prontidao": "atenção",
-      "bloqueios_ou_atencoes": "Snapshot: 4170 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
+      "bloqueios_ou_atencoes": "Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
       "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "comando": "python scripts/build_fidc_industry_dimension_profiles.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "snapshot unificado por FIDC | catálogo de dimensões",
       "saidas": "dimension_profiles | manifest | heatmap_registry",
-      "evidencia_atual": "rows=58253 · competencia=2026-05 · source_dimensions=28 · target_dimensions=28 · source_values=853 · target_values=853",
+      "evidencia_atual": "rows=69254 · competencia=2026-05 · source_dimensions=29 · target_dimensions=29 · source_values=862 · target_values=862",
       "artefatos": "5/5",
-      "gerado_em_utc": "2026-07-09T02:42:01+00:00",
+      "gerado_em_utc": "2026-07-09T15:12:39+00:00",
       "motivo": "Materializa composição de cada dimensão por outras dimensões para Deep Dive e heatmaps sem cálculo ad hoc.",
       "incrementalidade": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado."
     },
@@ -653,15 +657,15 @@
       "competencia_referencia": "202605",
       "status_modulo": "ok",
       "status_prontidao": "atenção",
-      "bloqueios_ou_atencoes": "Snapshot: 4170 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
+      "bloqueios_ou_atencoes": "Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
       "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "comando": "python scripts/build_fidc_industry_dimension_monthly.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "base granular mensal | catálogo de dimensões",
       "saidas": "dimension_monthly | manifest | dimension_value_atlas",
-      "evidencia_atual": "rows=67575 · months=161 · dimensions=28 · dimension_values=859 · latest_competencia=2026-05 · latest_rows=853",
+      "evidencia_atual": "rows=69548 · months=161 · dimensions=29 · dimension_values=868 · latest_competencia=2026-05 · latest_rows=862",
       "artefatos": "5/5",
-      "gerado_em_utc": "2026-07-09T14:21:05+00:00",
+      "gerado_em_utc": "2026-07-09T15:12:49+00:00",
       "motivo": "Agrega PL, fluxos, carteira, inadimplência, fundos e veículos por competência × dimensão × valor.",
       "incrementalidade": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação."
     },
@@ -674,15 +678,15 @@
       "competencia_referencia": "202605",
       "status_modulo": "ok",
       "status_prontidao": "atenção",
-      "bloqueios_ou_atencoes": "Snapshot: 4170 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
+      "bloqueios_ou_atencoes": "Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
       "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "comando": "python scripts/build_fidc_industry_dimension_dossiers.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "séries mensais por dimensão | perfis cruzados | registry de heatmaps",
       "saidas": "dimension_dossiers | manifest",
-      "evidencia_atual": "rows=28 · dimensions=28 · ok_rows=28 · attention_rows=0 · blocked_rows=0 · atlas_values=853",
+      "evidencia_atual": "rows=29 · dimensions=29 · ok_rows=29 · attention_rows=0 · blocked_rows=0 · atlas_values=862",
       "artefatos": "5/5",
-      "gerado_em_utc": "2026-07-09T14:21:06+00:00",
+      "gerado_em_utc": "2026-07-09T15:12:58+00:00",
       "motivo": "Resume cobertura, evidência, perfis e presets de cada dimensão para Deep Dive e auditoria mês a mês.",
       "incrementalidade": "Lê apenas atlas, perfis e registry já materializados; não reprocessa documentos ou informe mensal."
     },
@@ -695,15 +699,15 @@
       "competencia_referencia": "202605",
       "status_modulo": "ok",
       "status_prontidao": "atenção",
-      "bloqueios_ou_atencoes": "Snapshot: 4170 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
+      "bloqueios_ou_atencoes": "Snapshot: 4120 (Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.)",
       "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "comando": "python scripts/build_fidc_industry_market_share.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "snapshot unificado por FIDC",
       "saidas": "market_share | manifest",
-      "evidencia_atual": "rows=3900 · dimensions=15 · metrics=6 · weighted_dimensions=4 · top5_pl_share_admin=0.5230858938032834 · hhi_pl_admin=739.6354403547211",
+      "evidencia_atual": "rows=3984 · dimensions=16 · metrics=6 · weighted_dimensions=4 · top5_pl_share_admin=0.5230858938032834 · hhi_pl_admin=739.6354403547211",
       "artefatos": "3/3",
-      "gerado_em_utc": "2026-07-08T20:20:06+00:00",
+      "gerado_em_utc": "2026-07-09T15:12:34+00:00",
       "motivo": "Materializa rankings por administrador, segmento, documentos, critérios e dimensões multivalor.",
       "incrementalidade": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe."
     },
@@ -722,9 +726,9 @@
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "",
       "saidas": "",
-      "evidencia_atual": "prd_requirements_total=12 · artifacts_present=55 · artifacts_total=55",
-      "artefatos": "55/55",
-      "gerado_em_utc": "2026-07-09T14:35:43+00:00",
+      "evidencia_atual": "prd_requirements_total=12 · artifacts_present=56 · artifacts_total=56",
+      "artefatos": "56/56",
+      "gerado_em_utc": "2026-07-09T15:13:15+00:00",
       "motivo": "Recalcula hashes, freshness, status dos módulos e checklist mensal visível na aba Pipeline.",
       "incrementalidade": "Não reprocessa dados; apenas lê manifests e arquivos já materializados."
     }
@@ -1033,7 +1037,7 @@
       "status": "ok",
       "schema_version": "industry-curation-queue-manifest/v1",
       "pipeline": "industry_curation_queue",
-      "generated_at_utc": "2026-07-09T14:35:43+00:00",
+      "generated_at_utc": "2026-07-09T15:13:15+00:00",
       "manifest_path": "data/industry_study/industry_curation_queue_manifest.json",
       "command": "python scripts/build_fidc_industry_curation_queue.py",
       "cadence": "mensal/após filas operacionais",
@@ -1050,33 +1054,33 @@
       "artifact_count": 11,
       "artifacts_present": 11,
       "quality_highlights": {
-        "rows": 75116,
+        "rows": 82857,
         "funds": 4337,
-        "open_rows": 75116,
+        "open_rows": 82857,
         "high_priority_rows": 3563,
         "high_priority_open_rows": 3563,
         "high_priority_pending_rows": 3563,
         "high_priority_in_progress_rows": 0,
         "high_priority_closed_rows": 0,
         "priority_2025_2026_rows": 7787,
-        "summary_rows": 4438,
+        "summary_rows": 4439,
         "summary_type_counts": {
           "fidc_backlog": 4336,
           "admin_backlog": 52,
-          "segment_backlog": 42,
+          "segment_backlog": 43,
           "frente_status": 8
         },
         "fund_backlog_rows": 4336,
         "admin_backlog_rows": 52,
-        "segment_backlog_rows": 42,
+        "segment_backlog_rows": 43,
         "domain_counts": {
-          "catalog_gap": 66599,
+          "catalog_gap": 74340,
           "monthly_delta": 4279,
           "snapshot_gap": 4211,
           "document_chunk": 27
         },
         "status_counts": {
-          "pendente": 75116
+          "pendente": 82857
         }
       }
     },
@@ -1150,7 +1154,7 @@
       "status": "ok",
       "schema_version": "industry-criteria-manifest/v1",
       "pipeline": "industry_criteria_structured",
-      "generated_at_utc": "2026-07-08T17:16:28+00:00",
+      "generated_at_utc": "2026-07-09T14:47:42+00:00",
       "manifest_path": "data/industry_study/industry_criteria_manifest.json",
       "command": "python scripts/build_fidc_industry_criteria.py",
       "cadence": "após curadoria regulatória",
@@ -1159,16 +1163,20 @@
         "revisões manuais da UI"
       ],
       "stage_status_counts": {
-        "ok": 4
+        "ok": 5
       },
-      "stage_count": 4,
-      "artifact_count": 7,
-      "artifacts_present": 7,
+      "stage_count": 5,
+      "artifact_count": 8,
+      "artifacts_present": 8,
       "quality_highlights": {
-        "source_rows": 183,
-        "source_funds": 56,
-        "structured_rows": 183,
-        "structured_funds": 56,
+        "source_rows": 4569,
+        "source_funds": 619,
+        "structured_rows": 4569,
+        "structured_funds": 619,
+        "feature_rows": 4386,
+        "feature_funds": 617,
+        "documentary_rows": 183,
+        "documentary_funds": 56,
         "subordination_rows": 31,
         "subordination_funds": 21,
         "monitorable_rows": 114,
@@ -1182,7 +1190,7 @@
       "status": "ok",
       "schema_version": "industry-fund-snapshot-manifest/v1",
       "pipeline": "industry_fund_snapshot",
-      "generated_at_utc": "2026-07-08T16:04:29+00:00",
+      "generated_at_utc": "2026-07-09T14:58:28+00:00",
       "manifest_path": "data/industry_study/industry_fund_snapshot_manifest.json",
       "command": "python scripts/build_fidc_industry_fund_snapshot.py",
       "cadence": "após módulos estruturados",
@@ -1205,7 +1213,11 @@
         "with_issuance_2025_2026": 1014,
         "with_documents": 651,
         "with_cedentes": 99,
-        "with_criteria": 49,
+        "with_participant_signal": 167,
+        "with_participant_signal_without_cedente": 97,
+        "with_cedente_signal": 121,
+        "with_sacado_signal": 75,
+        "with_criteria": 550,
         "with_subordination_min": 19
       }
     },
@@ -1215,7 +1227,7 @@
       "status": "ok",
       "schema_version": "industry-dimension-catalog-manifest/v1",
       "pipeline": "industry_dimension_catalog",
-      "generated_at_utc": "2026-07-08T20:20:00+00:00",
+      "generated_at_utc": "2026-07-09T15:12:27+00:00",
       "manifest_path": "data/industry_study/industry_dimension_catalog_manifest.json",
       "command": "python scripts/build_fidc_industry_dimensions.py",
       "cadence": "após snapshot/cedentes",
@@ -1230,13 +1242,13 @@
       "artifact_count": 6,
       "artifacts_present": 6,
       "quality_highlights": {
-        "rows": 66644,
+        "rows": 74385,
         "funds": 4286,
-        "dimensions": 28,
+        "dimensions": 29,
         "curated_rows": 3741,
         "weighted_dimensions": 7,
-        "with_source_document": 6433,
-        "with_confidence": 4135
+        "with_source_document": 11507,
+        "with_confidence": 9212
       }
     },
     {
@@ -1245,7 +1257,7 @@
       "status": "ok",
       "schema_version": "industry-dimension-monthly-manifest/v1",
       "pipeline": "industry_dimension_monthly",
-      "generated_at_utc": "2026-07-09T14:21:05+00:00",
+      "generated_at_utc": "2026-07-09T15:12:49+00:00",
       "manifest_path": "data/industry_study/industry_dimension_monthly_manifest.json",
       "command": "python scripts/build_fidc_industry_dimension_monthly.py",
       "cadence": "após catálogo de dimensões",
@@ -1260,24 +1272,24 @@
       "artifact_count": 5,
       "artifacts_present": 5,
       "quality_highlights": {
-        "rows": 67575,
+        "rows": 69548,
         "months": 161,
-        "dimensions": 28,
-        "dimension_values": 859,
+        "dimensions": 29,
+        "dimension_values": 868,
         "latest_competencia": "2026-05",
-        "latest_rows": 853,
-        "with_source_document_links": 13879,
+        "latest_rows": 862,
+        "with_source_document_links": 15842,
         "curated_rows": 7727,
-        "atlas_rows": 853,
-        "atlas_dimensions": 28,
+        "atlas_rows": 862,
+        "atlas_dimensions": 29,
         "atlas_latest_competencia": "2026-05",
-        "atlas_values_with_pl": 845,
-        "atlas_values_with_source_document_links": 214,
-        "atlas_values_with_traceability_links": 853,
-        "atlas_values_with_source_document_sample": 214,
+        "atlas_values_with_pl": 854,
+        "atlas_values_with_source_document_links": 223,
+        "atlas_values_with_traceability_links": 862,
+        "atlas_values_with_source_document_sample": 223,
         "atlas_values_with_source_page_sample": 13,
-        "atlas_values_with_confidence": 177,
-        "atlas_traceability_coverage": 0.99893309156485
+        "atlas_values_with_confidence": 191,
+        "atlas_traceability_coverage": 0.9989427997185002
       }
     },
     {
@@ -1286,7 +1298,7 @@
       "status": "ok",
       "schema_version": "industry-dimension-profile-manifest/v1",
       "pipeline": "industry_dimension_profiles",
-      "generated_at_utc": "2026-07-09T02:42:01+00:00",
+      "generated_at_utc": "2026-07-09T15:12:39+00:00",
       "manifest_path": "data/industry_study/industry_dimension_profile_manifest.json",
       "command": "python scripts/build_fidc_industry_dimension_profiles.py",
       "cadence": "após catálogo de dimensões",
@@ -1301,14 +1313,14 @@
       "artifact_count": 5,
       "artifacts_present": 5,
       "quality_highlights": {
-        "rows": 58253,
+        "rows": 69254,
         "competencia": "2026-05",
-        "source_dimensions": 28,
-        "target_dimensions": 28,
-        "source_values": 853,
-        "target_values": 853,
-        "with_source_document_links": 242902,
-        "curated_links": 148422,
+        "source_dimensions": 29,
+        "target_dimensions": 29,
+        "source_values": 862,
+        "target_values": 862,
+        "with_source_document_links": 509306,
+        "curated_links": 200802,
         "heatmap_preset_rows": 11,
         "heatmap_preset_available": 11,
         "heatmap_preset_profile_available": 11,
@@ -1323,7 +1335,7 @@
       "status": "ok",
       "schema_version": "industry-dimension-dossier-manifest/v1",
       "pipeline": "industry_dimension_dossiers",
-      "generated_at_utc": "2026-07-09T14:21:06+00:00",
+      "generated_at_utc": "2026-07-09T15:12:58+00:00",
       "manifest_path": "data/industry_study/industry_dimension_dossier_manifest.json",
       "command": "python scripts/build_fidc_industry_dimension_dossiers.py",
       "cadence": "após atlas e perfis cruzados",
@@ -1339,19 +1351,19 @@
       "artifact_count": 5,
       "artifacts_present": 5,
       "quality_highlights": {
-        "rows": 28,
-        "dimensions": 28,
-        "ok_rows": 28,
+        "rows": 29,
+        "dimensions": 29,
+        "ok_rows": 29,
         "attention_rows": 0,
         "blocked_rows": 0,
-        "atlas_values": 853,
-        "atlas_values_with_pl": 845,
-        "with_profiles": 28,
-        "profile_rows": 58253,
+        "atlas_values": 862,
+        "atlas_values_with_pl": 854,
+        "with_profiles": 29,
+        "profile_rows": 69254,
         "heatmap_presets": 22,
         "heatmap_presets_ok": 22,
-        "traceability_coverage": 0.9989891674964545,
-        "source_document_coverage": 0.09058266195950636
+        "traceability_coverage": 0.9990273950397147,
+        "source_document_coverage": 0.14964607986167397
       }
     },
     {
@@ -1360,7 +1372,7 @@
       "status": "ok",
       "schema_version": "industry-market-share-manifest/v1",
       "pipeline": "industry_market_share",
-      "generated_at_utc": "2026-07-08T20:20:06+00:00",
+      "generated_at_utc": "2026-07-09T15:12:34+00:00",
       "manifest_path": "data/industry_study/industry_market_share_manifest.json",
       "command": "python scripts/build_fidc_industry_market_share.py",
       "cadence": "após snapshot unificado",
@@ -1374,8 +1386,8 @@
       "artifact_count": 3,
       "artifacts_present": 3,
       "quality_highlights": {
-        "rows": 3900,
-        "dimensions": 15,
+        "rows": 3984,
+        "dimensions": 16,
         "metrics": 6,
         "weighted_dimensions": 4,
         "top5_pl_share_admin": 0.5230858938032834,
@@ -1760,8 +1772,8 @@
       "required": false,
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 389658,
-      "sha256": "b23a50f92e9b1e3aef0bfb84d77d4bd42fdf912e3b001fb337d6bef5fd5c847e"
+      "bytes": 411296,
+      "sha256": "60f60a382987f6f8cdc2ac45f0ddec1771da9f57cf28ffa6d2dc1903a0b813f2"
     },
     {
       "module_id": "monthly_delta",
@@ -1930,8 +1942,8 @@
       "required": false,
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 389658,
-      "sha256": "b23a50f92e9b1e3aef0bfb84d77d4bd42fdf912e3b001fb337d6bef5fd5c847e"
+      "bytes": 411296,
+      "sha256": "60f60a382987f6f8cdc2ac45f0ddec1771da9f57cf28ffa6d2dc1903a0b813f2"
     },
     {
       "module_id": "curation_queue",
@@ -1960,8 +1972,8 @@
       "required": false,
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1370618,
-      "sha256": "114fbb900d57a5f186963813e6b13c4c448934390dcaae0778773018581b234a"
+      "bytes": 1550241,
+      "sha256": "ea70e6f3cd1458c5bb1db7cf071d08610e7ee2afce0877914078c52776e5f016"
     },
     {
       "module_id": "curation_queue",
@@ -2010,8 +2022,8 @@
       "required": true,
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
-      "bytes": 2396743,
-      "sha256": "aa075dac3481951b3ee4b2025c63b97d3694c77683da66fc464ac42bba4912c6"
+      "bytes": 2572192,
+      "sha256": "7ece6fe074ccf5adaf6888310e11658250dc1e2aa4cd1c966a879124cb287c99"
     },
     {
       "module_id": "curation_queue",
@@ -2021,7 +2033,7 @@
       "path": "data/industry_study/industry_curation_queue_manifest.json",
       "exists": true,
       "bytes": 4980,
-      "sha256": "18e2e06981ee7b62ddc51228c35c0597b6c310bcdb63c26c279e908e6e74d9be"
+      "sha256": "89931659866b5d113ada24425f2d7c1eafacf46c457f6315f1950218fbde24d4"
     },
     {
       "module_id": "curation_queue",
@@ -2030,8 +2042,8 @@
       "required": true,
       "path": "data/industry_study/industry_curation_queue_summary.csv.gz",
       "exists": true,
-      "bytes": 258201,
-      "sha256": "572dafe360f464466a436b47431eff8398b3d140c40fde6fa6974c1b3e0f64b5"
+      "bytes": 260281,
+      "sha256": "190fd6cc16be834fc5373b33add6d773c83018a47790c3e1e5f0c1c3a9cd4e07"
     },
     {
       "module_id": "documents",
@@ -2231,8 +2243,8 @@
       "required": true,
       "path": "data/industry_study/criteria_structured.csv.gz",
       "exists": true,
-      "bytes": 38542,
-      "sha256": "504ba7317208a2735b4f88858e9b96b56dce34b87ddc563b25c00a1e0faebdf4"
+      "bytes": 338559,
+      "sha256": "e473e54966c25c4530fd43c192a9ec4887c4e0d258859061185760d6f21b47d9"
     },
     {
       "module_id": "criteria",
@@ -2241,8 +2253,18 @@
       "required": true,
       "path": "data/industry_study/industry_criteria_manifest.json",
       "exists": true,
-      "bytes": 4284,
-      "sha256": "848cbeb327cd15674206bc33cfdc2e23d0bfe2b60739a52690bfbd96c05b0473"
+      "bytes": 5684,
+      "sha256": "37771127fa05610da865a1478764244a95c8cead9f8f0b1c6e8b9a6aaf4d0222"
+    },
+    {
+      "module_id": "criteria",
+      "group": "outputs",
+      "artifact": "review_audit",
+      "required": true,
+      "path": "data/industry_study/criteria_review_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
     },
     {
       "module_id": "criteria",
@@ -2311,8 +2333,8 @@
       "required": false,
       "path": "data/industry_study/criteria_structured.csv.gz",
       "exists": true,
-      "bytes": 38542,
-      "sha256": "504ba7317208a2735b4f88858e9b96b56dce34b87ddc563b25c00a1e0faebdf4"
+      "bytes": 338559,
+      "sha256": "e473e54966c25c4530fd43c192a9ec4887c4e0d258859061185760d6f21b47d9"
     },
     {
       "module_id": "fund_snapshot",
@@ -2331,8 +2353,8 @@
       "required": true,
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 389658,
-      "sha256": "b23a50f92e9b1e3aef0bfb84d77d4bd42fdf912e3b001fb337d6bef5fd5c847e"
+      "bytes": 411296,
+      "sha256": "60f60a382987f6f8cdc2ac45f0ddec1771da9f57cf28ffa6d2dc1903a0b813f2"
     },
     {
       "module_id": "fund_snapshot",
@@ -2341,8 +2363,8 @@
       "required": true,
       "path": "data/industry_study/industry_fund_snapshot_manifest.json",
       "exists": true,
-      "bytes": 4226,
-      "sha256": "4086dfe684fb7a40f7c0cb790b7c3f7e7924193812a5f33aca96c12b0a235ba0"
+      "bytes": 4430,
+      "sha256": "62ab439ec55572686c778f06f2d44ac713facbbebd8e275d7ca46adde00164a4"
     },
     {
       "module_id": "fund_snapshot",
@@ -2371,8 +2393,8 @@
       "required": false,
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 389658,
-      "sha256": "b23a50f92e9b1e3aef0bfb84d77d4bd42fdf912e3b001fb337d6bef5fd5c847e"
+      "bytes": 411296,
+      "sha256": "60f60a382987f6f8cdc2ac45f0ddec1771da9f57cf28ffa6d2dc1903a0b813f2"
     },
     {
       "module_id": "dimension_catalog",
@@ -2391,8 +2413,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1370618,
-      "sha256": "114fbb900d57a5f186963813e6b13c4c448934390dcaae0778773018581b234a"
+      "bytes": 1550241,
+      "sha256": "ea70e6f3cd1458c5bb1db7cf071d08610e7ee2afce0877914078c52776e5f016"
     },
     {
       "module_id": "dimension_catalog",
@@ -2401,8 +2423,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_catalog_manifest.json",
       "exists": true,
-      "bytes": 2490,
-      "sha256": "b6c49c6612a11932dd618886708bc6824bc2640e794b67c3c5f91462fe8f9ecb"
+      "bytes": 2491,
+      "sha256": "0ae70e8e03e598892f4c96fcc4a96ed50328f0ea63e9ee7664e8447ea1f542dc"
     },
     {
       "module_id": "dimension_catalog",
@@ -2441,8 +2463,8 @@
       "required": false,
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1370618,
-      "sha256": "114fbb900d57a5f186963813e6b13c4c448934390dcaae0778773018581b234a"
+      "bytes": 1550241,
+      "sha256": "ea70e6f3cd1458c5bb1db7cf071d08610e7ee2afce0877914078c52776e5f016"
     },
     {
       "module_id": "dimension_monthly",
@@ -2451,8 +2473,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_monthly.csv.gz",
       "exists": true,
-      "bytes": 2918430,
-      "sha256": "ffe1f59906a06715a4e2db4836da7dfcf664be4c76c6c1467a9bafb4cc4e5e9a"
+      "bytes": 3077398,
+      "sha256": "71e5ac21b95f2593dd5602ba80e69d77a2c5c0103200474522f4c3a9ae50c98f"
     },
     {
       "module_id": "dimension_monthly",
@@ -2461,8 +2483,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_monthly_manifest.json",
       "exists": true,
-      "bytes": 3928,
-      "sha256": "5b32b7e7cfa94a16a584174f9f70596d971a5019bccc3544dfebe57379649c26"
+      "bytes": 3931,
+      "sha256": "6afa1503073df920b07d1b1c6fc020249aff18fb569190459245e90052315f1b"
     },
     {
       "module_id": "dimension_monthly",
@@ -2471,8 +2493,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_value_atlas.csv.gz",
       "exists": true,
-      "bytes": 90360,
-      "sha256": "98b6959d20fa46665b008ef1badc7215d6e8c2113868ad236c9b2743f14b34d3"
+      "bytes": 92597,
+      "sha256": "fa9f3b0ceeb1ddde05d78255d757cb8690efc8358ff20bec6fef1c66dbee5bf1"
     },
     {
       "module_id": "dimension_profiles",
@@ -2481,8 +2503,8 @@
       "required": false,
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 389658,
-      "sha256": "b23a50f92e9b1e3aef0bfb84d77d4bd42fdf912e3b001fb337d6bef5fd5c847e"
+      "bytes": 411296,
+      "sha256": "60f60a382987f6f8cdc2ac45f0ddec1771da9f57cf28ffa6d2dc1903a0b813f2"
     },
     {
       "module_id": "dimension_profiles",
@@ -2491,8 +2513,8 @@
       "required": false,
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1370618,
-      "sha256": "114fbb900d57a5f186963813e6b13c4c448934390dcaae0778773018581b234a"
+      "bytes": 1550241,
+      "sha256": "ea70e6f3cd1458c5bb1db7cf071d08610e7ee2afce0877914078c52776e5f016"
     },
     {
       "module_id": "dimension_profiles",
@@ -2501,8 +2523,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_profiles.csv.gz",
       "exists": true,
-      "bytes": 1293074,
-      "sha256": "1bee31c930b7f9f15dbd8b6ad710b378455f3158a0727bac2b60271a68656da8"
+      "bytes": 1744805,
+      "sha256": "dc47e80d352399c3db347a251715e1ea736479c8a67c6d9b043b7d238e7f4381"
     },
     {
       "module_id": "dimension_profiles",
@@ -2512,7 +2534,7 @@
       "path": "data/industry_study/industry_dimension_profile_manifest.json",
       "exists": true,
       "bytes": 3334,
-      "sha256": "4898a197d2f3d673635114dec9051acb17a0ca765b840340e2ad6b994691fc6c"
+      "sha256": "397fb55da87553f95a77117213eee9e43121884453ea7b7b4d5e7e8ce7cf1306"
     },
     {
       "module_id": "dimension_profiles",
@@ -2521,8 +2543,8 @@
       "required": true,
       "path": "data/industry_study/industry_heatmap_registry.csv",
       "exists": true,
-      "bytes": 2979,
-      "sha256": "73fd6d5e4aeccc397769779cb00ae701e0d36cf8c445d74528a93c6720548d98"
+      "bytes": 2983,
+      "sha256": "1db458fdcefb1c4a596812697022ed069b2e35738e23f8e0aae5530f4d22aa9b"
     },
     {
       "module_id": "dimension_dossiers",
@@ -2531,8 +2553,8 @@
       "required": false,
       "path": "data/industry_study/industry_dimension_value_atlas.csv.gz",
       "exists": true,
-      "bytes": 90360,
-      "sha256": "98b6959d20fa46665b008ef1badc7215d6e8c2113868ad236c9b2743f14b34d3"
+      "bytes": 92597,
+      "sha256": "fa9f3b0ceeb1ddde05d78255d757cb8690efc8358ff20bec6fef1c66dbee5bf1"
     },
     {
       "module_id": "dimension_dossiers",
@@ -2541,8 +2563,8 @@
       "required": false,
       "path": "data/industry_study/industry_dimension_profiles.csv.gz",
       "exists": true,
-      "bytes": 1293074,
-      "sha256": "1bee31c930b7f9f15dbd8b6ad710b378455f3158a0727bac2b60271a68656da8"
+      "bytes": 1744805,
+      "sha256": "dc47e80d352399c3db347a251715e1ea736479c8a67c6d9b043b7d238e7f4381"
     },
     {
       "module_id": "dimension_dossiers",
@@ -2551,8 +2573,8 @@
       "required": false,
       "path": "data/industry_study/industry_heatmap_registry.csv",
       "exists": true,
-      "bytes": 2979,
-      "sha256": "73fd6d5e4aeccc397769779cb00ae701e0d36cf8c445d74528a93c6720548d98"
+      "bytes": 2983,
+      "sha256": "1db458fdcefb1c4a596812697022ed069b2e35738e23f8e0aae5530f4d22aa9b"
     },
     {
       "module_id": "dimension_dossiers",
@@ -2561,8 +2583,8 @@
       "required": true,
       "path": "data/industry_study/industry_dimension_dossiers.csv",
       "exists": true,
-      "bytes": 23652,
-      "sha256": "1b956d5d15be2df1537a4edd9988f943c282a4d20d3145faf15148d85dbfbd8c"
+      "bytes": 24672,
+      "sha256": "dc80c45aec97aab23ea2ad908e6b4cb1a550072c305c6ff4dbaca829e6d28f38"
     },
     {
       "module_id": "dimension_dossiers",
@@ -2572,7 +2594,7 @@
       "path": "data/industry_study/industry_dimension_dossier_manifest.json",
       "exists": true,
       "bytes": 3005,
-      "sha256": "a6361903a07ebe7ae9de126195a373b21071f652917be0f19d00c24b6bf8b63f"
+      "sha256": "3ef7a68fc5d307e407163fa6ab636580f378ec55f56a13b955b46a711f04b3e0"
     },
     {
       "module_id": "market_share",
@@ -2581,8 +2603,8 @@
       "required": false,
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 389658,
-      "sha256": "b23a50f92e9b1e3aef0bfb84d77d4bd42fdf912e3b001fb337d6bef5fd5c847e"
+      "bytes": 411296,
+      "sha256": "60f60a382987f6f8cdc2ac45f0ddec1771da9f57cf28ffa6d2dc1903a0b813f2"
     },
     {
       "module_id": "market_share",
@@ -2591,8 +2613,8 @@
       "required": true,
       "path": "data/industry_study/industry_market_share.csv.gz",
       "exists": true,
-      "bytes": 125336,
-      "sha256": "fbe668549938da6f644decc37687d965d152b6a9b685724ec1335c7df1fea613"
+      "bytes": 132066,
+      "sha256": "3326cfb0bd54bed6d49cf9a7c3257681a812ffda503346893eee73761db89012"
     },
     {
       "module_id": "market_share",
@@ -2602,7 +2624,7 @@
       "path": "data/industry_study/industry_market_share_manifest.json",
       "exists": true,
       "bytes": 2237,
-      "sha256": "faccc7fc6ca15dd59d3cb5a0b2230b748f248aa0adab707b45587df4909687a5"
+      "sha256": "d6688390ff9f421119a16133bba393581960041f9f93254204271249ff920ea7"
     }
   ]
 }

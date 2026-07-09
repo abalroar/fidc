@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-fund-snapshot-manifest/v1",
-  "generated_at_utc": "2026-07-08T16:04:29+00:00",
+  "generated_at_utc": "2026-07-09T14:58:28+00:00",
   "pipeline": "industry_fund_snapshot",
   "design_constraints": {
     "modular": true,
@@ -34,28 +34,28 @@
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 312955,
-      "sha256": "5a239358d9c6147c16c63292382ad7213454bd115e6f9f59bc9de6ccbd598829"
+      "bytes": 313437,
+      "sha256": "51b3dd6cf6522d60fd2bc008151ec885f47376c3cd1a4252dd582cc301115943"
     },
     "criteria_structured": {
       "path": "data/industry_study/criteria_structured.csv.gz",
       "exists": true,
-      "bytes": 38453,
-      "sha256": "e6a2f338ddda4b5122e7ca87d107c761b42093bbf2dba04b19c55bc5549347e9"
+      "bytes": 338559,
+      "sha256": "e473e54966c25c4530fd43c192a9ec4887c4e0d258859061185760d6f21b47d9"
     },
     "document_inventory": {
       "path": "data/industry_study/document_inventory.csv.gz",
       "exists": true,
-      "bytes": 338650,
-      "sha256": "349f25f5424ddb0ddd00a204439f2f303de1b2efda8b9558957bd02437441d8b"
+      "bytes": 338622,
+      "sha256": "88c2c79a10d2bbfbcdb91b0cb3cd56ee8425f199823dc20e74508b06b3be7f20"
     }
   },
   "outputs": {
     "fund_snapshot": {
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 389658,
-      "sha256": "b23a50f92e9b1e3aef0bfb84d77d4bd42fdf912e3b001fb337d6bef5fd5c847e"
+      "bytes": 411296,
+      "sha256": "60f60a382987f6f8cdc2ac45f0ddec1771da9f57cf28ffa6d2dc1903a0b813f2"
     },
     "manifest": {
       "path": "data/industry_study/industry_fund_snapshot_manifest.json"
@@ -88,7 +88,7 @@
       "status": "ok",
       "input": "artefatos estruturados versionados",
       "output": "metadados de contagem/camadas por CNPJ",
-      "rows": 13186,
+      "rows": 17572,
       "rerun": "Reexecute apenas o modulo de origem alterado e depois este snapshot."
     }
   ],
@@ -100,7 +100,11 @@
     "with_documents": 651,
     "with_local_documents": 651,
     "with_cedentes": 99,
-    "with_criteria": 49,
+    "with_participant_signal": 167,
+    "with_participant_signal_without_cedente": 97,
+    "with_cedente_signal": 121,
+    "with_sacado_signal": 75,
+    "with_criteria": 550,
     "with_subordination_min": 19,
     "evidence_layers": {
       "median": 1.0,
@@ -108,9 +112,9 @@
       "p75": 2.0
     },
     "status_counts": {
-      "basico": 2840,
-      "parcial": 1263,
-      "completo": 116
+      "basico": 2839,
+      "parcial": 863,
+      "completo": 517
     },
     "coverage": {
       "segmento_principal": 0.7473334913486608,
@@ -119,7 +123,8 @@
       "gestor_nome": 0.9924152642806352,
       "document_rows": 0.1543019672908272,
       "cedente_rows": 0.023465276131784785,
-      "criteria_rows": 0.011614126570277317,
+      "participant_signal_rows": 0.039582839535434934,
+      "criteria_rows": 0.13036264517658214,
       "sub_min_pct_median": 0.004503436833372837
     }
   }

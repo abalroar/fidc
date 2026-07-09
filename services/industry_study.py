@@ -2827,6 +2827,7 @@ def build_snapshot_gap_queue(snapshot: pd.DataFrame, actions: pd.DataFrame | Non
         "document_rows",
         "document_local_ready",
         "cedente_rows",
+        "participant_signal_rows",
         "criteria_rows",
         "criteria_subordination_rows",
     ]:
@@ -2843,10 +2844,13 @@ def build_snapshot_gap_queue(snapshot: pd.DataFrame, actions: pd.DataFrame | Non
     priority_source = priority_source | frame["valid_volume_2025_brl"].gt(0) | frame["valid_volume_2026_brl"].gt(0)
     frame["priority_2025_2026"] = priority_source
 
+    missing_cedente = frame["cedente_rows"].le(0)
+    has_participant_signal = frame["participant_signal_rows"].gt(0)
     gap_specs = [
         ("sem documento", frame["document_rows"].le(0)),
         ("sem documento local", frame["document_local_ready"].le(0)),
-        ("sem cedente/sacado", frame["cedente_rows"].le(0)),
+        ("cedente/sacado sinalizado sem participante", missing_cedente & has_participant_signal),
+        ("sem cedente/sacado", missing_cedente & ~has_participant_signal),
         ("sem critérios", frame["criteria_rows"].le(0)),
         ("sem sub mínima", frame["criteria_subordination_rows"].le(0)),
     ]
@@ -3521,8 +3525,89 @@ def load_criteria_source(path: Path) -> pd.DataFrame:
         return frame
     if "CNPJ" in frame.columns:
         frame["CNPJ"] = frame["CNPJ"].map(normalize_cnpj)
+    if "Fonte camada" not in frame.columns:
+        frame["Fonte camada"] = "criteria_monitoraveis_ime"
+    if "Método extração" not in frame.columns:
+        frame["Método extração"] = "triagem_documental_offline"
     frame["rule_id"] = frame.apply(criteria_rule_id, axis=1)
     return frame
+
+
+def _feature_criteria_key(value: object) -> str:
+    key = re.sub(r"[^a-z0-9_]+", "_", str(value or "").strip().lower()).strip("_")
+    return f"feature_{key}" if key else "feature_regulatoria"
+
+
+def load_regulatory_feature_criteria(db_path: Path) -> pd.DataFrame:
+    """Load positive Strategy regulatory matrix features as Industry criteria signals."""
+
+    if not db_path.exists():
+        return pd.DataFrame()
+    try:
+        with sqlite3.connect(db_path) as conn:
+            tables = {
+                row[0]
+                for row in conn.execute("select name from sqlite_master where type='table'").fetchall()
+            }
+            if "regulatory_feature_long" not in tables:
+                return pd.DataFrame()
+            frame = pd.read_sql_query(
+                """
+                select cnpj, fund_name, setor_n1, setor_n2, emission_cohort,
+                       emitted_2024, emitted_2025, has_regulatory_matrix,
+                       feature_key, feature_label, has_feature, evidence,
+                       pl_atual_brl, volume_2024_brl, volume_2025_brl
+                from regulatory_feature_long
+                where cast(coalesce(has_feature, 0) as integer) = 1
+                """,
+                conn,
+            )
+    except sqlite3.Error:
+        return pd.DataFrame()
+    if frame.empty:
+        return pd.DataFrame()
+
+    out = pd.DataFrame(index=frame.index)
+    out["Fundo"] = _text(frame.get("fund_name"), frame.index)
+    out["CNPJ"] = _text(frame.get("cnpj"), frame.index).map(normalize_cnpj)
+    out["Critério"] = _text(frame.get("feature_label"), frame.index).where(
+        _text(frame.get("feature_label"), frame.index).str.strip().ne(""),
+        _text(frame.get("feature_key"), frame.index),
+    )
+    out["Chave"] = _text(frame.get("feature_key"), frame.index).map(_feature_criteria_key)
+    evidence = _text(frame.get("evidence"), frame.index).str.replace(r"\s+", " ", regex=True).str.strip()
+    out["Limite/regra"] = evidence.where(
+        evidence.ne(""),
+        "Presença detectada na matriz regulatória da aba Estratégia.",
+    ).str.slice(0, 900)
+    out["Monitorabilidade IME"] = "feature_documental"
+    out["Métrica IME / proxy"] = ""
+    out["Condição de alerta sugerida"] = "Revisar regra operacional e parametrizar limite quando houver métrica mensal aplicável."
+    out["Observação técnica"] = (
+        "Sinal de presença da matriz regulatória da aba Estratégia; não substitui "
+        "extração percentual curada para subordinação mínima."
+    )
+    out["Fonte"] = (
+        "strategy_regulatory_feature_long"
+        + " · feature_key="
+        + _text(frame.get("feature_key"), frame.index)
+        + " · cohort="
+        + _text(frame.get("emission_cohort"), frame.index)
+    )
+    out["Status curadoria"] = "triagem estruturada por evidência documental da matriz Estratégia"
+    out["Fonte camada"] = "strategy_regulatory_feature_long"
+    out["Método extração"] = "strategy_regulatory_feature_matrix"
+    out["setor_n1"] = _text(frame.get("setor_n1"), frame.index)
+    out["setor_n2"] = _text(frame.get("setor_n2"), frame.index)
+    out["emission_cohort"] = _text(frame.get("emission_cohort"), frame.index)
+    out["pl_atual_brl"] = _num(frame.get("pl_atual_brl"), frame.index)
+    out["volume_2024_brl"] = _num(frame.get("volume_2024_brl"), frame.index)
+    out["volume_2025_brl"] = _num(frame.get("volume_2025_brl"), frame.index)
+    out = out[out["CNPJ"].astype(str).str.len().eq(14)].copy()
+    if out.empty:
+        return out
+    out["rule_id"] = out.apply(criteria_rule_id, axis=1)
+    return out.drop_duplicates("rule_id", keep="first").reset_index(drop=True)
 
 
 def _pct_values(text: object) -> list[float]:
@@ -3617,6 +3702,8 @@ def build_criteria_structured(
     priority = first_offer_year.isin([2025, 2026]) | year_from_doc.isin([2025, 2026]) | _text(merged.get("emission_cohort"), idx).str.contains("2025|2026", regex=True)
 
     status_curadoria = _text(merged.get("Status curadoria"), idx)
+    fonte_camada = _text(merged.get("Fonte camada"), idx).replace("", "criteria_monitoraveis_ime")
+    metodo_auto = _text(merged.get("Método extração"), idx).replace("", "triagem_documental_offline")
     base_score = pd.Series(0.45, index=idx)
     base_score += 0.15 * documento.ne("")
     base_score += 0.15 * pct_min_final.notna()
@@ -3648,6 +3735,7 @@ def build_criteria_structured(
             "condicao_alerta_sugerida": _text(merged.get("Condição de alerta sugerida"), idx),
             "observacao_tecnica": _text(merged.get("Observação técnica"), idx),
             "fonte": fonte,
+            "fonte_camada": fonte_camada,
             "documento_origem": documento,
             "documento_id": fonte.map(_document_id),
             "document_date": doc_date,
@@ -3655,7 +3743,7 @@ def build_criteria_structured(
             "status_curadoria": status_curadoria,
             "status_revisao": status_review,
             "ativo_curadoria": ~status_review.str.lower().eq("rejeitado"),
-            "metodo_extracao": "triagem_documental_offline",
+            "metodo_extracao": metodo_auto,
             "score_confianca_final": score_final,
             "periodo_prioritario": priority.map({True: "2025-2026 YTD", False: "histórico"}),
             "notas_revisao": _text(merged.get("notas"), idx),
@@ -3698,6 +3786,9 @@ def criteria_quality_summary(
     partial = active["monitorabilidade_ime"].astype(str).str.contains("parcial", case=False, na=False) if "monitorabilidade_ime" in active else pd.Series(False, index=active.index)
     score = pd.to_numeric(structured.get("score_confianca_final"), errors="coerce") if "score_confianca_final" in structured else pd.Series(dtype=float)
     status_counts = reviews["status"].replace("", "pendente").value_counts().to_dict() if "status" in reviews else {}
+    source_layer = structured.get("fonte_camada", pd.Series("", index=structured.index)).fillna("").astype(str)
+    active_source_layer = active.get("fonte_camada", pd.Series("", index=active.index)).fillna("").astype(str)
+    feature_active = active_source_layer.eq("strategy_regulatory_feature_long")
     return {
         "source_rows": int(len(criteria)),
         "source_funds": int(criteria["CNPJ"].nunique()) if "CNPJ" in criteria else 0,
@@ -3705,6 +3796,11 @@ def criteria_quality_summary(
         "structured_funds": int(structured["cnpj_fundo"].nunique()) if "cnpj_fundo" in structured else 0,
         "active_rows": int(len(active)),
         "active_funds": int(active["cnpj_fundo"].nunique()) if "cnpj_fundo" in active else 0,
+        "source_layer_counts": {str(k): int(v) for k, v in source_layer.value_counts().to_dict().items()},
+        "feature_rows": int(feature_active.sum()),
+        "feature_funds": int(active.loc[feature_active, "cnpj_fundo"].nunique()) if "cnpj_fundo" in active else 0,
+        "documentary_rows": int((~feature_active).sum()),
+        "documentary_funds": int(active.loc[~feature_active, "cnpj_fundo"].nunique()) if "cnpj_fundo" in active else 0,
         "subordination_rows": int(len(sub)),
         "subordination_funds": int(sub["cnpj_fundo"].nunique()) if "cnpj_fundo" in sub else 0,
         "monitorable_rows": int(monitorable.sum()),
@@ -4162,6 +4258,8 @@ def build_pipeline_readiness_checks(
 
     snapshot_rows = int(quality_rollup.get("fund_snapshot_rows", 0) or 0)
     with_cedentes = int(quality_rollup.get("fund_snapshot_with_cedentes", 0) or 0)
+    with_participant_signal = int(quality_rollup.get("fund_snapshot_with_participant_signal", 0) or 0)
+    signal_without_cedente = int(quality_rollup.get("fund_snapshot_with_participant_signal_without_cedente", 0) or 0)
     with_criteria = int(quality_rollup.get("fund_snapshot_with_criteria", 0) or 0)
     missing_structured = max(snapshot_rows - min(with_cedentes, with_criteria), 0)
     add(
@@ -4171,7 +4269,11 @@ def build_pipeline_readiness_checks(
         "Cobertura de cedentes e critérios estruturados",
         "atenção" if missing_structured else "ok",
         missing_structured,
-        f"cedentes {with_cedentes}/{snapshot_rows}; critérios {with_criteria}/{snapshot_rows}",
+        (
+            f"cedentes identificados {with_cedentes}/{snapshot_rows}; "
+            f"sinal cedente/sacado {with_participant_signal}/{snapshot_rows} "
+            f"({signal_without_cedente} sem participante); critérios {with_criteria}/{snapshot_rows}"
+        ),
         "Priorizar lacunas estruturais em FIDCs materiais antes de publicar cortes por participante.",
         "industry_fund_snapshot_manifest.json",
         "python scripts/build_fidc_industry_fund_snapshot.py",
@@ -4624,10 +4726,18 @@ def build_prd_coverage_matrix(
         "Cedentes",
         "Base estruturada de cedentes/sacados com prioridade 2025-2026 e evidência",
         "ok" if number("cedentes_structured_rows") and number("fund_snapshot_with_cedentes") else "atenção",
-        f"{int(number('cedentes_structured_rows'))} linhas estruturadas; {int(number('fund_snapshot_with_cedentes'))} FIDCs com cedentes no snapshot",
-        f"cedentes={int(number('cedentes_structured_rows'))}",
+        (
+            f"{int(number('cedentes_structured_rows'))} linhas estruturadas; "
+            f"{int(number('fund_snapshot_with_cedentes'))} FIDCs com participante identificado; "
+            f"{int(number('fund_snapshot_with_participant_signal'))} com sinal regulatório; "
+            f"{int(number('fund_snapshot_with_participant_signal_without_cedente'))} sinalizados sem participante"
+        ),
+        (
+            f"cedentes={int(number('cedentes_structured_rows'))}; "
+            f"sinais={int(number('fund_snapshot_with_participant_signal'))}"
+        ),
         "cedentes_structured.csv.gz",
-        "Priorizar a fila única e revisar cedentes sem documento/página/score.",
+        "Priorizar FIDCs sinalizados sem participante para extrair razão social/CNPJ e fechar lacunas de fonte/página/score.",
         "python scripts/build_fidc_industry_cedentes.py",
     )
     add(
@@ -4901,6 +5011,10 @@ def build_industry_pipeline_index(
                 "source_funds",
                 "structured_rows",
                 "structured_funds",
+                "feature_rows",
+                "feature_funds",
+                "documentary_rows",
+                "documentary_funds",
                 "subordination_rows",
                 "subordination_funds",
                 "monitorable_rows",
@@ -4921,6 +5035,10 @@ def build_industry_pipeline_index(
                 "with_issuance_2025_2026",
                 "with_documents",
                 "with_cedentes",
+                "with_participant_signal",
+                "with_participant_signal_without_cedente",
+                "with_cedente_signal",
+                "with_sacado_signal",
                 "with_criteria",
                 "with_subordination_min",
             ],
@@ -5357,6 +5475,12 @@ def build_industry_pipeline_index(
         "public_claim_audit_max_abs_delta_pct": public_claim_quality.get("max_abs_delta_pct"),
         "fund_snapshot_rows": snapshot_quality.get("fund_rows", 0),
         "fund_snapshot_with_cedentes": snapshot_quality.get("with_cedentes", 0),
+        "fund_snapshot_with_participant_signal": snapshot_quality.get("with_participant_signal", 0),
+        "fund_snapshot_with_participant_signal_without_cedente": snapshot_quality.get(
+            "with_participant_signal_without_cedente", 0
+        ),
+        "fund_snapshot_with_cedente_signal": snapshot_quality.get("with_cedente_signal", 0),
+        "fund_snapshot_with_sacado_signal": snapshot_quality.get("with_sacado_signal", 0),
         "fund_snapshot_with_criteria": snapshot_quality.get("with_criteria", 0),
         "dimension_catalog_rows": dimension_quality.get("rows", 0),
         "dimension_catalog_dimensions": dimension_quality.get("dimensions", 0),
@@ -5845,9 +5969,19 @@ def build_criteria_pipeline_manifest(
                 "status": "ok" if not criteria.empty else "empty",
                 "input": str(criteria_source_path),
                 "output": "memoria:all_fidcs_criteria_monitoraveis_ime",
-                "rows": int(len(criteria)),
-                "funds": int(criteria["CNPJ"].nunique()) if "CNPJ" in criteria else 0,
+                "rows": int(quality.get("documentary_rows", 0) or 0),
+                "funds": int(quality.get("documentary_funds", 0) or 0),
                 "rerun": "python scripts/classify_fidc_sectors_and_practices.py",
+            },
+            {
+                "id": "load_strategy_regulatory_features",
+                "label": "Features regulatórias da Estratégia",
+                "status": "ok" if int(quality.get("feature_rows", 0) or 0) else "empty",
+                "input": str(strategy_db),
+                "output": "memoria:regulatory_feature_long",
+                "rows": int(quality.get("feature_rows", 0) or 0),
+                "funds": int(quality.get("feature_funds", 0) or 0),
+                "rerun": "python scripts/execute_fidc_director_diagnostic.py --download-limit 0",
             },
             {
                 "id": "apply_manual_review",
@@ -6018,7 +6152,11 @@ def _aggregate_criteria_snapshot(criteria: pd.DataFrame) -> pd.DataFrame:
     rows = []
     for cnpj, group in frame.groupby("cnpj_fundo", dropna=False):
         monitor = group.get("monitorabilidade_ime", pd.Series("", index=group.index)).fillna("").astype(str)
-        sub = group[group.get("chave", pd.Series("", index=group.index)).astype(str).eq("subordination_ratio_min")]
+        keys = group.get("chave", pd.Series("", index=group.index)).fillna("").astype(str)
+        sub = group[keys.eq("subordination_ratio_min")]
+        cedente_signal = group[keys.eq("feature_named_originator_or_cedente")]
+        sacado_signal = group[keys.eq("feature_named_debtor_or_sacado")]
+        participant_signal = group[keys.isin({"feature_named_originator_or_cedente", "feature_named_debtor_or_sacado"})]
         row = {
             "cnpj_fundo": cnpj,
             "criteria_rows": int(len(group)),
@@ -6026,10 +6164,15 @@ def _aggregate_criteria_snapshot(criteria: pd.DataFrame) -> pd.DataFrame:
             "criteria_partial_rows": int(monitor.eq("parcial").sum()),
             "criteria_not_monitorable_rows": int(monitor.eq("nao_monitoravel").sum()),
             "criteria_subordination_rows": int(len(sub)),
+            "cedente_signal_rows": int(len(cedente_signal)),
+            "sacado_signal_rows": int(len(sacado_signal)),
+            "participant_signal_rows": int(len(participant_signal)),
             "sub_min_pct_median": _median_numeric(sub.get("pct_min", pd.Series(dtype=float))),
             "sub_min_pct_min": _json_float(pd.to_numeric(sub.get("pct_min", pd.Series(dtype=float)), errors="coerce").min()) if not sub.empty else None,
             "sub_min_pct_max": _json_float(pd.to_numeric(sub.get("pct_min", pd.Series(dtype=float)), errors="coerce").max()) if not sub.empty else None,
             "criteria_keys": _join_unique(group.get("chave", pd.Series(dtype=str)), limit=8),
+            "participant_signal_keys": _join_unique(participant_signal.get("chave", pd.Series(dtype=str)), limit=4),
+            "participant_signal_evidence": _join_unique(participant_signal.get("limite_regra", pd.Series(dtype=str)), limit=3),
             "criteria_documentos": _join_unique(group.get("documento_origem", pd.Series(dtype=str)), limit=5),
             "criteria_score_mediana": _median_numeric(group.get("score_confianca_final", pd.Series(dtype=float))),
         }
@@ -6146,6 +6289,9 @@ def build_industry_fund_snapshot(
         "criteria_partial_rows",
         "criteria_not_monitorable_rows",
         "criteria_subordination_rows",
+        "cedente_signal_rows",
+        "sacado_signal_rows",
+        "participant_signal_rows",
         "document_rows",
         "document_local_ready",
         "document_missing_local",
@@ -6188,6 +6334,8 @@ def build_industry_fund_snapshot(
         "cedente_statuses",
         "cedente_documentos",
         "criteria_keys",
+        "participant_signal_keys",
+        "participant_signal_evidence",
         "criteria_documentos",
         "document_classes",
         "document_content_kinds",
@@ -6212,6 +6360,8 @@ def build_industry_fund_snapshot(
     snapshot["tem_emissao_2025_2026"] = snapshot["valid_volume_2025_brl"].gt(0) | snapshot["valid_volume_2026_brl"].gt(0)
     snapshot["tem_sub_minima"] = snapshot["criteria_subordination_rows"].gt(0)
     snapshot["tem_cedente"] = snapshot["cedente_rows"].gt(0)
+    snapshot["tem_sinal_cedente_sacado"] = snapshot["participant_signal_rows"].gt(0)
+    snapshot["tem_sinal_sem_participante"] = snapshot["tem_sinal_cedente_sacado"] & ~snapshot["tem_cedente"]
     snapshot["tem_documento_local"] = snapshot["document_local_ready"].gt(0)
     snapshot["snapshot_status"] = snapshot["camadas_com_evidencia"].map(
         lambda value: "completo" if value >= 4 else "parcial" if value >= 2 else "basico"
@@ -6247,8 +6397,10 @@ def build_industry_fund_snapshot(
         "document_local_ready",
         "document_chunk_ids",
         "cedente_rows",
+        "participant_signal_rows",
         "participantes_count",
         "cedentes_top",
+        "participant_signal_keys",
         "criteria_rows",
         "criteria_subordination_rows",
         "sub_min_pct_median",
@@ -6279,6 +6431,15 @@ def fund_snapshot_quality_summary(snapshot: pd.DataFrame) -> dict[str, object]:
         "with_documents": int(_num(frame.get("document_rows"), frame.index).gt(0).sum()),
         "with_local_documents": int(_num(frame.get("document_local_ready"), frame.index).gt(0).sum()),
         "with_cedentes": int(_num(frame.get("cedente_rows"), frame.index).gt(0).sum()),
+        "with_participant_signal": int(_num(frame.get("participant_signal_rows"), frame.index).gt(0).sum()),
+        "with_participant_signal_without_cedente": int(
+            (
+                _num(frame.get("participant_signal_rows"), frame.index).gt(0)
+                & _num(frame.get("cedente_rows"), frame.index).le(0)
+            ).sum()
+        ),
+        "with_cedente_signal": int(_num(frame.get("cedente_signal_rows"), frame.index).gt(0).sum()),
+        "with_sacado_signal": int(_num(frame.get("sacado_signal_rows"), frame.index).gt(0).sum()),
         "with_criteria": int(_num(frame.get("criteria_rows"), frame.index).gt(0).sum()),
         "with_subordination_min": int(_num(frame.get("criteria_subordination_rows"), frame.index).gt(0).sum()),
         "evidence_layers": {
@@ -6297,6 +6458,7 @@ def fund_snapshot_quality_summary(snapshot: pd.DataFrame) -> dict[str, object]:
             "gestor_nome": _coverage(frame, "gestor_nome"),
             "document_rows": float(_num(frame.get("document_rows"), frame.index).gt(0).mean()),
             "cedente_rows": float(_num(frame.get("cedente_rows"), frame.index).gt(0).mean()),
+            "participant_signal_rows": float(_num(frame.get("participant_signal_rows"), frame.index).gt(0).mean()),
             "criteria_rows": float(_num(frame.get("criteria_rows"), frame.index).gt(0).mean()),
             "sub_min_pct_median": float(pd.to_numeric(frame.get("sub_min_pct_median"), errors="coerce").notna().mean())
             if "sub_min_pct_median" in frame
@@ -6316,6 +6478,7 @@ MARKET_SHARE_DIMENSIONS = [
     {"dimension_id": "fic_fidc", "label": "FIC-FIDC", "column": "is_fic_fidc", "multi_value": False},
     {"dimension_id": "emissao_2025_2026", "label": "Emissão 25-26", "column": "tem_emissao_2025_2026", "multi_value": False},
     {"dimension_id": "subordinacao_minima", "label": "Tem sub mín.", "column": "tem_sub_minima", "multi_value": False},
+    {"dimension_id": "sinal_cedente_sacado", "label": "Sinal ced/sacado", "column": "tem_sinal_cedente_sacado", "multi_value": False},
     {"dimension_id": "documento_local", "label": "Documento local", "column": "tem_documento_local", "multi_value": False},
     {"dimension_id": "indexador", "label": "Indexador", "column": "indexadores", "multi_value": True},
     {"dimension_id": "tipo_cota", "label": "Tipo de cota", "column": "tipo_cotas", "multi_value": True},
@@ -6399,6 +6562,13 @@ DIMENSION_CATALOG_SPECS = [
         "derived": "sub_min_bucket",
     },
     {"dimension_id": "tem_sub_minima", "label": "Tem sub mín.", "column": "tem_sub_minima", "source_layer": "snapshot", "multi_value": False},
+    {
+        "dimension_id": "sinal_cedente_sacado",
+        "label": "Sinal ced/sacado",
+        "column": "tem_sinal_cedente_sacado",
+        "source_layer": "snapshot",
+        "multi_value": False,
+    },
     {"dimension_id": "documento_local", "label": "Documento local", "column": "tem_documento_local", "source_layer": "snapshot", "multi_value": False},
     {"dimension_id": "indexador", "label": "Indexador", "column": "indexadores", "source_layer": "snapshot", "multi_value": True},
     {"dimension_id": "tipo_cota", "label": "Tipo de cota", "column": "tipo_cotas", "source_layer": "snapshot", "multi_value": True},
@@ -6455,6 +6625,7 @@ def _market_dimension_values(frame: pd.DataFrame, column: str) -> pd.Series:
         "tem_emissao_2025_2026": ("com emissão 2025-2026", "sem emissão 2025-2026"),
         "tem_sub_minima": ("com sub mínima", "sem sub mínima"),
         "tem_cedente": ("com cedente/sacado", "sem cedente/sacado"),
+        "tem_sinal_cedente_sacado": ("com sinal cedente/sacado", "sem sinal cedente/sacado"),
         "tem_documento_local": ("com documento local", "sem documento local"),
     }
     if column in boolean_labels:
@@ -6790,7 +6961,7 @@ def _catalog_sub_min_bucket(value: object) -> str:
 def _catalog_document_column(dimension_id: str) -> str:
     if dimension_id in {"indexador", "tipo_cota"}:
         return "pricing_documentos"
-    if dimension_id in {"criterio", "tem_sub_minima", "faixa_sub_minima"}:
+    if dimension_id in {"criterio", "tem_sub_minima", "faixa_sub_minima", "sinal_cedente_sacado"}:
         return "criteria_documentos"
     if dimension_id in {"classe_documento", "chunk_docs", "documento_local"}:
         return "document_classes"
@@ -6800,7 +6971,7 @@ def _catalog_document_column(dimension_id: str) -> str:
 def _catalog_confidence_column(dimension_id: str) -> str:
     if dimension_id in {"indexador", "tipo_cota"}:
         return "pricing_score_mediana"
-    if dimension_id in {"criterio", "tem_sub_minima", "faixa_sub_minima"}:
+    if dimension_id in {"criterio", "tem_sub_minima", "faixa_sub_minima", "sinal_cedente_sacado"}:
         return "criteria_score_mediana"
     if dimension_id in {"cedente_sacado", "grupo_economico", "tipo_participante", "setor_cedente", "segmento_cedente"}:
         return "cedente_score_mediana"
