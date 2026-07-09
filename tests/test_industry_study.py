@@ -58,6 +58,7 @@ from services.industry_study import (  # noqa: E402
     build_market_share_pipeline_manifest,
     build_monthly_delta_pipeline_manifest,
     build_monthly_publication_gate,
+    build_monthly_closeout_plan,
     build_cedente_structured,
     build_cedente_pipeline_manifest,
     cedente_quality_summary,
@@ -117,6 +118,7 @@ from tabs.tab_industry_study import (  # noqa: E402
     _format_dimension_radar,
     _format_monthly_readiness,
     _format_publication_gate,
+    _format_monthly_closeout_plan,
     _heatmap_base_frame,
     _heatmap_preset_options,
     _monthly_delta_actions_for_audit,
@@ -2954,6 +2956,90 @@ def test_industry_monthly_readiness_flags_release_blockers_and_normalizes_compet
     assert formatted_gate.iloc[0]["Status"] == "bloqueado"
     assert formatted_gate.loc[formatted_gate["ID"].eq("public_methodology_disclosure"), "Nota pública"].iloc[0] == "sim"
 
+    closeout = build_monthly_closeout_plan(
+        publication_gate=gate,
+        curation_queue=pd.DataFrame(
+            [
+                {
+                    "queue_id": "q-1",
+                    "queue_domain": "monthly_delta",
+                    "record_id": "d-1",
+                    "cnpj_fundo": "05753599000158",
+                    "priority_band": "alta",
+                    "priority_score": 95,
+                    "status_curadoria": "pendente",
+                    "action_type": "novo_no_ime",
+                    "next_action": "curar cedentes",
+                    "gap_summary": "sem cedente",
+                    "source_artifacts": "industry_monthly_delta.csv.gz",
+                    "rerun_command": "python scripts/build_fidc_industry_monthly_delta.py",
+                    "pl": 100.0,
+                }
+            ]
+        ),
+        curation_summary=pd.DataFrame(
+            [
+                {
+                    "summary_id": "fidc_backlog:05753599000158",
+                    "summary_type": "fidc_backlog",
+                    "scope_label": "FIDC NOVO",
+                    "open_rows": 2,
+                    "high_priority_rows": 1,
+                    "funds": 1,
+                    "pl_reference_brl": 100.0,
+                    "max_priority_score": 95,
+                    "domains": "monthly_delta",
+                    "action_types": "novo_no_ime",
+                    "next_actions_sample": "curar cedentes",
+                }
+            ]
+        ),
+        incremental_onboarding=pd.DataFrame(
+            [
+                {
+                    "onboarding_id": "202605_05753599000158",
+                    "overall_status": "bloqueado",
+                    "priority_band": "alta",
+                    "priority_score": 95,
+                    "pl_atual": 100.0,
+                    "fundo": "FIDC NOVO",
+                    "cnpj_fundo": "05753599000158",
+                    "missing_steps": "incorporação estruturada",
+                    "queue_next_actions": "curar cedentes",
+                    "source_artifacts": "industry_incremental_onboarding.csv",
+                    "competencia_atual": "2026-05",
+                }
+            ]
+        ),
+        document_chunk_plan=pd.DataFrame(
+            [
+                {
+                    "chunk_id": "doc-0001",
+                    "status_lote": "pendente",
+                    "priority_score": 80,
+                    "document_count": 12,
+                    "cnpj_count": 3,
+                    "priority_2025_2026_docs": 2,
+                    "next_action": "ocr parse extract",
+                    "rerun_command": "python scripts/build_fidc_industry_documents.py --chunk-id doc-0001",
+                }
+            ]
+        ),
+        quality_rollup={"competencia_snapshot": "202605"},
+    )
+    closeout_types = {row["pacote_tipo"] for row in closeout}
+
+    assert {"portão", "fila única", "onboarding", "chunk documental", "fidc_backlog"} <= closeout_types
+    assert any(row["bloqueia_publicacao"] is True for row in closeout)
+    assert any(row["exige_nota_publica"] is True for row in closeout)
+    assert any(row["ui_surface"] == "Documentos > Chunks" for row in closeout)
+    assert all(row["competencia_referencia"] for row in closeout)
+
+    formatted_closeout = _format_monthly_closeout_plan(pd.DataFrame(closeout))
+
+    assert "Onde fechar" in formatted_closeout.columns
+    assert "PL ref." in formatted_closeout.columns
+
 
 def test_industry_monthly_delta_prioritizes_incremental_review_queue():
     vehicle = pd.DataFrame(
@@ -3646,6 +3732,67 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "status_counts": {"pendente": 3, "em andamento": 2},
             },
         )
+        pd.DataFrame(
+            [
+                {
+                    "queue_id": "q-1",
+                    "queue_domain": "monthly_delta",
+                    "record_id": "202605_22222222000122",
+                    "competencia": "2026-05",
+                    "cnpj_fundo": "22222222000122",
+                    "nome_exibicao": "FIDC NOVO",
+                    "pl": 100.0,
+                    "priority_2025_2026": True,
+                    "priority_score": 95,
+                    "priority_band": "alta",
+                    "action_type": "novo_no_ime",
+                    "next_action": "curar cedentes",
+                    "gap_summary": "sem cedente",
+                    "source_artifacts": "industry_monthly_delta.csv.gz",
+                    "rerun_command": "python scripts/build_fidc_industry_monthly_delta.py",
+                    "status_curadoria": "pendente",
+                }
+            ]
+        ).to_csv(tmp_path / "industry_curation_queue.csv.gz", index=False, compression="gzip")
+        pd.DataFrame(
+            [
+                {
+                    "summary_id": "fidc_backlog:22222222000122",
+                    "summary_type": "fidc_backlog",
+                    "scope_label": "FIDC NOVO",
+                    "cnpj_fundo": "22222222000122",
+                    "rows": 1,
+                    "open_rows": 1,
+                    "closed_rows": 0,
+                    "high_priority_rows": 1,
+                    "funds": 1,
+                    "max_priority_score": 95,
+                    "pl_reference_brl": 100.0,
+                    "domains": "monthly_delta",
+                    "action_types": "novo_no_ime",
+                    "next_actions_sample": "curar cedentes",
+                    "rerun_commands_sample": "python scripts/build_fidc_industry_monthly_delta.py",
+                }
+            ]
+        ).to_csv(tmp_path / "industry_curation_queue_summary.csv.gz", index=False, compression="gzip")
+        pd.DataFrame(
+            [
+                {
+                    "onboarding_id": "202605_22222222000122",
+                    "competencia_atual": "2026-05",
+                    "cnpj_fundo": "22222222000122",
+                    "fundo": "FIDC NOVO",
+                    "status_delta": "novo_no_ime",
+                    "priority_band": "alta",
+                    "priority_score": 95,
+                    "pl_atual": 100.0,
+                    "overall_status": "bloqueado",
+                    "missing_steps": "incorporação estruturada",
+                    "queue_next_actions": "curar cedentes",
+                    "source_artifacts": "industry_incremental_onboarding.csv",
+                }
+            ]
+        ).to_csv(tmp_path / "industry_incremental_onboarding.csv", index=False)
         write_module_manifest(
             "industry_document_manifest.json",
             "industry_document_inventory",
@@ -3836,6 +3983,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         (tmp_path / "industry_monthly_update_plan.csv").write_text("plan_id\n", encoding="utf-8")
         (tmp_path / "industry_monthly_readiness.csv").write_text("check_id\n", encoding="utf-8")
         (tmp_path / "industry_publication_gate.csv").write_text("gate_id\n", encoding="utf-8")
+        (tmp_path / "industry_monthly_closeout_plan.csv").write_text("closeout_id\n", encoding="utf-8")
 
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
@@ -3937,9 +4085,15 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["publication_gate_rows"] > 1
     assert index["quality_rollup"]["publication_gate_blocking_rows"] >= 1
     assert index["quality_rollup"]["publication_gate_disclosure_rows"] >= 1
+    assert index["quality_rollup"]["monthly_closeout_plan_rows"] > 1
+    assert index["quality_rollup"]["monthly_closeout_blocking_rows"] >= 1
+    assert "monthly_closeout_status_counts" in index["quality_rollup"]
     publication_gate = {row["gate_id"]: row for row in index["publication_gate"]}
     assert publication_gate["publication_gate_summary"]["status_gate"] == "bloqueado"
     assert publication_gate["public_methodology_disclosure"]["exige_nota_publica"] is True
+    closeout_plan = {row["closeout_id"]: row for row in index["monthly_closeout_plan"]}
+    assert any(row["pacote_tipo"] == "portão" for row in closeout_plan.values())
+    assert any(row["pacote_tipo"] == "fila única" for row in closeout_plan.values())
     monthly_plan = {row["module_id"]: row for row in index["monthly_update_plan"]}
     assert monthly_plan["base_monthly"]["comando"] == "python scripts/build_fidc_industry_study.py --report"
     assert monthly_plan["manual_review_ledgers"]["comando"] == "python scripts/build_fidc_industry_manual_review_ledgers.py"
@@ -3955,6 +4109,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert "industry_monthly_update_plan" in monthly_plan["pipeline_index"]["saidas"]
     assert "industry_monthly_readiness" in monthly_plan["pipeline_index"]["saidas"]
     assert "industry_publication_gate" in monthly_plan["pipeline_index"]["saidas"]
+    assert "industry_monthly_closeout_plan" in monthly_plan["pipeline_index"]["saidas"]
     artifacts = {(row["module_id"], row["artifact"]): row for row in index["artifact_index"]}
     assert ("pipeline_index", "industry_monthly_update_plan") in artifacts
     assert artifacts[("pipeline_index", "industry_monthly_update_plan")]["required"] is False
@@ -3962,6 +4117,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert artifacts[("pipeline_index", "industry_monthly_readiness")]["required"] is False
     assert ("pipeline_index", "industry_publication_gate") in artifacts
     assert artifacts[("pipeline_index", "industry_publication_gate")]["required"] is False
+    assert ("pipeline_index", "industry_monthly_closeout_plan") in artifacts
+    assert artifacts[("pipeline_index", "industry_monthly_closeout_plan")]["required"] is False
     assert ("public_claims", "methodology_bridge") in artifacts
     assert artifacts[("public_claims", "methodology_bridge")]["required"] is True
     assert index["quality_rollup"]["manual_review_domains_total"] == 6

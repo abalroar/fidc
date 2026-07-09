@@ -84,6 +84,27 @@ PUBLICATION_GATE_COLUMNS = [
     "competencia_referencia",
 ]
 
+MONTHLY_CLOSEOUT_PLAN_COLUMNS = [
+    "closeout_id",
+    "ordem",
+    "pacote_tipo",
+    "escopo",
+    "prioridade",
+    "status_fechamento",
+    "bloqueia_publicacao",
+    "exige_nota_publica",
+    "pendencias",
+    "fundos",
+    "pl_referencia_brl",
+    "competencia_referencia",
+    "evidencia",
+    "acao_sugerida",
+    "ui_surface",
+    "source_artifacts",
+    "rerun_command",
+    "record_ids_sample",
+]
+
 SNAPSHOT_GAP_ACTION_COLUMNS = [
     "gap_id",
     "status_lacuna",
@@ -5257,6 +5278,330 @@ def build_monthly_publication_gate(
     return frame[PUBLICATION_GATE_COLUMNS].to_dict("records")
 
 
+def build_monthly_closeout_plan(
+    *,
+    publication_gate: list[dict[str, object]] | pd.DataFrame,
+    curation_queue: pd.DataFrame | None = None,
+    curation_summary: pd.DataFrame | None = None,
+    incremental_onboarding: pd.DataFrame | None = None,
+    document_chunk_plan: pd.DataFrame | None = None,
+    quality_rollup: dict[str, object] | None = None,
+) -> list[dict[str, object]]:
+    """Create a compact monthly closeout workplan from gate blockers and queues."""
+
+    rollup = quality_rollup or {}
+    competencia = str(
+        rollup.get("competencia_snapshot")
+        or rollup.get("competencia_final")
+        or rollup.get("monthly_delta_competencia_atual")
+        or ""
+    )
+    rows: list[dict[str, object]] = []
+
+    def to_bool(value: object) -> bool:
+        return str(value).strip().lower() in {"true", "1", "sim", "yes"}
+
+    def text(value: object) -> str:
+        return str(value or "").strip()
+
+    def add(
+        *,
+        closeout_id: str,
+        ordem: int,
+        pacote_tipo: str,
+        escopo: str,
+        prioridade: str,
+        status_fechamento: str,
+        pendencias: object = 0,
+        fundos: object = 0,
+        pl_referencia_brl: object = 0,
+        evidencia: str = "",
+        acao_sugerida: str = "",
+        ui_surface: str = "",
+        source_artifacts: str = "",
+        rerun_command: str = "",
+        record_ids_sample: str = "",
+        bloqueia_publicacao: bool | None = None,
+        exige_nota_publica: bool = False,
+        competencia_referencia: str | None = None,
+    ) -> None:
+        status = text(status_fechamento).lower() or "atenção"
+        rows.append(
+            {
+                "closeout_id": closeout_id,
+                "ordem": ordem,
+                "pacote_tipo": pacote_tipo,
+                "escopo": escopo,
+                "prioridade": prioridade,
+                "status_fechamento": status,
+                "bloqueia_publicacao": status == "bloqueado" if bloqueia_publicacao is None else bool(bloqueia_publicacao),
+                "exige_nota_publica": bool(exige_nota_publica),
+                "pendencias": pendencias,
+                "fundos": fundos,
+                "pl_referencia_brl": pl_referencia_brl,
+                "competencia_referencia": competencia_referencia if competencia_referencia is not None else competencia,
+                "evidencia": evidencia,
+                "acao_sugerida": acao_sugerida,
+                "ui_surface": ui_surface,
+                "source_artifacts": source_artifacts,
+                "rerun_command": rerun_command,
+                "record_ids_sample": record_ids_sample,
+            }
+        )
+
+    gate = pd.DataFrame(publication_gate)
+    if not gate.empty:
+        for col in MONTHLY_CLOSEOUT_PLAN_COLUMNS:
+            if col not in gate.columns:
+                gate[col] = ""
+        open_gate = gate[
+            gate.get("gate_id", pd.Series("", index=gate.index)).fillna("").astype(str).ne("publication_gate_summary")
+            & ~gate.get("status_gate", pd.Series("", index=gate.index)).fillna("").astype(str).eq("ok")
+        ].copy()
+        if "ordem" in open_gate.columns:
+            open_gate["ordem_num"] = pd.to_numeric(open_gate["ordem"], errors="coerce").fillna(999)
+            open_gate = open_gate.sort_values("ordem_num")
+        for pos, item in enumerate(open_gate.head(40).to_dict("records"), start=10):
+            status = text(item.get("status_gate")).lower() or "atenção"
+            add(
+                closeout_id=f"gate_{item.get('gate_id') or pos}",
+                ordem=pos,
+                pacote_tipo="portão",
+                escopo=text(item.get("frente") or item.get("tipo_sinal") or "Portão"),
+                prioridade="alta" if status == "bloqueado" else "média",
+                status_fechamento=status,
+                bloqueia_publicacao=to_bool(item.get("bloqueia_publicacao")),
+                exige_nota_publica=to_bool(item.get("exige_nota_publica")),
+                pendencias=item.get("pendencias", 1),
+                fundos=0,
+                pl_referencia_brl=0,
+                evidencia=text(item.get("evidencia")),
+                acao_sugerida=text(item.get("acao_sugerida")),
+                ui_surface="Pipeline > Portão",
+                source_artifacts=text(item.get("fonte")),
+                rerun_command=text(item.get("comando")),
+                record_ids_sample=text(item.get("gate_id")),
+                competencia_referencia=text(item.get("competencia_referencia")) or competencia,
+            )
+
+    queue = pd.DataFrame() if curation_queue is None else curation_queue.copy()
+    if not queue.empty:
+        for col in [
+            "queue_domain",
+            "action_type",
+            "priority_band",
+            "status_curadoria",
+            "record_id",
+            "queue_id",
+            "cnpj_fundo",
+            "pl",
+            "priority_score",
+            "next_action",
+            "gap_summary",
+            "source_artifacts",
+            "rerun_command",
+        ]:
+            if col not in queue.columns:
+                queue[col] = ""
+        queue["status_norm"] = _normalized_status(queue["status_curadoria"])
+        queue = queue[_open_queue_mask(queue, "status_curadoria")].copy()
+        queue["priority_score_num"] = pd.to_numeric(queue["priority_score"], errors="coerce").fillna(0.0)
+        queue["pl_num"] = pd.to_numeric(queue["pl"], errors="coerce").fillna(0.0)
+        if not queue.empty:
+            grouped = (
+                queue.groupby(["queue_domain", "action_type", "priority_band", "status_norm"], dropna=False)
+                .agg(
+                    pendencias=("queue_id", "count"),
+                    fundos=("cnpj_fundo", lambda values: values.fillna("").astype(str).str.strip().replace("", pd.NA).dropna().nunique()),
+                    pl_referencia_brl=("pl_num", "sum"),
+                    max_priority_score=("priority_score_num", "max"),
+                    evidencia=("gap_summary", lambda values: _join_unique(values, limit=3)),
+                    acao_sugerida=("next_action", lambda values: _join_unique(values, limit=4)),
+                    source_artifacts=("source_artifacts", lambda values: _join_unique(values, limit=4)),
+                    rerun_command=("rerun_command", lambda values: _join_unique(values, limit=3)),
+                    record_ids_sample=("record_id", lambda values: _join_unique(values, limit=8)),
+                )
+                .reset_index()
+            )
+            priority_order = {"alta": 0, "média": 1, "media": 1, "baixa": 2}
+            grouped["_priority_order"] = grouped["priority_band"].fillna("").astype(str).str.lower().map(priority_order).fillna(9)
+            grouped = grouped.sort_values(["_priority_order", "pendencias", "max_priority_score"], ascending=[True, False, False])
+            for pos, item in enumerate(grouped.head(30).to_dict("records"), start=100):
+                priority = text(item.get("priority_band")) or "média"
+                domain = text(item.get("queue_domain")) or "fila"
+                action = text(item.get("action_type")) or "ação"
+                pend = int(item.get("pendencias", 0) or 0)
+                status = "bloqueado" if priority.lower() == "alta" else "atenção"
+                add(
+                    closeout_id=f"queue_{domain}_{action}_{pos}".replace(" ", "_"),
+                    ordem=pos,
+                    pacote_tipo="fila única",
+                    escopo=f"{domain} · {action}",
+                    prioridade=priority,
+                    status_fechamento=status,
+                    pendencias=pend,
+                    fundos=item.get("fundos", 0),
+                    pl_referencia_brl=item.get("pl_referencia_brl", 0),
+                    evidencia=text(item.get("evidencia")),
+                    acao_sugerida=text(item.get("acao_sugerida")) or "Abrir a fila única, filtrar a frente e registrar ação.",
+                    ui_surface="Pipeline > Fila única",
+                    source_artifacts=text(item.get("source_artifacts")) or "industry_curation_queue.csv.gz",
+                    rerun_command=text(item.get("rerun_command")) or "python scripts/build_fidc_industry_curation_queue.py",
+                    record_ids_sample=text(item.get("record_ids_sample")),
+                )
+
+    onboarding = pd.DataFrame() if incremental_onboarding is None else incremental_onboarding.copy()
+    if not onboarding.empty:
+        for col in [
+            "onboarding_id",
+            "overall_status",
+            "priority_band",
+            "priority_score",
+            "pl_atual",
+            "fundo",
+            "cnpj_fundo",
+            "missing_steps",
+            "queue_next_actions",
+            "next_actions",
+            "rerun_command",
+            "source_artifacts",
+            "competencia_atual",
+        ]:
+            if col not in onboarding.columns:
+                onboarding[col] = ""
+        onboarding = onboarding[~onboarding["overall_status"].fillna("").astype(str).eq("ok")].copy()
+        onboarding["priority_score_num"] = pd.to_numeric(onboarding["priority_score"], errors="coerce").fillna(0.0)
+        onboarding["pl_num"] = pd.to_numeric(onboarding["pl_atual"], errors="coerce").fillna(0.0)
+        onboarding = onboarding.sort_values(["priority_score_num", "pl_num"], ascending=[False, False]).head(80)
+        for pos, item in enumerate(onboarding.to_dict("records"), start=200):
+            status = text(item.get("overall_status")).lower() or "bloqueado"
+            actions = text(item.get("queue_next_actions")) or text(item.get("next_actions")) or text(item.get("missing_steps"))
+            add(
+                closeout_id=f"onboarding_{item.get('onboarding_id') or pos}",
+                ordem=pos,
+                pacote_tipo="onboarding",
+                escopo=f"{text(item.get('fundo')) or text(item.get('cnpj_fundo'))}",
+                prioridade=text(item.get("priority_band")) or "alta",
+                status_fechamento=status,
+                pendencias=item.get("open_queue_rows", 1),
+                fundos=1,
+                pl_referencia_brl=item.get("pl_atual", 0),
+                evidencia=text(item.get("missing_steps")),
+                acao_sugerida=actions,
+                ui_surface="Pipeline > Refresh mensal > Onboarding",
+                source_artifacts=text(item.get("source_artifacts")),
+                rerun_command=text(item.get("rerun_command")) or "python scripts/build_fidc_industry_incremental_onboarding.py",
+                record_ids_sample=text(item.get("onboarding_id")),
+                competencia_referencia=text(item.get("competencia_atual")) or competencia,
+            )
+
+    chunks = pd.DataFrame() if document_chunk_plan is None else document_chunk_plan.copy()
+    if not chunks.empty:
+        for col in [
+            "chunk_id",
+            "status_lote",
+            "priority_score",
+            "document_count",
+            "cnpj_count",
+            "priority_2025_2026_docs",
+            "next_action",
+            "rerun_command",
+            "sample_funds",
+        ]:
+            if col not in chunks.columns:
+                chunks[col] = ""
+        chunks["status_norm"] = _normalized_status(chunks["status_lote"])
+        chunks = chunks[~chunks["status_norm"].isin({"processado", "ignorado", "concluído", "concluido", "ok"})].copy()
+        chunks["priority_score_num"] = pd.to_numeric(chunks["priority_score"], errors="coerce").fillna(0.0)
+        chunks = chunks.sort_values(["priority_score_num", "chunk_id"], ascending=[False, True]).head(60)
+        for pos, item in enumerate(chunks.to_dict("records"), start=400):
+            add(
+                closeout_id=f"chunk_{item.get('chunk_id') or pos}",
+                ordem=pos,
+                pacote_tipo="chunk documental",
+                escopo=text(item.get("chunk_id")) or "chunk",
+                prioridade="alta" if float(item.get("priority_score_num", 0) or 0) >= 75 else "média",
+                status_fechamento="atenção",
+                bloqueia_publicacao=False,
+                pendencias=item.get("document_count", 0),
+                fundos=item.get("cnpj_count", 0),
+                pl_referencia_brl=0,
+                evidencia=(
+                    f"{item.get('document_count', 0)} docs; "
+                    f"{item.get('priority_2025_2026_docs', 0)} prioridade 2025-26; "
+                    f"{text(item.get('sample_funds'))}"
+                ),
+                acao_sugerida=text(item.get("next_action")) or "Processar ou justificar o lote.",
+                ui_surface="Documentos > Chunks",
+                source_artifacts="document_chunk_plan.csv",
+                rerun_command=text(item.get("rerun_command")) or "python scripts/build_fidc_industry_documents.py",
+                record_ids_sample=text(item.get("chunk_id")),
+            )
+
+    summary = pd.DataFrame() if curation_summary is None else curation_summary.copy()
+    if not summary.empty:
+        for col in [
+            "summary_type",
+            "scope_label",
+            "open_rows",
+            "high_priority_rows",
+            "funds",
+            "pl_reference_brl",
+            "max_priority_score",
+            "domains",
+            "action_types",
+            "next_actions_sample",
+            "source_documents_sample",
+            "rerun_commands_sample",
+            "summary_id",
+        ]:
+            if col not in summary.columns:
+                summary[col] = ""
+        summary["open_num"] = pd.to_numeric(summary["open_rows"], errors="coerce").fillna(0).astype(int)
+        summary["high_num"] = pd.to_numeric(summary["high_priority_rows"], errors="coerce").fillna(0).astype(int)
+        summary["score_num"] = pd.to_numeric(summary["max_priority_score"], errors="coerce").fillna(0.0)
+        backlog = summary[
+            summary["summary_type"].fillna("").astype(str).isin(["fidc_backlog", "admin_backlog", "segment_backlog"])
+            & summary["open_num"].gt(0)
+        ].copy()
+        backlog = backlog.sort_values(["high_num", "open_num", "score_num"], ascending=[False, False, False]).head(45)
+        for pos, item in enumerate(backlog.to_dict("records"), start=500):
+            high = int(item.get("high_num", 0) or 0)
+            add(
+                closeout_id=f"backlog_{item.get('summary_id') or pos}",
+                ordem=pos,
+                pacote_tipo=text(item.get("summary_type")),
+                escopo=text(item.get("scope_label")),
+                prioridade="alta" if high else "média",
+                status_fechamento="bloqueado" if high else "atenção",
+                pendencias=item.get("open_rows", 0),
+                fundos=item.get("funds", 0),
+                pl_referencia_brl=item.get("pl_reference_brl", 0),
+                evidencia=f"{text(item.get('domains'))}; {text(item.get('action_types'))}",
+                acao_sugerida=text(item.get("next_actions_sample")),
+                ui_surface="Pipeline > Fila única > Resumo",
+                source_artifacts=text(item.get("source_documents_sample")) or "industry_curation_queue_summary.csv.gz",
+                rerun_command=text(item.get("rerun_commands_sample")) or "python scripts/build_fidc_industry_curation_queue.py",
+                record_ids_sample=text(item.get("summary_id")),
+            )
+
+    frame = pd.DataFrame(rows)
+    if frame.empty:
+        return []
+    for col in MONTHLY_CLOSEOUT_PLAN_COLUMNS:
+        if col not in frame.columns:
+            frame[col] = ""
+    status_order = {"bloqueado": 0, "atenção": 1, "ok": 2, "n/d": 3}
+    priority_order = {"alta": 0, "média": 1, "media": 1, "baixa": 2}
+    frame["_status_order"] = frame["status_fechamento"].map(status_order).fillna(9)
+    frame["_priority_order"] = frame["prioridade"].fillna("").astype(str).str.lower().map(priority_order).fillna(9)
+    frame["ordem"] = pd.to_numeric(frame["ordem"], errors="coerce").fillna(9999).astype(int)
+    frame = frame.sort_values(["_status_order", "_priority_order", "ordem", "closeout_id"]).drop(
+        columns=["_status_order", "_priority_order"]
+    )
+    return frame[MONTHLY_CLOSEOUT_PLAN_COLUMNS].reset_index(drop=True).to_dict("records")
+
+
 def build_manual_review_ledger(*, industry_dir: Path) -> list[dict[str, object]]:
     """Summarize all in-app review domains, their persisted actions and append-only audit logs."""
 
@@ -6105,6 +6450,13 @@ def build_industry_pipeline_index(
                 "required": False,
                 **file_fingerprint(industry_dir / "industry_publication_gate.csv"),
             },
+            {
+                "module_id": "pipeline_index",
+                "group": "outputs",
+                "artifact": "industry_monthly_closeout_plan",
+                "required": False,
+                **file_fingerprint(industry_dir / "industry_monthly_closeout_plan.csv"),
+            },
         ]
     )
 
@@ -6518,6 +6870,32 @@ def build_industry_pipeline_index(
     quality_rollup["publication_gate_status_counts"] = gate_status_counts
     quality_rollup["publication_gate_blocking_rows"] = gate_blocking_rows
     quality_rollup["publication_gate_disclosure_rows"] = gate_disclosure_rows
+    closeout_plan = build_monthly_closeout_plan(
+        publication_gate=publication_gate,
+        curation_queue=load_dataframe(industry_dir / "industry_curation_queue.csv.gz"),
+        curation_summary=load_dataframe(industry_dir / "industry_curation_queue_summary.csv.gz"),
+        incremental_onboarding=load_dataframe(industry_dir / "industry_incremental_onboarding.csv"),
+        document_chunk_plan=load_dataframe(industry_dir / "document_chunk_plan.csv"),
+        quality_rollup=quality_rollup,
+    )
+    closeout_status_counts: dict[str, int] = {}
+    closeout_package_counts: dict[str, int] = {}
+    closeout_blocking_rows = 0
+    closeout_disclosure_rows = 0
+    for row in closeout_plan:
+        status = str(row.get("status_fechamento") or "n/d")
+        closeout_status_counts[status] = closeout_status_counts.get(status, 0) + 1
+        package = str(row.get("pacote_tipo") or "n/d")
+        closeout_package_counts[package] = closeout_package_counts.get(package, 0) + 1
+        if row.get("bloqueia_publicacao") is True:
+            closeout_blocking_rows += 1
+        if row.get("exige_nota_publica") is True:
+            closeout_disclosure_rows += 1
+    quality_rollup["monthly_closeout_plan_rows"] = len(closeout_plan)
+    quality_rollup["monthly_closeout_status_counts"] = closeout_status_counts
+    quality_rollup["monthly_closeout_package_counts"] = closeout_package_counts
+    quality_rollup["monthly_closeout_blocking_rows"] = closeout_blocking_rows
+    quality_rollup["monthly_closeout_disclosure_rows"] = closeout_disclosure_rows
     manual_review_ledger = build_manual_review_ledger(industry_dir=industry_dir)
     manual_review_status_counts: dict[str, int] = {}
     for row in manual_review_ledger:
@@ -6559,6 +6937,7 @@ def build_industry_pipeline_index(
         "prd_coverage": prd_coverage,
         "monthly_update_plan": monthly_update_plan,
         "publication_gate": publication_gate,
+        "monthly_closeout_plan": closeout_plan,
         "manual_review_ledger": manual_review_ledger,
         "modules": modules,
         "refresh_plan": refresh_plan,

@@ -39,14 +39,17 @@ def main() -> None:
     plan_path = args.industry_dir / "industry_monthly_update_plan.csv"
     readiness_path = args.industry_dir / "industry_monthly_readiness.csv"
     gate_path = args.industry_dir / "industry_publication_gate.csv"
+    closeout_path = args.industry_dir / "industry_monthly_closeout_plan.csv"
     index = build_industry_pipeline_index(industry_dir=args.industry_dir, output_path=output_path)
     save_dataframe(pd.DataFrame(index.get("monthly_update_plan", [])), plan_path)
     save_dataframe(pd.DataFrame(index.get("readiness_checks", [])), readiness_path)
     save_dataframe(pd.DataFrame(index.get("publication_gate", [])), gate_path)
+    save_dataframe(pd.DataFrame(index.get("monthly_closeout_plan", [])), closeout_path)
     index = build_industry_pipeline_index(industry_dir=args.industry_dir, output_path=output_path)
     save_dataframe(pd.DataFrame(index.get("monthly_update_plan", [])), plan_path)
     save_dataframe(pd.DataFrame(index.get("readiness_checks", [])), readiness_path)
     save_dataframe(pd.DataFrame(index.get("publication_gate", [])), gate_path)
+    save_dataframe(pd.DataFrame(index.get("monthly_closeout_plan", [])), closeout_path)
     save_pipeline_manifest(index, output_path)
     rollup = index.get("quality_rollup", {})
     status_counts = rollup.get("module_status_counts", {}) if isinstance(rollup, dict) else {}
@@ -63,6 +66,11 @@ def main() -> None:
     print(
         f"[ok] portão mensal gravado em {gate_path} "
         f"({rollup.get('publication_gate_status', 'n/d')}; {rollup.get('publication_gate_rows', 0)} sinais)"
+    )
+    print(
+        f"[ok] fechamento mensal gravado em {closeout_path} "
+        f"({rollup.get('monthly_closeout_plan_rows', 0)} pacotes; "
+        f"{rollup.get('monthly_closeout_blocking_rows', 0)} bloqueantes)"
     )
     readiness = index.get("readiness_checks", [])
     if isinstance(readiness, list) and readiness:

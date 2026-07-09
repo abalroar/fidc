@@ -80,6 +80,7 @@ _PIPELINE_INDEX_PATH = _DATA_DIR / "industry_pipeline_index.json"
 _MONTHLY_UPDATE_PLAN_PATH = _DATA_DIR / "industry_monthly_update_plan.csv"
 _MONTHLY_READINESS_PATH = _DATA_DIR / "industry_monthly_readiness.csv"
 _PUBLICATION_GATE_PATH = _DATA_DIR / "industry_publication_gate.csv"
+_MONTHLY_CLOSEOUT_PLAN_PATH = _DATA_DIR / "industry_monthly_closeout_plan.csv"
 _INCREMENTAL_ONBOARDING_PATH = _DATA_DIR / "industry_incremental_onboarding.csv"
 _INCREMENTAL_ONBOARDING_MANIFEST_PATH = _DATA_DIR / "industry_incremental_onboarding_manifest.json"
 _CURATION_QUEUE_PATH = _DATA_DIR / "industry_curation_queue.csv.gz"
@@ -3703,6 +3704,66 @@ def _format_publication_gate(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def _format_monthly_closeout_plan(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    out = frame.rename(
+        columns={
+            "closeout_id": "ID",
+            "pacote_tipo": "Pacote",
+            "escopo": "Escopo",
+            "prioridade": "Prioridade",
+            "status_fechamento": "Status",
+            "bloqueia_publicacao": "Bloqueia",
+            "exige_nota_publica": "Nota pública",
+            "pendencias": "Pendências",
+            "fundos": "FIDCs",
+            "pl_referencia_brl": "PL ref.",
+            "competencia_referencia": "Competência",
+            "evidencia": "Evidência",
+            "acao_sugerida": "Ação",
+            "ui_surface": "Onde fechar",
+            "source_artifacts": "Fonte",
+            "rerun_command": "Comando",
+            "record_ids_sample": "Registros",
+            "ordem": "Ordem",
+        }
+    )
+    keep = [
+        "Status",
+        "Prioridade",
+        "Pacote",
+        "Escopo",
+        "Pendências",
+        "FIDCs",
+        "PL ref.",
+        "Ação",
+        "Onde fechar",
+        "Evidência",
+        "Fonte",
+        "Comando",
+        "Nota pública",
+        "Bloqueia",
+        "Competência",
+        "Registros",
+        "ID",
+    ]
+    out = out[[col for col in keep if col in out.columns]].copy()
+    if "Status" in out.columns:
+        out["Status"] = out["Status"].map(_status_badge_text)
+    for col in ["Pendências", "FIDCs"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).map(lambda value: _fmt_int(float(value)))
+    if "PL ref." in out.columns:
+        out["PL ref."] = pd.to_numeric(out["PL ref."], errors="coerce").fillna(0).map(
+            lambda value: "" if float(value) == 0 else _fmt_bi(float(value), 2)
+        )
+    for col in ["Nota pública", "Bloqueia"]:
+        if col in out.columns:
+            out[col] = out[col].map(lambda value: "sim" if str(value).lower() in {"true", "1", "sim"} else "não")
+    return out
+
+
 def _format_monthly_update_plan(frame: pd.DataFrame) -> pd.DataFrame:
     if frame.empty:
         return frame
@@ -7031,6 +7092,9 @@ def _render_pipeline_manifest() -> None:
     publication_gate_frame = load_dataframe(_PUBLICATION_GATE_PATH)
     if publication_gate_frame.empty and isinstance(index.get("publication_gate"), list):
         publication_gate_frame = pd.DataFrame(index.get("publication_gate", []))
+    closeout_plan_frame = load_dataframe(_MONTHLY_CLOSEOUT_PLAN_PATH)
+    if closeout_plan_frame.empty and isinstance(index.get("monthly_closeout_plan"), list):
+        closeout_plan_frame = pd.DataFrame(index.get("monthly_closeout_plan", []))
     incremental_onboarding = load_dataframe(_INCREMENTAL_ONBOARDING_PATH)
     incremental_onboarding_manifest = load_pipeline_manifest(_INCREMENTAL_ONBOARDING_MANIFEST_PATH)
     onboarding_quality = (
@@ -7055,6 +7119,11 @@ def _render_pipeline_manifest() -> None:
         if isinstance(rollup.get("manual_review_status_counts"), dict)
         else {}
     )
+    closeout_status_counts = (
+        rollup.get("monthly_closeout_status_counts", {})
+        if isinstance(rollup.get("monthly_closeout_status_counts"), dict)
+        else {}
+    )
     publication_gate_status = str(rollup.get("publication_gate_status") or "")
     publication_gate_label = {
         "bloqueado": "Bloqueado",
@@ -7066,6 +7135,11 @@ def _render_pipeline_manifest() -> None:
             "Portão mensal",
             publication_gate_label,
             f"{_fmt_int(float(rollup.get('publication_gate_blocking_rows', 0) or 0))} bloqueios · {_fmt_int(float(rollup.get('publication_gate_disclosure_rows', 0) or 0))} notas",
+        ),
+        _curation_card(
+            "Fechamento",
+            _fmt_int(float(rollup.get("monthly_closeout_plan_rows", len(closeout_plan_frame)) or 0)),
+            f"{_fmt_int(float(rollup.get('monthly_closeout_blocking_rows', 0) or 0))} bloqueantes",
         ),
         _curation_card(
             "Módulos ok",
@@ -7260,6 +7334,116 @@ def _render_pipeline_manifest() -> None:
                 key="industry_publication_gate_download",
             )
             st.caption(f"Fonte: `{_PUBLICATION_GATE_PATH.name}`")
+
+        closeout_frame = closeout_plan_frame.copy()
+        if closeout_frame.empty:
+            st.caption("Plano de fechamento ainda não materializado. Rode `python scripts/build_fidc_industry_pipeline_index.py`.")
+        else:
+            st.markdown("**Plano de fechamento mensal**")
+            closeout_status = closeout_frame.get("status_fechamento", pd.Series("", index=closeout_frame.index)).fillna("").astype(str)
+            closeout_package = closeout_frame.get("pacote_tipo", pd.Series("", index=closeout_frame.index)).fillna("").astype(str)
+            closeout_priority = closeout_frame.get("prioridade", pd.Series("", index=closeout_frame.index)).fillna("").astype(str)
+            closeout_blocking = int(
+                closeout_frame.get("bloqueia_publicacao", pd.Series(False, index=closeout_frame.index))
+                .fillna(False)
+                .astype(str)
+                .str.lower()
+                .isin({"true", "1", "sim"})
+                .sum()
+            )
+            closeout_notes = int(
+                closeout_frame.get("exige_nota_publica", pd.Series(False, index=closeout_frame.index))
+                .fillna(False)
+                .astype(str)
+                .str.lower()
+                .isin({"true", "1", "sim"})
+                .sum()
+            )
+            closeout_cards = [
+                _curation_card("Pacotes", _fmt_int(float(len(closeout_frame))), "fechamento operacional"),
+                _curation_card("Bloqueantes", _fmt_int(float(closeout_blocking)), "seguram publicação"),
+                _curation_card("Notas públicas", _fmt_int(float(closeout_notes)), "metodologia"),
+                _curation_card("Alta prioridade", _fmt_int(float(closeout_priority.str.lower().eq("alta").sum())), "fila/onboarding"),
+            ]
+            st.markdown(f'<div class="industry-kpi-grid">{"".join(closeout_cards)}</div>', unsafe_allow_html=True)
+            close_a, close_b, close_c, close_d = st.columns([0.75, 0.9, 0.85, 1.45])
+            with close_a:
+                close_status_options = [
+                    value
+                    for value in ["bloqueado", "atenção", "ok", "n/d"]
+                    if value in set(closeout_status)
+                ] or sorted([value for value in closeout_status.unique() if value])
+                selected_close_status = st.multiselect(
+                    "Status fechamento",
+                    close_status_options,
+                    default=[value for value in close_status_options if value != "ok"] or close_status_options,
+                    key="industry_closeout_status",
+                )
+            with close_b:
+                package_options = sorted([value for value in closeout_package.unique() if value])
+                selected_packages = st.multiselect(
+                    "Pacote",
+                    package_options,
+                    default=package_options,
+                    key="industry_closeout_package",
+                )
+            with close_c:
+                priority_options = sorted([value for value in closeout_priority.unique() if value])
+                selected_close_priorities = st.multiselect(
+                    "Prioridade",
+                    priority_options,
+                    default=priority_options,
+                    key="industry_closeout_priority",
+                )
+            with close_d:
+                closeout_query = st.text_input(
+                    "Buscar fechamento",
+                    key="industry_closeout_query",
+                    placeholder="FIDC, chunk, admin, ação, fonte ou comando",
+                )
+            closeout_view = closeout_frame.copy()
+            if selected_close_status:
+                closeout_view = closeout_view[
+                    closeout_view.get("status_fechamento", pd.Series("", index=closeout_view.index)).fillna("").astype(str).isin(selected_close_status)
+                ].copy()
+            if selected_packages:
+                closeout_view = closeout_view[
+                    closeout_view.get("pacote_tipo", pd.Series("", index=closeout_view.index)).fillna("").astype(str).isin(selected_packages)
+                ].copy()
+            if selected_close_priorities:
+                closeout_view = closeout_view[
+                    closeout_view.get("prioridade", pd.Series("", index=closeout_view.index)).fillna("").astype(str).isin(selected_close_priorities)
+                ].copy()
+            if closeout_query:
+                search_cols = [
+                    col
+                    for col in [
+                        "pacote_tipo",
+                        "escopo",
+                        "prioridade",
+                        "status_fechamento",
+                        "evidencia",
+                        "acao_sugerida",
+                        "ui_surface",
+                        "source_artifacts",
+                        "rerun_command",
+                        "record_ids_sample",
+                    ]
+                    if col in closeout_view.columns
+                ]
+                search = closeout_view[search_cols].fillna("").astype(str).agg(" ".join, axis=1) if search_cols else pd.Series("", index=closeout_view.index)
+                closeout_view = closeout_view[search.str.contains(closeout_query, case=False, na=False)].copy()
+            if "ordem" in closeout_view.columns:
+                closeout_view = closeout_view.sort_values("ordem").copy()
+            st.dataframe(_format_monthly_closeout_plan(closeout_view.head(300)), hide_index=True, width="stretch", height=520)
+            st.download_button(
+                "Baixar fechamento mensal",
+                data=closeout_frame.to_csv(index=False).encode("utf-8"),
+                file_name=_MONTHLY_CLOSEOUT_PLAN_PATH.name,
+                mime="text/csv",
+                key="industry_monthly_closeout_download",
+            )
+            st.caption(f"Fonte: `{_MONTHLY_CLOSEOUT_PLAN_PATH.name}`")
 
     with tab_modules:
         module_rows = []
@@ -7904,6 +8088,7 @@ def _render_pipeline_manifest() -> None:
                 save_dataframe(pd.DataFrame(new_index.get("monthly_update_plan", [])), _MONTHLY_UPDATE_PLAN_PATH)
                 save_dataframe(pd.DataFrame(new_index.get("readiness_checks", [])), _MONTHLY_READINESS_PATH)
                 save_dataframe(pd.DataFrame(new_index.get("publication_gate", [])), _PUBLICATION_GATE_PATH)
+                save_dataframe(pd.DataFrame(new_index.get("monthly_closeout_plan", [])), _MONTHLY_CLOSEOUT_PLAN_PATH)
                 save_pipeline_manifest(new_index, _PIPELINE_INDEX_PATH)
                 _load_monthly_delta_tables.clear()
                 _load_snapshot_gap_actions.clear()
