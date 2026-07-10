@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-dossier-manifest/v1",
-  "generated_at_utc": "2026-07-10T11:57:09+00:00",
+  "generated_at_utc": "2026-07-10T12:26:31+00:00",
   "pipeline": "industry_dimension_dossiers",
   "design_constraints": {
     "modular": true,
@@ -16,28 +16,28 @@
     "dimension_value_atlas": {
       "path": "data/industry_study/industry_dimension_value_atlas.csv.gz",
       "exists": true,
-      "bytes": 115266,
-      "sha256": "48b057409c87577a7f35501211c49d0d209df274c57c815037e271b38001491d"
+      "bytes": 115747,
+      "sha256": "8e77c99faa369413e51b1ae04ceac419b81197cf6a7ede1ee3342de937532870"
     },
     "dimension_profiles": {
       "path": "data/industry_study/industry_dimension_profiles.csv.gz",
       "exists": true,
-      "bytes": 2994278,
-      "sha256": "e9657ef41aef90f30e9df381ac4f1f00dddce5989cf24ba0870ee9f0e3daf6cd"
+      "bytes": 3019106,
+      "sha256": "821bf3d9e25f4e6b1aac73ce43945978ce7d2cce2afb094fb472247f87670745"
     },
     "heatmap_registry": {
       "path": "data/industry_study/industry_heatmap_registry.csv",
       "exists": true,
       "bytes": 3041,
-      "sha256": "d72c7c41cec8fdd4972232c7ea7ec8d155f9b6907bd343372d51e84f30c6a3cb"
+      "sha256": "6f84dd217a90633d652c580529d96691b55e70abb234b510f40a248dd8201e56"
     }
   },
   "outputs": {
     "dimension_dossiers": {
       "path": "data/industry_study/industry_dimension_dossiers.csv",
       "exists": true,
-      "bytes": 25995,
-      "sha256": "8f8913fe739546ee6dade35a14a5ee19e3dc2c346d4c8e1c3e7a1802ba56e33e"
+      "bytes": 26043,
+      "sha256": "4e6d869f329cd1d012f471da9e434faaf11f039519bed3255db5d6f61a2951db"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_dossier_manifest.json"
@@ -50,7 +50,7 @@
       "status": "ok",
       "input": "data/industry_study/industry_dimension_value_atlas.csv.gz+data/industry_study/industry_dimension_profiles.csv.gz+data/industry_study/industry_heatmap_registry.csv",
       "output": "memoria:atlas+profiles+heatmap_registry",
-      "rows": 96617,
+      "rows": 97067,
       "rerun": "python scripts/build_fidc_industry_dimension_monthly.py && python scripts/build_fidc_industry_dimension_profiles.py"
     },
     {
@@ -70,14 +70,14 @@
     "ok_rows": 29,
     "attention_rows": 0,
     "blocked_rows": 0,
-    "atlas_values": 1048,
-    "atlas_values_with_pl": 1031,
-    "profile_rows": 95558,
-    "profile_links": 1494036,
+    "atlas_values": 1050,
+    "atlas_values_with_pl": 1033,
+    "profile_rows": 96006,
+    "profile_links": 1496837,
     "with_profiles": 29,
     "heatmap_presets": 22,
     "heatmap_presets_ok": 22,
-    "source_document_coverage": 0.16099791432696936,
-    "traceability_coverage": 0.999050751377079
+    "source_document_coverage": 0.16317561249298673,
+    "traceability_coverage": 0.999051537577814
   }
 }

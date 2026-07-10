@@ -1897,6 +1897,89 @@ def test_document_fields_extract_page_traceable_candidates_and_map_to_review_sch
     assert "Part. página" in formatted_summary.columns
 
 
+def test_document_fields_extract_numbered_eligibility_and_concentration_rules():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        cache_dir = root / "data" / "industry_study" / "document_text_cache" / "doc-0001"
+        cache_dir.mkdir(parents=True)
+        cache_path = cache_dir / "criteria-sections.json.gz"
+        with gzip.open(cache_path, "wt", encoding="utf-8") as handle:
+            json.dump(
+                {
+                    "schema_version": "industry-document-text-cache/v1",
+                    "pages": [
+                        {
+                            "page_number": 1,
+                            "text": (
+                                "SUMÁRIO. CAPÍTULO XI – CRITÉRIOS DE ELEGIBILIDADE ........ 31. "
+                                '“Critérios de Elegibilidade” significa os critérios definidos no Anexo.'
+                            ),
+                        },
+                        {
+                            "page_number": 6,
+                            "text": (
+                                "Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos "
+                                "Creditórios que atendam cumulativamente aos seguintes critérios: "
+                                "(i) o vencimento final deverá observar o prazo máximo de 108 meses; "
+                                "(ii) os Direitos Creditórios não poderão estar inadimplentes. "
+                                "Limites de Concentração. A carteira deverá observar os seguintes limites: "
+                                "(a) os créditos de um mesmo Devedor não poderão representar mais de 10% "
+                                "do Patrimônio Líquido da Classe."
+                            ),
+                        },
+                        {
+                            "page_number": 9,
+                            "text": (
+                                "Risco de insuficiência dos Critérios de Elegibilidade. A carteira deverá "
+                                "observar os limites legais e (i) poderá sofrer perdas em caso de inadimplência."
+                            ),
+                        },
+                    ],
+                },
+                handle,
+                ensure_ascii=False,
+            )
+        text_index = pd.DataFrame(
+            [
+                {
+                    "chunk_id": "doc-0001",
+                    "document_key": "criteria-sections",
+                    "cnpj_fundo": "05753599000158",
+                    "fundo": "FIDC TESTE",
+                    "documento_origem": "regulamento.pdf",
+                    "content_kind": "pdf",
+                    "document_date": "2026-05-01",
+                    "source_path": "data/raw/05753599000158/regulamento.pdf",
+                    "source_sha256": "a" * 64,
+                    "cache_path": "data/industry_study/document_text_cache/doc-0001/criteria-sections.json.gz",
+                    "parse_status": "text_ready",
+                }
+            ]
+        )
+
+        _, criteria = build_document_field_candidates(
+            text_index,
+            chunk_id="doc-0001",
+            root=root,
+            extracted_at_utc="2026-07-10T12:00:00+00:00",
+        )
+
+    section_rows = criteria[criteria["extraction_method"].eq("regex_criteria_section_page_v1")]
+    assert section_rows["source_page"].astype(str).eq("6").all()
+    assert section_rows["canonical_key"].value_counts().to_dict() == {
+        "eligibility_rule": 2,
+        "concentration_limit": 1,
+    }
+    concentration = section_rows[section_rows["canonical_key"].eq("concentration_limit")].iloc[0]
+    assert section_rows[section_rows["canonical_key"].eq("eligibility_rule")]["monitoring_status"].eq(
+        "triagem_documental"
+    ).all()
+    assert concentration["threshold_display"] == "10%"
+    assert concentration["threshold_value"] == 0.1
+    assert concentration["comparison"] == "<="
+    assert concentration["monitoring_status"] == "monitoravel"
+
+
 def test_participant_relation_triage_suppresses_adjacent_glossary_roles():
     record = pd.Series(
         {

@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-incremental-onboarding-manifest/v1",
-  "generated_at_utc": "2026-07-10T11:46:09+00:00",
+  "generated_at_utc": "2026-07-10T12:26:23+00:00",
   "pipeline": "industry_incremental_onboarding",
   "design_constraints": {
     "modular": true,
@@ -16,14 +16,14 @@
     "monthly_delta": {
       "path": "data/industry_study/industry_monthly_delta.csv.gz",
       "exists": true,
-      "bytes": 366014,
-      "sha256": "9e1d8bffb00490710c2f64fc644d24ff33470711b5efd706889db0ed4e86fba3"
+      "bytes": 366084,
+      "sha256": "51080b094d0dbd9277530b3664ac3e803020da570dce45d94ccd730290f792f9"
     },
     "curation_queue": {
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
-      "bytes": 491930,
-      "sha256": "e94d91884ecaaa5c69ec7fcb479d38e6fc49254807e7e35898ec3c0296611d3b"
+      "bytes": 491941,
+      "sha256": "f5e3a16e8e015b263680f85ea70663dbfd2aed0058a8c47829f9a637b1edfe4c"
     },
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
@@ -36,8 +36,8 @@
     "incremental_onboarding": {
       "path": "data/industry_study/industry_incremental_onboarding.csv",
       "exists": true,
-      "bytes": 84163,
-      "sha256": "8a7714b0a69d49d0420b3a15d5d03fc4c04a0547ef6df40e11219d9b70771bf8"
+      "bytes": 82275,
+      "sha256": "377a7f6032d7a7131955b11a816caea4d18811e8f4da2729345a2e76fba41a7d"
     },
     "manifest": {
       "path": "data/industry_study/industry_incremental_onboarding_manifest.json"
@@ -71,17 +71,17 @@
     "funds": 71,
     "new_funds": 63,
     "reactivated_funds": 8,
-    "blocked_rows": 66,
-    "attention_rows": 5,
+    "blocked_rows": 62,
+    "attention_rows": 9,
     "ok_rows": 0,
     "discovery_blocked": 2,
     "processing_attention": 69,
-    "incorporation_blocked": 51,
+    "incorporation_blocked": 17,
     "open_queue_rows": 191,
-    "open_high_priority_rows": 134,
+    "open_high_priority_rows": 128,
     "status_counts": {
-      "bloqueado": 66,
-      "atenção": 5
+      "bloqueado": 62,
+      "atenção": 9
     }
   }
 }

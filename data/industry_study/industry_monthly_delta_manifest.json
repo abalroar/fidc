@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-monthly-delta-manifest/v1",
-  "generated_at_utc": "2026-07-10T11:45:44+00:00",
+  "generated_at_utc": "2026-07-10T12:24:20+00:00",
   "pipeline": "industry_monthly_delta",
   "design_constraints": {
     "modular": true,
@@ -22,8 +22,8 @@
     "fund_snapshot": {
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 445064,
-      "sha256": "4d488c0db2908d808b86b4b12d9a34933fe660762b4a823066641cd1bf60f677"
+      "bytes": 447515,
+      "sha256": "54a23f7b01c1f6006ffec94f8ea17b8ac230e8ac5fc4087e2bdb2dd0c67f90e4"
     },
     "metadata": {
       "path": "data/industry_study/metadata.json",
@@ -48,8 +48,8 @@
     "monthly_delta": {
       "path": "data/industry_study/industry_monthly_delta.csv.gz",
       "exists": true,
-      "bytes": 366014,
-      "sha256": "9e1d8bffb00490710c2f64fc644d24ff33470711b5efd706889db0ed4e86fba3"
+      "bytes": 366084,
+      "sha256": "51080b094d0dbd9277530b3664ac3e803020da570dce45d94ccd730290f792f9"
     },
     "manifest": {
       "path": "data/industry_study/industry_monthly_delta_manifest.json"
@@ -92,9 +92,9 @@
     "new_funds": 63,
     "reactivated_funds": 8,
     "exited_funds": 60,
-    "high_priority_rows": 62,
-    "high_priority_open_rows": 62,
-    "high_priority_pending_rows": 62,
+    "high_priority_rows": 56,
+    "high_priority_open_rows": 56,
+    "high_priority_pending_rows": 56,
     "high_priority_in_progress_rows": 0,
     "high_priority_closed_rows": 0,
     "action_status_counts": {
@@ -104,7 +104,7 @@
     "ignored_actions": 0,
     "needs_document_discovery": 3559,
     "needs_cedente_review": 4081,
-    "needs_criteria_review": 3630,
+    "needs_criteria_review": 3594,
     "needs_subordination_review": 3964
   }
 }

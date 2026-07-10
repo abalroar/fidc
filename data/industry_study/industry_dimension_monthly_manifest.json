@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-monthly-manifest/v1",
-  "generated_at_utc": "2026-07-10T11:57:01+00:00",
+  "generated_at_utc": "2026-07-10T12:26:30+00:00",
   "pipeline": "industry_dimension_monthly",
   "design_constraints": {
     "modular": true,
@@ -23,8 +23,8 @@
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1972356,
-      "sha256": "c82323e24fdf692b6a8afa44cb3d1dba96fc2a957d42862e9fe1b3df9584ad28"
+      "bytes": 1982573,
+      "sha256": "caf99094c7a40ea16ee12fc42d6343f406f20fd9087d9f7bdcaca94123c97e63"
     }
   },
   "parameters": {
@@ -34,8 +34,8 @@
     "dimension_monthly": {
       "path": "data/industry_study/industry_dimension_monthly.csv.gz",
       "exists": true,
-      "bytes": 3710037,
-      "sha256": "d05b8d644ab13e029dc9f868c797d8caf83ec58e6d018b1801ef484f0fdf2367"
+      "bytes": 3711475,
+      "sha256": "485a1a77272537eaca77d30935ece81c1861b0eee4642dffbf324401835cce15"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_monthly_manifest.json"
@@ -43,8 +43,8 @@
     "dimension_value_atlas": {
       "path": "data/industry_study/industry_dimension_value_atlas.csv.gz",
       "exists": true,
-      "bytes": 115266,
-      "sha256": "48b057409c87577a7f35501211c49d0d209df274c57c815037e271b38001491d"
+      "bytes": 115747,
+      "sha256": "8e77c99faa369413e51b1ae04ceac419b81197cf6a7ede1ee3342de937532870"
     }
   },
   "stages": [
@@ -54,7 +54,7 @@
       "status": "ok",
       "input": "data/industry_study/vehicle_monthly.csv.gz+data/industry_study/industry_dimension_catalog.csv.gz",
       "output": "memoria:vehicle_monthly+dimension_catalog",
-      "rows": 301333,
+      "rows": 301402,
       "rerun": "python scripts/build_fidc_industry_study.py --report && python scripts/build_fidc_industry_dimensions.py"
     },
     {
@@ -63,7 +63,7 @@
       "status": "ok",
       "input": "memoria:vehicle_monthly+dimension_catalog",
       "output": "data/industry_study/industry_dimension_monthly.csv.gz",
-      "rows": 77623,
+      "rows": 77657,
       "months": 161,
       "dimensions": 29,
       "rerun": "python scripts/build_fidc_industry_dimension_monthly.py"
@@ -74,32 +74,32 @@
       "status": "ok",
       "input": "data/industry_study/industry_dimension_monthly.csv.gz",
       "output": "data/industry_study/industry_dimension_value_atlas.csv.gz",
-      "rows": 1048,
+      "rows": 1050,
       "dimensions": 29,
       "rerun": "python scripts/build_fidc_industry_dimension_monthly.py"
     }
   ],
   "quality": {
-    "rows": 77623,
+    "rows": 77657,
     "months": 161,
     "dimensions": 29,
-    "dimension_values": 1057,
+    "dimension_values": 1059,
     "latest_competencia": "2026-05",
-    "latest_rows": 1048,
-    "latest_pl_brl": 15714856130479.527,
-    "with_source_document_links": 23930,
-    "curated_rows": 15160,
+    "latest_rows": 1050,
+    "latest_pl_brl": 15716675580935.59,
+    "with_source_document_links": 23964,
+    "curated_rows": 15194,
     "max_competencia_requested": "2026-05",
-    "atlas_rows": 1048,
+    "atlas_rows": 1050,
     "atlas_dimensions": 29,
     "atlas_latest_competencia": "2026-05",
-    "atlas_values_with_pl": 1031,
-    "atlas_values_with_source_document_links": 409,
-    "atlas_values_with_traceability_links": 1048,
-    "atlas_values_with_source_document_sample": 409,
-    "atlas_values_with_source_page_sample": 247,
-    "atlas_values_with_confidence": 1048,
-    "atlas_source_document_links": 12042,
-    "atlas_traceability_coverage": 0.9991288148616136
+    "atlas_values_with_pl": 1033,
+    "atlas_values_with_source_document_links": 411,
+    "atlas_values_with_traceability_links": 1050,
+    "atlas_values_with_source_document_sample": 411,
+    "atlas_values_with_source_page_sample": 249,
+    "atlas_values_with_confidence": 1050,
+    "atlas_source_document_links": 12215,
+    "atlas_traceability_coverage": 0.9991251202570173
   }
 }

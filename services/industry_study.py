@@ -5385,6 +5385,231 @@ def _subordination_candidates_from_page(
     return rows
 
 
+_CRITERION_SECTION_DEFINITIONS = [
+    {
+        "canonical_key": "eligibility_rule",
+        "criterion_name": "Critério de elegibilidade",
+        "heading": re.compile(r"crit[eé]rios?\s+de\s+elegibilidade", re.IGNORECASE),
+        "event_type": "aquisição",
+        "ime_metric": "",
+    },
+    {
+        "canonical_key": "concentration_limit",
+        "criterion_name": "Limite de concentração",
+        "heading": re.compile(r"limites?\s+de\s+concentra(?:ç|c)[aã]o", re.IGNORECASE),
+        "event_type": "enquadramento",
+        "ime_metric": "Exposição / PL % por dimensão aplicável",
+    },
+]
+_CRITERION_OPERATIONAL_PATTERN = re.compile(
+    r"(?:(?:somente\s+poder[aá]|dever[aá]\s+apenas)\s+adquirir|"
+    r"adquirir.{0,180}?(?:atendam?|obede[cç]am|observem)|"
+    r"direitos?\s+credit[oó]rios?.{0,180}?(?:dever[aã]o?\s+atender|atendam?|obede[cç]am|observem)|"
+    r"(?:classe|fundo|gestor|carteira).{0,160}?dever[aã]o?\s+observar.{0,100}?(?:limites|par[aâ]metros)|"
+    r"(?:limites|exposi[cç][aã]o).{0,140}?n[aã]o\s+poder[aã]o?\s+(?:exceder|representar))",
+    re.IGNORECASE,
+)
+_CRITERION_SECTION_BOUNDARY = re.compile(
+    r"\b(?:cap[ií]tulo\s+[ivxlcdm]+|se[cç][aã]o\s+[ivxlcdm]+|"
+    r"pol[ií]tica\s+de\s+cobran[cç]a|eventos?\s+de\s+avalia[cç][aã]o|"
+    r"documentos?\s+comprobat[oó]rios?|verifica[cç][aã]o\s+do\s+lastro|"
+    r"fatores?\s+de\s+risco|taxa\s+de\s+administra[cç][aã]o)\b",
+    re.IGNORECASE,
+)
+_CRITERION_ITEM_MARKER = re.compile(
+    r"(?<!\w)(?P<marker>\([a-z]\)|\([ivxlcdm]{1,6}\)|[a-z]\)|[ivxlcdm]{1,6}\)|[•●▪])\s+",
+    re.IGNORECASE,
+)
+
+
+def _criterion_threshold(rule_text: str) -> tuple[object, str, str, str]:
+    values: list[float] = []
+    for raw in re.findall(r"(\d{1,3}(?:[\.,]\d+)?)\s*%", rule_text):
+        try:
+            value = float(raw.replace(",", "."))
+        except ValueError:
+            continue
+        if 0 < value <= 100:
+            values.append(value)
+    unique_values = list(dict.fromkeys(values))
+    if len(unique_values) != 1:
+        return "", "", "", ""
+    value = unique_values[0]
+    normalized = _ascii_compact(rule_text).lower()
+    if re.search(r"nao\s+poderao?\s+(?:exceder|representar)|mais\s+de|no\s+maximo|maximo\s+de|ate\s+o\s+limite", normalized):
+        comparison = "<="
+    elif re.search(r"no\s+minimo|minimo\s+de|igual\s+ou\s+superior", normalized):
+        comparison = ">="
+    else:
+        comparison = ""
+    return value / 100.0, "ratio", f"{value:g}%", comparison
+
+
+def _criterion_rule_segments(section_text: str) -> list[tuple[str, str]]:
+    markers = list(_CRITERION_ITEM_MARKER.finditer(section_text))
+    segments: list[tuple[str, str]] = []
+    for index, marker in enumerate(markers):
+        end = markers[index + 1].start() if index + 1 < len(markers) else len(section_text)
+        rule = section_text[marker.end() : end]
+        rule = re.split(r"(?:DocuSign|Clicksign)(?:\s+Envelope\s+ID)?", rule, maxsplit=1, flags=re.IGNORECASE)[0]
+        rule = re.split(r"\s+\d+(?:\.\d+){1,3}\.?\s+[A-ZÀ-Ü]", rule, maxsplit=1)[0]
+        rule = re.sub(r"\s+", " ", rule).strip(" ;,.-–")
+        normalized = _ascii_compact(rule).lower()
+        incomplete_endings = (
+            " que",
+            " aos",
+            " as",
+            " os",
+            " nos",
+            " nas",
+            " no",
+            " na",
+            " um",
+            " uma",
+            " dos",
+            " das",
+            " pelo",
+            " pela",
+            " em",
+            " com",
+            " sob",
+            " e",
+            " ou",
+            "(",
+            ":",
+        )
+        incomplete_references = re.search(r"\b(?:al[ií]neas|itens|incisos|cl[aá]usulas?)$", normalized)
+        starts_mid_reference = re.match(r"^(?:acima|abaixo)\b", normalized)
+        if (
+            20 <= len(rule) <= 1800
+            and not normalized.endswith(incomplete_endings)
+            and incomplete_references is None
+            and starts_mid_reference is None
+        ):
+            segments.append((marker.group("marker"), rule))
+    if segments:
+        return segments
+    sentences = re.split(r"(?<=[.;])\s+(?=[A-ZÀ-Ü])", section_text)
+    for sentence in sentences:
+        sentence = re.sub(r"\s+", " ", sentence).strip(" ;,.-–")
+        normalized = _ascii_compact(sentence).lower()
+        if not 40 <= len(sentence) <= 1400:
+            continue
+        if re.search(r"\b(?:devera|deverao|devem|nao\s+podera|somente\s+podera)\b", normalized):
+            segments.append(("regra", sentence))
+    return segments[:20]
+
+
+def _section_criterion_candidates_from_page(
+    *,
+    text: str,
+    page_number: object,
+    record: pd.Series,
+    extracted_at_utc: str,
+) -> list[dict[str, object]]:
+    raw_text = str(text or "")
+    if not raw_text.strip() or not str(page_number or "").strip():
+        return []
+    rows: list[dict[str, object]] = []
+    source_document = str(record.get("documento_origem", "") or "")
+    fund_cnpj = normalize_cnpj(record.get("cnpj_fundo", ""))
+    for definition in _CRITERION_SECTION_DEFINITIONS:
+        for heading in definition["heading"].finditer(raw_text):
+            line_start = raw_text.rfind("\n", 0, heading.start()) + 1
+            line_end = raw_text.find("\n", heading.end())
+            line_end = len(raw_text) if line_end < 0 else line_end
+            heading_line = re.sub(r"\s+", " ", raw_text[line_start:line_end]).strip()
+            normalized_line = _ascii_compact(heading_line).lower().strip(" -–:.")
+            heading_prefix = r"(?:(?:capitulo|artigo)\s+[ivxlcdm0-9º°.-]+\s*[-–:]?\s*)?(?:\d+(?:\.\d+)*\.?\s+)?"
+            if definition["canonical_key"] == "eligibility_rule":
+                heading_label_pattern = (
+                    heading_prefix
+                    + r"criterios?\s+de\s+elegibilidade(?:\s+(?:dos?|para|adicionais?)\b.*)?"
+                )
+            else:
+                heading_label_pattern = (
+                    heading_prefix
+                    + r"limites?\s+de\s+concentracao(?:\s+(?:dos?|por|para|e)\b.*)?"
+                )
+            heading_is_label = bool(re.fullmatch(heading_label_pattern, normalized_line))
+            operational_in_line = _CRITERION_OPERATIONAL_PATTERN.search(heading_line)
+            if operational_in_line is None and not heading_is_label:
+                continue
+            context_end = min(heading.end() + 1800, len(raw_text))
+            operational = operational_in_line or _CRITERION_OPERATIONAL_PATTERN.search(
+                re.sub(r"\s+", " ", raw_text[heading.end() : context_end])
+            )
+            if operational is None:
+                continue
+            if re.search(r"\.{5,}", raw_text[line_start:line_end]):
+                continue
+            section_end = min(heading.end() + 9000, len(raw_text))
+            boundary = _CRITERION_SECTION_BOUNDARY.search(raw_text, heading.end() + 240, section_end)
+            if boundary is not None:
+                section_end = boundary.start()
+            for other_definition in _CRITERION_SECTION_DEFINITIONS:
+                if other_definition["canonical_key"] == definition["canonical_key"]:
+                    continue
+                other_boundary = other_definition["heading"].search(raw_text, heading.end() + 80, section_end)
+                if other_boundary is not None:
+                    section_end = other_boundary.start()
+            section_text = re.sub(r"\s+", " ", raw_text[heading.end() : section_end]).strip()
+            for marker, rule in _criterion_rule_segments(section_text):
+                threshold_value, threshold_unit, threshold_display, comparison = _criterion_threshold(rule)
+                canonical_key = str(definition["canonical_key"])
+                monitorable = canonical_key == "concentration_limit" and bool(threshold_display)
+                seed = "|".join(
+                    [
+                        fund_cnpj,
+                        canonical_key,
+                        _ascii_compact(rule).lower(),
+                        source_document,
+                        str(page_number or ""),
+                    ]
+                )
+                context = _sample_text(
+                    f"{definition['criterion_name']} {marker}: {rule}",
+                    900,
+                )
+                rows.append(
+                    {
+                        "candidate_id": hashlib.sha1(seed.encode("utf-8", errors="ignore")).hexdigest()[:20],
+                        "chunk_id": record.get("chunk_id", ""),
+                        "document_key": record.get("document_key", ""),
+                        "cnpj_fundo": fund_cnpj,
+                        "fundo": record.get("fundo", ""),
+                        "criterion_name": f"{definition['criterion_name']} ({marker})",
+                        "canonical_key": canonical_key,
+                        "criterion_scope": "global",
+                        "event_type": definition["event_type"],
+                        "threshold_value": threshold_value,
+                        "threshold_unit": threshold_unit,
+                        "threshold_display": threshold_display,
+                        "comparison": comparison,
+                        "formula_text": rule,
+                        "evidence_context": context,
+                        "source_document": source_document,
+                        "source_document_id": _document_id(source_document),
+                        "source_page": page_number or "",
+                        "source_document_date": record.get("document_date", ""),
+                        "source_cache": record.get("cache_path", ""),
+                        "source_sha256": record.get("source_sha256", ""),
+                        "extraction_method": "regex_criteria_section_page_v1",
+                        "confidence_score": 0.88 if threshold_display else 0.8,
+                        "page_match_score": 1.0,
+                        "monitoring_status": "monitoravel" if monitorable else "triagem_documental",
+                        "ime_metric": definition["ime_metric"],
+                        "rationale": (
+                            "Item numerado extraído de seção operacional do documento; "
+                            "a ativação de alerta permanece sujeita à curadoria."
+                        ),
+                        "priority_2025_2026": str(record.get("document_date", "")).startswith(("2025", "2026")),
+                        "extracted_at_utc": extracted_at_utc,
+                    }
+                )
+    return rows
+
+
 def _text_shingles(value: object, size: int = 3) -> set[tuple[str, ...]]:
     tokens = re.findall(r"[a-z0-9]+", _ascii_compact(value).lower())
     if len(tokens) < size:
@@ -5592,6 +5817,14 @@ def build_document_field_candidates(
                     extracted_at_utc=extracted_at_utc,
                 )
             )
+            criteria_rows.extend(
+                _section_criterion_candidates_from_page(
+                    text=page_text,
+                    page_number=page_number,
+                    record=record,
+                    extracted_at_utc=extracted_at_utc,
+                )
+            )
     participants = _diagnostic_columns(pd.DataFrame(participant_rows), DOCUMENT_PARTICIPANT_CANDIDATE_COLUMNS)
     criteria = _diagnostic_columns(pd.DataFrame(criteria_rows), DOCUMENT_CRITERIA_CANDIDATE_COLUMNS)
     if not participants.empty:
@@ -5622,15 +5855,7 @@ def build_document_field_candidates(
         criteria["_has_page"] = criteria["source_page"].fillna("").astype(str).str.strip().ne("")
         criteria["_confidence"] = pd.to_numeric(criteria["confidence_score"], errors="coerce").fillna(0)
         criteria = criteria.sort_values(["_has_page", "_confidence"], ascending=[False, False])
-        dedupe_cols = [
-            "cnpj_fundo",
-            "canonical_key",
-            "criterion_scope",
-            "threshold_display",
-            "source_document",
-            "source_page",
-        ]
-        criteria = criteria.drop_duplicates(dedupe_cols, keep="first").drop(columns=["_has_page", "_confidence"])
+        criteria = criteria.drop_duplicates("candidate_id", keep="first").drop(columns=["_has_page", "_confidence"])
     return participants.reset_index(drop=True), criteria.reset_index(drop=True)
 
 
