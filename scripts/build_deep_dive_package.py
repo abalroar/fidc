@@ -51,6 +51,33 @@ STRUCTURAL_COST_COLUMNS = [
     "Status curadoria",
 ]
 
+EMISSION_SCHEDULE_COLUMNS = [
+    "Fundo",
+    "CNPJ",
+    "Data",
+    "Classe/Série",
+    "Tipo",
+    "Qtd cotas",
+    "Preço/VNU",
+    "Volume identificado (R$ mm)",
+    "Remuneração-alvo",
+    "Amortização/vencimento",
+    "Fonte",
+]
+
+THRESHOLD_TABLE_COLUMNS = [
+    "fundo",
+    "CNPJ",
+    "Data regulamento",
+    "Critério",
+    "Evento",
+    "Comparação",
+    "Limite",
+    "Monitorável IME",
+    "Métrica IME",
+    "Fonte",
+]
+
 
 def main() -> None:
     args = parse_args()
@@ -139,7 +166,7 @@ def build_portfolio_package(args: argparse.Namespace, portfolio: PortfolioRecord
     manifest = build_manifest(
         argparse.Namespace(
             deep_dive_id=package_id,
-            title=f"Curadoria {portfolio.name}",
+            title=f"Infos Regulamento {portfolio.name}",
             subtitle="Estrutura, emissões, gatilhos monitoráveis e métricas do Informe Mensal",
             portfolio_id=portfolio.id,
             portfolio_signature=portfolio_basket_signature(portfolio.funds),
@@ -885,7 +912,7 @@ def build_emission_schedule_table(rows: list[dict[str, object]]) -> pd.DataFrame
                 "Fonte": row["source"],
             }
         )
-    return pd.DataFrame(output)
+    return pd.DataFrame(output, columns=EMISSION_SCHEDULE_COLUMNS)
 
 
 def emission_summary_by_fund(rows: list[dict[str, object]]) -> dict[str, dict[str, str]]:
@@ -972,7 +999,7 @@ def join_summary_items(values: list[str]) -> str:
 
 def build_latest_thresholds_table(threshold_versions: pd.DataFrame, coverage: pd.DataFrame) -> pd.DataFrame:
     if threshold_versions.empty:
-        return pd.DataFrame()
+        return pd.DataFrame(columns=THRESHOLD_TABLE_COLUMNS)
     aliases = cnpj_aliases(coverage)
     rows = latest_threshold_rows(threshold_versions)
     output = []
@@ -992,7 +1019,7 @@ def build_latest_thresholds_table(threshold_versions: pd.DataFrame, coverage: pd
                 "Fonte": row.get("fonte_pagina") or Path(str(row.get("source_file") or "")).name or "—",
             }
         )
-    return pd.DataFrame(output)
+    return pd.DataFrame(output, columns=THRESHOLD_TABLE_COLUMNS)
 
 
 def ordered_funds(coverage: pd.DataFrame) -> list[str]:

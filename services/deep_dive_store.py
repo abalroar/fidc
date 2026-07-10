@@ -39,7 +39,10 @@ def load_deep_dive_table(manifest: DeepDiveManifest, table_spec: DeepDiveTableSp
     path = manifest.package_dir / table_spec.source_file
     if not path.exists():
         return pd.DataFrame(columns=[table_spec.first_column])
-    frame = pd.read_csv(path, dtype=str, keep_default_na=False)
+    try:
+        frame = pd.read_csv(path, dtype=str, keep_default_na=False)
+    except pd.errors.EmptyDataError:
+        return pd.DataFrame(columns=[table_spec.first_column])
     if frame.empty:
         return pd.DataFrame(columns=[table_spec.first_column])
     if table_spec.first_column not in frame.columns:

@@ -27,7 +27,7 @@ class PortfolioPageTests(unittest.TestCase):
             resolved,
         )
 
-    def test_curadoria_selection_does_not_force_monitoring_context(self) -> None:
+    def test_infos_regulamento_selection_does_not_force_monitoring_context(self) -> None:
         resolved = portfolio_page._resolve_workflow_sections([portfolio_page.SECTION_DEEP_DIVE])
 
         self.assertEqual(
