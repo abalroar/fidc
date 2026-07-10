@@ -36,6 +36,7 @@ from services.industry_study import (  # noqa: E402
     apply_monthly_delta_actions,
     apply_industry_universe_reviews,
     assign_document_chunks,
+    backfill_regulatory_feature_criteria_pages,
     build_review_audit_events,
     build_criteria_pipeline_manifest,
     build_criteria_structured,
@@ -1934,6 +1935,61 @@ def test_document_fields_extract_numbered_eligibility_and_concentration_rules():
                                 "observar os limites legais e (i) poderá sofrer perdas em caso de inadimplência."
                             ),
                         },
+                        {
+                            "page_number": 10,
+                            "text": (
+                                "Capítulo IX. Dos Critérios de Elegibilidade e Condições de Cessão. "
+                                "Somente poderão integrar a Carteira Direitos Creditórios (i) que atendam à "
+                                "Política de Investimento; e (ii) cujo Devedor não esteja inadimplente."
+                            ),
+                        },
+                        {
+                            "page_number": 11,
+                            "text": (
+                                "O FUNDO somente poderá adquirir Cotas FIDC que sejam atendidas as seguintes "
+                                "condições, cumulativamente: (a) tenham prazo compatível com o resgate do Fundo; "
+                                "e (b) não invistam em direitos creditórios originados por partes relacionadas."
+                            ),
+                        },
+                        {
+                            "page_number": 12,
+                            "text": (
+                                "O Fundo não observará nenhum índice de subordinação, tendo em vista que terá "
+                                "uma única subclasse de Cotas."
+                            ),
+                        },
+                        {
+                            "page_number": 16,
+                            "text": (
+                                "A Classe somente adquirirá classe de cotas de FIDC que atendam, as seguintes "
+                                "condições de aquisição: (i) sejam cotas sênior ou mezanino; "
+                                "(ii) sejam provenientes dos segmentos admitidos; (iii) não tenham incorrido "
+                                "em inadimplementos no maior prazo entre: (i) 12 meses anteriores; ou "
+                                "(ii) a penúltima data de pagamento; e (iv) não estejam sob liquidação."
+                            ),
+                        },
+                        {
+                            "page_number": 13,
+                            "text": (
+                                "Riscos de originação. O Fundo somente poderá adquirir Direitos Creditórios "
+                                "originados de acordo com políticas próprias, sem garantia de adimplência."
+                            ),
+                        },
+                        {
+                            "page_number": 14,
+                            "text": (
+                                "Os Direitos Creditórios somente poderão ser adquiridos pela Classe caso atendam, "
+                                "cumulativamente, aos seguintes Critérios de Elegibilidade: (i) tenham prazo "
+                                "máximo de 60 meses; e (ii) não estejam vencidos na data de aquisição."
+                            ),
+                        },
+                        {
+                            "page_number": 15,
+                            "text": (
+                                "Elegibilidade: I. os Direitos Creditórios deverão ser compatíveis com a Política "
+                                "de Investimento; II. a aquisição deverá estar corretamente formalizada. Artigo 16."
+                            ),
+                        },
                     ],
                 },
                 handle,
@@ -1966,10 +2022,8 @@ def test_document_fields_extract_numbered_eligibility_and_concentration_rules():
 
     section_rows = criteria[criteria["extraction_method"].eq("regex_criteria_section_page_v1")]
     assert section_rows["source_page"].astype(str).eq("6").all()
-    assert section_rows["canonical_key"].value_counts().to_dict() == {
-        "eligibility_rule": 2,
-        "concentration_limit": 1,
-    }
+    assert len(criteria[criteria["canonical_key"].eq("eligibility_rule") & criteria["source_page"].astype(str).eq("6")]) == 2
+    assert len(section_rows[section_rows["canonical_key"].eq("concentration_limit")]) == 1
     concentration = section_rows[section_rows["canonical_key"].eq("concentration_limit")].iloc[0]
     assert section_rows[section_rows["canonical_key"].eq("eligibility_rule")]["monitoring_status"].eq(
         "triagem_documental"
@@ -1978,6 +2032,25 @@ def test_document_fields_extract_numbered_eligibility_and_concentration_rules():
     assert concentration["threshold_value"] == 0.1
     assert concentration["comparison"] == "<="
     assert concentration["monitoring_status"] == "monitoravel"
+    operational = criteria[criteria["extraction_method"].eq("regex_operational_criteria_page_v1")]
+    operational_target = operational[operational["source_page"].astype(str).isin({"10", "11", "12"})]
+    assert operational_target["canonical_key"].value_counts().to_dict() == {
+        "eligibility_rule": 2,
+        "fic_investment_condition": 2,
+        "subordination_not_applicable": 1,
+    }
+    assert set(operational_target["source_page"].astype(str)) == {"10", "11", "12"}
+    assert operational["source_page"].astype(str).ne("13").all()
+    fic_nested = criteria[
+        criteria["canonical_key"].eq("fic_investment_condition")
+        & criteria["source_page"].astype(str).eq("16")
+    ]
+    assert len(fic_nested) == 4
+    nested_default = fic_nested[fic_nested["formula_text"].str.contains("inadimplementos")].iloc[0]
+    assert "12 meses anteriores" in nested_default["formula_text"]
+    assert "penúltima data de pagamento" in nested_default["formula_text"]
+    assert len(criteria[criteria["canonical_key"].eq("eligibility_rule") & criteria["source_page"].astype(str).eq("14")]) == 2
+    assert len(criteria[criteria["canonical_key"].eq("eligibility_rule") & criteria["source_page"].astype(str).eq("15")]) == 2
 
 
 def test_participant_relation_triage_suppresses_adjacent_glossary_roles():
@@ -2343,6 +2416,102 @@ def test_regulatory_feature_criteria_loads_positive_strategy_signals(tmp_path):
     assert structured.iloc[0]["metodo_extracao"] == "strategy_regulatory_feature_matrix"
     assert quality["feature_rows"] == 1
     assert quality["subordination_rows"] == 0
+
+
+def test_regulatory_feature_pages_backfill_short_evidence_from_cached_document(tmp_path):
+    cache_path = tmp_path / "doc.json.gz"
+    with gzip.open(cache_path, "wt", encoding="utf-8") as handle:
+        json.dump(
+            {
+                "pages": [
+                    {"page_number": 1, "text": "Regulamento do FIDC Teste."},
+                    {
+                        "page_number": 7,
+                        "text": "A Classe poderá emitir Cotas Mezanino subordinadas às Cotas Seniores.",
+                    },
+                ]
+            },
+            handle,
+            ensure_ascii=False,
+        )
+    features = pd.DataFrame(
+        [
+            {
+                "rule_id": "feature-1",
+                "CNPJ": "05753599000158",
+                "Critério": "Mezanino",
+                "Chave": "feature_mezzanine_layer",
+                "Limite/regra": "MEZANIN",
+                "Fonte": "strategy_regulatory_feature_long · feature_key=mezzanine_layer",
+                "Fonte camada": "strategy_regulatory_feature_long",
+                "Método extração": "strategy_regulatory_feature_matrix",
+                "Observação técnica": "Sinal de presença.",
+            },
+            {
+                "rule_id": "feature-2",
+                "CNPJ": "05753599000158",
+                "Critério": "Regra ausente",
+                "Chave": "feature_missing",
+                "Limite/regra": "TERMO INEXISTENTE",
+                "Fonte": "strategy_regulatory_feature_long · feature_key=missing",
+                "Fonte camada": "strategy_regulatory_feature_long",
+                "Método extração": "strategy_regulatory_feature_matrix",
+                "Observação técnica": "Sinal de presença.",
+            },
+        ]
+    )
+    text_index = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "05753599000158",
+                "documento_origem": "regulamento_2026-05-01.pdf",
+                "document_date": "2026-05-01",
+                "content_kind": "pdf",
+                "parse_status": "text_ready",
+                "cache_path": str(cache_path),
+                "source_sha256": "a" * 64,
+            }
+        ]
+    )
+
+    reconciled = backfill_regulatory_feature_criteria_pages(features, text_index, root=tmp_path)
+    matched = reconciled[reconciled["rule_id"].eq("feature-1")].iloc[0]
+    unmatched = reconciled[reconciled["rule_id"].eq("feature-2")].iloc[0]
+
+    assert matched["source_page"] == "7"
+    assert matched["source_document_date"] == "2026-05-01"
+    assert matched["Fonte"].startswith("regulamento_2026-05-01.pdf · página 7")
+    assert matched["Método extração"] == "strategy_regulatory_feature_matrix_page_backfill_v1"
+    assert matched["Score confiança"] >= 0.85
+    assert matched["page_match_status"] == "matched"
+    assert matched["page_match_document_set_hash"]
+    assert unmatched.get("source_page", "") == ""
+    assert unmatched["Método extração"] == "strategy_regulatory_feature_matrix"
+    assert unmatched["page_match_status"] == "no_match"
+    structured = build_criteria_structured(reconciled, pd.DataFrame(columns=CRITERIA_REVIEW_COLUMNS))
+    quality = criteria_quality_summary(reconciled, pd.DataFrame(columns=CRITERIA_REVIEW_COLUMNS), structured)
+    assert quality["feature_with_page"] == 1
+    assert quality["feature_page_backfill_rows"] == 1
+
+    cache_path.unlink()
+    cached = backfill_regulatory_feature_criteria_pages(
+        features,
+        text_index,
+        root=tmp_path,
+        existing_cache=reconciled,
+    )
+    assert cached.loc[cached["rule_id"].eq("feature-1"), "source_page"].iloc[0] == "7"
+    changed_index = text_index.copy()
+    changed_index["source_sha256"] = "b" * 64
+    invalidated = backfill_regulatory_feature_criteria_pages(
+        features,
+        changed_index,
+        root=tmp_path,
+        existing_cache=reconciled,
+    )
+    invalidated_match = invalidated[invalidated["rule_id"].eq("feature-1")].iloc[0]
+    assert invalidated_match["source_page"] == ""
+    assert invalidated_match["page_match_status"] == "no_paginated_text"
 
 
 def test_criteria_pipeline_manifest_lists_rerunnable_stages():

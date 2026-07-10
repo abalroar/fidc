@@ -18,6 +18,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from services.industry_study import (
+    backfill_regulatory_feature_criteria_pages,
     build_criteria_pipeline_manifest,
     build_criteria_structured,
     load_criteria_reviews,
@@ -25,6 +26,7 @@ from services.industry_study import (
     load_document_criteria_candidates,
     merge_criteria_candidate_sources,
     load_fund_universe,
+    load_dataframe,
     load_regulatory_feature_criteria,
     load_review_audit,
     save_dataframe,
@@ -43,6 +45,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--industry-dir", type=Path, default=DEFAULT_INDUSTRY_DIR)
     parser.add_argument("--strategy-db", type=Path, default=DEFAULT_STRATEGY_DB)
     parser.add_argument("--criteria-source", type=Path, default=DEFAULT_CRITERIA_SOURCE)
+    parser.add_argument("--text-index", type=Path, default=None)
+    parser.add_argument("--feature-page-cache", type=Path, default=None)
     parser.add_argument("--reviews", type=Path, default=None)
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--manifest", type=Path, default=None)
@@ -58,8 +62,19 @@ def main() -> None:
 
     documentary_criteria = load_criteria_source(args.criteria_source)
     document_candidates_path = args.industry_dir / "document_criteria_candidates.csv.gz"
+    text_index_path = args.text_index or args.industry_dir / "document_text_index.csv.gz"
+    feature_page_cache_path = (
+        args.feature_page_cache or args.industry_dir / "industry_strategy_feature_page_cache.csv.gz"
+    )
     document_candidates = load_document_criteria_candidates(document_candidates_path)
     regulatory_features = load_regulatory_feature_criteria(args.strategy_db)
+    regulatory_features = backfill_regulatory_feature_criteria_pages(
+        regulatory_features,
+        load_dataframe(text_index_path),
+        root=ROOT,
+        existing_cache=load_dataframe(feature_page_cache_path),
+    )
+    save_dataframe(regulatory_features, feature_page_cache_path)
     criteria = merge_criteria_candidate_sources(
         documentary_criteria,
         document_candidates,
@@ -81,6 +96,8 @@ def main() -> None:
         strategy_db=args.strategy_db,
         criteria_source_path=args.criteria_source,
         document_candidates_path=document_candidates_path,
+        text_index_path=text_index_path,
+        feature_page_cache_path=feature_page_cache_path,
         reviews_path=reviews_path,
         output_path=output_path,
         manifest_path=manifest_path,

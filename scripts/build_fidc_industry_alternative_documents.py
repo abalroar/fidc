@@ -41,6 +41,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--raw-dir", type=Path, default=DEFAULT_RAW_DIR)
     parser.add_argument("--cache-dir", type=Path, default=DEFAULT_CACHE_DIR)
     parser.add_argument("--tier", action="append", default=None)
+    parser.add_argument("--technical-stage", action="append", default=None)
     parser.add_argument("--year", action="append", type=int, default=None)
     parser.add_argument("--max-funds", type=int, default=25)
     parser.add_argument("--timeout-seconds", type=int, default=60)
@@ -94,6 +95,7 @@ def main() -> None:
     targets = select_alternative_document_targets(
         evidence,
         work_tiers=tuple(args.tier or ["P0 competência"]),
+        technical_stages=tuple(args.technical_stage or ["fontes alternativas"]),
         max_funds=args.max_funds,
     )
     explicit_years = sorted(set(args.year or []))

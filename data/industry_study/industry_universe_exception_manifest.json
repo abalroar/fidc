@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-universe-exception-manifest/v1",
-  "generated_at_utc": "2026-07-10T12:26:23+00:00",
+  "generated_at_utc": "2026-07-10T18:25:17+00:00",
   "pipeline": "industry_universe_exceptions",
   "design_constraints": {
     "manual_review_in_app": true,
@@ -15,14 +15,14 @@
     "package_evidence": {
       "path": "data/industry_study/industry_curation_package_evidence.csv.gz",
       "exists": true,
-      "bytes": 1952531,
-      "sha256": "d951ab41a55f9eabbf624032cbb3dba89bba9024693f18e1d96e35182f374fa2"
+      "bytes": 2563056,
+      "sha256": "43c57b9ff169e89c31c7cb74fae464a4c4f5a01d9df0e6f7934458a2bda48e83"
     },
     "registration_scope": {
       "path": "data/industry_study/industry_registration_scope.csv.gz",
       "exists": true,
       "bytes": 1641858,
-      "sha256": "8d12b611d9c93b9c2731082c81ac6adc1e8a68e13f47c78cf7f31539c95a01c3"
+      "sha256": "f2e4b6703c4cf0ee5461363d613aa0af3fa1602581fbb1e8c582d2f5bbbf1650"
     },
     "universe_reviews": {
       "path": "data/industry_study/universe_scope_reviews.csv",
@@ -41,8 +41,8 @@
     "universe_exceptions": {
       "path": "data/industry_study/industry_universe_exceptions.csv.gz",
       "exists": true,
-      "bytes": 1744,
-      "sha256": "753a90fdcabbde3495b39357707c289b390ad27a9c8c3505cc21727f17aa25ab"
+      "bytes": 1427,
+      "sha256": "2fd5a86d7b55d015fca9a765de7510f80e82ff34523ff704e9c552637725605f"
     },
     "universe_reviews": {
       "path": "data/industry_study/universe_scope_reviews.csv",
@@ -65,31 +65,31 @@
       "id": "detect_registration_mismatch",
       "label": "Detectar divergências de universo",
       "status": "ok",
-      "rows": 19,
+      "rows": 13,
       "rerun": "python scripts/build_fidc_industry_universe_exceptions.py"
     },
     {
       "id": "apply_manual_scope_overlay",
       "label": "Aplicar decisões manuais de escopo",
       "status": "ok",
-      "rows": 19,
+      "rows": 13,
       "rerun": "python scripts/build_fidc_industry_universe_exceptions.py"
     },
     {
       "id": "persist_universe_exceptions",
       "label": "Persistir exceções e auditoria",
       "status": "ok",
-      "rows": 19,
+      "rows": 13,
       "rerun": "python scripts/build_fidc_industry_universe_exceptions.py"
     }
   ],
   "quality": {
-    "rows": 19,
-    "pending_rows": 19,
+    "rows": 13,
+    "pending_rows": 13,
     "maintained_rows": 0,
     "excluded_rows": 0,
-    "fiagro_rows": 12,
-    "fidc_name_mismatch_rows": 10,
+    "fiagro_rows": 7,
+    "fidc_name_mismatch_rows": 3,
     "review_events": 0
   }
 }

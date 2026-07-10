@@ -78,6 +78,7 @@ def select_alternative_document_targets(
     evidence: pd.DataFrame,
     *,
     work_tiers: tuple[str, ...] = ("P0 competência",),
+    technical_stages: tuple[str, ...] = ("fontes alternativas",),
     max_funds: int = 25,
 ) -> pd.DataFrame:
     columns = [
@@ -107,9 +108,10 @@ def select_alternative_document_targets(
     frame["cnpj_fundo"] = frame["cnpj_fundo"].map(normalize_cnpj)
     frame = frame[
         frame["cnpj_fundo"].str.len().eq(14)
-        & frame["technical_stage"].eq("fontes alternativas")
         & ~frame["scope_status"].isin({"revisar universo", "excluído por revisão"})
     ].copy()
+    if technical_stages:
+        frame = frame[frame["technical_stage"].isin(technical_stages)].copy()
     if work_tiers:
         frame = frame[frame["work_tier"].isin(work_tiers)].copy()
     if frame.empty:
@@ -179,6 +181,18 @@ def build_cvm_eventual_candidates(
     ]
     frame = frame[frame["document_class"].isin({"regulamento", "emissao", "assembleia", "evento"})].copy()
     frame = frame[frame["LINK_ARQ"].str.strip().ne("")].copy()
+    direct_keys = {
+        (row["cnpj_fundo"], row["TP_DOC"], row["DT_COMPTC"])
+        for _, row in frame[frame["NM_ARQ"].str.strip().ne("")].iterrows()
+    }
+    duplicate_fnet = frame.apply(
+        lambda row: (
+            not str(row["NM_ARQ"]).strip()
+            and (row["cnpj_fundo"], row["TP_DOC"], row["DT_COMPTC"]) in direct_keys
+        ),
+        axis=1,
+    )
+    frame = frame[~duplicate_fnet].copy()
     if frame.empty:
         return pd.DataFrame(columns=ALTERNATIVE_DOCUMENT_COLUMNS)
     discovered_at = discovered_at_utc or datetime.now(timezone.utc).isoformat(timespec="seconds")
@@ -377,6 +391,14 @@ def alternative_document_quality_summary(
     }
 
 
+def alternative_download_stage_status(quality: dict[str, object]) -> str:
+    """Keep historical download errors visible without blocking an empty current queue."""
+
+    if int(quality.get("target_funds", 0) or 0) == 0:
+        return "ok"
+    return "warning" if int(quality.get("download_error_documents", 0) or 0) else "ok"
+
+
 def build_alternative_document_manifest(
     *,
     industry_dir: Path,
@@ -435,7 +457,7 @@ def build_alternative_document_manifest(
             {
                 "id": "download_alternative_documents",
                 "label": "Baixar e hashear documentos alternativos",
-                "status": "ok" if not quality.get("download_error_documents") else "warning",
+                "status": alternative_download_stage_status(quality),
                 "rows": int(quality.get("downloaded_documents", 0)) + int(quality.get("reused_documents", 0)),
                 "rerun": "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25",
             },

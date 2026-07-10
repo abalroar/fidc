@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-manifest/v1",
-  "generated_at_utc": "2026-07-10T11:53:44+00:00",
+  "generated_at_utc": "2026-07-10T17:26:29+00:00",
   "pipeline": "industry_cedentes_structured",
   "design_constraints": {
     "modular": true,
@@ -22,8 +22,8 @@
     "document_participant_candidates": {
       "path": "data/industry_study/document_participant_candidates.csv.gz",
       "exists": true,
-      "bytes": 268497,
-      "sha256": "6efefec8e779ab51054a840e926454e4f50671ce2611535cc67dc11980f0577b"
+      "bytes": 356337,
+      "sha256": "d1ce27a41525fdef54e579cc5702f088bb5d8afa7c6cde922748b533d03c8ccf"
     },
     "manual_reviews": {
       "path": "data/industry_study/cedente_reviews.csv",
@@ -48,8 +48,8 @@
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 580364,
-      "sha256": "a54afb7bd26a03878a39de1ee194a3c7a41e60387bbbbacb4e8f21ec501476f6"
+      "bytes": 644374,
+      "sha256": "cac373e289575619c719b636b6003f1acccd0fcae63dadb95e03eebb5d2918f6"
     },
     "manifest": {
       "path": "data/industry_study/industry_pipeline_manifest.json"
@@ -68,8 +68,8 @@
       "status": "ok",
       "input": "data/fidc_credit_strategy/fidc_credit_strategy.sqlite | data/industry_study/document_participant_candidates.csv.gz",
       "output": "memoria:cedentes_sacados_candidates",
-      "rows": 2856,
-      "funds": 627,
+      "rows": 3324,
+      "funds": 639,
       "rerun": "python scripts/execute_fidc_director_diagnostic.py --download-limit 0"
     },
     {
@@ -114,54 +114,54 @@
       "status": "ok",
       "input": "memoria:candidates+review_overlay+participant_registry+fund_universe+universe_latest",
       "output": "data/industry_study/cedentes_structured.csv.gz",
-      "rows": 2856,
-      "funds": 627,
-      "identified_funds": 152,
-      "signal_placeholder_funds": 5,
+      "rows": 3324,
+      "funds": 639,
+      "identified_funds": 192,
+      "signal_placeholder_funds": 4,
       "rerun": "python scripts/build_fidc_industry_cedentes.py"
     }
   ],
   "quality": {
-    "candidate_rows": 2856,
-    "candidate_funds": 627,
-    "structured_rows": 2856,
-    "active_rows": 686,
-    "structured_funds": 627,
-    "identified_rows": 681,
-    "identified_funds": 152,
-    "signal_placeholder_rows": 5,
-    "signal_placeholder_funds": 5,
-    "priority_2025_2026_rows": 492,
-    "priority_2025_2026_funds": 106,
+    "candidate_rows": 3324,
+    "candidate_funds": 639,
+    "structured_rows": 3324,
+    "active_rows": 1025,
+    "structured_funds": 639,
+    "identified_rows": 1021,
+    "identified_funds": 192,
+    "signal_placeholder_rows": 4,
+    "signal_placeholder_funds": 4,
+    "priority_2025_2026_rows": 694,
+    "priority_2025_2026_funds": 126,
     "review_rows": 0,
     "review_status_counts": {},
     "participant_type_counts": {
-      "cedente_originador": 363,
-      "consultora": 279,
-      "sacado_devedor": 44
+      "cedente_originador": 620,
+      "consultora": 321,
+      "sacado_devedor": 84
     },
     "candidate_status_counts": {
       "legacy_unverified": 1478,
-      "accepted": 686,
-      "suppressed": 674,
-      "invalid_cnpj": 18
+      "accepted": 1025,
+      "suppressed": 801,
+      "invalid_cnpj": 20
     },
     "coverage": {
-      "razao_social": 0.9927113702623906,
-      "nome_fantasia": 0.44752186588921283,
-      "cnpj_participante": 0.8513119533527697,
+      "razao_social": 0.9960975609756098,
+      "nome_fantasia": 0.36,
+      "cnpj_participante": 0.9317073170731708,
       "grupo_economico": 0.0,
-      "setor": 0.8571428571428571,
-      "segmento": 0.8571428571428571,
+      "setor": 0.7375609756097561,
+      "segmento": 0.7375609756097561,
       "documento_origem": 1.0,
-      "pagina": 0.9795918367346939,
+      "pagina": 0.9834146341463414,
       "metodo_extracao": 1.0,
       "score_confianca_final": 1.0
     },
     "score": {
-      "median": 0.78,
-      "p25": 0.68,
-      "p75": 0.93
+      "median": 0.93,
+      "p25": 0.76,
+      "p75": 0.95
     }
   }
 }

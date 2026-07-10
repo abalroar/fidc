@@ -3,6 +3,7 @@ from __future__ import annotations
 import pandas as pd
 
 from services.industry_alternative_documents import (
+    alternative_download_stage_status,
     alternative_documents_to_inventory_sources,
     alternative_document_quality_summary,
     build_alternative_document_status,
@@ -45,6 +46,16 @@ def test_select_alternative_targets_keeps_only_adherent_no_fnet_packages():
                 "technical_stage": "revisão",
                 "scope_status": "aderente",
             },
+            {
+                "package_id": "pkg-d",
+                "cnpj_fundo": "44.444.444/0001-44",
+                "work_tier": "P0 competência",
+                "batch_id": "P0-001",
+                "nome_exibicao": "FIDC D",
+                "competencia": "2026-05",
+                "technical_stage": "sem sinal extraído",
+                "scope_status": "aderente",
+            },
         ]
     )
 
@@ -60,6 +71,11 @@ def test_select_alternative_targets_keeps_only_adherent_no_fnet_packages():
             "source_years": "2026",
         }
     ]
+    sem_signal = select_alternative_document_targets(
+        evidence,
+        technical_stages=("sem sinal extraído",),
+    )
+    assert sem_signal["cnpj_fundo"].tolist() == ["44444444000144"]
 
 
 def test_cvm_eventual_candidates_preserve_official_provenance_and_constitutive_types():
@@ -109,6 +125,17 @@ def test_cvm_eventual_candidates_preserve_official_provenance_and_constitutive_t
                 "TP_FUNDO_CLASSE": "FIDC",
                 "NM_ARQ": "ARQUIVO_A.pdf",
                 "LINK_ARQ": "https://web.cvm.gov.br/ARQUIVO_A.pdf",
+            },
+            {
+                "CNPJ_FUNDO_CLASSE": "11.111.111/0001-11",
+                "DENOM_SOCIAL": "FIDC A",
+                "DT_COMPTC": "2026-05-10",
+                "DT_RECEB": "2026-05-11",
+                "ID_DOC": "999",
+                "TP_DOC": "REGUL FDO",
+                "TP_FUNDO_CLASSE": "FIDC",
+                "NM_ARQ": "",
+                "LINK_ARQ": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=999",
             },
         ]
     )
@@ -188,6 +215,8 @@ def test_alternative_document_status_and_quality_count_downloaded_coverage():
     assert quality["downloaded_documents"] == 1
     assert quality["reused_documents"] == 1
     assert quality["regulation_documents"] == 2
+    assert alternative_download_stage_status({"target_funds": 2, "download_error_documents": 1}) == "warning"
+    assert alternative_download_stage_status({"target_funds": 0, "download_error_documents": 8}) == "ok"
 
 
 def test_alternative_documents_become_dated_inventory_sources_only_after_download():

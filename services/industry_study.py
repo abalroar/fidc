@@ -5417,7 +5417,7 @@ _CRITERION_SECTION_BOUNDARY = re.compile(
     re.IGNORECASE,
 )
 _CRITERION_ITEM_MARKER = re.compile(
-    r"(?<!\w)(?P<marker>\([a-z]\)|\([ivxlcdm]{1,6}\)|[a-z]\)|[ivxlcdm]{1,6}\)|[•●▪])\s+",
+    r"(?<!\w)(?P<marker>\([a-z]\)|\([ivxlcdm]{1,6}\)|[a-z][.)]|[ivxlcdm]{1,6}[.)]|[•●▪])\s+",
     re.IGNORECASE,
 )
 
@@ -5446,7 +5446,63 @@ def _criterion_threshold(rule_text: str) -> tuple[object, str, str, str]:
 
 
 def _criterion_rule_segments(section_text: str) -> list[tuple[str, str]]:
+    incomplete_endings = (
+        " que",
+        " aos",
+        " as",
+        " os",
+        " nos",
+        " nas",
+        " no",
+        " na",
+        " um",
+        " uma",
+        " dos",
+        " das",
+        " pelo",
+        " pela",
+        " em",
+        " com",
+        " sob",
+        "(",
+        ":",
+    )
     markers = list(_CRITERION_ITEM_MARKER.finditer(section_text))
+    if markers:
+        first_marker = markers[0].group("marker")
+        if first_marker not in {"•", "●", "▪"}:
+            parenthesized = first_marker.startswith("(")
+            first_token = first_marker.strip("().").lower()
+            roman_markers = first_token == "i" or len(first_token) > 1
+            marker_values = {"i": 1, "v": 5, "x": 10, "l": 50, "c": 100, "d": 500, "m": 1000}
+
+            def marker_rank(marker: re.Match[str]) -> int | None:
+                raw_marker = marker.group("marker")
+                if raw_marker.startswith("(") != parenthesized:
+                    return None
+                token = raw_marker.strip("().").lower()
+                if roman_markers:
+                    if not token or any(char not in marker_values for char in token):
+                        return None
+                    total = 0
+                    previous = 0
+                    for char in reversed(token):
+                        value = marker_values[char]
+                        total += -value if value < previous else value
+                        previous = max(previous, value)
+                    return total
+                if len(token) == 1 and "a" <= token <= "z":
+                    return ord(token) - ord("a") + 1
+                return None
+
+            top_level_markers = [markers[0]]
+            last_rank = marker_rank(markers[0]) or 0
+            for marker in markers[1:]:
+                rank = marker_rank(marker)
+                if rank is not None and rank > last_rank:
+                    top_level_markers.append(marker)
+                    last_rank = rank
+            markers = top_level_markers
     segments: list[tuple[str, str]] = []
     for index, marker in enumerate(markers):
         end = markers[index + 1].start() if index + 1 < len(markers) else len(section_text)
@@ -5455,29 +5511,6 @@ def _criterion_rule_segments(section_text: str) -> list[tuple[str, str]]:
         rule = re.split(r"\s+\d+(?:\.\d+){1,3}\.?\s+[A-ZÀ-Ü]", rule, maxsplit=1)[0]
         rule = re.sub(r"\s+", " ", rule).strip(" ;,.-–")
         normalized = _ascii_compact(rule).lower()
-        incomplete_endings = (
-            " que",
-            " aos",
-            " as",
-            " os",
-            " nos",
-            " nas",
-            " no",
-            " na",
-            " um",
-            " uma",
-            " dos",
-            " das",
-            " pelo",
-            " pela",
-            " em",
-            " com",
-            " sob",
-            " e",
-            " ou",
-            "(",
-            ":",
-        )
         incomplete_references = re.search(r"\b(?:al[ií]neas|itens|incisos|cl[aá]usulas?)$", normalized)
         starts_mid_reference = re.match(r"^(?:acima|abaixo)\b", normalized)
         if (
@@ -5494,6 +5527,8 @@ def _criterion_rule_segments(section_text: str) -> list[tuple[str, str]]:
         sentence = re.sub(r"\s+", " ", sentence).strip(" ;,.-–")
         normalized = _ascii_compact(sentence).lower()
         if not 40 <= len(sentence) <= 1400:
+            continue
+        if normalized.endswith(incomplete_endings):
             continue
         if re.search(r"\b(?:devera|deverao|devem|nao\s+podera|somente\s+podera)\b", normalized):
             segments.append(("regra", sentence))
@@ -5610,6 +5645,207 @@ def _section_criterion_candidates_from_page(
     return rows
 
 
+_OPERATIONAL_ELIGIBILITY_TRIGGER = re.compile(
+    r"(?:somente\s+poder[aã]o\s+integrar\s+(?:a\s+)?carteira|"
+    r"(?:o\s+)?(?:fundo|classe)\s+somente\s+poder[aá]\s+adquirir|"
+    r"todos\s+e\s+quaisquer\s+direitos?.{0,160}?dever[aã]o\s+atender|"
+    r"(?:os\s+quais|direitos?\s+credit[oó]rios?).{0,180}?dever[aã]o\s+atender.{0,160}?"
+    r"crit[eé]rios?\s+de\s+elegibilidade|"
+    r"(?:gestora|classe|fundo).{0,140}?dever[aá],?\s+cumulativamente,?\s+observar.{0,140}?"
+    r"seguintes\s+crit[eé]rios?\s+de\s+elegibilidade|"
+    r"direitos?\s+credit[oó]rios?\s+somente\s+poder[aã]o\s+ser\s+adquiridos?.{0,220}?"
+    r"seguintes\s+crit[eé]rios?\s+de\s+elegibilidade|"
+    r"\belegibilidade\s*:\s*(?=[ivxlcdm]+[.)]\s))",
+    re.IGNORECASE | re.DOTALL,
+)
+_ELIGIBILITY_LABEL_PATTERN = re.compile(
+    r"(?:crit[eé]rios?\s+de\s+)?elegibilidade",
+    re.IGNORECASE,
+)
+_TRANSFER_CONDITION_LABEL_PATTERN = re.compile(r"condi[cç][oõ]es\s+de\s+cess[aã]o", re.IGNORECASE)
+_FIC_INVESTMENT_TRIGGER = re.compile(
+    r"(?:[oa]\s+)?(?:fundo|classe)\s+somente\s+(?:poder[aá]\s+adquirir|adquirir[aá])\s+"
+    r"(?:classes?\s+de\s+)?cotas?\s+(?:de\s+(?:classes?\s+de\s+)?)?fidcs?.{0,280}?"
+    r"seguintes\s+condi[cç][oõ]es(?:\s+de\s+aquisi[cç][aã]o)?(?:,\s*cumulativamente)?",
+    re.IGNORECASE | re.DOTALL,
+)
+_OPERATIONAL_SECTION_BOUNDARY = re.compile(
+    r"\b\d+(?:\.\d+){1,3}\.?\s+|"
+    r"\b(?:cap[ií]tulo|se[cç][aã]o|artigo)\s+(?:[ivxlcdm]+|\d+[º°]?)\b|"
+    r"\b(?:processo\s+de\s+origina[cç][aã]o|pol[ií]tica\s+de\s+cobran[cç]a|"
+    r"limites?\s+de\s+concentra[cç][aã]o|condi[cç][oõ]es\s+de\s+cess[aã]o|"
+    r"documentos?\s+comprobat[oó]rios?|fatores?\s+de\s+risco)\b",
+    re.IGNORECASE,
+)
+_SUBORDINATION_NOT_APPLICABLE = re.compile(
+    r"(?:n[aã]o\s+observar[aá]|n[aã]o\s+est[aá]\s+sujeit[oa]\s+a|n[aã]o\s+haver[aá])\s+"
+    r"(?:nenhum\s+)?(?:[ií]ndice|percentual)\s+de\s+subordina(?:ç|c)[aã]o",
+    re.IGNORECASE,
+)
+_SUBORDINATION_DEFERRED = re.compile(
+    r"[ií]ndice\s+m[ií]nimo\s+de\s+subordina(?:ç|c)[aã]o.{0,180}?"
+    r"ser[aá]\s+definido\s+quando\s+e\s+se\s+ocorrer\s+a\s+emiss[aã]o",
+    re.IGNORECASE,
+)
+
+
+def _operational_rule_candidates_from_page(
+    *,
+    text: str,
+    page_number: object,
+    record: pd.Series,
+    extracted_at_utc: str,
+) -> list[dict[str, object]]:
+    raw_text = str(text or "")
+    if not raw_text.strip() or not str(page_number or "").strip():
+        return []
+    definitions = [
+        {
+            "trigger": _OPERATIONAL_ELIGIBILITY_TRIGGER,
+            "label": _ELIGIBILITY_LABEL_PATTERN,
+            "canonical_key": "eligibility_rule",
+            "criterion_name": "Critério de elegibilidade",
+            "ime_metric": "",
+            "rationale": "Regra extraída de cláusula operacional de aquisição vinculada a critério de elegibilidade.",
+        },
+        {
+            "trigger": _FIC_INVESTMENT_TRIGGER,
+            "label": None,
+            "canonical_key": "fic_investment_condition",
+            "criterion_name": "Condição de investimento FIC-FIDC",
+            "ime_metric": "Cotas de FIDC investidas / PL % e características do fundo investido",
+            "rationale": "Condição cumulativa explícita para aquisição de cotas de FIDC pelo veículo.",
+        },
+    ]
+    source_document = str(record.get("documento_origem", "") or "")
+    fund_cnpj = normalize_cnpj(record.get("cnpj_fundo", ""))
+    rows: list[dict[str, object]] = []
+    for definition in definitions:
+        for trigger in definition["trigger"].finditer(raw_text):
+            if definition["label"] is not None:
+                backward_context = raw_text[max(trigger.start() - 450, 0) : trigger.start()]
+                forward_context = raw_text[trigger.start() : min(trigger.end() + 650, len(raw_text))]
+                backward_label = list(definition["label"].finditer(backward_context))
+                forward_label = definition["label"].search(forward_context)
+                forward_transfer = _TRANSFER_CONDITION_LABEL_PATTERN.search(forward_context)
+                if forward_transfer is not None and (
+                    forward_label is None or forward_transfer.start() < forward_label.start()
+                ):
+                    continue
+                if forward_label is None and not backward_label:
+                    continue
+            section_end = min(trigger.start() + 7000, len(raw_text))
+            boundary = _OPERATIONAL_SECTION_BOUNDARY.search(raw_text, trigger.end() + 60, section_end)
+            if boundary is not None:
+                section_end = boundary.start()
+            section_text = re.sub(r"\s+", " ", raw_text[trigger.start() : section_end]).strip()
+            for marker, rule in _criterion_rule_segments(section_text):
+                threshold_value, threshold_unit, threshold_display, comparison = _criterion_threshold(rule)
+                canonical_key = str(definition["canonical_key"])
+                seed = "|".join(
+                    [
+                        fund_cnpj,
+                        canonical_key,
+                        _ascii_compact(rule).lower(),
+                        source_document,
+                        str(page_number or ""),
+                    ]
+                )
+                rows.append(
+                    {
+                        "candidate_id": hashlib.sha1(seed.encode("utf-8", errors="ignore")).hexdigest()[:20],
+                        "chunk_id": record.get("chunk_id", ""),
+                        "document_key": record.get("document_key", ""),
+                        "cnpj_fundo": fund_cnpj,
+                        "fundo": record.get("fundo", ""),
+                        "criterion_name": f"{definition['criterion_name']} ({marker})",
+                        "canonical_key": canonical_key,
+                        "criterion_scope": "global",
+                        "event_type": "aquisição",
+                        "threshold_value": threshold_value,
+                        "threshold_unit": threshold_unit,
+                        "threshold_display": threshold_display,
+                        "comparison": comparison,
+                        "formula_text": rule,
+                        "evidence_context": _sample_text(
+                            f"{definition['criterion_name']} {marker}: {rule}",
+                            900,
+                        ),
+                        "source_document": source_document,
+                        "source_document_id": _document_id(source_document),
+                        "source_page": page_number or "",
+                        "source_document_date": record.get("document_date", ""),
+                        "source_cache": record.get("cache_path", ""),
+                        "source_sha256": record.get("source_sha256", ""),
+                        "extraction_method": "regex_operational_criteria_page_v1",
+                        "confidence_score": 0.86 if threshold_display else 0.82,
+                        "page_match_score": 1.0,
+                        "monitoring_status": "triagem_documental",
+                        "ime_metric": definition["ime_metric"],
+                        "rationale": definition["rationale"],
+                        "priority_2025_2026": str(record.get("document_date", "")).startswith(("2025", "2026")),
+                        "extracted_at_utc": extracted_at_utc,
+                    }
+                )
+    for pattern, canonical_key, criterion_name, rationale in [
+        (
+            _SUBORDINATION_NOT_APPLICABLE,
+            "subordination_not_applicable",
+            "Subordinação mínima não aplicável",
+            "O documento declara expressamente que o veículo não observa índice de subordinação.",
+        ),
+        (
+            _SUBORDINATION_DEFERRED,
+            "subordination_deferred",
+            "Subordinação condicionada",
+            "O índice mínimo será definido apenas se houver emissão de subclasse sênior ou mezanino.",
+        ),
+    ]:
+        for match in pattern.finditer(raw_text):
+            rule_end = min(match.end() + 220, len(raw_text))
+            boundary = _OPERATIONAL_SECTION_BOUNDARY.search(raw_text, match.end(), rule_end)
+            if boundary is not None:
+                rule_end = boundary.start()
+            rule = re.sub(r"\s+", " ", raw_text[match.start() : rule_end]).strip()
+            seed = "|".join(
+                [fund_cnpj, canonical_key, _ascii_compact(rule).lower(), source_document, str(page_number or "")]
+            )
+            rows.append(
+                {
+                    "candidate_id": hashlib.sha1(seed.encode("utf-8", errors="ignore")).hexdigest()[:20],
+                    "chunk_id": record.get("chunk_id", ""),
+                    "document_key": record.get("document_key", ""),
+                    "cnpj_fundo": fund_cnpj,
+                    "fundo": record.get("fundo", ""),
+                    "criterion_name": criterion_name,
+                    "canonical_key": canonical_key,
+                    "criterion_scope": "global",
+                    "event_type": "estrutura",
+                    "threshold_value": "",
+                    "threshold_unit": "",
+                    "threshold_display": "",
+                    "comparison": "",
+                    "formula_text": rule,
+                    "evidence_context": _sample_text(rule, 900),
+                    "source_document": source_document,
+                    "source_document_id": _document_id(source_document),
+                    "source_page": page_number or "",
+                    "source_document_date": record.get("document_date", ""),
+                    "source_cache": record.get("cache_path", ""),
+                    "source_sha256": record.get("source_sha256", ""),
+                    "extraction_method": "regex_operational_criteria_page_v1",
+                    "confidence_score": 0.9,
+                    "page_match_score": 1.0,
+                    "monitoring_status": "regra_documental",
+                    "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+                    "rationale": rationale,
+                    "priority_2025_2026": str(record.get("document_date", "")).startswith(("2025", "2026")),
+                    "extracted_at_utc": extracted_at_utc,
+                }
+            )
+    return rows
+
+
 def _text_shingles(value: object, size: int = 3) -> set[tuple[str, ...]]:
     tokens = re.findall(r"[a-z0-9]+", _ascii_compact(value).lower())
     if len(tokens) < size:
@@ -5618,13 +5854,15 @@ def _text_shingles(value: object, size: int = 3) -> set[tuple[str, ...]]:
 
 
 def _best_page_match(pages: list[dict[str, object]], excerpt: object) -> tuple[object, float]:
-    target = _text_shingles(excerpt)
+    tokens = re.findall(r"[a-z0-9]+", _ascii_compact(excerpt).lower())
+    shingle_size = min(3, len(tokens))
+    target = _text_shingles(excerpt, size=shingle_size)
     if not target:
         return "", 0.0
     best_page: object = ""
     best_score = 0.0
     for page in pages:
-        page_shingles = _text_shingles(page.get("text", ""))
+        page_shingles = _text_shingles(page.get("text", ""), size=shingle_size)
         if not page_shingles:
             continue
         score = len(target & page_shingles) / max(len(target), 1)
@@ -5819,6 +6057,14 @@ def build_document_field_candidates(
             )
             criteria_rows.extend(
                 _section_criterion_candidates_from_page(
+                    text=page_text,
+                    page_number=page_number,
+                    record=record,
+                    extracted_at_utc=extracted_at_utc,
+                )
+            )
+            criteria_rows.extend(
+                _operational_rule_candidates_from_page(
                     text=page_text,
                     page_number=page_number,
                     record=record,
@@ -8620,6 +8866,207 @@ def load_regulatory_feature_criteria(db_path: Path) -> pd.DataFrame:
     return out.drop_duplicates("rule_id", keep="first").reset_index(drop=True)
 
 
+_STRATEGY_FEATURE_PAGE_MATCH_VERSION = "strategy-feature-page-match/v1"
+
+
+def backfill_regulatory_feature_criteria_pages(
+    regulatory_features: pd.DataFrame,
+    text_index: pd.DataFrame,
+    *,
+    root: Path | None = None,
+    existing_cache: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    """Reconcile Strategy feature excerpts with paginated Industry documents."""
+
+    if regulatory_features is None or regulatory_features.empty:
+        return pd.DataFrame() if regulatory_features is None else regulatory_features.copy()
+    out = regulatory_features.copy()
+    for column in [
+        "source_page",
+        "source_document_date",
+        "page_match_status",
+        "page_match_document_set_hash",
+        "page_match_version",
+    ]:
+        if column not in out.columns:
+            out[column] = ""
+        else:
+            out[column] = out[column].fillna("")
+    for column in ["page_match_score", "Score confiança"]:
+        if column not in out.columns:
+            out[column] = pd.Series(float("nan"), index=out.index, dtype=float)
+        else:
+            out[column] = pd.to_numeric(out[column], errors="coerce")
+    if text_index is None or text_index.empty or "cnpj_fundo" not in text_index.columns:
+        return out
+    root = Path(".") if root is None else root
+    documents = text_index.copy()
+    documents["cnpj_fundo"] = documents["cnpj_fundo"].map(normalize_cnpj)
+    status = documents.get("parse_status", pd.Series("", index=documents.index)).fillna("").astype(str)
+    content_kind = documents.get("content_kind", pd.Series("", index=documents.index)).fillna("").astype(str)
+    documents = documents[
+        status.isin({"text_ready", "text_ready_with_page_errors", "structured_ready"})
+        & ~content_kind.eq("extraction_json")
+    ].copy()
+    if documents.empty:
+        return out
+    documents["_date_sort"] = pd.to_datetime(documents.get("document_date"), errors="coerce")
+    documents = documents.sort_values("_date_sort", ascending=False, na_position="last")
+    documents_by_fund = {cnpj: group for cnpj, group in documents.groupby("cnpj_fundo", sort=False)}
+    feature_cnpj = out.get("CNPJ", pd.Series("", index=out.index)).map(normalize_cnpj)
+    cache_lookup: dict[str, dict[str, object]] = {}
+    if existing_cache is not None and not existing_cache.empty and "rule_id" in existing_cache.columns:
+        cache_frame = existing_cache.drop_duplicates("rule_id", keep="last").copy()
+        cache_lookup = cache_frame.set_index("rule_id").to_dict("index")
+    cache_columns = [
+        "Fonte",
+        "source_page",
+        "source_document_date",
+        "page_match_score",
+        "Score confiança",
+        "Método extração",
+        "Status curadoria",
+        "Observação técnica",
+        "page_match_status",
+        "page_match_document_set_hash",
+        "page_match_version",
+    ]
+
+    for cnpj, feature_indexes in feature_cnpj.groupby(feature_cnpj).groups.items():
+        document_rows = documents_by_fund.get(cnpj)
+        document_fingerprints: list[str] = []
+        if document_rows is not None and not document_rows.empty:
+            for _, document in document_rows.iterrows():
+                document_fingerprints.append(
+                    "|".join(
+                        str(document.get(column, "") or "")
+                        for column in [
+                            "document_key",
+                            "source_sha256",
+                            "cache_path",
+                            "parse_status",
+                            "document_date",
+                        ]
+                    )
+                )
+        document_set_hash = hashlib.sha1(
+            "\n".join(sorted(document_fingerprints)).encode("utf-8", errors="ignore")
+        ).hexdigest()
+        pending_indexes: list[object] = []
+        for feature_index in feature_indexes:
+            rule_id = str(out.at[feature_index, "rule_id"] if "rule_id" in out.columns else "")
+            cached = cache_lookup.get(rule_id)
+            if (
+                cached is not None
+                and str(cached.get("page_match_version", "")) == _STRATEGY_FEATURE_PAGE_MATCH_VERSION
+                and str(cached.get("page_match_document_set_hash", "")) == document_set_hash
+            ):
+                for column in cache_columns:
+                    if column not in cached:
+                        continue
+                    value = cached.get(column, "")
+                    if column in {"page_match_score", "Score confiança"}:
+                        value = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+                    out.at[feature_index, column] = value
+                continue
+            pending_indexes.append(feature_index)
+        if not pending_indexes:
+            continue
+        if document_rows is None or document_rows.empty:
+            out.loc[pending_indexes, "page_match_status"] = "no_documents"
+            out.loc[pending_indexes, "page_match_document_set_hash"] = document_set_hash
+            out.loc[pending_indexes, "page_match_version"] = _STRATEGY_FEATURE_PAGE_MATCH_VERSION
+            continue
+        page_entries: list[dict[str, object]] = []
+        for _, document in document_rows.iterrows():
+            for page in _load_document_cache_pages(document, root):
+                page_number = page.get("page_number", "") or ""
+                page_text = str(page.get("text", "") or "")
+                if not str(page_number).strip() or not page_text.strip():
+                    continue
+                page_entries.append(
+                    {
+                        "document": document,
+                        "page_number": page_number,
+                        "text": page_text,
+                        "shingles": {},
+                    }
+                )
+        if not page_entries:
+            out.loc[pending_indexes, "page_match_status"] = "no_paginated_text"
+            out.loc[pending_indexes, "page_match_document_set_hash"] = document_set_hash
+            out.loc[pending_indexes, "page_match_version"] = _STRATEGY_FEATURE_PAGE_MATCH_VERSION
+            continue
+
+        for feature_index in pending_indexes:
+            evidence = str(out.at[feature_index, "Limite/regra"] if "Limite/regra" in out.columns else "").strip()
+            label = str(out.at[feature_index, "Critério"] if "Critério" in out.columns else "").strip()
+            queries = [evidence] if evidence else []
+            evidence_tokens = re.findall(r"[a-z0-9]+", _ascii_compact(evidence).lower())
+            if len(evidence_tokens) <= 1 and label and _ascii_compact(label).lower() != _ascii_compact(evidence).lower():
+                queries.append(label)
+            best: tuple[float, float, int, dict[str, object], int] | None = None
+            label_tokens = set(re.findall(r"[a-z0-9]+", _ascii_compact(label).lower()))
+            for query in queries:
+                query_tokens = re.findall(r"[a-z0-9]+", _ascii_compact(query).lower())
+                if not query_tokens:
+                    continue
+                shingle_size = min(3, len(query_tokens))
+                target = _text_shingles(query, size=shingle_size)
+                if not target:
+                    continue
+                minimum_score = 1.0 if len(query_tokens) <= 2 else (0.5 if len(query_tokens) <= 4 else 0.35)
+                for entry in page_entries:
+                    shingles_by_size = entry["shingles"]
+                    if shingle_size not in shingles_by_size:
+                        shingles_by_size[shingle_size] = _text_shingles(entry["text"], size=shingle_size)
+                    page_shingles = shingles_by_size[shingle_size]
+                    score = len(target & page_shingles) / max(len(target), 1)
+                    if score < minimum_score:
+                        continue
+                    page_tokens = set(re.findall(r"[a-z0-9]+", _ascii_compact(entry["text"]).lower()))
+                    context_score = len(label_tokens & page_tokens) / max(len(label_tokens), 1) if label_tokens else 0.0
+                    toc_penalty = int(bool(re.search(r"\.{5,}", entry["text"])))
+                    rank = (score, context_score, -toc_penalty)
+                    if best is None or rank > best[:3]:
+                        best = (score, context_score, -toc_penalty, entry, len(query_tokens))
+            if best is None:
+                out.at[feature_index, "page_match_status"] = "no_match"
+                out.at[feature_index, "page_match_document_set_hash"] = document_set_hash
+                out.at[feature_index, "page_match_version"] = _STRATEGY_FEATURE_PAGE_MATCH_VERSION
+                continue
+            score, context_score, _, entry, query_token_count = best
+            document = entry["document"]
+            source_document_name = str(document.get("documento_origem", "") or "")
+            source_page = str(entry["page_number"])
+            source_cache = str(document.get("cache_path", "") or "")
+            original_source = str(out.at[feature_index, "Fonte"] if "Fonte" in out.columns else "").strip()
+            source_parts = [source_document_name, f"página {source_page}"]
+            if source_cache:
+                source_parts.append(f"cache={source_cache}")
+            if original_source:
+                source_parts.append(f"origem={original_source}")
+            out.at[feature_index, "Fonte"] = " · ".join(source_parts)
+            out.at[feature_index, "source_page"] = source_page
+            out.at[feature_index, "source_document_date"] = str(document.get("document_date", "") or "")
+            out.at[feature_index, "page_match_score"] = round(score, 4)
+            out.at[feature_index, "Score confiança"] = round(min(0.9, 0.7 + 0.18 * score + 0.02 * context_score), 4)
+            out.at[feature_index, "Método extração"] = "strategy_regulatory_feature_matrix_page_backfill_v1"
+            out.at[feature_index, "Status curadoria"] = (
+                "sinal da matriz Estratégia com página reconciliada automaticamente; revisão pendente"
+            )
+            out.at[feature_index, "page_match_status"] = "matched"
+            out.at[feature_index, "page_match_document_set_hash"] = document_set_hash
+            out.at[feature_index, "page_match_version"] = _STRATEGY_FEATURE_PAGE_MATCH_VERSION
+            note = str(out.at[feature_index, "Observação técnica"] if "Observação técnica" in out.columns else "").strip()
+            match_note = (
+                f"Página reconciliada por n-gramas ({query_token_count} tokens; match={score:.2f}); "
+                "validar o sentido jurídico na curadoria."
+            )
+            out.at[feature_index, "Observação técnica"] = f"{note} {match_note}".strip()
+    return out
+
+
 def _pct_values(text: object) -> list[float]:
     values: list[float] = []
     for match in re.finditer(r"(\d+(?:[\.,]\d+)?)\s*%", str(text or "")):
@@ -8858,6 +9305,16 @@ def criteria_quality_summary(
     active_source_layer = active.get("fonte_camada", pd.Series("", index=active.index)).fillna("").astype(str)
     feature_active = active_source_layer.eq("strategy_regulatory_feature_long")
     document_candidate_active = active_source_layer.eq("industry_document_field_candidates")
+    feature_page = (
+        active.loc[feature_active, "pagina"].fillna("").astype(str).str.strip().ne("")
+        if "pagina" in active
+        else pd.Series(False, index=active.index[feature_active])
+    )
+    feature_method = (
+        active.loc[feature_active, "metodo_extracao"].fillna("").astype(str)
+        if "metodo_extracao" in active
+        else pd.Series("", index=active.index[feature_active])
+    )
     return {
         "source_rows": int(len(criteria)),
         "source_funds": int(criteria["CNPJ"].nunique()) if "CNPJ" in criteria else 0,
@@ -8868,6 +9325,9 @@ def criteria_quality_summary(
         "source_layer_counts": {str(k): int(v) for k, v in source_layer.value_counts().to_dict().items()},
         "feature_rows": int(feature_active.sum()),
         "feature_funds": int(active.loc[feature_active, "cnpj_fundo"].nunique()) if "cnpj_fundo" in active else 0,
+        "feature_with_page": int(feature_page.sum()),
+        "feature_page_missing_rows": int(feature_active.sum() - feature_page.sum()),
+        "feature_page_backfill_rows": int(feature_method.eq("strategy_regulatory_feature_matrix_page_backfill_v1").sum()),
         "document_candidate_rows": int(document_candidate_active.sum()),
         "document_candidate_funds": int(active.loc[document_candidate_active, "cnpj_fundo"].nunique())
         if "cnpj_fundo" in active
@@ -12381,6 +12841,8 @@ def build_criteria_pipeline_manifest(
     strategy_db: Path,
     criteria_source_path: Path,
     document_candidates_path: Path | None = None,
+    text_index_path: Path | None = None,
+    feature_page_cache_path: Path | None = None,
     reviews_path: Path,
     output_path: Path,
     manifest_path: Path,
@@ -12392,6 +12854,9 @@ def build_criteria_pipeline_manifest(
     quality = criteria_quality_summary(criteria, reviews, structured)
     outputs = {
         "criteria_structured": file_fingerprint(output_path),
+        "strategy_feature_page_cache": file_fingerprint(
+            feature_page_cache_path or industry_dir / "industry_strategy_feature_page_cache.csv.gz"
+        ),
         "manifest": {"path": str(manifest_path)},
     }
     review_audit_path = industry_dir / "criteria_review_audit.csv"
@@ -12416,6 +12881,10 @@ def build_criteria_pipeline_manifest(
             "criteria_source": file_fingerprint(criteria_source_path),
             "document_criteria_candidates": file_fingerprint(
                 document_candidates_path or industry_dir / "document_criteria_candidates.csv.gz"
+            ),
+            "document_text_index": file_fingerprint(text_index_path or industry_dir / "document_text_index.csv.gz"),
+            "strategy_feature_page_cache": file_fingerprint(
+                feature_page_cache_path or industry_dir / "industry_strategy_feature_page_cache.csv.gz"
             ),
             "manual_reviews": file_fingerprint(reviews_path),
         },
@@ -12450,6 +12919,18 @@ def build_criteria_pipeline_manifest(
                 "rows": int(quality.get("feature_rows", 0) or 0),
                 "funds": int(quality.get("feature_funds", 0) or 0),
                 "rerun": "python scripts/execute_fidc_director_diagnostic.py --download-limit 0",
+            },
+            {
+                "id": "reconcile_strategy_feature_pages",
+                "label": "Páginas das features da Estratégia",
+                "status": "ok" if int(quality.get("feature_page_missing_rows", 0) or 0) == 0 else "warning",
+                "input": str(text_index_path or industry_dir / "document_text_index.csv.gz"),
+                "output": str(
+                    feature_page_cache_path or industry_dir / "industry_strategy_feature_page_cache.csv.gz"
+                ),
+                "rows": int(quality.get("feature_page_backfill_rows", 0) or 0),
+                "funds": int(quality.get("feature_funds", 0) or 0),
+                "rerun": "python scripts/build_fidc_industry_criteria.py",
             },
             {
                 "id": "apply_manual_review",

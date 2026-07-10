@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-alternative-document-manifest/v1",
-  "generated_at_utc": "2026-07-10T11:30:57+00:00",
+  "generated_at_utc": "2026-07-10T18:23:46+00:00",
   "pipeline": "industry_alternative_document_discovery",
   "design_constraints": {
     "modular": true,
@@ -17,14 +17,8 @@
     "package_evidence": {
       "path": "data/industry_study/industry_curation_package_evidence.csv.gz",
       "exists": true,
-      "bytes": 1910423,
-      "sha256": "6a879cf1f124236c7d26bacc047055878398d11b1215b578e056605ecb9e921a"
-    },
-    "cvm_eventual_2026": {
-      "path": ".cache/cvm-industry-alternative/eventual_fi_2026.csv",
-      "exists": true,
-      "bytes": 20253039,
-      "sha256": "4368b1f9dca8fdc74cfa28ba7040466d2ee324a0caff4669f7f5668b565e035d"
+      "bytes": 2563283,
+      "sha256": "76f074e5314098ec50100dce72c508a6ca6019968cf93fb842ffdf0366d56856"
     },
     "raw_dir": {
       "path": "data/raw",
@@ -35,14 +29,14 @@
     "alternative_documents": {
       "path": "data/industry_study/industry_alternative_documents.csv.gz",
       "exists": true,
-      "bytes": 4802,
-      "sha256": "ebf88ac185e310af961d9a2f0c072bf425ed64169142ea5adbeb18fc46acd1ae"
+      "bytes": 8304,
+      "sha256": "ec0fc7e6b85588949aee0befaa0f622496d5b9b67d140309afdcbb9becff50b8"
     },
     "alternative_document_status": {
       "path": "data/industry_study/industry_alternative_document_status.csv.gz",
       "exists": true,
-      "bytes": 1118,
-      "sha256": "667815b1caf0b892bd5e56ea7a4bdf5c2c58ba6aec209d2ad17e7e3b901441bd"
+      "bytes": 1734,
+      "sha256": "3747458761edbfcc9f1e9b9c61f0f608260eb414b69d3f342e199526d0fbf50c"
     },
     "manifest": {
       "path": "data/industry_study/industry_alternative_document_manifest.json"
@@ -53,46 +47,49 @@
       "id": "select_alternative_targets",
       "label": "Selecionar pacotes sem documento FNET",
       "status": "ok",
-      "rows": 16,
+      "rows": 0,
       "rerun": "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25"
     },
     {
       "id": "discover_cvm_eventual",
       "label": "Cruzar Documentos Eventuais CVM",
       "status": "ok",
-      "rows": 37,
+      "rows": 73,
       "rerun": "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25"
     },
     {
       "id": "download_alternative_documents",
       "label": "Baixar e hashear documentos alternativos",
       "status": "ok",
-      "rows": 37,
+      "rows": 65,
       "rerun": "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25"
     }
   ],
   "quality": {
-    "target_funds": 16,
-    "attempted_funds": 16,
-    "covered_funds": 16,
+    "target_funds": 0,
+    "attempted_funds": 27,
+    "covered_funds": 22,
     "no_document_funds": 0,
-    "partial_funds": 0,
-    "document_rows": 37,
-    "relevant_documents": 37,
-    "downloaded_documents": 37,
-    "reused_documents": 0,
-    "download_error_documents": 0,
-    "regulation_documents": 37,
+    "partial_funds": 5,
+    "document_rows": 73,
+    "relevant_documents": 73,
+    "downloaded_documents": 61,
+    "reused_documents": 4,
+    "download_error_documents": 8,
+    "regulation_documents": 73,
     "document_type_counts": {
-      "REGUL FDO": 22,
-      "SGF APENDICE": 10,
-      "SGF ANEXO": 5
+      "REGUL FDO": 46,
+      "SGF APENDICE": 14,
+      "SGF ANEXO": 13
     },
     "listing_status_counts": {
-      "ok": 16
+      "ok": 22,
+      "parcial": 5
     },
     "download_status_counts": {
-      "baixado": 37
+      "baixado": 61,
+      "erro_download": 8,
+      "reutilizado": 4
     }
   }
 }

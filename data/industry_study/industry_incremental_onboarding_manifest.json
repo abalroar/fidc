@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-incremental-onboarding-manifest/v1",
-  "generated_at_utc": "2026-07-10T12:26:23+00:00",
+  "generated_at_utc": "2026-07-10T18:25:17+00:00",
   "pipeline": "industry_incremental_onboarding",
   "design_constraints": {
     "modular": true,
@@ -16,28 +16,28 @@
     "monthly_delta": {
       "path": "data/industry_study/industry_monthly_delta.csv.gz",
       "exists": true,
-      "bytes": 366084,
-      "sha256": "51080b094d0dbd9277530b3664ac3e803020da570dce45d94ccd730290f792f9"
+      "bytes": 368198,
+      "sha256": "2d08cd95508c3ed08e591cb0b08f398b67078eb2a9f2efc438fa2ac45688ccbe"
     },
     "curation_queue": {
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
-      "bytes": 491941,
-      "sha256": "f5e3a16e8e015b263680f85ea70663dbfd2aed0058a8c47829f9a637b1edfe4c"
+      "bytes": 427234,
+      "sha256": "7f60476ff4bf20f2ddae200a9bba8a4a6f4a689ed4ad05476e28dd711d472bd7"
     },
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 88033,
-      "sha256": "d913ab8e202f2fa18afa7d02c09600668c7733d78b1d9f435c8752288233a26f"
+      "bytes": 88849,
+      "sha256": "ca4763be0f9b90d7bcfee84c736a20004b294ee4ad8ed9a12a93dd300276c063"
     }
   },
   "outputs": {
     "incremental_onboarding": {
       "path": "data/industry_study/industry_incremental_onboarding.csv",
       "exists": true,
-      "bytes": 82275,
-      "sha256": "377a7f6032d7a7131955b11a816caea4d18811e8f4da2729345a2e76fba41a7d"
+      "bytes": 80945,
+      "sha256": "2ee77ef2ed152522ffffedb3304ffafd113de24742fb648e4b763a597fff4340"
     },
     "manifest": {
       "path": "data/industry_study/industry_incremental_onboarding_manifest.json"
@@ -55,7 +55,7 @@
       "id": "join_queue_and_chunks",
       "label": "Cruzar fila única e chunks documentais",
       "status": "ok",
-      "rows": 12883,
+      "rows": 8556,
       "rerun": "python scripts/build_fidc_industry_curation_queue.py"
     },
     {
@@ -71,17 +71,17 @@
     "funds": 71,
     "new_funds": 63,
     "reactivated_funds": 8,
-    "blocked_rows": 62,
-    "attention_rows": 9,
+    "blocked_rows": 61,
+    "attention_rows": 10,
     "ok_rows": 0,
     "discovery_blocked": 2,
     "processing_attention": 69,
-    "incorporation_blocked": 17,
-    "open_queue_rows": 191,
-    "open_high_priority_rows": 128,
+    "incorporation_blocked": 3,
+    "open_queue_rows": 146,
+    "open_high_priority_rows": 81,
     "status_counts": {
-      "bloqueado": 62,
-      "atenção": 9
+      "bloqueado": 61,
+      "atenção": 10
     }
   }
 }
