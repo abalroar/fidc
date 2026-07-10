@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-index/v1",
-  "generated_at_utc": "2026-07-10T03:29:45+00:00",
+  "generated_at_utc": "2026-07-10T03:50:23+00:00",
   "pipeline": "industry_monthly_refresh",
   "industry_dir": "data/industry_study",
   "output_path": "data/industry_study/industry_pipeline_index.json",
@@ -29,7 +29,7 @@
     "manual_review_artifacts_total": 12,
     "manual_review_artifacts_present": 12,
     "manual_review_artifacts_missing": 0,
-    "latest_module_generated_at_utc": "2026-07-10T03:27:36+00:00",
+    "latest_module_generated_at_utc": "2026-07-10T03:50:13+00:00",
     "competencia_final": "202606",
     "competencia_snapshot": "202605",
     "monthly_delta_rows": 4279,
@@ -854,7 +854,7 @@
       "saidas": "curation_queue | manifest | curation_queue_summary | curation_packages",
       "evidencia_atual": "rows=12884 · funds=4339 · open_rows=12884 · high_priority_rows=3083 · high_priority_open_rows=3083 · high_priority_pending_rows=3083",
       "artefatos": "12/12",
-      "gerado_em_utc": "2026-07-10T03:26:48+00:00",
+      "gerado_em_utc": "2026-07-10T03:50:13+00:00",
       "motivo": "Une delta mensal, lacunas all-FIDCs, chunks documentais e rastreabilidade do catálogo em uma fila operacional.",
       "incrementalidade": "Rerun leve depois de salvar ações manuais na UI ou de regenerar qualquer fila detalhe."
     },
@@ -959,7 +959,7 @@
       "saidas": "industry_pipeline_index | industry_monthly_update_plan | industry_monthly_readiness | industry_publication_gate | industry_monthly_closeout_plan",
       "evidencia_atual": "prd_requirements_total=12 · artifacts_present=77 · artifacts_total=77",
       "artefatos": "77/77",
-      "gerado_em_utc": "2026-07-10T03:27:36+00:00",
+      "gerado_em_utc": "2026-07-10T03:50:13+00:00",
       "motivo": "Recalcula hashes, freshness, status dos módulos e checklist mensal visível na aba Pipeline.",
       "incrementalidade": "Não reprocessa dados; apenas lê manifests e arquivos já materializados."
     }
@@ -5683,7 +5683,7 @@
       "status": "ok",
       "schema_version": "industry-curation-queue-manifest/v1",
       "pipeline": "industry_curation_queue",
-      "generated_at_utc": "2026-07-10T03:26:48+00:00",
+      "generated_at_utc": "2026-07-10T03:50:13+00:00",
       "manifest_path": "data/industry_study/industry_curation_queue_manifest.json",
       "command": "python scripts/build_fidc_industry_curation_queue.py",
       "cadence": "mensal/após filas operacionais",
@@ -6738,7 +6738,7 @@
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
       "bytes": 491721,
-      "sha256": "83774593a775cbb1e52d622d715298909b8f7b1de0e82df3d4387c0f5ea0046c"
+      "sha256": "8bff8914c3a0e22ad0266198175289ca6170e8558b35175e6c1e25ffee5a5d42"
     },
     {
       "module_id": "incremental_onboarding",
@@ -6968,7 +6968,7 @@
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
       "bytes": 491721,
-      "sha256": "83774593a775cbb1e52d622d715298909b8f7b1de0e82df3d4387c0f5ea0046c"
+      "sha256": "8bff8914c3a0e22ad0266198175289ca6170e8558b35175e6c1e25ffee5a5d42"
     },
     {
       "module_id": "curation_queue",
@@ -6978,7 +6978,7 @@
       "path": "data/industry_study/industry_curation_queue_manifest.json",
       "exists": true,
       "bytes": 5830,
-      "sha256": "f74bac2724835eb1ef8210c37a5e0da4354fc3077b518d9b55214dc2b30fa271"
+      "sha256": "523037388ffacb98c54a1d25baeb6686ffb1392b8de53788da790e52dc8ac49b"
     },
     {
       "module_id": "curation_queue",
@@ -6988,7 +6988,7 @@
       "path": "data/industry_study/industry_curation_queue_summary.csv.gz",
       "exists": true,
       "bytes": 240697,
-      "sha256": "c19b61fd28da74346617eaa7c72da77abcbb5b838550d978e9a56d5748ed10f5"
+      "sha256": "a1023f4a9ff5fcec9c23478d1f6dfd714ba39e8d508f7b31eb1f1e530d6be87f"
     },
     {
       "module_id": "curation_queue",
@@ -6997,8 +6997,8 @@
       "required": true,
       "path": "data/industry_study/industry_curation_packages.csv.gz",
       "exists": true,
-      "bytes": 676367,
-      "sha256": "4d650cbdd852fc80d399991a1978ef74672396f0bcfd1e8d2bbd4930dd13d9c1"
+      "bytes": 678427,
+      "sha256": "18c5ecea9ec6cceaf51efe4c03dcfb5a58fb742329f7a6f8a54b002691c7945c"
     },
     {
       "module_id": "documents",
@@ -7912,8 +7912,8 @@
       "required": false,
       "path": "data/industry_study/industry_pipeline_index.json",
       "exists": true,
-      "bytes": 391675,
-      "sha256": "776970ec77cffb1f4fcc1dc9884d9390f6eeb44db84f4da6fbc971fd61cbbc26"
+      "bytes": 392277,
+      "sha256": "19d00e7bd89c2a4203b3e6816fb27ac7391221c8f868a92dc3a991558d82198f"
     },
     {
       "module_id": "pipeline_index",
@@ -7923,7 +7923,7 @@
       "path": "data/industry_study/industry_monthly_update_plan.csv",
       "exists": true,
       "bytes": 19128,
-      "sha256": "5b3144b33113f0600de3214f6607782a4c4519ee868e1348a14f6c4f06375c10"
+      "sha256": "a9de0c4101b5c44f1733bcda9884f03f11d7b5d4f02cc3684530c596ed3dde43"
     },
     {
       "module_id": "pipeline_index",

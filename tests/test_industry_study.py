@@ -50,6 +50,7 @@ from services.industry_study import (  # noqa: E402
     build_industry_curation_queue,
     build_industry_curation_packages,
     build_industry_curation_queue_summary,
+    expand_industry_curation_package_updates,
     build_dimension_catalog_pipeline_manifest,
     build_dimension_traceability_matrix,
     build_dimension_dossier_pipeline_manifest,
@@ -4697,6 +4698,8 @@ def test_industry_curation_queue_unifies_all_fidc_workstreams():
     extra_catalog_gap = queue[queue["queue_domain"].eq("catalog_gap")].copy()
     extra_catalog_gap["queue_id"] = "catalog_gap:second-page"
     extra_catalog_gap["record_id"] = "second-page"
+    extra_catalog_gap["acao_revisada"] = "Localizar página"
+    queue.loc[queue["queue_domain"].eq("catalog_gap"), "acao_revisada"] = "Localizar página"
     package_source = pd.concat([queue, extra_catalog_gap], ignore_index=True)
     packages = build_industry_curation_packages(package_source, batch_size=2)
     catalog_package = packages[packages["queue_domain"].eq("catalog_gap")].iloc[0]
@@ -4706,9 +4709,33 @@ def test_industry_curation_queue_unifies_all_fidc_workstreams():
     assert catalog_package["issue_rows"] == 2
     assert catalog_package["open_issue_rows"] == 2
     assert "catalog_gap:" in catalog_package["source_queue_ids"]
+    assert catalog_package["acao_revisada"] == "Localizar página"
     assert monthly_package["work_tier"] == "P0 competência"
     assert monthly_package["batch_id"] == "P0-001"
     assert bool(monthly_package["is_current_batch"]) is True
+
+    expanded = expand_industry_curation_package_updates(
+        package_source,
+        pd.DataFrame(
+            [
+                {
+                    "package_id": catalog_package["package_id"],
+                    "status_curadoria": "corrigido",
+                    "acao_revisada": "Página confirmada",
+                    "responsavel": "Mesa FIDC",
+                    "prazo": "2026-07-10",
+                    "notas": "Pacote revisado",
+                }
+            ]
+        ),
+        updated_at_utc="2026-07-10T12:00:00+00:00",
+    )
+
+    assert len(expanded) == 2
+    assert set(expanded["record_id"]) == {"second-page", queue[queue["queue_domain"].eq("catalog_gap")].iloc[0]["record_id"]}
+    assert set(expanded["status_curadoria"]) == {"corrigido"}
+    assert set(expanded["acao_revisada"]) == {"Página confirmada"}
+    assert set(expanded["updated_at_utc"]) == {"2026-07-10T12:00:00+00:00"}
 
 
 def test_manual_review_ledgers_initialize_headers_without_fake_events():

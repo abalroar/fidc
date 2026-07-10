@@ -572,6 +572,11 @@ CURATION_PACKAGE_COLUMNS = [
     "is_current_batch",
     "queue_domain",
     "status_curadoria",
+    "acao_revisada",
+    "responsavel",
+    "prazo",
+    "notas",
+    "updated_at_utc",
     "priority_band",
     "package_priority_score",
     "competencia",
@@ -6267,6 +6272,71 @@ def build_industry_curation_queue_summary(queue: pd.DataFrame) -> pd.DataFrame:
     return out[CURATION_QUEUE_SUMMARY_COLUMNS]
 
 
+def _curation_package_identity(queue: pd.DataFrame) -> pd.DataFrame:
+    frame = queue.copy()
+    for col in ["queue_domain", "record_id", "queue_id", "cnpj_fundo"]:
+        if col not in frame.columns:
+            frame[col] = ""
+        frame[col] = frame[col].fillna("").astype(str)
+    frame["cnpj_fundo_norm"] = frame["cnpj_fundo"].map(_single_cnpj_or_empty)
+    frame["package_scope"] = frame["cnpj_fundo_norm"].where(
+        frame["cnpj_fundo_norm"].ne(""),
+        frame["record_id"].where(frame["record_id"].ne(""), frame["queue_id"]),
+    )
+    package_keys = frame["queue_domain"].str.strip() + "|" + frame["package_scope"].str.strip()
+    frame["package_id"] = package_keys.map(
+        lambda value: "pkg_" + hashlib.sha1(value.encode("utf-8")).hexdigest()[:16] if value.strip("|") else ""
+    )
+    return frame
+
+
+def expand_industry_curation_package_updates(
+    queue: pd.DataFrame,
+    package_updates: pd.DataFrame,
+    *,
+    updated_at_utc: str = "",
+) -> pd.DataFrame:
+    """Expand package-level review decisions back to every granular queue record."""
+
+    output_columns = [
+        "queue_domain",
+        "record_id",
+        "status_curadoria",
+        "acao_revisada",
+        "responsavel",
+        "prazo",
+        "notas",
+        "updated_at_utc",
+    ]
+    if queue is None or queue.empty or package_updates is None or package_updates.empty:
+        return pd.DataFrame(columns=output_columns)
+    updates = package_updates.copy()
+    review_columns = ["status_curadoria", "acao_revisada", "responsavel", "prazo", "notas", "updated_at_utc"]
+    for col in ["package_id", *review_columns]:
+        if col not in updates.columns:
+            updates[col] = ""
+        updates[col] = updates[col].fillna("").astype(str)
+    updates = updates[updates["package_id"].str.strip().ne("")].drop_duplicates("package_id", keep="last")
+    if updates.empty:
+        return pd.DataFrame(columns=output_columns)
+    if updated_at_utc:
+        updates["updated_at_utc"] = updated_at_utc
+
+    identified = _curation_package_identity(queue)
+    identified = identified[identified["package_id"].isin(set(updates["package_id"]))].copy()
+    if identified.empty:
+        return pd.DataFrame(columns=output_columns)
+    merged = identified[["package_id", "queue_domain", "record_id"]].merge(
+        updates[["package_id", *review_columns]],
+        on="package_id",
+        how="left",
+        validate="many_to_one",
+    )
+    merged["status_curadoria"] = merged["status_curadoria"].replace("", "pendente")
+    merged = merged[merged["record_id"].fillna("").astype(str).str.strip().ne("")].copy()
+    return merged[output_columns].drop_duplicates(["queue_domain", "record_id"], keep="last").reset_index(drop=True)
+
+
 def build_industry_curation_packages(
     queue: pd.DataFrame,
     *,
@@ -6295,6 +6365,11 @@ def build_industry_curation_packages(
         "source_artifacts",
         "source_document",
         "rerun_command",
+        "acao_revisada",
+        "responsavel",
+        "prazo",
+        "notas",
+        "updated_at_utc",
     ]
     for col in text_columns:
         if col not in frame.columns:
@@ -6302,11 +6377,7 @@ def build_industry_curation_packages(
         frame[col] = frame[col].fillna("").astype(str)
     frame["status_curadoria"] = _normalized_status(frame["status_curadoria"])
     frame["priority_band"] = frame["priority_band"].str.strip().replace("", "n/d")
-    frame["cnpj_fundo_norm"] = frame["cnpj_fundo"].map(_single_cnpj_or_empty)
-    frame["package_scope"] = frame["cnpj_fundo_norm"].where(
-        frame["cnpj_fundo_norm"].ne(""),
-        frame["record_id"].where(frame["record_id"].ne(""), frame["queue_id"]),
-    )
+    frame = _curation_package_identity(frame)
     frame = frame[frame["queue_domain"].str.strip().ne("") & frame["package_scope"].str.strip().ne("")].copy()
     if frame.empty:
         return pd.DataFrame(columns=CURATION_PACKAGE_COLUMNS)
@@ -6338,6 +6409,10 @@ def build_industry_curation_packages(
         )
         return values[0] if values else "n/d"
 
+    def consensus_review_value(group: pd.DataFrame, column: str) -> str:
+        values = [value for value in group[column].fillna("").astype(str).str.strip().unique() if value]
+        return values[0] if len(values) == 1 else ""
+
     records: list[dict[str, object]] = []
     for (domain, scope), group in frame.groupby(["queue_domain", "package_scope"], dropna=False, sort=False):
         cnpj = _first_nonempty(group["cnpj_fundo_norm"])
@@ -6361,10 +6436,9 @@ def build_industry_curation_packages(
             tier = "P2 cobertura"
         else:
             tier = "P3 backlog"
-        package_key = f"{domain}|{scope}"
         records.append(
             {
-                "package_id": "pkg_" + hashlib.sha1(package_key.encode("utf-8")).hexdigest()[:16],
+                "package_id": _first_nonempty(group["package_id"]),
                 "rank": 0,
                 "work_tier": tier,
                 "batch_id": "",
@@ -6372,6 +6446,11 @@ def build_industry_curation_packages(
                 "is_current_batch": False,
                 "queue_domain": domain,
                 "status_curadoria": status,
+                "acao_revisada": consensus_review_value(group, "acao_revisada"),
+                "responsavel": consensus_review_value(group, "responsavel"),
+                "prazo": consensus_review_value(group, "prazo"),
+                "notas": consensus_review_value(group, "notas"),
+                "updated_at_utc": max((value for value in group["updated_at_utc"] if value), default=""),
                 "priority_band": priority_band,
                 "package_priority_score": package_score,
                 "competencia": max((value for value in group["competencia"] if value), default=""),
@@ -6391,7 +6470,7 @@ def build_industry_curation_packages(
                 "gap_summary": _join_unique(group["gap_summary"], limit=8),
                 "source_artifacts": _join_unique(group["source_artifacts"], limit=8),
                 "source_documents": _join_unique(group["source_document"], limit=10),
-                "source_queue_ids": _join_unique(group["queue_id"], limit=50),
+                "source_queue_ids": _join_unique(group["queue_id"], limit=max(int(group["queue_id"].nunique()), 1)),
                 "rerun_commands": _join_unique(group["rerun_command"], limit=5),
             }
         )

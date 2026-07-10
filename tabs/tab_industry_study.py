@@ -51,6 +51,7 @@ from services.industry_study import (
     build_criteria_structured,
     build_industry_pipeline_index,
     clean_candidate_name,
+    expand_industry_curation_package_updates,
     load_dataframe,
     load_cedente_candidates,
     load_document_criteria_candidates,
@@ -8258,6 +8259,11 @@ def _format_curation_packages(frame: pd.DataFrame) -> pd.DataFrame:
         "batch_id",
         "queue_domain",
         "status_curadoria",
+        "acao_revisada",
+        "responsavel",
+        "prazo",
+        "notas",
+        "updated_at_utc",
         "priority_band",
         "package_priority_score",
         "competencia",
@@ -8282,6 +8288,11 @@ def _format_curation_packages(frame: pd.DataFrame) -> pd.DataFrame:
             "batch_id": "Lote",
             "queue_domain": "Frente",
             "status_curadoria": "Status",
+            "acao_revisada": "Ação revisada",
+            "responsavel": "Responsável",
+            "prazo": "Prazo",
+            "notas": "Notas",
+            "updated_at_utc": "Atualizado",
             "priority_band": "Prioridade",
             "package_priority_score": "Score",
             "competencia": "Competência",
@@ -8373,6 +8384,180 @@ def _curation_queue_updates_to_domain_actions(updates: pd.DataFrame) -> dict[str
         out = out[out[id_col].fillna("").astype(str).str.strip().ne("")]
         frames[key] = out.drop_duplicates(id_col, keep="last")
     return frames
+
+
+def _persist_curation_queue_updates(
+    edited_updates: pd.DataFrame,
+    *,
+    monthly_delta_base: pd.DataFrame,
+    monthly_delta_actions: pd.DataFrame,
+    dimension_catalog: pd.DataFrame,
+    audit_source: str,
+) -> dict[str, int]:
+    saved_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    updates = edited_updates.copy().fillna("")
+    for col in [
+        "queue_domain",
+        "record_id",
+        "status_curadoria",
+        "acao_revisada",
+        "responsavel",
+        "prazo",
+        "notas",
+        "updated_at_utc",
+    ]:
+        if col not in updates.columns:
+            updates[col] = ""
+    updates["updated_at_utc"] = saved_at
+    material_cols = ["acao_revisada", "responsavel", "prazo", "notas"]
+    material = updates["status_curadoria"].fillna("").astype(str).str.lower().ne("pendente") | (
+        updates[material_cols].fillna("").astype(str).agg(" ".join, axis=1).str.strip().ne("")
+    )
+    all_domain_updates = _curation_queue_updates_to_domain_actions(updates)
+    material_domain_updates = _curation_queue_updates_to_domain_actions(updates[material].copy())
+
+    audit_events_total = 0
+    saved_rows_total = 0
+
+    visible_monthly = set(all_domain_updates["monthly_delta"].get("delta_id", pd.Series(dtype=str)).fillna("").astype(str))
+    existing_monthly = monthly_delta_actions.copy()
+    if visible_monthly and "delta_id" in existing_monthly.columns:
+        existing_monthly = existing_monthly[
+            ~existing_monthly["delta_id"].fillna("").astype(str).isin(visible_monthly)
+        ].copy()
+    updated_monthly_actions = pd.concat([existing_monthly, material_domain_updates["monthly_delta"]], ignore_index=True)
+    events = build_review_audit_events(
+        previous=_monthly_delta_actions_for_audit(monthly_delta_actions),
+        updated=_monthly_delta_actions_for_audit(updated_monthly_actions),
+        key_column="delta_id",
+        review_domain="monthly_delta_action",
+        saved_at_utc=saved_at,
+        source=audit_source,
+    )
+    append_review_audit_events(events, _MONTHLY_DELTA_ACTION_AUDIT_PATH)
+    updated_monthly_actions = save_monthly_delta_actions(updated_monthly_actions, _MONTHLY_DELTA_ACTIONS_PATH)
+    audit_events_total += len(events)
+    saved_rows_total += len(material_domain_updates["monthly_delta"])
+
+    snapshot_actions = _load_snapshot_gap_actions()
+    visible_snapshot = set(all_domain_updates["snapshot_gap"].get("gap_id", pd.Series(dtype=str)).fillna("").astype(str))
+    existing_snapshot = snapshot_actions.copy()
+    if visible_snapshot and "gap_id" in existing_snapshot.columns:
+        existing_snapshot = existing_snapshot[
+            ~existing_snapshot["gap_id"].fillna("").astype(str).isin(visible_snapshot)
+        ].copy()
+    updated_snapshot_actions = pd.concat([existing_snapshot, material_domain_updates["snapshot_gap"]], ignore_index=True)
+    events = build_review_audit_events(
+        previous=_snapshot_gap_actions_for_audit(snapshot_actions),
+        updated=_snapshot_gap_actions_for_audit(updated_snapshot_actions),
+        key_column="gap_id",
+        review_domain="snapshot_gap",
+        saved_at_utc=saved_at,
+        source=audit_source,
+    )
+    append_review_audit_events(events, _SNAPSHOT_GAP_ACTION_AUDIT_PATH)
+    updated_snapshot_actions = _save_snapshot_gap_actions(updated_snapshot_actions)
+    audit_events_total += len(events)
+    saved_rows_total += len(material_domain_updates["snapshot_gap"])
+
+    catalog_actions = _load_catalog_gap_actions()
+    visible_catalog = set(
+        all_domain_updates["catalog_gap"].get("traceability_gap_id", pd.Series(dtype=str)).fillna("").astype(str)
+    )
+    existing_catalog = catalog_actions.copy()
+    if visible_catalog and "traceability_gap_id" in existing_catalog.columns:
+        existing_catalog = existing_catalog[
+            ~existing_catalog["traceability_gap_id"].fillna("").astype(str).isin(visible_catalog)
+        ].copy()
+    updated_catalog_actions = pd.concat([existing_catalog, material_domain_updates["catalog_gap"]], ignore_index=True)
+    events = build_review_audit_events(
+        previous=_catalog_gap_actions_for_audit(catalog_actions),
+        updated=_catalog_gap_actions_for_audit(updated_catalog_actions),
+        key_column="traceability_gap_id",
+        review_domain="dimension_catalog_gap",
+        saved_at_utc=saved_at,
+        source=audit_source,
+    )
+    append_review_audit_events(events, _CATALOG_GAP_ACTION_AUDIT_PATH)
+    updated_catalog_actions = _save_catalog_gap_actions(updated_catalog_actions)
+    audit_events_total += len(events)
+    saved_rows_total += len(material_domain_updates["catalog_gap"])
+
+    chunk_actions = _load_document_chunk_actions()
+    visible_chunks = set(all_domain_updates["document_chunk"].get("chunk_id", pd.Series(dtype=str)).fillna("").astype(str))
+    existing_chunks = chunk_actions.copy()
+    if visible_chunks and "chunk_id" in existing_chunks.columns:
+        existing_chunks = existing_chunks[
+            ~existing_chunks["chunk_id"].fillna("").astype(str).isin(visible_chunks)
+        ].copy()
+    updated_chunk_actions = pd.concat([existing_chunks, material_domain_updates["document_chunk"]], ignore_index=True)
+    events = build_review_audit_events(
+        previous=_document_chunk_actions_for_audit(chunk_actions),
+        updated=_document_chunk_actions_for_audit(updated_chunk_actions),
+        key_column="chunk_id",
+        review_domain="document_chunk_action",
+        saved_at_utc=saved_at,
+        source=audit_source,
+    )
+    append_review_audit_events(events, _DOCUMENT_CHUNK_ACTION_AUDIT_PATH)
+    updated_chunk_actions = _save_document_chunk_actions(updated_chunk_actions)
+    audit_events_total += len(events)
+    saved_rows_total += len(material_domain_updates["document_chunk"])
+
+    document_tables = _load_document_tables()
+    inventory = document_tables["inventory"] if isinstance(document_tables["inventory"], pd.DataFrame) else pd.DataFrame()
+    chunks = document_tables["chunks"] if isinstance(document_tables["chunks"], pd.DataFrame) else pd.DataFrame()
+    materialized_plan = build_document_chunk_plan(chunks, inventory, actions=updated_chunk_actions)
+    save_dataframe(materialized_plan, _DOCUMENT_CHUNK_PLAN_PATH)
+    monthly_delta_refreshed = apply_monthly_delta_actions(monthly_delta_base, updated_monthly_actions)
+    snapshot_tables = _load_fund_snapshot_tables()
+    snapshot = snapshot_tables["snapshot"] if isinstance(snapshot_tables["snapshot"], pd.DataFrame) else pd.DataFrame()
+    materialized_queue = build_industry_curation_queue(
+        snapshot=snapshot,
+        monthly_delta=monthly_delta_refreshed,
+        document_chunk_plan=materialized_plan,
+        dimension_catalog=dimension_catalog,
+        snapshot_gap_actions=updated_snapshot_actions,
+        catalog_gap_actions=updated_catalog_actions,
+    )
+    save_dataframe(materialized_queue, _CURATION_QUEUE_PATH)
+    materialized_summary = build_industry_curation_queue_summary(materialized_queue)
+    save_dataframe(materialized_summary, _CURATION_QUEUE_SUMMARY_PATH)
+    materialized_packages = build_industry_curation_packages(materialized_queue)
+    save_dataframe(materialized_packages, _CURATION_PACKAGES_PATH)
+    curation_manifest = build_curation_queue_pipeline_manifest(
+        industry_dir=_DATA_DIR,
+        output_path=_CURATION_QUEUE_PATH,
+        manifest_path=_CURATION_QUEUE_MANIFEST_PATH,
+        summary_path=_CURATION_QUEUE_SUMMARY_PATH,
+        packages_path=_CURATION_PACKAGES_PATH,
+        snapshot=snapshot,
+        monthly_delta=monthly_delta_refreshed,
+        document_chunk_plan=materialized_plan,
+        dimension_catalog=dimension_catalog,
+        queue=materialized_queue,
+        summary=materialized_summary,
+        packages=materialized_packages,
+    )
+    save_pipeline_manifest(curation_manifest, _CURATION_QUEUE_MANIFEST_PATH)
+    new_index = build_industry_pipeline_index(industry_dir=_DATA_DIR, output_path=_PIPELINE_INDEX_PATH)
+    save_dataframe(pd.DataFrame(new_index.get("monthly_update_plan", [])), _MONTHLY_UPDATE_PLAN_PATH)
+    save_dataframe(pd.DataFrame(new_index.get("readiness_checks", [])), _MONTHLY_READINESS_PATH)
+    save_dataframe(pd.DataFrame(new_index.get("publication_gate", [])), _PUBLICATION_GATE_PATH)
+    save_dataframe(pd.DataFrame(new_index.get("monthly_closeout_plan", [])), _MONTHLY_CLOSEOUT_PLAN_PATH)
+    save_pipeline_manifest(new_index, _PIPELINE_INDEX_PATH)
+    _load_monthly_delta_tables.clear()
+    _load_snapshot_gap_actions.clear()
+    _load_catalog_gap_actions.clear()
+    _load_document_chunk_actions.clear()
+    _load_curation_queue_tables.clear()
+    _load_industry_pipeline_index.clear()
+    return {
+        "saved_rows": int(saved_rows_total),
+        "audit_events": int(audit_events_total),
+        "queue_rows": int(len(materialized_queue)),
+        "package_rows": int(len(materialized_packages)),
+    }
 
 
 def _render_pipeline_manifest() -> None:
@@ -9152,7 +9337,11 @@ def _render_pipeline_manifest() -> None:
             queue_cards = [
                 _curation_card("Pacotes abertos", _fmt_int(float(queue_quality.get("package_open_rows", len(curation_packages)) or 0)), "FIDC × frente"),
                 _curation_card("Itens abertos", _fmt_int(float(queue_quality.get("open_rows", len(queue)) or 0)), "evidência granular"),
-                _curation_card("Alta prioridade", _fmt_int(float(queue_quality.get("high_priority_rows", 0) or 0)), "prioridade explícita"),
+                _curation_card(
+                    "Pacotes prioritários",
+                    _fmt_int(float(queue_quality.get("package_high_priority_open_rows", 0) or 0)),
+                    "P0 e P1 abertos",
+                ),
                 _curation_card("Lote atual", _fmt_int(float(queue_quality.get("package_current_batch_rows", 0) or 0)), "até 25 por tier"),
                 _curation_card("Catálogo", _fmt_int(float(domain_counts.get("catalog_gap", 0))), "lacunas aplicáveis"),
                 _curation_card("Delta", _fmt_int(float(domain_counts.get("monthly_delta", 0))), "mudança mensal"),
@@ -9224,7 +9413,74 @@ def _render_pipeline_manifest() -> None:
                         else pd.Series("", index=package_view.index)
                     )
                     package_view = package_view[package_search.str.contains(package_query, case=False, na=False)].copy()
-                st.dataframe(_format_curation_packages(package_view.head(160)), hide_index=True, width="stretch", height=360)
+                package_page = package_view.head(160).copy()
+                package_display = _format_curation_packages(package_page)
+                package_editable_columns = {"Status", "Ação revisada", "Responsável", "Prazo", "Notas"}
+                edited_packages = st.data_editor(
+                    package_display,
+                    hide_index=True,
+                    width="stretch",
+                    height=420,
+                    disabled=[col for col in package_display.columns if col not in package_editable_columns],
+                    column_config={
+                        "Status": st.column_config.SelectboxColumn(
+                            "Status",
+                            options=[
+                                "pendente",
+                                "em andamento",
+                                "bloqueado",
+                                "corrigido",
+                                "aceito",
+                                "concluído",
+                                "processado",
+                                "ignorado",
+                            ],
+                            required=True,
+                        ),
+                        "Ação revisada": st.column_config.TextColumn("Ação revisada", width="large"),
+                        "Notas": st.column_config.TextColumn("Notas", width="large"),
+                    },
+                    key="industry_curation_package_editor",
+                )
+                package_review_columns = ["Status", "Ação revisada", "Responsável", "Prazo", "Notas"]
+                original_package_review = (
+                    package_display[["ID pacote", *package_review_columns]].copy().fillna("").reset_index(drop=True)
+                )
+                edited_package_review = (
+                    edited_packages[["ID pacote", *package_review_columns]].copy().fillna("").reset_index(drop=True)
+                )
+                package_changed = (
+                    edited_package_review[package_review_columns].astype(str).reset_index(drop=True)
+                    != original_package_review[package_review_columns].astype(str).reset_index(drop=True)
+                ).any(axis=1)
+                if st.button("Salvar decisões dos pacotes", type="primary", key="industry_save_curation_package_actions"):
+                    changed_packages = edited_package_review.loc[package_changed].copy()
+                    package_updates = pd.DataFrame(
+                        {
+                            "package_id": changed_packages["ID pacote"].fillna("").astype(str),
+                            "status_curadoria": changed_packages["Status"].fillna("").astype(str).replace("", "pendente"),
+                            "acao_revisada": changed_packages["Ação revisada"].fillna("").astype(str),
+                            "responsavel": changed_packages["Responsável"].fillna("").astype(str),
+                            "prazo": changed_packages["Prazo"].fillna("").astype(str),
+                            "notas": changed_packages["Notas"].fillna("").astype(str),
+                        }
+                    )
+                    expanded_updates = expand_industry_curation_package_updates(queue, package_updates)
+                    if expanded_updates.empty:
+                        st.info("Nenhuma decisão de pacote foi alterada.")
+                    else:
+                        result = _persist_curation_queue_updates(
+                            expanded_updates,
+                            monthly_delta_base=monthly_delta_tables["delta"],
+                            monthly_delta_actions=monthly_delta_actions,
+                            dimension_catalog=dimension_catalog,
+                            audit_source="industry_curation_package_editor",
+                        )
+                        st.success(
+                            f"Pacotes salvos: {_fmt_int(float(len(package_updates)))} decisões, "
+                            f"{_fmt_int(float(result['saved_rows']))} ações granulares e "
+                            f"{_fmt_int(float(result['audit_events']))} eventos de auditoria."
+                        )
                 st.download_button(
                     "Baixar pacotes filtrados",
                     data=package_view.to_csv(index=False).encode("utf-8"),
@@ -9393,7 +9649,6 @@ def _render_pipeline_manifest() -> None:
                 key="industry_curation_queue_editor",
             )
             if st.button("Salvar ajustes da fila única", type="primary", key="industry_save_curation_queue_actions"):
-                saved_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
                 edited_updates = pd.DataFrame(
                     {
                         "queue_domain": edited_queue["Frente"].fillna("").astype(str),
@@ -9403,150 +9658,19 @@ def _render_pipeline_manifest() -> None:
                         "responsavel": edited_queue["Responsável"].fillna("").astype(str),
                         "prazo": edited_queue["Prazo"].fillna("").astype(str),
                         "notas": edited_queue["Notas"].fillna("").astype(str),
-                        "updated_at_utc": saved_at,
                     }
                 )
-                material_cols = ["acao_revisada", "responsavel", "prazo", "notas"]
-                material = edited_updates["status_curadoria"].fillna("").astype(str).str.lower().ne("pendente") | (
-                    edited_updates[material_cols].fillna("").astype(str).agg(" ".join, axis=1).str.strip().ne("")
-                )
-                all_domain_updates = _curation_queue_updates_to_domain_actions(edited_updates)
-                material_domain_updates = _curation_queue_updates_to_domain_actions(edited_updates[material].copy())
-
-                audit_events_total = 0
-                saved_rows_total = 0
-
-                visible_monthly = set(all_domain_updates["monthly_delta"].get("delta_id", pd.Series(dtype=str)).fillna("").astype(str))
-                existing_monthly = monthly_delta_actions.copy()
-                if visible_monthly and "delta_id" in existing_monthly.columns:
-                    existing_monthly = existing_monthly[~existing_monthly["delta_id"].fillna("").astype(str).isin(visible_monthly)].copy()
-                updated_monthly_actions = pd.concat([existing_monthly, material_domain_updates["monthly_delta"]], ignore_index=True)
-                events = build_review_audit_events(
-                    previous=_monthly_delta_actions_for_audit(monthly_delta_actions),
-                    updated=_monthly_delta_actions_for_audit(updated_monthly_actions),
-                    key_column="delta_id",
-                    review_domain="monthly_delta_action",
-                    saved_at_utc=saved_at,
-                    source="industry_curation_queue_editor",
-                )
-                append_review_audit_events(events, _MONTHLY_DELTA_ACTION_AUDIT_PATH)
-                updated_monthly_actions = save_monthly_delta_actions(updated_monthly_actions, _MONTHLY_DELTA_ACTIONS_PATH)
-                audit_events_total += len(events)
-                saved_rows_total += len(material_domain_updates["monthly_delta"])
-
-                snapshot_actions = _load_snapshot_gap_actions()
-                visible_snapshot = set(all_domain_updates["snapshot_gap"].get("gap_id", pd.Series(dtype=str)).fillna("").astype(str))
-                existing_snapshot = snapshot_actions.copy()
-                if visible_snapshot and "gap_id" in existing_snapshot.columns:
-                    existing_snapshot = existing_snapshot[~existing_snapshot["gap_id"].fillna("").astype(str).isin(visible_snapshot)].copy()
-                updated_snapshot_actions = pd.concat([existing_snapshot, material_domain_updates["snapshot_gap"]], ignore_index=True)
-                events = build_review_audit_events(
-                    previous=_snapshot_gap_actions_for_audit(snapshot_actions),
-                    updated=_snapshot_gap_actions_for_audit(updated_snapshot_actions),
-                    key_column="gap_id",
-                    review_domain="snapshot_gap",
-                    saved_at_utc=saved_at,
-                    source="industry_curation_queue_editor",
-                )
-                append_review_audit_events(events, _SNAPSHOT_GAP_ACTION_AUDIT_PATH)
-                updated_snapshot_actions = _save_snapshot_gap_actions(updated_snapshot_actions)
-                audit_events_total += len(events)
-                saved_rows_total += len(material_domain_updates["snapshot_gap"])
-
-                catalog_actions = _load_catalog_gap_actions()
-                visible_catalog = set(
-                    all_domain_updates["catalog_gap"].get("traceability_gap_id", pd.Series(dtype=str)).fillna("").astype(str)
-                )
-                existing_catalog = catalog_actions.copy()
-                if visible_catalog and "traceability_gap_id" in existing_catalog.columns:
-                    existing_catalog = existing_catalog[
-                        ~existing_catalog["traceability_gap_id"].fillna("").astype(str).isin(visible_catalog)
-                    ].copy()
-                updated_catalog_actions = pd.concat([existing_catalog, material_domain_updates["catalog_gap"]], ignore_index=True)
-                events = build_review_audit_events(
-                    previous=_catalog_gap_actions_for_audit(catalog_actions),
-                    updated=_catalog_gap_actions_for_audit(updated_catalog_actions),
-                    key_column="traceability_gap_id",
-                    review_domain="dimension_catalog_gap",
-                    saved_at_utc=saved_at,
-                    source="industry_curation_queue_editor",
-                )
-                append_review_audit_events(events, _CATALOG_GAP_ACTION_AUDIT_PATH)
-                updated_catalog_actions = _save_catalog_gap_actions(updated_catalog_actions)
-                audit_events_total += len(events)
-                saved_rows_total += len(material_domain_updates["catalog_gap"])
-
-                chunk_actions = _load_document_chunk_actions()
-                visible_chunks = set(all_domain_updates["document_chunk"].get("chunk_id", pd.Series(dtype=str)).fillna("").astype(str))
-                existing_chunks = chunk_actions.copy()
-                if visible_chunks and "chunk_id" in existing_chunks.columns:
-                    existing_chunks = existing_chunks[~existing_chunks["chunk_id"].fillna("").astype(str).isin(visible_chunks)].copy()
-                updated_chunk_actions = pd.concat([existing_chunks, material_domain_updates["document_chunk"]], ignore_index=True)
-                events = build_review_audit_events(
-                    previous=_document_chunk_actions_for_audit(chunk_actions),
-                    updated=_document_chunk_actions_for_audit(updated_chunk_actions),
-                    key_column="chunk_id",
-                    review_domain="document_chunk_action",
-                    saved_at_utc=saved_at,
-                    source="industry_curation_queue_editor",
-                )
-                append_review_audit_events(events, _DOCUMENT_CHUNK_ACTION_AUDIT_PATH)
-                updated_chunk_actions = _save_document_chunk_actions(updated_chunk_actions)
-                audit_events_total += len(events)
-                saved_rows_total += len(material_domain_updates["document_chunk"])
-
-                document_tables = _load_document_tables()
-                inventory = document_tables["inventory"] if isinstance(document_tables["inventory"], pd.DataFrame) else pd.DataFrame()
-                chunks = document_tables["chunks"] if isinstance(document_tables["chunks"], pd.DataFrame) else pd.DataFrame()
-                materialized_plan = build_document_chunk_plan(chunks, inventory, actions=updated_chunk_actions)
-                save_dataframe(materialized_plan, _DOCUMENT_CHUNK_PLAN_PATH)
-                monthly_delta_refreshed = apply_monthly_delta_actions(monthly_delta_tables["delta"], updated_monthly_actions)
-                snapshot_tables = _load_fund_snapshot_tables()
-                snapshot = snapshot_tables["snapshot"] if isinstance(snapshot_tables["snapshot"], pd.DataFrame) else pd.DataFrame()
-                materialized_queue = build_industry_curation_queue(
-                    snapshot=snapshot,
-                    monthly_delta=monthly_delta_refreshed,
-                    document_chunk_plan=materialized_plan,
+                result = _persist_curation_queue_updates(
+                    edited_updates,
+                    monthly_delta_base=monthly_delta_tables["delta"],
+                    monthly_delta_actions=monthly_delta_actions,
                     dimension_catalog=dimension_catalog,
-                    snapshot_gap_actions=updated_snapshot_actions,
-                    catalog_gap_actions=updated_catalog_actions,
+                    audit_source="industry_curation_queue_editor",
                 )
-                save_dataframe(materialized_queue, _CURATION_QUEUE_PATH)
-                materialized_summary = build_industry_curation_queue_summary(materialized_queue)
-                save_dataframe(materialized_summary, _CURATION_QUEUE_SUMMARY_PATH)
-                materialized_packages = build_industry_curation_packages(materialized_queue)
-                save_dataframe(materialized_packages, _CURATION_PACKAGES_PATH)
-                curation_manifest = build_curation_queue_pipeline_manifest(
-                    industry_dir=_DATA_DIR,
-                    output_path=_CURATION_QUEUE_PATH,
-                    manifest_path=_CURATION_QUEUE_MANIFEST_PATH,
-                    summary_path=_CURATION_QUEUE_SUMMARY_PATH,
-                    packages_path=_CURATION_PACKAGES_PATH,
-                    snapshot=snapshot,
-                    monthly_delta=monthly_delta_refreshed,
-                    document_chunk_plan=materialized_plan,
-                    dimension_catalog=dimension_catalog,
-                    queue=materialized_queue,
-                    summary=materialized_summary,
-                    packages=materialized_packages,
-                )
-                save_pipeline_manifest(curation_manifest, _CURATION_QUEUE_MANIFEST_PATH)
-                new_index = build_industry_pipeline_index(industry_dir=_DATA_DIR, output_path=_PIPELINE_INDEX_PATH)
-                save_dataframe(pd.DataFrame(new_index.get("monthly_update_plan", [])), _MONTHLY_UPDATE_PLAN_PATH)
-                save_dataframe(pd.DataFrame(new_index.get("readiness_checks", [])), _MONTHLY_READINESS_PATH)
-                save_dataframe(pd.DataFrame(new_index.get("publication_gate", [])), _PUBLICATION_GATE_PATH)
-                save_dataframe(pd.DataFrame(new_index.get("monthly_closeout_plan", [])), _MONTHLY_CLOSEOUT_PLAN_PATH)
-                save_pipeline_manifest(new_index, _PIPELINE_INDEX_PATH)
-                _load_monthly_delta_tables.clear()
-                _load_snapshot_gap_actions.clear()
-                _load_catalog_gap_actions.clear()
-                _load_document_chunk_actions.clear()
-                _load_curation_queue_tables.clear()
-                _load_industry_pipeline_index.clear()
                 st.success(
-                    f"Fila única salva: {_fmt_int(float(saved_rows_total))} ações persistidas, "
-                    f"{_fmt_int(float(audit_events_total))} eventos de auditoria e "
-                    f"{_fmt_int(float(len(materialized_queue)))} linhas rematerializadas."
+                    f"Fila única salva: {_fmt_int(float(result['saved_rows']))} ações persistidas, "
+                    f"{_fmt_int(float(result['audit_events']))} eventos de auditoria e "
+                    f"{_fmt_int(float(result['queue_rows']))} linhas rematerializadas."
                 )
             st.download_button(
                 "Baixar fila filtrada",

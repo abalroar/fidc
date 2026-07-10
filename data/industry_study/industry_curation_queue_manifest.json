@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-curation-queue-manifest/v1",
-  "generated_at_utc": "2026-07-10T03:26:48+00:00",
+  "generated_at_utc": "2026-07-10T03:50:13+00:00",
   "pipeline": "industry_curation_queue",
   "design_constraints": {
     "modular": true,
@@ -67,7 +67,7 @@
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
       "bytes": 491721,
-      "sha256": "83774593a775cbb1e52d622d715298909b8f7b1de0e82df3d4387c0f5ea0046c"
+      "sha256": "8bff8914c3a0e22ad0266198175289ca6170e8558b35175e6c1e25ffee5a5d42"
     },
     "manifest": {
       "path": "data/industry_study/industry_curation_queue_manifest.json"
@@ -76,13 +76,13 @@
       "path": "data/industry_study/industry_curation_queue_summary.csv.gz",
       "exists": true,
       "bytes": 240697,
-      "sha256": "c19b61fd28da74346617eaa7c72da77abcbb5b838550d978e9a56d5748ed10f5"
+      "sha256": "a1023f4a9ff5fcec9c23478d1f6dfd714ba39e8d508f7b31eb1f1e530d6be87f"
     },
     "curation_packages": {
       "path": "data/industry_study/industry_curation_packages.csv.gz",
       "exists": true,
-      "bytes": 676367,
-      "sha256": "4d650cbdd852fc80d399991a1978ef74672396f0bcfd1e8d2bbd4930dd13d9c1"
+      "bytes": 678427,
+      "sha256": "18c5ecea9ec6cceaf51efe4c03dcfb5a58fb742329f7a6f8a54b002691c7945c"
     }
   },
   "stages": [
