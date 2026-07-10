@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-index/v1",
-  "generated_at_utc": "2026-07-10T18:26:10+00:00",
+  "generated_at_utc": "2026-07-10T18:57:48+00:00",
   "pipeline": "industry_monthly_refresh",
   "industry_dir": "data/industry_study",
   "output_path": "data/industry_study/industry_pipeline_index.json",
@@ -21,16 +21,16 @@
       "ok": 24,
       "warning": 1
     },
-    "artifacts_total": 93,
-    "artifacts_present": 93,
+    "artifacts_total": 94,
+    "artifacts_present": 94,
     "artifacts_missing": 0,
-    "optional_artifacts_total": 105,
-    "optional_artifacts_present": 105,
+    "optional_artifacts_total": 107,
+    "optional_artifacts_present": 107,
     "optional_artifacts_missing": 0,
     "manual_review_artifacts_total": 14,
     "manual_review_artifacts_present": 14,
     "manual_review_artifacts_missing": 0,
-    "latest_module_generated_at_utc": "2026-07-10T18:26:01+00:00",
+    "latest_module_generated_at_utc": "2026-07-10T18:55:10+00:00",
     "competencia_final": "202606",
     "competencia_snapshot": "202605",
     "monthly_delta_rows": 4279,
@@ -188,17 +188,17 @@
     "criteria_structured_rows": 31460,
     "subordination_funds": 282,
     "subordination_median_pct": 15.0,
-    "issuance_volume_conservador_brl": 302957676634.37,
-    "public_claim_audit_rows": 8,
-    "public_claim_audit_claims_with_local_metric": 8,
+    "issuance_volume_conservador_brl": 259801864445.91,
+    "public_claim_audit_rows": 9,
+    "public_claim_audit_claims_with_local_metric": 9,
     "public_claim_audit_sources": 2,
-    "public_claim_audit_methodology_gap_claims": 8,
+    "public_claim_audit_methodology_gap_claims": 9,
     "public_claim_audit_adherent_claims": 0,
     "public_claim_audit_divergent_claims": 0,
     "public_claim_audit_missing_local_claims": 0,
     "public_claim_audit_max_abs_delta_pct": 7.150438917299664,
-    "public_claim_methodology_bridge_rows": 8,
-    "public_claim_methodology_bridge_needs_disclosure_rows": 8,
+    "public_claim_methodology_bridge_rows": 9,
+    "public_claim_methodology_bridge_needs_disclosure_rows": 9,
     "public_claim_methodology_bridge_high_or_blocking_rows": 5,
     "fund_snapshot_rows": 4219,
     "fund_snapshot_with_cedentes": 175,
@@ -248,36 +248,36 @@
     "market_share_metrics": 6,
     "readiness_checks_rows": 9,
     "readiness_status_counts": {
-      "bloqueado": 5,
-      "atenção": 1,
+      "bloqueado": 4,
+      "atenção": 2,
       "ok": 3
     },
     "prd_requirements_total": 12,
     "prd_status_counts": {
-      "atenção": 3,
-      "ok": 9
+      "atenção": 2,
+      "ok": 10
     },
     "monthly_update_plan_rows": 27,
     "monthly_update_plan_status_counts": {
-      "bloqueado": 13,
+      "bloqueado": 12,
       "ok": 10,
-      "atenção": 4
+      "atenção": 5
     },
-    "publication_gate_rows": 28,
+    "publication_gate_rows": 27,
     "publication_gate_status": "bloqueado",
     "publication_gate_status_counts": {
-      "bloqueado": 19,
-      "atenção": 9
+      "bloqueado": 17,
+      "atenção": 10
     },
-    "publication_gate_blocking_rows": 19,
+    "publication_gate_blocking_rows": 17,
     "publication_gate_disclosure_rows": 3,
-    "monthly_closeout_plan_rows": 214,
+    "monthly_closeout_plan_rows": 213,
     "monthly_closeout_status_counts": {
-      "bloqueado": 128,
-      "atenção": 86
+      "bloqueado": 126,
+      "atenção": 87
     },
     "monthly_closeout_package_counts": {
-      "portão": 27,
+      "portão": 26,
       "fila única": 11,
       "onboarding": 71,
       "segment_backlog": 15,
@@ -285,7 +285,7 @@
       "fidc_backlog": 5,
       "chunk documental": 60
     },
-    "monthly_closeout_blocking_rows": 128,
+    "monthly_closeout_blocking_rows": 126,
     "monthly_closeout_disclosure_rows": 2,
     "manual_review_domains_total": 7,
     "manual_review_domains_with_actions": 4,
@@ -299,18 +299,6 @@
     "manual_review_latest_audit_utc": ""
   },
   "readiness_checks": [
-    {
-      "check_id": "module_status",
-      "ordem": 2,
-      "frente": "Pipeline",
-      "escopo": "Módulos com manifesto válido",
-      "status_prontidao": "bloqueado",
-      "pendencias": 1,
-      "amostra": "Critérios e subordinação · warning",
-      "acao_sugerida": "Rodar os comandos dos módulos pendentes antes de fechar a competência.",
-      "fonte": "modules",
-      "comando": "python scripts/build_fidc_industry_criteria.py"
-    },
     {
       "check_id": "monthly_delta_queue",
       "ordem": 4,
@@ -358,6 +346,18 @@
       "acao_sugerida": "Decidir as exceções e rematerializar os derivados após qualquer exclusão antes da publicação externa.",
       "fonte": "industry_universe_exceptions.csv.gz | universe_scope_reviews.csv | universe_scope_review_audit.csv",
       "comando": "python scripts/build_fidc_industry_study.py --report && python scripts/build_fidc_industry_fund_snapshot.py && python scripts/build_fidc_industry_monthly_delta.py && python scripts/build_fidc_industry_dimensions.py"
+    },
+    {
+      "check_id": "module_status",
+      "ordem": 2,
+      "frente": "Pipeline",
+      "escopo": "Módulos com manifesto válido",
+      "status_prontidao": "atenção",
+      "pendencias": 1,
+      "amostra": "Critérios e subordinação · warning",
+      "acao_sugerida": "Manter o alerta de qualidade explícito e tratar a lacuna quando houver nova evidência.",
+      "fonte": "modules",
+      "comando": "python scripts/build_fidc_industry_criteria.py"
     },
     {
       "check_id": "structured_coverage",
@@ -410,18 +410,6 @@
   ],
   "prd_coverage": [
     {
-      "requirement_id": "pipeline_modular",
-      "ordem": 1,
-      "tema": "Arquitetura",
-      "requisito": "Pipeline modular com etapas reexecutáveis e artefatos persistidos",
-      "status_prd": "atenção",
-      "evidencia": "24/25 módulos ok; 93/93 artefatos obrigatórios presentes",
-      "metrica": "refresh_plan=27",
-      "artefato": "industry_pipeline_index.json",
-      "proximo_passo": "Rodar módulos não-ok ou gerar artefatos obrigatórios ausentes.",
-      "comando": "python scripts/build_fidc_industry_pipeline_index.py"
-    },
-    {
       "requirement_id": "incremental_monthly_update",
       "ordem": 11,
       "tema": "Evolução contínua",
@@ -439,11 +427,23 @@
       "tema": "Qualidade",
       "requisito": "Camada auditável para escrutínio público com fonte, documento, página, método e score",
       "status_prd": "atenção",
-      "evidencia": "466 valores com documento; 311 com página; 1105 com score; 0 grupos dimensão/fonte baixa qualidade; 8 claims públicos reconciliados; 8 pontes metodológicas",
-      "metrica": "readiness_checks=11; traceability_matrix=29; methodology_gaps=8; bridge_high=5",
+      "evidencia": "466 valores com documento; 311 com página; 1105 com score; 0 grupos dimensão/fonte baixa qualidade; 9 claims públicos reconciliados; 9 pontes metodológicas",
+      "metrica": "readiness_checks=11; traceability_matrix=29; methodology_gaps=9; bridge_high=5",
       "artefato": "industry_pipeline_index.json | industry_dimension_traceability_matrix.csv | industry_dimension_value_atlas.csv.gz | industry_public_claim_audit.csv | industry_public_claim_methodology_bridge.csv",
       "proximo_passo": "Aumentar cobertura de página/score e manter diferenças ANBIMA/CVM explícitas antes de apresentações externas.",
       "comando": "python scripts/build_fidc_industry_traceability.py && python scripts/build_fidc_industry_public_claim_audit.py && python scripts/build_fidc_industry_pipeline_index.py"
+    },
+    {
+      "requirement_id": "pipeline_modular",
+      "ordem": 1,
+      "tema": "Arquitetura",
+      "requisito": "Pipeline modular com etapas reexecutáveis e artefatos persistidos",
+      "status_prd": "ok",
+      "evidencia": "24/25 módulos ok; 1 alerta(s) de qualidade; 94/94 artefatos obrigatórios presentes",
+      "metrica": "refresh_plan=27",
+      "artefato": "industry_pipeline_index.json",
+      "proximo_passo": "Gerar artefatos ausentes e manter alertas de qualidade explícitos até surgir evidência adicional.",
+      "comando": "python scripts/build_fidc_industry_pipeline_index.py"
     },
     {
       "requirement_id": "document_processing_chunks",
@@ -653,10 +653,10 @@
       "comando": "python scripts/build_fidc_industry_issuance.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "SQLite da aba Estratégia",
-      "saidas": "issuance_annual | issuance_sector_year | issuance_tranches | manifest",
-      "evidencia_atual": "annual_years=3 · annual_volume_conservador_brl=302957676634.37 · annual_emissores_cnpj=920 · sector_year_rows=53 · tranche_rows=605 · tranche_funds=33",
-      "artefatos": "5/5",
-      "gerado_em_utc": "2026-07-08T15:22:53+00:00",
+      "saidas": "issuance_annual | issuance_sector_year | issuance_offers | issuance_tranches | manifest",
+      "evidencia_atual": "annual_years=3 · annual_volume_registrado_brl=302957676634.37 · annual_volume_conservador_brl=259801864445.91 · annual_emissores_cnpj=920 · sector_year_rows=53 · offer_rows=3865",
+      "artefatos": "7/7",
+      "gerado_em_utc": "2026-07-10T18:54:54+00:00",
       "motivo": "Refaz séries de volume anual, emissores, setor x ano e tranches documentais.",
       "incrementalidade": "Lê o SQLite da Estratégia já estruturado; não depende de Informe Mensal."
     },
@@ -675,9 +675,9 @@
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "base granular mensal | emissões/ofertas | claims públicos declarados",
       "saidas": "public_claim_audit | methodology_bridge | manifest",
-      "evidencia_atual": "rows=8 · claims_with_local_metric=8 · public_sources=2 · methodology_gap_claims=8 · adherent_claims=0 · divergent_claims=0",
-      "artefatos": "6/6",
-      "gerado_em_utc": "2026-07-09T16:12:48+00:00",
+      "evidencia_atual": "rows=9 · claims_with_local_metric=9 · claims_with_alternative_metric=2 · public_sources=2 · methodology_gap_claims=9 · adherent_claims=0",
+      "artefatos": "7/7",
+      "gerado_em_utc": "2026-07-10T18:55:10+00:00",
       "motivo": "Compara números citados por ANBIMA/Seu Dinheiro contra métricas locais e explicita divergências de universo/conceito.",
       "incrementalidade": "Rerun leve quando uma nova notícia for adicionada aos specs ou quando base mensal/emissões forem atualizadas."
     },
@@ -1109,16 +1109,16 @@
       "etapa": "Atualizar cockpit do pipeline",
       "competencia_referencia": "202605",
       "status_modulo": "ok",
-      "status_prontidao": "bloqueado",
-      "bloqueios_ou_atencoes": "Pipeline: 1 (Rodar os comandos dos módulos pendentes antes de fechar a competência.)",
+      "status_prontidao": "atenção",
+      "bloqueios_ou_atencoes": "Pipeline: 1 (Manter o alerta de qualidade explícito e tratar a lacuna quando houver nova evidência.)",
       "acao_antes_de_rodar": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "comando": "python scripts/build_fidc_industry_pipeline_index.py",
       "validacao": "python scripts/build_fidc_industry_pipeline_index.py",
       "entradas": "",
       "saidas": "industry_pipeline_index | industry_monthly_update_plan | industry_monthly_readiness | industry_publication_gate | industry_monthly_closeout_plan",
-      "evidencia_atual": "prd_requirements_total=12 · artifacts_present=93 · artifacts_total=93",
-      "artefatos": "93/93",
-      "gerado_em_utc": "2026-07-10T18:26:01+00:00",
+      "evidencia_atual": "prd_requirements_total=12 · artifacts_present=94 · artifacts_total=94",
+      "artefatos": "94/94",
+      "gerado_em_utc": "2026-07-10T18:55:10+00:00",
       "motivo": "Recalcula hashes, freshness, status dos módulos e checklist mensal visível na aba Pipeline.",
       "incrementalidade": "Não reprocessa dados; apenas lê manifests e arquivos já materializados."
     }
@@ -1133,32 +1133,16 @@
       "decisao_publicacao": "não publicar antes de fechar",
       "bloqueia_publicacao": true,
       "exige_nota_publica": true,
-      "pendencias": 5180,
-      "evidencia": "readiness 5 bloqueado/1 atenção; PRD 0 bloqueado/3 atenção; plano 13 bloqueado/4 atenção; notas públicas 16",
+      "pendencias": 5179,
+      "evidencia": "readiness 4 bloqueado/2 atenção; PRD 0 bloqueado/2 atenção; plano 12 bloqueado/5 atenção; notas públicas 18",
       "acao_sugerida": "Fechar todos os sinais bloqueados e registrar ressalvas metodológicas antes de apresentação externa.",
       "fonte": "industry_pipeline_index.json",
       "comando": "python scripts/build_fidc_industry_pipeline_index.py",
       "competencia_referencia": "202605"
     },
     {
-      "gate_id": "readiness_module_status",
-      "ordem": 10,
-      "tipo_sinal": "prontidão",
-      "frente": "Pipeline",
-      "status_gate": "bloqueado",
-      "decisao_publicacao": "não publicar antes de fechar",
-      "bloqueia_publicacao": true,
-      "exige_nota_publica": false,
-      "pendencias": 1,
-      "evidencia": "Critérios e subordinação · warning",
-      "acao_sugerida": "Rodar os comandos dos módulos pendentes antes de fechar a competência.",
-      "fonte": "modules",
-      "comando": "python scripts/build_fidc_industry_criteria.py",
-      "competencia_referencia": "202605"
-    },
-    {
       "gate_id": "readiness_monthly_delta_queue",
-      "ordem": 11,
+      "ordem": 10,
       "tipo_sinal": "prontidão",
       "frente": "Delta mensal",
       "status_gate": "bloqueado",
@@ -1174,7 +1158,7 @@
     },
     {
       "gate_id": "readiness_curation_queue",
-      "ordem": 12,
+      "ordem": 11,
       "tipo_sinal": "prontidão",
       "frente": "Curadoria",
       "status_gate": "bloqueado",
@@ -1190,7 +1174,7 @@
     },
     {
       "gate_id": "readiness_package_evidence",
-      "ordem": 13,
+      "ordem": 12,
       "tipo_sinal": "prontidão",
       "frente": "Pacotes P0",
       "status_gate": "bloqueado",
@@ -1206,7 +1190,7 @@
     },
     {
       "gate_id": "readiness_universe_scope",
-      "ordem": 14,
+      "ordem": 13,
       "tipo_sinal": "prontidão",
       "frente": "Universo CVM",
       "status_gate": "bloqueado",
@@ -1218,6 +1202,22 @@
       "acao_sugerida": "Decidir as exceções e rematerializar os derivados após qualquer exclusão antes da publicação externa.",
       "fonte": "industry_universe_exceptions.csv.gz | universe_scope_reviews.csv | universe_scope_review_audit.csv",
       "comando": "python scripts/build_fidc_industry_study.py --report && python scripts/build_fidc_industry_fund_snapshot.py && python scripts/build_fidc_industry_monthly_delta.py && python scripts/build_fidc_industry_dimensions.py",
+      "competencia_referencia": "202605"
+    },
+    {
+      "gate_id": "readiness_module_status",
+      "ordem": 14,
+      "tipo_sinal": "prontidão",
+      "frente": "Pipeline",
+      "status_gate": "atenção",
+      "decisao_publicacao": "publicar apenas com ressalva explícita",
+      "bloqueia_publicacao": false,
+      "exige_nota_publica": false,
+      "pendencias": 1,
+      "evidencia": "Critérios e subordinação · warning",
+      "acao_sugerida": "Manter o alerta de qualidade explícito e tratar a lacuna quando houver nova evidência.",
+      "fonte": "modules",
+      "comando": "python scripts/build_fidc_industry_criteria.py",
       "competencia_referencia": "202605"
     },
     {
@@ -1237,24 +1237,8 @@
       "competencia_referencia": "202605"
     },
     {
-      "gate_id": "prd_pipeline_modular",
-      "ordem": 100,
-      "tipo_sinal": "PRD",
-      "frente": "Arquitetura",
-      "status_gate": "atenção",
-      "decisao_publicacao": "publicar apenas com ressalva explícita",
-      "bloqueia_publicacao": false,
-      "exige_nota_publica": false,
-      "pendencias": 1,
-      "evidencia": "24/25 módulos ok; 93/93 artefatos obrigatórios presentes",
-      "acao_sugerida": "Rodar módulos não-ok ou gerar artefatos obrigatórios ausentes.",
-      "fonte": "industry_pipeline_index.json",
-      "comando": "python scripts/build_fidc_industry_pipeline_index.py",
-      "competencia_referencia": "202605"
-    },
-    {
       "gate_id": "prd_incremental_monthly_update",
-      "ordem": 101,
+      "ordem": 100,
       "tipo_sinal": "PRD",
       "frente": "Evolução contínua",
       "status_gate": "atenção",
@@ -1270,7 +1254,7 @@
     },
     {
       "gate_id": "prd_public_audit_readiness",
-      "ordem": 102,
+      "ordem": 101,
       "tipo_sinal": "PRD",
       "frente": "Qualidade",
       "status_gate": "atenção",
@@ -1278,7 +1262,7 @@
       "bloqueia_publicacao": false,
       "exige_nota_publica": true,
       "pendencias": 1,
-      "evidencia": "466 valores com documento; 311 com página; 1105 com score; 0 grupos dimensão/fonte baixa qualidade; 8 claims públicos reconciliados; 8 pontes metodológicas",
+      "evidencia": "466 valores com documento; 311 com página; 1105 com score; 0 grupos dimensão/fonte baixa qualidade; 9 claims públicos reconciliados; 9 pontes metodológicas",
       "acao_sugerida": "Aumentar cobertura de página/score e manter diferenças ANBIMA/CVM explícitas antes de apresentações externas.",
       "fonte": "industry_pipeline_index.json | industry_dimension_traceability_matrix.csv | industry_dimension_value_atlas.csv.gz | industry_public_claim_audit.csv | industry_public_claim_methodology_bridge.csv",
       "comando": "python scripts/build_fidc_industry_traceability.py && python scripts/build_fidc_industry_public_claim_audit.py && python scripts/build_fidc_industry_pipeline_index.py",
@@ -1293,8 +1277,8 @@
       "decisao_publicacao": "publicar apenas com ressalva explícita",
       "bloqueia_publicacao": false,
       "exige_nota_publica": true,
-      "pendencias": 16,
-      "evidencia": "8 pontes; 5 severidade alta/bloqueante",
+      "pendencias": 18,
+      "evidencia": "9 pontes; 5 severidade alta/bloqueante",
       "acao_sugerida": "Manter nota ANBIMA/CVM e diferenças de universo/conceito junto dos números públicos.",
       "fonte": "industry_public_claim_methodology_bridge.csv",
       "comando": "python scripts/build_fidc_industry_public_claim_audit.py",
@@ -1561,12 +1545,12 @@
       "ordem": 216,
       "tipo_sinal": "plano mensal",
       "frente": "Atualizar cockpit do pipeline",
-      "status_gate": "bloqueado",
-      "decisao_publicacao": "não publicar antes de fechar",
-      "bloqueia_publicacao": true,
+      "status_gate": "atenção",
+      "decisao_publicacao": "publicar apenas com ressalva explícita",
+      "bloqueia_publicacao": false,
       "exige_nota_publica": false,
       "pendencias": 1,
-      "evidencia": "Pipeline: 1 (Rodar os comandos dos módulos pendentes antes de fechar a competência.)",
+      "evidencia": "Pipeline: 1 (Manter o alerta de qualidade explícito e tratar a lacuna quando houver nova evidência.)",
       "acao_sugerida": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
       "fonte": "industry_pipeline_index | industry_monthly_update_plan | industry_monthly_readiness | industry_publication_gate | industry_monthly_closeout_plan",
       "comando": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -1575,28 +1559,8 @@
   ],
   "monthly_closeout_plan": [
     {
-      "closeout_id": "gate_readiness_module_status",
-      "ordem": 10,
-      "pacote_tipo": "portão",
-      "escopo": "Pipeline",
-      "prioridade": "alta",
-      "status_fechamento": "bloqueado",
-      "bloqueia_publicacao": true,
-      "exige_nota_publica": false,
-      "pendencias": 1,
-      "fundos": 0,
-      "pl_referencia_brl": 0,
-      "competencia_referencia": "202605",
-      "evidencia": "Critérios e subordinação · warning",
-      "acao_sugerida": "Rodar os comandos dos módulos pendentes antes de fechar a competência.",
-      "ui_surface": "Pipeline > Portão",
-      "source_artifacts": "modules",
-      "rerun_command": "python scripts/build_fidc_industry_criteria.py",
-      "record_ids_sample": "readiness_module_status"
-    },
-    {
       "closeout_id": "gate_readiness_monthly_delta_queue",
-      "ordem": 11,
+      "ordem": 10,
       "pacote_tipo": "portão",
       "escopo": "Delta mensal",
       "prioridade": "alta",
@@ -1616,7 +1580,7 @@
     },
     {
       "closeout_id": "gate_readiness_curation_queue",
-      "ordem": 12,
+      "ordem": 11,
       "pacote_tipo": "portão",
       "escopo": "Curadoria",
       "prioridade": "alta",
@@ -1636,7 +1600,7 @@
     },
     {
       "closeout_id": "gate_readiness_package_evidence",
-      "ordem": 13,
+      "ordem": 12,
       "pacote_tipo": "portão",
       "escopo": "Pacotes P0",
       "prioridade": "alta",
@@ -1656,7 +1620,7 @@
     },
     {
       "closeout_id": "gate_readiness_universe_scope",
-      "ordem": 14,
+      "ordem": 13,
       "pacote_tipo": "portão",
       "escopo": "Universo CVM",
       "prioridade": "alta",
@@ -1676,7 +1640,7 @@
     },
     {
       "closeout_id": "gate_plan_base_monthly_200",
-      "ordem": 20,
+      "ordem": 19,
       "pacote_tipo": "portão",
       "escopo": "Atualizar informes mensais e foto granular",
       "prioridade": "alta",
@@ -1696,7 +1660,7 @@
     },
     {
       "closeout_id": "gate_plan_monthly_delta_201",
-      "ordem": 21,
+      "ordem": 20,
       "pacote_tipo": "portão",
       "escopo": "Gerar delta mensal e fila de curadoria",
       "prioridade": "alta",
@@ -1716,7 +1680,7 @@
     },
     {
       "closeout_id": "gate_plan_incremental_onboarding_202",
-      "ordem": 22,
+      "ordem": 21,
       "pacote_tipo": "portão",
       "escopo": "Materializar onboarding dos FIDCs novos/reativados",
       "prioridade": "alta",
@@ -1736,7 +1700,7 @@
     },
     {
       "closeout_id": "gate_plan_cedentes_203",
-      "ordem": 23,
+      "ordem": 22,
       "pacote_tipo": "portão",
       "escopo": "Regerar base de cedentes/sacados",
       "prioridade": "alta",
@@ -1756,7 +1720,7 @@
     },
     {
       "closeout_id": "gate_plan_criteria_204",
-      "ordem": 24,
+      "ordem": 23,
       "pacote_tipo": "portão",
       "escopo": "Regerar critérios e subordinação mínima",
       "prioridade": "alta",
@@ -1776,7 +1740,7 @@
     },
     {
       "closeout_id": "gate_plan_fund_snapshot_205",
-      "ordem": 25,
+      "ordem": 24,
       "pacote_tipo": "portão",
       "escopo": "Regerar snapshot unificado por FIDC",
       "prioridade": "alta",
@@ -1796,7 +1760,7 @@
     },
     {
       "closeout_id": "gate_plan_dimension_catalog_206",
-      "ordem": 26,
+      "ordem": 25,
       "pacote_tipo": "portão",
       "escopo": "Regerar catálogo de dimensões",
       "prioridade": "alta",
@@ -1816,7 +1780,7 @@
     },
     {
       "closeout_id": "gate_plan_curation_queue_207",
-      "ordem": 27,
+      "ordem": 26,
       "pacote_tipo": "portão",
       "escopo": "Consolidar fila única de curadoria",
       "prioridade": "alta",
@@ -1836,7 +1800,7 @@
     },
     {
       "closeout_id": "gate_plan_curation_package_evidence_208",
-      "ordem": 28,
+      "ordem": 27,
       "pacote_tipo": "portão",
       "escopo": "Recalcular evidência técnica dos pacotes",
       "prioridade": "alta",
@@ -1856,7 +1820,7 @@
     },
     {
       "closeout_id": "gate_plan_universe_exceptions_209",
-      "ordem": 29,
+      "ordem": 28,
       "pacote_tipo": "portão",
       "escopo": "Reconciliar exceções do universo CVM",
       "prioridade": "alta",
@@ -1876,7 +1840,7 @@
     },
     {
       "closeout_id": "gate_plan_package_document_discovery_210",
-      "ordem": 30,
+      "ordem": 29,
       "pacote_tipo": "portão",
       "escopo": "Descobrir documentos dos pacotes prioritários",
       "prioridade": "alta",
@@ -1896,7 +1860,7 @@
     },
     {
       "closeout_id": "gate_plan_alternative_document_discovery_211",
-      "ordem": 31,
+      "ordem": 30,
       "pacote_tipo": "portão",
       "escopo": "Buscar fontes alternativas oficiais",
       "prioridade": "alta",
@@ -1913,26 +1877,6 @@
       "source_artifacts": "alternative_documents | alternative_document_status | manifest",
       "rerun_command": "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25",
       "record_ids_sample": "plan_alternative_document_discovery_211"
-    },
-    {
-      "closeout_id": "gate_plan_pipeline_index_216",
-      "ordem": 36,
-      "pacote_tipo": "portão",
-      "escopo": "Atualizar cockpit do pipeline",
-      "prioridade": "alta",
-      "status_fechamento": "bloqueado",
-      "bloqueia_publicacao": true,
-      "exige_nota_publica": false,
-      "pendencias": 1,
-      "fundos": 0,
-      "pl_referencia_brl": 0,
-      "competencia_referencia": "202605",
-      "evidencia": "Pipeline: 1 (Rodar os comandos dos módulos pendentes antes de fechar a competência.)",
-      "acao_sugerida": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
-      "ui_surface": "Pipeline > Portão",
-      "source_artifacts": "industry_pipeline_index | industry_monthly_update_plan | industry_monthly_readiness | industry_publication_gate | industry_monthly_closeout_plan",
-      "rerun_command": "python scripts/build_fidc_industry_pipeline_index.py",
-      "record_ids_sample": "plan_pipeline_index_216"
     },
     {
       "closeout_id": "queue_snapshot_gap_completar_camadas_estruturadas_100",
@@ -5335,6 +5279,26 @@
       "record_ids_sample": "doc-0003"
     },
     {
+      "closeout_id": "gate_readiness_module_status",
+      "ordem": 14,
+      "pacote_tipo": "portão",
+      "escopo": "Pipeline",
+      "prioridade": "média",
+      "status_fechamento": "atenção",
+      "bloqueia_publicacao": false,
+      "exige_nota_publica": false,
+      "pendencias": 1,
+      "fundos": 0,
+      "pl_referencia_brl": 0,
+      "competencia_referencia": "202605",
+      "evidencia": "Critérios e subordinação · warning",
+      "acao_sugerida": "Manter o alerta de qualidade explícito e tratar a lacuna quando houver nova evidência.",
+      "ui_surface": "Pipeline > Portão",
+      "source_artifacts": "modules",
+      "rerun_command": "python scripts/build_fidc_industry_criteria.py",
+      "record_ids_sample": "readiness_module_status"
+    },
+    {
       "closeout_id": "gate_readiness_structured_coverage",
       "ordem": 15,
       "pacote_tipo": "portão",
@@ -5355,28 +5319,8 @@
       "record_ids_sample": "readiness_structured_coverage"
     },
     {
-      "closeout_id": "gate_prd_pipeline_modular",
-      "ordem": 16,
-      "pacote_tipo": "portão",
-      "escopo": "Arquitetura",
-      "prioridade": "média",
-      "status_fechamento": "atenção",
-      "bloqueia_publicacao": false,
-      "exige_nota_publica": false,
-      "pendencias": 1,
-      "fundos": 0,
-      "pl_referencia_brl": 0,
-      "competencia_referencia": "202605",
-      "evidencia": "24/25 módulos ok; 93/93 artefatos obrigatórios presentes",
-      "acao_sugerida": "Rodar módulos não-ok ou gerar artefatos obrigatórios ausentes.",
-      "ui_surface": "Pipeline > Portão",
-      "source_artifacts": "industry_pipeline_index.json",
-      "rerun_command": "python scripts/build_fidc_industry_pipeline_index.py",
-      "record_ids_sample": "prd_pipeline_modular"
-    },
-    {
       "closeout_id": "gate_prd_incremental_monthly_update",
-      "ordem": 17,
+      "ordem": 16,
       "pacote_tipo": "portão",
       "escopo": "Evolução contínua",
       "prioridade": "média",
@@ -5396,7 +5340,7 @@
     },
     {
       "closeout_id": "gate_prd_public_audit_readiness",
-      "ordem": 18,
+      "ordem": 17,
       "pacote_tipo": "portão",
       "escopo": "Qualidade",
       "prioridade": "média",
@@ -5407,7 +5351,7 @@
       "fundos": 0,
       "pl_referencia_brl": 0,
       "competencia_referencia": "202605",
-      "evidencia": "466 valores com documento; 311 com página; 1105 com score; 0 grupos dimensão/fonte baixa qualidade; 8 claims públicos reconciliados; 8 pontes metodológicas",
+      "evidencia": "466 valores com documento; 311 com página; 1105 com score; 0 grupos dimensão/fonte baixa qualidade; 9 claims públicos reconciliados; 9 pontes metodológicas",
       "acao_sugerida": "Aumentar cobertura de página/score e manter diferenças ANBIMA/CVM explícitas antes de apresentações externas.",
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "industry_pipeline_index.json | industry_dimension_traceability_matrix.csv | industry_dimension_value_atlas.csv.gz | industry_public_claim_audit.csv | industry_public_claim_methodology_bridge.csv",
@@ -5416,18 +5360,18 @@
     },
     {
       "closeout_id": "gate_public_methodology_disclosure",
-      "ordem": 19,
+      "ordem": 18,
       "pacote_tipo": "portão",
       "escopo": "Claims públicos",
       "prioridade": "média",
       "status_fechamento": "atenção",
       "bloqueia_publicacao": false,
       "exige_nota_publica": true,
-      "pendencias": 16,
+      "pendencias": 18,
       "fundos": 0,
       "pl_referencia_brl": 0,
       "competencia_referencia": "202605",
-      "evidencia": "8 pontes; 5 severidade alta/bloqueante",
+      "evidencia": "9 pontes; 5 severidade alta/bloqueante",
       "acao_sugerida": "Manter nota ANBIMA/CVM e diferenças de universo/conceito junto dos números públicos.",
       "ui_surface": "Pipeline > Portão",
       "source_artifacts": "industry_public_claim_methodology_bridge.csv",
@@ -5436,7 +5380,7 @@
     },
     {
       "closeout_id": "gate_plan_dimension_profiles_212",
-      "ordem": 32,
+      "ordem": 31,
       "pacote_tipo": "portão",
       "escopo": "Regerar perfis cruzados por dimensão",
       "prioridade": "média",
@@ -5456,7 +5400,7 @@
     },
     {
       "closeout_id": "gate_plan_dimension_monthly_213",
-      "ordem": 33,
+      "ordem": 32,
       "pacote_tipo": "portão",
       "escopo": "Regerar séries mensais por dimensão",
       "prioridade": "média",
@@ -5476,7 +5420,7 @@
     },
     {
       "closeout_id": "gate_plan_dimension_dossiers_214",
-      "ordem": 34,
+      "ordem": 33,
       "pacote_tipo": "portão",
       "escopo": "Regerar dossiês dimensionais",
       "prioridade": "média",
@@ -5496,7 +5440,7 @@
     },
     {
       "closeout_id": "gate_plan_market_share_215",
-      "ordem": 35,
+      "ordem": 34,
       "pacote_tipo": "portão",
       "escopo": "Regerar market share e concentração",
       "prioridade": "média",
@@ -5513,6 +5457,26 @@
       "source_artifacts": "market_share | manifest",
       "rerun_command": "python scripts/build_fidc_industry_market_share.py",
       "record_ids_sample": "plan_market_share_215"
+    },
+    {
+      "closeout_id": "gate_plan_pipeline_index_216",
+      "ordem": 35,
+      "pacote_tipo": "portão",
+      "escopo": "Atualizar cockpit do pipeline",
+      "prioridade": "média",
+      "status_fechamento": "atenção",
+      "bloqueia_publicacao": false,
+      "exige_nota_publica": false,
+      "pendencias": 1,
+      "fundos": 0,
+      "pl_referencia_brl": 0,
+      "competencia_referencia": "202605",
+      "evidencia": "Pipeline: 1 (Manter o alerta de qualidade explícito e tratar a lacuna quando houver nova evidência.)",
+      "acao_sugerida": "Fechar bloqueios/atenções vinculados antes de depender desta etapa.",
+      "ui_surface": "Pipeline > Portão",
+      "source_artifacts": "industry_pipeline_index | industry_monthly_update_plan | industry_monthly_readiness | industry_publication_gate | industry_monthly_closeout_plan",
+      "rerun_command": "python scripts/build_fidc_industry_pipeline_index.py",
+      "record_ids_sample": "plan_pipeline_index_216"
     },
     {
       "closeout_id": "queue_monthly_delta_recorrente_104",
@@ -6155,7 +6119,7 @@
       "status": "ok",
       "schema_version": "industry-issuance-manifest/v1",
       "pipeline": "industry_issuance_structured",
-      "generated_at_utc": "2026-07-08T15:22:53+00:00",
+      "generated_at_utc": "2026-07-10T18:54:54+00:00",
       "manifest_path": "data/industry_study/industry_issuance_manifest.json",
       "command": "python scripts/build_fidc_industry_issuance.py",
       "cadence": "quando Estratégia/ofertas mudar",
@@ -6163,16 +6127,21 @@
         "SQLite da aba Estratégia"
       ],
       "stage_status_counts": {
-        "ok": 5
+        "ok": 6
       },
-      "stage_count": 5,
-      "artifact_count": 5,
-      "artifacts_present": 5,
+      "stage_count": 6,
+      "artifact_count": 7,
+      "artifacts_present": 7,
       "quality_highlights": {
         "annual_years": 3,
-        "annual_volume_conservador_brl": 302957676634.37,
+        "annual_volume_registrado_brl": 302957676634.37,
+        "annual_volume_conservador_brl": 259801864445.91,
         "annual_emissores_cnpj": 920,
         "sector_year_rows": 53,
+        "offer_rows": 3865,
+        "offer_cnpjs": 1636,
+        "offer_valid_rows": 3661,
+        "offer_closed_rows": 2853,
         "tranche_rows": 605,
         "tranche_funds": 33
       }
@@ -6183,7 +6152,7 @@
       "status": "ok",
       "schema_version": "industry-public-claim-audit-manifest/v1",
       "pipeline": "industry_public_claim_audit",
-      "generated_at_utc": "2026-07-09T16:12:48+00:00",
+      "generated_at_utc": "2026-07-10T18:55:10+00:00",
       "manifest_path": "data/industry_study/industry_public_claim_audit_manifest.json",
       "command": "python scripts/build_fidc_industry_public_claim_audit.py",
       "cadence": "quando fontes públicas ou números-base mudarem",
@@ -6196,26 +6165,27 @@
         "ok": 3
       },
       "stage_count": 3,
-      "artifact_count": 6,
-      "artifacts_present": 6,
+      "artifact_count": 7,
+      "artifacts_present": 7,
       "quality_highlights": {
-        "rows": 8,
-        "claims_with_local_metric": 8,
+        "rows": 9,
+        "claims_with_local_metric": 9,
+        "claims_with_alternative_metric": 2,
         "public_sources": 2,
-        "methodology_gap_claims": 8,
+        "methodology_gap_claims": 9,
         "adherent_claims": 0,
         "divergent_claims": 0,
         "missing_local_claims": 0,
         "max_abs_delta_pct": 7.150438917299664,
-        "methodology_bridge_rows": 8,
-        "methodology_bridge_needs_disclosure_rows": 8,
+        "methodology_bridge_rows": 9,
+        "methodology_bridge_needs_disclosure_rows": 9,
         "methodology_bridge_high_or_blocking_rows": 5,
         "methodology_bridge_severity_counts": {
           "alta": 5,
-          "média": 3
+          "média": 4
         },
         "status_counts": {
-          "diferença_metodológica": 8
+          "diferença_metodológica": 9
         }
       }
     },
@@ -7571,13 +7541,23 @@
     },
     {
       "module_id": "issuance",
+      "group": "inputs",
+      "artifact": "strategy_offers",
+      "required": false,
+      "path": "outputs/fidc_credit_strategy_study_20260609/issuance/fidc_public_offers_2024_2026ytd.csv",
+      "exists": true,
+      "bytes": 4258686,
+      "sha256": "99823c23bd7cb991a00035b6cdd7f3aad12cc7ddba2cf200d48538ece3e68e46"
+    },
+    {
+      "module_id": "issuance",
       "group": "outputs",
       "artifact": "issuance_annual",
       "required": true,
       "path": "data/industry_study/issuance_annual.csv",
       "exists": true,
-      "bytes": 335,
-      "sha256": "49da7e017774a2c30922eda6871e84e5b08280262486d330b9356638d7caf33c"
+      "bytes": 383,
+      "sha256": "881e753dd1be0e6be74fca1ee138fc83d45a80a0a29bfd38d9cb97c6a53ab437"
     },
     {
       "module_id": "issuance",
@@ -7586,8 +7566,18 @@
       "required": true,
       "path": "data/industry_study/issuance_sector_year.csv",
       "exists": true,
-      "bytes": 4857,
-      "sha256": "07bbb459a683ef24482f1f86b5ed72e5c5c4da2b6e0dc496c74a42a5252694cf"
+      "bytes": 5179,
+      "sha256": "146f044acaac4abcfa93314e1c72c09b67413b9177a9ffb2a4d65dee00080280"
+    },
+    {
+      "module_id": "issuance",
+      "group": "outputs",
+      "artifact": "issuance_offers",
+      "required": true,
+      "path": "data/industry_study/issuance_offers.csv.gz",
+      "exists": true,
+      "bytes": 374263,
+      "sha256": "a1355e5a47a2631996efffcfb47b69efa4d3438a5337d0053ae42935250bf97c"
     },
     {
       "module_id": "issuance",
@@ -7597,7 +7587,7 @@
       "path": "data/industry_study/issuance_tranches.csv.gz",
       "exists": true,
       "bytes": 115626,
-      "sha256": "3f37fdbd397b08924dac0043057782a258b0f6e41a5f9e19a9b00cb59494a267"
+      "sha256": "64baa5f3067577d2ba92723a3d69d92aac4427ef0d31833cfefce5d3c772fc56"
     },
     {
       "module_id": "issuance",
@@ -7606,8 +7596,8 @@
       "required": true,
       "path": "data/industry_study/industry_issuance_manifest.json",
       "exists": true,
-      "bytes": 3645,
-      "sha256": "c4dfe502da0df0a7933fbc3a741f9fbffc8e06430f781e20ee524ca58206326e"
+      "bytes": 4831,
+      "sha256": "3ec20bb895825039ced4ab27d1f13e5dc52f15de8686bb295357171dca2aefab"
     },
     {
       "module_id": "public_claims",
@@ -7627,7 +7617,17 @@
       "path": "data/industry_study/issuance_tranches.csv.gz",
       "exists": true,
       "bytes": 115626,
-      "sha256": "3f37fdbd397b08924dac0043057782a258b0f6e41a5f9e19a9b00cb59494a267"
+      "sha256": "64baa5f3067577d2ba92723a3d69d92aac4427ef0d31833cfefce5d3c772fc56"
+    },
+    {
+      "module_id": "public_claims",
+      "group": "inputs",
+      "artifact": "issuance_offers",
+      "required": false,
+      "path": "data/industry_study/issuance_offers.csv.gz",
+      "exists": true,
+      "bytes": 374263,
+      "sha256": "a1355e5a47a2631996efffcfb47b69efa4d3438a5337d0053ae42935250bf97c"
     },
     {
       "module_id": "public_claims",
@@ -7635,7 +7635,7 @@
       "artifact": "public_claim_specs",
       "required": false,
       "exists": true,
-      "rows": 8,
+      "rows": 9,
       "source": "services.industry_study.PUBLIC_CLAIM_SPECS",
       "path": ""
     },
@@ -7646,8 +7646,8 @@
       "required": true,
       "path": "data/industry_study/industry_public_claim_audit.csv",
       "exists": true,
-      "bytes": 6135,
-      "sha256": "144b1194a1e85f7f2470634fe836bee109555862cef214501a415acc01127880"
+      "bytes": 8964,
+      "sha256": "d9b22bf4ac9243de79b979e465b5ccd8db679a268e29966fdbe88a48b6041211"
     },
     {
       "module_id": "public_claims",
@@ -7656,8 +7656,8 @@
       "required": true,
       "path": "data/industry_study/industry_public_claim_methodology_bridge.csv",
       "exists": true,
-      "bytes": 6960,
-      "sha256": "58a262332dddc9196d8869e02ec9fb79979df495f72b9a256b007b71ca9290a7"
+      "bytes": 7846,
+      "sha256": "ab225e6b696488148b7e370ba52ae4e638c24ddef1e22f52c39201b69d08773d"
     },
     {
       "module_id": "public_claims",
@@ -7666,8 +7666,8 @@
       "required": true,
       "path": "data/industry_study/industry_public_claim_audit_manifest.json",
       "exists": true,
-      "bytes": 3735,
-      "sha256": "963672ba639507a3ce559f10f70258f2e2c31308792692331e741dadd575aa7f"
+      "bytes": 4058,
+      "sha256": "6f13aa10cfa4784ae4169333f752db6b704c04fc91d115c339253d4004a35225"
     },
     {
       "module_id": "curation_queue",
@@ -8744,7 +8744,7 @@
       "path": "data/industry_study/issuance_tranches.csv.gz",
       "exists": true,
       "bytes": 115626,
-      "sha256": "3f37fdbd397b08924dac0043057782a258b0f6e41a5f9e19a9b00cb59494a267"
+      "sha256": "64baa5f3067577d2ba92723a3d69d92aac4427ef0d31833cfefce5d3c772fc56"
     },
     {
       "module_id": "fund_snapshot",
@@ -9123,8 +9123,8 @@
       "required": false,
       "path": "data/industry_study/industry_pipeline_index.json",
       "exists": true,
-      "bytes": 456245,
-      "sha256": "5a87e0be2cb7dcd9e5286a1a6cadc06c00df1046c8be5af133ef1bfa5367dcca"
+      "bytes": 441980,
+      "sha256": "c98beaf2941de12ce9c3b887965fb0bf1cc6a0edbc9203a429890589a4626191"
     },
     {
       "module_id": "pipeline_index",
@@ -9133,8 +9133,8 @@
       "required": false,
       "path": "data/industry_study/industry_monthly_update_plan.csv",
       "exists": true,
-      "bytes": 23817,
-      "sha256": "38b47200b5206c956a7fc3b094654c1afc698522ce717933710b480f8bc9fb13"
+      "bytes": 23892,
+      "sha256": "2ee52cd426d1de59c0ac38398f34d5d7fde7d1215a0f5ea09cbf9d2aa3c75421"
     },
     {
       "module_id": "pipeline_index",
@@ -9143,8 +9143,8 @@
       "required": false,
       "path": "data/industry_study/industry_monthly_readiness.csv",
       "exists": true,
-      "bytes": 4052,
-      "sha256": "a1aaeed5841805fab5ead7e2c8b936288ab92c3b67abaf80028019ef85235e56"
+      "bytes": 4068,
+      "sha256": "254c7ea0d9ae0f52478e419aa41d5e7fc9c13f4f7efe9c37697a0a74c0506e0c"
     },
     {
       "module_id": "pipeline_index",
@@ -9153,8 +9153,8 @@
       "required": false,
       "path": "data/industry_study/industry_publication_gate.csv",
       "exists": true,
-      "bytes": 14114,
-      "sha256": "ecc62db6ff0ea778872284a1de3370628f978a27531f7d7b32c39efd66b2d4ab"
+      "bytes": 13849,
+      "sha256": "7c9a34ab94a33a87f0a340175139d558b437fe59a3f3d9157142eb89e6a6845f"
     },
     {
       "module_id": "pipeline_index",
@@ -9163,8 +9163,8 @@
       "required": false,
       "path": "data/industry_study/industry_monthly_closeout_plan.csv",
       "exists": true,
-      "bytes": 138737,
-      "sha256": "a484a7faa1cf697630ed9b5b194860ac8c8f08c7c45d086724a9ac933a018e45"
+      "bytes": 138437,
+      "sha256": "ee285138410d908aa17e2a38b098f78a2021cf80cfbc9751c5f78b62a71bda7d"
     }
   ]
 }

@@ -522,17 +522,19 @@ PUBLIC_CLAIM_SPECS = [
         "period_end": "2026-05",
         "public_value": 41_700_000_000.0,
         "unit": "BRL",
-        "local_metric": "issuance_tranche_volume_sum",
-        "local_source_artifact": "issuance_tranches.csv.gz",
-        "comparability": "subcobertura_documental",
-        "method_note": "A base local de tranches documentais é curada/offline e não deve ser lida como boletim ANBIMA de ofertas encerradas.",
+        "local_metric": "issuance_registered_valid_sum",
+        "local_source_artifact": "issuance_offers.csv.gz",
+        "local_metric_alternative": "issuance_closed_conservative_sum",
+        "local_source_artifact_alternative": "issuance_offers.csv.gz",
+        "comparability": "metodologia_diferente",
+        "method_note": "A aba compara o claim com ofertas CVM por data de registro e mostra os critérios registrado válido e encerrado conservador; o universo ANBIMA pode diferir.",
     },
     {
         "claim_id": "seu_dinheiro_fidc_pl_may_2026",
         "source_name": "Seu Dinheiro",
         "source_title": "Resgates de fundos multimercados disparam e FIDCs entram na mira do investidor",
         "source_url": "https://www.seudinheiro.com/2026/economia/resgates-de-fundos-multimercados-dispara-e-fidcs-entram-na-mira-do-investidor-segundo-anbima-entenda-lbrdcp162/",
-        "published_at": "2026-06-17",
+        "published_at": "2026-07-01",
         "metric_group": "patrimônio líquido",
         "claim_text": "Indústria de FIDCs chegou a R$ 754 bi em maio de 2026.",
         "period_start": "2026-05",
@@ -541,15 +543,20 @@ PUBLIC_CLAIM_SPECS = [
         "unit": "BRL",
         "local_metric": "pl_total_snapshot",
         "local_source_artifact": "industry_monthly.csv",
+        "local_metric_alternative": "pl_ex_fic_snapshot",
+        "local_source_artifact_alternative": "industry_monthly.csv",
         "comparability": "metodologia_diferente",
         "method_note": "A aba exibe FIDCs + FIC-FIDCs e série ex-FIC; veículos CVM não são o mesmo universo consolidado da notícia.",
+        "source_evidence_type": "screenshot_fornecido",
+        "source_evidence_ref": "Screenshot 2026-07-07 at 22.16.22.png",
+        "source_note": "O claim está no recorte fornecido; a versão da URL inspecionada em 2026-07-10 não preserva esse trecho.",
     },
     {
         "claim_id": "seu_dinheiro_fidc_net_flow_apr_2026",
         "source_name": "Seu Dinheiro",
         "source_title": "Resgates de fundos multimercados disparam e FIDCs entram na mira do investidor",
         "source_url": "https://www.seudinheiro.com/2026/economia/resgates-de-fundos-multimercados-dispara-e-fidcs-entram-na-mira-do-investidor-segundo-anbima-entenda-lbrdcp162/",
-        "published_at": "2026-06-17",
+        "published_at": "2026-07-01",
         "metric_group": "captação líquida",
         "claim_text": "FIDCs tiveram captação mensal de R$ 4,5 bi em abril de 2026.",
         "period_start": "2026-04",
@@ -560,18 +567,38 @@ PUBLIC_CLAIM_SPECS = [
         "local_source_artifact": "industry_monthly.csv",
         "comparability": "metodologia_diferente",
         "method_note": "A notícia usa ANBIMA; a aba soma aplicações, resgates e amortizações do Informe Mensal CVM.",
+        "source_evidence_type": "screenshot_fornecido",
+        "source_evidence_ref": "Screenshot 2026-07-07 at 22.16.13.png",
+        "source_note": "O claim está no recorte fornecido; a versão da URL inspecionada em 2026-07-10 não preserva esse trecho.",
     },
     {
         "claim_id": "seu_dinheiro_fidc_net_flow_may_2026",
         "source_name": "Seu Dinheiro",
         "source_title": "Resgates de fundos multimercados disparam e FIDCs entram na mira do investidor",
         "source_url": "https://www.seudinheiro.com/2026/economia/resgates-de-fundos-multimercados-dispara-e-fidcs-entram-na-mira-do-investidor-segundo-anbima-entenda-lbrdcp162/",
-        "published_at": "2026-06-17",
+        "published_at": "2026-07-01",
         "metric_group": "captação líquida",
         "claim_text": "FIDCs captaram R$ 2,5 bi em maio de 2026.",
         "period_start": "2026-05",
         "period_end": "2026-05",
         "public_value": 2_500_000_000.0,
+        "unit": "BRL",
+        "local_metric": "monthly_net_flow_sum",
+        "local_source_artifact": "industry_monthly.csv",
+        "comparability": "metodologia_diferente",
+        "method_note": "A notícia usa ANBIMA; a aba soma aplicações, resgates e amortizações do Informe Mensal CVM.",
+    },
+    {
+        "claim_id": "seu_dinheiro_fidc_net_flow_2026_ytd_may",
+        "source_name": "Seu Dinheiro",
+        "source_title": "Resgates de fundos multimercados disparam e FIDCs entram na mira do investidor",
+        "source_url": "https://www.seudinheiro.com/2026/economia/resgates-de-fundos-multimercados-dispara-e-fidcs-entram-na-mira-do-investidor-segundo-anbima-entenda-lbrdcp162/",
+        "published_at": "2026-07-01",
+        "metric_group": "captação líquida",
+        "claim_text": "FIDCs captaram R$ 21,5 bi entre janeiro e maio de 2026.",
+        "period_start": "2026-01",
+        "period_end": "2026-05",
+        "public_value": 21_500_000_000.0,
         "unit": "BRL",
         "local_metric": "monthly_net_flow_sum",
         "local_source_artifact": "industry_monthly.csv",
@@ -1499,7 +1526,8 @@ def load_fund_universe(db_path: Path) -> pd.DataFrame:
                 """
                 select cnpj, fund_name_final, administrador, gestor, custodiante,
                        setor_n1, setor_n2, first_offer_year, emission_cohort,
-                       emitted_2024, emitted_2025, volume_2024_brl, volume_2025_brl,
+                       emitted_2024, emitted_2025, offers_2024, offers_2025,
+                       offers_2026, offer_rows, volume_2024_brl, volume_2025_brl,
                        volume_2026_brl, valid_volume_2024_brl, valid_volume_2025_brl,
                        valid_volume_2026_brl, pl_atual_brl, has_regulatory_matrix,
                        latest_regulamento_date
@@ -1590,14 +1618,53 @@ def source_document(value: object) -> str:
     return text.split(" · ")[0].strip()
 
 
-def build_issuance_annual(fund_universe: pd.DataFrame) -> pd.DataFrame:
+def _offer_counts_by_fund(
+    offers: pd.DataFrame | None,
+    *,
+    year: int,
+    flag_column: str,
+) -> pd.Series:
+    if offers is None or offers.empty or "cnpj_emissor" not in offers.columns:
+        return pd.Series(dtype=float)
+    frame = offers.copy()
+    offer_year = pd.to_numeric(frame.get("ano"), errors="coerce")
+    if offer_year.isna().all() and "data_registro" in frame.columns:
+        offer_year = pd.to_datetime(frame["data_registro"], errors="coerce").dt.year
+    flag = _boolish_series(frame.get(flag_column, pd.Series(False, index=frame.index)))
+    frame = frame[offer_year.eq(year) & flag].copy()
+    if frame.empty:
+        return pd.Series(dtype=float)
+    frame["cnpj_emissor"] = frame["cnpj_emissor"].map(normalize_cnpj)
+    return frame.groupby("cnpj_emissor", dropna=False).size().astype(float)
+
+
+def build_issuance_annual(
+    fund_universe: pd.DataFrame,
+    offers_detail: pd.DataFrame | None = None,
+) -> pd.DataFrame:
     if fund_universe.empty:
         return pd.DataFrame()
     rows: list[dict[str, object]] = []
     for year in ISSUANCE_YEARS:
         volume = _num(fund_universe.get(f"volume_{year}_brl"), fund_universe.index)
         valid_volume = _num(fund_universe.get(f"valid_volume_{year}_brl"), fund_universe.index)
-        offers = _num(fund_universe.get(f"offers_{year}"), fund_universe.index)
+        if offers_detail is not None and not offers_detail.empty:
+            valid_counts = _offer_counts_by_fund(
+                offers_detail,
+                year=year,
+                flag_column="volume_registrado_valido",
+            )
+            closed_counts = _offer_counts_by_fund(
+                offers_detail,
+                year=year,
+                flag_column="volume_encerrado_conservador",
+            )
+            cnpj = fund_universe.get("cnpj", pd.Series("", index=fund_universe.index)).map(normalize_cnpj)
+            offers = cnpj.map(valid_counts).fillna(0.0)
+            closed_offers = cnpj.map(closed_counts).fillna(0.0)
+        else:
+            offers = _num(fund_universe.get(f"offers_{year}"), fund_universe.index)
+            closed_offers = pd.Series(0.0, index=fund_universe.index)
         active = volume.gt(0) | valid_volume.gt(0) | offers.gt(0)
         frame = fund_universe[active].copy()
         rows.append(
@@ -1606,8 +1673,9 @@ def build_issuance_annual(fund_universe: pd.DataFrame) -> pd.DataFrame:
                 "periodo": f"{year} YTD" if year == max(ISSUANCE_YEARS) else str(year),
                 "emissores_cnpj": int(frame["cnpj"].nunique()) if "cnpj" in frame else 0,
                 "ofertas_linhas": int(offers[active].sum()),
-                "volume_registrado_brl": float(volume[active].sum()),
-                "volume_conservador_brl": float(valid_volume[active].sum()),
+                "ofertas_encerradas_linhas": int(closed_offers[active].sum()),
+                "volume_registrado_brl": float(valid_volume[active].sum()),
+                "volume_conservador_brl": float(volume[active].sum()),
                 "pl_atual_brl": float(_num(frame.get("pl_atual_brl"), frame.index).sum()) if not frame.empty else 0.0,
                 "com_matriz_regulatoria": int(_num(frame.get("has_regulatory_matrix"), frame.index).gt(0).sum()) if not frame.empty else 0,
             }
@@ -1615,7 +1683,10 @@ def build_issuance_annual(fund_universe: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def build_issuance_sector_year(fund_universe: pd.DataFrame) -> pd.DataFrame:
+def build_issuance_sector_year(
+    fund_universe: pd.DataFrame,
+    offers_detail: pd.DataFrame | None = None,
+) -> pd.DataFrame:
     if fund_universe.empty:
         return pd.DataFrame()
     rows: list[dict[str, object]] = []
@@ -1624,9 +1695,25 @@ def build_issuance_sector_year(fund_universe: pd.DataFrame) -> pd.DataFrame:
     base["setor_n2"] = _text(base.get("setor_n2"), base.index).replace("", "Sem classificação")
     for year in ISSUANCE_YEARS:
         frame = base.copy()
-        frame["volume_registrado_brl"] = _num(frame.get(f"volume_{year}_brl"), frame.index)
-        frame["volume_conservador_brl"] = _num(frame.get(f"valid_volume_{year}_brl"), frame.index)
-        frame["ofertas_linhas"] = _num(frame.get(f"offers_{year}"), frame.index)
+        frame["volume_registrado_brl"] = _num(frame.get(f"valid_volume_{year}_brl"), frame.index)
+        frame["volume_conservador_brl"] = _num(frame.get(f"volume_{year}_brl"), frame.index)
+        if offers_detail is not None and not offers_detail.empty:
+            valid_counts = _offer_counts_by_fund(
+                offers_detail,
+                year=year,
+                flag_column="volume_registrado_valido",
+            )
+            closed_counts = _offer_counts_by_fund(
+                offers_detail,
+                year=year,
+                flag_column="volume_encerrado_conservador",
+            )
+            cnpj = frame.get("cnpj", pd.Series("", index=frame.index)).map(normalize_cnpj)
+            frame["ofertas_linhas"] = cnpj.map(valid_counts).fillna(0.0)
+            frame["ofertas_encerradas_linhas"] = cnpj.map(closed_counts).fillna(0.0)
+        else:
+            frame["ofertas_linhas"] = _num(frame.get(f"offers_{year}"), frame.index)
+            frame["ofertas_encerradas_linhas"] = 0.0
         frame = frame[
             frame["volume_registrado_brl"].gt(0)
             | frame["volume_conservador_brl"].gt(0)
@@ -1639,6 +1726,7 @@ def build_issuance_sector_year(fund_universe: pd.DataFrame) -> pd.DataFrame:
             .agg(
                 emissores_cnpj=("cnpj", "nunique"),
                 ofertas_linhas=("ofertas_linhas", "sum"),
+                ofertas_encerradas_linhas=("ofertas_encerradas_linhas", "sum"),
                 volume_registrado_brl=("volume_registrado_brl", "sum"),
                 volume_conservador_brl=("volume_conservador_brl", "sum"),
                 pl_atual_brl=("pl_atual_brl", "sum"),
@@ -1647,7 +1735,65 @@ def build_issuance_sector_year(fund_universe: pd.DataFrame) -> pd.DataFrame:
         )
         grouped["ano"] = year
         rows.extend(grouped.to_dict("records"))
-    return pd.DataFrame(rows).sort_values(["ano", "volume_conservador_brl"], ascending=[True, False])
+    return pd.DataFrame(rows).sort_values(["ano", "volume_registrado_brl"], ascending=[True, False])
+
+
+def build_issuance_offers(offers: pd.DataFrame) -> pd.DataFrame:
+    """Normalize one auditable row per public CVM offer."""
+
+    columns = [
+        "offer_id",
+        "source_dataset",
+        "data_registro",
+        "competencia",
+        "ano",
+        "cnpj_emissor",
+        "nome_emissor",
+        "tipo_oferta",
+        "valor_mobiliario",
+        "status",
+        "status_bucket",
+        "valor_total_registrado_brl",
+        "volume_registrado_valido",
+        "volume_encerrado_conservador",
+        "administrador",
+        "gestor",
+        "custodiante",
+        "tipo_lastro",
+        "descricao_lastro",
+        "ativos_alvo",
+        "publico_alvo",
+        "regime_distribuicao",
+        "source_method",
+        "confidence_score",
+    ]
+    if offers is None or offers.empty:
+        return pd.DataFrame(columns=columns)
+    frame = offers.copy()
+    idx = frame.index
+    dates = pd.to_datetime(_text(frame.get("data_registro"), idx), errors="coerce")
+    frame["data_registro"] = dates.dt.strftime("%Y-%m-%d").fillna("")
+    frame["competencia"] = dates.dt.strftime("%Y-%m").fillna("")
+    year = pd.to_numeric(frame.get("year"), errors="coerce")
+    frame["ano"] = year.where(year.notna(), dates.dt.year).round().astype("Int64")
+    frame["cnpj_emissor"] = _text(frame.get("cnpj_emissor"), idx).map(normalize_cnpj)
+    frame["valor_total_registrado_brl"] = _num(frame.get("valor_total_registrado"), idx)
+    truthy = {"true", "1", "sim", "yes"}
+    frame["volume_registrado_valido"] = (
+        _text(frame.get("volume_registrado_valido_flag"), idx).str.strip().str.lower().isin(truthy)
+    )
+    frame["volume_encerrado_conservador"] = (
+        _text(frame.get("volume_encerrado_conservador_flag"), idx).str.strip().str.lower().isin(truthy)
+    )
+    for col in columns:
+        if col not in frame.columns:
+            frame[col] = ""
+    frame["source_method"] = "cvm_public_offer_row"
+    frame["confidence_score"] = 1.0
+    return frame[columns].sort_values(
+        ["data_registro", "valor_total_registrado_brl", "offer_id"],
+        ascending=[False, False, True],
+    ).reset_index(drop=True)
 
 
 def build_issuance_tranches(pricing: pd.DataFrame) -> pd.DataFrame:
@@ -1708,13 +1854,20 @@ def issuance_quality_summary(
     annual: pd.DataFrame,
     sector_year: pd.DataFrame,
     tranches: pd.DataFrame,
+    offers: pd.DataFrame | None = None,
 ) -> dict[str, object]:
+    offers = offers if offers is not None else pd.DataFrame()
     tranche_score = pd.to_numeric(tranches.get("score_confianca"), errors="coerce") if not tranches.empty and "score_confianca" in tranches else pd.Series(dtype=float)
     return {
         "annual_years": int(annual["ano"].nunique()) if "ano" in annual else 0,
+        "annual_volume_registrado_brl": float(_num(annual.get("volume_registrado_brl"), annual.index).sum()) if not annual.empty else 0.0,
         "annual_volume_conservador_brl": float(_num(annual.get("volume_conservador_brl"), annual.index).sum()) if not annual.empty else 0.0,
         "annual_emissores_cnpj": int(annual["emissores_cnpj"].max()) if "emissores_cnpj" in annual and not annual.empty else 0,
         "sector_year_rows": int(len(sector_year)),
+        "offer_rows": int(len(offers)),
+        "offer_cnpjs": int(offers["cnpj_emissor"].nunique()) if "cnpj_emissor" in offers else 0,
+        "offer_valid_rows": int(_boolish_series(offers.get("volume_registrado_valido", pd.Series(False, index=offers.index))).sum()),
+        "offer_closed_rows": int(_boolish_series(offers.get("volume_encerrado_conservador", pd.Series(False, index=offers.index))).sum()),
         "tranche_rows": int(len(tranches)),
         "tranche_funds": int(tranches["cnpj_fundo"].nunique()) if "cnpj_fundo" in tranches else 0,
         "coverage": {
@@ -2116,11 +2269,12 @@ def _public_claim_local_value(
     spec: dict[str, object],
     industry_monthly: pd.DataFrame,
     issuance_tranches: pd.DataFrame,
+    issuance_offers: pd.DataFrame,
 ) -> tuple[float | None, str, str]:
     metric = str(spec.get("local_metric") or "")
     start = str(spec.get("period_start") or "")
     end = str(spec.get("period_end") or start)
-    if metric in {"monthly_net_flow_sum", "cotistas_total_snapshot", "pl_total_snapshot"}:
+    if metric in {"monthly_net_flow_sum", "cotistas_total_snapshot", "pl_total_snapshot", "pl_ex_fic_snapshot"}:
         frame = industry_monthly.copy()
         if frame.empty or "competencia" not in frame.columns:
             return None, "", "industry_monthly vazio ou sem competência"
@@ -2138,6 +2292,35 @@ def _public_claim_local_value(
         if metric == "pl_total_snapshot":
             value = pd.to_numeric(pd.Series([snapshot.get("pl_total")]), errors="coerce").iloc[0]
             return (None if pd.isna(value) else float(value)), f"competência {snapshot.get('competencia')}", ""
+        if metric == "pl_ex_fic_snapshot":
+            total = pd.to_numeric(pd.Series([snapshot.get("pl_total")]), errors="coerce").iloc[0]
+            fic = pd.to_numeric(pd.Series([snapshot.get("pl_fic_fidc")]), errors="coerce").fillna(0.0).iloc[0]
+            value = None if pd.isna(total) else float(total) - float(fic)
+            return value, f"competência {snapshot.get('competencia')}; PL total menos FIC-FIDC", ""
+    if metric in {"issuance_registered_valid_sum", "issuance_closed_conservative_sum"}:
+        frame = issuance_offers.copy()
+        if frame.empty or "data_registro" not in frame.columns:
+            return None, "", "issuance_offers vazio ou sem data de registro"
+        dates = pd.to_datetime(frame["data_registro"], errors="coerce")
+        start_date = pd.to_datetime(f"{start}-01", errors="coerce")
+        end_date = pd.to_datetime(f"{end}-01", errors="coerce") + pd.offsets.MonthEnd(0)
+        rows = frame[dates.ge(start_date) & dates.le(end_date)].copy()
+        if rows.empty:
+            return 0.0, f"0 oferta entre {start} e {end}", ""
+        flag_col = (
+            "volume_registrado_valido"
+            if metric == "issuance_registered_valid_sum"
+            else "volume_encerrado_conservador"
+        )
+        flag = _boolish_series(rows.get(flag_col, pd.Series(False, index=rows.index)))
+        eligible = rows[flag].copy()
+        value = pd.to_numeric(eligible.get("valor_total_registrado_brl"), errors="coerce").fillna(0.0).sum()
+        evidence = (
+            f"{len(eligible)} oferta(s); "
+            f"{eligible.get('cnpj_emissor', pd.Series(dtype=str)).nunique()} CNPJ(s); "
+            f"data de registro {start} a {end}"
+        )
+        return float(value), evidence, ""
     if metric == "issuance_tranche_volume_sum":
         frame = issuance_tranches.copy()
         if frame.empty or "data_deliberacao" not in frame.columns:
@@ -2158,12 +2341,14 @@ def build_public_claim_audit(
     *,
     industry_monthly: pd.DataFrame,
     issuance_tranches: pd.DataFrame,
+    issuance_offers: pd.DataFrame | None = None,
     claim_specs: list[dict[str, object]] | None = None,
     tolerance_pct: float = 0.10,
 ) -> pd.DataFrame:
     """Compare public market claims with the Industry tab's auditable local metrics."""
 
     specs = claim_specs or PUBLIC_CLAIM_SPECS
+    offers = issuance_offers if issuance_offers is not None else pd.DataFrame()
     rows: list[dict[str, object]] = []
     for spec in specs:
         public_value = pd.to_numeric(pd.Series([spec.get("public_value")]), errors="coerce").iloc[0]
@@ -2171,7 +2356,20 @@ def build_public_claim_audit(
             spec=spec,
             industry_monthly=industry_monthly,
             issuance_tranches=issuance_tranches,
+            issuance_offers=offers,
         )
+        alternative_metric = str(spec.get("local_metric_alternative") or "")
+        alternative_value = None
+        alternative_evidence = ""
+        alternative_note = ""
+        if alternative_metric:
+            alternative_spec = {**spec, "local_metric": alternative_metric}
+            alternative_value, alternative_evidence, alternative_note = _public_claim_local_value(
+                spec=alternative_spec,
+                industry_monthly=industry_monthly,
+                issuance_tranches=issuance_tranches,
+                issuance_offers=offers,
+            )
         if pd.isna(public_value):
             public_value = None
         delta_value = None
@@ -2179,6 +2377,15 @@ def build_public_claim_audit(
         if public_value not in (None, 0) and local_value is not None:
             delta_value = float(local_value) - float(public_value)
             delta_pct = delta_value / float(public_value)
+        alternative_delta_value = None
+        alternative_delta_pct = None
+        if public_value not in (None, 0) and alternative_value is not None:
+            alternative_delta_value = float(alternative_value) - float(public_value)
+            alternative_delta_pct = alternative_delta_value / float(public_value)
+            if local_value is not None:
+                low, high = sorted([float(local_value), float(alternative_value)])
+                if low <= float(public_value) <= high:
+                    local_note = "O valor público fica entre os dois critérios locais materializados."
         comparability = str(spec.get("comparability") or "comparável")
         if local_value is None:
             status = "sem_base_local"
@@ -2194,6 +2401,9 @@ def build_public_claim_audit(
                 "source_name": spec.get("source_name", ""),
                 "source_title": spec.get("source_title", ""),
                 "source_url": spec.get("source_url", ""),
+                "source_evidence_type": spec.get("source_evidence_type", "web_atual"),
+                "source_evidence_ref": spec.get("source_evidence_ref", spec.get("source_url", "")),
+                "source_note": spec.get("source_note", ""),
                 "published_at": spec.get("published_at", ""),
                 "metric_group": spec.get("metric_group", ""),
                 "claim_text": spec.get("claim_text", ""),
@@ -2202,16 +2412,22 @@ def build_public_claim_audit(
                 "unit": spec.get("unit", ""),
                 "public_value": public_value,
                 "local_value": local_value,
+                "local_value_alternative": alternative_value,
                 "delta_value": delta_value,
                 "delta_pct": delta_pct,
+                "delta_value_alternative": alternative_delta_value,
+                "delta_pct_alternative": alternative_delta_pct,
                 "status_auditoria": status,
                 "comparability": comparability,
                 "tolerance_pct": tolerance_pct,
                 "local_metric": spec.get("local_metric", ""),
                 "local_source_artifact": spec.get("local_source_artifact", ""),
+                "local_metric_alternative": alternative_metric,
+                "local_source_artifact_alternative": spec.get("local_source_artifact_alternative", ""),
                 "local_evidence": evidence,
+                "local_evidence_alternative": alternative_evidence,
                 "method_note": spec.get("method_note", ""),
-                "local_note": local_note,
+                "local_note": " ".join(part for part in [local_note, alternative_note] if part),
                 "rerun_command": "python scripts/build_fidc_industry_public_claim_audit.py",
             }
         )
@@ -2223,6 +2439,7 @@ def public_claim_audit_quality_summary(audit: pd.DataFrame) -> dict[str, object]
         return {
             "rows": 0,
             "claims_with_local_metric": 0,
+            "claims_with_alternative_metric": 0,
             "public_sources": 0,
             "methodology_gap_claims": 0,
             "adherent_claims": 0,
@@ -2234,6 +2451,9 @@ def public_claim_audit_quality_summary(audit: pd.DataFrame) -> dict[str, object]
     return {
         "rows": int(len(audit)),
         "claims_with_local_metric": int(audit.get("local_value", pd.Series(dtype=float)).notna().sum()),
+        "claims_with_alternative_metric": int(
+            audit.get("local_value_alternative", pd.Series(dtype=float)).notna().sum()
+        ),
         "public_sources": int(audit.get("source_name", pd.Series(dtype=str)).nunique()),
         "methodology_gap_claims": int(status.eq("diferença_metodológica").sum()),
         "adherent_claims": int(status.eq("aderente").sum()),
@@ -2275,9 +2495,14 @@ def _public_claim_bridge_profile(row: pd.Series) -> dict[str, str]:
         reconciliation_basis = "Apresentar como contas reportadas CVM, não como investidores únicos"
     elif local_metric == "pl_total_snapshot":
         local_universe = "Informe Mensal CVM; FIDCs + FIC-FIDCs no snapshot mensal"
-        local_concept = "Patrimônio líquido total reportado; a aba também mantém série ex-FIC para reduzir dupla contagem"
+        local_concept = "Patrimônio líquido total reportado, comparado também ao PL ex-FIC para reduzir dupla contagem"
         primary_gap = "Universo CVM e universo consolidado ANBIMA/notícia diferem; FIC-FIDC pode induzir dupla contagem"
         reconciliation_basis = "Mostrar sempre as duas séries de PL e explicitar possível dupla contagem"
+    elif local_metric == "issuance_registered_valid_sum":
+        local_universe = "Ofertas públicas CVM; linhas com registro válido no período"
+        local_concept = "Volume registrado válido por data de registro, com encerrado conservador como critério alternativo"
+        primary_gap = "ANBIMA e CVM podem diferir em universo, data de corte e tratamento de ofertas abertas/encerradas"
+        reconciliation_basis = "Comparar o claim com os dois critérios CVM e manter a diferença de universo explícita"
     elif local_metric == "issuance_tranche_volume_sum":
         local_universe = "Base local de tranches/ofertas extraída da aba Estratégia e documentação disponível"
         local_concept = "Volume de tranches documentais com data de deliberação no período"
@@ -9695,20 +9920,28 @@ def build_pipeline_readiness_checks(
     )
 
     module_frame = pd.DataFrame(modules)
-    bad_modules = module_frame.iloc[0:0].copy() if module_frame.empty else module_frame[
-        ~module_frame.get("status", pd.Series("", index=module_frame.index)).fillna("").astype(str).str.lower().eq("ok")
-    ].copy()
+    module_status = module_frame.get("status", pd.Series("", index=module_frame.index)).fillna("").astype(str).str.lower()
+    blocking_modules = module_frame[
+        module_status.isin({"missing", "missing_artifact", "empty", "error", "failed"})
+    ].copy() if not module_frame.empty else module_frame.copy()
+    warning_modules = module_frame[module_status.eq("warning")].copy() if not module_frame.empty else module_frame.copy()
+    module_issues = pd.concat([blocking_modules, warning_modules], ignore_index=True)
+    module_readiness_status = "bloqueado" if not blocking_modules.empty else ("atenção" if not warning_modules.empty else "ok")
     add(
         "module_status",
         2,
         "Pipeline",
         "Módulos com manifesto válido",
-        "bloqueado" if not bad_modules.empty else "ok",
-        len(bad_modules),
-        _readiness_sample(bad_modules.rename(columns={"label": "module_label"}), ["module_label", "status"]),
-        "Rodar os comandos dos módulos pendentes antes de fechar a competência.",
+        module_readiness_status,
+        len(module_issues),
+        _readiness_sample(module_issues.rename(columns={"label": "module_label"}), ["module_label", "status"]),
+        (
+            "Rodar os módulos ausentes/sem artefato antes de fechar a competência."
+            if not blocking_modules.empty
+            else "Manter o alerta de qualidade explícito e tratar a lacuna quando houver nova evidência."
+        ),
         "modules",
-        " && ".join([str(value) for value in bad_modules.get("command", pd.Series(dtype=str)).head(3) if str(value).strip()]),
+        " && ".join([str(value) for value in module_issues.get("command", pd.Series(dtype=str)).head(3) if str(value).strip()]),
     )
 
     artifact_frame = pd.DataFrame(artifact_rows)
@@ -10884,7 +11117,9 @@ def build_prd_coverage_matrix(
             }
         )
 
-    modules_ok = int(quality_rollup.get("module_status_counts", {}).get("ok", 0)) if isinstance(quality_rollup.get("module_status_counts"), dict) else 0
+    module_counts = quality_rollup.get("module_status_counts", {}) if isinstance(quality_rollup.get("module_status_counts"), dict) else {}
+    modules_ok = int(module_counts.get("ok", 0))
+    modules_warning = int(module_counts.get("warning", 0))
     modules_total = int(number("modules_total"))
     artifacts_present = int(number("artifacts_present"))
     artifacts_total = int(number("artifacts_total"))
@@ -10893,11 +11128,11 @@ def build_prd_coverage_matrix(
         1,
         "Arquitetura",
         "Pipeline modular com etapas reexecutáveis e artefatos persistidos",
-        "ok" if modules_total and modules_ok == modules_total and artifacts_present == artifacts_total else "atenção",
-        f"{modules_ok}/{modules_total} módulos ok; {artifacts_present}/{artifacts_total} artefatos obrigatórios presentes",
+        "ok" if modules_total and modules_ok + modules_warning == modules_total and artifacts_present == artifacts_total else "atenção",
+        f"{modules_ok}/{modules_total} módulos ok; {modules_warning} alerta(s) de qualidade; {artifacts_present}/{artifacts_total} artefatos obrigatórios presentes",
         f"refresh_plan={len(refresh_plan)}",
         "industry_pipeline_index.json",
-        "Rodar módulos não-ok ou gerar artefatos obrigatórios ausentes.",
+        "Gerar artefatos ausentes e manter alertas de qualidade explícitos até surgir evidência adicional.",
         "python scripts/build_fidc_industry_pipeline_index.py",
     )
     chunk_open = int(number("document_chunk_plan_open_rows"))
@@ -11183,9 +11418,14 @@ def build_industry_pipeline_index(
             "depends_on": ["SQLite da aba Estratégia"],
             "quality_keys": [
                 "annual_years",
+                "annual_volume_registrado_brl",
                 "annual_volume_conservador_brl",
                 "annual_emissores_cnpj",
                 "sector_year_rows",
+                "offer_rows",
+                "offer_cnpjs",
+                "offer_valid_rows",
+                "offer_closed_rows",
                 "tranche_rows",
                 "tranche_funds",
             ],
@@ -11200,6 +11440,7 @@ def build_industry_pipeline_index(
             "quality_keys": [
                 "rows",
                 "claims_with_local_metric",
+                "claims_with_alternative_metric",
                 "public_sources",
                 "methodology_gap_claims",
                 "adherent_claims",
@@ -12670,8 +12911,13 @@ def build_issuance_pipeline_manifest(
     annual: pd.DataFrame,
     sector_year: pd.DataFrame,
     tranches: pd.DataFrame,
+    offers_path: Path | None = None,
+    offers_source_path: Path | None = None,
+    offers: pd.DataFrame | None = None,
 ) -> dict[str, object]:
-    quality = issuance_quality_summary(annual, sector_year, tranches)
+    offers = offers if offers is not None else pd.DataFrame()
+    normalized_offers_path = offers_path or industry_dir / "issuance_offers.csv.gz"
+    quality = issuance_quality_summary(annual, sector_year, tranches, offers)
     return {
         "schema_version": "industry-issuance-manifest/v1",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -12681,16 +12927,19 @@ def build_issuance_pipeline_manifest(
             "incremental": True,
             "macbook_air_m4_friendly": True,
             "notes": [
-                "Este modulo consolida ofertas/emissoes ja estruturadas no SQLite de Estratégia.",
+                "Este modulo consolida ofertas/emissoes da Estratégia e preserva uma linha por oferta pública CVM.",
                 "A serie de emissões é conceito de mercado primário/oferta; não substitui captação líquida do IME.",
+                "Volume registrado válido e volume encerrado conservador são métricas distintas e explicitamente rotuladas.",
             ],
         },
         "inputs": {
             "strategy_db": file_fingerprint(strategy_db),
+            "strategy_offers": file_fingerprint(offers_source_path) if offers_source_path else {"path": "", "exists": False},
         },
         "outputs": {
             "issuance_annual": file_fingerprint(annual_path),
             "issuance_sector_year": file_fingerprint(sector_year_path),
+            "issuance_offers": file_fingerprint(normalized_offers_path),
             "issuance_tranches": file_fingerprint(tranches_path),
             "manifest": {"path": str(industry_dir / "industry_issuance_manifest.json")},
         },
@@ -12714,6 +12963,16 @@ def build_issuance_pipeline_manifest(
                 "rows": int(len(pricing)),
                 "funds": int(pricing["cnpj_fundo"].nunique()) if "cnpj_fundo" in pricing else 0,
                 "rerun": "python scripts/execute_fidc_director_diagnostic.py --download-limit 0",
+            },
+            {
+                "id": "normalize_public_offers",
+                "label": "Ofertas públicas CVM por linha",
+                "status": "ok" if not offers.empty else "empty",
+                "input": str(offers_source_path or "fonte de ofertas indisponível"),
+                "output": str(normalized_offers_path),
+                "rows": int(len(offers)),
+                "funds": int(offers["cnpj_emissor"].nunique()) if "cnpj_emissor" in offers else 0,
+                "rerun": "python scripts/build_fidc_industry_issuance.py",
             },
             {
                 "id": "aggregate_annual_issuance",
@@ -12760,7 +13019,10 @@ def build_public_claim_audit_pipeline_manifest(
     issuance_tranches: pd.DataFrame,
     audit: pd.DataFrame,
     bridge: pd.DataFrame,
+    issuance_offers_path: Path | None = None,
+    issuance_offers: pd.DataFrame | None = None,
 ) -> dict[str, object]:
+    issuance_offers = issuance_offers if issuance_offers is not None else pd.DataFrame()
     quality = public_claim_audit_quality_summary(audit)
     bridge_quality = public_claim_methodology_bridge_quality_summary(bridge)
     quality = {
@@ -12787,6 +13049,9 @@ def build_public_claim_audit_pipeline_manifest(
         "inputs": {
             "industry_monthly": file_fingerprint(industry_monthly_path),
             "issuance_tranches": file_fingerprint(issuance_tranches_path),
+            "issuance_offers": file_fingerprint(
+                issuance_offers_path or industry_dir / "issuance_offers.csv.gz"
+            ),
             "public_claim_specs": {
                 "exists": True,
                 "rows": len(PUBLIC_CLAIM_SPECS),
@@ -12803,9 +13068,9 @@ def build_public_claim_audit_pipeline_manifest(
                 "id": "load_local_metrics",
                 "label": "Carregar métricas locais",
                 "status": "ok" if not industry_monthly.empty else "empty",
-                "input": f"{industry_monthly_path} | {issuance_tranches_path}",
-                "output": "memoria:industry_monthly+issuance_tranches",
-                "rows": int(len(industry_monthly)),
+                "input": f"{industry_monthly_path} | {issuance_offers_path or industry_dir / 'issuance_offers.csv.gz'} | {issuance_tranches_path}",
+                "output": "memoria:industry_monthly+issuance_offers+issuance_tranches",
+                "rows": int(len(industry_monthly) + len(issuance_offers)),
                 "rerun": "python scripts/build_fidc_industry_study.py --report && python scripts/build_fidc_industry_issuance.py",
             },
             {

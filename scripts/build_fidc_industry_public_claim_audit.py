@@ -38,6 +38,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--industry-dir", type=Path, default=DEFAULT_INDUSTRY_DIR)
     parser.add_argument("--industry-monthly", type=Path, default=None)
     parser.add_argument("--issuance-tranches", type=Path, default=None)
+    parser.add_argument("--issuance-offers", type=Path, default=None)
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--bridge", type=Path, default=None)
     parser.add_argument("--manifest", type=Path, default=None)
@@ -48,15 +49,18 @@ def main() -> None:
     args = parse_args()
     industry_monthly_path = args.industry_monthly or args.industry_dir / "industry_monthly.csv"
     issuance_tranches_path = args.issuance_tranches or args.industry_dir / "issuance_tranches.csv.gz"
+    issuance_offers_path = args.issuance_offers or args.industry_dir / "issuance_offers.csv.gz"
     output_path = args.output or args.industry_dir / "industry_public_claim_audit.csv"
     bridge_path = args.bridge or args.industry_dir / "industry_public_claim_methodology_bridge.csv"
     manifest_path = args.manifest or args.industry_dir / "industry_public_claim_audit_manifest.json"
 
     industry_monthly = load_dataframe(industry_monthly_path)
     issuance_tranches = load_dataframe(issuance_tranches_path)
+    issuance_offers = load_dataframe(issuance_offers_path)
     audit = build_public_claim_audit(
         industry_monthly=industry_monthly,
         issuance_tranches=issuance_tranches,
+        issuance_offers=issuance_offers,
     )
     bridge = build_public_claim_methodology_bridge(audit)
     save_dataframe(audit, output_path)
@@ -70,6 +74,8 @@ def main() -> None:
         issuance_tranches_path=issuance_tranches_path,
         industry_monthly=industry_monthly,
         issuance_tranches=issuance_tranches,
+        issuance_offers_path=issuance_offers_path,
+        issuance_offers=issuance_offers,
         audit=audit,
         bridge=bridge,
     )

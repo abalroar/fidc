@@ -138,6 +138,7 @@ _MARKET_SHARE_PATH = _DATA_DIR / "industry_market_share.csv.gz"
 _MARKET_SHARE_MANIFEST_PATH = _DATA_DIR / "industry_market_share_manifest.json"
 _ISSUANCE_ANNUAL_PATH = _DATA_DIR / "issuance_annual.csv"
 _ISSUANCE_SECTOR_YEAR_PATH = _DATA_DIR / "issuance_sector_year.csv"
+_ISSUANCE_OFFERS_PATH = _DATA_DIR / "issuance_offers.csv.gz"
 _ISSUANCE_TRANCHES_PATH = _DATA_DIR / "issuance_tranches.csv.gz"
 _ISSUANCE_MANIFEST_PATH = _DATA_DIR / "industry_issuance_manifest.json"
 _PUBLIC_CLAIM_AUDIT_PATH = _DATA_DIR / "industry_public_claim_audit.csv"
@@ -3686,22 +3687,31 @@ def _monthly_readiness_frame(
     )
 
     module_frame = pd.DataFrame([item for item in modules if isinstance(item, dict)])
-    if module_frame.empty:
-        bad_modules = module_frame
-    else:
-        module_status = _norm_status_label(module_frame.get("status", pd.Series("", index=module_frame.index)), "missing")
-        bad_modules = module_frame[~module_status.eq("ok")].copy()
+    module_status = _norm_status_label(
+        module_frame.get("status", pd.Series("", index=module_frame.index)),
+        "missing",
+    )
+    blocking_modules = module_frame[
+        module_status.isin({"missing", "missing_artifact", "empty", "error", "failed"})
+    ].copy() if not module_frame.empty else module_frame.copy()
+    warning_modules = module_frame[module_status.eq("warning")].copy() if not module_frame.empty else module_frame.copy()
+    module_issues = pd.concat([blocking_modules, warning_modules], ignore_index=True)
+    module_readiness_status = "bloqueado" if not blocking_modules.empty else ("atenção" if not warning_modules.empty else "ok")
     add_row(
         "module_status",
         2,
         "Pipeline",
         "Módulos com manifesto válido",
-        "bloqueado" if not bad_modules.empty else "ok",
-        len(bad_modules),
-        _sample_join(bad_modules.rename(columns={"label": "module_label"}), ["module_label", "status"]),
-        "Rodar os comandos dos módulos pendentes antes de fechar a competência.",
+        module_readiness_status,
+        len(module_issues),
+        _sample_join(module_issues.rename(columns={"label": "module_label"}), ["module_label", "status"]),
+        (
+            "Rodar os módulos ausentes/sem artefato antes de fechar a competência."
+            if not blocking_modules.empty
+            else "Manter o alerta de qualidade explícito e tratar a lacuna quando houver nova evidência."
+        ),
         "industry_pipeline_index.json",
-        " && ".join([str(value) for value in bad_modules.get("command", pd.Series(dtype=str)).head(3) if str(value).strip()]),
+        " && ".join([str(value) for value in module_issues.get("command", pd.Series(dtype=str)).head(3) if str(value).strip()]),
     )
 
     artifact_frame = pd.DataFrame([item for item in artifacts if isinstance(item, dict)])
@@ -4146,14 +4156,21 @@ def _format_public_claim_audit(frame: pd.DataFrame) -> pd.DataFrame:
             "unit": "Unidade",
             "public_value": "Valor público",
             "local_value": "Valor aba",
+            "local_value_alternative": "Valor alternativo",
             "delta_value": "Diferença",
             "delta_pct": "Dif. %",
+            "delta_pct_alternative": "Dif. alt. %",
             "status_auditoria": "Status",
             "comparability": "Comparabilidade",
             "local_source_artifact": "Artefato local",
             "local_evidence": "Evidência local",
+            "local_evidence_alternative": "Evidência alternativa",
             "method_note": "Nota metodológica",
+            "local_note": "Conclusão",
             "source_url": "URL",
+            "source_evidence_type": "Evidência fonte",
+            "source_evidence_ref": "Referência fonte",
+            "source_note": "Nota da fonte",
             "rerun_command": "Comando",
             "claim_id": "ID",
         }
@@ -4168,19 +4185,26 @@ def _format_public_claim_audit(frame: pd.DataFrame) -> pd.DataFrame:
         "Fim",
         "Valor público",
         "Valor aba",
+        "Valor alternativo",
         "Diferença",
         "Dif. %",
+        "Dif. alt. %",
         "Comparabilidade",
         "Artefato local",
         "Evidência local",
+        "Evidência alternativa",
         "Nota metodológica",
+        "Conclusão",
+        "Evidência fonte",
+        "Referência fonte",
+        "Nota da fonte",
         "URL",
         "Comando",
         "ID",
     ]
     out = out[[col for col in keep if col in out.columns]].copy()
     unit = frame.get("unit", pd.Series("", index=frame.index)).fillna("").astype(str).reset_index(drop=True)
-    for col in ["Valor público", "Valor aba", "Diferença"]:
+    for col in ["Valor público", "Valor aba", "Valor alternativo", "Diferença"]:
         if col in out.columns:
             values = pd.to_numeric(out[col], errors="coerce")
             formatted: list[str] = []
@@ -4194,6 +4218,10 @@ def _format_public_claim_audit(frame: pd.DataFrame) -> pd.DataFrame:
             out[col] = formatted
     if "Dif. %" in out.columns:
         out["Dif. %"] = pd.to_numeric(out["Dif. %"], errors="coerce").map(
+            lambda value: "" if pd.isna(value) else _fmt_pct(float(value))
+        )
+    if "Dif. alt. %" in out.columns:
+        out["Dif. alt. %"] = pd.to_numeric(out["Dif. alt. %"], errors="coerce").map(
             lambda value: "" if pd.isna(value) else _fmt_pct(float(value))
         )
     if "Status" in out.columns:
@@ -5030,6 +5058,7 @@ def _load_issuance_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     return {
         "annual": load_dataframe(_ISSUANCE_ANNUAL_PATH),
         "sector_year": load_dataframe(_ISSUANCE_SECTOR_YEAR_PATH),
+        "offers": load_dataframe(_ISSUANCE_OFFERS_PATH),
         "tranches": load_dataframe(_ISSUANCE_TRANCHES_PATH),
         "manifest": load_pipeline_manifest(_ISSUANCE_MANIFEST_PATH),
     }
@@ -5053,26 +5082,31 @@ def _render_issuance_study() -> None:
     tables = _load_issuance_tables()
     annual = tables["annual"]
     sector_year = tables["sector_year"]
+    offers = tables["offers"]
     tranches = tables["tranches"]
     manifest = tables["manifest"]
     assert isinstance(annual, pd.DataFrame)
     assert isinstance(sector_year, pd.DataFrame)
+    assert isinstance(offers, pd.DataFrame)
     assert isinstance(tranches, pd.DataFrame)
     assert isinstance(manifest, dict)
-    if annual.empty and sector_year.empty and tranches.empty:
+    if annual.empty and sector_year.empty and offers.empty and tranches.empty:
         st.info("Artefatos de emissão ainda não foram gerados. Rode `python scripts/build_fidc_industry_issuance.py`.")
         return
 
     annual_num = annual.copy()
-    for col in ["ano", "emissores_cnpj", "ofertas_linhas", "volume_registrado_brl", "volume_conservador_brl", "pl_atual_brl", "com_matriz_regulatoria"]:
+    for col in ["ano", "emissores_cnpj", "ofertas_linhas", "ofertas_encerradas_linhas", "volume_registrado_brl", "volume_conservador_brl", "pl_atual_brl", "com_matriz_regulatoria"]:
         if col in annual_num.columns:
             annual_num[col] = pd.to_numeric(annual_num[col], errors="coerce").fillna(0)
     latest = annual_num.sort_values("ano").iloc[-1] if not annual_num.empty else pd.Series(dtype=object)
+    total_registrado = float(annual_num.get("volume_registrado_brl", pd.Series(dtype=float)).sum()) if not annual_num.empty else 0.0
     total_conservador = float(annual_num.get("volume_conservador_brl", pd.Series(dtype=float)).sum()) if not annual_num.empty else 0.0
     cards = [
-        _curation_card("Volume conservador", _fmt_bi(total_conservador, 1), "2024-2026 YTD"),
-        _curation_card("Último ano/YTD", _fmt_bi(float(latest.get("volume_conservador_brl", 0)), 1), str(latest.get("periodo", ""))),
+        _curation_card("Registrado válido", _fmt_bi(total_registrado, 1), "2024-2026 YTD"),
+        _curation_card("Encerrado conservador", _fmt_bi(total_conservador, 1), "2024-2026 YTD"),
+        _curation_card("Último ano/YTD", _fmt_bi(float(latest.get("volume_registrado_brl", 0)), 1), str(latest.get("periodo", ""))),
         _curation_card("CNPJs emissores", _fmt_int(float(latest.get("emissores_cnpj", 0))), "último período"),
+        _curation_card("Ofertas CVM", _fmt_int(float(len(offers))), "linhas auditáveis"),
         _curation_card("Tranches documentais", _fmt_int(float(len(tranches))), f"{_fmt_int(float(tranches['cnpj_fundo'].nunique())) if 'cnpj_fundo' in tranches else '0'} FIDCs"),
         _curation_card("Setores × ano", _fmt_int(float(len(sector_year))), "base agregada"),
         _curation_card("Manifesto", str(manifest.get("schema_version", "n/d")).split("/")[-1], str(manifest.get("generated_at_utc", ""))[:10]),
@@ -5083,14 +5117,14 @@ def _render_issuance_study() -> None:
     with tab_annual:
         if not annual_num.empty:
             chart_data = annual_num.copy()
-            chart_data["volume_bi"] = chart_data["volume_conservador_brl"] / 1e9
+            chart_data["volume_bi"] = chart_data["volume_registrado_brl"] / 1e9
             chart_data["ano_label"] = chart_data["periodo"].astype(str)
             bars = (
                 alt.Chart(chart_data)
                 .mark_bar(color=_ORANGE, cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
                 .encode(
                     x=alt.X("ano_label:N", title=None),
-                    y=alt.Y("volume_bi:Q", title="Volume conservador (R$ bi)", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    y=alt.Y("volume_bi:Q", title="Volume registrado válido (R$ bi)", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
                     tooltip=[
                         alt.Tooltip("periodo:N", title="período"),
                         alt.Tooltip("volume_bi:Q", title="volume R$ bi", format=",.1f"),
@@ -5115,20 +5149,21 @@ def _render_issuance_study() -> None:
                     "periodo": "Período",
                     "emissores_cnpj": "CNPJs emissores",
                     "ofertas_linhas": "Linhas oferta",
-                    "volume_registrado_brl": "Volume registrado",
-                    "volume_conservador_brl": "Volume conservador",
+                    "ofertas_encerradas_linhas": "Ofertas encerradas",
+                    "volume_registrado_brl": "Registrado válido",
+                    "volume_conservador_brl": "Encerrado conservador",
                     "pl_atual_brl": "PL atual",
                     "com_matriz_regulatoria": "Com matriz",
                 }
             )
-            st.dataframe(_format_money_bi_column(display, ["Volume registrado", "Volume conservador", "PL atual"]), hide_index=True, width="stretch")
+            st.dataframe(_format_money_bi_column(display, ["Registrado válido", "Encerrado conservador", "PL atual"]), hide_index=True, width="stretch")
         else:
             st.caption("Agregado anual indisponível.")
     with tab_sector:
         if not sector_year.empty:
             data = sector_year.copy()
             data["ano"] = pd.to_numeric(data["ano"], errors="coerce").fillna(0).astype(int).astype(str)
-            data["volume_bi"] = pd.to_numeric(data["volume_conservador_brl"], errors="coerce").fillna(0) / 1e9
+            data["volume_bi"] = pd.to_numeric(data["volume_registrado_brl"], errors="coerce").fillna(0) / 1e9
             data["setor"] = data["setor_n1"].astype(str) + " | " + data["setor_n2"].astype(str)
             top = data.groupby("setor")["volume_bi"].sum().sort_values(ascending=False).head(18).index.tolist()
             data = data[data["setor"].isin(top)].copy()
@@ -5155,12 +5190,32 @@ def _render_issuance_study() -> None:
                     "setor_n1": "Setor",
                     "setor_n2": "Subsegmento",
                     "emissores_cnpj": "CNPJs",
-                    "volume_registrado_brl": "Volume registrado",
-                    "volume_conservador_brl": "Volume conservador",
+                    "ofertas_linhas": "Ofertas válidas",
+                    "ofertas_encerradas_linhas": "Ofertas encerradas",
+                    "volume_registrado_brl": "Registrado válido",
+                    "volume_conservador_brl": "Encerrado conservador",
                     "pl_atual_brl": "PL atual",
                 }
             )
-            st.dataframe(_format_money_bi_column(table[["Ano", "Setor", "Subsegmento", "CNPJs", "Volume registrado", "Volume conservador", "PL atual"]], ["Volume registrado", "Volume conservador", "PL atual"]), hide_index=True, width="stretch")
+            keep = [
+                "Ano",
+                "Setor",
+                "Subsegmento",
+                "CNPJs",
+                "Ofertas válidas",
+                "Ofertas encerradas",
+                "Registrado válido",
+                "Encerrado conservador",
+                "PL atual",
+            ]
+            st.dataframe(
+                _format_money_bi_column(
+                    table[[col for col in keep if col in table.columns]],
+                    ["Registrado válido", "Encerrado conservador", "PL atual"],
+                ),
+                hide_index=True,
+                width="stretch",
+            )
         else:
             st.caption("Setor × ano indisponível.")
     with tab_pricing:
@@ -5216,13 +5271,15 @@ def _render_issuance_study() -> None:
     with tab_base:
         selected = st.selectbox(
             "Tabela",
-            ["issuance_annual.csv", "issuance_sector_year.csv", "issuance_tranches.csv.gz", "industry_issuance_manifest.json"],
+            ["issuance_annual.csv", "issuance_sector_year.csv", "issuance_offers.csv.gz", "issuance_tranches.csv.gz", "industry_issuance_manifest.json"],
             key="industry_issuance_base_select",
         )
         if selected == "issuance_annual.csv":
             st.dataframe(annual.head(500), hide_index=True, width="stretch")
         elif selected == "issuance_sector_year.csv":
             st.dataframe(sector_year.head(500), hide_index=True, width="stretch")
+        elif selected == "issuance_offers.csv.gz":
+            st.dataframe(offers.head(500), hide_index=True, width="stretch")
         elif selected == "issuance_tranches.csv.gz":
             st.dataframe(tranches.head(500), hide_index=True, width="stretch")
         else:
@@ -7090,6 +7147,71 @@ def _render_criteria_study() -> None:
             st.caption("Manifesto de critérios não encontrado.")
 
 
+def _cedente_frequency_frame(structured: pd.DataFrame) -> pd.DataFrame:
+    columns = [
+        "participant_type",
+        "razao_social",
+        "nome_fantasia",
+        "cnpj_participante",
+        "FIDCs",
+        "Evidências",
+        "Setor",
+        "Segmento",
+        "Score mediano",
+    ]
+    if structured is None or structured.empty:
+        return pd.DataFrame(columns=columns)
+    frame = structured.copy()
+    active = frame.get("ativo_curadoria", pd.Series(True, index=frame.index)).astype(str).str.lower().isin({"true", "1", "sim"})
+    frame = frame[active].copy()
+    if frame.empty:
+        return pd.DataFrame(columns=columns)
+    for col in [
+        "participant_type",
+        "razao_social",
+        "nome_fantasia",
+        "cnpj_participante",
+        "cnpj_fundo",
+        "setor",
+        "segmento",
+    ]:
+        if col not in frame.columns:
+            frame[col] = ""
+        frame[col] = frame[col].fillna("").astype(str).str.strip()
+    frame["cnpj_participante"] = frame["cnpj_participante"].map(normalize_cnpj)
+    frame["identity_key"] = frame["cnpj_participante"].where(
+        frame["cnpj_participante"].str.len().eq(14),
+        frame["razao_social"].str.upper(),
+    )
+    frame = frame[frame["identity_key"].ne("") & frame["participant_type"].ne("")].copy()
+    if frame.empty:
+        return pd.DataFrame(columns=columns)
+    frame["score_num"] = pd.to_numeric(frame.get("score_confianca_final"), errors="coerce")
+
+    def first_text(values: pd.Series) -> str:
+        return next((str(value).strip() for value in values if str(value).strip()), "")
+
+    grouped = (
+        frame.groupby(["participant_type", "identity_key"], dropna=False)
+        .agg(
+            razao_social=("razao_social", first_text),
+            nome_fantasia=("nome_fantasia", first_text),
+            cnpj_participante=("cnpj_participante", first_text),
+            FIDCs=("cnpj_fundo", "nunique"),
+            Evidências=("identity_key", "size"),
+            Setor=("setor", first_text),
+            Segmento=("segmento", first_text),
+            **{"Score mediano": ("score_num", "median")},
+        )
+        .reset_index(drop=False)
+    )
+    grouped["Score mediano"] = pd.to_numeric(grouped["Score mediano"], errors="coerce").round(4)
+    return grouped[columns].sort_values(
+        ["participant_type", "FIDCs", "Evidências", "razao_social"],
+        ascending=[True, False, False, True],
+    ).reset_index(drop=True)
+
+
 def _render_cedente_review_workbench() -> None:
     st.markdown('<div class="industry-section">Cedentes, sacados e revisão manual</div>', unsafe_allow_html=True)
     st.markdown(
@@ -7253,6 +7375,57 @@ def _render_cedente_review_workbench() -> None:
         _curation_card("Revisões salvas", _fmt_int(float(len(reviews))), _CEDENTE_REVIEW_PATH.name),
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    ranking = _cedente_frequency_frame(active_structured)
+    if not ranking.empty:
+        st.markdown("**Participantes mais recorrentes**")
+        ranking_types = [
+            value
+            for value in ["cedente_originador", "sacado_devedor", "consultora"]
+            if value in set(ranking["participant_type"])
+        ]
+        selected_ranking_type = st.segmented_control(
+            "Tipo do ranking",
+            ranking_types,
+            default=ranking_types[0] if ranking_types else None,
+            format_func=lambda value: type_labels.get(value, value),
+            key="industry_cedente_frequency_type",
+        )
+        ranking_view = ranking[ranking["participant_type"].eq(selected_ranking_type)].head(15).copy()
+        if not ranking_view.empty:
+            ranking_view["Participante"] = ranking_view["nome_fantasia"].where(
+                ranking_view["nome_fantasia"].str.strip().ne(""),
+                ranking_view["razao_social"],
+            )
+            ranking_view["Participante curto"] = ranking_view["Participante"].str.slice(0, 48)
+            chart = (
+                alt.Chart(ranking_view)
+                .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+                .encode(
+                    x=alt.X("FIDCs:Q", title="FIDCs únicos", axis=alt.Axis(gridColor=_GRAY_LIGHT, tickMinStep=1)),
+                    y=alt.Y("Participante curto:N", title=None, sort="-x", axis=alt.Axis(labelLimit=300)),
+                    tooltip=[
+                        alt.Tooltip("Participante:N", title="participante"),
+                        alt.Tooltip("cnpj_participante:N", title="CNPJ"),
+                        alt.Tooltip("FIDCs:Q", title="FIDCs"),
+                        alt.Tooltip("Evidências:Q", title="evidências"),
+                    ],
+                )
+                .properties(height=max(220, 24 * len(ranking_view)))
+            )
+            st.altair_chart(chart, width="stretch")
+            table = ranking_view.rename(
+                columns={
+                    "razao_social": "Razão social",
+                    "nome_fantasia": "Nome fantasia",
+                    "cnpj_participante": "CNPJ",
+                }
+            )
+            st.dataframe(
+                table[["Razão social", "Nome fantasia", "CNPJ", "FIDCs", "Evidências", "Setor", "Segmento", "Score mediano"]],
+                hide_index=True,
+                width="stretch",
+            )
 
     filter_a, filter_b, filter_c, filter_d, filter_e, filter_f = st.columns([1.15, 0.72, 0.72, 0.65, 0.72, 0.78])
     with filter_a:

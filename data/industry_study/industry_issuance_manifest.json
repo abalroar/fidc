@@ -1,14 +1,15 @@
 {
   "schema_version": "industry-issuance-manifest/v1",
-  "generated_at_utc": "2026-07-08T15:22:53+00:00",
+  "generated_at_utc": "2026-07-10T18:54:54+00:00",
   "pipeline": "industry_issuance_structured",
   "design_constraints": {
     "modular": true,
     "incremental": true,
     "macbook_air_m4_friendly": true,
     "notes": [
-      "Este modulo consolida ofertas/emissoes ja estruturadas no SQLite de Estratégia.",
-      "A serie de emissões é conceito de mercado primário/oferta; não substitui captação líquida do IME."
+      "Este modulo consolida ofertas/emissoes da Estratégia e preserva uma linha por oferta pública CVM.",
+      "A serie de emissões é conceito de mercado primário/oferta; não substitui captação líquida do IME.",
+      "Volume registrado válido e volume encerrado conservador são métricas distintas e explicitamente rotuladas."
     ]
   },
   "inputs": {
@@ -17,26 +18,38 @@
       "exists": true,
       "bytes": 222019584,
       "sha256": "5334a9fd1eba8fdf28b79c7546602fcd88e4553336a64c950ce2ed8f456295f9"
+    },
+    "strategy_offers": {
+      "path": "outputs/fidc_credit_strategy_study_20260609/issuance/fidc_public_offers_2024_2026ytd.csv",
+      "exists": true,
+      "bytes": 4258686,
+      "sha256": "99823c23bd7cb991a00035b6cdd7f3aad12cc7ddba2cf200d48538ece3e68e46"
     }
   },
   "outputs": {
     "issuance_annual": {
       "path": "data/industry_study/issuance_annual.csv",
       "exists": true,
-      "bytes": 335,
-      "sha256": "49da7e017774a2c30922eda6871e84e5b08280262486d330b9356638d7caf33c"
+      "bytes": 383,
+      "sha256": "881e753dd1be0e6be74fca1ee138fc83d45a80a0a29bfd38d9cb97c6a53ab437"
     },
     "issuance_sector_year": {
       "path": "data/industry_study/issuance_sector_year.csv",
       "exists": true,
-      "bytes": 4857,
-      "sha256": "07bbb459a683ef24482f1f86b5ed72e5c5c4da2b6e0dc496c74a42a5252694cf"
+      "bytes": 5179,
+      "sha256": "146f044acaac4abcfa93314e1c72c09b67413b9177a9ffb2a4d65dee00080280"
+    },
+    "issuance_offers": {
+      "path": "data/industry_study/issuance_offers.csv.gz",
+      "exists": true,
+      "bytes": 374263,
+      "sha256": "a1355e5a47a2631996efffcfb47b69efa4d3438a5337d0053ae42935250bf97c"
     },
     "issuance_tranches": {
       "path": "data/industry_study/issuance_tranches.csv.gz",
       "exists": true,
       "bytes": 115626,
-      "sha256": "3f37fdbd397b08924dac0043057782a258b0f6e41a5f9e19a9b00cb59494a267"
+      "sha256": "64baa5f3067577d2ba92723a3d69d92aac4427ef0d31833cfefce5d3c772fc56"
     },
     "manifest": {
       "path": "data/industry_study/industry_issuance_manifest.json"
@@ -62,6 +75,16 @@
       "rows": 815,
       "funds": 34,
       "rerun": "python scripts/execute_fidc_director_diagnostic.py --download-limit 0"
+    },
+    {
+      "id": "normalize_public_offers",
+      "label": "Ofertas públicas CVM por linha",
+      "status": "ok",
+      "input": "outputs/fidc_credit_strategy_study_20260609/issuance/fidc_public_offers_2024_2026ytd.csv",
+      "output": "data/industry_study/issuance_offers.csv.gz",
+      "rows": 3865,
+      "funds": 1636,
+      "rerun": "python scripts/build_fidc_industry_issuance.py"
     },
     {
       "id": "aggregate_annual_issuance",
@@ -94,9 +117,14 @@
   ],
   "quality": {
     "annual_years": 3,
-    "annual_volume_conservador_brl": 302957676634.37,
+    "annual_volume_registrado_brl": 302957676634.37,
+    "annual_volume_conservador_brl": 259801864445.91,
     "annual_emissores_cnpj": 920,
     "sector_year_rows": 53,
+    "offer_rows": 3865,
+    "offer_cnpjs": 1636,
+    "offer_valid_rows": 3661,
+    "offer_closed_rows": 2853,
     "tranche_rows": 605,
     "tranche_funds": 33,
     "coverage": {

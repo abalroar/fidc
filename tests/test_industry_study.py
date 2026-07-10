@@ -79,6 +79,7 @@ from services.industry_study import (  # noqa: E402
     build_public_claim_audit,
     build_public_claim_methodology_bridge,
     build_issuance_annual,
+    build_issuance_offers,
     build_issuance_pipeline_manifest,
     build_issuance_sector_year,
     build_issuance_tranches,
@@ -145,6 +146,7 @@ from tabs.tab_industry_study import (  # noqa: E402
     _build_snapshot_market_share,
     _apply_catalog_gap_actions,
     _cedente_signal_focus_frame,
+    _cedente_frequency_frame,
     _catalog_heatmap_cell_frame,
     _catalog_gap_actions_for_audit,
     _curation_queue_updates_to_domain_actions,
@@ -777,6 +779,50 @@ def test_cedente_pipeline_manifest_lists_rerunnable_stages():
     assert manifest["outputs"]["cedentes_structured"]["sha256"]
 
 
+def test_cedente_frequency_counts_unique_funds_and_excludes_inactive_rows():
+    structured = pd.DataFrame(
+        [
+            {
+                "participant_type": "cedente_originador",
+                "razao_social": "CEDENTE ABC S.A.",
+                "nome_fantasia": "ABC",
+                "cnpj_participante": "12.345.678/0001-90",
+                "cnpj_fundo": "11111111000111",
+                "setor": "Comércio",
+                "segmento": "Varejo",
+                "score_confianca_final": 0.9,
+                "ativo_curadoria": True,
+            },
+            {
+                "participant_type": "cedente_originador",
+                "razao_social": "CEDENTE ABC S.A.",
+                "nome_fantasia": "ABC",
+                "cnpj_participante": "12345678000190",
+                "cnpj_fundo": "22222222000122",
+                "setor": "Comércio",
+                "segmento": "Varejo",
+                "score_confianca_final": 0.8,
+                "ativo_curadoria": True,
+            },
+            {
+                "participant_type": "cedente_originador",
+                "razao_social": "IGNORADO LTDA",
+                "cnpj_participante": "",
+                "cnpj_fundo": "33333333000133",
+                "score_confianca_final": 0.4,
+                "ativo_curadoria": False,
+            },
+        ]
+    )
+
+    ranking = _cedente_frequency_frame(structured)
+
+    assert len(ranking) == 1
+    assert ranking.iloc[0]["FIDCs"] == 2
+    assert ranking.iloc[0]["Evidências"] == 2
+    assert ranking.iloc[0]["Score mediano"] == 0.85
+
+
 def test_issuance_annual_and_sector_year_from_fund_universe():
     funds = pd.DataFrame(
         [
@@ -803,10 +849,31 @@ def test_issuance_annual_and_sector_year_from_fund_universe():
         ]
     )
 
-    annual = build_issuance_annual(funds)
-    sector = build_issuance_sector_year(funds)
+    offers = pd.DataFrame(
+        [
+            {
+                "ano": 2024,
+                "cnpj_emissor": "11111111000111",
+                "volume_registrado_valido": True,
+                "volume_encerrado_conservador": True,
+            },
+            {
+                "ano": 2025,
+                "cnpj_emissor": "22222222000122",
+                "volume_registrado_valido": True,
+                "volume_encerrado_conservador": False,
+            },
+        ]
+    )
 
-    assert annual.loc[annual["ano"].eq(2024), "volume_conservador_brl"].iloc[0] == 80.0
+    annual = build_issuance_annual(funds, offers)
+    sector = build_issuance_sector_year(funds, offers)
+
+    row_2024 = annual.loc[annual["ano"].eq(2024)].iloc[0]
+    assert row_2024["volume_registrado_brl"] == 80.0
+    assert row_2024["volume_conservador_brl"] == 100.0
+    assert row_2024["ofertas_linhas"] == 1
+    assert row_2024["ofertas_encerradas_linhas"] == 1
     assert annual.loc[annual["ano"].eq(2025), "emissores_cnpj"].iloc[0] == 1
     assert set(sector["setor_n1"]) == {"Crédito PJ", "Crédito PF"}
 
@@ -845,6 +912,34 @@ def test_issuance_tranches_normalizes_indexer_and_source():
     assert row["indexador"] == "CDI+"
     assert row["documento_origem"] == "doc.pdf"
     assert row["score_confianca"] == 0.9
+
+
+def test_issuance_offers_preserves_cvm_rows_and_volume_statuses():
+    source = pd.DataFrame(
+        [
+            {
+                "offer_id": "CVM-1",
+                "source_dataset": "oferta_distribuicao.csv",
+                "data_registro": "2026-05-12",
+                "year": "2026",
+                "cnpj_emissor": "05.753.599/0001-58",
+                "nome_emissor": "FIDC ABC",
+                "valor_total_registrado": "125000000.50",
+                "volume_registrado_valido_flag": "True",
+                "volume_encerrado_conservador_flag": "False",
+            }
+        ]
+    )
+
+    offers = build_issuance_offers(source)
+    row = offers.iloc[0]
+
+    assert row["cnpj_emissor"] == "05753599000158"
+    assert row["competencia"] == "2026-05"
+    assert row["valor_total_registrado_brl"] == 125000000.50
+    assert bool(row["volume_registrado_valido"]) is True
+    assert bool(row["volume_encerrado_conservador"]) is False
+    assert row["source_method"] == "cvm_public_offer_row"
 
 
 def test_issuance_pipeline_manifest_lists_outputs():
@@ -965,6 +1060,69 @@ def test_public_claim_audit_compares_news_claims_to_local_metrics():
     assert bridge_quality["rows"] == 2
     assert bridge_quality["needs_disclosure_rows"] == 1
     assert bridge_quality["high_or_blocking_rows"] == 1
+
+
+def test_public_claim_audit_compares_offers_and_pl_with_alternative_cvm_criteria():
+    monthly = pd.DataFrame(
+        [
+            {
+                "competencia": "2026-05",
+                "pl_total": 1200.0,
+                "pl_fic_fidc": 200.0,
+            }
+        ]
+    )
+    offers = pd.DataFrame(
+        [
+            {
+                "data_registro": "2026-03-10",
+                "cnpj_emissor": "11111111000111",
+                "valor_total_registrado_brl": 60.0,
+                "volume_registrado_valido": True,
+                "volume_encerrado_conservador": False,
+            },
+            {
+                "data_registro": "2026-04-10",
+                "cnpj_emissor": "22222222000122",
+                "valor_total_registrado_brl": 40.0,
+                "volume_registrado_valido": True,
+                "volume_encerrado_conservador": True,
+            },
+        ]
+    )
+    specs = [
+        {
+            "claim_id": "offers",
+            "public_value": 70.0,
+            "period_start": "2026-01",
+            "period_end": "2026-05",
+            "local_metric": "issuance_registered_valid_sum",
+            "local_metric_alternative": "issuance_closed_conservative_sum",
+            "comparability": "metodologia_diferente",
+        },
+        {
+            "claim_id": "pl",
+            "public_value": 1100.0,
+            "period_start": "2026-05",
+            "period_end": "2026-05",
+            "local_metric": "pl_total_snapshot",
+            "local_metric_alternative": "pl_ex_fic_snapshot",
+            "comparability": "metodologia_diferente",
+        },
+    ]
+
+    audit = build_public_claim_audit(
+        industry_monthly=monthly,
+        issuance_tranches=pd.DataFrame(),
+        issuance_offers=offers,
+        claim_specs=specs,
+    ).set_index("claim_id")
+
+    assert audit.loc["offers", "local_value"] == 100.0
+    assert audit.loc["offers", "local_value_alternative"] == 40.0
+    assert "entre os dois critérios" in audit.loc["offers", "local_note"]
+    assert audit.loc["pl", "local_value"] == 1200.0
+    assert audit.loc["pl", "local_value_alternative"] == 1000.0
 
 
 def test_document_inventory_fingerprints_and_classifies_local_sources():
@@ -4372,6 +4530,25 @@ def test_industry_monthly_readiness_flags_release_blockers_and_normalizes_compet
     assert by_check.loc["monthly_delta_queue", "status_prontidao"] == "bloqueado"
     assert by_check.loc["snapshot_structural_gaps", "pendencias"] == 1
     assert by_check.loc["catalog_traceability_gaps", "status_prontidao"] == "bloqueado"
+
+    warning_index = {
+        **index,
+        "modules": [
+            {"label": "Critérios", "status": "warning", "command": "python criteria.py"},
+        ],
+        "artifact_index": [
+            {"module_id": "criteria", "artifact": "manifest", "required": True, "exists": True},
+        ],
+    }
+    warning_readiness = _monthly_readiness_frame(
+        index=warning_index,
+        monthly_delta=monthly_delta,
+        snapshot=snapshot,
+        dimension_catalog=catalog,
+        snapshot_gap_actions=pd.DataFrame(),
+        catalog_gap_actions=pd.DataFrame(),
+    ).set_index("check_id")
+    assert warning_readiness.loc["module_status", "status_prontidao"] == "atenção"
 
     formatted = _format_monthly_readiness(readiness)
 
