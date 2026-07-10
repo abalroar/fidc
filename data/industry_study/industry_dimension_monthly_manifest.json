@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-monthly-manifest/v1",
-  "generated_at_utc": "2026-07-10T07:48:43+00:00",
+  "generated_at_utc": "2026-07-10T11:15:30+00:00",
   "pipeline": "industry_dimension_monthly",
   "design_constraints": {
     "modular": true,
@@ -24,7 +24,7 @@
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
       "bytes": 1969261,
-      "sha256": "0e09f5277e2f0949bc703495855d95dbeba792a1f6d56aaeb3eab31f34e18140"
+      "sha256": "4fd22baffbbf6ca500758848d36634ed43fbbebaa4ff6521a5bcd15c930979c2"
     }
   },
   "parameters": {
@@ -35,7 +35,7 @@
       "path": "data/industry_study/industry_dimension_monthly.csv.gz",
       "exists": true,
       "bytes": 3709802,
-      "sha256": "5566709e4d0b7c09314d83e82320a7181ce4a1aebaf7d63132cb8b684e9d4e63"
+      "sha256": "6ad54d2d148f502340c897c4bab1c7b42465e8e55585a73bc715f80b85ee0cb6"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_monthly_manifest.json"
@@ -44,7 +44,7 @@
       "path": "data/industry_study/industry_dimension_value_atlas.csv.gz",
       "exists": true,
       "bytes": 114285,
-      "sha256": "5fdc75ad81fe18bd881d5af277b8ebc2390a66d5d39c0a71d7beb44313a81d7a"
+      "sha256": "26101945c06bcd6cd108eb8ac2c299f2e4fac98475afbdf5e799d35f24282615"
     }
   },
   "stages": [

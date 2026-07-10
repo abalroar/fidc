@@ -19,10 +19,12 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from services.industry_study import (
+    apply_industry_universe_reviews,
     build_dimension_catalog_pipeline_manifest,
     build_industry_dimension_catalog,
     industry_dimension_catalog_quality_summary,
     load_dataframe,
+    load_industry_universe_reviews,
     save_dataframe,
     save_pipeline_manifest,
 )
@@ -53,7 +55,9 @@ def main() -> None:
     snapshot = load_dataframe(snapshot_path)
     cedentes = load_dataframe(cedentes_path)
     criteria = load_dataframe(criteria_path)
+    universe_reviews = load_industry_universe_reviews(args.industry_dir / "universe_scope_reviews.csv")
     catalog = build_industry_dimension_catalog(snapshot=snapshot, cedentes=cedentes, criteria=criteria)
+    catalog = apply_industry_universe_reviews(catalog, universe_reviews)
     save_dataframe(catalog, output_path)
     manifest = build_dimension_catalog_pipeline_manifest(
         industry_dir=args.industry_dir,

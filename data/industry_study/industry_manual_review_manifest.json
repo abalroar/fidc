@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-manual-review-manifest/v1",
-  "generated_at_utc": "2026-07-09T14:17:01+00:00",
+  "generated_at_utc": "2026-07-10T11:12:26+00:00",
   "pipeline": "industry_manual_review_ledgers",
   "design_constraints": {
     "modular": true,
@@ -14,8 +14,8 @@
   },
   "inputs": {},
   "review_specs": {
-    "domains": 6,
-    "files_expected": 12
+    "domains": 7,
+    "files_expected": 14
   },
   "outputs": {
     "manifest": {
@@ -48,8 +48,8 @@
     "monthly_delta_action_actions": {
       "path": "data/industry_study/monthly_delta_actions.csv",
       "exists": true,
-      "bytes": 74,
-      "sha256": "4701c1985eea1c04ff6a6307b2f8f22fa12d2eead73d219c625515bb5eda378a"
+      "bytes": 2630,
+      "sha256": "40b1d71fc97bf1fe785373c64efa0aa5bfdb7afa0a552105a7122cdaf5bf9af8"
     },
     "monthly_delta_action_audit": {
       "path": "data/industry_study/monthly_delta_action_audit.csv",
@@ -60,8 +60,8 @@
     "document_chunk_action_actions": {
       "path": "data/industry_study/document_chunk_actions.csv",
       "exists": true,
-      "bytes": 74,
-      "sha256": "6b4ac30c064b1f6fa17ddc31afff220d2858d8866f1b12addef5515efc5989e4"
+      "bytes": 2650,
+      "sha256": "9978a97829a866f40c7881933338ea6bb8808ae2dc9ab580e6923fd2cf434058"
     },
     "document_chunk_action_audit": {
       "path": "data/industry_study/document_chunk_action_audit.csv",
@@ -72,8 +72,8 @@
     "snapshot_gap_actions": {
       "path": "data/industry_study/snapshot_gap_actions.csv",
       "exists": true,
-      "bytes": 74,
-      "sha256": "61e6f5788b102ad037d807cbcdf1344c7e598139a1c3064422474e3bb99228b5"
+      "bytes": 46580,
+      "sha256": "fcab89768c55af6217819fe6f692639bed36089775d13a6ee6d08e6ce404bbe4"
     },
     "snapshot_gap_audit": {
       "path": "data/industry_study/snapshot_gap_action_audit.csv",
@@ -84,11 +84,23 @@
     "dimension_catalog_gap_actions": {
       "path": "data/industry_study/dimension_catalog_gap_actions.csv",
       "exists": true,
-      "bytes": 87,
-      "sha256": "1d4637acb84614e9d8bbfcec0f2a9d1ce08f746d99a26637363ca3801c88a425"
+      "bytes": 171205,
+      "sha256": "dc82664a8b515b1cd53fe2f2c03333080e04037fee5819d727a085d6f66d600c"
     },
     "dimension_catalog_gap_audit": {
       "path": "data/industry_study/dimension_catalog_gap_action_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    "universe_scope_review_actions": {
+      "path": "data/industry_study/universe_scope_reviews.csv",
+      "exists": true,
+      "bytes": 54,
+      "sha256": "3e3df18138b841cf1b267bc832b9dd4c7ed11dac588607803f26a803c476358f"
+    },
+    "universe_scope_review_audit": {
+      "path": "data/industry_study/universe_scope_review_audit.csv",
       "exists": true,
       "bytes": 92,
       "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
@@ -99,7 +111,7 @@
       "id": "initialize_missing_ledgers",
       "label": "Inicializar ledgers ausentes",
       "status": "ok",
-      "rows": 12,
+      "rows": 14,
       "files_created": 0,
       "rerun": "python scripts/build_fidc_industry_manual_review_ledgers.py"
     },
@@ -107,19 +119,19 @@
       "id": "validate_review_schemas",
       "label": "Validar schemas de revisão",
       "status": "ok",
-      "schema_ok_files": 12,
-      "files": 12,
+      "schema_ok_files": 14,
+      "files": 14,
       "rerun": "python scripts/build_fidc_industry_manual_review_ledgers.py"
     }
   ],
   "quality": {
-    "files": 12,
-    "files_present": 12,
+    "files": 14,
+    "files_present": 14,
     "files_created": 0,
-    "schema_ok_files": 12,
-    "domains": 6,
-    "action_files": 6,
-    "audit_files": 6,
-    "rows": 0
+    "schema_ok_files": 14,
+    "domains": 7,
+    "action_files": 7,
+    "audit_files": 7,
+    "rows": 3738
   }
 }

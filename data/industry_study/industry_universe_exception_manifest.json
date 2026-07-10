@@ -1,0 +1,95 @@
+{
+  "schema_version": "industry-universe-exception-manifest/v1",
+  "generated_at_utc": "2026-07-10T11:15:12+00:00",
+  "pipeline": "industry_universe_exceptions",
+  "design_constraints": {
+    "manual_review_in_app": true,
+    "automatic_exclusion": false,
+    "incremental": true,
+    "notes": [
+      "Tipos CVM geram sugestão, mas somente decisão manual 'excluir' remove um CNPJ dos builds derivados.",
+      "FIAGRO, FIF, FII e divergências de denominação permanecem auditáveis mesmo após decisão."
+    ]
+  },
+  "inputs": {
+    "package_evidence": {
+      "path": "data/industry_study/industry_curation_package_evidence.csv.gz",
+      "exists": true,
+      "bytes": 1910423,
+      "sha256": "6a879cf1f124236c7d26bacc047055878398d11b1215b578e056605ecb9e921a"
+    },
+    "registration_scope": {
+      "path": "data/industry_study/industry_registration_scope.csv.gz",
+      "exists": true,
+      "bytes": 1641858,
+      "sha256": "21f581372b6161439eae0ae26b3861b4f381ee5121d80cb50fb70a186673c554"
+    },
+    "universe_reviews": {
+      "path": "data/industry_study/universe_scope_reviews.csv",
+      "exists": true,
+      "bytes": 54,
+      "sha256": "3e3df18138b841cf1b267bc832b9dd4c7ed11dac588607803f26a803c476358f"
+    },
+    "universe_review_audit": {
+      "path": "data/industry_study/universe_scope_review_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    }
+  },
+  "outputs": {
+    "universe_exceptions": {
+      "path": "data/industry_study/industry_universe_exceptions.csv.gz",
+      "exists": true,
+      "bytes": 1744,
+      "sha256": "ee799fa15887f7fa38af57b506854a6ea5429a965494f26fa506203fdd64e3ab"
+    },
+    "universe_reviews": {
+      "path": "data/industry_study/universe_scope_reviews.csv",
+      "exists": true,
+      "bytes": 54,
+      "sha256": "3e3df18138b841cf1b267bc832b9dd4c7ed11dac588607803f26a803c476358f"
+    },
+    "universe_review_audit": {
+      "path": "data/industry_study/universe_scope_review_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
+    },
+    "manifest": {
+      "path": "data/industry_study/industry_universe_exception_manifest.json"
+    }
+  },
+  "stages": [
+    {
+      "id": "detect_registration_mismatch",
+      "label": "Detectar divergências de universo",
+      "status": "ok",
+      "rows": 19,
+      "rerun": "python scripts/build_fidc_industry_universe_exceptions.py"
+    },
+    {
+      "id": "apply_manual_scope_overlay",
+      "label": "Aplicar decisões manuais de escopo",
+      "status": "ok",
+      "rows": 19,
+      "rerun": "python scripts/build_fidc_industry_universe_exceptions.py"
+    },
+    {
+      "id": "persist_universe_exceptions",
+      "label": "Persistir exceções e auditoria",
+      "status": "ok",
+      "rows": 19,
+      "rerun": "python scripts/build_fidc_industry_universe_exceptions.py"
+    }
+  ],
+  "quality": {
+    "rows": 19,
+    "pending_rows": 19,
+    "maintained_rows": 0,
+    "excluded_rows": 0,
+    "fiagro_rows": 12,
+    "fidc_name_mismatch_rows": 10,
+    "review_events": 0
+  }
+}

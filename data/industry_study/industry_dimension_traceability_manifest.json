@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-traceability-manifest/v1",
-  "generated_at_utc": "2026-07-10T07:08:44+00:00",
+  "generated_at_utc": "2026-07-10T11:15:17+00:00",
   "pipeline": "industry_dimension_traceability",
   "design_constraints": {
     "modular": true,
@@ -16,7 +16,7 @@
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
       "bytes": 1969261,
-      "sha256": "0e09f5277e2f0949bc703495855d95dbeba792a1f6d56aaeb3eab31f34e18140"
+      "sha256": "4fd22baffbbf6ca500758848d36634ed43fbbebaa4ff6521a5bcd15c930979c2"
     }
   },
   "outputs": {

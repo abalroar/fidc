@@ -22,8 +22,10 @@ if str(ROOT) not in sys.path:
 from services.industry_study import (
     build_fund_snapshot_pipeline_manifest,
     build_industry_fund_snapshot,
+    apply_industry_universe_reviews,
     load_dataframe,
     load_fund_universe,
+    load_industry_universe_reviews,
     load_vehicle_latest,
     save_dataframe,
     save_pipeline_manifest,
@@ -54,6 +56,7 @@ def main() -> None:
     cedentes = load_dataframe(args.industry_dir / "cedentes_structured.csv.gz")
     criteria = load_dataframe(args.industry_dir / "criteria_structured.csv.gz")
     documents = load_dataframe(args.industry_dir / "document_inventory.csv.gz")
+    universe_reviews = load_industry_universe_reviews(args.industry_dir / "universe_scope_reviews.csv")
 
     snapshot = build_industry_fund_snapshot(
         vehicle_latest=vehicle_latest,
@@ -63,6 +66,7 @@ def main() -> None:
         criteria=criteria,
         documents=documents,
     )
+    snapshot = apply_industry_universe_reviews(snapshot, universe_reviews)
     save_dataframe(snapshot, output_path)
     manifest = build_fund_snapshot_pipeline_manifest(
         industry_dir=args.industry_dir,

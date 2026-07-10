@@ -15,6 +15,7 @@ from services.industry_study import (  # noqa: E402
     build_industry_curation_package_evidence,
     load_cvm_registration_scope,
     load_dataframe,
+    load_industry_universe_reviews,
     save_dataframe,
     save_pipeline_manifest,
 )
@@ -62,6 +63,7 @@ def main() -> None:
             args.industry_dir / "document_participant_candidates.csv.gz"
         ),
         document_criteria_candidates=load_dataframe(args.industry_dir / "document_criteria_candidates.csv.gz"),
+        universe_reviews=load_industry_universe_reviews(args.industry_dir / "universe_scope_reviews.csv"),
         cedentes=load_dataframe(args.industry_dir / "cedentes_structured.csv.gz"),
         criteria=load_dataframe(args.industry_dir / "criteria_structured.csv.gz"),
         dimension_catalog=load_dataframe(args.industry_dir / "industry_dimension_catalog.csv.gz"),

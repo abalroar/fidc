@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-fund-snapshot-manifest/v1",
-  "generated_at_utc": "2026-07-10T05:08:26+00:00",
+  "generated_at_utc": "2026-07-10T11:12:35+00:00",
   "pipeline": "industry_fund_snapshot",
   "design_constraints": {
     "modular": true,
@@ -48,6 +48,12 @@
       "exists": true,
       "bytes": 1097392,
       "sha256": "13c8a5731eb76aefa364f5ed9c7d53a2d3d3476e1189b524da23f6700d8f8c75"
+    },
+    "universe_scope_reviews": {
+      "path": "data/industry_study/universe_scope_reviews.csv",
+      "exists": true,
+      "bytes": 54,
+      "sha256": "3e3df18138b841cf1b267bc832b9dd4c7ed11dac588607803f26a803c476358f"
     }
   },
   "outputs": {
@@ -55,7 +61,7 @@
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
       "bytes": 444463,
-      "sha256": "4e6525220e3de70c7296ea1e7488c9c4def3a8e72a70f4d231790d9e38a6b7db"
+      "sha256": "b3117cdb2e479010a5af80a5419d56ec1c1e789a13ff35d2c2c0d4cfbd44f27a"
     },
     "manifest": {
       "path": "data/industry_study/industry_fund_snapshot_manifest.json"

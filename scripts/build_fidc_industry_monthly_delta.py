@@ -22,9 +22,11 @@ if str(ROOT) not in sys.path:
 from services.industry_study import (
     build_industry_monthly_delta,
     build_monthly_delta_pipeline_manifest,
+    apply_industry_universe_reviews,
     initialize_monthly_delta_actions,
     load_dataframe,
     load_monthly_delta_actions,
+    load_industry_universe_reviews,
     save_dataframe,
     save_monthly_delta_actions,
     save_pipeline_manifest,
@@ -62,6 +64,13 @@ def main() -> None:
 
     vehicle_monthly = load_dataframe(args.industry_dir / "vehicle_monthly.csv.gz")
     snapshot = load_dataframe(args.industry_dir / "industry_fund_snapshot.csv.gz")
+    universe_reviews = load_industry_universe_reviews(args.industry_dir / "universe_scope_reviews.csv")
+    vehicle_monthly = apply_industry_universe_reviews(
+        vehicle_monthly,
+        universe_reviews,
+        cnpj_column="cnpj" if "cnpj" in vehicle_monthly.columns else "cnpj_fundo",
+    )
+    snapshot = apply_industry_universe_reviews(snapshot, universe_reviews)
     action_reviews = load_monthly_delta_actions(actions_path)
     delta = build_industry_monthly_delta(
         vehicle_monthly=vehicle_monthly,

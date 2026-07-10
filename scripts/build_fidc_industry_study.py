@@ -40,6 +40,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import io
 import json
 import re
@@ -237,6 +238,12 @@ def to_num(series: pd.Series) -> pd.Series:
     return pd.to_numeric(series, errors="coerce").fillna(0.0)
 
 
+def _without_excluded_vehicles(frame: pd.DataFrame | None, excluded: set[str] | None) -> pd.DataFrame | None:
+    if frame is None or frame.empty or not excluded or "cnpj" not in frame.columns:
+        return frame
+    return frame[~frame["cnpj"].isin(excluded)].copy()
+
+
 def load_classe_fundo_map(raw_dir: Path, *, allow_download: bool) -> pd.DataFrame:
     """Mapa CNPJ_Classe -> CNPJ_Fundo + atributos cadastrais da classe."""
     dest = raw_dir / "registro_fundo_classe.zip"
@@ -276,6 +283,36 @@ def load_classe_fundo_map(raw_dir: Path, *, allow_download: bool) -> pd.DataFram
     out = out.drop(columns=["ID_Registro_Fundo"])
     out = out[out["cnpj_classe"].str.len() == 14].drop_duplicates(subset=["cnpj_classe"])
     return out
+
+
+def load_universe_scope_exclusions(
+    output_dir: Path,
+    classe_map: pd.DataFrame,
+) -> tuple[set[str], set[str]]:
+    """Resolve decisões humanas de exclusão para CNPJs de fundo e classe."""
+
+    path = output_dir / "universe_scope_reviews.csv"
+    if not path.exists():
+        return set(), set()
+    try:
+        reviews = pd.read_csv(path, dtype=str, keep_default_na=False)
+    except (OSError, pd.errors.ParserError, pd.errors.EmptyDataError):
+        return set(), set()
+    if "cnpj_fundo" not in reviews.columns or "decision" not in reviews.columns:
+        return set(), set()
+    decisions = reviews["decision"].fillna("").astype(str).str.strip().str.lower()
+    excluded_funds = {
+        cnpj
+        for cnpj in reviews.loc[decisions.eq("excluir"), "cnpj_fundo"].map(_strip_digits)
+        if len(cnpj) == 14
+    }
+    excluded_vehicles = set(excluded_funds)
+    if excluded_funds and not classe_map.empty and {"cnpj_classe", "cnpj_fundo"}.issubset(classe_map.columns):
+        mapped = classe_map[classe_map["cnpj_fundo"].map(_strip_digits).isin(excluded_funds)]
+        excluded_vehicles.update(
+            cnpj for cnpj in mapped["cnpj_classe"].map(_strip_digits) if len(cnpj) == 14
+        )
+    return excluded_funds, excluded_vehicles
 
 
 @dataclass
@@ -327,6 +364,7 @@ def aggregate_month(
     yyyymm: str,
     tab4: pd.DataFrame,
     cotistas_excluir: set[str] | None = None,
+    universe_excluir: set[str] | None = None,
 ) -> MonthAggregate | None:
     comp = f"{yyyymm[:4]}-{yyyymm[4:6]}"
     if tab4 is None or tab4.empty:
@@ -368,7 +406,7 @@ def aggregate_month(
     )
 
     # Tabela I: ativo, carteira de DC, inadimplencia, administrador, condominio
-    tab1 = store.read_table(yyyymm, "tab_I")
+    tab1 = _without_excluded_vehicles(store.read_table(yyyymm, "tab_I"), universe_excluir)
     admin_rows: list[dict] = []
     if tab1 is not None and not tab1.empty:
         tab1 = tab1.drop_duplicates(subset=["cnpj"], keep="last")
@@ -474,7 +512,7 @@ def aggregate_month(
 
     # Tabela II: carteira por segmento
     segments: list[dict] = []
-    tab2 = store.read_table(yyyymm, "tab_II")
+    tab2 = _without_excluded_vehicles(store.read_table(yyyymm, "tab_II"), universe_excluir)
     if tab2 is not None and not tab2.empty:
         tab2 = tab2.drop_duplicates(subset=["cnpj"], keep="last")
         audit["tab2_veiculos"] = int(tab2["cnpj"].nunique())
@@ -522,7 +560,7 @@ def aggregate_month(
     # (ex.: captacao de R$ 7,25e14 num unico veiculo em 2020-12); descartamos
     # linhas cujo valor supera max(3x PL do veiculo no mes, R$ 2 bi).
     flows: list[dict] = []
-    x4 = store.read_table(yyyymm, "tab_X_4")
+    x4 = _without_excluded_vehicles(store.read_table(yyyymm, "tab_X_4"), universe_excluir)
     if x4 is not None and not x4.empty:
         audit["x4_veiculos"] = int(x4["cnpj"].nunique())
         x4["valor"] = to_num(x4["TAB_X_VL_TOTAL"])
@@ -584,7 +622,7 @@ def aggregate_month(
     )
 
     # Tabela X.1: numero de cotistas (contas por classe/serie)
-    x1 = store.read_table(yyyymm, "tab_X_1")
+    x1 = _without_excluded_vehicles(store.read_table(yyyymm, "tab_X_1"), universe_excluir)
     if x1 is not None and not x1.empty:
         audit["x1_veiculos"] = int(x1["cnpj"].nunique())
         if cotistas_excluir:
@@ -595,7 +633,7 @@ def aggregate_month(
 
     # Tabela X.1.1: cotistas por tipo de investidor
     cotistas_tipo: list[dict] = []
-    x11 = store.read_table(yyyymm, "tab_X_1_1")
+    x11 = _without_excluded_vehicles(store.read_table(yyyymm, "tab_X_1_1"), universe_excluir)
     if x11 is not None and not x11.empty:
         for key, label in COTISTA_TIPO_LABELS.items():
             total = 0.0
@@ -610,7 +648,7 @@ def aggregate_month(
     # Tabela X.2: distribuicao senior/subordinada pelo valor das cotas
     # (QT_COTA x VL_COTA). Alguns veiculos reportam valores de cota corrompidos;
     # so entram veiculos cujo valor total de cotas fica entre 0 e 3x o proprio PL.
-    x2 = store.read_table(yyyymm, "tab_X_2")
+    x2 = _without_excluded_vehicles(store.read_table(yyyymm, "tab_X_2"), universe_excluir)
     if x2 is not None and not x2.empty:
         audit["x2_veiculos"] = int(x2["cnpj"].nunique())
         x2["valor"] = to_num(x2["TAB_X_QT_COTA"]) * to_num(x2["TAB_X_VL_COTA"])
@@ -649,7 +687,7 @@ def aggregate_month(
             vehicle = vehicle.merge(x2_vehicle, on="cnpj", how="left")
 
     # Tabela VII: recompras e substituicoes no mes
-    tab7 = store.read_table(yyyymm, "tab_VII")
+    tab7 = _without_excluded_vehicles(store.read_table(yyyymm, "tab_VII"), universe_excluir)
     if tab7 is not None and not tab7.empty:
         tab7 = tab7.drop_duplicates(subset=["cnpj"], keep="last")
         audit["tab7_veiculos"] = int(tab7["cnpj"].nunique())
@@ -707,14 +745,17 @@ def aggregate_month(
 
 
 def build_universe_snapshot(
-    store: RawStore, yyyymm: str, classe_map: pd.DataFrame
+    store: RawStore,
+    yyyymm: str,
+    classe_map: pd.DataFrame,
+    universe_excluir: set[str] | None = None,
 ) -> pd.DataFrame:
     """Foto por veiculo do ultimo mes: PL, admin, gestor, custodiante, segmento."""
     comp = f"{yyyymm[:4]}-{yyyymm[4:6]}"
-    tab4 = store.read_table(yyyymm, "tab_IV")
-    tab1 = store.read_table(yyyymm, "tab_I")
-    tab2 = store.read_table(yyyymm, "tab_II")
-    x1 = store.read_table(yyyymm, "tab_X_1")
+    tab4 = _without_excluded_vehicles(store.read_table(yyyymm, "tab_IV"), universe_excluir)
+    tab1 = _without_excluded_vehicles(store.read_table(yyyymm, "tab_I"), universe_excluir)
+    tab2 = _without_excluded_vehicles(store.read_table(yyyymm, "tab_II"), universe_excluir)
+    x1 = _without_excluded_vehicles(store.read_table(yyyymm, "tab_X_1"), universe_excluir)
     if tab4 is None or tab1 is None:
         return pd.DataFrame()
     tab4 = tab4.drop_duplicates(subset=["cnpj"], keep="last")
@@ -831,6 +872,13 @@ def run_pipeline(args: argparse.Namespace) -> None:
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     store = RawStore(raw_dir=raw_dir, allow_download=not args.skip_download)
+    classe_map = load_classe_fundo_map(raw_dir, allow_download=not args.skip_download)
+    excluded_funds, excluded_vehicles = load_universe_scope_exclusions(output_dir, classe_map)
+    if excluded_funds:
+        print(
+            f"[info] {len(excluded_funds)} fundo(s) e {len(excluded_vehicles)} veículo(s) "
+            "excluídos por decisão humana de universo"
+        )
 
     months = month_range(args.start, args.end)
 
@@ -842,11 +890,14 @@ def run_pipeline(args: argparse.Namespace) -> None:
         tab4 = load_tab4(store, yyyymm)
         if tab4 is None:
             continue
+        tab4 = _without_excluded_vehicles(tab4, excluded_vehicles)
+        if tab4 is None or tab4.empty:
+            continue
         tab4_by_month[yyyymm] = tab4
         pl_panel_rows.append(
             pd.DataFrame({"competencia": yyyymm, "cnpj": tab4["cnpj"], "v": tab4["pl"]})
         )
-        x1 = store.read_table(yyyymm, "tab_X_1")
+        x1 = _without_excluded_vehicles(store.read_table(yyyymm, "tab_X_1"), excluded_vehicles)
         if x1 is not None and not x1.empty:
             cot = to_num(x1["TAB_X_NR_COTST"]).groupby(x1["cnpj"]).sum()
             cot_panel_rows.append(
@@ -873,7 +924,13 @@ def run_pipeline(args: argparse.Namespace) -> None:
             if excl:
                 tab4 = tab4[~tab4["cnpj"].isin(excl)]
         cot_excl = {c for (m, c) in cot_spikes if m == yyyymm}
-        agg = aggregate_month(store, yyyymm, tab4, cotistas_excluir=cot_excl)
+        agg = aggregate_month(
+            store,
+            yyyymm,
+            tab4,
+            cotistas_excluir=cot_excl,
+            universe_excluir=excluded_vehicles,
+        )
         if agg is None:
             print(f"[warn] competencia {yyyymm} indisponivel; ignorada", file=sys.stderr)
             continue
@@ -904,7 +961,6 @@ def run_pipeline(args: argparse.Namespace) -> None:
         output_dir / "concentration_monthly.csv", index=False
     )
 
-    classe_map = load_classe_fundo_map(raw_dir, allow_download=not args.skip_download)
     vehicle_monthly = pd.DataFrame(vehicle_rows)
     if not vehicle_monthly.empty:
         if not classe_map.empty:
@@ -939,7 +995,12 @@ def run_pipeline(args: argparse.Namespace) -> None:
         tail = industry.tail(2)["pl_total"].tolist()
         if tail[-1] < 0.7 * tail[-2]:
             last_month = processed[-2]
-    universe = build_universe_snapshot(store, last_month, classe_map)
+    universe = build_universe_snapshot(
+        store,
+        last_month,
+        classe_map,
+        universe_excluir=excluded_vehicles,
+    )
     universe.to_csv(output_dir / "universe_latest.csv", index=False)
     build_prestadores_ranking(universe).to_csv(
         output_dir / "prestadores_latest.csv", index=False
@@ -953,6 +1014,14 @@ def run_pipeline(args: argparse.Namespace) -> None:
         "competencia_final": processed[-1],
         "competencia_snapshot": last_month,
         "n_competencias": len(processed),
+        "universe_scope_review_file": str(output_dir / "universe_scope_reviews.csv"),
+        "universe_scope_review_sha256": (
+            hashlib.sha256((output_dir / "universe_scope_reviews.csv").read_bytes()).hexdigest()
+            if (output_dir / "universe_scope_reviews.csv").exists()
+            else ""
+        ),
+        "universe_scope_excluded_funds": len(excluded_funds),
+        "universe_scope_excluded_vehicles": len(excluded_vehicles),
         "observacoes": [
             "Unidade de observacao: veiculo reportante (fundo ate a adaptacao a RCVM 175, classe depois).",
             "PL total soma fundos legados e classes; nao ha dupla contagem fundo x classe no dataset.",
@@ -964,6 +1033,7 @@ def run_pipeline(args: argparse.Namespace) -> None:
             "Gestor e custodiante vem do cadastro vigente (foto), nao do informe mensal.",
             "Picos de um unico mes por veiculo (>20x o mes anterior e o seguinte) sao excluidos de PL e cotistas como erro de preenchimento.",
             "Competencias recentes podem estar incompletas (entrega do informe ate 15 dias apos o fechamento; retificacoes ocorrem).",
+            "Decisões humanas explícitas de exclusão em universe_scope_reviews.csv são aplicadas a todas as tabelas do informe mensal.",
         ],
     }
     (output_dir / "metadata.json").write_text(

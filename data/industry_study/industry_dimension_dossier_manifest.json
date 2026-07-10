@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-dossier-manifest/v1",
-  "generated_at_utc": "2026-07-10T07:48:50+00:00",
+  "generated_at_utc": "2026-07-10T11:15:34+00:00",
   "pipeline": "industry_dimension_dossiers",
   "design_constraints": {
     "modular": true,
@@ -17,13 +17,13 @@
       "path": "data/industry_study/industry_dimension_value_atlas.csv.gz",
       "exists": true,
       "bytes": 114285,
-      "sha256": "5fdc75ad81fe18bd881d5af277b8ebc2390a66d5d39c0a71d7beb44313a81d7a"
+      "sha256": "26101945c06bcd6cd108eb8ac2c299f2e4fac98475afbdf5e799d35f24282615"
     },
     "dimension_profiles": {
       "path": "data/industry_study/industry_dimension_profiles.csv.gz",
       "exists": true,
       "bytes": 2981048,
-      "sha256": "c20fd9fce439d69704639cba24b6e0043a8d8349246b0ad1c51ce55c6055a9cf"
+      "sha256": "041e49c2350d55d061f4a011f66666304442aad08177ddb8ec205e4d34309785"
     },
     "heatmap_registry": {
       "path": "data/industry_study/industry_heatmap_registry.csv",

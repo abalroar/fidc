@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-curation-package-evidence-manifest/v1",
-  "generated_at_utc": "2026-07-10T10:47:26+00:00",
+  "generated_at_utc": "2026-07-10T11:15:08+00:00",
   "pipeline": "industry_curation_package_evidence",
   "design_constraints": {
     "modular": true,
@@ -16,13 +16,19 @@
       "path": "data/industry_study/industry_curation_packages.csv.gz",
       "exists": true,
       "bytes": 658829,
-      "sha256": "23e825445f60255c4b5c4632abce61dabcb14b0cd51bfbb452a1027584d66445"
+      "sha256": "e7ca7e80a8de16e2ea2373a72bf2b0fbadf9d95d8d5ff2e77ae247a2c34d0f66"
     },
     "registration_scope": {
       "path": "data/industry_study/industry_registration_scope.csv.gz",
       "exists": true,
       "bytes": 1641858,
-      "sha256": "6e0cb21a4c9b6ed00853d663ed5ba7493d45ad4f9952320fb497be82318a0c2a"
+      "sha256": "21f581372b6161439eae0ae26b3861b4f381ee5121d80cb50fb70a186673c554"
+    },
+    "universe_scope_reviews": {
+      "path": "data/industry_study/universe_scope_reviews.csv",
+      "exists": true,
+      "bytes": 54,
+      "sha256": "3e3df18138b841cf1b267bc832b9dd4c7ed11dac588607803f26a803c476358f"
     },
     "document_inventory": {
       "path": "data/industry_study/document_inventory.csv.gz",
@@ -76,21 +82,21 @@
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
       "bytes": 1969261,
-      "sha256": "0e09f5277e2f0949bc703495855d95dbeba792a1f6d56aaeb3eab31f34e18140"
+      "sha256": "4fd22baffbbf6ca500758848d36634ed43fbbebaa4ff6521a5bcd15c930979c2"
     }
   },
   "outputs": {
     "curation_package_evidence": {
       "path": "data/industry_study/industry_curation_package_evidence.csv.gz",
       "exists": true,
-      "bytes": 1840811,
-      "sha256": "c7cc83f18d3f95b50a8d0f4a03c5a62d708836b9681ae8b39289bc321577889f"
+      "bytes": 1910423,
+      "sha256": "6a879cf1f124236c7d26bacc047055878398d11b1215b578e056605ecb9e921a"
     },
     "registration_scope": {
       "path": "data/industry_study/industry_registration_scope.csv.gz",
       "exists": true,
       "bytes": 1641858,
-      "sha256": "6e0cb21a4c9b6ed00853d663ed5ba7493d45ad4f9952320fb497be82318a0c2a"
+      "sha256": "21f581372b6161439eae0ae26b3861b4f381ee5121d80cb50fb70a186673c554"
     },
     "manifest": {
       "path": "data/industry_study/industry_curation_package_evidence_manifest.json"

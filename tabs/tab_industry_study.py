@@ -42,6 +42,10 @@ from services.industry_study import (
     build_industry_curation_queue,
     build_industry_curation_packages,
     build_industry_curation_queue_summary,
+    build_industry_curation_package_evidence,
+    build_industry_universe_exceptions,
+    build_curation_package_evidence_pipeline_manifest,
+    build_universe_exception_pipeline_manifest,
     build_industry_dimension_value_atlas,
     build_industry_heatmap_registry,
     build_review_audit_events,
@@ -59,6 +63,7 @@ from services.industry_study import (
     load_criteria_reviews,
     load_criteria_source,
     load_monthly_delta_actions,
+    load_industry_universe_reviews,
     load_pipeline_manifest,
     load_cedente_reviews,
     load_fund_universe,
@@ -71,6 +76,7 @@ from services.industry_study import (
     save_criteria_reviews,
     save_dataframe,
     save_monthly_delta_actions,
+    save_industry_universe_reviews,
     save_pipeline_manifest,
     save_cedente_structured,
     select_subordination_metric_rows,
@@ -95,8 +101,13 @@ _CURATION_QUEUE_SUMMARY_PATH = _DATA_DIR / "industry_curation_queue_summary.csv.
 _CURATION_PACKAGES_PATH = _DATA_DIR / "industry_curation_packages.csv.gz"
 _CURATION_PACKAGE_EVIDENCE_PATH = _DATA_DIR / "industry_curation_package_evidence.csv.gz"
 _CURATION_PACKAGE_EVIDENCE_MANIFEST_PATH = _DATA_DIR / "industry_curation_package_evidence_manifest.json"
+_REGISTRATION_SCOPE_PATH = _DATA_DIR / "industry_registration_scope.csv.gz"
 _PACKAGE_DOCUMENT_DISCOVERY_STATUS_PATH = _DATA_DIR / "industry_package_document_discovery_status.csv.gz"
 _PACKAGE_DOCUMENT_DISCOVERY_MANIFEST_PATH = _DATA_DIR / "industry_package_document_discovery_manifest.json"
+_UNIVERSE_EXCEPTIONS_PATH = _DATA_DIR / "industry_universe_exceptions.csv.gz"
+_UNIVERSE_REVIEWS_PATH = _DATA_DIR / "universe_scope_reviews.csv"
+_UNIVERSE_REVIEW_AUDIT_PATH = _DATA_DIR / "universe_scope_review_audit.csv"
+_UNIVERSE_EXCEPTION_MANIFEST_PATH = _DATA_DIR / "industry_universe_exception_manifest.json"
 _CURATION_QUEUE_MANIFEST_PATH = _DATA_DIR / "industry_curation_queue_manifest.json"
 _MONTHLY_DELTA_PATH = _DATA_DIR / "industry_monthly_delta.csv.gz"
 _MONTHLY_DELTA_MANIFEST_PATH = _DATA_DIR / "industry_monthly_delta_manifest.json"
@@ -8094,6 +8105,9 @@ def _load_curation_queue_tables() -> dict[str, pd.DataFrame | dict[str, object]]
     summary = load_dataframe(_CURATION_QUEUE_SUMMARY_PATH)
     packages = load_dataframe(_CURATION_PACKAGES_PATH)
     package_evidence = load_dataframe(_CURATION_PACKAGE_EVIDENCE_PATH)
+    universe_exceptions = load_dataframe(_UNIVERSE_EXCEPTIONS_PATH)
+    universe_reviews = load_industry_universe_reviews(_UNIVERSE_REVIEWS_PATH)
+    universe_review_audit = load_review_audit(_UNIVERSE_REVIEW_AUDIT_PATH)
     if summary.empty and not queue.empty:
         summary = build_industry_curation_queue_summary(queue)
     if packages.empty and not queue.empty:
@@ -8103,9 +8117,13 @@ def _load_curation_queue_tables() -> dict[str, pd.DataFrame | dict[str, object]]
         "summary": summary,
         "packages": packages,
         "package_evidence": package_evidence,
+        "universe_exceptions": universe_exceptions,
+        "universe_reviews": universe_reviews,
+        "universe_review_audit": universe_review_audit,
         "manifest": load_pipeline_manifest(_CURATION_QUEUE_MANIFEST_PATH),
         "package_evidence_manifest": load_pipeline_manifest(_CURATION_PACKAGE_EVIDENCE_MANIFEST_PATH),
         "package_discovery_manifest": load_pipeline_manifest(_PACKAGE_DOCUMENT_DISCOVERY_MANIFEST_PATH),
+        "universe_exception_manifest": load_pipeline_manifest(_UNIVERSE_EXCEPTION_MANIFEST_PATH),
     }
 
 
@@ -8380,6 +8398,61 @@ def _format_curation_packages(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def _format_universe_exceptions(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    columns = [
+        "cnpj_fundo",
+        "nome_exibicao",
+        "cvm_fund_type",
+        "cvm_class_type",
+        "cvm_registration_status",
+        "suggested_decision",
+        "suggestion_reason",
+        "decision",
+        "rationale",
+        "reviewer",
+        "updated_at_utc",
+        "package_rows",
+        "work_tiers",
+        "queue_domains",
+        "latest_competencia",
+        "pl_reference_brl",
+        "review_event_count",
+        "package_ids",
+    ]
+    out = frame[[col for col in columns if col in frame.columns]].copy().rename(
+        columns={
+            "cnpj_fundo": "CNPJ",
+            "nome_exibicao": "Veículo",
+            "cvm_fund_type": "Tipo fundo CVM",
+            "cvm_class_type": "Tipo classe CVM",
+            "cvm_registration_status": "Situação CVM",
+            "suggested_decision": "Sugestão",
+            "suggestion_reason": "Motivo automático",
+            "decision": "Decisão",
+            "rationale": "Justificativa",
+            "reviewer": "Responsável",
+            "updated_at_utc": "Atualizado",
+            "package_rows": "Pacotes",
+            "work_tiers": "Tiers",
+            "queue_domains": "Frentes",
+            "latest_competencia": "Última competência",
+            "pl_reference_brl": "PL ref.",
+            "review_event_count": "Eventos",
+            "package_ids": "IDs pacotes",
+        }
+    )
+    for col in ["Pacotes", "Eventos"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).astype(int)
+    if "PL ref." in out.columns:
+        out["PL ref."] = pd.to_numeric(out["PL ref."], errors="coerce").fillna(0).map(
+            lambda value: "" if value == 0 else _fmt_bi(float(value), 2)
+        )
+    return out
+
+
 def _coerce_curation_queue_status(domain: object, status: object) -> str:
     text = str(status or "").strip().lower() or "pendente"
     domain_text = str(domain or "").strip()
@@ -8616,6 +8689,66 @@ def _persist_curation_queue_updates(
     }
 
 
+def _materialize_universe_review_outputs(
+    reviews: pd.DataFrame,
+    review_audit: pd.DataFrame,
+) -> dict[str, int]:
+    evidence = build_industry_curation_package_evidence(
+        packages=load_dataframe(_CURATION_PACKAGES_PATH),
+        registration_scope=load_dataframe(_REGISTRATION_SCOPE_PATH),
+        document_inventory=load_dataframe(_DOCUMENT_INVENTORY_PATH),
+        document_text_index=load_dataframe(_DOCUMENT_TEXT_INDEX_PATH),
+        package_document_discovery_status=load_dataframe(_PACKAGE_DOCUMENT_DISCOVERY_STATUS_PATH),
+        document_field_run_summary=load_dataframe(_DOCUMENT_FIELD_RUN_SUMMARY_PATH),
+        document_participant_candidates=load_dataframe(_DOCUMENT_PARTICIPANT_CANDIDATES_PATH),
+        document_criteria_candidates=load_dataframe(_DOCUMENT_CRITERIA_CANDIDATES_PATH),
+        universe_reviews=reviews,
+        cedentes=load_dataframe(_CEDENTE_STRUCTURED_PATH),
+        criteria=load_dataframe(_CRITERIA_STRUCTURED_PATH),
+        dimension_catalog=load_dataframe(_DIMENSION_CATALOG_PATH),
+    )
+    save_dataframe(evidence, _CURATION_PACKAGE_EVIDENCE_PATH)
+    evidence_manifest = build_curation_package_evidence_pipeline_manifest(
+        industry_dir=_DATA_DIR,
+        registration_scope_path=_REGISTRATION_SCOPE_PATH,
+        output_path=_CURATION_PACKAGE_EVIDENCE_PATH,
+        manifest_path=_CURATION_PACKAGE_EVIDENCE_MANIFEST_PATH,
+        evidence=evidence,
+    )
+    save_pipeline_manifest(evidence_manifest, _CURATION_PACKAGE_EVIDENCE_MANIFEST_PATH)
+    exceptions = build_industry_universe_exceptions(
+        evidence,
+        reviews=reviews,
+        review_audit=review_audit,
+    )
+    save_dataframe(exceptions, _UNIVERSE_EXCEPTIONS_PATH)
+    exception_manifest = build_universe_exception_pipeline_manifest(
+        industry_dir=_DATA_DIR,
+        output_path=_UNIVERSE_EXCEPTIONS_PATH,
+        reviews_path=_UNIVERSE_REVIEWS_PATH,
+        audit_path=_UNIVERSE_REVIEW_AUDIT_PATH,
+        manifest_path=_UNIVERSE_EXCEPTION_MANIFEST_PATH,
+        exceptions=exceptions,
+    )
+    save_pipeline_manifest(exception_manifest, _UNIVERSE_EXCEPTION_MANIFEST_PATH)
+    new_index = build_industry_pipeline_index(industry_dir=_DATA_DIR, output_path=_PIPELINE_INDEX_PATH)
+    save_dataframe(pd.DataFrame(new_index.get("monthly_update_plan", [])), _MONTHLY_UPDATE_PLAN_PATH)
+    save_dataframe(pd.DataFrame(new_index.get("readiness_checks", [])), _MONTHLY_READINESS_PATH)
+    save_dataframe(pd.DataFrame(new_index.get("publication_gate", [])), _PUBLICATION_GATE_PATH)
+    save_dataframe(pd.DataFrame(new_index.get("monthly_closeout_plan", [])), _MONTHLY_CLOSEOUT_PLAN_PATH)
+    save_pipeline_manifest(new_index, _PIPELINE_INDEX_PATH)
+    _load_curation_queue_tables.clear()
+    _load_industry_pipeline_index.clear()
+    return {
+        "evidence_rows": int(len(evidence)),
+        "exception_rows": int(len(exceptions)),
+        "pending_rows": int(exceptions.get("decision", pd.Series(dtype=str)).fillna("").astype(str).eq("pendente").sum()),
+        "stale_overlay_modules": int(
+            new_index.get("quality_rollup", {}).get("universe_overlay_stale_module_count", 0) or 0
+        ),
+    }
+
+
 def _render_pipeline_manifest() -> None:
     st.markdown('<div class="industry-section">Pipeline mensal e cockpit de atualização</div>', unsafe_allow_html=True)
     st.markdown(
@@ -8640,16 +8773,24 @@ def _render_pipeline_manifest() -> None:
     curation_queue_summary = curation_queue_tables["summary"]
     curation_packages = curation_queue_tables["packages"]
     curation_package_evidence = curation_queue_tables["package_evidence"]
+    universe_exceptions = curation_queue_tables["universe_exceptions"]
+    universe_reviews = curation_queue_tables["universe_reviews"]
+    universe_review_audit = curation_queue_tables["universe_review_audit"]
     curation_queue_manifest = curation_queue_tables["manifest"]
     curation_package_evidence_manifest = curation_queue_tables["package_evidence_manifest"]
     package_document_discovery_manifest = curation_queue_tables["package_discovery_manifest"]
+    universe_exception_manifest = curation_queue_tables["universe_exception_manifest"]
     assert isinstance(curation_queue, pd.DataFrame)
     assert isinstance(curation_queue_summary, pd.DataFrame)
     assert isinstance(curation_packages, pd.DataFrame)
     assert isinstance(curation_package_evidence, pd.DataFrame)
+    assert isinstance(universe_exceptions, pd.DataFrame)
+    assert isinstance(universe_reviews, pd.DataFrame)
+    assert isinstance(universe_review_audit, pd.DataFrame)
     assert isinstance(curation_queue_manifest, dict)
     assert isinstance(curation_package_evidence_manifest, dict)
     assert isinstance(package_document_discovery_manifest, dict)
+    assert isinstance(universe_exception_manifest, dict)
     profile_tables = _load_dimension_profile_tables()
     dimension_profiles = profile_tables["profiles"]
     heatmap_registry = profile_tables["heatmap_registry"]
@@ -9664,6 +9805,127 @@ def _render_pipeline_manifest() -> None:
                             width="stretch",
                             height=420,
                         )
+                exception_view = universe_exceptions.copy()
+                if exception_view.empty and not curation_package_evidence.empty:
+                    exception_view = build_industry_universe_exceptions(
+                        curation_package_evidence,
+                        reviews=universe_reviews,
+                        review_audit=universe_review_audit,
+                    )
+                if not exception_view.empty:
+                    st.markdown("**Exceções de universo CVM**")
+                    universe_a, universe_b = st.columns([0.85, 1.6])
+                    with universe_a:
+                        universe_decisions = [
+                            value
+                            for value in ["pendente", "manter", "excluir"]
+                            if value in set(exception_view.get("decision", pd.Series(dtype=str)).fillna("").astype(str))
+                        ]
+                        selected_universe_decisions = st.multiselect(
+                            "Decisão de universo",
+                            universe_decisions,
+                            default=universe_decisions,
+                            key="industry_universe_decision_filter",
+                        )
+                    with universe_b:
+                        universe_query = st.text_input(
+                            "Buscar exceção",
+                            placeholder="CNPJ, veículo, tipo CVM ou justificativa",
+                            key="industry_universe_exception_query",
+                        )
+                    if selected_universe_decisions:
+                        exception_view = exception_view[
+                            exception_view.get("decision", pd.Series("", index=exception_view.index))
+                            .fillna("")
+                            .astype(str)
+                            .isin(selected_universe_decisions)
+                        ].copy()
+                    if universe_query:
+                        universe_search_columns = [
+                            col
+                            for col in [
+                                "cnpj_fundo",
+                                "nome_exibicao",
+                                "cvm_fund_type",
+                                "cvm_class_type",
+                                "suggestion_reason",
+                                "rationale",
+                                "reviewer",
+                            ]
+                            if col in exception_view.columns
+                        ]
+                        universe_search = exception_view[universe_search_columns].fillna("").astype(str).agg(" ".join, axis=1)
+                        exception_view = exception_view[
+                            universe_search.str.contains(universe_query, case=False, na=False)
+                        ].copy()
+                    universe_display = _format_universe_exceptions(exception_view)
+                    edited_universe = st.data_editor(
+                        universe_display,
+                        hide_index=True,
+                        width="stretch",
+                        height=420,
+                        disabled=[
+                            col
+                            for col in universe_display.columns
+                            if col not in {"Decisão", "Justificativa", "Responsável"}
+                        ],
+                        column_config={
+                            "Decisão": st.column_config.SelectboxColumn(
+                                "Decisão",
+                                options=["pendente", "manter", "excluir"],
+                                required=True,
+                            ),
+                            "Justificativa": st.column_config.TextColumn("Justificativa", width="large"),
+                        },
+                        key="industry_universe_exception_editor",
+                    )
+                    review_columns = ["Decisão", "Justificativa", "Responsável"]
+                    original_universe_review = universe_display[["CNPJ", *review_columns]].copy().fillna("").reset_index(drop=True)
+                    edited_universe_review = edited_universe[["CNPJ", *review_columns]].copy().fillna("").reset_index(drop=True)
+                    universe_changed = (
+                        edited_universe_review[review_columns].astype(str)
+                        != original_universe_review[review_columns].astype(str)
+                    ).any(axis=1)
+                    if st.button("Salvar decisões de universo", type="primary", key="industry_save_universe_reviews"):
+                        changed_reviews = edited_universe_review.loc[universe_changed].copy()
+                        if changed_reviews.empty:
+                            st.info("Nenhuma decisão de universo foi alterada.")
+                        else:
+                            saved_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+                            review_updates = pd.DataFrame(
+                                {
+                                    "cnpj_fundo": changed_reviews["CNPJ"].fillna("").astype(str),
+                                    "decision": changed_reviews["Decisão"].fillna("").astype(str),
+                                    "rationale": changed_reviews["Justificativa"].fillna("").astype(str),
+                                    "reviewer": changed_reviews["Responsável"].fillna("").astype(str),
+                                    "updated_at_utc": saved_at,
+                                }
+                            )
+                            changed_cnpjs = set(review_updates["cnpj_fundo"])
+                            existing_reviews = universe_reviews.copy()
+                            if not existing_reviews.empty:
+                                existing_reviews = existing_reviews[
+                                    ~existing_reviews["cnpj_fundo"].fillna("").astype(str).isin(changed_cnpjs)
+                                ].copy()
+                            updated_reviews = pd.concat([existing_reviews, review_updates], ignore_index=True)
+                            events = build_review_audit_events(
+                                previous=universe_reviews,
+                                updated=updated_reviews,
+                                key_column="cnpj_fundo",
+                                review_domain="universe_scope_review",
+                                saved_at_utc=saved_at,
+                                source="industry_universe_exception_editor",
+                            )
+                            updated_audit = append_review_audit_events(events, _UNIVERSE_REVIEW_AUDIT_PATH)
+                            updated_reviews = save_industry_universe_reviews(updated_reviews, _UNIVERSE_REVIEWS_PATH)
+                            result = _materialize_universe_review_outputs(updated_reviews, updated_audit)
+                            st.success(
+                                f"Universo salvo: {_fmt_int(float(len(review_updates)))} decisão(ões), "
+                                f"{_fmt_int(float(len(events)))} evento(s) de auditoria e "
+                                f"{_fmt_int(float(result['pending_rows']))} exceção(ões) pendentes. "
+                                f"Derivados a rematerializar: "
+                                f"{_fmt_int(float(result['stale_overlay_modules']))}."
+                            )
             summary = curation_queue_summary.copy()
             if summary.empty:
                 summary = build_industry_curation_queue_summary(queue)

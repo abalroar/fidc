@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-monthly-delta-manifest/v1",
-  "generated_at_utc": "2026-07-10T05:08:36+00:00",
+  "generated_at_utc": "2026-07-10T11:14:34+00:00",
   "pipeline": "industry_monthly_delta",
   "design_constraints": {
     "modular": true,
@@ -23,7 +23,7 @@
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
       "bytes": 444463,
-      "sha256": "4e6525220e3de70c7296ea1e7488c9c4def3a8e72a70f4d231790d9e38a6b7db"
+      "sha256": "b3117cdb2e479010a5af80a5419d56ec1c1e789a13ff35d2c2c0d4cfbd44f27a"
     },
     "metadata": {
       "path": "data/industry_study/metadata.json",
@@ -36,6 +36,12 @@
       "exists": true,
       "bytes": 2630,
       "sha256": "40b1d71fc97bf1fe785373c64efa0aa5bfdb7afa0a552105a7122cdaf5bf9af8"
+    },
+    "universe_scope_reviews": {
+      "path": "data/industry_study/universe_scope_reviews.csv",
+      "exists": true,
+      "bytes": 54,
+      "sha256": "3e3df18138b841cf1b267bc832b9dd4c7ed11dac588607803f26a803c476358f"
     }
   },
   "outputs": {
@@ -43,7 +49,7 @@
       "path": "data/industry_study/industry_monthly_delta.csv.gz",
       "exists": true,
       "bytes": 365906,
-      "sha256": "a259d3bea527eec5db044b997e8fbc71e3efbdce7a53d43303b9eb701004a223"
+      "sha256": "d0acc2b0ecf2384a7950d3404fd9102695e62eb7147713e56ecdadf687ecc410"
     },
     "manifest": {
       "path": "data/industry_study/industry_monthly_delta_manifest.json"

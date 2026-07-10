@@ -312,6 +312,41 @@ CATALOG_GAP_ACTION_COLUMNS = [
     "updated_at_utc",
 ]
 
+UNIVERSE_SCOPE_REVIEW_COLUMNS = [
+    "cnpj_fundo",
+    "decision",
+    "rationale",
+    "reviewer",
+    "updated_at_utc",
+]
+
+UNIVERSE_EXCEPTION_COLUMNS = [
+    "cnpj_fundo",
+    "nome_exibicao",
+    "cvm_fund_type",
+    "cvm_class_type",
+    "cvm_registration_status",
+    "name_has_fidc_signal",
+    "suggested_decision",
+    "suggestion_reason",
+    "decision",
+    "decision_status",
+    "rationale",
+    "reviewer",
+    "updated_at_utc",
+    "package_rows",
+    "package_ids",
+    "work_tiers",
+    "queue_domains",
+    "latest_competencia",
+    "pl_reference_brl",
+    "review_event_count",
+    "last_review_at_utc",
+    "last_review_field",
+    "last_review_source",
+    "source_artifacts",
+]
+
 MANUAL_REVIEW_LEDGER_SPECS = [
     {
         "domain_id": "cedente_review",
@@ -390,6 +425,19 @@ MANUAL_REVIEW_LEDGER_SPECS = [
         "comparison": "campo faltante × decisão manual",
         "rerun_command": "python scripts/build_fidc_industry_dimensions.py",
         "action_columns": CATALOG_GAP_ACTION_COLUMNS,
+    },
+    {
+        "domain_id": "universe_scope_review",
+        "label": "Escopo do universo CVM",
+        "module_id": "universe_exceptions",
+        "action_file": "universe_scope_reviews.csv",
+        "audit_file": "universe_scope_review_audit.csv",
+        "key_column": "cnpj_fundo",
+        "status_column": "decision",
+        "ui_surface": "Pipeline > Fila única > Exceções de universo CVM",
+        "comparison": "sugestão cadastral automática × decisão humana de manter/excluir",
+        "rerun_command": "python scripts/build_fidc_industry_universe_exceptions.py",
+        "action_columns": UNIVERSE_SCOPE_REVIEW_COLUMNS,
     },
 ]
 
@@ -610,11 +658,16 @@ CURATION_PACKAGE_EVIDENCE_COLUMNS = [
     "competencia",
     "cnpj_fundo",
     "nome_exibicao",
+    "pl_reference_brl",
     "cvm_fund_type",
     "cvm_class_type",
     "cvm_registration_status",
     "scope_status",
     "scope_reason",
+    "universe_decision",
+    "universe_rationale",
+    "universe_reviewer",
+    "universe_reviewed_at_utc",
     "discovery_status",
     "discovery_documents_listed",
     "discovery_documents_relevant",
@@ -2648,6 +2701,7 @@ def build_monthly_delta_pipeline_manifest(
             "fund_snapshot": file_fingerprint(industry_dir / "industry_fund_snapshot.csv.gz"),
             "metadata": file_fingerprint(industry_dir / "metadata.json"),
             "monthly_delta_actions": file_fingerprint(industry_dir / "monthly_delta_actions.csv"),
+            "universe_scope_reviews": file_fingerprint(industry_dir / "universe_scope_reviews.csv"),
         },
         "outputs": {
             "monthly_delta": file_fingerprint(output_path),
@@ -6655,6 +6709,7 @@ def build_industry_curation_package_evidence(
     document_field_run_summary: pd.DataFrame | None = None,
     document_participant_candidates: pd.DataFrame | None = None,
     document_criteria_candidates: pd.DataFrame | None = None,
+    universe_reviews: pd.DataFrame | None = None,
     cedentes: pd.DataFrame | None = None,
     criteria: pd.DataFrame | None = None,
     dimension_catalog: pd.DataFrame | None = None,
@@ -6672,6 +6727,7 @@ def build_industry_curation_package_evidence(
         "competencia",
         "cnpj_fundo",
         "nome_exibicao",
+        "pl_reference_brl",
     ]
     base = packages.copy()
     for col in base_columns:
@@ -6909,6 +6965,21 @@ def build_industry_curation_package_evidence(
             }
         )
         out = out.merge(discovery_status, on="cnpj_fundo", how="left")
+    review_frame = normalized(universe_reviews)
+    if not review_frame.empty:
+        review_columns = ["cnpj_fundo", "decision", "rationale", "reviewer", "updated_at_utc"]
+        for col in review_columns:
+            if col not in review_frame.columns:
+                review_frame[col] = ""
+        review_frame = review_frame[review_columns].drop_duplicates("cnpj_fundo", keep="last").rename(
+            columns={
+                "decision": "universe_decision",
+                "rationale": "universe_rationale",
+                "reviewer": "universe_reviewer",
+                "updated_at_utc": "universe_reviewed_at_utc",
+            }
+        )
+        out = out.merge(review_frame, on="cnpj_fundo", how="left")
     for records in [
         document_records,
         text_records,
@@ -6927,6 +6998,10 @@ def build_industry_curation_package_evidence(
         "cvm_registration_status",
         "discovery_status",
         "discovery_attempted_at_utc",
+        "universe_decision",
+        "universe_rationale",
+        "universe_reviewer",
+        "universe_reviewed_at_utc",
         "document_classes",
         "document_latest_date",
         "document_keys",
@@ -6987,6 +7062,7 @@ def build_industry_curation_package_evidence(
         if col not in out.columns:
             out[col] = 0
         out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).astype(int)
+    out["pl_reference_brl"] = pd.to_numeric(out.get("pl_reference_brl"), errors="coerce").fillna(0.0)
 
     registered_type = (out["cvm_fund_type"] + " " + out["cvm_class_type"]).str.strip()
     registered_fidc = registered_type.str.contains("FIDC", case=False, na=False)
@@ -7004,6 +7080,15 @@ def build_industry_curation_package_evidence(
     out.loc[has_registration & ~registered_fidc, "scope_reason"] = (
         "Tipo_Fundo/Tipo_Classe CVM não indica FIDC: " + registered_type[has_registration & ~registered_fidc]
     )
+    decision = out["universe_decision"].fillna("").astype(str).str.strip().str.lower()
+    out.loc[decision.eq("manter"), "scope_status"] = "mantido por revisão"
+    out.loc[decision.eq("manter"), "scope_reason"] = out.loc[
+        decision.eq("manter"), "universe_rationale"
+    ].replace("", "decisão manual de manter no universo")
+    out.loc[decision.eq("excluir"), "scope_status"] = "excluído por revisão"
+    out.loc[decision.eq("excluir"), "scope_reason"] = out.loc[
+        decision.eq("excluir"), "universe_rationale"
+    ].replace("", "decisão manual de excluir do universo")
 
     document_ratio = out["catalog_document_covered_rows"].div(
         out["catalog_document_required_rows"].where(out["catalog_document_required_rows"].gt(0), 1)
@@ -7015,7 +7100,7 @@ def build_industry_curation_package_evidence(
     page_ratio = page_ratio.where(out["catalog_page_required_rows"].gt(0), 1.0)
     score_ratio = out["catalog_score_covered_rows"].div(out["catalog_rows"].where(out["catalog_rows"].gt(0), 1)).clip(0, 1)
     out["evidence_score"] = (
-        out["scope_status"].isin({"aderente", "aderente por denominação"}).astype(float) * 10
+        out["scope_status"].isin({"aderente", "aderente por denominação", "mantido por revisão"}).astype(float) * 10
         + out["document_local_rows"].gt(0).astype(float) * 20
         + out["text_ready_rows"].gt(0).astype(float) * 20
         + out["cedente_rows"].gt(0).astype(float) * 12.5
@@ -7030,6 +7115,13 @@ def build_industry_curation_package_evidence(
     out["next_technical_action"] = "comparar extração automática com a evidência e decidir na interface"
     out["rerun_command"] = ""
     stage_rules = [
+        (
+            out["scope_status"].eq("excluído por revisão"),
+            "resolvido",
+            "excluído",
+            "regerar os módulos derivados para retirar o CNPJ do universo analítico",
+            "python scripts/build_fidc_industry_fund_snapshot.py && python scripts/build_fidc_industry_monthly_delta.py",
+        ),
         (
             out["scope_status"].eq("revisar universo"),
             "bloqueado",
@@ -7193,6 +7285,202 @@ def curation_package_evidence_quality_summary(evidence: pd.DataFrame) -> dict[st
     }
 
 
+def load_industry_universe_reviews(path: Path) -> pd.DataFrame:
+    frame = load_dataframe(path)
+    for col in UNIVERSE_SCOPE_REVIEW_COLUMNS:
+        if col not in frame.columns:
+            frame[col] = ""
+    if frame.empty:
+        return frame[UNIVERSE_SCOPE_REVIEW_COLUMNS]
+    frame["cnpj_fundo"] = frame["cnpj_fundo"].map(normalize_cnpj)
+    frame["decision"] = frame["decision"].fillna("").astype(str).str.strip().str.lower().replace("", "pendente")
+    frame = frame[frame["cnpj_fundo"].astype(str).str.len().eq(14)]
+    return frame.drop_duplicates("cnpj_fundo", keep="last")[UNIVERSE_SCOPE_REVIEW_COLUMNS].reset_index(drop=True)
+
+
+def save_industry_universe_reviews(reviews: pd.DataFrame, path: Path) -> pd.DataFrame:
+    frame = pd.DataFrame() if reviews is None else reviews.copy()
+    for col in UNIVERSE_SCOPE_REVIEW_COLUMNS:
+        if col not in frame.columns:
+            frame[col] = ""
+    frame["cnpj_fundo"] = frame["cnpj_fundo"].map(normalize_cnpj)
+    frame["decision"] = frame["decision"].fillna("").astype(str).str.strip().str.lower().replace("", "pendente")
+    frame = frame[
+        frame["cnpj_fundo"].astype(str).str.len().eq(14)
+        & frame["decision"].isin({"pendente", "manter", "excluir"})
+    ].copy()
+    frame = frame.drop_duplicates("cnpj_fundo", keep="last")[UNIVERSE_SCOPE_REVIEW_COLUMNS]
+    save_dataframe(frame, path)
+    return frame.reset_index(drop=True)
+
+
+def apply_industry_universe_reviews(
+    frame: pd.DataFrame,
+    reviews: pd.DataFrame | None,
+    *,
+    cnpj_column: str = "cnpj_fundo",
+) -> pd.DataFrame:
+    """Remove only CNPJs explicitly excluded by a persisted human decision."""
+
+    if frame is None or frame.empty or reviews is None or reviews.empty or cnpj_column not in frame.columns:
+        return pd.DataFrame() if frame is None else frame.copy()
+    review_frame = reviews.copy()
+    if "cnpj_fundo" not in review_frame.columns or "decision" not in review_frame.columns:
+        return frame.copy()
+    excluded = set(
+        review_frame[
+            review_frame["decision"].fillna("").astype(str).str.strip().str.lower().eq("excluir")
+        ]["cnpj_fundo"].map(normalize_cnpj)
+    )
+    if not excluded:
+        return frame.copy()
+    normalized_cnpj = frame[cnpj_column].map(normalize_cnpj)
+    return frame[~normalized_cnpj.isin(excluded)].copy().reset_index(drop=True)
+
+
+def build_industry_universe_exceptions(
+    evidence: pd.DataFrame,
+    *,
+    reviews: pd.DataFrame | None = None,
+    review_audit: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    if evidence is None or evidence.empty:
+        return pd.DataFrame(columns=UNIVERSE_EXCEPTION_COLUMNS)
+    frame = evidence.copy()
+    for col in [
+        "cnpj_fundo",
+        "nome_exibicao",
+        "cvm_fund_type",
+        "cvm_class_type",
+        "cvm_registration_status",
+        "scope_status",
+        "universe_decision",
+        "package_id",
+        "work_tier",
+        "queue_domain",
+        "competencia",
+        "pl_reference_brl",
+    ]:
+        if col not in frame.columns:
+            frame[col] = ""
+    frame["cnpj_fundo"] = frame["cnpj_fundo"].map(normalize_cnpj)
+    review_cnpjs = set()
+    if reviews is not None and not reviews.empty and "cnpj_fundo" in reviews.columns:
+        review_cnpjs = set(reviews["cnpj_fundo"].map(normalize_cnpj))
+    scope_status = frame["scope_status"].fillna("").astype(str)
+    frame = frame[
+        scope_status.isin({"revisar universo", "mantido por revisão", "excluído por revisão"})
+        | frame["cnpj_fundo"].isin(review_cnpjs)
+    ].copy()
+    if frame.empty:
+        return pd.DataFrame(columns=UNIVERSE_EXCEPTION_COLUMNS)
+
+    records: list[dict[str, object]] = []
+    for cnpj, group in frame.groupby("cnpj_fundo", sort=False):
+        name = _first_nonempty(group["nome_exibicao"])
+        name_has_fidc = bool(re.search(r"\bFIDC\b|DIREIT[OÓ]S?\s+CREDIT", name, flags=re.IGNORECASE))
+        fund_type = _first_nonempty(group["cvm_fund_type"])
+        class_type = _first_nonempty(group["cvm_class_type"])
+        registered_type = f"{fund_type} {class_type}".strip()
+        if "FIAGRO" in registered_type.upper():
+            suggested_decision = "revisar"
+            suggestion_reason = "cadastro CVM indica FIAGRO; inclusão depende do universo analítico escolhido"
+        elif not name_has_fidc and registered_type:
+            suggested_decision = "excluir"
+            suggestion_reason = "cadastro e denominação não indicam FIDC"
+        else:
+            suggested_decision = "revisar"
+            suggestion_reason = "denominação sugere FIDC, mas Tipo_Fundo/Tipo_Classe CVM diverge"
+        records.append(
+            {
+                "cnpj_fundo": cnpj,
+                "nome_exibicao": name,
+                "cvm_fund_type": fund_type,
+                "cvm_class_type": class_type,
+                "cvm_registration_status": _first_nonempty(group["cvm_registration_status"]),
+                "name_has_fidc_signal": name_has_fidc,
+                "suggested_decision": suggested_decision,
+                "suggestion_reason": suggestion_reason,
+                "decision": "pendente",
+                "decision_status": "pendente",
+                "rationale": "",
+                "reviewer": "",
+                "updated_at_utc": "",
+                "package_rows": int(len(group)),
+                "package_ids": _join_unique(group["package_id"], limit=max(int(group["package_id"].nunique()), 1)),
+                "work_tiers": _join_unique(group["work_tier"], limit=max(int(group["work_tier"].nunique()), 1)),
+                "queue_domains": _join_unique(group["queue_domain"], limit=max(int(group["queue_domain"].nunique()), 1)),
+                "latest_competencia": max((value for value in group["competencia"].fillna("").astype(str) if value), default=""),
+                "pl_reference_brl": float(pd.to_numeric(group["pl_reference_brl"], errors="coerce").fillna(0).max()),
+                "source_artifacts": "industry_curation_package_evidence.csv.gz | industry_registration_scope.csv.gz",
+            }
+        )
+    out = pd.DataFrame(records)
+    review_frame = pd.DataFrame() if reviews is None else reviews.copy()
+    if not review_frame.empty:
+        for col in UNIVERSE_SCOPE_REVIEW_COLUMNS:
+            if col not in review_frame.columns:
+                review_frame[col] = ""
+        review_frame["cnpj_fundo"] = review_frame["cnpj_fundo"].map(normalize_cnpj)
+        review_frame = review_frame.drop_duplicates("cnpj_fundo", keep="last")
+        out = out.drop(columns=["decision", "rationale", "reviewer", "updated_at_utc"]).merge(
+            review_frame[UNIVERSE_SCOPE_REVIEW_COLUMNS],
+            on="cnpj_fundo",
+            how="left",
+        )
+    for col in ["decision", "rationale", "reviewer", "updated_at_utc"]:
+        if col not in out.columns:
+            out[col] = ""
+        out[col] = out[col].fillna("").astype(str)
+    out["decision"] = out["decision"].str.strip().str.lower().replace("", "pendente")
+    out["decision_status"] = out["decision"].map(
+        {"pendente": "pendente", "manter": "mantido no universo", "excluir": "excluído do universo"}
+    ).fillna("pendente")
+    if review_audit is not None and not review_audit.empty:
+        audit_summary = review_audit_summary(review_audit, "cnpj_fundo")
+        if not audit_summary.empty:
+            out = out.merge(audit_summary, on="cnpj_fundo", how="left")
+    for col in ["review_event_count", "last_review_at_utc", "last_review_field", "last_review_source"]:
+        if col not in out.columns:
+            out[col] = 0 if col == "review_event_count" else ""
+    out["review_event_count"] = pd.to_numeric(out["review_event_count"], errors="coerce").fillna(0).astype(int)
+    for col in UNIVERSE_EXCEPTION_COLUMNS:
+        if col not in out.columns:
+            out[col] = ""
+    decision_order = {"pendente": 0, "manter": 1, "excluir": 2}
+    out["_decision_order"] = out["decision"].map(decision_order).fillna(9)
+    out = out.sort_values(["_decision_order", "pl_reference_brl", "cnpj_fundo"], ascending=[True, False, True])
+    return out.drop(columns=["_decision_order"])[UNIVERSE_EXCEPTION_COLUMNS].reset_index(drop=True)
+
+
+def universe_exception_quality_summary(exceptions: pd.DataFrame) -> dict[str, object]:
+    if exceptions is None or exceptions.empty:
+        return {
+            "rows": 0,
+            "pending_rows": 0,
+            "maintained_rows": 0,
+            "excluded_rows": 0,
+            "fiagro_rows": 0,
+            "fidc_name_mismatch_rows": 0,
+            "review_events": 0,
+        }
+    decision = exceptions.get("decision", pd.Series("", index=exceptions.index)).fillna("").astype(str)
+    registered_type = (
+        exceptions.get("cvm_fund_type", pd.Series("", index=exceptions.index)).fillna("").astype(str)
+        + " "
+        + exceptions.get("cvm_class_type", pd.Series("", index=exceptions.index)).fillna("").astype(str)
+    )
+    return {
+        "rows": int(len(exceptions)),
+        "pending_rows": int(decision.eq("pendente").sum()),
+        "maintained_rows": int(decision.eq("manter").sum()),
+        "excluded_rows": int(decision.eq("excluir").sum()),
+        "fiagro_rows": int(registered_type.str.contains("FIAGRO", case=False, na=False).sum()),
+        "fidc_name_mismatch_rows": int(_boolish_series(exceptions.get("name_has_fidc_signal")).sum()),
+        "review_events": int(pd.to_numeric(exceptions.get("review_event_count"), errors="coerce").fillna(0).sum()),
+    }
+
+
 def build_curation_package_evidence_pipeline_manifest(
     *,
     industry_dir: Path,
@@ -7217,6 +7505,7 @@ def build_curation_package_evidence_pipeline_manifest(
         "inputs": {
             "curation_packages": file_fingerprint(industry_dir / "industry_curation_packages.csv.gz"),
             "registration_scope": file_fingerprint(registration_scope_path),
+            "universe_scope_reviews": file_fingerprint(industry_dir / "universe_scope_reviews.csv"),
             "document_inventory": file_fingerprint(industry_dir / "document_inventory.csv.gz"),
             "package_document_discovery_status": file_fingerprint(
                 industry_dir / "industry_package_document_discovery_status.csv.gz"
@@ -7260,6 +7549,67 @@ def build_curation_package_evidence_pipeline_manifest(
             },
         ],
         "quality": curation_package_evidence_quality_summary(evidence),
+    }
+
+
+def build_universe_exception_pipeline_manifest(
+    *,
+    industry_dir: Path,
+    output_path: Path,
+    reviews_path: Path,
+    audit_path: Path,
+    manifest_path: Path,
+    exceptions: pd.DataFrame,
+) -> dict[str, object]:
+    return {
+        "schema_version": "industry-universe-exception-manifest/v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "pipeline": "industry_universe_exceptions",
+        "design_constraints": {
+            "manual_review_in_app": True,
+            "automatic_exclusion": False,
+            "incremental": True,
+            "notes": [
+                "Tipos CVM geram sugestão, mas somente decisão manual 'excluir' remove um CNPJ dos builds derivados.",
+                "FIAGRO, FIF, FII e divergências de denominação permanecem auditáveis mesmo após decisão.",
+            ],
+        },
+        "inputs": {
+            "package_evidence": file_fingerprint(industry_dir / "industry_curation_package_evidence.csv.gz"),
+            "registration_scope": file_fingerprint(industry_dir / "industry_registration_scope.csv.gz"),
+            "universe_reviews": file_fingerprint(reviews_path),
+            "universe_review_audit": file_fingerprint(audit_path),
+        },
+        "outputs": {
+            "universe_exceptions": file_fingerprint(output_path),
+            "universe_reviews": file_fingerprint(reviews_path),
+            "universe_review_audit": file_fingerprint(audit_path),
+            "manifest": {"path": str(manifest_path)},
+        },
+        "stages": [
+            {
+                "id": "detect_registration_mismatch",
+                "label": "Detectar divergências de universo",
+                "status": "ok" if not exceptions.empty else "empty",
+                "rows": int(len(exceptions)),
+                "rerun": "python scripts/build_fidc_industry_universe_exceptions.py",
+            },
+            {
+                "id": "apply_manual_scope_overlay",
+                "label": "Aplicar decisões manuais de escopo",
+                "status": "ok",
+                "rows": int(len(exceptions)),
+                "rerun": "python scripts/build_fidc_industry_universe_exceptions.py",
+            },
+            {
+                "id": "persist_universe_exceptions",
+                "label": "Persistir exceções e auditoria",
+                "status": "ok" if output_path.exists() and reviews_path.exists() and audit_path.exists() else "empty",
+                "rows": int(len(exceptions)),
+                "rerun": "python scripts/build_fidc_industry_universe_exceptions.py",
+            },
+        ],
+        "quality": universe_exception_quality_summary(exceptions),
     }
 
 
@@ -8638,6 +8988,37 @@ def build_pipeline_readiness_checks(
         "python scripts/build_fidc_industry_package_documents.py --max-funds 25 && python scripts/build_fidc_industry_curation_package_evidence.py",
     )
 
+    universe_rows = int(quality_rollup.get("universe_exception_rows", 0) or 0)
+    universe_pending = int(quality_rollup.get("universe_exception_pending_rows", 0) or 0)
+    universe_maintained = int(quality_rollup.get("universe_exception_maintained_rows", 0) or 0)
+    universe_excluded = int(quality_rollup.get("universe_exception_excluded_rows", 0) or 0)
+    universe_fiagro = int(quality_rollup.get("universe_exception_fiagro_rows", 0) or 0)
+    universe_stale_modules = quality_rollup.get("universe_overlay_stale_modules", [])
+    if not isinstance(universe_stale_modules, list):
+        universe_stale_modules = []
+    universe_stale = len(universe_stale_modules)
+    add(
+        "universe_scope",
+        7,
+        "Universo CVM",
+        "Divergências cadastrais com decisão humana",
+        "bloqueado" if universe_pending or universe_stale else "ok",
+        universe_pending + universe_stale,
+        (
+            f"{universe_pending}/{universe_rows} pendentes; {universe_maintained} mantidos; "
+            f"{universe_excluded} excluídos; {universe_fiagro} FIAGRO; "
+            f"{universe_stale} derivados desatualizados"
+        ),
+        "Decidir as exceções e rematerializar os derivados após qualquer exclusão antes da publicação externa.",
+        "industry_universe_exceptions.csv.gz | universe_scope_reviews.csv | universe_scope_review_audit.csv",
+        (
+            "python scripts/build_fidc_industry_study.py --report && "
+            "python scripts/build_fidc_industry_fund_snapshot.py && "
+            "python scripts/build_fidc_industry_monthly_delta.py && "
+            "python scripts/build_fidc_industry_dimensions.py"
+        ),
+    )
+
     document_chunks = int(quality_rollup.get("document_chunks", 0) or 0)
     chunk_untracked = int(quality_rollup.get("document_chunks_without_action", 0) or 0)
     chunk_pending = int(quality_rollup.get("document_chunks_pending_action", 0) or 0)
@@ -8663,7 +9044,7 @@ def build_pipeline_readiness_checks(
     chunk_open = chunk_untracked + chunk_in_progress + chunk_blocked + min(chunk_pending, chunk_technical_open)
     add(
         "document_chunk_processing",
-        7,
+        8,
         "Documentos",
         "Execução incremental de OCR, parsing e extração por chunk",
         "bloqueado"
@@ -8708,7 +9089,7 @@ def build_pipeline_readiness_checks(
     missing_structured = max(snapshot_rows - min(with_cedentes, with_criteria), 0)
     add(
         "structured_coverage",
-        8,
+        9,
         "Snapshot",
         "Cobertura de cedentes e critérios estruturados",
         "atenção" if missing_structured else "ok",
@@ -8750,9 +9131,9 @@ def build_monthly_update_plan(
         if isinstance(row, dict)
     }
     stage_checks = {
-        "base_monthly": ["competencia_alignment"],
+        "base_monthly": ["competencia_alignment", "universe_scope"],
         "manual_review_ledgers": ["artifact_presence"],
-        "monthly_delta": ["competencia_alignment", "monthly_delta_queue"],
+        "monthly_delta": ["competencia_alignment", "monthly_delta_queue", "universe_scope"],
         "incremental_onboarding": ["monthly_delta_queue", "curation_queue", "document_chunk_processing", "structured_coverage"],
         "issuance": [],
         "public_claims": ["competencia_alignment"],
@@ -8763,10 +9144,11 @@ def build_monthly_update_plan(
         "document_chunk_plan": ["document_chunk_processing"],
         "cedentes": ["structured_coverage", "curation_queue"],
         "criteria": ["structured_coverage", "curation_queue"],
-        "fund_snapshot": ["structured_coverage", "competencia_alignment"],
-        "dimension_catalog": ["structured_coverage", "curation_queue"],
+        "fund_snapshot": ["structured_coverage", "competencia_alignment", "universe_scope"],
+        "dimension_catalog": ["structured_coverage", "curation_queue", "universe_scope"],
         "curation_queue": ["curation_queue"],
         "curation_package_evidence": ["package_evidence", "curation_queue"],
+        "universe_exceptions": ["universe_scope", "package_evidence"],
         "package_document_discovery": ["package_evidence", "document_chunk_processing"],
         "dimension_profiles": ["structured_coverage"],
         "dimension_monthly": ["competencia_alignment", "structured_coverage"],
@@ -8783,9 +9165,9 @@ def build_monthly_update_plan(
             return "Documentos e ofertas"
         if order <= 17:
             return "Estruturação"
-        if order <= 20:
+        if order <= 21:
             return "Curadoria técnica"
-        if order <= 24:
+        if order <= 25:
             return "Agregações reutilizáveis"
         return "Controle"
 
@@ -9452,6 +9834,8 @@ def build_manual_review_ledger(*, industry_dir: Path) -> list[dict[str, object]]
         "corrigido",
         "rejeitado",
         "aceito",
+        "manter",
+        "excluir",
         "ignorado",
         "processado",
         "concluído",
@@ -10048,6 +10432,23 @@ def build_industry_pipeline_index(
             ],
         },
         {
+            "module_id": "universe_exceptions",
+            "label": "Exceções do universo CVM",
+            "manifest_name": "industry_universe_exception_manifest.json",
+            "command": "python scripts/build_fidc_industry_universe_exceptions.py",
+            "cadence": "após evidência técnica ou decisão manual",
+            "depends_on": ["evidência técnica dos pacotes", "cadastro CVM", "revisão humana de escopo"],
+            "quality_keys": [
+                "rows",
+                "pending_rows",
+                "maintained_rows",
+                "excluded_rows",
+                "fiagro_rows",
+                "fidc_name_mismatch_rows",
+                "review_events",
+            ],
+        },
+        {
             "module_id": "package_document_discovery",
             "label": "Descoberta FNET por pacote",
             "manifest_name": "industry_package_document_discovery_manifest.json",
@@ -10432,6 +10833,22 @@ def build_industry_pipeline_index(
             artifacts.extend(manual_artifacts)
             module["artifact_count"] = len(artifacts)
             module["artifacts_present"] = sum(1 for item in artifacts if item.get("exists") is True)
+        if spec["module_id"] == "universe_exceptions":
+            manual_artifacts = [
+                _optional_artifact_row(
+                    "universe_exceptions",
+                    "universe_scope_reviews",
+                    industry_dir / "universe_scope_reviews.csv",
+                ),
+                _optional_artifact_row(
+                    "universe_exceptions",
+                    "universe_scope_review_audit",
+                    industry_dir / "universe_scope_review_audit.csv",
+                ),
+            ]
+            artifacts.extend(manual_artifacts)
+            module["artifact_count"] = len(artifacts)
+            module["artifacts_present"] = sum(1 for item in artifacts if item.get("exists") is True)
         modules.append(module)
         artifact_rows.extend(artifacts)
 
@@ -10631,6 +11048,14 @@ def build_industry_pipeline_index(
         },
         {
             "order": 20,
+            "module_id": "universe_exceptions",
+            "label": "Reconciliar exceções do universo CVM",
+            "command": "python scripts/build_fidc_industry_universe_exceptions.py",
+            "reason": "Materializa divergências cadastrais e reaplica apenas decisões humanas explícitas de manter/excluir.",
+            "incremental_note": "Rerun leve após salvar uma decisão; preserva justificativa e histórico append-only de auditoria.",
+        },
+        {
+            "order": 21,
             "module_id": "package_document_discovery",
             "label": "Descobrir documentos dos pacotes prioritários",
             "command": "python scripts/build_fidc_industry_package_documents.py --max-funds 25",
@@ -10638,7 +11063,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Pula CNPJs já concluídos e limita cada execução a um lote confortável para o MacBook.",
         },
         {
-            "order": 21,
+            "order": 22,
             "module_id": "dimension_profiles",
             "label": "Regerar perfis cruzados por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_profiles.py",
@@ -10646,7 +11071,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado.",
         },
         {
-            "order": 22,
+            "order": 23,
             "module_id": "dimension_monthly",
             "label": "Regerar séries mensais por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -10654,7 +11079,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação.",
         },
         {
-            "order": 23,
+            "order": 24,
             "module_id": "dimension_dossiers",
             "label": "Regerar dossiês dimensionais",
             "command": "python scripts/build_fidc_industry_dimension_dossiers.py",
@@ -10662,7 +11087,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas atlas, perfis e registry já materializados; não reprocessa documentos ou informe mensal.",
         },
         {
-            "order": 24,
+            "order": 25,
             "module_id": "market_share",
             "label": "Regerar market share e concentração",
             "command": "python scripts/build_fidc_industry_market_share.py",
@@ -10670,7 +11095,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe.",
         },
         {
-            "order": 25,
+            "order": 26,
             "module_id": "pipeline_index",
             "label": "Atualizar cockpit do pipeline",
             "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -10699,6 +11124,10 @@ def build_industry_pipeline_index(
     curation_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "curation_queue"), {})
     package_evidence_quality = next(
         (m.get("quality_highlights", {}) for m in modules if m.get("id") == "curation_package_evidence"),
+        {},
+    )
+    universe_exception_quality = next(
+        (m.get("quality_highlights", {}) for m in modules if m.get("id") == "universe_exceptions"),
         {},
     )
     package_discovery_quality = next(
@@ -10765,6 +11194,25 @@ def build_industry_pipeline_index(
         document_chunk_status_counts.get("processado", 0)
         + document_chunk_status_counts.get("ignorado", 0)
     )
+    universe_review_fingerprint = file_fingerprint(industry_dir / "universe_scope_reviews.csv")
+    universe_review_sha = str(universe_review_fingerprint.get("sha256") or "")
+    universe_excluded_rows = int(universe_exception_quality.get("excluded_rows", 0) or 0)
+    universe_overlay_stale_modules: list[str] = []
+    if universe_excluded_rows:
+        base_metadata = _safe_read_json(industry_dir / "metadata.json")
+        if str(base_metadata.get("universe_scope_review_sha256") or "") != universe_review_sha:
+            universe_overlay_stale_modules.append("base_monthly")
+        for module_id, manifest_name in [
+            ("fund_snapshot", "industry_fund_snapshot_manifest.json"),
+            ("monthly_delta", "industry_monthly_delta_manifest.json"),
+            ("dimension_catalog", "industry_dimension_catalog_manifest.json"),
+        ]:
+            manifest = _safe_read_json(industry_dir / manifest_name)
+            inputs = manifest.get("inputs", {}) if isinstance(manifest.get("inputs"), dict) else {}
+            fingerprint = inputs.get("universe_scope_reviews", {})
+            seen_sha = str(fingerprint.get("sha256") or "") if isinstance(fingerprint, dict) else ""
+            if seen_sha != universe_review_sha:
+                universe_overlay_stale_modules.append(module_id)
     quality_rollup = {
         "modules_total": len(modules),
         "module_status_counts": status_counts,
@@ -10833,6 +11281,18 @@ def build_industry_pipeline_index(
         "package_evidence_technical_status_counts": package_evidence_quality.get("technical_status_counts", {}),
         "package_evidence_technical_stage_counts": package_evidence_quality.get("technical_stage_counts", {}),
         "package_evidence_median_score": package_evidence_quality.get("median_evidence_score"),
+        "universe_exception_rows": universe_exception_quality.get("rows", 0),
+        "universe_exception_pending_rows": universe_exception_quality.get("pending_rows", 0),
+        "universe_exception_maintained_rows": universe_exception_quality.get("maintained_rows", 0),
+        "universe_exception_excluded_rows": universe_exception_quality.get("excluded_rows", 0),
+        "universe_exception_fiagro_rows": universe_exception_quality.get("fiagro_rows", 0),
+        "universe_exception_fidc_name_mismatch_rows": universe_exception_quality.get(
+            "fidc_name_mismatch_rows", 0
+        ),
+        "universe_exception_review_events": universe_exception_quality.get("review_events", 0),
+        "universe_overlay_review_sha256": universe_review_sha,
+        "universe_overlay_stale_modules": universe_overlay_stale_modules,
+        "universe_overlay_stale_module_count": len(universe_overlay_stale_modules),
         "package_discovery_attempted_funds": package_discovery_quality.get("attempted_funds", 0),
         "package_discovery_successful_funds": package_discovery_quality.get("successful_funds", 0),
         "package_discovery_relevant_documents": package_discovery_quality.get("relevant_documents", 0),
@@ -13151,6 +13611,7 @@ def build_dimension_catalog_pipeline_manifest(
         "inputs": {
             "fund_snapshot": file_fingerprint(snapshot_path),
             "cedentes_structured": file_fingerprint(cedentes_path),
+            "universe_scope_reviews": file_fingerprint(industry_dir / "universe_scope_reviews.csv"),
             "criteria_structured": file_fingerprint(criteria_path)
             if criteria_path is not None
             else {"path": "", "exists": False},
@@ -14498,6 +14959,7 @@ def build_fund_snapshot_pipeline_manifest(
             "cedentes_structured": file_fingerprint(industry_dir / "cedentes_structured.csv.gz"),
             "criteria_structured": file_fingerprint(industry_dir / "criteria_structured.csv.gz"),
             "document_inventory": file_fingerprint(industry_dir / "document_inventory.csv.gz"),
+            "universe_scope_reviews": file_fingerprint(industry_dir / "universe_scope_reviews.csv"),
         },
         "outputs": {
             "fund_snapshot": file_fingerprint(output_path),

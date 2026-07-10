@@ -15,6 +15,7 @@ from build_fidc_industry_study import (  # noqa: E402
     FIC_FIDC_PATTERN,
     _norm_name,
     _strip_digits,
+    load_universe_scope_exclusions,
     month_range,
 )
 from process_fidc_industry_document_chunks import select_document_chunks  # noqa: E402
@@ -33,6 +34,7 @@ from services.industry_study import (  # noqa: E402
     REVIEW_AUDIT_COLUMNS,
     append_review_audit_events,
     apply_monthly_delta_actions,
+    apply_industry_universe_reviews,
     assign_document_chunks,
     build_review_audit_events,
     build_criteria_pipeline_manifest,
@@ -50,6 +52,7 @@ from services.industry_study import (  # noqa: E402
     build_industry_curation_queue,
     build_industry_curation_packages,
     build_industry_curation_package_evidence,
+    build_industry_universe_exceptions,
     build_industry_curation_queue_summary,
     curation_package_evidence_quality_summary,
     expand_industry_curation_package_updates,
@@ -186,6 +189,26 @@ def test_month_range_spans_years():
 
 def test_month_range_single_month():
     assert month_range("2026-05", "2026-05") == ["202605"]
+
+
+def test_universe_scope_exclusions_expand_fund_decision_to_registered_classes(tmp_path):
+    pd.DataFrame(
+        [
+            {"cnpj_fundo": "11.111.111/0001-11", "decision": "excluir"},
+            {"cnpj_fundo": "22.222.222/0001-22", "decision": "manter"},
+        ]
+    ).to_csv(tmp_path / "universe_scope_reviews.csv", index=False)
+    classe_map = pd.DataFrame(
+        [
+            {"cnpj_classe": "33.333.333/0001-33", "cnpj_fundo": "11.111.111/0001-11"},
+            {"cnpj_classe": "44.444.444/0001-44", "cnpj_fundo": "22.222.222/0001-22"},
+        ]
+    )
+
+    funds, vehicles = load_universe_scope_exclusions(tmp_path, classe_map)
+
+    assert funds == {"11111111000111"}
+    assert vehicles == {"11111111000111", "33333333000133"}
 
 
 def test_strip_digits():
@@ -4969,6 +4992,85 @@ def test_package_evidence_distinguishes_candidate_triage_from_completed_no_signa
     assert set(evidence["technical_status"]) == {"atenção"}
 
 
+def test_universe_reviews_override_scope_and_filter_only_explicit_exclusions():
+    packages = pd.DataFrame(
+        [
+            {
+                "package_id": "pkg-fiagro",
+                "work_tier": "P1 material 25-26",
+                "queue_domain": "snapshot_gap",
+                "cnpj_fundo": "77.777.777/0001-77",
+                "nome_exibicao": "FIAGRO CRÉDITO",
+                "pl_reference_brl": 100.0,
+            },
+            {
+                "package_id": "pkg-fif",
+                "work_tier": "P0 competência",
+                "queue_domain": "monthly_delta",
+                "cnpj_fundo": "88.888.888/0001-88",
+                "nome_exibicao": "FUNDO MULTIMERCADO",
+                "pl_reference_brl": 50.0,
+            },
+        ]
+    )
+    registration = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "77777777000177",
+                "cvm_fund_type": "FIAGRO",
+                "cvm_class_type": "Classes de Cotas de Fundos FIAGRO",
+            },
+            {
+                "cnpj_fundo": "88888888000188",
+                "cvm_fund_type": "FI",
+                "cvm_class_type": "Classes de Cotas de Fundos FIF",
+            },
+        ]
+    )
+    reviews = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "77777777000177",
+                "decision": "manter",
+                "rationale": "Universo executivo inclui FIAGRO de direitos creditórios",
+                "reviewer": "Diretoria",
+            },
+            {
+                "cnpj_fundo": "88888888000188",
+                "decision": "excluir",
+                "rationale": "Cadastro e denominação indicam FIF",
+                "reviewer": "Diretoria",
+            },
+        ]
+    )
+    evidence = build_industry_curation_package_evidence(
+        packages=packages,
+        registration_scope=registration,
+        universe_reviews=reviews,
+    )
+    by_id = evidence.set_index("package_id")
+    exceptions = build_industry_universe_exceptions(evidence, reviews=reviews).set_index("cnpj_fundo")
+    filtered = apply_industry_universe_reviews(
+        pd.DataFrame(
+            [
+                {"cnpj_fundo": "77777777000177", "value": 1},
+                {"cnpj_fundo": "88888888000188", "value": 2},
+                {"cnpj_fundo": "99999999000199", "value": 3},
+            ]
+        ),
+        reviews,
+    )
+
+    assert by_id.loc["pkg-fiagro", "scope_status"] == "mantido por revisão"
+    assert by_id.loc["pkg-fiagro", "technical_stage"] == "descoberta"
+    assert by_id.loc["pkg-fif", "scope_status"] == "excluído por revisão"
+    assert by_id.loc["pkg-fif", "technical_stage"] == "excluído"
+    assert by_id.loc["pkg-fif", "technical_status"] == "resolvido"
+    assert exceptions.loc["77777777000177", "suggested_decision"] == "revisar"
+    assert exceptions.loc["88888888000188", "suggested_decision"] == "excluir"
+    assert set(filtered["cnpj_fundo"]) == {"77777777000177", "99999999000199"}
+
+
 def test_manual_review_ledgers_initialize_headers_without_fake_events():
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
@@ -4992,22 +5094,22 @@ def test_manual_review_ledgers_initialize_headers_without_fake_events():
             ledger_files=ledger_files,
         )
 
-    assert len(ledger_files) == 12
-    assert quality["files"] == 12
-    assert quality["files_present"] == 12
-    assert quality["files_created"] == 11
-    assert quality["schema_ok_files"] == 12
-    assert quality["domains"] == 6
-    assert quality["action_files"] == 6
-    assert quality["audit_files"] == 6
+    assert len(ledger_files) == 14
+    assert quality["files"] == 14
+    assert quality["files_present"] == 14
+    assert quality["files_created"] == 13
+    assert quality["schema_ok_files"] == 14
+    assert quality["domains"] == 7
+    assert quality["action_files"] == 7
+    assert quality["audit_files"] == 7
     assert quality["rows"] == 1
     assert set(ledger_files["file_role"]) == {"actions", "audit"}
     assert int(ledger_files[ledger_files["file_role"].eq("audit")]["rows"].sum()) == 0
     assert manifest["inputs"] == {}
-    assert manifest["review_specs"]["files_expected"] == 12
-    assert len(manifest["outputs"]) == 13
-    assert manifest["quality"]["schema_ok_files"] == 12
-    assert manifest["stages"][0]["files_created"] == 11
+    assert manifest["review_specs"]["files_expected"] == 14
+    assert len(manifest["outputs"]) == 15
+    assert manifest["quality"]["schema_ok_files"] == 14
+    assert manifest["stages"][0]["files_created"] == 13
 
 
 def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
@@ -5056,13 +5158,13 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
             "industry_manual_review_ledgers",
             "industry_manual_review_inventory.csv",
             {
-                "files": 12,
-                "files_present": 12,
+                "files": 14,
+                "files_present": 14,
                 "files_created": 0,
-                "schema_ok_files": 12,
-                "domains": 6,
-                "action_files": 6,
-                "audit_files": 6,
+                "schema_ok_files": 14,
+                "domains": 7,
+                "action_files": 7,
+                "audit_files": 7,
                 "rows": 12,
             },
         )
@@ -5185,6 +5287,30 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "technical_stage_counts": {"descoberta": 1, "revisão": 1},
                 "median_evidence_score": 60.0,
             },
+        )
+        write_module_manifest(
+            "industry_universe_exception_manifest.json",
+            "industry_universe_exceptions",
+            "industry_universe_exceptions.csv.gz",
+            {
+                "rows": 2,
+                "pending_rows": 1,
+                "maintained_rows": 0,
+                "excluded_rows": 1,
+                "fiagro_rows": 1,
+                "fidc_name_mismatch_rows": 1,
+                "review_events": 1,
+            },
+        )
+        (tmp_path / "universe_scope_reviews.csv").write_text(
+            "cnpj_fundo,decision,rationale,reviewer,updated_at_utc\n"
+            "77777777000177,excluir,Fora do universo executivo,Diretoria,2026-07-08T12:00:00+00:00\n",
+            encoding="utf-8",
+        )
+        (tmp_path / "universe_scope_review_audit.csv").write_text(
+            "event_id,saved_at_utc,review_domain,record_id,field,old_value,new_value,status_after,source\n"
+            "uni1,2026-07-08T12:00:00+00:00,universe_scope_review,77777777000177,decision,pendente,excluir,excluir,test\n",
+            encoding="utf-8",
         )
         write_module_manifest(
             "industry_package_document_discovery_manifest.json",
@@ -5542,11 +5668,11 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
     assert index["schema_version"] == "industry-pipeline-index/v1"
-    assert index["quality_rollup"]["modules_total"] == 23
-    assert index["quality_rollup"]["module_status_counts"]["ok"] == 23
+    assert index["quality_rollup"]["modules_total"] == 24
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 24
     assert index["quality_rollup"]["artifacts_missing"] == 0
-    assert index["quality_rollup"]["manual_review_artifacts_total"] == 12
-    assert index["quality_rollup"]["manual_review_artifacts_present"] == 12
+    assert index["quality_rollup"]["manual_review_artifacts_total"] == 14
+    assert index["quality_rollup"]["manual_review_artifacts_present"] == 14
     assert index["quality_rollup"]["competencia_snapshot"] == "202605"
     assert index["quality_rollup"]["monthly_delta_competencia_atual"] == "2026-05"
     assert index["quality_rollup"]["monthly_delta_new_funds"] == 1
@@ -5572,6 +5698,17 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["package_evidence_p0_rows"] == 2
     assert index["quality_rollup"]["package_evidence_p0_with_documents"] == 1
     assert index["quality_rollup"]["package_evidence_p0_stage_counts"] == {"descoberta": 1, "revisão": 1}
+    assert index["quality_rollup"]["universe_exception_rows"] == 2
+    assert index["quality_rollup"]["universe_exception_pending_rows"] == 1
+    assert index["quality_rollup"]["universe_exception_maintained_rows"] == 0
+    assert index["quality_rollup"]["universe_exception_excluded_rows"] == 1
+    assert index["quality_rollup"]["universe_overlay_stale_module_count"] == 4
+    assert set(index["quality_rollup"]["universe_overlay_stale_modules"]) == {
+        "base_monthly",
+        "fund_snapshot",
+        "monthly_delta",
+        "dimension_catalog",
+    }
     assert index["quality_rollup"]["package_discovery_attempted_funds"] == 1
     assert index["quality_rollup"]["package_discovery_downloaded_documents"] == 2
     assert index["quality_rollup"]["document_chunks"] == 1
@@ -5632,8 +5769,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["public_claim_methodology_bridge_rows"] == 4
     assert index["quality_rollup"]["public_claim_methodology_bridge_needs_disclosure_rows"] == 3
     assert index["quality_rollup"]["public_claim_methodology_bridge_high_or_blocking_rows"] == 2
-    assert index["quality_rollup"]["readiness_checks_rows"] == 8
-    assert index["quality_rollup"]["readiness_status_counts"]["bloqueado"] == 3
+    assert index["quality_rollup"]["readiness_checks_rows"] == 9
+    assert index["quality_rollup"]["readiness_status_counts"]["bloqueado"] == 4
     assert index["quality_rollup"]["readiness_status_counts"]["atenção"] == 2
     assert index["quality_rollup"]["readiness_status_counts"]["ok"] == 3
     assert index["quality_rollup"]["prd_requirements_total"] == 12
@@ -5651,7 +5788,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert prd["manual_review_in_app"]["status_prd"] == "ok"
     assert prd["heatmaps_generic"]["status_prd"] == "atenção"
     assert prd["public_audit_readiness"]["status_prd"] == "atenção"
-    assert index["quality_rollup"]["monthly_update_plan_rows"] == 25
+    assert index["quality_rollup"]["monthly_update_plan_rows"] == 26
     assert "monthly_update_plan_status_counts" in index["quality_rollup"]
     assert index["quality_rollup"]["publication_gate_status"] == "bloqueado"
     assert index["quality_rollup"]["publication_gate_rows"] > 1
@@ -5697,11 +5834,11 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert artifacts[("pipeline_index", "industry_monthly_closeout_plan")]["required"] is False
     assert ("public_claims", "methodology_bridge") in artifacts
     assert artifacts[("public_claims", "methodology_bridge")]["required"] is True
-    assert index["quality_rollup"]["manual_review_domains_total"] == 6
-    assert index["quality_rollup"]["manual_review_domains_with_actions"] == 6
-    assert index["quality_rollup"]["manual_review_domains_with_audit"] == 6
-    assert index["quality_rollup"]["manual_review_action_rows"] == 6
-    assert index["quality_rollup"]["manual_review_audit_events"] == 6
+    assert index["quality_rollup"]["manual_review_domains_total"] == 7
+    assert index["quality_rollup"]["manual_review_domains_with_actions"] == 7
+    assert index["quality_rollup"]["manual_review_domains_with_audit"] == 7
+    assert index["quality_rollup"]["manual_review_action_rows"] == 7
+    assert index["quality_rollup"]["manual_review_audit_events"] == 7
     ledger = {row["domain_id"]: row for row in index["manual_review_ledger"]}
     assert set(ledger) == {
         "cedente_review",
@@ -5710,6 +5847,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         "document_chunk_action",
         "snapshot_gap",
         "dimension_catalog_gap",
+        "universe_scope_review",
     }
     assert ledger["cedente_review"]["status_ledger"] == "ok"
     assert ledger["dimension_catalog_gap"]["audit_events"] == 1
@@ -5730,6 +5868,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         "document_text",
         "document_fields",
         "curation_queue",
+        "universe_exceptions",
         "pipeline_index",
     }
     assert any(row["artifact"] == "manifest" for row in index["artifact_index"])
@@ -5745,6 +5884,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert readiness["document_chunk_processing"]["status_prontidao"] == "atenção"
     assert readiness["document_chunk_processing"]["pendencias"] == 1
     assert readiness["structured_coverage"]["status_prontidao"] == "atenção"
+    assert readiness["universe_scope"]["status_prontidao"] == "bloqueado"
+    assert readiness["universe_scope"]["pendencias"] == 5
     manual_artifacts = {
         row["artifact"]: row
         for row in index["artifact_index"]
@@ -5769,3 +5910,5 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert manual_artifacts["snapshot_gap_action_audit"]["exists"] is True
     assert manual_artifacts["dimension_catalog_gap_actions"]["module_id"] == "dimension_catalog"
     assert manual_artifacts["dimension_catalog_gap_action_audit"]["exists"] is True
+    assert manual_artifacts["universe_scope_reviews"]["module_id"] == "universe_exceptions"
+    assert manual_artifacts["universe_scope_review_audit"]["exists"] is True
