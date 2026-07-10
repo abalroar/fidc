@@ -57,6 +57,8 @@ def main() -> None:
     review_audit_path = args.industry_dir / "cedente_review_audit.csv"
 
     snapshot = load_dataframe(args.industry_dir / "industry_fund_snapshot.csv.gz")
+    participant_registry_path = args.industry_dir / "participant_registry.csv.gz"
+    participant_registry = load_dataframe(participant_registry_path)
     document_candidates_path = args.industry_dir / "document_participant_candidates.csv.gz"
     candidates = merge_cedente_candidate_sources(
         load_cedente_candidates(args.strategy_db),
@@ -75,6 +77,7 @@ def main() -> None:
         fund_universe=fund_universe,
         vehicle_latest=vehicle_latest,
         review_audit=load_review_audit(review_audit_path),
+        participant_registry=participant_registry,
     )
     save_cedente_structured(structured, output_path)
     manifest = build_cedente_pipeline_manifest(
@@ -88,6 +91,8 @@ def main() -> None:
         fund_universe=fund_universe,
         vehicle_latest=vehicle_latest,
         structured=structured,
+        participant_registry_path=participant_registry_path,
+        participant_registry=participant_registry,
     )
     save_pipeline_manifest(manifest, manifest_path)
     quality = manifest.get("quality", {})

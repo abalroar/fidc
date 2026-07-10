@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-incremental-onboarding-manifest/v1",
-  "generated_at_utc": "2026-07-09T23:34:02+00:00",
+  "generated_at_utc": "2026-07-10T01:44:52+00:00",
   "pipeline": "industry_incremental_onboarding",
   "design_constraints": {
     "modular": true,
@@ -16,20 +16,20 @@
     "monthly_delta": {
       "path": "data/industry_study/industry_monthly_delta.csv.gz",
       "exists": true,
-      "bytes": 368849,
-      "sha256": "a84f7b9a0cf9f83542a954a525ef4a02f1205c252565d362ec724bdc54280a0c"
+      "bytes": 366529,
+      "sha256": "4e6926880cfc575cc4d081a7a343b3aeea09d4c6577ee1f96b42d420c4e56fb8"
     },
     "curation_queue": {
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
-      "bytes": 2656792,
-      "sha256": "1546c0c9a521db05c2aef9116e6e5f0d683d4122092f85e234b8282c92337a74"
+      "bytes": 2517650,
+      "sha256": "05fa4648afb85ff2adb0bb654700f04eb65be7ea5710bcff8e43b2160f95ca0f"
     },
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 85849,
-      "sha256": "db84c35efbc8f77f06a94a4c595035e10a19b25e6b33727fafb07ab5897b6197"
+      "bytes": 85891,
+      "sha256": "e3184c0ea4f4831fe36cc52ae33a761ae57572e2cf3aa8a1f3ecb21ac2eb2cc6"
     }
   },
   "outputs": {
@@ -37,7 +37,7 @@
       "path": "data/industry_study/industry_incremental_onboarding.csv",
       "exists": true,
       "bytes": 91163,
-      "sha256": "3be0a2ac362335bf9a82eabee8b2705dad5fd22bf49f5acaec75f8343a7282c0"
+      "sha256": "2d552aaf183454c2df388517071b1ad02a95d3d3b96d477b58be903aa5860377"
     },
     "manifest": {
       "path": "data/industry_study/industry_incremental_onboarding_manifest.json"
@@ -55,7 +55,7 @@
       "id": "join_queue_and_chunks",
       "label": "Cruzar fila única e chunks documentais",
       "status": "ok",
-      "rows": 84898,
+      "rows": 81522,
       "rerun": "python scripts/build_fidc_industry_curation_queue.py"
     },
     {
@@ -77,8 +77,8 @@
     "discovery_blocked": 61,
     "processing_attention": 10,
     "incorporation_blocked": 63,
-    "open_queue_rows": 1355,
-    "open_high_priority_rows": 131,
+    "open_queue_rows": 1318,
+    "open_high_priority_rows": 94,
     "status_counts": {
       "bloqueado": 71
     }

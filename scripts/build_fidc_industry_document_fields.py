@@ -139,6 +139,10 @@ def main() -> None:
         f"{quality.get('criteria_candidates', 0):,} critérios em {quality.get('criteria_funds', 0):,} FIDCs"
     )
     print(
+        f"[ok] triagem contextual: {quality.get('participant_accepted', 0):,} aceitos; "
+        f"{quality.get('participant_suppressed', 0):,} suprimidos e preservados para auditoria"
+    )
+    print(
         f"[ok] página: participantes {quality.get('participant_with_page', 0):,}; "
         f"critérios {quality.get('criteria_with_page', 0):,}; "
         f"subordinação {quality.get('subordination_candidates', 0):,} candidatos"

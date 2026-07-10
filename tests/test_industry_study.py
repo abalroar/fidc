@@ -18,6 +18,12 @@ from build_fidc_industry_study import (  # noqa: E402
     month_range,
 )
 from process_fidc_industry_document_chunks import select_document_chunks  # noqa: E402
+from services.participant_registry import (  # noqa: E402
+    build_participant_registry,
+    cnae_section,
+    normalize_registry_payload,
+    participant_registry_targets,
+)
 from services.industry_study import (  # noqa: E402
     CEDENTE_REVIEW_COLUMNS,
     CRITERIA_REVIEW_COLUMNS,
@@ -106,6 +112,7 @@ from services.industry_study import (  # noqa: E402
     load_regulatory_feature_criteria,
     load_review_audit,
     normalize_cnpj,
+    is_valid_cnpj,
     save_monthly_delta_actions,
     save_dataframe,
     save_pipeline_manifest,
@@ -120,6 +127,8 @@ from services.industry_study import (  # noqa: E402
     merge_cedente_candidate_sources,
     merge_criteria_candidate_sources,
     merge_document_source_rows,
+    _participant_candidates_from_page,
+    _sanitize_unicode_text,
 )
 from tabs.tab_industry_study import (  # noqa: E402
     _apply_document_chunk_actions,
@@ -180,8 +189,83 @@ def test_strip_digits():
     assert _strip_digits(None) == ""
 
 
+def test_cnpj_check_digits_reject_ocr_identifiers():
+    assert is_valid_cnpj("34.337.707/0001-00") is True
+    assert is_valid_cnpj("05.772.606/0001-27") is False
+    assert is_valid_cnpj("11.111.111/1111-11") is False
+
+
 def test_norm_name_collapses_spaces_and_uppercases():
     assert _norm_name("  BTG  Pactual   Servicos ") == "BTG PACTUAL SERVICOS"
+
+
+def test_invalid_unicode_surrogates_are_replaced_before_cache_persistence():
+    sanitized = _sanitize_unicode_text("texto\ud835válido")
+    assert sanitized == "texto?válido"
+    assert sanitized.encode("utf-8").decode("utf-8") == sanitized
+
+
+def test_participant_registry_maps_cnae_and_caches_only_normalized_fields(monkeypatch, tmp_path):
+    structured = pd.DataFrame(
+        [
+            {"cnpj_fundo": "1", "cnpj_participante": "34.337.707/0001-00", "ativo_curadoria": True},
+            {"cnpj_fundo": "2", "cnpj_participante": "34.337.707/0001-00", "ativo_curadoria": True},
+            {"cnpj_fundo": "3", "cnpj_participante": "32.402.502/0001-35", "ativo_curadoria": True},
+            {"cnpj_fundo": "4", "cnpj_participante": "09.346.601/0001-25", "ativo_curadoria": False},
+        ]
+    )
+    payload = {
+        "cnpj": "34337707000100",
+        "razao_social": "BMP SOCIEDADE DE CREDITO DIRETO S.A",
+        "nome_fantasia": "BMP",
+        "cnae_fiscal": 6499999,
+        "cnae_fiscal_descricao": "Outras atividades de serviços financeiros",
+        "qsa": [{"nome_socio": "NÃO PERSISTIR"}],
+    }
+    normalized = normalize_registry_payload(
+        payload,
+        cnpj="34337707000100",
+        source_url="https://example.test/34337707000100",
+        fetched_at_utc="2026-07-10T00:00:00+00:00",
+    )
+    calls: list[str] = []
+
+    def fake_fetch(cnpj, **_kwargs):
+        calls.append(cnpj)
+        return {
+            **normalized,
+            "cnpj": cnpj,
+            "cnpj_raiz": cnpj[:8],
+            "source_url": f"https://example.test/{cnpj}",
+        }
+
+    monkeypatch.setattr("services.participant_registry.fetch_participant_registry_row", fake_fetch)
+    targets = participant_registry_targets(structured)
+    first, first_quality = build_participant_registry(
+        structured,
+        cache_dir=tmp_path / "cache",
+        max_network_requests=1,
+        sleep_seconds=0,
+    )
+    second, second_quality = build_participant_registry(
+        structured,
+        cache_dir=tmp_path / "cache",
+        existing=first,
+        max_network_requests=0,
+        sleep_seconds=0,
+    )
+
+    assert cnae_section(6499999) == ("K", "Atividades financeiras, seguros e serviços relacionados")
+    assert normalized["setor"] == "Atividades financeiras, seguros e serviços relacionados"
+    assert "qsa" not in normalized
+    assert targets["cnpj"].tolist() == ["34337707000100", "32402502000135"]
+    assert first_quality == {"targets": 2, "network_requests": 1, "cache_hits": 0, "pending": 1, "errors": 0, "ok": 1}
+    assert second_quality["ok"] == 2
+    assert second_quality["cache_hits"] == 1
+    assert calls == ["34337707000100", "32402502000135"]
+    cached = json.loads((tmp_path / "cache" / "34337707000100.json").read_text(encoding="utf-8"))
+    assert "qsa" not in cached
+    assert set(second["registry_status"]) == {"ok"}
 
 
 def test_fic_fidc_pattern():
@@ -374,6 +458,77 @@ def test_cedente_structured_applies_manual_review():
     assert row["segmento"] == "Consignado"
     assert row["fonte_nome"] == "revisao_manual"
     assert row["score_confianca_final"] == 0.9
+
+
+def test_cedente_structured_prefers_registry_below_manual_review():
+    candidates = pd.DataFrame(
+        [
+            {
+                "review_id": "r1",
+                "cnpj_fundo": "11111111000111",
+                "fund_name": "FIDC TESTE",
+                "participant_type": "cedente_originador",
+                "participant_cnpj_candidate": "34337707000100",
+                "participant_name_candidate": "BMP fragmentado",
+                "participante_extraido": "BMP fragmentado",
+                "setor_n1": "",
+                "setor_n2": "",
+                "score_confianca": 0.9,
+                "evidencias_agrupadas": 1,
+                "documento_origem": "regulamento.pdf",
+                "pagina": "5",
+                "source_cache": "cache",
+                "evidence_context": "BMP",
+                "metodo_extracao": "role_cnpj_page_context_v2",
+                "candidate_status": "accepted",
+            }
+        ]
+    )
+    registry = pd.DataFrame(
+        [
+            {
+                "cnpj": "34337707000100",
+                "razao_social": "BMP SOCIEDADE DE CREDITO DIRETO S.A",
+                "nome_fantasia": "BMP",
+                "cnpj_raiz": "34337707",
+                "cnae_fiscal": "6499999",
+                "cnae_descricao": "Outras atividades de serviços financeiros",
+                "cnae_secao": "K",
+                "setor": "Atividades financeiras, seguros e serviços relacionados",
+                "segmento": "Outras atividades de serviços financeiros",
+                "source_provider": "BrasilAPI/CNPJ",
+                "source_url": "https://example.test/34337707000100",
+                "fetched_at_utc": "2026-07-10T00:00:00+00:00",
+                "registry_status": "ok",
+            }
+        ]
+    )
+    automatic = build_cedente_structured(
+        candidates,
+        pd.DataFrame(columns=CEDENTE_REVIEW_COLUMNS),
+        participant_registry=registry,
+    ).iloc[0]
+    reviews = pd.DataFrame(
+        [
+            {
+                "review_id": "r1",
+                "status": "corrigido",
+                "nome_revisado": "BMP NOME REVISADO S.A.",
+                "setor_revisado": "Setor revisado",
+            }
+        ]
+    )
+    reviewed = build_cedente_structured(candidates, reviews, participant_registry=registry).iloc[0]
+
+    assert automatic["razao_social"] == "BMP SOCIEDADE DE CREDITO DIRETO S.A"
+    assert automatic["nome_fantasia"] == "BMP"
+    assert automatic["setor"] == "Atividades financeiras, seguros e serviços relacionados"
+    assert automatic["fonte_nome"] == "cnpj_registry"
+    assert automatic["fonte_setor"] == "cnpj_registry"
+    assert reviewed["razao_social"] == "BMP NOME REVISADO S.A."
+    assert reviewed["setor"] == "Setor revisado"
+    assert reviewed["fonte_nome"] == "revisao_manual"
+    assert reviewed["fonte_setor"] == "revisao_manual"
 
 
 def test_signal_focus_placeholder_is_reviewable_without_auto_identification():
@@ -574,6 +729,7 @@ def test_cedente_pipeline_manifest_lists_rerunnable_stages():
     assert {stage["id"] for stage in manifest["stages"]} == {
         "extract_candidates",
         "apply_manual_review",
+        "enrich_participant_registry",
         "enrich_funds",
         "enrich_ime_snapshot",
         "consolidate_structured_base",
@@ -1159,9 +1315,13 @@ def test_document_chunk_runner_selects_only_open_priority_work_and_explicit_ids(
 
     selected = select_document_chunks(plan, max_chunks=1, priority_only=True)
     explicit = select_document_chunks(plan, chunk_ids=["doc-0002", "doc-0001"], max_chunks=0)
+    forced = select_document_chunks(plan, max_chunks=0, include_complete=True)
+    completed = select_document_chunks(plan, max_chunks=0, include_complete=True, complete_only=True)
 
     assert selected["chunk_id"].tolist() == ["doc-0003"]
     assert explicit["chunk_id"].tolist() == ["doc-0002", "doc-0001"]
+    assert set(forced["chunk_id"]) == {"doc-0001", "doc-0002", "doc-0003", "doc-0004"}
+    assert completed["chunk_id"].tolist() == ["doc-0001"]
 
 
 def test_document_chunk_diagnostics_probe_incremental_outputs_and_ui_formatters():
@@ -1548,7 +1708,7 @@ def test_document_fields_extract_page_traceable_candidates_and_map_to_review_sch
         cache_dir = root / "data" / "industry_study" / "document_text_cache" / "doc-0001"
         cache_dir.mkdir(parents=True)
         page_text = (
-            "EMPRESA CEDENTE S.A., inscrita no CNPJ sob o nº 12.345.678/0001-90, "
+            "EMPRESA CEDENTE S.A., inscrita no CNPJ sob o nº 12.345.678/0001-95, "
             "na qualidade de Cedente. O Índice de Subordinação Mínimo deverá permanecer "
             "igual ou superior a 20%."
         )
@@ -1679,7 +1839,7 @@ def test_document_fields_extract_page_traceable_candidates_and_map_to_review_sch
 
     assert len(participants) == 1
     assert participants.iloc[0]["participant_type"] == "cedente_originador"
-    assert participants.iloc[0]["participant_cnpj_candidate"] == "12345678000190"
+    assert participants.iloc[0]["participant_cnpj_candidate"] == "12345678000195"
     assert participants.iloc[0]["source_page"] == 1
     assert participants.iloc[0]["participant_name_candidate"] == "EMPRESA CEDENTE S.A"
     assert not criteria.empty
@@ -1697,6 +1857,174 @@ def test_document_fields_extract_page_traceable_candidates_and_map_to_review_sch
     assert "Papel" in formatted_participants.columns
     assert "Match página" in formatted_criteria.columns
     assert "Part. página" in formatted_summary.columns
+
+
+def test_participant_relation_triage_suppresses_adjacent_glossary_roles():
+    record = pd.Series(
+        {
+            "chunk_id": "doc-0001",
+            "document_key": "doc-key",
+            "cnpj_fundo": "05753599000158",
+            "fundo": "FIDC TESTE",
+            "documento_origem": "regulamento.pdf",
+            "content_kind": "pdf",
+            "document_date": "2026-05-01",
+            "cache_path": "cache.json.gz",
+            "source_sha256": "a" * 64,
+        }
+    )
+    accepted_text = (
+        "EMPRESA CEDENTE S.A., inscrita no CNPJ sob o nº 12.345.678/0001-95, "
+        "na qualidade de Cedente, transfere os direitos creditórios ao Fundo."
+    )
+    glossary_text = (
+        '“B3” é a B3 S.A. – Brasil, Bolsa, Balcão, inscrita no CNPJ sob o nº '
+        '09.346.601/0001-25. “Carteira” significa a carteira do Fundo. '
+        '“Cedentes” significam as sociedades que cedem direitos creditórios.'
+    )
+    conflicting_text = (
+        '“Endossante” significa o Originador; “Entidade Registradora” significa a B3 S.A., '
+        'inscrita no CNPJ sob o nº 09.346.601/0001-25.'
+    )
+    adjacent_valid_role_text = (
+        '“Endossante Legado”: significa a BMP SOCIEDADE DE CRÉDITO DIRETO S.A., inscrita no CNPJ '
+        'sob o nº 34.337.707/0001-00; “Endossante Secundário”: a pessoa jurídica que, na qualidade '
+        'de Cedente, transfere os Direitos Creditórios.'
+    )
+
+    accepted = _participant_candidates_from_page(
+        text=accepted_text,
+        page_number=1,
+        record=record,
+        extracted_at_utc="2026-07-10T00:00:00+00:00",
+    )
+    glossary = _participant_candidates_from_page(
+        text=glossary_text,
+        page_number=2,
+        record=record,
+        extracted_at_utc="2026-07-10T00:00:00+00:00",
+    )
+    conflicting = _participant_candidates_from_page(
+        text=conflicting_text,
+        page_number=3,
+        record=record,
+        extracted_at_utc="2026-07-10T00:00:00+00:00",
+    )
+    adjacent_valid_role = _participant_candidates_from_page(
+        text=adjacent_valid_role_text,
+        page_number=4,
+        record=record,
+        extracted_at_utc="2026-07-10T00:00:00+00:00",
+    )
+
+    accepted_row = next(row for row in accepted if row["participant_cnpj_candidate"] == "12345678000195")
+    glossary_row = next(row for row in glossary if row["participant_cnpj_candidate"] == "09346601000125")
+    conflicting_row = next(row for row in conflicting if row["participant_cnpj_candidate"] == "09346601000125")
+    adjacent_valid_row = next(
+        row for row in adjacent_valid_role if row["participant_cnpj_candidate"] == "34337707000100"
+    )
+    assert accepted_row["candidate_status"] == "accepted"
+    assert accepted_row["relation_cue"] == "role_after_cnpj_qualifier"
+    assert glossary_row["candidate_status"] == "suppressed"
+    assert glossary_row["relation_cue"] == "role_after_cnpj"
+    assert conflicting_row["candidate_status"] == "suppressed"
+    assert conflicting_row["relation_cue"] == "service_role_between_role_and_cnpj"
+    assert adjacent_valid_row["candidate_status"] == "accepted"
+    assert adjacent_valid_row["relation_cue"] == "role_definition_before_cnpj"
+    assert adjacent_valid_row["participant_name_candidate"] == "BMP SOCIEDADE DE CRÉDITO DIRETO S.A"
+
+
+def test_suppressed_participant_only_enters_metrics_after_manual_approval():
+    candidates = pd.DataFrame(
+        [
+            {
+                "review_id": "accepted",
+                "cnpj_fundo": "05753599000158",
+                "fund_name": "FIDC TESTE",
+                "participant_type": "cedente_originador",
+                "participant_name_candidate": "CEDENTE REAL S.A.",
+                "participant_cnpj_candidate": "12345678000190",
+                "participante_extraido": "CEDENTE REAL S.A.",
+                "candidate_status": "accepted",
+                "relation_strength": "explicit",
+                "relation_cue": "role_definition_before_cnpj",
+                "exclusion_reason": "",
+                "setor_n1": "",
+                "setor_n2": "",
+                "score_confianca": 0.9,
+                "evidencias_agrupadas": 1,
+                "documento_origem": "regulamento.pdf",
+                "pagina": "1",
+                "source_cache": "cache-a",
+                "evidence_context": "Cedente: CEDENTE REAL S.A.",
+                "metodo_extracao": "role_cnpj_page_context_v2",
+            },
+            {
+                "review_id": "suppressed",
+                "cnpj_fundo": "05753599000158",
+                "fund_name": "FIDC TESTE",
+                "participant_type": "cedente_originador",
+                "participant_name_candidate": "B3 S.A.",
+                "participant_cnpj_candidate": "09346601000125",
+                "participante_extraido": "B3 S.A.",
+                "candidate_status": "suppressed",
+                "relation_strength": "unlinked",
+                "relation_cue": "role_after_cnpj",
+                "exclusion_reason": "papel não vinculado",
+                "setor_n1": "",
+                "setor_n2": "",
+                "score_confianca": 0.2,
+                "evidencias_agrupadas": 1,
+                "documento_origem": "regulamento.pdf",
+                "pagina": "2",
+                "source_cache": "cache-b",
+                "evidence_context": "B3 ... Cedentes",
+                "metodo_extracao": "role_cnpj_page_context_v2",
+            },
+            {
+                "review_id": "legacy",
+                "cnpj_fundo": "05753599000158",
+                "fund_name": "FIDC TESTE",
+                "participant_type": "cedente_originador",
+                "participant_name_candidate": "LEGADO S.A.",
+                "participant_cnpj_candidate": "11222333000181",
+                "participante_extraido": "LEGADO S.A.",
+                "candidate_status": "legacy_unverified",
+                "relation_strength": "legacy_context",
+                "relation_cue": "legacy_regex_without_page",
+                "exclusion_reason": "sem página",
+                "setor_n1": "",
+                "setor_n2": "",
+                "score_confianca": 0.8,
+                "evidencias_agrupadas": 1,
+                "documento_origem": "cache.txt",
+                "pagina": "",
+                "source_cache": "cache-c",
+                "evidence_context": "LEGADO S.A.",
+                "metodo_extracao": "regex_contexto_documental",
+            },
+        ]
+    )
+    pending = build_cedente_structured(candidates, pd.DataFrame(columns=CEDENTE_REVIEW_COLUMNS))
+    approved_reviews = pd.DataFrame(
+        [
+            {
+                "review_id": "suppressed",
+                "status": "aprovado",
+                "nome_revisado": "B3 S.A.",
+                "cnpj_revisado": "09.346.601/0001-25",
+            }
+        ]
+    )
+    approved = build_cedente_structured(candidates, approved_reviews)
+
+    pending_by_id = pending.set_index("review_id")
+    approved_by_id = approved.set_index("review_id")
+    assert bool(pending_by_id.loc["accepted", "ativo_curadoria"]) is True
+    assert bool(pending_by_id.loc["suppressed", "ativo_curadoria"]) is False
+    assert bool(pending_by_id.loc["legacy", "ativo_curadoria"]) is False
+    assert bool(approved_by_id.loc["suppressed", "ativo_curadoria"]) is True
+    assert approved_by_id.loc["suppressed", "candidate_status"] == "suppressed"
 
 
 def test_manual_review_sources_keep_page_candidates_during_ui_rebuilds():
@@ -4637,6 +4965,12 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
             "cedentes_structured.csv.gz",
             {"structured_rows": 3, "structured_funds": 2},
         )
+        write_module_manifest(
+            "industry_participant_registry_manifest.json",
+            "industry_participant_registry",
+            "participant_registry.csv.gz",
+            {"target_cnpjs": 2, "ok_cnpjs": 2, "pending_cnpjs": 0, "error_cnpjs": 0},
+        )
         (tmp_path / "cedente_reviews.csv").write_text(
             "review_id,status,nome_revisado,nome_fantasia_revisado,cnpj_revisado,grupo_economico,setor_revisado,segmento_revisado,confianca_manual,notas\n"
             "ced1,corrigido,CEDENTE ABC,,11111111000111,Grupo ABC,Serviços,Recebíveis,0.9,ok\n"
@@ -4807,8 +5141,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
     assert index["schema_version"] == "industry-pipeline-index/v1"
-    assert index["quality_rollup"]["modules_total"] == 20
-    assert index["quality_rollup"]["module_status_counts"]["ok"] == 20
+    assert index["quality_rollup"]["modules_total"] == 21
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 21
     assert index["quality_rollup"]["artifacts_missing"] == 0
     assert index["quality_rollup"]["manual_review_artifacts_total"] == 12
     assert index["quality_rollup"]["manual_review_artifacts_present"] == 12
@@ -4911,7 +5245,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert prd["manual_review_in_app"]["status_prd"] == "ok"
     assert prd["heatmaps_generic"]["status_prd"] == "atenção"
     assert prd["public_audit_readiness"]["status_prd"] == "atenção"
-    assert index["quality_rollup"]["monthly_update_plan_rows"] == 22
+    assert index["quality_rollup"]["monthly_update_plan_rows"] == 23
     assert "monthly_update_plan_status_counts" in index["quality_rollup"]
     assert index["quality_rollup"]["publication_gate_status"] == "bloqueado"
     assert index["quality_rollup"]["publication_gate_rows"] > 1
@@ -4934,6 +5268,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert monthly_plan["document_chunk_diagnostics"]["comando"] == "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001"
     assert monthly_plan["document_text"]["comando"] == "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0001"
     assert monthly_plan["document_fields"]["comando"] == "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001"
+    assert monthly_plan["participant_registry"]["comando"] == "python scripts/build_fidc_industry_participant_registry.py"
     assert monthly_plan["dimension_traceability"]["comando"] == "python scripts/build_fidc_industry_traceability.py"
     assert monthly_plan["incremental_onboarding"]["status_prontidao"] == "bloqueado"
     assert monthly_plan["monthly_delta"]["status_prontidao"] == "bloqueado"

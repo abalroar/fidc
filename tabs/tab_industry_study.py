@@ -133,6 +133,7 @@ _DOCUMENT_TEXT_INDEX_PATH = _DATA_DIR / "document_text_index.csv.gz"
 _DOCUMENT_TEXT_RUN_SUMMARY_PATH = _DATA_DIR / "document_text_run_summary.csv"
 _DOCUMENT_TEXT_MANIFEST_PATH = _DATA_DIR / "industry_document_text_manifest.json"
 _DOCUMENT_PARTICIPANT_CANDIDATES_PATH = _DATA_DIR / "document_participant_candidates.csv.gz"
+_PARTICIPANT_REGISTRY_PATH = _DATA_DIR / "participant_registry.csv.gz"
 _DOCUMENT_CRITERIA_CANDIDATES_PATH = _DATA_DIR / "document_criteria_candidates.csv.gz"
 _DOCUMENT_FIELD_RUN_SUMMARY_PATH = _DATA_DIR / "document_field_run_summary.csv"
 _DOCUMENT_FIELD_MANIFEST_PATH = _DATA_DIR / "industry_document_field_manifest.json"
@@ -382,18 +383,21 @@ def _build_structured_cedentes(
         fund_universe=_load_cedente_fund_universe(),
         vehicle_latest=vehicle_latest if vehicle_latest is not None else pd.DataFrame(),
         review_audit=load_review_audit(_CEDENTE_REVIEW_AUDIT_PATH),
+        participant_registry=load_dataframe(_PARTICIPANT_REGISTRY_PATH),
     )
 
 
 def _persist_structured_cedentes(candidates: pd.DataFrame, reviews: pd.DataFrame) -> pd.DataFrame:
     fund_universe = _load_cedente_fund_universe()
     vehicle_latest = _load_csv("universe_latest.csv")
+    participant_registry = load_dataframe(_PARTICIPANT_REGISTRY_PATH)
     structured = build_cedente_structured(
         candidates,
         reviews,
         fund_universe=fund_universe,
         vehicle_latest=vehicle_latest if vehicle_latest is not None else pd.DataFrame(),
         review_audit=load_review_audit(_CEDENTE_REVIEW_AUDIT_PATH),
+        participant_registry=participant_registry,
     )
     save_cedente_structured(structured, _CEDENTE_STRUCTURED_PATH)
     manifest = build_cedente_pipeline_manifest(
@@ -407,6 +411,8 @@ def _persist_structured_cedentes(candidates: pd.DataFrame, reviews: pd.DataFrame
         fund_universe=fund_universe,
         vehicle_latest=vehicle_latest if vehicle_latest is not None else pd.DataFrame(),
         structured=structured,
+        participant_registry_path=_PARTICIPANT_REGISTRY_PATH,
+        participant_registry=participant_registry,
     )
     save_pipeline_manifest(manifest, _PIPELINE_MANIFEST_PATH)
     return structured
@@ -5577,6 +5583,8 @@ def _format_document_field_summary(frame: pd.DataFrame) -> pd.DataFrame:
         "chunk_id",
         "documents_scanned",
         "participant_candidates",
+        "participant_accepted",
+        "participant_suppressed",
         "participant_funds",
         "participant_with_name",
         "participant_with_cnpj",
@@ -5598,6 +5606,8 @@ def _format_document_field_summary(frame: pd.DataFrame) -> pd.DataFrame:
             "chunk_id": "Chunk",
             "documents_scanned": "Docs",
             "participant_candidates": "Participantes",
+            "participant_accepted": "Aceitos",
+            "participant_suppressed": "Suprimidos",
             "participant_funds": "FIDCs part.",
             "participant_with_name": "Com nome",
             "participant_with_cnpj": "Com CNPJ",
@@ -5617,6 +5627,8 @@ def _format_document_field_summary(frame: pd.DataFrame) -> pd.DataFrame:
     for col in [
         "Docs",
         "Participantes",
+        "Aceitos",
+        "Suprimidos",
         "FIDCs part.",
         "Com nome",
         "Com CNPJ",
@@ -5648,6 +5660,10 @@ def _format_document_participant_candidates(frame: pd.DataFrame) -> pd.DataFrame
         "participant_type",
         "participant_name_candidate",
         "participant_cnpj_candidate",
+        "candidate_status",
+        "relation_strength",
+        "relation_cue",
+        "exclusion_reason",
         "source_document",
         "source_page",
         "confidence_score",
@@ -5663,6 +5679,10 @@ def _format_document_participant_candidates(frame: pd.DataFrame) -> pd.DataFrame
             "participant_type": "Papel",
             "participant_name_candidate": "Nome candidato",
             "participant_cnpj_candidate": "CNPJ candidato",
+            "candidate_status": "Triagem auto",
+            "relation_strength": "Força vínculo",
+            "relation_cue": "Sinal vínculo",
+            "exclusion_reason": "Motivo supressão",
             "source_document": "Documento",
             "source_page": "Página",
             "confidence_score": "Confiança",
@@ -7045,8 +7065,47 @@ def _render_cedente_review_workbench() -> None:
     for col in _CEDENTE_REVIEW_COLUMNS:
         if col not in frame.columns:
             frame[col] = ""
+    for col, default in [
+        ("candidate_status", "accepted"),
+        ("relation_strength", ""),
+        ("relation_cue", ""),
+        ("exclusion_reason", ""),
+    ]:
+        if col not in frame.columns:
+            frame[col] = default
+        frame[col] = frame[col].fillna("").astype(str)
+    frame["candidate_status"] = frame["candidate_status"].replace("", "accepted")
     frame["status"] = frame["status"].fillna("").replace("", "pendente")
     frame["score_confianca"] = pd.to_numeric(frame["score_confianca"], errors="coerce").fillna(0)
+    participant_registry = load_dataframe(_PARTICIPANT_REGISTRY_PATH)
+    registry_columns = {
+        "razao_social": "registry_razao_social",
+        "nome_fantasia": "registry_nome_fantasia",
+        "cnae_fiscal": "registry_cnae_fiscal",
+        "setor": "registry_setor",
+        "segmento": "registry_segmento",
+        "source_provider": "registry_source_provider",
+        "source_url": "registry_source_url",
+        "fetched_at_utc": "registry_fetched_at_utc",
+    }
+    if not participant_registry.empty and "cnpj" in participant_registry.columns:
+        registry = participant_registry.copy()
+        if "registry_status" in registry.columns:
+            registry = registry[registry["registry_status"].fillna("").astype(str).str.lower().eq("ok")].copy()
+        registry["registry_cnpj"] = registry["cnpj"].map(normalize_cnpj)
+        for source_col in registry_columns:
+            if source_col not in registry.columns:
+                registry[source_col] = ""
+        registry = registry[["registry_cnpj", *registry_columns]].rename(columns=registry_columns)
+        registry = registry.drop_duplicates("registry_cnpj", keep="last")
+        frame["registry_cnpj"] = frame["participant_cnpj_candidate"].map(normalize_cnpj)
+        frame = frame.merge(registry, on="registry_cnpj", how="left")
+    else:
+        frame["registry_cnpj"] = ""
+        for target_col in registry_columns.values():
+            frame[target_col] = ""
+    for target_col in registry_columns.values():
+        frame[target_col] = frame[target_col].fillna("").astype(str)
     structured = _build_structured_cedentes(candidates, reviews)
     if not signal_focus.empty:
         frame = frame.merge(signal_focus, on="cnpj_fundo", how="left")
@@ -7071,19 +7130,73 @@ def _render_cedente_review_workbench() -> None:
         "sacado_devedor": "sacado/devedor",
         "consultora": "consultora",
     }
+    contextual_suppressed = frame["candidate_status"].str.lower().eq("suppressed")
+    legacy_unverified = frame["candidate_status"].str.lower().eq("legacy_unverified")
+    invalid_cnpj = frame["candidate_status"].str.lower().eq("invalid_cnpj")
+    auto_excluded = contextual_suppressed | legacy_unverified | invalid_cnpj
+    manually_approved = frame["status"].str.lower().isin({"aprovado", "corrigido"})
+    active_structured = structured[
+        structured.get("ativo_curadoria", pd.Series(True, index=structured.index))
+        .astype(str)
+        .str.lower()
+        .isin({"true", "1", "sim"})
+    ].copy()
+    if not active_structured.empty:
+        identified_mask = (
+            active_structured.get("razao_social", pd.Series("", index=active_structured.index))
+            .fillna("")
+            .astype(str)
+            .str.strip()
+            .ne("")
+            | active_structured.get("cnpj_participante", pd.Series("", index=active_structured.index))
+            .fillna("")
+            .astype(str)
+            .str.strip()
+            .ne("")
+        )
+        identified_structured = active_structured[identified_mask].copy()
+    else:
+        identified_structured = active_structured
+    registry_active = active_structured[
+        active_structured.get("registry_provider", pd.Series("", index=active_structured.index))
+        .fillna("")
+        .astype(str)
+        .str.strip()
+        .ne("")
+    ].copy()
+    sector_coverage = (
+        active_structured.get("setor", pd.Series("", index=active_structured.index))
+        .fillna("")
+        .astype(str)
+        .str.strip()
+        .ne("")
+        .mean()
+        if not active_structured.empty
+        else 0.0
+    )
     cards = [
         _curation_card("Candidatos automáticos", _fmt_int(float(len(frame))), "deduplicados por fundo/participante"),
-        _curation_card("Base estruturada", _fmt_int(float(len(structured))), "linhas reutilizáveis"),
-        _curation_card("FIDCs com evidência", _fmt_int(float(structured["cnpj_fundo"].nunique() if not structured.empty else frame["cnpj_fundo"].nunique())), "universo regulatório"),
+        _curation_card("Aceitos automáticos", _fmt_int(float((~auto_excluded).sum())), "entram nas métricas"),
+        _curation_card("Suprimidos", _fmt_int(float(contextual_suppressed.sum())), "conflito contextual"),
+        _curation_card("Legado sem página", _fmt_int(float(legacy_unverified.sum())), "exige confirmação"),
+        _curation_card("CNPJ inválido", _fmt_int(float(invalid_cnpj.sum())), "dígito verificador"),
+        _curation_card("Base estruturada ativa", _fmt_int(float(len(active_structured))), "linhas reutilizáveis"),
+        _curation_card(
+            "CNPJs enriquecidos",
+            _fmt_int(float(registry_active["cnpj_participante"].nunique() if not registry_active.empty else 0)),
+            "cadastro público",
+        ),
+        _curation_card("Setor coberto", _fmt_pct(float(sector_coverage)), "base ativa"),
+        _curation_card("FIDCs identificados", _fmt_int(float(identified_structured["cnpj_fundo"].nunique() if not identified_structured.empty else 0)), "evidência ativa"),
         _curation_card(
             "Cedente/originador",
-            _fmt_int(float(frame[frame["participant_type"].eq("cedente_originador")]["cnpj_fundo"].nunique())),
-            "FIDCs com menção",
+            _fmt_int(float(identified_structured[identified_structured["participant_type"].eq("cedente_originador")]["cnpj_fundo"].nunique() if not identified_structured.empty else 0)),
+            "FIDCs com evidência ativa",
         ),
         _curation_card(
             "Sacado/devedor",
-            _fmt_int(float(frame[frame["participant_type"].eq("sacado_devedor")]["cnpj_fundo"].nunique())),
-            "FIDCs com menção",
+            _fmt_int(float(identified_structured[identified_structured["participant_type"].eq("sacado_devedor")]["cnpj_fundo"].nunique() if not identified_structured.empty else 0)),
+            "FIDCs com evidência ativa",
         ),
         _curation_card("Sinal sem participante", _fmt_int(float(len(focus_cnpjs))), "prioridade de extração"),
         _curation_card(
@@ -7095,7 +7208,7 @@ def _render_cedente_review_workbench() -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
-    filter_a, filter_b, filter_c, filter_d, filter_e = st.columns([1.2, 0.78, 0.78, 0.65, 0.78])
+    filter_a, filter_b, filter_c, filter_d, filter_e, filter_f = st.columns([1.15, 0.72, 0.72, 0.65, 0.72, 0.78])
     with filter_a:
         query = st.text_input("Buscar", key="industry_cedente_query", placeholder="fundo, CNPJ, participante ou evidência")
     with filter_b:
@@ -7113,12 +7226,40 @@ def _render_cedente_review_workbench() -> None:
     with filter_d:
         min_score = st.slider("Score mín.", 0.0, 0.95, 0.55, 0.05, key="industry_cedente_score")
     with filter_e:
-        only_signal_focus = st.checkbox("Sinal sem participante", value=False, key="industry_cedente_signal_focus")
+        triage_view = st.selectbox(
+            "Triagem auto",
+            ["Aceitos", "Suprimidos", "Legado sem página", "CNPJ inválido", "Todos"],
+            key="industry_cedente_auto_triage",
+        )
+    with filter_f:
+        only_signal_focus = st.checkbox(
+            "Só sinais",
+            value=False,
+            help="Exibe FIDCs com sinal regulatório de cedente ou sacado ainda sem participante identificado.",
+            key="industry_cedente_signal_focus",
+        )
 
     score_mask = frame["score_confianca"].ge(min_score)
-    if only_signal_focus:
+    if only_signal_focus or triage_view in {"Suprimidos", "Legado sem página", "CNPJ inválido"}:
         score_mask = pd.Series(True, index=frame.index)
     filtered = frame[score_mask].copy()
+    if triage_view == "Aceitos":
+        filtered = filtered[
+            ~filtered["candidate_status"].str.lower().isin({"suppressed", "legacy_unverified", "invalid_cnpj"})
+            | manually_approved.loc[filtered.index]
+        ].copy()
+    elif triage_view == "Suprimidos":
+        filtered = filtered[filtered["candidate_status"].str.lower().eq("suppressed") & ~manually_approved.loc[filtered.index]].copy()
+    elif triage_view == "Legado sem página":
+        filtered = filtered[
+            filtered["candidate_status"].str.lower().eq("legacy_unverified")
+            & ~manually_approved.loc[filtered.index]
+        ].copy()
+    elif triage_view == "CNPJ inválido":
+        filtered = filtered[
+            filtered["candidate_status"].str.lower().eq("invalid_cnpj")
+            & ~manually_approved.loc[filtered.index]
+        ].copy()
     if selected_types:
         filtered = filtered[filtered["participant_type"].isin(selected_types)].copy()
     if selected_statuses:
@@ -7134,6 +7275,12 @@ def _render_cedente_review_workbench() -> None:
             + filtered["participante_extraido"].astype(str)
             + " "
             + filtered["participant_cnpj_candidate"].astype(str)
+            + " "
+            + filtered["registry_razao_social"].astype(str)
+            + " "
+            + filtered["registry_nome_fantasia"].astype(str)
+            + " "
+            + filtered["registry_setor"].astype(str)
             + " "
             + filtered["evidence_context"].astype(str)
             + " "
@@ -7160,6 +7307,17 @@ def _render_cedente_review_workbench() -> None:
             "CNPJ fundo": filtered["cnpj_fundo"],
             "Participante extraído": filtered["participante_extraido"],
             "CNPJ extraído": filtered["participant_cnpj_candidate"].fillna("").astype(str),
+            "Razão social (CNPJ)": filtered["registry_razao_social"],
+            "Nome fantasia (CNPJ)": filtered["registry_nome_fantasia"],
+            "CNAE": filtered["registry_cnae_fiscal"],
+            "Setor CNAE": filtered["registry_setor"],
+            "Segmento CNAE": filtered["registry_segmento"],
+            "Fonte cadastral": filtered["registry_source_url"],
+            "Consulta cadastral": filtered["registry_fetched_at_utc"],
+            "Triagem auto": filtered["candidate_status"],
+            "Força vínculo": filtered["relation_strength"],
+            "Sinal vínculo": filtered["relation_cue"],
+            "Motivo supressão": filtered["exclusion_reason"],
             "Nome revisado": filtered["nome_revisado"].fillna("").astype(str),
             "Nome fantasia": filtered["nome_fantasia_revisado"].fillna("").astype(str),
             "CNPJ revisado": filtered["cnpj_revisado"].fillna("").astype(str),
@@ -7187,6 +7345,17 @@ def _render_cedente_review_workbench() -> None:
         "CNPJ fundo",
         "Participante extraído",
         "CNPJ extraído",
+        "Razão social (CNPJ)",
+        "Nome fantasia (CNPJ)",
+        "CNAE",
+        "Setor CNAE",
+        "Segmento CNAE",
+        "Fonte cadastral",
+        "Consulta cadastral",
+        "Triagem auto",
+        "Força vínculo",
+        "Sinal vínculo",
+        "Motivo supressão",
         "Score auto",
         "Evidências",
         "PL sinal",
@@ -7217,6 +7386,7 @@ def _render_cedente_review_workbench() -> None:
                 format="%.2f",
             ),
             "Evidência": st.column_config.TextColumn("Evidência", width="large"),
+            "Fonte cadastral": st.column_config.LinkColumn("Fonte cadastral", display_text="abrir"),
         },
         key="industry_cedente_review_editor",
     )

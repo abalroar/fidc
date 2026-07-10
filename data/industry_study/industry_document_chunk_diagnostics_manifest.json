@@ -1,8 +1,8 @@
 {
   "schema_version": "industry-document-chunk-diagnostics-manifest/v1",
-  "generated_at_utc": "2026-07-09T23:28:37+00:00",
+  "generated_at_utc": "2026-07-10T01:12:30+00:00",
   "pipeline": "industry_document_chunk_diagnostics",
-  "selected_chunk_id": "doc-0080",
+  "selected_chunk_id": "doc-0109",
   "design_constraints": {
     "modular": true,
     "incremental": true,
@@ -18,27 +18,27 @@
       "path": "data/industry_study/document_inventory.csv.gz",
       "exists": true,
       "bytes": 1077830,
-      "sha256": "789c4caf98d4a7b8dde949df68e023ccef20923055d97a5129b7b5d9114f466f"
+      "sha256": "3cebf161beebb31e4ccbf5bf282d06356c7974bae336a14b0ff8a7ac599dda6e"
     },
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 85825,
-      "sha256": "54367f4426f0bc5a459767ef8617b70cfd2abd6bccedf88b8041bf41cea44477"
+      "bytes": 85879,
+      "sha256": "16eccece9b019ad18bcd9fdbf1a65a5b8036f02a03a1426dd4e7bf0a33f88ac7"
     }
   },
   "outputs": {
     "document_chunk_diagnostics": {
       "path": "data/industry_study/document_chunk_diagnostics.csv.gz",
       "exists": true,
-      "bytes": 3567971,
-      "sha256": "12c9aa1d2f57589d38910f087f3a36557680a1fea3208cb7597687a56744a47c"
+      "bytes": 4713118,
+      "sha256": "97edc3b99c0e5efc95bcd925272f21be79185879c34ca17587730dc5e0114b17"
     },
     "document_chunk_run_summary": {
       "path": "data/industry_study/document_chunk_run_summary.csv",
       "exists": true,
-      "bytes": 38065,
-      "sha256": "8a56ea5f6ccd5c9c9dfb6e494f2757bd1db8cd91d9e985d9708b9b7189740034"
+      "bytes": 51733,
+      "sha256": "c96d1957ab303b3ccfa38ef3a83234dd4eb4552db7097a97b76ec96e5ba9c443"
     },
     "manifest": {
       "path": "data/industry_study/industry_document_chunk_diagnostics_manifest.json"
@@ -50,18 +50,18 @@
       "label": "Selecionar chunk incremental",
       "status": "ok",
       "input": "document_inventory+document_chunk_plan",
-      "output": "doc-0080",
-      "rows": 80,
-      "rerun": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0080"
+      "output": "doc-0109",
+      "rows": 109,
+      "rerun": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0109"
     },
     {
       "id": "probe_local_documents",
       "label": "Diagnosticar texto/JSON/PDF",
       "status": "ok",
-      "input": "doc-0080",
+      "input": "doc-0109",
       "output": "data/industry_study/document_chunk_diagnostics.csv.gz",
-      "rows": 8807,
-      "rerun": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0080"
+      "rows": 11665,
+      "rerun": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0109"
     },
     {
       "id": "persist_run_summary",
@@ -69,32 +69,32 @@
       "status": "ok",
       "input": "data/industry_study/document_chunk_diagnostics.csv.gz",
       "output": "data/industry_study/document_chunk_run_summary.csv",
-      "rows": 80,
+      "rows": 109,
       "rerun": "python scripts/build_fidc_industry_document_chunk_diagnostics.py --chunk-id doc-0001"
     }
   ],
   "quality": {
-    "diagnostics_rows": 8807,
-    "processed_chunks": 80,
+    "diagnostics_rows": 11665,
+    "processed_chunks": 109,
     "total_chunks": 109,
-    "pending_chunks": 29,
-    "docs_with_text": 8743,
-    "pdf_docs": 6787,
-    "pdf_text_ready_docs": 6723,
-    "pdf_needs_ocr_docs": 64,
+    "pending_chunks": 0,
+    "docs_with_text": 11538,
+    "pdf_docs": 9645,
+    "pdf_text_ready_docs": 9518,
+    "pdf_needs_ocr_docs": 127,
     "json_ready_docs": 1449,
     "text_cache_ready_docs": 571,
     "error_docs": 0,
     "missing_docs": 0,
-    "latest_chunk_id": "doc-0080",
+    "latest_chunk_id": "doc-0109",
     "status_counts": {
-      "pdf_text_ready": 6723,
+      "pdf_text_ready": 9518,
       "json_ready": 1449,
       "text_ready": 571,
-      "pdf_needs_ocr": 64
+      "pdf_needs_ocr": 127
     },
     "content_kind_counts": {
-      "pdf": 6787,
+      "pdf": 9645,
       "extraction_json": 1449,
       "text_cache": 571
     }

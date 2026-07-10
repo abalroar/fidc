@@ -188,6 +188,10 @@ DOCUMENT_PARTICIPANT_CANDIDATE_COLUMNS = [
     "source_cache",
     "source_sha256",
     "extraction_method",
+    "relation_strength",
+    "relation_cue",
+    "candidate_status",
+    "exclusion_reason",
     "confidence_score",
     "priority_2025_2026",
     "extracted_at_utc",
@@ -230,6 +234,8 @@ DOCUMENT_FIELD_RUN_SUMMARY_COLUMNS = [
     "extracted_at_utc",
     "documents_scanned",
     "participant_candidates",
+    "participant_accepted",
+    "participant_suppressed",
     "participant_funds",
     "participant_with_name",
     "participant_with_cnpj",
@@ -779,6 +785,21 @@ def normalize_cnpj(value: object) -> str:
     return digits.zfill(14)[-14:]
 
 
+def is_valid_cnpj(value: object) -> bool:
+    digits = normalize_cnpj(value)
+    if len(digits) != 14 or digits == digits[0] * 14:
+        return False
+    numbers = [int(char) for char in digits]
+
+    def check_digit(base: list[int], weights: list[int]) -> int:
+        remainder = sum(number * weight for number, weight in zip(base, weights, strict=True)) % 11
+        return 0 if remainder < 2 else 11 - remainder
+
+    first = check_digit(numbers[:12], [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2])
+    second = check_digit(numbers[:13], [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2])
+    return first == numbers[12] and second == numbers[13]
+
+
 def clean_candidate_name(value: object) -> str:
     text = re.sub(r"\s+", " ", str(value or "").strip(" ;,."))
     if len(text) < 8:
@@ -1094,6 +1115,10 @@ def load_cedente_candidates(db_path: Path) -> pd.DataFrame:
     candidates["documento_origem"] = candidates["source_cache"].map(lambda value: Path(str(value)).name if str(value) else "")
     candidates["pagina"] = candidates["evidence_context"].map(extract_page)
     candidates["metodo_extracao"] = "regex_contexto_documental"
+    candidates["candidate_status"] = "legacy_unverified"
+    candidates["relation_strength"] = "legacy_context"
+    candidates["relation_cue"] = "legacy_regex_without_page"
+    candidates["exclusion_reason"] = "extração legada sem página; exige confirmação documental ou revisão manual"
     has_name = candidates["participante_extraido"].astype(str).str.len() > 0
     has_cnpj = candidates["participant_cnpj_candidate"].map(normalize_cnpj).astype(str).str.len().eq(14)
     has_doc = candidates["source_cache"].astype(str).str.len() > 0
@@ -1125,6 +1150,17 @@ def load_document_participant_candidates(path: Path) -> pd.DataFrame:
         "",
         "document_field_candidates",
     )
+    out["relation_strength"] = _text(frame.get("relation_strength"), frame.index)
+    out["relation_cue"] = _text(frame.get("relation_cue"), frame.index)
+    out["candidate_status"] = _text(frame.get("candidate_status"), frame.index).replace("", "accepted")
+    out["exclusion_reason"] = _text(frame.get("exclusion_reason"), frame.index)
+    invalid_identifier = out["participant_cnpj_candidate"].str.len().eq(14) & ~out[
+        "participant_cnpj_candidate"
+    ].map(is_valid_cnpj)
+    out.loc[invalid_identifier, "candidate_status"] = "invalid_cnpj"
+    out.loc[invalid_identifier, "relation_strength"] = "invalid_identifier"
+    out.loc[invalid_identifier, "relation_cue"] = "cnpj_checksum_failed"
+    out.loc[invalid_identifier, "exclusion_reason"] = "CNPJ extraído falha no dígito verificador"
     out["score_confianca"] = pd.to_numeric(frame.get("confidence_score"), errors="coerce").fillna(0.5).clip(0, 1)
     out["participante_extraido"] = out["participant_name_candidate"].map(_plausible_participant_name)
     out["participante_extraido"] = out["participante_extraido"].where(
@@ -1154,8 +1190,17 @@ def merge_cedente_candidate_sources(*sources: pd.DataFrame) -> pd.DataFrame:
         errors="coerce",
     ).fillna(0)
     combined["_has_page"] = combined.get("pagina", pd.Series("", index=combined.index)).fillna("").astype(str).str.strip().ne("")
-    combined = combined.sort_values(["_score", "_has_page"], ascending=[False, False])
-    return combined.drop_duplicates("review_id", keep="first").drop(columns=["_score", "_has_page"]).reset_index(drop=True)
+    combined["_accepted"] = (
+        combined.get("candidate_status", pd.Series("accepted", index=combined.index))
+        .fillna("")
+        .astype(str)
+        .replace("", "accepted")
+        .ne("suppressed")
+    )
+    combined = combined.sort_values(["_accepted", "_score", "_has_page"], ascending=[False, False, False])
+    return combined.drop_duplicates("review_id", keep="first").drop(
+        columns=["_score", "_has_page", "_accepted"]
+    ).reset_index(drop=True)
 
 
 def merge_criteria_candidate_sources(*sources: pd.DataFrame) -> pd.DataFrame:
@@ -1526,6 +1571,7 @@ def build_cedente_structured(
     fund_universe: pd.DataFrame | None = None,
     vehicle_latest: pd.DataFrame | None = None,
     review_audit: pd.DataFrame | None = None,
+    participant_registry: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     if candidates.empty:
         return pd.DataFrame()
@@ -1546,18 +1592,68 @@ def build_cedente_structured(
 
     auto_name = base["participante_extraido"].fillna("").astype(str).str.strip()
     reviewed_name = base["nome_revisado"].where(approved, "").fillna("").astype(str).str.strip()
-    base["razao_social"] = reviewed_name.where(reviewed_name != "", auto_name)
-
     auto_cnpj = base["participant_cnpj_candidate"].map(normalize_cnpj)
     reviewed_cnpj = base["cnpj_revisado"].where(approved, "").map(normalize_cnpj)
     base["cnpj_participante"] = reviewed_cnpj.where(reviewed_cnpj != "", auto_cnpj)
 
+    registry_columns = [
+        "razao_social",
+        "nome_fantasia",
+        "cnpj_raiz",
+        "cnae_fiscal",
+        "cnae_descricao",
+        "cnae_secao",
+        "setor",
+        "segmento",
+        "natureza_juridica",
+        "porte",
+        "situacao_cadastral",
+        "data_inicio_atividade",
+        "uf",
+        "municipio",
+        "source_provider",
+        "source_url",
+        "fetched_at_utc",
+    ]
+    if participant_registry is not None and not participant_registry.empty and "cnpj" in participant_registry.columns:
+        registry = participant_registry.copy()
+        registry["cnpj"] = registry["cnpj"].map(normalize_cnpj)
+        if "registry_status" in registry.columns:
+            registry = registry[registry["registry_status"].fillna("").astype(str).eq("ok")].copy()
+        for column in registry_columns:
+            if column not in registry.columns:
+                registry[column] = ""
+        registry = registry[["cnpj", *registry_columns]].drop_duplicates("cnpj", keep="last")
+        registry = registry.rename(columns={column: f"registry_{column}" for column in registry_columns})
+        base = base.merge(registry, left_on="cnpj_participante", right_on="cnpj", how="left")
+        base = base.drop(columns=["cnpj"], errors="ignore")
+    for column in registry_columns:
+        registry_column = f"registry_{column}"
+        if registry_column not in base.columns:
+            base[registry_column] = ""
+        base[registry_column] = base[registry_column].fillna("").astype(str).str.strip()
+
+    registry_name = base["registry_razao_social"]
+    base["razao_social"] = registry_name.where(registry_name.ne(""), auto_name)
+    base["razao_social"] = reviewed_name.where(approved & reviewed_name.ne(""), base["razao_social"])
+    reviewed_fantasy = base["nome_fantasia_revisado"].fillna("").astype(str).str.strip()
+    base["nome_fantasia"] = reviewed_fantasy.where(
+        approved & reviewed_fantasy.ne(""),
+        base["registry_nome_fantasia"],
+    )
+
     manual_score = pd.to_numeric(base["confianca_manual"], errors="coerce")
     auto_score = pd.to_numeric(base["score_confianca"], errors="coerce").fillna(0)
     base["score_confianca_final"] = manual_score.where(manual_score.notna(), auto_score)
-    base["fonte_nome"] = approved.map({True: "revisao_manual", False: "extracao_automatica"})
+    base["fonte_nome"] = "extracao_automatica"
+    base.loc[registry_name.ne(""), "fonte_nome"] = "cnpj_registry"
+    base.loc[approved & reviewed_name.ne(""), "fonte_nome"] = "revisao_manual"
     base["fonte_cnpj"] = (approved & (reviewed_cnpj != "")).map({True: "revisao_manual", False: "extracao_automatica"})
-    base["ativo_curadoria"] = ~base["status"].str.lower().eq("rejeitado")
+    candidate_status = base.get("candidate_status", pd.Series("accepted", index=base.index)).fillna("").astype(str)
+    candidate_status = candidate_status.replace("", "accepted")
+    auto_suppressed = candidate_status.str.lower().isin({"suppressed", "legacy_unverified", "invalid_cnpj"})
+    base["candidate_status"] = candidate_status
+    base["ativo_curadoria"] = ~base["status"].str.lower().eq("rejeitado") & (~auto_suppressed | approved)
 
     type_labels = {
         "cedente_originador": "cedente/originador",
@@ -1565,8 +1661,14 @@ def build_cedente_structured(
         "consultora": "consultora",
     }
     base["tipo_participante"] = base["participant_type"].replace(type_labels)
-    base["setor"] = base["setor_revisado"].where(base["setor_revisado"] != "", base["setor_n1"].fillna(""))
-    base["segmento"] = base["segmento_revisado"].where(base["segmento_revisado"] != "", base["setor_n2"].fillna(""))
+    auto_sector = base["registry_setor"].where(base["registry_setor"].ne(""), base["setor_n1"].fillna(""))
+    auto_segment = base["registry_segmento"].where(base["registry_segmento"].ne(""), base["setor_n2"].fillna(""))
+    base["setor"] = base["setor_revisado"].where(base["setor_revisado"] != "", auto_sector)
+    base["segmento"] = base["segmento_revisado"].where(base["segmento_revisado"] != "", auto_segment)
+    base["fonte_setor"] = ""
+    base.loc[base["setor_n1"].fillna("").astype(str).str.strip().ne(""), "fonte_setor"] = "classificacao_legada"
+    base.loc[base["registry_setor"].ne(""), "fonte_setor"] = "cnpj_registry"
+    base.loc[base["setor_revisado"].ne(""), "fonte_setor"] = "revisao_manual"
 
     out = pd.DataFrame(
         {
@@ -1576,15 +1678,33 @@ def build_cedente_structured(
             "participant_type": base["participant_type"].fillna("").astype(str),
             "tipo_participante": base["tipo_participante"].fillna("").astype(str),
             "razao_social": base["razao_social"],
-            "nome_fantasia": base["nome_fantasia_revisado"].fillna("").astype(str),
+            "nome_fantasia": base["nome_fantasia"],
             "cnpj_participante": base["cnpj_participante"],
             "grupo_economico": base["grupo_economico"].fillna("").astype(str),
             "setor": base["setor"],
             "segmento": base["segmento"],
-            "setor_auto": base["setor_n1"].fillna("").astype(str),
-            "segmento_auto": base["setor_n2"].fillna("").astype(str),
+            "setor_auto": auto_sector,
+            "segmento_auto": auto_segment,
+            "cnpj_raiz": base["registry_cnpj_raiz"],
+            "cnae_fiscal": base["registry_cnae_fiscal"],
+            "cnae_descricao": base["registry_cnae_descricao"],
+            "cnae_secao": base["registry_cnae_secao"],
+            "natureza_juridica": base["registry_natureza_juridica"],
+            "porte": base["registry_porte"],
+            "situacao_cadastral": base["registry_situacao_cadastral"],
+            "data_inicio_atividade": base["registry_data_inicio_atividade"],
+            "uf_participante": base["registry_uf"],
+            "municipio_participante": base["registry_municipio"],
+            "registry_provider": base["registry_source_provider"],
+            "registry_source_url": base["registry_source_url"],
+            "registry_fetched_at_utc": base["registry_fetched_at_utc"],
+            "fonte_setor": base["fonte_setor"],
             "status_revisao": base["status"],
             "ativo_curadoria": base["ativo_curadoria"],
+            "candidate_status": base["candidate_status"],
+            "relation_strength": base.get("relation_strength", pd.Series("", index=base.index)).fillna("").astype(str),
+            "relation_cue": base.get("relation_cue", pd.Series("", index=base.index)).fillna("").astype(str),
+            "exclusion_reason": base.get("exclusion_reason", pd.Series("", index=base.index)).fillna("").astype(str),
             "metodo_extracao": base["metodo_extracao"],
             "score_confianca": auto_score,
             "score_confianca_final": base["score_confianca_final"],
@@ -4023,6 +4143,9 @@ def _document_text_payload(
             "pages": [],
         }
 
+    for page in pages:
+        page["text"] = _sanitize_unicode_text(page.get("text", ""))
+    errors = [_sanitize_unicode_text(value) for value in errors]
     pieces = [str(page.get("text", "") or "") for page in pages]
     text_chars = sum(len(value.strip()) for value in pieces)
     pages_with_text = sum(1 for value in pieces if value.strip())
@@ -4445,8 +4568,25 @@ _PARTICIPANT_ROLE_PATTERNS = {
     "sacado_devedor": re.compile(r"\b(?:sacados?|devedores?|banco\s+emissor)\b", re.IGNORECASE),
     "consultora": re.compile(r"\bconsultora(?:\s+especializada)?\b", re.IGNORECASE),
 }
+_PARTICIPANT_ROLE_TERMS = {
+    "cedente_originador": r"(?:cedentes?|originadores?|endossantes?)",
+    "sacado_devedor": r"(?:sacados?|devedores?|banco\s+emissor)",
+    "consultora": r"consultora(?:\s+especializada)?",
+}
+_PARTICIPANT_SERVICE_ROLE_PATTERNS = {
+    "administrador": re.compile(r"\badministrador(?:a|\s+fiduci[aá]ri[oa])?\b", re.IGNORECASE),
+    "custodiante": re.compile(r"\bcustodiante\b", re.IGNORECASE),
+    "gestor": re.compile(r"\b(?:co)?gestor(?:a)?\b", re.IGNORECASE),
+    "entidade_registradora": re.compile(r"\bentidade\s+registradora\b", re.IGNORECASE),
+    "banco_cobrador": re.compile(r"\bbanco\s+cobrador\b", re.IGNORECASE),
+    "agente_cobranca": re.compile(r"\bagente\s+de\s+cobran[cç]a\b", re.IGNORECASE),
+    "escriturador": re.compile(r"\bescriturador(?:a)?\b", re.IGNORECASE),
+    "distribuidor": re.compile(r"\bdistribuidor(?:a)?\b", re.IGNORECASE),
+    "auditor": re.compile(r"\bauditor(?:ia|\s+independente)?\b", re.IGNORECASE),
+    "coordenador": re.compile(r"\bcoordenador(?:a)?\b", re.IGNORECASE),
+}
 _CNPJ_PATTERN = re.compile(r"\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2}")
-_LEGAL_NAME_SUFFIX = r"(?:S\.?\s*A\.?|LTDA\.?|LIMITADA|EIRELI|BANCO|COMPANHIA|SOCIEDADE|COOPERATIVA)"
+_LEGAL_NAME_SUFFIX = r"(?:S\.?\s*A\.?|S/?A|LTDA\.?|LIMITADA|EIRELI|S\.?C\.?D\.?)"
 _LEGAL_NAME_PATTERN = re.compile(
     rf"([A-ZÀ-Ü][A-ZÀ-Ü0-9&'.,()\-/ ]{{5,150}}?\b{_LEGAL_NAME_SUFFIX})",
     re.IGNORECASE,
@@ -4457,6 +4597,12 @@ def _ascii_compact(value: object) -> str:
     text = unicodedata.normalize("NFKD", str(value or ""))
     text = "".join(char for char in text if not unicodedata.combining(char))
     return re.sub(r"\s+", " ", text).strip()
+
+
+def _sanitize_unicode_text(value: object) -> str:
+    """Replace invalid surrogate code points while preserving valid Unicode."""
+
+    return str(value or "").encode("utf-8", errors="replace").decode("utf-8")
 
 
 def _load_document_cache_pages(record: pd.Series | dict[str, object], root: Path) -> list[dict[str, object]]:
@@ -4488,23 +4634,50 @@ def _candidate_name_near_cnpj(context: str, cnpj: str) -> str:
                 break
     if position < 0:
         return ""
-    before = context[max(position - 190, 0) : position]
+    before = context[max(position - 260, 0) : position]
     before = re.sub(
-        r"(?:inscrit[ao]s?|registrad[ao]s?)\s+(?:no|sob\s+o)?\s*$",
+        r",?\s*(?:inscrit[ao]s?|registrad[ao]s?)\s+(?:(?:no|sob\s+o)\s+)?"
+        r"CNPJ(?:/(?:MF|ME))?\s*(?:sob\s+o\s+)?(?:n[º°o]\.?\s*)?$",
         "",
         before,
         flags=re.IGNORECASE,
     )
-    matches = list(_LEGAL_NAME_PATTERN.finditer(before))
-    if not matches:
-        return ""
-    candidate = matches[-1].group(1)
-    candidate = re.split(
-        r"(?:^|[;:\n])\s*(?:cedentes?|originadores?|endossantes?|sacados?|devedores?|consultora(?:\s+especializada)?)\s*(?:significa|:|é|e)?\s*",
+    role_trigger = re.compile(
+        r"(?:(?:[“\"'](?:cedentes?|originadores?|endossantes?|sacados?|devedores?|consultora(?:\s+especializada)?)"
+        r"(?:\s+(?:prim[aá]ri[oa]|secund[aá]ri[oa]|legado|principal))?[”\"']\s*"
+        r"(?:(?::|[-–])\s*)?(?:significa(?:m)?|[ée]|s[aã]o)?\s*)|"
+        r"(?:(?:cedentes?|originadores?|endossantes?|sacados?|devedores?|consultora(?:\s+especializada)?)"
+        r"(?:\s+(?:prim[aá]ri[oa]|secund[aá]ri[oa]|legado|principal))?[”\"']?\s*"
+        r"(?::|[-–]|significa(?:m)?\b|[ée]\b|s[aã]o\b)\s*))"
+        r"(?:,\s*individualmente,?\s*)?(?:a\s+|o\s+)?|"
+        r"(?:(?:direitos?\s+credit[oó]rios?\s+)?(?:originad[oa]s?|cedid[oa]s?|endossad[oa]s?)"
+        r"(?:\s+ou\s+(?:originad[oa]s?|cedid[oa]s?|endossad[oa]s?))?\s+(?:pela|pelo|por)\s+)",
+        flags=re.IGNORECASE,
+    )
+    triggers = list(role_trigger.finditer(before))
+    candidate_zone = before[triggers[-1].end() :] if triggers else before
+    candidate_zone = re.sub(
+        r"^\s*(?:(?:significa(?:m)?|[ée]\b|s[aã]o\b)\s*)?(?:,\s*individualmente,?\s*)?(?:a\s+|o\s+)?",
+        "",
+        candidate_zone,
+        flags=re.IGNORECASE,
+    ).strip(" ,.;:-–")
+    matches = list(_LEGAL_NAME_PATTERN.finditer(candidate_zone))
+    if matches:
+        candidate = matches[-1].group(1)
+    else:
+        candidate = re.split(
+            r",\s*(?:sociedade\b|institui[cç][aã]o\b|com\s+sede\b|inscrit[ao]\b|pessoa\b)",
+            candidate_zone,
+            maxsplit=1,
+            flags=re.IGNORECASE,
+        )[0]
+    candidate = re.sub(
+        r"^\s*(?:(?:significa(?:m)?|[ée]\b|s[aã]o\b)\s*)?(?:,\s*individualmente,?\s*)?(?:a\s+|o\s+)?",
+        "",
         candidate,
         flags=re.IGNORECASE,
-    )[-1]
-    candidate = re.split(r"\b(?:pela|pelo|a\s+sociedade|o\s+banco)\b", candidate, flags=re.IGNORECASE)[-1]
+    )
     return _plausible_participant_name(clean_candidate_name(candidate))
 
 
@@ -4564,6 +4737,114 @@ def _canonical_evidence_document(record: pd.Series) -> str:
     return f"{stem}.pdf" if stem else name
 
 
+def _participant_relation_assessment(
+    *,
+    text: str,
+    cnpj_match: re.Match[str],
+    participant_type: str,
+    role_match: re.Match[str],
+) -> dict[str, object]:
+    """Classify whether a nearby role is actually linked to the matched CNPJ.
+
+    Regulatory glossaries frequently place unrelated definitions next to each
+    other.  We retain those candidates for audit, but suppress them from the
+    structured analytical layer until a reviewer explicitly approves them.
+    """
+
+    role_term = _PARTICIPANT_ROLE_TERMS.get(participant_type, r"participante")
+    role_before_cnpj = role_match.start() <= cnpj_match.start()
+    if not role_before_cnpj:
+        after_cnpj = text[cnpj_match.end() : min(role_match.end() + 80, len(text))]
+        explicit_after = re.search(
+            rf"\b(?:na\s+qualidade\s+de|doravante\s+(?:denominad[ao]\s+)?|como)\s+(?:a\s+|o\s+)?{role_term}\b",
+            after_cnpj,
+            flags=re.IGNORECASE,
+        )
+        intervening_definition = False
+        if explicit_after:
+            before_qualifier = after_cnpj[: explicit_after.start()]
+            intervening_definition = bool(
+                re.search(
+                    r"[;\.\n]\s*[“\"']?[A-ZÀ-Ü][A-Za-zÀ-Üà-ü0-9 /_-]{2,80}[”\"']?\s*"
+                    r"(?::|[-–]|significa(?:m)?\b|[ée]\b|s[aã]o\b)",
+                    before_qualifier,
+                    flags=re.IGNORECASE,
+                )
+            )
+        if explicit_after and not intervening_definition:
+            return {
+                "candidate_status": "accepted",
+                "relation_strength": "explicit",
+                "relation_cue": "role_after_cnpj_qualifier",
+                "exclusion_reason": "",
+            }
+        return {
+            "candidate_status": "suppressed",
+            "relation_strength": "unlinked",
+            "relation_cue": "role_after_cnpj",
+            "exclusion_reason": "papel aparece após o CNPJ sem qualificador que vincule a entidade",
+        }
+
+    between = text[role_match.end() : cnpj_match.start()]
+    conflicts: list[tuple[int, str]] = []
+    for label, pattern in _PARTICIPANT_SERVICE_ROLE_PATTERNS.items():
+        for match in pattern.finditer(between):
+            conflicts.append((match.start(), label))
+    if conflicts:
+        _, conflict = max(conflicts, key=lambda item: item[0])
+        return {
+            "candidate_status": "suppressed",
+            "relation_strength": "conflicting",
+            "relation_cue": "service_role_between_role_and_cnpj",
+            "exclusion_reason": f"papel conflitante entre o termo-alvo e o CNPJ: {conflict}",
+        }
+
+    compact_between = re.sub(r"\s+", " ", between).strip()
+    direct_definition = bool(
+        re.match(
+            r"(?:(?:prim[aá]ri[oa]|secund[aá]ri[oa]|legado|principal)\s*)*"
+            r"(?:[”\"']\s*(?:(?::|[-–])\s*)?(?:significa(?:m)?|[ée]|s[aã]o)?|"
+            r"(?::|[-–])\s*(?:significa(?:m)?|[ée]|s[aã]o)?|"
+            r"(?:significa(?:m)?|[ée]|s[aã]o)\b)",
+            compact_between,
+            flags=re.IGNORECASE,
+        )
+        and len(compact_between) <= 190
+    )
+    local_start = max(role_match.start() - 60, 0)
+    local_end = min(cnpj_match.end() + 40, len(text))
+    local_context = text[local_start:local_end]
+    transfer_link = bool(
+        re.search(
+            r"\b(?:direitos?\s+credit[oó]rios?\s+)?(?:originad[oa]s?|cedid[oa]s?|endossad[oa]s?)"
+            r"(?:\s+ou\s+(?:originad[oa]s?|cedid[oa]s?|endossad[oa]s?))?\s+(?:pela|pelo|por)\b",
+            local_context,
+            flags=re.IGNORECASE,
+        )
+    )
+    principal_label = bool(
+        re.search(
+            rf"\bprincipal\s+{role_term}\s*[:\-–]",
+            local_context,
+            flags=re.IGNORECASE,
+        )
+    )
+    if transfer_link:
+        strength, cue = "strong", "credit_transfer_link"
+    elif principal_label:
+        strength, cue = "explicit", "principal_role_label"
+    elif direct_definition:
+        strength, cue = "strong", "role_definition_before_cnpj"
+    else:
+        strength, cue = "contextual", "role_proximity_before_cnpj"
+    return {
+        "candidate_status": "accepted",
+        "relation_strength": strength,
+        "relation_cue": cue,
+        "exclusion_reason": "",
+    }
+
+
 def _participant_candidates_from_page(
     *,
     text: str,
@@ -4584,19 +4865,44 @@ def _participant_candidates_from_page(
         participant_cnpj = normalize_cnpj(cnpj_match.group(0))
         if len(participant_cnpj) != 14 or participant_cnpj == fund_cnpj:
             continue
-        nearest_type = ""
-        nearest_distance = 10**9
-        nearest_role: re.Match[str] | None = None
+        relation_candidates: list[tuple[int, int, float, str, re.Match[str], dict[str, object]]] = []
         cnpj_center = (cnpj_match.start() + cnpj_match.end()) / 2
         for participant_type, role_match in role_matches:
             role_center = (role_match.start() + role_match.end()) / 2
             distance = abs(role_center - cnpj_center)
-            if distance < nearest_distance:
-                nearest_type = participant_type
-                nearest_distance = distance
-                nearest_role = role_match
-        if nearest_role is None or nearest_distance > 190:
+            if distance > 190:
+                continue
+            relation = _participant_relation_assessment(
+                text=text,
+                cnpj_match=cnpj_match,
+                participant_type=participant_type,
+                role_match=role_match,
+            )
+            accepted_rank = int(str(relation.get("candidate_status", "accepted")) != "suppressed")
+            strength_rank = {
+                "explicit": 4,
+                "strong": 3,
+                "contextual": 2,
+                "conflicting": 1,
+                "unlinked": 0,
+            }.get(str(relation.get("relation_strength", "")), 0)
+            relation_candidates.append(
+                (accepted_rank, strength_rank, -distance, participant_type, role_match, relation)
+            )
+        if not relation_candidates:
             continue
+        _, _, negative_distance, nearest_type, nearest_role, relation = max(
+            relation_candidates,
+            key=lambda item: (item[0], item[1], item[2]),
+        )
+        nearest_distance = -negative_distance
+        if not is_valid_cnpj(participant_cnpj):
+            relation = {
+                "candidate_status": "invalid_cnpj",
+                "relation_strength": "invalid_identifier",
+                "relation_cue": "cnpj_checksum_failed",
+                "exclusion_reason": "CNPJ extraído falha no dígito verificador",
+            }
         between = text[
             min(nearest_role.end(), cnpj_match.end()) : max(nearest_role.start(), cnpj_match.start())
         ]
@@ -4614,7 +4920,26 @@ def _participant_candidates_from_page(
                 flags=re.IGNORECASE,
             )
         )
-        confidence = min(0.95, 0.48 + 0.2 + 0.17 * bool(name) + 0.07 * (nearest_distance <= 90) + 0.03 * explicit)
+        strength_bonus = {
+            "explicit": 0.12,
+            "strong": 0.08,
+            "contextual": -0.08,
+            "conflicting": -0.45,
+            "unlinked": -0.45,
+            "invalid_identifier": -0.55,
+        }.get(str(relation.get("relation_strength", "")), 0.0)
+        confidence = min(
+            0.95,
+            max(
+                0.1,
+                0.48
+                + 0.2
+                + 0.17 * bool(name)
+                + 0.07 * (nearest_distance <= 90)
+                + 0.03 * explicit
+                + strength_bonus,
+            ),
+        )
         source_document = _canonical_evidence_document(record)
         seed = "|".join(
             [
@@ -4641,7 +4966,11 @@ def _participant_candidates_from_page(
                 "source_document_date": record.get("document_date", ""),
                 "source_cache": record.get("cache_path", ""),
                 "source_sha256": record.get("source_sha256", ""),
-                "extraction_method": "role_cnpj_page_context_v1",
+                "extraction_method": "role_cnpj_page_context_v2",
+                "relation_strength": relation.get("relation_strength", ""),
+                "relation_cue": relation.get("relation_cue", ""),
+                "candidate_status": relation.get("candidate_status", "accepted"),
+                "exclusion_reason": relation.get("exclusion_reason", ""),
                 "confidence_score": round(confidence, 4),
                 "priority_2025_2026": str(record.get("document_date", "")).startswith(("2025", "2026")),
                 "extracted_at_utc": extracted_at_utc,
@@ -4669,6 +4998,7 @@ def _participant_candidates_from_page(
         participant_cnpj = normalize_cnpj(cnpj_matches[0]) if cnpj_matches else ""
         if participant_cnpj == fund_cnpj:
             participant_cnpj = ""
+        valid_identifier = not participant_cnpj or is_valid_cnpj(participant_cnpj)
         source_document = _canonical_evidence_document(record)
         seed = "|".join([fund_cnpj, participant_type, participant_cnpj, name, source_document])
         rows.append(
@@ -4687,8 +5017,12 @@ def _participant_candidates_from_page(
                 "source_document_date": record.get("document_date", ""),
                 "source_cache": record.get("cache_path", ""),
                 "source_sha256": record.get("source_sha256", ""),
-                "extraction_method": "role_definition_page_context_v1",
-                "confidence_score": 0.78 if participant_cnpj else 0.68,
+                "extraction_method": "role_definition_page_context_v2",
+                "relation_strength": "explicit" if valid_identifier else "invalid_identifier",
+                "relation_cue": "explicit_role_name_definition" if valid_identifier else "cnpj_checksum_failed",
+                "candidate_status": "accepted" if valid_identifier else "invalid_cnpj",
+                "exclusion_reason": "" if valid_identifier else "CNPJ extraído falha no dígito verificador",
+                "confidence_score": 0.78 if participant_cnpj and valid_identifier else 0.68 if not participant_cnpj else 0.2,
                 "priority_2025_2026": str(record.get("document_date", "")).startswith(("2025", "2026")),
                 "extracted_at_utc": extracted_at_utc,
             }
@@ -5011,8 +5345,12 @@ def build_document_field_candidates(
         participants["_has_page"] = participants["source_page"].fillna("").astype(str).str.strip().ne("")
         participants["_has_name"] = participants["participant_name_candidate"].fillna("").astype(str).str.strip().ne("")
         participants["_confidence"] = pd.to_numeric(participants["confidence_score"], errors="coerce").fillna(0)
+        participants["_accepted"] = participants["candidate_status"].fillna("").astype(str).ne("suppressed")
         participants = (
-            participants.sort_values(["_has_page", "_has_name", "_confidence"], ascending=[False, False, False])
+            participants.sort_values(
+                ["_accepted", "_has_page", "_has_name", "_confidence"],
+                ascending=[False, False, False, False],
+            )
             .drop_duplicates("candidate_id", keep="first")
         )
         with_cnpj = participants["participant_cnpj_candidate"].map(normalize_cnpj).str.len().eq(14)
@@ -5025,7 +5363,7 @@ def build_document_field_candidates(
             keep="first",
         )
         participants = pd.concat([cnpj_rows, name_rows], ignore_index=True).drop(
-            columns=["_has_page", "_has_name", "_confidence"]
+            columns=["_has_page", "_has_name", "_confidence", "_accepted"]
         )
     if not criteria.empty:
         criteria["_has_page"] = criteria["source_page"].fillna("").astype(str).str.strip().ne("")
@@ -5089,6 +5427,7 @@ def build_document_field_chunk_summary(
         text_index.get("chunk_id", pd.Series("", index=text_index.index)).fillna("").astype(str).eq(str(chunk_id))
     ]
     participant_conf = pd.to_numeric(participants["confidence_score"], errors="coerce")
+    participant_status = participants["candidate_status"].fillna("").astype(str).replace("", "accepted")
     criteria_conf = pd.to_numeric(criteria["confidence_score"], errors="coerce")
     sub = criteria[criteria["canonical_key"].fillna("").astype(str).eq("subordination_ratio_min")]
     row = {
@@ -5096,6 +5435,8 @@ def build_document_field_chunk_summary(
         "extracted_at_utc": extracted_at_utc,
         "documents_scanned": int(len(selected_docs)),
         "participant_candidates": int(len(participants)),
+        "participant_accepted": int(participant_status.ne("suppressed").sum()),
+        "participant_suppressed": int(participant_status.eq("suppressed").sum()),
         "participant_funds": int(participants["cnpj_fundo"].nunique()),
         "participant_with_name": int(participants["participant_name_candidate"].fillna("").astype(str).str.strip().ne("").sum()),
         "participant_with_cnpj": int(participants["participant_cnpj_candidate"].map(normalize_cnpj).str.len().eq(14).sum()),
@@ -5146,6 +5487,7 @@ def document_field_quality_summary(
         total_chunks = processed_chunks
     sub = criteria[criteria["canonical_key"].fillna("").astype(str).eq("subordination_ratio_min")]
     participant_conf = pd.to_numeric(participants["confidence_score"], errors="coerce")
+    participant_status = participants["candidate_status"].fillna("").astype(str).replace("", "accepted")
     criteria_conf = pd.to_numeric(criteria["confidence_score"], errors="coerce")
     return {
         "processed_chunks": processed_chunks,
@@ -5153,6 +5495,8 @@ def document_field_quality_summary(
         "pending_chunks": max(total_chunks - processed_chunks, 0),
         "documents_scanned": int(pd.to_numeric(summary["documents_scanned"], errors="coerce").fillna(0).sum()),
         "participant_candidates": int(len(participants)),
+        "participant_accepted": int(participant_status.ne("suppressed").sum()),
+        "participant_suppressed": int(participant_status.eq("suppressed").sum()),
         "participant_funds": int(participants["cnpj_fundo"].nunique()),
         "participant_with_name": int(participants["participant_name_candidate"].fillna("").astype(str).str.strip().ne("").sum()),
         "participant_with_cnpj": int(participants["participant_cnpj_candidate"].map(normalize_cnpj).str.len().eq(14).sum()),
@@ -5206,6 +5550,7 @@ def build_document_field_manifest(
             "notes": [
                 "Candidatos são extrações automáticas; aprovação/rejeição permanece nas mesas de curadoria da aplicação.",
                 "Participantes exigem contexto explícito de papel e CNPJ ou definição nominal próxima.",
+                "Vínculos conflitantes permanecem auditáveis como suppressed e ficam fora das métricas até aprovação manual.",
                 "Critérios estruturados reaproveitam JSON regulatório e tentam recuperar a página no PDF por similaridade textual.",
             ],
         },
@@ -8636,12 +8981,28 @@ def build_industry_pipeline_index(
             ],
         },
         {
+            "module_id": "participant_registry",
+            "label": "Cadastro de participantes por CNPJ",
+            "manifest_name": "industry_participant_registry_manifest.json",
+            "command": "python scripts/build_fidc_industry_participant_registry.py",
+            "cadence": "incremental/após novos participantes",
+            "depends_on": ["base estruturada de cedentes", "cache cadastral local"],
+            "quality_keys": [
+                "targets",
+                "ok",
+                "pending",
+                "errors",
+                "network_requests",
+                "cache_hits",
+            ],
+        },
+        {
             "module_id": "cedentes",
             "label": "Cedentes e sacados",
             "manifest_name": "industry_pipeline_manifest.json",
             "command": "python scripts/build_fidc_industry_cedentes.py",
             "cadence": "após extração/curadoria",
-            "depends_on": ["SQLite da aba Estratégia", "revisões manuais da UI", "base granular mensal"],
+            "depends_on": ["SQLite da aba Estratégia", "cadastro de participantes", "revisões manuais da UI", "base granular mensal"],
             "quality_keys": [
                 "candidate_rows",
                 "candidate_funds",
@@ -9020,6 +9381,14 @@ def build_industry_pipeline_index(
         },
         {
             "order": 12,
+            "module_id": "participant_registry",
+            "label": "Atualizar cadastro dos participantes ativos",
+            "command": "python scripts/build_fidc_industry_participant_registry.py",
+            "reason": "Enriquece razão social, nome fantasia, CNAE, setor e segmento com cache cadastral redigido.",
+            "incremental_note": "Consulta apenas CNPJs ativos ainda sem cache; --max-cnpjs controla o lote de rede.",
+        },
+        {
+            "order": 13,
             "module_id": "cedentes",
             "label": "Regerar base de cedentes/sacados",
             "command": "python scripts/build_fidc_industry_cedentes.py",
@@ -9027,7 +9396,7 @@ def build_industry_pipeline_index(
             "incremental_note": "A curadoria continua sendo feita pela UI e reaplicada pelo overlay persistido.",
         },
         {
-            "order": 13,
+            "order": 14,
             "module_id": "criteria",
             "label": "Regerar critérios e subordinação mínima",
             "command": "python scripts/build_fidc_industry_criteria.py",
@@ -9035,7 +9404,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Revisões feitas pela UI são reaplicadas antes da consolidação.",
         },
         {
-            "order": 14,
+            "order": 15,
             "module_id": "fund_snapshot",
             "label": "Regerar snapshot unificado por FIDC",
             "command": "python scripts/build_fidc_industry_fund_snapshot.py",
@@ -9043,7 +9412,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Não apaga granularidade; apenas resume camadas já materializadas e preserva caminhos de origem.",
         },
         {
-            "order": 15,
+            "order": 16,
             "module_id": "dimension_catalog",
             "label": "Regerar catálogo de dimensões",
             "command": "python scripts/build_fidc_industry_dimensions.py",
@@ -9051,7 +9420,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos.",
         },
         {
-            "order": 16,
+            "order": 17,
             "module_id": "dimension_traceability",
             "label": "Regerar matriz de rastreabilidade",
             "command": "python scripts/build_fidc_industry_traceability.py",
@@ -9059,7 +9428,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas o catálogo de dimensões; ajuda a priorizar lacunas antes de uso público.",
         },
         {
-            "order": 17,
+            "order": 18,
             "module_id": "curation_queue",
             "label": "Consolidar fila única de curadoria",
             "command": "python scripts/build_fidc_industry_curation_queue.py",
@@ -9067,7 +9436,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Rerun leve depois de salvar ações manuais na UI ou de regenerar qualquer fila detalhe.",
         },
         {
-            "order": 18,
+            "order": 19,
             "module_id": "dimension_profiles",
             "label": "Regerar perfis cruzados por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_profiles.py",
@@ -9075,7 +9444,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado.",
         },
         {
-            "order": 19,
+            "order": 20,
             "module_id": "dimension_monthly",
             "label": "Regerar séries mensais por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -9083,7 +9452,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação.",
         },
         {
-            "order": 20,
+            "order": 21,
             "module_id": "dimension_dossiers",
             "label": "Regerar dossiês dimensionais",
             "command": "python scripts/build_fidc_industry_dimension_dossiers.py",
@@ -9091,7 +9460,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas atlas, perfis e registry já materializados; não reprocessa documentos ou informe mensal.",
         },
         {
-            "order": 21,
+            "order": 22,
             "module_id": "market_share",
             "label": "Regerar market share e concentração",
             "command": "python scripts/build_fidc_industry_market_share.py",
@@ -9099,7 +9468,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe.",
         },
         {
-            "order": 22,
+            "order": 23,
             "module_id": "pipeline_index",
             "label": "Atualizar cockpit do pipeline",
             "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -9525,13 +9894,18 @@ def cedente_quality_summary(
     active = structured
     if "ativo_curadoria" in structured.columns:
         active = structured[structured["ativo_curadoria"].astype(str).str.lower().isin({"true", "1", "sim"})]
-    priority = structured
-    if "periodo_prioritario" in structured.columns:
-        priority = structured[structured["periodo_prioritario"].eq("2025-2026 YTD")]
+    priority = active
+    if "periodo_prioritario" in active.columns:
+        priority = active[active["periodo_prioritario"].eq("2025-2026 YTD")]
     status_counts = reviews["status"].replace("", "pendente").value_counts().to_dict() if "status" in reviews else {}
-    participant_counts = structured["participant_type"].value_counts().to_dict() if "participant_type" in structured else {}
-    if not structured.empty and "score_confianca_final" in structured.columns:
-        score = pd.to_numeric(structured["score_confianca_final"], errors="coerce")
+    participant_counts = active["participant_type"].value_counts().to_dict() if "participant_type" in active else {}
+    candidate_status_counts = (
+        structured["candidate_status"].fillna("").astype(str).replace("", "accepted").value_counts().to_dict()
+        if "candidate_status" in structured
+        else {"accepted": int(len(structured))}
+    )
+    if not active.empty and "score_confianca_final" in active.columns:
+        score = pd.to_numeric(active["score_confianca_final"], errors="coerce")
     else:
         score = pd.Series(dtype=float)
     if active.empty:
@@ -9561,16 +9935,17 @@ def cedente_quality_summary(
         "review_rows": int(len(reviews)),
         "review_status_counts": {str(k): int(v) for k, v in status_counts.items()},
         "participant_type_counts": {str(k): int(v) for k, v in participant_counts.items()},
+        "candidate_status_counts": {str(k): int(v) for k, v in candidate_status_counts.items()},
         "coverage": {
-            "razao_social": _coverage(structured, "razao_social"),
-            "nome_fantasia": _coverage(structured, "nome_fantasia"),
-            "cnpj_participante": _coverage(structured, "cnpj_participante"),
-            "grupo_economico": _coverage(structured, "grupo_economico"),
-            "setor": _coverage(structured, "setor"),
-            "segmento": _coverage(structured, "segmento"),
-            "documento_origem": _coverage(structured, "documento_origem"),
-            "pagina": _coverage(structured, "pagina"),
-            "metodo_extracao": _coverage(structured, "metodo_extracao"),
+            "razao_social": _coverage(active, "razao_social"),
+            "nome_fantasia": _coverage(active, "nome_fantasia"),
+            "cnpj_participante": _coverage(active, "cnpj_participante"),
+            "grupo_economico": _coverage(active, "grupo_economico"),
+            "setor": _coverage(active, "setor"),
+            "segmento": _coverage(active, "segmento"),
+            "documento_origem": _coverage(active, "documento_origem"),
+            "pagina": _coverage(active, "pagina"),
+            "metodo_extracao": _coverage(active, "metodo_extracao"),
             "score_confianca_final": float(score.notna().mean()) if len(score) else 0.0,
         },
         "score": {
@@ -9593,6 +9968,8 @@ def build_cedente_pipeline_manifest(
     fund_universe: pd.DataFrame,
     vehicle_latest: pd.DataFrame,
     structured: pd.DataFrame,
+    participant_registry_path: Path | None = None,
+    participant_registry: pd.DataFrame | None = None,
 ) -> dict[str, object]:
     quality = cedente_quality_summary(candidates, reviews, structured)
     outputs = {
@@ -9612,6 +9989,7 @@ def build_cedente_pipeline_manifest(
             "macbook_air_m4_friendly": True,
             "notes": [
                 "Este modulo consolida candidatos ja extraidos; nao baixa nem reprocessa documentos.",
+                "O enriquecimento cadastral por CNPJ é cacheado separadamente; grupo econômico não é inferido pela raiz do CNPJ.",
                 "Cada entrada/saida fica persistida para permitir reexecucao parcial e auditoria mensal.",
             ],
         },
@@ -9622,6 +10000,9 @@ def build_cedente_pipeline_manifest(
             ),
             "manual_reviews": file_fingerprint(reviews_path),
             "vehicle_snapshot": file_fingerprint(industry_dir / "universe_latest.csv"),
+            "participant_registry": file_fingerprint(
+                participant_registry_path or industry_dir / "participant_registry.csv.gz"
+            ),
         },
         "outputs": outputs,
         "stages": [
@@ -9645,6 +10026,15 @@ def build_cedente_pipeline_manifest(
                 "rerun": "Editar pela aba Indústria > Cedentes; nao editar CSV manualmente.",
             },
             {
+                "id": "enrich_participant_registry",
+                "label": "Enriquecimento cadastral por CNPJ",
+                "status": "ok" if participant_registry is not None and not participant_registry.empty else "empty",
+                "input": str(participant_registry_path or industry_dir / "participant_registry.csv.gz"),
+                "output": "memoria:participant_registry",
+                "rows": int(len(participant_registry)) if participant_registry is not None else 0,
+                "rerun": "python scripts/build_fidc_industry_participant_registry.py",
+            },
+            {
                 "id": "enrich_funds",
                 "label": "Enriquecimento por fundos/ofertas",
                 "status": "ok" if not fund_universe.empty else "empty",
@@ -9666,7 +10056,7 @@ def build_cedente_pipeline_manifest(
                 "id": "consolidate_structured_base",
                 "label": "Base estruturada de cedentes",
                 "status": "ok" if not structured.empty else "empty",
-                "input": "memoria:candidates+review_overlay+fund_universe+universe_latest",
+                "input": "memoria:candidates+review_overlay+participant_registry+fund_universe+universe_latest",
                 "output": str(output_path),
                 "rows": int(len(structured)),
                 "funds": int(quality.get("structured_funds", 0) or 0),

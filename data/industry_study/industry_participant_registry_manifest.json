@@ -1,0 +1,48 @@
+{
+  "schema_version": "industry-participant-registry-manifest/v1",
+  "generated_at_utc": "2026-07-10T01:41:25+00:00",
+  "pipeline": "industry_participant_registry",
+  "design_constraints": {
+    "incremental": true,
+    "cache_redacted": true,
+    "notes": [
+      "O cache persiste somente campos cadastrais necessários; QSA, telefone, e-mail e endereço não são armazenados.",
+      "Setor usa a seção CNAE e segmento usa a descrição do CNAE principal.",
+      "Raiz de CNPJ não é tratada como grupo econômico; grupo permanece sujeito a curadoria."
+    ]
+  },
+  "inputs": {
+    "cedentes_structured": {
+      "path": "data/industry_study/cedentes_structured.csv.gz",
+      "exists": true,
+      "bytes": 540828,
+      "sha256": "6838bc1b9bf4bf3b134194469f33edcdcf2f80e68650bb4bb8634e4299005fba"
+    }
+  },
+  "outputs": {
+    "participant_registry": {
+      "path": "data/industry_study/participant_registry.csv.gz",
+      "exists": true,
+      "bytes": 18867,
+      "sha256": "b0ea01b0ac74890d21f70d243f342013b5cb27daa122dd8f911399e295846ed0"
+    },
+    "cache_dir": {
+      "path": "data/industry_study/participant_registry_cache",
+      "exists": true,
+      "bytes": 0,
+      "sha256": "",
+      "kind": "directory"
+    },
+    "manifest": {
+      "path": "data/industry_study/industry_participant_registry_manifest.json"
+    }
+  },
+  "quality": {
+    "targets": 155,
+    "network_requests": 0,
+    "cache_hits": 155,
+    "pending": 0,
+    "errors": 0,
+    "ok": 155
+  }
+}

@@ -1,8 +1,8 @@
 {
   "schema_version": "industry-document-field-manifest/v1",
-  "generated_at_utc": "2026-07-09T23:29:24+00:00",
+  "generated_at_utc": "2026-07-10T01:14:59+00:00",
   "pipeline": "industry_document_fields",
-  "selected_chunk_id": "doc-0080",
+  "selected_chunk_id": "doc-0109",
   "design_constraints": {
     "modular": true,
     "incremental": true,
@@ -11,6 +11,7 @@
     "notes": [
       "Candidatos são extrações automáticas; aprovação/rejeição permanece nas mesas de curadoria da aplicação.",
       "Participantes exigem contexto explícito de papel e CNPJ ou definição nominal próxima.",
+      "Vínculos conflitantes permanecem auditáveis como suppressed e ficam fora das métricas até aprovação manual.",
       "Critérios estruturados reaproveitam JSON regulatório e tentam recuperar a página no PDF por similaridade textual."
     ]
   },
@@ -18,8 +19,8 @@
     "document_text_index": {
       "path": "data/industry_study/document_text_index.csv.gz",
       "exists": true,
-      "bytes": 5460880,
-      "sha256": "350e050bedcc09086d81e8e72df1d4b59e73825a4c2fef6cb20694228aacddc8"
+      "bytes": 7250143,
+      "sha256": "ce595e0551a3da1b3dda96e51e6c0097a1034571559ab043cb80a9183fc3eb20"
     },
     "document_text_cache": {
       "path": "data/industry_study/document_text_cache",
@@ -31,28 +32,28 @@
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 85825,
-      "sha256": "54367f4426f0bc5a459767ef8617b70cfd2abd6bccedf88b8041bf41cea44477"
+      "bytes": 85879,
+      "sha256": "16eccece9b019ad18bcd9fdbf1a65a5b8036f02a03a1426dd4e7bf0a33f88ac7"
     }
   },
   "outputs": {
     "document_participant_candidates": {
       "path": "data/industry_study/document_participant_candidates.csv.gz",
       "exists": true,
-      "bytes": 171954,
-      "sha256": "cf22c3a43f67d19229c9e508323dfc6c67ebc7a79b8b2a868b28169077d89707"
+      "bytes": 260147,
+      "sha256": "409081500faee71f0c8619ce6e76f99227beef49b5f8cd88e270d3cce4e6878a"
     },
     "document_criteria_candidates": {
       "path": "data/industry_study/document_criteria_candidates.csv.gz",
       "exists": true,
-      "bytes": 994558,
-      "sha256": "1158b599fe853360266e821a9b16c3620b7932f87ca0b01024c3b49f97cc77f1"
+      "bytes": 1129250,
+      "sha256": "ae822800c244cffc079197f06548ad410f387bf86ba846346725fb39d8a77fcb"
     },
     "document_field_run_summary": {
       "path": "data/industry_study/document_field_run_summary.csv",
       "exists": true,
-      "bytes": 20496,
-      "sha256": "9f387657c3ae889d78e0bf2efdfd36d8a91f727d1ce4f312a874591479ea5726"
+      "bytes": 27173,
+      "sha256": "9727b45c7b6beb675dc5fc2a4fd7b014aaf5102dc5fb620db4b4b6eaf1e35065"
     },
     "manifest": {
       "path": "data/industry_study/industry_document_field_manifest.json"
@@ -63,58 +64,60 @@
       "id": "extract_participants",
       "label": "Extrair participantes com evidência por página",
       "status": "ok",
-      "rows": 842,
-      "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0080"
+      "rows": 1328,
+      "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0109"
     },
     {
       "id": "extract_criteria",
       "label": "Extrair critérios e recuperar página",
       "status": "ok",
-      "rows": 7635,
-      "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0080"
+      "rows": 8819,
+      "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0109"
     },
     {
       "id": "persist_candidate_indexes",
       "label": "Persistir candidatos e resumo acumulado",
       "status": "ok",
-      "rows": 80,
+      "rows": 109,
       "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001"
     }
   ],
   "quality": {
-    "processed_chunks": 80,
+    "processed_chunks": 109,
     "total_chunks": 109,
-    "pending_chunks": 29,
-    "documents_scanned": 8807,
-    "participant_candidates": 842,
-    "participant_funds": 189,
-    "participant_with_name": 470,
-    "participant_with_cnpj": 774,
-    "participant_with_page": 830,
-    "participant_avg_confidence": 0.7870427553444181,
-    "criteria_candidates": 7635,
-    "criteria_funds": 276,
-    "criteria_with_threshold": 4776,
-    "criteria_with_page": 6349,
-    "criteria_avg_confidence": 0.7473529796987557,
-    "subordination_candidates": 2172,
-    "subordination_funds": 255,
+    "pending_chunks": 0,
+    "documents_scanned": 11665,
+    "participant_candidates": 1328,
+    "participant_accepted": 679,
+    "participant_suppressed": 649,
+    "participant_funds": 245,
+    "participant_with_name": 776,
+    "participant_with_cnpj": 1231,
+    "participant_with_page": 1317,
+    "participant_avg_confidence": 0.5739006024096385,
+    "criteria_candidates": 8819,
+    "criteria_funds": 294,
+    "criteria_with_threshold": 5804,
+    "criteria_with_page": 7994,
+    "criteria_avg_confidence": 0.765164984692142,
+    "subordination_candidates": 3171,
+    "subordination_funds": 273,
     "participant_type_counts": {
-      "cedente_originador": 524,
-      "consultora": 202,
-      "sacado_devedor": 116
+      "cedente_originador": 788,
+      "consultora": 387,
+      "sacado_devedor": 153
     },
     "criteria_key_counts": {
-      "subordination_ratio_min": 2172,
-      "feature_crit_rio_de_elegibilidade": 1672,
-      "credit_rights_allocation_min": 910,
-      "permitted_hedges": 588,
-      "eligibility_criteria_text": 543,
-      "concentration_limits": 485,
-      "minimum_cash_ratio": 367,
-      "service_provider_replacement_event": 365,
-      "pdd_coverage_min": 210,
-      "recompras_max": 166,
+      "subordination_ratio_min": 3171,
+      "feature_crit_rio_de_elegibilidade": 1786,
+      "credit_rights_allocation_min": 919,
+      "permitted_hedges": 597,
+      "eligibility_criteria_text": 569,
+      "concentration_limits": 486,
+      "minimum_cash_ratio": 378,
+      "service_provider_replacement_event": 375,
+      "pdd_coverage_min": 211,
+      "recompras_max": 170,
       "default_rate_evaluation_event": 105,
       "cancellation_rate_max": 43,
       "default_rate_early_maturity": 6,

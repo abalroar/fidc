@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-curation-queue-manifest/v1",
-  "generated_at_utc": "2026-07-09T23:33:51+00:00",
+  "generated_at_utc": "2026-07-10T01:44:42+00:00",
   "pipeline": "industry_curation_queue",
   "design_constraints": {
     "modular": true,
@@ -15,38 +15,38 @@
     "fund_snapshot": {
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 445308,
-      "sha256": "f5a2e21253adefe6539697378777476f451cb379e31227c0633c23bb497ce15e"
+      "bytes": 443031,
+      "sha256": "19d30da71988ef836de894da972fa978adf937c9c4a6237c4f4fb203a61cdde1"
     },
     "monthly_delta": {
       "path": "data/industry_study/industry_monthly_delta.csv.gz",
       "exists": true,
-      "bytes": 368849,
-      "sha256": "a84f7b9a0cf9f83542a954a525ef4a02f1205c252565d362ec724bdc54280a0c"
+      "bytes": 366529,
+      "sha256": "4e6926880cfc575cc4d081a7a343b3aeea09d4c6577ee1f96b42d420c4e56fb8"
     },
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 85849,
-      "sha256": "db84c35efbc8f77f06a94a4c595035e10a19b25e6b33727fafb07ab5897b6197"
+      "bytes": 85891,
+      "sha256": "e3184c0ea4f4831fe36cc52ae33a761ae57572e2cf3aa8a1f3ecb21ac2eb2cc6"
     },
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1728584,
-      "sha256": "bdbb4fc85291ffc8eb9e53493cad7828848021ce12d425e7b129a8490533033b"
+      "bytes": 1617284,
+      "sha256": "a7ca718479ce971e85d206249c73bacf2ff939d4a0fc6166f3f2bb52e401b58e"
     },
     "snapshot_gap_actions": {
       "path": "data/industry_study/snapshot_gap_actions.csv",
       "exists": true,
-      "bytes": 46442,
-      "sha256": "1c7705ddfae1f77f704636bf8a39877d19e1bb144563fac80e927abf9c886db5"
+      "bytes": 46580,
+      "sha256": "fcab89768c55af6217819fe6f692639bed36089775d13a6ee6d08e6ce404bbe4"
     },
     "catalog_gap_actions": {
       "path": "data/industry_study/dimension_catalog_gap_actions.csv",
       "exists": true,
-      "bytes": 170617,
-      "sha256": "a71c245ed7e6933ff093b8e45ab7ea874d0f1cb67e8e5413de7391496e7a4ddb"
+      "bytes": 171205,
+      "sha256": "dc82664a8b515b1cd53fe2f2c03333080e04037fee5819d727a085d6f66d600c"
     },
     "monthly_delta_actions": {
       "path": "data/industry_study/monthly_delta_actions.csv",
@@ -65,8 +65,8 @@
     "curation_queue": {
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
-      "bytes": 2656792,
-      "sha256": "1546c0c9a521db05c2aef9116e6e5f0d683d4122092f85e234b8282c92337a74"
+      "bytes": 2517650,
+      "sha256": "05fa4648afb85ff2adb0bb654700f04eb65be7ea5710bcff8e43b2160f95ca0f"
     },
     "manifest": {
       "path": "data/industry_study/industry_curation_queue_manifest.json"
@@ -74,8 +74,8 @@
     "curation_queue_summary": {
       "path": "data/industry_study/industry_curation_queue_summary.csv.gz",
       "exists": true,
-      "bytes": 261776,
-      "sha256": "47d7e34fe647e4a4505f83dabe14cb21c2ec3c1e77f359abcfab011bc4abba36"
+      "bytes": 248647,
+      "sha256": "b26d3f86e8035ec2212022475546f0658e595af9a68ba1fb8fea5baf371e38b7"
     }
   },
   "stages": [
@@ -104,51 +104,51 @@
       "id": "catalog_traceability_queue",
       "label": "Rastreabilidade do catálogo",
       "status": "ok",
-      "rows": 77096,
+      "rows": 73950,
       "rerun": "python scripts/build_fidc_industry_dimensions.py"
     },
     {
       "id": "persist_unified_queue",
       "label": "Fila única de curadoria",
       "status": "ok",
-      "rows": 84898,
+      "rows": 81522,
       "rerun": "python scripts/build_fidc_industry_curation_queue.py"
     },
     {
       "id": "persist_operational_summary",
       "label": "Resumo operacional da fila",
       "status": "ok",
-      "rows": 4444,
+      "rows": 4389,
       "rerun": "python scripts/build_fidc_industry_curation_queue.py"
     }
   ],
   "quality": {
-    "rows": 84898,
-    "funds": 4340,
-    "open_rows": 84898,
-    "high_priority_rows": 3327,
-    "high_priority_open_rows": 3327,
-    "high_priority_pending_rows": 3327,
+    "rows": 81522,
+    "funds": 4291,
+    "open_rows": 81522,
+    "high_priority_rows": 1087,
+    "high_priority_open_rows": 1087,
+    "high_priority_pending_rows": 1087,
     "high_priority_in_progress_rows": 0,
     "high_priority_closed_rows": 0,
-    "priority_2025_2026_rows": 7618,
+    "priority_2025_2026_rows": 5378,
     "domain_counts": {
-      "catalog_gap": 76381,
+      "catalog_gap": 72989,
       "monthly_delta": 4279,
-      "snapshot_gap": 4129,
+      "snapshot_gap": 4145,
       "document_chunk": 109
     },
     "status_counts": {
-      "pendente": 84898
+      "pendente": 81522
     },
-    "summary_rows": 4444,
+    "summary_rows": 4389,
     "summary_type_counts": {
-      "fidc_backlog": 4336,
+      "fidc_backlog": 4281,
       "admin_backlog": 52,
       "segment_backlog": 48,
       "frente_status": 8
     },
-    "fund_backlog_rows": 4336,
+    "fund_backlog_rows": 4281,
     "admin_backlog_rows": 52,
     "segment_backlog_rows": 48
   }

@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-criteria-manifest/v1",
-  "generated_at_utc": "2026-07-09T23:31:04+00:00",
+  "generated_at_utc": "2026-07-10T01:15:42+00:00",
   "pipeline": "industry_criteria_structured",
   "design_constraints": {
     "modular": true,
@@ -28,8 +28,8 @@
     "document_criteria_candidates": {
       "path": "data/industry_study/document_criteria_candidates.csv.gz",
       "exists": true,
-      "bytes": 994558,
-      "sha256": "1158b599fe853360266e821a9b16c3620b7932f87ca0b01024c3b49f97cc77f1"
+      "bytes": 1129250,
+      "sha256": "ae822800c244cffc079197f06548ad410f387bf86ba846346725fb39d8a77fcb"
     },
     "manual_reviews": {
       "path": "data/industry_study/criteria_reviews.csv",
@@ -42,8 +42,8 @@
     "criteria_structured": {
       "path": "data/industry_study/criteria_structured.csv.gz",
       "exists": true,
-      "bytes": 1211829,
-      "sha256": "3967637559f73406e270bbf375c1441ca0a754299aa095ef84d03fb3ce33c666"
+      "bytes": 1294217,
+      "sha256": "c3764d44a1041f09edb5a495dd15096ffb1aab74c9f5d83884dcdd088679f392"
     },
     "manifest": {
       "path": "data/industry_study/industry_criteria_manifest.json"
@@ -62,8 +62,8 @@
       "status": "ok",
       "input": "data/regulatory_profiles/all_fidcs_criteria_monitoraveis_ime.csv",
       "output": "memoria:all_fidcs_criteria_monitoraveis_ime",
-      "rows": 7788,
-      "funds": 276,
+      "rows": 8972,
+      "funds": 294,
       "rerun": "python scripts/classify_fidc_sectors_and_practices.py"
     },
     {
@@ -72,8 +72,8 @@
       "status": "ok",
       "input": "data/industry_study/document_criteria_candidates.csv.gz",
       "output": "memoria:industry_document_field_candidates",
-      "rows": 7635,
-      "funds": 276,
+      "rows": 8819,
+      "funds": 294,
       "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001"
     },
     {
@@ -111,38 +111,38 @@
       "status": "ok",
       "input": "memoria:criteria+review_overlay+fund_universe",
       "output": "data/industry_study/criteria_structured.csv.gz",
-      "rows": 12174,
-      "funds": 648,
+      "rows": 13358,
+      "funds": 655,
       "rerun": "python scripts/build_fidc_industry_criteria.py"
     }
   ],
   "quality": {
-    "source_rows": 12174,
-    "source_funds": 648,
-    "structured_rows": 12174,
-    "structured_funds": 648,
-    "active_rows": 12174,
-    "active_funds": 648,
+    "source_rows": 13358,
+    "source_funds": 655,
+    "structured_rows": 13358,
+    "structured_funds": 655,
+    "active_rows": 13358,
+    "active_funds": 655,
     "source_layer_counts": {
-      "industry_document_field_candidates": 7635,
+      "industry_document_field_candidates": 8819,
       "strategy_regulatory_feature_long": 4386,
       "criteria_monitoraveis_ime": 153
     },
     "feature_rows": 4386,
     "feature_funds": 617,
-    "document_candidate_rows": 7635,
-    "document_candidate_funds": 276,
-    "document_candidate_with_page": 6349,
-    "documentary_rows": 7788,
-    "documentary_funds": 276,
-    "subordination_rows": 2201,
-    "subordination_funds": 255,
-    "subordination_metric_rows": 255,
-    "subordination_metric_funds": 255,
+    "document_candidate_rows": 8819,
+    "document_candidate_funds": 294,
+    "document_candidate_with_page": 7994,
+    "documentary_rows": 8972,
+    "documentary_funds": 294,
+    "subordination_rows": 3200,
+    "subordination_funds": 273,
+    "subordination_metric_rows": 273,
+    "subordination_metric_funds": 273,
     "subordination_invalid_range_rows": 25,
     "subordination_invalid_range_funds": 4,
-    "monitorable_rows": 5065,
-    "partial_rows": 1051,
+    "monitorable_rows": 6115,
+    "partial_rows": 1071,
     "review_rows": 0,
     "review_status_counts": {},
     "coverage": {
@@ -150,15 +150,15 @@
       "criterio": 1.0,
       "chave": 1.0,
       "limite_regra": 1.0,
-      "pct_min": 0.4162148841793987,
+      "pct_min": 0.4568797724210211,
       "monitorabilidade_ime": 1.0,
       "documento_origem": 1.0,
-      "document_date": 0.6397240019714144,
+      "document_date": 0.671657433747567,
       "score_confianca_final": 1.0
     },
     "subordination": {
       "median": 15.0,
-      "p25": 5.05,
+      "p25": 7.0,
       "p75": 25.0,
       "method": "mínimo por FIDC no documento mais recente; revisão aprovada prevalece"
     },
@@ -168,26 +168,26 @@
       "p75": 0.78
     },
     "criteria_key_counts": {
-      "subordination_ratio_min": 2201,
-      "feature_crit_rio_de_elegibilidade": 1672,
-      "credit_rights_allocation_min": 929,
-      "permitted_hedges": 622,
+      "subordination_ratio_min": 3200,
+      "feature_crit_rio_de_elegibilidade": 1786,
+      "credit_rights_allocation_min": 938,
+      "permitted_hedges": 631,
+      "eligibility_criteria_text": 581,
       "feature_asset_class_confirmed": 556,
-      "eligibility_criteria_text": 555,
       "feature_rating_required": 553,
       "feature_eligibility_criteria": 547,
       "feature_default_or_performance_triggers": 540,
-      "concentration_limits": 494,
+      "concentration_limits": 495,
+      "minimum_cash_ratio": 394,
       "feature_mezzanine_layer": 391,
       "feature_subordination_minimum": 390,
-      "minimum_cash_ratio": 383,
-      "service_provider_replacement_event": 374,
+      "service_provider_replacement_event": 384,
       "feature_concentration_limits": 373,
       "feature_cash_or_liquidity_reserve": 332,
       "feature_revolving_period": 244,
       "feature_repurchase_or_indemnity": 241,
-      "pdd_coverage_min": 219,
-      "recompras_max": 173,
+      "pdd_coverage_min": 220,
+      "recompras_max": 177,
       "feature_named_originator_or_cedente": 135,
       "default_rate_evaluation_event": 111,
       "feature_named_debtor_or_sacado": 84,
