@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-profile-manifest/v1",
-  "generated_at_utc": "2026-07-10T01:44:58+00:00",
+  "generated_at_utc": "2026-07-10T03:27:31+00:00",
   "pipeline": "industry_dimension_profiles",
   "design_constraints": {
     "modular": true,
@@ -22,16 +22,16 @@
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1617284,
-      "sha256": "a7ca718479ce971e85d206249c73bacf2ff939d4a0fc6166f3f2bb52e401b58e"
+      "bytes": 1961763,
+      "sha256": "e292e78eb3b533bfcd0e53357cb8a222b32efd3dff3bf1c55956df2d54f3bc76"
     }
   },
   "outputs": {
     "dimension_profiles": {
       "path": "data/industry_study/industry_dimension_profiles.csv.gz",
       "exists": true,
-      "bytes": 2645995,
-      "sha256": "6958f552a7c71a2fa3fcb15b438a0600635bd3de7c23b6574088dd9cd5e4c662"
+      "bytes": 2947412,
+      "sha256": "57957bdde92d59642bd140af7666524ce36176f671241a2044951c93fe3b65da"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_profile_manifest.json"
@@ -39,8 +39,8 @@
     "heatmap_registry": {
       "path": "data/industry_study/industry_heatmap_registry.csv",
       "exists": true,
-      "bytes": 2984,
-      "sha256": "7e1365c7751adff34a6acd2192129652163403e8f49ff16a84a715bc9dc0c2e1"
+      "bytes": 3039,
+      "sha256": "2a06d490798a2bf89c8d345226413bd40bbca5a15c94e2399dd9785a96174918"
     }
   },
   "stages": [
@@ -50,7 +50,7 @@
       "status": "ok",
       "input": "data/industry_study/industry_fund_snapshot.csv.gz+data/industry_study/industry_dimension_catalog.csv.gz",
       "output": "memoria:snapshot+dimension_catalog",
-      "rows": 78169,
+      "rows": 79386,
       "rerun": "python scripts/build_fidc_industry_fund_snapshot.py && python scripts/build_fidc_industry_dimensions.py"
     },
     {
@@ -59,8 +59,8 @@
       "status": "ok",
       "input": "memoria:snapshot+dimension_catalog",
       "output": "data/industry_study/industry_dimension_profiles.csv.gz",
-      "rows": 92371,
-      "profile_links": 1435465,
+      "rows": 93986,
+      "profile_links": 1486791,
       "rerun": "python scripts/build_fidc_industry_dimension_profiles.py"
     },
     {
@@ -75,16 +75,16 @@
     }
   ],
   "quality": {
-    "rows": 92371,
+    "rows": 93986,
     "competencia": "2026-05",
     "source_dimensions": 29,
     "target_dimensions": 29,
-    "source_values": 1031,
-    "target_values": 1031,
-    "profile_links": 1435465,
-    "with_source_document_links": 495082,
-    "curated_links": 60919,
-    "weighted_links": 391092,
+    "source_values": 1032,
+    "target_values": 1032,
+    "profile_links": 1486791,
+    "with_source_document_links": 546408,
+    "curated_links": 314824,
+    "weighted_links": 442418,
     "heatmap_preset_rows": 11,
     "heatmap_preset_available": 11,
     "heatmap_preset_profile_available": 11,

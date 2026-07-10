@@ -40,6 +40,7 @@ from services.industry_study import (
     build_document_chunk_plan,
     build_curation_queue_pipeline_manifest,
     build_industry_curation_queue,
+    build_industry_curation_packages,
     build_industry_curation_queue_summary,
     build_industry_dimension_value_atlas,
     build_industry_heatmap_registry,
@@ -90,6 +91,7 @@ _INCREMENTAL_ONBOARDING_PATH = _DATA_DIR / "industry_incremental_onboarding.csv"
 _INCREMENTAL_ONBOARDING_MANIFEST_PATH = _DATA_DIR / "industry_incremental_onboarding_manifest.json"
 _CURATION_QUEUE_PATH = _DATA_DIR / "industry_curation_queue.csv.gz"
 _CURATION_QUEUE_SUMMARY_PATH = _DATA_DIR / "industry_curation_queue_summary.csv.gz"
+_CURATION_PACKAGES_PATH = _DATA_DIR / "industry_curation_packages.csv.gz"
 _CURATION_QUEUE_MANIFEST_PATH = _DATA_DIR / "industry_curation_queue_manifest.json"
 _MONTHLY_DELTA_PATH = _DATA_DIR / "industry_monthly_delta.csv.gz"
 _MONTHLY_DELTA_MANIFEST_PATH = _DATA_DIR / "industry_monthly_delta_manifest.json"
@@ -2797,6 +2799,8 @@ def _catalog_heatmap_cell_frame(
         "source_page",
         "source_date",
         "source_method",
+        "document_required",
+        "page_required",
         "confidence_score",
         "review_status",
         "priority_2025_2026",
@@ -3204,6 +3208,8 @@ def _dimension_catalog_quality_frame(catalog: pd.DataFrame) -> pd.DataFrame:
         "source_page",
         "source_date",
         "source_method",
+        "document_required",
+        "page_required",
         "confidence_score",
         "review_status",
         "participant_cnpj",
@@ -3224,7 +3230,19 @@ def _dimension_catalog_quality_frame(catalog: pd.DataFrame) -> pd.DataFrame:
     frame["_is_curated"] = _truthy_series(frame["is_curated"])
     frame["_is_multivalue"] = _truthy_series(frame["is_multivalue"])
     source_layer = frame["source_layer"].fillna("").astype(str)
-    frame["_doc_expected"] = frame["_is_curated"] | source_layer.isin({"cedente", "criteria"}) | frame["_has_source_document"]
+    legacy_doc_expected = frame["_is_curated"] | source_layer.isin({"cedente", "criteria"}) | frame["_has_source_document"]
+    document_required_present = _nonempty_series(frame["document_required"])
+    page_required_present = _nonempty_series(frame["page_required"])
+    frame["_doc_expected"] = _truthy_series(frame["document_required"]).where(
+        document_required_present,
+        legacy_doc_expected,
+    )
+    frame["_page_expected"] = _truthy_series(frame["page_required"]).where(
+        page_required_present,
+        legacy_doc_expected,
+    )
+    frame["_document_covered"] = frame["_doc_expected"] & frame["_has_source_document"]
+    frame["_page_covered"] = frame["_page_expected"] & frame["_has_source_page"]
     frame["_review_expected"] = frame["_is_curated"] | source_layer.isin({"cedente", "criteria"})
     confidence = pd.to_numeric(frame["confidence_score"], errors="coerce")
     grouped = (
@@ -3236,10 +3254,11 @@ def _dimension_catalog_quality_frame(catalog: pd.DataFrame) -> pd.DataFrame:
             curated_rows=("_is_curated", "sum"),
             multivalue_rows=("_is_multivalue", "sum"),
             document_expected_rows=("_doc_expected", "sum"),
+            page_expected_rows=("_page_expected", "sum"),
             review_expected_rows=("_review_expected", "sum"),
             with_source_layer=("_has_source_layer", "sum"),
-            with_source_document=("_has_source_document", "sum"),
-            with_source_page=("_has_source_page", "sum"),
+            with_source_document=("_document_covered", "sum"),
+            with_source_page=("_page_covered", "sum"),
             with_source_date=("_has_source_date", "sum"),
             with_source_method=("_has_source_method", "sum"),
             with_confidence=("_has_confidence", "sum"),
@@ -3253,13 +3272,15 @@ def _dimension_catalog_quality_frame(catalog: pd.DataFrame) -> pd.DataFrame:
     rows = rows.where(rows.ne(0))
     doc_expected = pd.to_numeric(grouped["document_expected_rows"], errors="coerce").astype(float)
     doc_expected = doc_expected.where(doc_expected.ne(0))
+    page_expected = pd.to_numeric(grouped["page_expected_rows"], errors="coerce").astype(float)
+    page_expected = page_expected.where(page_expected.ne(0))
     review_expected = pd.to_numeric(grouped["review_expected_rows"], errors="coerce").astype(float)
     review_expected = review_expected.where(review_expected.ne(0))
     grouped["source_layer_ratio"] = grouped["with_source_layer"] / rows
     grouped["source_method_ratio"] = grouped["with_source_method"] / rows
     grouped["confidence_ratio"] = grouped["with_confidence"] / rows
     grouped["source_document_ratio"] = grouped["with_source_document"] / doc_expected
-    grouped["source_page_ratio"] = grouped["with_source_page"] / doc_expected
+    grouped["source_page_ratio"] = grouped["with_source_page"] / page_expected
     grouped["review_status_ratio"] = grouped["with_review_status"] / review_expected
     grouped["quality_score"] = (
         grouped["source_layer_ratio"].fillna(0.0) * 0.15
@@ -3286,6 +3307,8 @@ def _dimension_catalog_gap_frame(catalog: pd.DataFrame) -> pd.DataFrame:
         "source_page",
         "source_date",
         "source_method",
+        "document_required",
+        "page_required",
         "confidence_score",
         "review_status",
         "participant_type",
@@ -3297,7 +3320,11 @@ def _dimension_catalog_gap_frame(catalog: pd.DataFrame) -> pd.DataFrame:
             frame[col] = ""
     source_layer = frame["source_layer"].fillna("").astype(str)
     is_curated = _truthy_series(frame["is_curated"])
-    doc_expected = is_curated | source_layer.isin({"cedente", "criteria"}) | _nonempty_series(frame["source_document"])
+    legacy_doc_expected = is_curated | source_layer.isin({"cedente", "criteria"}) | _nonempty_series(frame["source_document"])
+    document_required_present = _nonempty_series(frame["document_required"])
+    page_required_present = _nonempty_series(frame["page_required"])
+    doc_expected = _truthy_series(frame["document_required"]).where(document_required_present, legacy_doc_expected)
+    page_expected = _truthy_series(frame["page_required"]).where(page_required_present, legacy_doc_expected)
     review_expected = is_curated | source_layer.isin({"cedente", "criteria"})
     has_source_layer = _nonempty_series(frame["source_layer"])
     has_source_document = _nonempty_series(frame["source_document"])
@@ -3317,7 +3344,7 @@ def _dimension_catalog_gap_frame(catalog: pd.DataFrame) -> pd.DataFrame:
             fields.append("score")
         if bool(doc_expected.loc[idx]) and not bool(has_source_document.loc[idx]):
             fields.append("documento")
-        if bool(doc_expected.loc[idx]) and not bool(has_source_page.loc[idx]):
+        if bool(page_expected.loc[idx]) and not bool(has_source_page.loc[idx]):
             fields.append("página")
         if bool(review_expected.loc[idx]) and not bool(has_review_status.loc[idx]):
             fields.append("status revisão")
@@ -8060,11 +8087,15 @@ def _load_monthly_delta_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
 def _load_curation_queue_tables() -> dict[str, pd.DataFrame | dict[str, object]]:
     queue = load_dataframe(_CURATION_QUEUE_PATH)
     summary = load_dataframe(_CURATION_QUEUE_SUMMARY_PATH)
+    packages = load_dataframe(_CURATION_PACKAGES_PATH)
     if summary.empty and not queue.empty:
         summary = build_industry_curation_queue_summary(queue)
+    if packages.empty and not queue.empty:
+        packages = build_industry_curation_packages(queue)
     return {
         "queue": queue,
         "summary": summary,
+        "packages": packages,
         "manifest": load_pipeline_manifest(_CURATION_QUEUE_MANIFEST_PATH),
     }
 
@@ -8218,6 +8249,70 @@ def _format_curation_queue_summary(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def _format_curation_packages(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return frame
+    cols = [
+        "rank",
+        "work_tier",
+        "batch_id",
+        "queue_domain",
+        "status_curadoria",
+        "priority_band",
+        "package_priority_score",
+        "competencia",
+        "cnpj_fundo",
+        "nome_exibicao",
+        "pl_reference_brl",
+        "issue_rows",
+        "open_issue_rows",
+        "high_priority_issue_rows",
+        "action_types",
+        "next_actions",
+        "gap_summary",
+        "source_documents",
+        "rerun_commands",
+        "package_id",
+    ]
+    out = frame[[col for col in cols if col in frame.columns]].copy()
+    out = out.rename(
+        columns={
+            "rank": "#",
+            "work_tier": "Tier",
+            "batch_id": "Lote",
+            "queue_domain": "Frente",
+            "status_curadoria": "Status",
+            "priority_band": "Prioridade",
+            "package_priority_score": "Score",
+            "competencia": "Competência",
+            "cnpj_fundo": "CNPJ",
+            "nome_exibicao": "FIDC/escopo",
+            "pl_reference_brl": "PL ref.",
+            "issue_rows": "Itens",
+            "open_issue_rows": "Abertos",
+            "high_priority_issue_rows": "Alta prioridade",
+            "action_types": "Tipos",
+            "next_actions": "Próximas ações",
+            "gap_summary": "Lacunas",
+            "source_documents": "Documentos",
+            "rerun_commands": "Comandos",
+            "package_id": "ID pacote",
+        }
+    )
+    for col in ["#", "Itens", "Abertos", "Alta prioridade"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).astype(int)
+    if "Score" in out.columns:
+        out["Score"] = pd.to_numeric(out["Score"], errors="coerce").map(
+            lambda value: "" if pd.isna(value) else f"{float(value):.1f}".replace(".", ",")
+        )
+    if "PL ref." in out.columns:
+        out["PL ref."] = pd.to_numeric(out["PL ref."], errors="coerce").fillna(0).map(
+            lambda value: "" if value == 0 else _fmt_bi(float(value), 2)
+        )
+    return out
+
+
 def _coerce_curation_queue_status(domain: object, status: object) -> str:
     text = str(status or "").strip().lower() or "pendente"
     domain_text = str(domain or "").strip()
@@ -8302,9 +8397,11 @@ def _render_pipeline_manifest() -> None:
     curation_queue_tables = _load_curation_queue_tables()
     curation_queue = curation_queue_tables["queue"]
     curation_queue_summary = curation_queue_tables["summary"]
+    curation_packages = curation_queue_tables["packages"]
     curation_queue_manifest = curation_queue_tables["manifest"]
     assert isinstance(curation_queue, pd.DataFrame)
     assert isinstance(curation_queue_summary, pd.DataFrame)
+    assert isinstance(curation_packages, pd.DataFrame)
     assert isinstance(curation_queue_manifest, dict)
     profile_tables = _load_dimension_profile_tables()
     dimension_profiles = profile_tables["profiles"]
@@ -9053,14 +9150,88 @@ def _render_pipeline_manifest() -> None:
             domain_counts = queue_quality.get("domain_counts", {}) if isinstance(queue_quality.get("domain_counts"), dict) else {}
             status_counts_queue = queue_quality.get("status_counts", {}) if isinstance(queue_quality.get("status_counts"), dict) else {}
             queue_cards = [
-                _curation_card("Linhas abertas", _fmt_int(float(queue_quality.get("open_rows", len(queue)) or 0)), "fila consolidada"),
-                _curation_card("FIDCs", _fmt_int(float(queue_quality.get("funds", 0) or 0)), "CNPJs normalizados"),
+                _curation_card("Pacotes abertos", _fmt_int(float(queue_quality.get("package_open_rows", len(curation_packages)) or 0)), "FIDC × frente"),
+                _curation_card("Itens abertos", _fmt_int(float(queue_quality.get("open_rows", len(queue)) or 0)), "evidência granular"),
                 _curation_card("Alta prioridade", _fmt_int(float(queue_quality.get("high_priority_rows", 0) or 0)), "prioridade explícita"),
-                _curation_card("Snapshot", _fmt_int(float(domain_counts.get("snapshot_gap", 0))), "lacunas all-FIDCs"),
-                _curation_card("Catálogo", _fmt_int(float(domain_counts.get("catalog_gap", 0))), "rastreabilidade"),
+                _curation_card("Lote atual", _fmt_int(float(queue_quality.get("package_current_batch_rows", 0) or 0)), "até 25 por tier"),
+                _curation_card("Catálogo", _fmt_int(float(domain_counts.get("catalog_gap", 0))), "lacunas aplicáveis"),
                 _curation_card("Delta", _fmt_int(float(domain_counts.get("monthly_delta", 0))), "mudança mensal"),
             ]
             st.markdown(f'<div class="industry-kpi-grid">{"".join(queue_cards)}</div>', unsafe_allow_html=True)
+            packages = curation_packages.copy()
+            if packages.empty:
+                packages = build_industry_curation_packages(queue)
+            if not packages.empty:
+                st.markdown("**Pacotes mensais**")
+                package_a, package_b, package_c = st.columns([1.15, 0.72, 1.4])
+                with package_a:
+                    tier_options = [
+                        value
+                        for value in ["P0 competência", "P1 material 25-26", "P2 cobertura", "P3 backlog"]
+                        if value in set(packages.get("work_tier", pd.Series(dtype=str)).fillna("").astype(str))
+                    ]
+                    default_tiers = [value for value in tier_options if value in {"P0 competência", "P1 material 25-26"}] or tier_options
+                    selected_package_tiers = st.multiselect(
+                        "Tier",
+                        tier_options,
+                        default=default_tiers,
+                        key="industry_curation_package_tier",
+                    )
+                with package_b:
+                    current_package_batch = st.checkbox(
+                        "Lote 001",
+                        value=True,
+                        help="Mostra o primeiro lote de até 25 pacotes de cada tier selecionado.",
+                        key="industry_curation_package_current_batch",
+                    )
+                with package_c:
+                    package_query = st.text_input(
+                        "Buscar pacotes",
+                        key="industry_curation_package_query",
+                        placeholder="FIDC, CNPJ, ação, documento ou frente",
+                    )
+                package_view = packages.copy()
+                if selected_package_tiers:
+                    package_view = package_view[package_view["work_tier"].isin(selected_package_tiers)].copy()
+                if current_package_batch:
+                    package_view = package_view[
+                        pd.to_numeric(
+                            package_view.get("batch_number", pd.Series(0, index=package_view.index)),
+                            errors="coerce",
+                        ).fillna(0).eq(1)
+                    ].copy()
+                if package_query:
+                    package_search_cols = [
+                        col
+                        for col in [
+                            "queue_domain",
+                            "cnpj_fundo",
+                            "nome_exibicao",
+                            "admin_nome",
+                            "gestor_nome",
+                            "segmento_principal",
+                            "action_types",
+                            "next_actions",
+                            "gap_summary",
+                            "source_documents",
+                            "rerun_commands",
+                        ]
+                        if col in package_view.columns
+                    ]
+                    package_search = (
+                        package_view[package_search_cols].fillna("").astype(str).agg(" ".join, axis=1)
+                        if package_search_cols
+                        else pd.Series("", index=package_view.index)
+                    )
+                    package_view = package_view[package_search.str.contains(package_query, case=False, na=False)].copy()
+                st.dataframe(_format_curation_packages(package_view.head(160)), hide_index=True, width="stretch", height=360)
+                st.download_button(
+                    "Baixar pacotes filtrados",
+                    data=package_view.to_csv(index=False).encode("utf-8"),
+                    file_name="industry_curation_packages_filtered.csv",
+                    mime="text/csv",
+                    key="industry_curation_packages_download",
+                )
             summary = curation_queue_summary.copy()
             if summary.empty:
                 summary = build_industry_curation_queue_summary(queue)
@@ -9343,17 +9514,21 @@ def _render_pipeline_manifest() -> None:
                 save_dataframe(materialized_queue, _CURATION_QUEUE_PATH)
                 materialized_summary = build_industry_curation_queue_summary(materialized_queue)
                 save_dataframe(materialized_summary, _CURATION_QUEUE_SUMMARY_PATH)
+                materialized_packages = build_industry_curation_packages(materialized_queue)
+                save_dataframe(materialized_packages, _CURATION_PACKAGES_PATH)
                 curation_manifest = build_curation_queue_pipeline_manifest(
                     industry_dir=_DATA_DIR,
                     output_path=_CURATION_QUEUE_PATH,
                     manifest_path=_CURATION_QUEUE_MANIFEST_PATH,
                     summary_path=_CURATION_QUEUE_SUMMARY_PATH,
+                    packages_path=_CURATION_PACKAGES_PATH,
                     snapshot=snapshot,
                     monthly_delta=monthly_delta_refreshed,
                     document_chunk_plan=materialized_plan,
                     dimension_catalog=dimension_catalog,
                     queue=materialized_queue,
                     summary=materialized_summary,
+                    packages=materialized_packages,
                 )
                 save_pipeline_manifest(curation_manifest, _CURATION_QUEUE_MANIFEST_PATH)
                 new_index = build_industry_pipeline_index(industry_dir=_DATA_DIR, output_path=_PIPELINE_INDEX_PATH)

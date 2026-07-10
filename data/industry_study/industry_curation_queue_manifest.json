@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-curation-queue-manifest/v1",
-  "generated_at_utc": "2026-07-10T01:44:42+00:00",
+  "generated_at_utc": "2026-07-10T03:26:48+00:00",
   "pipeline": "industry_curation_queue",
   "design_constraints": {
     "modular": true,
@@ -8,6 +8,7 @@
     "manual_review_in_app": true,
     "notes": [
       "A fila unifica delta mensal, lacunas all-FIDCs do snapshot, chunks documentais e rastreabilidade do catálogo.",
+      "Pacotes FIDC x frente preservam os IDs granulares e dividem a revisão em lotes operacionais de 25.",
       "As ações continuam sendo editadas nas telas específicas; este artefato consolida prioridades para o fechamento mensal."
     ]
   },
@@ -33,8 +34,8 @@
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1617284,
-      "sha256": "a7ca718479ce971e85d206249c73bacf2ff939d4a0fc6166f3f2bb52e401b58e"
+      "bytes": 1961763,
+      "sha256": "e292e78eb3b533bfcd0e53357cb8a222b32efd3dff3bf1c55956df2d54f3bc76"
     },
     "snapshot_gap_actions": {
       "path": "data/industry_study/snapshot_gap_actions.csv",
@@ -65,8 +66,8 @@
     "curation_queue": {
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
-      "bytes": 2517650,
-      "sha256": "05fa4648afb85ff2adb0bb654700f04eb65be7ea5710bcff8e43b2160f95ca0f"
+      "bytes": 491721,
+      "sha256": "83774593a775cbb1e52d622d715298909b8f7b1de0e82df3d4387c0f5ea0046c"
     },
     "manifest": {
       "path": "data/industry_study/industry_curation_queue_manifest.json"
@@ -74,8 +75,14 @@
     "curation_queue_summary": {
       "path": "data/industry_study/industry_curation_queue_summary.csv.gz",
       "exists": true,
-      "bytes": 248647,
-      "sha256": "b26d3f86e8035ec2212022475546f0658e595af9a68ba1fb8fea5baf371e38b7"
+      "bytes": 240697,
+      "sha256": "c19b61fd28da74346617eaa7c72da77abcbb5b838550d978e9a56d5748ed10f5"
+    },
+    "curation_packages": {
+      "path": "data/industry_study/industry_curation_packages.csv.gz",
+      "exists": true,
+      "bytes": 676367,
+      "sha256": "4d650cbdd852fc80d399991a1978ef74672396f0bcfd1e8d2bbd4930dd13d9c1"
     }
   },
   "stages": [
@@ -104,52 +111,69 @@
       "id": "catalog_traceability_queue",
       "label": "Rastreabilidade do catálogo",
       "status": "ok",
-      "rows": 73950,
+      "rows": 75167,
       "rerun": "python scripts/build_fidc_industry_dimensions.py"
     },
     {
       "id": "persist_unified_queue",
       "label": "Fila única de curadoria",
       "status": "ok",
-      "rows": 81522,
+      "rows": 12884,
       "rerun": "python scripts/build_fidc_industry_curation_queue.py"
     },
     {
       "id": "persist_operational_summary",
       "label": "Resumo operacional da fila",
       "status": "ok",
-      "rows": 4389,
+      "rows": 4415,
+      "rerun": "python scripts/build_fidc_industry_curation_queue.py"
+    },
+    {
+      "id": "persist_curation_packages",
+      "label": "Pacotes mensais de curadoria",
+      "status": "ok",
+      "rows": 9041,
       "rerun": "python scripts/build_fidc_industry_curation_queue.py"
     }
   ],
   "quality": {
-    "rows": 81522,
-    "funds": 4291,
-    "open_rows": 81522,
-    "high_priority_rows": 1087,
-    "high_priority_open_rows": 1087,
-    "high_priority_pending_rows": 1087,
+    "rows": 12884,
+    "funds": 4339,
+    "open_rows": 12884,
+    "high_priority_rows": 3083,
+    "high_priority_open_rows": 3083,
+    "high_priority_pending_rows": 3083,
     "high_priority_in_progress_rows": 0,
     "high_priority_closed_rows": 0,
-    "priority_2025_2026_rows": 5378,
+    "priority_2025_2026_rows": 7294,
     "domain_counts": {
-      "catalog_gap": 72989,
+      "catalog_gap": 4460,
       "monthly_delta": 4279,
-      "snapshot_gap": 4145,
-      "document_chunk": 109
+      "snapshot_gap": 4145
     },
     "status_counts": {
-      "pendente": 81522
+      "pendente": 12884
     },
-    "summary_rows": 4389,
+    "summary_rows": 4415,
     "summary_type_counts": {
-      "fidc_backlog": 4281,
+      "fidc_backlog": 4339,
       "admin_backlog": 52,
-      "segment_backlog": 48,
-      "frente_status": 8
+      "segment_backlog": 17,
+      "frente_status": 7
     },
-    "fund_backlog_rows": 4281,
+    "fund_backlog_rows": 4339,
     "admin_backlog_rows": 52,
-    "segment_backlog_rows": 48
+    "segment_backlog_rows": 17,
+    "package_rows": 9041,
+    "package_open_rows": 9041,
+    "package_high_priority_open_rows": 1332,
+    "package_p0_open_rows": 68,
+    "package_current_batch_rows": 100,
+    "package_tier_counts": {
+      "P2 cobertura": 7390,
+      "P1 material 25-26": 1264,
+      "P3 backlog": 319,
+      "P0 competência": 68
+    }
   }
 }

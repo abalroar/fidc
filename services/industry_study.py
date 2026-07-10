@@ -563,6 +563,38 @@ CURATION_QUEUE_SUMMARY_COLUMNS = [
     "rerun_commands_sample",
 ]
 
+CURATION_PACKAGE_COLUMNS = [
+    "package_id",
+    "rank",
+    "work_tier",
+    "batch_id",
+    "batch_number",
+    "is_current_batch",
+    "queue_domain",
+    "status_curadoria",
+    "priority_band",
+    "package_priority_score",
+    "competencia",
+    "cnpj_fundo",
+    "nome_exibicao",
+    "admin_nome",
+    "gestor_nome",
+    "segmento_principal",
+    "pl_reference_brl",
+    "priority_2025_2026",
+    "issue_rows",
+    "open_issue_rows",
+    "closed_issue_rows",
+    "high_priority_issue_rows",
+    "action_types",
+    "next_actions",
+    "gap_summary",
+    "source_artifacts",
+    "source_documents",
+    "source_queue_ids",
+    "rerun_commands",
+]
+
 HEATMAP_PRESET_SPECS = [
     {
         "preset_id": "admin_segmento",
@@ -5735,7 +5767,13 @@ def build_dimension_catalog_gap_queue(catalog: pd.DataFrame, actions: pd.DataFra
         "source_page",
         "source_date",
         "source_method",
+        "source_artifact",
+        "source_record_id",
+        "source_kind",
+        "document_required",
+        "page_required",
         "confidence_score",
+        "confidence_basis",
         "review_status",
         "participant_type",
         "participant_cnpj",
@@ -5746,7 +5784,11 @@ def build_dimension_catalog_gap_queue(catalog: pd.DataFrame, actions: pd.DataFra
             frame[col] = ""
     source_layer = frame["source_layer"].fillna("").astype(str)
     is_curated = _boolish_series(frame["is_curated"])
-    doc_expected = is_curated | source_layer.isin({"cedente", "criteria"}) | _nonempty_series(frame["source_document"])
+    legacy_doc_expected = is_curated | source_layer.isin({"cedente", "criteria"}) | _nonempty_series(frame["source_document"])
+    document_required_present = _nonempty_series(frame["document_required"])
+    page_required_present = _nonempty_series(frame["page_required"])
+    doc_expected = _boolish_series(frame["document_required"]).where(document_required_present, legacy_doc_expected)
+    page_expected = _boolish_series(frame["page_required"]).where(page_required_present, legacy_doc_expected)
     review_expected = is_curated | source_layer.isin({"cedente", "criteria"})
     has_source_layer = _nonempty_series(frame["source_layer"])
     has_source_document = _nonempty_series(frame["source_document"])
@@ -5766,7 +5808,7 @@ def build_dimension_catalog_gap_queue(catalog: pd.DataFrame, actions: pd.DataFra
             fields.append("score")
         if bool(doc_expected.loc[idx]) and not bool(has_source_document.loc[idx]):
             fields.append("documento")
-        if bool(doc_expected.loc[idx]) and not bool(has_source_page.loc[idx]):
+        if bool(page_expected.loc[idx]) and not bool(has_source_page.loc[idx]):
             fields.append("página")
         if bool(review_expected.loc[idx]) and not bool(has_review_status.loc[idx]):
             fields.append("status revisão")
@@ -5898,7 +5940,12 @@ def build_industry_curation_queue(
     chunk_plan = pd.DataFrame() if document_chunk_plan is None else document_chunk_plan.copy()
     if not chunk_plan.empty and "chunk_id" in chunk_plan.columns:
         status = _normalized_status(chunk_plan.get("status_lote", pd.Series("", index=chunk_plan.index)))
-        open_chunks = chunk_plan[~status.isin({"processado", "ignorado", "concluído", "concluido"})].copy()
+        technical_complete = _boolish_series(
+            chunk_plan.get("technical_complete", pd.Series(False, index=chunk_plan.index))
+        )
+        manual_attention = status.isin({"bloqueado", "em andamento"})
+        closed_chunk = status.isin({"processado", "ignorado", "concluído", "concluido"})
+        open_chunks = chunk_plan[(~technical_complete | manual_attention) & ~closed_chunk].copy()
         for _, row in open_chunks.iterrows():
             review = _queue_review_fields(row)
             rows.append(
@@ -6220,6 +6267,160 @@ def build_industry_curation_queue_summary(queue: pd.DataFrame) -> pd.DataFrame:
     return out[CURATION_QUEUE_SUMMARY_COLUMNS]
 
 
+def build_industry_curation_packages(
+    queue: pd.DataFrame,
+    *,
+    batch_size: int = 25,
+) -> pd.DataFrame:
+    """Collapse the granular queue into ranked FIDC-by-domain monthly work packages."""
+
+    if queue is None or queue.empty:
+        return pd.DataFrame(columns=CURATION_PACKAGE_COLUMNS)
+    frame = queue.copy()
+    text_columns = [
+        "queue_domain",
+        "record_id",
+        "queue_id",
+        "status_curadoria",
+        "priority_band",
+        "competencia",
+        "cnpj_fundo",
+        "nome_exibicao",
+        "admin_nome",
+        "gestor_nome",
+        "segmento_principal",
+        "action_type",
+        "next_action",
+        "gap_summary",
+        "source_artifacts",
+        "source_document",
+        "rerun_command",
+    ]
+    for col in text_columns:
+        if col not in frame.columns:
+            frame[col] = ""
+        frame[col] = frame[col].fillna("").astype(str)
+    frame["status_curadoria"] = _normalized_status(frame["status_curadoria"])
+    frame["priority_band"] = frame["priority_band"].str.strip().replace("", "n/d")
+    frame["cnpj_fundo_norm"] = frame["cnpj_fundo"].map(_single_cnpj_or_empty)
+    frame["package_scope"] = frame["cnpj_fundo_norm"].where(
+        frame["cnpj_fundo_norm"].ne(""),
+        frame["record_id"].where(frame["record_id"].ne(""), frame["queue_id"]),
+    )
+    frame = frame[frame["queue_domain"].str.strip().ne("") & frame["package_scope"].str.strip().ne("")].copy()
+    if frame.empty:
+        return pd.DataFrame(columns=CURATION_PACKAGE_COLUMNS)
+    closed_statuses = {"corrigido", "aceito", "ignorado", "processado", "concluído", "concluido", "resolvido", "aprovado"}
+    frame["is_open"] = ~frame["status_curadoria"].isin(closed_statuses)
+    frame["is_high_priority"] = frame["priority_band"].str.lower().eq("alta")
+    frame["priority_2025_2026_bool"] = _boolish_series(
+        frame.get("priority_2025_2026", pd.Series(False, index=frame.index))
+    )
+    frame["priority_score_num"] = pd.to_numeric(frame.get("priority_score"), errors="coerce").fillna(0.0)
+    frame["pl_num"] = pd.to_numeric(frame.get("pl"), errors="coerce").fillna(0.0)
+
+    def package_status(group: pd.DataFrame) -> str:
+        open_group = group[group["is_open"]]
+        if open_group.empty:
+            return "concluído"
+        statuses = set(open_group["status_curadoria"])
+        if "bloqueado" in statuses:
+            return "bloqueado"
+        if "em andamento" in statuses:
+            return "em andamento"
+        return "pendente"
+
+    def package_priority_band(group: pd.DataFrame) -> str:
+        order = {"alta": 0, "média": 1, "media": 1, "baixa": 2, "n/d": 3}
+        values = sorted(
+            (str(value or "n/d") for value in group["priority_band"]),
+            key=lambda value: (order.get(value.lower(), 4), value),
+        )
+        return values[0] if values else "n/d"
+
+    records: list[dict[str, object]] = []
+    for (domain, scope), group in frame.groupby(["queue_domain", "package_scope"], dropna=False, sort=False):
+        cnpj = _first_nonempty(group["cnpj_fundo_norm"])
+        priority_2025_2026 = bool(group["priority_2025_2026_bool"].any())
+        priority_band = package_priority_band(group)
+        status = package_status(group)
+        open_rows = int(group["is_open"].sum())
+        domain_bonus = {"monthly_delta": 40.0, "snapshot_gap": 25.0, "catalog_gap": 10.0, "document_chunk": 5.0}.get(
+            str(domain),
+            0.0,
+        )
+        base_score = float(group["priority_score_num"].max()) if not group.empty else 0.0
+        package_score = base_score + domain_bonus + (30.0 if priority_band.lower() == "alta" else 0.0) + (
+            20.0 if priority_2025_2026 else 0.0
+        )
+        if str(domain) == "monthly_delta" and open_rows:
+            tier = "P0 competência" if priority_band.lower() == "alta" else "P2 cobertura"
+        elif open_rows and (priority_band.lower() == "alta" or priority_2025_2026):
+            tier = "P1 material 25-26"
+        elif open_rows and (str(domain) == "snapshot_gap" or float(group["pl_num"].max()) > 0):
+            tier = "P2 cobertura"
+        else:
+            tier = "P3 backlog"
+        package_key = f"{domain}|{scope}"
+        records.append(
+            {
+                "package_id": "pkg_" + hashlib.sha1(package_key.encode("utf-8")).hexdigest()[:16],
+                "rank": 0,
+                "work_tier": tier,
+                "batch_id": "",
+                "batch_number": 0,
+                "is_current_batch": False,
+                "queue_domain": domain,
+                "status_curadoria": status,
+                "priority_band": priority_band,
+                "package_priority_score": package_score,
+                "competencia": max((value for value in group["competencia"] if value), default=""),
+                "cnpj_fundo": cnpj,
+                "nome_exibicao": _first_nonempty(group["nome_exibicao"]),
+                "admin_nome": _first_nonempty(group["admin_nome"]),
+                "gestor_nome": _first_nonempty(group["gestor_nome"]),
+                "segmento_principal": _first_nonempty(group["segmento_principal"]),
+                "pl_reference_brl": float(group["pl_num"].max()) if not group.empty else 0.0,
+                "priority_2025_2026": priority_2025_2026,
+                "issue_rows": int(len(group)),
+                "open_issue_rows": open_rows,
+                "closed_issue_rows": int((~group["is_open"]).sum()),
+                "high_priority_issue_rows": int(group["is_high_priority"].sum()),
+                "action_types": _join_unique(group["action_type"], limit=8),
+                "next_actions": _join_unique(group["next_action"], limit=8),
+                "gap_summary": _join_unique(group["gap_summary"], limit=8),
+                "source_artifacts": _join_unique(group["source_artifacts"], limit=8),
+                "source_documents": _join_unique(group["source_document"], limit=10),
+                "source_queue_ids": _join_unique(group["queue_id"], limit=50),
+                "rerun_commands": _join_unique(group["rerun_command"], limit=5),
+            }
+        )
+    if not records:
+        return pd.DataFrame(columns=CURATION_PACKAGE_COLUMNS)
+    out = pd.DataFrame(records)
+    pl_rank = out["pl_reference_brl"].rank(pct=True).fillna(0.0)
+    out["package_priority_score"] = out["package_priority_score"] + pl_rank * 10.0
+    tier_order = {"P0 competência": 0, "P1 material 25-26": 1, "P2 cobertura": 2, "P3 backlog": 3}
+    status_order = {"bloqueado": 0, "em andamento": 1, "pendente": 2, "concluído": 5}
+    out["_tier_order"] = out["work_tier"].map(tier_order).fillna(9)
+    out["_status_order"] = out["status_curadoria"].map(status_order).fillna(4)
+    out = out.sort_values(
+        ["_tier_order", "_status_order", "package_priority_score", "pl_reference_brl", "package_id"],
+        ascending=[True, True, False, False, True],
+    ).reset_index(drop=True)
+    out["rank"] = range(1, len(out) + 1)
+    normalized_batch_size = max(int(batch_size), 1)
+    out["batch_number"] = out.groupby("work_tier").cumcount().floordiv(normalized_batch_size).add(1).astype(int)
+    tier_codes = {"P0 competência": "P0", "P1 material 25-26": "P1", "P2 cobertura": "P2", "P3 backlog": "P3"}
+    out["batch_id"] = out["work_tier"].map(tier_codes).fillna("PX") + "-" + out["batch_number"].map(lambda value: f"{value:03d}")
+    out["is_current_batch"] = out["batch_number"].eq(1) & out["open_issue_rows"].gt(0)
+    out = out.drop(columns=["_tier_order", "_status_order"])
+    for col in CURATION_PACKAGE_COLUMNS:
+        if col not in out.columns:
+            out[col] = ""
+    return out[CURATION_PACKAGE_COLUMNS]
+
+
 def build_curation_queue_pipeline_manifest(
     *,
     industry_dir: Path,
@@ -6232,6 +6433,8 @@ def build_curation_queue_pipeline_manifest(
     dimension_catalog: pd.DataFrame,
     queue: pd.DataFrame,
     summary: pd.DataFrame | None = None,
+    packages_path: Path | None = None,
+    packages: pd.DataFrame | None = None,
 ) -> dict[str, object]:
     quality = industry_curation_queue_quality_summary(queue)
     if summary is not None and not summary.empty:
@@ -6255,12 +6458,43 @@ def build_curation_queue_pipeline_manifest(
                 "segment_backlog_rows": 0,
             }
         )
+    package_frame = pd.DataFrame() if packages is None else packages.copy()
+    if package_frame.empty:
+        quality.update(
+            {
+                "package_rows": 0,
+                "package_open_rows": 0,
+                "package_high_priority_open_rows": 0,
+                "package_p0_open_rows": 0,
+                "package_current_batch_rows": 0,
+                "package_tier_counts": {},
+            }
+        )
+    else:
+        package_open = pd.to_numeric(package_frame.get("open_issue_rows"), errors="coerce").fillna(0).gt(0)
+        current_batch = _boolish_series(
+            package_frame.get("is_current_batch", pd.Series(False, index=package_frame.index))
+        )
+        tier = package_frame.get("work_tier", pd.Series("", index=package_frame.index)).fillna("").astype(str)
+        package_priority = package_frame.get("priority_band", pd.Series("", index=package_frame.index)).fillna("").astype(str).str.lower()
+        quality.update(
+            {
+                "package_rows": int(len(package_frame)),
+                "package_open_rows": int(package_open.sum()),
+                "package_high_priority_open_rows": int((package_open & package_priority.eq("alta")).sum()),
+                "package_p0_open_rows": int((package_open & tier.eq("P0 competência")).sum()),
+                "package_current_batch_rows": int((package_open & current_batch).sum()),
+                "package_tier_counts": {str(k): int(v) for k, v in tier.value_counts().to_dict().items()},
+            }
+        )
     outputs = {
         "curation_queue": file_fingerprint(output_path),
         "manifest": {"path": str(manifest_path)},
     }
     if summary_path is not None:
         outputs["curation_queue_summary"] = file_fingerprint(summary_path)
+    if packages_path is not None:
+        outputs["curation_packages"] = file_fingerprint(packages_path)
     return {
         "schema_version": "industry-curation-queue-manifest/v1",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -6271,6 +6505,7 @@ def build_curation_queue_pipeline_manifest(
             "manual_review_in_app": True,
             "notes": [
                 "A fila unifica delta mensal, lacunas all-FIDCs do snapshot, chunks documentais e rastreabilidade do catálogo.",
+                "Pacotes FIDC x frente preservam os IDs granulares e dividem a revisão em lotes operacionais de 25.",
                 "As ações continuam sendo editadas nas telas específicas; este artefato consolida prioridades para o fechamento mensal.",
             ],
         },
@@ -6326,6 +6561,13 @@ def build_curation_queue_pipeline_manifest(
                 "label": "Resumo operacional da fila",
                 "status": "ok" if summary_path is not None and summary_path.exists() else "empty",
                 "rows": int(len(summary)) if summary is not None else 0,
+                "rerun": "python scripts/build_fidc_industry_curation_queue.py",
+            },
+            {
+                "id": "persist_curation_packages",
+                "label": "Pacotes mensais de curadoria",
+                "status": "ok" if packages_path is not None and packages_path.exists() else "empty",
+                "rows": int(len(package_frame)),
                 "rerun": "python scripts/build_fidc_industry_curation_queue.py",
             },
         ],
@@ -7497,19 +7739,26 @@ def build_pipeline_readiness_checks(
     curation_high_pending = int(quality_rollup.get("curation_queue_high_priority_pending_rows", 0) or 0)
     curation_high_in_progress = int(quality_rollup.get("curation_queue_high_priority_in_progress_rows", 0) or 0)
     curation_high_closed = int(quality_rollup.get("curation_queue_high_priority_closed_rows", 0) or 0)
+    curation_packages = int(quality_rollup.get("curation_package_open_rows", 0) or 0)
+    curation_package_high = int(quality_rollup.get("curation_package_high_priority_open_rows", 0) or 0)
+    curation_current_batch = int(quality_rollup.get("curation_package_current_batch_rows", 0) or 0)
+    operational_open = curation_packages if curation_packages else curation_open
+    operational_high = curation_package_high if curation_packages else curation_high
     add(
         "curation_queue",
         5,
         "Curadoria",
         "Fila única all-FIDCs",
-        "bloqueado" if curation_high else ("atenção" if curation_open else "ok"),
-        curation_high if curation_high else curation_open,
+        "bloqueado" if operational_high else ("atenção" if operational_open else "ok"),
+        operational_high if operational_high else operational_open,
         (
-            f"{curation_open} abertas; alta prioridade {curation_high}/{curation_high_total} abertas "
-            f"({curation_high_pending} pendentes; {curation_high_in_progress} em andamento; {curation_high_closed} fechadas)"
+            f"{operational_open} pacotes abertos ({curation_open} itens granulares); "
+            f"{operational_high} pacotes de alta prioridade; lote atual {curation_current_batch}; "
+            f"itens altos {curation_high}/{curation_high_total} "
+            f"({curation_high_pending} pendentes; {curation_high_in_progress} em andamento; {curation_high_closed} fechados)"
         ),
-        "Usar a fila única para fechar delta, lacunas estruturais, chunks e rastreabilidade da competência.",
-        "industry_curation_queue.csv.gz",
+        "Fechar os pacotes do lote atual; abrir a evidência granular apenas quando necessário.",
+        "industry_curation_packages.csv.gz | industry_curation_queue.csv.gz",
         "python scripts/build_fidc_industry_curation_queue.py",
     )
 
@@ -7535,7 +7784,7 @@ def build_pipeline_readiness_checks(
     field_pending = int(quality_rollup.get("document_field_pending_chunks", 0) or 0)
     field_participants = int(quality_rollup.get("document_field_participant_candidates", 0) or 0)
     field_criteria = int(quality_rollup.get("document_field_criteria_candidates", 0) or 0)
-    chunk_open = chunk_untracked + chunk_pending + chunk_in_progress + chunk_blocked
+    chunk_open = chunk_untracked + chunk_in_progress + chunk_blocked + min(chunk_pending, chunk_technical_open)
     add(
         "document_chunk_processing",
         6,
@@ -7570,7 +7819,7 @@ def build_pipeline_readiness_checks(
             f"campos {field_chunks}/{document_chunks} chunks, "
             f"{field_participants} participantes, {field_criteria} critérios"
         ),
-        "Revisar candidatos e fechar o acompanhamento no editor Documentos > Chunks; OCR só aparece se restar lacuna técnica.",
+        "Tratar apenas chunks com lacuna técnica; candidatos seguem para as mesas de cedentes e critérios.",
         "document_chunk_diagnostics.csv.gz | document_text_index.csv.gz | document_participant_candidates.csv.gz | document_criteria_candidates.csv.gz",
         "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001 && python scripts/build_fidc_industry_document_chunk_plan.py",
     )
@@ -8692,21 +8941,22 @@ def build_prd_coverage_matrix(
         11,
         "Evolução contínua",
         "Atualização mensal incremental para novos FIDCs sem reprocessar tudo",
-        "atenção" if number("curation_queue_high_priority_open_rows") else "ok",
+        "atenção" if number("curation_package_high_priority_open_rows") else "ok",
         (
             f"{int(number('monthly_delta_rows'))} linhas de delta; "
             f"{int(number('incremental_onboarding_rows'))} FIDCs em onboarding; "
-            f"{int(number('curation_queue_high_priority_open_rows'))}/{int(number('curation_queue_high_priority_rows'))} "
-            "alta prioridade abertas na fila única"
+            f"{int(number('curation_package_high_priority_open_rows'))} pacotes de alta prioridade; "
+            f"{int(number('curation_package_current_batch_rows'))} no lote atual"
         ),
         (
             f"delta_high_open={int(number('monthly_delta_high_priority_open'))}; "
             f"delta_high_total={int(number('monthly_delta_high_priority'))}; "
             f"onboarding_blocked={int(number('incremental_onboarding_blocked_rows'))}; "
-            f"curation_open={int(number('curation_queue_open_rows'))}"
+            f"curation_packages_open={int(number('curation_package_open_rows'))}; "
+            f"curation_items_open={int(number('curation_queue_open_rows'))}"
         ),
-        "industry_monthly_delta.csv.gz | industry_incremental_onboarding.csv | industry_curation_queue.csv.gz",
-        "Fechar alta prioridade da fila única antes de publicar a competência.",
+        "industry_monthly_delta.csv.gz | industry_incremental_onboarding.csv | industry_curation_packages.csv.gz",
+        "Fechar os pacotes prioritários do lote mensal antes de publicar a competência.",
         "python scripts/build_fidc_industry_monthly_delta.py && python scripts/build_fidc_industry_incremental_onboarding.py && python scripts/build_fidc_industry_curation_queue.py",
     )
     add(
@@ -8880,6 +9130,12 @@ def build_industry_pipeline_index(
                 "fund_backlog_rows",
                 "admin_backlog_rows",
                 "segment_backlog_rows",
+                "package_rows",
+                "package_open_rows",
+                "package_high_priority_open_rows",
+                "package_p0_open_rows",
+                "package_current_batch_rows",
+                "package_tier_counts",
                 "domain_counts",
                 "status_counts",
             ],
@@ -9417,7 +9673,7 @@ def build_industry_pipeline_index(
             "label": "Regerar catálogo de dimensões",
             "command": "python scripts/build_fidc_industry_dimensions.py",
             "reason": "Explode CNPJ x dimensão x valor com pesos, fonte e metadados de curadoria.",
-            "incremental_note": "Lê snapshot e cedentes estruturados; não reprocessa informe mensal nem documentos.",
+            "incremental_note": "Lê snapshot, cedentes e critérios estruturados; não reprocessa informe mensal nem documentos.",
         },
         {
             "order": 17,
@@ -9602,6 +9858,12 @@ def build_industry_pipeline_index(
         "curation_queue_fund_backlog_rows": curation_quality.get("fund_backlog_rows", 0),
         "curation_queue_admin_backlog_rows": curation_quality.get("admin_backlog_rows", 0),
         "curation_queue_segment_backlog_rows": curation_quality.get("segment_backlog_rows", 0),
+        "curation_package_rows": curation_quality.get("package_rows", 0),
+        "curation_package_open_rows": curation_quality.get("package_open_rows", 0),
+        "curation_package_high_priority_open_rows": curation_quality.get("package_high_priority_open_rows", 0),
+        "curation_package_p0_open_rows": curation_quality.get("package_p0_open_rows", 0),
+        "curation_package_current_batch_rows": curation_quality.get("package_current_batch_rows", 0),
+        "curation_package_tier_counts": curation_quality.get("package_tier_counts", {}),
         "document_chunks": document_chunks_total,
         "document_chunk_plan_rows": document_chunk_plan_rows,
         "document_chunk_plan_open_rows": document_chunk_plan_open_rows,
@@ -10914,7 +11176,7 @@ DIMENSION_CATALOG_SPECS = [
     {"dimension_id": "indexador", "label": "Indexador", "column": "indexadores", "source_layer": "snapshot", "multi_value": True},
     {"dimension_id": "tipo_cota", "label": "Tipo de cota", "column": "tipo_cotas", "source_layer": "snapshot", "multi_value": True},
     {"dimension_id": "classe_documento", "label": "Classe documento", "column": "document_classes", "source_layer": "snapshot", "multi_value": True},
-    {"dimension_id": "criterio", "label": "Critério", "column": "criteria_keys", "source_layer": "snapshot", "multi_value": True},
+    {"dimension_id": "criterio", "label": "Critério", "column": "chave", "source_layer": "criteria", "multi_value": False},
     {"dimension_id": "chunk_docs", "label": "Chunk docs", "column": "document_chunk_ids", "source_layer": "snapshot", "multi_value": True},
 ]
 
@@ -11228,7 +11490,13 @@ _DIMENSION_CATALOG_COLUMNS = [
     "source_page",
     "source_date",
     "source_method",
+    "source_artifact",
+    "source_record_id",
+    "source_kind",
+    "document_required",
+    "page_required",
     "confidence_score",
+    "confidence_basis",
     "review_status",
     "priority_2025_2026",
 ]
@@ -11319,6 +11587,65 @@ def _catalog_confidence_column(dimension_id: str) -> str:
     return ""
 
 
+def _catalog_source_kind(dimension_id: str, source_layer: str) -> str:
+    if source_layer in {"cedente", "criteria"}:
+        return "document_record"
+    if dimension_id in {
+        "indexador",
+        "tipo_cota",
+        "faixa_sub_minima",
+        "tem_sub_minima",
+        "sinal_cedente_sacado",
+    }:
+        return "document_aggregate"
+    if dimension_id in {"classe_documento", "chunk_docs", "documento_local"}:
+        return "document_inventory"
+    if dimension_id in {
+        "camadas_evidencia",
+        "emissao_2025_2026",
+        "ano_primeira_oferta",
+        "safra_emissao",
+        "snapshot_status",
+    }:
+        return "derived_snapshot"
+    return "structured_snapshot"
+
+
+def _catalog_source_artifact(source_kind: str) -> str:
+    if source_kind == "document_record":
+        return "criteria_structured.csv.gz"
+    if source_kind == "document_inventory":
+        return "document_inventory.csv.gz"
+    return "industry_fund_snapshot.csv.gz"
+
+
+def _catalog_default_confidence(source_kind: str) -> float | None:
+    if source_kind == "structured_snapshot":
+        return 0.98
+    if source_kind in {"derived_snapshot", "document_inventory"}:
+        return 0.95
+    if source_kind == "document_aggregate":
+        return 0.85
+    return None
+
+
+def _catalog_document_required(
+    *,
+    dimension_id: str,
+    source_kind: str,
+    source_value: object,
+) -> bool:
+    if source_kind == "document_record":
+        return True
+    if source_kind != "document_aggregate":
+        return False
+    if dimension_id in {"tem_sub_minima", "sinal_cedente_sacado"}:
+        return str(source_value or "").strip().lower() in {"true", "1", "sim", "s", "yes"}
+    if dimension_id == "faixa_sub_minima":
+        return pd.notna(pd.to_numeric(pd.Series([source_value]), errors="coerce").iloc[0])
+    return True
+
+
 def _catalog_snapshot_values(row: pd.Series, spec: dict[str, object]) -> list[tuple[str, object]]:
     column = str(spec["column"])
     if spec.get("derived") == "sub_min_bucket":
@@ -11339,25 +11666,59 @@ def _catalog_snapshot_values(row: pd.Series, spec: dict[str, object]) -> list[tu
 
 def _catalog_row_base(row: pd.Series, spec: dict[str, object]) -> dict[str, object]:
     dimension_id = str(spec["dimension_id"])
+    source_layer = str(spec["source_layer"])
+    source_kind = _catalog_source_kind(dimension_id, source_layer)
     document_col = _catalog_document_column(dimension_id)
     confidence_col = _catalog_confidence_column(dimension_id)
+    raw_confidence = row.get(confidence_col, row.get("score_confianca_final", row.get("score_confianca", "")))
+    confidence = _json_float(raw_confidence)
+    if confidence is None:
+        confidence = _catalog_default_confidence(source_kind)
+    if source_layer in {"cedente", "criteria"}:
+        source_document = row.get("documento_origem", "")
+    else:
+        source_document = row.get(document_col, "") if document_col else row.get("documento_origem", "")
+    source_document = str(source_document or "").strip()
+    document_required = _catalog_document_required(
+        dimension_id=dimension_id,
+        source_kind=source_kind,
+        source_value=row.get(str(spec["column"]), ""),
+    )
+    page_required = source_kind == "document_record"
+    if source_layer == "cedente":
+        source_artifact = "cedentes_structured.csv.gz"
+    elif source_layer == "criteria":
+        source_artifact = "criteria_structured.csv.gz"
+    else:
+        source_artifact = _catalog_source_artifact(source_kind)
     return {
         "cnpj_fundo": normalize_cnpj(row.get("cnpj_fundo")),
         "nome_exibicao": row.get("nome_exibicao") or row.get("fundo") or row.get("denominacao") or "",
         "dimension_id": dimension_id,
         "dimension_label": spec["label"],
         "dimension_column": spec["column"],
-        "source_layer": spec["source_layer"],
+        "source_layer": source_layer,
         "source_field": spec["column"],
         "is_multivalue": bool(spec.get("multi_value")),
         "is_curated": spec.get("source_layer") in {"cedente", "criteria"},
         "participant_type": row.get("participant_type", ""),
         "participant_cnpj": normalize_cnpj(row.get("cnpj_participante")) if row.get("cnpj_participante", "") else "",
-        "source_document": row.get(document_col, "") if document_col else row.get("documento_origem", ""),
+        "source_document": source_document,
         "source_page": row.get("pagina", ""),
-        "source_date": row.get("document_date", "") or row.get("document_latest_date", "") or row.get("latest_regulamento_date", ""),
+        "source_date": (
+            row.get("document_date", "")
+            or row.get("document_latest_date", "")
+            or row.get("latest_regulamento_date", "")
+            or row.get("competencia", "")
+        ),
         "source_method": row.get("metodo_extracao", "") or "snapshot_consolidado",
-        "confidence_score": _json_float(row.get(confidence_col, row.get("score_confianca_final", row.get("score_confianca", "")))),
+        "source_artifact": source_artifact,
+        "source_record_id": row.get("rule_id", "") or row.get("review_id", "") or normalize_cnpj(row.get("cnpj_fundo")),
+        "source_kind": source_kind,
+        "document_required": document_required,
+        "page_required": page_required,
+        "confidence_score": confidence,
+        "confidence_basis": "source_score" if _json_float(raw_confidence) is not None else "deterministic_lineage_default",
         "review_status": row.get("status_revisao", ""),
         "priority_2025_2026": row.get("periodo_prioritario", "") == "2025-2026 YTD"
         or str(row.get("priority_2025_2026", "")).lower() in {"true", "1", "sim"},
@@ -11435,10 +11796,53 @@ def _build_cedente_dimension_rows(cedentes: pd.DataFrame, specs: list[dict[str, 
     return rows
 
 
+def _build_criteria_dimension_rows(criteria: pd.DataFrame, specs: list[dict[str, object]]) -> list[dict[str, object]]:
+    if criteria is None or criteria.empty or "cnpj_fundo" not in criteria.columns:
+        return []
+    frame = criteria.copy()
+    frame["cnpj_fundo"] = frame["cnpj_fundo"].map(normalize_cnpj)
+    if "ativo_curadoria" in frame.columns:
+        active = frame["ativo_curadoria"].astype(str).str.lower().isin({"true", "1", "sim", "s", "yes"})
+        frame = frame[active].copy()
+    criteria_specs = [spec for spec in specs if spec.get("source_layer") == "criteria"]
+    rows: list[dict[str, object]] = []
+    for spec in criteria_specs:
+        column = str(spec["column"])
+        if column not in frame.columns:
+            continue
+        part = frame.copy()
+        part["dimension_value"] = part[column].map(_catalog_clean_value)
+        part = part[part["cnpj_fundo"].str.len().eq(14) & part["dimension_value"].ne("")].copy()
+        if part.empty:
+            continue
+        part["_document_date_sort"] = pd.to_datetime(part.get("document_date"), errors="coerce")
+        part["_has_page_sort"] = _nonempty_series(part.get("pagina", pd.Series("", index=part.index))).astype(int)
+        part["_confidence_sort"] = pd.to_numeric(part.get("score_confianca_final"), errors="coerce").fillna(0.0)
+        part = part.sort_values(
+            ["_has_page_sort", "_document_date_sort", "_confidence_sort"],
+            ascending=[False, False, False],
+        )
+        part = part.drop_duplicates(["cnpj_fundo", "dimension_value"], keep="first")
+        counts = part.groupby("cnpj_fundo")["dimension_value"].transform("nunique").clip(lower=1)
+        part["_catalog_weight"] = 1.0 / counts
+        for _, row in part.iterrows():
+            base = _catalog_row_base(row, spec)
+            rows.append(
+                {
+                    **base,
+                    "dimension_value": row["dimension_value"],
+                    "source_value": row["dimension_value"],
+                    "value_weight": _json_float(row["_catalog_weight"]) or 0.0,
+                }
+            )
+    return rows
+
+
 def build_industry_dimension_catalog(
     *,
     snapshot: pd.DataFrame,
     cedentes: pd.DataFrame | None = None,
+    criteria: pd.DataFrame | None = None,
     specs: list[dict[str, object]] | None = None,
 ) -> pd.DataFrame:
     """Build a reusable long catalog of FIDC dimensions with source metadata."""
@@ -11446,6 +11850,7 @@ def build_industry_dimension_catalog(
     catalog_specs = specs or DIMENSION_CATALOG_SPECS
     rows = _build_snapshot_dimension_rows(snapshot, catalog_specs)
     rows.extend(_build_cedente_dimension_rows(cedentes if cedentes is not None else pd.DataFrame(), catalog_specs))
+    rows.extend(_build_criteria_dimension_rows(criteria if criteria is not None else pd.DataFrame(), catalog_specs))
     if not rows:
         return pd.DataFrame(columns=_DIMENSION_CATALOG_COLUMNS)
     frame = pd.DataFrame(rows)
@@ -11469,6 +11874,10 @@ def industry_dimension_catalog_quality_summary(catalog: pd.DataFrame) -> dict[st
             "source_layer_counts": {},
         }
     frame = catalog.copy()
+    document_required = _boolish_series(frame.get("document_required", pd.Series(False, index=frame.index)))
+    page_required = _boolish_series(frame.get("page_required", pd.Series(False, index=frame.index)))
+    has_document = _nonempty_series(frame.get("source_document", pd.Series("", index=frame.index)))
+    has_page = _nonempty_series(frame.get("source_page", pd.Series("", index=frame.index)))
     return {
         "rows": int(len(frame)),
         "funds": int(frame["cnpj_fundo"].nunique()) if "cnpj_fundo" in frame else 0,
@@ -11484,6 +11893,11 @@ def industry_dimension_catalog_quality_summary(catalog: pd.DataFrame) -> dict[st
         if "dimension_id" in frame
         else 0,
         "with_source_document": int(frame.get("source_document", pd.Series("", index=frame.index)).fillna("").astype(str).str.strip().ne("").sum()),
+        "document_required_rows": int(document_required.sum()),
+        "document_required_covered_rows": int((document_required & has_document).sum()),
+        "page_required_rows": int(page_required.sum()),
+        "page_required_covered_rows": int((page_required & has_page).sum()),
+        "page_not_applicable_rows": int((~page_required).sum()),
         "with_confidence": int(pd.to_numeric(frame.get("confidence_score"), errors="coerce").notna().sum())
         if "confidence_score" in frame
         else 0,
@@ -11503,7 +11917,13 @@ def build_dimension_traceability_matrix(catalog: pd.DataFrame) -> pd.DataFrame:
         "source_page",
         "source_date",
         "source_method",
+        "source_artifact",
+        "source_record_id",
+        "source_kind",
+        "document_required",
+        "page_required",
         "confidence_score",
+        "confidence_basis",
         "review_status",
         "is_curated",
         "is_multivalue",
@@ -11523,7 +11943,20 @@ def build_dimension_traceability_matrix(catalog: pd.DataFrame) -> pd.DataFrame:
     frame["_is_multivalue"] = _boolish_series(frame["is_multivalue"])
     frame["_priority_2025_2026"] = _boolish_series(frame["priority_2025_2026"])
     source_layer = frame["source_layer"].fillna("").astype(str)
-    frame["_doc_expected"] = frame["_is_curated"] | source_layer.isin({"cedente", "criteria"}) | frame["_has_source_document"]
+    legacy_doc_expected = frame["_is_curated"] | source_layer.isin({"cedente", "criteria"}) | frame["_has_source_document"]
+    document_required_present = _nonempty_series(frame["document_required"])
+    page_required_present = _nonempty_series(frame["page_required"])
+    frame["_doc_expected"] = _boolish_series(frame["document_required"]).where(
+        document_required_present,
+        legacy_doc_expected,
+    )
+    legacy_page_expected = legacy_doc_expected
+    frame["_page_expected"] = _boolish_series(frame["page_required"]).where(
+        page_required_present,
+        legacy_page_expected,
+    )
+    frame["_document_covered"] = frame["_doc_expected"] & frame["_has_source_document"]
+    frame["_page_covered"] = frame["_page_expected"] & frame["_has_source_page"]
     frame["_review_expected"] = frame["_is_curated"] | source_layer.isin({"cedente", "criteria"})
     confidence = pd.to_numeric(frame["confidence_score"], errors="coerce")
     frame["_confidence_score_num"] = confidence
@@ -11538,9 +11971,10 @@ def build_dimension_traceability_matrix(catalog: pd.DataFrame) -> pd.DataFrame:
             multivalue_rows=("_is_multivalue", "sum"),
             priority_2025_2026_rows=("_priority_2025_2026", "sum"),
             document_expected_rows=("_doc_expected", "sum"),
+            page_expected_rows=("_page_expected", "sum"),
             review_expected_rows=("_review_expected", "sum"),
-            with_source_document=("_has_source_document", "sum"),
-            with_source_page=("_has_source_page", "sum"),
+            with_source_document=("_document_covered", "sum"),
+            with_source_page=("_page_covered", "sum"),
             with_source_date=("_has_source_date", "sum"),
             with_source_method=("_has_source_method", "sum"),
             with_confidence=("_has_confidence", "sum"),
@@ -11552,9 +11986,10 @@ def build_dimension_traceability_matrix(catalog: pd.DataFrame) -> pd.DataFrame:
     )
     rows = pd.to_numeric(grouped["rows"], errors="coerce").astype(float).where(lambda values: values.ne(0))
     doc_expected = pd.to_numeric(grouped["document_expected_rows"], errors="coerce").astype(float).where(lambda values: values.ne(0))
+    page_expected = pd.to_numeric(grouped["page_expected_rows"], errors="coerce").astype(float).where(lambda values: values.ne(0))
     review_expected = pd.to_numeric(grouped["review_expected_rows"], errors="coerce").astype(float).where(lambda values: values.ne(0))
     grouped["source_document_ratio"] = grouped["with_source_document"] / doc_expected
-    grouped["source_page_ratio"] = grouped["with_source_page"] / doc_expected
+    grouped["source_page_ratio"] = grouped["with_source_page"] / page_expected
     grouped["source_date_ratio"] = grouped["with_source_date"] / rows
     grouped["source_method_ratio"] = grouped["with_source_method"] / rows
     grouped["confidence_ratio"] = grouped["with_confidence"] / rows
@@ -11568,7 +12003,8 @@ def build_dimension_traceability_matrix(catalog: pd.DataFrame) -> pd.DataFrame:
         + grouped["review_status_ratio"].fillna(1.0) * 0.10
     )
     grouped["missing_document_rows"] = (grouped["document_expected_rows"] - grouped["with_source_document"]).clip(lower=0)
-    grouped["missing_page_rows"] = (grouped["document_expected_rows"] - grouped["with_source_page"]).clip(lower=0)
+    grouped["missing_page_rows"] = (grouped["page_expected_rows"] - grouped["with_source_page"]).clip(lower=0)
+    grouped["page_not_applicable_rows"] = (grouped["rows"] - grouped["page_expected_rows"]).clip(lower=0)
     grouped["missing_method_rows"] = (grouped["rows"] - grouped["with_source_method"]).clip(lower=0)
     grouped["missing_score_rows"] = (grouped["rows"] - grouped["with_confidence"]).clip(lower=0)
     grouped["missing_review_rows"] = (grouped["review_expected_rows"] - grouped["with_review_status"]).clip(lower=0)
@@ -11598,6 +12034,8 @@ def build_dimension_traceability_matrix(catalog: pd.DataFrame) -> pd.DataFrame:
         "multivalue_rows",
         "priority_2025_2026_rows",
         "document_expected_rows",
+        "page_expected_rows",
+        "page_not_applicable_rows",
         "review_expected_rows",
         "with_source_document",
         "with_source_page",
@@ -11716,6 +12154,8 @@ def build_dimension_catalog_pipeline_manifest(
     snapshot: pd.DataFrame,
     cedentes: pd.DataFrame,
     catalog: pd.DataFrame,
+    criteria_path: Path | None = None,
+    criteria: pd.DataFrame | None = None,
 ) -> dict[str, object]:
     quality = industry_dimension_catalog_quality_summary(catalog)
     return {
@@ -11735,6 +12175,9 @@ def build_dimension_catalog_pipeline_manifest(
         "inputs": {
             "fund_snapshot": file_fingerprint(snapshot_path),
             "cedentes_structured": file_fingerprint(cedentes_path),
+            "criteria_structured": file_fingerprint(criteria_path)
+            if criteria_path is not None
+            else {"path": "", "exists": False},
         },
         "outputs": {
             "dimension_catalog": file_fingerprint(output_path),
@@ -11747,8 +12190,12 @@ def build_dimension_catalog_pipeline_manifest(
                 "status": "ok" if not snapshot.empty else "empty",
                 "input": f"{snapshot_path}+{cedentes_path}",
                 "output": "memoria:snapshot+cedentes",
-                "rows": int(len(snapshot) + len(cedentes)),
-                "rerun": "python scripts/build_fidc_industry_fund_snapshot.py && python scripts/build_fidc_industry_cedentes.py",
+                "rows": int(len(snapshot) + len(cedentes) + (len(criteria) if criteria is not None else 0)),
+                "rerun": (
+                    "python scripts/build_fidc_industry_fund_snapshot.py && "
+                    "python scripts/build_fidc_industry_cedentes.py && "
+                    "python scripts/build_fidc_industry_criteria.py"
+                ),
             },
             {
                 "id": "explode_dimension_catalog",

@@ -23,6 +23,7 @@ from services.industry_study import (
     apply_monthly_delta_actions,
     build_curation_queue_pipeline_manifest,
     build_document_chunk_plan,
+    build_industry_curation_packages,
     build_industry_curation_queue,
     build_industry_curation_queue_summary,
     initialize_curation_queue_actions,
@@ -41,11 +42,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--industry-dir", type=Path, default=DEFAULT_INDUSTRY_DIR)
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--summary-output", type=Path, default=None)
+    parser.add_argument("--packages-output", type=Path, default=None)
+    parser.add_argument("--package-batch-size", type=int, default=25)
     parser.add_argument("--manifest", type=Path, default=None)
+    parser.add_argument(
+        "--initialize-actions",
+        action="store_true",
+        help="Criar acompanhamentos pendentes para itens granulares de alta prioridade.",
+    )
     parser.add_argument(
         "--no-initialize-actions",
         action="store_true",
-        help="Nao criar linhas pendentes para itens de alta prioridade sem acompanhamento.",
+        help="Compatibilidade: mantém desativada a inicialização automática de acompanhamentos.",
     )
     return parser.parse_args()
 
@@ -54,6 +62,7 @@ def main() -> None:
     args = parse_args()
     output_path = args.output or args.industry_dir / "industry_curation_queue.csv.gz"
     summary_path = args.summary_output or args.industry_dir / "industry_curation_queue_summary.csv.gz"
+    packages_path = args.packages_output or args.industry_dir / "industry_curation_packages.csv.gz"
     manifest_path = args.manifest or args.industry_dir / "industry_curation_queue_manifest.json"
 
     snapshot = load_dataframe(args.industry_dir / "industry_fund_snapshot.csv.gz")
@@ -90,7 +99,7 @@ def main() -> None:
         catalog_gap_actions=catalog_gap_actions,
     )
     created_actions = {}
-    if not args.no_initialize_actions:
+    if args.initialize_actions and not args.no_initialize_actions:
         initialized_actions = initialize_curation_queue_actions(
             queue,
             monthly_delta_actions=monthly_delta_actions,
@@ -130,17 +139,21 @@ def main() -> None:
     save_dataframe(queue, output_path)
     summary = build_industry_curation_queue_summary(queue)
     save_dataframe(summary, summary_path)
+    packages = build_industry_curation_packages(queue, batch_size=args.package_batch_size)
+    save_dataframe(packages, packages_path)
     manifest = build_curation_queue_pipeline_manifest(
         industry_dir=args.industry_dir,
         output_path=output_path,
         manifest_path=manifest_path,
         summary_path=summary_path,
+        packages_path=packages_path,
         snapshot=snapshot,
         monthly_delta=monthly_delta,
         document_chunk_plan=document_chunk_plan,
         dimension_catalog=dimension_catalog,
         queue=queue,
         summary=summary,
+        packages=packages,
     )
     save_pipeline_manifest(manifest, manifest_path)
 
@@ -150,6 +163,7 @@ def main() -> None:
         f"({quality.get('rows', 0):,} linhas; {quality.get('open_rows', 0):,} abertas)"
     )
     print(f"[ok] resumo operacional gravado em {summary_path} ({len(summary):,} linhas)")
+    print(f"[ok] pacotes mensais gravados em {packages_path} ({len(packages):,} pacotes)")
     print(f"[ok] dominios: {quality.get('domain_counts', {})}")
     if created_actions:
         print(f"[ok] acompanhamentos inicializados: {created_actions}")

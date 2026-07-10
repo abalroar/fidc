@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-incremental-onboarding-manifest/v1",
-  "generated_at_utc": "2026-07-10T01:44:52+00:00",
+  "generated_at_utc": "2026-07-10T03:27:28+00:00",
   "pipeline": "industry_incremental_onboarding",
   "design_constraints": {
     "modular": true,
@@ -22,8 +22,8 @@
     "curation_queue": {
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
-      "bytes": 2517650,
-      "sha256": "05fa4648afb85ff2adb0bb654700f04eb65be7ea5710bcff8e43b2160f95ca0f"
+      "bytes": 491721,
+      "sha256": "83774593a775cbb1e52d622d715298909b8f7b1de0e82df3d4387c0f5ea0046c"
     },
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
@@ -36,8 +36,8 @@
     "incremental_onboarding": {
       "path": "data/industry_study/industry_incremental_onboarding.csv",
       "exists": true,
-      "bytes": 91163,
-      "sha256": "2d552aaf183454c2df388517071b1ad02a95d3d3b96d477b58be903aa5860377"
+      "bytes": 85177,
+      "sha256": "cfe265c711af7d44202402ae3a81b069471624fb2ef0326e1f2ba093070babb8"
     },
     "manifest": {
       "path": "data/industry_study/industry_incremental_onboarding_manifest.json"
@@ -55,7 +55,7 @@
       "id": "join_queue_and_chunks",
       "label": "Cruzar fila única e chunks documentais",
       "status": "ok",
-      "rows": 81522,
+      "rows": 12884,
       "rerun": "python scripts/build_fidc_industry_curation_queue.py"
     },
     {
@@ -77,8 +77,8 @@
     "discovery_blocked": 61,
     "processing_attention": 10,
     "incorporation_blocked": 63,
-    "open_queue_rows": 1318,
-    "open_high_priority_rows": 94,
+    "open_queue_rows": 192,
+    "open_high_priority_rows": 140,
     "status_counts": {
       "bloqueado": 71
     }

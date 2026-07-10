@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-traceability-manifest/v1",
-  "generated_at_utc": "2026-07-10T01:44:23+00:00",
+  "generated_at_utc": "2026-07-10T03:14:35+00:00",
   "pipeline": "industry_dimension_traceability",
   "design_constraints": {
     "modular": true,
@@ -15,16 +15,16 @@
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1617284,
-      "sha256": "a7ca718479ce971e85d206249c73bacf2ff939d4a0fc6166f3f2bb52e401b58e"
+      "bytes": 1961763,
+      "sha256": "e292e78eb3b533bfcd0e53357cb8a222b32efd3dff3bf1c55956df2d54f3bc76"
     }
   },
   "outputs": {
     "traceability_matrix": {
       "path": "data/industry_study/industry_dimension_traceability_matrix.csv",
       "exists": true,
-      "bytes": 5153,
-      "sha256": "4a303295126287db0a6bbf0ba87229495287816d4b2b0cd1ae51a6255d96d198"
+      "bytes": 4978,
+      "sha256": "fdf2aa6b1c87c4cf153f26095ad9320d58bf9d2b402a75a7d612e7f99ac0adba"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_traceability_manifest.json"
@@ -35,7 +35,7 @@
       "id": "load_dimension_catalog",
       "label": "Carregar catálogo de dimensões",
       "status": "ok",
-      "rows": 73950,
+      "rows": 75167,
       "rerun": "python scripts/build_fidc_industry_dimensions.py"
     },
     {
@@ -49,13 +49,13 @@
   "quality": {
     "rows": 29,
     "dimensions": 29,
-    "source_layers": 2,
-    "low_quality_rows": 6,
-    "missing_page_rows": 10220,
+    "source_layers": 3,
+    "low_quality_rows": 0,
+    "missing_page_rows": 4460,
     "missing_document_rows": 0,
     "missing_method_rows": 0,
-    "missing_score_rows": 67230,
-    "median_quality_score": 0.7158805404124201,
-    "worst_quality_score": 0.5358805404124201
+    "missing_score_rows": 0,
+    "median_quality_score": 1.0,
+    "worst_quality_score": 0.7539879999999999
   }
 }

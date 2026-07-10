@@ -48,6 +48,7 @@ from services.industry_study import (  # noqa: E402
     build_document_text_manifest,
     build_document_text_run_summary,
     build_industry_curation_queue,
+    build_industry_curation_packages,
     build_industry_curation_queue_summary,
     build_dimension_catalog_pipeline_manifest,
     build_dimension_traceability_matrix,
@@ -3180,30 +3181,66 @@ def test_industry_dimension_catalog_preserves_sources_and_weights():
             },
         ]
     )
+    criteria = pd.DataFrame(
+        [
+            {
+                "rule_id": "rule-old",
+                "cnpj_fundo": "05753599000158",
+                "fundo": "FIDC ABC",
+                "chave": "concentration_limits",
+                "ativo_curadoria": True,
+                "status_revisao": "pendente",
+                "score_confianca_final": 0.80,
+                "metodo_extracao": "document_regex",
+                "documento_origem": "regulamento-antigo.pdf",
+                "document_date": "2025-12-01",
+                "pagina": "",
+            },
+            {
+                "rule_id": "rule-current",
+                "cnpj_fundo": "05753599000158",
+                "fundo": "FIDC ABC",
+                "chave": "concentration_limits",
+                "ativo_curadoria": True,
+                "status_revisao": "aprovado",
+                "score_confianca_final": 0.92,
+                "metodo_extracao": "structured_json_page_backfill_v1",
+                "documento_origem": "regulamento-atual.pdf",
+                "document_date": "2026-05-01",
+                "pagina": "22",
+            },
+        ]
+    )
 
-    catalog = build_industry_dimension_catalog(snapshot=snapshot, cedentes=cedentes)
+    catalog = build_industry_dimension_catalog(snapshot=snapshot, cedentes=cedentes, criteria=criteria)
     quality = industry_dimension_catalog_quality_summary(catalog)
     indexers = catalog[catalog["dimension_id"].eq("indexador")].set_index("dimension_value")
     first_offer_year = catalog[catalog["dimension_id"].eq("ano_primeira_oferta")].set_index("dimension_value")
     emission_cohort = catalog[catalog["dimension_id"].eq("safra_emissao")].set_index("dimension_value")
     cedente_rows = catalog[catalog["dimension_id"].eq("cedente_sacado")].set_index("dimension_value")
+    criteria_rows = catalog[catalog["dimension_id"].eq("criterio")].set_index("dimension_value")
+    admin_rows = catalog[catalog["dimension_id"].eq("admin")].set_index("dimension_value")
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
         snapshot_path = tmp_path / "industry_fund_snapshot.csv.gz"
         cedentes_path = tmp_path / "cedentes_structured.csv.gz"
+        criteria_path = tmp_path / "criteria_structured.csv.gz"
         output_path = tmp_path / "industry_dimension_catalog.csv.gz"
         manifest_path = tmp_path / "industry_dimension_catalog_manifest.json"
         snapshot.to_csv(snapshot_path, index=False, compression="gzip")
         cedentes.to_csv(cedentes_path, index=False, compression="gzip")
+        criteria.to_csv(criteria_path, index=False, compression="gzip")
         catalog.to_csv(output_path, index=False, compression="gzip")
         manifest = build_dimension_catalog_pipeline_manifest(
             industry_dir=tmp_path,
             snapshot_path=snapshot_path,
             cedentes_path=cedentes_path,
+            criteria_path=criteria_path,
             output_path=output_path,
             manifest_path=manifest_path,
             snapshot=snapshot,
             cedentes=cedentes,
+            criteria=criteria,
             catalog=catalog,
         )
 
@@ -3214,6 +3251,16 @@ def test_industry_dimension_catalog_preserves_sources_and_weights():
     assert round(float(cedente_rows.loc["CEDENTE ABC S.A.", "value_weight"]), 6) == 0.5
     assert cedente_rows.loc["CEDENTE ABC S.A.", "source_document"] == "regulamento.pdf"
     assert cedente_rows.loc["CEDENTE ABC S.A.", "source_page"] == "12"
+    assert bool(cedente_rows.loc["CEDENTE ABC S.A.", "page_required"]) is True
+    assert criteria_rows.loc["concentration_limits", "source_record_id"] == "rule-current"
+    assert criteria_rows.loc["concentration_limits", "source_document"] == "regulamento-atual.pdf"
+    assert criteria_rows.loc["concentration_limits", "source_page"] == "22"
+    assert criteria_rows.loc["concentration_limits", "source_kind"] == "document_record"
+    assert bool(criteria_rows.loc["concentration_limits", "page_required"]) is True
+    assert admin_rows.loc["Admin A", "source_kind"] == "structured_snapshot"
+    assert bool(admin_rows.loc["Admin A", "page_required"]) is False
+    assert float(admin_rows.loc["Admin A", "confidence_score"]) == 0.98
+    assert admin_rows.loc["Admin A", "confidence_basis"] == "deterministic_lineage_default"
     assert quality["dimensions"] >= 8
     assert quality["with_source_document"] >= 2
     assert manifest["schema_version"] == "industry-dimension-catalog-manifest/v1"
@@ -3254,6 +3301,25 @@ def test_industry_dimension_catalog_quality_flags_traceability_gaps():
                 "is_curated": True,
                 "is_multivalue": False,
                 "priority_2025_2026": True,
+            },
+            {
+                "cnpj_fundo": "33333333000133",
+                "nome_exibicao": "FIDC JKL",
+                "dimension_id": "indexador",
+                "dimension_label": "Indexador",
+                "dimension_value": "CDI+",
+                "source_layer": "snapshot",
+                "source_method": "snapshot_consolidado",
+                "source_date": "2026-05",
+                "confidence_score": 0.9,
+                "source_document": "pricing-documents.pdf",
+                "source_page": "",
+                "document_required": True,
+                "page_required": False,
+                "review_status": "",
+                "is_curated": False,
+                "is_multivalue": True,
+                "priority_2025_2026": False,
             },
         ]
     )
@@ -3331,6 +3397,25 @@ def test_dimension_traceability_matrix_groups_quality_by_layer():
                 "is_multivalue": False,
                 "priority_2025_2026": True,
             },
+            {
+                "cnpj_fundo": "33333333000133",
+                "nome_exibicao": "FIDC JKL",
+                "dimension_id": "indexador",
+                "dimension_label": "Indexador",
+                "dimension_value": "CDI+",
+                "source_layer": "snapshot",
+                "source_method": "snapshot_consolidado",
+                "source_date": "2026-05",
+                "confidence_score": 0.9,
+                "source_document": "pricing-documents.pdf",
+                "source_page": "",
+                "document_required": True,
+                "page_required": False,
+                "review_status": "",
+                "is_curated": False,
+                "is_multivalue": True,
+                "priority_2025_2026": False,
+            },
         ]
     )
 
@@ -3338,14 +3423,16 @@ def test_dimension_traceability_matrix_groups_quality_by_layer():
     quality = dimension_traceability_quality_summary(matrix)
     by_layer = matrix.set_index(["dimension_id", "source_layer"])
 
-    assert quality["rows"] == 3
-    assert quality["dimensions"] == 3
+    assert quality["rows"] == 4
+    assert quality["dimensions"] == 4
     assert quality["low_quality_rows"] == 2
     assert quality["missing_page_rows"] == 2
     assert quality["missing_document_rows"] == 1
     assert by_layer.loc[("admin", "snapshot"), "traceability_gap_rows"] == 0
     assert by_layer.loc[("cedente_sacado", "cedente"), "missing_page_rows"] == 1
     assert by_layer.loc[("subordinacao_minima", "criteria"), "missing_score_rows"] == 1
+    assert by_layer.loc[("indexador", "snapshot"), "missing_page_rows"] == 0
+    assert by_layer.loc[("indexador", "snapshot"), "page_not_applicable_rows"] == 1
 
 
 def test_industry_dimension_catalog_gap_actions_overlay_and_audit():
@@ -4606,6 +4693,22 @@ def test_industry_curation_queue_unifies_all_fidc_workstreams():
     admin_summary = summary[summary["summary_type"].eq("admin_backlog")].iloc[0]
     assert admin_summary["scope_label"] == "ADMIN A"
     assert admin_summary["rows"] == 2
+
+    extra_catalog_gap = queue[queue["queue_domain"].eq("catalog_gap")].copy()
+    extra_catalog_gap["queue_id"] = "catalog_gap:second-page"
+    extra_catalog_gap["record_id"] = "second-page"
+    package_source = pd.concat([queue, extra_catalog_gap], ignore_index=True)
+    packages = build_industry_curation_packages(package_source, batch_size=2)
+    catalog_package = packages[packages["queue_domain"].eq("catalog_gap")].iloc[0]
+    monthly_package = packages[packages["queue_domain"].eq("monthly_delta")].iloc[0]
+
+    assert len(packages) == 4
+    assert catalog_package["issue_rows"] == 2
+    assert catalog_package["open_issue_rows"] == 2
+    assert "catalog_gap:" in catalog_package["source_queue_ids"]
+    assert monthly_package["work_tier"] == "P0 competência"
+    assert monthly_package["batch_id"] == "P0-001"
+    assert bool(monthly_package["is_current_batch"]) is True
 
 
 def test_manual_review_ledgers_initialize_headers_without_fake_events():
