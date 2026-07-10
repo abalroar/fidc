@@ -1,7 +1,7 @@
 # Entregável — Panorama executivo da Indústria de FIDCs (Excel + PPT)
 
-Reconstrução independente dos gráficos de mercado de FIDCs (estilo deck Itaú BBA),
-**sem Power BI e sem dado proprietário**, com gráficos **nativos do Office** (editáveis).
+Deck e planilha executivos sobre a **evolução da indústria de FIDCs**, com gráficos
+**nativos do Office**, consolidação por conglomerado e **fonte declarada em cada gráfico**.
 
 ## Como gerar / atualizar
 
@@ -12,52 +12,67 @@ python scripts/build_industria_fidc_deck.py
 #   outputs/Industria_FIDC_<competencia>.pptx
 ```
 
-O builder lê as bases já materializadas em `data/industry_study/`
-(`industry_fund_snapshot.csv.gz`, `admin_monthly.csv`, `cotistas_tipo_monthly.csv`),
-que são derivadas do **CVM Dados Abertos — Informe Mensal FIDC + Cadastro de fundos**.
-A competência de referência é o último mês completo disponível no snapshot.
+Lê as bases já materializadas do **Toma Conta FIDcs** em `data/industry_study/`
+(`industry_fund_snapshot.csv.gz`, `industry_dimension_monthly.csv.gz`,
+`cotistas_tipo_monthly.csv`), derivadas do **Informe Mensal FIDC + Cadastro da CVM**.
+Competência de referência = último mês completo do snapshot.
 
-Para trazer um mês mais novo, primeiro rode o pipeline de indústria do projeto
-(que atualiza o snapshot a partir da CVM) e depois este builder.
+## Conteúdo (15 slides / 14 abas)
 
-## O que sai
+1. Evolução do PL da indústria (base líquida, ex-FIC-FIDC)
+2. Composição do PL por segmento (% ao longo do tempo)
+3. **Definições ANBIMA das classes** (Fomento Mercantil, Financeiro, Agro/Ind/Comércio, Outros, Multicedente/Multissacado)
+4. Ranking de Gestores — **consolidado por conglomerado**
+5. **Evolução dos Gestores** (2022→2026): PL por período, Δ PL e Δ ranking
+6. Ranking de Administradores — consolidado
+7. **Evolução dos Administradores**
+8. **PL por tipo de controle** (Independente / Ligada a banco / Independente Grande) — evolução
+9. **De-para de conglomerados** (auditável)
+10. Top 25 FIDCs por PL — com tipo de recebível, gestor consolidado, subordinação mínima, última leitura e cedente
+11. Número de cotistas — fundos > R$ 200 mi
+12. Nº de cotistas por segmento de investidor
+13. **Emissões** — variação anual de PL (ex-FIC)
+14. Fonte exata por gráfico
 
-**PowerPoint executivo** (`.pptx`, 9 slides, gráficos nativos com workbook Excel
-embutido — dá "Editar Dados" no PowerPoint):
-1. Capa
-2. Evolução do PL da indústria (série anual, R$ bi)
-3. Composição do PL por segmento de atuação
-4. Ranking de Administradores por PL (Top 10)
-5. Ranking de Gestores por PL (Top 10)
-6. Top 25 FIDCs por PL (tabela)
-7. Número de cotistas — fundos > R$ 200 mi (distribuição)
-8. Nº de cotistas por segmento de investidor
-9. PL por tipo de gestor (Independente vs Ligada a banco — heurístico)
+## Consolidação por conglomerado (de-para)
 
-**Excel** (`.xlsx`, 9 abas, gráficos nativos do Office): uma aba por tema (com o
-gráfico + a tabela-fonte) e uma aba "Fonte e Metodologia".
+Config auditável: `config/conglomerados_fidc.json`; lógica: `services/conglomerados.py`.
+**Chave = CNPJ (14 dígitos)** — evita falsos positivos por nome (ex.: *Itaúna Capital*
+**não** entra no Itaú). Grupos consolidados:
 
-## Fidelidade aos slides de referência
+- **Ligada a banco:** Itaú (Itaú Asset + Itaú Unibanco + Kinea + Intrag), BTG Pactual
+  (Banco + Asset + Serviços Financeiros + Gestão/Consultoria + Alternativos), XP
+  (CCTVM + Vista + Allocation + Serviços), Bradesco (Banco + BEM), Banco do Brasil
+  (BB Gestão + Banco), Caixa, Santander (Banco + S3 CACEIS¹ + DTVM), Genial (Banco +
+  Investimentos + Gestão), Daycoval (Banco + Asset), Plural, Safra, Banco Master, Inter.
+- **Independente Grande:** Oliveira Trust (DTVM + Servicer), BRL Trust.
+- **Independente:** QI Tech, Vórtx, REAG, CBSF, Finaxis, JIVE, e demais gestores.
 
-| Slide de referência | Cobertura neste entregável |
+Critério de controle segue o rodapé do deck Itaú BBA ("Ligada a banco: vinculado a
+banco; Independente Grande: Oliveira Trust, BRL Trust, BR Trust; Independente: demais").
+¹ S3 CACEIS é JV Santander/CACEIS, mapeada a Santander com ressalva.
+
+## Emissões (metodologia)
+
+- Métrica: **variação anual de PL (ex-FIC)** — como na aba Indústria do Toma Conta.
+  **Não** é o campo "emissões encerradas" (status ANBIMA), considerado menos confiável.
+- Anos completos (jan–dez); 2026 é parcial. Eixo em ano (não texto solto).
+- Validação de magnitude: a ANBIMA reportou os FIDCs entre as categorias que mais
+  cresceram em 2024, consistente com a variação de +R$ 241 bi apurada aqui.
+
+## Fonte por gráfico (resumo)
+
+| Gráfico | Fonte |
 |---|---|
-| Evolução do PL (R$ bi, anual) | ✅ direto |
-| Nº de cotistas por faixa (>R$200mm) | ✅ direto |
-| Ranking de Administradores | ✅ direto |
-| Ranking de Gestores / Top FIDCs | ✅ direto (gestor via cadastro CVM) |
-| Composição por classe ANBIMA | 🟡 usa `segmento_principal` (taxonomia interna, análoga — **não** as classes oficiais ANBIMA) |
-| Independente vs Ligada a banco | 🟡 heurística por palavra-chave no nome do gestor |
-| PL por segmento de investidor | ✅ nº de cotistas por segmento (PL por segmento exige rateio) |
+| Evolução PL, emissões | Toma Conta (dimensão mensal, ex-FIC) ← Informe Mensal FIDC/CVM. **Não usa o Power BI/dashboard ANBIMA** (dados presos no visual). |
+| Composição por segmento | Toma Conta (dimensão segmento). Taxonomia interna alinhada às classes ANBIMA. |
+| Definições de classe | ANBIMA — Deliberação nº 72. |
+| Rankings e evoluções (gestor/admin) | Toma Conta (dimensões gestor/admin) consolidado por CNPJ. Gestor ← Cadastro CVM. |
+| Tipo de controle | Idem + taxonomia de controle (rodapé Itaú BBA). |
+| Top 25 detalhado | Snapshot por fundo + leituras regulatórias do Toma Conta (quando há regulamento parseado). |
+| Cotistas / segmento de investidor | Informe Mensal FIDC/CVM (Tabela X). |
 
-## Metodologia e ressalvas (resumo)
-
-- **Fonte:** CVM Dados Abertos (Informe Mensal FIDC + Cadastro). Sem Power BI, sem API paga.
-- **PL:** soma de `TAB_IV_A_VL_PL` por fundo/classe. A série de indústria descarta o
-  último mês se estiver incompleto (defasagem de entrega).
-- **Dupla contagem:** a soma bruta contém master-feeder / FIC-FIDC / classes
-  sênior-subordinada; por isso o total bruto (~R$ 950 bi em 2026-05) fica acima do
-  "PL líquido de indústria" que casas divulgam. Netar essas camadas é trabalho de
-  metodologia (a base traz o flag `is_fic_fidc` para começar).
-- **Classe ANBIMA oficial** e **corte independente/banco** são as duas camadas que
-  exigiriam, para fidelidade total, a ANBIMA Feed API (paga) ou uma tabela editorial
-  mantida à mão. Ver `docs/viabilidade_reconstrucao_slides_fidc.md`.
+Ressalvas honestas: a **classe ANBIMA oficial exata** (Fomento Mercantil etc.) não é
+extraível do dashboard (Power BI); usa-se a taxonomia de segmento do Toma Conta,
+análoga. As **leituras de regulamento** (cedente/sacado/subordinação) são ricas para
+fundos com regulamento parseado e esparsas para megafundos de banco/cativos.
