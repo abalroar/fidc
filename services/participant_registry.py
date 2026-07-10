@@ -292,9 +292,14 @@ def build_participant_registry(
             errors += 1
         if sleep_seconds > 0:
             time.sleep(sleep_seconds)
-    registry = _registry_columns(pd.DataFrame(rows))
+    target_registry = _registry_columns(pd.DataFrame(rows))
+    if not target_registry.empty:
+        target_registry["cnpj"] = target_registry["cnpj"].map(_normalize_cnpj)
+        target_registry = target_registry.drop_duplicates("cnpj", keep="last").reset_index(drop=True)
+    registry = _registry_columns(pd.concat([existing_frame, target_registry], ignore_index=True, sort=False))
     if not registry.empty:
         registry["cnpj"] = registry["cnpj"].map(_normalize_cnpj)
+        registry = registry[registry["cnpj"].str.len().eq(14)]
         registry = registry.drop_duplicates("cnpj", keep="last").reset_index(drop=True)
     return registry, {
         "targets": int(len(targets)),
@@ -302,5 +307,5 @@ def build_participant_registry(
         "cache_hits": int(cache_hits),
         "pending": int(pending),
         "errors": int(errors),
-        "ok": int(registry["registry_status"].eq("ok").sum()) if not registry.empty else 0,
+        "ok": int(target_registry["registry_status"].eq("ok").sum()) if not target_registry.empty else 0,
     }

@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-manifest/v1",
-  "generated_at_utc": "2026-07-10T04:51:03+00:00",
+  "generated_at_utc": "2026-07-10T11:53:44+00:00",
   "pipeline": "industry_cedentes_structured",
   "design_constraints": {
     "modular": true,
@@ -22,8 +22,8 @@
     "document_participant_candidates": {
       "path": "data/industry_study/document_participant_candidates.csv.gz",
       "exists": true,
-      "bytes": 267115,
-      "sha256": "66ae9ee9776a9a10e5fc49419dd84165fd57abd8dcc5f0025f6dcdc76b87a817"
+      "bytes": 268497,
+      "sha256": "6efefec8e779ab51054a840e926454e4f50671ce2611535cc67dc11980f0577b"
     },
     "manual_reviews": {
       "path": "data/industry_study/cedente_reviews.csv",
@@ -40,16 +40,16 @@
     "participant_registry": {
       "path": "data/industry_study/participant_registry.csv.gz",
       "exists": true,
-      "bytes": 20353,
-      "sha256": "f111d32490e3c5cf923445262d2b5f775aa2fbf29d0b7c2b18be1f3c4cca89cb"
+      "bytes": 20830,
+      "sha256": "ea999a6fd1fbbbea6fb21ce5c265941505f7ad64b38eeafe64212ea58496cc6f"
     }
   },
   "outputs": {
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 578889,
-      "sha256": "355206e7da594b9314e0434c07bb45d99762ed6011421fb675b35e858fbca928"
+      "bytes": 580364,
+      "sha256": "a54afb7bd26a03878a39de1ee194a3c7a41e60387bbbbacb4e8f21ec501476f6"
     },
     "manifest": {
       "path": "data/industry_study/industry_pipeline_manifest.json"
@@ -68,8 +68,8 @@
       "status": "ok",
       "input": "data/fidc_credit_strategy/fidc_credit_strategy.sqlite | data/industry_study/document_participant_candidates.csv.gz",
       "output": "memoria:cedentes_sacados_candidates",
-      "rows": 2848,
-      "funds": 626,
+      "rows": 2856,
+      "funds": 627,
       "rerun": "python scripts/execute_fidc_director_diagnostic.py --download-limit 0"
     },
     {
@@ -87,7 +87,7 @@
       "status": "ok",
       "input": "data/industry_study/participant_registry.csv.gz",
       "output": "memoria:participant_registry",
-      "rows": 160,
+      "rows": 163,
       "rerun": "python scripts/build_fidc_industry_participant_registry.py"
     },
     {
@@ -114,21 +114,21 @@
       "status": "ok",
       "input": "memoria:candidates+review_overlay+participant_registry+fund_universe+universe_latest",
       "output": "data/industry_study/cedentes_structured.csv.gz",
-      "rows": 2848,
-      "funds": 626,
-      "identified_funds": 151,
+      "rows": 2856,
+      "funds": 627,
+      "identified_funds": 152,
       "signal_placeholder_funds": 5,
       "rerun": "python scripts/build_fidc_industry_cedentes.py"
     }
   ],
   "quality": {
-    "candidate_rows": 2848,
-    "candidate_funds": 626,
-    "structured_rows": 2848,
-    "active_rows": 680,
-    "structured_funds": 626,
-    "identified_rows": 675,
-    "identified_funds": 151,
+    "candidate_rows": 2856,
+    "candidate_funds": 627,
+    "structured_rows": 2856,
+    "active_rows": 686,
+    "structured_funds": 627,
+    "identified_rows": 681,
+    "identified_funds": 152,
     "signal_placeholder_rows": 5,
     "signal_placeholder_funds": 5,
     "priority_2025_2026_rows": 492,
@@ -136,25 +136,25 @@
     "review_rows": 0,
     "review_status_counts": {},
     "participant_type_counts": {
-      "cedente_originador": 357,
+      "cedente_originador": 363,
       "consultora": 279,
       "sacado_devedor": 44
     },
     "candidate_status_counts": {
       "legacy_unverified": 1478,
-      "accepted": 680,
-      "suppressed": 672,
+      "accepted": 686,
+      "suppressed": 674,
       "invalid_cnpj": 18
     },
     "coverage": {
-      "razao_social": 0.9926470588235294,
-      "nome_fantasia": 0.4455882352941177,
-      "cnpj_participante": 0.85,
+      "razao_social": 0.9927113702623906,
+      "nome_fantasia": 0.44752186588921283,
+      "cnpj_participante": 0.8513119533527697,
       "grupo_economico": 0.0,
-      "setor": 0.8558823529411764,
-      "segmento": 0.8558823529411764,
+      "setor": 0.8571428571428571,
+      "segmento": 0.8571428571428571,
       "documento_origem": 1.0,
-      "pagina": 0.9794117647058823,
+      "pagina": 0.9795918367346939,
       "metodo_extracao": 1.0,
       "score_confianca_final": 1.0
     },

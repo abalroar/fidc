@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-traceability-manifest/v1",
-  "generated_at_utc": "2026-07-10T11:15:17+00:00",
+  "generated_at_utc": "2026-07-10T11:56:42+00:00",
   "pipeline": "industry_dimension_traceability",
   "design_constraints": {
     "modular": true,
@@ -15,16 +15,16 @@
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1969261,
-      "sha256": "4fd22baffbbf6ca500758848d36634ed43fbbebaa4ff6521a5bcd15c930979c2"
+      "bytes": 1972356,
+      "sha256": "c82323e24fdf692b6a8afa44cb3d1dba96fc2a957d42862e9fe1b3df9584ad28"
     }
   },
   "outputs": {
     "traceability_matrix": {
       "path": "data/industry_study/industry_dimension_traceability_matrix.csv",
       "exists": true,
-      "bytes": 5005,
-      "sha256": "6a652b406049a2abae4e89bcdd1d56a73cf5a26c4897ef8b507a33b70d5d6435"
+      "bytes": 5015,
+      "sha256": "3190e6f8feefcce2a8014e42e0243acc99232c14fd66ea8361a609eb32de4f68"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_traceability_manifest.json"
@@ -35,7 +35,7 @@
       "id": "load_dimension_catalog",
       "label": "Carregar catálogo de dimensões",
       "status": "ok",
-      "rows": 75329,
+      "rows": 75372,
       "rerun": "python scripts/build_fidc_industry_dimensions.py"
     },
     {
@@ -56,6 +56,6 @@
     "missing_method_rows": 0,
     "missing_score_rows": 0,
     "median_quality_score": 1.0,
-    "worst_quality_score": 0.7543319352905932
+    "worst_quality_score": 0.7544300259532841
   }
 }

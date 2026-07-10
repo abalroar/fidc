@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-curation-package-evidence-manifest/v1",
-  "generated_at_utc": "2026-07-10T11:15:08+00:00",
+  "generated_at_utc": "2026-07-10T11:56:28+00:00",
   "pipeline": "industry_curation_package_evidence",
   "design_constraints": {
     "modular": true,
@@ -15,14 +15,14 @@
     "curation_packages": {
       "path": "data/industry_study/industry_curation_packages.csv.gz",
       "exists": true,
-      "bytes": 658829,
-      "sha256": "e7ca7e80a8de16e2ea2373a72bf2b0fbadf9d95d8d5ff2e77ae247a2c34d0f66"
+      "bytes": 658894,
+      "sha256": "dc196da630e485e8155abf414b155364ffc5fc1f89866cfadc0fe61c4068f8fe"
     },
     "registration_scope": {
       "path": "data/industry_study/industry_registration_scope.csv.gz",
       "exists": true,
       "bytes": 1641858,
-      "sha256": "21f581372b6161439eae0ae26b3861b4f381ee5121d80cb50fb70a186673c554"
+      "sha256": "64b622e6e49e232016243fbcbf01d3058d3478b529fc42eab13391adb276cac0"
     },
     "universe_scope_reviews": {
       "path": "data/industry_study/universe_scope_reviews.csv",
@@ -33,8 +33,8 @@
     "document_inventory": {
       "path": "data/industry_study/document_inventory.csv.gz",
       "exists": true,
-      "bytes": 1097392,
-      "sha256": "13c8a5731eb76aefa364f5ed9c7d53a2d3d3476e1189b524da23f6700d8f8c75"
+      "bytes": 1101614,
+      "sha256": "4a120b25c3ad74581832accd03a8dbfc68977cd4941cfc866510880138877a8b"
     },
     "package_document_discovery_status": {
       "path": "data/industry_study/industry_package_document_discovery_status.csv.gz",
@@ -42,61 +42,67 @@
       "bytes": 2804,
       "sha256": "82abc73f561c84c62fc58869cc75e6c05527b5ad59695e350f94fd4ede9ab448"
     },
+    "alternative_document_status": {
+      "path": "data/industry_study/industry_alternative_document_status.csv.gz",
+      "exists": true,
+      "bytes": 1118,
+      "sha256": "667815b1caf0b892bd5e56ea7a4bdf5c2c58ba6aec209d2ad17e7e3b901441bd"
+    },
     "document_text_index": {
       "path": "data/industry_study/document_text_index.csv.gz",
       "exists": true,
-      "bytes": 7392052,
-      "sha256": "5fca43f15c1bf1eb980689b8ab44ca714d1010459bc8bf86f926046743692a0f"
+      "bytes": 7418626,
+      "sha256": "619041770a369f544b2424cda2286fa49e802e57e1ef8bd2372353efc256d80f"
     },
     "document_field_run_summary": {
       "path": "data/industry_study/document_field_run_summary.csv",
       "exists": true,
-      "bytes": 27796,
-      "sha256": "c1b326330f08850172ea7f63dff5e216020cb327c0e47065e62bbac27f17740f"
+      "bytes": 27987,
+      "sha256": "8ec83ae1a2ba6315405e8d195d04302a1173a60976be47a9300e847aae8af663"
     },
     "document_participant_candidates": {
       "path": "data/industry_study/document_participant_candidates.csv.gz",
       "exists": true,
-      "bytes": 267115,
-      "sha256": "66ae9ee9776a9a10e5fc49419dd84165fd57abd8dcc5f0025f6dcdc76b87a817"
+      "bytes": 268497,
+      "sha256": "6efefec8e779ab51054a840e926454e4f50671ce2611535cc67dc11980f0577b"
     },
     "document_criteria_candidates": {
       "path": "data/industry_study/document_criteria_candidates.csv.gz",
       "exists": true,
-      "bytes": 1133841,
-      "sha256": "ca9bf1e094b7c62b3eb7a5d67d6a50dd9cfd7b59c67fb18f71ed3282b769a0d3"
+      "bytes": 1134683,
+      "sha256": "17a63be2fc2c03cb975c67c957764edec2aaa8780ac597fd5f898e7394580e2a"
     },
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 578889,
-      "sha256": "355206e7da594b9314e0434c07bb45d99762ed6011421fb675b35e858fbca928"
+      "bytes": 580364,
+      "sha256": "a54afb7bd26a03878a39de1ee194a3c7a41e60387bbbbacb4e8f21ec501476f6"
     },
     "criteria_structured": {
       "path": "data/industry_study/criteria_structured.csv.gz",
       "exists": true,
-      "bytes": 1298208,
-      "sha256": "44eb45f46428e1a9a3abb81be0ae99ef53329906426352b3391ac15814530c89"
+      "bytes": 1298964,
+      "sha256": "457bc51158341cee79965486d637f4011789ef99840842167183aa56c92b27d1"
     },
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1969261,
-      "sha256": "4fd22baffbbf6ca500758848d36634ed43fbbebaa4ff6521a5bcd15c930979c2"
+      "bytes": 1972356,
+      "sha256": "c82323e24fdf692b6a8afa44cb3d1dba96fc2a957d42862e9fe1b3df9584ad28"
     }
   },
   "outputs": {
     "curation_package_evidence": {
       "path": "data/industry_study/industry_curation_package_evidence.csv.gz",
       "exists": true,
-      "bytes": 1910423,
-      "sha256": "6a879cf1f124236c7d26bacc047055878398d11b1215b578e056605ecb9e921a"
+      "bytes": 1922623,
+      "sha256": "fb1fab0d70ec666f525483b492839578b2dab0fbb84d749f9f932a7131843118"
     },
     "registration_scope": {
       "path": "data/industry_study/industry_registration_scope.csv.gz",
       "exists": true,
       "bytes": 1641858,
-      "sha256": "21f581372b6161439eae0ae26b3861b4f381ee5121d80cb50fb70a186673c554"
+      "sha256": "64b622e6e49e232016243fbcbf01d3058d3478b529fc42eab13391adb276cac0"
     },
     "manifest": {
       "path": "data/industry_study/industry_curation_package_evidence_manifest.json"
@@ -128,36 +134,37 @@
   "quality": {
     "rows": 9040,
     "funds": 4339,
-    "p0_rows": 63,
+    "p0_rows": 62,
     "p1_rows": 1264,
-    "p0_with_documents": 45,
-    "p0_with_text": 45,
-    "p0_with_cedentes": 4,
-    "p0_with_criteria": 7,
-    "p0_with_field_processing": 45,
-    "p0_with_candidates": 13,
+    "p0_with_documents": 60,
+    "p0_with_text": 60,
+    "p0_with_cedentes": 5,
+    "p0_with_criteria": 8,
+    "p0_with_field_processing": 60,
+    "p0_with_candidates": 15,
     "scope_review_rows": 29,
     "discovery_attempted_funds": 59,
     "no_relevant_document_funds": 16,
+    "alternative_covered_funds": 16,
+    "alternative_document_rows": 74,
+    "p0_with_alternative_documents": 15,
     "p0_stage_counts": {
-      "sem sinal extraído": 29,
-      "fontes alternativas": 16,
+      "sem sinal extraído": 42,
       "triagem de candidatos": 7,
+      "revisão": 6,
       "páginas": 5,
-      "revisão": 4,
       "universo": 2
     },
     "technical_status_counts": {
       "bloqueado": 7045,
-      "atenção": 1908,
-      "pronto": 87
+      "atenção": 1902,
+      "pronto": 93
     },
     "technical_stage_counts": {
       "descoberta": 7016,
       "páginas": 1641,
-      "sem sinal extraído": 211,
-      "revisão": 87,
-      "fontes alternativas": 32,
+      "sem sinal extraído": 237,
+      "revisão": 93,
       "universo": 29,
       "triagem de candidatos": 24
     },

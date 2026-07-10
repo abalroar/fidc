@@ -58,6 +58,9 @@ def main() -> None:
         package_document_discovery_status=load_dataframe(
             args.industry_dir / "industry_package_document_discovery_status.csv.gz"
         ),
+        alternative_document_status=load_dataframe(
+            args.industry_dir / "industry_alternative_document_status.csv.gz"
+        ),
         document_field_run_summary=load_dataframe(args.industry_dir / "document_field_run_summary.csv"),
         document_participant_candidates=load_dataframe(
             args.industry_dir / "document_participant_candidates.csv.gz"

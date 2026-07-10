@@ -1,0 +1,98 @@
+{
+  "schema_version": "industry-alternative-document-manifest/v1",
+  "generated_at_utc": "2026-07-10T11:30:57+00:00",
+  "pipeline": "industry_alternative_document_discovery",
+  "design_constraints": {
+    "modular": true,
+    "incremental": true,
+    "official_sources_only": true,
+    "download_enabled": true,
+    "notes": [
+      "A fonte é o dataset semanal de Documentos Eventuais da CVM, independente da listagem FNET.",
+      "Cada registro preserva URL do dataset, URL do PDF, datas CVM, arquivo local e SHA-256.",
+      "A seleção parte exclusivamente de pacotes no estágio fontes alternativas."
+    ]
+  },
+  "inputs": {
+    "package_evidence": {
+      "path": "data/industry_study/industry_curation_package_evidence.csv.gz",
+      "exists": true,
+      "bytes": 1910423,
+      "sha256": "6a879cf1f124236c7d26bacc047055878398d11b1215b578e056605ecb9e921a"
+    },
+    "cvm_eventual_2026": {
+      "path": ".cache/cvm-industry-alternative/eventual_fi_2026.csv",
+      "exists": true,
+      "bytes": 20253039,
+      "sha256": "4368b1f9dca8fdc74cfa28ba7040466d2ee324a0caff4669f7f5668b565e035d"
+    },
+    "raw_dir": {
+      "path": "data/raw",
+      "exists": true
+    }
+  },
+  "outputs": {
+    "alternative_documents": {
+      "path": "data/industry_study/industry_alternative_documents.csv.gz",
+      "exists": true,
+      "bytes": 4802,
+      "sha256": "ebf88ac185e310af961d9a2f0c072bf425ed64169142ea5adbeb18fc46acd1ae"
+    },
+    "alternative_document_status": {
+      "path": "data/industry_study/industry_alternative_document_status.csv.gz",
+      "exists": true,
+      "bytes": 1118,
+      "sha256": "667815b1caf0b892bd5e56ea7a4bdf5c2c58ba6aec209d2ad17e7e3b901441bd"
+    },
+    "manifest": {
+      "path": "data/industry_study/industry_alternative_document_manifest.json"
+    }
+  },
+  "stages": [
+    {
+      "id": "select_alternative_targets",
+      "label": "Selecionar pacotes sem documento FNET",
+      "status": "ok",
+      "rows": 16,
+      "rerun": "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25"
+    },
+    {
+      "id": "discover_cvm_eventual",
+      "label": "Cruzar Documentos Eventuais CVM",
+      "status": "ok",
+      "rows": 37,
+      "rerun": "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25"
+    },
+    {
+      "id": "download_alternative_documents",
+      "label": "Baixar e hashear documentos alternativos",
+      "status": "ok",
+      "rows": 37,
+      "rerun": "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25"
+    }
+  ],
+  "quality": {
+    "target_funds": 16,
+    "attempted_funds": 16,
+    "covered_funds": 16,
+    "no_document_funds": 0,
+    "partial_funds": 0,
+    "document_rows": 37,
+    "relevant_documents": 37,
+    "downloaded_documents": 37,
+    "reused_documents": 0,
+    "download_error_documents": 0,
+    "regulation_documents": 37,
+    "document_type_counts": {
+      "REGUL FDO": 22,
+      "SGF APENDICE": 10,
+      "SGF ANEXO": 5
+    },
+    "listing_status_counts": {
+      "ok": 16
+    },
+    "download_status_counts": {
+      "baixado": 37
+    }
+  }
+}

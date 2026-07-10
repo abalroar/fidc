@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-incremental-onboarding-manifest/v1",
-  "generated_at_utc": "2026-07-10T11:14:59+00:00",
+  "generated_at_utc": "2026-07-10T11:46:09+00:00",
   "pipeline": "industry_incremental_onboarding",
   "design_constraints": {
     "modular": true,
@@ -16,28 +16,28 @@
     "monthly_delta": {
       "path": "data/industry_study/industry_monthly_delta.csv.gz",
       "exists": true,
-      "bytes": 365906,
-      "sha256": "d0acc2b0ecf2384a7950d3404fd9102695e62eb7147713e56ecdadf687ecc410"
+      "bytes": 366014,
+      "sha256": "9e1d8bffb00490710c2f64fc644d24ff33470711b5efd706889db0ed4e86fba3"
     },
     "curation_queue": {
       "path": "data/industry_study/industry_curation_queue.csv.gz",
       "exists": true,
-      "bytes": 491950,
-      "sha256": "387d5e06f3fa4d1be57b7a464128b91f0929e1ce87f38d71d1758516d0689423"
+      "bytes": 491930,
+      "sha256": "e94d91884ecaaa5c69ec7fcb479d38e6fc49254807e7e35898ec3c0296611d3b"
     },
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 87245,
-      "sha256": "25dca3cd57727af5827068a345b329c382ca50b26990dbbbb179e74c261cd06c"
+      "bytes": 88033,
+      "sha256": "d913ab8e202f2fa18afa7d02c09600668c7733d78b1d9f435c8752288233a26f"
     }
   },
   "outputs": {
     "incremental_onboarding": {
       "path": "data/industry_study/industry_incremental_onboarding.csv",
       "exists": true,
-      "bytes": 84359,
-      "sha256": "fbe7b882ada47a69f7c8b4c94310058ae90a019722327e8a3fb7eaa776e9a678"
+      "bytes": 84163,
+      "sha256": "8a7714b0a69d49d0420b3a15d5d03fc4c04a0547ef6df40e11219d9b70771bf8"
     },
     "manifest": {
       "path": "data/industry_study/industry_incremental_onboarding_manifest.json"
@@ -71,17 +71,17 @@
     "funds": 71,
     "new_funds": 63,
     "reactivated_funds": 8,
-    "blocked_rows": 67,
-    "attention_rows": 4,
+    "blocked_rows": 66,
+    "attention_rows": 5,
     "ok_rows": 0,
-    "discovery_blocked": 18,
-    "processing_attention": 53,
-    "incorporation_blocked": 54,
+    "discovery_blocked": 2,
+    "processing_attention": 69,
+    "incorporation_blocked": 51,
     "open_queue_rows": 191,
-    "open_high_priority_rows": 135,
+    "open_high_priority_rows": 134,
     "status_counts": {
-      "bloqueado": 67,
-      "atenção": 4
+      "bloqueado": 66,
+      "atenção": 5
     }
   }
 }

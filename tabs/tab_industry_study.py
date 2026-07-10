@@ -104,6 +104,9 @@ _CURATION_PACKAGE_EVIDENCE_MANIFEST_PATH = _DATA_DIR / "industry_curation_packag
 _REGISTRATION_SCOPE_PATH = _DATA_DIR / "industry_registration_scope.csv.gz"
 _PACKAGE_DOCUMENT_DISCOVERY_STATUS_PATH = _DATA_DIR / "industry_package_document_discovery_status.csv.gz"
 _PACKAGE_DOCUMENT_DISCOVERY_MANIFEST_PATH = _DATA_DIR / "industry_package_document_discovery_manifest.json"
+_ALTERNATIVE_DOCUMENTS_PATH = _DATA_DIR / "industry_alternative_documents.csv.gz"
+_ALTERNATIVE_DOCUMENT_STATUS_PATH = _DATA_DIR / "industry_alternative_document_status.csv.gz"
+_ALTERNATIVE_DOCUMENT_MANIFEST_PATH = _DATA_DIR / "industry_alternative_document_manifest.json"
 _UNIVERSE_EXCEPTIONS_PATH = _DATA_DIR / "industry_universe_exceptions.csv.gz"
 _UNIVERSE_REVIEWS_PATH = _DATA_DIR / "universe_scope_reviews.csv"
 _UNIVERSE_REVIEW_AUDIT_PATH = _DATA_DIR / "universe_scope_review_audit.csv"
@@ -8105,6 +8108,8 @@ def _load_curation_queue_tables() -> dict[str, pd.DataFrame | dict[str, object]]
     summary = load_dataframe(_CURATION_QUEUE_SUMMARY_PATH)
     packages = load_dataframe(_CURATION_PACKAGES_PATH)
     package_evidence = load_dataframe(_CURATION_PACKAGE_EVIDENCE_PATH)
+    alternative_documents = load_dataframe(_ALTERNATIVE_DOCUMENTS_PATH)
+    alternative_document_status = load_dataframe(_ALTERNATIVE_DOCUMENT_STATUS_PATH)
     universe_exceptions = load_dataframe(_UNIVERSE_EXCEPTIONS_PATH)
     universe_reviews = load_industry_universe_reviews(_UNIVERSE_REVIEWS_PATH)
     universe_review_audit = load_review_audit(_UNIVERSE_REVIEW_AUDIT_PATH)
@@ -8117,12 +8122,15 @@ def _load_curation_queue_tables() -> dict[str, pd.DataFrame | dict[str, object]]
         "summary": summary,
         "packages": packages,
         "package_evidence": package_evidence,
+        "alternative_documents": alternative_documents,
+        "alternative_document_status": alternative_document_status,
         "universe_exceptions": universe_exceptions,
         "universe_reviews": universe_reviews,
         "universe_review_audit": universe_review_audit,
         "manifest": load_pipeline_manifest(_CURATION_QUEUE_MANIFEST_PATH),
         "package_evidence_manifest": load_pipeline_manifest(_CURATION_PACKAGE_EVIDENCE_MANIFEST_PATH),
         "package_discovery_manifest": load_pipeline_manifest(_PACKAGE_DOCUMENT_DISCOVERY_MANIFEST_PATH),
+        "alternative_document_manifest": load_pipeline_manifest(_ALTERNATIVE_DOCUMENT_MANIFEST_PATH),
         "universe_exception_manifest": load_pipeline_manifest(_UNIVERSE_EXCEPTION_MANIFEST_PATH),
     }
 
@@ -8699,6 +8707,7 @@ def _materialize_universe_review_outputs(
         document_inventory=load_dataframe(_DOCUMENT_INVENTORY_PATH),
         document_text_index=load_dataframe(_DOCUMENT_TEXT_INDEX_PATH),
         package_document_discovery_status=load_dataframe(_PACKAGE_DOCUMENT_DISCOVERY_STATUS_PATH),
+        alternative_document_status=load_dataframe(_ALTERNATIVE_DOCUMENT_STATUS_PATH),
         document_field_run_summary=load_dataframe(_DOCUMENT_FIELD_RUN_SUMMARY_PATH),
         document_participant_candidates=load_dataframe(_DOCUMENT_PARTICIPANT_CANDIDATES_PATH),
         document_criteria_candidates=load_dataframe(_DOCUMENT_CRITERIA_CANDIDATES_PATH),
@@ -8773,23 +8782,29 @@ def _render_pipeline_manifest() -> None:
     curation_queue_summary = curation_queue_tables["summary"]
     curation_packages = curation_queue_tables["packages"]
     curation_package_evidence = curation_queue_tables["package_evidence"]
+    alternative_documents = curation_queue_tables["alternative_documents"]
+    alternative_document_status = curation_queue_tables["alternative_document_status"]
     universe_exceptions = curation_queue_tables["universe_exceptions"]
     universe_reviews = curation_queue_tables["universe_reviews"]
     universe_review_audit = curation_queue_tables["universe_review_audit"]
     curation_queue_manifest = curation_queue_tables["manifest"]
     curation_package_evidence_manifest = curation_queue_tables["package_evidence_manifest"]
     package_document_discovery_manifest = curation_queue_tables["package_discovery_manifest"]
+    alternative_document_manifest = curation_queue_tables["alternative_document_manifest"]
     universe_exception_manifest = curation_queue_tables["universe_exception_manifest"]
     assert isinstance(curation_queue, pd.DataFrame)
     assert isinstance(curation_queue_summary, pd.DataFrame)
     assert isinstance(curation_packages, pd.DataFrame)
     assert isinstance(curation_package_evidence, pd.DataFrame)
+    assert isinstance(alternative_documents, pd.DataFrame)
+    assert isinstance(alternative_document_status, pd.DataFrame)
     assert isinstance(universe_exceptions, pd.DataFrame)
     assert isinstance(universe_reviews, pd.DataFrame)
     assert isinstance(universe_review_audit, pd.DataFrame)
     assert isinstance(curation_queue_manifest, dict)
     assert isinstance(curation_package_evidence_manifest, dict)
     assert isinstance(package_document_discovery_manifest, dict)
+    assert isinstance(alternative_document_manifest, dict)
     assert isinstance(universe_exception_manifest, dict)
     profile_tables = _load_dimension_profile_tables()
     dimension_profiles = profile_tables["profiles"]
@@ -9547,6 +9562,11 @@ def _render_pipeline_manifest() -> None:
                 if isinstance(package_document_discovery_manifest.get("quality"), dict)
                 else {}
             )
+            alternative_quality = (
+                alternative_document_manifest.get("quality", {})
+                if isinstance(alternative_document_manifest.get("quality"), dict)
+                else {}
+            )
             queue_cards = [
                 _curation_card("Pacotes abertos", _fmt_int(float(queue_quality.get("package_open_rows", len(curation_packages)) or 0)), "FIDC × frente"),
                 _curation_card("Itens abertos", _fmt_int(float(queue_quality.get("open_rows", len(queue)) or 0)), "evidência granular"),
@@ -9567,6 +9587,14 @@ def _render_pipeline_manifest() -> None:
                     "FNET",
                     _fmt_int(float(discovery_quality.get("attempted_funds", 0) or 0)),
                     f"{_fmt_int(float(discovery_quality.get('downloaded_documents', 0) or 0))} documentos baixados",
+                ),
+                _curation_card(
+                    "CVM Eventuais",
+                    (
+                        f"{_fmt_int(float(alternative_quality.get('covered_funds', 0) or 0))}/"
+                        f"{_fmt_int(float(alternative_quality.get('attempted_funds', 0) or 0))}"
+                    ),
+                    f"{_fmt_int(float(alternative_quality.get('relevant_documents', 0) or 0))} documentos oficiais",
                 ),
             ]
             st.markdown(f'<div class="industry-kpi-grid">{"".join(queue_cards)}</div>', unsafe_allow_html=True)
@@ -9780,6 +9808,10 @@ def _render_pipeline_manifest() -> None:
                             ("Etapa técnica", focus.get("technical_stage", "")),
                             ("Score evidência", focus.get("evidence_score", "")),
                             ("Status FNET", focus.get("discovery_status", "")),
+                            ("Status CVM Eventuais", focus.get("alternative_status", "")),
+                            ("Docs CVM Eventuais", focus.get("alternative_documents_relevant", 0)),
+                            ("Tipos CVM Eventuais", focus.get("alternative_document_types", "")),
+                            ("Último doc alternativo", focus.get("alternative_latest_reference_date", "")),
                             ("Documentos locais", focus.get("document_local_rows", 0)),
                             ("Textos prontos", focus.get("text_ready_rows", 0)),
                             ("Documentos extraídos", focus.get("field_processed_document_rows", 0)),
@@ -9805,6 +9837,91 @@ def _render_pipeline_manifest() -> None:
                             width="stretch",
                             height=420,
                         )
+                if not alternative_document_status.empty:
+                    with st.expander(
+                        f"Fontes alternativas CVM · {_fmt_int(float(len(alternative_document_status)))} FIDCs"
+                    ):
+                        alternative_query = st.text_input(
+                            "Buscar fonte alternativa",
+                            placeholder="CNPJ, veículo, tipo documental ou status",
+                            key="industry_alternative_document_query",
+                        )
+                        alternative_view = alternative_document_status.copy()
+                        if alternative_query:
+                            search_columns = [
+                                col
+                                for col in [
+                                    "cnpj_fundo",
+                                    "nome_exibicao",
+                                    "listing_status",
+                                    "document_types",
+                                ]
+                                if col in alternative_view.columns
+                            ]
+                            search = alternative_view[search_columns].fillna("").astype(str).agg(" ".join, axis=1)
+                            alternative_view = alternative_view[
+                                search.str.contains(alternative_query, case=False, na=False)
+                            ].copy()
+                        status_columns = [
+                            "cnpj_fundo",
+                            "nome_exibicao",
+                            "listing_status",
+                            "documents_relevant",
+                            "documents_downloaded",
+                            "document_types",
+                            "latest_reference_date",
+                            "attempted_at_utc",
+                        ]
+                        st.dataframe(
+                            alternative_view[[col for col in status_columns if col in alternative_view.columns]],
+                            hide_index=True,
+                            width="stretch",
+                            height=360,
+                            column_config={
+                                "cnpj_fundo": "CNPJ",
+                                "nome_exibicao": "Veículo",
+                                "listing_status": "Status",
+                                "documents_relevant": "Docs",
+                                "documents_downloaded": "Baixados",
+                                "document_types": "Tipos",
+                                "latest_reference_date": "Última data",
+                                "attempted_at_utc": "Consulta UTC",
+                            },
+                        )
+                        available_funds = alternative_view.get(
+                            "cnpj_fundo", pd.Series(dtype=str)
+                        ).fillna("").astype(str).tolist()
+                        if available_funds:
+                            selected_alternative_fund = st.selectbox(
+                                "FIDC em foco",
+                                available_funds,
+                                key="industry_alternative_document_focus",
+                            )
+                            document_view = alternative_documents[
+                                alternative_documents.get(
+                                    "cnpj_fundo", pd.Series("", index=alternative_documents.index)
+                                ).fillna("").astype(str).eq(selected_alternative_fund)
+                            ].copy()
+                            document_columns = [
+                                "document_type",
+                                "document_class",
+                                "reference_date",
+                                "received_date",
+                                "source_filename",
+                                "source_url",
+                                "local_path",
+                                "sha256",
+                            ]
+                            st.dataframe(
+                                document_view[[col for col in document_columns if col in document_view.columns]],
+                                hide_index=True,
+                                width="stretch",
+                                height=280,
+                                column_config={
+                                    "source_url": st.column_config.LinkColumn("Documento CVM"),
+                                    "sha256": st.column_config.TextColumn("SHA-256", width="large"),
+                                },
+                            )
                 exception_view = universe_exceptions.copy()
                 if exception_view.empty and not curation_package_evidence.empty:
                     exception_view = build_industry_universe_exceptions(

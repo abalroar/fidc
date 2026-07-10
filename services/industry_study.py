@@ -674,6 +674,14 @@ CURATION_PACKAGE_EVIDENCE_COLUMNS = [
     "discovery_documents_downloaded",
     "discovery_documents_reused",
     "discovery_attempted_at_utc",
+    "alternative_status",
+    "alternative_documents_listed",
+    "alternative_documents_relevant",
+    "alternative_documents_downloaded",
+    "alternative_documents_reused",
+    "alternative_document_types",
+    "alternative_latest_reference_date",
+    "alternative_attempted_at_utc",
     "document_rows",
     "document_local_rows",
     "document_missing_rows",
@@ -4751,7 +4759,7 @@ _PARTICIPANT_SERVICE_ROLE_PATTERNS = {
     "auditor": re.compile(r"\bauditor(?:ia|\s+independente)?\b", re.IGNORECASE),
     "coordenador": re.compile(r"\bcoordenador(?:a)?\b", re.IGNORECASE),
 }
-_CNPJ_PATTERN = re.compile(r"\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2}")
+_CNPJ_PATTERN = re.compile(r"\d{2}\s*\.?\s*\d{3}\s*\.?\s*\d{3}\s*/?\s*\d{4}\s*-?\s*\d{2}")
 _LEGAL_NAME_SUFFIX = r"(?:S\.?\s*A\.?|S/?A|LTDA\.?|LIMITADA|EIRELI|S\.?C\.?D\.?)"
 _LEGAL_NAME_PATTERN = re.compile(
     rf"([A-ZÀ-Ü][A-ZÀ-Ü0-9&'.,()\-/ ]{{5,150}}?\b{_LEGAL_NAME_SUFFIX})",
@@ -5193,6 +5201,85 @@ def _participant_candidates_from_page(
                 "extracted_at_utc": extracted_at_utc,
             }
         )
+
+    group_definition_pattern = re.compile(
+        r"[“\"']?(?P<role>Cedentes?|Originadores?|Endossantes?|Sacados?|Devedores?)"
+        r"[”\"']?\s*(?:significa(?:m)?|:)",
+        flags=re.IGNORECASE,
+    )
+    glossary_boundary_pattern = re.compile(
+        r"[“\"'][A-ZÀ-Ü][A-Za-zÀ-Üà-ü0-9 /_-]{2,80}[”\"']\s*(?:significa(?:m)?|:)",
+        flags=re.IGNORECASE,
+    )
+    for definition in group_definition_pattern.finditer(text):
+        role = _ascii_compact(definition.group("role")).lower()
+        participant_type = (
+            "cedente_originador"
+            if role.startswith(("cedente", "originador", "endossante"))
+            else "sacado_devedor"
+        )
+        remaining = text[definition.end() : min(definition.end() + 2600, len(text))]
+        next_definition = glossary_boundary_pattern.search(remaining)
+        body = remaining[: next_definition.start()] if next_definition else remaining
+        segment_start = 0
+        for cnpj_match in _CNPJ_PATTERN.finditer(body):
+            participant_cnpj = normalize_cnpj(cnpj_match.group(0))
+            if len(participant_cnpj) != 14 or participant_cnpj == fund_cnpj:
+                segment_start = cnpj_match.end()
+                continue
+            participant_segment = re.sub(r"\s+", " ", body[segment_start : cnpj_match.start()]).strip()
+            name = re.split(
+                r",\s*(?:sociedade\b|institui[cç][aã]o\b|pessoa\s+jur[ií]dica\b|"
+                r"com\s+sede\b|inscrit[ao]\b|registrad[ao]\b)",
+                participant_segment,
+                maxsplit=1,
+                flags=re.IGNORECASE,
+            )[0]
+            name = re.sub(
+                r"^(?:[,;:]\s*)?(?:e\s+)?(?:a\s+|o\s+)?",
+                "",
+                name,
+                flags=re.IGNORECASE,
+            ).strip(" ,.;:-–")
+            name = _plausible_participant_name(clean_candidate_name(name))
+            if not name:
+                segment_start = cnpj_match.end()
+                continue
+            valid_identifier = is_valid_cnpj(participant_cnpj)
+            source_document = _canonical_evidence_document(record)
+            evidence_context = _evidence_context(
+                text,
+                definition.start(),
+                definition.end() + cnpj_match.end(),
+            )
+            seed = "|".join([fund_cnpj, participant_type, participant_cnpj, name, source_document])
+            rows.append(
+                {
+                    "candidate_id": hashlib.sha1(seed.encode("utf-8", errors="ignore")).hexdigest()[:20],
+                    "chunk_id": record.get("chunk_id", ""),
+                    "document_key": record.get("document_key", ""),
+                    "cnpj_fundo": fund_cnpj,
+                    "fundo": record.get("fundo", ""),
+                    "participant_type": participant_type,
+                    "participant_name_candidate": name,
+                    "participant_cnpj_candidate": participant_cnpj,
+                    "evidence_context": evidence_context,
+                    "source_document": source_document,
+                    "source_page": page_number or "",
+                    "source_document_date": record.get("document_date", ""),
+                    "source_cache": record.get("cache_path", ""),
+                    "source_sha256": record.get("source_sha256", ""),
+                    "extraction_method": "role_group_definition_page_v1",
+                    "relation_strength": "explicit" if valid_identifier else "invalid_identifier",
+                    "relation_cue": "named_group_definition" if valid_identifier else "cnpj_checksum_failed",
+                    "candidate_status": "accepted" if valid_identifier else "invalid_cnpj",
+                    "exclusion_reason": "" if valid_identifier else "CNPJ extraído falha no dígito verificador",
+                    "confidence_score": 0.95 if valid_identifier else 0.2,
+                    "priority_2025_2026": str(record.get("document_date", "")).startswith(("2025", "2026")),
+                    "extracted_at_utc": extracted_at_utc,
+                }
+            )
+            segment_start = cnpj_match.end()
     return rows
 
 
@@ -6706,6 +6793,7 @@ def build_industry_curation_package_evidence(
     document_inventory: pd.DataFrame | None = None,
     document_text_index: pd.DataFrame | None = None,
     package_document_discovery_status: pd.DataFrame | None = None,
+    alternative_document_status: pd.DataFrame | None = None,
     document_field_run_summary: pd.DataFrame | None = None,
     document_participant_candidates: pd.DataFrame | None = None,
     document_criteria_candidates: pd.DataFrame | None = None,
@@ -6965,6 +7053,37 @@ def build_industry_curation_package_evidence(
             }
         )
         out = out.merge(discovery_status, on="cnpj_fundo", how="left")
+    alternative_status = normalized(alternative_document_status)
+    if not alternative_status.empty:
+        alternative_columns = [
+            "cnpj_fundo",
+            "listing_status",
+            "documents_listed",
+            "documents_relevant",
+            "documents_downloaded",
+            "documents_reused",
+            "document_types",
+            "latest_reference_date",
+            "attempted_at_utc",
+        ]
+        for col in alternative_columns:
+            if col not in alternative_status.columns:
+                alternative_status[col] = ""
+        alternative_status = alternative_status[alternative_columns].drop_duplicates(
+            "cnpj_fundo", keep="last"
+        ).rename(
+            columns={
+                "listing_status": "alternative_status",
+                "documents_listed": "alternative_documents_listed",
+                "documents_relevant": "alternative_documents_relevant",
+                "documents_downloaded": "alternative_documents_downloaded",
+                "documents_reused": "alternative_documents_reused",
+                "document_types": "alternative_document_types",
+                "latest_reference_date": "alternative_latest_reference_date",
+                "attempted_at_utc": "alternative_attempted_at_utc",
+            }
+        )
+        out = out.merge(alternative_status, on="cnpj_fundo", how="left")
     review_frame = normalized(universe_reviews)
     if not review_frame.empty:
         review_columns = ["cnpj_fundo", "decision", "rationale", "reviewer", "updated_at_utc"]
@@ -6998,6 +7117,10 @@ def build_industry_curation_package_evidence(
         "cvm_registration_status",
         "discovery_status",
         "discovery_attempted_at_utc",
+        "alternative_status",
+        "alternative_document_types",
+        "alternative_latest_reference_date",
+        "alternative_attempted_at_utc",
         "universe_decision",
         "universe_rationale",
         "universe_reviewer",
@@ -7053,6 +7176,10 @@ def build_industry_curation_package_evidence(
         "discovery_documents_relevant",
         "discovery_documents_downloaded",
         "discovery_documents_reused",
+        "alternative_documents_listed",
+        "alternative_documents_relevant",
+        "alternative_documents_downloaded",
+        "alternative_documents_reused",
     ]
     for col in text_defaults:
         if col not in out.columns:
@@ -7134,7 +7261,7 @@ def build_industry_curation_package_evidence(
             "atenção",
             "fontes alternativas",
             "buscar regulamento, prospecto ou suplemento em CVM, administrador e documentos de oferta",
-            "python scripts/build_fidc_industry_package_documents.py --retry-completed --max-funds 25",
+            "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25",
         ),
         (
             out["document_rows"].eq(0),
@@ -7203,7 +7330,7 @@ def build_industry_curation_package_evidence(
         assigned |= selected
     out["source_artifacts"] = (
         "industry_curation_packages.csv.gz | registro_fundo_classe.zip | document_inventory.csv.gz | "
-        "industry_package_document_discovery_status.csv.gz | document_text_index.csv.gz | "
+        "industry_package_document_discovery_status.csv.gz | industry_alternative_document_status.csv.gz | document_text_index.csv.gz | "
         "document_field_run_summary.csv | document_participant_candidates.csv.gz | "
         "document_criteria_candidates.csv.gz | cedentes_structured.csv.gz | criteria_structured.csv.gz | "
         "industry_dimension_catalog.csv.gz"
@@ -7234,6 +7361,9 @@ def curation_package_evidence_quality_summary(evidence: pd.DataFrame) -> dict[st
             "scope_review_rows": 0,
             "discovery_attempted_funds": 0,
             "no_relevant_document_funds": 0,
+            "alternative_covered_funds": 0,
+            "alternative_document_rows": 0,
+            "p0_with_alternative_documents": 0,
             "p0_stage_counts": {},
             "technical_status_counts": {},
             "technical_stage_counts": {},
@@ -7245,6 +7375,7 @@ def curation_package_evidence_quality_summary(evidence: pd.DataFrame) -> dict[st
     status = frame.get("technical_status", pd.Series("", index=frame.index)).fillna("").astype(str)
     stage = frame.get("technical_stage", pd.Series("", index=frame.index)).fillna("").astype(str)
     discovery_status = frame.get("discovery_status", pd.Series("", index=frame.index)).fillna("").astype(str)
+    alternative_status = frame.get("alternative_status", pd.Series("", index=frame.index)).fillna("").astype(str)
     return {
         "rows": int(len(frame)),
         "funds": int(frame.get("cnpj_fundo", pd.Series(dtype=str)).fillna("").astype(str).replace("", pd.NA).nunique()),
@@ -7274,6 +7405,19 @@ def curation_package_evidence_quality_summary(evidence: pd.DataFrame) -> dict[st
             .astype(str)
             .replace("", pd.NA)
             .nunique()
+        ),
+        "alternative_covered_funds": int(
+            frame.loc[alternative_status.eq("ok"), "cnpj_fundo"]
+            .fillna("")
+            .astype(str)
+            .replace("", pd.NA)
+            .nunique()
+        ),
+        "alternative_document_rows": int(
+            pd.to_numeric(frame.get("alternative_documents_relevant"), errors="coerce").fillna(0).sum()
+        ),
+        "p0_with_alternative_documents": int(
+            pd.to_numeric(p0.get("alternative_documents_relevant"), errors="coerce").fillna(0).gt(0).sum()
         ),
         "p0_stage_counts": {
             str(k): int(v)
@@ -7509,6 +7653,9 @@ def build_curation_package_evidence_pipeline_manifest(
             "document_inventory": file_fingerprint(industry_dir / "document_inventory.csv.gz"),
             "package_document_discovery_status": file_fingerprint(
                 industry_dir / "industry_package_document_discovery_status.csv.gz"
+            ),
+            "alternative_document_status": file_fingerprint(
+                industry_dir / "industry_alternative_document_status.csv.gz"
             ),
             "document_text_index": file_fingerprint(industry_dir / "document_text_index.csv.gz"),
             "document_field_run_summary": file_fingerprint(industry_dir / "document_field_run_summary.csv"),
@@ -8968,8 +9115,11 @@ def build_pipeline_readiness_checks(
     p0_no_signal = int(p0_stage_counts.get("sem sinal extraído", 0) or 0)
     p0_pages = int(p0_stage_counts.get("páginas", 0) or 0)
     p0_review = int(p0_stage_counts.get("revisão", 0) or 0)
+    alternative_covered = int(quality_rollup.get("alternative_discovery_covered_funds", 0) or 0)
+    alternative_documents = int(quality_rollup.get("alternative_discovery_relevant_documents", 0) or 0)
+    alternative_errors = int(quality_rollup.get("alternative_discovery_error_documents", 0) or 0)
     p0_blocked = p0_discovery + p0_universe
-    p0_attention = p0_alternative + p0_extraction + p0_triage + p0_no_signal + p0_pages
+    p0_attention = p0_alternative + p0_extraction + p0_triage + p0_no_signal + p0_pages + alternative_errors
     add(
         "package_evidence",
         6,
@@ -8981,11 +9131,16 @@ def build_pipeline_readiness_checks(
             f"documentos {p0_documents}/{p0_rows}; texto {p0_text}/{p0_rows}; "
             f"descoberta {p0_discovery}; universo {p0_universe}; fontes alternativas {p0_alternative}; "
             f"extração {p0_extraction}; triagem {p0_triage}; sem sinal {p0_no_signal}; "
-            f"páginas {p0_pages}; revisão {p0_review}"
+            f"páginas {p0_pages}; revisão {p0_review}; "
+            f"CVM Eventuais {alternative_covered} fundos/{alternative_documents} docs/{alternative_errors} erros"
         ),
         "Executar o próximo lote técnico e levar à decisão humana apenas pacotes com evidência suficiente.",
         "industry_curation_package_evidence.csv.gz | industry_package_document_discovery_status.csv.gz",
-        "python scripts/build_fidc_industry_package_documents.py --max-funds 25 && python scripts/build_fidc_industry_curation_package_evidence.py",
+        (
+            "python scripts/build_fidc_industry_package_documents.py --max-funds 25 && "
+            "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25 && "
+            "python scripts/build_fidc_industry_curation_package_evidence.py"
+        ),
     )
 
     universe_rows = int(quality_rollup.get("universe_exception_rows", 0) or 0)
@@ -9150,6 +9305,7 @@ def build_monthly_update_plan(
         "curation_package_evidence": ["package_evidence", "curation_queue"],
         "universe_exceptions": ["universe_scope", "package_evidence"],
         "package_document_discovery": ["package_evidence", "document_chunk_processing"],
+        "alternative_document_discovery": ["package_evidence", "document_chunk_processing"],
         "dimension_profiles": ["structured_coverage"],
         "dimension_monthly": ["competencia_alignment", "structured_coverage"],
         "dimension_dossiers": ["competencia_alignment", "structured_coverage"],
@@ -9165,9 +9321,9 @@ def build_monthly_update_plan(
             return "Documentos e ofertas"
         if order <= 17:
             return "Estruturação"
-        if order <= 21:
+        if order <= 22:
             return "Curadoria técnica"
-        if order <= 25:
+        if order <= 26:
             return "Agregações reutilizáveis"
         return "Controle"
 
@@ -10425,6 +10581,9 @@ def build_industry_pipeline_index(
                 "scope_review_rows",
                 "discovery_attempted_funds",
                 "no_relevant_document_funds",
+                "alternative_covered_funds",
+                "alternative_document_rows",
+                "p0_with_alternative_documents",
                 "p0_stage_counts",
                 "technical_status_counts",
                 "technical_stage_counts",
@@ -10467,6 +10626,30 @@ def build_industry_pipeline_index(
                 "reused_documents",
                 "listed_only_documents",
                 "download_error_documents",
+                "listing_status_counts",
+                "download_status_counts",
+            ],
+        },
+        {
+            "module_id": "alternative_document_discovery",
+            "label": "Fontes alternativas CVM",
+            "manifest_name": "industry_alternative_document_manifest.json",
+            "command": "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25",
+            "cadence": "após ausência de documento relevante no FNET",
+            "depends_on": ["evidência técnica dos pacotes", "CVM Documentos Eventuais", "data/raw"],
+            "quality_keys": [
+                "target_funds",
+                "attempted_funds",
+                "covered_funds",
+                "no_document_funds",
+                "partial_funds",
+                "document_rows",
+                "relevant_documents",
+                "downloaded_documents",
+                "reused_documents",
+                "download_error_documents",
+                "regulation_documents",
+                "document_type_counts",
                 "listing_status_counts",
                 "download_status_counts",
             ],
@@ -11064,6 +11247,14 @@ def build_industry_pipeline_index(
         },
         {
             "order": 22,
+            "module_id": "alternative_document_discovery",
+            "label": "Buscar fontes alternativas oficiais",
+            "command": "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25",
+            "reason": "Cruza pacotes sem documento FNET com o dataset semanal de Documentos Eventuais da CVM e baixa os PDFs oficiais.",
+            "incremental_note": "Baixa apenas o CSV anual necessário e documentos dos CNPJs no estágio fontes alternativas; hashes e URLs ficam persistidos.",
+        },
+        {
+            "order": 23,
             "module_id": "dimension_profiles",
             "label": "Regerar perfis cruzados por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_profiles.py",
@@ -11071,7 +11262,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas snapshot e catálogo; pesos de dimensões multivalor são aplicados no agregado.",
         },
         {
-            "order": 23,
+            "order": 24,
             "module_id": "dimension_monthly",
             "label": "Regerar séries mensais por dimensão",
             "command": "python scripts/build_fidc_industry_dimension_monthly.py",
@@ -11079,7 +11270,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê o catálogo e a base granular mensal; evita recomputar séries no momento da interação.",
         },
         {
-            "order": 24,
+            "order": 25,
             "module_id": "dimension_dossiers",
             "label": "Regerar dossiês dimensionais",
             "command": "python scripts/build_fidc_industry_dimension_dossiers.py",
@@ -11087,7 +11278,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas atlas, perfis e registry já materializados; não reprocessa documentos ou informe mensal.",
         },
         {
-            "order": 25,
+            "order": 26,
             "module_id": "market_share",
             "label": "Regerar market share e concentração",
             "command": "python scripts/build_fidc_industry_market_share.py",
@@ -11095,7 +11286,7 @@ def build_industry_pipeline_index(
             "incremental_note": "Lê apenas o snapshot unificado; dimensões multivalor são ponderadas sem reprocessar bases detalhe.",
         },
         {
-            "order": 26,
+            "order": 27,
             "module_id": "pipeline_index",
             "label": "Atualizar cockpit do pipeline",
             "command": "python scripts/build_fidc_industry_pipeline_index.py",
@@ -11132,6 +11323,10 @@ def build_industry_pipeline_index(
     )
     package_discovery_quality = next(
         (m.get("quality_highlights", {}) for m in modules if m.get("id") == "package_document_discovery"),
+        {},
+    )
+    alternative_discovery_quality = next(
+        (m.get("quality_highlights", {}) for m in modules if m.get("id") == "alternative_document_discovery"),
         {},
     )
     criteria_quality = next((m.get("quality_highlights", {}) for m in modules if m.get("id") == "criteria"), {})
@@ -11277,6 +11472,12 @@ def build_industry_pipeline_index(
         "package_evidence_no_relevant_document_funds": package_evidence_quality.get(
             "no_relevant_document_funds", 0
         ),
+        "package_evidence_alternative_covered_funds": package_evidence_quality.get(
+            "alternative_covered_funds", 0
+        ),
+        "package_evidence_p0_with_alternative_documents": package_evidence_quality.get(
+            "p0_with_alternative_documents", 0
+        ),
         "package_evidence_p0_stage_counts": package_evidence_quality.get("p0_stage_counts", {}),
         "package_evidence_technical_status_counts": package_evidence_quality.get("technical_status_counts", {}),
         "package_evidence_technical_stage_counts": package_evidence_quality.get("technical_stage_counts", {}),
@@ -11300,6 +11501,11 @@ def build_industry_pipeline_index(
         "package_discovery_no_relevant_document_funds": package_discovery_quality.get(
             "no_relevant_document_funds", 0
         ),
+        "alternative_discovery_attempted_funds": alternative_discovery_quality.get("attempted_funds", 0),
+        "alternative_discovery_covered_funds": alternative_discovery_quality.get("covered_funds", 0),
+        "alternative_discovery_relevant_documents": alternative_discovery_quality.get("relevant_documents", 0),
+        "alternative_discovery_downloaded_documents": alternative_discovery_quality.get("downloaded_documents", 0),
+        "alternative_discovery_error_documents": alternative_discovery_quality.get("download_error_documents", 0),
         "document_chunks": document_chunks_total,
         "document_chunk_plan_rows": document_chunk_plan_rows,
         "document_chunk_plan_open_rows": document_chunk_plan_open_rows,
@@ -15023,11 +15229,14 @@ def build_document_pipeline_manifest(
     chunk_plan: pd.DataFrame | None = None,
     raw_dir: Path | None = None,
     raw_rows: pd.DataFrame | None = None,
+    alternative_rows: pd.DataFrame | None = None,
 ) -> dict[str, object]:
     if chunk_plan is None:
         chunk_plan = pd.DataFrame()
     if raw_rows is None:
         raw_rows = pd.DataFrame()
+    if alternative_rows is None:
+        alternative_rows = pd.DataFrame()
     quality = document_quality_summary(inventory, chunks, chunk_plan)
     outputs = {
         "document_inventory": file_fingerprint(inventory_path),
@@ -15066,6 +15275,16 @@ def build_document_pipeline_manifest(
             "rows": int(len(raw_rows)),
             "funds": int(raw_rows["cnpj_fundo"].nunique()) if "cnpj_fundo" in raw_rows else 0,
             "rerun": "python scripts/build_fidc_industry_documents.py",
+        },
+        {
+            "id": "load_cvm_eventual_documents",
+            "label": "Documentos alternativos CVM",
+            "status": "ok" if not alternative_rows.empty else "empty",
+            "input": str(industry_dir / "industry_alternative_documents.csv.gz"),
+            "output": "memoria:cvm_eventual_documents",
+            "rows": int(len(alternative_rows)),
+            "funds": int(alternative_rows["cnpj_fundo"].nunique()) if "cnpj_fundo" in alternative_rows else 0,
+            "rerun": "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25",
         },
         {
             "id": "fingerprint_local_files",
@@ -15134,6 +15353,9 @@ def build_document_pipeline_manifest(
                 "path": str(raw_dir or "data/raw"),
                 "exists": bool(raw_dir and raw_dir.exists()),
             },
+            "alternative_documents": file_fingerprint(
+                industry_dir / "industry_alternative_documents.csv.gz"
+            ),
         },
         "outputs": outputs,
         "stages": stages,

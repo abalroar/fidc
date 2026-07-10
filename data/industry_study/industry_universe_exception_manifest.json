@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-universe-exception-manifest/v1",
-  "generated_at_utc": "2026-07-10T11:15:12+00:00",
+  "generated_at_utc": "2026-07-10T11:56:34+00:00",
   "pipeline": "industry_universe_exceptions",
   "design_constraints": {
     "manual_review_in_app": true,
@@ -15,14 +15,14 @@
     "package_evidence": {
       "path": "data/industry_study/industry_curation_package_evidence.csv.gz",
       "exists": true,
-      "bytes": 1910423,
-      "sha256": "6a879cf1f124236c7d26bacc047055878398d11b1215b578e056605ecb9e921a"
+      "bytes": 1922623,
+      "sha256": "fb1fab0d70ec666f525483b492839578b2dab0fbb84d749f9f932a7131843118"
     },
     "registration_scope": {
       "path": "data/industry_study/industry_registration_scope.csv.gz",
       "exists": true,
       "bytes": 1641858,
-      "sha256": "21f581372b6161439eae0ae26b3861b4f381ee5121d80cb50fb70a186673c554"
+      "sha256": "64b622e6e49e232016243fbcbf01d3058d3478b529fc42eab13391adb276cac0"
     },
     "universe_reviews": {
       "path": "data/industry_study/universe_scope_reviews.csv",
@@ -42,7 +42,7 @@
       "path": "data/industry_study/industry_universe_exceptions.csv.gz",
       "exists": true,
       "bytes": 1744,
-      "sha256": "ee799fa15887f7fa38af57b506854a6ea5429a965494f26fa506203fdd64e3ab"
+      "sha256": "ac953b78a715e887fefdd101649185036be7bde91ba00d12b01ef2d81515880b"
     },
     "universe_reviews": {
       "path": "data/industry_study/universe_scope_reviews.csv",

@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-document-manifest/v1",
-  "generated_at_utc": "2026-07-10T05:08:02+00:00",
+  "generated_at_utc": "2026-07-10T11:48:33+00:00",
   "pipeline": "industry_document_inventory",
   "design_constraints": {
     "modular": true,
@@ -26,20 +26,26 @@
     "raw_documents_dir": {
       "path": "data/raw",
       "exists": true
+    },
+    "alternative_documents": {
+      "path": "data/industry_study/industry_alternative_documents.csv.gz",
+      "exists": true,
+      "bytes": 4802,
+      "sha256": "ebf88ac185e310af961d9a2f0c072bf425ed64169142ea5adbeb18fc46acd1ae"
     }
   },
   "outputs": {
     "document_inventory": {
       "path": "data/industry_study/document_inventory.csv.gz",
       "exists": true,
-      "bytes": 1097392,
-      "sha256": "13c8a5731eb76aefa364f5ed9c7d53a2d3d3476e1189b524da23f6700d8f8c75"
+      "bytes": 1101614,
+      "sha256": "4a120b25c3ad74581832accd03a8dbfc68977cd4941cfc866510880138877a8b"
     },
     "document_processing_chunks": {
       "path": "data/industry_study/document_processing_chunks.csv",
       "exists": true,
-      "bytes": 37875,
-      "sha256": "1cf15199a610c66b51241b4ee0977a75a1c7f93e5bcfe90c663bd60df9948028"
+      "bytes": 38184,
+      "sha256": "34877dc27afa8612729cb7f4048db66305b6bdfda5dd40893cb6899378f2f1ff"
     },
     "manifest": {
       "path": "data/industry_study/industry_document_manifest.json"
@@ -47,8 +53,8 @@
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 87245,
-      "sha256": "25dca3cd57727af5827068a345b329c382ca50b26990dbbbb179e74c261cd06c"
+      "bytes": 88033,
+      "sha256": "d913ab8e202f2fa18afa7d02c09600668c7733d78b1d9f435c8752288233a26f"
     }
   },
   "stages": [
@@ -78,9 +84,19 @@
       "status": "ok",
       "input": "data/raw",
       "output": "memoria:raw_document_files",
-      "rows": 9859,
-      "funds": 807,
+      "rows": 9896,
+      "funds": 823,
       "rerun": "python scripts/build_fidc_industry_documents.py"
+    },
+    {
+      "id": "load_cvm_eventual_documents",
+      "label": "Documentos alternativos CVM",
+      "status": "ok",
+      "input": "data/industry_study/industry_alternative_documents.csv.gz",
+      "output": "memoria:cvm_eventual_documents",
+      "rows": 37,
+      "funds": 16,
+      "rerun": "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25"
     },
     {
       "id": "fingerprint_local_files",
@@ -88,8 +104,8 @@
       "status": "ok",
       "input": "memoria:document_source_rows+regulatory_extractions+raw_document_files",
       "output": "memoria:document_inventory",
-      "rows": 11879,
-      "funds": 807,
+      "rows": 11916,
+      "funds": 823,
       "rerun": "python scripts/build_fidc_industry_documents.py"
     },
     {
@@ -98,7 +114,7 @@
       "status": "ok",
       "input": "memoria:document_inventory",
       "output": "data/industry_study/document_processing_chunks.csv",
-      "rows": 112,
+      "rows": 113,
       "rerun": "python scripts/build_fidc_industry_documents.py"
     },
     {
@@ -107,7 +123,7 @@
       "status": "ok",
       "input": "document_processing_chunks+document_inventory+document_chunk_actions",
       "output": "data/industry_study/document_chunk_plan.csv",
-      "rows": 112,
+      "rows": 113,
       "rerun": "python scripts/build_fidc_industry_document_chunk_plan.py"
     },
     {
@@ -116,21 +132,21 @@
       "status": "ok",
       "input": "memoria:document_inventory",
       "output": "data/industry_study/document_inventory.csv.gz",
-      "rows": 11879,
+      "rows": 11916,
       "rerun": "python scripts/build_fidc_industry_documents.py"
     }
   ],
   "quality": {
-    "document_rows": 11879,
-    "funds": 807,
-    "priority_2025_2026_docs": 6947,
-    "local_ready_docs": 11879,
+    "document_rows": 11916,
+    "funds": 823,
+    "priority_2025_2026_docs": 6984,
+    "local_ready_docs": 11916,
     "missing_local_docs": 0,
-    "hashed_docs": 11879,
-    "chunks": 112,
-    "chunk_plan_rows": 112,
+    "hashed_docs": 11916,
+    "chunks": 113,
+    "chunk_plan_rows": 113,
     "chunk_plan_status_counts": {
-      "pronto": 112
+      "pronto": 113
     },
     "chunk_plan_open_rows": 0,
     "max_documents_per_chunk": 250,
@@ -139,13 +155,13 @@
       "cnpj_fundo": 1.0,
       "documento_origem": 1.0,
       "documento_id": 1.0,
-      "document_date": 0.8779358531862952,
+      "document_date": 0.8783148707620007,
       "local_path": 1.0,
       "sha256": 1.0,
       "setor_n1": 1.0
     },
     "document_class_counts": {
-      "regulamento": 5282,
+      "regulamento": 5319,
       "emissao": 2769,
       "assembleia": 2033,
       "extracao_json": 1449,
@@ -153,16 +169,17 @@
       "outro": 80
     },
     "content_kind_counts": {
-      "pdf": 9859,
+      "pdf": 9896,
       "extraction_json": 1449,
       "text_cache": 571
     },
     "source_table_counts": {
       "pricing_tranche_enriched": 815,
-      "raw_document_files": 9859,
+      "raw_document_files": 9896,
       "cedentes_sacados_candidates": 571,
       "manual_review_queue": 686,
-      "regulatory_extractions": 1449
+      "regulatory_extractions": 1449,
+      "cvm_eventual_documents": 37
     }
   }
 }

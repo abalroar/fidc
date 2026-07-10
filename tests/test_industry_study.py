@@ -281,6 +281,14 @@ def test_participant_registry_maps_cnae_and_caches_only_normalized_fields(monkey
         max_network_requests=0,
         sleep_seconds=0,
     )
+    focused, focused_quality = build_participant_registry(
+        structured,
+        cache_dir=tmp_path / "cache",
+        existing=second,
+        requested_cnpjs=["34.337.707/0001-00"],
+        max_network_requests=0,
+        sleep_seconds=0,
+    )
 
     assert cnae_section(6499999) == ("K", "Atividades financeiras, seguros e serviços relacionados")
     assert normalized["setor"] == "Atividades financeiras, seguros e serviços relacionados"
@@ -289,6 +297,9 @@ def test_participant_registry_maps_cnae_and_caches_only_normalized_fields(monkey
     assert first_quality == {"targets": 2, "network_requests": 1, "cache_hits": 0, "pending": 1, "errors": 0, "ok": 1}
     assert second_quality["ok"] == 2
     assert second_quality["cache_hits"] == 1
+    assert focused_quality["targets"] == 1
+    assert focused_quality["ok"] == 1
+    assert len(focused) == 2
     assert calls == ["34337707000100", "32402502000135"]
     cached = json.loads((tmp_path / "cache" / "34337707000100.json").read_text(encoding="utf-8"))
     assert "qsa" not in cached
@@ -1918,6 +1929,13 @@ def test_participant_relation_triage_suppresses_adjacent_glossary_roles():
         'sob o nº 34.337.707/0001-00; “Endossante Secundário”: a pessoa jurídica que, na qualidade '
         'de Cedente, transfere os Direitos Creditórios.'
     )
+    named_group_text = (
+        '“Cedentes” Significa a John Deere Brasil Ltda., com sede em Horizontina, inscrita no CNPJ '
+        'sob nº 89.674.782/0001-58, a Canoas Manufatura de Máquinas Agrícolas Ltda., com sede em '
+        'Canoas, inscrita no CNPJ sob nº 06.303.670/0001-63; e a Ciber Equipamentos Rodoviários '
+        'Ltda., com sede em Porto Alegre, inscrita no CNPJ sob nº 92.678.093/0001-26. '
+        '“Direitos Creditórios” Significa os créditos adquiridos pelo Fundo.'
+    )
 
     accepted = _participant_candidates_from_page(
         text=accepted_text,
@@ -1943,6 +1961,12 @@ def test_participant_relation_triage_suppresses_adjacent_glossary_roles():
         record=record,
         extracted_at_utc="2026-07-10T00:00:00+00:00",
     )
+    named_group = _participant_candidates_from_page(
+        text=named_group_text,
+        page_number=5,
+        record=record,
+        extracted_at_utc="2026-07-10T00:00:00+00:00",
+    )
 
     accepted_row = next(row for row in accepted if row["participant_cnpj_candidate"] == "12345678000195")
     glossary_row = next(row for row in glossary if row["participant_cnpj_candidate"] == "09346601000125")
@@ -1959,6 +1983,17 @@ def test_participant_relation_triage_suppresses_adjacent_glossary_roles():
     assert adjacent_valid_row["candidate_status"] == "accepted"
     assert adjacent_valid_row["relation_cue"] == "role_definition_before_cnpj"
     assert adjacent_valid_row["participant_name_candidate"] == "BMP SOCIEDADE DE CRÉDITO DIRETO S.A"
+    named_group_rows = {
+        row["participant_cnpj_candidate"]: row
+        for row in named_group
+        if row["relation_cue"] == "named_group_definition"
+    }
+    assert set(named_group_rows) == {"89674782000158", "06303670000163", "92678093000126"}
+    assert named_group_rows["89674782000158"]["participant_name_candidate"] == "John Deere Brasil Ltda"
+    assert named_group_rows["06303670000163"]["participant_name_candidate"] == (
+        "Canoas Manufatura de Máquinas Agrícolas Ltda"
+    )
+    assert named_group_rows["92678093000126"]["confidence_score"] == 0.95
 
 
 def test_suppressed_participant_only_enters_metrics_after_manual_approval():
@@ -5330,6 +5365,24 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "download_error_documents": 0,
             },
         )
+        write_module_manifest(
+            "industry_alternative_document_manifest.json",
+            "industry_alternative_document_discovery",
+            "industry_alternative_documents.csv.gz",
+            {
+                "target_funds": 2,
+                "attempted_funds": 2,
+                "covered_funds": 2,
+                "no_document_funds": 0,
+                "partial_funds": 0,
+                "document_rows": 5,
+                "relevant_documents": 5,
+                "downloaded_documents": 5,
+                "reused_documents": 0,
+                "download_error_documents": 0,
+                "regulation_documents": 5,
+            },
+        )
         pd.DataFrame(
             [
                 {
@@ -5668,8 +5721,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
     assert index["schema_version"] == "industry-pipeline-index/v1"
-    assert index["quality_rollup"]["modules_total"] == 24
-    assert index["quality_rollup"]["module_status_counts"]["ok"] == 24
+    assert index["quality_rollup"]["modules_total"] == 25
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 25
     assert index["quality_rollup"]["artifacts_missing"] == 0
     assert index["quality_rollup"]["manual_review_artifacts_total"] == 14
     assert index["quality_rollup"]["manual_review_artifacts_present"] == 14
@@ -5711,6 +5764,10 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     }
     assert index["quality_rollup"]["package_discovery_attempted_funds"] == 1
     assert index["quality_rollup"]["package_discovery_downloaded_documents"] == 2
+    assert index["quality_rollup"]["alternative_discovery_attempted_funds"] == 2
+    assert index["quality_rollup"]["alternative_discovery_covered_funds"] == 2
+    assert index["quality_rollup"]["alternative_discovery_relevant_documents"] == 5
+    assert index["quality_rollup"]["alternative_discovery_downloaded_documents"] == 5
     assert index["quality_rollup"]["document_chunks"] == 1
     assert index["quality_rollup"]["document_chunk_plan_rows"] == 1
     assert index["quality_rollup"]["document_chunk_plan_open_rows"] == 1
@@ -5788,7 +5845,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert prd["manual_review_in_app"]["status_prd"] == "ok"
     assert prd["heatmaps_generic"]["status_prd"] == "atenção"
     assert prd["public_audit_readiness"]["status_prd"] == "atenção"
-    assert index["quality_rollup"]["monthly_update_plan_rows"] == 26
+    assert index["quality_rollup"]["monthly_update_plan_rows"] == 27
     assert "monthly_update_plan_status_counts" in index["quality_rollup"]
     assert index["quality_rollup"]["publication_gate_status"] == "bloqueado"
     assert index["quality_rollup"]["publication_gate_rows"] > 1
@@ -5812,6 +5869,9 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert monthly_plan["document_text"]["comando"] == "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0001"
     assert monthly_plan["document_fields"]["comando"] == "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001"
     assert monthly_plan["participant_registry"]["comando"] == "python scripts/build_fidc_industry_participant_registry.py"
+    assert monthly_plan["alternative_document_discovery"]["comando"] == (
+        "python scripts/build_fidc_industry_alternative_documents.py --max-funds 25"
+    )
     assert monthly_plan["dimension_traceability"]["comando"] == "python scripts/build_fidc_industry_traceability.py"
     assert monthly_plan["incremental_onboarding"]["status_prontidao"] == "bloqueado"
     assert monthly_plan["monthly_delta"]["status_prontidao"] == "bloqueado"
@@ -5869,6 +5929,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         "document_fields",
         "curation_queue",
         "universe_exceptions",
+        "alternative_document_discovery",
         "pipeline_index",
     }
     assert any(row["artifact"] == "manifest" for row in index["artifact_index"])

@@ -34,6 +34,7 @@ from services.industry_study import (
     scan_raw_document_files,
     scan_regulatory_extraction_files,
 )
+from services.industry_alternative_documents import alternative_documents_to_inventory_sources  # noqa: E402
 
 
 DEFAULT_INDUSTRY_DIR = Path("data/industry_study")
@@ -80,7 +81,10 @@ def main() -> None:
 
     source_rows = load_document_source_rows(args.strategy_db)
     raw_rows = scan_raw_document_files(args.raw_dir)
-    document_sources = merge_document_source_rows(source_rows, raw_rows)
+    alternative_rows = alternative_documents_to_inventory_sources(
+        load_dataframe(args.industry_dir / "industry_alternative_documents.csv.gz")
+    )
+    document_sources = merge_document_source_rows(source_rows, raw_rows, alternative_rows)
     extraction_rows = scan_regulatory_extraction_files(args.extractions_dir)
     fund_universe = load_fund_universe(args.strategy_db)
     inventory = build_document_inventory(
@@ -133,6 +137,7 @@ def main() -> None:
         max_hash_bytes=args.max_hash_bytes,
         raw_dir=args.raw_dir,
         raw_rows=raw_rows,
+        alternative_rows=alternative_rows,
     )
     save_pipeline_manifest(manifest, manifest_path)
 
