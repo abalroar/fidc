@@ -1,0 +1,86 @@
+{
+  "schema_version": "industry-package-document-discovery-manifest/v1",
+  "generated_at_utc": "2026-07-10T04:46:43+00:00",
+  "pipeline": "industry_package_document_discovery",
+  "design_constraints": {
+    "modular": true,
+    "incremental": true,
+    "download_enabled": true,
+    "notes": [
+      "A seleção parte dos estágios descoberta/download da evidência por pacote.",
+      "Resultados são cumulativos por CNPJ e documento; tentativas concluídas não são repetidas sem opção explícita."
+    ]
+  },
+  "inputs": {
+    "package_evidence": {
+      "path": "data/industry_study/industry_curation_package_evidence.csv.gz",
+      "exists": true,
+      "bytes": 1501793,
+      "sha256": "b45a35af06f16f59b9f2345bf898f8aa52ff344835a10282571bc5ef3db4253b"
+    },
+    "raw_dir": {
+      "path": "data/raw",
+      "exists": true
+    }
+  },
+  "outputs": {
+    "package_document_discovery": {
+      "path": "data/industry_study/industry_package_document_discovery.csv.gz",
+      "exists": true,
+      "bytes": 17262,
+      "sha256": "2ff238e2467c07ef431e310994ee0f28ce0bea058800b514316397126167cecc"
+    },
+    "package_document_discovery_status": {
+      "path": "data/industry_study/industry_package_document_discovery_status.csv.gz",
+      "exists": true,
+      "bytes": 2804,
+      "sha256": "82abc73f561c84c62fc58869cc75e6c05527b5ad59695e350f94fd4ede9ab448"
+    },
+    "manifest": {
+      "path": "data/industry_study/industry_package_document_discovery_manifest.json"
+    }
+  },
+  "stages": [
+    {
+      "id": "select_targets",
+      "label": "Selecionar CNPJs prioritários",
+      "status": "ok",
+      "rows": 1,
+      "rerun": "python scripts/build_fidc_industry_package_documents.py --max-funds 25"
+    },
+    {
+      "id": "discover_fnet",
+      "label": "Consultar documentos no FNET",
+      "status": "ok",
+      "rows": 59,
+      "rerun": "python scripts/build_fidc_industry_package_documents.py --max-funds 25"
+    },
+    {
+      "id": "persist_discovery",
+      "label": "Persistir descoberta e downloads",
+      "status": "ok",
+      "rows": 214,
+      "rerun": "python scripts/build_fidc_industry_package_documents.py --max-funds 25"
+    }
+  ],
+  "quality": {
+    "target_funds": 1,
+    "attempted_funds": 59,
+    "successful_funds": 59,
+    "no_relevant_document_funds": 16,
+    "listing_error_funds": 0,
+    "document_rows": 214,
+    "relevant_documents": 214,
+    "downloaded_documents": 214,
+    "reused_documents": 0,
+    "listed_only_documents": 0,
+    "download_error_documents": 0,
+    "listing_status_counts": {
+      "ok": 43,
+      "sem_documento_relevante": 16
+    },
+    "download_status_counts": {
+      "baixado": 214
+    }
+  }
+}

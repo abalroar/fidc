@@ -49,7 +49,9 @@ from services.industry_study import (  # noqa: E402
     build_document_text_run_summary,
     build_industry_curation_queue,
     build_industry_curation_packages,
+    build_industry_curation_package_evidence,
     build_industry_curation_queue_summary,
+    curation_package_evidence_quality_summary,
     expand_industry_curation_package_updates,
     build_dimension_catalog_pipeline_manifest,
     build_dimension_traceability_matrix,
@@ -4738,6 +4740,235 @@ def test_industry_curation_queue_unifies_all_fidc_workstreams():
     assert set(expanded["updated_at_utc"]) == {"2026-07-10T12:00:00+00:00"}
 
 
+def test_curation_package_evidence_separates_technical_stage_from_human_status():
+    packages = pd.DataFrame(
+        [
+            {
+                "package_id": "pkg-a",
+                "work_tier": "P0 competência",
+                "batch_id": "P0-001",
+                "queue_domain": "monthly_delta",
+                "status_curadoria": "pendente",
+                "competencia": "2026-05",
+                "cnpj_fundo": "11.111.111/0001-11",
+                "nome_exibicao": "FIDC SEM DOCUMENTOS",
+            },
+            {
+                "package_id": "pkg-b",
+                "work_tier": "P0 competência",
+                "batch_id": "P0-001",
+                "queue_domain": "monthly_delta",
+                "status_curadoria": "pendente",
+                "competencia": "2026-05",
+                "cnpj_fundo": "22.222.222/0001-22",
+                "nome_exibicao": "FUNDO MULTIMERCADO",
+            },
+            {
+                "package_id": "pkg-c",
+                "work_tier": "P0 competência",
+                "batch_id": "P0-001",
+                "queue_domain": "monthly_delta",
+                "status_curadoria": "pendente",
+                "competencia": "2026-05",
+                "cnpj_fundo": "33.333.333/0001-33",
+                "nome_exibicao": "FIDC COM EVIDENCIA",
+            },
+            {
+                "package_id": "pkg-d",
+                "work_tier": "P0 competência",
+                "batch_id": "P0-001",
+                "queue_domain": "monthly_delta",
+                "status_curadoria": "pendente",
+                "competencia": "2026-05",
+                "cnpj_fundo": "44.444.444/0001-44",
+                "nome_exibicao": "FIDC A DESCOBRIR",
+            },
+        ]
+    )
+    registration = pd.DataFrame(
+        [
+            {"cnpj_fundo": "11111111000111", "cvm_fund_type": "FIDC", "cvm_class_type": "Classes FIDC"},
+            {"cnpj_fundo": "22222222000122", "cvm_fund_type": "FI", "cvm_class_type": "Classes FIF"},
+            {"cnpj_fundo": "33333333000133", "cvm_fund_type": "FIDC", "cvm_class_type": "Classes FIDC"},
+            {"cnpj_fundo": "44444444000144", "cvm_fund_type": "FIDC", "cvm_class_type": "Classes FIDC"},
+        ]
+    )
+    documents = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "33333333000133",
+                "document_key": "doc-c",
+                "local_exists": True,
+                "document_class": "regulamento",
+                "document_date": "2026-05-01",
+            }
+        ]
+    )
+    texts = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "33333333000133",
+                "text_record_id": "text-c",
+                "parse_status": "text_ready",
+                "page_count": 10,
+                "pages_with_text": 10,
+                "text_chars": 5000,
+                "extraction_method": "pypdf_all_pages",
+                "error_message": "",
+            }
+        ]
+    )
+    cedentes = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "33333333000133",
+                "review_id": "ced-c",
+                "ativo_curadoria": True,
+                "pagina": 2,
+                "score_confianca_final": 0.9,
+                "status_revisao": "pendente",
+                "razao_social": "CEDENTE C S.A.",
+                "documento_origem": "regulamento.pdf",
+            }
+        ]
+    )
+    criteria = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "33333333000133",
+                "rule_id": "rule-c",
+                "ativo_curadoria": True,
+                "pagina": 3,
+                "score_confianca_final": 0.9,
+                "status_revisao": "pendente",
+                "chave": "subordination_minimum",
+                "documento_origem": "regulamento.pdf",
+            }
+        ]
+    )
+    catalog = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "33333333000133",
+                "source_record_id": "catalog-c",
+                "document_required": True,
+                "page_required": True,
+                "source_document": "regulamento.pdf",
+                "source_page": 3,
+                "confidence_score": 0.9,
+            }
+        ]
+    )
+
+    evidence = build_industry_curation_package_evidence(
+        packages=packages,
+        registration_scope=registration,
+        document_inventory=documents,
+        document_text_index=texts,
+        package_document_discovery_status=pd.DataFrame(
+            [
+                {
+                    "cnpj_fundo": "11111111000111",
+                    "listing_status": "sem_documento_relevante",
+                    "documents_listed": 1,
+                    "documents_relevant": 0,
+                    "attempted_at_utc": "2026-07-10T12:00:00+00:00",
+                }
+            ]
+        ),
+        cedentes=cedentes,
+        criteria=criteria,
+        dimension_catalog=catalog,
+    )
+    quality = curation_package_evidence_quality_summary(evidence)
+    by_id = evidence.set_index("package_id")
+
+    assert by_id.loc["pkg-a", "technical_stage"] == "fontes alternativas"
+    assert by_id.loc["pkg-a", "technical_status"] == "atenção"
+    assert by_id.loc["pkg-d", "technical_stage"] == "descoberta"
+    assert by_id.loc["pkg-d", "technical_status"] == "bloqueado"
+    assert by_id.loc["pkg-b", "technical_stage"] == "universo"
+    assert by_id.loc["pkg-b", "scope_status"] == "revisar universo"
+    assert by_id.loc["pkg-c", "technical_stage"] == "revisão"
+    assert by_id.loc["pkg-c", "technical_status"] == "pronto"
+    assert by_id.loc["pkg-c", "status_curadoria"] == "pendente"
+    assert by_id.loc["pkg-c", "cedente_record_ids"] == "ced-c"
+    assert by_id.loc["pkg-c", "criteria_record_ids"] == "rule-c"
+    assert quality["p0_rows"] == 4
+    assert quality["p0_with_documents"] == 1
+    assert quality["p0_with_text"] == 1
+    assert quality["scope_review_rows"] == 1
+    assert quality["no_relevant_document_funds"] == 1
+
+
+def test_package_evidence_distinguishes_candidate_triage_from_completed_no_signal():
+    packages = pd.DataFrame(
+        [
+            {
+                "package_id": "pkg-triage",
+                "work_tier": "P0 competência",
+                "batch_id": "P0-001",
+                "queue_domain": "monthly_delta",
+                "status_curadoria": "pendente",
+                "cnpj_fundo": "55.555.555/0001-55",
+                "nome_exibicao": "FIDC TRIAGEM",
+            },
+            {
+                "package_id": "pkg-no-signal",
+                "work_tier": "P0 competência",
+                "batch_id": "P0-001",
+                "queue_domain": "monthly_delta",
+                "status_curadoria": "pendente",
+                "cnpj_fundo": "66.666.666/0001-66",
+                "nome_exibicao": "FIDC SEM SINAL",
+            },
+        ]
+    )
+    registration = pd.DataFrame(
+        [
+            {"cnpj_fundo": "55555555000155", "cvm_fund_type": "FIDC", "cvm_class_type": "Classes FIDC"},
+            {"cnpj_fundo": "66666666000166", "cvm_fund_type": "FIDC", "cvm_class_type": "Classes FIDC"},
+        ]
+    )
+    documents = pd.DataFrame(
+        [
+            {"cnpj_fundo": "55555555000155", "document_key": "doc-triage", "chunk_id": "doc-0200", "local_exists": True},
+            {"cnpj_fundo": "66666666000166", "document_key": "doc-no-signal", "chunk_id": "doc-0201", "local_exists": True},
+        ]
+    )
+    texts = pd.DataFrame(
+        [
+            {"cnpj_fundo": "55555555000155", "text_record_id": "text-triage", "parse_status": "text_ready"},
+            {"cnpj_fundo": "66666666000166", "text_record_id": "text-no-signal", "parse_status": "text_ready"},
+        ]
+    )
+    field_runs = pd.DataFrame([{"chunk_id": "doc-0200"}, {"chunk_id": "doc-0201"}])
+    participant_candidates = pd.DataFrame(
+        [
+            {
+                "candidate_id": "candidate-triage",
+                "cnpj_fundo": "55555555000155",
+                "candidate_status": "suppressed",
+                "source_page": 4,
+            }
+        ]
+    )
+
+    evidence = build_industry_curation_package_evidence(
+        packages=packages,
+        registration_scope=registration,
+        document_inventory=documents,
+        document_text_index=texts,
+        document_field_run_summary=field_runs,
+        document_participant_candidates=participant_candidates,
+    ).set_index("package_id")
+
+    assert evidence.loc["pkg-triage", "technical_stage"] == "triagem de candidatos"
+    assert evidence.loc["pkg-triage", "participant_candidate_ids"] == "candidate-triage"
+    assert evidence.loc["pkg-no-signal", "technical_stage"] == "sem sinal extraído"
+    assert set(evidence["technical_status"]) == {"atenção"}
+
+
 def test_manual_review_ledgers_initialize_headers_without_fake_events():
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
@@ -4931,6 +5162,46 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
                 "segment_backlog_rows": 1,
                 "domain_counts": {"snapshot_gap": 2, "monthly_delta": 1, "document_chunk": 1, "catalog_gap": 1},
                 "status_counts": {"pendente": 3, "em andamento": 2},
+            },
+        )
+        write_module_manifest(
+            "industry_curation_package_evidence_manifest.json",
+            "industry_curation_package_evidence",
+            "industry_curation_package_evidence.csv.gz",
+            {
+                "rows": 2,
+                "funds": 2,
+                "p0_rows": 2,
+                "p1_rows": 0,
+                "p0_with_documents": 1,
+                "p0_with_text": 1,
+                "p0_with_cedentes": 1,
+                "p0_with_criteria": 1,
+                "scope_review_rows": 0,
+                "discovery_attempted_funds": 1,
+                "no_relevant_document_funds": 0,
+                "p0_stage_counts": {"descoberta": 1, "revisão": 1},
+                "technical_status_counts": {"bloqueado": 1, "pronto": 1},
+                "technical_stage_counts": {"descoberta": 1, "revisão": 1},
+                "median_evidence_score": 60.0,
+            },
+        )
+        write_module_manifest(
+            "industry_package_document_discovery_manifest.json",
+            "industry_package_document_discovery",
+            "industry_package_document_discovery.csv.gz",
+            {
+                "target_funds": 1,
+                "attempted_funds": 1,
+                "successful_funds": 1,
+                "no_relevant_document_funds": 0,
+                "listing_error_funds": 0,
+                "document_rows": 2,
+                "relevant_documents": 2,
+                "downloaded_documents": 2,
+                "reused_documents": 0,
+                "listed_only_documents": 0,
+                "download_error_documents": 0,
             },
         )
         pd.DataFrame(
@@ -5271,8 +5542,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         index = build_industry_pipeline_index(industry_dir=tmp_path)
 
     assert index["schema_version"] == "industry-pipeline-index/v1"
-    assert index["quality_rollup"]["modules_total"] == 21
-    assert index["quality_rollup"]["module_status_counts"]["ok"] == 21
+    assert index["quality_rollup"]["modules_total"] == 23
+    assert index["quality_rollup"]["module_status_counts"]["ok"] == 23
     assert index["quality_rollup"]["artifacts_missing"] == 0
     assert index["quality_rollup"]["manual_review_artifacts_total"] == 12
     assert index["quality_rollup"]["manual_review_artifacts_present"] == 12
@@ -5298,6 +5569,11 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["curation_queue_fund_backlog_rows"] == 2
     assert index["quality_rollup"]["curation_queue_admin_backlog_rows"] == 1
     assert index["quality_rollup"]["curation_queue_segment_backlog_rows"] == 1
+    assert index["quality_rollup"]["package_evidence_p0_rows"] == 2
+    assert index["quality_rollup"]["package_evidence_p0_with_documents"] == 1
+    assert index["quality_rollup"]["package_evidence_p0_stage_counts"] == {"descoberta": 1, "revisão": 1}
+    assert index["quality_rollup"]["package_discovery_attempted_funds"] == 1
+    assert index["quality_rollup"]["package_discovery_downloaded_documents"] == 2
     assert index["quality_rollup"]["document_chunks"] == 1
     assert index["quality_rollup"]["document_chunk_plan_rows"] == 1
     assert index["quality_rollup"]["document_chunk_plan_open_rows"] == 1
@@ -5356,8 +5632,8 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert index["quality_rollup"]["public_claim_methodology_bridge_rows"] == 4
     assert index["quality_rollup"]["public_claim_methodology_bridge_needs_disclosure_rows"] == 3
     assert index["quality_rollup"]["public_claim_methodology_bridge_high_or_blocking_rows"] == 2
-    assert index["quality_rollup"]["readiness_checks_rows"] == 7
-    assert index["quality_rollup"]["readiness_status_counts"]["bloqueado"] == 2
+    assert index["quality_rollup"]["readiness_checks_rows"] == 8
+    assert index["quality_rollup"]["readiness_status_counts"]["bloqueado"] == 3
     assert index["quality_rollup"]["readiness_status_counts"]["atenção"] == 2
     assert index["quality_rollup"]["readiness_status_counts"]["ok"] == 3
     assert index["quality_rollup"]["prd_requirements_total"] == 12
@@ -5375,7 +5651,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert prd["manual_review_in_app"]["status_prd"] == "ok"
     assert prd["heatmaps_generic"]["status_prd"] == "atenção"
     assert prd["public_audit_readiness"]["status_prd"] == "atenção"
-    assert index["quality_rollup"]["monthly_update_plan_rows"] == 23
+    assert index["quality_rollup"]["monthly_update_plan_rows"] == 25
     assert "monthly_update_plan_status_counts" in index["quality_rollup"]
     assert index["quality_rollup"]["publication_gate_status"] == "bloqueado"
     assert index["quality_rollup"]["publication_gate_rows"] > 1

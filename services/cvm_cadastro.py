@@ -153,6 +153,19 @@ def _load_registro_fundo_classe(allow_network: bool = True) -> tuple[pd.DataFram
     return fundo_df, classe_df
 
 
+def load_fund_class_registration_tables(
+    *,
+    allow_network: bool = True,
+) -> tuple[pd.DataFrame | None, pd.DataFrame | None]:
+    """Return defensive copies of the official fund and class registration tables."""
+
+    funds, classes = _load_registro_fundo_classe(allow_network)
+    return (
+        None if funds is None else funds.copy(),
+        None if classes is None else classes.copy(),
+    )
+
+
 def _ensure_norm_column(df: pd.DataFrame, source_column: str, norm_column: str) -> pd.DataFrame:
     if source_column not in df.columns:
         return df

@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-participant-registry-manifest/v1",
-  "generated_at_utc": "2026-07-10T01:41:25+00:00",
+  "generated_at_utc": "2026-07-10T04:50:56+00:00",
   "pipeline": "industry_participant_registry",
   "design_constraints": {
     "incremental": true,
@@ -15,16 +15,16 @@
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 540828,
-      "sha256": "6838bc1b9bf4bf3b134194469f33edcdcf2f80e68650bb4bb8634e4299005fba"
+      "bytes": 578614,
+      "sha256": "c1be7b3c6c99e9bbbf4650f34cc49dd27d0f4ec2d14b5efd1edac6b9958c37f3"
     }
   },
   "outputs": {
     "participant_registry": {
       "path": "data/industry_study/participant_registry.csv.gz",
       "exists": true,
-      "bytes": 18867,
-      "sha256": "b0ea01b0ac74890d21f70d243f342013b5cb27daa122dd8f911399e295846ed0"
+      "bytes": 20353,
+      "sha256": "f111d32490e3c5cf923445262d2b5f775aa2fbf29d0b7c2b18be1f3c4cca89cb"
     },
     "cache_dir": {
       "path": "data/industry_study/participant_registry_cache",
@@ -38,11 +38,11 @@
     }
   },
   "quality": {
-    "targets": 155,
-    "network_requests": 0,
-    "cache_hits": 155,
+    "targets": 160,
+    "network_requests": 3,
+    "cache_hits": 157,
     "pending": 0,
     "errors": 0,
-    "ok": 155
+    "ok": 160
   }
 }

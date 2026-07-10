@@ -1,0 +1,160 @@
+{
+  "schema_version": "industry-curation-package-evidence-manifest/v1",
+  "generated_at_utc": "2026-07-10T10:47:26+00:00",
+  "pipeline": "industry_curation_package_evidence",
+  "design_constraints": {
+    "modular": true,
+    "incremental": true,
+    "human_decision_separated": true,
+    "notes": [
+      "O estágio técnico mede cobertura e aponta a próxima ação; nunca aprova ou rejeita um pacote.",
+      "Uma linha por pacote preserva IDs de documentos, texto, cedentes, critérios e catálogo."
+    ]
+  },
+  "inputs": {
+    "curation_packages": {
+      "path": "data/industry_study/industry_curation_packages.csv.gz",
+      "exists": true,
+      "bytes": 658829,
+      "sha256": "23e825445f60255c4b5c4632abce61dabcb14b0cd51bfbb452a1027584d66445"
+    },
+    "registration_scope": {
+      "path": "data/industry_study/industry_registration_scope.csv.gz",
+      "exists": true,
+      "bytes": 1641858,
+      "sha256": "6e0cb21a4c9b6ed00853d663ed5ba7493d45ad4f9952320fb497be82318a0c2a"
+    },
+    "document_inventory": {
+      "path": "data/industry_study/document_inventory.csv.gz",
+      "exists": true,
+      "bytes": 1097392,
+      "sha256": "13c8a5731eb76aefa364f5ed9c7d53a2d3d3476e1189b524da23f6700d8f8c75"
+    },
+    "package_document_discovery_status": {
+      "path": "data/industry_study/industry_package_document_discovery_status.csv.gz",
+      "exists": true,
+      "bytes": 2804,
+      "sha256": "82abc73f561c84c62fc58869cc75e6c05527b5ad59695e350f94fd4ede9ab448"
+    },
+    "document_text_index": {
+      "path": "data/industry_study/document_text_index.csv.gz",
+      "exists": true,
+      "bytes": 7392052,
+      "sha256": "5fca43f15c1bf1eb980689b8ab44ca714d1010459bc8bf86f926046743692a0f"
+    },
+    "document_field_run_summary": {
+      "path": "data/industry_study/document_field_run_summary.csv",
+      "exists": true,
+      "bytes": 27796,
+      "sha256": "c1b326330f08850172ea7f63dff5e216020cb327c0e47065e62bbac27f17740f"
+    },
+    "document_participant_candidates": {
+      "path": "data/industry_study/document_participant_candidates.csv.gz",
+      "exists": true,
+      "bytes": 267115,
+      "sha256": "66ae9ee9776a9a10e5fc49419dd84165fd57abd8dcc5f0025f6dcdc76b87a817"
+    },
+    "document_criteria_candidates": {
+      "path": "data/industry_study/document_criteria_candidates.csv.gz",
+      "exists": true,
+      "bytes": 1133841,
+      "sha256": "ca9bf1e094b7c62b3eb7a5d67d6a50dd9cfd7b59c67fb18f71ed3282b769a0d3"
+    },
+    "cedentes_structured": {
+      "path": "data/industry_study/cedentes_structured.csv.gz",
+      "exists": true,
+      "bytes": 578889,
+      "sha256": "355206e7da594b9314e0434c07bb45d99762ed6011421fb675b35e858fbca928"
+    },
+    "criteria_structured": {
+      "path": "data/industry_study/criteria_structured.csv.gz",
+      "exists": true,
+      "bytes": 1298208,
+      "sha256": "44eb45f46428e1a9a3abb81be0ae99ef53329906426352b3391ac15814530c89"
+    },
+    "dimension_catalog": {
+      "path": "data/industry_study/industry_dimension_catalog.csv.gz",
+      "exists": true,
+      "bytes": 1969261,
+      "sha256": "0e09f5277e2f0949bc703495855d95dbeba792a1f6d56aaeb3eab31f34e18140"
+    }
+  },
+  "outputs": {
+    "curation_package_evidence": {
+      "path": "data/industry_study/industry_curation_package_evidence.csv.gz",
+      "exists": true,
+      "bytes": 1840811,
+      "sha256": "c7cc83f18d3f95b50a8d0f4a03c5a62d708836b9681ae8b39289bc321577889f"
+    },
+    "registration_scope": {
+      "path": "data/industry_study/industry_registration_scope.csv.gz",
+      "exists": true,
+      "bytes": 1641858,
+      "sha256": "6e0cb21a4c9b6ed00853d663ed5ba7493d45ad4f9952320fb497be82318a0c2a"
+    },
+    "manifest": {
+      "path": "data/industry_study/industry_curation_package_evidence_manifest.json"
+    }
+  },
+  "stages": [
+    {
+      "id": "join_package_sources",
+      "label": "Cruzar evidências por CNPJ",
+      "status": "ok",
+      "rows": 9040,
+      "rerun": "python scripts/build_fidc_industry_curation_package_evidence.py"
+    },
+    {
+      "id": "rank_technical_stage",
+      "label": "Classificar próxima etapa técnica",
+      "status": "ok",
+      "rows": 9040,
+      "rerun": "python scripts/build_fidc_industry_curation_package_evidence.py"
+    },
+    {
+      "id": "persist_package_evidence",
+      "label": "Persistir evidência por pacote",
+      "status": "ok",
+      "rows": 9040,
+      "rerun": "python scripts/build_fidc_industry_curation_package_evidence.py"
+    }
+  ],
+  "quality": {
+    "rows": 9040,
+    "funds": 4339,
+    "p0_rows": 63,
+    "p1_rows": 1264,
+    "p0_with_documents": 45,
+    "p0_with_text": 45,
+    "p0_with_cedentes": 4,
+    "p0_with_criteria": 7,
+    "p0_with_field_processing": 45,
+    "p0_with_candidates": 13,
+    "scope_review_rows": 29,
+    "discovery_attempted_funds": 59,
+    "no_relevant_document_funds": 16,
+    "p0_stage_counts": {
+      "sem sinal extraído": 29,
+      "fontes alternativas": 16,
+      "triagem de candidatos": 7,
+      "páginas": 5,
+      "revisão": 4,
+      "universo": 2
+    },
+    "technical_status_counts": {
+      "bloqueado": 7045,
+      "atenção": 1908,
+      "pronto": 87
+    },
+    "technical_stage_counts": {
+      "descoberta": 7016,
+      "páginas": 1641,
+      "sem sinal extraído": 211,
+      "revisão": 87,
+      "fontes alternativas": 32,
+      "universo": 29,
+      "triagem de candidatos": 24
+    },
+    "median_evidence_score": 35.0
+  }
+}

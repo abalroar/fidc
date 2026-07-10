@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-document-manifest/v1",
-  "generated_at_utc": "2026-07-10T01:21:48+00:00",
+  "generated_at_utc": "2026-07-10T05:08:02+00:00",
   "pipeline": "industry_document_inventory",
   "design_constraints": {
     "modular": true,
@@ -32,14 +32,14 @@
     "document_inventory": {
       "path": "data/industry_study/document_inventory.csv.gz",
       "exists": true,
-      "bytes": 1077830,
-      "sha256": "a1f6d0dbd1cb6ccc06fe0879437217f89a7871e30c259a0c6378ead3b99d786d"
+      "bytes": 1097392,
+      "sha256": "13c8a5731eb76aefa364f5ed9c7d53a2d3d3476e1189b524da23f6700d8f8c75"
     },
     "document_processing_chunks": {
       "path": "data/industry_study/document_processing_chunks.csv",
       "exists": true,
-      "bytes": 36970,
-      "sha256": "667936b6c6a4e3118fcfd5415b629ed26be05a4c560090c26c36ad430c6a192b"
+      "bytes": 37875,
+      "sha256": "1cf15199a610c66b51241b4ee0977a75a1c7f93e5bcfe90c663bd60df9948028"
     },
     "manifest": {
       "path": "data/industry_study/industry_document_manifest.json"
@@ -47,8 +47,8 @@
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 85891,
-      "sha256": "e3184c0ea4f4831fe36cc52ae33a761ae57572e2cf3aa8a1f3ecb21ac2eb2cc6"
+      "bytes": 87245,
+      "sha256": "25dca3cd57727af5827068a345b329c382ca50b26990dbbbb179e74c261cd06c"
     }
   },
   "stages": [
@@ -78,8 +78,8 @@
       "status": "ok",
       "input": "data/raw",
       "output": "memoria:raw_document_files",
-      "rows": 9645,
-      "funds": 764,
+      "rows": 9859,
+      "funds": 807,
       "rerun": "python scripts/build_fidc_industry_documents.py"
     },
     {
@@ -88,8 +88,8 @@
       "status": "ok",
       "input": "memoria:document_source_rows+regulatory_extractions+raw_document_files",
       "output": "memoria:document_inventory",
-      "rows": 11665,
-      "funds": 764,
+      "rows": 11879,
+      "funds": 807,
       "rerun": "python scripts/build_fidc_industry_documents.py"
     },
     {
@@ -98,7 +98,7 @@
       "status": "ok",
       "input": "memoria:document_inventory",
       "output": "data/industry_study/document_processing_chunks.csv",
-      "rows": 109,
+      "rows": 112,
       "rerun": "python scripts/build_fidc_industry_documents.py"
     },
     {
@@ -107,7 +107,7 @@
       "status": "ok",
       "input": "document_processing_chunks+document_inventory+document_chunk_actions",
       "output": "data/industry_study/document_chunk_plan.csv",
-      "rows": 109,
+      "rows": 112,
       "rerun": "python scripts/build_fidc_industry_document_chunk_plan.py"
     },
     {
@@ -116,21 +116,21 @@
       "status": "ok",
       "input": "memoria:document_inventory",
       "output": "data/industry_study/document_inventory.csv.gz",
-      "rows": 11665,
+      "rows": 11879,
       "rerun": "python scripts/build_fidc_industry_documents.py"
     }
   ],
   "quality": {
-    "document_rows": 11665,
-    "funds": 764,
-    "priority_2025_2026_docs": 6744,
-    "local_ready_docs": 11665,
+    "document_rows": 11879,
+    "funds": 807,
+    "priority_2025_2026_docs": 6947,
+    "local_ready_docs": 11879,
     "missing_local_docs": 0,
-    "hashed_docs": 11665,
-    "chunks": 109,
-    "chunk_plan_rows": 109,
+    "hashed_docs": 11879,
+    "chunks": 112,
+    "chunk_plan_rows": 112,
     "chunk_plan_status_counts": {
-      "pronto": 109
+      "pronto": 112
     },
     "chunk_plan_open_rows": 0,
     "max_documents_per_chunk": 250,
@@ -139,27 +139,27 @@
       "cnpj_fundo": 1.0,
       "documento_origem": 1.0,
       "documento_id": 1.0,
-      "document_date": 0.8756965280754393,
+      "document_date": 0.8779358531862952,
       "local_path": 1.0,
       "sha256": 1.0,
       "setor_n1": 1.0
     },
     "document_class_counts": {
-      "regulamento": 5128,
-      "emissao": 2734,
-      "assembleia": 2008,
+      "regulamento": 5282,
+      "emissao": 2769,
+      "assembleia": 2033,
       "extracao_json": 1449,
       "evento": 266,
       "outro": 80
     },
     "content_kind_counts": {
-      "pdf": 9645,
+      "pdf": 9859,
       "extraction_json": 1449,
       "text_cache": 571
     },
     "source_table_counts": {
       "pricing_tranche_enriched": 815,
-      "raw_document_files": 9645,
+      "raw_document_files": 9859,
       "cedentes_sacados_candidates": 571,
       "manual_review_queue": 686,
       "regulatory_extractions": 1449

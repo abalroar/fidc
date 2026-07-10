@@ -93,6 +93,10 @@ _INCREMENTAL_ONBOARDING_MANIFEST_PATH = _DATA_DIR / "industry_incremental_onboar
 _CURATION_QUEUE_PATH = _DATA_DIR / "industry_curation_queue.csv.gz"
 _CURATION_QUEUE_SUMMARY_PATH = _DATA_DIR / "industry_curation_queue_summary.csv.gz"
 _CURATION_PACKAGES_PATH = _DATA_DIR / "industry_curation_packages.csv.gz"
+_CURATION_PACKAGE_EVIDENCE_PATH = _DATA_DIR / "industry_curation_package_evidence.csv.gz"
+_CURATION_PACKAGE_EVIDENCE_MANIFEST_PATH = _DATA_DIR / "industry_curation_package_evidence_manifest.json"
+_PACKAGE_DOCUMENT_DISCOVERY_STATUS_PATH = _DATA_DIR / "industry_package_document_discovery_status.csv.gz"
+_PACKAGE_DOCUMENT_DISCOVERY_MANIFEST_PATH = _DATA_DIR / "industry_package_document_discovery_manifest.json"
 _CURATION_QUEUE_MANIFEST_PATH = _DATA_DIR / "industry_curation_queue_manifest.json"
 _MONTHLY_DELTA_PATH = _DATA_DIR / "industry_monthly_delta.csv.gz"
 _MONTHLY_DELTA_MANIFEST_PATH = _DATA_DIR / "industry_monthly_delta_manifest.json"
@@ -8089,6 +8093,7 @@ def _load_curation_queue_tables() -> dict[str, pd.DataFrame | dict[str, object]]
     queue = load_dataframe(_CURATION_QUEUE_PATH)
     summary = load_dataframe(_CURATION_QUEUE_SUMMARY_PATH)
     packages = load_dataframe(_CURATION_PACKAGES_PATH)
+    package_evidence = load_dataframe(_CURATION_PACKAGE_EVIDENCE_PATH)
     if summary.empty and not queue.empty:
         summary = build_industry_curation_queue_summary(queue)
     if packages.empty and not queue.empty:
@@ -8097,7 +8102,10 @@ def _load_curation_queue_tables() -> dict[str, pd.DataFrame | dict[str, object]]
         "queue": queue,
         "summary": summary,
         "packages": packages,
+        "package_evidence": package_evidence,
         "manifest": load_pipeline_manifest(_CURATION_QUEUE_MANIFEST_PATH),
+        "package_evidence_manifest": load_pipeline_manifest(_CURATION_PACKAGE_EVIDENCE_MANIFEST_PATH),
+        "package_discovery_manifest": load_pipeline_manifest(_PACKAGE_DOCUMENT_DISCOVERY_MANIFEST_PATH),
     }
 
 
@@ -8264,6 +8272,21 @@ def _format_curation_packages(frame: pd.DataFrame) -> pd.DataFrame:
         "prazo",
         "notas",
         "updated_at_utc",
+        "scope_status",
+        "technical_status",
+        "technical_stage",
+        "evidence_score",
+        "document_local_rows",
+        "text_ready_rows",
+        "field_processed_document_rows",
+        "participant_candidate_rows",
+        "criteria_candidate_rows",
+        "cedente_rows",
+        "criteria_rows",
+        "catalog_page_required_rows",
+        "catalog_page_covered_rows",
+        "discovery_status",
+        "next_technical_action",
         "priority_band",
         "package_priority_score",
         "competencia",
@@ -8293,6 +8316,21 @@ def _format_curation_packages(frame: pd.DataFrame) -> pd.DataFrame:
             "prazo": "Prazo",
             "notas": "Notas",
             "updated_at_utc": "Atualizado",
+            "scope_status": "Universo CVM",
+            "technical_status": "Status técnico",
+            "technical_stage": "Etapa técnica",
+            "evidence_score": "Score evidência",
+            "document_local_rows": "Docs",
+            "text_ready_rows": "Textos",
+            "field_processed_document_rows": "Docs extraídos",
+            "participant_candidate_rows": "Cand. participantes",
+            "criteria_candidate_rows": "Cand. critérios",
+            "cedente_rows": "Cedentes",
+            "criteria_rows": "Critérios",
+            "catalog_page_required_rows": "Pág. esperadas",
+            "catalog_page_covered_rows": "Pág. cobertas",
+            "discovery_status": "Status FNET",
+            "next_technical_action": "Próxima ação técnica",
             "priority_band": "Prioridade",
             "package_priority_score": "Score",
             "competencia": "Competência",
@@ -8310,11 +8348,29 @@ def _format_curation_packages(frame: pd.DataFrame) -> pd.DataFrame:
             "package_id": "ID pacote",
         }
     )
-    for col in ["#", "Itens", "Abertos", "Alta prioridade"]:
+    for col in [
+        "#",
+        "Itens",
+        "Abertos",
+        "Alta prioridade",
+        "Docs",
+        "Textos",
+        "Docs extraídos",
+        "Cand. participantes",
+        "Cand. critérios",
+        "Cedentes",
+        "Critérios",
+        "Pág. esperadas",
+        "Pág. cobertas",
+    ]:
         if col in out.columns:
             out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).astype(int)
     if "Score" in out.columns:
         out["Score"] = pd.to_numeric(out["Score"], errors="coerce").map(
+            lambda value: "" if pd.isna(value) else f"{float(value):.1f}".replace(".", ",")
+        )
+    if "Score evidência" in out.columns:
+        out["Score evidência"] = pd.to_numeric(out["Score evidência"], errors="coerce").map(
             lambda value: "" if pd.isna(value) else f"{float(value):.1f}".replace(".", ",")
         )
     if "PL ref." in out.columns:
@@ -8583,11 +8639,17 @@ def _render_pipeline_manifest() -> None:
     curation_queue = curation_queue_tables["queue"]
     curation_queue_summary = curation_queue_tables["summary"]
     curation_packages = curation_queue_tables["packages"]
+    curation_package_evidence = curation_queue_tables["package_evidence"]
     curation_queue_manifest = curation_queue_tables["manifest"]
+    curation_package_evidence_manifest = curation_queue_tables["package_evidence_manifest"]
+    package_document_discovery_manifest = curation_queue_tables["package_discovery_manifest"]
     assert isinstance(curation_queue, pd.DataFrame)
     assert isinstance(curation_queue_summary, pd.DataFrame)
     assert isinstance(curation_packages, pd.DataFrame)
+    assert isinstance(curation_package_evidence, pd.DataFrame)
     assert isinstance(curation_queue_manifest, dict)
+    assert isinstance(curation_package_evidence_manifest, dict)
+    assert isinstance(package_document_discovery_manifest, dict)
     profile_tables = _load_dimension_profile_tables()
     dimension_profiles = profile_tables["profiles"]
     heatmap_registry = profile_tables["heatmap_registry"]
@@ -9334,6 +9396,16 @@ def _render_pipeline_manifest() -> None:
             )
             domain_counts = queue_quality.get("domain_counts", {}) if isinstance(queue_quality.get("domain_counts"), dict) else {}
             status_counts_queue = queue_quality.get("status_counts", {}) if isinstance(queue_quality.get("status_counts"), dict) else {}
+            evidence_quality = (
+                curation_package_evidence_manifest.get("quality", {})
+                if isinstance(curation_package_evidence_manifest.get("quality"), dict)
+                else {}
+            )
+            discovery_quality = (
+                package_document_discovery_manifest.get("quality", {})
+                if isinstance(package_document_discovery_manifest.get("quality"), dict)
+                else {}
+            )
             queue_cards = [
                 _curation_card("Pacotes abertos", _fmt_int(float(queue_quality.get("package_open_rows", len(curation_packages)) or 0)), "FIDC × frente"),
                 _curation_card("Itens abertos", _fmt_int(float(queue_quality.get("open_rows", len(queue)) or 0)), "evidência granular"),
@@ -9345,14 +9417,37 @@ def _render_pipeline_manifest() -> None:
                 _curation_card("Lote atual", _fmt_int(float(queue_quality.get("package_current_batch_rows", 0) or 0)), "até 25 por tier"),
                 _curation_card("Catálogo", _fmt_int(float(domain_counts.get("catalog_gap", 0))), "lacunas aplicáveis"),
                 _curation_card("Delta", _fmt_int(float(domain_counts.get("monthly_delta", 0))), "mudança mensal"),
+                _curation_card(
+                    "P0 com texto",
+                    f"{_fmt_int(float(evidence_quality.get('p0_with_text', 0) or 0))}/{_fmt_int(float(evidence_quality.get('p0_rows', 0) or 0))}",
+                    "documento processado",
+                ),
+                _curation_card(
+                    "FNET",
+                    _fmt_int(float(discovery_quality.get("attempted_funds", 0) or 0)),
+                    f"{_fmt_int(float(discovery_quality.get('downloaded_documents', 0) or 0))} documentos baixados",
+                ),
             ]
             st.markdown(f'<div class="industry-kpi-grid">{"".join(queue_cards)}</div>', unsafe_allow_html=True)
             packages = curation_packages.copy()
             if packages.empty:
                 packages = build_industry_curation_packages(queue)
+            if not packages.empty and not curation_package_evidence.empty:
+                evidence_extra = curation_package_evidence.copy()
+                evidence_columns = [
+                    col
+                    for col in evidence_extra.columns
+                    if col == "package_id" or col not in packages.columns
+                ]
+                packages = packages.merge(
+                    evidence_extra[evidence_columns].drop_duplicates("package_id", keep="last"),
+                    on="package_id",
+                    how="left",
+                    validate="one_to_one",
+                )
             if not packages.empty:
                 st.markdown("**Pacotes mensais**")
-                package_a, package_b, package_c = st.columns([1.15, 0.72, 1.4])
+                package_a, package_b, package_c, package_d = st.columns([1.0, 1.0, 0.68, 1.35])
                 with package_a:
                     tier_options = [
                         value
@@ -9367,21 +9462,51 @@ def _render_pipeline_manifest() -> None:
                         key="industry_curation_package_tier",
                     )
                 with package_b:
+                    technical_stage_order = [
+                        "universo",
+                        "descoberta",
+                        "fontes alternativas",
+                        "download",
+                        "texto/OCR",
+                        "extração",
+                        "triagem de candidatos",
+                        "sem sinal extraído",
+                        "páginas",
+                        "revisão",
+                    ]
+                    stage_values = set(
+                        packages.get("technical_stage", pd.Series(dtype=str)).fillna("").astype(str)
+                    )
+                    technical_stage_options = [value for value in technical_stage_order if value in stage_values]
+                    selected_technical_stages = st.multiselect(
+                        "Etapa técnica",
+                        technical_stage_options,
+                        default=technical_stage_options,
+                        key="industry_curation_package_technical_stage",
+                    )
+                with package_c:
                     current_package_batch = st.checkbox(
                         "Lote 001",
                         value=True,
                         help="Mostra o primeiro lote de até 25 pacotes de cada tier selecionado.",
                         key="industry_curation_package_current_batch",
                     )
-                with package_c:
+                with package_d:
                     package_query = st.text_input(
                         "Buscar pacotes",
                         key="industry_curation_package_query",
-                        placeholder="FIDC, CNPJ, ação, documento ou frente",
+                        placeholder="FIDC, CNPJ, etapa, ação ou documento",
                     )
                 package_view = packages.copy()
                 if selected_package_tiers:
                     package_view = package_view[package_view["work_tier"].isin(selected_package_tiers)].copy()
+                if selected_technical_stages:
+                    package_view = package_view[
+                        package_view.get("technical_stage", pd.Series("", index=package_view.index))
+                        .fillna("")
+                        .astype(str)
+                        .isin(selected_technical_stages)
+                    ].copy()
                 if current_package_batch:
                     package_view = package_view[
                         pd.to_numeric(
@@ -9399,6 +9524,11 @@ def _render_pipeline_manifest() -> None:
                             "admin_nome",
                             "gestor_nome",
                             "segmento_principal",
+                            "scope_status",
+                            "technical_status",
+                            "technical_stage",
+                            "next_technical_action",
+                            "discovery_status",
                             "action_types",
                             "next_actions",
                             "gap_summary",
@@ -9488,6 +9618,52 @@ def _render_pipeline_manifest() -> None:
                     mime="text/csv",
                     key="industry_curation_packages_download",
                 )
+                if not package_page.empty:
+                    with st.expander("Evidência do pacote"):
+                        focus_labels = {
+                            str(row["package_id"]): f"{row.get('work_tier', '')} · {row.get('cnpj_fundo', '')} · {row.get('nome_exibicao', '')}"
+                            for _, row in package_page.iterrows()
+                        }
+                        focus_package_id = st.selectbox(
+                            "Pacote em foco",
+                            list(focus_labels),
+                            format_func=lambda value: focus_labels.get(value, value),
+                            key="industry_curation_package_focus",
+                        )
+                        focus = package_page[package_page["package_id"].astype(str).eq(focus_package_id)].iloc[0]
+                        evidence_fields = [
+                            ("Universo CVM", focus.get("scope_status", "")),
+                            ("Tipo fundo CVM", focus.get("cvm_fund_type", "")),
+                            ("Tipo classe CVM", focus.get("cvm_class_type", "")),
+                            ("Status técnico", focus.get("technical_status", "")),
+                            ("Etapa técnica", focus.get("technical_stage", "")),
+                            ("Score evidência", focus.get("evidence_score", "")),
+                            ("Status FNET", focus.get("discovery_status", "")),
+                            ("Documentos locais", focus.get("document_local_rows", 0)),
+                            ("Textos prontos", focus.get("text_ready_rows", 0)),
+                            ("Documentos extraídos", focus.get("field_processed_document_rows", 0)),
+                            ("Candidatos participantes", focus.get("participant_candidate_rows", 0)),
+                            ("Candidatos critérios", focus.get("criteria_candidate_rows", 0)),
+                            ("Cedentes ativos", focus.get("cedente_rows", 0)),
+                            ("Critérios", focus.get("criteria_rows", 0)),
+                            ("Páginas", f"{focus.get('catalog_page_covered_rows', 0)}/{focus.get('catalog_page_required_rows', 0)}"),
+                            ("Próxima ação técnica", focus.get("next_technical_action", "")),
+                            ("Documentos", focus.get("document_keys", "")),
+                            ("Textos", focus.get("text_record_ids", "")),
+                            ("Candidatos participantes", focus.get("participant_candidate_ids", "")),
+                            ("Candidatos critérios", focus.get("criteria_candidate_ids", "")),
+                            ("Cedentes", focus.get("cedente_record_ids", "")),
+                            ("Critérios", focus.get("criteria_record_ids", "")),
+                            ("Catálogo", focus.get("catalog_record_ids", "")),
+                            ("Comando", focus.get("rerun_command", "")),
+                            ("Artefatos", focus.get("source_artifacts", "")),
+                        ]
+                        st.dataframe(
+                            pd.DataFrame(evidence_fields, columns=["Campo", "Valor"]),
+                            hide_index=True,
+                            width="stretch",
+                            height=420,
+                        )
             summary = curation_queue_summary.copy()
             if summary.empty:
                 summary = build_industry_curation_queue_summary(queue)

@@ -1,8 +1,8 @@
 {
   "schema_version": "industry-document-text-manifest/v1",
-  "generated_at_utc": "2026-07-10T01:14:56+00:00",
+  "generated_at_utc": "2026-07-10T04:50:22+00:00",
   "pipeline": "industry_document_text",
-  "selected_chunk_id": "doc-0109",
+  "selected_chunk_id": "doc-0112",
   "design_constraints": {
     "modular": true,
     "incremental": true,
@@ -19,34 +19,34 @@
     "document_inventory": {
       "path": "data/industry_study/document_inventory.csv.gz",
       "exists": true,
-      "bytes": 1077830,
-      "sha256": "3cebf161beebb31e4ccbf5bf282d06356c7974bae336a14b0ff8a7ac599dda6e"
+      "bytes": 1097392,
+      "sha256": "80e002ac05cce31be8bd9850b231244d49af58b529430fe831580d4ae815ed3a"
     },
     "document_chunk_diagnostics": {
       "path": "data/industry_study/document_chunk_diagnostics.csv.gz",
       "exists": true,
-      "bytes": 4713118,
-      "sha256": "97edc3b99c0e5efc95bcd925272f21be79185879c34ca17587730dc5e0114b17"
+      "bytes": 4803350,
+      "sha256": "238c6429c5b79a0ea7f78f5c22fab0b435e7a3a91121db95c2805d51b27e564b"
     },
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 85879,
-      "sha256": "16eccece9b019ad18bcd9fdbf1a65a5b8036f02a03a1426dd4e7bf0a33f88ac7"
+      "bytes": 87245,
+      "sha256": "ffa9577a99f57243bfa57a6f282a9af6db45110e63e3e4bc2b18e14371d804d4"
     }
   },
   "outputs": {
     "document_text_index": {
       "path": "data/industry_study/document_text_index.csv.gz",
       "exists": true,
-      "bytes": 7250143,
-      "sha256": "ce595e0551a3da1b3dda96e51e6c0097a1034571559ab043cb80a9183fc3eb20"
+      "bytes": 7392052,
+      "sha256": "5fca43f15c1bf1eb980689b8ab44ca714d1010459bc8bf86f926046743692a0f"
     },
     "document_text_run_summary": {
       "path": "data/industry_study/document_text_run_summary.csv",
       "exists": true,
-      "bytes": 51962,
-      "sha256": "ae4e52e42de2fe1007ee8f5c239a57b0cf95819535d36793a9414bb335cbd302"
+      "bytes": 53270,
+      "sha256": "a5e1ceaaf4dd716cce0198e355cd180835fd4af7d7498e2aebf35a89fb09bcdd"
     },
     "document_text_cache": {
       "path": "data/industry_study/document_text_cache",
@@ -65,18 +65,18 @@
       "label": "Selecionar chunk ainda não materializado",
       "status": "ok",
       "input": "document_chunk_plan+document_text_index",
-      "output": "doc-0109",
-      "rows": 109,
-      "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0109"
+      "output": "doc-0112",
+      "rows": 112,
+      "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0112"
     },
     {
       "id": "extract_page_text",
       "label": "Extrair e persistir texto por documento/página",
       "status": "ok",
-      "input": "doc-0109",
+      "input": "doc-0112",
       "output": "data/industry_study/document_text_cache",
-      "rows": 11665,
-      "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0109"
+      "rows": 11879,
+      "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0112"
     },
     {
       "id": "persist_text_index",
@@ -84,30 +84,30 @@
       "status": "ok",
       "input": "data/industry_study/document_text_cache",
       "output": "data/industry_study/document_text_index.csv.gz | data/industry_study/document_text_run_summary.csv",
-      "rows": 11665,
+      "rows": 11879,
       "rerun": "python scripts/build_fidc_industry_document_text.py --chunk-id doc-0001"
     }
   ],
   "quality": {
-    "rows": 11665,
-    "processed_chunks": 109,
-    "total_chunks": 109,
+    "rows": 11879,
+    "processed_chunks": 112,
+    "total_chunks": 112,
     "pending_chunks": 0,
-    "ready_docs": 11665,
-    "cached_docs": 11665,
-    "ocr_ready_docs": 126,
+    "ready_docs": 11879,
+    "cached_docs": 11879,
+    "ocr_ready_docs": 128,
     "ocr_required_docs": 0,
     "error_docs": 0,
-    "page_count": 343208,
-    "pages_processed": 345227,
-    "pages_with_text": 344724,
-    "text_chars": 873289138,
-    "cache_bytes": 246837999,
-    "latest_chunk_id": "doc-0109",
+    "page_count": 351514,
+    "pages_processed": 353533,
+    "pages_with_text": 353027,
+    "text_chars": 893834531,
+    "cache_bytes": 252803195,
+    "latest_chunk_id": "doc-0112",
     "status_counts": {
-      "text_ready": 10090,
+      "text_ready": 10302,
       "structured_ready": 1449,
-      "ocr_ready": 126
+      "ocr_ready": 128
     }
   }
 }

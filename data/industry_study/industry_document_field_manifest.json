@@ -1,8 +1,8 @@
 {
   "schema_version": "industry-document-field-manifest/v1",
-  "generated_at_utc": "2026-07-10T01:14:59+00:00",
+  "generated_at_utc": "2026-07-10T04:50:40+00:00",
   "pipeline": "industry_document_fields",
-  "selected_chunk_id": "doc-0109",
+  "selected_chunk_id": "doc-0112",
   "design_constraints": {
     "modular": true,
     "incremental": true,
@@ -19,8 +19,8 @@
     "document_text_index": {
       "path": "data/industry_study/document_text_index.csv.gz",
       "exists": true,
-      "bytes": 7250143,
-      "sha256": "ce595e0551a3da1b3dda96e51e6c0097a1034571559ab043cb80a9183fc3eb20"
+      "bytes": 7392052,
+      "sha256": "5fca43f15c1bf1eb980689b8ab44ca714d1010459bc8bf86f926046743692a0f"
     },
     "document_text_cache": {
       "path": "data/industry_study/document_text_cache",
@@ -32,28 +32,28 @@
     "document_chunk_plan": {
       "path": "data/industry_study/document_chunk_plan.csv",
       "exists": true,
-      "bytes": 85879,
-      "sha256": "16eccece9b019ad18bcd9fdbf1a65a5b8036f02a03a1426dd4e7bf0a33f88ac7"
+      "bytes": 87245,
+      "sha256": "ffa9577a99f57243bfa57a6f282a9af6db45110e63e3e4bc2b18e14371d804d4"
     }
   },
   "outputs": {
     "document_participant_candidates": {
       "path": "data/industry_study/document_participant_candidates.csv.gz",
       "exists": true,
-      "bytes": 260147,
-      "sha256": "409081500faee71f0c8619ce6e76f99227beef49b5f8cd88e270d3cce4e6878a"
+      "bytes": 267115,
+      "sha256": "66ae9ee9776a9a10e5fc49419dd84165fd57abd8dcc5f0025f6dcdc76b87a817"
     },
     "document_criteria_candidates": {
       "path": "data/industry_study/document_criteria_candidates.csv.gz",
       "exists": true,
-      "bytes": 1129250,
-      "sha256": "ae822800c244cffc079197f06548ad410f387bf86ba846346725fb39d8a77fcb"
+      "bytes": 1133841,
+      "sha256": "ca9bf1e094b7c62b3eb7a5d67d6a50dd9cfd7b59c67fb18f71ed3282b769a0d3"
     },
     "document_field_run_summary": {
       "path": "data/industry_study/document_field_run_summary.csv",
       "exists": true,
-      "bytes": 27173,
-      "sha256": "9727b45c7b6beb675dc5fc2a4fd7b014aaf5102dc5fb620db4b4b6eaf1e35065"
+      "bytes": 27796,
+      "sha256": "c1b326330f08850172ea7f63dff5e216020cb327c0e47065e62bbac27f17740f"
     },
     "manifest": {
       "path": "data/industry_study/industry_document_field_manifest.json"
@@ -64,51 +64,51 @@
       "id": "extract_participants",
       "label": "Extrair participantes com evidência por página",
       "status": "ok",
-      "rows": 1328,
-      "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0109"
+      "rows": 1365,
+      "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0112"
     },
     {
       "id": "extract_criteria",
       "label": "Extrair critérios e recuperar página",
       "status": "ok",
-      "rows": 8819,
-      "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0109"
+      "rows": 8852,
+      "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0112"
     },
     {
       "id": "persist_candidate_indexes",
       "label": "Persistir candidatos e resumo acumulado",
       "status": "ok",
-      "rows": 109,
+      "rows": 112,
       "rerun": "python scripts/build_fidc_industry_document_fields.py --chunk-id doc-0001"
     }
   ],
   "quality": {
-    "processed_chunks": 109,
-    "total_chunks": 109,
+    "processed_chunks": 112,
+    "total_chunks": 112,
     "pending_chunks": 0,
-    "documents_scanned": 11665,
-    "participant_candidates": 1328,
-    "participant_accepted": 679,
-    "participant_suppressed": 649,
-    "participant_funds": 245,
-    "participant_with_name": 776,
-    "participant_with_cnpj": 1231,
-    "participant_with_page": 1317,
-    "participant_avg_confidence": 0.5739006024096385,
-    "criteria_candidates": 8819,
-    "criteria_funds": 294,
-    "criteria_with_threshold": 5804,
-    "criteria_with_page": 7994,
-    "criteria_avg_confidence": 0.765164984692142,
-    "subordination_candidates": 3171,
-    "subordination_funds": 273,
+    "documents_scanned": 11879,
+    "participant_candidates": 1365,
+    "participant_accepted": 691,
+    "participant_suppressed": 674,
+    "participant_funds": 255,
+    "participant_with_name": 802,
+    "participant_with_cnpj": 1268,
+    "participant_with_page": 1354,
+    "participant_avg_confidence": 0.572945054945055,
+    "criteria_candidates": 8852,
+    "criteria_funds": 301,
+    "criteria_with_threshold": 5837,
+    "criteria_with_page": 8027,
+    "criteria_avg_confidence": 0.765593086308179,
+    "subordination_candidates": 3204,
+    "subordination_funds": 280,
     "participant_type_counts": {
-      "cedente_originador": 788,
-      "consultora": 387,
-      "sacado_devedor": 153
+      "cedente_originador": 820,
+      "consultora": 389,
+      "sacado_devedor": 156
     },
     "criteria_key_counts": {
-      "subordination_ratio_min": 3171,
+      "subordination_ratio_min": 3204,
       "feature_crit_rio_de_elegibilidade": 1786,
       "credit_rights_allocation_min": 919,
       "permitted_hedges": 597,
