@@ -47,7 +47,14 @@ FONTES = {
     "emissoes": "Toma Conta FIDCs — variação anual de PL (ex-FIC) e captação líquida (dimensão mensal). Métrica preferida: variação de PL. Validação de magnitude: ANBIMA (imprensa, 2024). NÃO é o campo 'emissões encerradas'.",
     "partes": "Toma Conta FIDCs — leitura de regulamentos (cedentes/sacados nomeados, materialidade por PL de fundo). Base: reports/fidc_clean_named_parties.",
     "sumario": "Síntese das dimensões do Toma Conta (gestor/admin/custodiante/segmento) consolidadas por conglomerado.",
+    "delta_papel": "Toma Conta FIDCs — dimensão mensal por papel, consolidada por CNPJ. Share = PL do grupo / PL total do papel na competência. Δrank = posição em dez/2023 menos posição em mai/2026. PL de estoque (inclui troca de mandato).",
+    "originacao": "Toma Conta FIDCs — fundos por ANO DE 1ª OFERTA (snapshot: first_offer_year). Mede ORIGINAÇÃO (fundo novo), expurgando troca de gestor/adm de fundos já existentes. Cobertura de 1ª oferta: 1.407 de 4.219 fundos.",
+    "captacao": "Toma Conta FIDCs — captação líquida = captações − resgates no mês (Informe Mensal FIDC/CVM), somada por ano. Complementa a variação de PL.",
+    "top25det": "Informe Mensal Estruturado (CVM), mai/2026 + leituras de regulamento (Toma Conta). Subordinação = PL classe subordinada / PL total (Tab X_2). Cedente = TAB_I2A12 (até 9, com %). Cotistas por investidor = Tab X_1_1.",
 }
+
+ITAU_NOTA = ("Itaú = Intrag (adm) + Itaú Asset + Itaú Unibanco + Kinea (gestão) + Itaú Unibanco (custódia); "
+             "números por papel, não somáveis. Itaúna Capital NÃO é Itaú. PL da indústria: ex-FIC R$ 880 bi (bruto CVM R$ 959 bi).")
 
 PERIODOS = ["2022-12", "2023-12", "2024-12", "2025-12"]  # + competência atual anexada em runtime
 
@@ -288,6 +295,58 @@ def sumario_executivo(dm, snap, n2g, comp):
     }
 
 
+def deltas_por_papel(dm, dim, name2grp, periodos, top=9):
+    """Trajetória de market share % em cada período + Δ share e Δ ranking, por papel.
+
+    ``periodos`` deve ser a lista de competências a exibir (ex.: 2023-12, 2024-12,
+    2025-12, competência atual). Mostra o share em cada uma para ver de onde a casa
+    saiu e para onde foi.
+    """
+    d = dm[dm["dimension_id"] == dim].copy()
+    d["g"] = d["dimension_value"].map(lambda n: _grp(n, name2grp)[0])
+    pl = {p: d[d["competencia"] == p].groupby("g")["pl_brl"].sum() for p in periodos}
+    df = pd.DataFrame(pl).fillna(0.0)
+    share = {p: (df[p] / df[p].sum() * 100 if df[p].sum() else df[p] * 0) for p in periodos}
+    p0, p1 = periodos[0], periodos[-1]
+    rank0 = df[p0].rank(ascending=False, method="min")
+    rank1 = df[p1].rank(ascending=False, method="min")
+    order = df.sort_values(p1, ascending=False).head(top).index
+
+    def lbl(p):
+        return "Sh " + (p[:4] if p.endswith("-12") else p[:7]) + " %"
+
+    cols = {"Grupo": list(order), "PL (R$ bi)": [round(df.loc[g, p1] / 1e9, 1) for g in order]}
+    for p in periodos:
+        cols[lbl(p)] = [round(share[p].get(g, 0), 1) for g in order]
+    cols["Δ share"] = [round(share[p1].get(g, 0) - share[p0].get(g, 0), 1) for g in order]
+    cols["Δ rank"] = [int(rank0.get(g, 0) - rank1.get(g, 0)) for g in order]
+    return pd.DataFrame(cols).reset_index(drop=True)
+
+
+def originacao_novos(snap, name2grp, anos=(2025, 2026), dim="gestor_nome", cnpjcol="gestor_cnpj", top=8):
+    """Ranking de originação: FIDCs nascidos no ano (1ª oferta), por grupo consolidado."""
+    s = snap.copy()
+    s["foy"] = pd.to_numeric(s["first_offer_year"], errors="coerce")
+    res = {}
+    meta = {}
+    for y in anos:
+        nv = s[s["foy"] == y].copy()
+        nv["g"] = nv.apply(lambda r: _grp(r[dim], name2grp) if False else _grp(r[dim], name2grp), axis=1)
+        # usa resolve por nome+cnpj
+        nv["g"] = nv.apply(lambda r: resolve(r[dim], r[cnpjcol])[0], axis=1)
+        res[y] = nv.groupby("g")["pl"].sum().sort_values(ascending=False) / 1e9
+        meta[y] = {"n": len(nv), "pl": round(nv["pl"].sum() / 1e9)}
+    return res, meta
+
+
+def captacao_liquida_anual(dm):
+    capt = dm[dm["dimension_id"] == "segmento"].groupby("competencia")["captacao_liquida_brl"].sum() / 1e9
+    capt.index = pd.to_datetime(capt.index + "-01")
+    y = capt.groupby(capt.index.year).sum()
+    out = pd.DataFrame({"ano": [int(a) for a in y.index], "capt_liq": y.round(0).values})
+    return out[out["ano"] >= 2020].reset_index(drop=True)
+
+
 DEFINICOES_ANBIMA = [
     ("Fomento Mercantil", "Carteira pulverizada de recebíveis originados/vendidos por diversos cedentes que antecipam recursos (duplicatas, notas promissórias, cheques). Veículo de factoring, cooperativas de crédito e assessoria financeira. (≈ multicedente/multissacado)"),
     ("Financeiro", "Recebíveis originados por instituições financeiras: crédito consignado, crédito pessoal, financiamento de veículos/leasing, crédito imobiliário e multicarteira financeiro."),
@@ -308,6 +367,7 @@ def build_excel(D, path: Path):
 
     comp = D["comp"]; dm = D["dm"]; snap = D["snap"]; n2g = D["name2grp"]
     periodos = PERIODOS + [comp]
+    delta_per = [x for x in PERIODOS if x >= "2023"] + [comp]
     wb = Workbook()
     navy = PatternFill("solid", fgColor=NAVY); thin = Side(style="thin", color=GRAYL)
     bd = Border(left=thin, right=thin, top=thin, bottom=thin)
@@ -385,10 +445,14 @@ def build_excel(D, path: Path):
     table(ws, rg, 3); barchart(ws, 3, 3, len(rg), 2, "F3", NAVY, horiz=True, fmt="#,##0.0")
     note(ws, 6 + len(rg), FONTES["gestor"]); ws.column_dimensions["B"].width = 30
 
-    # 5. Evolução gestor
-    ws = wb.create_sheet("Evolucao Gestor"); banner(ws, "Evolução dos Gestores (consolidado) — PL R$ bi por período", 8)
-    eg = evolucao_consolidada(dm, "gestor", n2g, periodos, 12)
-    table(ws, eg, 3); note(ws, 5 + len(eg), FONTES["gestor"]); ws.column_dimensions["A"].width = 26
+    # 5. Deltas por papel (gestor/admin/custódia) com share e ranking
+    ws = wb.create_sheet("Delta por Papel"); banner(ws, "Share e mudança de posição por papel (dez/23 → atual)", 6)
+    r0 = 3
+    for dim, lab in [("gestor", "GESTOR"), ("admin", "ADMINISTRADOR"), ("custodiante", "CUSTODIANTE")]:
+        ws.cell(r0, 1, lab).font = Font(name="Calibri", bold=True, color=NAVY)
+        dl = deltas_por_papel(dm, dim, n2g, delta_per, top=10)
+        r0 = table(ws, dl, r0 + 1, "#,##0.0") + 1
+    note(ws, r0, FONTES["delta_papel"]); ws.column_dimensions["A"].width = 28
 
     # 6. Ranking admin
     ws = wb.create_sheet("Ranking Admin"); banner(ws, f"Ranking de Administradores (consolidado) — {comp} · Top 12 · R$ bi")
@@ -396,10 +460,21 @@ def build_excel(D, path: Path):
     table(ws, ra, 3); barchart(ws, 3, 3, len(ra), 2, "F3", ORANGE, horiz=True, fmt="#,##0.0")
     note(ws, 6 + len(ra), FONTES["admin"]); ws.column_dimensions["B"].width = 30
 
-    # 7. Evolução admin
-    ws = wb.create_sheet("Evolucao Admin"); banner(ws, "Evolução dos Administradores (consolidado) — PL R$ bi por período", 8)
-    ea = evolucao_consolidada(dm, "admin", n2g, periodos, 12)
-    table(ws, ea, 3); note(ws, 5 + len(ea), FONTES["admin"]); ws.column_dimensions["A"].width = 26
+    # 7. Originação de FIDCs novos + captação líquida
+    ws = wb.create_sheet("Originacao Novos"); banner(ws, "Originação — FIDCs novos por ano de 1ª oferta (R$ bi)", 4)
+    orig, ometa = originacao_novos(snap, n2g, (2025, 2026))
+    r0 = 3
+    for y in (2025, 2026):
+        ws.cell(r0, 1, f"FIDCs nascidos em {y}: {ometa[y]['n']} fundos · R$ {ometa[y]['pl']:.0f} bi").font = Font(name="Calibri", bold=True, color=NAVY)
+        od = orig[y].head(10).round(1).rename("PL originado (R$ bi)").reset_index().rename(columns={"g": "Gestor (consolidado)", "index": "Gestor (consolidado)"})
+        od.columns = ["Gestor (consolidado)", "PL originado (R$ bi)"]
+        r0 = table(ws, od, r0 + 1, "#,##0.0") + 1
+    note(ws, r0, FONTES["originacao"]); ws.column_dimensions["A"].width = 40
+
+    ws = wb.create_sheet("Captacao Liquida"); banner(ws, "Captação líquida anual (captações − resgates) — R$ bi")
+    cap = captacao_liquida_anual(dm).rename(columns={"ano": "Ano", "capt_liq": "Captação líquida (R$ bi)"})
+    table(ws, cap, 3, "#,##0"); barchart(ws, 3, 2, len(cap), 1, "D3", ORANGE, horiz=False)
+    note(ws, 6 + len(cap), FONTES["captacao"]); ws.column_dimensions["A"].width = 8
 
     # 8. Tipo de controle
     ws = wb.create_sheet("Tipo de Controle"); banner(ws, "PL por tipo de controle do gestor — evolução (R$ bi)")
@@ -413,14 +488,24 @@ def build_excel(D, path: Path):
     ws.column_dimensions["A"].width = 20; ws.column_dimensions["B"].width = 20
     ws.column_dimensions["C"].width = 18; ws.column_dimensions["D"].width = 46
 
-    # 10. Top 25
-    ws = wb.create_sheet("Top 25 FIDCs"); banner(ws, f"Top 25 FIDCs por PL — {comp} (detalhe)", 8)
-    t25 = top25_detalhado(snap, n2g, 25)
-    table(ws, t25, 3, "#,##0.00")
-    widths = [4, 54, 30, 26, 12, 10, 12, 26]
-    for j, w in enumerate(widths, 0):
-        ws.column_dimensions[chr(65 + j)].width = w
-    note(ws, 5 + len(t25), FONTES["top25"])
+    # 10. Top 25 — detalhe do dossiê (IME/CVM) se disponível, senão o resumo
+    ws = wb.create_sheet("Top 25 FIDCs"); banner(ws, f"Top 25 FIDCs por PL — {comp} (anatomia documental)", 12)
+    dossie_csv = Path("reports") / "top25_fidc_dossie.csv"
+    if dossie_csv.exists():
+        dd = pd.read_csv(dossie_csv)
+        cols = ["#", "fundo", "pl_bi", "gestor", "segmento", "n_classes_series", "subordinacao_%",
+                "n_cedentes_identificados", "maior_cedente_%", "maior_cedente", "pct_vencido_inad",
+                "pct_judicial", "sacado_perform_%", "n_cotistas", "top_investidores", "n_cotistas_institucionais",
+                "ano_1a_oferta"]
+        cols = [c for c in cols if c in dd.columns]
+        table(ws, dd[cols], 3, "#,##0.0")
+        for j, w in enumerate([4, 46, 8, 18, 16, 8, 9, 8, 9, 16, 9, 8, 9, 8, 34, 8, 9]):
+            ws.column_dimensions[chr(65 + j) if j < 26 else "A" + chr(65 + j - 26)].width = w
+        note(ws, 5 + len(dd), FONTES["top25det"])
+    else:
+        t25 = top25_detalhado(snap, n2g, 25)
+        table(ws, t25, 3, "#,##0.00")
+        note(ws, 5 + len(t25), FONTES["top25"])
 
     # 11. Cotistas
     ws = wb.create_sheet("Cotistas"); banner(ws, "Número de cotistas — fundos > R$ 200 mi de PL")
@@ -480,6 +565,7 @@ def build_pptx(D, path: Path):
 
     comp = D["comp"]; dm = D["dm"]; snap = D["snap"]; n2g = D["name2grp"]
     periodos = PERIODOS + [comp]
+    delta_per = [x for x in PERIODOS if x >= "2023"] + [comp]
     rgb = lambda h: RGBColor.from_string(h)
     prs = Presentation(); prs.slide_width = Inches(13.333); prs.slide_height = Inches(7.5)
     blank = prs.slide_layouts[6]; SW, SH = prs.slide_width, prs.slide_height
@@ -641,31 +727,42 @@ def build_pptx(D, path: Path):
     # 4 Ranking gestor
     s = prs.slides.add_slide(blank); header(s, "Prestadores — gestão", f"Ranking de Gestores (consolidado por conglomerado) — {comp}")
     rg = ranking_consolidado(dm, "gestor", n2g, comp, 12)
-    chart(s, XL_CHART_TYPE.BAR_CLUSTERED, Inches(0.5), Inches(1.45), Inches(12.3), Inches(5.1),
-          [g[:30] for g in rg["grupo"]][::-1], [("PL (R$ bi)", [float(v) for v in rg["pl_bi"]][::-1])], [NAVY], fmt="#,##0.0")
+    labels = [("Itaú (Itaú Asset+Unibanco+Kinea)" if g == "Itau" else g)[:32] for g in rg["grupo"]][::-1]
+    chart(s, XL_CHART_TYPE.BAR_CLUSTERED, Inches(0.5), Inches(1.45), Inches(12.3), Inches(4.7),
+          labels, [("PL (R$ bi)", [float(v) for v in rg["pl_bi"]][::-1])], [NAVY], fmt="#,##0.0")
+    text(s, Inches(0.5), Inches(6.35), Inches(12.4), Inches(0.6), ITAU_NOTA, 8.5, False, GRAY)
     src(s, "gestor")
 
-    # 5 Evolução gestor
-    s = prs.slides.add_slide(blank); header(s, "Movimento de mercado", "Evolução dos Gestores — de onde saíram e para onde foram (R$ bi)")
-    eg = evolucao_consolidada(dm, "gestor", n2g, periodos, 12)
-    eg_disp = eg.rename(columns={p: p[:7] for p in periodos})
-    table(s, eg_disp, Inches(0.4), Inches(1.5), Inches(12.5), Inches(5.2),
-          widths=[3.0, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.0], fs=10, headfs=9)
-    src(s, "gestor")
+    # 5-7 Deltas por papel (gestor / administrador / custodiante) com share e ranking
+    role_meta = [("gestor", "Gestores", "gestão"), ("admin", "Administradores", "administração"),
+                 ("custodiante", "Custodiantes", "custódia")]
+    for dim, titulo, papel in role_meta:
+        s = prs.slides.add_slide(blank)
+        header(s, "Movimento de mercado — " + papel, f"{titulo}: share e mudança de posição (dez/23 → {comp})")
+        dl = deltas_por_papel(dm, dim, n2g, delta_per, top=9)
+        table(s, dl, Inches(0.35), Inches(1.5), Inches(12.6), Inches(4.9),
+              widths=[2.6, 1.0, 0.95, 0.95, 0.95, 0.95, 0.95, 0.85], fs=10, headfs=9)
+        # destaque textual
+        ganhou = dl.sort_values("Δ share", ascending=False).iloc[0]
+        perdeu = dl.sort_values("Δ share").iloc[0]
+        gsh = float(ganhou["Δ share"]); psh = float(perdeu["Δ share"])
+        text(s, Inches(0.5), Inches(6.5), Inches(12.4), Inches(0.5),
+             f"▲ Ganhou share: {ganhou['Grupo']} ({gsh:+.1f} pp)    "
+             f"▼ Perdeu: {perdeu['Grupo']} ({psh:+.1f} pp)", 12, True, NAVY)
+        src(s, "delta_papel")
 
-    # 6 Ranking admin
-    s = prs.slides.add_slide(blank); header(s, "Prestadores — administração", f"Ranking de Administradores (consolidado) — {comp}")
-    ra = ranking_consolidado(dm, "admin", n2g, comp, 12)
-    chart(s, XL_CHART_TYPE.BAR_CLUSTERED, Inches(0.5), Inches(1.45), Inches(12.3), Inches(5.1),
-          [g[:30] for g in ra["grupo"]][::-1], [("PL (R$ bi)", [float(v) for v in ra["pl_bi"]][::-1])], [ORANGE], fmt="#,##0.0")
-    src(s, "admin")
-
-    # 7 Evolução admin
-    s = prs.slides.add_slide(blank); header(s, "Movimento de mercado", "Evolução dos Administradores (R$ bi)")
-    ea = evolucao_consolidada(dm, "admin", n2g, periodos, 12).rename(columns={p: p[:7] for p in periodos})
-    table(s, ea, Inches(0.4), Inches(1.5), Inches(12.5), Inches(5.2),
-          widths=[3.0, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.0], fs=10, headfs=9)
-    src(s, "admin")
+    # 7b Originação — FIDCs novos 2025/2026
+    s = prs.slides.add_slide(blank); header(s, "Originação (não rouba-monte)", "Quem origina FIDCs novos — por ano de 1ª oferta")
+    orig, ometa = originacao_novos(snap, n2g, (2025, 2026))
+    for col, y in ((0, 2025), (1, 2026)):
+        x = Inches(0.5 + col * 6.6)
+        text(s, x, Inches(1.3), Inches(6), Inches(0.4),
+             f"FIDCs nascidos em {y}: {ometa[y]['n']} fundos · R$ {ometa[y]['pl']:.0f} bi", 13, True, NAVY)
+        od = orig[y].head(7)
+        cats = [g[:26] for g in od.index][::-1]; vals = [float(v) for v in od.values][::-1]
+        chart(s, XL_CHART_TYPE.BAR_CLUSTERED, x, Inches(1.7), Inches(6.2), Inches(4.7),
+              cats, [("PL originado (R$ bi)", vals)], [ORANGE if col == 0 else NAVY], fmt="#,##0.0", lblsize=9)
+    src(s, "originacao")
 
     # 8 Tipo de controle
     s = prs.slides.add_slide(blank); header(s, "Independentes x bancos", "PL por tipo de controle do gestor — evolução (R$ bi)")
@@ -752,6 +849,20 @@ def build_pptx(D, path: Path):
          "Validação: ANBIMA reportou FIDCs entre as categorias que mais cresceram em 2024, "
          "consistente com +R$ " + f"{float(em.loc[em['ano']==2024,'var_pl'].iloc[0]):,.0f}" + " bi.", 11, False, INK)
     src(s, "emissoes")
+
+    # 13b Captação líquida
+    s = prs.slides.add_slide(blank); header(s, "Fluxo primário", "Captação líquida anual (captações − resgates) — R$ bi")
+    cap = captacao_liquida_anual(dm)
+    chart(s, XL_CHART_TYPE.COLUMN_CLUSTERED, Inches(0.5), Inches(1.5), Inches(8.6), Inches(5.0),
+          [str(a) for a in cap["ano"]], [("Captação líquida (R$ bi)", [float(v) for v in cap["capt_liq"]])], [ORANGE])
+    c24 = float(cap.loc[cap["ano"] == 2024, "capt_liq"].iloc[0]) if (cap["ano"] == 2024).any() else 0
+    c25 = float(cap.loc[cap["ano"] == 2025, "capt_liq"].iloc[0]) if (cap["ano"] == 2025).any() else 0
+    text(s, Inches(9.4), Inches(1.9), Inches(3.6), Inches(4.6),
+         f"Captação líquida = captações − resgates no mês (IME/CVM), somada por ano.\n\n"
+         f"2024: R$ {c24:,.0f} bi · 2025: R$ {c25:,.0f} bi.\n\n"
+         "Complementa a variação de PL (que também capta valorização de cota). "
+         "ANBIMA divulga FIDCs entre os líderes de captação em 2024–2025.", 11, False, INK)
+    src(s, "captacao")
 
     # 14 Fontes
     s = prs.slides.add_slide(blank); header(s, "Transparência", "Fonte exata por gráfico")
