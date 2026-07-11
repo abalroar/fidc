@@ -339,6 +339,27 @@ def originacao_novos(snap, name2grp, anos=(2025, 2026), dim="gestor_nome", cnpjc
     return res, meta
 
 
+def delta_funds(dm, dim, name2grp, p0, p1):
+    """Δ nº de fundos por grupo entre dois períodos (dim funds_unique)."""
+    if "funds_unique" not in dm.columns:
+        return {}
+    d = dm[dm["dimension_id"] == dim].copy()
+    d["g"] = d["dimension_value"].map(lambda n: _grp(n, name2grp)[0])
+    f0 = d[d["competencia"] == p0].groupby("g")["funds_unique"].sum()
+    f1 = d[d["competencia"] == p1].groupby("g")["funds_unique"].sum()
+    return {g: int(f1.get(g, 0) - f0.get(g, 0)) for g in f1.index}
+
+
+def cotistas_stats(snap):
+    """Distribuição de nº de cotistas por fundo (percentis, média, mediana)."""
+    c = pd.to_numeric(snap["cotistas"], errors="coerce").dropna()
+    return {
+        "n_fundos": int(c.size), "media": round(c.mean()), "mediana": int(c.median()),
+        "p90": int(c.quantile(0.90)), "p95": int(c.quantile(0.95)), "p99": int(c.quantile(0.99)),
+        "max": int(c.max()), "pct_le2": round((c <= 2).mean() * 100),
+    }
+
+
 def captacao_liquida_anual(dm):
     capt = dm[dm["dimension_id"] == "segmento"].groupby("competencia")["captacao_liquida_brl"].sum() / 1e9
     capt.index = pd.to_datetime(capt.index + "-01")
@@ -746,8 +767,10 @@ def build_pptx(D, path: Path):
         ganhou = dl.sort_values("Δ share", ascending=False).iloc[0]
         perdeu = dl.sort_values("Δ share").iloc[0]
         gsh = float(ganhou["Δ share"]); psh = float(perdeu["Δ share"])
-        text(s, Inches(0.5), Inches(6.5), Inches(12.4), Inches(0.5),
-             f"▲ Ganhou share: {ganhou['Grupo']} ({gsh:+.1f} pp)    "
+        df_funds = delta_funds(dm, dim, n2g, delta_per[0], delta_per[-1])
+        gf = df_funds.get(ganhou["Grupo"], 0)
+        text(s, Inches(0.5), Inches(6.45), Inches(12.4), Inches(0.55),
+             f"▲ Ganhou share: {ganhou['Grupo']} ({gsh:+.1f} pp · {gf:+d} fundos)    "
              f"▼ Perdeu: {perdeu['Grupo']} ({psh:+.1f} pp)", 12, True, NAVY)
         src(s, "delta_papel")
 
@@ -827,7 +850,12 @@ def build_pptx(D, path: Path):
     chart(s, XL_CHART_TYPE.COLUMN_CLUSTERED, Inches(1.1), Inches(2.0), Inches(7.4), Inches(4.7),
           list(cot["b"]), [("# Fundos", [int(v) for v in cot["n_fundos"]])], [ORANGE, ORANGE2, GRAY, NAVY])
     cotd = cot.rename(columns={"b": "Faixa", "n_fundos": "# Fundos", "pl_bi": "PL (R$ bi)"})
-    table(s, cotd, Inches(8.8), Inches(2.4), Inches(4.1), Inches(2.5), widths=[1.6, 1.0, 1.2], fs=11)
+    table(s, cotd, Inches(8.8), Inches(2.1), Inches(4.1), Inches(2.2), widths=[1.6, 1.0, 1.2], fs=11)
+    st = cotistas_stats(snap)
+    text(s, Inches(8.8), Inches(4.6), Inches(4.3), Inches(1.9),
+         f"Distribuição (todos os fundos):\nmediana {st['mediana']} · média {st['media']} cotistas\n"
+         f"p90 {st['p90']} · p95 {st['p95']} · p99 {st['p99']:,}\n{st['pct_le2']}% dos fundos têm ≤ 2 cotistas",
+         11, False, INK)
     src(s, "cotistas")
 
     # 12 Segmento investidor
@@ -863,6 +891,26 @@ def build_pptx(D, path: Path):
          "Complementa a variação de PL (que também capta valorização de cota). "
          "ANBIMA divulga FIDCs entre os líderes de captação em 2024–2025.", 11, False, INK)
     src(s, "captacao")
+
+    # 13c Metodologia (resumo defensável)
+    s = prs.slides.add_slide(blank); header(s, "Defensabilidade", "Metodologia — como cada número foi obtido")
+    met = [
+        ("PL da indústria", "Σ TAB_IV_A_VL_PL (CVM). Ex-FIC R$ 880 bi (bruto R$ 959 bi, −R$ 79 bi de FIC-FIDC). Bruto bate exato com CVM cru."),
+        ("Rankings/share por papel", "PL do grupo / PL total do papel na competência. Gestor = cadastro CVM vigente (ressalva). Adm/custódia = Informe Mensal."),
+        ("Consolidação de grupos", "De-para por CNPJ (config/conglomerados_fidc.json). Itaúna ≠ Itaú. Itaú por papel, não somável."),
+        ("Originação", "Fundos por ano de 1ª oferta (1.407 de 4.219 datados). Expurga troca de mandato."),
+        ("Cedentes/sacados", "Regex sobre 569 regulamentos, safra 2024–26. Amostra enviesada p/ fundos novos — não é a indústria toda."),
+        ("Investidores", "Cotistas por categoria (IME Tab X_1_1). Nominal é vedado (sigilo CVM). 24% em 'Outros'."),
+        ("Mercado secundário", "Sem base pública granular grátis (ANBIMA Feed/B3 DataWise pagos). Lacuna declarada — não estimada."),
+    ]
+    y = 1.5
+    for t, d in met:
+        rect(s, Inches(0.5), Inches(y), Inches(2.9), Inches(0.72), NAVY)
+        text(s, Inches(0.6), Inches(y + 0.02), Inches(2.75), Inches(0.68), t, 11, True, WHITE, anchor=MSO_ANCHOR.MIDDLE)
+        text(s, Inches(3.6), Inches(y - 0.02), Inches(9.4), Inches(0.76), d, 10.5, False, INK, anchor=MSO_ANCHOR.MIDDLE)
+        y += 0.76
+    text(s, Inches(0.5), Inches(6.9), Inches(12.4), Inches(0.4),
+         "Detalhe completo, divergências entre fontes e checagens adversariais: docs/METODOLOGIA_E_AUDITORIA.md", 9, False, GRAY)
 
     # 14 Fontes
     s = prs.slides.add_slide(blank); header(s, "Transparência", "Fonte exata por gráfico")
