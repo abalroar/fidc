@@ -1,0 +1,6 @@
+tema,fonte,url,arquivo_local,uso
+"PL, segmentos, administradores e cotistas",CVM - Informe Mensal de FIDC,https://dados.cvm.gov.br/dataset/fidc-doc-inf_mensal,vehicle_monthly.csv.gz | industry_monthly.csv | industry_fund_snapshot.csv.gz,"universo mensal, PL, recebível dominante, administração e número de cotistas"
+Ofertas primárias,CVM - Ofertas Públicas de Distribuição,https://dados.cvm.gov.br/dataset/oferta-distrib,offer_role_share_delta.csv,"volume, quantidade e participação por prestador em janelas comparáveis"
+Classes de FIDC,ANBIMA - Diretriz de Classificação do FIDC nº 09,https://www.anbima.com.br/data/files/85/40/8F/2D/79E386106416A38678A80AC2/Diretrizes_e_deliberacoes_do_Codigo_de_Administracao_de_Recursos_de_terceiros.pdf,anbima_class_definitions.csv,denominações e focos oficiais; macro-mapeamento analítico dos informes CVM
+Cobertura documental,Documentos públicos CVM/Fundos.NET curados localmente,https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM,document_universe_funnel.csv,medir cobertura e impedir publicação de rankings não censitários
+Referência de conteúdo,Industria_FIDC_2026053.pptx - Clodo Couto,local,/Users/matheusjprates/Downloads/Industria_FIDC_2026053.pptx,"taxonomia, ideia do gráfico 100% empilhado e encadeamento; números reprocessados"
