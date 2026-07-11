@@ -272,7 +272,9 @@ def sumario_executivo(dm, snap, n2g, comp):
         d["g"] = d["dimension_value"].map(lambda n: _grp(n, n2g)[0])
         return d[d["competencia"] == comp].groupby("g")["pl_brl"].sum().sort_values(ascending=False) / 1e9
     plserie = pl_industria_anual(dm, comp)
-    pl_ini, pl_fim = float(plserie["pl_liquido"].iloc[0]), float(plserie["pl_liquido"].iloc[-1])
+    pl_fim = float(plserie["pl_liquido"].iloc[-1])
+    row23 = plserie[plserie["ano"] == "2023"]["pl_liquido"]
+    pl_ini = float(row23.iloc[0]) if len(row23) else float(plserie["pl_liquido"].iloc[0])
     adm = dimtop("admin"); ges = dimtop("gestor")
     tc = tipo_controle_anual(dm, n2g, [comp])[comp]
     itau_adm = adm.get("Itau", 0.0)
@@ -584,8 +586,8 @@ def build_pptx(D, path: Path):
     s = prs.slides.add_slide(blank); header(s, "Leitura de mercado", "Sumário executivo — o que importa para o Comitê")
     sm = sumario_executivo(dm, snap, n2g, comp)
     cards = [
-        ("O mercado dobrou", f"R$ {sm['pl_ini']:,.0f} → {sm['pl_fim']:,.0f} bi (ex-FIC)",
-         "Indústria de FIDC praticamente dobrou em ~2,5 anos, puxada por crédito estruturado."),
+        ("O mercado dobrou", f"R$ {sm['pl_ini']:,.0f} (2023) → {sm['pl_fim']:,.0f} bi",
+         "Indústria de FIDC dobrou em ~2,5 anos (ex-FIC), puxada por crédito estruturado."),
         ("Independentes dominam a gestão", f"{sm['indep_pct']:,.0f}% do PL (R$ {sm['indep_v']:,.0f} bi)",
          "A gestão migrou para fora dos bancos de varejo; independentes lideram."),
         ("A briga é administração/custódia", f"BTG {sm['adm_btg']:,.0f} · QI Tech {sm['adm_qi']:,.0f} · Itaú {sm['adm_itau']:,.0f} bi",
