@@ -133,10 +133,12 @@ Fonte: **ANBIMA Feed – Preços & Índices** (OAuth2), dois endpoints:
 4. Copie `.env.example` para `.env` e preencha `ANBIMA_CLIENT_ID` e
    `ANBIMA_CLIENT_SECRET`. O `.env` está no `.gitignore` — nunca commitar.
 5. O token OAuth2 é obtido em runtime por `secondary/auth.py`
-   (client credentials, Basic auth). **TODO:** confirmar URL do token e formato
-   exatos na seção "Autenticação" do portal — a função é isolada e fácil de
-   ajustar.
-6. Para testar contra o sandbox, use `ANBIMA_ENV=sandbox`.
+   (client credentials, Basic auth em `https://api.anbima.com.br/oauth/access-token`,
+   resposta HTTP 201 com `expires_in` de 3600s — fluxo confirmado contra a API real).
+6. Para testar contra o sandbox, use `ANBIMA_ENV=sandbox`. Atenção: o sandbox
+   implementa `/v1/fidc/mercado-secundario`, mas **não** a rota do REUNE
+   (`/v1/reune/negociacoes` retorna 404 "without destination") — negociações
+   reais só podem ser validadas em produção, após a liberação do produto.
 
 ### Fluxo de dados
 

@@ -5,12 +5,10 @@ Credenciais vêm SOMENTE de variáveis de ambiente / arquivo .env:
 Opcionais:
     ANBIMA_TOKEN_URL  (default: https://api.anbima.com.br/oauth/access-token)
 
-TODO: confirmar na seção "Autenticação" do portal developers.anbima.com.br:
-  - URL exata do endpoint de token (produção e sandbox usam o mesmo host de token?);
-  - se o grant vai no corpo JSON ({"grant_type": "client_credentials"}) com
-    Authorization: Basic base64(client_id:client_secret) — implementação atual —
-    ou como form-urlencoded;
-  - o expires_in real retornado (usamos o valor da resposta, com fallback de 3600s).
+Fluxo confirmado contra a API real (jul/2026): POST no endpoint de token com
+Authorization: Basic base64(client_id:client_secret) e corpo JSON
+{"grant_type": "client_credentials"}; a resposta vem com HTTP 201 e
+expires_in de 3600s. O mesmo host de token atende produção e sandbox.
 """
 from __future__ import annotations
 
@@ -65,7 +63,8 @@ def _fetch_token() -> tuple[str, float]:
         json={"grant_type": "client_credentials"},
         timeout=_REQUEST_TIMEOUT,
     )
-    if response.status_code != 200:
+    # A ANBIMA responde 201 Created na emissão do token; aceita qualquer 2xx.
+    if not response.ok:
         raise AnbimaAuthError(
             f"Token OAuth2 recusado ({response.status_code}): {response.text[:300]}"
         )
