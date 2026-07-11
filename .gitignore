@@ -36,10 +36,14 @@ env/
 !.streamlit/
 !.streamlit/config.toml
 
+# Credenciais (mercado secundário ANBIMA)
+.env
+
 # Local runtime cache
 .cache/
 data/dev_hours_cache.json
 data/raw/
+data/curated/
 data/regulatory_extractions/
 data/fidc_credit_strategy/*.sqlite
 outputs/fidc_credit_strategy_study_*/

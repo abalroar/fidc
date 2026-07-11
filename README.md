@@ -106,3 +106,71 @@ Observações:
 - O download é feito por `downloadDocumento?id=...`.
 - O filtro funcional usa o tipo FIDC + categoria/tipo oficiais do IME no Fundos.NET.
 - O recorte temporal é por competência (`MM/AAAA`), não por data de entrega.
+
+## Mercado Secundário de FIDCs (ANBIMA Feed)
+
+Nova página Streamlit (`pages/mercado_secundario.py`, aparece na barra lateral)
+com volume operado, preço e taxa do mercado secundário de cotas de FIDC,
+mês a mês (2023–2026), ranking de FIDCs por volume e ágio/deságio implícito.
+
+Fonte: **ANBIMA Feed – Preços & Índices** (OAuth2), dois endpoints:
+
+- `GET /v1/fidc/mercado-secundario` — PU indicativo, `percent_pu_par`, taxas
+  (uma data por chamada, sem paginação);
+- `GET /v1/reune/negociacoes` — negociações reais (paginado; cobre debêntures,
+  CRI, CRA e CFF). FIDC entra como **CFF** — o isolamento é feito **cruzando o
+  ISIN** contra o universo do endpoint de preços, nunca só por `tipo_ativo`.
+  Dado anonimizado: não há comprador/vendedor, apenas o emissor da cota.
+
+### Credenciais (portal ANBIMA Dev)
+
+1. Entre em <https://developers.anbima.com.br> com seu login.
+2. Crie um **aplicativo** (menu "Meus aplicativos" / "Criar aplicativo") — isso
+   gera o par `client_id` / `client_secret`.
+3. Associe o aplicativo ao produto **Feed – Preços e Índices** (a liberação de
+   produção pode exigir aprovação/contratação junto à ANBIMA; o **sandbox** é
+   liberado de imediato para testes).
+4. Copie `.env.example` para `.env` e preencha `ANBIMA_CLIENT_ID` e
+   `ANBIMA_CLIENT_SECRET`. O `.env` está no `.gitignore` — nunca commitar.
+5. O token OAuth2 é obtido em runtime por `secondary/auth.py`
+   (client credentials, Basic auth). **TODO:** confirmar URL do token e formato
+   exatos na seção "Autenticação" do portal — a função é isolada e fácil de
+   ajustar.
+6. Para testar contra o sandbox, use `ANBIMA_ENV=sandbox`.
+
+### Fluxo de dados
+
+```bash
+# 1) Modo de teste: um mês recente (valida auth, campos e cruzamento por ISIN)
+python -m secondary.backfill --mes 2026-06
+
+# 2) Sonda um dia antigo (o histórico de 2023 pode não existir; não grava nada)
+python -m secondary.backfill --dia 2023-01-16
+
+# 3) Backfill completo (só depois dos passos 1 e 2)
+python -m secondary.backfill --inicio 2023-01-01 --fim 2026-12-31
+
+# 4) Agregação -> data/curated/mensal_fidc.parquet
+python -m secondary.aggregate
+```
+
+Layout dos dados (Hive-style, idempotente por mês; `--force` reprocessa):
+
+```
+data/raw/precos_fidc/ano=YYYY/mes=MM/parte.parquet
+data/raw/negociacoes/ano=YYYY/mes=MM/parte.parquet
+data/curated/mensal_fidc.parquet        # agregado mensal (dashboard)
+data/curated/negociacoes_fidc.parquet   # nível negociação (boxplot de ágio/deságio)
+```
+
+Métrica-chave: `agio_desagio_impl_pct = (vl_pu_negociado / pu_indicativo − 1) × 100`,
+comparando o preço praticado no REUNE com o PU indicativo ANBIMA do mesmo
+ISIN+data; `percent_pu_par` (marcação oficial sobre o par) também é agregado.
+
+> **AVISO — rate limit:** produção aceita ~15 req/s e o backfill completo
+> (3+ anos × 2 endpoints × ~250 dias úteis/ano, REUNE paginado) gera milhares
+> de chamadas. **Alinhe previamente com a ANBIMA** antes de rodar o backfill
+> pesado e ajuste `ANBIMA_SLEEP_SECONDS` no `.env`. A profundidade histórica
+> real (2023) é incerta: dias sem dado retornam vazio e são tratados como
+> normais (liquidez de FIDC é baixa). O calendário usa `pandas.bdate_range`
+> com ponto de extensão para feriados B3 (`secondary/backfill.py:FERIADOS_B3`).
