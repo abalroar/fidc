@@ -1,0 +1,13 @@
+test_id,status,observed,expected,tolerance,severity,note
+snapshot_pl_reconciles_to_industry_monthly,pass,958535660089.7299,958535660089.73,1.0,critical,Type totals must equal the published gross snapshot.
+type_shares_sum_to_one_current,pass,1.0,1.0,1e-09,critical,"Unknown type is retained, so the partition must be exhaustive."
+administrador_shares_sum_to_one_within_type,pass,1.1102230246251565e-16,0.0,1e-08,critical,Every FIDC type must be fully allocated across participant groups.
+administrador_primary_offer_shares_sum_to_one,pass,1.0000000000000002,1.0,1e-08,critical,Primary-offer participant shares must reconcile to total valid volume.
+gestor_shares_sum_to_one_within_type,pass,1.1102230246251565e-16,0.0,1e-08,critical,Every FIDC type must be fully allocated across participant groups.
+gestor_primary_offer_shares_sum_to_one,pass,0.9999999999999999,1.0,1e-08,critical,Primary-offer participant shares must reconcile to total valid volume.
+custodiante_shares_sum_to_one_within_type,pass,1.1102230246251565e-16,0.0,1e-08,critical,Every FIDC type must be fully allocated across participant groups.
+custodiante_primary_offer_shares_sum_to_one,pass,0.9999999999999999,1.0,1e-08,critical,Primary-offer participant shares must reconcile to total valid volume.
+investor_observations_semantically_unique,pass,198.0,198.0,0.0,critical,No duplicated closing observation remains in the headline sample.
+investor_family_accounts_reconcile,pass,1.0,1.0,1e-08,critical,Investor-family account shares must sum to one.
+document_corpus_is_subset_of_current_universe,pass,1.0,1.0,0.0,critical,"Document coverage must remain a labeled subset, never an all-FIDC census claim."
+secondary_scope_is_not_turnover,pass,1.0,1.0,0.0,critical,Registered distributions may never be described as trading turnover.

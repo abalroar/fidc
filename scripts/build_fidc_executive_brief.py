@@ -227,6 +227,7 @@ def main() -> None:
             "net_flow", ascending=False
         )
         positive_flows = flows.loc[flows["net_flow"].gt(0)]
+        positive_flow_total = float(positive_flows["net_flow"].sum())
         snapshot_admin = snapshot.loc[snapshot["admin_nome_group"].eq(group)]
         snapshot_custody = snapshot.loc[snapshot["custodiante_nome_group"].eq(group)]
         snapshot_manager = snapshot.loc[snapshot["gestor_nome_group"].eq(group)]
@@ -258,8 +259,16 @@ def main() -> None:
                 "pl_ytd_delta_brl": current_pl - year_end_pl,
                 "net_flow_ytd_brl": net_flow,
                 "pl_flow_residual_ytd_brl": current_pl - year_end_pl - net_flow,
-                "flow_top1_share": safe_ratio(float(positive_flows.head(1)["net_flow"].sum()), net_flow),
-                "flow_top5_share": safe_ratio(float(positive_flows.head(5)["net_flow"].sum()), net_flow),
+                "positive_fund_flow_ytd_brl": positive_flow_total,
+                "positive_flow_top1_share": safe_ratio(
+                    float(positive_flows.head(1)["net_flow"].sum()), positive_flow_total
+                ),
+                "positive_flow_top5_share": safe_ratio(
+                    float(positive_flows.head(5)["net_flow"].sum()), positive_flow_total
+                ),
+                "positive_flow_concentration_note": (
+                    "share of gross positive fund-level net flows; denominator is not aggregate net flow"
+                ),
                 "offer_volume_ytd_brl": float(offer.get("offer_volume", 0.0)),
                 "offers_ytd": int(offer.get("offers", 0)),
                 "offer_issuers_ytd": int(offer.get("issuers", 0)),
@@ -367,7 +376,7 @@ def main() -> None:
 
     payload = sanitize(
         {
-            "schema_version": "fidc-executive-brief/v1",
+            "schema_version": "fidc-executive-brief/v2",
             "as_of": current_month,
             "previous_year_month": previous_year_month,
             "market": market_views,

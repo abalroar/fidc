@@ -1,0 +1,7 @@
+stage,funds,current_funds_matched,current_pl_brl,current_pl_share,note
+current_cvm_universe,4219,4219,958535660089.73,1.0,All funds/classes in the May 2026 monthly snapshot.
+funds_with_local_public_documents,823,729,192910451671.99,0.2012553728610695,Inventory inherited from Strategy DB and targeted Fundos.NET downloads; not a census.
+funds_with_text_ready_documents,823,729,192910451671.99,0.2012553728610695,Documents with extracted searchable text.
+funds_with_participant_candidates,293,267,70523951904.92001,0.07357467733471508,"Parser detected at least one cedent, sacado or consultant candidate."
+funds_with_accepted_cedent,120,107,24791318471.09,0.025863741437401763,Accepted high-precision cedent evidence; selection is not random.
+funds_with_validated_closing_table,156,153,36330133749.9,0.037901702839620056,Unique high-confidence closing announcements in the exact 24-month window.
