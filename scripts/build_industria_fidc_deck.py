@@ -45,6 +45,8 @@ FONTES = {
     "cotistas": "Informe Mensal FIDC/CVM — Tabela X (nº de cotistas) via Toma Conta. Filtro PL > R$ 200 mi.",
     "investidor": "Informe Mensal FIDC/CVM — nº de cotistas por segmento de investidor, via Toma Conta.",
     "emissoes": "Toma Conta FIDCs — variação anual de PL (ex-FIC) e captação líquida (dimensão mensal). Métrica preferida: variação de PL. Validação de magnitude: ANBIMA (imprensa, 2024). NÃO é o campo 'emissões encerradas'.",
+    "partes": "Toma Conta FIDCs — leitura de regulamentos (cedentes/sacados nomeados, materialidade por PL de fundo). Base: reports/fidc_clean_named_parties.",
+    "sumario": "Síntese das dimensões do Toma Conta (gestor/admin/custodiante/segmento) consolidadas por conglomerado.",
 }
 
 PERIODOS = ["2022-12", "2023-12", "2024-12", "2025-12"]  # + competência atual anexada em runtime
@@ -247,6 +249,43 @@ def emissoes_anual(dm):
     return out[out["ano"] >= 2020].reset_index(drop=True)
 
 
+def cedentes_sacados(reports_dir: Path, top=10):
+    f = reports_dir / "fidc_clean_named_parties_20260609.csv"
+    if not f.exists():
+        return None, None
+    p = pd.read_csv(f)
+    p["mat_bi"] = _num(p["materiality_brl"]) / 1e9
+    p = p[~p["party_name"].astype(str).str.match(r"^\d", na=False)]  # tira CNPJs crus
+    def tab(tp):
+        d = p[p["participant_type"] == tp].sort_values("mat_bi", ascending=False).head(top)
+        out = d[["party_name", "setor_n1", "funds", "mat_bi"]].copy()
+        out.columns = ["Parte", "Setor", "# Fundos", "Materialidade (R$ bi)"]
+        out["Materialidade (R$ bi)"] = out["Materialidade (R$ bi)"].round(2)
+        return out.reset_index(drop=True)
+    return tab("cedente_originador"), tab("sacado_devedor")
+
+
+def sumario_executivo(dm, snap, n2g, comp):
+    """Números-chave para o slide de sumário."""
+    def dimtop(dim):
+        d = dm[dm["dimension_id"] == dim].copy()
+        d["g"] = d["dimension_value"].map(lambda n: _grp(n, n2g)[0])
+        return d[d["competencia"] == comp].groupby("g")["pl_brl"].sum().sort_values(ascending=False) / 1e9
+    plserie = pl_industria_anual(dm, comp)
+    pl_ini, pl_fim = float(plserie["pl_liquido"].iloc[0]), float(plserie["pl_liquido"].iloc[-1])
+    adm = dimtop("admin"); ges = dimtop("gestor")
+    tc = tipo_controle_anual(dm, n2g, [comp])[comp]
+    itau_adm = adm.get("Itau", 0.0)
+    btg_adm = adm.get("BTG Pactual", 0.0); qi_adm = adm.get("QI Tech", 0.0)
+    return {
+        "pl_ini": pl_ini, "pl_fim": pl_fim,
+        "ges_top": ges.index[0], "ges_top_v": ges.iloc[0],
+        "adm_btg": btg_adm, "adm_qi": qi_adm, "adm_itau": itau_adm,
+        "indep_pct": tc.get("Independente", 0) / tc.sum() * 100 if tc.sum() else 0,
+        "indep_v": tc.get("Independente", 0),
+    }
+
+
 DEFINICOES_ANBIMA = [
     ("Fomento Mercantil", "Carteira pulverizada de recebíveis originados/vendidos por diversos cedentes que antecipam recursos (duplicatas, notas promissórias, cheques). Veículo de factoring, cooperativas de crédito e assessoria financeira. (≈ multicedente/multissacado)"),
     ("Financeiro", "Recebíveis originados por instituições financeiras: crédito consignado, crédito pessoal, financiamento de veículos/leasing, crédito imobiliário e multicarteira financeiro."),
@@ -402,6 +441,17 @@ def build_excel(D, path: Path):
     table(ws, em, 3, "#,##0"); barchart(ws, 3, 2, len(em), 1, "F3", ORANGE, horiz=False)
     note(ws, 6 + len(em), FONTES["emissoes"]); ws.column_dimensions["A"].width = 8
 
+    # 13b. Cedentes & Sacados
+    ced, sac = cedentes_sacados(Path("reports"))
+    if ced is not None:
+        ws = wb.create_sheet("Cedentes e Sacados"); banner(ws, "Cedentes e sacados relevantes (leitura de regulamentos)", 4)
+        ws.cell(3, 1, "Maiores CEDENTES (originadores)").font = Font(name="Calibri", bold=True, color=NAVY)
+        e1 = table(ws, ced, 4)
+        ws.cell(e1 + 1, 1, "Maiores SACADOS (devedores)").font = Font(name="Calibri", bold=True, color=NAVY)
+        e2 = table(ws, sac, e1 + 2)
+        note(ws, e2 + 1, FONTES["partes"])
+        ws.column_dimensions["A"].width = 40; ws.column_dimensions["B"].width = 30
+
     # 14. Fontes
     ws = wb.create_sheet("Fontes"); banner(ws, "Fonte exata por gráfico", 2)
     fdf = pd.DataFrame([(k, v) for k, v in FONTES.items()], columns=["Gráfico", "Fonte"])
@@ -530,6 +580,28 @@ def build_pptx(D, path: Path):
     text(s, Inches(0.8), SH - Inches(0.9), Inches(11.7), Inches(0.5),
          "Toma Conta FIDCs (Informe Mensal FIDC/CVM + Cadastro). Classes: ANBIMA (Delib. 72). Sem Power BI.", 11, False, GRAYL)
 
+    # 0b Sumário executivo
+    s = prs.slides.add_slide(blank); header(s, "Leitura de mercado", "Sumário executivo — o que importa para o Comitê")
+    sm = sumario_executivo(dm, snap, n2g, comp)
+    cards = [
+        ("O mercado dobrou", f"R$ {sm['pl_ini']:,.0f} → {sm['pl_fim']:,.0f} bi (ex-FIC)",
+         "Indústria de FIDC praticamente dobrou em ~2,5 anos, puxada por crédito estruturado."),
+        ("Independentes dominam a gestão", f"{sm['indep_pct']:,.0f}% do PL (R$ {sm['indep_v']:,.0f} bi)",
+         "A gestão migrou para fora dos bancos de varejo; independentes lideram."),
+        ("A briga é administração/custódia", f"BTG {sm['adm_btg']:,.0f} · QI Tech {sm['adm_qi']:,.0f} · Itaú {sm['adm_itau']:,.0f} bi",
+         "Itaú administra ~4–5x menos que BTG e QI Tech — o gap a endereçar."),
+        ("Crédito colado a pagamentos", "Maior sacado: Mercado Pago (R$ 5,7 bi)",
+         "Grandes sacados são plataformas de pagamento/varejo (Mercado Pago, SafraPay, Casas Bahia)."),
+    ]
+    y = 1.5
+    for titulo, num, desc in cards:
+        rect(s, Inches(0.5), Inches(y), Inches(0.14), Inches(1.15), ORANGE)
+        text(s, Inches(0.8), Inches(y + 0.02), Inches(4.6), Inches(1.15), titulo, 15, True, NAVY, anchor=MSO_ANCHOR.MIDDLE)
+        text(s, Inches(5.3), Inches(y + 0.02), Inches(3.1), Inches(1.15), num, 15, True, ORANGE, anchor=MSO_ANCHOR.MIDDLE)
+        text(s, Inches(8.5), Inches(y + 0.02), Inches(4.5), Inches(1.15), desc, 11, False, INK, anchor=MSO_ANCHOR.MIDDLE)
+        y += 1.28
+    src(s, "sumario")
+
     # 1 Evolução PL
     s = prs.slides.add_slide(blank); header(s, "Crescimento da indústria", "Evolução do PL da indústria de FIDCs (base líquida, ex-FIC)")
     pl = pl_industria_anual(dm, comp)
@@ -632,6 +704,21 @@ def build_pptx(D, path: Path):
     table(s, t25[cols_keep].iloc[:half].reset_index(drop=True), Inches(0.25), Inches(1.45), Inches(6.45), Inches(5.5), widths=w, fs=7.5, headfs=7.5)
     table(s, t25[cols_keep].iloc[half:].reset_index(drop=True), Inches(6.85), Inches(1.45), Inches(6.45), Inches(5.5), widths=w, fs=7.5, headfs=7.5)
     src(s, "top25")
+
+    # 10b Cedentes & Sacados
+    ced, sac = cedentes_sacados(Path("reports"))
+    if ced is not None:
+        s = prs.slides.add_slide(blank); header(s, "Originação e risco", "Cedentes e sacados relevantes (leitura de regulamentos)")
+        text(s, Inches(0.5), Inches(1.25), Inches(6), Inches(0.3), "Maiores CEDENTES (originadores)", 13, True, NAVY)
+        text(s, Inches(6.9), Inches(1.25), Inches(6), Inches(0.3), "Maiores SACADOS (devedores)", 13, True, NAVY)
+        cw = [3.2, 1.9, 0.7, 1.2]
+        cc = ced.copy(); cc["Parte"] = cc["Parte"].str.slice(0, 30); cc["Setor"] = cc["Setor"].str.slice(0, 18)
+        ss = sac.copy(); ss["Parte"] = ss["Parte"].str.slice(0, 30); ss["Setor"] = ss["Setor"].str.slice(0, 18)
+        table(s, cc, Inches(0.4), Inches(1.6), Inches(6.3), Inches(4.6), widths=cw, fs=8.5, headfs=8.5)
+        table(s, ss, Inches(6.85), Inches(1.6), Inches(6.3), Inches(4.6), widths=cw, fs=8.5, headfs=8.5)
+        text(s, Inches(0.5), Inches(6.35), Inches(12.4), Inches(0.4),
+             "Sacados são majoritariamente plataformas de pagamento/varejo — o crédito está colado a meios de pagamento.", 11, True, ORANGE)
+        src(s, "partes")
 
     # 11 Cotistas
     s = prs.slides.add_slide(blank); header(s, "Estrutura de cotistas", "Número de cotistas — fundos > R$ 200 mi de PL")
