@@ -82,6 +82,19 @@ python scripts/build_fidc_industry_study.py --report
   (com secao "Por que os numeros nao batem?" reconciliando CVM x ANBIMA x Uqbar).
 - `--report-only` re-renderiza o relatorio a partir dos CSVs ja gerados.
 
+Depois da atualizacao da base e da curadoria documental, materialize a camada
+competitiva exibida em `Industria > Inteligencia`:
+
+```bash
+python scripts/build_fidc_extended_market_intelligence.py
+```
+
+O comando recalcula os deltas de market share por PL de administradores,
+gestores e custodiantes; perfil e histograma de investidores; sinais nominais
+excepcionais; mapa comercial de cedentes; e proxies do mercado secundario. As
+saidas e o ledger de fontes ficam em `data/industry_study/`. Use
+`--skip-download` para uma reproducao apenas com os caches locais.
+
 ## Pipeline Fundos.NET (CVM)
 
 Para automatizar download de **Informes Mensais Estruturados (FIDC)** via endpoint público do Fundos.NET:

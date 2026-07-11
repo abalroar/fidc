@@ -330,8 +330,30 @@ def _fmt_pct(value: float, digits: int = 1) -> str:
     return f"{value * 100:.{digits}f}%".replace(".", ",")
 
 
+def _fmt_pp(value: float, digits: int = 1) -> str:
+    number = float(value)
+    sign = "+" if number > 0 else ""
+    formatted = f"{number:.{digits}f}".replace(".", ",")
+    return f"{sign}{formatted} p.p."
+
+
 def _fmt_int(value: float) -> str:
     return f"{int(round(value)):,}".replace(",", ".")
+
+
+def _fmt_cnpj(value: object) -> str:
+    if pd.isna(value):
+        return ""
+    text = str(value).strip()
+    if re.fullmatch(r"\d+\.0+", text):
+        text = text.split(".", 1)[0]
+    raw_numbers = re.sub(r"\D", "", text)
+    if not raw_numbers:
+        return ""
+    numbers = raw_numbers.zfill(14)[-14:]
+    if len(numbers) != 14:
+        return text
+    return f"{numbers[:2]}.{numbers[2:5]}.{numbers[5:8]}/{numbers[8:12]}-{numbers[12:]}"
 
 
 def _pct_label(value: float | None, digits: int = 1) -> str:
@@ -352,6 +374,14 @@ def _load_csv(name: str) -> pd.DataFrame | None:
 @st.cache_data(show_spinner=False, ttl=60)
 def _load_metadata() -> dict:
     path = _DATA_DIR / "metadata.json"
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+@st.cache_data(show_spinner=False, ttl=60)
+def _load_industry_json(name: str) -> dict:
+    path = _DATA_DIR / name
     if not path.exists():
         return {}
     return json.loads(path.read_text(encoding="utf-8"))
@@ -11494,6 +11524,619 @@ def _render_regulatory_curation_overlay() -> None:
             st.caption("Fila de curadoria não encontrada no SQLite regulatório.")
 
 
+def _render_extended_market_intelligence(comp: str) -> None:
+    summary = _load_industry_json("extended_market_intelligence.json")
+    role_delta = _load_csv("role_market_share_delta.csv")
+    role_coverage = _load_csv("role_share_coverage.csv")
+    offer_family = _load_csv("investor_offer_family_summary.csv")
+    offer_profiles = _load_csv("investor_offer_profiles.csv")
+    investor_histogram = _load_csv("investor_histogram.csv")
+    investor_stock = _load_csv("investor_stock_family_delta.csv")
+    named_investors = _load_csv("named_investor_document_signals.csv")
+    cedents = _load_csv("cedent_opportunity_map.csv")
+    secondary = _load_csv("secondary_market_proxies.csv")
+    secondary_request = _load_csv("secondary_market_b3_data_request.csv")
+    source_ledger = _load_csv("extended_source_ledger.csv")
+
+    st.markdown('<div class="industry-section">Inteligência competitiva</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Deltas de participação no PL, perfil dos compradores, cedentes atacáveis e liquidez. '
+        "Cada bloco distingue observação direta, proxy e reconstrução.</div>",
+        unsafe_allow_html=True,
+    )
+
+    if role_delta is None or role_delta.empty:
+        st.info(
+            "Camada de inteligência ainda não materializada. Rode "
+            "`python scripts/build_fidc_extended_market_intelligence.py`."
+        )
+        return
+
+    # Participação de mercado por papel
+    st.markdown("#### Quem ganhou e perdeu participação")
+    role_labels = {
+        "administrador": "Administradores",
+        "gestor": "Gestores",
+        "custodiante": "Custodiantes",
+    }
+    available_roles = [role for role in role_labels if role in set(role_delta["role"].astype(str))]
+    selected_role = st.segmented_control(
+        "Papel",
+        available_roles,
+        default=available_roles[0] if available_roles else None,
+        format_func=lambda value: role_labels.get(value, value),
+        key="industry_extended_role",
+        label_visibility="collapsed",
+        width="stretch",
+    )
+    role_view = role_delta[role_delta["role"].eq(selected_role)].copy()
+    for column in (
+        "pl_brl_current",
+        "share_current",
+        "share_previous",
+        "delta_share_pp",
+        "delta_pl_brl",
+        "dated_coverage_previous",
+    ):
+        if column in role_view.columns:
+            role_view[column] = pd.to_numeric(role_view[column], errors="coerce")
+    role_view = role_view[role_view["participant"].fillna("").ne("")]
+    role_view = role_view[~role_view["participant"].astype(str).str.contains("NAO INFORMADO", case=False)]
+    current_rank = role_view.sort_values("share_current", ascending=False)
+    gain_rank = role_view.sort_values("delta_share_pp", ascending=False)
+    loss_rank = role_view.sort_values("delta_share_pp", ascending=True)
+    leader = current_rank.iloc[0] if not current_rank.empty else None
+    gain = gain_rank.iloc[0] if not gain_rank.empty else None
+    loss = loss_rank.iloc[0] if not loss_rank.empty else None
+
+    previous_coverage = None
+    if role_coverage is not None and not role_coverage.empty and not role_view.empty:
+        previous_comp = str(role_view.iloc[0].get("competencia_previous", ""))
+        match = role_coverage[
+            role_coverage["role"].eq(selected_role)
+            & role_coverage["competencia"].astype(str).eq(previous_comp)
+        ]
+        previous_coverage = match.iloc[0] if not match.empty else None
+    coverage_label = "100% direto"
+    if selected_role != "administrador" and previous_coverage is not None:
+        coverage_label = _fmt_pct(float(previous_coverage.get("share_high_or_medium_high", 0.0)))
+
+    metric_cols = st.columns(4)
+    metric_cols[0].metric(
+        f"Líder atual · {_fmt_pct(float(leader['share_current']))}" if leader is not None else "Líder atual",
+        str(leader["participant"]) if leader is not None else "n/d",
+    )
+    metric_cols[1].metric(
+        "Maior ganho em 12m",
+        str(gain["participant"]) if gain is not None else "n/d",
+        _fmt_pp(float(gain["delta_share_pp"])) if gain is not None else None,
+    )
+    metric_cols[2].metric(
+        "Maior perda em 12m",
+        str(loss["participant"]) if loss is not None else "n/d",
+        _fmt_pp(float(loss["delta_share_pp"])) if loss is not None else None,
+        delta_color="inverse",
+    )
+    metric_cols[3].metric(
+        "Histórico com evidência datada"
+        if selected_role == "administrador"
+        else "Histórico datado · alta + média-alta",
+        coverage_label,
+    )
+
+    chart_col, table_col = st.columns([1.08, 0.92])
+    top_role = current_rank.head(12).copy()
+    top_role["Participante"] = top_role["participant"].map(_short_prestador).str.slice(0, 46)
+    top_role["Share"] = top_role["share_current"] * 100
+    top_role["Sinal"] = top_role["delta_share_pp"].map(
+        lambda value: "ganhou share" if float(value) >= 0 else "perdeu share"
+    )
+    top_role["Delta"] = top_role["delta_share_pp"].map(_fmt_pp)
+    with chart_col:
+        share_chart = (
+            alt.Chart(top_role)
+            .mark_bar(size=16, cornerRadiusEnd=2)
+            .encode(
+                x=alt.X("Share:Q", title="% do PL", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                y=alt.Y("Participante:N", title=None, sort="-x", axis=alt.Axis(labelLimit=260)),
+                color=alt.Color(
+                    "Sinal:N",
+                    scale=alt.Scale(
+                        domain=["ganhou share", "perdeu share"],
+                        range=[_ORANGE, _BLACK],
+                    ),
+                    legend=alt.Legend(title=None, orient="top"),
+                ),
+                tooltip=[
+                    alt.Tooltip("participant:N", title="participante"),
+                    alt.Tooltip("Share:Q", title="share atual (%)", format=".2f"),
+                    alt.Tooltip("Delta:N", title="delta 12m"),
+                    alt.Tooltip("pl_brl_current:Q", title="PL atual (R$)", format=",.0f"),
+                ],
+            )
+            .properties(height=360)
+        )
+        st.altair_chart(share_chart, width="stretch")
+    with table_col:
+        table = top_role[
+            [
+                "participant",
+                "pl_brl_current",
+                "share_current",
+                "share_previous",
+                "delta_share_pp",
+                "dated_coverage_previous",
+            ]
+        ].rename(
+            columns={
+                "participant": "Participante",
+                "pl_brl_current": "PL atual",
+                "share_current": "Share atual",
+                "share_previous": "Share 12m antes",
+                "delta_share_pp": "Delta",
+                "dated_coverage_previous": "Cobertura datada",
+            }
+        )
+        table["PL atual"] = table["PL atual"].map(lambda value: _fmt_bi(float(value), 1))
+        table["Share atual"] = table["Share atual"].map(lambda value: _fmt_pct(float(value)))
+        table["Share 12m antes"] = table["Share 12m antes"].map(lambda value: _fmt_pct(float(value)))
+        table["Delta"] = table["Delta"].map(_fmt_pp)
+        table["Cobertura datada"] = table["Cobertura datada"].map(lambda value: _fmt_pct(float(value)))
+        st.dataframe(table, hide_index=True, width="stretch", height=420)
+    st.caption(
+        "Administração: observação direta do Informe Mensal. Gestão e custódia: foto atual direta; "
+        "o histórico combina cadastro datado, ofertas CVM datadas e fallback do cadastro atual."
+    )
+
+    # Compradores e quantidade de cotistas
+    st.markdown("#### Quem compra as cotas")
+    closing_diag = summary.get("closing_announcement_diagnostics", {})
+    named_diag = summary.get("named_investor_diagnostics", {})
+    parsed_offers = pd.DataFrame()
+    if offer_profiles is not None and not offer_profiles.empty:
+        parsed_offers = offer_profiles[offer_profiles["parse_status"].eq("parsed_high")].copy()
+        parsed_offers["total_subscribers"] = pd.to_numeric(
+            parsed_offers["total_subscribers"], errors="coerce"
+        )
+    median_subscribers = (
+        float(parsed_offers["total_subscribers"].median()) if not parsed_offers.empty else float("nan")
+    )
+    funds_row = pd.Series(dtype=object)
+    if offer_family is not None and not offer_family.empty:
+        funds_match = offer_family[offer_family["investor_family"].eq("Fundos de investimento")]
+        funds_row = funds_match.iloc[0] if not funds_match.empty else pd.Series(dtype=object)
+    investor_metrics = st.columns(4)
+    investor_metrics[0].metric(
+        "Encerramentos validados · Res. 160",
+        _fmt_int(float(closing_diag.get("closing_announcements_high_confidence", 0))),
+    )
+    investor_metrics[1].metric(
+        "Mediana de subscritores por oferta",
+        _fmt_int(median_subscribers) if pd.notna(median_subscribers) else "n/d",
+    )
+    total_closings = float(closing_diag.get("closing_announcements_high_confidence", 0) or 0)
+    investor_metrics[2].metric(
+        "Ofertas com fundos compradores",
+        _fmt_pct(float(funds_row.get("offers_with_family", 0)) / total_closings)
+        if total_closings
+        else "n/d",
+    )
+    investor_metrics[3].metric(
+        "Fundos com divulgação nominal excepcional",
+        _fmt_int(float(named_diag.get("funds_with_named_investor_signal", 0))),
+    )
+
+    investor_chart_col, histogram_col = st.columns(2)
+    with investor_chart_col:
+        if offer_family is not None and not offer_family.empty:
+            family = offer_family.copy()
+            family["share_subscriber_accounts"] = pd.to_numeric(
+                family["share_subscriber_accounts"], errors="coerce"
+            )
+            family["share_amount_proxy"] = pd.to_numeric(
+                family["share_amount_proxy"], errors="coerce"
+            )
+            family = family[
+                family[["share_subscriber_accounts", "share_amount_proxy"]]
+                .fillna(0.0)
+                .sum(axis=1)
+                .gt(0)
+            ]
+            family_long = pd.concat(
+                [
+                    family.assign(
+                        Serie="Contas subscritoras",
+                        Participacao=family["share_subscriber_accounts"],
+                    ),
+                    family.assign(
+                        Serie="Valor alocado (proxy)",
+                        Participacao=family["share_amount_proxy"],
+                    ),
+                ],
+                ignore_index=True,
+            )
+            family_long["Família"] = family_long["investor_family"].replace(
+                {
+                    "Pessoas naturais": "Pessoas físicas",
+                    "Outras pessoas juridicas": "Outras PJ",
+                    "Instituicoes financeiras": "Instituições financeiras",
+                    "Previdencia e seguradoras": "Previdência e seguradoras",
+                }
+            )
+            family_order = [
+                "Fundos de investimento",
+                "Pessoas físicas",
+                "Outras PJ",
+                "Instituições financeiras",
+                "Investidores estrangeiros",
+                "Previdência e seguradoras",
+                "Clubes de investimento",
+            ]
+            family_chart = (
+                alt.Chart(family_long)
+                .mark_bar(cornerRadiusEnd=2)
+                .encode(
+                    x=alt.X(
+                        "Participacao:Q",
+                        title="participação",
+                        axis=alt.Axis(format="%", gridColor=_GRAY_LIGHT),
+                    ),
+                    y=alt.Y(
+                        "Família:N",
+                        title=None,
+                        sort=family_order,
+                        axis=alt.Axis(labelLimit=220, labelOverlap=False),
+                    ),
+                    yOffset="Serie:N",
+                    color=alt.Color(
+                        "Serie:N",
+                        scale=alt.Scale(
+                            domain=["Contas subscritoras", "Valor alocado (proxy)"],
+                            range=[_ORANGE, _BLACK],
+                        ),
+                        legend=alt.Legend(title=None, orient="top"),
+                    ),
+                    tooltip=[
+                        alt.Tooltip("Família:N"),
+                        alt.Tooltip("Serie:N", title="métrica"),
+                        alt.Tooltip("Participacao:Q", title="participação", format=".1%"),
+                    ],
+                )
+                .properties(height=330, title="Compradores nas ofertas encerradas")
+            )
+            st.altair_chart(family_chart, width="stretch")
+        else:
+            st.caption("Resumo de compradores por tipo ainda não materializado.")
+    with histogram_col:
+        if investor_histogram is not None and not investor_histogram.empty:
+            hist = investor_histogram[
+                investor_histogram["basis"].eq("closing_announcement_subscribers")
+            ].copy()
+            order = ["0", "1", "2-5", "6-10", "11-50", "51-100", "101-500", ">500"]
+            hist["observations"] = pd.to_numeric(hist["observations"], errors="coerce")
+            hist_chart = (
+                alt.Chart(hist)
+                .mark_bar(color=_ORANGE, cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
+                .encode(
+                    x=alt.X("bucket:N", title="subscritores por oferta", sort=order),
+                    y=alt.Y("observations:Q", title="ofertas", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    tooltip=[
+                        alt.Tooltip("bucket:N", title="faixa"),
+                        alt.Tooltip("observations:Q", title="ofertas"),
+                        alt.Tooltip("share_observations:Q", title="participação", format=".1%"),
+                    ],
+                )
+                .properties(height=300, title="Distribuição do número de subscritores")
+            )
+            st.altair_chart(hist_chart, width="stretch")
+        else:
+            st.caption("Histograma de subscritores ainda não materializado.")
+    st.caption(
+        "O tipo de comprador é observado no anúncio de encerramento. O valor por tipo é proxy proporcional "
+        "à quantidade de cotas; preço por série pode diferir. Contas não representam CPF/CNPJ únicos."
+    )
+
+    if investor_stock is not None and not investor_stock.empty:
+        with st.expander("Estoque mensal por tipo de investidor"):
+            stock = investor_stock.copy()
+            for column in (
+                "accounts_current",
+                "accounts_previous",
+                "growth",
+                "share_current",
+                "delta_share_pp",
+            ):
+                stock[column] = pd.to_numeric(stock[column], errors="coerce")
+            display = stock[
+                [
+                    "investor_family",
+                    "accounts_current",
+                    "accounts_previous",
+                    "growth",
+                    "share_current",
+                    "delta_share_pp",
+                ]
+            ].rename(
+                columns={
+                    "investor_family": "Tipo",
+                    "accounts_current": "Contas atuais",
+                    "accounts_previous": "Contas 12m antes",
+                    "growth": "Crescimento",
+                    "share_current": "Share das contas",
+                    "delta_share_pp": "Delta share",
+                }
+            )
+            display["Contas atuais"] = display["Contas atuais"].map(_fmt_int)
+            display["Contas 12m antes"] = display["Contas 12m antes"].map(_fmt_int)
+            display["Crescimento"] = display["Crescimento"].map(
+                lambda value: _fmt_pct(float(value)) if pd.notna(value) else "n/d"
+            )
+            display["Share das contas"] = display["Share das contas"].map(_fmt_pct)
+            display["Delta share"] = display["Delta share"].map(_fmt_pp)
+            st.dataframe(display, hide_index=True, width="stretch")
+            st.caption("Unidade: contas por classe/série da Tabela X.1.1; não são investidores únicos.")
+
+    if named_investors is not None and not named_investors.empty:
+        with st.expander("Investidores nominais divulgados em cláusulas específicas"):
+            named = named_investors.copy()
+            named["investor_cnpj_disclosed"] = named["investor_cnpj_disclosed"].map(_fmt_cnpj)
+            named_show = named[
+                [
+                    "fundo",
+                    "investor_name_disclosed",
+                    "investor_cnpj_disclosed",
+                    "investor_family_inferred",
+                    "quota_scope",
+                    "document_date",
+                    "source_document",
+                ]
+            ].rename(
+                columns={
+                    "fundo": "FIDC",
+                    "investor_name_disclosed": "Investidor / grupo divulgado",
+                    "investor_cnpj_disclosed": "CNPJ divulgado",
+                    "investor_family_inferred": "Tipo inferido",
+                    "quota_scope": "Cota",
+                    "document_date": "Data",
+                    "source_document": "Documento CVM",
+                }
+            )
+            st.dataframe(named_show, hide_index=True, width="stretch", height=340)
+            st.caption(
+                "São âncoras ou elegibilidades contratuais nominadas, não o livro completo de beneficiários atuais. "
+                "A identidade do cotista não é publicada sistematicamente pela CVM."
+            )
+
+    # Cedentes como pipeline comercial
+    st.markdown("#### Cedentes atacáveis")
+    cedent_diag = summary.get("cedent_diagnostics", {})
+    cedent_metrics = st.columns(4)
+    cedent_metrics[0].metric(
+        "Cedentes consolidados · evidência aceita",
+        _fmt_int(float(len(cedents))) if cedents is not None else "n/d",
+    )
+    cedent_metrics[1].metric(
+        "Fundos com cedente ligado",
+        _fmt_int(float(cedent_diag.get("funds_with_named_accepted_cedent", 0))),
+    )
+    cedent_metrics[2].metric(
+        f"PL atual ligado · {_fmt_pct(float(cedent_diag.get('linked_current_pl_share', 0.0)))}",
+        _fmt_bi(float(cedent_diag.get("linked_current_pl_brl", 0.0)), 1),
+    )
+    cedent_metrics[3].metric(
+        "Emissões ligadas · "
+        + _fmt_pct(float(cedent_diag.get("linked_issuance_share_within_curated_universe", 0.0))),
+        _fmt_bi(float(cedent_diag.get("linked_issuance_2024_2026_brl", 0.0)), 1),
+    )
+    if cedents is not None and not cedents.empty:
+        cedent_view = cedents.copy()
+        for column in (
+            "commercial_signal_brl",
+            "linked_current_pl_fractional_brl",
+            "linked_issuance_fractional_brl",
+            "priority_score",
+            "funds",
+            "confidence_median",
+        ):
+            cedent_view[column] = pd.to_numeric(cedent_view[column], errors="coerce")
+        search = st.text_input(
+            "Buscar cedente, setor ou prestador",
+            key="industry_extended_cedent_search",
+            placeholder="Ex.: pagamentos, QI, Oliveira Trust",
+        ).strip()
+        if search:
+            search_mask = (
+                cedent_view[
+                    ["cedent_name", "sector", "administrators", "managers", "custodians"]
+                ]
+                .fillna("")
+                .astype(str)
+                .agg(" | ".join, axis=1)
+                .str.contains(search, case=False, regex=False)
+            )
+            cedent_view = cedent_view[search_mask]
+        sort_options = {
+            "Prioridade": "priority_score",
+            "PL ligado": "linked_current_pl_fractional_brl",
+            "Emissões": "linked_issuance_fractional_brl",
+            "Recorrência": "funds",
+        }
+        sort_label = st.segmented_control(
+            "Ordenar cedentes",
+            list(sort_options),
+            default="Prioridade",
+            key="industry_extended_cedent_sort",
+            label_visibility="collapsed",
+        )
+        cedent_view = cedent_view.sort_values(sort_options[sort_label], ascending=False)
+        cedent_chart_col, cedent_table_col = st.columns([0.82, 1.18])
+        with cedent_chart_col:
+            top_cedents = cedent_view.head(15).copy()
+            top_cedents["Cedente"] = top_cedents["cedent_name"].astype(str).str.slice(0, 44)
+            top_cedents["Sinal comercial"] = top_cedents["commercial_signal_brl"] / 1e9
+            cedent_chart = (
+                alt.Chart(top_cedents)
+                .mark_bar(color=_ORANGE, size=15, cornerRadiusEnd=2)
+                .encode(
+                    x=alt.X("Sinal comercial:Q", title="PL + emissões ligados (R$ bi)"),
+                    y=alt.Y("Cedente:N", title=None, sort="-x", axis=alt.Axis(labelLimit=250)),
+                    tooltip=[
+                        alt.Tooltip("cedent_name:N", title="cedente"),
+                        alt.Tooltip("funds:Q", title="fundos"),
+                        alt.Tooltip("Sinal comercial:Q", title="R$ bi", format=".2f"),
+                        alt.Tooltip("confidence_median:Q", title="confiança", format=".0%"),
+                    ],
+                )
+                .properties(height=430)
+            )
+            st.altair_chart(cedent_chart, width="stretch")
+        with cedent_table_col:
+            display = cedent_view.head(100).copy()
+            display["cnpj_cedente"] = display["cnpj_cedente"].map(_fmt_cnpj)
+            display = display[
+                [
+                    "cedent_name",
+                    "cnpj_cedente",
+                    "funds",
+                    "linked_current_pl_fractional_brl",
+                    "linked_issuance_fractional_brl",
+                    "confidence_median",
+                    "sector",
+                    "administrators",
+                    "custodians",
+                ]
+            ].rename(
+                columns={
+                    "cedent_name": "Cedente",
+                    "cnpj_cedente": "CNPJ",
+                    "funds": "Fundos",
+                    "linked_current_pl_fractional_brl": "PL ligado",
+                    "linked_issuance_fractional_brl": "Emissões ligadas",
+                    "confidence_median": "Confiança",
+                    "sector": "Setor",
+                    "administrators": "Administradores",
+                    "custodians": "Custodiantes",
+                }
+            )
+            display["PL ligado"] = display["PL ligado"].map(lambda value: _fmt_bi(float(value), 1))
+            display["Emissões ligadas"] = display["Emissões ligadas"].map(
+                lambda value: _fmt_bi(float(value), 1)
+            )
+            display["Confiança"] = display["Confiança"].map(lambda value: _fmt_pct(float(value)))
+            display = display.fillna("")
+            st.dataframe(display, hide_index=True, width="stretch", height=470)
+        st.download_button(
+            "Baixar mapa de cedentes",
+            data=cedents.to_csv(index=False),
+            file_name="cedent_opportunity_map.csv",
+            mime="text/csv",
+            key="industry_extended_cedent_download",
+        )
+        st.caption(
+            "PL e emissões são fracionados entre cedentes quando o fundo tem mais de um nome aceito. "
+            "Estruturas multicedente abertas podem não divulgar uma contraparte única."
+        )
+
+    # Mercado secundário
+    st.markdown("#### Mercado secundário: o que sabemos e o que falta")
+    st.warning(
+        "Oferta secundária registrada não é giro de negociação. Com CVM e ANBIMA públicas, ainda não é possível "
+        "afirmar se a venda ficou mais rápida ou mais lenta."
+    )
+    secondary_diag = summary.get("secondary_market", {})
+    secondary_rows = pd.DataFrame()
+    if secondary is not None and not secondary.empty:
+        secondary_rows = secondary[
+            secondary["offer_type_normalized"].astype(str).str.contains("SECUNDARIA", na=False)
+        ].copy()
+        secondary_rows["registered_volume_brl"] = pd.to_numeric(
+            secondary_rows["registered_volume_brl"], errors="coerce"
+        )
+        secondary_rows["registered_offers"] = pd.to_numeric(
+            secondary_rows["registered_offers"], errors="coerce"
+        )
+    secondary_metrics = st.columns(4)
+    secondary_metrics[0].metric(
+        "Ofertas secundárias registradas · não negócios",
+        _fmt_int(float(secondary_diag.get("registered_secondary_offers", 0))),
+    )
+    secondary_metrics[1].metric(
+        "Volume registrado na janela",
+        _fmt_bi(float(secondary_diag.get("registered_secondary_offer_volume_brl", 0.0)), 1),
+    )
+    historical = secondary_diag.get("historical_public_benchmark", {})
+    secondary_metrics[2].metric(
+        f"Benchmark público 2014 · {_fmt_int(float(historical.get('operations', 0)))} operações",
+        _fmt_bi(float(historical.get("volume_brl", 0.0)), 1),
+    )
+    secondary_metrics[3].metric(
+        "Dado necessário para medir velocidade",
+        "B3 Fundos21",
+    )
+    if not secondary_rows.empty:
+        secondary_chart_col, secondary_table_col = st.columns([0.9, 1.1])
+        secondary_rows["Volume"] = secondary_rows["registered_volume_brl"] / 1e9
+        with secondary_chart_col:
+            secondary_chart = (
+                alt.Chart(secondary_rows)
+                .mark_bar(color=_ORANGE, cornerRadiusTopLeft=3, cornerRadiusTopRight=3)
+                .encode(
+                    x=alt.X("year:O", title="ano"),
+                    y=alt.Y("Volume:Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    tooltip=[
+                        alt.Tooltip("year:O", title="ano"),
+                        alt.Tooltip("Volume:Q", title="volume registrado (R$ bi)", format=".3f"),
+                        alt.Tooltip("registered_offers:Q", title="ofertas"),
+                    ],
+                )
+                .properties(height=270, title="Distribuições secundárias registradas")
+            )
+            st.altair_chart(secondary_chart, width="stretch")
+        with secondary_table_col:
+            secondary_display = secondary_rows[
+                ["year", "registered_volume_brl", "registered_offers", "issuers"]
+            ].rename(
+                columns={
+                    "year": "Ano",
+                    "registered_volume_brl": "Volume registrado",
+                    "registered_offers": "Ofertas",
+                    "issuers": "Emissores",
+                }
+            )
+            secondary_display["Volume registrado"] = secondary_display["Volume registrado"].map(
+                lambda value: _fmt_bi(float(value), 3)
+            )
+            st.dataframe(secondary_display, hide_index=True, width="stretch")
+            st.markdown(
+                "**Para medir o secundário:** ADTV, dias negociados, intervalo mediano entre negócios, "
+                "giro/estoque, concentração de compradores e spread contra a taxa ANBIMA."
+            )
+    if secondary_request is not None and not secondary_request.empty:
+        with st.expander("Especificação do pedido de dados à B3"):
+            st.dataframe(secondary_request, hide_index=True, width="stretch")
+            st.download_button(
+                "Baixar especificação B3",
+                data=secondary_request.to_csv(index=False),
+                file_name="secondary_market_b3_data_request.csv",
+                mime="text/csv",
+                key="industry_extended_secondary_request_download",
+            )
+
+    with st.expander("Fontes, divergências e limitações"):
+        st.markdown(
+            "[CVM — Informe Mensal FIDC](https://dados.cvm.gov.br/dataset/fidc-doc-inf_mensal) · "
+            "[CVM — Ofertas Públicas](https://dados.cvm.gov.br/dataset/oferta-distrib) · "
+            "[ANBIMA — API de preços de FIDC](https://developers.anbima.com.br/pt/documentacao/precos-indices/apis-de-precos/fidc/) · "
+            "[B3 DataWise](https://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/datawise-reports/)"
+        )
+        if source_ledger is not None and not source_ledger.empty:
+            st.dataframe(source_ledger, hide_index=True, width="stretch")
+        st.caption(
+            f"Snapshot de PL: {summary.get('pl_snapshot', comp)}. Deltas de share contra "
+            f"{summary.get('previous_share_snapshot', '12 meses antes')}."
+        )
+
+
 def render_tab_industry_study() -> None:
     st.markdown(_CSS, unsafe_allow_html=True)
 
@@ -11568,9 +12211,11 @@ def render_tab_industry_study() -> None:
     st.markdown(f'<div class="industry-kpi-grid">{"".join(kpis)}</div>', unsafe_allow_html=True)
 
     vehicle = _load_csv("vehicle_monthly.csv.gz")
-    universe_tab, audit_tab, issuance_tab, documents_tab, criteria_tab, heatmap_tab, cedente_tab, deep_dive_tab, pipeline_tab = st.tabs(
-        ["Universo", "Base granular", "Emissões", "Documentos", "Critérios", "Heatmaps", "Cedentes", "Deep Dive", "Pipeline"]
+    intelligence_tab, universe_tab, audit_tab, issuance_tab, documents_tab, criteria_tab, heatmap_tab, cedente_tab, deep_dive_tab, pipeline_tab = st.tabs(
+        ["Inteligência", "Universo", "Base granular", "Emissões", "Documentos", "Critérios", "Heatmaps", "Cedentes", "Deep Dive", "Pipeline"]
     )
+    with intelligence_tab:
+        _render_extended_market_intelligence(comp)
     with universe_tab:
         _render_fund_snapshot_universe()
     with audit_tab:

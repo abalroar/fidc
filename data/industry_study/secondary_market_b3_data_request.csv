@@ -1,0 +1,13 @@
+field,description,derived_use,preferred_source,minimum_history
+trade_date,Data do negocio,median trade gap; monthly turnover,B3 DataWise or participant Fundos21 extract,36 months
+fidc_identifier,"Codigo B3, ISIN and CNPJ/class/series",join to CVM vehicle and quota series,B3 DataWise or participant Fundos21 extract,36 months
+trade_identifier,Unique trade/registration id,deduplicate and count operations,B3 DataWise or participant Fundos21 extract,36 months
+quantity,Quantidade negociada,turnover in quota units,B3 DataWise or participant Fundos21 extract,36 months
+financial_volume_brl,Volume financeiro,ADTV and annual traded volume,B3 DataWise or participant Fundos21 extract,36 months
+price_or_pu,Preco/PU do negocio,dispersion and execution quality,B3 DataWise or participant Fundos21 extract,36 months
+rate_if_available,Taxa do negocio,spread evolution versus ANBIMA indicative rate,B3 DataWise or participant Fundos21 extract,36 months
+buyer_participant,"Participante comprador, anonymized if required",buyer concentration and repeat liquidity,B3 DataWise or participant Fundos21 extract,36 months
+seller_participant,"Participante vendedor, anonymized if required",seller concentration and repeat liquidity,B3 DataWise or participant Fundos21 extract,36 months
+trade_status,Registered/cancelled/corrected,exclude reversals and corrections,B3 DataWise or participant Fundos21 extract,36 months
+market_venue,Fundos21/OTC/organized venue,consistent market scope,B3 DataWise or participant Fundos21 extract,36 months
+settlement_date,Data de liquidacao,time-to-settle; not time-to-sell,B3 DataWise or participant Fundos21 extract,36 months

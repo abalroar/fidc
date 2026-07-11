@@ -1,0 +1,16 @@
+source_id,source_type,claim_or_use,path_or_url,reference_date
+cvm_industry,local_data,"PL, veículos, aplicações, resgates e amortizações",data/industry_study/industry_monthly.csv,2026-05
+cvm_vehicle,local_data,"PL e prestadores por veículo",data/industry_study/vehicle_monthly.csv.gz,2026-05
+cvm_snapshot,local_data,"Administrador, gestor, custodiante, segmentos e cobertura documental",data/industry_study/industry_fund_snapshot.csv.gz,2026-05
+cvm_offers,local_data,"Ofertas públicas registradas e encerradas",data/industry_study/issuance_offers.csv.gz,2026-05
+regulations,local_data,"Cedentes, sacados e regras extraídas",data/industry_study/cedentes_structured.csv.gz,2026-07-10
+claim_audit,local_data,"Reconciliação entre notícias públicas e métricas locais",data/industry_study/industry_public_claim_audit.csv,2026-07-10
+anbima_funds,web,"Captação líquida de FIDCs em 2025",https://www.anbima.com.br/pt_br/noticias/renda-fixa-fips-e-fidcs-puxam-a-captacao-e-industria-de-fundos-encerra-2025-no-azul.htm,2026-01-08
+anbima_offers,web,"R$ 41,7 bilhões em ofertas de FIDC entre janeiro e maio de 2026",https://www.anbima.com.br/pt_br/noticias/mercado-de-capitais-movimenta-r-283-bilhoes-em-ofertas-puxado-por-fidcs-hibridos-e-acoes.htm,2026-06-16
+seu_dinheiro,web,"R$ 2,5 bilhões em maio e R$ 21,5 bilhões no ano",https://www.seudinheiro.com/2026/economia/resgates-de-fundos-multimercados-dispara-e-fidcs-entram-na-mira-do-investidor-segundo-anbima-entenda-lbrdcp162/,2026-07-01
+itau_kanastra,web,"Retorno da Intrag aos FIDCs de recebíveis em parceria com Kanastra",https://www.itau.com.br/media/dam/m/36e80c6030c3408c/original/010425-intrag-volta-ao-negocio-de-fidcs-de-recebiveis-em-parceria-com-a-kanastra.pdf,2025-04-01
+qi_singulare,web,"Aquisição da Singulare e escala de FIDCs",https://qitech.com.br/newsroom/qi-tech-recebe-aprovacao-do-banco-central-para-concluir-aquisicao-da-singulare/,2024-11-01
+qi_platform,web,"Proposta de administração e custódia integrada",https://qitech.com.br/administracao-custodia/,2026-07-10
+btg_servicing,web,"Proposta one-stop-shop de administração, controladoria e custódia",https://www.btgpactual.com/asset-servicing/administracao-fiduciaria,2026-07-10
+oliveira_scale,web,"Escala corporativa de administração e custódia",https://www.oliveiratrust.com.br/,2026-07-10
+oliveira_tapso,web,"TAPSO, estrutura e vínculo de cotas subordinadas com Stone",https://api-site.oliveiratrust.com.br/novo/fundos-captacao/10671/,2026-07-10

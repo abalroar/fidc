@@ -252,8 +252,20 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
         padding-right: 1rem !important;
     }
 
+    .st-key-fidc_main_section [data-testid="stButtonGroup"] {
+        overflow-x: visible;
+    }
+
+    .st-key-fidc_main_section [data-baseweb="button-group"] {
+        flex-wrap: wrap !important;
+        gap: 0.15rem !important;
+        min-width: 0 !important;
+    }
+
     .st-key-fidc_main_section [data-testid^="stBaseButton-segmented_control"] {
+        flex: 1 1 calc(25% - 0.15rem) !important;
         font-size: 0.86rem !important;
+        min-width: 7rem !important;
         min-height: 2.1rem !important;
         padding-inline: 0.55rem !important;
     }
@@ -264,6 +276,12 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 
     .fidc-app-subtitle {
         font-size: 0.94rem;
+    }
+}
+
+@media (max-width: 460px) {
+    .st-key-fidc_main_section [data-testid^="stBaseButton-segmented_control"] {
+        flex-basis: calc(50% - 0.15rem) !important;
     }
 }
 """
