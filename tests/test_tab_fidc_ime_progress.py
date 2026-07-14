@@ -75,6 +75,44 @@ from tabs import tab_fidc_ime  # noqa: E402  (import after stub injection)
 
 
 class TabFidcImeProgressTests(unittest.TestCase):
+    def test_compact_dashboard_suppresses_legacy_return_section(self) -> None:
+        dashboard = SimpleNamespace(competencias=["06/2026"])
+        slot_key = "compact"
+        streamlit_stub = SimpleNamespace(
+            session_state={
+                f"_dashboard_{slot_key}": dashboard,
+                f"_dashboard_{slot_key}_version": tab_fidc_ime.DASHBOARD_SCHEMA_VERSION,
+            }
+        )
+
+        with (
+            patch.object(tab_fidc_ime, "st", streamlit_stub),
+            patch.object(tab_fidc_ime, "_dashboard_contract_is_current", return_value=True),
+            patch.object(tab_fidc_ime, "_dashboard_for_context_display_window", return_value=dashboard),
+            patch.object(tab_fidc_ime, "_render_dashboard_header"),
+            patch.object(tab_fidc_ime, "_render_load_timing_bar"),
+            patch.object(tab_fidc_ime, "_render_financial_snapshot_cards"),
+            patch.object(tab_fidc_ime, "_render_dashboard_controls"),
+            patch.object(tab_fidc_ime, "_render_dashboard_context_bar"),
+            patch.object(tab_fidc_ime, "_render_requested_period_coverage_warning"),
+            patch.object(tab_fidc_ime, "_render_structural_risk_section") as render_structural,
+            patch.object(tab_fidc_ime, "_render_credit_risk_section"),
+            patch.object(tab_fidc_ime, "_render_liquidity_risk_section"),
+            patch.object(tab_fidc_ime, "_render_calculation_memory_section"),
+            patch.object(tab_fidc_ime, "_render_secondary_audit_panel"),
+        ):
+            tab_fidc_ime._render_dashboard(
+                SimpleNamespace(),
+                {},
+                contract_missing={},
+                docs_ok=1,
+                docs_error=0,
+                slot_key=slot_key,
+                compact_visuals=True,
+            )
+
+        self.assertFalse(render_structural.call_args.kwargs["show_return_section"])
+
     def test_init_progress_bar_accepts_legacy_two_arg_call(self) -> None:
         stub = _make_streamlit_stub()
         with patch.object(tab_fidc_ime, "st", stub):
@@ -715,6 +753,44 @@ class TabFidcImeProgressTests(unittest.TestCase):
         self.assertEqual(["Classe", "YTD", "24 meses", "jan-26", "fev-26"], formatted.columns.tolist())
         senior_row = formatted.iloc[0]
         self.assertEqual("26,82%", senior_row["24 meses"])
+
+    def test_format_return_inline_matrix_frame_keeps_summary_only_class_and_basic_columns(self) -> None:
+        history = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "03/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-03-01"]),
+                "class_kind": ["senior", "senior"],
+                "class_key": ["senior:1", "senior:1"],
+                "class_label": ["Sênior", "Sênior"],
+                "retorno_mensal_pct": [1.0, 0.0],
+            }
+        )
+        summary = pd.DataFrame(
+            {
+                "class_kind": ["senior", "subordinada"],
+                "class_key": ["senior:1", "sub:1"],
+                "class_label": ["Sênior", "Subordinada"],
+                "retorno_ano_pct": [1.0, None],
+                "retorno_periodo_pct": [1.0, None],
+                "retorno_periodo_label": ["12 meses", "12 meses"],
+                "retorno_periodo_meses": [12, 12],
+            }
+        )
+
+        formatted = tab_fidc_ime._format_return_inline_matrix_frame(
+            history,
+            summary,
+            competencias=["01/2026", "02/2026", "03/2026"],
+            include_period_summary=False,
+        )
+
+        self.assertEqual(["Classe", "YTD", "jan-26", "fev-26", "mar-26"], formatted.columns.tolist())
+        senior = formatted[formatted["Classe"] == "Sênior"].iloc[0]
+        subordinada = formatted[formatted["Classe"] == "Subordinada"].iloc[0]
+        self.assertEqual("0,00%", senior["mar-26"])
+        self.assertEqual("N/D", senior["fev-26"])
+        self.assertEqual("N/D", subordinada["YTD"])
+        self.assertEqual("N/D", subordinada["jan-26"])
 
     def test_build_dashboard_context_items_keeps_only_competencia_and_janela(self) -> None:
         dashboard = SimpleNamespace(

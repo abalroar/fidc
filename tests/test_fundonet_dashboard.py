@@ -111,6 +111,147 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(((1.01**24) - 1) * 100, row["retorno_periodo_pct"], places=6)
         self.assertAlmostEqual(((1.01**12) - 1) * 100, row["retorno_12m_pct"], places=6)
 
+    def test_build_return_summary_compounds_ytd_with_negative_and_zero_returns(self) -> None:
+        history = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "02/2026", "03/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-02-01", "2026-03-01"]),
+                "class_kind": ["senior"] * 3,
+                "class_key": ["senior:1"] * 3,
+                "class_label": ["Sênior"] * 3,
+                "label": ["Sênior"] * 3,
+                "retorno_mensal_pct": [1.0, -2.0, 0.0],
+            }
+        )
+        quota = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "02/2026", "03/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-02-01", "2026-03-01"]),
+                "class_kind": ["senior"] * 3,
+                "class_key": ["senior:1"] * 3,
+                "class_label": ["Sênior"] * 3,
+                "pl": [100.0, 100.0, 100.0],
+                "pl_reconciliacao_role": ["classe_reportada"] * 3,
+            }
+        )
+
+        row = _build_return_summary(history, "03/2026", quota_pl_history_df=quota).iloc[0]
+
+        self.assertAlmostEqual(((1.01 * 0.98 * 1.0) - 1.0) * 100.0, row["retorno_ano_pct"], places=6)
+        self.assertEqual(0.0, row["retorno_mes_pct"])
+        self.assertEqual("completo", row["ytd_status"])
+        self.assertEqual("", row["ytd_competencias_ausentes"])
+
+    def test_build_return_summary_marks_active_month_gap_and_does_not_carry_latest_return(self) -> None:
+        history = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "05/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-05-01"]),
+                "class_kind": ["senior"] * 2,
+                "class_key": ["senior:1"] * 2,
+                "class_label": ["Sênior"] * 2,
+                "label": ["Sênior"] * 2,
+                "retorno_mensal_pct": [1.0, 2.0],
+            }
+        )
+        competencias = pd.date_range("2026-01-01", "2026-06-01", freq="MS")
+        quota = pd.DataFrame(
+            {
+                "competencia": [value.strftime("%m/%Y") for value in competencias],
+                "competencia_dt": competencias,
+                "class_kind": ["senior"] * len(competencias),
+                "class_key": ["senior:1"] * len(competencias),
+                "class_label": ["Sênior"] * len(competencias),
+                "pl": [100.0] * len(competencias),
+                "pl_reconciliacao_role": ["classe_reportada"] * len(competencias),
+            }
+        )
+
+        row = _build_return_summary(history, "06/2026", quota_pl_history_df=quota).iloc[0]
+
+        self.assertIsNone(row["retorno_mes_pct"])
+        self.assertIsNone(row["retorno_ano_pct"])
+        self.assertEqual("incompleto", row["ytd_status"])
+        self.assertIn("06/2026", row["ytd_competencias_ausentes"])
+
+    def test_build_return_summary_allows_class_issued_during_year(self) -> None:
+        history = pd.DataFrame(
+            {
+                "competencia": ["03/2026", "04/2026"],
+                "competencia_dt": pd.to_datetime(["2026-03-01", "2026-04-01"]),
+                "class_kind": ["subordinada"] * 2,
+                "class_key": ["sub:1"] * 2,
+                "class_label": ["Subordinada"] * 2,
+                "label": ["Subordinada"] * 2,
+                "retorno_mensal_pct": [3.0, 4.0],
+            }
+        )
+        quota = pd.DataFrame(
+            {
+                "competencia": ["03/2026", "04/2026"],
+                "competencia_dt": pd.to_datetime(["2026-03-01", "2026-04-01"]),
+                "class_kind": ["subordinada"] * 2,
+                "class_key": ["sub:1"] * 2,
+                "class_label": ["Subordinada"] * 2,
+                "pl": [50.0, 50.0],
+                "pl_reconciliacao_role": ["classe_reportada"] * 2,
+            }
+        )
+
+        row = _build_return_summary(history, "04/2026", quota_pl_history_df=quota).iloc[0]
+
+        self.assertAlmostEqual(((1.03 * 1.04) - 1.0) * 100.0, row["retorno_ano_pct"], places=6)
+        self.assertEqual("completo", row["ytd_status"])
+
+    def test_build_return_summary_excludes_returns_before_class_becomes_active(self) -> None:
+        competencias = pd.date_range("2026-01-01", "2026-04-01", freq="MS")
+        history = pd.DataFrame(
+            {
+                "competencia": [value.strftime("%m/%Y") for value in competencias],
+                "competencia_dt": competencias,
+                "class_kind": ["senior"] * len(competencias),
+                "class_key": ["senior:1"] * len(competencias),
+                "class_label": ["Sênior"] * len(competencias),
+                "label": ["Sênior"] * len(competencias),
+                "retorno_mensal_pct": [10.0, 10.0, 3.0, 4.0],
+            }
+        )
+        quota = pd.DataFrame(
+            {
+                "competencia": [value.strftime("%m/%Y") for value in competencias],
+                "competencia_dt": competencias,
+                "class_kind": ["senior"] * len(competencias),
+                "class_key": ["senior:1"] * len(competencias),
+                "class_label": ["Sênior"] * len(competencias),
+                "pl": [0.0, 0.0, 100.0, 100.0],
+                "pl_reconciliacao_role": ["classe_reportada"] * len(competencias),
+            }
+        )
+
+        row = _build_return_summary(history, "04/2026", quota_pl_history_df=quota).iloc[0]
+
+        self.assertAlmostEqual(((1.03 * 1.04) - 1.0) * 100.0, row["retorno_ano_pct"], places=6)
+        self.assertEqual("completo", row["ytd_status"])
+
+    def test_build_return_summary_without_pl_rejects_partial_ytd(self) -> None:
+        history = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "05/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01", "2026-05-01"]),
+                "class_kind": ["senior", "senior"],
+                "class_key": ["senior:1", "senior:1"],
+                "class_label": ["Sênior", "Sênior"],
+                "label": ["Sênior", "Sênior"],
+                "retorno_mensal_pct": [1.0, 2.0],
+            }
+        )
+
+        row = _build_return_summary(history, "05/2026").iloc[0]
+
+        self.assertIsNone(row["retorno_ano_pct"])
+        self.assertEqual("incompleto", row["ytd_status"])
+        self.assertEqual("02/2026, 03/2026, 04/2026", row["ytd_competencias_ausentes"])
+
     def test_build_return_history_preserves_multiple_classes_with_same_tipo(self) -> None:
         wide_lookup = pd.DataFrame(columns=["tag_path"]).set_index("tag_path", drop=False)
         listas_df = pd.DataFrame(

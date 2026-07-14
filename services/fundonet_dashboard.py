@@ -205,9 +205,15 @@ def filter_dashboard_to_competencias(
             replacements[data_field.name] = filtered.reset_index(drop=True)
     filtered_return_history = replacements.get("return_history_df", dashboard.return_history_df)
     if isinstance(filtered_return_history, pd.DataFrame):
+        filtered_quota_history = replacements.get("quota_pl_history_df", dashboard.quota_pl_history_df)
         replacements["return_summary_df"] = _build_return_summary(
             filtered_return_history,
             latest_competencia,
+            quota_pl_history_df=(
+                filtered_quota_history
+                if isinstance(filtered_quota_history, pd.DataFrame)
+                else pd.DataFrame()
+            ),
             return_window_months=_coerce_return_window_months(
                 return_window_months,
                 default=_infer_return_window_months(selected),
@@ -251,6 +257,7 @@ def build_dashboard_data(
     return_summary_df = _build_return_summary(
         return_history_df=return_history_df,
         latest_competencia=latest_competencia,
+        quota_pl_history_df=quota_pl_history_df,
         return_window_months=12,
     )
     performance_vs_benchmark_latest_df = _build_performance_vs_benchmark_latest_df(
@@ -2887,52 +2894,178 @@ def _build_return_summary(
     return_history_df: pd.DataFrame,
     latest_competencia: str,
     *,
+    quota_pl_history_df: pd.DataFrame | None = None,
     return_window_months: int | None = 12,
 ) -> pd.DataFrame:
     window_months = _coerce_return_window_months(return_window_months, default=12)
     window_label = _return_window_label(window_months)
-    if return_history_df.empty:
-        return pd.DataFrame(
-            columns=[
-                "class_kind",
-                "class_key",
-                "class_label",
-                "label",
-                "retorno_mes_pct",
-                "retorno_ano_pct",
-                "retorno_12m_pct",
-                "retorno_periodo_pct",
-                "retorno_periodo_label",
-                "retorno_periodo_meses",
-            ]
-        )
+    summary_columns = [
+        "class_kind",
+        "class_key",
+        "class_label",
+        "label",
+        "latest_competencia",
+        "retorno_mes_pct",
+        "retorno_ano_pct",
+        "retorno_12m_pct",
+        "retorno_periodo_pct",
+        "retorno_periodo_label",
+        "retorno_periodo_meses",
+        "ytd_status",
+        "ytd_competencias_ausentes",
+    ]
+
+    history_df = return_history_df.copy() if isinstance(return_history_df, pd.DataFrame) else pd.DataFrame()
+    quota_df = quota_pl_history_df.copy() if isinstance(quota_pl_history_df, pd.DataFrame) else pd.DataFrame()
+    identity_columns = ["class_kind", "class_key", "class_label"]
+    history_has_identity = not history_df.empty and all(column in history_df.columns for column in identity_columns)
+    quota_has_identity = not quota_df.empty and all(column in quota_df.columns for column in identity_columns)
+
+    if quota_has_identity:
+        if "pl_reconciliacao_role" in quota_df.columns:
+            quota_df = quota_df[quota_df["pl_reconciliacao_role"].astype(str) != "pl_nao_reconciliado"].copy()
+        quota_df["pl"] = pd.to_numeric(quota_df.get("pl"), errors="coerce")
+    active_quota_df = quota_df[quota_df["pl"] > 0].copy() if quota_has_identity and "pl" in quota_df.columns else pd.DataFrame()
+
+    identity_frames: list[pd.DataFrame] = []
+    if history_has_identity:
+        identity_frames.append(history_df[identity_columns].drop_duplicates())
+    if quota_has_identity and not active_quota_df.empty:
+        identity_frames.append(active_quota_df[identity_columns].drop_duplicates())
+    if not identity_frames:
+        return pd.DataFrame(columns=summary_columns)
+
+    def _identity_key(values: object) -> tuple[str, str, str]:
+        raw_values = values if isinstance(values, tuple) else (values,)
+        normalized = ["" if pd.isna(value) else str(value) for value in raw_values]
+        return tuple((normalized + ["", "", ""])[:3])  # type: ignore[return-value]
+
+    history_groups: dict[tuple[str, str, str], pd.DataFrame] = {}
+    if history_has_identity:
+        for raw_key, group in history_df.groupby(identity_columns, dropna=False):
+            history_groups[_identity_key(raw_key)] = group.copy()
+
+    quota_groups: dict[tuple[str, str, str], pd.DataFrame] = {}
+    if quota_has_identity and not quota_df.empty:
+        for raw_key, group in quota_df.groupby(identity_columns, dropna=False):
+            quota_groups[_identity_key(raw_key)] = group.copy()
+
+    identities = pd.concat(identity_frames, ignore_index=True).drop_duplicates()
 
     latest_year = _competencia_sort_key(latest_competencia)[0]
+    latest_competencia_dt = _competencia_to_timestamp(latest_competencia)
     rows: list[dict[str, object]] = []
-    for (class_kind, class_key, class_label), group in return_history_df.groupby(
-        ["class_kind", "class_key", "class_label"],
-        dropna=False,
-    ):
-        ordered = group.sort_values("competencia_dt").copy()
+    for class_kind, class_key, class_label in identities[identity_columns].itertuples(index=False, name=None):
+        identity_key = _identity_key((class_kind, class_key, class_label))
+        ordered = history_groups.get(identity_key, pd.DataFrame()).copy()
+        if "competencia_dt" not in ordered.columns and "competencia" in ordered.columns:
+            ordered["competencia_dt"] = ordered["competencia"].map(_competencia_to_timestamp)
+        if "retorno_mensal_pct" not in ordered.columns:
+            ordered["retorno_mensal_pct"] = pd.NA
+        if not ordered.empty:
+            ordered = ordered[
+                ordered["competencia_dt"].notna()
+                & (ordered["competencia_dt"] <= latest_competencia_dt)
+            ].sort_values("competencia_dt")
         monthly = pd.to_numeric(ordered["retorno_mensal_pct"], errors="coerce")
-        if monthly.dropna().empty:
-            continue
-        latest_return = float(monthly.dropna().iloc[-1])
-        year_mask = ordered["competencia_dt"].dt.year == latest_year
+        latest_values = pd.to_numeric(
+            ordered.loc[
+                ordered.get("competencia", pd.Series(dtype="object")).astype(str) == str(latest_competencia),
+                "retorno_mensal_pct",
+            ],
+            errors="coerce",
+        ).dropna()
+        latest_return = float(latest_values.iloc[-1]) if not latest_values.empty else None
+        year_mask = ordered["competencia_dt"].dt.year == latest_year if not ordered.empty else pd.Series(dtype="bool")
+
+        quota_period = quota_groups.get(identity_key, pd.DataFrame()).copy()
+        if "competencia_dt" not in quota_period.columns and "competencia" in quota_period.columns:
+            quota_period["competencia_dt"] = quota_period["competencia"].map(_competencia_to_timestamp)
+        if not quota_period.empty:
+            quota_period = quota_period[
+                quota_period["competencia_dt"].notna()
+                & (quota_period["competencia_dt"].dt.year == latest_year)
+                & (quota_period["competencia_dt"] <= latest_competencia_dt)
+            ].copy()
+        if quota_period.empty or "pl" not in quota_period.columns:
+            active_quota = pd.DataFrame()
+        else:
+            active_quota = quota_period[
+                pd.to_numeric(quota_period["pl"], errors="coerce") > 0
+            ].copy()
+        required_competencias: set[str] = set()
+        if not active_quota.empty:
+            first_active = active_quota["competencia_dt"].min()
+            last_active = active_quota["competencia_dt"].max()
+            latest_pl = pd.to_numeric(
+                quota_period.loc[
+                    quota_period.get("competencia", pd.Series(dtype="object")).astype(str) == str(latest_competencia),
+                    "pl",
+                ],
+                errors="coerce",
+            ).dropna()
+            active_at_latest = not latest_pl.empty and float(latest_pl.iloc[-1]) > 0
+            active_end = latest_competencia_dt if active_at_latest else last_active
+            required_competencias = {
+                value.strftime("%m/%Y")
+                for value in pd.date_range(first_active, active_end, freq="MS")
+            }
+            explicitly_inactive = set(
+                quota_period.loc[
+                    pd.to_numeric(quota_period.get("pl"), errors="coerce") == 0,
+                    "competencia",
+                ].dropna().astype(str)
+            )
+            required_competencias -= explicitly_inactive
+        fallback_competencias = {
+            value.strftime("%m/%Y")
+            for value in pd.date_range(
+                pd.Timestamp(year=latest_year, month=1, day=1),
+                latest_competencia_dt,
+                freq="MS",
+            )
+        }
+        ytd_competencias = required_competencias or fallback_competencias
+        reported_competencias = set(
+            ordered.loc[year_mask & monthly.notna(), "competencia"].dropna().astype(str)
+            if not ordered.empty
+            else []
+        )
+        missing_competencias = sorted(ytd_competencias - reported_competencias, key=_competencia_sort_key)
+        if missing_competencias:
+            ytd_status = "incompleto"
+            retorno_ano_pct = None
+        else:
+            ytd_status = "completo" if required_competencias else "sem_base_pl"
+            ytd_monthly = pd.to_numeric(
+                ordered.loc[
+                    year_mask
+                    & ordered["competencia"].astype(str).isin(ytd_competencias),
+                    "retorno_mensal_pct",
+                ],
+                errors="coerce",
+            )
+            retorno_ano_pct = _compound_percent(ytd_monthly)
+
         rows.append(
             {
                 "class_kind": class_kind,
                 "class_key": class_key,
                 "class_label": class_label,
                 "label": class_label,
+                "latest_competencia": latest_competencia,
                 "retorno_mes_pct": latest_return,
-                "retorno_ano_pct": _compound_percent(monthly[year_mask]),
+                "retorno_ano_pct": retorno_ano_pct,
                 "retorno_12m_pct": _compound_percent(monthly.tail(12)),
                 "retorno_periodo_pct": _compound_percent(monthly.tail(window_months)),
                 "retorno_periodo_label": window_label,
                 "retorno_periodo_meses": window_months,
+                "ytd_status": ytd_status,
+                "ytd_competencias_ausentes": ", ".join(missing_competencias),
             }
         )
+    if not rows:
+        return pd.DataFrame(columns=summary_columns)
     return sort_class_display_frame(pd.DataFrame(rows), label_column="class_label")
 
 

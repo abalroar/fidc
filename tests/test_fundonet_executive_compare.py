@@ -123,6 +123,22 @@ class FundonetExecutiveCompareTests(unittest.TestCase):
         self.assertIn("PL total", available)
         self.assertIn("PL total", defaults)
 
+    def test_senior_return_uses_first_class_with_reported_value(self) -> None:
+        dashboard = _dashboard(name="FIDC Alfa", cnpj="12345678000190")
+        dashboard.return_summary_df = pd.DataFrame(
+            [
+                {"class_kind": "senior", "class_label": "Sênior · Série 1", "retorno_mes_pct": None},
+                {"class_kind": "senior", "class_label": "Sênior · Subclasse 1", "retorno_mes_pct": 1.2},
+            ]
+        )
+
+        frame = build_executive_comparison_df(
+            [dashboard],
+            selected_metric_labels=["Retorno mês sênior disponível"],
+        )
+
+        self.assertEqual("1,2%", frame.loc[0, "FIDC Alfa"])
+
     def test_column_labels_remain_unique_for_duplicate_names(self) -> None:
         dash_a = _dashboard(name="FIDC Alfa", cnpj="12345678000190")
         dash_b = _dashboard(name="FIDC Alfa", cnpj="98765432000110")
