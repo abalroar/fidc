@@ -427,7 +427,7 @@ def render_dashboard_meli_analysis(
         _render_consolidated_dashboard(monitor_outputs, research_outputs, key_prefix=download_key_prefix)
 
     def _render_funds_view() -> None:
-        _render_fund_dashboards(monitor_outputs, selected_portfolio=selected_portfolio)
+        _render_fund_dashboards(outputs, monitor_outputs, selected_portfolio=selected_portfolio)
 
     def _render_audit_view() -> None:
         _render_audit(outputs, monitor_outputs, research_outputs, verification_report)
@@ -443,9 +443,11 @@ def render_dashboard_meli_analysis(
     else:
         st.markdown("#### Consolidado")
         _render_main_view()
-        if len(getattr(monitor_outputs, "fund_monitor", {}) or {}) > 1:
-            st.markdown("#### Fundos individuais")
-            _render_funds_view()
+        _render_stacked_funds_view(
+            outputs=outputs,
+            monitor_outputs=monitor_outputs,
+            selected_portfolio=selected_portfolio,
+        )
         with st.expander("Auditoria e conciliações da análise de crédito", expanded=False):
             _render_audit(outputs, monitor_outputs, research_outputs, verification_report, compact=True)
     _render_methodology(research_outputs)
@@ -513,7 +515,17 @@ def _render_research_roll_charts(roll_df: pd.DataFrame, *, key: str) -> None:
         )
         st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id=spec["metric_id"]), use_container_width=True)
 
-def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRecord) -> None:  # noqa: ANN001
+
+def _render_stacked_funds_view(*, outputs, monitor_outputs, selected_portfolio: PortfolioRecord) -> None:  # noqa: ANN001
+    fund_monitor = getattr(monitor_outputs, "fund_monitor", {}) or {}
+    if len(fund_monitor) > 1:
+        st.markdown("#### Fundos individuais")
+        _render_fund_dashboards(outputs, monitor_outputs, selected_portfolio=selected_portfolio)
+    elif len(fund_monitor) == 1:
+        _render_fund_return_table(outputs=outputs, cnpj=next(iter(fund_monitor)))
+
+
+def _render_fund_dashboards(outputs, monitor_outputs, *, selected_portfolio: PortfolioRecord) -> None:  # noqa: ANN001
     if not monitor_outputs.fund_monitor:
         st.info("Sem fundos individuais carregados.")
         return
@@ -527,6 +539,7 @@ def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRec
         return
     for cnpj in selected_cnpjs:
         monitor = monitor_outputs.fund_monitor[cnpj]
+        _render_fund_return_table(outputs=outputs, cnpj=cnpj)
         _chart_title("Carteira Bruta ex-360 e crescimento YoY", PORTFOLIO_GROWTH_NOTES)
         st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
 
@@ -541,6 +554,76 @@ def _render_fund_dashboards(monitor_outputs, *, selected_portfolio: PortfolioRec
 
         _chart_title("Cohorts recentes", _cohort_notes())
         st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
+
+
+def _build_fund_return_table(*, outputs, cnpj: str) -> pd.DataFrame:  # noqa: ANN001
+    history_by_cnpj = getattr(outputs, "fund_return_history", {}) or {}
+    summary_by_cnpj = getattr(outputs, "fund_return_summary", {}) or {}
+    history_df = history_by_cnpj.get(cnpj, pd.DataFrame()).copy()
+    summary_df = summary_by_cnpj.get(cnpj, pd.DataFrame()).copy()
+    if summary_df.empty:
+        return pd.DataFrame()
+
+    latest_competencia = ""
+    if "latest_competencia" in summary_df.columns:
+        values = summary_df["latest_competencia"].dropna().astype(str).map(str.strip)
+        latest_competencia = next((value for value in values.tolist() if value), "")
+    if not latest_competencia and not history_df.empty and "competencia" in history_df.columns:
+        parsed = pd.to_datetime(history_df["competencia"], format="%m/%Y", errors="coerce")
+        if parsed.notna().any():
+            latest_competencia = parsed.max().strftime("%m/%Y")
+    competencias = _ytd_competencia_labels(latest_competencia)
+    return ime_tab._format_return_inline_matrix_frame(
+        history_df,
+        summary_df,
+        competencias=competencias,
+        include_period_summary=False,
+    )
+
+
+def _render_fund_return_table(*, outputs, cnpj: str) -> None:  # noqa: ANN001
+    table_df = _build_fund_return_table(outputs=outputs, cnpj=cnpj)
+    if table_df.empty:
+        st.caption("Rentabilidade por tipo de cota não disponível para este fundo.")
+        return
+
+    summary_df = (getattr(outputs, "fund_return_summary", {}) or {}).get(cnpj, pd.DataFrame())
+    _chart_title(
+        "Rentabilidade por tipo de cota",
+        (
+            "Retornos mensais reportados no IME.",
+            "YTD composto de janeiro até a última competência disponível do fundo.",
+        ),
+    )
+    st.dataframe(table_df, width="stretch", hide_index=True)
+    if not summary_df.empty and "ytd_status" in summary_df.columns:
+        incomplete = summary_df[summary_df["ytd_status"].astype(str) == "incompleto"]
+        if not incomplete.empty:
+            label_column = ime_tab._class_display_column(incomplete)
+            details = []
+            for _, row in incomplete.iterrows():
+                label_raw = row.get(label_column)
+                missing_raw = row.get("ytd_competencias_ausentes")
+                label = "Cota" if pd.isna(label_raw) or not str(label_raw).strip() else str(label_raw)
+                missing = (
+                    "competência não reportada"
+                    if pd.isna(missing_raw) or not str(missing_raw).strip()
+                    else str(missing_raw)
+                )
+                details.append(f"{label}: {missing}")
+            st.caption("YTD indisponível porque há competência necessária sem retorno reportado. " + "; ".join(details))
+
+
+def _ytd_competencia_labels(latest_competencia: str) -> list[str]:
+    try:
+        month_text, year_text = str(latest_competencia).strip().split("/", 1)
+        latest_month = int(month_text)
+        year = int(year_text)
+    except (TypeError, ValueError):
+        return []
+    if latest_month < 1 or latest_month > 12:
+        return []
+    return [f"{month:02d}/{year}" for month in range(1, latest_month + 1)]
 
 
 def _render_monitor_fund_selectbox(monitor_outputs, *, key: str) -> str | None:  # noqa: ANN001

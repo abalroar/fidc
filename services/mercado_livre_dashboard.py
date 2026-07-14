@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 import hashlib
 from io import BytesIO
@@ -127,7 +127,7 @@ PRIMITIVE_SUM_COLUMNS = [
 ]
 
 WIDE_TABLE_COLUMNS = ["Bloco", "Métrica", "Memória / fórmula"]
-CALCULATION_SCHEMA_VERSION = 7
+CALCULATION_SCHEMA_VERSION = 8
 OFFICIAL_PL_PATH = "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
 
 
@@ -139,6 +139,8 @@ class MercadoLivreOutputs:
     consolidated_wide: pd.DataFrame
     warnings_df: pd.DataFrame
     metadata: dict[str, Any]
+    fund_return_history: dict[str, pd.DataFrame] = field(default_factory=dict)
+    fund_return_summary: dict[str, pd.DataFrame] = field(default_factory=dict)
 
 
 def build_mercado_livre_outputs(
@@ -151,6 +153,8 @@ def build_mercado_livre_outputs(
 ) -> MercadoLivreOutputs:
     fund_monthly: dict[str, pd.DataFrame] = {}
     fund_wide: dict[str, pd.DataFrame] = {}
+    fund_return_history: dict[str, pd.DataFrame] = {}
+    fund_return_summary: dict[str, pd.DataFrame] = {}
     warnings: list[dict[str, object]] = []
     official_pl_by_cnpj = official_pl_by_cnpj or {}
     for cnpj, (fund_name, dashboard) in dashboards_by_cnpj.items():
@@ -162,6 +166,8 @@ def build_mercado_livre_outputs(
         )
         fund_monthly[cnpj] = monthly
         fund_wide[cnpj] = build_wide_table(monthly, scope_name=fund_name)
+        fund_return_history[cnpj] = getattr(dashboard, "return_history_df", pd.DataFrame()).copy()
+        fund_return_summary[cnpj] = getattr(dashboard, "return_summary_df", pd.DataFrame()).copy()
         warnings.extend(_warning_rows(monthly, scope_name=fund_name, cnpj=cnpj))
 
     consolidated = build_consolidated_monthly_base(
@@ -203,6 +209,8 @@ def build_mercado_livre_outputs(
         consolidated_wide=consolidated_wide,
         warnings_df=pd.DataFrame(warnings),
         metadata=metadata,
+        fund_return_history=fund_return_history,
+        fund_return_summary=fund_return_summary,
     )
 
 
@@ -364,6 +372,10 @@ def save_outputs_to_cache(
         frame.to_csv(root / f"monthly_{_safe_path_token(cnpj)}.csv", index=False)
     for cnpj, frame in outputs.fund_wide.items():
         frame.to_csv(root / f"wide_{_safe_path_token(cnpj)}.csv", index=False)
+    for cnpj, frame in outputs.fund_return_history.items():
+        frame.to_csv(root / f"return_history_{_safe_path_token(cnpj)}.csv", index=False)
+    for cnpj, frame in outputs.fund_return_summary.items():
+        frame.to_csv(root / f"return_summary_{_safe_path_token(cnpj)}.csv", index=False)
     outputs.consolidated_monthly.to_csv(root / "monthly_consolidado.csv", index=False)
     outputs.consolidated_wide.to_csv(root / "wide_consolidado.csv", index=False)
     outputs.warnings_df.to_csv(root / "warnings.csv", index=False)
@@ -439,6 +451,8 @@ def load_outputs_from_cache(
             return None
     fund_monthly: dict[str, pd.DataFrame] = {}
     fund_wide: dict[str, pd.DataFrame] = {}
+    fund_return_history: dict[str, pd.DataFrame] = {}
+    fund_return_summary: dict[str, pd.DataFrame] = {}
     for fund in metadata.get("funds") or []:
         cnpj = _digits(fund.get("cnpj"))
         if not cnpj:
@@ -455,6 +469,10 @@ def load_outputs_from_cache(
             if wide_df is None:
                 return None
             fund_wide[cnpj] = wide_df
+        return_history_path = root / f"return_history_{_safe_path_token(cnpj)}.csv"
+        return_summary_path = root / f"return_summary_{_safe_path_token(cnpj)}.csv"
+        fund_return_history[cnpj] = _read_optional_cache_csv(return_history_path)
+        fund_return_summary[cnpj] = _read_optional_cache_csv(return_summary_path)
     if requested_cnpjs:
         if sorted(fund_monthly) != requested_cnpjs or sorted(fund_wide) != requested_cnpjs:
             return None
@@ -475,6 +493,8 @@ def load_outputs_from_cache(
         consolidated_wide=consolidated_wide,
         warnings_df=_read_optional_cache_csv(warnings_path),
         metadata=metadata,
+        fund_return_history=fund_return_history,
+        fund_return_summary=fund_return_summary,
     )
 
 
