@@ -31,6 +31,7 @@ from services.mercado_livre_dashboard import (
     save_outputs_to_cache,
 )
 from services.mercado_livre_ppt_export import build_pptx_export_bytes
+from services.meli_credit_monitor import build_meli_monitor_outputs
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
 from tabs.tab_dashboard_meli import (
@@ -494,6 +495,20 @@ class MercadoLivreDashboardTests(unittest.TestCase):
             next(iter(returns_a.tables.values())).displayName,
             next(iter(returns_b.tables.values())).displayName,
         )
+
+        comparison_export = build_full_variable_excel_export_bytes(
+            outputs,
+            monitor_outputs=build_meli_monitor_outputs(outputs),
+        )
+        comparison_workbook = load_workbook(BytesIO(comparison_export), data_only=True)
+        self.assertIn("Comparativo crédito", comparison_workbook.sheetnames)
+        comparison = comparison_workbook["Comparativo crédito"]
+        self.assertEqual(4, comparison.max_row)
+        self.assertEqual("Consolidado", comparison.cell(row=2, column=1).value)
+        self.assertEqual("Fundo", comparison.cell(row=3, column=1).value)
+        self.assertEqual("01/2026", comparison.cell(row=2, column=4).value)
+        self.assertEqual("0.00%", comparison.cell(row=2, column=8).number_format)
+        self.assertEqual(1, len(comparison.tables))
 
         csv_zip = build_full_variable_csv_zip_bytes(outputs)
         with zipfile.ZipFile(BytesIO(csv_zip)) as archive:

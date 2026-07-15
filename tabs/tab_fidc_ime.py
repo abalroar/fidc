@@ -1621,13 +1621,30 @@ def _render_structural_risk_section(
     if not show_return_section:
         return
 
+    _render_quota_return_section(
+        dashboard,
+        slot_key=slot_key,
+        return_months=return_months,
+    )
+
+
+def _render_quota_return_section(
+    dashboard: FundonetDashboardData,
+    *,
+    slot_key: str = "slot0",
+    return_months: int = 12,
+    show_table: bool = True,
+    selector_label: str = "Classes na rentabilidade",
+) -> None:
+    """Render the existing quota return controls/table and cumulative history."""
+
     selected_set: set[str] | None = None
     return_chart_df = _return_chart_frame(dashboard.return_history_df)
     if not return_chart_df.empty:
         ordered_labels = _return_ordered_labels(dashboard)
         default_labels = ordered_labels[:5]
         selected_labels = st.multiselect(
-            "Classes na rentabilidade",
+            selector_label,
             options=ordered_labels,
             default=default_labels,
             key=f"return_labels_{slot_key}",
@@ -1635,22 +1652,25 @@ def _render_structural_risk_section(
         )
         selected_for_display = selected_labels if selected_labels else default_labels
         selected_set = set(selected_for_display)
-        return_summary_df = dashboard.return_summary_df.copy()
-        if selected_set:
-            return_summary_df = return_summary_df[return_summary_df[_class_display_column(return_summary_df)].isin(selected_set)].copy()
-        return_matrix_df = _format_return_inline_matrix_frame(
-            dashboard.return_history_df,
-            return_summary_df,
-            selected_labels=selected_for_display if selected_for_display else None,
-            months=return_months,
-        )
-        if not return_matrix_df.empty:
-            _render_chart_heading(st, "Rentabilidade por tipo de cota")
-            st.dataframe(
-                return_matrix_df,
-                width="stretch",
-                hide_index=True,
+        if show_table:
+            return_summary_df = dashboard.return_summary_df.copy()
+            if selected_set:
+                return_summary_df = return_summary_df[
+                    return_summary_df[_class_display_column(return_summary_df)].isin(selected_set)
+                ].copy()
+            return_matrix_df = _format_return_inline_matrix_frame(
+                dashboard.return_history_df,
+                return_summary_df,
+                selected_labels=selected_for_display if selected_for_display else None,
+                months=return_months,
             )
+            if not return_matrix_df.empty:
+                _render_chart_heading(st, "Rentabilidade por tipo de cota")
+                st.dataframe(
+                    return_matrix_df,
+                    width="stretch",
+                    hide_index=True,
+                )
         base100_chart_df = _return_base100_chart_frame(
             dashboard.return_history_df,
             selected_labels=selected_for_display if selected_for_display else None,

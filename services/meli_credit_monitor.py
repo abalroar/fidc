@@ -420,21 +420,26 @@ def build_monitor_base(monthly_df: pd.DataFrame) -> pd.DataFrame:
     )
     derived_current = df[list(MATURITY_CURRENT_COLUMNS)].sum(axis=1, min_count=1)
     df["carteira_a_vencer"] = df["carteira_a_vencer"].where(df["carteira_a_vencer"].notna(), derived_current)
+    df["universe_complete"] = _complete_universe_mask(df)
     df["npl_1_90"] = df[["atraso_ate30", "atraso_31_60", "atraso_61_90"]].sum(axis=1, min_count=1)
     df["npl_91_360"] = df[["atraso_91_120", "atraso_121_150", "atraso_151_180", "atraso_181_360"]].sum(axis=1, min_count=1)
     df["npl_1_90_pct"] = _safe_div_pct(df["npl_1_90"], df["carteira_ex360"])
     df["npl_91_360_pct"] = _safe_div_pct(df["npl_91_360"], df["carteira_ex360"])
     df["npl_1_360_pct"] = _safe_div_pct(df["npl_1_90"] + df["npl_91_360"], df["carteira_ex360"])
-    df["roll_61_90_m3_den"] = df["carteira_a_vencer"].shift(3)
-    df["roll_91_120_m4_den"] = df["carteira_a_vencer"].shift(4)
-    df["roll_121_150_m5_den"] = df["carteira_a_vencer"].shift(5)
-    df["roll_151_180_m6_den"] = df["carteira_a_vencer"].shift(6)
+    lag_base = df["carteira_a_vencer"].where(df["universe_complete"])
+    df["roll_61_90_m3_den"] = _calendar_lag_series(df["competencia_dt"], lag_base, months=3)
+    df["roll_91_120_m4_den"] = _calendar_lag_series(df["competencia_dt"], lag_base, months=4)
+    df["roll_121_150_m5_den"] = _calendar_lag_series(df["competencia_dt"], lag_base, months=5)
+    df["roll_151_180_m6_den"] = _calendar_lag_series(df["competencia_dt"], lag_base, months=6)
     df["roll_61_90_m3_pct"] = _safe_div_pct(df["atraso_61_90"], df["roll_61_90_m3_den"])
     df["roll_91_120_m4_pct"] = _safe_div_pct(df["atraso_91_120"], df["roll_91_120_m4_den"])
     df["roll_121_150_m5_pct"] = _safe_div_pct(df["atraso_121_150"], df["roll_121_150_m5_den"])
     df["roll_151_180_m6_pct"] = _safe_div_pct(df["atraso_151_180"], df["roll_151_180_m6_den"])
-    df["carteira_ex360_mom_pct"] = df["carteira_ex360"].pct_change(fill_method=None) * 100.0
-    df["carteira_ex360_yoy_pct"] = (df["carteira_ex360"] / df["carteira_ex360"].shift(12) - 1.0) * 100.0
+    carteira_complete = df["carteira_ex360"].where(df["universe_complete"])
+    mom_base = _calendar_lag_series(df["competencia_dt"], carteira_complete, months=1)
+    yoy_base = _calendar_lag_series(df["competencia_dt"], carteira_complete, months=12)
+    df["carteira_ex360_mom_pct"] = ((carteira_complete / mom_base) - 1.0).where(mom_base > 0).mul(100.0)
+    df["carteira_ex360_yoy_pct"] = ((carteira_complete / yoy_base) - 1.0).where(yoy_base > 0).mul(100.0)
     df["pdd_npl90_ex360_pct"] = _safe_div_pct(df["pdd_ex360"], df["npl_over90_ex360"])
     return df
 
@@ -443,17 +448,28 @@ def build_cohort_matrix(monitor_df: pd.DataFrame) -> pd.DataFrame:
     if monitor_df is None or monitor_df.empty:
         return pd.DataFrame(columns=["cohort", "cohort_dt", "mes_ciclo", "ordem", "valor_pct", "numerador", "denominador"])
     df = monitor_df.sort_values("competencia_dt").reset_index(drop=True).copy()
+    if "universe_complete" in df.columns:
+        df = df[df["universe_complete"].fillna(False)].reset_index(drop=True)
+    df["_competencia_period"] = pd.to_datetime(df["competencia_dt"], errors="coerce").dt.to_period("M")
+    rows_by_period = {
+        period: row
+        for period, (_, row) in zip(df["_competencia_period"], df.iterrows(), strict=False)
+        if pd.notna(period)
+    }
     rows: list[dict[str, object]] = []
-    for idx, row in df.iterrows():
+    for _, row in df.iterrows():
         denominator = _num(row.get("prazo_venc_30"))
         if denominator is None or denominator <= 0:
             continue
+        cohort_period = row.get("_competencia_period")
+        if pd.isna(cohort_period):
+            continue
         cohort = _format_cohort_label(row.get("competencia_dt"), row.get("competencia"))
         for order, (label, bucket_col, lag_months) in enumerate(COHORT_STEPS, start=1):
-            future_idx = idx + lag_months
-            if future_idx >= len(df):
+            future_row = rows_by_period.get(cohort_period + lag_months)
+            if future_row is None:
                 continue
-            numerator = _num(df.iloc[future_idx].get(bucket_col))
+            numerator = _num(future_row.get(bucket_col))
             if numerator is None:
                 continue
             rows.append(
@@ -468,6 +484,32 @@ def build_cohort_matrix(monitor_df: pd.DataFrame) -> pd.DataFrame:
                 }
             )
     return pd.DataFrame(rows)
+
+
+def _calendar_lag_series(
+    competencias: pd.Series,
+    values: pd.Series,
+    *,
+    months: int,
+) -> pd.Series:
+    """Align a lag to calendar months instead of row positions."""
+    periods = pd.to_datetime(competencias, errors="coerce").dt.to_period("M")
+    numeric_values = pd.to_numeric(values, errors="coerce")
+    lookup = {
+        period: value
+        for period, value in zip(periods, numeric_values, strict=False)
+        if pd.notna(period) and pd.notna(value)
+    }
+    lagged = [lookup.get(period - months) if pd.notna(period) else None for period in periods]
+    return pd.to_numeric(pd.Series(lagged, index=competencias.index), errors="coerce")
+
+
+def _complete_universe_mask(df: pd.DataFrame) -> pd.Series:
+    if "funds_expected_count" not in df.columns or "funds_present_count" not in df.columns:
+        return pd.Series(True, index=df.index, dtype="bool")
+    expected = pd.to_numeric(df["funds_expected_count"], errors="coerce")
+    present = pd.to_numeric(df["funds_present_count"], errors="coerce")
+    return (expected.isna() | present.ge(expected)).fillna(False)
 
 
 def build_monitor_audit_table(*, consolidated_monitor: pd.DataFrame, fund_monitor: dict[str, pd.DataFrame]) -> pd.DataFrame:

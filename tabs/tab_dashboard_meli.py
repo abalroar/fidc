@@ -8,6 +8,7 @@ import pandas as pd
 import streamlit as st
 
 from services.fund_return_matrix import build_fund_return_matrix, format_fund_return_matrix
+from services.fund_name_display import short_fund_name
 from services.ime_period import ImePeriodSelection, build_custom_period, current_default_end_month, month_options, shift_month
 from services.meli_credit_monitor import (
     build_ex360_memory_table,
@@ -82,6 +83,34 @@ _DASHBOARD_MELI_CSS = """
     font-size: 1.02rem;
     font-weight: 700;
     line-height: 1.2;
+}
+.meli-scope-current {
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    border-left: 4px solid #E47811;
+    border-radius: 8px;
+    margin: 0.25rem 0 0.85rem 0;
+    padding: 9px 11px;
+}
+.meli-scope-current span {
+    color: #6F7A87;
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+}
+.meli-scope-current strong {
+    color: #111827;
+    display: block;
+    font-size: 0.95rem;
+    line-height: 1.3;
+}
+.meli-scope-current small {
+    color: #6F7A87;
+    display: block;
+    font-size: 0.76rem;
+    margin-top: 2px;
 }
 .meli-period-bar {
     display: flex;
@@ -198,7 +227,6 @@ NPL_SEVERITY_NOTES: tuple[str, ...] = (
     "A carteira bruta ex-360 remove vencidos acima de 360 dias do denominador.",
     "O NPL remanescente é separado entre atraso inicial, de 1 a 90 dias, e atraso maduro, de 91 a 360 dias.",
 )
-
 
 def render_tab_dashboard_meli(period: ImePeriodSelection | None = None) -> None:
     portfolios = list_saved_portfolios()
@@ -422,19 +450,27 @@ def render_dashboard_meli_analysis(
                 key=f"{download_key_prefix}_research_xlsx_download::{selected_portfolio.id}",
                 use_container_width=True,
             )
-    _render_kpis(monitor_outputs.consolidated_monitor)
-
     def _render_main_view() -> None:
-        _render_consolidated_dashboard(monitor_outputs, research_outputs, key_prefix=download_key_prefix)
+        _render_consolidated_dashboard(
+            monitor_outputs,
+            research_outputs,
+            key_prefix=download_key_prefix,
+        )
 
     def _render_funds_view() -> None:
-        _render_fund_dashboards(outputs, monitor_outputs, selected_portfolio=selected_portfolio)
+        _render_fund_dashboards(
+            outputs,
+            monitor_outputs,
+            research_outputs=research_outputs,
+            selected_portfolio=selected_portfolio,
+        )
 
     def _render_audit_view() -> None:
         _render_audit(outputs, monitor_outputs, research_outputs, verification_report)
 
+    _render_kpis(monitor_outputs.consolidated_monitor)
     if use_tabs:
-        main_tab, funds_tab, audit_tab = st.tabs(["Consolidado", "Fundos", "Auditoria"])
+        main_tab, funds_tab, audit_tab = st.tabs(["Consolidado", "Fundo individual", "Auditoria"])
         with main_tab:
             _render_main_view()
         with funds_tab:
@@ -446,6 +482,7 @@ def render_dashboard_meli_analysis(
             outputs=outputs,
             monitor_outputs=monitor_outputs,
             selected_portfolio=selected_portfolio,
+            research_outputs=research_outputs,
         )
         st.markdown("#### Consolidado")
         _render_main_view()
@@ -454,7 +491,12 @@ def render_dashboard_meli_analysis(
     _render_methodology(research_outputs)
 
 
-def _render_consolidated_dashboard(monitor_outputs, research_outputs=None, *, key_prefix: str = "dashboard_meli") -> None:  # noqa: ANN001
+def _render_consolidated_dashboard(
+    monitor_outputs,
+    research_outputs=None,
+    *,
+    key_prefix: str = "dashboard_meli",
+) -> None:  # noqa: ANN001
     _chart_title("Carteira Bruta ex-360 e crescimento YoY", PORTFOLIO_GROWTH_NOTES)
     st.altair_chart(portfolio_growth_chart(monitor_outputs.consolidated_monitor), use_container_width=True)
 
@@ -517,17 +559,34 @@ def _render_research_roll_charts(roll_df: pd.DataFrame, *, key: str) -> None:
         st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id=spec["metric_id"]), use_container_width=True)
 
 
-def _render_stacked_funds_view(*, outputs, monitor_outputs, selected_portfolio: PortfolioRecord) -> None:  # noqa: ANN001
+def _render_stacked_funds_view(
+    *,
+    outputs,
+    monitor_outputs,
+    selected_portfolio: PortfolioRecord,
+    research_outputs=None,
+) -> None:  # noqa: ANN001
     fund_monitor = getattr(monitor_outputs, "fund_monitor", {}) or {}
     if fund_monitor:
-        st.markdown("#### Fundos individuais")
-    if len(fund_monitor) > 1:
-        _render_fund_dashboards(outputs, monitor_outputs, selected_portfolio=selected_portfolio)
-    elif len(fund_monitor) == 1:
+        st.markdown("#### Fundo individual")
+    if len(fund_monitor) == 1:
         _render_fund_return_table(outputs=outputs, cnpj=next(iter(fund_monitor)))
+        return
+    _render_fund_dashboards(
+        outputs,
+        monitor_outputs,
+        research_outputs=research_outputs,
+        selected_portfolio=selected_portfolio,
+    )
 
 
-def _render_fund_dashboards(outputs, monitor_outputs, *, selected_portfolio: PortfolioRecord) -> None:  # noqa: ANN001
+def _render_fund_dashboards(
+    outputs,
+    monitor_outputs,
+    *,
+    research_outputs=None,
+    selected_portfolio: PortfolioRecord,
+) -> None:  # noqa: ANN001
     if not monitor_outputs.fund_monitor:
         st.info("Sem fundos individuais carregados.")
         return
@@ -541,6 +600,7 @@ def _render_fund_dashboards(outputs, monitor_outputs, *, selected_portfolio: Por
         return
     for cnpj in selected_cnpjs:
         monitor = monitor_outputs.fund_monitor[cnpj]
+        _render_selected_fund_context(monitor, cnpj=cnpj)
         _render_fund_return_table(outputs=outputs, cnpj=cnpj)
         _chart_title("Carteira Bruta ex-360 e crescimento YoY", PORTFOLIO_GROWTH_NOTES)
         st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
@@ -550,6 +610,17 @@ def _render_fund_dashboards(outputs, monitor_outputs, *, selected_portfolio: Por
 
         _chart_title("Roll rates", ROLL_RATES_NOTES)
         st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
+
+        if research_outputs is not None:
+            roll_df = _filter_research_scope(
+                getattr(research_outputs, "roll_seasonality", pd.DataFrame()),
+                _research_scope_key("fundo", cnpj),
+            )
+            if not roll_df.empty:
+                _render_research_roll_charts(
+                    roll_df,
+                    key=f"dashboard_meli_fund_roll::{selected_portfolio.id}::{cnpj}",
+                )
 
         _chart_title("Duration", _duration_notes())
         st.altair_chart(duration_chart(pd.DataFrame(), {cnpj: monitor}), use_container_width=True)
@@ -622,22 +693,43 @@ def _render_monitor_fund_selectbox(monitor_outputs, *, key: str) -> str | None: 
     options = list(getattr(monitor_outputs, "fund_monitor", {}).keys())
     if not options:
         return None
-    if len(options) == 1:
-        return options[0]
     labels: dict[str, str] = {}
     for cnpj, frame in getattr(monitor_outputs, "fund_monitor", {}).items():
-        name = str(frame["fund_name"].dropna().iloc[0]) if not frame.empty and "fund_name" in frame.columns and frame["fund_name"].notna().any() else str(cnpj)
-        labels[cnpj] = f"{name} · {cnpj}"
+        name = _monitor_fund_name(frame, fallback=str(cnpj))
+        labels[cnpj] = f"{short_fund_name(name)} · {cnpj}"
+    if len(options) == 1:
+        return options[0]
     selected = st.selectbox(
-        "Fundo",
+        "Fundo individual analisado",
         options=options,
         index=0,
         key=key,
         format_func=lambda value: labels.get(value, str(value)),
-        help="Mostra um fundo individual por vez.",
-        label_visibility="collapsed",
+        help="Todos os gráficos e a tabela abaixo pertencem ao fundo selecionado aqui.",
     )
     return selected if selected in monitor_outputs.fund_monitor else None
+
+
+def _render_selected_fund_context(monitor: pd.DataFrame, *, cnpj: str) -> None:
+    name = _monitor_fund_name(monitor, fallback=cnpj)
+    st.markdown(
+        f"""
+<div class="meli-scope-current">
+  <span>Fundo individual analisado</span>
+  <strong>{escape(short_fund_name(name))}</strong>
+  <small>{escape(name)} · CNPJ {escape(cnpj)}</small>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+
+def _monitor_fund_name(frame: pd.DataFrame, *, fallback: str) -> str:
+    if frame is not None and not frame.empty and "fund_name" in frame.columns and frame["fund_name"].notna().any():
+        name = str(frame["fund_name"].dropna().iloc[0]).strip()
+        if name:
+            return name
+    return str(fallback)
 
 
 def _render_research_dashboard(research_outputs, verification_report: pd.DataFrame) -> None:  # noqa: ANN001
@@ -720,6 +812,11 @@ def _render_audit(
         st.info("Sem tabela de auditoria.")
         return
     display = audit.copy()
+    for column in ("scope", "fund_name", "cnpj", "competencia"):
+        if column in display.columns:
+            display[column] = display[column].map(
+                lambda value: "" if pd.isna(value) else str(value)
+            )
     for column in [col for col in display.columns if col.endswith("_pct")]:
         display[column] = display[column].map(_format_percent)
     for column in [

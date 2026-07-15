@@ -281,7 +281,21 @@ def build_consolidated_monthly_base(
             "funds_present_count": int(group["cnpj"].nunique()) if "cnpj" in group.columns else len(group),
         }
         for column in PRIMITIVE_SUM_COLUMNS:
+            if column in {"duration_total_saldo", "duration_weighted_days"}:
+                continue
             row[column] = _sum_numeric(group.get(column))
+        duration_saldo = pd.to_numeric(
+            group.get("duration_total_saldo", pd.Series(pd.NA, index=group.index)),
+            errors="coerce",
+        )
+        duration_weighted = pd.to_numeric(
+            group.get("duration_weighted_days", pd.Series(pd.NA, index=group.index)),
+            errors="coerce",
+        )
+        duration_incomplete = bool(((duration_saldo > 0) & duration_weighted.isna()).any())
+        row["duration_universe_complete"] = not duration_incomplete
+        row["duration_total_saldo"] = None if duration_incomplete else _sum_numeric(duration_saldo)
+        row["duration_weighted_days"] = None if duration_incomplete else _sum_numeric(duration_weighted)
         row["pl_total_classes"] = _sum_numeric(group.get("pl_total_classes"))
         row["pl_total_oficial"] = _sum_numeric(group.get("pl_total_oficial"))
         rows.append(row)
@@ -622,7 +636,11 @@ def build_excel_export_bytes(outputs: MercadoLivreOutputs) -> bytes:
     return buffer.getvalue()
 
 
-def build_full_variable_excel_export_bytes(outputs: MercadoLivreOutputs) -> bytes:
+def build_full_variable_excel_export_bytes(
+    outputs: MercadoLivreOutputs,
+    *,
+    monitor_outputs: Any | None = None,
+) -> bytes:
     """Build an analyst-friendly workbook with identical rows across all sheets.
 
     Period values remain numeric in Excel. Metadata columns identify the readable
@@ -643,6 +661,15 @@ def build_full_variable_excel_export_bytes(outputs: MercadoLivreOutputs) -> byte
         build_full_variable_export_matrix(outputs.consolidated_monthly, period_labels=period_labels),
         scope_name=str(outputs.metadata.get("portfolio_name") or "Consolidado"),
     )
+
+    if monitor_outputs is not None:
+        comparison_ws = workbook.create_sheet("Comparativo crédito")
+        used_sheet_names.add(comparison_ws.title)
+        _write_credit_comparison_sheet(
+            comparison_ws,
+            _build_credit_comparison_export_table(monitor_outputs),
+            table_name=_unique_excel_table_name("Comparativo_credito", used_table_names),
+        )
 
     for cnpj, monthly_df in outputs.fund_monthly.items():
         fallback_name = _fund_sheet_name(monthly_df, fallback=cnpj)
@@ -666,6 +693,106 @@ def build_full_variable_excel_export_bytes(outputs: MercadoLivreOutputs) -> byte
 
     workbook.save(buffer)
     return buffer.getvalue()
+
+
+def _build_credit_comparison_export_table(monitor_outputs: Any) -> pd.DataFrame:
+    consolidated = getattr(monitor_outputs, "consolidated_monitor", pd.DataFrame())
+    funds = getattr(monitor_outputs, "fund_monitor", {}) or {}
+    frames = [frame for frame in [consolidated, *funds.values()] if isinstance(frame, pd.DataFrame) and not frame.empty]
+    if not frames:
+        return pd.DataFrame()
+
+    period_sets: list[set[pd.Period]] = []
+    for frame in frames:
+        source = frame.get("competencia_dt", frame.get("competencia", pd.Series(dtype="object")))
+        periods = set(pd.to_datetime(source, errors="coerce").dropna().dt.to_period("M"))
+        if periods:
+            period_sets.append(periods)
+    common_periods = set.intersection(*period_sets) if period_sets else set()
+    if not common_periods:
+        return pd.DataFrame()
+    latest_period = max(common_periods)
+
+    scopes: list[tuple[str, str, str, pd.DataFrame]] = [
+        ("Consolidado", str(getattr(monitor_outputs, "portfolio_name", "") or "Consolidado"), "", consolidated)
+    ]
+    for cnpj, frame in funds.items():
+        scopes.append(("Fundo", _fund_sheet_name(frame, fallback=str(cnpj)), str(cnpj), frame))
+
+    rows: list[dict[str, object]] = []
+    for scope_kind, scope_name, cnpj, frame in scopes:
+        if frame is None or frame.empty:
+            continue
+        source = frame.get("competencia_dt", frame.get("competencia", pd.Series(dtype="object")))
+        periods = pd.to_datetime(source, errors="coerce").dt.to_period("M")
+        matches = frame.loc[periods.eq(latest_period)]
+        if matches.empty:
+            continue
+        row = matches.iloc[-1]
+        rows.append(
+            {
+                "Escopo": scope_kind,
+                "Fundo": scope_name,
+                "CNPJ": cnpj,
+                "Competência": latest_period.strftime("%m/%Y"),
+                "PL total (R$)": _num(row.get("pl_total")),
+                "Carteira ex-360 (R$)": _num(row.get("carteira_ex360")),
+                "Subordinação ex-360 (%)": _percent_as_excel(row.get("subordinacao_total_ex360_pct")),
+                "NPL 1-360 (%)": _percent_as_excel(row.get("npl_1_360_pct")),
+                "Cobertura PDD / NPL 90+ (%)": _percent_as_excel(row.get("pdd_npl90_ex360_pct")),
+                "Duration (meses)": _num(row.get("duration_months")),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def _percent_as_excel(value: object) -> float | None:
+    numeric = _num(value)
+    return None if numeric is None else float(numeric) / 100.0
+
+
+def _write_credit_comparison_sheet(worksheet, table_df: pd.DataFrame, *, table_name: str) -> None:  # noqa: ANN001
+    worksheet.sheet_view.showGridLines = False
+    columns = [
+        "Escopo",
+        "Fundo",
+        "CNPJ",
+        "Competência",
+        "PL total (R$)",
+        "Carteira ex-360 (R$)",
+        "Subordinação ex-360 (%)",
+        "NPL 1-360 (%)",
+        "Cobertura PDD / NPL 90+ (%)",
+        "Duration (meses)",
+    ]
+    worksheet.append(columns)
+    if table_df is not None and not table_df.empty:
+        for _, row in table_df.iterrows():
+            worksheet.append([None if pd.isna(row.get(column)) else row.get(column) for column in columns])
+
+    header_fill = PatternFill("solid", fgColor="1F2937")
+    for cell in worksheet[1]:
+        cell.font = Font(bold=True, color="FFFFFF")
+        cell.fill = header_fill
+        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    for row_idx in range(2, worksheet.max_row + 1):
+        for col_idx in (5, 6):
+            worksheet.cell(row=row_idx, column=col_idx).number_format = '"R$" #,##0.00'
+        for col_idx in (7, 8, 9):
+            worksheet.cell(row=row_idx, column=col_idx).number_format = "0.00%"
+        worksheet.cell(row=row_idx, column=10).number_format = "0.00"
+    _auto_width(worksheet)
+    worksheet.freeze_panes = "E2"
+    if worksheet.max_row > 1:
+        table = Table(displayName=table_name, ref=worksheet.dimensions)
+        table.tableStyleInfo = TableStyleInfo(
+            name="TableStyleMedium2",
+            showFirstColumn=False,
+            showLastColumn=False,
+            showRowStripes=True,
+            showColumnStripes=False,
+        )
+        worksheet.add_table(table)
 
 
 def build_full_variable_csv_zip_bytes(outputs: MercadoLivreOutputs) -> bytes:

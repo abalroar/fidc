@@ -383,6 +383,65 @@ def render_tab_somatorio_fidcs(
 render_tab_mercado_livre = render_tab_somatorio_fidcs
 
 
+def resolve_somatorio_outputs(
+    *,
+    period: ImePeriodSelection,
+    selected_portfolio: PortfolioRecord,
+):
+    """Resolve the cached Soma de FIDCs dataset without rendering its legacy layout."""
+    calculation_period = _period_with_yoy_lookback(period)
+    cache_session_key = _outputs_session_key(
+        selected_portfolio=selected_portfolio,
+        period=calculation_period,
+    )
+    outputs = st.session_state.get(cache_session_key)
+    source = str(st.session_state.get(f"{cache_session_key}::source") or "cache")
+    if outputs is None:
+        outputs = load_outputs_from_cache(
+            portfolio_id=selected_portfolio.id,
+            period_key=calculation_period.cache_key,
+            portfolio_funds=selected_portfolio.funds,
+        )
+    if outputs is None:
+        runtime_state = ensure_portfolio_ime_data(
+            selected_portfolio=selected_portfolio,
+            period=calculation_period,
+        )
+        results = runtime_state.get("results") or {}
+        dashboards_by_cnpj, _ = _build_loaded_dashboards_by_cnpj(
+            selected_portfolio=selected_portfolio,
+            results=results,
+        )
+        if not dashboards_by_cnpj:
+            return None
+        official_pl_by_cnpj = _build_official_pl_by_cnpj(
+            results=results,
+            cnpjs=list(dashboards_by_cnpj),
+        )
+        outputs = build_mercado_livre_outputs(
+            portfolio_id=selected_portfolio.id,
+            portfolio_name=selected_portfolio.name,
+            dashboards_by_cnpj=dashboards_by_cnpj,
+            period_label=period.label,
+            official_pl_by_cnpj=official_pl_by_cnpj,
+        )
+        save_outputs_to_cache(
+            outputs,
+            portfolio_id=selected_portfolio.id,
+            period_key=calculation_period.cache_key,
+            portfolio_funds=selected_portfolio.funds,
+        )
+        source = "recalculado"
+    outputs = _tag_outputs_requested_period(
+        outputs,
+        requested_period=period,
+        calculation_period=calculation_period,
+    )
+    st.session_state[cache_session_key] = outputs
+    st.session_state[f"{cache_session_key}::source"] = source
+    return outputs
+
+
 def _render_somatorio_period_panel(global_period: ImePeriodSelection | None = None) -> ImePeriodSelection:
     end_month = current_default_end_month()
     options = ("6M", "12M", "24M", "36M", "YTD", "Customizado")
@@ -702,7 +761,10 @@ def _render_outputs(
     file_token = _safe_file_token(selected_portfolio.name)
 
     snapshot_bytes = build_consolidated_snapshot_excel_bytes(display_outputs)
-    full_matrix_excel_bytes = build_full_variable_excel_export_bytes(display_outputs)
+    full_matrix_excel_bytes = build_full_variable_excel_export_bytes(
+        display_outputs,
+        monitor_outputs=monitor_outputs,
+    )
     full_matrix_csv_zip_bytes = build_full_variable_csv_zip_bytes(display_outputs)
     pptx_bytes = build_somatorio_fidcs_pptx_bytes(
         outputs=display_outputs,
@@ -746,24 +808,27 @@ def _render_outputs(
             )
 
         if not use_tabs:
+            st.markdown("#### Visão comparativa da carteira")
+            st.caption("Última competência disponível: consolidado e cada FIDC aparecem lado a lado.")
             monitoring_tab.render_portfolio_cockpit_snapshot(
                 period=requested_period,
                 selected_portfolio=selected_portfolio,
             )
 
-        if use_tabs:
-            scope = _render_base_scope_selector(
-                display_outputs=display_outputs,
-                selected_portfolio=selected_portfolio,
-                key=f"somatorio_fidcs_base_scope::{selected_portfolio.id}",
-            )
-        else:
-            scope = _resolve_default_base_scope(display_outputs=display_outputs, selected_portfolio=selected_portfolio)
+        if not use_tabs:
+            st.markdown("#### Histórico da base")
+            st.caption("Selecione explicitamente o consolidado ou um fundo para a tabela histórica abaixo.")
+        scope = _render_base_scope_selector(
+            display_outputs=display_outputs,
+            selected_portfolio=selected_portfolio,
+            key=f"somatorio_fidcs_base_scope::{selected_portfolio.id}",
+        )
         if scope is None:
             st.caption("Sem dados para exibir.")
             return
 
-        st.markdown(f"#### {escape(scope.heading)}" if use_tabs else "#### Histórico")
+        if use_tabs:
+            st.markdown(f"#### {escape(scope.heading)}")
         st.markdown(
             _render_wide_table_html(_display_wide_table(scope.wide_df, compact=not use_tabs)),
             unsafe_allow_html=True,
@@ -928,7 +993,12 @@ def _render_fund_selectbox(outputs, *, key: str, label: str) -> str | None:  # n
     return selected if selected in outputs.fund_monthly else None
 
 
-def _render_loaded_period_window(outputs, *, show_caption: bool = True):
+def _render_loaded_period_window(
+    outputs,
+    *,
+    show_caption: bool = True,
+    control_label: str = "Filtro visual (sem recarregar)",
+):
     available = _available_competencia_months(outputs.consolidated_monthly)
     if not available:
         st.caption("Sem competências disponíveis.")
@@ -942,12 +1012,12 @@ def _render_loaded_period_window(outputs, *, show_caption: bool = True):
         loaded_end=loaded_end,
     )
     selected = st.radio(
-        "Filtro visual (sem recarregar)",
+        control_label,
         options=DISPLAY_WINDOW_OPTIONS,
         index=DISPLAY_WINDOW_OPTIONS.index(DISPLAY_WINDOW_FULL_OPTION),
         horizontal=True,
         key="somatorio_fidcs_display_window",
-        help="Filtra a base já carregada.",
+        help="Filtra as competências já carregadas, sem nova consulta às fontes.",
     )
 
     display_months = _display_window_months(

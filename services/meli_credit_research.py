@@ -348,8 +348,8 @@ def build_npl_research_table(
         metric_id = spec["metric_id"]
         values = numeric.get(metric_id, pd.Series(index=df.index, dtype="float64"))
         unit = spec["unit"]
-        mom = _variation(values, unit=unit, periods=1)
-        yoy = _variation(values, unit=unit, periods=12)
+        mom = _variation(values, competencias=df["competencia_dt"], unit=unit, periods=1)
+        yoy = _variation(values, competencias=df["competencia_dt"], unit=unit, periods=12)
         for idx, row in df.iterrows():
             value = _num(values.iloc[idx])
             numerator, denominator = _npl_numerator_denominator(metric_id, numeric, idx)
@@ -414,8 +414,8 @@ def build_portfolio_duration_table(
     rows: list[dict[str, object]] = []
     for spec in specs:
         values = pd.to_numeric(df.get(spec["column"]), errors="coerce")
-        mom = _variation(values, unit=str(spec["unit"]), periods=1)
-        yoy = _variation(values, unit=str(spec["unit"]), periods=12)
+        mom = _variation(values, competencias=df["competencia_dt"], unit=str(spec["unit"]), periods=1)
+        yoy = _variation(values, competencias=df["competencia_dt"], unit=str(spec["unit"]), periods=12)
         for idx, row in df.iterrows():
             value = _num(values.iloc[idx])
             denominator = _num(row.get("duration_total_saldo")) if spec["metric_id"] == "duration_months" else None
@@ -621,6 +621,8 @@ def _prepare_monthly(df: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame()
     out = df.copy()
     out["competencia_dt"] = pd.to_datetime(out.get("competencia_dt", out.get("competencia")), errors="coerce")
+    if "universe_complete" in out.columns:
+        out = out[out["universe_complete"].fillna(False)].copy()
     return out.sort_values("competencia_dt").reset_index(drop=True)
 
 
@@ -654,11 +656,29 @@ def _sum_columns(df: pd.DataFrame, columns: list[str]) -> pd.Series:
     return pd.concat(existing, axis=1).sum(axis=1, min_count=1)
 
 
-def _variation(values: pd.Series, *, unit: str, periods: int) -> pd.Series:
+def _variation(
+    values: pd.Series,
+    *,
+    competencias: pd.Series,
+    unit: str,
+    periods: int,
+) -> pd.Series:
     numeric = pd.to_numeric(values, errors="coerce")
+    month_keys = pd.to_datetime(competencias, errors="coerce").dt.to_period("M")
+    lookup = {
+        month: value
+        for month, value in zip(month_keys, numeric, strict=False)
+        if pd.notna(month) and pd.notna(value)
+    }
+    base = pd.to_numeric(
+        pd.Series(
+            [lookup.get(month - periods) if pd.notna(month) else None for month in month_keys],
+            index=numeric.index,
+        ),
+        errors="coerce",
+    )
     if unit == "%":
-        return numeric - numeric.shift(periods)
-    base = numeric.shift(periods)
+        return numeric - base
     return (numeric / base - 1.0).where(base > 0).mul(100.0)
 
 
