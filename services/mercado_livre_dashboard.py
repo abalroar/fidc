@@ -16,8 +16,15 @@ from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 from openpyxl import Workbook
 from openpyxl.chart import BarChart, LineChart, Reference
 from openpyxl.chart.label import DataLabelList
+from openpyxl.worksheet.table import Table, TableStyleInfo
 
 from services.export_chart_labels import choose_export_label_policy, should_enable_excel_data_labels
+from services.fund_return_matrix import (
+    RETURN_SERIES_COLUMN,
+    RETURN_TRAILING_12M_COLUMN,
+    RETURN_YTD_COLUMN,
+    build_fund_return_matrix,
+)
 from openpyxl.styles import Alignment, Font, PatternFill, Side, Border
 from openpyxl.utils import get_column_letter
 
@@ -127,7 +134,7 @@ PRIMITIVE_SUM_COLUMNS = [
 ]
 
 WIDE_TABLE_COLUMNS = ["Bloco", "Métrica", "Memória / fórmula"]
-CALCULATION_SCHEMA_VERSION = 8
+CALCULATION_SCHEMA_VERSION = 9
 OFFICIAL_PL_PATH = "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
 
 
@@ -619,11 +626,13 @@ def build_full_variable_excel_export_bytes(outputs: MercadoLivreOutputs) -> byte
     """Build an analyst-friendly workbook with identical rows across all sheets.
 
     Period values remain numeric in Excel. Metadata columns identify the readable
-    metric name and the XML/source variable used by the Soma de FIDCs layer.
+    metric name and the XML/source variable used by the Soma de FIDCs layer. Each
+    fund sheet is followed by an editable native table with its return series.
     """
     buffer = BytesIO()
     workbook = Workbook()
     used_sheet_names: set[str] = set()
+    used_table_names: set[str] = set()
     period_labels = _export_period_labels(outputs)
 
     consolidated_ws = workbook.active
@@ -644,6 +653,15 @@ def build_full_variable_excel_export_bytes(outputs: MercadoLivreOutputs) -> byte
             ws,
             build_full_variable_export_matrix(monthly_df, period_labels=period_labels),
             scope_name=fallback_name,
+        )
+
+        return_sheet_name = _unique_excel_sheet_name(f"Rent - {fallback_name}", used_sheet_names)
+        used_sheet_names.add(return_sheet_name)
+        return_ws = workbook.create_sheet(return_sheet_name)
+        _write_fund_return_matrix_sheet(
+            return_ws,
+            build_fund_return_matrix(outputs, cnpj, months=12),
+            table_name=_unique_excel_table_name(f"Rentabilidade_{cnpj}", used_table_names),
         )
 
     workbook.save(buffer)
@@ -1534,6 +1552,20 @@ def _unique_excel_sheet_name(value: str, used_names: set[str]) -> str:
     return _excel_sheet_name(f"{base[:24]} {digest}")
 
 
+def _unique_excel_table_name(value: str, used_names: set[str]) -> str:
+    base = re.sub(r"[^A-Za-z0-9_]", "_", str(value or "").strip()) or "Rentabilidade"
+    if not re.match(r"^[A-Za-z_]", base):
+        base = f"T_{base}"
+    candidate = base[:255]
+    suffix = 2
+    while candidate.lower() in {name.lower() for name in used_names}:
+        tail = f"_{suffix}"
+        candidate = f"{base[:255 - len(tail)]}{tail}"
+        suffix += 1
+    used_names.add(candidate)
+    return candidate
+
+
 def _fund_sheet_name(monthly_df: pd.DataFrame, *, fallback: str) -> str:
     if isinstance(monthly_df, pd.DataFrame) and not monthly_df.empty and "fund_name" in monthly_df.columns:
         for value in monthly_df["fund_name"].dropna().tolist():
@@ -1599,6 +1631,60 @@ def _write_full_variable_matrix_sheet(worksheet, matrix_df: pd.DataFrame, *, sco
                     cell.number_format = "#,##0.00"
                 cell.alignment = Alignment(horizontal="right")
     _style_full_variable_matrix_sheet(worksheet, title=scope_name)
+
+
+def _write_fund_return_matrix_sheet(worksheet, matrix_df: pd.DataFrame, *, table_name: str) -> None:  # noqa: ANN001
+    """Write the per-series return matrix as editable Excel values and a native table."""
+    worksheet.sheet_view.showGridLines = False
+    columns = [str(column) for column in getattr(matrix_df, "columns", [])]
+    if not columns:
+        columns = [RETURN_SERIES_COLUMN, RETURN_TRAILING_12M_COLUMN, RETURN_YTD_COLUMN]
+    worksheet.append(columns)
+
+    if matrix_df is not None and not matrix_df.empty:
+        for _, row in matrix_df.iterrows():
+            values: list[object] = []
+            for column in columns:
+                value = row.get(column)
+                if column == RETURN_SERIES_COLUMN:
+                    values.append(None if pd.isna(value) else _excel_text(value))
+                    continue
+                numeric = pd.to_numeric(value, errors="coerce")
+                values.append(None if pd.isna(numeric) else float(numeric) / 100.0)
+            worksheet.append(values)
+
+    header_fill = PatternFill("solid", fgColor="1F2937")
+    header_border = Side(style="thin", color="FFFFFF")
+    for cell in worksheet[1]:
+        cell.font = Font(bold=True, color="FFFFFF")
+        cell.fill = header_fill
+        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        cell.border = Border(bottom=header_border)
+    worksheet.row_dimensions[1].height = 30
+
+    for row_idx in range(2, worksheet.max_row + 1):
+        worksheet.cell(row=row_idx, column=1).alignment = Alignment(horizontal="left")
+        for col_idx in range(2, worksheet.max_column + 1):
+            cell = worksheet.cell(row=row_idx, column=col_idx)
+            cell.number_format = "0.00%"
+            cell.alignment = Alignment(horizontal="right")
+
+    worksheet.column_dimensions["A"].width = 32
+    for col_idx, column in enumerate(columns[1:], start=2):
+        worksheet.column_dimensions[get_column_letter(col_idx)].width = (
+            20 if column in {RETURN_TRAILING_12M_COLUMN, RETURN_YTD_COLUMN} else 12
+        )
+    worksheet.freeze_panes = "B2"
+
+    table = Table(displayName=table_name, ref=worksheet.dimensions)
+    table.tableStyleInfo = TableStyleInfo(
+        name="TableStyleMedium2",
+        showFirstColumn=False,
+        showLastColumn=False,
+        showRowStripes=True,
+        showColumnStripes=False,
+    )
+    worksheet.add_table(table)
 
 
 def _style_full_variable_matrix_sheet(worksheet, *, title: str) -> None:  # noqa: ANN001
