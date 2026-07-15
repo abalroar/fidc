@@ -7,6 +7,7 @@ from typing import Any
 import pandas as pd
 import streamlit as st
 
+from services.fund_return_matrix import build_fund_return_matrix, format_fund_return_matrix
 from services.ime_period import ImePeriodSelection, build_custom_period, current_default_end_month, month_options, shift_month
 from services.meli_credit_monitor import (
     build_ex360_memory_table,
@@ -518,8 +519,9 @@ def _render_research_roll_charts(roll_df: pd.DataFrame, *, key: str) -> None:
 
 def _render_stacked_funds_view(*, outputs, monitor_outputs, selected_portfolio: PortfolioRecord) -> None:  # noqa: ANN001
     fund_monitor = getattr(monitor_outputs, "fund_monitor", {}) or {}
-    if len(fund_monitor) > 1:
+    if fund_monitor:
         st.markdown("#### Fundos individuais")
+    if len(fund_monitor) > 1:
         _render_fund_dashboards(outputs, monitor_outputs, selected_portfolio=selected_portfolio)
     elif len(fund_monitor) == 1:
         _render_fund_return_table(outputs=outputs, cnpj=next(iter(fund_monitor)))
@@ -557,73 +559,63 @@ def _render_fund_dashboards(outputs, monitor_outputs, *, selected_portfolio: Por
 
 
 def _build_fund_return_table(*, outputs, cnpj: str) -> pd.DataFrame:  # noqa: ANN001
-    history_by_cnpj = getattr(outputs, "fund_return_history", {}) or {}
-    summary_by_cnpj = getattr(outputs, "fund_return_summary", {}) or {}
-    history_df = history_by_cnpj.get(cnpj, pd.DataFrame()).copy()
-    summary_df = summary_by_cnpj.get(cnpj, pd.DataFrame()).copy()
-    if summary_df.empty:
-        return pd.DataFrame()
-
-    latest_competencia = ""
-    if "latest_competencia" in summary_df.columns:
-        values = summary_df["latest_competencia"].dropna().astype(str).map(str.strip)
-        latest_competencia = next((value for value in values.tolist() if value), "")
-    if not latest_competencia and not history_df.empty and "competencia" in history_df.columns:
-        parsed = pd.to_datetime(history_df["competencia"], format="%m/%Y", errors="coerce")
-        if parsed.notna().any():
-            latest_competencia = parsed.max().strftime("%m/%Y")
-    competencias = _ytd_competencia_labels(latest_competencia)
-    return ime_tab._format_return_inline_matrix_frame(
-        history_df,
-        summary_df,
-        competencias=competencias,
-        include_period_summary=False,
-    )
+    return format_fund_return_matrix(build_fund_return_matrix(outputs, cnpj, months=12))
 
 
 def _render_fund_return_table(*, outputs, cnpj: str) -> None:  # noqa: ANN001
     table_df = _build_fund_return_table(outputs=outputs, cnpj=cnpj)
     if table_df.empty:
-        st.caption("Rentabilidade por tipo de cota não disponível para este fundo.")
+        st.caption("Rentabilidade por série não disponível para este fundo.")
         return
 
     summary_df = (getattr(outputs, "fund_return_summary", {}) or {}).get(cnpj, pd.DataFrame())
     _chart_title(
-        "Rentabilidade por tipo de cota",
+        "Rentabilidade por série",
         (
-            "Retornos mensais reportados no IME.",
-            "YTD composto de janeiro até a última competência disponível do fundo.",
+            "Últimos 12 meses-calendário até a competência mais recente do fundo.",
+            "Acumulados compostos geometricamente; YTD considera janeiro até a competência mais recente.",
         ),
     )
     st.dataframe(table_df, width="stretch", hide_index=True)
-    if not summary_df.empty and "ytd_status" in summary_df.columns:
-        incomplete = summary_df[summary_df["ytd_status"].astype(str) == "incompleto"]
-        if not incomplete.empty:
-            label_column = ime_tab._class_display_column(incomplete)
-            details = []
-            for _, row in incomplete.iterrows():
-                label_raw = row.get(label_column)
-                missing_raw = row.get("ytd_competencias_ausentes")
-                label = "Cota" if pd.isna(label_raw) or not str(label_raw).strip() else str(label_raw)
-                missing = (
-                    "competência não reportada"
-                    if pd.isna(missing_raw) or not str(missing_raw).strip()
-                    else str(missing_raw)
-                )
-                details.append(f"{label}: {missing}")
-            st.caption("YTD indisponível porque há competência necessária sem retorno reportado. " + "; ".join(details))
+    _render_return_gap_warning(
+        summary_df,
+        status_column="trailing_12m_status",
+        missing_column="trailing_12m_competencias_ausentes",
+        prefix="Acumulado de 12 meses indisponível",
+    )
+    _render_return_gap_warning(
+        summary_df,
+        status_column="ytd_status",
+        missing_column="ytd_competencias_ausentes",
+        prefix="YTD indisponível",
+    )
 
 
-def _ytd_competencia_labels(latest_competencia: str) -> list[str]:
-    try:
-        month_text, year_text = str(latest_competencia).strip().split("/", 1)
-        latest_month = int(month_text)
-        year = int(year_text)
-    except (TypeError, ValueError):
-        return []
-    if latest_month < 1 or latest_month > 12:
-        return []
-    return [f"{month:02d}/{year}" for month in range(1, latest_month + 1)]
+def _render_return_gap_warning(
+    summary_df: pd.DataFrame,
+    *,
+    status_column: str,
+    missing_column: str,
+    prefix: str,
+) -> None:
+    if summary_df.empty or status_column not in summary_df.columns:
+        return
+    incomplete = summary_df[summary_df[status_column].astype(str) == "incompleto"]
+    if incomplete.empty:
+        return
+    label_column = ime_tab._class_display_column(incomplete)
+    details: list[str] = []
+    for _, row in incomplete.iterrows():
+        label_raw = row.get(label_column)
+        missing_raw = row.get(missing_column)
+        label = "Cota" if pd.isna(label_raw) or not str(label_raw).strip() else str(label_raw)
+        missing = (
+            "competência não reportada"
+            if pd.isna(missing_raw) or not str(missing_raw).strip()
+            else str(missing_raw)
+        )
+        details.append(f"{label}: {missing}")
+    st.caption(f"{prefix} porque há competência necessária sem retorno reportado. " + "; ".join(details))
 
 
 def _render_monitor_fund_selectbox(monitor_outputs, *, key: str) -> str | None:  # noqa: ANN001

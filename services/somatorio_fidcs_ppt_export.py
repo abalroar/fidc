@@ -1,6 +1,6 @@
 """Soma de FIDCs — deck v3 para comitê de crédito.
 
-Estrutura: 7 + 4 slides por FIDC da seleção
+Estrutura: 7 + 4 slides por FIDC da seleção + tabelas de rentabilidade
   1  Capa
   2  Divisor 01 — Visão consolidada
   3  Consolidado: PL por classe + subordinação + NPL + cobertura
@@ -20,6 +20,13 @@ from zipfile import ZIP_DEFLATED, ZipFile
 import pandas as pd
 
 from services.export_chart_labels import choose_export_label_policy, format_export_label
+from services.fund_return_matrix import (
+    RETURN_SERIES_COLUMN,
+    RETURN_TRAILING_12M_COLUMN,
+    RETURN_YTD_COLUMN,
+    build_fund_return_matrix,
+    format_fund_return_matrix,
+)
 from services.fund_name_display import short_fund_name
 
 # ---------------------------------------------------------------------------
@@ -88,6 +95,8 @@ _CTX_H = _FTR_TOP - _CTX_TOP          # ~ 5.87"
 _GAP_X = 0.15
 _GAP_Y = 0.20
 
+_RETURN_ROWS_PER_SLIDE = 22
+
 # ===========================================================================
 # ENTRY POINT
 # ===========================================================================
@@ -98,7 +107,7 @@ def build_somatorio_fidcs_pptx_bytes(
     monitor_outputs: Any,
     research_outputs: Any | None = None,
 ) -> bytes:
-    """Gera o deck v3 completo (19 slides) em formato PPTX."""
+    """Gera o deck v3 completo em formato PPTX."""
     try:
         from pptx import Presentation
         from pptx.chart.data import CategoryChartData
@@ -146,7 +155,12 @@ def build_somatorio_fidcs_pptx_bytes(
     con_cohorts = getattr(monitor_outputs, "consolidated_cohorts", pd.DataFrame())
     roll_df = getattr(research_outputs, "roll_seasonality", pd.DataFrame()) if research_outputs else pd.DataFrame()
     fund_sections = _build_fund_sections(outputs, fund_monthly_map)
-    total_slides = 7 + 4 * len(fund_sections)
+    fund_return_pages = _build_fund_return_pages(outputs, fund_sections)
+    total_slides = (
+        7
+        + 4 * len(fund_sections)
+        + sum(len(pages) for pages in fund_return_pages.values())
+    )
 
     page = [0]  # mutable counter
 
@@ -183,6 +197,21 @@ def build_somatorio_fidcs_pptx_bytes(
         mon = fund_monitor_map.get(cnpj, pd.DataFrame()) if cnpj else pd.DataFrame()
         coh = fund_cohort_map.get(cnpj, pd.DataFrame()) if cnpj else pd.DataFrame()
         is_mc_fidc = _is_mercado_credito_zero(raw_name)
+
+        return_pages = fund_return_pages.get(cnpj, [])
+        for page_index, return_page in enumerate(return_pages, start=1):
+            _add_fund_return_slide(
+                prs,
+                layout,
+                return_page,
+                hdr,
+                next_page(),
+                total_slides,
+                data_base,
+                page_index=page_index,
+                page_count=len(return_pages),
+                **deps,
+            )
 
         _add_base_slide(prs, layout, fm, mon, hdr,
                         next_page(), total_slides, data_base,
@@ -470,6 +499,170 @@ def _add_detail_slide(
                    XL_CHART_TYPE=XL_CHART_TYPE, XL_LABEL_POSITION=XL_LABEL_POSITION,
                    XL_LEGEND_POSITION=XL_LEGEND_POSITION, XL_MARKER_STYLE=XL_MARKER_STYLE,
                    Inches=Inches, Pt=Pt)
+
+
+def _add_fund_return_slide(
+    prs,
+    layout,
+    return_frame: pd.DataFrame,
+    title: str,
+    page_num: int,
+    total: int,
+    data_base: str,
+    *,
+    page_index: int,
+    page_count: int,
+    Inches,
+    Pt,
+    RGBColor,
+    **_kw,
+) -> None:
+    """Adiciona uma tabela PowerPoint nativa de rentabilidade por série."""
+    from pptx.enum.text import MSO_VERTICAL_ANCHOR, PP_ALIGN
+
+    slide = prs.slides.add_slide(layout)
+    slide.background.fill.solid()
+    slide.background.fill.fore_color.rgb = _rgb(_WHITE, RGBColor)
+
+    _slide_header(
+        slide,
+        f"{title} — Rentabilidade por série",
+        data_base,
+        Inches=Inches,
+        Pt=Pt,
+        RGBColor=RGBColor,
+    )
+    _slide_footer(slide, page_num, total, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+
+    continuation = f" · Continuação {page_index} de {page_count}" if page_count > 1 else ""
+    _textbox(
+        slide,
+        f"Retornos mensais e acumulados (%) · Últimos 12 meses{continuation}",
+        left=_MX,
+        top=0.55,
+        width=_SW - 2 * _MX,
+        height=0.22,
+        size=9,
+        bold=False,
+        color=_GRAY,
+        Inches=Inches,
+        Pt=Pt,
+        RGBColor=RGBColor,
+    )
+
+    columns = return_frame.columns.tolist()
+    table_top = 0.82
+    header_height = 0.48
+    row_height = 0.25
+    table_height = header_height + row_height * len(return_frame)
+    shape = slide.shapes.add_table(
+        len(return_frame) + 1,
+        len(columns),
+        Inches(_MX),
+        Inches(table_top),
+        Inches(_SW - 2 * _MX),
+        Inches(table_height),
+    )
+    table = shape.table
+    table.first_row = True
+
+    series_width = 2.10
+    trailing_width = 1.50
+    ytd_width = 1.55
+    month_columns = [
+        column
+        for column in columns
+        if column
+        not in {RETURN_SERIES_COLUMN, RETURN_TRAILING_12M_COLUMN, RETURN_YTD_COLUMN}
+    ]
+    month_width = (
+        (_SW - 2 * _MX - series_width - trailing_width - ytd_width) / len(month_columns)
+        if month_columns
+        else 0.0
+    )
+    for column_index, column in enumerate(columns):
+        if column == RETURN_SERIES_COLUMN:
+            width = series_width
+        elif column == RETURN_TRAILING_12M_COLUMN:
+            width = trailing_width
+        elif column == RETURN_YTD_COLUMN:
+            width = ytd_width
+        else:
+            width = month_width
+        table.columns[column_index].width = Inches(width)
+
+    table.rows[0].height = Inches(header_height)
+    for row_index in range(1, len(table.rows)):
+        table.rows[row_index].height = Inches(row_height)
+
+    for column_index, column in enumerate(columns):
+        cell = table.cell(0, column_index)
+        _style_return_table_cell(
+            cell,
+            str(column),
+            fill_color=_ORANGE,
+            text_color=_WHITE,
+            font_size=6.5,
+            bold=True,
+            alignment=PP_ALIGN.LEFT if column == RETURN_SERIES_COLUMN else PP_ALIGN.CENTER,
+            vertical_anchor=MSO_VERTICAL_ANCHOR.MIDDLE,
+            Inches=Inches,
+            Pt=Pt,
+            RGBColor=RGBColor,
+        )
+
+    for row_index, (_, row) in enumerate(return_frame.iterrows(), start=1):
+        fill_color = _WHITE if row_index % 2 else _CARD_BG
+        for column_index, column in enumerate(columns):
+            value = row.get(column)
+            text = "N/D" if pd.isna(value) or str(value).strip() == "" else str(value)
+            _style_return_table_cell(
+                table.cell(row_index, column_index),
+                text,
+                fill_color=fill_color,
+                text_color=_BLACK if text != "N/D" else _GRAY,
+                font_size=7.5,
+                bold=column == RETURN_SERIES_COLUMN,
+                alignment=PP_ALIGN.LEFT if column == RETURN_SERIES_COLUMN else PP_ALIGN.RIGHT,
+                vertical_anchor=MSO_VERTICAL_ANCHOR.MIDDLE,
+                Inches=Inches,
+                Pt=Pt,
+                RGBColor=RGBColor,
+            )
+
+
+def _style_return_table_cell(
+    cell,
+    text: str,
+    *,
+    fill_color: str,
+    text_color: str,
+    font_size: float,
+    bold: bool,
+    alignment,
+    vertical_anchor,
+    Inches,
+    Pt,
+    RGBColor,
+) -> None:
+    cell.fill.solid()
+    cell.fill.fore_color.rgb = _rgb(fill_color, RGBColor)
+    text_frame = cell.text_frame
+    text_frame.clear()
+    text_frame.word_wrap = False
+    text_frame.margin_left = Inches(0.035)
+    text_frame.margin_right = Inches(0.035)
+    text_frame.margin_top = Inches(0.01)
+    text_frame.margin_bottom = Inches(0.01)
+    text_frame.vertical_anchor = vertical_anchor
+    paragraph = text_frame.paragraphs[0]
+    paragraph.alignment = alignment
+    run = paragraph.add_run()
+    run.text = text
+    run.font.name = "Calibri"
+    run.font.size = Pt(font_size)
+    run.font.bold = bold
+    run.font.color.rgb = _rgb(text_color, RGBColor)
 
 
 def _add_roll_slide(
@@ -1157,6 +1350,51 @@ def _set_text(text_frame, text, size, bold, color, RGBColor) -> None:
 # ===========================================================================
 # DATA HELPERS
 # ===========================================================================
+
+def _build_fund_return_pages(
+    outputs: Any,
+    fund_sections: list[tuple[str, str, str, str, str]],
+) -> dict[str, list[pd.DataFrame]]:
+    """Prepara e pagina apenas as linhas das tabelas de rentabilidade."""
+    histories = getattr(outputs, "fund_return_history", {})
+    summaries = getattr(outputs, "fund_return_summary", {})
+    if not isinstance(histories, dict):
+        histories = {}
+    if not isinstance(summaries, dict):
+        summaries = {}
+    if not histories and not summaries:
+        return {}
+
+    pages_by_fund: dict[str, list[pd.DataFrame]] = {}
+    for _, cnpj, _, _, _ in fund_sections:
+        matrix = build_fund_return_matrix(outputs, cnpj, months=12)
+        if not isinstance(matrix, pd.DataFrame) or matrix.empty:
+            continue
+        formatted = format_fund_return_matrix(matrix)
+        if not isinstance(formatted, pd.DataFrame) or formatted.empty:
+            continue
+
+        month_columns = [
+            column
+            for column in formatted.columns
+            if column
+            not in {RETURN_SERIES_COLUMN, RETURN_TRAILING_12M_COLUMN, RETURN_YTD_COLUMN}
+        ]
+        ordered_columns = [
+            RETURN_SERIES_COLUMN,
+            *month_columns,
+            RETURN_TRAILING_12M_COLUMN,
+            RETURN_YTD_COLUMN,
+        ]
+        if any(column not in formatted.columns for column in ordered_columns):
+            continue
+        formatted = formatted.loc[:, ordered_columns].reset_index(drop=True)
+        pages_by_fund[cnpj] = [
+            formatted.iloc[start : start + _RETURN_ROWS_PER_SLIDE].reset_index(drop=True)
+            for start in range(0, len(formatted), _RETURN_ROWS_PER_SLIDE)
+        ]
+    return pages_by_fund
+
 
 def _build_fund_sections(
     outputs: Any,

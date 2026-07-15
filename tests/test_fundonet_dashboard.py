@@ -252,6 +252,114 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertEqual("incompleto", row["ytd_status"])
         self.assertEqual("02/2026, 03/2026, 04/2026", row["ytd_competencias_ausentes"])
 
+    def test_build_return_summary_uses_exact_trailing_calendar_window_and_accepts_zero(self) -> None:
+        competencias = pd.date_range("2025-06-01", "2026-06-01", freq="MS")
+        returns = [50.0, *([1.0] * 11), 0.0]
+        history = pd.DataFrame(
+            {
+                "competencia": [value.strftime("%m/%Y") for value in competencias],
+                "competencia_dt": competencias,
+                "class_kind": ["senior"] * len(competencias),
+                "class_key": ["senior:1"] * len(competencias),
+                "class_label": ["Sênior"] * len(competencias),
+                "retorno_mensal_pct": returns,
+            }
+        )
+        quota = pd.DataFrame(
+            {
+                "competencia": [value.strftime("%m/%Y") for value in competencias],
+                "competencia_dt": competencias,
+                "class_kind": ["senior"] * len(competencias),
+                "class_key": ["senior:1"] * len(competencias),
+                "class_label": ["Sênior"] * len(competencias),
+                "pl": [100.0] * len(competencias),
+            }
+        )
+
+        row = _build_return_summary(history, "06/2026", quota_pl_history_df=quota).iloc[0]
+
+        self.assertAlmostEqual(((1.01**11) - 1.0) * 100.0, row["retorno_12m_pct"], places=6)
+        self.assertEqual(0.0, row["retorno_mes_pct"])
+        self.assertEqual("completo", row["trailing_12m_status"])
+        self.assertEqual("", row["trailing_12m_competencias_ausentes"])
+
+    def test_build_return_summary_rejects_trailing_12m_gap_while_class_is_active(self) -> None:
+        competencias = pd.date_range("2025-07-01", "2026-06-01", freq="MS")
+        history_competencias = competencias.delete(7)
+        history = pd.DataFrame(
+            {
+                "competencia": [value.strftime("%m/%Y") for value in history_competencias],
+                "competencia_dt": history_competencias,
+                "class_kind": ["senior"] * len(history_competencias),
+                "class_key": ["senior:1"] * len(history_competencias),
+                "class_label": ["Sênior"] * len(history_competencias),
+                "retorno_mensal_pct": [1.0] * len(history_competencias),
+            }
+        )
+        quota = pd.DataFrame(
+            {
+                "competencia": [value.strftime("%m/%Y") for value in competencias],
+                "competencia_dt": competencias,
+                "class_kind": ["senior"] * len(competencias),
+                "class_key": ["senior:1"] * len(competencias),
+                "class_label": ["Sênior"] * len(competencias),
+                "pl": [100.0] * len(competencias),
+            }
+        )
+
+        row = _build_return_summary(history, "06/2026", quota_pl_history_df=quota).iloc[0]
+
+        self.assertIsNone(row["retorno_12m_pct"])
+        self.assertEqual("incompleto", row["trailing_12m_status"])
+        self.assertEqual("02/2026", row["trailing_12m_competencias_ausentes"])
+
+    def test_build_return_summary_trailing_12m_starts_at_mid_window_issuance(self) -> None:
+        competencias = pd.date_range("2025-07-01", "2026-06-01", freq="MS")
+        active = competencias[8:]
+        history = pd.DataFrame(
+            {
+                "competencia": [value.strftime("%m/%Y") for value in active],
+                "competencia_dt": active,
+                "class_kind": ["subordinada"] * len(active),
+                "class_key": ["sub:1"] * len(active),
+                "class_label": ["Subordinada"] * len(active),
+                "retorno_mensal_pct": [1.0] * len(active),
+            }
+        )
+        quota = pd.DataFrame(
+            {
+                "competencia": [value.strftime("%m/%Y") for value in competencias],
+                "competencia_dt": competencias,
+                "class_kind": ["subordinada"] * len(competencias),
+                "class_key": ["sub:1"] * len(competencias),
+                "class_label": ["Subordinada"] * len(competencias),
+                "pl": [0.0] * 8 + [100.0] * 4,
+            }
+        )
+
+        row = _build_return_summary(history, "06/2026", quota_pl_history_df=quota).iloc[0]
+
+        self.assertAlmostEqual(((1.01**4) - 1.0) * 100.0, row["retorno_12m_pct"], places=6)
+        self.assertEqual("completo", row["trailing_12m_status"])
+        self.assertEqual("", row["trailing_12m_competencias_ausentes"])
+
+    def test_build_return_summary_falls_back_when_quota_has_no_active_pl(self) -> None:
+        competencias = pd.date_range("2025-07-01", "2026-06-01", freq="MS")
+        base = {
+            "competencia": [value.strftime("%m/%Y") for value in competencias],
+            "competencia_dt": competencias,
+            "class_kind": ["senior"] * len(competencias),
+            "class_key": ["senior:1"] * len(competencias),
+            "class_label": ["Sênior"] * len(competencias),
+        }
+        history = pd.DataFrame({**base, "retorno_mensal_pct": [1.0] * len(competencias)})
+        quota = pd.DataFrame({**base, "pl": [0.0] * len(competencias)})
+
+        row = _build_return_summary(history, "06/2026", quota_pl_history_df=quota).iloc[0]
+
+        self.assertAlmostEqual(((1.01**12) - 1.0) * 100.0, row["retorno_12m_pct"], places=6)
+        self.assertEqual("sem_base_pl", row["trailing_12m_status"])
+
     def test_build_return_history_preserves_multiple_classes_with_same_tipo(self) -> None:
         wide_lookup = pd.DataFrame(columns=["tag_path"]).set_index("tag_path", drop=False)
         listas_df = pd.DataFrame(

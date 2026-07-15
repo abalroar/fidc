@@ -51,7 +51,7 @@ from services.ime_period import (
 # Feature flag: set to True when global PDF dashboard export is stable and ready.
 # While False, the dashboard-level PDF button is hidden to prevent broken UX.
 ENABLE_GLOBAL_PDF_EXPORT: bool = False
-DASHBOARD_SCHEMA_VERSION: int = 7
+DASHBOARD_SCHEMA_VERSION: int = 8
 
 FIDC_CHART_COLORS = [
     "#ff5a00",

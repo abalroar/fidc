@@ -2913,6 +2913,8 @@ def _build_return_summary(
         "retorno_periodo_meses",
         "ytd_status",
         "ytd_competencias_ausentes",
+        "trailing_12m_status",
+        "trailing_12m_competencias_ausentes",
     ]
 
     history_df = return_history_df.copy() if isinstance(return_history_df, pd.DataFrame) else pd.DataFrame()
@@ -2976,76 +2978,89 @@ def _build_return_summary(
             errors="coerce",
         ).dropna()
         latest_return = float(latest_values.iloc[-1]) if not latest_values.empty else None
-        year_mask = ordered["competencia_dt"].dt.year == latest_year if not ordered.empty else pd.Series(dtype="bool")
-
         quota_period = quota_groups.get(identity_key, pd.DataFrame()).copy()
         if "competencia_dt" not in quota_period.columns and "competencia" in quota_period.columns:
             quota_period["competencia_dt"] = quota_period["competencia"].map(_competencia_to_timestamp)
         if not quota_period.empty:
             quota_period = quota_period[
                 quota_period["competencia_dt"].notna()
-                & (quota_period["competencia_dt"].dt.year == latest_year)
                 & (quota_period["competencia_dt"] <= latest_competencia_dt)
             ].copy()
-        if quota_period.empty or "pl" not in quota_period.columns:
-            active_quota = pd.DataFrame()
-        else:
-            active_quota = quota_period[
-                pd.to_numeric(quota_period["pl"], errors="coerce") > 0
-            ].copy()
-        required_competencias: set[str] = set()
-        if not active_quota.empty:
-            first_active = active_quota["competencia_dt"].min()
-            last_active = active_quota["competencia_dt"].max()
-            latest_pl = pd.to_numeric(
-                quota_period.loc[
-                    quota_period.get("competencia", pd.Series(dtype="object")).astype(str) == str(latest_competencia),
-                    "pl",
-                ],
-                errors="coerce",
-            ).dropna()
-            active_at_latest = not latest_pl.empty and float(latest_pl.iloc[-1]) > 0
-            active_end = latest_competencia_dt if active_at_latest else last_active
-            required_competencias = {
+
+        def _evaluate_calendar_period(period_start: pd.Timestamp) -> tuple[float | None, str, list[str]]:
+            calendar_competencias = {
                 value.strftime("%m/%Y")
-                for value in pd.date_range(first_active, active_end, freq="MS")
+                for value in pd.date_range(period_start, latest_competencia_dt, freq="MS")
             }
-            explicitly_inactive = set(
-                quota_period.loc[
-                    pd.to_numeric(quota_period.get("pl"), errors="coerce") == 0,
-                    "competencia",
-                ].dropna().astype(str)
+            has_pl_data = not quota_period.empty and "pl" in quota_period.columns
+            active_quota = pd.DataFrame()
+            if has_pl_data:
+                pl_values = pd.to_numeric(quota_period["pl"], errors="coerce")
+                active_quota = quota_period[pl_values > 0].copy()
+            has_active_pl_basis = not active_quota.empty
+            required_competencias: set[str]
+            if has_active_pl_basis:
+                required_competencias = set()
+                first_active = active_quota["competencia_dt"].min()
+                last_active = active_quota["competencia_dt"].max()
+                latest_pl = pd.to_numeric(
+                    quota_period.loc[
+                        quota_period["competencia"].astype(str) == str(latest_competencia),
+                        "pl",
+                    ],
+                    errors="coerce",
+                ).dropna()
+                active_at_latest = bool((latest_pl > 0).any())
+                active_end = latest_competencia_dt if active_at_latest else last_active
+                active_start = max(period_start, first_active)
+                if active_start <= active_end:
+                    required_competencias = {
+                        value.strftime("%m/%Y")
+                        for value in pd.date_range(active_start, active_end, freq="MS")
+                    }
+                monthly_pl = (
+                    quota_period.assign(__pl=pl_values)
+                    .groupby(quota_period["competencia"].astype(str), dropna=False)["__pl"]
+                    .max()
+                )
+                explicitly_inactive = set(monthly_pl[monthly_pl == 0].index.astype(str))
+                required_competencias -= explicitly_inactive
+            else:
+                required_competencias = calendar_competencias
+
+            period_returns = ordered[
+                ordered.get("competencia", pd.Series(dtype="object")).astype(str).isin(required_competencias)
+            ].copy()
+            if not period_returns.empty:
+                period_returns["__return"] = pd.to_numeric(
+                    period_returns["retorno_mensal_pct"],
+                    errors="coerce",
+                )
+                period_returns = period_returns.drop_duplicates(subset=["competencia"], keep="last")
+            reported_competencias = set(
+                period_returns.loc[period_returns["__return"].notna(), "competencia"].astype(str)
+                if not period_returns.empty
+                else []
             )
-            required_competencias -= explicitly_inactive
-        fallback_competencias = {
-            value.strftime("%m/%Y")
-            for value in pd.date_range(
-                pd.Timestamp(year=latest_year, month=1, day=1),
-                latest_competencia_dt,
-                freq="MS",
+            missing_competencias = sorted(
+                required_competencias - reported_competencias,
+                key=_competencia_sort_key,
             )
-        }
-        ytd_competencias = required_competencias or fallback_competencias
-        reported_competencias = set(
-            ordered.loc[year_mask & monthly.notna(), "competencia"].dropna().astype(str)
-            if not ordered.empty
-            else []
+            if missing_competencias:
+                return None, "incompleto", missing_competencias
+            status = "completo" if has_active_pl_basis else "sem_base_pl"
+            if not required_competencias:
+                return None, status, []
+            ordered_returns = period_returns.sort_values("competencia_dt")["__return"]
+            return _compound_percent(ordered_returns), status, []
+
+        retorno_ano_pct, ytd_status, missing_competencias = _evaluate_calendar_period(
+            pd.Timestamp(year=latest_year, month=1, day=1)
         )
-        missing_competencias = sorted(ytd_competencias - reported_competencias, key=_competencia_sort_key)
-        if missing_competencias:
-            ytd_status = "incompleto"
-            retorno_ano_pct = None
-        else:
-            ytd_status = "completo" if required_competencias else "sem_base_pl"
-            ytd_monthly = pd.to_numeric(
-                ordered.loc[
-                    year_mask
-                    & ordered["competencia"].astype(str).isin(ytd_competencias),
-                    "retorno_mensal_pct",
-                ],
-                errors="coerce",
-            )
-            retorno_ano_pct = _compound_percent(ytd_monthly)
+        trailing_12m_start = latest_competencia_dt - pd.DateOffset(months=11)
+        retorno_12m_pct, trailing_12m_status, trailing_12m_missing = _evaluate_calendar_period(
+            trailing_12m_start
+        )
 
         rows.append(
             {
@@ -3056,12 +3071,14 @@ def _build_return_summary(
                 "latest_competencia": latest_competencia,
                 "retorno_mes_pct": latest_return,
                 "retorno_ano_pct": retorno_ano_pct,
-                "retorno_12m_pct": _compound_percent(monthly.tail(12)),
+                "retorno_12m_pct": retorno_12m_pct,
                 "retorno_periodo_pct": _compound_percent(monthly.tail(window_months)),
                 "retorno_periodo_label": window_label,
                 "retorno_periodo_meses": window_months,
                 "ytd_status": ytd_status,
                 "ytd_competencias_ausentes": ", ".join(missing_competencias),
+                "trailing_12m_status": trailing_12m_status,
+                "trailing_12m_competencias_ausentes": ", ".join(trailing_12m_missing),
             }
         )
     if not rows:

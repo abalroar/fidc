@@ -307,7 +307,15 @@ class MeliCreditMonitorTest(unittest.TestCase):
 
         self.assertTrue(pptx_bytes.startswith(b"PK"))
         self.assertTrue(zipfile.is_zipfile(BytesIO(pptx_bytes)))
-        self.assertEqual(11, len(Presentation(BytesIO(pptx_bytes)).slides))
+        legacy_prs = Presentation(BytesIO(pptx_bytes))
+        self.assertEqual(11, len(legacy_prs.slides))
+        self.assertFalse(
+            any(
+                getattr(shape, "has_table", False)
+                for slide in legacy_prs.slides
+                for shape in slide.shapes
+            )
+        )
         with zipfile.ZipFile(BytesIO(pptx_bytes)) as archive:
             slide1_xml = archive.read("ppt/slides/slide1.xml").decode("utf-8", errors="ignore")
             slide2_xml = archive.read("ppt/slides/slide2.xml").decode("utf-8", errors="ignore")
@@ -421,6 +429,85 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertIn("Sellers II", divider_text)
         self.assertIn("Sellers III", divider_text)
         self.assertNotIn("Mercado Crédito FIDC", all_text)
+
+    def test_somatorio_pptx_adds_native_editable_return_table_with_expected_headers(self) -> None:
+        from pptx import Presentation
+
+        from services.fund_return_matrix import (
+            RETURN_SERIES_COLUMN,
+            RETURN_TRAILING_12M_COLUMN,
+            RETURN_YTD_COLUMN,
+        )
+        from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
+
+        outputs, monitor_outputs = _somatorio_export_inputs_with_returns(series_count=2)
+
+        prs = Presentation(
+            BytesIO(
+                build_somatorio_fidcs_pptx_bytes(
+                    outputs=outputs,
+                    monitor_outputs=monitor_outputs,
+                    research_outputs=None,
+                )
+            )
+        )
+        tables = [
+            shape.table
+            for slide in prs.slides
+            for shape in slide.shapes
+            if getattr(shape, "has_table", False)
+        ]
+
+        self.assertEqual(12, len(prs.slides))
+        self.assertEqual(1, len(tables))
+        table = tables[0]
+        headers = [cell.text for cell in table.rows[0].cells]
+        self.assertEqual(15, len(headers))
+        self.assertEqual(RETURN_SERIES_COLUMN, headers[0])
+        self.assertEqual(RETURN_TRAILING_12M_COLUMN, headers[-2])
+        self.assertEqual(RETURN_YTD_COLUMN, headers[-1])
+        self.assertEqual("jul/25", headers[1])
+        self.assertEqual("jun/26", headers[-3])
+        self.assertEqual("1,00%", table.cell(1, 1).text)
+        self.assertEqual("6,15%", table.cell(1, 14).text)
+
+    def test_somatorio_pptx_paginates_return_rows_without_losing_series(self) -> None:
+        from pptx import Presentation
+
+        from services.fund_return_matrix import RETURN_SERIES_COLUMN
+        from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
+
+        outputs, monitor_outputs = _somatorio_export_inputs_with_returns(series_count=23)
+
+        prs = Presentation(
+            BytesIO(
+                build_somatorio_fidcs_pptx_bytes(
+                    outputs=outputs,
+                    monitor_outputs=monitor_outputs,
+                    research_outputs=None,
+                )
+            )
+        )
+        tables = [
+            shape.table
+            for slide in prs.slides
+            for shape in slide.shapes
+            if getattr(shape, "has_table", False)
+        ]
+        exported_series = [
+            table.cell(row_index, 0).text
+            for table in tables
+            for row_index in range(1, len(table.rows))
+        ]
+
+        self.assertEqual(13, len(prs.slides))
+        self.assertEqual(2, len(tables))
+        self.assertEqual(
+            [RETURN_SERIES_COLUMN, RETURN_SERIES_COLUMN],
+            [table.cell(0, 0).text for table in tables],
+        )
+        self.assertEqual([22, 1], [len(table.rows) - 1 for table in tables])
+        self.assertEqual([f"{index:02d}ª série" for index in range(1, 24)], exported_series)
 
     def test_research_layer_builds_auditable_metrics_and_verification(self) -> None:
         monitor = build_monitor_base(_sample_monthly(month_count=14))
@@ -565,6 +652,70 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertIn("NPL Over 90d ex-360", labels)
         self.assertNotIn("Roll 61-90 M-3", labels)
         self.assertNotIn("NPL 1-90 / carteira", labels)
+
+
+def _somatorio_export_inputs_with_returns(*, series_count: int):
+    cnpj = "00000000000000"
+    fund_name = "Mercado Crédito"
+    base_monitor = build_monitor_base(_sample_monthly(month_count=12, start="2025-07-01"))
+    base_monthly = base_monitor.copy()
+    base_monthly["pl_senior"] = 700.0
+    base_monthly["pl_subordinada_mezz_ex360"] = 300.0
+    base_monthly["subordinacao_total_ex360_pct"] = 30.0
+    base_monthly["npl_over90_ex360_pct"] = 2.5
+    base_monthly["pdd_npl_over90_ex360_pct"] = 200.0
+
+    competencias = pd.date_range("2025-07-01", periods=12, freq="MS")
+    history_rows = []
+    summary_rows = []
+    for index in range(1, series_count + 1):
+        class_key = f"senior:{index:02d}"
+        class_label = f"{index:02d}ª série"
+        for competencia in competencias:
+            history_rows.append(
+                {
+                    "competencia": competencia.strftime("%m/%Y"),
+                    "competencia_dt": competencia,
+                    "class_kind": "senior",
+                    "class_key": class_key,
+                    "class_label": class_label,
+                    "retorno_mensal_pct": 1.0,
+                }
+            )
+        summary_rows.append(
+            {
+                "class_kind": "senior",
+                "class_key": class_key,
+                "class_label": class_label,
+                "latest_competencia": "06/2026",
+                "retorno_ano_pct": ((1.01**6) - 1.0) * 100.0,
+                "retorno_12m_pct": ((1.01**12) - 1.0) * 100.0,
+                "ytd_status": "completo",
+                "ytd_competencias_ausentes": "",
+            }
+        )
+
+    outputs = type(
+        "BaseOutputs",
+        (),
+        {
+            "consolidated_monthly": base_monthly,
+            "fund_monthly": {cnpj: base_monthly},
+            "fund_return_history": {cnpj: pd.DataFrame(history_rows)},
+            "fund_return_summary": {cnpj: pd.DataFrame(summary_rows)},
+            "metadata": {"funds": [{"cnpj": cnpj, "name": fund_name}]},
+        },
+    )()
+    monitor_outputs = MeliMonitorOutputs(
+        consolidated_monitor=base_monitor,
+        fund_monitor={cnpj: base_monitor},
+        consolidated_cohorts=pd.DataFrame(),
+        fund_cohorts={},
+        audit_table=pd.DataFrame(),
+        pdf_reconciliation=pd.DataFrame(),
+        warnings=[],
+    )
+    return outputs, monitor_outputs
 
 
 def _sample_monthly(*, month_count: int, start: str = "2026-01-01") -> pd.DataFrame:
