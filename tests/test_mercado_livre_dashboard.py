@@ -7,11 +7,13 @@ from pathlib import Path
 import tempfile
 from types import SimpleNamespace
 import unittest
+from unittest.mock import patch
 import zipfile
 
 from openpyxl import load_workbook
 import pandas as pd
 
+from services.fund_return_matrix import RETURN_YTD_COLUMN
 from services.mercado_livre_dashboard import (
     build_consolidated_monthly_base,
     build_consolidated_snapshot_excel_bytes,
@@ -31,6 +33,11 @@ from services.mercado_livre_dashboard import (
 from services.mercado_livre_ppt_export import build_pptx_export_bytes
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
+from tabs.tab_dashboard_meli import (
+    _build_fund_return_table,
+    _render_stacked_funds_view,
+    render_dashboard_meli_analysis,
+)
 from tabs.tab_mercado_livre import (
     CONSOLIDATED_SCOPE_VALUE,
     _MERCADO_LIVRE_UI_CSS,
@@ -391,6 +398,30 @@ class MercadoLivreDashboardTests(unittest.TestCase):
             pdd=150.0,
             buckets={1: 35.0, 2: 20.0, 4: 80.0, 7: 20.0, 8: 20.0},
         )
+        return_months = pd.date_range("2025-07-01", "2026-06-01", freq="MS")
+        return_values = [1.25, pd.NA, 0.0, -0.5, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7]
+        dashboard_a.return_history_df = pd.DataFrame(
+            {
+                "competencia": [value.strftime("%m/%Y") for value in return_months],
+                "competencia_dt": return_months,
+                "class_kind": ["senior"] * len(return_months),
+                "class_key": ["senior:1"] * len(return_months),
+                "class_label": ["Sênior 1"] * len(return_months),
+                "retorno_mensal_pct": return_values,
+            }
+        )
+        dashboard_a.return_summary_df = pd.DataFrame(
+            {
+                "class_kind": ["senior"],
+                "class_key": ["senior:1"],
+                "class_label": ["Sênior 1"],
+                "latest_competencia": ["06/2026"],
+                "retorno_12m_pct": [pd.NA],
+                "retorno_ano_pct": [9.0],
+                "ytd_status": ["completo"],
+                "ytd_competencias_ausentes": [""],
+            }
+        )
         outputs = build_mercado_livre_outputs(
             portfolio_id="portfolio-1",
             portfolio_name="Carteira",
@@ -413,7 +444,10 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         excel_bytes = build_full_variable_excel_export_bytes(outputs)
         workbook = load_workbook(BytesIO(excel_bytes), data_only=True)
         self.assertIn("Consolidado", workbook.sheetnames)
-        self.assertEqual(3, len(workbook.sheetnames))
+        self.assertEqual(
+            ["Consolidado", "FIDC A", "Rent - FIDC A", "FIDC B", "Rent - FIDC B"],
+            workbook.sheetnames,
+        )
         consolidated = workbook["Consolidado"]
         fund_a = workbook["FIDC A"]
         fund_b = workbook["FIDC B"]
@@ -433,6 +467,33 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(0.25, sub_row[4].value)
         self.assertIn("R$", pl_row[4].number_format)
         self.assertIn("%", sub_row[4].number_format)
+
+        returns_a = workbook["Rent - FIDC A"]
+        self.assertEqual(15, returns_a.max_column)
+        self.assertEqual("Série", returns_a.cell(row=1, column=1).value)
+        self.assertEqual("jul/25", returns_a.cell(row=1, column=2).value)
+        self.assertEqual("Ac. Últ. 12m (%)", returns_a.cell(row=1, column=14).value)
+        self.assertEqual("Acumulado YTD (%)", returns_a.cell(row=1, column=15).value)
+        self.assertEqual("Sênior 1", returns_a.cell(row=2, column=1).value)
+        self.assertAlmostEqual(0.0125, returns_a.cell(row=2, column=2).value)
+        self.assertIsNone(returns_a.cell(row=2, column=3).value)
+        self.assertEqual("0.00%", returns_a.cell(row=2, column=2).number_format)
+        self.assertEqual("0.00%", returns_a.cell(row=2, column=15).number_format)
+        self.assertEqual("solid", returns_a.cell(row=1, column=1).fill.fill_type)
+        self.assertEqual("001F2937", returns_a.cell(row=1, column=1).fill.fgColor.rgb)
+        self.assertEqual("B2", returns_a.freeze_panes)
+        self.assertFalse(returns_a.sheet_view.showGridLines)
+        self.assertEqual(1, len(returns_a.tables))
+        self.assertEqual("A1:O2", next(iter(returns_a.tables.values())).ref)
+
+        returns_b = workbook["Rent - FIDC B"]
+        self.assertEqual(1, returns_b.max_row)
+        self.assertEqual(1, len(returns_b.tables))
+        self.assertEqual("A1:C1", next(iter(returns_b.tables.values())).ref)
+        self.assertNotEqual(
+            next(iter(returns_a.tables.values())).displayName,
+            next(iter(returns_b.tables.values())).displayName,
+        )
 
         csv_zip = build_full_variable_csv_zip_bytes(outputs)
         with zipfile.ZipFile(BytesIO(csv_zip)) as archive:
@@ -808,6 +869,103 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertEqual(date(2026, 3, 1), months[-1])
         self.assertEqual(13, len(months))
 
+    def test_fund_return_table_anchors_ytd_months_independently_by_fund(self) -> None:
+        def return_frames(*, latest_month: int) -> tuple[pd.DataFrame, pd.DataFrame]:
+            competencias = pd.date_range("2026-01-01", periods=latest_month, freq="MS")
+            history = pd.DataFrame(
+                {
+                    "competencia": [value.strftime("%m/%Y") for value in competencias],
+                    "competencia_dt": competencias,
+                    "class_kind": ["senior"] * len(competencias),
+                    "class_key": ["senior:1"] * len(competencias),
+                    "class_label": ["Sênior"] * len(competencias),
+                    "retorno_mensal_pct": [1.0] * len(competencias),
+                }
+            )
+            summary = pd.DataFrame(
+                {
+                    "class_kind": ["senior"],
+                    "class_key": ["senior:1"],
+                    "class_label": ["Sênior"],
+                    "latest_competencia": [f"{latest_month:02d}/2026"],
+                    "retorno_ano_pct": [((1.01**latest_month) - 1.0) * 100.0],
+                    "ytd_status": ["completo"],
+                    "ytd_competencias_ausentes": [""],
+                }
+            )
+            return history, summary
+
+        history_a, summary_a = return_frames(latest_month=6)
+        history_b, summary_b = return_frames(latest_month=5)
+        outputs = SimpleNamespace(
+            fund_return_history={"A": history_a, "B": history_b},
+            fund_return_summary={"A": summary_a, "B": summary_b},
+        )
+
+        table_a = _build_fund_return_table(outputs=outputs, cnpj="A")
+        table_b = _build_fund_return_table(outputs=outputs, cnpj="B")
+
+        self.assertIn("jun/26", table_a.columns)
+        self.assertNotIn("jun/26", table_b.columns)
+        self.assertIn("mai/26", table_b.columns)
+        self.assertEqual("6,15%", table_a.iloc[0][RETURN_YTD_COLUMN])
+        self.assertEqual("5,10%", table_b.iloc[0][RETURN_YTD_COLUMN])
+
+    def test_stacked_single_fund_renders_return_table_without_duplicate_charts(self) -> None:
+        outputs = SimpleNamespace()
+        monitor_outputs = SimpleNamespace(fund_monitor={"11111111000111": pd.DataFrame()})
+        portfolio = SimpleNamespace(id="portfolio-1")
+
+        with (
+            patch("tabs.tab_dashboard_meli._render_fund_return_table") as render_return_table,
+            patch("tabs.tab_dashboard_meli._render_fund_dashboards") as render_fund_dashboards,
+        ):
+            _render_stacked_funds_view(
+                outputs=outputs,
+                monitor_outputs=monitor_outputs,
+                selected_portfolio=portfolio,
+            )
+
+        render_return_table.assert_called_once_with(outputs=outputs, cnpj="11111111000111")
+        render_fund_dashboards.assert_not_called()
+
+    def test_inline_portfolio_renders_fund_returns_before_consolidated_charts(self) -> None:
+        events: list[str] = []
+        outputs = SimpleNamespace()
+        monitor_outputs = SimpleNamespace(
+            consolidated_monitor=pd.DataFrame(),
+            fund_monitor={"11111111000111": pd.DataFrame()},
+        )
+        portfolio = SimpleNamespace(id="portfolio-1", name="Carteira")
+
+        with (
+            patch("tabs.tab_dashboard_meli._render_kpis"),
+            patch(
+                "tabs.tab_dashboard_meli._render_stacked_funds_view",
+                side_effect=lambda **_kwargs: events.append("fundos"),
+            ),
+            patch(
+                "tabs.tab_dashboard_meli._render_consolidated_dashboard",
+                side_effect=lambda *_args, **_kwargs: events.append("consolidado"),
+            ),
+            patch("tabs.tab_dashboard_meli._render_audit"),
+            patch("tabs.tab_dashboard_meli._render_methodology"),
+            patch("tabs.tab_dashboard_meli.st.expander"),
+        ):
+            render_dashboard_meli_analysis(
+                outputs=outputs,
+                selected_portfolio=portfolio,
+                monitor_outputs=monitor_outputs,
+                research_outputs=SimpleNamespace(),
+                verification_report=pd.DataFrame(),
+                pptx_bytes=b"pptx",
+                use_tabs=False,
+                show_guide=False,
+                show_downloads=False,
+            )
+
+        self.assertEqual(["fundos", "consolidado"], events)
+
     def test_requested_period_is_loaded_with_yoy_lookback_metadata(self) -> None:
         requested = build_custom_period(start_month=date(2025, 5, 1), end_month=date(2026, 4, 1))
         calculation = _period_with_yoy_lookback(requested)
@@ -891,6 +1049,7 @@ class MercadoLivreDashboardTests(unittest.TestCase):
                 {"competencia": "04/2026", "competencia_dt": pd.Timestamp("2026-04-01"), "fund_name": "FIDC A", "pl_total": 4.0},
             ]
         )
+        return_history = pd.DataFrame({"competencia": ["01/2026"], "retorno_mensal_pct": [1.0]})
         outputs = MercadoLivreOutputs(
             fund_monthly={"1": monthly},
             fund_wide={"1": pd.DataFrame()},
@@ -898,6 +1057,7 @@ class MercadoLivreDashboardTests(unittest.TestCase):
             consolidated_wide=pd.DataFrame(),
             warnings_df=pd.DataFrame(),
             metadata={"portfolio_name": "Carteira"},
+            fund_return_history={"1": return_history},
         )
 
         filtered = _filter_outputs_by_competencia_months(
@@ -914,6 +1074,7 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         )
         self.assertIn("abr/26", filtered.consolidated_wide.columns)
         self.assertIn("dez/23", filtered.consolidated_wide.columns)
+        self.assertTrue(filtered.fund_return_history["1"].equals(return_history))
 
     def test_compact_wide_table_hides_operational_identification_rows_only_in_main_view(self) -> None:
         monthly = pd.DataFrame(
@@ -984,6 +1145,27 @@ class MercadoLivreDashboardTests(unittest.TestCase):
             pdd=100.0,
             buckets={4: 40.0, 7: 10.0, 8: 10.0},
         )
+        dashboard.return_history_df = pd.DataFrame(
+            {
+                "competencia": ["01/2026"],
+                "competencia_dt": pd.to_datetime(["2026-01-01"]),
+                "class_kind": ["senior"],
+                "class_key": ["senior:1"],
+                "class_label": ["Sênior"],
+                "retorno_mensal_pct": [1.25],
+            }
+        )
+        dashboard.return_summary_df = pd.DataFrame(
+            {
+                "class_kind": ["senior"],
+                "class_key": ["senior:1"],
+                "class_label": ["Sênior"],
+                "latest_competencia": ["01/2026"],
+                "retorno_ano_pct": [1.25],
+                "ytd_status": ["completo"],
+                "ytd_competencias_ausentes": [""],
+            }
+        )
         outputs = build_mercado_livre_outputs(
             portfolio_id="portfolio-1",
             portfolio_name="Carteira",
@@ -1012,6 +1194,8 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIsNotNone(loaded)
         assert loaded is not None
         self.assertIn("11111111000111", loaded.fund_monthly)
+        self.assertEqual(1.25, loaded.fund_return_history["11111111000111"].iloc[0]["retorno_mensal_pct"])
+        self.assertEqual("01/2026", loaded.fund_return_summary["11111111000111"].iloc[0]["latest_competencia"])
         self.assertEqual(outputs.metadata["loaded_period_label"], loaded.metadata["loaded_period_label"])
         self.assertEqual(["11111111000111"], metadata["requested_funds"])
         self.assertEqual(["11111111000111"], metadata["loaded_funds"])

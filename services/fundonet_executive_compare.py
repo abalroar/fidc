@@ -142,9 +142,12 @@ def _senior_return_month(dashboard: FundonetDashboardData) -> object:
         return None
     class_kind = frame.get("class_kind", pd.Series(dtype="object")).astype(str).str.lower()
     subset = frame[class_kind == "senior"].copy()
-    if subset.empty:
+    if subset.empty or "retorno_mes_pct" not in subset.columns:
         return None
-    return subset.iloc[0].get("retorno_mes_pct")
+    available = subset[pd.to_numeric(subset["retorno_mes_pct"], errors="coerce").notna()]
+    if available.empty:
+        return None
+    return available.iloc[0].get("retorno_mes_pct")
 
 
 def _latest_event_pct_pl(event_type: str) -> Extractor:

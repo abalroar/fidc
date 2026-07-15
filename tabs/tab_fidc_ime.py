@@ -51,7 +51,7 @@ from services.ime_period import (
 # Feature flag: set to True when global PDF dashboard export is stable and ready.
 # While False, the dashboard-level PDF button is hidden to prevent broken UX.
 ENABLE_GLOBAL_PDF_EXPORT: bool = False
-DASHBOARD_SCHEMA_VERSION: int = 6
+DASHBOARD_SCHEMA_VERSION: int = 8
 
 FIDC_CHART_COLORS = [
     "#ff5a00",
@@ -1233,6 +1233,7 @@ def _render_dashboard(
         dashboard,
         slot_key=slot_key,
         return_months=int(context.get("display_month_count") or len(dashboard.competencias) or 12),
+        show_return_section=not compact_visuals,
     )
     _render_credit_risk_section(dashboard)
     _render_liquidity_risk_section(
@@ -1553,6 +1554,7 @@ def _render_structural_risk_section(
     *,
     slot_key: str = "slot0",
     return_months: int = 12,
+    show_return_section: bool = True,
 ) -> None:
     _render_fidc_section("Estrutura")
     latest_subordination_match = (
@@ -1615,6 +1617,9 @@ def _render_structural_risk_section(
             ),
             width="stretch",
         )
+
+    if not show_return_section:
+        return
 
     selected_set: set[str] | None = None
     return_chart_df = _return_chart_frame(dashboard.return_history_df)
@@ -2773,45 +2778,71 @@ def _format_return_inline_matrix_frame(
     *,
     selected_labels: list[str] | None = None,
     months: int = 12,
+    competencias: list[str] | None = None,
+    include_period_summary: bool = True,
 ) -> pd.DataFrame:
-    history_df = _return_history_last_months(return_history_df, months=months)
     period_column, period_label = return_period_summary_spec(return_summary_df)
-    if history_df.empty or return_summary_df.empty:
-        return pd.DataFrame(columns=["Classe", "YTD", period_label])
-    label_column = _class_display_column(history_df)
+    display_competencias = list(dict.fromkeys(str(value) for value in (competencias or []) if str(value).strip()))
+    base_columns = ["Classe", "YTD"]
+    if include_period_summary:
+        base_columns.append(period_label)
+    base_columns.extend(_format_competencia_label(value) for value in display_competencias)
+    if return_summary_df.empty:
+        return pd.DataFrame(columns=base_columns)
+
+    history_df = return_history_df.copy()
+    if display_competencias:
+        if not history_df.empty and "competencia" in history_df.columns:
+            history_df = history_df[history_df["competencia"].astype(str).isin(display_competencias)].copy()
+    else:
+        history_df = _return_history_last_months(history_df, months=months)
+        if not history_df.empty:
+            ordered_history = history_df.sort_values("competencia_dt", ascending=True)
+            display_competencias = ordered_history["competencia"].drop_duplicates().astype(str).tolist()
+
     summary_label_column = _class_display_column(return_summary_df)
+    history_label_column = _class_display_column(history_df) if not history_df.empty else summary_label_column
     if selected_labels:
-        history_df = history_df[history_df[label_column].isin(selected_labels)].copy()
+        if not history_df.empty:
+            history_df = history_df[history_df[history_label_column].isin(selected_labels)].copy()
         return_summary_df = return_summary_df[return_summary_df[summary_label_column].isin(selected_labels)].copy()
-    if history_df.empty or return_summary_df.empty:
-        return pd.DataFrame(columns=["Classe", "YTD", period_label])
-    ordered_history = history_df.sort_values("competencia_dt", ascending=True).copy()
-    competencias = ordered_history["competencia"].drop_duplicates().tolist()
-    display_competencias = competencias
-    pivot = (
-        ordered_history.pivot_table(
-            index=label_column,
-            columns="competencia",
-            values="retorno_mensal_pct",
-            aggfunc="last",
-        )
-        .reindex(columns=display_competencias)
+    if return_summary_df.empty:
+        return pd.DataFrame(columns=base_columns)
+
+    summary_labels = return_summary_df[summary_label_column].dropna().astype(str).drop_duplicates().tolist()
+    history_labels = (
+        history_df[history_label_column].dropna().astype(str).drop_duplicates().tolist()
+        if not history_df.empty
+        else []
     )
-    candidate_labels = [label for label in (selected_labels or []) if label in pivot.index]
-    candidate_labels += [label for label in pivot.index.tolist() if label not in set(candidate_labels)]
-    ordered_labels = ordered_class_labels(candidate_labels, history_df)
-    pivot = pivot.reindex(ordered_labels)
-    pivot = pivot.reset_index(drop=True)
-    labels_series = pd.Series(ordered_labels, dtype="object")
+    candidate_labels = [label for label in (selected_labels or []) if label in set(summary_labels + history_labels)]
+    candidate_labels += [label for label in summary_labels if label not in set(candidate_labels)]
+    candidate_labels += [label for label in history_labels if label not in set(candidate_labels)]
+    order_reference = pd.concat([return_summary_df, history_df], ignore_index=True, sort=False)
+    ordered_labels = ordered_class_labels(candidate_labels, order_reference)
+
+    if history_df.empty:
+        pivot = pd.DataFrame(index=ordered_labels, columns=display_competencias, dtype="float64")
+    else:
+        pivot = (
+            history_df.pivot_table(
+                index=history_label_column,
+                columns="competencia",
+                values="retorno_mensal_pct",
+                aggfunc="last",
+            )
+            .reindex(index=ordered_labels, columns=display_competencias)
+        )
     month_columns = {competencia: _format_competencia_label(competencia) for competencia in display_competencias}
-    output = pd.DataFrame({"Classe": labels_series})
+    output = pd.DataFrame({"Classe": pd.Series(ordered_labels, dtype="object")})
     summary_lookup = return_summary_df.set_index(summary_label_column)
     retorno_ano = summary_lookup.get("retorno_ano_pct", pd.Series(dtype="float64"))
-    retorno_periodo = summary_lookup.get(period_column, pd.Series(dtype="float64"))
     output["YTD"] = output["Classe"].map(lambda label: _format_percent(retorno_ano.get(label)))
-    output[period_label] = output["Classe"].map(lambda label: _format_percent(retorno_periodo.get(label)))
+    if include_period_summary:
+        retorno_periodo = summary_lookup.get(period_column, pd.Series(dtype="float64"))
+        output[period_label] = output["Classe"].map(lambda label: _format_percent(retorno_periodo.get(label)))
     for competencia in display_competencias:
-        output[month_columns[competencia]] = pivot[competencia].tolist()
+        output[month_columns[competencia]] = pivot.reindex(ordered_labels)[competencia].tolist()
         output[month_columns[competencia]] = output[month_columns[competencia]].map(_format_percent)
     return output
 
