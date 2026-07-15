@@ -442,13 +442,13 @@ def render_dashboard_meli_analysis(
         with audit_tab:
             _render_audit_view()
     else:
-        st.markdown("#### Consolidado")
-        _render_main_view()
         _render_stacked_funds_view(
             outputs=outputs,
             monitor_outputs=monitor_outputs,
             selected_portfolio=selected_portfolio,
         )
+        st.markdown("#### Consolidado")
+        _render_main_view()
         with st.expander("Auditoria e conciliações da análise de crédito", expanded=False):
             _render_audit(outputs, monitor_outputs, research_outputs, verification_report, compact=True)
     _render_methodology(research_outputs)

@@ -33,7 +33,11 @@ from services.mercado_livre_dashboard import (
 from services.mercado_livre_ppt_export import build_pptx_export_bytes
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
-from tabs.tab_dashboard_meli import _build_fund_return_table, _render_stacked_funds_view
+from tabs.tab_dashboard_meli import (
+    _build_fund_return_table,
+    _render_stacked_funds_view,
+    render_dashboard_meli_analysis,
+)
 from tabs.tab_mercado_livre import (
     CONSOLIDATED_SCOPE_VALUE,
     _MERCADO_LIVRE_UI_CSS,
@@ -924,6 +928,43 @@ class MercadoLivreDashboardTests(unittest.TestCase):
 
         render_return_table.assert_called_once_with(outputs=outputs, cnpj="11111111000111")
         render_fund_dashboards.assert_not_called()
+
+    def test_inline_portfolio_renders_fund_returns_before_consolidated_charts(self) -> None:
+        events: list[str] = []
+        outputs = SimpleNamespace()
+        monitor_outputs = SimpleNamespace(
+            consolidated_monitor=pd.DataFrame(),
+            fund_monitor={"11111111000111": pd.DataFrame()},
+        )
+        portfolio = SimpleNamespace(id="portfolio-1", name="Carteira")
+
+        with (
+            patch("tabs.tab_dashboard_meli._render_kpis"),
+            patch(
+                "tabs.tab_dashboard_meli._render_stacked_funds_view",
+                side_effect=lambda **_kwargs: events.append("fundos"),
+            ),
+            patch(
+                "tabs.tab_dashboard_meli._render_consolidated_dashboard",
+                side_effect=lambda *_args, **_kwargs: events.append("consolidado"),
+            ),
+            patch("tabs.tab_dashboard_meli._render_audit"),
+            patch("tabs.tab_dashboard_meli._render_methodology"),
+            patch("tabs.tab_dashboard_meli.st.expander"),
+        ):
+            render_dashboard_meli_analysis(
+                outputs=outputs,
+                selected_portfolio=portfolio,
+                monitor_outputs=monitor_outputs,
+                research_outputs=SimpleNamespace(),
+                verification_report=pd.DataFrame(),
+                pptx_bytes=b"pptx",
+                use_tabs=False,
+                show_guide=False,
+                show_downloads=False,
+            )
+
+        self.assertEqual(["fundos", "consolidado"], events)
 
     def test_requested_period_is_loaded_with_yoy_lookback_metadata(self) -> None:
         requested = build_custom_period(start_month=date(2025, 5, 1), end_month=date(2026, 4, 1))
