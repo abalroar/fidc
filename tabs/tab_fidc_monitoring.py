@@ -332,6 +332,7 @@ def render_portfolio_cockpit_snapshot(
     *,
     period: ImePeriodSelection | None,
     selected_portfolio: PortfolioRecord,
+    selected_cnpjs: set[str] | None = None,
 ) -> bool:
     """Render the compact per-fund monitoring snapshot inside another page section."""
     _render_monitoring_css()
@@ -343,6 +344,10 @@ def render_portfolio_cockpit_snapshot(
         st.session_state[session_key] = _load_portfolio_monitoring(selected_portfolio, period, cache_months)
     outputs = st.session_state.get(session_key) or []
     success_outputs = [item for item in outputs if item.get("tables") is not None]
+    if selected_cnpjs is not None:
+        success_outputs = [
+            item for item in success_outputs if str(item.get("cnpj") or "") in selected_cnpjs
+        ]
     if not success_outputs:
         st.caption("Sem indicadores por fundo para a competência de referência.")
         return False
@@ -651,11 +656,19 @@ def _available_competencias_from_wide(wide_df: pd.DataFrame) -> list[str]:
 
 
 def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
-    reference, reference_count, reference_total = _portfolio_reference_competencia(outputs)
+    reference, reference_count, reference_total = _portfolio_reference_competencia(
+        outputs,
+        min_coverage_pct=1.0,
+    )
     if not reference:
         st.info("Não há competência disponível para montar o cockpit.")
         return
-    _ = reference_count, reference_total
+    if reference_count < reference_total:
+        st.warning(
+            "Sem competência comum a 100% dos fundos selecionados; o comparativo mais recente foi omitido "
+            "para não apresentar um consolidado parcial."
+        )
+        return
     st.markdown(_render_cockpit_table_html(outputs, reference), unsafe_allow_html=True)
 
 

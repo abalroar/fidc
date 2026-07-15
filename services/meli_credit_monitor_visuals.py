@@ -621,6 +621,8 @@ def _research_cohort_dashes(df: pd.DataFrame, domain: list[str]) -> list[list[in
 def _chart_base(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
     out["competencia_dt"] = pd.to_datetime(out["competencia_dt"], errors="coerce")
+    if "universe_complete" in out.columns:
+        out = out[out["universe_complete"].fillna(False)].copy()
     out = out.sort_values("competencia_dt").reset_index(drop=True)
     out["competencia_label"] = [
         _format_competencia(row.get("competencia_dt"), row.get("competencia"))
