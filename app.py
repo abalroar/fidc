@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import streamlit as st
 
+# Deployment marker: portfolio sub-tabs and unified exports (2026-07-15).
+
 from tabs.tab_fidc_book import render_tab_fidc_book
 from tabs.tab_cloudwalk_financial_cost import render_tab_cloudwalk_financial_cost
 from tabs.tab_fidc_credit_strategy import render_tab_fidc_credit_strategy
