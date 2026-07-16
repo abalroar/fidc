@@ -173,6 +173,28 @@ class ImePortfolioSupportTests(unittest.TestCase):
 
         self.assertNotEqual(first["local_file"], second["local_file"])
 
+    def test_portfolio_store_signature_tracks_seed_when_local_file_is_missing(self) -> None:
+        with TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            local_path = root / ".cache" / "portfolios.local.json"
+            seed_path = root / "portfolios.json"
+            seed_path.write_text('{"schema_version": 1, "portfolios": []}\n', encoding="utf-8")
+            config = PortfolioStoreConfig(
+                backend="local",
+                local_path=str(local_path),
+                local_seed_path=str(seed_path),
+            )
+            with patch.object(ime_portfolio_support, "get_portfolio_store_config", return_value=config):
+                first = json.loads(ime_portfolio_support._portfolio_store_signature())
+                seed_path.write_text(
+                    '{"schema_version": 1, "portfolios": [{"id": "portfolio-a"}]}\n',
+                    encoding="utf-8",
+                )
+                second = json.loads(ime_portfolio_support._portfolio_store_signature())
+
+        self.assertEqual({"exists": False}, first["local_file"])
+        self.assertNotEqual(first["seed_file"], second["seed_file"])
+
 
 if __name__ == "__main__":
     unittest.main()

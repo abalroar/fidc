@@ -107,6 +107,115 @@ class PortfolioStoreTests(unittest.TestCase):
         self.assertEqual(2, len(portfolios))
         self.assertEqual({"Carteira A", "Carteira B"}, {portfolio.name for portfolio in portfolios})
 
+    def test_local_store_seeds_missing_cache_and_preserves_every_existing_portfolio_on_save(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            seed_path = root / "portfolios.json"
+            local_path = root / ".cache" / "portfolios.local.json"
+            seed_payload = {
+                "schema_version": 1,
+                "portfolios": [
+                    {
+                        "id": "portfolio-a",
+                        "name": "Carteira A",
+                        "funds": [{"cnpj": "12345678000199", "display_name": "FIDC A"}],
+                        "created_at": "2026-04-14T12:00:00Z",
+                        "updated_at": "2026-04-14T12:00:00Z",
+                        "notes": "",
+                    },
+                    {
+                        "id": "portfolio-b",
+                        "name": "Carteira B",
+                        "funds": [{"cnpj": "22345678000199", "display_name": "FIDC B"}],
+                        "created_at": "2026-04-14T12:00:00Z",
+                        "updated_at": "2026-04-14T12:00:00Z",
+                        "notes": "",
+                    },
+                ],
+            }
+            seed_text = json.dumps(seed_payload, ensure_ascii=False, indent=2)
+            seed_path.write_text(seed_text, encoding="utf-8")
+            store = build_portfolio_store(
+                resolve_portfolio_store_config(
+                    secrets_mapping={
+                        "local_portfolios_path": str(local_path),
+                        "local_portfolios_seed_path": str(seed_path),
+                    }
+                )
+            )
+
+            self.assertEqual({"Carteira A", "Carteira B"}, {item.name for item in store.list_portfolios()})
+            self.assertFalse(local_path.exists())
+
+            store.save_portfolio(
+                PortfolioRecord(
+                    id="portfolio-c",
+                    name="Carteira C",
+                    funds=(PortfolioFund(cnpj="32345678000199", display_name="FIDC C"),),
+                    created_at="2026-04-14T12:05:00Z",
+                    updated_at="2026-04-14T12:05:00Z",
+                )
+            )
+
+            self.assertTrue(local_path.exists())
+            self.assertEqual(
+                {"Carteira A", "Carteira B", "Carteira C"},
+                {item.name for item in store.list_portfolios()},
+            )
+            self.assertEqual(seed_text, seed_path.read_text(encoding="utf-8"))
+            self.assertEqual([], list(local_path.parent.glob(f".{local_path.name}.*.tmp")))
+
+    def test_local_store_keeps_existing_local_file_authoritative_over_seed(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            seed_path = root / "portfolios.json"
+            local_path = root / ".cache" / "portfolios.local.json"
+            local_path.parent.mkdir(parents=True)
+            seed_path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "portfolios": [
+                            {
+                                "id": "seed",
+                                "name": "Carteira Seed",
+                                "funds": [{"cnpj": "12345678000199", "display_name": "Seed"}],
+                                "created_at": "2026-04-14T12:00:00Z",
+                                "updated_at": "2026-04-14T12:00:00Z",
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            local_path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "portfolios": [
+                            {
+                                "id": "local",
+                                "name": "Carteira Local",
+                                "funds": [{"cnpj": "22345678000199", "display_name": "Local"}],
+                                "created_at": "2026-04-14T12:00:00Z",
+                                "updated_at": "2026-04-14T12:00:00Z",
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            store = build_portfolio_store(
+                resolve_portfolio_store_config(
+                    secrets_mapping={
+                        "local_portfolios_path": str(local_path),
+                        "local_portfolios_seed_path": str(seed_path),
+                    }
+                )
+            )
+
+            self.assertEqual(["Carteira Local"], [item.name for item in store.list_portfolios()])
+
     def test_local_store_rejects_duplicate_name_and_same_basket(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             store = build_portfolio_store(
@@ -156,6 +265,22 @@ class PortfolioStoreTests(unittest.TestCase):
         self.assertEqual("github", config.backend)
         self.assertEqual("abalroar/fidc", config.repo)
         self.assertEqual("state/portfolios.json", config.path)
+
+    def test_default_local_config_uses_versioned_portfolios_as_seed(self) -> None:
+        config = resolve_portfolio_store_config(secrets_mapping={}, environ={})
+
+        self.assertEqual("local", config.backend)
+        self.assertEqual(".cache/portfolios.local.json", config.local_path)
+        self.assertEqual("portfolios.json", config.local_seed_path)
+
+    def test_custom_local_path_requires_explicit_seed(self) -> None:
+        config = resolve_portfolio_store_config(
+            secrets_mapping={"local_portfolios_path": "/tmp/custom-portfolios.json"},
+            environ={},
+        )
+
+        self.assertEqual("local", config.backend)
+        self.assertIsNone(config.local_seed_path)
 
     def test_github_store_reads_and_writes_contents_api(self) -> None:
         encoded = base64.b64encode(

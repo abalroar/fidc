@@ -12,6 +12,7 @@ import uuid
 
 
 PORTFOLIO_SCHEMA_VERSION = 1
+DEFAULT_LOCAL_PORTFOLIOS_PATH = ".cache/portfolios.local.json"
 
 
 def _utc_now_iso() -> str:
@@ -143,6 +144,7 @@ class PortfolioStoreConfig:
     path: str = "portfolios.json"
     token: str | None = None
     local_path: str | None = None
+    local_seed_path: str | None = None
     api_base_url: str = "https://api.github.com"
 
 
@@ -161,23 +163,23 @@ class PortfolioStore:
 
 
 class LocalPortfolioStore(PortfolioStore):
-    def __init__(self, path: Path) -> None:
+    def __init__(self, path: Path, *, seed_path: Path | None = None) -> None:
         self.path = path
+        self.seed_path = seed_path if seed_path != path else None
 
     def load_collection(self) -> PortfolioCollection:
-        if not self.path.exists():
+        source_path = self.path
+        if not source_path.exists() and self.seed_path is not None and self.seed_path.exists():
+            source_path = self.seed_path
+        if not source_path.exists():
             return PortfolioCollection.empty()
-        payload = json.loads(self.path.read_text(encoding="utf-8"))
+        payload = json.loads(source_path.read_text(encoding="utf-8"))
         return PortfolioCollection.from_dict(payload)
 
     def save_portfolio(self, portfolio: PortfolioRecord) -> PortfolioRecord:
         collection = self.load_collection()
         saved = _upsert_collection(collection, portfolio)
-        self.path.parent.mkdir(parents=True, exist_ok=True)
-        self.path.write_text(
-            json.dumps(saved[0].to_dict(), ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
+        self._write_collection(saved[0])
         return saved[1]
 
     def delete_portfolio(self, portfolio_id: str) -> None:
@@ -186,11 +188,19 @@ class LocalPortfolioStore(PortfolioStore):
             schema_version=collection.schema_version,
             portfolios=tuple(portfolio for portfolio in collection.portfolios if portfolio.id != portfolio_id),
         )
+        self._write_collection(updated)
+
+    def _write_collection(self, collection: PortfolioCollection) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        self.path.write_text(
-            json.dumps(updated.to_dict(), ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
+        temporary_path = self.path.with_name(f".{self.path.name}.{uuid.uuid4().hex}.tmp")
+        try:
+            temporary_path.write_text(
+                json.dumps(collection.to_dict(), ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            os.replace(temporary_path, self.path)
+        finally:
+            temporary_path.unlink(missing_ok=True)
 
 
 class GitHubPortfolioStore(PortfolioStore):
@@ -347,8 +357,9 @@ def build_portfolio_store(config: PortfolioStoreConfig) -> PortfolioStore:
             token=config.token,
             api_base_url=config.api_base_url,
         )
-    local_path = Path(config.local_path or ".cache/portfolios.local.json")
-    return LocalPortfolioStore(local_path)
+    local_path = Path(config.local_path or DEFAULT_LOCAL_PORTFOLIOS_PATH)
+    seed_path = Path(config.local_seed_path) if config.local_seed_path else None
+    return LocalPortfolioStore(local_path, seed_path=seed_path)
 
 
 def resolve_portfolio_store_config(
@@ -375,8 +386,15 @@ def resolve_portfolio_store_config(
     local_path = str(
         secrets_mapping.get("local_portfolios_path")
         or environ.get("FIDC_LOCAL_PORTFOLIOS_PATH")
-        or ".cache/portfolios.local.json"
-    ).strip() or ".cache/portfolios.local.json"
+        or DEFAULT_LOCAL_PORTFOLIOS_PATH
+    ).strip() or DEFAULT_LOCAL_PORTFOLIOS_PATH
+    local_seed_path = str(
+        secrets_mapping.get("local_portfolios_seed_path")
+        or environ.get("FIDC_LOCAL_PORTFOLIOS_SEED_PATH")
+        or ""
+    ).strip()
+    if not local_seed_path and local_path == DEFAULT_LOCAL_PORTFOLIOS_PATH:
+        local_seed_path = path
 
     if repo and token:
         return PortfolioStoreConfig(
@@ -387,10 +405,12 @@ def resolve_portfolio_store_config(
             token=token,
             api_base_url=api_base_url,
             local_path=local_path,
+            local_seed_path=local_seed_path or None,
         )
     return PortfolioStoreConfig(
         backend="local",
         local_path=local_path,
+        local_seed_path=local_seed_path or None,
         branch=branch,
         path=path,
         repo=repo or None,

@@ -56,6 +56,7 @@ def get_portfolio_store_config():
 def _portfolio_store_signature() -> str:
     config = get_portfolio_store_config()
     local_file: dict[str, Any] = {}
+    seed_file: dict[str, Any] = {}
     if config.backend == "local":
         local_path = Path(config.local_path or ".cache/portfolios.local.json")
         try:
@@ -67,6 +68,18 @@ def _portfolio_store_signature() -> str:
             }
         except OSError:
             local_file = {"exists": False}
+            if config.local_seed_path:
+                seed_path = Path(config.local_seed_path)
+                try:
+                    stat = seed_path.stat()
+                    seed_file = {
+                        "exists": True,
+                        "path": str(seed_path),
+                        "mtime_ns": stat.st_mtime_ns,
+                        "size": stat.st_size,
+                    }
+                except OSError:
+                    seed_file = {"exists": False, "path": str(seed_path)}
     return json.dumps(
         {
             "backend": config.backend,
@@ -74,7 +87,9 @@ def _portfolio_store_signature() -> str:
             "branch": config.branch,
             "path": config.path,
             "local_path": config.local_path,
+            "local_seed_path": config.local_seed_path,
             "local_file": local_file,
+            "seed_file": seed_file,
             "api_base_url": config.api_base_url,
         },
         ensure_ascii=False,
