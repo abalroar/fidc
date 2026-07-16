@@ -125,6 +125,24 @@ div.element-container:has(.fidc-book-page-shell) + div.element-container [data-t
     font-weight: 600;
 }
 
+div.element-container:has(.fidc-book-page-shell) + div.element-container [data-testid="stMarkdownContainer"] .fidc-family-name {
+    color: #c45118;
+    font-weight: 650;
+}
+
+div.element-container:has(.fidc-book-page-shell) + div.element-container [data-testid="stMarkdownContainer"] ul ul {
+    margin-top: 0.45rem;
+    margin-left: 0.15rem;
+    padding-left: 1.05rem;
+    border-left: 1px solid #ded7d0;
+}
+
+div.element-container:has(.fidc-book-page-shell) + div.element-container [data-testid="stMarkdownContainer"] abbr {
+    text-decoration: underline dotted #b9aaa0;
+    text-underline-offset: 0.16rem;
+    cursor: help;
+}
+
 div.element-container:has(.fidc-book-page-shell) + div.element-container [data-testid="stMarkdownContainer"] table {
     width: 100%;
     border-collapse: collapse;
@@ -165,6 +183,13 @@ def render_tab_fidc_book() -> None:
     st.markdown(_BOOK_CSS, unsafe_allow_html=True)
     render_page_header("Glossário", "Estrutura, risco e regulação de FIDCs.")
 
+    requested_page = _requested_page(index)
+    if requested_page is not None:
+        st.session_state["fidc_book_query"] = ""
+        st.session_state[f"fidc_book_page_id::{requested_page.section_id}"] = requested_page.page_id
+    if "book_page" in st.query_params:
+        st.query_params.pop("book_page", None)
+
     filtered_pages = index.search_pages(st.session_state.get("fidc_book_query", ""))
     filtered_page_ids = {page.page_id for page in filtered_pages}
     available_sections = tuple(
@@ -193,8 +218,25 @@ def render_tab_fidc_book() -> None:
         st.info("Nenhuma página encontrada.")
         return
 
-    section_tabs = st.tabs([_section_tab_label(section) for section in available_sections])
-    current_page = _current_page(index, filtered_page_ids)
+    section_labels = [_section_tab_label(section) for section in available_sections]
+    requested_section_label = next(
+        (
+            _section_tab_label(section)
+            for section in available_sections
+            if requested_page is not None and section.section_id == requested_page.section_id
+        ),
+        None,
+    )
+    selected_section_label = requested_section_label or st.session_state.get("fidc_book_section_tab")
+    if selected_section_label not in section_labels:
+        selected_section_label = section_labels[0]
+    st.session_state["fidc_book_section_tab"] = selected_section_label
+    section_tabs = st.tabs(
+        section_labels,
+        default=selected_section_label,
+        key="fidc_book_section_tab",
+        on_change="rerun",
+    )
     for section, tab in zip(available_sections, section_tabs, strict=False):
         with tab:
             section_pages = tuple(page for page in section.pages if page.page_id in filtered_page_ids)
@@ -202,7 +244,11 @@ def render_tab_fidc_book() -> None:
                 st.info("Nenhuma página encontrada nesta seção.")
                 continue
             page_lookup = {page.page_id: page for page in section_pages}
-            default_page_id = current_page.page_id if current_page and current_page.page_id in page_lookup else section_pages[0].page_id
+            default_page_id = (
+                requested_page.page_id
+                if requested_page is not None and requested_page.page_id in page_lookup
+                else section_pages[0].page_id
+            )
             if st.session_state.get(f"fidc_book_page_id::{section.section_id}") not in page_lookup:
                 st.session_state[f"fidc_book_page_id::{section.section_id}"] = default_page_id
             left_col, right_col = st.columns([0.92, 2.28], gap="large")
@@ -210,7 +256,6 @@ def render_tab_fidc_book() -> None:
                 page_id = st.selectbox(
                     "Páginas",
                     options=[page.page_id for page in section_pages],
-                    index=[page.page_id for page in section_pages].index(default_page_id),
                     format_func=lambda value: page_lookup[value].title,
                     key=f"fidc_book_page_id::{section.section_id}",
                     label_visibility="collapsed",
@@ -226,14 +271,16 @@ def _section_tab_label(section) -> str:
     return section.title
 
 
-def _current_page(index: FIDCBookIndex, filtered_page_ids: set[str]) -> FIDCBookPage | None:
-    page_id = st.session_state.get("fidc_book_page_id")
-    if page_id and page_id in filtered_page_ids:
-        try:
-            return index.page_by_id(page_id)
-        except KeyError:
-            return None
-    return None
+def _requested_page(index: FIDCBookIndex) -> FIDCBookPage | None:
+    page_id = st.query_params.get("book_page")
+    if isinstance(page_id, list):
+        page_id = page_id[-1] if page_id else None
+    if not page_id:
+        return None
+    try:
+        return index.page_by_id(str(page_id))
+    except KeyError:
+        return None
 
 
 def _render_page(index: FIDCBookIndex, page: FIDCBookPage) -> None:
@@ -247,7 +294,7 @@ def _render_page(index: FIDCBookIndex, page: FIDCBookPage) -> None:
         ),
         unsafe_allow_html=True,
     )
-    st.markdown(index.load_page_body(page))
+    st.markdown(index.load_page_body_for_app(page), unsafe_allow_html=True)
 
     public_sources = [
         index.sources[source_id]
@@ -257,5 +304,5 @@ def _render_page(index: FIDCBookIndex, page: FIDCBookPage) -> None:
     if public_sources:
         with st.expander("Sobre a base", expanded=False):
             for source in public_sources:
-                notes = f" — {source.notes}" if source.notes else ""
-                st.markdown(f"- **{source.title}** · [link oficial]({source.location}){notes}")
+                notes = f": {source.notes}" if source.notes else ""
+                st.markdown(f"- **{source.title}** | [link oficial]({source.location}){notes}")

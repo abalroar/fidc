@@ -3,8 +3,10 @@
 As evidências contratuais abaixo foram conferidas no corpus primário. O script
 reabre a página indicada e extrai um trecho curto do próprio PDF, evitando que
 paráfrases editoriais sejam apresentadas como citação. Frequências usam apenas
-os 15 fundos com regulamento/anexo substantivo; o PAN Auto não entra no
-denominador contratual e FIC-FIDCs não entram em práticas do crédito subjacente.
+os 15 fundos com regulamento/anexo substantivo; cinco leituras pontuais adicionais
+sustentam exemplos, mas não ampliam artificialmente o denominador. O PAN Auto não
+entra no denominador contratual e FIC-FIDCs não entram em práticas do crédito
+subjacente.
 """
 
 from __future__ import annotations
@@ -42,6 +44,14 @@ FUND_DOCUMENT: dict[str, str] = {
     "63953619000130": "fnet_reg_1222863",
 }
 
+TARGETED_DOCUMENT: dict[str, str] = {
+    "11489344000122": "fnet_reg_1127150",
+    "17250006000110": "fnet_reg_1090771",
+    "42154687000160": "fnet_reg_1223029",
+    "50473039000102": "fnet_reg_909547",
+    "62588266000154": "fnet_reg_1002580",
+}
+
 FUNCTIONAL_TAXONOMY = {
     "09195235000150": "recebíveis de empresas do Sistema Petrobras",
     "26286939000158": "meios de pagamento",
@@ -58,6 +68,11 @@ FUNCTIONAL_TAXONOMY = {
     "62393679000183": "meios de pagamento",
     "63700113000110": "crédito privado multicarteira",
     "63953619000130": "consignado privado",
+    "11489344000122": "crédito privado multissetorial com garantias",
+    "17250006000110": "crédito privado com garantias reais",
+    "42154687000160": "crédito corporativo",
+    "50473039000102": "meios de pagamento",
+    "62588266000154": "consignado",
 }
 
 TEMPLATE_FAMILY = {
@@ -76,6 +91,11 @@ TEMPLATE_FAMILY = {
     "63700113000110": "itau_nc",
     "62393679000183": "cloudwalk_bela",
     "63953619000130": "mt_global",
+    "11489344000122": "red",
+    "17250006000110": "red",
+    "42154687000160": "multiplike",
+    "50473039000102": "seller",
+    "62588266000154": "vtk_facta",
 }
 
 
@@ -123,6 +143,79 @@ CONTRACT_EVIDENCE: list[tuple[Any, ...]] = [
     ("aging contratual", "42922136000107", 42, "art. 13.2", r"1 a 30|31 a 60|61 a 90|91", "desempenho", "Faixas contratuais podem divergir da granularidade do Informe Mensal.", "específica de fundo", "expandir"),
     ("provisão versus perda", "26286939000158", 105, "art. 12.2", r"provisões|perdas reconhecidas", "desempenho e contabilidade", "Provisão e perda reconhecida são registros diferentes.", "prática recorrente", "corrigir"),
     ("provisão versus perda", "52610624000124", 43, "art. 6.1.3", r"provisões|perdas", "desempenho e contabilidade", "Política de mensuração deve distinguir estimativa e perda reconhecida.", "prática recorrente", "corrigir"),
+]
+
+
+# Leituras pontuais fora do denominador de prevalência dos 15 regulamentos
+# substantivos. Servem para fórmulas e exemplos contratuais, sem converter
+# thresholds específicos em prática universal.
+TARGETED_EVIDENCE: list[tuple[Any, ...]] = [
+    (
+        "índice de cobertura contratual",
+        "42154687000160",
+        55,
+        "arts. 8.13 e 8.14",
+        r"Índices de Cobertura|índice de Cobertura Sênior",
+        "métricas estruturais e liquidez",
+        "Razão contratual entre ativos ajustados e obrigações protegidas; a composição e o limite pertencem ao documento.",
+        "prática recorrente; leitura pontual fora do denominador de prevalência",
+        "expandir",
+    ),
+    (
+        "índice de cobertura contratual",
+        "50473039000102",
+        46,
+        "definições de Índice de Cobertura Sênior e Mezanino",
+        r"Índice de Cobertura Sênior",
+        "métricas estruturais e liquidez",
+        "Razão contratual entre ativos ajustados e obrigações protegidas; a composição e o limite pertencem ao documento.",
+        "prática recorrente; leitura pontual fora do denominador de prevalência",
+        "expandir",
+    ),
+    (
+        "taxa de pré-pagamento",
+        "62588266000154",
+        114,
+        "definição de Índice de Pré-Pagamento",
+        r"Índice de Pré.?Pagamento",
+        "desempenho e liquidez",
+        "Exemplo contratual de taxa de pré-pagamento com janela e base próprias; não é fórmula universal.",
+        "específica de fundo; leitura pontual fora do denominador de prevalência",
+        "expandir",
+    ),
+    (
+        "refinanciamento tratado como pré-pagamento",
+        "62588266000154",
+        118,
+        "definição de Pré-Pagamento",
+        r"Pré.?Pagamento.*Significa|refinanciamento da dívida",
+        "desempenho e liquidez",
+        "Em um contrato, o refinanciamento quita a CCB anterior e integra a definição de pré-pagamento; isso não cria uma fórmula universal de índice de refinanciamento.",
+        "específica de fundo; leitura pontual fora do denominador de prevalência",
+        "conflito",
+    ),
+    (
+        "relação dívida-garantia (Loan-to-Value, LTV)",
+        "11489344000122",
+        67,
+        "definição de LTV",
+        r"LTV Significa|Loan to Value",
+        "garantias e concentração",
+        "Relação contratual entre saldo do direito creditório e valor elegível da garantia.",
+        "específica de template; leitura pontual fora do denominador de prevalência",
+        "novo",
+    ),
+    (
+        "relação dívida-garantia (Loan-to-Value, LTV)",
+        "17250006000110",
+        51,
+        "definição de LTV",
+        r"LTV Significa|Loan to Value",
+        "garantias e concentração",
+        "Relação contratual entre saldo do direito creditório e valor elegível da garantia.",
+        "específica de template; leitura pontual fora do denominador de prevalência",
+        "novo",
+    ),
 ]
 
 
@@ -236,6 +329,16 @@ def build_evidence(report_dir: Path) -> pd.DataFrame:
     selection["cnpj_fundo"] = selection["cnpj_fundo"].map(_normalize_cnpj)
     selected = selection.set_index("cnpj_fundo")
     documents = _load_documents()
+    coverage = pd.read_csv(
+        report_dir / "document_coverage.csv",
+        dtype={"cnpj_fundo": str, "documento_id": str},
+        low_memory=False,
+    )
+    coverage_paths = {
+        str(row.documento_id): str(row.caminho_local)
+        for row in coverage.itertuples()
+        if pd.notna(row.documento_id) and pd.notna(row.caminho_local)
+    }
     rows: list[dict[str, Any]] = []
 
     for term, source_id, article, excerpt, category, claim_type, status in NORMATIVE_EVIDENCE:
@@ -304,41 +407,50 @@ def build_evidence(report_dir: Path) -> pd.DataFrame:
             }
         )
 
-    for term, cnpj, page, clause, pattern, category, definition, claim_type, status in CONTRACT_EVIDENCE:
-        cnpj = _normalize_cnpj(cnpj)
-        document_id = FUND_DOCUMENT[cnpj]
-        document = documents[document_id]
-        path = ROOT / document["local_path"]
-        selection_row = selected.loc[cnpj]
-        rows.append(
-            {
-                "termo_canonico": term,
-                "aliases_grafias": "",
-                "termo_legado_pre_rcvm175": "",
-                "categoria": category,
-                "definicao_proposta": definition,
-                "tipo_afirmacao": claim_type,
-                "cnpj_fundo": cnpj,
-                "fundo": selection_row["nome"],
-                "segmento_oficial": selection_row["segmento_oficial_tabela_ii"],
-                "subtipo_funcional_documental": FUNCTIONAL_TAXONOMY[cnpj],
-                "pl": float(selection_row["pl_agregado"]),
-                "familia_documental_independente": TEMPLATE_FAMILY[cnpj],
-                "documento": document["title"],
-                "documento_id": document["fundosnet_id"],
-                "documento_cnpj": document["cnpj"],
-                "data_versao": document["document_date"] + "; " + document["version"],
-                "pagina": page,
-                "secao_clausula_artigo": clause,
-                "trecho_curto": _snippet(path, page, pattern),
-                "trecho_tipo": "extração do PDF primário na página conferida",
-                "sha256": document["sha256"],
-                "confianca": "alta",
-                "status": status,
-                "fonte_primaria": document["official_url"],
-                "fonte_metodologica": "",
-            }
-        )
+    evidence_groups = (
+        (CONTRACT_EVIDENCE, FUND_DOCUMENT),
+        (TARGETED_EVIDENCE, TARGETED_DOCUMENT),
+    )
+    for evidence_items, document_map in evidence_groups:
+        for term, cnpj, page, clause, pattern, category, definition, claim_type, status in evidence_items:
+            cnpj = _normalize_cnpj(cnpj)
+            document_id = document_map[cnpj]
+            document = documents[document_id]
+            declared_path = str(document.get("local_path") or "")
+            path_value = declared_path or coverage_paths.get(str(document["fundosnet_id"]), "")
+            if not path_value:
+                raise FileNotFoundError(f"Caminho primário não localizado para {document_id}")
+            path = ROOT / path_value
+            selection_row = selected.loc[cnpj]
+            rows.append(
+                {
+                    "termo_canonico": term,
+                    "aliases_grafias": "",
+                    "termo_legado_pre_rcvm175": "",
+                    "categoria": category,
+                    "definicao_proposta": definition,
+                    "tipo_afirmacao": claim_type,
+                    "cnpj_fundo": cnpj,
+                    "fundo": selection_row["nome"],
+                    "segmento_oficial": selection_row["segmento_oficial_tabela_ii"],
+                    "subtipo_funcional_documental": FUNCTIONAL_TAXONOMY[cnpj],
+                    "pl": float(selection_row["pl_agregado"]),
+                    "familia_documental_independente": TEMPLATE_FAMILY[cnpj],
+                    "documento": document["title"],
+                    "documento_id": document["fundosnet_id"],
+                    "documento_cnpj": document["cnpj"],
+                    "data_versao": document["document_date"] + "; " + document["version"],
+                    "pagina": page,
+                    "secao_clausula_artigo": clause,
+                    "trecho_curto": _snippet(path, page, pattern),
+                    "trecho_tipo": "extração do PDF primário na página conferida",
+                    "sha256": document["sha256"],
+                    "confianca": "alta",
+                    "status": status,
+                    "fonte_primaria": document["official_url"],
+                    "fonte_metodologica": "",
+                }
+            )
 
     evidence = pd.DataFrame(rows)
     evidence.to_csv(report_dir / "evidence_long.csv", index=False)
@@ -390,8 +502,18 @@ def build_candidates(report_dir: Path) -> pd.DataFrame:
             if value and value not in {"norma", "convenção analítica"}
         }
         methodological = any("convenção analítica" in value for value in group["tipo_afirmacao"])
+        targeted = all("fora do denominador de prevalência" in value for value in group["tipo_afirmacao"])
         no_fund_denominator = "não aplicável — convenção analítica" if methodological else "não aplicável — base normativa"
         no_fund_scope = "convenção analítica auditada; não implica prática de mercado" if methodological else "conceito de base normativa"
+        denominator_value: Any = len(denominator) if funds else no_fund_denominator
+        equal_weight: Any = (len(funds) / len(denominator)) if funds else ""
+        weighted_pl: Any = (float(subset["pl_agregado"].sum()) / denominator_pl) if funds else ""
+        candidate_scope = "candidato atômico; frequência não implica prática de mercado" if funds else no_fund_scope
+        if targeted:
+            denominator_value = "não aplicável — leitura pontual fora do denominador"
+            equal_weight = ""
+            weighted_pl = ""
+            candidate_scope = "evidência contratual pontual; não usada em prevalência"
         rows.append(
             {
                 "termo_canonico": term,
@@ -400,16 +522,16 @@ def build_candidates(report_dir: Path) -> pd.DataFrame:
                 "definicao_proposta": group.iloc[0]["definicao_proposta"],
                 "tipo_afirmacao": ";".join(sorted(set(group["tipo_afirmacao"]))),
                 "fundos_com_evidencia": len(funds),
-                "denominador_documentacao_suficiente": len(denominator) if funds else no_fund_denominator,
-                "frequencia_equal_weight": (len(funds) / len(denominator)) if funds else "",
-                "frequencia_ponderada_pl": (float(subset["pl_agregado"].sum()) / denominator_pl) if funds else "",
+                "denominador_documentacao_suficiente": denominator_value,
+                "frequencia_equal_weight": equal_weight,
+                "frequencia_ponderada_pl": weighted_pl,
                 "familias_economicas_independentes": len(families),
                 "administradores_distintos": int(subset["admin_cnpj"].replace("", pd.NA).nunique()) if funds else 0,
                 "gestores_distintos": int(subset["gestor_cnpj"].replace("", pd.NA).nunique()) if funds else 0,
                 "segmentos_oficiais": ";".join(sorted(set(subset["segmento_oficial_tabela_ii"].dropna()))) if funds else "",
                 "cnpjs_com_evidencia": ";".join(funds),
                 "exclui_fic_fidc": True,
-                "escopo_calculo": "candidato atômico; frequência não implica prática de mercado" if funds else no_fund_scope,
+                "escopo_calculo": candidate_scope,
                 "status": ";".join(sorted(set(group["status"]))),
             }
         )

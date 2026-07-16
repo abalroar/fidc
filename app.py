@@ -364,8 +364,11 @@ def _render_main_nav() -> str:
 
 
 selected_section = st.session_state.get("fidc_main_section")
-if selected_section not in _MAIN_SECTION_LABELS:
-    st.session_state["fidc_main_section"] = _current_main_section()
+requested_section = _current_main_section() if "section" in st.query_params else None
+if requested_section is not None:
+    st.session_state["fidc_main_section"] = requested_section
+elif selected_section not in _MAIN_SECTION_LABELS:
+    st.session_state["fidc_main_section"] = _DEFAULT_SECTION
 
 if "section" in st.query_params:
     st.query_params.pop("section", None)

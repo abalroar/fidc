@@ -1,73 +1,87 @@
-# Fundo, classe, subclasse, série, cota e waterfall
+# Fundo, classe, subclasse, série, cota e cascata de pagamentos
 
-## A arquitetura sob a RCVM 175
+## A hierarquia da RCVM 175
 
-| Nível | Função | Patrimônio segregado próprio? |
-|---|---|---:|
-| Fundo | condomínio especial e estrutura de governança | não é o nível a usar isoladamente quando há múltiplas classes |
-| Classe | reúne ativos, passivos e cotistas sob política e responsabilidade patrimonial próprias | sim |
-| Subclasse | diferencia direitos econômicos e políticos dentro da classe | não |
-| Série | subconjunto de cotas seniores de classe fechada, quando diferenciado por prazo, amortização e/ou índice referencial | não |
-| Cota | fração do patrimônio da classe | não |
+Resolução da Comissão de Valores Mobiliários (RCVM) 175:
 
-O art. 5º da Parte Geral atribui patrimônio segregado à classe e veda parcela patrimonial afetada à subclasse. O art. 14 define cota como fração patrimonial da classe. No FIDC, sênior, mezanino e subordinada são subclasses conforme o art. 2º do Anexo II.
+- **Fundo**
+  - É o veículo e o nível de governança. Pode abrigar uma ou mais classes da mesma categoria.
+  - **Classe A: patrimônio segregado A**
+    - Reúne ativos, passivos, despesas e cotistas vinculados à Classe A.
+    - **Subclasse sênior**
+      - Tem a prioridade definida no regulamento.
+      - **Série 1**, se admitida
+        - **Cotas da Série 1:** frações patrimoniais detidas pelos investidores.
+      - **Série 2**, se admitida
+        - **Cotas da Série 2**
+    - **Subclasse mezanino**
+      - Subordina-se à sênior e tem prioridade sobre a camada indicada abaixo dela.
+      - Em classe fechada, suas cotas também podem ser organizadas em séries quando as condições normativas e documentais forem atendidas.
+    - **Subclasse subordinada**
+      - Fica abaixo das demais nos direitos definidos pelo regulamento.
+  - **Classe B: patrimônio segregado B**
+    - Possui carteira e obrigações próprias. Não cobre automaticamente a Classe A.
 
-## Senioridade
+Essa hierarquia serve para responder **qual carteira gera o caixa**, **qual patrimônio responde pela dívida** e **qual cota recebe resultado ou perda em cada ordem**.
 
-- **Sênior:** não se subordina às demais subclasses para amortização, resgate e apropriação de resultados, nos termos do regulamento.
-- **Mezanino:** subordina-se à sênior, mas tem prioridade sobre outra subclasse subordinada especificada.
-- **Subordinada:** subordina-se às demais para os direitos definidos.
+## Subordinação vem primeiro na análise
 
-“Júnior” é uso de mercado para a camada mais subordinada, não substitui a designação do documento. “Tranche” é rótulo econômico ou legado: antes de usar, identifique se corresponde a subclasse, série, emissão ou simples faixa analítica.
+- **Sênior:** não se subordina às demais subclasses para amortização, resgate e apropriação de resultados, conforme o regulamento.
+- **Mezanino:** fica abaixo da sênior e acima de outra subclasse subordinada especificada.
+- **Subordinada:** fica abaixo das demais nos direitos definidos.
+- **Júnior:** nome de mercado para a camada mais subordinada. Confirme a designação jurídica no documento.
 
-## Série não é subclasse
+O **índice de subordinação contratual** é a relação mínima, em percentual, entre o valor computável da subclasse indicada e o **patrimônio líquido (PL)** da classe:
 
-As séries admitidas pelo Anexo II pertencem à subclasse sênior de classe fechada e podem diferir por prazos, amortizações e índice referencial. Elas não devem ser contadas como novos fundos ou novas classes. Uma emissão, por sua vez, é o ato que cria e coloca cotas; pode coincidir ou não com a série nomeada.
+`índice de subordinação = valor computável da subclasse / PL da classe`
 
-## Índice de subordinação
-
-Normativamente, o índice é a relação mínima, expressa em percentual, entre o valor de uma subclasse subordinada ou mezanino e o patrimônio líquido da classe. O documento define qual subclasse, momento, método e consequência.
-
-O proxy agregado do painel:
+O documento precisa definir **qual subclasse**, **qual valor**, **qual data**, **qual frequência** e **qual consequência**. A aproximação do painel:
 
 `(PL mezanino + PL subordinado residual) / PL total reportado`
 
-é uma convenção analítica. Pode divergir do índice contratual por séries, subclasses específicas, valores negativos, classes múltiplas, cotas mantidas em tesouraria, data de cálculo e regras do regulamento.
+é uma convenção analítica. Pode divergir do contrato por séries, ajustes, valores negativos, classes múltiplas e regras específicas.
 
-## Três ordens que não devem ser fundidas
+## Série não é subclasse
 
-### Waterfall de caixa
+- **Subclasse:** muda a posição econômica ou política das cotas dentro da classe.
+- **Série:** organiza cotas de uma subclasse admitida em classe fechada e pode diferenciar prazo, amortização ou índice referencial nas condições do Anexo II.
+- **Emissão:** ato que cria determinado lote de cotas. Não é um nível patrimonial.
+- **Oferta:** processo de distribuir essas cotas. Também não é um nível patrimonial.
+- **Tranche:** rótulo econômico. Antes de usar, identifique se o documento está falando de subclasse, série, emissão ou faixa analítica.
 
-Ordem em que recebimentos disponíveis pagam despesas, reservas, remuneração, amortização e demais obrigações.
+## Três ordens diferentes
 
-### Apropriação de resultados
+- **Cascata de pagamentos, ou waterfall de caixa:** diz como o caixa disponível paga despesas, reservas, remuneração, amortização e outras obrigações.
+- **Apropriação de resultados:** diz como valorização e desvalorização são atribuídas às subclasses.
+- **Absorção de perdas:** diz como a perda reduz o valor patrimonial de cada camada.
 
-Regra contábil/econômica que atribui valorização ou desvalorização às subclasses.
+Essas ordens se relacionam, mas não são iguais. Subordinação não permite afirmar que “os primeiros X% de perda” serão sempre absorvidos antes da sênior: despesas, composição da carteira, índice vigente e regras de caixa alteram o efeito.
 
-### Absorção de perdas
+## Tradução do regime anterior
 
-Ordem em que a perda reduz valor patrimonial. A subordinação cria prioridade, mas não autoriza afirmar que “os primeiros X% de perda” serão sempre absorvidos antes da sênior. O efeito depende de índice vigente, composição, despesas, waterfall e texto contratual.
+| Documento anterior pode dizer | Função provável | Leitura sob a arquitetura atual |
+|---|---|---|
+| **classe ou cotas seniores** | camada prioritária | subclasse sênior, após conferir a adaptação |
+| **cotas subordinadas mezanino** | camada intermediária | subclasse mezanino |
+| **cotas subordinadas júnior** | camada residual | subclasse subordinada |
+| **série sênior** | diferenciação de prazo ou remuneração | série dentro da subclasse admitida no documento vigente |
+| **fundo como único patrimônio** | conjunto patrimonial anterior | pode corresponder hoje a uma classe; não presuma |
 
-## Por que importa para o risco
+## Perguntas para o analista
 
-O analista deve medir:
+- **Proteção:** qual é a subordinação contratual e qual é a subordinação efetiva hoje?
+- **Cobertura:** ativos elegíveis e reservas cobrem passivos, despesas e juros acumulados?
+- **Tempo:** qual série amortiza primeiro e a carteira produz caixa na mesma data?
+- **Liberação:** a camada subordinada pode ser amortizada antes do fim da estrutura?
+- **Gatilhos:** quais eventos retêm caixa, encerram reinvestimento ou mudam prioridade?
+- **Nova emissão:** novas cotas diluem proteção, votos ou remuneração de alguma camada?
 
-1. subordinação efetiva e contratual;
-2. ativos elegíveis versus passivos e despesas;
-3. prioridade entre séries e datas de amortização;
-4. possibilidade de amortização da camada subordinada;
-5. gatilhos que retêm caixa ou mudam prioridade;
-6. risco de diluição por nova emissão;
-7. descasamento entre caixa da carteira e obrigação das cotas.
+**Subordinação é proteção de crédito, não caixa.** Uma classe pode ter colchão patrimonial e ainda enfrentar falta de liquidez na data de pagamento.
 
-Subordinação é reforço de crédito, não liquidez. Um nível patrimonial alto pode não produzir caixa na data necessária.
+## Informe Mensal e documentos
 
-## O que o Informe Mensal captura
+- **O reporte ajuda a observar:** patrimônio líquido, valores de cotas e movimentações no nível informado.
+- **A Tabela X.2 pode listar:** subclasses e séries. Essas linhas não são novos fundos.
+- **O regulamento e o instrumento de emissão definem:** cascata de pagamentos, índice contratual, remuneração, amortização, correção de desenquadramento, votos e prioridade.
 
-O reporte permite observar PL e valores de cotas no nível informado, além de movimentações. A Tabela X.2 pode conter subclasses/séries; essas linhas não são fundos adicionais. O informe não entrega integralmente waterfall, índice contratual, teste de cobertura ou prioridade de cada emissão.
-
-## O que exige regulamento ou emissão
-
-Definição das subclasses, séries, remuneração, amortização, índice de subordinação, cura, consequência de desenquadramento, votos e waterfall. Use a versão vigente da classe e o instrumento aplicável à emissão.
-
-Base normativa: RCVM 175, Parte Geral, arts. 5º e 14; Anexo Normativo II, arts. 2º, 8º e 13. Verificação: **16/07/2026**.
+Base normativa: Resolução CVM 175, Parte Geral, arts. 5º e 14; Anexo Normativo II, arts. 2º, 8º e 13. Verificação: **16/07/2026**.

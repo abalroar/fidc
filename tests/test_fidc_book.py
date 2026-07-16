@@ -36,7 +36,7 @@ class FIDCBookTests(unittest.TestCase):
         self.assertGreaterEqual(len(self.index.concepts), 45)
         self.assertGreaterEqual(len(self.index.metrics), 25)
         self.assertEqual(len(self.index.reference_funds), 10)
-        self.assertEqual(len(self.index.document_entries), 16)
+        self.assertEqual(len(self.index.document_entries), 21)
         self.assertIn("rcvm_175_page", self.index.sources)
         self.assertIn("cvm_dados_abertos_fidc", self.index.sources)
         self.assertNotIn("seller_regulamento", self.index.sources)
@@ -59,10 +59,45 @@ class FIDCBookTests(unittest.TestCase):
     def test_overview_uses_current_terminology(self) -> None:
         markdown = self.index.load_page_markdown(self.index.page_by_id("overview"))
         self.assertIn("Guia de uso do Glossário de FIDCs", markdown)
-        self.assertIn("segmento oficial da Tabela II do Informe Mensal", markdown)
-        self.assertIn("taxonomia funcional documental", markdown)
+        self.assertIn("segmento oficial da tabela ii do informe mensal", markdown.lower())
+        self.assertIn("taxonomia funcional documental", markdown.lower())
         self.assertIn("Sem segmentação IME", markdown)
         self.assertNotIn("Informe Mensal Estruturado", markdown)
+
+    def test_internal_markdown_links_resolve_and_render_as_app_routes(self) -> None:
+        link_pattern = re.compile(r"\[[^\]]+\]\(([^)\s]+\.md(?:#[^)\s]+)?)\)")
+        resolved_links = 0
+        for page in self.index.pages:
+            markdown = self.index.load_page_markdown(page)
+            for target in link_pattern.findall(markdown):
+                linked_page = self.index.page_for_markdown_link(page, target)
+                self.assertIsNotNone(linked_page, f"{page.page_id}: {target}")
+                resolved_links += 1
+
+            rendered = self.index.load_page_body_for_app(page)
+            self.assertNotRegex(rendered, r"\]\([^)\s]+\.md(?:#[^)\s]+)?\)")
+
+        self.assertGreaterEqual(resolved_links, 12)
+
+        overview = self.index.page_by_id("overview")
+        rendered_overview = self.index.load_page_body_for_app(overview)
+        expected_ids = {
+            "o-que-e-fidc",
+            "participantes",
+            "classes-cotas-waterfall",
+            "cessao-e-resolucao",
+            "informe-mensal-tabela-ii",
+            "metricas-estruturais",
+            "provisao-perdas-e-inadimplencia",
+            "eventos-avaliacao-liquidacao",
+            "fundos-de-referencia",
+            "referencias",
+        }
+        for page_id in expected_ids:
+            self.assertIn(f"?section=glossario&book_page={page_id}", rendered_overview)
+
+        self.assertIsNone(self.index.page_for_markdown_link(overview, "https://example.com/page.md"))
+        self.assertIsNone(self.index.page_for_markdown_link(overview, "../../outside.md"))
 
     def test_ids_are_unique_and_cross_references_exist(self) -> None:
         raw_groups = [
@@ -98,8 +133,16 @@ class FIDCBookTests(unittest.TestCase):
             self.assertTrue(set(document.page_ids).issubset(page_ids), document.document_id)
 
     def test_declared_local_documents_exist(self) -> None:
+        allowed_statuses = {
+            "lido",
+            "ausente",
+            "não aplicável",
+            "inacessível",
+            "OCR necessário",
+            "cache-only",
+        }
         for document in self.index.document_entries:
-            self.assertTrue(document.local_status, document.document_id)
+            self.assertIn(document.local_status, allowed_statuses, document.document_id)
             if document.local_path:
                 path = ROOT / document.local_path
                 self.assertTrue(path.is_file(), document.local_path)
@@ -135,10 +178,45 @@ class FIDCBookTests(unittest.TestCase):
             "classe subordinada": "classes-cotas-waterfall",
             "revolving period": "reforcos-revolvencia-liquidez",
             "auditoria de lastro": "lastro-rating-reporting",
+            "loan to value": "recebiveis-financeiros",
+            "weighted average life": "metricas-estruturais",
+            "dcv": "metricas-estruturais",
         }
         for query, expected_page in cases.items():
             page_ids = {page.page_id for page in self.index.search_pages(query)}
             self.assertIn(expected_page, page_ids, query)
+
+    def test_guardrail_aliases_and_sources_are_auditable(self) -> None:
+        metrics = {metric.metric_id: metric for metric in self.index.metrics}
+        concepts = {concept.concept_id: concept for concept in self.index.concepts}
+
+        self.assertNotIn("DCV", metrics["taxa_diluicao"].aliases)
+        self.assertEqual(metrics["taxa_diluicao"].source_ids, ("glossary_methodology_20260716",))
+        self.assertEqual(
+            set(metrics["indice_cobertura"].source_ids),
+            {"fnet_reg_1223029", "fnet_reg_909547"},
+        )
+        self.assertEqual(metrics["excesso_spread"].source_ids, ("glossary_methodology_20260716",))
+        self.assertIn("dcv_sigla_contratual", concepts)
+        self.assertIn("DCV não é alias de diluição", concepts["dcv_sigla_contratual"].summary)
+        self.assertIn("ltv", metrics)
+        self.assertEqual(set(metrics["ltv"].source_ids), {"fnet_reg_1127150", "fnet_reg_1090771"})
+        self.assertNotIn("CPR de pré-pagamento", metrics["taxa_pre_pagamento"].aliases)
+
+    def test_aliases_do_not_point_to_different_canonical_ids(self) -> None:
+        owners: dict[str, set[str]] = {}
+        for entry in (*self.index.concepts, *self.index.metrics):
+            canonical_id = getattr(entry, "concept_id", None) or getattr(entry, "metric_id")
+            for alias in entry.aliases:
+                normalized = re.sub(r"\s+", " ", alias.casefold()).strip()
+                owners.setdefault(normalized, set()).add(canonical_id)
+
+        conflicts = {
+            alias: sorted(canonical_ids)
+            for alias, canonical_ids in owners.items()
+            if len(canonical_ids) > 1
+        }
+        self.assertEqual(conflicts, {})
 
     def test_related_documents_concepts_and_metrics_are_consistent(self) -> None:
         page = self.index.page_by_id("metricas-estruturais")
@@ -168,7 +246,10 @@ class FIDCBookTests(unittest.TestCase):
         self.assertEqual(actual, expected)
         self.assertIn("Subordinação reportada (IME)", actual)
         self.assertIn("Sem segmentação IME", actual)
-        self.assertIn("acima de 1.080 dias", actual["Aging da inadimplência"])
+        self.assertIn(
+            "acima de 1.080 dias",
+            actual["Distribuição por idade da inadimplência (aging)"],
+        )
         self.assertNotIn("Quanto maior, mais protegido", " ".join(actual.values()))
 
     def test_selection_ledger_has_exactly_100_unique_funds(self) -> None:

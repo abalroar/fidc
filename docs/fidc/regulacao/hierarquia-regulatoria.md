@@ -1,48 +1,87 @@
 # Mapa normativo: RCVM 175, 160, 30 e reporte
 
-Não existe uma única “norma do FIDC”. Cada fonte responde a uma pergunta diferente, e a versão vigente na data do fato deve ser preservada.
+Não existe uma única norma que responda a tudo sobre um **Fundo de Investimento em Direitos Creditórios (FIDC)**. Use este mapa para localizar **qual documento responde à sua pergunta**.
 
-## RCVM 175: fundo, classe e funcionamento
+## RCVM 175: como o fundo funciona
 
-A Parte Geral regula constituição, classes, patrimônio segregado, cotas, prestadores, divulgação e governança dos fundos. O Anexo Normativo II acrescenta o regime específico dos FIDCs: direitos creditórios, subclasses, séries, política de investimento, verificação de lastro, registro/custódia, composição e demonstrações periódicas.
+A **Resolução da Comissão de Valores Mobiliários (RCVM) 175** organiza os fundos de investimento.
 
-A página oficial da CVM é o ponto de entrada para a consolidação e os atos alteradores. Na verificação de 16/07/2026, o texto incorporava alterações até a RCVM 240/2026. Uma citação contratual histórica deve ser analisada à luz da norma vigente naquela data, não apenas do PDF consolidado atual.
+- **Parte Geral:** explica fundo, classe, patrimônio segregado, cota, prestadores, divulgação, assembleias, responsabilidade e liquidação.
+- **Anexo Normativo II:** acrescenta as regras específicas de FIDC, como direitos creditórios, subclasses, séries, política, lastro, registro, custódia e informações periódicas.
+- **Para o analista:** use a norma para entender o desenho permitido e as responsabilidades mínimas. Use o regulamento para descobrir qual desenho foi efetivamente escolhido.
 
-## RCVM 160: distribuição pública
+A página oficial da Comissão de Valores Mobiliários (CVM) reúne o texto consolidado e os atos que o alteraram. Em 16/07/2026, a consolidação incorporava mudanças até a RCVM 240/2026. Para um evento histórico, consulte também a redação vigente na data do fato.
 
-Regula ofertas públicas de valores mobiliários. O rito — automático ou ordinário —, o público-alvo, os documentos, a publicidade, as restrições de negociação e os deveres dos coordenadores dependem do enquadramento concreto. “Registro automático” não significa ausência de documentos nem qualidade creditícia; “rito ordinário” não autoriza presumir um conjunto idêntico de documentos em toda oferta.
+## RCVM 160: como uma oferta pública funciona
 
-## RCVM 30: categorias e suitability
+A **RCVM 160** regula a distribuição pública, primária ou secundária, de valores mobiliários. Em um FIDC, ela entra quando cotas são oferecidas ao mercado.
 
-Define investidor profissional, qualificado e varejo e disciplina deveres de verificação de adequação. A categoria de investidor não é uma métrica de risco do fundo. Para saber quem pode subscrever ou negociar determinada emissão, leia em conjunto norma, regulamento, anexo, instrumento e documentos da oferta.
+O fluxo básico é:
 
-## Contabilidade e demonstrações
+1. **Aprovar a emissão:** a estrutura define quantidade de cotas, preço, público, remuneração, amortização e direitos.
+2. **Montar a oferta:** ofertante e coordenador organizam os documentos, a comunicação e o procedimento de colocação.
+3. **Registrar a distribuição:** o rito pode ser automático, sem análise prévia do conteúdo pela CVM, ou ordinário, com análise prévia.
+4. **Receber ordens e alocar:** investidores subscrevem, os recursos são integralizados e as cotas são distribuídas segundo as regras da oferta.
+5. **Encerrar e acompanhar:** o anúncio de encerramento, as restrições de negociação e os deveres posteriores seguem o enquadramento da oferta.
 
-A ICVM 489 e orientações oficiais correlatas tratam de elaboração e divulgação das demonstrações financeiras de FIDC, inclusive reconhecimento de perdas e avaliação de ativos. Terminologia contábil não deve ser deduzida somente do layout mensal. As regras atuais e os efeitos de transição devem ser conferidos na data-base analisada.
+- **Rito automático:** acelera o registro quando a hipótese normativa permite. A CVM não faz análise prévia do conteúdo dos documentos.
+- **Rito ordinário:** submete o pedido e os documentos à análise prévia da CVM antes do registro.
+- **O que muda de verdade:** público-alvo, tipo de emissão, documentos exigidos, possibilidade de negociação e eventual análise por entidade autorreguladora.
+- **Para o analista:** leia o instrumento da emissão, o prospecto e a lâmina quando exigidos, os anúncios e os fatores de risco. O nome do rito não informa a qualidade do crédito.
 
-## Informe Mensal e padrão de dados
+**Atenção ao número:** a norma geral de ofertas é a **RCVM 160**. A RCVM 170 altera a RCVM 135 e não substitui a RCVM 160 para distribuição pública.
 
-O padrão XML/CVMWeb descreve campos e estruturas de envio. Ele é fonte operacional para ingestão e semântica do reporte, não substitui a RCVM 175 nem o regulamento. A [Tabela II](informe-mensal-tabela-ii.md) classifica os direitos reportados; outras tabelas tratam de carteira, fluxos, atrasos, provisões e cotas.
+## RCVM 30: para quem o produto é adequado
 
-## Ofícios e interpretações
+A **RCVM 30** trata do dever de verificar se produto, serviço e operação são adequados ao perfil do cliente, processo conhecido como suitability.
 
-Ofícios-circulares orientam aplicação e procedimentos. O Ofício-Circular CVM/SSE 8/2023 é relevante para registro, custódia e verificação de lastro. Orientação não deve ser tratada como cláusula automática de todo regulamento.
+- **Investidor profissional e qualificado:** são categorias definidas pela norma com critérios próprios.
+- **Público investidor em geral:** abrange quem não depende dessas categorias para participar da oferta permitida.
+- **Para o analista ou comercial:** confirme quem pode subscrever, quais declarações são necessárias e se há restrição posterior de negociação. Esse teste de adequação ao perfil do cliente também é conhecido como *suitability*.
+- **O que não concluir:** a categoria do investidor não é uma nota de risco do fundo.
 
-## Documentos da estrutura
+## Contabilidade: como perdas chegam às demonstrações
 
-Dentro dos limites normativos, a regra concreta está distribuída entre:
+- **Instrução CVM 489 e orientações oficiais:** tratam da elaboração e divulgação das demonstrações financeiras de FIDC, inclusive reconhecimento de perda e mensuração de ativos.
+- **Para o analista:** use demonstrações e notas para entender política contábil, provisão, baixa, recuperação e partes relacionadas.
+- **Cuidado:** o nome de um campo no Informe Mensal não substitui a política contábil da classe.
 
-1. regulamento do fundo e parte geral;
-2. anexo descritivo da classe;
-3. apêndice ou instrumento da subclasse/série/emissão;
-4. contratos de cessão, endosso, cobrança, garantia e conta;
-5. prospecto, lâmina, anúncios e demais documentos da oferta;
-6. atas, fatos relevantes, demonstrações e relatórios de rating.
+## Informe Mensal: o que pode ser acompanhado todo mês
 
-Em conflito aparente, confirme versão, data de vigência, escopo da classe e se houve alteração ou assembleia. Documento antigo não deve prevalecer por ser o único disponível.
+- O arquivo estruturado do **Informe Mensal** padroniza saldos, composição, atrasos, provisões, fluxos e cotas.
+- A [Tabela II](informe-mensal-tabela-ii.md) separa os direitos em segmentos oficiais; outras tabelas mostram carteira, movimentações e prazos.
+- **Para o analista:** use a série para localizar mudança e testar consistência. Use o regulamento e os relatórios para explicar a mudança.
 
-## Regime legado
+## Ofícios: como a área técnica orienta a aplicação
 
-ICVM 356, ICVM 400 e ICVM 476 aparecem em documentos históricos. Elas ajudam a interpretar atos praticados sob o regime anterior, mas não devem ser citadas como regime atual sem nota temporal. “Oferta com esforços restritos” e “classes sênior/subordinada” são exemplos de linguagem legada que exige tradução cuidadosa.
+- Ofícios-circulares explicam procedimentos e interpretações da área técnica.
+- O **Ofício-Circular da Superintendência de Supervisão de Securitização (SSE) da CVM 8/2023** ajuda a entender registro, custódia e verificação de lastro sob a RCVM 175.
+- Orientação técnica não vira cláusula automática do regulamento. Confira como a classe implementou o tema.
+
+## A árvore de documentos da estrutura
+
+- **Regulamento do fundo**
+  - Regras comuns e governança.
+  - **Anexo descritivo da classe**
+    - Carteira, política, prestadores, concentração, eventos e subclasses.
+    - **Apêndice da subclasse ou instrumento da emissão**
+      - Remuneração, amortização, série, votos e direitos específicos.
+  - **Contratos operacionais**
+    - Cessão, endosso, cobrança, conta, garantia, registro e custódia.
+  - **Documentos da oferta**
+    - Prospecto, lâmina, anúncios e materiais aplicáveis.
+  - **Documentos posteriores**
+    - Atas, fatos relevantes, demonstrações, classificação de risco, ou *rating*, e relatórios periódicos.
+
+Se dois documentos parecem divergir, confira **versão**, **vigência**, **classe**, **subclasse**, **emissão** e **alteração aprovada**. O documento mais fácil de encontrar pode não ser o aplicável.
+
+## Como ler o regime anterior
+
+| Linguagem histórica | Tradução para a leitura atual |
+|---|---|
+| **Instrução CVM (ICVM) 356** | regime anterior de FIDC; use para fatos ocorridos durante sua vigência |
+| **ICVM 400 ou ICVM 476** | regimes anteriores de oferta; a RCVM 160 organiza as distribuições atuais |
+| **oferta com esforços restritos** | expressão do regime da ICVM 476; preserve a data do documento |
+| **classe sênior ou subordinada** | pode corresponder hoje a subclasse; confirme a adaptação do regulamento |
 
 Última verificação das fontes oficiais: **16/07/2026**.

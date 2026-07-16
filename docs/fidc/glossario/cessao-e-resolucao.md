@@ -15,15 +15,21 @@ O descumprimento de elegibilidade não torna automaticamente nula a cessão. A c
 
 ### Cessão
 
-Negócio pelo qual o cedente transfere o crédito. O contrato define objeto, preço, declarações, condições, notificações, responsabilidades e hipóteses de resolução ou indenização.
+- **Função:** o cedente transfere o crédito à classe.
+- **O que conferir:** objeto, preço, declarações, condições, notificações, responsabilidades e hipóteses de resolução ou indenização.
+- **Risco principal:** ter um contrato de cessão não prova, sozinho, existência, exigibilidade, elegibilidade ou lastro de cada crédito.
 
 ### Endosso
 
-Forma de transferência aplicável a títulos à ordem. Seus efeitos e garantias seguem o regime do título e o tipo de endosso; “endossante” não deve ser usado como alias automático de cedente.
+- **Função:** transfere título à ordem quando seu regime jurídico admite essa forma.
+- **O que conferir:** tipo de endosso, cadeia de titulares, poderes de assinatura e garantias resultantes.
+- **Cuidado terminológico:** **endossante** não é sinônimo automático de **cedente**. A função depende do instrumento.
 
 ### Registro ou depósito
 
-Podem ser necessários ou relevantes para constituição, publicidade, controle de titularidade e oponibilidade, conforme o ativo. Registrar não prova sozinho que todos os critérios de elegibilidade foram cumpridos.
+- **Função:** dar constituição, publicidade, controle de titularidade ou oponibilidade, conforme o ativo.
+- **O que conferir:** entidade, ativo abrangido, data, titular registrado e conciliação com a carteira.
+- **Limitação:** registrar não prova sozinho que todos os critérios de elegibilidade foram cumpridos.
 
 ## Coobrigação, regresso e retenção de risco
 
@@ -34,7 +40,8 @@ Podem ser necessários ou relevantes para constituição, publicidade, controle 
 
 ## Elegibilidade e concentração
 
-Critérios de elegibilidade são testes de entrada: documentação, prazo, moeda, status de atraso, tipo de devedor, limite por operação, garantia, canal de originação e ausência de impedimentos. Limites de concentração medem exposição agregada por devedor, cedente, originador, grupo, setor, região ou tipo de ativo.
+- **Elegibilidade individual:** testa documentação, prazo, moeda, estado de atraso, tipo de devedor, limite por operação, garantia, canal de originação e ausência de impedimentos.
+- **Concentração agregada:** mede exposição por devedor, cedente, originador, grupo, setor, região ou tipo de ativo.
 
 Um crédito pode ser elegível isoladamente e provocar desenquadramento de concentração depois da aquisição. A Tabela II mostra concentração entre segmentos oficiais, não substitui os limites contratuais por contraparte.
 
@@ -47,11 +54,14 @@ São remédios distintos:
 - **substituição:** troca do ativo por outro que satisfaça as condições;
 - **indenização:** pagamento por violação de declaração, obrigação ou dano.
 
-Esses mecanismos frequentemente cobrem vício de origem, fraude, documentação ou inelegibilidade. Não os trate como proteção contra inadimplência ordinária sem cláusula expressa. Um threshold observado em uma estrutura não é parâmetro de mercado.
+Esses mecanismos frequentemente cobrem vício de origem, fraude, documentação ou inelegibilidade. Não os trate como proteção contra inadimplência ordinária sem cláusula expressa. Um **limite contratual** observado em uma estrutura não é parâmetro de mercado.
 
 ## Verificação de lastro
 
-Na aquisição, a responsabilidade regulatória é do gestor, que pode contratar terceiro e usar amostragem estatística nas condições normativas. A verificação periódica cabe ao custodiante ou administrador nas hipóteses do art. 38. Para direitos não registráveis, a custódia é obrigatória. Resultado amostral não equivale à validação individual de toda a carteira.
+- **Na aquisição:** a responsabilidade regulatória é do gestor, que pode contratar terceiro e usar amostragem estatística nas condições normativas.
+- **Periodicamente:** a verificação cabe ao custodiante ou administrador nas hipóteses do art. 38 do Anexo Normativo II.
+- **Para direitos não registráveis:** a custódia é obrigatória.
+- **Limitação:** resultado amostral não equivale à validação individual de toda a carteira.
 
 ## Onde aparece
 
@@ -65,4 +75,4 @@ Falha de transferência pode comprometer titularidade ou oponibilidade. Falha de
 
 O informe mostra saldos e fluxos agregados. Não confirma cadeia dominial, notificação, registro, garantia, resultado da amostra ou eficácia de remédios. Esses pontos exigem documento primário.
 
-Base normativa: RCVM 175, Anexo Normativo II, arts. 2º, 33 e 36 a 39; Ofício-Circular CVM/SSE 8/2023. Verificação: **16/07/2026**.
+Base normativa: **Resolução da Comissão de Valores Mobiliários (RCVM) 175**, Anexo Normativo II, arts. 2º, 33 e 36 a 39; Ofício-Circular da **Superintendência de Supervisão de Securitização (SSE)** da CVM 8/2023. Verificação: **16/07/2026**.

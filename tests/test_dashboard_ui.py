@@ -232,6 +232,10 @@ def test_glossary_page_navigation_uses_compact_selector() -> None:
     source = (ROOT / "tabs/tab_fidc_book.py").read_text(encoding="utf-8")
 
     assert 'st.selectbox(\n                    "Páginas"' in source
+    assert 'st.query_params.get("book_page")' in source
+    assert "load_page_body_for_app" in source
+    assert 'key="fidc_book_section_tab"' in source
+    assert 'on_change="rerun"' in source
 
 
 def test_meli_audit_identifiers_are_arrow_safe() -> None:
