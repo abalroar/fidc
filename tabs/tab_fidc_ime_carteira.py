@@ -11,6 +11,7 @@ import uuid
 import pandas as pd
 import streamlit as st
 
+from services.dashboard_ui import diagnostics_enabled
 from services.fundonet_errors import FundosNetError, ProviderUnavailableError
 from services.fundonet_portfolio_dashboard import PortfolioDashboardBundle, build_portfolio_dashboard_bundle
 from services.ime_loader import load_or_extract_informe, peek_cached_informe
@@ -173,7 +174,6 @@ def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRe
     selected_id = st.selectbox(
         "Seleção ativa",
         options=options,
-        index=options.index(default_id),
         key="ime_portfolio_active_id",
         label_visibility="collapsed",
         format_func=lambda value: label_lookup.get(value, value),
@@ -938,8 +938,9 @@ def _render_portfolio_aggregate_analysis(
         return
     except Exception as exc:  # noqa: BLE001
         st.error("A visão agregada da carteira falhou nesta combinação de fundos.")
-        with st.expander("Detalhe técnico da falha", expanded=False):
-            st.exception(exc)
+        if diagnostics_enabled():
+            with st.expander("Detalhe técnico da falha", expanded=False):
+                st.exception(exc)
         return
 
     loaded_count = len(dashboards_by_cnpj)
@@ -958,11 +959,12 @@ def _render_portfolio_aggregate_analysis(
                 loaded_count=loaded_count,
                 total_selected=total_selected,
             )
-        _render_portfolio_aggregate_pptx_export_button(
-            selected_portfolio=selected_portfolio,
-            bundle=bundle,
-            period=period,
-        )
+        with st.expander("Dados e exportações", expanded=False):
+            _render_portfolio_aggregate_pptx_export_button(
+                selected_portfolio=selected_portfolio,
+                bundle=bundle,
+                period=period,
+            )
         if dashboard_errors:
             with st.expander("Fundos excluídos por falha no dashboard base", expanded=False):
                 for cnpj, message in dashboard_errors.items():
@@ -1139,6 +1141,10 @@ def _render_portfolio_aggregate_audit(
             st.markdown(f"- {note}")
 
     if compact:
+        with st.expander("Sobre a base", expanded=False):
+            _render_scope_and_coverage()
+            _render_reconciliation()
+            _render_methodology_notes()
         return
 
     with st.expander("Escopo e cobertura da carteira", expanded=False):

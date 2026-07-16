@@ -26,7 +26,7 @@ from services.mercado_livre_dashboard import (
     build_full_variable_csv_zip_bytes,
     build_full_variable_excel_export_bytes,
 )
-from services.portfolio_store import PortfolioRecord
+from services.portfolio_store import PortfolioRecord, portfolio_basket_signature
 from tabs import tab_deep_dive as deep_dive_tab
 from tabs import tab_dashboard_meli as credit_tab
 from tabs import tab_fidc_ime as ime_tab
@@ -119,6 +119,28 @@ _PORTFOLIO_PAGE_CSS = """
     display: block;
     font-size: 0.95rem;
 }
+.st-key-fidc_page_carteira .portfolio-context-overlay {
+    align-items: center;
+    background: #FFFFFF;
+    color: #1F1F1F;
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    position: fixed;
+    text-align: center;
+    z-index: 999999;
+}
+.st-key-fidc_page_carteira .portfolio-context-overlay strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 650;
+}
+.st-key-fidc_page_carteira .portfolio-context-overlay span {
+    color: #6B6B6B;
+    display: block;
+    font-size: 0.78rem;
+    margin-top: 0.25rem;
+}
 </style>
 """
 
@@ -152,6 +174,41 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
         st.info("Selecione ao menos um bloco para montar a página da carteira.")
         return
 
+    context_signature = "|".join(
+        (
+            selected_portfolio.id,
+            portfolio_basket_signature(selected_portfolio.funds),
+            period.cache_key,
+            *selected_sections,
+        )
+    )
+    previous_signature = st.session_state.get("portfolio_page_context_signature")
+    st.session_state["portfolio_page_context_signature"] = context_signature
+    loading_surface = st.empty()
+    if previous_signature != context_signature:
+        with loading_surface.container():
+            st.markdown(
+                '<div class="portfolio-context-overlay" role="status">'
+                f'<div><strong>Atualizando carteira</strong><span>{escape(selected_portfolio.name)} · {escape(period.label)}</span></div>'
+                "</div>",
+                unsafe_allow_html=True,
+            )
+    try:
+        _render_portfolio_analysis_surface(
+            selected_portfolio=selected_portfolio,
+            period=period,
+            selected_sections=selected_sections,
+        )
+    finally:
+        loading_surface.empty()
+
+
+def _render_portfolio_analysis_surface(
+    *,
+    selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection,
+    selected_sections: tuple[str, ...],
+) -> None:
     _render_portfolio_context_header(
         selected_portfolio=selected_portfolio,
         period=period,
@@ -899,7 +956,6 @@ def _render_section(
             show_curation_tools=False,
             compact=True,
         )
-
 
 def _format_section_option(section: str) -> str:
     block = _BLOCK_BY_ID.get(section)

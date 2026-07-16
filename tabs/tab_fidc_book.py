@@ -4,6 +4,7 @@ from html import escape
 
 import streamlit as st
 
+from services.dashboard_ui import render_page_header
 from services.fidc_book import FIDCBookIndex, FIDCBookPage, load_fidc_book_index
 
 
@@ -57,11 +58,11 @@ div.element-container:has(.fidc-book-page-shell) + div.element-container [data-t
 
 .fidc-book-page-title {
     color: #12171d;
-    font-size: 2.45rem;
-    line-height: 1.02;
+    font-size: 1.45rem !important;
+    line-height: 1.18 !important;
     letter-spacing: 0;
     font-weight: 600;
-    margin-bottom: 0.7rem;
+    margin: 0 0 0.55rem !important;
 }
 
 .fidc-book-page-summary {
@@ -162,15 +163,7 @@ def _load_index() -> FIDCBookIndex:
 def render_tab_fidc_book() -> None:
     index = _load_index()
     st.markdown(_BOOK_CSS, unsafe_allow_html=True)
-    st.markdown(
-        """
-        <div class="fidc-book-header">
-          <div class="fidc-book-title">Glossário</div>
-          <div class="fidc-book-subtitle">Estrutura, risco e regulação</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    render_page_header("Glossário", "Estrutura, risco e regulação de FIDCs.")
 
     filtered_pages = index.search_pages(st.session_state.get("fidc_book_query", ""))
     filtered_page_ids = {page.page_id for page in filtered_pages}
@@ -212,9 +205,9 @@ def render_tab_fidc_book() -> None:
             default_page_id = current_page.page_id if current_page and current_page.page_id in page_lookup else section_pages[0].page_id
             if st.session_state.get(f"fidc_book_page_id::{section.section_id}") not in page_lookup:
                 st.session_state[f"fidc_book_page_id::{section.section_id}"] = default_page_id
-            left_col, right_col = st.columns([0.82, 2.38], gap="large")
+            left_col, right_col = st.columns([0.92, 2.28], gap="large")
             with left_col:
-                page_id = st.radio(
+                page_id = st.selectbox(
                     "Páginas",
                     options=[page.page_id for page in section_pages],
                     index=[page.page_id for page in section_pages].index(default_page_id),
@@ -248,7 +241,7 @@ def _render_page(index: FIDCBookIndex, page: FIDCBookPage) -> None:
         (
             '<div class="fidc-book-page-shell">'
             f'<div class="fidc-book-page-section">{escape(page.section_title)}</div>'
-            f'<div class="fidc-book-page-title">{escape(page.title)}</div>'
+            f'<h2 class="fidc-book-page-title">{escape(page.title)}</h2>'
             f'<div class="fidc-book-page-summary">{escape(page.summary)}</div>'
             "</div>"
         ),
@@ -262,7 +255,7 @@ def _render_page(index: FIDCBookIndex, page: FIDCBookPage) -> None:
         if source_id in index.sources and "http" in index.sources[source_id].location
     ]
     if public_sources:
-        st.markdown('<div class="fidc-book-page-section">Fontes oficiais</div>', unsafe_allow_html=True)
-        for source in public_sources:
-            notes = f" — {source.notes}" if source.notes else ""
-            st.markdown(f"- **{source.title}** · [link oficial]({source.location}){notes}")
+        with st.expander("Sobre a base", expanded=False):
+            for source in public_sources:
+                notes = f" — {source.notes}" if source.notes else ""
+                st.markdown(f"- **{source.title}** · [link oficial]({source.location}){notes}")

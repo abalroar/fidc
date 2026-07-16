@@ -4,8 +4,10 @@ import streamlit as st
 
 # Deployment marker: portfolio sub-tabs and unified exports (2026-07-15).
 
+from services.dashboard_ui import dashboard_page, diagnostics_enabled, render_page_header
 from tabs.tab_fidc_book import render_tab_fidc_book
 from tabs.tab_cloudwalk_financial_cost import render_tab_cloudwalk_financial_cost
+from tabs.tab_secondary_market import render_tab_secondary_market
 from tabs import tab_fidc_ime as ime_tab
 from tabs import tab_deep_dive as deep_dive_tab
 from tabs import tab_fidc_monitoring as monitoring_tab
@@ -28,15 +30,18 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 }
 
 .block-container {
-    padding-top: 1.25rem !important;
+    max-width: 1500px;
+    padding-top: 0.8rem !important;
     padding-left: 2rem !important;
     padding-right: 2rem !important;
 }
 
 .fidc-app-header {
-    margin: 1.15rem auto 1.75rem auto;
-    max-width: 64rem;
-    text-align: center;
+    align-items: baseline;
+    display: flex;
+    gap: 0.55rem;
+    margin: 0.2rem 0 0.7rem;
+    text-align: left;
 }
 
 .fidc-app-kicker {
@@ -51,17 +56,17 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 
 .fidc-app-title {
     color: #12171d !important;
-    font-size: clamp(3.1rem, 6.2vw, 4.45rem) !important;
-    font-weight: 300 !important;
-    letter-spacing: -0.045em !important;
-    line-height: 0.98 !important;
+    font-size: 1.24rem !important;
+    font-weight: 650 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.2 !important;
     margin: 0 !important;
 }
 
 .fidc-app-author {
     color: #9aa3ad !important;
-    font-size: 1.02rem !important;
-    font-weight: 300 !important;
+    font-size: 0.75rem !important;
+    font-weight: 400 !important;
     letter-spacing: 0 !important;
     line-height: 1.3 !important;
     margin-top: 0.7rem !important;
@@ -260,7 +265,7 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
     }
 
     .fidc-app-title {
-        font-size: 2.65rem !important;
+        font-size: 1.15rem !important;
     }
 
     .fidc-app-subtitle {
@@ -314,8 +319,8 @@ st.markdown(_APP_CSS, unsafe_allow_html=True)
 st.markdown(
     """
     <div class="fidc-app-header">
-      <div class="fidc-app-title" role="heading" aria-level="1">tomaconta fidcs</div>
-      <div class="fidc-app-author">por matheus prates, cfa</div>
+      <div class="fidc-app-title">tomaconta fidcs</div>
+      <div class="fidc-app-author">matheus prates, cfa</div>
     </div>
     """,
     unsafe_allow_html=True,
@@ -324,6 +329,7 @@ st.markdown(
 _MAIN_SECTIONS = (
     ("sobre", "Sobre"),
     ("industria", "Indústria"),
+    ("secundario", "Secundário"),
     ("carteira", "Carteira"),
     ("regulamentos", "Regulamentos"),
     ("cloudwalk", "Cloudwalk"),
@@ -366,28 +372,34 @@ if "section" in st.query_params:
 
 selected_section = _render_main_nav()
 
-if selected_section == "industria":
-    render_tab_industry_study()
-elif selected_section == "carteira":
-    _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
-    period = _render_period_selector(state_prefix="ime_global")
-    render_portfolio_center_page(period=period)
-elif selected_section == "regulamentos":
-    deep_dive_tab.render_tab_deep_dive()
-elif selected_section == "cloudwalk":
-    render_tab_cloudwalk_financial_cost()
-elif selected_section == "modelagem":
-    render_tab_modelo_fidc()
-elif selected_section == "glossario":
-    render_tab_fidc_book()
-elif selected_section == "sobre":
-    try:
-        from tabs.tab_about import render_tab_about
+with dashboard_page(selected_section):
+    if selected_section == "industria":
+        render_tab_industry_study()
+    elif selected_section == "secundario":
+        render_tab_secondary_market()
+    elif selected_section == "carteira":
+        render_page_header("Carteira", "Risco, retorno e documentação das seleções salvas.")
+        _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
+        period = _render_period_selector(state_prefix="ime_global")
+        render_portfolio_center_page(period=period)
+    elif selected_section == "regulamentos":
+        deep_dive_tab.render_tab_deep_dive()
+    elif selected_section == "cloudwalk":
+        render_tab_cloudwalk_financial_cost()
+    elif selected_section == "modelagem":
+        render_tab_modelo_fidc()
+    elif selected_section == "glossario":
+        render_tab_fidc_book()
+    elif selected_section == "sobre":
+        try:
+            from tabs.tab_about import render_tab_about
 
-        render_tab_about()
-    except ModuleNotFoundError as exc:
-        st.error("A tela Sobre ainda não foi carregada corretamente neste deploy.")
-        st.caption(f"Módulo ausente: {exc.name}. As demais abas continuam disponíveis.")
-    except Exception as exc:  # noqa: BLE001
-        st.error("A tela Sobre encontrou um erro, mas as demais abas continuam disponíveis.")
-        st.caption(f"Detalhe técnico: {type(exc).__name__}: {exc}")
+            render_tab_about()
+        except ModuleNotFoundError as exc:
+            st.error("A tela Sobre ainda não foi carregada corretamente neste deploy.")
+            if diagnostics_enabled():
+                st.caption(f"Módulo ausente: {exc.name}.")
+        except Exception as exc:  # noqa: BLE001
+            st.error("A tela Sobre encontrou um erro, mas as demais abas continuam disponíveis.")
+            if diagnostics_enabled():
+                st.caption(f"Detalhe técnico: {type(exc).__name__}: {exc}")

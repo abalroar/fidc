@@ -843,20 +843,29 @@ def _render_audit(
             display[column] = display[column].map(_format_brl_compact)
     if "duration_months" in display.columns:
         display["duration_months"] = display["duration_months"].map(lambda value: f"{_format_decimal(value, 1)} meses")
-    st.dataframe(display, use_container_width=True)
+    display = _normalise_audit_identifier_columns(display)
+    st.dataframe(display, width="stretch")
     if verification_report is not None and not verification_report.empty:
         st.markdown("**Verificação independente**")
-        st.dataframe(_format_verification_table(verification_report), use_container_width=True, hide_index=True)
+        st.dataframe(_format_verification_table(verification_report), width="stretch", hide_index=True)
     comparison = build_somatorio_dashboard_comparison(outputs, monitor_outputs)
     if not comparison.empty:
         st.markdown("**Conciliação base x carteira de crédito**")
         st.caption("Conferência entre base do Somatório e métricas derivadas.")
-        st.dataframe(_format_somatorio_dashboard_comparison(comparison), use_container_width=True, hide_index=True)
+        st.dataframe(_format_somatorio_dashboard_comparison(comparison), width="stretch", hide_index=True)
     ex360_memory = build_ex360_memory_table(outputs)
     if not ex360_memory.empty:
         st.markdown("**Memória de cálculo da carteira bruta ex-360**")
         st.caption("Carteira Bruta ex-360 = carteira bruta - NPL Over 360.")
-        st.dataframe(_format_ex360_memory_table(ex360_memory), use_container_width=True, hide_index=True)
+        st.dataframe(_format_ex360_memory_table(ex360_memory), width="stretch", hide_index=True)
+
+
+def _normalise_audit_identifier_columns(frame: pd.DataFrame) -> pd.DataFrame:
+    output = frame.copy()
+    for column in ("cnpj", "cnpj_fundo"):
+        if column in output.columns:
+            output[column] = output[column].map(lambda value: "" if pd.isna(value) else str(value))
+    return output
 
 
 def _research_scope_options(research_outputs) -> dict[str, str]:  # noqa: ANN001
