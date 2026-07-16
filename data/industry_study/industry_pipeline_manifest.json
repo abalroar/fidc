@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-pipeline-manifest/v1",
-  "generated_at_utc": "2026-07-08T17:16:28+00:00",
+  "generated_at_utc": "2026-07-16T16:40:43+00:00",
   "pipeline": "industry_cedentes_structured",
   "design_constraints": {
     "modular": true,
@@ -27,19 +27,25 @@
     "vehicle_snapshot": {
       "path": "data/industry_study/universe_latest.csv",
       "exists": true,
-      "bytes": 1526557,
-      "sha256": "e05e0030a1a5587a08db42659503e724afe84a4d840cf6a3a29b637eb89c3ee0"
+      "bytes": 1525669,
+      "sha256": "8227132d7065f8e7243e36df8fb9510d7ea0444d91a02b99c891b8f6e7f69bbb"
     }
   },
   "outputs": {
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 313437,
-      "sha256": "51b3dd6cf6522d60fd2bc008151ec885f47376c3cd1a4252dd582cc301115943"
+      "bytes": 313444,
+      "sha256": "ad17b1f22273d4be48973b167f6fd13d66673012e90b0dcbb6d8b4543a03105e"
     },
     "manifest": {
       "path": "data/industry_study/industry_pipeline_manifest.json"
+    },
+    "review_audit": {
+      "path": "data/industry_study/cedente_review_audit.csv",
+      "exists": true,
+      "bytes": 92,
+      "sha256": "310b3abb9e7e22de7a53ecd1aee5258f6ed9e03f9d7aab240069b861bc42cb5f"
     }
   },
   "stages": [
@@ -77,7 +83,7 @@
       "status": "ok",
       "input": "data/industry_study/universe_latest.csv",
       "output": "memoria:universe_latest",
-      "rows": 4224,
+      "rows": 4227,
       "rerun": "python scripts/build_fidc_industry_study.py --report"
     },
     {

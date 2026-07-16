@@ -5,6 +5,7 @@ import tempfile
 from pathlib import Path
 
 import pandas as pd
+import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -14,7 +15,12 @@ from build_fidc_industry_study import (  # noqa: E402
     FIC_FIDC_PATTERN,
     _norm_name,
     _strip_digits,
+    aggregate_month,
+    build_universe_snapshot,
+    deduplicate_tab4_records,
+    load_tab4,
     month_range,
+    prefer_class_rows,
 )
 from services.industry_study import (  # noqa: E402
     CEDENTE_REVIEW_COLUMNS,
@@ -146,6 +152,221 @@ def test_fic_fidc_pattern():
         "FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO EM DIREITOS CREDITORIOS ABC"
     )
     assert not FIC_FIDC_PATTERN.search("FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS ABC")
+
+
+def _tab4_class_fund_pair(
+    *,
+    class_pl: float,
+    fund_pl: float,
+    reverse: bool = False,
+) -> pd.DataFrame:
+    rows = [
+        {
+            "cnpj": "12345678000190",
+            "tp_registro": "Classe",
+            "DENOM_SOCIAL": "FIDC TESTE CLASSE",
+            "TAB_IV_A_VL_PL": str(class_pl),
+        },
+        {
+            "cnpj": "12345678000190",
+            "tp_registro": "Fundo",
+            "DENOM_SOCIAL": "FIDC TESTE FUNDO",
+            "TAB_IV_A_VL_PL": str(fund_pl),
+        },
+    ]
+    return pd.DataFrame(list(reversed(rows)) if reverse else rows)
+
+
+@pytest.mark.parametrize("reverse", [False, True])
+@pytest.mark.parametrize(
+    ("class_pl", "fund_pl", "pl_conflict"),
+    [(100.0, 100.0, False), (125.0, 100.0, True), (0.0, 250.0, True)],
+)
+def test_tab4_deduplication_prefers_class_without_summing_and_is_order_invariant(
+    class_pl: float,
+    fund_pl: float,
+    pl_conflict: bool,
+    reverse: bool,
+) -> None:
+    selected = deduplicate_tab4_records(
+        _tab4_class_fund_pair(class_pl=class_pl, fund_pl=fund_pl, reverse=reverse)
+    )
+
+    assert len(selected) == 1
+    assert selected.loc[0, "tp_registro"] == "Classe"
+    assert selected.loc[0, "pl"] == class_pl
+    assert selected["pl"].sum() == class_pl
+    assert bool(selected.loc[0, "tab4_duplicate_detected"]) is True
+    assert selected.loc[0, "tab4_source_rows"] == 2
+    assert selected.loc[0, "tab4_duplicate_rows_dropped"] == 1
+    assert bool(selected.loc[0, "tab4_type_conflict"]) is True
+    assert bool(selected.loc[0, "tab4_pl_conflict"]) is pl_conflict
+    assert selected.loc[0, "tab4_selection_rule"] == "classe_preferida_sobre_fundo"
+    assert "sem somar duplicidades" in selected.loc[0, "tab4_warning"]
+
+
+def test_prefer_class_rows_keeps_all_class_detail_and_discards_only_matching_fund_rows() -> None:
+    frame = pd.DataFrame(
+        [
+            ["11111111000111", "Fundo", "fundo-descartado"],
+            ["11111111000111", "Classe", "classe-serie-a"],
+            ["22222222000222", "Fundo", "fundo-legado-a"],
+            ["11111111000111", "Classe", "classe-serie-b"],
+            ["22222222000222", "Fundo", "fundo-legado-b"],
+        ],
+        columns=["cnpj", "tp_registro", "detalhe"],
+    )
+
+    selected = prefer_class_rows(frame)
+
+    assert selected.loc[selected["cnpj"].eq("11111111000111"), "detalhe"].tolist() == [
+        "classe-serie-a",
+        "classe-serie-b",
+    ]
+    assert selected.loc[selected["cnpj"].eq("22222222000222"), "detalhe"].tolist() == [
+        "fundo-legado-a",
+        "fundo-legado-b",
+    ]
+
+
+class _StaticIndustryStore:
+    def __init__(self, tables: dict[str, pd.DataFrame | None]) -> None:
+        self.tables = tables
+
+    def read_table(self, _yyyymm: str, table: str) -> pd.DataFrame | None:
+        frame = self.tables.get(table)
+        return None if frame is None else frame.copy()
+
+
+def test_load_tab4_and_month_aggregate_publish_duplicate_audit() -> None:
+    raw = _tab4_class_fund_pair(class_pl=0.0, fund_pl=250.0, reverse=True)
+    store = _StaticIndustryStore({"tab_IV": raw})
+
+    selected = load_tab4(store, "202512")
+    aggregate = aggregate_month(store, "202512", selected)
+
+    assert selected is not None
+    assert aggregate is not None
+    assert aggregate.industry["pl_total"] == 0.0
+    assert aggregate.industry["tab4_duplicate_cnpjs"] == 1
+    assert aggregate.industry["tab4_duplicate_rows_dropped"] == 1
+    assert aggregate.industry["tab4_type_conflict_cnpjs"] == 1
+    assert aggregate.industry["tab4_pl_conflict_cnpjs"] == 1
+    assert aggregate.industry["tab4_class_preferred_cnpjs"] == 1
+    assert aggregate.audit["tab4_pl_conflict_cnpjs"] == 1
+    assert aggregate.vehicle[0]["tp_registro"] == "Classe"
+    assert aggregate.vehicle[0]["tab4_selection_rule"] == "classe_preferida_sobre_fundo"
+
+
+def test_month_aggregate_uses_class_rows_across_all_consumed_tables() -> None:
+    cnpj = "12345678000190"
+    tab4 = _tab4_class_fund_pair(class_pl=1_000.0, fund_pl=9_000.0, reverse=True)
+    tab1 = pd.DataFrame(
+        [
+            [cnpj, "Classe", "FIDC CLASSE", 100, 50, 0, 5, 0, 2, 0, "ADMIN CLASSE", "1", "FECHADO", "NAO"],
+            [cnpj, "Fundo", "FIDC FUNDO", 999, 900, 0, 800, 0, 700, 0, "ADMIN FUNDO", "2", "ABERTO", "SIM"],
+        ],
+        columns=[
+            "cnpj", "tp_registro", "DENOM_SOCIAL", "TAB_I_VL_ATIVO",
+            "TAB_I2A_VL_DIRCRED_RISCO", "TAB_I2B_VL_DIRCRED_SEM_RISCO",
+            "TAB_I2A3_VL_CRED_INAD", "TAB_I2B3_VL_CRED_INAD",
+            "TAB_I2A2_VL_CRED_VENC_INAD", "TAB_I2B2_VL_CRED_VENC_INAD",
+            "ADMIN", "CNPJ_ADMIN", "CONDOM", "FUNDO_EXCLUSIVO",
+        ],
+    )
+    tab2 = pd.DataFrame(
+        [[cnpj, "Classe", 10], [cnpj, "Fundo", 900]],
+        columns=["cnpj", "tp_registro", "TAB_II_A_VL_INDUST"],
+    )
+    x4 = pd.DataFrame(
+        [
+            [cnpj, "Classe", "Captações no Mês", 10],
+            [cnpj, "Classe", "Amortizações", 2],
+            [cnpj, "Fundo", "Captações no Mês", 900],
+        ],
+        columns=["cnpj", "tp_registro", "TAB_X_TP_OPER", "TAB_X_VL_TOTAL"],
+    )
+    x1 = pd.DataFrame(
+        [[cnpj, "Classe", 3], [cnpj, "Classe", 4], [cnpj, "Fundo", 100]],
+        columns=["cnpj", "tp_registro", "TAB_X_NR_COTST"],
+    )
+    x11 = pd.DataFrame(
+        [[cnpj, "Classe", 1], [cnpj, "Classe", 2], [cnpj, "Fundo", 99]],
+        columns=["cnpj", "tp_registro", "TAB_X_NR_COTST_SENIOR_PF"],
+    )
+    x2 = pd.DataFrame(
+        [
+            [cnpj, "Classe", 1, 10, "Sênior"],
+            [cnpj, "Classe", 1, 20, "Subordinada"],
+            [cnpj, "Fundo", 1, 900, "Sênior"],
+        ],
+        columns=["cnpj", "tp_registro", "TAB_X_QT_COTA", "TAB_X_VL_COTA", "TAB_X_CLASSE_SERIE"],
+    )
+    tab7 = pd.DataFrame(
+        [[cnpj, "Classe", 4, 5], [cnpj, "Fundo", 400, 500]],
+        columns=["cnpj", "tp_registro", "TAB_VII_D_2_VL_RECOMPRA", "TAB_VII_C_2_VL_SUBST"],
+    )
+    store = _StaticIndustryStore(
+        {
+            "tab_IV": tab4,
+            "tab_I": tab1,
+            "tab_II": tab2,
+            "tab_X_4": x4,
+            "tab_X_1": x1,
+            "tab_X_1_1": x11,
+            "tab_X_2": x2,
+            "tab_VII": tab7,
+        }
+    )
+
+    selected = load_tab4(store, "202512")
+    aggregate = aggregate_month(store, "202512", selected)
+
+    assert aggregate is not None
+    assert aggregate.industry["pl_total"] == 1_000.0
+    assert aggregate.industry["ativo_total"] == 100.0
+    assert aggregate.industry["carteira_dc"] == 50.0
+    assert aggregate.industry["captacoes"] == 10.0
+    assert aggregate.industry["amortizacoes"] == 2.0
+    assert aggregate.industry["cotistas_total"] == 7
+    assert aggregate.industry["vl_cotas_total"] == 30.0
+    assert aggregate.industry["vl_cotas_subordinadas"] == 20.0
+    assert aggregate.industry["vl_recompras"] == 4.0
+    assert aggregate.industry["vl_substituicoes"] == 5.0
+    assert next(row for row in aggregate.segments if row["segmento"] == "Industrial")["valor"] == 10.0
+    assert next(row for row in aggregate.cotistas_tipo if row["tipo_cotista"] == "Pessoa fisica")["n_cotistas"] == 3
+    assert aggregate.vehicle[0]["admin_nome"] == "ADMIN CLASSE"
+
+
+def test_universe_snapshot_uses_same_class_precedence_and_audit_columns() -> None:
+    raw = _tab4_class_fund_pair(class_pl=0.0, fund_pl=250.0, reverse=True)
+    tab1 = pd.DataFrame(
+        {
+            "cnpj": ["12345678000190", "12345678000190"],
+            "tp_registro": ["Classe", "Fundo"],
+            "ADMIN": ["ADMIN CLASSE", "ADMIN FUNDO"],
+            "CNPJ_ADMIN": ["11111111000111", "22222222000222"],
+            "CONDOM": ["FECHADO", "ABERTO"],
+            "FUNDO_EXCLUSIVO": ["NAO", "SIM"],
+            "TAB_I2A_VL_DIRCRED_RISCO": ["0", "999"],
+            "TAB_I2B_VL_DIRCRED_SEM_RISCO": ["0", "999"],
+            "TAB_I2A3_VL_CRED_INAD": ["0", "999"],
+            "TAB_I2B3_VL_CRED_INAD": ["0", "999"],
+        }
+    )
+    store = _StaticIndustryStore(
+        {"tab_IV": raw, "tab_I": tab1, "tab_II": None, "tab_X_1": None}
+    )
+
+    snapshot = build_universe_snapshot(store, "202512", pd.DataFrame())
+
+    assert len(snapshot) == 1
+    assert snapshot.loc[0, "tp_registro"] == "Classe"
+    assert snapshot.loc[0, "pl"] == 0.0
+    assert snapshot.loc[0, "admin_nome"] == "ADMIN CLASSE"
+    assert snapshot.loc[0, "carteira_dc"] == 0.0
+    assert bool(snapshot.loc[0, "tab4_pl_conflict"]) is True
+    assert snapshot.loc[0, "tab4_selection_rule"] == "classe_preferida_sobre_fundo"
 
 
 def test_versioned_granular_industry_outputs_have_expected_schema():

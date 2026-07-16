@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from contextlib import nullcontext
 from pathlib import Path
+from types import SimpleNamespace
 
 import altair as alt
 import pandas as pd
@@ -21,8 +22,18 @@ from tabs.tab_dashboard_meli import _normalise_audit_identifier_columns
 from tabs.tab_cloudwalk_financial_cost import CLOUDWALK_VIEW_TABS
 from tabs.tab_industry_study import (
     INDUSTRY_EXECUTIVE_CHARTS,
+    INDUSTRY_HOLDER_PL_CUTS_MM,
+    INDUSTRY_STRUCTURE_CHARTS,
     INDUSTRY_VIEW_TABS,
+    _INDUSTRY_EXECUTIVE_PACK_INPUTS,
+    _INDUSTRY_EXPORT_INPUTS,
+    _industry_anbima_coverage_note,
     _industry_executive_trend_frames,
+    _industry_files_signature,
+    _industry_holder_histogram_frames,
+    _industry_monostructure_frames,
+    _render_industry_tab4_conflict_notice,
+    _industry_tab4_conflict_notice,
 )
 from tabs.tab_secondary_market import SECONDARY_CHART_KEYS
 
@@ -173,6 +184,13 @@ def test_all_primary_views_and_chart_series_are_preserved() -> None:
         "industry-executive-holders",
         "industry-executive-delinquency",
     )
+    assert INDUSTRY_STRUCTURE_CHARTS == (
+        "industry-provider-monostructure-history",
+        "industry-provider-structure-current",
+        "industry-holder-histogram-funds",
+        "industry-holder-histogram-pl",
+    )
+    assert INDUSTRY_HOLDER_PL_CUTS_MM == (0, 100, 300, 1000)
     assert {tab_modelo_fidc.MODEL_VIEW_GERAL, tab_modelo_fidc.MODEL_VIEW_MC3} == {
         "Modelo FIDC (geral)",
         "FIDC MC3 Cartões",
@@ -243,3 +261,168 @@ def test_industry_executive_trends_restore_comparative_series() -> None:
     assert set(trends["flow"]["Sinal"]) == {"entrada líquida", "saída líquida"}
     assert trends["holders"]["contas_mil"].tolist() == [1.0, 1.2]
     assert set(trends["delinquency"]["Série"]) == {"Ajustada", "Bruta"}
+
+
+def test_industry_cache_signatures_track_every_declared_input(tmp_path: Path) -> None:
+    names = ("one.csv", "two.csv.gz", "manifest.json")
+    for name in names:
+        (tmp_path / name).write_text(name, encoding="utf-8")
+    first = _industry_files_signature(names, data_dir=tmp_path)
+
+    (tmp_path / "two.csv.gz").write_text("changed payload", encoding="utf-8")
+    second = _industry_files_signature(names, data_dir=tmp_path)
+
+    assert first != second
+    assert set(_INDUSTRY_EXECUTIVE_PACK_INPUTS).issubset(_INDUSTRY_EXPORT_INPUTS)
+    assert {
+        "industry_competence_status.csv",
+        "industry_monthly.csv",
+        "segments_monthly.csv",
+        "concentration_monthly.csv",
+        "industry_offers_annual.csv",
+        "industry_competitive_position.csv",
+        "industry_offer_rankings.csv.gz",
+        "industry_stock_ranking_deltas.csv.gz",
+        "industry_originators_annual.csv",
+        "industry_investor_distribution.csv",
+        "industry_investor_types.csv",
+        "industry_large_fund_documents.csv.gz",
+        "industry_intelligence_manifest.json",
+    }.issubset(_INDUSTRY_EXPORT_INPUTS)
+
+
+def test_industry_tab4_conflict_notice_is_concise_and_explicit_about_precedence() -> None:
+    pack = SimpleNamespace(
+        source_conflicts=pd.DataFrame(
+            {
+                "competencia": ["2025-12", "2025-12", "2026-05"],
+                "cnpj_fundo": ["11111111000111", "11111111000111", "22222222000122"],
+                "tab4_type_conflict": [True, True, False],
+            }
+        )
+    )
+
+    notice = _industry_tab4_conflict_notice(pack)
+
+    assert notice == (
+        "Integridade CVM: 1 CNPJ com registros Classe/Fundo duplicados em Dezembro/25. "
+        "Para evitar dupla contagem, foi aplicada a regra Classe > Fundo."
+    )
+    assert _industry_tab4_conflict_notice(
+        SimpleNamespace(source_conflicts=pd.DataFrame())
+    ) == ""
+
+
+def test_industry_tab4_conflict_notice_is_rendered_only_when_needed(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    warnings: list[str] = []
+    monkeypatch.setattr(
+        "tabs.tab_industry_study.st.warning",
+        lambda message, *args, **kwargs: warnings.append(str(message)),
+    )
+    _render_industry_tab4_conflict_notice(
+        SimpleNamespace(
+            source_conflicts=pd.DataFrame(
+                {
+                    "competencia": ["2025-12"],
+                    "cnpj_fundo": ["11111111000111"],
+                    "tab4_type_conflict": [True],
+                }
+            )
+        )
+    )
+    _render_industry_tab4_conflict_notice(
+        SimpleNamespace(source_conflicts=pd.DataFrame())
+    )
+
+    assert warnings == [
+        "Integridade CVM: 1 CNPJ com registros Classe/Fundo duplicados em Dezembro/25. "
+        "Para evitar dupla contagem, foi aplicada a regra Classe > Fundo."
+    ]
+
+
+def test_industry_monostructure_frames_preserve_history_and_six_current_models() -> None:
+    models = (
+        "Monoestrutura",
+        "Administração + Gestão",
+        "Administração + Custódia",
+        "Gestão + Custódia",
+        "Três prestadores distintos",
+        "Dados incompletos",
+    )
+    rows: list[dict[str, object]] = []
+    for competence, mono_share in (("2024-12", 0.20), ("2025-12", 0.25), ("2026-05", 0.30)):
+        remaining = (1.0 - mono_share) / 5.0
+        for order, model in enumerate(models):
+            share = mono_share if model == "Monoestrutura" else remaining
+            rows.append(
+                {
+                    "competencia": competence,
+                    "structure_model": model,
+                    "model_order": order,
+                    "funds": 100 - order,
+                    "pl_brl": 1e9 * (6 - order),
+                    "fund_share_total": share,
+                    "pl_share_total": share,
+                    "provider_fund_coverage": 0.95,
+                    "provider_pl_coverage": 0.98,
+                }
+            )
+    pack = SimpleNamespace(
+        monostructure_history=pd.DataFrame(rows),
+        competences=SimpleNamespace(
+            ordered=("2024-12", "2025-12", "2026-05"), latest_complete="2026-05"
+        ),
+    )
+
+    history, current = _industry_monostructure_frames(pack)
+
+    assert history["metric"].value_counts().to_dict() == {"% dos fundos": 3, "% do PL": 3}
+    assert history.sort_values("_period_order")["competencia"].drop_duplicates().tolist() == [
+        "2024-12",
+        "2025-12",
+        "2026-05",
+    ]
+    assert history.loc[history["competencia"].ne("2026-05"), "period_label"].str.endswith("*").all()
+    assert not history.loc[history["competencia"].eq("2026-05"), "period_label"].str.endswith("*").any()
+    assert current["structure_model"].astype(str).tolist() == list(models)
+    assert current["fund_share_total"].sum() == pytest.approx(1.0)
+    assert current["pl_share_total"].sum() == pytest.approx(1.0)
+
+
+def test_industry_holder_histogram_frames_apply_same_cut_and_anbima_filters() -> None:
+    funds = pd.DataFrame(
+        [
+            ["2026-05", "a", "Financeiro", "Crédito Consignado", 150e6, 1],
+            ["2026-05", "b", "Financeiro", "Crédito Consignado", 90e6, 2],
+            ["2026-05", "c", "Financeiro", "Crédito Pessoal", 300e6, 3],
+            ["2026-05", "d", "Outros", "Recuperação", 500e6, 51],
+        ],
+        columns=["competencia", "fund_key", "anbima_tipo", "anbima_foco", "pl", "cotistas"],
+    )
+    pack = SimpleNamespace(
+        fund_monthly=funds,
+        competences=SimpleNamespace(latest_complete="2026-05"),
+        coverage=pd.DataFrame(
+            {
+                "competencia": ["2026-05"],
+                "official_anbima_ex_fic_pl_coverage": [0.915],
+            }
+        ),
+    )
+
+    histogram, coverage = _industry_holder_histogram_frames(
+        pack,
+        min_pl_brl=100e6,
+        anbima_type="Financeiro",
+        anbima_focus="Crédito Consignado",
+    )
+
+    assert histogram["fund_count"].sum() == 1
+    assert histogram.loc[histogram["cotistas_bucket"].eq("1"), "fund_count"].item() == 1
+    assert histogram["pl_brl"].sum() == pytest.approx(150e6)
+    assert coverage.loc[0, "eligible_funds"] == 1
+    assert coverage.loc[0, "included_funds"] == 1
+    assert "91,5% do PL ex-FIC" in _industry_anbima_coverage_note(pack)
+    assert "proxy CVM ou N/D" in _industry_anbima_coverage_note(pack)

@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-public-claim-audit-manifest/v1",
-  "generated_at_utc": "2026-07-09T13:40:53+00:00",
+  "generated_at_utc": "2026-07-16T16:34:29+00:00",
   "pipeline": "industry_public_claim_audit",
   "design_constraints": {
     "modular": true,
@@ -16,8 +16,8 @@
     "industry_monthly": {
       "path": "data/industry_study/industry_monthly.csv",
       "exists": true,
-      "bytes": 70453,
-      "sha256": "a501fb2f97294772758b1d517d98b0e0188f4312bd84acbd05f06f67a8cd86c5"
+      "bytes": 69789,
+      "sha256": "91dfa1cbf419ab01ffb6d9b67df6b07e0e9730f2aa9ee47b94e4e4a030ef2aee"
     },
     "issuance_tranches": {
       "path": "data/industry_study/issuance_tranches.csv.gz",
@@ -36,7 +36,7 @@
       "path": "data/industry_study/industry_public_claim_audit.csv",
       "exists": true,
       "bytes": 6135,
-      "sha256": "144b1194a1e85f7f2470634fe836bee109555862cef214501a415acc01127880"
+      "sha256": "ad0f5b802682870fd9bccf42a4216fd13d864e70d7f4d2d409f49395cf645a2e"
     },
     "manifest": {
       "path": "data/industry_study/industry_public_claim_audit_manifest.json"
@@ -81,7 +81,7 @@
     "adherent_claims": 0,
     "divergent_claims": 0,
     "missing_local_claims": 0,
-    "max_abs_delta_pct": 7.150438917299664,
+    "max_abs_delta_pct": 7.152403758807664,
     "metric_group_counts": {
       "captação líquida": 4,
       "contas": 2,
