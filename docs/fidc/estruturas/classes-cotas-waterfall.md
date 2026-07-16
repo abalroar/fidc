@@ -1,62 +1,73 @@
-# Classes de cotas, subordinação e waterfall
+# Fundo, classe, subclasse, série, cota e waterfall
 
-## Como um FIDC organiza o risco entre investidores
+## A arquitetura sob a RCVM 175
 
-Um FIDC pode ter diferentes classes de cotas — e o objetivo dessa divisão é alocar o risco de crédito de forma desigual entre os investidores.
+| Nível | Função | Patrimônio segregado próprio? |
+|---|---|---:|
+| Fundo | condomínio especial e estrutura de governança | não é o nível a usar isoladamente quando há múltiplas classes |
+| Classe | reúne ativos, passivos e cotistas sob política e responsabilidade patrimonial próprias | sim |
+| Subclasse | diferencia direitos econômicos e políticos dentro da classe | não |
+| Série | subconjunto de cotas seniores de classe fechada, quando diferenciado por prazo, amortização e/ou índice referencial | não |
+| Cota | fração do patrimônio da classe | não |
 
-A lógica é simples: quem tem cota **subordinada** aceita perder primeiro, em troca de uma rentabilidade potencial maior. Quem tem cota **sênior** tem preferência no recebimento e só perde quando a subordinação se esgota.
+O art. 5º da Parte Geral atribui patrimônio segregado à classe e veda parcela patrimonial afetada à subclasse. O art. 14 define cota como fração patrimonial da classe. No FIDC, sênior, mezanino e subordinada são subclasses conforme o art. 2º do Anexo II.
 
-## Nomenclatura das classes na prática
+## Senioridade
 
-Sob a **Resolução CVM 175** (e especificamente seu Anexo Normativo II para FIDCs), o arcabouço formal usa o conceito de classes e subclasses. Na prática de mercado, a linguagem histórica convive com o framework regulatório:
+- **Sênior:** não se subordina às demais subclasses para amortização, resgate e apropriação de resultados, nos termos do regulamento.
+- **Mezanino:** subordina-se à sênior, mas tem prioridade sobre outra subclasse subordinada especificada.
+- **Subordinada:** subordina-se às demais para os direitos definidos.
 
-| Termo de mercado | O que é |
-| --- | --- |
-| **Cota sênior** | Classe com preferência no pagamento; suportada pela subordinação abaixo dela |
-| **Cota mezanino** | Camada intermediária — subordinada à sênior, mas com preferência sobre a júnior |
-| **Cota subordinada júnior** | Absorve as perdas antes de qualquer outra classe; costuma ser retida pelo cedente ou cotista estratégico |
+“Júnior” é uso de mercado para a camada mais subordinada, não substitui a designação do documento. “Tranche” é rótulo econômico ou legado: antes de usar, identifique se corresponde a subclasse, série, emissão ou simples faixa analítica.
 
-Um fundo pode ter várias séries de cotas sênior com benchmarks e prazos diferentes — por isso o Informe Mensal lista cada série separadamente.
+## Série não é subclasse
 
-## O que é o waterfall
+As séries admitidas pelo Anexo II pertencem à subclasse sênior de classe fechada e podem diferir por prazos, amortizações e índice referencial. Elas não devem ser contadas como novos fundos ou novas classes. Uma emissão, por sua vez, é o ato que cria e coloca cotas; pode coincidir ou não com a série nomeada.
 
-Waterfall é a ordem em que o caixa do fundo é distribuído. A sequência típica é:
+## Índice de subordinação
 
-1. Despesas e encargos do fundo (administração, gestão, custódia, auditoria, tributação);
-2. Remuneração e amortização das cotas sênior (na ordem prevista no regulamento);
-3. Remuneração e amortização das cotas mezanino, se houver;
-4. Remuneração e amortização das cotas subordinadas júnior.
+Normativamente, o índice é a relação mínima, expressa em percentual, entre o valor de uma subclasse subordinada ou mezanino e o patrimônio líquido da classe. O documento define qual subclasse, momento, método e consequência.
 
-Em um cenário de deterioração da carteira, as perdas percorrem essa ordem de baixo para cima: a subordinada júnior absorve primeiro, depois o mezanino e, só então, a sênior é afetada.
+O proxy agregado do painel:
 
-**Atenção:** cada fundo define sua própria sequência no regulamento. O waterfall genérico acima é uma referência — o waterfall real pode ter diferenças importantes, como prioridade de pagamento de reservas, gatilhos de bloqueio de distribuição ou amortização acelerada.
+`(PL mezanino + PL subordinado residual) / PL total reportado`
 
-## Subordinação: o que o número informa e o que ele não informa
+é uma convenção analítica. Pode divergir do índice contratual por séries, subclasses específicas, valores negativos, classes múltiplas, cotas mantidas em tesouraria, data de cálculo e regras do regulamento.
 
-O índice de subordinação é a relação entre o PL das cotas subordinadas e o PL total do fundo. Um índice de 20% significa que as cotas subordinadas representam 20% do patrimônio total — e que a carteira precisaria perder mais de 20% do seu valor para que os cotistas sênior começassem a ser afetados.
+## Três ordens que não devem ser fundidas
 
-**O que o índice de subordinação informa:**
-- o tamanho do colchão disponível para absorver perdas antes da classe sênior;
-- a evolução desse colchão ao longo do tempo (se está crescendo, estável ou sendo consumido).
+### Waterfall de caixa
 
-**O que o índice de subordinação não informa:**
-- se o colchão é suficiente dado o risco da carteira — isso depende da qualidade do crédito, da concentração, da política de elegibilidade e dos gatilhos do regulamento;
-- se existem outros mecanismos de proteção (excesso de spread, reservas, recompra, cobertura);
-- o que acontece se o fundo entrar em evento de liquidação antecipada.
+Ordem em que recebimentos disponíveis pagam despesas, reservas, remuneração, amortização e demais obrigações.
 
-## Gatilhos estruturais: quando a ordem normal muda
+### Apropriação de resultados
 
-Vários regulamentos definem **gatilhos** — índices mínimos de subordinação, cobertura ou alocação — que, se violados, ativam medidas como:
-- bloqueio de novas aquisições de crédito;
-- amortização acelerada das cotas sênior ("turbo amortization");
-- convocação de assembleia de cotistas;
-- início do processo de liquidação antecipada.
+Regra contábil/econômica que atribui valorização ou desvalorização às subclasses.
 
-Esses gatilhos são o elemento mais importante para entender quando a proteção estrutural começa a funcionar ativamente — e quando ela pode estar próxima do limite. O Informe Mensal não os reporta diretamente: eles estão no regulamento.
+### Absorção de perdas
 
-## O que observar na análise
+Ordem em que a perda reduz valor patrimonial. A subordinação cria prioridade, mas não autoriza afirmar que “os primeiros X% de perda” serão sempre absorvidos antes da sênior. O efeito depende de índice vigente, composição, despesas, waterfall e texto contratual.
 
-- A subordinação está crescendo, estável ou caindo? Uma subordinação em queda continuada pode indicar que perdas estão sendo absorvidas.
-- Qual é o índice mínimo de subordinação definido no regulamento? O fundo está perto desse gatilho?
-- Existem cotas mezanino? Elas funcionam como amortecedor intermediário entre a subordinada júnior e a sênior.
-- O fundo tem reservas ou excesso de spread que complementam a subordinação?
+## Por que importa para o risco
+
+O analista deve medir:
+
+1. subordinação efetiva e contratual;
+2. ativos elegíveis versus passivos e despesas;
+3. prioridade entre séries e datas de amortização;
+4. possibilidade de amortização da camada subordinada;
+5. gatilhos que retêm caixa ou mudam prioridade;
+6. risco de diluição por nova emissão;
+7. descasamento entre caixa da carteira e obrigação das cotas.
+
+Subordinação é reforço de crédito, não liquidez. Um nível patrimonial alto pode não produzir caixa na data necessária.
+
+## O que o Informe Mensal captura
+
+O reporte permite observar PL e valores de cotas no nível informado, além de movimentações. A Tabela X.2 pode conter subclasses/séries; essas linhas não são fundos adicionais. O informe não entrega integralmente waterfall, índice contratual, teste de cobertura ou prioridade de cada emissão.
+
+## O que exige regulamento ou emissão
+
+Definição das subclasses, séries, remuneração, amortização, índice de subordinação, cura, consequência de desenquadramento, votos e waterfall. Use a versão vigente da classe e o instrumento aplicável à emissão.
+
+Base normativa: RCVM 175, Parte Geral, arts. 5º e 14; Anexo Normativo II, arts. 2º, 8º e 13. Verificação: **16/07/2026**.

@@ -2,143 +2,213 @@
   "sources": [
     {
       "source_id": "rcvm_175_page",
-      "title": "Resolução CVM 175 - página oficial",
+      "title": "Resolução CVM 175 — página oficial",
       "source_type": "norma_oficial",
       "location": "https://conteudo.cvm.gov.br/legislacao/resolucoes/resol175.html",
-      "notes": "Ponto de entrada oficial com a Parte Geral e o Anexo Normativo II de FIDC."
+      "notes": "Ponto de entrada oficial. Verificada em 16/07/2026; indicava consolidação com alterações até a RCVM 240/2026."
     },
     {
       "source_id": "rcvm_175_parte_geral",
-      "title": "Resolução CVM 175 - Parte Geral consolidada",
+      "title": "Resolução CVM 175 — Parte Geral consolidada",
       "source_type": "norma_oficial",
       "location": "https://conteudo.cvm.gov.br/export/sites/cvm/legislacao/resolucoes/anexos/100/resol175consolid_ParteGeral.pdf",
-      "notes": "Base para classe, subclasse, deveres do administrador e governança geral do fundo."
+      "notes": "Fundo, classe, patrimônio segregado, cota, prestadores e governança. Verificada em 16/07/2026."
     },
     {
       "source_id": "rcvm_175_anexo_ii",
-      "title": "Resolução CVM 175 - Anexo Normativo II (FIDC)",
+      "title": "Resolução CVM 175 — Anexo Normativo II de FIDC",
       "source_type": "norma_oficial",
       "location": "https://conteudo.cvm.gov.br/export/sites/cvm/legislacao/resolucoes/anexos/100/resol175consolid_Anexo02.pdf",
-      "notes": "Norma estrutural específica do FIDC."
+      "notes": "Direitos creditórios, subclasses, séries, lastro, registro, custódia, política e reporte. Verificado em 16/07/2026."
     },
     {
       "source_id": "rcvm_160",
       "title": "Resolução CVM 160 consolidada",
       "source_type": "norma_oficial",
       "location": "https://conteudo.cvm.gov.br/export/sites/cvm/legislacao/resolucoes/anexos/100/resol160consolid.pdf",
-      "notes": "Oferta pública, rito de registro e documentos de distribuição."
+      "notes": "Ofertas públicas, ritos, documentos e restrições de negociação. Verificada em 16/07/2026."
     },
     {
       "source_id": "rcvm_30",
       "title": "Resolução CVM 30 consolidada",
       "source_type": "norma_oficial",
       "location": "https://conteudo.cvm.gov.br/export/sites/cvm/legislacao/resolucoes/anexos/001/resol030consolid.pdf",
-      "notes": "Categorias de investidores e suitability."
+      "notes": "Categorias de investidores e suitability. Verificada em 16/07/2026."
     },
     {
-      "source_id": "xml_576_page",
-      "title": "Padrão XML mensal FIDC - CVMWeb",
-      "source_type": "padrao_oficial_reporte",
-      "location": "https://cvmweb.cvm.gov.br/SWB/Sistemas/SCW/PadroesXML/PadraoXMLMensalFIDC576.asp",
-      "notes": "Útil para ingestão e semântica de campos do Informe Mensal; não substitui a norma estrutural do fundo."
+      "source_id": "icvm_489",
+      "title": "Instrução CVM 489 — página oficial",
+      "source_type": "norma_contabil_oficial",
+      "location": "https://conteudo.cvm.gov.br/legislacao/instrucoes/inst489.html",
+      "notes": "Demonstrações financeiras e critérios contábeis de FIDC; página registra alterações pelas ICVM 502 e 576. Verificada em 16/07/2026."
+    },
+    {
+      "source_id": "oficio_sin_snc_01_2013",
+      "title": "Ofício-Circular CVM/SIN/SNC 1/2013",
+      "source_type": "orientacao_contabil_oficial",
+      "location": "https://conteudo.cvm.gov.br/export/sites/cvm/legislacao/oficios-circulares/sin-snc/anexos/oc-sin-snc-0113.pdf",
+      "notes": "Orienta reconhecimento, write-off, perdas esperadas, provisão e preenchimento do Informe Mensal. Verificado em 16/07/2026."
+    },
+    {
+      "source_id": "oficio_sin_snc_02_2015",
+      "title": "Ofício-Circular CVM/SIN/SNC 2/2015",
+      "source_type": "orientacao_contabil_oficial",
+      "location": "https://conteudo.cvm.gov.br/cvm_institucional/export/sites/cvm/legislacao/oficios-circulares/sin-snc/anexos/oc-sin-snc-0215.pdf",
+      "notes": "Orienta provisão para perdas por redução no valor de recuperação. Verificado em 16/07/2026."
     },
     {
       "source_id": "oficio_sse_08_2023",
       "title": "Ofício-Circular CVM/SSE 8/2023",
       "source_type": "orientacao_oficial",
       "location": "https://conteudo.cvm.gov.br/export/sites/cvm/legislacao/oficios-circulares/sse1/anexos/oc-sse-0823.pdf",
-      "notes": "Orientações operacionais sobre lastro, registro e custódia em FIDC."
+      "notes": "Orientações sobre registro, custódia e verificação de lastro sob a RCVM 175. Verificado em 16/07/2026."
     },
     {
-      "source_id": "seller_regulamento",
-      "title": "Seller FIDC - regulamento",
-      "source_type": "documento_oficial_fundo",
-      "location": "estudo/1672581-43161-20230523111704.pdf",
-      "notes": "Exemplo forte de FIDC de meios de pagamento com Mercado Pago e métricas de subordinação/alocação."
+      "source_id": "xml_576_page",
+      "title": "Padrão XML mensal FIDC — CVMWeb",
+      "source_type": "padrao_oficial_reporte",
+      "location": "https://cvmweb.cvm.gov.br/SWB/Sistemas/SCW/PadroesXML/PadraoXMLMensalFIDC576.asp",
+      "notes": "Dicionário operacional do Informe Mensal. Não substitui a norma ou os documentos da classe. Verificado em 16/07/2026."
     },
     {
-      "source_id": "seller_relatorio_mensal",
-      "title": "Seller FIDC - relatório mensal fevereiro/2026",
-      "source_type": "documento_oficial_fundo",
-      "location": "estudo/2159283-43161-20260309175427.pdf",
-      "notes": "Principal referência local de formato de monitoramento."
+      "source_id": "cvm_dados_abertos_fidc",
+      "title": "CVM Dados Abertos — Informe Mensal de FIDC",
+      "source_type": "dados_oficiais",
+      "location": "https://dados.cvm.gov.br/dataset/fidc-doc-inf_mensal",
+      "notes": "Conjunto oficial de informes e retificações. A competência 202605 foi a fotografia completa indicada pelo metadata. Verificado em 16/07/2026."
     },
     {
-      "source_id": "facta_regulamento",
-      "title": "Facta INSS CB FIDC - regulamento",
-      "source_type": "documento_oficial_fundo",
-      "location": "estudo/1599001-38501-20221212113215.pdf",
-      "notes": "Exemplo de consignado benefício com CCB e forte camada de cessão/elegibilidade."
+      "source_id": "industry_metadata_202605",
+      "title": "Metadata do estudo setorial — snapshot 202605",
+      "source_type": "manifesto_local_derivado",
+      "location": "data/industry_study/metadata.json",
+      "notes": "Declara competencia_snapshot=202605; 202606 não foi usado automaticamente por estar preliminar/incompleto."
     },
     {
-      "source_id": "geru_regulamento",
-      "title": "GERU FIDC I - regulamento",
-      "source_type": "documento_oficial_fundo",
-      "location": "estudo/1337461-15981-20200901100422.pdf",
-      "notes": "Exemplo com relação mínima, alocação mínima, índice de cobertura e FPD."
+      "source_id": "selection_manifest_20260716",
+      "title": "Manifesto da revisão do Glossário de 100 FIDCs",
+      "source_type": "manifesto_de_auditoria",
+      "location": "reports/glossario_100_fidcs_20260716/manifest.json",
+      "notes": "Congela seleção, parâmetros, reconciliação, cobertura e hashes em 16/07/2026."
     },
     {
-      "source_id": "stone_regulamento",
-      "title": "Stone IV - regulamento consolidado",
-      "source_type": "documento_oficial_fundo",
-      "location": "estudo/1476881-27101-20211224104441.pdf",
-      "notes": "Exemplo de cartão/bancos emissores com cessão sem regresso."
+      "source_id": "glossary_methodology_20260716",
+      "title": "Metodologia da revisão do Glossário de 100 FIDCs",
+      "source_type": "metodologia_analitica",
+      "location": "reports/glossario_100_fidcs_20260716/methodology.md",
+      "notes": "Define as convenções analíticas do estudo e suas limitações. Não é prova primária de cláusula contratual."
     },
     {
-      "source_id": "supplier_regulamento",
-      "title": "Cartão de Compra Supplier FIDC - regulamento",
-      "source_type": "documento_oficial_fundo",
-      "location": "estudo/1385961-759-20210301165301.pdf",
-      "notes": "Exemplo rico em excesso de spread, reservas, DCV e índice de refinanciamento."
+      "source_id": "fnet_reg_792797",
+      "title": "FIDC do Sistema Petrobras — regulamento vigente na coleta",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792797&cvm=true",
+      "notes": "CNPJ 09.195.235/0001-50; data 29/11/2024; 46 páginas; primário lido."
     },
     {
-      "source_id": "vw_regulamento",
-      "title": "Volkswagen Tera Recebíveis Comerciais FIDC - regulamento",
-      "source_type": "documento_oficial_fundo",
-      "location": "estudo/2076171-63381-20250204121014.pdf",
-      "notes": "Exemplo útil para resolução de cessão, recompra e erros operacionais."
+      "source_id": "fnet_reg_1066031",
+      "title": "TAPSO FIDC RL — regulamento vigente na coleta",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1066031&cvm=true",
+      "notes": "CNPJ 26.287.464/0001-14; data 17/12/2025; 111 páginas; primário lido."
     },
     {
-      "source_id": "agibank_monitoramento",
-      "title": "Agibank I FIDC RL - relatório mensal dezembro/2025",
-      "source_type": "documento_oficial_fundo",
-      "location": "estudo/2156614-81031-20260126104025.pdf",
-      "notes": "Consignado INSS com Banco Agibank como endossante."
+      "source_id": "fnet_reg_1117954",
+      "title": "Cloudwalk Bela FIDC — regulamento vigente na coleta",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1117954&cvm=true",
+      "notes": "CNPJ 62.393.679/0001-83; data 19/02/2026; 172 páginas; primário lido."
     },
     {
-      "source_id": "icred_monitoramento",
-      "title": "iCred FGTS FIDC RL - relatório mensal fevereiro/2026",
-      "source_type": "documento_oficial_fundo",
-      "location": "estudo/2159394-59901-20260310142833.pdf",
-      "notes": "Exemplo com originação por fintech em consignado INSS e FGTS."
+      "source_id": "fnet_reg_579249",
+      "title": "Itaú Crédito Privado FIDC RL — regulamento vigente na coleta",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=579249&cvm=true",
+      "notes": "CNPJ 53.286.499/0001-01; data 21/12/2023; 62 páginas; primário lido."
     },
     {
-      "source_id": "cielo_monitoramento",
-      "title": "FIDC Cielo - relatório mensal maio/2025",
-      "source_type": "documento_oficial_fundo",
-      "location": "estudo/2142726-12001-20250623152914.pdf",
-      "notes": "Exemplo de arranjo de pagamentos/adquirência com Cielo como devedor."
+      "source_id": "fnet_reg_830304",
+      "title": "Esperanza FIDC — regulamento vigente na coleta",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=830304&cvm=true",
+      "notes": "CNPJ 53.263.761/0001-00; data 03/02/2025; 59 páginas; primário lido."
     },
     {
-      "source_id": "bv_monitoramento",
-      "title": "BV Crédito de Veículos FIDC RL - relatório mensal agosto/2025",
-      "source_type": "documento_oficial_fundo",
-      "location": "estudo/2148594-19371-20250917103827.pdf",
-      "notes": "Exemplo de financiamento de veículos via CCB."
+      "source_id": "fnet_reg_938243",
+      "title": "BTG Pactual Consignados II FIDC — regulamento vigente na coleta",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938243&cvm=true",
+      "notes": "CNPJ 52.242.420/0001-88; data 30/06/2025; 41 páginas; primário lido."
     },
     {
-      "source_id": "supplier_oferta_publica",
-      "title": "Supplier FIDC - anúncio de início da oferta pública",
-      "source_type": "documento_oficial_oferta",
-      "location": "estudo/1723661-45441-20231002100653.pdf",
-      "notes": "Exemplo explícito de rito de registro automático e dispensa de prospecto/lâmina."
+      "source_id": "fnet_reg_1222863",
+      "title": "Classe Consignado Privado do MT Global FIDC RL — anexo/regulamento",
+      "source_type": "documento_primario_classe",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1222863&cvm=true",
+      "notes": "Fundo 63.953.619/0001-30; classe 63.953.620/0001-65; data 02/06/2026; 30 páginas; primário lido."
     },
     {
-      "source_id": "seller_oferta_publica",
-      "title": "Seller FIDC - anúncio de início da oferta pública",
-      "source_type": "documento_oficial_oferta",
-      "location": "estudo/1673201-43161-20230525100350.pdf",
-      "notes": "Exemplo de oferta pública primária de cotas seniores sob RCVM 160."
+      "source_id": "fnet_reg_794164",
+      "title": "Aetos Energia FIDC — regulamento vigente na coleta",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=794164&cvm=true",
+      "notes": "CNPJ 52.610.624/0001-24; data 21/11/2024; 76 páginas; primário lido."
+    },
+    {
+      "source_id": "fnet_reg_1149521",
+      "title": "FIDC PagSeguro I — regulamento vigente na coleta",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1149521&cvm=true",
+      "notes": "CNPJ 28.169.275/0001-72; data 25/03/2026; 98 páginas; primário lido."
+    },
+    {
+      "source_id": "fnet_reg_1017493",
+      "title": "Cielo FIDC — regulamento vigente na coleta",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1017493&cvm=true",
+      "notes": "CNPJ 26.286.939/0001-58; data 20/10/2025; 146 páginas; primário lido."
+    },
+    {
+      "source_id": "fnet_reg_784984",
+      "title": "Alternative Assets III FIDC RL — regulamento vigente na coleta",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784984&cvm=true",
+      "notes": "CNPJ 29.225.241/0001-10; data 21/11/2024; 36 páginas; primário lido."
+    },
+    {
+      "source_id": "fnet_reg_1159092",
+      "title": "Monee I FIDC RL — regulamento vigente na coleta",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1159092&cvm=true",
+      "notes": "CNPJ 42.922.136/0001-07; data 10/04/2026; 63 páginas; primário lido."
+    },
+    {
+      "source_id": "fnet_reg_939418",
+      "title": "BTG Pactual Consignados FIDC — regulamento consolidado em retificação",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=939418&cvm=true",
+      "notes": "CNPJ 50.906.397/0001-53; data 02/07/2025; 42 páginas; catalogado como assembleia, mas contém regulamento consolidado após retificação."
+    },
+    {
+      "source_id": "fnet_reg_880741",
+      "title": "Rio Vermelho FIDC Não Padronizado — regulamento vigente na coleta",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=880741&cvm=true",
+      "notes": "CNPJ 53.216.449/0001-58; data 11/04/2025; 51 páginas; primário lido."
+    },
+    {
+      "source_id": "fnet_reg_1074015",
+      "title": "NC 2025 I FIDC RL — regulamento vigente na coleta",
+      "source_type": "documento_primario_fundo",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1074015&cvm=true",
+      "notes": "CNPJ 63.700.113/0001-10; data 31/12/2025; 60 páginas; primário lido."
+    },
+    {
+      "source_id": "fnet_emissao_1142758",
+      "title": "PAN Auto FIDC RL — instrumento de deliberação/emissão",
+      "source_type": "documento_primario_emissao",
+      "location": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1142758&cvm=true",
+      "notes": "CNPJ 65.473.848/0001-83; data 18/03/2026; 1 página. Não há regulamento local; excluído do denominador contratual."
     }
   ]
 }
