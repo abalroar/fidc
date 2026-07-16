@@ -9,6 +9,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
+from services.dashboard_ui import diagnostics_enabled, render_context_strip, render_page_header
 from services.cloudwalk_financial_cost import (
     CostRunConfig,
     FinancialCostOutputs,
@@ -35,6 +36,7 @@ DEFAULT_EMISSIONS_CSV = ROOT / "data/regulatory_profiles/cloudwalk_cotas_emissoe
 DEFAULT_CONFIG_JSON = ROOT / "config/cloudwalk_financial_cost_inputs.json"
 DEFAULT_RUNTIME_CACHE_ROOT = ROOT / ".cache/fundonet-ime"
 DEFAULT_PORTABLE_CACHE_ROOT = ROOT / "data/ime_cache/fundonet-ime"
+CLOUDWALK_VIEW_TABS = ("Resumo", "Séries", "Mensal", "Waterfall", "Caixa", "Dados e exportações")
 
 _CSS = """
 <style>
@@ -90,18 +92,9 @@ _CSS = """
 
 def render_tab_cloudwalk_financial_cost() -> None:
     st.markdown(_CSS, unsafe_allow_html=True)
-    st.markdown(
-        """
-        <div class="cloudwalk-header">
-          <div class="cloudwalk-kicker">Cloudwalk</div>
-          <h2 class="cloudwalk-title">Custo financeiro dos FIDCs</h2>
-          <div class="cloudwalk-subtitle">
-            Estimativa anual com gross-up gerencial da receita de antecipação, amortizações,
-            captações intraperíodo e carry de caixa/LFT.
-          </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
+    render_page_header(
+        "Cloudwalk",
+        "Custo financeiro dos FIDCs, amortizações, captações e carry de caixa/LFT.",
     )
 
     controls = _render_controls()
@@ -112,11 +105,17 @@ def render_tab_cloudwalk_financial_cost() -> None:
         outputs, pl_waterfall = _run_cost_engine(**controls)
     except Exception as exc:  # noqa: BLE001
         st.error("Não foi possível rodar a estimativa Cloudwalk.")
-        st.caption(f"{type(exc).__name__}: {exc}")
+        if diagnostics_enabled():
+            st.caption(f"{type(exc).__name__}: {exc}")
         return
 
+    render_context_strip(
+        source=str(controls["cdi_source"]),
+        base_until=f"{controls['start_date']} a {controls['end_date']}",
+        coverage=f"{len(outputs.line_df)} séries mapeadas",
+    )
     _render_headline(outputs)
-    tabs = st.tabs(["Resumo", "Séries", "Mensal", "Waterfall", "Caixa", "Arquivos"])
+    tabs = st.tabs(CLOUDWALK_VIEW_TABS)
     with tabs[0]:
         _render_summary(outputs, controls)
     with tabs[1]:
@@ -159,31 +158,28 @@ def _render_controls() -> dict[str, object] | None:
             help="Último dia considerado. O motor corta emissões futuras e amortizações fora do período.",
         )
 
-        col4, col5 = st.columns([1.1, 2.2])
-        cash_yield_factor = col4.number_input(
-            "Caixa/LFT (x CDI)",
-            value=float(base_config["cash_yield_factor"]),
-            min_value=0.0,
-            max_value=2.0,
-            step=0.05,
-            help="Multiplicador aplicado à rentabilidade do caixa/LFT. Use 1,00 para 100% do CDI; use 0,00 para não abater carry de caixa.",
-        )
-        curve_date = col5.date_input(
-            "CDI fallback B3",
-            value=date.today(),
-            format="YYYY-MM-DD",
-            help="Só é usado se o CDI mensal B3/Cetip não estiver disponível para o período.",
-        )
-
-        spread_table = _spread_input_table(base_config["spread_overrides"], base_config["amortization_conventions"])
         edited_spreads = pd.DataFrame()
-        with st.expander("CDI+ manual por série", expanded=False):
-            st.caption(
-                "Preencha apenas quando quiser substituir ou completar o CDI+ lido dos documentos. "
-                "Valor em % a.a.; exemplo: 1,20 significa CDI+1,20% a.a."
+        with st.expander("Opções avançadas", expanded=False):
+            col4, col5 = st.columns([1.1, 2.2])
+            cash_yield_factor = col4.number_input(
+                "Caixa/LFT (x CDI)",
+                value=float(base_config["cash_yield_factor"]),
+                min_value=0.0,
+                max_value=2.0,
+                step=0.05,
+                help="Multiplicador aplicado à rentabilidade do caixa/LFT. Use 1,00 para 100% do CDI; use 0,00 para não abater carry de caixa.",
             )
+            curve_date = col5.date_input(
+                "CDI fallback B3",
+                value=date.today(),
+                format="YYYY-MM-DD",
+                help="Só é usado se o CDI mensal B3/Cetip não estiver disponível para o período.",
+            )
+
+            spread_table = _spread_input_table(base_config["spread_overrides"], base_config["amortization_conventions"])
+            st.markdown("**CDI+ manual por série**")
             if spread_table.empty:
-                st.success("Nenhuma série ativa remunerada para editar.")
+                st.caption("Nenhuma série ativa remunerada para editar.")
             else:
                 edited_spreads = st.data_editor(
                     spread_table,
@@ -349,7 +345,7 @@ def _render_headline(outputs: FinancialCostOutputs) -> None:
 
 
 def _render_summary(outputs: FinancialCostOutputs, controls: dict[str, object]) -> None:
-    st.markdown("<div class='cloudwalk-section-title'>Estimativas principais</div>", unsafe_allow_html=True)
+    st.markdown("<h2>Estimativas principais</h2>", unsafe_allow_html=True)
     display = outputs.summary_df.copy()
     display = display[display["estimativa"].isin(["2_programado_bruto_com_amortizacao", "3_programado_liquido_caixa_lft"])].copy()
     display["estimativa"] = display["estimativa"].map(
@@ -406,7 +402,7 @@ def _render_summary(outputs: FinancialCostOutputs, controls: dict[str, object]) 
     st.dataframe(display, hide_index=True, width="stretch")
     cdi_frame = _cdi_rates_frame(controls.get("monthly_cdi_rates") or ())
     if not cdi_frame.empty:
-        st.markdown("<div class='cloudwalk-section-title'>CDI B3 composto mês a mês</div>", unsafe_allow_html=True)
+        st.markdown("<h2>CDI B3 composto mês a mês</h2>", unsafe_allow_html=True)
         cdi_display = cdi_frame.copy()
         cdi_display["cdi_mensal"] = pd.to_numeric(cdi_display["cdi_mensal"], errors="coerce").map(_format_percent)
         cdi_display["cdi_aa_equivalente"] = pd.to_numeric(cdi_display["cdi_aa_equivalente"], errors="coerce").map(_format_percent)
@@ -428,7 +424,7 @@ def _render_lines(outputs: FinancialCostOutputs) -> None:
         st.info("Nenhuma linha incluída no custo.")
         return
 
-    st.markdown("<div class='cloudwalk-section-title'>Preço por série</div>", unsafe_allow_html=True)
+    st.markdown("<h2>Preço por série</h2>", unsafe_allow_html=True)
     fund_cost = (
         active.groupby("fund_name", as_index=False)
         .agg(saldo_medio_programado=("saldo_medio_programado", "sum"), custo_programado_bruto=("custo_programado_bruto", "sum"))
@@ -538,7 +534,7 @@ def _render_cash(outputs: FinancialCostOutputs) -> None:
 
 def _render_downloads(outputs: FinancialCostOutputs, pl_waterfall: CloudwalkPlWaterfall, controls: dict[str, object]) -> None:
     recommended = _summary_row(outputs.summary_df, "2_programado_bruto_com_amortizacao")
-    st.markdown("<div class='cloudwalk-section-title'>Premissas e downloads</div>", unsafe_allow_html=True)
+    st.markdown("<h2>Dados e exportações</h2>", unsafe_allow_html=True)
     assumptions = pd.DataFrame(
         [
             ("Período calculado", f"{recommended['periodo_inicio']} a {recommended['periodo_fim']}"),
@@ -550,15 +546,12 @@ def _render_downloads(outputs: FinancialCostOutputs, pl_waterfall: CloudwalkPlWa
         ],
         columns=["Premissa", "Valor"],
     )
-    st.dataframe(assumptions, hide_index=True, width="stretch")
-
-    if outputs.missing_inputs_df.empty:
-        st.success("Todas as linhas ativas incluídas têm spread CDI+ definido ou parseável.")
-    else:
+    if not outputs.missing_inputs_df.empty:
         st.warning("Há linhas ativas sem spread CDI+.")
         st.dataframe(outputs.missing_inputs_df, hide_index=True, width="stretch")
 
-    with st.expander("Memória metodológica"):
+    with st.expander("Sobre a base", expanded=False):
+        st.dataframe(assumptions, hide_index=True, width="stretch")
         st.markdown(outputs.methodology_md)
 
     xlsx_bytes = build_cloudwalk_financial_cost_xlsx_bytes(

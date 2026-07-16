@@ -18,6 +18,7 @@ import pandas as pd
 import streamlit as st
 
 from data_loader import load_model_inputs
+from services.dashboard_ui import render_page_header
 from services.fidc_model import (
     AMORTIZATION_MODE_BULLET,
     AMORTIZATION_MODE_LINEAR,
@@ -3996,19 +3997,9 @@ def _chart_definition_caption(kind: str) -> str:
 
 def _render_model_header() -> None:
     st.markdown(_MODEL_CSS, unsafe_allow_html=True)
-    st.markdown(
-        """
-        <div class="fidc-model-header">
-          <div class="fidc-model-kicker">Simulação econômica</div>
-          <h2 class="fidc-model-title">Modelagem</h2>
-          <div class="fidc-model-copy">
-            Este é um modelo econômico-financeiro para simular cenários de perda máxima em uma
-            carteira de FIDC, considerando diferentes níveis de rentabilidade, subordinação e
-            perdas de crédito.
-          </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
+    render_page_header(
+        "Modelagem",
+        "Cenários de rentabilidade, subordinação, fluxo e perdas de crédito.",
     )
 
 
@@ -5444,14 +5435,14 @@ def render_tab_modelo_fidc() -> None:
         loss_chart_df=loss_chart_df,
         protection_chart_df=protection_display_chart_df,
     )
-    st.download_button(
-        "Exportar deck de comitê (PPTX)",
-        data=pptx_bytes,
-        file_name="modelo_fidc_dashboard.pptx",
-        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        width="stretch",
-    )
-    with st.expander("Dados do modelo para diligência", expanded=False):
+    with st.expander("Dados e exportações", expanded=False):
+        st.download_button(
+            "Exportar deck de comitê (PPTX)",
+            data=pptx_bytes,
+            file_name="modelo_fidc_dashboard.pptx",
+            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            width="stretch",
+        )
         st.download_button(
             "Baixar timeline CSV",
             data=csv,
@@ -5467,11 +5458,11 @@ def render_tab_modelo_fidc() -> None:
             width="stretch",
         )
 
-    st.markdown('<div class="fidc-model-section-title">Fontes de juros</div>', unsafe_allow_html=True)
-    _render_curve_source_controls(inputs, selected_curve, selected_calendar)
-    _render_selic_projection_info(selic_aa_por_ano=user_selic_aa_por_ano)
-
-    with st.expander("Metodologia e mecânica do modelo", expanded=False):
+    with st.expander("Sobre a base", expanded=False):
+        st.markdown("**Fontes de juros**")
+        _render_curve_source_controls(inputs, selected_curve, selected_calendar)
+        _render_selic_projection_info(selic_aa_por_ano=user_selic_aa_por_ano)
+        st.markdown("**Metodologia e mecânica do modelo**")
         st.markdown(_build_step_by_step_markdown())
         st.markdown("---")
         st.markdown(

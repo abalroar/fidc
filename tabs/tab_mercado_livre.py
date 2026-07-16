@@ -760,15 +760,15 @@ def _render_outputs(
     )
 
     def _render_base_view() -> None:
-        st.download_button(
-            "Exportar deck de comitê (PPTX)",
-            data=pptx_bytes,
-            file_name=f"somatorio_fidcs_completo_{file_token}.pptx",
-            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-            key=f"ml_pptx_completo_download::{selected_portfolio.id}",
-            use_container_width=True,
-        )
-        with st.popover("Exportar dados", icon=":material/download:"):
+        with st.expander("Dados e exportações", expanded=False):
+            st.download_button(
+                "Exportar deck de comitê (PPTX)",
+                data=pptx_bytes,
+                file_name=f"somatorio_fidcs_completo_{file_token}.pptx",
+                mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                key=f"ml_pptx_completo_download::{selected_portfolio.id}",
+                use_container_width=True,
+            )
             st.download_button(
                 "Resumo (Excel)",
                 data=snapshot_bytes,

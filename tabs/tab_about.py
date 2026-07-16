@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 
+from services.dashboard_ui import diagnostics_enabled, render_page_header
 from tabs.tab_development_investment import render_development_investment_section
 
 
@@ -96,34 +97,25 @@ _ABOUT_CSS = """
 
 def render_tab_about() -> None:
     st.markdown(_ABOUT_CSS, unsafe_allow_html=True)
+    render_page_header(
+        "Sobre",
+        "Análise de FIDCs com dados públicos, documentação regulatória e premissas explícitas.",
+    )
     st.markdown(
         """
-        <div class="about-page">
-          <div class="about-kicker">Sobre</div>
-          <h2 class="about-title">tomaconta FIDCs</h2>
-          <div class="about-summary">
-            Dashboard para leitura de Informes Mensais, carteiras, regulamentos, simulações e métricas de mercado de FIDCs.
-          </div>
-          <div class="about-statement">
-            <p>Criado por Matheus Prates, CFA, para padronizar análises de securitização com dados públicos da CVM.</p>
-            <p>Projeto independente em testes. Valide os dados antes de usar em decisão externa.</p>
-          </div>
-          <div class="about-grid">
-            <div class="about-card">
-              <div class="about-card-title">Dados oficiais</div>
-              <div class="about-card-body">Informes estruturados, rastreabilidade de campos e validações de consistência.</div>
-            </div>
-            <div class="about-card">
-              <div class="about-card-title">Análise de carteira</div>
-              <div class="about-card-body">PL, subordinação, inadimplência, cobertura, aging, roll rates e duration.</div>
-            </div>
-            <div class="about-card">
-              <div class="about-card-title">Modelagem</div>
-              <div class="about-card-body">Simulador econômico-financeiro com premissas explícitas.</div>
-            </div>
-          </div>
+        <div class="about-statement">
+          <p>O aplicativo reúne indústria, mercado secundário, carteiras, regulamentos e modelagem econômico-financeira em uma leitura única.</p>
+          <p>Criado por Matheus Prates, CFA. Projeto independente em evolução.</p>
         </div>
         """,
         unsafe_allow_html=True,
     )
-    render_development_investment_section()
+    with st.expander("Sobre a base", expanded=False):
+        st.markdown(
+            "As análises usam principalmente informes mensais e cadastros da **CVM**, "
+            "documentos do **Fundos.NET** e referências da **ANBIMA**. "
+            "Datas de competência, cobertura e limitações materiais são mostradas em cada página. "
+            "Valide os números antes de qualquer uso externo."
+        )
+    if diagnostics_enabled():
+        render_development_investment_section()

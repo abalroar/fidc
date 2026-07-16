@@ -11,6 +11,7 @@ import uuid
 import pandas as pd
 import streamlit as st
 
+from services.dashboard_ui import diagnostics_enabled
 from services.fundonet_errors import FundosNetError, ProviderUnavailableError
 from services.fundonet_portfolio_dashboard import (
     PortfolioDashboardBundle,
@@ -43,39 +44,36 @@ PARTIAL_CACHE_STATUSES = {"partial_hit", "github_cache_partial"}
 _PORTFOLIO_COVERAGE_CSS = """
 <style>
 .portfolio-period-status {
-    background: #FAFAFA;
     border-bottom: 1px solid #D9D9D9;
-    border-left: 4px solid #1F1F1F;
-    border-top: 1px solid #D9D9D9;
-    display: grid;
-    gap: 0;
-    grid-template-columns: repeat(5, minmax(112px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
     margin: 0.45rem 0 0.6rem 0;
+    padding: 0 0 0.55rem;
 }
 .portfolio-period-status--parcial,
 .portfolio-period-status--defasado,
 .portfolio-period-status--indisponivel {
-    border-left-color: #FF6200;
+    border-bottom-color: #FF6200;
 }
 .portfolio-period-status__item {
-    border-right: 1px solid #E5E5E5;
     min-width: 0;
-    padding: 0.55rem 0.7rem;
+    padding: 0;
 }
-.portfolio-period-status__item:last-child { border-right: 0; }
 .portfolio-period-status__label {
     color: #6B6B6B;
-    font-size: 0.68rem;
+    display: inline;
+    font-size: 0.72rem;
     font-weight: 600;
     line-height: 1.2;
-    text-transform: uppercase;
 }
+.portfolio-period-status__label::after { content: ": "; }
 .portfolio-period-status__value {
     color: #1F1F1F;
-    font-size: 0.88rem;
-    font-weight: 700;
+    display: inline;
+    font-size: 0.76rem;
+    font-weight: 600;
     line-height: 1.25;
-    margin-top: 0.18rem;
     overflow-wrap: anywhere;
 }
 .portfolio-period-alert {
@@ -124,9 +122,8 @@ _PORTFOLIO_COVERAGE_CSS = """
     margin-top: 0.12rem;
 }
 @media (max-width: 900px) {
-    .portfolio-period-status { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
-    .portfolio-period-status__item { border-bottom: 1px solid #E5E5E5; }
-    .portfolio-period-timeline { grid-template-columns: repeat(12, 64px); }
+    .portfolio-period-status { align-items: flex-start; flex-direction: column; }
+    .portfolio-period-timeline { grid-template-columns: repeat(3, minmax(0, 1fr)); overflow-x: visible; }
 }
 </style>
 """
@@ -270,7 +267,6 @@ def _render_portfolio_selector(portfolios: list[PortfolioRecord]) -> PortfolioRe
     selected_id = st.selectbox(
         "Seleção ativa",
         options=options,
-        index=options.index(default_id),
         key="ime_portfolio_active_id",
         label_visibility="collapsed",
         format_func=lambda value: label_lookup.get(value, value),
@@ -1035,8 +1031,9 @@ def _render_portfolio_aggregate_analysis(
         return
     except Exception as exc:  # noqa: BLE001
         st.error("A visão agregada da carteira falhou nesta combinação de fundos.")
-        with st.expander("Detalhe técnico da falha", expanded=False):
-            st.exception(exc)
+        if diagnostics_enabled():
+            with st.expander("Detalhe técnico da falha", expanded=False):
+                st.exception(exc)
         return
 
     loaded_count = len(dashboards_by_cnpj)
@@ -1064,12 +1061,13 @@ def _render_portfolio_aggregate_analysis(
             coverage=period_coverage,
             excluded_funds=excluded_funds,
         )
-        _render_portfolio_aggregate_pptx_export_button(
-            selected_portfolio=selected_portfolio,
-            bundle=bundle,
-            period=period,
-            coverage=period_coverage,
-        )
+        with st.expander("Dados e exportações", expanded=False):
+            _render_portfolio_aggregate_pptx_export_button(
+                selected_portfolio=selected_portfolio,
+                bundle=bundle,
+                period=period,
+                coverage=period_coverage,
+            )
         if dashboard_errors:
             st.caption(
                 f"{len(dashboard_errors)} fundo(s) foram excluídos por falha no dashboard base; "
@@ -1218,7 +1216,8 @@ def _render_portfolio_period_status(
         for competencia in requested
     )
     if timeline_html:
-        st.markdown(f"<div class='portfolio-period-timeline'>{timeline_html}</div>", unsafe_allow_html=True)
+        with st.expander("Cobertura mensal", expanded=False):
+            st.markdown(f"<div class='portfolio-period-timeline'>{timeline_html}</div>", unsafe_allow_html=True)
 
     alert = _portfolio_period_alert_text(coverage=coverage, excluded_funds=excluded_funds)
     if alert:
@@ -1365,7 +1364,7 @@ def _render_portfolio_aggregate_audit(
         _render_methodology_notes()
 
     if compact:
-        with st.expander("Auditoria temporal e metodológica", expanded=False):
+        with st.expander("Sobre a base", expanded=False):
             _render_all()
         return
     _render_all()

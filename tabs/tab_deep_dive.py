@@ -11,6 +11,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
+from services.dashboard_ui import diagnostics_enabled, render_page_header
 from services.deep_dive_ppt_export import build_deep_dive_pptx_bytes
 from services.deep_dive_store import (
     deep_dive_matches_portfolio,
@@ -339,15 +340,14 @@ def render_tab_deep_dive(
 ) -> None:
     manifests = list_deep_dives()
     if not compact:
-        st.markdown("<div class='deepdive-kicker'>Regulamentos</div>", unsafe_allow_html=True)
-        st.markdown("<div class='deepdive-title'>Regulamentos</div>", unsafe_allow_html=True)
-        st.markdown(
-            "<div class='deepdive-subtitle'>Emissões, prazos, custos e critérios documentais relevantes para a análise da carteira.</div>",
-            unsafe_allow_html=True,
+        render_page_header(
+            "Regulamentos",
+            "Emissões, prazos, custos e critérios documentais relevantes para a carteira.",
         )
     if show_curation_tools:
-        with st.expander("Prompt de atualização", expanded=False):
-            st.code(_load_reverse_engineering_prompt(), language="markdown")
+        if diagnostics_enabled():
+            with st.expander("Prompt de atualização", expanded=False):
+                st.code(_load_reverse_engineering_prompt(), language="markdown")
         _render_cloudwalk_waterfall(wrap=True, compact=False)
 
     if not manifests:
@@ -419,22 +419,22 @@ def render_tab_deep_dive(
     )
     highlight_value = None if highlighted_column == "Nenhuma" else highlighted_column
 
-    try:
-        pptx_bytes = build_deep_dive_pptx_bytes(
-            manifest,
-            [(table_spec, frame)],
-            highlighted_column=highlight_value,
-        )
-        st.download_button(
-            "Exportar deck de comitê (PPTX)",
-            data=pptx_bytes,
-            file_name=f"{_safe_token(manifest.deep_dive_id)}_{_safe_token(table_spec.id)}.pptx",
-            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-            use_container_width=True,
-        )
-    except RuntimeError as exc:
-        st.warning(str(exc))
-    with st.expander("Dados regulatórios para diligência", expanded=False):
+    with st.expander("Dados e exportações", expanded=False):
+        try:
+            pptx_bytes = build_deep_dive_pptx_bytes(
+                manifest,
+                [(table_spec, frame)],
+                highlighted_column=highlight_value,
+            )
+            st.download_button(
+                "Exportar deck de comitê (PPTX)",
+                data=pptx_bytes,
+                file_name=f"{_safe_token(manifest.deep_dive_id)}_{_safe_token(table_spec.id)}.pptx",
+                mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                use_container_width=True,
+            )
+        except RuntimeError as exc:
+            st.warning(str(exc))
         st.download_button(
             "Baixar CSV da tabela selecionada",
             data=frame.to_csv(index=False).encode("utf-8"),
@@ -445,11 +445,11 @@ def render_tab_deep_dive(
 
     _render_comparison_table(frame, highlighted_column=highlight_value)
 
-    with st.expander("Fontes e lacunas", expanded=False):
+    with st.expander("Sobre a base", expanded=False):
         if manifest.warnings:
             for warning in manifest.warnings:
                 st.caption(f"- {warning}")
-        if not live_audit.empty:
+        if diagnostics_enabled() and not live_audit.empty:
             st.markdown("**Atualização IME ao vivo**")
             st.dataframe(live_audit, hide_index=True, use_container_width=True)
         st.dataframe(_source_files_df(manifest), hide_index=True, use_container_width=True)
@@ -661,7 +661,8 @@ def _render_cloudwalk_waterfall_body(*, compact: bool = False) -> None:
         artifacts = _load_cloudwalk_waterfall_artifacts(refresh_ime)
     except Exception as exc:  # noqa: BLE001
         st.error("Não foi possível carregar o waterfall Cloudwalk.")
-        st.caption(f"Detalhe técnico: {type(exc).__name__}: {exc}")
+        if diagnostics_enabled():
+            st.caption(f"Detalhe técnico: {type(exc).__name__}: {exc}")
         return
 
     summary = artifacts["summary"]

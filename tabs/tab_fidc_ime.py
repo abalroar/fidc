@@ -15,6 +15,7 @@ import uuid
 import pandas as pd
 import streamlit as st
 
+from services.dashboard_ui import normalize_single_selection
 from services.fundonet_dashboard import (
     FundonetDashboardData,
     build_dashboard_data,
@@ -729,6 +730,11 @@ def _render_failure_diagnostics(exc: Exception, tb_text: str, context: dict[str,
     if isinstance(exc, FundosNetError) and exc.trace:
         st.subheader("Auditoria da falha")
         audit_df = pd.DataFrame(exc.trace)
+        for column in ("cnpj", "cnpj_fundo", "documento_id", "id_fundo"):
+            if column in audit_df.columns:
+                audit_df[column] = audit_df[column].map(
+                    lambda value: "" if pd.isna(value) else str(value)
+                )
         st.dataframe(audit_df, width="stretch")
 
     with st.expander("Traceback completo", expanded=False):
@@ -771,20 +777,35 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
     show_custom = st.session_state.get(custom_key, False)
 
     if not show_custom:
+        preset_labels = tuple(f"{value}M" for value in PERIOD_PRESET_OPTIONS)
+        default_label = f"{DEFAULT_PRESET_MONTHS}M"
+        preset_key = f"{state_prefix}_period_preset"
+        st.session_state[preset_key] = normalize_single_selection(
+            st.session_state.get(preset_key),
+            preset_labels,
+            default=default_label,
+        )
         radio_col, btn_col = st.columns([6, 1])
         with radio_col:
-            preset_months = st.radio(
+            selected_label = st.segmented_control(
                 "Janela móvel",
-                options=list(PERIOD_PRESET_OPTIONS),
-                index=list(PERIOD_PRESET_OPTIONS).index(DEFAULT_PRESET_MONTHS),
-                horizontal=True,
-                key=f"{state_prefix}_period_preset_months",
-                format_func=lambda v: f"{v}M",
+                options=preset_labels,
+                key=preset_key,
                 label_visibility="collapsed",
+                selection_mode="single",
+                required=True,
+                width="stretch",
             )
+            selected_label = normalize_single_selection(selected_label, preset_labels, default=default_label)
+            preset_months = int(selected_label.removesuffix("M"))
         with btn_col:
             st.write("")
-            if st.button("Personalizar →", key=f"{state_prefix}_btn_custom", use_container_width=True):
+            if st.button(
+                "Personalizar",
+                key=f"{state_prefix}_btn_custom",
+                icon=":material/tune:",
+                use_container_width=True,
+            ):
                 st.session_state[custom_key] = True
                 st.rerun()
         period = build_preset_period(end_month=end_month, months=int(preset_months))
@@ -817,7 +838,11 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
             )
         with back_col:
             st.write("")
-            if st.button("← Janela móvel", key=f"{state_prefix}_btn_preset"):
+            if st.button(
+                "Janela móvel",
+                key=f"{state_prefix}_btn_preset",
+                icon=":material/arrow_back:",
+            ):
                 st.session_state[custom_key] = False
                 st.rerun()
         period = build_custom_period(start_month=start_month, end_month=end_month_selected)

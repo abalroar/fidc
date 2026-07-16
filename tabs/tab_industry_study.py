@@ -24,6 +24,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
+from services.dashboard_ui import diagnostics_enabled, render_context_strip, render_page_header
 from services.industry_study import (
     CEDENTE_REVIEW_COLUMNS,
     CRITERIA_REVIEW_COLUMNS,
@@ -70,6 +71,14 @@ from services.industry_study import (
 
 _DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
 _REGULATORY_DB = Path(__file__).resolve().parents[1] / "data" / "fidc_credit_strategy" / "fidc_credit_strategy.sqlite"
+INDUSTRY_VIEW_TABS = ("Executivo", "Ofertas", "Prestadores", "Cedentes", "Investidores", "> R$5 bi", "Dados e exportações")
+INDUSTRY_EXECUTIVE_CHARTS = (
+    "industry-executive-pl",
+    "industry-executive-relevant-offers",
+    "industry-executive-net-flow",
+    "industry-executive-holders",
+    "industry-executive-delinquency",
+)
 _ALL_FIDCS_CRITERIA = Path(__file__).resolve().parents[1] / "data" / "regulatory_profiles" / "all_fidcs_criteria_monitoraveis_ime.csv"
 _CEDENTE_REVIEW_PATH = _DATA_DIR / "cedente_reviews.csv"
 _CEDENTE_REVIEW_AUDIT_PATH = _DATA_DIR / "cedente_review_audit.csv"
@@ -8928,6 +8937,56 @@ def _stock_delta_display(stock: pd.DataFrame, role: str, segment: str, metric: s
     return pd.DataFrame(rows)
 
 
+def _industry_executive_trend_frames(industry: pd.DataFrame) -> dict[str, pd.DataFrame]:
+    empty = {
+        "pl": pd.DataFrame(),
+        "flow": pd.DataFrame(),
+        "holders": pd.DataFrame(),
+        "delinquency": pd.DataFrame(),
+    }
+    if industry.empty or "competencia" not in industry.columns:
+        return empty
+
+    base = _month_axis(industry.sort_values("competencia").copy())
+    if "pl_total" in base.columns:
+        pl = base.tail(72).copy()
+        pl_total = pd.to_numeric(pl["pl_total"], errors="coerce")
+        pl_fic = (
+            pd.to_numeric(pl["pl_fic_fidc"], errors="coerce").fillna(0.0)
+            if "pl_fic_fidc" in pl.columns
+            else pd.Series(0.0, index=pl.index)
+        )
+        total = pl.assign(Série="FIDCs + FIC-FIDCs", valor_bi=pl_total / 1e9)
+        ex_fic = pl.assign(Série="Somente FIDCs (ex-FIC-FIDCs)", valor_bi=(pl_total - pl_fic) / 1e9)
+        empty["pl"] = pd.concat([total, ex_fic], ignore_index=True).dropna(subset=["valor_bi"])
+
+    if "captacao_liquida" in base.columns:
+        flow = base.tail(48).copy()
+        flow["valor_bi"] = pd.to_numeric(flow["captacao_liquida"], errors="coerce") / 1e9
+        flow["Sinal"] = flow["valor_bi"].map(
+            lambda value: _LABELS["entrada"] if pd.notna(value) and value >= 0 else _LABELS["saida"]
+        )
+        empty["flow"] = flow.dropna(subset=["valor_bi"])
+
+    if "cotistas_total" in base.columns:
+        holders = base.tail(72).copy()
+        holders["contas_mil"] = pd.to_numeric(holders["cotistas_total"], errors="coerce") / 1000
+        empty["holders"] = holders.dropna(subset=["contas_mil"])
+
+    if {"inad_pct_ajustada", "inad_pct"}.issubset(base.columns):
+        delinquency = base.tail(72).copy()
+        adjusted = delinquency.assign(
+            Série="Ajustada",
+            percentual=pd.to_numeric(delinquency["inad_pct_ajustada"], errors="coerce") * 100,
+        )
+        gross = delinquency.assign(
+            Série="Bruta",
+            percentual=pd.to_numeric(delinquency["inad_pct"], errors="coerce") * 100,
+        )
+        empty["delinquency"] = pd.concat([adjusted, gross], ignore_index=True).dropna(subset=["percentual"])
+    return empty
+
+
 def _render_industry_executive(
     industry: pd.DataFrame,
     status: pd.DataFrame,
@@ -8966,26 +9025,54 @@ def _render_industry_executive(
         unsafe_allow_html=True,
     )
 
+    trend_frames = _industry_executive_trend_frames(complete_industry)
+
     left, right = st.columns([1.15, 0.85])
     with left:
-        chart_frame = _month_axis(complete_industry.tail(72).copy())
-        chart_frame["PL ex-FIC (R$ bi)"] = (
-            chart_frame["pl_total"] - chart_frame["pl_fic_fidc"].fillna(0)
-        ) / 1e9
-        chart = (
-            alt.Chart(chart_frame)
-            .mark_line(color=_ORANGE, strokeWidth=2.5)
+        pl_frame = trend_frames["pl"]
+        total_pl = pl_frame[pl_frame["Série"].eq("FIDCs + FIC-FIDCs")]
+        area = (
+            alt.Chart(total_pl)
+            .mark_area(color=_ORANGE_SOFT)
             .encode(
                 x=alt.X("mes:T", title=None, axis=alt.Axis(format="%b/%y", grid=False)),
-                y=alt.Y("PL ex-FIC (R$ bi):Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                y=alt.Y("valor_bi:Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+            )
+        )
+        lines = (
+            alt.Chart(pl_frame)
+            .mark_line(strokeWidth=2.3)
+            .encode(
+                x=alt.X("mes:T", title=None, axis=alt.Axis(format="%b/%y", grid=False)),
+                y=alt.Y("valor_bi:Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                color=alt.Color(
+                    "Série:N",
+                    scale=alt.Scale(
+                        domain=["FIDCs + FIC-FIDCs", "Somente FIDCs (ex-FIC-FIDCs)"],
+                        range=[_ORANGE, _BLACK],
+                    ),
+                    legend=alt.Legend(title=None, orient="bottom"),
+                ),
+                strokeDash=alt.StrokeDash(
+                    "Série:N",
+                    scale=alt.Scale(
+                        domain=["FIDCs + FIC-FIDCs", "Somente FIDCs (ex-FIC-FIDCs)"],
+                        range=[[1, 0], [5, 3]],
+                    ),
+                    legend=None,
+                ),
                 tooltip=[
                     alt.Tooltip("competencia:N", title="Competência"),
-                    alt.Tooltip("PL ex-FIC (R$ bi):Q", format=",.1f"),
+                    alt.Tooltip("Série:N"),
+                    alt.Tooltip("valor_bi:Q", title="PL (R$ bi)", format=",.1f"),
                 ],
             )
-            .properties(height=310, title="PL da indústria ex-FIC")
         )
-        st.altair_chart(chart, width="stretch")
+        st.altair_chart(
+            (area + lines).properties(height=310, title="PL total e ex-FIC-FIDC"),
+            width="stretch",
+            key=INDUSTRY_EXECUTIVE_CHARTS[0],
+        )
     with right:
         if not competitive.empty:
             plot = competitive.copy()
@@ -9013,7 +9100,86 @@ def _render_industry_executive(
                 )
                 .properties(height=310, title="Ofertas acima de R$ 300 mi")
             )
-            st.altair_chart(chart, width="stretch")
+            st.altair_chart(chart, width="stretch", key=INDUSTRY_EXECUTIVE_CHARTS[1])
+
+    st.markdown("<h2>Tendências estruturais</h2>", unsafe_allow_html=True)
+    flow_col, holders_col, delinquency_col = st.columns(3)
+    with flow_col:
+        st.markdown("**Captação líquida mensal**")
+        flow = trend_frames["flow"]
+        if flow.empty:
+            st.caption("Série indisponível.")
+        else:
+            flow_chart = (
+                alt.Chart(flow)
+                .mark_bar(cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
+                .encode(
+                    x=alt.X("mes:T", title=None, axis=alt.Axis(format="%b/%y", grid=False, tickCount=5)),
+                    y=alt.Y("valor_bi:Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    color=alt.Color(
+                        "Sinal:N",
+                        scale=alt.Scale(
+                            domain=[_LABELS["entrada"], _LABELS["saida"]],
+                            range=[_ORANGE, _BLACK],
+                        ),
+                        legend=alt.Legend(title=None, orient="bottom"),
+                    ),
+                    tooltip=[
+                        alt.Tooltip("competencia:N", title="Competência"),
+                        alt.Tooltip("valor_bi:Q", title="Captação líquida (R$ bi)", format=",.2f"),
+                    ],
+                )
+                .properties(height=245)
+            )
+            st.altair_chart(flow_chart, width="stretch", key=INDUSTRY_EXECUTIVE_CHARTS[2])
+    with holders_col:
+        st.markdown("**Contas de cotistas**")
+        holders = trend_frames["holders"]
+        if holders.empty:
+            st.caption("Série indisponível.")
+        else:
+            holders_base = (
+                alt.Chart(holders)
+                .encode(
+                    x=alt.X("mes:T", title=None, axis=alt.Axis(format="%b/%y", grid=False, tickCount=5)),
+                    y=alt.Y("contas_mil:Q", title="mil contas", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    tooltip=[
+                        alt.Tooltip("competencia:N", title="Competência"),
+                        alt.Tooltip("contas_mil:Q", title="Mil contas", format=",.0f"),
+                    ],
+                )
+            )
+            holders_chart = (
+                holders_base.mark_line(color=_ORANGE, strokeWidth=2.3)
+                + holders_base.mark_point(color=_ORANGE, filled=True, size=22)
+            ).properties(height=245)
+            st.altair_chart(holders_chart, width="stretch", key=INDUSTRY_EXECUTIVE_CHARTS[3])
+    with delinquency_col:
+        st.markdown("**Inadimplência da carteira**")
+        delinquency = trend_frames["delinquency"]
+        if delinquency.empty:
+            st.caption("Série indisponível.")
+        else:
+            delinquency_chart = (
+                alt.Chart(delinquency)
+                .mark_line(strokeWidth=2.2)
+                .encode(
+                    x=alt.X("mes:T", title=None, axis=alt.Axis(format="%b/%y", grid=False, tickCount=5)),
+                    y=alt.Y("percentual:Q", title="% da carteira", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    color=alt.Color(
+                        "Série:N",
+                        scale=alt.Scale(domain=["Ajustada", "Bruta"], range=[_ORANGE, _BLACK]),
+                        legend=alt.Legend(title=None, orient="bottom"),
+                    ),
+                    tooltip=[
+                        alt.Tooltip("competencia:N", title="Competência"),
+                        alt.Tooltip("Série:N"),
+                        alt.Tooltip("percentual:Q", title="%", format=",.1f"),
+                    ],
+                )
+                .properties(height=245)
+            )
+            st.altair_chart(delinquency_chart, width="stretch", key=INDUSTRY_EXECUTIVE_CHARTS[4])
 
     preliminary = status[status["publication_status"].ne("completa")].sort_values("competencia").tail(1)
     if not preliminary.empty:
@@ -9030,7 +9196,7 @@ def _render_industry_executive(
 
 
 def _render_industry_offers(annual: pd.DataFrame, rankings: pd.DataFrame, competitive: pd.DataFrame) -> None:
-    st.markdown('<div class="industry-section">Atividade primária e tickets relevantes</div>', unsafe_allow_html=True)
+    st.markdown("<h2>Atividade primária e tickets relevantes</h2>", unsafe_allow_html=True)
     st.markdown(
         '<div class="industry-def">Oferta válida = registro não revogado, suspenso ou caducado. '
         "Oferta inicial é o campo oficial da CVM; ofertas subsequentes permanecem na atividade total de DCM.</div>",
@@ -9103,7 +9269,7 @@ def _render_industry_offers(annual: pd.DataFrame, rankings: pd.DataFrame, compet
 
 
 def _render_industry_providers(stock: pd.DataFrame) -> None:
-    st.markdown('<div class="industry-section">Prestadores e delta de ranking</div>', unsafe_allow_html=True)
+    st.markdown("<h2>Prestadores e delta de ranking</h2>", unsafe_allow_html=True)
     if stock.empty:
         st.info("Base de ranking indisponível.")
         return
@@ -9150,7 +9316,7 @@ def _render_industry_providers(stock: pd.DataFrame) -> None:
 
 
 def _render_industry_originators(originators: pd.DataFrame) -> None:
-    st.markdown('<div class="industry-section">Cedentes e originadores nomináveis</div>', unsafe_allow_html=True)
+    st.markdown("<h2>Cedentes e originadores nomináveis</h2>", unsafe_allow_html=True)
     st.markdown(
         '<div class="industry-def">Ranking conservador: somente nomes acionados por evidência nominal no emissor, lastro ou devedor identificado. '
         "O restante do volume permanece explicitamente não identificado.</div>",
@@ -9195,7 +9361,7 @@ def _render_industry_investors(
     investor_types: pd.DataFrame,
     offers: pd.DataFrame,
 ) -> None:
-    st.markdown('<div class="industry-section">Concentração e perfil da colocação</div>', unsafe_allow_html=True)
+    st.markdown("<h2>Concentração e perfil da colocação</h2>", unsafe_allow_html=True)
     if not annual.empty:
         latest = annual.sort_values("year").iloc[-1]
         cards = [
@@ -9257,18 +9423,25 @@ def _render_industry_investors(
 
 
 def _render_large_funds(large_funds: pd.DataFrame, large_docs: pd.DataFrame, latest_complete: str) -> None:
-    st.markdown('<div class="industry-section">FIDCs acima de R$ 5 bilhões</div>', unsafe_allow_html=True)
+    st.markdown("<h2>FIDCs acima de R$ 5 bilhões</h2>", unsafe_allow_html=True)
     if large_funds.empty:
         st.info("Classificação documental indisponível.")
         return
+    publishable = large_funds["classification_confidence"].astype(str).str.lower().eq("alta").sum()
     cards = [
         _industry_kpi("Fundos", _fmt_int(len(large_funds)), f"corte {_competence_label(latest_complete, lower=True)}"),
         _industry_kpi("PL coberto", _fmt_bi(large_funds["pl_brl"].sum(), 1), "16 maiores veículos"),
-        _industry_kpi("Documentos listados", _fmt_int(large_funds["documents_listed"].sum()), "CVM/FundosNet"),
-        _industry_kpi("Docs classificatórios", _fmt_int(large_funds["documents_relevant"].sum()), "regulamentos, emissões, atas e eventos"),
-        _industry_kpi("Docs lidos", _fmt_int(large_funds["documents_read"].sum()), "payloads PDF/DOCX processados"),
-        _industry_kpi("Com texto", _fmt_int(large_funds["documents_with_text"].sum()), "extração textual utilizável"),
+        _industry_kpi("Classificação publicável", f"{_fmt_int(publishable)}/{_fmt_int(len(large_funds))}", "confiança alta"),
     ]
+    if diagnostics_enabled():
+        cards.extend(
+            [
+                _industry_kpi("Documentos listados", _fmt_int(large_funds["documents_listed"].sum()), "CVM/FundosNet"),
+                _industry_kpi("Docs classificatórios", _fmt_int(large_funds["documents_relevant"].sum()), "regulamentos, emissões, atas e eventos"),
+                _industry_kpi("Docs lidos", _fmt_int(large_funds["documents_read"].sum()), "payloads PDF/DOCX processados"),
+                _industry_kpi("Com texto", _fmt_int(large_funds["documents_with_text"].sum()), "extração textual utilizável"),
+            ]
+        )
     st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
     display = large_funds[
         [
@@ -9300,25 +9473,26 @@ def _render_large_funds(large_funds: pd.DataFrame, large_docs: pd.DataFrame, lat
             f'lastro econômico <b>{row["document_segment_n2"]}</b>.</div>',
             unsafe_allow_html=True,
         )
-    left, right, _spacer = st.columns([1, 1, 3])
-    with left:
-        st.download_button(
-            "Baixar classificação",
-            large_funds.to_csv(index=False).encode("utf-8"),
-            file_name="fidcs_acima_5bi_classificacao.csv",
-            mime="text/csv",
-            icon=":material/download:",
-            width="stretch",
-        )
-    with right:
-        st.download_button(
-            "Baixar ledger documental",
-            large_docs.to_csv(index=False).encode("utf-8") if not large_docs.empty else b"",
-            file_name="fidcs_acima_5bi_documentos.csv",
-            mime="text/csv",
-            icon=":material/download:",
-            width="stretch",
-        )
+    with st.expander("Dados e exportações", expanded=False):
+        left, right, _spacer = st.columns([1, 1, 3])
+        with left:
+            st.download_button(
+                "Baixar classificação",
+                large_funds.to_csv(index=False).encode("utf-8"),
+                file_name="fidcs_acima_5bi_classificacao.csv",
+                mime="text/csv",
+                icon=":material/download:",
+                width="stretch",
+            )
+        with right:
+            st.download_button(
+                "Baixar ledger documental",
+                large_docs.to_csv(index=False).encode("utf-8") if not large_docs.empty else b"",
+                file_name="fidcs_acima_5bi_documentos.csv",
+                mime="text/csv",
+                icon=":material/download:",
+                width="stretch",
+            )
 
 
 def _render_industry_data_audit(
@@ -9328,9 +9502,10 @@ def _render_industry_data_audit(
     offers_as_of: str,
     large_funds: pd.DataFrame,
 ) -> None:
-    st.markdown('<div class="industry-section">Fontes, cobertura e artefatos</div>', unsafe_allow_html=True)
+    st.markdown("<h2>Dados e exportações</h2>", unsafe_allow_html=True)
     _render_industry_exports(suffix="audit", as_of_date=offers_as_of)
-    if not status.empty:
+    if diagnostics_enabled() and not status.empty:
+        st.markdown("<h2>Diagnóstico de competências</h2>", unsafe_allow_html=True)
         display = status.tail(18).copy()
         display["PL"] = display["pl_total"].map(lambda value: _fmt_bi(value, 1))
         display["Veículos vs. anterior"] = display["vehicle_ratio_vs_previous"].map(
@@ -9342,27 +9517,23 @@ def _render_industry_data_audit(
         display = display[["competencia", "publication_status", "n_veiculos", "PL", "Veículos vs. anterior", "PL vs. anterior", "status_reason"]]
         display.columns = ["Competência", "Status", "Veículos", "PL", "Veículos vs. anterior", "PL vs. anterior", "Motivo"]
         st.dataframe(display, hide_index=True, width="stretch")
-    source_table = pd.DataFrame(
-        [
-            ["Estoque, fluxos, cotistas e inadimplência", "CVM — Informe Mensal FIDC", latest_complete, "Consolidado"],
-            ["Ofertas, participantes e investidores", "CVM — Ofertas Públicas de Distribuição", offers_as_of, "Atualização diária"],
+    with st.expander("Sobre a base", expanded=False):
+        source_table = pd.DataFrame(
             [
-                "FIDCs > R$ 5 bi",
-                f"CVM/FundosNet — {_fmt_int(large_funds['documents_listed'].sum())} documentos listados" if not large_funds.empty else "CVM/FundosNet",
-                latest_complete,
-                f"{_fmt_int(large_funds['documents_read'].sum())} documentos classificatórios lidos" if not large_funds.empty else "Leitura indisponível",
+                ["Estoque, fluxos, cotistas e inadimplência", "CVM — Informe Mensal FIDC", latest_complete, "Consolidado"],
+                ["Ofertas, participantes e investidores", "CVM — Ofertas Públicas de Distribuição", offers_as_of, "Atualização diária"],
+                ["FIDCs > R$ 5 bi", "CVM/FundosNet", latest_complete, "Classificação documental"],
+                ["Classes formais", "ANBIMA — Deliberação nº 72", "Referencial", "Tipo e foco separados"],
             ],
-            ["Classes formais", "ANBIMA — Deliberação nº 72", "Referencial", "Tipo e foco preservados separadamente"],
-        ],
-        columns=["Dimensão", "Fonte", "Data-base", "Status"],
-    )
-    st.dataframe(source_table, hide_index=True, width="stretch")
-    st.markdown(
-        "- [CVM — Informe Mensal FIDC](https://dados.cvm.gov.br/dataset/fidc-doc-inf_mensal)\n"
-        "- [CVM — Ofertas Públicas de Distribuição](https://dados.cvm.gov.br/dataset/oferta-distrib)\n"
-        "- Gestor e custodiante históricos são reconstruções com cadastro vigente; administração é observada mensalmente.\n"
-        "- Investidores nominais e turnover secundário não constam das bases públicas gratuitas usadas no estudo."
-    )
+            columns=["Dimensão", "Fonte", "Data-base", "Status"],
+        )
+        st.dataframe(source_table, hide_index=True, width="stretch")
+        st.markdown(
+            "- [CVM — Informe Mensal FIDC](https://dados.cvm.gov.br/dataset/fidc-doc-inf_mensal)\n"
+            "- [CVM — Ofertas Públicas de Distribuição](https://dados.cvm.gov.br/dataset/oferta-distrib)\n"
+            "- Gestor e custodiante históricos são reconstruções com cadastro vigente; administração é observada mensalmente.\n"
+            "- Investidores nominais e turnover secundário não constam das bases públicas gratuitas usadas no estudo."
+        )
     dataset_names = {
         "Indústria mensal": "industry_monthly.csv",
         "Status de competências": "industry_competence_status.csv",
@@ -9373,18 +9544,19 @@ def _render_industry_data_audit(
         "Investidores": "industry_investor_distribution.csv",
         "FIDCs > R$5 bi": "industry_large_fund_classification.csv",
     }
-    selected_name = st.selectbox("Artefato", list(dataset_names), key="industry-raw-artifact")
-    frame = _intelligence_frame(dataset_names[selected_name])
-    st.dataframe(frame.head(500), hide_index=True, width="stretch", height=420)
-    st.download_button(
-        "Baixar CSV",
-        data=frame.to_csv(index=False).encode("utf-8"),
-        file_name=dataset_names[selected_name].replace(".gz", ""),
-        mime="text/csv",
-        icon=":material/download:",
-        width="content",
-        key="industry-raw-download",
-    )
+    with st.expander("Bases detalhadas", expanded=False):
+        selected_name = st.selectbox("Artefato", list(dataset_names), key="industry-raw-artifact")
+        frame = _intelligence_frame(dataset_names[selected_name])
+        st.dataframe(frame.head(500), hide_index=True, width="stretch", height=420)
+        st.download_button(
+            "Baixar CSV",
+            data=frame.to_csv(index=False).encode("utf-8"),
+            file_name=dataset_names[selected_name].replace(".gz", ""),
+            mime="text/csv",
+            icon=":material/download:",
+            width="content",
+            key="industry-raw-download",
+        )
 
 
 def render_tab_industry_study() -> None:
@@ -9415,20 +9587,17 @@ def render_tab_industry_study() -> None:
         offers_as_of = "" if pd.isna(latest_offer_date) else latest_offer_date.strftime("%Y-%m-%d")
     offers_as_of = offers_as_of or "n/d"
 
-    st.markdown(
-        f"""
-        <div class="industry-header">
-          <div class="industry-kicker">Indústria FIDC</div>
-          <div class="industry-title">Inteligência de mercado</div>
-          <div class="industry-subtitle">Estoque consolidado em <b>{latest_complete}</b> · última carga disponível <b>{latest_available}</b> · ofertas até {_date_label(offers_as_of)}.</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
+    latest_row = complete_status.iloc[-1] if not complete_status.empty else industry.iloc[-1]
+    coverage = f"{_fmt_int(latest_row.get('n_veiculos', 0))} veículos"
+    render_page_header("Indústria", "Estoque, emissões, participantes e investidores de FIDCs.")
+    render_context_strip(
+        source="CVM e ANBIMA",
+        base_until=f"{_competence_label(latest_complete)} (estoque) | {_date_label(offers_as_of)} (ofertas)",
+        coverage=coverage,
     )
-    _render_industry_exports(suffix="header", as_of_date=offers_as_of)
 
     executive_tab, offers_tab, providers_tab, originators_tab, investors_tab, large_tab, audit_tab = st.tabs(
-        ["Executivo", "Ofertas", "Prestadores", "Cedentes", "Investidores", "> R$5 bi", "Dados"]
+        INDUSTRY_VIEW_TABS
     )
     with executive_tab:
         _render_industry_executive(industry, status, competitive, latest_complete)

@@ -6,7 +6,7 @@ from html import escape
 import streamlit as st
 
 from services.ime_period import ImePeriodSelection
-from services.portfolio_store import PortfolioRecord
+from services.portfolio_store import PortfolioRecord, portfolio_basket_signature
 from tabs import tab_deep_dive as deep_dive_tab
 from tabs import tab_fidc_ime_carteira as carteira_tab
 from tabs import tab_fidc_monitoring as monitoring_tab
@@ -63,17 +63,34 @@ _PORTFOLIO_PAGE_CSS = """
     margin: 1.35rem 0 0.65rem 0;
     padding-top: 0.65rem;
 }
-.portfolio-block-index {
-    color: #FF6200;
-    font-size: 0.72rem;
-    font-weight: 700;
-    line-height: 1.2;
-}
 .portfolio-block-title {
     color: #1F1F1F;
     font-size: 1.04rem;
     font-weight: 700;
     line-height: 1.25;
+    margin: 0 !important;
+}
+.st-key-fidc_page_carteira .portfolio-context-overlay {
+    align-items: center;
+    background: #FFFFFF;
+    color: #1F1F1F;
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    position: fixed;
+    text-align: center;
+    z-index: 999999;
+}
+.st-key-fidc_page_carteira .portfolio-context-overlay strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 650;
+}
+.st-key-fidc_page_carteira .portfolio-context-overlay span {
+    color: #6B6B6B;
+    display: block;
+    font-size: 0.78rem;
+    margin-top: 0.25rem;
 }
 .fidc-section {
     font-size: 1rem !important;
@@ -151,23 +168,49 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
         st.info("Selecione ao menos um bloco para montar a página da carteira.")
         return
 
-    _render_portfolio_context_header(
-        selected_portfolio=selected_portfolio,
-        period=period,
-        selected_sections=selected_sections,
+    context_signature = "|".join(
+        (
+            selected_portfolio.id,
+            portfolio_basket_signature(selected_portfolio.funds),
+            period.cache_key,
+            *selected_sections,
+        )
     )
-    _preload_portfolio_data(
-        selected_portfolio=selected_portfolio,
-        period=period,
-        selected_sections=selected_sections,
-    )
-    for _, group_sections in _sections_grouped_for_render(selected_sections):
-        for section in group_sections:
-            _render_section(
-                section=section,
+    previous_signature = st.session_state.get("portfolio_page_context_signature")
+    st.session_state["portfolio_page_context_signature"] = context_signature
+    loading_surface = st.empty()
+    if previous_signature != context_signature:
+        with loading_surface.container():
+            st.markdown(
+                '<div class="portfolio-context-overlay" role="status">'
+                f'<div><strong>Atualizando carteira</strong><span>{escape(selected_portfolio.name)} · {escape(period.label)}</span></div>'
+                "</div>",
+                unsafe_allow_html=True,
+            )
+
+    analysis_surface = st.empty()
+    analysis_surface.empty()
+    try:
+        with analysis_surface.container():
+            _render_portfolio_context_header(
                 selected_portfolio=selected_portfolio,
                 period=period,
+                selected_sections=selected_sections,
             )
+            _preload_portfolio_data(
+                selected_portfolio=selected_portfolio,
+                period=period,
+                selected_sections=selected_sections,
+            )
+            for _, group_sections in _sections_grouped_for_render(selected_sections):
+                for section in group_sections:
+                    _render_section(
+                        section=section,
+                        selected_portfolio=selected_portfolio,
+                        period=period,
+                    )
+    finally:
+        loading_surface.empty()
 
 
 def _render_workflow_selector() -> tuple[str, ...]:
@@ -268,15 +311,10 @@ def _render_portfolio_block_header(section: str) -> None:
     block = _BLOCK_BY_ID.get(section)
     if block is None:
         return
-    visible_sections = DEFAULT_SECTIONS
-    index = next((idx for idx, item in enumerate(visible_sections, start=1) if item == section), 0)
-    if not index:
-        index = next((idx for idx, item in enumerate(_BLOCKS, start=1) if item.section_id == section), 0)
     st.markdown(
         f"""
 <div class="portfolio-block-header">
-  <span class="portfolio-block-index">{index:02d}</span>
-  <span class="portfolio-block-title">{escape(block.title)}</span>
+  <h2 class="portfolio-block-title">{escape(block.title)}</h2>
 </div>
 """,
         unsafe_allow_html=True,
