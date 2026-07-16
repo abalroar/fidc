@@ -6,7 +6,7 @@ Foi congelada a competência **202605**, indicada por `competencia_snapshot`, ev
 
 O PL da amostra é **R$ 399.488.372.325,77**, ou **41,6735%** dos R$ 958.614.843.834,84 de PL positivo reconciliado. Seis FIC-FIDCs somam R$ 13.940.997.626,48. Excluídos esses veículos em ambos os lados, a amostra representa **R$ 385.547.374.699,29**, ou **44,7192%** da indústria ex-FIC de R$ 862.151.993.954,82.
 
-A revisão resultou em 18 páginas, 48 conceitos e 27 métricas. O conteúdo continua concept-first: os 100 fundos são corpus de evidência, não um catálogo. Nenhuma conclusão constitui rating, recomendação ou avaliação corrente de fundo.
+A revisão resultou em 18 páginas, 49 conceitos e 28 métricas. O conteúdo continua concept-first: os 100 fundos são corpus de evidência, não um catálogo. Nenhuma conclusão constitui rating, recomendação ou avaliação corrente de fundo.
 
 ## Seleção e cobertura por estrato
 
@@ -43,17 +43,17 @@ O ledger documental tem 981 linhas canônicas, 748 IDs primários únicos e 233 
 
 | Estado ou tipo | Quantidade |
 |---|---:|
-| Fundos com algum documento primário lido | 100 |
-| Regulamentos vigentes lidos | 95 |
+| Fundos com algum documento primário processado | 100 |
+| Regulamentos vigentes processados | 95 |
 | Regulamentos vigentes ausentes | 3 |
 | Regulamentos vigentes inacessíveis | 2 |
 | Documentos com OCR necessário | 15 |
-| Relatórios de rating lidos | 52 |
-| Demonstrações financeiras lidas | 91 |
-| Relatórios mensais/trimestrais lidos | 98 |
-| Prospectos/lâminas lidos | 3 |
+| Relatórios de rating processados | 52 |
+| Demonstrações financeiras processadas | 91 |
+| Relatórios mensais/trimestrais processados | 98 |
+| Prospectos/lâminas processados | 3 |
 
-Os regulamentos vigentes ausentes são Solis Capital Core FIC-FIDC, Expert III FIDC e PAN Auto FIDC. Os downloads inacessíveis são Fratto FIDC (Fundos.NET 1235423) e Monee FIC-FIDC (Fundos.NET 1051896). A cobertura de PL da amostra por regulamento vigente lido é 95,6155%. Todos os cinco fundos têm status explícito e outro documento primário lido.
+Os regulamentos vigentes ausentes são Solis Capital Core FIC-FIDC, Expert III FIDC e PAN Auto FIDC. Os downloads inacessíveis são Fratto FIDC (Fundos.NET 1235423) e Monee FIC-FIDC (Fundos.NET 1051896). A cobertura de PL da amostra por regulamento vigente processado é 95,6155%. Todos os cinco fundos têm status explícito e outro documento primário processado.
 
 O inventário anterior não era confiável: 1.501 PDFs declarados locais estavam ausentes, assim como 9.645 caminhos de outro inventário e 1.445 arquivos-fonte da base de conhecimento regulatória. Os 571 caches TXT existentes tinham `documento_id` igual ao CNPJ. Esses derivados serviram apenas de pista.
 
@@ -61,7 +61,7 @@ Quinze documentos permanecem em OCR necessário e dois ficaram inacessíveis. Ne
 
 ## Resultado da matriz de evidências
 
-A matriz contém 57 evidências atômicas e 62 candidatos a verbete. Para práticas contratuais, o denominador com documentação substantiva suficiente é 15, e não 100. As frequências abaixo excluem FIC-FIDCs e distinguem fundos de famílias independentes:
+A matriz contém 63 evidências atômicas e 66 candidatos a verbete. Para práticas contratuais, o denominador com documentação substantiva suficiente é 15, e não 100. Seis evidências em cinco leituras pontuais adicionais sustentam exemplos de cobertura, pré-pagamento, refinanciamento e LTV sem entrar nas frequências. As frequências abaixo excluem FIC-FIDCs e distinguem fundos de famílias independentes:
 
 | Prática observada | Fundos | Equal-weight | Ponderada por PL | Famílias independentes |
 |---|---:|---:|---:|---:|
@@ -104,11 +104,21 @@ Ramp-up permaneceu rotulado como idiossincrático. A expressão literal “exces
 - busca limitada a títulos: ampliada ao Markdown, aliases, grafias sem acento e termos legados;
 - classificação interna `setor_n1/setor_n2`: explicitamente separada da classificação oficial da Tabela II.
 
+## Refinamento editorial e navegação
+
+- Os links entre artigos continuam relativos nos arquivos Markdown, para funcionar no GitHub, mas são convertidos em rotas internas por `page_id` quando o conteúdo é renderizado no aplicativo.
+- Fundo, classe, subclasse, série e cota passaram a aparecer em uma abertura hierárquica aninhada. Subordinação foi movida para o início da análise.
+- As páginas prioritárias foram convertidas de prosa longa para blocos e bullets, preservando uma definição canônica e referências cruzadas.
+- O mapa normativo foi reorganizado pela pergunta prática respondida por cada norma e pelo fluxo de uma distribuição pública.
+- As famílias de recebíveis passaram a trazer indicadores prioritários, fórmula, motivo da prioridade, testes contratuais e documentos necessários.
+- DCV foi retirado dos aliases de diluição. A sigla permanece apenas como alerta: não houve expansão ou fórmula recorrente nos 95 regulamentos vigentes e 52 relatórios de classificação de risco varridos.
+- Os cinco documentos adicionados na segunda rodada sustentam cobertura, pré-pagamento e relação dívida-garantia com URL oficial, hash, versão e página.
+
 ## Divergências e limitações remanescentes
 
 - Regulamentos de uma mesma família podem divergir em thresholds, reservas, concentração e eventos; o relatório conta templates, mas cada aplicação exige a versão do fundo.
 - PagSeguro apresenta condições que exigem leitura conjunta de política, critérios e lastro; Aetos contém redação material que não deve ser normalizada sem o original. Esses casos ficaram vinculados a página e hash.
-- O corpus de 100 tem documento explícito para todos, mas cinco não têm regulamento vigente lido e 15 documentos aguardam OCR.
+- O corpus de 100 tem documento explícito para todos, mas cinco não têm regulamento vigente processado e 15 documentos aguardam OCR.
 - Segmentos de população pequena têm cobertura alta por construção; Ações judiciais, Agronegócio e alguns estratos financeiros têm cobertura de PL mais baixa e evidência contratual menos densa.
 - Sem segmentação IME é uma limitação de reporte, não ausência econômica de carteira.
 - FIC-FIDC pode gerar dupla contagem econômica; por isso as coberturas bruta e ex-FIC são apresentadas separadamente.

@@ -59,7 +59,7 @@ O PL selecionado é R$ 399.488.372.325,77, equivalente a 41,6735% do universo de
 
 As coberturas por estrato estão em `selection_coverage_by_subtype.csv`. A flag FIC ampliada foi inferida da denominação e preserva também a flag legada; ela serve à reconciliação de dupla contagem potencial e não substitui confirmação documental da política de investimento.
 
-## 5. Inventário, recuperação e leitura documental
+## 5. Inventário, recuperação e processamento documental
 
 O inventário antigo foi revalidado contra o filesystem. Em `document_inventory.csv.gz`, 1.501 PDFs declarados locais não existiam; sobreviveram 571 TXT e 1.449 JSON com hash rechecado. Nos 571 caches de texto, `documento_id` reproduzia o CNPJ, e não um ID documental confiável. Outros inventários continham 9.645 caminhos ausentes e 1.445 referências a arquivos-fonte não baixados. Por isso, `local_exists` legado não foi aceito como prova.
 
@@ -67,9 +67,9 @@ Para cada um dos 100 fundos, a coleta consultou a listagem oficial do Fundos.NET
 
 O ledger canônico contém 981 linhas: 748 IDs documentais primários únicos e 233 pedidos prioritários ausentes. Foram extraídos página a página 731 documentos (`pypdf`/`pdfplumber`), representando 721 hashes SHA-256 únicos e 21.028 páginas após deduplicação por hash. Quinze documentos ficaram em `OCR necessário`, dois em `inacessível` e nenhum deles sustenta afirmação categórica do glossário.
 
-Todos os 100 fundos têm status documental explícito e ao menos um documento primário lido. Foram lidos 95 regulamentos vigentes; três não estavam listados e dois falharam no download. A cobertura de PL da amostra por regulamento vigente lido é 95,6155%. Também foram processados 52 relatórios de rating, 91 demonstrações financeiras, 98 relatórios mensais/trimestrais e três prospectos/lâminas.
+Todos os 100 fundos têm status documental explícito e ao menos um documento primário processado. Foram processados 95 regulamentos vigentes; três não estavam listados e dois falharam no download. A cobertura de PL da amostra por regulamento vigente processado é 95,6155%. Também foram processados 52 relatórios de rating, 91 demonstrações financeiras, 98 relatórios mensais/trimestrais e três prospectos/lâminas.
 
-“Lido” no ledger significa texto primário extraído e inspecionável página a página. A leitura jurídica substantiva de cláusulas concentrou-se em 15 regulamentos, equivalentes a 12 famílias independentes de template e 48,4402% do PL da amostra. Repetições idênticas ou quase idênticas foram agrupadas por hash e por família; não foram contadas como evidências econômicas independentes.
+O valor legado `lido` no ledger significa **processado**: texto primário extraído e inspecionável página a página. Não significa leitura jurídica integral. A leitura substantiva de cláusulas concentrou-se em 15 regulamentos, equivalentes a 12 famílias independentes de template e 48,4402% do PL da amostra. Repetições idênticas ou quase idênticas foram agrupadas por hash e por família; não foram contadas como evidências econômicas independentes.
 
 ## 6. Extração, OCR e conferência visual
 
@@ -79,7 +79,9 @@ Cláusulas materiais foram comparadas com a página renderizada. A amostra de QA
 
 ## 7. Matriz de evidências e prevalência
 
-`evidence_long.csv` contém 57 registros atômicos com termo, espécie de afirmação, fundo, segmento, documento, versão, página/seção, trecho curto, hash, confiança e decisão editorial. `term_candidates.csv` consolida 62 candidatos. O denominador nunca é automaticamente 100: cada prática usa apenas fundos com documentação substantiva suficiente.
+`evidence_long.csv` contém 63 registros atômicos com termo, espécie de afirmação, fundo, segmento, documento, versão, página/seção, trecho curto, hash, confiança e decisão editorial. `term_candidates.csv` consolida 66 candidatos. O denominador nunca é automaticamente 100: cada prática usa apenas fundos com documentação substantiva suficiente.
+
+Seis evidências em cinco leituras pontuais adicionais documentam cobertura, pré-pagamento, refinanciamento e relação saldo-garantia (LTV). Elas permanecem identificadas como exemplos contratuais e não alteram o denominador de prevalência dos 15 regulamentos substantivos.
 
 No denominador de 15 regulamentos:
 
@@ -139,7 +141,7 @@ Os hashes dos artefatos finais estão em `manifest.json`. A recuperação remota
 
 ## 10. Limitações
 
-- Cinco regulamentos vigentes não foram lidos: três ausentes na listagem e dois inacessíveis no download.
+- Cinco regulamentos vigentes não foram processados: três ausentes na listagem e dois inacessíveis no download.
 - Quinze documentos requerem OCR adicional; não foram usados como suporte categórico.
 - O corpus documental é amplo, mas a leitura jurídica substantiva de prevalência tem denominador de 15 regulamentos e 12 famílias, declarado em cada prática.
 - A Tabela II classifica valores reportados e não substitui a leitura da política de investimento; Sem segmentação IME expressa falta de valores suficientes.

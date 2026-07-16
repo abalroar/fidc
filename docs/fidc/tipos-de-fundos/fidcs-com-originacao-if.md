@@ -1,53 +1,65 @@
 # FIDCs com originação financeira: como comparar
 
-“Originado por banco ou fintech” não é família homogênea. A comparação deve preservar o produto, o regime do originador, o canal e a cadeia operacional.
+“Originado por banco ou empresa de tecnologia financeira, também chamada de *fintech*” não define uma família homogênea de **Fundos de Investimento em Direitos Creditórios (FIDCs)**. Preserve **produto, regime do originador, canal, safra e cadeia operacional**.
 
-## Identifique o papel antes do rótulo
+## Identifique a função jurídica
 
-Uma instituição financeira pode ser originadora, cedente, endossante, cobradora, gestora de conta ou coobrigada. Uma SCD ou SEP tem autorização e regime próprios. Correspondente e empresa de tecnologia podem participar da jornada sem conceder o crédito em nome próprio. O contrato, o cadastro oficial e a escrituração do ativo resolvem a função.
+- **Instituição financeira:** pode originar, ceder, endossar, cobrar, gerir conta ou assumir coobrigação.
+- **Sociedade de Crédito Direto (SCD):** instituição autorizada com regime próprio para operações de crédito por plataforma eletrônica.
+- **Sociedade de Empréstimo entre Pessoas (SEP):** instituição autorizada com regime próprio de intermediação eletrônica entre credores e devedores.
+- **Correspondente:** atua por conta de instituição contratante nos limites aplicáveis; não vira credor apenas por participar da jornada.
+- **Empresa de tecnologia:** pode fornecer sistema, dados ou canal sem conceder o crédito em nome próprio.
 
-## Eixos comparáveis
+Contrato, cadastro oficial e escrituração do ativo resolvem a função. O nome comercial não resolve.
 
-### Underwriting
+## Cinco eixos de comparação
 
-Política, dados usados, antifraude, aprovação manual/automática, exceções, score, renda, margem, LTV e governança de modelo. Taxa de aprovação não mede sozinha qualidade.
+- **Análise e concessão de crédito, ou underwriting**
+  - Política, dados, antifraude, decisão manual ou automática, exceções, pontuação de crédito, ou *score*, renda, margem e garantia.
+  - Taxa de aprovação mede volume e seleção, não qualidade sozinha.
 
-### Safra e canal
+- **Safra e canal**
+  - Compare coortes com idade suficiente e identifique loja, parceiro, correspondente, aplicativo ou base própria.
+  - Canal altera fraude, ticket, perfil e cobrança.
 
-Compare coortes de originação com maturidade suficiente. Canal digital, loja, correspondente, parceiro ou base própria podem produzir mix e fraude diferentes.
+- **Retenção de risco do originador**
+  - Subordinação, coobrigação, desconto, reserva ou recompra por vício criam exposições diferentes.
+  - Retenção não garante capacidade de suporte e não cobre inadimplência ordinária sem previsão.
 
-### Skin in the game
+- **Cobrança e operação da carteira, ou servicing**
+  - A operação abrange boletos, débito, consignação, conciliação, renegociação e recuperação.
+  - Teste se dados, contas, procurações e relacionamento podem passar a um substituto.
 
-Subordinação detida pelo originador, coobrigação, desconto na cessão, reserva ou recompra por vício criam exposições distintas. Retenção econômica não garante capacidade de suporte nem cobre inadimplência ordinária sem previsão.
-
-### Servicing e cobrança
-
-Mapeie boletos, débito, consignação, conta de recebimento, conciliação, renegociação, cobrança judicial e plano de substituição. Dependência do originador é maior quando dados, relacionamento e caixa passam por ele.
-
-### Preço e seleção
-
-Confira preço de aquisição, ágio/deságio, taxa do crédito, prazo e possíveis incentivos para selecionar ativos. Critério de elegibilidade não substitui monitoramento de adverse selection.
+- **Preço e seleção de ativos**
+  - Confira ágio ou deságio, taxa, prazo, elegibilidade e incentivo para escolher os créditos cedidos.
+  - **Seleção adversa**, ou *adverse selection*, ocorre quando os ativos transferidos têm qualidade pior que a população disponível.
 
 ## Métricas por produto
 
-- consignado: margem, averbação, convênio, portabilidade, interrupção de benefício e repasse;
-- pessoal: FPD como convenção operacional, safra, roll rate, cura, renegociação e recuperação;
-- veículos: LTV, garantia, retomada, prazo de venda e perda líquida;
-- cartão/meios de pagamento: chargeback, diluição, agenda, arranjo e concentração;
-- corporativo: concentração, covenants, demonstrações, garantias e cross-default.
+Use a página [Famílias de recebíveis e diferenças de risco](../recebiveis/recebiveis-financeiros.md) para fórmulas e prioridade. Em resumo:
 
-O mesmo threshold não deve ser aplicado a produtos ou janelas diferentes.
+- **Consignado:** repasse, averbação, convênio, portabilidade, Over e concentração.
+- **Pessoal ou digital:** inadimplência na primeira obrigação, ou First Payment Default (FPD), safra, migração, cura, renegociação e recuperação.
+- **Veículos:** Loan-to-Value (LTV), ou saldo sobre valor da garantia, atraso por safra, retomada e recuperação líquida.
+- **Cartão e meios de pagamento:** contestação ou reversão de transação, chamada de *chargeback*, diluição, agenda, conciliação e concentração operacional.
+- **Corporativo:** concentração, cobertura, compromissos financeiros, garantias e vencimento cruzado.
+
+O mesmo limite não deve ser aplicado a produtos, coortes ou janelas diferentes.
 
 ## Dependência do originador
 
-Pergunte se a classe consegue continuar após substituição do originador ou servicer. Considere portabilidade de dados, documentação, conta bancária, notificações, licença de software, cobrança, relacionamento com convênio e capacidade de comprar novas safras.
+- **Dados:** a classe possui base suficiente para cobrar e reconciliar?
+- **Conta:** o dinheiro chega a uma conta controlada pela estrutura?
+- **Documentos:** o substituto recebe lastro e histórico completos?
+- **Tecnologia:** licença e integração sobrevivem à troca do prestador?
+- **Originação futura:** o período revolvente depende de novas safras do mesmo grupo?
 
-## O que o Informe Mensal captura
+## Informe Mensal e documentos
 
-O reporte ajuda a observar composição, saldos, atraso e fluxos. Identidade e função do originador podem depender de cadastro e documentos. Política de crédito, canal, score, fraude, safra e servicing exigem relatórios operacionais, contratos e diligência.
+- **O reporte ajuda:** composição, saldo, atraso e fluxos.
+- **O reporte não resolve:** papel jurídico, política, canal, score, fraude, safra e cobrança.
+- **Fonte necessária:** cadastro, regulamento, contrato, relatório operacional e diligência.
 
-## Uso dos casos do corpus
+Os 100 fundos foram usados como corpus de linguagem e prática. **Classes de investimento em cotas de FIDC (FIC-FIDC)** permanecem na cobertura patrimonial, mas não entram na frequência de práticas do crédito subjacente. Nenhum caso constitui classificação de risco ou recomendação.
 
-Os fundos da amostra de 100 foram usados para localizar vocabulário e variações contratuais. FIC-FIDCs permanecem na cobertura patrimonial, mas foram separados das frequências sobre práticas do crédito subjacente. Nenhum caso é apresentado como rating, recomendação ou avaliação corrente.
-
-Fontes: RCVM 175, cadastros oficiais, documentos primários indicados no índice de evidências e metodologia analítica da revisão. Verificação: **16/07/2026**.
+Fontes: **Resolução da Comissão de Valores Mobiliários (RCVM) 175**, cadastros oficiais, documentos primários e metodologia analítica da revisão. Verificação: **16/07/2026**.

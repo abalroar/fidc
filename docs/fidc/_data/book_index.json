@@ -8,7 +8,7 @@
         {
           "page_id": "overview",
           "title": "Guia de uso do Glossário de FIDCs",
-          "summary": "Como separar norma, contrato, reporte e convenção analítica; trilha de leitura e escopo do corpus de 100 fundos.",
+          "summary": "Trilha de leitura, hierarquia fundo-classe-subclasse e escada documental do corpus de 100 fundos.",
           "path": "overview.md",
           "level": "base",
           "keywords": ["metodologia", "fontes", "fundo", "classe", "subclasse", "série", "evidência"],
@@ -24,7 +24,7 @@
         {
           "page_id": "o-que-e-fidc",
           "title": "O que é FIDC e o que são direitos creditórios",
-          "summary": "Fundo, classe com patrimônio segregado, direitos creditórios e diferença entre recebível e crédito elegível.",
+          "summary": "FIDC, classe como unidade patrimonial, direitos creditórios e diferença entre recebível e crédito elegível.",
           "path": "glossario/o-que-e-fidc.md",
           "level": "base",
           "keywords": ["fidc", "direitos creditórios", "recebíveis", "crédito elegível", "patrimônio segregado", "fic-fidc"],
@@ -58,11 +58,11 @@
         {
           "page_id": "hierarquia-regulatoria",
           "title": "Mapa normativo: RCVM 175, 160, 30 e reporte",
-          "summary": "O papel de cada norma, do padrão XML, da contabilidade, dos ofícios e dos documentos da estrutura.",
+          "summary": "Qual pergunta cada norma responde e como fundo, oferta, investidor, contabilidade e reporte se conectam.",
           "path": "regulacao/hierarquia-regulatoria.md",
           "level": "base",
-          "keywords": ["rcvm 175", "rcvm 160", "rcvm 30", "icvm 489", "padrão xml", "regime legado"],
-          "source_ids": ["rcvm_175_page", "rcvm_175_parte_geral", "rcvm_175_anexo_ii", "rcvm_160", "rcvm_30", "icvm_489", "xml_576_page", "oficio_sse_08_2023"]
+          "keywords": ["rcvm 175", "rcvm 160", "rcvm 170", "rcvm 30", "icvm 489", "padrão xml", "regime legado"],
+          "source_ids": ["rcvm_175_page", "rcvm_175_parte_geral", "rcvm_175_anexo_ii", "rcvm_160", "rcvm_170", "rcvm_30", "icvm_489", "xml_576_page", "oficio_sse_08_2023"]
         },
         {
           "page_id": "informe-mensal-tabela-ii",
@@ -75,8 +75,8 @@
         },
         {
           "page_id": "oferta-rating-investidores",
-          "title": "Oferta pública, emissão, remuneração e rating",
-          "summary": "Diferenças entre emissão e oferta, categorias de investidores, benchmark, amortização, séries e rating.",
+          "title": "Oferta pública, emissão, remuneração e classificação de risco",
+          "summary": "Diferenças entre emissão e oferta, categorias de investidores, referência de remuneração, amortização, séries e classificação de risco.",
           "path": "regulacao/oferta-rating-e-investidores.md",
           "level": "intermediario",
           "keywords": ["oferta pública", "emissão", "subscrição", "integralização", "benchmark", "rating", "investidor profissional", "investidor qualificado"],
@@ -91,8 +91,8 @@
       "pages": [
         {
           "page_id": "classes-cotas-waterfall",
-          "title": "Fundo, classe, subclasse, série, cota e waterfall",
-          "summary": "Arquitetura da RCVM 175, senioridade, índice de subordinação e diferenças entre caixa, resultado e absorção de perdas.",
+          "title": "Fundo, classe, subclasse, série, cota e cascata de pagamentos",
+          "summary": "Hierarquia visual da RCVM 175, subordinação, séries e diferenças entre caixa, resultado e absorção de perdas.",
           "path": "estruturas/classes-cotas-waterfall.md",
           "level": "intermediario",
           "keywords": ["fundo", "classe", "subclasse", "série", "cota", "tranche", "waterfall", "subordinação"],
@@ -101,11 +101,11 @@
         {
           "page_id": "reforcos-revolvencia-liquidez",
           "title": "Reforços de crédito, revolvência e liquidez",
-          "summary": "Subordinação, sobrecolateralização, reservas, excesso de spread, ramp-up, reinvestimento, amortização, WAL e descasamento.",
+          "summary": "Subordinação, sobrecolateralização, reservas, margem excedente, formação da carteira, reinvestimento, amortização, vida média e descasamento.",
           "path": "estruturas/reforcos-revolvencia-e-liquidez.md",
           "level": "intermediario",
           "keywords": ["reforço de crédito", "reserva", "excesso de spread", "revolvência", "ramp-up", "runoff", "liquidez", "wal", "pré-pagamento"],
-          "source_ids": ["rcvm_175_anexo_ii", "fnet_reg_792797", "fnet_reg_1066031"]
+          "source_ids": ["rcvm_175_anexo_ii", "fnet_reg_792797", "fnet_reg_1066031", "fnet_reg_1002580"]
         }
       ]
     },
@@ -117,25 +117,25 @@
         {
           "page_id": "recebiveis-financeiros",
           "title": "Famílias de recebíveis e diferenças de risco",
-          "summary": "Consignado, pessoal, corporativo, veículos, imobiliário, cartão, risco sacado, NPL e demais segmentos oficiais.",
+          "summary": "Riscos, fórmulas e limites prioritários para consignado, pessoal, corporativo, veículos, imobiliário, cartão, créditos inadimplidos e outras famílias.",
           "path": "recebiveis/recebiveis-financeiros.md",
           "level": "intermediario",
-          "keywords": ["consignado", "crédito pessoal", "veículos", "cartão", "meios de pagamento", "risco sacado", "npl", "taxonomia funcional documental"],
-          "source_ids": ["rcvm_175_anexo_ii", "cvm_dados_abertos_fidc", "fnet_reg_1117954", "fnet_reg_938243", "fnet_reg_1149521", "fnet_reg_1017493"]
+          "keywords": ["consignado", "crédito pessoal", "veículos", "cartão", "meios de pagamento", "risco sacado", "npl", "ltv", "dcv", "taxonomia funcional documental"],
+          "source_ids": ["rcvm_175_anexo_ii", "cvm_dados_abertos_fidc", "fnet_reg_1117954", "fnet_reg_938243", "fnet_reg_1149521", "fnet_reg_1017493", "fnet_reg_1223029", "fnet_reg_909547", "fnet_reg_1002580", "fnet_reg_1127150", "fnet_reg_1090771"]
         },
         {
           "page_id": "instrumentos-garantias-concentracao",
           "title": "Instrumentos, garantias, elegibilidade e concentração",
-          "summary": "CCB, duplicata, CPR, contratos, garantias reais e fidejussórias, critérios atômicos, limites e diluição.",
+          "summary": "Instrumentos por extenso, garantias, critérios atômicos, concentração e diluição sem aliases indevidos.",
           "path": "recebiveis/instrumentos-garantias-e-concentracao.md",
           "level": "intermediario",
           "keywords": ["ccb", "duplicata", "cpr", "garantia", "alienação fiduciária", "aval", "fiança", "concentração", "diluição"],
-          "source_ids": ["rcvm_175_anexo_ii", "oficio_sse_08_2023", "fnet_reg_579249", "fnet_reg_794164"]
+          "source_ids": ["rcvm_175_anexo_ii", "oficio_sse_08_2023", "fnet_reg_579249", "fnet_reg_794164", "fnet_reg_1127150", "fnet_reg_1090771"]
         },
         {
           "page_id": "fidcs-originacao-if",
           "title": "FIDCs com originação financeira: como comparar",
-          "summary": "Papel jurídico do originador, underwriting, safra, servicing, retenção de risco e métricas por produto.",
+          "summary": "Papel jurídico do originador, concessão, safra, operação da carteira, retenção de risco e métricas por produto.",
           "path": "tipos-de-fundos/fidcs-com-originacao-if.md",
           "level": "intermediario",
           "keywords": ["instituição financeira", "scd", "sep", "fintech", "originação", "underwriting", "servicing", "safra"],
@@ -151,16 +151,16 @@
         {
           "page_id": "metricas-estruturais",
           "title": "Métricas estruturais e de liquidez",
-          "summary": "PL, alocação, subordinação reportada, cobertura, concentração, reservas, excesso de spread, WAL e gaps.",
+          "summary": "Ordem de leitura para subordinação, cobertura, concentração, liquidez, alocação, reservas, WAL e PL.",
           "path": "metricas/metricas-estruturais.md",
           "level": "intermediario",
           "keywords": ["pl", "alocação", "subordinação", "cobertura", "concentração", "reserva", "excesso de spread", "wal", "gap"],
-          "source_ids": ["rcvm_175_anexo_ii", "xml_576_page", "cvm_dados_abertos_fidc", "fnet_reg_830304", "glossary_methodology_20260716"]
+          "source_ids": ["rcvm_175_anexo_ii", "xml_576_page", "cvm_dados_abertos_fidc", "fnet_reg_830304", "fnet_reg_1223029", "fnet_reg_909547", "fnet_reg_1002580", "glossary_methodology_20260716"]
         },
         {
           "page_id": "provisao-perdas-e-inadimplencia",
-          "title": "Atraso, provisão, perda, recuperação e write-off",
-          "summary": "Aging completo, Over, FPD, roll rate, cura, provisão, perda esperada, perda realizada, baixa e recuperação.",
+          "title": "Atraso, provisão, perda, recuperação e baixa contábil",
+          "summary": "Métricas de desempenho em ordem de uso, com siglas expandidas, fórmulas, importância e limitações.",
           "path": "metricas/provisao-perdas-e-inadimplencia.md",
           "level": "intermediario",
           "keywords": ["aging", "inadimplência over", "fpd", "roll rate", "cura", "provisão", "perda esperada", "write-off", "recuperação"],
@@ -175,7 +175,7 @@
       "pages": [
         {
           "page_id": "eventos-avaliacao-liquidacao",
-          "title": "Eventos, gatilhos, waivers e liquidação",
+          "title": "Eventos, gatilhos, dispensas e liquidação",
           "summary": "Anatomia de gatilhos, cura, eventos declarados, consentimentos, quóruns, controles e liquidação antecipada.",
           "path": "eventos/eventos-de-avaliacao-e-liquidacao.md",
           "level": "intermediario",
@@ -185,7 +185,7 @@
         {
           "page_id": "lastro-rating-reporting",
           "title": "Lastro, documentos periódicos e monitoramento",
-          "summary": "Função de regulamento, anexo, Informe Mensal, demonstrativo trimestral, rating, demonstrações, atas e fatos relevantes.",
+          "summary": "Pergunta respondida por cada documento e diferença entre processado, leitura substantiva e conferência visual.",
           "path": "eventos/lastro-rating-e-reporting.md",
           "level": "intermediario",
           "keywords": ["lastro", "demonstrativo trimestral", "informe mensal", "rating", "demonstrações financeiras", "fato relevante", "ocr", "cache-only"],
@@ -200,8 +200,8 @@
       "pages": [
         {
           "page_id": "fundos-de-referencia",
-          "title": "Casos documentais usados no glossário",
-          "summary": "Dez casos primários reconciliados dentro do corpus de 100 e regras para uso editorial das evidências.",
+          "title": "Corpus de 100 FIDCs e casos documentais",
+          "summary": "Escala do corpus, 731 documentos processados, 15 leituras substantivas e dez exemplos narrativos reconciliados.",
           "path": "tipos-de-fundos/fundos-de-referencia.md",
           "level": "base",
           "keywords": ["corpus de 100", "fundos de referência", "petrobras", "tapso", "cloudwalk", "itaú", "esperanza", "btg", "aetos", "pagseguro", "cielo"],
