@@ -3,6 +3,7 @@ from __future__ import annotations
 from contextlib import nullcontext
 from pathlib import Path
 from types import SimpleNamespace
+import tomllib
 
 import altair as alt
 import pandas as pd
@@ -240,6 +241,30 @@ def test_app_brand_is_centered_and_uses_the_shared_orange() -> None:
     assert "flex-direction: column;" in app_source
     assert "color: #ff5a00 !important;" in app_source
     assert "font-family: 'IBM Plex Sans', sans-serif !important;" in app_source
+
+
+def test_ibm_plex_sans_is_self_hosted_by_streamlit() -> None:
+    config = tomllib.loads((ROOT / ".streamlit/config.toml").read_text(encoding="utf-8"))
+    expected_fonts = {
+        "IBMPlexSans-Light-Latin1.woff2": "300",
+        "IBMPlexSans-Regular-Latin1.woff2": "400",
+        "IBMPlexSans-Medium-Latin1.woff2": "500",
+        "IBMPlexSans-SemiBold-Latin1.woff2": "600",
+        "IBMPlexSans-Bold-Latin1.woff2": "700",
+    }
+
+    assert config["theme"]["font"] == "IBM Plex Sans, sans-serif"
+    assert config["server"]["enableStaticServing"] is True
+    assert {
+        Path(face["url"]).name: face["weight"]
+        for face in config["theme"]["fontFaces"]
+    } == expected_fonts
+    for filename in expected_fonts:
+        assert (ROOT / "static/fonts" / filename).is_file()
+    assert (ROOT / "static/fonts/IBM-Plex-OFL.txt").is_file()
+
+    app_source = (ROOT / "app.py").read_text(encoding="utf-8")
+    assert "fonts.googleapis.com" not in app_source
 
 
 def test_portfolio_context_switch_hides_stale_results_until_refresh_finishes() -> None:
