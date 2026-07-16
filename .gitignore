@@ -36,17 +36,13 @@ env/
 !.streamlit/
 !.streamlit/config.toml
 
-# Credenciais (mercado secundário ANBIMA)
+# Local environment files
 .env
 
 # Local runtime cache
 .cache/
 data/dev_hours_cache.json
 data/raw/
-# Curated do mercado secundário: os .parquet são versionados (é o que o site
-# publicado lê); qualquer outro arquivo temporário na pasta fica de fora.
-data/curated/*
-!data/curated/*.parquet
 data/regulatory_extractions/
 data/fidc_credit_strategy/*.sqlite
 outputs/fidc_credit_strategy_study_*/
