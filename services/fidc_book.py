@@ -2,12 +2,20 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import json
+import posixpath
 import re
 from pathlib import Path
 import unicodedata
+from urllib.parse import quote, unquote, urlsplit
 
 
 _LEADING_H1 = re.compile(r"\A\s*#[ \t]+[^\n]*\n+")
+_MARKDOWN_PAGE_LINK = re.compile(
+    r"(?P<prefix>\[[^\]\n]+\]\()"
+    r"(?P<target>[^)\s]+\.md(?:#[^)\s]+)?)"
+    r"(?P<suffix>\))",
+    flags=re.IGNORECASE,
+)
 
 
 @dataclass(frozen=True)
@@ -153,6 +161,48 @@ class FIDCBookIndex:
     def load_page_body(self, page: FIDCBookPage) -> str:
         raw = _normalize_book_text(self.load_page_markdown(page))
         return _LEADING_H1.sub("", raw, count=1)
+
+    def page_for_markdown_link(self, page: FIDCBookPage, target: str) -> FIDCBookPage | None:
+        """Resolve um link Markdown local sem acoplar o conteúdo ao app."""
+        clean_target = str(target or "").strip().strip("<>")
+        parsed = urlsplit(clean_target)
+        if parsed.scheme or parsed.netloc or parsed.query or clean_target.startswith(("/", "#")):
+            return None
+        if not parsed.path.lower().endswith(".md"):
+            return None
+
+        linked_path = unquote(parsed.path)
+        source_dir = posixpath.dirname(page.relative_path)
+        candidates = (
+            posixpath.normpath(posixpath.join(source_dir, linked_path)),
+            posixpath.normpath(linked_path),
+        )
+        pages_by_path = {
+            posixpath.normpath(candidate.relative_path): candidate
+            for candidate in self.pages
+        }
+        for candidate_path in candidates:
+            linked_page = pages_by_path.get(candidate_path)
+            if linked_page is not None:
+                return linked_page
+        return None
+
+    def load_page_body_for_app(self, page: FIDCBookPage) -> str:
+        """Converte links entre artigos em rotas do app e preserva o Markdown-fonte."""
+        body = self.load_page_body(page)
+
+        def replace(match: re.Match[str]) -> str:
+            raw_target = match.group("target")
+            linked_page = self.page_for_markdown_link(page, raw_target)
+            if linked_page is None:
+                return match.group(0)
+            fragment = urlsplit(raw_target).fragment
+            app_target = f"?section=glossario&book_page={quote(linked_page.page_id, safe='')}"
+            if fragment:
+                app_target += f"#{quote(unquote(fragment), safe='-._~')}"
+            return f"{match.group('prefix')}{app_target}{match.group('suffix')}"
+
+        return _MARKDOWN_PAGE_LINK.sub(replace, body)
 
     def search_pages(self, query: str) -> tuple[FIDCBookPage, ...]:
         terms = [term for term in _search_normalize(_normalize_book_text(query)).split() if term]

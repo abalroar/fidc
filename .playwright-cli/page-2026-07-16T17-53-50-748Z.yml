@@ -1,0 +1,367 @@
+- generic [ref=f2e3]:
+  - banner
+  - generic [ref=f2e6]:
+    - generic [ref=f2e11]:
+      - generic [ref=f2e12]: tomaconta fidcs
+      - generic [ref=f2e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f2e16]:
+      - button [ref=f2e1012] [cursor=pointer]:
+        - paragraph [ref=f2e1016]: Sobre
+      - button [ref=f2e1017] [cursor=pointer]:
+        - paragraph [ref=f2e1021]: Indústria
+      - button [ref=f2e1022] [cursor=pointer]:
+        - paragraph [ref=f2e1026]: Carteira
+      - button [ref=f2e1027] [cursor=pointer]:
+        - paragraph [ref=f2e1031]: Regulamentos
+      - button [ref=f2e1032] [cursor=pointer]:
+        - paragraph [ref=f2e1036]: Cloudwalk
+      - button [ref=f2e1037] [cursor=pointer]:
+        - paragraph [ref=f2e1041]: Glossário
+      - button [ref=f2e1042] [cursor=pointer]:
+        - paragraph [ref=f2e1046]: Modelagem
+    - generic [ref=f2e53]:
+      - generic [ref=f2e56]:
+        - heading "Carteira" [level=1] [ref=f2e57]
+        - paragraph [ref=f2e58]: Analise carteiras salvas ou consulte um FIDC diretamente pelo CNPJ.
+      - generic [ref=f2e60]:
+        - radiogroup "button group" [ref=f2e65]:
+          - button [ref=f2e1047] [cursor=pointer]:
+            - paragraph [ref=f2e1051]: 3M
+          - button [ref=f2e1052] [cursor=pointer]:
+            - paragraph [ref=f2e1056]: 6M
+          - button [ref=f2e1057] [cursor=pointer]:
+            - paragraph [ref=f2e1061]: 9M
+          - button [ref=f2e1062] [cursor=pointer]:
+            - paragraph [ref=f2e1066]: 12M
+          - button [ref=f2e1067] [cursor=pointer]:
+            - paragraph [ref=f2e1071]: 24M
+          - button [ref=f2e1072] [cursor=pointer]:
+            - paragraph [ref=f2e1076]: 36M
+        - button "tune Personalizar" [ref=f2e100] [cursor=pointer]:
+          - generic [ref=f2e102]:
+            - generic [ref=f2e103]: tune
+            - paragraph [ref=f2e106]: Personalizar
+      - paragraph [ref=f2e111]: jul-23 → jun-26
+      - generic [ref=f2e524]:
+        - generic [ref=f2e526]:
+          - paragraph [ref=f2e531]:
+            - strong [ref=f2e532]: MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA
+          - paragraph [ref=f2e537]: CNPJ específico | 1 fundo
+        - button "swap_horiz Trocar análise" [ref=f2e542] [cursor=pointer]:
+          - generic [ref=f2e544]:
+            - generic [ref=f2e545]: swap_horiz
+            - paragraph [ref=f2e548]: Trocar análise
+      - group [ref=f2e551]:
+        - generic "keyboard_arrow_right Gerenciar carteiras salvas" [ref=f2e552] [cursor=pointer]:
+          - generic [ref=f2e553]:
+            - generic [ref=f2e554]: keyboard_arrow_right
+            - paragraph [ref=f2e558]: Gerenciar carteiras salvas
+      - status "Preparando análise da carteira" [ref=f2e1077]:
+        - generic [ref=f2e1078]:
+          - generic [ref=f2e1079]: Preparando análise
+          - strong [ref=f2e1080]: MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA
+          - generic [ref=f2e1081]: 07/2023 a 06/2026 | 1 fundo
+          - paragraph [ref=f2e1084]: Estamos reunindo os dados dos fundos e montando os indicadores da carteira.
+          - generic [ref=f2e1085]:
+            - generic [ref=f2e1086]:
+              - strong [ref=f2e1087]: Dados regulatórios
+              - generic [ref=f2e1088]: Informes mensais e documentos
+            - generic [ref=f2e1089]:
+              - strong [ref=f2e1090]: Consolidação
+              - generic [ref=f2e1091]: Carteira, risco e rentabilidade
+            - generic [ref=f2e1092]:
+              - strong [ref=f2e1093]: Apresentação
+              - generic [ref=f2e1094]: Gráficos, tabelas e downloads
+          - paragraph [ref=f2e1095]: A primeira carga pode levar alguns instantes. Esta tela será liberada automaticamente quando a análise estiver pronta.
+      - generic [ref=f2e582]:
+        - generic [ref=f2e583]: MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA
+        - generic [ref=f2e584]: 07/2023 a 06/2026
+      - generic [ref=f2e1097]:
+        - paragraph [ref=f2e1100]: Preparando carga...
+        - progressbar "0% Loaded" [ref=f2e1101]
+      - paragraph [ref=f2e1109]: MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA · 1 fundo(s) · 0 em cache
+      - generic [ref=f2e587]:
+        - generic [ref=f2e588]:
+          - paragraph [ref=f2e591]: Filtro visual de toda a análise
+          - button "Help for Filtro visual de toda a análise" [ref=f2e595] [cursor=pointer]
+        - radiogroup "Filtro visual de toda a análise" [ref=f2e599] [cursor=pointer]:
+          - generic [ref=f2e600]:
+            - radio "Todo período carregado"
+            - paragraph [ref=f2e603]: Todo período carregado
+          - generic [ref=f2e604]:
+            - radio "6M"
+            - paragraph [ref=f2e607]: 6M
+          - generic [ref=f2e608]:
+            - radio "12M"
+            - paragraph [ref=f2e611]: 12M
+          - generic [ref=f2e612]:
+            - radio "24M"
+            - paragraph [ref=f2e615]: 24M
+          - generic [ref=f2e616]:
+            - radio "36M"
+            - paragraph [ref=f2e619]: 36M
+          - generic [ref=f2e620]:
+            - radio "YTD"
+            - paragraph [ref=f2e623]: YTD
+          - generic [ref=f2e624]:
+            - radio "Dezembros + Ano Atual"
+            - paragraph [ref=f2e627]: Dezembros + Ano Atual
+          - generic [ref=f2e628]:
+            - radio "Customizado" [checked]
+            - paragraph [ref=f2e631]: Customizado
+      - generic [ref=f2e633]:
+        - generic [ref=f2e637]:
+          - paragraph [ref=f2e641]: Competência inicial exibida
+          - generic [ref=f2e643]:
+            - generic [ref=f2e644]:
+              - generic [ref=f2e645]: abr-26
+              - combobox "Selected abr-26. Competência inicial exibida" [ref=f2e647]
+            - img "open" [ref=f2e649]
+        - generic [ref=f2e654]:
+          - paragraph [ref=f2e658]: Competência final exibida
+          - generic [ref=f2e660]:
+            - generic [ref=f2e661]:
+              - generic [ref=f2e662]: jun-26
+              - combobox "Selected jun-26. Competência final exibida" [ref=f2e664]
+            - img "open" [ref=f2e666]
+      - paragraph [ref=f2e672]: abr-26 → jun-26 · 3 competência(s)
+      - button [ref=f2e678] [cursor=pointer]:
+        - paragraph [ref=f2e682]: Exportar apresentação completa da carteira (PPTX)
+      - group [ref=f2e685]:
+        - generic "keyboard_arrow_right Downloads de dados editáveis" [ref=f2e686] [cursor=pointer]:
+          - generic [ref=f2e687]:
+            - generic [ref=f2e688]: keyboard_arrow_right
+            - paragraph [ref=f2e692]: Downloads de dados editáveis
+      - generic [ref=f2e694]:
+        - tablist [ref=f2e696]:
+          - tab [selected] [ref=f2e697] [cursor=pointer]:
+            - paragraph [ref=f2e699]: Estrutura
+          - tab [ref=f2e700] [cursor=pointer]:
+            - paragraph [ref=f2e702]: Crédito e prazo
+          - tab [ref=f2e703] [cursor=pointer]:
+            - paragraph [ref=f2e705]: Inadimplência
+          - tab [ref=f2e706] [cursor=pointer]:
+            - paragraph [ref=f2e708]: Rentabilidade
+          - tab [ref=f2e709] [cursor=pointer]:
+            - paragraph [ref=f2e711]: Regulamentos
+        - tabpanel "Estrutura" [ref=f2e714]:
+          - generic [ref=f2e715]:
+            - heading "Estrutura da carteira" [level=3] [ref=f2e721]:
+              - text: Estrutura da carteira
+              - generic [ref=f2e722]:
+                - link "Link to heading":
+                  - /url: "#estrutura-da-carteira"
+            - paragraph [ref=f2e727]: Posição mais recente, PL por tipo de cota e base analítica histórica. Use as abas abaixo para alternar entre o consolidado e cada fundo.
+            - generic [ref=f2e732]:
+              - group [ref=f2e733]:
+                - generic "Tamanho e alocação" [ref=f2e734] [cursor=pointer]
+                - table [ref=f2e735]:
+                  - rowgroup [ref=f2e740]:
+                    - row [ref=f2e741]:
+                      - columnheader "Nome" [ref=f2e742]
+                      - columnheader "Consolidado" [ref=f2e743]
+                      - columnheader "MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA" [ref=f2e744]
+                  - rowgroup [ref=f2e745]:
+                    - row [ref=f2e746]:
+                      - cell "PL" [ref=f2e747]
+                      - cell "R$ 3.017,9 MM" [ref=f2e748]
+                      - cell "R$ 3.017,9 MM" [ref=f2e749]
+                    - row [ref=f2e750]:
+                      - cell "Direitos creditórios" [ref=f2e751]
+                      - cell "R$ 4.080,4 MM" [ref=f2e752]
+                      - cell "R$ 4.080,4 MM" [ref=f2e753]
+                    - row [ref=f2e754]:
+                      - cell "Direitos creditórios / PL" [ref=f2e755]
+                      - cell "135,21%" [ref=f2e756]
+                      - cell "135,21%" [ref=f2e757]
+              - group [ref=f2e758]:
+                - generic "Inadimplência" [ref=f2e759] [cursor=pointer]
+                - table [ref=f2e760]:
+                  - rowgroup [ref=f2e765]:
+                    - row [ref=f2e766]:
+                      - columnheader "Nome" [ref=f2e767]
+                      - columnheader "Consolidado" [ref=f2e768]
+                      - columnheader "MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA" [ref=f2e769]
+                  - rowgroup [ref=f2e770]:
+                    - row [ref=f2e771]:
+                      - cell "Over 30d / Crédito" [ref=f2e772]
+                      - cell "9,32%" [ref=f2e773]
+                      - cell "9,32%" [ref=f2e774]
+                    - row [ref=f2e775]:
+                      - cell "Over 60d / Crédito" [ref=f2e776]
+                      - cell "7,78%" [ref=f2e777]
+                      - cell "7,78%" [ref=f2e778]
+                    - row [ref=f2e779]:
+                      - cell "Over 90d / Crédito" [ref=f2e780]
+                      - cell "5,90%" [ref=f2e781]
+                      - cell "5,90%" [ref=f2e782]
+                    - row [ref=f2e783]:
+                      - cell "Over 180d / Crédito" [ref=f2e784]
+                      - cell "2,79%" [ref=f2e785]
+                      - cell "2,79%" [ref=f2e786]
+                    - row [ref=f2e787]:
+                      - cell "Over 360d / Crédito" [ref=f2e788]
+                      - cell "0,07%" [ref=f2e789]
+                      - cell "0,07%" [ref=f2e790]
+              - group [ref=f2e791]:
+                - generic "PDD e recompras" [ref=f2e792] [cursor=pointer]
+                - table [ref=f2e793]:
+                  - rowgroup [ref=f2e798]:
+                    - row [ref=f2e799]:
+                      - columnheader "Nome" [ref=f2e800]
+                      - columnheader "Consolidado" [ref=f2e801]
+                      - columnheader "MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA" [ref=f2e802]
+                  - rowgroup [ref=f2e803]:
+                    - row [ref=f2e804]:
+                      - cell "PDD" [ref=f2e805]
+                      - cell "R$ 1.072,5 MM" [ref=f2e806]
+                      - cell "R$ 1.072,5 MM" [ref=f2e807]
+                    - row [ref=f2e808]:
+                      - cell "PDD / Crédito" [ref=f2e809]
+                      - cell "26,28%" [ref=f2e810]
+                      - cell "26,28%" [ref=f2e811]
+                    - row [ref=f2e812]:
+                      - cell "PDD / Over 90d" [ref=f2e813]
+                      - cell "445,54%" [ref=f2e814]
+                      - cell "445,54%" [ref=f2e815]
+                    - row [ref=f2e816]:
+                      - cell "Recompras / Crédito" [ref=f2e817]
+                      - cell "0,00%" [ref=f2e818]
+                      - cell "0,00%" [ref=f2e819]
+              - group [ref=f2e820]:
+                - generic "Cotas e retorno" [ref=f2e821] [cursor=pointer]
+                - table [ref=f2e822]:
+                  - rowgroup [ref=f2e827]:
+                    - row [ref=f2e828]:
+                      - columnheader "Nome" [ref=f2e829]
+                      - columnheader "Consolidado" [ref=f2e830]
+                      - columnheader "MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA" [ref=f2e831]
+                  - rowgroup [ref=f2e832]:
+                    - row [ref=f2e833]:
+                      - cell "Cotas SR / PL" [ref=f2e834]
+                      - cell "30,59%" [ref=f2e835]
+                      - cell "30,59%" [ref=f2e836]
+                    - row [ref=f2e837]:
+                      - cell "Cotas MZ / PL" [ref=f2e838]
+                      - cell "0,00%" [ref=f2e839]
+                      - cell "0,00%" [ref=f2e840]
+                    - row [ref=f2e841]:
+                      - cell "Cotas Sub / PL" [ref=f2e842]
+                      - cell "69,41%" [ref=f2e843]
+                      - cell "69,41%" [ref=f2e844]
+                    - row [ref=f2e845]:
+                      - cell "Rentabilidade SR a.m." [ref=f2e846]
+                      - cell "-" [ref=f2e847]
+                      - cell "-3,52%" [ref=f2e848]
+                    - row [ref=f2e849]:
+                      - cell "Rentabilidade MZ a.m." [ref=f2e850]
+                      - cell "-" [ref=f2e851]
+                      - cell "-" [ref=f2e852]
+                    - row [ref=f2e853]:
+                      - cell "Rentabilidade Sub a.m." [ref=f2e854]
+                      - cell "-" [ref=f2e855]
+                      - cell "1,18%" [ref=f2e856]
+            - generic [ref=f2e861]:
+              - generic [ref=f2e862]: Fundo individual · CNPJ 33254370000104
+              - strong [ref=f2e863]: MC 0
+            - generic [ref=f2e868]:
+              - generic [ref=f2e869]:
+                - generic [ref=f2e870]: Ativo total
+                - generic [ref=f2e871]: R$ 3,04 bi
+              - generic [ref=f2e872]:
+                - generic [ref=f2e873]: DCs totais
+                - generic [ref=f2e874]: R$ 4,08 bi
+              - generic [ref=f2e875]:
+                - generic [ref=f2e876]: PL total
+                - generic [ref=f2e877]: R$ 3,02 bi
+              - generic [ref=f2e878]:
+                - generic [ref=f2e879]: Vencidos
+                - generic [ref=f2e880]: R$ 461,2 mm
+              - generic [ref=f2e881]:
+                - generic [ref=f2e882]: Cobertura de provisão
+                - generic [ref=f2e883]: 232,56%
+              - generic [ref=f2e884]:
+                - generic [ref=f2e885]: Subordinação reportada
+                - generic [ref=f2e886]: 69,41%
+            - generic [ref=f2e887]: Estrutura
+            - generic [ref=f2e892]: PL por tipo de cota
+            - radiogroup "Visão do PL" [ref=f2e899] [cursor=pointer]:
+              - generic [ref=f2e900]:
+                - radio "Valores absolutos (R$)" [checked]
+                - paragraph [ref=f2e903]: Valores absolutos (R$)
+              - generic [ref=f2e904]:
+                - radio "% do total por competência"
+                - paragraph [ref=f2e907]: "% do total por competência"
+            - generic [ref=f2e910]:
+              - generic [ref=f2e912]:
+                - button "Show data" [ref=f2e915] [cursor=pointer]
+                - button "Fullscreen" [ref=f2e921] [cursor=pointer]
+              - generic [ref=f2e925]:
+                - generic "Vega visualization" [ref=f2e926]:
+                  - img [ref=f2e927]:
+                    - generic [ref=f2e932]:
+                      - 'generic "X-axis titled ''Competência'' for a discrete scale with 3 values: abr-26, mai-26, jun-26" [ref=f2e936]':
+                        - generic [ref=f2e938]:
+                          - generic:
+                            - generic: abr-26
+                            - generic: mai-26
+                            - generic: jun-26
+                          - generic: Competência
+                      - generic "Y-axis titled 'R$' for a linear scale with values from 0 to 3.440.391.104" [ref=f2e939]:
+                        - generic [ref=f2e941]:
+                          - generic:
+                            - generic: "0"
+                            - generic: 1,0 bi
+                            - generic: 2,0 bi
+                            - generic: 3,0 bi
+                          - generic: R$
+                      - generic [ref=f2e942]:
+                        - 'generic "Competência: abr-26; R$: 2028693430,22; Classe: Subordinada; serie: Subordinada; competencia: abr-26; Valor: R$ 2,03 bi" [ref=f2e943]'
+                        - 'generic "Competência: abr-26; R$: 798105561,024; Classe: Sênior; serie: Sênior; competencia: abr-26; Valor: R$ 798,1 mm" [ref=f2e944]'
+                        - 'generic "Competência: mai-26; R$: 2070168103,6; Classe: Subordinada; serie: Subordinada; competencia: mai-26; Valor: R$ 2,07 bi" [ref=f2e945]'
+                        - 'generic "Competência: mai-26; R$: 908758264,693; Classe: Sênior; serie: Sênior; competencia: mai-26; Valor: R$ 908,8 mm" [ref=f2e946]'
+                        - 'generic "Competência: jun-26; R$: 2094655705,35; Classe: Subordinada; serie: Subordinada; competencia: jun-26; Valor: R$ 2,09 bi" [ref=f2e947]'
+                        - 'generic "Competência: jun-26; R$: 923231227,984; Classe: Sênior; serie: Sênior; competencia: jun-26; Valor: R$ 923,2 mm" [ref=f2e948]'
+                      - generic [ref=f2e949]:
+                        - 'generic "Competência: abr-26; R$: 2028693430,22; label_color: #ffffff; label_fmt: 2 bi; serie: Subordinada" [ref=f2e950]': 2 bi
+                        - 'generic "Competência: abr-26; R$: 798105561,024; label_color: #ffffff; label_fmt: 798 mm; serie: Sênior" [ref=f2e951]': 798 mm
+                        - 'generic "Competência: mai-26; R$: 2070168103,6; label_color: #ffffff; label_fmt: 2 bi; serie: Subordinada" [ref=f2e952]': 2 bi
+                        - 'generic "Competência: mai-26; R$: 908758264,693; label_color: #ffffff; label_fmt: 909 mm; serie: Sênior" [ref=f2e953]': 909 mm
+                        - 'generic "Competência: jun-26; R$: 2094655705,35; label_color: #ffffff; label_fmt: 2 bi; serie: Subordinada" [ref=f2e954]': 2 bi
+                        - 'generic "Competência: jun-26; R$: 923231227,984; label_color: #ffffff; label_fmt: 923 mm; serie: Sênior" [ref=f2e955]': 923 mm
+                      - generic [ref=f2e956]:
+                        - 'generic "Competência: abr-26; R$: 2962603903,24; total_fmt: R$ 2,83 bi" [ref=f2e957]': R$ 2,83 bi
+                        - 'generic "Competência: jun-26; R$: 3153691845,33; total_fmt: R$ 3,02 bi" [ref=f2e958]': R$ 3,02 bi
+                        - 'generic "Competência: mai-26; R$: 3114731280,29; total_fmt: R$ 2,98 bi" [ref=f2e959]': R$ 2,98 bi
+                      - 'generic "Symbol legend titled ''Faixas / séries'' for fill color with 2 values: Subordinada, Sênior" [ref=f2e960]':
+                        - generic [ref=f2e962]:
+                          - generic [ref=f2e966]:
+                            - generic [ref=f2e967]: Subordinada
+                            - generic [ref=f2e969]: Sênior
+                          - generic: Faixas / séries
+                - group "Click to view actions"
+            - heading "Base analítica" [level=4] [ref=f2e981]:
+              - text: Base analítica
+              - generic [ref=f2e982]:
+                - link "Link to heading":
+                  - /url: "#base-analitica"
+            - generic [ref=f2e987]:
+              - group [ref=f2e988]:
+                - generic "PL FIDC" [ref=f2e989] [cursor=pointer]
+              - group [ref=f2e990]:
+                - generic "Carteira Bruta" [ref=f2e991] [cursor=pointer]
+              - group [ref=f2e992]:
+                - generic "Aging / faixas de atraso" [ref=f2e993] [cursor=pointer]
+              - group [ref=f2e994]:
+                - generic "NPL Over acumulado" [ref=f2e995] [cursor=pointer]
+              - group [ref=f2e996]:
+                - generic "Cobertura" [ref=f2e997] [cursor=pointer]
+              - group [ref=f2e998]:
+                - generic "Visão Ex-Vencidos > 360d" [ref=f2e999] [cursor=pointer]
+              - group [ref=f2e1000]:
+                - generic "Roll Rate / fluxo de deterioração" [ref=f2e1001] [cursor=pointer]
+            - group [ref=f2e1004]:
+              - generic "keyboard_arrow_right Memória de cálculo e auditoria da estrutura" [ref=f2e1005] [cursor=pointer]:
+                - generic [ref=f2e1006]:
+                  - generic [ref=f2e1007]: keyboard_arrow_right
+                  - paragraph [ref=f2e1011]: Memória de cálculo e auditoria da estrutura

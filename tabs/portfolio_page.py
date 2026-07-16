@@ -129,25 +129,151 @@ _PORTFOLIO_PAGE_CSS = """
 }
 .st-key-fidc_page_carteira .portfolio-context-overlay {
     align-items: center;
-    background: #FFFFFF;
-    color: #1F1F1F;
+    background: rgba(245, 247, 250, 0.98);
+    color: #1f2933;
     display: flex;
     inset: 0;
     justify-content: center;
+    overflow-y: auto;
+    padding: 2rem;
     position: fixed;
-    text-align: center;
     z-index: 999999;
 }
-.st-key-fidc_page_carteira .portfolio-context-overlay strong {
-    display: block;
-    font-size: 1rem;
-    font-weight: 650;
+.st-key-fidc_page_carteira:has(.portfolio-context-overlay) button,
+.st-key-fidc_page_carteira:has(.portfolio-context-overlay) input,
+.st-key-fidc_page_carteira:has(.portfolio-context-overlay) select,
+.st-key-fidc_page_carteira:has(.portfolio-context-overlay) textarea,
+.st-key-fidc_page_carteira:has(.portfolio-context-overlay) [role="button"],
+.st-key-fidc_page_carteira:has(.portfolio-context-overlay) [role="combobox"],
+.st-key-fidc_page_carteira:has(.portfolio-context-overlay) [role="tab"] {
+    visibility: hidden !important;
 }
-.st-key-fidc_page_carteira .portfolio-context-overlay span {
-    color: #6B6B6B;
+.st-key-fidc_page_carteira .portfolio-loading-card {
+    background: #ffffff;
+    border: 1px solid #dde3ea;
+    border-radius: 12px;
+    box-shadow: 0 16px 48px rgba(31, 41, 51, 0.10);
+    max-width: 620px;
+    padding: 1.5rem;
+    width: 100%;
+}
+.st-key-fidc_page_carteira .portfolio-loading-kicker {
+    color: #b64000;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+}
+.st-key-fidc_page_carteira .portfolio-loading-title {
+    color: #161c24;
     display: block;
+    font-size: 1.22rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+.st-key-fidc_page_carteira .portfolio-loading-meta {
+    color: #687482;
+    display: block;
+    font-size: 0.82rem;
+    margin-top: 0.4rem;
+}
+.st-key-fidc_page_carteira .portfolio-loading-progress {
+    background: #eceff3;
+    border-radius: 999px;
+    height: 5px;
+    margin: 1.15rem 0 1rem;
+    overflow: hidden;
+}
+.st-key-fidc_page_carteira .portfolio-loading-progress span {
+    animation: portfolio-loading-progress 1.15s linear infinite;
+    background: #ff5a00;
+    border-radius: inherit;
+    display: block;
+    height: 100%;
+    transform: translateX(-100%);
+    width: 48%;
+}
+.st-key-fidc_page_carteira .portfolio-loading-summary {
+    color: #3f4b59;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 1rem;
+}
+.st-key-fidc_page_carteira .portfolio-loading-stages {
+    border: 1px solid #e4e8ed;
+    border-radius: 9px;
+    overflow: hidden;
+}
+.st-key-fidc_page_carteira .portfolio-loading-stage {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 0.72rem 0.85rem;
+}
+.st-key-fidc_page_carteira .portfolio-loading-stage + .portfolio-loading-stage {
+    border-top: 1px solid #edf0f3;
+}
+.st-key-fidc_page_carteira .portfolio-loading-stage strong {
+    color: #26313d;
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+.st-key-fidc_page_carteira .portfolio-loading-stage span {
+    color: #626d79;
+    font-size: 0.76rem;
+    text-align: right;
+}
+.st-key-fidc_page_carteira .portfolio-loading-note {
+    color: #626d79;
     font-size: 0.78rem;
-    margin-top: 0.25rem;
+    line-height: 1.45;
+    margin: 0.9rem 0 0;
+}
+.st-key-fidc_page_carteira .st-key-ime_portfolio_entry_mode [data-baseweb="button-group"] {
+    display: flex !important;
+    width: 100%;
+}
+.st-key-fidc_page_carteira .st-key-ime_portfolio_entry_mode [data-testid^="stBaseButton-segmented_control"] {
+    flex: 1 1 0 !important;
+    white-space: nowrap !important;
+}
+@keyframes portfolio-loading-progress {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(220%); }
+}
+@media (max-width: 640px) {
+    .st-key-fidc_page_carteira .portfolio-context-overlay {
+        align-items: flex-start;
+        padding: 1rem;
+    }
+    .st-key-fidc_page_carteira .portfolio-loading-card {
+        margin-top: 1rem;
+        padding: 1.1rem;
+    }
+    .st-key-fidc_page_carteira .portfolio-loading-stage {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.15rem;
+    }
+    .st-key-fidc_page_carteira .portfolio-loading-stage span {
+        text-align: left;
+    }
+    .st-key-fidc_page_carteira .st-key-ime_portfolio_entry_mode [data-baseweb="button-group"] {
+        flex-wrap: wrap !important;
+    }
+    .st-key-fidc_page_carteira .st-key-ime_portfolio_entry_mode [data-testid^="stBaseButton-segmented_control"] {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .st-key-fidc_page_carteira .portfolio-loading-progress span {
+        animation: none;
+        transform: translateX(0);
+        width: 64%;
+    }
 }
 </style>
 """
@@ -164,17 +290,22 @@ _GROUP_ORDER = ("Contexto e risco", "Monitoramento e governança")
 
 
 def render_portfolio_center_page(period: ImePeriodSelection) -> None:
-    st.markdown(_PORTFOLIO_PAGE_CSS, unsafe_allow_html=True)
-    st.markdown(ime_tab._FIDC_REPORT_CSS, unsafe_allow_html=True)
-    st.markdown(credit_tab._DASHBOARD_MELI_CSS, unsafe_allow_html=True)
-    st.markdown(somatorio_tab._SOMATORIO_FIDCS_UI_CSS, unsafe_allow_html=True)
+    st.html(
+        "\n".join(
+            (
+                _PORTFOLIO_PAGE_CSS,
+                ime_tab._FIDC_REPORT_CSS,
+                credit_tab._DASHBOARD_MELI_CSS,
+                somatorio_tab._SOMATORIO_FIDCS_UI_CSS,
+            )
+        )
+    )
     selected_portfolio, _ = carteira_tab.render_portfolio_control_panel(
         load_button_label="Carregar IME",
         load_button_key="portfolio_center_load_ime",
         show_load_button=False,
     )
     if selected_portfolio is None:
-        st.info("Crie ou selecione uma carteira para iniciar as análises.")
         return
 
     selected_sections = _render_workflow_selector()
@@ -191,14 +322,14 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
         )
     )
     previous_signature = st.session_state.get("portfolio_page_context_signature")
-    st.session_state["portfolio_page_context_signature"] = context_signature
     loading_surface = st.empty()
     if previous_signature != context_signature:
         with loading_surface.container():
             st.markdown(
-                '<div class="portfolio-context-overlay" role="status">'
-                f'<div><strong>Atualizando carteira</strong><span>{escape(selected_portfolio.name)} · {escape(period.label)}</span></div>'
-                "</div>",
+                _portfolio_loading_overlay_html(
+                    selected_portfolio=selected_portfolio,
+                    period=period,
+                ),
                 unsafe_allow_html=True,
             )
     try:
@@ -207,8 +338,42 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
             period=period,
             selected_sections=selected_sections,
         )
+    except Exception:
+        if previous_signature is None:
+            st.session_state.pop("portfolio_page_context_signature", None)
+        else:
+            st.session_state["portfolio_page_context_signature"] = previous_signature
+        raise
+    else:
+        st.session_state["portfolio_page_context_signature"] = context_signature
     finally:
         loading_surface.empty()
+
+
+def _portfolio_loading_overlay_html(
+    *,
+    selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection,
+) -> str:
+    fund_count = len(selected_portfolio.funds)
+    fund_label = f"{fund_count} fundo{'s' if fund_count != 1 else ''}"
+    return f"""
+<div class="portfolio-context-overlay" role="status" aria-live="polite" aria-label="Preparando análise da carteira">
+  <div class="portfolio-loading-card">
+    <div class="portfolio-loading-kicker">Preparando análise</div>
+    <strong class="portfolio-loading-title">{escape(selected_portfolio.name)}</strong>
+    <span class="portfolio-loading-meta">{escape(period.label)} | {escape(fund_label)}</span>
+    <div class="portfolio-loading-progress" aria-hidden="true"><span></span></div>
+    <p class="portfolio-loading-summary">Estamos reunindo os dados dos fundos e montando os indicadores da carteira.</p>
+    <div class="portfolio-loading-stages">
+      <div class="portfolio-loading-stage"><strong>Dados regulatórios</strong><span>Informes mensais e documentos</span></div>
+      <div class="portfolio-loading-stage"><strong>Consolidação</strong><span>Carteira, risco e rentabilidade</span></div>
+      <div class="portfolio-loading-stage"><strong>Apresentação</strong><span>Gráficos, tabelas e downloads</span></div>
+    </div>
+    <p class="portfolio-loading-note">A primeira carga pode levar alguns instantes. Esta tela será liberada automaticamente quando a análise estiver pronta.</p>
+  </div>
+</div>
+"""
 
 
 def _render_portfolio_analysis_surface(

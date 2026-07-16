@@ -6,14 +6,17 @@ import streamlit as st
 
 from services.dashboard_ui import dashboard_page, diagnostics_enabled, render_page_header
 from tabs.tab_fidc_book import render_tab_fidc_book
-from tabs.tab_cloudwalk_financial_cost import render_tab_cloudwalk_financial_cost
 from tabs import tab_fidc_ime as ime_tab
 from tabs import tab_deep_dive as deep_dive_tab
 from tabs import tab_fidc_monitoring as monitoring_tab
 from tabs import tab_mercado_livre as somatorio_tab
 from tabs.portfolio_page import render_portfolio_center_page
+from tabs.tab_estimativas_modelagem import (
+    VIEW_CEDENT_COST,
+    VIEW_MATURITY_ASSUMPTIONS,
+    render_tab_estimativas_modelagem,
+)
 from tabs.tab_industry_study import render_tab_industry_study
-from tabs.tab_modelo_fidc import render_tab_modelo_fidc
 
 
 _APP_BASE_CSS = """
@@ -251,6 +254,10 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
     border-radius: 8px;
 }
 
+.st-key-ime_global_period_preset [data-testid^="stBaseButton-segmented_control"] {
+    min-height: 2.5rem !important;
+}
+
 @media (max-width: 760px) {
     .block-container {
         padding-left: 1rem !important;
@@ -272,7 +279,28 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
     }
 }
 
+@media (min-width: 521px) and (max-width: 850px) {
+    .st-key-ime_global_btn_custom [data-testid="stIconMaterial"],
+    .st-key-ime_global_btn_preset [data-testid="stIconMaterial"] {
+        display: none !important;
+    }
+
+    .st-key-ime_global_btn_custom p,
+    .st-key-ime_global_btn_preset p {
+        white-space: nowrap !important;
+    }
+}
+
 @media (max-width: 460px) {
+    .st-key-ime_global_period_preset [data-baseweb="button-group"] {
+        flex-wrap: wrap !important;
+    }
+
+    .st-key-ime_global_period_preset [data-testid^="stBaseButton-segmented_control"] {
+        flex: 1 1 33.333% !important;
+        width: 33.333% !important;
+    }
+
     .st-key-fidc_main_section [data-testid="stButtonGroup"] {
         overflow-x: visible;
     }
@@ -285,8 +313,17 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 
     .st-key-fidc_main_section [data-testid^="stBaseButton-segmented_control"] {
         flex: 1 1 calc(50% - 0.25rem) !important;
+        min-height: 3rem !important;
         min-width: 0 !important;
+        padding: 0.35rem 0.45rem !important;
         width: calc(50% - 0.25rem) !important;
+    }
+
+    .st-key-fidc_main_section [data-testid^="stBaseButton-segmented_control"] p {
+        line-height: 1.2 !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        white-space: normal !important;
     }
 }
 """
@@ -329,22 +366,34 @@ _MAIN_SECTIONS = (
     ("sobre", "Sobre"),
     ("industria", "Dados da Indústria"),
     ("carteira", "Dados de Carteira"),
-    ("cloudwalk", "Cloudwalk"),
+    ("estimativas", "Estimativas e Modelagem"),
     ("glossario", "Glossário"),
-    ("modelagem", "Modelagem"),
 )
 _MAIN_SECTION_LABELS = dict(_MAIN_SECTIONS)
 _MAIN_SECTION_SLUGS = tuple(slug for slug, _label in _MAIN_SECTIONS)
+_LEGACY_MAIN_SECTION_ALIASES = {
+    "cloudwalk": "estimativas",
+    "modelagem": "estimativas",
+}
+_LEGACY_ESTIMATES_VIEW_BY_SECTION = {
+    "cloudwalk": VIEW_CEDENT_COST,
+    "modelagem": VIEW_MATURITY_ASSUMPTIONS,
+}
 _DEFAULT_SECTION = "sobre"
 
 
-def _current_main_section() -> str:
+def _requested_main_section_slug() -> str:
     raw_value = st.query_params.get("section", _DEFAULT_SECTION)
     if isinstance(raw_value, list):
         raw_value = raw_value[-1] if raw_value else _DEFAULT_SECTION
-    section = str(raw_value).strip().lower()
+    return str(raw_value).strip().lower()
+
+
+def _current_main_section() -> str:
+    section = _requested_main_section_slug()
     if section == "regulamentos":
         return "carteira"
+    section = _LEGACY_MAIN_SECTION_ALIASES.get(section, section)
     return section if section in _MAIN_SECTION_LABELS else _DEFAULT_SECTION
 
 
@@ -363,8 +412,18 @@ def _render_main_nav() -> str:
 
 
 selected_section = st.session_state.get("fidc_main_section")
-if selected_section not in _MAIN_SECTION_LABELS:
-    st.session_state["fidc_main_section"] = _current_main_section()
+if selected_section in _LEGACY_MAIN_SECTION_ALIASES:
+    st.session_state["estimativas_modelagem_view"] = _LEGACY_ESTIMATES_VIEW_BY_SECTION[selected_section]
+    selected_section = _LEGACY_MAIN_SECTION_ALIASES[selected_section]
+    st.session_state["fidc_main_section"] = selected_section
+requested_section = _current_main_section() if "section" in st.query_params else None
+if requested_section is not None:
+    requested_slug = _requested_main_section_slug()
+    if requested_slug in _LEGACY_ESTIMATES_VIEW_BY_SECTION:
+        st.session_state["estimativas_modelagem_view"] = _LEGACY_ESTIMATES_VIEW_BY_SECTION[requested_slug]
+    st.session_state["fidc_main_section"] = requested_section
+elif selected_section not in _MAIN_SECTION_LABELS:
+    st.session_state["fidc_main_section"] = _DEFAULT_SECTION
 
 if "section" in st.query_params:
     st.query_params.pop("section", None)
@@ -379,10 +438,8 @@ with dashboard_page(selected_section):
         _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
         period = _render_period_selector(state_prefix="ime_global")
         render_portfolio_center_page(period=period)
-    elif selected_section == "cloudwalk":
-        render_tab_cloudwalk_financial_cost()
-    elif selected_section == "modelagem":
-        render_tab_modelo_fidc()
+    elif selected_section == "estimativas":
+        render_tab_estimativas_modelagem()
     elif selected_section == "glossario":
         render_tab_fidc_book()
     elif selected_section == "sobre":

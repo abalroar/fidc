@@ -2,48 +2,61 @@
 
 ## Fontes normativas e de reporte
 
-- página oficial e textos consolidados da RCVM 175, Parte Geral e Anexo Normativo II;
-- RCVM 160, para ofertas públicas;
-- RCVM 30, para categorias de investidores e suitability;
-- ICVM 489 e orientações SIN/SNC, para demonstrações e perdas contábeis de FIDC;
-- padrão XML mensal FIDC/CVMWeb e dados abertos da CVM;
-- Ofício-Circular CVM/SSE 8/2023, para registro, custódia e lastro.
+- **Resolução da Comissão de Valores Mobiliários (RCVM) 175:** Parte Geral, Anexo Normativo II e página oficial de consolidação.
+- **Resolução CVM 160:** distribuição pública de cotas e outros valores mobiliários.
+- **Resolução CVM 30:** adequação ao perfil do cliente e categorias de investidores.
+- **Instrução CVM 489 e orientações oficiais:** demonstrações, mensuração e perdas contábeis de Fundo de Investimento em Direitos Creditórios (FIDC).
+- **Informe Mensal:** padrão de arquivo Extensible Markup Language (XML) e dados abertos da Comissão de Valores Mobiliários (CVM).
+- **Ofício-Circular da Superintendência de Supervisão de Securitização (SSE) da CVM 8/2023:** registro, custódia e verificação de lastro.
 
-Os URLs oficiais e a data de verificação ficam em `sources.json`. A consolidação consultada da RCVM 175 incorporava alterações até a RCVM 240/2026 em 16/07/2026.
+A página oficial da RCVM 175 indicava consolidação até a RCVM 240/2026 na verificação de 16/07/2026. Uma análise histórica deve preservar também a redação vigente na data do fato.
 
-## Documentos de fundos
+## Documentos dos fundos
 
-O índice versionado contém apenas documentos primários efetivamente recuperados ou fontes oficiais com status explícito. Cada registro informa CNPJ, ID Fundos.NET, data original, versão, URL, caminho local quando versionável, SHA-256, páginas, método e páginas do book relacionadas.
-
-PDFs baixados para a análise ficam em `data/raw/glossario_100_fidcs_20260716/`, diretório ignorado pelo Git; sua existência e hash são auditados no ledger `document_coverage.csv`. O book não declara esses arquivos como dependências locais permanentes.
+- **Índice versionado:** registra **Cadastro Nacional da Pessoa Jurídica (CNPJ)**, identificador do Fundos.NET, tipo, data, versão, endereço oficial, estado, páginas, método e páginas do glossário relacionadas.
+- **Arquivos brutos de trabalho:** ficam fora do Git quando seu volume não é adequado ao repositório. O registro versionado conserva endereço, impressão digital criptográfica e estado.
+- **Secure Hash Algorithm de 256 bits (SHA-256):** função criptográfica usada para identificar o conteúdo do arquivo e detectar mudança ou duplicação.
+- **Caminho local:** é evidência de processamento no ambiente de auditoria, não um link público para o leitor da página.
 
 ## Correção do acervo legado
 
-Os antigos caminhos `estudo/*.pdf` foram retirados dos índices: os 13 arquivos declarados não existiam no filesystem. Também foram eliminados IDs divergentes entre `sources.json` e `document_index.json`. Caches antigos continuam úteis como pistas, mas são rotulados `cache-only` porque o PDF-fonte não está disponível.
+- Treze caminhos antigos sob `estudo/` foram removidos porque os arquivos não existiam.
+- Identificadores divergentes entre `sources.json` e `document_index.json` foram reconciliados.
+- Inventários antigos que marcavam `local_exists` foram rechecados no sistema de arquivos.
+- Textos intermediários em cache continuam úteis para localizar candidatos, mas não substituem o documento primário.
 
-## Evidência contratual
+## Escada de leitura documental
 
-Uma linha de `evidence_long.csv` preserva termo, fundo, segmento, PL, documento, versão, página, trecho curto e hash. Para entrar como prática recorrente, a cláusula precisa aparecer em pelo menos duas famílias econômicas independentes com documento suficiente. Repetição do mesmo template não aumenta artificialmente a independência.
-
-## Evidência normativa
-
-Definições legais citam norma e artigo. Quando o PDF tem paginação editorial diferente da página do arquivo, o registro guarda seção/artigo e página física. Alterações futuras exigem nova data de verificação.
-
-## Estados documentais
-
-| Status | Significado |
+| Estado | Significado |
 |---|---|
-| lido | primário recuperado e extraído página a página |
-| OCR necessário | primário recuperado, mas uma ou mais páginas precisam OCR/conferência |
-| cache-only | texto derivado sem primário recuperável; apenas pista |
-| ausente | documento não encontrado na listagem consultada |
-| não aplicável | tipo não é pertinente à estrutura |
-| inacessível | listagem ou download falhou |
+| **processado** | primário recuperado e texto extraído página a página |
+| **leitura substantiva** | cláusulas materiais interpretadas e registradas |
+| **conferido visualmente** | página renderizada e comparada com a extração |
+| **Optical Character Recognition (OCR), ou reconhecimento óptico de caracteres, necessário** | página depende desse processo de leitura de imagem |
+| **somente cache, ou cache-only** | derivado sem arquivo primário em Portable Document Format (PDF) recuperável; apenas pista |
+| **ausente** | documento aplicável não localizado na listagem |
+| **inacessível** | falha de listagem ou transferência do arquivo |
+| **não aplicável** | tipo não corresponde ao caso |
 
 Ausência não é zero nem prova de inexistência de cláusula.
 
-## Artefatos da revisão
+## Evidência contratual
 
-O diretório `reports/glossario_100_fidcs_20260716/` contém seleção, cobertura patrimonial, cobertura documental, evidências, candidatos, matriz de lacunas, log de mudanças, metodologia, relatório e manifesto. O manifesto fixa competência, parâmetros, hashes e reconciliações.
+- Uma linha de `evidence_long.csv` preserva termo, fundo, segmento, patrimônio, documento, versão, página, trecho curto e hash.
+- Prática recorrente exige pelo menos dois fundos independentes com documentação suficiente.
+- Modelo documental repetido conta como uma família, não como várias confirmações independentes.
+- Limite numérico de um fundo não vira definição universal.
+
+## Evidência normativa
+
+- Definições legais citam norma e dispositivo.
+- Quando a página editorial e a página física do arquivo divergem, o registro preserva dispositivo e página física.
+- Nova consolidação normativa exige nova data de verificação.
+
+## Artefatos versionados
+
+O [diretório público da revisão no GitHub](https://github.com/abalroar/fidc/tree/main/reports/glossario_100_fidcs_20260716) contém seleção, cobertura patrimonial, inventário documental, evidências, candidatos, matriz de lacunas, metodologia, relatório, log de mudanças e manifesto.
+
+O manifesto fixa competência, parâmetros, reconciliações e impressões digitais SHA-256. A revisão é exaustiva em relação ao corpus e às normas verificadas, não universalmente completa.
 
 Última verificação: **16/07/2026**.

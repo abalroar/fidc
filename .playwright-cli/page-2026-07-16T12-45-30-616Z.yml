@@ -1,0 +1,2816 @@
+- generic [ref=f1e3]:
+  - banner
+  - generic [ref=f1e6]:
+    - generic [ref=f1e11]:
+      - generic [ref=f1e12]: tomaconta fidcs
+      - generic [ref=f1e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f1e16]:
+      - button [ref=f1e4526] [cursor=pointer]:
+        - paragraph [ref=f1e4530]: Sobre
+      - button [ref=f1e4531] [cursor=pointer]:
+        - paragraph [ref=f1e4535]: Indústria
+      - button [ref=f1e4536] [cursor=pointer]:
+        - paragraph [ref=f1e4540]: Secundário
+      - button [ref=f1e4541] [cursor=pointer]:
+        - paragraph [ref=f1e4545]: Carteira
+      - button [ref=f1e4546] [cursor=pointer]:
+        - paragraph [ref=f1e4550]: Regulamentos
+      - button [ref=f1e4551] [cursor=pointer]:
+        - paragraph [ref=f1e4555]: Cloudwalk
+      - button [ref=f1e4556] [cursor=pointer]:
+        - paragraph [ref=f1e4560]: Glossário
+      - button [ref=f1e4561] [cursor=pointer]:
+        - paragraph [ref=f1e4565]: Modelagem
+    - generic [ref=f1e1029]:
+      - generic [ref=f1e1032]:
+        - heading "Carteira" [level=1] [ref=f1e1033]
+        - paragraph [ref=f1e1034]: Risco, retorno e documentação das seleções salvas.
+      - generic [ref=f1e1036]:
+        - radiogroup "button group" [ref=f1e1041]:
+          - button [ref=f1e4566] [cursor=pointer]:
+            - paragraph [ref=f1e4570]: 3M
+          - button [ref=f1e4571] [cursor=pointer]:
+            - paragraph [ref=f1e4575]: 6M
+          - button [ref=f1e4576] [cursor=pointer]:
+            - paragraph [ref=f1e4580]: 9M
+          - button [ref=f1e4581] [cursor=pointer]:
+            - paragraph [ref=f1e4585]: 12M
+          - button [ref=f1e4586] [cursor=pointer]:
+            - paragraph [ref=f1e4590]: 24M
+          - button [ref=f1e4591] [cursor=pointer]:
+            - paragraph [ref=f1e4595]: 36M
+        - button "tune Personalizar" [ref=f1e1076] [cursor=pointer]:
+          - generic [ref=f1e1078]:
+            - generic [ref=f1e1079]: tune
+            - paragraph [ref=f1e1082]: Personalizar
+      - paragraph [ref=f1e1087]: abr-26 → jun-26
+      - generic [ref=f1e1095]:
+        - generic [ref=f1e1096]:
+          - generic [ref=f1e1097]: MELI (FIDCs Mercado Crédito 0, I e II)
+          - combobox "Selected MELI (FIDCs Mercado Crédito 0, I e II). Seleção ativa" [ref=f1e1099]
+        - img "open" [ref=f1e1101]
+      - group [ref=f1e1210]:
+        - generic "keyboard_arrow_right Gerenciar carteiras salvas" [ref=f1e1211] [cursor=pointer]:
+          - generic [ref=f1e1212]:
+            - generic [ref=f1e1213]: keyboard_arrow_right
+            - paragraph [ref=f1e1217]: Gerenciar carteiras salvas
+      - generic [ref=f1e1222]:
+        - generic [ref=f1e1223]: MELI (FIDCs Mercado Crédito 0, I e II)
+        - generic [ref=f1e1224]: 04/2026 a 06/2026
+      - heading "Diagnóstico da carteira" [level=2] [ref=f1e4597]:
+        - text: Diagnóstico da carteira
+        - generic [ref=f1e4598]:
+          - link "Link to heading":
+            - /url: "#diagnostico-da-carteira"
+      - group [ref=f1e1256]:
+        - generic "keyboard_arrow_right Dados e exportações" [ref=f1e1257] [cursor=pointer]:
+          - generic [ref=f1e1258]:
+            - generic [ref=f1e1259]: keyboard_arrow_right
+            - paragraph [ref=f1e1263]: Dados e exportações
+      - generic [ref=f1e1268]:
+        - generic [ref=f1e1269]:
+          - generic [ref=f1e1270]: Ativo total
+          - generic [ref=f1e1271]: R$ 5,62 bi
+        - generic [ref=f1e1272]:
+          - generic [ref=f1e1273]: DCs totais
+          - generic [ref=f1e1274]: R$ 8,14 bi
+        - generic [ref=f1e1275]:
+          - generic [ref=f1e1276]: PL total
+          - generic [ref=f1e1277]: R$ 5,53 bi
+        - generic [ref=f1e1278]:
+          - generic [ref=f1e1279]: Vencidos
+          - generic [ref=f1e1280]: R$ 1,68 bi
+        - generic [ref=f1e1281]:
+          - generic [ref=f1e1282]: Cobertura de provisão
+          - generic [ref=f1e1283]: 162,58%
+        - generic [ref=f1e1284]:
+          - generic [ref=f1e1285]: Subordinação reportada
+          - generic [ref=f1e1286]: 52,26%
+      - generic [ref=f1e1287]: Estrutura
+      - generic [ref=f1e1292]: PL por tipo de cota
+      - radiogroup "Visão do PL" [ref=f1e1299] [cursor=pointer]:
+        - generic [ref=f1e1300]:
+          - radio "Valores absolutos (R$)" [checked]
+          - paragraph [ref=f1e1303]: Valores absolutos (R$)
+        - generic [ref=f1e1304]:
+          - radio "% do total por competência"
+          - paragraph [ref=f1e1307]: "% do total por competência"
+      - generic [ref=f1e1310]:
+        - generic [ref=f1e1312]:
+          - button "Show data" [ref=f1e1315] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e1321] [cursor=pointer]
+        - generic [ref=f1e1325]:
+          - generic "Vega visualization" [ref=f1e1326]:
+            - img [ref=f1e1327]:
+              - generic [ref=f1e1332]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 24 values: jul-24, ago-24, set-24, out-24, nov-24, ending with jun-26" [ref=f1e1336]':
+                  - generic [ref=f1e1338]:
+                    - generic:
+                      - generic: jul-24
+                      - generic: ago-24
+                      - generic: set-24
+                      - generic: out-24
+                      - generic: nov-24
+                      - generic: dez-24
+                      - generic: jan-25
+                      - generic: fev-25
+                      - generic: mar-25
+                      - generic: abr-25
+                      - generic: mai-25
+                      - generic: jun-25
+                      - generic: jul-25
+                      - generic: ago-25
+                      - generic: set-25
+                      - generic: out-25
+                      - generic: nov-25
+                      - generic: dez-25
+                      - generic: jan-26
+                      - generic: fev-26
+                      - generic: mar-26
+                      - generic: abr-26
+                      - generic: mai-26
+                      - generic: jun-26
+                    - generic: Competência
+                - generic "Y-axis titled 'R$' for a linear scale with values from 0 to 6.308.686.748" [ref=f1e1339]:
+                  - generic [ref=f1e1341]:
+                    - generic:
+                      - generic: "0"
+                      - generic: 2,0 bi
+                      - generic: 4,0 bi
+                      - generic: 6,0 bi
+                    - generic: R$
+                - generic [ref=f1e1342]:
+                  - 'generic "Competência: jul-24; R$: 200878000; Classe: Mezzanino; serie: Mezzanino; competencia: jul-24; Valor: R$ 200,9 mm" [ref=f1e1343]'
+                  - 'generic "Competência: jul-24; R$: 1886653319,75; Classe: Subordinada; serie: Subordinada; competencia: jul-24; Valor: R$ 1,89 bi" [ref=f1e1344]'
+                  - 'generic "Competência: jul-24; R$: 2300599056,12; Classe: Sênior; serie: Sênior; competencia: jul-24; Valor: R$ 2,30 bi" [ref=f1e1345]'
+                  - 'generic "Competência: ago-24; R$: 301449807,703; Classe: Mezzanino; serie: Mezzanino; competencia: ago-24; Valor: R$ 301,4 mm" [ref=f1e1346]'
+                  - 'generic "Competência: ago-24; R$: 1754173954,82; Classe: Subordinada; serie: Subordinada; competencia: ago-24; Valor: R$ 1,75 bi" [ref=f1e1347]'
+                  - 'generic "Competência: ago-24; R$: 2301748188,96; Classe: Sênior; serie: Sênior; competencia: ago-24; Valor: R$ 2,30 bi" [ref=f1e1348]'
+                  - 'generic "Competência: set-24; R$: 401451995,63; Classe: Mezzanino; serie: Mezzanino; competencia: set-24; Valor: R$ 401,5 mm" [ref=f1e1349]'
+                  - 'generic "Competência: set-24; R$: 1881186075,92; Classe: Subordinada; serie: Subordinada; competencia: set-24; Valor: R$ 1,88 bi" [ref=f1e1350]'
+                  - 'generic "Competência: set-24; R$: 2401400320,25; Classe: Sênior; serie: Sênior; competencia: set-24; Valor: R$ 2,40 bi" [ref=f1e1351]'
+                  - 'generic "Competência: out-24; R$: 401937629,465; Classe: Mezzanino; serie: Mezzanino; competencia: out-24; Valor: R$ 401,9 mm" [ref=f1e1352]'
+                  - 'generic "Competência: out-24; R$: 1909899857,66; Classe: Subordinada; serie: Subordinada; competencia: out-24; Valor: R$ 1,91 bi" [ref=f1e1353]'
+                  - 'generic "Competência: out-24; R$: 2405221890,85; Classe: Sênior; serie: Sênior; competencia: out-24; Valor: R$ 2,41 bi" [ref=f1e1354]'
+                  - 'generic "Competência: nov-24; R$: 401495782,288; Classe: Mezzanino; serie: Mezzanino; competencia: nov-24; Valor: R$ 401,5 mm" [ref=f1e1355]'
+                  - 'generic "Competência: nov-24; R$: 2080885576,09; Classe: Subordinada; serie: Subordinada; competencia: nov-24; Valor: R$ 2,08 bi" [ref=f1e1356]'
+                  - 'generic "Competência: nov-24; R$: 2403156283,04; Classe: Sênior; serie: Sênior; competencia: nov-24; Valor: R$ 2,40 bi" [ref=f1e1357]'
+                  - 'generic "Competência: dez-24; R$: 401583355,602; Classe: Mezzanino; serie: Mezzanino; competencia: dez-24; Valor: R$ 401,6 mm" [ref=f1e1358]'
+                  - 'generic "Competência: dez-24; R$: 2068840149,1; Classe: Subordinada; serie: Subordinada; competencia: dez-24; Valor: R$ 2,07 bi" [ref=f1e1359]'
+                  - 'generic "Competência: dez-24; R$: 2406032085,05; Classe: Sênior; serie: Sênior; competencia: dez-24; Valor: R$ 2,41 bi" [ref=f1e1360]'
+                  - 'generic "Competência: jan-25; R$: 402403360,273; Classe: Mezzanino; serie: Mezzanino; competencia: jan-25; Valor: R$ 402,4 mm" [ref=f1e1361]'
+                  - 'generic "Competência: jan-25; R$: 1114744195,05; Classe: Subordinada; serie: Subordinada; competencia: jan-25; Valor: R$ 1,11 bi" [ref=f1e1362]'
+                  - 'generic "Competência: jan-25; R$: 3264886465,83; Classe: Sênior; serie: Sênior; competencia: jan-25; Valor: R$ 3,26 bi" [ref=f1e1363]'
+                  - 'generic "Competência: fev-25; R$: 0; Classe: Mezzanino; serie: Mezzanino; competencia: fev-25; Valor: R$ 0,00"'
+                  - 'generic "Competência: fev-25; R$: 0; Classe: Subordinada; serie: Subordinada; competencia: fev-25; Valor: R$ 0,00"'
+                  - 'generic "Competência: fev-25; R$: 0; Classe: Sênior; serie: Sênior; competencia: fev-25; Valor: R$ 0,00"'
+                  - 'generic "Competência: mar-25; R$: 402045105,805; Classe: Mezzanino; serie: Mezzanino; competencia: mar-25; Valor: R$ 402,0 mm" [ref=f1e1364]'
+                  - 'generic "Competência: mar-25; R$: 2141276124,85; Classe: Subordinada; serie: Subordinada; competencia: mar-25; Valor: R$ 2,14 bi" [ref=f1e1365]'
+                  - 'generic "Competência: mar-25; R$: 2109144732,16; Classe: Sênior; serie: Sênior; competencia: mar-25; Valor: R$ 2,11 bi" [ref=f1e1366]'
+                  - 'generic "Competência: abr-25; R$: 0; Classe: Mezzanino; serie: Mezzanino; competencia: abr-25; Valor: R$ 0,00"'
+                  - 'generic "Competência: abr-25; R$: 0; Classe: Subordinada; serie: Subordinada; competencia: abr-25; Valor: R$ 0,00"'
+                  - 'generic "Competência: abr-25; R$: 0; Classe: Sênior; serie: Sênior; competencia: abr-25; Valor: R$ 0,00"'
+                  - 'generic "Competência: mai-25; R$: 402391418,458; Classe: Mezzanino; serie: Mezzanino; competencia: mai-25; Valor: R$ 402,4 mm" [ref=f1e1367]'
+                  - 'generic "Competência: mai-25; R$: 967286710,069; Classe: Subordinada; serie: Subordinada; competencia: mai-25; Valor: R$ 967,3 mm" [ref=f1e1368]'
+                  - 'generic "Competência: mai-25; R$: 1743366763,45; Classe: Sênior; serie: Sênior; competencia: mai-25; Valor: R$ 1,74 bi" [ref=f1e1369]'
+                  - 'generic "Competência: jun-25; R$: 502116369,214; Classe: Mezzanino; serie: Mezzanino; competencia: jun-25; Valor: R$ 502,1 mm" [ref=f1e1370]'
+                  - 'generic "Competência: jun-25; R$: 2286175896,48; Classe: Subordinada; serie: Subordinada; competencia: jun-25; Valor: R$ 2,29 bi" [ref=f1e1371]'
+                  - 'generic "Competência: jun-25; R$: 1774049171,36; Classe: Sênior; serie: Sênior; competencia: jun-25; Valor: R$ 1,77 bi" [ref=f1e1372]'
+                  - 'generic "Competência: jul-25; R$: 504476518,164; Classe: Mezzanino; serie: Mezzanino; competencia: jul-25; Valor: R$ 504,5 mm" [ref=f1e1373]'
+                  - 'generic "Competência: jul-25; R$: 2369745882,89; Classe: Subordinada; serie: Subordinada; competencia: jul-25; Valor: R$ 2,37 bi" [ref=f1e1374]'
+                  - 'generic "Competência: jul-25; R$: 1838891448,58; Classe: Sênior; serie: Sênior; competencia: jul-25; Valor: R$ 1,84 bi" [ref=f1e1375]'
+                  - 'generic "Competência: ago-25; R$: 502874424,711; Classe: Mezzanino; serie: Mezzanino; competencia: ago-25; Valor: R$ 502,9 mm" [ref=f1e1376]'
+                  - 'generic "Competência: ago-25; R$: 2409966419,88; Classe: Subordinada; serie: Subordinada; competencia: ago-25; Valor: R$ 2,41 bi" [ref=f1e1377]'
+                  - 'generic "Competência: ago-25; R$: 1896886224,49; Classe: Sênior; serie: Sênior; competencia: ago-25; Valor: R$ 1,90 bi" [ref=f1e1378]'
+                  - 'generic "Competência: set-25; R$: 429785151,491; Classe: Mezzanino; serie: Mezzanino; competencia: set-25; Valor: R$ 429,8 mm" [ref=f1e1379]'
+                  - 'generic "Competência: set-25; R$: 2559299219,98; Classe: Subordinada; serie: Subordinada; competencia: set-25; Valor: R$ 2,56 bi" [ref=f1e1380]'
+                  - 'generic "Competência: set-25; R$: 1886332147,02; Classe: Sênior; serie: Sênior; competencia: set-25; Valor: R$ 1,89 bi" [ref=f1e1381]'
+                  - 'generic "Competência: out-25; R$: 430606366,228; Classe: Mezzanino; serie: Mezzanino; competencia: out-25; Valor: R$ 430,6 mm" [ref=f1e1382]'
+                  - 'generic "Competência: out-25; R$: 2792174683,49; Classe: Subordinada; serie: Subordinada; competencia: out-25; Valor: R$ 2,79 bi" [ref=f1e1383]'
+                  - 'generic "Competência: out-25; R$: 1894981596,76; Classe: Sênior; serie: Sênior; competencia: out-25; Valor: R$ 1,89 bi" [ref=f1e1384]'
+                  - 'generic "Competência: nov-25; R$: 429309257,61; Classe: Mezzanino; serie: Mezzanino; competencia: nov-25; Valor: R$ 429,3 mm" [ref=f1e1385]'
+                  - 'generic "Competência: nov-25; R$: 2891821411,29; Classe: Subordinada; serie: Subordinada; competencia: nov-25; Valor: R$ 2,89 bi" [ref=f1e1386]'
+                  - 'generic "Competência: nov-25; R$: 1895098599,76; Classe: Sênior; serie: Sênior; competencia: nov-25; Valor: R$ 1,90 bi" [ref=f1e1387]'
+                  - 'generic "Competência: dez-25; R$: 0; Classe: Mezzanino; serie: Mezzanino; competencia: dez-25; Valor: R$ 0,00"'
+                  - 'generic "Competência: dez-25; R$: 0; Classe: Subordinada; serie: Subordinada; competencia: dez-25; Valor: R$ 0,00"'
+                  - 'generic "Competência: dez-25; R$: 0; Classe: Sênior; serie: Sênior; competencia: dez-25; Valor: R$ 0,00"'
+                  - 'generic "Competência: jan-26; R$: 431277113,36; Classe: Mezzanino; serie: Mezzanino; competencia: jan-26; Valor: R$ 431,3 mm" [ref=f1e1388]'
+                  - 'generic "Competência: jan-26; R$: 2776281115,23; Classe: Subordinada; serie: Subordinada; competencia: jan-26; Valor: R$ 2,78 bi" [ref=f1e1389]'
+                  - 'generic "Competência: jan-26; R$: 1878757291,93; Classe: Sênior; serie: Sênior; competencia: jan-26; Valor: R$ 1,88 bi" [ref=f1e1390]'
+                  - 'generic "Competência: fev-26; R$: 429729371,965; Classe: Mezzanino; serie: Mezzanino; competencia: fev-26; Valor: R$ 429,7 mm" [ref=f1e1391]'
+                  - 'generic "Competência: fev-26; R$: 2803342909,42; Classe: Subordinada; serie: Subordinada; competencia: fev-26; Valor: R$ 2,80 bi" [ref=f1e1392]'
+                  - 'generic "Competência: fev-26; R$: 1874147143,97; Classe: Sênior; serie: Sênior; competencia: fev-26; Valor: R$ 1,87 bi" [ref=f1e1393]'
+                  - 'generic "Competência: mar-26; R$: 419214813,892; Classe: Mezzanino; serie: Mezzanino; competencia: mar-26; Valor: R$ 419,2 mm" [ref=f1e1394]'
+                  - 'generic "Competência: mar-26; R$: 2476710378,73; Classe: Subordinada; serie: Subordinada; competencia: mar-26; Valor: R$ 2,48 bi" [ref=f1e1395]'
+                  - 'generic "Competência: mar-26; R$: 2220655361,72; Classe: Sênior; serie: Sênior; competencia: mar-26; Valor: R$ 2,22 bi" [ref=f1e1396]'
+                  - 'generic "Competência: abr-26; R$: 419121126,683; Classe: Mezzanino; serie: Mezzanino; competencia: abr-26; Valor: R$ 419,1 mm" [ref=f1e1397]'
+                  - 'generic "Competência: abr-26; R$: 2375196095,22; Classe: Subordinada; serie: Subordinada; competencia: abr-26; Valor: R$ 2,38 bi" [ref=f1e1398]'
+                  - 'generic "Competência: abr-26; R$: 2516649104,02; Classe: Sênior; serie: Sênior; competencia: abr-26; Valor: R$ 2,52 bi" [ref=f1e1399]'
+                  - 'generic "Competência: mai-26; R$: 419085961,486; Classe: Mezzanino; serie: Mezzanino; competencia: mai-26; Valor: R$ 419,1 mm" [ref=f1e1400]'
+                  - 'generic "Competência: mai-26; R$: 2446817191,81; Classe: Subordinada; serie: Subordinada; competencia: mai-26; Valor: R$ 2,45 bi" [ref=f1e1401]'
+                  - 'generic "Competência: mai-26; R$: 2627211027,83; Classe: Sênior; serie: Sênior; competencia: mai-26; Valor: R$ 2,63 bi" [ref=f1e1402]'
+                  - 'generic "Competência: jun-26; R$: 419133877,449; Classe: Mezzanino; serie: Mezzanino; competencia: jun-26; Valor: R$ 419,1 mm" [ref=f1e1403]'
+                  - 'generic "Competência: jun-26; R$: 2472953309,02; Classe: Subordinada; serie: Subordinada; competencia: jun-26; Valor: R$ 2,47 bi" [ref=f1e1404]'
+                  - 'generic "Competência: jun-26; R$: 2641848557,22; Classe: Sênior; serie: Sênior; competencia: jun-26; Valor: R$ 2,64 bi" [ref=f1e1405]'
+                - 'generic "Symbol legend titled ''Faixas / séries'' for fill color with 3 values: Mezzanino, Subordinada, Sênior" [ref=f1e1406]':
+                  - generic [ref=f1e1408]:
+                    - generic [ref=f1e1412]:
+                      - generic [ref=f1e1413]: Mezzanino
+                      - generic [ref=f1e1415]: Subordinada
+                      - generic [ref=f1e1417]: Sênior
+                    - generic: Faixas / séries
+          - group "Click to view actions"
+      - generic [ref=f1e1424]: Crédito
+      - generic [ref=f1e1429]: Inadimplência, PDD e cobertura
+      - paragraph [ref=f1e1438]: "Barras: inadimplência e PDD sobre direitos creditórios. À direita: cobertura PDD / vencidos; 100% indica paridade."
+      - generic [ref=f1e1443]:
+        - generic [ref=f1e1445]:
+          - button "Show data" [ref=f1e1448] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e1454] [cursor=pointer]
+        - generic [ref=f1e1458]:
+          - generic "Vega visualization" [ref=f1e1459]:
+            - img [ref=f1e1460]:
+              - generic [ref=f1e1465]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 18 values: out-24, nov-24, dez-24, jan-25, mar-25, ending with jun-26" [ref=f1e1469]':
+                  - generic [ref=f1e1471]:
+                    - generic:
+                      - generic: out-24
+                      - generic: nov-24
+                      - generic: dez-24
+                      - generic: jan-25
+                      - generic: mar-25
+                      - generic: mai-25
+                      - generic: jun-25
+                      - generic: jul-25
+                      - generic: ago-25
+                      - generic: set-25
+                      - generic: out-25
+                      - generic: nov-25
+                      - generic: jan-26
+                      - generic: fev-26
+                      - generic: mar-26
+                      - generic: abr-26
+                      - generic: mai-26
+                      - generic: jun-26
+                    - generic: Competência
+                - generic "Y-axis titled '% dos DCs' for a linear scale with values from 0 to 80" [ref=f1e1472]:
+                  - generic [ref=f1e1474]:
+                    - generic:
+                      - generic: "0"
+                      - generic: "20"
+                      - generic: "40"
+                      - generic: "60"
+                      - generic: "80"
+                    - generic: "% dos DCs"
+                - generic [ref=f1e1475]:
+                  - 'generic "Competência: out-24; % dos DCs: 56,7090507061; serie: Inadimplência; Série: Inadimplência; competencia: out-24; Valor: 56,71%" [ref=f1e1476]'
+                  - 'generic "Competência: out-24; % dos DCs: 60,9376851096; serie: Provisão; Série: Provisão; competencia: out-24; Valor: 60,94%" [ref=f1e1477]'
+                  - 'generic "Competência: nov-24; % dos DCs: 56,6813622788; serie: Inadimplência; Série: Inadimplência; competencia: nov-24; Valor: 56,68%" [ref=f1e1478]'
+                  - 'generic "Competência: nov-24; % dos DCs: 60,9939547494; serie: Provisão; Série: Provisão; competencia: nov-24; Valor: 60,99%" [ref=f1e1479]'
+                  - 'generic "Competência: dez-24; % dos DCs: 57,7976422871; serie: Inadimplência; Série: Inadimplência; competencia: dez-24; Valor: 57,80%" [ref=f1e1480]'
+                  - 'generic "Competência: dez-24; % dos DCs: 61,8559491427; serie: Provisão; Série: Provisão; competencia: dez-24; Valor: 61,86%" [ref=f1e1481]'
+                  - 'generic "Competência: jan-25; % dos DCs: 51,4919347689; serie: Inadimplência; Série: Inadimplência; competencia: jan-25; Valor: 51,49%" [ref=f1e1482]'
+                  - 'generic "Competência: jan-25; % dos DCs: 56,2259215447; serie: Provisão; Série: Provisão; competencia: jan-25; Valor: 56,23%" [ref=f1e1483]'
+                  - 'generic "Competência: mar-25; % dos DCs: 35,0271161736; serie: Inadimplência; Série: Inadimplência; competencia: mar-25; Valor: 35,03%" [ref=f1e1484]'
+                  - 'generic "Competência: mar-25; % dos DCs: 38,6220763189; serie: Provisão; Série: Provisão; competencia: mar-25; Valor: 38,62%" [ref=f1e1485]'
+                  - 'generic "Competência: mai-25; % dos DCs: 29,0796931729; serie: Inadimplência; Série: Inadimplência; competencia: mai-25; Valor: 29,08%" [ref=f1e1486]'
+                  - 'generic "Competência: mai-25; % dos DCs: 36,8642546067; serie: Provisão; Série: Provisão; competencia: mai-25; Valor: 36,86%" [ref=f1e1487]'
+                  - 'generic "Competência: jun-25; % dos DCs: 29,0111329452; serie: Inadimplência; Série: Inadimplência; competencia: jun-25; Valor: 29,01%" [ref=f1e1488]'
+                  - 'generic "Competência: jun-25; % dos DCs: 36,885888032; serie: Provisão; Série: Provisão; competencia: jun-25; Valor: 36,89%" [ref=f1e1489]'
+                  - 'generic "Competência: jul-25; % dos DCs: 27,0110179293; serie: Inadimplência; Série: Inadimplência; competencia: jul-25; Valor: 27,01%" [ref=f1e1490]'
+                  - 'generic "Competência: jul-25; % dos DCs: 34,412787993; serie: Provisão; Série: Provisão; competencia: jul-25; Valor: 34,41%" [ref=f1e1491]'
+                  - 'generic "Competência: ago-25; % dos DCs: 26,465407588; serie: Inadimplência; Série: Inadimplência; competencia: ago-25; Valor: 26,47%" [ref=f1e1492]'
+                  - 'generic "Competência: ago-25; % dos DCs: 35,5685576473; serie: Provisão; Série: Provisão; competencia: ago-25; Valor: 35,57%" [ref=f1e1493]'
+                  - 'generic "Competência: set-25; % dos DCs: 26,539175335; serie: Inadimplência; Série: Inadimplência; competencia: set-25; Valor: 26,54%" [ref=f1e1494]'
+                  - 'generic "Competência: set-25; % dos DCs: 34,4594015264; serie: Provisão; Série: Provisão; competencia: set-25; Valor: 34,46%" [ref=f1e1495]'
+                  - 'generic "Competência: out-25; % dos DCs: 23,1080515444; serie: Inadimplência; Série: Inadimplência; competencia: out-25; Valor: 23,11%" [ref=f1e1496]'
+                  - 'generic "Competência: out-25; % dos DCs: 31,8752140252; serie: Provisão; Série: Provisão; competencia: out-25; Valor: 31,88%" [ref=f1e1497]'
+                  - 'generic "Competência: nov-25; % dos DCs: 22,5956221246; serie: Inadimplência; Série: Inadimplência; competencia: nov-25; Valor: 22,60%" [ref=f1e1498]'
+                  - 'generic "Competência: nov-25; % dos DCs: 31,0809025976; serie: Provisão; Série: Provisão; competencia: nov-25; Valor: 31,08%" [ref=f1e1499]'
+                  - 'generic "Competência: jan-26; % dos DCs: 22,6418839869; serie: Inadimplência; Série: Inadimplência; competencia: jan-26; Valor: 22,64%" [ref=f1e1500]'
+                  - 'generic "Competência: jan-26; % dos DCs: 35,3102167104; serie: Provisão; Série: Provisão; competencia: jan-26; Valor: 35,31%" [ref=f1e1501]'
+                  - 'generic "Competência: fev-26; % dos DCs: 19,474128491; serie: Inadimplência; Série: Inadimplência; competencia: fev-26; Valor: 19,47%" [ref=f1e1502]'
+                  - 'generic "Competência: fev-26; % dos DCs: 34,933991535; serie: Provisão; Série: Provisão; competencia: fev-26; Valor: 34,93%" [ref=f1e1503]'
+                  - 'generic "Competência: mar-26; % dos DCs: 19,1796291079; serie: Inadimplência; Série: Inadimplência; competencia: mar-26; Valor: 19,18%" [ref=f1e1504]'
+                  - 'generic "Competência: mar-26; % dos DCs: 35,2027216193; serie: Provisão; Série: Provisão; competencia: mar-26; Valor: 35,20%" [ref=f1e1505]'
+                  - 'generic "Competência: abr-26; % dos DCs: 21,296624859; serie: Inadimplência; Série: Inadimplência; competencia: abr-26; Valor: 21,30%" [ref=f1e1506]'
+                  - 'generic "Competência: abr-26; % dos DCs: 36,0482288248; serie: Provisão; Série: Provisão; competencia: abr-26; Valor: 36,05%" [ref=f1e1507]'
+                  - 'generic "Competência: mai-26; % dos DCs: 22,224072603; serie: Inadimplência; Série: Inadimplência; competencia: mai-26; Valor: 22,22%" [ref=f1e1508]'
+                  - 'generic "Competência: mai-26; % dos DCs: 36,2750491464; serie: Provisão; Série: Provisão; competencia: mai-26; Valor: 36,28%" [ref=f1e1509]'
+                  - 'generic "Competência: jun-26; % dos DCs: 20,7078109032; serie: Inadimplência; Série: Inadimplência; competencia: jun-26; Valor: 20,71%" [ref=f1e1510]'
+                  - 'generic "Competência: jun-26; % dos DCs: 33,6662188409; serie: Provisão; Série: Provisão; competencia: jun-26; Valor: 33,67%" [ref=f1e1511]'
+                - generic [ref=f1e1512]:
+                  - 'generic "Competência: dez-24; % dos DCs: 57,7976422871; serie: Inadimplência; label_fmt: 57,8%" [ref=f1e1513]': 57,8%
+                  - 'generic "Competência: dez-24; % dos DCs: 61,8559491427; serie: Provisão; label_fmt: 61,9%" [ref=f1e1514]': 61,9%
+                  - 'generic "Competência: jun-26; % dos DCs: 20,7078109032; serie: Inadimplência; label_fmt: 20,7%" [ref=f1e1515]': 20,7%
+                  - 'generic "Competência: jun-26; % dos DCs: 33,6662188409; serie: Provisão; label_fmt: 33,7%" [ref=f1e1516]': 33,7%
+                - 'generic "Symbol legend titled ''Série'' for fill color with 2 values: Inadimplência, Provisão" [ref=f1e1517]':
+                  - generic [ref=f1e1519]:
+                    - generic [ref=f1e1523]:
+                      - generic [ref=f1e1524]: Inadimplência
+                      - generic [ref=f1e1526]: Provisão
+                    - generic: Série
+          - group "Click to view actions"
+      - generic [ref=f1e1537]:
+        - generic [ref=f1e1539]:
+          - button "Show data" [ref=f1e1542] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e1548] [cursor=pointer]
+        - generic [ref=f1e1552]:
+          - generic "Vega visualization" [ref=f1e1553]:
+            - img [ref=f1e1554]:
+              - generic [ref=f1e1559]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 18 values: out-24, nov-24, dez-24, jan-25, mar-25, ending with jun-26" [ref=f1e1563]':
+                  - generic [ref=f1e1565]:
+                    - generic:
+                      - generic: out-24
+                      - generic: nov-24
+                      - generic: dez-24
+                      - generic: jan-25
+                      - generic: mar-25
+                      - generic: mai-25
+                      - generic: jun-25
+                      - generic: jul-25
+                      - generic: ago-25
+                      - generic: set-25
+                      - generic: out-25
+                      - generic: nov-25
+                      - generic: jan-26
+                      - generic: fev-26
+                      - generic: mar-26
+                      - generic: abr-26
+                      - generic: mai-26
+                      - generic: jun-26
+                    - generic: Competência
+                - generic "Y-axis titled '%' for a linear scale with values from 0 to 230" [ref=f1e1566]:
+                  - generic [ref=f1e1568]:
+                    - generic:
+                      - generic: "0"
+                      - generic: "100"
+                      - generic: "200"
+                      - generic: "50"
+                      - generic: "150"
+                    - generic: "%"
+                - 'generic "Competência: out-24; %: 107,456718726; Série: Cobertura; competencia: out-24; serie: Cobertura; Valor: 107,46%" [ref=f1e1574]'
+                - generic [ref=f1e1575]:
+                  - 'generic "Competência: out-24; %: 107,456718726; Série: Cobertura; competencia: out-24; serie: Cobertura; Valor: 107,46%" [ref=f1e1576]'
+                  - 'generic "Competência: nov-24; %: 107,60848416; Série: Cobertura; competencia: nov-24; serie: Cobertura; Valor: 107,61%" [ref=f1e1577]'
+                  - 'generic "Competência: dez-24; %: 107,021578554; Série: Cobertura; competencia: dez-24; serie: Cobertura; Valor: 107,02%" [ref=f1e1578]'
+                  - 'generic "Competência: jan-25; %: 109,193647116; Série: Cobertura; competencia: jan-25; serie: Cobertura; Valor: 109,19%" [ref=f1e1579]'
+                  - 'generic "Competência: mar-25; %: 110,263363183; Série: Cobertura; competencia: mar-25; serie: Cobertura; Valor: 110,26%" [ref=f1e1580]'
+                  - 'generic "Competência: mai-25; %: 126,769750931; Série: Cobertura; competencia: mai-25; serie: Cobertura; Valor: 126,77%" [ref=f1e1581]'
+                  - 'generic "Competência: jun-25; %: 127,143907484; Série: Cobertura; competencia: jun-25; serie: Cobertura; Valor: 127,14%" [ref=f1e1582]'
+                  - 'generic "Competência: jul-25; %: 127,402780906; Série: Cobertura; competencia: jul-25; serie: Cobertura; Valor: 127,40%" [ref=f1e1583]'
+                  - 'generic "Competência: ago-25; %: 134,396409838; Série: Cobertura; competencia: ago-25; serie: Cobertura; Valor: 134,40%" [ref=f1e1584]'
+                  - 'generic "Competência: set-25; %: 129,843527885; Série: Cobertura; competencia: set-25; serie: Cobertura; Valor: 129,84%" [ref=f1e1585]'
+                  - 'generic "Competência: out-25; %: 137,939860329; Série: Cobertura; competencia: out-25; serie: Cobertura; Valor: 137,94%" [ref=f1e1586]'
+                  - 'generic "Competência: nov-25; %: 137,552763213; Série: Cobertura; competencia: nov-25; serie: Cobertura; Valor: 137,55%" [ref=f1e1587]'
+                  - 'generic "Competência: jan-26; %: 155,950877281; Série: Cobertura; competencia: jan-26; serie: Cobertura; Valor: 155,95%" [ref=f1e1588]'
+                  - 'generic "Competência: fev-26; %: 179,386674742; Série: Cobertura; competencia: fev-26; serie: Cobertura; Valor: 179,39%" [ref=f1e1589]'
+                  - 'generic "Competência: mar-26; %: 183,542243811; Série: Cobertura; competencia: mar-26; serie: Cobertura; Valor: 183,54%" [ref=f1e1590]'
+                  - 'generic "Competência: abr-26; %: 169,267332563; Série: Cobertura; competencia: abr-26; serie: Cobertura; Valor: 169,27%" [ref=f1e1591]'
+                  - 'generic "Competência: mai-26; %: 163,224129953; Série: Cobertura; competencia: mai-26; serie: Cobertura; Valor: 163,22%" [ref=f1e1592]'
+                  - 'generic "Competência: jun-26; %: 162,577391682; Série: Cobertura; competencia: jun-26; serie: Cobertura; Valor: 162,58%" [ref=f1e1593]'
+                - 'generic "competencia: jun-26; %: 162,577391682; serie: Cobertura; end_label: 162,6%" [ref=f1e1595]': 162,6%
+                - generic:
+                  - 'generic "valor: 100; 100% (paridade): 100,00"'
+          - group "Click to view actions"
+      - generic [ref=f1e1601]: Prazo e eventos
+      - generic [ref=f1e1606]: Prazo de vencimento dos DCs a vencer em jun-26
+      - generic [ref=f1e1613]:
+        - generic [ref=f1e1615]:
+          - button "Show data" [ref=f1e1618] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e1624] [cursor=pointer]
+        - generic [ref=f1e1628]:
+          - generic "Vega visualization" [ref=f1e1629]:
+            - img [ref=f1e1630]:
+              - generic [ref=f1e1635]:
+                - 'generic "X-axis for a discrete scale with 11 values: Em 30 dias, 31 a 60 dias, 61 a 90 dias, 91 a 120 dias, 121 a 150 dias, ending with Total" [ref=f1e1639]':
+                  - generic [ref=f1e1641]:
+                    - generic:
+                      - generic: Em 30 dias
+                      - generic: 31 a 60 dias
+                      - generic: 61 a 90 dias
+                      - generic: 91 a 120 dias
+                      - generic: 121 a 150 dias
+                      - generic: 151 a 180 dias
+                      - generic: 181 a 360 dias
+                      - generic: 361 a 720 dias
+                      - generic: 721 a 1080 dias
+                      - generic: Acima de 1080 dias
+                      - generic: Total
+                - generic "Y-axis titled 'R$' for a linear scale with values from 0 to 7.353.981.249" [ref=f1e1642]:
+                  - generic [ref=f1e1644]:
+                    - generic:
+                      - generic: "0"
+                      - generic: 1,0 bi
+                      - generic: 2,0 bi
+                      - generic: 3,0 bi
+                      - generic: 4,0 bi
+                      - generic: 5,0 bi
+                      - generic: 6,0 bi
+                      - generic: 7,0 bi
+                    - generic: R$
+                - generic [ref=f1e1645]:
+                  - 'generic "etapa: Em 30 dias; R$: 883833889,99; bar_start: 0; tipo: incremento; Etapa: Em 30 dias; Fluxo: R$ 883,8 mm; Acumulado: R$ 883,8 mm" [ref=f1e1646]'
+                  - 'generic "etapa: 31 a 60 dias; R$: 1463169453,67; bar_start: 883833889,99; tipo: incremento; Etapa: 31 a 60 dias; Fluxo: R$ 579,3 mm; Acumulado: R$ 1,46 bi" [ref=f1e1647]'
+                  - 'generic "etapa: 61 a 90 dias; R$: 2024467458,94; bar_start: 1463169453,67; tipo: incremento; Etapa: 61 a 90 dias; Fluxo: R$ 561,3 mm; Acumulado: R$ 2,02 bi" [ref=f1e1648]'
+                  - 'generic "etapa: 91 a 120 dias; R$: 2479557582,97; bar_start: 2024467458,94; tipo: incremento; Etapa: 91 a 120 dias; Fluxo: R$ 455,1 mm; Acumulado: R$ 2,48 bi" [ref=f1e1649]'
+                  - 'generic "etapa: 121 a 150 dias; R$: 2813423070,49; bar_start: 2479557582,97; tipo: incremento; Etapa: 121 a 150 dias; Fluxo: R$ 333,9 mm; Acumulado: R$ 2,81 bi" [ref=f1e1650]'
+                  - 'generic "etapa: 151 a 180 dias; R$: 3172237312,5; bar_start: 2813423070,49; tipo: incremento; Etapa: 151 a 180 dias; Fluxo: R$ 358,8 mm; Acumulado: R$ 3,17 bi" [ref=f1e1651]'
+                  - 'generic "etapa: 181 a 360 dias; R$: 4090479150,18; bar_start: 3172237312,5; tipo: incremento; Etapa: 181 a 360 dias; Fluxo: R$ 918,2 mm; Acumulado: R$ 4,09 bi" [ref=f1e1652]'
+                  - 'generic "etapa: 361 a 720 dias; R$: 4520696915,46; bar_start: 4090479150,18; tipo: incremento; Etapa: 361 a 720 dias; Fluxo: R$ 430,2 mm; Acumulado: R$ 4,52 bi" [ref=f1e1653]'
+                  - 'generic "etapa: 721 a 1080 dias; R$: 4922587752,25; bar_start: 4520696915,46; tipo: incremento; Etapa: 721 a 1080 dias; Fluxo: R$ 401,9 mm; Acumulado: R$ 4,92 bi" [ref=f1e1654]'
+                  - 'generic "etapa: Acima de 1080 dias; R$: 6450860745,14; bar_start: 4922587752,25; tipo: incremento; Etapa: Acima de 1080 dias; Fluxo: R$ 1,53 bi; Acumulado: R$ 6,45 bi" [ref=f1e1655]'
+                  - 'generic "etapa: Total; R$: 6450860745,14; bar_start: 0; tipo: total; Etapa: Total; Fluxo: R$ 6,45 bi; Acumulado: R$ 6,45 bi" [ref=f1e1656]'
+                - generic [ref=f1e1657]:
+                  - 'generic "etapa: Em 30 dias; R$: 883833889,99; etapa_proxima: 31 a 60 dias"'
+                  - 'generic "etapa: 31 a 60 dias; R$: 1463169453,67; etapa_proxima: 61 a 90 dias"'
+                  - 'generic "etapa: 61 a 90 dias; R$: 2024467458,94; etapa_proxima: 91 a 120 dias"'
+                  - 'generic "etapa: 91 a 120 dias; R$: 2479557582,97; etapa_proxima: 121 a 150 dias"'
+                  - 'generic "etapa: 121 a 150 dias; R$: 2813423070,49; etapa_proxima: 151 a 180 dias"'
+                  - 'generic "etapa: 151 a 180 dias; R$: 3172237312,5; etapa_proxima: 181 a 360 dias"'
+                  - 'generic "etapa: 181 a 360 dias; R$: 4090479150,18; etapa_proxima: 361 a 720 dias"'
+                  - 'generic "etapa: 361 a 720 dias; R$: 4520696915,46; etapa_proxima: 721 a 1080 dias"'
+                  - 'generic "etapa: 721 a 1080 dias; R$: 4922587752,25; etapa_proxima: Acima de 1080 dias"'
+                  - 'generic "etapa: Acima de 1080 dias; R$: 6450860745,14; etapa_proxima: Total"'
+                - generic [ref=f1e1658]:
+                  - 'generic "etapa: Em 30 dias; R$: 883833889,99; valor_fmt: R$ 883,8 mm" [ref=f1e1659]': R$ 883,8 mm
+                  - 'generic "etapa: 31 a 60 dias; R$: 1463169453,67; valor_fmt: R$ 579,3 mm" [ref=f1e1660]': R$ 579,3 mm
+                  - 'generic "etapa: 61 a 90 dias; R$: 2024467458,94; valor_fmt: R$ 561,3 mm" [ref=f1e1661]': R$ 561,3 mm
+                  - 'generic "etapa: 91 a 120 dias; R$: 2479557582,97; valor_fmt: R$ 455,1 mm" [ref=f1e1662]': R$ 455,1 mm
+                  - 'generic "etapa: 121 a 150 dias; R$: 2813423070,49; valor_fmt: R$ 333,9 mm" [ref=f1e1663]': R$ 333,9 mm
+                  - 'generic "etapa: 151 a 180 dias; R$: 3172237312,5; valor_fmt: R$ 358,8 mm" [ref=f1e1664]': R$ 358,8 mm
+                  - 'generic "etapa: 181 a 360 dias; R$: 4090479150,18; valor_fmt: R$ 918,2 mm" [ref=f1e1665]': R$ 918,2 mm
+                  - 'generic "etapa: 361 a 720 dias; R$: 4520696915,46; valor_fmt: R$ 430,2 mm" [ref=f1e1666]': R$ 430,2 mm
+                  - 'generic "etapa: 721 a 1080 dias; R$: 4922587752,25; valor_fmt: R$ 401,9 mm" [ref=f1e1667]': R$ 401,9 mm
+                  - 'generic "etapa: Acima de 1080 dias; R$: 6450860745,14; valor_fmt: R$ 1,53 bi" [ref=f1e1668]': R$ 1,53 bi
+                  - 'generic "etapa: Total; R$: 6450860745,14; valor_fmt: R$ 6,45 bi" [ref=f1e1669]': R$ 6,45 bi
+          - group "Click to view actions"
+      - generic [ref=f1e1679]:
+        - text: "Prazo médio proxy dos recebíveis:"
+        - strong [ref=f1e1680]: 510 dias
+        - text: em jun-26, base de R$ 6,45 bi em recebíveis.
+      - group [ref=f1e1683]:
+        - generic "keyboard_arrow_right Sobre a base" [ref=f1e1684] [cursor=pointer]:
+          - generic [ref=f1e1685]:
+            - generic [ref=f1e1686]: keyboard_arrow_right
+            - paragraph [ref=f1e1690]: Sobre a base
+      - heading "Retorno e crédito" [level=2] [ref=f1e1697]:
+        - text: Retorno e crédito
+        - generic [ref=f1e1698]:
+          - link "Link to heading":
+            - /url: "#retorno-e-credito"
+      - generic [ref=f1e1700]:
+        - generic [ref=f1e1701]:
+          - paragraph [ref=f1e1704]: Filtro visual (sem recarregar)
+          - button "Help for Filtro visual (sem recarregar)" [ref=f1e1708] [cursor=pointer]
+        - radiogroup "Filtro visual (sem recarregar)" [ref=f1e1712] [cursor=pointer]:
+          - generic [ref=f1e1713]:
+            - radio "Todo período carregado"
+            - paragraph [ref=f1e1716]: Todo período carregado
+          - generic [ref=f1e1717]:
+            - radio "6M"
+            - paragraph [ref=f1e1720]: 6M
+          - generic [ref=f1e1721]:
+            - radio "12M" [checked]
+            - paragraph [ref=f1e1724]: 12M
+          - generic [ref=f1e1725]:
+            - radio "24M"
+            - paragraph [ref=f1e1728]: 24M
+          - generic [ref=f1e1729]:
+            - radio "36M"
+            - paragraph [ref=f1e1732]: 36M
+          - generic [ref=f1e1733]:
+            - radio "YTD"
+            - paragraph [ref=f1e1736]: YTD
+          - generic [ref=f1e1737]:
+            - radio "Dezembros + Ano Atual"
+            - paragraph [ref=f1e1740]: Dezembros + Ano Atual
+          - generic [ref=f1e1741]:
+            - radio "Customizado"
+            - paragraph [ref=f1e1744]: Customizado
+      - heading "Base analítica" [level=4] [ref=f1e1750]:
+        - text: Base analítica
+        - generic [ref=f1e1751]:
+          - link "Link to heading":
+            - /url: "#base-analitica"
+      - group [ref=f1e1754]:
+        - generic "keyboard_arrow_right Dados e exportações" [ref=f1e1755] [cursor=pointer]:
+          - generic [ref=f1e1756]:
+            - generic [ref=f1e1757]: keyboard_arrow_right
+            - paragraph [ref=f1e1761]: Dados e exportações
+      - generic [ref=f1e1765]:
+        - generic [ref=f1e1766]:
+          - strong [ref=f1e1767]: "Competência comum: jun/26"
+          - generic [ref=f1e1768]: "Escopo: 3/3 fundos"
+          - generic [ref=f1e1769]: "Último informe individual: jun/26"
+          - generic [ref=f1e1770]: "Fim solicitado: jun/26"
+        - table [ref=f1e1772]:
+          - rowgroup [ref=f1e1779]:
+            - row [ref=f1e1780]:
+              - columnheader "Indicador" [ref=f1e1781]
+              - columnheader "Consolidado jun/26 · 3/3 fundos" [ref=f1e1782]:
+                - generic [ref=f1e1783]: Consolidado
+                - generic [ref=f1e1784]: jun/26 · 3/3 fundos
+              - columnheader "MERCADO CRÉDITO FIDC Competência jun/26" [ref=f1e1785]:
+                - generic [ref=f1e1786]: MERCADO CRÉDITO FIDC
+                - generic [ref=f1e1787]: Competência jun/26
+              - columnheader "MERCADO CRÉDITO I BRASIL FIDC SEGMENTO FINANCEIRO Competência jun/26" [ref=f1e1788]:
+                - generic [ref=f1e1789]: MERCADO CRÉDITO I BRASIL FIDC SEGMENTO FINANCEIRO
+                - generic [ref=f1e1790]: Competência jun/26
+              - columnheader "MERCADO CRÉDITO II BRASIL FIDC Competência jun/26" [ref=f1e1791]:
+                - generic [ref=f1e1792]: MERCADO CRÉDITO II BRASIL FIDC
+                - generic [ref=f1e1793]: Competência jun/26
+          - rowgroup [ref=f1e1794]:
+            - row [ref=f1e1795]:
+              - columnheader "Tamanho e alocação" [ref=f1e1796]
+            - row [ref=f1e1797]:
+              - cell "PL" [ref=f1e1798]
+              - cell "R$ 5.533,9 MM" [ref=f1e1799]
+              - cell "R$ 3.017,9 MM" [ref=f1e1800]
+              - cell "R$ 754,4 MM" [ref=f1e1801]
+              - cell "R$ 1.761,6 MM" [ref=f1e1802]
+            - row [ref=f1e1803]:
+              - cell "Direitos creditórios" [ref=f1e1804]
+              - cell "R$ 8.135,6 MM" [ref=f1e1805]
+              - cell "R$ 4.080,4 MM" [ref=f1e1806]
+              - cell "R$ 1.280,8 MM" [ref=f1e1807]
+              - cell "R$ 2.774,4 MM" [ref=f1e1808]
+            - row [ref=f1e1809]:
+              - cell "Direitos creditórios / PL" [ref=f1e1810]
+              - cell "147,01%" [ref=f1e1811]
+              - cell "135,21%" [ref=f1e1812]
+              - cell "169,76%" [ref=f1e1813]
+              - cell "157,49%" [ref=f1e1814]
+            - row [ref=f1e1815]:
+              - columnheader "Inadimplência" [ref=f1e1816]
+            - row [ref=f1e1817]:
+              - cell "Over 30d / Crédito" [ref=f1e1818]
+              - cell "17,36%" [ref=f1e1819]
+              - cell "9,32%" [ref=f1e1820]
+              - cell "28,26%" [ref=f1e1821]
+              - cell "24,15%" [ref=f1e1822]
+            - row [ref=f1e1823]:
+              - cell "Over 60d / Crédito" [ref=f1e1824]
+              - cell "14,41%" [ref=f1e1825]
+              - cell "7,78%" [ref=f1e1826]
+              - cell "25,15%" [ref=f1e1827]
+              - cell "19,19%" [ref=f1e1828]
+            - row [ref=f1e1829]:
+              - cell "Over 90d / Crédito" [ref=f1e1830]
+              - cell "11,25%" [ref=f1e1831]
+              - cell "5,90%" [ref=f1e1832]
+              - cell "22,44%" [ref=f1e1833]
+              - cell "13,95%" [ref=f1e1834]
+            - row [ref=f1e1835]:
+              - cell "Over 180d / Crédito" [ref=f1e1836]
+              - cell "6,14%" [ref=f1e1837]
+              - cell "2,79%" [ref=f1e1838]
+              - cell "14,86%" [ref=f1e1839]
+              - cell "7,05%" [ref=f1e1840]
+            - row [ref=f1e1841]:
+              - cell "Over 360d / Crédito" [ref=f1e1842]
+              - cell "0,03%" [ref=f1e1843]
+              - cell "0,07%" [ref=f1e1844]
+              - cell "0,00%" [ref=f1e1845]
+              - cell "0,00%" [ref=f1e1846]
+            - row [ref=f1e1847]:
+              - columnheader "PDD e recompras" [ref=f1e1848]
+            - row [ref=f1e1849]:
+              - cell "PDD" [ref=f1e1850]
+              - cell "R$ 2.738,9 MM" [ref=f1e1851]
+              - cell "R$ 1.072,5 MM" [ref=f1e1852]
+              - cell "R$ 564,4 MM" [ref=f1e1853]
+              - cell "R$ 1.102,1 MM" [ref=f1e1854]
+            - row [ref=f1e1855]:
+              - cell "PDD / Crédito" [ref=f1e1856]
+              - cell "33,67%" [ref=f1e1857]
+              - cell "26,28%" [ref=f1e1858]
+              - cell "44,07%" [ref=f1e1859]
+              - cell "39,72%" [ref=f1e1860]
+            - row [ref=f1e1861]:
+              - cell "PDD / Over 90d" [ref=f1e1862]
+              - cell "299,28%" [ref=f1e1863]
+              - cell "445,54%" [ref=f1e1864]
+              - cell "196,39%" [ref=f1e1865]
+              - cell "284,72%" [ref=f1e1866]
+            - row [ref=f1e1867]:
+              - cell "Recompras / Crédito" [ref=f1e1868]
+              - cell "0,00%" [ref=f1e1869]
+              - cell "0,00%" [ref=f1e1870]
+              - cell "0,00%" [ref=f1e1871]
+              - cell "0,00%" [ref=f1e1872]
+            - row [ref=f1e1873]:
+              - columnheader "Cotas e retorno" [ref=f1e1874]
+            - row [ref=f1e1875]:
+              - cell "Cotas SR / PL" [ref=f1e1876]
+              - cell "47,74%" [ref=f1e1877]
+              - cell "30,59%" [ref=f1e1878]
+              - cell "67,69%" [ref=f1e1879]
+              - cell "68,57%" [ref=f1e1880]
+            - row [ref=f1e1881]:
+              - cell "Cotas MZ / PL" [ref=f1e1882]
+              - cell "7,57%" [ref=f1e1883]
+              - cell "0,00%" [ref=f1e1884]
+              - cell "13,36%" [ref=f1e1885]
+              - cell "18,07%" [ref=f1e1886]
+            - row [ref=f1e1887]:
+              - cell "Cotas Sub / PL" [ref=f1e1888]
+              - cell "44,69%" [ref=f1e1889]
+              - cell "69,41%" [ref=f1e1890]
+              - cell "18,94%" [ref=f1e1891]
+              - cell "13,36%" [ref=f1e1892]
+            - row [ref=f1e1893]:
+              - cell "Rentabilidade SR a.m." [ref=f1e1894]
+              - cell "N/D" [ref=f1e1895]
+              - cell "-3,52%" [ref=f1e1896]
+              - cell "0,52%" [ref=f1e1897]
+              - cell "-0,01%" [ref=f1e1898]
+            - row [ref=f1e1899]:
+              - cell "Rentabilidade MZ a.m." [ref=f1e1900]
+              - cell "N/D" [ref=f1e1901]
+              - cell "N/D" [ref=f1e1902]
+              - cell "1,32%" [ref=f1e1903]
+              - cell "-0,01%" [ref=f1e1904]
+            - row [ref=f1e1905]:
+              - cell "Rentabilidade Sub a.m." [ref=f1e1906]
+              - cell "N/D" [ref=f1e1907]
+              - cell "1,18%" [ref=f1e1908]
+              - cell "14,03%" [ref=f1e1909]
+              - cell "0,45%" [ref=f1e1910]
+      - heading "Histórico" [level=4] [ref=f1e1916]:
+        - text: Histórico
+        - generic [ref=f1e1917]:
+          - link "Link to heading":
+            - /url: "#historico"
+      - table [ref=f1e1923]:
+        - rowgroup [ref=f1e1940]:
+          - row [ref=f1e1941]:
+            - columnheader "Métrica" [ref=f1e1942]
+            - columnheader "jun/26" [ref=f1e1943]
+            - columnheader "mai/26" [ref=f1e1944]
+            - columnheader "abr/26" [ref=f1e1945]
+            - columnheader "mar/26" [ref=f1e1946]
+            - columnheader "fev/26" [ref=f1e1947]
+            - columnheader "jan/26" [ref=f1e1948]
+            - columnheader "dez/25" [ref=f1e1949]
+            - columnheader "nov/25" [ref=f1e1950]
+            - columnheader "out/25" [ref=f1e1951]
+            - columnheader "set/25" [ref=f1e1952]
+            - columnheader "ago/25" [ref=f1e1953]
+            - columnheader "jul/25" [ref=f1e1954]
+            - columnheader "jun/25" [ref=f1e1955]
+            - columnheader "Memória / fórmula" [ref=f1e1956]
+        - rowgroup [ref=f1e1957]:
+          - row [ref=f1e1958]:
+            - columnheader "PL FIDC" [ref=f1e1959]
+          - row [ref=f1e1960]:
+            - cell "PL FIDC total" [ref=f1e1961]
+            - cell "5.533,9 MM" [ref=f1e1962]
+            - cell "5.493,1 MM" [ref=f1e1963]
+            - cell "5.311,1 MM" [ref=f1e1964]
+            - cell "5.116,6 MM" [ref=f1e1965]
+            - cell "5.107,2 MM" [ref=f1e1966]
+            - cell "5.086,3 MM" [ref=f1e1967]
+            - cell "2.305,3 MM" [ref=f1e1968]
+            - cell "5.216,2 MM" [ref=f1e1969]
+            - cell "5.117,8 MM" [ref=f1e1970]
+            - cell "4.875,4 MM" [ref=f1e1971]
+            - cell "4.809,7 MM" [ref=f1e1972]
+            - cell "4.713,1 MM" [ref=f1e1973]
+            - cell "4.562,4 MM" [ref=f1e1974]
+            - cell "PATRLIQ/VL_PATRIM_LIQ quando disponível; caso contrário soma das classes." [ref=f1e1975]
+          - row [ref=f1e1976]:
+            - cell "PL FIDC oficial" [ref=f1e1977]
+            - cell "5.533,9 MM" [ref=f1e1978]
+            - cell "5.493,1 MM" [ref=f1e1979]
+            - cell "5.311,1 MM" [ref=f1e1980]
+            - cell "5.116,6 MM" [ref=f1e1981]
+            - cell "5.107,2 MM" [ref=f1e1982]
+            - cell "5.086,3 MM" [ref=f1e1983]
+            - cell "2.305,3 MM" [ref=f1e1984]
+            - cell "5.216,2 MM" [ref=f1e1985]
+            - cell "5.117,8 MM" [ref=f1e1986]
+            - cell "4.875,4 MM" [ref=f1e1987]
+            - cell "4.809,7 MM" [ref=f1e1988]
+            - cell "4.713,1 MM" [ref=f1e1989]
+            - cell "4.562,4 MM" [ref=f1e1990]
+            - cell "PATRLIQ/VL_PATRIM_LIQ da base oficial." [ref=f1e1991]
+          - row [ref=f1e1992]:
+            - cell "PL soma das classes" [ref=f1e1993]
+            - cell "5.533,9 MM" [ref=f1e1994]
+            - cell "5.493,1 MM" [ref=f1e1995]
+            - cell "5.311,1 MM" [ref=f1e1996]
+            - cell "5.116,6 MM" [ref=f1e1997]
+            - cell "5.107,2 MM" [ref=f1e1998]
+            - cell "5.086,3 MM" [ref=f1e1999]
+            - cell "2.305,3 MM" [ref=f1e2000]
+            - cell "5.216,2 MM" [ref=f1e2001]
+            - cell "5.117,8 MM" [ref=f1e2002]
+            - cell "4.875,4 MM" [ref=f1e2003]
+            - cell "4.809,7 MM" [ref=f1e2004]
+            - cell "4.713,1 MM" [ref=f1e2005]
+            - cell "4.562,4 MM" [ref=f1e2006]
+            - cell "Soma do PL das classes por quantidade de cotas × valor da cota." [ref=f1e2007]
+          - row [ref=f1e2008]:
+            - cell "Reconciliação PL oficial vs classes" [ref=f1e2009]
+            - cell "0" [ref=f1e2010]
+            - cell "0" [ref=f1e2011]
+            - cell "0" [ref=f1e2012]
+            - cell "0" [ref=f1e2013]
+            - cell "0" [ref=f1e2014]
+            - cell "0" [ref=f1e2015]
+            - cell "0" [ref=f1e2016]
+            - cell "0" [ref=f1e2017]
+            - cell "0" [ref=f1e2018]
+            - cell "0" [ref=f1e2019]
+            - cell "0" [ref=f1e2020]
+            - cell "0" [ref=f1e2021]
+            - cell "0" [ref=f1e2022]
+            - cell "PL FIDC total usado - PL soma das classes." [ref=f1e2023]
+          - row [ref=f1e2024]:
+            - cell "Reconciliação PL oficial vs classes (%)" [ref=f1e2025]
+            - cell "0,0%" [ref=f1e2026]
+            - cell "0,0%" [ref=f1e2027]
+            - cell "0,0%" [ref=f1e2028]
+            - cell "0,0%" [ref=f1e2029]
+            - cell "0,0%" [ref=f1e2030]
+            - cell "0,0%" [ref=f1e2031]
+            - cell "0,0%" [ref=f1e2032]
+            - cell "0,0%" [ref=f1e2033]
+            - cell "0,0%" [ref=f1e2034]
+            - cell "0,0%" [ref=f1e2035]
+            - cell "0,0%" [ref=f1e2036]
+            - cell "0,0%" [ref=f1e2037]
+            - cell "0,0%" [ref=f1e2038]
+            - cell "|PL FIDC total usado - PL soma das classes| / PL FIDC total usado." [ref=f1e2039]
+          - row [ref=f1e2040]:
+            - cell "Fonte do PL FIDC total" [ref=f1e2041]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e2042]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e2043]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e2044]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e2045]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e2046]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e2047]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e2048]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e2049]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e2050]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e2051]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e2052]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e2053]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e2054]
+            - cell "Indica se foi usado PL oficial ou soma das classes." [ref=f1e2055]
+          - row [ref=f1e2056]:
+            - cell "PL Sênior" [ref=f1e2057]
+            - cell "2.641,8 MM" [ref=f1e2058]
+            - cell "2.627,2 MM" [ref=f1e2059]
+            - cell "2.516,6 MM" [ref=f1e2060]
+            - cell "2.220,7 MM" [ref=f1e2061]
+            - cell "1.874,1 MM" [ref=f1e2062]
+            - cell "1.878,8 MM" [ref=f1e2063]
+            - cell "1.574,8 MM" [ref=f1e2064]
+            - cell "1.895,1 MM" [ref=f1e2065]
+            - cell "1.895,0 MM" [ref=f1e2066]
+            - cell "1.886,3 MM" [ref=f1e2067]
+            - cell "1.896,9 MM" [ref=f1e2068]
+            - cell "1.838,9 MM" [ref=f1e2069]
+            - cell "1.774,0 MM" [ref=f1e2070]
+            - cell "PL da classe sênior." [ref=f1e2071]
+          - row [ref=f1e2072]:
+            - cell "PL Subordinada" [ref=f1e2073]
+            - cell "2.473,0 MM" [ref=f1e2074]
+            - cell "2.446,8 MM" [ref=f1e2075]
+            - cell "2.375,2 MM" [ref=f1e2076]
+            - cell "2.476,7 MM" [ref=f1e2077]
+            - cell "2.803,3 MM" [ref=f1e2078]
+            - cell "2.776,3 MM" [ref=f1e2079]
+            - cell "300,7 MM" [ref=f1e2080]
+            - cell "2.891,8 MM" [ref=f1e2081]
+            - cell "2.792,2 MM" [ref=f1e2082]
+            - cell "2.559,3 MM" [ref=f1e2083]
+            - cell "2.410,0 MM" [ref=f1e2084]
+            - cell "2.369,7 MM" [ref=f1e2085]
+            - cell "2.286,2 MM" [ref=f1e2086]
+            - cell "PL subordinado estrito, sem mezanino." [ref=f1e2087]
+          - row [ref=f1e2088]:
+            - cell "PL Mezanino" [ref=f1e2089]
+            - cell "419,1 MM" [ref=f1e2090]
+            - cell "419,1 MM" [ref=f1e2091]
+            - cell "419,1 MM" [ref=f1e2092]
+            - cell "419,2 MM" [ref=f1e2093]
+            - cell "429,7 MM" [ref=f1e2094]
+            - cell "431,3 MM" [ref=f1e2095]
+            - cell "429,8 MM" [ref=f1e2096]
+            - cell "429,3 MM" [ref=f1e2097]
+            - cell "430,6 MM" [ref=f1e2098]
+            - cell "429,8 MM" [ref=f1e2099]
+            - cell "502,9 MM" [ref=f1e2100]
+            - cell "504,5 MM" [ref=f1e2101]
+            - cell "502,1 MM" [ref=f1e2102]
+            - cell "PL classificado como mezanino quando aplicável." [ref=f1e2103]
+          - row [ref=f1e2104]:
+            - cell "Subordinada + Mezanino" [ref=f1e2105]
+            - cell "2.892,1 MM" [ref=f1e2106]
+            - cell "2.865,9 MM" [ref=f1e2107]
+            - cell "2.794,3 MM" [ref=f1e2108]
+            - cell "2.895,9 MM" [ref=f1e2109]
+            - cell "3.233,1 MM" [ref=f1e2110]
+            - cell "3.207,6 MM" [ref=f1e2111]
+            - cell "730,5 MM" [ref=f1e2112]
+            - cell "3.321,1 MM" [ref=f1e2113]
+            - cell "3.222,8 MM" [ref=f1e2114]
+            - cell "2.989,1 MM" [ref=f1e2115]
+            - cell "2.912,8 MM" [ref=f1e2116]
+            - cell "2.874,2 MM" [ref=f1e2117]
+            - cell "2.788,3 MM" [ref=f1e2118]
+            - cell "PL subordinada + PL mezanino." [ref=f1e2119]
+          - row [ref=f1e2120]:
+            - cell "% Subordinação Total" [ref=f1e2121]
+            - cell "52,3%" [ref=f1e2122]
+            - cell "52,2%" [ref=f1e2123]
+            - cell "52,6%" [ref=f1e2124]
+            - cell "56,6%" [ref=f1e2125]
+            - cell "63,3%" [ref=f1e2126]
+            - cell "63,1%" [ref=f1e2127]
+            - cell "31,7%" [ref=f1e2128]
+            - cell "63,7%" [ref=f1e2129]
+            - cell "63,0%" [ref=f1e2130]
+            - cell "61,3%" [ref=f1e2131]
+            - cell "60,6%" [ref=f1e2132]
+            - cell "61,0%" [ref=f1e2133]
+            - cell "61,1%" [ref=f1e2134]
+            - cell "(Subordinada + Mezanino) / PL FIDC total." [ref=f1e2135]
+          - row [ref=f1e2136]:
+            - columnheader "Carteira Bruta" [ref=f1e2137]
+          - row [ref=f1e2138]:
+            - cell "Carteira Bruta total" [ref=f1e2139]
+            - cell "8.135,6 MM" [ref=f1e2140]
+            - cell "7.941,0 MM" [ref=f1e2141]
+            - cell "7.710,5 MM" [ref=f1e2142]
+            - cell "7.676,6 MM" [ref=f1e2143]
+            - cell "7.360,9 MM" [ref=f1e2144]
+            - cell "7.391,0 MM" [ref=f1e2145]
+            - cell "4.013,0 MM" [ref=f1e2146]
+            - cell "7.143,3 MM" [ref=f1e2147]
+            - cell "7.089,5 MM" [ref=f1e2148]
+            - cell "7.015,6 MM" [ref=f1e2149]
+            - cell "6.890,0 MM" [ref=f1e2150]
+            - cell "6.564,1 MM" [ref=f1e2151]
+            - cell "6.611,3 MM" [ref=f1e2152]
+            - cell "Base canônica de direitos creditórios." [ref=f1e2153]
+          - row [ref=f1e2154]:
+            - cell "PDD total" [ref=f1e2155]
+            - cell "2.738,9 MM" [ref=f1e2156]
+            - cell "2.880,6 MM" [ref=f1e2157]
+            - cell "2.779,5 MM" [ref=f1e2158]
+            - cell "2.702,4 MM" [ref=f1e2159]
+            - cell "2.571,5 MM" [ref=f1e2160]
+            - cell "2.609,8 MM" [ref=f1e2161]
+            - cell "1.920,6 MM" [ref=f1e2162]
+            - cell "2.220,2 MM" [ref=f1e2163]
+            - cell "2.259,8 MM" [ref=f1e2164]
+            - cell "2.417,5 MM" [ref=f1e2165]
+            - cell "2.450,7 MM" [ref=f1e2166]
+            - cell "2.258,9 MM" [ref=f1e2167]
+            - cell "2.438,6 MM" [ref=f1e2168]
+            - cell "Provisão total reportada." [ref=f1e2169]
+          - row [ref=f1e2170]:
+            - cell "PDD / Carteira Bruta" [ref=f1e2171]
+            - cell "33,7%" [ref=f1e2172]
+            - cell "36,3%" [ref=f1e2173]
+            - cell "36,0%" [ref=f1e2174]
+            - cell "35,2%" [ref=f1e2175]
+            - cell "34,9%" [ref=f1e2176]
+            - cell "35,3%" [ref=f1e2177]
+            - cell "47,9%" [ref=f1e2178]
+            - cell "31,1%" [ref=f1e2179]
+            - cell "31,9%" [ref=f1e2180]
+            - cell "34,5%" [ref=f1e2181]
+            - cell "35,6%" [ref=f1e2182]
+            - cell "34,4%" [ref=f1e2183]
+            - cell "36,9%" [ref=f1e2184]
+            - cell "PDD total / Carteira Bruta total." [ref=f1e2185]
+          - row [ref=f1e2186]:
+            - cell "Carteira Líquida" [ref=f1e2187]
+            - cell "5.396,6 MM" [ref=f1e2188]
+            - cell "5.060,4 MM" [ref=f1e2189]
+            - cell "4.931,0 MM" [ref=f1e2190]
+            - cell "4.974,2 MM" [ref=f1e2191]
+            - cell "4.789,5 MM" [ref=f1e2192]
+            - cell "4.781,2 MM" [ref=f1e2193]
+            - cell "2.092,5 MM" [ref=f1e2194]
+            - cell "4.923,1 MM" [ref=f1e2195]
+            - cell "4.829,7 MM" [ref=f1e2196]
+            - cell "4.598,1 MM" [ref=f1e2197]
+            - cell "4.439,3 MM" [ref=f1e2198]
+            - cell "4.305,2 MM" [ref=f1e2199]
+            - cell "4.172,6 MM" [ref=f1e2200]
+            - cell "Carteira Bruta total - PDD total." [ref=f1e2201]
+          - row [ref=f1e2202]:
+            - columnheader "Aging / faixas de atraso" [ref=f1e2203]
+          - row [ref=f1e2204]:
+            - cell "Carteira em dia" [ref=f1e2205]
+            - cell "6.450,9 MM" [ref=f1e2206]
+            - cell "6.176,2 MM" [ref=f1e2207]
+            - cell "6.068,5 MM" [ref=f1e2208]
+            - cell "6.204,2 MM" [ref=f1e2209]
+            - cell "5.927,4 MM" [ref=f1e2210]
+            - cell "5.717,5 MM" [ref=f1e2211]
+            - cell "2.630,3 MM" [ref=f1e2212]
+            - cell "5.529,2 MM" [ref=f1e2213]
+            - cell "5.451,3 MM" [ref=f1e2214]
+            - cell "5.153,7 MM" [ref=f1e2215]
+            - cell "5.066,6 MM" [ref=f1e2216]
+            - cell "4.791,0 MM" [ref=f1e2217]
+            - cell "4.693,3 MM" [ref=f1e2218]
+            - cell "Carteira Bruta - NPL Over 1d." [ref=f1e2219]
+          - row [ref=f1e2220]:
+            - cell "Atrasada até 30 dias" [ref=f1e2221]
+            - cell "272,3 MM" [ref=f1e2222]
+            - cell "344,5 MM" [ref=f1e2223]
+            - cell "387,2 MM" [ref=f1e2224]
+            - cell "298,8 MM" [ref=f1e2225]
+            - cell "199,0 MM" [ref=f1e2226]
+            - cell "256,4 MM" [ref=f1e2227]
+            - cell "156,7 MM" [ref=f1e2228]
+            - cell "265,7 MM" [ref=f1e2229]
+            - cell "249,4 MM" [ref=f1e2230]
+            - cell "280,1 MM" [ref=f1e2231]
+            - cell "235,7 MM" [ref=f1e2232]
+            - cell "217,4 MM" [ref=f1e2233]
+            - cell "219,7 MM" [ref=f1e2234]
+            - cell "Bucket VL_INAD_VENC_30." [ref=f1e2235]
+          - row [ref=f1e2236]:
+            - cell "Atrasos 31-60 dias" [ref=f1e2237]
+            - cell "240,5 MM" [ref=f1e2238]
+            - cell "329,1 MM" [ref=f1e2239]
+            - cell "229,2 MM" [ref=f1e2240]
+            - cell "135,9 MM" [ref=f1e2241]
+            - cell "138,4 MM" [ref=f1e2242]
+            - cell "189,9 MM" [ref=f1e2243]
+            - cell "127,1 MM" [ref=f1e2244]
+            - cell "183,8 MM" [ref=f1e2245]
+            - cell "190,2 MM" [ref=f1e2246]
+            - cell "151,1 MM" [ref=f1e2247]
+            - cell "163,3 MM" [ref=f1e2248]
+            - cell "158,3 MM" [ref=f1e2249]
+            - cell "145,5 MM" [ref=f1e2250]
+            - cell "Bucket VL_INAD_VENC_31_60." [ref=f1e2251]
+          - row [ref=f1e2252]:
+            - cell "Atrasos 61-90 dias" [ref=f1e2253]
+            - cell "256,8 MM" [ref=f1e2254]
+            - cell "177,4 MM" [ref=f1e2255]
+            - cell "129,8 MM" [ref=f1e2256]
+            - cell "132,5 MM" [ref=f1e2257]
+            - cell "134,0 MM" [ref=f1e2258]
+            - cell "174,1 MM" [ref=f1e2259]
+            - cell "109,1 MM" [ref=f1e2260]
+            - cell "150,2 MM" [ref=f1e2261]
+            - cell "134,7 MM" [ref=f1e2262]
+            - cell "135,5 MM" [ref=f1e2263]
+            - cell "133,9 MM" [ref=f1e2264]
+            - cell "135,0 MM" [ref=f1e2265]
+            - cell "165,3 MM" [ref=f1e2266]
+            - cell "Bucket VL_INAD_VENC_61_90." [ref=f1e2267]
+          - row [ref=f1e2268]:
+            - cell "Atrasos 91-180 dias" [ref=f1e2269]
+            - cell "415,6 MM" [ref=f1e2270]
+            - cell "378,9 MM" [ref=f1e2271]
+            - cell "378,0 MM" [ref=f1e2272]
+            - cell "373,7 MM" [ref=f1e2273]
+            - cell "382,0 MM" [ref=f1e2274]
+            - cell "412,9 MM" [ref=f1e2275]
+            - cell "328,6 MM" [ref=f1e2276]
+            - cell "370,3 MM" [ref=f1e2277]
+            - cell "367,5 MM" [ref=f1e2278]
+            - cell "404,4 MM" [ref=f1e2279]
+            - cell "428,0 MM" [ref=f1e2280]
+            - cell "465,1 MM" [ref=f1e2281]
+            - cell "496,0 MM" [ref=f1e2282]
+            - cell "Soma dos buckets 91-120, 121-150 e 151-180." [ref=f1e2283]
+          - row [ref=f1e2284]:
+            - cell "Atrasos 181-360 dias" [ref=f1e2285]
+            - cell "496,8 MM" [ref=f1e2286]
+            - cell "532,3 MM" [ref=f1e2287]
+            - cell "515,2 MM" [ref=f1e2288]
+            - cell "529,8 MM" [ref=f1e2289]
+            - cell "523,5 MM" [ref=f1e2290]
+            - cell "577,3 MM" [ref=f1e2291]
+            - cell "605,0 MM" [ref=f1e2292]
+            - cell "641,9 MM" [ref=f1e2293]
+            - cell "694,7 MM" [ref=f1e2294]
+            - cell "806,5 MM" [ref=f1e2295]
+            - cell "825,7 MM" [ref=f1e2296]
+            - cell "797,2 MM" [ref=f1e2297]
+            - cell "853,8 MM" [ref=f1e2298]
+            - cell "Bucket VL_INAD_VENC_181_360." [ref=f1e2299]
+          - row [ref=f1e2300]:
+            - cell "Vencidos acima de 360 dias" [ref=f1e2301]
+            - cell "2,8 MM" [ref=f1e2302]
+            - cell "2,6 MM" [ref=f1e2303]
+            - cell "2,7 MM" [ref=f1e2304]
+            - cell "1,7 MM" [ref=f1e2305]
+            - cell "56,6 MM" [ref=f1e2306]
+            - cell "62,9 MM" [ref=f1e2307]
+            - cell "56,2 MM" [ref=f1e2308]
+            - cell "2,1 MM" [ref=f1e2309]
+            - cell "1,8 MM" [ref=f1e2310]
+            - cell "84,2 MM" [ref=f1e2311]
+            - cell "36,8 MM" [ref=f1e2312]
+            - cell "0,0 MM" [ref=f1e2313]
+            - cell "37,7 MM" [ref=f1e2314]
+            - cell "Soma dos buckets 361-720, 721-1080 e acima de 1080 dias." [ref=f1e2315]
+          - row [ref=f1e2316]:
+            - columnheader "NPL Over acumulado" [ref=f1e2317]
+          - row [ref=f1e2318]:
+            - cell "NPL Over 1d" [ref=f1e2319]
+            - cell "1.684,7 MM" [ref=f1e2320]
+            - cell "1.764,8 MM" [ref=f1e2321]
+            - cell "1.642,1 MM" [ref=f1e2322]
+            - cell "1.472,3 MM" [ref=f1e2323]
+            - cell "1.433,5 MM" [ref=f1e2324]
+            - cell "1.673,5 MM" [ref=f1e2325]
+            - cell "1.382,8 MM" [ref=f1e2326]
+            - cell "1.614,1 MM" [ref=f1e2327]
+            - cell "1.638,3 MM" [ref=f1e2328]
+            - cell "1.861,9 MM" [ref=f1e2329]
+            - cell "1.823,5 MM" [ref=f1e2330]
+            - cell "1.773,0 MM" [ref=f1e2331]
+            - cell "1.918,0 MM" [ref=f1e2332]
+            - cell "Soma dos buckets de atraso >= 1 dia." [ref=f1e2333]
+          - row [ref=f1e2334]:
+            - cell "NPL Over 1d / Carteira" [ref=f1e2335]
+            - cell "20,7%" [ref=f1e2336]
+            - cell "22,2%" [ref=f1e2337]
+            - cell "21,3%" [ref=f1e2338]
+            - cell "19,2%" [ref=f1e2339]
+            - cell "19,5%" [ref=f1e2340]
+            - cell "22,6%" [ref=f1e2341]
+            - cell "34,5%" [ref=f1e2342]
+            - cell "22,6%" [ref=f1e2343]
+            - cell "23,1%" [ref=f1e2344]
+            - cell "26,5%" [ref=f1e2345]
+            - cell "26,5%" [ref=f1e2346]
+            - cell "27,0%" [ref=f1e2347]
+            - cell "29,0%" [ref=f1e2348]
+            - cell "NPL Over 1d / Carteira Bruta." [ref=f1e2349]
+          - row [ref=f1e2350]:
+            - cell "NPL Over 30d" [ref=f1e2351]
+            - cell "1.412,4 MM" [ref=f1e2352]
+            - cell "1.420,3 MM" [ref=f1e2353]
+            - cell "1.254,9 MM" [ref=f1e2354]
+            - cell "1.173,6 MM" [ref=f1e2355]
+            - cell "1.234,5 MM" [ref=f1e2356]
+            - cell "1.417,0 MM" [ref=f1e2357]
+            - cell "1.226,1 MM" [ref=f1e2358]
+            - cell "1.348,3 MM" [ref=f1e2359]
+            - cell "1.388,9 MM" [ref=f1e2360]
+            - cell "1.581,8 MM" [ref=f1e2361]
+            - cell "1.587,8 MM" [ref=f1e2362]
+            - cell "1.555,7 MM" [ref=f1e2363]
+            - cell "1.698,3 MM" [ref=f1e2364]
+            - cell "Soma dos buckets >= 31 dias." [ref=f1e2365]
+          - row [ref=f1e2366]:
+            - cell "NPL Over 30d / Carteira" [ref=f1e2367]
+            - cell "17,4%" [ref=f1e2368]
+            - cell "17,9%" [ref=f1e2369]
+            - cell "16,3%" [ref=f1e2370]
+            - cell "15,3%" [ref=f1e2371]
+            - cell "16,8%" [ref=f1e2372]
+            - cell "19,2%" [ref=f1e2373]
+            - cell "30,6%" [ref=f1e2374]
+            - cell "18,9%" [ref=f1e2375]
+            - cell "19,6%" [ref=f1e2376]
+            - cell "22,6%" [ref=f1e2377]
+            - cell "23,0%" [ref=f1e2378]
+            - cell "23,7%" [ref=f1e2379]
+            - cell "25,7%" [ref=f1e2380]
+            - cell "NPL Over 30d / Carteira Bruta." [ref=f1e2381]
+          - row [ref=f1e2382]:
+            - cell "NPL Over 60d" [ref=f1e2383]
+            - cell "1.171,9 MM" [ref=f1e2384]
+            - cell "1.091,2 MM" [ref=f1e2385]
+            - cell "1.025,6 MM" [ref=f1e2386]
+            - cell "1.037,7 MM" [ref=f1e2387]
+            - cell "1.096,1 MM" [ref=f1e2388]
+            - cell "1.227,1 MM" [ref=f1e2389]
+            - cell "1.098,9 MM" [ref=f1e2390]
+            - cell "1.164,5 MM" [ref=f1e2391]
+            - cell "1.198,7 MM" [ref=f1e2392]
+            - cell "1.430,7 MM" [ref=f1e2393]
+            - cell "1.424,4 MM" [ref=f1e2394]
+            - cell "1.397,4 MM" [ref=f1e2395]
+            - cell "1.552,8 MM" [ref=f1e2396]
+            - cell "Soma dos buckets >= 61 dias." [ref=f1e2397]
+          - row [ref=f1e2398]:
+            - cell "NPL Over 60d / Carteira" [ref=f1e2399]
+            - cell "14,4%" [ref=f1e2400]
+            - cell "13,7%" [ref=f1e2401]
+            - cell "13,3%" [ref=f1e2402]
+            - cell "13,5%" [ref=f1e2403]
+            - cell "14,9%" [ref=f1e2404]
+            - cell "16,6%" [ref=f1e2405]
+            - cell "27,4%" [ref=f1e2406]
+            - cell "16,3%" [ref=f1e2407]
+            - cell "16,9%" [ref=f1e2408]
+            - cell "20,4%" [ref=f1e2409]
+            - cell "20,7%" [ref=f1e2410]
+            - cell "21,3%" [ref=f1e2411]
+            - cell "23,5%" [ref=f1e2412]
+            - cell "NPL Over 60d / Carteira Bruta." [ref=f1e2413]
+          - row [ref=f1e2414]:
+            - cell "NPL Over 90d" [ref=f1e2415]
+            - cell "915,2 MM" [ref=f1e2416]
+            - cell "913,8 MM" [ref=f1e2417]
+            - cell "895,8 MM" [ref=f1e2418]
+            - cell "905,2 MM" [ref=f1e2419]
+            - cell "962,1 MM" [ref=f1e2420]
+            - cell "1.053,1 MM" [ref=f1e2421]
+            - cell "989,8 MM" [ref=f1e2422]
+            - cell "1.014,3 MM" [ref=f1e2423]
+            - cell "1.063,9 MM" [ref=f1e2424]
+            - cell "1.295,1 MM" [ref=f1e2425]
+            - cell "1.290,5 MM" [ref=f1e2426]
+            - cell "1.262,3 MM" [ref=f1e2427]
+            - cell "1.387,5 MM" [ref=f1e2428]
+            - cell "Soma dos buckets >= 91 dias." [ref=f1e2429]
+          - row [ref=f1e2430]:
+            - cell "NPL Over 90d / Carteira" [ref=f1e2431]
+            - cell "11,2%" [ref=f1e2432]
+            - cell "11,5%" [ref=f1e2433]
+            - cell "11,6%" [ref=f1e2434]
+            - cell "11,8%" [ref=f1e2435]
+            - cell "13,1%" [ref=f1e2436]
+            - cell "14,2%" [ref=f1e2437]
+            - cell "24,7%" [ref=f1e2438]
+            - cell "14,2%" [ref=f1e2439]
+            - cell "15,0%" [ref=f1e2440]
+            - cell "18,5%" [ref=f1e2441]
+            - cell "18,7%" [ref=f1e2442]
+            - cell "19,2%" [ref=f1e2443]
+            - cell "21,0%" [ref=f1e2444]
+            - cell "NPL Over 90d / Carteira Bruta." [ref=f1e2445]
+          - row [ref=f1e2446]:
+            - cell "NPL Over 180d" [ref=f1e2447]
+            - cell "499,6 MM" [ref=f1e2448]
+            - cell "534,9 MM" [ref=f1e2449]
+            - cell "517,9 MM" [ref=f1e2450]
+            - cell "531,5 MM" [ref=f1e2451]
+            - cell "580,1 MM" [ref=f1e2452]
+            - cell "640,2 MM" [ref=f1e2453]
+            - cell "661,2 MM" [ref=f1e2454]
+            - cell "644,0 MM" [ref=f1e2455]
+            - cell "696,4 MM" [ref=f1e2456]
+            - cell "890,8 MM" [ref=f1e2457]
+            - cell "862,5 MM" [ref=f1e2458]
+            - cell "797,2 MM" [ref=f1e2459]
+            - cell "891,5 MM" [ref=f1e2460]
+            - cell "Soma dos buckets >= 181 dias." [ref=f1e2461]
+          - row [ref=f1e2462]:
+            - cell "NPL Over 180d / Carteira" [ref=f1e2463]
+            - cell "6,1%" [ref=f1e2464]
+            - cell "6,7%" [ref=f1e2465]
+            - cell "6,7%" [ref=f1e2466]
+            - cell "6,9%" [ref=f1e2467]
+            - cell "7,9%" [ref=f1e2468]
+            - cell "8,7%" [ref=f1e2469]
+            - cell "16,5%" [ref=f1e2470]
+            - cell "9,0%" [ref=f1e2471]
+            - cell "9,8%" [ref=f1e2472]
+            - cell "12,7%" [ref=f1e2473]
+            - cell "12,5%" [ref=f1e2474]
+            - cell "12,2%" [ref=f1e2475]
+            - cell "13,5%" [ref=f1e2476]
+            - cell "NPL Over 180d / Carteira Bruta." [ref=f1e2477]
+          - row [ref=f1e2478]:
+            - cell "NPL Over 360d" [ref=f1e2479]
+            - cell "2,8 MM" [ref=f1e2480]
+            - cell "2,6 MM" [ref=f1e2481]
+            - cell "2,7 MM" [ref=f1e2482]
+            - cell "1,7 MM" [ref=f1e2483]
+            - cell "56,6 MM" [ref=f1e2484]
+            - cell "62,9 MM" [ref=f1e2485]
+            - cell "56,2 MM" [ref=f1e2486]
+            - cell "2,1 MM" [ref=f1e2487]
+            - cell "1,8 MM" [ref=f1e2488]
+            - cell "84,2 MM" [ref=f1e2489]
+            - cell "36,8 MM" [ref=f1e2490]
+            - cell "0,0 MM" [ref=f1e2491]
+            - cell "37,7 MM" [ref=f1e2492]
+            - cell "Vencidos acima de 360 dias." [ref=f1e2493]
+          - row [ref=f1e2494]:
+            - cell "NPL Over 360d / Carteira" [ref=f1e2495]
+            - cell "0,0%" [ref=f1e2496]
+            - cell "0,0%" [ref=f1e2497]
+            - cell "0,0%" [ref=f1e2498]
+            - cell "0,0%" [ref=f1e2499]
+            - cell "0,8%" [ref=f1e2500]
+            - cell "0,8%" [ref=f1e2501]
+            - cell "1,4%" [ref=f1e2502]
+            - cell "0,0%" [ref=f1e2503]
+            - cell "0,0%" [ref=f1e2504]
+            - cell "1,2%" [ref=f1e2505]
+            - cell "0,5%" [ref=f1e2506]
+            - cell "0,0%" [ref=f1e2507]
+            - cell "0,6%" [ref=f1e2508]
+            - cell "NPL Over 360d / Carteira Bruta." [ref=f1e2509]
+          - row [ref=f1e2510]:
+            - columnheader "Cobertura" [ref=f1e2511]
+          - row [ref=f1e2512]:
+            - cell "PDD / NPL Over 1d" [ref=f1e2513]
+            - cell "162,6%" [ref=f1e2514]
+            - cell "163,2%" [ref=f1e2515]
+            - cell "169,3%" [ref=f1e2516]
+            - cell "183,5%" [ref=f1e2517]
+            - cell "179,4%" [ref=f1e2518]
+            - cell "155,9%" [ref=f1e2519]
+            - cell "138,9%" [ref=f1e2520]
+            - cell "137,6%" [ref=f1e2521]
+            - cell "137,9%" [ref=f1e2522]
+            - cell "129,8%" [ref=f1e2523]
+            - cell "134,4%" [ref=f1e2524]
+            - cell "127,4%" [ref=f1e2525]
+            - cell "127,1%" [ref=f1e2526]
+            - cell "PDD total / NPL Over 1d." [ref=f1e2527]
+          - row [ref=f1e2528]:
+            - cell "PDD / NPL Over 30d" [ref=f1e2529]
+            - cell "193,9%" [ref=f1e2530]
+            - cell "202,8%" [ref=f1e2531]
+            - cell "221,5%" [ref=f1e2532]
+            - cell "230,3%" [ref=f1e2533]
+            - cell "208,3%" [ref=f1e2534]
+            - cell "184,2%" [ref=f1e2535]
+            - cell "156,7%" [ref=f1e2536]
+            - cell "164,7%" [ref=f1e2537]
+            - cell "162,7%" [ref=f1e2538]
+            - cell "152,8%" [ref=f1e2539]
+            - cell "154,3%" [ref=f1e2540]
+            - cell "145,2%" [ref=f1e2541]
+            - cell "143,6%" [ref=f1e2542]
+            - cell "PDD total / NPL Over 30d." [ref=f1e2543]
+          - row [ref=f1e2544]:
+            - cell "PDD / NPL Over 60d" [ref=f1e2545]
+            - cell "233,7%" [ref=f1e2546]
+            - cell "264,0%" [ref=f1e2547]
+            - cell "271,0%" [ref=f1e2548]
+            - cell "260,4%" [ref=f1e2549]
+            - cell "234,6%" [ref=f1e2550]
+            - cell "212,7%" [ref=f1e2551]
+            - cell "174,8%" [ref=f1e2552]
+            - cell "190,7%" [ref=f1e2553]
+            - cell "188,5%" [ref=f1e2554]
+            - cell "169,0%" [ref=f1e2555]
+            - cell "172,0%" [ref=f1e2556]
+            - cell "161,7%" [ref=f1e2557]
+            - cell "157,1%" [ref=f1e2558]
+            - cell "PDD total / NPL Over 60d." [ref=f1e2559]
+          - row [ref=f1e2560]:
+            - cell "PDD / NPL Over 90d" [ref=f1e2561]
+            - cell "299,3%" [ref=f1e2562]
+            - cell "315,2%" [ref=f1e2563]
+            - cell "310,3%" [ref=f1e2564]
+            - cell "298,5%" [ref=f1e2565]
+            - cell "267,3%" [ref=f1e2566]
+            - cell "247,8%" [ref=f1e2567]
+            - cell "194,0%" [ref=f1e2568]
+            - cell "218,9%" [ref=f1e2569]
+            - cell "212,4%" [ref=f1e2570]
+            - cell "186,7%" [ref=f1e2571]
+            - cell "189,9%" [ref=f1e2572]
+            - cell "178,9%" [ref=f1e2573]
+            - cell "175,8%" [ref=f1e2574]
+            - cell "PDD total / NPL Over 90d." [ref=f1e2575]
+          - row [ref=f1e2576]:
+            - cell "PDD / NPL Over 180d" [ref=f1e2577]
+            - cell "548,2%" [ref=f1e2578]
+            - cell "538,6%" [ref=f1e2579]
+            - cell "536,7%" [ref=f1e2580]
+            - cell "508,4%" [ref=f1e2581]
+            - cell "443,3%" [ref=f1e2582]
+            - cell "407,6%" [ref=f1e2583]
+            - cell "290,5%" [ref=f1e2584]
+            - cell "344,7%" [ref=f1e2585]
+            - cell "324,5%" [ref=f1e2586]
+            - cell "271,4%" [ref=f1e2587]
+            - cell "284,1%" [ref=f1e2588]
+            - cell "283,3%" [ref=f1e2589]
+            - cell "273,6%" [ref=f1e2590]
+            - cell "PDD total / NPL Over 180d." [ref=f1e2591]
+          - row [ref=f1e2592]:
+            - cell "PDD / NPL Over 360d" [ref=f1e2593]
+            - cell "97.020,0%" [ref=f1e2594]
+            - cell "112.472,3%" [ref=f1e2595]
+            - cell "104.273,2%" [ref=f1e2596]
+            - cell "159.278,4%" [ref=f1e2597]
+            - cell "4.543,8%" [ref=f1e2598]
+            - cell "4.147,5%" [ref=f1e2599]
+            - cell "3.415,0%" [ref=f1e2600]
+            - cell "106.285,4%" [ref=f1e2601]
+            - cell "126.615,2%" [ref=f1e2602]
+            - cell "2.870,7%" [ref=f1e2603]
+            - cell "6.654,3%" [ref=f1e2604]
+            - cell [ref=f1e2605]
+            - cell "6.465,2%" [ref=f1e2606]
+            - cell "PDD total / NPL Over 360d, quando denominador > 0." [ref=f1e2607]
+          - row [ref=f1e2608]:
+            - columnheader "Visão Ex-Vencidos > 360d" [ref=f1e2609]
+          - row [ref=f1e2610]:
+            - cell "Carteira Ex Over 360d" [ref=f1e2611]
+            - cell "8.132,7 MM" [ref=f1e2612]
+            - cell "7.938,4 MM" [ref=f1e2613]
+            - cell "7.707,9 MM" [ref=f1e2614]
+            - cell "7.674,9 MM" [ref=f1e2615]
+            - cell "7.304,3 MM" [ref=f1e2616]
+            - cell "7.328,1 MM" [ref=f1e2617]
+            - cell "3.956,8 MM" [ref=f1e2618]
+            - cell "7.141,2 MM" [ref=f1e2619]
+            - cell "7.087,8 MM" [ref=f1e2620]
+            - cell "6.931,4 MM" [ref=f1e2621]
+            - cell "6.853,2 MM" [ref=f1e2622]
+            - cell "6.564,1 MM" [ref=f1e2623]
+            - cell "6.573,6 MM" [ref=f1e2624]
+            - cell "Carteira Bruta - NPL Over 360d." [ref=f1e2625]
+          - row [ref=f1e2626]:
+            - cell "Baixa Over 360d na carteira" [ref=f1e2627]
+            - cell "2,8 MM" [ref=f1e2628]
+            - cell "2,6 MM" [ref=f1e2629]
+            - cell "2,7 MM" [ref=f1e2630]
+            - cell "1,7 MM" [ref=f1e2631]
+            - cell "56,6 MM" [ref=f1e2632]
+            - cell "62,9 MM" [ref=f1e2633]
+            - cell "56,2 MM" [ref=f1e2634]
+            - cell "2,1 MM" [ref=f1e2635]
+            - cell "1,8 MM" [ref=f1e2636]
+            - cell "84,2 MM" [ref=f1e2637]
+            - cell "36,8 MM" [ref=f1e2638]
+            - cell "0,0 MM" [ref=f1e2639]
+            - cell "37,7 MM" [ref=f1e2640]
+            - cell "Saldo vencido acima de 360 dias baixado da carteira." [ref=f1e2641]
+          - row [ref=f1e2642]:
+            - cell "Baixa Over 360d na PDD" [ref=f1e2643]
+            - cell "2,8 MM" [ref=f1e2644]
+            - cell "2,6 MM" [ref=f1e2645]
+            - cell "2,7 MM" [ref=f1e2646]
+            - cell "1,7 MM" [ref=f1e2647]
+            - cell "56,6 MM" [ref=f1e2648]
+            - cell "62,9 MM" [ref=f1e2649]
+            - cell "56,2 MM" [ref=f1e2650]
+            - cell "2,1 MM" [ref=f1e2651]
+            - cell "1,8 MM" [ref=f1e2652]
+            - cell "84,2 MM" [ref=f1e2653]
+            - cell "36,8 MM" [ref=f1e2654]
+            - cell "0,0 MM" [ref=f1e2655]
+            - cell "37,7 MM" [ref=f1e2656]
+            - cell "Menor valor entre PDD total e saldo Over 360d baixado." [ref=f1e2657]
+          - row [ref=f1e2658]:
+            - cell "Baixa Over 360d no PL" [ref=f1e2659]
+            - cell "0" [ref=f1e2660]
+            - cell "0" [ref=f1e2661]
+            - cell "0" [ref=f1e2662]
+            - cell "0" [ref=f1e2663]
+            - cell "0" [ref=f1e2664]
+            - cell "0" [ref=f1e2665]
+            - cell "0" [ref=f1e2666]
+            - cell "0" [ref=f1e2667]
+            - cell "0" [ref=f1e2668]
+            - cell "0" [ref=f1e2669]
+            - cell "0" [ref=f1e2670]
+            - cell "0" [ref=f1e2671]
+            - cell "0" [ref=f1e2672]
+            - cell "Parcela da baixa Over 360d não coberta por PDD." [ref=f1e2673]
+          - row [ref=f1e2674]:
+            - cell "PL Ex Over 360d" [ref=f1e2675]
+            - cell "5.533,9 MM" [ref=f1e2676]
+            - cell "5.493,1 MM" [ref=f1e2677]
+            - cell "5.311,1 MM" [ref=f1e2678]
+            - cell "5.116,6 MM" [ref=f1e2679]
+            - cell "5.107,2 MM" [ref=f1e2680]
+            - cell "5.086,3 MM" [ref=f1e2681]
+            - cell "2.305,3 MM" [ref=f1e2682]
+            - cell "5.216,2 MM" [ref=f1e2683]
+            - cell "5.117,8 MM" [ref=f1e2684]
+            - cell "4.875,4 MM" [ref=f1e2685]
+            - cell "4.809,7 MM" [ref=f1e2686]
+            - cell "4.713,1 MM" [ref=f1e2687]
+            - cell "4.562,4 MM" [ref=f1e2688]
+            - cell "PL FIDC total - baixa Over 360d no PL." [ref=f1e2689]
+          - row [ref=f1e2690]:
+            - cell "Subordinada + Mezanino Ex Over 360d" [ref=f1e2691]
+            - cell "2.892,1 MM" [ref=f1e2692]
+            - cell "2.865,9 MM" [ref=f1e2693]
+            - cell "2.794,3 MM" [ref=f1e2694]
+            - cell "2.895,9 MM" [ref=f1e2695]
+            - cell "3.233,1 MM" [ref=f1e2696]
+            - cell "3.207,6 MM" [ref=f1e2697]
+            - cell "730,5 MM" [ref=f1e2698]
+            - cell "3.321,1 MM" [ref=f1e2699]
+            - cell "3.222,8 MM" [ref=f1e2700]
+            - cell "2.989,1 MM" [ref=f1e2701]
+            - cell "2.912,8 MM" [ref=f1e2702]
+            - cell "2.874,2 MM" [ref=f1e2703]
+            - cell "2.788,3 MM" [ref=f1e2704]
+            - cell "Subordinada + Mezanino após baixa Over 360d no PL." [ref=f1e2705]
+          - row [ref=f1e2706]:
+            - cell "% Subordinação Total Ex Over 360d" [ref=f1e2707]
+            - cell "52,3%" [ref=f1e2708]
+            - cell "52,2%" [ref=f1e2709]
+            - cell "52,6%" [ref=f1e2710]
+            - cell "56,6%" [ref=f1e2711]
+            - cell "63,3%" [ref=f1e2712]
+            - cell "63,1%" [ref=f1e2713]
+            - cell "31,7%" [ref=f1e2714]
+            - cell "63,7%" [ref=f1e2715]
+            - cell "63,0%" [ref=f1e2716]
+            - cell "61,3%" [ref=f1e2717]
+            - cell "60,6%" [ref=f1e2718]
+            - cell "61,0%" [ref=f1e2719]
+            - cell "61,1%" [ref=f1e2720]
+            - cell "(Subordinada + Mezanino Ex Over 360d) / PL Ex Over 360d." [ref=f1e2721]
+          - row [ref=f1e2722]:
+            - cell "PDD Ex Over 360d" [ref=f1e2723]
+            - cell "2.736,1 MM" [ref=f1e2724]
+            - cell "2.878,0 MM" [ref=f1e2725]
+            - cell "2.776,9 MM" [ref=f1e2726]
+            - cell "2.700,7 MM" [ref=f1e2727]
+            - cell "2.514,9 MM" [ref=f1e2728]
+            - cell "2.546,9 MM" [ref=f1e2729]
+            - cell "1.864,3 MM" [ref=f1e2730]
+            - cell "2.218,1 MM" [ref=f1e2731]
+            - cell "2.258,0 MM" [ref=f1e2732]
+            - cell "2.333,3 MM" [ref=f1e2733]
+            - cell "2.413,9 MM" [ref=f1e2734]
+            - cell "2.258,9 MM" [ref=f1e2735]
+            - cell "2.400,9 MM" [ref=f1e2736]
+            - cell "PDD total - baixa Over 360d na PDD." [ref=f1e2737]
+          - row [ref=f1e2738]:
+            - cell "PDD Ex Over 360d / Carteira Ex Over 360d" [ref=f1e2739]
+            - cell "33,6%" [ref=f1e2740]
+            - cell "36,2%" [ref=f1e2741]
+            - cell "36,0%" [ref=f1e2742]
+            - cell "35,2%" [ref=f1e2743]
+            - cell "34,4%" [ref=f1e2744]
+            - cell "34,8%" [ref=f1e2745]
+            - cell "47,1%" [ref=f1e2746]
+            - cell "31,1%" [ref=f1e2747]
+            - cell "31,9%" [ref=f1e2748]
+            - cell "33,7%" [ref=f1e2749]
+            - cell "35,2%" [ref=f1e2750]
+            - cell "34,4%" [ref=f1e2751]
+            - cell "36,5%" [ref=f1e2752]
+            - cell "PDD Ex Over 360d / Carteira Ex Over 360d." [ref=f1e2753]
+          - row [ref=f1e2754]:
+            - cell "Carteira Líquida Ex Over 360d" [ref=f1e2755]
+            - cell "5.396,6 MM" [ref=f1e2756]
+            - cell "5.060,4 MM" [ref=f1e2757]
+            - cell "4.931,0 MM" [ref=f1e2758]
+            - cell "4.974,2 MM" [ref=f1e2759]
+            - cell "4.789,5 MM" [ref=f1e2760]
+            - cell "4.781,2 MM" [ref=f1e2761]
+            - cell "2.092,5 MM" [ref=f1e2762]
+            - cell "4.923,1 MM" [ref=f1e2763]
+            - cell "4.829,7 MM" [ref=f1e2764]
+            - cell "4.598,1 MM" [ref=f1e2765]
+            - cell "4.439,3 MM" [ref=f1e2766]
+            - cell "4.305,2 MM" [ref=f1e2767]
+            - cell "4.172,6 MM" [ref=f1e2768]
+            - cell "Carteira Ex Over 360d - PDD Ex Over 360d." [ref=f1e2769]
+          - row [ref=f1e2770]:
+            - cell "NPL Over 1d Ex 360" [ref=f1e2771]
+            - cell "1.681,9 MM" [ref=f1e2772]
+            - cell "1.762,2 MM" [ref=f1e2773]
+            - cell "1.639,4 MM" [ref=f1e2774]
+            - cell "1.470,6 MM" [ref=f1e2775]
+            - cell "1.376,9 MM" [ref=f1e2776]
+            - cell "1.610,5 MM" [ref=f1e2777]
+            - cell "1.326,5 MM" [ref=f1e2778]
+            - cell "1.612,0 MM" [ref=f1e2779]
+            - cell "1.636,5 MM" [ref=f1e2780]
+            - cell "1.777,7 MM" [ref=f1e2781]
+            - cell "1.786,6 MM" [ref=f1e2782]
+            - cell "1.773,0 MM" [ref=f1e2783]
+            - cell "1.880,3 MM" [ref=f1e2784]
+            - cell "NPL Over 1d - NPL Over 360d." [ref=f1e2785]
+          - row [ref=f1e2786]:
+            - cell "NPL Over 1d Ex 360 / Carteira Ex 360" [ref=f1e2787]
+            - cell "20,7%" [ref=f1e2788]
+            - cell "22,2%" [ref=f1e2789]
+            - cell "21,3%" [ref=f1e2790]
+            - cell "19,2%" [ref=f1e2791]
+            - cell "18,9%" [ref=f1e2792]
+            - cell "22,0%" [ref=f1e2793]
+            - cell "33,5%" [ref=f1e2794]
+            - cell "22,6%" [ref=f1e2795]
+            - cell "23,1%" [ref=f1e2796]
+            - cell "25,6%" [ref=f1e2797]
+            - cell "26,1%" [ref=f1e2798]
+            - cell "27,0%" [ref=f1e2799]
+            - cell "28,6%" [ref=f1e2800]
+            - cell "NPL Over 1d Ex 360 / Carteira Ex 360." [ref=f1e2801]
+          - row [ref=f1e2802]:
+            - cell "NPL Over 30d Ex 360" [ref=f1e2803]
+            - cell "1.409,6 MM" [ref=f1e2804]
+            - cell "1.417,8 MM" [ref=f1e2805]
+            - cell "1.252,2 MM" [ref=f1e2806]
+            - cell "1.171,9 MM" [ref=f1e2807]
+            - cell "1.177,9 MM" [ref=f1e2808]
+            - cell "1.354,1 MM" [ref=f1e2809]
+            - cell "1.169,8 MM" [ref=f1e2810]
+            - cell "1.346,2 MM" [ref=f1e2811]
+            - cell "1.387,1 MM" [ref=f1e2812]
+            - cell "1.497,6 MM" [ref=f1e2813]
+            - cell "1.551,0 MM" [ref=f1e2814]
+            - cell "1.555,7 MM" [ref=f1e2815]
+            - cell "1.660,5 MM" [ref=f1e2816]
+            - cell "NPL Over 30d - NPL Over 360d." [ref=f1e2817]
+          - row [ref=f1e2818]:
+            - cell "NPL Over 30d Ex 360 / Carteira Ex 360" [ref=f1e2819]
+            - cell "17,3%" [ref=f1e2820]
+            - cell "17,9%" [ref=f1e2821]
+            - cell "16,2%" [ref=f1e2822]
+            - cell "15,3%" [ref=f1e2823]
+            - cell "16,1%" [ref=f1e2824]
+            - cell "18,5%" [ref=f1e2825]
+            - cell "29,6%" [ref=f1e2826]
+            - cell "18,9%" [ref=f1e2827]
+            - cell "19,6%" [ref=f1e2828]
+            - cell "21,6%" [ref=f1e2829]
+            - cell "22,6%" [ref=f1e2830]
+            - cell "23,7%" [ref=f1e2831]
+            - cell "25,3%" [ref=f1e2832]
+            - cell "NPL Over 30d Ex 360 / Carteira Ex 360." [ref=f1e2833]
+          - row [ref=f1e2834]:
+            - cell "NPL Over 60d Ex 360" [ref=f1e2835]
+            - cell "1.169,1 MM" [ref=f1e2836]
+            - cell "1.088,6 MM" [ref=f1e2837]
+            - cell "1.023,0 MM" [ref=f1e2838]
+            - cell "1.036,0 MM" [ref=f1e2839]
+            - cell "1.039,5 MM" [ref=f1e2840]
+            - cell "1.164,2 MM" [ref=f1e2841]
+            - cell "1.042,7 MM" [ref=f1e2842]
+            - cell "1.162,4 MM" [ref=f1e2843]
+            - cell "1.196,9 MM" [ref=f1e2844]
+            - cell "1.346,4 MM" [ref=f1e2845]
+            - cell "1.387,6 MM" [ref=f1e2846]
+            - cell "1.397,4 MM" [ref=f1e2847]
+            - cell "1.515,1 MM" [ref=f1e2848]
+            - cell "NPL Over 60d - NPL Over 360d." [ref=f1e2849]
+          - row [ref=f1e2850]:
+            - cell "NPL Over 60d Ex 360 / Carteira Ex 360" [ref=f1e2851]
+            - cell "14,4%" [ref=f1e2852]
+            - cell "13,7%" [ref=f1e2853]
+            - cell "13,3%" [ref=f1e2854]
+            - cell "13,5%" [ref=f1e2855]
+            - cell "14,2%" [ref=f1e2856]
+            - cell "15,9%" [ref=f1e2857]
+            - cell "26,4%" [ref=f1e2858]
+            - cell "16,3%" [ref=f1e2859]
+            - cell "16,9%" [ref=f1e2860]
+            - cell "19,4%" [ref=f1e2861]
+            - cell "20,2%" [ref=f1e2862]
+            - cell "21,3%" [ref=f1e2863]
+            - cell "23,1%" [ref=f1e2864]
+            - cell "NPL Over 60d Ex 360 / Carteira Ex 360." [ref=f1e2865]
+          - row [ref=f1e2866]:
+            - cell "NPL Over 90d Ex 360" [ref=f1e2867]
+            - cell "912,3 MM" [ref=f1e2868]
+            - cell "911,2 MM" [ref=f1e2869]
+            - cell "893,2 MM" [ref=f1e2870]
+            - cell "903,5 MM" [ref=f1e2871]
+            - cell "905,5 MM" [ref=f1e2872]
+            - cell "990,2 MM" [ref=f1e2873]
+            - cell "933,6 MM" [ref=f1e2874]
+            - cell "1.012,2 MM" [ref=f1e2875]
+            - cell "1.062,2 MM" [ref=f1e2876]
+            - cell "1.210,9 MM" [ref=f1e2877]
+            - cell "1.253,7 MM" [ref=f1e2878]
+            - cell "1.262,3 MM" [ref=f1e2879]
+            - cell "1.349,7 MM" [ref=f1e2880]
+            - cell "NPL Over 90d - NPL Over 360d." [ref=f1e2881]
+          - row [ref=f1e2882]:
+            - cell "NPL Over 90d Ex 360 / Carteira Ex 360" [ref=f1e2883]
+            - cell "11,2%" [ref=f1e2884]
+            - cell "11,5%" [ref=f1e2885]
+            - cell "11,6%" [ref=f1e2886]
+            - cell "11,8%" [ref=f1e2887]
+            - cell "12,4%" [ref=f1e2888]
+            - cell "13,5%" [ref=f1e2889]
+            - cell "23,6%" [ref=f1e2890]
+            - cell "14,2%" [ref=f1e2891]
+            - cell "15,0%" [ref=f1e2892]
+            - cell "17,5%" [ref=f1e2893]
+            - cell "18,3%" [ref=f1e2894]
+            - cell "19,2%" [ref=f1e2895]
+            - cell "20,5%" [ref=f1e2896]
+            - cell "NPL Over 90d Ex 360 / Carteira Ex 360." [ref=f1e2897]
+          - row [ref=f1e2898]:
+            - cell "NPL Over 180d Ex 360" [ref=f1e2899]
+            - cell "496,8 MM" [ref=f1e2900]
+            - cell "532,3 MM" [ref=f1e2901]
+            - cell "515,2 MM" [ref=f1e2902]
+            - cell "529,8 MM" [ref=f1e2903]
+            - cell "523,5 MM" [ref=f1e2904]
+            - cell "577,3 MM" [ref=f1e2905]
+            - cell "605,0 MM" [ref=f1e2906]
+            - cell "641,9 MM" [ref=f1e2907]
+            - cell "694,7 MM" [ref=f1e2908]
+            - cell "806,5 MM" [ref=f1e2909]
+            - cell "825,7 MM" [ref=f1e2910]
+            - cell "797,2 MM" [ref=f1e2911]
+            - cell "853,8 MM" [ref=f1e2912]
+            - cell "NPL Over 180d - NPL Over 360d." [ref=f1e2913]
+          - row [ref=f1e2914]:
+            - cell "NPL Over 180d Ex 360 / Carteira Ex 360" [ref=f1e2915]
+            - cell "6,1%" [ref=f1e2916]
+            - cell "6,7%" [ref=f1e2917]
+            - cell "6,7%" [ref=f1e2918]
+            - cell "6,9%" [ref=f1e2919]
+            - cell "7,2%" [ref=f1e2920]
+            - cell "7,9%" [ref=f1e2921]
+            - cell "15,3%" [ref=f1e2922]
+            - cell "9,0%" [ref=f1e2923]
+            - cell "9,8%" [ref=f1e2924]
+            - cell "11,6%" [ref=f1e2925]
+            - cell "12,1%" [ref=f1e2926]
+            - cell "12,2%" [ref=f1e2927]
+            - cell "13,0%" [ref=f1e2928]
+            - cell "NPL Over 180d Ex 360 / Carteira Ex 360." [ref=f1e2929]
+          - row [ref=f1e2930]:
+            - cell "PDD / NPL Over 90d Ex 360" [ref=f1e2931]
+            - cell "299,9%" [ref=f1e2932]
+            - cell "315,9%" [ref=f1e2933]
+            - cell "310,9%" [ref=f1e2934]
+            - cell "298,9%" [ref=f1e2935]
+            - cell "277,7%" [ref=f1e2936]
+            - cell "257,2%" [ref=f1e2937]
+            - cell "199,7%" [ref=f1e2938]
+            - cell "219,1%" [ref=f1e2939]
+            - cell "212,6%" [ref=f1e2940]
+            - cell "192,7%" [ref=f1e2941]
+            - cell "192,5%" [ref=f1e2942]
+            - cell "178,9%" [ref=f1e2943]
+            - cell "177,9%" [ref=f1e2944]
+            - cell "PDD Ex Over 360d / NPL Over 90d Ex 360." [ref=f1e2945]
+          - row [ref=f1e2946]:
+            - columnheader "Roll Rate / fluxo de deterioração" [ref=f1e2947]
+          - row [ref=f1e2948]:
+            - cell "Carteira em dia + atrasada até 30d (t-1)" [ref=f1e2949]
+            - cell "6.520,6 MM" [ref=f1e2950]
+            - cell "6.455,7 MM" [ref=f1e2951]
+            - cell "6.503,0 MM" [ref=f1e2952]
+            - cell "6.126,4 MM" [ref=f1e2953]
+            - cell "5.974,0 MM" [ref=f1e2954]
+            - cell "2.787,0 MM" [ref=f1e2955]
+            - cell "5.794,9 MM" [ref=f1e2956]
+            - cell "5.700,7 MM" [ref=f1e2957]
+            - cell "5.433,8 MM" [ref=f1e2958]
+            - cell "5.302,3 MM" [ref=f1e2959]
+            - cell "5.008,4 MM" [ref=f1e2960]
+            - cell "4.913,0 MM" [ref=f1e2961]
+            - cell "4.785,4 MM" [ref=f1e2962]
+            - cell "Base do mês anterior alinhada à coluna do mês t." [ref=f1e2963]
+          - row [ref=f1e2964]:
+            - cell "Atrasos 31-60d (t)" [ref=f1e2965]
+            - cell "240,5 MM" [ref=f1e2966]
+            - cell "329,1 MM" [ref=f1e2967]
+            - cell "229,2 MM" [ref=f1e2968]
+            - cell "135,9 MM" [ref=f1e2969]
+            - cell "138,4 MM" [ref=f1e2970]
+            - cell "189,9 MM" [ref=f1e2971]
+            - cell "127,1 MM" [ref=f1e2972]
+            - cell "183,8 MM" [ref=f1e2973]
+            - cell "190,2 MM" [ref=f1e2974]
+            - cell "151,1 MM" [ref=f1e2975]
+            - cell "163,3 MM" [ref=f1e2976]
+            - cell "158,3 MM" [ref=f1e2977]
+            - cell "145,5 MM" [ref=f1e2978]
+            - cell "Bucket 31-60 dias do mês t." [ref=f1e2979]
+          - row [ref=f1e2980]:
+            - cell "Roll Rate" [ref=f1e2981]
+            - cell "3,7%" [ref=f1e2982]
+            - cell "5,1%" [ref=f1e2983]
+            - cell "3,5%" [ref=f1e2984]
+            - cell "2,2%" [ref=f1e2985]
+            - cell "2,3%" [ref=f1e2986]
+            - cell "6,8%" [ref=f1e2987]
+            - cell "2,2%" [ref=f1e2988]
+            - cell "3,2%" [ref=f1e2989]
+            - cell "3,5%" [ref=f1e2990]
+            - cell "2,9%" [ref=f1e2991]
+            - cell "3,3%" [ref=f1e2992]
+            - cell "3,2%" [ref=f1e2993]
+            - cell "3,0%" [ref=f1e2994]
+            - 'cell "Atrasos 31-60d_t / (Carteira em dia + atrasada até 30d)_{t-1}." [ref=f1e2995]'
+      - heading "Crédito" [level=4] [ref=f1e3001]:
+        - text: Crédito
+        - generic [ref=f1e3002]:
+          - link "Link to heading":
+            - /url: "#credito"
+      - generic [ref=f1e3007]:
+        - generic [ref=f1e3008]:
+          - generic [ref=f1e3009]: Carteira Bruta ex-360
+          - generic [ref=f1e3010]: R$ 8.132,7 mm
+        - generic [ref=f1e3011]:
+          - generic [ref=f1e3012]: NPL Over 1d ex-360
+          - generic [ref=f1e3013]: 20,7%
+        - generic [ref=f1e3014]:
+          - generic [ref=f1e3015]: NPL Over 30d ex-360
+          - generic [ref=f1e3016]: 17,3%
+        - generic [ref=f1e3017]:
+          - generic [ref=f1e3018]: NPL Over 60d ex-360
+          - generic [ref=f1e3019]: 14,4%
+        - generic [ref=f1e3020]:
+          - generic [ref=f1e3021]: NPL Over 90d ex-360
+          - generic [ref=f1e3022]: 11,2%
+        - generic [ref=f1e3023]:
+          - generic [ref=f1e3024]: Duration
+          - generic [ref=f1e3025]: 13,3 meses
+      - heading "Consolidado" [level=4] [ref=f1e3031]:
+        - text: Consolidado
+        - generic [ref=f1e3032]:
+          - link "Link to heading":
+            - /url: "#consolidado"
+      - generic [ref=f1e3037]:
+        - generic [ref=f1e3038]: Carteira Bruta ex-360 e crescimento YoY
+        - generic "Metodologia" [ref=f1e3039]: i
+      - generic [ref=f1e3042]:
+        - generic [ref=f1e3044]:
+          - button "Show data" [ref=f1e3047] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e3053] [cursor=pointer]
+        - generic [ref=f1e3057]:
+          - generic "Vega visualization" [ref=f1e3058]:
+            - img [ref=f1e3059]:
+              - generic [ref=f1e3063]:
+                - generic [ref=f1e3067]:
+                  - 'generic "X-axis titled ''Competência'' for a discrete scale with 13 values: jun/25, jul/25, ago/25, set/25, out/25, ending with jun/26" [ref=f1e3071]':
+                    - generic [ref=f1e3073]:
+                      - generic:
+                        - generic: jun/25
+                        - generic: jul/25
+                        - generic: ago/25
+                        - generic: set/25
+                        - generic: out/25
+                        - generic: nov/25
+                        - generic: dez/25
+                        - generic: jan/26
+                        - generic: fev/26
+                        - generic: mar/26
+                        - generic: abr/26
+                        - generic: mai/26
+                        - generic: jun/26
+                      - generic: Competência
+                  - generic "Y-axis titled 'R$ mm' for a linear scale with values from 0 to 9,000" [ref=f1e3074]:
+                    - generic [ref=f1e3076]:
+                      - generic:
+                        - generic: 0,0
+                        - generic: 2,000,0
+                        - generic: 4,000,0
+                        - generic: 6,000,0
+                        - generic: 8,000,0
+                      - generic: R$ mm
+                  - generic [ref=f1e3077]:
+                    - 'generic "Competência: jun/25; R$ mm: 6573.55858484; Carteira Bruta ex-360: R$6.574mm" [ref=f1e3078]'
+                    - 'generic "Competência: jul/25; R$ mm: 6564.05823956; Carteira Bruta ex-360: R$6.564mm" [ref=f1e3079]'
+                    - 'generic "Competência: ago/25; R$ mm: 6853.20712933; Carteira Bruta ex-360: R$6.853mm" [ref=f1e3080]'
+                    - 'generic "Competência: set/25; R$ mm: 6931.40670834; Carteira Bruta ex-360: R$6.931mm" [ref=f1e3081]'
+                    - 'generic "Competência: out/25; R$ mm: 7087.76364433; Carteira Bruta ex-360: R$7.088mm" [ref=f1e3082]'
+                    - 'generic "Competência: nov/25; R$ mm: 7141.18089754; Carteira Bruta ex-360: R$7.141mm" [ref=f1e3083]'
+                    - 'generic "Competência: dez/25; R$ mm: 3956.78920134; Carteira Bruta ex-360: R$3.957mm" [ref=f1e3084]'
+                    - 'generic "Competência: jan/26; R$ mm: 7328.07137443; Carteira Bruta ex-360: R$7.328mm" [ref=f1e3085]'
+                    - 'generic "Competência: fev/26; R$ mm: 7304.33213509; Carteira Bruta ex-360: R$7.304mm" [ref=f1e3086]'
+                    - 'generic "Competência: mar/26; R$ mm: 7674.89324665; Carteira Bruta ex-360: R$7.675mm" [ref=f1e3087]'
+                    - 'generic "Competência: abr/26; R$ mm: 7707.88409854; Carteira Bruta ex-360: R$7.708mm" [ref=f1e3088]'
+                    - 'generic "Competência: mai/26; R$ mm: 7938.39952043; Carteira Bruta ex-360: R$7.938mm" [ref=f1e3089]'
+                    - 'generic "Competência: jun/26; R$ mm: 8132.73331411; Carteira Bruta ex-360: R$8.133mm" [ref=f1e3090]'
+                  - generic [ref=f1e3091]:
+                    - 'generic "Competência: jun/25; R$ mm: 6573.55858484; carteira_label: 6.574" [ref=f1e3092]': "6.574"
+                    - 'generic "Competência: jul/25; R$ mm: 6564.05823956; carteira_label: 6.564" [ref=f1e3093]': "6.564"
+                    - 'generic "Competência: ago/25; R$ mm: 6853.20712933; carteira_label: 6.853" [ref=f1e3094]': "6.853"
+                    - 'generic "Competência: set/25; R$ mm: 6931.40670834; carteira_label: 6.931" [ref=f1e3095]': "6.931"
+                    - 'generic "Competência: out/25; R$ mm: 7087.76364433; carteira_label: 7.088" [ref=f1e3096]': "7.088"
+                    - 'generic "Competência: nov/25; R$ mm: 7141.18089754; carteira_label: 7.141" [ref=f1e3097]': "7.141"
+                    - 'generic "Competência: dez/25; R$ mm: 3956.78920134; carteira_label: 3.957" [ref=f1e3098]': "3.957"
+                    - 'generic "Competência: jan/26; R$ mm: 7328.07137443; carteira_label: 7.328" [ref=f1e3099]': "7.328"
+                    - 'generic "Competência: fev/26; R$ mm: 7304.33213509; carteira_label: 7.304" [ref=f1e3100]': "7.304"
+                    - 'generic "Competência: mar/26; R$ mm: 7674.89324665; carteira_label: 7.675" [ref=f1e3101]': "7.675"
+                    - 'generic "Competência: abr/26; R$ mm: 7707.88409854; carteira_label: 7.708" [ref=f1e3102]': "7.708"
+                    - 'generic "Competência: mai/26; R$ mm: 7938.39952043; carteira_label: 7.938" [ref=f1e3103]': "7.938"
+                    - 'generic "Competência: jun/26; R$ mm: 8132.73331411; carteira_label: 8.133" [ref=f1e3104]': "8.133"
+                  - generic [ref=f1e3107]:
+                    - generic "Title text 'Carteira Bruta ex-360'": Carteira Bruta ex-360
+                - generic [ref=f1e3111]:
+                  - 'generic "X-axis titled ''Competência'' for a discrete scale with 13 values: jun/25, jul/25, ago/25, set/25, out/25, ending with jun/26" [ref=f1e3115]':
+                    - generic [ref=f1e3117]:
+                      - generic:
+                        - generic: jun/25
+                        - generic: jul/25
+                        - generic: ago/25
+                        - generic: set/25
+                        - generic: out/25
+                        - generic: nov/25
+                        - generic: dez/25
+                        - generic: jan/26
+                        - generic: fev/26
+                        - generic: mar/26
+                        - generic: abr/26
+                        - generic: mai/26
+                        - generic: jun/26
+                      - generic: Competência
+                  - generic "Y-axis titled 'Crescimento YoY' for a linear scale with values from −50 to 60" [ref=f1e3118]:
+                    - generic [ref=f1e3120]:
+                      - generic:
+                        - generic: 0,0%
+                        - generic: −40,0%
+                        - generic: −20,0%
+                        - generic: 20,0%
+                        - generic: 40,0%
+                        - generic: 60,0%
+                      - generic: Crescimento YoY
+                  - 'generic "Competência: jun/25; Crescimento YoY: null" [ref=f1e3122]'
+                  - generic [ref=f1e3123]:
+                    - 'generic "Competência: jul/25; Crescimento YoY: −4.08923687544" [ref=f1e3124]'
+                    - 'generic "Competência: ago/25; Crescimento YoY: −3.45685373756" [ref=f1e3125]'
+                    - 'generic "Competência: set/25; Crescimento YoY: −2.89551021394" [ref=f1e3126]'
+                    - 'generic "Competência: out/25; Crescimento YoY: 0.330431755822" [ref=f1e3127]'
+                    - 'generic "Competência: nov/25; Crescimento YoY: 0.472699834462" [ref=f1e3128]'
+                    - 'generic "Competência: dez/25; Crescimento YoY: −42.2112771245" [ref=f1e3129]'
+                    - 'generic "Competência: jan/26; Crescimento YoY: 5.07798369014" [ref=f1e3130]'
+                    - 'generic "Competência: fev/26; Crescimento YoY: 34.0893644386" [ref=f1e3131]'
+                    - 'generic "Competência: mar/26; Crescimento YoY: 19.5757927029" [ref=f1e3132]'
+                    - 'generic "Competência: abr/26; Crescimento YoY: 55.2280277605" [ref=f1e3133]'
+                    - 'generic "Competência: mai/26; Crescimento YoY: 23.1465381325" [ref=f1e3134]'
+                    - 'generic "Competência: jun/26; Crescimento YoY: 23.7188839066" [ref=f1e3135]'
+                  - 'generic "Competência: jun/26; Crescimento YoY: 23.7188839066; yoy_fmt: 23,7%" [ref=f1e3137]': 23,7%
+                  - generic [ref=f1e3140]:
+                    - generic "Title text 'Crescimento YoY'": Crescimento YoY
+          - group "Click to view actions"
+      - generic [ref=f1e3150]:
+        - generic [ref=f1e3151]: NPL ex-360 por severidade
+        - generic "Metodologia" [ref=f1e3152]: i
+      - generic [ref=f1e3155]:
+        - generic [ref=f1e3157]:
+          - button "Show data" [ref=f1e3160] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e3166] [cursor=pointer]
+        - generic [ref=f1e3170]:
+          - generic "Vega visualization" [ref=f1e3171]:
+            - img [ref=f1e3172]:
+              - generic [ref=f1e3177]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 13 values: jun/25, jul/25, ago/25, set/25, out/25, ending with jun/26" [ref=f1e3181]':
+                  - generic [ref=f1e3183]:
+                    - generic:
+                      - generic: jun/25
+                      - generic: jul/25
+                      - generic: ago/25
+                      - generic: set/25
+                      - generic: out/25
+                      - generic: nov/25
+                      - generic: dez/25
+                      - generic: jan/26
+                      - generic: fev/26
+                      - generic: mar/26
+                      - generic: abr/26
+                      - generic: mai/26
+                      - generic: jun/26
+                    - generic: Competência
+                - generic "Y-axis titled '% da carteira bruta ex-360' for a linear scale with values from 0 to 35" [ref=f1e3184]:
+                  - generic [ref=f1e3186]:
+                    - generic:
+                      - generic: 0,0%
+                      - generic: 5,0%
+                      - generic: 10,0%
+                      - generic: 15,0%
+                      - generic: 20,0%
+                      - generic: 25,0%
+                      - generic: 30,0%
+                      - generic: 35,0%
+                    - generic: "% da carteira bruta ex-360"
+                - generic [ref=f1e3187]:
+                  - 'generic "Competência: jun/25; % da carteira bruta ex-360: 8.07094978546; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 8,1%" [ref=f1e3188]'
+                  - 'generic "Competência: jun/25; % da carteira bruta ex-360: 20.5328439225; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 20,5%" [ref=f1e3189]'
+                  - 'generic "Competência: jul/25; % da carteira bruta ex-360: 7.78001805731; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 7,8%" [ref=f1e3190]'
+                  - 'generic "Competência: jul/25; % da carteira bruta ex-360: 19.230999872; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 19,2%" [ref=f1e3191]'
+                  - 'generic "Competência: ago/25; % da carteira bruta ex-360: 7.7763802998; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 7,8%" [ref=f1e3192]'
+                  - 'generic "Competência: ago/25; % da carteira bruta ex-360: 18.2938593809; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 18,3%" [ref=f1e3193]'
+                  - 'generic "Competência: set/25; % da carteira bruta ex-360: 8.17639394451; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 8,2%" [ref=f1e3194]'
+                  - 'generic "Competência: set/25; % da carteira bruta ex-360: 17.470239076; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 17,5%" [ref=f1e3195]'
+                  - 'generic "Competência: out/25; % da carteira bruta ex-360: 8.10290847353; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 8,1%" [ref=f1e3196]'
+                  - 'generic "Competência: out/25; % da carteira bruta ex-360: 14.9857807433; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 15,0%" [ref=f1e3197]'
+                  - 'generic "Competência: nov/25; % da carteira bruta ex-360: 8.39829216911; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 8,4%" [ref=f1e3198]'
+                  - 'generic "Competência: nov/25; % da carteira bruta ex-360: 14.174688078; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 14,2%" [ref=f1e3199]'
+                  - 'generic "Competência: dez/25; % da carteira bruta ex-360: 9.93153306213; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 9,9%" [ref=f1e3200]'
+                  - 'generic "Competência: dez/25; % da carteira bruta ex-360: 23.5938123235; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 23,6%" [ref=f1e3201]'
+                  - 'generic "Competência: jan/26; % da carteira bruta ex-360: 8.46574383971; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 8,5%" [ref=f1e3202]'
+                  - 'generic "Competência: jan/26; % da carteira bruta ex-360: 13.5118812035; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 13,5%" [ref=f1e3203]'
+                  - 'generic "Competência: fev/26; % da carteira bruta ex-360: 6.45361438762; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 6,5%" [ref=f1e3204]'
+                  - 'generic "Competência: fev/26; % da carteira bruta ex-360: 12.3966176545; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 12,4%" [ref=f1e3205]'
+                  - 'generic "Competência: mar/26; % da carteira bruta ex-360: 7.38947197041; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 7,4%" [ref=f1e3206]'
+                  - 'generic "Competência: mar/26; % da carteira bruta ex-360: 11.7722907674; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 11,8%" [ref=f1e3207]'
+                  - 'generic "Competência: abr/26; % da carteira bruta ex-360: 9.68150250587; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 9,7%" [ref=f1e3208]'
+                  - 'generic "Competência: abr/26; % da carteira bruta ex-360: 11.5879044359; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 11,6%" [ref=f1e3209]'
+                  - 'generic "Competência: mai/26; % da carteira bruta ex-360: 10.7207181189; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 10,7%" [ref=f1e3210]'
+                  - 'generic "Competência: mai/26; % da carteira bruta ex-360: 11.4782617557; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 11,5%" [ref=f1e3211]'
+                  - 'generic "Competência: jun/26; % da carteira bruta ex-360: 9.46216767584; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 9,5%" [ref=f1e3212]'
+                  - 'generic "Competência: jun/26; % da carteira bruta ex-360: 11.2181190619; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 11,2%" [ref=f1e3213]'
+                - 'generic "competencia: jun/25; % da carteira bruta ex-360: 4.03547489273; label_text: 8,1%" [ref=f1e3215]': 8,1%
+                - 'generic "competencia: jun/25; % da carteira bruta ex-360: 18.3373717467; label_text: 20,5%" [ref=f1e3217]': 20,5%
+                - 'generic "competencia: jun/25; % da carteira bruta ex-360: 28.603793708; label_text: Total 28,6%" [ref=f1e3219]': Total 28,6%
+                - 'generic "competencia: jun/26; % da carteira bruta ex-360: 4.73108383792; label_text: 9,5%" [ref=f1e3221]': 9,5%
+                - 'generic "competencia: jun/26; % da carteira bruta ex-360: 15.0712272068; label_text: 11,2%" [ref=f1e3223]': 11,2%
+                - 'generic "competencia: jun/26; % da carteira bruta ex-360: 20.6802867377; label_text: Total 20,7%" [ref=f1e3225]': Total 20,7%
+                - 'generic "Symbol legend titled ''NPL'' for fill color with 2 values: NPL 1-90d, NPL 91-360d" [ref=f1e3226]':
+                  - generic [ref=f1e3228]:
+                    - generic [ref=f1e3232]:
+                      - generic [ref=f1e3233]: NPL 1-90d
+                      - generic [ref=f1e3235]: NPL 91-360d
+                    - generic: NPL
+          - group "Click to view actions"
+      - generic [ref=f1e3246]:
+        - generic [ref=f1e3247]: Roll rates
+        - generic "Metodologia" [ref=f1e3248]: i
+      - generic [ref=f1e3251]:
+        - generic [ref=f1e3253]:
+          - button "Show data" [ref=f1e3256] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e3262] [cursor=pointer]
+        - generic [ref=f1e3266]:
+          - generic "Vega visualization" [ref=f1e3267]:
+            - img [ref=f1e3268]:
+              - generic [ref=f1e3273]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 13 values: jun/25, jul/25, ago/25, set/25, out/25, ending with jun/26" [ref=f1e3277]':
+                  - generic [ref=f1e3279]:
+                    - generic:
+                      - generic: jun/25
+                      - generic: jul/25
+                      - generic: ago/25
+                      - generic: set/25
+                      - generic: out/25
+                      - generic: nov/25
+                      - generic: dez/25
+                      - generic: jan/26
+                      - generic: fev/26
+                      - generic: mar/26
+                      - generic: abr/26
+                      - generic: mai/26
+                      - generic: jun/26
+                    - generic: Competência
+                - generic "Y-axis titled 'Roll rate' for a linear scale with values from 0 to 6" [ref=f1e3280]:
+                  - generic [ref=f1e3282]:
+                    - generic:
+                      - generic: 0,0%
+                      - generic: 1,0%
+                      - generic: 2,0%
+                      - generic: 3,0%
+                      - generic: 4,0%
+                      - generic: 5,0%
+                    - generic: Roll rate
+                - generic [ref=f1e3283]:
+                  - 'generic "Competência: jun/25; Roll rate: 3.9574920631; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 4,0%" [ref=f1e3288]'
+                  - 'generic "Competência: jun/25; Roll rate: 5.28546922029; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 5,3%" [ref=f1e3293]'
+                  - 'generic "Competência: jun/25; Roll rate: 3.65111585038; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 3,7%" [ref=f1e3298]'
+                  - 'generic "Competência: jun/25; Roll rate: 3.57544626315; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 3,6%" [ref=f1e3303]'
+                - generic [ref=f1e3304]:
+                  - 'generic "Competência: jun/25; Roll rate: 3.9574920631; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 4,0%" [ref=f1e3305]'
+                  - 'generic "Competência: jul/25; Roll rate: 4.58180003327; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 4,6%" [ref=f1e3306]'
+                  - 'generic "Competência: ago/25; Roll rate: 2.92890140261; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 2,9%" [ref=f1e3307]'
+                  - 'generic "Competência: set/25; Roll rate: 2.88731109041; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 2,9%" [ref=f1e3308]'
+                  - 'generic "Competência: out/25; Roll rate: 2.81196182375; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 2,8%" [ref=f1e3309]'
+                  - 'generic "Competência: nov/25; Roll rate: 2.96369294846; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 3,0%" [ref=f1e3310]'
+                  - 'generic "Competência: dez/25; Roll rate: 2.1176363183; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 2,1%" [ref=f1e3311]'
+                  - 'generic "Competência: jan/26; Roll rate: 3.19298553709; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 3,2%" [ref=f1e3312]'
+                  - 'generic "Competência: fev/26; Roll rate: 2.42399136477; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 2,4%" [ref=f1e3313]'
+                  - 'generic "Competência: mar/26; Roll rate: 5.03686499048; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 5,0%" [ref=f1e3314]'
+                  - 'generic "Competência: abr/26; Roll rate: 2.27015984345; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 2,3%" [ref=f1e3315]'
+                  - 'generic "Competência: mai/26; Roll rate: 2.99356482676; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 3,0%" [ref=f1e3316]'
+                  - 'generic "Competência: jun/26; Roll rate: 4.13871527241; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 4,1%" [ref=f1e3317]'
+                  - 'generic "Competência: jun/25; Roll rate: 5.28546922029; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 5,3%" [ref=f1e3318]'
+                  - 'generic "Competência: jul/25; Roll rate: 3.62211003627; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 3,6%" [ref=f1e3319]'
+                  - 'generic "Competência: ago/25; Roll rate: 4.41625525957; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 4,4%" [ref=f1e3320]'
+                  - 'generic "Competência: set/25; Roll rate: 3.13554631762; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 3,1%" [ref=f1e3321]'
+                  - 'generic "Competência: out/25; Roll rate: 2.61401596499; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 2,6%" [ref=f1e3322]'
+                  - 'generic "Competência: nov/25; Roll rate: 2.73567105931; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 2,7%" [ref=f1e3323]'
+                  - 'generic "Competência: dez/25; Roll rate: 2.51903413564; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 2,5%" [ref=f1e3324]'
+                  - 'generic "Competência: jan/26; Roll rate: 2.77385680581; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 2,8%" [ref=f1e3325]'
+                  - 'generic "Competência: fev/26; Roll rate: 2.56755864242; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 2,6%" [ref=f1e3326]'
+                  - 'generic "Competência: mar/26; Roll rate: 2.64399749283; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 2,6%" [ref=f1e3327]'
+                  - 'generic "Competência: abr/26; Roll rate: 4.82291306001; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 4,8%" [ref=f1e3328]'
+                  - 'generic "Competência: mai/26; Roll rate: 2.16463483788; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 2,2%" [ref=f1e3329]'
+                  - 'generic "Competência: jun/26; Roll rate: 3.27518161109; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 3,3%" [ref=f1e3330]'
+                  - 'generic "Competência: jun/25; Roll rate: 3.65111585038; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 3,7%" [ref=f1e3331]'
+                  - 'generic "Competência: jul/25; Roll rate: 4.82999780331; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 4,8%" [ref=f1e3332]'
+                  - 'generic "Competência: ago/25; Roll rate: 3.54334955849; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 3,5%" [ref=f1e3333]'
+                  - 'generic "Competência: set/25; Roll rate: 3.9529892662; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 4,0%" [ref=f1e3334]'
+                  - 'generic "Competência: out/25; Roll rate: 2.89425091369; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 2,9%" [ref=f1e3335]'
+                  - 'generic "Competência: nov/25; Roll rate: 2.44149452957; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 2,4%" [ref=f1e3336]'
+                  - 'generic "Competência: dez/25; Roll rate: 2.26757460205; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 2,3%" [ref=f1e3337]'
+                  - 'generic "Competência: jan/26; Roll rate: 2.89987726519; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 2,9%" [ref=f1e3338]'
+                  - 'generic "Competência: fev/26; Roll rate: 2.2252213536; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 2,2%" [ref=f1e3339]'
+                  - 'generic "Competência: mar/26; Roll rate: 2.18462293781; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 2,2%" [ref=f1e3340]'
+                  - 'generic "Competência: abr/26; Roll rate: 2.51661298539; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 2,5%" [ref=f1e3341]'
+                  - 'generic "Competência: mai/26; Roll rate: 4.65258870465; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 4,7%" [ref=f1e3342]'
+                  - 'generic "Competência: jun/26; Roll rate: 1.90833883467; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 1,9%" [ref=f1e3343]'
+                  - 'generic "Competência: jun/25; Roll rate: 3.57544626315; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 3,6%" [ref=f1e3344]'
+                  - 'generic "Competência: jul/25; Roll rate: 3.45648908313; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 3,5%" [ref=f1e3345]'
+                  - 'generic "Competência: ago/25; Roll rate: 4.65669837112; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 4,7%" [ref=f1e3346]'
+                  - 'generic "Competência: set/25; Roll rate: 3.45980711583; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 3,5%" [ref=f1e3347]'
+                  - 'generic "Competência: out/25; Roll rate: 3.81731308507; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 3,8%" [ref=f1e3348]'
+                  - 'generic "Competência: nov/25; Roll rate: 2.72629220142; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 2,7%" [ref=f1e3349]'
+                  - 'generic "Competência: dez/25; Roll rate: 1.96690555135; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 2,0%" [ref=f1e3350]'
+                  - 'generic "Competência: jan/26; Roll rate: 2.56730952689; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 2,6%" [ref=f1e3351]'
+                  - 'generic "Competência: fev/26; Roll rate: 2.51392385904; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 2,5%" [ref=f1e3352]'
+                  - 'generic "Competência: mar/26; Roll rate: 2.10331946858; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 2,1%" [ref=f1e3353]'
+                  - 'generic "Competência: abr/26; Roll rate: 2.05400221488; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 2,1%" [ref=f1e3354]'
+                  - 'generic "Competência: mai/26; Roll rate: 2.40083139426; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 2,4%" [ref=f1e3355]'
+                  - 'generic "Competência: jun/26; Roll rate: 4.27081469733; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 4,3%" [ref=f1e3356]'
+                - 'generic "Competência: jun/26; valor: 4.13871527241; valor_fmt: 4,1%" [ref=f1e3358]': 4,1%
+                - 'generic "Competência: jun/26; valor: 3.27518161109; valor_fmt: 3,3%" [ref=f1e3360]': 3,3%
+                - 'generic "Competência: jun/26; valor: 1.90833883467; valor_fmt: 1,9%" [ref=f1e3362]': 1,9%
+                - 'generic "Competência: jun/26; valor: 4.27081469733; valor_fmt: 4,3%" [ref=f1e3364]': 4,3%
+                - 'generic "Symbol legend titled ''Séries'' for fill color and stroke color with 4 values: Roll 61-90 / carteira a vencer M-3, Roll 91-120 / carteira a vencer M-4, Roll 121-150 / carteira a vencer M-5, Roll 151-180 / carteira a vencer M-6" [ref=f1e3365]':
+                  - generic [ref=f1e3367]:
+                    - generic [ref=f1e3371]:
+                      - generic [ref=f1e3372]: Roll 61-90 / carteira a vencer M-3
+                      - generic [ref=f1e3374]: Roll 91-120 / carteira a vencer M-4
+                      - generic [ref=f1e3376]: Roll 121-150 / carteira a vencer M-5
+                      - generic [ref=f1e3378]: Roll 151-180 / carteira a vencer M-6
+                    - generic: Séries
+          - group "Click to view actions"
+      - generic [ref=f1e3386]:
+        - generic [ref=f1e3387]:
+          - paragraph [ref=f1e3390]: Rolls por mês do ano
+          - button "Help for Rolls por mês do ano" [ref=f1e3394] [cursor=pointer]
+        - generic [ref=f1e3400]:
+          - generic [ref=f1e3401]:
+            - button "Roll 61-90, close by backspace":
+              - generic "Roll 61-90" [ref=f1e3402]
+            - combobox "Selected Roll 61-90. Rolls por mês do ano" [ref=f1e3407]
+          - generic [ref=f1e3408]:
+            - button "Clear all" [ref=f1e3409] [cursor=pointer]
+            - img "open" [ref=f1e3411] [cursor=pointer]
+      - generic [ref=f1e3417]:
+        - generic [ref=f1e3418]: Roll 61-90 por mês do ano
+        - generic "Metodologia" [ref=f1e3419]: i
+      - generic [ref=f1e3422]:
+        - generic [ref=f1e3424]:
+          - button "Show data" [ref=f1e3427] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e3433] [cursor=pointer]
+        - generic [ref=f1e3437]:
+          - generic "Vega visualization" [ref=f1e3438]:
+            - img [ref=f1e3439]:
+              - generic [ref=f1e3444]:
+                - 'generic "X-axis titled ''Mês do ano'' for a discrete scale with 12 values: Jan, Fev, Mar, Abr, Mai, ending with Dez" [ref=f1e3448]':
+                  - generic [ref=f1e3450]:
+                    - generic:
+                      - generic: Jan
+                      - generic: Fev
+                      - generic: Mar
+                      - generic: Abr
+                      - generic: Mai
+                      - generic: Jun
+                      - generic: Jul
+                      - generic: Ago
+                      - generic: Set
+                      - generic: Out
+                      - generic: Nov
+                      - generic: Dez
+                    - generic: Mês do ano
+                - generic "Y-axis titled 'Roll rate' for a linear scale with values from 2.0 to 5.5" [ref=f1e3451]:
+                  - generic [ref=f1e3453]:
+                    - generic:
+                      - generic: 2,0%
+                      - generic: 2,5%
+                      - generic: 3,0%
+                      - generic: 3,5%
+                      - generic: 4,0%
+                      - generic: 4,5%
+                      - generic: 5,0%
+                      - generic: 5,5%
+                    - generic: Roll rate
+                - generic [ref=f1e3454]:
+                  - 'generic "Mês do ano: Jun; Roll rate: 3.9574920631; Ano: 2025; Mês: Jun; Valor: 4,0%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3459]'
+                  - 'generic "Mês do ano: Jan; Roll rate: 3.19298553709; Ano: 2026; Mês: Jan; Valor: 3,2%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3464]'
+                - generic [ref=f1e3465]:
+                  - 'generic "Mês do ano: Jun; Roll rate: 3.9574920631; Ano: 2025; Mês: Jun; Valor: 4,0%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3466]'
+                  - 'generic "Mês do ano: Jul; Roll rate: 4.58180003327; Ano: 2025; Mês: Jul; Valor: 4,6%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3467]'
+                  - 'generic "Mês do ano: Ago; Roll rate: 2.92890140261; Ano: 2025; Mês: Ago; Valor: 2,9%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3468]'
+                  - 'generic "Mês do ano: Set; Roll rate: 2.88731109041; Ano: 2025; Mês: Set; Valor: 2,9%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3469]'
+                  - 'generic "Mês do ano: Out; Roll rate: 2.81196182375; Ano: 2025; Mês: Out; Valor: 2,8%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3470]'
+                  - 'generic "Mês do ano: Nov; Roll rate: 2.96369294846; Ano: 2025; Mês: Nov; Valor: 3,0%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3471]'
+                  - 'generic "Mês do ano: Dez; Roll rate: 2.1176363183; Ano: 2025; Mês: Dez; Valor: 2,1%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3472]'
+                  - 'generic "Mês do ano: Jan; Roll rate: 3.19298553709; Ano: 2026; Mês: Jan; Valor: 3,2%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3473]'
+                  - 'generic "Mês do ano: Fev; Roll rate: 2.42399136477; Ano: 2026; Mês: Fev; Valor: 2,4%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3474]'
+                  - 'generic "Mês do ano: Mar; Roll rate: 5.03686499048; Ano: 2026; Mês: Mar; Valor: 5,0%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3475]'
+                  - 'generic "Mês do ano: Abr; Roll rate: 2.27015984345; Ano: 2026; Mês: Abr; Valor: 2,3%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3476]'
+                  - 'generic "Mês do ano: Mai; Roll rate: 2.99356482676; Ano: 2026; Mês: Mai; Valor: 3,0%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3477]'
+                  - 'generic "Mês do ano: Jun; Roll rate: 4.13871527241; Ano: 2026; Mês: Jun; Valor: 4,1%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e3478]'
+                - 'generic "Mês do ano: Dez; value_pct: 2.1176363183; valor_fmt: 2,1%" [ref=f1e3480]': 2,1%
+                - 'generic "Mês do ano: Jun; value_pct: 4.13871527241; valor_fmt: 4,1%" [ref=f1e3482]': 4,1%
+                - 'generic "Symbol legend titled ''Ano'' for fill color and stroke color with 2 values: 2025, 2026" [ref=f1e3483]':
+                  - generic [ref=f1e3485]:
+                    - generic [ref=f1e3489]:
+                      - generic [ref=f1e3490]: "2025"
+                      - generic [ref=f1e3492]: "2026"
+                    - generic: Ano
+          - group "Click to view actions"
+      - generic [ref=f1e3503]:
+        - generic [ref=f1e3504]: Duration por FIDC
+        - generic "Metodologia" [ref=f1e3505]: i
+      - generic [ref=f1e3508]:
+        - generic [ref=f1e3510]:
+          - button "Show data" [ref=f1e3513] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e3519] [cursor=pointer]
+        - generic [ref=f1e3523]:
+          - generic "Vega visualization" [ref=f1e3524]:
+            - img [ref=f1e3525]:
+              - generic [ref=f1e3530]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 13 values: jun/25, jul/25, ago/25, set/25, out/25, ending with jun/26" [ref=f1e3534]':
+                  - generic [ref=f1e3536]:
+                    - generic:
+                      - generic: jun/25
+                      - generic: jul/25
+                      - generic: ago/25
+                      - generic: set/25
+                      - generic: out/25
+                      - generic: nov/25
+                      - generic: dez/25
+                      - generic: jan/26
+                      - generic: fev/26
+                      - generic: mar/26
+                      - generic: abr/26
+                      - generic: mai/26
+                      - generic: jun/26
+                    - generic: Competência
+                - generic "Y-axis titled 'Duration (meses)' for a linear scale with values from 0 to 26" [ref=f1e3537]:
+                  - generic [ref=f1e3539]:
+                    - generic:
+                      - generic: 0,0
+                      - generic: 5,0
+                      - generic: 10,0
+                      - generic: 15,0
+                      - generic: 20,0
+                      - generic: 25,0
+                    - generic: Duration (meses)
+                - generic [ref=f1e3540]:
+                  - 'generic "Competência: jun/25; Duration (meses): 6.53995172706; FIDC: Consolidado; Duration: 6,5 meses" [ref=f1e3545]'
+                  - 'generic "Competência: jun/25; Duration (meses): 16.1405404093; FIDC: MC 0; Duration: 16,1 meses" [ref=f1e3550]'
+                  - 'generic "Competência: jun/25; Duration (meses): 1.88737041304; FIDC: MC I; Duration: 1,9 meses" [ref=f1e3555]'
+                  - 'generic "Competência: jun/25; Duration (meses): 3.38696442022; FIDC: MC II; Duration: 3,4 meses" [ref=f1e3560]'
+                - generic [ref=f1e3561]:
+                  - 'generic "Competência: jun/25; Duration (meses): 6.53995172706; FIDC: Consolidado; Duration: 6,5 meses" [ref=f1e3562]'
+                  - 'generic "Competência: jul/25; Duration (meses): 6.35002315317; FIDC: Consolidado; Duration: 6,4 meses" [ref=f1e3563]'
+                  - 'generic "Competência: ago/25; Duration (meses): 6.81743297883; FIDC: Consolidado; Duration: 6,8 meses" [ref=f1e3564]'
+                  - 'generic "Competência: set/25; Duration (meses): 6.85641687613; FIDC: Consolidado; Duration: 6,9 meses" [ref=f1e3565]'
+                  - 'generic "Competência: out/25; Duration (meses): 6.99381304709; FIDC: Consolidado; Duration: 7,0 meses" [ref=f1e3566]'
+                  - 'generic "Competência: nov/25; Duration (meses): 7.07203932404; FIDC: Consolidado; Duration: 7,1 meses" [ref=f1e3567]'
+                  - 'generic "Competência: dez/25; Duration (meses): 2.2006709; FIDC: Consolidado; Duration: 2,2 meses" [ref=f1e3568]'
+                  - 'generic "Competência: jan/26; Duration (meses): 6.97725321425; FIDC: Consolidado; Duration: 7,0 meses" [ref=f1e3569]'
+                  - 'generic "Competência: fev/26; Duration (meses): 12.3840718294; FIDC: Consolidado; Duration: 12,4 meses" [ref=f1e3570]'
+                  - 'generic "Competência: mar/26; Duration (meses): 12.5403263898; FIDC: Consolidado; Duration: 12,5 meses" [ref=f1e3571]'
+                  - 'generic "Competência: abr/26; Duration (meses): 12.7975871897; FIDC: Consolidado; Duration: 12,8 meses" [ref=f1e3572]'
+                  - 'generic "Competência: mai/26; Duration (meses): 13.0067767654; FIDC: Consolidado; Duration: 13,0 meses" [ref=f1e3573]'
+                  - 'generic "Competência: jun/26; Duration (meses): 13.2919010445; FIDC: Consolidado; Duration: 13,3 meses" [ref=f1e3574]'
+                  - 'generic "Competência: jun/25; Duration (meses): 16.1405404093; FIDC: MC 0; Duration: 16,1 meses" [ref=f1e3575]'
+                  - 'generic "Competência: jul/25; Duration (meses): 14.7198766101; FIDC: MC 0; Duration: 14,7 meses" [ref=f1e3576]'
+                  - 'generic "Competência: ago/25; Duration (meses): 14.8118020771; FIDC: MC 0; Duration: 14,8 meses" [ref=f1e3577]'
+                  - 'generic "Competência: set/25; Duration (meses): 14.4641651989; FIDC: MC 0; Duration: 14,5 meses" [ref=f1e3578]'
+                  - 'generic "Competência: out/25; Duration (meses): 13.6538249234; FIDC: MC 0; Duration: 13,7 meses" [ref=f1e3579]'
+                  - 'generic "Competência: nov/25; Duration (meses): 13.3157562125; FIDC: MC 0; Duration: 13,3 meses" [ref=f1e3580]'
+                  - 'generic "Competência: jan/26; Duration (meses): 12.5953933703; FIDC: MC 0; Duration: 12,6 meses" [ref=f1e3581]'
+                  - 'generic "Competência: fev/26; Duration (meses): 24.0876942763; FIDC: MC 0; Duration: 24,1 meses" [ref=f1e3582]'
+                  - 'generic "Competência: mar/26; Duration (meses): 24.016548054; FIDC: MC 0; Duration: 24,0 meses" [ref=f1e3583]'
+                  - 'generic "Competência: abr/26; Duration (meses): 24.1675493144; FIDC: MC 0; Duration: 24,2 meses" [ref=f1e3584]'
+                  - 'generic "Competência: mai/26; Duration (meses): 23.8447759956; FIDC: MC 0; Duration: 23,8 meses" [ref=f1e3585]'
+                  - 'generic "Competência: jun/26; Duration (meses): 24.0028559283; FIDC: MC 0; Duration: 24,0 meses" [ref=f1e3586]'
+                  - 'generic "Competência: jun/25; Duration (meses): 1.88737041304; FIDC: MC I; Duration: 1,9 meses" [ref=f1e3587]'
+                  - 'generic "Competência: jul/25; Duration (meses): 2.30043513005; FIDC: MC I; Duration: 2,3 meses" [ref=f1e3588]'
+                  - 'generic "Competência: ago/25; Duration (meses): 2.34307201847; FIDC: MC I; Duration: 2,3 meses" [ref=f1e3589]'
+                  - 'generic "Competência: set/25; Duration (meses): 2.19935449673; FIDC: MC I; Duration: 2,2 meses" [ref=f1e3590]'
+                  - 'generic "Competência: out/25; Duration (meses): 2.20647311018; FIDC: MC I; Duration: 2,2 meses" [ref=f1e3591]'
+                  - 'generic "Competência: nov/25; Duration (meses): 2.29730251182; FIDC: MC I; Duration: 2,3 meses" [ref=f1e3592]'
+                  - 'generic "Competência: dez/25; Duration (meses): 2.2110188698; FIDC: MC I; Duration: 2,2 meses" [ref=f1e3593]'
+                  - 'generic "Competência: jan/26; Duration (meses): 2.26304337828; FIDC: MC I; Duration: 2,3 meses" [ref=f1e3594]'
+                  - 'generic "Competência: fev/26; Duration (meses): 2.35231008029; FIDC: MC I; Duration: 2,4 meses" [ref=f1e3595]'
+                  - 'generic "Competência: mar/26; Duration (meses): 2.54984792954; FIDC: MC I; Duration: 2,5 meses" [ref=f1e3596]'
+                  - 'generic "Competência: abr/26; Duration (meses): 2.54180561064; FIDC: MC I; Duration: 2,5 meses" [ref=f1e3597]'
+                  - 'generic "Competência: mai/26; Duration (meses): 2.65162782283; FIDC: MC I; Duration: 2,7 meses" [ref=f1e3598]'
+                  - 'generic "Competência: jun/26; Duration (meses): 2.82561028992; FIDC: MC I; Duration: 2,8 meses" [ref=f1e3599]'
+                  - 'generic "Competência: jun/25; Duration (meses): 3.38696442022; FIDC: MC II; Duration: 3,4 meses" [ref=f1e3600]'
+                  - 'generic "Competência: jul/25; Duration (meses): 3.26017928964; FIDC: MC II; Duration: 3,3 meses" [ref=f1e3601]'
+                  - 'generic "Competência: ago/25; Duration (meses): 3.04174263033; FIDC: MC II; Duration: 3,0 meses" [ref=f1e3602]'
+                  - 'generic "Competência: set/25; Duration (meses): 2.80615363456; FIDC: MC II; Duration: 2,8 meses" [ref=f1e3603]'
+                  - 'generic "Competência: out/25; Duration (meses): 2.65362043302; FIDC: MC II; Duration: 2,7 meses" [ref=f1e3604]'
+                  - 'generic "Competência: nov/25; Duration (meses): 2.45383624909; FIDC: MC II; Duration: 2,5 meses" [ref=f1e3605]'
+                  - 'generic "Competência: dez/25; Duration (meses): 2.19424809533; FIDC: MC II; Duration: 2,2 meses" [ref=f1e3606]'
+                  - 'generic "Competência: jan/26; Duration (meses): 2.02615245133; FIDC: MC II; Duration: 2,0 meses" [ref=f1e3607]'
+                  - 'generic "Competência: fev/26; Duration (meses): 1.95112322462; FIDC: MC II; Duration: 2,0 meses" [ref=f1e3608]'
+                  - 'generic "Competência: mar/26; Duration (meses): 2.63217689396; FIDC: MC II; Duration: 2,6 meses" [ref=f1e3609]'
+                  - 'generic "Competência: abr/26; Duration (meses): 2.44204317619; FIDC: MC II; Duration: 2,4 meses" [ref=f1e3610]'
+                  - 'generic "Competência: mai/26; Duration (meses): 2.4350351443; FIDC: MC II; Duration: 2,4 meses" [ref=f1e3611]'
+                  - 'generic "Competência: jun/26; Duration (meses): 2.37085495747; FIDC: MC II; Duration: 2,4 meses" [ref=f1e3612]'
+                - 'generic "Competência: jun/26; duration_months: 13.2919010445; duration_fmt: 13,3 meses" [ref=f1e3614]': 13,3 meses
+                - 'generic "Competência: jun/26; duration_months: 24.0028559283; duration_fmt: 24,0 meses" [ref=f1e3616]': 24,0 meses
+                - 'generic "Competência: jun/26; duration_months: 2.82561028992; duration_fmt: 2,8 meses" [ref=f1e3618]': 2,8 meses
+                - 'generic "Competência: jun/26; duration_months: 2.37085495747; duration_fmt: 2,4 meses" [ref=f1e3620]': 2,4 meses
+                - 'generic "Symbol legend titled ''FIDC'' for fill color and stroke color with 4 values: Consolidado, MC 0, MC I, MC II" [ref=f1e3621]':
+                  - generic [ref=f1e3623]:
+                    - generic [ref=f1e3627]:
+                      - generic [ref=f1e3628]: Consolidado
+                      - generic [ref=f1e3630]: MC 0
+                      - generic [ref=f1e3632]: MC I
+                      - generic [ref=f1e3634]: MC II
+                    - generic: FIDC
+          - group "Click to view actions"
+      - generic [ref=f1e3645]:
+        - generic [ref=f1e3646]: Cohorts recentes
+        - generic "Metodologia" [ref=f1e3647]: i
+      - generic [ref=f1e3650]:
+        - generic [ref=f1e3652]:
+          - button "Show data" [ref=f1e3655] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e3661] [cursor=pointer]
+        - generic [ref=f1e3665]:
+          - generic "Vega visualization" [ref=f1e3666]:
+            - img [ref=f1e3667]:
+              - generic [ref=f1e3672]:
+                - 'generic "X-axis titled ''Mês de maturação'' for a discrete scale with 6 values: M1, M2, M3, M4, M5, M6" [ref=f1e3676]':
+                  - generic [ref=f1e3678]:
+                    - generic:
+                      - generic: M1
+                      - generic: M2
+                      - generic: M3
+                      - generic: M4
+                      - generic: M5
+                      - generic: M6
+                    - generic: Mês de maturação
+                - generic "Y-axis titled '% do saldo a vencer em 30d' for a linear scale with values from 10 to 49" [ref=f1e3679]:
+                  - generic [ref=f1e3681]:
+                    - generic:
+                      - generic: 10,0%
+                      - generic: 15,0%
+                      - generic: 20,0%
+                      - generic: 25,0%
+                      - generic: 30,0%
+                      - generic: 35,0%
+                      - generic: 40,0%
+                      - generic: 45,0%
+                    - generic: "% do saldo a vencer em 30d"
+                - generic [ref=f1e3682]:
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 29.1756654312; Safra: Out-25; Mês: M1; Valor: 29,2%" [ref=f1e3687]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 19.7053437905; Safra: Nov-25; Mês: M1; Valor: 19,7%" [ref=f1e3692]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 46.1087115962; Safra: Dez-25; Mês: M1; Valor: 46,1%" [ref=f1e3697]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 24.8456693255; Safra: Jan-26; Mês: M1; Valor: 24,8%" [ref=f1e3702]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 39.5658126354; Safra: Fev-26; Mês: M1; Valor: 39,6%" [ref=f1e3707]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 43.1978282076; Safra: Mar-26; Mês: M1; Valor: 43,2%" [ref=f1e3712]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 39.9709120726; Safra: Abr-26; Mês: M1; Valor: 40,0%" [ref=f1e3717]'
+                  - generic [ref=f1e3718]:
+                    - generic:
+                      - generic:
+                        - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 40.613811552; Safra: Mai-26; Mês: M1; Valor: 40,6%"'
+                - generic [ref=f1e3720]:
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 29.1756654312; Safra: Out-25; Mês: M1; Valor: 29,2%" [ref=f1e3721]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 13.956539888; Safra: Out-25; Mês: M2; Valor: 14,0%" [ref=f1e3722]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 19.110199977; Safra: Out-25; Mês: M3; Valor: 19,1%" [ref=f1e3723]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 15.3669844537; Safra: Out-25; Mês: M4; Valor: 15,4%" [ref=f1e3724]'
+                  - 'generic "Mês de maturação: M5; % do saldo a vencer em 30d: 13.0750924897; Safra: Out-25; Mês: M5; Valor: 13,1%" [ref=f1e3725]'
+                  - 'generic "Mês de maturação: M6; % do saldo a vencer em 30d: 12.2933200366; Safra: Out-25; Mês: M6; Valor: 12,3%" [ref=f1e3726]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 19.7053437905; Safra: Nov-25; Mês: M1; Valor: 19,7%" [ref=f1e3727]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 23.8775389796; Safra: Nov-25; Mês: M2; Valor: 23,9%" [ref=f1e3728]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 16.8527219254; Safra: Nov-25; Mês: M3; Valor: 16,9%" [ref=f1e3729]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 18.3823074478; Safra: Nov-25; Mês: M4; Valor: 18,4%" [ref=f1e3730]'
+                  - 'generic "Mês de maturação: M5; % do saldo a vencer em 30d: 17.4966707609; Safra: Nov-25; Mês: M5; Valor: 17,5%" [ref=f1e3731]'
+                  - 'generic "Mês de maturação: M6; % do saldo a vencer em 30d: 16.6917029761; Safra: Nov-25; Mês: M6; Valor: 16,7%" [ref=f1e3732]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 46.1087115962; Safra: Dez-25; Mês: M1; Valor: 46,1%" [ref=f1e3733]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 24.8873283929; Safra: Dez-25; Mês: M2; Valor: 24,9%" [ref=f1e3734]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 23.8224869387; Safra: Dez-25; Mês: M3; Valor: 23,8%" [ref=f1e3735]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 22.8105743545; Safra: Dez-25; Mês: M4; Valor: 22,8%" [ref=f1e3736]'
+                  - 'generic "Mês de maturação: M5; % do saldo a vencer em 30d: 22.0050038778; Safra: Dez-25; Mês: M5; Valor: 22,0%" [ref=f1e3737]'
+                  - 'generic "Mês de maturação: M6; % do saldo a vencer em 30d: 20.1993556582; Safra: Dez-25; Mês: M6; Valor: 20,2%" [ref=f1e3738]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 24.8456693255; Safra: Jan-26; Mês: M1; Valor: 24,8%" [ref=f1e3739]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 16.9687544246; Safra: Jan-26; Mês: M2; Valor: 17,0%" [ref=f1e3740]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 16.2086601584; Safra: Jan-26; Mês: M3; Valor: 16,2%" [ref=f1e3741]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 15.4552246862; Safra: Jan-26; Mês: M4; Valor: 15,5%" [ref=f1e3742]'
+                  - 'generic "Mês de maturação: M5; % do saldo a vencer em 30d: 13.6253029616; Safra: Jan-26; Mês: M5; Valor: 13,6%" [ref=f1e3743]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 39.5658126354; Safra: Fev-26; Mês: M1; Valor: 39,6%" [ref=f1e3744]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 30.3571025713; Safra: Fev-26; Mês: M2; Valor: 30,4%" [ref=f1e3745]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 23.4986735167; Safra: Fev-26; Mês: M3; Valor: 23,5%" [ref=f1e3746]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 25.7092890386; Safra: Fev-26; Mês: M4; Valor: 25,7%" [ref=f1e3747]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 43.1978282076; Safra: Mar-26; Mês: M1; Valor: 43,2%" [ref=f1e3748]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 36.7189083466; Safra: Mar-26; Mês: M2; Valor: 36,7%" [ref=f1e3749]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 28.6463456165; Safra: Mar-26; Mês: M3; Valor: 28,6%" [ref=f1e3750]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 39.9709120726; Safra: Abr-26; Mês: M1; Valor: 40,0%" [ref=f1e3751]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 27.9009576377; Safra: Abr-26; Mês: M2; Valor: 27,9%" [ref=f1e3752]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 40.613811552; Safra: Mai-26; Mês: M1; Valor: 40,6%" [ref=f1e3753]'
+                - 'generic "Mês de maturação: M6; valor_pct: 12.2933200366; valor_fmt: 12,3%" [ref=f1e3755]': 12,3%
+                - 'generic "Mês de maturação: M6; valor_pct: 16.6917029761; valor_fmt: 16,7%" [ref=f1e3757]': 16,7%
+                - 'generic "Mês de maturação: M6; valor_pct: 20.1993556582; valor_fmt: 20,2%" [ref=f1e3759]': 20,2%
+                - 'generic "Mês de maturação: M5; valor_pct: 13.6253029616; valor_fmt: 13,6%" [ref=f1e3761]': 13,6%
+                - 'generic "Mês de maturação: M4; valor_pct: 25.7092890386; valor_fmt: 25,7%" [ref=f1e3763]': 25,7%
+                - 'generic "Mês de maturação: M3; valor_pct: 28.6463456165; valor_fmt: 28,6%" [ref=f1e3765]': 28,6%
+                - 'generic "Mês de maturação: M2; valor_pct: 27.9009576377; valor_fmt: 27,9%" [ref=f1e3767]': 27,9%
+                - 'generic "Mês de maturação: M1; valor_pct: 40.613811552; valor_fmt: 40,6%" [ref=f1e3769]': 40,6%
+                - 'generic "Symbol legend titled ''Safra'' for fill color and stroke color with 8 values: Out-25, Nov-25, Dez-25, Jan-26, Fev-26, ending with Mai-26" [ref=f1e3770]':
+                  - generic [ref=f1e3772]:
+                    - generic [ref=f1e3776]:
+                      - generic [ref=f1e3777]: Out-25
+                      - generic [ref=f1e3779]: Nov-25
+                      - generic [ref=f1e3781]: Dez-25
+                      - generic [ref=f1e3783]: Jan-26
+                      - generic [ref=f1e3785]: Fev-26
+                      - generic [ref=f1e3787]: Mar-26
+                      - generic [ref=f1e3789]: Abr-26
+                      - generic [ref=f1e3791]: Mai-26
+                    - generic: Safra
+          - group "Click to view actions"
+      - heading "Fundos individuais" [level=4] [ref=f1e3803]:
+        - text: Fundos individuais
+        - generic [ref=f1e3804]:
+          - link "Link to heading":
+            - /url: "#fundos-individuais"
+      - generic [ref=f1e3808]:
+        - generic [ref=f1e3809]:
+          - generic [ref=f1e3810]: MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA · 33254370000104
+          - combobox "Selected MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA · 33254370000104. Fundo" [ref=f1e3812]
+        - img "open" [ref=f1e3814]
+      - generic [ref=f1e3820]:
+        - generic [ref=f1e3821]: Rentabilidade por série
+        - generic "Metodologia" [ref=f1e3822]: i
+      - generic [ref=f1e3827]:
+        - button "Show/hide columns" [ref=f1e3831] [cursor=pointer]
+        - button "Download as CSV" [ref=f1e3837] [cursor=pointer]
+        - button "Search" [ref=f1e3843] [cursor=pointer]
+        - button "Fullscreen" [ref=f1e3849] [cursor=pointer]
+      - paragraph [ref=f1e3865]: "Acumulado de 12 meses indisponível porque há competência necessária sem retorno reportado. Sênior · Série 1: 12/2025; Subordinada 1: 12/2025"
+      - generic [ref=f1e3870]:
+        - generic [ref=f1e3871]: Carteira Bruta ex-360 e crescimento YoY
+        - generic "Metodologia" [ref=f1e3872]: i
+      - generic [ref=f1e3875]:
+        - generic [ref=f1e3877]:
+          - button "Show data" [ref=f1e3880] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e3886] [cursor=pointer]
+        - generic [ref=f1e3890]:
+          - generic "Vega visualization" [ref=f1e3891]:
+            - img [ref=f1e3892]:
+              - generic [ref=f1e3896]:
+                - generic [ref=f1e3900]:
+                  - 'generic "X-axis titled ''Competência'' for a discrete scale with 13 values: jun/25, jul/25, ago/25, set/25, out/25, ending with jun/26" [ref=f1e3904]':
+                    - generic [ref=f1e3906]:
+                      - generic:
+                        - generic: jun/25
+                        - generic: jul/25
+                        - generic: ago/25
+                        - generic: set/25
+                        - generic: out/25
+                        - generic: nov/25
+                        - generic: dez/25
+                        - generic: jan/26
+                        - generic: fev/26
+                        - generic: mar/26
+                        - generic: abr/26
+                        - generic: mai/26
+                        - generic: jun/26
+                      - generic: Competência
+                  - generic "Y-axis titled 'R$ mm' for a linear scale with values from 0 to 4,500" [ref=f1e3907]:
+                    - generic [ref=f1e3909]:
+                      - generic:
+                        - generic: 0,0
+                        - generic: 1,000,0
+                        - generic: 2,000,0
+                        - generic: 3,000,0
+                        - generic: 4,000,0
+                      - generic: R$ mm
+                  - generic [ref=f1e3910]:
+                    - 'generic "Competência: jun/25; R$ mm: 1847.65988127; Carteira Bruta ex-360: R$1.848mm" [ref=f1e3911]'
+                    - 'generic "Competência: jul/25; R$ mm: 1923.36215656; Carteira Bruta ex-360: R$1.923mm" [ref=f1e3912]'
+                    - 'generic "Competência: ago/25; R$ mm: 2310.57019286; Carteira Bruta ex-360: R$2.311mm" [ref=f1e3913]'
+                    - 'generic "Competência: set/25; R$ mm: 2520.28234981; Carteira Bruta ex-360: R$2.520mm" [ref=f1e3914]'
+                    - 'generic "Competência: out/25; R$ mm: 2859.91179723; Carteira Bruta ex-360: R$2.860mm" [ref=f1e3915]'
+                    - 'generic "Competência: nov/25; R$ mm: 3057.06799563; Carteira Bruta ex-360: R$3.057mm" [ref=f1e3916]'
+                    - 'generic "Competência: jan/26; R$ mm: 3425.27550588; Carteira Bruta ex-360: R$3.425mm" [ref=f1e3917]'
+                    - 'generic "Competência: fev/26; R$ mm: 3441.12689975; Carteira Bruta ex-360: R$3.441mm" [ref=f1e3918]'
+                    - 'generic "Competência: mar/26; R$ mm: 3560.58115376; Carteira Bruta ex-360: R$3.561mm" [ref=f1e3919]'
+                    - 'generic "Competência: abr/26; R$ mm: 3666.6520064; Carteira Bruta ex-360: R$3.667mm" [ref=f1e3920]'
+                    - 'generic "Competência: mai/26; R$ mm: 3904.29653324; Carteira Bruta ex-360: R$3.904mm" [ref=f1e3921]'
+                    - 'generic "Competência: jun/26; R$ mm: 4077.53713556; Carteira Bruta ex-360: R$4.078mm" [ref=f1e3922]'
+                  - generic [ref=f1e3923]:
+                    - 'generic "Competência: jun/25; R$ mm: 1847.65988127; carteira_label: 1.848" [ref=f1e3924]': "1.848"
+                    - 'generic "Competência: jul/25; R$ mm: 1923.36215656; carteira_label: 1.923" [ref=f1e3925]': "1.923"
+                    - 'generic "Competência: ago/25; R$ mm: 2310.57019286; carteira_label: 2.311" [ref=f1e3926]': "2.311"
+                    - 'generic "Competência: set/25; R$ mm: 2520.28234981; carteira_label: 2.520" [ref=f1e3927]': "2.520"
+                    - 'generic "Competência: out/25; R$ mm: 2859.91179723; carteira_label: 2.860" [ref=f1e3928]': "2.860"
+                    - 'generic "Competência: nov/25; R$ mm: 3057.06799563; carteira_label: 3.057" [ref=f1e3929]': "3.057"
+                    - 'generic "Competência: jan/26; R$ mm: 3425.27550588; carteira_label: 3.425" [ref=f1e3930]': "3.425"
+                    - 'generic "Competência: fev/26; R$ mm: 3441.12689975; carteira_label: 3.441" [ref=f1e3931]': "3.441"
+                    - 'generic "Competência: mar/26; R$ mm: 3560.58115376; carteira_label: 3.561" [ref=f1e3932]': "3.561"
+                    - 'generic "Competência: abr/26; R$ mm: 3666.6520064; carteira_label: 3.667" [ref=f1e3933]': "3.667"
+                    - 'generic "Competência: mai/26; R$ mm: 3904.29653324; carteira_label: 3.904" [ref=f1e3934]': "3.904"
+                    - 'generic "Competência: jun/26; R$ mm: 4077.53713556; carteira_label: 4.078" [ref=f1e3935]': "4.078"
+                  - generic [ref=f1e3938]:
+                    - generic "Title text 'Carteira Bruta ex-360'": Carteira Bruta ex-360
+                - generic [ref=f1e3942]:
+                  - 'generic "X-axis titled ''Competência'' for a discrete scale with 13 values: jun/25, jul/25, ago/25, set/25, out/25, ending with jun/26" [ref=f1e3946]':
+                    - generic [ref=f1e3948]:
+                      - generic:
+                        - generic: jun/25
+                        - generic: jul/25
+                        - generic: ago/25
+                        - generic: set/25
+                        - generic: out/25
+                        - generic: nov/25
+                        - generic: dez/25
+                        - generic: jan/26
+                        - generic: fev/26
+                        - generic: mar/26
+                        - generic: abr/26
+                        - generic: mai/26
+                        - generic: jun/26
+                      - generic: Competência
+                  - generic "Y-axis titled 'Crescimento YoY' for a linear scale with values from 0 to 160" [ref=f1e3949]:
+                    - generic [ref=f1e3951]:
+                      - generic:
+                        - generic: 0,0%
+                        - generic: 20,0%
+                        - generic: 40,0%
+                        - generic: 60,0%
+                        - generic: 80,0%
+                        - generic: 100,0%
+                        - generic: 120,0%
+                        - generic: 140,0%
+                        - generic: 160,0%
+                      - generic: Crescimento YoY
+                  - 'generic "Competência: jun/25; Crescimento YoY: null" [ref=f1e3953]'
+                  - generic [ref=f1e3954]:
+                    - 'generic "Competência: jul/25; Crescimento YoY: 108.26238331" [ref=f1e3955]'
+                    - 'generic "Competência: ago/25; Crescimento YoY: 137.381175147" [ref=f1e3956]'
+                    - 'generic "Competência: set/25; Crescimento YoY: 142.640947701" [ref=f1e3957]'
+                    - 'generic "Competência: out/25; Crescimento YoY: 154.505098576" [ref=f1e3958]'
+                    - 'generic "Competência: nov/25; Crescimento YoY: 149.356933503" [ref=f1e3959]'
+                    - 'generic "Competência: jan/26; Crescimento YoY: 147.24607404" [ref=f1e3960]'
+                    - 'generic "Competência: mar/26; Crescimento YoY: 144.699232978" [ref=f1e3961]'
+                    - 'generic "Competência: mai/26; Crescimento YoY: 138.366819467" [ref=f1e3962]'
+                    - 'generic "Competência: jun/26; Crescimento YoY: 120.686565579" [ref=f1e3963]'
+                  - 'generic "Competência: jun/26; Crescimento YoY: 120.686565579; yoy_fmt: 120,7%" [ref=f1e3965]': 120,7%
+                  - generic [ref=f1e3968]:
+                    - generic "Title text 'Crescimento YoY'": Crescimento YoY
+          - group "Click to view actions"
+      - generic [ref=f1e3978]:
+        - generic [ref=f1e3979]: NPL ex-360 por severidade
+        - generic "Metodologia" [ref=f1e3980]: i
+      - generic [ref=f1e3983]:
+        - generic [ref=f1e3985]:
+          - button "Show data" [ref=f1e3988] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e3994] [cursor=pointer]
+        - generic [ref=f1e3998]:
+          - generic "Vega visualization" [ref=f1e3999]:
+            - img [ref=f1e4000]:
+              - generic [ref=f1e4005]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 13 values: jun/25, jul/25, ago/25, set/25, out/25, ending with jun/26" [ref=f1e4009]':
+                  - generic [ref=f1e4011]:
+                    - generic:
+                      - generic: jun/25
+                      - generic: jul/25
+                      - generic: ago/25
+                      - generic: set/25
+                      - generic: out/25
+                      - generic: nov/25
+                      - generic: dez/25
+                      - generic: jan/26
+                      - generic: fev/26
+                      - generic: mar/26
+                      - generic: abr/26
+                      - generic: mai/26
+                      - generic: jun/26
+                    - generic: Competência
+                - generic "Y-axis titled '% da carteira bruta ex-360' for a linear scale with values from 0 to 12" [ref=f1e4012]:
+                  - generic [ref=f1e4014]:
+                    - generic:
+                      - generic: 0,0%
+                      - generic: 2,0%
+                      - generic: 4,0%
+                      - generic: 6,0%
+                      - generic: 8,0%
+                      - generic: 10,0%
+                      - generic: 12,0%
+                    - generic: "% da carteira bruta ex-360"
+                - generic [ref=f1e4015]:
+                  - 'generic "Competência: jun/25; % da carteira bruta ex-360: 1.73130525885; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 1,7%" [ref=f1e4016]'
+                  - 'generic "Competência: jun/25; % da carteira bruta ex-360: 2.70898743689; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 2,7%" [ref=f1e4017]'
+                  - 'generic "Competência: jul/25; % da carteira bruta ex-360: 2.9892343771; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 3,0%" [ref=f1e4018]'
+                  - 'generic "Competência: jul/25; % da carteira bruta ex-360: 2.45024029766; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 2,5%" [ref=f1e4019]'
+                  - 'generic "Competência: ago/25; % da carteira bruta ex-360: 3.4769738482; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 3,5%" [ref=f1e4020]'
+                  - 'generic "Competência: ago/25; % da carteira bruta ex-360: 2.18090969345; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 2,2%" [ref=f1e4021]'
+                  - 'generic "Competência: set/25; % da carteira bruta ex-360: 3.98392009997; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 4,0%" [ref=f1e4022]'
+                  - 'generic "Competência: set/25; % da carteira bruta ex-360: 1.16898536794; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 1,2%" [ref=f1e4023]'
+                  - 'generic "Competência: out/25; % da carteira bruta ex-360: 4.57469705698; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 4,6%" [ref=f1e4024]'
+                  - 'generic "Competência: out/25; % da carteira bruta ex-360: 1.2796976573; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 1,3%" [ref=f1e4025]'
+                  - 'generic "Competência: nov/25; % da carteira bruta ex-360: 5.25098352864; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 5,3%" [ref=f1e4026]'
+                  - 'generic "Competência: nov/25; % da carteira bruta ex-360: 1.73385800302; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 1,7%" [ref=f1e4027]'
+                  - 'generic "Competência: jan/26; % da carteira bruta ex-360: 6.99607856269; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 7,0%" [ref=f1e4028]'
+                  - 'generic "Competência: jan/26; % da carteira bruta ex-360: 3.34116895951; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 3,3%" [ref=f1e4029]'
+                  - 'generic "Competência: fev/26; % da carteira bruta ex-360: 4.13367719831; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 4,1%" [ref=f1e4030]'
+                  - 'generic "Competência: fev/26; % da carteira bruta ex-360: 2.54310224846; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 2,5%" [ref=f1e4031]'
+                  - 'generic "Competência: mar/26; % da carteira bruta ex-360: 4.10498774942; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 4,1%" [ref=f1e4032]'
+                  - 'generic "Competência: mar/26; % da carteira bruta ex-360: 3.72723206182; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 3,7%" [ref=f1e4033]'
+                  - 'generic "Competência: abr/26; % da carteira bruta ex-360: 4.96309912919; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 5,0%" [ref=f1e4034]'
+                  - 'generic "Competência: abr/26; % da carteira bruta ex-360: 4.52668632448; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 4,5%" [ref=f1e4035]'
+                  - 'generic "Competência: mai/26; % da carteira bruta ex-360: 5.26309093432; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 5,3%" [ref=f1e4036]'
+                  - 'generic "Competência: mai/26; % da carteira bruta ex-360: 5.08489752199; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 5,1%" [ref=f1e4037]'
+                  - 'generic "Competência: jun/26; % da carteira bruta ex-360: 5.40643866263; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 5,4%" [ref=f1e4038]'
+                  - 'generic "Competência: jun/26; % da carteira bruta ex-360: 5.83415758732; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 5,8%" [ref=f1e4039]'
+                - 'generic "competencia: jun/25; % da carteira bruta ex-360: 0.865652629423; label_text: 1,7%" [ref=f1e4041]': 1,7%
+                - 'generic "competencia: jun/25; % da carteira bruta ex-360: 3.08579897729; label_text: 2,7%" [ref=f1e4043]': 2,7%
+                - 'generic "competencia: jun/25; % da carteira bruta ex-360: 4.44029269573; label_text: Total 4,4%" [ref=f1e4045]': Total 4,4%
+                - 'generic "competencia: jun/26; % da carteira bruta ex-360: 2.70321933131; label_text: 5,4%" [ref=f1e4047]': 5,4%
+                - 'generic "competencia: jun/26; % da carteira bruta ex-360: 8.32351745629; label_text: 5,8%" [ref=f1e4049]': 5,8%
+                - 'generic "competencia: jun/26; % da carteira bruta ex-360: 11.2405962499; label_text: Total 11,2%" [ref=f1e4051]': Total 11,2%
+                - 'generic "Symbol legend titled ''NPL'' for fill color with 2 values: NPL 1-90d, NPL 91-360d" [ref=f1e4052]':
+                  - generic [ref=f1e4054]:
+                    - generic [ref=f1e4058]:
+                      - generic [ref=f1e4059]: NPL 1-90d
+                      - generic [ref=f1e4061]: NPL 91-360d
+                    - generic: NPL
+          - group "Click to view actions"
+      - generic [ref=f1e4072]:
+        - generic [ref=f1e4073]: Roll rates
+        - generic "Metodologia" [ref=f1e4074]: i
+      - generic [ref=f1e4077]:
+        - generic [ref=f1e4079]:
+          - button "Show data" [ref=f1e4082] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e4088] [cursor=pointer]
+        - generic [ref=f1e4092]:
+          - generic "Vega visualization" [ref=f1e4093]:
+            - img [ref=f1e4094]:
+              - generic [ref=f1e4099]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 13 values: jun/25, jul/25, ago/25, set/25, out/25, ending with jun/26" [ref=f1e4103]':
+                  - generic [ref=f1e4105]:
+                    - generic:
+                      - generic: jun/25
+                      - generic: jul/25
+                      - generic: ago/25
+                      - generic: set/25
+                      - generic: out/25
+                      - generic: nov/25
+                      - generic: dez/25
+                      - generic: jan/26
+                      - generic: fev/26
+                      - generic: mar/26
+                      - generic: abr/26
+                      - generic: mai/26
+                      - generic: jun/26
+                    - generic: Competência
+                - generic "Y-axis titled 'Roll rate' for a linear scale with values from 0.0 to 2.4" [ref=f1e4106]:
+                  - generic [ref=f1e4108]:
+                    - generic:
+                      - generic: 0,0%
+                      - generic: 0,5%
+                      - generic: 1,0%
+                      - generic: 1,5%
+                      - generic: 2,0%
+                    - generic: Roll rate
+                - generic [ref=f1e4109]:
+                  - 'generic "Competência: jun/25; Roll rate: 0.569117771498; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,6%" [ref=f1e4114]'
+                  - 'generic "Competência: jun/25; Roll rate: null; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: N/D%" [ref=f1e4119]'
+                  - 'generic "Competência: jun/25; Roll rate: 0.518092269236; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,5%" [ref=f1e4124]'
+                  - 'generic "Competência: jun/25; Roll rate: 0.628012683672; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,6%" [ref=f1e4129]'
+                - generic [ref=f1e4130]:
+                  - 'generic "Competência: jun/25; Roll rate: 0.569117771498; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,6%" [ref=f1e4131]'
+                  - 'generic "Competência: ago/25; Roll rate: 0.664862912043; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,7%" [ref=f1e4132]'
+                  - 'generic "Competência: set/25; Roll rate: 1.0184501985; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 1,0%" [ref=f1e4133]'
+                  - 'generic "Competência: out/25; Roll rate: 1.14822463705; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 1,1%" [ref=f1e4134]'
+                  - 'generic "Competência: nov/25; Roll rate: 1.24701883244; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 1,2%" [ref=f1e4135]'
+                  - 'generic "Competência: dez/25; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%" [ref=f1e4136]'
+                  - 'generic "Competência: jan/26; Roll rate: 2.16644894483; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 2,2%" [ref=f1e4137]'
+                  - 'generic "Competência: fev/26; Roll rate: 1.69691938977; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 1,7%" [ref=f1e4138]'
+                  - 'generic "Competência: abr/26; Roll rate: 1.26232290748; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 1,3%" [ref=f1e4139]'
+                  - 'generic "Competência: mai/26; Roll rate: 1.55000102742; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 1,6%" [ref=f1e4140]'
+                  - 'generic "Competência: jun/26; Roll rate: 2.33596565757; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 2,3%" [ref=f1e4141]'
+                  - 'generic "Competência: jul/25; Roll rate: 0.519465690302; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,5%" [ref=f1e4142]'
+                  - 'generic "Competência: set/25; Roll rate: 0.564153959223; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,6%" [ref=f1e4143]'
+                  - 'generic "Competência: out/25; Roll rate: 0.931686793556; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,9%" [ref=f1e4144]'
+                  - 'generic "Competência: nov/25; Roll rate: 1.12065390428; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 1,1%" [ref=f1e4145]'
+                  - 'generic "Competência: dez/25; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%" [ref=f1e4146]'
+                  - 'generic "Competência: jan/26; Roll rate: 1.7636387321; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 1,8%" [ref=f1e4147]'
+                  - 'generic "Competência: fev/26; Roll rate: 1.10715134766; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 1,1%" [ref=f1e4148]'
+                  - 'generic "Competência: mar/26; Roll rate: 1.81905612437; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 1,8%" [ref=f1e4149]'
+                  - 'generic "Competência: mai/26; Roll rate: 1.25140146914; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 1,3%" [ref=f1e4150]'
+                  - 'generic "Competência: jun/26; Roll rate: 1.74055719877; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 1,7%" [ref=f1e4151]'
+                  - 'generic "Competência: jun/25; Roll rate: 0.518092269236; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,5%" [ref=f1e4152]'
+                  - 'generic "Competência: ago/25; Roll rate: 0.510170908901; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,5%" [ref=f1e4153]'
+                  - 'generic "Competência: out/25; Roll rate: 0.515122348574; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,5%" [ref=f1e4154]'
+                  - 'generic "Competência: nov/25; Roll rate: 0.868265718189; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,9%" [ref=f1e4155]'
+                  - 'generic "Competência: dez/25; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%" [ref=f1e4156]'
+                  - 'generic "Competência: jan/26; Roll rate: 1.30848570958; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 1,3%" [ref=f1e4157]'
+                  - 'generic "Competência: fev/26; Roll rate: 0.804040136732; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,8%" [ref=f1e4158]'
+                  - 'generic "Competência: mar/26; Roll rate: 0.937941158637; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,9%" [ref=f1e4159]'
+                  - 'generic "Competência: abr/26; Roll rate: 1.77479776976; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 1,8%" [ref=f1e4160]'
+                  - 'generic "Competência: jun/26; Roll rate: 1.16016592841; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 1,2%" [ref=f1e4161]'
+                  - 'generic "Competência: jun/25; Roll rate: 0.628012683672; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,6%" [ref=f1e4162]'
+                  - 'generic "Competência: jul/25; Roll rate: 0.466205009034; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,5%" [ref=f1e4163]'
+                  - 'generic "Competência: set/25; Roll rate: 0.264619209175; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,3%" [ref=f1e4164]'
+                  - 'generic "Competência: nov/25; Roll rate: 0.470998637194; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,5%" [ref=f1e4165]'
+                  - 'generic "Competência: dez/25; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%" [ref=f1e4166]'
+                  - 'generic "Competência: jan/26; Roll rate: 1.06238128488; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 1,1%" [ref=f1e4167]'
+                  - 'generic "Competência: fev/26; Roll rate: 0.604595669362; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,6%" [ref=f1e4168]'
+                  - 'generic "Competência: mar/26; Roll rate: 0.780325293538; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,8%" [ref=f1e4169]'
+                  - 'generic "Competência: abr/26; Roll rate: 0.910853780257; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,9%" [ref=f1e4170]'
+                  - 'generic "Competência: mai/26; Roll rate: 1.71379202834; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 1,7%" [ref=f1e4171]'
+                - 'generic "Competência: jun/26; valor: 2.33596565757; valor_fmt: 2,3%" [ref=f1e4173]': 2,3%
+                - 'generic "Competência: jun/26; valor: 1.74055719877; valor_fmt: 1,7%" [ref=f1e4175]': 1,7%
+                - 'generic "Competência: jun/26; valor: 1.16016592841; valor_fmt: 1,2%" [ref=f1e4177]': 1,2%
+                - 'generic "Competência: mai/26; valor: 1.71379202834; valor_fmt: 1,7%" [ref=f1e4179]': 1,7%
+                - 'generic "Symbol legend titled ''Séries'' for fill color and stroke color with 4 values: Roll 61-90 / carteira a vencer M-3, Roll 91-120 / carteira a vencer M-4, Roll 121-150 / carteira a vencer M-5, Roll 151-180 / carteira a vencer M-6" [ref=f1e4180]':
+                  - generic [ref=f1e4182]:
+                    - generic [ref=f1e4186]:
+                      - generic [ref=f1e4187]: Roll 61-90 / carteira a vencer M-3
+                      - generic [ref=f1e4189]: Roll 91-120 / carteira a vencer M-4
+                      - generic [ref=f1e4191]: Roll 121-150 / carteira a vencer M-5
+                      - generic [ref=f1e4193]: Roll 151-180 / carteira a vencer M-6
+                    - generic: Séries
+          - group "Click to view actions"
+      - generic [ref=f1e4204]:
+        - generic [ref=f1e4205]: Duration
+        - generic "Metodologia" [ref=f1e4206]: i
+      - generic [ref=f1e4209]:
+        - generic [ref=f1e4211]:
+          - button "Show data" [ref=f1e4214] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e4220] [cursor=pointer]
+        - generic [ref=f1e4224]:
+          - generic "Vega visualization" [ref=f1e4225]:
+            - img [ref=f1e4226]:
+              - generic [ref=f1e4231]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 13 values: jun/25, jul/25, ago/25, set/25, out/25, ending with jun/26" [ref=f1e4235]':
+                  - generic [ref=f1e4237]:
+                    - generic:
+                      - generic: jun/25
+                      - generic: jul/25
+                      - generic: ago/25
+                      - generic: set/25
+                      - generic: out/25
+                      - generic: nov/25
+                      - generic: dez/25
+                      - generic: jan/26
+                      - generic: fev/26
+                      - generic: mar/26
+                      - generic: abr/26
+                      - generic: mai/26
+                      - generic: jun/26
+                    - generic: Competência
+                - generic "Y-axis titled 'Duration (meses)' for a linear scale with values from 12 to 25" [ref=f1e4238]:
+                  - generic [ref=f1e4240]:
+                    - generic:
+                      - generic: 12,0
+                      - generic: 14,0
+                      - generic: 16,0
+                      - generic: 18,0
+                      - generic: 20,0
+                      - generic: 22,0
+                      - generic: 24,0
+                    - generic: Duration (meses)
+                - 'generic "Competência: jun/25; Duration (meses): 16.1405404093; FIDC: MC 0; Duration: 16,1 meses" [ref=f1e4246]'
+                - generic [ref=f1e4247]:
+                  - 'generic "Competência: jun/25; Duration (meses): 16.1405404093; FIDC: MC 0; Duration: 16,1 meses" [ref=f1e4248]'
+                  - 'generic "Competência: jul/25; Duration (meses): 14.7198766101; FIDC: MC 0; Duration: 14,7 meses" [ref=f1e4249]'
+                  - 'generic "Competência: ago/25; Duration (meses): 14.8118020771; FIDC: MC 0; Duration: 14,8 meses" [ref=f1e4250]'
+                  - 'generic "Competência: set/25; Duration (meses): 14.4641651989; FIDC: MC 0; Duration: 14,5 meses" [ref=f1e4251]'
+                  - 'generic "Competência: out/25; Duration (meses): 13.6538249234; FIDC: MC 0; Duration: 13,7 meses" [ref=f1e4252]'
+                  - 'generic "Competência: nov/25; Duration (meses): 13.3157562125; FIDC: MC 0; Duration: 13,3 meses" [ref=f1e4253]'
+                  - 'generic "Competência: jan/26; Duration (meses): 12.5953933703; FIDC: MC 0; Duration: 12,6 meses" [ref=f1e4254]'
+                  - 'generic "Competência: fev/26; Duration (meses): 24.0876942763; FIDC: MC 0; Duration: 24,1 meses" [ref=f1e4255]'
+                  - 'generic "Competência: mar/26; Duration (meses): 24.016548054; FIDC: MC 0; Duration: 24,0 meses" [ref=f1e4256]'
+                  - 'generic "Competência: abr/26; Duration (meses): 24.1675493144; FIDC: MC 0; Duration: 24,2 meses" [ref=f1e4257]'
+                  - 'generic "Competência: mai/26; Duration (meses): 23.8447759956; FIDC: MC 0; Duration: 23,8 meses" [ref=f1e4258]'
+                  - 'generic "Competência: jun/26; Duration (meses): 24.0028559283; FIDC: MC 0; Duration: 24,0 meses" [ref=f1e4259]'
+                - 'generic "Competência: jun/26; duration_months: 24.0028559283; duration_fmt: 24,0 meses" [ref=f1e4261]': 24,0 meses
+                - 'generic "Symbol legend titled ''FIDC'' for fill color and stroke color with 1 value: MC 0" [ref=f1e4262]':
+                  - generic [ref=f1e4264]:
+                    - generic [ref=f1e4265]: MC 0
+                    - generic: FIDC
+          - group "Click to view actions"
+      - generic [ref=f1e4280]:
+        - generic [ref=f1e4281]: Cohorts recentes
+        - generic "Metodologia" [ref=f1e4282]: i
+      - generic [ref=f1e4285]:
+        - generic [ref=f1e4287]:
+          - button "Show data" [ref=f1e4290] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e4296] [cursor=pointer]
+        - generic [ref=f1e4300]:
+          - generic "Vega visualization" [ref=f1e4301]:
+            - img [ref=f1e4302]:
+              - generic [ref=f1e4307]:
+                - 'generic "X-axis titled ''Mês de maturação'' for a discrete scale with 6 values: M1, M2, M3, M4, M5, M6" [ref=f1e4311]':
+                  - generic [ref=f1e4313]:
+                    - generic:
+                      - generic: M1
+                      - generic: M2
+                      - generic: M3
+                      - generic: M4
+                      - generic: M5
+                      - generic: M6
+                    - generic: Mês de maturação
+                - generic "Y-axis titled '% do saldo a vencer em 30d' for a linear scale with values from 0 to 84" [ref=f1e4314]:
+                  - generic [ref=f1e4316]:
+                    - generic:
+                      - generic: 0,0%
+                      - generic: 10,0%
+                      - generic: 20,0%
+                      - generic: 30,0%
+                      - generic: 40,0%
+                      - generic: 50,0%
+                      - generic: 60,0%
+                      - generic: 70,0%
+                      - generic: 80,0%
+                    - generic: "% do saldo a vencer em 30d"
+                - generic [ref=f1e4317]:
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 33.2575749542; Safra: Set-25; Mês: M1; Valor: 33,3%" [ref=f1e4322]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 32.0394949644; Safra: Out-25; Mês: M1; Valor: 32,0%" [ref=f1e4327]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Nov-25; Mês: M1; Valor: 0,0%" [ref=f1e4332]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 18.7816067118; Safra: Jan-26; Mês: M1; Valor: 18,8%" [ref=f1e4337]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 64.1087131931; Safra: Fev-26; Mês: M1; Valor: 64,1%" [ref=f1e4342]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 64.6212626953; Safra: Mar-26; Mês: M1; Valor: 64,6%" [ref=f1e4347]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 65.3288736622; Safra: Abr-26; Mês: M1; Valor: 65,3%" [ref=f1e4352]'
+                  - generic [ref=f1e4353]:
+                    - generic:
+                      - generic:
+                        - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 77.438117112; Safra: Mai-26; Mês: M1; Valor: 77,4%"'
+                - generic [ref=f1e4355]:
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 33.2575749542; Safra: Set-25; Mês: M1; Valor: 33,3%" [ref=f1e4356]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 23.0899268077; Safra: Set-25; Mês: M2; Valor: 23,1%" [ref=f1e4357]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 0; Safra: Set-25; Mês: M3; Valor: 0,0%" [ref=f1e4358]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 19.1497865598; Safra: Set-25; Mês: M4; Valor: 19,1%" [ref=f1e4359]'
+                  - 'generic "Mês de maturação: M5; % do saldo a vencer em 30d: 8.73035771083; Safra: Set-25; Mês: M5; Valor: 8,7%" [ref=f1e4360]'
+                  - 'generic "Mês de maturação: M6; % do saldo a vencer em 30d: 8.47285929169; Safra: Set-25; Mês: M6; Valor: 8,5%" [ref=f1e4361]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 32.0394949644; Safra: Out-25; Mês: M1; Valor: 32,0%" [ref=f1e4362]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 0; Safra: Out-25; Mês: M2; Valor: 0,0%" [ref=f1e4363]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 22.6504591955; Safra: Out-25; Mês: M3; Valor: 22,7%" [ref=f1e4364]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 11.5753876791; Safra: Out-25; Mês: M4; Valor: 11,6%" [ref=f1e4365]'
+                  - 'generic "Mês de maturação: M5; % do saldo a vencer em 30d: 9.80627676096; Safra: Out-25; Mês: M5; Valor: 9,8%" [ref=f1e4366]'
+                  - 'generic "Mês de maturação: M6; % do saldo a vencer em 30d: 9.52307527579; Safra: Out-25; Mês: M6; Valor: 9,5%" [ref=f1e4367]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Nov-25; Mês: M1; Valor: 0,0%" [ref=f1e4368]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 27.223939147; Safra: Nov-25; Mês: M2; Valor: 27,2%" [ref=f1e4369]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 16.9946371309; Safra: Nov-25; Mês: M3; Valor: 17,0%" [ref=f1e4370]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 18.217835768; Safra: Nov-25; Mês: M4; Valor: 18,2%" [ref=f1e4371]'
+                  - 'generic "Mês de maturação: M5; % do saldo a vencer em 30d: 17.7745886219; Safra: Nov-25; Mês: M5; Valor: 17,8%" [ref=f1e4372]'
+                  - 'generic "Mês de maturação: M6; % do saldo a vencer em 30d: 17.1636165012; Safra: Nov-25; Mês: M6; Valor: 17,2%" [ref=f1e4373]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 18.7816067118; Safra: Jan-26; Mês: M1; Valor: 18,8%" [ref=f1e4374]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 14.5166304134; Safra: Jan-26; Mês: M2; Valor: 14,5%" [ref=f1e4375]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 13.9439329663; Safra: Jan-26; Mês: M3; Valor: 13,9%" [ref=f1e4376]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 13.8232920406; Safra: Jan-26; Mês: M4; Valor: 13,8%" [ref=f1e4377]'
+                  - 'generic "Mês de maturação: M5; % do saldo a vencer em 30d: 12.8154815536; Safra: Jan-26; Mês: M5; Valor: 12,8%" [ref=f1e4378]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 64.1087131931; Safra: Fev-26; Mês: M1; Valor: 64,1%" [ref=f1e4379]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 56.9393009923; Safra: Fev-26; Mês: M2; Valor: 56,9%" [ref=f1e4380]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 47.6428336638; Safra: Fev-26; Mês: M3; Valor: 47,6%" [ref=f1e4381]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 53.5000142814; Safra: Fev-26; Mês: M4; Valor: 53,5%" [ref=f1e4382]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 64.6212626953; Safra: Mar-26; Mês: M1; Valor: 64,6%" [ref=f1e4383]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 64.1329222584; Safra: Mar-26; Mês: M2; Valor: 64,1%" [ref=f1e4384]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 59.1700152668; Safra: Mar-26; Mês: M3; Valor: 59,2%" [ref=f1e4385]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 65.3288736622; Safra: Abr-26; Mês: M1; Valor: 65,3%" [ref=f1e4386]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 56.7186866696; Safra: Abr-26; Mês: M2; Valor: 56,7%" [ref=f1e4387]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 77.438117112; Safra: Mai-26; Mês: M1; Valor: 77,4%" [ref=f1e4388]'
+                - 'generic "Mês de maturação: M6; valor_pct: 8.47285929169; valor_fmt: 8,5%" [ref=f1e4390]': 8,5%
+                - 'generic "Mês de maturação: M6; valor_pct: 9.52307527579; valor_fmt: 9,5%" [ref=f1e4392]': 9,5%
+                - 'generic "Mês de maturação: M6; valor_pct: 17.1636165012; valor_fmt: 17,2%" [ref=f1e4394]': 17,2%
+                - 'generic "Mês de maturação: M5; valor_pct: 12.8154815536; valor_fmt: 12,8%" [ref=f1e4396]': 12,8%
+                - 'generic "Mês de maturação: M4; valor_pct: 53.5000142814; valor_fmt: 53,5%" [ref=f1e4398]': 53,5%
+                - 'generic "Mês de maturação: M3; valor_pct: 59.1700152668; valor_fmt: 59,2%" [ref=f1e4400]': 59,2%
+                - 'generic "Mês de maturação: M2; valor_pct: 56.7186866696; valor_fmt: 56,7%" [ref=f1e4402]': 56,7%
+                - 'generic "Mês de maturação: M1; valor_pct: 77.438117112; valor_fmt: 77,4%" [ref=f1e4404]': 77,4%
+                - 'generic "Symbol legend titled ''Safra'' for fill color and stroke color with 8 values: Set-25, Out-25, Nov-25, Jan-26, Fev-26, ending with Mai-26" [ref=f1e4405]':
+                  - generic [ref=f1e4407]:
+                    - generic [ref=f1e4411]:
+                      - generic [ref=f1e4412]: Set-25
+                      - generic [ref=f1e4414]: Out-25
+                      - generic [ref=f1e4416]: Nov-25
+                      - generic [ref=f1e4418]: Jan-26
+                      - generic [ref=f1e4420]: Fev-26
+                      - generic [ref=f1e4422]: Mar-26
+                      - generic [ref=f1e4424]: Abr-26
+                      - generic [ref=f1e4426]: Mai-26
+                    - generic: Safra
+          - group "Click to view actions"
+      - group [ref=f1e4435]:
+        - generic "keyboard_arrow_right Auditoria e conciliações da análise de crédito" [ref=f1e4436] [cursor=pointer]:
+          - generic [ref=f1e4437]:
+            - generic [ref=f1e4438]: keyboard_arrow_right
+            - paragraph [ref=f1e4442]: Auditoria e conciliações da análise de crédito
+      - group [ref=f1e4445]:
+        - generic "keyboard_arrow_right Metodologia, fórmulas e fontes dos indicadores" [ref=f1e4446] [cursor=pointer]:
+          - generic [ref=f1e4447]:
+            - generic [ref=f1e4448]: keyboard_arrow_right
+            - paragraph [ref=f1e4452]: Metodologia, fórmulas e fontes dos indicadores
+      - heading "Regulamentos" [level=2] [ref=f1e4459]:
+        - text: Regulamentos
+        - generic [ref=f1e4460]:
+          - link "Link to heading":
+            - /url: "#regulamentos"
+      - generic [ref=f1e4461]: "Base: Deep Dive Soma · 2026-05-13T20:56:12-03:00"
+      - heading "Emissões por tipo de cota" [level=4] [ref=f1e4471]:
+        - text: Emissões por tipo de cota
+        - generic [ref=f1e4472]:
+          - link "Link to heading":
+            - /url: "#emissoes-por-tipo-de-cota"
+      - generic [ref=f1e4477]:
+        - button "Show/hide columns" [ref=f1e4481] [cursor=pointer]
+        - button "Download as CSV" [ref=f1e4487] [cursor=pointer]
+        - button "Search" [ref=f1e4493] [cursor=pointer]
+        - button "Fullscreen" [ref=f1e4499] [cursor=pointer]
+      - generic [ref=f1e4511]: Volumes monetários são somados apenas quando o campo documental está identificado. Quantidades, prazos e custos/remuneração preservam lacunas explícitas em vez de virar zero.
+      - group [ref=f1e4518]:
+        - generic "keyboard_arrow_right Detalhe documental das emissões" [ref=f1e4519] [cursor=pointer]:
+          - generic [ref=f1e4520]:
+            - generic [ref=f1e4521]: keyboard_arrow_right
+            - paragraph [ref=f1e4525]: Detalhe documental das emissões

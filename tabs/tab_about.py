@@ -99,12 +99,14 @@ def render_tab_about() -> None:
     st.markdown(_ABOUT_CSS, unsafe_allow_html=True)
     render_page_header(
         "Sobre",
-        "Análise de FIDCs com dados públicos, documentação regulatória e premissas explícitas.",
+        "Dados de FIDCs divulgados nos Informes Mensais da CVM, via Fundos.NET/B3.",
     )
     st.markdown(
         """
         <div class="about-statement">
-          <p>O aplicativo reúne indústria, carteiras, regulamentos e modelagem econômico-financeira em uma leitura única.</p>
+          <p>O app reúne dados agregados da indústria e séries históricas de cada fundo sobre carteira de crédito, subordinação e índices de atraso.</p>
+          <p>No menu <strong>Estimativas e Modelagem</strong>, há ferramentas para explorar o custo financeiro dos cedentes e modelar novos fundos com premissas de estrutura e desempenho da carteira.</p>
+          <p>O objetivo é facilitar o acompanhamento de informações relevantes para a gestão da carteira.</p>
           <p>Criado por Matheus Prates, CFA. Projeto independente em evolução.</p>
         </div>
         """,

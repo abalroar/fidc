@@ -1,0 +1,27 @@
+{
+  "fund_name": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+  "cnpj": "50.473.039/0001-02",
+  "generated_at": "2026-06-29T17:12:40",
+  "document_inventory_rows": 44,
+  "coverage": {
+    "grupo": "Sellers",
+    "cnpj": "50.473.039/0001-02",
+    "fundo": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+    "documentos_inventariados": "44",
+    "pdfs_locais_analisaveis": "21",
+    "documentos_sem_pdf_local": "23",
+    "paginas_pdf_locais": "1047",
+    "quebra_por_categoria": "assembleia: 6; emissao: 7; outro: 23; regulamento: 8"
+  },
+  "emissions_rows": 6,
+  "amortization_rows": 15,
+  "waterfall_rows": 7,
+  "fund_full_waterfall_rows": 11,
+  "payment_validation_rows": 7,
+  "key_flags": [
+    "S3/S4 2023: suplemento/calendário não disponível nos PDFs locais; vencimento Itaú BBA de 15/09/2026 não foi confirmado no documento local.",
+    "S5 2025: insumo Itaú BBA indica vencimento 26/05/2028, mas 912093 pp.3-5 documenta amortização final em 15/05/2028.",
+    "Campos oficiais CAPTA_RESGA_AMORTI dos informes mensais vêm zerados; validação de pagamentos usa evidência de VNU e cronograma, com valor exato de caixa marcado como não disponível.",
+    "Waterfall do fundo inteiro usa PL e saldos por cota do IME 03/2026; residual de PL é pago no vencimento final por premissa de modelagem, sem projeção de accrual futuro."
+  ]
+}

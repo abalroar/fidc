@@ -1,0 +1,3281 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/lepagp",
+    "id": "lepagp",
+    "slide": 9,
+    "layoutId": "d936a7e0-2a4a-4450-bfb7-58369402b4bb",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "b2b38d77-ef86-4802-b8b2-e0a8e99f239e",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#F7F3EA",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1600,
+      "height": 900
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "d936a7e0-2a4a-4450-bfb7-58369402b4bb",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "b2b38d77-ef86-4802-b8b2-e0a8e99f239e",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "b2b38d77-ef86-4802-b8b2-e0a8e99f239e",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/val87ed8",
+      "id": "1",
+      "bbox": [
+        72,
+        52,
+        42,
+        3
+      ],
+      "geometry": "rect",
+      "fillColor": "#C66A32"
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kre1w7mp",
+      "id": "2",
+      "bbox": [
+        128,
+        44,
+        780,
+        20
+      ],
+      "geometry": "rect",
+      "text": "PRESTADORES",
+      "textPreview": "PRESTADORES",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "PRESTADORES"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "PRESTADORES",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#53606B",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "PRESTADORES",
+              "fontSize": 12.51,
+              "color": "#53606B",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/dcbulwva",
+      "id": "3",
+      "bbox": [
+        72,
+        74,
+        1220,
+        78
+      ],
+      "geometry": "rect",
+      "text": "O ecossistema tem líderes por papel; não basta olhar o ranking agregado.",
+      "textPreview": "O ecossistema tem líderes por papel; não basta olhar o ranking agregado.",
+      "resolvedFontSize": 36,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 36,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "O ecossistema tem líderes por papel; não basta olhar o ranking"
+          },
+          {
+            "index": 2,
+            "text": "agregado."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "O ecossistema tem líderes por papel; não basta olhar o ranking agregado.",
+          "resolvedTextStyle": {
+            "fontSize": 36,
+            "color": "#101820",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "O ecossistema tem líderes por papel; não basta olhar o ranking agregado.",
+              "fontSize": 36,
+              "color": "#101820",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2x4nap4r",
+      "id": "4",
+      "bbox": [
+        74,
+        162,
+        1030,
+        38
+      ],
+      "geometry": "rect",
+      "text": "Ranking agregado por volume mapeado em ofertas/CVM, separado por função.",
+      "textPreview": "Ranking agregado por volume mapeado em ofertas/CVM, separado por função.",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Ranking agregado por volume mapeado em ofertas/CVM, separado por função."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Ranking agregado por volume mapeado em ofertas/CVM, separado por função.",
+          "resolvedTextStyle": {
+            "fontSize": 16,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Ranking agregado por volume mapeado em ofertas/CVM, separado por função.",
+              "fontSize": 16,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vixczed8",
+      "id": "5",
+      "bbox": [
+        1475,
+        48,
+        54,
+        26
+      ],
+      "geometry": "rect",
+      "text": "09",
+      "textPreview": "09",
+      "resolvedFontSize": 14,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 14,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "right",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "09"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "09",
+          "resolvedTextStyle": {
+            "fontSize": 14,
+            "color": "#53606B",
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "09",
+              "fontSize": 14,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/k3q5o7qp",
+      "id": "6",
+      "bbox": [
+        78,
+        236,
+        335,
+        438
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#E3DCCF",
+      "lineWidth": 1
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/donyd0z6",
+      "id": "7",
+      "bbox": [
+        96,
+        258,
+        300,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Administrador CVM",
+      "textPreview": "Administrador CVM",
+      "resolvedFontSize": 16.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16.51,
+        "typeface": "+mn-lt",
+        "color": "#C66A32",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Administrador CVM"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Administrador CVM",
+          "resolvedTextStyle": {
+            "fontSize": 16.51,
+            "color": "#C66A32",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Administrador CVM",
+              "fontSize": 16.51,
+              "color": "#C66A32",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/29gr2p8n",
+      "id": "8",
+      "bbox": [
+        96,
+        310,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "1. QI CORRETORA DE TÍTULOS E VALORES…",
+      "textPreview": "1. QI CORRETORA DE TÍTULOS E VALORES…",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "1. QI CORRETORA DE TÍTULOS E VALORES…"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "1. QI CORRETORA DE TÍTULOS E VALORES…",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "1. QI CORRETORA DE TÍTULOS E VALORES…",
+              "fontSize": 12.51,
+              "color": "#101820",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vu9knih4",
+      "id": "9",
+      "bbox": [
+        112,
+        336,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 235,7 bi | 1.276 CNPJs",
+      "textPreview": "R$ 235,7 bi | 1.276 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 235,7 bi | 1.276 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 235,7 bi | 1.276 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 235,7 bi | 1.276 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3ylc7u54",
+      "id": "10",
+      "bbox": [
+        96,
+        380,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "2. BTG PACTUAL SERVIÇOS FINANCEIROS …",
+      "textPreview": "2. BTG PACTUAL SERVIÇOS FINANCEIROS …",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2. BTG PACTUAL SERVIÇOS FINANCEIROS …"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2. BTG PACTUAL SERVIÇOS FINANCEIROS …",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "2. BTG PACTUAL SERVIÇOS FINANCEIROS …",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/adsji5sn",
+      "id": "11",
+      "bbox": [
+        112,
+        406,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 213,0 bi | 607 CNPJs",
+      "textPreview": "R$ 213,0 bi | 607 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 213,0 bi | 607 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 213,0 bi | 607 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 213,0 bi | 607 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/h4byhgn2",
+      "id": "12",
+      "bbox": [
+        96,
+        450,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "3. OLIVEIRA TRUST DTVM S.A",
+      "textPreview": "3. OLIVEIRA TRUST DTVM S.A",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "3. OLIVEIRA TRUST DTVM S.A"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "3. OLIVEIRA TRUST DTVM S.A",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "3. OLIVEIRA TRUST DTVM S.A",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sji5snel",
+      "id": "13",
+      "bbox": [
+        112,
+        476,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 190,1 bi | 369 CNPJs",
+      "textPreview": "R$ 190,1 bi | 369 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 190,1 bi | 369 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 190,1 bi | 369 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 190,1 bi | 369 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3m94fu18",
+      "id": "14",
+      "bbox": [
+        96,
+        520,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "4. REAG TRUST DISTRIBUIDORA DE TÍTUL…",
+      "textPreview": "4. REAG TRUST DISTRIBUIDORA DE TÍTUL…",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "4. REAG TRUST DISTRIBUIDORA DE TÍTUL…"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "4. REAG TRUST DISTRIBUIDORA DE TÍTUL…",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "4. REAG TRUST DISTRIBUIDORA DE TÍTUL…",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/a5gbq1or",
+      "id": "15",
+      "bbox": [
+        112,
+        546,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 160,1 bi | 251 CNPJs",
+      "textPreview": "R$ 160,1 bi | 251 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 160,1 bi | 251 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 160,1 bi | 251 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 160,1 bi | 251 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lszqtcj6",
+      "id": "16",
+      "bbox": [
+        96,
+        590,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "5. BB GESTAO DE RECURSOS DTVM S.A",
+      "textPreview": "5. BB GESTAO DE RECURSOS DTVM S.A",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "5. BB GESTAO DE RECURSOS DTVM S.A"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "5. BB GESTAO DE RECURSOS DTVM S.A",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "5. BB GESTAO DE RECURSOS DTVM S.A",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/s72x4nap",
+      "id": "17",
+      "bbox": [
+        112,
+        616,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 157,4 bi | 6 CNPJs",
+      "textPreview": "R$ 157,4 bi | 6 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 157,4 bi | 6 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 157,4 bi | 6 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 157,4 bi | 6 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zidonyd0",
+      "id": "18",
+      "bbox": [
+        453,
+        236,
+        335,
+        438
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#E3DCCF",
+      "lineWidth": 1
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/a1gvy90j",
+      "id": "19",
+      "bbox": [
+        471,
+        258,
+        300,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Custodiante CVM",
+      "textPreview": "Custodiante CVM",
+      "resolvedFontSize": 16.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16.51,
+        "typeface": "+mn-lt",
+        "color": "#237B7B",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Custodiante CVM"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Custodiante CVM",
+          "resolvedTextStyle": {
+            "fontSize": 16.51,
+            "color": "#237B7B",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Custodiante CVM",
+              "fontSize": 16.51,
+              "color": "#237B7B",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ylc7u54z",
+      "id": "20",
+      "bbox": [
+        471,
+        310,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "1. QI CORRETORA DE TÍTULOS E VALORES…",
+      "textPreview": "1. QI CORRETORA DE TÍTULOS E VALORES…",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "1. QI CORRETORA DE TÍTULOS E VALORES…"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "1. QI CORRETORA DE TÍTULOS E VALORES…",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "1. QI CORRETORA DE TÍTULOS E VALORES…",
+              "fontSize": 12.51,
+              "color": "#101820",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/r65wjudg",
+      "id": "21",
+      "bbox": [
+        487,
+        336,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 141,0 bi | 1.074 CNPJs",
+      "textPreview": "R$ 141,0 bi | 1.074 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 141,0 bi | 1.074 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 141,0 bi | 1.074 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 141,0 bi | 1.074 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gr2p8nqx",
+      "id": "22",
+      "bbox": [
+        471,
+        380,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "2. BANCO BTG PACTUAL S/A",
+      "textPreview": "2. BANCO BTG PACTUAL S/A",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2. BANCO BTG PACTUAL S/A"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2. BANCO BTG PACTUAL S/A",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "2. BANCO BTG PACTUAL S/A",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 23,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9cvixcze",
+      "id": "23",
+      "bbox": [
+        487,
+        406,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 137,9 bi | 510 CNPJs",
+      "textPreview": "R$ 137,9 bi | 510 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 137,9 bi | 510 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 137,9 bi | 510 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 137,9 bi | 510 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 24,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yxobm58z",
+      "id": "24",
+      "bbox": [
+        471,
+        450,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "3. OLIVEIRA TRUST DTVM S.A",
+      "textPreview": "3. OLIVEIRA TRUST DTVM S.A",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "3. OLIVEIRA TRUST DTVM S.A"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "3. OLIVEIRA TRUST DTVM S.A",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "3. OLIVEIRA TRUST DTVM S.A",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 25,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/nih4byhg",
+      "id": "25",
+      "bbox": [
+        487,
+        476,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 120,5 bi | 338 CNPJs",
+      "textPreview": "R$ 120,5 bi | 338 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 120,5 bi | 338 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 120,5 bi | 338 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 120,5 bi | 338 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 26,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/g3ex0nux",
+      "id": "26",
+      "bbox": [
+        471,
+        520,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "4. REAG TRUST DISTRIBUIDORA DE TÍTUL…",
+      "textPreview": "4. REAG TRUST DISTRIBUIDORA DE TÍTUL…",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "4. REAG TRUST DISTRIBUIDORA DE TÍTUL…"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "4. REAG TRUST DISTRIBUIDORA DE TÍTUL…",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "4. REAG TRUST DISTRIBUIDORA DE TÍTUL…",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 27,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5o7qpg3e",
+      "id": "27",
+      "bbox": [
+        487,
+        546,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 81,8 bi | 145 CNPJs",
+      "textPreview": "R$ 81,8 bi | 145 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 81,8 bi | 145 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 81,8 bi | 145 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 81,8 bi | 145 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 28,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/y1kre1w7",
+      "id": "28",
+      "bbox": [
+        471,
+        590,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "5. BANCO DAYCOVAL S.A",
+      "textPreview": "5. BANCO DAYCOVAL S.A",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "5. BANCO DAYCOVAL S.A"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "5. BANCO DAYCOVAL S.A",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "5. BANCO DAYCOVAL S.A",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 29,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/rmhk3q5o",
+      "id": "29",
+      "bbox": [
+        487,
+        616,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 64,3 bi | 632 CNPJs",
+      "textPreview": "R$ 64,3 bi | 632 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 64,3 bi | 632 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 64,3 bi | 632 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 64,3 bi | 632 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 30,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/dsji5sne",
+      "id": "30",
+      "bbox": [
+        828,
+        236,
+        335,
+        438
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#E3DCCF",
+      "lineWidth": 1
+    },
+    {
+      "order": 31,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/o7qpg3ex",
+      "id": "31",
+      "bbox": [
+        846,
+        258,
+        300,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Gestor CVM",
+      "textPreview": "Gestor CVM",
+      "resolvedFontSize": 16.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16.51,
+        "typeface": "+mn-lt",
+        "color": "#C66A32",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Gestor CVM"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Gestor CVM",
+          "resolvedTextStyle": {
+            "fontSize": 16.51,
+            "color": "#C66A32",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Gestor CVM",
+              "fontSize": 16.51,
+              "color": "#C66A32",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 32,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vmtwra5g",
+      "id": "32",
+      "bbox": [
+        846,
+        310,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "1. BB GESTAO DE RECURSOS DTVM S.A",
+      "textPreview": "1. BB GESTAO DE RECURSOS DTVM S.A",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "1. BB GESTAO DE RECURSOS DTVM S.A"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "1. BB GESTAO DE RECURSOS DTVM S.A",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "1. BB GESTAO DE RECURSOS DTVM S.A",
+              "fontSize": 12.51,
+              "color": "#101820",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 33,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/61032lsz",
+      "id": "33",
+      "bbox": [
+        862,
+        336,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 157,3 bi | 3 CNPJs",
+      "textPreview": "R$ 157,3 bi | 3 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 157,3 bi | 3 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 157,3 bi | 3 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 157,3 bi | 3 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 34,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/d4vmtwra",
+      "id": "34",
+      "bbox": [
+        846,
+        380,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "2. OLIVEIRA TRUST SERVICER S/A",
+      "textPreview": "2. OLIVEIRA TRUST SERVICER S/A",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2. OLIVEIRA TRUST SERVICER S/A"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2. OLIVEIRA TRUST SERVICER S/A",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "2. OLIVEIRA TRUST SERVICER S/A",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 35,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/oj2t83it",
+      "id": "35",
+      "bbox": [
+        862,
+        406,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 139,6 bi | 97 CNPJs",
+      "textPreview": "R$ 139,6 bi | 97 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 139,6 bi | 97 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 139,6 bi | 97 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 139,6 bi | 97 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 36,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vy90je9c",
+      "id": "36",
+      "bbox": [
+        846,
+        450,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "3. CBSF TRUST ADMINISTRADORA DE RECU…",
+      "textPreview": "3. CBSF TRUST ADMINISTRADORA DE RECU…",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "3. CBSF TRUST ADMINISTRADORA DE RECU…"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "3. CBSF TRUST ADMINISTRADORA DE RECU…",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "3. CBSF TRUST ADMINISTRADORA DE RECU…",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 37,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6dcbulwv",
+      "id": "37",
+      "bbox": [
+        862,
+        476,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 75,8 bi | 77 CNPJs",
+      "textPreview": "R$ 75,8 bi | 77 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 75,8 bi | 77 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 75,8 bi | 77 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 75,8 bi | 77 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 38,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/d8v6psfi",
+      "id": "38",
+      "bbox": [
+        846,
+        520,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "4. BANCO BRADESCO S.A",
+      "textPreview": "4. BANCO BRADESCO S.A",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "4. BANCO BRADESCO S.A"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "4. BANCO BRADESCO S.A",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "4. BANCO BRADESCO S.A",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 39,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/onyd0z61",
+      "id": "39",
+      "bbox": [
+        862,
+        546,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 64,7 bi | 41 CNPJs",
+      "textPreview": "R$ 64,7 bi | 41 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 64,7 bi | 41 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 64,7 bi | 41 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 64,7 bi | 41 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 40,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/szqtcj6t",
+      "id": "40",
+      "bbox": [
+        846,
+        590,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "5. BANCO BTG PACTUAL S/A",
+      "textPreview": "5. BANCO BTG PACTUAL S/A",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "5. BANCO BTG PACTUAL S/A"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "5. BANCO BTG PACTUAL S/A",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "5. BANCO BTG PACTUAL S/A",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 41,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lkjm1cfa",
+      "id": "41",
+      "bbox": [
+        862,
+        616,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 54,7 bi | 10 CNPJs",
+      "textPreview": "R$ 54,7 bi | 10 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 54,7 bi | 10 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 54,7 bi | 10 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 54,7 bi | 10 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 42,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/at47y1kr",
+      "id": "42",
+      "bbox": [
+        1203,
+        236,
+        335,
+        438
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#E3DCCF",
+      "lineWidth": 1
+    },
+    {
+      "order": 43,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3ex0nuxc",
+      "id": "43",
+      "bbox": [
+        1221,
+        258,
+        300,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Coord. líder",
+      "textPreview": "Coord. líder",
+      "resolvedFontSize": 16.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16.51,
+        "typeface": "+mn-lt",
+        "color": "#237B7B",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Coord. líder"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Coord. líder",
+          "resolvedTextStyle": {
+            "fontSize": 16.51,
+            "color": "#237B7B",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Coord. líder",
+              "fontSize": 16.51,
+              "color": "#237B7B",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 44,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sneloj2t",
+      "id": "44",
+      "bbox": [
+        1221,
+        310,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "1. ITAU BBA ASSESSORIA FINANCEIRA S.A",
+      "textPreview": "1. ITAU BBA ASSESSORIA FINANCEIRA S.A",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "1. ITAU BBA ASSESSORIA FINANCEIRA S.A"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "1. ITAU BBA ASSESSORIA FINANCEIRA S.A",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "1. ITAU BBA ASSESSORIA FINANCEIRA S.A",
+              "fontSize": 12.51,
+              "color": "#101820",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 45,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/l87ed8ba",
+      "id": "45",
+      "bbox": [
+        1237,
+        336,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 37,5 bi | 79 CNPJs",
+      "textPreview": "R$ 37,5 bi | 79 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 37,5 bi | 79 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 37,5 bi | 79 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 37,5 bi | 79 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 46,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ahoza1gv",
+      "id": "46",
+      "bbox": [
+        1221,
+        380,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "2. SINGULARE CORRETORA DE TÍTULOS E …",
+      "textPreview": "2. SINGULARE CORRETORA DE TÍTULOS E …",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2. SINGULARE CORRETORA DE TÍTULOS E …"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2. SINGULARE CORRETORA DE TÍTULOS E …",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "2. SINGULARE CORRETORA DE TÍTULOS E …",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 47,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/32lszqtc",
+      "id": "47",
+      "bbox": [
+        1237,
+        406,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 33,4 bi | 278 CNPJs",
+      "textPreview": "R$ 33,4 bi | 278 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 33,4 bi | 278 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 33,4 bi | 278 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 33,4 bi | 278 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 48,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wb2hwfyx",
+      "id": "48",
+      "bbox": [
+        1221,
+        450,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "3. BANCO BRADESCO BBI S.A",
+      "textPreview": "3. BANCO BRADESCO BBI S.A",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "3. BANCO BRADESCO BBI S.A"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "3. BANCO BRADESCO BBI S.A",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "3. BANCO BRADESCO BBI S.A",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 49,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lwval87e",
+      "id": "49",
+      "bbox": [
+        1237,
+        476,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 19,8 bi | 17 CNPJs",
+      "textPreview": "R$ 19,8 bi | 17 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 19,8 bi | 17 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 19,8 bi | 17 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 19,8 bi | 17 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 50,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/bq1oryts",
+      "id": "50",
+      "bbox": [
+        1221,
+        520,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "4. BANCO SANTANDER (BRASIL) S.A",
+      "textPreview": "4. BANCO SANTANDER (BRASIL) S.A",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "4. BANCO SANTANDER (BRASIL) S.A"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "4. BANCO SANTANDER (BRASIL) S.A",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "4. BANCO SANTANDER (BRASIL) S.A",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 51,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m58z25kb",
+      "id": "51",
+      "bbox": [
+        1237,
+        546,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 19,2 bi | 10 CNPJs",
+      "textPreview": "R$ 19,2 bi | 10 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 19,2 bi | 10 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 19,2 bi | 10 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 19,2 bi | 10 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 52,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/twra5gbq",
+      "id": "52",
+      "bbox": [
+        1221,
+        590,
+        290,
+        24
+      ],
+      "geometry": "rect",
+      "text": "5. BANCO DAYCOVAL S.A",
+      "textPreview": "5. BANCO DAYCOVAL S.A",
+      "resolvedFontSize": 12.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 12.51,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "5. BANCO DAYCOVAL S.A"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "5. BANCO DAYCOVAL S.A",
+          "resolvedTextStyle": {
+            "fontSize": 12.51,
+            "color": "#101820",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "5. BANCO DAYCOVAL S.A",
+              "fontSize": 12.51,
+              "color": "#101820"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 53,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4byhgn29",
+      "id": "53",
+      "bbox": [
+        1237,
+        616,
+        260,
+        20
+      ],
+      "geometry": "rect",
+      "text": "R$ 15,4 bi | 139 CNPJs",
+      "textPreview": "R$ 15,4 bi | 139 CNPJs",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "R$ 15,4 bi | 139 CNPJs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "R$ 15,4 bi | 139 CNPJs",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "R$ 15,4 bi | 139 CNPJs",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 54,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/b2hwfyxo",
+      "id": "54",
+      "bbox": [
+        90,
+        716,
+        1410,
+        62
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F1EADF",
+      "lineColor": "#E3DCCF",
+      "lineWidth": 1
+    },
+    {
+      "order": 55,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mhk3q5o7",
+      "id": "55",
+      "bbox": [
+        116,
+        734,
+        1340,
+        32
+      ],
+      "geometry": "rect",
+      "text": "Diretor deve pedir duas visões complementares: concentração por volume e presença por número de CNPJs. Gestores/administradores muito fortes em um subtipo podem não ser os mesmos em outro.",
+      "textPreview": "Diretor deve pedir duas visões complementares: concentração por volume e presença por número de CNPJs. Gestores/administradores muito for...",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#101820",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Diretor deve pedir duas visões complementares: concentração por volume e presença por número de CNPJs. Gestores/administradores muito fortes em um subtipo podem não ser os"
+          },
+          {
+            "index": 2,
+            "text": "mesmos em outro."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Diretor deve pedir duas visões complementares: concentração por volume e presença por número de CNPJs. Gestores/administradores muito fortes em um subtipo podem não ser os mesmos em outro.",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#101820",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Diretor deve pedir duas visões complementares: concentração por volume e presença por número de CNPJs. Gestores/administradores muito fortes em um subtipo podem não ser os mesmos em outro.",
+              "fontSize": 15,
+              "color": "#101820",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 56,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/t83itgfm",
+      "id": "56",
+      "bbox": [
+        72,
+        842,
+        1450,
+        1.2
+      ],
+      "geometry": "rect",
+      "fillColor": "#C9C3B7"
+    },
+    {
+      "order": 57,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4nap4r65",
+      "id": "57",
+      "bbox": [
+        72,
+        854,
+        1220,
+        26
+      ],
+      "geometry": "rect",
+      "text": "Fonte: CVM open data, FNET/documentos locais e saídas do estudo FIDC geradas em 09/06/2026. Valores em R$ nominais.",
+      "textPreview": "Fonte: CVM open data, FNET/documentos locais e saídas do estudo FIDC geradas em 09/06/2026. Valores em R$ nominais.",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Fonte: CVM open data, FNET/documentos locais e saídas do estudo FIDC geradas em 09/06/2026. Valores em R$ nominais."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Fonte: CVM open data, FNET/documentos locais e saídas do estudo FIDC geradas em 09/06/2026. Valores em R$ nominais.",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Fonte: CVM open data, FNET/documentos locais e saídas do estudo FIDC geradas em 09/06/2026. Valores em R$ nominais.",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 58,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/bat47y1k",
+      "id": "58",
+      "bbox": [
+        1315,
+        854,
+        205,
+        22
+      ],
+      "geometry": "rect",
+      "text": "FIDC Market Diagnostic | 09",
+      "textPreview": "FIDC Market Diagnostic | 09",
+      "resolvedFontSize": 10.8,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 10.8,
+        "typeface": "+mn-lt",
+        "color": "#53606B",
+        "alignment": "right",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "FIDC Market Diagnostic | 09"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "FIDC Market Diagnostic | 09",
+          "resolvedTextStyle": {
+            "fontSize": 10.8,
+            "color": "#53606B",
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "FIDC Market Diagnostic | 09",
+              "fontSize": 10.8,
+              "color": "#53606B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    }
+  ],
+  "composeRuns": []
+}

@@ -1,0 +1,1542 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/hry55e",
+    "id": "hry55e",
+    "slide": 8,
+    "layoutId": "85b3f756-4225-4960-b03e-e65165ff85ef",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "bf344aa5-5967-4d3b-8891-640101c1433e",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#F7F8FA",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "85b3f756-4225-4960-b03e-e65165ff85ef",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "bf344aa5-5967-4d3b-8891-640101c1433e",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "bf344aa5-5967-4d3b-8891-640101c1433e",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kjm1cfa9",
+      "id": "1",
+      "bbox": [
+        0,
+        0,
+        1280,
+        60
+      ],
+      "geometry": "rect",
+      "fillColor": "#001E62",
+      "lineColor": "#001E62",
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/r2p8nqxs",
+      "id": "2",
+      "bbox": [
+        54,
+        18,
+        320,
+        20
+      ],
+      "geometry": "rect",
+      "text": "FIDC Sellers | Itaú BBA",
+      "textPreview": "FIDC Sellers | Itaú BBA",
+      "resolvedFontSize": 11,
+      "resolvedTextStyle": {
+        "fontSize": 11,
+        "typeface": "+mn-lt",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "FIDC Sellers | Itaú BBA"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "FIDC Sellers | Itaú BBA",
+          "resolvedTextStyle": {
+            "fontSize": 11,
+            "color": "#FFFFFF",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "FIDC Sellers | Itaú BBA",
+              "fontSize": 11,
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2hwfyxob",
+      "id": "3",
+      "bbox": [
+        54,
+        76,
+        820,
+        44
+      ],
+      "geometry": "rect",
+      "text": "Validação de juros e amortizações realizadas",
+      "textPreview": "Validação de juros e amortizações realizadas",
+      "resolvedFontSize": 26,
+      "resolvedTextStyle": {
+        "fontSize": 26,
+        "typeface": "+mn-lt",
+        "color": "#001E62",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Validação de juros e amortizações realizadas"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Validação de juros e amortizações realizadas",
+          "resolvedTextStyle": {
+            "fontSize": 26,
+            "color": "#001E62",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Validação de juros e amortizações realizadas",
+              "fontSize": 26,
+              "color": "#001E62",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9gr2p8nq",
+      "id": "4",
+      "bbox": [
+        54,
+        125,
+        90,
+        5
+      ],
+      "geometry": "rect",
+      "fillColor": "#EC7000",
+      "lineColor": "#EC7000",
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "chart",
+      "scope": "slide",
+      "aid": "ch/8v6psfil",
+      "id": "5",
+      "bbox": [
+        70,
+        165,
+        335,
+        250
+      ],
+      "chartType": "doughnut"
+    },
+    {
+      "order": 6,
+      "kind": "table",
+      "scope": "slide",
+      "aid": "tb/qh0fepkz",
+      "id": "6",
+      "bbox": [
+        450,
+        155,
+        760,
+        370
+      ],
+      "text": "Evento | Data | Status | Divergência\nPagamento semestral de juros/remuneração | 31/05/2025 | Consistente por evidência de VNU; valor exato de caixa não disponível | Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.\nPagamento semestral de juros/remuneração | 30/11/2025 | Consistente por evidência de VNU; valor exato de caixa não disponível | Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.\nAmortização programada de principal | 15/12/2025 | Consistente por evidência de VNU; valor exato de caixa não disponível | Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.\nAmortização programada de principal | 15/01/2026 | Consistente por evidência de VNU; valor exato de caixa não disponível | Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.\nAmortização programada de principal | 15/02/2026 | Consistente por evidência de VNU; valor exato de caixa não disponível | Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.\nAmortização final programada de principal | 15/03/2026 | Consistência parcial; requer confirmação por relatório do administrador/boletim de pagamento | Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.\nAmortizações Sênior 5ª série ainda futuras na base analisada | 15/12/2027 a 15/05/2028 | Não vencido no período analisado | Vencimento BBA 26/05/2028 diverge da amortização final documental 15/05/2028.",
+      "textPreview": "Evento | Data | Status | Divergência | Pagamento semestral de juros/remuneração | 31/05/2025 | Consistente por evidência de VNU; valor ex...",
+      "rows": 8,
+      "cols": 4,
+      "cells": [
+        {
+          "index": 1,
+          "row": 1,
+          "column": 1,
+          "bbox": [
+            450,
+            155,
+            210,
+            46.25
+          ],
+          "text": "Evento",
+          "textPreview": "Evento",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Evento",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Evento",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 2,
+          "bbox": [
+            660,
+            155,
+            100,
+            46.25
+          ],
+          "text": "Data",
+          "textPreview": "Data",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Data",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Data",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 3,
+          "bbox": [
+            760,
+            155,
+            240,
+            46.25
+          ],
+          "text": "Status",
+          "textPreview": "Status",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Status",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Status",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 4,
+          "bbox": [
+            1000,
+            155,
+            210,
+            46.25
+          ],
+          "text": "Divergência",
+          "textPreview": "Divergência",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Divergência",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Divergência",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "row": 2,
+          "column": 1,
+          "bbox": [
+            450,
+            201.25,
+            210,
+            46.25
+          ],
+          "text": "Pagamento semestral de juros/remuneração",
+          "textPreview": "Pagamento semestral de juros/remuneração",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Pagamento semestral de juros/remuneração",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Pagamento semestral de juros/remuneração",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "row": 2,
+          "column": 2,
+          "bbox": [
+            660,
+            201.25,
+            100,
+            46.25
+          ],
+          "text": "31/05/2025",
+          "textPreview": "31/05/2025",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "31/05/2025",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "31/05/2025",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 3,
+          "bbox": [
+            760,
+            201.25,
+            240,
+            46.25
+          ],
+          "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+          "textPreview": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "row": 2,
+          "column": 4,
+          "bbox": [
+            1000,
+            201.25,
+            210,
+            46.25
+          ],
+          "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+          "textPreview": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "row": 3,
+          "column": 1,
+          "bbox": [
+            450,
+            247.5,
+            210,
+            46.25
+          ],
+          "text": "Pagamento semestral de juros/remuneração",
+          "textPreview": "Pagamento semestral de juros/remuneração",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Pagamento semestral de juros/remuneração",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Pagamento semestral de juros/remuneração",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "row": 3,
+          "column": 2,
+          "bbox": [
+            660,
+            247.5,
+            100,
+            46.25
+          ],
+          "text": "30/11/2025",
+          "textPreview": "30/11/2025",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "30/11/2025",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "30/11/2025",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "row": 3,
+          "column": 3,
+          "bbox": [
+            760,
+            247.5,
+            240,
+            46.25
+          ],
+          "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+          "textPreview": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "row": 3,
+          "column": 4,
+          "bbox": [
+            1000,
+            247.5,
+            210,
+            46.25
+          ],
+          "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+          "textPreview": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "row": 4,
+          "column": 1,
+          "bbox": [
+            450,
+            293.75,
+            210,
+            46.25
+          ],
+          "text": "Amortização programada de principal",
+          "textPreview": "Amortização programada de principal",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Amortização programada de principal",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Amortização programada de principal",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "row": 4,
+          "column": 2,
+          "bbox": [
+            660,
+            293.75,
+            100,
+            46.25
+          ],
+          "text": "15/12/2025",
+          "textPreview": "15/12/2025",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/12/2025",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/12/2025",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "row": 4,
+          "column": 3,
+          "bbox": [
+            760,
+            293.75,
+            240,
+            46.25
+          ],
+          "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+          "textPreview": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "row": 4,
+          "column": 4,
+          "bbox": [
+            1000,
+            293.75,
+            210,
+            46.25
+          ],
+          "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+          "textPreview": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "row": 5,
+          "column": 1,
+          "bbox": [
+            450,
+            340,
+            210,
+            46.25
+          ],
+          "text": "Amortização programada de principal",
+          "textPreview": "Amortização programada de principal",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Amortização programada de principal",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Amortização programada de principal",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "row": 5,
+          "column": 2,
+          "bbox": [
+            660,
+            340,
+            100,
+            46.25
+          ],
+          "text": "15/01/2026",
+          "textPreview": "15/01/2026",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/01/2026",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/01/2026",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 19,
+          "row": 5,
+          "column": 3,
+          "bbox": [
+            760,
+            340,
+            240,
+            46.25
+          ],
+          "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+          "textPreview": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 20,
+          "row": 5,
+          "column": 4,
+          "bbox": [
+            1000,
+            340,
+            210,
+            46.25
+          ],
+          "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+          "textPreview": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 21,
+          "row": 6,
+          "column": 1,
+          "bbox": [
+            450,
+            386.25,
+            210,
+            46.25
+          ],
+          "text": "Amortização programada de principal",
+          "textPreview": "Amortização programada de principal",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Amortização programada de principal",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Amortização programada de principal",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 22,
+          "row": 6,
+          "column": 2,
+          "bbox": [
+            660,
+            386.25,
+            100,
+            46.25
+          ],
+          "text": "15/02/2026",
+          "textPreview": "15/02/2026",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/02/2026",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/02/2026",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 23,
+          "row": 6,
+          "column": 3,
+          "bbox": [
+            760,
+            386.25,
+            240,
+            46.25
+          ],
+          "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+          "textPreview": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Consistente por evidência de VNU; valor exato de caixa não disponível",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 24,
+          "row": 6,
+          "column": 4,
+          "bbox": [
+            1000,
+            386.25,
+            210,
+            46.25
+          ],
+          "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+          "textPreview": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 25,
+          "row": 7,
+          "column": 1,
+          "bbox": [
+            450,
+            432.5,
+            210,
+            46.25
+          ],
+          "text": "Amortização final programada de principal",
+          "textPreview": "Amortização final programada de principal",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Amortização final programada de principal",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Amortização final programada de principal",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 26,
+          "row": 7,
+          "column": 2,
+          "bbox": [
+            660,
+            432.5,
+            100,
+            46.25
+          ],
+          "text": "15/03/2026",
+          "textPreview": "15/03/2026",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/03/2026",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/03/2026",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 27,
+          "row": 7,
+          "column": 3,
+          "bbox": [
+            760,
+            432.5,
+            240,
+            46.25
+          ],
+          "text": "Consistência parcial; requer confirmação por relatório do administrador/boletim de pagamento",
+          "textPreview": "Consistência parcial; requer confirmação por relatório do administrador/boletim de pagamento",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Consistência parcial; requer confirmação por relatório do administrador/boletim de pagamento",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Consistência parcial; requer confirmação por relatório do administrador/boletim de pagamento",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 28,
+          "row": 7,
+          "column": 4,
+          "bbox": [
+            1000,
+            432.5,
+            210,
+            46.25
+          ],
+          "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+          "textPreview": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados para captação/resgate/amortização no período analisado.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 29,
+          "row": 8,
+          "column": 1,
+          "bbox": [
+            450,
+            478.75,
+            210,
+            46.25
+          ],
+          "text": "Amortizações Sênior 5ª série ainda futuras na base analisada",
+          "textPreview": "Amortizações Sênior 5ª série ainda futuras na base analisada",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Amortizações Sênior 5ª série ainda futuras na base analisada",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Amortizações Sênior 5ª série ainda futuras na base analisada",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 30,
+          "row": 8,
+          "column": 2,
+          "bbox": [
+            660,
+            478.75,
+            100,
+            46.25
+          ],
+          "text": "15/12/2027 a 15/05/2028",
+          "textPreview": "15/12/2027 a 15/05/2028",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/12/2027 a 15/05/2028",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/12/2027 a 15/05/2028",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 31,
+          "row": 8,
+          "column": 3,
+          "bbox": [
+            760,
+            478.75,
+            240,
+            46.25
+          ],
+          "text": "Não vencido no período analisado",
+          "textPreview": "Não vencido no período analisado",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Não vencido no período analisado",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Não vencido no período analisado",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 32,
+          "row": 8,
+          "column": 4,
+          "bbox": [
+            1000,
+            478.75,
+            210,
+            46.25
+          ],
+          "text": "Vencimento BBA 26/05/2028 diverge da amortização final documental 15/05/2028.",
+          "textPreview": "Vencimento BBA 26/05/2028 diverge da amortização final documental 15/05/2028.",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Vencimento BBA 26/05/2028 diverge da amortização final documental 15/05/2028.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Vencimento BBA 26/05/2028 diverge da amortização final documental 15/05/2028.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2p8nqxs7",
+      "id": "7",
+      "bbox": [
+        70,
+        520,
+        335,
+        80
+      ],
+      "geometry": "rect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#EC7000",
+      "lineWidth": 1.2
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9knih4by",
+      "id": "8",
+      "bbox": [
+        86,
+        532,
+        303,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Leitura da validação",
+      "textPreview": "Leitura da validação",
+      "resolvedFontSize": 11,
+      "resolvedTextStyle": {
+        "fontSize": 11,
+        "typeface": "+mn-lt",
+        "color": "#001E62",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Leitura da validação"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Leitura da validação",
+          "resolvedTextStyle": {
+            "fontSize": 11,
+            "color": "#001E62",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Leitura da validação",
+              "fontSize": 11,
+              "color": "#001E62",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kzupwb2h",
+      "id": "9",
+      "bbox": [
+        86,
+        558,
+        303,
+        32
+      ],
+      "geometry": "rect",
+      "text": "O valor exato de caixa não está disponível nos campos oficiais do IME; a consistência foi validada por VNU e cronograma documental.",
+      "textPreview": "O valor exato de caixa não está disponível nos campos oficiais do IME; a consistência foi validada por VNU e cronograma documental.",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "+mn-lt",
+        "color": "#172033",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "O valor exato de caixa não está disponível nos campos oficiais do IME;"
+          },
+          {
+            "index": 2,
+            "text": "a consistência foi validada por VNU e cronograma documental."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "O valor exato de caixa não está disponível nos campos oficiais do IME; a consistência foi validada por VNU e cronograma documental.",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "color": "#172033"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "O valor exato de caixa não está disponível nos campos oficiais do IME; a consistência foi validada por VNU e cronograma documental.",
+              "fontSize": 10,
+              "color": "#172033"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ulwval87",
+      "id": "10",
+      "bbox": [
+        54,
+        690,
+        980,
+        18
+      ],
+      "geometry": "rect",
+      "text": "Fonte: payment_validation.csv; IME 02/2025-03/2026; documentos de emissão.",
+      "textPreview": "Fonte: payment_validation.csv; IME 02/2025-03/2026; documentos de emissão.",
+      "resolvedFontSize": 8,
+      "resolvedTextStyle": {
+        "fontSize": 8,
+        "typeface": "+mn-lt",
+        "color": "#6B7280",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Fonte: payment_validation.csv; IME 02/2025-03/2026; documentos de emissão."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Fonte: payment_validation.csv; IME 02/2025-03/2026; documentos de emissão.",
+          "resolvedTextStyle": {
+            "fontSize": 8,
+            "color": "#6B7280"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Fonte: payment_validation.csv; IME 02/2025-03/2026; documentos de emissão.",
+              "fontSize": 8,
+              "color": "#6B7280"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/j6tovaho",
+      "id": "11",
+      "bbox": [
+        1160,
+        690,
+        80,
+        18
+      ],
+      "geometry": "rect",
+      "text": "Confidencial",
+      "textPreview": "Confidencial",
+      "resolvedFontSize": 8,
+      "resolvedTextStyle": {
+        "fontSize": 8,
+        "typeface": "+mn-lt",
+        "color": "#6B7280",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Confidencial"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Confidencial",
+          "resolvedTextStyle": {
+            "fontSize": 8,
+            "color": "#6B7280"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Confidencial",
+              "fontSize": 8,
+              "color": "#6B7280"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

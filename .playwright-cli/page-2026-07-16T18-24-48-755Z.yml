@@ -1,0 +1,187 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: tomaconta fidcs
+      - generic [ref=e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e263] [cursor=pointer]:
+        - paragraph [ref=e267]: Sobre
+      - button [ref=e268] [cursor=pointer]:
+        - paragraph [ref=e272]: Dados da Indústria
+      - button [ref=e273] [cursor=pointer]:
+        - paragraph [ref=e277]: Dados de Carteira
+      - button [ref=e278] [cursor=pointer]:
+        - paragraph [ref=e282]: Cloudwalk
+      - button [ref=e283] [cursor=pointer]:
+        - paragraph [ref=e287]: Glossário
+      - button [ref=e288] [cursor=pointer]:
+        - paragraph [ref=e292]: Modelagem
+    - generic [ref=e48]:
+      - generic [ref=e51]:
+        - heading "Dados de Carteira" [level=1] [ref=e52]
+        - paragraph [ref=e53]: Analise carteiras salvas ou consulte um FIDC diretamente pelo CNPJ.
+      - generic [ref=e55]:
+        - radiogroup "button group" [ref=e60]:
+          - button [ref=e293] [cursor=pointer]:
+            - paragraph [ref=e297]: 3M
+          - button [ref=e298] [cursor=pointer]:
+            - paragraph [ref=e302]: 6M
+          - button [ref=e303] [cursor=pointer]:
+            - paragraph [ref=e307]: 9M
+          - button [ref=e308] [cursor=pointer]:
+            - paragraph [ref=e312]: 12M
+          - button [ref=e313] [cursor=pointer]:
+            - paragraph [ref=e317]: 24M
+          - button [ref=e318] [cursor=pointer]:
+            - paragraph [ref=e322]: 36M
+        - button "tune Personalizar" [ref=e95] [cursor=pointer]:
+          - generic [ref=e97]:
+            - generic [ref=e98]: tune
+            - paragraph [ref=e101]: Personalizar
+      - paragraph [ref=e106]: jul-25 → jun-26
+      - generic [ref=e324]:
+        - generic [ref=e326]:
+          - paragraph [ref=e331]:
+            - strong [ref=e332]: BTG Pactual (Fundos Consolidados 1T26)
+          - paragraph [ref=e337]: Carteira salva | 6 fundos
+        - button "swap_horiz Trocar análise" [ref=e342] [cursor=pointer]:
+          - generic [ref=e344]:
+            - generic [ref=e345]: swap_horiz
+            - paragraph [ref=e348]: Trocar análise
+      - group [ref=e351]:
+        - generic "keyboard_arrow_right Gerenciar carteiras salvas" [ref=e352] [cursor=pointer]:
+          - generic [ref=e353]:
+            - generic [ref=e354]: keyboard_arrow_right
+            - paragraph [ref=e358]: Gerenciar carteiras salvas
+      - generic [ref=e382]:
+        - generic [ref=e383]: BTG Pactual (Fundos Consolidados 1T26)
+        - generic [ref=e384]: 07/2025 a 06/2026
+      - generic [ref=e409]:
+        - generic [ref=e410]:
+          - paragraph [ref=e413]: Filtro visual de toda a análise
+          - button "Help for Filtro visual de toda a análise" [ref=e417] [cursor=pointer]
+        - radiogroup "Filtro visual de toda a análise" [ref=e421] [cursor=pointer]:
+          - generic [ref=e422]:
+            - radio "Todo período carregado"
+            - paragraph [ref=e425]: Todo período carregado
+          - generic [ref=e426]:
+            - radio "6M"
+            - paragraph [ref=e429]: 6M
+          - generic [ref=e430]:
+            - radio "12M" [checked]
+            - paragraph [ref=e433]: 12M
+          - generic [ref=e434]:
+            - radio "24M"
+            - paragraph [ref=e437]: 24M
+          - generic [ref=e438]:
+            - radio "36M"
+            - paragraph [ref=e441]: 36M
+          - generic [ref=e442]:
+            - radio "YTD"
+            - paragraph [ref=e445]: YTD
+          - generic [ref=e446]:
+            - radio "Dezembros + Ano Atual"
+            - paragraph [ref=e449]: Dezembros + Ano Atual
+          - generic [ref=e450]:
+            - radio "Customizado"
+            - paragraph [ref=e453]: Customizado
+      - paragraph [ref=e458]: jun-25 → jun-26 · 13 competência(s)
+      - button [ref=e464] [cursor=pointer]:
+        - paragraph [ref=e468]: Exportar apresentação completa da carteira (PPTX)
+      - group [ref=e471]:
+        - generic "keyboard_arrow_right Downloads de dados editáveis" [ref=e472] [cursor=pointer]:
+          - generic [ref=e473]:
+            - generic [ref=e474]: keyboard_arrow_right
+            - paragraph [ref=e478]: Downloads de dados editáveis
+      - generic [ref=e481] [cursor=pointer]:
+        - checkbox "Mostrar consolidado e todos os fundos" [checked]
+        - generic [ref=e485]:
+          - paragraph [ref=e487]: Mostrar consolidado e todos os fundos
+          - button "Help for Mostrar consolidado e todos os fundos" [ref=e491]
+      - generic [ref=e496]:
+        - tablist [ref=e498]:
+          - tab [ref=e499] [cursor=pointer]:
+            - paragraph [ref=e501]: Estrutura
+          - tab [ref=e502] [cursor=pointer]:
+            - paragraph [ref=e504]: Crédito e prazo
+          - tab [ref=e505] [cursor=pointer]:
+            - paragraph [ref=e507]: Inadimplência
+          - tab [ref=e508] [cursor=pointer]:
+            - paragraph [ref=e510]: Rentabilidade
+          - tab [active] [selected] [ref=e511] [cursor=pointer]:
+            - paragraph [ref=e513]: Curadoria de Leitura (Documentos)
+        - tabpanel "Curadoria de Leitura (Documentos)" [ref=e968]:
+          - generic [ref=e969]:
+            - heading "Síntese dos documentos" [level=3] [ref=e975]:
+              - text: Síntese dos documentos
+              - generic [ref=e976]:
+                - link "Link to heading":
+                  - /url: "#sintese-dos-documentos"
+            - generic [ref=e981]:
+              - text: "Data da leitura:"
+              - strong [ref=e982]: 14/05/2026
+            - list [ref=e987]:
+              - listitem [ref=e988]:
+                - strong [ref=e989]: "Fonte:"
+                - text: documentos públicos disponibilizados pela CVM e pelo Fundos.NET.
+              - listitem [ref=e990]:
+                - strong [ref=e991]: "Escopo:"
+                - text: todos os documentos incorporados à curadoria e acessíveis para os CNPJs desta carteira até a data da leitura.
+              - listitem [ref=e992]:
+                - strong [ref=e993]: "Método:"
+                - text: curadoria produzida por IA a partir da leitura documental da carteira.
+              - listitem [ref=e994]:
+                - strong [ref=e995]: "Lacunas:"
+                - text: informações não localizadas ou documentos inacessíveis permanecem indicados como lacuna, sem inferência.
+            - alert [ref=e998]:
+              - paragraph [ref=e1003]: Use esta curadoria como apoio. Ela depende do prompt específico de atualização; confirme limites, datas e condições nos documentos originais.
+            - heading "Destaques da carteira" [level=4] [ref=e1009]:
+              - text: Destaques da carteira
+              - generic [ref=e1010]:
+                - link "Link to heading":
+                  - /url: "#destaques-da-carteira"
+            - list [ref=e1015]:
+              - listitem [ref=e1016]:
+                - strong [ref=e1017]: "Origem nominal identificada:"
+                - text: "A única documentação da carteira que menciona explicitamente Meu Tudo/Parati é a do MT Consignado Privado I: Parati CFI aparece como Endossante e Tudo Serviços S.A. como Meu Tudo/Agente de Retenção e Cobrança"
+              - listitem [ref=e1018]:
+                - strong [ref=e1019]: "Sacados MT Consignado:"
+                - text: Os devedores/sacados são pessoas físicas com vínculo formal de emprego validado pela Dataprev, categoria eSocial 101, tomadoras de empréstimo consignado via CCB eletrônica na Plataforma MT
+              - listitem [ref=e1020]:
+                - strong [ref=e1021]: "Banco PAN:"
+                - text: Busca textual exata nos documentos locais analisados não encontrou Banco PAN como cedente, originador, parceiro ou fonte dos créditos desta carteira
+              - listitem [ref=e1022]:
+                - strong [ref=e1023]: "MT Global:"
+                - text: A Classe Consignado Privado do MT Global foi carregada pelo CNPJ correto 63.953.620/0001-65. Ela recebeu ativos/obrigações por cisão do MT Consignado Privado I e também incorporou parcela do BTG Pactual Consignados II
+            - heading "Pontos essenciais por fundo" [level=4] [ref=e1029]:
+              - text: Pontos essenciais por fundo
+              - generic [ref=e1030]:
+                - link "Link to heading":
+                  - /url: "#pontos-essenciais-por-fundo"
+            - generic [ref=e1032]:
+              - paragraph [ref=e1036]: Fundo
+              - generic [ref=e1038]:
+                - generic [ref=e1039]:
+                  - generic [ref=e1040]: CONSIGNADO DELTA RECEIVABLES I
+                  - combobox "Selected CONSIGNADO DELTA RECEIVABLES I. Fundo" [ref=e1042]
+                - img "open" [ref=e1044]
+            - paragraph [ref=e1050]: CNPJ 54.871.427/0001-94.
+            - list [ref=e1055]:
+              - listitem [ref=e1056]:
+                - strong [ref=e1057]: "Elegibilidade:"
+                - text: CCBs sem parcela cedida; sem atraso; demais condições no documento original
+              - listitem [ref=e1058]:
+                - strong [ref=e1059]: "Alocação mínima:"
+                - text: ≥ 50% após 180 dias da 1ª integralização
+              - listitem [ref=e1060]:
+                - strong [ref=e1061]: "Subordinação:"
+                - text: Não há preferência, prioridade ou subordinação entre titulares de cotas
+              - listitem [ref=e1062]:
+                - strong [ref=e1063]: "Derivativos:"
+                - text: Permitidos se proteção patrimonial ou troca de indexador sem exposição a risco de capital
+            - group [ref=e1066]:
+              - generic "keyboard_arrow_right Prompt usado para atualizar este artefato" [ref=e1067] [cursor=pointer]:
+                - generic [ref=e1068]:
+                  - generic [ref=e1069]: keyboard_arrow_right
+                  - paragraph [ref=e1073]: Prompt usado para atualizar este artefato

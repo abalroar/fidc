@@ -40,61 +40,36 @@ CLOUDWALK_VIEW_TABS = ("Resumo", "Séries", "Mensal", "Waterfall", "Caixa", "Dad
 
 _CSS = """
 <style>
-.cloudwalk-header {
-    border-bottom: 1px solid #dde3ea;
-    margin: 0.15rem 0 1rem 0;
-    padding-bottom: 0.85rem;
-}
-.cloudwalk-kicker {
-    color: #d35714;
-    font-size: 0.74rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    line-height: 1.2;
-    margin-bottom: 0.25rem;
-    text-transform: uppercase;
-}
-.cloudwalk-title {
-    color: #12171d;
-    font-size: 2rem;
-    font-weight: 650;
-    letter-spacing: 0;
-    line-height: 1.08;
-    margin: 0;
-}
-.cloudwalk-subtitle {
+.cloudwalk-purpose {
     color: #68727d;
-    font-size: 0.96rem;
-    line-height: 1.48;
-    margin-top: 0.45rem;
-    max-width: 56rem;
+    font-size: 0.86rem;
+    line-height: 1.45;
+    margin: 0 0 0.75rem;
+    max-width: 72rem;
 }
 .cloudwalk-note {
-    background: #f7f8fa;
-    border: 1px solid #e5e9ef;
-    border-radius: 8px;
+    border-bottom: 1px solid #e5e9ef;
     color: #4f5c69;
-    font-size: 0.86rem;
-    line-height: 1.48;
-    margin: 0.25rem 0 0.85rem 0;
-    padding: 0.75rem 0.85rem;
-}
-.cloudwalk-section-title {
-    color: #161c23;
-    font-size: 1.05rem;
-    font-weight: 650;
-    letter-spacing: 0;
-    margin: 1rem 0 0.45rem 0;
+    font-size: 0.78rem;
+    line-height: 1.42;
+    margin: 0.1rem 0 0.75rem;
+    padding: 0 0 0.55rem;
 }
 </style>
 """
 
 
-def render_tab_cloudwalk_financial_cost() -> None:
+def render_tab_cloudwalk_financial_cost(*, embedded: bool = False) -> None:
     st.markdown(_CSS, unsafe_allow_html=True)
-    render_page_header(
-        "Cloudwalk",
-        "Custo financeiro dos FIDCs, amortizações, captações e carry de caixa/LFT.",
+    if not embedded:
+        render_page_header(
+            "Custo Financeiro do Cedente",
+            "Custo implícito da carteira de FIDCs e projeção da despesa financeira do cedente.",
+        )
+    st.markdown(
+        '<p class="cloudwalk-purpose">Consolida uma carteira mapeada de FIDCs, estima seu custo implícito em CDI+ '
+        "e projeta a despesa financeira anual do cedente.</p>",
+        unsafe_allow_html=True,
     )
 
     controls = _render_controls()
@@ -104,15 +79,15 @@ def render_tab_cloudwalk_financial_cost() -> None:
     try:
         outputs, pl_waterfall = _run_cost_engine(**controls)
     except Exception as exc:  # noqa: BLE001
-        st.error("Não foi possível rodar a estimativa Cloudwalk.")
+        st.error("Não foi possível calcular o custo financeiro da carteira.")
         if diagnostics_enabled():
             st.caption(f"{type(exc).__name__}: {exc}")
         return
 
     render_context_strip(
-        source=str(controls["cdi_source"]),
+        source=f"Carteira curada do cedente + {controls['cdi_source']}",
         base_until=f"{controls['start_date']} a {controls['end_date']}",
-        coverage=f"{len(outputs.line_df)} séries mapeadas",
+        coverage=_cost_coverage_label(outputs.line_df),
     )
     _render_headline(outputs)
     tabs = st.tabs(CLOUDWALK_VIEW_TABS)
@@ -194,10 +169,7 @@ def _render_controls() -> dict[str, object] | None:
                             min_value=-10.0,
                             max_value=30.0,
                         ),
-                        "Chave": st.column_config.TextColumn(
-                            "Chave",
-                            help="Identificador técnico da série: CNPJ|nome da cota. Mantido visível para conciliar com a memória.",
-                        ),
+                        "Chave": None,
                     },
                 )
 
@@ -267,11 +239,12 @@ def _resolve_b3_cdi(curve_date: date, fallback_cdi_aa: float) -> tuple[float, st
         return _fetch_b3_cdi(curve_date.isoformat())
     except Exception as exc:  # noqa: BLE001
         st.warning("A consulta à B3 falhou; usando o CDI manual como fallback.")
-        st.caption(f"{type(exc).__name__}: {exc}")
+        if diagnostics_enabled():
+            st.caption(f"{type(exc).__name__}: {exc}")
         return fallback_cdi_aa, "manual fallback após falha B3"
 
 
-@st.cache_data(show_spinner="Calculando custo financeiro Cloudwalk...")
+@st.cache_data(show_spinner="Calculando custo financeiro da carteira...")
 def _run_cost_engine(
     *,
     start_date: date,
@@ -329,17 +302,16 @@ def _render_headline(outputs: FinancialCostOutputs) -> None:
     implied_spread = _solve_implied_spread(outputs.monthly_df, float(recommended["despesa_financeira_bruta"]), cdi_aa)
     weighted_spread = _weighted_average_spread(outputs.line_df)
 
-    cols = st.columns(6)
-    cols[0].metric("Despesa bruta", _format_money(float(recommended["despesa_financeira_bruta"])))
-    cols[1].metric("Custo líquido", _format_money(float(net["despesa_financeira_liquida"])))
-    cols[2].metric("Aplicação caixa/LFT", _format_money(cash_base))
-    cols[3].metric("Rendimento caixa/LFT", _format_money(cash_yield))
-    cols[4].metric("Saldo médio", _format_money(float(recommended["saldo_base"])))
-    cols[5].metric("CDI+ implícito", _format_cdi_plus(implied_spread))
+    cols = st.columns(4)
+    cols[0].metric("CDI+ implícito", _format_cdi_plus(implied_spread))
+    cols[1].metric("Despesa bruta", _format_money(float(recommended["despesa_financeira_bruta"])))
+    cols[2].metric("Custo líquido", _format_money(float(net["despesa_financeira_liquida"])))
+    cols[3].metric("Saldo médio", _format_money(float(recommended["saldo_base"])))
 
     note = (
         f"CDI usado: {_format_percent(cdi_aa)} a.a. equivalente ({recommended['cdi_source']}). "
-        f"Spread ponderado por saldo médio: {_format_cdi_plus(weighted_spread)}."
+        f"Spread ponderado por saldo médio: {_format_cdi_plus(weighted_spread)} "
+        f"Caixa/LFT: {_format_money(cash_base)}; rendimento estimado: {_format_money(cash_yield)}."
     )
     st.markdown(f"<div class='cloudwalk-note'>{note}</div>", unsafe_allow_html=True)
 
@@ -402,19 +374,19 @@ def _render_summary(outputs: FinancialCostOutputs, controls: dict[str, object]) 
     st.dataframe(display, hide_index=True, width="stretch")
     cdi_frame = _cdi_rates_frame(controls.get("monthly_cdi_rates") or ())
     if not cdi_frame.empty:
-        st.markdown("<h2>CDI B3 composto mês a mês</h2>", unsafe_allow_html=True)
-        cdi_display = cdi_frame.copy()
-        cdi_display["cdi_mensal"] = pd.to_numeric(cdi_display["cdi_mensal"], errors="coerce").map(_format_percent)
-        cdi_display["cdi_aa_equivalente"] = pd.to_numeric(cdi_display["cdi_aa_equivalente"], errors="coerce").map(_format_percent)
-        cdi_display = cdi_display.rename(
-            columns={
-                "mes": "Mês",
-                "cdi_mensal": "CDI mensal",
-                "cdi_aa_equivalente": "CDI a.a. equivalente",
-                "dias_uteis": "Dias úteis",
-            }
-        )
-        st.dataframe(cdi_display, hide_index=True, width="stretch")
+        with st.expander("CDI mensal utilizado", expanded=False):
+            cdi_display = cdi_frame.copy()
+            cdi_display["cdi_mensal"] = pd.to_numeric(cdi_display["cdi_mensal"], errors="coerce").map(_format_percent)
+            cdi_display["cdi_aa_equivalente"] = pd.to_numeric(cdi_display["cdi_aa_equivalente"], errors="coerce").map(_format_percent)
+            cdi_display = cdi_display.rename(
+                columns={
+                    "mes": "Mês",
+                    "cdi_mensal": "CDI mensal",
+                    "cdi_aa_equivalente": "CDI a.a. equivalente",
+                    "dias_uteis": "Dias úteis",
+                }
+            )
+            st.dataframe(cdi_display, hide_index=True, width="stretch")
 
 
 def _render_lines(outputs: FinancialCostOutputs) -> None:
@@ -424,7 +396,7 @@ def _render_lines(outputs: FinancialCostOutputs) -> None:
         st.info("Nenhuma linha incluída no custo.")
         return
 
-    st.markdown("<h2>Preço por série</h2>", unsafe_allow_html=True)
+    st.markdown("<h2>Despesa por FIDC</h2>", unsafe_allow_html=True)
     fund_cost = (
         active.groupby("fund_name", as_index=False)
         .agg(saldo_medio_programado=("saldo_medio_programado", "sum"), custo_programado_bruto=("custo_programado_bruto", "sum"))
@@ -446,7 +418,8 @@ def _render_lines(outputs: FinancialCostOutputs) -> None:
     )
     st.altair_chart(chart, width="stretch")
 
-    st.dataframe(_series_price_frame(frame), hide_index=True, width="stretch")
+    with st.expander("Detalhamento por série", expanded=False):
+        st.dataframe(_series_price_frame(frame), hide_index=True, width="stretch")
 
 
 def _render_monthly(outputs: FinancialCostOutputs) -> None:
@@ -483,7 +456,8 @@ def _render_monthly(outputs: FinancialCostOutputs) -> None:
             "custo_programado_bruto": "Custo bruto",
         }
     )
-    st.dataframe(monthly_display, hide_index=True, width="stretch")
+    with st.expander("Detalhamento mensal", expanded=False):
+        st.dataframe(monthly_display, hide_index=True, width="stretch")
 
 
 def _render_pl_waterfall(pl_waterfall: CloudwalkPlWaterfall) -> None:
@@ -513,7 +487,8 @@ def _render_pl_waterfall(pl_waterfall: CloudwalkPlWaterfall) -> None:
         .encode(x=alt.X("etapa:N", sort=None), y=alt.Y("label_y:Q"), text="label:N")
     )
     st.altair_chart((bars + labels).properties(height=360), width="stretch")
-    st.dataframe(_pl_waterfall_frame(pl_waterfall.by_fund_df), hide_index=True, width="stretch")
+    with st.expander("Reconciliação por FIDC", expanded=False):
+        st.dataframe(_pl_waterfall_frame(pl_waterfall.by_fund_df), hide_index=True, width="stretch")
 
 
 def _render_cash(outputs: FinancialCostOutputs) -> None:
@@ -529,12 +504,12 @@ def _render_cash(outputs: FinancialCostOutputs) -> None:
     cols[1].metric("Rendimento estimado", _format_money(total_yield))
     cols[2].metric("Caixa + títulos", _format_money(reported_cash))
     cols[3].metric("Proxy PL - recebíveis", _format_money(residual_proxy))
-    st.dataframe(_cash_frame(frame), hide_index=True, width="stretch")
+    with st.expander("Detalhamento por FIDC", expanded=False):
+        st.dataframe(_cash_frame(frame), hide_index=True, width="stretch")
 
 
 def _render_downloads(outputs: FinancialCostOutputs, pl_waterfall: CloudwalkPlWaterfall, controls: dict[str, object]) -> None:
     recommended = _summary_row(outputs.summary_df, "2_programado_bruto_com_amortizacao")
-    st.markdown("<h2>Dados e exportações</h2>", unsafe_allow_html=True)
     assumptions = pd.DataFrame(
         [
             ("Período calculado", f"{recommended['periodo_inicio']} a {recommended['periodo_fim']}"),
@@ -586,6 +561,19 @@ def _render_downloads(outputs: FinancialCostOutputs, pl_waterfall: CloudwalkPlWa
 
 def _summary_row(summary: pd.DataFrame, estimativa: str) -> pd.Series:
     return summary.loc[summary["estimativa"].eq(estimativa)].iloc[0]
+
+
+def _cost_coverage_label(line_df: pd.DataFrame) -> str:
+    if line_df is None or line_df.empty:
+        return "Sem séries mapeadas"
+    fund_count = 0
+    if "fund_name" in line_df.columns:
+        fund_names = line_df["fund_name"].fillna("").astype(str).str.strip()
+        fund_count = int(fund_names[fund_names.ne("")].nunique())
+    series_count = len(line_df)
+    fund_label = "FIDC" if fund_count == 1 else "FIDCs"
+    series_label = "série" if series_count == 1 else "séries"
+    return f"{fund_count} {fund_label} · {series_count} {series_label} mapeadas"
 
 
 def _spread_input_table(spread_overrides: dict[str, float], amortization_conventions: dict[str, str]) -> pd.DataFrame:

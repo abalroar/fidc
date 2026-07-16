@@ -5,6 +5,7 @@ from datetime import date, datetime
 from types import SimpleNamespace
 import re
 import unittest
+from unittest.mock import patch
 import zipfile
 
 from openpyxl import load_workbook
@@ -864,6 +865,16 @@ class TabModeloFidcTests(unittest.TestCase):
             loss_chart_df=loss_chart_df,
             protection_chart_df=protection_chart_df,
         )
+        with patch.object(tab_modelo_fidc, "_build_model_dashboard_pptx_bytes_pptxgen", return_value=None):
+            fallback_pptx = tab_modelo_fidc._build_model_dashboard_pptx_bytes(
+                kpi_cards=kpi_cards,
+                revolvency_cards=revolvency_cards,
+                premissas_summary_df=premissas_summary,
+                timeline_frame=frame,
+                balance_chart_df=balance_chart_df,
+                loss_chart_df=loss_chart_df,
+                protection_chart_df=protection_chart_df,
+            )
 
         workbook = load_workbook(BytesIO(xlsx))
 
@@ -911,6 +922,17 @@ class TabModeloFidcTests(unittest.TestCase):
         ]
         self.assertTrue(axis_ids)
         self.assertLess(max(axis_ids), 2**31)
+        self.assertTrue(zipfile.is_zipfile(BytesIO(fallback_pptx)))
+        tab_modelo_fidc._assert_native_office_charts(fallback_pptx)
+        fallback_presentation = Presentation(BytesIO(fallback_pptx))
+        self.assertEqual(3, len(fallback_presentation.slides))
+        with zipfile.ZipFile(BytesIO(fallback_pptx)) as fallback_archive:
+            fallback_xml = "\n".join(
+                fallback_archive.read(name).decode("utf-8", errors="ignore")
+                for name in fallback_archive.namelist()
+                if name.endswith(".xml")
+            )
+        self.assertNotRegex(fallback_xml, r"<c:(?:axId|crossAx)[^>]+val=\"-")
 
 
 if __name__ == "__main__":

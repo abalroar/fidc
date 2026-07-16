@@ -1,0 +1,384 @@
+- generic [ref=f2e3]:
+  - banner
+  - generic [ref=f2e6]:
+    - generic [ref=f2e11]:
+      - generic [ref=f2e12]: tomaconta fidcs
+      - generic [ref=f2e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f2e16]:
+      - button [ref=f2e81] [cursor=pointer]:
+        - paragraph [ref=f2e85]: Sobre
+      - button [ref=f2e86] [cursor=pointer]:
+        - paragraph [ref=f2e90]: Indústria
+      - button [ref=f2e91] [cursor=pointer]:
+        - paragraph [ref=f2e95]: Secundário
+      - button [ref=f2e96] [cursor=pointer]:
+        - paragraph [ref=f2e100]: Carteira
+      - button [ref=f2e101] [cursor=pointer]:
+        - paragraph [ref=f2e105]: Regulamentos
+      - button [ref=f2e106] [cursor=pointer]:
+        - paragraph [ref=f2e110]: Cloudwalk
+      - button [ref=f2e111] [cursor=pointer]:
+        - paragraph [ref=f2e115]: Glossário
+      - button [ref=f2e116] [cursor=pointer]:
+        - paragraph [ref=f2e120]: Modelagem
+    - generic [ref=f2e122]:
+      - generic [ref=f2e125]:
+        - heading "Indústria" [level=1] [ref=f2e126]
+        - paragraph [ref=f2e127]: Estoque, emissões, participantes e investidores de FIDCs.
+      - generic [ref=f2e132]:
+        - generic [ref=f2e133]: "Fonte: CVM e ANBIMA"
+        - generic [ref=f2e134]: "Base até: Maio/26 (estoque) | 15/07/2026 (ofertas)"
+        - generic [ref=f2e135]: "Cobertura: 4.224 veículos"
+      - generic [ref=f2e136]:
+        - generic [ref=f2e137]:
+          - tablist [ref=f2e139]:
+            - tab [selected] [ref=f2e140] [cursor=pointer]:
+              - paragraph [ref=f2e142]: Executivo
+            - tab [ref=f2e143] [cursor=pointer]:
+              - paragraph [ref=f2e145]: Ofertas
+            - tab [ref=f2e146] [cursor=pointer]:
+              - paragraph [ref=f2e148]: Prestadores
+            - tab [ref=f2e149] [cursor=pointer]:
+              - paragraph [ref=f2e151]: Cedentes
+            - tab [ref=f2e152] [cursor=pointer]:
+              - paragraph [ref=f2e154]: Investidores
+            - tab [ref=f2e155] [cursor=pointer]:
+              - paragraph [ref=f2e157]: "> R$5 bi"
+            - tab [ref=f2e158] [cursor=pointer]:
+              - paragraph [ref=f2e160]: Dados e exportações
+          - tabpanel "Executivo" [ref=f2e163]:
+            - generic [ref=f2e164]:
+              - generic [ref=f2e169]:
+                - generic [ref=f2e170]:
+                  - generic [ref=f2e171]: PL ex-FIC
+                  - generic [ref=f2e172]: R$ 880 bi
+                  - generic [ref=f2e173]: 21,6% em 12m
+                - generic [ref=f2e174]:
+                  - generic [ref=f2e175]: Captação líquida 12m
+                  - generic [ref=f2e176]: R$ 220 bi
+                  - generic [ref=f2e177]: captações − resgates − amortizações
+                - generic [ref=f2e178]:
+                  - generic [ref=f2e179]: Contas de cotistas
+                  - generic [ref=f2e180]: 446 mil
+                  - generic [ref=f2e181]: contas por classe, não CPFs únicos
+                - generic [ref=f2e182]:
+                  - generic [ref=f2e183]: Inad. ajustada
+                  - generic [ref=f2e184]: 5,8%
+                  - generic [ref=f2e185]: bruta 8,0%
+                - generic [ref=f2e186]:
+                  - generic [ref=f2e187]: Itaú em tickets >R$300 mi
+                  - generic [ref=f2e188]: "#2"
+                  - generic [ref=f2e189]: 16,7% do volume 2026YTD
+                - generic [ref=f2e190]:
+                  - generic [ref=f2e191]: Admin./custódia Itaú
+                  - generic [ref=f2e192]: 1,9%
+                  - generic [ref=f2e193]: share nas ofertas >R$300 mi em 2026YTD
+              - generic [ref=f2e194]: "Tese: o Itaú já é competitivo na originação de tickets relevantes; o espaço econômico está na conversão desses mandatos em administração, custódia e distribuição institucional."
+              - generic [ref=f2e200]:
+                - generic [ref=f2e205]:
+                  - generic [ref=f2e207]:
+                    - button "Show data" [ref=f2e210] [cursor=pointer]
+                    - button "Fullscreen" [ref=f2e216] [cursor=pointer]
+                  - generic [ref=f2e220]:
+                    - generic "Vega visualization" [ref=f2e221]:
+                      - img [ref=f2e222]:
+                        - generic [ref=f2e227]:
+                          - generic "X-axis for a time scale with values from June/20 to May/26" [ref=f2e231]:
+                            - generic [ref=f2e233]:
+                              - generic:
+                                - generic: Jan/21
+                                - generic: Jan/22
+                                - generic: Jan/23
+                                - generic: Jan/24
+                                - generic: Jan/25
+                                - generic: Jan/26
+                          - generic "Y-axis titled 'R$ bi' for a linear scale with values from 0 to 1,000" [ref=f2e234]:
+                            - generic [ref=f2e236]:
+                              - generic:
+                                - generic: "0"
+                                - generic: "200"
+                                - generic: "400"
+                                - generic: "600"
+                                - generic: "800"
+                                - generic: 1,000
+                              - generic: R$ bi
+                          - 'generic "mes: Jun/20; R$ bi: 225.542732796" [ref=f2e238]'
+                          - generic [ref=f2e239]:
+                            - 'generic "mes: Jun/20; R$ bi: 225.542732796; Série: FIDCs + FIC-FIDCs; Competência: 2020-06; PL (R$ bi): 225.5" [ref=f2e244]'
+                            - 'generic "mes: Jun/20; R$ bi: 216.963412181; Série: Somente FIDCs (ex-FIC-FIDCs); Competência: 2020-06; PL (R$ bi): 217.0" [ref=f2e249]'
+                          - 'generic "Symbol legend for stroke color and strokeDash with 2 values: FIDCs + FIC-FIDCs, Somente FIDCs (ex-FIC-FIDCs)" [ref=f2e250]':
+                            - generic [ref=f2e256]:
+                              - generic [ref=f2e257]: FIDCs + FIC-FIDCs
+                              - generic [ref=f2e259]: Somente FIDCs (ex-FIC-FIDCs)
+                          - generic [ref=f2e263]:
+                            - generic "Title text 'PL total e ex-FIC-FIDC'": PL total e ex-FIC-FIDC
+                    - group "Click to view actions"
+                - generic [ref=f2e273]:
+                  - generic [ref=f2e275]:
+                    - button "Show data" [ref=f2e278] [cursor=pointer]
+                    - button "Fullscreen" [ref=f2e284] [cursor=pointer]
+                  - generic [ref=f2e288]:
+                    - generic "Vega visualization" [ref=f2e289]:
+                      - img [ref=f2e290]:
+                        - generic [ref=f2e295]:
+                          - 'generic "X-axis for a discrete scale with 3 values: 2024, 2025, 2026YTD" [ref=f2e299]':
+                            - generic [ref=f2e301]:
+                              - generic:
+                                - generic: "2024"
+                                - generic: "2025"
+                                - generic: 2026YTD
+                          - generic "Y-axis titled 'R$ bi' for a linear scale with values from 0 to 65" [ref=f2e302]:
+                            - generic [ref=f2e304]:
+                              - generic:
+                                - generic: "0"
+                                - generic: "20"
+                                - generic: "40"
+                                - generic: "60"
+                              - generic: R$ bi
+                          - generic [ref=f2e305]:
+                            - 'generic "period: 2024; R$ bi: 55.8018269224; Série: Mercado" [ref=f2e306]'
+                            - 'generic "period: 2025; R$ bi: 62.2347174208; Série: Mercado" [ref=f2e307]'
+                            - 'generic "period: 2026YTD; R$ bi: 40.1279909367; Série: Mercado" [ref=f2e308]'
+                            - 'generic "period: 2024; R$ bi: 10.950623; Série: Itaú coordenador" [ref=f2e309]'
+                            - 'generic "period: 2025; R$ bi: 16.7138294536; Série: Itaú coordenador" [ref=f2e310]'
+                            - 'generic "period: 2026YTD; R$ bi: 6.710065806; Série: Itaú coordenador" [ref=f2e311]'
+                          - 'generic "Symbol legend titled '' '' for fill color with 2 values: Mercado, Itaú coordenador" [ref=f2e312]':
+                            - generic [ref=f2e318]:
+                              - generic [ref=f2e319]: Mercado
+                              - generic [ref=f2e321]: Itaú coordenador
+                          - generic [ref=f2e325]:
+                            - generic "Title text 'Ofertas acima de R$ 300 mi'": Ofertas acima de R$ 300 mi
+                    - group "Click to view actions"
+              - heading "Tendências estruturais" [level=2] [ref=f2e336]:
+                - text: Tendências estruturais
+                - generic [ref=f2e337]:
+                  - link "Link to heading":
+                    - /url: "#tendencias-estruturais"
+              - generic [ref=f2e339]:
+                - generic [ref=f2e341]:
+                  - paragraph [ref=f2e346]:
+                    - strong [ref=f2e347]: Captação líquida mensal
+                  - generic [ref=f2e350]:
+                    - generic [ref=f2e352]:
+                      - button "Show data" [ref=f2e355] [cursor=pointer]
+                      - button "Fullscreen" [ref=f2e361] [cursor=pointer]
+                    - generic [ref=f2e365]:
+                      - generic "Vega visualization" [ref=f2e366]:
+                        - img [ref=f2e367]:
+                          - generic [ref=f2e372]:
+                            - generic "X-axis for a time scale with values from May/22 to May/26" [ref=f2e376]:
+                              - generic [ref=f2e378]:
+                                - generic:
+                                  - generic: Jan/23
+                                  - generic: Jan/24
+                                  - generic: Jan/25
+                                  - generic: Jan/26
+                            - generic "Y-axis titled 'R$ bi' for a linear scale with values from −20 to 80" [ref=f2e379]:
+                              - generic [ref=f2e381]:
+                                - generic:
+                                  - generic: "0"
+                                  - generic: −20
+                                  - generic: "20"
+                                  - generic: "40"
+                                  - generic: "60"
+                                  - generic: "80"
+                                - generic: R$ bi
+                            - generic [ref=f2e382]:
+                              - 'generic "mes: Jun/22; R$ bi: −8.217196784; Sinal: saída líquida; Competência: 2022-06; Captação líquida (R$ bi): −8.22" [ref=f2e390]'
+                              - 'generic "mes: Jul/22; R$ bi: −19.6139596379; Sinal: saída líquida; Competência: 2022-07; Captação líquida (R$ bi): −19.61" [ref=f2e398]'
+                              - 'generic "mes: Aug/22; R$ bi: −9.87516101672; Sinal: saída líquida; Competência: 2022-08; Captação líquida (R$ bi): −9.88" [ref=f2e406]'
+                              - 'generic "mes: Sep/22; R$ bi: 4.83896733758; Sinal: entrada líquida; Competência: 2022-09; Captação líquida (R$ bi): 4.84" [ref=f2e414]'
+                              - 'generic "mes: Oct/22; R$ bi: 3.03602768636; Sinal: entrada líquida; Competência: 2022-10; Captação líquida (R$ bi): 3.04" [ref=f2e422]'
+                              - 'generic "mes: Nov/22; R$ bi: 17.3183702868; Sinal: entrada líquida; Competência: 2022-11; Captação líquida (R$ bi): 17.32" [ref=f2e430]'
+                              - 'generic "mes: Dec/22; R$ bi: 3.83102966979; Sinal: entrada líquida; Competência: 2022-12; Captação líquida (R$ bi): 3.83" [ref=f2e438]'
+                              - 'generic "mes: Jan/23; R$ bi: −2.66933721272; Sinal: saída líquida; Competência: 2023-01; Captação líquida (R$ bi): −2.67" [ref=f2e446]'
+                              - 'generic "mes: Feb/23; R$ bi: 1.98417711941; Sinal: entrada líquida; Competência: 2023-02; Captação líquida (R$ bi): 1.98" [ref=f2e454]'
+                              - 'generic "mes: Mar/23; R$ bi: 7.55726616855; Sinal: entrada líquida; Competência: 2023-03; Captação líquida (R$ bi): 7.56" [ref=f2e462]'
+                              - 'generic "mes: Apr/23; R$ bi: 11.8919117652; Sinal: entrada líquida; Competência: 2023-04; Captação líquida (R$ bi): 11.89" [ref=f2e470]'
+                              - 'generic "mes: May/23; R$ bi: −9.76454355753; Sinal: saída líquida; Competência: 2023-05; Captação líquida (R$ bi): −9.76" [ref=f2e478]'
+                              - 'generic "mes: Jun/23; R$ bi: 0.252826376667; Sinal: entrada líquida; Competência: 2023-06; Captação líquida (R$ bi): 0.25" [ref=f2e486]'
+                              - 'generic "mes: Jul/23; R$ bi: 9.65338700323; Sinal: entrada líquida; Competência: 2023-07; Captação líquida (R$ bi): 9.65" [ref=f2e494]'
+                              - 'generic "mes: Aug/23; R$ bi: −3.10251613106; Sinal: saída líquida; Competência: 2023-08; Captação líquida (R$ bi): −3.10" [ref=f2e502]'
+                              - 'generic "mes: Sep/23; R$ bi: 2.94424747351; Sinal: entrada líquida; Competência: 2023-09; Captação líquida (R$ bi): 2.94" [ref=f2e510]'
+                              - 'generic "mes: Oct/23; R$ bi: 16.0692344964; Sinal: entrada líquida; Competência: 2023-10; Captação líquida (R$ bi): 16.07" [ref=f2e518]'
+                              - 'generic "mes: Nov/23; R$ bi: 11.0939080486; Sinal: entrada líquida; Competência: 2023-11; Captação líquida (R$ bi): 11.09" [ref=f2e526]'
+                              - 'generic "mes: Dec/23; R$ bi: 12.2221139831; Sinal: entrada líquida; Competência: 2023-12; Captação líquida (R$ bi): 12.22" [ref=f2e534]'
+                              - 'generic "mes: Jan/24; R$ bi: 5.91330869702; Sinal: entrada líquida; Competência: 2024-01; Captação líquida (R$ bi): 5.91" [ref=f2e542]'
+                              - 'generic "mes: Feb/24; R$ bi: −2.31956378312; Sinal: saída líquida; Competência: 2024-02; Captação líquida (R$ bi): −2.32" [ref=f2e550]'
+                              - 'generic "mes: Mar/24; R$ bi: 6.96175813037; Sinal: entrada líquida; Competência: 2024-03; Captação líquida (R$ bi): 6.96" [ref=f2e558]'
+                              - 'generic "mes: Apr/24; R$ bi: 39.7751456026; Sinal: entrada líquida; Competência: 2024-04; Captação líquida (R$ bi): 39.78" [ref=f2e566]'
+                              - 'generic "mes: May/24; R$ bi: 2.56677101839; Sinal: entrada líquida; Competência: 2024-05; Captação líquida (R$ bi): 2.57" [ref=f2e574]'
+                              - 'generic "mes: Jun/24; R$ bi: 5.29612720567; Sinal: entrada líquida; Competência: 2024-06; Captação líquida (R$ bi): 5.30" [ref=f2e582]'
+                              - 'generic "mes: Jul/24; R$ bi: 48.0490748539; Sinal: entrada líquida; Competência: 2024-07; Captação líquida (R$ bi): 48.05" [ref=f2e590]'
+                              - 'generic "mes: Aug/24; R$ bi: 11.0610093963; Sinal: entrada líquida; Competência: 2024-08; Captação líquida (R$ bi): 11.06" [ref=f2e598]'
+                              - 'generic "mes: Sep/24; R$ bi: 9.45977584001; Sinal: entrada líquida; Competência: 2024-09; Captação líquida (R$ bi): 9.46" [ref=f2e606]'
+                              - 'generic "mes: Oct/24; R$ bi: 29.6175983123; Sinal: entrada líquida; Competência: 2024-10; Captação líquida (R$ bi): 29.62" [ref=f2e614]'
+                              - 'generic "mes: Nov/24; R$ bi: 44.7235565381; Sinal: entrada líquida; Competência: 2024-11; Captação líquida (R$ bi): 44.72" [ref=f2e622]'
+                              - 'generic "mes: Dec/24; R$ bi: 70.775541033; Sinal: entrada líquida; Competência: 2024-12; Captação líquida (R$ bi): 70.78" [ref=f2e630]'
+                              - 'generic "mes: Jan/25; R$ bi: −2.48833788959; Sinal: saída líquida; Competência: 2025-01; Captação líquida (R$ bi): −2.49" [ref=f2e638]'
+                              - 'generic "mes: Feb/25; R$ bi: 8.9287396687; Sinal: entrada líquida; Competência: 2025-02; Captação líquida (R$ bi): 8.93" [ref=f2e646]'
+                              - 'generic "mes: Mar/25; R$ bi: 8.11452494945; Sinal: entrada líquida; Competência: 2025-03; Captação líquida (R$ bi): 8.11" [ref=f2e654]'
+                              - 'generic "mes: Apr/25; R$ bi: 11.3773105643; Sinal: entrada líquida; Competência: 2025-04; Captação líquida (R$ bi): 11.38" [ref=f2e662]'
+                              - 'generic "mes: May/25; R$ bi: 14.1583104262; Sinal: entrada líquida; Competência: 2025-05; Captação líquida (R$ bi): 14.16" [ref=f2e670]'
+                              - 'generic "mes: Jun/25; R$ bi: 66.0047033561; Sinal: entrada líquida; Competência: 2025-06; Captação líquida (R$ bi): 66.00" [ref=f2e678]'
+                              - 'generic "mes: Jul/25; R$ bi: 10.1072034184; Sinal: entrada líquida; Competência: 2025-07; Captação líquida (R$ bi): 10.11" [ref=f2e686]'
+                              - 'generic "mes: Aug/25; R$ bi: 6.46205111565; Sinal: entrada líquida; Competência: 2025-08; Captação líquida (R$ bi): 6.46" [ref=f2e694]'
+                              - 'generic "mes: Sep/25; R$ bi: 10.6557704834; Sinal: entrada líquida; Competência: 2025-09; Captação líquida (R$ bi): 10.66" [ref=f2e702]'
+                              - 'generic "mes: Oct/25; R$ bi: 14.6537127358; Sinal: entrada líquida; Competência: 2025-10; Captação líquida (R$ bi): 14.65" [ref=f2e710]'
+                              - 'generic "mes: Nov/25; R$ bi: 5.65080150508; Sinal: entrada líquida; Competência: 2025-11; Captação líquida (R$ bi): 5.65" [ref=f2e718]'
+                              - 'generic "mes: Dec/25; R$ bi: 32.2000356278; Sinal: entrada líquida; Competência: 2025-12; Captação líquida (R$ bi): 32.20" [ref=f2e726]'
+                              - 'generic "mes: Jan/26; R$ bi: 6.53301901145; Sinal: entrada líquida; Competência: 2026-01; Captação líquida (R$ bi): 6.53" [ref=f2e734]'
+                              - 'generic "mes: Feb/26; R$ bi: 7.58537711701; Sinal: entrada líquida; Competência: 2026-02; Captação líquida (R$ bi): 7.59" [ref=f2e742]'
+                              - 'generic "mes: Mar/26; R$ bi: 22.3746784016; Sinal: entrada líquida; Competência: 2026-03; Captação líquida (R$ bi): 22.37" [ref=f2e750]'
+                              - 'generic "mes: Apr/26; R$ bi: 16.9753943885; Sinal: entrada líquida; Competência: 2026-04; Captação líquida (R$ bi): 16.98" [ref=f2e758]'
+                              - 'generic "mes: May/26; R$ bi: 20.3760972932; Sinal: entrada líquida; Competência: 2026-05; Captação líquida (R$ bi): 20.38" [ref=f2e766]'
+                            - 'generic "Symbol legend titled '' '' for fill color with 2 values: entrada líquida, saída líquida" [ref=f2e767]':
+                              - generic [ref=f2e773]:
+                                - generic [ref=f2e774]: entrada líquida
+                                - generic [ref=f2e776]: saída líquida
+                      - group "Click to view actions"
+                - generic [ref=f2e784]:
+                  - paragraph [ref=f2e789]:
+                    - strong [ref=f2e790]: Contas de cotistas
+                  - generic [ref=f2e793]:
+                    - generic [ref=f2e795]:
+                      - button "Show data" [ref=f2e798] [cursor=pointer]
+                      - button "Fullscreen" [ref=f2e804] [cursor=pointer]
+                    - generic [ref=f2e808]:
+                      - generic "Vega visualization" [ref=f2e809]:
+                        - img [ref=f2e810]:
+                          - generic [ref=f2e815]:
+                            - generic "X-axis for a time scale with values from June/20 to May/26" [ref=f2e819]:
+                              - generic [ref=f2e821]:
+                                - generic:
+                                  - generic: Jan/21
+                                  - generic: Jan/22
+                                  - generic: Jan/23
+                                  - generic: Jan/24
+                                  - generic: Jan/25
+                                  - generic: Jan/26
+                            - generic "Y-axis titled 'mil contas' for a linear scale with values from 0 to 450" [ref=f2e822]:
+                              - generic [ref=f2e824]:
+                                - generic:
+                                  - generic: "0"
+                                  - generic: "100"
+                                  - generic: "200"
+                                  - generic: "300"
+                                  - generic: "400"
+                                - generic: mil contas
+                            - 'generic "mes: Jun/20; mil contas: 28.777; Competência: 2020-06; Mil contas: 29" [ref=f2e826]'
+                            - generic [ref=f2e827]:
+                              - 'generic "mes: Jun/20; mil contas: 28.777; Competência: 2020-06; Mil contas: 29" [ref=f2e828]'
+                              - 'generic "mes: Jul/20; mil contas: 29.817; Competência: 2020-07; Mil contas: 30" [ref=f2e829]'
+                              - 'generic "mes: Aug/20; mil contas: 31.051; Competência: 2020-08; Mil contas: 31" [ref=f2e830]'
+                              - 'generic "mes: Sep/20; mil contas: 31.474; Competência: 2020-09; Mil contas: 31" [ref=f2e831]'
+                              - 'generic "mes: Oct/20; mil contas: 31.89; Competência: 2020-10; Mil contas: 32" [ref=f2e832]'
+                              - 'generic "mes: Nov/20; mil contas: 32.071; Competência: 2020-11; Mil contas: 32" [ref=f2e833]'
+                              - 'generic "mes: Dec/20; mil contas: 32.936; Competência: 2020-12; Mil contas: 33" [ref=f2e834]'
+                              - 'generic "mes: Jan/21; mil contas: 33.238; Competência: 2021-01; Mil contas: 33" [ref=f2e835]'
+                              - 'generic "mes: Feb/21; mil contas: 33.368; Competência: 2021-02; Mil contas: 33" [ref=f2e836]'
+                              - 'generic "mes: Mar/21; mil contas: 33.78; Competência: 2021-03; Mil contas: 34" [ref=f2e837]'
+                              - 'generic "mes: Apr/21; mil contas: 33.359; Competência: 2021-04; Mil contas: 33" [ref=f2e838]'
+                              - 'generic "mes: May/21; mil contas: 34.682; Competência: 2021-05; Mil contas: 35" [ref=f2e839]'
+                              - 'generic "mes: Jun/21; mil contas: 36.345; Competência: 2021-06; Mil contas: 36" [ref=f2e840]'
+                              - 'generic "mes: Jul/21; mil contas: 35.559; Competência: 2021-07; Mil contas: 36" [ref=f2e841]'
+                              - 'generic "mes: Aug/21; mil contas: 36.154; Competência: 2021-08; Mil contas: 36" [ref=f2e842]'
+                              - 'generic "mes: Sep/21; mil contas: 36.179; Competência: 2021-09; Mil contas: 36" [ref=f2e843]'
+                              - 'generic "mes: Oct/21; mil contas: 36.927; Competência: 2021-10; Mil contas: 37" [ref=f2e844]'
+                              - 'generic "mes: Nov/21; mil contas: 28.06; Competência: 2021-11; Mil contas: 28" [ref=f2e845]'
+                              - 'generic "mes: Dec/21; mil contas: 31.626; Competência: 2021-12; Mil contas: 32" [ref=f2e846]'
+                              - 'generic "mes: Jan/22; mil contas: 32.248; Competência: 2022-01; Mil contas: 32" [ref=f2e847]'
+                              - 'generic "mes: Feb/22; mil contas: 32.815; Competência: 2022-02; Mil contas: 33" [ref=f2e848]'
+                              - 'generic "mes: Mar/22; mil contas: 33.405; Competência: 2022-03; Mil contas: 33" [ref=f2e849]'
+                              - 'generic "mes: Apr/22; mil contas: 38.907; Competência: 2022-04; Mil contas: 39" [ref=f2e850]'
+                              - 'generic "mes: May/22; mil contas: 34.746; Competência: 2022-05; Mil contas: 35" [ref=f2e851]'
+                              - 'generic "mes: Jun/22; mil contas: 40.475; Competência: 2022-06; Mil contas: 40" [ref=f2e852]'
+                              - 'generic "mes: Jul/22; mil contas: 47.34; Competência: 2022-07; Mil contas: 47" [ref=f2e853]'
+                              - 'generic "mes: Aug/22; mil contas: 48.017; Competência: 2022-08; Mil contas: 48" [ref=f2e854]'
+                              - 'generic "mes: Sep/22; mil contas: 48.39; Competência: 2022-09; Mil contas: 48" [ref=f2e855]'
+                              - 'generic "mes: Oct/22; mil contas: 49.333; Competência: 2022-10; Mil contas: 49" [ref=f2e856]'
+                              - 'generic "mes: Nov/22; mil contas: 47.293; Competência: 2022-11; Mil contas: 47" [ref=f2e857]'
+                              - 'generic "mes: Dec/22; mil contas: 48.608; Competência: 2022-12; Mil contas: 49" [ref=f2e858]'
+                              - 'generic "mes: Jan/23; mil contas: 49.343; Competência: 2023-01; Mil contas: 49" [ref=f2e859]'
+                              - 'generic "mes: Feb/23; mil contas: 49.444; Competência: 2023-02; Mil contas: 49" [ref=f2e860]'
+                              - 'generic "mes: Mar/23; mil contas: 49.607; Competência: 2023-03; Mil contas: 50" [ref=f2e861]'
+                              - 'generic "mes: Apr/23; mil contas: 49.767; Competência: 2023-04; Mil contas: 50" [ref=f2e862]'
+                              - 'generic "mes: May/23; mil contas: 50.164; Competência: 2023-05; Mil contas: 50" [ref=f2e863]'
+                              - 'generic "mes: Jun/23; mil contas: 50.967; Competência: 2023-06; Mil contas: 51" [ref=f2e864]'
+                              - 'generic "mes: Jul/23; mil contas: 53.49; Competência: 2023-07; Mil contas: 53" [ref=f2e865]'
+                              - 'generic "mes: Aug/23; mil contas: 55.263; Competência: 2023-08; Mil contas: 55" [ref=f2e866]'
+                              - 'generic "mes: Sep/23; mil contas: 55.081; Competência: 2023-09; Mil contas: 55" [ref=f2e867]'
+                              - 'generic "mes: Oct/23; mil contas: 56.072; Competência: 2023-10; Mil contas: 56" [ref=f2e868]'
+                              - 'generic "mes: Nov/23; mil contas: 57.38; Competência: 2023-11; Mil contas: 57" [ref=f2e869]'
+                              - 'generic "mes: Dec/23; mil contas: 61.735; Competência: 2023-12; Mil contas: 62" [ref=f2e870]'
+                              - 'generic "mes: Jan/24; mil contas: 57.54; Competência: 2024-01; Mil contas: 58" [ref=f2e871]'
+                              - 'generic "mes: Feb/24; mil contas: 63.046; Competência: 2024-02; Mil contas: 63" [ref=f2e872]'
+                              - 'generic "mes: Mar/24; mil contas: 70.32; Competência: 2024-03; Mil contas: 70" [ref=f2e873]'
+                              - 'generic "mes: Apr/24; mil contas: 78.828; Competência: 2024-04; Mil contas: 79" [ref=f2e874]'
+                              - 'generic "mes: May/24; mil contas: 80.321; Competência: 2024-05; Mil contas: 80" [ref=f2e875]'
+                              - 'generic "mes: Jun/24; mil contas: 90.299; Competência: 2024-06; Mil contas: 90" [ref=f2e876]'
+                              - 'generic "mes: Jul/24; mil contas: 88.068; Competência: 2024-07; Mil contas: 88" [ref=f2e877]'
+                              - 'generic "mes: Aug/24; mil contas: 99.185; Competência: 2024-08; Mil contas: 99" [ref=f2e878]'
+                              - 'generic "mes: Sep/24; mil contas: 103.457; Competência: 2024-09; Mil contas: 103" [ref=f2e879]'
+                              - 'generic "mes: Oct/24; mil contas: 118.352; Competência: 2024-10; Mil contas: 118" [ref=f2e880]'
+                              - 'generic "mes: Nov/24; mil contas: 143.898; Competência: 2024-11; Mil contas: 144" [ref=f2e881]'
+                              - 'generic "mes: Dec/24; mil contas: 148.582; Competência: 2024-12; Mil contas: 149" [ref=f2e882]'
+                              - 'generic "mes: Jan/25; mil contas: 165.768; Competência: 2025-01; Mil contas: 166" [ref=f2e883]'
+                              - 'generic "mes: Feb/25; mil contas: 174.434; Competência: 2025-02; Mil contas: 174" [ref=f2e884]'
+                              - 'generic "mes: Mar/25; mil contas: 192.255; Competência: 2025-03; Mil contas: 192" [ref=f2e885]'
+                              - 'generic "mes: Apr/25; mil contas: 208.337; Competência: 2025-04; Mil contas: 208" [ref=f2e886]'
+                              - 'generic "mes: May/25; mil contas: 234.206; Competência: 2025-05; Mil contas: 234" [ref=f2e887]'
+                              - 'generic "mes: Jun/25; mil contas: 274.917; Competência: 2025-06; Mil contas: 275" [ref=f2e888]'
+                              - 'generic "mes: Jul/25; mil contas: 331.615; Competência: 2025-07; Mil contas: 332" [ref=f2e889]'
+                              - 'generic "mes: Aug/25; mil contas: 374.091; Competência: 2025-08; Mil contas: 374" [ref=f2e890]'
+                              - 'generic "mes: Sep/25; mil contas: 358.512; Competência: 2025-09; Mil contas: 359" [ref=f2e891]'
+                              - 'generic "mes: Oct/25; mil contas: 365.017; Competência: 2025-10; Mil contas: 365" [ref=f2e892]'
+                              - 'generic "mes: Nov/25; mil contas: 374.129; Competência: 2025-11; Mil contas: 374" [ref=f2e893]'
+                              - 'generic "mes: Dec/25; mil contas: 387.334; Competência: 2025-12; Mil contas: 387" [ref=f2e894]'
+                              - 'generic "mes: Jan/26; mil contas: 397; Competência: 2026-01; Mil contas: 397" [ref=f2e895]'
+                              - 'generic "mes: Feb/26; mil contas: 405.933; Competência: 2026-02; Mil contas: 406" [ref=f2e896]'
+                              - 'generic "mes: Mar/26; mil contas: 416.176; Competência: 2026-03; Mil contas: 416" [ref=f2e897]'
+                              - 'generic "mes: Apr/26; mil contas: 434.025; Competência: 2026-04; Mil contas: 434" [ref=f2e898]'
+                              - 'generic "mes: May/26; mil contas: 445.664; Competência: 2026-05; Mil contas: 446" [ref=f2e899]'
+                      - group "Click to view actions"
+                - generic [ref=f2e906]:
+                  - paragraph [ref=f2e911]:
+                    - strong [ref=f2e912]: Inadimplência da carteira
+                  - generic [ref=f2e915]:
+                    - generic [ref=f2e917]:
+                      - button "Show data" [ref=f2e920] [cursor=pointer]
+                      - button "Fullscreen" [ref=f2e926] [cursor=pointer]
+                    - generic [ref=f2e930]:
+                      - generic "Vega visualization" [ref=f2e931]:
+                        - img [ref=f2e932]:
+                          - generic [ref=f2e937]:
+                            - generic "X-axis for a time scale with values from June/20 to May/26" [ref=f2e941]:
+                              - generic [ref=f2e943]:
+                                - generic:
+                                  - generic: Jan/21
+                                  - generic: Jan/22
+                                  - generic: Jan/23
+                                  - generic: Jan/24
+                                  - generic: Jan/25
+                                  - generic: Jan/26
+                            - generic "Y-axis titled '% da carteira' for a linear scale with values from 0 to 24" [ref=f2e944]:
+                              - generic [ref=f2e946]:
+                                - generic:
+                                  - generic: "0"
+                                  - generic: "5"
+                                  - generic: "10"
+                                  - generic: "15"
+                                  - generic: "20"
+                                - generic: "% da carteira"
+                            - generic [ref=f2e947]:
+                              - 'generic "mes: Jun/20; % da carteira: 5.50481879899; Série: Ajustada; Competência: 2020-06; %: 5.5" [ref=f2e952]'
+                              - 'generic "mes: Jun/20; % da carteira: 21.1694008871; Série: Bruta; Competência: 2020-06; %: 21.2" [ref=f2e957]'
+                            - 'generic "Symbol legend titled '' '' for stroke color with 2 values: Ajustada, Bruta" [ref=f2e958]':
+                              - generic [ref=f2e964]:
+                                - generic [ref=f2e965]: Ajustada
+                                - generic [ref=f2e967]: Bruta
+                      - group "Click to view actions"
+              - generic [ref=f2e978]:
+                - strong [ref=f2e979]: Junho/26 é prévia
+                - generic [ref=f2e980]: 1.990 veículos · R$ 336,9 bi de PL · 47,1% dos veículos e 35,2% do PL da competência anterior. Rankings e KPIs consolidados permanecem em maio/26.
+        - button "Scroll tabs right" [ref=f2e981] [cursor=pointer]

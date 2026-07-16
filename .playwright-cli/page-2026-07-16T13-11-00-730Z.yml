@@ -1,0 +1,69 @@
+- generic [ref=f6e3]:
+  - banner
+  - generic [ref=f6e6]:
+    - generic [ref=f6e11]:
+      - generic [ref=f6e12]: tomaconta fidcs
+      - generic [ref=f6e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f6e16]:
+      - button [ref=f6e81] [cursor=pointer]:
+        - paragraph [ref=f6e85]: Sobre
+      - button [ref=f6e86] [cursor=pointer]:
+        - paragraph [ref=f6e90]: Indústria
+      - button [ref=f6e91] [cursor=pointer]:
+        - paragraph [ref=f6e95]: Secundário
+      - button [ref=f6e96] [cursor=pointer]:
+        - paragraph [ref=f6e100]: Carteira
+      - button [ref=f6e101] [cursor=pointer]:
+        - paragraph [ref=f6e105]: Regulamentos
+      - button [ref=f6e106] [cursor=pointer]:
+        - paragraph [ref=f6e110]: Cloudwalk
+      - button [ref=f6e111] [cursor=pointer]:
+        - paragraph [ref=f6e115]: Glossário
+      - button [ref=f6e116] [cursor=pointer]:
+        - paragraph [ref=f6e120]: Modelagem
+    - generic [ref=f6e122]:
+      - generic [ref=f6e125]:
+        - heading "Carteira" [level=1] [ref=f6e126]
+        - paragraph [ref=f6e127]: Risco, retorno e documentação das seleções salvas.
+      - generic [ref=f6e129]:
+        - radiogroup "button group" [ref=f6e134]:
+          - button [ref=f6e135] [cursor=pointer]:
+            - paragraph [ref=f6e139]: 3M
+          - button [ref=f6e140] [cursor=pointer]:
+            - paragraph [ref=f6e144]: 6M
+          - button [ref=f6e145] [cursor=pointer]:
+            - paragraph [ref=f6e149]: 9M
+          - button [ref=f6e150] [cursor=pointer]:
+            - paragraph [ref=f6e154]: 12M
+          - button [ref=f6e155] [cursor=pointer]:
+            - paragraph [ref=f6e159]: 24M
+          - button [ref=f6e160] [cursor=pointer]:
+            - paragraph [ref=f6e164]: 36M
+        - button "tune Personalizar" [ref=f6e169] [cursor=pointer]:
+          - generic [ref=f6e171]:
+            - generic [ref=f6e172]: tune
+            - paragraph [ref=f6e175]: Personalizar
+      - paragraph [ref=f6e180]: jul-25 → jun-26
+      - generic [ref=f6e188]:
+        - generic [ref=f6e189]:
+          - generic [ref=f6e190]: MELI (FIDCs Mercado Crédito 0, I e II)
+          - combobox "Selected MELI (FIDCs Mercado Crédito 0, I e II). Seleção ativa" [ref=f6e192]
+        - img "open" [ref=f6e194]
+      - group [ref=f6e198]:
+        - generic "keyboard_arrow_right Gerenciar carteiras salvas" [ref=f6e199] [cursor=pointer]:
+          - generic [ref=f6e200]:
+            - generic [ref=f6e201]: keyboard_arrow_right
+            - paragraph [ref=f6e205]: Gerenciar carteiras salvas
+      - status [ref=f6e206]:
+        - generic [ref=f6e207]:
+          - strong [ref=f6e208]: Atualizando carteira
+          - generic [ref=f6e209]: MELI (FIDCs Mercado Crédito 0, I e II) · 07/2025 a 06/2026
+      - generic [ref=f6e211]:
+        - generic [ref=f6e216]:
+          - generic [ref=f6e217]: MELI (FIDCs Mercado Crédito 0, I e II)
+          - generic [ref=f6e218]: 07/2025 a 06/2026
+        - heading "Diagnóstico da carteira" [level=2] [ref=f6e226]:
+          - text: Diagnóstico da carteira
+          - generic [ref=f6e227]:
+            - link "Link to heading":
+              - /url: "#diagnostico-da-carteira"

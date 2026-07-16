@@ -1,0 +1,8 @@
+Task mode: create
+Primary deck-profile: finance-ir
+Secondary gates: template-quality reference from attached Itaú BBA screenshots; source-led audit of regulatory documents and deep-dive tables.
+Required proof objects: audit exceptions table; corrected volumes/costs by FIDC/tranche; debtor/authorized institution summary; accounting flow and balance sheet bridge.
+Source requirements: use CVM/regulatory PDFs in data/raw, local regulatory extraction JSONs, and deep_dive CSVs. Treat user-provided CDI+ for Big Picture I-IV as manual input unless the spread is found in downloaded PDFs.
+Brand/design constraints: Itaú BBA-like palette with black headers, orange accents, gray tables, restrained rounded panels, dense executive layout.
+QA gates: generated PPTX opens, renders with QuickLook, all slides have source footers, inconsistencies are explicit rather than hidden.
+Known missing inputs: exact CloudWalk IP accounting source file behind IMG_6903 is not present locally; slide uses the public balance values visible in the attached screenshot and labels them as published/KPMG.

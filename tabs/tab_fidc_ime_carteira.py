@@ -36,6 +36,19 @@ from tabs.ime_portfolio_support import (
 
 PARTIAL_CACHE_STATUSES = {"partial_hit", "github_cache_partial"}
 
+PORTFOLIO_ENTRY_SAVED = "Carteira salva"
+PORTFOLIO_ENTRY_CNPJ = "CNPJ específico"
+PORTFOLIO_ENTRY_NEW = "Nova carteira"
+PORTFOLIO_ENTRY_OPTIONS = (
+    PORTFOLIO_ENTRY_SAVED,
+    PORTFOLIO_ENTRY_CNPJ,
+    PORTFOLIO_ENTRY_NEW,
+)
+_PORTFOLIO_ANALYSIS_CONTEXT_KEY = "ime_portfolio_analysis_context"
+_PORTFOLIO_ENTRY_MODE_KEY = "ime_portfolio_entry_mode"
+_PENDING_PORTFOLIO_ENTRY_MODE_KEY = "ime_portfolio_pending_entry_mode"
+_TEMPORARY_PORTFOLIO_ID_PREFIX = "adhoc-cnpj-"
+
 
 def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> None:
     if period is None:
@@ -64,8 +77,29 @@ def render_portfolio_control_panel(
 ) -> tuple[PortfolioRecord | None, bool]:
     _apply_pending_portfolio_selection()
 
-    portfolios = list_saved_portfolios()
-    catalog_df = load_fidc_catalog_cached()
+    portfolio_status = st.empty()
+    portfolio_status.info("Carregando carteiras salvas...", icon=":material/folder_open:")
+    portfolio_store_error: Exception | None = None
+    try:
+        portfolios = list_saved_portfolios()
+    except Exception as exc:  # noqa: BLE001 - a consulta avulsa deve continuar disponível
+        portfolios = []
+        portfolio_store_error = exc
+    finally:
+        portfolio_status.empty()
+
+    selected_portfolio = _resolve_active_analysis_portfolio(
+        portfolios=portfolios,
+        catalog_df=_empty_fidc_catalog(),
+    )
+    if selected_portfolio is None:
+        _render_portfolio_entry_panel(
+            portfolios=portfolios,
+            portfolio_store_error=portfolio_store_error,
+        )
+        return None, False
+
+    _render_active_analysis_bar(selected_portfolio)
 
     editor_mode = _normalize_portfolio_editor_mode(
         st.session_state.get("ime_portfolio_editor_mode"),
@@ -73,35 +107,27 @@ def render_portfolio_control_panel(
     )
     st.session_state["ime_portfolio_editor_mode"] = editor_mode
     editor_open_key = "ime_portfolio_editor_open"
-    if not portfolios:
-        st.session_state[editor_open_key] = True
+    preload_clicked = False
+    if show_load_button:
+        preload_clicked = st.button(
+            load_button_label,
+            type="secondary",
+            key=load_button_key,
+        )
 
-    if portfolios:
-        try:
-            sel_col, btn_col = st.columns([4.0, 1.35], vertical_alignment="bottom")
-        except TypeError:
-            sel_col, btn_col = st.columns([4.0, 1.35])
-        with sel_col:
-            selected_portfolio = _render_portfolio_selector(portfolios)
-        with btn_col:
-            if show_load_button:
-                preload_clicked = st.button(
-                    load_button_label,
-                    type="secondary",
-                    key=load_button_key,
-                    use_container_width=True,
-                )
-            else:
-                preload_clicked = False
-    else:
-        selected_portfolio = None
-        preload_clicked = False
+    selected_saved_portfolio = next(
+        (portfolio for portfolio in portfolios if portfolio.id == selected_portfolio.id),
+        None,
+    )
+    catalog_df = _empty_fidc_catalog()
+    if selected_saved_portfolio is not None or st.session_state.get(editor_open_key, False):
+        catalog_df = _load_fidc_catalog_for_ui()
 
     def _render_portfolio_management_actions() -> None:
         action_cols = st.columns(2)
         with action_cols[0]:
             if st.button(
-                "Criar nova seleção",
+                "Criar nova carteira",
                 key="ime_portfolio_new_button",
                 use_container_width=True,
             ):
@@ -111,9 +137,10 @@ def render_portfolio_control_panel(
                 st.rerun()
         with action_cols[1]:
             if st.button(
-                "Editar seleção atual",
+                "Editar carteira atual",
                 key="ime_portfolio_edit_button",
                 use_container_width=True,
+                disabled=selected_saved_portfolio is None,
             ):
                 st.session_state["ime_portfolio_editor_mode"] = "edit"
                 st.session_state[editor_open_key] = True
@@ -124,22 +151,277 @@ def render_portfolio_control_panel(
         _render_portfolio_editor(
             portfolios=portfolios,
             catalog_df=catalog_df,
-            selected_portfolio=selected_portfolio,
+            selected_portfolio=selected_saved_portfolio,
             editor_mode=editor_mode,
+            activate_on_save=editor_mode == "create",
         )
     if portfolios:
         render_saved_portfolio_delete_manager(
             portfolios=portfolios,
             key_prefix="ime_portfolio",
-            selected_portfolio_id=selected_portfolio.id if selected_portfolio is not None else None,
+            selected_portfolio_id=selected_saved_portfolio.id if selected_saved_portfolio is not None else None,
             on_delete=_handle_deleted_portfolio,
             render_actions=_render_portfolio_management_actions,
         )
 
-    if selected_portfolio is not None:
+    if not _is_temporary_portfolio(selected_portfolio):
         selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
 
     return selected_portfolio, preload_clicked
+
+
+def _render_portfolio_entry_panel(
+    *,
+    portfolios: list[PortfolioRecord],
+    portfolio_store_error: Exception | None = None,
+) -> None:
+    default_mode = PORTFOLIO_ENTRY_SAVED if portfolios else PORTFOLIO_ENTRY_CNPJ
+    pending_mode = st.session_state.pop(_PENDING_PORTFOLIO_ENTRY_MODE_KEY, None)
+    if pending_mode in PORTFOLIO_ENTRY_OPTIONS:
+        st.session_state[_PORTFOLIO_ENTRY_MODE_KEY] = pending_mode
+    current_mode = st.session_state.get(_PORTFOLIO_ENTRY_MODE_KEY)
+    if current_mode not in PORTFOLIO_ENTRY_OPTIONS:
+        st.session_state[_PORTFOLIO_ENTRY_MODE_KEY] = default_mode
+
+    with st.container(border=True):
+        st.markdown("#### Escolha o que analisar")
+        st.caption("Carregue uma carteira salva, consulte um CNPJ sem cadastro ou crie uma nova carteira.")
+        if portfolio_store_error is not None:
+            st.warning("Não foi possível acessar as carteiras salvas agora. A consulta por CNPJ continua disponível.")
+            if diagnostics_enabled():
+                st.caption(f"Diagnóstico do armazenamento: {portfolio_store_error}")
+        mode = st.segmented_control(
+            "Forma de acesso",
+            options=PORTFOLIO_ENTRY_OPTIONS,
+            key=_PORTFOLIO_ENTRY_MODE_KEY,
+            selection_mode="single",
+            required=True,
+            width="stretch",
+            label_visibility="collapsed",
+        )
+        mode = mode if mode in PORTFOLIO_ENTRY_OPTIONS else default_mode
+
+        if mode == PORTFOLIO_ENTRY_SAVED:
+            _render_saved_portfolio_entry(portfolios)
+        elif mode == PORTFOLIO_ENTRY_CNPJ:
+            _render_direct_cnpj_entry(_catalog_from_saved_portfolios(portfolios))
+        else:
+            catalog_df = _load_fidc_catalog_for_ui()
+            _render_portfolio_editor(
+                portfolios=portfolios,
+                catalog_df=catalog_df,
+                selected_portfolio=None,
+                editor_mode="create",
+                activate_on_save=True,
+            )
+
+
+def _empty_fidc_catalog() -> pd.DataFrame:
+    return pd.DataFrame(columns=["cnpj_fundo", "nome_fundo", "situacao"])
+
+
+def _catalog_from_saved_portfolios(portfolios: list[PortfolioRecord]) -> pd.DataFrame:
+    rows = [
+        {
+            "cnpj_fundo": fund.cnpj,
+            "nome_fundo": normalize_portfolio_fund_name(fund.display_name, fund.cnpj),
+            "situacao": "",
+        }
+        for portfolio in portfolios
+        for fund in portfolio.funds
+    ]
+    if not rows:
+        return _empty_fidc_catalog()
+    return pd.DataFrame(rows).drop_duplicates(subset=["cnpj_fundo"], keep="last").reset_index(drop=True)
+
+
+def _load_fidc_catalog_for_ui() -> pd.DataFrame:
+    with st.spinner("Carregando catálogo de FIDCs...", show_time=True):
+        try:
+            return load_fidc_catalog_cached()
+        except Exception as exc:  # noqa: BLE001 - CNPJ manual continua funcional sem catálogo
+            st.warning("O catálogo da CVM não respondeu. Você ainda pode informar CNPJs manualmente.")
+            if diagnostics_enabled():
+                st.caption(f"Diagnóstico do catálogo: {exc}")
+            return _empty_fidc_catalog()
+
+
+def _render_saved_portfolio_entry(portfolios: list[PortfolioRecord]) -> None:
+    if not portfolios:
+        st.info("Ainda não há carteiras salvas. Use um CNPJ específico ou crie a primeira carteira.")
+        return
+
+    options = [portfolio.id for portfolio in portfolios]
+    label_lookup = _build_portfolio_selector_label_lookup(portfolios)
+    select_col, action_col = st.columns([4.0, 1.35], vertical_alignment="bottom")
+    with select_col:
+        selected_id = st.selectbox(
+            "Carteira salva",
+            options=options,
+            index=None,
+            key="ime_portfolio_entry_saved_id",
+            placeholder="Selecione a carteira que deseja carregar",
+            format_func=lambda value: label_lookup.get(value, value),
+        )
+    with action_col:
+        load_clicked = st.button(
+            "Carregar carteira",
+            key="ime_portfolio_entry_saved_load",
+            type="primary",
+            width="stretch",
+            disabled=selected_id is None,
+        )
+    availability_label = "disponível" if len(portfolios) == 1 else "disponíveis"
+    st.caption(f"{len(portfolios)} carteira{'s' if len(portfolios) != 1 else ''} {availability_label}.")
+    if load_clicked and selected_id is not None:
+        _set_active_analysis_context(kind="saved", value=str(selected_id))
+        st.session_state["ime_portfolio_active_id"] = str(selected_id)
+        st.rerun()
+
+
+def _render_direct_cnpj_entry(catalog_df: pd.DataFrame) -> None:
+    with st.form("ime_portfolio_direct_cnpj_form", clear_on_submit=False):
+        input_col, action_col = st.columns([4.0, 1.35], vertical_alignment="bottom")
+        with input_col:
+            raw_cnpj = st.text_input(
+                "CNPJ do fundo",
+                placeholder="00.000.000/0000-00",
+                key="ime_portfolio_direct_cnpj",
+                help="A consulta é temporária e não cria uma carteira salva.",
+            )
+        with action_col:
+            submit_clicked = st.form_submit_button(
+                "Analisar CNPJ",
+                type="primary",
+                width="stretch",
+            )
+    st.caption("Consulta avulsa. Nada será salvo na lista de carteiras.")
+    if not submit_clicked:
+        return
+    try:
+        temporary = build_temporary_portfolio_from_cnpj(raw_cnpj, catalog_df=catalog_df)
+    except ValueError as exc:
+        st.error(str(exc))
+        return
+    _set_active_analysis_context(
+        kind="cnpj",
+        value=temporary.funds[0].cnpj,
+        display_name=temporary.name,
+    )
+    st.rerun()
+
+
+def _render_active_analysis_bar(selected_portfolio: PortfolioRecord) -> None:
+    kind_label = "CNPJ específico" if _is_temporary_portfolio(selected_portfolio) else "Carteira salva"
+    fund_count = len(selected_portfolio.funds)
+    with st.container(border=True):
+        detail_col, action_col = st.columns([5.0, 1.2], vertical_alignment="center")
+        with detail_col:
+            st.markdown(f"**{selected_portfolio.name}**")
+            st.caption(f"{kind_label} | {fund_count} fundo{'s' if fund_count != 1 else ''}")
+        with action_col:
+            if st.button(
+                "Trocar análise",
+                key="ime_portfolio_change_analysis",
+                icon=":material/swap_horiz:",
+                width="stretch",
+            ):
+                _clear_active_analysis_context()
+                st.rerun()
+
+
+def build_temporary_portfolio_from_cnpj(
+    raw_cnpj: str,
+    *,
+    catalog_df: pd.DataFrame | None = None,
+) -> PortfolioRecord:
+    digits = "".join(character for character in str(raw_cnpj or "") if character.isdigit())
+    if not _is_valid_cnpj(digits):
+        raise ValueError("Informe um CNPJ válido, incluindo os dígitos verificadores.")
+    funds = build_portfolio_funds_from_cnpjs([digits], catalog_df)
+    if not funds:
+        raise ValueError("Não foi possível preparar a consulta para este CNPJ.")
+    fund = funds[0]
+    return PortfolioRecord(
+        id=f"{_TEMPORARY_PORTFOLIO_ID_PREFIX}{digits}",
+        name=normalize_portfolio_fund_name(fund.display_name, fund.cnpj),
+        funds=(fund,),
+        created_at="",
+        updated_at="",
+        notes="Consulta temporária por CNPJ",
+    )
+
+
+def _is_valid_cnpj(value: str) -> bool:
+    digits = "".join(character for character in str(value or "") if character.isdigit())
+    if len(digits) != 14 or len(set(digits)) == 1:
+        return False
+
+    def _check_digit(base: str, weights: tuple[int, ...]) -> str:
+        remainder = sum(int(character) * weight for character, weight in zip(base, weights)) % 11
+        return "0" if remainder < 2 else str(11 - remainder)
+
+    first = _check_digit(digits[:12], (5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2))
+    second = _check_digit(digits[:12] + first, (6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2))
+    return digits[-2:] == first + second
+
+
+def _is_temporary_portfolio(portfolio: PortfolioRecord) -> bool:
+    return str(portfolio.id).startswith(_TEMPORARY_PORTFOLIO_ID_PREFIX)
+
+
+def _set_active_analysis_context(*, kind: str, value: str, display_name: str | None = None) -> None:
+    context = {
+        "kind": str(kind),
+        "value": str(value),
+    }
+    if str(display_name or "").strip():
+        context["display_name"] = str(display_name).strip()
+    st.session_state[_PORTFOLIO_ANALYSIS_CONTEXT_KEY] = context
+    st.session_state["ime_portfolio_editor_open"] = False
+
+
+def _clear_active_analysis_context() -> None:
+    st.session_state.pop(_PORTFOLIO_ANALYSIS_CONTEXT_KEY, None)
+    st.session_state.pop("portfolio_page_context_signature", None)
+    st.session_state["ime_portfolio_editor_open"] = False
+
+
+def _resolve_active_analysis_portfolio(
+    *,
+    portfolios: list[PortfolioRecord],
+    catalog_df: pd.DataFrame,
+) -> PortfolioRecord | None:
+    context = st.session_state.get(_PORTFOLIO_ANALYSIS_CONTEXT_KEY)
+    if not isinstance(context, dict):
+        return None
+    kind = str(context.get("kind") or "")
+    value = str(context.get("value") or "")
+    if kind == "saved":
+        selected = next((portfolio for portfolio in portfolios if portfolio.id == value), None)
+        if selected is None:
+            _clear_active_analysis_context()
+        return selected
+    if kind == "cnpj":
+        try:
+            temporary = build_temporary_portfolio_from_cnpj(value, catalog_df=catalog_df)
+        except ValueError:
+            _clear_active_analysis_context()
+            return None
+        stored_display_name = str(context.get("display_name") or "").strip()
+        if not stored_display_name:
+            return temporary
+        display_name = normalize_portfolio_fund_name(stored_display_name, value)
+        return PortfolioRecord(
+            id=temporary.id,
+            name=display_name,
+            funds=(PortfolioFund(cnpj=temporary.funds[0].cnpj, display_name=display_name),),
+            created_at=temporary.created_at,
+            updated_at=temporary.updated_at,
+            notes=temporary.notes,
+        )
+    _clear_active_analysis_context()
+    return None
 
 
 def load_portfolio_ime_data(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection) -> dict[str, Any]:
@@ -191,6 +473,7 @@ def _render_portfolio_editor(
     catalog_df: pd.DataFrame,
     selected_portfolio: PortfolioRecord | None,
     editor_mode: str,
+    activate_on_save: bool = False,
 ) -> None:
     target = selected_portfolio if editor_mode == "edit" and selected_portfolio is not None else None
     mode_suffix = target.id if target is not None else "new"
@@ -201,12 +484,12 @@ def _render_portfolio_editor(
         for portfolio_fund in (target.funds if target is not None else ())
     ]
     st.markdown(
-        f"**{'Criar nova seleção' if target is None else 'Editar seleção atual'}**",
+        f"**{'Criar nova carteira' if target is None else 'Editar carteira atual'}**",
     )
 
     with st.form(f"ime_portfolio_editor_form::{mode_suffix}", clear_on_submit=False):
         name = st.text_input(
-            "Nome da seleção",
+            "Nome da carteira",
             value=target.name if target is not None else "",
             placeholder="Ex.: Crédito High Yield",
             key=f"ime_portfolio_name::{mode_suffix}",
@@ -216,6 +499,7 @@ def _render_portfolio_editor(
                 "Fundos",
                 options=option_labels,
                 default=default_labels,
+                placeholder="Busque por nome ou CNPJ",
                 help="Até 20 FIDCs. Busca usa o cadastro público da CVM.",
                 key=f"ime_portfolio_funds::{mode_suffix}",
             )
@@ -235,11 +519,15 @@ def _render_portfolio_editor(
             key=f"ime_portfolio_cnpjs::{mode_suffix}",
         )
         cols = st.columns([1.2, 1.2, 3])
-        save_label = "Atualizar seleção" if target is not None else "Salvar nova seleção"
+        save_label = "Atualizar carteira" if target is not None else "Salvar nova carteira"
         save_clicked = cols[0].form_submit_button(save_label, type="primary")
         cancel_clicked = cols[1].form_submit_button("Cancelar")
 
     if cancel_clicked:
+        if activate_on_save:
+            st.session_state[_PENDING_PORTFOLIO_ENTRY_MODE_KEY] = (
+                PORTFOLIO_ENTRY_SAVED if portfolios else PORTFOLIO_ENTRY_CNPJ
+            )
         st.session_state["ime_portfolio_editor_mode"] = "edit" if portfolios else "create"
         st.session_state["ime_portfolio_editor_open"] = False if portfolios else True
         _reset_new_portfolio_form_state()
@@ -247,7 +535,7 @@ def _render_portfolio_editor(
 
     if save_clicked:
         if not name:
-            st.warning("Informe um nome para a seleção.")
+            st.warning("Informe um nome para a carteira.")
             return
         funds = [option_lookup[label] for label in selected_labels]
         funds.extend(build_portfolio_funds_from_cnpjs(manual_cnpjs.splitlines(), catalog_df))
@@ -269,15 +557,17 @@ def _render_portfolio_editor(
         except ValueError as exc:
             st.warning(str(exc))
             return
+        if activate_on_save:
+            _set_active_analysis_context(kind="saved", value=stored.id)
         _queue_portfolio_selection(stored.id)
         st.session_state["ime_portfolio_editor_mode"] = "edit"
         st.session_state["ime_portfolio_editor_open"] = False
         _reset_new_portfolio_form_state()
-        st.toast(f"Seleção '{stored.name}' salva ({len(stored.funds)} fundo(s)).")
+        st.toast(f"Carteira '{stored.name}' salva ({len(stored.funds)} fundo(s)).")
         st.rerun()
 
     if target is not None:
-        if st.button("Excluir seleção", key="ime_portfolio_delete_button"):
+        if st.button("Excluir carteira", key="ime_portfolio_delete_button"):
             delete_portfolio_record(target.id)
             _clear_portfolio_runtime_states(target.id)
             _queue_portfolio_selection(None, clear=True)
@@ -1279,6 +1569,9 @@ def _handle_deleted_portfolio(portfolio_id: str) -> None:
     _clear_portfolio_runtime_states(portfolio_id)
     if st.session_state.get("ime_portfolio_active_id") == portfolio_id:
         _queue_portfolio_selection(None, clear=True)
+    context = st.session_state.get(_PORTFOLIO_ANALYSIS_CONTEXT_KEY)
+    if isinstance(context, dict) and context.get("kind") == "saved" and context.get("value") == portfolio_id:
+        _clear_active_analysis_context()
     st.session_state["ime_portfolio_editor_open"] = False
     st.session_state["ime_portfolio_editor_mode"] = "edit"
 
@@ -1368,12 +1661,20 @@ def _sync_portfolio_fund_names_from_results(
         return None
     updated_portfolio = PortfolioRecord(
         id=selected_portfolio.id,
-        name=selected_portfolio.name,
+        name=updated_funds[0].display_name if _is_temporary_portfolio(selected_portfolio) else selected_portfolio.name,
         funds=tuple(updated_funds),
         created_at=selected_portfolio.created_at,
         updated_at=_utc_now_iso(),
         notes=selected_portfolio.notes,
     )
+    if _is_temporary_portfolio(selected_portfolio):
+        context = st.session_state.get(_PORTFOLIO_ANALYSIS_CONTEXT_KEY)
+        if isinstance(context, dict) and str(context.get("value") or "") == updated_funds[0].cnpj:
+            st.session_state[_PORTFOLIO_ANALYSIS_CONTEXT_KEY] = {
+                **context,
+                "display_name": updated_funds[0].display_name,
+            }
+        return updated_portfolio
     try:
         return save_portfolio_record(updated_portfolio)
     except ValueError as exc:

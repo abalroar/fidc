@@ -1,100 +1,101 @@
 # Métricas estruturais e de liquidez
 
-Toda métrica precisa de nome, fórmula, nível, data, unidade e fonte. O mesmo rótulo pode representar cálculos contratuais diferentes.
+Esta é uma **ordem de leitura sugerida** para a cota protegida. A família do recebível pode mudar a prioridade. Toda métrica precisa indicar **pergunta, fórmula, nível, data, unidade e fonte**.
 
-## Patrimônio líquido
+**PL** significa **patrimônio líquido**. Em toda razão, use o PL da classe correta.
 
-`PL = ativos reconhecidos − passivos reconhecidos`
+## 1. Subordinação
 
-Unidade: moeda. Identifique se é PL da classe, valor atribuído a subclasse/série ou agregado analítico do fundo. Somar classes serve ao ranking de `cnpj_fundo`, mas não cria fungibilidade entre patrimônios segregados.
+- **Pergunta:** quanto patrimônio está abaixo da camada analisada na prioridade contratual?
+- **Índice contratual:** `valor computável da subclasse subordinada / PL da classe`.
+- **Aproximação pelo Informe Mensal:** `(PL mezanino + PL subordinado residual) / PL total reportado`.
+- **Por que importa:** é a primeira camada patrimonial disponível para absorver resultados e perdas na ordem definida.
+- **Limitação:** a aproximação pode não reproduzir a fórmula do regulamento, a série aplicável, os ajustes ou a data do teste.
 
-## Alocação em direitos creditórios
+## 2. Cobertura de ativos
 
-Convenção simples:
+- **Pergunta:** os ativos admitidos no teste cobrem as obrigações protegidas?
+- **Forma geral:** `ativos elegíveis ajustados / obrigações protegidas`.
+- **Numerador:** direitos que entram no teste depois de descontos, limites e exclusões.
+- **Denominador:** principal, remuneração, despesas, reservas ou outros passivos definidos.
+- **Por que importa:** conecta qualidade e quantidade dos ativos à obrigação que a classe precisa honrar.
+- **Limitação:** “1,20x” em dois fundos só é comparável depois de reconciliar numerador, passivo, data e consequência.
 
-`alocação = direitos creditórios computáveis / PL da classe`
+## 3. Concentração
 
-A regra regulatória do art. 44 usa critério e prazo próprios; uma meta contratual pode usar direitos elegíveis, valor presente ou excluir parcelas. Regra normativa, meta de aquisição e gatilho de evento são registros separados.
+- **Pergunta:** qual evento isolado pode atingir parcela material da carteira?
+- **Forma geral:** `exposição computável ao fator i / base contratual`.
+- **Fatores comuns:** devedor, grupo econômico, cedente, originador, garantidor, convênio, arranjo, setor, região, produto ou vencimento.
+- **Por que importa:** uma carteira com milhares de contratos pode continuar dependente de um único pagador, prestador ou canal.
+- **Limitação:** concentração no maior segmento da Tabela II não substitui concentração por contraparte.
 
-## Subordinação reportada
-
-Proxy do painel:
-
-`subordinação reportada = (PL mezanino + PL subordinado residual) / PL total reportado`
-
-Unidade: %. Não é automaticamente o índice contratual do art. 2º, XV, que se refere à subclasse e ao PL da classe conforme o regulamento.
-
-## Índice de cobertura
-
-Forma ilustrativa:
-
-`cobertura = ativos elegíveis ajustados / obrigações protegidas`
-
-Numerador, haircuts, reservas, passivos, juros acumulados e threshold variam. Nunca compare “1,20x” de dois fundos sem reconciliar as fórmulas.
-
-## Concentração
-
-`concentração_i = exposição computável ao fator i / base contratual`
-
-O fator pode ser devedor, grupo, cedente, originador, garantidor, setor ou prazo. A participação dominante da Tabela II é outra métrica:
-
-`maior segmento / total reportado na Tabela II`
-
-Ela não mede concentração individual.
-
-## Reserva
-
-`cobertura da reserva = saldo de ativos da reserva / necessidade-alvo`
-
-Defina tipo de reserva, ativos admitidos, necessidade-alvo, data, saque e recomposição. Caixa total não é numerador válido sem vínculo contratual.
-
-## Excesso de spread
-
-Uma aproximação econômica por período:
-
-`receita da carteira − perdas − despesas − custo das cotas protegidas − outros encargos`
-
-Pode ser expresso em moeda ou taxa. Precisa refletir pré-pagamento, atraso, recuperação e calendário. “Taxa média da carteira menos benchmark” é proxy incompleto.
-
-## Liquidez e descasamento
+## 4. Liquidez e descasamento
 
 ### Caixa disponível
 
-`caixa disponível / saídas previstas na janela`
+- **Pergunta:** há caixa utilizável para as saídas da janela?
+- **Fórmula:** `caixa e ativos líquidos admitidos / saídas previstas na janela`.
+- **Por que importa:** proteção patrimonial não paga uma obrigação se o dinheiro chegar depois.
+- **Limitação:** reserva vinculada ou conta bloqueada pode não estar disponível para qualquer uso.
 
-Defina janela, ativos líquidos e saídas. Reserva restrita pode não estar disponível.
+### Descasamento médio de prazo
 
-### WAL
+- **Pergunta:** o principal da carteira chega antes ou depois das obrigações das cotas?
+- **Fórmula simplificada:** `vida média ponderada dos ativos - prazo médio ponderado das obrigações`.
+- **Por que importa:** descasamento positivo, também chamado de *gap* de prazo, pode exigir caixa, venda, refinanciamento ou extensão.
+- **Limitação:** a diferença de médias não substitui uma projeção de caixa por data. Taxa, índice e moeda exigem testes separados.
 
-`WAL = Σ(principal esperado_t × tempo_t) / Σ principal esperado_t`
+### Vida média ponderada, ou Weighted Average Life (WAL)
 
-Unidade: dias, meses ou anos. Use fluxo esperado e declare premissas de atraso, pré-pagamento e recuperação.
+- **O que significa:** tempo médio para receber o principal esperado, ponderado pelo valor recebido em cada data.
+- **Fórmula:** `WAL = Σ(principal esperado no tempo t × tempo t) / Σ(principal esperado)`.
+- **Unidade:** dias, meses ou anos.
+- **Quando é importante:** carteiras longas, cotas com amortização programada, pré-pagamento relevante e estruturas com descasamento.
+- **Quando é secundária:** em carteiras já inadimplidas, a recuperação líquida e o tempo até caixa podem ser mais informativos que um cronograma contratual original.
+- **Limitação:** atraso, pré-pagamento, recuperação e reinvestimento mudam o fluxo esperado. WAL não é **duração financeira, ou duration**, e não mede sozinho sensibilidade a taxa.
 
-### Gap de prazo
+## 5. Alocação e elegibilidade
 
-`WAL dos ativos − prazo médio ponderado das obrigações`
+- **Pergunta:** qual parcela do patrimônio está aplicada nos direitos que a regra admite?
+- **Convenção simples:** `direitos creditórios computáveis / PL da classe`.
+- **Por que importa:** baixa alocação pode reduzir geração de receita e indicar formação inicial da carteira, ou *ramp-up*, amortização ou dificuldade de originação.
+- **Limitação:** o art. 44 da Resolução da Comissão de Valores Mobiliários (RCVM) 175 usa critério e prazo próprios; metas contratuais podem usar direitos elegíveis, valor presente ou exclusões diferentes.
 
-É indicador simplificado, não simulação de caixa. Gaps de taxa, índice e moeda devem ser medidos separadamente.
+Formação inicial não é sinônimo de toda queda de alocação.
 
-## Fluxos do Informe Mensal
+## 6. Reservas
 
-Aquisições, alienações, liquidações, pré-pagamentos, amortizações e resgates devem ser tratados como fluxos da competência, não saldos. Compare com PL ou carteira média apenas com denominador temporal coerente.
+- **Pergunta:** a reserva tem saldo suficiente para sua finalidade?
+- **Fórmula:** `ativos elegíveis da reserva / necessidade-alvo`.
+- **O que definir:** reserva de despesas, liquidez, amortização ou outra; alvo; ativo admitido; saque; recomposição; beneficiário.
+- **Por que importa:** cria caixa ou proteção para um uso específico.
+- **Limitação:** caixa livre não é reserva e uma reserva para despesas não cobre automaticamente perda de crédito.
 
-## Guardrails contratuais
+## 7. Excesso de margem financeira
 
-FPD, DCV, índice de refinanciamento, diluição, cobertura, concentração e alocação podem ter definições próprias. FPD é convenção operacional no Glossário, não cláusula atribuída ao corpus. Para cada métrica, capture:
+- **O que significa:** margem que sobra depois da receita da carteira pagar perdas, despesas, custo das cotas e outros encargos. Também é chamada de **excesso de spread**, sendo *spread* a margem adicional entre taxas ou fluxos.
+- **Aproximação por período:** `receita da carteira - perdas - despesas - custo das cotas protegidas - outros encargos`.
+- **Por que importa:** pode recompor proteção, financiar reserva ou absorver deterioração antes de atingir a cota.
+- **Limitação:** “taxa média da carteira menos referência de remuneração” ignora atraso, pré-pagamento, despesas e calendário. A expressão literal não apareceu nos 15 regulamentos usados para prevalência; aqui ela é uma inferência analítica.
 
-1. numerador e denominador;
-2. janela/coorte;
-3. data de observação e frequência;
-4. exclusões e cura;
-5. threshold e consequência;
-6. fonte e versão.
+## 8. Patrimônio líquido como escala
 
-Um limite de um fundo é exemplo, não definição universal. Prática recorrente no corpus só é tratada como tal com evidência em pelo menos duas famílias econômicas independentes.
+- **Fórmula:** `ativos reconhecidos - passivos reconhecidos`.
+- **Uso:** dimensiona a classe, serve de base para várias razões e ajuda a reconciliar cotas.
+- **Limitação:** PL alto não prova qualidade, liquidez ou subordinação. Somar classes para ranking do fundo não torna patrimônios fungíveis.
+
+## Limites e controles contratuais: como não comparar errado
+
+- **Limite ou controle contratual, também chamado de guardrail:** teste que limita aquisição, composição, desempenho, reserva ou pagamento e aciona uma consequência definida.
+- **Sempre capture:** fórmula, coorte ou janela, data, exclusões, limite, prazo de correção e consequência.
+- **Inadimplência na primeira obrigação, ou First Payment Default (FPD):** é indicador de originação e fica na página de desempenho e nas famílias em que é útil, não como métrica estrutural universal.
+- **DCV:** não é alias de diluição. A revisão não encontrou expansão ou fórmula recorrente e auditável para essa sigla no corpus; leia a definição do documento antes de usá-la.
+- **Índice de refinanciamento:** não tem fórmula canônica no corpus. Pode medir saldo ou operações refinanciadas sobre uma base contratual, mas o numerador e o denominador precisam vir do instrumento específico.
+- **Um limite observado:** é exemplo daquela estrutura, não parâmetro de mercado.
 
 ## O que o Informe Mensal captura
 
-PL, composição, faixas, fluxos e cotas permitem várias métricas reportadas ou proxies. Índice contratual, ativos elegíveis ajustados, reservas, cash waterfall, WAL projetado e gatilhos exigem regulamento e base operacional.
+- **Diretamente ou por aproximação:** PL, composição, faixas de atraso, fluxos, cotas e alguns saldos de liquidez.
+- **Exige documento e base operacional:** cobertura contratual, ativos elegíveis ajustados, reservas, cascata de pagamentos, WAL projetado, concentração granular e estado de gatilhos.
 
-Fontes: RCVM 175; padrão XML mensal; documentos primários do corpus; metodologia analítica da revisão. Verificação: **16/07/2026**.
+Fontes: Resolução CVM 175; padrão do Informe Mensal; documentos primários e metodologia analítica do corpus. Verificação: **16/07/2026**.

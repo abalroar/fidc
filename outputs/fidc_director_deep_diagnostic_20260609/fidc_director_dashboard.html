@@ -1,0 +1,413 @@
+<!doctype html>
+<html><head><meta charset='utf-8'><title>Diagnostico FIDC 2024-2026YTD</title>
+<style>
+    body { margin:0; font-family: Arial, sans-serif; background:#f7f4ee; color:#232323; }
+    header { padding:28px 38px 18px; background:#222; color:#fff; }
+    h1 { margin:0; font-size:28px; letter-spacing:0; }
+    h2 { margin:28px 0 12px; font-size:20px; }
+    .sub { color:#d7d1c6; margin-top:8px; font-size:14px; }
+    main { padding:24px 38px 48px; }
+    .cards { display:grid; grid-template-columns: repeat(6, minmax(130px, 1fr)); gap:10px; }
+    .card { background:#fff; border:1px solid #ddd2c3; border-radius:6px; padding:12px; }
+    .metric { font-size:22px; font-weight:700; margin-top:4px; }
+    .label { font-size:12px; color:#6b6258; }
+    .chart { margin-top:18px; background:#fff; border:1px solid #ddd2c3; border-radius:6px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; background:#fff; font-size:12px; }
+    th { background:#e8dfd1; text-align:left; padding:8px; border-bottom:1px solid #c8bba8; }
+    td { padding:7px 8px; border-bottom:1px solid #eadfd1; vertical-align:top; }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:18px; align-items:start; }
+    .note { color:#5f574e; font-size:13px; max-width:1120px; line-height:1.45; }
+    .empty { color:#777; }
+    @media (max-width: 980px) { .cards, .grid { grid-template-columns:1fr; } }
+    </style></head><body>
+<header>
+<h1>Diagnostico FIDC 2024FY, 2025FY e 2026YTD</h1>
+<div class='sub'>Gerado em 2026-06-09T18:40:57Z. Base CVM + documentos locais/FNET quando disponiveis.</div>
+</header><main>
+<section class='cards'>
+<div class='card'><div class='label'>Ofertas CVM</div><div class='metric'>3,865</div></div>
+<div class='card'><div class='label'>Emissores unicos</div><div class='metric'>1,636</div></div>
+<div class='card'><div class='label'>CNPJs com docs locais</div><div class='metric'>764</div></div>
+<div class='card'><div class='label'>Regulamentos lidos</div><div class='metric'>764</div></div>
+<div class='card'><div class='label'>Tranches curadas</div><div class='metric'>526</div></div>
+<div class='card'><div class='label'>CDI+ extraido</div><div class='metric'>107</div></div>
+</section>
+<p class='note'>Leitura documental automatizada por regras auditaveis. Os campos 'sim/nao' indicam presenca textual/criterio extraido, nao substituem QA juridico manual. A analise equal-weight evita que apenas FIDCs grandes determinem o que e 'comum'.</p>
+<section class='chart'><svg xmlns='http://www.w3.org/2000/svg' width='1280' height='620' viewBox='0 0 1280 620'>
+<rect width='100%' height='100%' fill='#f7f4ee'/>
+<text x='86' y='34' font-family='Arial' font-size='24' font-weight='700' fill='#222'>Volume de emissoes e spread CDI+ por subtipo/cota</text>
+<text x='86' y='58' font-family='Arial' font-size='13' fill='#555'>Base documental curada localmente; pontos aparecem apenas quando ha CDI+ extraido.</text>
+<line x1='86' y1='442' x2='1184' y2='442' stroke='#333' stroke-width='1'/>
+<line x1='86' y1='74' x2='86' y2='442' stroke='#333' stroke-width='1'/>
+<line x1='81' y1='442.0' x2='1184' y2='442.0' stroke='#ddd' stroke-width='1'/>
+<text x='76' y='446.0' font-family='Arial' font-size='11' text-anchor='end' fill='#555'>R$ 0</text>
+<line x1='81' y1='350.0' x2='1184' y2='350.0' stroke='#ddd' stroke-width='1'/>
+<text x='76' y='354.0' font-family='Arial' font-size='11' text-anchor='end' fill='#555'>R$ 7.525.006.250</text>
+<line x1='81' y1='258.0' x2='1184' y2='258.0' stroke='#ddd' stroke-width='1'/>
+<text x='76' y='262.0' font-family='Arial' font-size='11' text-anchor='end' fill='#555'>R$ 15.050.012.500</text>
+<line x1='81' y1='166.0' x2='1184' y2='166.0' stroke='#ddd' stroke-width='1'/>
+<text x='76' y='170.0' font-family='Arial' font-size='11' text-anchor='end' fill='#555'>R$ 22.575.018.750</text>
+<line x1='81' y1='74.0' x2='1184' y2='74.0' stroke='#ddd' stroke-width='1'/>
+<text x='76' y='78.0' font-family='Arial' font-size='11' text-anchor='end' fill='#555'>R$ 30.100.025.000</text>
+<text x='1194' y='446.0' font-family='Arial' font-size='11' fill='#7a2e20'>0.0%</text>
+<text x='1194' y='354.0' font-family='Arial' font-size='11' fill='#7a2e20'>1.4%</text>
+<text x='1194' y='262.0' font-family='Arial' font-size='11' fill='#7a2e20'>2.8%</text>
+<text x='1194' y='170.0' font-family='Arial' font-size='11' fill='#7a2e20'>4.1%</text>
+<text x='1194' y='78.0' font-family='Arial' font-size='11' fill='#7a2e20'>5.5%</text>
+<rect x='92.4' y='74.0' width='17.7' height='368.0' rx='2' fill='#1f6f8b' opacity='0.88'/>
+<circle cx='101.2' cy='87.4' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='101.2' y1='74.0' x2='101.2' y2='87.4' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='101.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 101.2,458)'>Sem classificacao / Sênior</text>
+<rect x='122.9' y='176.7' width='17.7' height='265.3' rx='2' fill='#c05a2b' opacity='0.88'/>
+<text x='131.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 131.8,458)'>Arranjos de pagamento/adquirência / Sênior</text>
+<rect x='153.4' y='334.3' width='17.7' height='107.7' rx='2' fill='#466b35' opacity='0.88'/>
+<text x='162.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 162.2,458)'>CCB/Notas comerciais/Capital de giro / Sê...</text>
+<rect x='183.9' y='343.5' width='17.7' height='98.5' rx='2' fill='#7b5aa6' opacity='0.88'/>
+<circle cx='192.8' cy='242.9' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='192.8' y1='343.5' x2='192.8' y2='242.9' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='192.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 192.8,458)'>Arranjos de pagamento/adquirência / Nao i...</text>
+<rect x='214.4' y='344.1' width='17.7' height='97.9' rx='2' fill='#9b6a2f' opacity='0.88'/>
+<circle cx='223.2' cy='342.3' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='223.2' y1='344.1' x2='223.2' y2='342.3' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='223.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 223.2,458)'>Sem classificacao / Nao identificado</text>
+<rect x='244.9' y='382.8' width='17.7' height='59.2' rx='2' fill='#2d7c73' opacity='0.88'/>
+<circle cx='253.8' cy='281.4' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='253.8' y1='382.8' x2='253.8' y2='281.4' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='253.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 253.8,458)'>Consignado/INSS / Sênior</text>
+<rect x='275.4' y='396.7' width='17.7' height='45.3' rx='2' fill='#1f6f8b' opacity='0.88'/>
+<text x='284.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 284.2,458)'>Revisar manualmente / Nao identificado</text>
+<rect x='305.9' y='401.9' width='17.7' height='40.1' rx='2' fill='#c05a2b' opacity='0.88'/>
+<circle cx='314.8' cy='74.0' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='314.8' y1='401.9' x2='314.8' y2='74.0' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='314.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 314.8,458)'>Risco sacado/fornecedores / Nao identific...</text>
+<rect x='336.4' y='404.0' width='17.7' height='38.0' rx='2' fill='#466b35' opacity='0.88'/>
+<circle cx='345.2' cy='261.3' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='345.2' y1='404.0' x2='345.2' y2='261.3' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='345.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 345.2,458)'>Agro / Sênior</text>
+<rect x='366.9' y='407.7' width='17.7' height='34.3' rx='2' fill='#7b5aa6' opacity='0.88'/>
+<circle cx='375.8' cy='356.4' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='375.8' y1='407.7' x2='375.8' y2='356.4' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='375.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 375.8,458)'>Sem classificacao / Subordinada</text>
+<rect x='397.4' y='408.4' width='17.7' height='33.6' rx='2' fill='#9b6a2f' opacity='0.88'/>
+<circle cx='406.2' cy='442.0' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='406.2' y1='408.4' x2='406.2' y2='442.0' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='406.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 406.2,458)'>Crédito estudantil / Nao identificado</text>
+<rect x='427.9' y='409.6' width='17.7' height='32.4' rx='2' fill='#2d7c73' opacity='0.88'/>
+<text x='436.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 436.8,458)'>FGTS / Nao identificado</text>
+<rect x='458.4' y='422.4' width='17.7' height='19.6' rx='2' fill='#1f6f8b' opacity='0.88'/>
+<circle cx='467.2' cy='301.5' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='467.2' y1='422.4' x2='467.2' y2='301.5' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='467.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 467.2,458)'>Revisar manualmente / Sênior</text>
+<rect x='488.9' y='424.3' width='17.7' height='17.7' rx='2' fill='#c05a2b' opacity='0.88'/>
+<circle cx='497.8' cy='281.4' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='497.8' y1='424.3' x2='497.8' y2='281.4' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='497.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 497.8,458)'>Consignado/INSS / Nao identificado</text>
+<rect x='519.4' y='427.2' width='17.7' height='14.8' rx='2' fill='#466b35' opacity='0.88'/>
+<text x='528.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 528.2,458)'>Não padronizado/NPL / Nao identificado</text>
+<rect x='549.9' y='431.3' width='17.7' height='10.7' rx='2' fill='#7b5aa6' opacity='0.88'/>
+<circle cx='558.8' cy='248.0' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='558.8' y1='431.3' x2='558.8' y2='248.0' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='558.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 558.8,458)'>Recebíveis comerciais/multissetorial / Na...</text>
+<rect x='580.4' y='432.2' width='17.7' height='9.8' rx='2' fill='#9b6a2f' opacity='0.88'/>
+<text x='589.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 589.2,458)'>Não padronizado/NPL / Subordinada</text>
+<rect x='610.9' y='434.1' width='17.7' height='7.9' rx='2' fill='#2d7c73' opacity='0.88'/>
+<circle cx='619.8' cy='274.7' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='619.8' y1='434.1' x2='619.8' y2='274.7' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='619.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 619.8,458)'>FGTS / Sênior</text>
+<rect x='641.4' y='434.1' width='17.7' height='7.9' rx='2' fill='#1f6f8b' opacity='0.88'/>
+<text x='650.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 650.2,458)'>Agro / Nao identificado</text>
+<rect x='671.9' y='434.9' width='17.7' height='7.1' rx='2' fill='#c05a2b' opacity='0.88'/>
+<circle cx='680.8' cy='157.6' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='680.8' y1='434.9' x2='680.8' y2='157.6' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='680.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 680.8,458)'>Risco sacado/fornecedores / Mezanino</text>
+<rect x='702.4' y='436.1' width='17.7' height='5.9' rx='2' fill='#466b35' opacity='0.88'/>
+<circle cx='711.2' cy='197.8' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='711.2' y1='436.1' x2='711.2' y2='197.8' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='711.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 711.2,458)'>Risco sacado/fornecedores / Sênior</text>
+<rect x='732.9' y='436.8' width='17.7' height='5.2' rx='2' fill='#7b5aa6' opacity='0.88'/>
+<circle cx='741.8' cy='201.1' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='741.8' y1='436.8' x2='741.8' y2='201.1' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='741.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 741.8,458)'>Recebíveis comerciais/multissetorial / Me...</text>
+<rect x='763.4' y='436.9' width='17.7' height='5.1' rx='2' fill='#9b6a2f' opacity='0.88'/>
+<text x='772.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 772.2,458)'>Crédito estudantil / Sênior</text>
+<rect x='793.9' y='439.6' width='17.7' height='2.4' rx='2' fill='#2d7c73' opacity='0.88'/>
+<text x='802.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 802.8,458)'>Revisar manualmente / Subordinada</text>
+<rect x='824.4' y='440.7' width='17.7' height='1.3' rx='2' fill='#1f6f8b' opacity='0.88'/>
+<circle cx='833.2' cy='107.5' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='833.2' y1='440.7' x2='833.2' y2='107.5' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='833.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 833.2,458)'>Bancos Emissores / Sênior</text>
+<rect x='854.9' y='440.7' width='17.7' height='1.3' rx='2' fill='#c05a2b' opacity='0.88'/>
+<text x='863.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 863.8,458)'>Risco sacado/fornecedores / Subordinada</text>
+<rect x='885.4' y='441.3' width='17.7' height='0.7' rx='2' fill='#466b35' opacity='0.88'/>
+<text x='894.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 894.2,458)'>Agro / Mezanino</text>
+<rect x='915.9' y='441.3' width='17.7' height='0.7' rx='2' fill='#7b5aa6' opacity='0.88'/>
+<text x='924.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 924.8,458)'>Bancos Emissores / Subordinada</text>
+<rect x='946.4' y='441.4' width='17.7' height='0.6' rx='2' fill='#9b6a2f' opacity='0.88'/>
+<text x='955.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 955.2,458)'>CCB/Notas comerciais/Capital de giro / Su...</text>
+<rect x='976.9' y='441.5' width='17.7' height='0.5' rx='2' fill='#2d7c73' opacity='0.88'/>
+<circle cx='985.8' cy='107.5' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='985.8' y1='441.5' x2='985.8' y2='107.5' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='985.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 985.8,458)'>Bancos Emissores / Nao identificado</text>
+<rect x='1007.4' y='441.7' width='17.7' height='0.3' rx='2' fill='#1f6f8b' opacity='0.88'/>
+<text x='1016.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 1016.2,458)'>Agro / Subordinada</text>
+<rect x='1037.9' y='441.8' width='17.7' height='0.2' rx='2' fill='#c05a2b' opacity='0.88'/>
+<text x='1046.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 1046.8,458)'>CCB/Notas comerciais/Capital de giro / Na...</text>
+<rect x='1068.4' y='441.9' width='17.7' height='0.1' rx='2' fill='#466b35' opacity='0.88'/>
+<text x='1077.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 1077.2,458)'>Crédito estudantil / Subordinada</text>
+<rect x='1098.9' y='441.9' width='17.7' height='0.1' rx='2' fill='#7b5aa6' opacity='0.88'/>
+<text x='1107.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 1107.8,458)'>Crédito estudantil / Mezanino</text>
+<rect x='1129.4' y='442.0' width='17.7' height='0.0' rx='2' fill='#9b6a2f' opacity='0.88'/>
+<text x='1138.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 1138.2,458)'>Recebíveis comerciais/multissetorial / Su...</text>
+<rect x='1159.9' y='442.0' width='17.7' height='0.0' rx='2' fill='#2d7c73' opacity='0.88'/>
+<text x='1168.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 1168.8,458)'>FGTS / Subordinada</text>
+<text x='86' y='596' font-family='Arial' font-size='12' fill='#333'>Barras: volume de emissao/linha. Pontos vermelhos: spread mediano CDI+ a.a. quando extraido.</text>
+<text x='1024' y='34' font-family='Arial' font-size='12' fill='#7a2e20'>escala direita: CDI+ a.a.</text>
+</svg></section>
+<section class='chart'><svg xmlns='http://www.w3.org/2000/svg' width='1280' height='620' viewBox='0 0 1280 620'>
+<rect width='100%' height='100%' fill='#f7f4ee'/>
+<text x='86' y='34' font-family='Arial' font-size='24' font-weight='700' fill='#222'>Top tranches com CDI+ extraido</text>
+<text x='86' y='58' font-family='Arial' font-size='13' fill='#555'>Volume documental extraido de atos/suplementos/anuncios; nao deduplicado contra CVM quando documentos repetem evento.</text>
+<line x1='86' y1='442' x2='1184' y2='442' stroke='#333' stroke-width='1'/>
+<line x1='86' y1='74' x2='86' y2='442' stroke='#333' stroke-width='1'/>
+<line x1='81' y1='442.0' x2='1184' y2='442.0' stroke='#ddd' stroke-width='1'/>
+<text x='76' y='446.0' font-family='Arial' font-size='11' text-anchor='end' fill='#555'>R$ 0</text>
+<line x1='81' y1='350.0' x2='1184' y2='350.0' stroke='#ddd' stroke-width='1'/>
+<text x='76' y='354.0' font-family='Arial' font-size='11' text-anchor='end' fill='#555'>R$ 150.000.000</text>
+<line x1='81' y1='258.0' x2='1184' y2='258.0' stroke='#ddd' stroke-width='1'/>
+<text x='76' y='262.0' font-family='Arial' font-size='11' text-anchor='end' fill='#555'>R$ 300.000.000</text>
+<line x1='81' y1='166.0' x2='1184' y2='166.0' stroke='#ddd' stroke-width='1'/>
+<text x='76' y='170.0' font-family='Arial' font-size='11' text-anchor='end' fill='#555'>R$ 450.000.000</text>
+<line x1='81' y1='74.0' x2='1184' y2='74.0' stroke='#ddd' stroke-width='1'/>
+<text x='76' y='78.0' font-family='Arial' font-size='11' text-anchor='end' fill='#555'>R$ 600.000.000</text>
+<text x='1194' y='446.0' font-family='Arial' font-size='11' fill='#7a2e20'>0.0%</text>
+<text x='1194' y='354.0' font-family='Arial' font-size='11' fill='#7a2e20'>1.5%</text>
+<text x='1194' y='262.0' font-family='Arial' font-size='11' fill='#7a2e20'>3.0%</text>
+<text x='1194' y='170.0' font-family='Arial' font-size='11' fill='#7a2e20'>4.5%</text>
+<text x='1194' y='78.0' font-family='Arial' font-size='11' fill='#7a2e20'>6.0%</text>
+<rect x='92.4' y='74.0' width='17.7' height='368.0' rx='2' fill='#1f6f8b' opacity='0.88'/>
+<circle cx='101.2' cy='294.8' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='101.2' y1='74.0' x2='101.2' y2='294.8' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='101.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 101.2,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / 15ª sé...</text>
+<rect x='122.9' y='135.3' width='17.7' height='306.7' rx='2' fill='#c05a2b' opacity='0.88'/>
+<circle cx='131.8' cy='135.3' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='131.8' y1='135.3' x2='131.8' y2='135.3' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='131.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 131.8,458)'>SB CRÉDITO FUNDO DE INVESTIMENTO / COTAS...</text>
+<rect x='153.4' y='135.3' width='17.7' height='306.7' rx='2' fill='#466b35' opacity='0.88'/>
+<circle cx='162.2' cy='313.2' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='162.2' y1='135.3' x2='162.2' y2='313.2' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='162.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 162.2,458)'>SIFRA LP FUNDO DE INVESTIMENTO E / Cotas...</text>
+<rect x='183.9' y='135.3' width='17.7' height='306.7' rx='2' fill='#7b5aa6' opacity='0.88'/>
+<circle cx='192.8' cy='276.4' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='192.8' y1='135.3' x2='192.8' y2='276.4' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='192.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 192.8,458)'>SB CRÉDITO FUNDO DE INVESTIMENTO / COTAS...</text>
+<rect x='214.4' y='150.7' width='17.7' height='291.3' rx='2' fill='#9b6a2f' opacity='0.88'/>
+<circle cx='223.2' cy='294.8' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='223.2' y1='150.7' x2='223.2' y2='294.8' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='223.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 223.2,458)'>MT INSS RECEIVABLES VI FUNDO DE / 1ª Série</text>
+<rect x='244.9' y='195.4' width='17.7' height='246.6' rx='2' fill='#2d7c73' opacity='0.88'/>
+<circle cx='253.8' cy='276.4' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='253.8' y1='195.4' x2='253.8' y2='276.4' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='253.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 253.8,458)'>SB CRÉDITO FUNDO DE INVESTIMENTO / cotas...</text>
+<rect x='275.4' y='195.4' width='17.7' height='246.6' rx='2' fill='#1f6f8b' opacity='0.88'/>
+<circle cx='284.2' cy='276.4' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='284.2' y1='195.4' x2='284.2' y2='276.4' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='284.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 284.2,458)'>SB CRÉDITO FUNDO DE INVESTIMENTO / cotas...</text>
+<rect x='305.9' y='258.0' width='17.7' height='184.0' rx='2' fill='#c05a2b' opacity='0.88'/>
+<circle cx='314.8' cy='365.3' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='314.8' y1='258.0' x2='314.8' y2='365.3' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='314.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 314.8,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / 16ª Sé...</text>
+<rect x='336.4' y='313.2' width='17.7' height='128.8' rx='2' fill='#466b35' opacity='0.88'/>
+<circle cx='345.2' cy='319.3' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='345.2' y1='313.2' x2='345.2' y2='319.3' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='345.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 345.2,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / 21ª Sé...</text>
+<rect x='366.9' y='319.3' width='17.7' height='122.7' rx='2' fill='#7b5aa6' opacity='0.88'/>
+<circle cx='375.8' cy='273.3' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='375.8' y1='319.3' x2='375.8' y2='273.3' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='375.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 375.8,458)'>VALOREM FUNDO DE INVESTIMENTO EM / 15ª Sé...</text>
+<rect x='397.4' y='319.3' width='17.7' height='122.7' rx='2' fill='#9b6a2f' opacity='0.88'/>
+<circle cx='406.2' cy='242.7' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='406.2' y1='319.3' x2='406.2' y2='242.7' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='406.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 406.2,458)'>VALOREM FUNDO DE INVESTIMENTO EM / 15ª Sé...</text>
+<rect x='427.9' y='319.3' width='17.7' height='122.7' rx='2' fill='#2d7c73' opacity='0.88'/>
+<circle cx='436.8' cy='242.7' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='436.8' y1='319.3' x2='436.8' y2='242.7' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='436.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 436.8,458)'>VALOREM FUNDO DE INVESTIMENTO EM / 15ª SÉ...</text>
+<rect x='458.4' y='350.0' width='17.7' height='92.0' rx='2' fill='#1f6f8b' opacity='0.88'/>
+<circle cx='467.2' cy='358.0' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='467.2' y1='350.0' x2='467.2' y2='358.0' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='467.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 467.2,458)'>CARTÃO DE COMPRA SUPPLIER FUNDO / 1ª Série</text>
+<rect x='488.9' y='368.4' width='17.7' height='73.6' rx='2' fill='#c05a2b' opacity='0.88'/>
+<circle cx='497.8' cy='74.0' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='497.8' y1='368.4' x2='497.8' y2='74.0' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='497.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 497.8,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / 20ª Sé...</text>
+<rect x='519.4' y='368.4' width='17.7' height='73.6' rx='2' fill='#466b35' opacity='0.88'/>
+<circle cx='528.2' cy='319.3' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='528.2' y1='368.4' x2='528.2' y2='319.3' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='528.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 528.2,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / Cotas...</text>
+<rect x='549.9' y='377.6' width='17.7' height='64.4' rx='2' fill='#7b5aa6' opacity='0.88'/>
+<circle cx='558.8' cy='300.9' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='558.8' y1='377.6' x2='558.8' y2='300.9' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='558.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 558.8,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / 12ª Sé...</text>
+<rect x='580.4' y='380.7' width='17.7' height='61.3' rx='2' fill='#9b6a2f' opacity='0.88'/>
+<circle cx='589.2' cy='74.0' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='589.2' y1='380.7' x2='589.2' y2='74.0' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='589.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 589.2,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / 10ª Sé...</text>
+<rect x='610.9' y='380.7' width='17.7' height='61.3' rx='2' fill='#2d7c73' opacity='0.88'/>
+<circle cx='619.8' cy='239.6' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='619.8' y1='380.7' x2='619.8' y2='239.6' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='619.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 619.8,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / Cotas...</text>
+<rect x='641.4' y='380.7' width='17.7' height='61.3' rx='2' fill='#1f6f8b' opacity='0.88'/>
+<circle cx='650.2' cy='350.0' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='650.2' y1='380.7' x2='650.2' y2='350.0' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='650.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 650.2,458)'>CARTÃO DE COMPRA SUPPLIER FUNDO / 1ª Série</text>
+<rect x='671.9' y='381.9' width='17.7' height='60.1' rx='2' fill='#c05a2b' opacity='0.88'/>
+<circle cx='680.8' cy='442.0' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='680.8' y1='381.9' x2='680.8' y2='442.0' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='680.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 680.8,458)'>SB CRÉDITO FUNDO DE INVESTIMENTO / cotas...</text>
+<rect x='702.4' y='386.8' width='17.7' height='55.2' rx='2' fill='#466b35' opacity='0.88'/>
+<circle cx='711.2' cy='184.4' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='711.2' y1='386.8' x2='711.2' y2='184.4' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='711.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 711.2,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / cota M...</text>
+<rect x='732.9' y='389.9' width='17.7' height='52.1' rx='2' fill='#7b5aa6' opacity='0.88'/>
+<circle cx='741.8' cy='288.7' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='741.8' y1='389.9' x2='741.8' y2='288.7' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='741.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 741.8,458)'>J17 FGTS FUNDO DE INVESTIMENTO E / Cotas...</text>
+<rect x='763.4' y='392.9' width='17.7' height='49.1' rx='2' fill='#9b6a2f' opacity='0.88'/>
+<circle cx='772.2' cy='166.0' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='772.2' y1='392.9' x2='772.2' y2='166.0' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='772.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 772.2,458)'>INOVA CREDTECH III FIDC SEGMENTO / cotas...</text>
+<rect x='793.9' y='396.0' width='17.7' height='46.0' rx='2' fill='#2d7c73' opacity='0.88'/>
+<circle cx='802.8' cy='313.2' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='802.8' y1='396.0' x2='802.8' y2='313.2' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='802.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 802.8,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI /</text>
+<rect x='824.4' y='396.0' width='17.7' height='46.0' rx='2' fill='#1f6f8b' opacity='0.88'/>
+<circle cx='833.2' cy='227.3' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='833.2' y1='396.0' x2='833.2' y2='227.3' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='833.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 833.2,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / 14ª Sé...</text>
+<rect x='854.9' y='402.1' width='17.7' height='39.9' rx='2' fill='#c05a2b' opacity='0.88'/>
+<circle cx='863.8' cy='346.9' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='863.8' y1='402.1' x2='863.8' y2='346.9' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='863.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 863.8,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / Cotas...</text>
+<rect x='885.4' y='406.4' width='17.7' height='35.6' rx='2' fill='#466b35' opacity='0.88'/>
+<circle cx='894.2' cy='178.3' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='894.2' y1='406.4' x2='894.2' y2='178.3' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='894.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 894.2,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / Cotas...</text>
+<rect x='915.9' y='411.3' width='17.7' height='30.7' rx='2' fill='#7b5aa6' opacity='0.88'/>
+<circle cx='924.8' cy='74.0' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='924.8' y1='411.3' x2='924.8' y2='74.0' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='924.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 924.8,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / 20ª Sé...</text>
+<rect x='946.4' y='411.3' width='17.7' height='30.7' rx='2' fill='#9b6a2f' opacity='0.88'/>
+<circle cx='955.2' cy='196.7' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='955.2' y1='411.3' x2='955.2' y2='196.7' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='955.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 955.2,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / Cotas...</text>
+<rect x='976.9' y='411.3' width='17.7' height='30.7' rx='2' fill='#2d7c73' opacity='0.88'/>
+<circle cx='985.8' cy='258.0' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='985.8' y1='411.3' x2='985.8' y2='258.0' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='985.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 985.8,458)'>GAVEA SUL FUNDO DE INVESTIMENTO / Cotas S...</text>
+<rect x='1007.4' y='414.4' width='17.7' height='27.6' rx='2' fill='#1f6f8b' opacity='0.88'/>
+<circle cx='1016.2' cy='196.7' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='1016.2' y1='414.4' x2='1016.2' y2='196.7' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='1016.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 1016.2,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / Cotas...</text>
+<rect x='1037.9' y='414.4' width='17.7' height='27.6' rx='2' fill='#c05a2b' opacity='0.88'/>
+<circle cx='1046.8' cy='227.3' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='1046.8' y1='414.4' x2='1046.8' y2='227.3' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='1046.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 1046.8,458)'>VALOREM FUNDO DE INVESTIMENTO EM / Classe...</text>
+<rect x='1068.4' y='417.5' width='17.7' height='24.5' rx='2' fill='#466b35' opacity='0.88'/>
+<circle cx='1077.2' cy='104.7' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='1077.2' y1='417.5' x2='1077.2' y2='104.7' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='1077.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 1077.2,458)'>INOVA CREDTECH III FIDC SEGMENTO / 1ª Sér...</text>
+<rect x='1098.9' y='420.5' width='17.7' height='21.5' rx='2' fill='#7b5aa6' opacity='0.88'/>
+<circle cx='1107.8' cy='346.9' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='1107.8' y1='420.5' x2='1107.8' y2='346.9' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='1107.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 1107.8,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / Cotas...</text>
+<rect x='1129.4' y='420.5' width='17.7' height='21.5' rx='2' fill='#9b6a2f' opacity='0.88'/>
+<circle cx='1138.2' cy='196.7' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='1138.2' y1='420.5' x2='1138.2' y2='196.7' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='1138.2' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 1138.2,458)'>MULTIPLIKE PLUS FUNDO DE INVESTI / Cotas...</text>
+<rect x='1159.9' y='423.6' width='17.7' height='18.4' rx='2' fill='#2d7c73' opacity='0.88'/>
+<circle cx='1168.8' cy='288.7' r='5.5' fill='#d83f2a' stroke='white' stroke-width='1.5'/>
+<line x1='1168.8' y1='423.6' x2='1168.8' y2='288.7' stroke='#d83f2a' stroke-width='1' stroke-dasharray='2,3' opacity='0.55'/>
+<text x='1168.8' y='458' font-family='Arial' font-size='10' text-anchor='end' fill='#333' transform='rotate(-55 1168.8,458)'>VALOREM FUNDO DE INVESTIMENTO EM / 30ª Sé...</text>
+<text x='86' y='596' font-family='Arial' font-size='12' fill='#333'>Barras: volume de emissao/linha. Pontos vermelhos: spread mediano CDI+ a.a. quando extraido.</text>
+<text x='1024' y='34' font-family='Arial' font-size='12' fill='#7a2e20'>escala direita: CDI+ a.a.</text>
+</svg></section>
+<div class='grid'>
+<section><h2>Prevalencia de praticas</h2>
+<table>
+<thead><tr><th>setor_n1</th><th>setor_n2</th><th>fundos_com_regulamento</th><th>subordination_minimum_share</th><th>cash_or_liquidity_reserve_share</th><th>revolving_period_share</th><th>repurchase_or_indemnity_share</th></tr></thead>
+<tbody>
+<tr><td>Crédito PF</td><td>Crédito pessoal/consumo</td><td>141</td><td>68,79%</td><td>52,48%</td><td>34,75%</td><td>31,21%</td></tr>
+<tr><td>Não classificado</td><td>Revisar manualmente</td><td>109</td><td>3,67%</td><td>0,92%</td><td>0,92%</td><td>0,00%</td></tr>
+<tr><td>Crédito PJ</td><td>Recebíveis comerciais/multissetorial</td><td>90</td><td>47,78%</td><td>46,67%</td><td>38,89%</td><td>41,11%</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>81</td><td>64,20%</td><td>58,02%</td><td>43,21%</td><td>46,91%</td></tr>
+<tr><td>Crédito PJ</td><td>Risco sacado/fornecedores</td><td>56</td><td>78,57%</td><td>83,93%</td><td>17,86%</td><td>19,64%</td></tr>
+<tr><td>Crédito PF</td><td>Consignado/INSS</td><td>37</td><td>51,35%</td><td>51,35%</td><td>43,24%</td><td>37,84%</td></tr>
+<tr><td>Crédito PF</td><td>Auto/Veículos</td><td>36</td><td>52,78%</td><td>30,56%</td><td>19,44%</td><td>33,33%</td></tr>
+<tr><td>Crédito PJ</td><td>CCB/Notas comerciais/Capital de giro</td><td>36</td><td>50,00%</td><td>33,33%</td><td>33,33%</td><td>41,67%</td></tr>
+<tr><td>Imobiliário</td><td>Imobiliário</td><td>34</td><td>29,41%</td><td>23,53%</td><td>58,82%</td><td>20,59%</td></tr>
+<tr><td>Meios de Pagamento e Cartões</td><td>Arranjos de pagamento/adquirência</td><td>30</td><td>86,67%</td><td>63,33%</td><td>33,33%</td><td>50,00%</td></tr>
+<tr><td>Sem oferta CVM mapeada</td><td>Sem oferta CVM mapeada</td><td>28</td><td>60,71%</td><td>57,14%</td><td>75,00%</td><td>71,43%</td></tr>
+<tr><td>Crédito PF</td><td>FGTS</td><td>17</td><td>70,59%</td><td>64,71%</td><td>47,06%</td><td>52,94%</td></tr>
+<tr><td>Infra/Energia</td><td>Energia/infra</td><td>17</td><td>11,76%</td><td>5,88%</td><td>5,88%</td><td>0,00%</td></tr>
+<tr><td>Judicial/Precatórios/NPL</td><td>Não padronizado/NPL</td><td>17</td><td>29,41%</td><td>29,41%</td><td>35,29%</td><td>29,41%</td></tr>
+</tbody></table>
+</section><section><h2>Subordinacao equal-weight</h2>
+<table>
+<thead><tr><th>setor_n1</th><th>setor_n2</th><th>fundos_com_subordinacao</th><th>subordinacao_mediana_pct_equal_weight</th><th>subordinacao_p25_pct</th><th>subordinacao_p75_pct</th><th>valores_comuns</th></tr></thead>
+<tbody>
+<tr><td>Sem oferta CVM mapeada</td><td>Sem oferta CVM mapeada</td><td>6</td><td>8,50%</td><td>7,00%</td><td>21,25%</td><td>7% (2); 5% (1); 85% (1); 10% (1); 25% (1)</td></tr>
+<tr><td>Crédito PF</td><td>FGTS</td><td>3</td><td>5,00%</td><td>4,00%</td><td>45,00%</td><td>5% (1); 85% (1); 3% (1)</td></tr>
+<tr><td>Crédito PJ</td><td>Risco sacado/fornecedores</td><td>3</td><td>22,00%</td><td>14,75%</td><td>31,00%</td><td>22% (1); 7.5% (1); 40% (1)</td></tr>
+<tr><td>Meios de Pagamento e Cartões</td><td>Arranjos de pagamento/adquirência</td><td>3</td><td>16,00%</td><td>15,75%</td><td>33,00%</td><td>15.5% (1); 16% (1); 50% (1)</td></tr>
+<tr><td>Crédito PJ</td><td>CCB/Notas comerciais/Capital de giro</td><td>2</td><td>12,50%</td><td>11,25%</td><td>13,75%</td><td>10% (1); 15% (1)</td></tr>
+<tr><td>Crédito PF</td><td>Consignado/INSS</td><td>1</td><td>14,50%</td><td>14,50%</td><td>14,50%</td><td>14.5% (1)</td></tr>
+<tr><td>Crédito PF</td><td>Crédito estudantil</td><td>1</td><td>50,00%</td><td>50,00%</td><td>50,00%</td><td>50% (1)</td></tr>
+<tr><td>Judicial/Precatórios/NPL</td><td>Não padronizado/NPL</td><td>1</td><td>10,00%</td><td>10,00%</td><td>10,00%</td><td>10% (1)</td></tr>
+<tr><td>Não classificado</td><td>Revisar manualmente</td><td>1</td><td>30,00%</td><td>30,00%</td><td>30,00%</td><td>30% (1)</td></tr>
+</tbody></table>
+</section></div>
+<div class='grid'>
+<section><h2>Pricing por subtipo/cota</h2>
+<table>
+<thead><tr><th>setor_n1</th><th>setor_n2</th><th>tipo_cota</th><th>linhas_tranche</th><th>volume_brl</th><th>spread_cdi_mediano_aa</th><th>share_linhas_com_spread_cdi</th></tr></thead>
+<tbody>
+<tr><td>Nao classificado</td><td>Sem classificacao</td><td>Sênior</td><td>17</td><td>R$ 30.100.025.000</td><td>5,30%</td><td>11,76%</td></tr>
+<tr><td>Meios de Pagamento e Cartões</td><td>Arranjos de pagamento/adquirência</td><td>Sênior</td><td>51</td><td>R$ 21.703.600.654</td><td></td><td>0,00%</td></tr>
+<tr><td>Crédito PJ</td><td>CCB/Notas comerciais/Capital de giro</td><td>Sênior</td><td>10</td><td>R$ 8.810.002.000</td><td></td><td>0,00%</td></tr>
+<tr><td>Meios de Pagamento e Cartões</td><td>Arranjos de pagamento/adquirência</td><td>Nao identificado</td><td>25</td><td>R$ 8.052.894.206</td><td>2,98%</td><td>8,00%</td></tr>
+<tr><td>Nao classificado</td><td>Sem classificacao</td><td>Nao identificado</td><td>69</td><td>R$ 8.005.083.486</td><td>1,49%</td><td>5,80%</td></tr>
+<tr><td>Crédito PF</td><td>Consignado/INSS</td><td>Sênior</td><td>7</td><td>R$ 4.838.248.988</td><td>2,40%</td><td>14,29%</td></tr>
+<tr><td>Não classificado</td><td>Revisar manualmente</td><td>Nao identificado</td><td>23</td><td>R$ 3.702.983.872</td><td></td><td>0,00%</td></tr>
+<tr><td>Crédito PJ</td><td>Risco sacado/fornecedores</td><td>Nao identificado</td><td>50</td><td>R$ 3.278.487.022</td><td>5,50%</td><td>60,00%</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>Sênior</td><td>13</td><td>R$ 3.107.000.000</td><td>2,70%</td><td>53,85%</td></tr>
+<tr><td>Nao classificado</td><td>Sem classificacao</td><td>Subordinada</td><td>10</td><td>R$ 2.807.501.000</td><td>1,28%</td><td>10,00%</td></tr>
+<tr><td>Crédito PF</td><td>Crédito estudantil</td><td>Nao identificado</td><td>36</td><td>R$ 2.751.953.016</td><td>0,00%</td><td>5,56%</td></tr>
+<tr><td>Crédito PF</td><td>FGTS</td><td>Nao identificado</td><td>19</td><td>R$ 2.646.297.055</td><td></td><td>0,00%</td></tr>
+<tr><td>Não classificado</td><td>Revisar manualmente</td><td>Sênior</td><td>5</td><td>R$ 1.603.213.991</td><td>2,10%</td><td>20,00%</td></tr>
+<tr><td>Crédito PF</td><td>Consignado/INSS</td><td>Nao identificado</td><td>19</td><td>R$ 1.450.182.000</td><td>2,40%</td><td>31,58%</td></tr>
+</tbody></table>
+</section><section><h2>Participantes relevantes</h2>
+<table>
+<thead><tr><th>setor_n1</th><th>setor_n2</th><th>role</th><th>participant</th><th>cnpjs_unicos</th><th>volume_brl</th></tr></thead>
+<tbody>
+<tr><td>Agro</td><td>Agro</td><td>administrador_cvm</td><td>BANCO DAYCOVAL S.A.</td><td>15</td><td>R$ 7.925.971.621</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>administrador_cvm</td><td>VORTX DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS LTDA.</td><td>20</td><td>R$ 5.355.596.835</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>administrador_cvm</td><td>QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.</td><td>15</td><td>R$ 5.291.302.530</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>administrador_oferta</td><td>BANCO DAYCOVAL S.A.</td><td>12</td><td>R$ 8.997.015.232</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>administrador_oferta</td><td>VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA</td><td>10</td><td>R$ 2.626.950.000</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>administrador_oferta</td><td>BANCO DAYCOVAL S.A</td><td>5</td><td>R$ 1.999.000.000</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>coordenador_lider</td><td>BANCO SANTANDER (BRASIL) S.A.</td><td>1</td><td>R$ 9.400.000.000</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>coordenador_lider</td><td>ITAU BBA ASSESSORIA FINANCEIRA S.A</td><td>12</td><td>R$ 4.296.614.000</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>coordenador_lider</td><td>VORTX DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS LTDA.</td><td>8</td><td>R$ 2.837.450.000</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>custodiante_cvm</td><td>BANCO DAYCOVAL S.A.</td><td>8</td><td>R$ 3.685.650.718</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>custodiante_cvm</td><td>HEMERA DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS LTDA</td><td>16</td><td>R$ 2.796.183.953</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>custodiante_cvm</td><td>QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.</td><td>10</td><td>R$ 2.486.647.400</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>custodiante_oferta</td><td>BANCO DAYCOVAL S.A.</td><td>12</td><td>R$ 8.997.015.232</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>custodiante_oferta</td><td>VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA</td><td>10</td><td>R$ 2.626.950.000</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>custodiante_oferta</td><td>VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.</td><td>8</td><td>R$ 2.004.775.000</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>gestor_cvm</td><td>ECO GESTÃO DE ATIVOS LTDA</td><td>6</td><td>R$ 7.528.351.797</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>gestor_cvm</td><td>FARMTECH GESTÃO DE RECURSOS LTDA.</td><td>6</td><td>R$ 2.386.176.278</td></tr>
+<tr><td>Agro</td><td>Agro</td><td>gestor_cvm</td><td>ARTESANAL AGRO LTDA.</td><td>2</td><td>R$ 2.310.562.141</td></tr>
+</tbody></table>
+</section></div>
+</main></body></html>

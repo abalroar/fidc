@@ -1,0 +1,306 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: tomaconta fidcs
+      - generic [ref=e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e17] [cursor=pointer]:
+        - paragraph [ref=e21]: Sobre
+      - button [ref=e22] [cursor=pointer]:
+        - paragraph [ref=e26]: Dados da Indústria
+      - button [ref=e27] [cursor=pointer]:
+        - paragraph [ref=e31]: Dados de Carteira
+      - button [ref=e32] [cursor=pointer]:
+        - paragraph [ref=e36]: Cloudwalk
+      - button [ref=e37] [cursor=pointer]:
+        - paragraph [ref=e41]: Glossário
+      - button [ref=e42] [cursor=pointer]:
+        - paragraph [ref=e46]: Modelagem
+    - generic [ref=e48]:
+      - generic [ref=e51]:
+        - heading "Glossário" [level=1] [ref=e52]
+        - paragraph [ref=e53]: Estrutura, risco e regulação de FIDCs.
+      - textbox "Buscar" [ref=e58]:
+        - /placeholder: Buscar no glossário
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - tablist [ref=e62]:
+            - tab [selected] [ref=e63] [cursor=pointer]:
+              - paragraph [ref=e65]: Guia de uso do glossário
+            - tab [ref=e66] [cursor=pointer]:
+              - paragraph [ref=e68]: Fundamentos e participantes
+            - tab [ref=e69] [cursor=pointer]:
+              - paragraph [ref=e71]: Normas, reporte e ofertas
+            - tab [ref=e72] [cursor=pointer]:
+              - paragraph [ref=e74]: Estrutura de capital e caixa
+            - tab [ref=e75] [cursor=pointer]:
+              - paragraph [ref=e77]: Ativos, instrumentos e famílias
+            - tab [ref=e78] [cursor=pointer]:
+              - paragraph [ref=e80]: Métricas e desempenho
+            - tab [ref=e81] [cursor=pointer]:
+              - paragraph [ref=e83]: Eventos, governança e documentos
+            - tab [ref=e84] [cursor=pointer]:
+              - paragraph [ref=e86]: Corpus e fontes
+          - tabpanel "Guia de uso do glossário" [ref=e89]:
+            - generic [ref=e92]:
+              - generic [ref=e98]:
+                - generic [ref=e99]:
+                  - generic [ref=e100]: Guia de uso do Glossário de FIDCs
+                  - combobox "Selected Guia de uso do Glossário de FIDCs. Páginas" [ref=e102]
+                - img "open" [ref=e104]
+              - generic [ref=e107]:
+                - generic [ref=e112]:
+                  - generic [ref=e113]: Comece Aqui
+                  - heading "Guia de uso do Glossário de FIDCs" [level=2] [ref=e115]:
+                    - text: Guia de uso do Glossário de FIDCs
+                    - generic [ref=e116]:
+                      - link "Link to heading":
+                        - /url: "#guia-de-uso-do-glossario-de-fidcs"
+                  - generic [ref=e117]: Trilha de leitura, hierarquia fundo-classe-subclasse e escada documental do corpus de 100 fundos.
+                - generic [ref=e121]:
+                  - list [ref=e122]:
+                    - listitem [ref=e123]:
+                      - strong [ref=e124]: "Para quem é:"
+                      - text: analistas de crédito e profissionais comerciais que já conhecem crédito e demonstrações financeiras, mas precisam entender a estrutura dos
+                      - strong [ref=e125]: Fundos de Investimento em Direitos Creditórios (FIDCs)
+                      - text: .
+                    - listitem [ref=e126]:
+                      - strong [ref=e127]: "O que conecta:"
+                      - text: norma, contrato, operação e reporte regulatório. Essas quatro camadas se complementam, mas uma não prova a outra.
+                    - listitem [ref=e128]:
+                      - strong [ref=e129]: "Como usar:"
+                      - text: comece pelo conceito e siga as referências para a aplicação. A definição completa fica em uma página canônica para evitar versões contraditórias.
+                    - listitem [ref=e130]:
+                      - strong [ref=e131]: "O que não faz:"
+                      - text: o glossário não atribui classificação de risco, não recomenda investimento e não avalia a situação corrente de um fundo.
+                  - heading "Como ler" [level=2] [ref=e133]:
+                    - text: Como ler
+                    - generic [ref=e134]:
+                      - link "Link to heading":
+                        - /url: "#como-ler"
+                  - paragraph [ref=e135]: "Uma sequência eficiente é:"
+                  - list [ref=e136]:
+                    - listitem [ref=e137]:
+                      - link "FIDC, classe, direito creditório e patrimônio segregado" [active] [ref=e138] [cursor=pointer]:
+                        - /url: "?section=glossario&book_page=o-que-e-fidc"
+                      - text: ;
+                    - listitem [ref=e139]:
+                      - link "participantes e responsabilidades" [ref=e140] [cursor=pointer]:
+                        - /url: "?section=glossario&book_page=participantes"
+                      - text: ;
+                    - listitem [ref=e141]:
+                      - link "fundo, classe, subclasse, série, cota e cascata de pagamentos" [ref=e142] [cursor=pointer]:
+                        - /url: "?section=glossario&book_page=classes-cotas-waterfall"
+                      - text: ;
+                    - listitem [ref=e143]:
+                      - link "cessão, endosso, elegibilidade, regresso e lastro" [ref=e144] [cursor=pointer]:
+                        - /url: "?section=glossario&book_page=cessao-e-resolucao"
+                      - text: ;
+                    - listitem [ref=e145]:
+                      - link "Tabela II do Informe Mensal" [ref=e146] [cursor=pointer]:
+                        - /url: "?section=glossario&book_page=informe-mensal-tabela-ii"
+                      - text: ;
+                    - listitem [ref=e147]:
+                      - link "métricas de desempenho" [ref=e148] [cursor=pointer]:
+                        - /url: "?section=glossario&book_page=provisao-perdas-e-inadimplencia"
+                      - text: e
+                      - link "métricas de estrutura" [ref=e149] [cursor=pointer]:
+                        - /url: "?section=glossario&book_page=metricas-estruturais"
+                      - text: ;
+                    - listitem [ref=e150]:
+                      - link "eventos e governança" [ref=e151] [cursor=pointer]:
+                        - /url: "?section=glossario&book_page=eventos-avaliacao-liquidacao"
+                      - text: .
+                  - heading "A hierarquia em uma abertura" [level=2] [ref=e153]:
+                    - text: A hierarquia em uma abertura
+                    - generic [ref=e154]:
+                      - link "Link to heading":
+                        - /url: "#a-hierarquia-em-uma-abertura"
+                  - list [ref=e155]:
+                    - listitem [ref=e156]:
+                      - paragraph [ref=e157]:
+                        - strong [ref=e158]: Fundo
+                      - list [ref=e159]:
+                        - listitem [ref=e160]: É o veículo e o nível de governança. Pode ter uma ou mais classes.
+                        - listitem [ref=e161]:
+                          - strong [ref=e162]: "Classe A: patrimônio segregado A"
+                          - list [ref=e163]:
+                            - listitem [ref=e164]: Aqui ficam a carteira, os passivos, as despesas e os cotistas vinculados à Classe A.
+                            - listitem [ref=e165]:
+                              - strong [ref=e166]: Subclasse sênior
+                              - list [ref=e167]:
+                                - listitem [ref=e168]: Tem a prioridade definida no regulamento.
+                                - listitem [ref=e169]:
+                                  - strong [ref=e170]: Série 1
+                                  - text: ", quando admitida"
+                                  - list [ref=e171]:
+                                    - listitem [ref=e172]:
+                                      - strong [ref=e173]: "Cotas da Série 1:"
+                                      - text: unidades detidas pelos investidores.
+                            - listitem [ref=e174]:
+                              - strong [ref=e175]: Subclasse mezanino
+                              - list [ref=e176]:
+                                - listitem [ref=e177]: Fica abaixo da sênior e acima da camada subordinada indicada.
+                            - listitem [ref=e178]:
+                              - strong [ref=e179]: Subclasse subordinada
+                              - list [ref=e180]:
+                                - listitem [ref=e181]: Recebe resultados e absorve perdas na ordem contratual.
+                        - listitem [ref=e182]:
+                          - strong [ref=e183]: "Classe B: patrimônio segregado B"
+                          - list [ref=e184]:
+                            - listitem [ref=e185]: Tem carteira, obrigações e regras próprias. Não responde automaticamente pela Classe A.
+                    - listitem [ref=e186]:
+                      - paragraph [ref=e187]:
+                        - strong [ref=e188]: "Emissão:"
+                        - text: ato que cria um lote de cotas.
+                    - listitem [ref=e189]:
+                      - paragraph [ref=e190]:
+                        - strong [ref=e191]: "Oferta:"
+                        - text: processo de distribuir essas cotas.
+                    - listitem [ref=e192]:
+                      - paragraph [ref=e193]:
+                        - strong [ref=e194]: "Tranche:"
+                        - text: rótulo econômico que precisa ser mapeado para subclasse, série ou emissão.
+                  - heading "Quatro naturezas de afirmação" [level=2] [ref=e196]:
+                    - text: Quatro naturezas de afirmação
+                    - generic [ref=e197]:
+                      - link "Link to heading":
+                        - /url: "#quatro-naturezas-de-afirmacao"
+                  - table [ref=e198]:
+                    - rowgroup [ref=e199]:
+                      - row [ref=e200]:
+                        - columnheader "Natureza" [ref=e201]
+                        - columnheader "O que sustenta" [ref=e202]
+                        - columnheader "Como ler neste glossário" [ref=e203]
+                    - rowgroup [ref=e204]:
+                      - row [ref=e205]:
+                        - cell [ref=e206]:
+                          - strong [ref=e207]: Normativa
+                        - cell "obrigação, faculdade ou definição prevista em norma" [ref=e208]
+                        - cell "traz a norma, o dispositivo e a data de verificação" [ref=e209]
+                      - row [ref=e210]:
+                        - cell [ref=e211]:
+                          - strong [ref=e212]: Contratual
+                        - cell "regra de uma classe ou emissão" [ref=e213]
+                        - cell "aponta o regulamento, anexo ou instrumento aplicável" [ref=e214]
+                      - row [ref=e215]:
+                        - cell [ref=e216]:
+                          - strong [ref=e217]: Prática recorrente
+                        - cell "cláusula encontrada em estruturas independentes" [ref=e218]
+                        - cell "informa o denominador documentado e não transforma frequência em obrigação" [ref=e219]
+                      - row [ref=e220]:
+                        - cell [ref=e221]:
+                          - strong [ref=e222]: Convenção analítica
+                        - cell "cálculo construído para comparação" [ref=e223]
+                        - cell "explicita fórmula, base, unidade e limitação" [ref=e224]
+                  - list [ref=e225]:
+                    - listitem [ref=e226]:
+                      - strong [ref=e227]: Um limite de um fundo
+                      - text: não vira parâmetro universal.
+                    - listitem [ref=e228]:
+                      - strong [ref=e229]: Ausência na extração
+                      - text: não comprova inexistência de cláusula.
+                    - listitem [ref=e230]:
+                      - strong [ref=e231]: Texto intermediário em cache sem o documento primário
+                      - text: serve para localizar um candidato, não para sustentar afirmação categórica.
+                  - heading "O que o Informe Mensal mostra" [level=2] [ref=e233]:
+                    - text: O que o Informe Mensal mostra
+                    - generic [ref=e234]:
+                      - link "Link to heading":
+                        - /url: "#o-que-o-informe-mensal-mostra"
+                  - list [ref=e235]:
+                    - listitem [ref=e236]:
+                      - strong [ref=e237]: Patrimônio líquido (PL)
+                      - text: ", composição da carteira, vencidos por faixa, provisões ou reduções ao valor recuperável, aquisições, alienações, liquidações, cotas e movimentações reportadas."
+                    - listitem [ref=e238]:
+                      - text: A
+                      - link "Tabela II" [ref=e239] [cursor=pointer]:
+                        - /url: "?section=glossario&book_page=informe-mensal-tabela-ii"
+                      - text: distribui os direitos em
+                      - strong [ref=e240]: 11 segmentos oficiais
+                      - text: e detalha o bloco Financeiro em
+                      - strong [ref=e241]: oito aberturas
+                      - text: .
+                    - listitem [ref=e242]: A série mensal ajuda a localizar mudança de composição, atraso, provisão, liquidez e capital. Ela é ponto de partida para perguntas, não resposta completa sobre o contrato.
+                  - heading "O que exige outro documento" [level=2] [ref=e244]:
+                    - text: O que exige outro documento
+                    - generic [ref=e245]:
+                      - link "Link to heading":
+                        - /url: "#o-que-exige-outro-documento"
+                  - list [ref=e246]:
+                    - listitem [ref=e247]:
+                      - strong [ref=e248]: "Elegibilidade:"
+                      - text: se cada crédito satisfaz os testes de entrada.
+                    - listitem [ref=e249]:
+                      - strong [ref=e250]: "Capital e caixa:"
+                      - text: a ordem de pagamentos, a absorção de perdas e os limites para amortizar cada camada.
+                    - listitem [ref=e251]:
+                      - strong [ref=e252]: "Concentração:"
+                      - text: limites por devedor, grupo econômico, cedente, originador, convênio ou prestador.
+                    - listitem [ref=e253]:
+                      - strong [ref=e254]: "Garantias e lastro:"
+                      - text: constituição, registro, prioridade, documentação e possibilidade de execução.
+                    - listitem [ref=e255]:
+                      - strong [ref=e256]: "Eventos e governança:"
+                      - text: gatilhos, prazo de correção, dispensa pontual e efeito de uma assembleia.
+                    - listitem [ref=e257]:
+                      - strong [ref=e258]: "Operação:"
+                      - text: qualidade da originação, cobrança, conciliação, conta de recebimento e continuidade do prestador.
+                  - heading "Vocabulário de classificação" [level=2] [ref=e260]:
+                    - text: Vocabulário de classificação
+                    - generic [ref=e261]:
+                      - link "Link to heading":
+                        - /url: "#vocabulario-de-classificacao"
+                  - list [ref=e262]:
+                    - listitem [ref=e263]:
+                      - strong [ref=e264]: "Segmento oficial da Tabela II do Informe Mensal:"
+                      - text: um dos 11 blocos oficiais.
+                    - listitem [ref=e265]:
+                      - strong [ref=e266]: "Abertura financeira da Tabela II:"
+                      - text: detalhamento F1 a F8 do bloco Financeiro.
+                    - listitem [ref=e267]:
+                      - strong [ref=e268]: "Taxonomia funcional documental:"
+                      - text: classificação inferida de documentos, como consignado, risco sacado, meios de pagamento, crédito estudantil ou crédito inadimplido.
+                    - listitem [ref=e269]:
+                      - strong [ref=e270]: "Sem segmentação IME:"
+                      - text: estrato de qualidade de dados usado quando a Tabela II não traz valores suficientes. A sigla IME aparece em artefatos legados para se referir ao Informe Mensal; não é um subtipo oficial.
+                  - heading "Escopo documental da revisão" [level=2] [ref=e272]:
+                    - text: Escopo documental da revisão
+                    - generic [ref=e273]:
+                      - link "Link to heading":
+                        - /url: "#escopo-documental-da-revisao"
+                  - list [ref=e274]:
+                    - listitem [ref=e275]:
+                      - strong [ref=e276]: 100 fundos
+                      - text: foram selecionados na competência 202605 com cobertura de todos os estratos ocupados.
+                    - listitem [ref=e277]:
+                      - strong [ref=e278]: 731 documentos primários
+                      - text: foram processados página a página, somando 721 impressões digitais criptográficas únicas e 21.028 páginas deduplicadas.
+                    - listitem [ref=e279]:
+                      - strong [ref=e280]: 95 regulamentos vigentes
+                      - text: tiveram texto recuperado e extraído.
+                    - listitem [ref=e281]:
+                      - strong [ref=e282]: 15 regulamentos de 12 famílias independentes
+                      - text: receberam leitura substantiva de cláusulas para as frequências contratuais, cobrindo 48,44% do PL da amostra.
+                    - listitem [ref=e283]:
+                      - strong [ref=e284]: 10 casos narrativos
+                      - text: aparecem no glossário apenas como exemplos rastreáveis. Eles não representam o tamanho total do corpus.
+                  - paragraph [ref=e285]:
+                    - text: Veja
+                    - link "Corpus de 100 FIDCs e casos documentais" [ref=e286] [cursor=pointer]:
+                      - /url: "?section=glossario&book_page=fundos-de-referencia"
+                    - text: e
+                    - link "Referências e rastreabilidade" [ref=e287] [cursor=pointer]:
+                      - /url: "?section=glossario&book_page=referencias"
+                    - text: para a escada completa de evidência.
+                  - paragraph [ref=e288]:
+                    - text: "Última verificação normativa:"
+                    - strong [ref=e289]: 16/07/2026
+                    - text: .
+                - group [ref=e292]:
+                  - generic "keyboard_arrow_right Sobre a base" [ref=e293] [cursor=pointer]:
+                    - generic [ref=e294]:
+                      - generic [ref=e295]: keyboard_arrow_right
+                      - paragraph [ref=e299]: Sobre a base
+        - button "Scroll tabs right" [ref=e300] [cursor=pointer]

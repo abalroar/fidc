@@ -1,0 +1,545 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: tomaconta fidcs
+      - generic [ref=e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e17] [cursor=pointer]:
+        - paragraph [ref=e21]: Sobre
+      - button [ref=e22] [cursor=pointer]:
+        - paragraph [ref=e26]: Dados da Indústria
+      - button [ref=e27] [cursor=pointer]:
+        - paragraph [ref=e31]: Dados de Carteira
+      - button [ref=e32] [cursor=pointer]:
+        - paragraph [ref=e36]: Cloudwalk
+      - button [ref=e37] [cursor=pointer]:
+        - paragraph [ref=e41]: Glossário
+      - button [ref=e42] [cursor=pointer]:
+        - paragraph [ref=e46]: Modelagem
+    - generic [ref=e48]:
+      - generic [ref=e51]:
+        - heading "Glossário" [level=1] [ref=e52]
+        - paragraph [ref=e53]: Estrutura, risco e regulação de FIDCs.
+      - textbox "Buscar" [ref=e58]:
+        - /placeholder: Buscar no glossário
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - tablist [ref=e62]:
+            - tab [ref=e63] [cursor=pointer]:
+              - paragraph [ref=e65]: Guia de uso do glossário
+            - tab [ref=e66] [cursor=pointer]:
+              - paragraph [ref=e68]: Fundamentos e participantes
+            - tab [ref=e69] [cursor=pointer]:
+              - paragraph [ref=e71]: Normas, reporte e ofertas
+            - tab [ref=e72] [cursor=pointer]:
+              - paragraph [ref=e74]: Estrutura de capital e caixa
+            - tab [selected] [ref=e75] [cursor=pointer]:
+              - paragraph [ref=e77]: Ativos, instrumentos e famílias
+            - tab [ref=e78] [cursor=pointer]:
+              - paragraph [ref=e80]: Métricas e desempenho
+            - tab [ref=e81] [cursor=pointer]:
+              - paragraph [ref=e83]: Eventos, governança e documentos
+            - tab [ref=e84] [cursor=pointer]:
+              - paragraph [ref=e86]: Corpus e fontes
+          - tabpanel "Ativos, instrumentos e famílias" [ref=e89]:
+            - generic [ref=e92]:
+              - generic [ref=e98]:
+                - generic [ref=e99]:
+                  - generic [ref=e100]: Famílias de recebíveis e diferenças de risco
+                  - combobox "Selected Famílias de recebíveis e diferenças de risco. Páginas" [ref=e102]
+                - img "open" [ref=e104]
+              - generic [ref=e107]:
+                - generic [ref=e112]:
+                  - generic [ref=e113]: Ativos, instrumentos e famílias
+                  - heading "Famílias de recebíveis e diferenças de risco" [level=2] [ref=e115]:
+                    - text: Famílias de recebíveis e diferenças de risco
+                    - generic [ref=e116]:
+                      - link "Link to heading":
+                        - /url: "#familias-de-recebiveis-e-diferencas-de-risco"
+                  - generic [ref=e117]: Riscos, fórmulas e limites prioritários para consignado, pessoal, corporativo, veículos, imobiliário, cartão, créditos inadimplidos e outras famílias.
+                - generic [ref=e121]:
+                  - paragraph [ref=e122]: "O rótulo da carteira deve ser lido em três camadas:"
+                  - list [ref=e123]:
+                    - listitem [ref=e124]:
+                      - paragraph [ref=e125]:
+                        - strong [ref=e126]: "Segmento oficial da Tabela II do Informe Mensal:"
+                        - text: classificação regulatória agregada.
+                    - listitem [ref=e127]:
+                      - paragraph [ref=e128]:
+                        - strong [ref=e129]: "Abertura financeira da Tabela II:"
+                        - text: detalhamento F1 a F8 quando o bloco Financeiro domina.
+                    - listitem [ref=e130]:
+                      - paragraph [ref=e131]:
+                        - strong [ref=e132]: "Taxonomia funcional documental:"
+                        - text: descrição da mecânica encontrada no regulamento e nos contratos, como consignado, risco sacado, meios de pagamento ou crédito inadimplido.
+                    - listitem [ref=e133]:
+                      - paragraph [ref=e134]:
+                        - strong [ref=e135]: "Natureza das fórmulas:"
+                        - text: são referências analíticas, salvo quando o texto diz
+                        - strong [ref=e136]: contratual
+                        - text: .
+                    - listitem [ref=e137]:
+                      - paragraph [ref=e138]:
+                        - strong [ref=e139]: "O contrato prevalece:"
+                        - text: um regulamento pode mudar base, janela, exclusões, nível de agregação e consequência.
+                    - listitem [ref=e140]:
+                      - paragraph [ref=e141]:
+                        - strong [ref=e142]: "Limite da evidência:"
+                        - text: o corpus sustenta a recorrência de elegibilidade, concentração e ordem de recursos, mas não um limite numérico universal.
+                  - heading "Crédito consignado" [level=2] [ref=e144]:
+                    - generic [ref=e146]:
+                      - link "Link to heading":
+                        - /url: "#credito-consignado"
+                  - list [ref=e147]:
+                    - listitem [ref=e148]:
+                      - strong [ref=e149]: "O que gera o pagamento:"
+                      - text: o tomador é o devedor; empregador, Instituto Nacional do Seguro Social (INSS) ou ente conveniado normalmente desconta e repassa a parcela.
+                    - listitem [ref=e150]:
+                      - strong [ref=e151]: "Riscos que vêm primeiro:"
+                      - text: margem consignável, vínculo ou benefício, averbação, portabilidade, fraude, fila operacional, convênio e continuidade do repasse.
+                    - listitem [ref=e152]:
+                      - strong [ref=e153]: "Indicadores prioritários:"
+                      - list [ref=e154]:
+                        - listitem [ref=e155]:
+                          - strong [ref=e156]: "Atraso superior a N dias, ou Inadimplência Over N:"
+                          - code [ref=e157]: saldo com atraso superior a N dias / saldo da base
+                          - text: . Mostra o atraso acumulado após o corte e precisa separar falha do tomador de falha de repasse.
+                        - listitem [ref=e158]:
+                          - strong [ref=e159]: "Falha de averbação:"
+                          - code [ref=e160]: contratos rejeitados ou não averbados / contratos enviados para averbação
+                          - text: . É uma métrica operacional, se a base estiver disponível, e antecipa créditos que podem nascer sem o desconto esperado.
+                        - listitem [ref=e161]:
+                          - strong [ref=e162]: "Desvio de repasse:"
+                          - code [ref=e163]: (valor esperado descontado - valor conciliado recebido) / valor esperado descontado
+                          - text: . Ajuda a localizar dinheiro retido ou não conciliado pelo agente de repasse.
+                        - listitem [ref=e164]:
+                          - strong [ref=e165]: "Concentração por convênio ou pagador:"
+                          - code [ref=e166]: exposição ao convênio / carteira elegível
+                          - text: . Uma carteira com muitos tomadores pode depender de um único canal de desconto.
+                    - listitem [ref=e167]:
+                      - strong [ref=e168]: "Testes, limites contratuais e documentos:"
+                      - text: Cédula de Crédito Bancário (CCB), autorização, averbação, cessão ou endosso, regras de portabilidade e conta de recebimento.
+                    - listitem [ref=e169]:
+                      - strong [ref=e170]: "Por que esses indicadores vêm antes:"
+                      - text: o risco operacional do desconto e do repasse pode dominar antes mesmo de a inadimplência econômica do tomador aparecer.
+                  - heading "Crédito pessoal e financiamento digital" [level=2] [ref=e172]:
+                    - generic [ref=e174]:
+                      - link "Link to heading":
+                        - /url: "#credito-pessoal-e-financiamento-digital"
+                  - list [ref=e175]:
+                    - listitem [ref=e176]:
+                      - strong [ref=e177]: "O que gera o pagamento:"
+                      - text: renda e liquidez do tomador, normalmente sem desconto automático ou garantia suficiente para substituir sua capacidade de pagamento.
+                    - listitem [ref=e178]:
+                      - strong [ref=e179]: "Riscos que vêm primeiro:"
+                      - text: seleção, canal, fraude, carteira jovem, renegociação e capacidade de cobrança.
+                    - listitem [ref=e180]:
+                      - strong [ref=e181]: "Indicadores prioritários:"
+                      - list [ref=e182]:
+                        - listitem [ref=e183]:
+                          - strong [ref=e184]: "Inadimplência na primeira obrigação, ou First Payment Default (FPD):"
+                          - code [ref=e185]: exposição inadimplida na primeira obrigação / exposição elegível da coorte
+                          - text: . É convenção operacional; a revisão não localizou definição literal de FPD nos 95 regulamentos vigentes e 52 relatórios de classificação de risco varridos.
+                        - listitem [ref=e186]:
+                          - strong [ref=e187]: "Inadimplência por safra:"
+                          - code [ref=e188]: saldo em atraso da coorte / exposição da mesma coorte
+                          - text: . Evita comparar uma carteira recém-originada com outra já madura.
+                        - listitem [ref=e189]:
+                          - strong [ref=e190]: "Taxa de migração, ou roll rate:"
+                          - code [ref=e191]: saldo que migrou da faixa i para a faixa j / saldo inicial na faixa i
+                          - text: . Mostra a direção do atraso.
+                        - listitem [ref=e192]:
+                          - strong [ref=e193]: "Taxa de cura:"
+                          - code [ref=e194]: saldo que voltou ao estado adimplente / saldo elegível em atraso no início
+                          - text: . Renegociação deve ser identificada à parte.
+                        - listitem [ref=e195]:
+                          - strong [ref=e196]: "Recuperação líquida:"
+                          - code [ref=e197]: (caixa recuperado - custos de cobrança) / exposição em recuperação
+                          - text: . Mede o resultado depois da inadimplência.
+                    - listitem [ref=e198]:
+                      - strong [ref=e199]: "Testes, limites contratuais e documentos:"
+                      - text: política de crédito, antifraude, pontuação de crédito, ou
+                      - emphasis [ref=e200]: score
+                      - text: ", exceções, dados usados, canal, CCB, cobrança e critérios de renegociação."
+                    - listitem [ref=e201]:
+                      - strong [ref=e202]: "Por que esses indicadores vêm antes:"
+                      - text: a qualidade da originação aparece por coorte e migração antes de ficar evidente no saldo agregado do fundo.
+                  - heading "Crédito corporativo e empresas de médio porte" [level=2] [ref=e204]:
+                    - generic [ref=e206]:
+                      - link "Link to heading":
+                        - /url: "#credito-corporativo-e-empresas-de-medio-porte"
+                  - list [ref=e207]:
+                    - listitem [ref=e208]:
+                      - strong [ref=e209]: "O que gera o pagamento:"
+                      - text: caixa da empresa, fluxo de contrato comercial ou ativo dado em garantia.
+                      - emphasis [ref=e210]: Middle market
+                      - text: é o termo da abertura da Tabela II para empresas de médio porte e não define sozinho porte ou qualidade de crédito.
+                    - listitem [ref=e211]:
+                      - strong [ref=e212]: "Riscos que vêm primeiro:"
+                      - text: concentração por grupo, dependência de poucos contratos, vencimento concentrado, garantia, governança financeira e descumprimento cruzado de dívida.
+                    - listitem [ref=e213]:
+                      - strong [ref=e214]: "Indicadores prioritários:"
+                      - list [ref=e215]:
+                        - listitem [ref=e216]:
+                          - strong [ref=e217]: "Concentração por devedor ou grupo:"
+                          - code [ref=e218]: exposição computável ao grupo / base contratual
+                          - text: . É central porque um único evento pode atingir parte material da classe.
+                        - listitem [ref=e219]:
+                          - strong [ref=e220]: "Cobertura de ativos:"
+                          - code [ref=e221]: ativos elegíveis ajustados / obrigações protegidas
+                          - text: . O contrato deve dizer quais ativos, descontos e passivos entram.
+                        - listitem [ref=e222]:
+                          - strong [ref=e223]: "Cobertura do serviço da dívida, ou Debt Service Coverage Ratio (DSCR):"
+                          - code [ref=e224]: caixa disponível para a dívida / principal e juros do período
+                          - text: ", quando o crédito depende do fluxo de uma empresa ou projeto."
+                        - listitem [ref=e225]:
+                          - strong [ref=e226]: "Diluição comercial:"
+                          - code [ref=e227]: cancelamentos, devoluções e abatimentos / originação sujeita à diluição
+                          - text: . Importa quando o recebível depende de entrega, aceite ou disputa comercial.
+                        - listitem [ref=e228]:
+                          - strong [ref=e229]: "Concentração de vencimentos:"
+                          - code [ref=e230]: exposição que vence na janela / carteira
+                          - text: . Ajuda a testar se o caixa do devedor e a amortização das cotas coincidem.
+                    - listitem [ref=e231]:
+                      - strong [ref=e232]: "Testes, limites contratuais e documentos:"
+                      - text: demonstrações, compromissos financeiros, ou
+                      - emphasis [ref=e233]: covenants
+                      - text: ", garantias, vencimento cruzado, ou"
+                      - emphasis [ref=e234]: cross-default
+                      - text: ", contratos de fornecimento e conta controlada."
+                    - listitem [ref=e235]:
+                      - strong [ref=e236]: "Por que esses indicadores vêm antes:"
+                      - text: a perda tende a ser menos pulverizada e mais sensível a um devedor, contrato ou data.
+                  - heading "Veículos" [level=2] [ref=e238]:
+                    - generic [ref=e240]:
+                      - link "Link to heading":
+                        - /url: "#veiculos"
+                  - list [ref=e241]:
+                    - listitem [ref=e242]:
+                      - strong [ref=e243]: "O que gera o pagamento:"
+                      - text: renda do tomador; a alienação fiduciária pode criar uma fonte adicional de recuperação se tiver sido constituída e registrada.
+                    - listitem [ref=e244]:
+                      - strong [ref=e245]: "Riscos que vêm primeiro:"
+                      - text: fraude documental, valor e liquidez do bem, seguro, localização, retomada, custo e prazo de venda.
+                    - listitem [ref=e246]:
+                      - strong [ref=e247]: "Indicadores prioritários:"
+                      - list [ref=e248]:
+                        - listitem [ref=e249]:
+                          - strong [ref=e250]: "Relação entre saldo e valor da garantia, ou Loan-to-Value (LTV):"
+                          - code [ref=e251]: saldo devedor / valor elegível do veículo
+                          - text: . Quanto maior a relação, menor a margem econômica para custos e desvalorização.
+                        - listitem [ref=e252]:
+                          - strong [ref=e253]: "Over por safra:"
+                          - code [ref=e254]: saldo acima do corte de atraso / saldo da safra
+                          - text: . Separa originação recente de carteira madura.
+                        - listitem [ref=e255]:
+                          - strong [ref=e256]: "Recuperação líquida do bem:"
+                          - code [ref=e257]: (preço de venda - retomada - guarda - venda - tributos) / saldo inadimplido
+                          - text: . O valor de tabela não é recuperação.
+                        - listitem [ref=e258]:
+                          - strong [ref=e259]: "Tempo de recuperação:"
+                          - text: média ou distribuição dos dias entre inadimplência, retomada e caixa líquido. Proteção sem liquidez pode chegar tarde.
+                        - listitem [ref=e260]:
+                          - strong [ref=e261]: "Pré-pagamento:"
+                          - code [ref=e262]: principal pago antes do cronograma / saldo elegível
+                          - text: . Afeta receita e vida média.
+                    - listitem [ref=e263]:
+                      - strong [ref=e264]: "Testes, limites contratuais e documentos:"
+                      - text: CCB, registro da garantia, seguro, política de retomada, laudo ou base de valor e critérios de elegibilidade do veículo.
+                    - listitem [ref=e265]:
+                      - strong [ref=e266]: "Por que esses indicadores vêm antes:"
+                      - text: a severidade da perda depende tanto do crédito quanto da execução e liquidez da garantia.
+                  - heading "Imobiliário financeiro" [level=2] [ref=e268]:
+                    - generic [ref=e270]:
+                      - link "Link to heading":
+                        - /url: "#imobiliario-financeiro"
+                  - list [ref=e271]:
+                    - listitem [ref=e272]:
+                      - strong [ref=e273]: "O que gera o pagamento:"
+                      - text: venda, aluguel, fluxo corporativo ou pagamento do tomador, conforme a operação. As aberturas empresarial e residencial da Tabela II não explicam sozinhas essa fonte.
+                    - listitem [ref=e274]:
+                      - strong [ref=e275]: "Riscos que vêm primeiro:"
+                      - text: estágio de obra, licenças, prioridade da garantia, orçamento, vendas, concentração e descasamento de prazo.
+                    - listitem [ref=e276]:
+                      - strong [ref=e277]: "Indicadores prioritários:"
+                      - list [ref=e278]:
+                        - listitem [ref=e279]:
+                          - strong [ref=e280]: "Loan-to-Value (LTV), relação saldo-valor:"
+                          - code [ref=e281]: exposição / valor elegível do imóvel ou projeto
+                          - text: . O laudo, a data e o desconto precisam ser conhecidos.
+                        - listitem [ref=e282]:
+                          - strong [ref=e283]: "Loan-to-Cost (LTC), relação saldo-custo:"
+                          - code [ref=e284]: exposição financiada / custo total do projeto
+                          - text: . Ajuda a medir quanto do custo é financiado pela dívida.
+                        - listitem [ref=e285]:
+                          - strong [ref=e286]: "Cobertura de fluxo:"
+                          - code [ref=e287]: recebíveis ou caixa elegível ajustado / serviço da dívida
+                          - text: . Deve refletir distratos, despesas e prioridade do fluxo.
+                        - listitem [ref=e288]:
+                          - strong [ref=e289]: "Avanço físico versus financeiro:"
+                          - code [ref=e290]: percentual concluído / percentual do orçamento consumido
+                          - text: . Um projeto pode gastar mais rápido do que constrói.
+                        - listitem [ref=e291]:
+                          - strong [ref=e292]: "Descasamento de prazo, ou gap:"
+                          - code [ref=e293]: vida média dos ativos - prazo médio das obrigações
+                          - text: . Sinaliza necessidade de refinanciamento ou venda de ativo.
+                    - listitem [ref=e294]:
+                      - strong [ref=e295]: "Testes, limites contratuais e documentos:"
+                      - text: matrícula, registro, avaliação, orçamento, medição de obra, conta vinculada, licença e contrato de venda ou locação.
+                    - listitem [ref=e296]:
+                      - strong [ref=e297]: "Por que esses indicadores vêm antes:"
+                      - text: valor de garantia sem prioridade, liquidez ou conclusão de obra pode não proteger a cota no momento necessário.
+                  - heading "Cartão de crédito e meios de pagamento" [level=2] [ref=e299]:
+                    - generic [ref=e301]:
+                      - link "Link to heading":
+                        - /url: "#cartao-de-credito-e-meios-de-pagamento"
+                  - list [ref=e302]:
+                    - listitem [ref=e303]:
+                      - strong [ref=e304]: "O que gera o pagamento:"
+                      - text: depende do direito cedido. Pode vir do portador, emissor, credenciador, subcredenciador, estabelecimento ou de uma agenda de liquidação.
+                    - listitem [ref=e305]:
+                      - strong [ref=e306]: "Riscos que vêm primeiro:"
+                      - text: cancelamento, contestação ou reversão de transação, chamada de
+                      - emphasis [ref=e307]: chargeback
+                      - text: ", conciliação, antecipação, registro, agenda, arranjo e concentração operacional."
+                    - listitem [ref=e308]:
+                      - strong [ref=e309]: "Indicadores prioritários:"
+                      - list [ref=e310]:
+                        - listitem [ref=e311]:
+                          - strong [ref=e312]: "Diluição:"
+                          - code [ref=e313]: cancelamentos + devoluções + descontos + disputas + chargebacks / volume sujeito a esses eventos
+                          - text: . Chargeback é a reversão ou contestação de uma transação.
+                        - listitem [ref=e314]:
+                          - strong [ref=e315]: "Diferença de conciliação:"
+                          - code [ref=e316]: valor esperado - valor liquidado e identificado
+                          - text: ", em moeda e como percentual da agenda. Mostra descasamento operacional antes de classificá-lo como perda."
+                        - listitem [ref=e317]:
+                          - strong [ref=e318]: "Concentração no arranjo ou participante:"
+                          - code [ref=e319]: exposição ao participante / carteira elegível
+                          - text: . A pulverização por transação pode esconder dependência de uma infraestrutura.
+                        - listitem [ref=e320]:
+                          - strong [ref=e321]: "Atraso e refinanciamento:"
+                          - text: use coorte, janela e base definidas somente quando o produto inclui financiamento ao portador.
+                        - listitem [ref=e322]:
+                          - strong [ref=e323]: "Prazo de liquidação:"
+                          - text: distribuição dos dias entre transação, agenda e caixa. Antecipação altera custo e duração.
+                    - listitem [ref=e324]:
+                      - strong [ref=e325]: "Testes, limites contratuais e documentos:"
+                      - text: contrato do arranjo, registro da agenda, regras de
+                      - emphasis [ref=e326]: chargeback
+                      - text: ", conta de recebimento, cessão e identificação do devedor do direito concreto."
+                    - listitem [ref=e327]:
+                      - strong [ref=e328]: "Siglas contratuais:"
+                      - strong [ref=e329]: DCV não é alias de diluição
+                      - text: . Nenhuma expansão recorrente da sigla foi identificada nos 95 regulamentos vigentes e 52 relatórios de classificação de risco varridos. Só use DCV quando o próprio documento definir o índice. O mesmo cuidado vale para “índice de refinanciamento”.
+                    - listitem [ref=e330]:
+                      - strong [ref=e331]: "Por que esses indicadores vêm antes:"
+                      - text: o recebível pode ser reduzido ou desviado por evento operacional sem inadimplência tradicional do pagador.
+                  - heading "Risco sacado e financiamento de fornecedores" [level=2] [ref=e333]:
+                    - generic [ref=e335]:
+                      - link "Link to heading":
+                        - /url: "#risco-sacado-e-financiamento-de-fornecedores"
+                  - list [ref=e336]:
+                    - listitem [ref=e337]:
+                      - strong [ref=e338]: "O que gera o pagamento:"
+                      - text: obrigação comercial do comprador perante o fornecedor, financiada ou antecipada dentro de um programa.
+                      - emphasis [ref=e339]: Supplier finance
+                      - text: é o termo em inglês para financiamento de fornecedores.
+                    - listitem [ref=e340]:
+                      - strong [ref=e341]: "Riscos que vêm primeiro:"
+                      - text: reconhecimento da dívida, entrega, aceite, devolução, prazo estendido e concentração no comprador âncora.
+                    - listitem [ref=e342]:
+                      - strong [ref=e343]: "Indicadores prioritários:"
+                      - list [ref=e344]:
+                        - listitem [ref=e345]:
+                          - strong [ref=e346]: "Concentração no comprador:"
+                          - code [ref=e347]: exposição ao comprador ou grupo / carteira elegível
+                          - text: .
+                        - listitem [ref=e348]:
+                          - strong [ref=e349]: "Diluição comercial:"
+                          - code [ref=e350]: devoluções + descontos + disputas / compras ou recebíveis sujeitos
+                          - text: .
+                        - listitem [ref=e351]:
+                          - strong [ref=e352]: "Exceção de aceite:"
+                          - code [ref=e353]: títulos sem aceite ou confirmação válida / títulos testados
+                          - text: .
+                        - listitem [ref=e354]:
+                          - strong [ref=e355]: "Extensão de prazo:"
+                          - code [ref=e356]: prazo atual - prazo original
+                          - text: ", acompanhada em dias e por coorte."
+                        - listitem [ref=e357]:
+                          - strong [ref=e358]: "Cobertura de ativos:"
+                          - code [ref=e359]: recebíveis elegíveis ajustados / obrigações protegidas
+                          - text: .
+                    - listitem [ref=e360]:
+                      - strong [ref=e361]: "Testes, limites contratuais e documentos:"
+                      - text: pedido, nota fiscal, prova de entrega, aceite, programa de fornecedores, cessão e remédios por vício.
+                    - listitem [ref=e362]:
+                      - strong [ref=e363]: "Por que esses indicadores vêm antes:"
+                      - text: muitos fornecedores não eliminam a concentração econômica em um único comprador.
+                  - heading "Créditos inadimplidos" [level=2] [ref=e365]:
+                    - generic [ref=e367]:
+                      - link "Link to heading":
+                        - /url: "#creditos-inadimplidos"
+                  - list [ref=e368]:
+                    - listitem [ref=e369]:
+                      - strong [ref=e370]: "O que é:"
+                      - strong [ref=e371]: Non-Performing Loan (NPL)
+                      - text: é crédito inadimplido ou problemático segundo a definição usada. É taxonomia funcional, não segmento oficial da Tabela II.
+                    - listitem [ref=e372]:
+                      - strong [ref=e373]: "Riscos que vêm primeiro:"
+                      - text: documentação, prescrição, litigância, garantia, prioridade, custo, tempo de cobrança e preço de aquisição.
+                    - listitem [ref=e374]:
+                      - strong [ref=e375]: "Indicadores prioritários:"
+                      - list [ref=e376]:
+                        - listitem [ref=e377]:
+                          - strong [ref=e378]: "Recuperação sobre preço:"
+                          - code [ref=e379]: caixa recuperado líquido / preço de aquisição da carteira
+                          - text: . Mede retorno operacional do comprador, mas não a recuperação do devedor sobre o valor de face.
+                        - listitem [ref=e380]:
+                          - strong [ref=e381]: "Recuperação sobre exposição:"
+                          - code [ref=e382]: caixa recuperado líquido / saldo ou valor de face definido
+                          - text: . Use a mesma base entre carteiras.
+                        - listitem [ref=e383]:
+                          - strong [ref=e384]: "Tempo até caixa:"
+                          - text: média, mediana e distribuição dos meses entre aquisição, ação de cobrança e recebimento.
+                        - listitem [ref=e385]:
+                          - strong [ref=e386]: "Custo de cobrança:"
+                          - code [ref=e387]: custos jurídicos e operacionais / caixa recuperado bruto
+                          - text: .
+                        - listitem [ref=e388]:
+                          - strong [ref=e389]: "Concentração por processo, devedor ou garantia:"
+                          - code [ref=e390]: exposição ao fator / base da carteira
+                          - text: .
+                    - listitem [ref=e391]:
+                      - strong [ref=e392]: "Testes, limites contratuais e documentos:"
+                      - text: cadeia dominial, processo, prescrição, garantia, laudo, honorários, contrato de cobrança e critérios de baixa.
+                    - listitem [ref=e393]:
+                      - strong [ref=e394]: "Por que esses indicadores vêm antes:"
+                      - text: FPD e originação perdem relevância depois da compra de uma carteira já inadimplida; recuperação líquida, custo e duração passam ao centro.
+                  - heading "Comercial, industrial e serviços" [level=2] [ref=e396]:
+                    - generic [ref=e398]:
+                      - link "Link to heading":
+                        - /url: "#comercial-industrial-e-servicos"
+                  - list [ref=e399]:
+                    - listitem [ref=e400]:
+                      - strong [ref=e401]: "O que gera o pagamento:"
+                      - text: compra de mercadoria, produção ou prestação de serviço.
+                    - listitem [ref=e402]:
+                      - strong [ref=e403]: "Indicadores prioritários:"
+                      - list [ref=e404]:
+                        - listitem [ref=e405]:
+                          - strong [ref=e406]: "Diluição:"
+                          - code [ref=e407]: cancelamentos, devoluções, descontos e disputas / originação sujeita
+                          - text: .
+                        - listitem [ref=e408]:
+                          - strong [ref=e409]: "Concentração de compradores:"
+                          - code [ref=e410]: exposição ao comprador ou grupo / carteira elegível
+                          - text: .
+                        - listitem [ref=e411]:
+                          - strong [ref=e412]: "Atraso por safra ou cliente:"
+                          - code [ref=e413]: saldo vencido / base comparável
+                          - text: .
+                        - listitem [ref=e414]:
+                          - strong [ref=e415]: "Exceção documental:"
+                          - code [ref=e416]: itens sem nota, entrega, aceite ou contrato válido / itens testados
+                          - text: .
+                    - listitem [ref=e417]:
+                      - strong [ref=e418]: "Por que esses indicadores vêm antes:"
+                      - text: a obrigação pode ser reduzida por falha de entrega ou disputa antes de se transformar em inadimplência simples.
+                  - heading "Agronegócio" [level=2] [ref=e420]:
+                    - generic [ref=e422]:
+                      - link "Link to heading":
+                        - /url: "#agronegocio"
+                  - list [ref=e423]:
+                    - listitem [ref=e424]:
+                      - strong [ref=e425]: "O que gera o pagamento:"
+                      - text: produção, venda, armazenagem ou fluxo rural, frequentemente documentado por
+                      - strong [ref=e426]: Cédula de Produto Rural (CPR)
+                      - text: .
+                    - listitem [ref=e427]:
+                      - strong [ref=e428]: "Indicadores prioritários:"
+                      - list [ref=e429]:
+                        - listitem [ref=e430]:
+                          - strong [ref=e431]: "Cobertura da garantia:"
+                          - code [ref=e432]: valor elegível após desconto / exposição protegida
+                          - text: .
+                        - listitem [ref=e433]:
+                          - strong [ref=e434]: "Concentração por cultura, região e safra:"
+                          - code [ref=e435]: exposição ao fator / carteira elegível
+                          - text: .
+                        - listitem [ref=e436]:
+                          - strong [ref=e437]: "Cobertura de produção:"
+                          - code [ref=e438]: produção ou estoque elegível / obrigação física ou financeira
+                          - text: .
+                        - listitem [ref=e439]:
+                          - strong [ref=e440]: "Descasamento de calendário:"
+                          - text: diferença entre colheita, venda, vencimento do crédito e amortização das cotas.
+                    - listitem [ref=e441]:
+                      - strong [ref=e442]: "Por que esses indicadores vêm antes:"
+                      - text: clima, commodity, armazenagem e ciclo produtivo podem atingir vários devedores ao mesmo tempo.
+                  - heading "Imobiliário, factoring, setor público e ações judiciais" [level=2] [ref=e444]:
+                    - generic [ref=e446]:
+                      - link "Link to heading":
+                        - /url: "#imobiliario-factoring-setor-publico-e-acoes-judiciais"
+                  - list [ref=e447]:
+                    - listitem [ref=e448]:
+                      - strong [ref=e449]: "Imobiliário como segmento oficial:"
+                      - text: avalie registro, prioridade, obra, venda, locação, LTV, cobertura de fluxo e prazo. Não confunda automaticamente com as aberturas imobiliárias do bloco Financeiro.
+                    - listitem [ref=e450]:
+                      - strong [ref=e451]: "Fomento mercantil, reportado como Factoring:"
+                      - text: confirme a natureza reportada, coobrigação, concentração, diluição e atraso. O nome da atividade não prova direito de regresso.
+                    - listitem [ref=e452]:
+                      - strong [ref=e453]: "Setor público:"
+                      - text: acompanhe ente e órgão pagador, empenho, liquidação, orçamento, cessão, precatório e duração. Concentração no poder público não elimina risco jurídico e temporal.
+                    - listitem [ref=e454]:
+                      - strong [ref=e455]: "Ações judiciais:"
+                      - text: acompanhe estágio, recurso, trânsito, probabilidade de recebimento, honorários, prazo, cessão e concentração por tese ou devedor.
+                    - listitem [ref=e456]:
+                      - strong [ref=e457]: "Fórmulas comuns:"
+                      - code [ref=e458]: exposição ao fator / carteira
+                      - text: ","
+                      - code [ref=e459]: caixa recuperado líquido / base definida
+                      - text: e
+                      - code [ref=e460]: prazo esperado - prazo das obrigações
+                      - text: ", sempre com a base declarada."
+                  - heading "Marcas e patentes" [level=2] [ref=e462]:
+                    - generic [ref=e464]:
+                      - link "Link to heading":
+                        - /url: "#marcas-e-patentes"
+                  - list [ref=e465]:
+                    - listitem [ref=e466]:
+                      - strong [ref=e467]: "O que analisar:"
+                      - text: titularidade, validade, licença, concentração no pagador, fluxo de remunerações pelo uso da propriedade intelectual, ou
+                      - emphasis [ref=e468]: royalties
+                      - text: ", e método de avaliação."
+                    - listitem [ref=e469]:
+                      - strong [ref=e470]: "Indicadores possíveis:"
+                      - code [ref=e471]: royalties líquidos / obrigações do período
+                      - text: ", concentração por licenciado e variação do valor avaliado."
+                    - listitem [ref=e472]:
+                      - strong [ref=e473]: "Limitação do corpus:"
+                      - text: esse segmento oficial não tinha população classificável na competência 202605. O glossário não atribui prevalência contratual a essa família.
+                  - heading "O que o Informe Mensal não resolve" [level=2] [ref=e475]:
+                    - text: O que o Informe Mensal não resolve
+                    - generic [ref=e476]:
+                      - link "Link to heading":
+                        - /url: "#o-que-o-informe-mensal-nao-resolve"
+                  - list [ref=e477]:
+                    - listitem [ref=e478]: A Tabela II e as aberturas financeiras mostram valores agregados.
+                    - listitem [ref=e479]: Distribuição por idade do atraso, provisão e fluxos ajudam a localizar desempenho, mas não revelam devedor econômico, garantia, coobrigação, canal, convênio, contestação de transação, custo de recuperação ou regra do limite contratual.
+                    - listitem [ref=e480]: Fórmula, limite, frequência, correção e consequência de um teste exigem regulamento, instrumento e base operacional.
+                  - paragraph [ref=e481]:
+                    - text: "Fontes:"
+                    - strong [ref=e482]: Resolução da Comissão de Valores Mobiliários (RCVM) 175
+                    - text: ", Anexo Normativo II; padrão oficial do Informe Mensal; documentos primários e metodologia do corpus de 100 fundos. Verificação:"
+                    - strong [ref=e483]: 16/07/2026
+                    - text: .
+                - group [ref=e486]:
+                  - generic "keyboard_arrow_right Sobre a base" [ref=e487] [cursor=pointer]:
+                    - generic [ref=e488]:
+                      - generic [ref=e489]: keyboard_arrow_right
+                      - paragraph [ref=e493]: Sobre a base
+        - button "Scroll tabs left" [ref=e494] [cursor=pointer]
+        - button "Scroll tabs right" [ref=e498] [cursor=pointer]

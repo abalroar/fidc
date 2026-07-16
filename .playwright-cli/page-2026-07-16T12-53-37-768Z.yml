@@ -1,0 +1,240 @@
+- generic:
+  - generic:
+    - generic [ref=f1e3]:
+      - banner
+      - generic [ref=f1e6]:
+        - generic [ref=f1e11]:
+          - generic [ref=f1e12]: tomaconta fidcs
+          - generic [ref=f1e13]: matheus prates, cfa
+        - radiogroup "button group" [ref=f1e16]:
+          - button [ref=f1e21461] [cursor=pointer]:
+            - paragraph [ref=f1e21465]: Sobre
+          - button [ref=f1e21466] [cursor=pointer]:
+            - paragraph [ref=f1e21470]: Indústria
+          - button [ref=f1e21471] [cursor=pointer]:
+            - paragraph [ref=f1e21475]: Secundário
+          - button [ref=f1e21476] [cursor=pointer]:
+            - paragraph [ref=f1e21480]: Carteira
+          - button [ref=f1e21481] [cursor=pointer]:
+            - paragraph [ref=f1e21485]: Regulamentos
+          - button [ref=f1e21486] [cursor=pointer]:
+            - paragraph [ref=f1e21490]: Cloudwalk
+          - button [ref=f1e21491] [cursor=pointer]:
+            - paragraph [ref=f1e21495]: Glossário
+          - button [ref=f1e21496] [cursor=pointer]:
+            - paragraph [ref=f1e21500]: Modelagem
+        - generic [ref=f1e21502]:
+          - generic [ref=f1e21505]:
+            - heading "Regulamentos" [level=1] [ref=f1e21506]
+            - paragraph [ref=f1e21507]: Emissões, prazos, custos e critérios documentais relevantes para a carteira.
+          - group [ref=f1e21510]:
+            - generic "keyboard_arrow_right Waterfall Cloudwalk" [ref=f1e21511] [cursor=pointer]:
+              - generic [ref=f1e21512]:
+                - generic [ref=f1e21513]: keyboard_arrow_right
+                - paragraph [ref=f1e21517]: Waterfall Cloudwalk
+          - generic [ref=f1e21519]:
+            - paragraph [ref=f1e21523]: Carteira
+            - generic [ref=f1e21525]:
+              - generic [ref=f1e21526]:
+                - generic [ref=f1e21527]: Todos os pacotes
+                - combobox "Selected Todos os pacotes. Carteira" [ref=f1e21529]
+              - img "open" [ref=f1e21531]
+          - generic [ref=f1e21534]:
+            - paragraph [ref=f1e21538]: Pacote regulatório
+            - generic [ref=f1e21540]:
+              - generic [ref=f1e21541]:
+                - generic [ref=f1e21542]: Curadoria FIDC Investcred (Credsystem) · 2026-06-01T15:42:08-03:00
+                - combobox "Selected Curadoria FIDC Investcred (Credsystem) · 2026-06-01T15:42:08-03:00. Pacote regulatório" [ref=f1e21544]
+              - img "open" [ref=f1e21546]
+          - generic [ref=f1e21552]:
+            - generic [ref=f1e21553]: 1 fundo(s)
+            - generic [ref=f1e21554]: 2026-06-01T15:42:08-03:00
+            - generic [ref=f1e21555]: Extração offline local · CVM/Fundos.NET · IME cache
+            - generic [ref=f1e21556]: Uso interno
+          - heading "Emissões por tipo de cota" [level=4] [ref=f1e21562]:
+            - text: Emissões por tipo de cota
+            - generic [ref=f1e21563]:
+              - link "Link to heading":
+                - /url: "#emissoes-por-tipo-de-cota"
+          - generic [ref=f1e21568]:
+            - button "Show/hide columns" [ref=f1e21572] [cursor=pointer]
+            - button "Download as CSV" [ref=f1e21578] [cursor=pointer]
+            - button "Search" [ref=f1e21584] [cursor=pointer]
+            - button "Fullscreen" [ref=f1e21590] [cursor=pointer]
+          - generic [ref=f1e21602]: Volumes monetários são somados apenas quando o campo documental está identificado. Quantidades, prazos e custos/remuneração preservam lacunas explícitas em vez de virar zero.
+          - group [ref=f1e21609]:
+            - generic "keyboard_arrow_right Detalhe documental das emissões" [ref=f1e21610] [cursor=pointer]:
+              - generic [ref=f1e21611]:
+                - generic [ref=f1e21612]: keyboard_arrow_right
+                - paragraph [ref=f1e21616]: Detalhe documental das emissões
+          - generic [ref=f1e21618]:
+            - paragraph [ref=f1e21622]: Tabela regulatória
+            - generic [ref=f1e21624]:
+              - generic [ref=f1e21625]:
+                - generic [ref=f1e21626]: Comparativo principal
+                - combobox "Selected Comparativo principal. Tabela regulatória" [expanded] [active] [ref=f1e21628]
+              - img "open" [ref=f1e21630]
+          - generic [ref=f1e21633]:
+            - paragraph [ref=f1e21637]: Coluna em destaque
+            - generic [ref=f1e21639]:
+              - generic [ref=f1e21640]:
+                - generic [ref=f1e21641]: Nenhuma
+                - combobox "Selected Nenhuma. Coluna em destaque" [ref=f1e21643]
+              - img "open" [ref=f1e21645]
+          - group [ref=f1e21649]:
+            - generic "keyboard_arrow_right Dados e exportações" [ref=f1e21650] [cursor=pointer]:
+              - generic [ref=f1e21651]:
+                - generic [ref=f1e21652]: keyboard_arrow_right
+                - paragraph [ref=f1e21656]: Dados e exportações
+          - table [ref=f1e21662]:
+            - rowgroup [ref=f1e21663]:
+              - row [ref=f1e21664]:
+                - columnheader "Nome" [ref=f1e21665]
+                - columnheader "INVESTCRED" [ref=f1e21666]
+            - rowgroup [ref=f1e21667]:
+              - row [ref=f1e21668]:
+                - cell "Grupo" [ref=f1e21669]
+                - cell "FIDC Investcred (Credsystem)" [ref=f1e21670]
+              - row [ref=f1e21671]:
+                - cell "CNPJ" [ref=f1e21672]
+                - cell "29.226.654/0001-10" [ref=f1e21673]
+              - row [ref=f1e21674]:
+                - cell "Páginas locais analisadas" [ref=f1e21675]
+                - cell "778" [ref=f1e21676]
+              - row [ref=f1e21677]:
+                - cell "Última competência IME" [ref=f1e21678]
+                - cell "06/2026" [ref=f1e21679]
+              - row [ref=f1e21680]:
+                - cell "PL (R$ mm)" [ref=f1e21681]
+                - cell "R$ 1.194 mm" [ref=f1e21682]
+              - row [ref=f1e21683]:
+                - cell "Direitos creditórios / PL" [ref=f1e21684]
+                - cell "204,2%" [ref=f1e21685]
+              - row [ref=f1e21686]:
+                - cell "Vencidos Over 30d / crédito" [ref=f1e21687]
+                - cell "53,8%" [ref=f1e21688]
+              - row [ref=f1e21689]:
+                - cell "Vencidos Over 60d / crédito" [ref=f1e21690]
+                - cell "46,7%" [ref=f1e21691]
+              - row [ref=f1e21692]:
+                - cell "Vencidos Over 90d / crédito" [ref=f1e21693]
+                - cell "39,9%" [ref=f1e21694]
+              - row [ref=f1e21695]:
+                - cell "Vencidos Over 180d / crédito" [ref=f1e21696]
+                - cell "21,0%" [ref=f1e21697]
+              - row [ref=f1e21698]:
+                - cell "Vencidos Over 360d / crédito" [ref=f1e21699]
+                - cell "0,0%" [ref=f1e21700]
+              - row [ref=f1e21701]:
+                - cell "PDD / crédito" [ref=f1e21702]
+                - cell "59,3%" [ref=f1e21703]
+              - row [ref=f1e21704]:
+                - cell "PDD / vencidos" [ref=f1e21705]
+                - cell "85,8%" [ref=f1e21706]
+              - row [ref=f1e21707]:
+                - cell "Cotas sênior / PL" [ref=f1e21708]
+                - cell "20,4%" [ref=f1e21709]
+              - row [ref=f1e21710]:
+                - cell "Cotas mezanino / PL" [ref=f1e21711]
+                - cell "0,0%" [ref=f1e21712]
+              - row [ref=f1e21713]:
+                - cell "Cotas subordinadas / PL" [ref=f1e21714]
+                - cell "79,6%" [ref=f1e21715]
+              - row [ref=f1e21716]:
+                - cell "Séries/classes emitidas identificadas" [ref=f1e21717]
+                - cell "6" [ref=f1e21718]
+              - row [ref=f1e21719]:
+                - cell "Volume emitido identificado (R$ mm)" [ref=f1e21720]
+                - cell "540" [ref=f1e21721]
+              - row [ref=f1e21722]:
+                - cell "Primeira emissão identificada" [ref=f1e21723]
+                - cell "29/10/2021" [ref=f1e21724]
+              - row [ref=f1e21725]:
+                - cell "Última emissão identificada" [ref=f1e21726]
+                - cell "28/10/2025" [ref=f1e21727]
+              - row [ref=f1e21728]:
+                - cell "Emissões detectadas (data, classe, preço e volume)" [ref=f1e21729]
+                - 'cell "29/10/2021 · 1ª série sênior - 1ª emissão · Sênior: Qtd 50.000; Preço R$ 1.000,00; R$ 50 mm; Rem 130% da Taxa DI 29/10/2021 · 1ª série sênior - 2ª emissão · Sênior: Qtd 98.067; Preço Valor da cota da 1ª emissão atualizado; R$ 100 mm; Rem Conforme 1ª emissão: 130% da Taxa DI 29/10/2021 · 1ª série sênior - 3ª emissão · Sênior: Qtd 238.195,4209; Preço Valor da cota da 1ª emissão atualizado; R$ 100 mm; Rem Conforme 1ª emissão: 130% da Taxa DI 09/12/2024 · 1ª série subordinada júnior - 4ª emissão · Subordinada: Qtd 50.000; Preço R$ 1.000,00; R$ 50 mm; Rem Sem remuneração-alvo definida 28/10/2025 · 2ª série sênior · Sênior: Qtd 150.000; Preço R$ 1.000,00; R$ 150 mm; Rem DI + 2,50% a.a. 28/10/2025 · 3ª série sênior · Sênior: Qtd 90.000; Preço R$ 1.000,00; R$ 90 mm; Rem DI + 2,50% a.a." [ref=f1e21730]':
+                  - generic [ref=f1e21731]:
+                    - generic [ref=f1e21732]: "29/10/2021 · 1ª série sênior - 1ª emissão · Sênior: Qtd 50.000; Preço R$ 1.000,00; R$ 50 mm; Rem 130% da Taxa DI"
+                    - generic [ref=f1e21733]: "29/10/2021 · 1ª série sênior - 2ª emissão · Sênior: Qtd 98.067; Preço Valor da cota da 1ª emissão atualizado; R$ 100 mm; Rem Conforme 1ª emissão: 130% da Taxa DI"
+                    - generic [ref=f1e21734]: "29/10/2021 · 1ª série sênior - 3ª emissão · Sênior: Qtd 238.195,4209; Preço Valor da cota da 1ª emissão atualizado; R$ 100 mm; Rem Conforme 1ª emissão: 130% da Taxa DI"
+                    - generic [ref=f1e21735]: "09/12/2024 · 1ª série subordinada júnior - 4ª emissão · Subordinada: Qtd 50.000; Preço R$ 1.000,00; R$ 50 mm; Rem Sem remuneração-alvo definida"
+                    - generic [ref=f1e21736]: "28/10/2025 · 2ª série sênior · Sênior: Qtd 150.000; Preço R$ 1.000,00; R$ 150 mm; Rem DI + 2,50% a.a."
+                    - generic [ref=f1e21737]: "28/10/2025 · 3ª série sênior · Sênior: Qtd 90.000; Preço R$ 1.000,00; R$ 90 mm; Rem DI + 2,50% a.a."
+              - row [ref=f1e21738]:
+                - cell "Remuneração-alvo por emissão detectada" [ref=f1e21739]
+                - 'cell "29/10/2021 · 1ª série sênior - 1ª emissão · Sênior: 130% da Taxa DI 29/10/2021 · 1ª série sênior - 2ª emissão · Sênior: Conforme 1ª emissão: 130% da Taxa DI 29/10/2021 · 1ª série sênior - 3ª emissão · Sênior: Conforme 1ª emissão: 130% da Taxa DI 09/12/2024 · 1ª série subordinada júnior - 4ª emissão · Subordinada: Sem remuneração-alvo definida 28/10/2025 · 2ª série sênior · Sênior: DI + 2,50% a.a. 28/10/2025 · 3ª série sênior · Sênior: DI + 2,50% a.a." [ref=f1e21740]':
+                  - generic [ref=f1e21741]:
+                    - generic [ref=f1e21742]: "29/10/2021 · 1ª série sênior - 1ª emissão · Sênior: 130% da Taxa DI"
+                    - generic [ref=f1e21743]: "29/10/2021 · 1ª série sênior - 2ª emissão · Sênior: Conforme 1ª emissão: 130% da Taxa DI"
+                    - generic [ref=f1e21744]: "29/10/2021 · 1ª série sênior - 3ª emissão · Sênior: Conforme 1ª emissão: 130% da Taxa DI"
+                    - generic [ref=f1e21745]: "09/12/2024 · 1ª série subordinada júnior - 4ª emissão · Subordinada: Sem remuneração-alvo definida"
+                    - generic [ref=f1e21746]: "28/10/2025 · 2ª série sênior · Sênior: DI + 2,50% a.a."
+                    - generic [ref=f1e21747]: "28/10/2025 · 3ª série sênior · Sênior: DI + 2,50% a.a."
+              - row [ref=f1e21748]:
+                - cell "Amortização/vencimento por emissão detectada" [ref=f1e21749]
+                - 'cell "29/10/2021 · 1ª série sênior - 1ª emissão · Sênior: Rentabilidade amortizada trimestralmente; principal em parcela única em 12/11/2024 29/10/2021 · 1ª série sênior - 2ª emissão · Sênior: Conforme suplemento da 1ª emissão; resgate em 12/11/2024 29/10/2021 · 1ª série sênior - 3ª emissão · Sênior: Conforme suplemento da 1ª emissão; resgate em 12/11/2024 09/12/2024 · 1ª série subordinada júnior - 4ª emissão · Subordinada: Sem amortização; prazo indeterminado 28/10/2025 · 2ª série sênior · Sênior: Remuneração mensal sem carência; principal com carência de 66 meses; início da amortização do principal em 02/12/2027; resgate 78 meses após emissão 28/10/2025 · 3ª série sênior · Sênior: Remuneração mensal sem carência; principal com carência de 24 meses; início da amortização do principal em 02/12/2027; resgate 36 meses após emissão" [ref=f1e21750]':
+                  - generic [ref=f1e21751]:
+                    - generic [ref=f1e21752]: "29/10/2021 · 1ª série sênior - 1ª emissão · Sênior: Rentabilidade amortizada trimestralmente; principal em parcela única em 12/11/2024"
+                    - generic [ref=f1e21753]: "29/10/2021 · 1ª série sênior - 2ª emissão · Sênior: Conforme suplemento da 1ª emissão; resgate em 12/11/2024"
+                    - generic [ref=f1e21754]: "29/10/2021 · 1ª série sênior - 3ª emissão · Sênior: Conforme suplemento da 1ª emissão; resgate em 12/11/2024"
+                    - generic [ref=f1e21755]: "09/12/2024 · 1ª série subordinada júnior - 4ª emissão · Subordinada: Sem amortização; prazo indeterminado"
+                    - generic [ref=f1e21756]: "28/10/2025 · 2ª série sênior · Sênior: Remuneração mensal sem carência; principal com carência de 66 meses; início da amortização do principal em 02/12/2027; resgate 78 meses após emissão"
+                    - generic [ref=f1e21757]: "28/10/2025 · 3ª série sênior · Sênior: Remuneração mensal sem carência; principal com carência de 24 meses; início da amortização do principal em 02/12/2027; resgate 36 meses após emissão"
+              - row [ref=f1e21758]:
+                - cell "Regulamento-base dos thresholds" [ref=f1e21759]
+                - cell "29/10/2025 · 1023849_regulamento_regulamento_1023849_2025-10-29.pdf · p.22-24 · arts. 10.1-10.5 · ID 1023849" [ref=f1e21760]
+              - row [ref=f1e21761]:
+                - cell "Alocação mínima em DCs" [ref=f1e21762]
+                - cell ">= 50% do PL em Direitos Creditórios Elegíveis após 180 dias do início das atividades" [ref=f1e21763]
+              - row [ref=f1e21764]:
+                - cell "Subordinação mínima" [ref=f1e21765]
+                - cell "Índice de Cobertura Sênior >= 2,07x e Razão de Garantia >= 307% conforme suplemento" [ref=f1e21766]
+              - row [ref=f1e21767]:
+                - cell "Evento de avaliação por atraso" [ref=f1e21768]
+                - cell ">= 62,5% dos Direitos Creditórios da Classe Única; evento se não reenquadrar no mês subsequente ou se novo desenquadramento ocorrer em até 12 meses" [ref=f1e21769]
+              - row [ref=f1e21770]:
+                - cell "Liquidação/vencimento por atraso" [ref=f1e21771]
+                - cell "—" [ref=f1e21772]
+              - row [ref=f1e21773]:
+                - cell "Cobertura mínima PDD" [ref=f1e21774]
+                - 'cell "Tabela PDD: 1-14d 1,90%; 15-30d 8,00%; 31-60d 20,00%; 61-90d 50,00%; 91-120d 80,00%; 120-360d 100%; >360d 100%" [ref=f1e21775]'
+              - row [ref=f1e21776]:
+                - cell "Reserva/caixa mínimo" [ref=f1e21777]
+                - cell ">= 1 mês de despesas ordinárias da Classe Única" [ref=f1e21778]
+              - row [ref=f1e21779]:
+                - cell "Limite de recompra" [ref=f1e21780]
+                - cell "—" [ref=f1e21781]
+              - row [ref=f1e21782]:
+                - cell "Limite de cancelamento" [ref=f1e21783]
+                - cell "—" [ref=f1e21784]
+              - row [ref=f1e21785]:
+                - cell "Limite de chargeback/contestação" [ref=f1e21786]
+                - cell "—" [ref=f1e21787]
+              - row [ref=f1e21788]:
+                - cell "Limites de concentração" [ref=f1e21789]
+                - cell "<= 5% do PL para Direitos Creditórios Elegíveis e Ativos Financeiros de um mesmo devedor ou mesma coobrigação" [ref=f1e21790]
+              - row [ref=f1e21791]:
+                - cell "Hedges permitidos" [ref=f1e21792]
+                - cell "Não pode realizar operações em mercados de derivativos" [ref=f1e21793]
+              - row [ref=f1e21794]:
+                - cell "Cross default do cedente" [ref=f1e21795]
+                - cell "—" [ref=f1e21796]
+              - row [ref=f1e21797]:
+                - cell "Troca de gestor/administrador" [ref=f1e21798]
+                - cell "Renúncia/substituição de administradora ou gestora exige assembleia/substituição conforme regulamento" [ref=f1e21799]
+              - row [ref=f1e21800]:
+                - cell "Critérios de elegibilidade" [ref=f1e21801]
+                - cell "CCBs disponibilizadas por instituições conveniadas; não vencidas/inadimplentes na aquisição; prazo máximo de 36 meses; moeda nacional; registro contábil possível; operações de financiamento de faturas/carnês Credsystem em atraso ou parcelados" [ref=f1e21802]
+          - group [ref=f1e21805]:
+            - generic "keyboard_arrow_right Sobre a base" [ref=f1e21806] [cursor=pointer]:
+              - generic [ref=f1e21807]:
+                - generic [ref=f1e21808]: keyboard_arrow_right
+                - paragraph [ref=f1e21812]: Sobre a base
+    - list [ref=f1e21816]:
+      - generic [ref=f1e21818]:
+        - option "Comparativo principal" [selected] [ref=f1e21819] [cursor=pointer]
+        - option "Custos estruturais" [ref=f1e21824] [cursor=pointer]
+        - option "Cronograma de emissões" [ref=f1e21829] [cursor=pointer]
+        - option "Regulamento mais recente" [ref=f1e21834] [cursor=pointer]

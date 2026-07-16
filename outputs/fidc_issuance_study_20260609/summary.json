@@ -1,0 +1,241 @@
+{
+  "run_timestamp_utc": "2026-06-09T15:13:34.570339+00:00",
+  "as_of_date": "2026-06-09",
+  "start_date": "2024-01-01",
+  "source_files": {
+    "cad_fi_csv": "outputs/fidc_issuance_study_20260609/cad_fi.csv",
+    "registro_fundo_classe_zip": "outputs/fidc_issuance_study_20260609/registro_fundo_classe.zip",
+    "oferta_distribuicao_zip": "outputs/fidc_issuance_study_20260609/oferta_distribuicao.zip"
+  },
+  "period_summary": [
+    {
+      "periodo": "2024FY",
+      "ofertas_total_linhas": 1458,
+      "ofertas_validas_ou_abertas_linhas": 1318,
+      "ofertas_encerradas_linhas": 1291,
+      "volume_registrado_bruto": 117453569924.23,
+      "volume_registrado_valido_ou_aberto": 113815301163.28,
+      "volume_encerrado_conservador": 112458301168.76,
+      "emissores_unicos": 845,
+      "emissores_unicos_encerradas": 757
+    },
+    {
+      "periodo": "2025FY",
+      "ofertas_total_linhas": 1717,
+      "ofertas_validas_ou_abertas_linhas": 1657,
+      "ofertas_encerradas_linhas": 1440,
+      "volume_registrado_bruto": 132338755115.11002,
+      "volume_registrado_valido_ou_aberto": 130926790183.76999,
+      "volume_encerrado_conservador": 121609523691.56,
+      "emissores_unicos": 943,
+      "emissores_unicos_encerradas": 825
+    },
+    {
+      "periodo": "2026YTD",
+      "ofertas_total_linhas": 690,
+      "ofertas_validas_ou_abertas_linhas": 686,
+      "ofertas_encerradas_linhas": 122,
+      "volume_registrado_bruto": 58730585287.32001,
+      "volume_registrado_valido_ou_aberto": 58215585287.32001,
+      "volume_encerrado_conservador": 25734039585.59,
+      "emissores_unicos": 466,
+      "emissores_unicos_encerradas": 97
+    }
+  ],
+  "entity_summary": [
+    {
+      "entity_kind": "classe_rcvm175",
+      "total_entities": 5026,
+      "born_since_2024_strict": 2936,
+      "registered_since_2024": 4740,
+      "probable_recadastro_since_2024": 1804
+    },
+    {
+      "entity_kind": "fundo_legado_cad_fi",
+      "total_entities": 1802,
+      "born_since_2024_strict": 0,
+      "registered_since_2024": 1,
+      "probable_recadastro_since_2024": 1
+    },
+    {
+      "entity_kind": "fundo_rcvm175",
+      "total_entities": 7378,
+      "born_since_2024_strict": 2977,
+      "registered_since_2024": 3243,
+      "probable_recadastro_since_2024": 266
+    }
+  ],
+  "status_summary": [
+    {
+      "periodo_estudo": "2024FY",
+      "status_bucket": "nao_emitida_suspensa_caducada",
+      "linhas": 140,
+      "valor_total_registrado": 3638268760.95
+    },
+    {
+      "periodo_estudo": "2024FY",
+      "status_bucket": "oferta_encerrada",
+      "linhas": 1291,
+      "valor_total_registrado": 112458301168.76
+    },
+    {
+      "periodo_estudo": "2024FY",
+      "status_bucket": "registro_concedido_em_aberto",
+      "linhas": 27,
+      "valor_total_registrado": 1356999994.52
+    },
+    {
+      "periodo_estudo": "2025FY",
+      "status_bucket": "nao_emitida_suspensa_caducada",
+      "linhas": 60,
+      "valor_total_registrado": 1411964931.34
+    },
+    {
+      "periodo_estudo": "2025FY",
+      "status_bucket": "oferta_encerrada",
+      "linhas": 1439,
+      "valor_total_registrado": 121369523691.56
+    },
+    {
+      "periodo_estudo": "2025FY",
+      "status_bucket": "oferta_encerrada_rito_ordinario",
+      "linhas": 1,
+      "valor_total_registrado": 240000000.0
+    },
+    {
+      "periodo_estudo": "2025FY",
+      "status_bucket": "registro_concedido_em_aberto",
+      "linhas": 217,
+      "valor_total_registrado": 9317266492.21
+    },
+    {
+      "periodo_estudo": "2026YTD",
+      "status_bucket": "nao_emitida_suspensa_caducada",
+      "linhas": 4,
+      "valor_total_registrado": 515000000.0
+    },
+    {
+      "periodo_estudo": "2026YTD",
+      "status_bucket": "oferta_encerrada",
+      "linhas": 122,
+      "valor_total_registrado": 25734039585.59
+    },
+    {
+      "periodo_estudo": "2026YTD",
+      "status_bucket": "registro_concedido_em_aberto",
+      "linhas": 564,
+      "valor_total_registrado": 32481545701.73
+    }
+  ],
+  "lastro_summary_top100": [
+    {
+      "periodo_estudo": "2024FY",
+      "tipo_lastro": "Pulverizado",
+      "linhas": 1303,
+      "valor_total_registrado": 95443459324.28
+    },
+    {
+      "periodo_estudo": "2024FY",
+      "tipo_lastro": "Concentrado",
+      "linhas": 155,
+      "valor_total_registrado": 22010110599.95
+    },
+    {
+      "periodo_estudo": "2025FY",
+      "tipo_lastro": "Pulverizado",
+      "linhas": 1581,
+      "valor_total_registrado": 118398367567.49
+    },
+    {
+      "periodo_estudo": "2025FY",
+      "tipo_lastro": "Concentrado",
+      "linhas": 135,
+      "valor_total_registrado": 13700387547.619999
+    },
+    {
+      "periodo_estudo": "2026YTD",
+      "tipo_lastro": "Pulverizado",
+      "linhas": 619,
+      "valor_total_registrado": 53132922866.409996
+    },
+    {
+      "periodo_estudo": "2026YTD",
+      "tipo_lastro": "Concentrado",
+      "linhas": 71,
+      "valor_total_registrado": 5597662420.91
+    }
+  ],
+  "born_offer_summary": [
+    {
+      "periodo": "2024FY",
+      "issuer_born_since_2024_strict": false,
+      "ofertas_total_linhas": 890,
+      "volume_registrado_bruto": 60265944922.84,
+      "volume_registrado_valido_ou_aberto": 58676126162.630005,
+      "volume_encerrado_conservador": 58093426168.11,
+      "emissores_unicos": 448
+    },
+    {
+      "periodo": "2024FY",
+      "issuer_born_since_2024_strict": true,
+      "ofertas_total_linhas": 568,
+      "volume_registrado_bruto": 57187625001.39,
+      "volume_registrado_valido_ou_aberto": 55139175000.65,
+      "volume_encerrado_conservador": 54364875000.65,
+      "emissores_unicos": 397
+    },
+    {
+      "periodo": "2025FY",
+      "issuer_born_since_2024_strict": false,
+      "ofertas_total_linhas": 644,
+      "volume_registrado_bruto": 33299393147.71,
+      "volume_registrado_valido_ou_aberto": 33173201901.010002,
+      "volume_encerrado_conservador": 31400935657.120003,
+      "emissores_unicos": 301
+    },
+    {
+      "periodo": "2025FY",
+      "issuer_born_since_2024_strict": true,
+      "ofertas_total_linhas": 1073,
+      "volume_registrado_bruto": 99039361967.4,
+      "volume_registrado_valido_ou_aberto": 97753588282.76,
+      "volume_encerrado_conservador": 90208588034.44,
+      "emissores_unicos": 642
+    },
+    {
+      "periodo": "2026YTD",
+      "issuer_born_since_2024_strict": false,
+      "ofertas_total_linhas": 243,
+      "volume_registrado_bruto": 15143943948.78,
+      "volume_registrado_valido_ou_aberto": 14628943948.779999,
+      "volume_encerrado_conservador": 4494592099.65,
+      "emissores_unicos": 141
+    },
+    {
+      "periodo": "2026YTD",
+      "issuer_born_since_2024_strict": true,
+      "ofertas_total_linhas": 447,
+      "volume_registrado_bruto": 43586641338.54,
+      "volume_registrado_valido_ou_aberto": 43586641338.54,
+      "volume_encerrado_conservador": 21239447485.940002,
+      "emissores_unicos": 325
+    }
+  ],
+  "platform_coverage_summary": [
+    {
+      "platform_coverage_level": "sem_curadoria_local",
+      "linhas": 3782,
+      "valor_total_registrado": 268695996641.55
+    },
+    {
+      "platform_coverage_level": "emissoes_curadas",
+      "linhas": 80,
+      "valor_total_registrado": 35826913685.11
+    },
+    {
+      "platform_coverage_level": "knowledge_json",
+      "linhas": 3,
+      "valor_total_registrado": 4000000000.0
+    }
+  ]
+}

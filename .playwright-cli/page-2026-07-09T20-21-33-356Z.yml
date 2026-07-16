@@ -1,0 +1,195 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - heading "tomaconta fidcs" [level=1] [ref=e12]
+      - generic [ref=e13]: por matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e118] [cursor=pointer]:
+        - paragraph [ref=e122]: Sobre
+      - button [ref=e123] [cursor=pointer]:
+        - paragraph [ref=e127]: Indústria
+      - button [ref=e128] [cursor=pointer]:
+        - paragraph [ref=e132]: Carteira
+      - button [ref=e133] [cursor=pointer]:
+        - paragraph [ref=e137]: Regulamentos
+      - button [ref=e138] [cursor=pointer]:
+        - paragraph [ref=e142]: Estratégia
+      - button [ref=e143] [cursor=pointer]:
+        - paragraph [ref=e147]: Cloudwalk
+      - button [ref=e148] [cursor=pointer]:
+        - paragraph [ref=e152]: Glossário
+      - button [ref=e153] [cursor=pointer]:
+        - paragraph [ref=e157]: Modelagem
+    - generic [ref=e61]:
+      - generic [ref=e62]: Indústria FIDCs
+      - generic [ref=e66]: Crescimento, fluxos e concentração
+      - generic [ref=e67]: Série CVM reconstruída de 2013 até 2026-05, com PL, captação líquida, cotistas, inadimplência e administradores. Universo CVM pode divergir da ANBIMA; metodologia no rodapé.
+    - generic [ref=e162]:
+      - generic [ref=e163]:
+        - generic [ref=e164]: PL total
+        - generic [ref=e165]: R$ 959 bi
+        - generic [ref=e166]: R$ 880 bi ex-FIC-FIDC · +22,5% em 12m
+      - generic [ref=e167]:
+        - generic [ref=e168]: Captação líquida 12m
+        - generic [ref=e169]: R$ 220 bi
+        - generic [ref=e170]: captações − resgates − amortizações
+      - generic [ref=e171]:
+        - generic [ref=e172]: Veículos reportantes
+        - generic [ref=e173]: "4.224"
+        - generic [ref=e174]: +772 em 12m
+      - generic [ref=e175]:
+        - generic [ref=e176]: Contas de cotistas
+        - generic [ref=e177]: 446 mil
+        - generic [ref=e178]: +90,3% em 12m
+      - generic [ref=e179]:
+        - generic [ref=e180]: Inadimplência ajustada
+        - generic [ref=e181]: 5,8%
+        - generic [ref=e182]: "bruta: 8,0%"
+      - generic [ref=e183]:
+        - generic [ref=e184]: Top 5 administradores
+        - generic [ref=e185]: 52,4%
+        - generic [ref=e186]: do PL administrado
+    - generic [ref=e188]:
+      - tablist [ref=e190]:
+        - tab [selected] [ref=e191] [cursor=pointer]:
+          - paragraph [ref=e193]: Universo
+        - tab [ref=e194] [cursor=pointer]:
+          - paragraph [ref=e196]: Base granular
+        - tab [ref=e197] [cursor=pointer]:
+          - paragraph [ref=e199]: Emissões
+        - tab [ref=e200] [cursor=pointer]:
+          - paragraph [ref=e202]: Documentos
+        - tab [ref=e203] [cursor=pointer]:
+          - paragraph [ref=e205]: Critérios
+        - tab [ref=e206] [cursor=pointer]:
+          - paragraph [ref=e208]: Heatmaps
+        - tab [ref=e209] [cursor=pointer]:
+          - paragraph [ref=e211]: Cedentes
+        - tab [ref=e212] [cursor=pointer]:
+          - paragraph [ref=e214]: Deep Dive
+        - tab [ref=e215] [cursor=pointer]:
+          - paragraph [ref=e217]: Pipeline
+      - tabpanel "Universo" [ref=e220]:
+        - generic [ref=e221]:
+          - generic [ref=e222]: Universo estruturado por FIDC
+          - generic [ref=e227]: Uma linha por CNPJ, consolidando foto IME, emissões, documentos, cedentes/sacados e critérios. As bases detalhe continuam preservadas para auditoria.
+          - generic [ref=e236]:
+            - generic [ref=e237]:
+              - generic [ref=e238]: FIDCs no snapshot
+              - generic [ref=e239]: "4.219"
+              - generic [ref=e240]: R$ 957 bi PL
+            - generic [ref=e241]:
+              - generic [ref=e242]: Com emissões 25-26
+              - generic [ref=e243]: "1.014"
+              - generic [ref=e244]: base Estratégia/ofertas
+            - generic [ref=e245]:
+              - generic [ref=e246]: Com documentos
+              - generic [ref=e247]: "651"
+              - generic [ref=e248]: inventário local/CVM
+            - generic [ref=e249]:
+              - generic [ref=e250]: Cedentes identificados
+              - generic [ref=e251]: "99"
+              - generic [ref=e252]: participante extraído
+            - generic [ref=e253]:
+              - generic [ref=e254]: Sinal cedente/sacado
+              - generic [ref=e255]: "167"
+              - generic [ref=e256]: matriz Estratégia
+            - generic [ref=e257]:
+              - generic [ref=e258]: Com critérios
+              - generic [ref=e259]: "550"
+              - generic [ref=e260]: regras monitoráveis
+            - generic [ref=e261]:
+              - generic [ref=e262]: Com sub mín.
+              - generic [ref=e263]: "19"
+              - generic [ref=e264]: percentual extraído
+          - generic [ref=e266]:
+            - tablist [ref=e268]:
+              - tab [selected] [ref=e269] [cursor=pointer]:
+                - paragraph [ref=e271]: Tabela
+              - tab [ref=e272] [cursor=pointer]:
+                - paragraph [ref=e274]: Dossiê
+              - tab [ref=e275] [cursor=pointer]:
+                - paragraph [ref=e277]: Market Share
+              - tab [ref=e278] [cursor=pointer]:
+                - paragraph [ref=e280]: Cobertura
+              - tab [ref=e281] [cursor=pointer]:
+                - paragraph [ref=e283]: Manifesto
+            - tabpanel "Tabela" [ref=e286]:
+              - generic [ref=e287]:
+                - generic [ref=e289]:
+                  - generic [ref=e293]:
+                    - paragraph [ref=e297]: Buscar
+                    - textbox "Buscar" [ref=e300]:
+                      - /placeholder: FIDC, CNPJ, administrador, cedente
+                  - generic [ref=e304]:
+                    - paragraph [ref=e308]: Segmento
+                    - generic [ref=e311]:
+                      - generic [ref=e312]:
+                        - button "Acoes judiciais, close by backspace":
+                          - generic "Acoes judiciais" [ref=e313]
+                        - button "Agronegocio, close by backspace":
+                          - generic "Agronegocio" [ref=e317]
+                        - button "Cartao de credito, close by backspace":
+                          - generic "Cartao de credito" [ref=e321]
+                        - button "Comercial, close by backspace":
+                          - generic "Comercial" [ref=e325]
+                        - button "Factoring, close by backspace":
+                          - generic "Factoring" [ref=e329]
+                        - button "Financeiro, close by backspace":
+                          - generic "Financeiro" [ref=e333]
+                        - button "Imobiliario, close by backspace":
+                          - generic "Imobiliario" [ref=e337]
+                        - button "Industrial, close by backspace":
+                          - generic "Industrial" [ref=e341]
+                        - button "Servicos, close by backspace":
+                          - generic "Servicos" [ref=e345]
+                        - button "Setor publico, close by backspace":
+                          - generic "Setor publico" [ref=e349]
+                        - button "n/d, close by backspace":
+                          - generic "n/d" [ref=e353]
+                        - combobox "Selected Acoes judiciais, Agronegocio, Cartao de credito, Comercial, Factoring, Financeiro, Imobiliario, Industrial, Servicos, Setor publico, n/d. Segmento" [ref=e358]
+                      - generic [ref=e359]:
+                        - button "Clear all" [ref=e360] [cursor=pointer]
+                        - img "open" [ref=e362] [cursor=pointer]
+                  - generic [ref=e367]:
+                    - paragraph [ref=e371]: Status
+                    - generic [ref=e374]:
+                      - generic [ref=e375]:
+                        - button "basico, close by backspace":
+                          - generic "basico" [ref=e376]
+                        - button "completo, close by backspace":
+                          - generic "completo" [ref=e380]
+                        - button "parcial, close by backspace":
+                          - generic "parcial" [ref=e384]
+                        - combobox "Selected basico, completo, parcial. Status" [ref=e389]
+                      - generic [ref=e390]:
+                        - button "Clear all" [ref=e391] [cursor=pointer]
+                        - img "open" [ref=e393] [cursor=pointer]
+                  - generic [ref=e399]:
+                    - paragraph [ref=e403]: Camadas mín.
+                    - generic [ref=e404]:
+                      - slider "Camadas mín." [ref=e408]:
+                        - generic:
+                          - generic:
+                            - paragraph: "1"
+                      - generic:
+                        - generic:
+                          - paragraph: "1"
+                        - generic:
+                          - paragraph: "5"
+                - generic [ref=e414]:
+                  - button "Show/hide columns" [ref=e418] [cursor=pointer]
+                  - button "Download as CSV" [ref=e424] [cursor=pointer]
+                  - button "Search" [ref=e430] [cursor=pointer]
+                  - button "Fullscreen" [ref=e436] [cursor=pointer]
+    - group [ref=e89]:
+      - generic "keyboard_arrow_right Parâmetros de estimativa" [ref=e90] [cursor=pointer]:
+        - generic [ref=e91]:
+          - generic [ref=e92]: keyboard_arrow_right
+          - paragraph [ref=e96]: Parâmetros de estimativa
+    - button [ref=e99] [cursor=pointer]:
+      - paragraph [ref=e103]: Recalcular estimativa
+    - generic [ref=e104]: abalroar/fidc
+    - alert [ref=e112]:
+      - paragraph [ref=e117]: Clique em Recalcular estimativa para criar o primeiro cache local desta seção.

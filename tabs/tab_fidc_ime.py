@@ -785,7 +785,7 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
             preset_labels,
             default=default_label,
         )
-        radio_col, btn_col = st.columns([6, 1])
+        radio_col, btn_col = st.columns([5, 1.2], vertical_alignment="bottom")
         with radio_col:
             selected_label = st.segmented_control(
                 "Janela móvel",
@@ -799,12 +799,11 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
             selected_label = normalize_single_selection(selected_label, preset_labels, default=default_label)
             preset_months = int(selected_label.removesuffix("M"))
         with btn_col:
-            st.write("")
             if st.button(
                 "Personalizar",
                 key=f"{state_prefix}_btn_custom",
                 icon=":material/tune:",
-                use_container_width=True,
+                width="stretch",
             ):
                 st.session_state[custom_key] = True
                 st.rerun()
@@ -817,7 +816,7 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
     else:
         start_default = default_period.start_month
         start_index = max_options.index(start_default) if start_default in max_options else 0
-        sel_col1, sel_col2, back_col = st.columns([2, 2, 1])
+        sel_col1, sel_col2, back_col = st.columns([2, 2, 1], vertical_alignment="bottom")
         with sel_col1:
             start_month = st.selectbox(
                 "Competência inicial",
@@ -837,11 +836,11 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
                 format_func=_format_month_option_label,
             )
         with back_col:
-            st.write("")
             if st.button(
                 "Janela móvel",
                 key=f"{state_prefix}_btn_preset",
                 icon=":material/arrow_back:",
+                width="stretch",
             ):
                 st.session_state[custom_key] = False
                 st.rerun()

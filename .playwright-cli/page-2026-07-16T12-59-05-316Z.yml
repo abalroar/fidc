@@ -1,0 +1,211 @@
+- generic [ref=f1e3]:
+  - banner
+  - generic [ref=f1e6]:
+    - generic [ref=f1e11]:
+      - generic [ref=f1e12]: tomaconta fidcs
+      - generic [ref=f1e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f1e16]:
+      - button [ref=f1e23973] [cursor=pointer]:
+        - paragraph [ref=f1e23977]: Sobre
+      - button [ref=f1e23978] [cursor=pointer]:
+        - paragraph [ref=f1e23982]: Indústria
+      - button [ref=f1e23983] [cursor=pointer]:
+        - paragraph [ref=f1e23987]: Secundário
+      - button [ref=f1e23988] [cursor=pointer]:
+        - paragraph [ref=f1e23992]: Carteira
+      - button [ref=f1e23993] [cursor=pointer]:
+        - paragraph [ref=f1e23997]: Regulamentos
+      - button [ref=f1e23998] [cursor=pointer]:
+        - paragraph [ref=f1e24002]: Cloudwalk
+      - button [ref=f1e24003] [cursor=pointer]:
+        - paragraph [ref=f1e24007]: Glossário
+      - button [ref=f1e24008] [cursor=pointer]:
+        - paragraph [ref=f1e24012]: Modelagem
+    - generic [ref=f1e24014]:
+      - generic [ref=f1e24017]:
+        - heading "Modelagem" [level=1] [ref=f1e24018]
+        - paragraph [ref=f1e24019]: Cenários de rentabilidade, subordinação, fluxo e perdas de crédito.
+      - textbox "Buscar" [ref=f1e24024]:
+        - /placeholder: Buscar no glossário
+      - generic [ref=f1e24025]:
+        - generic [ref=f1e24026]:
+          - tablist [ref=f1e24028]:
+            - tab [selected] [ref=f1e24029] [cursor=pointer]:
+              - paragraph [ref=f1e24031]: Guia de uso do glossário
+            - tab [ref=f1e24032] [cursor=pointer]:
+              - paragraph [ref=f1e24034]: Fundamentos e participantes
+            - tab [ref=f1e24035] [cursor=pointer]:
+              - paragraph [ref=f1e24037]: Normas, reporte e ofertas
+            - tab [ref=f1e24038] [cursor=pointer]:
+              - paragraph [ref=f1e24040]: Estrutura de capital e caixa
+            - tab [ref=f1e24041] [cursor=pointer]:
+              - paragraph [ref=f1e24043]: Ativos, instrumentos e famílias
+            - tab [ref=f1e24044] [cursor=pointer]:
+              - paragraph [ref=f1e24046]: Métricas e desempenho
+            - tab [ref=f1e24047] [cursor=pointer]:
+              - paragraph [ref=f1e24049]: Eventos, governança e documentos
+            - tab [ref=f1e24050] [cursor=pointer]:
+              - paragraph [ref=f1e24052]: Corpus e fontes
+          - tabpanel "Guia de uso do glossário" [ref=f1e24055]:
+            - generic [ref=f1e24058]:
+              - generic [ref=f1e24064]:
+                - generic [ref=f1e24065]:
+                  - generic [ref=f1e24066]: Guia de uso do Glossário de FIDCs
+                  - combobox "Selected Guia de uso do Glossário de FIDCs. Páginas" [ref=f1e24068]
+                - img "open" [ref=f1e24070]
+              - generic [ref=f1e24073]:
+                - generic [ref=f1e24078]:
+                  - generic [ref=f1e24079]: Comece Aqui
+                  - heading "Guia de uso do Glossário de FIDCs" [level=2] [ref=f1e24081]:
+                    - text: Guia de uso do Glossário de FIDCs
+                    - generic [ref=f1e24082]:
+                      - link "Link to heading":
+                        - /url: "#guia-de-uso-do-glossario-de-fidcs"
+                  - generic [ref=f1e24083]: Como separar norma, contrato, reporte e convenção analítica; trilha de leitura e escopo do corpus de 100 fundos.
+                - generic [ref=f1e24087]:
+                  - paragraph [ref=f1e24088]: "Este book explica FIDCs para quem já analisa crédito e demonstrações financeiras, mas precisa ligar três camadas que não são intercambiáveis: a norma, o contrato de cada estrutura e o reporte regulatório. A definição canônica fica em uma única página; as demais mostram aplicações e riscos."
+                  - heading "Como ler" [level=2] [ref=f1e24090]:
+                    - text: Como ler
+                    - generic [ref=f1e24091]:
+                      - link "Link to heading":
+                        - /url: "#como-ler"
+                  - paragraph [ref=f1e24092]: "Uma sequência eficiente é:"
+                  - list [ref=f1e24093]:
+                    - listitem [ref=f1e24094]:
+                      - link "FIDC, classe, direito creditório e patrimônio segregado" [ref=f1e24095] [cursor=pointer]:
+                        - /url: glossario/o-que-e-fidc.md
+                      - text: ;
+                    - listitem [ref=f1e24096]:
+                      - link "participantes e responsabilidades" [ref=f1e24097] [cursor=pointer]:
+                        - /url: participantes/participantes.md
+                      - text: ;
+                    - listitem [ref=f1e24098]:
+                      - link "fundo, classe, subclasse, série, cota e waterfall" [ref=f1e24099] [cursor=pointer]:
+                        - /url: estruturas/classes-cotas-waterfall.md
+                      - text: ;
+                    - listitem [ref=f1e24100]:
+                      - link "cessão, endosso, elegibilidade, regresso e lastro" [ref=f1e24101] [cursor=pointer]:
+                        - /url: glossario/cessao-e-resolucao.md
+                      - text: ;
+                    - listitem [ref=f1e24102]:
+                      - link "Tabela II do Informe Mensal" [ref=f1e24103] [cursor=pointer]:
+                        - /url: regulacao/informe-mensal-tabela-ii.md
+                      - text: ;
+                    - listitem [ref=f1e24104]:
+                      - link "métricas de estrutura" [ref=f1e24105] [cursor=pointer]:
+                        - /url: metricas/metricas-estruturais.md
+                      - text: e
+                      - link "métricas de desempenho" [ref=f1e24106] [cursor=pointer]:
+                        - /url: metricas/provisao-perdas-e-inadimplencia.md
+                      - text: ;
+                    - listitem [ref=f1e24107]:
+                      - link "eventos e governança" [ref=f1e24108] [cursor=pointer]:
+                        - /url: eventos/eventos-de-avaliacao-e-liquidacao.md
+                      - text: .
+                  - heading "Quatro naturezas de afirmação" [level=2] [ref=f1e24110]:
+                    - text: Quatro naturezas de afirmação
+                    - generic [ref=f1e24111]:
+                      - link "Link to heading":
+                        - /url: "#quatro-naturezas-de-afirmacao"
+                  - table [ref=f1e24112]:
+                    - rowgroup [ref=f1e24113]:
+                      - row [ref=f1e24114]:
+                        - columnheader "Natureza" [ref=f1e24115]
+                        - columnheader "O que sustenta" [ref=f1e24116]
+                        - columnheader "Como ler neste book" [ref=f1e24117]
+                    - rowgroup [ref=f1e24118]:
+                      - row [ref=f1e24119]:
+                        - cell "Normativa" [ref=f1e24120]
+                        - cell "obrigação, faculdade ou definição prevista em norma" [ref=f1e24121]
+                        - cell "cita norma, artigo e data de verificação" [ref=f1e24122]
+                      - row [ref=f1e24123]:
+                        - cell "Contratual" [ref=f1e24124]
+                        - cell "regra de uma classe ou emissão" [ref=f1e24125]
+                        - cell "cita regulamento, anexo ou instrumento, versão e página" [ref=f1e24126]
+                      - row [ref=f1e24127]:
+                        - cell "Prática recorrente" [ref=f1e24128]
+                        - cell "cláusula encontrada em estruturas independentes" [ref=f1e24129]
+                        - cell "informa amostra documentada e não transforma frequência em obrigação" [ref=f1e24130]
+                      - row [ref=f1e24131]:
+                        - cell "Convenção analítica" [ref=f1e24132]
+                        - cell "fórmula construída para comparação" [ref=f1e24133]
+                        - cell "explicita numerador, denominador, unidade e limitações" [ref=f1e24134]
+                  - paragraph [ref=f1e24135]: Um número contratual observado em um fundo não vira parâmetro universal. Ausência na extração não comprova inexistência da cláusula. Cache textual sem PDF recuperável serve para localizar candidatos, não para afirmação categórica.
+                  - heading "O que o Informe Mensal entrega" [level=2] [ref=f1e24137]:
+                    - text: O que o Informe Mensal entrega
+                    - generic [ref=f1e24138]:
+                      - link "Link to heading":
+                        - /url: "#o-que-o-informe-mensal-entrega"
+                  - paragraph [ref=f1e24139]:
+                    - text: O Informe Mensal é uma fotografia regulatória padronizada. Entre outras informações, permite acompanhar patrimônio líquido, composição da carteira, vencidos por faixa, provisões/reduções ao valor recuperável, aquisições, alienações, liquidações, cotas e movimentações reportadas. A
+                    - link "Tabela II" [ref=f1e24140] [cursor=pointer]:
+                      - /url: regulacao/informe-mensal-tabela-ii.md
+                    - text: distribui a carteira em 11 segmentos oficiais e detalha o bloco Financeiro em oito aberturas.
+                  - paragraph [ref=f1e24141]: "Ele não substitui o regulamento, a parte geral, o anexo da classe, o instrumento de emissão, os contratos de transferência, os relatórios de rating, as atas ou as demonstrações financeiras. Também não resolve sozinho:"
+                  - list [ref=f1e24142]:
+                    - listitem [ref=f1e24143]: se o crédito satisfaz todos os critérios de elegibilidade;
+                    - listitem [ref=f1e24144]: a ordem contratual de pagamentos e absorção de perdas;
+                    - listitem [ref=f1e24145]: os limites por devedor, cedente, originador ou grupo econômico;
+                    - listitem [ref=f1e24146]: a existência e suficiência jurídica de garantias;
+                    - listitem [ref=f1e24147]: o texto e o estado de gatilhos, períodos de cura ou waivers;
+                    - listitem [ref=f1e24148]: a qualidade da originação, cobrança e conciliação.
+                  - heading "Níveis que não devem ser confundidos" [level=2] [ref=f1e24150]:
+                    - text: Níveis que não devem ser confundidos
+                    - generic [ref=f1e24151]:
+                      - link "Link to heading":
+                        - /url: "#niveis-que-nao-devem-ser-confundidos"
+                  - list [ref=f1e24152]:
+                    - listitem [ref=f1e24153]:
+                      - strong [ref=f1e24154]: "Fundo:"
+                      - text: condomínio especial constituído sob a RCVM 175.
+                    - listitem [ref=f1e24155]:
+                      - strong [ref=f1e24156]: "Classe:"
+                      - text: patrimônio segregado; direitos e obrigações ficam vinculados à classe.
+                    - listitem [ref=f1e24157]:
+                      - strong [ref=f1e24158]: "Subclasse:"
+                      - text: categoria de cotas da mesma classe, inclusive sênior, mezanino ou subordinada em FIDC; não tem patrimônio separado próprio.
+                    - listitem [ref=f1e24159]:
+                      - strong [ref=f1e24160]: "Série:"
+                      - text: subconjunto de cotas seniores de classe fechada, diferenciado por prazo, amortização e/ou índice referencial quando admitido.
+                    - listitem [ref=f1e24161]:
+                      - strong [ref=f1e24162]: "Cota:"
+                      - text: fração patrimonial da classe. “Tranche” é linguagem econômica ou legada e deve ser mapeada ao instrumento jurídico efetivo.
+                  - heading "Vocabulário de classificação" [level=2] [ref=f1e24164]:
+                    - text: Vocabulário de classificação
+                    - generic [ref=f1e24165]:
+                      - link "Link to heading":
+                        - /url: "#vocabulario-de-classificacao"
+                  - paragraph [ref=f1e24166]: "Este book usa apenas:"
+                  - list [ref=f1e24167]:
+                    - listitem [ref=f1e24168]:
+                      - strong [ref=f1e24169]: segmento oficial da Tabela II do Informe Mensal
+                      - text: para os 11 blocos oficiais;
+                    - listitem [ref=f1e24170]:
+                      - strong [ref=f1e24171]: abertura financeira da Tabela II
+                      - text: para F1 a F8;
+                    - listitem [ref=f1e24172]:
+                      - strong [ref=f1e24173]: taxonomia funcional documental
+                      - text: para classificações inferidas de documentos, como consignado, risco sacado, meios de pagamento, crédito estudantil ou NPL;
+                    - listitem [ref=f1e24174]:
+                      - strong [ref=f1e24175]: Sem segmentação IME
+                      - text: quando a Tabela II não contém valores suficientes. É um estrato de qualidade de dados, não categoria oficial de ativo.
+                  - heading "Escopo da revisão de 2026" [level=2] [ref=f1e24177]:
+                    - text: Escopo da revisão de 2026
+                    - generic [ref=f1e24178]:
+                      - link "Link to heading":
+                        - /url: "#escopo-da-revisao-de-2026"
+                  - paragraph [ref=f1e24179]:
+                    - text: A revisão foi confrontada com a RCVM 175 consolidada após a RCVM 240/2026, demais fontes oficiais listadas em
+                    - link "Referências e rastreabilidade" [ref=f1e24180] [cursor=pointer]:
+                      - /url: fontes/referencias.md
+                    - text: e um corpus congelado de exatamente 100 fundos na competência 202605. A amostra maximiza patrimônio líquido sujeito à cobertura mínima dos estratos ocupados; os casos servem como evidência de linguagem e prática, não como perfis ou avaliação corrente.
+                  - paragraph [ref=f1e24181]:
+                    - text: "Última verificação normativa:"
+                    - strong [ref=f1e24182]: 16/07/2026
+                    - text: .
+                - group [ref=f1e24185]:
+                  - generic "keyboard_arrow_right Sobre a base" [ref=f1e24186] [cursor=pointer]:
+                    - generic [ref=f1e24187]:
+                      - generic [ref=f1e24188]: keyboard_arrow_right
+                      - paragraph [ref=f1e24192]: Sobre a base
+        - button "Scroll tabs right" [ref=f1e24193] [cursor=pointer]

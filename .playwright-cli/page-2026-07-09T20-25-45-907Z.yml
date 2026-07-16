@@ -1,0 +1,321 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - heading "tomaconta fidcs" [level=1] [ref=e12]
+      - generic [ref=e13]: por matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e2414] [cursor=pointer]:
+        - paragraph [ref=e2418]: Sobre
+      - button [ref=e2419] [cursor=pointer]:
+        - paragraph [ref=e2423]: Indústria
+      - button [ref=e2424] [cursor=pointer]:
+        - paragraph [ref=e2428]: Carteira
+      - button [ref=e2429] [cursor=pointer]:
+        - paragraph [ref=e2433]: Regulamentos
+      - button [ref=e2434] [cursor=pointer]:
+        - paragraph [ref=e2438]: Estratégia
+      - button [ref=e2439] [cursor=pointer]:
+        - paragraph [ref=e2443]: Cloudwalk
+      - button [ref=e2444] [cursor=pointer]:
+        - paragraph [ref=e2448]: Glossário
+      - button [ref=e2449] [cursor=pointer]:
+        - paragraph [ref=e2453]: Modelagem
+    - generic [ref=e61]:
+      - generic [ref=e62]: Estratégia FIDCs
+      - generic [ref=e66]: Matrizes regulatórias, subordinação e pricing
+      - generic [ref=e67]: Comparação por coorte, subtipo, PL e volume emitido. Leitura analítica; não é parecer jurídico.
+    - generic [ref=e162]:
+      - generic [ref=e163]:
+        - generic [ref=e164]: Data-base
+        - generic [ref=e165]: 2026-06-09
+      - generic [ref=e167]:
+        - generic [ref=e168]: CNPJs na base
+        - generic [ref=e169]: "7.399"
+      - generic [ref=e171]:
+        - generic [ref=e172]: Matrizes lidas
+        - generic [ref=e173]: "764"
+      - generic [ref=e175]:
+        - generic [ref=e176]: Emitidos 2024/2025 com matriz
+        - generic [ref=e177]: 359 / 440
+      - generic [ref=e179]:
+        - generic [ref=e180]: Cortes pricing / ideias
+        - generic [ref=e181]: 22 / 39
+    - paragraph [ref=e2458]: Base CVM/IME em 2026-06-09; IME granular disponível para 44 CNPJs.
+    - generic [ref=e2460]:
+      - paragraph [ref=e2464]: Coorte
+      - radiogroup "Coorte" [ref=e2465] [cursor=pointer]:
+        - generic [ref=e2466]:
+          - radio "2024FY" [checked]
+          - paragraph [ref=e2469]: 2024FY
+        - generic [ref=e2470]:
+          - radio "2025FY"
+          - paragraph [ref=e2473]: 2025FY
+    - generic [ref=e2475]:
+      - paragraph [ref=e2479]: Filtrar setores
+      - generic [ref=e2482]:
+        - generic [ref=e2483]:
+          - button "Agro, close by backspace":
+            - generic "Agro" [ref=e2484]
+          - button "Crédito PF, close by backspace":
+            - generic "Crédito PF" [ref=e2488]
+          - button "Crédito PJ, close by backspace":
+            - generic "Crédito PJ" [ref=e2492]
+          - button "FIC/Alocador, close by backspace":
+            - generic "FIC/Alocador" [ref=e2496]
+          - button "Imobiliário, close by backspace":
+            - generic "Imobiliário" [ref=e2500]
+          - button "Infra/Energia, close by backspace":
+            - generic "Infra/Energia" [ref=e2504]
+          - combobox "Selected Agro, Crédito PF, Crédito PJ, FIC/Alocador, Imobiliário, Infra/Energia. Filtrar setores" [ref=e2509]
+        - generic [ref=e2510]:
+          - button "Clear all" [ref=e2511] [cursor=pointer]
+          - img "open" [ref=e2513] [cursor=pointer]
+    - generic [ref=e2516]:
+      - tablist [ref=e2518]:
+        - tab [selected] [ref=e2519] [cursor=pointer]:
+          - paragraph [ref=e2521]: Cláusulas
+        - tab [ref=e2522] [cursor=pointer]:
+          - paragraph [ref=e2524]: Subord.
+        - tab [ref=e2525] [cursor=pointer]:
+          - paragraph [ref=e2527]: Pricing
+        - tab [ref=e2528] [cursor=pointer]:
+          - paragraph [ref=e2530]: Ideias
+        - tab [ref=e2531] [cursor=pointer]:
+          - paragraph [ref=e2533]: Base
+      - tabpanel "Cláusulas" [ref=e2536]:
+        - generic [ref=e2537]:
+          - generic [ref=e2539]:
+            - paragraph [ref=e2543]: Métrica do heatmap
+            - generic [ref=e2545]:
+              - generic [ref=e2546]:
+                - generic [ref=e2547]: "Equal-weight: % de fundos"
+                - 'combobox "Selected Equal-weight: % de fundos. Métrica do heatmap" [ref=e2549]'
+              - img "open" [ref=e2551]
+          - generic [ref=e2555]:
+            - generic [ref=e2557]:
+              - button "Show data" [ref=e2560] [cursor=pointer]
+              - button "Fullscreen" [ref=e2566] [cursor=pointer]
+            - generic [ref=e2570]:
+              - generic "Vega visualization" [ref=e2571]:
+                - img [ref=e2572]:
+                  - generic [ref=e2577]:
+                    - generic [ref=e2578]:
+                      - 'generic "feature_label: Amortização definida; subtipo: Agro | Agro; %: 0; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Amortização definida; Frequência: 0.0; Fundos: 39; Com evidência: 0" [ref=e2579]'
+                      - 'generic "feature_label: Lastro confirmado; subtipo: Agro | Agro; %: 84.6153846154; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Lastro confirmado; Frequência: 84.6; Fundos: 39; Com evidência: 33" [ref=e2580]'
+                      - 'generic "feature_label: Reserva/caixa; subtipo: Agro | Agro; %: 58.9743589744; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Reserva/caixa; Frequência: 59.0; Fundos: 39; Com evidência: 23" [ref=e2581]'
+                      - 'generic "feature_label: Concentração; subtipo: Agro | Agro; %: 51.2820512821; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Concentração; Frequência: 51.3; Fundos: 39; Com evidência: 20" [ref=e2582]'
+                      - 'generic "feature_label: Triggers/performance; subtipo: Agro | Agro; %: 79.4871794872; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Triggers/performance; Frequência: 79.5; Fundos: 39; Com evidência: 31" [ref=e2583]'
+                      - 'generic "feature_label: Derivativos; subtipo: Agro | Agro; %: 0; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Derivativos; Frequência: 0.0; Fundos: 39; Com evidência: 0" [ref=e2584]'
+                      - 'generic "feature_label: Elegibilidade; subtipo: Agro | Agro; %: 87.1794871795; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Elegibilidade; Frequência: 87.2; Fundos: 39; Com evidência: 34" [ref=e2585]'
+                      - 'generic "feature_label: Mezanino; subtipo: Agro | Agro; %: 69.2307692308; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Mezanino; Frequência: 69.2; Fundos: 39; Com evidência: 27" [ref=e2586]'
+                      - 'generic "feature_label: Sacado/devedor nomeado; subtipo: Agro | Agro; %: 7.69230769231; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Sacado/devedor nomeado; Frequência: 7.7; Fundos: 39; Com evidência: 3" [ref=e2587]'
+                      - 'generic "feature_label: Cedente/originador nomeado; subtipo: Agro | Agro; %: 17.9487179487; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Cedente/originador nomeado; Frequência: 17.9; Fundos: 39; Com evidência: 7" [ref=e2588]'
+                      - 'generic "feature_label: Rating; subtipo: Agro | Agro; %: 82.0512820513; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Rating; Frequência: 82.1; Fundos: 39; Com evidência: 32" [ref=e2589]'
+                      - 'generic "feature_label: Recompra/indenização; subtipo: Agro | Agro; %: 41.0256410256; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Recompra/indenização; Frequência: 41.0; Fundos: 39; Com evidência: 16" [ref=e2590]'
+                      - 'generic "feature_label: Revolvência; subtipo: Agro | Agro; %: 33.3333333333; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Revolvência; Frequência: 33.3; Fundos: 39; Com evidência: 13" [ref=e2591]'
+                      - 'generic "feature_label: Subordinação mínima; subtipo: Agro | Agro; %: 66.6666666667; Coorte: 2024FY; Subtipo: Agro | Agro; Cláusula: Subordinação mínima; Frequência: 66.7; Fundos: 39; Com evidência: 26" [ref=e2592]'
+                      - 'generic "feature_label: Amortização definida; subtipo: Crédito PF | Auto/Veículos; %: 0; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Amortização definida; Frequência: 0.0; Fundos: 9; Com evidência: 0" [ref=e2593]'
+                      - 'generic "feature_label: Lastro confirmado; subtipo: Crédito PF | Auto/Veículos; %: 88.8888888889; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Lastro confirmado; Frequência: 88.9; Fundos: 9; Com evidência: 8" [ref=e2594]'
+                      - 'generic "feature_label: Reserva/caixa; subtipo: Crédito PF | Auto/Veículos; %: 22.2222222222; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Reserva/caixa; Frequência: 22.2; Fundos: 9; Com evidência: 2" [ref=e2595]'
+                      - 'generic "feature_label: Concentração; subtipo: Crédito PF | Auto/Veículos; %: 22.2222222222; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Concentração; Frequência: 22.2; Fundos: 9; Com evidência: 2" [ref=e2596]'
+                      - 'generic "feature_label: Triggers/performance; subtipo: Crédito PF | Auto/Veículos; %: 55.5555555556; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Triggers/performance; Frequência: 55.6; Fundos: 9; Com evidência: 5" [ref=e2597]'
+                      - 'generic "feature_label: Derivativos; subtipo: Crédito PF | Auto/Veículos; %: 0; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Derivativos; Frequência: 0.0; Fundos: 9; Com evidência: 0" [ref=e2598]'
+                      - 'generic "feature_label: Elegibilidade; subtipo: Crédito PF | Auto/Veículos; %: 88.8888888889; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Elegibilidade; Frequência: 88.9; Fundos: 9; Com evidência: 8" [ref=e2599]'
+                      - 'generic "feature_label: Mezanino; subtipo: Crédito PF | Auto/Veículos; %: 33.3333333333; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Mezanino; Frequência: 33.3; Fundos: 9; Com evidência: 3" [ref=e2600]'
+                      - 'generic "feature_label: Sacado/devedor nomeado; subtipo: Crédito PF | Auto/Veículos; %: 22.2222222222; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Sacado/devedor nomeado; Frequência: 22.2; Fundos: 9; Com evidência: 2" [ref=e2601]'
+                      - 'generic "feature_label: Cedente/originador nomeado; subtipo: Crédito PF | Auto/Veículos; %: 11.1111111111; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Cedente/originador nomeado; Frequência: 11.1; Fundos: 9; Com evidência: 1" [ref=e2602]'
+                      - 'generic "feature_label: Rating; subtipo: Crédito PF | Auto/Veículos; %: 66.6666666667; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Rating; Frequência: 66.7; Fundos: 9; Com evidência: 6" [ref=e2603]'
+                      - 'generic "feature_label: Recompra/indenização; subtipo: Crédito PF | Auto/Veículos; %: 44.4444444444; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Recompra/indenização; Frequência: 44.4; Fundos: 9; Com evidência: 4" [ref=e2604]'
+                      - 'generic "feature_label: Revolvência; subtipo: Crédito PF | Auto/Veículos; %: 11.1111111111; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Revolvência; Frequência: 11.1; Fundos: 9; Com evidência: 1" [ref=e2605]'
+                      - 'generic "feature_label: Subordinação mínima; subtipo: Crédito PF | Auto/Veículos; %: 44.4444444444; Coorte: 2024FY; Subtipo: Crédito PF | Auto/Veículos; Cláusula: Subordinação mínima; Frequência: 44.4; Fundos: 9; Com evidência: 4" [ref=e2606]'
+                      - 'generic "feature_label: Amortização definida; subtipo: Crédito PF | Consignado/INSS; %: 0; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Amortização definida; Frequência: 0.0; Fundos: 19; Com evidência: 0" [ref=e2607]'
+                      - 'generic "feature_label: Lastro confirmado; subtipo: Crédito PF | Consignado/INSS; %: 89.4736842105; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Lastro confirmado; Frequência: 89.5; Fundos: 19; Com evidência: 17" [ref=e2608]'
+                      - 'generic "feature_label: Reserva/caixa; subtipo: Crédito PF | Consignado/INSS; %: 52.6315789474; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Reserva/caixa; Frequência: 52.6; Fundos: 19; Com evidência: 10" [ref=e2609]'
+                      - 'generic "feature_label: Concentração; subtipo: Crédito PF | Consignado/INSS; %: 47.3684210526; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Concentração; Frequência: 47.4; Fundos: 19; Com evidência: 9" [ref=e2610]'
+                      - 'generic "feature_label: Triggers/performance; subtipo: Crédito PF | Consignado/INSS; %: 84.2105263158; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Triggers/performance; Frequência: 84.2; Fundos: 19; Com evidência: 16" [ref=e2611]'
+                      - 'generic "feature_label: Derivativos; subtipo: Crédito PF | Consignado/INSS; %: 0; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Derivativos; Frequência: 0.0; Fundos: 19; Com evidência: 0" [ref=e2612]'
+                      - 'generic "feature_label: Elegibilidade; subtipo: Crédito PF | Consignado/INSS; %: 84.2105263158; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Elegibilidade; Frequência: 84.2; Fundos: 19; Com evidência: 16" [ref=e2613]'
+                      - 'generic "feature_label: Mezanino; subtipo: Crédito PF | Consignado/INSS; %: 63.1578947368; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Mezanino; Frequência: 63.2; Fundos: 19; Com evidência: 12" [ref=e2614]'
+                      - 'generic "feature_label: Sacado/devedor nomeado; subtipo: Crédito PF | Consignado/INSS; %: 15.7894736842; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Sacado/devedor nomeado; Frequência: 15.8; Fundos: 19; Com evidência: 3" [ref=e2615]'
+                      - 'generic "feature_label: Cedente/originador nomeado; subtipo: Crédito PF | Consignado/INSS; %: 15.7894736842; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Cedente/originador nomeado; Frequência: 15.8; Fundos: 19; Com evidência: 3" [ref=e2616]'
+                      - 'generic "feature_label: Rating; subtipo: Crédito PF | Consignado/INSS; %: 89.4736842105; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Rating; Frequência: 89.5; Fundos: 19; Com evidência: 17" [ref=e2617]'
+                      - 'generic "feature_label: Recompra/indenização; subtipo: Crédito PF | Consignado/INSS; %: 36.8421052632; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Recompra/indenização; Frequência: 36.8; Fundos: 19; Com evidência: 7" [ref=e2618]'
+                      - 'generic "feature_label: Revolvência; subtipo: Crédito PF | Consignado/INSS; %: 42.1052631579; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Revolvência; Frequência: 42.1; Fundos: 19; Com evidência: 8" [ref=e2619]'
+                      - 'generic "feature_label: Subordinação mínima; subtipo: Crédito PF | Consignado/INSS; %: 57.8947368421; Coorte: 2024FY; Subtipo: Crédito PF | Consignado/INSS; Cláusula: Subordinação mínima; Frequência: 57.9; Fundos: 19; Com evidência: 11" [ref=e2620]'
+                      - 'generic "feature_label: Amortização definida; subtipo: Crédito PF | Crédito estudantil; %: 0; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Amortização definida; Frequência: 0.0; Fundos: 3; Com evidência: 0" [ref=e2621]'
+                      - 'generic "feature_label: Lastro confirmado; subtipo: Crédito PF | Crédito estudantil; %: 100; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Lastro confirmado; Frequência: 100.0; Fundos: 3; Com evidência: 3" [ref=e2622]'
+                      - 'generic "feature_label: Reserva/caixa; subtipo: Crédito PF | Crédito estudantil; %: 100; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Reserva/caixa; Frequência: 100.0; Fundos: 3; Com evidência: 3" [ref=e2623]'
+                      - 'generic "feature_label: Concentração; subtipo: Crédito PF | Crédito estudantil; %: 100; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Concentração; Frequência: 100.0; Fundos: 3; Com evidência: 3" [ref=e2624]'
+                      - 'generic "feature_label: Triggers/performance; subtipo: Crédito PF | Crédito estudantil; %: 100; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Triggers/performance; Frequência: 100.0; Fundos: 3; Com evidência: 3" [ref=e2625]'
+                      - 'generic "feature_label: Derivativos; subtipo: Crédito PF | Crédito estudantil; %: 0; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Derivativos; Frequência: 0.0; Fundos: 3; Com evidência: 0" [ref=e2626]'
+                      - 'generic "feature_label: Elegibilidade; subtipo: Crédito PF | Crédito estudantil; %: 100; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Elegibilidade; Frequência: 100.0; Fundos: 3; Com evidência: 3" [ref=e2627]'
+                      - 'generic "feature_label: Mezanino; subtipo: Crédito PF | Crédito estudantil; %: 100; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Mezanino; Frequência: 100.0; Fundos: 3; Com evidência: 3" [ref=e2628]'
+                      - 'generic "feature_label: Sacado/devedor nomeado; subtipo: Crédito PF | Crédito estudantil; %: 0; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Sacado/devedor nomeado; Frequência: 0.0; Fundos: 3; Com evidência: 0" [ref=e2629]'
+                      - 'generic "feature_label: Cedente/originador nomeado; subtipo: Crédito PF | Crédito estudantil; %: 33.3333333333; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Cedente/originador nomeado; Frequência: 33.3; Fundos: 3; Com evidência: 1" [ref=e2630]'
+                      - 'generic "feature_label: Rating; subtipo: Crédito PF | Crédito estudantil; %: 100; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Rating; Frequência: 100.0; Fundos: 3; Com evidência: 3" [ref=e2631]'
+                      - 'generic "feature_label: Recompra/indenização; subtipo: Crédito PF | Crédito estudantil; %: 100; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Recompra/indenização; Frequência: 100.0; Fundos: 3; Com evidência: 3" [ref=e2632]'
+                      - 'generic "feature_label: Revolvência; subtipo: Crédito PF | Crédito estudantil; %: 100; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Revolvência; Frequência: 100.0; Fundos: 3; Com evidência: 3" [ref=e2633]'
+                      - 'generic "feature_label: Subordinação mínima; subtipo: Crédito PF | Crédito estudantil; %: 100; Coorte: 2024FY; Subtipo: Crédito PF | Crédito estudantil; Cláusula: Subordinação mínima; Frequência: 100.0; Fundos: 3; Com evidência: 3" [ref=e2634]'
+                      - 'generic "feature_label: Amortização definida; subtipo: Crédito PF | Crédito pessoal/consumo; %: 0; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Amortização definida; Frequência: 0.0; Fundos: 74; Com evidência: 0" [ref=e2635]'
+                      - 'generic "feature_label: Lastro confirmado; subtipo: Crédito PF | Crédito pessoal/consumo; %: 95.9459459459; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Lastro confirmado; Frequência: 95.9; Fundos: 74; Com evidência: 71" [ref=e2636]'
+                      - 'generic "feature_label: Reserva/caixa; subtipo: Crédito PF | Crédito pessoal/consumo; %: 54.0540540541; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Reserva/caixa; Frequência: 54.1; Fundos: 74; Com evidência: 40" [ref=e2637]'
+                      - 'generic "feature_label: Concentração; subtipo: Crédito PF | Crédito pessoal/consumo; %: 56.7567567568; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Concentração; Frequência: 56.8; Fundos: 74; Com evidência: 42" [ref=e2638]'
+                      - 'generic "feature_label: Triggers/performance; subtipo: Crédito PF | Crédito pessoal/consumo; %: 95.9459459459; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Triggers/performance; Frequência: 95.9; Fundos: 74; Com evidência: 71" [ref=e2639]'
+                      - 'generic "feature_label: Derivativos; subtipo: Crédito PF | Crédito pessoal/consumo; %: 0; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Derivativos; Frequência: 0.0; Fundos: 74; Com evidência: 0" [ref=e2640]'
+                      - 'generic "feature_label: Elegibilidade; subtipo: Crédito PF | Crédito pessoal/consumo; %: 97.2972972973; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Elegibilidade; Frequência: 97.3; Fundos: 74; Com evidência: 72" [ref=e2641]'
+                      - 'generic "feature_label: Mezanino; subtipo: Crédito PF | Crédito pessoal/consumo; %: 56.7567567568; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Mezanino; Frequência: 56.8; Fundos: 74; Com evidência: 42" [ref=e2642]'
+                      - 'generic "feature_label: Sacado/devedor nomeado; subtipo: Crédito PF | Crédito pessoal/consumo; %: 2.7027027027; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Sacado/devedor nomeado; Frequência: 2.7; Fundos: 74; Com evidência: 2" [ref=e2643]'
+                      - 'generic "feature_label: Cedente/originador nomeado; subtipo: Crédito PF | Crédito pessoal/consumo; %: 18.9189189189; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Cedente/originador nomeado; Frequência: 18.9; Fundos: 74; Com evidência: 14" [ref=e2644]'
+                      - 'generic "feature_label: Rating; subtipo: Crédito PF | Crédito pessoal/consumo; %: 95.9459459459; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Rating; Frequência: 95.9; Fundos: 74; Com evidência: 71" [ref=e2645]'
+                      - 'generic "feature_label: Recompra/indenização; subtipo: Crédito PF | Crédito pessoal/consumo; %: 35.1351351351; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Recompra/indenização; Frequência: 35.1; Fundos: 74; Com evidência: 26" [ref=e2646]'
+                      - 'generic "feature_label: Revolvência; subtipo: Crédito PF | Crédito pessoal/consumo; %: 31.0810810811; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Revolvência; Frequência: 31.1; Fundos: 74; Com evidência: 23" [ref=e2647]'
+                      - 'generic "feature_label: Subordinação mínima; subtipo: Crédito PF | Crédito pessoal/consumo; %: 64.8648648649; Coorte: 2024FY; Subtipo: Crédito PF | Crédito pessoal/consumo; Cláusula: Subordinação mínima; Frequência: 64.9; Fundos: 74; Com evidência: 48" [ref=e2648]'
+                      - 'generic "feature_label: Amortização definida; subtipo: Crédito PF | FGTS; %: 0; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Amortização definida; Frequência: 0.0; Fundos: 12; Com evidência: 0" [ref=e2649]'
+                      - 'generic "feature_label: Lastro confirmado; subtipo: Crédito PF | FGTS; %: 100; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Lastro confirmado; Frequência: 100.0; Fundos: 12; Com evidência: 12" [ref=e2650]'
+                      - 'generic "feature_label: Reserva/caixa; subtipo: Crédito PF | FGTS; %: 75; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Reserva/caixa; Frequência: 75.0; Fundos: 12; Com evidência: 9" [ref=e2651]'
+                      - 'generic "feature_label: Concentração; subtipo: Crédito PF | FGTS; %: 58.3333333333; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Concentração; Frequência: 58.3; Fundos: 12; Com evidência: 7" [ref=e2652]'
+                      - 'generic "feature_label: Triggers/performance; subtipo: Crédito PF | FGTS; %: 83.3333333333; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Triggers/performance; Frequência: 83.3; Fundos: 12; Com evidência: 10" [ref=e2653]'
+                      - 'generic "feature_label: Derivativos; subtipo: Crédito PF | FGTS; %: 0; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Derivativos; Frequência: 0.0; Fundos: 12; Com evidência: 0" [ref=e2654]'
+                      - 'generic "feature_label: Elegibilidade; subtipo: Crédito PF | FGTS; %: 83.3333333333; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Elegibilidade; Frequência: 83.3; Fundos: 12; Com evidência: 10" [ref=e2655]'
+                      - 'generic "feature_label: Mezanino; subtipo: Crédito PF | FGTS; %: 83.3333333333; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Mezanino; Frequência: 83.3; Fundos: 12; Com evidência: 10" [ref=e2656]'
+                      - 'generic "feature_label: Sacado/devedor nomeado; subtipo: Crédito PF | FGTS; %: 100; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Sacado/devedor nomeado; Frequência: 100.0; Fundos: 12; Com evidência: 12" [ref=e2657]'
+                      - 'generic "feature_label: Cedente/originador nomeado; subtipo: Crédito PF | FGTS; %: 16.6666666667; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Cedente/originador nomeado; Frequência: 16.7; Fundos: 12; Com evidência: 2" [ref=e2658]'
+                      - 'generic "feature_label: Rating; subtipo: Crédito PF | FGTS; %: 83.3333333333; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Rating; Frequência: 83.3; Fundos: 12; Com evidência: 10" [ref=e2659]'
+                      - 'generic "feature_label: Recompra/indenização; subtipo: Crédito PF | FGTS; %: 58.3333333333; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Recompra/indenização; Frequência: 58.3; Fundos: 12; Com evidência: 7" [ref=e2660]'
+                      - 'generic "feature_label: Revolvência; subtipo: Crédito PF | FGTS; %: 50; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Revolvência; Frequência: 50.0; Fundos: 12; Com evidência: 6" [ref=e2661]'
+                      - 'generic "feature_label: Subordinação mínima; subtipo: Crédito PF | FGTS; %: 83.3333333333; Coorte: 2024FY; Subtipo: Crédito PF | FGTS; Cláusula: Subordinação mínima; Frequência: 83.3; Fundos: 12; Com evidência: 10" [ref=e2662]'
+                      - 'generic "feature_label: Amortização definida; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 0; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Amortização definida; Frequência: 0.0; Fundos: 11; Com evidência: 0" [ref=e2663]'
+                      - 'generic "feature_label: Lastro confirmado; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 100; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Lastro confirmado; Frequência: 100.0; Fundos: 11; Com evidência: 11" [ref=e2664]'
+                      - 'generic "feature_label: Reserva/caixa; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 45.4545454545; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Reserva/caixa; Frequência: 45.5; Fundos: 11; Com evidência: 5" [ref=e2665]'
+                      - 'generic "feature_label: Concentração; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 72.7272727273; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Concentração; Frequência: 72.7; Fundos: 11; Com evidência: 8" [ref=e2666]'
+                      - 'generic "feature_label: Triggers/performance; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 100; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Triggers/performance; Frequência: 100.0; Fundos: 11; Com evidência: 11" [ref=e2667]'
+                      - 'generic "feature_label: Derivativos; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 0; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Derivativos; Frequência: 0.0; Fundos: 11; Com evidência: 0" [ref=e2668]'
+                      - 'generic "feature_label: Elegibilidade; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 100; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Elegibilidade; Frequência: 100.0; Fundos: 11; Com evidência: 11" [ref=e2669]'
+                      - 'generic "feature_label: Mezanino; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 63.6363636364; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Mezanino; Frequência: 63.6; Fundos: 11; Com evidência: 7" [ref=e2670]'
+                      - 'generic "feature_label: Sacado/devedor nomeado; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 0; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Sacado/devedor nomeado; Frequência: 0.0; Fundos: 11; Com evidência: 0" [ref=e2671]'
+                      - 'generic "feature_label: Cedente/originador nomeado; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 18.1818181818; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Cedente/originador nomeado; Frequência: 18.2; Fundos: 11; Com evidência: 2" [ref=e2672]'
+                      - 'generic "feature_label: Rating; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 100; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Rating; Frequência: 100.0; Fundos: 11; Com evidência: 11" [ref=e2673]'
+                      - 'generic "feature_label: Recompra/indenização; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 54.5454545455; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Recompra/indenização; Frequência: 54.5; Fundos: 11; Com evidência: 6" [ref=e2674]'
+                      - 'generic "feature_label: Revolvência; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 54.5454545455; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Revolvência; Frequência: 54.5; Fundos: 11; Com evidência: 6" [ref=e2675]'
+                      - 'generic "feature_label: Subordinação mínima; subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; %: 72.7272727273; Coorte: 2024FY; Subtipo: Crédito PJ | CCB/Notas comerciais/Capital de giro; Cláusula: Subordinação mínima; Frequência: 72.7; Fundos: 11; Com evidência: 8" [ref=e2676]'
+                      - 'generic "feature_label: Amortização definida; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 0; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Amortização definida; Frequência: 0.0; Fundos: 35; Com evidência: 0" [ref=e2677]'
+                      - 'generic "feature_label: Lastro confirmado; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 74.2857142857; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Lastro confirmado; Frequência: 74.3; Fundos: 35; Com evidência: 26" [ref=e2678]'
+                      - 'generic "feature_label: Reserva/caixa; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 54.2857142857; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Reserva/caixa; Frequência: 54.3; Fundos: 35; Com evidência: 19" [ref=e2679]'
+                      - 'generic "feature_label: Concentração; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 45.7142857143; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Concentração; Frequência: 45.7; Fundos: 35; Com evidência: 16" [ref=e2680]'
+                      - 'generic "feature_label: Triggers/performance; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 74.2857142857; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Triggers/performance; Frequência: 74.3; Fundos: 35; Com evidência: 26" [ref=e2681]'
+                      - 'generic "feature_label: Derivativos; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 0; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Derivativos; Frequência: 0.0; Fundos: 35; Com evidência: 0" [ref=e2682]'
+                      - 'generic "feature_label: Elegibilidade; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 74.2857142857; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Elegibilidade; Frequência: 74.3; Fundos: 35; Com evidência: 26" [ref=e2683]'
+                      - 'generic "feature_label: Mezanino; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 60; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Mezanino; Frequência: 60.0; Fundos: 35; Com evidência: 21" [ref=e2684]'
+                      - 'generic "feature_label: Sacado/devedor nomeado; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 8.57142857143; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Sacado/devedor nomeado; Frequência: 8.6; Fundos: 35; Com evidência: 3" [ref=e2685]'
+                      - 'generic "feature_label: Cedente/originador nomeado; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 11.4285714286; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Cedente/originador nomeado; Frequência: 11.4; Fundos: 35; Com evidência: 4" [ref=e2686]'
+                      - 'generic "feature_label: Rating; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 77.1428571429; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Rating; Frequência: 77.1; Fundos: 35; Com evidência: 27" [ref=e2687]'
+                      - 'generic "feature_label: Recompra/indenização; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 37.1428571429; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Recompra/indenização; Frequência: 37.1; Fundos: 35; Com evidência: 13" [ref=e2688]'
+                      - 'generic "feature_label: Revolvência; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 51.4285714286; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Revolvência; Frequência: 51.4; Fundos: 35; Com evidência: 18" [ref=e2689]'
+                      - 'generic "feature_label: Subordinação mínima; subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; %: 42.8571428571; Coorte: 2024FY; Subtipo: Crédito PJ | Recebíveis comerciais/multissetorial; Cláusula: Subordinação mínima; Frequência: 42.9; Fundos: 35; Com evidência: 15" [ref=e2690]'
+                      - 'generic "feature_label: Amortização definida; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 0; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Amortização definida; Frequência: 0.0; Fundos: 37; Com evidência: 0" [ref=e2691]'
+                      - 'generic "feature_label: Lastro confirmado; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 100; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Lastro confirmado; Frequência: 100.0; Fundos: 37; Com evidência: 37" [ref=e2692]'
+                      - 'generic "feature_label: Reserva/caixa; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 83.7837837838; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Reserva/caixa; Frequência: 83.8; Fundos: 37; Com evidência: 31" [ref=e2693]'
+                      - 'generic "feature_label: Concentração; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 70.2702702703; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Concentração; Frequência: 70.3; Fundos: 37; Com evidência: 26" [ref=e2694]'
+                      - 'generic "feature_label: Triggers/performance; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 97.2972972973; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Triggers/performance; Frequência: 97.3; Fundos: 37; Com evidência: 36" [ref=e2695]'
+                      - 'generic "feature_label: Derivativos; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 0; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Derivativos; Frequência: 0.0; Fundos: 37; Com evidência: 0" [ref=e2696]'
+                      - 'generic "feature_label: Elegibilidade; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 97.2972972973; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Elegibilidade; Frequência: 97.3; Fundos: 37; Com evidência: 36" [ref=e2697]'
+                      - 'generic "feature_label: Mezanino; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 78.3783783784; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Mezanino; Frequência: 78.4; Fundos: 37; Com evidência: 29" [ref=e2698]'
+                      - 'generic "feature_label: Sacado/devedor nomeado; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 0; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Sacado/devedor nomeado; Frequência: 0.0; Fundos: 37; Com evidência: 0" [ref=e2699]'
+                      - 'generic "feature_label: Cedente/originador nomeado; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 27.027027027; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Cedente/originador nomeado; Frequência: 27.0; Fundos: 37; Com evidência: 10" [ref=e2700]'
+                      - 'generic "feature_label: Rating; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 97.2972972973; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Rating; Frequência: 97.3; Fundos: 37; Com evidência: 36" [ref=e2701]'
+                      - 'generic "feature_label: Recompra/indenização; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 16.2162162162; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Recompra/indenização; Frequência: 16.2; Fundos: 37; Com evidência: 6" [ref=e2702]'
+                      - 'generic "feature_label: Revolvência; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 18.9189189189; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Revolvência; Frequência: 18.9; Fundos: 37; Com evidência: 7" [ref=e2703]'
+                      - 'generic "feature_label: Subordinação mínima; subtipo: Crédito PJ | Risco sacado/fornecedores; %: 81.0810810811; Coorte: 2024FY; Subtipo: Crédito PJ | Risco sacado/fornecedores; Cláusula: Subordinação mínima; Frequência: 81.1; Fundos: 37; Com evidência: 30" [ref=e2704]'
+                      - 'generic "feature_label: Amortização definida; subtipo: FIC/Alocador | FIC de FIDC; %: 0; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Amortização definida; Frequência: 0.0; Fundos: 9; Com evidência: 0" [ref=e2705]'
+                      - 'generic "feature_label: Lastro confirmado; subtipo: FIC/Alocador | FIC de FIDC; %: 55.5555555556; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Lastro confirmado; Frequência: 55.6; Fundos: 9; Com evidência: 5" [ref=e2706]'
+                      - 'generic "feature_label: Reserva/caixa; subtipo: FIC/Alocador | FIC de FIDC; %: 44.4444444444; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Reserva/caixa; Frequência: 44.4; Fundos: 9; Com evidência: 4" [ref=e2707]'
+                      - 'generic "feature_label: Concentração; subtipo: FIC/Alocador | FIC de FIDC; %: 55.5555555556; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Concentração; Frequência: 55.6; Fundos: 9; Com evidência: 5" [ref=e2708]'
+                      - 'generic "feature_label: Triggers/performance; subtipo: FIC/Alocador | FIC de FIDC; %: 66.6666666667; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Triggers/performance; Frequência: 66.7; Fundos: 9; Com evidência: 6" [ref=e2709]'
+                      - 'generic "feature_label: Derivativos; subtipo: FIC/Alocador | FIC de FIDC; %: 0; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Derivativos; Frequência: 0.0; Fundos: 9; Com evidência: 0" [ref=e2710]'
+                      - 'generic "feature_label: Elegibilidade; subtipo: FIC/Alocador | FIC de FIDC; %: 33.3333333333; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Elegibilidade; Frequência: 33.3; Fundos: 9; Com evidência: 3" [ref=e2711]'
+                      - 'generic "feature_label: Mezanino; subtipo: FIC/Alocador | FIC de FIDC; %: 66.6666666667; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Mezanino; Frequência: 66.7; Fundos: 9; Com evidência: 6" [ref=e2712]'
+                      - 'generic "feature_label: Sacado/devedor nomeado; subtipo: FIC/Alocador | FIC de FIDC; %: 0; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Sacado/devedor nomeado; Frequência: 0.0; Fundos: 9; Com evidência: 0" [ref=e2713]'
+                      - 'generic "feature_label: Cedente/originador nomeado; subtipo: FIC/Alocador | FIC de FIDC; %: 0; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Cedente/originador nomeado; Frequência: 0.0; Fundos: 9; Com evidência: 0" [ref=e2714]'
+                      - 'generic "feature_label: Rating; subtipo: FIC/Alocador | FIC de FIDC; %: 66.6666666667; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Rating; Frequência: 66.7; Fundos: 9; Com evidência: 6" [ref=e2715]'
+                      - 'generic "feature_label: Recompra/indenização; subtipo: FIC/Alocador | FIC de FIDC; %: 22.2222222222; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Recompra/indenização; Frequência: 22.2; Fundos: 9; Com evidência: 2" [ref=e2716]'
+                      - 'generic "feature_label: Revolvência; subtipo: FIC/Alocador | FIC de FIDC; %: 11.1111111111; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Revolvência; Frequência: 11.1; Fundos: 9; Com evidência: 1" [ref=e2717]'
+                      - 'generic "feature_label: Subordinação mínima; subtipo: FIC/Alocador | FIC de FIDC; %: 55.5555555556; Coorte: 2024FY; Subtipo: FIC/Alocador | FIC de FIDC; Cláusula: Subordinação mínima; Frequência: 55.6; Fundos: 9; Com evidência: 5" [ref=e2718]'
+                      - 'generic "feature_label: Amortização definida; subtipo: Imobiliário | Imobiliário; %: 0; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Amortização definida; Frequência: 0.0; Fundos: 21; Com evidência: 0" [ref=e2719]'
+                      - 'generic "feature_label: Lastro confirmado; subtipo: Imobiliário | Imobiliário; %: 95.2380952381; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Lastro confirmado; Frequência: 95.2; Fundos: 21; Com evidência: 20" [ref=e2720]'
+                      - 'generic "feature_label: Reserva/caixa; subtipo: Imobiliário | Imobiliário; %: 28.5714285714; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Reserva/caixa; Frequência: 28.6; Fundos: 21; Com evidência: 6" [ref=e2721]'
+                      - 'generic "feature_label: Concentração; subtipo: Imobiliário | Imobiliário; %: 80.9523809524; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Concentração; Frequência: 81.0; Fundos: 21; Com evidência: 17" [ref=e2722]'
+                      - 'generic "feature_label: Triggers/performance; subtipo: Imobiliário | Imobiliário; %: 85.7142857143; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Triggers/performance; Frequência: 85.7; Fundos: 21; Com evidência: 18" [ref=e2723]'
+                      - 'generic "feature_label: Derivativos; subtipo: Imobiliário | Imobiliário; %: 0; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Derivativos; Frequência: 0.0; Fundos: 21; Com evidência: 0" [ref=e2724]'
+                      - 'generic "feature_label: Elegibilidade; subtipo: Imobiliário | Imobiliário; %: 95.2380952381; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Elegibilidade; Frequência: 95.2; Fundos: 21; Com evidência: 20" [ref=e2725]'
+                      - 'generic "feature_label: Mezanino; subtipo: Imobiliário | Imobiliário; %: 71.4285714286; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Mezanino; Frequência: 71.4; Fundos: 21; Com evidência: 15" [ref=e2726]'
+                      - 'generic "feature_label: Sacado/devedor nomeado; subtipo: Imobiliário | Imobiliário; %: 28.5714285714; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Sacado/devedor nomeado; Frequência: 28.6; Fundos: 21; Com evidência: 6" [ref=e2727]'
+                      - 'generic "feature_label: Cedente/originador nomeado; subtipo: Imobiliário | Imobiliário; %: 47.619047619; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Cedente/originador nomeado; Frequência: 47.6; Fundos: 21; Com evidência: 10" [ref=e2728]'
+                      - 'generic "feature_label: Rating; subtipo: Imobiliário | Imobiliário; %: 95.2380952381; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Rating; Frequência: 95.2; Fundos: 21; Com evidência: 20" [ref=e2729]'
+                      - 'generic "feature_label: Recompra/indenização; subtipo: Imobiliário | Imobiliário; %: 28.5714285714; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Recompra/indenização; Frequência: 28.6; Fundos: 21; Com evidência: 6" [ref=e2730]'
+                      - 'generic "feature_label: Revolvência; subtipo: Imobiliário | Imobiliário; %: 71.4285714286; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Revolvência; Frequência: 71.4; Fundos: 21; Com evidência: 15" [ref=e2731]'
+                      - 'generic "feature_label: Subordinação mínima; subtipo: Imobiliário | Imobiliário; %: 28.5714285714; Coorte: 2024FY; Subtipo: Imobiliário | Imobiliário; Cláusula: Subordinação mínima; Frequência: 28.6; Fundos: 21; Com evidência: 6" [ref=e2732]'
+                      - 'generic "feature_label: Amortização definida; subtipo: Infra/Energia | Energia/infra; %: 0; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Amortização definida; Frequência: 0.0; Fundos: 5; Com evidência: 0" [ref=e2733]'
+                      - 'generic "feature_label: Lastro confirmado; subtipo: Infra/Energia | Energia/infra; %: 20; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Lastro confirmado; Frequência: 20.0; Fundos: 5; Com evidência: 1" [ref=e2734]'
+                      - 'generic "feature_label: Reserva/caixa; subtipo: Infra/Energia | Energia/infra; %: 0; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Reserva/caixa; Frequência: 0.0; Fundos: 5; Com evidência: 0" [ref=e2735]'
+                      - 'generic "feature_label: Concentração; subtipo: Infra/Energia | Energia/infra; %: 0; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Concentração; Frequência: 0.0; Fundos: 5; Com evidência: 0" [ref=e2736]'
+                      - 'generic "feature_label: Triggers/performance; subtipo: Infra/Energia | Energia/infra; %: 20; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Triggers/performance; Frequência: 20.0; Fundos: 5; Com evidência: 1" [ref=e2737]'
+                      - 'generic "feature_label: Derivativos; subtipo: Infra/Energia | Energia/infra; %: 0; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Derivativos; Frequência: 0.0; Fundos: 5; Com evidência: 0" [ref=e2738]'
+                      - 'generic "feature_label: Elegibilidade; subtipo: Infra/Energia | Energia/infra; %: 20; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Elegibilidade; Frequência: 20.0; Fundos: 5; Com evidência: 1" [ref=e2739]'
+                      - 'generic "feature_label: Mezanino; subtipo: Infra/Energia | Energia/infra; %: 0; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Mezanino; Frequência: 0.0; Fundos: 5; Com evidência: 0" [ref=e2740]'
+                      - 'generic "feature_label: Sacado/devedor nomeado; subtipo: Infra/Energia | Energia/infra; %: 0; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Sacado/devedor nomeado; Frequência: 0.0; Fundos: 5; Com evidência: 0" [ref=e2741]'
+                      - 'generic "feature_label: Cedente/originador nomeado; subtipo: Infra/Energia | Energia/infra; %: 0; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Cedente/originador nomeado; Frequência: 0.0; Fundos: 5; Com evidência: 0" [ref=e2742]'
+                      - 'generic "feature_label: Rating; subtipo: Infra/Energia | Energia/infra; %: 20; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Rating; Frequência: 20.0; Fundos: 5; Com evidência: 1" [ref=e2743]'
+                      - 'generic "feature_label: Recompra/indenização; subtipo: Infra/Energia | Energia/infra; %: 0; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Recompra/indenização; Frequência: 0.0; Fundos: 5; Com evidência: 0" [ref=e2744]'
+                      - 'generic "feature_label: Revolvência; subtipo: Infra/Energia | Energia/infra; %: 0; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Revolvência; Frequência: 0.0; Fundos: 5; Com evidência: 0" [ref=e2745]'
+                      - 'generic "feature_label: Subordinação mínima; subtipo: Infra/Energia | Energia/infra; %: 20; Coorte: 2024FY; Subtipo: Infra/Energia | Energia/infra; Cláusula: Subordinação mínima; Frequência: 20.0; Fundos: 5; Com evidência: 1" [ref=e2746]'
+                    - generic "Gradient legend titled '%' for fill color with values from 0 to 100" [ref=e2747]:
+                      - generic [ref=e2749]:
+                        - generic [ref=e2752]:
+                          - generic:
+                            - generic: "0"
+                            - generic: "20"
+                            - generic: "40"
+                            - generic: "60"
+                            - generic: "80"
+                            - generic: "100"
+                        - generic: "%"
+                    - 'generic "X-axis for a discrete scale with 14 values: Amortização definida, Lastro confirmado, Reserva/caixa, Concentração, Triggers/performance, ending with Subordinação mínima" [ref=e2753]':
+                      - generic [ref=e2755]:
+                        - generic:
+                          - generic: Amortização defi…
+                          - generic: Lastro confirmado
+                          - generic: Reserva/caixa
+                          - generic: Concentração
+                          - generic: Triggers/perform…
+                          - generic: Derivativos
+                          - generic: Elegibilidade
+                          - generic: Mezanino
+                          - generic: Sacado/devedor …
+                          - generic: Cedente/originad…
+                          - generic: Rating
+                          - generic: Recompra/indeni…
+                          - generic: Revolvência
+                          - generic: Subordinação mí…
+                    - 'generic "Y-axis for a discrete scale with 12 values: Crédito PF | Crédito pessoal/consumo, Agro | Agro, Crédito PJ | Risco sacado/fornecedores, Crédito PJ | Recebíveis comerciais/multissetorial, Imobiliário | Imobiliário, ending with Crédito PF | Crédito estudantil" [ref=e2756]':
+                      - generic [ref=e2758]:
+                        - generic:
+                          - generic: Crédito PF | Crédi…
+                          - generic: Agro | Agro
+                          - generic: Crédito PJ | Risco …
+                          - generic: Crédito PJ | Receb…
+                          - generic: Imobiliário | Imo…
+                          - generic: Crédito PF | Consi…
+                          - generic: Crédito PF | FGTS
+                          - generic: Crédito PJ | CCB/…
+                          - generic: Crédito PF | Auto/…
+                          - generic: FIC/Alocador | FIC…
+                          - generic: Infra/Energia | En…
+                          - generic: Crédito PF | Crédi…
+              - group "Click to view actions"
+          - generic [ref=e2764]: Leitura equal-weight mostra o que é comum; PL/volume mostram onde a prática pesa em dinheiro.
+          - generic [ref=e2773]:
+            - button "Show/hide columns" [ref=e2777] [cursor=pointer]
+            - button "Download as CSV" [ref=e2783] [cursor=pointer]
+            - button "Search" [ref=e2789] [cursor=pointer]
+            - button "Fullscreen" [ref=e2795] [cursor=pointer]

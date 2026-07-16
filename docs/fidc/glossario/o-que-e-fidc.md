@@ -2,50 +2,59 @@
 
 ## O que é
 
-FIDC é o fundo de investimento cuja classe aplica parcela superior a 50% de seu patrimônio líquido em direitos creditórios, conforme o Anexo Normativo II da RCVM 175. A norma também admite classe de investimento em cotas de FIDC, com alocação mínima própria de 67% do patrimônio em cotas de FIDC.
+- **Fundo de Investimento em Direitos Creditórios (FIDC):** fundo cuja classe aplica mais de 50% do patrimônio líquido em direitos creditórios, observadas as regras do Anexo Normativo II da Resolução da Comissão de Valores Mobiliários (RCVM) 175.
+- **Fundo:** condomínio de natureza especial e estrutura de governança. O nome do fundo identifica o veículo, mas não informa sozinho qual patrimônio responde por uma obrigação.
+- **Classe:** conjunto patrimonial dentro do fundo. Cada classe reúne sua própria carteira, passivos, despesas e cotistas em um **patrimônio segregado**.
+- **Direito creditório:** ativo que representa, direta ou indiretamente, um valor a receber decorrente de relação comercial, financeira, industrial, imobiliária, rural, de serviços, judicial ou de outra origem admitida.
+- **Crédito elegível:** direito creditório que passou nos critérios de entrada previstos no regulamento ou no anexo da classe. Existir e ser transferível não basta para torná-lo elegível.
+- **Classe de investimento em cotas de FIDC (FIC-FIDC):** classe que investe em cotas de outros FIDCs e observa a alocação mínima normativa própria. Na análise de indústria, precisa ser separada para reduzir dupla contagem econômica.
 
-O fundo é um condomínio de natureza especial. A unidade econômica e jurídica relevante para ativos, passivos e responsabilidade patrimonial é a **classe**: cada classe tem patrimônio segregado. Subclasses e séries organizam direitos das cotas dentro da classe; não criam patrimônio segregado adicional.
+## Para que a classe serve
 
-## Direito creditório
+- **Separa patrimônios:** os ativos da Classe A não cobrem automaticamente as obrigações da Classe B.
+- **Define a unidade de análise:** carteira, patrimônio líquido, despesas, insolvência, política e cotistas devem ser reconciliados na classe correta.
+- **Evita falsa agregação:** somar classes pode servir a um ranking analítico do fundo, mas não torna seus caixas ou garantias fungíveis.
+- **Organiza os direitos das cotas:** subclasses e séries distribuem prioridade e cronograma dentro da classe; não criam outro patrimônio segregado.
 
-Direito creditório é o ativo que representa, direta ou indiretamente, um crédito a receber. Pode decorrer de operação comercial, financeira, industrial, imobiliária, rural, de prestação de serviços, de ação judicial ou de outras relações admitidas pela norma. O suporte pode ser contrato, título de crédito, nota fiscal, duplicata, CCB, CPR, recebível de cartão, precatório ou outro instrumento adequado ao negócio.
+## Como o direito creditório aparece
 
-“Recebível” é uso econômico corrente. **Crédito elegível** não é sinônimo: é o direito creditório que, além de existir e ser transferível, passa pelos critérios previstos no regulamento ou anexo da classe.
+- **No regulamento e no anexo da classe:** política, devedores, cedentes, elegibilidade e concentração.
+- **No instrumento de transferência:** cessão, endosso ou outra forma aplicável.
+- **No lastro:** contrato, nota fiscal, duplicata, **Cédula de Crédito Bancário (CCB)**, **Cédula de Produto Rural (CPR)**, agenda de cartão, precatório ou outro documento do negócio.
+- **No instrumento de emissão:** remuneração, amortização e direitos das cotas financiadoras.
+- **No Informe Mensal:** composição e desempenho agregados em campos padronizados.
 
-## Onde aparece
+## A cadeia de risco
 
-- no regulamento e na parte geral, ao definir política e prestadores;
-- no anexo descritivo da classe, ao delimitar ativos, devedores, cedentes, concentração e elegibilidade;
-- no contrato de cessão, endosso ou outro instrumento de transferência;
-- nos documentos de emissão, quando descrevem remuneração e direitos das cotas;
-- no Informe Mensal, que reporta composição e desempenho de forma padronizada.
+Antes de olhar o nome do fundo, responda:
 
-## Por que importa para o risco
+- **Originação:** quem concedeu ou formou o crédito e quais controles usou?
+- **Fonte de pagamento:** quem é o devedor e de onde vem o caixa?
+- **Constituição e transferência:** o crédito existe, é exigível e foi transferido pelo instrumento correto?
+- **Lastro:** quais documentos comprovam a operação e como foram verificados?
+- **Proteção:** há garantia, coobrigação, reserva, subordinação ou mecanismo de cobrança?
+- **Concentração:** existe dependência de devedor, grupo, originador, convênio, arranjo, conta ou prestador?
+- **Capital:** como despesas, atraso e perda chegam à subclasse analisada?
 
-O rótulo FIDC não determina o risco. A análise começa pela cadeia econômica:
+- **Pulverização não elimina dependência:** a carteira pode manter risco concentrado no originador, na cobrança ou no agente de repasse.
+- **Garantia não elimina severidade:** constituição, registro, valor, liquidez e tempo de execução continuam relevantes.
 
-1. quem originou e sob quais controles;
-2. quem é o devedor e qual a fonte de pagamento;
-3. como o crédito foi constituído e transferido;
-4. quais documentos formam o lastro;
-5. quais garantias, coobrigações ou mecanismos de cobrança existem;
-6. como concentração, prazo e pré-pagamento afetam o caixa;
-7. como perdas e despesas chegam a cada subclasse.
+## Tradução de documentos anteriores à RCVM 175
 
-Uma carteira pulverizada pode concentrar risco no originador, no agente de cobrança, no convênio de desconto ou em uma conta de recebimento. Uma carteira com garantia real pode continuar exposta à constituição, registro, valor, liquidez e execução dessa garantia.
+| Documento antigo pode dizer | Função econômica provável | Como ler hoje |
+|---|---|---|
+| **classe ou cotas seniores** | camada prioritária | subclasse sênior, após conferir a adaptação do documento |
+| **cotas subordinadas mezanino** | camada intermediária | subclasse mezanino |
+| **cotas subordinadas júnior** | camada residual | subclasse subordinada; “júnior” continua sendo linguagem de mercado |
+| **série sênior** | diferenciação de prazo ou remuneração | série dentro da subclasse admitida pelo documento vigente |
+| **fundo como um único conjunto patrimonial** | patrimônio do veículo antigo | pode corresponder hoje a uma classe; não presuma equivalência |
 
-## Regime regulatório e linguagem legada
+**Securitização** é uma analogia econômica útil, mas não substitui a forma jurídica do FIDC, seus prestadores e seu regime patrimonial.
 
-Documentos anteriores à RCVM 175 frequentemente chamam cotas seniores e subordinadas de “classes”. No regime atual, a senioridade é estruturada em **subclasses da mesma classe**. Ao ler documento legado, preserve a palavra original na citação, mas traduza sua função econômica para a arquitetura atual; não presuma equivalência sem conferir a adaptação do regulamento.
+## Informe Mensal versus documentos
 
-“Securitização” é uma analogia econômica útil, não definição jurídica suficiente. FIDC é fundo regulado, com prestadores, governança e regime patrimonial próprios.
+- **O Informe Mensal captura:** tamanho, composição, vencimentos, atrasos, provisões e fluxos no nível reportante.
+- **O Informe Mensal não prova:** natureza jurídica, elegibilidade, titularidade, garantia, exigibilidade ou qualidade do lastro de cada crédito.
+- **O regulamento e os documentos primários definem:** política, remédios por vício, coobrigação, recompra, concentração, cascata de pagamentos, eventos e responsabilidades operacionais.
 
-## O que o Informe Mensal captura
-
-O Informe ajuda a observar o tamanho e a composição da classe reportante, vencimentos, atrasos, provisões e fluxos. Sua Tabela II indica segmentos de carteira; ela não prova a natureza jurídica, elegibilidade, titularidade ou exigibilidade de cada crédito.
-
-## O que exige outra fonte
-
-Política de investimento, critérios de elegibilidade, coobrigação, regras de recompra, limites, waterfall, garantias, eventos e responsabilidades operacionais exigem regulamento e documentos primários. A existência do ativo no reporte não substitui a verificação do lastro.
-
-Base normativa: RCVM 175, Parte Geral, arts. 4º, 5º e 14; Anexo Normativo II, arts. 2º e 44. Verificação: **16/07/2026**.
+Base normativa: Resolução CVM 175, Parte Geral, arts. 4º, 5º e 14; Anexo Normativo II, arts. 2º e 44. Verificação: **16/07/2026**.

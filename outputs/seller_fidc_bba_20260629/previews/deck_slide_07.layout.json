@@ -1,0 +1,2054 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/7c30h5",
+    "id": "7c30h5",
+    "slide": 7,
+    "layoutId": "85b3f756-4225-4960-b03e-e65165ff85ef",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "bf344aa5-5967-4d3b-8891-640101c1433e",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#F7F8FA",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "85b3f756-4225-4960-b03e-e65165ff85ef",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "bf344aa5-5967-4d3b-8891-640101c1433e",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "bf344aa5-5967-4d3b-8891-640101c1433e",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4zidonyd",
+      "id": "1",
+      "bbox": [
+        0,
+        0,
+        1280,
+        60
+      ],
+      "geometry": "rect",
+      "fillColor": "#001E62",
+      "lineColor": "#001E62",
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fepkzupw",
+      "id": "2",
+      "bbox": [
+        54,
+        18,
+        320,
+        20
+      ],
+      "geometry": "rect",
+      "text": "FIDC Sellers | Itaú BBA",
+      "textPreview": "FIDC Sellers | Itaú BBA",
+      "resolvedFontSize": 11,
+      "resolvedTextStyle": {
+        "fontSize": 11,
+        "typeface": "+mn-lt",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "FIDC Sellers | Itaú BBA"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "FIDC Sellers | Itaú BBA",
+          "resolvedTextStyle": {
+            "fontSize": 11,
+            "color": "#FFFFFF",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "FIDC Sellers | Itaú BBA",
+              "fontSize": 11,
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mtwra5gb",
+      "id": "3",
+      "bbox": [
+        54,
+        76,
+        820,
+        44
+      ],
+      "geometry": "rect",
+      "text": "Waterfall do fundo inteiro pela posição atual",
+      "textPreview": "Waterfall do fundo inteiro pela posição atual",
+      "resolvedFontSize": 26,
+      "resolvedTextStyle": {
+        "fontSize": 26,
+        "typeface": "+mn-lt",
+        "color": "#001E62",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Waterfall do fundo inteiro pela posição atual"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Waterfall do fundo inteiro pela posição atual",
+          "resolvedTextStyle": {
+            "fontSize": 26,
+            "color": "#001E62",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Waterfall do fundo inteiro pela posição atual",
+              "fontSize": 26,
+              "color": "#001E62",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xc3ylc7u",
+      "id": "4",
+      "bbox": [
+        54,
+        125,
+        90,
+        5
+      ],
+      "geometry": "rect",
+      "fillColor": "#EC7000",
+      "lineColor": "#EC7000",
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "chart",
+      "scope": "slide",
+      "aid": "ch/sneloj2t",
+      "id": "5",
+      "bbox": [
+        70,
+        150,
+        740,
+        345
+      ],
+      "chartType": "bar"
+    },
+    {
+      "order": 6,
+      "kind": "table",
+      "scope": "slide",
+      "aid": "tb/y90je9cv",
+      "id": "6",
+      "bbox": [
+        850,
+        150,
+        360,
+        345
+      ],
+      "text": "Data | Série | Pgto. | Saldo\n15/04/2026 | S2 | R$ 264,5 mm | R$ 3.892,9 mm\n15/05/2026 | S2 | R$ 264,5 mm | R$ 3.628,4 mm\n15/09/2026 | S3 | R$ 211,3 mm | R$ 3.417,0 mm\n11/2026 (dia não disponível) | S4 | R$ 105,7 mm | R$ 3.311,3 mm\n15/12/2027 | S5 | R$ 263,7 mm | R$ 3.047,6 mm\n15/01/2028 | S5 | R$ 263,6 mm | R$ 2.784,0 mm\n15/02/2028 | S5 | R$ 263,6 mm | R$ 2.520,3 mm\n15/03/2028 | S5 | R$ 263,6 mm | R$ 2.256,7 mm\n15/04/2028 | S5 | R$ 263,7 mm | R$ 1.993,1 mm\n15/05/2028 | S5 | R$ 263,7 mm | R$ 1.729,4 mm\n15/05/2028 | PL residual | R$ 1.729,4 mm | R$ 0,0 mm",
+      "textPreview": "Data | Série | Pgto. | Saldo | 15/04/2026 | S2 | R$ 264,5 mm | R$ 3.892,9 mm | 15/05/2026 | S2 | R$ 264,5 mm | R$ 3.628,4 mm | 15/09/2026...",
+      "rows": 12,
+      "cols": 4,
+      "cells": [
+        {
+          "index": 1,
+          "row": 1,
+          "column": 1,
+          "bbox": [
+            850,
+            150,
+            98,
+            28.75
+          ],
+          "text": "Data",
+          "textPreview": "Data",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Data",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Data",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 2,
+          "bbox": [
+            948,
+            150,
+            82,
+            28.75
+          ],
+          "text": "Série",
+          "textPreview": "Série",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Série",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Série",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 3,
+          "bbox": [
+            1030,
+            150,
+            92,
+            28.75
+          ],
+          "text": "Pgto.",
+          "textPreview": "Pgto.",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Pgto.",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Pgto.",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 4,
+          "bbox": [
+            1122,
+            150,
+            88,
+            28.75
+          ],
+          "text": "Saldo",
+          "textPreview": "Saldo",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Saldo",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Saldo",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "row": 2,
+          "column": 1,
+          "bbox": [
+            850,
+            178.75,
+            98,
+            28.75
+          ],
+          "text": "15/04/2026",
+          "textPreview": "15/04/2026",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/04/2026",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/04/2026",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "row": 2,
+          "column": 2,
+          "bbox": [
+            948,
+            178.75,
+            82,
+            28.75
+          ],
+          "text": "S2",
+          "textPreview": "S2",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S2",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S2",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 3,
+          "bbox": [
+            1030,
+            178.75,
+            92,
+            28.75
+          ],
+          "text": "R$ 264,5 mm",
+          "textPreview": "R$ 264,5 mm",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 264,5 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 264,5 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "row": 2,
+          "column": 4,
+          "bbox": [
+            1122,
+            178.75,
+            88,
+            28.75
+          ],
+          "text": "R$ 3.892,9 mm",
+          "textPreview": "R$ 3.892,9 mm",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 3.892,9 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 3.892,9 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "row": 3,
+          "column": 1,
+          "bbox": [
+            850,
+            207.5,
+            98,
+            28.75
+          ],
+          "text": "15/05/2026",
+          "textPreview": "15/05/2026",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/05/2026",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/05/2026",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "row": 3,
+          "column": 2,
+          "bbox": [
+            948,
+            207.5,
+            82,
+            28.75
+          ],
+          "text": "S2",
+          "textPreview": "S2",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S2",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S2",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "row": 3,
+          "column": 3,
+          "bbox": [
+            1030,
+            207.5,
+            92,
+            28.75
+          ],
+          "text": "R$ 264,5 mm",
+          "textPreview": "R$ 264,5 mm",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 264,5 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 264,5 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "row": 3,
+          "column": 4,
+          "bbox": [
+            1122,
+            207.5,
+            88,
+            28.75
+          ],
+          "text": "R$ 3.628,4 mm",
+          "textPreview": "R$ 3.628,4 mm",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 3.628,4 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 3.628,4 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "row": 4,
+          "column": 1,
+          "bbox": [
+            850,
+            236.25,
+            98,
+            28.75
+          ],
+          "text": "15/09/2026",
+          "textPreview": "15/09/2026",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/09/2026",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/09/2026",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "row": 4,
+          "column": 2,
+          "bbox": [
+            948,
+            236.25,
+            82,
+            28.75
+          ],
+          "text": "S3",
+          "textPreview": "S3",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S3",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S3",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "row": 4,
+          "column": 3,
+          "bbox": [
+            1030,
+            236.25,
+            92,
+            28.75
+          ],
+          "text": "R$ 211,3 mm",
+          "textPreview": "R$ 211,3 mm",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 211,3 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 211,3 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "row": 4,
+          "column": 4,
+          "bbox": [
+            1122,
+            236.25,
+            88,
+            28.75
+          ],
+          "text": "R$ 3.417,0 mm",
+          "textPreview": "R$ 3.417,0 mm",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 3.417,0 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 3.417,0 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "row": 5,
+          "column": 1,
+          "bbox": [
+            850,
+            265,
+            98,
+            28.75
+          ],
+          "text": "11/2026 (dia não disponível)",
+          "textPreview": "11/2026 (dia não disponível)",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "11/2026 (dia não disponível)",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "11/2026 (dia não disponível)",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "row": 5,
+          "column": 2,
+          "bbox": [
+            948,
+            265,
+            82,
+            28.75
+          ],
+          "text": "S4",
+          "textPreview": "S4",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S4",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S4",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 19,
+          "row": 5,
+          "column": 3,
+          "bbox": [
+            1030,
+            265,
+            92,
+            28.75
+          ],
+          "text": "R$ 105,7 mm",
+          "textPreview": "R$ 105,7 mm",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 105,7 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 105,7 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 20,
+          "row": 5,
+          "column": 4,
+          "bbox": [
+            1122,
+            265,
+            88,
+            28.75
+          ],
+          "text": "R$ 3.311,3 mm",
+          "textPreview": "R$ 3.311,3 mm",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 3.311,3 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 3.311,3 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 21,
+          "row": 6,
+          "column": 1,
+          "bbox": [
+            850,
+            293.75,
+            98,
+            28.75
+          ],
+          "text": "15/12/2027",
+          "textPreview": "15/12/2027",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/12/2027",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/12/2027",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 22,
+          "row": 6,
+          "column": 2,
+          "bbox": [
+            948,
+            293.75,
+            82,
+            28.75
+          ],
+          "text": "S5",
+          "textPreview": "S5",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S5",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S5",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 23,
+          "row": 6,
+          "column": 3,
+          "bbox": [
+            1030,
+            293.75,
+            92,
+            28.75
+          ],
+          "text": "R$ 263,7 mm",
+          "textPreview": "R$ 263,7 mm",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 263,7 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 263,7 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 24,
+          "row": 6,
+          "column": 4,
+          "bbox": [
+            1122,
+            293.75,
+            88,
+            28.75
+          ],
+          "text": "R$ 3.047,6 mm",
+          "textPreview": "R$ 3.047,6 mm",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 3.047,6 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 3.047,6 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 25,
+          "row": 7,
+          "column": 1,
+          "bbox": [
+            850,
+            322.5,
+            98,
+            28.75
+          ],
+          "text": "15/01/2028",
+          "textPreview": "15/01/2028",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/01/2028",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/01/2028",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 26,
+          "row": 7,
+          "column": 2,
+          "bbox": [
+            948,
+            322.5,
+            82,
+            28.75
+          ],
+          "text": "S5",
+          "textPreview": "S5",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S5",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S5",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 27,
+          "row": 7,
+          "column": 3,
+          "bbox": [
+            1030,
+            322.5,
+            92,
+            28.75
+          ],
+          "text": "R$ 263,6 mm",
+          "textPreview": "R$ 263,6 mm",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 263,6 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 263,6 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 28,
+          "row": 7,
+          "column": 4,
+          "bbox": [
+            1122,
+            322.5,
+            88,
+            28.75
+          ],
+          "text": "R$ 2.784,0 mm",
+          "textPreview": "R$ 2.784,0 mm",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 2.784,0 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 2.784,0 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 29,
+          "row": 8,
+          "column": 1,
+          "bbox": [
+            850,
+            351.25,
+            98,
+            28.75
+          ],
+          "text": "15/02/2028",
+          "textPreview": "15/02/2028",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/02/2028",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/02/2028",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 30,
+          "row": 8,
+          "column": 2,
+          "bbox": [
+            948,
+            351.25,
+            82,
+            28.75
+          ],
+          "text": "S5",
+          "textPreview": "S5",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S5",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S5",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 31,
+          "row": 8,
+          "column": 3,
+          "bbox": [
+            1030,
+            351.25,
+            92,
+            28.75
+          ],
+          "text": "R$ 263,6 mm",
+          "textPreview": "R$ 263,6 mm",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 263,6 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 263,6 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 32,
+          "row": 8,
+          "column": 4,
+          "bbox": [
+            1122,
+            351.25,
+            88,
+            28.75
+          ],
+          "text": "R$ 2.520,3 mm",
+          "textPreview": "R$ 2.520,3 mm",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 2.520,3 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 2.520,3 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 33,
+          "row": 9,
+          "column": 1,
+          "bbox": [
+            850,
+            380,
+            98,
+            28.75
+          ],
+          "text": "15/03/2028",
+          "textPreview": "15/03/2028",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/03/2028",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/03/2028",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 34,
+          "row": 9,
+          "column": 2,
+          "bbox": [
+            948,
+            380,
+            82,
+            28.75
+          ],
+          "text": "S5",
+          "textPreview": "S5",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S5",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S5",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 35,
+          "row": 9,
+          "column": 3,
+          "bbox": [
+            1030,
+            380,
+            92,
+            28.75
+          ],
+          "text": "R$ 263,6 mm",
+          "textPreview": "R$ 263,6 mm",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 263,6 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 263,6 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 36,
+          "row": 9,
+          "column": 4,
+          "bbox": [
+            1122,
+            380,
+            88,
+            28.75
+          ],
+          "text": "R$ 2.256,7 mm",
+          "textPreview": "R$ 2.256,7 mm",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 2.256,7 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 2.256,7 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 37,
+          "row": 10,
+          "column": 1,
+          "bbox": [
+            850,
+            408.75,
+            98,
+            28.75
+          ],
+          "text": "15/04/2028",
+          "textPreview": "15/04/2028",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/04/2028",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/04/2028",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 38,
+          "row": 10,
+          "column": 2,
+          "bbox": [
+            948,
+            408.75,
+            82,
+            28.75
+          ],
+          "text": "S5",
+          "textPreview": "S5",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S5",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S5",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 39,
+          "row": 10,
+          "column": 3,
+          "bbox": [
+            1030,
+            408.75,
+            92,
+            28.75
+          ],
+          "text": "R$ 263,7 mm",
+          "textPreview": "R$ 263,7 mm",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 263,7 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 263,7 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 40,
+          "row": 10,
+          "column": 4,
+          "bbox": [
+            1122,
+            408.75,
+            88,
+            28.75
+          ],
+          "text": "R$ 1.993,1 mm",
+          "textPreview": "R$ 1.993,1 mm",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 1.993,1 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 1.993,1 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 41,
+          "row": 11,
+          "column": 1,
+          "bbox": [
+            850,
+            437.5,
+            98,
+            28.75
+          ],
+          "text": "15/05/2028",
+          "textPreview": "15/05/2028",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/05/2028",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/05/2028",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 42,
+          "row": 11,
+          "column": 2,
+          "bbox": [
+            948,
+            437.5,
+            82,
+            28.75
+          ],
+          "text": "S5",
+          "textPreview": "S5",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S5",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S5",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 43,
+          "row": 11,
+          "column": 3,
+          "bbox": [
+            1030,
+            437.5,
+            92,
+            28.75
+          ],
+          "text": "R$ 263,7 mm",
+          "textPreview": "R$ 263,7 mm",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 263,7 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 263,7 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 44,
+          "row": 11,
+          "column": 4,
+          "bbox": [
+            1122,
+            437.5,
+            88,
+            28.75
+          ],
+          "text": "R$ 1.729,4 mm",
+          "textPreview": "R$ 1.729,4 mm",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 1.729,4 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 1.729,4 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 45,
+          "row": 12,
+          "column": 1,
+          "bbox": [
+            850,
+            466.25,
+            98,
+            28.75
+          ],
+          "text": "15/05/2028",
+          "textPreview": "15/05/2028",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "15/05/2028",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "15/05/2028",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 46,
+          "row": 12,
+          "column": 2,
+          "bbox": [
+            948,
+            466.25,
+            82,
+            28.75
+          ],
+          "text": "PL residual",
+          "textPreview": "PL residual",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "PL residual",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "PL residual",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 47,
+          "row": 12,
+          "column": 3,
+          "bbox": [
+            1030,
+            466.25,
+            92,
+            28.75
+          ],
+          "text": "R$ 1.729,4 mm",
+          "textPreview": "R$ 1.729,4 mm",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 1.729,4 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 1.729,4 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 48,
+          "row": 12,
+          "column": 4,
+          "bbox": [
+            1122,
+            466.25,
+            88,
+            28.75
+          ],
+          "text": "R$ 0,0 mm",
+          "textPreview": "R$ 0,0 mm",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 0,0 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 0,0 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mlkjm1cf",
+      "id": "7",
+      "bbox": [
+        70,
+        530,
+        1140,
+        78
+      ],
+      "geometry": "rect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#EC7000",
+      "lineWidth": 1.2
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/x0nuxc3y",
+      "id": "8",
+      "bbox": [
+        86,
+        542,
+        1108,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Leitura da data final",
+      "textPreview": "Leitura da data final",
+      "resolvedFontSize": 11,
+      "resolvedTextStyle": {
+        "fontSize": 11,
+        "typeface": "+mn-lt",
+        "color": "#001E62",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Leitura da data final"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Leitura da data final",
+          "resolvedTextStyle": {
+            "fontSize": 11,
+            "color": "#001E62",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Leitura da data final",
+              "fontSize": 11,
+              "color": "#001E62",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4fu18jqh",
+      "id": "9",
+      "bbox": [
+        86,
+        568,
+        1108,
+        30
+      ],
+      "geometry": "rect",
+      "text": "Na última data documental da S5, 15/05/2028, sobra o PL residual de R$ 1.729,4 mm; por premissa, esse valor é pago como residual/subordinada júnior na própria data final. A S4 tem apenas mês de vencimento disponível externamente, sem dia confirmado nos PDFs locais.",
+      "textPreview": "Na última data documental da S5, 15/05/2028, sobra o PL residual de R$ 1.729,4 mm; por premissa, esse valor é pago como residual/subordin...",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "+mn-lt",
+        "color": "#172033",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Na última data documental da S5, 15/05/2028, sobra o PL residual de R$ 1.729,4 mm; por premissa, esse valor é pago como residual/subordinada júnior na própria data final. A S4 tem apenas mês de vencimento disponível externamente, sem dia confirmado nos PDFs"
+          },
+          {
+            "index": 2,
+            "text": "locais."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Na última data documental da S5, 15/05/2028, sobra o PL residual de R$ 1.729,4 mm; por premissa, esse valor é pago como residual/subordinada júnior na própria data final. A S4 tem apenas mês de vencimento disponível externamente, sem dia confirmado nos PDFs locais.",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "color": "#172033"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Na última data documental da S5, 15/05/2028, sobra o PL residual de R$ 1.729,4 mm; por premissa, esse valor é pago como residual/subordinada júnior na própria data final. A S4 tem apenas mês de vencimento disponível externamente, sem dia confirmado nos PDFs locais.",
+              "fontSize": 10,
+              "color": "#172033"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6dcbulwv",
+      "id": "10",
+      "bbox": [
+        54,
+        690,
+        980,
+        18
+      ],
+      "geometry": "rect",
+      "text": "Fonte: fund_full_waterfall.csv; IME 1162826 competência 03/2026; 467929; 912093; MercadoLibre Form 10-Q 1T26.",
+      "textPreview": "Fonte: fund_full_waterfall.csv; IME 1162826 competência 03/2026; 467929; 912093; MercadoLibre Form 10-Q 1T26.",
+      "resolvedFontSize": 8,
+      "resolvedTextStyle": {
+        "fontSize": 8,
+        "typeface": "+mn-lt",
+        "color": "#6B7280",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Fonte: fund_full_waterfall.csv; IME 1162826 competência 03/2026; 467929; 912093; MercadoLibre Form 10-Q 1T26."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Fonte: fund_full_waterfall.csv; IME 1162826 competência 03/2026; 467929; 912093; MercadoLibre Form 10-Q 1T26.",
+          "resolvedTextStyle": {
+            "fontSize": 8,
+            "color": "#6B7280"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Fonte: fund_full_waterfall.csv; IME 1162826 competência 03/2026; 467929; 912093; MercadoLibre Form 10-Q 1T26.",
+              "fontSize": 8,
+              "color": "#6B7280"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vy90je9c",
+      "id": "11",
+      "bbox": [
+        1160,
+        690,
+        80,
+        18
+      ],
+      "geometry": "rect",
+      "text": "Confidencial",
+      "textPreview": "Confidencial",
+      "resolvedFontSize": 8,
+      "resolvedTextStyle": {
+        "fontSize": 8,
+        "typeface": "+mn-lt",
+        "color": "#6B7280",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Confidencial"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Confidencial",
+          "resolvedTextStyle": {
+            "fontSize": 8,
+            "color": "#6B7280"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Confidencial",
+              "fontSize": 8,
+              "color": "#6B7280"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

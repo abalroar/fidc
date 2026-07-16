@@ -1,6 +1,9 @@
 # Guia de uso do Glossário de FIDCs
 
-Este book explica FIDCs para quem já analisa crédito e demonstrações financeiras, mas precisa ligar três camadas que não são intercambiáveis: a norma, o contrato de cada estrutura e o reporte regulatório. A definição canônica fica em uma única página; as demais mostram aplicações e riscos.
+- **Para quem é:** analistas de crédito e profissionais comerciais que já conhecem crédito e demonstrações financeiras, mas precisam entender a estrutura dos **Fundos de Investimento em Direitos Creditórios (FIDCs)**.
+- **O que conecta:** norma, contrato, operação e reporte regulatório. Essas quatro camadas se complementam, mas uma não prova a outra.
+- **Como usar:** comece pelo conceito e siga as referências para a aplicação. A definição completa fica em uma página canônica para evitar versões contraditórias.
+- **O que não faz:** o glossário não atribui classificação de risco, não recomenda investimento e não avalia a situação corrente de um fundo.
 
 ## Como ler
 
@@ -8,55 +11,76 @@ Uma sequência eficiente é:
 
 1. [FIDC, classe, direito creditório e patrimônio segregado](glossario/o-que-e-fidc.md);
 2. [participantes e responsabilidades](participantes/participantes.md);
-3. [fundo, classe, subclasse, série, cota e waterfall](estruturas/classes-cotas-waterfall.md);
+3. [fundo, classe, subclasse, série, cota e cascata de pagamentos](estruturas/classes-cotas-waterfall.md);
 4. [cessão, endosso, elegibilidade, regresso e lastro](glossario/cessao-e-resolucao.md);
 5. [Tabela II do Informe Mensal](regulacao/informe-mensal-tabela-ii.md);
-6. [métricas de estrutura](metricas/metricas-estruturais.md) e [métricas de desempenho](metricas/provisao-perdas-e-inadimplencia.md);
+6. [métricas de desempenho](metricas/provisao-perdas-e-inadimplencia.md) e [métricas de estrutura](metricas/metricas-estruturais.md);
 7. [eventos e governança](eventos/eventos-de-avaliacao-e-liquidacao.md).
+
+## A hierarquia em uma abertura
+
+- **Fundo**
+  - É o veículo e o nível de governança. Pode ter uma ou mais classes.
+  - **Classe A: patrimônio segregado A**
+    - Aqui ficam a carteira, os passivos, as despesas e os cotistas vinculados à Classe A.
+    - **Subclasse sênior**
+      - Tem a prioridade definida no regulamento.
+      - **Série 1**, quando admitida
+        - **Cotas da Série 1:** unidades detidas pelos investidores.
+    - **Subclasse mezanino**
+      - Fica abaixo da sênior e acima da camada subordinada indicada.
+    - **Subclasse subordinada**
+      - Recebe resultados e absorve perdas na ordem contratual.
+  - **Classe B: patrimônio segregado B**
+    - Tem carteira, obrigações e regras próprias. Não responde automaticamente pela Classe A.
+
+- **Emissão:** ato que cria um lote de cotas.
+- **Oferta:** processo de distribuir essas cotas.
+- **Tranche:** rótulo econômico que precisa ser mapeado para subclasse, série ou emissão.
 
 ## Quatro naturezas de afirmação
 
-| Natureza | O que sustenta | Como ler neste book |
+| Natureza | O que sustenta | Como ler neste glossário |
 |---|---|---|
-| Normativa | obrigação, faculdade ou definição prevista em norma | cita norma, artigo e data de verificação |
-| Contratual | regra de uma classe ou emissão | cita regulamento, anexo ou instrumento, versão e página |
-| Prática recorrente | cláusula encontrada em estruturas independentes | informa amostra documentada e não transforma frequência em obrigação |
-| Convenção analítica | fórmula construída para comparação | explicita numerador, denominador, unidade e limitações |
+| **Normativa** | obrigação, faculdade ou definição prevista em norma | traz a norma, o dispositivo e a data de verificação |
+| **Contratual** | regra de uma classe ou emissão | aponta o regulamento, anexo ou instrumento aplicável |
+| **Prática recorrente** | cláusula encontrada em estruturas independentes | informa o denominador documentado e não transforma frequência em obrigação |
+| **Convenção analítica** | cálculo construído para comparação | explicita fórmula, base, unidade e limitação |
 
-Um número contratual observado em um fundo não vira parâmetro universal. Ausência na extração não comprova inexistência da cláusula. Cache textual sem PDF recuperável serve para localizar candidatos, não para afirmação categórica.
+- **Um limite de um fundo** não vira parâmetro universal.
+- **Ausência na extração** não comprova inexistência de cláusula.
+- **Texto intermediário em cache sem o documento primário** serve para localizar um candidato, não para sustentar afirmação categórica.
 
-## O que o Informe Mensal entrega
+## O que o Informe Mensal mostra
 
-O Informe Mensal é uma fotografia regulatória padronizada. Entre outras informações, permite acompanhar patrimônio líquido, composição da carteira, vencidos por faixa, provisões/reduções ao valor recuperável, aquisições, alienações, liquidações, cotas e movimentações reportadas. A [Tabela II](regulacao/informe-mensal-tabela-ii.md) distribui a carteira em 11 segmentos oficiais e detalha o bloco Financeiro em oito aberturas.
+- **Patrimônio líquido (PL)**, composição da carteira, vencidos por faixa, provisões ou reduções ao valor recuperável, aquisições, alienações, liquidações, cotas e movimentações reportadas.
+- A [Tabela II](regulacao/informe-mensal-tabela-ii.md) distribui os direitos em **11 segmentos oficiais** e detalha o bloco Financeiro em **oito aberturas**.
+- A série mensal ajuda a localizar mudança de composição, atraso, provisão, liquidez e capital. Ela é ponto de partida para perguntas, não resposta completa sobre o contrato.
 
-Ele não substitui o regulamento, a parte geral, o anexo da classe, o instrumento de emissão, os contratos de transferência, os relatórios de rating, as atas ou as demonstrações financeiras. Também não resolve sozinho:
+## O que exige outro documento
 
-- se o crédito satisfaz todos os critérios de elegibilidade;
-- a ordem contratual de pagamentos e absorção de perdas;
-- os limites por devedor, cedente, originador ou grupo econômico;
-- a existência e suficiência jurídica de garantias;
-- o texto e o estado de gatilhos, períodos de cura ou waivers;
-- a qualidade da originação, cobrança e conciliação.
-
-## Níveis que não devem ser confundidos
-
-- **Fundo:** condomínio especial constituído sob a RCVM 175.
-- **Classe:** patrimônio segregado; direitos e obrigações ficam vinculados à classe.
-- **Subclasse:** categoria de cotas da mesma classe, inclusive sênior, mezanino ou subordinada em FIDC; não tem patrimônio separado próprio.
-- **Série:** subconjunto de cotas seniores de classe fechada, diferenciado por prazo, amortização e/ou índice referencial quando admitido.
-- **Cota:** fração patrimonial da classe. “Tranche” é linguagem econômica ou legada e deve ser mapeada ao instrumento jurídico efetivo.
+- **Elegibilidade:** se cada crédito satisfaz os testes de entrada.
+- **Capital e caixa:** a ordem de pagamentos, a absorção de perdas e os limites para amortizar cada camada.
+- **Concentração:** limites por devedor, grupo econômico, cedente, originador, convênio ou prestador.
+- **Garantias e lastro:** constituição, registro, prioridade, documentação e possibilidade de execução.
+- **Eventos e governança:** gatilhos, prazo de correção, dispensa pontual e efeito de uma assembleia.
+- **Operação:** qualidade da originação, cobrança, conciliação, conta de recebimento e continuidade do prestador.
 
 ## Vocabulário de classificação
 
-Este book usa apenas:
+- **Segmento oficial da Tabela II do Informe Mensal:** um dos 11 blocos oficiais.
+- **Abertura financeira da Tabela II:** detalhamento F1 a F8 do bloco Financeiro.
+- **Taxonomia funcional documental:** classificação inferida de documentos, como consignado, risco sacado, meios de pagamento, crédito estudantil ou crédito inadimplido.
+- **Sem segmentação IME:** estrato de qualidade de dados usado quando a Tabela II não traz valores suficientes. A sigla IME aparece em artefatos legados para se referir ao Informe Mensal; não é um subtipo oficial.
 
-- **segmento oficial da Tabela II do Informe Mensal** para os 11 blocos oficiais;
-- **abertura financeira da Tabela II** para F1 a F8;
-- **taxonomia funcional documental** para classificações inferidas de documentos, como consignado, risco sacado, meios de pagamento, crédito estudantil ou NPL;
-- **Sem segmentação IME** quando a Tabela II não contém valores suficientes. É um estrato de qualidade de dados, não categoria oficial de ativo.
+## Escopo documental da revisão
 
-## Escopo da revisão de 2026
+- **100 fundos** foram selecionados na competência 202605 com cobertura de todos os estratos ocupados.
+- **731 documentos primários** foram processados página a página, somando 721 impressões digitais criptográficas únicas e 21.028 páginas deduplicadas.
+- **95 regulamentos vigentes** tiveram texto recuperado e extraído.
+- **15 regulamentos de 12 famílias independentes** receberam leitura substantiva de cláusulas para as frequências contratuais, cobrindo 48,44% do PL da amostra.
+- **10 casos narrativos** aparecem no glossário apenas como exemplos rastreáveis. Eles não representam o tamanho total do corpus.
 
-A revisão foi confrontada com a RCVM 175 consolidada após a RCVM 240/2026, demais fontes oficiais listadas em [Referências e rastreabilidade](fontes/referencias.md) e um corpus congelado de exatamente 100 fundos na competência 202605. A amostra maximiza patrimônio líquido sujeito à cobertura mínima dos estratos ocupados; os casos servem como evidência de linguagem e prática, não como perfis ou avaliação corrente.
+Veja [Corpus de 100 FIDCs e casos documentais](tipos-de-fundos/fundos-de-referencia.md) e [Referências e rastreabilidade](fontes/referencias.md) para a escada completa de evidência.
 
 Última verificação normativa: **16/07/2026**.

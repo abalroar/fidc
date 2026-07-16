@@ -1,0 +1,70 @@
+setor_n1,setor_n2,Chave,fundos_com_pratica_extraida,fundos_curados_no_setor,share_fundos_curados
+Agro,Agro,credit_rights_allocation_min,1,2,0.5
+Agro,Agro,default_rate_evaluation_event,1,2,0.5
+Agro,Agro,eligibility_criteria_text,1,2,0.5
+Agro,Agro,permitted_hedges,1,2,0.5
+Agro,Agro,recompras_max,1,2,0.5
+Agro,Agro,subordination_ratio_min,1,2,0.5
+Crédito PF,Auto/Veículos,permitted_hedges,1,2,0.5
+Crédito PF,Auto/Veículos,service_provider_replacement_event,1,2,0.5
+Crédito PF,Consignado/INSS,permitted_hedges,4,4,1.0
+Crédito PF,Consignado/INSS,credit_rights_allocation_min,1,4,0.25
+Crédito PF,Consignado/INSS,eligibility_criteria_text,1,4,0.25
+Crédito PF,Consignado/INSS,subordination_ratio_min,1,4,0.25
+Crédito PF,Crédito estudantil,minimum_cash_ratio,4,4,1.0
+Crédito PF,Crédito estudantil,permitted_hedges,4,4,1.0
+Crédito PF,Crédito estudantil,concentration_limits,2,4,0.5
+Crédito PF,Crédito estudantil,subordination_ratio_min,2,4,0.5
+Crédito PF,Crédito estudantil,cancellation_rate_max,1,4,0.25
+Crédito PF,Crédito estudantil,credit_rights_allocation_min,1,4,0.25
+Crédito PF,Crédito estudantil,eligibility_criteria_text,1,4,0.25
+Crédito PF,Crédito estudantil,pdd_coverage_min,1,4,0.25
+Crédito PF,Crédito estudantil,service_provider_replacement_event,1,4,0.25
+Crédito PF,FGTS,permitted_hedges,4,4,1.0
+Crédito PF,FGTS,subordination_ratio_min,4,4,1.0
+Crédito PF,FGTS,minimum_cash_ratio,3,4,0.75
+Crédito PF,FGTS,credit_rights_allocation_min,2,4,0.5
+Crédito PF,FGTS,pdd_coverage_min,2,4,0.5
+Crédito PF,FGTS,cancellation_rate_max,1,4,0.25
+Crédito PJ,CCB/Notas comerciais/Capital de giro,permitted_hedges,2,2,1.0
+Crédito PJ,CCB/Notas comerciais/Capital de giro,subordination_ratio_min,2,2,1.0
+Crédito PJ,CCB/Notas comerciais/Capital de giro,cancellation_rate_max,1,2,0.5
+Crédito PJ,CCB/Notas comerciais/Capital de giro,credit_rights_allocation_min,1,2,0.5
+Crédito PJ,CCB/Notas comerciais/Capital de giro,eligibility_criteria_text,1,2,0.5
+Crédito PJ,Recebíveis comerciais/multissetorial,credit_rights_allocation_min,4,4,1.0
+Crédito PJ,Recebíveis comerciais/multissetorial,minimum_cash_ratio,1,4,0.25
+Crédito PJ,Recebíveis comerciais/multissetorial,pdd_coverage_min,1,4,0.25
+Crédito PJ,Recebíveis comerciais/multissetorial,recompras_max,1,4,0.25
+Crédito PJ,Risco sacado/fornecedores,subordination_ratio_min,3,3,1.0
+Crédito PJ,Risco sacado/fornecedores,credit_rights_allocation_min,2,3,0.6666666666666666
+Crédito PJ,Risco sacado/fornecedores,minimum_cash_ratio,2,3,0.6666666666666666
+Crédito PJ,Risco sacado/fornecedores,recompras_max,2,3,0.6666666666666666
+Crédito PJ,Risco sacado/fornecedores,service_provider_replacement_event,2,3,0.6666666666666666
+Crédito PJ,Risco sacado/fornecedores,concentration_limits,1,3,0.3333333333333333
+Crédito PJ,Risco sacado/fornecedores,default_rate_evaluation_event,1,3,0.3333333333333333
+Crédito PJ,Risco sacado/fornecedores,eligibility_criteria_text,1,3,0.3333333333333333
+Crédito PJ,Risco sacado/fornecedores,pdd_coverage_min,1,3,0.3333333333333333
+FIC/Alocador,FIC de FIDC,credit_rights_allocation_min,1,1,1.0
+FIC/Alocador,FIC de FIDC,permitted_hedges,1,1,1.0
+Judicial/Precatórios/NPL,Não padronizado/NPL,permitted_hedges,2,4,0.5
+Judicial/Precatórios/NPL,Não padronizado/NPL,credit_rights_allocation_min,1,4,0.25
+Judicial/Precatórios/NPL,Não padronizado/NPL,default_rate_evaluation_event,1,4,0.25
+Judicial/Precatórios/NPL,Não padronizado/NPL,eligibility_criteria_text,1,4,0.25
+Judicial/Precatórios/NPL,Não padronizado/NPL,subordination_ratio_min,1,4,0.25
+Meios de Pagamento e Cartões,Arranjos de pagamento/adquirência,permitted_hedges,11,15,0.7333333333333333
+Meios de Pagamento e Cartões,Arranjos de pagamento/adquirência,default_rate_evaluation_event,3,15,0.2
+Meios de Pagamento e Cartões,Arranjos de pagamento/adquirência,subordination_ratio_min,3,15,0.2
+Meios de Pagamento e Cartões,Arranjos de pagamento/adquirência,concentration_limits,2,15,0.13333333333333333
+Meios de Pagamento e Cartões,Arranjos de pagamento/adquirência,credit_rights_allocation_min,1,15,0.06666666666666667
+Meios de Pagamento e Cartões,Bancos Emissores,minimum_cash_ratio,2,3,0.6666666666666666
+Meios de Pagamento e Cartões,Bancos Emissores,concentration_limits,1,3,0.3333333333333333
+Meios de Pagamento e Cartões,Bancos Emissores,eligibility_criteria_text,1,3,0.3333333333333333
+Meios de Pagamento e Cartões,Bancos Emissores,pdd_coverage_min,1,3,0.3333333333333333
+Meios de Pagamento e Cartões,Bancos Emissores,permitted_hedges,1,3,0.3333333333333333
+Meios de Pagamento e Cartões,Bancos Emissores,recompras_max,1,3,0.3333333333333333
+Não classificado,Revisar manualmente,service_provider_replacement_event,6,12,0.5
+Não classificado,Revisar manualmente,eligibility_criteria_text,5,12,0.4166666666666667
+Não classificado,Revisar manualmente,subordination_ratio_min,4,12,0.3333333333333333
+Não classificado,Revisar manualmente,credit_rights_allocation_min,3,12,0.25
+Não classificado,Revisar manualmente,permitted_hedges,3,12,0.25
+Não classificado,Revisar manualmente,concentration_limits,1,12,0.08333333333333333

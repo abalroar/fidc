@@ -1,0 +1,203 @@
+- generic [ref=f1e3]:
+  - banner
+  - generic [ref=f1e6]:
+    - generic [ref=f1e11]:
+      - generic [ref=f1e12]: tomaconta fidcs
+      - generic [ref=f1e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f1e16]:
+      - button [ref=f1e22075] [cursor=pointer]:
+        - paragraph [ref=f1e22079]: Sobre
+      - button [ref=f1e22080] [cursor=pointer]:
+        - paragraph [ref=f1e22084]: Indústria
+      - button [ref=f1e22085] [cursor=pointer]:
+        - paragraph [ref=f1e22089]: Secundário
+      - button [ref=f1e22090] [cursor=pointer]:
+        - paragraph [ref=f1e22094]: Carteira
+      - button [ref=f1e22095] [cursor=pointer]:
+        - paragraph [ref=f1e22099]: Regulamentos
+      - button [ref=f1e22100] [cursor=pointer]:
+        - paragraph [ref=f1e22104]: Cloudwalk
+      - button [ref=f1e22105] [cursor=pointer]:
+        - paragraph [ref=f1e22109]: Glossário
+      - button [ref=f1e22110] [cursor=pointer]:
+        - paragraph [ref=f1e22114]: Modelagem
+    - generic [ref=f1e22116]:
+      - generic [ref=f1e22119]:
+        - heading "Cloudwalk" [level=1] [ref=f1e22120]
+        - paragraph [ref=f1e22121]: Custo financeiro dos FIDCs, amortizações, captações e carry de caixa/LFT.
+      - generic [ref=f1e22124]:
+        - generic [ref=f1e22126]:
+          - generic [ref=f1e22130]:
+            - generic [ref=f1e22131]:
+              - paragraph [ref=f1e22134]: Ano-base
+              - button "Help for Ano-base" [ref=f1e22138] [cursor=pointer]
+            - generic [ref=f1e22142]:
+              - spinbutton "Ano-base" [ref=f1e22145]: "2026"
+              - generic [ref=f1e22146]:
+                - button [ref=f1e22147] [cursor=pointer]
+                - button [ref=f1e22150] [cursor=pointer]
+          - generic [ref=f1e22156]:
+            - generic [ref=f1e22157]:
+              - paragraph [ref=f1e22160]: Data inicial
+              - button "Help for Data inicial" [ref=f1e22164] [cursor=pointer]
+            - textbox "Select a date." [ref=f1e22171]:
+              - /placeholder: YYYY-MM-DD
+              - text: 2026–01–01
+            - paragraph: Press the down arrow key to interact with the calendar and select a date. Press the escape button to close the calendar.
+            - paragraph: Selected date is 2026–01–01. Select the second date.
+          - generic [ref=f1e22175]:
+            - generic [ref=f1e22176]:
+              - paragraph [ref=f1e22179]: Data final
+              - button "Help for Data final" [ref=f1e22183] [cursor=pointer]
+            - textbox "Select a date." [ref=f1e22190]:
+              - /placeholder: YYYY-MM-DD
+              - text: 2026–12–31
+            - paragraph: Press the down arrow key to interact with the calendar and select a date. Press the escape button to close the calendar.
+            - paragraph: Selected date is 2026–12–31. Select the second date.
+        - group [ref=f1e22193]:
+          - generic "keyboard_arrow_right Opções avançadas" [ref=f1e22194] [cursor=pointer]:
+            - generic [ref=f1e22195]:
+              - generic [ref=f1e22196]: keyboard_arrow_right
+              - paragraph [ref=f1e22200]: Opções avançadas
+        - button [ref=f1e22204] [cursor=pointer]:
+          - paragraph [ref=f1e22208]: Atualizar estimativa
+      - paragraph [ref=f1e22215]: Buscando e compondo CDI B3 mês a mês...
+      - generic [ref=f1e22217]:
+        - paragraph [ref=f1e22221]: Pacote regulatório
+        - generic [ref=f1e22223]:
+          - generic [ref=f1e22224]:
+            - generic [ref=f1e22225]: Curadoria FIDC Investcred (Credsystem) · 2026-06-01T15:42:08-03:00
+            - combobox "Selected Curadoria FIDC Investcred (Credsystem) · 2026-06-01T15:42:08-03:00. Pacote regulatório" [ref=f1e22227]
+          - img "open" [ref=f1e22229]
+      - generic [ref=f1e22235]:
+        - generic [ref=f1e22236]: 1 fundo(s)
+        - generic [ref=f1e22237]: 2026-06-01T15:42:08-03:00
+        - generic [ref=f1e22238]: Extração offline local · CVM/Fundos.NET · IME cache
+        - generic [ref=f1e22239]: Uso interno
+      - heading "Emissões por tipo de cota" [level=4] [ref=f1e22245]:
+        - text: Emissões por tipo de cota
+        - generic [ref=f1e22246]:
+          - link "Link to heading":
+            - /url: "#emissoes-por-tipo-de-cota"
+      - generic [ref=f1e22251]:
+        - button "Show/hide columns" [ref=f1e22255] [cursor=pointer]
+        - button "Download as CSV" [ref=f1e22261] [cursor=pointer]
+        - button "Search" [ref=f1e22267] [cursor=pointer]
+        - button "Fullscreen" [ref=f1e22273] [cursor=pointer]
+      - generic [ref=f1e22285]: Volumes monetários são somados apenas quando o campo documental está identificado. Quantidades, prazos e custos/remuneração preservam lacunas explícitas em vez de virar zero.
+      - group [ref=f1e22292]:
+        - generic "keyboard_arrow_right Detalhe documental das emissões" [ref=f1e22293] [cursor=pointer]:
+          - generic [ref=f1e22294]:
+            - generic [ref=f1e22295]: keyboard_arrow_right
+            - paragraph [ref=f1e22299]: Detalhe documental das emissões
+      - generic [ref=f1e22301]:
+        - paragraph [ref=f1e22305]: Tabela regulatória
+        - generic [ref=f1e22307]:
+          - generic [ref=f1e22308]:
+            - generic [ref=f1e22309]: Cronograma de emissões
+            - combobox "Selected Cronograma de emissões. Tabela regulatória" [ref=f1e22311]
+          - img "open" [ref=f1e22313]
+      - generic [ref=f1e22316]:
+        - paragraph [ref=f1e22320]: Coluna em destaque
+        - generic [ref=f1e22322]:
+          - generic [ref=f1e22323]:
+            - generic [ref=f1e22324]: Volume identificado (R$ mm)
+            - combobox "Selected Volume identificado (R$ mm). Coluna em destaque" [ref=f1e22326]
+          - img "open" [ref=f1e22328]
+      - group [ref=f1e22332]:
+        - generic "keyboard_arrow_right Dados e exportações" [ref=f1e22333] [cursor=pointer]:
+          - generic [ref=f1e22334]:
+            - generic [ref=f1e22335]: keyboard_arrow_right
+            - paragraph [ref=f1e22339]: Dados e exportações
+      - table [ref=f1e22345]:
+        - rowgroup [ref=f1e22346]:
+          - row [ref=f1e22347]:
+            - columnheader "Fundo" [ref=f1e22348]
+            - columnheader "CNPJ" [ref=f1e22349]
+            - columnheader "Data" [ref=f1e22350]
+            - columnheader "Classe/Série" [ref=f1e22351]
+            - columnheader "Tipo" [ref=f1e22352]
+            - columnheader "Qtd cotas" [ref=f1e22353]
+            - columnheader "Preço/VNU" [ref=f1e22354]
+            - columnheader "Volume identificado (R$ mm)" [ref=f1e22355]
+            - columnheader "Remuneração-alvo" [ref=f1e22356]
+            - columnheader "Amortização/vencimento" [ref=f1e22357]
+            - columnheader "Fonte" [ref=f1e22358]
+        - rowgroup [ref=f1e22359]:
+          - row [ref=f1e22360]:
+            - cell "INVESTCRED" [ref=f1e22361]
+            - cell "29.226.654/0001-10" [ref=f1e22362]
+            - cell "29/10/2021" [ref=f1e22363]
+            - cell "1ª série sênior - 1ª emissão" [ref=f1e22364]
+            - cell "Sênior" [ref=f1e22365]
+            - cell "50.000" [ref=f1e22366]
+            - cell "R$ 1.000,00" [ref=f1e22367]
+            - cell "50,0" [ref=f1e22368]
+            - cell "130% da Taxa DI" [ref=f1e22369]
+            - cell "Rentabilidade amortizada trimestralmente; principal em parcela única em 12/11/2024" [ref=f1e22370]
+            - cell "231711_assembleia_assembleia_231711_2021-10-29.pdf · p.3-4 · ID 231711" [ref=f1e22371]
+          - row [ref=f1e22372]:
+            - cell "INVESTCRED" [ref=f1e22373]
+            - cell "29.226.654/0001-10" [ref=f1e22374]
+            - cell "29/10/2021" [ref=f1e22375]
+            - cell "1ª série sênior - 2ª emissão" [ref=f1e22376]
+            - cell "Sênior" [ref=f1e22377]
+            - cell "98.067" [ref=f1e22378]
+            - cell "Valor da cota da 1ª emissão atualizado" [ref=f1e22379]
+            - cell "100,0" [ref=f1e22380]
+            - 'cell "Conforme 1ª emissão: 130% da Taxa DI" [ref=f1e22381]'
+            - cell "Conforme suplemento da 1ª emissão; resgate em 12/11/2024" [ref=f1e22382]
+            - cell "231711_assembleia_assembleia_231711_2021-10-29.pdf · p.5-6 · ID 231711" [ref=f1e22383]
+          - row [ref=f1e22384]:
+            - cell "INVESTCRED" [ref=f1e22385]
+            - cell "29.226.654/0001-10" [ref=f1e22386]
+            - cell "29/10/2021" [ref=f1e22387]
+            - cell "1ª série sênior - 3ª emissão" [ref=f1e22388]
+            - cell "Sênior" [ref=f1e22389]
+            - cell "238.195,4209" [ref=f1e22390]
+            - cell "Valor da cota da 1ª emissão atualizado" [ref=f1e22391]
+            - cell "100,0" [ref=f1e22392]
+            - 'cell "Conforme 1ª emissão: 130% da Taxa DI" [ref=f1e22393]'
+            - cell "Conforme suplemento da 1ª emissão; resgate em 12/11/2024" [ref=f1e22394]
+            - cell "231711_assembleia_assembleia_231711_2021-10-29.pdf · p.7-8 · ID 231711" [ref=f1e22395]
+          - row [ref=f1e22396]:
+            - cell "INVESTCRED" [ref=f1e22397]
+            - cell "29.226.654/0001-10" [ref=f1e22398]
+            - cell "09/12/2024" [ref=f1e22399]
+            - cell "1ª série subordinada júnior - 4ª emissão" [ref=f1e22400]
+            - cell "Subordinada" [ref=f1e22401]
+            - cell "50.000" [ref=f1e22402]
+            - cell "R$ 1.000,00" [ref=f1e22403]
+            - cell "50,0" [ref=f1e22404]
+            - cell "Sem remuneração-alvo definida" [ref=f1e22405]
+            - cell "Sem amortização; prazo indeterminado" [ref=f1e22406]
+            - cell "808919_emissao_emissao_808919_2024-12-26.pdf · p.2 · ID 808919" [ref=f1e22407]
+          - row [ref=f1e22408]:
+            - cell "INVESTCRED" [ref=f1e22409]
+            - cell "29.226.654/0001-10" [ref=f1e22410]
+            - cell "28/10/2025" [ref=f1e22411]
+            - cell "2ª série sênior" [ref=f1e22412]
+            - cell "Sênior" [ref=f1e22413]
+            - cell "150.000" [ref=f1e22414]
+            - cell "R$ 1.000,00" [ref=f1e22415]
+            - cell "150,0" [ref=f1e22416]
+            - cell "DI + 2,50% a.a." [ref=f1e22417]
+            - cell "Remuneração mensal sem carência; principal com carência de 66 meses; início da amortização do principal em 02/12/2027; resgate 78 meses após emissão" [ref=f1e22418]
+            - cell "1023848_assembleia_assembleia_1023848_2025-10-28.pdf · p.7-8 · ID 1023848" [ref=f1e22419]
+          - row [ref=f1e22420]:
+            - cell "INVESTCRED" [ref=f1e22421]
+            - cell "29.226.654/0001-10" [ref=f1e22422]
+            - cell "28/10/2025" [ref=f1e22423]
+            - cell "3ª série sênior" [ref=f1e22424]
+            - cell "Sênior" [ref=f1e22425]
+            - cell "90.000" [ref=f1e22426]
+            - cell "R$ 1.000,00" [ref=f1e22427]
+            - cell "90,0" [ref=f1e22428]
+            - cell "DI + 2,50% a.a." [ref=f1e22429]
+            - cell "Remuneração mensal sem carência; principal com carência de 24 meses; início da amortização do principal em 02/12/2027; resgate 36 meses após emissão" [ref=f1e22430]
+            - cell "1023848_assembleia_assembleia_1023848_2025-10-28.pdf · p.9-10; 1026237_emissao_emissao_1026237_2025-10-31.pdf · p.1 · IDs 1023848/1026237" [ref=f1e22431]
+      - group [ref=f1e22434]:
+        - generic "keyboard_arrow_right Sobre a base" [ref=f1e22435] [cursor=pointer]:
+          - generic [ref=f1e22436]:
+            - generic [ref=f1e22437]: keyboard_arrow_right
+            - paragraph [ref=f1e22441]: Sobre a base

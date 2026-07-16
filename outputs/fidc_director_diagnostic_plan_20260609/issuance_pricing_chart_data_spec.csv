@@ -1,0 +1,9 @@
+field,source,chart_use,notes
+volume_emitido,"CVM ofertas, anúncio de encerramento, suplemento",barra principal de tamanho da emissão,"Separar volume registrado, encerrado e efetivamente subscrito quando disponível."
+preco_unitario_vnu,"CVM ofertas, suplemento, documentos de emissão",tabela de apoio; sanity check de volume = quantidade x preço,Nem toda emissão informa preço unitário em formato confiável.
+tipo_cota,"suplemento, nome da cota/classe/série","facet/cores: sênior, mezanino, subordinada/júnior",Normalizar SEN/MES/SUB e preservar rótulo original.
+taxa_referencia,"suplemento, ata de bookbuilding, anúncio de encerramento",pontinho do spread na barra,"Separar CDI+, %CDI, IPCA+, pré e residual. O gráfico CDI+x% só deve usar tranches CDI+."
+spread_cdi_aa,texto de remuneração extraído,ponto sobre a barra de volume,"Extrair CDI + x% a.a.; quando %CDI, não converter sem premissa explícita."
+data_emissao_encerramento,"CVM ofertas, documentos de emissão",filtros por ano/quarter e timeline,Usar encerramento para emissão realizada; registro para pipeline/abertas.
+administrador_gestor_custodiante,"CVM cadastro, ofertas RCVM160, regulamento",rankings por subtipo e função,CVM cadastro cobre fundo/classe; regulamento confirma prestadores vigentes.
+cedentes_sacados_devedores,"regulamento, suplemento, anexos de cessão, descrição de lastro",rankings e mapas de concentração por universo,Tratar como alto risco de falso negativo; muitos documentos dizem 'multicedente' sem nomear.

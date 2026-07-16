@@ -1,0 +1,67 @@
+- generic [ref=f2e3]:
+  - banner
+  - generic [ref=f2e6]:
+    - generic [ref=f2e11]:
+      - generic [ref=f2e12]: tomaconta fidcs
+      - generic [ref=f2e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f2e16]:
+      - button [ref=f2e1429] [cursor=pointer]:
+        - paragraph [ref=f2e1433]: Sobre
+      - button [ref=f2e1434] [cursor=pointer]:
+        - paragraph [ref=f2e1438]: Dados da Indústria
+      - button [ref=f2e1439] [cursor=pointer]:
+        - paragraph [ref=f2e1443]: Dados de Carteira
+      - button [ref=f2e1444] [cursor=pointer]:
+        - paragraph [ref=f2e1448]: Cloudwalk
+      - button [ref=f2e1449] [cursor=pointer]:
+        - paragraph [ref=f2e1453]: Glossário
+      - button [ref=f2e1454] [cursor=pointer]:
+        - paragraph [ref=f2e1458]: Modelagem
+    - generic [ref=f2e102]:
+      - generic [ref=f2e105]:
+        - heading "Dados de Carteira" [level=1] [ref=f2e106]
+        - paragraph [ref=f2e107]: Analise carteiras salvas ou consulte um FIDC diretamente pelo CNPJ.
+      - radiogroup "button group" [ref=f2e341]
+      - paragraph [ref=f2e159]: jul-25 → jun-26
+      - generic [ref=f2e161]:
+        - generic [ref=f2e1462]:
+          - paragraph [ref=f2e1467]:
+            - strong [ref=f2e1468]: Agis (Atlas)
+          - paragraph [ref=f2e1473]: Carteira salva | 1 fundo
+        - paragraph [ref=f2e1375]: Carregue uma carteira salva, consulte um CNPJ sem cadastro ou crie uma nova carteira.
+        - radiogroup "button group" [ref=f2e1378]
+        - generic [ref=f2e1399]:
+          - paragraph [ref=f2e1403]: Carteira salva
+          - generic [ref=f2e1405]:
+            - generic [ref=f2e1406]: Agis (Atlas)
+            - img "open" [ref=f2e1413]
+        - paragraph [ref=f2e1428]: 54 carteiras disponíveis.
+      - group [ref=f2e1480]:
+        - generic "keyboard_arrow_right Gerenciar carteiras salvas" [ref=f2e1481] [cursor=pointer]:
+          - generic [ref=f2e1482]:
+            - generic [ref=f2e1483]: keyboard_arrow_right
+            - paragraph [ref=f2e1487]: Gerenciar carteiras salvas
+      - status "Preparando análise da carteira" [ref=f2e1488]:
+        - generic [ref=f2e1489]:
+          - generic [ref=f2e1490]: Preparando análise
+          - strong [ref=f2e1491]: Agis (Atlas)
+          - generic [ref=f2e1492]: 07/2025 a 06/2026 | 1 fundo
+          - paragraph [ref=f2e1495]: Estamos reunindo os dados dos fundos e montando os indicadores da carteira.
+          - generic [ref=f2e1496]:
+            - generic [ref=f2e1497]:
+              - strong [ref=f2e1498]: Dados regulatórios
+              - generic [ref=f2e1499]: Informes mensais e documentos
+            - generic [ref=f2e1500]:
+              - strong [ref=f2e1501]: Consolidação
+              - generic [ref=f2e1502]: Carteira, risco e rentabilidade
+            - generic [ref=f2e1503]:
+              - strong [ref=f2e1504]: Apresentação
+              - generic [ref=f2e1505]: Gráficos, tabelas e downloads
+          - paragraph [ref=f2e1506]: A primeira carga pode levar alguns instantes. Esta tela será liberada automaticamente quando a análise estiver pronta.
+      - generic [ref=f2e1511]:
+        - generic [ref=f2e1512]: Agis (Atlas)
+        - generic [ref=f2e1513]: 07/2025 a 06/2026
+      - generic [ref=f2e1516]:
+        - paragraph [ref=f2e1519]: Preparando carga...
+        - progressbar "0% Loaded" [ref=f2e1520]
+      - paragraph [ref=f2e1528]: Agis (Atlas) · 1 fundo(s) · 0 em cache

@@ -1,0 +1,81 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: tomaconta fidcs
+      - generic [ref=e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e679] [cursor=pointer]:
+        - paragraph [ref=e683]: Sobre
+      - button [ref=e684] [cursor=pointer]:
+        - paragraph [ref=e688]: Dados da Indústria
+      - button [ref=e689] [cursor=pointer]:
+        - paragraph [ref=e693]: Dados de Carteira
+      - button [ref=e694] [cursor=pointer]:
+        - paragraph [ref=e698]: Cloudwalk
+      - button [ref=e699] [cursor=pointer]:
+        - paragraph [ref=e703]: Glossário
+      - button [ref=e704] [cursor=pointer]:
+        - paragraph [ref=e708]: Modelagem
+    - generic [ref=e556]:
+      - generic [ref=e559]:
+        - heading "Dados de Carteira" [level=1] [ref=e560]
+        - paragraph [ref=e561]: Analise carteiras salvas ou consulte um FIDC diretamente pelo CNPJ.
+      - generic [ref=e563]:
+        - radiogroup "button group" [ref=e568]:
+          - button [ref=e709] [cursor=pointer]:
+            - paragraph [ref=e713]: 3M
+          - button [ref=e714] [cursor=pointer]:
+            - paragraph [ref=e718]: 6M
+          - button [ref=e719] [cursor=pointer]:
+            - paragraph [ref=e723]: 9M
+          - button [ref=e724] [cursor=pointer]:
+            - paragraph [ref=e728]: 12M
+          - button [ref=e729] [cursor=pointer]:
+            - paragraph [ref=e733]: 24M
+          - button [ref=e734] [cursor=pointer]:
+            - paragraph [ref=e738]: 36M
+        - button "tune Personalizar" [ref=e603] [cursor=pointer]:
+          - generic [ref=e605]:
+            - generic [ref=e606]: tune
+            - paragraph [ref=e609]: Personalizar
+      - paragraph [ref=e614]: jul-25 → jun-26
+      - generic [ref=e616]:
+        - heading "Escolha o que analisar" [level=4] [ref=e622]:
+          - text: Escolha o que analisar
+          - generic [ref=e623]:
+            - link "Link to heading":
+              - /url: "#escolha-o-que-analisar"
+        - paragraph [ref=e628]: Carregue uma carteira salva, consulte um CNPJ sem cadastro ou crie uma nova carteira.
+        - radiogroup "button group" [ref=e631]:
+          - button [ref=e739] [cursor=pointer]:
+            - paragraph [ref=e743]: Carteira salva
+          - button [ref=e744] [cursor=pointer]:
+            - paragraph [ref=e748]: CNPJ específico
+          - button [ref=e749] [cursor=pointer]:
+            - paragraph [ref=e753]: Nova carteira
+        - paragraph [ref=e758]:
+          - strong [ref=e759]: Criar nova carteira
+        - generic [ref=e762]:
+          - generic [ref=e764]:
+            - paragraph [ref=e768]: Nome da carteira
+            - textbox "Nome da carteira" [ref=e771]:
+              - /placeholder: "Ex.: Crédito High Yield"
+          - generic [ref=e773]:
+            - generic [ref=e774]:
+              - paragraph [ref=e777]: Fundos
+              - button "Help for Fundos" [ref=e781] [cursor=pointer]
+            - generic [ref=e787]:
+              - generic [ref=e788]:
+                - combobox "Fundos" [ref=e790]
+                - generic: Busque por nome ou CNPJ
+              - img "open" [ref=e792] [cursor=pointer]
+          - generic [ref=e795]:
+            - paragraph [ref=e799]: CNPJs adicionais
+            - textbox "CNPJs adicionais" [ref=e802]:
+              - /placeholder: 00.000.000/0000-00 (um por linha)
+          - generic [ref=e804]:
+            - button [ref=e810] [cursor=pointer]:
+              - paragraph [ref=e814]: Salvar nova carteira
+            - button [ref=e820] [cursor=pointer]:
+              - paragraph [ref=e824]: Cancelar

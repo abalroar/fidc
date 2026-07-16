@@ -1,62 +1,72 @@
 # Lastro, documentos periódicos e monitoramento
 
-Cada documento responde a uma pergunta. Relatório do gestor, rating, demonstração financeira e verificação de lastro não se substituem.
+Cada documento responde a uma pergunta. Relatório do gestor, **classificação de risco, ou rating**, demonstração financeira e verificação de lastro não se substituem.
 
-## Regulamento, parte geral e anexo da classe
+## Regulamento, parte geral e anexo
 
-O regulamento organiza o fundo. Em estrutura com classes, a parte geral contém regras comuns e o anexo descreve a classe, sua política, subclasses, prestadores e riscos. Apêndices e instrumentos podem tratar de série ou emissão. Sempre registre versão, data e classe aplicável.
+- **Pergunta que responde:** como fundo, classe, subclasses, prestadores, carteira, limites e eventos foram organizados?
+- **O que conferir:** versão, data, classe aplicável, parte geral, anexo, apêndice e instrumento da emissão.
 
 ## Verificação de lastro
 
-Lastro é a documentação que comprova origem, existência e correta formalização do direito creditório. Na aquisição, o gestor tem a responsabilidade do art. 36 do Anexo II e pode contratar terceiro, sob sua fiscalização. A verificação periódica segue o art. 38. Para direitos não passíveis de registro, aplica-se a custódia do art. 37.
-
-Um relatório útil informa universo, amostra, método, período, exceções, materialidade, documentos faltantes, reincidência e tratamento. “Sem exceção na amostra” não equivale a garantia sobre toda a população.
+- **Pergunta que responde:** a documentação testada comprova origem, existência, exigibilidade e formalização do direito?
+- **Responsabilidade:** na aquisição, a Resolução da Comissão de Valores Mobiliários (RCVM) 175 atribui a responsabilidade ao gestor, que pode contratar terceiro sob fiscalização. A verificação periódica e a custódia seguem as hipóteses dos arts. 37 e 38 do Anexo II.
+- **O que conferir:** universo, amostra, método, período, exceções, materialidade, documento faltante, reincidência e tratamento.
+- **Limitação:** “sem exceção na amostra” não garante toda a população.
 
 ## Demonstrativo trimestral
 
-O demonstrativo previsto no regime de FIDC informa, entre outros elementos aplicáveis, resultados de verificações e operações relevantes. Confirme o formulário e a competência. Ele não substitui o documento de trabalho nem o contrato que define consequência.
+- **Pergunta que responde:** quais verificações, operações e ocorrências foram reportadas no período sob o formato aplicável?
+- **O que conferir:** competência, formulário, retificação e conciliação com o documento de trabalho.
 
 ## Informe Mensal
 
-É a principal série regulatória padronizada de saldos e fluxos. Use competência, data de entrega, retificação e nível reportante. Tabela II, aging, provisões, composição e cotas devem ser reconciliados; ausência de valor não é zero.
+- **Pergunta que responde:** como saldos, composição, atrasos, provisões, fluxos e cotas evoluíram em uma série regulatória padronizada?
+- **O que conferir:** competência, entrega, retificação, nível reportante e reconciliação da Tabela II, distribuição por idade do atraso e cotas.
+- **Limitação:** campo ausente não é zero e o informe não reproduz toda cláusula do regulamento.
 
-## Relatórios mensais ou trimestrais de gestão
+## Relatório de gestão
 
-Podem apresentar safra, concentração, excesso de spread, gatilhos e comentários. São documentos do prestador, não formato regulatório uniforme. Verifique memória de cálculo e reconciliação com os dados oficiais.
+- **Pergunta que responde:** como o prestador interpreta safra, concentração, margem, gatilhos e eventos operacionais?
+- **O que conferir:** memória de cálculo, definição, período e conciliação com dados oficiais. Não existe formato uniforme para todos os gestores.
 
-## Rating
+## Relatório de classificação de risco
 
-O relatório identifica objeto, escala, metodologia, data-base, premissas, sensibilidades e gatilhos da opinião. Uma carta de revisão não substitui o relatório completo quando a definição ou análise exige metodologia. Rating pode ser mantido, elevado, rebaixado, colocado em observação ou retirado.
+- **Pergunta que responde:** qual é a opinião de crédito para o objeto e a data-base definidos?
+- **O que conferir:** escala, metodologia, premissas, sensibilidades, gatilhos, perspectiva e objeto exato.
+- **Limitação:** uma carta de revisão pode não trazer a metodologia completa; a classificação de risco não é auditoria de lastro.
 
 ## Demonstrações financeiras
 
-São fonte primária para reconhecimento, mensuração, provisões, perdas, eventos subsequentes e partes relacionadas. Notas explicativas podem usar data-base diferente do Informe Mensal; reconcilie escopo e competência.
+- **Pergunta que responde:** como ativos, provisões, perdas, partes relacionadas e eventos subsequentes foram reconhecidos contabilmente?
+- **O que conferir:** período, notas, política, contas, parecer e diferença de data-base para o Informe Mensal.
 
 ## Fatos relevantes e assembleias
 
-Informam eventos e decisões. A ata prova deliberação, mas a nova regra pode depender de versão consolidada, condição precedente ou implementação posterior.
+- **Pergunta que respondem:** qual evento foi comunicado ou qual decisão foi aprovada?
+- **O que conferir:** quórum, vigência, condição precedente e documento consolidado posterior. A ata prova a deliberação, não necessariamente a implementação completa.
 
-## Status documental deste estudo
+## Estados documentais desta revisão
 
-- **lido:** primário recuperado e texto extraído, com página;
-- **OCR necessário:** primário recuperado, mas página sem texto confiável;
-- **cache-only:** extração derivada sem PDF-fonte recuperável; só pista;
-- **ausente:** listagem não trouxe documento aplicável;
-- **inacessível:** falha de listagem ou download;
-- **não aplicável:** tipo documental não existe para o caso.
+- **Processado:** documento primário recuperado, com texto extraído página a página e localização inspecionável. Não significa, sozinho, leitura jurídica integral.
+- **Leitura substantiva:** cláusulas materiais interpretadas e registradas na matriz de evidências.
+- **Conferido visualmente:** página renderizada e comparada com a extração em tema material.
+- **OCR necessário:** documento recuperado, mas uma ou mais páginas exigem reconhecimento óptico de caracteres, conhecido pela sigla OCR.
+- **Somente cache, ou cache-only:** texto ou **JavaScript Object Notation (JSON)** derivado sem o arquivo primário em **Portable Document Format (PDF)** recuperável; serve apenas como pista.
+- **Ausente:** documento aplicável não apareceu na listagem consultada.
+- **Inacessível:** listagem ou transferência do arquivo falhou.
+- **Não aplicável:** tipo documental não corresponde à estrutura.
 
-Nenhuma afirmação contratual categórica deste book depende somente de cache-only.
-
-## Conferência visual
-
-Para cláusula material, renderize a página e verifique cabeçalho, notas, tabelas, sinais, unidade e continuidade. Extração textual pode perder colunas, sobrescritos e páginas digitalizadas.
+No corpus, 731 documentos foram processados, 95 regulamentos vigentes tiveram texto extraído e 15 regulamentos de 12 famílias receberam leitura substantiva para as prevalências contratuais.
 
 ## Hierarquia prática de evidência
 
-1. norma e documento primário vigente;
-2. alteração ou documento histórico primário, com escopo temporal;
-3. relatório primário que mede a prática;
-4. cache ou JSON para localizar o candidato;
-5. inferência analítica, explicitamente rotulada.
+1. **Norma e documento primário vigente.**
+2. **Alteração ou documento histórico primário**, com período delimitado.
+3. **Relatório primário** que mede a prática.
+4. **Cache ou JSON** usado apenas para localizar o candidato.
+5. **Inferência analítica**, identificada como tal.
 
-Fontes: RCVM 175, Anexo Normativo II, arts. 36 a 39; Ofício-Circular CVM/SSE 8/2023; padrão do Informe Mensal. Verificação: **16/07/2026**.
+Para cláusula material, confira cabeçalho, tabela, sinal, unidade, notas e continuidade na página renderizada. A extração pode perder colunas e páginas digitalizadas.
+
+Fontes: Resolução CVM 175, Anexo Normativo II, arts. 36 a 39; Ofício-Circular da **Superintendência de Supervisão de Securitização (SSE)** da CVM 8/2023; padrão do Informe Mensal. Verificação: **16/07/2026**.

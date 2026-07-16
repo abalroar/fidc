@@ -1,0 +1,3109 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/pg3ex0nu",
+    "id": "pg3ex0nu",
+    "slide": 3,
+    "layoutId": "/ppt/slideLayouts/slideLayout7.xml",
+    "layoutName": "Blank",
+    "layoutType": "blank",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Office",
+    "colors": {
+      "accent1": "#4F81BD",
+      "accent2": "#C0504D",
+      "accent3": "#9BBB59",
+      "accent4": "#8064A2",
+      "accent5": "#4BACC6",
+      "accent6": "#F79646",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#1F497D",
+      "lt2": "#EEECE1",
+      "hlink": "#0000FF",
+      "folHlink": "#800080"
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latinTypeface": "Calibri"
+      },
+      "minorFont": {
+        "latinTypeface": "Calibri"
+      }
+    },
+    "typefaces": [
+      "Arial",
+      "Calibri"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout7.xml",
+      "name": "Blank",
+      "type": "blank",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/2",
+          "id": "2",
+          "name": "Date Placeholder 1",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/3",
+          "id": "3",
+          "name": "Footer Placeholder 2",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/4",
+          "id": "4",
+          "name": "Slide Number Placeholder 3",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/2",
+          "id": "2",
+          "name": "Title Placeholder 1",
+          "bbox": [
+            48,
+            28.83,
+            864,
+            120
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/3",
+          "id": "3",
+          "name": "Text Placeholder 2",
+          "bbox": [
+            48,
+            168,
+            864,
+            475.17
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "vertical": 1,
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/4",
+          "id": "4",
+          "name": "Date Placeholder 3",
+          "bbox": [
+            48,
+            667.33,
+            224,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/5",
+          "id": "5",
+          "name": "Footer Placeholder 4",
+          "bbox": [
+            328,
+            667.33,
+            304,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/6",
+          "id": "6",
+          "name": "Slide Number Placeholder 5",
+          "bbox": [
+            688,
+            667.33,
+            224,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5o7qpg3e",
+      "id": "2",
+      "name": "Rounded Rectangle 1",
+      "bbox": [
+        45.12,
+        34.56,
+        40.32,
+        28.8
+      ],
+      "geometry": "roundRect",
+      "text": "itaú BBA",
+      "textPreview": "itaú BBA",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "itaú BBA"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "itaú BBA",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "itaú BBA",
+              "fontSize": 7.47,
+              "typeface": "Arial",
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#0E121B",
+      "lineColor": "#0E121B"
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/g3ex0nux",
+      "id": "3",
+      "name": "TextBox 2",
+      "bbox": [
+        103.68,
+        28.8,
+        1104,
+        40.32
+      ],
+      "geometry": "rect",
+      "text": "Evolução FIDCs | PL cai R$1,5 bi em 2025 e recompõe para R$16,1 bi após Bela",
+      "textPreview": "Evolução FIDCs | PL cai R$1,5 bi em 2025 e recompõe para R$16,1 bi após Bela",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Evolução FIDCs | PL cai R$1,5 bi em 2025 e recompõe para R$16,1 bi após Bela"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Evolução FIDCs | PL cai R$1,5 bi em 2025 e recompõe para R$16,1 bi após Bela",
+          "resolvedTextStyle": {
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Evolução FIDCs",
+              "fontSize": 24,
+              "typeface": "Arial",
+              "color": "#0E121B",
+              "bold": true
+            },
+            {
+              "index": 2,
+              "text": " | PL cai R$1,5 bi em 2025 e recompõe para R$16,1 bi após Bela",
+              "fontSize": 22.67,
+              "typeface": "Arial",
+              "color": "#1C2027"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/r65wjudg",
+      "id": "4",
+      "name": "Rounded Rectangle 3",
+      "bbox": [
+        52.8,
+        97.92,
+        1171.2,
+        259.2
+      ],
+      "geometry": "roundRect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#F7F6F2",
+      "lineColor": "#0E121B",
+      "lineWidth": 0.73
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ylc7u54z",
+      "id": "5",
+      "name": "TextBox 4",
+      "bbox": [
+        72,
+        92.16,
+        644.16,
+        24
+      ],
+      "geometry": "rect",
+      "text": "PL 2025 e amortizações",
+      "textPreview": "PL 2025 e amortizações",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "PL 2025 e amortizações"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "PL 2025 e amortizações",
+          "resolvedTextStyle": {
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "PL 2025 e amortizações",
+              "fontSize": 17.33,
+              "typeface": "Arial",
+              "color": "#0E121B",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9cvixcze",
+      "id": "6",
+      "name": "Rectangle 5",
+      "bbox": [
+        283.2,
+        99.84,
+        916.8,
+        0.58
+      ],
+      "geometry": "rect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#0E121B"
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gr2p8nqx",
+      "id": "7",
+      "name": "Rounded Rectangle 6",
+      "bbox": [
+        52.8,
+        378.24,
+        734.4,
+        271.68
+      ],
+      "geometry": "roundRect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#F7F6F2",
+      "lineColor": "#0E121B",
+      "lineWidth": 0.73
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/rytsvu9k",
+      "id": "8",
+      "name": "TextBox 7",
+      "bbox": [
+        72,
+        372.48,
+        403.92,
+        24
+      ],
+      "geometry": "rect",
+      "text": "Capital stack agregado",
+      "textPreview": "Capital stack agregado",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Capital stack agregado"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Capital stack agregado",
+          "resolvedTextStyle": {
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Capital stack agregado",
+              "fontSize": 17.33,
+              "typeface": "Arial",
+              "color": "#0E121B",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yd0z6103",
+      "id": "9",
+      "name": "Rectangle 8",
+      "bbox": [
+        283.2,
+        380.16,
+        480,
+        0.58
+      ],
+      "geometry": "rect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#0E121B"
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wb2hwfyx",
+      "id": "10",
+      "name": "Rounded Rectangle 9",
+      "bbox": [
+        801.6,
+        378.24,
+        422.4,
+        271.68
+      ],
+      "geometry": "roundRect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#F7F6F2",
+      "lineColor": "#0E121B",
+      "lineWidth": 0.73
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lwval87e",
+      "id": "11",
+      "name": "TextBox 10",
+      "bbox": [
+        820.8,
+        372.48,
+        232.32,
+        24
+      ],
+      "geometry": "rect",
+      "text": "Captações 2026",
+      "textPreview": "Captações 2026",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Captações 2026"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Captações 2026",
+          "resolvedTextStyle": {
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Captações 2026",
+              "fontSize": 17.33,
+              "typeface": "Arial",
+              "color": "#0E121B",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/e9cvixcz",
+      "id": "12",
+      "name": "Rectangle 11",
+      "bbox": [
+        945.22,
+        380.16,
+        254.78,
+        0.58
+      ],
+      "geometry": "rect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#0E121B"
+    },
+    {
+      "order": 12,
+      "kind": "chart",
+      "scope": "slide",
+      "aid": "ch/bulwval8",
+      "id": "31",
+      "name": "Chart 12",
+      "bbox": [
+        88.32,
+        146.88,
+        604.8,
+        180.48
+      ],
+      "chartType": "bar"
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/w3m94fu1",
+      "id": "14",
+      "name": "TextBox 13",
+      "bbox": [
+        148.8,
+        235.2,
+        52.8,
+        17.28
+      ],
+      "geometry": "rect",
+      "text": "14,3",
+      "textPreview": "14,3",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "14,3"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "14,3",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "14,3",
+              "fontSize": 14.67,
+              "typeface": "Arial",
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/loj2t83i",
+      "id": "15",
+      "name": "TextBox 14",
+      "bbox": [
+        355.2,
+        139.2,
+        52.8,
+        17.28
+      ],
+      "geometry": "rect",
+      "text": "2,4",
+      "textPreview": "2,4",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2,4"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2,4",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "2,4",
+              "fontSize": 14.67,
+              "typeface": "Arial",
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ex0nuxc3",
+      "id": "16",
+      "name": "TextBox 15",
+      "bbox": [
+        484.8,
+        144,
+        52.8,
+        17.28
+      ],
+      "geometry": "rect",
+      "text": "0,84",
+      "textPreview": "0,84",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "0,84"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "0,84",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "0,84",
+              "fontSize": 14.67,
+              "typeface": "Arial",
+              "color": "#0E121B",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3itgfmlk",
+      "id": "17",
+      "name": "TextBox 16",
+      "bbox": [
+        628.8,
+        242.88,
+        52.8,
+        17.28
+      ],
+      "geometry": "rect",
+      "text": "12,8",
+      "textPreview": "12,8",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "12,8"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "12,8",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "12,8",
+              "fontSize": 14.67,
+              "typeface": "Arial",
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 17,
+      "kind": "table",
+      "scope": "slide",
+      "aid": "tb/jm1cfa9w",
+      "id": "32",
+      "name": "Table 17",
+      "bbox": [
+        820.8,
+        128.64,
+        366.72,
+        206.4
+      ],
+      "text": "FIDC | Amort. 2025\nAkira II | (R$1150 mi)\nA.I. | (R$378 mi)\nPi | (R$321 mi)\nBela | (R$160 mi)\nKick Ass I | (R$136 mi)\nBig Picture I | (R$109 mi)\nAkira I | (R$62 mi)\nBig Picture IV | (R$39 mi)\nBig Picture II | (R$37 mi)\nBig Picture III | (R$19 mi)\nTotal | (R$2,41 bi)",
+      "textPreview": "FIDC | Amort. 2025 | Akira II | (R$1150 mi) | A.I. | (R$378 mi) | Pi | (R$321 mi) | Bela | (R$160 mi) | Kick Ass I | (R$136 mi) | Big Pic...",
+      "rows": 12,
+      "cols": 2,
+      "cells": [
+        {
+          "index": 1,
+          "row": 1,
+          "column": 1,
+          "bbox": [
+            820.8,
+            128.64,
+            194.15,
+            17.2
+          ],
+          "text": "FIDC",
+          "textPreview": "FIDC",
+          "fillColor": "#0E121B",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "FIDC",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "FIDC",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 2,
+          "bbox": [
+            1014.95,
+            128.64,
+            172.57,
+            17.2
+          ],
+          "text": "Amort. 2025",
+          "textPreview": "Amort. 2025",
+          "fillColor": "#0E121B",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Amort. 2025",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Amort. 2025",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "row": 2,
+          "column": 1,
+          "bbox": [
+            820.8,
+            145.84,
+            194.15,
+            17.2
+          ],
+          "text": "Akira II",
+          "textPreview": "Akira II",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Akira II",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Akira II",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "row": 2,
+          "column": 2,
+          "bbox": [
+            1014.95,
+            145.84,
+            172.57,
+            17.2
+          ],
+          "text": "(R$1150 mi)",
+          "textPreview": "(R$1150 mi)",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "(R$1150 mi)",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "(R$1150 mi)",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#AE2D2B"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "row": 3,
+          "column": 1,
+          "bbox": [
+            820.8,
+            163.04,
+            194.15,
+            17.2
+          ],
+          "text": "A.I.",
+          "textPreview": "A.I.",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "A.I.",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "A.I.",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "row": 3,
+          "column": 2,
+          "bbox": [
+            1014.95,
+            163.04,
+            172.57,
+            17.2
+          ],
+          "text": "(R$378 mi)",
+          "textPreview": "(R$378 mi)",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "(R$378 mi)",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "(R$378 mi)",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#AE2D2B"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "row": 4,
+          "column": 1,
+          "bbox": [
+            820.8,
+            180.24,
+            194.15,
+            17.2
+          ],
+          "text": "Pi",
+          "textPreview": "Pi",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Pi",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Pi",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "row": 4,
+          "column": 2,
+          "bbox": [
+            1014.95,
+            180.24,
+            172.57,
+            17.2
+          ],
+          "text": "(R$321 mi)",
+          "textPreview": "(R$321 mi)",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "(R$321 mi)",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "(R$321 mi)",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#AE2D2B"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "row": 5,
+          "column": 1,
+          "bbox": [
+            820.8,
+            197.44,
+            194.15,
+            17.2
+          ],
+          "text": "Bela",
+          "textPreview": "Bela",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Bela",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Bela",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "row": 5,
+          "column": 2,
+          "bbox": [
+            1014.95,
+            197.44,
+            172.57,
+            17.2
+          ],
+          "text": "(R$160 mi)",
+          "textPreview": "(R$160 mi)",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "(R$160 mi)",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "(R$160 mi)",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#AE2D2B"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "row": 6,
+          "column": 1,
+          "bbox": [
+            820.8,
+            214.64,
+            194.15,
+            17.2
+          ],
+          "text": "Kick Ass I",
+          "textPreview": "Kick Ass I",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Kick Ass I",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Kick Ass I",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "row": 6,
+          "column": 2,
+          "bbox": [
+            1014.95,
+            214.64,
+            172.57,
+            17.2
+          ],
+          "text": "(R$136 mi)",
+          "textPreview": "(R$136 mi)",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "(R$136 mi)",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "(R$136 mi)",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#AE2D2B"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "row": 7,
+          "column": 1,
+          "bbox": [
+            820.8,
+            231.84,
+            194.15,
+            17.2
+          ],
+          "text": "Big Picture I",
+          "textPreview": "Big Picture I",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Big Picture I",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Big Picture I",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "row": 7,
+          "column": 2,
+          "bbox": [
+            1014.95,
+            231.84,
+            172.57,
+            17.2
+          ],
+          "text": "(R$109 mi)",
+          "textPreview": "(R$109 mi)",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "(R$109 mi)",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "(R$109 mi)",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#AE2D2B"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "row": 8,
+          "column": 1,
+          "bbox": [
+            820.8,
+            249.04,
+            194.15,
+            17.2
+          ],
+          "text": "Akira I",
+          "textPreview": "Akira I",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Akira I",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Akira I",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "row": 8,
+          "column": 2,
+          "bbox": [
+            1014.95,
+            249.04,
+            172.57,
+            17.2
+          ],
+          "text": "(R$62 mi)",
+          "textPreview": "(R$62 mi)",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "(R$62 mi)",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "(R$62 mi)",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#AE2D2B"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "row": 9,
+          "column": 1,
+          "bbox": [
+            820.8,
+            266.24,
+            194.15,
+            17.2
+          ],
+          "text": "Big Picture IV",
+          "textPreview": "Big Picture IV",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Big Picture IV",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Big Picture IV",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "row": 9,
+          "column": 2,
+          "bbox": [
+            1014.95,
+            266.24,
+            172.57,
+            17.2
+          ],
+          "text": "(R$39 mi)",
+          "textPreview": "(R$39 mi)",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "(R$39 mi)",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "(R$39 mi)",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#AE2D2B"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 19,
+          "row": 10,
+          "column": 1,
+          "bbox": [
+            820.8,
+            283.44,
+            194.15,
+            17.2
+          ],
+          "text": "Big Picture II",
+          "textPreview": "Big Picture II",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Big Picture II",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Big Picture II",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 20,
+          "row": 10,
+          "column": 2,
+          "bbox": [
+            1014.95,
+            283.44,
+            172.57,
+            17.2
+          ],
+          "text": "(R$37 mi)",
+          "textPreview": "(R$37 mi)",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "(R$37 mi)",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "(R$37 mi)",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#AE2D2B"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 21,
+          "row": 11,
+          "column": 1,
+          "bbox": [
+            820.8,
+            300.64,
+            194.15,
+            17.2
+          ],
+          "text": "Big Picture III",
+          "textPreview": "Big Picture III",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Big Picture III",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Big Picture III",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 22,
+          "row": 11,
+          "column": 2,
+          "bbox": [
+            1014.95,
+            300.64,
+            172.57,
+            17.2
+          ],
+          "text": "(R$19 mi)",
+          "textPreview": "(R$19 mi)",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "(R$19 mi)",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "(R$19 mi)",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#AE2D2B"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 23,
+          "row": 12,
+          "column": 1,
+          "bbox": [
+            820.8,
+            317.84,
+            194.15,
+            17.2
+          ],
+          "text": "Total",
+          "textPreview": "Total",
+          "fillColor": "#0E121B",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Total",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Total",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 24,
+          "row": 12,
+          "column": 2,
+          "bbox": [
+            1014.95,
+            317.84,
+            172.57,
+            17.2
+          ],
+          "text": "(R$2,41 bi)",
+          "textPreview": "(R$2,41 bi)",
+          "fillColor": "#0E121B",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "(R$2,41 bi)",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "(R$2,41 bi)",
+                  "fontSize": 10.4,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "order": 18,
+      "kind": "chart",
+      "scope": "slide",
+      "aid": "ch/p0bi9s36",
+      "id": "33",
+      "name": "Chart 18",
+      "bbox": [
+        105.6,
+        417.6,
+        609.6,
+        206.4
+      ],
+      "chartType": "bar"
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lc7u54zi",
+      "id": "20",
+      "name": "TextBox 19",
+      "bbox": [
+        261.12,
+        395.52,
+        67.2,
+        17.28
+      ],
+      "geometry": "rect",
+      "text": "12,8",
+      "textPreview": "12,8",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "12,8"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "12,8",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "12,8",
+              "fontSize": 16,
+              "typeface": "Arial",
+              "color": "#1C2027",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wra5gbq1",
+      "id": "21",
+      "name": "TextBox 20",
+      "bbox": [
+        604.8,
+        395.52,
+        67.2,
+        17.28
+      ],
+      "geometry": "rect",
+      "text": "16,1",
+      "textPreview": "16,1",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "16,1"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "16,1",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "16,1",
+              "fontSize": 16,
+              "typeface": "Arial",
+              "color": "#1C2027",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/36hcrmhk",
+      "id": "22",
+      "name": "Right Arrow 21",
+      "bbox": [
+        388.8,
+        408.96,
+        190.08,
+        19.2
+      ],
+      "geometry": "rightArrow",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#1D8F54"
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/eloj2t83",
+      "id": "23",
+      "name": "TextBox 22",
+      "bbox": [
+        668.16,
+        430.08,
+        92.16,
+        38.4
+      ],
+      "geometry": "rect",
+      "text": "Subordinação\n~3,1%",
+      "textPreview": "Subordinação | ~3,1%",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Subordinação"
+          },
+          {
+            "index": 2,
+            "text": "~3,1%"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Subordinação",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Subordinação",
+              "fontSize": 10.4,
+              "typeface": "Arial",
+              "color": "#1C2027"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "~3,1%",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "~3,1%",
+              "fontSize": 10.4,
+              "typeface": "Arial",
+              "color": "#1C2027"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 23,
+      "kind": "table",
+      "scope": "slide",
+      "aid": "tb/1032lszq",
+      "id": "34",
+      "name": "Table 23",
+      "bbox": [
+        820.8,
+        421.44,
+        368.64,
+        204.48
+      ],
+      "text": "FIDC | Mês | Série / Classe | Captação\nBela | 03-26 | Sr Série 2 | R$3059 mi\nBela | 03-26 | Mez Série 3 | R$255 mi\nBela | 03-26 | Mez Série 4 | R$219 mi\nTotal | R$3,53 bi",
+      "textPreview": "FIDC | Mês | Série / Classe | Captação | Bela | 03-26 | Sr Série 2 | R$3059 mi | Bela | 03-26 | Mez Série 3 | R$255 mi | Bela | 03-26 | M...",
+      "rows": 5,
+      "cols": 4,
+      "cells": [
+        {
+          "index": 1,
+          "row": 1,
+          "column": 1,
+          "bbox": [
+            820.8,
+            421.44,
+            82.53,
+            32.64
+          ],
+          "text": "FIDC",
+          "textPreview": "FIDC",
+          "fillColor": "#0E121B",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "FIDC",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "FIDC",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 2,
+          "bbox": [
+            903.33,
+            421.44,
+            60.52,
+            32.64
+          ],
+          "text": "Mês",
+          "textPreview": "Mês",
+          "fillColor": "#0E121B",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Mês",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Mês",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 3,
+          "bbox": [
+            963.85,
+            421.44,
+            121.05,
+            32.64
+          ],
+          "text": "Série / Classe",
+          "textPreview": "Série / Classe",
+          "fillColor": "#0E121B",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Série / Classe",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Série / Classe",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 4,
+          "bbox": [
+            1084.9,
+            421.44,
+            104.54,
+            32.64
+          ],
+          "text": "Captação",
+          "textPreview": "Captação",
+          "fillColor": "#0E121B",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Captação",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Captação",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "row": 2,
+          "column": 1,
+          "bbox": [
+            820.8,
+            454.08,
+            82.53,
+            42.96
+          ],
+          "text": "Bela",
+          "textPreview": "Bela",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Bela",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Bela",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "row": 2,
+          "column": 2,
+          "bbox": [
+            903.33,
+            454.08,
+            60.52,
+            42.96
+          ],
+          "text": "03-26",
+          "textPreview": "03-26",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "03-26",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "03-26",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 3,
+          "bbox": [
+            963.85,
+            454.08,
+            121.05,
+            42.96
+          ],
+          "text": "Sr Série 2",
+          "textPreview": "Sr Série 2",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Sr Série 2",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Sr Série 2",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "row": 2,
+          "column": 4,
+          "bbox": [
+            1084.9,
+            454.08,
+            104.54,
+            42.96
+          ],
+          "text": "R$3059 mi",
+          "textPreview": "R$3059 mi",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$3059 mi",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$3059 mi",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#1D8F54"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "row": 3,
+          "column": 1,
+          "bbox": [
+            820.8,
+            497.04,
+            82.53,
+            42.96
+          ],
+          "text": "Bela",
+          "textPreview": "Bela",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Bela",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Bela",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "row": 3,
+          "column": 2,
+          "bbox": [
+            903.33,
+            497.04,
+            60.52,
+            42.96
+          ],
+          "text": "03-26",
+          "textPreview": "03-26",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "03-26",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "03-26",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "row": 3,
+          "column": 3,
+          "bbox": [
+            963.85,
+            497.04,
+            121.05,
+            42.96
+          ],
+          "text": "Mez Série 3",
+          "textPreview": "Mez Série 3",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Mez Série 3",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Mez Série 3",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "row": 3,
+          "column": 4,
+          "bbox": [
+            1084.9,
+            497.04,
+            104.54,
+            42.96
+          ],
+          "text": "R$255 mi",
+          "textPreview": "R$255 mi",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$255 mi",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$255 mi",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#1D8F54"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "row": 4,
+          "column": 1,
+          "bbox": [
+            820.8,
+            540,
+            82.53,
+            42.96
+          ],
+          "text": "Bela",
+          "textPreview": "Bela",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Bela",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Bela",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "row": 4,
+          "column": 2,
+          "bbox": [
+            903.33,
+            540,
+            60.52,
+            42.96
+          ],
+          "text": "03-26",
+          "textPreview": "03-26",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "03-26",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "03-26",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "row": 4,
+          "column": 3,
+          "bbox": [
+            963.85,
+            540,
+            121.05,
+            42.96
+          ],
+          "text": "Mez Série 4",
+          "textPreview": "Mez Série 4",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Mez Série 4",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Mez Série 4",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#1C2027"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "row": 4,
+          "column": 4,
+          "bbox": [
+            1084.9,
+            540,
+            104.54,
+            42.96
+          ],
+          "text": "R$219 mi",
+          "textPreview": "R$219 mi",
+          "fillColor": "#F7F6F2",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$219 mi",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$219 mi",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#1D8F54"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "row": 5,
+          "column": 1,
+          "bbox": [
+            820.8,
+            582.96,
+            82.53,
+            42.96
+          ],
+          "text": "Total",
+          "textPreview": "Total",
+          "fillColor": "#0E121B",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Total",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Total",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "row": 5,
+          "column": 2,
+          "bbox": [
+            903.33,
+            582.96,
+            60.52,
+            42.96
+          ],
+          "fillColor": "#0E121B"
+        },
+        {
+          "index": 19,
+          "row": 5,
+          "column": 3,
+          "bbox": [
+            963.85,
+            582.96,
+            121.05,
+            42.96
+          ],
+          "fillColor": "#0E121B"
+        },
+        {
+          "index": 20,
+          "row": 5,
+          "column": 4,
+          "bbox": [
+            1084.9,
+            582.96,
+            104.54,
+            42.96
+          ],
+          "text": "R$3,53 bi",
+          "textPreview": "R$3,53 bi",
+          "fillColor": "#0E121B",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$3,53 bi",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$3,53 bi",
+                  "fontSize": 10.67,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "order": 24,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wfyxobm5",
+      "id": "25",
+      "name": "TextBox 24",
+      "bbox": [
+        48,
+        675.84,
+        854.4,
+        11.52
+      ],
+      "geometry": "rect",
+      "text": "Fonte: TomaConta FIDCs / IME CVM; documentos regulatórios locais; B3/Cetip MediaCDI. Valores em R$ nominais.",
+      "textPreview": "Fonte: TomaConta FIDCs / IME CVM; documentos regulatórios locais; B3/Cetip MediaCDI. Valores em R$ nominais.",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Fonte: TomaConta FIDCs / IME CVM; documentos regulatórios locais; B3/Cetip MediaCDI. Valores em R$ nominais."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Fonte: TomaConta FIDCs / IME CVM; documentos regulatórios locais; B3/Cetip MediaCDI. Valores em R$ nominais.",
+          "resolvedTextStyle": {
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Fonte: TomaConta FIDCs / IME CVM; documentos regulatórios locais; B3/Cetip MediaCDI. Valores em R$ nominais.",
+              "fontSize": 6.93,
+              "typeface": "Arial",
+              "color": "#686F7A"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 25,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7u54zido",
+      "id": "26",
+      "name": "Rectangle 25",
+      "bbox": [
+        45.12,
+        691.2,
+        1147.2,
+        0.96
+      ],
+      "geometry": "rect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#AE2D2B"
+    },
+    {
+      "order": 26,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ed8bat47",
+      "id": "27",
+      "name": "TextBox 26",
+      "bbox": [
+        48,
+        694.08,
+        201.6,
+        17.28
+      ],
+      "geometry": "rect",
+      "text": "CloudWalk |",
+      "textPreview": "CloudWalk |",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CloudWalk |"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CloudWalk |",
+          "resolvedTextStyle": {
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "CloudWalk |",
+              "fontSize": 11.33,
+              "typeface": "Arial",
+              "color": "#686F7A"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 27,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/psfil0rq",
+      "id": "28",
+      "name": "TextBox 27",
+      "bbox": [
+        48,
+        709.44,
+        230.4,
+        9.6
+      ],
+      "geometry": "rect",
+      "text": "Corporativo | Interno",
+      "textPreview": "Corporativo | Interno",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Corporativo | Interno"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Corporativo | Interno",
+          "resolvedTextStyle": {
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Corporativo | Interno",
+              "fontSize": 7.73,
+              "typeface": "Arial",
+              "color": "#1C2027",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 28,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/w7mp0bi9",
+      "id": "29",
+      "name": "Rounded Rectangle 28",
+      "bbox": [
+        1147.2,
+        697.92,
+        45.12,
+        24
+      ],
+      "geometry": "roundRect",
+      "text": "itaú BBA",
+      "textPreview": "itaú BBA",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "itaú BBA"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "itaú BBA",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "itaú BBA",
+              "fontSize": 7.07,
+              "typeface": "Arial",
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#0E121B",
+      "lineColor": "#0E121B"
+    },
+    {
+      "order": 29,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/65wjudg7",
+      "id": "30",
+      "name": "TextBox 29",
+      "bbox": [
+        1204.8,
+        697.92,
+        26.88,
+        13.44
+      ],
+      "geometry": "rect",
+      "text": "02",
+      "textPreview": "02",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0.96,
+          "right": 1.92,
+          "bottom": 0.96,
+          "left": 1.92
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "02"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "02",
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "02",
+              "fontSize": 8.4,
+              "typeface": "Arial",
+              "color": "#686F7A"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    }
+  ],
+  "composeRuns": []
+}

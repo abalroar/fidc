@@ -1,0 +1,152 @@
+- generic [ref=f1e3]:
+  - banner
+  - generic [ref=f1e6]:
+    - generic [ref=f1e11]:
+      - generic [ref=f1e12]: tomaconta fidcs
+      - generic [ref=f1e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f1e16]:
+      - button [ref=f1e22075] [cursor=pointer]:
+        - paragraph [ref=f1e22079]: Sobre
+      - button [ref=f1e22080] [cursor=pointer]:
+        - paragraph [ref=f1e22084]: Indústria
+      - button [ref=f1e22085] [cursor=pointer]:
+        - paragraph [ref=f1e22089]: Secundário
+      - button [ref=f1e22090] [cursor=pointer]:
+        - paragraph [ref=f1e22094]: Carteira
+      - button [ref=f1e22095] [cursor=pointer]:
+        - paragraph [ref=f1e22099]: Regulamentos
+      - button [ref=f1e22100] [cursor=pointer]:
+        - paragraph [ref=f1e22104]: Cloudwalk
+      - button [ref=f1e22105] [cursor=pointer]:
+        - paragraph [ref=f1e22109]: Glossário
+      - button [ref=f1e22110] [cursor=pointer]:
+        - paragraph [ref=f1e22114]: Modelagem
+    - generic [ref=f1e22116]:
+      - generic [ref=f1e22119]:
+        - heading "Cloudwalk" [level=1] [ref=f1e22120]
+        - paragraph [ref=f1e22121]: Custo financeiro dos FIDCs, amortizações, captações e carry de caixa/LFT.
+      - generic [ref=f1e22124]:
+        - generic [ref=f1e22126]:
+          - generic [ref=f1e22130]:
+            - generic [ref=f1e22131]:
+              - paragraph [ref=f1e22134]: Ano-base
+              - button "Help for Ano-base" [ref=f1e22138] [cursor=pointer]
+            - generic [ref=f1e22142]:
+              - spinbutton "Ano-base" [ref=f1e22145]: "2026"
+              - generic [ref=f1e22146]:
+                - button [ref=f1e22147] [cursor=pointer]
+                - button [ref=f1e22150] [cursor=pointer]
+          - generic [ref=f1e22156]:
+            - generic [ref=f1e22157]:
+              - paragraph [ref=f1e22160]: Data inicial
+              - button "Help for Data inicial" [ref=f1e22164] [cursor=pointer]
+            - textbox "Select a date." [ref=f1e22171]:
+              - /placeholder: YYYY-MM-DD
+              - text: 2026–01–01
+            - paragraph: Press the down arrow key to interact with the calendar and select a date. Press the escape button to close the calendar.
+            - paragraph: Selected date is 2026–01–01. Select the second date.
+          - generic [ref=f1e22175]:
+            - generic [ref=f1e22176]:
+              - paragraph [ref=f1e22179]: Data final
+              - button "Help for Data final" [ref=f1e22183] [cursor=pointer]
+            - textbox "Select a date." [ref=f1e22190]:
+              - /placeholder: YYYY-MM-DD
+              - text: 2026–12–31
+            - paragraph: Press the down arrow key to interact with the calendar and select a date. Press the escape button to close the calendar.
+            - paragraph: Selected date is 2026–12–31. Select the second date.
+        - group [ref=f1e22193]:
+          - generic "keyboard_arrow_down Opções avançadas" [active] [ref=f1e22639] [cursor=pointer]:
+            - generic [ref=f1e22195]:
+              - generic [ref=f1e22640]: keyboard_arrow_down
+              - paragraph [ref=f1e22200]: Opções avançadas
+          - generic [ref=f1e22643]:
+            - generic [ref=f1e22645]:
+              - generic [ref=f1e22649]:
+                - generic [ref=f1e22650]:
+                  - paragraph [ref=f1e22653]: Caixa/LFT (x CDI)
+                  - button "Help for Caixa/LFT (x CDI)" [ref=f1e22657] [cursor=pointer]
+                - generic [ref=f1e22661]:
+                  - spinbutton "Caixa/LFT (x CDI)" [ref=f1e22664]: "1.00"
+                  - generic [ref=f1e22665]:
+                    - button [ref=f1e22666] [cursor=pointer]
+                    - button [ref=f1e22669] [cursor=pointer]
+              - generic [ref=f1e22675]:
+                - generic [ref=f1e22676]:
+                  - paragraph [ref=f1e22679]: CDI fallback B3
+                  - button "Help for CDI fallback B3" [ref=f1e22683] [cursor=pointer]
+                - textbox "Select a date." [ref=f1e22690]:
+                  - /placeholder: YYYY-MM-DD
+                  - text: 2026–07–16
+                - paragraph: Press the down arrow key to interact with the calendar and select a date. Press the escape button to close the calendar.
+                - paragraph: Selected date is 2026–07–16. Select the second date.
+            - paragraph [ref=f1e22695]:
+              - strong [ref=f1e22696]: CDI+ manual por série
+            - generic [ref=f1e22701]:
+              - button "Show/hide columns" [ref=f1e22705] [cursor=pointer]
+              - button "Download as CSV" [ref=f1e22711] [cursor=pointer]
+              - button "Search" [ref=f1e22717] [cursor=pointer]
+              - button "Fullscreen" [ref=f1e22723] [cursor=pointer]
+        - button [ref=f1e22204] [cursor=pointer]:
+          - paragraph [ref=f1e22208]: Atualizar estimativa
+      - generic [ref=f1e22446]:
+        - generic [ref=f1e22447]: "Fonte: B3/Cetip MediaCDI diário composto por mês"
+        - generic [ref=f1e22448]: "Base até: 2026-01-01 a 2026-12-31"
+        - generic [ref=f1e22449]: "Cobertura: 27 séries mapeadas"
+      - generic [ref=f1e22451]:
+        - generic [ref=f1e22456]:
+          - paragraph [ref=f1e22459]: Despesa bruta
+          - paragraph [ref=f1e22462]: R$ 2.29 bi
+        - generic [ref=f1e22467]:
+          - paragraph [ref=f1e22470]: Custo líquido
+          - paragraph [ref=f1e22473]: R$ 2.14 bi
+        - generic [ref=f1e22478]:
+          - paragraph [ref=f1e22481]: Aplicação caixa/LFT
+          - paragraph [ref=f1e22484]: R$ 2.09 bi
+        - generic [ref=f1e22489]:
+          - paragraph [ref=f1e22492]: Rendimento caixa/LFT
+          - paragraph [ref=f1e22495]: R$ 155.9 mi
+        - generic [ref=f1e22500]:
+          - paragraph [ref=f1e22503]: Saldo médio
+          - paragraph [ref=f1e22506]: R$ 15.82 bi
+        - generic [ref=f1e22511]:
+          - paragraph [ref=f1e22514]: CDI+ implícito
+          - paragraph [ref=f1e22517]: CDI+1.14% a.a.
+      - generic [ref=f1e22240]: "CDI usado: 14.61% a.a. equivalente (B3/Cetip MediaCDI diário composto por mês). Spread ponderado por saldo médio: CDI+1.15% a.a.."
+      - generic [ref=f1e22519]:
+        - generic [ref=f1e22520]:
+          - tablist [ref=f1e22522]:
+            - tab [selected] [ref=f1e22523] [cursor=pointer]:
+              - paragraph [ref=f1e22525]: Resumo
+            - tab [ref=f1e22526] [cursor=pointer]:
+              - paragraph [ref=f1e22528]: Séries
+            - tab [ref=f1e22529] [cursor=pointer]:
+              - paragraph [ref=f1e22531]: Mensal
+            - tab [ref=f1e22532] [cursor=pointer]:
+              - paragraph [ref=f1e22534]: Waterfall
+            - tab [ref=f1e22535] [cursor=pointer]:
+              - paragraph [ref=f1e22537]: Caixa
+            - tab [ref=f1e22538] [cursor=pointer]:
+              - paragraph [ref=f1e22540]: Dados e exportações
+          - tabpanel "Resumo" [ref=f1e22543]:
+            - generic [ref=f1e22544]:
+              - heading "Estimativas principais" [level=2] [ref=f1e22550]:
+                - text: Estimativas principais
+                - generic [ref=f1e22551]:
+                  - link "Link to heading":
+                    - /url: "#estimativas-principais"
+              - generic [ref=f1e22556]:
+                - button "Show/hide columns" [ref=f1e22560] [cursor=pointer]
+                - button "Download as CSV" [ref=f1e22566] [cursor=pointer]
+                - button "Search" [ref=f1e22572] [cursor=pointer]
+                - button "Fullscreen" [ref=f1e22578] [cursor=pointer]
+              - heading "CDI B3 composto mês a mês" [level=2] [ref=f1e22595]:
+                - text: CDI B3 composto mês a mês
+                - generic [ref=f1e22596]:
+                  - link "Link to heading":
+                    - /url: "#cdi-b3-composto-mes-a-mes"
+              - generic [ref=f1e22601]:
+                - button "Show/hide columns" [ref=f1e22605] [cursor=pointer]
+                - button "Download as CSV" [ref=f1e22611] [cursor=pointer]
+                - button "Search" [ref=f1e22617] [cursor=pointer]
+                - button "Fullscreen" [ref=f1e22623] [cursor=pointer]
+        - button "Scroll tabs right" [ref=f1e22635] [cursor=pointer]

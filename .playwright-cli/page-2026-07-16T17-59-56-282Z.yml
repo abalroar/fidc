@@ -1,0 +1,31 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: tomaconta fidcs
+      - generic [ref=e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e471] [cursor=pointer]:
+        - paragraph [ref=e475]: Sobre
+      - button [ref=e476] [cursor=pointer]:
+        - paragraph [ref=e480]: Dados da Indústria
+      - button [ref=e481] [cursor=pointer]:
+        - paragraph [ref=e485]: Dados de Carteira
+      - button [ref=e486] [cursor=pointer]:
+        - paragraph [ref=e490]: Cloudwalk
+      - button [ref=e491] [cursor=pointer]:
+        - paragraph [ref=e495]: Glossário
+      - button [ref=e496] [cursor=pointer]:
+        - paragraph [ref=e500]: Modelagem
+    - generic [ref=e502]:
+      - generic [ref=e505]:
+        - heading "Sobre" [level=1] [ref=e506]
+        - paragraph [ref=e507]: Análise de FIDCs com dados públicos, documentação regulatória e premissas explícitas.
+      - generic [ref=e512]:
+        - paragraph [ref=e513]: O aplicativo reúne indústria, carteiras, regulamentos e modelagem econômico-financeira em uma leitura única.
+        - paragraph [ref=e514]: Criado por Matheus Prates, CFA. Projeto independente em evolução.
+      - group [ref=e517]:
+        - generic "keyboard_arrow_right Sobre a base" [ref=e518] [cursor=pointer]:
+          - generic [ref=e519]:
+            - generic [ref=e520]: keyboard_arrow_right
+            - paragraph [ref=e524]: Sobre a base

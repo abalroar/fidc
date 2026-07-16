@@ -1,0 +1,1720 @@
+- generic [ref=f1e3]:
+  - banner
+  - generic [ref=f1e6]:
+    - generic [ref=f1e11]:
+      - generic [ref=f1e12]: tomaconta fidcs
+      - generic [ref=f1e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f1e16]:
+      - button [ref=f1e16680] [cursor=pointer]:
+        - paragraph [ref=f1e16684]: Sobre
+      - button [ref=f1e16685] [cursor=pointer]:
+        - paragraph [ref=f1e16689]: Indústria
+      - button [ref=f1e16690] [cursor=pointer]:
+        - paragraph [ref=f1e16694]: Secundário
+      - button [ref=f1e16695] [cursor=pointer]:
+        - paragraph [ref=f1e16699]: Carteira
+      - button [ref=f1e16700] [cursor=pointer]:
+        - paragraph [ref=f1e16704]: Regulamentos
+      - button [ref=f1e16705] [cursor=pointer]:
+        - paragraph [ref=f1e16709]: Cloudwalk
+      - button [ref=f1e16710] [cursor=pointer]:
+        - paragraph [ref=f1e16714]: Glossário
+      - button [ref=f1e16715] [cursor=pointer]:
+        - paragraph [ref=f1e16719]: Modelagem
+    - generic [ref=f1e1029]:
+      - generic [ref=f1e1032]:
+        - heading "Carteira" [level=1] [ref=f1e1033]
+        - paragraph [ref=f1e1034]: Risco, retorno e documentação das seleções salvas.
+      - generic [ref=f1e1036]:
+        - generic [ref=f1e7712]:
+          - paragraph [ref=f1e7716]: Competência inicial
+          - generic [ref=f1e7718]:
+            - generic [ref=f1e7719]:
+              - generic [ref=f1e7720]: jan-26
+              - combobox "Selected jan-26. Competência inicial" [ref=f1e11757]
+            - img "open" [ref=f1e7724]
+        - generic [ref=f1e7727]:
+          - paragraph [ref=f1e7731]: Competência final
+          - generic [ref=f1e7733]:
+            - generic [ref=f1e7734]:
+              - generic [ref=f1e7735]: jun-26
+              - combobox "Selected jun-26. Competência final" [ref=f1e7737]
+            - img "open" [ref=f1e7739]
+        - button "arrow_back Janela móvel" [ref=f1e7745] [cursor=pointer]:
+          - generic [ref=f1e7747]:
+            - generic [ref=f1e7748]: arrow_back
+            - paragraph [ref=f1e7751]: Janela móvel
+      - paragraph [ref=f1e1087]: jan-26 → jun-26
+      - generic [ref=f1e1095]:
+        - generic [ref=f1e1096]:
+          - generic [ref=f1e1097]: FIDC Vixtra
+          - combobox "Selected FIDC Vixtra. Seleção ativa" [active] [ref=f1e16720]
+        - img "open" [ref=f1e1101]
+      - group [ref=f1e1210]:
+        - generic "keyboard_arrow_right Gerenciar carteiras salvas" [ref=f1e1211] [cursor=pointer]:
+          - generic [ref=f1e1212]:
+            - generic [ref=f1e1213]: keyboard_arrow_right
+            - paragraph [ref=f1e1217]: Gerenciar carteiras salvas
+      - generic [ref=f1e16722]:
+        - generic [ref=f1e16727]:
+          - generic [ref=f1e16728]: FIDC Vixtra
+          - generic [ref=f1e16729]: 01/2026 a 06/2026
+        - generic [ref=f1e16732]:
+          - paragraph [ref=f1e16735]: Preparando carga...
+          - progressbar "0% Loaded" [ref=f1e16736]
+        - paragraph [ref=f1e16744]: FIDC Vixtra · 1 fundo(s) · 0 em cache
+      - heading "Diagnóstico da carteira" [level=2] [ref=f1e14564]:
+        - text: Diagnóstico da carteira
+        - generic [ref=f1e14565]:
+          - link "Link to heading":
+            - /url: "#diagnostico-da-carteira"
+      - generic [ref=f1e4603]:
+        - generic [ref=f1e14566]: "Janela solicitada: jan-26 a jun-26"
+        - generic [ref=f1e14567]: "Competência consolidada: N/D"
+        - generic [ref=f1e14568]: "Último informe individual: jun-26"
+        - generic [ref=f1e14569]: "Fundos no consolidado: 7/7"
+        - generic [ref=f1e14570]: "Meses comuns | blocos: 0/6 | N/D"
+      - group [ref=f1e14573]:
+        - generic "keyboard_arrow_right Cobertura mensal" [ref=f1e14574] [cursor=pointer]:
+          - generic [ref=f1e14575]:
+            - generic [ref=f1e14576]: keyboard_arrow_right
+            - paragraph [ref=f1e14580]: Cobertura mensal
+      - generic [ref=f1e14585]:
+        - strong [ref=f1e14586]: Base comparável indisponivel.
+        - text: "Competências sem cobertura integral: jan-26, fev-26, mar-26, abr-26, mai-26, jun-26. Situação individual: SUMUP I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA até nov-25."
+      - group [ref=f1e14589]:
+        - generic "keyboard_arrow_right Dados e exportações" [ref=f1e14590] [cursor=pointer]:
+          - generic [ref=f1e14591]:
+            - generic [ref=f1e14592]: keyboard_arrow_right
+            - paragraph [ref=f1e14596]: Dados e exportações
+      - generic [ref=f1e4651]:
+        - generic [ref=f1e14597]:
+          - generic [ref=f1e14598]: Ativo total
+          - generic [ref=f1e14599]: N/D
+        - generic [ref=f1e14600]:
+          - generic [ref=f1e14601]: DCs totais
+          - generic [ref=f1e14602]: N/D
+        - generic [ref=f1e14603]:
+          - generic [ref=f1e14604]: PL total
+          - generic [ref=f1e14605]: N/D
+        - generic [ref=f1e14606]:
+          - generic [ref=f1e14607]: Vencidos
+          - generic [ref=f1e14608]: N/D
+        - generic [ref=f1e14609]:
+          - generic [ref=f1e14610]: Cobertura de provisão
+          - generic [ref=f1e14611]: N/D
+        - generic [ref=f1e14612]:
+          - generic [ref=f1e14613]: Subordinação reportada
+          - generic [ref=f1e14614]: N/D
+      - generic [ref=f1e1308]: Estrutura
+      - generic [ref=f1e7932]: PL por tipo de cota
+      - radiogroup "Visão do PL" [ref=f1e14618] [cursor=pointer]:
+        - generic [ref=f1e14619]:
+          - radio "Valores absolutos (R$)" [checked]
+          - paragraph [ref=f1e14622]: Valores absolutos (R$)
+        - generic [ref=f1e14623]:
+          - radio "% do total por competência"
+          - paragraph [ref=f1e14626]: "% do total por competência"
+      - generic [ref=f1e14629]:
+        - generic [ref=f1e14631]:
+          - button "Show data" [ref=f1e14634] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e14640] [cursor=pointer]
+        - generic [ref=f1e14644]:
+          - generic "Vega visualization" [ref=f1e14645]:
+            - img [ref=f1e14646]:
+              - generic [ref=f1e14651]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 2 values: out-25, nov-25" [ref=f1e14655]':
+                  - generic [ref=f1e14657]:
+                    - generic:
+                      - generic: out-25
+                      - generic: nov-25
+                    - generic: Competência
+                - generic "Y-axis titled 'R$' for a linear scale with values from 0 to 2.457.221.603" [ref=f1e14658]:
+                  - generic [ref=f1e14660]:
+                    - generic:
+                      - generic: "0"
+                      - generic: 1,0 bi
+                      - generic: 2,0 bi
+                      - generic: 500,0 mm
+                      - generic: 1,5 bi
+                    - generic: R$
+                - generic [ref=f1e14661]:
+                  - 'generic "Competência: out-25; R$: 0; Classe: Mezzanino; serie: Mezzanino; competencia: out-25; Valor: R$ 0,00"'
+                  - 'generic "Competência: out-25; R$: 630859570,26; Classe: Subordinada; serie: Subordinada; competencia: out-25; Valor: R$ 630,9 mm" [ref=f1e14662]'
+                  - 'generic "Competência: out-25; R$: 1524597976,31; Classe: Sênior; serie: Sênior; competencia: out-25; Valor: R$ 1,52 bi" [ref=f1e14663]'
+                  - 'generic "Competência: nov-25; R$: 0; Classe: Mezzanino; serie: Mezzanino; competencia: nov-25; Valor: R$ 0,00"'
+                  - 'generic "Competência: nov-25; R$: 0; Classe: Subordinada; serie: Subordinada; competencia: nov-25; Valor: R$ 0,00"'
+                  - 'generic "Competência: nov-25; R$: 0; Classe: Sênior; serie: Sênior; competencia: nov-25; Valor: R$ 0,00"'
+                - generic [ref=f1e14664]:
+                  - 'generic "Competência: out-25; R$: 630859570,26; label_color: #ffffff; label_fmt: 631 mm; serie: Subordinada" [ref=f1e14665]': 631 mm
+                  - 'generic "Competência: out-25; R$: 1524597976,31; label_color: #ffffff; label_fmt: 2 bi; serie: Sênior" [ref=f1e14666]': 2 bi
+                - generic [ref=f1e14667]:
+                  - 'generic "Competência: nov-25; R$: 96995589,5956; total_fmt: R$ 0,00" [ref=f1e14668]': R$ 0,00
+                  - 'generic "Competência: out-25; R$: 2252453136,16; total_fmt: R$ 2,16 bi" [ref=f1e14669]': R$ 2,16 bi
+                - 'generic "Symbol legend titled ''Faixas / séries'' for fill color with 3 values: Mezzanino, Subordinada, Sênior" [ref=f1e14670]':
+                  - generic [ref=f1e14672]:
+                    - generic [ref=f1e14676]:
+                      - generic [ref=f1e14677]: Mezzanino
+                      - generic [ref=f1e14679]: Subordinada
+                      - generic [ref=f1e14681]: Sênior
+                    - generic: Faixas / séries
+          - group "Click to view actions"
+      - generic [ref=f1e4772]: Crédito
+      - generic [ref=f1e4777]: Inadimplência, PDD e cobertura
+      - paragraph [ref=f1e14691]: "Barras: inadimplência e PDD sobre direitos creditórios. À direita: cobertura PDD / vencidos; 100% indica paridade."
+      - paragraph [ref=f1e14698]: Sem dados de inadimplência ou provisão nos informes do período.
+      - generic [ref=f1e14703]:
+        - generic [ref=f1e14705]:
+          - button "Show data" [ref=f1e14708] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e14714] [cursor=pointer]
+        - generic [ref=f1e14718]:
+          - generic "Vega visualization" [ref=f1e14719]:
+            - img [ref=f1e14720]:
+              - generic [ref=f1e14725]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 1 value: out-25" [ref=f1e14729]':
+                  - generic [ref=f1e14731]:
+                    - generic: out-25
+                    - generic: Competência
+                - generic "Y-axis titled '%' for a linear scale with values from 0 to 130" [ref=f1e14732]:
+                  - generic [ref=f1e14734]:
+                    - generic:
+                      - generic: "0"
+                      - generic: "20"
+                      - generic: "40"
+                      - generic: "60"
+                      - generic: "80"
+                      - generic: "100"
+                      - generic: "120"
+                    - generic: "%"
+                - generic [ref=f1e14736]:
+                  - generic:
+                    - generic:
+                      - 'generic "Competência: out-25; %: 100; Série: Cobertura; competencia: out-25; serie: Cobertura; Valor: 100,00%"'
+                - 'generic "Competência: out-25; %: 100; Série: Cobertura; competencia: out-25; serie: Cobertura; Valor: 100,00%" [ref=f1e14739]'
+                - 'generic "competencia: out-25; %: 100; serie: Cobertura; end_label: 100,0%" [ref=f1e14741]': 100,0%
+                - generic:
+                  - 'generic "valor: 100; 100% (paridade): 100,00"'
+          - group "Click to view actions"
+      - generic [ref=f1e1675]: Prazo e eventos
+      - generic [ref=f1e14747]: Prazo de vencimento dos DCs a vencer em nov-25
+      - generic [ref=f1e14753]:
+        - generic [ref=f1e14755]:
+          - button "Show data" [ref=f1e14758] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e14764] [cursor=pointer]
+        - generic [ref=f1e14768]:
+          - generic "Vega visualization" [ref=f1e14769]:
+            - img [ref=f1e14770]:
+              - generic [ref=f1e14775]:
+                - generic "X-axis titled 'etapa' for a discrete scale with 0 values:" [ref=f1e14778]: etapa
+                - generic "Y-axis titled 'R$' for a linear scale with values from 0 to 0" [ref=f1e14781]:
+                  - generic [ref=f1e14783]:
+                    - generic: "0"
+                    - generic: R$
+          - group "Click to view actions"
+      - generic [ref=f1e14793]:
+        - text: "Prazo médio proxy dos recebíveis:"
+        - strong [ref=f1e14794]: N/D
+        - text: em nov-25, base de N/D em recebíveis.
+      - paragraph [ref=f1e14795]: Duration proxy não disponível para a competência mais recente porque não há saldo por vencimento.
+      - group [ref=f1e14798]:
+        - generic "keyboard_arrow_right Sobre a base" [ref=f1e14799] [cursor=pointer]:
+          - generic [ref=f1e14800]:
+            - generic [ref=f1e14801]: keyboard_arrow_right
+            - paragraph [ref=f1e14805]: Sobre a base
+      - heading "Retorno e crédito" [level=2] [ref=f1e14808]:
+        - text: Retorno e crédito
+        - generic [ref=f1e14809]:
+          - link "Link to heading":
+            - /url: "#retorno-e-credito"
+      - generic [ref=f1e14811]:
+        - generic [ref=f1e14812]:
+          - paragraph [ref=f1e14815]: Filtro visual (sem recarregar)
+          - button "Help for Filtro visual (sem recarregar)" [ref=f1e14819] [cursor=pointer]
+        - radiogroup "Filtro visual (sem recarregar)" [ref=f1e14823] [cursor=pointer]:
+          - generic [ref=f1e14824]:
+            - radio "Todo período carregado"
+            - paragraph [ref=f1e14827]: Todo período carregado
+          - generic [ref=f1e14828]:
+            - radio "6M"
+            - paragraph [ref=f1e14831]: 6M
+          - generic [ref=f1e14832]:
+            - radio "12M"
+            - paragraph [ref=f1e14835]: 12M
+          - generic [ref=f1e14836]:
+            - radio "24M"
+            - paragraph [ref=f1e14839]: 24M
+          - generic [ref=f1e14840]:
+            - radio "36M"
+            - paragraph [ref=f1e14843]: 36M
+          - generic [ref=f1e14844]:
+            - radio "YTD" [checked]
+            - paragraph [ref=f1e14847]: YTD
+          - generic [ref=f1e14848]:
+            - radio "Dezembros + Ano Atual"
+            - paragraph [ref=f1e14851]: Dezembros + Ano Atual
+          - generic [ref=f1e14852]:
+            - radio "Customizado"
+            - paragraph [ref=f1e14855]: Customizado
+      - heading "Base analítica" [level=4] [ref=f1e14856]:
+        - text: Base analítica
+        - generic [ref=f1e12986]:
+          - link "Link to heading":
+            - /url: "#credito"
+      - group [ref=f1e14859]:
+        - generic "keyboard_arrow_right Dados e exportações" [ref=f1e14860] [cursor=pointer]:
+          - generic [ref=f1e14861]:
+            - generic [ref=f1e14862]: keyboard_arrow_right
+            - paragraph [ref=f1e14866]: Dados e exportações
+      - alert [ref=f1e14868]:
+        - paragraph [ref=f1e14873]: Não há uma competência comum a todos os fundos carregados. O consolidado foi suprimido para evitar mistura de datas.
+      - generic [ref=f1e14877]:
+        - button "Show/hide columns" [ref=f1e14881] [cursor=pointer]
+        - button "Download as CSV" [ref=f1e14887] [cursor=pointer]
+        - button "Search" [ref=f1e14893] [cursor=pointer]
+        - button "Fullscreen" [ref=f1e14899] [cursor=pointer]
+      - heading "Histórico" [level=4] [ref=f1e14915]:
+        - text: Histórico
+        - generic [ref=f1e14916]:
+          - link "Link to heading":
+            - /url: "#historico"
+      - table [ref=f1e14917]:
+        - rowgroup [ref=f1e14927]:
+          - row [ref=f1e14928]:
+            - columnheader "Métrica" [ref=f1e14929]
+            - columnheader "jun/26" [ref=f1e14930]
+            - columnheader "mai/26" [ref=f1e14931]
+            - columnheader "abr/26" [ref=f1e14932]
+            - columnheader "mar/26" [ref=f1e14933]
+            - columnheader "fev/26" [ref=f1e14934]
+            - columnheader "jan/26" [ref=f1e14935]
+            - columnheader "Memória / fórmula" [ref=f1e14936]
+        - rowgroup [ref=f1e14937]:
+          - row [ref=f1e14938]:
+            - columnheader "PL FIDC" [ref=f1e14939]
+          - row [ref=f1e14940]:
+            - cell "PL FIDC total" [ref=f1e14941]
+            - cell "1.806,6 MM" [ref=f1e14942]
+            - cell "1.788,5 MM" [ref=f1e14943]
+            - cell "1.803,0 MM" [ref=f1e14944]
+            - cell "1.797,4 MM" [ref=f1e14945]
+            - cell "1.786,3 MM" [ref=f1e14946]
+            - cell "1.783,1 MM" [ref=f1e14947]
+            - cell "PATRLIQ/VL_PATRIM_LIQ quando disponível; caso contrário soma das classes." [ref=f1e14948]
+          - row [ref=f1e14949]:
+            - cell "PL FIDC oficial" [ref=f1e14950]
+            - cell "1.806,6 MM" [ref=f1e14951]
+            - cell "1.788,5 MM" [ref=f1e14952]
+            - cell "1.803,0 MM" [ref=f1e14953]
+            - cell "1.797,4 MM" [ref=f1e14954]
+            - cell "1.786,3 MM" [ref=f1e14955]
+            - cell "1.783,1 MM" [ref=f1e14956]
+            - cell "PATRLIQ/VL_PATRIM_LIQ da base oficial." [ref=f1e14957]
+          - row [ref=f1e14958]:
+            - cell "PL soma das classes" [ref=f1e14959]
+            - cell "1.806,6 MM" [ref=f1e14960]
+            - cell "1.788,5 MM" [ref=f1e14961]
+            - cell "1.803,0 MM" [ref=f1e14962]
+            - cell "1.797,5 MM" [ref=f1e14963]
+            - cell "1.786,3 MM" [ref=f1e14964]
+            - cell "1.783,1 MM" [ref=f1e14965]
+            - cell "Soma do PL das classes por quantidade de cotas × valor da cota." [ref=f1e14966]
+          - row [ref=f1e14967]:
+            - cell "Reconciliação PL oficial vs classes" [ref=f1e14968]
+            - cell "-3,6 mil" [ref=f1e14969]
+            - cell "-3,6 mil" [ref=f1e14970]
+            - cell "-3,6 mil" [ref=f1e14971]
+            - cell "-75,4 mil" [ref=f1e14972]
+            - cell "0,0 mil" [ref=f1e14973]
+            - cell "16,4 mil" [ref=f1e14974]
+            - cell "PL FIDC total usado - PL soma das classes." [ref=f1e14975]
+          - row [ref=f1e14976]:
+            - cell "Reconciliação PL oficial vs classes (%)" [ref=f1e14977]
+            - cell "0,0%" [ref=f1e14978]
+            - cell "0,0%" [ref=f1e14979]
+            - cell "0,0%" [ref=f1e14980]
+            - cell "0,0%" [ref=f1e14981]
+            - cell "0,0%" [ref=f1e14982]
+            - cell "0,0%" [ref=f1e14983]
+            - cell "|PL FIDC total usado - PL soma das classes| / PL FIDC total usado." [ref=f1e14984]
+          - row [ref=f1e14985]:
+            - cell "Fonte do PL FIDC total" [ref=f1e14986]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e14987]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e14988]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e14989]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e14990]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e14991]
+            - cell "PATRLIQ/VL_PATRIM_LIQ" [ref=f1e14992]
+            - cell "Indica se foi usado PL oficial ou soma das classes." [ref=f1e14993]
+          - row [ref=f1e14994]:
+            - cell "PL Sênior" [ref=f1e14995]
+            - cell "1.706,7 MM" [ref=f1e14996]
+            - cell "1.703,0 MM" [ref=f1e14997]
+            - cell "1.720,9 MM" [ref=f1e14998]
+            - cell "1.718,6 MM" [ref=f1e14999]
+            - cell "1.711,4 MM" [ref=f1e15000]
+            - cell "1.710,4 MM" [ref=f1e15001]
+            - cell "PL da classe sênior." [ref=f1e15002]
+          - row [ref=f1e15003]:
+            - cell "PL Subordinada" [ref=f1e15004]
+            - cell "99,9 MM" [ref=f1e15005]
+            - cell "85,5 MM" [ref=f1e15006]
+            - cell "82,1 MM" [ref=f1e15007]
+            - cell "78,8 MM" [ref=f1e15008]
+            - cell "75,2 MM" [ref=f1e15009]
+            - cell "72,7 MM" [ref=f1e15010]
+            - cell "PL subordinado estrito, sem mezanino." [ref=f1e15011]
+          - row [ref=f1e15012]:
+            - cell "PL Mezanino" [ref=f1e15013]
+            - cell "0" [ref=f1e15014]
+            - cell "0" [ref=f1e15015]
+            - cell "0" [ref=f1e15016]
+            - cell "0" [ref=f1e15017]
+            - cell "0" [ref=f1e15018]
+            - cell "0" [ref=f1e15019]
+            - cell "PL classificado como mezanino quando aplicável." [ref=f1e15020]
+          - row [ref=f1e15021]:
+            - cell "Subordinada + Mezanino" [ref=f1e15022]
+            - cell "99,9 MM" [ref=f1e15023]
+            - cell "85,5 MM" [ref=f1e15024]
+            - cell "82,1 MM" [ref=f1e15025]
+            - cell "78,8 MM" [ref=f1e15026]
+            - cell "75,2 MM" [ref=f1e15027]
+            - cell "72,7 MM" [ref=f1e15028]
+            - cell "PL subordinada + PL mezanino." [ref=f1e15029]
+          - row [ref=f1e15030]:
+            - cell "% Subordinação Total" [ref=f1e15031]
+            - cell "5,5%" [ref=f1e15032]
+            - cell "4,8%" [ref=f1e15033]
+            - cell "4,5%" [ref=f1e15034]
+            - cell "4,4%" [ref=f1e15035]
+            - cell "4,2%" [ref=f1e15036]
+            - cell "4,1%" [ref=f1e15037]
+            - cell "(Subordinada + Mezanino) / PL FIDC total." [ref=f1e15038]
+          - row [ref=f1e15039]:
+            - columnheader "Carteira Bruta" [ref=f1e15040]
+          - row [ref=f1e15041]:
+            - cell "Carteira Bruta total" [ref=f1e15042]
+            - cell "1.762,8 MM" [ref=f1e15043]
+            - cell "1.753,2 MM" [ref=f1e15044]
+            - cell "1.759,0 MM" [ref=f1e15045]
+            - cell "1.737,1 MM" [ref=f1e15046]
+            - cell "1.748,3 MM" [ref=f1e15047]
+            - cell "1.721,2 MM" [ref=f1e15048]
+            - cell "Base canônica de direitos creditórios." [ref=f1e15049]
+          - row [ref=f1e15050]:
+            - cell "PDD total" [ref=f1e15051]
+            - cell "0" [ref=f1e15052]
+            - cell "0" [ref=f1e15053]
+            - cell "0" [ref=f1e15054]
+            - cell "0" [ref=f1e15055]
+            - cell "0" [ref=f1e15056]
+            - cell "0" [ref=f1e15057]
+            - cell "Provisão total reportada." [ref=f1e15058]
+          - row [ref=f1e15059]:
+            - cell "PDD / Carteira Bruta" [ref=f1e15060]
+            - cell "0,0%" [ref=f1e15061]
+            - cell "0,0%" [ref=f1e15062]
+            - cell "0,0%" [ref=f1e15063]
+            - cell "0,0%" [ref=f1e15064]
+            - cell "0,0%" [ref=f1e15065]
+            - cell "0,0%" [ref=f1e15066]
+            - cell "PDD total / Carteira Bruta total." [ref=f1e15067]
+          - row [ref=f1e15068]:
+            - cell "Carteira Líquida" [ref=f1e15069]
+            - cell "1.762,8 MM" [ref=f1e15070]
+            - cell "1.753,2 MM" [ref=f1e15071]
+            - cell "1.759,0 MM" [ref=f1e15072]
+            - cell "1.737,1 MM" [ref=f1e15073]
+            - cell "1.748,3 MM" [ref=f1e15074]
+            - cell "1.721,2 MM" [ref=f1e15075]
+            - cell "Carteira Bruta total - PDD total." [ref=f1e15076]
+          - row [ref=f1e15077]:
+            - columnheader "Aging / faixas de atraso" [ref=f1e15078]
+          - row [ref=f1e15079]:
+            - cell "Carteira em dia" [ref=f1e15080]
+            - cell "1.762,8 MM" [ref=f1e15081]
+            - cell "1.753,2 MM" [ref=f1e15082]
+            - cell "1.759,0 MM" [ref=f1e15083]
+            - cell "1.737,1 MM" [ref=f1e15084]
+            - cell "1.748,3 MM" [ref=f1e15085]
+            - cell "1.721,2 MM" [ref=f1e15086]
+            - cell "Carteira Bruta - NPL Over 1d." [ref=f1e15087]
+          - row [ref=f1e15088]:
+            - cell "Atrasada até 30 dias" [ref=f1e15089]
+            - cell "0" [ref=f1e15090]
+            - cell "0" [ref=f1e15091]
+            - cell "0" [ref=f1e15092]
+            - cell "0" [ref=f1e15093]
+            - cell "0" [ref=f1e15094]
+            - cell "0" [ref=f1e15095]
+            - cell "Bucket VL_INAD_VENC_30." [ref=f1e15096]
+          - row [ref=f1e15097]:
+            - cell "Atrasos 31-60 dias" [ref=f1e15098]
+            - cell "0" [ref=f1e15099]
+            - cell "0" [ref=f1e15100]
+            - cell "0" [ref=f1e15101]
+            - cell "0" [ref=f1e15102]
+            - cell "0" [ref=f1e15103]
+            - cell "0" [ref=f1e15104]
+            - cell "Bucket VL_INAD_VENC_31_60." [ref=f1e15105]
+          - row [ref=f1e15106]:
+            - cell "Atrasos 61-90 dias" [ref=f1e15107]
+            - cell "0" [ref=f1e15108]
+            - cell "0" [ref=f1e15109]
+            - cell "0" [ref=f1e15110]
+            - cell "0" [ref=f1e15111]
+            - cell "0" [ref=f1e15112]
+            - cell "0" [ref=f1e15113]
+            - cell "Bucket VL_INAD_VENC_61_90." [ref=f1e15114]
+          - row [ref=f1e15115]:
+            - cell "Atrasos 91-180 dias" [ref=f1e15116]
+            - cell "0" [ref=f1e15117]
+            - cell "0" [ref=f1e15118]
+            - cell "0" [ref=f1e15119]
+            - cell "0" [ref=f1e15120]
+            - cell "0" [ref=f1e15121]
+            - cell "0" [ref=f1e15122]
+            - cell "Soma dos buckets 91-120, 121-150 e 151-180." [ref=f1e15123]
+          - row [ref=f1e15124]:
+            - cell "Atrasos 181-360 dias" [ref=f1e15125]
+            - cell "0" [ref=f1e15126]
+            - cell "0" [ref=f1e15127]
+            - cell "0" [ref=f1e15128]
+            - cell "0" [ref=f1e15129]
+            - cell "0" [ref=f1e15130]
+            - cell "0" [ref=f1e15131]
+            - cell "Bucket VL_INAD_VENC_181_360." [ref=f1e15132]
+          - row [ref=f1e15133]:
+            - cell "Vencidos acima de 360 dias" [ref=f1e15134]
+            - cell "0" [ref=f1e15135]
+            - cell "0" [ref=f1e15136]
+            - cell "0" [ref=f1e15137]
+            - cell "0" [ref=f1e15138]
+            - cell "0" [ref=f1e15139]
+            - cell "0" [ref=f1e15140]
+            - cell "Soma dos buckets 361-720, 721-1080 e acima de 1080 dias." [ref=f1e15141]
+          - row [ref=f1e15142]:
+            - columnheader "NPL Over acumulado" [ref=f1e15143]
+          - row [ref=f1e15144]:
+            - cell "NPL Over 1d" [ref=f1e15145]
+            - cell "0" [ref=f1e15146]
+            - cell "0" [ref=f1e15147]
+            - cell "0" [ref=f1e15148]
+            - cell "0" [ref=f1e15149]
+            - cell "0" [ref=f1e15150]
+            - cell "0" [ref=f1e15151]
+            - cell "Soma dos buckets de atraso >= 1 dia." [ref=f1e15152]
+          - row [ref=f1e15153]:
+            - cell "NPL Over 1d / Carteira" [ref=f1e15154]
+            - cell "0,0%" [ref=f1e15155]
+            - cell "0,0%" [ref=f1e15156]
+            - cell "0,0%" [ref=f1e15157]
+            - cell "0,0%" [ref=f1e15158]
+            - cell "0,0%" [ref=f1e15159]
+            - cell "0,0%" [ref=f1e15160]
+            - cell "NPL Over 1d / Carteira Bruta." [ref=f1e15161]
+          - row [ref=f1e15162]:
+            - cell "NPL Over 30d" [ref=f1e15163]
+            - cell "0" [ref=f1e15164]
+            - cell "0" [ref=f1e15165]
+            - cell "0" [ref=f1e15166]
+            - cell "0" [ref=f1e15167]
+            - cell "0" [ref=f1e15168]
+            - cell "0" [ref=f1e15169]
+            - cell "Soma dos buckets >= 31 dias." [ref=f1e15170]
+          - row [ref=f1e15171]:
+            - cell "NPL Over 30d / Carteira" [ref=f1e15172]
+            - cell "0,0%" [ref=f1e15173]
+            - cell "0,0%" [ref=f1e15174]
+            - cell "0,0%" [ref=f1e15175]
+            - cell "0,0%" [ref=f1e15176]
+            - cell "0,0%" [ref=f1e15177]
+            - cell "0,0%" [ref=f1e15178]
+            - cell "NPL Over 30d / Carteira Bruta." [ref=f1e15179]
+          - row [ref=f1e15180]:
+            - cell "NPL Over 60d" [ref=f1e15181]
+            - cell "0" [ref=f1e15182]
+            - cell "0" [ref=f1e15183]
+            - cell "0" [ref=f1e15184]
+            - cell "0" [ref=f1e15185]
+            - cell "0" [ref=f1e15186]
+            - cell "0" [ref=f1e15187]
+            - cell "Soma dos buckets >= 61 dias." [ref=f1e15188]
+          - row [ref=f1e15189]:
+            - cell "NPL Over 60d / Carteira" [ref=f1e15190]
+            - cell "0,0%" [ref=f1e15191]
+            - cell "0,0%" [ref=f1e15192]
+            - cell "0,0%" [ref=f1e15193]
+            - cell "0,0%" [ref=f1e15194]
+            - cell "0,0%" [ref=f1e15195]
+            - cell "0,0%" [ref=f1e15196]
+            - cell "NPL Over 60d / Carteira Bruta." [ref=f1e15197]
+          - row [ref=f1e15198]:
+            - cell "NPL Over 90d" [ref=f1e15199]
+            - cell "0" [ref=f1e15200]
+            - cell "0" [ref=f1e15201]
+            - cell "0" [ref=f1e15202]
+            - cell "0" [ref=f1e15203]
+            - cell "0" [ref=f1e15204]
+            - cell "0" [ref=f1e15205]
+            - cell "Soma dos buckets >= 91 dias." [ref=f1e15206]
+          - row [ref=f1e15207]:
+            - cell "NPL Over 90d / Carteira" [ref=f1e15208]
+            - cell "0,0%" [ref=f1e15209]
+            - cell "0,0%" [ref=f1e15210]
+            - cell "0,0%" [ref=f1e15211]
+            - cell "0,0%" [ref=f1e15212]
+            - cell "0,0%" [ref=f1e15213]
+            - cell "0,0%" [ref=f1e15214]
+            - cell "NPL Over 90d / Carteira Bruta." [ref=f1e15215]
+          - row [ref=f1e15216]:
+            - cell "NPL Over 180d" [ref=f1e15217]
+            - cell "0" [ref=f1e15218]
+            - cell "0" [ref=f1e15219]
+            - cell "0" [ref=f1e15220]
+            - cell "0" [ref=f1e15221]
+            - cell "0" [ref=f1e15222]
+            - cell "0" [ref=f1e15223]
+            - cell "Soma dos buckets >= 181 dias." [ref=f1e15224]
+          - row [ref=f1e15225]:
+            - cell "NPL Over 180d / Carteira" [ref=f1e15226]
+            - cell "0,0%" [ref=f1e15227]
+            - cell "0,0%" [ref=f1e15228]
+            - cell "0,0%" [ref=f1e15229]
+            - cell "0,0%" [ref=f1e15230]
+            - cell "0,0%" [ref=f1e15231]
+            - cell "0,0%" [ref=f1e15232]
+            - cell "NPL Over 180d / Carteira Bruta." [ref=f1e15233]
+          - row [ref=f1e15234]:
+            - cell "NPL Over 360d" [ref=f1e15235]
+            - cell "0" [ref=f1e15236]
+            - cell "0" [ref=f1e15237]
+            - cell "0" [ref=f1e15238]
+            - cell "0" [ref=f1e15239]
+            - cell "0" [ref=f1e15240]
+            - cell "0" [ref=f1e15241]
+            - cell "Vencidos acima de 360 dias." [ref=f1e15242]
+          - row [ref=f1e15243]:
+            - cell "NPL Over 360d / Carteira" [ref=f1e15244]
+            - cell "0,0%" [ref=f1e15245]
+            - cell "0,0%" [ref=f1e15246]
+            - cell "0,0%" [ref=f1e15247]
+            - cell "0,0%" [ref=f1e15248]
+            - cell "0,0%" [ref=f1e15249]
+            - cell "0,0%" [ref=f1e15250]
+            - cell "NPL Over 360d / Carteira Bruta." [ref=f1e15251]
+          - row [ref=f1e15252]:
+            - columnheader "Cobertura" [ref=f1e15253]
+          - row [ref=f1e15254]:
+            - cell "PDD / NPL Over 1d" [ref=f1e15255]
+            - cell [ref=f1e15256]
+            - cell [ref=f1e15257]
+            - cell [ref=f1e15258]
+            - cell [ref=f1e15259]
+            - cell [ref=f1e15260]
+            - cell [ref=f1e15261]
+            - cell "PDD total / NPL Over 1d." [ref=f1e15262]
+          - row [ref=f1e15263]:
+            - cell "PDD / NPL Over 30d" [ref=f1e15264]
+            - cell [ref=f1e15265]
+            - cell [ref=f1e15266]
+            - cell [ref=f1e15267]
+            - cell [ref=f1e15268]
+            - cell [ref=f1e15269]
+            - cell [ref=f1e15270]
+            - cell "PDD total / NPL Over 30d." [ref=f1e15271]
+          - row [ref=f1e15272]:
+            - cell "PDD / NPL Over 60d" [ref=f1e15273]
+            - cell [ref=f1e15274]
+            - cell [ref=f1e15275]
+            - cell [ref=f1e15276]
+            - cell [ref=f1e15277]
+            - cell [ref=f1e15278]
+            - cell [ref=f1e15279]
+            - cell "PDD total / NPL Over 60d." [ref=f1e15280]
+          - row [ref=f1e15281]:
+            - cell "PDD / NPL Over 90d" [ref=f1e15282]
+            - cell [ref=f1e15283]
+            - cell [ref=f1e15284]
+            - cell [ref=f1e15285]
+            - cell [ref=f1e15286]
+            - cell [ref=f1e15287]
+            - cell [ref=f1e15288]
+            - cell "PDD total / NPL Over 90d." [ref=f1e15289]
+          - row [ref=f1e15290]:
+            - cell "PDD / NPL Over 180d" [ref=f1e15291]
+            - cell [ref=f1e15292]
+            - cell [ref=f1e15293]
+            - cell [ref=f1e15294]
+            - cell [ref=f1e15295]
+            - cell [ref=f1e15296]
+            - cell [ref=f1e15297]
+            - cell "PDD total / NPL Over 180d." [ref=f1e15298]
+          - row [ref=f1e15299]:
+            - cell "PDD / NPL Over 360d" [ref=f1e15300]
+            - cell [ref=f1e15301]
+            - cell [ref=f1e15302]
+            - cell [ref=f1e15303]
+            - cell [ref=f1e15304]
+            - cell [ref=f1e15305]
+            - cell [ref=f1e15306]
+            - cell "PDD total / NPL Over 360d, quando denominador > 0." [ref=f1e15307]
+          - row [ref=f1e15308]:
+            - columnheader "Visão Ex-Vencidos > 360d" [ref=f1e15309]
+          - row [ref=f1e15310]:
+            - cell "Carteira Ex Over 360d" [ref=f1e15311]
+            - cell "1.762,8 MM" [ref=f1e15312]
+            - cell "1.753,2 MM" [ref=f1e15313]
+            - cell "1.759,0 MM" [ref=f1e15314]
+            - cell "1.737,1 MM" [ref=f1e15315]
+            - cell "1.748,3 MM" [ref=f1e15316]
+            - cell "1.721,2 MM" [ref=f1e15317]
+            - cell "Carteira Bruta - NPL Over 360d." [ref=f1e15318]
+          - row [ref=f1e15319]:
+            - cell "Baixa Over 360d na carteira" [ref=f1e15320]
+            - cell "0" [ref=f1e15321]
+            - cell "0" [ref=f1e15322]
+            - cell "0" [ref=f1e15323]
+            - cell "0" [ref=f1e15324]
+            - cell "0" [ref=f1e15325]
+            - cell "0" [ref=f1e15326]
+            - cell "Saldo vencido acima de 360 dias baixado da carteira." [ref=f1e15327]
+          - row [ref=f1e15328]:
+            - cell "Baixa Over 360d na PDD" [ref=f1e15329]
+            - cell "0" [ref=f1e15330]
+            - cell "0" [ref=f1e15331]
+            - cell "0" [ref=f1e15332]
+            - cell "0" [ref=f1e15333]
+            - cell "0" [ref=f1e15334]
+            - cell "0" [ref=f1e15335]
+            - cell "Menor valor entre PDD total e saldo Over 360d baixado." [ref=f1e15336]
+          - row [ref=f1e15337]:
+            - cell "Baixa Over 360d no PL" [ref=f1e15338]
+            - cell "0" [ref=f1e15339]
+            - cell "0" [ref=f1e15340]
+            - cell "0" [ref=f1e15341]
+            - cell "0" [ref=f1e15342]
+            - cell "0" [ref=f1e15343]
+            - cell "0" [ref=f1e15344]
+            - cell "Parcela da baixa Over 360d não coberta por PDD." [ref=f1e15345]
+          - row [ref=f1e15346]:
+            - cell "PL Ex Over 360d" [ref=f1e15347]
+            - cell "1.806,6 MM" [ref=f1e15348]
+            - cell "1.788,5 MM" [ref=f1e15349]
+            - cell "1.803,0 MM" [ref=f1e15350]
+            - cell "1.797,4 MM" [ref=f1e15351]
+            - cell "1.786,3 MM" [ref=f1e15352]
+            - cell "1.783,1 MM" [ref=f1e15353]
+            - cell "PL FIDC total - baixa Over 360d no PL." [ref=f1e15354]
+          - row [ref=f1e15355]:
+            - cell "Subordinada + Mezanino Ex Over 360d" [ref=f1e15356]
+            - cell "99,9 MM" [ref=f1e15357]
+            - cell "85,5 MM" [ref=f1e15358]
+            - cell "82,1 MM" [ref=f1e15359]
+            - cell "78,8 MM" [ref=f1e15360]
+            - cell "75,2 MM" [ref=f1e15361]
+            - cell "72,7 MM" [ref=f1e15362]
+            - cell "Subordinada + Mezanino após baixa Over 360d no PL." [ref=f1e15363]
+          - row [ref=f1e15364]:
+            - cell "% Subordinação Total Ex Over 360d" [ref=f1e15365]
+            - cell "5,5%" [ref=f1e15366]
+            - cell "4,8%" [ref=f1e15367]
+            - cell "4,5%" [ref=f1e15368]
+            - cell "4,4%" [ref=f1e15369]
+            - cell "4,2%" [ref=f1e15370]
+            - cell "4,1%" [ref=f1e15371]
+            - cell "(Subordinada + Mezanino Ex Over 360d) / PL Ex Over 360d." [ref=f1e15372]
+          - row [ref=f1e15373]:
+            - cell "PDD Ex Over 360d" [ref=f1e15374]
+            - cell "0" [ref=f1e15375]
+            - cell "0" [ref=f1e15376]
+            - cell "0" [ref=f1e15377]
+            - cell "0" [ref=f1e15378]
+            - cell "0" [ref=f1e15379]
+            - cell "0" [ref=f1e15380]
+            - cell "PDD total - baixa Over 360d na PDD." [ref=f1e15381]
+          - row [ref=f1e15382]:
+            - cell "PDD Ex Over 360d / Carteira Ex Over 360d" [ref=f1e15383]
+            - cell "0,0%" [ref=f1e15384]
+            - cell "0,0%" [ref=f1e15385]
+            - cell "0,0%" [ref=f1e15386]
+            - cell "0,0%" [ref=f1e15387]
+            - cell "0,0%" [ref=f1e15388]
+            - cell "0,0%" [ref=f1e15389]
+            - cell "PDD Ex Over 360d / Carteira Ex Over 360d." [ref=f1e15390]
+          - row [ref=f1e15391]:
+            - cell "Carteira Líquida Ex Over 360d" [ref=f1e15392]
+            - cell "1.762,8 MM" [ref=f1e15393]
+            - cell "1.753,2 MM" [ref=f1e15394]
+            - cell "1.759,0 MM" [ref=f1e15395]
+            - cell "1.737,1 MM" [ref=f1e15396]
+            - cell "1.748,3 MM" [ref=f1e15397]
+            - cell "1.721,2 MM" [ref=f1e15398]
+            - cell "Carteira Ex Over 360d - PDD Ex Over 360d." [ref=f1e15399]
+          - row [ref=f1e15400]:
+            - cell "NPL Over 1d Ex 360" [ref=f1e15401]
+            - cell "0" [ref=f1e15402]
+            - cell "0" [ref=f1e15403]
+            - cell "0" [ref=f1e15404]
+            - cell "0" [ref=f1e15405]
+            - cell "0" [ref=f1e15406]
+            - cell "0" [ref=f1e15407]
+            - cell "NPL Over 1d - NPL Over 360d." [ref=f1e15408]
+          - row [ref=f1e15409]:
+            - cell "NPL Over 1d Ex 360 / Carteira Ex 360" [ref=f1e15410]
+            - cell "0,0%" [ref=f1e15411]
+            - cell "0,0%" [ref=f1e15412]
+            - cell "0,0%" [ref=f1e15413]
+            - cell "0,0%" [ref=f1e15414]
+            - cell "0,0%" [ref=f1e15415]
+            - cell "0,0%" [ref=f1e15416]
+            - cell "NPL Over 1d Ex 360 / Carteira Ex 360." [ref=f1e15417]
+          - row [ref=f1e15418]:
+            - cell "NPL Over 30d Ex 360" [ref=f1e15419]
+            - cell "0" [ref=f1e15420]
+            - cell "0" [ref=f1e15421]
+            - cell "0" [ref=f1e15422]
+            - cell "0" [ref=f1e15423]
+            - cell "0" [ref=f1e15424]
+            - cell "0" [ref=f1e15425]
+            - cell "NPL Over 30d - NPL Over 360d." [ref=f1e15426]
+          - row [ref=f1e15427]:
+            - cell "NPL Over 30d Ex 360 / Carteira Ex 360" [ref=f1e15428]
+            - cell "0,0%" [ref=f1e15429]
+            - cell "0,0%" [ref=f1e15430]
+            - cell "0,0%" [ref=f1e15431]
+            - cell "0,0%" [ref=f1e15432]
+            - cell "0,0%" [ref=f1e15433]
+            - cell "0,0%" [ref=f1e15434]
+            - cell "NPL Over 30d Ex 360 / Carteira Ex 360." [ref=f1e15435]
+          - row [ref=f1e15436]:
+            - cell "NPL Over 60d Ex 360" [ref=f1e15437]
+            - cell "0" [ref=f1e15438]
+            - cell "0" [ref=f1e15439]
+            - cell "0" [ref=f1e15440]
+            - cell "0" [ref=f1e15441]
+            - cell "0" [ref=f1e15442]
+            - cell "0" [ref=f1e15443]
+            - cell "NPL Over 60d - NPL Over 360d." [ref=f1e15444]
+          - row [ref=f1e15445]:
+            - cell "NPL Over 60d Ex 360 / Carteira Ex 360" [ref=f1e15446]
+            - cell "0,0%" [ref=f1e15447]
+            - cell "0,0%" [ref=f1e15448]
+            - cell "0,0%" [ref=f1e15449]
+            - cell "0,0%" [ref=f1e15450]
+            - cell "0,0%" [ref=f1e15451]
+            - cell "0,0%" [ref=f1e15452]
+            - cell "NPL Over 60d Ex 360 / Carteira Ex 360." [ref=f1e15453]
+          - row [ref=f1e15454]:
+            - cell "NPL Over 90d Ex 360" [ref=f1e15455]
+            - cell "0" [ref=f1e15456]
+            - cell "0" [ref=f1e15457]
+            - cell "0" [ref=f1e15458]
+            - cell "0" [ref=f1e15459]
+            - cell "0" [ref=f1e15460]
+            - cell "0" [ref=f1e15461]
+            - cell "NPL Over 90d - NPL Over 360d." [ref=f1e15462]
+          - row [ref=f1e15463]:
+            - cell "NPL Over 90d Ex 360 / Carteira Ex 360" [ref=f1e15464]
+            - cell "0,0%" [ref=f1e15465]
+            - cell "0,0%" [ref=f1e15466]
+            - cell "0,0%" [ref=f1e15467]
+            - cell "0,0%" [ref=f1e15468]
+            - cell "0,0%" [ref=f1e15469]
+            - cell "0,0%" [ref=f1e15470]
+            - cell "NPL Over 90d Ex 360 / Carteira Ex 360." [ref=f1e15471]
+          - row [ref=f1e15472]:
+            - cell "NPL Over 180d Ex 360" [ref=f1e15473]
+            - cell "0" [ref=f1e15474]
+            - cell "0" [ref=f1e15475]
+            - cell "0" [ref=f1e15476]
+            - cell "0" [ref=f1e15477]
+            - cell "0" [ref=f1e15478]
+            - cell "0" [ref=f1e15479]
+            - cell "NPL Over 180d - NPL Over 360d." [ref=f1e15480]
+          - row [ref=f1e15481]:
+            - cell "NPL Over 180d Ex 360 / Carteira Ex 360" [ref=f1e15482]
+            - cell "0,0%" [ref=f1e15483]
+            - cell "0,0%" [ref=f1e15484]
+            - cell "0,0%" [ref=f1e15485]
+            - cell "0,0%" [ref=f1e15486]
+            - cell "0,0%" [ref=f1e15487]
+            - cell "0,0%" [ref=f1e15488]
+            - cell "NPL Over 180d Ex 360 / Carteira Ex 360." [ref=f1e15489]
+          - row [ref=f1e15490]:
+            - cell "PDD / NPL Over 90d Ex 360" [ref=f1e15491]
+            - cell [ref=f1e15492]
+            - cell [ref=f1e15493]
+            - cell [ref=f1e15494]
+            - cell [ref=f1e15495]
+            - cell [ref=f1e15496]
+            - cell [ref=f1e15497]
+            - cell "PDD Ex Over 360d / NPL Over 90d Ex 360." [ref=f1e15498]
+          - row [ref=f1e15499]:
+            - columnheader "Roll Rate / fluxo de deterioração" [ref=f1e15500]
+          - row [ref=f1e15501]:
+            - cell "Carteira em dia + atrasada até 30d (t-1)" [ref=f1e15502]
+            - cell "1.753,2 MM" [ref=f1e15503]
+            - cell "1.759,0 MM" [ref=f1e15504]
+            - cell "1.737,1 MM" [ref=f1e15505]
+            - cell "1.748,3 MM" [ref=f1e15506]
+            - cell "1.721,2 MM" [ref=f1e15507]
+            - cell "1.589,1 MM" [ref=f1e15508]
+            - cell "Base do mês anterior alinhada à coluna do mês t." [ref=f1e15509]
+          - row [ref=f1e15510]:
+            - cell "Atrasos 31-60d (t)" [ref=f1e15511]
+            - cell "0" [ref=f1e15512]
+            - cell "0" [ref=f1e15513]
+            - cell "0" [ref=f1e15514]
+            - cell "0" [ref=f1e15515]
+            - cell "0" [ref=f1e15516]
+            - cell "0" [ref=f1e15517]
+            - cell "Bucket 31-60 dias do mês t." [ref=f1e15518]
+          - row [ref=f1e15519]:
+            - cell "Roll Rate" [ref=f1e15520]
+            - cell "0,0%" [ref=f1e15521]
+            - cell "0,0%" [ref=f1e15522]
+            - cell "0,0%" [ref=f1e15523]
+            - cell "0,0%" [ref=f1e15524]
+            - cell "0,0%" [ref=f1e15525]
+            - cell "0,0%" [ref=f1e15526]
+            - 'cell "Atrasos 31-60d_t / (Carteira em dia + atrasada até 30d)_{t-1}." [ref=f1e15527]'
+      - heading "Crédito" [level=4] [ref=f1e15532]:
+        - text: Crédito
+        - generic [ref=f1e15533]:
+          - link "Link to heading":
+            - /url: "#credito"
+      - generic [ref=f1e15538]:
+        - generic [ref=f1e15539]:
+          - generic [ref=f1e15540]: Carteira Bruta ex-360
+          - generic [ref=f1e15541]: R$ 1.762,8 mm
+        - generic [ref=f1e15542]:
+          - generic [ref=f1e15543]: NPL Over 1d ex-360
+          - generic [ref=f1e15544]: 0,0%
+        - generic [ref=f1e15545]:
+          - generic [ref=f1e15546]: NPL Over 30d ex-360
+          - generic [ref=f1e15547]: 0,0%
+        - generic [ref=f1e15548]:
+          - generic [ref=f1e15549]: NPL Over 60d ex-360
+          - generic [ref=f1e15550]: 0,0%
+        - generic [ref=f1e15551]:
+          - generic [ref=f1e15552]: NPL Over 90d ex-360
+          - generic [ref=f1e15553]: 0,0%
+        - generic [ref=f1e15554]:
+          - generic [ref=f1e15555]: Duration
+          - generic [ref=f1e15556]: 3,2 meses
+      - heading "Consolidado" [level=4] [ref=f1e15558]:
+        - text: Consolidado
+        - generic [ref=f1e15559]:
+          - link "Link to heading":
+            - /url: "#consolidado"
+      - generic [ref=f1e15563]:
+        - generic [ref=f1e15564]: Carteira Bruta ex-360 e crescimento YoY
+        - generic "Metodologia" [ref=f1e15565]: i
+      - generic [ref=f1e15567]:
+        - generic [ref=f1e15569]:
+          - button "Show data" [ref=f1e15572] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e15578] [cursor=pointer]
+        - generic [ref=f1e15582]:
+          - generic "Vega visualization" [ref=f1e15583]:
+            - img [ref=f1e15584]:
+              - generic [ref=f1e15588]:
+                - generic [ref=f1e15592]:
+                  - 'generic "X-axis titled ''Competência'' for a discrete scale with 6 values: jan/26, fev/26, mar/26, abr/26, mai/26, jun/26" [ref=f1e15596]':
+                    - generic [ref=f1e15598]:
+                      - generic:
+                        - generic: jan/26
+                        - generic: fev/26
+                        - generic: mar/26
+                        - generic: abr/26
+                        - generic: mai/26
+                        - generic: jun/26
+                      - generic: Competência
+                  - generic "Y-axis titled 'R$ mm' for a linear scale with values from 0 to 1,800" [ref=f1e15599]:
+                    - generic [ref=f1e15601]:
+                      - generic:
+                        - generic: 0,0
+                        - generic: 200,0
+                        - generic: 400,0
+                        - generic: 600,0
+                        - generic: 800,0
+                        - generic: 1,000,0
+                        - generic: 1,200,0
+                        - generic: 1,400,0
+                        - generic: 1,600,0
+                        - generic: 1,800,0
+                      - generic: R$ mm
+                  - generic [ref=f1e15602]:
+                    - 'generic "Competência: jan/26; R$ mm: 1721.19252323; Carteira Bruta ex-360: R$1.721mm" [ref=f1e15603]'
+                    - 'generic "Competência: fev/26; R$ mm: 1748.33017541; Carteira Bruta ex-360: R$1.748mm" [ref=f1e15604]'
+                    - 'generic "Competência: mar/26; R$ mm: 1737.12654287; Carteira Bruta ex-360: R$1.737mm" [ref=f1e15605]'
+                    - 'generic "Competência: abr/26; R$ mm: 1759.02786652; Carteira Bruta ex-360: R$1.759mm" [ref=f1e15606]'
+                    - 'generic "Competência: mai/26; R$ mm: 1753.18113718; Carteira Bruta ex-360: R$1.753mm" [ref=f1e15607]'
+                    - 'generic "Competência: jun/26; R$ mm: 1762.75195844; Carteira Bruta ex-360: R$1.763mm" [ref=f1e15608]'
+                  - generic [ref=f1e15609]:
+                    - 'generic "Competência: jan/26; R$ mm: 1721.19252323; carteira_label: 1.721" [ref=f1e15610]': "1.721"
+                    - 'generic "Competência: fev/26; R$ mm: 1748.33017541; carteira_label: 1.748" [ref=f1e15611]': "1.748"
+                    - 'generic "Competência: mar/26; R$ mm: 1737.12654287; carteira_label: 1.737" [ref=f1e15612]': "1.737"
+                    - 'generic "Competência: abr/26; R$ mm: 1759.02786652; carteira_label: 1.759" [ref=f1e15613]': "1.759"
+                    - 'generic "Competência: mai/26; R$ mm: 1753.18113718; carteira_label: 1.753" [ref=f1e15614]': "1.753"
+                    - 'generic "Competência: jun/26; R$ mm: 1762.75195844; carteira_label: 1.763" [ref=f1e15615]': "1.763"
+                  - generic [ref=f1e15618]:
+                    - generic "Title text 'Carteira Bruta ex-360'": Carteira Bruta ex-360
+                - generic [ref=f1e15622]:
+                  - 'generic "X-axis titled ''Competência'' for a discrete scale with 6 values: jan/26, fev/26, mar/26, abr/26, mai/26, jun/26" [ref=f1e15626]':
+                    - generic [ref=f1e15628]:
+                      - generic:
+                        - generic: jan/26
+                        - generic: fev/26
+                        - generic: mar/26
+                        - generic: abr/26
+                        - generic: mai/26
+                        - generic: jun/26
+                      - generic: Competência
+                  - generic "Y-axis titled 'Crescimento YoY' for a linear scale with values from 0 to 200" [ref=f1e15629]:
+                    - generic [ref=f1e15631]:
+                      - generic:
+                        - generic: 0,0%
+                        - generic: 50,0%
+                        - generic: 100,0%
+                        - generic: 150,0%
+                        - generic: 200,0%
+                      - generic: Crescimento YoY
+                  - 'generic "Competência: jan/26; Crescimento YoY: 167.57962142" [ref=f1e15633]'
+                  - generic [ref=f1e15634]:
+                    - 'generic "Competência: jan/26; Crescimento YoY: 167.57962142" [ref=f1e15635]'
+                    - 'generic "Competência: fev/26; Crescimento YoY: 185.954135389" [ref=f1e15636]'
+                    - 'generic "Competência: mar/26; Crescimento YoY: 186.020388189" [ref=f1e15637]'
+                    - 'generic "Competência: abr/26; Crescimento YoY: 147.455424785" [ref=f1e15638]'
+                    - 'generic "Competência: mai/26; Crescimento YoY: 90.7367233865" [ref=f1e15639]'
+                    - 'generic "Competência: jun/26; Crescimento YoY: 98.6144808138" [ref=f1e15640]'
+                  - 'generic "Competência: jun/26; Crescimento YoY: 98.6144808138; yoy_fmt: 98,6%" [ref=f1e15642]': 98,6%
+                  - generic [ref=f1e15645]:
+                    - generic "Title text 'Crescimento YoY'": Crescimento YoY
+          - group "Click to view actions"
+      - generic [ref=f1e15654]:
+        - generic [ref=f1e15655]: NPL ex-360 por severidade
+        - generic "Metodologia" [ref=f1e15656]: i
+      - generic [ref=f1e15658]:
+        - generic [ref=f1e15660]:
+          - button "Show data" [ref=f1e15663] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e15669] [cursor=pointer]
+        - generic [ref=f1e15673]:
+          - generic "Vega visualization" [ref=f1e15674]:
+            - img [ref=f1e15675]:
+              - generic [ref=f1e15680]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 6 values: jan/26, fev/26, mar/26, abr/26, mai/26, jun/26" [ref=f1e15683]':
+                  - generic [ref=f1e15685]:
+                    - generic:
+                      - generic: jan/26
+                      - generic: fev/26
+                      - generic: mar/26
+                      - generic: abr/26
+                      - generic: mai/26
+                      - generic: jun/26
+                    - generic: Competência
+                - generic "Y-axis titled '% da carteira bruta ex-360' for a linear scale with values from 0 to 0" [ref=f1e15686]:
+                  - generic [ref=f1e15688]:
+                    - generic: 0,0%
+                    - generic: "% da carteira bruta ex-360"
+                - generic:
+                  - 'generic "Competência: jan/26; % da carteira bruta ex-360: 0; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 0,0%"'
+                  - 'generic "Competência: jan/26; % da carteira bruta ex-360: 0; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 0,0%"'
+                  - 'generic "Competência: fev/26; % da carteira bruta ex-360: 0; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 0,0%"'
+                  - 'generic "Competência: fev/26; % da carteira bruta ex-360: 0; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 0,0%"'
+                  - 'generic "Competência: mar/26; % da carteira bruta ex-360: 0; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 0,0%"'
+                  - 'generic "Competência: mar/26; % da carteira bruta ex-360: 0; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 0,0%"'
+                  - 'generic "Competência: abr/26; % da carteira bruta ex-360: 0; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 0,0%"'
+                  - 'generic "Competência: abr/26; % da carteira bruta ex-360: 0; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 0,0%"'
+                  - 'generic "Competência: mai/26; % da carteira bruta ex-360: 0; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 0,0%"'
+                  - 'generic "Competência: mai/26; % da carteira bruta ex-360: 0; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 0,0%"'
+                  - 'generic "Competência: jun/26; % da carteira bruta ex-360: 0; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 0,0%"'
+                  - 'generic "Competência: jun/26; % da carteira bruta ex-360: 0; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 0,0%"'
+                - 'generic "Symbol legend titled ''NPL'' for fill color with 2 values: NPL 1-90d, NPL 91-360d" [ref=f1e15689]':
+                  - generic [ref=f1e15691]:
+                    - generic [ref=f1e15695]:
+                      - generic [ref=f1e15696]: NPL 1-90d
+                      - generic [ref=f1e15698]: NPL 91-360d
+                    - generic: NPL
+          - group "Click to view actions"
+      - generic [ref=f1e15708]:
+        - generic [ref=f1e15709]: Roll rates
+        - generic "Metodologia" [ref=f1e15710]: i
+      - generic [ref=f1e15712]:
+        - generic [ref=f1e15714]:
+          - button "Show data" [ref=f1e15717] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e15723] [cursor=pointer]
+        - generic [ref=f1e15727]:
+          - generic "Vega visualization" [ref=f1e15728]:
+            - img [ref=f1e15729]:
+              - generic [ref=f1e15734]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 6 values: jan/26, fev/26, mar/26, abr/26, mai/26, jun/26" [ref=f1e15737]':
+                  - generic [ref=f1e15739]:
+                    - generic:
+                      - generic: jan/26
+                      - generic: fev/26
+                      - generic: mar/26
+                      - generic: abr/26
+                      - generic: mai/26
+                      - generic: jun/26
+                    - generic: Competência
+                - generic "Y-axis titled 'Roll rate' for a linear scale with values from 0 to 0" [ref=f1e15740]:
+                  - generic [ref=f1e15742]:
+                    - generic: 0,0%
+                    - generic: Roll rate
+                - generic [ref=f1e15743]:
+                  - generic [ref=f1e15744]:
+                    - generic:
+                      - generic:
+                        - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%"'
+                  - generic [ref=f1e15746]:
+                    - generic:
+                      - generic:
+                        - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%"'
+                  - generic [ref=f1e15748]:
+                    - generic:
+                      - generic:
+                        - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%"'
+                  - generic [ref=f1e15750]:
+                    - generic:
+                      - generic:
+                        - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%"'
+                - generic [ref=f1e15752]:
+                  - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%" [ref=f1e15753]'
+                  - 'generic "Competência: fev/26; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%" [ref=f1e15754]'
+                  - 'generic "Competência: mar/26; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%" [ref=f1e15755]'
+                  - 'generic "Competência: abr/26; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%" [ref=f1e15756]'
+                  - 'generic "Competência: mai/26; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%" [ref=f1e15757]'
+                  - 'generic "Competência: jun/26; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%" [ref=f1e15758]'
+                  - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%" [ref=f1e15759]'
+                  - 'generic "Competência: fev/26; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%" [ref=f1e15760]'
+                  - 'generic "Competência: mar/26; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%" [ref=f1e15761]'
+                  - 'generic "Competência: abr/26; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%" [ref=f1e15762]'
+                  - 'generic "Competência: mai/26; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%" [ref=f1e15763]'
+                  - 'generic "Competência: jun/26; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%" [ref=f1e15764]'
+                  - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%" [ref=f1e15765]'
+                  - 'generic "Competência: fev/26; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%" [ref=f1e15766]'
+                  - 'generic "Competência: mar/26; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%" [ref=f1e15767]'
+                  - 'generic "Competência: abr/26; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%" [ref=f1e15768]'
+                  - 'generic "Competência: mai/26; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%" [ref=f1e15769]'
+                  - 'generic "Competência: jun/26; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%" [ref=f1e15770]'
+                  - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%" [ref=f1e15771]'
+                  - 'generic "Competência: fev/26; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%" [ref=f1e15772]'
+                  - 'generic "Competência: mar/26; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%" [ref=f1e15773]'
+                  - 'generic "Competência: abr/26; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%" [ref=f1e15774]'
+                  - 'generic "Competência: mai/26; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%" [ref=f1e15775]'
+                  - 'generic "Competência: jun/26; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%" [ref=f1e15776]'
+                - 'generic "Competência: jun/26; valor: 0; valor_fmt: 0,0%" [ref=f1e15778]': 0,0%
+                - 'generic "Competência: jun/26; valor: 0; valor_fmt: 0,0%" [ref=f1e15780]': 0,0%
+                - 'generic "Competência: jun/26; valor: 0; valor_fmt: 0,0%" [ref=f1e15782]': 0,0%
+                - 'generic "Competência: jun/26; valor: 0; valor_fmt: 0,0%" [ref=f1e15784]': 0,0%
+                - 'generic "Symbol legend titled ''Séries'' for fill color and stroke color with 4 values: Roll 61-90 / carteira a vencer M-3, Roll 91-120 / carteira a vencer M-4, Roll 121-150 / carteira a vencer M-5, Roll 151-180 / carteira a vencer M-6" [ref=f1e15785]':
+                  - generic [ref=f1e15787]:
+                    - generic [ref=f1e15791]:
+                      - generic [ref=f1e15792]: Roll 61-90 / carteira a vencer M-3
+                      - generic [ref=f1e15794]: Roll 91-120 / carteira a vencer M-4
+                      - generic [ref=f1e15796]: Roll 121-150 / carteira a vencer M-5
+                      - generic [ref=f1e15798]: Roll 151-180 / carteira a vencer M-6
+                    - generic: Séries
+          - group "Click to view actions"
+      - generic [ref=f1e15806]:
+        - generic [ref=f1e15807]:
+          - paragraph [ref=f1e15810]: Rolls por mês do ano
+          - button "Help for Rolls por mês do ano" [ref=f1e15814] [cursor=pointer]
+        - generic [ref=f1e15820]:
+          - generic [ref=f1e15821]:
+            - button "Roll 61-90, close by backspace":
+              - generic "Roll 61-90" [ref=f1e15822]
+            - combobox "Selected Roll 61-90. Rolls por mês do ano" [ref=f1e15827]
+          - generic [ref=f1e15828]:
+            - button "Clear all" [ref=f1e15829] [cursor=pointer]
+            - img "open" [ref=f1e15831] [cursor=pointer]
+      - generic [ref=f1e13742]:
+        - generic [ref=f1e13743]: Roll 61-90 por mês do ano
+        - generic "Metodologia" [ref=f1e13744]: i
+      - generic [ref=f1e15834]:
+        - generic [ref=f1e15836]:
+          - button "Show data" [ref=f1e15839] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e15845] [cursor=pointer]
+        - generic [ref=f1e15849]:
+          - generic "Vega visualization" [ref=f1e15850]:
+            - img [ref=f1e15851]:
+              - generic [ref=f1e15856]:
+                - 'generic "X-axis titled ''Mês do ano'' for a discrete scale with 6 values: Jan, Fev, Mar, Abr, Mai, Jun" [ref=f1e15859]':
+                  - generic [ref=f1e15861]:
+                    - generic:
+                      - generic: Jan
+                      - generic: Fev
+                      - generic: Mar
+                      - generic: Abr
+                      - generic: Mai
+                      - generic: Jun
+                    - generic: Mês do ano
+                - generic "Y-axis titled 'Roll rate' for a linear scale with values from 0 to 0" [ref=f1e15862]:
+                  - generic [ref=f1e15864]:
+                    - generic: 0,0%
+                    - generic: Roll rate
+                - generic [ref=f1e15866]:
+                  - generic:
+                    - generic:
+                      - 'generic "Mês do ano: Jan; Roll rate: 0; Ano: 2026; Mês: Jan; Valor: 0,0%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3"'
+                - generic [ref=f1e15868]:
+                  - 'generic "Mês do ano: Jan; Roll rate: 0; Ano: 2026; Mês: Jan; Valor: 0,0%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e15869]'
+                  - 'generic "Mês do ano: Fev; Roll rate: 0; Ano: 2026; Mês: Fev; Valor: 0,0%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e15870]'
+                  - 'generic "Mês do ano: Mar; Roll rate: 0; Ano: 2026; Mês: Mar; Valor: 0,0%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e15871]'
+                  - 'generic "Mês do ano: Abr; Roll rate: 0; Ano: 2026; Mês: Abr; Valor: 0,0%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e15872]'
+                  - 'generic "Mês do ano: Mai; Roll rate: 0; Ano: 2026; Mês: Mai; Valor: 0,0%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e15873]'
+                  - 'generic "Mês do ano: Jun; Roll rate: 0; Ano: 2026; Mês: Jun; Valor: 0,0%; Fórmula: atraso_61_90_t / carteira_a_vencer_t-3" [ref=f1e15874]'
+                - 'generic "Mês do ano: Jun; value_pct: 0; valor_fmt: 0,0%" [ref=f1e15876]': 0,0%
+                - 'generic "Symbol legend titled ''Ano'' for fill color and stroke color with 1 value: 2026" [ref=f1e15877]':
+                  - generic [ref=f1e15879]:
+                    - generic [ref=f1e15880]: "2026"
+                    - generic: Ano
+          - group "Click to view actions"
+      - generic [ref=f1e15891]:
+        - generic [ref=f1e15892]: Duration por FIDC
+        - generic "Metodologia" [ref=f1e15893]: i
+      - generic [ref=f1e15895]:
+        - generic [ref=f1e15897]:
+          - button "Show data" [ref=f1e15900] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e15906] [cursor=pointer]
+        - generic [ref=f1e15910]:
+          - generic "Vega visualization" [ref=f1e15911]:
+            - img [ref=f1e15912]:
+              - generic [ref=f1e15917]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 6 values: jan/26, fev/26, mar/26, abr/26, mai/26, jun/26" [ref=f1e15921]':
+                  - generic [ref=f1e15923]:
+                    - generic:
+                      - generic: jan/26
+                      - generic: fev/26
+                      - generic: mar/26
+                      - generic: abr/26
+                      - generic: mai/26
+                      - generic: jun/26
+                    - generic: Competência
+                - generic "Y-axis titled 'Duration (meses)' for a linear scale with values from 2.4 to 3.6" [ref=f1e15924]:
+                  - generic [ref=f1e15926]:
+                    - generic:
+                      - generic: 2,4
+                      - generic: 2,6
+                      - generic: 2,8
+                      - generic: 3,0
+                      - generic: 3,2
+                      - generic: 3,4
+                      - generic: 3,6
+                    - generic: Duration (meses)
+                - generic [ref=f1e15927]:
+                  - 'generic "Competência: jan/26; Duration (meses): 3.21361472489; FIDC: Consolidado; Duration: 3,2 meses" [ref=f1e15932]'
+                  - 'generic "Competência: jan/26; Duration (meses): 2.50539632346; FIDC: SumUp Solo; Duration: 2,5 meses" [ref=f1e15937]'
+                  - 'generic "Competência: jan/26; Duration (meses): 3.23796378897; FIDC: SUMUP SMART I MEIOS PAGAM...; Duration: 3,2 meses" [ref=f1e15942]'
+                  - 'generic "Competência: jan/26; Duration (meses): 3.41053749868; FIDC: SUMUP SMART II MEIOS PAGA...; Duration: 3,4 meses" [ref=f1e15947]'
+                  - 'generic "Competência: jan/26; Duration (meses): 3.39658100363; FIDC: SUMUP SMART III MEIOS PAG...; Duration: 3,4 meses" [ref=f1e15952]'
+                  - 'generic "Competência: jan/26; Duration (meses): 3.55680688449; FIDC: SumUp Smart IV; Duration: 3,6 meses" [ref=f1e15957]'
+                  - generic [ref=f1e15958]:
+                    - generic:
+                      - generic:
+                        - 'generic "Competência: jan/26; Duration (meses): null; FIDC: BRASIL MICROCRÉDITO; Duration: N/D meses"'
+                - generic [ref=f1e15960]:
+                  - 'generic "Competência: jan/26; Duration (meses): 3.21361472489; FIDC: Consolidado; Duration: 3,2 meses" [ref=f1e15961]'
+                  - 'generic "Competência: fev/26; Duration (meses): 2.99553804447; FIDC: Consolidado; Duration: 3,0 meses" [ref=f1e15962]'
+                  - 'generic "Competência: mar/26; Duration (meses): 2.92732504753; FIDC: Consolidado; Duration: 2,9 meses" [ref=f1e15963]'
+                  - 'generic "Competência: abr/26; Duration (meses): 3.0204723618; FIDC: Consolidado; Duration: 3,0 meses" [ref=f1e15964]'
+                  - 'generic "Competência: mai/26; Duration (meses): 3.08123076847; FIDC: Consolidado; Duration: 3,1 meses" [ref=f1e15965]'
+                  - 'generic "Competência: jun/26; Duration (meses): 3.15261006246; FIDC: Consolidado; Duration: 3,2 meses" [ref=f1e15966]'
+                  - 'generic "Competência: jan/26; Duration (meses): 2.50539632346; FIDC: SumUp Solo; Duration: 2,5 meses" [ref=f1e15967]'
+                  - 'generic "Competência: fev/26; Duration (meses): 2.94837784576; FIDC: SumUp Solo; Duration: 2,9 meses" [ref=f1e15968]'
+                  - 'generic "Competência: mar/26; Duration (meses): 3.35642848767; FIDC: SumUp Solo; Duration: 3,4 meses" [ref=f1e15969]'
+                  - 'generic "Competência: abr/26; Duration (meses): 3.33523876429; FIDC: SumUp Solo; Duration: 3,3 meses" [ref=f1e15970]'
+                  - 'generic "Competência: mai/26; Duration (meses): 3.48330391064; FIDC: SumUp Solo; Duration: 3,5 meses" [ref=f1e15971]'
+                  - 'generic "Competência: jun/26; Duration (meses): 3.56866385617; FIDC: SumUp Solo; Duration: 3,6 meses" [ref=f1e15972]'
+                  - 'generic "Competência: jan/26; Duration (meses): 3.23796378897; FIDC: SUMUP SMART I MEIOS PAGAM...; Duration: 3,2 meses" [ref=f1e15973]'
+                  - 'generic "Competência: fev/26; Duration (meses): 2.66165417852; FIDC: SUMUP SMART I MEIOS PAGAM...; Duration: 2,7 meses" [ref=f1e15974]'
+                  - 'generic "Competência: mar/26; Duration (meses): 2.42533216973; FIDC: SUMUP SMART I MEIOS PAGAM...; Duration: 2,4 meses" [ref=f1e15975]'
+                  - 'generic "Competência: abr/26; Duration (meses): 2.80346962238; FIDC: SUMUP SMART I MEIOS PAGAM...; Duration: 2,8 meses" [ref=f1e15976]'
+                  - 'generic "Competência: mai/26; Duration (meses): 2.96140771352; FIDC: SUMUP SMART I MEIOS PAGAM...; Duration: 3,0 meses" [ref=f1e15977]'
+                  - 'generic "Competência: jun/26; Duration (meses): 3.05095342991; FIDC: SUMUP SMART I MEIOS PAGAM...; Duration: 3,1 meses" [ref=f1e15978]'
+                  - 'generic "Competência: jan/26; Duration (meses): 3.41053749868; FIDC: SUMUP SMART II MEIOS PAGA...; Duration: 3,4 meses" [ref=f1e15979]'
+                  - 'generic "Competência: fev/26; Duration (meses): 3.12005270383; FIDC: SUMUP SMART II MEIOS PAGA...; Duration: 3,1 meses" [ref=f1e15980]'
+                  - 'generic "Competência: mar/26; Duration (meses): 2.83257136379; FIDC: SUMUP SMART II MEIOS PAGA...; Duration: 2,8 meses" [ref=f1e15981]'
+                  - 'generic "Competência: abr/26; Duration (meses): 2.87366236035; FIDC: SUMUP SMART II MEIOS PAGA...; Duration: 2,9 meses" [ref=f1e15982]'
+                  - 'generic "Competência: mai/26; Duration (meses): 2.85402079195; FIDC: SUMUP SMART II MEIOS PAGA...; Duration: 2,9 meses" [ref=f1e15983]'
+                  - 'generic "Competência: jun/26; Duration (meses): 2.96556844286; FIDC: SUMUP SMART II MEIOS PAGA...; Duration: 3,0 meses" [ref=f1e15984]'
+                  - 'generic "Competência: jan/26; Duration (meses): 3.39658100363; FIDC: SUMUP SMART III MEIOS PAG...; Duration: 3,4 meses" [ref=f1e15985]'
+                  - 'generic "Competência: fev/26; Duration (meses): 2.99602972502; FIDC: SUMUP SMART III MEIOS PAG...; Duration: 3,0 meses" [ref=f1e15986]'
+                  - 'generic "Competência: mar/26; Duration (meses): 2.67422575895; FIDC: SUMUP SMART III MEIOS PAG...; Duration: 2,7 meses" [ref=f1e15987]'
+                  - 'generic "Competência: abr/26; Duration (meses): 2.74535418905; FIDC: SUMUP SMART III MEIOS PAG...; Duration: 2,7 meses" [ref=f1e15988]'
+                  - 'generic "Competência: mai/26; Duration (meses): 2.79170874866; FIDC: SUMUP SMART III MEIOS PAG...; Duration: 2,8 meses" [ref=f1e15989]'
+                  - 'generic "Competência: jun/26; Duration (meses): 2.99972326682; FIDC: SUMUP SMART III MEIOS PAG...; Duration: 3,0 meses" [ref=f1e15990]'
+                  - 'generic "Competência: jan/26; Duration (meses): 3.55680688449; FIDC: SumUp Smart IV; Duration: 3,6 meses" [ref=f1e15991]'
+                  - 'generic "Competência: fev/26; Duration (meses): 3.33537492165; FIDC: SumUp Smart IV; Duration: 3,3 meses" [ref=f1e15992]'
+                  - 'generic "Competência: mar/26; Duration (meses): 3.41811707869; FIDC: SumUp Smart IV; Duration: 3,4 meses" [ref=f1e15993]'
+                  - 'generic "Competência: abr/26; Duration (meses): 3.31280623191; FIDC: SumUp Smart IV; Duration: 3,3 meses" [ref=f1e15994]'
+                  - 'generic "Competência: mai/26; Duration (meses): 3.26129201717; FIDC: SumUp Smart IV; Duration: 3,3 meses" [ref=f1e15995]'
+                  - 'generic "Competência: jun/26; Duration (meses): 3.16628721741; FIDC: SumUp Smart IV; Duration: 3,2 meses" [ref=f1e15996]'
+                - 'generic "Competência: jun/26; duration_months: 3.15261006246; duration_fmt: 3,2 meses" [ref=f1e15998]': 3,2 meses
+                - 'generic "Competência: jun/26; duration_months: 3.56866385617; duration_fmt: 3,6 meses" [ref=f1e16000]': 3,6 meses
+                - 'generic "Competência: jun/26; duration_months: 3.05095342991; duration_fmt: 3,1 meses" [ref=f1e16002]': 3,1 meses
+                - 'generic "Competência: jun/26; duration_months: 2.96556844286; duration_fmt: 3,0 meses" [ref=f1e16004]': 3,0 meses
+                - 'generic "Competência: jun/26; duration_months: 2.99972326682; duration_fmt: 3,0 meses" [ref=f1e16006]': 3,0 meses
+                - 'generic "Competência: jun/26; duration_months: 3.16628721741; duration_fmt: 3,2 meses" [ref=f1e16008]': 3,2 meses
+                - 'generic "Symbol legend titled ''FIDC'' for fill color and stroke color with 7 values: Consolidado, SumUp Solo, SUMUP SMART I MEIOS PAGAM..., SUMUP SMART II MEIOS PAGA..., SUMUP SMART III MEIOS PAG..., SumUp Smart IV, BRASIL MICROCRÉDITO" [ref=f1e16009]':
+                  - generic [ref=f1e16011]:
+                    - generic [ref=f1e16015]:
+                      - generic [ref=f1e16016]: Consolidado
+                      - generic [ref=f1e16018]: SumUp Solo
+                      - generic [ref=f1e16020]: SUMUP SMART I MEIOS PAGAM...
+                      - generic [ref=f1e16022]: SUMUP SMART II MEIOS PAGA...
+                      - generic [ref=f1e16024]: SUMUP SMART III MEIOS PAG...
+                      - generic [ref=f1e16026]: SumUp Smart IV
+                      - generic [ref=f1e16028]: BRASIL MICROCRÉDITO
+                    - generic: FIDC
+          - group "Click to view actions"
+      - generic [ref=f1e16038]:
+        - generic [ref=f1e16039]: Cohorts recentes
+        - generic "Metodologia" [ref=f1e16040]: i
+      - generic [ref=f1e16042]:
+        - generic [ref=f1e16044]:
+          - button "Show data" [ref=f1e16047] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e16053] [cursor=pointer]
+        - generic [ref=f1e16057]:
+          - generic "Vega visualization" [ref=f1e16058]:
+            - img [ref=f1e16059]:
+              - generic [ref=f1e16064]:
+                - 'generic "X-axis titled ''Mês de maturação'' for a discrete scale with 5 values: M1, M2, M3, M4, M5" [ref=f1e16068]':
+                  - generic [ref=f1e16070]:
+                    - generic:
+                      - generic: M1
+                      - generic: M2
+                      - generic: M3
+                      - generic: M4
+                      - generic: M5
+                    - generic: Mês de maturação
+                - generic "Y-axis titled '% do saldo a vencer em 30d' for a linear scale with values from 0.00 to 0.25" [ref=f1e16071]:
+                  - generic [ref=f1e16073]:
+                    - generic:
+                      - generic: 0,0%
+                      - generic: 0,1%
+                      - generic: 0,1%
+                      - generic: 0,1%
+                      - generic: 0,2%
+                      - generic: 0,3%
+                    - generic: "% do saldo a vencer em 30d"
+                - generic [ref=f1e16074]:
+                  - generic [ref=f1e16075]:
+                    - generic:
+                      - generic:
+                        - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Jan-26; Mês: M1; Valor: 0,0%"'
+                  - generic [ref=f1e16077]:
+                    - generic:
+                      - generic:
+                        - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Fev-26; Mês: M1; Valor: 0,0%"'
+                  - generic [ref=f1e16079]:
+                    - generic:
+                      - generic:
+                        - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Mar-26; Mês: M1; Valor: 0,0%"'
+                  - generic [ref=f1e16081]:
+                    - generic:
+                      - generic:
+                        - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Abr-26; Mês: M1; Valor: 0,0%"'
+                  - generic [ref=f1e16083]:
+                    - generic:
+                      - generic:
+                        - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Mai-26; Mês: M1; Valor: 0,0%"'
+                - generic [ref=f1e16085]:
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Jan-26; Mês: M1; Valor: 0,0%" [ref=f1e16086]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 0; Safra: Jan-26; Mês: M2; Valor: 0,0%" [ref=f1e16087]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 0; Safra: Jan-26; Mês: M3; Valor: 0,0%" [ref=f1e16088]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 0; Safra: Jan-26; Mês: M4; Valor: 0,0%" [ref=f1e16089]'
+                  - 'generic "Mês de maturação: M5; % do saldo a vencer em 30d: 0; Safra: Jan-26; Mês: M5; Valor: 0,0%" [ref=f1e16090]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Fev-26; Mês: M1; Valor: 0,0%" [ref=f1e16091]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 0; Safra: Fev-26; Mês: M2; Valor: 0,0%" [ref=f1e16092]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 0; Safra: Fev-26; Mês: M3; Valor: 0,0%" [ref=f1e16093]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 0; Safra: Fev-26; Mês: M4; Valor: 0,0%" [ref=f1e16094]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Mar-26; Mês: M1; Valor: 0,0%" [ref=f1e16095]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 0; Safra: Mar-26; Mês: M2; Valor: 0,0%" [ref=f1e16096]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 0; Safra: Mar-26; Mês: M3; Valor: 0,0%" [ref=f1e16097]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Abr-26; Mês: M1; Valor: 0,0%" [ref=f1e16098]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 0; Safra: Abr-26; Mês: M2; Valor: 0,0%" [ref=f1e16099]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Mai-26; Mês: M1; Valor: 0,0%" [ref=f1e16100]'
+                - 'generic "Mês de maturação: M5; valor_pct: 0; valor_fmt: 0,0%" [ref=f1e16102]': 0,0%
+                - 'generic "Mês de maturação: M4; valor_pct: 0; valor_fmt: 0,0%" [ref=f1e16104]': 0,0%
+                - 'generic "Mês de maturação: M3; valor_pct: 0; valor_fmt: 0,0%" [ref=f1e16106]': 0,0%
+                - 'generic "Mês de maturação: M2; valor_pct: 0; valor_fmt: 0,0%" [ref=f1e16108]': 0,0%
+                - 'generic "Mês de maturação: M1; valor_pct: 0; valor_fmt: 0,0%" [ref=f1e16110]': 0,0%
+                - 'generic "Symbol legend titled ''Safra'' for fill color and stroke color with 5 values: Jan-26, Fev-26, Mar-26, Abr-26, Mai-26" [ref=f1e16111]':
+                  - generic [ref=f1e16113]:
+                    - generic [ref=f1e16117]:
+                      - generic [ref=f1e16118]: Jan-26
+                      - generic [ref=f1e16120]: Fev-26
+                      - generic [ref=f1e16122]: Mar-26
+                      - generic [ref=f1e16124]: Abr-26
+                      - generic [ref=f1e16126]: Mai-26
+                    - generic: Safra
+          - group "Click to view actions"
+      - heading "Fundos individuais" [level=4] [ref=f1e16137]:
+        - text: Fundos individuais
+        - generic [ref=f1e16138]:
+          - link "Link to heading":
+            - /url: "#fundos-individuais"
+      - generic [ref=f1e16142]:
+        - generic [ref=f1e16143]:
+          - generic [ref=f1e16144]: SUMUP SOLO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILI · 45598747000121
+          - combobox "Selected SUMUP SOLO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILI · 45598747000121. Fundo" [ref=f1e16146]
+        - img "open" [ref=f1e16148]
+      - generic [ref=f1e16153]:
+        - generic [ref=f1e16154]: Rentabilidade por série
+        - generic "Metodologia" [ref=f1e16155]: i
+      - generic [ref=f1e16159]:
+        - button "Show/hide columns" [ref=f1e16163] [cursor=pointer]
+        - button "Download as CSV" [ref=f1e16169] [cursor=pointer]
+        - button "Search" [ref=f1e16175] [cursor=pointer]
+        - button "Fullscreen" [ref=f1e16181] [cursor=pointer]
+      - paragraph [ref=f1e16196]: "Acumulado de 12 meses indisponível porque há competência necessária sem retorno reportado. Sênior · Série 2: 11/2025; Subordinada 1: 11/2025"
+      - generic [ref=f1e14188]:
+        - generic [ref=f1e14189]: Carteira Bruta ex-360 e crescimento YoY
+        - generic "Metodologia" [ref=f1e14190]: i
+      - generic [ref=f1e14192]:
+        - generic [ref=f1e14194]:
+          - button "Show data" [ref=f1e14197] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e14203] [cursor=pointer]
+        - generic [ref=f1e14207]:
+          - generic "Vega visualization" [ref=f1e16197]:
+            - img [ref=f1e16198]:
+              - generic [ref=f1e16202]:
+                - generic [ref=f1e16206]:
+                  - 'generic "X-axis titled ''Competência'' for a discrete scale with 6 values: jan/26, fev/26, mar/26, abr/26, mai/26, jun/26" [ref=f1e16210]':
+                    - generic [ref=f1e16212]:
+                      - generic:
+                        - generic: jan/26
+                        - generic: fev/26
+                        - generic: mar/26
+                        - generic: abr/26
+                        - generic: mai/26
+                        - generic: jun/26
+                      - generic: Competência
+                  - generic "Y-axis titled 'R$ mm' for a linear scale with values from 0 to 400" [ref=f1e16213]:
+                    - generic [ref=f1e16215]:
+                      - generic:
+                        - generic: 0,0
+                        - generic: 50,0
+                        - generic: 100,0
+                        - generic: 150,0
+                        - generic: 200,0
+                        - generic: 250,0
+                        - generic: 300,0
+                        - generic: 350,0
+                        - generic: 400,0
+                      - generic: R$ mm
+                  - generic [ref=f1e16216]:
+                    - 'generic "Competência: jan/26; R$ mm: 340.94150151; Carteira Bruta ex-360: R$341mm" [ref=f1e16217]'
+                    - 'generic "Competência: fev/26; R$ mm: 360.65250639; Carteira Bruta ex-360: R$361mm" [ref=f1e16218]'
+                    - 'generic "Competência: mar/26; R$ mm: 354.833778; Carteira Bruta ex-360: R$355mm" [ref=f1e16219]'
+                    - 'generic "Competência: abr/26; R$ mm: 362.88411999; Carteira Bruta ex-360: R$363mm" [ref=f1e16220]'
+                    - 'generic "Competência: mai/26; R$ mm: 348.61197874; Carteira Bruta ex-360: R$349mm" [ref=f1e16221]'
+                    - 'generic "Competência: jun/26; R$ mm: 355.10373298; Carteira Bruta ex-360: R$355mm" [ref=f1e16222]'
+                  - generic [ref=f1e16223]:
+                    - 'generic "Competência: jan/26; R$ mm: 340.94150151; carteira_label: 341" [ref=f1e16224]': "341"
+                    - 'generic "Competência: fev/26; R$ mm: 360.65250639; carteira_label: 361" [ref=f1e16225]': "361"
+                    - 'generic "Competência: mar/26; R$ mm: 354.833778; carteira_label: 355" [ref=f1e16226]': "355"
+                    - 'generic "Competência: abr/26; R$ mm: 362.88411999; carteira_label: 363" [ref=f1e16227]': "363"
+                    - 'generic "Competência: mai/26; R$ mm: 348.61197874; carteira_label: 349" [ref=f1e16228]': "349"
+                    - 'generic "Competência: jun/26; R$ mm: 355.10373298; carteira_label: 355" [ref=f1e16229]': "355"
+                  - generic [ref=f1e16232]:
+                    - generic "Title text 'Carteira Bruta ex-360'": Carteira Bruta ex-360
+                - generic [ref=f1e16236]:
+                  - 'generic "X-axis titled ''Competência'' for a discrete scale with 6 values: jan/26, fev/26, mar/26, abr/26, mai/26, jun/26" [ref=f1e16240]':
+                    - generic [ref=f1e16242]:
+                      - generic:
+                        - generic: jan/26
+                        - generic: fev/26
+                        - generic: mar/26
+                        - generic: abr/26
+                        - generic: mai/26
+                        - generic: jun/26
+                      - generic: Competência
+                  - generic "Y-axis titled 'Crescimento YoY' for a linear scale with values from −50 to 450" [ref=f1e16243]:
+                    - generic [ref=f1e16245]:
+                      - generic:
+                        - generic: 0,0%
+                        - generic: 100,0%
+                        - generic: 200,0%
+                        - generic: 300,0%
+                        - generic: 400,0%
+                      - generic: Crescimento YoY
+                  - 'generic "Competência: jan/26; Crescimento YoY: 160.034943722" [ref=f1e16247]'
+                  - generic [ref=f1e16248]:
+                    - 'generic "Competência: jan/26; Crescimento YoY: 160.034943722" [ref=f1e16249]'
+                    - 'generic "Competência: fev/26; Crescimento YoY: 255.212508836" [ref=f1e16250]'
+                    - 'generic "Competência: mar/26; Crescimento YoY: 422.921370424" [ref=f1e16251]'
+                    - 'generic "Competência: abr/26; Crescimento YoY: 139.778570148" [ref=f1e16252]'
+                    - 'generic "Competência: mai/26; Crescimento YoY: −1.90745001904" [ref=f1e16253]'
+                    - 'generic "Competência: jun/26; Crescimento YoY: 0.0670728448278" [ref=f1e16254]'
+                  - 'generic "Competência: jun/26; Crescimento YoY: 0.0670728448278; yoy_fmt: 0,1%" [ref=f1e16256]': 0,1%
+                  - generic [ref=f1e16259]:
+                    - generic "Title text 'Crescimento YoY'": Crescimento YoY
+          - group "Click to view actions"
+      - generic [ref=f1e16269]:
+        - generic [ref=f1e16270]: NPL ex-360 por severidade
+        - generic "Metodologia" [ref=f1e16271]: i
+      - generic [ref=f1e16274]:
+        - generic [ref=f1e16276]:
+          - button "Show data" [ref=f1e16279] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e16285] [cursor=pointer]
+        - generic [ref=f1e16289]:
+          - generic "Vega visualization" [ref=f1e16290]:
+            - img [ref=f1e16291]:
+              - generic [ref=f1e16296]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 6 values: jan/26, fev/26, mar/26, abr/26, mai/26, jun/26" [ref=f1e16299]':
+                  - generic [ref=f1e16301]:
+                    - generic:
+                      - generic: jan/26
+                      - generic: fev/26
+                      - generic: mar/26
+                      - generic: abr/26
+                      - generic: mai/26
+                      - generic: jun/26
+                    - generic: Competência
+                - generic "Y-axis titled '% da carteira bruta ex-360' for a linear scale with values from 0 to 0" [ref=f1e16302]:
+                  - generic [ref=f1e16304]:
+                    - generic: 0,0%
+                    - generic: "% da carteira bruta ex-360"
+                - generic:
+                  - 'generic "Competência: jan/26; % da carteira bruta ex-360: 0; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 0,0%"'
+                  - 'generic "Competência: jan/26; % da carteira bruta ex-360: 0; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 0,0%"'
+                  - 'generic "Competência: fev/26; % da carteira bruta ex-360: 0; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 0,0%"'
+                  - 'generic "Competência: fev/26; % da carteira bruta ex-360: 0; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 0,0%"'
+                  - 'generic "Competência: mar/26; % da carteira bruta ex-360: 0; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 0,0%"'
+                  - 'generic "Competência: mar/26; % da carteira bruta ex-360: 0; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 0,0%"'
+                  - 'generic "Competência: abr/26; % da carteira bruta ex-360: 0; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 0,0%"'
+                  - 'generic "Competência: abr/26; % da carteira bruta ex-360: 0; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 0,0%"'
+                  - 'generic "Competência: mai/26; % da carteira bruta ex-360: 0; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 0,0%"'
+                  - 'generic "Competência: mai/26; % da carteira bruta ex-360: 0; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 0,0%"'
+                  - 'generic "Competência: jun/26; % da carteira bruta ex-360: 0; NPL: NPL 1-90d; stack_order: 1; Série: NPL 1-90d; Valor: 0,0%"'
+                  - 'generic "Competência: jun/26; % da carteira bruta ex-360: 0; NPL: NPL 91-360d; stack_order: 2; Série: NPL 91-360d; Valor: 0,0%"'
+                - 'generic "Symbol legend titled ''NPL'' for fill color with 2 values: NPL 1-90d, NPL 91-360d" [ref=f1e16305]':
+                  - generic [ref=f1e16307]:
+                    - generic [ref=f1e16311]:
+                      - generic [ref=f1e16312]: NPL 1-90d
+                      - generic [ref=f1e16314]: NPL 91-360d
+                    - generic: NPL
+          - group "Click to view actions"
+      - generic [ref=f1e14355]:
+        - generic [ref=f1e16321]: Roll rates
+        - generic "Metodologia" [ref=f1e16322]: i
+      - generic [ref=f1e16324]:
+        - generic [ref=f1e16326]:
+          - button "Show data" [ref=f1e16329] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e16335] [cursor=pointer]
+        - generic [ref=f1e16339]:
+          - generic "Vega visualization" [ref=f1e16340]:
+            - img [ref=f1e16341]:
+              - generic [ref=f1e16346]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 6 values: jan/26, fev/26, mar/26, abr/26, mai/26, jun/26" [ref=f1e16349]':
+                  - generic [ref=f1e16351]:
+                    - generic:
+                      - generic: jan/26
+                      - generic: fev/26
+                      - generic: mar/26
+                      - generic: abr/26
+                      - generic: mai/26
+                      - generic: jun/26
+                    - generic: Competência
+                - generic "Y-axis titled 'Roll rate' for a linear scale with values from 0 to 0" [ref=f1e16352]:
+                  - generic [ref=f1e16354]:
+                    - generic: 0,0%
+                    - generic: Roll rate
+                - generic [ref=f1e16355]:
+                  - generic [ref=f1e16356]:
+                    - generic:
+                      - generic:
+                        - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%"'
+                  - generic [ref=f1e16358]:
+                    - generic:
+                      - generic:
+                        - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%"'
+                  - generic [ref=f1e16360]:
+                    - generic:
+                      - generic:
+                        - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%"'
+                  - generic [ref=f1e16362]:
+                    - generic:
+                      - generic:
+                        - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%"'
+                - generic [ref=f1e16364]:
+                  - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%" [ref=f1e16365]'
+                  - 'generic "Competência: mar/26; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%" [ref=f1e16366]'
+                  - 'generic "Competência: abr/26; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%" [ref=f1e16367]'
+                  - 'generic "Competência: mai/26; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%" [ref=f1e16368]'
+                  - 'generic "Competência: jun/26; Roll rate: 0; Séries: Roll 61-90 / carteira a vencer M-3; Série: Roll 61-90 / carteira a vencer M-3; Valor: 0,0%" [ref=f1e16369]'
+                  - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%" [ref=f1e16370]'
+                  - 'generic "Competência: fev/26; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%" [ref=f1e16371]'
+                  - 'generic "Competência: abr/26; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%" [ref=f1e16372]'
+                  - 'generic "Competência: mai/26; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%" [ref=f1e16373]'
+                  - 'generic "Competência: jun/26; Roll rate: 0; Séries: Roll 91-120 / carteira a vencer M-4; Série: Roll 91-120 / carteira a vencer M-4; Valor: 0,0%" [ref=f1e16374]'
+                  - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%" [ref=f1e16375]'
+                  - 'generic "Competência: fev/26; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%" [ref=f1e16376]'
+                  - 'generic "Competência: mar/26; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%" [ref=f1e16377]'
+                  - 'generic "Competência: mai/26; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%" [ref=f1e16378]'
+                  - 'generic "Competência: jun/26; Roll rate: 0; Séries: Roll 121-150 / carteira a vencer M-5; Série: Roll 121-150 / carteira a vencer M-5; Valor: 0,0%" [ref=f1e16379]'
+                  - 'generic "Competência: jan/26; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%" [ref=f1e16380]'
+                  - 'generic "Competência: fev/26; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%" [ref=f1e16381]'
+                  - 'generic "Competência: mar/26; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%" [ref=f1e16382]'
+                  - 'generic "Competência: abr/26; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%" [ref=f1e16383]'
+                  - 'generic "Competência: jun/26; Roll rate: 0; Séries: Roll 151-180 / carteira a vencer M-6; Série: Roll 151-180 / carteira a vencer M-6; Valor: 0,0%" [ref=f1e16384]'
+                - 'generic "Competência: jun/26; valor: 0; valor_fmt: 0,0%" [ref=f1e16386]': 0,0%
+                - 'generic "Competência: jun/26; valor: 0; valor_fmt: 0,0%" [ref=f1e16388]': 0,0%
+                - 'generic "Competência: jun/26; valor: 0; valor_fmt: 0,0%" [ref=f1e16390]': 0,0%
+                - 'generic "Competência: jun/26; valor: 0; valor_fmt: 0,0%" [ref=f1e16392]': 0,0%
+                - 'generic "Symbol legend titled ''Séries'' for fill color and stroke color with 4 values: Roll 61-90 / carteira a vencer M-3, Roll 91-120 / carteira a vencer M-4, Roll 121-150 / carteira a vencer M-5, Roll 151-180 / carteira a vencer M-6" [ref=f1e16393]':
+                  - generic [ref=f1e16395]:
+                    - generic [ref=f1e16399]:
+                      - generic [ref=f1e16400]: Roll 61-90 / carteira a vencer M-3
+                      - generic [ref=f1e16402]: Roll 91-120 / carteira a vencer M-4
+                      - generic [ref=f1e16404]: Roll 121-150 / carteira a vencer M-5
+                      - generic [ref=f1e16406]: Roll 151-180 / carteira a vencer M-6
+                    - generic: Séries
+          - group "Click to view actions"
+      - generic [ref=f1e16413]:
+        - generic [ref=f1e16414]: Duration
+        - generic "Metodologia" [ref=f1e16415]: i
+      - generic [ref=f1e16417]:
+        - generic [ref=f1e16419]:
+          - button "Show data" [ref=f1e16422] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e16428] [cursor=pointer]
+        - generic [ref=f1e16432]:
+          - generic "Vega visualization" [ref=f1e16433]:
+            - img [ref=f1e16434]:
+              - generic [ref=f1e16439]:
+                - 'generic "X-axis titled ''Competência'' for a discrete scale with 6 values: jan/26, fev/26, mar/26, abr/26, mai/26, jun/26" [ref=f1e16443]':
+                  - generic [ref=f1e16445]:
+                    - generic:
+                      - generic: jan/26
+                      - generic: fev/26
+                      - generic: mar/26
+                      - generic: abr/26
+                      - generic: mai/26
+                      - generic: jun/26
+                    - generic: Competência
+                - generic "Y-axis titled 'Duration (meses)' for a linear scale with values from 2.5 to 3.6" [ref=f1e16446]:
+                  - generic [ref=f1e16448]:
+                    - generic:
+                      - generic: 2,6
+                      - generic: 2,8
+                      - generic: 3,0
+                      - generic: 3,2
+                      - generic: 3,4
+                      - generic: 3,6
+                    - generic: Duration (meses)
+                - 'generic "Competência: jan/26; Duration (meses): 2.50539632346; FIDC: SumUp Solo; Duration: 2,5 meses" [ref=f1e16454]'
+                - generic [ref=f1e16455]:
+                  - 'generic "Competência: jan/26; Duration (meses): 2.50539632346; FIDC: SumUp Solo; Duration: 2,5 meses" [ref=f1e16456]'
+                  - 'generic "Competência: fev/26; Duration (meses): 2.94837784576; FIDC: SumUp Solo; Duration: 2,9 meses" [ref=f1e16457]'
+                  - 'generic "Competência: mar/26; Duration (meses): 3.35642848767; FIDC: SumUp Solo; Duration: 3,4 meses" [ref=f1e16458]'
+                  - 'generic "Competência: abr/26; Duration (meses): 3.33523876429; FIDC: SumUp Solo; Duration: 3,3 meses" [ref=f1e16459]'
+                  - 'generic "Competência: mai/26; Duration (meses): 3.48330391064; FIDC: SumUp Solo; Duration: 3,5 meses" [ref=f1e16460]'
+                  - 'generic "Competência: jun/26; Duration (meses): 3.56866385617; FIDC: SumUp Solo; Duration: 3,6 meses" [ref=f1e16461]'
+                - 'generic "Competência: jun/26; duration_months: 3.56866385617; duration_fmt: 3,6 meses" [ref=f1e16463]': 3,6 meses
+                - 'generic "Symbol legend titled ''FIDC'' for fill color and stroke color with 1 value: SumUp Solo" [ref=f1e16464]':
+                  - generic [ref=f1e16466]:
+                    - generic [ref=f1e16467]: SumUp Solo
+                    - generic: FIDC
+          - group "Click to view actions"
+      - generic [ref=f1e14402]:
+        - generic [ref=f1e16478]: Cohorts recentes
+        - generic "Metodologia" [ref=f1e16479]: i
+      - generic [ref=f1e16482]:
+        - generic [ref=f1e16484]:
+          - button "Show data" [ref=f1e16487] [cursor=pointer]
+          - button "Fullscreen" [ref=f1e16493] [cursor=pointer]
+        - generic [ref=f1e16497]:
+          - generic "Vega visualization" [ref=f1e16498]:
+            - img [ref=f1e16499]:
+              - generic [ref=f1e16504]:
+                - 'generic "X-axis titled ''Mês de maturação'' for a discrete scale with 5 values: M1, M2, M3, M4, M5" [ref=f1e16508]':
+                  - generic [ref=f1e16510]:
+                    - generic:
+                      - generic: M1
+                      - generic: M2
+                      - generic: M3
+                      - generic: M4
+                      - generic: M5
+                    - generic: Mês de maturação
+                - generic "Y-axis titled '% do saldo a vencer em 30d' for a linear scale with values from 0.00 to 0.25" [ref=f1e16511]:
+                  - generic [ref=f1e16513]:
+                    - generic:
+                      - generic: 0,0%
+                      - generic: 0,1%
+                      - generic: 0,1%
+                      - generic: 0,1%
+                      - generic: 0,2%
+                      - generic: 0,3%
+                    - generic: "% do saldo a vencer em 30d"
+                - generic [ref=f1e16514]:
+                  - generic [ref=f1e16515]:
+                    - generic:
+                      - generic:
+                        - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Jan-26; Mês: M1; Valor: 0,0%"'
+                  - generic [ref=f1e16517]:
+                    - generic:
+                      - generic:
+                        - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Fev-26; Mês: M1; Valor: 0,0%"'
+                  - generic [ref=f1e16519]:
+                    - generic:
+                      - generic:
+                        - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Mar-26; Mês: M1; Valor: 0,0%"'
+                  - generic [ref=f1e16521]:
+                    - generic:
+                      - generic:
+                        - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Abr-26; Mês: M1; Valor: 0,0%"'
+                  - generic [ref=f1e16523]:
+                    - generic:
+                      - generic:
+                        - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Mai-26; Mês: M1; Valor: 0,0%"'
+                - generic [ref=f1e16525]:
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Jan-26; Mês: M1; Valor: 0,0%" [ref=f1e16526]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 0; Safra: Jan-26; Mês: M2; Valor: 0,0%" [ref=f1e16527]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 0; Safra: Jan-26; Mês: M3; Valor: 0,0%" [ref=f1e16528]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 0; Safra: Jan-26; Mês: M4; Valor: 0,0%" [ref=f1e16529]'
+                  - 'generic "Mês de maturação: M5; % do saldo a vencer em 30d: 0; Safra: Jan-26; Mês: M5; Valor: 0,0%" [ref=f1e16530]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Fev-26; Mês: M1; Valor: 0,0%" [ref=f1e16531]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 0; Safra: Fev-26; Mês: M2; Valor: 0,0%" [ref=f1e16532]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 0; Safra: Fev-26; Mês: M3; Valor: 0,0%" [ref=f1e16533]'
+                  - 'generic "Mês de maturação: M4; % do saldo a vencer em 30d: 0; Safra: Fev-26; Mês: M4; Valor: 0,0%" [ref=f1e16534]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Mar-26; Mês: M1; Valor: 0,0%" [ref=f1e16535]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 0; Safra: Mar-26; Mês: M2; Valor: 0,0%" [ref=f1e16536]'
+                  - 'generic "Mês de maturação: M3; % do saldo a vencer em 30d: 0; Safra: Mar-26; Mês: M3; Valor: 0,0%" [ref=f1e16537]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Abr-26; Mês: M1; Valor: 0,0%" [ref=f1e16538]'
+                  - 'generic "Mês de maturação: M2; % do saldo a vencer em 30d: 0; Safra: Abr-26; Mês: M2; Valor: 0,0%" [ref=f1e16539]'
+                  - 'generic "Mês de maturação: M1; % do saldo a vencer em 30d: 0; Safra: Mai-26; Mês: M1; Valor: 0,0%" [ref=f1e16540]'
+                - 'generic "Mês de maturação: M5; valor_pct: 0; valor_fmt: 0,0%" [ref=f1e16542]': 0,0%
+                - 'generic "Mês de maturação: M4; valor_pct: 0; valor_fmt: 0,0%" [ref=f1e16544]': 0,0%
+                - 'generic "Mês de maturação: M3; valor_pct: 0; valor_fmt: 0,0%" [ref=f1e16546]': 0,0%
+                - 'generic "Mês de maturação: M2; valor_pct: 0; valor_fmt: 0,0%" [ref=f1e16548]': 0,0%
+                - 'generic "Mês de maturação: M1; valor_pct: 0; valor_fmt: 0,0%" [ref=f1e16550]': 0,0%
+                - 'generic "Symbol legend titled ''Safra'' for fill color and stroke color with 5 values: Jan-26, Fev-26, Mar-26, Abr-26, Mai-26" [ref=f1e16551]':
+                  - generic [ref=f1e16553]:
+                    - generic [ref=f1e16557]:
+                      - generic [ref=f1e16558]: Jan-26
+                      - generic [ref=f1e16560]: Fev-26
+                      - generic [ref=f1e16562]: Mar-26
+                      - generic [ref=f1e16564]: Abr-26
+                      - generic [ref=f1e16566]: Mai-26
+                    - generic: Safra
+          - group "Click to view actions"
+      - group [ref=f1e16575]:
+        - generic "keyboard_arrow_right Auditoria e conciliações da análise de crédito" [ref=f1e16576] [cursor=pointer]:
+          - generic [ref=f1e16577]:
+            - generic [ref=f1e16578]: keyboard_arrow_right
+            - paragraph [ref=f1e16582]: Auditoria e conciliações da análise de crédito
+      - group [ref=f1e16585]:
+        - generic "keyboard_arrow_right Metodologia, fórmulas e fontes dos indicadores" [ref=f1e16586] [cursor=pointer]:
+          - generic [ref=f1e16587]:
+            - generic [ref=f1e16588]: keyboard_arrow_right
+            - paragraph [ref=f1e16592]: Metodologia, fórmulas e fontes dos indicadores
+      - heading "Regulamentos" [level=2] [ref=f1e16599]:
+        - text: Regulamentos
+        - generic [ref=f1e16600]:
+          - link "Link to heading":
+            - /url: "#regulamentos"
+      - alert [ref=f1e16603]:
+        - paragraph [ref=f1e16608]: Não há pacote regulatório salvo para a carteira selecionada.

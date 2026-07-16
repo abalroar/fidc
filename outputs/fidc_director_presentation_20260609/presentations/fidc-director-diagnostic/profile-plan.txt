@@ -1,0 +1,32 @@
+task mode: create
+primary deck-profile: finance-ir
+secondary gates: strategy-leadership, appendix-heavy
+
+required proof objects:
+- KPI summary with exact source date and document coverage.
+- Market issuance bridge by fiscal period: 2024FY, 2025FY, 2026YTD.
+- Born-since-Jan-2024 split against legacy/recadastrado issuers.
+- Regulatory-practices matrix by FIDC subtype, read equal-weight by fund.
+- Pricing chart with bars for issuance volume and dots for CDI+ spread.
+- Participant ecosystem ranking by role and subtype.
+- Manual review operating model and caveats.
+
+source/asset requirements:
+- Use CVM open data, FNET/local document inventory, and generated study CSVs under outputs/.
+- No invented metrics. All metrics must reconcile to summary.json or CSV outputs.
+- No unverified logos or brand marks.
+
+brand/authenticity constraints:
+- No company logos. Visual identity should be a neutral executive research system.
+- Charts and tables are editable PowerPoint objects built from native shapes/text.
+
+profile-specific QA gates:
+- Units visible: R$ bn/bi, counts, %, CDI+x% a.a.
+- Source/footer on every analytical slide.
+- Do not imply legal conclusion from heuristic text extraction.
+- Label cedente/sacado names as candidates requiring QA.
+
+known missing inputs:
+- Final legal/manual classification by fund is not complete.
+- ANBIMA API enrichment was not used in this run.
+- Pricing rows need deduplication before final investment memo.

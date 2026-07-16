@@ -77,7 +77,12 @@ def main() -> None:
             "Aetos 794164, páginas 40 e 45",
             "PagSeguro 1149521, página 19",
             "Monee 1159092, página 58",
-            "MT Global 1222863, página 5"
+            "MT Global 1222863, página 5",
+            "Multiplike 1223029, página 55",
+            "Seller 909547, página 46",
+            "VTK 1002580, páginas 114 e 118",
+            "RED Performance 1127150, página 67",
+            "RED Real 1090771, página 51"
         ],
     }
     manifest["evidence_matrix"] = {
@@ -123,7 +128,7 @@ def main() -> None:
         "Sem segmentação IME é estrato de qualidade de dados, não subtipo oficial.",
         "A flag FIC-FIDC ampliada é inferida da denominação e não substitui validação documental.",
         "Quinze documentos permanecem com OCR necessário; nenhum sustenta afirmação categórica do glossário.",
-        "Cinco fundos não tiveram regulamento vigente lido: três sem documento listado e dois com falha de download; todos têm status explícito e ao menos outro documento primário lido.",
+        "Cinco fundos não tiveram regulamento vigente processado: três sem documento listado e dois com falha de download; todos têm status explícito e ao menos outro documento primário processado.",
         "Frequências contratuais usam 15 regulamentos substantivos e 12 famílias de template, não os 100 como denominador artificial.",
         "A revisão é exaustiva em relação ao corpus e às normas verificadas, não universalmente completa."
     ]

@@ -1,80 +1,81 @@
 # Reforços de crédito, revolvência e liquidez
 
-Reforço de crédito reduz perda esperada ou severidade para determinada camada. Liquidez produz caixa na data necessária. A mesma estrutura pode ter proteção patrimonial e ainda sofrer descasamento de caixa.
+**Reforço de crédito** reduz perda ou severidade para uma camada. **Liquidez** entrega caixa na data necessária. Uma classe pode ter proteção patrimonial e ainda sofrer falta de caixa.
 
 ## Reforços de crédito
 
-### Subordinação e sobrecolateralização
+- **Subordinação**
+  - **Mecânica:** coloca uma subclasse abaixo de outra nos direitos definidos.
+  - **Proteção:** a camada subordinada recebe resultados e perdas antes da camada prioritária segundo o contrato.
+  - **Limitação:** patrimônio subordinado não é necessariamente caixa e a aproximação reportada pode divergir do índice contratual.
 
-Subordinação ordena direitos entre subclasses. Sobrecolateralização é o excesso de ativos elegíveis sobre obrigações protegidas segundo fórmula contratual. Nem todo saldo subordinado é ativo líquido, e nem toda diferença contábil entra no teste de cobertura.
+- **Sobrecolateralização**
+  - **Mecânica:** mantém ativos elegíveis acima das obrigações protegidas.
+  - **Fórmula geral:** `ativos elegíveis ajustados / obrigações protegidas`.
+  - **Limitação:** o contrato decide descontos, exclusões, passivos e nível mínimo.
 
-### Excesso de spread
+- **Excesso de margem financeira, ou excesso de spread**
+  - **Mecânica:** margem residual depois de receita, perdas, despesas, custo das cotas e outros encargos. *Spread* é a margem adicional entre taxas ou fluxos.
+  - **Uso possível:** recompor proteção, formar reserva ou ser distribuído.
+  - **Limitação:** não é o spread bruto dos créditos e a expressão é uma inferência analítica no corpus substantivo.
 
-Margem residual entre receitas da carteira e custos da estrutura, após considerar perdas, pré-pagamento, tributos, despesas e remuneração das cotas. Pode recompor proteção, formar reserva ou ser distribuída. Não é sinônimo do spread bruto dos créditos.
+- **Reservas**
+  - **Tipos:** despesas, liquidez, amortização, perdas ou outra finalidade definida.
+  - **Teste:** `ativos elegíveis da reserva / necessidade-alvo`.
+  - **Limitação:** saldo livre em conta não vira reserva sem vínculo, alvo e regra de uso.
 
-### Reservas
+- **Garantia, seguro e coobrigação**
+  - **Mecânica:** acrescentam bem, garantidor, segurador ou coobrigado à recuperação.
+  - **Limitação:** validade, registro, exclusões, capacidade financeira e tempo de execução podem substituir risco pulverizado por concentração na proteção.
 
-“Reserva” precisa de sobrenome:
+## Revolvência, formação e reinvestimento
 
-- reserva de despesas;
-- reserva de liquidez;
-- reserva de amortização;
-- reserva de perdas ou reforço;
-- conta de cobrança ou conta vinculada.
+- **Revolvência:** compra de novos direitos com recursos originados na carteira durante o período permitido.
+- **Ramp-up, ou formação inicial:** fase em que a carteira cresce até a alocação desejada.
+- **Reinvestimento:** uso de caixa em novas aquisições conforme os critérios.
+- **Runoff, ou redução sem reposição:** queda da carteira por amortização, falta de originação, evento ou decisão.
 
-Registre objetivo, valor-alvo, ativos elegíveis, ordem de constituição, saques, recomposição e beneficiário. Saldo de caixa livre não é automaticamente reserva.
+Durante a revolvência, acompanhe:
 
-### Garantias e coobrigação
+- **Critérios e concentração:** cada nova compra precisa manter elegibilidade e limites.
+- **Safra e composição:** piora de originação pode entrar no fundo aos poucos.
+- **Preço de aquisição:** ágio, deságio e taxa alteram a margem.
+- **Capacidade de reposição:** baixa originação pode iniciar runoff antes do previsto.
+- **Evento de encerramento:** um gatilho pode interromper compras e reter caixa.
 
-Garantia real ou fidejussória, seguro, aval, fiança, coobrigação e recompra têm objetos e riscos de execução diferentes. Concentração no garantidor pode substituir, e não eliminar, o risco pulverizado da carteira.
+## Formas de amortização
 
-## Revolvência, ramp-up e reinvestimento
+- **Ordinária:** segue calendário ou fórmula.
+- **Extraordinária:** usa excesso de caixa, pré-pagamento, evento ou deliberação.
+- **Sequencial:** prioriza uma camada ou série.
+- **Pro rata, ou proporcional:** distribui na proporção definida.
+- **Amortização acelerada, ou turbo:** acelera amortização ou retenção de caixa sob uma condição contratual.
 
-**Revolvência** é a aquisição de novos direitos com recursos provenientes da carteira durante período definido. **Ramp-up** é a fase de formação até a alocação desejada. **Reinvestimento** é o uso de caixa em novos ativos conforme as regras. Embora próximos, os termos não são universais nem equivalentes em todo regulamento.
+Amortizar a sênior pode melhorar ou piorar uma razão, dependendo do caixa usado e da possibilidade de liberar subordinadas.
 
-No período revolvente, monitore:
+## Vida média e descasamento
 
-1. critérios e limites aplicáveis a cada nova aquisição;
-2. deterioração de safra ou mudança de mix;
-3. preço de aquisição e excesso de spread;
-4. capacidade do originador de repor ativos;
-5. teste de concentração após a compra;
-6. eventos que encerram reinvestimento.
+- **Weighted Average Life (WAL), ou vida média ponderada do principal:** `Σ(principal esperado no tempo t × tempo t) / Σ principal esperado`.
+- **O que responde:** quando, em média ponderada, o principal esperado volta como caixa.
+- **Duração financeira, ou duration:** medida de sensibilidade temporal e econômica a mudanças de taxa, segundo a definição usada. Não é sinônimo de WAL.
+- **Pré-pagamento:** antecipa principal, reduz receita futura e pode encurtar WAL.
+- **Atraso:** posterga caixa, alonga a vida efetiva e consome liquidez.
 
-**Runoff** é a redução da carteira sem reposição suficiente. Pode ser planejado após o período de investimento ou resultar de falta de originação, evento ou decisão de gestão.
+Descasamentos a testar:
 
-## Amortização
-
-- **ordinária:** segue calendário ou fórmula prevista;
-- **extraordinária:** ocorre por excesso de caixa, pré-pagamento, evento ou deliberação;
-- **sequencial:** prioriza camada ou série;
-- **pro rata:** distribui conforme proporção definida;
-- **turbo:** acelera amortização ou retenção de caixa sob condição contratual.
-
-Essas expressões são contratuais; consequências variam. Amortizar sênior pode melhorar ou piorar certos índices dependendo do fluxo e da liberação de subordinadas.
-
-## Liquidez, duration e descasamento
-
-**WAL** ou vida média ponderada pondera o prazo esperado de recebimento do principal. **Duration** mede sensibilidade temporal/econômica e depende da definição adotada. Prazo médio simples não substitui nenhum dos dois.
-
-Descasamentos relevantes:
-
-- vencimento de ativos versus amortização das cotas;
-- indexador e taxa fixa versus flutuante;
+- vencimento dos ativos versus amortização das cotas;
+- taxa fixa versus flutuante e indexadores diferentes;
 - moeda;
 - frequência de pagamento;
-- período de carência;
-- liquidez de ativos versus resgate de classe aberta;
-- concentração de cobrança em uma data ou conta.
-
-Pré-pagamento antecipa principal e pode reduzir receita futura, excesso de spread e WAL. Atraso alonga recebimento e consome liquidez. Modelos devem considerar cenários de ambos.
+- carência;
+- ativos líquidos versus resgate de classe aberta;
+- concentração de cobrança em uma data, conta ou prestador.
 
 ## O que o Informe Mensal captura
 
-O reporte traz saldos, vencimentos e fluxos úteis para proxies de prazo, caixa e amortização. Não identifica necessariamente conta vinculada, reserva contratual, prioridade, trigger de turbo, premissa de pré-pagamento ou cash-flow projetado.
+- **Ajuda a estimar:** saldos, vencimentos, caixa, amortização e alguns proxies de prazo.
+- **Não mostra necessariamente:** conta vinculada, reserva contratual, prioridade, amortização acelerada, premissa de pré-pagamento, projeção de fluxo ou instrumento de proteção de taxa, chamado de *hedge*.
 
-## Checklist documental
+Leia cascata de pagamentos, política, período de revolvência, calendário das cotas, cobertura, contas, reservas, eventos e instrumentos aplicáveis na mesma classe e emissão.
 
-Leia waterfall, política de investimento, período de revolvência, calendário de cotas, fórmula de cobertura, contas bancárias, regras de reserva, eventos de encerramento e instrumentos de hedge. Preserve fórmulas por classe e emissão.
-
-Base normativa: RCVM 175, Parte Geral e Anexo Normativo II, especialmente definição de revolvência do art. 2º. Verificação: **16/07/2026**.
+Base normativa: **Resolução da Comissão de Valores Mobiliários (RCVM) 175**, Parte Geral e Anexo Normativo II, especialmente art. 2º. Verificação: **16/07/2026**.

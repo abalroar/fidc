@@ -1,88 +1,109 @@
-# Atraso, provisão, perda, recuperação e write-off
+# Atraso, provisão, perda, recuperação e baixa contábil
 
-Essas medidas descrevem etapas diferentes. “Provisão/perda esperada” não é um único conceito.
+Para uma carteira de crédito em curso, leia nesta ordem:
 
-## Atraso e inadimplência
+1. **atraso, distribuição por idade e Over N** para medir o estoque atual;
+2. **migração, cura e renegociação** para entender a direção;
+3. **safra e inadimplência na primeira obrigação, ou First Payment Default (FPD)**, para testar a qualidade da originação;
+4. **provisão e perda esperada** para avaliar o reconhecimento prospectivo;
+5. **perda realizada e baixa** para reconciliar o impacto efetivo;
+6. **recuperação** para medir o caixa após a inadimplência;
+7. **cobertura de provisão** como razão auxiliar.
 
-Atraso é diferença entre vencimento e pagamento. Inadimplência é classificação de não pagamento segundo regra definida. A métrica precisa indicar se usa valor nominal, contábil, presente ou saldo devedor e se considera parcelas ou contratos.
+Em **Non-Performing Loan (NPL)**, ou crédito já inadimplido, recuperação líquida, custo e tempo podem vir antes de FPD.
 
-`inadimplência da faixa = saldo vencido na faixa / base definida`
+## 1. Atraso, distribuição por idade e Over N
 
-O denominador pode ser carteira total, carteira vencida, carteira elegível ou saldo da safra. A comparação só é válida com a mesma base.
+- **Atraso:** diferença entre a data de vencimento e a data de pagamento.
+- **Inadimplência:** classificação de não pagamento segundo uma regra definida.
+- **Fórmula por faixa:** `saldo vencido na faixa / base definida`.
+- **Por que importa:** mostra a gravidade e a idade do estoque problemático.
+- **O que declarar:** saldo nominal, contábil, presente ou devedor; parcela ou contrato; carteira total, elegível, vencida ou safra.
 
-## Aging completo do Informe Mensal
+### Distribuição por idade do Informe Mensal
 
-As faixas canônicas usadas pelo monitoramento são:
+**Distribuição por idade**, conhecida no mercado como *aging*, é a abertura do saldo vencido por idade do atraso:
 
 1. até 30 dias;
-2. 31–60;
-3. 61–90;
-4. 91–120;
-5. 121–150;
-6. 151–180;
-7. 181–360;
-8. 361–720;
-9. 721–1.080;
+2. 31 a 60 dias;
+3. 61 a 90 dias;
+4. 91 a 120 dias;
+5. 121 a 150 dias;
+6. 151 a 180 dias;
+7. 181 a 360 dias;
+8. 361 a 720 dias;
+9. 721 a 1.080 dias;
 10. acima de 1.080 dias.
 
-Não fundir 121–150 e 151–180 nem truncar acima de 360 quando a fonte oferece granularidade maior. Uma faixa ausente não deve ser preenchida como zero sem regra explícita.
+Uma faixa ausente não deve ser preenchida como zero sem regra explícita.
 
-## Inadimplência Over
+### Inadimplência Over N
 
-`Over N = saldo com atraso superior a N dias / base definida`
+- **O que significa:** saldo com atraso superior ao corte N.
+- **Fórmula:** `Over N = saldo com atraso superior a N dias / base definida`.
+- **Por que importa:** agrega todas as faixas depois do corte e facilita comparação temporal.
+- **Limitação:** “superior a N” pode incluir ou excluir o próprio dia N; o documento deve esclarecer. Over é cumulativo e não é uma faixa isolada.
 
-É cumulativa, ao contrário do bucket de aging. Declare se “superior” inclui o dia N, quais saldos entram e qual denominador é usado.
+## 2. Migração, cura e renegociação
 
-## FPD, roll rate e cura
+- **Taxa de migração, ou roll rate:** `saldo que migrou do estado i para o estado j / saldo inicial no estado i`. Mostra se o atraso está piorando ou melhorando.
+- **Taxa de cura:** `saldo que voltou ao estado adimplente / saldo elegível em atraso no início`. Mede regularização.
+- **Renegociação:** deve ser identificada separadamente. Alterar vencimento ou contrato pode produzir cura aparente sem pagamento integral.
+- **Por que importa:** o mesmo Over pode esconder carteira estabilizando ou migrando rapidamente para faixas piores.
 
-- **FPD:** convenção operacional para default na primeira obrigação segundo janela definida; requer coorte de originação e critério de default. Nenhuma definição contratual literal de FPD foi localizada nos regulamentos e relatórios de rating varridos, portanto o Glossário não atribui essa fórmula a um fundo nem a apresenta como padrão normativo.
-- **Roll rate:** parcela que migra de uma faixa para outra entre datas.
-- **Cura:** retorno de atraso para status adimplente segundo regra.
+## 3. Safra e FPD
 
-Renegociação pode produzir cura aparente; deve ser identificada separadamente quando possível.
+- **Safra:** grupo de créditos originados no mesmo período; *vintage* é o termo em inglês usado para essa coorte.
+- **Inadimplência por safra:** `saldo em atraso da coorte / exposição da mesma coorte`.
+- **Inadimplência na primeira obrigação, ou First Payment Default (FPD):** atraso ou inadimplência na primeira obrigação da coorte, segundo critério definido.
+- **Fórmula de FPD:** `exposição inadimplida na primeira obrigação / exposição elegível da coorte`.
+- **Por que importa:** sinaliza fraude, seleção ruim, falha de ativação ou deterioração muito precoce.
+- **Limitação:** coorte, primeira obrigação, janela e critério de inadimplência precisam ser definidos. A revisão não localizou definição literal de FPD nos 95 regulamentos vigentes e 52 relatórios de classificação de risco varridos; a fórmula é convenção operacional do glossário.
 
-## Provisão ou redução ao valor recuperável
+## 4. Provisão e perda esperada
 
-É ajuste contábil reconhecido para refletir perda estimada/impairment conforme política e norma aplicável. O saldo é uma estimativa contábil; não é caixa reservado nem perda necessariamente realizada.
+### Provisão ou redução ao valor recuperável
 
-`índice de provisão = provisão ou redução acumulada / exposição bruta definida`
+- **O que é:** ajuste contábil acumulado para refletir perda estimada conforme política e norma aplicáveis.
+- **Índice:** `provisão ou redução acumulada / exposição bruta definida`.
+- **Por que importa:** antecipa no patrimônio uma estimativa de perda que ainda pode não ter virado baixa ou caixa.
+- **O que não é:** caixa reservado, perda necessariamente realizada ou sinônimo automático de perda esperada.
+- **Termo legado:** **Provisão para Devedores Duvidosos (PDD)** pode aparecer em documentos e sistemas; confira a conta e a política usada.
 
-Registre sinal, conta contábil, tratamento de juros, garantias e recuperações.
+### Perda esperada
 
-## Perda esperada
+- **O que é:** estimativa prospectiva de perda para modelo e horizonte definidos.
+- **Forma conceitual:** `perda esperada = PD × LGD × EAD`.
+- **Probability of Default (PD):** probabilidade de inadimplência.
+- **Loss Given Default (LGD):** perda em caso de inadimplência.
+- **Exposure at Default (EAD):** exposição no momento da inadimplência.
+- **Por que importa:** separa probabilidade, severidade e exposição.
+- **Limitação:** a forma multiplicativa não é fórmula universal da contabilidade de toda carteira. Matriz de migração, fluxo descontado e outros modelos podem ser usados.
 
-É estimativa prospectiva. Em modelos de crédito, uma forma conceitual é:
+## 5. Perda realizada e baixa
 
-`PE = PD × LGD × EAD`
+- **Perda realizada:** impacto econômico reconhecido conforme a política e a reconciliação contábil.
+- **Baixa contábil, ou write-off:** retirada ou redução do ativo quando o critério de baixa é atendido. A cobrança pode continuar depois da baixa.
+- **Por que importa:** reconcilia o que deixou de ser estimativa e virou impacto reconhecido.
+- **Limitação:** queda do **patrimônio líquido (PL)** subordinado não prova baixa; despesas, amortizações e marcação também alteram o patrimônio.
 
-mas o método efetivo pode ser por matriz de migração, fluxo descontado, modelo estatístico ou política contábil. Não inferir PD, LGD ou horizonte do saldo de provisão sem documentação.
+## 6. Recuperação
 
-## Perda realizada e write-off
+- **Fórmula:** `caixa recuperado líquido / base de créditos em recuperação`.
+- **O que declarar:** coorte, exposição de origem, custos, horizonte e desconto temporal.
+- **Por que importa:** mede quanto da exposição inadimplida voltou como caixa depois da cobrança.
+- **Limitação:** recuperação bruta de NPL, recuperação líquida de atraso recente e recuperação sobre preço de aquisição respondem a perguntas diferentes.
 
-Perda realizada é impacto econômico reconhecido conforme critério definido. **Write-off/baixa** retira ou reduz o ativo contabilmente quando atendidos os critérios; não significa necessariamente fim da cobrança. A queda do PL subordinado, isoladamente, não comprova write-off nem quantifica perda de crédito: despesas, amortizações e marcação também alteram o PL.
+## 7. Cobertura de provisão
 
-## Recuperação
-
-`taxa de recuperação = caixa recuperado líquido / base de créditos em recuperação`
-
-Defina coorte, custos, horizonte e desconto temporal. Recuperação bruta de carteiras NPL não é comparável à recuperação líquida de atraso recente.
-
-## Cobertura de provisão
-
-`cobertura = provisão acumulada / saldo vencido na base definida`
-
-É proxy. Acima de 100% não prova conservadorismo; abaixo de 100% não prova insuficiência. Faixa de atraso, garantia, cura, recuperação e política contábil mudam a interpretação.
-
-## Safras e denominadores
-
-Análise de safra agrupa créditos por período de originação. Evita misturar carteira jovem com madura. Sempre mostre vintage, idade, exposição inicial, saldo atual, pré-pagamento, renegociação e recuperação.
+- **Fórmula:** `provisão acumulada / saldo vencido na base definida`.
+- **Uso:** compara estoque reconhecido de provisão com uma faixa de atraso.
+- **Limitação:** acima de 100% não prova conservadorismo; abaixo de 100% não prova insuficiência. Garantia, cura, recuperação, horizonte e política contábil mudam a interpretação.
 
 ## O que o Informe Mensal captura
 
-O reporte oferece faixas de atraso e valores contábeis agregados úteis para séries históricas. Não entrega sozinho política contábil completa, PD/LGD/EAD, critério de baixa, coorte de FPD, roll rate, cura ou recuperação líquida.
+- **Entrega:** faixas de atraso e valores contábeis agregados úteis para séries históricas.
+- **Não entrega sozinho:** política contábil completa, PD, LGD, EAD, coorte de FPD, roll rate, cura, renegociação, critério de baixa ou recuperação líquida.
+- **Documentos necessários:** demonstrações e notas para política contábil; regulamento para gatilhos; relatórios operacionais e de classificação de risco para safras, cobrança e premissas.
 
-## O que exige documento primário
-
-Demonstrações financeiras e notas explicativas sustentam política e contas; regulamento e relatórios operacionais definem eventos e métricas; relatórios de cobrança e rating ajudam a entender safra, recuperação e pressupostos.
-
-Fontes: ICVM 489 e orientações oficiais SIN/SNC; padrão XML mensal FIDC; demonstrações e documentos primários; metodologia analítica desta revisão para FPD, roll rate e cura. Verificação: **16/07/2026**.
+Fontes: **Instrução da Comissão de Valores Mobiliários (CVM) 489** e orientações oficiais; padrão do Informe Mensal; demonstrações, documentos primários e metodologia analítica da revisão. Verificação: **16/07/2026**.

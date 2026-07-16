@@ -1,0 +1,32 @@
+- generic [ref=f1e3]:
+  - banner
+  - generic [ref=f1e6]:
+    - generic [ref=f1e11]:
+      - generic [ref=f1e12]: tomaconta fidcs
+      - generic [ref=f1e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f1e16]:
+      - button [ref=f1e23713] [cursor=pointer]:
+        - paragraph [ref=f1e23717]: Sobre
+      - button [ref=f1e23718] [cursor=pointer]:
+        - paragraph [ref=f1e23722]: Indústria
+      - button [ref=f1e23723] [cursor=pointer]:
+        - paragraph [ref=f1e23727]: Secundário
+      - button [ref=f1e23728] [cursor=pointer]:
+        - paragraph [ref=f1e23732]: Carteira
+      - button [ref=f1e23733] [cursor=pointer]:
+        - paragraph [ref=f1e23737]: Regulamentos
+      - button [ref=f1e23738] [cursor=pointer]:
+        - paragraph [ref=f1e23742]: Cloudwalk
+      - button [ref=f1e23743] [cursor=pointer]:
+        - paragraph [ref=f1e23747]: Glossário
+      - button [ref=f1e23748] [cursor=pointer]:
+        - paragraph [ref=f1e23752]: Modelagem
+    - generic [ref=f1e23529]:
+      - generic [ref=f1e23532]:
+        - heading "Glossário" [level=1] [ref=f1e23533]
+        - paragraph [ref=f1e23534]: Estrutura, risco e regulação de FIDCs.
+      - textbox "Buscar" [active] [ref=f1e23539]:
+        - /placeholder: Buscar no glossário
+        - text: zzz_sem_resultado_123
+      - alert [ref=f1e23755]:
+        - paragraph [ref=f1e23760]: Nenhuma página encontrada.
