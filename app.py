@@ -251,6 +251,10 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
     border-radius: 8px;
 }
 
+.st-key-ime_global_period_preset [data-testid^="stBaseButton-segmented_control"] {
+    min-height: 2.5rem !important;
+}
+
 @media (max-width: 760px) {
     .block-container {
         padding-left: 1rem !important;
@@ -272,7 +276,28 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
     }
 }
 
+@media (min-width: 521px) and (max-width: 850px) {
+    .st-key-ime_global_btn_custom [data-testid="stIconMaterial"],
+    .st-key-ime_global_btn_preset [data-testid="stIconMaterial"] {
+        display: none !important;
+    }
+
+    .st-key-ime_global_btn_custom p,
+    .st-key-ime_global_btn_preset p {
+        white-space: nowrap !important;
+    }
+}
+
 @media (max-width: 460px) {
+    .st-key-ime_global_period_preset [data-baseweb="button-group"] {
+        flex-wrap: wrap !important;
+    }
+
+    .st-key-ime_global_period_preset [data-testid^="stBaseButton-segmented_control"] {
+        flex: 1 1 33.333% !important;
+        width: 33.333% !important;
+    }
+
     .st-key-fidc_main_section [data-testid="stButtonGroup"] {
         overflow-x: visible;
     }

@@ -6,6 +6,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
+import pandas as pd
+
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from tabs.tab_fidc_ime_carteira import (
     _apply_pending_portfolio_selection,
@@ -17,7 +19,9 @@ from tabs.tab_fidc_ime_carteira import (
     _normalize_portfolio_editor_mode,
     _portfolio_worker_count,
     _queue_portfolio_selection,
+    _resolve_active_analysis_portfolio,
     _sync_portfolio_fund_names_from_results,
+    build_temporary_portfolio_from_cnpj,
     ensure_portfolio_ime_data,
 )
 
@@ -39,6 +43,122 @@ class _DummyStatus:
 
 
 class TabFidcImeCarteiraTests(unittest.TestCase):
+    def test_build_temporary_portfolio_accepts_masked_valid_cnpj(self) -> None:
+        catalog_df = pd.DataFrame(
+            [
+                {
+                    "cnpj_fundo": "33254370000104",
+                    "nome_fundo": "FIDC Mercado Crédito",
+                    "situacao": "EM FUNCIONAMENTO",
+                }
+            ]
+        )
+
+        portfolio = build_temporary_portfolio_from_cnpj(
+            "33.254.370/0001-04",
+            catalog_df=catalog_df,
+        )
+
+        self.assertEqual("adhoc-cnpj-33254370000104", portfolio.id)
+        self.assertEqual("FIDC Mercado Crédito", portfolio.name)
+        self.assertEqual("33254370000104", portfolio.funds[0].cnpj)
+        self.assertEqual("FIDC Mercado Crédito", portfolio.funds[0].display_name)
+        self.assertEqual("Consulta temporária por CNPJ", portfolio.notes)
+
+    def test_build_temporary_portfolio_rejects_invalid_cnpj_checksum(self) -> None:
+        invalid_values = (
+            "33.254.370/0001-05",
+            "11.111.111/1111-11",
+        )
+
+        for raw_cnpj in invalid_values:
+            with self.subTest(raw_cnpj=raw_cnpj):
+                with self.assertRaisesRegex(ValueError, "dígitos verificadores"):
+                    build_temporary_portfolio_from_cnpj(
+                        raw_cnpj,
+                        catalog_df=pd.DataFrame(columns=["cnpj_fundo", "nome_fundo"]),
+                    )
+
+    def test_resolve_active_analysis_without_context_does_not_select_meli(self) -> None:
+        meli = PortfolioRecord(
+            id="portfolio-meli",
+            name="MELI (FIDCs Mercado Crédito 0, I e II)",
+            funds=(PortfolioFund(cnpj="33254370000104", display_name="FIDC Mercado Crédito"),),
+            created_at="2026-04-15T00:00:00Z",
+            updated_at="2026-04-15T00:00:00Z",
+        )
+
+        with patch.dict("tabs.tab_fidc_ime_carteira.st.session_state", {}, clear=True):
+            selected = _resolve_active_analysis_portfolio(
+                portfolios=[meli],
+                catalog_df=pd.DataFrame(columns=["cnpj_fundo", "nome_fundo"]),
+            )
+
+        self.assertIsNone(selected)
+
+    def test_resolve_active_analysis_uses_saved_and_cnpj_contexts(self) -> None:
+        saved = PortfolioRecord(
+            id="portfolio-saved",
+            name="Carteira salva",
+            funds=(PortfolioFund(cnpj="33254370000104", display_name="FIDC Mercado Crédito"),),
+            created_at="2026-04-15T00:00:00Z",
+            updated_at="2026-04-15T00:00:00Z",
+        )
+        catalog_df = pd.DataFrame(
+            [
+                {
+                    "cnpj_fundo": "11222333000181",
+                    "nome_fundo": "FIDC Consulta Direta",
+                }
+            ]
+        )
+
+        with patch.dict(
+            "tabs.tab_fidc_ime_carteira.st.session_state",
+            {"ime_portfolio_analysis_context": {"kind": "saved", "value": saved.id}},
+            clear=True,
+        ):
+            selected_saved = _resolve_active_analysis_portfolio(
+                portfolios=[saved],
+                catalog_df=catalog_df,
+            )
+
+        with patch.dict(
+            "tabs.tab_fidc_ime_carteira.st.session_state",
+            {"ime_portfolio_analysis_context": {"kind": "cnpj", "value": "11.222.333/0001-81"}},
+            clear=True,
+        ):
+            selected_cnpj = _resolve_active_analysis_portfolio(
+                portfolios=[saved],
+                catalog_df=catalog_df,
+            )
+
+        with patch.dict(
+            "tabs.tab_fidc_ime_carteira.st.session_state",
+            {
+                "ime_portfolio_analysis_context": {
+                    "kind": "cnpj",
+                    "value": "11222333000181",
+                    "display_name": "FIDC Nome Guardado",
+                }
+            },
+            clear=True,
+        ):
+            selected_from_context = _resolve_active_analysis_portfolio(
+                portfolios=[saved],
+                catalog_df=pd.DataFrame(columns=["cnpj_fundo", "nome_fundo"]),
+            )
+
+        self.assertIs(saved, selected_saved)
+        self.assertIsNotNone(selected_cnpj)
+        assert selected_cnpj is not None
+        self.assertEqual("adhoc-cnpj-11222333000181", selected_cnpj.id)
+        self.assertEqual("FIDC Consulta Direta", selected_cnpj.name)
+        self.assertEqual("11222333000181", selected_cnpj.funds[0].cnpj)
+        self.assertIsNotNone(selected_from_context)
+        assert selected_from_context is not None
+        self.assertEqual("FIDC Nome Guardado", selected_from_context.name)
+
     def test_build_portfolio_selector_label_lookup_disambiguates_duplicate_name_and_basket(self) -> None:
         portfolio_a = PortfolioRecord(
             id="57f3418c1e9341e79edeef6086b8c25d",
@@ -155,6 +275,43 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
             )
 
         self.assertIsNone(updated)
+
+    def test_sync_temporary_portfolio_fund_name_does_not_persist_record(self) -> None:
+        portfolio = build_temporary_portfolio_from_cnpj(
+            "33.254.370/0001-04",
+            catalog_df=pd.DataFrame(columns=["cnpj_fundo", "nome_fundo"]),
+        )
+        results = {
+            "33254370000104": {
+                "context": {
+                    "portfolio_fund_name_resolved": "FIDC Nome Resolvido",
+                }
+            }
+        }
+
+        with (
+            patch("tabs.tab_fidc_ime_carteira.save_portfolio_record") as mocked_save,
+            patch.dict(
+                "tabs.tab_fidc_ime_carteira.st.session_state",
+                {"ime_portfolio_analysis_context": {"kind": "cnpj", "value": "33254370000104"}},
+                clear=True,
+            ),
+        ):
+            updated = _sync_portfolio_fund_names_from_results(
+                selected_portfolio=portfolio,
+                results=results,
+            )
+
+            from tabs.tab_fidc_ime_carteira import st  # local import to read patched state
+
+            active_context = st.session_state["ime_portfolio_analysis_context"]
+
+        self.assertIsNotNone(updated)
+        assert updated is not None
+        self.assertEqual("FIDC Nome Resolvido", updated.name)
+        self.assertEqual("FIDC Nome Resolvido", updated.funds[0].display_name)
+        self.assertEqual("FIDC Nome Resolvido", active_context["display_name"])
+        mocked_save.assert_not_called()
 
     def test_execute_portfolio_load_for_funds_does_not_require_retry_results_when_no_retry(self) -> None:
         portfolio = PortfolioRecord(

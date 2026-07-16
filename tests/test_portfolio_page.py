@@ -10,6 +10,32 @@ from tabs import portfolio_page
 
 
 class PortfolioPageTests(unittest.TestCase):
+    def test_loading_overlay_identifies_portfolio_period_fund_count_and_stages(self) -> None:
+        portfolio = PortfolioRecord(
+            id="portfolio-1",
+            name="Carteira Crédito & Consignado",
+            funds=(
+                PortfolioFund(cnpj="33254370000104", display_name="FIDC A"),
+                PortfolioFund(cnpj="11222333000181", display_name="FIDC B"),
+            ),
+            created_at="2026-05-14T00:00:00Z",
+            updated_at="2026-05-14T00:00:00Z",
+        )
+        period = SimpleNamespace(label="01/2025 a 06/2026")
+
+        html = portfolio_page._portfolio_loading_overlay_html(
+            selected_portfolio=portfolio,
+            period=period,
+        )
+
+        self.assertIn("Carteira Crédito &amp; Consignado", html)
+        self.assertIn("01/2025 a 06/2026", html)
+        self.assertIn("2 fundos", html)
+        self.assertEqual(3, html.count('class="portfolio-loading-stage"'))
+        self.assertIn("Dados regulatórios", html)
+        self.assertIn("Consolidação", html)
+        self.assertIn("Apresentação", html)
+
     def test_resolve_workflow_sections_orders_blocks_and_deduplicates(self) -> None:
         selected = [
             portfolio_page.SECTION_RETURNS,
