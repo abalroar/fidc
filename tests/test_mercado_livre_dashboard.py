@@ -13,6 +13,7 @@ import zipfile
 from openpyxl import load_workbook
 import pandas as pd
 
+from services.fidc_model.b3_cdi import B3CdiMonthlyRate
 from services.fund_return_matrix import RETURN_YTD_COLUMN
 from services.mercado_livre_dashboard import (
     build_consolidated_monthly_base,
@@ -37,6 +38,7 @@ from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_
 from tabs.tab_dashboard_meli import (
     _build_fund_return_table,
     _render_stacked_funds_view,
+    _resolve_fund_return_cdi_rates,
     render_dashboard_meli_analysis,
 )
 from tabs.tab_mercado_livre import (
@@ -925,6 +927,41 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("mai/26", table_b.columns)
         self.assertEqual("6,15%", table_a.iloc[0][RETURN_YTD_COLUMN])
         self.assertEqual("5,10%", table_b.iloc[0][RETURN_YTD_COLUMN])
+
+    def test_resolve_fund_return_cdi_rates_uses_latest_competencia_window_without_network(self) -> None:
+        summary = pd.DataFrame(
+            {
+                "class_kind": ["senior"],
+                "class_key": ["senior:1"],
+                "class_label": ["Sênior"],
+                "latest_competencia": ["06/2026"],
+            }
+        )
+        outputs = SimpleNamespace(
+            fund_return_history={"fund": pd.DataFrame()},
+            fund_return_summary={"fund": summary},
+        )
+        rates = (
+            B3CdiMonthlyRate(
+                mes="2026-06",
+                cdi_mensal=0.01,
+                dias_uteis=21,
+                data_inicio=date(2026, 6, 1),
+                data_fim=date(2026, 6, 30),
+                source="fixture",
+                expected_dias_uteis=21,
+            ),
+        )
+
+        with patch(
+            "tabs.tab_dashboard_meli._fetch_fund_return_cdi_rates",
+            return_value=rates,
+        ) as fetch_rates:
+            resolved, error = _resolve_fund_return_cdi_rates(outputs=outputs, cnpj="fund")
+
+        self.assertEqual(rates, resolved)
+        self.assertIsNone(error)
+        fetch_rates.assert_called_once_with("2025-07-01", "2026-06-30")
 
     def test_stacked_single_fund_renders_return_table_without_duplicate_charts(self) -> None:
         outputs = SimpleNamespace()

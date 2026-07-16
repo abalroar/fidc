@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import math
+from collections.abc import Iterable
+from datetime import date
 from typing import Any
 
 import pandas as pd
@@ -10,7 +12,9 @@ from services.fundonet_dashboard import sort_class_display_frame
 
 RETURN_SERIES_COLUMN = "Série"
 RETURN_TRAILING_12M_COLUMN = "Ac. Últ. 12m (%)"
+RETURN_TRAILING_12M_CDI_COLUMN = "CDI Ac. Últ. 12m (%)"
 RETURN_YTD_COLUMN = "Acumulado YTD (%)"
+RETURN_YTD_CDI_COLUMN = "CDI Acumulado YTD (%)"
 
 _PT_MONTH_ABBR = {
     1: "jan",
@@ -28,7 +32,13 @@ _PT_MONTH_ABBR = {
 }
 
 
-def build_fund_return_matrix(outputs: Any, cnpj: str, months: int = 12) -> pd.DataFrame:
+def build_fund_return_matrix(
+    outputs: Any,
+    cnpj: str,
+    months: int = 12,
+    *,
+    monthly_cdi_rates: Iterable[Any] | None = None,
+) -> pd.DataFrame:
     """Build the shared per-series return table using percentage-point values."""
     if isinstance(months, bool) or not isinstance(months, int) or months <= 0:
         raise ValueError("months must be a positive integer")
@@ -38,15 +48,17 @@ def build_fund_return_matrix(outputs: Any, cnpj: str, months: int = 12) -> pd.Da
     history_df = _normalize_identity_frame(history_by_cnpj.get(cnpj, pd.DataFrame()))
     summary_df = _normalize_identity_frame(summary_by_cnpj.get(cnpj, pd.DataFrame()))
     latest_month = _latest_available_month(summary_df, history_df)
+    include_cdi = monthly_cdi_rates is not None
+    cdi_rates = tuple(monthly_cdi_rates or ()) if include_cdi else ()
     if latest_month is None:
-        return _empty_return_matrix([])
+        return _empty_return_matrix([], include_cdi=include_cdi)
 
     month_starts = list(pd.date_range(end=latest_month, periods=months, freq="MS"))
     competencias = [value.strftime("%m/%Y") for value in month_starts]
     month_columns = [_format_month_column(value) for value in month_starts]
     identities = _series_identities(summary_df, history_df)
     if identities.empty:
-        return _empty_return_matrix(month_columns)
+        return _empty_return_matrix(month_columns, include_cdi=include_cdi)
 
     output = pd.DataFrame({RETURN_SERIES_COLUMN: identities["class_label"].astype(str)})
     output.index = identities["__series_key"].astype(str)
@@ -82,17 +94,68 @@ def build_fund_return_matrix(outputs: Any, cnpj: str, months: int = 12) -> pd.Da
         output.index,
         "retorno_12m_pct",
     )
+    cdi_missing_competencias: set[str] = set()
+    if include_cdi:
+        trailing_values, trailing_missing = _cdi_summary_values(
+            summary_lookup=summary_lookup,
+            history_df=history_df,
+            index=output.index,
+            latest_month=latest_month,
+            period_start=latest_month - pd.DateOffset(months=11),
+            return_column="retorno_12m_pct",
+            status_column="trailing_12m_status",
+            used_competencias_column="trailing_12m_competencias_utilizadas",
+            monthly_cdi_rates=cdi_rates,
+        )
+        output[RETURN_TRAILING_12M_CDI_COLUMN] = trailing_values
+        cdi_missing_competencias.update(trailing_missing)
     output[RETURN_YTD_COLUMN] = _summary_values(
         summary_lookup,
         output.index,
         "retorno_ano_pct",
     )
-    return output.reset_index(drop=True)
+    if include_cdi:
+        ytd_values, ytd_missing = _cdi_summary_values(
+            summary_lookup=summary_lookup,
+            history_df=history_df,
+            index=output.index,
+            latest_month=latest_month,
+            period_start=pd.Timestamp(year=latest_month.year, month=1, day=1),
+            return_column="retorno_ano_pct",
+            status_column="ytd_status",
+            used_competencias_column="ytd_competencias_utilizadas",
+            monthly_cdi_rates=cdi_rates,
+        )
+        output[RETURN_YTD_CDI_COLUMN] = ytd_values
+        cdi_missing_competencias.update(ytd_missing)
+
+    result = output.reset_index(drop=True)
+    if include_cdi:
+        result.attrs["cdi_source"] = "B3/Cetip MediaCDI diário composto por mês"
+        result.attrs["cdi_missing_competencias"] = tuple(
+            sorted(cdi_missing_competencias, key=_competencia_sort_key)
+        )
+    return result
+
+
+def fund_return_cdi_date_range(outputs: Any, cnpj: str) -> tuple[date, date] | None:
+    """Return the B3 query window that covers both trailing-12-month and YTD returns."""
+    history_by_cnpj = getattr(outputs, "fund_return_history", {}) or {}
+    summary_by_cnpj = getattr(outputs, "fund_return_summary", {}) or {}
+    history_df = _normalize_identity_frame(history_by_cnpj.get(cnpj, pd.DataFrame()))
+    summary_df = _normalize_identity_frame(summary_by_cnpj.get(cnpj, pd.DataFrame()))
+    latest_month = _latest_available_month(summary_df, history_df)
+    if latest_month is None:
+        return None
+    start = latest_month - pd.DateOffset(months=11)
+    end = latest_month + pd.offsets.MonthEnd(1)
+    return start.date(), end.date()
 
 
 def format_fund_return_matrix(frame: pd.DataFrame) -> pd.DataFrame:
     """Format a numeric return matrix for display without mutating the source."""
     output = frame.copy()
+    output.attrs.update(frame.attrs)
     for column in output.columns:
         if column == RETURN_SERIES_COLUMN:
             continue
@@ -165,12 +228,141 @@ def _summary_values(summary_lookup: pd.DataFrame, index: pd.Index, column: str) 
     return values.reindex(index).to_numpy()
 
 
-def _empty_return_matrix(month_columns: list[str]) -> pd.DataFrame:
+def _cdi_summary_values(
+    *,
+    summary_lookup: pd.DataFrame,
+    history_df: pd.DataFrame,
+    index: pd.Index,
+    latest_month: pd.Timestamp,
+    period_start: pd.Timestamp,
+    return_column: str,
+    status_column: str,
+    used_competencias_column: str,
+    monthly_cdi_rates: Iterable[Any],
+) -> tuple[pd.Series, set[str]]:
+    rate_by_month: dict[str, float] = {}
+    for rate in monthly_cdi_rates:
+        raw_month_key = getattr(rate, "mes", "")
+        month_key = "" if pd.isna(raw_month_key) else str(raw_month_key).strip()
+        try:
+            monthly_rate = float(getattr(rate, "cdi_mensal"))
+        except (TypeError, ValueError):
+            continue
+        if getattr(rate, "is_complete", True) is False:
+            continue
+        if month_key and math.isfinite(monthly_rate):
+            rate_by_month[month_key] = monthly_rate
+
+    values: list[float] = []
+    missing_competencias: set[str] = set()
+    for series_key in index.astype(str):
+        if summary_lookup.empty or series_key not in summary_lookup.index:
+            values.append(float("nan"))
+            continue
+        row = summary_lookup.loc[series_key]
+        if isinstance(row, pd.DataFrame):
+            row = row.iloc[-1]
+        return_value = pd.to_numeric(pd.Series([row.get(return_column)]), errors="coerce").iloc[0]
+        raw_status = row.get(status_column)
+        status = "" if pd.isna(raw_status) else str(raw_status).strip().lower()
+        if pd.isna(return_value) or status == "incompleto":
+            values.append(float("nan"))
+            continue
+
+        competencias = _used_competencias(
+            row=row,
+            history_df=history_df,
+            series_key=series_key,
+            period_start=period_start,
+            latest_month=latest_month,
+            used_competencias_column=used_competencias_column,
+        )
+        if not competencias:
+            values.append(float("nan"))
+            continue
+
+        factor = 1.0
+        missing_for_row: list[str] = []
+        for competencia in competencias:
+            month_key = _competencia_to_rate_key(competencia)
+            monthly_rate = rate_by_month.get(month_key)
+            if monthly_rate is None:
+                missing_for_row.append(competencia)
+                continue
+            factor *= 1.0 + monthly_rate
+        if missing_for_row:
+            missing_competencias.update(missing_for_row)
+            values.append(float("nan"))
+            continue
+        values.append((factor - 1.0) * 100.0)
+    return pd.Series(values, index=index, dtype="float64").to_numpy(), missing_competencias
+
+
+def _used_competencias(
+    *,
+    row: pd.Series,
+    history_df: pd.DataFrame,
+    series_key: str,
+    period_start: pd.Timestamp,
+    latest_month: pd.Timestamp,
+    used_competencias_column: str,
+) -> list[str]:
+    raw_used = row.get(used_competencias_column)
+    if raw_used is not None and not pd.isna(raw_used):
+        explicit = [value.strip() for value in str(raw_used).split(",") if value.strip()]
+        if explicit:
+            return sorted(set(explicit), key=_competencia_sort_key)
+
+    if history_df.empty or "__series_key" not in history_df.columns:
+        history = pd.DataFrame()
+    else:
+        history = history_df[history_df["__series_key"].astype(str) == series_key].copy()
+    if not history.empty and "competencia" in history.columns:
+        if "competencia_dt" not in history.columns:
+            history["competencia_dt"] = pd.to_datetime(
+                history["competencia"].astype(str),
+                format="%m/%Y",
+                errors="coerce",
+            )
+        history["retorno_mensal_pct"] = pd.to_numeric(
+            history.get("retorno_mensal_pct"),
+            errors="coerce",
+        )
+        history = history[
+            history["competencia_dt"].between(period_start, latest_month, inclusive="both")
+            & history["retorno_mensal_pct"].notna()
+        ]
+        competencias = history["competencia"].astype(str).drop_duplicates().tolist()
+        if competencias:
+            return sorted(competencias, key=_competencia_sort_key)
+
+    return [
+        value.strftime("%m/%Y")
+        for value in pd.date_range(period_start, latest_month, freq="MS")
+    ]
+
+
+def _competencia_to_rate_key(value: object) -> str:
+    parsed = pd.to_datetime(str(value), format="%m/%Y", errors="coerce")
+    return "" if pd.isna(parsed) else pd.Timestamp(parsed).strftime("%Y-%m")
+
+
+def _competencia_sort_key(value: object) -> tuple[int, int]:
+    parsed = pd.to_datetime(str(value), format="%m/%Y", errors="coerce")
+    if pd.isna(parsed):
+        return (0, 0)
+    timestamp = pd.Timestamp(parsed)
+    return (timestamp.year, timestamp.month)
+
+
+def _empty_return_matrix(month_columns: list[str], *, include_cdi: bool = False) -> pd.DataFrame:
     columns = [
         RETURN_SERIES_COLUMN,
         *month_columns,
         RETURN_TRAILING_12M_COLUMN,
+        *([RETURN_TRAILING_12M_CDI_COLUMN] if include_cdi else []),
         RETURN_YTD_COLUMN,
+        *([RETURN_YTD_CDI_COLUMN] if include_cdi else []),
     ]
     return pd.DataFrame(columns=columns)
 

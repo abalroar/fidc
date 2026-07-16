@@ -7,7 +7,12 @@ from typing import Any
 import pandas as pd
 import streamlit as st
 
-from services.fund_return_matrix import build_fund_return_matrix, format_fund_return_matrix
+from services.fidc_model.b3_cdi import B3CdiMonthlyRate, fetch_b3_cdi_monthly_rates
+from services.fund_return_matrix import (
+    build_fund_return_matrix,
+    format_fund_return_matrix,
+    fund_return_cdi_date_range,
+)
 from services.fund_name_display import short_fund_name
 from services.ime_period import ImePeriodSelection, build_custom_period, current_default_end_month, month_options, shift_month
 from services.meli_credit_monitor import (
@@ -629,12 +634,56 @@ def _render_fund_dashboards(
         st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
 
 
-def _build_fund_return_table(*, outputs, cnpj: str) -> pd.DataFrame:  # noqa: ANN001
-    return format_fund_return_matrix(build_fund_return_matrix(outputs, cnpj, months=12))
+@st.cache_data(show_spinner="Buscando e compondo o CDI realizado na B3...")
+def _fetch_fund_return_cdi_rates(
+    start_date_iso: str,
+    end_date_iso: str,
+) -> tuple[B3CdiMonthlyRate, ...]:
+    return fetch_b3_cdi_monthly_rates(
+        date.fromisoformat(start_date_iso),
+        date.fromisoformat(end_date_iso),
+    )
+
+
+def _resolve_fund_return_cdi_rates(
+    *,
+    outputs: Any,
+    cnpj: str,
+) -> tuple[tuple[B3CdiMonthlyRate, ...], str | None]:
+    query_range = fund_return_cdi_date_range(outputs, cnpj)
+    if query_range is None:
+        return (), None
+    start_date, end_date = query_range
+    try:
+        rates = _fetch_fund_return_cdi_rates(start_date.isoformat(), end_date.isoformat())
+    except Exception as exc:  # noqa: BLE001
+        return (), f"{type(exc).__name__}: {exc}"
+    return rates, None
+
+
+def _build_fund_return_table(
+    *,
+    outputs: Any,
+    cnpj: str,
+    monthly_cdi_rates: tuple[B3CdiMonthlyRate, ...] | None = None,
+) -> pd.DataFrame:
+    return format_fund_return_matrix(
+        build_fund_return_matrix(
+            outputs,
+            cnpj,
+            months=12,
+            monthly_cdi_rates=monthly_cdi_rates,
+        )
+    )
 
 
 def _render_fund_return_table(*, outputs, cnpj: str) -> None:  # noqa: ANN001
-    table_df = _build_fund_return_table(outputs=outputs, cnpj=cnpj)
+    monthly_cdi_rates, cdi_error = _resolve_fund_return_cdi_rates(outputs=outputs, cnpj=cnpj)
+    table_df = _build_fund_return_table(
+        outputs=outputs,
+        cnpj=cnpj,
+        monthly_cdi_rates=monthly_cdi_rates,
+    )
     if table_df.empty:
         st.caption("Rentabilidade por série não disponível para este fundo.")
         return
@@ -645,9 +694,20 @@ def _render_fund_return_table(*, outputs, cnpj: str) -> None:  # noqa: ANN001
         (
             "Últimos 12 meses-calendário até a competência mais recente do fundo.",
             "Acumulados compostos geometricamente; YTD considera janeiro até a competência mais recente.",
+            "CDI realizado B3/Cetip composto nos mesmos meses efetivamente usados pela rentabilidade de cada série.",
         ),
     )
     st.dataframe(table_df, width="stretch", hide_index=True)
+    st.caption("Fonte do CDI: B3/Cetip MediaCDI realizado, composto diariamente; sem uso de curva projetada.")
+    if cdi_error:
+        st.warning("CDI acumulado indisponível: a consulta à B3/Cetip falhou. Nenhum fallback projetado foi aplicado.")
+    missing_cdi = tuple(table_df.attrs.get("cdi_missing_competencias") or ())
+    if missing_cdi and not cdi_error:
+        st.warning(
+            "CDI acumulado indisponível nas linhas afetadas: a base B3/Cetip está ausente ou incompleta em "
+            + ", ".join(missing_cdi)
+            + "."
+        )
     _render_return_gap_warning(
         summary_df,
         status_column="trailing_12m_status",

@@ -2913,8 +2913,10 @@ def _build_return_summary(
         "retorno_periodo_meses",
         "ytd_status",
         "ytd_competencias_ausentes",
+        "ytd_competencias_utilizadas",
         "trailing_12m_status",
         "trailing_12m_competencias_ausentes",
+        "trailing_12m_competencias_utilizadas",
     ]
 
     history_df = return_history_df.copy() if isinstance(return_history_df, pd.DataFrame) else pd.DataFrame()
@@ -2987,7 +2989,9 @@ def _build_return_summary(
                 & (quota_period["competencia_dt"] <= latest_competencia_dt)
             ].copy()
 
-        def _evaluate_calendar_period(period_start: pd.Timestamp) -> tuple[float | None, str, list[str]]:
+        def _evaluate_calendar_period(
+            period_start: pd.Timestamp,
+        ) -> tuple[float | None, str, list[str], list[str]]:
             calendar_competencias = {
                 value.strftime("%m/%Y")
                 for value in pd.date_range(period_start, latest_competencia_dt, freq="MS")
@@ -3046,21 +3050,25 @@ def _build_return_summary(
                 required_competencias - reported_competencias,
                 key=_competencia_sort_key,
             )
+            used_competencias = sorted(required_competencias, key=_competencia_sort_key)
             if missing_competencias:
-                return None, "incompleto", missing_competencias
+                return None, "incompleto", missing_competencias, used_competencias
             status = "completo" if has_active_pl_basis else "sem_base_pl"
             if not required_competencias:
-                return None, status, []
+                return None, status, [], []
             ordered_returns = period_returns.sort_values("competencia_dt")["__return"]
-            return _compound_percent(ordered_returns), status, []
+            return _compound_percent(ordered_returns), status, [], used_competencias
 
-        retorno_ano_pct, ytd_status, missing_competencias = _evaluate_calendar_period(
+        retorno_ano_pct, ytd_status, missing_competencias, ytd_competencias = _evaluate_calendar_period(
             pd.Timestamp(year=latest_year, month=1, day=1)
         )
         trailing_12m_start = latest_competencia_dt - pd.DateOffset(months=11)
-        retorno_12m_pct, trailing_12m_status, trailing_12m_missing = _evaluate_calendar_period(
-            trailing_12m_start
-        )
+        (
+            retorno_12m_pct,
+            trailing_12m_status,
+            trailing_12m_missing,
+            trailing_12m_competencias,
+        ) = _evaluate_calendar_period(trailing_12m_start)
 
         rows.append(
             {
@@ -3077,8 +3085,10 @@ def _build_return_summary(
                 "retorno_periodo_meses": window_months,
                 "ytd_status": ytd_status,
                 "ytd_competencias_ausentes": ", ".join(missing_competencias),
+                "ytd_competencias_utilizadas": ", ".join(ytd_competencias),
                 "trailing_12m_status": trailing_12m_status,
                 "trailing_12m_competencias_ausentes": ", ".join(trailing_12m_missing),
+                "trailing_12m_competencias_utilizadas": ", ".join(trailing_12m_competencias),
             }
         )
     if not rows:

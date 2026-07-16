@@ -342,6 +342,9 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertAlmostEqual(((1.01**4) - 1.0) * 100.0, row["retorno_12m_pct"], places=6)
         self.assertEqual("completo", row["trailing_12m_status"])
         self.assertEqual("", row["trailing_12m_competencias_ausentes"])
+        expected_competencias = "03/2026, 04/2026, 05/2026, 06/2026"
+        self.assertEqual(expected_competencias, row["trailing_12m_competencias_utilizadas"])
+        self.assertEqual(expected_competencias, row["ytd_competencias_utilizadas"])
 
     def test_build_return_summary_falls_back_when_quota_has_no_active_pl(self) -> None:
         competencias = pd.date_range("2025-07-01", "2026-06-01", freq="MS")
