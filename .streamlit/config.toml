@@ -3,10 +3,42 @@ primaryColor = "#ff5a00"
 backgroundColor = "#ffffff"
 secondaryBackgroundColor = "#f7f5f2"
 textColor = "#25282d"
+font = "IBM Plex Sans, sans-serif"
+
+[[theme.fontFaces]]
+family = "IBM Plex Sans"
+url = "app/static/fonts/IBMPlexSans-Light-Latin1.woff2"
+weight = "300"
+style = "normal"
+
+[[theme.fontFaces]]
+family = "IBM Plex Sans"
+url = "app/static/fonts/IBMPlexSans-Regular-Latin1.woff2"
+weight = "400"
+style = "normal"
+
+[[theme.fontFaces]]
+family = "IBM Plex Sans"
+url = "app/static/fonts/IBMPlexSans-Medium-Latin1.woff2"
+weight = "500"
+style = "normal"
+
+[[theme.fontFaces]]
+family = "IBM Plex Sans"
+url = "app/static/fonts/IBMPlexSans-SemiBold-Latin1.woff2"
+weight = "600"
+style = "normal"
+
+[[theme.fontFaces]]
+family = "IBM Plex Sans"
+url = "app/static/fonts/IBMPlexSans-Bold-Latin1.woff2"
+weight = "700"
+style = "normal"
 
 [server]
 headless = true
 maxUploadSize = 50
+enableStaticServing = true
 
 [browser]
 gatherUsageStats = false

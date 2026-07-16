@@ -20,8 +20,6 @@ from tabs.tab_industry_study import render_tab_industry_study
 
 
 _APP_BASE_CSS = """
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
-
 html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRadio, .stTabs, div, p, label, input, button, h1, h2, h3, h4, h5, h6, li, table, th, td {
     font-family: 'IBM Plex Sans', sans-serif !important;
 }
