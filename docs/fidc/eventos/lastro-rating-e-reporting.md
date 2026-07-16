@@ -1,53 +1,62 @@
-# Lastro, relatórios e governança
+# Lastro, documentos periódicos e monitoramento
 
-## O risco está na carteira e no controle sobre ela
+Cada documento responde a uma pergunta. Relatório do gestor, rating, demonstração financeira e verificação de lastro não se substituem.
 
-Em FIDC, o risco de crédito tem duas dimensões: a qualidade dos créditos na carteira e a qualidade do controle exercido sobre esses créditos. Esta segunda dimensão é menos visível no Informe Mensal, mas é tão relevante quanto a primeira.
+## Regulamento, parte geral e anexo da classe
+
+O regulamento organiza o fundo. Em estrutura com classes, a parte geral contém regras comuns e o anexo descreve a classe, sua política, subclasses, prestadores e riscos. Apêndices e instrumentos podem tratar de série ou emissão. Sempre registre versão, data e classe aplicável.
 
 ## Verificação de lastro
 
-Verificação de lastro é o processo pelo qual o custodiante (ou uma consultoria especializada) confirma que:
-- os documentos que comprovam os créditos cedidos existem;
-- esses documentos são válidos e foram corretamente formalizados;
-- os créditos atendem aos critérios de elegibilidade definidos no regulamento.
+Lastro é a documentação que comprova origem, existência e correta formalização do direito creditório. Na aquisição, o gestor tem a responsabilidade do art. 36 do Anexo II e pode contratar terceiro, sob sua fiscalização. A verificação periódica segue o art. 38. Para direitos não passíveis de registro, aplica-se a custódia do art. 37.
 
-**Por que isso importa:** um crédito que não tem lastro documental adequado pode ser declarado inelegível, o que pode acionar obrigação de recompra pelo cedente — ou, se o cedente não tiver capacidade, resultar em perda para o fundo.
+Um relatório útil informa universo, amostra, método, período, exceções, materialidade, documentos faltantes, reincidência e tratamento. “Sem exceção na amostra” não equivale a garantia sobre toda a população.
 
-Em carteiras massificadas, a verificação costuma ser por **amostragem**. Isso é prática comum e aceita pelo mercado, mas implica risco residual: créditos inelegíveis podem estar na carteira sem que isso seja detectado entre as amostras verificadas.
+## Demonstrativo trimestral
 
-Verificação de lastro não se confunde com auditoria independente. O auditor verifica as demonstrações financeiras. O custodiante verifica os documentos dos créditos.
+O demonstrativo previsto no regime de FIDC informa, entre outros elementos aplicáveis, resultados de verificações e operações relevantes. Confirme o formulário e a competência. Ele não substitui o documento de trabalho nem o contrato que define consequência.
 
-## Relatórios: as três camadas de informação
+## Informe Mensal
 
-Você vai se deparar com pelo menos três fontes de dado sobre um FIDC:
+É a principal série regulatória padronizada de saldos e fluxos. Use competência, data de entrega, retificação e nível reportante. Tabela II, aging, provisões, composição e cotas devem ser reconciliados; ausência de valor não é zero.
 
-| Fonte | O que cobre | Periodicidade |
-| --- | --- | --- |
-| **Informe Mensal / XML da CVM** | Base padronizada de reporte: PL, cotas, inadimplência, provisão, eventos de cota | Mensal |
-| **Relatório mensal do administrador** | Narrativa operacional, indicadores específicos do fundo, performance da carteira, eventos relevantes | Mensal (nem sempre público) |
-| **Assembleias e fatos relevantes** | Deliberações, mudanças de regulamento, substituição de prestadores, reestruturações | Evento a evento |
+## Relatórios mensais ou trimestrais de gestão
 
-Cada camada responde perguntas diferentes. O Informe Mensal diz o que aconteceu em termos de dados padronizados. O relatório mensal explica o porquê e mostra indicadores do regulamento. As assembleias registram decisões formais sobre o fundo.
+Podem apresentar safra, concentração, excesso de spread, gatilhos e comentários. São documentos do prestador, não formato regulatório uniforme. Verifique memória de cálculo e reconciliação com os dados oficiais.
 
-Para uma análise completa, as três fontes precisam ser lidas em conjunto.
+## Rating
 
-## Assembleias de cotistas: quando importam para a análise
+O relatório identifica objeto, escala, metodologia, data-base, premissas, sensibilidades e gatilhos da opinião. Uma carta de revisão não substitui o relatório completo quando a definição ou análise exige metodologia. Rating pode ser mantido, elevado, rebaixado, colocado em observação ou retirado.
 
-As assembleias são o mecanismo formal de governança dos cotistas. É nelas que:
-- eventos de avaliação são reconhecidos e discutidos;
-- o regulamento pode ser alterado;
-- prestadores de serviço podem ser substituídos;
-- caminhos de reestruturação são deliberados;
-- liquidação antecipada pode ser decidida.
+## Demonstrações financeiras
 
-Para o analista, uma assembleia convocada fora do rito ordinário — especialmente em contexto de deterioração de carteira ou violação de guardrail — é um sinal de atenção que exige leitura cuidadosa da ata e do contexto.
+São fonte primária para reconhecimento, mensuração, provisões, perdas, eventos subsequentes e partes relacionadas. Notas explicativas podem usar data-base diferente do Informe Mensal; reconcilie escopo e competência.
 
-## O que o Informe Mensal não captura neste bloco
+## Fatos relevantes e assembleias
 
-O Informe Mensal não informa:
-- se houve verificação de lastro no período, com qual resultado;
-- se existe relatório de rating vigente e qual é o nível atual;
-- se foi convocada assembleia ou se há fato relevante pendente;
-- quais indicadores estruturais específicos do regulamento estão sendo monitorados pelo administrador.
+Informam eventos e decisões. A ata prova deliberação, mas a nova regra pode depender de versão consolidada, condição precedente ou implementação posterior.
 
-Para esses temas, os canais são o Fundos.NET (atas de assembleia, fatos relevantes) e o relatório mensal do administrador.
+## Status documental deste estudo
+
+- **lido:** primário recuperado e texto extraído, com página;
+- **OCR necessário:** primário recuperado, mas página sem texto confiável;
+- **cache-only:** extração derivada sem PDF-fonte recuperável; só pista;
+- **ausente:** listagem não trouxe documento aplicável;
+- **inacessível:** falha de listagem ou download;
+- **não aplicável:** tipo documental não existe para o caso.
+
+Nenhuma afirmação contratual categórica deste book depende somente de cache-only.
+
+## Conferência visual
+
+Para cláusula material, renderize a página e verifique cabeçalho, notas, tabelas, sinais, unidade e continuidade. Extração textual pode perder colunas, sobrescritos e páginas digitalizadas.
+
+## Hierarquia prática de evidência
+
+1. norma e documento primário vigente;
+2. alteração ou documento histórico primário, com escopo temporal;
+3. relatório primário que mede a prática;
+4. cache ou JSON para localizar o candidato;
+5. inferência analítica, explicitamente rotulada.
+
+Fontes: RCVM 175, Anexo Normativo II, arts. 36 a 39; Ofício-Circular CVM/SSE 8/2023; padrão do Informe Mensal. Verificação: **16/07/2026**.

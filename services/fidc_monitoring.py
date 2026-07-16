@@ -166,7 +166,7 @@ def build_risk_metrics_df(
             risk_block="Risco de crédito",
             risk_block_order=1,
             metric_id="concentracao_segmento_proxy",
-            label=f"Concentração setorial proxy ({top_segment_label or 'N/D'})",
+            label=f"Maior segmento oficial da Tabela II ({top_segment_label or 'N/D'})",
             value=top_segment_pct,
             unit="%",
             criticality="monitorar",
@@ -175,8 +175,8 @@ def build_risk_metrics_df(
             final_variable="segment_latest_df.iloc[0]['percentual']",
             formula="max(percentual_setorial)",
             pipeline="Informe Mensal -> _build_segment_latest_df -> segment_latest_df.percentual -> build_risk_metrics_df",
-            interpretation="Sinal rápido de concentração da carteira pelo maior segmento reportado.",
-            limitation="Não é concentração por devedor, cedente ou sacado; serve apenas como sinal preliminar.",
+            interpretation="Mostra a participação do maior segmento oficial da Tabela II no total segmentado reportado.",
+            limitation="Não é concentração por devedor, cedente ou sacado nem taxonomia funcional documental; serve como composição agregada do reporte.",
             state="calculado" if top_segment_pct is not None else "nao_disponivel_na_fonte",
         ),
         _metric_row(
@@ -192,8 +192,8 @@ def build_risk_metrics_df(
             final_variable="summary['subordinacao_pct']",
             formula="(pl_mezzanino + pl_subordinada_strict) / pl_total * 100",
             pipeline="Informe Mensal -> _build_quota_pl_history -> _build_subordination_history -> _build_summary",
-            interpretation="Mostra o colchão subordinado disponível antes da classe sênior, preservando mezzanino separado nas demais visões estruturais.",
-            limitation="Não substitui covenants contratuais de cobertura, overcollateral ou subordinação mínima documental.",
+            interpretation="Mostra a proporção patrimonial agregada das cotas identificadas como mezanino e subordinadas residuais no reporte.",
+            limitation="É proxy do reporte: não comprova ordem de absorção de perdas e não substitui o índice contratual por subclasse e classe, cobertura ou sobrecolateralização.",
             state="calculado" if summary.get("subordinacao_pct") is not None else "nao_calculavel",
         ),
         _metric_row(
@@ -283,77 +283,35 @@ def build_coverage_gap_df() -> pd.DataFrame:
 
 
 def build_mini_glossary_df() -> pd.DataFrame:
-    rows = [
-        {
-            "termo": "Subordinação reportada (IME)",
-            "definicao": (
-                "Percentual do PL alocado no colchão subordinado reportado, calculado como "
-                "(PL mezzanino + PL subordinada residual) / PL total. "
-                "Essas cotas absorvem perdas de crédito antes da classe sênior, funcionando como colchão. "
-                "Quanto maior, mais protegido o sênior — mas o nível adequado depende da carteira e do regulamento."
-            ),
-        },
-        {
-            "termo": "Inadimplência (IME)",
-            "definicao": (
-                "Saldo vencido reportado pelo administrador no campo INAD_VENC do Informe Mensal. "
-                "Reflete o estoque de crédito em atraso por faixa de prazo. "
-                "Não é necessariamente perda: parte pode ser recuperada ou estar em negociação."
-            ),
-        },
-        {
-            "termo": "Cobertura de provisão",
-            "definicao": (
-                "Relação entre a provisão constituída e o saldo inadimplente reportado. "
-                "Acima de 100%: o fundo provisionou mais do que o inadimplente visível. "
-                "Abaixo de 100%: parte da inadimplência ainda não está coberta por provisão. "
-                "No painel executivo, essa linha usa apenas o estoque vencido como denominador, não o total de direitos creditórios."
-            ),
-        },
-        {
-            "termo": "Aging da inadimplência",
-            "definicao": (
-                "Distribuição não cumulativa do saldo vencido por faixa de prazo "
-                "(até 30, 31–60, 61–90, 91–120, 121–150, 151–180, 181–360, 361–720, 721–1080 e acima de 1080 dias). "
-                "Faixas mais longas indicam créditos com menor probabilidade de recuperação e maior pressão sobre o colchão. "
-                "No painel executivo, o eixo percentual do aging usa o próprio estoque inadimplente como denominador. "
-                "Esse conceito é diferente das curvas Over, que são cumulativas e usam os direitos creditórios totais."
-            ),
-        },
-        {
-            "termo": "Inadimplência Over",
-            "definicao": (
-                "Curvas cumulativas de atraso em relação aos direitos creditórios totais. "
-                "Over 1 inclui todos os atrasos a partir de 1 dia; Over 30, Over 60, Over 90 e demais cortes "
-                "somam apenas os buckets vencidos acima do respectivo threshold. "
-                "É diferente do aging, que reparte o estoque vencido por faixa sem acumular."
-            ),
-        },
-        {
-            "termo": "Direitos creditórios",
-            "definicao": (
-                "Recebíveis que compõem a carteira do FIDC — duplicatas, CCBs, precatórios, contratos, etc. "
-                "São o ativo principal do fundo. No painel, o total usa uma base canônica única em cascata "
-                "(malha de vencimento -> estoque granular -> agregado item 3) e serve de denominador para os indicadores de crédito."
-            ),
-        },
-        {
-            "termo": "Informe Mensal Estruturado (IME)",
-            "definicao": (
-                "Documento XML entregue mensalmente pelos administradores à CVM via Fundos.NET. "
-                "É a fonte primária deste painel. Cobre PL, cotas, inadimplência, provisão, amortizações e emissões. "
-                "Não cobre qualidade do cedente, concentração por devedor, rating ou triggers contratuais."
-            ),
-        },
-        {
-            "termo": "Resgate solicitado",
-            "definicao": (
-                "Volume de resgates pedidos por cotistas no mês, ainda não necessariamente liquidados. "
-                "Sinal de pressão de saída. Comparar com a liquidez da carteira para avaliar risco de liquidez."
-            ),
-        },
+    # Fonte única: o mini-glossário é apenas uma visão dos conceitos e métricas
+    # canônicos do book. Assim, aliases, correções jurídicas e fórmulas não
+    # divergem silenciosamente entre a documentação e o painel.
+    from services.fidc_book import load_fidc_book_index
+
+    index = load_fidc_book_index()
+    entries = [
+        (
+            concept.mini_glossary_order,
+            concept.mini_glossary_title or concept.title,
+            concept.mini_glossary_definition,
+        )
+        for concept in index.concepts
+        if concept.mini_glossary_order is not None and concept.mini_glossary_definition
     ]
-    return pd.DataFrame(rows)
+    entries.extend(
+        (
+            metric.mini_glossary_order,
+            metric.mini_glossary_title or metric.title,
+            metric.mini_glossary_definition,
+        )
+        for metric in index.metrics
+        if metric.mini_glossary_order is not None and metric.mini_glossary_definition
+    )
+    rows = [
+        {"termo": title, "definicao": definition}
+        for _, title, definition in sorted(entries, key=lambda entry: (entry[0], entry[1]))
+    ]
+    return pd.DataFrame(rows, columns=["termo", "definicao"])
 
 
 def build_current_dashboard_inventory_df() -> pd.DataFrame:

@@ -1,39 +1,68 @@
-# Participantes da estrutura
+# Participantes da estrutura e papéis operacionais
 
-## Quem é quem num FIDC
+Um mesmo grupo econômico pode exercer mais de uma função permitida, mas as responsabilidades não se tornam intercambiáveis. A primeira tarefa do analista é mapear **função, entidade contratada, conflito potencial, substituição e continuidade**.
 
-Um FIDC envolve vários prestadores de serviço com papéis bem definidos. Confundir quem tem qual função é um erro comum — e pode levar a leituras erradas de risco.
+## Núcleo fiduciário
 
-| Participante | Função principal | O que observar |
-| --- | --- | --- |
-| **Administrador** | Responsável formal pelo fundo: constitui, registra, reporta à CVM, convoca assembleias e supervisa os prestadores de serviço. | Não confundir com gestor nem com originador. O administrador não toma decisões de investimento. |
-| **Gestor** | Decide quais créditos comprar e vender, dentro da política definida no regulamento. | É quem dá a orientação de qual crédito entra na carteira. Precisa ser lido junto com os limites do regulamento. |
-| **Custodiante** | Guarda os documentos que comprovam os créditos, controla o fluxo de pagamentos e verifica se os créditos estão de acordo com o que foi cedido. | Em FIDC, o custodiante tem papel operacional relevante — ele é o guardião documental da carteira. |
-| **Cedente** | Transfere os créditos ao fundo por meio da cessão. | Pode ou não coincidir com o originador. Pode ter obrigação de recompra nos casos previstos no regulamento. |
-| **Originador** | Gerou o crédito — foi quem concedeu o empréstimo, vendeu a prazo ou prestou o serviço. | Em FIDCs de bancos e fintechs, a qualidade de originação é o principal determinante do risco de crédito da carteira. |
-| **Devedor / sacado** | Quem deve efetivamente o crédito e é responsável pelo pagamento. | Pode ser pessoa física (consignado, veículos), empresa (duplicata, fornecedores) ou ente público (precatórios, INSS). |
-| **Agente de cobrança** | Realiza a cobrança ordinária e, quando necessário, a cobrança extrajudicial ou judicial dos créditos inadimplentes. | Em carteiras com inadimplência relevante, a eficiência do agente de cobrança impacta a recuperação. |
-| **Auditor independente** | Audita as demonstrações financeiras do fundo. | Não substitui a verificação de lastro — são funções distintas. |
+### Administrador fiduciário
 
-## Por que cedente e originador podem ser pessoas diferentes
+Constitui e representa o fundo, mantém o funcionamento regular, supervisiona os serviços sob sua responsabilidade e cumpre deveres de informação e governança previstos na RCVM 175. Não é automaticamente originador, garantidor ou responsável pela qualidade econômica dos créditos.
 
-Em muitos FIDCs, quem origina o crédito é diferente de quem o cede ao fundo.
+### Gestor de recursos
 
-**Exemplo:** uma fintech origina empréstimos consignados, securitiza os créditos e cede ao FIDC por meio de um banco parceiro. O originador é a fintech; o cedente formal pode ser o banco. Esse tipo de estrutura é frequente em consignado INSS e crédito pessoal via correspondente bancário.
+Decide a alocação e, no FIDC, responde pela estruturação e aquisição dos direitos dentro da política. O Anexo II atribui ao gestor a verificação do lastro na aquisição; ele pode contratar entidade registradora, custodiante, consultoria especializada ou terceiro, inclusive por amostragem quando admitida, mas permanece responsável por fiscalizar o contratado.
 
-Identificar quem origina e quem cede importa porque:
-- o risco de originação (seleção de devedor, critérios de elegibilidade) está com o originador;
-- a obrigação contratual de recompra pode estar com o cedente formal;
-- a concentração operacional pode estar em um único originador, mesmo que o fundo tenha diversidade de devedores.
+### Custodiante
 
-## Verificação de lastro: papel do custodiante
+A custódia é obrigatória nas hipóteses do art. 37 do Anexo II, especialmente para direitos que não sejam passíveis de registro em entidade registradora. O custodiante realiza a verificação periódica nas situações do art. 38 e pode ser contratado para liquidação, cobrança, recebimento e guarda de documentação. Portanto, “custodiante verifica todo lastro na entrada” não é regra geral do regime atual.
 
-Verificação de lastro significa confirmar que os documentos que respaldam os créditos cedidos — contratos, CCBs, duplicatas — existem, são válidos e estão de acordo com os critérios de elegibilidade.
+### Entidade registradora e depositário central
 
-Essa função cabe ao custodiante (e, em alguns casos, a uma consultoria especializada). Ela não se confunde com a auditoria independente das demonstrações financeiras, que tem escopo contábil diferente.
+Mantêm registros ou depósito centralizado dos ativos quando aplicável. Registro, custódia e guarda documental são mecanismos distintos; o arranjo depende da natureza do direito creditório.
 
-Quando o regulamento prevê verificação por amostragem — em vez de documento a documento —, o risco residual de inelegibilidade não detectada é parte do risco operacional do fundo.
+## Cadeia do crédito
 
-## O que o Informe Mensal informa sobre participantes
+### Originador
 
-O Informe Mensal identifica administrador e gestor. Este painel complementa essa informação com os dados públicos cadastrais da CVM. O custodiante, o cedente e o agente de cobrança precisam ser identificados no regulamento ou no relatório mensal do fundo.
+Participante que atua na concessão inicial, nos termos da definição normativa. Pode ser instituição financeira, SCD, SEP, varejista, prestador de serviços ou outra entidade. Uma empresa de tecnologia não é instituição financeira apenas por ser chamada de fintech.
+
+### Cedente, endossante e alienante
+
+Cedente é quem transfere o crédito por cessão. Endossante é quem transfere título à ordem por endosso. Alienante é expressão mais ampla. As palavras podem apontar para a mesma entidade em um caso concreto, mas não são aliases jurídicos universais.
+
+### Devedor, sacado e tomador
+
+É quem deve cumprir a obrigação. No consignado, o tomador continua sendo o devedor; INSS, empregador ou ente conveniado normalmente atua na consignação e no repasse, salvo desenho contratual diverso. Em duplicata, “sacado” identifica o comprador/devedor. Em cartão, estabelecimento, emissor, credenciador e portador ocupam posições econômicas diferentes.
+
+### Agente de cobrança e servicer
+
+Executa cobrança ordinária ou extraordinária, conciliação, renegociação e recuperação conforme contrato. Se também é originador ou cedente, monitore continuidade operacional, qualidade dos dados, segregação de valores e risco de commingling.
+
+### Consultoria especializada
+
+Pode apoiar análise, seleção, cobrança e verificação, dentro dos limites contratuais e normativos. Seu trabalho não transfere automaticamente a responsabilidade do prestador regulado que a contratou.
+
+## Emissão, distribuição e controles
+
+- **Escriturador:** mantém o registro de cotistas e eventos de cotas.
+- **Distribuidor e coordenador:** conduzem colocação e deveres da oferta conforme a RCVM 160.
+- **Agência de classificação de risco:** emite opinião de rating; não garante pagamento.
+- **Auditor independente:** audita demonstrações financeiras; não substitui verificação de lastro ou auditoria operacional específica.
+- **Representante de cotistas:** pode exercer funções previstas nos documentos, sem ser figura necessária em toda estrutura.
+
+## Onde aparece e como testar
+
+O regulamento e o anexo identificam prestadores e responsabilidades; contratos operacionais detalham escopo; informes cadastrais e demonstrações ajudam a confirmar entidade e período. Para cada função, teste:
+
+1. quem executa e quem supervisiona;
+2. como ocorre substituição e transferência de dados;
+3. remuneração e conflito de interesses;
+4. contas bancárias e fluxo de recebimento;
+5. dependência de sistemas ou convênios;
+6. histórico de falhas, assembleias e fatos relevantes.
+
+## O que o Informe Mensal captura
+
+O informe não é organograma completo. Alguns identificadores vêm do cadastro CVM ou de outras bases, não necessariamente da Tabela II. Responsabilidade contratual, subcontratação e nível de serviço exigem documento primário.
+
+Base normativa: RCVM 175, Parte Geral, e Anexo Normativo II, especialmente arts. 33 e 36 a 39. Verificação: **16/07/2026**.

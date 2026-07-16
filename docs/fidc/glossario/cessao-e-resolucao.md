@@ -1,43 +1,68 @@
-# Cessão, elegibilidade e resolução
+# Transferência, elegibilidade, regresso e lastro
 
-## O que é a cessão
+## Quatro testes separados
 
-Cessão é o ato jurídico pelo qual o originador ou cedente transfere um crédito para o fundo. É a operação básica pela qual o FIDC monta e renova sua carteira.
+Um crédito pode existir e ainda falhar em outra dimensão. Não junte:
 
-Para que a cessão seja válida, o crédito precisa atender aos **critérios de elegibilidade** definidos no regulamento — que costumam incluir prazo máximo, valor mínimo, documentação exigida, situação do devedor e limites de concentração.
+1. **existência e exigibilidade:** a obrigação foi validamente constituída e pode ser cobrada;
+2. **titularidade e transferência:** o direito foi transferido à classe pelo instrumento adequado;
+3. **elegibilidade:** o ativo atende aos critérios contratuais na data e pelo método previstos;
+4. **lastro:** a documentação comprova origem, existência e correta formalização do direito.
 
-## Por que elegibilidade é um risco real, não um detalhe operacional
+O descumprimento de elegibilidade não torna automaticamente nula a cessão. A consequência depende da lei e dos contratos.
 
-Um crédito cedido que não atende aos critérios de elegibilidade é um problema estrutural. Dependendo do regulamento, o fundo pode:
+## Formas de transferência
 
-- rejeitar o crédito na entrada (antes da cessão ser efetivada);
-- exigir a **recompra** pelo cedente, caso a inelegibilidade seja descoberta após a cessão;
-- registrar o evento como **resolução** da cessão — o que pode afetar o PL e a subordinação do fundo.
+### Cessão
 
-Em carteiras massificadas (consignado, crédito pessoal, cartão), onde centenas ou milhares de créditos são cedidos de uma vez, a validação de elegibilidade pode ser feita por **amostragem** em vez de verificação individual. Isso é comum e aceito pelo mercado — mas cria risco residual de inelegibilidade não detectada.
+Negócio pelo qual o cedente transfere o crédito. O contrato define objeto, preço, declarações, condições, notificações, responsabilidades e hipóteses de resolução ou indenização.
 
-## Resolução, recompra e substituição: conceitos distintos
+### Endosso
 
-Esses três termos costumam aparecer juntos nos regulamentos, mas não são sinônimos.
+Forma de transferência aplicável a títulos à ordem. Seus efeitos e garantias seguem o regime do título e o tipo de endosso; “endossante” não deve ser usado como alias automático de cedente.
 
-| Termo | O que significa na prática |
-| --- | --- |
-| **Recompra** | O cedente é obrigado a readquirir o crédito — tipicamente quando há inelegibilidade comprovada ou inadimplemento do contrato de cessão |
-| **Resolução** | A cessão é desfeita por previsão contratual — pode ocorrer sem que o crédito seja necessariamente inadimplente |
-| **Substituição** | O crédito problemático é trocado por outro elegível dentro da carteira |
+### Registro ou depósito
 
-O efeito econômico pode ser parecido nos três casos — o crédito sai da carteira do fundo. Mas o fundamento jurídico, a governança e os gatilhos são diferentes. Leia o regulamento para saber qual mecanismo existe, em que condições se aplica e quem é responsável por acionar.
+Podem ser necessários ou relevantes para constituição, publicidade, controle de titularidade e oponibilidade, conforme o ativo. Registrar não prova sozinho que todos os critérios de elegibilidade foram cumpridos.
 
-## Coobrigação e ausência de regresso
+## Coobrigação, regresso e retenção de risco
 
-Mesmo em estruturas descritas como "sem coobrigação", pode existir obrigação de recompra em casos específicos (como inelegibilidade). A ausência de coobrigação geral não elimina mecanismos de retorno do crédito ao cedente em cenários contratuais previstos.
+- **Coobrigação:** responsabilidade do cedente ou terceiro pelo pagamento do crédito, nos limites pactuados.
+- **Direito de regresso:** possibilidade de exigir de outro obrigado o valor pago ou inadimplido, conforme lei e contrato.
+- **Cessão sem coobrigação/sem regresso:** transfere o risco de crédito sem garantia geral de adimplemento pelo cedente; não elimina obrigações por vício, fraude, inexistência ou quebra de declaração.
+- **Retenção de risco:** exposição econômica mantida pelo originador ou cedente, por subordinação, coobrigação, desconto, garantia ou outro mecanismo. A forma jurídica importa.
 
-Quando o cedente tem obrigação de recompra e tem capacidade financeira para honrá-la, isso é um mitigante de risco relevante para a análise. Quando não tem — ou quando os gatilhos de recompra são limitados — o risco recai integralmente sobre a estrutura do fundo.
+## Elegibilidade e concentração
 
-## O que observar na análise
+Critérios de elegibilidade são testes de entrada: documentação, prazo, moeda, status de atraso, tipo de devedor, limite por operação, garantia, canal de originação e ausência de impedimentos. Limites de concentração medem exposição agregada por devedor, cedente, originador, grupo, setor, região ou tipo de ativo.
 
-- O regulamento define claramente os critérios de elegibilidade? São verificáveis?
-- A validação de elegibilidade é individual ou por amostragem?
-- Existe obrigação de recompra? Em quais condições?
-- O cedente tem capacidade financeira de honrar recompras relevantes?
-- O Informe Mensal menciona eventos de resolução ou recompra? (Em geral o Informe Mensal não cobre isso diretamente — o relatório mensal do administrador é a fonte mais adequada.)
+Um crédito pode ser elegível isoladamente e provocar desenquadramento de concentração depois da aquisição. A Tabela II mostra concentração entre segmentos oficiais, não substitui os limites contratuais por contraparte.
+
+## Recompra, resolução, substituição e indenização
+
+São remédios distintos:
+
+- **recompra:** nova aquisição do crédito pelo cedente ou terceiro, pelo preço e nas hipóteses pactuadas;
+- **resolução da transferência:** desfazimento ou efeito equivalente previsto para falha contratual;
+- **substituição:** troca do ativo por outro que satisfaça as condições;
+- **indenização:** pagamento por violação de declaração, obrigação ou dano.
+
+Esses mecanismos frequentemente cobrem vício de origem, fraude, documentação ou inelegibilidade. Não os trate como proteção contra inadimplência ordinária sem cláusula expressa. Um threshold observado em uma estrutura não é parâmetro de mercado.
+
+## Verificação de lastro
+
+Na aquisição, a responsabilidade regulatória é do gestor, que pode contratar terceiro e usar amostragem estatística nas condições normativas. A verificação periódica cabe ao custodiante ou administrador nas hipóteses do art. 38. Para direitos não registráveis, a custódia é obrigatória. Resultado amostral não equivale à validação individual de toda a carteira.
+
+## Onde aparece
+
+Regulamento e anexo definem política e elegibilidade; contrato de transferência e seus termos identificam remédios; documentos de lastro sustentam cada ativo; relatórios de verificação informam método, universo, amostra, exceções e tratamento.
+
+## Por que importa para o risco
+
+Falha de transferência pode comprometer titularidade ou oponibilidade. Falha de elegibilidade pode acionar obrigação contratual ou evento. Falha de lastro aumenta risco de inexistência, fraude, contestação ou cobrança. Coobrigação pode reduzir perda de crédito, mas criar concentração no coobrigado.
+
+## O que o Informe Mensal captura
+
+O informe mostra saldos e fluxos agregados. Não confirma cadeia dominial, notificação, registro, garantia, resultado da amostra ou eficácia de remédios. Esses pontos exigem documento primário.
+
+Base normativa: RCVM 175, Anexo Normativo II, arts. 2º, 33 e 36 a 39; Ofício-Circular CVM/SSE 8/2023. Verificação: **16/07/2026**.

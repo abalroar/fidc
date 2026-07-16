@@ -3,182 +3,218 @@
     {
       "section_id": "comece-aqui",
       "title": "Comece Aqui",
-      "description": "Trilha de leitura e o que o Informe Mensal cobre e não cobre.",
+      "description": "Trilha de leitura, níveis jurídicos e método de evidência.",
       "pages": [
         {
           "page_id": "overview",
-          "title": "Guia de uso deste glossário",
-          "summary": "Trilha de leitura sugerida para analistas de crédito que estão começando com FIDCs. Explica o que o Informe Mensal entrega e onde ele tem limites.",
+          "title": "Guia de uso do Glossário de FIDCs",
+          "summary": "Como separar norma, contrato, reporte e convenção analítica; trilha de leitura e escopo do corpus de 100 fundos.",
           "path": "overview.md",
           "level": "base",
-          "keywords": ["metodologia", "fontes", "trilha", "visão geral"],
-          "source_ids": ["rcvm_175_page", "xml_576_page", "seller_relatorio_mensal"]
+          "keywords": ["metodologia", "fontes", "fundo", "classe", "subclasse", "série", "evidência"],
+          "source_ids": ["rcvm_175_page", "rcvm_175_parte_geral", "rcvm_175_anexo_ii", "cvm_dados_abertos_fidc", "selection_manifest_20260716"]
         }
       ]
     },
     {
-      "section_id": "glossario",
-      "title": "Fundamentos",
-      "description": "O que é um FIDC, como os créditos entram na carteira e quem tem qual papel na estrutura.",
+      "section_id": "fundamentos",
+      "title": "Fundamentos e participantes",
+      "description": "Natureza do FIDC, direitos creditórios, funções e transferência dos ativos.",
       "pages": [
         {
           "page_id": "o-que-e-fidc",
           "title": "O que é FIDC e o que são direitos creditórios",
-          "summary": "O que é um FIDC, o que são direitos creditórios e por que a natureza do crédito define o perfil de risco da carteira.",
+          "summary": "Fundo, classe com patrimônio segregado, direitos creditórios e diferença entre recebível e crédito elegível.",
           "path": "glossario/o-que-e-fidc.md",
           "level": "base",
-          "keywords": ["fidc", "direitos creditórios", "patrimônio separado", "cvm 175"],
-          "source_ids": ["rcvm_175_anexo_ii", "seller_regulamento", "facta_regulamento"]
+          "keywords": ["fidc", "direitos creditórios", "recebíveis", "crédito elegível", "patrimônio segregado", "fic-fidc"],
+          "source_ids": ["rcvm_175_parte_geral", "rcvm_175_anexo_ii"]
         },
         {
           "page_id": "participantes",
           "title": "Participantes da estrutura e papéis operacionais",
-          "summary": "Quem tem qual papel na estrutura — administrador, gestor, custodiante, cedente, originador e agente de cobrança — e por que confundir essas funções gera leituras erradas de risco.",
+          "summary": "Administrador, gestor, custodiante, registradora, originador, cedente, devedor, cobrança e demais prestadores.",
           "path": "participantes/participantes.md",
           "level": "base",
-          "keywords": ["administrador", "gestor", "custodiante", "cedente", "originador", "devedor"],
-          "source_ids": ["rcvm_175_parte_geral", "rcvm_175_anexo_ii", "seller_regulamento", "agibank_monitoramento"]
+          "keywords": ["administrador", "gestor", "custodiante", "registradora", "cedente", "endossante", "originador", "devedor", "servicer"],
+          "source_ids": ["rcvm_175_parte_geral", "rcvm_175_anexo_ii", "oficio_sse_08_2023"]
         },
         {
           "page_id": "cessao-e-resolucao",
-          "title": "Contrato de cessão, elegibilidade e resolução",
-          "summary": "Como um crédito entra no fundo, o que torna a cessão válida e o que acontece quando um crédito se mostra inelegível — recompra, resolução ou substituição.",
+          "title": "Transferência, elegibilidade, regresso e lastro",
+          "summary": "Cessão, endosso, registro, coobrigação, elegibilidade, recompra, resolução, substituição e verificação de lastro.",
           "path": "glossario/cessao-e-resolucao.md",
           "level": "intermediario",
-          "keywords": ["cessão", "elegibilidade", "resolução", "recompra", "substituição"],
-          "source_ids": ["facta_regulamento", "seller_regulamento", "vw_regulamento"]
+          "keywords": ["cessão", "endosso", "elegibilidade", "lastro", "coobrigação", "regresso", "recompra", "substituição"],
+          "source_ids": ["rcvm_175_anexo_ii", "oficio_sse_08_2023"]
         }
       ]
     },
     {
       "section_id": "regulacao",
-      "title": "Marco regulatório",
-      "description": "CVM 175, 160 e 30: o que cada norma regula e quando cada uma é relevante para quem analisa FIDCs.",
+      "title": "Normas, reporte e ofertas",
+      "description": "Mapa normativo, Tabela II, emissão, distribuição, remuneração e rating.",
       "pages": [
         {
           "page_id": "hierarquia-regulatoria",
-          "title": "Hierarquia regulatória: 175, 160, 30 e o padrão XML",
-          "summary": "CVM 175, CVM 160, CVM 30 e padrão XML do Informe Mensal: o que cada norma regula e quando cada uma é relevante para a análise.",
+          "title": "Mapa normativo: RCVM 175, 160, 30 e reporte",
+          "summary": "O papel de cada norma, do padrão XML, da contabilidade, dos ofícios e dos documentos da estrutura.",
           "path": "regulacao/hierarquia-regulatoria.md",
           "level": "base",
-          "keywords": ["175", "160", "30", "576", "oferta", "investidor profissional", "investidor qualificado"],
-          "source_ids": ["rcvm_175_page", "rcvm_175_parte_geral", "rcvm_175_anexo_ii", "rcvm_160", "rcvm_30", "xml_576_page"]
+          "keywords": ["rcvm 175", "rcvm 160", "rcvm 30", "icvm 489", "padrão xml", "regime legado"],
+          "source_ids": ["rcvm_175_page", "rcvm_175_parte_geral", "rcvm_175_anexo_ii", "rcvm_160", "rcvm_30", "icvm_489", "xml_576_page", "oficio_sse_08_2023"]
+        },
+        {
+          "page_id": "informe-mensal-tabela-ii",
+          "title": "Informe Mensal: Tabela II, segmentos e qualidade de dados",
+          "summary": "Os 11 segmentos oficiais, as oito aberturas financeiras, híbridos, Sem segmentação IME e níveis fundo/classe/série.",
+          "path": "regulacao/informe-mensal-tabela-ii.md",
+          "level": "base",
+          "keywords": ["tabela ii", "segmento oficial", "abertura financeira", "sem segmentação ime", "híbrido", "f1", "f8"],
+          "source_ids": ["xml_576_page", "cvm_dados_abertos_fidc", "industry_metadata_202605", "selection_manifest_20260716"]
         },
         {
           "page_id": "oferta-rating-investidores",
-          "title": "Oferta pública, rating e categorias de investidor",
-          "summary": "Quem pode investir, como as cotas foram distribuídas e o que o rating significa (e não significa) para a análise de risco.",
+          "title": "Oferta pública, emissão, remuneração e rating",
+          "summary": "Diferenças entre emissão e oferta, categorias de investidores, benchmark, amortização, séries e rating.",
           "path": "regulacao/oferta-rating-e-investidores.md",
           "level": "intermediario",
-          "keywords": ["oferta pública", "registro automático", "rating", "investidor profissional", "investidor qualificado"],
-          "source_ids": ["rcvm_160", "rcvm_30", "rcvm_175_anexo_ii", "supplier_oferta_publica", "seller_oferta_publica"]
+          "keywords": ["oferta pública", "emissão", "subscrição", "integralização", "benchmark", "rating", "investidor profissional", "investidor qualificado"],
+          "source_ids": ["rcvm_160", "rcvm_30", "rcvm_175_anexo_ii"]
         }
       ]
     },
     {
       "section_id": "estrutura",
-      "title": "Como o fundo divide risco",
-      "description": "Como o fundo divide o risco entre cotistas sênior e subordinado, e como o caixa flui em cada cenário.",
+      "title": "Estrutura de capital e caixa",
+      "description": "Níveis jurídicos, senioridade, waterfall, reforços, revolvência e liquidez.",
       "pages": [
         {
           "page_id": "classes-cotas-waterfall",
-          "title": "Classes, subclasses, cotas e waterfall",
-          "summary": "Como as classes de cotas dividem o risco entre investidores, o que é o waterfall e o que o índice de subordinação de fato informa — e o que ele não informa.",
+          "title": "Fundo, classe, subclasse, série, cota e waterfall",
+          "summary": "Arquitetura da RCVM 175, senioridade, índice de subordinação e diferenças entre caixa, resultado e absorção de perdas.",
           "path": "estruturas/classes-cotas-waterfall.md",
           "level": "intermediario",
-          "keywords": ["classes", "subclasses", "cotas", "waterfall", "subordinação"],
-          "source_ids": ["rcvm_175_parte_geral", "rcvm_175_anexo_ii", "seller_regulamento", "icred_monitoramento"]
+          "keywords": ["fundo", "classe", "subclasse", "série", "cota", "tranche", "waterfall", "subordinação"],
+          "source_ids": ["rcvm_175_parte_geral", "rcvm_175_anexo_ii"]
+        },
+        {
+          "page_id": "reforcos-revolvencia-liquidez",
+          "title": "Reforços de crédito, revolvência e liquidez",
+          "summary": "Subordinação, sobrecolateralização, reservas, excesso de spread, ramp-up, reinvestimento, amortização, WAL e descasamento.",
+          "path": "estruturas/reforcos-revolvencia-e-liquidez.md",
+          "level": "intermediario",
+          "keywords": ["reforço de crédito", "reserva", "excesso de spread", "revolvência", "ramp-up", "runoff", "liquidez", "wal", "pré-pagamento"],
+          "source_ids": ["rcvm_175_anexo_ii", "fnet_reg_792797", "fnet_reg_1066031"]
         }
       ]
     },
     {
       "section_id": "recebiveis",
-      "title": "Famílias de recebíveis",
-      "description": "Consignado, crédito pessoal, cartão, meios de pagamento e veículos: o que muda no risco de cada família.",
+      "title": "Ativos, instrumentos e famílias",
+      "description": "Famílias econômicas, instrumentos, garantias, concentração e originação financeira.",
       "pages": [
         {
           "page_id": "recebiveis-financeiros",
-          "title": "Recebíveis financeiros: principais famílias e o que muda no risco",
-          "summary": "Consignado, crédito pessoal, cartão, meios de pagamento e veículos: por que cada família tem risco diferente e o que observar em cada uma no Informe Mensal.",
+          "title": "Famílias de recebíveis e diferenças de risco",
+          "summary": "Consignado, pessoal, corporativo, veículos, imobiliário, cartão, risco sacado, NPL e demais segmentos oficiais.",
           "path": "recebiveis/recebiveis-financeiros.md",
           "level": "intermediario",
-          "keywords": ["consignado", "ccb", "cartão", "meios de pagamento", "veículos", "fgts"],
-          "source_ids": ["seller_regulamento", "facta_regulamento", "geru_regulamento", "stone_regulamento", "cielo_monitoramento", "bv_monitoramento"]
+          "keywords": ["consignado", "crédito pessoal", "veículos", "cartão", "meios de pagamento", "risco sacado", "npl", "taxonomia funcional documental"],
+          "source_ids": ["rcvm_175_anexo_ii", "cvm_dados_abertos_fidc", "fnet_reg_1117954", "fnet_reg_938243", "fnet_reg_1149521", "fnet_reg_1017493"]
+        },
+        {
+          "page_id": "instrumentos-garantias-concentracao",
+          "title": "Instrumentos, garantias, elegibilidade e concentração",
+          "summary": "CCB, duplicata, CPR, contratos, garantias reais e fidejussórias, critérios atômicos, limites e diluição.",
+          "path": "recebiveis/instrumentos-garantias-e-concentracao.md",
+          "level": "intermediario",
+          "keywords": ["ccb", "duplicata", "cpr", "garantia", "alienação fiduciária", "aval", "fiança", "concentração", "diluição"],
+          "source_ids": ["rcvm_175_anexo_ii", "oficio_sse_08_2023", "fnet_reg_579249", "fnet_reg_794164"]
         },
         {
           "page_id": "fidcs-originacao-if",
-          "title": "FIDCs com cedentes IFs ou carteiras originadas por IFs: análise comparativa",
-          "summary": "Quando o cedente é um banco ou fintech, o risco de originação entra na análise. Comparativo por família de crédito e o que observar além da inadimplência direta.",
+          "title": "FIDCs com originação financeira: como comparar",
+          "summary": "Papel jurídico do originador, underwriting, safra, servicing, retenção de risco e métricas por produto.",
           "path": "tipos-de-fundos/fidcs-com-originacao-if.md",
           "level": "intermediario",
-          "keywords": ["instituição financeira", "originação", "cedente", "comparativo", "agibank", "facta", "geru", "seller", "cielo", "bv", "icred"],
-          "source_ids": ["agibank_monitoramento", "icred_monitoramento", "seller_relatorio_mensal", "cielo_monitoramento", "bv_monitoramento", "geru_regulamento", "facta_regulamento"]
+          "keywords": ["instituição financeira", "scd", "sep", "fintech", "originação", "underwriting", "servicing", "safra"],
+          "source_ids": ["rcvm_175_anexo_ii", "fnet_reg_938243", "fnet_reg_1222863", "glossary_methodology_20260716"]
         }
       ]
     },
     {
-      "section_id": "monitoramento",
-      "title": "Como ler os indicadores",
-      "description": "Quais indicadores monitorar, como interpretar inadimplência, provisão e perda, e o que o Informe Mensal cobre ou não cobre.",
+      "section_id": "metricas",
+      "title": "Métricas e desempenho",
+      "description": "Fórmulas, denominadores, atraso, provisão, perda, recuperação e liquidez.",
       "pages": [
         {
           "page_id": "metricas-estruturais",
-          "title": "Métricas estruturais, inadimplência e guardrails",
-          "summary": "Quais indicadores monitorar em qualquer FIDC, quais dependem do regulamento específico e como ler subordinação, cobertura, excesso de spread e FPD na prática.",
+          "title": "Métricas estruturais e de liquidez",
+          "summary": "PL, alocação, subordinação reportada, cobertura, concentração, reservas, excesso de spread, WAL e gaps.",
           "path": "metricas/metricas-estruturais.md",
           "level": "intermediario",
-          "keywords": ["subordinação", "cobertura", "alocação mínima", "inadimplência", "spread", "reserva", "concentração"],
-          "source_ids": ["seller_relatorio_mensal", "supplier_regulamento", "geru_regulamento", "facta_regulamento", "vw_regulamento", "oficio_sse_08_2023"]
+          "keywords": ["pl", "alocação", "subordinação", "cobertura", "concentração", "reserva", "excesso de spread", "wal", "gap"],
+          "source_ids": ["rcvm_175_anexo_ii", "xml_576_page", "cvm_dados_abertos_fidc", "fnet_reg_830304", "glossary_methodology_20260716"]
         },
         {
           "page_id": "provisao-perdas-e-inadimplencia",
-          "title": "Provisionamento, perdas e inadimplência",
-          "summary": "As três camadas que o mercado costuma confundir: atraso (comportamento do crédito), provisão (decisão contábil) e perda realizada (absorção econômica). Como ler o aging do Informe Mensal.",
+          "title": "Atraso, provisão, perda, recuperação e write-off",
+          "summary": "Aging completo, Over, FPD, roll rate, cura, provisão, perda esperada, perda realizada, baixa e recuperação.",
           "path": "metricas/provisao-perdas-e-inadimplencia.md",
           "level": "intermediario",
-          "keywords": ["provisão", "perda esperada", "inadimplência", "atraso", "pdd"],
-          "source_ids": ["facta_regulamento", "geru_regulamento", "seller_relatorio_mensal"]
+          "keywords": ["aging", "inadimplência over", "fpd", "roll rate", "cura", "provisão", "perda esperada", "write-off", "recuperação"],
+          "source_ids": ["icvm_489", "oficio_sin_snc_01_2013", "oficio_sin_snc_02_2015", "xml_576_page", "cvm_dados_abertos_fidc", "glossary_methodology_20260716"]
         }
       ]
     },
     {
       "section_id": "eventos",
-      "title": "O que aciona uma intervenção",
-      "description": "Quando uma estrutura aciona evento de avaliação ou liquidação, e como verificação de lastro, relatórios e assembleias funcionam.",
+      "title": "Eventos, governança e documentos",
+      "description": "Gatilhos, waivers, liquidação, lastro, demonstrações, rating e assembleias.",
       "pages": [
         {
           "page_id": "eventos-avaliacao-liquidacao",
-          "title": "Eventos de avaliação, liquidação antecipada e controles",
-          "summary": "O que aciona um evento de avaliação, o que aciona liquidação antecipada e como o Informe Mensal ajuda (e não ajuda) a identificar esses sinais.",
+          "title": "Eventos, gatilhos, waivers e liquidação",
+          "summary": "Anatomia de gatilhos, cura, eventos declarados, consentimentos, quóruns, controles e liquidação antecipada.",
           "path": "eventos/eventos-de-avaliacao-e-liquidacao.md",
           "level": "intermediario",
-          "keywords": ["evento de avaliação", "liquidação antecipada", "lastro", "rating", "assembleia", "gatilho"],
-          "source_ids": ["rcvm_175_anexo_ii", "seller_regulamento", "facta_regulamento", "geru_regulamento", "supplier_regulamento", "oficio_sse_08_2023"]
+          "keywords": ["evento de avaliação", "gatilho", "cure period", "waiver", "renúncia", "assembleia", "liquidação antecipada", "turbo"],
+          "source_ids": ["rcvm_175_parte_geral", "rcvm_175_anexo_ii", "fnet_reg_792797", "fnet_reg_1066031"]
         },
         {
           "page_id": "lastro-rating-reporting",
-          "title": "Lastro, rating, relatórios e assembleias",
-          "summary": "Verificação de lastro, relatórios mensais, assembleias e rating: o que cada mecanismo faz e como usá-los juntos na análise.",
+          "title": "Lastro, documentos periódicos e monitoramento",
+          "summary": "Função de regulamento, anexo, Informe Mensal, demonstrativo trimestral, rating, demonstrações, atas e fatos relevantes.",
           "path": "eventos/lastro-rating-e-reporting.md",
           "level": "intermediario",
-          "keywords": ["lastro", "rating", "relatório mensal", "assembleia", "informe trimestral", "controle"],
-          "source_ids": ["oficio_sse_08_2023", "seller_regulamento", "seller_relatorio_mensal", "supplier_oferta_publica"]
+          "keywords": ["lastro", "demonstrativo trimestral", "informe mensal", "rating", "demonstrações financeiras", "fato relevante", "ocr", "cache-only"],
+          "source_ids": ["rcvm_175_anexo_ii", "oficio_sse_08_2023", "cvm_dados_abertos_fidc"]
         }
       ]
     },
     {
-      "section_id": "fundos-referencia",
-      "title": "Casos usados no glossário",
-      "description": "Fundos reais usados como exemplos ao longo do glossário, por família de crédito.",
+      "section_id": "corpus-e-fontes",
+      "title": "Corpus e fontes",
+      "description": "Casos documentais, metodologia de seleção e rastreabilidade.",
       "pages": [
         {
           "page_id": "fundos-de-referencia",
-          "title": "Fundos usados como referência neste glossário",
-          "summary": "Por que cada fundo foi escolhido e em que tema ele ilustra melhor os conceitos discutidos nas demais páginas.",
+          "title": "Casos documentais usados no glossário",
+          "summary": "Dez casos primários reconciliados dentro do corpus de 100 e regras para uso editorial das evidências.",
           "path": "tipos-de-fundos/fundos-de-referencia.md",
           "level": "base",
-          "keywords": ["fundos de referência", "seller", "facta", "geru", "agibank", "icred", "cielo", "bv", "stone"],
-          "source_ids": ["seller_relatorio_mensal", "facta_regulamento", "geru_regulamento", "agibank_monitoramento", "icred_monitoramento", "cielo_monitoramento", "bv_monitoramento", "stone_regulamento"]
+          "keywords": ["corpus de 100", "fundos de referência", "petrobras", "tapso", "cloudwalk", "itaú", "esperanza", "btg", "aetos", "pagseguro", "cielo"],
+          "source_ids": ["selection_manifest_20260716", "fnet_reg_792797", "fnet_reg_1066031", "fnet_reg_1117954", "fnet_reg_579249", "fnet_reg_830304", "fnet_reg_938243", "fnet_reg_1222863", "fnet_reg_794164", "fnet_reg_1149521", "fnet_reg_1017493"]
+        },
+        {
+          "page_id": "referencias",
+          "title": "Referências e rastreabilidade",
+          "summary": "Fontes oficiais, documentos primários, estados documentais, correção do acervo legado e artefatos de auditoria.",
+          "path": "fontes/referencias.md",
+          "level": "base",
+          "keywords": ["fontes", "rastreabilidade", "documento primário", "fundos.net", "sha-256", "cache-only", "evidence_long"],
+          "source_ids": ["rcvm_175_page", "rcvm_175_parte_geral", "rcvm_175_anexo_ii", "rcvm_160", "rcvm_30", "icvm_489", "oficio_sin_snc_01_2013", "oficio_sin_snc_02_2015", "oficio_sse_08_2023", "xml_576_page", "cvm_dados_abertos_fidc", "selection_manifest_20260716"]
         }
       ]
     }
