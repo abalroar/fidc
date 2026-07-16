@@ -539,10 +539,28 @@ def structural_cost_table_spec() -> dict[str, str]:
     }
 
 
+def key_findings_table_spec() -> dict[str, str]:
+    return {
+        "id": "key_findings",
+        "title": "Destaques da carteira",
+        "subtitle": "Conclusões materiais para consulta humana",
+        "kind": "source_table",
+        "source_file": "tables/key_findings.csv",
+        "first_column": "Tema",
+    }
+
+
 def ensure_structural_cost_table_spec(tables: list[dict[str, str]]) -> list[dict[str, str]]:
     filtered = [table for table in tables if table.get("id") != "structural_costs"]
     insert_at = 1 if filtered and filtered[0].get("id") == "comparison_main" else len(filtered)
     filtered.insert(insert_at, structural_cost_table_spec())
+    return filtered
+
+
+def ensure_key_findings_table_spec(tables: list[dict[str, str]]) -> list[dict[str, str]]:
+    filtered = [table for table in tables if table.get("id") != "key_findings"]
+    insert_at = 1 if filtered and filtered[0].get("id") == "comparison_main" else len(filtered)
+    filtered.insert(insert_at, key_findings_table_spec())
     return filtered
 
 
@@ -574,7 +592,7 @@ def build_manifest(
         "source": "Extração offline local · CVM/Fundos.NET · IME cache",
         "confidentiality": "Uso interno",
         "funds": funds,
-        "tables": ensure_structural_cost_table_spec([
+        "tables": ensure_key_findings_table_spec(ensure_structural_cost_table_spec([
             {
                 "id": "comparison_main",
                 "title": "Comparativo principal",
@@ -597,7 +615,7 @@ def build_manifest(
                 "source_file": "tables/thresholds.csv",
                 "first_column": "fundo",
             },
-        ]),
+        ])),
         "audit": {
             "warnings": [
                 "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",

@@ -1,6 +1,6 @@
-# Prompt operacional - Deep Dive regulatório de carteira nova
+# Prompt operacional - Curadoria de Leitura de uma carteira
 
-Use este prompt quando uma nova carteira já tiver sido cadastrada no `portfolios.json` e você precisar que o Mac local faça a leitura parruda dos documentos CVM/Fundos.NET, gere conhecimento regulatório por CNPJ e atualize a ferramenta Streamlit.
+Use este prompt quando uma carteira já estiver cadastrada no `portfolios.json` e você precisar reler os documentos CVM/Fundos.NET, atualizar a curadoria por CNPJ e publicar a nova data de leitura na ferramenta Streamlit.
 
 Copie a partir da linha abaixo.
 
@@ -10,14 +10,14 @@ Você é Codex trabalhando no repositório local `/Users/matheusjprates/fidc`.
 
 ## Objetivo
 
-Fazer o Deep Dive regulatório completo de UMA CARTEIRA JÁ EXISTENTE no `portfolios.json`, usando todos os CNPJs associados a essa carteira, e atualizar os dados que alimentam a ferramenta Streamlit:
+Fazer a curadoria documental completa de UMA CARTEIRA JÁ EXISTENTE no `portfolios.json`, usando todos os CNPJs associados a essa carteira, e atualizar os dados que alimentam a ferramenta Streamlit:
 
 - aba de Monitoramento/Base regulatória;
 - seção `Monitoramento IME`;
 - seção `Emissões e calendário de pagamentos`;
 - seção `Critérios monitoráveis e qualitativos`;
 - seção `Timeline documental CVM`;
-- aba `Deep Dive`;
+- sub-aba `Curadoria de Leitura (Documentos)` em `Dados de Carteira`;
 - perfis curados em `data/regulatory_profiles`;
 - conhecimento regulatório por fundo em `data/regulatory_knowledge`;
 - pacote `data/deep_dives/<deep_dive_id>/`.
@@ -387,6 +387,7 @@ Atualize apenas artefatos necessários para a carteira existente e para os CNPJs
 - `reports/all_fidcs_regulatory_curation_status.csv`
 - `data/deep_dives/<deep_dive_id>/manifest.json`
 - `data/deep_dives/<deep_dive_id>/tables/comparison_main.csv`
+- `data/deep_dives/<deep_dive_id>/tables/key_findings.csv`
 - `data/deep_dives/<deep_dive_id>/tables/emissions.csv`
 - `data/deep_dives/<deep_dive_id>/tables/thresholds.csv`
 - `data/deep_dives/<deep_dive_id>/tables/structural_costs.csv`
@@ -401,6 +402,18 @@ Não persista:
 - relatórios temporários de tentativa/resolução, salvo se forem explicitamente pedidos;
 - PDFs soltos fora de `data/raw/<cnpj>/`;
 - alterações em carteiras não relacionadas.
+
+## Contrato da curadoria visível
+
+Os arquivos analíticos podem continuar completos para auditoria e processamento, mas a sub-aba visível deve permanecer curta. Ao atualizar o pacote:
+
+1. Grave em `manifest.generated_at` a data e o horário efetivos da leitura desta carteira.
+2. Crie ou atualize `tables/key_findings.csv` com as colunas exatas `Tema` e `Conclusão` e com 3 a 5 conclusões materiais, escritas para consulta humana.
+3. Inclua em `manifest.tables` o item `id: key_findings`, `source_file: tables/key_findings.csv` e `first_column: Tema`.
+4. Priorize: natureza dos recebíveis, elegibilidade, alocação, subordinação, gatilhos, reservas, derivativos e uma lacuna ou correção material.
+5. Não use em `key_findings.csv` contagens de linhas/páginas, nomes internos de tabelas, chaves de sistema, classificações de monitorabilidade ou status intermediários.
+6. Registre lacunas de acesso. Só afirme leitura integral para documentos efetivamente acessíveis na base local.
+7. Preserve fonte auditável nos arquivos internos, sem reproduzir extensas listas regulatórias na interface.
 
 Se `portfolios.json` tiver diff e o usuário não pediu alteração de carteira, reverta apenas a sua alteração nesse arquivo, preservando mudanças alheias.
 
@@ -450,8 +463,9 @@ Antes de responder, valide:
 11. `structural_costs.csv` tem Administração e Gestão por fundo.
 12. Nenhuma lacuna material virou zero ou campo vazio.
 13. Nenhuma remuneração/spread ficou vazio sem texto de lacuna.
-14. O Streamlit consegue enxergar o pacote pela aba Deep Dive.
+14. O Streamlit consegue enxergar o pacote pela sub-aba `Curadoria de Leitura (Documentos)`.
 15. A aba Monitoramento/Base regulatória consegue carregar Base Regulatória, Emissões, Critérios e Timeline para os CNPJs da carteira.
+16. `manifest.generated_at` corresponde à data desta leitura e `key_findings.csv` contém no máximo 5 conclusões úteis.
 
 Rode:
 
@@ -495,7 +509,7 @@ Responda em português, de forma objetiva, com:
 - carteira processada;
 - CNPJs processados;
 - documentos baixados/inventariados por CNPJ;
-- pacote Deep Dive atualizado;
+- pacote de curadoria atualizado;
 - quais seções do Streamlit passam a estar alimentadas;
 - principais emissões/spreads/calendários encontrados;
 - principais critérios monitoráveis e não monitoráveis;

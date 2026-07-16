@@ -327,9 +327,8 @@ st.markdown(
 
 _MAIN_SECTIONS = (
     ("sobre", "Sobre"),
-    ("industria", "Indústria"),
-    ("carteira", "Carteira"),
-    ("regulamentos", "Regulamentos"),
+    ("industria", "Dados da Indústria"),
+    ("carteira", "Dados de Carteira"),
     ("cloudwalk", "Cloudwalk"),
     ("glossario", "Glossário"),
     ("modelagem", "Modelagem"),
@@ -344,6 +343,8 @@ def _current_main_section() -> str:
     if isinstance(raw_value, list):
         raw_value = raw_value[-1] if raw_value else _DEFAULT_SECTION
     section = str(raw_value).strip().lower()
+    if section == "regulamentos":
+        return "carteira"
     return section if section in _MAIN_SECTION_LABELS else _DEFAULT_SECTION
 
 
@@ -374,12 +375,10 @@ with dashboard_page(selected_section):
     if selected_section == "industria":
         render_tab_industry_study()
     elif selected_section == "carteira":
-        render_page_header("Carteira", "Risco, retorno e documentação das seleções salvas.")
+        render_page_header("Dados de Carteira", "Analise carteiras salvas ou consulte um FIDC diretamente pelo CNPJ.")
         _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
         period = _render_period_selector(state_prefix="ime_global")
         render_portfolio_center_page(period=period)
-    elif selected_section == "regulamentos":
-        deep_dive_tab.render_tab_deep_dive()
     elif selected_section == "cloudwalk":
         render_tab_cloudwalk_financial_cost()
     elif selected_section == "modelagem":

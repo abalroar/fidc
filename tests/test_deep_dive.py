@@ -1,13 +1,16 @@
 from __future__ import annotations
 
+from contextlib import nullcontext
 import json
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 from zipfile import ZipFile
 
 import pandas as pd
 
 from services.deep_dive_ppt_export import build_deep_dive_pptx_bytes
-from services.deep_dive_store import list_deep_dives, load_deep_dive_table
+from services.deep_dive_store import deep_dive_matches_portfolio, list_deep_dives, load_deep_dive_table
 from tabs import tab_deep_dive
 
 
@@ -118,3 +121,144 @@ def test_curadoria_emissions_summary_aggregates_only_identified_values() -> None
     assert "DI + 3,50% a.a." in senior["Custo / remuneração"]
     assert mezz["Volume identificado"] == "N/D"
     assert mezz["Qtd cotas identificada"] == "100.000"
+
+
+def test_curadoria_formats_repository_reading_date() -> None:
+    assert tab_deep_dive._format_reading_date("2026-05-14T11:46:27-03:00") == "14/05/2026"
+    assert tab_deep_dive._format_reading_date("") == "data não informada"
+
+
+def test_curadoria_discards_technical_placeholders_and_duplicate_limits() -> None:
+    assert tab_deep_dive._clean_document_fact("texto; >=; Regra textual: verificar observação") == ""
+    assert tab_deep_dive._clean_document_fact("texto 20%") == ""
+    assert tab_deep_dive._clean_document_fact(">= 67%; 67%") == ">= 67%"
+    assert tab_deep_dive._clean_document_fact("0%; 0") == ""
+
+
+def test_curadoria_filters_cross_theme_clauses_and_contradictory_minimums() -> None:
+    seller_value = (
+        "Direitos Creditórios Elegíveis / PL >= 67%; "
+        "Direitos Creditórios Elegíveis / PL >= 50% após 180 dias; "
+        "Default de qualquer Direito Creditório por >5 dias pode ser evento de liquidação"
+    )
+
+    allocation = tab_deep_dive._clean_comparison_fact(seller_value, theme="Alocação mínima")
+
+    assert "Direitos Creditórios Elegíveis / PL >= 67%" in allocation
+    assert "Direitos Creditórios Elegíveis / PL >= 50% após 180 dias" in allocation
+    assert "Default" not in allocation
+    assert tab_deep_dive._clean_comparison_fact("<= 50%", theme="Alocação mínima") == ""
+
+
+def test_curadoria_preserves_threshold_operator_and_rejects_implausible_concentration() -> None:
+    concentration = pd.DataFrame(
+        [
+            {
+                "Critério": "Limite de concentração",
+                "Comparação": "<=",
+                "Limite": "20%",
+            }
+        ]
+    )
+    implausible = pd.DataFrame(
+        [
+            {
+                "Critério": "Limite de concentração",
+                "Comparação": ">=",
+                "Limite": "240%",
+            }
+        ]
+    )
+    no_effective_limit = pd.DataFrame(
+        [
+            {
+                "Critério": "Limite de concentração",
+                "Comparação": "<=",
+                "Limite": "100%",
+            }
+        ]
+    )
+
+    assert tab_deep_dive._best_threshold_fact(
+        concentration,
+        ("limite de concentracao",),
+        theme="Concentração",
+    ) == "<= 20%"
+    assert tab_deep_dive._best_threshold_fact(
+        implausible,
+        ("limite de concentracao",),
+        theme="Concentração",
+    ) == ""
+    assert tab_deep_dive._best_threshold_fact(
+        no_effective_limit,
+        ("limite de concentracao",),
+        theme="Concentração",
+    ) == ""
+
+
+def test_curadoria_threshold_trigger_keeps_its_context() -> None:
+    frame = pd.DataFrame(
+        [
+            {
+                "Critério": "Índice de atraso Over 30 - evento de avaliação",
+                "Evento": "avaliação",
+                "Comparação": ">=",
+                "Limite": "25%",
+            }
+        ]
+    )
+
+    fact = tab_deep_dive._best_threshold_fact(frame, ("atraso",), theme="Gatilhos")
+
+    assert fact == "Índice de atraso Over 30 - evento de avaliação: >= 25%"
+
+
+def test_curadoria_keeps_only_material_manifest_warnings() -> None:
+    manifest = SimpleNamespace(
+        warnings=(
+            "Tabela principal com 38 linhas.",
+            "Custos estruturais incluídos.",
+            "O regulamento consolidado não estava acessível na data da leitura.",
+        )
+    )
+
+    assert tab_deep_dive._useful_manifest_warnings(manifest) == (
+        "O regulamento consolidado não estava acessível na data da leitura.",
+    )
+
+
+def test_curadoria_always_exposes_the_refresh_prompt() -> None:
+    with (
+        patch("tabs.tab_deep_dive.st.expander", return_value=nullcontext()) as expander,
+        patch("tabs.tab_deep_dive.st.code") as code,
+        patch("tabs.tab_deep_dive._load_reverse_engineering_prompt", return_value="PROMPT ATUAL"),
+    ):
+        tab_deep_dive._render_update_prompt()
+
+    expander.assert_called_once_with("Prompt usado para atualizar este artefato", expanded=False)
+    code.assert_called_once_with("PROMPT ATUAL", language="markdown")
+
+
+def test_curadoria_source_has_no_legacy_waterfall_or_black_table() -> None:
+    source = (Path(__file__).parents[1] / "tabs" / "tab_deep_dive.py").read_text(encoding="utf-8")
+
+    assert "Waterfall Cloudwalk" not in source
+    assert "deepdive-table" not in source
+    assert "st.dataframe" not in source
+
+
+def test_curadoria_uses_human_source_copy_and_repository_prompt_path() -> None:
+    bullets = tab_deep_dive._curation_base_bullets(SimpleNamespace(source="IME cache"))
+
+    assert bullets[0] == "**Fonte:** documentos públicos disponibilizados pela CVM e pelo Fundos.NET."
+    assert all("IME cache" not in bullet for bullet in bullets)
+    assert tab_deep_dive._REVERSE_ENGINEERING_PROMPT_PATH.is_file()
+
+
+def test_deep_dive_portfolio_matching_prefers_current_basket_signature() -> None:
+    current = SimpleNamespace(portfolio_id="carteira-1", portfolio_signature="assinatura-antiga")
+    legacy = SimpleNamespace(portfolio_id="carteira-1", portfolio_signature="")
+
+    assert not deep_dive_matches_portfolio(current, "carteira-1", "assinatura-nova")
+    assert deep_dive_matches_portfolio(current, "outra-carteira", "assinatura-antiga")
+    assert deep_dive_matches_portfolio(legacy, "carteira-1", "assinatura-nova")

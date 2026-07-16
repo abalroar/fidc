@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import nullcontext
 from types import SimpleNamespace
 import unittest
 from unittest.mock import Mock, patch
@@ -187,6 +188,48 @@ class PortfolioPageTests(unittest.TestCase):
             show_portfolio_selector=False,
             show_curation_tools=False,
             compact=True,
+        )
+
+    def test_document_curation_remains_available_without_analytics(self) -> None:
+        portfolio = Mock()
+        tabs = [nullcontext() for _ in portfolio_page.PORTFOLIO_VIEW_TABS]
+
+        with (
+            patch("tabs.portfolio_page.st.tabs", return_value=tabs),
+            patch("tabs.portfolio_page.st.info") as info,
+            patch("tabs.portfolio_page.deep_dive_tab.render_tab_deep_dive") as deep_dive,
+        ):
+            portfolio_page._render_unavailable_portfolio_views(
+                selected_portfolio=portfolio,
+                message="Dados indisponíveis.",
+            )
+
+        self.assertEqual(len(portfolio_page.PORTFOLIO_VIEW_TABS) - 1, info.call_count)
+        deep_dive.assert_called_once_with(
+            selected_portfolio=portfolio,
+            show_portfolio_selector=False,
+            show_curation_tools=False,
+            compact=True,
+        )
+
+    def test_document_curation_remains_available_when_analytics_raise(self) -> None:
+        portfolio = Mock()
+        period = Mock()
+
+        with (
+            patch("tabs.portfolio_page._render_portfolio_context_header"),
+            patch("tabs.portfolio_page._preload_portfolio_data", side_effect=RuntimeError("falha analítica")),
+            patch("tabs.portfolio_page._render_unavailable_portfolio_views") as fallback,
+        ):
+            portfolio_page._render_portfolio_analysis_surface(
+                selected_portfolio=portfolio,
+                period=period,
+                selected_sections=portfolio_page.DEFAULT_SECTIONS,
+            )
+
+        fallback.assert_called_once_with(
+            selected_portfolio=portfolio,
+            message="Os dados analíticos desta carteira não puderam ser carregados nesta execução.",
         )
 
 
