@@ -7,7 +7,6 @@ import streamlit as st
 from services.dashboard_ui import dashboard_page, diagnostics_enabled, render_page_header
 from tabs.tab_fidc_book import render_tab_fidc_book
 from tabs.tab_cloudwalk_financial_cost import render_tab_cloudwalk_financial_cost
-from tabs.tab_secondary_market import render_tab_secondary_market
 from tabs import tab_fidc_ime as ime_tab
 from tabs import tab_deep_dive as deep_dive_tab
 from tabs import tab_fidc_monitoring as monitoring_tab
@@ -329,7 +328,6 @@ st.markdown(
 _MAIN_SECTIONS = (
     ("sobre", "Sobre"),
     ("industria", "Indústria"),
-    ("secundario", "Secundário"),
     ("carteira", "Carteira"),
     ("regulamentos", "Regulamentos"),
     ("cloudwalk", "Cloudwalk"),
@@ -375,8 +373,6 @@ selected_section = _render_main_nav()
 with dashboard_page(selected_section):
     if selected_section == "industria":
         render_tab_industry_study()
-    elif selected_section == "secundario":
-        render_tab_secondary_market()
     elif selected_section == "carteira":
         render_page_header("Carteira", "Risco, retorno e documentação das seleções salvas.")
         _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")

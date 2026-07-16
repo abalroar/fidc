@@ -104,7 +104,7 @@ def render_tab_about() -> None:
     st.markdown(
         """
         <div class="about-statement">
-          <p>O aplicativo reúne indústria, mercado secundário, carteiras, regulamentos e modelagem econômico-financeira em uma leitura única.</p>
+          <p>O aplicativo reúne indústria, carteiras, regulamentos e modelagem econômico-financeira em uma leitura única.</p>
           <p>Criado por Matheus Prates, CFA. Projeto independente em evolução.</p>
         </div>
         """,
