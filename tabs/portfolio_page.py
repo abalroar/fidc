@@ -38,8 +38,16 @@ from tabs import tab_mercado_livre as somatorio_tab
 SECTION_AGING = "Aging e visão executiva"
 SECTION_RETURNS = "Retornos e análise de crédito"
 SECTION_MONITORING = "Monitoramento e base regulatória"
-SECTION_DEEP_DIVE = "Regulamentos"
+SECTION_DEEP_DIVE = "Curadoria de Leitura (Documentos)"
 DEFAULT_SECTIONS = (SECTION_AGING, SECTION_RETURNS, SECTION_DEEP_DIVE)
+
+PORTFOLIO_VIEW_TABS = (
+    "Estrutura",
+    "Crédito e prazo",
+    "Inadimplência",
+    "Rentabilidade",
+    SECTION_DEEP_DIVE,
+)
 
 
 @dataclass(frozen=True)
@@ -148,7 +156,7 @@ _BLOCKS = (
     PortfolioPageBlock(SECTION_AGING, "Diagnóstico da carteira", "Contexto e risco", 10),
     PortfolioPageBlock(SECTION_RETURNS, "Retorno e crédito", "Contexto e risco", 20),
     PortfolioPageBlock(SECTION_MONITORING, "Monitoramento recorrente", "Monitoramento e governança", 30),
-    PortfolioPageBlock(SECTION_DEEP_DIVE, "Regulamentos", "Monitoramento e governança", 40),
+    PortfolioPageBlock(SECTION_DEEP_DIVE, SECTION_DEEP_DIVE, "Monitoramento e governança", 40),
 )
 _BLOCK_BY_ID = {block.section_id: block for block in _BLOCKS}
 _SECTION_DEPENDENCIES: dict[str, tuple[str, ...]] = {}
@@ -214,17 +222,27 @@ def _render_portfolio_analysis_surface(
         period=period,
         selected_sections=selected_sections,
     )
-    _preload_portfolio_data(
-        selected_portfolio=selected_portfolio,
-        period=period,
-        selected_sections=selected_sections,
-    )
-    analysis = _load_portfolio_analysis_data(
-        selected_portfolio=selected_portfolio,
-        period=period,
-    )
+    try:
+        _preload_portfolio_data(
+            selected_portfolio=selected_portfolio,
+            period=period,
+            selected_sections=selected_sections,
+        )
+        analysis = _load_portfolio_analysis_data(
+            selected_portfolio=selected_portfolio,
+            period=period,
+        )
+    except Exception:  # noqa: BLE001
+        _render_unavailable_portfolio_views(
+            selected_portfolio=selected_portfolio,
+            message="Os dados analíticos desta carteira não puderam ser carregados nesta execução.",
+        )
+        return
     if analysis is None:
-        st.warning("Não foi possível montar a análise organizada para a carteira carregada.")
+        _render_unavailable_portfolio_views(
+            selected_portfolio=selected_portfolio,
+            message="Os dados analíticos desta carteira não estão disponíveis nesta execução.",
+        )
         return
 
     display_outputs = somatorio_tab._render_loaded_period_window(
@@ -262,12 +280,20 @@ def _render_portfolio_analysis_surface(
         portfolio_id=selected_portfolio.id,
     )
     if not selected_scopes:
-        st.info("Selecione ao menos um escopo para exibir os gráficos da carteira.")
+        _render_unavailable_portfolio_views(
+            selected_portfolio=selected_portfolio,
+            message="Selecione ao menos um escopo para exibir os dados desta carteira.",
+        )
         return
 
-    structure_tab, credit_term_tab, delinquency_tab, returns_tab, regulations_tab = st.tabs(
-        ["Estrutura", "Crédito e prazo", "Inadimplência", "Rentabilidade", "Regulamentos"]
-    )
+    structure_tab, credit_term_tab, delinquency_tab, returns_tab, curation_tab = st.tabs(PORTFOLIO_VIEW_TABS)
+    with curation_tab:
+        deep_dive_tab.render_tab_deep_dive(
+            selected_portfolio=selected_portfolio,
+            show_portfolio_selector=False,
+            show_curation_tools=False,
+            compact=True,
+        )
     with structure_tab:
         _render_structure_tab(
             analysis=analysis,
@@ -293,7 +319,18 @@ def _render_portfolio_analysis_surface(
             selected_scopes=selected_scopes,
             selected_portfolio=selected_portfolio,
         )
-    with regulations_tab:
+
+
+def _render_unavailable_portfolio_views(
+    *,
+    selected_portfolio: PortfolioRecord,
+    message: str,
+) -> None:
+    tabs = st.tabs(PORTFOLIO_VIEW_TABS)
+    for tab in tabs[:-1]:
+        with tab:
+            st.info(message)
+    with tabs[-1]:
         deep_dive_tab.render_tab_deep_dive(
             selected_portfolio=selected_portfolio,
             show_portfolio_selector=False,

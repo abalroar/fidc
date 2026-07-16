@@ -51,10 +51,10 @@ def load_deep_dive_table(manifest: DeepDiveManifest, table_spec: DeepDiveTableSp
 def deep_dive_matches_portfolio(manifest: DeepDiveManifest, portfolio_id: str | None, portfolio_signature: str | None) -> bool:
     if not portfolio_id and not portfolio_signature:
         return True
-    if portfolio_id and manifest.portfolio_id and manifest.portfolio_id == portfolio_id:
-        return True
-    if portfolio_signature and manifest.portfolio_signature and manifest.portfolio_signature == portfolio_signature:
-        return True
+    if portfolio_signature and manifest.portfolio_signature:
+        return manifest.portfolio_signature == portfolio_signature
+    if portfolio_id and manifest.portfolio_id:
+        return manifest.portfolio_id == portfolio_id
     return False
 
 

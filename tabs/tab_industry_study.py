@@ -10087,7 +10087,7 @@ def render_tab_industry_study() -> None:
 
     latest_row = complete_status.iloc[-1] if not complete_status.empty else industry.iloc[-1]
     coverage = f"{_fmt_int(latest_row.get('n_veiculos', 0))} veículos"
-    render_page_header("Indústria", "Estoque, emissões, participantes e investidores de FIDCs.")
+    render_page_header("Dados da Indústria", "Estoque, emissões, participantes e investidores de FIDCs.")
     render_context_strip(
         source="CVM e ANBIMA",
         base_until=f"{_competence_label(latest_complete)} (estoque) | {_date_label(offers_as_of)} (ofertas)",

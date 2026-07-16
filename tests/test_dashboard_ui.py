@@ -194,14 +194,20 @@ def test_all_primary_views_and_chart_series_are_preserved() -> None:
 
 def test_routes_and_exports_remain_available() -> None:
     app_source = (ROOT / "app.py").read_text(encoding="utf-8")
-    for route in ("sobre", "industria", "carteira", "regulamentos", "cloudwalk", "glossario", "modelagem"):
+    for route in ("sobre", "industria", "carteira", "cloudwalk", "glossario", "modelagem"):
         assert f'("{route}",' in app_source
     assert '("secundario",' not in app_source
+    assert '("regulamentos",' not in app_source
+    assert '("industria", "Dados da Indústria")' in app_source
+    assert '("carteira", "Dados de Carteira")' in app_source
 
     source_expectations = {
         "tabs/tab_industry_study.py": ("PPTX", "XLSX", "Baixar CSV"),
         "tabs/tab_cloudwalk_financial_cost.py": ("Baixar memória XLSX", "Baixar PPTX", "Baixar pacote CSV"),
-        "tabs/tab_deep_dive.py": ("Exportar deck de comitê (PPTX)", "Baixar CSV da tabela selecionada"),
+        "tabs/tab_deep_dive.py": (
+            "Curadoria de Leitura (Documentos)",
+            "Prompt usado para atualizar este artefato",
+        ),
         "tabs/tab_modelo_fidc.py": ("Exportar deck de comitê (PPTX)", "Baixar timeline CSV", "Baixar dashboard Excel"),
         "tabs/tab_mercado_livre.py": ("Resumo (Excel)", "Base completa (Excel)", "Base completa (CSV)"),
     }
