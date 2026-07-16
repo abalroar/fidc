@@ -4,7 +4,6 @@ import streamlit as st
 
 from tabs.tab_fidc_book import render_tab_fidc_book
 from tabs.tab_cloudwalk_financial_cost import render_tab_cloudwalk_financial_cost
-from tabs.tab_fidc_credit_strategy import render_tab_fidc_credit_strategy
 from tabs import tab_fidc_ime as ime_tab
 from tabs import tab_deep_dive as deep_dive_tab
 from tabs import tab_fidc_monitoring as monitoring_tab
@@ -266,6 +265,24 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
         font-size: 0.94rem;
     }
 }
+
+@media (max-width: 460px) {
+    .st-key-fidc_main_section [data-testid="stButtonGroup"] {
+        overflow-x: visible;
+    }
+
+    .st-key-fidc_main_section [data-baseweb="button-group"] {
+        flex-wrap: wrap !important;
+        gap: 0.25rem !important;
+        min-width: 0 !important;
+    }
+
+    .st-key-fidc_main_section [data-testid^="stBaseButton-segmented_control"] {
+        flex: 1 1 calc(50% - 0.25rem) !important;
+        min-width: 0 !important;
+        width: calc(50% - 0.25rem) !important;
+    }
+}
 """
 
 
@@ -307,7 +324,6 @@ _MAIN_SECTIONS = (
     ("industria", "Indústria"),
     ("carteira", "Carteira"),
     ("regulamentos", "Regulamentos"),
-    ("estrategia", "Estratégia"),
     ("cloudwalk", "Cloudwalk"),
     ("glossario", "Glossário"),
     ("modelagem", "Modelagem"),
@@ -356,8 +372,6 @@ elif selected_section == "carteira":
     render_portfolio_center_page(period=period)
 elif selected_section == "regulamentos":
     deep_dive_tab.render_tab_deep_dive()
-elif selected_section == "estrategia":
-    render_tab_fidc_credit_strategy()
 elif selected_section == "cloudwalk":
     render_tab_cloudwalk_financial_cost()
 elif selected_section == "modelagem":

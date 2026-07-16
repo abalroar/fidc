@@ -8340,7 +8340,7 @@ def _render_regulatory_curation_overlay() -> None:
             st.caption("Fila de curadoria não encontrada no SQLite regulatório.")
 
 
-def render_tab_industry_study() -> None:
+def _render_tab_industry_study_legacy() -> None:
     st.markdown(_CSS, unsafe_allow_html=True)
 
     industry = _load_csv("industry_monthly.csv")
@@ -8749,3 +8749,698 @@ def render_tab_industry_study() -> None:
   `reports/fidc_industry_study.md`.
             """
         )
+
+
+# ---------------------------------------------------------------------------
+# Executive product surface
+# ---------------------------------------------------------------------------
+
+_EXECUTIVE_CSS = """
+<style>
+.industry-status-band {
+    align-items: center;
+    background: #fff7f1;
+    border-left: 4px solid #ff5a00;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(12rem, 1.1fr) minmax(16rem, 3fr);
+    margin: 0.2rem 0 0.85rem 0;
+    padding: 0.7rem 0.85rem;
+}
+.industry-status-band strong { color: #1a1a1a; font-size: 0.9rem; }
+.industry-status-band span { color: #595959; font-size: 0.82rem; line-height: 1.4; }
+.industry-thesis {
+    border-bottom: 1px solid #e5e3e0;
+    border-top: 1px solid #e5e3e0;
+    color: #1a1a1a;
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.45;
+    margin: 0.55rem 0 1rem 0;
+    padding: 0.75rem 0;
+}
+.industry-thesis b { color: #ff5a00; }
+.industry-note {
+    border-left: 3px solid #1a1a1a;
+    color: #595959;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    margin: 0.55rem 0 0.8rem 0;
+    padding: 0.2rem 0 0.2rem 0.7rem;
+}
+.industry-note.warning { border-left-color: #b5463c; color: #6e302b; }
+@media (max-width: 700px) {
+    .industry-status-band { grid-template-columns: 1fr; }
+}
+</style>
+"""
+
+
+def _intelligence_frame(name: str) -> pd.DataFrame:
+    frame = _load_csv(name)
+    return frame if frame is not None else pd.DataFrame()
+
+
+def _industry_intelligence_manifest() -> dict:
+    path = _DATA_DIR / "industry_intelligence_manifest.json"
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _competence_label(value: object, *, lower: bool = False) -> str:
+    month_names = (
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro",
+    )
+    try:
+        period = pd.Period(str(value), freq="M")
+    except (TypeError, ValueError):
+        return str(value)
+    label = f"{month_names[period.month - 1]}/{str(period.year)[-2:]}"
+    return label.lower() if lower else label
+
+
+def _date_label(value: object) -> str:
+    parsed = pd.to_datetime(value, errors="coerce")
+    return str(value) if pd.isna(parsed) else parsed.strftime("%d/%m/%Y")
+
+
+def _industry_export_signature() -> str:
+    names = [
+        "industry_monthly.csv",
+        "industry_competitive_position.csv",
+        "industry_stock_ranking_deltas.csv.gz",
+        "industry_originators_annual.csv",
+        "industry_large_fund_classification.csv",
+        "industry_intelligence_manifest.json",
+    ]
+    return "|".join(
+        f"{name}:{(_DATA_DIR / name).stat().st_mtime_ns if (_DATA_DIR / name).exists() else 0}"
+        for name in names
+    )
+
+
+@st.cache_data(show_spinner=False)
+def _industry_export_payloads(_signature: str) -> tuple[bytes, bytes]:
+    from services.industry_ppt_export import build_industry_pptx_bytes, build_industry_xlsx_bytes
+
+    return build_industry_pptx_bytes(_DATA_DIR), build_industry_xlsx_bytes(_DATA_DIR)
+
+
+def _industry_kpi(label: str, value: str, note: str = "") -> str:
+    note_html = f'<div class="industry-kpi-note">{note}</div>' if note else ""
+    return (
+        f'<div class="industry-kpi"><div class="industry-kpi-label">{label}</div>'
+        f'<div class="industry-kpi-value">{value}</div>{note_html}</div>'
+    )
+
+
+def _truthy(series: pd.Series) -> pd.Series:
+    return series.fillna(False).astype(str).str.strip().str.lower().isin({"true", "1", "sim", "s"})
+
+
+def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
+    try:
+        pptx_bytes, xlsx_bytes = _industry_export_payloads(_industry_export_signature())
+    except Exception as exc:  # noqa: BLE001
+        st.warning(f"Exportação executiva indisponível: {exc}")
+        return
+    file_period = str(as_of_date).replace("-", "")[:6] or "atual"
+    left, right, _spacer = st.columns([1, 1, 3])
+    with left:
+        st.download_button(
+            "PPTX",
+            data=pptx_bytes,
+            file_name=f"Industria_FIDC_Executivo_{file_period}.pptx",
+            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            icon=":material/slideshow:",
+            help="Baixar apresentação executiva",
+            width="stretch",
+            key=f"industry-pptx-{suffix}",
+        )
+    with right:
+        st.download_button(
+            "XLSX",
+            data=xlsx_bytes,
+            file_name=f"Industria_FIDC_Dados_{file_period}.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            icon=":material/table_view:",
+            help="Baixar bases e tabelas da apresentação",
+            width="stretch",
+            key=f"industry-xlsx-{suffix}",
+        )
+
+
+def _stock_delta_display(stock: pd.DataFrame, role: str, segment: str, metric: str, top_n: int) -> pd.DataFrame:
+    frame = stock[
+        stock["role"].eq(role)
+        & stock["segment"].eq(segment)
+        & stock["metric"].eq(metric)
+    ].copy()
+    current = frame[frame["period"].eq("2026YTD")].sort_values("rank").head(top_n)
+    rows: list[dict[str, object]] = []
+    for participant in current["participant"]:
+        item: dict[str, object] = {"Participante": participant}
+        for period in ("2024", "2025", "2026YTD"):
+            match = frame[frame["participant"].eq(participant) & frame["period"].eq(period)]
+            item[f"Pos. {period}"] = int(match.iloc[0]["rank"]) if not match.empty else None
+            item[f"Share {period}"] = float(match.iloc[0]["share"]) if not match.empty else None
+        start = frame[frame["participant"].eq(participant) & frame["period"].eq("2024")]
+        end = frame[frame["participant"].eq(participant) & frame["period"].eq("2026YTD")]
+        item["Delta share (p.p.)"] = (
+            (float(end.iloc[0]["share"]) - float(start.iloc[0]["share"])) * 100
+            if not start.empty and not end.empty
+            else None
+        )
+        item["Valor 2026"] = float(end.iloc[0]["value"]) if not end.empty else 0.0
+        rows.append(item)
+    return pd.DataFrame(rows)
+
+
+def _render_industry_executive(
+    industry: pd.DataFrame,
+    status: pd.DataFrame,
+    competitive: pd.DataFrame,
+    latest_complete: str,
+) -> None:
+    complete_industry = industry[industry["competencia"].astype(str).le(latest_complete)].sort_values("competencia")
+    last = complete_industry.iloc[-1]
+    ref = complete_industry[complete_industry["competencia"].astype(str).eq(f"{int(latest_complete[:4]) - 1}-{latest_complete[5:]}")]
+    ref = ref.iloc[0] if not ref.empty else None
+    cap_12m = float(complete_industry.tail(12)["captacao_liquida"].sum())
+    latest_position = competitive.sort_values("year").iloc[-1] if not competitive.empty else pd.Series(dtype=object)
+    pl_ex_fic = float(last["pl_total"] - last.get("pl_fic_fidc", 0))
+    pl_growth = float(pl_ex_fic / (ref["pl_total"] - ref.get("pl_fic_fidc", 0)) - 1) if ref is not None else 0.0
+
+    kpis = [
+        _industry_kpi("PL ex-FIC", _fmt_bi(pl_ex_fic, 0), f"{_fmt_pct(pl_growth)} em 12m"),
+        _industry_kpi("Captação líquida 12m", _fmt_bi(cap_12m, 0), "captações − resgates − amortizações"),
+        _industry_kpi("Contas de cotistas", f"{_fmt_int(last['cotistas_total'] / 1000)} mil", "contas por classe, não CPFs únicos"),
+        _industry_kpi("Inad. ajustada", _fmt_pct(last["inad_pct_ajustada"]), f"bruta {_fmt_pct(last['inad_pct'])}"),
+        _industry_kpi(
+            "Itaú em tickets >R$300 mi",
+            f"#{int(latest_position.get('itau_coordinator_rank', 0) or 0)}",
+            f"{_fmt_pct(float(latest_position.get('itau_coordinator_share', 0)))} do volume 2026YTD",
+        ),
+        _industry_kpi(
+            "Admin./custódia Itaú",
+            _fmt_pct(float(latest_position.get("itau_administrator_share", 0))),
+            "share nas ofertas >R$300 mi em 2026YTD",
+        ),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(kpis)}</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-thesis"><b>Tese:</b> o Itaú já é competitivo na originação de tickets relevantes; '
+        "o espaço econômico está na conversão desses mandatos em administração, custódia e distribuição institucional.</div>",
+        unsafe_allow_html=True,
+    )
+
+    left, right = st.columns([1.15, 0.85])
+    with left:
+        chart_frame = _month_axis(complete_industry.tail(72).copy())
+        chart_frame["PL ex-FIC (R$ bi)"] = (
+            chart_frame["pl_total"] - chart_frame["pl_fic_fidc"].fillna(0)
+        ) / 1e9
+        chart = (
+            alt.Chart(chart_frame)
+            .mark_line(color=_ORANGE, strokeWidth=2.5)
+            .encode(
+                x=alt.X("mes:T", title=None, axis=alt.Axis(format="%b/%y", grid=False)),
+                y=alt.Y("PL ex-FIC (R$ bi):Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                tooltip=[
+                    alt.Tooltip("competencia:N", title="Competência"),
+                    alt.Tooltip("PL ex-FIC (R$ bi):Q", format=",.1f"),
+                ],
+            )
+            .properties(height=310, title="PL da indústria ex-FIC")
+        )
+        st.altair_chart(chart, width="stretch")
+    with right:
+        if not competitive.empty:
+            plot = competitive.copy()
+            plot["Mercado"] = plot["market_relevant_volume_brl"] / 1e9
+            plot["Itaú coordenador"] = plot["itau_coordinator_volume_brl"] / 1e9
+            long = plot.melt(
+                id_vars=["period"],
+                value_vars=["Mercado", "Itaú coordenador"],
+                var_name="Série",
+                value_name="R$ bi",
+            )
+            chart = (
+                alt.Chart(long)
+                .mark_bar()
+                .encode(
+                    x=alt.X("period:N", title=None),
+                    y=alt.Y("R$ bi:Q", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    xOffset="Série:N",
+                    color=alt.Color(
+                        "Série:N",
+                        scale=alt.Scale(domain=["Mercado", "Itaú coordenador"], range=[_BLACK, _ORANGE]),
+                        legend=alt.Legend(title=None, orient="top"),
+                    ),
+                    tooltip=["period:N", "Série:N", alt.Tooltip("R$ bi:Q", format=",.1f")],
+                )
+                .properties(height=310, title="Ofertas acima de R$ 300 mi")
+            )
+            st.altair_chart(chart, width="stretch")
+
+    preliminary = status[status["publication_status"].ne("completa")].sort_values("competencia").tail(1)
+    if not preliminary.empty:
+        row = preliminary.iloc[0]
+        preliminary_label = _competence_label(row["competencia"])
+        consolidated_label = _competence_label(latest_complete, lower=True)
+        st.markdown(
+            f'<div class="industry-status-band"><strong>{preliminary_label} é prévia</strong>'
+            f'<span>{_fmt_int(row["n_veiculos"])} veículos · {_fmt_bi(row["pl_total"], 1)} de PL · '
+            f'{_fmt_pct(row["vehicle_ratio_vs_previous"])} dos veículos e {_fmt_pct(row["pl_ratio_vs_previous"])} do PL da competência anterior. '
+            f"Rankings e KPIs consolidados permanecem em {consolidated_label}.</span></div>",
+            unsafe_allow_html=True,
+        )
+
+
+def _render_industry_offers(annual: pd.DataFrame, rankings: pd.DataFrame, competitive: pd.DataFrame) -> None:
+    st.markdown('<div class="industry-section">Atividade primária e tickets relevantes</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Oferta válida = registro não revogado, suspenso ou caducado. '
+        "Oferta inicial é o campo oficial da CVM; ofertas subsequentes permanecem na atividade total de DCM.</div>",
+        unsafe_allow_html=True,
+    )
+    if not annual.empty:
+        display = pd.DataFrame(
+            {
+                "Período": annual["period"],
+                "Ofertas válidas": annual["valid_offers"].astype(int),
+                "Volume válido": annual["valid_registered_volume_brl"].map(lambda value: _fmt_bi(value, 1)),
+                "Ofertas iniciais": annual["initial_offers"].astype(int),
+                "Volume inicial": annual["initial_registered_volume_brl"].map(lambda value: _fmt_bi(value, 1)),
+                "> R$300 mi": annual["relevant_ticket_offers"].astype(int),
+                "Volume >R$300 mi": annual["relevant_ticket_volume_brl"].map(lambda value: _fmt_bi(value, 1)),
+            }
+        )
+        st.dataframe(display, hide_index=True, width="stretch")
+
+    if not competitive.empty:
+        latest = competitive.sort_values("year").iloc[-1]
+        cards = [
+            _industry_kpi("Itaú coordenação", f"#{int(latest['itau_coordinator_rank'])}", _fmt_pct(latest["itau_coordinator_share"])),
+            _industry_kpi("Volume Itaú", _fmt_bi(latest["itau_coordinator_volume_brl"], 1), "2026YTD > R$300 mi"),
+            _industry_kpi("Administração Itaú", _fmt_pct(latest["itau_administrator_share"]), "nas ofertas relevantes"),
+            _industry_kpi("Custódia Itaú", _fmt_pct(latest["itau_custodian_share"]), "nas ofertas relevantes"),
+            _industry_kpi("Monoestrutura", _fmt_pct(latest["market_monostructure_volume_share"]), "mesmo grupo em adm./gestão/custódia"),
+            _industry_kpi("Mediana cotistas Itaú", _fmt_int(latest["itau_median_investors"]), "ofertas encerradas com composição"),
+        ]
+        st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    if rankings.empty:
+        return
+    controls = st.columns([1, 1, 1.35, 1.35])
+    with controls[0]:
+        period = st.selectbox("Período", list(dict.fromkeys(rankings.sort_values("year")["period"])), index=2, key="industry-offer-period")
+    with controls[1]:
+        ticket = st.selectbox("Ticket", [">= R$ 300 mi", "todas"], key="industry-offer-ticket")
+    with controls[2]:
+        role = st.selectbox("Papel", ["coordenador", "administrador", "gestor", "custodiante"], key="industry-offer-role")
+    segment_options = ["Todos"] + sorted(value for value in rankings["segment"].dropna().unique() if value != "Todos")
+    with controls[3]:
+        segment = st.selectbox("Segmento", segment_options, key="industry-offer-segment")
+    selected = rankings[
+        rankings["period"].astype(str).eq(str(period))
+        & rankings["ticket_scope"].eq(ticket)
+        & rankings["role"].eq(role)
+        & rankings["segment"].eq(segment)
+    ].sort_values("rank").head(15)
+    if selected.empty:
+        st.info("Sem observações para o recorte selecionado.")
+        return
+    selected = selected.assign(volume_bi=selected["volume_brl"] / 1e9)
+    chart = (
+        alt.Chart(selected)
+        .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+        .encode(
+            x=alt.X("volume_bi:Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+            y=alt.Y("participant:N", title=None, sort=alt.SortField("rank", order="ascending"), axis=alt.Axis(labelLimit=280)),
+            tooltip=["participant:N", alt.Tooltip("volume_bi:Q", format=",.2f"), alt.Tooltip("share:Q", format=".1%"), "offers:Q"],
+        )
+        .properties(height=max(300, len(selected) * 26), title=f"Ranking de {role} · {period}")
+    )
+    st.altair_chart(chart, width="stretch")
+    table = selected[["rank", "participant", "offers", "volume_brl", "share"]].copy()
+    table.columns = ["Posição", "Participante", "Ofertas", "Volume", "Share"]
+    table["Volume"] = table["Volume"].map(lambda value: _fmt_bi(value, 2))
+    table["Share"] = table["Share"].map(_fmt_pct)
+    st.dataframe(table, hide_index=True, width="stretch")
+
+
+def _render_industry_providers(stock: pd.DataFrame) -> None:
+    st.markdown('<div class="industry-section">Prestadores e delta de ranking</div>', unsafe_allow_html=True)
+    if stock.empty:
+        st.info("Base de ranking indisponível.")
+        return
+    controls = st.columns([1, 1.5, 1, 1])
+    with controls[0]:
+        role = st.selectbox("Papel", ["administrador", "gestor", "custodiante"], key="industry-stock-role")
+    segments = ["Todos"] + sorted(value for value in stock["segment"].dropna().unique() if value != "Todos")
+    with controls[1]:
+        segment = st.selectbox("Segmento CVM", segments, key="industry-stock-segment")
+    with controls[2]:
+        metric = st.selectbox("Métrica", ["PL", "Fundos"], key="industry-stock-metric")
+    with controls[3]:
+        top_n = st.selectbox("Top", [5, 10, 15, 20], index=1, key="industry-stock-top")
+    display = _stock_delta_display(stock, role, segment, metric, int(top_n))
+    if display.empty:
+        st.info("Sem dados para o recorte selecionado.")
+        return
+    current = display.sort_values("Pos. 2026YTD")
+    chart_value = current["Valor 2026"] / (1e9 if metric == "PL" else 1)
+    chart_frame = pd.DataFrame({"Participante": current["Participante"], "Valor": chart_value, "Posição": current["Pos. 2026YTD"]})
+    chart = (
+        alt.Chart(chart_frame)
+        .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+        .encode(
+            x=alt.X("Valor:Q", title="R$ bi" if metric == "PL" else "Fundos", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+            y=alt.Y("Participante:N", title=None, sort=alt.SortField("Posição", order="ascending"), axis=alt.Axis(labelLimit=280)),
+            tooltip=["Participante:N", "Posição:Q", alt.Tooltip("Valor:Q", format=",.1f")],
+        )
+        .properties(height=max(300, len(chart_frame) * 26))
+    )
+    st.altair_chart(chart, width="stretch")
+    formatted = display.drop(columns="Valor 2026").copy()
+    for column in ["Share 2024", "Share 2025", "Share 2026YTD"]:
+        formatted[column] = formatted[column].map(lambda value: "-" if pd.isna(value) else _fmt_pct(value))
+    formatted["Delta share (p.p.)"] = formatted["Delta share (p.p.)"].map(
+        lambda value: "-" if pd.isna(value) else f"{value:+.1f}".replace(".", ",")
+    )
+    st.dataframe(formatted, hide_index=True, width="stretch")
+    nature = stock[stock["role"].eq(role)]["data_nature"].dropna()
+    if not nature.empty:
+        warning = role in {"gestor", "custodiante"}
+        css_class = "industry-note warning" if warning else "industry-note"
+        st.markdown(f'<div class="{css_class}">{nature.iloc[0]}.</div>', unsafe_allow_html=True)
+
+
+def _render_industry_originators(originators: pd.DataFrame) -> None:
+    st.markdown('<div class="industry-section">Cedentes e originadores nomináveis</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Ranking conservador: somente nomes acionados por evidência nominal no emissor, lastro ou devedor identificado. '
+        "O restante do volume permanece explicitamente não identificado.</div>",
+        unsafe_allow_html=True,
+    )
+    if originators.empty:
+        st.info("Curadoria nominal indisponível.")
+        return
+    periods = list(dict.fromkeys(originators.sort_values("year")["period"]))
+    period = st.selectbox("Período", periods, index=len(periods) - 1, key="industry-originator-period")
+    selected = originators[originators["period"].astype(str).eq(str(period))].sort_values("rank")
+    coverage = float(selected["identified_volume_coverage"].max()) if not selected.empty else 0.0
+    top = selected.head(15).copy()
+    cards = [
+        _industry_kpi("Cobertura nominal", _fmt_pct(coverage), "do volume válido"),
+        _industry_kpi("Nomes identificados", _fmt_int(selected["originator_group"].nunique()), str(period)),
+        _industry_kpi("Volume identificado", _fmt_bi(selected["volume_brl"].sum(), 1), "regras de alta confiança"),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+    top["Volume (R$ bi)"] = top["volume_brl"] / 1e9
+    chart = (
+        alt.Chart(top)
+        .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+        .encode(
+            x=alt.X("Volume (R$ bi):Q", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+            y=alt.Y("originator_group:N", title=None, sort=alt.SortField("rank", order="ascending"), axis=alt.Axis(labelLimit=260)),
+            tooltip=["originator_group:N", alt.Tooltip("Volume (R$ bi):Q", format=",.2f"), "offers:Q"],
+        )
+        .properties(height=max(320, len(top) * 26))
+    )
+    st.altair_chart(chart, width="stretch")
+    table = top[["rank", "originator_group", "offers", "funds", "volume_brl", "share_of_total", "confidence"]].copy()
+    table.columns = ["Posição", "Cedente/originador", "Ofertas", "Fundos", "Volume", "Share total", "Confiança"]
+    table["Volume"] = table["Volume"].map(lambda value: _fmt_bi(value, 2))
+    table["Share total"] = table["Share total"].map(_fmt_pct)
+    st.dataframe(table, hide_index=True, width="stretch")
+
+
+def _render_industry_investors(
+    annual: pd.DataFrame,
+    distribution: pd.DataFrame,
+    investor_types: pd.DataFrame,
+    offers: pd.DataFrame,
+) -> None:
+    st.markdown('<div class="industry-section">Concentração e perfil da colocação</div>', unsafe_allow_html=True)
+    if not annual.empty:
+        latest = annual.sort_values("year").iloc[-1]
+        cards = [
+            _industry_kpi("Ofertas c/ composição", _fmt_int(latest["offers_with_investor_data"]), str(latest["period"])),
+            _industry_kpi("1 investidor", _fmt_pct(latest["single_investor_share"]), "ofertas encerradas com dado"),
+            _industry_kpi("Mediana", _fmt_int(latest["median_investors"]), "investidores por oferta"),
+            _industry_kpi("Cobertura", _fmt_pct(latest["investor_data_coverage"]), "ofertas encerradas"),
+        ]
+        st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+    left, right = st.columns([1.1, 0.9])
+    with left:
+        if not distribution.empty:
+            order = ["1 investidor", "2 investidores", "3-5 investidores", "6-20 investidores", "21+ investidores"]
+            plot = distribution[distribution["investor_bucket"].isin(order)].copy()
+            chart = (
+                alt.Chart(plot)
+                .mark_bar()
+                .encode(
+                    x=alt.X("period:N", title=None),
+                    y=alt.Y("offer_share:Q", title="% das ofertas", stack="normalize", axis=alt.Axis(format="%")),
+                    color=alt.Color(
+                        "investor_bucket:N",
+                        sort=order,
+                        scale=alt.Scale(domain=order, range=[_ORANGE, _BLACK, "#168aad", "#2b7a55", _GRAY]),
+                        legend=alt.Legend(title=None, orient="bottom"),
+                    ),
+                    order=alt.Order("investor_bucket:N", sort="ascending"),
+                    tooltip=["period:N", "investor_bucket:N", alt.Tooltip("offer_share:Q", format=".1%")],
+                )
+                .properties(height=330, title="Número de investidores por oferta")
+            )
+            st.altair_chart(chart, width="stretch")
+    with right:
+        if not investor_types.empty:
+            latest_period = investor_types.sort_values("year").iloc[-1]["period"]
+            types = investor_types[investor_types["period"].eq(latest_period)].sort_values("placed_volume_proxy_brl", ascending=False)
+            types = types.assign(valor_bi=types["placed_volume_proxy_brl"] / 1e9)
+            chart = (
+                alt.Chart(types)
+                .mark_bar(color=_ORANGE, cornerRadiusEnd=2)
+                .encode(
+                    x=alt.X("valor_bi:Q", title="R$ bi, proxy", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    y=alt.Y("investor_type:N", title=None, sort="-x", axis=alt.Axis(labelLimit=220)),
+                    tooltip=["investor_type:N", alt.Tooltip("valor_bi:Q", format=",.2f"), alt.Tooltip("value_share:Q", format=".1%")],
+                )
+                .properties(height=330, title=f"Composição por tipo · {latest_period}")
+            )
+            st.altair_chart(chart, width="stretch")
+    if not offers.empty and "secondary_market_infrastructure" in offers:
+        closed = offers[_truthy(offers["closed_offer"])]
+        market = closed[_truthy(closed["secondary_market_infrastructure"])]
+        st.markdown(
+            '<div class="industry-note warning">'
+            f'{_fmt_int(market["offer_id"].nunique())} ofertas encerradas mencionam infraestrutura/mercado de negociação. '
+            "Isso indica elegibilidade contratual, não volume negociado, giro ou velocidade de venda. "
+            "Turnover secundário exige negócios da B3/ANBIMA em base transacional.</div>",
+            unsafe_allow_html=True,
+        )
+
+
+def _render_large_funds(large_funds: pd.DataFrame, large_docs: pd.DataFrame, latest_complete: str) -> None:
+    st.markdown('<div class="industry-section">FIDCs acima de R$ 5 bilhões</div>', unsafe_allow_html=True)
+    if large_funds.empty:
+        st.info("Classificação documental indisponível.")
+        return
+    cards = [
+        _industry_kpi("Fundos", _fmt_int(len(large_funds)), f"corte {_competence_label(latest_complete, lower=True)}"),
+        _industry_kpi("PL coberto", _fmt_bi(large_funds["pl_brl"].sum(), 1), "16 maiores veículos"),
+        _industry_kpi("Documentos listados", _fmt_int(large_funds["documents_listed"].sum()), "CVM/FundosNet"),
+        _industry_kpi("Docs classificatórios", _fmt_int(large_funds["documents_relevant"].sum()), "regulamentos, emissões, atas e eventos"),
+        _industry_kpi("Docs lidos", _fmt_int(large_funds["documents_read"].sum()), "payloads PDF/DOCX processados"),
+        _industry_kpi("Com texto", _fmt_int(large_funds["documents_with_text"].sum()), "extração textual utilizável"),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+    display = large_funds[
+        [
+            "fund_name",
+            "pl_brl",
+            "ime_segment",
+            "anbima_type_document",
+            "anbima_focus_document",
+            "document_segment_n1",
+            "document_segment_n2",
+            "classification_confidence",
+            "documents_read",
+            "documents_relevant",
+        ]
+    ].copy()
+    display.columns = ["Fundo", "PL", "Segmento IME", "Tipo ANBIMA", "Foco ANBIMA", "Segmento econômico", "Subsegmento", "Confiança", "Lidos", "Escopo"]
+    for column in ("Segmento IME", "Tipo ANBIMA", "Foco ANBIMA", "Segmento econômico", "Subsegmento", "Confiança"):
+        display[column] = display[column].fillna("não localizado").replace({"None": "não localizado", "nan": "não localizado", "": "não localizado"})
+    display["PL"] = display["PL"].map(lambda value: _fmt_bi(value, 1))
+    display["Cobertura"] = display.apply(lambda row: f"{int(row['Lidos'])}/{int(row['Escopo'])}", axis=1)
+    display = display.drop(columns=["Lidos", "Escopo"])
+    st.dataframe(display, hide_index=True, width="stretch", height=610)
+    cloudwalk = large_funds[large_funds["fund_name"].str.contains("CLOUDWALK", case=False, na=False)]
+    if not cloudwalk.empty:
+        row = cloudwalk.iloc[0]
+        st.markdown(
+            '<div class="industry-note">CloudWalk confirma a necessidade do duplo rótulo: '
+            f'ANBIMA <b>{row.get("anbima_type_document", "n/d")}</b> / {row.get("anbima_focus_document", "n/d")}; '
+            f'lastro econômico <b>{row["document_segment_n2"]}</b>.</div>',
+            unsafe_allow_html=True,
+        )
+    left, right, _spacer = st.columns([1, 1, 3])
+    with left:
+        st.download_button(
+            "Baixar classificação",
+            large_funds.to_csv(index=False).encode("utf-8"),
+            file_name="fidcs_acima_5bi_classificacao.csv",
+            mime="text/csv",
+            icon=":material/download:",
+            width="stretch",
+        )
+    with right:
+        st.download_button(
+            "Baixar ledger documental",
+            large_docs.to_csv(index=False).encode("utf-8") if not large_docs.empty else b"",
+            file_name="fidcs_acima_5bi_documentos.csv",
+            mime="text/csv",
+            icon=":material/download:",
+            width="stretch",
+        )
+
+
+def _render_industry_data_audit(
+    status: pd.DataFrame,
+    industry: pd.DataFrame,
+    latest_complete: str,
+    offers_as_of: str,
+    large_funds: pd.DataFrame,
+) -> None:
+    st.markdown('<div class="industry-section">Fontes, cobertura e artefatos</div>', unsafe_allow_html=True)
+    _render_industry_exports(suffix="audit", as_of_date=offers_as_of)
+    if not status.empty:
+        display = status.tail(18).copy()
+        display["PL"] = display["pl_total"].map(lambda value: _fmt_bi(value, 1))
+        display["Veículos vs. anterior"] = display["vehicle_ratio_vs_previous"].map(
+            lambda value: "-" if pd.isna(value) else _fmt_pct(value)
+        )
+        display["PL vs. anterior"] = display["pl_ratio_vs_previous"].map(
+            lambda value: "-" if pd.isna(value) else _fmt_pct(value)
+        )
+        display = display[["competencia", "publication_status", "n_veiculos", "PL", "Veículos vs. anterior", "PL vs. anterior", "status_reason"]]
+        display.columns = ["Competência", "Status", "Veículos", "PL", "Veículos vs. anterior", "PL vs. anterior", "Motivo"]
+        st.dataframe(display, hide_index=True, width="stretch")
+    source_table = pd.DataFrame(
+        [
+            ["Estoque, fluxos, cotistas e inadimplência", "CVM — Informe Mensal FIDC", latest_complete, "Consolidado"],
+            ["Ofertas, participantes e investidores", "CVM — Ofertas Públicas de Distribuição", offers_as_of, "Atualização diária"],
+            [
+                "FIDCs > R$ 5 bi",
+                f"CVM/FundosNet — {_fmt_int(large_funds['documents_listed'].sum())} documentos listados" if not large_funds.empty else "CVM/FundosNet",
+                latest_complete,
+                f"{_fmt_int(large_funds['documents_read'].sum())} documentos classificatórios lidos" if not large_funds.empty else "Leitura indisponível",
+            ],
+            ["Classes formais", "ANBIMA — Deliberação nº 72", "Referencial", "Tipo e foco preservados separadamente"],
+        ],
+        columns=["Dimensão", "Fonte", "Data-base", "Status"],
+    )
+    st.dataframe(source_table, hide_index=True, width="stretch")
+    st.markdown(
+        "- [CVM — Informe Mensal FIDC](https://dados.cvm.gov.br/dataset/fidc-doc-inf_mensal)\n"
+        "- [CVM — Ofertas Públicas de Distribuição](https://dados.cvm.gov.br/dataset/oferta-distrib)\n"
+        "- Gestor e custodiante históricos são reconstruções com cadastro vigente; administração é observada mensalmente.\n"
+        "- Investidores nominais e turnover secundário não constam das bases públicas gratuitas usadas no estudo."
+    )
+    dataset_names = {
+        "Indústria mensal": "industry_monthly.csv",
+        "Status de competências": "industry_competence_status.csv",
+        "Ofertas anuais": "industry_offers_annual.csv",
+        "Ranking de ofertas": "industry_offer_rankings.csv.gz",
+        "Ranking de estoque": "industry_stock_ranking_deltas.csv.gz",
+        "Cedentes/originadores": "industry_originators_annual.csv",
+        "Investidores": "industry_investor_distribution.csv",
+        "FIDCs > R$5 bi": "industry_large_fund_classification.csv",
+    }
+    selected_name = st.selectbox("Artefato", list(dataset_names), key="industry-raw-artifact")
+    frame = _intelligence_frame(dataset_names[selected_name])
+    st.dataframe(frame.head(500), hide_index=True, width="stretch", height=420)
+    st.download_button(
+        "Baixar CSV",
+        data=frame.to_csv(index=False).encode("utf-8"),
+        file_name=dataset_names[selected_name].replace(".gz", ""),
+        mime="text/csv",
+        icon=":material/download:",
+        width="content",
+        key="industry-raw-download",
+    )
+
+
+def render_tab_industry_study() -> None:
+    st.markdown(_CSS + _EXECUTIVE_CSS, unsafe_allow_html=True)
+    industry = _intelligence_frame("industry_monthly.csv")
+    status = _intelligence_frame("industry_competence_status.csv")
+    if industry.empty:
+        st.info("Base da indústria não encontrada.")
+        return
+    complete_status = status[status["publication_status"].eq("completa")].sort_values("competencia")
+    latest_complete = str(complete_status.iloc[-1]["competencia"]) if not complete_status.empty else str(industry.iloc[-1]["competencia"])
+    latest_available = str(status.sort_values("competencia").iloc[-1]["competencia"]) if not status.empty else latest_complete
+
+    annual = _intelligence_frame("industry_offers_annual.csv")
+    competitive = _intelligence_frame("industry_competitive_position.csv")
+    rankings = _intelligence_frame("industry_offer_rankings.csv.gz")
+    stock = _intelligence_frame("industry_stock_ranking_deltas.csv.gz")
+    originators = _intelligence_frame("industry_originators_annual.csv")
+    distribution = _intelligence_frame("industry_investor_distribution.csv")
+    investor_types = _intelligence_frame("industry_investor_types.csv")
+    offers = _intelligence_frame("industry_offers.csv.gz")
+    large_funds = _intelligence_frame("industry_large_fund_classification.csv")
+    large_docs = _intelligence_frame("industry_large_fund_documents.csv.gz")
+    manifest = _industry_intelligence_manifest()
+    offers_as_of = str(manifest.get("as_of_date") or "")
+    if not offers_as_of and not offers.empty and "registration_date" in offers:
+        latest_offer_date = pd.to_datetime(offers["registration_date"], errors="coerce").max()
+        offers_as_of = "" if pd.isna(latest_offer_date) else latest_offer_date.strftime("%Y-%m-%d")
+    offers_as_of = offers_as_of or "n/d"
+
+    st.markdown(
+        f"""
+        <div class="industry-header">
+          <div class="industry-kicker">Indústria FIDC</div>
+          <div class="industry-title">Inteligência de mercado</div>
+          <div class="industry-subtitle">Estoque consolidado em <b>{latest_complete}</b> · última carga disponível <b>{latest_available}</b> · ofertas até {_date_label(offers_as_of)}.</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    _render_industry_exports(suffix="header", as_of_date=offers_as_of)
+
+    executive_tab, offers_tab, providers_tab, originators_tab, investors_tab, large_tab, audit_tab = st.tabs(
+        ["Executivo", "Ofertas", "Prestadores", "Cedentes", "Investidores", "> R$5 bi", "Dados"]
+    )
+    with executive_tab:
+        _render_industry_executive(industry, status, competitive, latest_complete)
+    with offers_tab:
+        _render_industry_offers(annual, rankings, competitive)
+    with providers_tab:
+        _render_industry_providers(stock)
+    with originators_tab:
+        _render_industry_originators(originators)
+    with investors_tab:
+        _render_industry_investors(annual, distribution, investor_types, offers)
+    with large_tab:
+        _render_large_funds(large_funds, large_docs, latest_complete)
+    with audit_tab:
+        _render_industry_data_audit(status, industry, latest_complete, offers_as_of, large_funds)
